@@ -19,17 +19,19 @@ export default function SignIn({ setRole }) {
   };
 
   return (
-    <div className="h-screen flex items-center justify-center bg-gray-50">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="p-6 bg-white rounded shadow">
-        <h1 className="text-xl font-bold mb-2">Sign In</h1>
+        <h1 className="text-xl font-bold mb-4 text-center">Sign In</h1>
         <input
           type="text"
           placeholder="Enter role (landlord or manager)"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          className="border p-2 mr-2"
+          className="border p-2 w-full mb-4"
         />
-        <button onClick={handleLogin} className="bg-blue-500 text-white px-4 py-2 rounded">Login</button>
+        <button onClick={handleLogin} className="bg-blue-500 text-white px-4 py-2 rounded w-full">
+          Login
+        </button>
       </div>
     </div>
   );

@@ -20,5 +20,4 @@ const properties = [
     leaseVisibleToManager: true,
   },
 ];
-
 export default properties;
