@@ -7,7 +7,7 @@ export default function PropertyList({ role, properties }) {
         <Link
           to={`/property/${property.id}`}
           key={property.id}
-          className="p-2 rounded-2xl cursor-pointer hover:bg-gray-100 block border"
+          className="p-2 rounded-2xl cursor-pointer hover:bg-gray-100 block"
         >
           <h2 className="text-xl font-semibold">
             {property.address}, {property.city}, {property.state}
