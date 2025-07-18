@@ -3,11 +3,11 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropertyList from './PropertyList';
 import AddPropertyModal from '../components/AddPropertyModal';
-import properties from '../data/properties';
+import { useProperties } from '../context/PropertyContext';
 
 export default function Dashboard({ role, setRole }) {
   const [showModal, setShowModal] = useState(false);
-  const [allProperties, setAllProperties] = useState(properties);
+  const { properties, addProperty } = useProperties();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export default function Dashboard({ role, setRole }) {
   }, [role, navigate]);
 
   const handleAddProperty = (newProperty) => {
-    setAllProperties((prev) => [...prev, newProperty]);
+    addProperty(newProperty);
     setShowModal(false);
   };
 
@@ -28,7 +28,7 @@ export default function Dashboard({ role, setRole }) {
         {role === 'landlord' ? 'Landlord' : 'Property Manager'} Dashboard
       </h1>
 
-      <PropertyList role={role} properties={allProperties} />
+      <PropertyList role={role} properties={properties} />
 
       {role === 'landlord' && (
         <div className="mb-4">
@@ -43,7 +43,7 @@ export default function Dashboard({ role, setRole }) {
 
       {showModal && (
         <AddPropertyModal
-          onClose={() => setShowModal(false)}
+          onCancel={() => setShowModal(false)}
           onSave={handleAddProperty}
         />
       )}
