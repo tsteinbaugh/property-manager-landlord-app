@@ -52,9 +52,9 @@ export default function PropertyDetail({ role, setRole }) {
         </div>
       ) : (
         <>
-          <h1 className="text-2xl font-bold mt-2">{property.address}</h1>
-          <p>{property.city}, {property.state}</p>
-          <p>🛏️ {property.bedrooms} bed, 🛁 {property.bathrooms} bath</p>
+          <h1 className="text-2xl font-bold mt-2">{property.address}, {property.city}, {property.state}</h1>
+          <p>🛏️ {property.bedrooms} bed</p>
+          <p>🛁 {property.bathrooms} bath</p>
           <p>📐 {property.squareFeet} sq ft</p>
 
           {role === 'landlord' && (
@@ -65,6 +65,65 @@ export default function PropertyDetail({ role, setRole }) {
               <button onClick={handleDelete} className="px-4 py-2 bg-red-600 text-white rounded">
                 Delete Property
               </button>
+            </div>
+          )}
+
+          {property.tenant && (
+            <div className="mt-6 border-t pt-4">
+              <h2 className="text-xl font-semibold mb-2">Tenant Information</h2>
+
+              <div className="mb-2">
+                <strong>Tenant(s):</strong> {property.tenant.names?.join(', ') || 'N/A'}
+              </div>
+
+              <div className="mb-2">
+                <strong>Contact:</strong> {property.tenant.contact?.phone} | {property.tenant.contact?.email}
+              </div>
+
+              {role === 'landlord' && (
+                <>
+                  <div className="mb-2">
+                    <strong>Occupants:</strong> {property.tenant.occupants?.join(', ') || 'N/A'}
+                  </div>
+                  <div className="mb-2">
+                    <strong>Ages:</strong> {property.tenant.ages?.join(', ') || 'N/A'}
+                  </div>
+                  <div className="mb-2">
+                    <strong>Emergency Contact:</strong> {property.tenant.emergencyContact || 'N/A'}
+                  </div>
+                  <div className="mb-2">
+                    <strong>Pets:</strong>
+                    {property.tenant.pets?.length ? (
+                      <ul className="list-disc list-inside ml-4">
+                        {property.tenant.pets.map((pet, idx) => (
+                          <li key={idx}>
+                            {pet.name} ({pet.type}, {pet.size}) - License: {pet.license}
+                          </li>
+                       ))}
+                      </ul>
+                    ) : ' None'}
+                  </div>
+                 <div className="mb-2">
+                    <strong>Lease Agreement:</strong>{' '}
+                    <a
+                      href={`/leases/${property.tenant.leaseFile}`}
+                      download
+                      className="text-blue-500 underline"
+                    >
+                      Download Lease
+                    </a>
+                  </div>
+                  <div className="mb-2">
+                    <strong>Rent:</strong> ${property.tenant.rent}
+                  </div>
+                  <div className="mb-2">
+                    <strong>Security Deposit:</strong> ${property.tenant.securityDeposit}
+                  </div>
+                 <div className="mb-2">
+                    <strong>Pet Deposit:</strong> ${property.tenant.petDeposit || 0}
+                 </div>
+                </>
+              )}
             </div>
           )}
         </>
