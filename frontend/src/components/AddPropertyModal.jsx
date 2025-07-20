@@ -11,16 +11,12 @@ export default function AddPropertyModal({ onClose, onSave }) {
   const [squareFeet, setSquareFeet] = useState('');
 
 
+  const isFormValid = [address, city, state, zip, bedrooms, bathrooms, squareFeet].every(
+    (field) => field.trim() !== ''
+  );
+
   const handleSubmit = () => {
-    if (
-      !address.trim() ||
-      !city.trim() ||
-      !state.trim() ||
-      !zip.trim() ||
-      !bedrooms.trim() ||
-      !bathrooms.trim() ||
-      !squareFeet.trim()
-    ) {
+    if (!isFormValid) {
       alert('Please fill in all fields before saving.');
       return;
     }
@@ -89,7 +85,7 @@ export default function AddPropertyModal({ onClose, onSave }) {
 
         <div className={styles.buttonRow}>
           <button onClick={onClose} className={styles.secondaryButton}>Cancel</button>
-          <button onClick={handleSubmit} className={styles.primaryButton}>Save</button>
+          <button onClick={handleSubmit} className={styles.primaryButton} disabled={!isFormValid}>Save</button>
         </div>
       </div>
     </div>

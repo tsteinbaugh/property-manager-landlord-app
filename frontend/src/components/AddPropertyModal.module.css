@@ -42,8 +42,9 @@
   transition: background-color 0.2s ease;
 }
 
-.primaryButton:hover {
-  background-color: #2563eb;
+.primaryButton:disabled {
+  background-color: #cbd5e1; /* muted gray-blue */
+  cursor: not-allowed;
 }
 
 .secondaryButton {
