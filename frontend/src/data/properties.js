@@ -9,33 +9,104 @@ const properties = [
     bathrooms: 2,
     squareFeet: 1500,
     leaseVisibleToManager: true,
-    tenant: {
-      names: ['John Doe', 'Jane Doe'],
-      occupants: ['John Jr.', 'Grandma Doe'],
-      ages: [35, 34, 5, 82],
-      contact: {
-        phone: '555-123-4567',
-        email: 'john@example.com',
+    tenants:
+    [
+      {
+        name: 'John Doe',
+        contact:
+        {
+          phone: '555-123-4567',
+          email: 'john@example.com',
+        },
+        age: 35,
+        occupation: 'welder',
       },
-      emergencyContact: 'Mary Smith - 555-321-7654',
-      pets: [
-        { name: 'Rex', type: 'Dog', license: 'CO-2023-3344', size: 'Medium' },
-      ],
-      leaseFile: 'lease_123.pdf',
-      rent: 2000,
-      securityDeposit: 2000,
-      petDeposit: 500,
-    }
+      {
+        name: 'Jane Doe',
+        contact:
+        {
+          phone: '555-123-4568',
+          email: 'jane@example.com',
+        },
+        age: 34,
+        occupation: 'teacher',
+      },
+    ],
+    occupants:
+    [
+      {
+        name: 'John Jr. Doe',
+        age: 4,
+      },
+      {
+        name: 'Grandma Doe',
+        age: 82,
+      },
+    ],
+    emergencyContact:
+    [
+      {
+        name: 'Mary Smith',
+        contact:
+        {
+          phone: '555-666-7777',
+          email: 'mary@smith.com',
+        },
+      },
+    ],
+    pets:
+    [
+      {
+        name: 'Rex',
+        type: 'Dog',
+        license: 'CO-2023-3344',
+        size: 'Medium',
+      },
+    ],
+    leaseFile: 'lease_123.pdf',
+    financials:
+    [
+      {
+        rent: 2000,
+        securityDeposit: 2000,
+        petDeposit: 500
+      },
+    ],
   },
+
   {
     id: 2,
-    address: '456 Oak Ave',
-    city: 'Boulder',
+    address: '456 Oak Ave.',
+    city: 'Longmont',
     state: 'CO',
-    bedrooms: 2,
-    bathrooms: 1.5,
-    squareFeet: 1200,
+    zip: '80530',
+    bedrooms: 4,
+    bathrooms: 5,
+    squareFeet: 2500,
     leaseVisibleToManager: true,
-  },
+    tenants:
+    [
+      {
+        name: 'Harry Doe',
+        contact:
+        {
+          phone: '555-456-4567',
+          email: 'harry@example.com',
+        },
+        age: 45,
+        occupation: 'engineer',
+      }
+    ],
+    leaseFile: 'lease_456.pdf',
+    financials:
+    [
+      {
+        rent: 4000,
+        securityDeposit: 4000,
+        petDeposit: 800
+      }
+    ]
+  }
 ];
+
 export default properties;

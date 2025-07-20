@@ -68,60 +68,113 @@ export default function PropertyDetail({ role, setRole }) {
             </div>
           )}
 
-          {property.tenant && (
+          {property.tenants && (
             <div className="mt-6 border-t pt-4">
               <h2 className="text-xl font-semibold mb-2">Tenant Information</h2>
 
               <div className="mb-2">
-                <strong>Tenant(s):</strong> {property.tenant.names?.join(', ') || 'N/A'}
-              </div>
-
-              <div className="mb-2">
-                <strong>Contact:</strong> {property.tenant.contact?.phone} | {property.tenant.contact?.email}
+                <strong>Tenant(s):</strong>
+                {property.tenants.length ? (
+                  property.tenants.map((tenant, idx) => (
+                    <ul key={idx} className="list-disc list-inside ml-4">
+                      <li>Name: {tenant.name}</li>
+                      <ul key ={idx} className="list-disc list-inside ml-6">
+                        <li>Contact Information:</li>
+                        <ul key ={idx} className="list-disc list-inside ml-8">
+                          <li>Phone: {tenant.contact.phone}</li>
+                          <li>Email: {tenant.contact.email}</li>
+                        </ul>
+                      <li>Age: {tenant.age}</li>
+                      <li>Occupation: {tenant.occupation}</li>
+                      </ul>
+                    </ul>
+                  ))
+                ) : (
+                  ' None'
+                )}
               </div>
 
               {role === 'landlord' && (
                 <>
+
                   <div className="mb-2">
-                    <strong>Occupants:</strong> {property.tenant.occupants?.join(', ') || 'N/A'}
+                    <strong>Occupant(s):</strong>
+                    {property.occupants?.length ? (
+                      property.occupants.map((occupant, idx) => (
+                        <ul key={idx} className="list-disc list-inside ml-4">
+                          <li>Name: {occupant.name}</li>
+                          <ul key={idx} className="list-disc list-inside ml-6">
+                            <li>Age: {occupant.age}</li>
+                          </ul>
+                        </ul>
+                      ))
+                    ) : (
+                      ' None'
+                    )}
                   </div>
+
                   <div className="mb-2">
-                    <strong>Ages:</strong> {property.tenant.ages?.join(', ') || 'N/A'}
+                    <strong>Pet(s):</strong>
+                    {property.pets?.length ? (
+                      property.pets.map((pet, idx) => (
+                        <ul key={idx} className="list-disc list-inside ml-4">
+                          <li>Name: {pet.name}</li>
+                          <ul key={idx} className="list-disc list-inside ml-6">
+                            <li>Type: {pet.type}</li>
+                            <li>Size: {pet.size}</li>
+                            <li>License #: {pet.license}</li>
+                          </ul>
+                        </ul>
+                      ))
+                    ) : (
+                      ' None'
+                    )}
                   </div>
+
                   <div className="mb-2">
-                    <strong>Emergency Contact:</strong> {property.tenant.emergencyContact || 'N/A'}
+                    <strong>Emergency Contact:</strong>
+                    {property.emergencyContact?.length ? (
+                      property.emergencyContact.map((eContact, idx) => (
+                        <ul key={idx} className="list-disc list-inside ml-4">
+                          <li>Name: {eContact.name}</li>
+                          <ul key={idx} className="list-disc list-inside ml-6">
+                            <li>Contact Information:</li>
+                            <ul key={idx} className="list-disc list-inside ml-8">
+                              <li>Phone: {eContact.contact.phone}</li>
+                              <li>Email: {eContact.contact.email}</li>
+                            </ul>
+                          </ul>
+                        </ul>
+                       ))
+                    ) : (
+                      ' None'
+                    )}
                   </div>
+
                   <div className="mb-2">
-                    <strong>Pets:</strong>
-                    {property.tenant.pets?.length ? (
+                    <strong>Financials:</strong>
+                    {property.financials?.[0] ? (
                       <ul className="list-disc list-inside ml-4">
-                        {property.tenant.pets.map((pet, idx) => (
-                          <li key={idx}>
-                            {pet.name} ({pet.type}, {pet.size}) - License: {pet.license}
-                          </li>
-                       ))}
+                        <li>Rent: ${property.financials[0].rent}</li>
+                        <li>Security Deposit: ${property.financials[0].securityDeposit}</li>
+                        <li>Pet Deposit: ${property.financials[0].petDeposit}</li>
                       </ul>
-                    ) : ' None'}
+                    ) : (
+                      ' None'
+                    )}
                   </div>
-                 <div className="mb-2">
+
+                  <div className="mb-2">
                     <strong>Lease Agreement:</strong>{' '}
                     <a
-                      href={`/leases/${property.tenant.leaseFile}`}
+                      href={`/leases/${property.leaseFile}`}
                       download
                       className="text-blue-500 underline"
                     >
                       Download Lease
                     </a>
                   </div>
-                  <div className="mb-2">
-                    <strong>Rent:</strong> ${property.tenant.rent}
-                  </div>
-                  <div className="mb-2">
-                    <strong>Security Deposit:</strong> ${property.tenant.securityDeposit}
-                  </div>
-                 <div className="mb-2">
-                    <strong>Pet Deposit:</strong> ${property.tenant.petDeposit || 0}
-                 </div>
+
                 </>
               )}
             </div>
