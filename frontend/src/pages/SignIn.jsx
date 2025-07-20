@@ -1,48 +1,47 @@
-import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styles from './SignIn.module.css';
 
 export default function SignIn({ setRole }) {
-  const [input, setInput] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    const trimmed = input.trim().toLowerCase();
-    if (trimmed === 'landlord') {
-      setRole('landlord');
-      navigate('/dashboard');
-    } else if (trimmed === 'manager') {
-      setRole('property_manager');
-      navigate('/dashboard');
-    } else {
-      alert('Enter landlord or manager');
+  const handleSignIn = () => {
+    if (!username || !password) {
+      alert('Please enter both username and password.');
+      return;
     }
+
+    // You can add real auth logic here later
+    setRole('landlord'); // temporary default
+    navigate('/dashboard');
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="p-6 bg-white rounded shadow">
-        <h1 className="text-xl font-bold mb-4 text-center">Sign In</h1>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleLogin();
-          }}
-        >
-          <input
-            type="text"
-            placeholder="Enter role (landlord or manager)"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            className="border p-2 w-full mb-4"
-            autoFocus
-          />
-          <button
-            type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded w-full"
-          >
-            Login
-          </button>
-        </form>
+    <div className={styles.signInContainer}>
+      <div className={styles.card}>
+        <h2 className={styles.heading}>Welcome</h2>
+        <p className={styles.subtext}>Sign in to manage your properties</p>
+
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          className={styles.input}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className={styles.input}
+        />
+
+        <button onClick={handleSignIn} className={styles.button}>
+          Sign In
+        </button>
       </div>
     </div>
   );
