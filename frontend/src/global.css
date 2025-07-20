@@ -1,0 +1,16 @@
+body {
+  margin: 0;
+  background-color: #f9fafb;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: #333;
+}
+
+button {
+  font-family: inherit;
+}
+
+input {
+  font-family: inherit;
+  border-radius: 6px;
+}
+

@@ -1,95 +1,47 @@
-import React, { useState, useEffect } from 'react';
+import styles from './PropertyForm.module.css';
+import { useState } from 'react';
 
-export default function PropertyForm({ initialData = {}, onCancel, onSave }) {
+export default function PropertyForm({ onSubmit }) {
   const [formData, setFormData] = useState({
     address: '',
     city: '',
     state: '',
-    zip: '',
-    bedrooms: '',
-    bathrooms: '',
-    squareFeet: '',
-    ...initialData,
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const isValid = Object.values(formData).every((val) => val !== '');
-    if (!isValid) {
-      alert('Please fill in all fields.');
-      return;
-    }
-    onSave(formData);
+    onSubmit(formData);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-2">
+    <form onSubmit={handleSubmit} className={styles.formContainer}>
       <input
         name="address"
+        placeholder="Address"
         value={formData.address}
-        onChange={handleChange} 
-        placeholder="Street Address" 
-        className="border p-2 w-full"
+        onChange={handleChange}
+        className={styles.input}
       />
-      <input 
-        name="city" 
+      <input
+        name="city"
+        placeholder="City"
         value={formData.city}
         onChange={handleChange}
-        placeholder="City"
-        className="border p-2 w-full" 
+        className={styles.input}
       />
-      <input 
+      <input
         name="state"
+        placeholder="State"
         value={formData.state}
         onChange={handleChange}
-        placeholder="State"
-        className="border p-2 w-full"
+        className={styles.input}
       />
-      <input 
-        name="zip" 
-        value={formData.zip}
-        onChange={handleChange} 
-        placeholder="Zip" 
-        className="border p-2 w-full" 
-      />
-      <input 
-        name="bedrooms" 
-        value={formData.bedrooms}
-        onChange={handleChange}
-        placeholder="Bedrooms"
-        type="number" 
-        className="border p-2 w-full"
-      />
-      <input
-        name="bathrooms"
-        value={formData.bathrooms}
-        onChange={handleChange} 
-        placeholder="Bathrooms"
-        type="number"
-        step="0.5"
-        className="border p-2 w-full" 
-      />
-      <input
-        name="squareFeet"
-        value={formData.squareFeet} 
-        onChange={handleChange} 
-        placeholder="Square Feet" 
-        type="number" 
-        className="border p-2 w-full"
-      />
-
-      <div className="flex justify-end gap-2 pt-2">
-        <button type="button" onClick={onCancel} className="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400">Cancel</button>
-        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Save</button>
-      </div>
+      <button type="submit" className={styles.button}>Submit</button>
     </form>
   );
 }
