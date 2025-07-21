@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SignIn.module.css';
+import buttonStyles from '../styles/Buttons.module.css';
+
 
 export default function SignIn({ setRole }) {
   const [username, setUsername] = useState('');
@@ -39,7 +41,7 @@ export default function SignIn({ setRole }) {
           className={styles.input}
         />
 
-        <button onClick={handleSignIn} className={styles.button}>
+        <button onClick={handleSignIn} className={buttonStyles.primaryButton}>
           Sign In
         </button>
       </div>

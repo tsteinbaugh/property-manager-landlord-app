@@ -1,5 +1,6 @@
 import styles from './Header.module.css';
 import { useNavigate } from 'react-router-dom';
+import buttonStyles from '../styles/Buttons.module.css';
 
 export default function Header({ setRole }) {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ export default function Header({ setRole }) {
 
   return (
     <div className={styles.headerContainer}>
-      <button onClick={handleSignOut} className={styles.signOutButton}>
+      <button onClick={handleSignOut} className={buttonStyles.primaryButton}>
         Sign Out
       </button>
     </div>
