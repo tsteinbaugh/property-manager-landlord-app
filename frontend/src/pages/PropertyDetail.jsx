@@ -9,6 +9,7 @@ import layoutStyles from '../styles/EditDeleteButtonsLayout.module.css';
 import TenantModal from '../components/TenantModal';
 import OccupantModal from '../components/OccupantModal';
 import PetModal from '../components/PetModal';
+import EmergencyContactModal from '../components/EmergencyContactModal';
 
 export default function PropertyDetail({ role, setRole }) {
   const [editingProperty, setEditingProperty] = useState(null);
@@ -20,6 +21,7 @@ export default function PropertyDetail({ role, setRole }) {
   const [editingTenantIndex, setEditingTenantIndex] = useState(null);
   const [editingOccupantIndex, setEditingOccupantIndex] = useState(null);
   const [editingPetIndex, setEditingPetIndex] = useState(null);
+  const [editingEmergencyContactIndex, setEditingEmergencyContactIndex] = useState(null);
 
 
   if (!property) return <p className={styles.container}>Property not found.</p>;
@@ -52,6 +54,14 @@ export default function PropertyDetail({ role, setRole }) {
       const updatedPets = [...property.pets];
       updatedPets.splice(index, 1);
       editProperty({ ...property, pets: updatedPets });
+    }
+  };
+
+  const handleDeleteEmergencyContact = (index) => {
+    if (confirm('Are you sure you want to delete this emergency contact?')) {
+      const updatedEmergencyContacts = [...property.emergencyContacts];
+      updatedEmergencyContacts.splice(index, 1);
+      editProperty({ ...property, emergencyContacts: updatedEmergencyContacts });
     }
   };
 
@@ -146,6 +156,7 @@ export default function PropertyDetail({ role, setRole }) {
                         const updatedTenants = [...property.tenants];
                         updatedTenants[idx] = updatedTenant;
                         editProperty({ ...property, tenants: updatedTenants });
+                        setEditingTenantIndex(null);
                       }}
                     />
                   )}
@@ -252,21 +263,51 @@ export default function PropertyDetail({ role, setRole }) {
 
           <div className={styles.propertyStats}>
             <strong>Emergency Contact:</strong>
-            {property.emergencyContact?.length ? (
-              property.emergencyContact.map((eContact, idx) => (
-                <ul key={idx} className={styles.list}>
-                  <li>Name: {eContact.name}</li>
-                  <ul className={styles.subList}>
-                    <li>Contact Information:</li>
-                    <ul className={styles.subList}>
-                      <li>Phone: {eContact.contact.phone}</li>
-                      <li>Email: {eContact.contact.email}</li>
+            {property.emergencyContacts?.length ? (
+              property.emergencyContacts.map((emergencyContact, idx) => (
+                <div key={idx} className="ml-4">
+                  <ul className="list-disc list-inside">
+                    <li>Name: {emergencyContact.name}</li>
+                    <ul className="ml-6">
+                      <li>Contact Information:</li>
+                      <ul className="ml-8">
+                        <li>Phone: {emergencyContact.contact.phone}</li>
+                        <li>Email: {emergencyContact.contact.email}</li>
+                      </ul>
                     </ul>
                   </ul>
-                </ul>
+
+                  <div className={layoutStyles.buttonGroup}>
+                    <button
+                      className={buttonStyles.primaryButton}
+                      onClick={() => setEditingEmergencyContactIndex(idx)}
+                    >
+                      Edit Emergency Contact
+                    </button>
+                    <button
+                      className={buttonStyles.deleteButton}
+                      onClick={() => handleDeleteEmergencyContact(idx)}
+                    >
+                      Delete Emergency Contact
+                    </button>
+                  </div>
+
+                  {editingEmergencyContactIndex === idx && (
+                    <EmergencyContactModal
+                      emergencyContact={emergencyContact}
+                      onClose={() => setEditingEmergencyContactIndex(null)}
+                      onSave={(updatedEmergencyContact) => {
+                        const updatedEmergencyContacts = [...property.emergencyContacts];
+                        updatedEmergencyContacts[idx] = updatedEmergencyContact;
+                        editProperty({ ...property, emergencyContacts: updatedEmergencyContacts });
+                        setEditingEmergencyContactIndex(null);
+                      }}
+                    />
+                  )}
+                </div>
               ))
             ) : (
-              ' None'
+              <p className="ml-4 italic text-gray-500">None</p>
             )}
           </div>
 

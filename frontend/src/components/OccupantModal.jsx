@@ -11,7 +11,7 @@ export default function OccupantModal({ occupant, onClose, onSave }) {
 
   useEffect(() => {
     if (occupant) {
-      setFormData(occupant);
+      setFormData({...occupant});
     }
   }, [occupant]);
 
@@ -23,8 +23,8 @@ export default function OccupantModal({ occupant, onClose, onSave }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!formData.name || !formData.age || !formData.relationship) {
-      alert('Please fill out all fields.');
+    if (!formData.name) {
+      alert('Please fill out at least name.');
       return;
     }
 
