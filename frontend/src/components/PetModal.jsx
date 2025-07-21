@@ -12,7 +12,7 @@ export default function PetModal({ pet, onClose, onSave }) {
 
   useEffect(() => {
     if (pet) {
-      setFormData(pet);
+      setFormData({...pet});
     }
   }, [pet]);
 

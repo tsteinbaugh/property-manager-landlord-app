@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import styles from './PropertyForm.module.css';
+import styles from '../styles/SharedModal.module.css';
 import buttonStyles from '../styles/Buttons.module.css';
 
 export default function PropertyForm({ onSubmit, onCancel, initialData = {} }) {
@@ -15,7 +15,7 @@ export default function PropertyForm({ onSubmit, onCancel, initialData = {} }) {
 
   useEffect(() => {
     if (initialData) {
-      setFormData(initialData);
+      setFormData({...initialData});
     }
   }, [initialData]);
 
@@ -39,7 +39,7 @@ export default function PropertyForm({ onSubmit, onCancel, initialData = {} }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.formContainer}>
+    <form onSubmit={handleSubmit} className={styles.form}>
       <input name="address" placeholder="Street Address" value={formData.address} onChange={handleChange} className={styles.input} />
       <input name="city" placeholder="City" value={formData.city} onChange={handleChange} className={styles.input} />
       <input name="state" placeholder="State" value={formData.state} onChange={handleChange} className={styles.input} />
@@ -48,9 +48,9 @@ export default function PropertyForm({ onSubmit, onCancel, initialData = {} }) {
       <input name="bathrooms" placeholder="Bathrooms" value={formData.bathrooms} onChange={handleChange} className={styles.input} />
       <input name="squareFeet" placeholder="Square Feet" value={formData.squareFeet} onChange={handleChange} className={styles.input} />
 
-      <div className={styles.buttonRow}>
-        <button type="button" onClick={onCancel} className={buttonStyles.secondaryButton}>Cancel</button>
+      <div className={styles.modalButtons}>
         <button type="submit" className={buttonStyles.primaryButton} disabled={!isFormValid}>Save</button>
+        <button type="button" onClick={onCancel} className={buttonStyles.secondaryButton}>Cancel</button>
       </div>
     </form>
   );

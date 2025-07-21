@@ -43,7 +43,7 @@ const properties = [
         age: 82,
       },
     ],
-    emergencyContact:
+    emergencyContacts:
     [
       {
         name: 'Mary Smith',

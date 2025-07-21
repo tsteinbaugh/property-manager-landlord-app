@@ -1,12 +1,10 @@
+import { useState, useEffect } from 'react';
 import styles from '../styles/SharedModal.module.css';
 import buttonStyles from '../styles/Buttons.module.css';
-import { useState, useEffect } from 'react';
 
-export default function TenantModal({ tenant, onClose, onSave }) {
+export default function EmergencyContactModal({ emergencyContact, onClose, onSave }) {
   const [formData, setFormData] = useState({
     name: '',
-    age: '',
-    occupation: '',
     contact: {
       phone: '',
       email: '',
@@ -14,10 +12,10 @@ export default function TenantModal({ tenant, onClose, onSave }) {
   });
 
   useEffect(() => {
-    if (tenant) {
-      setFormData({ ...tenant });
+    if (emergencyContact) {
+      setFormData({...emergencyContact});
     }
-  }, [tenant]);
+  }, [emergencyContact]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,8 +33,8 @@ export default function TenantModal({ tenant, onClose, onSave }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!formData.name || !formData.contact.phone || !formData.contact.email) {
-      alert('Please fill out at least name, phone number and email.');
+    if (!formData.name || !formData.contact.phone) {
+      alert('Please fill out at least name and phone number.');
       return;
     }
 
@@ -45,14 +43,15 @@ export default function TenantModal({ tenant, onClose, onSave }) {
 
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
-      <div 
+      <div
         className={styles.modalContent}
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className={styles.modalTitle}>Edit Tenant</h2>
+        <h2 className={styles.modalTitle}>Edit Emergency Contact</h2>
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <input
+            type="text"
             name="name"
             value={formData.name}
             onChange={handleChange}
@@ -60,20 +59,7 @@ export default function TenantModal({ tenant, onClose, onSave }) {
             className={styles.input}
           />
           <input
-            name="age"
-            value={formData.age}
-            onChange={handleChange}
-            placeholder="Age"
-            className={styles.input}
-          />
-          <input
-            name="occupation"
-            value={formData.occupation}
-            onChange={handleChange}
-            placeholder="Occupation"
-            className={styles.input}
-          />
-          <input
+            type="text"
             name="phone"
             value={formData.contact?.phone || ''}
             onChange={handleChange}
@@ -81,6 +67,7 @@ export default function TenantModal({ tenant, onClose, onSave }) {
             className={styles.input}
           />
           <input
+            type="text"
             name="email"
             value={formData.contact?.email || ''}
             onChange={handleChange}
