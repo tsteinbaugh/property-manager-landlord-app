@@ -1,4 +1,4 @@
-import styles from './TenantModal.module.css';
+import styles from '../styles/SharedModal.module.css';
 import buttonStyles from '../styles/Buttons.module.css';
 import { useState, useEffect } from 'react';
 

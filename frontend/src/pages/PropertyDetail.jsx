@@ -5,8 +5,10 @@ import { useProperties } from '../context/PropertyContext';
 import PropertyModal from '../components/PropertyModal';
 import styles from './PropertyDetail.module.css';
 import buttonStyles from '../styles/Buttons.module.css';
-import TenantModal from '../components/TenantModal';
 import layoutStyles from '../styles/EditDeleteButtonsLayout.module.css';
+import TenantModal from '../components/TenantModal';
+import OccupantModal from '../components/OccupantModal';
+import PetModal from '../components/PetModal';
 
 export default function PropertyDetail({ role, setRole }) {
   const [editingProperty, setEditingProperty] = useState(null);
@@ -16,6 +18,9 @@ export default function PropertyDetail({ role, setRole }) {
   const property = properties.find((p) => p.id === Number(id));
   const [showEditModal, setShowEditModal] = useState(false);
   const [editingTenantIndex, setEditingTenantIndex] = useState(null);
+  const [editingOccupantIndex, setEditingOccupantIndex] = useState(null);
+  const [editingPetIndex, setEditingPetIndex] = useState(null);
+
 
   if (!property) return <p className={styles.container}>Property not found.</p>;
 
@@ -34,6 +39,21 @@ export default function PropertyDetail({ role, setRole }) {
     }
   };
 
+  const handleDeleteOccupant = (index) => {
+    if (confirm('Are you sure you want to delete this occupant?')) {
+      const updatedOccupants = [...property.occupants];
+      updatedOccupants.splice(index, 1);
+      editProperty({ ...property, occupants: updatedOccupants });
+    }
+  };
+
+  const handleDeletePet = (index) => {
+    if (confirm('Are you sure you want to delete this pet?')) {
+      const updatedPets = [...property.pets];
+      updatedPets.splice(index, 1);
+      editProperty({ ...property, pets: updatedPets });
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -136,21 +156,97 @@ export default function PropertyDetail({ role, setRole }) {
             )}
           </div>
 
+
+          <div className={styles.propertyStats}>
+            <strong>Occupant(s):</strong>
+            {property.occupants?.length ? (
+              property.occupants.map((occupant, idx) => (
+                <div key={idx} className="ml-4">
+                  <ul className="list-disc list-inside">
+                    <li>Name: {occupant.name}</li>
+                    <li>Age: {occupant.age}</li>
+                    <li>Relationship: {occupant.relationship}</li>
+                  </ul>
+
+                  <div className={layoutStyles.buttonGroup}>
+                    <button
+                      className={buttonStyles.primaryButton}
+                      onClick={() => setEditingOccupantIndex(idx)}
+                    >
+                      Edit Occupant
+                    </button>
+                    <button
+                      className={buttonStyles.deleteButton}
+                      onClick={() => handleDeleteOccupant(idx)}
+                    >
+                      Delete Occupant
+                    </button>
+                  </div>
+
+                  {editingOccupantIndex === idx && (
+                    <OccupantModal
+                      occupant={occupant}
+                      onClose={() => setEditingOccupantIndex(null)}
+                      onSave={(updatedOccupant) => {
+                        const updatedOccupants = [...property.occupants];
+                        updatedOccupants[idx] = updatedOccupant;
+                        editProperty({ ...property, occupants: updatedOccupants });
+                        setEditingOccupantIndex(null);
+                      }}
+                    />
+                  )}
+                </div>
+              ))
+            ) : (
+              <p className="ml-4 italic text-gray-500">None</p>
+            )}
+          </div>
+
           <div className={styles.propertyStats}>
             <strong>Pet(s):</strong>
             {property.pets?.length ? (
               property.pets.map((pet, idx) => (
-                <ul key={idx} className={styles.list}>
-                  <li>Name: {pet.name}</li>
-                  <ul className={styles.subList}>
-                    <li>Type: {pet.type}</li>
-                    <li>Size: {pet.size}</li>
-                    <li>License #: {pet.license}</li>
+                <div key={idx} className="ml-4">
+                  <ul className="list-disc list-inside">
+                    <li>Name: {pet.name}</li>
+                    <ul className="ml-6">
+                      <li>Type: {pet.type}</li>
+                      <li>Size: {pet.size}</li>
+                      <li>License #: {pet.license}</li>
+                    </ul>
                   </ul>
-                </ul>
+
+                  <div className={layoutStyles.buttonGroup}>
+                    <button
+                      onClick={() => setEditingPetIndex(idx)}
+                      className={buttonStyles.primaryButton}
+                    >
+                      Edit Pet
+                    </button>
+                    <button
+                      onClick={() => handleDeletePet(idx)}
+                      className={buttonStyles.deleteButton}
+                    >
+                      Delete Pet
+                    </button>
+                  </div>
+
+                  {editingPetIndex === idx && (
+                    <PetModal
+                      pet={pet}
+                      onClose={() => setEditingPetIndex(null)}
+                      onSave={(updatedPet) => {
+                        const updatedPets = [...property.pets];
+                        updatedPets[idx] = updatedPet;
+                        editProperty({ ...property, pets: updatedPets });
+                        setEditingPetIndex(null);
+                      }}
+                    />
+                  )}
+                </div>
               ))
             ) : (
-              ' None'
+              <p className="ml-4 italic text-gray-500">None</p>
             )}
           </div>
 
