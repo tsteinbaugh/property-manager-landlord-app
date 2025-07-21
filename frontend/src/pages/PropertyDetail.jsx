@@ -5,7 +5,8 @@ import { useProperties } from '../context/PropertyContext';
 import PropertyModal from '../components/PropertyModal';
 import styles from './PropertyDetail.module.css';
 import buttonStyles from '../styles/Buttons.module.css';
-
+import TenantModal from '../components/TenantModal';
+import layoutStyles from '../styles/EditDeleteButtonsLayout.module.css';
 
 export default function PropertyDetail({ role, setRole }) {
   const [editingProperty, setEditingProperty] = useState(null);
@@ -14,15 +15,25 @@ export default function PropertyDetail({ role, setRole }) {
   const { properties, editProperty, deleteProperty } = useProperties();
   const property = properties.find((p) => p.id === Number(id));
   const [showEditModal, setShowEditModal] = useState(false);
+  const [editingTenantIndex, setEditingTenantIndex] = useState(null);
 
   if (!property) return <p className={styles.container}>Property not found.</p>;
 
-  const handleDelete = () => {
+  const handleDeleteProperty = () => {
     if (confirm('Are you sure you want to delete this property?')) {
       deleteProperty(property.id);
       navigate('/dashboard');
     }
   };
+
+  const handleDeleteTenant = (index) => {
+    if (confirm('Are you sure you want to delete this tenant?')) {
+      const updatedTenants = [...property.tenants];
+      updatedTenants.splice(index, 1);
+      editProperty({ ...property, tenants: updatedTenants });
+    }
+  };
+
 
   return (
     <div className={styles.container}>
@@ -37,7 +48,7 @@ export default function PropertyDetail({ role, setRole }) {
       <p className={styles.propertyStats}>📐 {property.squareFeet} sq ft</p>
 
       {role === 'landlord' && (
-        <div className={styles.landlordActions}>
+        <div className={layoutStyles.buttonGroup}>
 
           <button
             onClick={() => {
@@ -50,7 +61,7 @@ export default function PropertyDetail({ role, setRole }) {
           </button>
 
           <button
-            onClick={handleDelete}
+            onClick={handleDeleteProperty}
             className={buttonStyles.deleteButton}
           >
             Delete Property
@@ -78,37 +89,50 @@ export default function PropertyDetail({ role, setRole }) {
             <strong>Tenant(s):</strong>
             {property.tenants.length ? (
               property.tenants.map((tenant, idx) => (
-                <ul key={idx} className={styles.list}>
-                  <li>Name: {tenant.name}</li>
-                  <ul className={styles.subList}>
-                    <li>Contact Information:</li>
-                    <ul className={styles.subList}>
-                      <li>Phone: {tenant.contact.phone}</li>
-                      <li>Email: {tenant.contact.email}</li>
+                <div key={idx} className="ml-4">
+                  <ul className="list-disc list-inside">
+                    <li>Name: {tenant.name}</li>
+                    <ul className="ml-6">
+                      <li>Contact:</li>
+                      <ul className="ml-8">
+                        <li>Phone: {tenant.contact?.phone}</li>
+                        <li>Email: {tenant.contact?.email}</li>
+                      </ul>
+                      <li>Age: {tenant.age}</li>
+                      <li>Occupation: {tenant.occupation}</li>
                     </ul>
-                    <li>Age: {tenant.age}</li>
-                    <li>Occupation: {tenant.occupation}</li>
                   </ul>
-                </ul>
-              ))
-            ) : (
-              ' None'
-            )}
-          </div>
 
-          <div className={styles.propertyStats}>
-            <strong>Occupant(s):</strong>
-            {property.occupants?.length ? (
-              property.occupants.map((occupant, idx) => (
-                <ul key={idx} className={styles.list}>
-                  <li>Name: {occupant.name}</li>
-                  <ul className={styles.subList}>
-                    <li>Age: {occupant.age}</li>
-                  </ul>
-                </ul>
+                  <div className={layoutStyles.buttonGroup}>
+                    <button
+                      className={buttonStyles.primaryButton}
+                      onClick={() => setEditingTenantIndex(idx)}
+                    >
+                      Edit Tenant
+                    </button>
+                    <button
+                      className={buttonStyles.deleteButton}
+                      onClick={() => handleDeleteTenant(idx)}
+                    >
+                      Delete Tenant
+                    </button>
+                  </div>
+
+                  {editingTenantIndex === idx && (
+                    <TenantModal
+                      tenant={tenant}
+                      onClose={() => setEditingTenantIndex(null)}
+                      onSave={(updatedTenant) => {
+                        const updatedTenants = [...property.tenants];
+                        updatedTenants[idx] = updatedTenant;
+                        editProperty({ ...property, tenants: updatedTenants });
+                      }}
+                    />
+                  )}
+                </div>
               ))
             ) : (
-              ' None'
+              <p className="ml-4 italic text-gray-500">None</p>
             )}
           </div>
 
