@@ -2,8 +2,11 @@ import Header from '../components/Header';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropertyList from './PropertyList';
-import AddPropertyModal from '../components/AddPropertyModal';
+import PropertyModal from '../components/PropertyModal';
 import { useProperties } from '../context/PropertyContext';
+import styles from './Dashboard.module.css';
+import buttonStyles from '../styles/Buttons.module.css';
+
 
 export default function Dashboard({ role, setRole }) {
   const [showModal, setShowModal] = useState(false);
@@ -32,9 +35,10 @@ export default function Dashboard({ role, setRole }) {
 
       {role === 'landlord' && (
         <div className="mb-4">
+
           <button
             onClick={() => setShowModal(true)}
-            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+            className={buttonStyles.primaryButton}
           >
             + Add Property
           </button>
@@ -42,9 +46,12 @@ export default function Dashboard({ role, setRole }) {
       )}
 
       {showModal && (
-        <AddPropertyModal
+        <PropertyModal
           onClose={() => setShowModal(false)}
-          onSave={handleAddProperty}
+          onSubmit={(newProperty) => {
+            addProperty(newProperty);
+            setShowModal(false);
+          }}
         />
       )}
     </div>
