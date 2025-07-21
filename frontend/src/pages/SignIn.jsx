@@ -9,7 +9,8 @@ export default function SignIn({ setRole }) {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleSignIn = () => {
+  const handleSignIn = (e) => {
+    e.preventDefault();
     if (!username || !password) {
       alert('Please enter both username and password.');
       return;
@@ -22,7 +23,7 @@ export default function SignIn({ setRole }) {
 
   return (
     <div className={styles.signInContainer}>
-      <div className={styles.card}>
+      <form onSubmit={handleSignIn} className={styles.card}>
         <h2 className={styles.heading}>Welcome</h2>
         <p className={styles.subtext}>Sign in to manage your properties</p>
 
@@ -31,6 +32,7 @@ export default function SignIn({ setRole }) {
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          autoFocus
           className={styles.input}
         />
         <input
@@ -41,10 +43,10 @@ export default function SignIn({ setRole }) {
           className={styles.input}
         />
 
-        <button onClick={handleSignIn} className={buttonStyles.primaryButton}>
+        <button type="submit" className={buttonStyles.primaryButton}>
           Sign In
         </button>
-      </div>
+      </form>
     </div>
   );
 }
