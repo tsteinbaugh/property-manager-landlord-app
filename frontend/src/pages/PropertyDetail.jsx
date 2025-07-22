@@ -10,6 +10,7 @@ import TenantModal from '../components/TenantModal';
 import OccupantModal from '../components/OccupantModal';
 import PetModal from '../components/PetModal';
 import EmergencyContactModal from '../components/EmergencyContactModal';
+import FinancialModal from '../components/FinancialModal';
 
 export default function PropertyDetail({ role, setRole }) {
   const [editingProperty, setEditingProperty] = useState(null);
@@ -22,6 +23,7 @@ export default function PropertyDetail({ role, setRole }) {
   const [editingOccupantIndex, setEditingOccupantIndex] = useState(null);
   const [editingPetIndex, setEditingPetIndex] = useState(null);
   const [editingEmergencyContactIndex, setEditingEmergencyContactIndex] = useState(null);
+  const [editingFinancialIndex, setEditingFinancialIndex] = useState(null);
 
 
   if (!property) return <p className={styles.container}>Property not found.</p>;
@@ -314,13 +316,37 @@ export default function PropertyDetail({ role, setRole }) {
           <div className={styles.propertyStats}>
             <strong>Financials:</strong>
             {property.financials?.[0] ? (
-              <ul className={styles.list}>
-                <li>Rent: ${property.financials[0].rent}</li>
-                <li>Security Deposit: ${property.financials[0].securityDeposit}</li>
-                <li>Pet Deposit: ${property.financials[0].petDeposit}</li>
-              </ul>
+              <div className="ml-4">
+                <ul className={styles.list}>
+                  <li>Rent: ${property.financials[0].rent}</li>
+                  <li>Security Deposit: ${property.financials[0].securityDeposit}</li>
+                  <li>Pet Deposit: ${property.financials[0].petDeposit}</li>
+                </ul>
+
+                <div className={layoutStyles.buttonGroup}>
+                  <button
+                    className={buttonStyles.primaryButton}
+                    onClick={() => setEditingFinancialIndex(0)}
+                  >
+                    Edit Financials
+                  </button>
+                </div>
+
+                {editingFinancialIndex === 0 && (
+                  <FinancialModal
+                    financial={property.financials[0]}
+                    onClose={() => setEditingFinancialIndex(null)}
+                    onSave={(updatedFinancial) => {
+                      const updatedFinancials = [...property.financials];
+                      updatedFinancials[0] = updatedFinancial;
+                      editProperty({ ...property, financials: updatedFinancials });
+                      setEditingFinancialIndex(null);
+                    }}
+                  />
+                )}
+              </div>
             ) : (
-              ' None'
+              <p className="ml-4 italic text-gray-500">None</p>
             )}
           </div>
 
