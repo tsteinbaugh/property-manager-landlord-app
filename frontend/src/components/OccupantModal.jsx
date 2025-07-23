@@ -22,7 +22,15 @@ export default function OccupantModal({ occupant, onClose, onSave }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    if (name === 'phone' || name === 'email') {
+      setFormData((prev) => ({
+        ...prev,
+        contact: { ...prev.contact, [name]: value },
+      }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleSubmit = (e) => {
