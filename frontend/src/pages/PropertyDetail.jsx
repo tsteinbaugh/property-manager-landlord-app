@@ -24,6 +24,11 @@ export default function PropertyDetail({ role, setRole }) {
   const [editingPetIndex, setEditingPetIndex] = useState(null);
   const [editingEmergencyContactIndex, setEditingEmergencyContactIndex] = useState(null);
   const [editingFinancialIndex, setEditingFinancialIndex] = useState(null);
+  const [showNewTenantModal, setShowNewTenantModal] = useState(false);
+  const [showNewOccupantModal, setShowNewOccupantModal] = useState(false);
+  const [showNewPetModal, setShowNewPetModal] = useState(false);
+  const [showNewEmergencyContactModal, setShowNewEmergencyContactModal] = useState(false);
+
 
 
   if (!property) return <p className={styles.container}>Property not found.</p>;
@@ -188,8 +193,32 @@ export default function PropertyDetail({ role, setRole }) {
                 <p className="ml-4 italic text-gray-500">None</p>
               )}
             </div>
+
+            {role === 'landlord' && (
+              <div className={layoutStyles.buttonGroup}>
+                <button
+                  className={buttonStyles.primaryButton}
+                  onClick={() => setShowNewTenantModal(true)}
+                >
+                  Add Tenant
+                </button>
+              </div>
+            )}
           </div>
         )}
+
+        {showNewTenantModal && (
+          <TenantModal
+            tenant={{ name: '', age: '', occupation: '', contact: { phone: '', email: '' } }}
+            onClose={() => setShowNewTenantModal(false)}
+            onSave={(newTenant) => {
+              const updatedTenants = [...(property.tenants || []), newTenant];
+              editProperty({ ...property, tenants: updatedTenants });
+              setShowNewTenantModal(false);
+            }}
+          />
+        )}
+
 
         {property.occupants && (
           <div className={styles.container}>
@@ -252,7 +281,32 @@ export default function PropertyDetail({ role, setRole }) {
                 <p className="ml-4 italic text-gray-500">None</p>
               )}
             </div>
+
+            {role === 'landlord' && (
+              <div className={layoutStyles.buttonGroup}>
+                <button
+                  className={buttonStyles.primaryButton}
+                  onClick={() => setShowNewOccupantModal(true)}
+                >
+                  Add Occupant
+                </button>
+              </div>
+            )}
+
           </div>
+        )}
+
+
+        {showNewOccupantModal && (
+          <OccupantModal
+            occupant={{ name: '', age: '', occupation: '', relationship: '', contact: { phone: '', email: '' } }}
+            onClose={() => setShowNewOccupantModal(false)}
+            onSave={(newOccupant) => {
+              const updatedOccupants = [...(property.occupants || []), newOccupant];
+              editProperty({ ...property, occupants: updatedOccupants });
+              setShowNewOccupantModal(false);
+            }}
+          />
         )}
 
         {property.pets && (
@@ -308,7 +362,30 @@ export default function PropertyDetail({ role, setRole }) {
                 <p className="ml-4 italic text-gray-500">None</p>
               )}
             </div>
+
+            {role === 'landlord' && (
+              <div className={layoutStyles.buttonGroup}>
+                <button
+                  className={buttonStyles.primaryButton}
+                  onClick={() => setShowNewPetModal(true)}
+                >
+                  Add Pet
+                </button>
+              </div>
+            )}
           </div>
+        )}
+
+        {showNewPetModal && (
+          <PetModal
+            pet={{ name: '', type: '', size: '', license: '' }}
+            onClose={() => setShowNewPetModal(false)}
+            onSave={(newPet) => {
+              const updatedPets = [...(property.pets || []), newPet];
+              editProperty({ ...property, pets: updatedPets });
+              setShowNewPetModal(false);
+            }}
+          />
         )}
 
         {property.emergencyContacts && (
@@ -368,7 +445,33 @@ export default function PropertyDetail({ role, setRole }) {
                 <p className="ml-4 italic text-gray-500">None</p>
               )}
             </div>
+
+             {role === 'landlord' && (
+              <div className={layoutStyles.buttonGroup}>
+                <button
+                  className={buttonStyles.primaryButton}
+                  onClick={() => setShowNewEmergencyContactModal(true)}
+                >
+                  Add Emergency Contact
+                </button>
+              </div>
+            )}
+
+
+
           </div>
+        )}
+
+        {showNewEmergencyContactModal && (
+          <EmergencyContactModal
+            EmergencyContact={{ name: '', contact: { phone: '', email: '' } }}
+            onClose={() => setShowNewEmergencyContactModal(false)}
+            onSave={(newEmergencyContact) => {
+              const updatedEmergencyContacts = [...(property.emergencyContacts || []), newEmergencyContact];
+              editProperty({ ...property, emergencyContacts: updatedEmergencyContacts });
+              setShowNewEmergencyContactModal(false);
+            }}
+          />
         )}
 
         {role === 'landlord' && property.financials && (
