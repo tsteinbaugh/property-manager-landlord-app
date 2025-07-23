@@ -6,7 +6,12 @@ export default function OccupantModal({ occupant, onClose, onSave }) {
   const [formData, setFormData] = useState({
     name: '',
     age: '',
+    occupation: '',
     relationship: '',
+    contact: {
+      phone: '',
+      email: '',
+    }
   });
 
   useEffect(() => {
@@ -57,11 +62,32 @@ export default function OccupantModal({ occupant, onClose, onSave }) {
             className={styles.input}
           />
           <input
+            name="occupation"
+            value={formData.occupation}
+            onChange={handleChange}
+            placeholder="Occupation"
+            className={styles.input}
+          />
+          <input
             type="text"
             name="relationship"
             value={formData.relationship}
             onChange={handleChange}
             placeholder="Relationship"
+            className={styles.input}
+          />
+          <input
+            name="phone"
+            value={formData.contact?.phone || ''}
+            onChange={handleChange}
+            placeholder="Phone"
+            className={styles.input}
+          />
+          <input
+            name="email"
+            value={formData.contact?.email || ''}
+            onChange={handleChange}
+            placeholder="Email"
             className={styles.input}
           />
 
