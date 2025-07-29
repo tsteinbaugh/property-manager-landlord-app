@@ -2,7 +2,7 @@ import styles from '../styles/SharedModal.module.css';
 import buttonStyles from '../styles/Buttons.module.css';
 import { useState, useEffect } from 'react';
 
-export default function TenantModal({ tenant, onClose, onSave }) {
+export default function TenantModal({ tenant, onClose, onSave, title = 'Edit Tenant' }) {
   const [formData, setFormData] = useState({
     name: '',
     age: '',
@@ -48,7 +48,7 @@ export default function TenantModal({ tenant, onClose, onSave }) {
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-        <h2 className={styles.modalTitle}>Edit Tenant</h2>
+        <h2 className={styles.modalTitle}>{title}</h2>
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <input name="name" value={formData.name} onChange={handleChange} placeholder="Name" className={styles.input} />

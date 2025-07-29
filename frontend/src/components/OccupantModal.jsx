@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import styles from '../styles/SharedModal.module.css';
 import buttonStyles from '../styles/Buttons.module.css';
 
-export default function OccupantModal({ occupant, onClose, onSave }) {
+export default function OccupantModal({ occupant, onClose, onSave, title = 'Edit Occupant' }) {
   const [formData, setFormData] = useState({
     name: '',
     age: '',
@@ -47,7 +47,7 @@ export default function OccupantModal({ occupant, onClose, onSave }) {
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-        <h2 className={styles.modalTitle}>Edit Occupant</h2>
+        <h2 className={styles.modalTitle}>{title}</h2>
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" className={styles.input} />

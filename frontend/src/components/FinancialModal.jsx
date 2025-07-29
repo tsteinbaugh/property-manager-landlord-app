@@ -13,7 +13,11 @@ export default function FinancialModal({ financial, onClose, onSave }) {
 
   useEffect(() => {
     if (financial) {
-      setFormData({ ...financial });
+      setFormData({
+        rent: String(financial.rent ?? ''),
+        securityDeposit: String(financial.securityDeposit ?? ''),
+        petDeposit: String(financial.petDeposit ?? ''),
+      });
     }
   }, [financial]);
 
@@ -22,7 +26,10 @@ export default function FinancialModal({ financial, onClose, onSave }) {
     setFormData((prev) => ({ ...prev, [name]: value }));
   }
 
-  const isFormValid = formData.rent.trim() !== '' && formData.securityDeposit.trim() !== '' && formData.petDeposit.trim() !== '';
+  const isFormValid =
+    String(formData.rent).trim() !== '' &&
+    String(formData.securityDeposit).trim() !== '' &&
+    String(formData.petDeposit).trim() !== '';
 
   const handleSubmit = (e) => {
     e.preventDefault();
