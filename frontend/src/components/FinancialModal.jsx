@@ -9,6 +9,8 @@ export default function FinancialModal({ financial, onClose, onSave }) {
     petDeposit: '',
   });
 
+  const [submitted, setSubmitted] = useState(false);
+
   useEffect(() => {
     if (financial) {
       setFormData({ ...financial });
@@ -20,14 +22,12 @@ export default function FinancialModal({ financial, onClose, onSave }) {
     setFormData((prev) => ({ ...prev, [name]: value }));
   }
 
+  const isFormValid = formData.rent.trim() !== '' && formData.securityDeposit.trim() !== '' && formData.petDeposit.trim() !== '';
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (!formData.rent || !formData.securityDeposit || !formData.petDeposit) {
-      alert('Please fill out all fields.');
-      return;
-    }
-
+    setSubmitted(true);
+    if (!isFormValid) return;
     onSave(formData);
   };
 
@@ -61,6 +61,10 @@ export default function FinancialModal({ financial, onClose, onSave }) {
             placeholder="Pet Deposit"
             className={styles.input}
           />
+
+          {submitted && !isFormValid && (
+            <p className={styles.validationText}>Please fill out all financial fields.</p>
+          )}
 
           <div className={styles.modalButtons}>
             <button
