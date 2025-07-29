@@ -145,8 +145,12 @@ export default function PropertyDetail({ role, setRole }) {
                       <li>
                         <strong>Name:</strong> {tenant.name}
                         <ul className="ml-6">
-                          <li><strong>Age:</strong> {tenant.age}</li>
-                          <li><strong>Occupation:</strong> {tenant.occupation}</li>
+                          {tenant.age && (
+                            <li><strong>Age:</strong> {tenant.age}</li>
+                          )}
+                          {tenant.occupation && (
+                            <li><strong>Occupation:</strong> {tenant.occupation}</li>
+                          )}
                           <li>
                             <strong>Contact:</strong>
                             <ul className="ml-8">
@@ -232,16 +236,30 @@ export default function PropertyDetail({ role, setRole }) {
                       <li>
                         <strong>Name:</strong> {occupant.name}
                         <ul className="ml-6">
-                          <li><strong>Age:</strong> {occupant.age}</li>
-                          <li><strong>Occupation:</strong> {occupant.occupation}</li>
-                          <li><strong>Relationship</strong> (to tenants): {occupant.relationship}</li>
-                          <li>
-                            <strong>Contact:</strong>
-                            <ul className="ml-8">
-                              <li><strong>Phone:</strong> {occupant.contact?.phone}</li>
-                              <li><strong>Email:</strong> {occupant.contact?.email}</li>
-                            </ul>
-                          </li>
+                          {occupant.age && (
+                            <li><strong>Age:</strong> {occupant.age}</li>
+                          )}
+                          {occupant.occupation && (
+                            <li><strong>Occupation:</strong> {occupant.occupation}</li>
+                          )}
+                          {occupant.relationship && (
+                            <li><strong>Relationship to tenants:</strong> {occupant.relationship}</li>
+                          )}
+
+
+                          {(occupant.contact?.phone || occupant.contact?.email) && (
+                            <li>
+                              <strong>Contact:</strong>
+                              <ul className="ml-8">
+                                {occupant.contact?.phone && (
+                                  <li><strong>Phone:</strong> {occupant.contact.phone}</li>
+                                )}
+                                {occupant.contact?.email && (
+                                  <li><strong>Email:</strong> {occupant.contact.email}</li>
+                                )}
+                              </ul>
+                            </li>
+                          )}
                         </ul>
                       </li>
                     </ul>
@@ -321,8 +339,12 @@ export default function PropertyDetail({ role, setRole }) {
                         <strong>Name:</strong> {pet.name}
                         <ul className="ml-6">
                           <li><strong>Type:</strong> {pet.type}</li>
-                          <li><strong>Size:</strong> {pet.size}</li>
-                          <li><strong>License #:</strong> {pet.license}</li>
+                          {pet.size && (
+                            <li><strong>Size:</strong> {pet.size}</li>
+                          )}
+                          {pet.license && (
+                            <li><strong>License #:</strong> {pet.license}</li>
+                          )}
                         </ul>
                       </li>
                     </ul>
@@ -403,7 +425,9 @@ export default function PropertyDetail({ role, setRole }) {
                           <li><strong>Contact:</strong></li>
                             <ul className="ml-8">
                               <li><strong>Phone:</strong> {emergencyContact.contact.phone}</li>
-                              <li><strong>Email:</strong> {emergencyContact.contact.email}</li>
+                              {emergencyContact.contact.email && (
+                                <li><strong>Email:</strong> {emergencyContact.contact.email}</li>
+                              )}
                             </ul>
                           </li>
                         </ul>
