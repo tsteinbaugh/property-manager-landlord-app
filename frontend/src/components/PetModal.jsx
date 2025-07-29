@@ -10,6 +10,8 @@ export default function PetModal({ pet, onClose, onSave }) {
     license:'',
   });
 
+  const [submitted, setSubmitted] = useState(false);
+
   useEffect(() => {
     if (pet) {
       setFormData({...pet});
@@ -21,14 +23,12 @@ export default function PetModal({ pet, onClose, onSave }) {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const isFormValid = formData.name.trim() !== '' && formData.type.trim() !== '';
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (!formData.name || !formData.type) {
-      alert('Please fill out at least Name and Type of pet.');
-      return;
-    }
-
+    setSubmitted(true);
+    if (!isFormValid) return;
     onSave(formData);
   };
 
@@ -40,34 +40,14 @@ export default function PetModal({ pet, onClose, onSave }) {
       >
         <h2 className={styles.modalTitle}>Edit Pet</h2>
         <form onSubmit={handleSubmit} className={styles.form}>
-          <input
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Name"
-            className={styles.input}
-          />
-          <input
-            name="type"
-            value={formData.type}
-            onChange={handleChange}
-            placeholder="Type of pet (dog, cat...)"
-            className={styles.input}
-          />
-          <input
-            name="size"
-            value={formData.size}
-            onChange={handleChange}
-            placeholder="Size (small, medium, large, or weight)"
-            className={styles.input}
-          />
-          <input
-            name="license"
-            value={formData.license}
-            onChange={handleChange}
-            placeholder="License #"
-            className={styles.input}
-          />
+          <input name="name" value={formData.name} onChange={handleChange} placeholder="Name" className={styles.input} />
+          <input name="type" value={formData.type} onChange={handleChange} placeholder="Type of pet (dog, cat...)" className={styles.input} />
+          <input name="size" value={formData.size} onChange={handleChange} placeholder="Size (small, medium, large, or weight)" className={styles.input} />
+          <input name="license" value={formData.license} onChange={handleChange} placeholder="License #" className={styles.input} />
+
+          {submitted && !isFormValid && (
+            <p className={styles.validationText}>Please fill in name and type of pet.</p>
+          )}
 
           <div className={styles.modalButtons}>
             <button 

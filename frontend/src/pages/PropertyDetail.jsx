@@ -127,7 +127,7 @@ export default function PropertyDetail({ role, setRole }) {
           <PropertyModal
             initialData={editingProperty}
             onClose={() => setShowEditModal(false)}
-            onSubmit={(updated) => {
+            onSave={(updated) => {
               editProperty({ ...editingProperty, ...updated });
               setShowEditModal(false);
             }}

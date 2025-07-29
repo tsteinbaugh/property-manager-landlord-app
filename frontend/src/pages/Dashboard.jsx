@@ -48,7 +48,7 @@ export default function Dashboard({ role, setRole }) {
       {showModal && (
         <PropertyModal
           onClose={() => setShowModal(false)}
-          onSubmit={(newProperty) => {
+          onSave={(newProperty) => {
             addProperty(newProperty);
             setShowModal(false);
           }}

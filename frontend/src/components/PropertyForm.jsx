@@ -2,27 +2,28 @@ import { useState, useEffect } from 'react';
 import styles from '../styles/SharedModal.module.css';
 import buttonStyles from '../styles/Buttons.module.css';
 
-export default function PropertyForm({ onSubmit, onCancel, initialData = {} }) {
+export default function PropertyForm({ onSave, onCancel, initialData = {} }) {
   const [formData, setFormData] = useState({
-    address: initialData?.address || '',
-    city: initialData?.city || '',
-    state: initialData?.state || '',
-    zip: initialData?.zip || '',
-    bedrooms: initialData?.bedrooms || '',
-    bathrooms: initialData?.bathrooms || '',
-    squareFeet: initialData?.squareFeet || '',
+    address: '',
+    city: '',
+    state: '',
+    zip: '',
+    bedrooms: '',
+    bathrooms: '',
+    squareFeet: '',
   });
+
+  const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
     if (initialData) {
-      setFormData({...initialData});
+      setFormData({ ...initialData });
     }
   }, [initialData]);
 
-  const isFormValid = Object.values(formData).every(val =>
-    typeof val === 'string' ? val.trim() !== '' : val !== undefined && val !== null
+  const isFormValid = Object.values(formData).every((val) =>
+    String(val).trim() !== ''
   );
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,11 +32,9 @@ export default function PropertyForm({ onSubmit, onCancel, initialData = {} }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!isFormValid) {
-      alert('Please fill in all fields.');
-      return;
-    }
-    onSubmit(formData);
+    setSubmitted(true);
+    if (!isFormValid) return;
+    onSave(formData);
   };
 
   return (
@@ -48,8 +47,12 @@ export default function PropertyForm({ onSubmit, onCancel, initialData = {} }) {
       <input name="bathrooms" placeholder="Bathrooms" value={formData.bathrooms} onChange={handleChange} className={styles.input} />
       <input name="squareFeet" placeholder="Square Feet" value={formData.squareFeet} onChange={handleChange} className={styles.input} />
 
+      {submitted && !isFormValid && (
+        <p className={styles.validationText}>Please fill in all fields.</p>
+      )}
+
       <div className={styles.modalButtons}>
-        <button type="submit" className={buttonStyles.primaryButton} disabled={!isFormValid}>Save</button>
+        <button type="submit" className={buttonStyles.primaryButton}>Save</button>
         <button type="button" onClick={onCancel} className={buttonStyles.secondaryButton}>Cancel</button>
       </div>
     </form>

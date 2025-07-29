@@ -11,6 +11,8 @@ export default function EmergencyContactModal({ emergencyContact, onClose, onSav
     },
   });
 
+  const [submitted, setSubmitted] = useState(false);
+
   useEffect(() => {
     if (emergencyContact) {
       setFormData({...emergencyContact});
@@ -30,65 +32,32 @@ export default function EmergencyContactModal({ emergencyContact, onClose, onSav
     }
   };
 
+  const isFormValid = formData.name.trim() !== '' && formData.contact.phone.trim() !== '';
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (!formData.name || !formData.contact.phone) {
-      alert('Please fill out at least name and phone number.');
-      return;
-    }
-
+    setSubmitted(true);
+    if (!isFormValid) return;
     onSave(formData);
   };
 
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
-      <div
-        className={styles.modalContent}
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
         <h2 className={styles.modalTitle}>Edit Emergency Contact</h2>
 
         <form onSubmit={handleSubmit} className={styles.form}>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Name"
-            className={styles.input}
-          />
-          <input
-            type="text"
-            name="phone"
-            value={formData.contact?.phone || ''}
-            onChange={handleChange}
-            placeholder="Phone"
-            className={styles.input}
-          />
-          <input
-            type="text"
-            name="email"
-            value={formData.contact?.email || ''}
-            onChange={handleChange}
-            placeholder="Email"
-            className={styles.input}
-          />
+          <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" className={styles.input} />
+          <input type="text" name="phone" value={formData.contact?.phone || ''} onChange={handleChange} placeholder="Phone" className={styles.input} />
+          <input type="text" name="email" value={formData.contact?.email || ''} onChange={handleChange} placeholder="Email" className={styles.input} />
+
+          {submitted && !isFormValid && (
+            <p className={styles.validationText}>Please enter name and phone number.</p>
+          )}
 
           <div className={styles.modalButtons}>
-            <button
-              type="submit"
-              className={buttonStyles.primaryButton}
-            >
-              Save
-            </button>
-            <button
-              type="button"
-              onClick={onClose}
-              className={buttonStyles.secondaryButton}
-            >
-              Cancel
-            </button>
+            <button type="submit" className={buttonStyles.primaryButton}>Save</button>
+            <button type="button" onClick={onClose} className={buttonStyles.secondaryButton}>Cancel</button>
           </div>
         </form>
       </div>
