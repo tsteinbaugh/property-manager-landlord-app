@@ -189,6 +189,7 @@ export default function PropertyDetail({ role, setRole }) {
                           editProperty({ ...property, tenants: updatedTenants });
                           setEditingTenantIndex(null);
                         }}
+                        title = "Edit Tenant"
                       />
                     )}
                   </div>
@@ -220,6 +221,7 @@ export default function PropertyDetail({ role, setRole }) {
               editProperty({ ...property, tenants: updatedTenants });
               setShowNewTenantModal(false);
             }}
+            title = "Add Tenant"
           />
         )}
 
@@ -291,6 +293,7 @@ export default function PropertyDetail({ role, setRole }) {
                           editProperty({ ...property, occupants: updatedOccupants });
                           setEditingOccupantIndex(null);
                         }}
+                        title = "Edit Occupant"
                       />
                     )}
                   </div>
@@ -324,6 +327,7 @@ export default function PropertyDetail({ role, setRole }) {
               editProperty({ ...property, occupants: updatedOccupants });
               setShowNewOccupantModal(false);
             }}
+            title = "Add Occupant"
           />
         )}
 
@@ -376,6 +380,7 @@ export default function PropertyDetail({ role, setRole }) {
                           editProperty({ ...property, pets: updatedPets });
                           setEditingPetIndex(null);
                         }}
+                        title = "Edit Pet"
                       />
                     )}
                   </div>
@@ -407,6 +412,7 @@ export default function PropertyDetail({ role, setRole }) {
               editProperty({ ...property, pets: updatedPets });
               setShowNewPetModal(false);
             }}
+            title = "Add Pet"
           />
         )}
 
@@ -461,6 +467,7 @@ export default function PropertyDetail({ role, setRole }) {
                           editProperty({ ...property, emergencyContacts: updatedEmergencyContacts });
                           setEditingEmergencyContactIndex(null);
                         }}
+                        title = "Edit Emergency Contact"
                       />
                     )}
                   </div>
@@ -495,6 +502,7 @@ export default function PropertyDetail({ role, setRole }) {
               editProperty({ ...property, emergencyContacts: updatedEmergencyContacts });
               setShowNewEmergencyContactModal(false);
             }}
+            title = "Add Emergency Contact"
           />
         )}
 

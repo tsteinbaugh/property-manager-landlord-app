@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import styles from '../styles/SharedModal.module.css';
 import buttonStyles from '../styles/Buttons.module.css';
 
-export default function PetModal({ pet, onClose, onSave }) {
+export default function PetModal({ pet, onClose, onSave, title = 'Edit Pet' }) {
   const [formData, setFormData] = useState({
     name:'',
     type:'',
@@ -38,7 +38,7 @@ export default function PetModal({ pet, onClose, onSave }) {
         className={styles.modalContent}
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className={styles.modalTitle}>Edit Pet</h2>
+        <h2 className={styles.modalTitle}>{title}</h2>
         <form onSubmit={handleSubmit} className={styles.form}>
           <input name="name" value={formData.name} onChange={handleChange} placeholder="Name" className={styles.input} />
           <input name="type" value={formData.type} onChange={handleChange} placeholder="Type of pet (dog, cat...)" className={styles.input} />
