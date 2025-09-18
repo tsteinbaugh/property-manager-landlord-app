@@ -158,6 +158,20 @@ export default function PropertyDetail({ role, setRole }) {
                               <li><strong>Email:</strong> {tenant.contact?.email}</li>
                             </ul>
                           </li>
+                          {role === 'landlord' && (tenant.photoIdName || tenant.photoIdDataUrl) && (
+                            <li>
+                              <strong>Photo ID:</strong> {tenant.photoIdName || '(uploaded)'}
+                              {tenant.photoIdDataUrl && (
+                                <ul className="ml-8">
+                                  <li>
+                                    <a href={tenant.photoIdDataUrl} target="_blank" rel="noreferrer">
+                                      View Photo ID
+                                    </a>
+                                  </li>
+                                </ul>
+                              )}
+                            </li>
+                          )}
                         </ul>
                       </li>
                     </ul>
