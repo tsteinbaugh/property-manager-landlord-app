@@ -94,9 +94,12 @@ export default function PropertyDetail({ role, setRole }) {
         <Link to="/dashboard" className={styles.backLink}>← Back to Properties</Link>
 
         <h1 className={styles.title}>
-          {property.address}, {property.city}, {property.state}
+          {property.address}, {property.city}, {property.state}, {property.zip}
         </h1>
           <h2 className={styles.sectionTitle}>Property Information</h2>
+        {role === 'landlord' && property.owner && (
+          <p className={styles.propertyStats}><strong>Owner:</strong> {property.owner}</p>
+        )}
         <p className={styles.propertyStats}>🛏️ {property.bedrooms} bed</p>
         <p className={styles.propertyStats}>🛁 {property.bathrooms} bath</p>
         <p className={styles.propertyStats}>📐 {property.squareFeet} sq ft</p>

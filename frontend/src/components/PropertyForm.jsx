@@ -8,6 +8,7 @@ export default function PropertyForm({ onSave, onCancel, initialData = {} }) {
     city: '',
     state: '',
     zip: '',
+    owner: '',
     bedrooms: '',
     bathrooms: '',
     squareFeet: '',
@@ -43,6 +44,7 @@ export default function PropertyForm({ onSave, onCancel, initialData = {} }) {
       <input name="city" placeholder="City" value={formData.city} onChange={handleChange} className={styles.input} />
       <input name="state" placeholder="State" value={formData.state} onChange={handleChange} className={styles.input} />
       <input name="zip" placeholder="Zip" value={formData.zip} onChange={handleChange} className={styles.input} />
+      <input name="owner" placeholder="Property Owner" value={formData.owner} onChange={handleChange} className={styles.input} />
       <input name="bedrooms" placeholder="Bedrooms" value={formData.bedrooms} onChange={handleChange} className={styles.input} />
       <input name="bathrooms" placeholder="Bathrooms" value={formData.bathrooms} onChange={handleChange} className={styles.input} />
       <input name="squareFeet" placeholder="Square Feet" value={formData.squareFeet} onChange={handleChange} className={styles.input} />
