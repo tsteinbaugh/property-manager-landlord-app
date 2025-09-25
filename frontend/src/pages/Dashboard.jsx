@@ -28,7 +28,6 @@ export default function Dashboard({ role, setRole }) {
     <div className="p-4">
       <Header setRole={setRole} />
 
-      {/* Search bar: ONLY on the Dashboard */}
       <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '10px 0 16px' }}>
         <div style={{ width: 520, maxWidth: '100%' }}>
           <GlobalSearch

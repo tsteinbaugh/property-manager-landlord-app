@@ -46,6 +46,7 @@ function buildIndex(properties = []) {
       city: p.city || "",
       state: p.state || "",
       zip: p.zip || "",
+      owner: p.owner || "",
       phone: "",
       phoneNorm: "",
       email: "",
@@ -216,6 +217,7 @@ export default function GlobalSearch({
         { name: "city", weight: 0.4 },
         { name: "state", weight: 0.35 },
         { name: "zip", weight: 0.35 },
+        { name: "owner", weigh: 0.5 },
         { name: "type", weight: 0.3 },
         { name: "breed", weight: 0.25 },
         { name: "relation", weight: 0.2 },
@@ -289,12 +291,13 @@ export default function GlobalSearch({
     if (d.phone) secondary.push(d.phone);
     if (d.address) secondary.push(d.address);
     if (d.city) secondary.push(d.city);
+    if (d.owner) secondary.push(d.owner);
     if (d.type) secondary.push(d.type);
     if (d.breed) secondary.push(d.breed);
     if (d.relation) secondary.push(d.relation);
 
     const primary =
-      d.name || d.email || d.phone || d.address || d.city || d.propertyName || "(no label)";
+      d.name || d.email || d.phone || d.address || d.city || d.owner || d.propertyName || "(no label)";
 
     return (
       <button
