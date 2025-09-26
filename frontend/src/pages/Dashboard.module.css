@@ -15,3 +15,16 @@
   background-color: #2563eb; /* blue-600 */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
+.container {
+  padding-left: 24px;   /* left margin, same as property list */
+  padding-right: 24px;  /* optional symmetry */
+}
+
+.heading {
+  margin: 16px 0;
+}
+
+.buttonRow {
+  margin: 16px 0;
+}

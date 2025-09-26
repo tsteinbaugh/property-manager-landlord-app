@@ -1,0 +1,44 @@
+.table {
+  border-collapse: separate;
+  border-spacing: 0 8px;   /* vertical spacing between rows */
+  width: auto;             /* hug content */
+}
+
+.cell {
+  white-space: nowrap;
+  vertical-align: middle;
+  padding-right: 16px;
+  font-size: 16px;
+}
+
+.details {
+  padding-right: 24px;
+}
+
+.lightCell {
+  width: 160px;            /* fixed width so dots line up */
+  text-align: center;      /* center dots under header */
+}
+
+.headerCell {
+  font-weight: 600;
+  font-size: 18px;
+  color: #111827;          /* neutral gray */
+  padding-bottom: 6px;
+  text-align: center;
+}
+
+.addrLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.addrText {
+  font-size: 24px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tableWrap {
+  padding-left: 24px;      /* left margin */
+}
