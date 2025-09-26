@@ -1,4 +1,5 @@
 import Header from '../components/Header';
+import dashStyles from './Dashboard.module.css';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropertyList from './PropertyList';
@@ -25,7 +26,7 @@ export default function Dashboard({ role, setRole }) {
   };
 
   return (
-    <div className="p-4">
+    <div className={dashStyles.container}>
       <Header setRole={setRole} />
 
       <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '10px 0 16px' }}>
@@ -38,14 +39,14 @@ export default function Dashboard({ role, setRole }) {
         </div>
       </div>
 
-      <h1 className="text-3xl font-bold mb-4">
+      <h1 className='${dashStyles.heading} text-3xl font-bold'>
         {role === 'landlord' ? 'Landlord' : 'Property Manager'} Dashboard
       </h1>
 
       <PropertyList role={role} properties={properties} />
 
       {role === 'landlord' && (
-        <div className="mb-4">
+        <div className={dashStyles.buttonRow}>
           <button
             onClick={() => setShowModal(true)}
             className={buttonStyles.primaryButton}
