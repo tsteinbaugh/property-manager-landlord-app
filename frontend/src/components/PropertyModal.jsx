@@ -1,8 +1,8 @@
 import styles from './PropertyModal.module.css';
 import PropertyForm from './PropertyForm';
 
-export default function PropertyModal({ onClose, onSave, initialData }) {
-  console.log('PropertyModal props:', { onSave, onClose, initialData });
+export default function PropertyModal({ isOpen, onClose, onSave, initialData }) {
+  if (!isOpen) return null;
 
   return (
     <div className={styles.modalOverlay}>

@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 import styles from '../styles/SharedModal.module.css';
 import buttonStyles from '../styles/Buttons.module.css';
 
-export default function OccupantModal({ occupant, onClose, onSave, title = 'Edit Occupant' }) {
+export default function OccupantModal({ isOpen, occupant, onClose, onSave, title = 'Edit Occupant' }) {
+  if (!isOpen) return null;
+
   const [formData, setFormData] = useState({
     name: '',
     age: '',
