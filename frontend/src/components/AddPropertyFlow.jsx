@@ -9,7 +9,7 @@ export default function AddPropertyFlow({ onComplete, onCancel }) {
   const [step, setStep] = useState(1);
   const [propertyData, setPropertyData] = useState({});
   const [tenants, setTenants] = useState([]);
-  const [showTenantModal, setShowTenantModal] = useState(false);
+  const [showNewTenantModal, setNewShowTenantModal] = useState(false);
 
   const handlePropertySave = (data) => {
     setPropertyData(data);
@@ -78,8 +78,9 @@ export default function AddPropertyFlow({ onComplete, onCancel }) {
 
             {showTenantModal && (
               <TenantModal
+                isOpen={showNewTenantModal}
                 tenant={{ name: '', age: '', occupation: '', contact: { phone: '', email: '' } }}
-                onClose={() => setShowTenantModal(false)}
+                onClose={() => setShowNewTenantModal(false)}
                 onSave={handleTenantSave}
                 title="Add Tenant"
               />

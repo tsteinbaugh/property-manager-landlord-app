@@ -127,7 +127,8 @@ export default function PropertyDetail({ role, setRole }) {
         )}
 
         {showEditModal && editingProperty && (
-          <PropertyModal
+          <PropertyModal 
+            isOpen={showEditModal} 
             initialData={editingProperty}
             onClose={() => setShowEditModal(false)}
             onSave={(updated) => {
@@ -198,6 +199,7 @@ export default function PropertyDetail({ role, setRole }) {
 
                     {editingTenantIndex === idx && (
                       <TenantModal
+                        isOpen={true}
                         tenant={tenant}
                         onClose={() => setEditingTenantIndex(null)}
                         onSave={(updatedTenant) => {
@@ -231,6 +233,7 @@ export default function PropertyDetail({ role, setRole }) {
 
         {showNewTenantModal && (
           <TenantModal
+            isOpen={showNewTenantModal}
             tenant={{ name: '', age: '', occupation: '', contact: { phone: '', email: '' } }}
             onClose={() => setShowNewTenantModal(false)}
             onSave={(newTenant) => {
@@ -302,6 +305,7 @@ export default function PropertyDetail({ role, setRole }) {
 
                     {editingOccupantIndex === idx && (
                       <OccupantModal
+                        isOpen={true}
                         occupant={occupant}
                         onClose={() => setEditingOccupantIndex(null)}
                         onSave={(updatedOccupant) => {
@@ -337,6 +341,7 @@ export default function PropertyDetail({ role, setRole }) {
 
         {showNewOccupantModal && (
           <OccupantModal
+            isOpen={showNewOccupantModal}
             occupant={{ name: '', age: '', occupation: '', relationship: '', contact: { phone: '', email: '' } }}
             onClose={() => setShowNewOccupantModal(false)}
             onSave={(newOccupant) => {
@@ -389,6 +394,7 @@ export default function PropertyDetail({ role, setRole }) {
 
                     {editingPetIndex === idx && (
                       <PetModal
+                        isOpen={true}
                         pet={pet}
                         onClose={() => setEditingPetIndex(null)}
                         onSave={(updatedPet) => {
@@ -422,6 +428,7 @@ export default function PropertyDetail({ role, setRole }) {
 
         {showNewPetModal && (
           <PetModal
+            isOpen={showNewPetModal}
             pet={{ name: '', type: '', size: '', license: '' }}
             onClose={() => setShowNewPetModal(false)}
             onSave={(newPet) => {
@@ -444,8 +451,7 @@ export default function PropertyDetail({ role, setRole }) {
                       <li>
                         <strong>Name:</strong> {emergencyContact.name}
                         <ul className="ml-6">
-                          <li>
-                          <li><strong>Contact:</strong></li>
+                          <li><strong>Contact:</strong>
                             <ul className="ml-8">
                               <li><strong>Phone:</strong> {emergencyContact.contact.phone}</li>
                               {emergencyContact.contact.email && (
@@ -476,6 +482,7 @@ export default function PropertyDetail({ role, setRole }) {
 
                     {editingEmergencyContactIndex === idx && (
                       <EmergencyContactModal
+                        isOpen={true}
                         emergencyContact={emergencyContact}
                         onClose={() => setEditingEmergencyContactIndex(null)}
                         onSave={(updatedEmergencyContact) => {
@@ -512,7 +519,8 @@ export default function PropertyDetail({ role, setRole }) {
 
         {showNewEmergencyContactModal && (
           <EmergencyContactModal
-            EmergencyContact={{ name: '', contact: { phone: '', email: '' } }}
+            isOpen={showNewEmergencyContactModal}
+            emergencyContact={{ name: '', contact: { phone: '', email: '' } }}
             onClose={() => setShowNewEmergencyContactModal(false)}
             onSave={(newEmergencyContact) => {
               const updatedEmergencyContacts = [...(property.emergencyContacts || []), newEmergencyContact];
@@ -545,7 +553,8 @@ export default function PropertyDetail({ role, setRole }) {
                   </div>
 
                   {editingFinancialIndex === 0 && (
-                    <FinancialModal
+                    <FinancialModal 
+                      isOpen={true}
                       financial={property.financials[0]}
                       onClose={() => setEditingFinancialIndex(null)}
                       onSave={(updatedFinancial) => {

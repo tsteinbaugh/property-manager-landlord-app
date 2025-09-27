@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 import styles from '../styles/SharedModal.module.css';
 import buttonStyles from '../styles/Buttons.module.css';
 
-export default function EmergencyContactModal({ emergencyContact, onClose, onSave, title = 'Edit Emergency Contact' }) {
+export default function EmergencyContactModal({ isOpen, emergencyContact, onClose, onSave, title = 'Edit Emergency Contact' }) {
+  if (!isOpen) return null;
+
   const [formData, setFormData] = useState({
     name: '',
     contact: {

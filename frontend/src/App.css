@@ -2,7 +2,9 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .logo {
@@ -40,3 +42,33 @@
 .read-the-docs {
   color: #888;
 }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-y: scroll;   /* body is the scroll container */
+  overflow-x: hidden;   /* prevent sideways scroll */
+}
+
+body {
+  -webkit-overflow-scrolling: touch; /* smooth scrolling on trackpads/touch */
+}
+
+.app-scroll {
+  overflow: visible;
+  height: auto;
+  min-height: auto;
+  flex: 1 1 auto;
+}
+
+/* If any modal code adds overflow: hidden to <body>, override it */
+body.modal-open {
+  overflow: scroll !important;
+}
+
+body, #root {
+  text-align: left;
+}
+
+:root { scrollbar-gutter: stable both-edges; }

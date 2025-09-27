@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 import styles from '../styles/SharedModal.module.css';
 import buttonStyles from '../styles/Buttons.module.css';
 
-export default function PetModal({ pet, onClose, onSave, title = 'Edit Pet' }) {
+export default function PetModal({ isOpen, pet, onClose, onSave, title = 'Edit Pet' }) {
+  if (!isOpen) return null;
+
   const [formData, setFormData] = useState({
     name:'',
     type:'',

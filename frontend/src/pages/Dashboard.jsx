@@ -5,8 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import PropertyList from './PropertyList';
 import PropertyModal from '../components/PropertyModal';
 import { useProperties } from '../context/PropertyContext';
-import GlobalSearch from '../components/GlobalSearch'; // <-- NEW
-import styles from './Dashboard.module.css';
+import GlobalSearch from '../components/GlobalSearch';
 import buttonStyles from '../styles/Buttons.module.css';
 
 export default function Dashboard({ role, setRole }) {
@@ -15,9 +14,7 @@ export default function Dashboard({ role, setRole }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!role) {
-      navigate('/');
-    }
+    if (!role) navigate('/');
   }, [role, navigate]);
 
   const handleAddProperty = (newProperty) => {
@@ -33,13 +30,13 @@ export default function Dashboard({ role, setRole }) {
         <div style={{ width: 520, maxWidth: '100%' }}>
           <GlobalSearch
             properties={properties}
-            onOpenProperty={(id) => navigate(`/property/${id}`)} // <-- correct route
+            onOpenProperty={(id) => navigate(`/property/${id}`)}
             placeholder="Search name, phone, email, address, pet…"
           />
         </div>
       </div>
 
-      <h1 className='${dashStyles.heading} text-3xl font-bold'>
+      <h1 className={dashStyles.heading}>
         {role === 'landlord' ? 'Landlord' : 'Property Manager'} Dashboard
       </h1>
 
@@ -56,15 +53,12 @@ export default function Dashboard({ role, setRole }) {
         </div>
       )}
 
-      {showModal && (
-        <PropertyModal
-          onClose={() => setShowModal(false)}
-          onSave={(newProperty) => {
-            addProperty(newProperty);
-            setShowModal(false);
-          }}
-        />
-      )}
+      {/* Render the modal and control visibility via isOpen */}
+      <PropertyModal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        onSave={handleAddProperty}
+      />
     </div>
   );
 }

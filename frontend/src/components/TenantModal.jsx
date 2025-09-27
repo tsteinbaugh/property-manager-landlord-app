@@ -2,7 +2,9 @@ import styles from '../styles/SharedModal.module.css';
 import buttonStyles from '../styles/Buttons.module.css';
 import { useState, useEffect } from 'react';
 
-export default function TenantModal({ tenant, onClose, onSave, title = 'Edit Tenant' }) {
+export default function TenantModal({ isOpen, tenant, onClose, onSave, title = 'Edit Tenant' }) {
+  if (!isOpen) return null;
+
   const [formData, setFormData] = useState({
     name: '',
     age: '',

@@ -2,7 +2,9 @@ import styles from '../styles/SharedModal.module.css';
 import buttonStyles from '../styles/Buttons.module.css';
 import { useState, useEffect } from 'react';
 
-export default function FinancialModal({ financial, onClose, onSave }) {
+export default function FinancialModal({ isOpen, financial, onClose, onSave }) {
+  if (!isOpen) return null;
+
   const [formData, setFormData] = useState({
     rent: '',
     securityDeposit: '',
