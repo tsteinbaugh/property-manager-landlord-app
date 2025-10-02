@@ -11,6 +11,7 @@ import OccupantModal from '../components/OccupantModal';
 import PetModal from '../components/PetModal';
 import EmergencyContactModal from '../components/EmergencyContactModal';
 import FinancialModal from '../components/FinancialModal';
+import Breadcrumbs from "../components/ui/Breadcrumbs";
 
 export default function PropertyDetail({ role, setRole }) {
   const [editingProperty, setEditingProperty] = useState(null);
@@ -91,7 +92,12 @@ export default function PropertyDetail({ role, setRole }) {
     <>
       <div className={styles.container}>
         <Header setRole={setRole} />
-        <Link to="/dashboard" className={styles.backLink}>← Back to Properties</Link>
+        <Breadcrumbs
+          items={[
+            { label: "Dashboard", to: "/dashboard" },
+            { label: `${property.address}, ${property.city}` },
+          ]}
+        />
 
         <h1 className={styles.title}>
           {property.address}, {property.city}, {property.state}, {property.zip}
@@ -100,9 +106,9 @@ export default function PropertyDetail({ role, setRole }) {
         {role === 'landlord' && property.owner && (
           <p className={styles.propertyStats}><strong>Owner:</strong> {property.owner}</p>
         )}
-        <p className={styles.propertyStats}>🛏️ {property.bedrooms} bed</p>
-        <p className={styles.propertyStats}>🛁 {property.bathrooms} bath</p>
-        <p className={styles.propertyStats}>📐 {property.squareFeet} sq ft</p>
+        <p className={styles.propertyStats}>🛏️ {property.bedrooms ?? "—"} bed</p>
+        <p className={styles.propertyStats}>🛁 {property.bathrooms ?? "—"} bath</p>
+        <p className={styles.propertyStats}>📐 {property.squareFeet ?? "—"} sq ft</p>
 
         {role === 'landlord' && (
           <div className={layoutStyles.buttonGroup}>
@@ -531,47 +537,61 @@ export default function PropertyDetail({ role, setRole }) {
           />
         )}
 
-        {role === 'landlord' && property.financials && (
+        {role === 'landlord' && (
           <div className={styles.container}>
             <h2 className={styles.sectionTitle}>Financials</h2>
-            <div className={styles.propertyStats}>
-              {property.financials?.[0] ? (
-                <div className="ml-4">
-                  <ul className={styles.list}>
-                    <li><strong>Rent:</strong> ${property.financials[0].rent}</li>
-                    <li><strong>Security Deposit:</strong> ${property.financials[0].securityDeposit}</li>
-                    <li><strong>Pet Deposit:</strong> ${property.financials[0].petDeposit}</li>
-                  </ul>
 
-                  <div className={layoutStyles.buttonGroup}>
-                    <button
-                      className={buttonStyles.primaryButton}
-                      onClick={() => setEditingFinancialIndex(0)}
-                    >
-                      Edit Financials
-                    </button>
-                  </div>
-
-                  {editingFinancialIndex === 0 && (
-                    <FinancialModal 
-                      isOpen={true}
-                      financial={property.financials[0]}
-                      onClose={() => setEditingFinancialIndex(null)}
-                      onSave={(updatedFinancial) => {
-                        const updatedFinancials = [...property.financials];
-                        updatedFinancials[0] = updatedFinancial;
-                        editProperty({ ...property, financials: updatedFinancials });
-                        setEditingFinancialIndex(null);
-                      }}
-                    />
-                  )}
+            {/* New-style summary */}
+            {property.financialConfig ? (
+              <div className={styles.propertyStats}>
+                <ul className={styles.list}>
+                  <li>
+                    <strong>Rent:</strong>{" "}
+                    {(() => {
+                      // Try to infer the monthly rent from the first unpaid month in the schedule,
+                      // or from leaseExtract if present.
+                      const firstRow = Array.isArray(property.financialSchedule) ? property.financialSchedule[0] : null;
+                      const rent =
+                        (firstRow && (firstRow.expectedBase || 0)) ||
+                        property.leaseExtract?.fields?.monthlyRent ||
+                        null;
+                      return rent != null ? `$${Number(rent).toFixed(2)}` : "(not set)";
+                    })()}
+                  </li>
+                  <li>
+                    <strong>Due Day:</strong>{" "}
+                    {property.leaseExtract?.fields?.dueDay ??
+                     "(see schedule)"}
+                  </li>
+                  <li>
+                    <strong>Security Deposit:</strong>{" "}
+                    {(() => {
+                      const firstRow = Array.isArray(property.financialSchedule) ? property.financialSchedule[0] : null;
+                      const dep = firstRow?.securityDeposit ?? property.leaseExtract?.fields?.securityDeposit;
+                      return dep != null ? `$${Number(dep).toFixed(2)}` : "(not set)";
+                    })()}
+                  </li>
+                </ul>
+                  
+                <div className={layoutStyles.buttonGroup}>
+                  <Link className={buttonStyles.primaryButton} to={`/properties/${property.id}/financials`}>
+                    Open Financials
+                  </Link>
                 </div>
-              ) : (
-                <p className="ml-4 italic text-gray-500">None</p>
-              )}
-            </div>
+              </div>
+            ) : (
+              <div className={styles.propertyStats}>
+                <p className="ml-4 italic text-gray-500">Financials not configured yet.</p>
+                <div className={layoutStyles.buttonGroup}>
+                  <Link className={buttonStyles.primaryButton} to={`/properties/${property.id}/financials`}>
+                    Set Up Financials
+                  </Link>
+                </div>
+              </div>
+            )}
           </div>
         )}
+
 
         {role === 'landlord' && (
           <div className={styles.container}>

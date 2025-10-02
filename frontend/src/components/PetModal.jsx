@@ -1,73 +1,59 @@
-import { useState, useEffect } from 'react';
-import styles from '../styles/SharedModal.module.css';
-import buttonStyles from '../styles/Buttons.module.css';
+// src/components/PetModal.jsx
+import { useState, useEffect } from "react";
+import styles from "../styles/SharedModal.module.css";
+import buttonStyles from "../styles/Buttons.module.css";
+import FloatingField from "./ui/FloatingField";
+import ModalRoot from "./ui/ModalRoot";
 
-export default function PetModal({ isOpen, pet, onClose, onSave, title = 'Edit Pet' }) {
-  if (!isOpen) return null;
-
-  const [formData, setFormData] = useState({
-    name:'',
-    type:'',
-    size:'',
-    license:'',
-  });
-
+export default function PetModal({ isOpen, pet, onClose, onSave, title = "Edit Pet" }) {
+  const [formData, setFormData] = useState({ name: "", type: "", size: "", license: "" });
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    if (pet) {
-      setFormData({...pet});
+    if (!pet) {
+      setFormData({ name: "", type: "", size: "", license: "" });
+      return;
     }
+    setFormData({
+      name: pet.name || "",
+      type: pet.type || "",
+      size: pet.size || "",
+      license: pet.license || "",
+    });
   }, [pet]);
 
-  const handleChange = (e) => {
+  function handleChange(e) {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+    setFormData(prev => ({ ...prev, [name]: value }));
+  }
 
-  const isFormValid = formData.name.trim() !== '' && formData.type.trim() !== '';
+  const isFormValid = (formData.name || "").trim() !== "" && (formData.type || "").trim() !== "";
 
-  const handleSubmit = (e) => {
+  function handleSubmit(e) {
     e.preventDefault();
     setSubmitted(true);
     if (!isFormValid) return;
-    onSave(formData);
-  };
+    onSave?.(formData);
+  }
 
   return (
-    <div className={styles.modalOverlay} onClick={onClose}>
-      <div 
-        className={styles.modalContent}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <h2 className={styles.modalTitle}>{title}</h2>
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <input name="name" value={formData.name} onChange={handleChange} placeholder="Name" className={styles.input} />
-          <input name="type" value={formData.type} onChange={handleChange} placeholder="Type of pet (dog, cat...)" className={styles.input} />
-          <input name="size" value={formData.size} onChange={handleChange} placeholder="Size (small, medium, large, or weight)" className={styles.input} />
-          <input name="license" value={formData.license} onChange={handleChange} placeholder="License #" className={styles.input} />
+    <ModalRoot isOpen={!!isOpen} onClose={onClose} width={560}>
+      <h2 className={styles.modalTitle}>{title}</h2>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <FloatingField name="name" label="Name" value={formData.name} onChange={handleChange} required />
+        <FloatingField name="type" label="Type of pet (dog, cat…)" value={formData.type} onChange={handleChange} required />
+        <FloatingField name="size" label="Size (small/medium/large or weight)" value={formData.size} onChange={handleChange} />
+        <FloatingField name="license" label="License #" value={formData.license} onChange={handleChange} />
 
-          {submitted && !isFormValid && (
-            <p className={styles.validationText}>Please fill in name and type of pet.</p>
-          )}
+        {submitted && !isFormValid && (
+          <p className={styles.validationText}>Please fill in name and type of pet.</p>
+        )}
 
-          <div className={styles.modalButtons}>
-            <button 
-              type="submit"
-              className={buttonStyles.primaryButton}
-            >
-              Save
-            </button>
-            <button
-              type="button"
-              onClick={onClose}
-              className={buttonStyles.secondaryButton}
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+        <div className={styles.modalButtons}>
+          <button type="submit" className={buttonStyles.primaryButton}>Save</button>
+          <button type="button" onClick={onClose} className={buttonStyles.secondaryButton}>Cancel</button>
+        </div>
+      </form>
+    </ModalRoot>
   );
 }

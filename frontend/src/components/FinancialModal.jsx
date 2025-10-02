@@ -1,6 +1,7 @@
 import styles from '../styles/SharedModal.module.css';
 import buttonStyles from '../styles/Buttons.module.css';
 import { useState, useEffect } from 'react';
+import FloatingField from "./ui/FloatingField";
 
 export default function FinancialModal({ isOpen, financial, onClose, onSave }) {
   if (!isOpen) return null;
@@ -49,26 +50,26 @@ export default function FinancialModal({ isOpen, financial, onClose, onSave }) {
         <h2 className={styles.modalTitle}>Edit Financials</h2>
 
         <form onSubmit={handleSubmit} className={styles.form}>
-          <input
+          <FloatingField
             name="rent"
             value={formData.rent}
             onChange={handleChange}
-            placeholder="Rent"
-            className={styles.input}
+            label="Rent"
+            required
           />
-          <input
+          <FloatingField
             name="securityDeposit"
             value={formData.securityDeposit}
             onChange={handleChange}
-            placeholder="Security Deposit"
-            className={styles.input}
+            label="Security Deposit"
+            required
           />
-          <input
+          <FloatingField
             name="petDeposit"
             value={formData.petDeposit}
             onChange={handleChange}
-            placeholder="Pet Deposit"
-            className={styles.input}
+            label="Pet Deposit"
+            required
           />
 
           {submitted && !isFormValid && (

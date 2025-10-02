@@ -1,68 +1,63 @@
-import { useState, useEffect } from 'react';
-import styles from '../styles/SharedModal.module.css';
-import buttonStyles from '../styles/Buttons.module.css';
+// src/components/EmergencyContactModal.jsx
+import { useState, useEffect } from "react";
+import styles from "../styles/SharedModal.module.css";
+import buttonStyles from "../styles/Buttons.module.css";
+import FloatingField from "./ui/FloatingField";
+import ModalRoot from "./ui/ModalRoot";
 
-export default function EmergencyContactModal({ isOpen, emergencyContact, onClose, onSave, title = 'Edit Emergency Contact' }) {
-  if (!isOpen) return null;
-
-  const [formData, setFormData] = useState({
-    name: '',
-    contact: {
-      phone: '',
-      email: '',
-    },
-  });
-
+export default function EmergencyContactModal({ isOpen, emergencyContact, onClose, onSave, title = "Edit Emergency Contact" }) {
+  const [formData, setFormData] = useState({ name: "", contact: { phone: "", email: "" } });
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    if (emergencyContact) {
-      setFormData({...emergencyContact});
+    if (!emergencyContact) {
+      setFormData({ name: "", contact: { phone: "", email: "" } });
+      return;
     }
+    setFormData({
+      name: emergencyContact.name || "",
+      contact: {
+        phone: emergencyContact?.contact?.phone || "",
+        email: emergencyContact?.contact?.email || "",
+      },
+    });
   }, [emergencyContact]);
 
-  const handleChange = (e) => {
+  function handleChange(e) {
     const { name, value } = e.target;
-
-    if (name === 'phone' || name === 'email') {
-      setFormData((prev) => ({
-        ...prev,
-        contact: { ...prev.contact, [name]: value },
-      }));
+    if (name === "phone" || name === "email") {
+      setFormData(prev => ({ ...prev, contact: { ...(prev.contact || {}), [name]: value } }));
     } else {
-      setFormData((prev) => ({ ...prev, [name]: value }));
+      setFormData(prev => ({ ...prev, [name]: value }));
     }
-  };
+  }
 
-  const isFormValid = formData.name.trim() !== '' && formData.contact.phone.trim() !== '';
+  const isFormValid = (formData.name || "").trim() !== "" && (formData.contact.phone || "").trim() !== "";
 
-  const handleSubmit = (e) => {
+  function handleSubmit(e) {
     e.preventDefault();
     setSubmitted(true);
     if (!isFormValid) return;
-    onSave(formData);
-  };
+    onSave?.(formData);
+  }
 
   return (
-    <div className={styles.modalOverlay} onClick={onClose}>
-      <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-        <h2 className={styles.modalTitle}>{title}</h2>
+    <ModalRoot isOpen={!!isOpen} onClose={onClose} width={560}>
+      <h2 className={styles.modalTitle}>{title}</h2>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <FloatingField name="name" label="Name" value={formData.name} onChange={handleChange} required />
+        <FloatingField name="phone" label="Phone" value={formData.contact?.phone || ""} onChange={handleChange} required />
+        <FloatingField name="email" type="email" label="Email" value={formData.contact?.email || ""} onChange={handleChange} />
 
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" className={styles.input} />
-          <input type="text" name="phone" value={formData.contact?.phone || ''} onChange={handleChange} placeholder="Phone" className={styles.input} />
-          <input type="text" name="email" value={formData.contact?.email || ''} onChange={handleChange} placeholder="Email" className={styles.input} />
+        {submitted && !isFormValid && (
+          <p className={styles.validationText}>Please enter name and phone number.</p>
+        )}
 
-          {submitted && !isFormValid && (
-            <p className={styles.validationText}>Please enter name and phone number.</p>
-          )}
-
-          <div className={styles.modalButtons}>
-            <button type="submit" className={buttonStyles.primaryButton}>Save</button>
-            <button type="button" onClick={onClose} className={buttonStyles.secondaryButton}>Cancel</button>
-          </div>
-        </form>
-      </div>
-    </div>
+        <div className={styles.modalButtons}>
+          <button type="submit" className={buttonStyles.primaryButton}>Save</button>
+          <button type="button" onClick={onClose} className={buttonStyles.secondaryButton}>Cancel</button>
+        </div>
+      </form>
+    </ModalRoot>
   );
 }

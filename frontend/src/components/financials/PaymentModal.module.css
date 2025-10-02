@@ -1,0 +1,7 @@
+.backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display: flex; align-items: center; justify-content: center; z-index: 50; }
+.modal { background: #fff; width: 420px; max-width: calc(100% - 2rem); border-radius: 14px; padding: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+.row { display: grid; grid-template-columns: 120px 1fr; gap: 8px; align-items: center; margin-bottom: 10px; }
+.row input, .row select, .row textarea { width: 100%; padding: 8px; border: 1px solid #e5e7eb; border-radius: 8px; }
+.actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 12px; }
+.btnPrimary { background:#111827; color:#fff; padding:8px 12px; border:none; border-radius:8px; cursor:pointer; }
+.btnSecondary { background:#f3f4f6; color:#111827; padding:8px 12px; border:none; border-radius:8px; cursor:pointer; }

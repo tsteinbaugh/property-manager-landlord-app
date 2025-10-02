@@ -1,13 +1,83 @@
+// src/context/PropertyContext.jsx
 import { createContext, useContext, useState } from 'react';
 import initialProperties from '../data/properties';
 
 const PropertyContext = createContext();
 
+const toNumOrNull = (v) => {
+  if (v === "" || v === null || v === undefined) return null;
+  const n = Number(v);
+  return Number.isFinite(n) ? n : null;
+};
+
 export function PropertyProvider({ children }) {
   const [properties, setProperties] = useState(initialProperties);
 
-  const addProperty = (property) => {
-    setProperties((prev) => [...prev, property]);
+  const addProperty = (payload) => {
+    let newProperty;
+
+    if (payload && !payload.property) {
+      // FLAT SHAPE (what Dashboard sends)
+      newProperty = {
+        id: payload.id ?? Date.now(),
+        address: payload.address || "",
+        city: payload.city || "",
+        state: payload.state || "",
+        zip: payload.zip || "",
+        owner: payload.owner || "",
+        bedrooms: toNumOrNull(payload.bedrooms),
+        bathrooms: toNumOrNull(payload.bathrooms),
+        squareFeet: toNumOrNull(payload.squareFeet),
+        tenants: payload.tenants || [],
+        occupants: payload.occupants || [],
+        pets: payload.pets || [],
+        emergencyContacts: payload.emergencyContacts || [],
+        leaseFile: payload.leaseFile ?? null,
+        leaseExtract: payload.leaseExtract ?? null,
+        financialConfig: payload.financialConfig ?? null,
+        // normalize names
+        financialSchedule: payload.financialSchedule || payload.schedule || [],
+      };
+    } else {
+      // WIZARD SHAPE (property + parts)
+      const {
+        property = {},
+        leaseFile,
+        leaseExtract,
+        financialConfig,
+        schedule,
+        tenants,
+        occupants,
+        pets,
+        emergencyContacts,
+      } = payload || {};
+
+      newProperty = {
+        id: Date.now(),
+        address: property.address || "",
+        city: property.city || "",
+        state: property.state || "",
+        zip: property.zip || "",
+        owner: property.owner || "",
+        bedrooms: toNumOrNull(property.bedrooms),
+        bathrooms: toNumOrNull(property.bathrooms),
+        squareFeet: toNumOrNull(property.squareFeet),
+        tenants: tenants || [],
+        occupants: occupants || [],
+        pets: pets || [],
+        emergencyContacts: emergencyContacts || [],
+        leaseFile: leaseFile ? leaseFile.name : null,
+        leaseExtract: leaseExtract || null,
+        financialConfig: financialConfig || null,
+        financialSchedule: Array.isArray(property.financialSchedule)
+          ? property.financialSchedule
+          : Array.isArray(schedule)
+          ? schedule
+          : [],
+      };
+    }
+
+    setProperties((prev) => [...prev, newProperty]);
   };
 
   const editProperty = (updatedProperty) => {
@@ -21,9 +91,7 @@ export function PropertyProvider({ children }) {
   };
 
   return (
-    <PropertyContext.Provider
-      value={{ properties, addProperty, editProperty, deleteProperty }}
-    >
+    <PropertyContext.Provider value={{ properties, addProperty, editProperty, deleteProperty }}>
       {children}
     </PropertyContext.Provider>
   );
