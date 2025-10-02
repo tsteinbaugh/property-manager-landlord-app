@@ -1,5 +1,4 @@
 // property-manager-landlord-app/frontend/src/pages/Dashboard.jsx
-import Header from '../components/Header';
 import dashStyles from './Dashboard.module.css';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -57,8 +56,6 @@ export default function Dashboard({ role, setRole }) {
 
   return (
     <div className={dashStyles.container}>
-      <Header setRole={setRole} />
-
       <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '10px 0 16px' }}>
         <div style={{ width: 520, maxWidth: '100%' }}>
           <GlobalSearch

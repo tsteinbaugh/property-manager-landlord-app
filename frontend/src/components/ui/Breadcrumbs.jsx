@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import css from "./Breadcrumbs.module.css";
+import { useProperties } from "../../context/PropertyContext"; // your file
+import { formatPropertyBreadcrumb } from "../../utils/formatAddress";
 
 export default function Breadcrumbs({ items = [] }) {
   // items: [{ label: "Dashboard", to: "/dashboard" }, { label: "123 Main St" }]

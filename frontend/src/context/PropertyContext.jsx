@@ -1,8 +1,7 @@
-// src/context/PropertyContext.jsx
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useMemo, useState } from 'react';
 import initialProperties from '../data/properties';
 
-const PropertyContext = createContext();
+const PropertyContext = createContext(null);
 
 const toNumOrNull = (v) => {
   if (v === "" || v === null || v === undefined) return null;
@@ -17,7 +16,7 @@ export function PropertyProvider({ children }) {
     let newProperty;
 
     if (payload && !payload.property) {
-      // FLAT SHAPE (what Dashboard sends)
+      // FLAT SHAPE (Dashboard)
       newProperty = {
         id: payload.id ?? Date.now(),
         address: payload.address || "",
@@ -35,7 +34,6 @@ export function PropertyProvider({ children }) {
         leaseFile: payload.leaseFile ?? null,
         leaseExtract: payload.leaseExtract ?? null,
         financialConfig: payload.financialConfig ?? null,
-        // normalize names
         financialSchedule: payload.financialSchedule || payload.schedule || [],
       };
     } else {
@@ -81,22 +79,29 @@ export function PropertyProvider({ children }) {
   };
 
   const editProperty = (updatedProperty) => {
-    setProperties((prev) =>
-      prev.map((p) => (p.id === updatedProperty.id ? updatedProperty : p))
-    );
+    setProperties((prev) => prev.map((p) => (p.id === updatedProperty.id ? updatedProperty : p)));
   };
 
   const deleteProperty = (id) => {
     setProperties((prev) => prev.filter((p) => p.id !== id));
   };
 
-  return (
-    <PropertyContext.Provider value={{ properties, addProperty, editProperty, deleteProperty }}>
-      {children}
-    </PropertyContext.Provider>
+  // NEW: used by SmartBreadcrumbs / pages
+  const getPropertyById = (id) => {
+    if (id == null) return undefined;
+    return properties.find((p) => String(p.id) === String(id));
+  };
+
+  const value = useMemo(
+    () => ({ properties, addProperty, editProperty, deleteProperty, getPropertyById }),
+    [properties]
   );
+
+  return <PropertyContext.Provider value={value}>{children}</PropertyContext.Provider>;
 }
 
 export function useProperties() {
-  return useContext(PropertyContext);
+  const ctx = useContext(PropertyContext);
+  if (!ctx) throw new Error('useProperties must be used within a PropertyProvider');
+  return ctx;
 }

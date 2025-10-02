@@ -1,0 +1,47 @@
+.avatarBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 9999px;
+}
+
+.avatarCircle {
+  width: 28px;
+  height: 28px;
+  border-radius: 9999px;
+  background: #d1d5db;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.menu {
+  position: absolute;
+  right: 0;
+  margin-top: 8px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+  min-width: 200px;
+  padding: 6px;
+}
+
+.item {
+  display: block;
+  width: 100%;
+  background: transparent;
+  border: none;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.item:hover {
+  background: #f3f4f6;
+}

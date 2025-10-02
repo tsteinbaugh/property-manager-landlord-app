@@ -1,20 +1,27 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useMemo, useState } from 'react';
 
-const UserContext = createContext();
+const UserContext = createContext(null);
 
 export function UserProvider({ children }) {
-  const [role, setRole] = useState(null); // start with no role
+  const [role, setRole] = useState(null); // 'landlord' | 'manager' | null
+  const [user, setUser] = useState({
+    name: 'Taylor Steinbaugh',
+    email: 'taylor@example.com',
+    avatarUrl: '', // set a URL if you have one
+  });
 
-  return (
-    <UserContext.Provider value={{ role, setRole }}>
-      {children}
-    </UserContext.Provider>
-  );
+  const signOut = () => {
+    // TODO: plug in real sign-out later (clear tokens, etc.)
+    setUser(null);
+    setRole(null);
+  };
+
+  const value = useMemo(() => ({ role, setRole, user, setUser, signOut }), [role, user]);
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }
 
-// Custom hook to use user context
 export function useUser() {
-  const context = useContext(UserContext);
-  if (!context) throw new Error('useUser must be used within a UserProvider');
-  return context;
+  const ctx = useContext(UserContext);
+  if (!ctx) throw new Error('useUser must be used within a UserProvider');
+  return ctx;
 }
