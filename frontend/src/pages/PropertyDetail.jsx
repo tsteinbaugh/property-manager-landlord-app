@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import Header from '../components/Header';
 import { useProperties } from '../context/PropertyContext';
 import PropertyModal from '../components/PropertyModal';
 import styles from './PropertyDetail.module.css';
@@ -11,7 +10,6 @@ import OccupantModal from '../components/OccupantModal';
 import PetModal from '../components/PetModal';
 import EmergencyContactModal from '../components/EmergencyContactModal';
 import FinancialModal from '../components/FinancialModal';
-import Breadcrumbs from "../components/ui/Breadcrumbs";
 
 export default function PropertyDetail({ role, setRole }) {
   const [editingProperty, setEditingProperty] = useState(null);
@@ -91,14 +89,6 @@ export default function PropertyDetail({ role, setRole }) {
   return (
     <>
       <div className={styles.container}>
-        <Header setRole={setRole} />
-        <Breadcrumbs
-          items={[
-            { label: "Dashboard", to: "/dashboard" },
-            { label: `${property.address}, ${property.city}` },
-          ]}
-        />
-
         <h1 className={styles.title}>
           {property.address}, {property.city}, {property.state}, {property.zip}
         </h1>

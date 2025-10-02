@@ -120,16 +120,6 @@ export default function PropertyFinancials({
 
   return (
     <div style={{ display: "grid", gap: 16 }}>
-      {/* Breadcrumbs */}
-      <div style={{ fontSize: 14, opacity: 0.8 }}>
-        <Link to="/dashboard">Dashboard</Link> &nbsp;/&nbsp;{" "}
-        {record?.address ? (
-          <Link to={`/property/${pid}`}>{record.address}</Link>
-        ) : (
-          <Link to={`/property/${pid}`}>Property</Link>
-        )}{" "}
-        &nbsp;/&nbsp; Financials
-      </div>
 
       <h2 style={{ margin: 0 }}>
         {record?.address ? `${record.address} — Financials` : "Financials"}
