@@ -1,0 +1,21 @@
+/* property-manager-landlord-app/frontend/src/components/financials/FinancialForm.module.css */
+.card { background:#fff; border:1px solid #e5e7eb; border-radius:16px; padding:16px; }
+.grid { display:grid; grid-template-columns: 1fr; gap:14px 12px; align-items:start; max-width: 720px; }
+.inline { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top: 2px; margin-bottom: 4px; }
+.chk { display:inline-flex; gap:6px; align-items:center; }
+.btnPrimary { background:#111827; color:#fff; padding:10px 14px; border:none; border-radius:10px; cursor:pointer; }
+.btnGhost { background:#f3f4f6; color:#111827; padding:6px 10px; border:none; border-radius:8px; cursor:pointer; }
+.actions { margin-top:14px; display:flex; justify-content:flex-end; }
+
+.error {
+  background:#fee2e2;
+  border:1px solid #fecaca;
+  color:#7f1d1d;
+  padding:10px 12px;
+  border-radius:10px;
+  margin-bottom:12px;
+}
+
+.grid > * {
+  max-width: 560px;
+}

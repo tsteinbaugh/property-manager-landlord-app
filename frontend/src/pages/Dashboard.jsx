@@ -1,15 +1,16 @@
+// property-manager-landlord-app/frontend/src/pages/Dashboard.jsx
 import Header from '../components/Header';
 import dashStyles from './Dashboard.module.css';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropertyList from './PropertyList';
-import PropertyModal from '../components/PropertyModal';
 import { useProperties } from '../context/PropertyContext';
 import GlobalSearch from '../components/GlobalSearch';
 import buttonStyles from '../styles/Buttons.module.css';
+import AddPropertyFlow from '../components/AddPropertyFlow';
 
 export default function Dashboard({ role, setRole }) {
-  const [showModal, setShowModal] = useState(false);
+  const [showAddFlow, setShowAddFlow] = useState(false);
   const { properties, addProperty } = useProperties();
   const navigate = useNavigate();
 
@@ -17,10 +18,42 @@ export default function Dashboard({ role, setRole }) {
     if (!role) navigate('/');
   }, [role, navigate]);
 
-  const handleAddProperty = (newProperty) => {
-    addProperty(newProperty);
-    setShowModal(false);
-  };
+  function handleCreateProperty(payload) {
+    // payload = { property, leaseFile, leaseExtract, financialConfig, schedule, tenants, occupants, pets, emergencyContacts }
+    const base = payload.property || {};
+
+    const bedrooms = base.bedrooms === "" ? "" : Number(base.bedrooms);
+    const bathrooms = base.bathrooms === "" ? "" : Number(base.bathrooms);
+    const squareFeet = base.squareFeet === "" ? "" : Number(base.squareFeet);
+
+    const newProp = {
+      id: Date.now(), // replace with backend id when ready
+
+      address: base.address || "",
+      city: base.city || "",
+      state: base.state || "",
+      zip: base.zip || "",
+      owner: base.owner || "",
+
+      bedrooms,
+      bathrooms,
+      squareFeet,
+
+      tenants: payload.tenants || [],
+      occupants: payload.occupants || [],
+      pets: payload.pets || [],
+      emergencyContacts: payload.emergencyContacts || [],
+      financialConfig: payload.financialConfig || null,
+      financialSchedule: payload.schedule || [],
+      leaseFile: payload.leaseFile?.name || null,
+      leaseExtract: payload.leaseExtract || null,
+    };
+
+    console.log("[AddProperty] saving new property:", newProp);
+    addProperty(newProp);
+    setShowAddFlow(false);
+    navigate(`/property/${newProp.id}`);
+  }
 
   return (
     <div className={dashStyles.container}>
@@ -45,20 +78,20 @@ export default function Dashboard({ role, setRole }) {
       {role === 'landlord' && (
         <div className={dashStyles.buttonRow}>
           <button
-            onClick={() => setShowModal(true)}
+            onClick={() => setShowAddFlow(true)}
             className={buttonStyles.primaryButton}
           >
             + Add Property
           </button>
+
+          {showAddFlow && (
+            <AddPropertyFlow
+              onComplete={handleCreateProperty}
+              onCancel={() => setShowAddFlow(false)}
+            />
+          )}
         </div>
       )}
-
-      {/* Render the modal and control visibility via isOpen */}
-      <PropertyModal
-        isOpen={showModal}
-        onClose={() => setShowModal(false)}
-        onSave={handleAddProperty}
-      />
     </div>
   );
 }

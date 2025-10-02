@@ -1,142 +1,119 @@
-// frontend/src/utils/feverStatus.js
+// src/utils/feverStatus.js
 
-/**
- * Date helpers (no external deps).
- */
-function startOfDay(d) { const x = new Date(d); x.setHours(0,0,0,0); return x; }
-function addDays(d, n) { const x = new Date(d); x.setDate(x.getDate() + n); return x; }
-function isAfter(a, b) { return startOfDay(a).getTime() > startOfDay(b).getTime(); }
-function isOnOrAfter(a, b) { return startOfDay(a).getTime() >= startOfDay(b).getTime(); }
-function isBefore(a, b) { return startOfDay(a).getTime() < startOfDay(b).getTime(); }
-function inRange(d, from, toIncl) {
-  const x = startOfDay(d).getTime();
-  return x >= startOfDay(from).getTime() && x <= startOfDay(toIncl).getTime();
+// --- tiny local helpers (avoid circular imports) ---
+function addDays(dateOrISO, n) {
+  const d = typeof dateOrISO === "string" ? new Date(dateOrISO) : new Date(dateOrISO);
+  const out = new Date(d.getFullYear(), d.getMonth(), d.getDate()); // local date (no TZ drift)
+  out.setDate(out.getDate() + Number(n || 0));
+  return out;
+}
+function sameDay(a, b) {
+  return a.getFullYear() === b.getFullYear() &&
+         a.getMonth() === b.getMonth() &&
+         a.getDate() === b.getDate();
+}
+function fmtUSD(n) {
+  const v = Number(n || 0);
+  return v.toLocaleString(undefined, { style: "currency", currency: "USD" });
 }
 
-/**
- * FINANCIAL STATUS
- *
- * Inputs:
- *  - today: Date | string
- *  - dueDate: Date | string   (the RENT due date for the current period)
- *  - monthlyRent: number
- *  - payments: Array<{ date: string|Date, amount: number }> for the current period
- *  - lateFeeDays: number (default 7) — late fee date = dueDate + lateFeeDays
- *  - noticeDays: number (default 10) — 10-day notice starts the day after late fee date
- *
- * Color logic (highest severity wins):
- *  BLACK:   unpaid and today >= (lateFeeDate + noticeDays + 1 day) → "file eviction"
- *  RED:     unpaid and in the 10-day notice window (day after late fee through its end)
- *  ORANGE:  unpaid and after late fee date but BEFORE notice window (i.e., the late-fee zone)
- *  YELLOW:  unpaid and after due date but BEFORE late fee date
- *  GREEN:   paid in full OR not yet due
- *
- * Tooltips returned alongside color.
- */
+// --- FINANCIAL FEVER CORE ---
+// Named export used by finance.js and others
+export function resolveFeverColor({
+  dueDateISO,
+  payments = [],        // [{ amount, dateISO }]
+  balance,              // expected - received
+  lateFeeDays = 7,      // late-fee date = due + 7
+  noticeDays = 10,      // 10-day notice window starts the day after late-fee
+  nowISO,               // optional override; default: today
+}) {
+  if (!dueDateISO) return "gray";
+
+  const due = new Date(dueDateISO);
+  const now = nowISO ? new Date(nowISO) : new Date();
+
+  const lateFeeDate = addDays(due, lateFeeDays);  // orange threshold = late-fee day
+  const noticeStart = addDays(lateFeeDate, 1);    // red starts the day after late-fee
+  const noticeEnd   = addDays(noticeStart, noticeDays); // black after this
+
+  // If fully paid, color depends on when it became fully paid
+  if (Number(balance) <= 0) {
+    const lastISO = payments.length ? payments[payments.length - 1].dateISO : null;
+    if (!lastISO) return "gray";
+    const last = new Date(lastISO);
+
+    if (last <= due) return "green";                 // on time
+    if (last < lateFeeDate) return "yellow";         // after due, before late-fee day
+    if (sameDay(last, lateFeeDate)) return "orange"; // on late-fee day
+    if (last < noticeEnd) return "red";              // during notice window
+    return "black";                                  // after notice window
+  }
+
+  // Not fully paid: compare "today" to thresholds
+  if (now <= due) return "green";                // up to date
+  if (now < lateFeeDate) return "yellow";        // late, before late-fee day
+  if (sameDay(now, lateFeeDate)) return "orange";// late-fee day
+  if (now < noticeEnd) return "red";             // within notice window
+  return "black";                                // past notice → file eviction
+}
+
+// --- Dashboard helpers your PropertyList imports ---
 export function getFinancialFever({
-  today = new Date(),
   dueDate,
-  monthlyRent,
-  payments = [],
+  monthlyRent = 0,
+  payments = [],               // [{ amount, dateISO }]
   lateFeeDays = 7,
   noticeDays = 10,
+  nowISO,
 }) {
-  const now = startOfDay(today);
-  const due = startOfDay(dueDate);
-
-  const totalPaid = payments.reduce((s, p) => s + (Number(p.amount) || 0), 0);
-  const paidInFull = totalPaid >= (Number(monthlyRent) || 0);
-
-  const lateFeeDate = addDays(due, lateFeeDays);                 // D + 7
-  const noticeStart = addDays(lateFeeDate, 1);                   // D + 8
-  const noticeEnd = addDays(noticeStart, noticeDays - 1);        // D + 17
-  const fileDate = addDays(noticeEnd, 1);                        // D + 18
-
-  if (paidInFull || isBefore(now, due)) {
-    return {
-      color: "green",
-      tooltip: "Paid and up to date.",
-    };
+  if (!dueDate || !(Number(monthlyRent) > 0)) {
+    return { color: "gray", tooltip: "No financial data." };
   }
+  const expected = Number(monthlyRent) || 0;
+  const received = payments.reduce((s, p) => s + (Number(p.amount) || 0), 0);
+  const balance = +(expected - received).toFixed(2);
 
-  // Unpaid paths from here
-  if (isAfter(now, fileDate) || isOnOrAfter(now, fileDate)) {
-    return {
-      color: "black",
-      tooltip: "No payment after 10-day notice — file eviction.",
-    };
-  }
+  const color = resolveFeverColor({
+    dueDateISO: dueDate,
+    payments,
+    balance,
+    lateFeeDays,
+    noticeDays,
+    nowISO,
+  });
 
-  if (inRange(now, noticeStart, noticeEnd)) {
-    return {
-      color: "red",
-      tooltip: "In default: 10-day notice period (no payment).",
-    };
-  }
-
-  if (isAfter(now, lateFeeDate)) {
-    return {
-      color: "orange",
-      tooltip: "Past late-fee date (no payment).",
-    };
-  }
-
-  if (isAfter(now, due)) {
-    return {
-      color: "yellow",
-      tooltip: "Late: past due date (no payment).",
-    };
-  }
-
-  // Fallback (shouldn’t reach here)
-  return { color: "green", tooltip: "Up to date." };
+  const tooltip = `Due ${dueDate} — ${fmtUSD(received)} of ${fmtUSD(expected)} received`;
+  return { color, tooltip };
 }
 
-/**
- * MAINTENANCE STATUS
- *
- * Inputs:
- *  - items: Array<{
- *      title?: string,
- *      dueDate?: string|Date,
- *      tenantClaim?: boolean,
- *      emergency?: boolean,
- *      completed?: boolean
- *    }>
- *  - today: Date | string
- *  - approachingDays: number (default 14) — “approaching due” window
- *
- * Color logic (highest severity wins):
- *  BLACK:   any emergency item (open)
- *  RED:     any tenant claim (open)
- *  ORANGE:  any item past due and not completed
- *  YELLOW:  any item due within approachingDays (and not completed)
- *  GREEN:   nothing open, nothing approaching
- */
 export function getMaintenanceFever({
-  items = [],
-  today = new Date(),
+  items = [],                // [{title, dueDate, tenantClaim, emergency, completed}]
   approachingDays = 14,
+  nowISO,
 }) {
-  const now = startOfDay(today);
-  const soonCutoff = addDays(now, approachingDays);
+  if (!Array.isArray(items) || items.length === 0) {
+    return { color: "green", tooltip: "No open maintenance items." };
+  }
+  const now = nowISO ? new Date(nowISO) : new Date();
 
-  const open = items.filter(i => !i?.completed);
-
-  if (open.some(i => i?.emergency)) {
-    return { color: "black", tooltip: "Emergency issue reported." };
+  const open = items.filter(i => !i.completed);
+  if (open.some(i => i.emergency)) {
+    return { color: "red", tooltip: "Emergency maintenance open." };
   }
 
-  if (open.some(i => i?.tenantClaim)) {
-    return { color: "red", tooltip: "Tenant reported an issue." };
+  const overdue = open.filter(i => i.dueDate && new Date(i.dueDate) < now);
+  if (overdue.length) {
+    return { color: "orange", tooltip: `${overdue.length} maintenance task(s) overdue.` };
   }
 
-  if (open.some(i => i?.dueDate && isBefore(i.dueDate, now))) {
-    return { color: "orange", tooltip: "Maintenance past due." };
-  }
-
-  if (open.some(i => i?.dueDate && inRange(i.dueDate, now, soonCutoff))) {
-    return { color: "yellow", tooltip: "Maintenance coming due soon." };
+  const approaching = open.filter(i => {
+    if (!i.dueDate) return false;
+    const due = new Date(i.dueDate);
+    const soon = addDays(now, approachingDays);
+    return due >= now && due <= soon;
+  });
+  if (approaching.length) {
+    return { color: "yellow", tooltip: `${approaching.length} maintenance task(s) due soon.` };
   }
 
   return { color: "green", tooltip: "All maintenance up to date." };

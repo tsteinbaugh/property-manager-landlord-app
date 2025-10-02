@@ -1,0 +1,8 @@
+.wrapper { display: inline-flex; align-items: center; justify-content: center; }
+.dot { display: inline-block; border-radius: 9999px; width: 100%; height: 100%; box-shadow: 0 0 0 2px rgba(0,0,0,0.05) inset; }
+.red { background: #ef4444; } /* unpaid */
+.orange { background: #f97316; } /* alternative late/partial if used by dashboard */
+.yellow { background: #eab308; } /* late/partial (default) */
+.green { background: #22c55e; } /* on time */
+.black { background: #111827; } /* alternative unpaid if used by dashboard */
+.gray { background: #9ca3af; } /* unknown */

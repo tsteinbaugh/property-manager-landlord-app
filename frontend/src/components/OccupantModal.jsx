@@ -1,74 +1,75 @@
-import { useState, useEffect } from 'react';
-import styles from '../styles/SharedModal.module.css';
-import buttonStyles from '../styles/Buttons.module.css';
+// src/components/OccupantModal.jsx
+import { useState, useEffect } from "react";
+import styles from "../styles/SharedModal.module.css";
+import buttonStyles from "../styles/Buttons.module.css";
+import FloatingField from "./ui/FloatingField";
+import ModalRoot from "./ui/ModalRoot";
 
-export default function OccupantModal({ isOpen, occupant, onClose, onSave, title = 'Edit Occupant' }) {
-  if (!isOpen) return null;
-
+export default function OccupantModal({ isOpen, occupant, onClose, onSave, title = "Edit Occupant" }) {
   const [formData, setFormData] = useState({
-    name: '',
-    age: '',
-    occupation: '',
-    relationship: '',
-    contact: {
-      phone: '',
-      email: '',
-    }
+    name: "",
+    age: "",
+    occupation: "",
+    relationship: "",
+    contact: { phone: "", email: "" },
   });
-
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    if (occupant) {
-      setFormData({...occupant});
+    if (!occupant) {
+      setFormData({ name: "", age: "", occupation: "", relationship: "", contact: { phone: "", email: "" } });
+      return;
     }
+    setFormData({
+      name: occupant.name || "",
+      age: occupant.age || "",
+      occupation: occupant.occupation || "",
+      relationship: occupant.relationship || "",
+      contact: {
+        phone: occupant?.contact?.phone || "",
+        email: occupant?.contact?.email || "",
+      },
+    });
   }, [occupant]);
 
-  const handleChange = (e) => {
+  function handleChange(e) {
     const { name, value } = e.target;
-
-    if (name === 'phone' || name === 'email') {
-      setFormData((prev) => ({
-        ...prev,
-        contact: { ...prev.contact, [name]: value },
-      }));
+    if (name === "phone" || name === "email") {
+      setFormData(prev => ({ ...prev, contact: { ...(prev.contact || {}), [name]: value } }));
     } else {
-      setFormData((prev) => ({ ...prev, [name]: value }));
+      setFormData(prev => ({ ...prev, [name]: value }));
     }
-  };
+  }
 
-  const isFormValid = formData.name.trim() !== '';
+  const isFormValid = (formData.name || "").trim() !== "";
 
-  const handleSubmit = (e) => {
+  function handleSubmit(e) {
     e.preventDefault();
     setSubmitted(true);
     if (!isFormValid) return;
-    onSave(formData);
-  };
+    onSave?.(formData);
+  }
 
   return (
-    <div className={styles.modalOverlay} onClick={onClose}>
-      <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-        <h2 className={styles.modalTitle}>{title}</h2>
+    <ModalRoot isOpen={!!isOpen} onClose={onClose} width={560}>
+      <h2 className={styles.modalTitle}>{title}</h2>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <FloatingField name="name" label="Name" value={formData.name} onChange={handleChange} required />
+        <FloatingField name="age" label="Age" value={formData.age} onChange={handleChange} />
+        <FloatingField name="occupation" label="Occupation" value={formData.occupation} onChange={handleChange} />
+        <FloatingField name="relationship" label="Relationship" value={formData.relationship} onChange={handleChange} />
+        <FloatingField name="phone" label="Phone" value={formData.contact?.phone || ""} onChange={handleChange} />
+        <FloatingField name="email" type="email" label="Email" value={formData.contact?.email || ""} onChange={handleChange} />
 
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" className={styles.input} />
-          <input type="number" name="age" value={formData.age} onChange={handleChange} placeholder="Age" className={styles.input} />
-          <input name="occupation" value={formData.occupation} onChange={handleChange} placeholder="Occupation" className={styles.input} />
-          <input type="text" name="relationship" value={formData.relationship} onChange={handleChange} placeholder="Relationship" className={styles.input} />
-          <input name="phone" value={formData.contact?.phone || ''} onChange={handleChange} placeholder="Phone" className={styles.input} />
-          <input name="email" value={formData.contact?.email || ''} onChange={handleChange} placeholder="Email" className={styles.input} />
+        {submitted && !isFormValid && (
+          <p className={styles.validationText}>Please enter the occupant's name.</p>
+        )}
 
-          {submitted && !isFormValid && (
-            <p className={styles.validationText}>Please enter the occupant's name.</p>
-          )}
-
-          <div className={styles.modalButtons}>
-            <button type="submit" className={buttonStyles.primaryButton}>Save</button>
-            <button type="button" onClick={onClose} className={buttonStyles.secondaryButton}>Cancel</button>
-          </div>
-        </form>
-      </div>
-    </div>
+        <div className={styles.modalButtons}>
+          <button type="submit" className={buttonStyles.primaryButton}>Save</button>
+          <button type="button" onClick={onClose} className={buttonStyles.secondaryButton}>Cancel</button>
+        </div>
+      </form>
+    </ModalRoot>
   );
 }
