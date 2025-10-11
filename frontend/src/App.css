@@ -72,3 +72,10 @@ body, #root {
 }
 
 :root { scrollbar-gutter: stable both-edges; }
+
+
+/* Prevent page scroll only on Sign In */
+.lockScroll {
+  overflow: hidden !important;
+  height: 100dvh; /* modern mobile-safe viewport */
+}
