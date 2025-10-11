@@ -7,7 +7,8 @@ import PropertyFinancials from "./pages/PropertyFinancials";
 import AppLayout from "./components/layout/AppLayout";
 import { UserProvider } from "./context/UserContext";
 import { PropertyProvider } from "./context/PropertyContext";
-import "./App.css";
+import ScrollToTop from "./components/ScrollToTop.jsx";
+import "./App.css"; // ⬅️ removed stray 'a'
 
 function App() {
   const [role, setRole] = useState(null);
@@ -16,19 +17,19 @@ function App() {
     <UserProvider>
       <PropertyProvider>
         <Router>
-          <div className="app-scroll">
+          {/* This is your scrollable container */}
+          <div id="scroll-root" className="app-scroll">
+            {/* Reset scroll on every route change */}
+            <ScrollToTop />
             <Routes>
               <Route path="/" element={<SignIn setRole={setRole} />} />
 
               {/* Everything below here gets the header + breadcrumbs */}
               <Route element={role ? <AppLayout /> : <Navigate to="/" replace />}>
                 <Route path="/dashboard" element={<Dashboard role={role} setRole={setRole} />} />
-                {/* support both routes you currently use */}
                 <Route path="/property/:id" element={<PropertyDetail role={role} setRole={setRole} />} />
                 <Route path="/properties/:id/financials" element={<PropertyFinancials />} />
               </Route>
-
-              {/* Optional catch-all */}
               <Route path="*" element={<Navigate to={role ? "/dashboard" : "/"} replace />} />
             </Routes>
           </div>
