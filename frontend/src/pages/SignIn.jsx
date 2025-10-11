@@ -1,13 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SignIn.module.css';
 import buttonStyles from '../styles/Buttons.module.css';
-
 
 export default function SignIn({ setRole }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+
+  // 🔒 Lock page scroll while this page is mounted
+  useEffect(() => {
+    document.body.classList.add('lockScroll');
+    return () => document.body.classList.remove('lockScroll');
+  }, []);
 
   const handleSignIn = (e) => {
     e.preventDefault();
@@ -15,9 +20,7 @@ export default function SignIn({ setRole }) {
       alert('Please enter both username and password.');
       return;
     }
-
-    // You can add real auth logic here later
-    setRole('landlord'); // temporary default
+    setRole('landlord');
     navigate('/dashboard');
   };
 

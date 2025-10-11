@@ -1,8 +1,13 @@
 .signInContainer {
-  min-height: 100vh;
+  /* Fill the viewport reliably and center contents */
+  height: 100dvh;            /* use 100dvh for mobile address-bar quirks */
   display: flex;
   justify-content: center;
   align-items: center;
+
+  /* Ensure no scroll within the container either */
+  overflow: hidden;
+
   background-color: #f9fafb;
 }
 
