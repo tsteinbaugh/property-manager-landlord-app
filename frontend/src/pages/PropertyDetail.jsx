@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useProperties } from '../context/PropertyContext';
 import PropertyModal from '../components/PropertyModal';
@@ -28,6 +28,25 @@ export default function PropertyDetail({ role, setRole }) {
   const [showNewPetModal, setShowNewPetModal] = useState(false);
   const [showNewEmergencyContactModal, setShowNewEmergencyContactModal] = useState(false);
 
+  // Detect financials from either property or localStorage
+  const hasFinancials = useMemo(() => {
+    if (!property) return false;
+    // From property
+    const fromProp =
+      !!property.financialConfig &&
+      Array.isArray(property.financialSchedule) &&
+      property.financialSchedule.length > 0;
+    if (fromProp) return true;
+    // From localStorage (fallback)
+    try {
+      const raw = localStorage.getItem(`financials:${property.id}`);
+      if (!raw) return false;
+      const parsed = JSON.parse(raw);
+      return !!(parsed?.config && Array.isArray(parsed?.schedule) && parsed.schedule.length > 0);
+    } catch {
+      return false;
+    }
+  }, [property]);
 
 
   if (!property) return <p className={styles.container}>Property not found.</p>;
@@ -532,7 +551,7 @@ export default function PropertyDetail({ role, setRole }) {
             <h2 className={styles.sectionTitle}>Financials</h2>
 
             {/* New-style summary */}
-            {property.financialConfig ? (
+            {hasFinancials ? (
               <div className={styles.propertyStats}>
                 <ul className={styles.list}>
                   <li>
@@ -564,7 +583,10 @@ export default function PropertyDetail({ role, setRole }) {
                 </ul>
                   
                 <div className={layoutStyles.buttonGroup}>
-                  <Link className={buttonStyles.primaryButton} to={`/properties/${property.id}/financials`}>
+                  <Link
+                    className={`${buttonStyles.primaryButton} ${buttonStyles.noUnderline}`}
+                    to={`/properties/${property.id}/financials`}
+                  >
                     Open Financials
                   </Link>
                 </div>
@@ -573,7 +595,10 @@ export default function PropertyDetail({ role, setRole }) {
               <div className={styles.propertyStats}>
                 <p className="ml-4 italic text-gray-500">Financials not configured yet.</p>
                 <div className={layoutStyles.buttonGroup}>
-                  <Link className={buttonStyles.primaryButton} to={`/properties/${property.id}/financials`}>
+                  <Link
+                    className={`${buttonStyles.primaryButton} ${buttonStyles.noUnderline}`}
+                    to={`/properties/${property.id}/financials`}
+                  >
                     Set Up Financials
                   </Link>
                 </div>
