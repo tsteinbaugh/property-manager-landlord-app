@@ -1,9 +1,8 @@
 // src/utils/finance.js
 import { toISODate } from "./date";
 
-// --- tiny date helpers scoped here to make month math robust ---
-function daysInMonthUTC(year, monthIndex/* 0..11 */) {
-  // monthIndex+1 day 0 -> last day of target month
+/* ===================== DATE HELPERS ===================== */
+function daysInMonthUTC(year, monthIndex /* 0..11 */) {
   return new Date(Date.UTC(year, monthIndex + 1, 0)).getUTCDate();
 }
 function makeDueDateISO(startISO, monthOffset, dueDay /* 1..31 */) {
@@ -22,67 +21,216 @@ function makeDueDateISO(startISO, monthOffset, dueDay /* 1..31 */) {
   return dt.toISOString().slice(0, 10);
 }
 
+/* ===================== NUMBER HELPERS ===================== */
 function currency(n) {
-  return Number.isFinite(n) ? +Number(n).toFixed(2) : 0;
+  return Number.isFinite(Number(n)) ? +Number(n).toFixed(2) : 0;
 }
 
+/* ========== PET RENT RESOLVER (HARDENED & DEEP) ========== */
+const PET_KEY_RE = /(pet|pets)/i;
+
+function isNumericLike(v) {
+  if (typeof v === "number" && Number.isFinite(v)) return true;
+  if (typeof v === "string" && v.trim() !== "" && Number.isFinite(Number(v))) return true;
+  return false;
+}
+function toNumber(v) {
+  return typeof v === "number" ? v : Number(v);
+}
+
+function deepFindPetCandidates(obj, path = "", out = [], depth = 0) {
+  if (!obj || typeof obj !== "object" || depth > 6) return out;
+
+  if (Array.isArray(obj)) {
+    obj.forEach((v, i) => deepFindPetCandidates(v, `${path}[${i}]`, out, depth + 1));
+    return out;
+  }
+
+  for (const [k, v] of Object.entries(obj)) {
+    const keyLower = String(k).toLowerCase();
+    const nextPath = path ? `${path}.${k}` : k;
+
+    if (/(deposit|one[-\s]?time|setup|count|num|number|qty|quantity|has|flag|enabled|active)/i.test(keyLower)) {
+      // skip obvious non-monthlies & flags/counters
+    } else if (PET_KEY_RE.test(keyLower) && isNumericLike(v)) {
+      out.push({ path: nextPath, keyLower, value: toNumber(v) });
+    }
+
+    if (v && typeof v === "object") deepFindPetCandidates(v, nextPath, out, depth + 1);
+  }
+  return out;
+}
+
+export function getPetRent(config) {
+  if (!config) return 0;
+
+  // 1) Known direct keys (strict priority)
+  const directKeys = [
+    "petRent","petRentMonthly","petRentPerMonth","petMonthly","monthlyPetRent",
+    "petFee","petCharge","pet_amount",
+    "pets.monthlyFee","pets[0].monthlyFee","pets[0].rent",
+  ];
+  for (const key of directKeys) {
+    const parts = key.replace(/\[(\d+)\]/g, ".$1").split(".");
+    let cur = config;
+    for (const p of parts) cur = cur?.[p];
+    if (isNumericLike(cur)) return +toNumber(cur);
+  }
+
+  // 2) otherRecurring item named "pet"
+  if (Array.isArray(config?.otherRecurring)) {
+    const item = config.otherRecurring.find((x) =>
+      String(x?.label || x?.name || "").toLowerCase().includes("pet")
+    );
+    if (item && isNumericLike(item.amount)) return +toNumber(item.amount);
+  }
+
+  // 3) Deep scan anywhere; score results
+  const candidates = deepFindPetCandidates(config);
+
+  function score(c) {
+    const k = c.keyLower;
+    let s = 0;
+    if (/rent/.test(k)) s += 5;
+    if (/month|monthly|per[-\s]?month/.test(k)) s += 4;
+    if (/fee/.test(k)) s += 2;
+    if (/charge/.test(k)) s += 1;
+
+    // penalties
+    if (/deposit|one[-\s]?time|setup|count|num|number|qty|quantity|has|flag|enabled|active/.test(k)) s -= 100;
+    if (c.value === true || c.value === false) s -= 100;
+    if (c.value <= 2) s -= 3; // avoid boolean/count slip-through
+    return s;
+  }
+
+  let best = null;
+  for (const c of candidates) {
+    if (typeof c.value === "boolean") continue;
+    const sc = score(c);
+    if (best === null || sc > best.sc) best = { ...c, sc };
+  }
+
+  return best && best.sc > 0 ? +Number(best.value).toFixed(2) : 0;
+}
+
+/* ===================== TOTALS HELPERS ===================== */
+function adjustmentsTotal(row) {
+  if (Array.isArray(row?.adjustments)) {
+    return row.adjustments.reduce((s, a) => s + currency(a.amount), 0);
+  }
+  return currency(row?.expectedAdjustments);
+}
+
+// Expected subtotal BEFORE any late fee.
+function expectedWithoutLateFee(row, config) {
+  const base = currency(row?.expectedBase);
+  const pet  = currency(getPetRent(config));
+  const other = currency(row?.expectedOther);
+  const adj = adjustmentsTotal(row);
+  return +(base + pet + other + adj).toFixed(2);
+}
+
+function sumPaymentsUpTo(row, cutoffISO /* inclusive */) {
+  const cutoff = cutoffISO ? new Date(cutoffISO + "T23:59:59Z") : null;
+  return +((row?.payments || []).reduce((s, p) => {
+    if (!cutoff) return s + currency(p.amount || 0);
+    const d = new Date((p.dateISO || "") + "T00:00:00Z");
+    return d <= cutoff ? s + currency(p.amount || 0) : s;
+  }, 0)).toFixed(2);
+}
+
+function graceEndISOOf(row, config = {}) {
+  const graceDays =
+    Number.isFinite(Number(config?.graceDays)) ? Number(config.graceDays)
+    : Number.isFinite(Number(config?.lateFeeDays)) ? Number(config.lateFeeDays)
+    : 0;
+
+  const due = new Date(row.dueDateISO + "T00:00:00Z");
+  const graceEnd = new Date(due.getTime());
+  graceEnd.setUTCDate(graceEnd.getUTCDate() + graceDays);
+  return graceEnd.toISOString().slice(0, 10);
+}
+
+/* ===================== PUBLIC TOTALS ===================== */
 export function computeRowTotals(row, config) {
-  const adj =
-    Array.isArray(row.adjustments)
-      ? row.adjustments.reduce((s, a) => s + (Number(a.amount) || 0), 0)
-      : Number(row.expectedAdjustments || 0);
+  const baseNoLate = expectedWithoutLateFee(row, config);
+  const late = row?.lateFeeWaived ? 0 : currency(row?.lateFee || 0);
 
-  const expected =
-    currency(row.expectedBase) +
-    currency(row.expectedOther) +
-    currency(adj) +
-    (row.lateFeeWaived ? 0 : currency(row.lateFee || 0));
-
-  const received = (row.payments || []).reduce((acc, p) => acc + currency(p.amount || 0), 0);
+  const expected = +(baseNoLate + late).toFixed(2);
+  const received = (row?.payments || []).reduce((acc, p) => acc + currency(p.amount || 0), 0);
   const balance = +(expected - received).toFixed(2);
   const state = balance <= 0 ? "paid" : "unpaid";
   return { expected, receivedTotal: received, balance, state };
 }
 
-// --- PUBLIC: late fee mutator (called by table) ---
-// Keep your policy: if today > due and not fully paid, apply lateFee based on policy.
-export function maybeApplyLateFee(row, config) {
-  if (!row || !config) return;
+/* ===================== LATE FEE ===================== */
+// Apply after grace if still short.
+// Remove only if: (a) waived, or (b) full amount (excluding late) was paid by grace deadline.
+// Fee base must be EXACTLY (base + pet). We derive it from row totals to avoid config misreads.
+export function maybeApplyLateFee(row, config = {}) {
+  if (!row || !row.dueDateISO) return;
 
-  const todayISO = new Date().toISOString().slice(0, 10);
-  if (row.dueDateISO >= todayISO) {
-    // due is in the future (or today) → no automatic late fee
+  // Waived always wins.
+  if (row.lateFeeWaived) {
     row.lateFee = 0;
     return;
   }
 
-  const { receivedTotal, balance } = computeRowTotals(row, config);
-  if (balance <= 0) {
-    row.lateFee = 0; // paid in full, no late fee
+  const todayISO = new Date().toISOString().slice(0, 10);
+  const graceEndISO = graceEndISOOf(row, config);
+
+  // If tenant PAID IN FULL (no-late expected) by grace deadline, clear any fee.
+  const neededNoLate = expectedWithoutLateFee(row, config);
+  const paidByGrace = sumPaymentsUpTo(row, graceEndISO);
+  if (paidByGrace >= neededNoLate) {
+    row.lateFee = 0;
+    row.lateFeeAppliedAtISO = null;
     return;
   }
 
-  // compute a late fee from config.lateFeePolicy
-  const base = currency(row.expectedBase);
-  const pol = config?.lateFeePolicy || { type: "flat", value: 0 };
-  const val =
-    pol.type === "percent"
-      ? (base * (Number(pol.value) || 0)) / 100
-      : Number(pol.value) || 0;
+  // Before/on grace end: do not apply yet (and do not remove existing).
+  if (todayISO <= graceEndISO) return;
 
-  row.lateFee = currency(val);
+  // === Compute fee base robustly from row math ===
+  // base+pet = (base+pet+other+adj) - (other+adj)
+  const baseNoLate = expectedWithoutLateFee(row, config);
+  const otherAdj = currency(row?.expectedOther) + adjustmentsTotal(row);
+  const baseWithPet = Math.max(0, +(baseNoLate - otherAdj).toFixed(2));
+
+  // After grace: if still short, ensure fee is applied (once).
+  const { balance } = computeRowTotals(row, config);
+  if (balance > 0) {
+    const pol = config?.lateFeePolicy || { type: "flat", value: 0 };
+    const computed =
+      pol.type === "percent" ? (baseWithPet * currency(pol.value)) / 100 : currency(pol.value);
+
+    if (!row.lateFee || row.lateFee === 0) {
+      row.lateFee = Number.isFinite(computed) ? +computed.toFixed(2) : 0;
+      row.lateFeeAppliedAtISO = todayISO;
+    }
+  }
+  // If not short, leave any existing fee alone (only waived or grace-proof removes it).
 }
 
-// --- PUBLIC: snapshot/lock when fully paid (table calls this) ---
-export function finalizeMonthIfPaid(row /*, config */) {
-  const { balance } = computeRowTotals(row, {});
-  if (balance <= 0 && !row.lockedState) {
-    row.lockedState = "paid";
-    row.lockedAtISO = new Date().toISOString().slice(0, 10);
-    row.lockedColor = "green";
+/* ===================== FINALIZE ===================== */
+export function finalizeMonthIfPaid(row, config = {}) {
+  const { balance } = computeRowTotals(row, config);
+  if (balance <= 0) {
+    if (!row.lockedState) {
+      row.lockedState = "paid";
+      row.lockedAtISO = new Date().toISOString().slice(0, 10);
+      row.lockedColor = "green";
+    }
+  } else {
+    if (row.lockedState === "paid") {
+      row.lockedState = null;
+      row.lockedAtISO = null;
+      row.lockedColor = null;
+    }
   }
 }
 
+/* ===================== SCHEDULE GENERATOR ===================== */
 export function generateLeaseSchedule(cfg) {
   const {
     startDateISO,
@@ -96,18 +244,15 @@ export function generateLeaseSchedule(cfg) {
     firstMonthPayment,
     lastMonthPayment,
     securityDeposit = 0,
-    depositPayment, // {dateISO, method, amount, note} (shown outside table)
+    depositPayment, // shown outside table
   } = cfg || {};
 
   if (!startDateISO) return [];
 
-  // build rows (as you already have with makeDueDateISO …)
-  const rows = []; // … your fixed generator code from earlier …
-  // (Keep your robust month-building code you just pasted earlier.)
-
-  // Add recurring “other” sum:
+  // NOTE: pet rent is NOT forcibly added here; we resolve via getPetRent(config) at runtime.
   const otherSum = (otherRecurring || []).reduce((s, c) => s + (Number(c.amount) || 0), 0);
 
+  const rows = [];
   for (let i = 0; i < Number(months || 0); i++) {
     const dueDateISO = makeDueDateISO(startDateISO, i, dueDay);
     const date = new Date(dueDateISO + "T00:00:00Z");
@@ -119,16 +264,15 @@ export function generateLeaseSchedule(cfg) {
       dueDateISO,
       expectedBase: currency(monthlyRent),
       expectedOther: currency(otherSum),
-      // switch to array of adjustments to hold reasons later
-      adjustments: [],            // << NEW (replaces expectedAdjustments)
-      expectedAdjustments: 0,     // keep for backward-compat (computed if still used)
+      adjustments: [],
+      expectedAdjustments: 0, // legacy support
       lateFee: 0,
       lateFeeWaived: false,
       payments: [],
     });
   }
 
-  // Apply prepaid month payments to the correct row
+  // Prepaid injections (stay as payments)
   if (firstMonthPrepaid && rows[0] && firstMonthPayment?.dateISO) {
     rows[0].payments.push({
       amount: currency(firstMonthPayment.amount || monthlyRent),
@@ -146,9 +290,6 @@ export function generateLeaseSchedule(cfg) {
       note: lastMonthPayment.note || "Last month prepaid",
     });
   }
-
-  // DO NOT attach deposit to a row anymore; we'll show it separately in the table view
-  // (You still keep cfg.securityDeposit and cfg.depositPayment in config.)
 
   return rows;
 }

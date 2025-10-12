@@ -183,6 +183,46 @@ export default function PropertyFinancials({
 
       {!showForm && hasSchedule && (
         <>
+        {config && (
+          <div
+            style={{
+              padding: 12,
+              border: "1px solid #e5e7eb",
+              borderRadius: 12,
+              background: "#fafafa",
+              display: "grid",
+              gap: 6,
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+              <strong>Security Deposit</strong>
+              <span>
+                {Number.isFinite(Number(config.securityDeposit))
+                  ? `$${Number(config.securityDeposit || 0).toFixed(2)}`
+                  : "Not set"}
+              </span>
+              <span style={{ marginLeft: "auto" }} />
+              <strong>Status</strong>
+              {config.securityDepositPayment ? (
+                <span style={{ padding: "2px 8px", borderRadius: 9999, background: "#e8f5e9", color: "#065f46" }}>
+                  Received
+                </span>
+              ) : (
+                <span style={{ padding: "2px 8px", borderRadius: 9999, background: "#fdecec", color: "#7f1d1d" }}>
+                  Not received
+                </span>
+              )}
+            </div>
+            {config.securityDepositPayment && (
+              <div style={{ fontSize: 12, color: "#6b7280" }}>
+                ${Number(config.securityDepositPayment.amount).toFixed(2)} on {config.securityDepositPayment.dateISO}
+                {config.securityDepositPayment.method ? ` · ${config.securityDepositPayment.method}` : ""}
+                {config.securityDepositPayment.note ? ` — ${config.securityDepositPayment.note}` : ""}
+              </div>
+            )}
+          </div>
+        )}
+
           <FinancialTable
             schedule={schedule}
             config={config}

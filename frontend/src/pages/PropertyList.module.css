@@ -42,3 +42,20 @@
 .tableWrap {
   padding-left: 24px;      /* left margin */
 }
+
+.lightButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+.addrLink {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+}

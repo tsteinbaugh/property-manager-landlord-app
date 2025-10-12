@@ -28,6 +28,7 @@ function App() {
               <Route element={role ? <AppLayout /> : <Navigate to="/" replace />}>
                 <Route path="/dashboard" element={<Dashboard role={role} setRole={setRole} />} />
                 <Route path="/property/:id" element={<PropertyDetail role={role} setRole={setRole} />} />
+                <Route path="/property/:id/financials" element={<PropertyFinancials />} />
                 <Route path="/properties/:id/financials" element={<PropertyFinancials />} />
               </Route>
               <Route path="*" element={<Navigate to={role ? "/dashboard" : "/"} replace />} />
