@@ -1,3 +1,4 @@
+// /home/tsteinbaugh/property-manager-landlord-app/frontend/src/components/financials/PaymentModal.jsx
 import React, { useEffect, useRef, useState } from "react";
 import ModalRoot from "../ui/ModalRoot";
 import FloatingField from "../ui/FloatingField";
@@ -6,6 +7,7 @@ import buttonStyles from "../../styles/Buttons.module.css";
 /**
  * Modal for recording a payment.
  * Keeps local state stable; only re-seeds on transition open:false -> true.
+ * Intercepts Enter/Escape so the parent form never submits while open.
  */
 export default function PaymentModal({
   open,
@@ -21,6 +23,7 @@ export default function PaymentModal({
   const [submitted, setSubmitted] = useState(false);
 
   const containerRef = useRef(null);
+  const firstFieldRef = useRef(null);
   const prevOpen = useRef(open);
 
   // Re-seed ONLY when opening transitions from false -> true
@@ -31,6 +34,8 @@ export default function PaymentModal({
       setMethod(initial.method ?? "");
       setNote(initial.note ?? "");
       setSubmitted(false);
+      // focus first input on open
+      setTimeout(() => firstFieldRef.current?.focus(), 0);
     }
     prevOpen.current = open;
     // IMPORTANT: do NOT include `initial` in deps to avoid constant reseed on each render
@@ -50,17 +55,41 @@ export default function PaymentModal({
     onClose?.();
   }
 
+  // intercept keys inside the modal
+  function handleKeyDown(e) {
+    // Always keep key events from reaching parent form
+    // (stopPropagation is already present; add preventDefault when needed)
+    if (e.key === "Enter" && !e.shiftKey) {
+      const tag = e.target?.tagName?.toLowerCase();
+      if (tag !== "textarea") {
+        e.preventDefault();
+        e.stopPropagation();
+        handleSave();
+      }
+    } else if (e.key === "Escape") {
+      e.preventDefault();
+      e.stopPropagation();
+      onClose?.();
+    } else {
+      // still block bubbling for any key press so parent doesn't see it
+      e.stopPropagation();
+    }
+  }
+
   if (!open) return null;
 
   return (
     <ModalRoot isOpen={open} onClose={onClose}>
       <div
+        data-modal="true"
         ref={containerRef}
         // Keep all events inside; do not bubble to parent
         onClick={(e) => e.stopPropagation()}
-        onKeyDown={(e) => e.stopPropagation()}
+        onKeyDown={handleKeyDown}
         role="dialog"
         aria-modal="true"
+        tabIndex={-1}
+        style={{ outline: "none" }}
       >
         <h2 style={{ marginTop: 0, marginBottom: 12 }}>{title}</h2>
 
@@ -70,7 +99,7 @@ export default function PaymentModal({
             label="Amount"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
-            inputProps={{ step: "0.01", min: 0 }}
+            inputProps={{ step: "0.01", min: 0, ref: firstFieldRef }}
             required
           />
           <FloatingField

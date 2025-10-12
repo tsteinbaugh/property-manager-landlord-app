@@ -40,6 +40,9 @@ export default function FinancialForm({
   const [openLastModal, setOpenLastModal] = useState(false);
   const [openDepModal, setOpenDepModal] = useState(false);
 
+  // single source of truth for "any modal open"
+  const modalOpen = openFirstModal || openLastModal || openDepModal;
+
   // hydrate when initial changes
   useEffect(() => {
     if (!initialValues) return;
@@ -113,7 +116,6 @@ export default function FinancialForm({
     if (!(Number(cfg.graceDays) >= 0)) e.graceDays = "Grace days must be 0 or more.";
     if (!(Number(cfg.lateFeePolicy?.value) >= 0))
       e.lateFeeValue = "Late fee must be 0 or more.";
-    // If they claim prepaid or deposit > 0, encourage capturing a payment (not strictly required)
     return e;
   }, [cfg]);
 
@@ -133,6 +135,8 @@ export default function FinancialForm({
 
   function handleSubmit(e) {
     e?.preventDefault?.();
+    // hard block parent submit while a modal is open
+    if (modalOpen) return;
     if (!isValid) return;
     onCreate?.(cfg);
   }
@@ -141,19 +145,31 @@ export default function FinancialForm({
     <form
       onSubmit={handleSubmit}
       className={styles.form}
-      onKeyDown={(e) => {
+      noValidate
+      // Capture keydown at the form root so we can stop implicit submit
+      onKeyDownCapture={(e) => {
         if (e.key !== "Enter") return;
-      
-        // If any payment modal is open, let the modal's handler own Enter
-        if (openFirstModal || openLastModal || openDepModal) return;
-      
-        // Don’t submit when typing inside a textarea or when focused on a non-submit button
+
+        // If the key event originated inside a modal, do nothing here.
+        // The modal will handle it (and save/close on Enter).
+        const inModal = e.target?.closest?.('[data-modal="true"]');
+        if (inModal) return;
+
+        // If any modal is open and the Enter came from the parent form,
+        // swallow it so the parent doesn't submit.
+        if (openFirstModal || openLastModal || openDepModal) {
+          e.preventDefault();
+          e.stopPropagation();
+          return;
+        }
+
+        // Otherwise allow Enter-to-submit for the Financial form
         const el = e.target;
         const tag = (el?.tagName || "").toLowerCase();
         const type = (el?.getAttribute?.("type") || "").toLowerCase();
         if (tag === "textarea") return;
         if (tag === "button" && type !== "submit") return;
-      
+            
         e.preventDefault();
         handleSubmit(e);
       }}
@@ -243,7 +259,6 @@ export default function FinancialForm({
               onChange={(e) => {
                 const val = Number(e.target.value || 0);
                 setSecurityDeposit(val);
-                // Do NOT open here while typing
               }}
               onBlur={(e) => {
                 const val = Number(e.target.value || 0);
