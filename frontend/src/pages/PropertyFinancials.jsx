@@ -39,7 +39,7 @@ export default function PropertyFinancials({
 }) {
   const params = useParams?.() || {};
   const routeId = params.id;
-  const { properties = [] } = useProperties?.() || {};
+  const { properties = [], editProperty } = useProperties?.() || {};
 
   const record =
     property ||
@@ -56,27 +56,40 @@ export default function PropertyFinancials({
   // Load
   useEffect(() => {
     let loaded = false;
-    try {
-      const raw = localStorage.getItem(storageKey);
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (parsed?.config) {
-          setConfig(parsed.config);
-          setSchedule(Array.isArray(parsed.schedule) ? parsed.schedule : []);
-          loaded = true;
-          if (!Array.isArray(parsed.schedule) || parsed.schedule.length === 0) {
-            setShowForm(true);
+
+    // 1) From property (preferred)
+    if (record?.financialConfig && Array.isArray(record?.financialSchedule)) {
+      setConfig(record.financialConfig);
+      setSchedule(normalizeSchedule(record.financialSchedule));
+      setShowForm(record.financialSchedule.length === 0);
+      loaded = true;
+    }
+
+    // 2) From localStorage
+    if (!loaded) {
+      try {
+        const raw = localStorage.getItem(storageKey);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed?.config) {
+            setConfig(parsed.config);
+            setSchedule(Array.isArray(parsed.schedule) ? normalizeSchedule(parsed.schedule) : []);
+            setShowForm(!Array.isArray(parsed.schedule) || parsed.schedule.length === 0);
+            loaded = true;
           }
         }
-      }
-    } catch {}
+      } catch {}
+    }
 
+    // 3) From initial props
     if (!loaded) {
       if (initialConfig) setConfig(initialConfig);
-      if (Array.isArray(initialSchedule)) setSchedule(initialSchedule);
-      if (!initialConfig || !Array.isArray(initialSchedule) || initialSchedule.length === 0) {
-        setShowForm(true);
-      }
+      if (Array.isArray(initialSchedule)) setSchedule(normalizeSchedule(initialSchedule));
+      setShowForm(
+        !initialConfig ||
+        !Array.isArray(initialSchedule) ||
+        initialSchedule.length === 0
+      );
     }
   }, [storageKey, initialConfig, initialSchedule]);
 
@@ -106,6 +119,17 @@ export default function PropertyFinancials({
     setConfig(cfg);
     setSchedule(built);
     setShowForm(false);
+
+    // Write back to global property so PropertyDetail can flip the button text
+    try {
+      if (record && editProperty) {
+        editProperty({
+          ...record,
+          financialConfig: cfg,
+          financialSchedule: built,
+        });
+      }
+    } catch {}
   }
 
   function resetAll() {

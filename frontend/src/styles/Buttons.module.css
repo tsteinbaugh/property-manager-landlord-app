@@ -49,3 +49,13 @@
   background-color: #b91c1c; /* red-700 */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
+/* Remove underline when using <Link> as a button */
+.noUnderline,
+.noUnderline:link,
+.noUnderline:visited,
+.noUnderline:hover,
+.noUnderline:focus,
+.noUnderline:active {
+  text-decoration: none !important;
+}
