@@ -4,8 +4,8 @@ import styles from "./FinancialTable.module.css";
 import FeverLight from "../ui/FeverLight";
 import PaymentModal from "./PaymentModal";
 import buttonStyles from "../../styles/Buttons.module.css";
-import { computeRowTotals, maybeApplyLateFee, finalizeMonthIfPaid } from "../../utils/finance";
-import { resolveFeverColor } from "../../utils/feverStatus";
+import { computeRowTotals, maybeApplyLateFee, finalizeMonthIfPaid, getPetRent } from "../../utils/finance";
+import { resolveFeverStatus } from "../../utils/feverStatus";
 import ChargeModal from "./ChargeModal";
 
 // ---- local normalize (dedupe payments in any updated rows)
@@ -48,27 +48,54 @@ export default function FinancialTable({ schedule, config, onChange }) {
   }, [schedule, config]);
 
   // If our normalized/latefee-finalized view differs, push a normalized version upstream once.
+  // Pause while a modal is open — prevents modal from closing as you type.
   useEffect(() => {
+    if (modalIdx !== null || showChargeIdx !== null) return;
     const raw = JSON.stringify(schedule);
     const norm = JSON.stringify(normalizeRows(derived));
     if (raw !== norm) onChange(normalizeRows(derived));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [derived]);
+  }, [derived, modalIdx, showChargeIdx]);
 
-  // KPIs
+  // ---- KPIs ----
   const summary = useMemo(() => {
-    let expected=0, received=0, balance=0, green=0, yellow=0, orange=0, red=0, black=0;
+    let expected=0, received=0, balance=0;
+    let green=0, yellow=0, orange=0, red=0, black=0, gray=0;
+
     derived.forEach((r) => {
       const t = computeRowTotals(r, config);
-      expected += t.expected; received += t.receivedTotal; balance += t.balance;
-      const c = resolveFeverColor({ dueDateISO:r.dueDateISO, payments:r.payments, balance:t.balance });
-      if (c==='green') green++;
-      else if (c==='yellow') yellow++; 
-      else if (c==='orange') orange++; 
-      else if (c==='red') red++; 
-      else if (c==='black') black++;
+      expected += t.expected;
+      received += t.receivedTotal;
+      balance  += t.balance;
+
+      const expectedTotal =
+        (Number(r.expectedBase) || 0) +
+        getPetRent(config) +
+        (Number(r.expectedOther) || 0) +
+        (Array.isArray(r.adjustments)
+          ? r.adjustments.reduce((s, a) => s + (Number(a.amount) || 0), 0)
+          : (Number(r.expectedAdjustments) || 0)) +
+        (r.lateFeeWaived ? 0 : (Number(r.lateFee) || 0));
+
+      const st = resolveFeverStatus({
+        dueDateISO: r.dueDateISO,
+        payments: r.payments,
+        expectedTotal,
+        graceDays: Number(config?.graceDays ?? config?.lateFeeDays ?? 0),
+        noticeGivenAtISO: config?.noticeGivenAtISO || null,
+        noticeDays: Number(config?.noticeDays ?? 10),
+      });
+
+      const color = st?.color;
+      if (color === "green") green++;
+      else if (color === "yellow") yellow++;
+      else if (color === "orange") orange++;
+      else if (color === "red") red++;
+      else if (color === "black") black++;
+      else gray++;
     });
-    return { expected, received, balance, green, yellow, orange, red, black };
+
+    return { expected, received, balance, green, yellow, orange, red, black, gray };
   }, [derived, config]);
 
   function exportCSV() {
@@ -81,20 +108,30 @@ export default function FinancialTable({ schedule, config, onChange }) {
 
     derived.forEach((row) => {
       const t = computeRowTotals(row, config);
+      const pet = getPetRent(config);
       const expected = (
-        row.expectedBase +
-        row.expectedOther +
-        row.expectedAdjustments +
-        (row.lateFeeWaived ? 0 : row.lateFee)
+        (Number(row.expectedBase) || 0) +
+        pet +
+        (Number(row.expectedOther) || 0) +
+        (Array.isArray(row.adjustments)
+          ? row.adjustments.reduce((s, a) => s + (Number(a.amount) || 0), 0)
+          : (Number(row.expectedAdjustments) || 0)) +
+        (row.lateFeeWaived ? 0 : (Number(row.lateFee) || 0))
       ).toFixed(2);
+
       const adjLabel =
         row.adjustmentReasons?.length ? row.adjustmentReasons.join(" + ") : "Adj";
-      const breakdown = `Rent ${row.expectedBase.toFixed(2)}${
-        row.expectedOther ? ` + Other ${row.expectedOther.toFixed(2)}` : ""
+
+      const breakdown = `Rent ${Number(row.expectedBase).toFixed(2)}${
+        pet ? ` + Pet ${pet.toFixed(2)}` : ""
       }${
-        row.expectedAdjustments ? ` + ${adjLabel} ${row.expectedAdjustments.toFixed(2)}` : ""
+        row.expectedOther ? ` + Other ${Number(row.expectedOther).toFixed(2)}` : ""
       }${
-        !row.lateFeeWaived && row.lateFee ? ` + Late ${row.lateFee.toFixed(2)}` : ""
+        (Array.isArray(row.adjustments) && row.adjustments.length)
+          ? ` + ${adjLabel} ${row.adjustments.reduce((s, a) => s + (Number(a.amount) || 0), 0).toFixed(2)}`
+          : (row.expectedAdjustments ? ` + ${adjLabel} ${Number(row.expectedAdjustments).toFixed(2)}` : "")
+      }${
+        !row.lateFeeWaived && row.lateFee ? ` + Late ${Number(row.lateFee).toFixed(2)}` : ""
       }`;
 
       if (row.payments.length === 0) {
@@ -109,7 +146,7 @@ export default function FinancialTable({ schedule, config, onChange }) {
           "",
           t.receivedTotal.toFixed(2),
           t.balance.toFixed(2),
-          t.state
+          row.state || ""
         ].join(","));
       } else {
         row.payments.forEach((p) => {
@@ -124,7 +161,7 @@ export default function FinancialTable({ schedule, config, onChange }) {
             p.note ? `"${p.note.replace(/"/g, '""')}"` : "",
             t.receivedTotal.toFixed(2),
             t.balance.toFixed(2),
-            t.state
+            row.state || ""
           ].join(","));
         });
       }
@@ -137,7 +174,7 @@ export default function FinancialTable({ schedule, config, onChange }) {
 
   // All mutators: normalize before sending upstream
   function toggleLateFee(idx, waived) {
-    const next = schedule.map((r, i) => (i === idx ? { ...r, lateFeeWaived: waived } : r));
+    const next = schedule.map((r, i) => (i === idx ? { ...r, lateFeeWaived: waived, lateFee: waived ? 0 : r.lateFee } : r));
     next.forEach((row) => finalizeMonthIfPaid(row, config));
     onChange(normalizeRows(next));
   }
@@ -165,9 +202,14 @@ export default function FinancialTable({ schedule, config, onChange }) {
       if (i !== idx) return r;
       const reasons = r.adjustmentReasons ? [...r.adjustmentReasons] : [];
       if (payload.reason && payload.reason.trim()) reasons.push(payload.reason.trim());
+
+      const adjustments = Array.isArray(r.adjustments) ? [...r.adjustments] : [];
+      adjustments.push({ amount: amt, reason: payload.reason || "" });
+
       return {
         ...r,
-        expectedAdjustments: +(r.expectedAdjustments + amt).toFixed(2),
+        adjustments,
+        expectedAdjustments: +(Number(r.expectedAdjustments || 0) + amt).toFixed(2), // legacy sync
         adjustmentReasons: reasons,
       };
     });
@@ -184,7 +226,13 @@ export default function FinancialTable({ schedule, config, onChange }) {
             <div className={styles.kpi}><span>Total Expected</span><strong>${summary.expected.toFixed(2)}</strong></div>
             <div className={styles.kpi}><span>Total Received</span><strong>${summary.received.toFixed(2)}</strong></div>
             <div className={styles.kpi}><span>Balance</span><strong>${summary.balance.toFixed(2)}</strong></div>
-            <div className={styles.kpi}><span>Trend</span><strong>{summary.green} green / {summary.yellow} yellow / {summary.orange} orange / {summary.red} red / {summary.black} black</strong></div>
+            <div className={styles.kpi}>
+              <span>Trend</span>
+              <strong>
+                {summary.green} green / {summary.yellow} yellow / {summary.orange} orange /
+                {` ${summary.red} red / ${summary.black} black / ${summary.gray} grey`}
+              </strong>
+            </div>
           </div>
         </div>
         <div className={styles.headerActions}>
@@ -192,30 +240,6 @@ export default function FinancialTable({ schedule, config, onChange }) {
           <button className={buttonStyles.secondaryButton} onClick={exportPDF}>Print</button>
         </div>
       </div>
-
-      {/* Security deposit summary */}
-      {Number(config?.securityDeposit) > 0 && (
-        <div className={styles.depositCard}>
-          <div className={styles.depositInline}>
-            <div className={styles.depositLabel}>Security Deposit</div>
-            <div className={styles.depositValue}>${Number(config.securityDeposit).toFixed(2)}</div>
-            <div className={styles.depositSpacer} />
-            <div className={styles.depositLabel}>Status</div>
-            {config.securityDepositPayment ? (
-              <div className={styles.badgePaid}>Received</div>
-            ) : (
-              <div className={styles.badgeMissing}>Not received</div>
-            )}
-          </div>
-          {config.securityDepositPayment && (
-            <div className={styles.subtle} style={{ marginTop: 6 }}>
-              ${Number(config.securityDepositPayment.amount).toFixed(2)} on {config.securityDepositPayment.dateISO}
-              {config.securityDepositPayment.method ? ` · ${config.securityDepositPayment.method}` : ""}
-              {config.securityDepositPayment.note ? ` — ${config.securityDepositPayment.note}` : ""}
-            </div>
-          )}
-        </div>
-      )}
 
       <div className={styles.table}>
         <div className={`${styles.row} ${styles.head}`}>
@@ -230,13 +254,31 @@ export default function FinancialTable({ schedule, config, onChange }) {
 
         {derived.map((row, idx) => {
           const t = computeRowTotals(row, config);
-          const liveColor = resolveFeverColor({
+          const pet = getPetRent(config);
+
+          const expectedDisplay = (
+            (Number(row.expectedBase) || 0) +
+            pet +
+            (Number(row.expectedOther) || 0) +
+            (Array.isArray(row.adjustments)
+              ? row.adjustments.reduce((s, a) => s + (Number(a.amount) || 0), 0)
+              : (Number(row.expectedAdjustments) || 0)) +
+            (row.lateFeeWaived ? 0 : (Number(row.lateFee) || 0))
+          );
+
+          const status = resolveFeverStatus({
             dueDateISO: row.dueDateISO,
             payments: row.payments,
-            balance: t.balance,
+            expectedTotal: expectedDisplay,
+            graceDays: Number(config?.graceDays ?? config?.lateFeeDays ?? 0),
+            noticeGivenAtISO: config?.noticeGivenAtISO || null,
+            noticeDays: Number(config?.noticeDays ?? 10),
           });
+
           const adjLabel =
             row.adjustmentReasons?.length ? row.adjustmentReasons.join(" + ") : "Adj";
+
+          const showLight = !!status.color;
 
           return (
             <div key={row.dueDateISO + ":" + idx} className={styles.row}>
@@ -246,19 +288,16 @@ export default function FinancialTable({ schedule, config, onChange }) {
               </div>
 
               <div>
-                <div>
-                  ${(
-                    row.expectedBase +
-                    row.expectedOther +
-                    row.expectedAdjustments +
-                    (row.lateFeeWaived ? 0 : row.lateFee)
-                  ).toFixed(2)}
-                </div>
+                <div>${expectedDisplay.toFixed(2)}</div>
                 <div className={styles.subtle}>
-                  Rent ${row.expectedBase.toFixed(2)}
-                  {row.expectedOther ? ` + Other $${row.expectedOther.toFixed(2)}` : ""}
-                  {row.expectedAdjustments ? ` + ${adjLabel} $${row.expectedAdjustments.toFixed(2)}` : ""}
-                  {!row.lateFeeWaived && row.lateFee ? ` + Late $${row.lateFee.toFixed(2)}` : ""}
+                  Rent ${Number(row.expectedBase).toFixed(2)}
+                  {pet ? ` + Pet $${pet.toFixed(2)}` : ""}
+                  {row.expectedOther ? ` + Other $${Number(row.expectedOther).toFixed(2)}` : ""}
+                  {(Array.isArray(row.adjustments) && row.adjustments.length)
+                    ? ` + ${adjLabel} $${row.adjustments.reduce((s, a) => s + (Number(a.amount) || 0), 0).toFixed(2)}`
+                    : (row.expectedAdjustments ? ` + ${adjLabel} $${Number(row.expectedAdjustments).toFixed(2)}` : "")
+                  }
+                  {!row.lateFeeWaived && row.lateFee ? ` + Late $${Number(row.lateFee).toFixed(2)}` : ""}
                 </div>
                 {!!row.lateFee && (
                   <label className={styles.waive}>
@@ -288,7 +327,11 @@ export default function FinancialTable({ schedule, config, onChange }) {
               <div>${t.receivedTotal.toFixed(2)}</div>
 
               <div>
-                <FeverLight color={row.lockedColor || liveColor} size={16} />
+                {showLight ? (
+                  <FeverLight color={status.color} size={16} title={status.tooltip} />
+                ) : (
+                  <span style={{ display: "inline-block", width: 16, height: 16 }} />
+                )}
                 {row.lockedState && <div className={styles.subtle}>Locked {row.lockedAtISO}</div>}
               </div>
 

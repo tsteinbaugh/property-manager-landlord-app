@@ -1,10 +1,34 @@
 // property-manager-landlord-app/frontend/src/pages/PropertyList.jsx
-import { Link } from "react-router-dom";
-import FeverLight from "../components/ui/FeverLight"; // fixed path
-import { getFinancialFever, getMaintenanceFever } from "../utils/feverStatus";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import FeverLight from "../components/ui/FeverLight";
+import { pickDashboardStatusFromRows, tooltipForColor } from "../utils/feverStatus";
 import styles from "./PropertyList.module.css";
 
+/** Local maintenance fever (self-contained) */
+function localGetMaintenanceFever({ items = [], approachingDays = 14, nowISO } = {}) {
+  if (!Array.isArray(items) || items.length === 0) {
+    return { color: "green", tooltip: "No open maintenance items." };
+  }
+  const now = nowISO ? new Date(nowISO) : new Date();
+  const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
+
+  const open = items.filter(i => !i.completed);
+  if (open.some(i => i.emergency)) return { color: "red", tooltip: "Emergency maintenance open." };
+
+  const overdue = open.filter(i => i.dueDate && new Date(i.dueDate) < now);
+  if (overdue.length) return { color: "orange", tooltip: `${overdue.length} maintenance task(s) overdue.` };
+
+  const soon = addDays(now, approachingDays);
+  const approaching = open.filter(i => i.dueDate && new Date(i.dueDate) >= now && new Date(i.dueDate) <= soon);
+  if (approaching.length) return { color: "yellow", tooltip: `${approaching.length} maintenance task(s) due soon.` };
+
+  return { color: "green", tooltip: "All maintenance up to date." };
+}
+
 export default function PropertyList({ role, properties }) {
+  const navigate = useNavigate();
+
   return (
     <div className={styles.tableWrap}>
       <table className={styles.table}>
@@ -28,57 +52,54 @@ export default function PropertyList({ role, properties }) {
                 emergency: !!i?.emergency,
                 completed: !!i?.completed,
               }));
-            const maintState = getMaintenanceFever({ items: maintenanceItems, approachingDays: 14 });
+            const maintState = localGetMaintenanceFever({ items: maintenanceItems, approachingDays: 14 });
 
-            // --- Financial ---
-            const dueDate =
-              property?.financial?.currentPeriod?.dueDate ||
-              property?.financial?.dueDate ||
-              property?.nextRentDueDate ||
-              property?.rentDueDate ||
-              null;
+            // --- Financial for Dashboard (shared with FinancialTable) ---
+            const rows = property?.financialSchedule || [];
+            const cfg  = property?.financialConfig || null;
+            const dash = (cfg && Array.isArray(rows) && rows.length)
+              ? pickDashboardStatusFromRows(rows, cfg)
+              : null;
 
-            const monthlyRent =
-              property?.financial?.rentAmount ??
-              property?.rentAmount ??
-              property?.rent ??
-              (Array.isArray(property?.tenants) ? property.tenants[0]?.rent : undefined);
+            const hasSetup  = !!(cfg && Array.isArray(rows) && rows.length);
+            const finColor  = hasSetup ? (dash?.color ?? "gray") : "gray";
+            const finTooltip = hasSetup
+              ? (dash?.tooltip || tooltipForColor(finColor) || "Financials")
+              : "No financial data — click to set up";
 
-            const payments = property?.financial?.currentPeriod?.payments || property?.payments || [];
-
-            const finState =
-              dueDate && Number(monthlyRent) > 0
-                ? getFinancialFever({
-                    dueDate,
-                    monthlyRent: Number(monthlyRent),
-                    payments,
-                    lateFeeDays: 7,
-                    noticeDays: 10,
-                  })
-                : { color: "gray", tooltip: "No financial data." };
+            const handleOpenFinancials = () => {
+              navigate(`/property/${property.id}/financials`);
+            };
 
             return (
               <tr key={property.id}>
                 {/* Col 1: Property details */}
                 <td className={`${styles.cell} ${styles.details}`}>
-                  <Link to={`/property/${property.id}`} className={styles.addrLink}>
+                  <button
+                    type="button"
+                    className={styles.addrLink}
+                    onClick={() => navigate(`/property/${property.id}`)}
+                    title="Open property"
+                  >
                     <span className={styles.addrText}>
-                      {property.address}, {property.city}, {property.state}
+                      {property.address}{property.city ? `, ${property.city}` : ""}{property.state ? `, ${property.state}` : ""}
                     </span>
-                  </Link>
+                  </button>
                 </td>
 
                 {/* Col 2: Financial (landlord only) */}
                 <td className={`${styles.cell} ${styles.lightCell}`}>
                   {role === "landlord" ? (
-                    <Link
-                      to={`/properties/${property.id}/financials`}
-                      title={finState.tooltip || "Open financials"}
-                      style={{ display: "inline-flex", alignItems: "center" }}
+                    <button
+                      type="button"
+                      onClick={handleOpenFinancials}
+                      title={finTooltip}
+                      className={styles.lightButton}
                       aria-label="Open financials"
                     >
-                      <FeverLight color={finState.color} size={18} title={finState.tooltip} />
-                    </Link>
+                      <FeverLight color={finColor} size={18} title={finTooltip} />
+                      {/* intentionally removed month text next to the light */}
+                    </button>
                   ) : (
                     <span style={{ display: "inline-block", width: 18, height: 18 }} />
                   )}

@@ -5,7 +5,7 @@ import buttonStyles from "../../styles/Buttons.module.css";
 
 /**
  * Modal for recording a payment.
- * NOTE: No <form> here — we prevent submit bubbling to parent pages.
+ * Keeps local state stable; only re-seeds on transition open:false -> true.
  */
 export default function PaymentModal({
   open,
@@ -21,45 +21,26 @@ export default function PaymentModal({
   const [submitted, setSubmitted] = useState(false);
 
   const containerRef = useRef(null);
+  const prevOpen = useRef(open);
 
-  // (Re)seed when opened
+  // Re-seed ONLY when opening transitions from false -> true
   useEffect(() => {
-    if (!open) return;
-    setAmount(initial.amount ?? "");
-    setDateISO(initial.dateISO ?? "");
-    setMethod(initial.method ?? "");
-    setNote(initial.note ?? "");
-    setSubmitted(false);
-  }, [open, initial]);
-
-  // Trap Enter/Tab inside the modal; never let key events bubble to parent pages
-  useEffect(() => {
-    if (!open) return;
-
-    const onKeyDown = (e) => {
-      // Never let this bubble up to parent pages
-      e.stopPropagation();
-
-      // Ignore composition events (IME)
-      if (e.isComposing || e.keyCode === 229) return;
-
-      if (e.key === "Enter") {
-        e.preventDefault();
-        handleSave();
-      }
-    };
-
-    // Listen at window to catch Enter regardless of which child has focus
-    window.addEventListener("keydown", onKeyDown, true); // capture phase
-    return () => window.removeEventListener("keydown", onKeyDown, true);
-  }, [open, amount, dateISO, method, note]);
+    if (!prevOpen.current && open) {
+      setAmount(initial.amount ?? "");
+      setDateISO(initial.dateISO ?? "");
+      setMethod(initial.method ?? "");
+      setNote(initial.note ?? "");
+      setSubmitted(false);
+    }
+    prevOpen.current = open;
+    // IMPORTANT: do NOT include `initial` in deps to avoid constant reseed on each render
+  }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function handleSave() {
     setSubmitted(true);
     const amt = Number(amount);
     if (!Number.isFinite(amt) || amt <= 0) return;
     if (!dateISO) return;
-
     onAddPayment?.({
       amount: amt,
       dateISO,
@@ -75,7 +56,7 @@ export default function PaymentModal({
     <ModalRoot isOpen={open} onClose={onClose}>
       <div
         ref={containerRef}
-        // Don’t let *any* click/keyboard bubble to the parent
+        // Keep all events inside; do not bubble to parent
         onClick={(e) => e.stopPropagation()}
         onKeyDown={(e) => e.stopPropagation()}
         role="dialog"
