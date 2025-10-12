@@ -9,7 +9,13 @@ import TenantModal from '../components/TenantModal';
 import OccupantModal from '../components/OccupantModal';
 import PetModal from '../components/PetModal';
 import EmergencyContactModal from '../components/EmergencyContactModal';
-import FinancialModal from '../components/FinancialModal';
+
+const formatCurrency = (n) => {
+  const num = Number(n);
+  return n != null && !Number.isNaN(num)
+    ? new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD' }).format(num)
+    : "(not set)";
+};
 
 export default function PropertyDetail({ role, setRole }) {
   const [editingProperty, setEditingProperty] = useState(null);
@@ -22,7 +28,6 @@ export default function PropertyDetail({ role, setRole }) {
   const [editingOccupantIndex, setEditingOccupantIndex] = useState(null);
   const [editingPetIndex, setEditingPetIndex] = useState(null);
   const [editingEmergencyContactIndex, setEditingEmergencyContactIndex] = useState(null);
-  const [editingFinancialIndex, setEditingFinancialIndex] = useState(null);
   const [showNewTenantModal, setShowNewTenantModal] = useState(false);
   const [showNewOccupantModal, setShowNewOccupantModal] = useState(false);
   const [showNewPetModal, setShowNewPetModal] = useState(false);
@@ -32,10 +37,20 @@ export default function PropertyDetail({ role, setRole }) {
   const hasFinancials = useMemo(() => {
     if (!property) return false;
     // From property
-    const fromProp =
-      !!property.financialConfig &&
-      Array.isArray(property.financialSchedule) &&
-      property.financialSchedule.length > 0;
+    const fromProp = (
+      (
+        !!property.financialConfig &&
+        Array.isArray(property.financialSchedule) &&
+        property.financialSchedule.length > 0
+      ) || (
+        !!property.financials && (
+          property.financials.monthlyRent != null ||
+          property.financials.baseRent != null ||
+          property.financials.rent != null
+        )
+      )
+    );
+
     if (fromProp) return true;
     // From localStorage (fallback)
     try {
@@ -104,6 +119,85 @@ export default function PropertyDetail({ role, setRole }) {
   editProperty(updatedProperty);
 };
 
+const getFinancialState = useMemo(() => {
+  if (!property) return () => ({ config: null, schedule: [] });
+
+  return () => {
+    // Prefer what's already on the property
+    const configFromProp = property.financialConfig || null;
+    const schedFromProp = Array.isArray(property.financialSchedule) ? property.financialSchedule : [];
+
+    // If property already has config + schedule, use that
+    if (configFromProp && schedFromProp.length > 0) {
+      return { config: configFromProp, schedule: schedFromProp };
+    }
+
+    // Otherwise fall back to localStorage (frontend-only temporary store)
+    try {
+      const raw = localStorage.getItem(`financials:${property.id}`);
+      if (!raw) return { config: null, schedule: [] };
+      const parsed = JSON.parse(raw);
+      const config = parsed?.config || null;
+      const schedule = Array.isArray(parsed?.schedule) ? parsed.schedule : [];
+      return { config, schedule };
+    } catch {
+      return { config: null, schedule: [] };
+    }
+  };
+}, [property]);
+
+const computedRent = useMemo(() => {
+  const p = property || {};
+  const f = p.financials || p.financial || {};
+
+  // 1) direct fields saved on the property
+  if (f.monthlyRent != null && f.monthlyRent !== '') return Number(f.monthlyRent);
+  if (f.baseRent != null && f.baseRent !== '')       return Number(f.baseRent);
+  if (f.rent != null && f.rent !== '')               return Number(f.rent);
+
+  // 2) look into config/schedule from either property OR localStorage
+  const { config, schedule } = getFinancialState();
+
+  // Try config first (some UIs store it there)
+  if (config) {
+    const fromConfig =
+      config.monthlyRent ?? config.baseRent ?? config.rent ?? config.expectedBase ?? null;
+    if (fromConfig != null && fromConfig !== '') return Number(fromConfig);
+  }
+
+  // Then try schedule rows (pick the first row that has recognizable fields)
+  const row = (Array.isArray(schedule) ? schedule : []).find(
+    (r) =>
+      r &&
+      (r.expectedBase != null ||
+       r.expectedTotal != null ||
+       r.base != null ||
+       r.amount != null ||
+       r.rent != null)
+  );
+
+  if (row) {
+    // Prefer base if present
+    if (row.expectedBase != null && row.expectedBase !== '') return Number(row.expectedBase);
+    if (row.base != null && row.base !== '')                 return Number(row.base);
+    if (row.rent != null && row.rent !== '')                 return Number(row.rent);
+
+    // Otherwise use total minus pet rent if we can estimate
+    const total = Number(row.expectedTotal ?? row.amount ?? 0);
+    const pet   = Number(row.expectedPetRent ?? row.petRent ?? 0);
+    const base  = total - pet;
+    if (Number.isFinite(base) && base > 0) return base;
+
+    // If all else fails, show total (at least it’s a number)
+    if (Number.isFinite(total) && total > 0) return total;
+  }
+
+  // 3) OCR/parsed lease field on property (last resort)
+  const leaseRent = p.leaseExtract?.fields?.monthlyRent;
+  if (leaseRent != null && leaseRent !== '') return Number(leaseRent);
+
+  return null;
+}, [property, getFinancialState]);
 
   return (
     <>
@@ -142,8 +236,8 @@ export default function PropertyDetail({ role, setRole }) {
         )}
 
         {showEditModal && editingProperty && (
-          <PropertyModal 
-            isOpen={showEditModal} 
+          <PropertyModal
+            isOpen={showEditModal}
             initialData={editingProperty}
             onClose={() => setShowEditModal(false)}
             onSave={(updated) => {
@@ -468,8 +562,10 @@ export default function PropertyDetail({ role, setRole }) {
                         <ul className="ml-6">
                           <li><strong>Contact:</strong>
                             <ul className="ml-8">
-                              <li><strong>Phone:</strong> {emergencyContact.contact.phone}</li>
-                              {emergencyContact.contact.email && (
+                              {emergencyContact.contact?.phone && (
+                                <li><strong>Phone:</strong> {emergencyContact.contact.phone}</li>
+                              )}
+                              {emergencyContact.contact?.email && (
                                 <li><strong>Email:</strong> {emergencyContact.contact.email}</li>
                               )}
                             </ul>
@@ -555,33 +651,10 @@ export default function PropertyDetail({ role, setRole }) {
               <div className={styles.propertyStats}>
                 <ul className={styles.list}>
                   <li>
-                    <strong>Rent:</strong>{" "}
-                    {(() => {
-                      // Try to infer the monthly rent from the first unpaid month in the schedule,
-                      // or from leaseExtract if present.
-                      const firstRow = Array.isArray(property.financialSchedule) ? property.financialSchedule[0] : null;
-                      const rent =
-                        (firstRow && (firstRow.expectedBase || 0)) ||
-                        property.leaseExtract?.fields?.monthlyRent ||
-                        null;
-                      return rent != null ? `$${Number(rent).toFixed(2)}` : "(not set)";
-                    })()}
-                  </li>
-                  <li>
-                    <strong>Due Day:</strong>{" "}
-                    {property.leaseExtract?.fields?.dueDay ??
-                     "(see schedule)"}
-                  </li>
-                  <li>
-                    <strong>Security Deposit:</strong>{" "}
-                    {(() => {
-                      const firstRow = Array.isArray(property.financialSchedule) ? property.financialSchedule[0] : null;
-                      const dep = firstRow?.securityDeposit ?? property.leaseExtract?.fields?.securityDeposit;
-                      return dep != null ? `$${Number(dep).toFixed(2)}` : "(not set)";
-                    })()}
+                    <strong>Rent:</strong> {formatCurrency(computedRent)}
                   </li>
                 </ul>
-                  
+
                 <div className={layoutStyles.buttonGroup}>
                   <Link
                     className={`${buttonStyles.primaryButton} ${buttonStyles.noUnderline}`}
@@ -622,7 +695,7 @@ export default function PropertyDetail({ role, setRole }) {
                 </a>
               ) : (
                 <p className="ml-4 italic text-gray-500">None uploaded</p>
-              )} 
+              )}
             </div>
 
             <div className={layoutStyles.buttonGroup}>
