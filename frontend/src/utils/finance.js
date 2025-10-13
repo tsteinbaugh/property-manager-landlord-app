@@ -163,53 +163,60 @@ export function computeRowTotals(row, config) {
   return { expected, receivedTotal: received, balance, state };
 }
 
-/* ===================== LATE FEE ===================== */
-// Apply after grace if still short.
-// Remove only if: (a) waived, or (b) full amount (excluding late) was paid by grace deadline.
-// Fee base must be EXACTLY (base + pet). We derive it from row totals to avoid config misreads.
+// ===================== LATE FEE (FIXED: assess by timing, not balance) =====================
+// Apply after grace if, at the grace cutoff, the tenant had not fully covered
+// the "no-late" expected amount (base + pet + other + adjustments).
+// Remove only if: (a) waived, or (b) fully covered BY THE CUTOFF.
+// Later payments that bring balance to zero do NOT remove an assessed fee.
 export function maybeApplyLateFee(row, config = {}) {
   if (!row || !row.dueDateISO) return;
 
-  // Waived always wins.
+  // Waiver always wins.
   if (row.lateFeeWaived) {
     row.lateFee = 0;
+    row.lateFeeAppliedAtISO = null;
     return;
   }
 
   const todayISO = new Date().toISOString().slice(0, 10);
   const graceEndISO = graceEndISOOf(row, config);
 
-  // If tenant PAID IN FULL (no-late expected) by grace deadline, clear any fee.
+  // Compute what was needed without late and what was actually paid by cutoff.
   const neededNoLate = expectedWithoutLateFee(row, config);
-  const paidByGrace = sumPaymentsUpTo(row, graceEndISO);
+  const paidByGrace  = sumPaymentsUpTo(row, graceEndISO); // <= inclusive
+
+  // If they were fully covered by the cutoff, there is no late fee (ever).
   if (paidByGrace >= neededNoLate) {
     row.lateFee = 0;
     row.lateFeeAppliedAtISO = null;
     return;
   }
 
-  // Before/on grace end: do not apply yet (and do not remove existing).
+  // Before grace end: do not assess yet (but also don't clear any existing).
   if (todayISO <= graceEndISO) return;
 
-  // === Compute fee base robustly from row math ===
-  // base+pet = (base+pet+other+adj) - (other+adj)
+  // After grace: if they were short at cutoff, the fee is assessed (once),
+  // regardless of what the balance looks like now.
+  const pol = config?.lateFeePolicy || { type: "flat", value: 0 };
+
+  // Fee base = base + pet (exclude "other" and adjustments from % base)
+  // We derive base+pet robustly from row math:
   const baseNoLate = expectedWithoutLateFee(row, config);
-  const otherAdj = currency(row?.expectedOther) + adjustmentsTotal(row);
+  const otherAdj   = currency(row?.expectedOther) + adjustmentsTotal(row);
   const baseWithPet = Math.max(0, +(baseNoLate - otherAdj).toFixed(2));
 
-  // After grace: if still short, ensure fee is applied (once).
-  const { balance } = computeRowTotals(row, config);
-  if (balance > 0) {
-    const pol = config?.lateFeePolicy || { type: "flat", value: 0 };
-    const computed =
-      pol.type === "percent" ? (baseWithPet * currency(pol.value)) / 100 : currency(pol.value);
+  const computed =
+    pol.type === "percent"
+      ? +(baseWithPet * currency(pol.value) / 100).toFixed(2)
+      : +currency(pol.value).toFixed(2);
 
-    if (!row.lateFee || row.lateFee === 0) {
-      row.lateFee = Number.isFinite(computed) ? +computed.toFixed(2) : 0;
-      row.lateFeeAppliedAtISO = todayISO;
-    }
+  // Only set if not already set; don't overwrite an existing assessed amount.
+  if (!row.lateFee || row.lateFee === 0) {
+    row.lateFee = Number.isFinite(computed) ? computed : 0;
+    row.lateFeeAppliedAtISO = todayISO;
   }
-  // If not short, leave any existing fee alone (only waived or grace-proof removes it).
+  // Note: we do NOT clear an assessed fee here; clearing only happens via waiver
+  // or by proving paid-in-full BY cutoff (handled above).
 }
 
 /* ===================== FINALIZE ===================== */
@@ -228,6 +235,29 @@ export function finalizeMonthIfPaid(row, config = {}) {
       row.lockedColor = null;
     }
   }
+}
+
+// Compute what the assessed late fee *would be* for this row based on policy,
+// regardless of whether it's currently waived. Returns 0 if it wouldn't apply.
+export function computeAssessedLateFeeAmount(row, config = {}) {
+  if (!row || !row.dueDateISO) return 0;
+
+  const graceEndISO = graceEndISOOf(row, config);
+  const neededNoLate = expectedWithoutLateFee(row, config);
+  const paidByGrace  = sumPaymentsUpTo(row, graceEndISO);
+
+  // If fully covered by cutoff, no fee would be assessed.
+  if (paidByGrace >= neededNoLate) return 0;
+
+  // Fee base = base + pet
+  const baseNoLate = expectedWithoutLateFee(row, config);
+  const otherAdj   = currency(row?.expectedOther) + adjustmentsTotal(row);
+  const baseWithPet = Math.max(0, +(baseNoLate - otherAdj).toFixed(2));
+
+  const pol = config?.lateFeePolicy || { type: "flat", value: 0 };
+  return pol.type === "percent"
+    ? +(baseWithPet * currency(pol.value) / 100).toFixed(2)
+    : +currency(pol.value).toFixed(2);
 }
 
 /* ===================== SCHEDULE GENERATOR ===================== */
