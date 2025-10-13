@@ -1,8 +1,12 @@
-import { useState, useEffect } from "react";
+// /home/tsteinbaugh/property-manager-landlord-app/frontend/src/components/TenantModal.jsx
+import { useState, useEffect, useRef } from "react";
 import styles from "../styles/SharedModal.module.css";
 import buttonStyles from "../styles/Buttons.module.css";
 import FloatingField from "./ui/FloatingField";
 import ModalRoot from "./ui/ModalRoot";
+
+// require dot in domain, min 2 chars TLD
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 export default function TenantModal({ isOpen, tenant, onClose, onSave, title = "Edit Tenant" }) {
   const [formData, setFormData] = useState({
@@ -16,6 +20,9 @@ export default function TenantModal({ isOpen, tenant, onClose, onSave, title = "
   const [photoIdFile, setPhotoIdFile] = useState(null);
   const [photoIdPreview, setPhotoIdPreview] = useState(null);
   const [submitted, setSubmitted] = useState(false);
+
+  const formRef = useRef(null);
+  const fileInputRef = useRef(null);
 
   // Normalize incoming data to strings
   useEffect(() => {
@@ -56,31 +63,65 @@ export default function TenantModal({ isOpen, tenant, onClose, onSave, title = "
     reader.readAsDataURL(file);
   }
 
+  function getEmailInputEl() {
+    const el = formRef.current?.elements?.namedItem?.("email");
+    // namedItem can return RadioNodeList; coerce to input if applicable
+    return el && "setCustomValidity" in el ? el : null;
+  }
+
   function handleChange(e) {
     const { name, value } = e.target;
-    // always coerce to string to keep trim() safe later
     const v = String(value ?? "");
     if (name === "phone" || name === "email") {
       setFormData(prev => ({ ...prev, contact: { ...(prev.contact || {}), [name]: v } }));
+      if (name === "email") {
+        // Clear custom validity while typing, and only re-apply on submit
+        const emailEl = getEmailInputEl();
+        if (emailEl) emailEl.setCustomValidity("");
+      }
     } else {
       setFormData(prev => ({ ...prev, [name]: v }));
     }
   }
 
-  // Safe validations (coerce to string first)
+  // --- validations for inline summary
   const emailStr = String(formData.contact?.email ?? "");
   const phoneStr = String(formData.contact?.phone ?? "");
   const nameStr  = String(formData.name ?? "");
-
-  const emailOk  = /^\S+@\S+\.\S+$/.test(emailStr.trim());
+  const emailOk  = EMAIL_REGEX.test(emailStr.trim());
   const basicsOk = nameStr.trim() !== "" && phoneStr.trim() !== "" && emailOk;
+
+  const tenantHasExistingPhoto = Boolean(tenant?.photoIdDataUrl || tenant?.photoIdName);
+  const hasPhotoNow = Boolean(photoIdFile || photoIdPreview || formData.photoIdDataUrl);
+  const mustRequirePhoto = !tenant || !tenantHasExistingPhoto;
 
   function handleSubmit(e) {
     e.preventDefault();
     setSubmitted(true);
 
-    const needPhotoId = !tenant && !photoIdPreview;
-    if (!basicsOk || needPhotoId) return;
+    // Photo ID custom bubble
+    if (fileInputRef.current) {
+      if (mustRequirePhoto && !hasPhotoNow) {
+        fileInputRef.current.setCustomValidity("Please attach a Photo ID.");
+      } else {
+        fileInputRef.current.setCustomValidity("");
+      }
+    }
+
+    // Email custom bubble using stricter regex
+    const emailEl = getEmailInputEl();
+    if (emailEl) {
+      if (!EMAIL_REGEX.test(emailStr.trim())) {
+        emailEl.setCustomValidity("Enter a valid email like name@example.com");
+      } else {
+        emailEl.setCustomValidity("");
+      }
+    }
+
+    // Native validation + focus/bubble on the first invalid control
+    if (formRef.current && !formRef.current.reportValidity()) {
+      return;
+    }
 
     const payload = {
       name: nameStr.trim(),
@@ -94,41 +135,76 @@ export default function TenantModal({ isOpen, tenant, onClose, onSave, title = "
     onSave?.(payload);
   }
 
-  const requirePhoto = !tenant;
-
   return (
     <ModalRoot isOpen={!!isOpen} onClose={onClose} width={560}>
       <h2 className={styles.modalTitle}>{title}</h2>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <FloatingField name="name" label="Name" value={formData.name} onChange={handleChange} required />
-        <FloatingField name="age" label="Age" value={formData.age} onChange={handleChange} />
-        <FloatingField name="occupation" label="Occupation" value={formData.occupation} onChange={handleChange} />
-        <FloatingField name="phone" label="Phone" value={formData.contact?.phone || ""} onChange={handleChange} required />
-        <FloatingField name="email" type="email" label="Email" value={formData.contact?.email || ""} onChange={handleChange} required />
+      {/* Keep native validation enabled */}
+      <form ref={formRef} onSubmit={handleSubmit} className={styles.form}>
+        <FloatingField
+          name="name"
+          label="Name"
+          value={formData.name}
+          onChange={handleChange}
+          required
+        />
+        <FloatingField
+          name="age"
+          label="Age"
+          value={formData.age}
+          onChange={handleChange}
+        />
+        <FloatingField
+          name="occupation"
+          label="Occupation"
+          value={formData.occupation}
+          onChange={handleChange}
+        />
+        <FloatingField
+          name="phone"
+          label="Phone"
+          value={formData.contact?.phone || ""}
+          onChange={handleChange}
+          required
+        />
+        <FloatingField
+          name="email"
+          type="email"
+          label="Email"
+          value={formData.contact?.email || ""}
+          onChange={handleChange}
+          required
+          autoComplete="email"
+          inputMode="email"
+        />
 
         <div className={styles.input}>
           <label style={{ display: "block", marginBottom: 6 }}>
-            Photo ID {requirePhoto && <span style={{ color: "red" }}>*</span>}
+            Photo ID {mustRequirePhoto && <span style={{ color: "red" }}>*</span>}
           </label>
-          <input name="photoId" type="file" accept="image/*,.pdf" onChange={onChoosePhotoId} required={requirePhoto} />
-          {photoIdPreview && (
+          <input
+            ref={fileInputRef}
+            name="photoId"
+            type="file"
+            accept="image/*,.pdf"
+            onChange={onChoosePhotoId}
+            required={mustRequirePhoto && !hasPhotoNow}
+          />
+          {hasPhotoNow && (
             <div style={{ marginTop: 8 }}>
-              {String(photoIdPreview).startsWith("data:image/")
-                ? <img src={photoIdPreview} alt="Photo ID" style={{ maxWidth: 240, border: "1px solid #ddd" }} />
-                : <a href={photoIdPreview} target="_blank" rel="noreferrer">View Photo ID</a>}
+              {String(photoIdPreview || formData.photoIdDataUrl).startsWith("data:image/")
+                ? <img src={photoIdPreview || formData.photoIdDataUrl} alt="Photo ID" style={{ maxWidth: 240, border: "1px solid #ddd" }} />
+                : <a href={photoIdPreview || formData.photoIdDataUrl} target="_blank" rel="noreferrer">View Photo ID</a>}
             </div>
           )}
         </div>
 
-        {submitted && (!basicsOk || (requirePhoto && !photoIdPreview)) && (
-          <p className={styles.validationText}>
-            Please fill in name, phone, a valid email, and attach a Photo ID.
-          </p>
-        )}
-
         <div className={styles.modalButtons}>
-          <button type="submit" className={buttonStyles.primaryButton}>Save</button>
-          <button type="button" onClick={onClose} className={buttonStyles.secondaryButton}>Cancel</button>
+          <button type="submit" className={buttonStyles.primaryButton}>
+            Save
+          </button>
+          <button type="button" onClick={onClose} className={buttonStyles.secondaryButton}>
+            Cancel
+          </button>
         </div>
       </form>
     </ModalRoot>
