@@ -6,3 +6,16 @@
 .green { background: #22c55e; } /* on time */
 .black { background: #111827; } /* alternative unpaid if used by dashboard */
 .gray { background: #9ca3af; } /* unknown */
+.split {
+  position: relative;
+  border-radius: 999px;
+  overflow: hidden; /* clip to a circle */
+}
+.half {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+}
+.left  { left: 0; border-top-left-radius: 999px; border-bottom-left-radius: 999px; }
+.right { right: 0; border-top-right-radius: 999px; border-bottom-right-radius: 999px; }
