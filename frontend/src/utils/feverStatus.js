@@ -26,41 +26,46 @@ function finalPaymentAt(payments = [], expectedTotal = 0) {
   return null;
 }
 
-// Tooltip dictionary
-export const FeverTooltips = {
+// ===== Tooltip dictionary =====
+const BaseTips = {
   green:  "Paid in full, on time",
   yellow: "Paid in full, late but within grace period",
-  orange: "Not paid in full after grace period, late fee applied, should start notice period",
-  red:    "In notice period for non-payment",
-  black:  "Notice period ended — filing/eviction should begin",
+  yellow_unpaid: "Within grace period — balance due.",
+  orange_unpaid: "Past grace period, late fee applied — balance due (consider notice).",
+  orange_paid_after_grace: "Paid in full, paid after grace (late fees applied if applicable).",
+  red_unpaid: "In notice period - balance due.",
+  red_paid_in_notice: "Paid in full, paid during notice period (late fees applied if applicable).",
+  black_unpaid: "Notice period ended — filing/eviction should begin.",
+  black_paid: "Paid in full, paid after notice period (late fees applied if applicable).",
   gray:   "No financial data",
 };
+// Back-compat alias (prevents ReferenceError if other files import FeverTooltips)
+export const FeverTooltips = BaseTips;
 
-// ===== Core month status (table) =====
+// ===== Core month status =====
 export function resolveFeverStatus({
   dueDateISO,
   payments = [],
   expectedTotal,
   graceDays = 0,
-  // landlord inputs (prefer per-row; if absent, fall back to global)
   noticeGivenAtISO = null,
   noticeDays = 10,
   nowISO,
 }) {
   if (!dueDateISO) {
-    return { color: "gray", tooltip: FeverTooltips.gray, hidden: false, finalPaidAtISO: null };
+    return { color: "gray", tooltip: BaseTips.gray, hidden: false, finalPaidAtISO: null };
   }
 
   const due = atStart(fromISO(dueDateISO));
   const now = atStart(fromISO(nowISO || new Date().toISOString()));
-  const isFutureMonth = now.getTime() < due.getTime();
   const graceEnd = atStart(addDays(due, graceDays));
+  const isFutureMonth = now.getTime() < due.getTime();
 
-  // only escalate if we do have an explicit notice start
   const allowNotice = !!noticeGivenAtISO;
   const noticeStart = allowNotice ? atStart(fromISO(noticeGivenAtISO)) : null;
   const noticeEnd   = allowNotice ? atStart(addDays(noticeStart, Math.max(0, noticeDays))) : null;
 
+  // Hide future months
   if (isFutureMonth) {
     return { color: null, tooltip: "", hidden: true, finalPaidAtISO: null };
   }
@@ -68,48 +73,81 @@ export function resolveFeverStatus({
   const finalPaidAt = finalPaymentAt(payments, expectedTotal);
   const fullyPaid = !!finalPaidAt;
 
+  // Before (or on) due date and not fully paid — blank (no dot yet)
   if (!fullyPaid && now.getTime() <= due.getTime()) {
     return { color: null, tooltip: "", hidden: false, finalPaidAtISO: null };
   }
 
+  // ===== FULLY PAID =====
   if (fullyPaid) {
     const fp = atStart(finalPaidAt);
+
+    // On/before due -> green
     if (fp.getTime() <= due.getTime()) {
-      return { color: "green", tooltip: FeverTooltips.green, hidden: false, finalPaidAtISO: finalPaidAt.toISOString() };
+      return { color: "green", tooltip: BaseTips.green, hidden: false, finalPaidAtISO: finalPaidAt.toISOString() };
     }
+
+    // Within grace -> yellow
     if (fp.getTime() <= graceEnd.getTime()) {
-      return { color: "yellow", tooltip: FeverTooltips.yellow, hidden: false, finalPaidAtISO: finalPaidAt.toISOString() };
+      return { color: "yellow", tooltip: BaseTips.yellow, hidden: false, finalPaidAtISO: finalPaidAt.toISOString() };
     }
 
-    // paid after grace; only go red/black if notice configured
-    if (allowNotice && noticeStart && fp.getTime() >= noticeStart.getTime()) {
-      if (noticeEnd && fp.getTime() <= noticeEnd.getTime()) {
-        return { color: "red", tooltip: FeverTooltips.red, hidden: false, finalPaidAtISO: finalPaidAt.toISOString() };
+    // Paid after grace, no notice configured
+    if (!allowNotice) {
+      return { color: "orange", tooltip: BaseTips.orange_paid_after_grace, hidden: false, finalPaidAtISO: finalPaidAt.toISOString() };
+    }
+
+    // With notice configured:
+    if (noticeStart && noticeEnd) {
+      // Paid before notice actually started
+      if (fp.getTime() < noticeStart.getTime()) {
+        return { color: "orange", tooltip: BaseTips.orange_paid_after_grace, hidden: false, finalPaidAtISO: finalPaidAt.toISOString() };
       }
-      if (noticeEnd && fp.getTime() > noticeEnd.getTime()) {
-        return { color: "black", tooltip: FeverTooltips.black, hidden: false, finalPaidAtISO: finalPaidAt.toISOString() };
+
+      // Paid during notice window
+      if (fp.getTime() >= noticeStart.getTime() && fp.getTime() <= noticeEnd.getTime()) {
+        return { color: "red", tooltip: BaseTips.red_paid_in_notice, hidden: false, finalPaidAtISO: finalPaidAt.toISOString() };
+      }
+
+      // Paid after notice window ended — keep BLACK color but use black_paid tooltip
+      if (fp.getTime() > noticeEnd.getTime()) {
+        return { color: "black", tooltip: BaseTips.black_paid, hidden: false, finalPaidAtISO: finalPaidAt.toISOString() };
       }
     }
-    return { color: "orange", tooltip: FeverTooltips.orange, hidden: false, finalPaidAtISO: finalPaidAt.toISOString() };
+
+    // Fallback: paid after grace and some config missing
+    return { color: "orange", tooltip: BaseTips.orange_paid_after_grace, hidden: false, finalPaidAtISO: finalPaidAt.toISOString() };
   }
 
-  // not fully paid
+  // ===== NOT FULLY PAID =====
+  // Late but still within grace window (after due, on/before grace end) — unpaid
   if (now.getTime() <= graceEnd.getTime() && now.getTime() > due.getTime()) {
-    return { color: "yellow", tooltip: FeverTooltips.yellow, hidden: false, finalPaidAtISO: null };
+    return { color: "yellow", tooltip: BaseTips.yellow_unpaid, hidden: false, finalPaidAtISO: null };
   }
 
-  if (allowNotice && noticeStart && now.getTime() >= noticeStart.getTime()) {
-    if (noticeEnd && now.getTime() <= noticeEnd.getTime()) {
-      return { color: "red", tooltip: FeverTooltips.red, hidden: false, finalPaidAtISO: null };
+  // Past grace
+  if (allowNotice && noticeStart) {
+    // inside notice window -> red
+    if (noticeEnd && now.getTime() >= noticeStart.getTime() && now.getTime() <= noticeEnd.getTime()) {
+      return { color: "red", tooltip: BaseTips.red_unpaid, hidden: false, finalPaidAtISO: null };
     }
+
+    // after notice window -> black (unpaid)
     if (noticeEnd && now.getTime() > noticeEnd.getTime()) {
-      return { color: "black", tooltip: FeverTooltips.black, hidden: false, finalPaidAtISO: null };
+      return { color: "black", tooltip: BaseTips.black_unpaid, hidden: false, finalPaidAtISO: null };
+    }
+
+    // before noticeStart but after grace -> orange unpaid
+    if (now.getTime() > graceEnd.getTime() && now.getTime() < noticeStart.getTime()) {
+      return { color: "orange", tooltip: BaseTips.orange_unpaid, hidden: false, finalPaidAtISO: null };
     }
   }
-  return { color: "orange", tooltip: FeverTooltips.orange, hidden: false, finalPaidAtISO: null };
+
+  // No notice configured and past grace -> orange unpaid
+  return { color: "orange", tooltip: BaseTips.orange_unpaid, hidden: false, finalPaidAtISO: null };
 }
 
-// Back-compat & other helpers unchanged…
+// ===== Back-compat string-only color =====
 export function resolveFeverColor(args) {
   const {
     dueDateISO,
@@ -140,6 +178,7 @@ export function resolveFeverColor(args) {
   return r.color ?? null;
 }
 
+// ===== Dashboard picker =====
 export function pickDashboardStatusFromRows(rows = [], config = {}) {
   const todayISO = new Date().toISOString();
 
@@ -155,7 +194,6 @@ export function pickDashboardStatusFromRows(rows = [], config = {}) {
       payments: r.payments || [],
       expectedTotal: expected,
       graceDays: Number(config?.graceDays ?? config?.lateFeeDays ?? 0),
-      // prefer per-row notice here as well
       noticeGivenAtISO: r?.notice?.startISO ?? config?.noticeGivenAtISO ?? null,
       noticeDays: Number(r?.notice?.days ?? config?.noticeDays ?? 10),
       nowISO: todayISO,
@@ -179,8 +217,17 @@ export function pickDashboardStatusFromRows(rows = [], config = {}) {
   return visible[visible.length - 1];
 }
 
+// Tooltip helper for static color lookups
 export function tooltipForColor(color) {
-  return FeverTooltips[color] || "";
+  switch (color) {
+    case "green":  return BaseTips.green;
+    case "yellow": return BaseTips.yellow_unpaid; // generic when only color known
+    case "red":    return BaseTips.red_unpaid;
+    case "black":  return BaseTips.black_unpaid;
+    case "orange": return BaseTips.orange_unpaid;
+    default:       return "";
+  }
 }
 
+// Re-export helpers
 export { addDays, fmtUSD };

@@ -302,11 +302,11 @@ export default function FinancialTable({ schedule, config, onChange }) {
       <div className={styles.table}>
         <div className={`${styles.row} ${styles.head}`}>
           <div>Month</div>
+          <div>Status/Payment</div>
           <div>Expected</div>
           <div>Due</div>
           <div>Payments</div>
           <div>Total Received</div>
-          <div>Status</div>
           <div>Actions</div>
         </div>
 
@@ -346,6 +346,23 @@ export default function FinancialTable({ schedule, config, onChange }) {
               <div>
                 <div className={styles.period}>{row.periodLabel}</div>
                 {row.prepaid && <div className={styles.badge}>Prepaid</div>}
+              </div>
+
+              {/* Status + Notice badge (moved here) */}
+              <div className={styles.statusCell}>
+                <div className={styles.statusInner}>
+                  {status.color ? (
+                    <FeverLight color={status.color} size={25} title={status.tooltip} paid={!!status.finalPaidAtISO} split={true}/>
+                  ) : (
+                    <span style={{ display: "inline-block", width: 25, height: 25 }} />
+                  )}
+
+                  {row.notice?.startISO && row.notice?.endISO && (
+                    <div className={styles.badge} style={{ marginTop: 6 }} title={`Notice window`}>
+                      Notice Period {row.notice.startISO} → {row.notice.endISO}
+                    </div>
+                  )}
+                </div>
               </div>
 
               {/* Expected */}
@@ -390,22 +407,6 @@ export default function FinancialTable({ schedule, config, onChange }) {
 
               {/* Total Received */}
               <div>${t.receivedTotal.toFixed(2)}</div>
-
-              {/* Status + Notice badge (moved here) */}
-              <div>
-                {status.color ? (
-                  <FeverLight color={status.color} size={16} title={status.tooltip} />
-                ) : (
-                  <span style={{ display: "inline-block", width: 16, height: 16 }} />
-                )}
-                {row.lockedState && <div className={styles.subtle}>Locked {row.lockedAtISO}</div>}
-
-                {row.notice?.startISO && row.notice?.endISO && (
-                  <div className={styles.badge} style={{ marginTop: 6 }} title={`Notice window`}>
-                    Notice Period {row.notice.startISO} → {row.notice.endISO}
-                  </div>
-                )}
-              </div>
 
               {/* Actions */}
               <div className={styles.actionsCell}>
