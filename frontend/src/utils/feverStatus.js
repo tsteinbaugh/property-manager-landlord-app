@@ -29,7 +29,7 @@ function finalPaymentAt(payments = [], expectedTotal = 0) {
 // Tooltip dictionary
 export const FeverTooltips = {
   green:  "Paid in full, on time",
-  yellow: "Paid in full , late but within grace period",
+  yellow: "Paid in full, late but within grace period",
   orange: "Not paid in full after grace period, late fee applied, should start notice period",
   red:    "In notice period for non-payment",
   black:  "Notice period ended — filing/eviction should begin",
@@ -37,27 +37,12 @@ export const FeverTooltips = {
 };
 
 // ===== Core month status (table) =====
-/**
- * Returns a rich status for one month.
- *
- * Rules you asked for:
- * - Status is based on the FINAL payment date that reaches expected total.
- * - Colors:
- *   green  = final paid on/before due date
- *   yellow = final paid after due but <= due+grace
- *   orange = final paid after grace; OR not fully paid and today > due+grace
- *   red    = ONLY if landlord has set noticeGivenAtISO and today within notice window
- *   black  = ONLY if landlord has set notice and today > noticeEnd
- *   gray   = no financial data (catch-all)
- * - Hide future months entirely (status === null, hidden: true).
- * - If the current month is BEFORE the due date and not fully paid, show blank (status === null).
- */
 export function resolveFeverStatus({
   dueDateISO,
-  payments = [],           // [{ amount, dateISO, ... }]
-  expectedTotal,           // REQUIRED for final-payment logic
-  graceDays = 0,           // late-fee/grace window in days
-  // landlord inputs (optional; if absent, we DON'T go past ORANGE)
+  payments = [],
+  expectedTotal,
+  graceDays = 0,
+  // landlord inputs (prefer per-row; if absent, fall back to global)
   noticeGivenAtISO = null,
   noticeDays = 10,
   nowISO,
@@ -71,26 +56,22 @@ export function resolveFeverStatus({
   const isFutureMonth = now.getTime() < due.getTime();
   const graceEnd = atStart(addDays(due, graceDays));
 
-  // Never advance beyond ORANGE unless landlord has intervened:
+  // only escalate if we do have an explicit notice start
   const allowNotice = !!noticeGivenAtISO;
   const noticeStart = allowNotice ? atStart(fromISO(noticeGivenAtISO)) : null;
   const noticeEnd   = allowNotice ? atStart(addDays(noticeStart, Math.max(0, noticeDays))) : null;
 
-  // 1) Hide all future months
   if (isFutureMonth) {
     return { color: null, tooltip: "", hidden: true, finalPaidAtISO: null };
   }
 
-  // Compute whether this month is fully paid, and when it became fully paid
   const finalPaidAt = finalPaymentAt(payments, expectedTotal);
   const fullyPaid = !!finalPaidAt;
 
-  // 2) If not fully paid and today <= due, blank (not green/gray)
   if (!fullyPaid && now.getTime() <= due.getTime()) {
     return { color: null, tooltip: "", hidden: false, finalPaidAtISO: null };
   }
 
-  // 3) If fully paid — classify by final payment date
   if (fullyPaid) {
     const fp = atStart(finalPaidAt);
     if (fp.getTime() <= due.getTime()) {
@@ -100,8 +81,7 @@ export function resolveFeverStatus({
       return { color: "yellow", tooltip: FeverTooltips.yellow, hidden: false, finalPaidAtISO: finalPaidAt.toISOString() };
     }
 
-    // Paid after grace:
-    // Do NOT go to RED/BLACK unless landlord set notice; otherwise cap at ORANGE.
+    // paid after grace; only go red/black if notice configured
     if (allowNotice && noticeStart && fp.getTime() >= noticeStart.getTime()) {
       if (noticeEnd && fp.getTime() <= noticeEnd.getTime()) {
         return { color: "red", tooltip: FeverTooltips.red, hidden: false, finalPaidAtISO: finalPaidAt.toISOString() };
@@ -113,12 +93,11 @@ export function resolveFeverStatus({
     return { color: "orange", tooltip: FeverTooltips.orange, hidden: false, finalPaidAtISO: finalPaidAt.toISOString() };
   }
 
-  // 4) Not fully paid — compute by "today"
+  // not fully paid
   if (now.getTime() <= graceEnd.getTime() && now.getTime() > due.getTime()) {
     return { color: "yellow", tooltip: FeverTooltips.yellow, hidden: false, finalPaidAtISO: null };
   }
 
-  // Past grace: may escalate to RED/BLACK only if notice configured, else ORANGE
   if (allowNotice && noticeStart && now.getTime() >= noticeStart.getTime()) {
     if (noticeEnd && now.getTime() <= noticeEnd.getTime()) {
       return { color: "red", tooltip: FeverTooltips.red, hidden: false, finalPaidAtISO: null };
@@ -130,24 +109,19 @@ export function resolveFeverStatus({
   return { color: "orange", tooltip: FeverTooltips.orange, hidden: false, finalPaidAtISO: null };
 }
 
-/**
- * Back-compat: your code calls resolveFeverColor() and expects a string.
- * We keep it, but route through resolveFeverStatus. (No tooltips/hidden here.)
- */
+// Back-compat & other helpers unchanged…
 export function resolveFeverColor(args) {
   const {
     dueDateISO,
     payments = [],
-    balance,                  // legacy
-    lateFeeDays = 0,          // legacy name for grace
-    // optional landlord inputs
+    balance,
+    lateFeeDays = 0,
     noticeGivenAtISO = null,
     noticeDays = 10,
     nowISO,
-    expectedTotal,            // new — preferred
+    expectedTotal,
   } = args || {};
 
-  // If expectedTotal not provided, derive from legacy "balance" + totalPayments.
   let expected = expectedTotal;
   if (expected == null && Array.isArray(payments)) {
     const received = payments.reduce((s, p) => s + (Number(p.amount) || 0), 0);
@@ -166,15 +140,6 @@ export function resolveFeverColor(args) {
   return r.color ?? null;
 }
 
-// ===== Dashboard picker =====
-/**
- * Given a schedule array (your table rows) and config, compute per-row statuses and
- * return the "dashboard" status object for the most-current UNRESOLVED month.
- *
- * - Prefers the latest month with color and NOT fully paid (finalPaidAtISO === null).
- * - If no unresolved, prefers the current month (even if blank early in the month).
- * - Else falls back to latest visible month.
- */
 export function pickDashboardStatusFromRows(rows = [], config = {}) {
   const todayISO = new Date().toISOString();
 
@@ -190,36 +155,32 @@ export function pickDashboardStatusFromRows(rows = [], config = {}) {
       payments: r.payments || [],
       expectedTotal: expected,
       graceDays: Number(config?.graceDays ?? config?.lateFeeDays ?? 0),
-      noticeGivenAtISO: config?.noticeGivenAtISO || null,
-      noticeDays: Number(config?.noticeDays ?? 10),
+      // prefer per-row notice here as well
+      noticeGivenAtISO: r?.notice?.startISO ?? config?.noticeGivenAtISO ?? null,
+      noticeDays: Number(r?.notice?.days ?? config?.noticeDays ?? 10),
       nowISO: todayISO,
     });
     return { ...st, monthKey: (r.periodLabel || r.dueDateISO)?.slice(0, 7) };
   });
 
-  // unresolved = not fully paid AND has a color (visible)
   const unresolved = statuses
     .filter(s => !s.hidden && !s.finalPaidAtISO && s.color)
     .sort((a, b) => (a.monthKey || "").localeCompare(b.monthKey || ""));
   if (unresolved.length) return unresolved[unresolved.length - 1];
 
-  // current month
   const now = new Date();
   const mkNow = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
   const current = statuses.find(s => s.monthKey === mkNow && !s.hidden);
   if (current) return current;
 
-  // latest visible
   const visible = statuses.filter(s => !s.hidden);
   if (!visible.length) return null;
   visible.sort((a, b) => (a.monthKey || "").localeCompare(b.monthKey || ""));
   return visible[visible.length - 1];
 }
 
-// Convenience for tooltips wherever you only have color:
 export function tooltipForColor(color) {
   return FeverTooltips[color] || "";
 }
 
-// Re-export legacy helpers you had in this file
 export { addDays, fmtUSD };

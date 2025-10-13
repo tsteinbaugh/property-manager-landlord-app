@@ -7,6 +7,7 @@ import buttonStyles from "../../styles/Buttons.module.css";
 import { computeRowTotals, maybeApplyLateFee, finalizeMonthIfPaid, getPetRent } from "../../utils/finance";
 import { resolveFeverStatus } from "../../utils/feverStatus";
 import ChargeModal from "./ChargeModal";
+import NoticeModal from "./NoticeModal";
 
 // ---- local normalize (dedupe payments in any updated rows)
 function normalizeRows(rows = []) {
@@ -33,9 +34,34 @@ function downloadBlob(filename, content, type = "text/plain") {
   URL.revokeObjectURL(url);
 }
 
+// helper: latest (max) ISO date among a list
+function latestISO(dates = []) {
+  const filtered = dates.filter(Boolean);
+  if (!filtered.length) return null;
+  return filtered.sort((a, b) => (a || "").localeCompare(b || ""))[filtered.length - 1];
+}
+
+function addDays(dateOrISO, n) {
+  const d = typeof dateOrISO === "string" ? new Date(dateOrISO) : new Date(dateOrISO);
+  const out = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  out.setDate(out.getDate() + Number(n || 0));
+  return out.toISOString().slice(0, 10);
+}
+
+// compute the legal start date for notice from the row.notice object
+function computeNoticeStartISO(notice) {
+  if (!notice) return null;
+  const dates = [
+    notice.postedOnISO || null,
+    ...(Array.isArray(notice.methods) ? notice.methods.map(m => m?.dateISO || null) : []),
+  ];
+  return latestISO(dates);
+}
+
 export default function FinancialTable({ schedule, config, onChange }) {
   const [modalIdx, setModalIdx] = useState(null);
   const [showChargeIdx, setShowChargeIdx] = useState(null);
+  const [showNoticeIdx, setShowNoticeIdx] = useState(null);
 
   // Render from a safe, normalized copy; DO NOT inject payments here
   const derived = useMemo(() => {
@@ -43,19 +69,27 @@ export default function FinancialTable({ schedule, config, onChange }) {
     rows.forEach((row) => {
       maybeApplyLateFee(row, config);
       finalizeMonthIfPaid(row, config);
+      // keep computed notice start/end in sync for convenience
+      if (row.notice) {
+        const startISO = computeNoticeStartISO(row.notice);
+        const endISO = startISO && row.notice.days
+          ? addDays(startISO, Math.max(0, Number(row.notice.days)))
+          : null;
+        row.notice.startISO = startISO || null;
+        row.notice.endISO = endISO || null;
+      }
     });
     return rows;
   }, [schedule, config]);
 
-  // If our normalized/latefee-finalized view differs, push a normalized version upstream once.
-  // Pause while a modal is open — prevents modal from closing as you type.
+  // If our normalized view differs, push upstream once (unless a modal is open).
   useEffect(() => {
-    if (modalIdx !== null || showChargeIdx !== null) return;
+    if (modalIdx !== null || showChargeIdx !== null || showNoticeIdx !== null) return;
     const raw = JSON.stringify(schedule);
     const norm = JSON.stringify(normalizeRows(derived));
     if (raw !== norm) onChange(normalizeRows(derived));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [derived, modalIdx, showChargeIdx]);
+  }, [derived, modalIdx, showChargeIdx, showNoticeIdx]);
 
   // ---- KPIs ----
   const summary = useMemo(() => {
@@ -82,8 +116,9 @@ export default function FinancialTable({ schedule, config, onChange }) {
         payments: r.payments,
         expectedTotal,
         graceDays: Number(config?.graceDays ?? config?.lateFeeDays ?? 0),
-        noticeGivenAtISO: config?.noticeGivenAtISO || null,
-        noticeDays: Number(config?.noticeDays ?? 10),
+        // prefer per-row notice over global config
+        noticeGivenAtISO: r?.notice?.startISO ?? config?.noticeGivenAtISO ?? null,
+        noticeDays: Number(r?.notice?.days ?? config?.noticeDays ?? 10),
       });
 
       const color = st?.color;
@@ -102,7 +137,8 @@ export default function FinancialTable({ schedule, config, onChange }) {
     const header = [
       "Period","DueDate","ExpectedTotal","Breakdown",
       "PaymentAmount","PaymentDate","PaymentMethod","PaymentNote",
-      "RowTotalReceived","RowBalance","RowStatus"
+      "RowTotalReceived","RowBalance","RowStatus",
+      "NoticeStart","NoticeEnd","NoticeDays","NoticePostedOn","NoticeMethods"
     ].join(",");
     const lines = [header];
 
@@ -134,35 +170,37 @@ export default function FinancialTable({ schedule, config, onChange }) {
         !row.lateFeeWaived && row.lateFee ? ` + Late ${Number(row.lateFee).toFixed(2)}` : ""
       }`;
 
+      const notice = row.notice || {};
+      const noticeMethods = (notice.methods || [])
+        .map(m => `${m.type || ""}@${m.dateISO || ""}${m.proofName ? ` (${m.proofName})` : ""}`)
+        .join(" | ");
+
+      const baseCols = [
+        row.periodLabel,
+        row.dueDateISO,
+        expected,
+        `"${breakdown}"`,
+        "", "", "", "", // payment cols (per-payment below)
+        t.receivedTotal.toFixed(2),
+        t.balance.toFixed(2),
+        row.state || "",
+        notice.startISO || "",
+        notice.endISO || "",
+        Number(notice.days || 0) || "",
+        notice.postedOnISO || "",
+        `"${noticeMethods}"`
+      ];
+
       if (row.payments.length === 0) {
-        lines.push([
-          row.periodLabel,
-          row.dueDateISO,
-          expected,
-          `"${breakdown}"`,
-          "",
-          "",
-          "",
-          "",
-          t.receivedTotal.toFixed(2),
-          t.balance.toFixed(2),
-          row.state || ""
-        ].join(","));
+        lines.push(baseCols.join(","));
       } else {
         row.payments.forEach((p) => {
-          lines.push([
-            row.periodLabel,
-            row.dueDateISO,
-            expected,
-            `"${breakdown}"`,
-            Number(p.amount).toFixed(2),
-            p.dateISO,
-            p.method || "",
-            p.note ? `"${p.note.replace(/"/g, '""')}"` : "",
-            t.receivedTotal.toFixed(2),
-            t.balance.toFixed(2),
-            row.state || ""
-          ].join(","));
+          const cols = [...baseCols];
+          cols[4] = Number(p.amount).toFixed(2);
+          cols[5] = p.dateISO || "";
+          cols[6] = p.method || "";
+          cols[7] = p.note ? `"${p.note.replace(/"/g, '""')}"` : "";
+          lines.push(cols.join(","));
         });
       }
     });
@@ -209,11 +247,31 @@ export default function FinancialTable({ schedule, config, onChange }) {
       return {
         ...r,
         adjustments,
-        expectedAdjustments: +(Number(r.expectedAdjustments || 0) + amt).toFixed(2), // legacy sync
+        expectedAdjustments: +(Number(r.expectedAdjustments || 0) + amt).toFixed(2),
         adjustmentReasons: reasons,
       };
     });
     next.forEach((row) => finalizeMonthIfPaid(row, config));
+    onChange(normalizeRows(next));
+  }
+
+  function saveNotice(idx, noticePayload) {
+    const startISO = computeNoticeStartISO(noticePayload);
+    const endISO = startISO && noticePayload.days
+      ? addDays(startISO, Math.max(0, Number(noticePayload.days)))
+      : null;
+
+    const next = schedule.map((r, i) => {
+      if (i !== idx) return r;
+      return {
+        ...r,
+        notice: {
+          ...noticePayload,
+          startISO: startISO || null,
+          endISO: endISO || null,
+        },
+      };
+    });
     onChange(normalizeRows(next));
   }
 
@@ -271,22 +329,26 @@ export default function FinancialTable({ schedule, config, onChange }) {
             payments: row.payments,
             expectedTotal: expectedDisplay,
             graceDays: Number(config?.graceDays ?? config?.lateFeeDays ?? 0),
-            noticeGivenAtISO: config?.noticeGivenAtISO || null,
-            noticeDays: Number(config?.noticeDays ?? 10),
+            // per-row notice overrides global
+            noticeGivenAtISO: row?.notice?.startISO ?? config?.noticeGivenAtISO ?? null,
+            noticeDays: Number(row?.notice?.days ?? config?.noticeDays ?? 10),
           });
 
           const adjLabel =
             row.adjustmentReasons?.length ? row.adjustmentReasons.join(" + ") : "Adj";
 
-          const showLight = !!status.color;
+          // + Notice appears after grace (orange) or if a notice exists
+          const canStartNotice = status.color === "orange" || !!row.notice;
 
           return (
             <div key={row.dueDateISO + ":" + idx} className={styles.row}>
+              {/* Month */}
               <div>
                 <div className={styles.period}>{row.periodLabel}</div>
                 {row.prepaid && <div className={styles.badge}>Prepaid</div>}
               </div>
 
+              {/* Expected */}
               <div>
                 <div>${expectedDisplay.toFixed(2)}</div>
                 <div className={styles.subtle}>
@@ -311,8 +373,10 @@ export default function FinancialTable({ schedule, config, onChange }) {
                 )}
               </div>
 
+              {/* Due */}
               <div>{row.dueDateISO}</div>
 
+              {/* Payments */}
               <div>
                 {row.payments.length === 0 && <div className={styles.subtle}>No payments</div>}
                 {row.payments.map((p, i) => (
@@ -324,17 +388,26 @@ export default function FinancialTable({ schedule, config, onChange }) {
                 ))}
               </div>
 
+              {/* Total Received */}
               <div>${t.receivedTotal.toFixed(2)}</div>
 
+              {/* Status + Notice badge (moved here) */}
               <div>
-                {showLight ? (
+                {status.color ? (
                   <FeverLight color={status.color} size={16} title={status.tooltip} />
                 ) : (
                   <span style={{ display: "inline-block", width: 16, height: 16 }} />
                 )}
                 {row.lockedState && <div className={styles.subtle}>Locked {row.lockedAtISO}</div>}
+
+                {row.notice?.startISO && row.notice?.endISO && (
+                  <div className={styles.badge} style={{ marginTop: 6 }} title={`Notice window`}>
+                    Notice Period {row.notice.startISO} → {row.notice.endISO}
+                  </div>
+                )}
               </div>
 
+              {/* Actions */}
               <div className={styles.actionsCell}>
                 <button className={buttonStyles.primaryButton} onClick={() => setModalIdx(idx)}>+ Payment</button>
                 <button
@@ -344,6 +417,15 @@ export default function FinancialTable({ schedule, config, onChange }) {
                 >
                   + Charge
                 </button>
+                {canStartNotice && (
+                  <button
+                    className={buttonStyles.secondaryButton}
+                    onClick={() => setShowNoticeIdx(idx)}
+                    title="Record/Update notice period details"
+                  >
+                    {row.notice ? "Edit Notice" : "+ Notice"}
+                  </button>
+                )}
                 {row.payments.length > 0 && (
                   <button className={buttonStyles.secondaryButton} onClick={() => clearPayments(idx)}>
                     Clear
@@ -369,6 +451,20 @@ export default function FinancialTable({ schedule, config, onChange }) {
           onSave={(payload) => {
             addAdj(showChargeIdx, payload);
             setShowChargeIdx(null);
+          }}
+        />
+      )}
+
+      {showNoticeIdx !== null && (
+        <NoticeModal
+          open={showNoticeIdx !== null}
+          dueDateISO={derived[showNoticeIdx]?.dueDateISO}
+          graceDays={Number(config?.graceDays ?? config?.lateFeeDays ?? 0)}
+          value={derived[showNoticeIdx]?.notice || null}
+          onClose={() => setShowNoticeIdx(null)}
+          onSave={(payload) => {
+            saveNotice(showNoticeIdx, payload);
+            setShowNoticeIdx(null);
           }}
         />
       )}

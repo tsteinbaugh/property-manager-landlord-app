@@ -5,3 +5,67 @@
 .actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 12px; }
 .btnPrimary { background:#111827; color:#fff; padding:8px 12px; border:none; border-radius:8px; cursor:pointer; }
 .btnSecondary { background:#f3f4f6; color:#111827; padding:8px 12px; border:none; border-radius:8px; cursor:pointer; }
+/* Keep number inputs from overflowing / match textfields */
+.modal input[type="number"] {
+  min-width: 0; /* allow grid to shrink */
+  box-sizing: border-box;
+}
+
+/* Hide native spin buttons if they cause overflow (Chrome/Safari/Edge) */
+.modal input[type="number"]::-webkit-outer-spin-button,
+.modal input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.modal input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* --- shared input sizing inside modals --- */
+.modal input,
+.modal select,
+.modal textarea {
+  min-width: 0;         /* allow grid children to shrink */
+  max-width: 100%;      /* never grow past the column */
+  box-sizing: border-box;
+}
+
+/* two-column grid helper for modal rows */
+.grid2 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+
+/* card-like container for method blocks */
+.card {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  /* give labels a little breathing room at the top */
+  padding: 20px 10px 10px;
+  /* allow floating labels to render above their inputs */
+  overflow: visible;
+}
+
+/* section headers inside modals */
+.sectionTitle {
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+/* keep date/number controls tidy */
+.modal input[type="date"],
+.modal input[type="number"] {
+  width: 100%;
+}
+
+/* (already in your file, keeping here for completeness) */
+.modal input[type="number"]::-webkit-outer-spin-button,
+.modal input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.modal input[type="number"] { -moz-appearance: textfield; }
