@@ -4,15 +4,27 @@ import styles from "./FinancialTable.module.css";
 import FeverLight from "../ui/FeverLight";
 import PaymentModal from "./PaymentModal";
 import buttonStyles from "../../styles/Buttons.module.css";
-import { computeRowTotals, maybeApplyLateFee, finalizeMonthIfPaid, getPetRent } from "../../utils/finance";
+import {
+  computeRowTotals,
+  maybeApplyLateFee,
+  finalizeMonthIfPaid,
+  getPetRent,
+  computeAssessedLateFeeAmount,
+} from "../../utils/finance";
 import { resolveFeverStatus } from "../../utils/feverStatus";
 import ChargeModal from "./ChargeModal";
 import NoticeModal from "./NoticeModal";
 
 // ---- local normalize (dedupe payments in any updated rows)
 function normalizeRows(rows = []) {
-  const keyOf = (p) => [Number(p.amount), p.dateISO || "", (p.method || "").trim(), (p.note || "").trim()].join("|");
-  return rows.map(r => {
+  const keyOf = (p) =>
+    [
+      Number(p.amount),
+      p.dateISO || "",
+      (p.method || "").trim(),
+      (p.note || "").trim(),
+    ].join("|");
+  return rows.map((r) => {
     const seen = new Set();
     const payments = [];
     for (const p of r.payments || []) {
@@ -30,7 +42,9 @@ function downloadBlob(filename, content, type = "text/plain") {
   const blob = new Blob([content], { type });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
-  a.href = url; a.download = filename; a.click();
+  a.href = url;
+  a.download = filename;
+  a.click();
   URL.revokeObjectURL(url);
 }
 
@@ -38,11 +52,14 @@ function downloadBlob(filename, content, type = "text/plain") {
 function latestISO(dates = []) {
   const filtered = dates.filter(Boolean);
   if (!filtered.length) return null;
-  return filtered.sort((a, b) => (a || "").localeCompare(b || ""))[filtered.length - 1];
+  return filtered.sort((a, b) => (a || "").localeCompare(b || ""))[
+    filtered.length - 1
+  ];
 }
 
 function addDays(dateOrISO, n) {
-  const d = typeof dateOrISO === "string" ? new Date(dateOrISO) : new Date(dateOrISO);
+  const d =
+    typeof dateOrISO === "string" ? new Date(dateOrISO) : new Date(dateOrISO);
   const out = new Date(d.getFullYear(), d.getMonth(), d.getDate());
   out.setDate(out.getDate() + Number(n || 0));
   return out.toISOString().slice(0, 10);
@@ -53,7 +70,9 @@ function computeNoticeStartISO(notice) {
   if (!notice) return null;
   const dates = [
     notice.postedOnISO || null,
-    ...(Array.isArray(notice.methods) ? notice.methods.map(m => m?.dateISO || null) : []),
+    ...(Array.isArray(notice.methods)
+      ? notice.methods.map((m) => m?.dateISO || null)
+      : []),
   ];
   return latestISO(dates);
 }
@@ -65,16 +84,17 @@ export default function FinancialTable({ schedule, config, onChange }) {
 
   // Render from a safe, normalized copy; DO NOT inject payments here
   const derived = useMemo(() => {
-    const rows = normalizeRows(schedule).map(r => ({ ...r }));
+    const rows = normalizeRows(schedule).map((r) => ({ ...r }));
     rows.forEach((row) => {
       maybeApplyLateFee(row, config);
       finalizeMonthIfPaid(row, config);
       // keep computed notice start/end in sync for convenience
       if (row.notice) {
         const startISO = computeNoticeStartISO(row.notice);
-        const endISO = startISO && row.notice.days
-          ? addDays(startISO, Math.max(0, Number(row.notice.days)))
-          : null;
+        const endISO =
+          startISO && row.notice.days
+            ? addDays(startISO, Math.max(0, Number(row.notice.days)))
+            : null;
         row.notice.startISO = startISO || null;
         row.notice.endISO = endISO || null;
       }
@@ -84,7 +104,8 @@ export default function FinancialTable({ schedule, config, onChange }) {
 
   // If our normalized view differs, push upstream once (unless a modal is open).
   useEffect(() => {
-    if (modalIdx !== null || showChargeIdx !== null || showNoticeIdx !== null) return;
+    if (modalIdx !== null || showChargeIdx !== null || showNoticeIdx !== null)
+      return;
     const raw = JSON.stringify(schedule);
     const norm = JSON.stringify(normalizeRows(derived));
     if (raw !== norm) onChange(normalizeRows(derived));
@@ -93,23 +114,33 @@ export default function FinancialTable({ schedule, config, onChange }) {
 
   // ---- KPIs ----
   const summary = useMemo(() => {
-    let expected=0, received=0, balance=0;
-    let green=0, yellow=0, orange=0, red=0, black=0, gray=0;
+    let expected = 0,
+      received = 0,
+      balance = 0;
+    let green = 0,
+      yellow = 0,
+      orange = 0,
+      red = 0,
+      black = 0,
+      gray = 0;
 
     derived.forEach((r) => {
       const t = computeRowTotals(r, config);
       expected += t.expected;
       received += t.receivedTotal;
-      balance  += t.balance;
+      balance += t.balance;
 
       const expectedTotal =
         (Number(r.expectedBase) || 0) +
         getPetRent(config) +
         (Number(r.expectedOther) || 0) +
         (Array.isArray(r.adjustments)
-          ? r.adjustments.reduce((s, a) => s + (Number(a.amount) || 0), 0)
-          : (Number(r.expectedAdjustments) || 0)) +
-        (r.lateFeeWaived ? 0 : (Number(r.lateFee) || 0));
+          ? r.adjustments.reduce(
+              (s, a) => s + (Number(a.amount) || 0),
+              0
+            )
+          : Number(r.expectedAdjustments) || 0) +
+        (r.lateFeeWaived ? 0 : Number(r.lateFee) || 0);
 
       const st = resolveFeverStatus({
         dueDateISO: r.dueDateISO,
@@ -135,44 +166,76 @@ export default function FinancialTable({ schedule, config, onChange }) {
 
   function exportCSV() {
     const header = [
-      "Period","DueDate","ExpectedTotal","Breakdown",
-      "PaymentAmount","PaymentDate","PaymentMethod","PaymentNote",
-      "RowTotalReceived","RowBalance","RowStatus",
-      "NoticeStart","NoticeEnd","NoticeDays","NoticePostedOn","NoticeMethods"
+      "Period",
+      "DueDate",
+      "ExpectedTotal",
+      "Breakdown",
+      "PaymentAmount",
+      "PaymentDate",
+      "PaymentMethod",
+      "PaymentNote",
+      "RowTotalReceived",
+      "RowBalance",
+      "RowStatus",
+      "NoticeStart",
+      "NoticeEnd",
+      "NoticeDays",
+      "NoticePostedOn",
+      "NoticeMethods",
     ].join(",");
     const lines = [header];
 
     derived.forEach((row) => {
       const t = computeRowTotals(row, config);
       const pet = getPetRent(config);
+      const hypotheticalLateCSV = computeAssessedLateFeeAmount(row, config);
       const expected = (
         (Number(row.expectedBase) || 0) +
         pet +
         (Number(row.expectedOther) || 0) +
         (Array.isArray(row.adjustments)
-          ? row.adjustments.reduce((s, a) => s + (Number(a.amount) || 0), 0)
-          : (Number(row.expectedAdjustments) || 0)) +
-        (row.lateFeeWaived ? 0 : (Number(row.lateFee) || 0))
+          ? row.adjustments.reduce(
+              (s, a) => s + (Number(a.amount) || 0),
+              0
+            )
+          : Number(row.expectedAdjustments) || 0) +
+        (row.lateFeeWaived ? 0 : Number(row.lateFee) || 0)
       ).toFixed(2);
 
-      const adjLabel =
-        row.adjustmentReasons?.length ? row.adjustmentReasons.join(" + ") : "Adj";
+      const adjLabel = row.adjustmentReasons?.length
+        ? row.adjustmentReasons.join(" + ")
+        : "Adj";
 
       const breakdown = `Rent ${Number(row.expectedBase).toFixed(2)}${
         pet ? ` + Pet ${pet.toFixed(2)}` : ""
       }${
         row.expectedOther ? ` + Other ${Number(row.expectedOther).toFixed(2)}` : ""
       }${
-        (Array.isArray(row.adjustments) && row.adjustments.length)
-          ? ` + ${adjLabel} ${row.adjustments.reduce((s, a) => s + (Number(a.amount) || 0), 0).toFixed(2)}`
-          : (row.expectedAdjustments ? ` + ${adjLabel} ${Number(row.expectedAdjustments).toFixed(2)}` : "")
+        Array.isArray(row.adjustments) && row.adjustments.length
+          ? ` + ${adjLabel} ${row.adjustments
+              .reduce((s, a) => s + (Number(a.amount) || 0), 0)
+              .toFixed(2)}`
+          : row.expectedAdjustments
+          ? ` + ${adjLabel} ${Number(row.expectedAdjustments).toFixed(2)}`
+          : ""
       }${
-        !row.lateFeeWaived && row.lateFee ? ` + Late ${Number(row.lateFee).toFixed(2)}` : ""
+        row.lateFeeWaived
+          ? hypotheticalLateCSV
+            ? ` + Late ${hypotheticalLateCSV.toFixed(2)} (waived)`
+            : ""
+          : row.lateFee
+          ? ` + Late ${Number(row.lateFee).toFixed(2)}`
+          : ""
       }`;
 
       const notice = row.notice || {};
       const noticeMethods = (notice.methods || [])
-        .map(m => `${m.type || ""}@${m.dateISO || ""}${m.proofName ? ` (${m.proofName})` : ""}`)
+        .map(
+          (m) =>
+            `${m.type || ""}@${m.dateISO || ""}${
+              m.proofName ? ` (${m.proofName})` : ""
+            }`
+        )
         .join(" | ");
 
       const baseCols = [
@@ -180,7 +243,10 @@ export default function FinancialTable({ schedule, config, onChange }) {
         row.dueDateISO,
         expected,
         `"${breakdown}"`,
-        "", "", "", "", // payment cols (per-payment below)
+        "", // PaymentAmount (filled per payment)
+        "", // PaymentDate
+        "", // PaymentMethod
+        "", // PaymentNote
         t.receivedTotal.toFixed(2),
         t.balance.toFixed(2),
         row.state || "",
@@ -188,7 +254,7 @@ export default function FinancialTable({ schedule, config, onChange }) {
         notice.endISO || "",
         Number(notice.days || 0) || "",
         notice.postedOnISO || "",
-        `"${noticeMethods}"`
+        `"${noticeMethods}"`,
       ];
 
       if (row.payments.length === 0) {
@@ -208,25 +274,41 @@ export default function FinancialTable({ schedule, config, onChange }) {
     downloadBlob("financials.csv", lines.join("\n"), "text/csv");
   }
 
-  function exportPDF() { window.print(); }
+  function exportPDF() {
+    window.print();
+  }
 
   // All mutators: normalize before sending upstream
   function toggleLateFee(idx, waived) {
-    const next = schedule.map((r, i) => (i === idx ? { ...r, lateFeeWaived: waived, lateFee: waived ? 0 : r.lateFee } : r));
+    const next = schedule.map((r, i) =>
+      i === idx
+        ? { ...r, lateFeeWaived: waived, lateFee: waived ? 0 : r.lateFee }
+        : r
+    );
     next.forEach((row) => finalizeMonthIfPaid(row, config));
     onChange(normalizeRows(next));
   }
 
   function addPayment(idx, payment) {
     const next = schedule.map((r, i) =>
-      i === idx ? { ...r, payments: [...(r.payments || []), { ...payment, amount: Number(payment.amount) }] } : r
+      i === idx
+        ? {
+            ...r,
+            payments: [
+              ...(r.payments || []),
+              { ...payment, amount: Number(payment.amount) },
+            ],
+          }
+        : r
     );
     next.forEach((row) => finalizeMonthIfPaid(row, config));
     onChange(normalizeRows(next));
   }
 
   function clearPayments(idx) {
-    const next = schedule.map((r, i) => (i === idx ? { ...r, payments: [] } : r));
+    const next = schedule.map((r, i) =>
+      i === idx ? { ...r, payments: [] } : r
+    );
     next.forEach((row) => finalizeMonthIfPaid(row, config));
     onChange(normalizeRows(next));
   }
@@ -239,7 +321,8 @@ export default function FinancialTable({ schedule, config, onChange }) {
     const next = schedule.map((r, i) => {
       if (i !== idx) return r;
       const reasons = r.adjustmentReasons ? [...r.adjustmentReasons] : [];
-      if (payload.reason && payload.reason.trim()) reasons.push(payload.reason.trim());
+      if (payload.reason && payload.reason.trim())
+        reasons.push(payload.reason.trim());
 
       const adjustments = Array.isArray(r.adjustments) ? [...r.adjustments] : [];
       adjustments.push({ amount: amt, reason: payload.reason || "" });
@@ -247,7 +330,9 @@ export default function FinancialTable({ schedule, config, onChange }) {
       return {
         ...r,
         adjustments,
-        expectedAdjustments: +(Number(r.expectedAdjustments || 0) + amt).toFixed(2),
+        expectedAdjustments: +(
+          Number(r.expectedAdjustments || 0) + amt
+        ).toFixed(2),
         adjustmentReasons: reasons,
       };
     });
@@ -257,9 +342,10 @@ export default function FinancialTable({ schedule, config, onChange }) {
 
   function saveNotice(idx, noticePayload) {
     const startISO = computeNoticeStartISO(noticePayload);
-    const endISO = startISO && noticePayload.days
-      ? addDays(startISO, Math.max(0, Number(noticePayload.days)))
-      : null;
+    const endISO =
+      startISO && noticePayload.days
+        ? addDays(startISO, Math.max(0, Number(noticePayload.days)))
+        : null;
 
     const next = schedule.map((r, i) => {
       if (i !== idx) return r;
@@ -281,21 +367,35 @@ export default function FinancialTable({ schedule, config, onChange }) {
         <div>
           <h3>Lease Payment Schedule</h3>
           <div className={styles.kpis}>
-            <div className={styles.kpi}><span>Total Expected</span><strong>${summary.expected.toFixed(2)}</strong></div>
-            <div className={styles.kpi}><span>Total Received</span><strong>${summary.received.toFixed(2)}</strong></div>
-            <div className={styles.kpi}><span>Balance</span><strong>${summary.balance.toFixed(2)}</strong></div>
+            <div className={styles.kpi}>
+              <span>Total Expected</span>
+              <strong>${summary.expected.toFixed(2)}</strong>
+            </div>
+            <div className={styles.kpi}>
+              <span>Total Received</span>
+              <strong>${summary.received.toFixed(2)}</strong>
+            </div>
+            <div className={styles.kpi}>
+              <span>Balance</span>
+              <strong>${summary.balance.toFixed(2)}</strong>
+            </div>
             <div className={styles.kpi}>
               <span>Trend</span>
               <strong>
-                {summary.green} green / {summary.yellow} yellow / {summary.orange} orange /
-                {` ${summary.red} red / ${summary.black} black / ${summary.gray} grey`}
+                {summary.green} green / {summary.yellow} yellow /{" "}
+                {summary.orange} orange / {` ${summary.red} red / `}
+                {summary.black} black / {summary.gray} grey
               </strong>
             </div>
           </div>
         </div>
         <div className={styles.headerActions}>
-          <button className={buttonStyles.secondaryButton} onClick={exportCSV}>Export CSV</button>
-          <button className={buttonStyles.secondaryButton} onClick={exportPDF}>Print</button>
+          <button className={buttonStyles.secondaryButton} onClick={exportCSV}>
+            Export CSV
+          </button>
+          <button className={buttonStyles.secondaryButton} onClick={exportPDF}>
+            Print
+          </button>
         </div>
       </div>
 
@@ -313,16 +413,19 @@ export default function FinancialTable({ schedule, config, onChange }) {
         {derived.map((row, idx) => {
           const t = computeRowTotals(row, config);
           const pet = getPetRent(config);
+          const hypotheticalLate = computeAssessedLateFeeAmount(row, config);
 
-          const expectedDisplay = (
+          const expectedDisplay =
             (Number(row.expectedBase) || 0) +
             pet +
             (Number(row.expectedOther) || 0) +
             (Array.isArray(row.adjustments)
-              ? row.adjustments.reduce((s, a) => s + (Number(a.amount) || 0), 0)
-              : (Number(row.expectedAdjustments) || 0)) +
-            (row.lateFeeWaived ? 0 : (Number(row.lateFee) || 0))
-          );
+              ? row.adjustments.reduce(
+                  (s, a) => s + (Number(a.amount) || 0),
+                  0
+                )
+              : Number(row.expectedAdjustments) || 0) +
+            (row.lateFeeWaived ? 0 : Number(row.lateFee) || 0);
 
           const status = resolveFeverStatus({
             dueDateISO: row.dueDateISO,
@@ -330,12 +433,14 @@ export default function FinancialTable({ schedule, config, onChange }) {
             expectedTotal: expectedDisplay,
             graceDays: Number(config?.graceDays ?? config?.lateFeeDays ?? 0),
             // per-row notice overrides global
-            noticeGivenAtISO: row?.notice?.startISO ?? config?.noticeGivenAtISO ?? null,
+            noticeGivenAtISO:
+              row?.notice?.startISO ?? config?.noticeGivenAtISO ?? null,
             noticeDays: Number(row?.notice?.days ?? config?.noticeDays ?? 10),
           });
 
-          const adjLabel =
-            row.adjustmentReasons?.length ? row.adjustmentReasons.join(" + ") : "Adj";
+          const adjLabel = row.adjustmentReasons?.length
+            ? row.adjustmentReasons.join(" + ")
+            : "Adj";
 
           // + Notice appears after grace (orange) or if a notice exists
           const canStartNotice = status.color === "orange" || !!row.notice;
@@ -348,17 +453,29 @@ export default function FinancialTable({ schedule, config, onChange }) {
                 {row.prepaid && <div className={styles.badge}>Prepaid</div>}
               </div>
 
-              {/* Status + Notice badge (moved here) */}
+              {/* Status + Notice badge */}
               <div className={styles.statusCell}>
                 <div className={styles.statusInner}>
                   {status.color ? (
-                    <FeverLight color={status.color} size={25} title={status.tooltip} paid={!!status.finalPaidAtISO} split={true}/>
+                    <FeverLight
+                      color={status.color}
+                      size={25}
+                      title={status.tooltip}
+                      paid={!!status.finalPaidAtISO}
+                      split={true}
+                    />
                   ) : (
-                    <span style={{ display: "inline-block", width: 25, height: 25 }} />
+                    <span
+                      style={{ display: "inline-block", width: 25, height: 25 }}
+                    />
                   )}
 
                   {row.notice?.startISO && row.notice?.endISO && (
-                    <div className={styles.badge} style={{ marginTop: 6 }} title={`Notice window`}>
+                    <div
+                      className={styles.badge}
+                      style={{ marginTop: 6 }}
+                      title={`Notice window`}
+                    >
                       Notice Period {row.notice.startISO} → {row.notice.endISO}
                     </div>
                   )}
@@ -371,23 +488,40 @@ export default function FinancialTable({ schedule, config, onChange }) {
                 <div className={styles.subtle}>
                   Rent ${Number(row.expectedBase).toFixed(2)}
                   {pet ? ` + Pet $${pet.toFixed(2)}` : ""}
-                  {row.expectedOther ? ` + Other $${Number(row.expectedOther).toFixed(2)}` : ""}
-                  {(Array.isArray(row.adjustments) && row.adjustments.length)
-                    ? ` + ${adjLabel} $${row.adjustments.reduce((s, a) => s + (Number(a.amount) || 0), 0).toFixed(2)}`
-                    : (row.expectedAdjustments ? ` + ${adjLabel} $${Number(row.expectedAdjustments).toFixed(2)}` : "")
-                  }
-                  {!row.lateFeeWaived && row.lateFee ? ` + Late $${Number(row.lateFee).toFixed(2)}` : ""}
+                  {row.expectedOther
+                    ? ` + Other $${Number(row.expectedOther).toFixed(2)}`
+                    : ""}
+                  {Array.isArray(row.adjustments) && row.adjustments.length
+                    ? ` + ${adjLabel} $${row.adjustments
+                        .reduce((s, a) => s + (Number(a.amount) || 0), 0)
+                        .toFixed(2)}`
+                    : row.expectedAdjustments
+                    ? ` + ${adjLabel} $${Number(row.expectedAdjustments).toFixed(
+                        2
+                      )}`
+                    : ""}
+                  {row.lateFeeWaived
+                    ? hypotheticalLate
+                      ? ` + Late $${hypotheticalLate.toFixed(2)} (waived)`
+                      : ""
+                    : row.lateFee
+                    ? ` + Late $${Number(row.lateFee).toFixed(2)}`
+                    : ""}
                 </div>
-                {!!row.lateFee && (
-                  <label className={styles.waive}>
-                    <input
-                      type="checkbox"
-                      checked={row.lateFeeWaived}
-                      onChange={(e) => toggleLateFee(idx, e.target.checked)}
-                    />{" "}
-                    Waive late fee
-                  </label>
-                )}
+                {(() => {
+                  const showWaive =
+                    row.lateFee > 0 || (row.lateFeeWaived && hypotheticalLate > 0);
+                  return showWaive ? (
+                    <label className={styles.waive}>
+                      <input
+                        type="checkbox"
+                        checked={row.lateFeeWaived}
+                        onChange={(e) => toggleLateFee(idx, e.target.checked)}
+                      />{" "}
+                      Waive late fee
+                    </label>
+                  ) : null;
+                })()}
               </div>
 
               {/* Due */}
@@ -395,7 +529,9 @@ export default function FinancialTable({ schedule, config, onChange }) {
 
               {/* Payments */}
               <div>
-                {row.payments.length === 0 && <div className={styles.subtle}>No payments</div>}
+                {row.payments.length === 0 && (
+                  <div className={styles.subtle}>No payments</div>
+                )}
                 {row.payments.map((p, i) => (
                   <div key={i} className={styles.paymentLine}>
                     ${Number(p.amount).toFixed(2)} on {p.dateISO}
@@ -410,7 +546,12 @@ export default function FinancialTable({ schedule, config, onChange }) {
 
               {/* Actions */}
               <div className={styles.actionsCell}>
-                <button className={buttonStyles.primaryButton} onClick={() => setModalIdx(idx)}>+ Payment</button>
+                <button
+                  className={buttonStyles.primaryButton}
+                  onClick={() => setModalIdx(idx)}
+                >
+                  + Payment
+                </button>
                 <button
                   className={buttonStyles.secondaryButton}
                   onClick={() => setShowChargeIdx(idx)}
@@ -428,7 +569,10 @@ export default function FinancialTable({ schedule, config, onChange }) {
                   </button>
                 )}
                 {row.payments.length > 0 && (
-                  <button className={buttonStyles.secondaryButton} onClick={() => clearPayments(idx)}>
+                  <button
+                    className={buttonStyles.secondaryButton}
+                    onClick={() => clearPayments(idx)}
+                  >
                     Clear
                   </button>
                 )}
