@@ -1,9 +1,11 @@
+/* property-manager-landlord-app/frontend/src/styles/SharedModal.module.css */
+
 .modalOverlay {
-  position: fixed; /* ensure it overlays the app */
+  position: fixed;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  display: flex; 
-  align-items: center; 
+  display: flex;
+  align-items: center;
   justify-content: center;
   z-index: 9999;
 }
@@ -12,7 +14,7 @@
   background: #fff;
   border-radius: 12px;
   width: 90%;
-  max-width: 820px; /* wizard can be wider, others ~500px */
+  max-width: 820px;
   padding: 2rem;
   box-shadow: 0 20px 40px rgba(0,0,0,0.25);
 }
@@ -34,11 +36,12 @@
 }
 
 .validationText {
-  color: red;
-  font-size: 0.9rem;
-  margin-top: -0.5rem;
-  margin-bottom: 1rem;
+  color: #b91c1c;
+  font-weight: 600;
+  margin: 6px 0 0 0;
 }
+
+.mutedText { color: #6b7280; }
 
 .backdrop {
   position: fixed;
@@ -49,8 +52,55 @@
   transition: opacity 150ms ease;
   z-index: 999;
 }
+.backdropOpen { opacity: 1; pointer-events: auto; }
 
-.backdropOpen {
+/* ------------ FORM LAYOUT ------------------------------------------------ */
+
+.fieldWrap {
+  min-width: 0;
+  overflow: visible;         /* floating labels visible */
+}
+.fieldWrap > * {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Vertical rhythm so labels never collide with prior row/title */
+.form {
+  padding-left: 0;
+  padding-right: 0;
+  row-gap: 16px;
+}
+.form .fieldWrap:first-child {
+  margin-top: 16px;          /* keeps "Street Address" off the H3 */
+}
+
+/* 3-col grid — wider column gap to prevent “bleed” */
+.gridTernaryTight {
+  display: grid;
+  grid-template-columns:
+    minmax(200px, 1fr)       /* City / Bedrooms */
+    minmax(140px, 0.9fr)     /* State / Bathrooms */
+    minmax(160px, 1fr);      /* Zip / Sq Ft */
+  column-gap: 24px;
+  row-gap: 16px;
+  align-items: end;        /* TOP align so nothing “shifts up” oddly */
+}
+
+/* Responsive fallbacks */
+@media (max-width: 760px) {
+  .gridTernaryTight { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 520px) {
+  .gridTernaryTight { grid-template-columns: 1fr; }
+}
+
+/* Footer buttons spacing */
+.modalButtons { margin-top: 12px; }
+
+/* Keep number spinners visible without forcing a taller control */
+:global(input[type="number"]::-webkit-inner-spin-button),
+:global(input[type="number"]::-webkit-outer-spin_button) {
   opacity: 1;
-  pointer-events: auto;
 }
