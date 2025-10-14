@@ -3,6 +3,7 @@ import React, { useMemo, useState, useEffect } from "react";
 import styles from "./FinancialTable.module.css";
 import FeverLight from "../ui/FeverLight";
 import PaymentModal from "./PaymentModal";
+import ManagePaymentsModal from "./ManagePaymentsModal";
 import buttonStyles from "../../styles/Buttons.module.css";
 import {
   computeRowTotals,
@@ -78,7 +79,8 @@ function computeNoticeStartISO(notice) {
 }
 
 export default function FinancialTable({ schedule, config, onChange }) {
-  const [modalIdx, setModalIdx] = useState(null);
+  const [modalIdx, setModalIdx] = useState(null);            // quick add payment
+  const [manageIdx, setManageIdx] = useState(null);          // edit/delete payments
   const [showChargeIdx, setShowChargeIdx] = useState(null);
   const [showNoticeIdx, setShowNoticeIdx] = useState(null);
 
@@ -104,13 +106,18 @@ export default function FinancialTable({ schedule, config, onChange }) {
 
   // If our normalized view differs, push upstream once (unless a modal is open).
   useEffect(() => {
-    if (modalIdx !== null || showChargeIdx !== null || showNoticeIdx !== null)
+    if (
+      modalIdx !== null ||
+      manageIdx !== null ||
+      showChargeIdx !== null ||
+      showNoticeIdx !== null
+    )
       return;
     const raw = JSON.stringify(schedule);
     const norm = JSON.stringify(normalizeRows(derived));
     if (raw !== norm) onChange(normalizeRows(derived));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [derived, modalIdx, showChargeIdx, showNoticeIdx]);
+  }, [derived, modalIdx, manageIdx, showChargeIdx, showNoticeIdx]);
 
   // ---- KPIs ----
   const summary = useMemo(() => {
@@ -135,10 +142,7 @@ export default function FinancialTable({ schedule, config, onChange }) {
         getPetRent(config) +
         (Number(r.expectedOther) || 0) +
         (Array.isArray(r.adjustments)
-          ? r.adjustments.reduce(
-              (s, a) => s + (Number(a.amount) || 0),
-              0
-            )
+          ? r.adjustments.reduce((s, a) => s + (Number(a.amount) || 0), 0)
           : Number(r.expectedAdjustments) || 0) +
         (r.lateFeeWaived ? 0 : Number(r.lateFee) || 0);
 
@@ -161,7 +165,17 @@ export default function FinancialTable({ schedule, config, onChange }) {
       else gray++;
     });
 
-    return { expected, received, balance, green, yellow, orange, red, black, gray };
+    return {
+      expected,
+      received,
+      balance,
+      green,
+      yellow,
+      orange,
+      red,
+      black,
+      gray,
+    };
   }, [derived, config]);
 
   function exportCSV() {
@@ -194,10 +208,7 @@ export default function FinancialTable({ schedule, config, onChange }) {
         pet +
         (Number(row.expectedOther) || 0) +
         (Array.isArray(row.adjustments)
-          ? row.adjustments.reduce(
-              (s, a) => s + (Number(a.amount) || 0),
-              0
-            )
+          ? row.adjustments.reduce((s, a) => s + (Number(a.amount) || 0), 0)
           : Number(row.expectedAdjustments) || 0) +
         (row.lateFeeWaived ? 0 : Number(row.lateFee) || 0)
       ).toFixed(2);
@@ -278,17 +289,7 @@ export default function FinancialTable({ schedule, config, onChange }) {
     window.print();
   }
 
-  // All mutators: normalize before sending upstream
-  function toggleLateFee(idx, waived) {
-    const next = schedule.map((r, i) =>
-      i === idx
-        ? { ...r, lateFeeWaived: waived, lateFee: waived ? 0 : r.lateFee }
-        : r
-    );
-    next.forEach((row) => finalizeMonthIfPaid(row, config));
-    onChange(normalizeRows(next));
-  }
-
+  // ---- payment mutators: normalize before sending upstream
   function addPayment(idx, payment) {
     const next = schedule.map((r, i) =>
       i === idx
@@ -305,10 +306,28 @@ export default function FinancialTable({ schedule, config, onChange }) {
     onChange(normalizeRows(next));
   }
 
-  function clearPayments(idx) {
-    const next = schedule.map((r, i) =>
-      i === idx ? { ...r, payments: [] } : r
-    );
+  function updatePayment(idx, pIndex, payment) {
+    const next = schedule.map((r, i) => {
+      if (i !== idx) return r;
+      const payments = [...(r.payments || [])];
+      if (pIndex >= 0 && pIndex < payments.length) {
+        payments[pIndex] = { ...payment, amount: Number(payment.amount) };
+      }
+      return { ...r, payments };
+    });
+    next.forEach((row) => finalizeMonthIfPaid(row, config));
+    onChange(normalizeRows(next));
+  }
+
+  function deletePayment(idx, pIndex) {
+    const next = schedule.map((r, i) => {
+      if (i !== idx) return r;
+      const payments = [...(r.payments || [])];
+      if (pIndex >= 0 && pIndex < payments.length) {
+        payments.splice(pIndex, 1);
+      }
+      return { ...r, payments };
+    });
     next.forEach((row) => finalizeMonthIfPaid(row, config));
     onChange(normalizeRows(next));
   }
@@ -336,6 +355,16 @@ export default function FinancialTable({ schedule, config, onChange }) {
         adjustmentReasons: reasons,
       };
     });
+    next.forEach((row) => finalizeMonthIfPaid(row, config));
+    onChange(normalizeRows(next));
+  }
+
+  function toggleLateFee(idx, waived) {
+    const next = schedule.map((r, i) =>
+      i === idx
+        ? { ...r, lateFeeWaived: waived, lateFee: waived ? 0 : r.lateFee }
+        : r
+    );
     next.forEach((row) => finalizeMonthIfPaid(row, config));
     onChange(normalizeRows(next));
   }
@@ -382,8 +411,7 @@ export default function FinancialTable({ schedule, config, onChange }) {
             <div className={styles.kpi}>
               <span>Trend</span>
               <strong>
-                {summary.green} green / {summary.yellow} yellow /{" "}
-                {summary.orange} orange / {` ${summary.red} red / `}
+                {summary.green} green / {summary.yellow} yellow / {summary.orange} orange / {` ${summary.red} red / `}
                 {summary.black} black / {summary.gray} grey
               </strong>
             </div>
@@ -420,10 +448,7 @@ export default function FinancialTable({ schedule, config, onChange }) {
             pet +
             (Number(row.expectedOther) || 0) +
             (Array.isArray(row.adjustments)
-              ? row.adjustments.reduce(
-                  (s, a) => s + (Number(a.amount) || 0),
-                  0
-                )
+              ? row.adjustments.reduce((s, a) => s + (Number(a.amount) || 0), 0)
               : Number(row.expectedAdjustments) || 0) +
             (row.lateFeeWaived ? 0 : Number(row.lateFee) || 0);
 
@@ -442,7 +467,6 @@ export default function FinancialTable({ schedule, config, onChange }) {
             ? row.adjustmentReasons.join(" + ")
             : "Adj";
 
-          // + Notice appears after grace (orange) or if a notice exists
           const canStartNotice = status.color === "orange" || !!row.notice;
 
           return (
@@ -465,9 +489,7 @@ export default function FinancialTable({ schedule, config, onChange }) {
                       split={true}
                     />
                   ) : (
-                    <span
-                      style={{ display: "inline-block", width: 25, height: 25 }}
-                    />
+                    <span style={{ display: "inline-block", width: 25, height: 25 }} />
                   )}
 
                   {row.notice?.startISO && row.notice?.endISO && (
@@ -546,42 +568,66 @@ export default function FinancialTable({ schedule, config, onChange }) {
 
               {/* Actions */}
               <div className={styles.actionsCell}>
-                <button
-                  className={buttonStyles.primaryButton}
-                  onClick={() => setModalIdx(idx)}
-                >
-                  + Payment
-                </button>
-                <button
-                  className={buttonStyles.secondaryButton}
-                  onClick={() => setShowChargeIdx(idx)}
-                  title="Add one-off charge (e.g., utilities, fees)"
-                >
-                  + Charge
-                </button>
-                {canStartNotice && (
-                  <button
-                    className={buttonStyles.secondaryButton}
-                    onClick={() => setShowNoticeIdx(idx)}
-                    title="Record/Update notice period details"
-                  >
-                    {row.notice ? "Edit Notice" : "+ Notice"}
-                  </button>
-                )}
-                {row.payments.length > 0 && (
-                  <button
-                    className={buttonStyles.secondaryButton}
-                    onClick={() => clearPayments(idx)}
-                  >
-                    Clear
-                  </button>
-                )}
+                <div className={styles.actionsGroup}>
+                  {/* Top row: + Payment | Manage Payments */}
+                  <div className={styles.actionsRow}>
+                    <button
+                      className={`${buttonStyles.primaryButton} ${styles.actionsButton}`}
+                      onClick={() => setModalIdx(idx)}
+                      title="Add a payment"
+                    >
+                      + Payment
+                    </button>
+
+                    <button
+                      className={`${buttonStyles.secondaryButton} ${styles.actionsButton}`}
+                      onClick={() => setManageIdx(idx)}
+                      title="Edit or delete payments"
+                    >
+                      Manage Payments
+                    </button>
+                  </div>
+
+                  {/* Bottom row */}
+                  {canStartNotice ? (
+                    // + Charge | + Notice
+                    <div className={styles.actionsRow}>
+                      <button
+                        className={`${buttonStyles.secondaryButton} ${styles.actionsButton}`}
+                        onClick={() => setShowChargeIdx(idx)}
+                        title="Add one-off charge (e.g. utilities, fees)"
+                      >
+                        + Charge
+                      </button>
+                  
+                      <button
+                        className={`${buttonStyles.secondaryButton} ${styles.actionsButton}`}
+                        onClick={() => setShowNoticeIdx(idx)}
+                        title="Record or update notice period details"
+                      >
+                        {row.notice ? "Edit Notice" : "+ Notice"}
+                      </button>
+                    </div>
+                  ) : (
+                    // Only + Charge, full width (same width as both buttons above combined)
+                    <div className={styles.actionsRow}>
+                      <button
+                        className={`${buttonStyles.secondaryButton} ${styles.actionsButton}`}
+                        onClick={() => setShowChargeIdx(idx)}
+                        title="Add one-off charge (e.g. utilities, fees)"
+                      >
+                        + Charge
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           );
         })}
       </div>
 
+      {/* Quick add */}
       <PaymentModal
         open={modalIdx !== null}
         title="Add Payment"
@@ -589,6 +635,20 @@ export default function FinancialTable({ schedule, config, onChange }) {
         onAddPayment={(p) => addPayment(modalIdx, p)}
       />
 
+      {/* Manage (add/edit/delete) */}
+      {manageIdx !== null && (
+        <ManagePaymentsModal
+          open={manageIdx !== null}
+          title={`Manage Payments — ${derived[manageIdx]?.periodLabel || ""}`}
+          payments={derived[manageIdx]?.payments || []}
+          onClose={() => setManageIdx(null)}
+          onAdd={(p) => addPayment(manageIdx, p)}
+          onUpdate={(pIndex, p) => updatePayment(manageIdx, pIndex, p)}
+          onDelete={(pIndex) => deletePayment(manageIdx, pIndex)}
+        />
+      )}
+
+      {/* One-off charge */}
       {showChargeIdx !== null && (
         <ChargeModal
           open={showChargeIdx !== null}
@@ -600,6 +660,7 @@ export default function FinancialTable({ schedule, config, onChange }) {
         />
       )}
 
+      {/* Notice tracking */}
       {showNoticeIdx !== null && (
         <NoticeModal
           open={showNoticeIdx !== null}
