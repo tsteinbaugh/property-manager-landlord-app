@@ -100,7 +100,7 @@ export default function PropertyForm({
         </div>
       </div>
 
-      <div className={styles.fieldWrap} style={{ marginTop: 16 }}>
+      <div className={styles.fieldWrap}>
         <FloatingField
           name="owner"
           label="Property Owner"
