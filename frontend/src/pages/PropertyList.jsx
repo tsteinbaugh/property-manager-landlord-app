@@ -1,8 +1,8 @@
-// property-manager-landlord-app/frontend/src/pages/PropertyList.jsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import FeverLight from "../components/ui/FeverLight";
-import { pickDashboardStatusFromRows, tooltipForColor } from "../utils/feverStatus";
+import { tooltipForColor } from "../utils/feverStatus";
+import { resolveDashboardFeverStatus } from "../utils/finance";
 import styles from "./PropertyList.module.css";
 
 /** Local maintenance fever (self-contained) */
@@ -24,6 +24,26 @@ function localGetMaintenanceFever({ items = [], approachingDays = 14, nowISO } =
   if (approaching.length) return { color: "yellow", tooltip: `${approaching.length} maintenance task(s) due soon.` };
 
   return { color: "green", tooltip: "All maintenance up to date." };
+}
+
+/** Try to hydrate financials from localStorage if missing on the property object */
+function hydrateFinancialsIfMissing(property) {
+  const cfg = property?.financialConfig || null;
+  const rows = Array.isArray(property?.financialSchedule) ? property.financialSchedule : [];
+
+  if (cfg && rows.length) return { cfg, rows };
+
+  try {
+    const raw = localStorage.getItem(`financials:${property.id}`);
+    if (!raw) return { cfg: null, rows: [] };
+
+    const parsed = JSON.parse(raw);
+    const lcCfg = parsed?.config || null;
+    const lcRows = Array.isArray(parsed?.schedule) ? parsed.schedule : [];
+    return { cfg: lcCfg, rows: lcRows };
+  } catch {
+    return { cfg: null, rows: [] };
+  }
 }
 
 export default function PropertyList({ role, properties }) {
@@ -55,17 +75,15 @@ export default function PropertyList({ role, properties }) {
             const maintState = localGetMaintenanceFever({ items: maintenanceItems, approachingDays: 14 });
 
             // --- Financial for Dashboard (shared with FinancialTable) ---
-            const rows = property?.financialSchedule || [];
-            const cfg  = property?.financialConfig || null;
-            const dash = (cfg && Array.isArray(rows) && rows.length)
-              ? pickDashboardStatusFromRows(rows, cfg)
-              : null;
+            const { cfg, rows } = hydrateFinancialsIfMissing(property);
+            const hasSetup = !!(cfg && Array.isArray(rows) && rows.length);
 
-            const hasSetup  = !!(cfg && Array.isArray(rows) && rows.length);
-            const finColor  = hasSetup ? (dash?.color ?? "gray") : "gray";
-            const finTooltip = hasSetup
-              ? (dash?.tooltip || tooltipForColor(finColor) || "Financials")
-              : "No financial data — click to set up";
+            const dash = hasSetup
+              ? resolveDashboardFeverStatus(rows, cfg, { today: new Date() })
+              : { color: "gray", label: "", tooltip: "No financial data — click to set up" };
+
+            const finColor = dash.color ?? "gray";
+            const finTooltip = dash.tooltip || tooltipForColor(finColor) || "Financials";
 
             const handleOpenFinancials = () => {
               navigate(`/property/${property.id}/financials`);
@@ -97,17 +115,17 @@ export default function PropertyList({ role, properties }) {
                       className={styles.lightButton}
                       aria-label="Open financials"
                     >
-                      <FeverLight color={finColor} size={18} title={finTooltip} />
-                      {/* intentionally removed month text next to the light */}
+                      <FeverLight color={finColor} size={25} title={finTooltip} split={true} paid={dash.paid} />
+                      {/* if you want the month tag back: <span className={styles.monthTag}>{dash.label}</span> */}
                     </button>
                   ) : (
-                    <span style={{ display: "inline-block", width: 18, height: 18 }} />
+                    <span style={{ display: "inline-block", width: 25, height: 25 }} />
                   )}
                 </td>
 
                 {/* Col 3: Maintenance */}
                 <td className={`${styles.cell} ${styles.lightCell}`}>
-                  <FeverLight color={maintState.color} size={18} title={maintState.tooltip} />
+                  <FeverLight color={maintState.color} size={25} title={maintState.tooltip} />
                 </td>
               </tr>
             );

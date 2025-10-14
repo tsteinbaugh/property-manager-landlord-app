@@ -1,5 +1,5 @@
-// src/utils/finance.js
 import { toISODate } from "./date";
+import { resolveFeverStatus } from "./feverStatus";
 
 /* ===================== DATE HELPERS ===================== */
 function daysInMonthUTC(year, monthIndex /* 0..11 */) {
@@ -323,3 +323,103 @@ export function generateLeaseSchedule(cfg) {
 
   return rows;
 }
+
+/* ===================== DASHBOARD PICKER & STATUS ===================== */
+// Mirror table's expectedDisplay math (rent + pet + other + adjustments + late if not waived)
+export function expectedTotalIncludingLate(row, config) {
+  const pet = getPetRent(config);
+  const other = Number(row?.expectedOther) || 0;
+  const adjs = Array.isArray(row?.adjustments)
+    ? row.adjustments.reduce((s, a) => s + (Number(a.amount) || 0), 0)
+    : Number(row?.expectedAdjustments) || 0;
+  const late = row?.lateFeeWaived ? 0 : (Number(row?.lateFee) || 0);
+  return +(
+    (Number(row?.expectedBase) || 0) +
+    pet +
+    other +
+    adjs +
+    late
+  ).toFixed(2);
+}
+
+function _startOfDayLocal(iso) {
+  if (!iso) return new Date(NaN);
+  const [y, m, d] = iso.split("-").map(Number);
+  const dt = new Date(y, (m - 1), d || 1);
+  dt.setHours(0, 0, 0, 0);
+  return dt;
+}
+function _isFutureRow(row, today = new Date()) {
+  const due = _startOfDayLocal(row?.dueDateISO);
+  const t0  = new Date(today); t0.setHours(0,0,0,0);
+  return due > t0;
+}
+function _isResolved(row, config) {
+  const { balance } = computeRowTotals(row, config);
+  return balance <= 0;
+}
+
+/**
+ * From a schedule, pick the single row the Dashboard fever light should represent.
+ * Rule:
+ *  1) Among rows with dueDate <= today, pick the earliest UNRESOLVED month.
+ *  2) If all those are resolved, pick the latest RESOLVED month.
+ *  3) If no eligible rows (empty/future-only), return null.
+ */
+export function pickDashboardFinancialRow(schedule = [], config, opts = {}) {
+  const { today = new Date() } = opts;
+  if (!Array.isArray(schedule) || schedule.length === 0) return null;
+
+  const eligible = schedule
+    .filter(r => r && !_isFutureRow(r, today))
+    .sort((a, b) => _startOfDayLocal(a.dueDateISO) - _startOfDayLocal(b.dueDateISO));
+
+  if (eligible.length === 0) return null;
+
+  const earliestUnresolved = eligible.find(r => !_isResolved(r, config));
+  if (earliestUnresolved) return earliestUnresolved;
+
+  // otherwise take the latest resolved up to today
+  for (let i = eligible.length - 1; i >= 0; i--) {
+    if (_isResolved(eligible[i], config)) return eligible[i];
+  }
+  return null;
+}
+
+/**
+ * Compute the Dashboard fever color/tooltip/label using the same resolveFeverStatus() as the table.
+ */
+export function resolveDashboardFeverStatus(schedule = [], config, opts = {}) {
+  const picked = pickDashboardFinancialRow(schedule, config, opts);
+  if (!picked) {
+    return {
+      color: "gray",
+      label: "",
+      tooltip: "No eligible months",
+      pickedRow: null,
+      paid: false,
+    };
+  }
+
+  const expectedTotal = expectedTotalIncludingLate(picked, config);
+  const status = resolveFeverStatus({
+    dueDateISO: picked.dueDateISO,
+    payments: picked.payments || [],
+    expectedTotal,
+    graceDays: Number(config?.graceDays ?? config?.lateFeeDays ?? 0),
+    noticeGivenAtISO: picked?.notice?.startISO ?? config?.noticeGivenAtISO ?? null,
+    noticeDays: Number(picked?.notice?.days ?? config?.noticeDays ?? 10),
+  });
+
+  const label = picked.periodLabel || (picked.dueDateISO ? picked.dueDateISO.slice(0, 7) : "");
+
+  return {
+    color: status?.color || "gray",
+    tooltip: status?.tooltip || "",
+    label,
+    pickedRow: picked,
+    // <-- this is the key bit the table already uses
+    paid: !!status?.finalPaidAtISO,
+  };
+}
+
