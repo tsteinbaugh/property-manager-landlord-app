@@ -1,4 +1,3 @@
-// /home/tsteinbaugh/property-manager-landlord-app/frontend/src/components/TenantModal.jsx
 import { useState, useEffect, useRef } from "react";
 import styles from "../styles/SharedModal.module.css";
 import buttonStyles from "../styles/Buttons.module.css";
@@ -65,7 +64,6 @@ export default function TenantModal({ isOpen, tenant, onClose, onSave, title = "
 
   function getEmailInputEl() {
     const el = formRef.current?.elements?.namedItem?.("email");
-    // namedItem can return RadioNodeList; coerce to input if applicable
     return el && "setCustomValidity" in el ? el : null;
   }
 
@@ -75,7 +73,6 @@ export default function TenantModal({ isOpen, tenant, onClose, onSave, title = "
     if (name === "phone" || name === "email") {
       setFormData(prev => ({ ...prev, contact: { ...(prev.contact || {}), [name]: v } }));
       if (name === "email") {
-        // Clear custom validity while typing, and only re-apply on submit
         const emailEl = getEmailInputEl();
         if (emailEl) emailEl.setCustomValidity("");
       }
@@ -99,7 +96,6 @@ export default function TenantModal({ isOpen, tenant, onClose, onSave, title = "
     e.preventDefault();
     setSubmitted(true);
 
-    // Photo ID custom bubble
     if (fileInputRef.current) {
       if (mustRequirePhoto && !hasPhotoNow) {
         fileInputRef.current.setCustomValidity("Please attach a Photo ID.");
@@ -108,7 +104,6 @@ export default function TenantModal({ isOpen, tenant, onClose, onSave, title = "
       }
     }
 
-    // Email custom bubble using stricter regex
     const emailEl = getEmailInputEl();
     if (emailEl) {
       if (!EMAIL_REGEX.test(emailStr.trim())) {
@@ -118,10 +113,7 @@ export default function TenantModal({ isOpen, tenant, onClose, onSave, title = "
       }
     }
 
-    // Native validation + focus/bubble on the first invalid control
-    if (formRef.current && !formRef.current.reportValidity()) {
-      return;
-    }
+    if (formRef.current && !formRef.current.reportValidity()) return;
 
     const payload = {
       name: nameStr.trim(),
@@ -140,44 +132,58 @@ export default function TenantModal({ isOpen, tenant, onClose, onSave, title = "
       <h2 className={styles.modalTitle}>{title}</h2>
       {/* Keep native validation enabled */}
       <form ref={formRef} onSubmit={handleSubmit} className={styles.form}>
-        <FloatingField
-          name="name"
-          label="Name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
-        <FloatingField
-          name="age"
-          label="Age"
-          value={formData.age}
-          onChange={handleChange}
-        />
-        <FloatingField
-          name="occupation"
-          label="Occupation"
-          value={formData.occupation}
-          onChange={handleChange}
-        />
-        <FloatingField
-          name="phone"
-          label="Phone"
-          value={formData.contact?.phone || ""}
-          onChange={handleChange}
-          required
-        />
-        <FloatingField
-          name="email"
-          type="email"
-          label="Email"
-          value={formData.contact?.email || ""}
-          onChange={handleChange}
-          required
-          autoComplete="email"
-          inputMode="email"
-        />
+        <div className={styles.fieldWrap} >
+          <FloatingField
+            name="name"
+            label="Name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-        <div className={styles.input}>
+        <div className={styles.fieldWrap}>
+          <FloatingField
+            name="age"
+            label="Age"
+            value={formData.age}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className={styles.fieldWrap}>
+          <FloatingField
+            name="occupation"
+            label="Occupation"
+            value={formData.occupation}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className={styles.fieldWrap}>
+          <FloatingField
+            name="phone"
+            label="Phone"
+            value={formData.contact?.phone || ""}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className={styles.fieldWrap}>
+          <FloatingField
+            name="email"
+            type="email"
+            label="Email"
+            value={formData.contact?.email || ""}
+            onChange={handleChange}
+            required
+            autoComplete="email"
+            inputMode="email"
+          />
+        </div>
+
+        <div className={`${styles.fieldWrap}`} style={{ marginTop: 6 }}>
           <label style={{ display: "block", marginBottom: 6 }}>
             Photo ID {mustRequirePhoto && <span style={{ color: "red" }}>*</span>}
           </label>

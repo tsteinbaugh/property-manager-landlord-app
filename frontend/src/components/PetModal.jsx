@@ -1,4 +1,3 @@
-// src/components/PetModal.jsx
 import { useState, useEffect } from "react";
 import styles from "../styles/SharedModal.module.css";
 import buttonStyles from "../styles/Buttons.module.css";
@@ -40,10 +39,18 @@ export default function PetModal({ isOpen, pet, onClose, onSave, title = "Edit P
     <ModalRoot isOpen={!!isOpen} onClose={onClose} width={560}>
       <h2 className={styles.modalTitle}>{title}</h2>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <FloatingField name="name" label="Name" value={formData.name} onChange={handleChange} required />
-        <FloatingField name="type" label="Type of pet (dog, cat…)" value={formData.type} onChange={handleChange} required />
-        <FloatingField name="size" label="Size (small/medium/large or weight)" value={formData.size} onChange={handleChange} />
-        <FloatingField name="license" label="License #" value={formData.license} onChange={handleChange} />
+        <div className={styles.fieldWrap} >
+          <FloatingField name="name" label="Name" value={formData.name} onChange={handleChange} required />
+        </div>
+        <div className={styles.fieldWrap}>
+          <FloatingField name="type" label="Type of pet (dog, cat…)" value={formData.type} onChange={handleChange} required />
+        </div>
+        <div className={styles.fieldWrap}>
+          <FloatingField name="size" label="Size (small/medium/large or weight)" value={formData.size} onChange={handleChange} />
+        </div>
+        <div className={styles.fieldWrap}>
+          <FloatingField name="license" label="License #" value={formData.license} onChange={handleChange} />
+        </div>
 
         {submitted && !isFormValid && (
           <p className={styles.validationText}>Please fill in name and type of pet.</p>

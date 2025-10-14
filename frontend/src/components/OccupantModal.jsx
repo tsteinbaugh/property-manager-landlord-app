@@ -1,4 +1,3 @@
-// src/components/OccupantModal.jsx
 import { useState, useEffect } from "react";
 import styles from "../styles/SharedModal.module.css";
 import buttonStyles from "../styles/Buttons.module.css";
@@ -54,12 +53,24 @@ export default function OccupantModal({ isOpen, occupant, onClose, onSave, title
     <ModalRoot isOpen={!!isOpen} onClose={onClose} width={560}>
       <h2 className={styles.modalTitle}>{title}</h2>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <FloatingField name="name" label="Name" value={formData.name} onChange={handleChange} required />
-        <FloatingField name="age" label="Age" value={formData.age} onChange={handleChange} />
-        <FloatingField name="occupation" label="Occupation" value={formData.occupation} onChange={handleChange} />
-        <FloatingField name="relationship" label="Relationship" value={formData.relationship} onChange={handleChange} />
-        <FloatingField name="phone" label="Phone" value={formData.contact?.phone || ""} onChange={handleChange} />
-        <FloatingField name="email" type="email" label="Email" value={formData.contact?.email || ""} onChange={handleChange} />
+        <div className={styles.fieldWrap} >
+          <FloatingField name="name" label="Name" value={formData.name} onChange={handleChange} required />
+        </div>
+        <div className={styles.fieldWrap}>
+          <FloatingField name="age" label="Age" value={formData.age} onChange={handleChange} />
+        </div>
+        <div className={styles.fieldWrap}>
+          <FloatingField name="occupation" label="Occupation" value={formData.occupation} onChange={handleChange} />
+        </div>
+        <div className={styles.fieldWrap}>
+          <FloatingField name="relationship" label="Relationship" value={formData.relationship} onChange={handleChange} />
+        </div>
+        <div className={styles.fieldWrap}>
+          <FloatingField name="phone" label="Phone" value={formData.contact?.phone || ""} onChange={handleChange} />
+        </div>
+        <div className={styles.fieldWrap}>
+          <FloatingField name="email" type="email" label="Email" value={formData.contact?.email || ""} onChange={handleChange} />
+        </div>
 
         {submitted && !isFormValid && (
           <p className={styles.validationText}>Please enter the occupant's name.</p>

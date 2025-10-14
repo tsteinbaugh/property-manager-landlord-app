@@ -1,4 +1,3 @@
-// src/components/EmergencyContactModal.jsx
 import { useState, useEffect } from "react";
 import styles from "../styles/SharedModal.module.css";
 import buttonStyles from "../styles/Buttons.module.css";
@@ -45,9 +44,15 @@ export default function EmergencyContactModal({ isOpen, emergencyContact, onClos
     <ModalRoot isOpen={!!isOpen} onClose={onClose} width={560}>
       <h2 className={styles.modalTitle}>{title}</h2>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <FloatingField name="name" label="Name" value={formData.name} onChange={handleChange} required />
-        <FloatingField name="phone" label="Phone" value={formData.contact?.phone || ""} onChange={handleChange} required />
-        <FloatingField name="email" type="email" label="Email" value={formData.contact?.email || ""} onChange={handleChange} />
+        <div className={styles.fieldWrap}>
+          <FloatingField name="name" label="Name" value={formData.name} onChange={handleChange} required />
+        </div>
+        <div className={styles.fieldWrap}>
+          <FloatingField name="phone" label="Phone" value={formData.contact?.phone || ""} onChange={handleChange} required />
+        </div>
+        <div className={styles.fieldWrap}>
+          <FloatingField name="email" type="email" label="Email" value={formData.contact?.email || ""} onChange={handleChange} />
+        </div>
 
         {submitted && !isFormValid && (
           <p className={styles.validationText}>Please enter name and phone number.</p>

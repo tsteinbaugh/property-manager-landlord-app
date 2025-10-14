@@ -41,14 +41,13 @@ function getNestedMonthlyPetRent(obj) {
     for (const [k, v] of Object.entries(cur || {})) {
       const key = k.toLowerCase();
 
-      // must include "pet" and (rent|monthly|perMonth); exclude one-time words
       const looksMonthly =
         key.includes("pet") &&
         (key.includes("rent") || key.includes("monthly") || key.includes("permonth")) &&
         !key.includes("deposit") &&
         !key.includes("one") &&
         !key.includes("setup") &&
-        !key.includes("fee"); // exclude generic fees
+        !key.includes("fee");
 
       if (looksMonthly && isNumeric(v)) sum += Number(v);
       if (v && typeof v === "object") stack.push(v);
@@ -59,7 +58,7 @@ function getNestedMonthlyPetRent(obj) {
 
 export default function AddPropertyFlow({ onComplete, onCancel }) {
   const [step, setStep] = useState(STEPS.DETAILS);
-  const [reviewJump, setReviewJump] = useState(null); // were we jumped from Review?
+  const [reviewJump, setReviewJump] = useState(null); // jumped from Review?
 
   // Accumulated payload
   const [propertyData, setPropertyData] = useState({});
@@ -69,28 +68,33 @@ export default function AddPropertyFlow({ onComplete, onCancel }) {
   const [financialConfig, setFinancialConfig] = useState(null);
   const [financialValid, setFinancialValid] = useState(false);
 
+  // Tenants
   const [tenants, setTenants] = useState([]);
   const [tenantsWarn, setTenantsWarn] = useState(false);
   const [tenantsShake, setTenantsShake] = useState(false);
   const [showTenantModal, setShowTenantModal] = useState(false);
+  const [editTenantIndex, setEditTenantIndex] = useState(null);
 
+  // Occupants
   const [occupants, setOccupants] = useState([]);
   const [showOccupantModal, setShowOccupantModal] = useState(false);
+  const [editOccupantIndex, setEditOccupantIndex] = useState(null);
 
+  // Pets
   const [pets, setPets] = useState([]);
   const [showPetModal, setShowPetModal] = useState(false);
+  const [editPetIndex, setEditPetIndex] = useState(null);
 
+  // Emergency Contacts
   const [emergencyContacts, setEmergencyContacts] = useState([]);
   const [showEmergencyModal, setShowEmergencyModal] = useState(false);
+  const [editEmergencyIndex, setEditEmergencyIndex] = useState(null);
 
-  function prev() {
-    setStep((s) => Math.max(STEPS.DETAILS, s - 1));
-  }
+  function prev() { setStep((s) => Math.max(STEPS.DETAILS, s - 1)); }
 
   function goNext() {
     if (step === STEPS.LEASE) return setStep(STEPS.FINANCIAL);
-    if (step === STEPS.FINANCIAL)
-      return financialValid ? setStep(STEPS.TENANTS) : null;
+    if (step === STEPS.FINANCIAL) return financialValid ? setStep(STEPS.TENANTS) : null;
 
     if (step === STEPS.TENANTS) {
       if (tenants.length === 0) {
@@ -115,21 +119,14 @@ export default function AddPropertyFlow({ onComplete, onCancel }) {
 
   useModalKeys({ onEscape: onCancel, onEnter: goNext, enterDisabled });
 
-  function jumpTo(targetStep) {
-    setReviewJump(true);
-    setStep(targetStep);
-  }
-  function backToReview() {
-    setStep(STEPS.REVIEW);
-    setReviewJump(null);
-  }
+  function jumpTo(targetStep) { setReviewJump(true); setStep(targetStep); }
+  function backToReview() { setStep(STEPS.REVIEW); setReviewJump(null); }
 
   // ---- review helpers
   const beds = propertyData?.bedrooms ?? "";
   const baths = propertyData?.bathrooms ?? "";
   const sqFt = propertyData?.squareFeet ?? "";
 
-  // Base rent (covers common variants)
   const baseRent =
     Number(
       financialConfig?.rent ??
@@ -139,7 +136,6 @@ export default function AddPropertyFlow({ onComplete, onCancel }) {
       0
     ) || 0;
 
-  // Direct pet-rent keys (top-level)
   const directPetRent =
     Number(
       financialConfig?.petRent ??
@@ -150,14 +146,24 @@ export default function AddPropertyFlow({ onComplete, onCancel }) {
       0
     ) || 0;
 
-  // Nested monthly pet rent (numeric only; excludes deposits/fees/booleans)
   const nestedPetRent = getNestedMonthlyPetRent(financialConfig);
-
-  // Use the larger of direct vs nested to avoid double-counting
   const petRent = Math.max(directPetRent, nestedPetRent);
 
   const rentDisplay =
     baseRent + petRent > 0 ? `$${(baseRent + petRent).toFixed(2)}` : "missing";
+
+  // ---- list helpers (shared patterns)
+  const smallBtn = {
+    padding: "4px 8px",
+    fontSize: "0.85rem",
+    lineHeight: 1.1,
+  };
+  const removeBtn = {
+    ...smallBtn,
+    background: "#ef4444",
+    color: "#fff",
+    border: "none",
+  };
 
   return (
     <ModalRoot isOpen={true} onClose={onCancel}>
@@ -171,10 +177,7 @@ export default function AddPropertyFlow({ onComplete, onCancel }) {
         {step === STEPS.DETAILS && (
           <PropertyModalWrapper
             initialData={propertyData}
-            onSave={(data) => {
-              setPropertyData(data);
-              setStep(STEPS.LEASE);
-            }}
+            onSave={(data) => { setPropertyData(data); setStep(STEPS.LEASE); }}
             onQuickCreate={(data) => {
               setPropertyData(data);
               onComplete?.({
@@ -190,14 +193,10 @@ export default function AddPropertyFlow({ onComplete, onCancel }) {
               });
             }}
             onCancel={onCancel}
-            /* Render the "Back to Review" inside the form area so it aligns */
             renderBelowSubmit={
               reviewJump
                 ? () => (
-                    <button
-                      className={buttonStyles.secondaryButton}
-                      onClick={backToReview}
-                    >
+                    <button className={buttonStyles.secondaryButton} onClick={backToReview}>
                       Back to Review &amp; Create
                     </button>
                   )
@@ -213,9 +212,7 @@ export default function AddPropertyFlow({ onComplete, onCancel }) {
               <LeaseSection
                 value={{ file: leaseFile }}
                 onChange={(v) => setLeaseFile(v?.file || null)}
-                onExtracted={({ fields, matches }) =>
-                  setLeaseExtract({ fields, matches })
-                }
+                onExtracted={({ fields, matches }) => setLeaseExtract({ fields, matches })}
               />
             </div>
           </>
@@ -240,11 +237,35 @@ export default function AddPropertyFlow({ onComplete, onCancel }) {
             <h3>Tenants</h3>
 
             {tenants.length > 0 && (
-              <ul style={{ margin: "8px 0 8px 18px" }}>
+              <ul style={{ margin: "8px 0 8px 0", paddingLeft: 0 }}>
                 {tenants.map((t, i) => (
-                  <li key={i}>
-                    {t.name || "(no name)"} — {t.contact?.phone || ""}{" "}
-                    {t.contact?.email || ""}
+                  <li key={i} className={styles.itemRow}>
+                    <div>
+                      <strong>{t.name || "(no name)"}</strong>
+                      {t.contact?.email || t.contact?.phone ? (
+                        <span className={styles.itemMeta}>
+                          {" "}
+                          — {t.contact?.phone || ""} {t.contact?.email || ""}
+                        </span>
+                      ) : null}
+                    </div>
+                    <div className={styles.rowActions}>
+                      <button
+                        className={'${buttonStyles.secondaryButton} ${styles.btnSm}'}
+                        onClick={() => { setEditTenantIndex(i); setShowTenantModal(true); }}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className={'${styles.dangerButton} ${styles.btnSm}'}
+                        onClick={() => {
+                          if (!confirm("Remove this tenant?")) return;
+                          setTenants((prev) => prev.filter((_, idx) => idx !== i));
+                        }}
+                      >
+                        Remove
+                      </button>
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -253,7 +274,7 @@ export default function AddPropertyFlow({ onComplete, onCancel }) {
             <div style={{ marginTop: tenants.length ? 4 : 8, marginBottom: 8 }}>
               <button
                 className={buttonStyles.primaryButton}
-                onClick={() => setShowTenantModal(true)}
+                onClick={() => { setEditTenantIndex(null); setShowTenantModal(true); }}
               >
                 + Add Tenant
               </button>
@@ -275,19 +296,26 @@ export default function AddPropertyFlow({ onComplete, onCancel }) {
             {showTenantModal && (
               <TenantModal
                 isOpen={true}
-                tenant={{
-                  name: "",
-                  age: "",
-                  occupation: "",
-                  contact: { phone: "", email: "" },
-                }}
-                onClose={() => setShowTenantModal(false)}
+                tenant={
+                  editTenantIndex != null
+                    ? tenants[editTenantIndex]
+                    : { name: "", age: "", occupation: "", contact: { phone: "", email: "" } }
+                }
+                onClose={() => { setShowTenantModal(false); setEditTenantIndex(null); }}
                 onSave={(t) => {
-                  setTenants((prev) => [...prev, t]);
+                  setTenants((prev) => {
+                    if (editTenantIndex != null) {
+                      const copy = [...prev];
+                      copy[editTenantIndex] = t;
+                      return copy;
+                    }
+                    return [...prev, t];
+                  });
                   setTenantsWarn(false);
                   setShowTenantModal(false);
+                  setEditTenantIndex(null);
                 }}
-                title="Add Tenant"
+                title={editTenantIndex != null ? "Edit Tenant" : "Add Tenant"}
               />
             )}
           </div>
@@ -298,11 +326,27 @@ export default function AddPropertyFlow({ onComplete, onCancel }) {
             <h3>Occupants (optional)</h3>
 
             {!!occupants.length && (
-              <ul style={{ margin: "8px 0 8px 18px" }}>
+              <ul style={{ margin: "8px 0 8px 0", paddingLeft: 0 }}>
                 {occupants.map((o, i) => (
-                  <li key={i}>
-                    {o.name || "(no name)"} — {o.contact?.phone || ""}{" "}
-                    {o.contact?.email || ""}
+                  <li key={i} className={styles.itemRow}>
+                    <div><strong>{o.name || "(no name)"}</strong></div>
+                    <div className={styles.rowActions}>
+                      <button
+                        className={'${buttonStyles.secondaryButton} ${styles.btnSm}'}
+                        onClick={() => { setEditTenantIndex(i); setShowTenantModal(true); }}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className={'${styles.dangerButton} ${styles.btnSm}'}
+                        onClick={() => {
+                          if (!confirm("Remove this tenant?")) return;
+                          setTenants((prev) => prev.filter((_, idx) => idx !== i));
+                        }}
+                      >
+                        Remove
+                      </button>
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -311,7 +355,7 @@ export default function AddPropertyFlow({ onComplete, onCancel }) {
             <div style={{ marginTop: occupants.length ? 4 : 8, marginBottom: 8 }}>
               <button
                 className={buttonStyles.primaryButton}
-                onClick={() => setShowOccupantModal(true)}
+                onClick={() => { setEditOccupantIndex(null); setShowOccupantModal(true); }}
               >
                 + Add Occupant
               </button>
@@ -320,19 +364,25 @@ export default function AddPropertyFlow({ onComplete, onCancel }) {
             {showOccupantModal && (
               <OccupantModal
                 isOpen={true}
-                occupant={{
-                  name: "",
-                  age: "",
-                  occupation: "",
-                  relationship: "",
-                  contact: { phone: "", email: "" },
-                }}
-                onClose={() => setShowOccupantModal(false)}
+                occupant={
+                  editOccupantIndex != null
+                    ? occupants[editOccupantIndex]
+                    : { name: "", age: "", occupation: "", relationship: "", contact: { phone: "", email: "" } }
+                }
+                onClose={() => { setShowOccupantModal(false); setEditOccupantIndex(null); }}
                 onSave={(o) => {
-                  setOccupants((prev) => [...prev, o]);
+                  setOccupants((prev) => {
+                    if (editOccupantIndex != null) {
+                      const copy = [...prev];
+                      copy[editOccupantIndex] = o;
+                      return copy;
+                    }
+                    return [...prev, o];
+                  });
                   setShowOccupantModal(false);
+                  setEditOccupantIndex(null);
                 }}
-                title="Add Occupant"
+                title={editOccupantIndex != null ? "Edit Occupant" : "Add Occupant"}
               />
             )}
           </div>
@@ -343,9 +393,28 @@ export default function AddPropertyFlow({ onComplete, onCancel }) {
             <h3>Pets (optional)</h3>
 
             {!!pets.length && (
-              <ul style={{ margin: "8px 0 8px 18px" }}>
+              <ul style={{ margin: "8px 0 8px 0", paddingLeft: 0 }}>
                 {pets.map((p, i) => (
-                  <li key={i}>{p.name || "(no name)"} — {p.type || ""}</li>
+                  <li key={i} className={styles.itemRow}>
+                    <div><strong>{p.name || "(no name)"}</strong> {p.type ? `— ${p.type}` : ""}</div>
+                    <div className={styles.rowActions}>
+                      <button
+                        className={'${buttonStyles.secondaryButton} ${styles.btnSm}'}
+                        onClick={() => { setEditTenantIndex(i); setShowTenantModal(true); }}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className={'${styles.dangerButton} ${styles.btnSm}'}
+                        onClick={() => {
+                          if (!confirm("Remove this tenant?")) return;
+                          setTenants((prev) => prev.filter((_, idx) => idx !== i));
+                        }}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </li>
                 ))}
               </ul>
             )}
@@ -353,7 +422,7 @@ export default function AddPropertyFlow({ onComplete, onCancel }) {
             <div style={{ marginTop: pets.length ? 4 : 8, marginBottom: 8 }}>
               <button
                 className={buttonStyles.primaryButton}
-                onClick={() => setShowPetModal(true)}
+                onClick={() => { setEditPetIndex(null); setShowPetModal(true); }}
               >
                 + Add Pet
               </button>
@@ -362,13 +431,25 @@ export default function AddPropertyFlow({ onComplete, onCancel }) {
             {showPetModal && (
               <PetModal
                 isOpen={true}
-                pet={{ name: "", type: "", size: "", license: "" }}
-                onClose={() => setShowPetModal(false)}
+                pet={
+                  editPetIndex != null
+                    ? pets[editPetIndex]
+                    : { name: "", type: "", size: "", license: "" }
+                }
+                onClose={() => { setShowPetModal(false); setEditPetIndex(null); }}
                 onSave={(p) => {
-                  setPets((prev) => [...prev, p]);
+                  setPets((prev) => {
+                    if (editPetIndex != null) {
+                      const copy = [...prev];
+                      copy[editPetIndex] = p;
+                      return copy;
+                    }
+                    return [...prev, p];
+                  });
                   setShowPetModal(false);
+                  setEditPetIndex(null);
                 }}
-                title="Add Pet"
+                title={editPetIndex != null ? "Edit Pet" : "Add Pet"}
               />
             )}
           </div>
@@ -379,11 +460,27 @@ export default function AddPropertyFlow({ onComplete, onCancel }) {
             <h3>Emergency Contacts (optional)</h3>
 
             {!!emergencyContacts.length && (
-              <ul style={{ margin: "8px 0 8px 18px" }}>
+              <ul style={{ margin: "8px 0 8px 0", paddingLeft: 0 }}>
                 {emergencyContacts.map((c, i) => (
-                  <li key={i}>
-                    {c.name || "(no name)"} — {c.contact?.phone || ""}{" "}
-                    {c.contact?.email || ""}
+                  <li key={i} className={styles.itemRow}>
+                    <div><strong>{c.name || "(no name)"}</strong></div>
+                    <div className={styles.rowActions}>
+                      <button
+                        className={'${buttonStyles.secondaryButton} ${styles.btnSm}'}
+                        onClick={() => { setEditTenantIndex(i); setShowTenantModal(true); }}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className={'${styles.dangerButton} ${styles.btnSm}'}
+                        onClick={() => {
+                          if (!confirm("Remove this tenant?")) return;
+                          setTenants((prev) => prev.filter((_, idx) => idx !== i));
+                        }}
+                      >
+                        Remove
+                      </button>
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -392,7 +489,7 @@ export default function AddPropertyFlow({ onComplete, onCancel }) {
             <div style={{ marginTop: emergencyContacts.length ? 4 : 8, marginBottom: 8 }}>
               <button
                 className={buttonStyles.primaryButton}
-                onClick={() => setShowEmergencyModal(true)}
+                onClick={() => { setEditEmergencyIndex(null); setShowEmergencyModal(true); }}
               >
                 + Add Contact
               </button>
@@ -401,13 +498,25 @@ export default function AddPropertyFlow({ onComplete, onCancel }) {
             {showEmergencyModal && (
               <EmergencyContactModal
                 isOpen={true}
-                emergencyContact={{ name: "", contact: { phone: "", email: "" } }}
-                onClose={() => setShowEmergencyModal(false)}
+                emergencyContact={
+                  editEmergencyIndex != null
+                    ? emergencyContacts[editEmergencyIndex]
+                    : { name: "", contact: { phone: "", email: "" } }
+                }
+                onClose={() => { setShowEmergencyModal(false); setEditEmergencyIndex(null); }}
                 onSave={(c) => {
-                  setEmergencyContacts((prev) => [...prev, c]);
+                  setEmergencyContacts((prev) => {
+                    if (editEmergencyIndex != null) {
+                      const copy = [...prev];
+                      copy[editEmergencyIndex] = c;
+                      return copy;
+                    }
+                    return [...prev, c];
+                  });
                   setShowEmergencyModal(false);
+                  setEditEmergencyIndex(null);
                 }}
-                title="Add Emergency Contact"
+                title={editEmergencyIndex != null ? "Edit Emergency Contact" : "Add Emergency Contact"}
               />
             )}
           </div>
