@@ -1,3 +1,4 @@
+/* property-manager-landlord-app/frontend/src/components/PropertyModal.module.css */
 
 .modalOverlay {
   background-color: rgba(0, 0, 0, 0.5);
@@ -52,8 +53,71 @@
   transition: opacity 150ms ease;
   z-index: 999;
 }
+.backdropOpen { opacity: 1; pointer-events: auto; }
 
-.backdropOpen {
-  opacity: 1;
-  pointer-events: auto;
+/* Tight header → section-title spacing */
+.modalHeader { margin: 0 0 6px 0; }
+.modalTitle  { margin: 0; }
+
+/* Even left/right padding */
+.modalBodyEven { padding: 16px 16px; }
+
+/* File input button styled like secondary */
+:global(input[type="file"]::file-selector-button) {
+  font: inherit;
+  border: 1px solid #e5e7eb;
+  background: #e5e7eb;
+  color: #111827;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+:global(input[type="file"]::file-selector-button:hover) {
+  background: #d1d5db;
+}
+
+/* Review rows */
+.reviewRows {
+  display: grid;
+  gap: 10px;
+  margin-top: 8px;
+  margin-bottom: 12px;
+}
+.reviewRow {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 10px;
+  align-items: start;
+}
+.reviewKey {
+  font-weight: 700;
+  background: transparent;
+  border: none;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+  color: #111827;
+}
+.reviewKey:hover { text-decoration: underline; }
+.reviewVal { color: #374151; }
+
+/* Feedback styles */
+.warnText { color: #b91c1c; font-weight: 700; }
+@keyframes shakeX {
+  10%, 90% { transform: translateX(-1px); }
+  20%, 80% { transform: translateX(2px); }
+  30%, 50%, 70% { transform: translateX(-3px); }
+  40%, 60% { transform: translateX(3px); }
+}
+.warnShake { animation: shakeX 300ms ease-in-out; }
+
+/* Return-to-review row under footer buttons */
+.footerReturnRow {
+  margin-top: 6px;
+  display: flex;
+  justify-content: flex-start;
+}
+.footerReturnRow > button {
+  font-size: 0.9rem;
+  padding: 4px 8px;
 }
