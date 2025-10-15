@@ -1,5 +1,5 @@
 // property-manager-landlord-app/frontend/src/components/financials/FinancialTable.jsx
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useMemo, useState, useEffect, useRef } from "react";
 import styles from "./FinancialTable.module.css";
 import FeverLight from "../ui/FeverLight";
 import PaymentModal from "./PaymentModal";
@@ -78,9 +78,206 @@ function computeNoticeStartISO(notice) {
   return latestISO(dates);
 }
 
+/** Map fever color -> user-facing trend bucket */
+function colorToBucket(color) {
+  switch (color) {
+    case "green":
+      return "onTime";
+    case "yellow":
+      return "withinGrace";
+    case "orange":
+      return "late";
+    case "red":
+      return "noticeGiven";
+    case "black":
+      return "beyondNotice";
+    default:
+      return "ignored"; // gray, unknown, etc.
+  }
+}
+
+/** Compute “nice” y-axis ticks up to maxY (e.g., 0,3,6,9,12, …) */
+function niceTicks(maxY) {
+  const stepCandidates = [1, 2, 3, 5];
+  let step = 1;
+  for (const s of stepCandidates) {
+    if (maxY / s <= 6) {
+      step = s;
+      break;
+    }
+  }
+  const ticks = [];
+  for (let v = 0; v <= Math.max(1, Math.ceil(maxY / step) * step); v += step) {
+    ticks.push(v);
+  }
+  return ticks;
+}
+
+/** Mini running-total chart (no deps) */
+function TrendMiniChart({ rowsStatuses, monthLabels }) {
+  const n = rowsStatuses.length;
+
+  const seriesKeys = ["onTime", "withinGrace", "late", "noticeGiven", "beyondNotice"];
+  const seriesColors = {
+    onTime: "green",
+    withinGrace: "gold",
+    late: "orange",
+    noticeGiven: "red",
+    beyondNotice: "black",
+  };
+
+  // Build cumulative series
+  const series = {};
+  seriesKeys.forEach((k) => (series[k] = new Array(n).fill(0)));
+
+  let running = { onTime: 0, withinGrace: 0, late: 0, noticeGiven: 0, beyondNotice: 0 };
+  for (let i = 0; i < n; i++) {
+    const b = rowsStatuses[i];
+    if (running[b] !== undefined) running[b] += 1;
+    seriesKeys.forEach((k) => {
+      series[k][i] = running[k];
+    });
+  }
+
+  const maxY = Math.max(1, ...seriesKeys.map((k) => (n ? series[k][n - 1] : 0)));
+  const yTicks = niceTicks(maxY);
+
+  // Responsive width
+  const wrapperRef = useRef(null);
+  const [width, setWidth] = useState(480);
+  useEffect(() => {
+    const el = wrapperRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const w = entry.contentRect.width;
+        setWidth(Math.max(260, Math.min(900, Math.floor(w))));
+      }
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  const height = 140;
+  const padLeft = 40;   // y labels
+  const padRight = 30;  // avoid clipping last label
+  const padTop = 10;
+  const padBottom = 30; // x labels
+  const innerW = width - padLeft - padRight;
+  const innerH = height - padTop - padBottom;
+  const xStep = n > 1 ? innerW / (n - 1) : 0;
+
+  const pathFor = (arr) => {
+    if (n === 0) return "";
+    const points = arr.map((v, i) => {
+      const x = padLeft + i * xStep;
+      const y = padTop + innerH - (v / maxY) * innerH;
+      return `${x},${y}`;
+    });
+    return "M" + points.join(" L ");
+  };
+
+  // X-axis tick policy
+  const maxXLabels = Math.floor(innerW / 60);
+  const xLabelStep = Math.max(1, Math.ceil(n / Math.max(1, maxXLabels)));
+
+  const legend = (
+    <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 6, justifyContent: "center" }}>
+      {seriesKeys.map((k) => (
+        <div key={k} style={{ fontSize: 12, display: "flex", alignItems: "center", gap: 6 }}>
+          <span
+            aria-hidden
+            style={{
+              display: "inline-block",
+              width: 10,
+              height: 10,
+              borderRadius: 999,
+              background: seriesColors[k],
+              border: "1px solid rgba(0,0,0,0.15)",
+            }}
+          />
+          <span style={{ color: "#4b5563" }}>
+            {k === "onTime"
+              ? "On time"
+              : k === "withinGrace"
+              ? "Within grace"
+              : k === "late"
+              ? "Late"
+              : k === "noticeGiven"
+              ? "Notice given"
+              : "Beyond notice"}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+
+  return (
+    <div ref={wrapperRef} style={{ width: "100%", margin: "0 auto" }}>
+      <svg width={width} height={height} role="img" aria-label="Running totals by status">
+        <title>Running totals by status</title>
+        <rect x="0" y="0" width={width} height={height} fill="white" rx="8" ry="8" stroke="#e5e7eb" />
+        {/* Y axis */}
+        <line x1={padLeft} y1={padTop} x2={padLeft} y2={padTop + innerH} stroke="#e5e7eb" />
+        {/* X axis */}
+        <line x1={padLeft} y1={padTop + innerH} x2={padLeft + innerW} y2={padTop + innerH} stroke="#e5e7eb" />
+
+        {/* Y ticks & labels */}
+        {yTicks.map((t, i) => {
+          const y = padTop + innerH - (t / maxY) * innerH;
+          return (
+            <g key={`y-${i}`}>
+              <line x1={padLeft - 5} y1={y} x2={padLeft} y2={y} stroke="#9ca3af" />
+              <line x1={padLeft} y1={y} x2={padLeft + innerW} y2={y} stroke="#f3f4f6" />
+              <text x={padLeft - 8} y={y + 4} fontSize="10" textAnchor="end" fill="#6b7280">
+                {t}
+              </text>
+            </g>
+          );
+        })}
+
+        {/* X ticks & labels */}
+        {monthLabels.map((lbl, i) => {
+          const x = padLeft + i * xStep;
+          const show = i % xLabelStep === 0 || i === n - 1;
+          return (
+            <g key={`x-${i}`}>
+              <line x1={x} y1={padTop + innerH} x2={x} y2={padTop + innerH + 5} stroke="#9ca3af" />
+              {show && (
+                <text
+                  x={x}
+                  y={padTop + innerH + 18}
+                  fontSize="10"
+                  textAnchor="middle"
+                  fill="#6b7280"
+                >
+                  {lbl}
+                </text>
+              )}
+            </g>
+          );
+        })}
+
+        {/* Series paths */}
+        {seriesKeys.map((k) => (
+          <path
+            key={k}
+            d={pathFor(series[k])}
+            fill="none"
+            stroke={seriesColors[k]}
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+        ))}
+      </svg>
+      {legend}
+    </div>
+  );
+}
+
 export default function FinancialTable({ schedule, config, onChange }) {
-  const [modalIdx, setModalIdx] = useState(null);            // quick add payment
-  const [manageIdx, setManageIdx] = useState(null);          // edit/delete payments
+  const [modalIdx, setModalIdx] = useState(null);
+  const [manageIdx, setManageIdx] = useState(null);
   const [showChargeIdx, setShowChargeIdx] = useState(null);
   const [showNoticeIdx, setShowNoticeIdx] = useState(null);
 
@@ -90,7 +287,6 @@ export default function FinancialTable({ schedule, config, onChange }) {
     rows.forEach((row) => {
       maybeApplyLateFee(row, config);
       finalizeMonthIfPaid(row, config);
-      // keep computed notice start/end in sync for convenience
       if (row.notice) {
         const startISO = computeNoticeStartISO(row.notice);
         const endISO =
@@ -104,7 +300,7 @@ export default function FinancialTable({ schedule, config, onChange }) {
     return rows;
   }, [schedule, config]);
 
-  // If our normalized view differs, push upstream once (unless a modal is open).
+  // Push normalized upstream unless a modal is open
   useEffect(() => {
     if (
       modalIdx !== null ||
@@ -119,24 +315,31 @@ export default function FinancialTable({ schedule, config, onChange }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [derived, modalIdx, manageIdx, showChargeIdx, showNoticeIdx]);
 
-  // ---- KPIs ----
-  const summary = useMemo(() => {
-    let expected = 0,
-      received = 0,
-      balance = 0;
-    let green = 0,
-      yellow = 0,
-      orange = 0,
-      red = 0,
-      black = 0,
-      gray = 0;
+  // ---- KPIs + trend buckets (only up through TODAY for trends/chart) ----
+  const {
+    kpis,
+    trendBucketsToday,
+    rowsStatusesToday,
+    monthLabelsToday,
+  } = useMemo(() => {
+    let expected = 0, received = 0, balance = 0;
 
+    const todayISO = new Date().toISOString().slice(0, 10);
+    const eligible = derived.filter((r) => (r.dueDateISO || "") <= todayISO);
+
+    let onTime = 0, withinGrace = 0, late = 0, noticeGiven = 0, beyondNotice = 0;
+    const rowsStatuses = [];
+    const monthLabels = [];
+
+    // KPI totals still reflect the whole table
     derived.forEach((r) => {
       const t = computeRowTotals(r, config);
       expected += t.expected;
       received += t.receivedTotal;
       balance += t.balance;
+    });
 
+    eligible.forEach((r) => {
       const expectedTotal =
         (Number(r.expectedBase) || 0) +
         getPetRent(config) +
@@ -151,33 +354,38 @@ export default function FinancialTable({ schedule, config, onChange }) {
         payments: r.payments,
         expectedTotal,
         graceDays: Number(config?.graceDays ?? config?.lateFeeDays ?? 0),
-        // prefer per-row notice over global config
         noticeGivenAtISO: r?.notice?.startISO ?? config?.noticeGivenAtISO ?? null,
         noticeDays: Number(r?.notice?.days ?? config?.noticeDays ?? 10),
       });
 
-      const color = st?.color;
-      if (color === "green") green++;
-      else if (color === "yellow") yellow++;
-      else if (color === "orange") orange++;
-      else if (color === "red") red++;
-      else if (color === "black") black++;
-      else gray++;
+      const bucket = colorToBucket(st?.color);
+      rowsStatuses.push(bucket);
+
+      // Month label
+      let label = r.periodLabel;
+      if (!label && r.dueDateISO) {
+        const d = new Date(r.dueDateISO + "T00:00:00");
+        const month = d.toLocaleString(undefined, { month: "short" });
+        label = `${month} ${d.getFullYear()}`;
+      }
+      monthLabels.push(label || "");
+
+      if (bucket === "onTime") onTime++;
+      else if (bucket === "withinGrace") withinGrace++;
+      else if (bucket === "late") late++;
+      else if (bucket === "noticeGiven") noticeGiven++;
+      else if (bucket === "beyondNotice") beyondNotice++;
     });
 
     return {
-      expected,
-      received,
-      balance,
-      green,
-      yellow,
-      orange,
-      red,
-      black,
-      gray,
+      kpis: { expected, received, balance },
+      trendBucketsToday: { onTime, withinGrace, late, noticeGiven, beyondNotice },
+      rowsStatusesToday: rowsStatuses,
+      monthLabelsToday: monthLabels,
     };
   }, [derived, config]);
 
+  // ---- CSV/PDF ----
   function exportCSV() {
     const header = [
       "Period",
@@ -289,7 +497,7 @@ export default function FinancialTable({ schedule, config, onChange }) {
     window.print();
   }
 
-  // ---- payment mutators: normalize before sending upstream
+  // ---- payment mutators ----
   function addPayment(idx, payment) {
     const next = schedule.map((r, i) =>
       i === idx
@@ -390,43 +598,188 @@ export default function FinancialTable({ schedule, config, onChange }) {
     onChange(normalizeRows(next));
   }
 
+  // ---- Security Deposit (supports both config shapes) ----
+  const depositExpected = Number(
+    (config?.deposit?.expected ?? config?.securityDeposit ?? 0) || 0
+  );
+  const depositReceived = Number(
+    (config?.deposit?.received ?? config?.securityDepositPayment?.amount ?? 0) || 0
+  );
+  const depositDate =
+    config?.deposit?.dateISO ?? config?.securityDepositPayment?.dateISO ?? "";
+  const showDeposit = depositExpected > 0 || depositReceived > 0;
+  const depositBalance = +(depositExpected - depositReceived).toFixed(2);
+
   return (
     <div className={styles.wrapper}>
-      <div className={styles.header}>
-        <div>
-          <h3>Lease Payment Schedule</h3>
-          <div className={styles.kpis}>
-            <div className={styles.kpi}>
-              <span>Total Expected</span>
-              <strong>${summary.expected.toFixed(2)}</strong>
-            </div>
-            <div className={styles.kpi}>
-              <span>Total Received</span>
-              <strong>${summary.received.toFixed(2)}</strong>
-            </div>
-            <div className={styles.kpi}>
-              <span>Balance</span>
-              <strong>${summary.balance.toFixed(2)}</strong>
-            </div>
-            <div className={styles.kpi}>
-              <span>Trend</span>
-              <strong>
-                {summary.green} green / {summary.yellow} yellow / {summary.orange} orange / {` ${summary.red} red / `}
-                {summary.black} black / {summary.gray} grey
-              </strong>
-            </div>
-          </div>
+      {/* Payment Trends */}
+      <div style={{ marginBottom: 4 }}>
+        <h3 style={{ margin: "0 0 6px 0" }}>Payment Trends</h3>
+
+        {/* Trend summary line */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+            fontSize: 14,
+            color: "#374151",
+            marginBottom: 4,
+          }}
+        >
+          <span
+            style={{
+              border: "1px solid #e5e7eb",
+              background: "#f9fafb",
+              padding: "2px 8px",
+              borderRadius: 999,
+              fontWeight: 600,
+              fontSize: 12,
+              color: "#374151",
+            }}
+          >
+            Trend
+          </span>
+          <span>
+            {(() => {
+              const t = trendBucketsToday;
+              const parts = [];
+              parts.push(<><strong>on time:</strong> {t.onTime}</>);
+              if (t.withinGrace > 0) parts.push(<><strong> within grace:</strong> {t.withinGrace}</>);
+              parts.push(<><strong> late:</strong> {t.late}</>);
+              parts.push(<><strong> notice given:</strong> {t.noticeGiven}</>);
+              parts.push(<><strong> beyond notice:</strong> {t.beyondNotice}</>);
+              const out = [];
+              parts.forEach((el, i) => { if (i) out.push(" / "); out.push(el); });
+              return out;
+            })()}
+          </span>
         </div>
-        <div className={styles.headerActions}>
-          <button className={buttonStyles.secondaryButton} onClick={exportCSV}>
-            Export CSV
-          </button>
-          <button className={buttonStyles.secondaryButton} onClick={exportPDF}>
-            Print
-          </button>
+
+        <div
+          style={{
+            display: "grid",
+            placeItems: "center",
+            border: "1px solid #e5e7eb",
+            borderRadius: 8,
+            padding: 8,
+            background: "#f8fafc",
+          }}
+        >
+          <div style={{ width: "100%", maxWidth: 900 }}>
+            <TrendMiniChart
+              rowsStatuses={rowsStatusesToday}
+              monthLabels={monthLabelsToday}
+            />
+          </div>
         </div>
       </div>
 
+      {/* Security Deposit section (no progress bar) */}
+      {showDeposit && (
+        <div style={{ margin: "6px 0 4px" }}>
+          <h3 style={{ margin: "0 0 6px 0" }}>Security Deposit</h3>
+          <div
+            style={{
+              border: "1px solid #e5e7eb",
+              borderRadius: 8,
+              padding: 8,
+              background: "#f8fafc",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                gap: 16,
+                flexWrap: "wrap",
+                alignItems: "center",
+              }}
+            >
+              {depositExpected > 0 && (
+                <div>
+                  <strong>Expected:</strong> ${depositExpected.toFixed(2)}
+                </div>
+              )}
+              <div>
+                <strong>Received:</strong> ${depositReceived.toFixed(2)}
+                {depositDate ? ` on ${depositDate}` : ""}
+              </div>
+              {depositExpected > 0 && (
+                <div>
+                  <strong>Balance:</strong> ${depositBalance.toFixed(2)}
+                </div>
+              )}
+
+              {/* Status chip */}
+              {depositExpected > 0 && (
+                <span
+                  style={{
+                    marginLeft: "auto",
+                    padding: "2px 8px",
+                    borderRadius: 9999,
+                    background:
+                      depositReceived >= depositExpected ? "#e8f5e9" : "#fdecec",
+                    color:
+                      depositReceived >= depositExpected ? "#065f46" : "#7f1d1d",
+                    fontSize: 12,
+                    fontWeight: 600,
+                  }}
+                >
+                  {depositReceived >= depositExpected
+                    ? "Paid in full"
+                    : depositReceived > 0
+                    ? "Partial"
+                    : "Not received"}
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Lease Payment Schedule header + toolbar row (KPIs left, buttons right) */}
+      <div className={styles.header} style={{ marginTop: 2, marginBottom: 2 }}>
+        <div style={{ width: "100%" }}>
+          <h3 style={{ marginBottom: 6 }}>Lease Payment Schedule</h3>
+
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              gap: 8,
+              flexWrap: "wrap",
+              width: "100%",
+            }}
+          >
+            <div className={styles.kpis} style={{ marginTop: 0 }}>
+              <div className={styles.kpi}>
+                <span>Total Expected</span>
+                <strong>${kpis.expected.toFixed(2)}</strong>
+              </div>
+              <div className={styles.kpi}>
+                <span>Total Received</span>
+                <strong>${kpis.received.toFixed(2)}</strong>
+              </div>
+              <div className={styles.kpi}>
+                <span>Balance</span>
+                <strong>${kpis.balance.toFixed(2)}</strong>
+              </div>
+            </div>
+
+            <div style={{ display: "flex", gap: 8, marginLeft: "auto" }}>
+              <button className={buttonStyles.secondaryButton} onClick={exportCSV}>
+                Export CSV
+              </button>
+              <button className={buttonStyles.secondaryButton} onClick={exportPDF}>
+                Print
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Table */}
       <div className={styles.table}>
         <div className={`${styles.row} ${styles.head}`}>
           <div>Month</div>
@@ -457,7 +810,6 @@ export default function FinancialTable({ schedule, config, onChange }) {
             payments: row.payments,
             expectedTotal: expectedDisplay,
             graceDays: Number(config?.graceDays ?? config?.lateFeeDays ?? 0),
-            // per-row notice overrides global
             noticeGivenAtISO:
               row?.notice?.startISO ?? config?.noticeGivenAtISO ?? null,
             noticeDays: Number(row?.notice?.days ?? config?.noticeDays ?? 10),
@@ -573,24 +925,25 @@ export default function FinancialTable({ schedule, config, onChange }) {
                   <div className={styles.actionsRow}>
                     <button
                       className={`${buttonStyles.primaryButton} ${styles.actionsButton}`}
-                      onClick={() => setModalIdx(idx)}
-                      title="Add a payment"
+                      onClick={() => {
+                        if ((row.payments || []).length === 0) {
+                          setModalIdx(idx);        // open Add Payment
+                        } else {
+                          setManageIdx(idx);       // open Manage Payments
+                        }
+                      }}
+                      title={
+                        (row.payments || []).length === 0
+                          ? "Add a payment"
+                          : "View, add, or edit payments"
+                      }
                     >
-                      + Payment
-                    </button>
-
-                    <button
-                      className={`${buttonStyles.secondaryButton} ${styles.actionsButton}`}
-                      onClick={() => setManageIdx(idx)}
-                      title="Edit or delete payments"
-                    >
-                      Manage Payments
+                      Payments
                     </button>
                   </div>
 
                   {/* Bottom row */}
                   {canStartNotice ? (
-                    // + Charge | + Notice
                     <div className={styles.actionsRow}>
                       <button
                         className={`${buttonStyles.secondaryButton} ${styles.actionsButton}`}
@@ -599,7 +952,6 @@ export default function FinancialTable({ schedule, config, onChange }) {
                       >
                         + Charge
                       </button>
-                  
                       <button
                         className={`${buttonStyles.secondaryButton} ${styles.actionsButton}`}
                         onClick={() => setShowNoticeIdx(idx)}
@@ -609,7 +961,6 @@ export default function FinancialTable({ schedule, config, onChange }) {
                       </button>
                     </div>
                   ) : (
-                    // Only + Charge, full width (same width as both buttons above combined)
                     <div className={styles.actionsRow}>
                       <button
                         className={`${buttonStyles.secondaryButton} ${styles.actionsButton}`}

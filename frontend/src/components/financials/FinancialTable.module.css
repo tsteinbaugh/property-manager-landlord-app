@@ -111,9 +111,13 @@
 
 .actionsCell {
   display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  overflow: visible;
+  width: auto;
 }
+
 
 .footerNav {
   display: flex;
@@ -251,28 +255,23 @@
   text-align: center;
 }
 
-/* === Cleaner, aligned Actions layout (no visible grid lines) === */
 .actionsGroup {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  min-width: 0;            /* allow column to respect grid track width */
+  gap: 6px;
+  min-width: 190px; /* ensure both buttons have room */
 }
-
 .actionsRow {
   display: flex;
-  gap: 8px;
+  flex-wrap: wrap; /* allows wrapping if needed */
+  gap: 6px;
+  justify-content: flex-start;
+}
+.actionsButton {
+  white-space: nowrap; /* keeps text on one line */
+  flex: 1; /* make them share available space nicely */
 }
 
-.actionsButton {
-  flex: 1;                 /* equal width within row */
-  height: 36px;            /* uniform height */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  white-space: nowrap;
-}
 
 /* Responsive: stack vertically on very narrow screens */
 @media (max-width: 520px) {
