@@ -1,45 +1,60 @@
-// /home/tsteinbaugh/property-manager-landlord-app/frontend/src/components/financials/PaymentModal.jsx
 import React, { useEffect, useRef, useState } from "react";
 import ModalRoot from "../ui/ModalRoot";
 import FloatingField from "../ui/FloatingField";
 import buttonStyles from "../../styles/Buttons.module.css";
 
 /**
- * Modal for recording a payment.
- * Keeps local state stable; only re-seeds on transition open:false -> true.
- * Intercepts Enter/Escape so the parent form never submits while open.
+ * Add-only payment modal (shared by form + table).
+ * - Auto-fills today's date
+ * - If `expectedAmount` provided, auto-fills Amount on open
+ *   (unless a non-empty initial.amount is provided)
  */
 export default function PaymentModal({
   open,
   title = "Add Payment",
   initial = { amount: "", dateISO: "", method: "", note: "" },
+  expectedAmount,               // number (optional): pre-fill Amount
   onAddPayment,
   onClose,
 }) {
+  const todayISO = new Date().toISOString().slice(0, 10);
+
   const [amount, setAmount] = useState(initial.amount ?? "");
-  const [dateISO, setDateISO] = useState(initial.dateISO ?? "");
+  const [dateISO, setDateISO] = useState(initial.dateISO || todayISO);
   const [method, setMethod] = useState(initial.method ?? "");
   const [note, setNote] = useState(initial.note ?? "");
   const [submitted, setSubmitted] = useState(false);
 
-  const containerRef = useRef(null);
   const firstFieldRef = useRef(null);
   const prevOpen = useRef(open);
 
-  // Re-seed ONLY when opening transitions from false -> true
   useEffect(() => {
+    // when modal just opened
     if (!prevOpen.current && open) {
-      setAmount(initial.amount ?? "");
-      setDateISO(initial.dateISO ?? "");
-      setMethod(initial.method ?? "");
-      setNote(initial.note ?? "");
+      const hasInitial =
+        initial && String(initial.amount ?? "").trim() !== "";
+      const amtToSet =
+        hasInitial
+          ? String(initial.amount)
+          : Number.isFinite(Number(expectedAmount))
+          ? String(Number(expectedAmount))
+          : "";
+      setAmount(amtToSet);
+      setDateISO(initial.dateISO || todayISO);
+      setMethod(initial.method || "");
+      setNote(initial.note || "");
       setSubmitted(false);
-      // focus first input on open
       setTimeout(() => firstFieldRef.current?.focus(), 0);
     }
+  
+    // when expectedAmount changes while open and no user-typed amount yet
+    if (open && !amount && Number.isFinite(Number(expectedAmount))) {
+      setAmount(String(Number(expectedAmount)));
+    }
+  
     prevOpen.current = open;
-    // IMPORTANT: do NOT include `initial` in deps to avoid constant reseed on each render
-  }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, expectedAmount]);
 
   function handleSave() {
     setSubmitted(true);
@@ -55,10 +70,7 @@ export default function PaymentModal({
     onClose?.();
   }
 
-  // intercept keys inside the modal
   function handleKeyDown(e) {
-    // Always keep key events from reaching parent form
-    // (stopPropagation is already present; add preventDefault when needed)
     if (e.key === "Enter" && !e.shiftKey) {
       const tag = e.target?.tagName?.toLowerCase();
       if (tag !== "textarea") {
@@ -71,7 +83,6 @@ export default function PaymentModal({
       e.stopPropagation();
       onClose?.();
     } else {
-      // still block bubbling for any key press so parent doesn't see it
       e.stopPropagation();
     }
   }
@@ -82,8 +93,6 @@ export default function PaymentModal({
     <ModalRoot isOpen={open} onClose={onClose}>
       <div
         data-modal="true"
-        ref={containerRef}
-        // Keep all events inside; do not bubble to parent
         onClick={(e) => e.stopPropagation()}
         onKeyDown={handleKeyDown}
         role="dialog"
@@ -128,11 +137,26 @@ export default function PaymentModal({
           )}
         </div>
 
-        <div style={{ display: "flex", justifyContent: "flex-end", gap: 8, marginTop: 12 }}>
-          <button type="button" className={buttonStyles.secondaryButton} onClick={onClose}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            gap: 8,
+            marginTop: 12,
+          }}
+        >
+          <button
+            type="button"
+            className={buttonStyles.secondaryButton}
+            onClick={onClose}
+          >
             Cancel
           </button>
-          <button type="button" className={buttonStyles.primaryButton} onClick={handleSave}>
+          <button
+            type="button"
+            className={buttonStyles.primaryButton}
+            onClick={handleSave}
+          >
             Save
           </button>
         </div>

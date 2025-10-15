@@ -598,17 +598,24 @@ export default function FinancialTable({ schedule, config, onChange }) {
     onChange(normalizeRows(next));
   }
 
-  // ---- Security Deposit (supports both config shapes) ----
-  const depositExpected = Number(
+  // ---- Deposits (Security + Pet). Support legacy and new shapes ----
+  const secExpected = Number(
     (config?.deposit?.expected ?? config?.securityDeposit ?? 0) || 0
   );
-  const depositReceived = Number(
+  const secReceived = Number(
     (config?.deposit?.received ?? config?.securityDepositPayment?.amount ?? 0) || 0
   );
-  const depositDate =
+  const secDate =
     config?.deposit?.dateISO ?? config?.securityDepositPayment?.dateISO ?? "";
-  const showDeposit = depositExpected > 0 || depositReceived > 0;
-  const depositBalance = +(depositExpected - depositReceived).toFixed(2);
+
+  const petExpected = Number((config?.petDeposit ?? 0) || 0);
+  const petReceived = Number((config?.petDepositPayment?.amount ?? 0) || 0);
+  const petDate = config?.petDepositPayment?.dateISO ?? "";
+
+  const depositsExpected = secExpected + petExpected;
+  const depositsReceived = secReceived + petReceived;
+  const depositsBalance = +(depositsExpected - depositsReceived).toFixed(2);
+  const showDeposits = depositsExpected > 0 || depositsReceived > 0;
 
   return (
     <div className={styles.wrapper}>
@@ -675,10 +682,10 @@ export default function FinancialTable({ schedule, config, onChange }) {
         </div>
       </div>
 
-      {/* Security Deposit section (no progress bar) */}
-      {showDeposit && (
+      {/* Deposits (Security + Pet) */}
+      {showDeposits && (
         <div style={{ margin: "6px 0 4px" }}>
-          <h3 style={{ margin: "0 0 6px 0" }}>Security Deposit</h3>
+          <h3 style={{ margin: "0 0 6px 0" }}>Deposits</h3>
           <div
             style={{
               border: "1px solid #e5e7eb",
@@ -695,42 +702,59 @@ export default function FinancialTable({ schedule, config, onChange }) {
                 alignItems: "center",
               }}
             >
-              {depositExpected > 0 && (
+              {depositsExpected > 0 && (
                 <div>
-                  <strong>Expected:</strong> ${depositExpected.toFixed(2)}
+                  <strong>Total Expected:</strong> ${depositsExpected.toFixed(2)}
                 </div>
               )}
               <div>
-                <strong>Received:</strong> ${depositReceived.toFixed(2)}
-                {depositDate ? ` on ${depositDate}` : ""}
+                <strong>Total Received:</strong> ${depositsReceived.toFixed(2)}
               </div>
-              {depositExpected > 0 && (
+              {depositsExpected > 0 && (
                 <div>
-                  <strong>Balance:</strong> ${depositBalance.toFixed(2)}
+                  <strong>Balance:</strong> ${depositsBalance.toFixed(2)}
                 </div>
               )}
 
               {/* Status chip */}
-              {depositExpected > 0 && (
-                <span
-                  style={{
-                    marginLeft: "auto",
-                    padding: "2px 8px",
-                    borderRadius: 9999,
-                    background:
-                      depositReceived >= depositExpected ? "#e8f5e9" : "#fdecec",
-                    color:
-                      depositReceived >= depositExpected ? "#065f46" : "#7f1d1d",
-                    fontSize: 12,
-                    fontWeight: 600,
-                  }}
-                >
-                  {depositReceived >= depositExpected
-                    ? "Paid in full"
-                    : depositReceived > 0
-                    ? "Partial"
-                    : "Not received"}
-                </span>
+              <span
+                style={{
+                  marginLeft: "auto",
+                  padding: "2px 8px",
+                  borderRadius: 9999,
+                  background:
+                    depositsReceived >= depositsExpected ? "#e8f5e9" : "#fdecec",
+                  color:
+                    depositsReceived >= depositsExpected ? "#065f46" : "#7f1d1d",
+                  fontSize: 12,
+                  fontWeight: 600,
+                }}
+              >
+                {depositsReceived >= depositsExpected
+                  ? "Paid in full"
+                  : depositsReceived > 0
+                  ? "Partial"
+                  : "Not received"}
+              </span>
+            </div>
+
+            {/* Breakdown */}
+            <div style={{ marginTop: 8, color: "#374151" }}>
+              {!!(secExpected || secReceived) && (
+                <div style={{ marginBottom: 4 }}>
+                  <strong>Security:</strong>{" "}
+                  {secExpected ? `Expected $${secExpected.toFixed(2)} · ` : ""}
+                  Received ${secReceived.toFixed(2)}
+                  {secDate ? ` on ${secDate}` : ""}
+                </div>
+              )}
+              {!!(petExpected || petReceived) && (
+                <div>
+                  <strong>Pet:</strong>{" "}
+                  {petExpected ? `Expected $${petExpected.toFixed(2)} · ` : ""}
+                  Received ${petReceived.toFixed(2)}
+                  {petDate ? ` on ${petDate}` : ""}
+                </div>
               )}
             </div>
           </div>
@@ -983,6 +1007,13 @@ export default function FinancialTable({ schedule, config, onChange }) {
         open={modalIdx !== null}
         title="Add Payment"
         onClose={() => setModalIdx(null)}
+        expectedAmount={(() => {
+          if (modalIdx === null) return undefined;
+          const row = derived[modalIdx];
+          // Prefill with the remaining balance for that row
+          const t = computeRowTotals(row, config);
+          return Math.max(0, Number(t.balance) || 0);
+        })()}
         onAddPayment={(p) => addPayment(modalIdx, p)}
       />
 
