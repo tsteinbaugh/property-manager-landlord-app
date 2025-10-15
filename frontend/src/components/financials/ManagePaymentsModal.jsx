@@ -1,4 +1,3 @@
-// property-manager-landlord-app/frontend/src/components/financials/ManagePaymentsModal.jsx
 import React, { useEffect, useRef, useState } from "react";
 import ModalRoot from "../ui/ModalRoot";
 import buttonStyles from "../../styles/Buttons.module.css";
@@ -12,6 +11,7 @@ export default function ManagePaymentsModal({
   onAdd,
   onUpdate,   // (pIndex, payment)
   onDelete,   // (pIndex)
+  expectedAmount, // <— NEW: optional prefill for the inner "Add Payment" modal
 }) {
   const containerRef = useRef(null);
   const [addOpen, setAddOpen] = useState(false);
@@ -149,10 +149,11 @@ export default function ManagePaymentsModal({
           </div>
         </div>
 
-        {/* Nested: Add */}
+        {/* Nested: Add (prefill with expectedAmount if provided) */}
         <PaymentModal
           open={addOpen}
           title="Add Payment"
+          expectedAmount={expectedAmount}
           onClose={() => setAddOpen(false)}
           onAddPayment={(p) => {
             onAdd?.(p);
