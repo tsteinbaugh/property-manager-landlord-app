@@ -4,6 +4,7 @@ import styles from "./FinancialTable.module.css";
 import FeverLight from "../ui/FeverLight";
 import PaymentModal from "./PaymentModal";
 import ManagePaymentsModal from "./ManagePaymentsModal";
+import DepositSettlementModal from "./DepositSettlementModal";
 import buttonStyles from "../../styles/Buttons.module.css";
 import {
   computeRowTotals,
@@ -117,7 +118,13 @@ function niceTicks(maxY) {
 function TrendMiniChart({ rowsStatuses, monthLabels }) {
   const n = rowsStatuses.length;
 
-  const seriesKeys = ["onTime", "withinGrace", "late", "noticeGiven", "beyondNotice"];
+  const seriesKeys = [
+    "onTime",
+    "withinGrace",
+    "late",
+    "noticeGiven",
+    "beyondNotice",
+  ];
   const seriesColors = {
     onTime: "green",
     withinGrace: "gold",
@@ -130,7 +137,13 @@ function TrendMiniChart({ rowsStatuses, monthLabels }) {
   const series = {};
   seriesKeys.forEach((k) => (series[k] = new Array(n).fill(0)));
 
-  let running = { onTime: 0, withinGrace: 0, late: 0, noticeGiven: 0, beyondNotice: 0 };
+  let running = {
+    onTime: 0,
+    withinGrace: 0,
+    late: 0,
+    noticeGiven: 0,
+    beyondNotice: 0,
+  };
   for (let i = 0; i < n; i++) {
     const b = rowsStatuses[i];
     if (running[b] !== undefined) running[b] += 1;
@@ -139,7 +152,10 @@ function TrendMiniChart({ rowsStatuses, monthLabels }) {
     });
   }
 
-  const maxY = Math.max(1, ...seriesKeys.map((k) => (n ? series[k][n - 1] : 0)));
+  const maxY = Math.max(
+    1,
+    ...seriesKeys.map((k) => (n ? series[k][n - 1] : 0))
+  );
   const yTicks = niceTicks(maxY);
 
   // Responsive width
@@ -159,8 +175,8 @@ function TrendMiniChart({ rowsStatuses, monthLabels }) {
   }, []);
 
   const height = 140;
-  const padLeft = 40;   // y labels
-  const padRight = 30;  // avoid clipping last label
+  const padLeft = 40; // y labels
+  const padRight = 30; // avoid clipping last label
   const padTop = 10;
   const padBottom = 30; // x labels
   const innerW = width - padLeft - padRight;
@@ -182,9 +198,25 @@ function TrendMiniChart({ rowsStatuses, monthLabels }) {
   const xLabelStep = Math.max(1, Math.ceil(n / Math.max(1, maxXLabels)));
 
   const legend = (
-    <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 6, justifyContent: "center" }}>
+    <div
+      style={{
+        display: "flex",
+        gap: 12,
+        flexWrap: "wrap",
+        marginTop: 6,
+        justifyContent: "center",
+      }}
+    >
       {seriesKeys.map((k) => (
-        <div key={k} style={{ fontSize: 12, display: "flex", alignItems: "center", gap: 6 }}>
+        <div
+          key={k}
+          style={{
+            fontSize: 12,
+            display: "flex",
+            alignItems: "center",
+            gap: 6,
+          }}
+        >
           <span
             aria-hidden
             style={{
@@ -216,11 +248,32 @@ function TrendMiniChart({ rowsStatuses, monthLabels }) {
     <div ref={wrapperRef} style={{ width: "100%", margin: "0 auto" }}>
       <svg width={width} height={height} role="img" aria-label="Running totals by status">
         <title>Running totals by status</title>
-        <rect x="0" y="0" width={width} height={height} fill="white" rx="8" ry="8" stroke="#e5e7eb" />
+        <rect
+          x="0"
+          y="0"
+          width={width}
+          height={height}
+          fill="white"
+          rx="8"
+          ry="8"
+          stroke="#e5e7eb"
+        />
         {/* Y axis */}
-        <line x1={padLeft} y1={padTop} x2={padLeft} y2={padTop + innerH} stroke="#e5e7eb" />
+        <line
+          x1={padLeft}
+          y1={padTop}
+          x2={padLeft}
+          y2={padTop + innerH}
+          stroke="#e5e7eb"
+        />
         {/* X axis */}
-        <line x1={padLeft} y1={padTop + innerH} x2={padLeft + innerW} y2={padTop + innerH} stroke="#e5e7eb" />
+        <line
+          x1={padLeft}
+          y1={padTop + innerH}
+          x2={padLeft + innerW}
+          y2={padTop + innerH}
+          stroke="#e5e7eb"
+        />
 
         {/* Y ticks & labels */}
         {yTicks.map((t, i) => {
@@ -229,7 +282,13 @@ function TrendMiniChart({ rowsStatuses, monthLabels }) {
             <g key={`y-${i}`}>
               <line x1={padLeft - 5} y1={y} x2={padLeft} y2={y} stroke="#9ca3af" />
               <line x1={padLeft} y1={y} x2={padLeft + innerW} y2={y} stroke="#f3f4f6" />
-              <text x={padLeft - 8} y={y + 4} fontSize="10" textAnchor="end" fill="#6b7280">
+              <text
+                x={padLeft - 8}
+                y={y + 4}
+                fontSize="10"
+                textAnchor="end"
+                fill="#6b7280"
+              >
                 {t}
               </text>
             </g>
@@ -242,7 +301,13 @@ function TrendMiniChart({ rowsStatuses, monthLabels }) {
           const show = i % xLabelStep === 0 || i === n - 1;
           return (
             <g key={`x-${i}`}>
-              <line x1={x} y1={padTop + innerH} x2={x} y2={padTop + innerH + 5} stroke="#9ca3af" />
+              <line
+                x1={x}
+                y1={padTop + innerH}
+                x2={x}
+                y2={padTop + innerH + 5}
+                stroke="#9ca3af"
+              />
               {show && (
                 <text
                   x={x}
@@ -275,11 +340,23 @@ function TrendMiniChart({ rowsStatuses, monthLabels }) {
   );
 }
 
+function withinClosingWindow(schedule, monthsWindow = 2) {
+  if (!Array.isArray(schedule) || schedule.length === 0) return false;
+  const last = schedule[schedule.length - 1];
+  if (!last?.dueDateISO) return false;
+  const lastDate = new Date(last.dueDateISO + "T00:00:00");
+  const today = new Date();
+  const start = new Date(lastDate);
+  start.setMonth(start.getMonth() - Math.max(0, monthsWindow));
+  return today >= start; // true in last N months or after last month
+}
+
 export default function FinancialTable({ schedule, config, onChange }) {
   const [modalIdx, setModalIdx] = useState(null);
   const [manageIdx, setManageIdx] = useState(null);
   const [showChargeIdx, setShowChargeIdx] = useState(null);
   const [showNoticeIdx, setShowNoticeIdx] = useState(null);
+  const [showSettlement, setShowSettlement] = useState(false);
 
   // Render from a safe, normalized copy; DO NOT inject payments here
   const derived = useMemo(() => {
@@ -306,14 +383,15 @@ export default function FinancialTable({ schedule, config, onChange }) {
       modalIdx !== null ||
       manageIdx !== null ||
       showChargeIdx !== null ||
-      showNoticeIdx !== null
+      showNoticeIdx !== null ||
+      showSettlement
     )
       return;
     const raw = JSON.stringify(schedule);
     const norm = JSON.stringify(normalizeRows(derived));
     if (raw !== norm) onChange(normalizeRows(derived));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [derived, modalIdx, manageIdx, showChargeIdx, showNoticeIdx]);
+  }, [derived, modalIdx, manageIdx, showChargeIdx, showNoticeIdx, showSettlement]);
 
   // ---- KPIs + trend buckets (only up through TODAY for trends/chart) ----
   const {
@@ -322,12 +400,18 @@ export default function FinancialTable({ schedule, config, onChange }) {
     rowsStatusesToday,
     monthLabelsToday,
   } = useMemo(() => {
-    let expected = 0, received = 0, balance = 0;
+    let expected = 0,
+      received = 0,
+      balance = 0;
 
     const todayISO = new Date().toISOString().slice(0, 10);
     const eligible = derived.filter((r) => (r.dueDateISO || "") <= todayISO);
 
-    let onTime = 0, withinGrace = 0, late = 0, noticeGiven = 0, beyondNotice = 0;
+    let onTime = 0,
+      withinGrace = 0,
+      late = 0,
+      noticeGiven = 0,
+      beyondNotice = 0;
     const rowsStatuses = [];
     const monthLabels = [];
 
@@ -416,7 +500,10 @@ export default function FinancialTable({ schedule, config, onChange }) {
         pet +
         (Number(row.expectedOther) || 0) +
         (Array.isArray(row.adjustments)
-          ? row.adjustments.reduce((s, a) => s + (Number(a.amount) || 0), 0)
+          ? row.adjustments.reduce(
+              (s, a) => s + (Number(a.amount) || 0),
+              0
+            )
           : Number(row.expectedAdjustments) || 0) +
         (row.lateFeeWaived ? 0 : Number(row.lateFee) || 0)
       ).toFixed(2);
@@ -462,7 +549,7 @@ export default function FinancialTable({ schedule, config, onChange }) {
         row.dueDateISO,
         expected,
         `"${breakdown}"`,
-        "", // PaymentAmount (filled per payment)
+        "", // PaymentAmount (per payment)
         "", // PaymentDate
         "", // PaymentMethod
         "", // PaymentNote
@@ -603,7 +690,8 @@ export default function FinancialTable({ schedule, config, onChange }) {
     (config?.deposit?.expected ?? config?.securityDeposit ?? 0) || 0
   );
   const secReceived = Number(
-    (config?.deposit?.received ?? config?.securityDepositPayment?.amount ?? 0) || 0
+    (config?.deposit?.received ?? config?.securityDepositPayment?.amount ?? 0) ||
+      0
   );
   const secDate =
     config?.deposit?.dateISO ?? config?.securityDepositPayment?.dateISO ?? "";
@@ -617,13 +705,43 @@ export default function FinancialTable({ schedule, config, onChange }) {
   const depositsBalance = +(depositsExpected - depositsReceived).toFixed(2);
   const showDeposits = depositsExpected > 0 || depositsReceived > 0;
 
+  // Settlement storage lives on the FINAL row: row.depositSettlement
+  const finalRow = derived[derived.length - 1];
+  const existingSettlement = finalRow?.depositSettlement || null;
+
+  // Enable button in last 2 months (or after)
+  const canSettleDeposits = showDeposits && withinClosingWindow(derived, 2);
+
+  // Prepare schedule snapshot for the modal unpaid calc (only rows with due dates)
+  const scheduleForUnpaid = useMemo(() => {
+    return derived
+      .filter((r) => !!r.dueDateISO)
+      .map((r) => ({
+        dueDateISO: r.dueDateISO,
+        expectedBase: r.expectedBase,
+        expectedOther: r.expectedOther,
+        expectedAdjustments: r.expectedAdjustments,
+        adjustments: r.adjustments,
+        lateFee: r.lateFeeWaived ? 0 : r.lateFee,
+        payments: r.payments || [],
+      }));
+  }, [derived]);
+
+  function saveDepositSettlement(settlement) {
+    const next = schedule.map((r, i, arr) =>
+      i === arr.length - 1 ? { ...r, depositSettlement: settlement } : r
+    );
+    onChange(normalizeRows(next));
+    setShowSettlement(false);
+  }
+
   return (
     <div className={styles.wrapper}>
       {/* Payment Trends */}
       <div style={{ marginBottom: 4 }}>
         <h3 style={{ margin: "0 0 6px 0" }}>Payment Trends</h3>
 
-        {/* Trend summary line */}
+        {/* Trend summary line (string to avoid React key warnings) */}
         <div
           style={{
             display: "flex",
@@ -650,15 +768,11 @@ export default function FinancialTable({ schedule, config, onChange }) {
           <span>
             {(() => {
               const t = trendBucketsToday;
-              const parts = [];
-              parts.push(<><strong>on time:</strong> {t.onTime}</>);
-              if (t.withinGrace > 0) parts.push(<><strong> within grace:</strong> {t.withinGrace}</>);
-              parts.push(<><strong> late:</strong> {t.late}</>);
-              parts.push(<><strong> notice given:</strong> {t.noticeGiven}</>);
-              parts.push(<><strong> beyond notice:</strong> {t.beyondNotice}</>);
-              const out = [];
-              parts.forEach((el, i) => { if (i) out.push(" / "); out.push(el); });
-              return out;
+              return (
+                `on time: ${t.onTime}` +
+                (t.withinGrace > 0 ? ` / within grace: ${t.withinGrace}` : "") +
+                ` / late: ${t.late} / notice given: ${t.noticeGiven} / beyond notice: ${t.beyondNotice}`
+              );
             })()}
           </span>
         </div>
@@ -692,6 +806,8 @@ export default function FinancialTable({ schedule, config, onChange }) {
               borderRadius: 8,
               padding: 8,
               background: "#f8fafc",
+              display: "grid",
+              gap: 8,
             }}
           >
             <div
@@ -738,23 +854,117 @@ export default function FinancialTable({ schedule, config, onChange }) {
               </span>
             </div>
 
-            {/* Breakdown */}
-            <div style={{ marginTop: 8, color: "#374151" }}>
-              {!!(secExpected || secReceived) && (
-                <div style={{ marginBottom: 4 }}>
+            {/* Breakdown (Security + Pet + dates) */}
+            <div style={{ color: "#374151" }}>
+              <div style={{ display: "grid", gap: 2 }}>
+                <div>
                   <strong>Security:</strong>{" "}
                   {secExpected ? `Expected $${secExpected.toFixed(2)} · ` : ""}
                   Received ${secReceived.toFixed(2)}
                   {secDate ? ` on ${secDate}` : ""}
                 </div>
-              )}
-              {!!(petExpected || petReceived) && (
                 <div>
                   <strong>Pet:</strong>{" "}
                   {petExpected ? `Expected $${petExpected.toFixed(2)} · ` : ""}
                   Received ${petReceived.toFixed(2)}
                   {petDate ? ` on ${petDate}` : ""}
                 </div>
+              </div>
+            </div>
+
+            {/* Settlement row */}
+            <div
+              style={{
+                display: "flex",
+                gap: 8,
+                alignItems: "center",
+                marginTop: 4,
+                flexWrap: "wrap",
+              }}
+            >
+              {existingSettlement ? (
+                <>
+                  <span
+                    className={styles.badge}
+                    title="Settlement status"
+                    style={{
+                      background:
+                        existingSettlement.status === "settled"
+                          ? Number(existingSettlement.refundable) >= 0
+                            ? "#e6fffa"
+                            : "#fee2e2"
+                          : "#fff7ed",
+                      color:
+                        existingSettlement.status === "settled"
+                          ? Number(existingSettlement.refundable) >= 0
+                            ? "#065f46"
+                            : "#7f1d1d"
+                          : "#9a3412",
+                    }}
+                  >
+                    {existingSettlement.status === "settled"
+                      ? Number(existingSettlement.refundable) >= 0
+                        ? "Settled"
+                        : "Settled (tenant owes)"
+                      : "Deferred"}
+                  </span>
+
+                  {existingSettlement.status === "settled" && (
+                    <span style={{ color: "#374151" }}>
+                      {Number(existingSettlement.refundable || 0) > 0 ? (
+                        <>
+                          Refunded $
+                          {Number(existingSettlement.refundable).toFixed(2)}
+                          {existingSettlement.refundDateISO
+                            ? ` on ${existingSettlement.refundDateISO}`
+                            : ""}{" "}
+                          {existingSettlement.refundMethod
+                            ? ` via ${existingSettlement.refundMethod}`
+                            : ""}
+                        </>
+                      ) : Number(existingSettlement.refundable || 0) === 0 ? (
+                        <>Even — no refund due</>
+                      ) : (
+                        <>
+                          Tenant owes $
+                          {Math.abs(
+                            Number(existingSettlement.refundable)
+                          ).toFixed(2)}{" "}
+                          (beyond deposits)
+                        </>
+                      )}
+                    </span>
+                  )}
+
+                  {existingSettlement.status === "deferred" &&
+                    existingSettlement.deferReason && (
+                      <span style={{ color: "#6b7280" }}>
+                        ({existingSettlement.deferReason})
+                      </span>
+                    )}
+
+                  <button
+                    className={buttonStyles.secondaryButton}
+                    onClick={() => setShowSettlement(true)}
+                  >
+                    View / Edit Settlement
+                  </button>
+                </>
+              ) : (
+                // HIDE the button entirely until eligible
+                <>
+                  {canSettleDeposits && (
+                    <button
+                      className={buttonStyles.primaryButton}
+                      onClick={() => {
+                        console.debug("Open DepositSettlementModal");
+                        setShowSettlement(true);
+                      }}
+                    >
+                      Settle Deposits
+                    </button>
+                  )}
+                </>
               )}
             </div>
           </div>
@@ -792,10 +1002,16 @@ export default function FinancialTable({ schedule, config, onChange }) {
             </div>
 
             <div style={{ display: "flex", gap: 8, marginLeft: "auto" }}>
-              <button className={buttonStyles.secondaryButton} onClick={exportCSV}>
+              <button
+                className={buttonStyles.secondaryButton}
+                onClick={exportCSV}
+              >
                 Export CSV
               </button>
-              <button className={buttonStyles.secondaryButton} onClick={exportPDF}>
+              <button
+                className={buttonStyles.secondaryButton}
+                onClick={exportPDF}
+              >
                 Print
               </button>
             </div>
@@ -825,7 +1041,10 @@ export default function FinancialTable({ schedule, config, onChange }) {
             pet +
             (Number(row.expectedOther) || 0) +
             (Array.isArray(row.adjustments)
-              ? row.adjustments.reduce((s, a) => s + (Number(a.amount) || 0), 0)
+              ? row.adjustments.reduce(
+                  (s, a) => s + (Number(a.amount) || 0),
+                  0
+                )
               : Number(row.expectedAdjustments) || 0) +
             (row.lateFeeWaived ? 0 : Number(row.lateFee) || 0);
 
@@ -865,7 +1084,9 @@ export default function FinancialTable({ schedule, config, onChange }) {
                       split={true}
                     />
                   ) : (
-                    <span style={{ display: "inline-block", width: 25, height: 25 }} />
+                    <span
+                      style={{ display: "inline-block", width: 25, height: 25 }}
+                    />
                   )}
 
                   {row.notice?.startISO && row.notice?.endISO && (
@@ -951,9 +1172,9 @@ export default function FinancialTable({ schedule, config, onChange }) {
                       className={`${buttonStyles.primaryButton} ${styles.actionsButton}`}
                       onClick={() => {
                         if ((row.payments || []).length === 0) {
-                          setModalIdx(idx);        // open Add Payment
+                          setModalIdx(idx); // open Add Payment
                         } else {
-                          setManageIdx(idx);       // open Manage Payments
+                          setManageIdx(idx); // open Manage Payments
                         }
                       }}
                       title={
@@ -1056,6 +1277,19 @@ export default function FinancialTable({ schedule, config, onChange }) {
           }}
         />
       )}
+
+      {/* Deposit Settlement */}
+      <DepositSettlementModal
+        open={showSettlement}
+        onClose={() => setShowSettlement(false)}
+        deposits={{
+          security: { expected: secExpected, received: secReceived, dateISO: secDate },
+          pet: { expected: petExpected, received: petReceived, dateISO: petDate },
+        }}
+        schedule={scheduleForUnpaid}
+        existing={existingSettlement}
+        onSave={saveDepositSettlement}
+      />
     </div>
   );
 }
