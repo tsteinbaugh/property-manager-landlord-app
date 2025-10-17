@@ -36,7 +36,6 @@ export default function PropertyDetail({ role, setRole }) {
   // Detect financials from either property or localStorage
   const hasFinancials = useMemo(() => {
     if (!property) return false;
-    // From property
     const fromProp = (
       (
         !!property.financialConfig &&
@@ -50,9 +49,8 @@ export default function PropertyDetail({ role, setRole }) {
         )
       )
     );
-
     if (fromProp) return true;
-    // From localStorage (fallback)
+
     try {
       const raw = localStorage.getItem(`financials:${property.id}`);
       if (!raw) return false;
@@ -63,8 +61,7 @@ export default function PropertyDetail({ role, setRole }) {
     }
   }, [property]);
 
-
-  if (!property) return <p className={styles.container}>Property not found.</p>;
+  if (!property) return <p className={styles.page}>Property not found.</p>;
 
   const handleDeleteProperty = () => {
     if (confirm('Are you sure you want to delete this property?')) {
@@ -105,136 +102,103 @@ export default function PropertyDetail({ role, setRole }) {
     }
   };
 
-
   const handleLeaseUpload = (e) => {
     const file = e.target.files[0];
     if (!file) return;
-
-    // Example: Save just the filename for now
-    const updatedProperty = {
-      ...property,
-      leaseFile: file.name, // Later, you'll store the actual file on a server
-    };
-
-  editProperty(updatedProperty);
-};
-
-const getFinancialState = useMemo(() => {
-  if (!property) return () => ({ config: null, schedule: [] });
-
-  return () => {
-    // Prefer what's already on the property
-    const configFromProp = property.financialConfig || null;
-    const schedFromProp = Array.isArray(property.financialSchedule) ? property.financialSchedule : [];
-
-    // If property already has config + schedule, use that
-    if (configFromProp && schedFromProp.length > 0) {
-      return { config: configFromProp, schedule: schedFromProp };
-    }
-
-    // Otherwise fall back to localStorage (frontend-only temporary store)
-    try {
-      const raw = localStorage.getItem(`financials:${property.id}`);
-      if (!raw) return { config: null, schedule: [] };
-      const parsed = JSON.parse(raw);
-      const config = parsed?.config || null;
-      const schedule = Array.isArray(parsed?.schedule) ? parsed.schedule : [];
-      return { config, schedule };
-    } catch {
-      return { config: null, schedule: [] };
-    }
+    const updatedProperty = { ...property, leaseFile: file.name };
+    editProperty(updatedProperty);
   };
-}, [property]);
 
-const computedRent = useMemo(() => {
-  const p = property || {};
-  const f = p.financials || p.financial || {};
+  const getFinancialState = useMemo(() => {
+    if (!property) return () => ({ config: null, schedule: [] });
+    return () => {
+      const configFromProp = property.financialConfig || null;
+      const schedFromProp = Array.isArray(property.financialSchedule) ? property.financialSchedule : [];
+      if (configFromProp && schedFromProp.length > 0) {
+        return { config: configFromProp, schedule: schedFromProp };
+      }
+      try {
+        const raw = localStorage.getItem(`financials:${property.id}`);
+        if (!raw) return { config: null, schedule: [] };
+        const parsed = JSON.parse(raw);
+        const config = parsed?.config || null;
+        const schedule = Array.isArray(parsed?.schedule) ? parsed.schedule : [];
+        return { config, schedule };
+      } catch {
+        return { config: null, schedule: [] };
+      }
+    };
+  }, [property]);
 
-  // 1) direct fields saved on the property
-  if (f.monthlyRent != null && f.monthlyRent !== '') return Number(f.monthlyRent);
-  if (f.baseRent != null && f.baseRent !== '')       return Number(f.baseRent);
-  if (f.rent != null && f.rent !== '')               return Number(f.rent);
+  const computedRent = useMemo(() => {
+    const p = property || {};
+    const f = p.financials || p.financial || {};
+    if (f.monthlyRent != null && f.monthlyRent !== '') return Number(f.monthlyRent);
+    if (f.baseRent != null && f.baseRent !== '')       return Number(f.baseRent);
+    if (f.rent != null && f.rent !== '')               return Number(f.rent);
 
-  // 2) look into config/schedule from either property OR localStorage
-  const { config, schedule } = getFinancialState();
+    const { config, schedule } = getFinancialState();
+    if (config) {
+      const fromConfig = config.monthlyRent ?? config.baseRent ?? config.rent ?? config.expectedBase ?? null;
+      if (fromConfig != null && fromConfig !== '') return Number(fromConfig);
+    }
 
-  // Try config first (some UIs store it there)
-  if (config) {
-    const fromConfig =
-      config.monthlyRent ?? config.baseRent ?? config.rent ?? config.expectedBase ?? null;
-    if (fromConfig != null && fromConfig !== '') return Number(fromConfig);
-  }
+    const row = (Array.isArray(schedule) ? schedule : []).find(
+      (r) => r && (r.expectedBase != null || r.expectedTotal != null || r.base != null || r.amount != null || r.rent != null)
+    );
+    if (row) {
+      if (row.expectedBase != null && row.expectedBase !== '') return Number(row.expectedBase);
+      if (row.base != null && row.base !== '')                 return Number(row.base);
+      if (row.rent != null && row.rent !== '')                 return Number(row.rent);
+      const total = Number(row.expectedTotal ?? row.amount ?? 0);
+      const pet   = Number(row.expectedPetRent ?? row.petRent ?? 0);
+      const base  = total - pet;
+      if (Number.isFinite(base) && base > 0) return base;
+      if (Number.isFinite(total) && total > 0) return total;
+    }
 
-  // Then try schedule rows (pick the first row that has recognizable fields)
-  const row = (Array.isArray(schedule) ? schedule : []).find(
-    (r) =>
-      r &&
-      (r.expectedBase != null ||
-       r.expectedTotal != null ||
-       r.base != null ||
-       r.amount != null ||
-       r.rent != null)
-  );
-
-  if (row) {
-    // Prefer base if present
-    if (row.expectedBase != null && row.expectedBase !== '') return Number(row.expectedBase);
-    if (row.base != null && row.base !== '')                 return Number(row.base);
-    if (row.rent != null && row.rent !== '')                 return Number(row.rent);
-
-    // Otherwise use total minus pet rent if we can estimate
-    const total = Number(row.expectedTotal ?? row.amount ?? 0);
-    const pet   = Number(row.expectedPetRent ?? row.petRent ?? 0);
-    const base  = total - pet;
-    if (Number.isFinite(base) && base > 0) return base;
-
-    // If all else fails, show total (at least it’s a number)
-    if (Number.isFinite(total) && total > 0) return total;
-  }
-
-  // 3) OCR/parsed lease field on property (last resort)
-  const leaseRent = p.leaseExtract?.fields?.monthlyRent;
-  if (leaseRent != null && leaseRent !== '') return Number(leaseRent);
-
-  return null;
-}, [property, getFinancialState]);
+    const leaseRent = p.leaseExtract?.fields?.monthlyRent;
+    if (leaseRent != null && leaseRent !== '') return Number(leaseRent);
+    return null;
+  }, [property, getFinancialState]);
 
   return (
-    <>
-      <div className={styles.container}>
-        <h1 className={styles.title}>
-          {property.address}, {property.city}, {property.state}, {property.zip}
-        </h1>
-          <h2 className={styles.sectionTitle}>Property Information</h2>
-        {role === 'landlord' && property.owner && (
-          <p className={styles.propertyStats}><strong>Owner:</strong> {property.owner}</p>
-        )}
-        <p className={styles.propertyStats}>🛏️ {property.bedrooms ?? "—"} bed</p>
-        <p className={styles.propertyStats}>🛁 {property.bathrooms ?? "—"} bath</p>
-        <p className={styles.propertyStats}>📐 {property.squareFeet ?? "—"} sq ft</p>
-
-        {role === 'landlord' && (
-          <div className={layoutStyles.buttonGroup}>
-
-            <button
-              onClick={() => {
-                setEditingProperty(property);
-                setShowEditModal(true);
-              }}
-              className={buttonStyles.primaryButton}
-            >
-              Edit Property
-            </button>
-
-            <button
-              onClick={handleDeleteProperty}
-              className={buttonStyles.deleteButton}
-            >
-              Delete Property
-            </button>
+    <div className={styles.page}>
+      <div className={styles.card}>
+        {/* Header */}
+        <div className={styles.headerRow}>
+          <div className={styles.titleBlock}>
+            <h1 className={styles.title}>
+              {property.address}, {property.city}, {property.state}, {property.zip}
+            </h1>
+            {role === 'landlord' && property.owner && (
+              <div className={styles.subtleLine}><strong>Owner:</strong> {property.owner}</div>
+            )}
           </div>
-        )}
 
+          {role === 'landlord' && (
+            <div className={styles.rightActions}>
+              <button
+                onClick={() => { setEditingProperty(property); setShowEditModal(true); }}
+                className={buttonStyles.softEditButton}
+              >
+                Edit Property
+              </button>
+              <button onClick={handleDeleteProperty} className={buttonStyles.outlineDeleteButton}>
+                Delete Property
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* Quick facts */}
+        <div className={styles.kpis}>
+          <div className={styles.kpi}><span>🛏 Beds:</span> {property.bedrooms ?? "—"}</div>
+          <div className={styles.kpi}><span>🛁 Baths:</span> {property.bathrooms ?? "—"}</div>
+          <div className={styles.kpi}><span>📐 Sq Ft:</span> {property.squareFeet ?? "—"}</div>
+        </div>
+
+        {/* Property modal */}
         {showEditModal && editingProperty && (
           <PropertyModal
             isOpen={showEditModal}
@@ -247,64 +211,85 @@ const computedRent = useMemo(() => {
           />
         )}
 
+        {/* Tenants */}
         {property.tenants && (
-          <div className={styles.container}>
-            <h2 className={styles.sectionTitle}>Tenants</h2>
-            <div className={styles.propertyStats}>
+          <div className={styles.sectionBox}>
+            <div className={styles.sectionHeader}>
+              <h2 className={styles.sectionTitle}>Tenants</h2>
+              {role === 'landlord' && (
+                <div className={styles.leftActions}>
+                  <button
+                    className={buttonStyles.primaryButton}
+                    onClick={() => setShowNewTenantModal(true)}
+                  >
+                    Add Tenant
+                  </button>
+                </div>
+              )}
+            </div>
+
+            <div className={styles.sectionBody}>
               {property.tenants.length ? (
                 property.tenants.map((tenant, idx) => (
-                  <div key={idx} className="ml-4">
-                    <ul className="list-disc list-inside">
-                      <li>
-                        <strong>Name:</strong> {tenant.name}
-                        <ul className="ml-6">
-                          {tenant.age && (
-                            <li><strong>Age:</strong> {tenant.age}</li>
-                          )}
-                          {tenant.occupation && (
-                            <li><strong>Occupation:</strong> {tenant.occupation}</li>
-                          )}
-                          <li>
-                            <strong>Contact:</strong>
-                            <ul className="ml-8">
-                              <li><strong>Phone:</strong> {tenant.contact?.phone}</li>
-                              <li><strong>Email:</strong> {tenant.contact?.email}</li>
-                            </ul>
-                          </li>
-                          {role === 'landlord' && (tenant.photoIdName || tenant.photoIdDataUrl) && (
-                            <li>
-                              <strong>Photo ID:</strong> {tenant.photoIdName || '(uploaded)'}
-                              {tenant.photoIdDataUrl && (
-                                <ul className="ml-8">
-                                  <li>
-                                    <a href={tenant.photoIdDataUrl} target="_blank" rel="noreferrer">
-                                      View Photo ID
-                                    </a>
-                                  </li>
-                                </ul>
-                              )}
-                            </li>
-                          )}
-                        </ul>
-                      </li>
-                    </ul>
+                  <div key={idx} className={styles.itemCard}>
+                    <div className={styles.itemHeader}>
+                      <div className={styles.itemTitle}>{tenant.name || 'Unnamed'}</div>
+                      {role === 'landlord' && (
+                        <div className={styles.leftActions}>
+                          <button
+                            className={buttonStyles.softEditButton}
+                            onClick={() => setEditingTenantIndex(idx)}
+                          >
+                            Edit Tenant
+                          </button>
+                          <button
+                            className={buttonStyles.outlineDeleteButton}
+                            onClick={() => handleDeleteTenant(idx)}
+                          >
+                            Delete Tenant
+                          </button>
+                        </div>
+                      )}
+                    </div>
 
-                    {role === 'landlord' && (
-                      <div className={layoutStyles.buttonGroup}>
-                        <button
-                          className={buttonStyles.primaryButton}
-                          onClick={() => setEditingTenantIndex(idx)}
-                        >
-                          Edit Tenant
-                        </button>
-                        <button
-                          className={buttonStyles.deleteButton}
-                          onClick={() => handleDeleteTenant(idx)}
-                        >
-                          Delete Tenant
-                        </button>
-                      </div>
-                    )}
+                    <div className={styles.detailGrid}>
+                      {tenant.age && (
+                        <div><span className={styles.label}>Age:</span> {tenant.age}</div>
+                      )}
+                      {tenant.occupation && (
+                        <div><span className={styles.label}>Occupation:</span> {tenant.occupation}</div>
+                      )}
+
+                      {(tenant.contact?.phone || tenant.contact?.email) && (
+                        <div className={styles.contactBlock}>
+                          <div className={styles.contactHeader}>Contact:</div>
+                          {tenant.contact?.phone && (
+                            <div className={styles.contactLine}>
+                              <span className={styles.label}>Phone:</span> {tenant.contact.phone}
+                            </div>
+                          )}
+                          {tenant.contact?.email && (
+                            <div className={styles.contactLine}>
+                              <span className={styles.label}>Email:</span> {tenant.contact.email}
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      {role === 'landlord' && (tenant.photoIdName || tenant.photoIdDataUrl) && (
+                        <div>
+                          <span className={styles.label}>Photo ID:</span> {tenant.photoIdName || '(uploaded)'}
+                          {tenant.photoIdDataUrl && (
+                            <>
+                              {' '}
+                              <a href={tenant.photoIdDataUrl} target="_blank" rel="noreferrer">
+                                View Photo ID
+                              </a>
+                            </>
+                          )}
+                        </div>
+                      )}
+                    </div>
 
                     {editingTenantIndex === idx && (
                       <TenantModal
@@ -317,100 +302,100 @@ const computedRent = useMemo(() => {
                           editProperty({ ...property, tenants: updatedTenants });
                           setEditingTenantIndex(null);
                         }}
-                        title = "Edit Tenant"
+                        title="Edit Tenant"
                       />
                     )}
                   </div>
                 ))
               ) : (
-                <p className="ml-4 italic text-gray-500">None</p>
+                <p className={styles.subtle}>None</p>
               )}
             </div>
 
-            {role === 'landlord' && (
-              <div className={layoutStyles.buttonGroup}>
-                <button
-                  className={buttonStyles.primaryButton}
-                  onClick={() => setShowNewTenantModal(true)}
-                >
-                  Add Tenant
-                </button>
-              </div>
+            {showNewTenantModal && (
+              <TenantModal
+                isOpen={showNewTenantModal}
+                tenant={{ name: '', age: '', occupation: '', contact: { phone: '', email: '' } }}
+                onClose={() => setShowNewTenantModal(false)}
+                onSave={(newTenant) => {
+                  const updatedTenants = [...(property.tenants || []), newTenant];
+                  editProperty({ ...property, tenants: updatedTenants });
+                  setShowNewTenantModal(false);
+                }}
+                title="Add Tenant"
+              />
             )}
           </div>
         )}
 
-        {showNewTenantModal && (
-          <TenantModal
-            isOpen={showNewTenantModal}
-            tenant={{ name: '', age: '', occupation: '', contact: { phone: '', email: '' } }}
-            onClose={() => setShowNewTenantModal(false)}
-            onSave={(newTenant) => {
-              const updatedTenants = [...(property.tenants || []), newTenant];
-              editProperty({ ...property, tenants: updatedTenants });
-              setShowNewTenantModal(false);
-            }}
-            title = "Add Tenant"
-          />
-        )}
-
-
+        {/* Occupants */}
         {property.occupants && (
-          <div className={styles.container}>
-            <h2 className={styles.sectionTitle}>Occupants</h2>
-            <div className={styles.propertyStats}>
+          <div className={styles.sectionBox}>
+            <div className={styles.sectionHeader}>
+              <h2 className={styles.sectionTitle}>Occupants</h2>
+              {role === 'landlord' && (
+                <div className={styles.leftActions}>
+                  <button
+                    className={buttonStyles.primaryButton}
+                    onClick={() => setShowNewOccupantModal(true)}
+                  >
+                    Add Occupant
+                  </button>
+                </div>
+              )}
+            </div>
+
+            <div className={styles.sectionBody}>
               {property.occupants?.length ? (
                 property.occupants.map((occupant, idx) => (
-                  <div key={idx} className="ml-4">
+                  <div key={idx} className={styles.itemCard}>
+                    <div className={styles.itemHeader}>
+                      <div className={styles.itemTitle}>{occupant.name || 'Unnamed'}</div>
+                      {role === 'landlord' && (
+                        <div className={styles.leftActions}>
+                          <button
+                            className={buttonStyles.softEditButton}
+                            onClick={() => setEditingOccupantIndex(idx)}
+                          >
+                            Edit Occupant
+                          </button>
+                          <button
+                            className={buttonStyles.outlineDeleteButton}
+                            onClick={() => handleDeleteOccupant(idx)}
+                          >
+                            Delete Occupant
+                          </button>
+                        </div>
+                      )}
+                    </div>
 
-                    <ul className="list-disc list-inside">
-                      <li>
-                        <strong>Name:</strong> {occupant.name}
-                        <ul className="ml-6">
-                          {occupant.age && (
-                            <li><strong>Age:</strong> {occupant.age}</li>
-                          )}
-                          {occupant.occupation && (
-                            <li><strong>Occupation:</strong> {occupant.occupation}</li>
-                          )}
-                          {occupant.relationship && (
-                            <li><strong>Relationship to tenants:</strong> {occupant.relationship}</li>
-                          )}
+                    <div className={styles.detailGrid}>
+                      {occupant.age && (
+                        <div><span className={styles.label}>Age:</span> {occupant.age}</div>
+                      )}
+                      {occupant.occupation && (
+                        <div><span className={styles.label}>Occupation:</span> {occupant.occupation}</div>
+                      )}
+                      {occupant.relationship && (
+                        <div><span className={styles.label}>Relationship:</span> {occupant.relationship}</div>
+                      )}
 
-
-                          {(occupant.contact?.phone || occupant.contact?.email) && (
-                            <li>
-                              <strong>Contact:</strong>
-                              <ul className="ml-8">
-                                {occupant.contact?.phone && (
-                                  <li><strong>Phone:</strong> {occupant.contact.phone}</li>
-                                )}
-                                {occupant.contact?.email && (
-                                  <li><strong>Email:</strong> {occupant.contact.email}</li>
-                                )}
-                              </ul>
-                            </li>
+                      {(occupant.contact?.phone || occupant.contact?.email) && (
+                        <div className={styles.contactBlock}>
+                          <div className={styles.contactHeader}>Contact:</div>
+                          {occupant.contact?.phone && (
+                            <div className={styles.contactLine}>
+                              <span className={styles.label}>Phone:</span> {occupant.contact.phone}
+                            </div>
                           )}
-                        </ul>
-                      </li>
-                    </ul>
-
-                    {role === 'landlord' && (
-                      <div className={layoutStyles.buttonGroup}>
-                        <button
-                          className={buttonStyles.primaryButton}
-                          onClick={() => setEditingOccupantIndex(idx)}
-                        >
-                          Edit Occupant
-                        </button>
-                        <button
-                          className={buttonStyles.deleteButton}
-                          onClick={() => handleDeleteOccupant(idx)}
-                        >
-                          Delete Occupant
-                        </button>
-                      </div>
-                    )}
+                          {occupant.contact?.email && (
+                            <div className={styles.contactLine}>
+                              <span className={styles.label}>Email:</span> {occupant.contact.email}
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
 
                     {editingOccupantIndex === idx && (
                       <OccupantModal
@@ -423,83 +408,78 @@ const computedRent = useMemo(() => {
                           editProperty({ ...property, occupants: updatedOccupants });
                           setEditingOccupantIndex(null);
                         }}
-                        title = "Edit Occupant"
+                        title="Edit Occupant"
                       />
                     )}
                   </div>
                 ))
               ) : (
-                <p className="ml-4 italic text-gray-500">None</p>
+                <p className={styles.subtle}>None</p>
               )}
             </div>
 
-            {role === 'landlord' && (
-              <div className={layoutStyles.buttonGroup}>
-                <button
-                  className={buttonStyles.primaryButton}
-                  onClick={() => setShowNewOccupantModal(true)}
-                >
-                  Add Occupant
-                </button>
-              </div>
+            {showNewOccupantModal && (
+              <OccupantModal
+                isOpen={showNewOccupantModal}
+                occupant={{ name: '', age: '', occupation: '', relationship: '', contact: { phone: '', email: '' } }}
+                onClose={() => setShowNewOccupantModal(false)}
+                onSave={(newOccupant) => {
+                  const updatedOccupants = [...(property.occupants || []), newOccupant];
+                  editProperty({ ...property, occupants: updatedOccupants });
+                  setShowNewOccupantModal(false);
+                }}
+                title="Add Occupant"
+              />
             )}
-
           </div>
         )}
 
-
-        {showNewOccupantModal && (
-          <OccupantModal
-            isOpen={showNewOccupantModal}
-            occupant={{ name: '', age: '', occupation: '', relationship: '', contact: { phone: '', email: '' } }}
-            onClose={() => setShowNewOccupantModal(false)}
-            onSave={(newOccupant) => {
-              const updatedOccupants = [...(property.occupants || []), newOccupant];
-              editProperty({ ...property, occupants: updatedOccupants });
-              setShowNewOccupantModal(false);
-            }}
-            title = "Add Occupant"
-          />
-        )}
-
+        {/* Pets */}
         {property.pets && (
-          <div className={styles.container}>
-            <h2 className={styles.sectionTitle}>Pets</h2>
-            <div className={styles.propertyStats}>
+          <div className={styles.sectionBox}>
+            <div className={styles.sectionHeader}>
+              <h2 className={styles.sectionTitle}>Pets</h2>
+              {role === 'landlord' && (
+                <div className={styles.leftActions}>
+                  <button
+                    className={buttonStyles.primaryButton}
+                    onClick={() => setShowNewPetModal(true)}
+                  >
+                    Add Pet
+                  </button>
+                </div>
+              )}
+            </div>
+
+            <div className={styles.sectionBody}>
               {property.pets?.length ? (
                 property.pets.map((pet, idx) => (
-                  <div key={idx} className="ml-4">
-                    <ul className="list-disc list-inside">
-                      <li>
-                        <strong>Name:</strong> {pet.name}
-                        <ul className="ml-6">
-                          <li><strong>Type:</strong> {pet.type}</li>
-                          {pet.size && (
-                            <li><strong>Size:</strong> {pet.size}</li>
-                          )}
-                          {pet.license && (
-                            <li><strong>License #:</strong> {pet.license}</li>
-                          )}
-                        </ul>
-                      </li>
-                    </ul>
+                  <div key={idx} className={styles.itemCard}>
+                    <div className={styles.itemHeader}>
+                      <div className={styles.itemTitle}>{pet.name || 'Unnamed'}</div>
+                      {role === 'landlord' && (
+                        <div className={styles.leftActions}>
+                          <button
+                            onClick={() => setEditingPetIndex(idx)}
+                            className={buttonStyles.softEditButton}
+                          >
+                            Edit Pet
+                          </button>
+                          <button
+                            onClick={() => handleDeletePet(idx)}
+                            className={buttonStyles.outlineDeleteButton}
+                          >
+                            Delete Pet
+                          </button>
+                        </div>
+                      )}
+                    </div>
 
-                    {role === 'landlord' && (
-                      <div className={layoutStyles.buttonGroup}>
-                        <button
-                          onClick={() => setEditingPetIndex(idx)}
-                          className={buttonStyles.primaryButton}
-                        >
-                          Edit Pet
-                        </button>
-                        <button
-                          onClick={() => handleDeletePet(idx)}
-                          className={buttonStyles.deleteButton}
-                        >
-                          Delete Pet
-                        </button>
-                      </div>
-                    )}
+                    <div className={styles.detailGrid}>
+                      <div><span className={styles.label}>Type:</span> {pet.type || '—'}</div>
+                      {pet.size && <div><span className={styles.label}>Size:</span> {pet.size}</div>}
+                      {pet.license && <div><span className={styles.label}>License #:</span> {pet.license}</div>}
+                    </div>
 
                     {editingPetIndex === idx && (
                       <PetModal
@@ -512,84 +492,92 @@ const computedRent = useMemo(() => {
                           editProperty({ ...property, pets: updatedPets });
                           setEditingPetIndex(null);
                         }}
-                        title = "Edit Pet"
+                        title="Edit Pet"
                       />
                     )}
                   </div>
                 ))
               ) : (
-                <p className="ml-4 italic text-gray-500">None</p>
+                <p className={styles.subtle}>None</p>
               )}
             </div>
 
-            {role === 'landlord' && (
-              <div className={layoutStyles.buttonGroup}>
-                <button
-                  className={buttonStyles.primaryButton}
-                  onClick={() => setShowNewPetModal(true)}
-                >
-                  Add Pet
-                </button>
-              </div>
+            {showNewPetModal && (
+              <PetModal
+                isOpen={showNewPetModal}
+                pet={{ name: '', type: '', size: '', license: '' }}
+                onClose={() => setShowNewPetModal(false)}
+                onSave={(newPet) => {
+                  const updatedPets = [...(property.pets || []), newPet];
+                  editProperty({ ...property, pets: updatedPets });
+                  setShowNewPetModal(false);
+                }}
+                title="Add Pet"
+              />
             )}
           </div>
         )}
 
-        {showNewPetModal && (
-          <PetModal
-            isOpen={showNewPetModal}
-            pet={{ name: '', type: '', size: '', license: '' }}
-            onClose={() => setShowNewPetModal(false)}
-            onSave={(newPet) => {
-              const updatedPets = [...(property.pets || []), newPet];
-              editProperty({ ...property, pets: updatedPets });
-              setShowNewPetModal(false);
-            }}
-            title = "Add Pet"
-          />
-        )}
-
+        {/* Emergency Contacts */}
         {property.emergencyContacts && (
-          <div className={styles.container}>
-            <h2 className={styles.sectionTitle}>Emergency Contacts</h2>
-            <div className={styles.propertyStats}>
+          <div className={styles.sectionBox}>
+            <div className={styles.sectionHeader}>
+              <h2 className={styles.sectionTitle}>Emergency Contacts</h2>
+              {role === 'landlord' && (
+                <div className={styles.leftActions}>
+                  <button
+                    className={buttonStyles.primaryButton}
+                    onClick={() => setShowNewEmergencyContactModal(true)}
+                  >
+                    Add Emergency Contact
+                  </button>
+                </div>
+              )}
+            </div>
+
+            <div className={styles.sectionBody}>
               {property.emergencyContacts?.length ? (
                 property.emergencyContacts.map((emergencyContact, idx) => (
-                  <div key={idx} className="ml-4">
-                    <ul className="list-disc list-inside">
-                      <li>
-                        <strong>Name:</strong> {emergencyContact.name}
-                        <ul className="ml-6">
-                          <li><strong>Contact:</strong>
-                            <ul className="ml-8">
-                              {emergencyContact.contact?.phone && (
-                                <li><strong>Phone:</strong> {emergencyContact.contact.phone}</li>
-                              )}
-                              {emergencyContact.contact?.email && (
-                                <li><strong>Email:</strong> {emergencyContact.contact.email}</li>
-                              )}
-                            </ul>
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
+                  <div key={idx} className={styles.itemCard}>
+                    <div className={styles.itemHeader}>
+                      <div className={styles.itemTitle}>{emergencyContact.name || 'Unnamed'}</div>
+                      {role === 'landlord' && (
+                        <div className={styles.leftActions}>
+                          <button
+                            className={buttonStyles.softEditButton}
+                            onClick={() => setEditingEmergencyContactIndex(idx)}
+                          >
+                            Edit Emergency Contact
+                          </button>
+                          <button
+                            className={buttonStyles.outlineDeleteButton}
+                            onClick={() => handleDeleteEmergencyContact(idx)}
+                          >
+                            Delete Emergency Contact
+                          </button>
+                        </div>
+                      )}
+                    </div>
 
-                    {role === 'landlord' && (
-                      <div className={layoutStyles.buttonGroup}>
-                        <button
-                          className={buttonStyles.primaryButton}
-                          onClick={() => setEditingEmergencyContactIndex(idx)}
-                        >
-                          Edit Emergency Contact
-                        </button>
-                        <button
-                          className={buttonStyles.deleteButton}
-                          onClick={() => handleDeleteEmergencyContact(idx)}
-                        >
-                          Delete Emergency Contact
-                        </button>
-                      </div>
-                    )}
+                    <div className={styles.detailGrid}>
+                      {(emergencyContact.contact?.phone || emergencyContact.contact?.email) ? (
+                        <div className={styles.contactBlock}>
+                          <div className={styles.contactHeader}>Contact:</div>
+                          {emergencyContact.contact?.phone && (
+                            <div className={styles.contactLine}>
+                              <span className={styles.label}>Phone:</span> {emergencyContact.contact.phone}
+                            </div>
+                          )}
+                          {emergencyContact.contact?.email && (
+                            <div className={styles.contactLine}>
+                              <span className={styles.label}>Email:</span> {emergencyContact.contact.email}
+                            </div>
+                          )}
+                        </div>
+                      ) : (
+                        <div className={styles.subtle}>No contact provided.</div>
+                      )}
+                    </div>
 
                     {editingEmergencyContactIndex === idx && (
                       <EmergencyContactModal
@@ -602,116 +590,89 @@ const computedRent = useMemo(() => {
                           editProperty({ ...property, emergencyContacts: updatedEmergencyContacts });
                           setEditingEmergencyContactIndex(null);
                         }}
-                        title = "Edit Emergency Contact"
+                        title="Edit Emergency Contact"
                       />
                     )}
                   </div>
                 ))
               ) : (
-                <p className="ml-4 italic text-gray-500">None</p>
+                <p className={styles.subtle}>None</p>
               )}
             </div>
 
-             {role === 'landlord' && (
-              <div className={layoutStyles.buttonGroup}>
-                <button
-                  className={buttonStyles.primaryButton}
-                  onClick={() => setShowNewEmergencyContactModal(true)}
-                >
-                  Add Emergency Contact
-                </button>
-              </div>
-            )}
-
-
-
-          </div>
-        )}
-
-        {showNewEmergencyContactModal && (
-          <EmergencyContactModal
-            isOpen={showNewEmergencyContactModal}
-            emergencyContact={{ name: '', contact: { phone: '', email: '' } }}
-            onClose={() => setShowNewEmergencyContactModal(false)}
-            onSave={(newEmergencyContact) => {
-              const updatedEmergencyContacts = [...(property.emergencyContacts || []), newEmergencyContact];
-              editProperty({ ...property, emergencyContacts: updatedEmergencyContacts });
-              setShowNewEmergencyContactModal(false);
-            }}
-            title = "Add Emergency Contact"
-          />
-        )}
-
-        {role === 'landlord' && (
-          <div className={styles.container}>
-            <h2 className={styles.sectionTitle}>Financials</h2>
-
-            {/* New-style summary */}
-            {hasFinancials ? (
-              <div className={styles.propertyStats}>
-                <ul className={styles.list}>
-                  <li>
-                    <strong>Rent:</strong> {formatCurrency(computedRent)}
-                  </li>
-                </ul>
-
-                <div className={layoutStyles.buttonGroup}>
-                  <Link
-                    className={`${buttonStyles.primaryButton} ${buttonStyles.noUnderline}`}
-                    to={`/properties/${property.id}/financials`}
-                  >
-                    Open Financials
-                  </Link>
-                </div>
-              </div>
-            ) : (
-              <div className={styles.propertyStats}>
-                <p className="ml-4 italic text-gray-500">Financials not configured yet.</p>
-                <div className={layoutStyles.buttonGroup}>
-                  <Link
-                    className={`${buttonStyles.primaryButton} ${buttonStyles.noUnderline}`}
-                    to={`/properties/${property.id}/financials`}
-                  >
-                    Set Up Financials
-                  </Link>
-                </div>
-              </div>
+            {showNewEmergencyContactModal && (
+              <EmergencyContactModal
+                isOpen={showNewEmergencyContactModal}
+                emergencyContact={{ name: '', contact: { phone: '', email: '' } }}
+                onClose={() => setShowNewEmergencyContactModal(false)}
+                onSave={(newEmergencyContact) => {
+                  const updatedEmergencyContacts = [...(property.emergencyContacts || []), newEmergencyContact];
+                  editProperty({ ...property, emergencyContacts: updatedEmergencyContacts });
+                  setShowNewEmergencyContactModal(false);
+                }}
+                title="Add Emergency Contact"
+              />
             )}
           </div>
         )}
 
-
+        {/* Financials summary */}
         {role === 'landlord' && (
-          <div className={styles.container}>
-            <h2 className={styles.sectionTitle}>Lease Agreement</h2>
-            <div className={styles.propertyStats}>
-              {property.leaseFile? (
-                <a
-                  href={`/leases/${property.leaseFile}`}
-                  download
-                  className={styles.leaseLink}
+          <div className={styles.sectionBox}>
+            <div className={styles.sectionHeader}>
+              <h2 className={styles.sectionTitle}>Financials</h2>
+              <div className={styles.leftActions}>
+                <Link
+                  className={`${buttonStyles.primaryButton} ${buttonStyles.noUnderline}`}
+                  to={`/properties/${property.id}/financials`}
                 >
+                  {hasFinancials ? 'Open Financials' : 'Set Up Financials'}
+                </Link>
+              </div>
+            </div>
+
+            <div className={styles.sectionBody}>
+              {hasFinancials ? (
+                <div className={styles.detailGrid}>
+                  <div><span className={styles.label}>Rent:</span> {formatCurrency(computedRent)}</div>
+                </div>
+              ) : (
+                <p className={styles.subtle}>Financials not configured yet.</p>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Lease */}
+        {role === 'landlord' && (
+          <div className={styles.sectionBox}>
+            <div className={styles.sectionHeader}>
+              <h2 className={styles.sectionTitle}>Lease Agreement</h2>
+              <div className={styles.leftActions}>
+                <label className={buttonStyles.primaryButton}>
+                  Upload Lease Agreement
+                  <input
+                    type="file"
+                    accept=".pdf,.doc,.docx"
+                    style={{ display: 'none' }}
+                    onChange={(e) => handleLeaseUpload(e)}
+                  />
+                </label>
+              </div>
+            </div>
+
+            <div className={styles.sectionBody}>
+              {property.leaseFile ? (
+                <a href={`/leases/${property.leaseFile}`} download className={styles.leaseLink}>
                   Download Lease
                 </a>
               ) : (
-                <p className="ml-4 italic text-gray-500">None uploaded</p>
+                <p className={styles.subtle}>None uploaded</p>
               )}
-            </div>
-
-            <div className={layoutStyles.buttonGroup}>
-              <label className={buttonStyles.primaryButton}>
-                Upload Lease Agreement
-                <input
-                  type="file"
-                  accept=".pdf,.doc,.docx"
-                  style={{ display: 'none' }}
-                  onChange={(e) => handleLeaseUpload(e)}
-                />
-              </label>
             </div>
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 }
