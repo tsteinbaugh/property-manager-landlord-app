@@ -59,3 +59,39 @@
 .noUnderline:active {
   text-decoration: none !important;
 }
+
+/* --- Soft Edit/Delete Variants --- */
+
+.softEditButton {
+  background: #f3f4f6; /* light gray */
+  color: #111827;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.softEditButton:hover {
+  background: #e5e7eb;
+  border-color: #9ca3af;
+}
+
+/* Delete button — minimal red accent rather than full red fill */
+.outlineDeleteButton {
+  background: transparent;
+  color: #b91c1c; /* muted red text */
+  border: 1px solid #fca5a5;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.outlineDeleteButton:hover {
+  background: #fee2e2;
+  border-color: #ef4444;
+  color: #991b1b;
+}

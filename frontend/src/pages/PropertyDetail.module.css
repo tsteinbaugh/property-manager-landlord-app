@@ -1,70 +1,215 @@
+/* --------------------------- */
+/* PropertyDetail.module.css   */
+/* Matches FinancialForm style */
+/* --------------------------- */
 
-.container {
-  padding: 1rem;
-  border-bottom: 1px solid #e0e0e0;
+.page {
+  padding: 16px;
+  display: flex;
+  justify-content: center;
 }
 
-.backLink {
-  color: #3b82f6;
-  text-decoration: underline;
+.card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 16px;
+  width: 100%;
+  max-width: 960px;
+  box-sizing: border-box;
+}
+
+/* ---------- Header ---------- */
+.headerRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.titleBlock {
+  max-width: 560px;
 }
 
 .title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-top: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 4px 0;
 }
 
-.propertyStats {
-  margin-top: 0.25rem;
+.subtleLine {
+  color: #374151;
 }
 
-.landlordActions {
-  margin-top: 1.5rem;
+.rightActions {
   display: flex;
-  gap: 1rem;
+  gap: 8px;
+  align-items: center;
 }
 
-.button {
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  border: none;
-  cursor: pointer;
-  color: white;
-  font-weight: 500;
+/* ---------- KPIs ---------- */
+.kpis {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 6px 0 12px 0;
 }
 
-.editButton {
-  background-color: #2563eb;
+.kpi {
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 14px;
 }
 
-.deleteButton {
-  background-color: #dc2626;
+.kpi span {
+  color: #6b7280;
+  margin-right: 6px;
 }
 
-.section {
-  margin-top: 1.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid #e5e7eb;
+/* ---------- Section Boxes ---------- */
+.sectionBox {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 12px;
+  background: #fafafa;
+  max-width: 720px;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+  margin-top: 12px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
 .sectionTitle {
-  font-size: 1.25rem;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.sectionBody {
+  display: grid;
+  gap: 8px;
+}
+
+/* ---------- Item Cards ---------- */
+.itemCard {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 0;
+  background: #ffffff;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+}
+
+.itemHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  border-radius: 10px 10px 0 0;
+  padding: 8px 10px;
+}
+
+.itemTitle {
+  font-weight: 700;
+  font-size: 1rem;
+  margin: 0;
+  color: #111827;
+}
+
+/* ---------- Label–Value Stack ---------- */
+.detailGrid {
+  display: grid;
+  gap: 4px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  padding: 8px 10px 10px 10px;
+}
+
+.label {
+  color: #6b7280;
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  margin-right: 4px;
 }
 
-.list {
-  list-style: disc;
-  padding-left: 1rem;
+/* ---------- Contact Block ---------- */
+.contactBlock {
+  margin-top: 4px;
+  display: grid;
+  gap: 2px;
 }
 
-.subList {
-  list-style: disc;
-  padding-left: 1.5rem;
+/* “Contact:” label now aligns with other top-level items */
+.contactHeader {
+  color: #374151;
+  font-weight: 600;
+  margin-bottom: 1px;
+  margin-left: 0; /* aligned with others */
+}
+
+.contactLine {
+  margin-left: 1.5rem; /* only phone/email indented */
+}
+
+/* ---------- Shared Layout Helpers ---------- */
+.leftActions {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+}
+
+.subtle {
+  color: #6b7280;
 }
 
 .leaseLink {
   color: #3b82f6;
   text-decoration: underline;
+}
+
+/* ---------- Alternating Cards ---------- */
+.sectionBody > .itemCard:nth-child(odd) {
+  background: #ffffff;
+}
+.sectionBody > .itemCard:nth-child(even) {
+  background: #fdfdfd;
+}
+
+/* ---------- Responsive Tweaks ---------- */
+@media (max-width: 600px) {
+  .card {
+    padding: 12px;
+  }
+
+  .sectionBox {
+    padding: 10px;
+  }
+
+  .itemHeader {
+    padding: 8px;
+  }
+
+  .itemTitle {
+    font-size: 0.95rem;
+  }
+
+  .detailGrid {
+    padding: 8px;
+  }
 }

@@ -709,9 +709,6 @@ export default function FinancialTable({ schedule, config, onChange }) {
   const finalRow = derived[derived.length - 1];
   const existingSettlement = finalRow?.depositSettlement || null;
 
-  // Enable button in last 2 months (or after)
-  const canSettleDeposits = showDeposits && withinClosingWindow(derived, 2);
-
   // Prepare schedule snapshot for the modal unpaid calc (only rows with due dates)
   const scheduleForUnpaid = useMemo(() => {
     return derived
@@ -796,186 +793,196 @@ export default function FinancialTable({ schedule, config, onChange }) {
         </div>
       </div>
 
-      {/* Deposits (Security + Pet) */}
-      {showDeposits && (
-        <div style={{ margin: "6px 0 4px" }}>
-          <h3 style={{ margin: "0 0 6px 0" }}>Deposits</h3>
+      {/* Deposits (Security + Pet) — ALWAYS VISIBLE */}
+      <div style={{ margin: "6px 0 4px" }}>
+        <h3 style={{ margin: "0 0 6px 0" }}>Deposits</h3>
+        <div
+          style={{
+            border: "1px solid #e5e7eb",
+            borderRadius: 8,
+            padding: 8,
+            background: "#f8fafc",
+            display: "grid",
+            gap: 8,
+          }}
+        >
           <div
             style={{
-              border: "1px solid #e5e7eb",
-              borderRadius: 8,
-              padding: 8,
-              background: "#f8fafc",
-              display: "grid",
-              gap: 8,
+              display: "flex",
+              gap: 16,
+              flexWrap: "wrap",
+              alignItems: "center",
             }}
           >
-            <div
-              style={{
-                display: "flex",
-                gap: 16,
-                flexWrap: "wrap",
-                alignItems: "center",
-              }}
-            >
-              {depositsExpected > 0 && (
+            {showDeposits ? (
+              <>
+                {depositsExpected > 0 && (
+                  <div>
+                    <strong>Total Expected:</strong> ${depositsExpected.toFixed(2)}
+                  </div>
+                )}
                 <div>
-                  <strong>Total Expected:</strong> ${depositsExpected.toFixed(2)}
+                  <strong>Total Received:</strong> ${depositsReceived.toFixed(2)}
                 </div>
-              )}
-              <div>
-                <strong>Total Received:</strong> ${depositsReceived.toFixed(2)}
+                {depositsExpected > 0 && (
+                  <div>
+                    <strong>Balance:</strong> ${depositsBalance.toFixed(2)}
+                  </div>
+                )}
+              </>
+            ) : (
+              <div style={{ color: "#6b7280" }}>
+                No deposit payments recorded yet.
               </div>
-              {depositsExpected > 0 && (
-                <div>
-                  <strong>Balance:</strong> ${depositsBalance.toFixed(2)}
-                </div>
-              )}
+            )}
 
-              {/* Status chip */}
+            {/* Status chip (only if there are deposits or a prior settlement) */}
+            {(showDeposits || existingSettlement) && (
               <span
                 style={{
                   marginLeft: "auto",
                   padding: "2px 8px",
                   borderRadius: 9999,
                   background:
-                    depositsReceived >= depositsExpected ? "#e8f5e9" : "#fdecec",
+                    depositsReceived >= depositsExpected && showDeposits
+                      ? "#e8f5e9"
+                      : "#f3f4f6",
                   color:
-                    depositsReceived >= depositsExpected ? "#065f46" : "#7f1d1d",
+                    depositsReceived >= depositsExpected && showDeposits
+                      ? "#065f46"
+                      : "#374151",
                   fontSize: 12,
                   fontWeight: 600,
                 }}
               >
-                {depositsReceived >= depositsExpected
-                  ? "Paid in full"
-                  : depositsReceived > 0
-                  ? "Partial"
-                  : "Not received"}
+                {showDeposits
+                  ? depositsReceived >= depositsExpected
+                    ? "Paid in full"
+                    : depositsReceived > 0
+                    ? "Partial"
+                    : "Not received"
+                  : "No deposits"}
               </span>
-            </div>
+            )}
+          </div>
 
-            {/* Breakdown (Security + Pet + dates) */}
-            <div style={{ color: "#374151" }}>
-              <div style={{ display: "grid", gap: 2 }}>
-                <div>
-                  <strong>Security:</strong>{" "}
-                  {secExpected ? `Expected $${secExpected.toFixed(2)} · ` : ""}
-                  Received ${secReceived.toFixed(2)}
-                  {secDate ? ` on ${secDate}` : ""}
-                </div>
-                <div>
-                  <strong>Pet:</strong>{" "}
-                  {petExpected ? `Expected $${petExpected.toFixed(2)} · ` : ""}
-                  Received ${petReceived.toFixed(2)}
-                  {petDate ? ` on ${petDate}` : ""}
-                </div>
+          {/* Breakdown (Security + Pet + dates) */}
+          <div style={{ color: "#374151" }}>
+            <div style={{ display: "grid", gap: 2 }}>
+              <div>
+                <strong>Security:</strong>{" "}
+                {secExpected ? `Expected $${secExpected.toFixed(2)} · ` : ""}
+                Received ${secReceived.toFixed(2)}
+                {secDate ? ` on ${secDate}` : ""}
+              </div>
+              <div>
+                <strong>Pet:</strong>{" "}
+                {petExpected ? `Expected $${petExpected.toFixed(2)} · ` : ""}
+                Received ${petReceived.toFixed(2)}
+                {petDate ? ` on ${petDate}` : ""}
               </div>
             </div>
+          </div>
 
-            {/* Settlement row */}
-            <div
-              style={{
-                display: "flex",
-                gap: 8,
-                alignItems: "center",
-                marginTop: 4,
-                flexWrap: "wrap",
-              }}
-            >
-              {existingSettlement ? (
-                <>
-                  <span
-                    className={styles.badge}
-                    title="Settlement status"
-                    style={{
-                      background:
-                        existingSettlement.status === "settled"
-                          ? Number(existingSettlement.refundable) >= 0
-                            ? "#e6fffa"
-                            : "#fee2e2"
-                          : "#fff7ed",
-                      color:
-                        existingSettlement.status === "settled"
-                          ? Number(existingSettlement.refundable) >= 0
-                            ? "#065f46"
-                            : "#7f1d1d"
-                          : "#9a3412",
-                    }}
-                  >
-                    {existingSettlement.status === "settled"
-                      ? Number(existingSettlement.refundable) >= 0
-                        ? "Settled"
-                        : "Settled (tenant owes)"
-                      : "Deferred"}
+          {/* Settlement row — ALWAYS SHOW A BUTTON */}
+          <div
+            style={{
+              display: "flex",
+              gap: 8,
+              alignItems: "center",
+              marginTop: 4,
+              flexWrap: "wrap",
+            }}
+          >
+            {existingSettlement ? (
+              <>
+                <span
+                  className={styles.badge}
+                  title="Settlement status"
+                  style={{
+                    background:
+                      existingSettlement.status === "settled"
+                        ? Number(existingSettlement.refundable) >= 0
+                          ? "#e6fffa"
+                          : "#fee2e2"
+                        : "#fff7ed",
+                    color:
+                      existingSettlement.status === "settled"
+                        ? Number(existingSettlement.refundable) >= 0
+                          ? "#065f46"
+                          : "#7f1d1d"
+                        : "#9a3412",
+                  }}
+                >
+                  {existingSettlement.status === "settled"
+                    ? Number(existingSettlement.refundable) >= 0
+                      ? "Settled"
+                      : "Settled (tenant owes)"
+                    : "Deferred"}
+                </span>
+
+                {existingSettlement.status === "settled" && (
+                  <span style={{ color: "#374151" }}>
+                    {Number(existingSettlement.refundable || 0) > 0 ? (
+                      <>
+                        Refunded $
+                        {Number(existingSettlement.refundable).toFixed(2)}
+                        {existingSettlement.refundDateISO
+                          ? ` on ${existingSettlement.refundDateISO}`
+                          : ""}{" "}
+                        {existingSettlement.refundMethod
+                          ? ` via ${existingSettlement.refundMethod}`
+                          : ""}
+                      </>
+                    ) : Number(existingSettlement.refundable || 0) === 0 ? (
+                      <>Even — no refund due</>
+                    ) : (
+                      <>
+                        Tenant owes $
+                        {Math.abs(
+                          Number(existingSettlement.refundable)
+                        ).toFixed(2)}{" "}
+                        (beyond deposits)
+                      </>
+                    )}
                   </span>
+                )}
 
-                  {existingSettlement.status === "settled" && (
-                    <span style={{ color: "#374151" }}>
-                      {Number(existingSettlement.refundable || 0) > 0 ? (
-                        <>
-                          Refunded $
-                          {Number(existingSettlement.refundable).toFixed(2)}
-                          {existingSettlement.refundDateISO
-                            ? ` on ${existingSettlement.refundDateISO}`
-                            : ""}{" "}
-                          {existingSettlement.refundMethod
-                            ? ` via ${existingSettlement.refundMethod}`
-                            : ""}
-                        </>
-                      ) : Number(existingSettlement.refundable || 0) === 0 ? (
-                        <>Even — no refund due</>
-                      ) : (
-                        <>
-                          Tenant owes $
-                          {Math.abs(
-                            Number(existingSettlement.refundable)
-                          ).toFixed(2)}{" "}
-                          (beyond deposits)
-                        </>
-                      )}
+                {existingSettlement.status === "deferred" &&
+                  existingSettlement.deferReason && (
+                    <span style={{ color: "#6b7280" }}>
+                      ({existingSettlement.deferReason})
                     </span>
                   )}
 
-                  {existingSettlement.status === "deferred" &&
-                    existingSettlement.deferReason && (
-                      <span style={{ color: "#6b7280" }}>
-                        ({existingSettlement.deferReason})
-                      </span>
-                    )}
-
-                  <button
-                    className={buttonStyles.secondaryButton}
-                    onClick={() => setShowSettlement(true)}
-                  >
-                    View / Edit Settlement
-                  </button>
-                </>
-              ) : (
-                // HIDE the button entirely until eligible
-                <>
-                  {canSettleDeposits && (
-                    <button
-                      className={buttonStyles.primaryButton}
-                      onClick={() => {
-                        console.debug("Open DepositSettlementModal");
-                        setShowSettlement(true);
-                      }}
-                    >
-                      Settle Deposits
-                    </button>
-                  )}
-                </>
-              )}
-            </div>
+                <button
+                  className={buttonStyles.secondaryButton}
+                  onClick={() => setShowSettlement(true)}
+                >
+                  View / Edit Settlement
+                </button>
+              </>
+            ) : (
+              <button
+                className={buttonStyles.primaryButton}
+                onClick={() => {
+                  console.debug("Open DepositSettlementModal");
+                  setShowSettlement(true);
+                }}
+              >
+                Settle Deposits
+              </button>
+            )}
           </div>
         </div>
-      )}
+      </div>
 
       {/* Lease Payment Schedule header + toolbar row (KPIs left, buttons right) */}
       <div className={styles.header} style={{ marginTop: 2, marginBottom: 2 }}>
         <div style={{ width: "100%" }}>
           <h3 style={{ marginBottom: 6 }}>Lease Payment Schedule</h3>
 
+        {/* Header actions */}
           <div
             style={{
               display: "flex",
