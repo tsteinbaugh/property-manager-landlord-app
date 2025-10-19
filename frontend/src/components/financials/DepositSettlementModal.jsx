@@ -44,10 +44,7 @@ export default function DepositSettlementModal({
   // Auto-calc unpaid (sum positive balances)
   const unpaid = useMemo(() => {
     return schedule.reduce((sum, r) => {
-      const receivedTotal = (r.payments || []).reduce(
-        (s, p) => s + toMoney(p.amount),
-        0
-      );
+      const receivedTotal = (r.payments || []).reduce((s, p) => s + toMoney(p.amount), 0);
       const expectedDisplay =
         toMoney(r.expectedBase) +
         toMoney(r.expectedOther) +
@@ -62,35 +59,36 @@ export default function DepositSettlementModal({
 
   // Form state
   const initialDeferred =
-    existing?.status === "deferred" ? true
-    : existing?.status === "settled" ? false
-    : false;
+    existing?.status === "deferred"
+      ? true
+      : existing?.status === "settled"
+        ? false
+        : false;
 
   const [isDeferred, setIsDeferred] = useState(initialDeferred);
   const [reason, setReason] = useState(
     existing?.status === "deferred"
-      ? (
-          /month-to-month/i.test(existing.deferReason || "") ? "m2m" :
-          /renewal/i.test(existing.deferReason || "") ? "renewal" :
-          /(court|suing|legal)/i.test(existing.deferReason || "") ? "legal" :
-          "other"
-        )
-      : "m2m"
+      ? /month-to-month/i.test(existing.deferReason || "")
+        ? "m2m"
+        : /renewal/i.test(existing.deferReason || "")
+          ? "renewal"
+          : /(court|suing|legal)/i.test(existing.deferReason || "")
+            ? "legal"
+            : "other"
+      : "m2m",
   );
 
   const [refundDateISO, setRefundDateISO] = useState(
-    existing?.refundDateISO || new Date().toISOString().slice(0, 10)
+    existing?.refundDateISO || new Date().toISOString().slice(0, 10),
   );
   const [refundMethod, setRefundMethod] = useState(existing?.refundMethod || "");
-  const [refundReference, setRefundReference] = useState(
-    existing?.refundReference || ""
-  );
+  const [refundReference, setRefundReference] = useState(existing?.refundReference || "");
   const [notes, setNotes] = useState(existing?.notes || "");
 
   const [damageItems, setDamageItems] = useState(
     existing?.damageItems?.length
       ? existing.damageItems
-      : [{ description: "", amount: "", receipt: "" }]
+      : [{ description: "", amount: "", receipt: "" }],
   );
 
   // Totals (ALLOWS NEGATIVE)
@@ -98,19 +96,14 @@ export default function DepositSettlementModal({
     toMoney(deposits?.security?.received) + toMoney(deposits?.pet?.received);
   const damagesTotal = damageItems.reduce((s, it) => s + toMoney(it.amount), 0);
   const deductions = +(unpaid + damagesTotal).toFixed(2);
-  const netBalance = +((depositsReceived) - deductions).toFixed(2);
+  const netBalance = +(depositsReceived - deductions).toFixed(2);
 
   // Damage item helpers
   function addDamageRow() {
-    setDamageItems((arr) => [
-      ...arr,
-      { description: "", amount: "", receipt: "" },
-    ]);
+    setDamageItems((arr) => [...arr, { description: "", amount: "", receipt: "" }]);
   }
   function updateDamageRow(i, patch) {
-    setDamageItems((arr) =>
-      arr.map((it, idx) => (idx === i ? { ...it, ...patch } : it))
-    );
+    setDamageItems((arr) => arr.map((it, idx) => (idx === i ? { ...it, ...patch } : it)));
   }
   function removeDamageRow(i) {
     setDamageItems((arr) => arr.filter((_, idx) => idx !== i));
@@ -119,19 +112,50 @@ export default function DepositSettlementModal({
   function exportCSV() {
     const lines = [];
     lines.push(["Section", "Field", "Value"].join(","));
-    lines.push(["Deposits", "Security Expected", toMoney(deposits?.security?.expected).toFixed(2)].join(","));
-    lines.push(["Deposits", "Security Received", toMoney(deposits?.security?.received).toFixed(2)].join(","));
-    lines.push(["Deposits", "Security Date", deposits?.security?.dateISO || ""].join(","));
-    lines.push(["Deposits", "Pet Expected", toMoney(deposits?.pet?.expected).toFixed(2)].join(","));
-    lines.push(["Deposits", "Pet Received", toMoney(deposits?.pet?.received).toFixed(2)].join(","));
+    lines.push(
+      [
+        "Deposits",
+        "Security Expected",
+        toMoney(deposits?.security?.expected).toFixed(2),
+      ].join(","),
+    );
+    lines.push(
+      [
+        "Deposits",
+        "Security Received",
+        toMoney(deposits?.security?.received).toFixed(2),
+      ].join(","),
+    );
+    lines.push(
+      ["Deposits", "Security Date", deposits?.security?.dateISO || ""].join(","),
+    );
+    lines.push(
+      ["Deposits", "Pet Expected", toMoney(deposits?.pet?.expected).toFixed(2)].join(","),
+    );
+    lines.push(
+      ["Deposits", "Pet Received", toMoney(deposits?.pet?.received).toFixed(2)].join(","),
+    );
     lines.push(["Deposits", "Pet Date", deposits?.pet?.dateISO || ""].join(","));
     lines.push(["Totals", "Deposits Received", depositsReceived.toFixed(2)].join(","));
     lines.push(["Deductions", "Unpaid (auto)", unpaid.toFixed(2)].join(","));
     damageItems.forEach((it, i) => {
       const idx = i + 1;
       if (it.description || toMoney(it.amount) > 0 || it.receipt) {
-        lines.push(["Deductions", `Damage ${idx} - ${it.description}`, toMoney(it.amount).toFixed(2)].join(","));
-        if (it.receipt) lines.push(["Deductions", `Damage ${idx} Receipt`, `"${String(it.receipt).replace(/"/g, '""')}"`].join(","));
+        lines.push(
+          [
+            "Deductions",
+            `Damage ${idx} - ${it.description}`,
+            toMoney(it.amount).toFixed(2),
+          ].join(","),
+        );
+        if (it.receipt)
+          lines.push(
+            [
+              "Deductions",
+              `Damage ${idx} Receipt`,
+              `"${String(it.receipt).replace(/"/g, '""')}"`,
+            ].join(","),
+          );
       }
     });
     lines.push(["Totals", "Deductions", deductions.toFixed(2)].join(","));
@@ -139,20 +163,33 @@ export default function DepositSettlementModal({
 
     if (isDeferred) {
       const reasonLabel =
-        reason === "m2m" ? "Month-to-month"
-        : reason === "renewal" ? "Renewal"
-        : reason === "legal" ? "Going to court / suing"
-        : "Other";
+        reason === "m2m"
+          ? "Month-to-month"
+          : reason === "renewal"
+            ? "Renewal"
+            : reason === "legal"
+              ? "Going to court / suing"
+              : "Other";
       lines.push(["Settlement", "Status", "deferred"].join(","));
-      lines.push(["Settlement", "Defer Reason", `"${reasonLabel.replace(/"/g, '""')}"`].join(","));
+      lines.push(
+        ["Settlement", "Defer Reason", `"${reasonLabel.replace(/"/g, '""')}"`].join(","),
+      );
     } else {
       lines.push(["Settlement", "Status", "settled"].join(","));
       lines.push(["Settlement", "Refund Date", refundDateISO].join(","));
-      lines.push(["Settlement", "Method", `"${refundMethod.replace(/"/g, '""')}"`].join(","));
-      if (refundReference) lines.push(["Settlement", "Reference", `"${refundReference.replace(/"/g, '""')}"`].join(","));
+      lines.push(
+        ["Settlement", "Method", `"${refundMethod.replace(/"/g, '""')}"`].join(","),
+      );
+      if (refundReference)
+        lines.push(
+          ["Settlement", "Reference", `"${refundReference.replace(/"/g, '""')}"`].join(
+            ",",
+          ),
+        );
     }
 
-    if (notes) lines.push(["Settlement", "Notes", `"${notes.replace(/"/g, '""')}"`].join(","));
+    if (notes)
+      lines.push(["Settlement", "Notes", `"${notes.replace(/"/g, '""')}"`].join(","));
 
     const blob = new Blob([lines.join("\n")], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
@@ -189,10 +226,13 @@ export default function DepositSettlementModal({
     }
 
     const reasonLabel =
-      reason === "m2m" ? "Month-to-month"
-      : reason === "renewal" ? "Renewal"
-      : reason === "legal" ? "Going to court / suing"
-      : "Other";
+      reason === "m2m"
+        ? "Month-to-month"
+        : reason === "renewal"
+          ? "Renewal"
+          : reason === "legal"
+            ? "Going to court / suing"
+            : "Other";
 
     const settlement = {
       version: 1,
@@ -211,7 +251,7 @@ export default function DepositSettlementModal({
           (it) =>
             it.description.trim() ||
             toMoney(it.amount) > 0 ||
-            (it.receipt && it.receipt.trim())
+            (it.receipt && it.receipt.trim()),
         )
         .map((it) => ({
           description: it.description.trim(),
@@ -258,7 +298,9 @@ export default function DepositSettlementModal({
         }}
       >
         <div className={styles.sectionHeader} style={{ marginTop: 0 }}>
-          <h3 className={styles.sectionTitle} style={{ margin: 0 }}>Deposit Settlement</h3>
+          <h3 className={styles.sectionTitle} style={{ margin: 0 }}>
+            Deposit Settlement
+          </h3>
           <button
             className={buttonStyles.secondaryButton}
             onClick={onClose}
@@ -283,18 +325,26 @@ export default function DepositSettlementModal({
             </div>
             <div className={styles.sectionBody}>
               <div className={styles.help}>
-                <strong>Security:</strong>{" "}
-                Expected ${toMoney(deposits?.security?.expected).toFixed(2)} · Received ${toMoney(deposits?.security?.received).toFixed(2)}
+                <strong>Security:</strong> Expected $
+                {toMoney(deposits?.security?.expected).toFixed(2)} · Received $
+                {toMoney(deposits?.security?.received).toFixed(2)}
                 {deposits?.security?.dateISO ? ` on ${deposits.security.dateISO}` : ""}
               </div>
               <div className={styles.help}>
-                <strong>Pet:</strong>{" "}
-                Expected ${toMoney(deposits?.pet?.expected).toFixed(2)} · Received ${toMoney(deposits?.pet?.received).toFixed(2)}
+                <strong>Pet:</strong> Expected $
+                {toMoney(deposits?.pet?.expected).toFixed(2)} · Received $
+                {toMoney(deposits?.pet?.received).toFixed(2)}
                 {deposits?.pet?.dateISO ? ` on ${deposits.pet.dateISO}` : ""}
               </div>
               <div className={styles.totalLine} style={{ paddingTop: 0 }}>
                 <span>Total deposits received</span>
-                <strong>${(toMoney(deposits?.security?.received) + toMoney(deposits?.pet?.received)).toFixed(2)}</strong>
+                <strong>
+                  $
+                  {(
+                    toMoney(deposits?.security?.received) +
+                    toMoney(deposits?.pet?.received)
+                  ).toFixed(2)}
+                </strong>
               </div>
             </div>
           </div>
@@ -307,7 +357,9 @@ export default function DepositSettlementModal({
             <div className={styles.sectionBody}>
               <div className={styles.help}>
                 <strong>Unpaid rent/fees (auto):</strong> ${unpaid.toFixed(2)}
-                <div className={styles.subtle}>Sums positive balances across the schedule.</div>
+                <div className={styles.subtle}>
+                  Sums positive balances across the schedule.
+                </div>
               </div>
 
               {/* Damages card */}
@@ -316,13 +368,17 @@ export default function DepositSettlementModal({
                   <div className={styles.fieldBoxTitle}>Damages (itemize)</div>
                 </div>
 
-                <div className={styles.fieldBoxBody} style={{ gap: 10, maxWidth: "100%" }}>
+                <div
+                  className={styles.fieldBoxBody}
+                  style={{ gap: 10, maxWidth: "100%" }}
+                >
                   {damageItems.map((it, i) => (
                     <div
                       key={`damage-${i}`}
                       style={{
                         display: "grid",
-                        gridTemplateColumns: "minmax(0,1fr) 140px minmax(0,1fr) max-content",
+                        gridTemplateColumns:
+                          "minmax(0,1fr) 140px minmax(0,1fr) max-content",
                         gap: 10,
                         alignItems: "end",
                         maxWidth: "100%",
@@ -330,23 +386,28 @@ export default function DepositSettlementModal({
                     >
                       <div style={{ minWidth: 0 }}>
                         <FloatingField
-                          className={styles.noMargin}   // << kill the 12px bottom margin
+                          className={styles.noMargin} // << kill the 12px bottom margin
                           type="text"
                           label="Description"
                           value={it.description}
-                          onChange={(e) => updateDamageRow(i, { description: e.target.value })}
+                          onChange={(e) =>
+                            updateDamageRow(i, { description: e.target.value })
+                          }
                         />
                       </div>
                       <div style={{ minWidth: 0 }}>
                         <FloatingField
-                          className={styles.noMargin}   // << kill the 12px bottom margin
+                          className={styles.noMargin} // << kill the 12px bottom margin
                           type="text"
                           label="Amount"
                           value={it.amount}
                           onChange={(e) => updateDamageRow(i, { amount: e.target.value })}
                           onBlur={(e) =>
                             updateDamageRow(i, {
-                              amount: e.target.value === "" ? "" : toMoney(e.target.value).toFixed(2),
+                              amount:
+                                e.target.value === ""
+                                  ? ""
+                                  : toMoney(e.target.value).toFixed(2),
                             })
                           }
                           inputProps={{ inputMode: "decimal" }}
@@ -354,11 +415,13 @@ export default function DepositSettlementModal({
                       </div>
                       <div style={{ minWidth: 0 }}>
                         <FloatingField
-                          className={styles.noMargin}   // << kill the 12px bottom margin
+                          className={styles.noMargin} // << kill the 12px bottom margin
                           type="text"
                           label="Receipt/Link/ID (optional)"
                           value={it.receipt}
-                          onChange={(e) => updateDamageRow(i, { receipt: e.target.value })}
+                          onChange={(e) =>
+                            updateDamageRow(i, { receipt: e.target.value })
+                          }
                         />
                       </div>
 
@@ -416,7 +479,8 @@ export default function DepositSettlementModal({
                 <strong
                   title="Positive = refund owed to tenant; Negative = amount still owed by tenant"
                   style={{
-                    color: netBalance > 0 ? "#065f46" : netBalance < 0 ? "#7f1d1d" : "#111827",
+                    color:
+                      netBalance > 0 ? "#065f46" : netBalance < 0 ? "#7f1d1d" : "#111827",
                   }}
                 >
                   ${netBalance.toFixed(2)}
@@ -514,20 +578,39 @@ export default function DepositSettlementModal({
           </div>
 
           {/* Actions */}
-          <div className={styles.actions} style={{ justifyContent: "space-between", maxWidth: 980 }}>
+          <div
+            className={styles.actions}
+            style={{ justifyContent: "space-between", maxWidth: 980 }}
+          >
             <div className={styles.leftActions}>
-              <button type="button" className={buttonStyles.secondaryButton} onClick={() => window.print()}>
+              <button
+                type="button"
+                className={buttonStyles.secondaryButton}
+                onClick={() => window.print()}
+              >
                 Print Statement
               </button>
-              <button type="button" className={buttonStyles.secondaryButton} onClick={exportCSV}>
+              <button
+                type="button"
+                className={buttonStyles.secondaryButton}
+                onClick={exportCSV}
+              >
                 Export CSV
               </button>
             </div>
             <div className={styles.leftActions} style={{ justifyContent: "flex-end" }}>
-              <button type="button" className={buttonStyles.secondaryButton} onClick={onClose}>
+              <button
+                type="button"
+                className={buttonStyles.secondaryButton}
+                onClick={onClose}
+              >
                 Cancel
               </button>
-              <button type="button" className={buttonStyles.primaryButton} onClick={handleSave}>
+              <button
+                type="button"
+                className={buttonStyles.primaryButton}
+                onClick={handleSave}
+              >
                 Save Settlement
               </button>
             </div>

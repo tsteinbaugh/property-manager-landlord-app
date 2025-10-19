@@ -13,13 +13,24 @@ import styles from "./FeverLight.module.css";
  *  - size: number (px)
  *  - title: tooltip string
  */
-export default function FeverLight({ state = "unknown", color, paid = false, split = true, size = 14, title }) {
+export default function FeverLight({
+  state = "unknown",
+  color,
+  paid = false,
+  split = true,
+  size = 14,
+  title,
+}) {
   const mapStateToColor = (s) => {
     switch (s) {
-      case "on_time": return "green";
-      case "late_paid": return "yellow";
-      case "unpaid": return "red";
-      default: return "gray";
+      case "on_time":
+        return "green";
+      case "late_paid":
+        return "yellow";
+      case "unpaid":
+        return "red";
+      default:
+        return "gray";
     }
   };
 
@@ -28,9 +39,13 @@ export default function FeverLight({ state = "unknown", color, paid = false, spl
 
   const label =
     title ||
-    (state === "on_time" ? "On time" :
-     state === "late_paid" ? "Late / partial" :
-     state === "unpaid" ? "Unpaid" : "Unknown");
+    (state === "on_time"
+      ? "On time"
+      : state === "late_paid"
+        ? "Late / partial"
+        : state === "unpaid"
+          ? "Unpaid"
+          : "Unknown");
 
   if (!split) {
     // classic single-color dot

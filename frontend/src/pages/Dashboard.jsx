@@ -1,12 +1,12 @@
 // property-manager-landlord-app/frontend/src/pages/Dashboard.jsx
-import dashStyles from './Dashboard.module.css';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import PropertyList from './PropertyList';
-import { useProperties } from '../context/PropertyContext';
-import GlobalSearch from '../components/GlobalSearch';
-import buttonStyles from '../styles/Buttons.module.css';
-import AddPropertyFlow from '../components/AddPropertyFlow';
+import dashStyles from "./Dashboard.module.css";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import PropertyList from "./PropertyList";
+import { useProperties } from "../context/PropertyContext";
+import GlobalSearch from "../components/GlobalSearch";
+import buttonStyles from "../styles/Buttons.module.css";
+import AddPropertyFlow from "../components/AddPropertyFlow";
 
 export default function Dashboard({ role, setRole }) {
   const [showAddFlow, setShowAddFlow] = useState(false);
@@ -14,7 +14,7 @@ export default function Dashboard({ role, setRole }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!role) navigate('/');
+    if (!role) navigate("/");
   }, [role, navigate]);
 
   function handleCreateProperty(payload) {
@@ -56,8 +56,8 @@ export default function Dashboard({ role, setRole }) {
 
   return (
     <div className={dashStyles.container}>
-      <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '10px 0 16px' }}>
-        <div style={{ width: 520, maxWidth: '100%' }}>
+      <div style={{ display: "flex", justifyContent: "flex-end", margin: "10px 0 16px" }}>
+        <div style={{ width: 520, maxWidth: "100%" }}>
           <GlobalSearch
             properties={properties}
             onOpenProperty={(id) => navigate(`/property/${id}`)}
@@ -67,12 +67,12 @@ export default function Dashboard({ role, setRole }) {
       </div>
 
       <h1 className={dashStyles.heading}>
-        {role === 'landlord' ? 'Landlord' : 'Property Manager'} Dashboard
+        {role === "landlord" ? "Landlord" : "Property Manager"} Dashboard
       </h1>
 
       <PropertyList role={role} properties={properties} />
 
-      {role === 'landlord' && (
+      {role === "landlord" && (
         <div className={dashStyles.buttonRow}>
           <button
             onClick={() => setShowAddFlow(true)}

@@ -1,19 +1,19 @@
-import { useMemo, useState } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import { useProperties } from '../context/PropertyContext';
-import PropertyModal from '../components/PropertyModal';
-import styles from './PropertyDetail.module.css';
-import buttonStyles from '../styles/Buttons.module.css';
-import layoutStyles from '../styles/EditDeleteButtonsLayout.module.css';
-import TenantModal from '../components/TenantModal';
-import OccupantModal from '../components/OccupantModal';
-import PetModal from '../components/PetModal';
-import EmergencyContactModal from '../components/EmergencyContactModal';
+import { useMemo, useState } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { useProperties } from "../context/PropertyContext";
+import PropertyModal from "../components/PropertyModal";
+import styles from "./PropertyDetail.module.css";
+import buttonStyles from "../styles/Buttons.module.css";
+import layoutStyles from "../styles/EditDeleteButtonsLayout.module.css";
+import TenantModal from "../components/TenantModal";
+import OccupantModal from "../components/OccupantModal";
+import PetModal from "../components/PetModal";
+import EmergencyContactModal from "../components/EmergencyContactModal";
 
 const formatCurrency = (n) => {
   const num = Number(n);
   return n != null && !Number.isNaN(num)
-    ? new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD' }).format(num)
+    ? new Intl.NumberFormat(undefined, { style: "currency", currency: "USD" }).format(num)
     : "(not set)";
 };
 
@@ -36,26 +36,25 @@ export default function PropertyDetail({ role, setRole }) {
   // Detect financials from either property or localStorage
   const hasFinancials = useMemo(() => {
     if (!property) return false;
-    const fromProp = (
-      (
-        !!property.financialConfig &&
+    const fromProp =
+      (!!property.financialConfig &&
         Array.isArray(property.financialSchedule) &&
-        property.financialSchedule.length > 0
-      ) || (
-        !!property.financials && (
-          property.financials.monthlyRent != null ||
+        property.financialSchedule.length > 0) ||
+      (!!property.financials &&
+        (property.financials.monthlyRent != null ||
           property.financials.baseRent != null ||
-          property.financials.rent != null
-        )
-      )
-    );
+          property.financials.rent != null));
     if (fromProp) return true;
 
     try {
       const raw = localStorage.getItem(`financials:${property.id}`);
       if (!raw) return false;
       const parsed = JSON.parse(raw);
-      return !!(parsed?.config && Array.isArray(parsed?.schedule) && parsed.schedule.length > 0);
+      return !!(
+        parsed?.config &&
+        Array.isArray(parsed?.schedule) &&
+        parsed.schedule.length > 0
+      );
     } catch {
       return false;
     }
@@ -64,14 +63,14 @@ export default function PropertyDetail({ role, setRole }) {
   if (!property) return <p className={styles.page}>Property not found.</p>;
 
   const handleDeleteProperty = () => {
-    if (confirm('Are you sure you want to delete this property?')) {
+    if (confirm("Are you sure you want to delete this property?")) {
       deleteProperty(property.id);
-      navigate('/dashboard');
+      navigate("/dashboard");
     }
   };
 
   const handleDeleteTenant = (index) => {
-    if (confirm('Are you sure you want to delete this tenant?')) {
+    if (confirm("Are you sure you want to delete this tenant?")) {
       const updatedTenants = [...property.tenants];
       updatedTenants.splice(index, 1);
       editProperty({ ...property, tenants: updatedTenants });
@@ -79,7 +78,7 @@ export default function PropertyDetail({ role, setRole }) {
   };
 
   const handleDeleteOccupant = (index) => {
-    if (confirm('Are you sure you want to delete this occupant?')) {
+    if (confirm("Are you sure you want to delete this occupant?")) {
       const updatedOccupants = [...property.occupants];
       updatedOccupants.splice(index, 1);
       editProperty({ ...property, occupants: updatedOccupants });
@@ -87,7 +86,7 @@ export default function PropertyDetail({ role, setRole }) {
   };
 
   const handleDeletePet = (index) => {
-    if (confirm('Are you sure you want to delete this pet?')) {
+    if (confirm("Are you sure you want to delete this pet?")) {
       const updatedPets = [...property.pets];
       updatedPets.splice(index, 1);
       editProperty({ ...property, pets: updatedPets });
@@ -95,7 +94,7 @@ export default function PropertyDetail({ role, setRole }) {
   };
 
   const handleDeleteEmergencyContact = (index) => {
-    if (confirm('Are you sure you want to delete this emergency contact?')) {
+    if (confirm("Are you sure you want to delete this emergency contact?")) {
       const updatedEmergencyContacts = [...property.emergencyContacts];
       updatedEmergencyContacts.splice(index, 1);
       editProperty({ ...property, emergencyContacts: updatedEmergencyContacts });
@@ -113,7 +112,9 @@ export default function PropertyDetail({ role, setRole }) {
     if (!property) return () => ({ config: null, schedule: [] });
     return () => {
       const configFromProp = property.financialConfig || null;
-      const schedFromProp = Array.isArray(property.financialSchedule) ? property.financialSchedule : [];
+      const schedFromProp = Array.isArray(property.financialSchedule)
+        ? property.financialSchedule
+        : [];
       if (configFromProp && schedFromProp.length > 0) {
         return { config: configFromProp, schedule: schedFromProp };
       }
@@ -133,32 +134,44 @@ export default function PropertyDetail({ role, setRole }) {
   const computedRent = useMemo(() => {
     const p = property || {};
     const f = p.financials || p.financial || {};
-    if (f.monthlyRent != null && f.monthlyRent !== '') return Number(f.monthlyRent);
-    if (f.baseRent != null && f.baseRent !== '')       return Number(f.baseRent);
-    if (f.rent != null && f.rent !== '')               return Number(f.rent);
+    if (f.monthlyRent != null && f.monthlyRent !== "") return Number(f.monthlyRent);
+    if (f.baseRent != null && f.baseRent !== "") return Number(f.baseRent);
+    if (f.rent != null && f.rent !== "") return Number(f.rent);
 
     const { config, schedule } = getFinancialState();
     if (config) {
-      const fromConfig = config.monthlyRent ?? config.baseRent ?? config.rent ?? config.expectedBase ?? null;
-      if (fromConfig != null && fromConfig !== '') return Number(fromConfig);
+      const fromConfig =
+        config.monthlyRent ??
+        config.baseRent ??
+        config.rent ??
+        config.expectedBase ??
+        null;
+      if (fromConfig != null && fromConfig !== "") return Number(fromConfig);
     }
 
     const row = (Array.isArray(schedule) ? schedule : []).find(
-      (r) => r && (r.expectedBase != null || r.expectedTotal != null || r.base != null || r.amount != null || r.rent != null)
+      (r) =>
+        r &&
+        (r.expectedBase != null ||
+          r.expectedTotal != null ||
+          r.base != null ||
+          r.amount != null ||
+          r.rent != null),
     );
     if (row) {
-      if (row.expectedBase != null && row.expectedBase !== '') return Number(row.expectedBase);
-      if (row.base != null && row.base !== '')                 return Number(row.base);
-      if (row.rent != null && row.rent !== '')                 return Number(row.rent);
+      if (row.expectedBase != null && row.expectedBase !== "")
+        return Number(row.expectedBase);
+      if (row.base != null && row.base !== "") return Number(row.base);
+      if (row.rent != null && row.rent !== "") return Number(row.rent);
       const total = Number(row.expectedTotal ?? row.amount ?? 0);
-      const pet   = Number(row.expectedPetRent ?? row.petRent ?? 0);
-      const base  = total - pet;
+      const pet = Number(row.expectedPetRent ?? row.petRent ?? 0);
+      const base = total - pet;
       if (Number.isFinite(base) && base > 0) return base;
       if (Number.isFinite(total) && total > 0) return total;
     }
 
     const leaseRent = p.leaseExtract?.fields?.monthlyRent;
-    if (leaseRent != null && leaseRent !== '') return Number(leaseRent);
+    if (leaseRent != null && leaseRent !== "") return Number(leaseRent);
     return null;
   }, [property, getFinancialState]);
 
@@ -171,20 +184,28 @@ export default function PropertyDetail({ role, setRole }) {
             <h1 className={styles.title}>
               {property.address}, {property.city}, {property.state}, {property.zip}
             </h1>
-            {role === 'landlord' && property.owner && (
-              <div className={styles.subtleLine}><strong>Owner:</strong> {property.owner}</div>
+            {role === "landlord" && property.owner && (
+              <div className={styles.subtleLine}>
+                <strong>Owner:</strong> {property.owner}
+              </div>
             )}
           </div>
 
-          {role === 'landlord' && (
+          {role === "landlord" && (
             <div className={styles.rightActions}>
               <button
-                onClick={() => { setEditingProperty(property); setShowEditModal(true); }}
+                onClick={() => {
+                  setEditingProperty(property);
+                  setShowEditModal(true);
+                }}
                 className={buttonStyles.softEditButton}
               >
                 Edit Property
               </button>
-              <button onClick={handleDeleteProperty} className={buttonStyles.outlineDeleteButton}>
+              <button
+                onClick={handleDeleteProperty}
+                className={buttonStyles.outlineDeleteButton}
+              >
                 Delete Property
               </button>
             </div>
@@ -193,9 +214,15 @@ export default function PropertyDetail({ role, setRole }) {
 
         {/* Quick facts */}
         <div className={styles.kpis}>
-          <div className={styles.kpi}><span>🛏 Beds:</span> {property.bedrooms ?? "—"}</div>
-          <div className={styles.kpi}><span>🛁 Baths:</span> {property.bathrooms ?? "—"}</div>
-          <div className={styles.kpi}><span>📐 Sq Ft:</span> {property.squareFeet ?? "—"}</div>
+          <div className={styles.kpi}>
+            <span>🛏 Beds:</span> {property.bedrooms ?? "—"}
+          </div>
+          <div className={styles.kpi}>
+            <span>🛁 Baths:</span> {property.bathrooms ?? "—"}
+          </div>
+          <div className={styles.kpi}>
+            <span>📐 Sq Ft:</span> {property.squareFeet ?? "—"}
+          </div>
         </div>
 
         {/* Property modal */}
@@ -216,7 +243,7 @@ export default function PropertyDetail({ role, setRole }) {
           <div className={styles.sectionBox}>
             <div className={styles.sectionHeader}>
               <h2 className={styles.sectionTitle}>Tenants</h2>
-              {role === 'landlord' && (
+              {role === "landlord" && (
                 <div className={styles.leftActions}>
                   <button
                     className={buttonStyles.primaryButton}
@@ -233,8 +260,8 @@ export default function PropertyDetail({ role, setRole }) {
                 property.tenants.map((tenant, idx) => (
                   <div key={idx} className={styles.itemCard}>
                     <div className={styles.itemHeader}>
-                      <div className={styles.itemTitle}>{tenant.name || 'Unnamed'}</div>
-                      {role === 'landlord' && (
+                      <div className={styles.itemTitle}>{tenant.name || "Unnamed"}</div>
+                      {role === "landlord" && (
                         <div className={styles.leftActions}>
                           <button
                             className={buttonStyles.softEditButton}
@@ -254,10 +281,15 @@ export default function PropertyDetail({ role, setRole }) {
 
                     <div className={styles.detailGrid}>
                       {tenant.age && (
-                        <div><span className={styles.label}>Age:</span> {tenant.age}</div>
+                        <div>
+                          <span className={styles.label}>Age:</span> {tenant.age}
+                        </div>
                       )}
                       {tenant.occupation && (
-                        <div><span className={styles.label}>Occupation:</span> {tenant.occupation}</div>
+                        <div>
+                          <span className={styles.label}>Occupation:</span>{" "}
+                          {tenant.occupation}
+                        </div>
                       )}
 
                       {(tenant.contact?.phone || tenant.contact?.email) && (
@@ -265,30 +297,38 @@ export default function PropertyDetail({ role, setRole }) {
                           <div className={styles.contactHeader}>Contact:</div>
                           {tenant.contact?.phone && (
                             <div className={styles.contactLine}>
-                              <span className={styles.label}>Phone:</span> {tenant.contact.phone}
+                              <span className={styles.label}>Phone:</span>{" "}
+                              {tenant.contact.phone}
                             </div>
                           )}
                           {tenant.contact?.email && (
                             <div className={styles.contactLine}>
-                              <span className={styles.label}>Email:</span> {tenant.contact.email}
+                              <span className={styles.label}>Email:</span>{" "}
+                              {tenant.contact.email}
                             </div>
                           )}
                         </div>
                       )}
 
-                      {role === 'landlord' && (tenant.photoIdName || tenant.photoIdDataUrl) && (
-                        <div>
-                          <span className={styles.label}>Photo ID:</span> {tenant.photoIdName || '(uploaded)'}
-                          {tenant.photoIdDataUrl && (
-                            <>
-                              {' '}
-                              <a href={tenant.photoIdDataUrl} target="_blank" rel="noreferrer">
-                                View Photo ID
-                              </a>
-                            </>
-                          )}
-                        </div>
-                      )}
+                      {role === "landlord" &&
+                        (tenant.photoIdName || tenant.photoIdDataUrl) && (
+                          <div>
+                            <span className={styles.label}>Photo ID:</span>{" "}
+                            {tenant.photoIdName || "(uploaded)"}
+                            {tenant.photoIdDataUrl && (
+                              <>
+                                {" "}
+                                <a
+                                  href={tenant.photoIdDataUrl}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                >
+                                  View Photo ID
+                                </a>
+                              </>
+                            )}
+                          </div>
+                        )}
                     </div>
 
                     {editingTenantIndex === idx && (
@@ -315,7 +355,12 @@ export default function PropertyDetail({ role, setRole }) {
             {showNewTenantModal && (
               <TenantModal
                 isOpen={showNewTenantModal}
-                tenant={{ name: '', age: '', occupation: '', contact: { phone: '', email: '' } }}
+                tenant={{
+                  name: "",
+                  age: "",
+                  occupation: "",
+                  contact: { phone: "", email: "" },
+                }}
                 onClose={() => setShowNewTenantModal(false)}
                 onSave={(newTenant) => {
                   const updatedTenants = [...(property.tenants || []), newTenant];
@@ -333,7 +378,7 @@ export default function PropertyDetail({ role, setRole }) {
           <div className={styles.sectionBox}>
             <div className={styles.sectionHeader}>
               <h2 className={styles.sectionTitle}>Occupants</h2>
-              {role === 'landlord' && (
+              {role === "landlord" && (
                 <div className={styles.leftActions}>
                   <button
                     className={buttonStyles.primaryButton}
@@ -350,8 +395,8 @@ export default function PropertyDetail({ role, setRole }) {
                 property.occupants.map((occupant, idx) => (
                   <div key={idx} className={styles.itemCard}>
                     <div className={styles.itemHeader}>
-                      <div className={styles.itemTitle}>{occupant.name || 'Unnamed'}</div>
-                      {role === 'landlord' && (
+                      <div className={styles.itemTitle}>{occupant.name || "Unnamed"}</div>
+                      {role === "landlord" && (
                         <div className={styles.leftActions}>
                           <button
                             className={buttonStyles.softEditButton}
@@ -371,13 +416,21 @@ export default function PropertyDetail({ role, setRole }) {
 
                     <div className={styles.detailGrid}>
                       {occupant.age && (
-                        <div><span className={styles.label}>Age:</span> {occupant.age}</div>
+                        <div>
+                          <span className={styles.label}>Age:</span> {occupant.age}
+                        </div>
                       )}
                       {occupant.occupation && (
-                        <div><span className={styles.label}>Occupation:</span> {occupant.occupation}</div>
+                        <div>
+                          <span className={styles.label}>Occupation:</span>{" "}
+                          {occupant.occupation}
+                        </div>
                       )}
                       {occupant.relationship && (
-                        <div><span className={styles.label}>Relationship:</span> {occupant.relationship}</div>
+                        <div>
+                          <span className={styles.label}>Relationship:</span>{" "}
+                          {occupant.relationship}
+                        </div>
                       )}
 
                       {(occupant.contact?.phone || occupant.contact?.email) && (
@@ -385,12 +438,14 @@ export default function PropertyDetail({ role, setRole }) {
                           <div className={styles.contactHeader}>Contact:</div>
                           {occupant.contact?.phone && (
                             <div className={styles.contactLine}>
-                              <span className={styles.label}>Phone:</span> {occupant.contact.phone}
+                              <span className={styles.label}>Phone:</span>{" "}
+                              {occupant.contact.phone}
                             </div>
                           )}
                           {occupant.contact?.email && (
                             <div className={styles.contactLine}>
-                              <span className={styles.label}>Email:</span> {occupant.contact.email}
+                              <span className={styles.label}>Email:</span>{" "}
+                              {occupant.contact.email}
                             </div>
                           )}
                         </div>
@@ -421,7 +476,13 @@ export default function PropertyDetail({ role, setRole }) {
             {showNewOccupantModal && (
               <OccupantModal
                 isOpen={showNewOccupantModal}
-                occupant={{ name: '', age: '', occupation: '', relationship: '', contact: { phone: '', email: '' } }}
+                occupant={{
+                  name: "",
+                  age: "",
+                  occupation: "",
+                  relationship: "",
+                  contact: { phone: "", email: "" },
+                }}
                 onClose={() => setShowNewOccupantModal(false)}
                 onSave={(newOccupant) => {
                   const updatedOccupants = [...(property.occupants || []), newOccupant];
@@ -439,7 +500,7 @@ export default function PropertyDetail({ role, setRole }) {
           <div className={styles.sectionBox}>
             <div className={styles.sectionHeader}>
               <h2 className={styles.sectionTitle}>Pets</h2>
-              {role === 'landlord' && (
+              {role === "landlord" && (
                 <div className={styles.leftActions}>
                   <button
                     className={buttonStyles.primaryButton}
@@ -456,8 +517,8 @@ export default function PropertyDetail({ role, setRole }) {
                 property.pets.map((pet, idx) => (
                   <div key={idx} className={styles.itemCard}>
                     <div className={styles.itemHeader}>
-                      <div className={styles.itemTitle}>{pet.name || 'Unnamed'}</div>
-                      {role === 'landlord' && (
+                      <div className={styles.itemTitle}>{pet.name || "Unnamed"}</div>
+                      {role === "landlord" && (
                         <div className={styles.leftActions}>
                           <button
                             onClick={() => setEditingPetIndex(idx)}
@@ -476,9 +537,19 @@ export default function PropertyDetail({ role, setRole }) {
                     </div>
 
                     <div className={styles.detailGrid}>
-                      <div><span className={styles.label}>Type:</span> {pet.type || '—'}</div>
-                      {pet.size && <div><span className={styles.label}>Size:</span> {pet.size}</div>}
-                      {pet.license && <div><span className={styles.label}>License #:</span> {pet.license}</div>}
+                      <div>
+                        <span className={styles.label}>Type:</span> {pet.type || "—"}
+                      </div>
+                      {pet.size && (
+                        <div>
+                          <span className={styles.label}>Size:</span> {pet.size}
+                        </div>
+                      )}
+                      {pet.license && (
+                        <div>
+                          <span className={styles.label}>License #:</span> {pet.license}
+                        </div>
+                      )}
                     </div>
 
                     {editingPetIndex === idx && (
@@ -505,7 +576,7 @@ export default function PropertyDetail({ role, setRole }) {
             {showNewPetModal && (
               <PetModal
                 isOpen={showNewPetModal}
-                pet={{ name: '', type: '', size: '', license: '' }}
+                pet={{ name: "", type: "", size: "", license: "" }}
                 onClose={() => setShowNewPetModal(false)}
                 onSave={(newPet) => {
                   const updatedPets = [...(property.pets || []), newPet];
@@ -523,7 +594,7 @@ export default function PropertyDetail({ role, setRole }) {
           <div className={styles.sectionBox}>
             <div className={styles.sectionHeader}>
               <h2 className={styles.sectionTitle}>Emergency Contacts</h2>
-              {role === 'landlord' && (
+              {role === "landlord" && (
                 <div className={styles.leftActions}>
                   <button
                     className={buttonStyles.primaryButton}
@@ -540,8 +611,10 @@ export default function PropertyDetail({ role, setRole }) {
                 property.emergencyContacts.map((emergencyContact, idx) => (
                   <div key={idx} className={styles.itemCard}>
                     <div className={styles.itemHeader}>
-                      <div className={styles.itemTitle}>{emergencyContact.name || 'Unnamed'}</div>
-                      {role === 'landlord' && (
+                      <div className={styles.itemTitle}>
+                        {emergencyContact.name || "Unnamed"}
+                      </div>
+                      {role === "landlord" && (
                         <div className={styles.leftActions}>
                           <button
                             className={buttonStyles.softEditButton}
@@ -560,17 +633,20 @@ export default function PropertyDetail({ role, setRole }) {
                     </div>
 
                     <div className={styles.detailGrid}>
-                      {(emergencyContact.contact?.phone || emergencyContact.contact?.email) ? (
+                      {emergencyContact.contact?.phone ||
+                      emergencyContact.contact?.email ? (
                         <div className={styles.contactBlock}>
                           <div className={styles.contactHeader}>Contact:</div>
                           {emergencyContact.contact?.phone && (
                             <div className={styles.contactLine}>
-                              <span className={styles.label}>Phone:</span> {emergencyContact.contact.phone}
+                              <span className={styles.label}>Phone:</span>{" "}
+                              {emergencyContact.contact.phone}
                             </div>
                           )}
                           {emergencyContact.contact?.email && (
                             <div className={styles.contactLine}>
-                              <span className={styles.label}>Email:</span> {emergencyContact.contact.email}
+                              <span className={styles.label}>Email:</span>{" "}
+                              {emergencyContact.contact.email}
                             </div>
                           )}
                         </div>
@@ -585,9 +661,14 @@ export default function PropertyDetail({ role, setRole }) {
                         emergencyContact={emergencyContact}
                         onClose={() => setEditingEmergencyContactIndex(null)}
                         onSave={(updatedEmergencyContact) => {
-                          const updatedEmergencyContacts = [...property.emergencyContacts];
+                          const updatedEmergencyContacts = [
+                            ...property.emergencyContacts,
+                          ];
                           updatedEmergencyContacts[idx] = updatedEmergencyContact;
-                          editProperty({ ...property, emergencyContacts: updatedEmergencyContacts });
+                          editProperty({
+                            ...property,
+                            emergencyContacts: updatedEmergencyContacts,
+                          });
                           setEditingEmergencyContactIndex(null);
                         }}
                         title="Edit Emergency Contact"
@@ -603,11 +684,17 @@ export default function PropertyDetail({ role, setRole }) {
             {showNewEmergencyContactModal && (
               <EmergencyContactModal
                 isOpen={showNewEmergencyContactModal}
-                emergencyContact={{ name: '', contact: { phone: '', email: '' } }}
+                emergencyContact={{ name: "", contact: { phone: "", email: "" } }}
                 onClose={() => setShowNewEmergencyContactModal(false)}
                 onSave={(newEmergencyContact) => {
-                  const updatedEmergencyContacts = [...(property.emergencyContacts || []), newEmergencyContact];
-                  editProperty({ ...property, emergencyContacts: updatedEmergencyContacts });
+                  const updatedEmergencyContacts = [
+                    ...(property.emergencyContacts || []),
+                    newEmergencyContact,
+                  ];
+                  editProperty({
+                    ...property,
+                    emergencyContacts: updatedEmergencyContacts,
+                  });
                   setShowNewEmergencyContactModal(false);
                 }}
                 title="Add Emergency Contact"
@@ -617,7 +704,7 @@ export default function PropertyDetail({ role, setRole }) {
         )}
 
         {/* Financials summary */}
-        {role === 'landlord' && (
+        {role === "landlord" && (
           <div className={styles.sectionBox}>
             <div className={styles.sectionHeader}>
               <h2 className={styles.sectionTitle}>Financials</h2>
@@ -626,7 +713,7 @@ export default function PropertyDetail({ role, setRole }) {
                   className={`${buttonStyles.primaryButton} ${buttonStyles.noUnderline}`}
                   to={`/properties/${property.id}/financials`}
                 >
-                  {hasFinancials ? 'Open Financials' : 'Set Up Financials'}
+                  {hasFinancials ? "Open Financials" : "Set Up Financials"}
                 </Link>
               </div>
             </div>
@@ -634,7 +721,10 @@ export default function PropertyDetail({ role, setRole }) {
             <div className={styles.sectionBody}>
               {hasFinancials ? (
                 <div className={styles.detailGrid}>
-                  <div><span className={styles.label}>Rent:</span> {formatCurrency(computedRent)}</div>
+                  <div>
+                    <span className={styles.label}>Rent:</span>{" "}
+                    {formatCurrency(computedRent)}
+                  </div>
                 </div>
               ) : (
                 <p className={styles.subtle}>Financials not configured yet.</p>
@@ -644,7 +734,7 @@ export default function PropertyDetail({ role, setRole }) {
         )}
 
         {/* Lease */}
-        {role === 'landlord' && (
+        {role === "landlord" && (
           <div className={styles.sectionBox}>
             <div className={styles.sectionHeader}>
               <h2 className={styles.sectionTitle}>Lease Agreement</h2>
@@ -654,7 +744,7 @@ export default function PropertyDetail({ role, setRole }) {
                   <input
                     type="file"
                     accept=".pdf,.doc,.docx"
-                    style={{ display: 'none' }}
+                    style={{ display: "none" }}
                     onChange={(e) => handleLeaseUpload(e)}
                   />
                 </label>
@@ -663,7 +753,11 @@ export default function PropertyDetail({ role, setRole }) {
 
             <div className={styles.sectionBody}>
               {property.leaseFile ? (
-                <a href={`/leases/${property.leaseFile}`} download className={styles.leaseLink}>
+                <a
+                  href={`/leases/${property.leaseFile}`}
+                  download
+                  className={styles.leaseLink}
+                >
                   Download Lease
                 </a>
               ) : (

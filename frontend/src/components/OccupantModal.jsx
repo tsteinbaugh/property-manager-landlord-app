@@ -4,7 +4,13 @@ import buttonStyles from "../styles/Buttons.module.css";
 import FloatingField from "./ui/FloatingField";
 import ModalRoot from "./ui/ModalRoot";
 
-export default function OccupantModal({ isOpen, occupant, onClose, onSave, title = "Edit Occupant" }) {
+export default function OccupantModal({
+  isOpen,
+  occupant,
+  onClose,
+  onSave,
+  title = "Edit Occupant",
+}) {
   const [formData, setFormData] = useState({
     name: "",
     age: "",
@@ -16,7 +22,13 @@ export default function OccupantModal({ isOpen, occupant, onClose, onSave, title
 
   useEffect(() => {
     if (!occupant) {
-      setFormData({ name: "", age: "", occupation: "", relationship: "", contact: { phone: "", email: "" } });
+      setFormData({
+        name: "",
+        age: "",
+        occupation: "",
+        relationship: "",
+        contact: { phone: "", email: "" },
+      });
       return;
     }
     setFormData({
@@ -34,9 +46,12 @@ export default function OccupantModal({ isOpen, occupant, onClose, onSave, title
   function handleChange(e) {
     const { name, value } = e.target;
     if (name === "phone" || name === "email") {
-      setFormData(prev => ({ ...prev, contact: { ...(prev.contact || {}), [name]: value } }));
+      setFormData((prev) => ({
+        ...prev,
+        contact: { ...(prev.contact || {}), [name]: value },
+      }));
     } else {
-      setFormData(prev => ({ ...prev, [name]: value }));
+      setFormData((prev) => ({ ...prev, [name]: value }));
     }
   }
 
@@ -53,23 +68,55 @@ export default function OccupantModal({ isOpen, occupant, onClose, onSave, title
     <ModalRoot isOpen={!!isOpen} onClose={onClose} width={560}>
       <h2 className={styles.modalTitle}>{title}</h2>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <div className={styles.fieldWrap} >
-          <FloatingField name="name" label="Name" value={formData.name} onChange={handleChange} required />
+        <div className={styles.fieldWrap}>
+          <FloatingField
+            name="name"
+            label="Name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
         </div>
         <div className={styles.fieldWrap}>
-          <FloatingField name="age" label="Age" value={formData.age} onChange={handleChange} />
+          <FloatingField
+            name="age"
+            label="Age"
+            value={formData.age}
+            onChange={handleChange}
+          />
         </div>
         <div className={styles.fieldWrap}>
-          <FloatingField name="occupation" label="Occupation" value={formData.occupation} onChange={handleChange} />
+          <FloatingField
+            name="occupation"
+            label="Occupation"
+            value={formData.occupation}
+            onChange={handleChange}
+          />
         </div>
         <div className={styles.fieldWrap}>
-          <FloatingField name="relationship" label="Relationship" value={formData.relationship} onChange={handleChange} />
+          <FloatingField
+            name="relationship"
+            label="Relationship"
+            value={formData.relationship}
+            onChange={handleChange}
+          />
         </div>
         <div className={styles.fieldWrap}>
-          <FloatingField name="phone" label="Phone" value={formData.contact?.phone || ""} onChange={handleChange} />
+          <FloatingField
+            name="phone"
+            label="Phone"
+            value={formData.contact?.phone || ""}
+            onChange={handleChange}
+          />
         </div>
         <div className={styles.fieldWrap}>
-          <FloatingField name="email" type="email" label="Email" value={formData.contact?.email || ""} onChange={handleChange} />
+          <FloatingField
+            name="email"
+            type="email"
+            label="Email"
+            value={formData.contact?.email || ""}
+            onChange={handleChange}
+          />
         </div>
 
         {submitted && !isFormValid && (
@@ -77,8 +124,16 @@ export default function OccupantModal({ isOpen, occupant, onClose, onSave, title
         )}
 
         <div className={styles.modalButtons}>
-          <button type="submit" className={buttonStyles.primaryButton}>Save</button>
-          <button type="button" onClick={onClose} className={buttonStyles.secondaryButton}>Cancel</button>
+          <button type="submit" className={buttonStyles.primaryButton}>
+            Save
+          </button>
+          <button
+            type="button"
+            onClick={onClose}
+            className={buttonStyles.secondaryButton}
+          >
+            Cancel
+          </button>
         </div>
       </form>
     </ModalRoot>

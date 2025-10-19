@@ -6,16 +6,13 @@ import PropertyForm from "./PropertyForm";
 
 export default function PropertyModalWrapper({
   initialData,
-  onSave,         // continues the wizard to LEASE
-  onQuickCreate,  // creates property with details only
+  onSave, // continues the wizard to LEASE
+  onQuickCreate, // creates property with details only
   onCancel,
   renderBelowSubmit, // NEW: pass-through to position "Back to Review & Create" aligned
 }) {
   const [form, setForm] = useState(initialData || {});
-  const requiredFields = useMemo(
-    () => ["address", "city", "state", "zip", "owner"],
-    []
-  );
+  const requiredFields = useMemo(() => ["address", "city", "state", "zip", "owner"], []);
 
   function isValidDetails(d) {
     if (!d) return false;
@@ -24,7 +21,9 @@ export default function PropertyModalWrapper({
 
   function handleQuickCreate() {
     if (!isValidDetails(form)) {
-      alert("Please fill in Address, City, State, Zip, and Owner before creating the property.");
+      alert(
+        "Please fill in Address, City, State, Zip, and Owner before creating the property.",
+      );
       return;
     }
     onQuickCreate?.(form);

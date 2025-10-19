@@ -32,9 +32,9 @@
 
 .secondaryButton {
   background-color: #f3f4f6; /* light gray */
-  color: #111827;           /* dark neutral text */
+  color: #111827; /* dark neutral text */
   padding: 0.5rem 1rem;
-  border-radius: 0.375rem;  /* medium rounded */
+  border-radius: 0.375rem; /* medium rounded */
   border: 1px solid #d1d5db;
   font-weight: 500;
   cursor: pointer;

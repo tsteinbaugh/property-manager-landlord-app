@@ -2,10 +2,19 @@
 import React from "react";
 import FinancialForm from "../financials/FinancialForm";
 
-export default function FinancialInfoSection({ initialValues = {}, onChange, onValidChange }) {
-  function handleCreate(cfg){
+export default function FinancialInfoSection({
+  initialValues = {},
+  onChange,
+  onValidChange,
+}) {
+  function handleCreate(cfg) {
     onChange?.(cfg);
-    const ok = !!cfg.startDateISO && cfg.months>0 && cfg.dueDay>=1 && cfg.dueDay<=31 && cfg.monthlyRent>=0;
+    const ok =
+      !!cfg.startDateISO &&
+      cfg.months > 0 &&
+      cfg.dueDay >= 1 &&
+      cfg.dueDay <= 31 &&
+      cfg.monthlyRent >= 0;
     onValidChange?.(ok);
   }
   return (

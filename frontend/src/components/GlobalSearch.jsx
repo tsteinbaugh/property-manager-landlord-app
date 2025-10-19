@@ -175,8 +175,9 @@ export default function GlobalSearch({
   // Global keyboard shortcuts: Ctrl/Cmd+K to focus; '/' to focus when not typing
   useEffect(() => {
     function onKey(e) {
-      const tag = (e.target && e.target.tagName ? e.target.tagName.toLowerCase() : "");
-      const isTyping = tag === "input" || tag === "textarea" || (e.target && e.target.isContentEditable);
+      const tag = e.target && e.target.tagName ? e.target.tagName.toLowerCase() : "";
+      const isTyping =
+        tag === "input" || tag === "textarea" || (e.target && e.target.isContentEditable);
 
       // Ctrl/Cmd + K opens & focuses search from anywhere
       if ((e.ctrlKey || e.metaKey) && (e.key === "k" || e.key === "K")) {
@@ -297,7 +298,14 @@ export default function GlobalSearch({
     if (d.relation) secondary.push(d.relation);
 
     const primary =
-      d.name || d.email || d.phone || d.address || d.city || d.owner || d.propertyName || "(no label)";
+      d.name ||
+      d.email ||
+      d.phone ||
+      d.address ||
+      d.city ||
+      d.owner ||
+      d.propertyName ||
+      "(no label)";
 
     return (
       <button
@@ -319,7 +327,14 @@ export default function GlobalSearch({
         title={`Open ${d.propertyName}`}
       >
         <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 4 }}>
-          <span style={{ fontSize: 12, padding: "2px 6px", borderRadius: 999, background: "#f2f4f7" }}>
+          <span
+            style={{
+              fontSize: 12,
+              padding: "2px 6px",
+              borderRadius: 999,
+              background: "#f2f4f7",
+            }}
+          >
             {badgeLabel(d.entityType)}
           </span>
           <span style={{ fontWeight: 600 }}>{primary}</span>
@@ -411,15 +426,22 @@ export default function GlobalSearch({
                 {looksLikePhone(query)
                   ? "Try digits only (e.g., 5551234567)."
                   : looksLikeEmail(query)
-                  ? "Try the part before @ or full email."
-                  : "Try a phone, email, pet type/breed, name, or address."}
+                    ? "Try the part before @ or full email."
+                    : "Try a phone, email, pet type/breed, name, or address."}
               </div>
             </div>
           )}
 
           {matches.length > 0 && (
             <div style={{ marginBottom: 8 }}>
-              <div style={{ fontSize: 12, fontWeight: 700, color: "#374151", margin: "6px 2px" }}>
+              <div
+                style={{
+                  fontSize: 12,
+                  fontWeight: 700,
+                  color: "#374151",
+                  margin: "6px 2px",
+                }}
+              >
                 Matches ({matches.length})
               </div>
               {matches.map((r, i) => (
@@ -430,7 +452,14 @@ export default function GlobalSearch({
 
           {close.length > 0 && (
             <div>
-              <div style={{ fontSize: 12, fontWeight: 700, color: "#374151", margin: "6px 2px" }}>
+              <div
+                style={{
+                  fontSize: 12,
+                  fontWeight: 700,
+                  color: "#374151",
+                  margin: "6px 2px",
+                }}
+              >
                 Close results ({close.length})
               </div>
               {close.map((r, i) => (

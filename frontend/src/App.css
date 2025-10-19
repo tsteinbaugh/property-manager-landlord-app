@@ -43,12 +43,13 @@
   color: #888;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow-y: scroll;   /* body is the scroll container */
-  overflow-x: hidden;   /* prevent sideways scroll */
+  overflow-y: scroll; /* body is the scroll container */
+  overflow-x: hidden; /* prevent sideways scroll */
 }
 
 body {
@@ -67,12 +68,14 @@ body.modal-open {
   overflow: scroll !important;
 }
 
-body, #root {
+body,
+#root {
   text-align: left;
 }
 
-:root { scrollbar-gutter: stable both-edges; }
-
+:root {
+  scrollbar-gutter: stable both-edges;
+}
 
 /* Prevent page scroll only on Sign In */
 .lockScroll {

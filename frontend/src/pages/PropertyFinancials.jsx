@@ -10,17 +10,26 @@ import { useProperties } from "../context/PropertyContext";
 // ---- helpers (single definitions)
 function samePayment(a, b) {
   if (!a || !b) return false;
-  const amtA = Number(a.amount), amtB = Number(b.amount);
-  const dateA = a.dateISO || "", dateB = b.dateISO || "";
-  const methodA = (a.method || "").trim(), methodB = (b.method || "").trim();
-  const noteA = (a.note || "").trim(), noteB = (b.note || "").trim();
+  const amtA = Number(a.amount),
+    amtB = Number(b.amount);
+  const dateA = a.dateISO || "",
+    dateB = b.dateISO || "";
+  const methodA = (a.method || "").trim(),
+    methodB = (b.method || "").trim();
+  const noteA = (a.note || "").trim(),
+    noteB = (b.note || "").trim();
   return amtA === amtB && dateA === dateB && methodA === methodB && noteA === noteB;
 }
 function dedupePayments(payments = []) {
   const seen = new Set();
   const out = [];
   for (const p of payments) {
-    const key = [Number(p.amount), p.dateISO || "", (p.method || "").trim(), (p.note || "").trim()].join("|");
+    const key = [
+      Number(p.amount),
+      p.dateISO || "",
+      (p.method || "").trim(),
+      (p.note || "").trim(),
+    ].join("|");
     if (!seen.has(key)) {
       seen.add(key);
       out.push({ ...p, amount: Number(p.amount) });
@@ -29,11 +38,11 @@ function dedupePayments(payments = []) {
   return out;
 }
 function normalizeSchedule(rows = []) {
-  return rows.map(r => ({ ...r, payments: dedupePayments(r.payments || []) }));
+  return rows.map((r) => ({ ...r, payments: dedupePayments(r.payments || []) }));
 }
 
 export default function PropertyFinancials({
-  property,          // optional when navigated from PropertyDetail
+  property, // optional when navigated from PropertyDetail
   initialConfig,
   initialSchedule,
 }) {
@@ -42,9 +51,7 @@ export default function PropertyFinancials({
   const { properties = [], editProperty } = useProperties?.() || {};
 
   const record =
-    property ||
-    properties.find((p) => String(p.id) === String(routeId)) ||
-    null;
+    property || properties.find((p) => String(p.id) === String(routeId)) || null;
 
   const pid = record?.id || routeId || "temp";
   const storageKey = useMemo(() => `financials:${pid}`, [pid]);
@@ -73,7 +80,9 @@ export default function PropertyFinancials({
           const parsed = JSON.parse(raw);
           if (parsed?.config) {
             setConfig(parsed.config);
-            setSchedule(Array.isArray(parsed.schedule) ? normalizeSchedule(parsed.schedule) : []);
+            setSchedule(
+              Array.isArray(parsed.schedule) ? normalizeSchedule(parsed.schedule) : [],
+            );
             setShowForm(!Array.isArray(parsed.schedule) || parsed.schedule.length === 0);
             loaded = true;
           }
@@ -86,9 +95,7 @@ export default function PropertyFinancials({
       if (initialConfig) setConfig(initialConfig);
       if (Array.isArray(initialSchedule)) setSchedule(normalizeSchedule(initialSchedule));
       setShowForm(
-        !initialConfig ||
-        !Array.isArray(initialSchedule) ||
-        initialSchedule.length === 0
+        !initialConfig || !Array.isArray(initialSchedule) || initialSchedule.length === 0,
       );
     }
   }, [storageKey, initialConfig, initialSchedule]);
@@ -133,8 +140,11 @@ export default function PropertyFinancials({
   }
 
   function resetAll() {
-    if (!confirm("Reset this property's financial schedule? This cannot be undone.")) return;
-    try { localStorage.removeItem(storageKey); } catch {}
+    if (!confirm("Reset this property's financial schedule? This cannot be undone."))
+      return;
+    try {
+      localStorage.removeItem(storageKey);
+    } catch {}
     setConfig(null);
     setSchedule([]);
     setShowForm(true);
@@ -168,9 +178,7 @@ export default function PropertyFinancials({
             background: "#fafafa",
           }}
         >
-          <p style={{ marginTop: 0 }}>
-            Financials aren’t set up for this property yet.
-          </p>
+          <p style={{ marginTop: 0 }}>Financials aren’t set up for this property yet.</p>
           <button
             onClick={() => setShowForm(true)}
             className={buttonStyles.primaryButton}

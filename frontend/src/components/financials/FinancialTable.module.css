@@ -118,7 +118,6 @@
   width: auto;
 }
 
-
 .footerNav {
   display: flex;
   gap: 8px;
@@ -271,7 +270,6 @@
   white-space: nowrap; /* keeps text on one line */
   flex: 1; /* make them share available space nicely */
 }
-
 
 /* Responsive: stack vertically on very narrow screens */
 @media (max-width: 520px) {

@@ -4,19 +4,25 @@ import modalStyles from "./PaymentModal.module.css"; // backdrop, modal, actions
 import buttonStyles from "../../styles/Buttons.module.css";
 import FloatingField from "../ui/FloatingField";
 
-function atStart(d) { const x = new Date(d); x.setHours(0,0,0,0); return x; }
+function atStart(d) {
+  const x = new Date(d);
+  x.setHours(0, 0, 0, 0);
+  return x;
+}
 function addDays(dateOrISO, n) {
   const d = typeof dateOrISO === "string" ? new Date(dateOrISO) : new Date(dateOrISO);
   const out = new Date(d.getFullYear(), d.getMonth(), d.getDate());
   out.setDate(out.getDate() + Number(n || 0));
-  return out.toISOString().slice(0,10);
+  return out.toISOString().slice(0, 10);
 }
-function isoToday() { return new Date().toISOString().slice(0,10); }
+function isoToday() {
+  return new Date().toISOString().slice(0, 10);
+}
 
 const METHOD_OPTIONS = [
   { value: "certified_mail", label: "Certified mail" },
-  { value: "posting",        label: "Posting on property" },
-  { value: "email",          label: "Email" },
+  { value: "posting", label: "Posting on property" },
+  { value: "email", label: "Email" },
 ];
 
 /** Floating-style select that visually matches FloatingField and always renders options. */
@@ -59,7 +65,9 @@ function SelectFloatingField({ label, value, onChange, options }) {
         }}
       >
         {options.map((opt) => (
-          <option key={opt.value} value={opt.value}>{opt.label}</option>
+          <option key={opt.value} value={opt.value}>
+            {opt.label}
+          </option>
         ))}
       </select>
     </div>
@@ -70,8 +78,8 @@ export default function NoticeModal({
   open,
   onClose,
   onSave,
-  value,        // existing notice (if any)
-  dueDateISO,   // for gating: only after grace
+  value, // existing notice (if any)
+  dueDateISO, // for gating: only after grace
   graceDays = 0,
 }) {
   const [postedOnISO, setPostedOnISO] = useState(value?.postedOnISO || isoToday());
@@ -79,7 +87,7 @@ export default function NoticeModal({
   const [methods, setMethods] = useState(
     value?.methods?.length
       ? value.methods
-      : [{ type: "certified_mail", dateISO: isoToday(), proofName: "", proofURL: "" }]
+      : [{ type: "certified_mail", dateISO: isoToday(), proofName: "", proofURL: "" }],
   );
 
   // gating: grace starts on due + graceDays
@@ -96,7 +104,7 @@ export default function NoticeModal({
   }, [graceStartISO]);
 
   const startISO = useMemo(() => {
-    const dates = [postedOnISO, ...methods.map(m => m.dateISO || "").filter(Boolean)];
+    const dates = [postedOnISO, ...methods.map((m) => m.dateISO || "").filter(Boolean)];
     if (!dates.length) return "";
     dates.sort((a, b) => (a || "").localeCompare(b || ""));
     return dates[dates.length - 1] || "";
@@ -108,25 +116,28 @@ export default function NoticeModal({
     return addDays(startISO, n);
   }, [startISO, days]);
 
-  const hasCertified = methods.some(m => m.type === "certified_mail");
+  const hasCertified = methods.some((m) => m.type === "certified_mail");
 
   function updateMethod(i, patch) {
-    setMethods(prev => prev.map((m, idx) => (idx === i ? { ...m, ...patch } : m)));
+    setMethods((prev) => prev.map((m, idx) => (idx === i ? { ...m, ...patch } : m)));
   }
 
   function addMethod() {
-    setMethods(prev => [...prev, { type: "certified_mail", dateISO: isoToday(), proofName: "", proofURL: "" }]);
+    setMethods((prev) => [
+      ...prev,
+      { type: "certified_mail", dateISO: isoToday(), proofName: "", proofURL: "" },
+    ]);
   }
 
   function removeMethod(i) {
-    setMethods(prev => prev.filter((_, idx) => idx !== i));
+    setMethods((prev) => prev.filter((_, idx) => idx !== i));
   }
 
   function handleSave() {
     const payload = {
       postedOnISO: postedOnISO || "",
       days: Number(days) || 10,
-      methods: methods.map(m => ({
+      methods: methods.map((m) => ({
         type: m.type || "",
         dateISO: m.dateISO || "",
         proofName: m.proofName || "",
@@ -147,13 +158,15 @@ export default function NoticeModal({
 
         {!isAfterGrace && (
           <div className={modalStyles.error} style={{ marginBottom: 12 }}>
-            You can only start a notice <strong>after</strong> grace begins. Grace starts on <strong>{graceStartISO}</strong>.
+            You can only start a notice <strong>after</strong> grace begins. Grace starts
+            on <strong>{graceStartISO}</strong>.
           </div>
         )}
 
         {!hasCertified && (
           <div className={modalStyles.warning} style={{ marginBottom: 12 }}>
-            At minimum, tenants must be notified via <strong>certified mail</strong>. Add a certified mail method before saving.
+            At minimum, tenants must be notified via <strong>certified mail</strong>. Add
+            a certified mail method before saving.
           </div>
         )}
 
@@ -228,7 +241,9 @@ export default function NoticeModal({
             </div>
           ))}
           <div>
-            <button className={buttonStyles.secondaryButton} onClick={addMethod}>+ Add method</button>
+            <button className={buttonStyles.secondaryButton} onClick={addMethod}>
+              + Add method
+            </button>
           </div>
         </div>
 
@@ -237,21 +252,33 @@ export default function NoticeModal({
         <div className={modalStyles.grid2}>
           <div className={modalStyles.field}>
             <div className={modalStyles.subtle}>Computed notice start</div>
-            <div><strong>{startISO || "(set posted/method dates)"}</strong></div>
+            <div>
+              <strong>{startISO || "(set posted/method dates)"}</strong>
+            </div>
           </div>
           <div className={modalStyles.field}>
             <div className={modalStyles.subtle}>Computed notice finish</div>
-            <div><strong>{endISO || "(set start & days)"}</strong></div>
+            <div>
+              <strong>{endISO || "(set start & days)"}</strong>
+            </div>
           </div>
         </div>
 
         <div className={modalStyles.actions} style={{ marginTop: 16 }}>
-          <button className={buttonStyles.secondaryButton} onClick={onClose}>Cancel</button>
+          <button className={buttonStyles.secondaryButton} onClick={onClose}>
+            Cancel
+          </button>
           <button
             className={buttonStyles.primaryButton}
             onClick={handleSave}
             disabled={!isAfterGrace || !hasCertified}
-            title={!isAfterGrace ? "You must be past grace to start notice" : (!hasCertified ? "Certified mail is required" : "")}
+            title={
+              !isAfterGrace
+                ? "You must be past grace to start notice"
+                : !hasCertified
+                  ? "Certified mail is required"
+                  : ""
+            }
           >
             Save Notice
           </button>

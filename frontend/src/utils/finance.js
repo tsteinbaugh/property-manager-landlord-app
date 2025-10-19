@@ -50,7 +50,11 @@ function deepFindPetCandidates(obj, path = "", out = [], depth = 0) {
     const keyLower = String(k).toLowerCase();
     const nextPath = path ? `${path}.${k}` : k;
 
-    if (/(deposit|one[-\s]?time|setup|count|num|number|qty|quantity|has|flag|enabled|active)/i.test(keyLower)) {
+    if (
+      /(deposit|one[-\s]?time|setup|count|num|number|qty|quantity|has|flag|enabled|active)/i.test(
+        keyLower,
+      )
+    ) {
       // skip obvious non-monthlies & flags/counters
     } else if (PET_KEY_RE.test(keyLower) && isNumericLike(v)) {
       out.push({ path: nextPath, keyLower, value: toNumber(v) });
@@ -66,9 +70,17 @@ export function getPetRent(config) {
 
   // 1) Known direct keys (strict priority)
   const directKeys = [
-    "petRent","petRentMonthly","petRentPerMonth","petMonthly","monthlyPetRent",
-    "petFee","petCharge","pet_amount",
-    "pets.monthlyFee","pets[0].monthlyFee","pets[0].rent",
+    "petRent",
+    "petRentMonthly",
+    "petRentPerMonth",
+    "petMonthly",
+    "monthlyPetRent",
+    "petFee",
+    "petCharge",
+    "pet_amount",
+    "pets.monthlyFee",
+    "pets[0].monthlyFee",
+    "pets[0].rent",
   ];
   for (const key of directKeys) {
     const parts = key.replace(/\[(\d+)\]/g, ".$1").split(".");
@@ -80,7 +92,9 @@ export function getPetRent(config) {
   // 2) otherRecurring item named "pet"
   if (Array.isArray(config?.otherRecurring)) {
     const item = config.otherRecurring.find((x) =>
-      String(x?.label || x?.name || "").toLowerCase().includes("pet")
+      String(x?.label || x?.name || "")
+        .toLowerCase()
+        .includes("pet"),
     );
     if (item && isNumericLike(item.amount)) return +toNumber(item.amount);
   }
@@ -97,7 +111,12 @@ export function getPetRent(config) {
     if (/charge/.test(k)) s += 1;
 
     // penalties
-    if (/deposit|one[-\s]?time|setup|count|num|number|qty|quantity|has|flag|enabled|active/.test(k)) s -= 100;
+    if (
+      /deposit|one[-\s]?time|setup|count|num|number|qty|quantity|has|flag|enabled|active/.test(
+        k,
+      )
+    )
+      s -= 100;
     if (c.value === true || c.value === false) s -= 100;
     if (c.value <= 2) s -= 3; // avoid boolean/count slip-through
     return s;
@@ -124,7 +143,7 @@ function adjustmentsTotal(row) {
 // Expected subtotal BEFORE any late fee.
 function expectedWithoutLateFee(row, config) {
   const base = currency(row?.expectedBase);
-  const pet  = currency(getPetRent(config));
+  const pet = currency(getPetRent(config));
   const other = currency(row?.expectedOther);
   const adj = adjustmentsTotal(row);
   return +(base + pet + other + adj).toFixed(2);
@@ -132,18 +151,21 @@ function expectedWithoutLateFee(row, config) {
 
 function sumPaymentsUpTo(row, cutoffISO /* inclusive */) {
   const cutoff = cutoffISO ? new Date(cutoffISO + "T23:59:59Z") : null;
-  return +((row?.payments || []).reduce((s, p) => {
-    if (!cutoff) return s + currency(p.amount || 0);
-    const d = new Date((p.dateISO || "") + "T00:00:00Z");
-    return d <= cutoff ? s + currency(p.amount || 0) : s;
-  }, 0)).toFixed(2);
+  return +(row?.payments || [])
+    .reduce((s, p) => {
+      if (!cutoff) return s + currency(p.amount || 0);
+      const d = new Date((p.dateISO || "") + "T00:00:00Z");
+      return d <= cutoff ? s + currency(p.amount || 0) : s;
+    }, 0)
+    .toFixed(2);
 }
 
 function graceEndISOOf(row, config = {}) {
-  const graceDays =
-    Number.isFinite(Number(config?.graceDays)) ? Number(config.graceDays)
-    : Number.isFinite(Number(config?.lateFeeDays)) ? Number(config.lateFeeDays)
-    : 0;
+  const graceDays = Number.isFinite(Number(config?.graceDays))
+    ? Number(config.graceDays)
+    : Number.isFinite(Number(config?.lateFeeDays))
+      ? Number(config.lateFeeDays)
+      : 0;
 
   const due = new Date(row.dueDateISO + "T00:00:00Z");
   const graceEnd = new Date(due.getTime());
@@ -157,7 +179,10 @@ export function computeRowTotals(row, config) {
   const late = row?.lateFeeWaived ? 0 : currency(row?.lateFee || 0);
 
   const expected = +(baseNoLate + late).toFixed(2);
-  const received = (row?.payments || []).reduce((acc, p) => acc + currency(p.amount || 0), 0);
+  const received = (row?.payments || []).reduce(
+    (acc, p) => acc + currency(p.amount || 0),
+    0,
+  );
   const balance = +(expected - received).toFixed(2);
   const state = balance <= 0 ? "paid" : "unpaid";
   return { expected, receivedTotal: received, balance, state };
@@ -183,7 +208,7 @@ export function maybeApplyLateFee(row, config = {}) {
 
   // Compute what was needed without late and what was actually paid by cutoff.
   const neededNoLate = expectedWithoutLateFee(row, config);
-  const paidByGrace  = sumPaymentsUpTo(row, graceEndISO); // <= inclusive
+  const paidByGrace = sumPaymentsUpTo(row, graceEndISO); // <= inclusive
 
   // If they were fully covered by the cutoff, there is no late fee (ever).
   if (paidByGrace >= neededNoLate) {
@@ -202,12 +227,12 @@ export function maybeApplyLateFee(row, config = {}) {
   // Fee base = base + pet (exclude "other" and adjustments from % base)
   // We derive base+pet robustly from row math:
   const baseNoLate = expectedWithoutLateFee(row, config);
-  const otherAdj   = currency(row?.expectedOther) + adjustmentsTotal(row);
+  const otherAdj = currency(row?.expectedOther) + adjustmentsTotal(row);
   const baseWithPet = Math.max(0, +(baseNoLate - otherAdj).toFixed(2));
 
   const computed =
     pol.type === "percent"
-      ? +(baseWithPet * currency(pol.value) / 100).toFixed(2)
+      ? +((baseWithPet * currency(pol.value)) / 100).toFixed(2)
       : +currency(pol.value).toFixed(2);
 
   // Only set if not already set; don't overwrite an existing assessed amount.
@@ -244,19 +269,19 @@ export function computeAssessedLateFeeAmount(row, config = {}) {
 
   const graceEndISO = graceEndISOOf(row, config);
   const neededNoLate = expectedWithoutLateFee(row, config);
-  const paidByGrace  = sumPaymentsUpTo(row, graceEndISO);
+  const paidByGrace = sumPaymentsUpTo(row, graceEndISO);
 
   // If fully covered by cutoff, no fee would be assessed.
   if (paidByGrace >= neededNoLate) return 0;
 
   // Fee base = base + pet
   const baseNoLate = expectedWithoutLateFee(row, config);
-  const otherAdj   = currency(row?.expectedOther) + adjustmentsTotal(row);
+  const otherAdj = currency(row?.expectedOther) + adjustmentsTotal(row);
   const baseWithPet = Math.max(0, +(baseNoLate - otherAdj).toFixed(2));
 
   const pol = config?.lateFeePolicy || { type: "flat", value: 0 };
   return pol.type === "percent"
-    ? +(baseWithPet * currency(pol.value) / 100).toFixed(2)
+    ? +((baseWithPet * currency(pol.value)) / 100).toFixed(2)
     : +currency(pol.value).toFixed(2);
 }
 
@@ -280,13 +305,20 @@ export function generateLeaseSchedule(cfg) {
   if (!startDateISO) return [];
 
   // NOTE: pet rent is NOT forcibly added here; we resolve via getPetRent(config) at runtime.
-  const otherSum = (otherRecurring || []).reduce((s, c) => s + (Number(c.amount) || 0), 0);
+  const otherSum = (otherRecurring || []).reduce(
+    (s, c) => s + (Number(c.amount) || 0),
+    0,
+  );
 
   const rows = [];
   for (let i = 0; i < Number(months || 0); i++) {
     const dueDateISO = makeDueDateISO(startDateISO, i, dueDay);
     const date = new Date(dueDateISO + "T00:00:00Z");
-    const periodLabel = date.toLocaleString("en-US", { month: "short", year: "numeric", timeZone: "UTC" });
+    const periodLabel = date.toLocaleString("en-US", {
+      month: "short",
+      year: "numeric",
+      timeZone: "UTC",
+    });
 
     rows.push({
       id: `${dueDateISO}-${i}`,
@@ -332,26 +364,21 @@ export function expectedTotalIncludingLate(row, config) {
   const adjs = Array.isArray(row?.adjustments)
     ? row.adjustments.reduce((s, a) => s + (Number(a.amount) || 0), 0)
     : Number(row?.expectedAdjustments) || 0;
-  const late = row?.lateFeeWaived ? 0 : (Number(row?.lateFee) || 0);
-  return +(
-    (Number(row?.expectedBase) || 0) +
-    pet +
-    other +
-    adjs +
-    late
-  ).toFixed(2);
+  const late = row?.lateFeeWaived ? 0 : Number(row?.lateFee) || 0;
+  return +((Number(row?.expectedBase) || 0) + pet + other + adjs + late).toFixed(2);
 }
 
 function _startOfDayLocal(iso) {
   if (!iso) return new Date(NaN);
   const [y, m, d] = iso.split("-").map(Number);
-  const dt = new Date(y, (m - 1), d || 1);
+  const dt = new Date(y, m - 1, d || 1);
   dt.setHours(0, 0, 0, 0);
   return dt;
 }
 function _isFutureRow(row, today = new Date()) {
   const due = _startOfDayLocal(row?.dueDateISO);
-  const t0  = new Date(today); t0.setHours(0,0,0,0);
+  const t0 = new Date(today);
+  t0.setHours(0, 0, 0, 0);
   return due > t0;
 }
 function _isResolved(row, config) {
@@ -371,12 +398,12 @@ export function pickDashboardFinancialRow(schedule = [], config, opts = {}) {
   if (!Array.isArray(schedule) || schedule.length === 0) return null;
 
   const eligible = schedule
-    .filter(r => r && !_isFutureRow(r, today))
+    .filter((r) => r && !_isFutureRow(r, today))
     .sort((a, b) => _startOfDayLocal(a.dueDateISO) - _startOfDayLocal(b.dueDateISO));
 
   if (eligible.length === 0) return null;
 
-  const earliestUnresolved = eligible.find(r => !_isResolved(r, config));
+  const earliestUnresolved = eligible.find((r) => !_isResolved(r, config));
   if (earliestUnresolved) return earliestUnresolved;
 
   // otherwise take the latest resolved up to today
@@ -411,7 +438,8 @@ export function resolveDashboardFeverStatus(schedule = [], config, opts = {}) {
     noticeDays: Number(picked?.notice?.days ?? config?.noticeDays ?? 10),
   });
 
-  const label = picked.periodLabel || (picked.dueDateISO ? picked.dueDateISO.slice(0, 7) : "");
+  const label =
+    picked.periodLabel || (picked.dueDateISO ? picked.dueDateISO.slice(0, 7) : "");
 
   return {
     color: status?.color || "gray",
@@ -422,4 +450,3 @@ export function resolveDashboardFeverStatus(schedule = [], config, opts = {}) {
     paid: !!status?.finalPaidAtISO,
   };
 }
-

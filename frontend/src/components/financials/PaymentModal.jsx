@@ -13,7 +13,7 @@ export default function PaymentModal({
   open,
   title = "Add Payment",
   initial = { amount: "", dateISO: "", method: "", note: "" },
-  expectedAmount,               // number (optional): pre-fill Amount
+  expectedAmount, // number (optional): pre-fill Amount
   onAddPayment,
   onClose,
 }) {
@@ -31,12 +31,10 @@ export default function PaymentModal({
   useEffect(() => {
     // when modal just opened
     if (!prevOpen.current && open) {
-      const hasInitial =
-        initial && String(initial.amount ?? "").trim() !== "";
-      const amtToSet =
-        hasInitial
-          ? String(initial.amount)
-          : Number.isFinite(Number(expectedAmount))
+      const hasInitial = initial && String(initial.amount ?? "").trim() !== "";
+      const amtToSet = hasInitial
+        ? String(initial.amount)
+        : Number.isFinite(Number(expectedAmount))
           ? String(Number(expectedAmount))
           : "";
       setAmount(amtToSet);
@@ -46,12 +44,12 @@ export default function PaymentModal({
       setSubmitted(false);
       setTimeout(() => firstFieldRef.current?.focus(), 0);
     }
-  
+
     // when expectedAmount changes while open and no user-typed amount yet
     if (open && !amount && Number.isFinite(Number(expectedAmount))) {
       setAmount(String(Number(expectedAmount)));
     }
-  
+
     prevOpen.current = open;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, expectedAmount]);
