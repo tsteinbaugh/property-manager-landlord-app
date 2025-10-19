@@ -1,6 +1,6 @@
 .signInContainer {
   /* Fill the viewport reliably and center contents */
-  height: 100dvh;            /* use 100dvh for mobile address-bar quirks */
+  height: 100dvh; /* use 100dvh for mobile address-bar quirks */
   display: flex;
   justify-content: center;
   align-items: center;

@@ -39,7 +39,7 @@ export default function PropertyForm({
   const [submitted, setSubmitted] = useState(false);
 
   const isFormValid = requiredFields.every(
-    (k) => String(formData[k] ?? "").trim() !== ""
+    (k) => String(formData[k] ?? "").trim() !== "",
   );
 
   function handleChange(e) {

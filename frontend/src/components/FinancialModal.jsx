@@ -1,15 +1,15 @@
-import styles from '../styles/SharedModal.module.css';
-import buttonStyles from '../styles/Buttons.module.css';
-import { useState, useEffect } from 'react';
+import styles from "../styles/SharedModal.module.css";
+import buttonStyles from "../styles/Buttons.module.css";
+import { useState, useEffect } from "react";
 import FloatingField from "./ui/FloatingField";
 
 export default function FinancialModal({ isOpen, financial, onClose, onSave }) {
   if (!isOpen) return null;
 
   const [formData, setFormData] = useState({
-    rent: '',
-    securityDeposit: '',
-    petDeposit: '',
+    rent: "",
+    securityDeposit: "",
+    petDeposit: "",
   });
 
   const [submitted, setSubmitted] = useState(false);
@@ -17,9 +17,9 @@ export default function FinancialModal({ isOpen, financial, onClose, onSave }) {
   useEffect(() => {
     if (financial) {
       setFormData({
-        rent: String(financial.rent ?? ''),
-        securityDeposit: String(financial.securityDeposit ?? ''),
-        petDeposit: String(financial.petDeposit ?? ''),
+        rent: String(financial.rent ?? ""),
+        securityDeposit: String(financial.securityDeposit ?? ""),
+        petDeposit: String(financial.petDeposit ?? ""),
       });
     }
   }, [financial]);
@@ -27,12 +27,12 @@ export default function FinancialModal({ isOpen, financial, onClose, onSave }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  }
+  };
 
   const isFormValid =
-    String(formData.rent).trim() !== '' &&
-    String(formData.securityDeposit).trim() !== '' &&
-    String(formData.petDeposit).trim() !== '';
+    String(formData.rent).trim() !== "" &&
+    String(formData.securityDeposit).trim() !== "" &&
+    String(formData.petDeposit).trim() !== "";
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -43,10 +43,7 @@ export default function FinancialModal({ isOpen, financial, onClose, onSave }) {
 
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
-      <div 
-        className={styles.modalContent}
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
         <h2 className={styles.modalTitle}>Edit Financials</h2>
 
         <form onSubmit={handleSubmit} className={styles.form}>
@@ -77,10 +74,7 @@ export default function FinancialModal({ isOpen, financial, onClose, onSave }) {
           )}
 
           <div className={styles.modalButtons}>
-            <button
-              type="submit"
-              className={buttonStyles.primaryButton}
-            >
+            <button type="submit" className={buttonStyles.primaryButton}>
               Save
             </button>
             <button

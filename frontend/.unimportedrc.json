@@ -1,0 +1,7 @@
+{
+  "entry": ["src/main.jsx"],
+  "ignorePatterns": ["**/node_modules/**", "**/dist/**", "**/build/**", "**/*.d.ts"],
+  "ignoreUnresolved": [],
+  "ignoreUnused": [],
+  "ignoreUnimported": []
+}

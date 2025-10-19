@@ -1,7 +1,7 @@
 .table {
   border-collapse: separate;
-  border-spacing: 0 8px;   /* vertical spacing between rows */
-  width: auto;             /* hug content */
+  border-spacing: 0 8px; /* vertical spacing between rows */
+  width: auto; /* hug content */
 }
 
 .cell {
@@ -16,14 +16,14 @@
 }
 
 .lightCell {
-  width: 160px;            /* fixed width so dots line up */
-  text-align: center;      /* center dots under header */
+  width: 160px; /* fixed width so dots line up */
+  text-align: center; /* center dots under header */
 }
 
 .headerCell {
   font-weight: 600;
   font-size: 18px;
-  color: #111827;          /* neutral gray */
+  color: #111827; /* neutral gray */
   padding-bottom: 6px;
   text-align: center;
 }
@@ -40,7 +40,7 @@
 }
 
 .tableWrap {
-  padding-left: 24px;      /* left margin */
+  padding-left: 24px; /* left margin */
 }
 
 .lightButton {

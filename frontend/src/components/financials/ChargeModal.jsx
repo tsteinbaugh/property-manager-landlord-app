@@ -32,15 +32,29 @@ export default function ChargeModal({ open, onClose, onAdd }) {
         <h3 className={styles.title}>Add Charge</h3>
         <div className={styles.row}>
           <label>Amount</label>
-          <input type="number" step="0.01" value={amount} onChange={(e)=>setAmount(e.target.value)} />
+          <input
+            type="number"
+            step="0.01"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+          />
         </div>
         <div className={styles.row}>
           <label>Reason</label>
-          <input type="text" placeholder="e.g., Unpaid electric bill" value={reason} onChange={(e)=>setReason(e.target.value)} />
+          <input
+            type="text"
+            placeholder="e.g., Unpaid electric bill"
+            value={reason}
+            onChange={(e) => setReason(e.target.value)}
+          />
         </div>
         <div className={styles.actions}>
-          <button className={buttonStyles.primaryButton} onClick={handleSubmit}>Add</button>
-          <button className={buttonStyles.secondaryButton} onClick={onClose}>Cancel</button>
+          <button className={buttonStyles.primaryButton} onClick={handleSubmit}>
+            Add
+          </button>
+          <button className={buttonStyles.secondaryButton} onClick={onClose}>
+            Cancel
+          </button>
         </div>
       </div>
     </div>

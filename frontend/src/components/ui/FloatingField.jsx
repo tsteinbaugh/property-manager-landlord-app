@@ -11,7 +11,7 @@ export default function FloatingField({
   name,
   value,
   onChange,
-  onBlur,              // ✅ accept onBlur
+  onBlur, // ✅ accept onBlur
   label,
   options = [],
   inputProps = {},
@@ -31,7 +31,7 @@ export default function FloatingField({
           name={name}
           value={value ?? ""}
           onChange={onChange}
-          onBlur={onBlur}               
+          onBlur={onBlur}
           className={css.input}
           {...inputProps}
         >
@@ -49,7 +49,7 @@ export default function FloatingField({
           type={type}
           value={value ?? ""}
           onChange={onChange}
-          onBlur={onBlur}                
+          onBlur={onBlur}
           className={css.input}
           placeholder={placeholder}
           required={required}

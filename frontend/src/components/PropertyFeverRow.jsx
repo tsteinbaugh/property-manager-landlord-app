@@ -78,7 +78,7 @@ PropertyFeverRow.propTypes = {
         date: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)])
           .isRequired,
         amount: PropTypes.number.isRequired,
-      })
+      }),
     ).isRequired,
     lateFeeDays: PropTypes.number,
     noticeDays: PropTypes.number,
@@ -91,7 +91,7 @@ PropertyFeverRow.propTypes = {
         tenantClaim: PropTypes.bool,
         emergency: PropTypes.bool,
         completed: PropTypes.bool,
-      })
+      }),
     ),
     approachingDays: PropTypes.number,
   }),

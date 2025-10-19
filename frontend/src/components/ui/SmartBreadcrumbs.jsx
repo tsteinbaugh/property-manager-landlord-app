@@ -34,7 +34,9 @@ export default function SmartBreadcrumbs() {
     const propertyId = parts[1] ?? idParam;
     const section = parts[2]; // e.g., "financials"
     const property = getPropertyById(propertyId);
-    const propLabel = property ? formatPropertyBreadcrumb(property) : `Property ${propertyId}`;
+    const propLabel = property
+      ? formatPropertyBreadcrumb(property)
+      : `Property ${propertyId}`;
 
     // Your app uses the singular details route:
     const detailPath = `/property/${propertyId}`;

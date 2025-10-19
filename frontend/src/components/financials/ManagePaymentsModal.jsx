@@ -9,8 +9,8 @@ export default function ManagePaymentsModal({
   payments = [],
   onClose,
   onAdd,
-  onUpdate,   // (pIndex, payment)
-  onDelete,   // (pIndex)
+  onUpdate, // (pIndex, payment)
+  onDelete, // (pIndex)
   expectedAmount, // <— NEW: optional prefill for the inner "Add Payment" modal
 }) {
   const containerRef = useRef(null);
@@ -107,7 +107,14 @@ export default function ManagePaymentsModal({
                   <div>{p.dateISO || ""}</div>
                   <div>{p.method || ""}</div>
                   <div style={{ color: "#374151" }}>{p.note || ""}</div>
-                  <div style={{ textAlign: "right", display: "flex", gap: 8, justifyContent: "flex-end" }}>
+                  <div
+                    style={{
+                      textAlign: "right",
+                      display: "flex",
+                      gap: 8,
+                      justifyContent: "flex-end",
+                    }}
+                  >
                     <button
                       type="button"
                       className={buttonStyles.secondaryButton}
@@ -118,7 +125,9 @@ export default function ManagePaymentsModal({
                     </button>
                     <button
                       type="button"
-                      className={buttonStyles.dangerButton || buttonStyles.secondaryButton}
+                      className={
+                        buttonStyles.dangerButton || buttonStyles.secondaryButton
+                      }
                       onClick={() => onDelete?.(idx)}
                       title="Delete this payment"
                     >
@@ -132,7 +141,15 @@ export default function ManagePaymentsModal({
         </div>
 
         {/* Footer actions */}
-        <div style={{ display: "flex", justifyContent: "space-between", gap: 8, marginTop: 12, flexWrap: "wrap" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            gap: 8,
+            marginTop: 12,
+            flexWrap: "wrap",
+          }}
+        >
           <div>
             <button
               type="button"
@@ -143,7 +160,11 @@ export default function ManagePaymentsModal({
             </button>
           </div>
           <div style={{ marginLeft: "auto", display: "flex", gap: 8 }}>
-            <button type="button" className={buttonStyles.secondaryButton} onClick={onClose}>
+            <button
+              type="button"
+              className={buttonStyles.secondaryButton}
+              onClick={onClose}
+            >
               Done
             </button>
           </div>

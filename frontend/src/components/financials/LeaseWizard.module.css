@@ -1,7 +1,44 @@
-.card { background:#fff; border:1px solid #e5e7eb; border-radius:16px; padding:16px; }
-.grid { display:grid; grid-template-columns: 180px 1fr; gap:10px 12px; align-items:center; }
-.inline { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
-.chk { display:inline-flex; gap:6px; align-items:center; }
-.btnPrimary { background:#111827; color:#fff; padding:10px 14px; border:none; border-radius:10px; cursor:pointer; }
-.btnGhost { background:#f3f4f6; color:#111827; padding:6px 10px; border:none; border-radius:8px; cursor:pointer; }
-.actions { margin-top:14px; display:flex; justify-content:flex-end; }
+.card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 16px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 10px 12px;
+  align-items: center;
+}
+.inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.chk {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+.btnPrimary {
+  background: #111827;
+  color: #fff;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.btnGhost {
+  background: #f3f4f6;
+  color: #111827;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.actions {
+  margin-top: 14px;
+  display: flex;
+  justify-content: flex-end;
+}

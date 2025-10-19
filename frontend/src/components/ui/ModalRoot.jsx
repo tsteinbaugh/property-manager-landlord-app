@@ -13,7 +13,7 @@ export default function ModalRoot({
   isOpen,
   onClose,
   children,
-  width,             // e.g. 820 for wide wizard
+  width, // e.g. 820 for wide wizard
   submitOnEnter = true,
 }) {
   const contentRef = useRef(null);
@@ -33,7 +33,8 @@ export default function ModalRoot({
         if (form) {
           // requestSubmit triggers the form’s onSubmit (supported widely)
           if (typeof form.requestSubmit === "function") form.requestSubmit();
-          else form.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
+          else
+            form.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
         }
       }
     }

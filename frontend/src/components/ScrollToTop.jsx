@@ -42,7 +42,10 @@ export default function ScrollToTop() {
       window.scrollTo(0, 0);
     });
 
-    return () => { cancelAnimationFrame(raf1); cancelAnimationFrame(raf2); };
+    return () => {
+      cancelAnimationFrame(raf1);
+      cancelAnimationFrame(raf2);
+    };
   }, [pathname, search, hash]);
 
   return null;

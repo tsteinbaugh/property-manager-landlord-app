@@ -7,7 +7,13 @@ import ModalRoot from "./ui/ModalRoot";
 // require dot in domain, min 2 chars TLD
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-export default function TenantModal({ isOpen, tenant, onClose, onSave, title = "Edit Tenant" }) {
+export default function TenantModal({
+  isOpen,
+  tenant,
+  onClose,
+  onSave,
+  title = "Edit Tenant",
+}) {
   const [formData, setFormData] = useState({
     name: "",
     age: "",
@@ -56,7 +62,10 @@ export default function TenantModal({ isOpen, tenant, onClose, onSave, title = "
   function onChoosePhotoId(e) {
     const file = e.target.files?.[0] || null;
     setPhotoIdFile(file);
-    if (!file) { setPhotoIdPreview(null); return; }
+    if (!file) {
+      setPhotoIdPreview(null);
+      return;
+    }
     const reader = new FileReader();
     reader.onload = () => setPhotoIdPreview(reader.result);
     reader.readAsDataURL(file);
@@ -71,21 +80,24 @@ export default function TenantModal({ isOpen, tenant, onClose, onSave, title = "
     const { name, value } = e.target;
     const v = String(value ?? "");
     if (name === "phone" || name === "email") {
-      setFormData(prev => ({ ...prev, contact: { ...(prev.contact || {}), [name]: v } }));
+      setFormData((prev) => ({
+        ...prev,
+        contact: { ...(prev.contact || {}), [name]: v },
+      }));
       if (name === "email") {
         const emailEl = getEmailInputEl();
         if (emailEl) emailEl.setCustomValidity("");
       }
     } else {
-      setFormData(prev => ({ ...prev, [name]: v }));
+      setFormData((prev) => ({ ...prev, [name]: v }));
     }
   }
 
   // --- validations for inline summary
   const emailStr = String(formData.contact?.email ?? "");
   const phoneStr = String(formData.contact?.phone ?? "");
-  const nameStr  = String(formData.name ?? "");
-  const emailOk  = EMAIL_REGEX.test(emailStr.trim());
+  const nameStr = String(formData.name ?? "");
+  const emailOk = EMAIL_REGEX.test(emailStr.trim());
   const basicsOk = nameStr.trim() !== "" && phoneStr.trim() !== "" && emailOk;
 
   const tenantHasExistingPhoto = Boolean(tenant?.photoIdDataUrl || tenant?.photoIdName);
@@ -132,7 +144,7 @@ export default function TenantModal({ isOpen, tenant, onClose, onSave, title = "
       <h2 className={styles.modalTitle}>{title}</h2>
       {/* Keep native validation enabled */}
       <form ref={formRef} onSubmit={handleSubmit} className={styles.form}>
-        <div className={styles.fieldWrap} >
+        <div className={styles.fieldWrap}>
           <FloatingField
             name="name"
             label="Name"
@@ -197,9 +209,23 @@ export default function TenantModal({ isOpen, tenant, onClose, onSave, title = "
           />
           {hasPhotoNow && (
             <div style={{ marginTop: 8 }}>
-              {String(photoIdPreview || formData.photoIdDataUrl).startsWith("data:image/")
-                ? <img src={photoIdPreview || formData.photoIdDataUrl} alt="Photo ID" style={{ maxWidth: 240, border: "1px solid #ddd" }} />
-                : <a href={photoIdPreview || formData.photoIdDataUrl} target="_blank" rel="noreferrer">View Photo ID</a>}
+              {String(photoIdPreview || formData.photoIdDataUrl).startsWith(
+                "data:image/",
+              ) ? (
+                <img
+                  src={photoIdPreview || formData.photoIdDataUrl}
+                  alt="Photo ID"
+                  style={{ maxWidth: 240, border: "1px solid #ddd" }}
+                />
+              ) : (
+                <a
+                  href={photoIdPreview || formData.photoIdDataUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  View Photo ID
+                </a>
+              )}
             </div>
           )}
         </div>
@@ -208,7 +234,11 @@ export default function TenantModal({ isOpen, tenant, onClose, onSave, title = "
           <button type="submit" className={buttonStyles.primaryButton}>
             Save
           </button>
-          <button type="button" onClick={onClose} className={buttonStyles.secondaryButton}>
+          <button
+            type="button"
+            onClick={onClose}
+            className={buttonStyles.secondaryButton}
+          >
             Cancel
           </button>
         </div>

@@ -10,7 +10,13 @@ export default function Breadcrumbs({ items = [] }) {
       <ol className={css.list}>
         {items.map((it, i) => (
           <li className={css.item} key={i}>
-            {it.to ? <Link to={it.to} className={css.link}>{it.label}</Link> : <span className={css.current}>{it.label}</span>}
+            {it.to ? (
+              <Link to={it.to} className={css.link}>
+                {it.label}
+              </Link>
+            ) : (
+              <span className={css.current}>{it.label}</span>
+            )}
             {i < items.length - 1 && <span className={css.sep}>/</span>}
           </li>
         ))}

@@ -1,5 +1,5 @@
-import { createContext, useContext, useMemo, useState } from 'react';
-import initialProperties from '../data/properties';
+import { createContext, useContext, useMemo, useState } from "react";
+import initialProperties from "../data/properties";
 
 const PropertyContext = createContext(null);
 
@@ -70,8 +70,8 @@ export function PropertyProvider({ children }) {
         financialSchedule: Array.isArray(property.financialSchedule)
           ? property.financialSchedule
           : Array.isArray(schedule)
-          ? schedule
-          : [],
+            ? schedule
+            : [],
       };
     }
 
@@ -79,7 +79,9 @@ export function PropertyProvider({ children }) {
   };
 
   const editProperty = (updatedProperty) => {
-    setProperties((prev) => prev.map((p) => (p.id === updatedProperty.id ? updatedProperty : p)));
+    setProperties((prev) =>
+      prev.map((p) => (p.id === updatedProperty.id ? updatedProperty : p)),
+    );
   };
 
   const deleteProperty = (id) => {
@@ -94,7 +96,7 @@ export function PropertyProvider({ children }) {
 
   const value = useMemo(
     () => ({ properties, addProperty, editProperty, deleteProperty, getPropertyById }),
-    [properties]
+    [properties],
   );
 
   return <PropertyContext.Provider value={value}>{children}</PropertyContext.Provider>;
@@ -102,6 +104,6 @@ export function PropertyProvider({ children }) {
 
 export function useProperties() {
   const ctx = useContext(PropertyContext);
-  if (!ctx) throw new Error('useProperties must be used within a PropertyProvider');
+  if (!ctx) throw new Error("useProperties must be used within a PropertyProvider");
   return ctx;
 }

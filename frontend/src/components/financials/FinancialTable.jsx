@@ -54,14 +54,11 @@ function downloadBlob(filename, content, type = "text/plain") {
 function latestISO(dates = []) {
   const filtered = dates.filter(Boolean);
   if (!filtered.length) return null;
-  return filtered.sort((a, b) => (a || "").localeCompare(b || ""))[
-    filtered.length - 1
-  ];
+  return filtered.sort((a, b) => (a || "").localeCompare(b || ""))[filtered.length - 1];
 }
 
 function addDays(dateOrISO, n) {
-  const d =
-    typeof dateOrISO === "string" ? new Date(dateOrISO) : new Date(dateOrISO);
+  const d = typeof dateOrISO === "string" ? new Date(dateOrISO) : new Date(dateOrISO);
   const out = new Date(d.getFullYear(), d.getMonth(), d.getDate());
   out.setDate(out.getDate() + Number(n || 0));
   return out.toISOString().slice(0, 10);
@@ -118,13 +115,7 @@ function niceTicks(maxY) {
 function TrendMiniChart({ rowsStatuses, monthLabels }) {
   const n = rowsStatuses.length;
 
-  const seriesKeys = [
-    "onTime",
-    "withinGrace",
-    "late",
-    "noticeGiven",
-    "beyondNotice",
-  ];
+  const seriesKeys = ["onTime", "withinGrace", "late", "noticeGiven", "beyondNotice"];
   const seriesColors = {
     onTime: "green",
     withinGrace: "gold",
@@ -152,10 +143,7 @@ function TrendMiniChart({ rowsStatuses, monthLabels }) {
     });
   }
 
-  const maxY = Math.max(
-    1,
-    ...seriesKeys.map((k) => (n ? series[k][n - 1] : 0))
-  );
+  const maxY = Math.max(1, ...seriesKeys.map((k) => (n ? series[k][n - 1] : 0)));
   const yTicks = niceTicks(maxY);
 
   // Responsive width
@@ -232,12 +220,12 @@ function TrendMiniChart({ rowsStatuses, monthLabels }) {
             {k === "onTime"
               ? "On time"
               : k === "withinGrace"
-              ? "Within grace"
-              : k === "late"
-              ? "Late"
-              : k === "noticeGiven"
-              ? "Notice given"
-              : "Beyond notice"}
+                ? "Within grace"
+                : k === "late"
+                  ? "Late"
+                  : k === "noticeGiven"
+                    ? "Notice given"
+                    : "Beyond notice"}
           </span>
         </div>
       ))}
@@ -394,12 +382,7 @@ export default function FinancialTable({ schedule, config, onChange }) {
   }, [derived, modalIdx, manageIdx, showChargeIdx, showNoticeIdx, showSettlement]);
 
   // ---- KPIs + trend buckets (only up through TODAY for trends/chart) ----
-  const {
-    kpis,
-    trendBucketsToday,
-    rowsStatusesToday,
-    monthLabelsToday,
-  } = useMemo(() => {
+  const { kpis, trendBucketsToday, rowsStatusesToday, monthLabelsToday } = useMemo(() => {
     let expected = 0,
       received = 0,
       balance = 0;
@@ -500,10 +483,7 @@ export default function FinancialTable({ schedule, config, onChange }) {
         pet +
         (Number(row.expectedOther) || 0) +
         (Array.isArray(row.adjustments)
-          ? row.adjustments.reduce(
-              (s, a) => s + (Number(a.amount) || 0),
-              0
-            )
+          ? row.adjustments.reduce((s, a) => s + (Number(a.amount) || 0), 0)
           : Number(row.expectedAdjustments) || 0) +
         (row.lateFeeWaived ? 0 : Number(row.lateFee) || 0)
       ).toFixed(2);
@@ -514,33 +494,29 @@ export default function FinancialTable({ schedule, config, onChange }) {
 
       const breakdown = `Rent ${Number(row.expectedBase).toFixed(2)}${
         pet ? ` + Pet ${pet.toFixed(2)}` : ""
-      }${
-        row.expectedOther ? ` + Other ${Number(row.expectedOther).toFixed(2)}` : ""
-      }${
+      }${row.expectedOther ? ` + Other ${Number(row.expectedOther).toFixed(2)}` : ""}${
         Array.isArray(row.adjustments) && row.adjustments.length
           ? ` + ${adjLabel} ${row.adjustments
               .reduce((s, a) => s + (Number(a.amount) || 0), 0)
               .toFixed(2)}`
           : row.expectedAdjustments
-          ? ` + ${adjLabel} ${Number(row.expectedAdjustments).toFixed(2)}`
-          : ""
+            ? ` + ${adjLabel} ${Number(row.expectedAdjustments).toFixed(2)}`
+            : ""
       }${
         row.lateFeeWaived
           ? hypotheticalLateCSV
             ? ` + Late ${hypotheticalLateCSV.toFixed(2)} (waived)`
             : ""
           : row.lateFee
-          ? ` + Late ${Number(row.lateFee).toFixed(2)}`
-          : ""
+            ? ` + Late ${Number(row.lateFee).toFixed(2)}`
+            : ""
       }`;
 
       const notice = row.notice || {};
       const noticeMethods = (notice.methods || [])
         .map(
           (m) =>
-            `${m.type || ""}@${m.dateISO || ""}${
-              m.proofName ? ` (${m.proofName})` : ""
-            }`
+            `${m.type || ""}@${m.dateISO || ""}${m.proofName ? ` (${m.proofName})` : ""}`,
         )
         .join(" | ");
 
@@ -595,7 +571,7 @@ export default function FinancialTable({ schedule, config, onChange }) {
               { ...payment, amount: Number(payment.amount) },
             ],
           }
-        : r
+        : r,
     );
     next.forEach((row) => finalizeMonthIfPaid(row, config));
     onChange(normalizeRows(next));
@@ -635,8 +611,7 @@ export default function FinancialTable({ schedule, config, onChange }) {
     const next = schedule.map((r, i) => {
       if (i !== idx) return r;
       const reasons = r.adjustmentReasons ? [...r.adjustmentReasons] : [];
-      if (payload.reason && payload.reason.trim())
-        reasons.push(payload.reason.trim());
+      if (payload.reason && payload.reason.trim()) reasons.push(payload.reason.trim());
 
       const adjustments = Array.isArray(r.adjustments) ? [...r.adjustments] : [];
       adjustments.push({ amount: amt, reason: payload.reason || "" });
@@ -644,9 +619,7 @@ export default function FinancialTable({ schedule, config, onChange }) {
       return {
         ...r,
         adjustments,
-        expectedAdjustments: +(
-          Number(r.expectedAdjustments || 0) + amt
-        ).toFixed(2),
+        expectedAdjustments: +(Number(r.expectedAdjustments || 0) + amt).toFixed(2),
         adjustmentReasons: reasons,
       };
     });
@@ -656,9 +629,7 @@ export default function FinancialTable({ schedule, config, onChange }) {
 
   function toggleLateFee(idx, waived) {
     const next = schedule.map((r, i) =>
-      i === idx
-        ? { ...r, lateFeeWaived: waived, lateFee: waived ? 0 : r.lateFee }
-        : r
+      i === idx ? { ...r, lateFeeWaived: waived, lateFee: waived ? 0 : r.lateFee } : r,
     );
     next.forEach((row) => finalizeMonthIfPaid(row, config));
     onChange(normalizeRows(next));
@@ -687,11 +658,10 @@ export default function FinancialTable({ schedule, config, onChange }) {
 
   // ---- Deposits (Security + Pet). Support legacy and new shapes ----
   const secExpected = Number(
-    (config?.deposit?.expected ?? config?.securityDeposit ?? 0) || 0
+    (config?.deposit?.expected ?? config?.securityDeposit ?? 0) || 0,
   );
   const secReceived = Number(
-    (config?.deposit?.received ?? config?.securityDepositPayment?.amount ?? 0) ||
-      0
+    (config?.deposit?.received ?? config?.securityDepositPayment?.amount ?? 0) || 0,
   );
   const secDate =
     config?.deposit?.dateISO ?? config?.securityDepositPayment?.dateISO ?? "";
@@ -726,7 +696,7 @@ export default function FinancialTable({ schedule, config, onChange }) {
 
   function saveDepositSettlement(settlement) {
     const next = schedule.map((r, i, arr) =>
-      i === arr.length - 1 ? { ...r, depositSettlement: settlement } : r
+      i === arr.length - 1 ? { ...r, depositSettlement: settlement } : r,
     );
     onChange(normalizeRows(next));
     setShowSettlement(false);
@@ -831,9 +801,7 @@ export default function FinancialTable({ schedule, config, onChange }) {
                 )}
               </>
             ) : (
-              <div style={{ color: "#6b7280" }}>
-                No deposit payments recorded yet.
-              </div>
+              <div style={{ color: "#6b7280" }}>No deposit payments recorded yet.</div>
             )}
 
             {/* Status chip (only if there are deposits or a prior settlement) */}
@@ -859,8 +827,8 @@ export default function FinancialTable({ schedule, config, onChange }) {
                   ? depositsReceived >= depositsExpected
                     ? "Paid in full"
                     : depositsReceived > 0
-                    ? "Partial"
-                    : "Not received"
+                      ? "Partial"
+                      : "Not received"
                   : "No deposits"}
               </span>
             )}
@@ -925,8 +893,7 @@ export default function FinancialTable({ schedule, config, onChange }) {
                   <span style={{ color: "#374151" }}>
                     {Number(existingSettlement.refundable || 0) > 0 ? (
                       <>
-                        Refunded $
-                        {Number(existingSettlement.refundable).toFixed(2)}
+                        Refunded ${Number(existingSettlement.refundable).toFixed(2)}
                         {existingSettlement.refundDateISO
                           ? ` on ${existingSettlement.refundDateISO}`
                           : ""}{" "}
@@ -939,9 +906,7 @@ export default function FinancialTable({ schedule, config, onChange }) {
                     ) : (
                       <>
                         Tenant owes $
-                        {Math.abs(
-                          Number(existingSettlement.refundable)
-                        ).toFixed(2)}{" "}
+                        {Math.abs(Number(existingSettlement.refundable)).toFixed(2)}{" "}
                         (beyond deposits)
                       </>
                     )}
@@ -982,7 +947,7 @@ export default function FinancialTable({ schedule, config, onChange }) {
         <div style={{ width: "100%" }}>
           <h3 style={{ marginBottom: 6 }}>Lease Payment Schedule</h3>
 
-        {/* Header actions */}
+          {/* Header actions */}
           <div
             style={{
               display: "flex",
@@ -1009,16 +974,10 @@ export default function FinancialTable({ schedule, config, onChange }) {
             </div>
 
             <div style={{ display: "flex", gap: 8, marginLeft: "auto" }}>
-              <button
-                className={buttonStyles.secondaryButton}
-                onClick={exportCSV}
-              >
+              <button className={buttonStyles.secondaryButton} onClick={exportCSV}>
                 Export CSV
               </button>
-              <button
-                className={buttonStyles.secondaryButton}
-                onClick={exportPDF}
-              >
+              <button className={buttonStyles.secondaryButton} onClick={exportPDF}>
                 Print
               </button>
             </div>
@@ -1048,10 +1007,7 @@ export default function FinancialTable({ schedule, config, onChange }) {
             pet +
             (Number(row.expectedOther) || 0) +
             (Array.isArray(row.adjustments)
-              ? row.adjustments.reduce(
-                  (s, a) => s + (Number(a.amount) || 0),
-                  0
-                )
+              ? row.adjustments.reduce((s, a) => s + (Number(a.amount) || 0), 0)
               : Number(row.expectedAdjustments) || 0) +
             (row.lateFeeWaived ? 0 : Number(row.lateFee) || 0);
 
@@ -1060,8 +1016,7 @@ export default function FinancialTable({ schedule, config, onChange }) {
             payments: row.payments,
             expectedTotal: expectedDisplay,
             graceDays: Number(config?.graceDays ?? config?.lateFeeDays ?? 0),
-            noticeGivenAtISO:
-              row?.notice?.startISO ?? config?.noticeGivenAtISO ?? null,
+            noticeGivenAtISO: row?.notice?.startISO ?? config?.noticeGivenAtISO ?? null,
             noticeDays: Number(row?.notice?.days ?? config?.noticeDays ?? 10),
           });
 
@@ -1091,9 +1046,7 @@ export default function FinancialTable({ schedule, config, onChange }) {
                       split={true}
                     />
                   ) : (
-                    <span
-                      style={{ display: "inline-block", width: 25, height: 25 }}
-                    />
+                    <span style={{ display: "inline-block", width: 25, height: 25 }} />
                   )}
 
                   {row.notice?.startISO && row.notice?.endISO && (
@@ -1122,17 +1075,15 @@ export default function FinancialTable({ schedule, config, onChange }) {
                         .reduce((s, a) => s + (Number(a.amount) || 0), 0)
                         .toFixed(2)}`
                     : row.expectedAdjustments
-                    ? ` + ${adjLabel} $${Number(row.expectedAdjustments).toFixed(
-                        2
-                      )}`
-                    : ""}
+                      ? ` + ${adjLabel} $${Number(row.expectedAdjustments).toFixed(2)}`
+                      : ""}
                   {row.lateFeeWaived
                     ? hypotheticalLate
                       ? ` + Late $${hypotheticalLate.toFixed(2)} (waived)`
                       : ""
                     : row.lateFee
-                    ? ` + Late $${Number(row.lateFee).toFixed(2)}`
-                    : ""}
+                      ? ` + Late $${Number(row.lateFee).toFixed(2)}`
+                      : ""}
                 </div>
                 {(() => {
                   const showWaive =

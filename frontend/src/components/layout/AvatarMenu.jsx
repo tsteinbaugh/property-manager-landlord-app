@@ -23,34 +23,51 @@ export default function AvatarMenu() {
 
   return (
     <div ref={ref} style={{ position: "relative" }}>
-      <button className={styles.avatarBtn} onClick={() => setOpen((v) => !v)} aria-haspopup="menu" aria-expanded={open}>
+      <button
+        className={styles.avatarBtn}
+        onClick={() => setOpen((v) => !v)}
+        aria-haspopup="menu"
+        aria-expanded={open}
+      >
         <span className={styles.avatarCircle}>
           {user?.avatarUrl ? (
             // eslint-disable-next-line jsx-a11y/alt-text
             <img src={user.avatarUrl} width="28" height="28" />
           ) : (
-            <span style={{
-              fontSize: 12,
-              display: "inline-flex",
-              width: "100%",
-              height: "100%",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "#111827"
-            }}>
+            <span
+              style={{
+                fontSize: 12,
+                display: "inline-flex",
+                width: "100%",
+                height: "100%",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#111827",
+              }}
+            >
               {initials}
             </span>
           )}
         </span>
-        <span style={{ fontSize: 14, color: "#374151" }}>{user?.name || user?.email || "Signed out"}</span>
+        <span style={{ fontSize: 14, color: "#374151" }}>
+          {user?.name || user?.email || "Signed out"}
+        </span>
       </button>
 
       {open && (
         <div className={styles.menu} role="menu">
-          <button className={styles.item} role="menuitem" onClick={() => alert("Profile clicked")}>
+          <button
+            className={styles.item}
+            role="menuitem"
+            onClick={() => alert("Profile clicked")}
+          >
             Profile
           </button>
-          <button className={styles.item} role="menuitem" onClick={() => alert("Settings clicked")}>
+          <button
+            className={styles.item}
+            role="menuitem"
+            onClick={() => alert("Settings clicked")}
+          >
             Settings
           </button>
           <hr style={{ border: 0, borderTop: "1px solid #eee", margin: "6px 0" }} />

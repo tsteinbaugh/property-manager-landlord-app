@@ -1,13 +1,13 @@
-import React, { createContext, useContext, useMemo, useState } from 'react';
+import React, { createContext, useContext, useMemo, useState } from "react";
 
 const UserContext = createContext(null);
 
 export function UserProvider({ children }) {
   const [role, setRole] = useState(null); // 'landlord' | 'manager' | null
   const [user, setUser] = useState({
-    name: 'Taylor Steinbaugh',
-    email: 'taylor@example.com',
-    avatarUrl: '', // set a URL if you have one
+    name: "Taylor Steinbaugh",
+    email: "taylor@example.com",
+    avatarUrl: "", // set a URL if you have one
   });
 
   const signOut = () => {
@@ -22,6 +22,6 @@ export function UserProvider({ children }) {
 
 export function useUser() {
   const ctx = useContext(UserContext);
-  if (!ctx) throw new Error('useUser must be used within a UserProvider');
+  if (!ctx) throw new Error("useUser must be used within a UserProvider");
   return ctx;
 }
