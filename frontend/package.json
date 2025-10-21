@@ -14,6 +14,7 @@
     "scan:deps": "depcheck --ignore-dirs=dist,build",
     "scan:unused": "unimported --flow",
     "scan:orphans": "madge src --extensions js,jsx --orphans",
+    "cleanup:safe": "bash scripts/safe-cleanup.sh",
     "scan:circular": "madge src --extensions js,jsx --circular",
     "scan:graph": "madge src --extensions js,jsx --image graph.png",
     "scan:all": "npm run scan:deps && npm run scan:unused && npm run scan:orphans && npm run scan:circular",
