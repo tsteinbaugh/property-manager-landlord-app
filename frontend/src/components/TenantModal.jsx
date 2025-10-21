@@ -24,7 +24,7 @@ export default function TenantModal({
   });
   const [photoIdFile, setPhotoIdFile] = useState(null);
   const [photoIdPreview, setPhotoIdPreview] = useState(null);
-  const [submitted, setSubmitted] = useState(false);
+  const [, setSubmitted] = useState(false);
 
   const formRef = useRef(null);
   const fileInputRef = useRef(null);
@@ -66,7 +66,7 @@ export default function TenantModal({
       setPhotoIdPreview(null);
       return;
     }
-    const reader = new FileReader();
+    const reader = new window.FileReader();
     reader.onload = () => setPhotoIdPreview(reader.result);
     reader.readAsDataURL(file);
   }
@@ -231,7 +231,11 @@ export default function TenantModal({
         </div>
 
         <div className={styles.modalButtons}>
-          <button type="submit" className={buttonStyles.primaryButton}>
+          <button
+            type="submit"
+            className={buttonStyles.primaryButton}
+            disabled={!basicsOk || (mustRequirePhoto && !hasPhotoNow)}
+          >
             Save
           </button>
           <button

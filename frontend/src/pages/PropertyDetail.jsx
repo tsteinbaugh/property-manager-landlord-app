@@ -17,7 +17,7 @@ const formatCurrency = (n) => {
     : "(not set)";
 };
 
-export default function PropertyDetail({ role, setRole }) {
+export default function PropertyDetail({ role }) {
   const [editingProperty, setEditingProperty] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
@@ -59,8 +59,6 @@ export default function PropertyDetail({ role, setRole }) {
       return false;
     }
   }, [property]);
-
-  if (!property) return <p className={styles.page}>Property not found.</p>;
 
   const handleDeleteProperty = () => {
     if (confirm("Are you sure you want to delete this property?")) {
@@ -174,6 +172,7 @@ export default function PropertyDetail({ role, setRole }) {
     if (leaseRent != null && leaseRent !== "") return Number(leaseRent);
     return null;
   }, [property, getFinancialState]);
+  if (!property) return <p className={styles.page}>Property not found.</p>;
 
   return (
     <div className={styles.page}>

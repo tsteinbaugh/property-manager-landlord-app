@@ -33,7 +33,7 @@ export default function DepositSettlementModal({
 
   useLayoutEffect(() => {
     if (!open) return;
-    requestAnimationFrame(() => {
+    window.requestAnimationFrame(() => {
       const root = probeRef.current;
       const input = root?.querySelector("input, select, textarea");
       const ih = input?.offsetHeight || 40;

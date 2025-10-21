@@ -298,8 +298,6 @@ export function generateLeaseSchedule(cfg) {
     lastMonthPrepaid,
     firstMonthPayment,
     lastMonthPayment,
-    securityDeposit = 0,
-    depositPayment, // shown outside table
   } = cfg || {};
 
   if (!startDateISO) return [];

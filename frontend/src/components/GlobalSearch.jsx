@@ -20,7 +20,6 @@ import Fuse from "fuse.js";
 const normalizePhone = (s = "") => s.replace(/\D/g, "");
 
 function looksLikePhone(q = "") {
-  // loose: allow 7+ digits w/ optional punctuation
   const digits = normalizePhone(q);
   return digits.length >= 7;
 }
@@ -207,7 +206,7 @@ export default function GlobalSearch({
     return new Fuse(docs, {
       includeScore: true,
       shouldSort: true,
-      threshold: 0.33, // slightly stricter than before
+      threshold: 0.33,
       distance: 100,
       keys: [
         { name: "name", weight: 0.6 },
@@ -218,7 +217,7 @@ export default function GlobalSearch({
         { name: "city", weight: 0.4 },
         { name: "state", weight: 0.35 },
         { name: "zip", weight: 0.35 },
-        { name: "owner", weigh: 0.5 },
+        { name: "owner", weight: 0.5 }, // fixed typo here
         { name: "type", weight: 0.3 },
         { name: "breed", weight: 0.25 },
         { name: "relation", weight: 0.2 },
@@ -235,7 +234,6 @@ export default function GlobalSearch({
     const qDigits = normalizePhone(q);
     const searchTerm = looksLikePhone(q) ? qDigits : q;
 
-    // Limit results for snappy UX
     return fuse.search(searchTerm, { limit: 15 });
   }, [fuse, query]);
 
@@ -283,10 +281,9 @@ export default function GlobalSearch({
     }
   }
 
-  function Row({ r, index }) {
+  // Inline row renderer (no component -> no unused-vars)
+  const renderRow = (r, index, isActive) => {
     const d = r.item;
-    const isActive = index === activeIndex;
-
     const secondary = [];
     if (d.email) secondary.push(d.email);
     if (d.phone) secondary.push(d.phone);
@@ -309,6 +306,7 @@ export default function GlobalSearch({
 
     return (
       <button
+        key={d._rid}
         data-ridx={index}
         onMouseDown={(e) => e.preventDefault()}
         onClick={() => onOpenProperty(d.propertyId)}
@@ -345,7 +343,7 @@ export default function GlobalSearch({
         </div>
       </button>
     );
-  }
+  };
 
   const total = results.length;
 
@@ -444,9 +442,7 @@ export default function GlobalSearch({
               >
                 Matches ({matches.length})
               </div>
-              {matches.map((r, i) => (
-                <Row key={`${r.item._rid}`} r={r} index={i} />
-              ))}
+              {matches.map((r, i) => renderRow(r, i, i === activeIndex))}
             </div>
           )}
 
@@ -462,9 +458,9 @@ export default function GlobalSearch({
               >
                 Close results ({close.length})
               </div>
-              {close.map((r, i) => (
-                <Row key={`${r.item._rid}`} r={r} index={i + matches.length} />
-              ))}
+              {close.map((r, i) =>
+                renderRow(r, i + matches.length, i + matches.length === activeIndex),
+              )}
             </div>
           )}
         </div>

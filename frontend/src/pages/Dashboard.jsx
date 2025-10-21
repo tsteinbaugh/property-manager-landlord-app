@@ -8,7 +8,7 @@ import GlobalSearch from "../components/GlobalSearch";
 import buttonStyles from "../styles/Buttons.module.css";
 import AddPropertyFlow from "../components/AddPropertyFlow";
 
-export default function Dashboard({ role, setRole }) {
+export default function Dashboard({ role }) {
   const [showAddFlow, setShowAddFlow] = useState(false);
   const { properties, addProperty } = useProperties();
   const navigate = useNavigate();

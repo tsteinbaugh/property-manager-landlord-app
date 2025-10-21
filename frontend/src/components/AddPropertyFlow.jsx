@@ -160,19 +160,6 @@ export default function AddPropertyFlow({ onComplete, onCancel }) {
   const rentDisplay =
     baseRent + petRent > 0 ? `$${(baseRent + petRent).toFixed(2)}` : "missing";
 
-  // ---- list helpers (shared patterns)
-  const smallBtn = {
-    padding: "4px 8px",
-    fontSize: "0.85rem",
-    lineHeight: 1.1,
-  };
-  const removeBtn = {
-    ...smallBtn,
-    background: "#ef4444",
-    color: "#fff",
-    border: "none",
-  };
-
   return (
     <ModalRoot isOpen={true} onClose={onCancel}>
       {/* HEADER */}

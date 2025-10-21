@@ -25,55 +25,6 @@ const METHOD_OPTIONS = [
   { value: "email", label: "Email" },
 ];
 
-/** Floating-style select that visually matches FloatingField and always renders options. */
-function SelectFloatingField({ label, value, onChange, options }) {
-  const id = useId();
-  return (
-    <div style={{ position: "relative", width: "100%", minWidth: 0 }}>
-      <label
-        htmlFor={id}
-        style={{
-          position: "absolute",
-          top: "-0.55rem",
-          left: "0.5rem",
-          background: "white",
-          padding: "0 0.35rem",
-          fontSize: "0.75rem",
-          color: "#6b7280",
-          lineHeight: 1,
-          zIndex: 1,
-        }}
-      >
-        {label}
-      </label>
-      <select
-        id={id}
-        value={value}
-        onChange={onChange}
-        style={{
-          appearance: "none",
-          WebkitAppearance: "none",
-          width: "100%",
-          minWidth: 0,
-          boxSizing: "border-box",
-          border: "1px solid #e5e7eb",
-          borderRadius: 10,
-          padding: "0.65rem 2.25rem 0.65rem 0.75rem",
-          fontSize: "0.95rem",
-          background: `white url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><path d="M4 6l4 4 4-4" stroke="%23666" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>') no-repeat right 0.5rem center`,
-          backgroundSize: "16px 16px",
-        }}
-      >
-        {options.map((opt) => (
-          <option key={opt.value} value={opt.value}>
-            {opt.label}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-}
-
 export default function NoticeModal({
   open,
   onClose,

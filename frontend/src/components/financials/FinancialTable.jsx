@@ -112,7 +112,7 @@ function niceTicks(maxY) {
 }
 
 /** Mini running-total chart (no deps) */
-function TrendMiniChart({ rowsStatuses, monthLabels }) {
+export function TrendMiniChart({ rowsStatuses, monthLabels }) {
   const n = rowsStatuses.length;
 
   const seriesKeys = ["onTime", "withinGrace", "late", "noticeGiven", "beyondNotice"];
@@ -326,17 +326,6 @@ function TrendMiniChart({ rowsStatuses, monthLabels }) {
       {legend}
     </div>
   );
-}
-
-function withinClosingWindow(schedule, monthsWindow = 2) {
-  if (!Array.isArray(schedule) || schedule.length === 0) return false;
-  const last = schedule[schedule.length - 1];
-  if (!last?.dueDateISO) return false;
-  const lastDate = new Date(last.dueDateISO + "T00:00:00");
-  const today = new Date();
-  const start = new Date(lastDate);
-  start.setMonth(start.getMonth() - Math.max(0, monthsWindow));
-  return today >= start; // true in last N months or after last month
 }
 
 export default function FinancialTable({ schedule, config, onChange }) {

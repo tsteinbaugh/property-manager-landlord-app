@@ -7,7 +7,9 @@ function resetNodeScroll(node) {
     if (typeof node.scrollTo === "function") node.scrollTo(0, 0);
     node.scrollTop = 0; // fallback
     node.scrollLeft = 0;
-  } catch (_) {}
+  } catch {
+    // ignore
+  }
 }
 
 export default function ScrollToTop() {
@@ -31,20 +33,20 @@ export default function ScrollToTop() {
     window.scrollTo(0, 0);
 
     // pass 2: next frame (handles late layout/focus-induced jumps)
-    const raf1 = requestAnimationFrame(() => {
+    const raf1 = window.requestAnimationFrame(() => {
       candidates.forEach(resetNodeScroll);
       window.scrollTo(0, 0);
     });
 
     // pass 3: one more frame for stubborn UIs
-    const raf2 = requestAnimationFrame(() => {
+    const raf2 = window.requestAnimationFrame(() => {
       candidates.forEach(resetNodeScroll);
       window.scrollTo(0, 0);
     });
 
     return () => {
-      cancelAnimationFrame(raf1);
-      cancelAnimationFrame(raf2);
+      window.cancelAnimationFrame(raf1);
+      window.cancelAnimationFrame(raf2);
     };
   }, [pathname, search, hash]);
 

@@ -35,11 +35,11 @@ export default function LeaseSection({ value, onChange, onExtracted }) {
       }
       const out = extractLeaseFields(text);
       onExtracted?.(out); // {fields, matches}
-    } catch (err) {
+    } catch (e) {
+      console.error(e);
       setError(
         "Failed to process file. Try a different PDF/DOCX or enter fields manually.",
       );
-      onExtracted?.(null);
     } finally {
       setExtracting(false);
     }
