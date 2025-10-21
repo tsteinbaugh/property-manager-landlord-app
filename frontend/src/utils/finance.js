@@ -1,4 +1,3 @@
-import { toISODate } from "./date";
 import { resolveFeverStatus } from "./feverStatus";
 
 /* ===================== DATE HELPERS ===================== */
@@ -298,8 +297,6 @@ export function generateLeaseSchedule(cfg) {
     lastMonthPrepaid,
     firstMonthPayment,
     lastMonthPayment,
-    securityDeposit = 0,
-    depositPayment, // shown outside table
   } = cfg || {};
 
   if (!startDateISO) return [];

@@ -1,11 +1,9 @@
-import styles from "../styles/SharedModal.module.css";
-import buttonStyles from "../styles/Buttons.module.css";
 import { useState, useEffect } from "react";
-import FloatingField from "./ui/FloatingField";
+
+import buttonStyles from "../styles/Buttons.module.css";
+import styles from "../styles/SharedModal.module.css";
 
 export default function FinancialModal({ isOpen, financial, onClose, onSave }) {
-  if (!isOpen) return null;
-
   const [formData, setFormData] = useState({
     rent: "",
     securityDeposit: "",
@@ -40,6 +38,8 @@ export default function FinancialModal({ isOpen, financial, onClose, onSave }) {
     if (!isFormValid) return;
     onSave(formData);
   };
+
+  if (!isOpen) return null;
 
   return (
     <div className={styles.modalOverlay} onClick={onClose}>

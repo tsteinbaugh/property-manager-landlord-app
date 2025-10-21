@@ -1,8 +1,8 @@
 // property-manager-landlord-app/frontend/src/components/PropertyForm.jsx
 import { useState } from "react";
-import styles from "../styles/SharedModal.module.css";
+
 import buttonStyles from "../styles/Buttons.module.css";
-import FloatingField from "./ui/FloatingField";
+import styles from "../styles/SharedModal.module.css";
 
 /**
  * Props:

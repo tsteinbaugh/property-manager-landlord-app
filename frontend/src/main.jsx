@@ -1,16 +1,20 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
-import { UserProvider } from "./context/UserContext";
-import { PropertyProvider } from "./context/PropertyContext";
+/* eslint-disable unused-imports/no-unused-imports */
+
+import React, { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+
+import App from "./App.jsx";
+import { PropertyProvider } from "./context/PropertyContext.jsx";
+import { UserProvider } from "./context/UserContext.jsx";
+
 import "./global.css";
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+createRoot(document.getElementById("root")).render(
+  <StrictMode>
     <UserProvider>
       <PropertyProvider>
         <App />
       </PropertyProvider>
     </UserProvider>
-  </React.StrictMode>,
+  </StrictMode>,
 );

@@ -1,4 +1,5 @@
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useMemo, useState, useCallback } from "react";
+
 import initialProperties from "../data/properties";
 
 const PropertyContext = createContext(null);
@@ -12,7 +13,7 @@ const toNumOrNull = (v) => {
 export function PropertyProvider({ children }) {
   const [properties, setProperties] = useState(initialProperties);
 
-  const addProperty = (payload) => {
+  const addProperty = useCallback((payload) => {
     let newProperty;
 
     if (payload && !payload.property) {
@@ -76,32 +77,34 @@ export function PropertyProvider({ children }) {
     }
 
     setProperties((prev) => [...prev, newProperty]);
-  };
+  }, []);
 
-  const editProperty = (updatedProperty) => {
+  const editProperty = useCallback((updatedProperty) => {
     setProperties((prev) =>
       prev.map((p) => (p.id === updatedProperty.id ? updatedProperty : p)),
     );
-  };
+  }, []);
 
-  const deleteProperty = (id) => {
+  const deleteProperty = useCallback((id) => {
     setProperties((prev) => prev.filter((p) => p.id !== id));
-  };
+  }, []);
 
   // NEW: used by SmartBreadcrumbs / pages
-  const getPropertyById = (id) => {
-    if (id == null) return undefined;
-    return properties.find((p) => String(p.id) === String(id));
-  };
+  const getPropertyById = useCallback(
+    (id) =>
+      id == null ? undefined : properties.find((p) => String(p.id) === String(id)),
+    [properties],
+  );
 
   const value = useMemo(
     () => ({ properties, addProperty, editProperty, deleteProperty, getPropertyById }),
-    [properties],
+    [properties, addProperty, editProperty, deleteProperty, getPropertyById],
   );
 
   return <PropertyContext.Provider value={value}>{children}</PropertyContext.Provider>;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useProperties() {
   const ctx = useContext(PropertyContext);
   if (!ctx) throw new Error("useProperties must be used within a PropertyProvider");

@@ -1,11 +1,9 @@
 // property-manager-landlord-app/frontend/src/components/financials/FinancialTable.jsx
-import React, { useMemo, useState, useEffect, useRef } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
+
 import styles from "./FinancialTable.module.css";
-import FeverLight from "../ui/FeverLight";
-import PaymentModal from "./PaymentModal";
-import ManagePaymentsModal from "./ManagePaymentsModal";
-import DepositSettlementModal from "./DepositSettlementModal";
 import buttonStyles from "../../styles/Buttons.module.css";
+import { resolveFeverStatus } from "../../utils/feverStatus";
 import {
   computeRowTotals,
   maybeApplyLateFee,
@@ -13,9 +11,6 @@ import {
   getPetRent,
   computeAssessedLateFeeAmount,
 } from "../../utils/finance";
-import { resolveFeverStatus } from "../../utils/feverStatus";
-import ChargeModal from "./ChargeModal";
-import NoticeModal from "./NoticeModal";
 
 // ---- local normalize (dedupe payments in any updated rows)
 function normalizeRows(rows = []) {
@@ -112,7 +107,7 @@ function niceTicks(maxY) {
 }
 
 /** Mini running-total chart (no deps) */
-function TrendMiniChart({ rowsStatuses, monthLabels }) {
+export function TrendMiniChart({ rowsStatuses, monthLabels }) {
   const n = rowsStatuses.length;
 
   const seriesKeys = ["onTime", "withinGrace", "late", "noticeGiven", "beyondNotice"];
@@ -326,17 +321,6 @@ function TrendMiniChart({ rowsStatuses, monthLabels }) {
       {legend}
     </div>
   );
-}
-
-function withinClosingWindow(schedule, monthsWindow = 2) {
-  if (!Array.isArray(schedule) || schedule.length === 0) return false;
-  const last = schedule[schedule.length - 1];
-  if (!last?.dueDateISO) return false;
-  const lastDate = new Date(last.dueDateISO + "T00:00:00");
-  const today = new Date();
-  const start = new Date(lastDate);
-  start.setMonth(start.getMonth() - Math.max(0, monthsWindow));
-  return today >= start; // true in last N months or after last month
 }
 
 export default function FinancialTable({ schedule, config, onChange }) {

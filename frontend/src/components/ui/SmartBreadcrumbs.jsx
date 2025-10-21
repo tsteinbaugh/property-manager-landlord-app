@@ -1,6 +1,6 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { useLocation, useParams } from "react-router-dom";
-import Breadcrumbs from "./Breadcrumbs";
+
 import { useProperties } from "../../context/PropertyContext";
 import { formatPropertyBreadcrumb } from "../../utils/formatAddress";
 

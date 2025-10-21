@@ -1,9 +1,7 @@
-import React, { useEffect, useMemo, useState } from "react";
-import FloatingField from "../ui/FloatingField";
+import { useEffect, useMemo, useState } from "react";
+
 import styles from "./FinancialForm.module.css";
 import buttonStyles from "../../styles/Buttons.module.css";
-import PaymentModal from "./PaymentModal";
-import ManagePaymentsModal from "./ManagePaymentsModal";
 
 const toNum = (v) => {
   const n = parseFloat(v);
@@ -141,9 +139,7 @@ export default function FinancialForm({
       : "50.00",
   );
 
-  const [otherRecurring, setOtherRecurring] = useState(
-    initialValues.otherRecurring || [],
-  );
+  const [otherRecurring] = useState(initialValues.otherRecurring || []);
 
   const [secDueSigning, setSecDueSigning] = useState(!!initialValues.secDueSigning);
   const [petDepDueSigning, setPetDepDueSigning] = useState(
@@ -160,14 +156,10 @@ export default function FinancialForm({
   const modalOpen = !!(openQuickAdd || openManageKey);
 
   /* derived numbers */
-  const months = useMemo(() => toNum(monthsStr), [monthsStr]);
-  const dueDay = useMemo(() => toNum(dueDayStr), [dueDayStr]);
   const monthlyRent = useMemo(() => toNum(monthlyRentStr), [monthlyRentStr]);
   const petRentAmount = useMemo(() => toNum(petRentAmountStr), [petRentAmountStr]);
   const securityDeposit = useMemo(() => toNum(securityDepositStr), [securityDepositStr]);
   const petDeposit = useMemo(() => toNum(petDepositStr), [petDepositStr]);
-  const graceDays = useMemo(() => toNum(graceDaysStr), [graceDaysStr]);
-  const lateFeeValue = useMemo(() => toNum(lateFeeValueStr), [lateFeeValueStr]);
 
   const firstMonthDue = useMemo(
     () => (monthlyRent || 0) + (petsEnabled ? petRentAmount || 0 : 0),
@@ -340,13 +332,6 @@ export default function FinancialForm({
     onLiveChange?.(cfg);
     onLiveValid?.(isValid);
   }, [cfg, isValid, onLiveChange, onLiveValid]);
-
-  function updateRecurring(idx, val) {
-    setOtherRecurring((prev) => prev.map((c, i) => (i === idx ? val : c)));
-  }
-  function removeRecurring(idx) {
-    setOtherRecurring((prev) => prev.filter((_, i) => i !== idx));
-  }
 
   function handleSubmit(e) {
     e?.preventDefault?.();

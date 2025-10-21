@@ -1,25 +1,12 @@
 // property-manager-landlord-app/frontend/src/pages/PropertyFinancials.jsx
-import React, { useEffect, useMemo, useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import FinancialForm from "../components/financials/FinancialForm";
-import FinancialTable from "../components/financials/FinancialTable";
-import { generateLeaseSchedule } from "../utils/finance";
-import buttonStyles from "../styles/Buttons.module.css";
+import { useEffect, useMemo, useState } from "react";
+import { useParams } from "react-router-dom";
+
 import { useProperties } from "../context/PropertyContext";
+import buttonStyles from "../styles/Buttons.module.css";
+import { generateLeaseSchedule } from "../utils/finance";
 
 // ---- helpers (single definitions)
-function samePayment(a, b) {
-  if (!a || !b) return false;
-  const amtA = Number(a.amount),
-    amtB = Number(b.amount);
-  const dateA = a.dateISO || "",
-    dateB = b.dateISO || "";
-  const methodA = (a.method || "").trim(),
-    methodB = (b.method || "").trim();
-  const noteA = (a.note || "").trim(),
-    noteB = (b.note || "").trim();
-  return amtA === amtB && dateA === dateB && methodA === methodB && noteA === noteB;
-}
 function dedupePayments(payments = []) {
   const seen = new Set();
   const out = [];
@@ -98,7 +85,13 @@ export default function PropertyFinancials({
         !initialConfig || !Array.isArray(initialSchedule) || initialSchedule.length === 0,
       );
     }
-  }, [storageKey, initialConfig, initialSchedule]);
+  }, [
+    storageKey,
+    initialConfig,
+    initialSchedule,
+    record.financialConfig,
+    record.financialSchedule,
+  ]);
 
   // Persist
   useEffect(() => {

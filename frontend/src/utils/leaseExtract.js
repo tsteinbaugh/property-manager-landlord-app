@@ -38,7 +38,7 @@ export function extractLeaseFields(rawText) {
   const currency = (s) => Number(String(s).replace(/[^0-9.]/g, ""));
 
   const dateMDY =
-    /(?:(?:on|starting|commencing|begin(?:s|ning)?|from)\s*)?(\b\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})\b/i;
+    /(?:(?:on|starting|commencing|begin(?:s|ning)?|from)\s*)?(\b\d{1,2})[/-](\d{1,2})[/-](\d{2,4})\b/i;
   const dateLong =
     /(?:(?:on|starting|commencing|begin(?:s|ning)?|from)\s*)?(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2}),\s*(\d{2,4})/i;
   const tryDate = (s) => {
@@ -51,7 +51,7 @@ export function extractLeaseFields(rawText) {
   };
 
   const mStart =
-    text.match(/lease\s*(?:start|commencement)\s*(?:date)?[:\-]?\s*(.*)$/im) ||
+    text.match(/lease\s*(?:start|commencement)\s*(?:date)?[:-]?\s*(.*)$/im) ||
     text.match(/commenc(?:e|ement)\s*on\s*(.*)$/i);
   const startISO = tryDate(mStart?.[1]) || tryDate(text);
   if (startISO) {
@@ -60,14 +60,14 @@ export function extractLeaseFields(rawText) {
   }
 
   let mDur = text.match(
-    /\b(?:term|duration)\s*(?:of\s*the\s*lease)?\s*[:\-]?\s*(\d{1,2})\s*month/i,
+    /\b(?:term|duration)\s*(?:of\s*the\s*lease)?\s*[:-]?\s*(\d{1,2})\s*month/i,
   );
   if (mDur) {
     fields.months = Number(mDur[1]);
     matches.months = { value: fields.months, conf: 0.8 };
   }
   const mEnd = text.match(
-    /\b(?:end(?:s|ing)?|termination|expires?)\s*(?:date)?[:\-]?\s*(.*)$/im,
+    /\b(?:end(?:s|ing)?|termination|expires?)\s*(?:date)?[:-]?\s*(.*)$/im,
   );
   const endISO = tryDate(mEnd?.[1]);
   if (!fields.months && startISO && endISO) {

@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import styles from "../styles/SharedModal.module.css";
+
 import buttonStyles from "../styles/Buttons.module.css";
-import FloatingField from "./ui/FloatingField";
-import ModalRoot from "./ui/ModalRoot";
+import styles from "../styles/SharedModal.module.css";
 
 // require dot in domain, min 2 chars TLD
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -24,7 +23,7 @@ export default function TenantModal({
   });
   const [photoIdFile, setPhotoIdFile] = useState(null);
   const [photoIdPreview, setPhotoIdPreview] = useState(null);
-  const [submitted, setSubmitted] = useState(false);
+  const [, setSubmitted] = useState(false);
 
   const formRef = useRef(null);
   const fileInputRef = useRef(null);
@@ -66,7 +65,7 @@ export default function TenantModal({
       setPhotoIdPreview(null);
       return;
     }
-    const reader = new FileReader();
+    const reader = new window.FileReader();
     reader.onload = () => setPhotoIdPreview(reader.result);
     reader.readAsDataURL(file);
   }
@@ -231,7 +230,11 @@ export default function TenantModal({
         </div>
 
         <div className={styles.modalButtons}>
-          <button type="submit" className={buttonStyles.primaryButton}>
+          <button
+            type="submit"
+            className={buttonStyles.primaryButton}
+            disabled={!basicsOk || (mustRequirePhoto && !hasPhotoNow)}
+          >
             Save
           </button>
           <button

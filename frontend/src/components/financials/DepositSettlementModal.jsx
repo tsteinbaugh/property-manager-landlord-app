@@ -1,5 +1,5 @@
-import React, { useMemo, useState, useEffect, useLayoutEffect, useRef } from "react";
-import FloatingField from "../ui/FloatingField";
+import { useMemo, useState, useEffect, useLayoutEffect, useRef } from "react";
+
 import styles from "./FinancialForm.module.css";
 import buttonStyles from "../../styles/Buttons.module.css";
 
@@ -33,7 +33,7 @@ export default function DepositSettlementModal({
 
   useLayoutEffect(() => {
     if (!open) return;
-    requestAnimationFrame(() => {
+    window.requestAnimationFrame(() => {
       const root = probeRef.current;
       const input = root?.querySelector("input, select, textarea");
       const ih = input?.offsetHeight || 40;

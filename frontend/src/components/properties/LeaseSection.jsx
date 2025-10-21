@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { readLeaseFileToText } from "../../utils/readLeaseFile";
+import { useState } from "react";
+
 import { extractLeaseFields } from "../../utils/leaseExtract";
+import { readLeaseFileToText } from "../../utils/readLeaseFile";
 
 export default function LeaseSection({ value, onChange, onExtracted }) {
   const [extracting, setExtracting] = useState(false);
@@ -35,11 +36,11 @@ export default function LeaseSection({ value, onChange, onExtracted }) {
       }
       const out = extractLeaseFields(text);
       onExtracted?.(out); // {fields, matches}
-    } catch (err) {
+    } catch (e) {
+      console.error(e);
       setError(
         "Failed to process file. Try a different PDF/DOCX or enter fields manually.",
       );
-      onExtracted?.(null);
     } finally {
       setExtracting(false);
     }

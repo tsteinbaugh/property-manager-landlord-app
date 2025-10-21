@@ -1,18 +1,9 @@
 // property-manager-landlord-app/frontend/src/components/AddPropertyFlow.jsx
 import { useState, useMemo } from "react";
+
 import styles from "./PropertyModal.module.css";
-import buttonStyles from "../styles/Buttons.module.css";
-
-import ModalRoot from "./ui/ModalRoot";
 import useModalKeys from "../hooks/useModalKeys";
-
-import PropertyModalWrapper from "./PropertyModalWrapper";
-import LeaseSection from "./properties/LeaseSection";
-import FinancialForm from "./financials/FinancialForm";
-import TenantModal from "./TenantModal";
-import OccupantModal from "./OccupantModal";
-import PetModal from "./PetModal";
-import EmergencyContactModal from "./EmergencyContactModal";
+import buttonStyles from "../styles/Buttons.module.css";
 import { generateLeaseSchedule } from "../utils/finance";
 
 const STEPS = {
@@ -159,19 +150,6 @@ export default function AddPropertyFlow({ onComplete, onCancel }) {
 
   const rentDisplay =
     baseRent + petRent > 0 ? `$${(baseRent + petRent).toFixed(2)}` : "missing";
-
-  // ---- list helpers (shared patterns)
-  const smallBtn = {
-    padding: "4px 8px",
-    fontSize: "0.85rem",
-    lineHeight: 1.1,
-  };
-  const removeBtn = {
-    ...smallBtn,
-    background: "#ef4444",
-    color: "#fff",
-    border: "none",
-  };
 
   return (
     <ModalRoot isOpen={true} onClose={onCancel}>
