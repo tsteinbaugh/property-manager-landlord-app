@@ -1,14 +1,9 @@
 import { useMemo, useState } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
-import { useProperties } from "../context/PropertyContext";
-import PropertyModal from "../components/PropertyModal";
+import { useParams, useNavigate } from "react-router-dom";
+
 import styles from "./PropertyDetail.module.css";
+import { useProperties } from "../context/PropertyContext";
 import buttonStyles from "../styles/Buttons.module.css";
-import layoutStyles from "../styles/EditDeleteButtonsLayout.module.css";
-import TenantModal from "../components/TenantModal";
-import OccupantModal from "../components/OccupantModal";
-import PetModal from "../components/PetModal";
-import EmergencyContactModal from "../components/EmergencyContactModal";
 
 const formatCurrency = (n) => {
   const num = Number(n);

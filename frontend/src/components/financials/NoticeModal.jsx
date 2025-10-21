@@ -1,8 +1,8 @@
 // property-manager-landlord-app/frontend/src/components/financials/NoticeModal.jsx
-import React, { useMemo, useState, useId } from "react";
+import { useMemo, useState } from "react";
+
 import modalStyles from "./PaymentModal.module.css"; // backdrop, modal, actions, field, subtle, grid2, sectionTitle, card
 import buttonStyles from "../../styles/Buttons.module.css";
-import FloatingField from "../ui/FloatingField";
 
 function atStart(d) {
   const x = new Date(d);

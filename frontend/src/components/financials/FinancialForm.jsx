@@ -1,9 +1,7 @@
-import React, { useEffect, useMemo, useState } from "react";
-import FloatingField from "../ui/FloatingField";
+import { useEffect, useMemo, useState } from "react";
+
 import styles from "./FinancialForm.module.css";
 import buttonStyles from "../../styles/Buttons.module.css";
-import PaymentModal from "./PaymentModal";
-import ManagePaymentsModal from "./ManagePaymentsModal";
 
 const toNum = (v) => {
   const n = parseFloat(v);
@@ -141,9 +139,7 @@ export default function FinancialForm({
       : "50.00",
   );
 
-  const [otherRecurring] = useState(
-    initialValues.otherRecurring || [],
-  );
+  const [otherRecurring] = useState(initialValues.otherRecurring || []);
 
   const [secDueSigning, setSecDueSigning] = useState(!!initialValues.secDueSigning);
   const [petDepDueSigning, setPetDepDueSigning] = useState(

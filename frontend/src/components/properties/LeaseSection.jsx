@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { readLeaseFileToText } from "../../utils/readLeaseFile";
+import { useState } from "react";
+
 import { extractLeaseFields } from "../../utils/leaseExtract";
+import { readLeaseFileToText } from "../../utils/readLeaseFile";
 
 export default function LeaseSection({ value, onChange, onExtracted }) {
   const [extracting, setExtracting] = useState(false);

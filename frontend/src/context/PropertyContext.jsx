@@ -1,4 +1,5 @@
 import { createContext, useContext, useMemo, useState, useCallback } from "react";
+
 import initialProperties from "../data/properties";
 
 const PropertyContext = createContext(null);
@@ -82,7 +83,7 @@ export function PropertyProvider({ children }) {
     setProperties((prev) =>
       prev.map((p) => (p.id === updatedProperty.id ? updatedProperty : p)),
     );
-  },[]);
+  }, []);
 
   const deleteProperty = useCallback((id) => {
     setProperties((prev) => prev.filter((p) => p.id !== id));

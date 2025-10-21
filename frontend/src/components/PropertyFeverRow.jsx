@@ -1,9 +1,9 @@
 // frontend/src/components/PropertyFeverRow.jsx
-import React, { useMemo } from "react";
 import PropTypes from "prop-types";
-import FeverLight from "./FeverLight";
-import { getFinancialFever, getMaintenanceFever } from "../utils/feverStatus";
+import { useMemo } from "react";
+
 import styles from "./PropertyFeverRow.module.css";
+import { getFinancialFever, getMaintenanceFever } from "../utils/feverStatus";
 
 /**
  * Shows the Financial + Maintenance fever lights for a property.

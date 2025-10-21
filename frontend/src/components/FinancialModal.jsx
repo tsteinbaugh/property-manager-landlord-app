@@ -1,7 +1,7 @@
-import styles from "../styles/SharedModal.module.css";
-import buttonStyles from "../styles/Buttons.module.css";
 import { useState, useEffect } from "react";
-import FloatingField from "./ui/FloatingField";
+
+import buttonStyles from "../styles/Buttons.module.css";
+import styles from "../styles/SharedModal.module.css";
 
 export default function FinancialModal({ isOpen, financial, onClose, onSave }) {
   const [formData, setFormData] = useState({

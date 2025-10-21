@@ -1,8 +1,8 @@
 // property-manager-landlord-app/frontend/src/components/PropertyModalWrapper.jsx
 import { useState, useMemo } from "react";
+
 import styles from "./PropertyModal.module.css";
 import buttonStyles from "../styles/Buttons.module.css";
-import PropertyForm from "./PropertyForm";
 
 export default function PropertyModalWrapper({
   initialData,

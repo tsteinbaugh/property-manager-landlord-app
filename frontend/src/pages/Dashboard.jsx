@@ -1,12 +1,10 @@
 // property-manager-landlord-app/frontend/src/pages/Dashboard.jsx
-import dashStyles from "./Dashboard.module.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import PropertyList from "./PropertyList";
+
+import dashStyles from "./Dashboard.module.css";
 import { useProperties } from "../context/PropertyContext";
-import GlobalSearch from "../components/GlobalSearch";
 import buttonStyles from "../styles/Buttons.module.css";
-import AddPropertyFlow from "../components/AddPropertyFlow";
 
 export default function Dashboard({ role }) {
   const [showAddFlow, setShowAddFlow] = useState(false);

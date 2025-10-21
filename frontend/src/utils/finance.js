@@ -1,4 +1,3 @@
-import { toISODate } from "./date";
 import { resolveFeverStatus } from "./feverStatus";
 
 /* ===================== DATE HELPERS ===================== */

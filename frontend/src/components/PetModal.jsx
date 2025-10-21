@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import styles from "../styles/SharedModal.module.css";
+
 import buttonStyles from "../styles/Buttons.module.css";
-import FloatingField from "./ui/FloatingField";
-import ModalRoot from "./ui/ModalRoot";
+import styles from "../styles/SharedModal.module.css";
 
 export default function PetModal({ isOpen, pet, onClose, onSave, title = "Edit Pet" }) {
   const [formData, setFormData] = useState({ name: "", type: "", size: "", license: "" });

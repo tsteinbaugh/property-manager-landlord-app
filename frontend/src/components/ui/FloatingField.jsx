@@ -1,5 +1,4 @@
 // property-manager-landlord-app/frontend/src/components/ui/FloatingField.jsx
-import React from "react";
 import css from "./FloatingField.module.css";
 
 /**

@@ -1,4 +1,5 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
+
 import styles from "./AvatarMenu.module.css";
 import { useUser } from "../../context/UserContext";
 
@@ -31,7 +32,6 @@ export default function AvatarMenu() {
       >
         <span className={styles.avatarCircle}>
           {user?.avatarUrl ? (
-            // eslint-disable-next-line jsx-a11y/alt-text
             <img src={user.avatarUrl} width="28" height="28" />
           ) : (
             <span

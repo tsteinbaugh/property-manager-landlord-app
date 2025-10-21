@@ -1,6 +1,4 @@
 // property-manager-landlord-app/frontend/src/components/properties/FinancialInfoSection.jsx
-import React from "react";
-import FinancialForm from "../financials/FinancialForm";
 
 export default function FinancialInfoSection({
   initialValues = {},

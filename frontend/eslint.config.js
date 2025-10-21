@@ -47,6 +47,7 @@ export default [
     },
 
     rules: {
+      // Format
       "prettier/prettier": "warn",
 
       // React
@@ -54,12 +55,12 @@ export default [
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",
 
-      // Hooks and fast-refresh
+      // Hooks + Fast Refresh
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
       "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
 
-      // Import hygiene
+      // Import order
       "import/order": [
         "warn",
         {
@@ -69,8 +70,9 @@ export default [
         },
       ],
 
-      // Cleanup
-      "unused-imports/no-unused-imports": "warn",
+      // ---- Unused imports/vars (plugin handles imports; core rule off) ----
+      "no-unused-vars": "off",
+      "unused-imports/no-unused-imports": "error", // enables auto-remove on --fix
       "unused-imports/no-unused-vars": [
         "warn",
         {
@@ -86,6 +88,7 @@ export default [
     settings: { react: { version: "detect" } },
   },
 
+  // Tooling / scripts
   {
     files: ["scripts/**/*.js", "eslint.config.js"],
     languageOptions: {
@@ -103,6 +106,8 @@ export default [
       "prettier/prettier": "warn",
       "no-empty": ["error", { allowEmptyCatch: true }],
       "import/order": "off",
+      "no-unused-vars": "off",
+      "unused-imports/no-unused-imports": "warn",
     },
   },
 ];
