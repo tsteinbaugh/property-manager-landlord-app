@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import FeverLight from "../components/ui/FeverLight";
+import FeverLight from "../features/ui/FeverLight";
 import { tooltipForColor } from "../utils/feverStatus";
 import { resolveDashboardFeverStatus } from "../utils/finance";
 import styles from "./PropertyList.module.css";

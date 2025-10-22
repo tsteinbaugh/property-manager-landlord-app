@@ -2,11 +2,11 @@
 import dashStyles from "./Dashboard.module.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import PropertyList from "./PropertyList";
-import { useProperties } from "../context/PropertyContext";
-import GlobalSearch from "../components/GlobalSearch";
-import buttonStyles from "../styles/Buttons.module.css";
-import AddPropertyFlow from "../components/AddPropertyFlow";
+import PropertyList from "../../../pages/PropertyList";
+import { useProperties } from "../../../context/PropertyContext";
+import GlobalSearch from "../../../components/GlobalSearch";
+import buttonStyles from "../../../styles/Buttons.module.css";
+import AddPropertyFlow from "../../../components/AddPropertyFlow";
 
 export default function Dashboard({ role, setRole }) {
   const [showAddFlow, setShowAddFlow] = useState(false);

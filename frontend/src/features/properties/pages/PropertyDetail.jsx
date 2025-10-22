@@ -1,14 +1,15 @@
 import { useMemo, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { useProperties } from "../context/PropertyContext";
-import PropertyModal from "../components/PropertyModal";
+
+import { useProperties } from "../../../context/PropertyContext";
+import PropertyModal from "../../../components/PropertyModal";
+import TenantModal from "../../../features/properties/modals/TenantModal.jsx";
+import OccupantModal from "../../../features/properties/modals/OccupantModal.jsx";
+import PetModal from "../../../features/properties/modals/PetModal.jsx";
+import EmergencyContactModal from "../../../features/properties/modals/EmergencyContactModal.jsx";
+
 import styles from "./PropertyDetail.module.css";
-import buttonStyles from "../styles/Buttons.module.css";
-import layoutStyles from "../styles/EditDeleteButtonsLayout.module.css";
-import TenantModal from "../components/TenantModal";
-import OccupantModal from "../components/OccupantModal";
-import PetModal from "../components/PetModal";
-import EmergencyContactModal from "../components/EmergencyContactModal";
+import buttonStyles from "../../../styles/Buttons.module.css";
 
 const formatCurrency = (n) => {
   const num = Number(n);
@@ -17,7 +18,7 @@ const formatCurrency = (n) => {
     : "(not set)";
 };
 
-export default function PropertyDetail({ role, setRole }) {
+export default function PropertyDetail({ role }) {
   const [editingProperty, setEditingProperty] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
@@ -60,54 +61,7 @@ export default function PropertyDetail({ role, setRole }) {
     }
   }, [property]);
 
-  if (!property) return <p className={styles.page}>Property not found.</p>;
-
-  const handleDeleteProperty = () => {
-    if (confirm("Are you sure you want to delete this property?")) {
-      deleteProperty(property.id);
-      navigate("/dashboard");
-    }
-  };
-
-  const handleDeleteTenant = (index) => {
-    if (confirm("Are you sure you want to delete this tenant?")) {
-      const updatedTenants = [...property.tenants];
-      updatedTenants.splice(index, 1);
-      editProperty({ ...property, tenants: updatedTenants });
-    }
-  };
-
-  const handleDeleteOccupant = (index) => {
-    if (confirm("Are you sure you want to delete this occupant?")) {
-      const updatedOccupants = [...property.occupants];
-      updatedOccupants.splice(index, 1);
-      editProperty({ ...property, occupants: updatedOccupants });
-    }
-  };
-
-  const handleDeletePet = (index) => {
-    if (confirm("Are you sure you want to delete this pet?")) {
-      const updatedPets = [...property.pets];
-      updatedPets.splice(index, 1);
-      editProperty({ ...property, pets: updatedPets });
-    }
-  };
-
-  const handleDeleteEmergencyContact = (index) => {
-    if (confirm("Are you sure you want to delete this emergency contact?")) {
-      const updatedEmergencyContacts = [...property.emergencyContacts];
-      updatedEmergencyContacts.splice(index, 1);
-      editProperty({ ...property, emergencyContacts: updatedEmergencyContacts });
-    }
-  };
-
-  const handleLeaseUpload = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const updatedProperty = { ...property, leaseFile: file.name };
-    editProperty(updatedProperty);
-  };
-
+  // These hooks MUST be declared before any early return
   const getFinancialState = useMemo(() => {
     if (!property) return () => ({ config: null, schedule: [] });
     return () => {
@@ -174,6 +128,55 @@ export default function PropertyDetail({ role, setRole }) {
     if (leaseRent != null && leaseRent !== "") return Number(leaseRent);
     return null;
   }, [property, getFinancialState]);
+
+  // Safe early return AFTER hooks
+  if (!property) return <p className={styles.page}>Property not found.</p>;
+
+  const handleDeleteProperty = () => {
+    if (confirm("Are you sure you want to delete this property?")) {
+      deleteProperty(property.id);
+      navigate("/dashboard");
+    }
+  };
+
+  const handleDeleteTenant = (index) => {
+    if (confirm("Are you sure you want to delete this tenant?")) {
+      const updatedTenants = [...property.tenants];
+      updatedTenants.splice(index, 1);
+      editProperty({ ...property, tenants: updatedTenants });
+    }
+  };
+
+  const handleDeleteOccupant = (index) => {
+    if (confirm("Are you sure you want to delete this occupant?")) {
+      const updatedOccupants = [...property.occupants];
+      updatedOccupants.splice(index, 1);
+      editProperty({ ...property, occupants: updatedOccupants });
+    }
+  };
+
+  const handleDeletePet = (index) => {
+    if (confirm("Are you sure you want to delete this pet?")) {
+      const updatedPets = [...property.pets];
+      updatedPets.splice(index, 1);
+      editProperty({ ...property, pets: updatedPets });
+    }
+  };
+
+  const handleDeleteEmergencyContact = (index) => {
+    if (confirm("Are you sure you want to delete this emergency contact?")) {
+      const updatedEmergencyContacts = [...property.emergencyContacts];
+      updatedEmergencyContacts.splice(index, 1);
+      editProperty({ ...property, emergencyContacts: updatedEmergencyContacts });
+    }
+  };
+
+  const handleLeaseUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const updatedProperty = { ...property, leaseFile: file.name };
+    editProperty(updatedProperty);
+  };
 
   return (
     <div className={styles.page}>

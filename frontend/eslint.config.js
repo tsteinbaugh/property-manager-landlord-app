@@ -9,11 +9,26 @@ import reactRefresh from "eslint-plugin-react-refresh";
 import prettier from "eslint-plugin-prettier";
 
 export default [
+  // Base JS rules
   js.configs.recommended,
 
+  // Global ignores (flat config way)
+  {
+    ignores: [
+      "dist/**",
+      "build/**",
+      "node_modules/**",
+
+      // temp during refactor:
+      "src/components/**",
+      "src/pages/PropertyList.jsx",
+      "src/PropertyCard.jsx",
+    ],
+  },
+
+  // App source files
   {
     files: ["**/*.{js,jsx}"],
-    ignores: ["dist", "build", "node_modules"],
 
     languageOptions: {
       ecmaVersion: "latest",
@@ -33,6 +48,9 @@ export default [
         setTimeout: "readonly",
         clearTimeout: "readonly",
         Event: "readonly",
+        requestAnimationFrame: "readonly",
+        cancelAnimationFrame: "readonly",
+        FileReader: "readonly",
       },
     },
 
@@ -48,6 +66,18 @@ export default [
 
     rules: {
       "prettier/prettier": "warn",
+
+      // Prefer the plugin for unuseds; turn off core
+      "no-unused-vars": "off",
+      "unused-imports/no-unused-imports": "warn",
+      "unused-imports/no-unused-vars": [
+        "warn",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^React$|^_",
+          ignoreRestSiblings: true,
+        },
+      ],
 
       // React
       "react/jsx-uses-react": "off",
@@ -69,23 +99,13 @@ export default [
         },
       ],
 
-      // Cleanup
-      "unused-imports/no-unused-imports": "warn",
-      "unused-imports/no-unused-vars": [
-        "warn",
-        {
-          argsIgnorePattern: "^_",
-          varsIgnorePattern: "^React$|^_",
-          ignoreRestSiblings: true,
-        },
-      ],
-
       "no-empty": ["error", { allowEmptyCatch: true }],
     },
 
     settings: { react: { version: "detect" } },
   },
 
+  // Scripts / config files
   {
     files: ["scripts/**/*.js", "eslint.config.js"],
     languageOptions: {

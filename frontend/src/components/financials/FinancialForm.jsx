@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import FloatingField from "../ui/FloatingField";
+import FloatingField from "../../features/ui/FloatingField";
 import styles from "./FinancialForm.module.css";
 import buttonStyles from "../../styles/Buttons.module.css";
 import PaymentModal from "./PaymentModal";

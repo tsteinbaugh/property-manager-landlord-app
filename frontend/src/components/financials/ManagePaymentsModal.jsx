@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import ModalRoot from "../ui/ModalRoot";
+import ModalRoot from "../../features/ui/ModalRoot";
 import buttonStyles from "../../styles/Buttons.module.css";
 import PaymentModal from "./PaymentModal";
 

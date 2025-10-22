@@ -2,17 +2,15 @@
 import { useState, useMemo } from "react";
 import styles from "./PropertyModal.module.css";
 import buttonStyles from "../styles/Buttons.module.css";
-
-import ModalRoot from "./ui/ModalRoot";
+import ModalRoot from "../features/ui/ModalRoot";
 import useModalKeys from "../hooks/useModalKeys";
-
 import PropertyModalWrapper from "./PropertyModalWrapper";
 import LeaseSection from "./properties/LeaseSection";
 import FinancialForm from "./financials/FinancialForm";
-import TenantModal from "./TenantModal";
-import OccupantModal from "./OccupantModal";
-import PetModal from "./PetModal";
-import EmergencyContactModal from "./EmergencyContactModal";
+import TenantModal from "../features/properties/modals/TenantModal";
+import OccupantModal from "../features/properties/modals/OccupantModal";
+import PetModal from "../features/properties/modals/PetModal";
+import EmergencyContactModal from "../features/properties/modals/EmergencyContactModal";
 import { generateLeaseSchedule } from "../utils/finance";
 
 const STEPS = {

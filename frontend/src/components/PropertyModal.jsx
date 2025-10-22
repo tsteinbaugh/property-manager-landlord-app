@@ -1,4 +1,4 @@
-import ModalRoot from "./ui/ModalRoot";
+import ModalRoot from "../features/ui/ModalRoot";
 import PropertyForm from "./PropertyForm";
 
 export default function PropertyModal({

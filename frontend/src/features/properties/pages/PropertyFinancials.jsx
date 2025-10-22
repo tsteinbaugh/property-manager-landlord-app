@@ -1,11 +1,11 @@
 // property-manager-landlord-app/frontend/src/pages/PropertyFinancials.jsx
 import React, { useEffect, useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import FinancialForm from "../components/financials/FinancialForm";
-import FinancialTable from "../components/financials/FinancialTable";
-import { generateLeaseSchedule } from "../utils/finance";
-import buttonStyles from "../styles/Buttons.module.css";
-import { useProperties } from "../context/PropertyContext";
+import FinancialForm from "../../../components/financials/FinancialForm";
+import FinancialTable from "../../../components/financials/FinancialTable";
+import { generateLeaseSchedule } from "../../../utils/finance";
+import buttonStyles from "../../../styles/Buttons.module.css";
+import { useProperties } from "../../../context/PropertyContext";
 
 // ---- helpers (single definitions)
 function samePayment(a, b) {

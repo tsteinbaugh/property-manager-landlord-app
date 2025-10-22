@@ -2,7 +2,7 @@
 import React, { useMemo, useState, useId } from "react";
 import modalStyles from "./PaymentModal.module.css"; // backdrop, modal, actions, field, subtle, grid2, sectionTitle, card
 import buttonStyles from "../../styles/Buttons.module.css";
-import FloatingField from "../ui/FloatingField";
+import FloatingField from "../../features/ui/FloatingField";
 
 function atStart(d) {
   const x = new Date(d);
