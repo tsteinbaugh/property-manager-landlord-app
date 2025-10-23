@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
-import FloatingField from "../../features/ui/FloatingField";
+import FloatingField from "../../ui/FloatingField";
 import styles from "./FinancialForm.module.css";
-import buttonStyles from "../../styles/Buttons.module.css";
+import buttonStyles from "../../../styles/Buttons.module.css";
 import PaymentModal from "./PaymentModal";
 import ManagePaymentsModal from "./ManagePaymentsModal";
 
@@ -28,6 +28,8 @@ export default function FinancialForm({
   onLiveChange,
   onLiveValid,
   showPrimaryAction = true,
+  primaryActionLabel = "Save",
+  onCancel,
   showErrors = false,
 }) {
   /* ---------- fields (strings for stable typing) ---------- */
@@ -935,9 +937,16 @@ export default function FinancialForm({
       </div>
 
       {showPrimaryAction && (
-        <div className={styles.actions}>
+        <div className={styles.actions} /* same pattern as other modals */>
+          <button
+            type="button"
+            onClick={onCancel}
+            className={buttonStyles.secondaryButton}
+          >
+            Cancel
+          </button>
           <button type="submit" className={buttonStyles.primaryButton}>
-            Save Financial Info
+            {primaryActionLabel}
           </button>
         </div>
       )}

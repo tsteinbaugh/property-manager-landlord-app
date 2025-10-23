@@ -7,7 +7,7 @@ import ScrollToTop from "../features/ui/ScrollToTop.jsx";
 import SignIn from "../features/auth/pages/SignIn.jsx";
 import Dashboard from "../features/properties/pages/Dashboard.jsx";
 import PropertyDetail from "../features/properties/pages/PropertyDetail.jsx";
-import PropertyFinancials from "../features/properties/pages/PropertyFinancials.jsx";
+import PropertyFinancials from "../features/financials/pages/PropertyFinancials.jsx";
 
 export default function AppRoutes() {
   const [role, setRole] = useState(null);

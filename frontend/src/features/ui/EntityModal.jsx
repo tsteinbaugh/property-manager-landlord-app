@@ -1,23 +1,28 @@
+// /home/tsteinbaugh/property-manager-landlord-app/frontend/src/features/ui/EntityModal.jsx
 import { useEffect, useState } from "react";
-
-import ModalRoot from "./ModalRoot.jsx";
 import FloatingField from "./FloatingField.jsx";
-
+import ModalRoot from "./ModalRoot.jsx";
 import buttons from "../../styles/Buttons.module.css";
 import modalStyles from "../../styles/SharedModal.module.css";
 
-// -- helpers -------------------------------------------------
+function deepClone(obj) {
+  // Safe JSON clone for plain data (forms). Falls back to empty object for null/undefined.
+  if (obj == null) return {};
+  try {
+    return JSON.parse(JSON.stringify(obj));
+  } catch {
+    // Extremely defensive; should never hit for our usage.
+    return { ...(obj || {}) };
+  }
+}
+
 function getAt(obj, path) {
-  if (!obj || !path) return undefined;
-  return path.split(".").reduce((acc, key) => {
-    if (acc == null || typeof acc !== "object") return undefined;
-    return acc[key];
-  }, obj);
+  return path.split(".").reduce((acc, key) => (acc ? acc[key] : undefined), obj);
 }
 
 function setAt(obj, path, value) {
   const keys = path.split(".");
-  const clone = structuredClone(obj ?? {});
+  const clone = deepClone(obj ?? {});
   let cur = clone;
   keys.forEach((k, i) => {
     if (i === keys.length - 1) {
@@ -30,20 +35,10 @@ function setAt(obj, path, value) {
   return clone;
 }
 
-function coerceValue(type, raw) {
-  if (type === "number") {
-    if (raw === "" || raw == null) return "";
-    const n = Number(raw);
-    return Number.isFinite(n) ? n : "";
-  }
-  return raw;
-}
-
 /**
  * EntityModal
  * @param {Object} props
  *  - isOpen, title, entity, onClose, onSave
- *  - onDelete? (optional) -> shows a left-aligned Delete action
  *  - schema: [{ key, label, type?, placeholder?, step?, options? }]
  *      type: "text" | "number" | "select" | "tel" | "email"
  *      options (for select): [{label, value}]
@@ -54,7 +49,6 @@ export default function EntityModal({
   entity,
   onClose,
   onSave,
-  onDelete, // <-- optional delete action
   schema = [],
 }) {
   const [draft, setDraft] = useState(entity ?? {});
@@ -74,12 +68,6 @@ export default function EntityModal({
 
   return (
     <ModalRoot isOpen={isOpen} onClose={onClose} title={title}>
-      {/* Explicit header ensures the title is always visible, even if ModalRoot title is styled minimally */}
-      <div className={modalStyles.modalHeader}>
-        <h3 className={modalStyles.title}>{title}</h3>
-      </div>
-
-      {/* Keep legacy containers so spacing is consistent */}
       <form onSubmit={handleSubmit} className={modalStyles.modalContent}>
         <div className={modalStyles.formBody}>
           <div className={modalStyles.formGrid}>
@@ -88,8 +76,11 @@ export default function EntityModal({
 
               if (type === "select") {
                 return (
-                  <label key={key} className={`${modalStyles.field} ${modalStyles.selectField}`}>
-                    <span className={modalStyles.fieldLabel}>{label}</span>
+                  <label
+                    key={key}
+                    className={`${modalStyles.field} ${modalStyles.selectField}`}
+                  >
+                    <span>{label}</span>
                     <select
                       className={modalStyles.select}
                       value={value}
@@ -114,7 +105,9 @@ export default function EntityModal({
                     placeholder={placeholder}
                     step={step}
                     value={value}
-                    onChange={(e) => update(key, coerceValue(type, e.target.value))}
+                    onChange={(e) =>
+                      update(key, type === "number" ? Number(e.target.value) : e.target.value)
+                    }
                   />
                 </div>
               );
@@ -124,22 +117,10 @@ export default function EntityModal({
 
         <div className={modalStyles.actions}>
           <div className={modalStyles.leftActions}>
-            {onDelete && (
-              <button
-                type="button"
-                onClick={onDelete}
-                className={buttons.outlineDeleteButton}
-              >
-                Delete
-              </button>
-            )}
+            {/* Consumers can conditionally render a Delete button before Save/Cancel if needed */}
           </div>
           <div className={modalStyles.rightActions}>
-            <button
-              type="button"
-              onClick={onClose}
-              className={buttons.secondaryButton}
-            >
+            <button type="button" onClick={onClose} className={buttons.secondaryButton}>
               Cancel
             </button>
             <button type="submit" className={buttons.primaryButton}>

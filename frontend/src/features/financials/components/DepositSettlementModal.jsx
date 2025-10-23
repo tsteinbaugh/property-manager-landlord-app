@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useEffect, useLayoutEffect, useRef } from "react";
-import FloatingField from "../../features/ui/FloatingField";
+import FloatingField from "../../ui/FloatingField";
 import styles from "./FinancialForm.module.css";
-import buttonStyles from "../../styles/Buttons.module.css";
+import buttonStyles from "../../../styles/Buttons.module.css";
 
 function toMoney(n) {
   const v = Number(n || 0);

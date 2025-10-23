@@ -6,12 +6,12 @@ import ModalRoot from "../features/ui/ModalRoot";
 import useModalKeys from "../hooks/useModalKeys";
 import PropertyModalWrapper from "./PropertyModalWrapper";
 import LeaseSection from "./properties/LeaseSection";
-import FinancialForm from "./financials/FinancialForm";
+import FinancialForm from "../features/financials/components/FinancialForm";
 import TenantModal from "../features/properties/modals/TenantModal";
 import OccupantModal from "../features/properties/modals/OccupantModal";
 import PetModal from "../features/properties/modals/PetModal";
 import EmergencyContactModal from "../features/properties/modals/EmergencyContactModal";
-import { generateLeaseSchedule } from "../utils/finance";
+import { generateLeaseSchedule } from "../features/financials/utils/finance";
 
 const STEPS = {
   DETAILS: 1,

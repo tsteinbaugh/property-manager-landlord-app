@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import ModalRoot from "../../features/ui/ModalRoot";
-import FloatingField from "../../features/ui/FloatingField";
-import buttonStyles from "../../styles/Buttons.module.css";
+import ModalRoot from "../../ui/ModalRoot";
+import FloatingField from "../../ui/FloatingField";
+import buttonStyles from "../../../styles/Buttons.module.css";
 
 /**
  * Add-only payment modal (shared by form + table).

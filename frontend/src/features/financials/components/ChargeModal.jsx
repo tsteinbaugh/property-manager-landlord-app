@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styles from "./PaymentModal.module.css"; // reuse modal look
-import buttonStyles from "../../styles/Buttons.module.css";
+import buttonStyles from "../../../styles/Buttons.module.css";
 
 export default function ChargeModal({ open, onClose, onAdd }) {
   const [amount, setAmount] = React.useState("");

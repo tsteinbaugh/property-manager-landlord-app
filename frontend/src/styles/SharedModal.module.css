@@ -250,3 +250,19 @@
   padding: 7px 36px 7px 12px;/* tighten padding slightly to keep same total height */
   line-height: 1.25;
 }
+
+.financialActions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+.financialActionsTop {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.financialActionsBottom {
+  display: flex;
+  justify-content: flex-start;
+}

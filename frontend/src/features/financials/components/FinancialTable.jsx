@@ -1,19 +1,19 @@
 // property-manager-landlord-app/frontend/src/components/financials/FinancialTable.jsx
 import React, { useMemo, useState, useEffect, useRef } from "react";
 import styles from "./FinancialTable.module.css";
-import FeverLight from "../../features/ui/FeverLight";
+import FeverLight from "../../ui/FeverLight";
 import PaymentModal from "./PaymentModal";
 import ManagePaymentsModal from "./ManagePaymentsModal";
 import DepositSettlementModal from "./DepositSettlementModal";
-import buttonStyles from "../../styles/Buttons.module.css";
+import buttonStyles from "../../../styles/Buttons.module.css";
 import {
   computeRowTotals,
   maybeApplyLateFee,
   finalizeMonthIfPaid,
   getPetRent,
   computeAssessedLateFeeAmount,
-} from "../../utils/finance";
-import { resolveFeverStatus } from "../../utils/feverStatus";
+} from "../utils/finance";
+import { resolveFeverStatus } from "../utils/feverStatus";
 import ChargeModal from "./ChargeModal";
 import NoticeModal from "./NoticeModal";
 

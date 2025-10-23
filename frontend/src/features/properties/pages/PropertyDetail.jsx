@@ -1,13 +1,20 @@
-import { useMemo, useState } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+// property-manager-landlord-app/frontend/src/features/properties/pages/PropertyDetail.jsx
 
+import { useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+
+// data/context
 import { useProperties } from "../../../context/PropertyContext";
+import { useFinancials } from "../../financials";
+
+// modals
 import PropertyModal from "../../../components/PropertyModal";
 import TenantModal from "../../../features/properties/modals/TenantModal.jsx";
 import OccupantModal from "../../../features/properties/modals/OccupantModal.jsx";
 import PetModal from "../../../features/properties/modals/PetModal.jsx";
 import EmergencyContactModal from "../../../features/properties/modals/EmergencyContactModal.jsx";
 
+// styles
 import styles from "./PropertyDetail.module.css";
 import buttonStyles from "../../../styles/Buttons.module.css";
 
@@ -19,117 +26,30 @@ const formatCurrency = (n) => {
 };
 
 export default function PropertyDetail({ role }) {
-  const [editingProperty, setEditingProperty] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
+
   const { properties, editProperty, deleteProperty } = useProperties();
   const property = properties.find((p) => p.id === Number(id));
+
+  // Read financials via the single source of truth
+  const { config, schedule, computedMonthlyRent } = useFinancials(id);
+  const hasFinancials = Boolean(config && Array.isArray(schedule) && schedule.length > 0);
+
+  // UI state
+  const [editingProperty, setEditingProperty] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
+
   const [editingTenantIndex, setEditingTenantIndex] = useState(null);
   const [editingOccupantIndex, setEditingOccupantIndex] = useState(null);
   const [editingPetIndex, setEditingPetIndex] = useState(null);
   const [editingEmergencyContactIndex, setEditingEmergencyContactIndex] = useState(null);
+
   const [showNewTenantModal, setShowNewTenantModal] = useState(false);
   const [showNewOccupantModal, setShowNewOccupantModal] = useState(false);
   const [showNewPetModal, setShowNewPetModal] = useState(false);
   const [showNewEmergencyContactModal, setShowNewEmergencyContactModal] = useState(false);
 
-  // Detect financials from either property or localStorage
-  const hasFinancials = useMemo(() => {
-    if (!property) return false;
-    const fromProp =
-      (!!property.financialConfig &&
-        Array.isArray(property.financialSchedule) &&
-        property.financialSchedule.length > 0) ||
-      (!!property.financials &&
-        (property.financials.monthlyRent != null ||
-          property.financials.baseRent != null ||
-          property.financials.rent != null));
-    if (fromProp) return true;
-
-    try {
-      const raw = localStorage.getItem(`financials:${property.id}`);
-      if (!raw) return false;
-      const parsed = JSON.parse(raw);
-      return !!(
-        parsed?.config &&
-        Array.isArray(parsed?.schedule) &&
-        parsed.schedule.length > 0
-      );
-    } catch {
-      return false;
-    }
-  }, [property]);
-
-  // These hooks MUST be declared before any early return
-  const getFinancialState = useMemo(() => {
-    if (!property) return () => ({ config: null, schedule: [] });
-    return () => {
-      const configFromProp = property.financialConfig || null;
-      const schedFromProp = Array.isArray(property.financialSchedule)
-        ? property.financialSchedule
-        : [];
-      if (configFromProp && schedFromProp.length > 0) {
-        return { config: configFromProp, schedule: schedFromProp };
-      }
-      try {
-        const raw = localStorage.getItem(`financials:${property.id}`);
-        if (!raw) return { config: null, schedule: [] };
-        const parsed = JSON.parse(raw);
-        const config = parsed?.config || null;
-        const schedule = Array.isArray(parsed?.schedule) ? parsed.schedule : [];
-        return { config, schedule };
-      } catch {
-        return { config: null, schedule: [] };
-      }
-    };
-  }, [property]);
-
-  const computedRent = useMemo(() => {
-    const p = property || {};
-    const f = p.financials || p.financial || {};
-    if (f.monthlyRent != null && f.monthlyRent !== "") return Number(f.monthlyRent);
-    if (f.baseRent != null && f.baseRent !== "") return Number(f.baseRent);
-    if (f.rent != null && f.rent !== "") return Number(f.rent);
-
-    const { config, schedule } = getFinancialState();
-    if (config) {
-      const fromConfig =
-        config.monthlyRent ??
-        config.baseRent ??
-        config.rent ??
-        config.expectedBase ??
-        null;
-      if (fromConfig != null && fromConfig !== "") return Number(fromConfig);
-    }
-
-    const row = (Array.isArray(schedule) ? schedule : []).find(
-      (r) =>
-        r &&
-        (r.expectedBase != null ||
-          r.expectedTotal != null ||
-          r.base != null ||
-          r.amount != null ||
-          r.rent != null),
-    );
-    if (row) {
-      if (row.expectedBase != null && row.expectedBase !== "")
-        return Number(row.expectedBase);
-      if (row.base != null && row.base !== "") return Number(row.base);
-      if (row.rent != null && row.rent !== "") return Number(row.rent);
-      const total = Number(row.expectedTotal ?? row.amount ?? 0);
-      const pet = Number(row.expectedPetRent ?? row.petRent ?? 0);
-      const base = total - pet;
-      if (Number.isFinite(base) && base > 0) return base;
-      if (Number.isFinite(total) && total > 0) return total;
-    }
-
-    const leaseRent = p.leaseExtract?.fields?.monthlyRent;
-    if (leaseRent != null && leaseRent !== "") return Number(leaseRent);
-    return null;
-  }, [property, getFinancialState]);
-
-  // Safe early return AFTER hooks
   if (!property) return <p className={styles.page}>Property not found.</p>;
 
   const handleDeleteProperty = () => {
@@ -726,7 +646,7 @@ export default function PropertyDetail({ role }) {
                 <div className={styles.detailGrid}>
                   <div>
                     <span className={styles.label}>Rent:</span>{" "}
-                    {formatCurrency(computedRent)}
+                    {formatCurrency(computedMonthlyRent)}
                   </div>
                 </div>
               ) : (
@@ -748,7 +668,7 @@ export default function PropertyDetail({ role }) {
                     type="file"
                     accept=".pdf,.doc,.docx"
                     style={{ display: "none" }}
-                    onChange={(e) => handleLeaseUpload(e)}
+                    onChange={handleLeaseUpload}
                   />
                 </label>
               </div>

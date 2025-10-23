@@ -5,6 +5,9 @@ import { resolveFeverStatus } from "./feverStatus";
 function daysInMonthUTC(year, monthIndex /* 0..11 */) {
   return new Date(Date.UTC(year, monthIndex + 1, 0)).getUTCDate();
 }
+function isoUTC(y, m, d) {
+  return new Date(Date.UTC(y, m, d)).toISOString().slice(0, 10);
+}
 function makeDueDateISO(startISO, monthOffset, dueDay /* 1..31 */) {
   const start = new Date(startISO + "T00:00:00Z");
   const y = start.getUTCFullYear();
@@ -19,6 +22,45 @@ function makeDueDateISO(startISO, monthOffset, dueDay /* 1..31 */) {
 
   const dt = new Date(Date.UTC(targetY, targetMonthIndex, day));
   return dt.toISOString().slice(0, 10);
+}
+
+/** First due date strictly AFTER (or not earlier than) the lease start context.
+ * If the due day in the start month is on/before the start date, move to next month. */
+function firstDueDateISO(startISO, dueDay) {
+  const s = new Date(startISO + "T00:00:00Z");
+  const y = s.getUTCFullYear();
+  const m = s.getUTCMonth();
+
+  const dim = daysInMonthUTC(y, m);
+  const day = Math.min(Math.max(1, Number(dueDay) || 1), dim);
+
+  const candidate = new Date(Date.UTC(y, m, day));
+  // If candidate is on/before start date, advance one month
+  if (candidate <= s) {
+    let ny = y;
+    let nm = m + 1;
+    if (nm >= 12) {
+      ny += 1;
+      nm -= 12;
+    }
+    const dim2 = daysInMonthUTC(ny, nm);
+    const day2 = Math.min(day, dim2);
+    return isoUTC(ny, nm, day2);
+  }
+  return candidate.toISOString().slice(0, 10);
+}
+
+/** Add N months to a base ISO date, clamping to a target dueDay (1..31). */
+function addMonthsClamped(iso, n, dueDay) {
+  const d = new Date(iso + "T00:00:00Z");
+  const y = d.getUTCFullYear();
+  const m = d.getUTCMonth();
+  const targetM = m + Number(n || 0);
+  const ty = y + Math.floor(targetM / 12);
+  const tm = ((targetM % 12) + 12) % 12;
+  const dim = daysInMonthUTC(ty, tm);
+  const day = Math.min(Math.max(1, Number(dueDay) || 1), dim);
+  return isoUTC(ty, tm, day);
 }
 
 /* ===================== NUMBER HELPERS ===================== */
@@ -65,71 +107,11 @@ function deepFindPetCandidates(obj, path = "", out = [], depth = 0) {
   return out;
 }
 
-export function getPetRent(config) {
-  if (!config) return 0;
-
-  // 1) Known direct keys (strict priority)
-  const directKeys = [
-    "petRent",
-    "petRentMonthly",
-    "petRentPerMonth",
-    "petMonthly",
-    "monthlyPetRent",
-    "petFee",
-    "petCharge",
-    "pet_amount",
-    "pets.monthlyFee",
-    "pets[0].monthlyFee",
-    "pets[0].rent",
-  ];
-  for (const key of directKeys) {
-    const parts = key.replace(/\[(\d+)\]/g, ".$1").split(".");
-    let cur = config;
-    for (const p of parts) cur = cur?.[p];
-    if (isNumericLike(cur)) return +toNumber(cur);
-  }
-
-  // 2) otherRecurring item named "pet"
-  if (Array.isArray(config?.otherRecurring)) {
-    const item = config.otherRecurring.find((x) =>
-      String(x?.label || x?.name || "")
-        .toLowerCase()
-        .includes("pet"),
-    );
-    if (item && isNumericLike(item.amount)) return +toNumber(item.amount);
-  }
-
-  // 3) Deep scan anywhere; score results
-  const candidates = deepFindPetCandidates(config);
-
-  function score(c) {
-    const k = c.keyLower;
-    let s = 0;
-    if (/rent/.test(k)) s += 5;
-    if (/month|monthly|per[-\s]?month/.test(k)) s += 4;
-    if (/fee/.test(k)) s += 2;
-    if (/charge/.test(k)) s += 1;
-
-    // penalties
-    if (
-      /deposit|one[-\s]?time|setup|count|num|number|qty|quantity|has|flag|enabled|active/.test(
-        k,
-      )
-    )
-      s -= 100;
-    if (c.value === true || c.value === false) s -= 100;
-    if (c.value <= 2) s -= 3; // avoid boolean/count slip-through
-    return s;
-  }
-
-  let best = null;
-  for (const c of candidates) {
-    if (typeof c.value === "boolean") continue;
-    const sc = score(c);
-    if (best === null || sc > best.sc) best = { ...c, sc };
-  }
-
-  return best && best.sc > 0 ? +Number(best.value).toFixed(2) : 0;
+// utils/finance.js
+export function getPetRent(cfg) {
+  if (!cfg || !cfg.petRentEnabled) return 0;
+  const amt = Number(cfg.petRentAmount ?? 0);
+  return Number.isFinite(amt) ? amt : 0;
 }
 
 /* ===================== TOTALS HELPERS ===================== */
@@ -225,7 +207,6 @@ export function maybeApplyLateFee(row, config = {}) {
   const pol = config?.lateFeePolicy || { type: "flat", value: 0 };
 
   // Fee base = base + pet (exclude "other" and adjustments from % base)
-  // We derive base+pet robustly from row math:
   const baseNoLate = expectedWithoutLateFee(row, config);
   const otherAdj = currency(row?.expectedOther) + adjustmentsTotal(row);
   const baseWithPet = Math.max(0, +(baseNoLate - otherAdj).toFixed(2));
@@ -245,20 +226,26 @@ export function maybeApplyLateFee(row, config = {}) {
 }
 
 /* ===================== FINALIZE ===================== */
-export function finalizeMonthIfPaid(row, config = {}) {
-  const { balance } = computeRowTotals(row, config);
+export function finalizeMonthIfPaid(row, config) {
+  if (!row) return;
+
+  const t = computeRowTotals(row, config);
+  const balance = Number(t.balance ?? 0);
+
   if (balance <= 0) {
-    if (!row.lockedState) {
-      row.lockedState = "paid";
-      row.lockedAtISO = new Date().toISOString().slice(0, 10);
-      row.lockedColor = "green";
-    }
+    // latest payment date if present, otherwise today
+    const latestPayISO =
+      (row.payments || [])
+        .map((p) => p?.dateISO || "")
+        .filter(Boolean)
+        .sort()
+        .pop() || new Date().toISOString().slice(0, 10);
+
+    row.finalPaidAtISO = latestPayISO;
+    row.state = "paid";
   } else {
-    if (row.lockedState === "paid") {
-      row.lockedState = null;
-      row.lockedAtISO = null;
-      row.lockedColor = null;
-    }
+    row.finalPaidAtISO = null;
+    if (row.state === "paid") delete row.state;
   }
 }
 
@@ -310,9 +297,12 @@ export function generateLeaseSchedule(cfg) {
     0,
   );
 
+  // First due date logic: roll to next month if start is on/after this month's due day
+  const firstDueISO = firstDueDateISO(startDateISO, dueDay);
+
   const rows = [];
   for (let i = 0; i < Number(months || 0); i++) {
-    const dueDateISO = makeDueDateISO(startDateISO, i, dueDay);
+    const dueDateISO = i === 0 ? firstDueISO : addMonthsClamped(firstDueISO, i, dueDay);
     const date = new Date(dueDateISO + "T00:00:00Z");
     const periodLabel = date.toLocaleString("en-US", {
       month: "short",
@@ -446,7 +436,6 @@ export function resolveDashboardFeverStatus(schedule = [], config, opts = {}) {
     tooltip: status?.tooltip || "",
     label,
     pickedRow: picked,
-    // <-- this is the key bit the table already uses
     paid: !!status?.finalPaidAtISO,
   };
 }
