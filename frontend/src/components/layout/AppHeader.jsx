@@ -1,4 +1,6 @@
 import styles from "./AppHeader.module.css";
+import SmartBreadcrumbs from "../ui/SmartBreadcrumbs.jsx"
+import AvatarMenu from "./AvatarMenu.jsx"
 
 export default function AppHeader() {
   return (

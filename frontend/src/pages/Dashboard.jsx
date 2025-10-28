@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 import dashStyles from "./Dashboard.module.css";
 import { useProperties } from "../context/PropertyContext";
 import buttonStyles from "../styles/Buttons.module.css";
+import GlobalSearch from "../components/GlobalSearch.jsx"
+import PropertyList from "./PropertyList.jsx"
+import AddPropertyFlow from "../components/AddPropertyFlow.jsx"
 
 export default function Dashboard({ role }) {
   const [showAddFlow, setShowAddFlow] = useState(false);

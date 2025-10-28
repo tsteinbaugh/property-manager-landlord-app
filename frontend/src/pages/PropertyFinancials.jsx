@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import { useProperties } from "../context/PropertyContext";
 import buttonStyles from "../styles/Buttons.module.css";
 import { generateLeaseSchedule } from "../utils/finance";
+import FinancialTable from "../components/financials/FinancialTable";
+import FinancialForm from "../components/financials/FinancialForm.jsx"
 
 // ---- helpers (single definitions)
 function dedupePayments(payments = []) {

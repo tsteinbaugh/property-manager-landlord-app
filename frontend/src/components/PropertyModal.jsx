@@ -1,3 +1,6 @@
+import ModalRoot from "./ui/ModalRoot.jsx"
+import PropertyForm from "./PropertyForm.jsx"
+
 export default function PropertyModal({
   isOpen,
   initialData,

@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 
 import modalStyles from "./PaymentModal.module.css"; // backdrop, modal, actions, field, subtle, grid2, sectionTitle, card
 import buttonStyles from "../../styles/Buttons.module.css";
+import FloatingField from "../ui/FloatingField";
 
 function atStart(d) {
   const x = new Date(d);
@@ -148,7 +149,7 @@ export default function NoticeModal({
           {methods.map((m, idx) => (
             <div key={idx} className={modalStyles.card}>
               <div className={modalStyles.grid2}>
-                <SelectFloatingField
+                <FloatingField
                   label="Method"
                   value={m.type}
                   onChange={(e) => updateMethod(idx, { type: e.target.value })}

@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 
 import buttonStyles from "../styles/Buttons.module.css";
 import styles from "../styles/SharedModal.module.css";
+import ModalRoot from "./ui/ModalRoot.jsx"
+import FloatingField from "./ui/FloatingField.jsx"
 
 // require dot in domain, min 2 chars TLD
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
