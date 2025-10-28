@@ -5,6 +5,8 @@ import styles from "./PropertyModal.module.css";
 import useModalKeys from "../hooks/useModalKeys";
 import buttonStyles from "../styles/Buttons.module.css";
 import { generateLeaseSchedule } from "../utils/finance";
+import ModalRoot from "./ui/ModalRoot";
+import PropertyModalWrapper from "./PropertyModalWrapper.jsx"
 
 const STEPS = {
   DETAILS: 1,

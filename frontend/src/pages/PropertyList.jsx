@@ -1,8 +1,10 @@
+//home/tsteinbaugh/property-manager-landlord-app/frontend/src/pages/PropertyList.jsx
 import { useNavigate } from "react-router-dom";
 
 import styles from "./PropertyList.module.css";
 import { tooltipForColor } from "../utils/feverStatus";
 import { resolveDashboardFeverStatus } from "../utils/finance";
+import FeverLight from "../components/ui/FeverLight.jsx"
 
 /** Local maintenance fever (self-contained) */
 function localGetMaintenanceFever({ items = [], approachingDays = 14, nowISO } = {}) {

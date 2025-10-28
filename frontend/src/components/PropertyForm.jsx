@@ -3,6 +3,7 @@ import { useState } from "react";
 
 import buttonStyles from "../styles/Buttons.module.css";
 import styles from "../styles/SharedModal.module.css";
+import FloatingField from "./ui/FloatingField";
 
 /**
  * Props:

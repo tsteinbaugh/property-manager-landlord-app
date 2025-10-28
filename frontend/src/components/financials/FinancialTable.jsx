@@ -11,6 +11,11 @@ import {
   getPetRent,
   computeAssessedLateFeeAmount,
 } from "../../utils/finance";
+import PaymentModal from "./PaymentModal.jsx";
+import DepositSettlementModal from "./DepositSettlementModal.jsx"
+import FeverLight from "../ui/FeverLight.jsx";
+import NoticeModal from "./NoticeModal.jsx"
+import ChargeModal from "./ChargeModal.jsx"
 
 // ---- local normalize (dedupe payments in any updated rows)
 function normalizeRows(rows = []) {

@@ -3,6 +3,7 @@ import { useLocation, useParams } from "react-router-dom";
 
 import { useProperties } from "../../context/PropertyContext";
 import { formatPropertyBreadcrumb } from "../../utils/formatAddress";
+import Breadcrumbs from "./Breadcrumbs.jsx"
 
 /**
  * Builds items for Breadcrumbs (keeps your UI component).

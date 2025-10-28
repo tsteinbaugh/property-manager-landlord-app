@@ -1,9 +1,15 @@
+import { Link } from "react-router-dom";
 import { useMemo, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import styles from "./PropertyDetail.module.css";
 import { useProperties } from "../context/PropertyContext";
 import buttonStyles from "../styles/Buttons.module.css";
+import TenantModal from "../components/TenantModal.jsx"
+import OccupantModal from "../components/OccupantModal.jsx"
+import PetModal from "../components/PetModal.jsx"
+import EmergencyContactModal from "../components/EmergencyContactModal.jsx"
+import PropertyModal from "../components/PropertyModal.jsx"
 
 const formatCurrency = (n) => {
   const num = Number(n);
