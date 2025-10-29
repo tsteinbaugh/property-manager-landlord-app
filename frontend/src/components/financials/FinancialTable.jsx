@@ -16,6 +16,7 @@ import DepositSettlementModal from "./DepositSettlementModal.jsx"
 import FeverLight from "../ui/FeverLight.jsx";
 import NoticeModal from "./NoticeModal.jsx"
 import ChargeModal from "./ChargeModal.jsx"
+import ManagePaymentsModal from "./ManagePaymentsModal.jsx"
 
 // ---- local normalize (dedupe payments in any updated rows)
 function normalizeRows(rows = []) {
@@ -1203,7 +1204,7 @@ export default function FinancialTable({ schedule, config, onChange }) {
         <ChargeModal
           open={showChargeIdx !== null}
           onClose={() => setShowChargeIdx(null)}
-          onSave={(payload) => {
+          onAdd={(payload) => {        // <-- was onSave
             addAdj(showChargeIdx, payload);
             setShowChargeIdx(null);
           }}

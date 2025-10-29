@@ -1,4 +1,3 @@
-// property-manager-landlord-app/frontend/src/components/PropertyForm.jsx
 import { useState } from "react";
 
 import buttonStyles from "../styles/Buttons.module.css";
@@ -13,8 +12,9 @@ import FloatingField from "./ui/FloatingField";
  * - onChange(data)
  * - requiredFields
  * - submitLabel
- * - renderAboveSubmit()   // renders above submit row (Save & Create)
- * - renderBelowSubmit()   // renders below submit row (Back to Review & Create on Details)
+ * - onQuickCreate(formData)
+ * - quickCreateLabel
+ * - buttonMinWidth
  */
 export default function PropertyForm({
   onSave,
@@ -23,8 +23,9 @@ export default function PropertyForm({
   initialData = {},
   requiredFields = ["address", "city", "state", "zip", "owner"],
   submitLabel = "Save & Continue",
-  renderAboveSubmit,
-  renderBelowSubmit,
+  onQuickCreate,
+  quickCreateLabel = "Save & Create",
+  buttonMinWidth = 180,
 }) {
   const [formData, setFormData] = useState({
     address: "",
@@ -151,30 +152,54 @@ export default function PropertyForm({
         </p>
       )}
 
-      {renderAboveSubmit && (
-        <div className={styles.modalButtons}>{renderAboveSubmit()}</div>
-      )}
+      {/* --- FOOTER BUTTONS (FLUSH LEFT) --- */}
+      {onQuickCreate ? (
+        <div className={styles.modalButtonsRow}>
+          <button
+            type="button"
+            onClick={() => onQuickCreate(formData)}
+            className={buttonStyles.primaryButton}
+            style={{ minWidth: buttonMinWidth }}
+          >
+            {quickCreateLabel}
+          </button>
 
-      <div className={styles.modalButtons}>
-        <button
-          type="submit"
-          className={buttonStyles.primaryButton}
-          style={{ minWidth: 180 }}
-        >
-          {submitLabel}
-        </button>
-        <button
-          type="button"
-          onClick={onCancel}
-          className={buttonStyles.secondaryButton}
-          style={{ minWidth: 180 }}
-        >
-          Cancel
-        </button>
-      </div>
+          <button
+            type="submit"
+            className={buttonStyles.primaryButton}
+            style={{ minWidth: buttonMinWidth }}
+          >
+            {submitLabel}
+          </button>
 
-      {renderBelowSubmit && (
-        <div className={styles.modalButtons}>{renderBelowSubmit()}</div>
+          <button
+            type="button"
+            onClick={onCancel}
+            className={buttonStyles.secondaryButton}
+            style={{ minWidth: buttonMinWidth }}
+          >
+            Cancel
+          </button>
+        </div>
+      ) : (
+        // Compact mode for Edit Property (no quick create)
+        <div className={styles.modalButtonsRow}>
+          <button
+            type="submit"
+            className={buttonStyles.primaryButton}
+            style={{ minWidth: buttonMinWidth }}
+          >
+            {submitLabel}
+          </button>
+          <button
+            type="button"
+            onClick={onCancel}
+            className={buttonStyles.secondaryButton}
+            style={{ minWidth: buttonMinWidth }}
+          >
+            Cancel
+          </button>
+        </div>
       )}
     </form>
   );

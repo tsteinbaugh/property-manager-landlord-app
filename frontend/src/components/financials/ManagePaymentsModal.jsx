@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 
 import buttonStyles from "../../styles/Buttons.module.css";
+import ModalRoot from "../ui/ModalRoot";
+import PaymentModal from "./PaymentModal";
 
 export default function ManagePaymentsModal({
   open,
