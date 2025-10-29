@@ -1,0 +1,82 @@
+.wrap {
+  position: relative;
+  width: 100%;
+  display: block;
+  font-family: inherit;
+}
+
+/* match your FloatingField/SharedModal .input */
+.select {
+  width: 100%;
+  box-sizing: border-box;
+  font: inherit;
+  color: #111827;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.5rem 2rem 0.5rem 0.5rem; /* same as inputs + space for caret */
+  height: 40px; /* identical fixed height so baselines match */
+  line-height: 1.25rem;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'><path d='M1 1.5L6 6.5L11 1.5' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 12px 8px;
+}
+
+.select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+  outline: none;
+}
+
+/* floating label style */
+.label {
+  position: absolute !important;
+  z-index: 1;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  background: #fff;
+  color: #6b7280;
+  pointer-events: none;
+  line-height: 1;
+  white-space: nowrap;
+  max-width: calc(100% - 24px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 14px;
+  transition: all 120ms ease;
+  padding: 0 4px;
+}
+
+.wrap:focus-within .label,
+.wrap[data-has-value="true"] .label {
+  top: -8px;
+  left: 8px;
+  font-size: 0.75rem;
+  color: #3b82f6;
+}
+
+/* --- SELECT FIX PATCH ------------------------------------------------------ */
+/* make <select> boxes exactly match <input> width, height, and bottom spacing */
+.selectFix {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #fff;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'><path d='M1 1.5L6 6.5L11 1.5' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px 8px;
+
+  /* exact box match with inputs */
+  padding-right: 36px;         /* same as .control for select */
+  height: 46px;                /* ensures identical height visually */
+  line-height: 1.2;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 12px;         /* keep consistent gap to next field */
+}

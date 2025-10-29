@@ -97,6 +97,7 @@
   background: white;
   font-size: 14px;
   outline: none;
+  box-sizing: border-box;
 }
 .input:focus {
   border-color: #2563eb;
@@ -113,4 +114,58 @@
   color: #b91c1c;
   font-size: 12px;
   margin-top: 6px;
+}
+
+/* --- SELECT NORMALIZATION (match input exactly) --------------------------- */
+
+select.input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+
+  /* Make native selects render like inputs */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  /* Caret that doesn't change box width */
+  background-color: #fff;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'><path d='M1 1.5L6 6.5L11 1.5' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px 8px;
+
+  /* Keep same left/top/bottom padding as .input, only add right for caret */
+  padding-right: 36px;     /* matches .field :where(select).control above */
+  line-height: 1.2;
+
+  /* Force same visual height as your inputs */
+  min-height: 44px;        /* tweak to 46px if your inputs look taller */
+}
+
+/* Ensure consistent gap below selects so the next label never bleeds into it */
+.wrap { margin-bottom: 12px; }
+
+/* --- SELECT NORMALIZATION: match input width/height EXACTLY --- */
+select.input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  /* keep same left/top/bottom padding as inputs; only add right space for caret */
+  padding-right: 36px;
+
+  /* ensures same visual height as inputs (adjust to 44/46px if your inputs differ) */
+  min-height: 44px;
+
+  /* caret that doesn't affect box width */
+  background-color: #fff;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'><path d='M1 1.5L6 6.5L11 1.5' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px 8px;
 }

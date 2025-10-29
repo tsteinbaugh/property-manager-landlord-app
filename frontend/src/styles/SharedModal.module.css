@@ -14,6 +14,7 @@
   width: 90%;
   max-width: 820px;
   padding: 2rem;
+  box-sizing: border-box;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
 }
 
@@ -63,8 +64,7 @@
 
 /* Provide even padding inside all modal forms */
 .form {
-  padding-left: 0;
-  padding-right: 0;
+  padding-right: 2rem;
 }
 
 /* Keep first field from hugging the title too tightly */
@@ -89,16 +89,10 @@
   width: 100%;
 }
 
-/* -------------------------------------------------------------------------- */
-/* GRID LAYOUT (used on Property Details)                                    */
-/* -------------------------------------------------------------------------- */
-
 .gridTernaryTight {
   display: grid;
-  grid-template-columns:
-    minmax(200px, 1fr) /* City / Bedrooms */
-    minmax(140px, 0.9fr) /* State / Bathrooms */
-    minmax(160px, 1fr); /* Zip / Sq Ft */
+  /* auto-fit wraps based on AVAILABLE space inside the modal */
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   column-gap: 24px;
   row-gap: 20px; /* unified with field spacing */
   align-items: end;
@@ -107,18 +101,6 @@
 /* Prevent double spacing when fields live inside the grid */
 .gridTernaryTight .fieldWrap {
   margin-top: 0;
-}
-
-/* Responsive fallbacks */
-@media (max-width: 760px) {
-  .gridTernaryTight {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-@media (max-width: 520px) {
-  .gridTernaryTight {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* -------------------------------------------------------------------------- */
@@ -131,7 +113,7 @@
 
 /* Keep number spinners visible without forcing a taller control */
 :global(input[type="number"]::-webkit-inner-spin-button),
-:global(input[type="number"]::-webkit-outer-spin_button) {
+:global(input[type="number"]::-webkit-outer-spin-button) {
   opacity: 1;
 }
 
@@ -139,3 +121,24 @@
 .gridTernaryTight + .fieldWrap {
   margin-top: 12px; /* was 20px via global .fieldWrap */
 }
+
+/* Unified button row with left + right groups */
+.modalButtonsRow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* left group, right group */
+  gap: 12px;
+  margin-top: 12px;
+  flex-wrap: wrap; /* stack cleanly on small screens */
+}
+
+.modalButtonsLeft,
+.modalButtonsRight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+/* keep button widths consistent when needed */
+.btnMin180 { min-width: 180px; }

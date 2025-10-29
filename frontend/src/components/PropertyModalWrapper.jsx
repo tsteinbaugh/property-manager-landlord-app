@@ -10,7 +10,6 @@ export default function PropertyModalWrapper({
   onSave, // continues the wizard to LEASE
   onQuickCreate, // creates property with details only
   onCancel,
-  renderBelowSubmit, // NEW: pass-through to position "Back to Review & Create" aligned
 }) {
   const [form, setForm] = useState(initialData || {});
   const requiredFields = useMemo(() => ["address", "city", "state", "zip", "owner"], []);
@@ -44,17 +43,7 @@ export default function PropertyModalWrapper({
         onCancel={onCancel}
         requiredFields={requiredFields}
         submitLabel="Save & Continue"
-        renderAboveSubmit={() => (
-          <button
-            type="button"
-            className={buttonStyles.primaryButton}
-            style={{ minWidth: 180 }}
-            onClick={handleQuickCreate}
-          >
-            Save & Create
-          </button>
-        )}
-        renderBelowSubmit={renderBelowSubmit}
+        onQuickCreate={handleQuickCreate}
       />
     </div>
   );

@@ -1,9 +1,11 @@
+// frontend/src/components/PetModal.jsx
 import { useState, useEffect } from "react";
 
 import buttonStyles from "../styles/Buttons.module.css";
 import styles from "../styles/SharedModal.module.css";
-import ModalRoot from "./ui/ModalRoot.jsx"
-import FloatingField from "./ui/FloatingField.jsx"
+import ModalRoot from "./ui/ModalRoot.jsx";
+import FloatingField from "./ui/FloatingField.jsx";
+import FloatingSelect from "./ui/FloatingSelect.jsx"
 
 export default function PetModal({ isOpen, pet, onClose, onSave, title = "Edit Pet" }) {
   const [formData, setFormData] = useState({ name: "", type: "", size: "", license: "" });
@@ -16,7 +18,7 @@ export default function PetModal({ isOpen, pet, onClose, onSave, title = "Edit P
     }
     setFormData({
       name: pet.name || "",
-      type: pet.type || "",
+      type: (pet.type || "").toLowerCase(),
       size: pet.size || "",
       license: pet.license || "",
     });
@@ -37,10 +39,13 @@ export default function PetModal({ isOpen, pet, onClose, onSave, title = "Edit P
     onSave?.(formData);
   }
 
+  const isDog = formData.type === "dog";
+
   return (
     <ModalRoot isOpen={!!isOpen} onClose={onClose} width={560}>
       <h2 className={styles.modalTitle}>{title}</h2>
       <form onSubmit={handleSubmit} className={styles.form}>
+        {/* Name */}
         <div className={styles.fieldWrap}>
           <FloatingField
             name="name"
@@ -50,23 +55,50 @@ export default function PetModal({ isOpen, pet, onClose, onSave, title = "Edit P
             required
           />
         </div>
+
+        {/* Type (dropdown) */}
         <div className={styles.fieldWrap}>
           <FloatingField
+            as="select"
             name="type"
-            label="Type of pet (dog, cat…)"
+            label="Type"
             value={formData.type}
             onChange={handleChange}
-            required
+            // render initial blank so label acts as placeholder (no overlap)
+            options={[
+              { value: "dog", label: "Dog" },
+              { value: "cat", label: "Cat" },
+              { value: "other", label: "Other" },
+            ]}
           />
         </div>
+          
+        {/* Size: Dog → dropdown; Cat/Other → text */}
         <div className={styles.fieldWrap}>
-          <FloatingField
-            name="size"
-            label="Size (small/medium/large or weight)"
-            value={formData.size}
-            onChange={handleChange}
-          />
+          {formData.type === "dog" ? (
+            <FloatingField
+              as="select"
+              name="size"
+              label="Size"
+              value={formData.size}
+              onChange={handleChange}
+              options={[
+                { value: "small", label: "Small" },
+                { value: "medium", label: "Medium" },
+                { value: "large", label: "Large" },
+              ]}
+            />
+          ) : (
+            <FloatingField
+              name="size"
+              label="Size (e.g., small / 12 lb)"
+              value={formData.size}
+              onChange={handleChange}
+            />
+          )}
         </div>
+
+        {/* License */}
         <div className={styles.fieldWrap}>
           <FloatingField
             name="license"
@@ -77,7 +109,9 @@ export default function PetModal({ isOpen, pet, onClose, onSave, title = "Edit P
         </div>
 
         {submitted && !isFormValid && (
-          <p className={styles.validationText}>Please fill in name and type of pet.</p>
+          <p className={styles.validationText}>
+            Please fill in name and type of pet.
+          </p>
         )}
 
         <div className={styles.modalButtons}>

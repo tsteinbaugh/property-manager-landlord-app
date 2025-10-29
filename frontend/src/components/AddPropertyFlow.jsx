@@ -7,6 +7,12 @@ import buttonStyles from "../styles/Buttons.module.css";
 import { generateLeaseSchedule } from "../utils/finance";
 import ModalRoot from "./ui/ModalRoot";
 import PropertyModalWrapper from "./PropertyModalWrapper.jsx"
+import LeaseSection from "../components/properties/LeaseSection.jsx"
+import FinancialForm from "./financials/FinancialForm.jsx"
+import TenantModal from "./TenantModal.jsx"
+import OccupantModal from "./OccupantModal.jsx"
+import EmergencyContactModal from "./EmergencyContactModal.jsx"
+import PetModal from "./PetModal.jsx"
 
 const STEPS = {
   DETAILS: 1,
