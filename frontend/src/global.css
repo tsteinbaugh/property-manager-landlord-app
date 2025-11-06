@@ -13,3 +13,8 @@ input {
   font-family: inherit;
   border-radius: 6px;
 }
+
+html, body {
+  margin: 0;
+  scrollbar-gutter: stable both-edges;
+}
