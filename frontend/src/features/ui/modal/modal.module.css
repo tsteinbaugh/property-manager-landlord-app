@@ -1,0 +1,121 @@
+:root {
+  --modal-gutter: 24px; /* adjust to taste */
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 1000;
+
+  /* dead-center the child */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* IMPORTANT: no overlay padding, no overlay scrollbar */
+  padding: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* The dialog: exact centering and symmetric gutters in one formula */
+.modal {
+  background: #fff;
+  color: #0f172a;
+  border-radius: 1rem;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100dvh - 2 * var(--modal-gutter));
+  overflow: hidden;
+
+  /* Math-perfect centering with symmetric gutters:
+     - max width by size token
+     - otherwise fill viewport minus 2* gutter (equal L/R) */
+  width: min(var(--modal-max, 540px), calc(100dvw - 2 * var(--modal-gutter)));
+  margin: 0;              /* overlay does the centering */
+  box-sizing: border-box;
+}
+
+/* Size tokens only set max width cap */
+.sm { --modal-max: 540px; }
+.md { --modal-max: 720px; }
+.lg { --modal-max: 820px; }
+.xl { --modal-max: 960px; }
+
+/* Fallback for browsers WITHOUT scrollbar-gutter support */
+@supports not (scrollbar-gutter: stable) {
+  .overlay {
+    padding-inline: calc(var(--modal-gutter) + (100vw - 100%) / 2);
+  }
+}
+
+.intentDestructive { outline: 2px solid #ef4444; }
+.intentSuccess { outline: 2px solid #22c55e; }
+.intentWarning { outline: 2px solid #f59e0b; }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.title { font-size: 1.125rem; font-weight: 700; }
+.subtitle { color: #64748b; margin-top: 2px; }
+
+.iconBtn {
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  color: #334155;
+}
+.iconBtn:hover { color: #0f172a; }
+
+.body {
+  padding: 16px 20px;
+  overflow: auto;   /* scrolling happens here */
+}
+
+.footer {
+  padding: 12px 20px;
+  border-top: 1px solid #e5e7eb;
+  background: #fafafa;
+}
+
+.footerRow {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.btnPrimary {
+  background: #111827;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btnPrimary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.btnGhost {
+  background: transparent;
+  color: #111827;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.message { color: #334155; }
+
+/* DEBUG — remove later */
+.overlay { outline: 2px dashed rgba(0,0,0,0.3); }
+.modal   { outline: 2px solid  rgba(0,128,255,0.4); }

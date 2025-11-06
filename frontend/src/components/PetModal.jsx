@@ -1,132 +1,86 @@
-// frontend/src/components/PetModal.jsx
-import { useState, useEffect } from "react";
-
-import buttonStyles from "../styles/Buttons.module.css";
+import { useState, useEffect, useRef } from "react";
 import styles from "../styles/SharedModal.module.css";
-import ModalRoot from "./ui/ModalRoot.jsx";
+import FormModal from "../features/ui/modal/FormModal.jsx";
 import FloatingField from "./ui/FloatingField.jsx";
-import FloatingSelect from "./ui/FloatingSelect.jsx"
+
+const FORM_ID = "pet-form";
 
 export default function PetModal({ isOpen, pet, onClose, onSave, title = "Edit Pet" }) {
   const [formData, setFormData] = useState({ name: "", type: "", size: "", license: "" });
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    if (!pet) {
-      setFormData({ name: "", type: "", size: "", license: "" });
-      return;
-    }
-    setFormData({
-      name: pet.name || "",
-      type: (pet.type || "").toLowerCase(),
-      size: pet.size || "",
-      license: pet.license || "",
-    });
+    if (!pet) { setFormData({ name: "", type: "", size: "", license: "" }); return; }
+    setFormData({ name: String(pet.name || ""), type: String(pet.type || "").toLowerCase(), size: String(pet.size || ""), license: String(pet.license || "") });
   }, [pet]);
 
   function handleChange(e) {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, value } = e.target; setFormData((p) => ({ ...p, [name]: String(value ?? "") }));
   }
 
-  const isFormValid =
-    (formData.name || "").trim() !== "" && (formData.type || "").trim() !== "";
+  const isFormValid = formData.name.trim() !== "" && formData.type.trim() !== "";
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  async function handleSubmit() {
     setSubmitted(true);
-    if (!isFormValid) return;
-    onSave?.(formData);
+    if (!focusFirstInvalid(formRef.current)) return;
+    onSave?.({ name: formData.name.trim(), type: formData.type.trim(), size: formData.size.trim(), license: formData.license.trim() });
   }
 
   const isDog = formData.type === "dog";
+  
+  function focusFirstInvalid(formEl) {
+    if (!formEl) return false;
+    // This triggers built-in messages and returns false if any are invalid
+    const ok = formEl.reportValidity();
+    if (ok) return true;
+    const firstInvalid = formEl.querySelector(":invalid");
+    if (firstInvalid) {
+      firstInvalid.focus({ preventScroll: false });
+      firstInvalid.scrollIntoView({ block: "center", behavior: "smooth" });
+    }
+    return false;
+  }
 
+  const formRef = useRef(null);
   return (
-    <ModalRoot isOpen={!!isOpen} onClose={onClose} width={560}>
-      <h2 className={styles.modalTitle}>{title}</h2>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        {/* Name */}
-        <div className={styles.fieldWrap}>
-          <FloatingField
-            name="name"
-            label="Name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        </div>
+    <FormModal isOpen={!!isOpen} onClose={onClose} title={title} size="sm" submitLabel="Save" cancelLabel="Cancel" onSubmit={handleSubmit} disabled={!isFormValid} formId={FORM_ID}>
+      <form
+        id={FORM_ID}
+        ref={formRef}
+        onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            const tag = e.target.tagName;
+            const type = (e.target.type || "").toLowerCase();
+            const isButtonLike = tag === "BUTTON" || (tag === "INPUT" && (type === "submit" || type === "button"));
+            if (tag !== "TEXTAREA" && !isButtonLike) {
+              e.preventDefault();
+              handleSubmit();
+            }
+          }
+        }}
+        className={styles.form}
+      >
+        <button type="submit" style={{ display: "none" }} aria-hidden="true" />
 
-        {/* Type (dropdown) */}
         <div className={styles.fieldWrap}>
-          <FloatingField
-            as="select"
-            name="type"
-            label="Type"
-            value={formData.type}
-            onChange={handleChange}
-            // render initial blank so label acts as placeholder (no overlap)
-            options={[
-              { value: "dog", label: "Dog" },
-              { value: "cat", label: "Cat" },
-              { value: "other", label: "Other" },
-            ]}
-          />
+          <FloatingField name="name" label="Name" value={formData.name} onChange={handleChange} required />
         </div>
-          
-        {/* Size: Dog → dropdown; Cat/Other → text */}
         <div className={styles.fieldWrap}>
-          {formData.type === "dog" ? (
-            <FloatingField
-              as="select"
-              name="size"
-              label="Size"
-              value={formData.size}
-              onChange={handleChange}
-              options={[
-                { value: "small", label: "Small" },
-                { value: "medium", label: "Medium" },
-                { value: "large", label: "Large" },
-              ]}
-            />
+          <FloatingField as="select" name="type" label="Type" value={formData.type} onChange={handleChange} required options={[{ value: "", label: "Select…" }, { value: "dog", label: "Dog" }, { value: "cat", label: "Cat" }, { value: "other", label: "Other" }]} />
+        </div>
+        <div className={styles.fieldWrap}>
+          {isDog ? (
+            <FloatingField as="select" name="size" label="Size" value={formData.size} onChange={handleChange} options={[{ value: "", label: "Select…" }, { value: "small", label: "Small" }, { value: "medium", label: "Medium" }, { value: "large", label: "Large" }]} />
           ) : (
-            <FloatingField
-              name="size"
-              label="Size (e.g., small / 12 lb)"
-              value={formData.size}
-              onChange={handleChange}
-            />
+            <FloatingField name="size" label="Size (e.g., small / 12 lb)" value={formData.size} onChange={handleChange} />
           )}
         </div>
-
-        {/* License */}
         <div className={styles.fieldWrap}>
-          <FloatingField
-            name="license"
-            label="License #"
-            value={formData.license}
-            onChange={handleChange}
-          />
+          <FloatingField name="license" label="License #" value={formData.license} onChange={handleChange} />
         </div>
-
-        {submitted && !isFormValid && (
-          <p className={styles.validationText}>
-            Please fill in name and type of pet.
-          </p>
-        )}
-
-        <div className={styles.modalButtons}>
-          <button type="submit" className={buttonStyles.primaryButton}>
-            Save
-          </button>
-          <button
-            type="button"
-            onClick={onClose}
-            className={buttonStyles.secondaryButton}
-          >
-            Cancel
-          </button>
-        </div>
+        {submitted && !isFormValid && (<p className={styles.validationText}>Please fill in name and type of pet.</p>)}
       </form>
-    </ModalRoot>
+    </FormModal>
   );
 }

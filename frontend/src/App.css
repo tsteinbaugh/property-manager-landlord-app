@@ -48,7 +48,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow-y: scroll; /* body is the scroll container */
+  overflow-y: auto; 
   overflow-x: hidden; /* prevent sideways scroll */
 }
 
@@ -61,11 +61,6 @@ body {
   height: auto;
   min-height: auto;
   flex: 1 1 auto;
-}
-
-/* If any modal code adds overflow: hidden to <body>, override it */
-body.modal-open {
-  overflow: scroll !important;
 }
 
 body,

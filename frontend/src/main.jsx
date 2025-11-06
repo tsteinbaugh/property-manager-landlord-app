@@ -6,15 +6,18 @@ import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
 import { PropertyProvider } from "./context/PropertyContext.jsx";
 import { UserProvider } from "./context/UserContext.jsx";
+import { ModalProvider } from "./features/ui/modal/ModalProvider.jsx";
 
 import "./global.css";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <UserProvider>
-      <PropertyProvider>
-        <App />
-      </PropertyProvider>
-    </UserProvider>
+    <ModalProvider>
+      <UserProvider>
+        <PropertyProvider>
+          <App />
+        </PropertyProvider>
+      </UserProvider>
+    </ModalProvider>
   </StrictMode>,
 );
