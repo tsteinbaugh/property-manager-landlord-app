@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import styles from "../styles/SharedModal.module.css";
+import styles from "../features/ui/modal/modal.module.css";
 import FormModal from "../features/ui/modal/FormModal.jsx";
 import FloatingField from "./ui/FloatingField.jsx";
 
@@ -67,11 +67,11 @@ export default function PetModal({ isOpen, pet, onClose, onSave, title = "Edit P
           <FloatingField name="name" label="Name" value={formData.name} onChange={handleChange} required />
         </div>
         <div className={styles.fieldWrap}>
-          <FloatingField as="select" name="type" label="Type" value={formData.type} onChange={handleChange} required options={[{ value: "", label: "Select…" }, { value: "dog", label: "Dog" }, { value: "cat", label: "Cat" }, { value: "other", label: "Other" }]} />
+          <FloatingField as="select" name="type" label="Type" value={formData.type} onChange={handleChange} required options={[{ value: "dog", label: "Dog" }, { value: "cat", label: "Cat" }, { value: "other", label: "Other" }]} />
         </div>
         <div className={styles.fieldWrap}>
           {isDog ? (
-            <FloatingField as="select" name="size" label="Size" value={formData.size} onChange={handleChange} options={[{ value: "", label: "Select…" }, { value: "small", label: "Small" }, { value: "medium", label: "Medium" }, { value: "large", label: "Large" }]} />
+            <FloatingField as="select" name="size" label="Size" value={formData.size} onChange={handleChange} options={[{ value: "small", label: "Small" }, { value: "medium", label: "Medium" }, { value: "large", label: "Large" }]} />
           ) : (
             <FloatingField name="size" label="Size (e.g., small / 12 lb)" value={formData.size} onChange={handleChange} />
           )}

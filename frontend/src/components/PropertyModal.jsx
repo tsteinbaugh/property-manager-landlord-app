@@ -1,23 +1,8 @@
 // frontend/src/components/PropertyModal.jsx
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, useEffect } from "react";
 import FormModal from "../features/ui/modal/FormModal.jsx";
-import styles from "./PropertyModal.module.css"; // keep existing review styles if you use them elsewhere
-import PropertyFormFields from "./PropertyFormFields.jsx";
-
-const FORM_ID = "property-edit-form";
-const REQUIRED = ["address","city","state","zip","owner"];
-
-function focusFirstInvalid(formEl) {
-  if (!formEl) return false;
-  const ok = formEl.reportValidity();
-  if (ok) return true;
-  const firstInvalid = formEl.querySelector(":invalid");
-  if (firstInvalid) {
-    firstInvalid.focus({ preventScroll: false });
-    firstInvalid.scrollIntoView({ block: "center", behavior: "smooth" });
-  }
-  return false;
-}
+import styles from "../features/ui/modal/modal.module.css";
+import PropertyForm, { PROPERTY_FORM_ID } from "./PropertyForm.jsx";
 
 export default function PropertyModal({
   isOpen,
@@ -26,36 +11,33 @@ export default function PropertyModal({
   onSave,
   title = "Edit Property",
 }) {
-  const [formData, setFormData] = useState({
-    address: "",
-    city: "",
-    state: "",
-    zip: "",
-    owner: "",
-    bedrooms: "",
-    bathrooms: "",
-    squareFeet: "",
-  });
+  const [data, setData] = useState(initialData || {});
+  useEffect(() => { setData(initialData || {}); }, [initialData]);
 
-  const formRef = useRef(null);
-
-  useEffect(() => {
-    setFormData((cur) => ({ ...cur, ...(initialData || {}) }));
-  }, [initialData]);
-
-  const isValid = useMemo(
-    () => REQUIRED.every((k) => String(formData[k] ?? "").trim() !== ""),
-    [formData],
+  const requiredFields = useMemo(
+    () => ["address", "city", "state", "zip", "owner"],
+    []
   );
 
-  function handleChange(e) {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  }
+  const isValid = useMemo(
+    () => requiredFields.every((k) => String(data?.[k] ?? "").trim() !== ""),
+    [data, requiredFields]
+  );
 
   async function handleSubmit() {
-    if (!focusFirstInvalid(formRef.current)) return;
-    onSave?.(formData);
+    if (!isValid) {
+      // Focus the first invalid required field
+      const form = document.getElementById(PROPERTY_FORM_ID);
+      const first = form?.querySelector(
+        'input[required]:invalid, select[required]:invalid, textarea[required]:invalid'
+      );
+      if (first) {
+        first.focus({ preventScroll: false });
+        first.scrollIntoView({ block: "center", behavior: "smooth" });
+      }
+      return;
+    }
+    onSave?.(data);
   }
 
   return (
@@ -68,20 +50,13 @@ export default function PropertyModal({
       cancelLabel="Cancel"
       onSubmit={handleSubmit}
       disabled={!isValid}
-      formId={FORM_ID}
+      formId={PROPERTY_FORM_ID}
     >
-      <form
-        id={FORM_ID}
-        ref={formRef}
-        onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}
-        className={styles.modalBodyEven /* just reusing your even body padding */}
-      >
-        <PropertyFormFields
-          formData={formData}
-          onChange={handleChange}
-          requiredFields={REQUIRED}
-        />
-      </form>
+      <PropertyForm
+        initialData={data}
+        onChange={setData}
+        requiredFields={requiredFields}
+      />
     </FormModal>
   );
 }

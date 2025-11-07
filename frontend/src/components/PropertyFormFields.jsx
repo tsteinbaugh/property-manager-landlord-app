@@ -1,5 +1,5 @@
 // frontend/src/components/PropertyFormFields.jsx
-import styles from "../styles/SharedModal.module.css";
+import styles from "../features/ui/modal/modal.module.css";
 import FloatingField from "./ui/FloatingField.jsx";
 
 /**

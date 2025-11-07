@@ -1,65 +1,51 @@
 import { useEffect, useRef } from "react";
+import Modal from "../../features/ui/modal/Modal.jsx";
+import ModalHeader from "../../features/ui/modal/ModalHeader.jsx";
+import ModalBody from "../../features/ui/modal/ModalBody.jsx";
+import ModalFooter from "../../features/ui/modal/ModalFooter.jsx";
+import styles from "../../features/ui/modal/modal.module.css";
 
-import styles from "../../styles/SharedModal.module.css";
-
-/**
- * Props:
- * - isOpen
- * - onClose
- * - children
- * - width (optional) -> maxWidth override
- * - submitOnEnter (default true)
- */
 export default function ModalRoot({
   isOpen,
   onClose,
   children,
-  width, // e.g. 820 for wide wizard
+  width,            // legacy: map to size
   submitOnEnter = true,
+  title,            // optional: if present, we render a header
+  footer            // optional: if present, we render a footer
 }) {
-  const contentRef = useRef(null);
+  const bodyRef = useRef(null);
 
+  // ENTER submits the first <form> inside body
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen || !submitOnEnter) return;
     function onKeyDown(e) {
-      if (e.key === "Escape") {
-        e.preventDefault();
-        onClose?.();
-      } else if (submitOnEnter && e.key === "Enter") {
-        // Don’t auto-submit if user is inside a textarea
-        const tag = (document.activeElement?.tagName || "").toLowerCase();
-        if (tag === "textarea") return;
-
-        const form = contentRef.current?.querySelector("form");
-        if (form) {
-          // requestSubmit triggers the form’s onSubmit (supported widely)
-          if (typeof form.requestSubmit === "function") form.requestSubmit();
-          else
-            form.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
-        }
-      }
+      if (e.key === "Escape") return onClose?.();
+      if (e.key !== "Enter") return;
+      const tag = (document.activeElement?.tagName || "").toLowerCase();
+      if (tag === "textarea") return;
+      const form = bodyRef.current?.querySelector("form");
+      if (form) form.requestSubmit ? form.requestSubmit() : form.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
     }
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [isOpen, onClose, submitOnEnter]);
 
-  if (!isOpen) return null;
+  // simple width→size mapping (keeps your 820px wizard)
+  let size = "md";
+  if (width >= 960) size = "xl";
+  else if (width >= 820) size = "lg";
+  else if (width <= 560) size = "sm";
 
   return (
-    <div
-      className={styles.modalOverlay}
-      onClick={onClose}
-      role="dialog"
-      aria-modal="true"
-    >
-      <div
-        className={styles.modalContent}
-        style={width ? { maxWidth: width } : undefined}
-        onClick={(e) => e.stopPropagation()}
-        ref={contentRef}
-      >
-        {children}
-      </div>
-    </div>
+    <Modal isOpen={!!isOpen} onClose={onClose} size={size}>
+      {title ? <ModalHeader title={title} onClose={onClose} /> : null}
+      <ModalBody>
+        <div ref={bodyRef} className={styles.body}>
+          {children}
+        </div>
+      </ModalBody>
+      {footer ? <ModalFooter>{footer}</ModalFooter> : null}
+    </Modal>
   );
 }

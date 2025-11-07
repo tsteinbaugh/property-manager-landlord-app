@@ -1,6 +1,6 @@
 // frontend/src/components/EmergencyContactModal.jsx
 import { useState, useEffect, useRef } from "react";
-import styles from "../styles/SharedModal.module.css";
+import styles from "../features/ui/modal/modal.module.css";
 import FormModal from "../features/ui/modal/FormModal.jsx";
 import FloatingField from "./ui/FloatingField.jsx";
 

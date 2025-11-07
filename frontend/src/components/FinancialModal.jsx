@@ -1,92 +1,95 @@
-import { useState, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
+import Modal from "../../features/ui/modal/Modal.jsx";
+import ModalHeader from "../../features/ui/modal/ModalHeader.jsx";
+import ModalBody from "../../features/ui/modal/ModalBody.jsx";
+import ModalFooter from "../../features/ui/modal/ModalFooter.jsx";
+import styles from "../../features/ui/modal/modal.module.css";
+import FloatingField from "../ui/FloatingField";
 
-import buttonStyles from "../styles/Buttons.module.css";
-import styles from "../styles/SharedModal.module.css";
-
-export default function FinancialModal({ isOpen, financial, onClose, onSave }) {
-  const [formData, setFormData] = useState({
-    rent: "",
-    securityDeposit: "",
-    petDeposit: "",
-  });
-
-  const [submitted, setSubmitted] = useState(false);
+export default function EditFinancialModal({
+  isOpen,
+  onClose,
+  initialData = {},
+  onSave,
+}) {
+  const formRef = useRef(null);
 
   useEffect(() => {
-    if (financial) {
-      setFormData({
-        rent: String(financial.rent ?? ""),
-        securityDeposit: String(financial.securityDeposit ?? ""),
-        petDeposit: String(financial.petDeposit ?? ""),
-      });
-    }
-  }, [financial]);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const isFormValid =
-    String(formData.rent).trim() !== "" &&
-    String(formData.securityDeposit).trim() !== "" &&
-    String(formData.petDeposit).trim() !== "";
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-    if (!isFormValid) return;
-    onSave(formData);
-  };
+    if (!isOpen) return;
+    // focus first field when modal opens
+    const firstInput = formRef.current?.querySelector("input, select, textarea");
+    if (firstInput) firstInput.focus();
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formEl = formRef.current;
+    const ok = formEl?.reportValidity?.() ?? true;
+    if (!ok) return;
+
+    const fd = new FormData(formEl);
+    const data = Object.fromEntries(fd.entries());
+    onSave?.(data);
+    onClose?.();
+  };
+
   return (
-    <div className={styles.modalOverlay} onClick={onClose}>
-      <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-        <h2 className={styles.modalTitle}>Edit Financials</h2>
+    <Modal isOpen={isOpen} onClose={onClose} size="md">
+      <ModalHeader title="Edit Financials" onClose={onClose} />
+      <ModalBody>
+        <form ref={formRef} id="financial-form" onSubmit={handleSubmit} className={styles.form}>
+          <div className={styles.fieldWrap}>
+            <FloatingField
+              name="rent"
+              label="Monthly Rent"
+              type="number"
+              min="0"
+              defaultValue={initialData.rent || ""}
+              required
+            />
+          </div>
 
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <FloatingField
-            name="rent"
-            value={formData.rent}
-            onChange={handleChange}
-            label="Rent"
-            required
-          />
-          <FloatingField
-            name="securityDeposit"
-            value={formData.securityDeposit}
-            onChange={handleChange}
-            label="Security Deposit"
-            required
-          />
-          <FloatingField
-            name="petDeposit"
-            value={formData.petDeposit}
-            onChange={handleChange}
-            label="Pet Deposit"
-            required
-          />
+          <div className={styles.fieldWrap}>
+            <FloatingField
+              name="deposit"
+              label="Security Deposit"
+              type="number"
+              min="0"
+              defaultValue={initialData.deposit || ""}
+              required
+            />
+          </div>
 
-          {submitted && !isFormValid && (
-            <p className={styles.validationText}>Please fill out all financial fields.</p>
-          )}
-
-          <div className={styles.modalButtons}>
-            <button type="submit" className={buttonStyles.primaryButton}>
-              Save
-            </button>
-            <button
-              type="button"
-              onClick={onClose}
-              className={buttonStyles.secondaryButton}
-            >
-              Cancel
-            </button>
+          <div className={styles.fieldWrap}>
+            <FloatingField
+              name="dueDate"
+              label="Payment Due Date"
+              type="text"
+              defaultValue={initialData.dueDate || ""}
+            />
           </div>
         </form>
-      </div>
-    </div>
+      </ModalBody>
+      <ModalFooter>
+        <div className={styles.footerRow}>
+          <button
+            type="button"
+            className={styles.btnGhost}
+            onClick={onClose}
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            form="financial-form"
+            className={styles.btnPrimary}
+          >
+            Save
+          </button>
+        </div>
+      </ModalFooter>
+    </Modal>
   );
 }
