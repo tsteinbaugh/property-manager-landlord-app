@@ -1,22 +1,33 @@
-// frontend/src/components/PropertyForm.jsx
-import { useState, useRef } from "react";
-import styles from "../features/ui/modal/modal.module.css";
+import { useState } from "react";
+
+import buttonStyles from "../styles/Buttons.module.css";
+import styles from "../features/ui/modal/modal.module.css"; // unified modal styles
 import FloatingField from "./ui/FloatingField";
 
 /**
  * Props:
  * - initialData
- * - onSave(data)        // called when form is valid & submitted
- * - onCancel()          // (not used here; footer is in FormModal)
+ * - onSave(data)
+ * - onCancel()
  * - onChange(data)
  * - requiredFields
- * - submitLabel         // (ignored here; footer is in FormModal)
+ * - submitLabel
+ * - onQuickCreate(formData)
+ * - quickCreateLabel
+ * - buttonMinWidth
+ * - formId  <-- NEW: lets parent wire the footer submit button
  */
 export default function PropertyForm({
   onSave,
+  onCancel,
   onChange,
   initialData = {},
   requiredFields = ["address", "city", "state", "zip", "owner"],
+  submitLabel = "Save & Continue",
+  onQuickCreate,
+  quickCreateLabel = "Save & Create",
+  buttonMinWidth = 180,
+  formId = "property-form",
 }) {
   const [formData, setFormData] = useState({
     address: "",
@@ -29,8 +40,7 @@ export default function PropertyForm({
     squareFeet: "",
     ...initialData,
   });
-
-  const formRef = useRef(null);
+  const [submitted, setSubmitted] = useState(false);
 
   const isFormValid = requiredFields.every(
     (k) => String(formData[k] ?? "").trim() !== "",
@@ -45,33 +55,18 @@ export default function PropertyForm({
     });
   }
 
-  function focusFirstInvalid(formEl) {
-    if (!formEl) return false;
-    const ok = formEl.reportValidity();
-    if (ok) return true;
-    const firstInvalid = formEl.querySelector(":invalid");
-    if (firstInvalid) {
-      firstInvalid.focus({ preventScroll: false });
-      firstInvalid.scrollIntoView({ block: "center", behavior: "smooth" });
-    }
-    return false;
-  }
-
   function handleSubmit(e) {
     e.preventDefault();
-    if (!focusFirstInvalid(formRef.current)) return;
-    if (!isFormValid) return;
+    setSubmitted(true);
+    // use native validity to focus first invalid, if any
+    const form = e.currentTarget;
+    const ok = form.reportValidity();
+    if (!ok) return;
     onSave?.(formData);
   }
 
   return (
-    <form
-      id="property-form"                 // <-- critical: matches FormModal formId
-      ref={formRef}
-      onSubmit={handleSubmit}
-      className={styles.form}
-      noValidate
-    >
+    <form id={formId} onSubmit={handleSubmit} className={styles.form}>
       <div className={styles.fieldWrap}>
         <FloatingField
           name="address"
@@ -156,12 +151,14 @@ export default function PropertyForm({
         </div>
       </div>
 
-      {/* Validation hint (optional; footer button state lives in FormModal) */}
-      {!isFormValid && (
+      {submitted && !isFormValid && (
         <p className={styles.validationText} aria-live="polite">
           Please fill the required fields (marked *).
         </p>
       )}
+
+      {/* No footer buttons here — they're rendered by FormModal.
+          We keep this form purely form-y. */}
     </form>
   );
 }
