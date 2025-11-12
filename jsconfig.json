@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "baseUrl": "newsrc",
+    "paths": {
+      "@app/*": ["app/*"],
+      "@layout/*": ["layout/*"],
+      "@styles/*": ["styles/*"],
+      "@shared/*": ["shared/*"],
+      "@features/*": ["features/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}

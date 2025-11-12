@@ -1,0 +1,91 @@
+/* src/components/ui/FloatingField.module.css */
+
+/* ---- Base floating label input/select ---- */
+.wrap {
+  position: relative;
+  /* CRITICAL: no vertical margin here; parent .fieldWrap controls spacing */
+  margin: 0 !important;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 12px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: white;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.label {
+  position: absolute !important;
+  z-index: 1;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  background: #fff;
+  color: #6b7280;
+  pointer-events: none;
+  line-height: 1;
+  white-space: nowrap;
+  max-width: calc(100% - 24px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 14px;
+  transition: all 120ms ease;
+  padding: 0 4px;
+}
+
+/* Float when focused or has value */
+.wrap:focus-within .label,
+.wrap[data-has-value] .label {
+  top: -9px;
+  font-size: 12px;
+  color: #374151;
+}
+
+.error {
+  color: #b91c1c;
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+/* ---- SELECT normalization to match inputs exactly (no margins) ---- */
+
+select.input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  /* keep same left/top/bottom padding as inputs; add right space for caret */
+  padding-right: 36px;
+
+  /* ensures same visual height as inputs */
+  min-height: 44px;
+
+  /* caret that doesn't affect box width */
+  background-color: #fff;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'><path d='M1 1.5L6 6.5L11 1.5' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px 8px;
+}
+
+/* ---- (Optional legacy classes kept for safety; not used by current UI) ---- */
+.field { display: block; }
+.field .control { all: unset; }
+.hasError { border-color: #dc2626 !important; box-shadow: 0 0 0 3px rgba(220,38,38,0.08); }
+.errorText { margin-top: 6px; font-size: 12px; color: #991b1b; }
+.disabled { background: #f9fafb; color: #9ca3af; cursor: not-allowed; }
+.always .label { top: -9px; font-size: 12px; color: #374151; }
+.always .control { padding-top: 18px; }
