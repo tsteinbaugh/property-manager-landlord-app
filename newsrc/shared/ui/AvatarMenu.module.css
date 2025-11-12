@@ -1,0 +1,47 @@
+.wrap { position: relative; }
+.avatarBtn {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: transparent; border: none; cursor: pointer;
+  padding: 6px 10px; border-radius: 9999px;
+}
+.avatarCircle { width: 28px; height: 28px; border-radius: 50%; background: #d1d5db; overflow: hidden; display: inline-block; }
+.avatarInitials { font-size: 12px; display: inline-flex; width: 100%; height: 100%; align-items: center; justify-content: center; color: #111827; }
+.userMeta { display: flex; flex-direction: column; line-height: 1; }
+.userName { font-size: 14px; color: #111827; }
+.userRole { font-size: 12px; color: #6b7280; }
+
+.menu {
+  position: absolute; right: 0; margin-top: 8px; background: #fff;
+  border: 1px solid #e5e7eb; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,.08);
+  min-width: 260px; padding: 8px; z-index: 50;
+}
+.groupLabel { font-size: 11px; color: #6b7280; text-transform: uppercase; letter-spacing: .04em; margin: 6px 6px 4px; }
+.item, .itemDestructive {
+  display: block; width: 100%; background: transparent; border: none; text-align: left;
+  padding: 10px 12px; border-radius: 8px; cursor: pointer; font-size: 14px;
+}
+.item:hover { background: #f3f4f6; }
+.itemDestructive { color: #b91c1c; }
+.itemDestructive:hover { background: #fef2f2; }
+
+.roleRow { display: flex; flex-wrap: wrap; gap: 6px; padding: 6px; }
+.pill {
+  font-size: 12px; padding: 6px 10px; border-radius: 9999px; border: 1px solid #e5e7eb; background: #fff; cursor: pointer;
+}
+.pillActive { background: #eff6ff; border-color: #bfdbfe; }
+.resetBtn {
+  margin: 6px; font-size: 12px; padding: 6px 10px; border-radius: 8px;
+  border: 1px solid #e5e7eb; background: #fff; cursor: pointer;
+}
+.note { font-size: 11px; color: #6b7280; margin: 6px; }
+
+.meta { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.1; }
+.name { font-size: 14px; color: #374151; }
+.role { font-size: 12px; color: #6b7280; }
+.sectionLabel { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: #6b7280; margin: 6px 8px; }
+.subtle { font-size: 12px; color: #6b7280; margin: 2px 8px 6px; }
+.roleList { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 6px 6px; }
+.rolePill { border: 1px solid #e5e7eb; background: #fff; border-radius: 999px; padding: 6px 10px; font-size: 12px; cursor: pointer; }
+.rolePill.active { background: #eef2ff; border-color: #c7d2fe; }
+.hr { border: 0; border-top: 1px solid #eee; margin: 6px 0; }
+
