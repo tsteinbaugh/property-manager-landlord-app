@@ -5,7 +5,7 @@ import OccupantList from "@features/tenants/components/OccupantList.jsx";
 import PetList from "@features/tenants/components/PetList.jsx";
 import LegalCasePanel from "@features/legal/components/LegalCasePanel.jsx";
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import AppLayout from "@layout/AppLayout.jsx";
 import EmergencyContactList from "@features/tenants/components/EmergencyContactList.jsx";
 import MaintenanceTicketList from "@features/maintenance/components/MaintenanceTicketList.jsx";
@@ -19,6 +19,10 @@ import PropertiesList from "@features/properties/components/PropertiesList.jsx";
 import CleaningTicketList from "@features/cleaning/components/CleaningTicketList.jsx";
 import FinancialsPanel from "@features/financials/components/FinancialsPanel.jsx";
 import NoticeList from "@features/notices/components/NoticeList.jsx";
+import SignIn from "../features/auth/pages/SignIn.jsx";
+import ForgotPassword from "../features/auth/pages/ForgotPassword.jsx";
+import ResetPassword from "../features/auth/pages/ResetPassword.jsx";
+import AcceptInvite from "../features/auth/pages/AcceptInvite.jsx";
 
 function HomePage() {
   const [showLeasesArchived, setShowLeasesArchived] = React.useState(true);
@@ -154,6 +158,17 @@ export function AppRoutes() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
+        {/* Public auth pages */}
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/accept-invite" element={<AcceptInvite />} />
+    
+        {/* Example protected route */}
+        {/* <Route path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>} /> */}
+    
+        <Route path="/" element={<Navigate to="/sign-in" replace />} />
+        <Route path="*" element={<Navigate to="/sign-in" replace />} />
       </Routes>
     </AppLayout>
   );
