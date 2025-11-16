@@ -1,0 +1,166 @@
+.wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Avatar button (top trigger) */
+.avatarBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.avatarBtn:hover {
+  background: #f3f4f6;
+}
+
+.avatarCircle {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  color: #4b5563;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.role {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+/* Dropdown menu container */
+.menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  min-width: 260px;
+  max-width: 320px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  padding: 8px 0;
+  z-index: 40;
+}
+
+/* Simple divider before Sign out */
+.hr {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 8px 0;
+}
+
+/* Base menu item */
+.item {
+  width: 100%;
+  text-align: left;
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  font-size: 0.85rem;
+  color: #374151;
+  cursor: pointer;
+}
+
+.item:hover {
+  background: #f3f4f6;
+}
+
+/* Section headers (Profile / Settings / Administration) */
+.sectionHeader {
+  width: 100%;
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  font-size: 0.85rem;
+  color: #111827;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sectionHeader:hover {
+  background: #f3f4f6;
+}
+
+.chevron {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+/* Section content area */
+.sectionBody {
+  padding: 4px 12px 8px 12px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.fieldRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.fieldLabel {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.fieldValue {
+  font-size: 0.8rem;
+  color: #111827;
+  text-align: right;
+}
+
+/* Impersonation dropdown */
+.select {
+  font-size: 0.8rem;
+  padding: 4px 6px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  color: #111827;
+}
+
+/* Clear impersonation button (lighter) */
+.subtleAction {
+  margin-top: 6px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: none;
+  background: #f3f4f6;
+  color: #374151;
+  font-size: 0.8rem;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.subtleAction:hover {
+  background: #e5e7eb;
+}

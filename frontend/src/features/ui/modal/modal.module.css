@@ -1,0 +1,158 @@
+:root {
+  --modal-gutter: 24px;
+  --modal-field-gap: 16px;       /* unified vertical rhythm */
+  --modal-hpad: 20px;            /* body horizontal padding */
+}
+
+/* ---------------------- OVERLAY & SHELL ---------------------- */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;          /* no accidental left/right bias */
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.modal {
+  background: #fff;
+  color: #0f172a;
+  border-radius: 1rem;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100dvh - 2 * var(--modal-gutter));
+  overflow: hidden;
+
+  width: min(var(--modal-max, 540px), calc(100dvw - 2 * var(--modal-gutter)));
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* Size tokens */
+.sm { --modal-max: 540px; }
+.md { --modal-max: 720px; }
+.lg { --modal-max: 820px; }
+.xl { --modal-max: 960px; }
+
+/* Fallback when scrollbar-gutter isn’t supported */
+@supports not (scrollbar-gutter: stable) {
+  .overlay {
+    padding-inline: calc(var(--modal-gutter) + (100vw - 100%) / 2);
+  }
+}
+
+/* ---------------------- INTENT BORDERS ----------------------- */
+.intentDestructive { outline: 2px solid #ef4444; }
+.intentSuccess     { outline: 2px solid #22c55e; }
+.intentWarning     { outline: 2px solid #f59e0b; }
+
+/* ---------------------- SECTIONS ----------------------------- */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  padding: 16px var(--modal-hpad);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.title { font-size: 1.125rem; font-weight: 700; }
+.subtitle { color: #64748b; margin-top: 2px; }
+
+.iconBtn {
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  color: #334155;
+}
+.iconBtn:hover { color: #0f172a; }
+
+.body {
+  padding: 16px var(--modal-hpad);
+  overflow: auto;
+}
+
+/* This padding is the same across ALL forms that live inside modals */
+.form {
+  padding: 0 1rem;
+}
+
+/* Uniform vertical rhythm for every field wrapper */
+.fieldWrap {
+  min-width: 0;
+  display: block;
+  width: 100%;
+  margin-top: var(--modal-field-gap);
+}
+.form .fieldWrap:first-child { margin-top: 18px; }
+
+/* 3-column responsive grid for City/State/Zip & Beds/Baths/Sq Ft */
+.gridTernaryTight {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  column-gap: 12px;
+  row-gap: var(--modal-field-gap);
+  align-items: end;
+}
+.gridTernaryTight .fieldWrap { margin-top: 0; }
+
+/* If a single field comes right after the 3-col grid, keep it tight */
+.gridTernaryTight + .fieldWrap { margin-top: 16px; }
+
+/* Validation text style used everywhere */
+.validationText {
+  color: #b91c1c;
+  font-weight: 600;
+  margin: 6px 0 0 0;
+}
+
+/* ---------------------- FOOTER ------------------------------- */
+.footer {
+  padding: 12px var(--modal-hpad);
+  border-top: 1px solid #e5e7eb;
+  background: #fafafa;
+}
+
+.footerRow {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+/* Buttons (shared look) */
+.btnPrimary {
+  background: #111827;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btnPrimary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.btnGhost {
+  background: transparent;
+  color: #111827;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.message { color: #334155; }
+
+/* Ensures a consistent gap above the footer across all forms */
+.formEndSpacer { height: var(--modal-field-gap); }
+
+/* (Optional) tighten the footer a touch so it doesn’t feel bottom-heavy */
+.footer { padding: 10px var(--modal-hpad); }

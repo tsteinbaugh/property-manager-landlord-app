@@ -1,0 +1,49 @@
+name: Frontend CI (newsrc)
+
+on:
+  push:
+    paths:
+      - 'frontend/newsrc/**'
+      - 'frontend/package.json'
+      - 'frontend/package-lock.json'
+      - 'frontend/vite.config.js'
+      - 'frontend/vitest.config.js'
+      - 'frontend/jsconfig.json'
+      - 'frontend/eslint.config.js'
+      - '.github/workflows/frontend-ci.yml'
+  pull_request:
+    paths:
+      - 'frontend/newsrc/**'
+      - 'frontend/package.json'
+      - 'frontend/package-lock.json'
+      - 'frontend/vite.config.js'
+      - 'frontend/vitest.config.js'
+      - 'frontend/jsconfig.json'
+      - 'frontend/eslint.config.js'
+      - '.github/workflows/frontend-ci.yml'
+
+jobs:
+  build-test-lint:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: 'frontend/package-lock.json'
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Lint (newsrc only)
+        run: npm run lint
+
+      - name: Test (Vitest)
+        run: npm test -- --run

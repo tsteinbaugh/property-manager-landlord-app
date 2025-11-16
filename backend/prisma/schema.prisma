@@ -1,0 +1,70 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  SYSADMIN
+  LANDLORD
+  PROPERTY_MANAGER
+  MAINTENANCE_TECH
+  TENANT
+  CLEANER
+}
+
+enum LeaseStatus {
+  DRAFT
+  ACTIVE
+  TERMINATED
+  ARCHIVED
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String?
+  passwordHash String
+  baseRole     Role     @default(LANDLORD)
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  leases       Lease[]  @relation("UserLeases")
+}
+
+model Property {
+  id          String   @id @default(cuid())
+  name        String?
+  address1    String
+  city        String
+  state       String
+  postalCode  String
+  isArchived  Boolean  @default(false)
+
+  leases      Lease[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Lease {
+  id          String       @id @default(cuid())
+  property    Property     @relation(fields: [propertyId], references: [id])
+  propertyId  String
+
+  landlord    User         @relation("UserLeases", fields: [landlordId], references: [id])
+  landlordId  String
+
+  tenantName  String
+  rentAmount  Int
+  status      LeaseStatus  @default(ACTIVE)
+  startDate   DateTime
+  endDate     DateTime?
+
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}

@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: landlord
+      POSTGRES_PASSWORD: landlord
+      POSTGRES_DB: landlord
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
