@@ -127,6 +127,28 @@ app.get("/api/properties", async (req, res) => {
   }
 });
 
+// Toggle archive flag on a property
+app.patch("/api/properties/:id/archive", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const current = await prisma.property.findUnique({ where: { id } });
+    if (!current) {
+      return res.status(404).json({ error: "Property not found" });
+    }
+
+    const updated = await prisma.property.update({
+      where: { id },
+      data: { isArchived: !current.isArchived },
+    });
+
+    res.json(updated);
+  } catch (err) {
+    console.error("Error in /api/properties/:id/archive", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Backend listening on http://localhost:${PORT}`);
 });

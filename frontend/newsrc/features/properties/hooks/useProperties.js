@@ -1,10 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
-import { propertiesApi } from "../api/properties.api.js";
+import { apiFetch } from "@lib/apiClient.js";
 import { can } from "@lib/rbac/index.js";
 import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
 import { ROLES } from "@lib/rbac/roles.js";
+import { useUser } from "@app/providers.jsx";
 
 export function useProperties({ includeArchived = false, role = ROLES.SYSADMIN } = {}) {
+  const { token } = useUser();
+
   const [data, setData] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -20,27 +23,55 @@ export function useProperties({ includeArchived = false, role = ROLES.SYSADMIN }
 
     setLoading(true);
     setError(null);
+
     try {
-      const list = await propertiesApi.list();
-      setData(includeArchived ? list : list.filter((p) => !p.archived));
+      const props = await apiFetch("/api/properties", { token });
+
+      const mapped = props.map((p) => ({
+        id: p.id,
+        name: p.name || p.address1,
+        address: `${p.address1}, ${p.city}, ${p.state} ${p.postalCode}`,
+        archived: p.isArchived,
+      }));
+
+      setData(includeArchived ? mapped : mapped.filter((x) => !x.archived));
     } catch (e) {
+      console.error("Failed to load properties:", e);
       setError(e);
     } finally {
       setLoading(false);
     }
-  }, [includeArchived, role]);
+  }, [includeArchived, role, token]);
 
-  useEffect(() => { refresh(); }, [refresh]);
+  useEffect(() => {
+    refresh();
+  }, [refresh]);
 
-  const toggleArchive = useCallback(async (id) => {
-    // RBAC: must be able to ARCHIVE properties
-    if (!can(role, R.PROPERTIES, A.ARCHIVE)) {
-      setError(new Error("forbidden"));
-      return;
-    }
-    await propertiesApi.toggleArchive(id);
-    await refresh();
-  }, [role, refresh]);
+  const toggleArchive = useCallback(
+    async (id) => {
+      if (!can(role, R.PROPERTIES, A.ARCHIVE)) {
+        setError(new Error("forbidden"));
+        return;
+      }
+
+      try {
+        const updated = await apiFetch(`/api/properties/${id}/archive`, {
+          method: "PATCH",
+          token,
+        });
+
+        setData((curr) =>
+          curr.map((p) =>
+            p.id === id ? { ...p, archived: updated.isArchived } : p
+          )
+        );
+      } catch (err) {
+        console.error("Archive toggle failed:", err);
+        setError(err);
+      }
+    },
+    [role, token]
+  );
 
   return { data, isLoading, error, toggleArchive, refetch: refresh };
 }

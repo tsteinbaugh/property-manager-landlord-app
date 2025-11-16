@@ -1,7 +1,11 @@
 // newsrc/app/providers.jsx
-import React, { createContext, useContext, useState, useEffect } from "react";
-
-const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:4000";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { API_BASE } from "@lib/config.js";
 
 const UserContext = createContext(null);
 
@@ -10,12 +14,10 @@ export function AppProviders({ children }) {
   const [token, setToken] = useState(null);
   const [impersonatedRole, setImpersonatedRole] = useState(null);
 
-  // Effective role = impersonated if set, else baseRole
   const effectiveRole = impersonatedRole || user?.baseRole || null;
-
   const isSysAdmin = user?.baseRole === "SYSADMIN";
 
-  // Try to restore session from localStorage on mount
+  // Restore from localStorage on mount
   useEffect(() => {
     const stored = localStorage.getItem("auth");
     if (!stored) return;
@@ -30,7 +32,7 @@ export function AppProviders({ children }) {
     }
   }, []);
 
-  // Persist auth in localStorage
+  // Persist auth
   useEffect(() => {
     if (user && token) {
       localStorage.setItem("auth", JSON.stringify({ user, token }));
@@ -40,7 +42,7 @@ export function AppProviders({ children }) {
   }, [user, token]);
 
   async function signIn({ username, password }) {
-    // SignIn.jsx passes { username, password }; backend expects email
+    // The SignIn page passes `username`; backend expects `email`.
     const res = await fetch(`${API_BASE}/api/auth/sign-in`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
