@@ -9,7 +9,7 @@ const app = express();
 
 const PORT = process.env.PORT || 4000;
 
-// Middleware
+// ---------- Middleware ----------
 app.use(
   cors({
     origin: "http://localhost:5173", // Vite dev server
@@ -18,12 +18,12 @@ app.use(
 );
 app.use(express.json());
 
-// Health check
+// ---------- Health check ----------
 app.get("/health", (req, res) => {
   res.json({ status: "ok" });
 });
 
-// --- Auth: very simple stub sign-in ---
+// ---------- Auth: very simple stub sign-in ----------
 app.post("/api/auth/sign-in", async (req, res) => {
   const { email, password } = req.body || {};
 
@@ -52,31 +52,116 @@ app.post("/api/auth/sign-in", async (req, res) => {
   }
 });
 
-// --- Properties: simple list with leases included ---
+// ===================================================================
+// PROPERTIES
+// ===================================================================
+
+// GET /api/properties - return raw Property rows from Prisma
 app.get("/api/properties", async (req, res) => {
   try {
     const props = await prisma.property.findMany({
-      include: { leases: true },
       orderBy: { createdAt: "desc" },
+      // include: { leases: true }, // add this back later if you need leases here
     });
-    res.json(
-      props.map((p) => ({
-        id: p.id,
-        name: p.name,
-        address: `${p.address1}, ${p.city}, ${p.state} ${p.postalCode}`,
-        archived: p.isArchived,
-        leases: p.leases,
-      }))
-    );
+    res.json(props);
   } catch (err) {
-    console.error("Error in /api/properties", err);
+    console.error("Error in GET /api/properties", err);
     res.status(500).json({ error: "Server error" });
   }
 });
 
-// --- Tenants: list + archive toggle ---
+// PATCH /api/properties/:id/archive - toggle isArchived flag
+app.patch("/api/properties/:id/archive", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const existing = await prisma.property.findUnique({ where: { id } });
+    if (!existing) {
+      return res.status(404).json({ error: "Property not found" });
+    }
 
-// GET /api/tenants - list all tenants (for now, no filtering)
+    const updated = await prisma.property.update({
+      where: { id },
+      data: { isArchived: !existing.isArchived },
+    });
+
+    // Return the raw row so frontend can keep using updated.isArchived
+    res.json(updated);
+  } catch (err) {
+    console.error("Error in PATCH /api/properties/:id/archive", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+
+// ===================================================================
+// LEASES
+// ===================================================================
+
+function shapeLease(row) {
+  return {
+    id: row.id,
+    propertyId: row.propertyId,
+    landlordId: row.landlordId,
+    tenantName: row.tenantName,
+    rentAmount: row.rentAmount,
+    status: row.status, // enum LeaseStatus
+    startDate: row.startDate,
+    endDate: row.endDate,
+    archived: row.status === "ARCHIVED",
+  };
+}
+
+// GET /api/leases - list all leases
+app.get("/api/leases", async (req, res) => {
+  try {
+    const leases = await prisma.lease.findMany({
+      orderBy: { createdAt: "desc" },
+      include: {
+        property: true,
+        landlord: true,
+      },
+    });
+
+    res.json(leases.map(shapeLease));
+  } catch (err) {
+    console.error("Error in GET /api/leases", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+// PATCH /api/leases/:id/archive - toggle archive based on status
+app.patch("/api/leases/:id/archive", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const lease = await prisma.lease.findUnique({ where: { id } });
+    if (!lease) {
+      return res.status(404).json({ error: "Lease not found" });
+    }
+
+    const nextStatus = lease.status === "ARCHIVED" ? "ACTIVE" : "ARCHIVED";
+
+    console.log(
+      `Toggling lease ${id} from ${lease.status} -> ${nextStatus}`
+    );
+
+    const updated = await prisma.lease.update({
+      where: { id },
+      data: { status: nextStatus },
+    });
+
+    res.json(shapeLease(updated));
+  } catch (err) {
+    console.error("Error in PATCH /api/leases/:id/archive", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+// ===================================================================
+// TENANTS
+// ===================================================================
+
+// GET /api/tenants – list all tenants
 app.get("/api/tenants", async (req, res) => {
   try {
     const tenants = await prisma.tenant.findMany({
@@ -95,12 +180,12 @@ app.get("/api/tenants", async (req, res) => {
       }))
     );
   } catch (err) {
-    console.error("Error in /api/tenants", err);
+    console.error("Error in GET /api/tenants", err);
     res.status(500).json({ error: "Server error" });
   }
 });
 
-// PATCH /api/tenants/:id/archive - toggle archive flag
+// PATCH /api/tenants/:id/archive – toggle archive flag
 app.patch("/api/tenants/:id/archive", async (req, res) => {
   const { id } = req.params;
 
@@ -125,11 +210,12 @@ app.patch("/api/tenants/:id/archive", async (req, res) => {
       updatedAt: updated.updatedAt,
     });
   } catch (err) {
-    console.error("Error in /api/tenants/:id/archive", err);
+    console.error("Error in PATCH /api/tenants/:id/archive", err);
     res.status(500).json({ error: "Server error" });
   }
 });
 
+// ---------- Start server ----------
 app.listen(PORT, () => {
   console.log(`Backend listening on http://localhost:${PORT}`);
 });

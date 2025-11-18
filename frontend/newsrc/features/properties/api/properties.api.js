@@ -1,69 +1,106 @@
-/**
- * Properties API (stub)
- * Shape: { id, name, address, archived, status }
- * status: "occupied" | "vacant" | "remodel"
- */
-const MOCK_PROPERTIES = [
-  { id: "prop-123", name: "6740 Sequoia St", address: "Frederick, CO", archived: false, status: "occupied" },
-  { id: "prop-456", name: "5349 Rustler Trail", address: "Parker, CO",     archived: false, status: "vacant"   },
-];
+// newsrc/features/properties/api/properties.api.js
 
-const VALID_STATUS = new Set(["occupied", "vacant", "remodel"]);
+const BASE_URL = "http://localhost:4000";
+
+async function http(method, path, body) {
+  const res = await fetch(`${BASE_URL}${path}`, {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: body ? JSON.stringify(body) : undefined,
+  });
+
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    throw new Error(
+      `Properties API error (${res.status} ${res.statusText}) from ${path}: ${
+        text || "<no body>"
+      }`
+    );
+  }
+
+  const text = await res.text().catch(() => "");
+  if (!text) return null;
+  try {
+    return JSON.parse(text);
+  } catch {
+    return null;
+  }
+}
+
+function mapPropertyFromApi(p) {
+  // backend server.js returns: { id, name, address, archived, leases: [...] }
+  return {
+    id: p.id,
+    name: p.name || "",
+    address: p.address || "",
+    archived: !!p.archived,
+    status: p.status || "occupied", // placeholder until we model status in DB
+    leases: Array.isArray(p.leases) ? p.leases : [],
+  };
+}
 
 export const propertiesApi = {
   async list() {
-    // return fresh copies so React state updates re-render
-    return MOCK_PROPERTIES.map(p => ({ ...p }));
+    const rows = await http("GET", "/api/properties");
+    if (!Array.isArray(rows)) return [];
+    return rows.map(mapPropertyFromApi);
   },
 
   async get(id) {
-    return MOCK_PROPERTIES.find(p => p.id === id) || null;
+    const all = await this.list();
+    return all.find((p) => p.id === id) || null;
   },
 
+  // we’ll hook this up later with POST /api/properties
   async add(payload) {
-    const id = payload?.id || (crypto.randomUUID?.() || String(Math.random()).slice(2));
-    let status = payload?.status ?? "vacant";
-    if (!VALID_STATUS.has(status)) status = "vacant";
-
-    const rec = { id, archived: false, status, ...payload };
-    MOCK_PROPERTIES.push(rec);
-    return { ...rec };
+    console.warn("[propertiesApi.add] not implemented against backend yet");
+    return {
+      id: payload?.id || String(Math.random()).slice(2),
+      name: payload?.name || "",
+      address: payload?.address || "",
+      archived: false,
+      status: payload?.status || "vacant",
+      leases: [],
+    };
   },
 
   async update(id, patch) {
-    const i = MOCK_PROPERTIES.findIndex(p => p.id === id);
-    if (i === -1) return null;
-
-    const next = { ...MOCK_PROPERTIES[i], ...patch };
-    if ("status" in patch && !VALID_STATUS.has(patch.status)) {
-      // keep previous status if invalid value is attempted
-      next.status = MOCK_PROPERTIES[i].status;
-    }
-
-    MOCK_PROPERTIES[i] = next;
-    return { ...MOCK_PROPERTIES[i] };
+    console.warn("[propertiesApi.update] not implemented against backend yet");
+    return { id, ...patch };
   },
 
   async setStatus(id, status) {
-    if (!VALID_STATUS.has(status)) return null;
-    const rec = MOCK_PROPERTIES.find(p => p.id === id);
-    if (!rec) return null;
-    rec.status = status;
-    return { ...rec };
+    console.warn("[propertiesApi.setStatus] not implemented against backend yet");
+    return { id, status };
   },
 
   async toggleArchive(id) {
-    const rec = MOCK_PROPERTIES.find(p => p.id === id);
-    if (!rec) return null;
-    rec.archived = !rec.archived;
+    // Try PATCH first; if backend only supports POST, we can fall back
+    let updated;
+    try {
+      updated = await http("PATCH", `/api/properties/${id}/archive`);
+    } catch (err) {
+      // Fallback to POST /toggle-archive if PATCH is not supported
+      console.warn(
+        "[propertiesApi.toggleArchive] PATCH failed, trying POST /toggle-archive",
+        err
+      );
+      updated = await http("POST", `/api/properties/${id}/toggle-archive`);
+    }
 
-    // ⬇️ Cascade 1: Leases under this property (auto-cascade to financials via leases api)
+    const mapped = mapPropertyFromApi(updated);
+
+    // Cascade to leases so they archive/unarchive with the property
     try {
       const { leasesApi } = await import("../../leases/api/leases.api.js");
       const leases = await leasesApi.list();
-      const byProperty = leases.filter(l => l.propertyId === id);
+      const byProperty = leases.filter((l) => l.propertyId === id);
       for (const l of byProperty) {
-        if (l.isArchived !== rec.archived) {
+        const shouldBeArchived = mapped.archived;
+        const isArchived = !!l.archived || l.status === "ARCHIVED";
+        if (shouldBeArchived !== isArchived) {
           await leasesApi.toggleArchive(l.id);
         }
       }
@@ -71,33 +108,13 @@ export const propertiesApi = {
       console.warn("Property cascade → leases skipped:", err);
     }
 
-    // ⬇️ Cascade 2 (optional): Tenants linked to this property
-    // Only enable if your tenants model includes propertyId.
-    /*
-    try {
-      const { tenantsApi } = await import("../../tenants/api/tenants.api.js");
-      const tenants = await tenantsApi.list();
-      const byPropertyTenants = tenants.filter(t => t.propertyId === id);
-      for (const t of byPropertyTenants) {
-        if (t.archived !== rec.archived) {
-          await tenantsApi.toggleArchive(t.id);
-        }
-      }
-    } catch (err) {
-      console.warn("Property cascade → tenants skipped:", err);
-    }
-    */
+    // Future: cascade to tenants, maintenance, etc.
 
-    // ⬇️ Cascade 3 (future): maintenance, expenses, etc.
-    // await maintenanceApi.setArchivedByProperty(id, rec.archived)
-    // await expensesApi.setArchivedByProperty(id, rec.archived)
-
-    return { ...rec };
+    return mapped;
   },
 
   async remove(id) {
-    const i = MOCK_PROPERTIES.findIndex(p => p.id === id);
-    if (i !== -1) MOCK_PROPERTIES.splice(i, 1);
+    console.warn("[propertiesApi.remove] not implemented against backend yet");
     return { ok: true };
   },
 };
