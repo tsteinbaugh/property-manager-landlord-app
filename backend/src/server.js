@@ -3,15 +3,11 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const { PrismaClient } = require("@prisma/client");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
 
 const prisma = new PrismaClient();
 const app = express();
 
 const PORT = process.env.PORT || 4000;
-const JWT_SECRET = process.env.JWT_SECRET || "dev-secret";
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "7d";
 
 // Middleware
 app.use(
@@ -22,44 +18,12 @@ app.use(
 );
 app.use(express.json());
 
-// Simple helper to create JWT
-function createToken(user) {
-  return jwt.sign(
-    {
-      sub: user.id,
-      role: user.baseRole,
-    },
-    JWT_SECRET,
-    { expiresIn: JWT_EXPIRES_IN }
-  );
-}
-
-// Auth middleware for protected routes (we'll use more later)
-async function authRequired(req, res, next) {
-  const auth = req.headers.authorization || "";
-  const [, token] = auth.split(" ");
-
-  if (!token) {
-    return res.status(401).json({ error: "Missing token" });
-  }
-
-  try {
-    const payload = jwt.verify(token, JWT_SECRET);
-    // Attach user info to request
-    req.auth = payload;
-    next();
-  } catch (err) {
-    console.error("JWT verify failed", err);
-    return res.status(401).json({ error: "Invalid or expired token" });
-  }
-}
-
 // Health check
 app.get("/health", (req, res) => {
   res.json({ status: "ok" });
 });
 
-// --- Auth: sign-in ---
+// --- Auth: very simple stub sign-in ---
 app.post("/api/auth/sign-in", async (req, res) => {
   const { email, password } = req.body || {};
 
@@ -69,17 +33,11 @@ app.post("/api/auth/sign-in", async (req, res) => {
 
   try {
     const user = await prisma.user.findUnique({ where: { email } });
-    if (!user) {
+    if (!user || user.passwordHash !== password) {
       return res.status(401).json({ error: "Invalid credentials" });
     }
 
-    const ok = await bcrypt.compare(password, user.passwordHash);
-    if (!ok) {
-      return res.status(401).json({ error: "Invalid credentials" });
-    }
-
-    const token = createToken(user);
-
+    // Later: JWTs, sessions, etc.
     return res.json({
       user: {
         id: user.id,
@@ -87,7 +45,6 @@ app.post("/api/auth/sign-in", async (req, res) => {
         name: user.name,
         baseRole: user.baseRole,
       },
-      token,
     });
   } catch (err) {
     console.error("Error in /api/auth/sign-in", err);
@@ -95,56 +52,80 @@ app.post("/api/auth/sign-in", async (req, res) => {
   }
 });
 
-// --- Auth: current user from token ---
-app.get("/api/auth/me", authRequired, async (req, res) => {
-  try {
-    const user = await prisma.user.findUnique({
-      where: { id: req.auth.sub },
-      select: { id: true, email: true, name: true, baseRole: true },
-    });
-
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
-
-    res.json({ user });
-  } catch (err) {
-    console.error("Error in /api/auth/me", err);
-    res.status(500).json({ error: "Server error" });
-  }
-});
-
-// --- Example: list properties (unprotected for now) ---
+// --- Properties: simple list with leases included ---
 app.get("/api/properties", async (req, res) => {
   try {
     const props = await prisma.property.findMany({
       include: { leases: true },
+      orderBy: { createdAt: "desc" },
     });
-    res.json(props);
+    res.json(
+      props.map((p) => ({
+        id: p.id,
+        name: p.name,
+        address: `${p.address1}, ${p.city}, ${p.state} ${p.postalCode}`,
+        archived: p.isArchived,
+        leases: p.leases,
+      }))
+    );
   } catch (err) {
     console.error("Error in /api/properties", err);
     res.status(500).json({ error: "Server error" });
   }
 });
 
-// Toggle archive flag on a property
-app.patch("/api/properties/:id/archive", async (req, res) => {
+// --- Tenants: list + archive toggle ---
+
+// GET /api/tenants - list all tenants (for now, no filtering)
+app.get("/api/tenants", async (req, res) => {
+  try {
+    const tenants = await prisma.tenant.findMany({
+      orderBy: { createdAt: "desc" },
+    });
+
+    res.json(
+      tenants.map((t) => ({
+        id: t.id,
+        name: t.name,
+        email: t.email,
+        phone: t.phone,
+        archived: t.isArchived,
+        createdAt: t.createdAt,
+        updatedAt: t.updatedAt,
+      }))
+    );
+  } catch (err) {
+    console.error("Error in /api/tenants", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+// PATCH /api/tenants/:id/archive - toggle archive flag
+app.patch("/api/tenants/:id/archive", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const current = await prisma.property.findUnique({ where: { id } });
-    if (!current) {
-      return res.status(404).json({ error: "Property not found" });
+    const existing = await prisma.tenant.findUnique({ where: { id } });
+    if (!existing) {
+      return res.status(404).json({ error: "Tenant not found" });
     }
 
-    const updated = await prisma.property.update({
+    const updated = await prisma.tenant.update({
       where: { id },
-      data: { isArchived: !current.isArchived },
+      data: { isArchived: !existing.isArchived },
     });
 
-    res.json(updated);
+    res.json({
+      id: updated.id,
+      name: updated.name,
+      email: updated.email,
+      phone: updated.phone,
+      archived: updated.isArchived,
+      createdAt: updated.createdAt,
+      updatedAt: updated.updatedAt,
+    });
   } catch (err) {
-    console.error("Error in /api/properties/:id/archive", err);
+    console.error("Error in /api/tenants/:id/archive", err);
     res.status(500).json({ error: "Server error" });
   }
 });

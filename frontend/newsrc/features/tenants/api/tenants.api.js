@@ -1,59 +1,102 @@
+// newsrc/features/tenants/api/tenants.api.js
 import { petsApi } from "./pets.api.js";
 import { occupantsApi } from "./occupants.api.js";
 import { emergencyContactsApi } from "./emergencyContacts.api.js";
 
-const MOCK_TENANTS = [
-  {
-    id: "t1",
-    name: "Taylor",
-    archived: false, // filter flag
-    pets: [{ id: "p1", name: "Rex", kind: "dog" }],           // local demo data (lists use APIs)
-    occupants: [{ id: "o1", name: "Alex Roomie" }],
-    emergencyContacts: [{ id: "ec1", name: "Mom", phone: "555-1212" }],
-  },
-];
+const BASE_URL = "http://localhost:4000";
+
+async function http(method, path, body) {
+  const res = await fetch(`${BASE_URL}${path}`, {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: body ? JSON.stringify(body) : undefined,
+  });
+
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    throw new Error(
+      `HTTP ${res.status} ${res.statusText} from ${path}: ${text || "<no body>"}`
+    );
+  }
+
+  // try to parse JSON, but tolerate empty responses
+  const text = await res.text();
+  if (!text) return null;
+  try {
+    return JSON.parse(text);
+  } catch {
+    return null;
+  }
+}
+
+function mapTenantFromApi(t) {
+  // Shape to match what the rest of the frontend expects:
+  // id, name, archived, plus placeholder arrays so lists don’t explode.
+  return {
+    id: t.id,
+    name: t.name,
+    email: t.email || "",
+    phone: t.phone || "",
+    archived: !!t.archived,
+    pets: [], // pets/occupants/contacts are managed via their own APIs
+    occupants: [],
+    emergencyContacts: [],
+  };
+}
 
 export const tenantsApi = {
   async list() {
-    return [...MOCK_TENANTS];
+    const rows = await http("GET", "/api/tenants");
+    if (!Array.isArray(rows)) return [];
+    return rows.map(mapTenantFromApi);
   },
+
   async get(id) {
-    return MOCK_TENANTS.find(t => t.id === id) || null;
+    // For now just list + find; we can add a dedicated endpoint later if needed.
+    const rows = await this.list();
+    return rows.find((t) => t.id === id) || null;
   },
+
   async create(payload) {
-    const id = payload?.id || (crypto.randomUUID?.() || String(Math.random()).slice(2));
+    // Placeholder for later — we’ll add a POST /api/tenants when we wire up a “create tenant” flow.
+    console.warn("[tenantsApi.create] not implemented against backend yet");
+    // Make a fake record so any existing demo code doesn’t explode:
     const rec = {
-      id,
+      id: payload?.id || String(Math.random()).slice(2),
+      name: payload?.name || "",
+      email: payload?.email || "",
+      phone: payload?.phone || "",
       archived: false,
       pets: [],
       occupants: [],
       emergencyContacts: [],
-      ...payload,
     };
-    MOCK_TENANTS.push(rec);
     return rec;
   },
+
   async update(id, patch) {
-    const i = MOCK_TENANTS.findIndex(t => t.id === id);
-    if (i === -1) return null;
-    MOCK_TENANTS[i] = { ...MOCK_TENANTS[i], ...patch };
-    return MOCK_TENANTS[i];
+    console.warn("[tenantsApi.update] not implemented against backend yet");
+    // Fallback: just return the patch merged with id so callers don’t crash
+    return { id, ...patch };
   },
+
   async toggleArchive(id) {
-    const t = MOCK_TENANTS.find(x => x.id === id);
-    if (!t) return null;
-    t.archived = !t.archived;
+    // Hit backend to flip isArchived
+    const t = await http("PATCH", `/api/tenants/${id}/archive`);
+    const archived = !!t.archived;
 
-    // Cascade to sub-records
-    await petsApi.setArchivedByTenant(id, t.archived);
-    await occupantsApi.setArchivedByTenant(id, t.archived);
-    await emergencyContactsApi.setArchivedByTenant(id, t.archived);
+    // Keep the existing cascade behavior to demo “archive everything for this tenant”
+    await petsApi.setArchivedByTenant(id, archived);
+    await occupantsApi.setArchivedByTenant(id, archived);
+    await emergencyContactsApi.setArchivedByTenant(id, archived);
 
-    return t;
+    return mapTenantFromApi(t);
   },
+
   async remove(id) {
-    const i = MOCK_TENANTS.findIndex(t => t.id === id);
-    if (i !== -1) MOCK_TENANTS.splice(i, 1);
+    console.warn("[tenantsApi.remove] not implemented against backend yet");
     return { ok: true };
   },
 };
