@@ -87,8 +87,8 @@ model Tenant {
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
 
-  // ⬇️ back-relation to Occupant
   occupants  Occupant[]
+  pets       Pet[]
 }
 
 model Occupant {
@@ -98,6 +98,21 @@ model Occupant {
 
   name       String
   relation   String?
+  isArchived Boolean  @default(false)
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Pet {
+  id         String   @id @default(cuid())
+  tenant     Tenant   @relation(fields: [tenantId], references: [id])
+  tenantId   String
+
+  name       String
+  species    String?
+  breed      String?
+  weightLbs  Int?
   isArchived Boolean  @default(false)
 
   createdAt  DateTime @default(now())

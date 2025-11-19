@@ -35,19 +35,40 @@ import { useTenants } from "@features/tenants/hooks/useTenants.js";
 
 // ---------- Simple stubs so the Admin area doesn't explode ----------
 function Admin() {
-  return <div style={{ padding: 16 }}><h2>Admin</h2><p>Select an admin page from the sidebar.</p></div>;
+  return (
+    <div style={{ padding: 16 }}>
+      <h2>Admin</h2>
+      <p>Select an admin page from the sidebar.</p>
+    </div>
+  );
 }
 function AdminHome() {
-  return <div style={{ padding: 16 }}><h3>Admin Home</h3></div>;
+  return (
+    <div style={{ padding: 16 }}>
+      <h3>Admin Home</h3>
+    </div>
+  );
 }
 function Users() {
-  return <div style={{ padding: 16 }}><h3>Users</h3></div>;
+  return (
+    <div style={{ padding: 16 }}>
+      <h3>Users</h3>
+    </div>
+  );
 }
 function InviteUser() {
-  return <div style={{ padding: 16 }}><h3>Invite User</h3></div>;
+  return (
+    <div style={{ padding: 16 }}>
+      <h3>Invite User</h3>
+    </div>
+  );
 }
 function SystemLogs() {
-  return <div style={{ padding: 16 }}><h3>System Logs</h3></div>;
+  return (
+    <div style={{ padding: 16 }}>
+      <h3>System Logs</h3>
+    </div>
+  );
 }
 // --------------------------------------------------------------------
 
@@ -56,13 +77,20 @@ function PropertiesDemo() {
   return (
     <>
       <div style={{ marginBottom: 8 }}>
-        <IncludeArchivedToggle value={showArchived} onChange={setShowArchived} />
+        <IncludeArchivedToggle
+          value={showArchived}
+          onChange={setShowArchived}
+        />
       </div>
       <PropertiesList includeArchived={showArchived} />
     </>
   );
 }
 
+/**
+ * Demo section that ties Pets, Occupants, and Emergency Contacts
+ * to the same tenant (the first non-archived tenant).
+ */
 function OccupantsDemoSection() {
   const { data: tenants, isLoading, error } = useTenants({
     includeArchived: false,
@@ -71,8 +99,8 @@ function OccupantsDemoSection() {
   if (isLoading) {
     return (
       <section style={{ marginTop: 16 }}>
-        <h3 style={{ margin: "0 0 6px" }}>Occupants</h3>
-        <div>Loading occupants…</div>
+        <h3 style={{ margin: "0 0 6px" }}>Tenant details</h3>
+        <div>Loading tenant-related data…</div>
       </section>
     );
   }
@@ -80,9 +108,9 @@ function OccupantsDemoSection() {
   if (error) {
     return (
       <section style={{ marginTop: 16 }}>
-        <h3 style={{ margin: "0 0 6px" }}>Occupants</h3>
+        <h3 style={{ margin: "0 0 6px" }}>Tenant details</h3>
         <div style={{ color: "crimson" }}>
-          Error loading occupants: {String(error.message || error)}
+          Error loading tenants: {String(error.message || error)}
         </div>
       </section>
     );
@@ -91,22 +119,33 @@ function OccupantsDemoSection() {
   if (!tenants.length) {
     return (
       <section style={{ marginTop: 16 }}>
-        <h3 style={{ margin: "0 0 6px" }}>Occupants</h3>
+        <h3 style={{ margin: "0 0 6px" }}>Tenant details</h3>
         <div style={{ color: "#666" }}>
-          Create a tenant first to attach occupants.
+          Create a tenant first to attach pets, occupants, and emergency
+          contacts.
         </div>
       </section>
     );
   }
 
   const tenant = tenants[0];
+  const tenantLabel = tenant.name || tenant.email || tenant.id;
+  const tenantId = tenant.id;
 
   return (
     <section style={{ marginTop: 16 }}>
-      <h3 style={{ margin: "0 0 6px" }}>
-        Occupants (tenant {tenant.name || tenant.email || tenant.id})
+      <h3 style={{ margin: "0 0 6px" }}>Pets (tenant {tenantLabel})</h3>
+      <PetList tenantId={tenantId} />
+
+      <h3 style={{ margin: "16px 0 6px" }}>
+        Occupants (tenant {tenantLabel})
       </h3>
-      <OccupantList tenantId={tenant.id} />
+      <OccupantList tenantId={tenantId} />
+
+      <h3 style={{ margin: "16px 0 6px" }}>
+        Emergency contacts (tenant {tenantLabel})
+      </h3>
+      <EmergencyContactList tenantId={tenantId} />
     </section>
   );
 }
@@ -128,20 +167,16 @@ function DashboardPage() {
       <section style={{ marginTop: 16 }}>
         <h3 style={{ margin: "0 0 6px" }}>Tenants</h3>
         <div style={{ marginBottom: 8 }}>
-          <IncludeArchivedToggle value={showTenantsArchived} onChange={setShowTenantsArchived} />
+          <IncludeArchivedToggle
+            value={showTenantsArchived}
+            onChange={setShowTenantsArchived}
+          />
         </div>
         <TenantsList includeArchived={showTenantsArchived} />
       </section>
 
-      <section style={{ marginTop: 16 }}>
-        <PetList tenantId="t1" />
-      </section>
-
+      {/* Pets + Occupants + Emergency Contacts all tied to the same tenant */}
       <OccupantsDemoSection />
-
-      <section style={{ marginTop: 16 }}>
-        <EmergencyContactList tenantId="t1" />
-      </section>
 
       <section style={{ marginTop: 16 }}>
         <MaintenanceTicketList propertyId="prop-123" />
@@ -166,7 +201,10 @@ function DashboardPage() {
       <section style={{ marginTop: 16 }}>
         <h3 style={{ margin: "0 0 6px" }}>Leases</h3>
         <div style={{ marginBottom: 8 }}>
-          <IncludeArchivedToggle value={showLeasesArchived} onChange={setShowLeasesArchived} />
+          <IncludeArchivedToggle
+            value={showLeasesArchived}
+            onChange={setShowLeasesArchived}
+          />
         </div>
         <LeasesList includeArchived={showLeasesArchived} />
       </section>
@@ -190,7 +228,10 @@ function DashboardPage() {
       <section style={{ marginTop: 16 }}>
         <h3 style={{ margin: "0 0 6px" }}>Legal Cases</h3>
         <div style={{ marginBottom: 8 }}>
-          <IncludeArchivedToggle value={showLegalArchived} onChange={setShowLegalArchived} />
+          <IncludeArchivedToggle
+            value={showLegalArchived}
+            onChange={setShowLegalArchived}
+          />
         </div>
         <LegalCaseList leaseId="lease-123" includeArchived={showLegalArchived} />
       </section>
@@ -222,4 +263,3 @@ export function AppRoutes() {
     </AppLayout>
   );
 }
-

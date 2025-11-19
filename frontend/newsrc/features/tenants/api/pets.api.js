@@ -1,37 +1,87 @@
-/**
- * Pets API (stub)
- * { id, tenantId, name, species, breed, weightLbs, notes, archived }
- */
-const MOCK_PETS = [
-  { id: "pet-1", tenantId: "t1", name: "Scout", species: "dog", breed: "Lab mix", weightLbs: 55, notes: "Good boy", archived: false },
-];
+// newsrc/features/tenants/api/pets.api.js
+const BASE_URL = "http://localhost:4000";
+
+async function http(method, path, body) {
+  const res = await fetch(`${BASE_URL}${path}`, {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: body ? JSON.stringify(body) : undefined,
+  });
+
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    throw new Error(
+      `HTTP ${res.status} ${res.statusText} from ${path}: ${
+        text || "<no body>"
+      }`
+    );
+  }
+
+  const text = await res.text();
+  if (!text) return null;
+  try {
+    return JSON.parse(text);
+  } catch {
+    return null;
+  }
+}
+
+function mapPetFromApi(p) {
+  return {
+    id: p.id,
+    tenantId: p.tenantId,
+    name: p.name,
+    species: p.species || "",
+    breed: p.breed || "",
+    weightLbs: p.weightLbs ?? null,
+    archived: !!p.archived,
+  };
+}
 
 export const petsApi = {
-  async listByTenant(tenantId) {
+  async list(tenantId, { includeArchived = false } = {}) {
     if (!tenantId) return [];
-    return MOCK_PETS.filter(p => p.tenantId === tenantId).map(p => ({ ...p }));
+    const qs = includeArchived ? "?includeArchived=1" : "?includeArchived=0";
+    const rows = await http("GET", `/api/tenants/${tenantId}/pets${qs}`);
+    if (!Array.isArray(rows)) return [];
+    return rows.map(mapPetFromApi);
   },
-  async add(tenantId, payload) {
-    const id = payload?.id || (crypto.randomUUID?.() || String(Math.random()).slice(2));
-    const rec = { id, tenantId, archived: false, ...payload };
-    MOCK_PETS.push(rec);
-    return { ...rec };
+
+  async create(tenantId, payload) {
+    if (!tenantId) throw new Error("tenantId is required");
+    const row = await http("POST", `/api/tenants/${tenantId}/pets`, payload);
+    return mapPetFromApi(row);
   },
-  async toggleArchive(id) {
-    const row = MOCK_PETS.find(p => p.id === id);
-    if (!row) return null;
-    row.archived = !row.archived;
-    return { ...row };
+
+  async update(tenantId, id, patch) {
+    if (!tenantId) throw new Error("tenantId is required");
+    const row = await http(
+      "PATCH",
+      `/api/tenants/${tenantId}/pets/${id}`,
+      patch
+    );
+    return mapPetFromApi(row);
   },
-  async setArchivedByTenant(tenantId, archivedFlag) {
-    for (const row of MOCK_PETS) {
-      if (row.tenantId === tenantId) row.archived = !!archivedFlag;
+
+  async toggleArchive(tenantId, id) {
+    if (!tenantId) throw new Error("tenantId is required");
+    const row = await http(
+      "PATCH",
+      `/api/tenants/${tenantId}/pets/${id}/archive`
+    );
+    return mapPetFromApi(row);
+  },
+
+  // used when archiving an entire tenant
+  async setArchivedByTenant(tenantId, archived) {
+    if (!tenantId) return;
+    const list = await this.list(tenantId, { includeArchived: true });
+    for (const p of list) {
+      if (p.archived !== archived) {
+        await this.toggleArchive(tenantId, p.id);
+      }
     }
-    return { ok: true };
-  },
-  async remove(id) {
-    const i = MOCK_PETS.findIndex(p => p.id === id);
-    if (i !== -1) MOCK_PETS.splice(i, 1);
-    return { ok: true };
   },
 };

@@ -8,6 +8,7 @@ async function main() {
 
   // Clear in child → parent order to avoid FK issues
   await prisma.lease.deleteMany();
+  await prisma.pet.deleteMany();
   await prisma.occupant.deleteMany();
   await prisma.property.deleteMany();
   await prisma.tenant.deleteMany();
@@ -51,6 +52,17 @@ async function main() {
       email: "jane.roommate@example.com",
       phone: "555-333-4444",
       isArchived: false,
+    },
+  });
+
+  // Pet for tenant1
+  await prisma.pet.create({
+    data: {
+      tenantId: tenant1.id,
+      name: "Scout",
+      species: "dog",
+      breed: "Lab mix",
+      weightLbs: 55,
     },
   });
 

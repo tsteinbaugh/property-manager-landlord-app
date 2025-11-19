@@ -110,6 +110,20 @@ function shapeOccupant(o) {
   };
 }
 
+function shapePet(p) {
+  return {
+    id: p.id,
+    tenantId: p.tenantId,
+    name: p.name,
+    species: p.species || "",
+    breed: p.breed || "",
+    weightLbs: p.weightLbs ?? null,
+    archived: p.isArchived,
+    createdAt: p.createdAt,
+    updatedAt: p.updatedAt,
+  };
+}
+
 // ===================================================================
 // FILE UPLOAD (LEASES)
 // ===================================================================
@@ -659,6 +673,148 @@ app.patch(
     }
   }
 );
+
+// ===================================================================
+// PETS (per-tenant)
+// ===================================================================
+
+// GET /api/tenants/:tenantId/pets
+app.get("/api/tenants/:tenantId/pets", async (req, res) => {
+  const { tenantId } = req.params;
+  const includeArchived =
+    req.query.includeArchived === "1" ||
+    req.query.includeArchived === "true";
+
+  try {
+    const where = {
+      tenantId,
+      ...(includeArchived ? {} : { isArchived: false }),
+    };
+
+    const pets = await prisma.pet.findMany({
+      where,
+      orderBy: { createdAt: "asc" },
+    });
+
+    res.json(pets.map(shapePet));
+  } catch (err) {
+    console.error("Error in GET /api/tenants/:tenantId/pets", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+// POST /api/tenants/:tenantId/pets – create pet
+app.post("/api/tenants/:tenantId/pets", async (req, res) => {
+  const { tenantId } = req.params;
+  const { name, species, breed, weightLbs } = req.body || {};
+
+  if (!name || !name.trim()) {
+    return res.status(400).json({ error: "name is required" });
+  }
+
+  try {
+    const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
+    if (!tenant) {
+      return res.status(404).json({ error: "Tenant not found" });
+    }
+
+    let weight = null;
+    if (weightLbs !== undefined && weightLbs !== null && weightLbs !== "") {
+      const parsed = Number(weightLbs);
+      if (!Number.isFinite(parsed)) {
+        return res.status(400).json({ error: "weightLbs must be a number" });
+      }
+      weight = Math.round(parsed);
+    }
+
+    const created = await prisma.pet.create({
+      data: {
+        tenantId,
+        name: name.trim(),
+        species: species?.trim() || null,
+        breed: breed?.trim() || null,
+        weightLbs: weight,
+      },
+    });
+
+    res.status(201).json(shapePet(created));
+  } catch (err) {
+    console.error("Error in POST /api/tenants/:tenantId/pets", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+// PATCH /api/tenants/:tenantId/pets/:id – update pet
+app.patch("/api/tenants/:tenantId/pets/:id", async (req, res) => {
+  const { tenantId, id } = req.params;
+  const { name, species, breed, weightLbs } = req.body || {};
+
+  try {
+    const existing = await prisma.pet.findUnique({ where: { id } });
+    if (!existing || existing.tenantId !== tenantId) {
+      return res.status(404).json({ error: "Pet not found" });
+    }
+
+    let weight = existing.weightLbs;
+    if (weightLbs !== undefined) {
+      if (weightLbs === null || weightLbs === "") {
+        weight = null;
+      } else {
+        const parsed = Number(weightLbs);
+        if (!Number.isFinite(parsed)) {
+          return res.status(400).json({ error: "weightLbs must be a number" });
+        }
+        weight = Math.round(parsed);
+      }
+    }
+
+    const updated = await prisma.pet.update({
+      where: { id },
+      data: {
+        name:
+          name !== undefined ? name.trim() || existing.name : existing.name,
+        species:
+          species !== undefined
+            ? species.trim() || null
+            : existing.species,
+        breed:
+          breed !== undefined ? breed.trim() || null : existing.breed,
+        weightLbs: weight,
+      },
+    });
+
+    res.json(shapePet(updated));
+  } catch (err) {
+    console.error("Error in PATCH /api/tenants/:tenantId/pets/:id", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+// PATCH /api/tenants/:tenantId/pets/:id/archive – toggle isArchived
+app.patch("/api/tenants/:tenantId/pets/:id/archive", async (req, res) => {
+  const { tenantId, id } = req.params;
+
+  try {
+    const existing = await prisma.pet.findUnique({ where: { id } });
+    if (!existing || existing.tenantId !== tenantId) {
+      return res.status(404).json({ error: "Pet not found" });
+    }
+
+    const updated = await prisma.pet.update({
+      where: { id },
+      data: { isArchived: !existing.isArchived },
+    });
+
+    res.json(shapePet(updated));
+  } catch (err) {
+    console.error(
+      "Error in PATCH /api/tenants/:tenantId/pets/:id/archive",
+      err
+    );
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 
 // ===================================================================
 // START SERVER
