@@ -5,7 +5,10 @@ import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
 import { ROLES } from "@lib/rbac/roles.js";
 import { useUser } from "@app/providers.jsx";
 
-export function useProperties({ includeArchived = false, role = ROLES.SYSADMIN } = {}) {
+export function useProperties({
+  includeArchived = false,
+  role = ROLES.SYSADMIN,
+} = {}) {
   const { token } = useUser();
 
   const [data, setData] = useState([]);
@@ -13,7 +16,6 @@ export function useProperties({ includeArchived = false, role = ROLES.SYSADMIN }
   const [error, setError] = useState(null);
 
   const refresh = useCallback(async () => {
-    // RBAC: must be able to VIEW properties
     if (!can(role, R.PROPERTIES, A.VIEW)) {
       setData([]);
       setError(new Error("forbidden"));
@@ -27,12 +29,24 @@ export function useProperties({ includeArchived = false, role = ROLES.SYSADMIN }
     try {
       const props = await apiFetch("/api/properties", { token });
 
-      const mapped = props.map((p) => ({
-        id: p.id,
-        name: p.name || p.address1,
-        address: `${p.address1}, ${p.city}, ${p.state} ${p.postalCode}`,
-        archived: p.isArchived,
-      }));
+      const mapped = props.map((p) => {
+        const name = p.name || p.address1;
+        const address1 = p.address1 || "";
+        const city = p.city || "";
+        const state = p.state || "";
+        const postalCode = p.postalCode || "";
+
+        return {
+          id: p.id,
+          name,
+          address1,
+          city,
+          state,
+          postalCode,
+          address: `${address1}, ${city}, ${state} ${postalCode}`.trim(),
+          archived: !!p.isArchived,
+        };
+      });
 
       setData(includeArchived ? mapped : mapped.filter((x) => !x.archived));
     } catch (e) {
@@ -62,7 +76,12 @@ export function useProperties({ includeArchived = false, role = ROLES.SYSADMIN }
 
         setData((curr) =>
           curr.map((p) =>
-            p.id === id ? { ...p, archived: updated.isArchived } : p
+            p.id === id
+              ? {
+                  ...p,
+                  archived: !!updated.isArchived,
+                }
+              : p
           )
         );
       } catch (err) {

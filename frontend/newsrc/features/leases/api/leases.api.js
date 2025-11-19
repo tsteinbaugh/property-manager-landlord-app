@@ -1,6 +1,6 @@
 // newsrc/features/leases/api/leases.api.js
 
-const BASE_URL = "http://localhost:4000";
+const BASE_URL = import.meta.env.VITE_BACKEND_URL ?? "http://localhost:4000";
 
 async function http(method, path, body) {
   const res = await fetch(`${BASE_URL}${path}`, {
@@ -8,11 +8,13 @@ async function http(method, path, body) {
     headers: {
       "Content-Type": "application/json",
     },
+    credentials: "include",
     body: body ? JSON.stringify(body) : undefined,
   });
 
+  const text = await res.text().catch(() => "");
+
   if (!res.ok) {
-    const text = await res.text().catch(() => "");
     throw new Error(
       `Leases API error (${res.status} ${res.statusText}) from ${path}: ${
         text || "<no body>"
@@ -20,12 +22,11 @@ async function http(method, path, body) {
     );
   }
 
-  const text = await res.text().catch(() => "");
   if (!text) return null;
-
   try {
     return JSON.parse(text);
   } catch {
+    // tolerate non-JSON empty-ish responses
     return null;
   }
 }
@@ -37,7 +38,12 @@ export const leasesApi = {
   },
 
   async toggleArchive(id) {
-    // Backend PATCH /api/leases/:id/archive flips ACTIVE <-> ARCHIVED
+    // backend supports both PATCH /archive and POST /toggle-archive;
+    // we'll use PATCH as the canonical route
     return http("PATCH", `/api/leases/${id}/archive`);
+  },
+
+  async update(id, patch) {
+    return http("PATCH", `/api/leases/${id}`, patch);
   },
 };

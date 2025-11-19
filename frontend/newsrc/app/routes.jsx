@@ -31,6 +31,8 @@ import LegalCaseList from "@features/legal/components/LegalCaseList.jsx";
 import LegalCasePanel from "@features/legal/components/LegalCasePanel.jsx";
 import CleaningTicketList from "@features/cleaning/components/CleaningTicketList.jsx";
 
+import { useTenants } from "@features/tenants/hooks/useTenants.js";
+
 // ---------- Simple stubs so the Admin area doesn't explode ----------
 function Admin() {
   return <div style={{ padding: 16 }}><h2>Admin</h2><p>Select an admin page from the sidebar.</p></div>;
@@ -61,6 +63,54 @@ function PropertiesDemo() {
   );
 }
 
+function OccupantsDemoSection() {
+  const { data: tenants, isLoading, error } = useTenants({
+    includeArchived: false,
+  });
+
+  if (isLoading) {
+    return (
+      <section style={{ marginTop: 16 }}>
+        <h3 style={{ margin: "0 0 6px" }}>Occupants</h3>
+        <div>Loading occupants…</div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section style={{ marginTop: 16 }}>
+        <h3 style={{ margin: "0 0 6px" }}>Occupants</h3>
+        <div style={{ color: "crimson" }}>
+          Error loading occupants: {String(error.message || error)}
+        </div>
+      </section>
+    );
+  }
+
+  if (!tenants.length) {
+    return (
+      <section style={{ marginTop: 16 }}>
+        <h3 style={{ margin: "0 0 6px" }}>Occupants</h3>
+        <div style={{ color: "#666" }}>
+          Create a tenant first to attach occupants.
+        </div>
+      </section>
+    );
+  }
+
+  const tenant = tenants[0];
+
+  return (
+    <section style={{ marginTop: 16 }}>
+      <h3 style={{ margin: "0 0 6px" }}>
+        Occupants (tenant {tenant.name || tenant.email || tenant.id})
+      </h3>
+      <OccupantList tenantId={tenant.id} />
+    </section>
+  );
+}
+
 function DashboardPage() {
   const [showLeasesArchived, setShowLeasesArchived] = React.useState(true);
   const [showTenantsArchived, setShowTenantsArchived] = React.useState(true);
@@ -87,9 +137,7 @@ function DashboardPage() {
         <PetList tenantId="t1" />
       </section>
 
-      <section style={{ marginTop: 16 }}>
-        <OccupantList tenantId="t1" />
-      </section>
+      <OccupantsDemoSection />
 
       <section style={{ marginTop: 16 }}>
         <EmergencyContactList tenantId="t1" />

@@ -1,45 +1,65 @@
-import { useCallback, useEffect, useState } from "react";
-import { leaseLifecycleApi } from "../api/leaseLifecycle.api.js";
+// newsrc/features/leases/hooks/useLeaseLifecycle.js
+import { useEffect, useState } from "react";
 
-/** useLeaseLifecycle(leaseId) — read status + call transitions */
+// Simple in-memory demo lease; not persisted to backend yet
+const INITIAL = {
+  id: "demo-lease",
+  status: "draft",
+  mtmSince: null,
+  endedAt: null,
+};
+
 export function useLeaseLifecycle(leaseId) {
   const [lease, setLease] = useState(null);
-  const [isLoading, setLoading] = useState(!!leaseId);
+  const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const refresh = useCallback(async () => {
-    if (!leaseId) { setLease(null); setLoading(false); return; }
+  useEffect(() => {
+    if (!leaseId) {
+      setLease(null);
+      setLoading(false);
+      return;
+    }
+
     setLoading(true);
     setError(null);
-    try {
-      const data = await leaseLifecycleApi.get(leaseId);
-      setLease(data ? { ...data } : null);
-    } catch (e) {
-      setError(e);
-    } finally {
+
+    // For now we just create a local demo lease record keyed by leaseId
+    // In the future we can wire this to the backend.
+    setTimeout(() => {
+      setLease((prev) => prev ?? { ...INITIAL, id: leaseId });
       setLoading(false);
-    }
+    }, 0);
   }, [leaseId]);
 
-  useEffect(() => { refresh(); }, [refresh]);
+  const start = async () => {
+    setLease((prev) => (prev ? { ...prev, status: "active" } : prev));
+  };
 
-  const start = useCallback(async () => {
-    if (!leaseId) return;
-    await leaseLifecycleApi.start(leaseId);
-    await refresh();
-  }, [leaseId, refresh]);
+  const setMonthToMonth = async () => {
+    setLease((prev) =>
+      prev
+        ? {
+            ...prev,
+            status: "active",
+            mtmSince: prev.mtmSince ?? new Date().toISOString(),
+          }
+        : prev
+    );
+  };
 
-  const end = useCallback(async () => {
-    if (!leaseId) return;
-    await leaseLifecycleApi.end(leaseId);
-    await refresh();
-  }, [leaseId, refresh]);
+  const end = async () => {
+    const now = new Date().toISOString();
+    setLease((prev) =>
+      prev
+        ? {
+            ...prev,
+            status: "ended",
+            endedAt: prev.endedAt ?? now,
+          }
+        : prev
+    );
+  };
 
-  const setMonthToMonth = useCallback(async () => {
-    if (!leaseId) return;
-    await leaseLifecycleApi.setMonthToMonth(leaseId);
-    await refresh();
-  }, [leaseId, refresh]);
-
-  return { lease, isLoading, error, refresh, start, end, setMonthToMonth };
+  return { lease, isLoading, error, start, setMonthToMonth, end };
 }

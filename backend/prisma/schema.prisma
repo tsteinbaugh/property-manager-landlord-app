@@ -1,3 +1,5 @@
+// backend/prisma/schema.prisma
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -51,17 +53,6 @@ model Property {
   updatedAt   DateTime @updatedAt
 }
 
-model Tenant {
-  id          String   @id @default(cuid())
-  name        String
-  email       String?
-  phone       String?
-  isArchived  Boolean  @default(false)
-
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
 model Lease {
   id          String       @id @default(cuid())
   property    Property     @relation(fields: [propertyId], references: [id])
@@ -78,4 +69,31 @@ model Lease {
 
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
+}
+
+model Tenant {
+  id         String    @id @default(cuid())
+  name       String
+  email      String?
+  phone      String?
+  isArchived Boolean   @default(false)
+
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  // ⬇️ back-relation to Occupant
+  occupants  Occupant[]
+}
+
+model Occupant {
+  id         String   @id @default(cuid())
+  tenant     Tenant   @relation(fields: [tenantId], references: [id])
+  tenantId   String
+
+  name       String
+  relation   String?
+  isArchived Boolean  @default(false)
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
