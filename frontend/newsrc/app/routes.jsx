@@ -89,12 +89,16 @@ function PropertiesDemo() {
 
 /**
  * Demo section that ties Pets, Occupants, and Emergency Contacts
- * to the same tenant (the first non-archived tenant).
+ * to the same tenant (the first non-archived tenant) and lets you
+ * toggle "Include archived" for all three at once.
  */
 function OccupantsDemoSection() {
   const { data: tenants, isLoading, error } = useTenants({
     includeArchived: false,
   });
+
+  // local toggle for sub-resources (pets/occupants/emergency contacts)
+  const [showSubArchived, setShowSubArchived] = React.useState(true);
 
   if (isLoading) {
     return (
@@ -134,18 +138,32 @@ function OccupantsDemoSection() {
 
   return (
     <section style={{ marginTop: 16 }}>
-      <h3 style={{ margin: "0 0 6px" }}>Pets (tenant {tenantLabel})</h3>
-      <PetList tenantId={tenantId} />
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          marginBottom: 8,
+        }}
+      >
+        <h3 style={{ margin: 0 }}>Tenant details (tenant {tenantLabel})</h3>
+        <IncludeArchivedToggle
+          value={showSubArchived}
+          onChange={setShowSubArchived}
+        />
+      </div>
 
-      <h3 style={{ margin: "16px 0 6px" }}>
-        Occupants (tenant {tenantLabel})
-      </h3>
-      <OccupantList tenantId={tenantId} />
+      <h4 style={{ margin: "8px 0 6px" }}>Pets</h4>
+      <PetList tenantId={tenantId} includeArchived={showSubArchived} />
 
-      <h3 style={{ margin: "16px 0 6px" }}>
-        Emergency contacts (tenant {tenantLabel})
-      </h3>
-      <EmergencyContactList tenantId={tenantId} />
+      <h4 style={{ margin: "16px 0 6px" }}>Occupants</h4>
+      <OccupantList tenantId={tenantId} includeArchived={showSubArchived} />
+
+      <h4 style={{ margin: "16px 0 6px" }}>Emergency contacts</h4>
+      <EmergencyContactList
+        tenantId={tenantId}
+        includeArchived={showSubArchived}
+      />
     </section>
   );
 }
@@ -175,7 +193,8 @@ function DashboardPage() {
         <TenantsList includeArchived={showTenantsArchived} />
       </section>
 
-      {/* Pets + Occupants + Emergency Contacts all tied to the same tenant */}
+      {/* Pets + Occupants + Emergency Contacts all tied to the same tenant,
+          with their own Include Archived toggle */}
       <OccupantsDemoSection />
 
       <section style={{ marginTop: 16 }}>
@@ -233,7 +252,10 @@ function DashboardPage() {
             onChange={setShowLegalArchived}
           />
         </div>
-        <LegalCaseList leaseId="lease-123" includeArchived={showLegalArchived} />
+        <LegalCaseList
+          leaseId="lease-123"
+          includeArchived={showLegalArchived}
+        />
       </section>
 
       <section style={{ marginTop: 16 }}>
