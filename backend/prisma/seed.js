@@ -8,6 +8,7 @@ async function main() {
 
   // Clear in child → parent order to avoid FK issues
   await prisma.lease.deleteMany();
+  await prisma.occupant.deleteMany();
   await prisma.property.deleteMany();
   await prisma.tenant.deleteMany();
   await prisma.user.deleteMany();
@@ -17,7 +18,8 @@ async function main() {
     data: {
       email: "landlord@example.com",
       name: "Demo Landlord",
-      passwordHash: "password123", // plain text for now, matches what we expect in the frontend
+      // plain text for now; matches what the stub sign-in expects
+      passwordHash: "password123",
       baseRole: Role.LANDLORD,
     },
   });
@@ -55,12 +57,15 @@ async function main() {
   // 4) Create a lease for the property (still using tenantName string)
   await prisma.lease.create({
     data: {
-      propertyId: prop.id,
-      landlordId: landlord.id,
-      tenantName: tenant1.name, // for now this is just a denormalized string
-      rentAmount: 295000, // $2,950.00 in cents or 2950 later if you want raw dollars
+      // IMPORTANT: use relations, not just scalar ids, to satisfy required relations
+      property: { connect: { id: prop.id } },
+      landlord: { connect: { id: landlord.id } },
+
+      tenantName: tenant1.name, // still denormalized for now
+      rentAmount: 2950, // $2,950 in dollars; adjust if you use cents
       status: LeaseStatus.ACTIVE,
       startDate: new Date("2025-01-01T00:00:00Z"),
+      endDate: null,
     },
   });
 

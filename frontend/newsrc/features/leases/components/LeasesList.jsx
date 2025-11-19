@@ -5,6 +5,7 @@ import ArchiveButton from "@shared/ui/ArchiveButton.jsx";
 import { can } from "@lib/rbac/index.js";
 import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
 import { ROLES } from "@lib/rbac/roles.js";
+import AddLeaseForm from "../components/AddLeaseForm.jsx";
 
 function toDateInputValue(iso) {
   if (!iso) return "";
@@ -44,6 +45,8 @@ function LeaseRow({ lease, canArchive, onArchive, onUpdated }) {
         return;
       }
       patch.rentAmount = parsed;
+    } else {
+      patch.rentAmount = null;
     }
 
     if (startDate) {
@@ -68,6 +71,17 @@ function LeaseRow({ lease, canArchive, onArchive, onUpdated }) {
       setSaving(false);
     }
   };
+
+  const buildFileUrl = () => {
+    if (!lease.fileUrl) return null;
+    if (lease.fileUrl.startsWith("http://") || lease.fileUrl.startsWith("https://")) {
+      return lease.fileUrl;
+    }
+    // assume backend is at localhost:4000 for dev
+    return `http://localhost:4000${lease.fileUrl}`;
+  };
+
+  const fileHref = buildFileUrl();
 
   if (isEditing) {
     return (
@@ -136,28 +150,46 @@ function LeaseRow({ lease, canArchive, onArchive, onUpdated }) {
 
   return (
     <li style={{ opacity: archived ? 0.6 : 1 }}>
-      <strong>Lease #{lease.id}</strong> — {fmt(start)} → {fmt(end)}
-      {archived && (
-        <span style={{ marginLeft: 8, fontSize: 12, color: "#888" }}>
-          (Archived)
-        </span>
-      )}
-      <button
-        type="button"
-        style={{ marginLeft: 8 }}
-        onClick={() => setEditing(true)}
-      >
-        Edit
-      </button>
-      {canArchive && (
-        <ArchiveButton
-          archived={archived}
-          data-testid={`archive-btn-${lease.id}`}
-          onToggle={async () => {
-            await onArchive();
-          }}
-        />
-      )}
+      <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+        <div>
+          <strong>Lease #{lease.id}</strong> — {fmt(start)} → {fmt(end)}
+          {archived && (
+            <span style={{ marginLeft: 8, fontSize: 12, color: "#888" }}>
+              (Archived)
+            </span>
+          )}
+        </div>
+
+        {fileHref && (
+          <div style={{ fontSize: 13 }}>
+            <a href={fileHref} target="_blank" rel="noreferrer">
+              View lease document
+            </a>
+            {lease.fileOriginalName && (
+              <span style={{ marginLeft: 4 }}>({lease.fileOriginalName})</span>
+            )}
+          </div>
+        )}
+
+        <div style={{ marginTop: 4 }}>
+          <button
+            type="button"
+            style={{ marginRight: 8 }}
+            onClick={() => setEditing(true)}
+          >
+            Edit
+          </button>
+          {canArchive && (
+            <ArchiveButton
+              archived={archived}
+              data-testid={`archive-btn-${lease.id}`}
+              onToggle={async () => {
+                await onArchive();
+              }}
+            />
+          )}
+        </div>
+      </div>
     </li>
   );
 }
@@ -166,6 +198,7 @@ function LeaseRow({ lease, canArchive, onArchive, onUpdated }) {
  * LeasesList
  * - Uses useLeases for list + archive
  * - Adds inline edit via leasesApi.update
+ * - Adds AddLeaseForm for new leases with uploaded docs
  */
 export default function LeasesList({
   includeArchived = false,
@@ -193,9 +226,16 @@ export default function LeasesList({
       </div>
     );
 
+  const handleCreated = async () => {
+    await refetch();
+  };
+
   return (
     <div>
       <h3 style={{ margin: "8px 0" }}>Leases</h3>
+
+      <AddLeaseForm onCreated={handleCreated} />
+
       <ul style={{ paddingLeft: 16, lineHeight: 1.7 }}>
         {data.map((l) => (
           <LeaseRow
@@ -209,6 +249,10 @@ export default function LeasesList({
           />
         ))}
       </ul>
+
+      {data.length === 0 && (
+        <div style={{ color: "#666", marginTop: 4 }}>No leases yet.</div>
+      )}
     </div>
   );
 }

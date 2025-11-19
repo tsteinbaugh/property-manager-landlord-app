@@ -2,12 +2,20 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
+const fs = require("fs");
+const multer = require("multer");
 const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 const app = express();
 
 const PORT = process.env.PORT || 4000;
+
+// Ensure uploads directory exists
+const uploadsRoot = path.join(__dirname, "..", "uploads");
+const leasesUploadDir = path.join(uploadsRoot, "leases");
+fs.mkdirSync(leasesUploadDir, { recursive: true });
 
 // ---------- Middleware ----------
 app.use(
@@ -17,6 +25,9 @@ app.use(
   })
 );
 app.use(express.json());
+
+// Serve uploaded files (e.g. /uploads/leases/....)
+app.use("/uploads", express.static(uploadsRoot));
 
 // ---------- Health check ----------
 app.get("/health", (req, res) => {
@@ -67,6 +78,10 @@ function shapeLease(row) {
     status: row.status,
     startDate: row.startDate,
     endDate: row.endDate,
+    fileUrl: row.fileUrl || null,
+    fileOriginalName: row.fileOriginalName || null,
+    fileMimeType: row.fileMimeType || null,
+    fileSize: row.fileSize ?? null,
     archived: row.status === "ARCHIVED",
   };
 }
@@ -94,6 +109,40 @@ function shapeOccupant(o) {
     updatedAt: o.updatedAt,
   };
 }
+
+// ===================================================================
+// FILE UPLOAD (LEASES)
+// ===================================================================
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, leasesUploadDir);
+  },
+  filename: (req, file, cb) => {
+    const safeName = file.originalname.replace(/[^a-z0-9.\-_.]/gi, "_");
+    cb(null, `${Date.now()}_${safeName}`);
+  },
+});
+
+const uploadLeaseFile = multer({
+  storage,
+  fileFilter(req, file, cb) {
+    const allowed = [
+      "application/pdf",
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ];
+    if (!allowed.includes(file.mimetype)) {
+      return cb(
+        new Error("Only PDF or Word documents are allowed for leases.")
+      );
+    }
+    cb(null, true);
+  },
+  limits: {
+    fileSize: 25 * 1024 * 1024, // 25 MB
+  },
+});
 
 // ===================================================================
 // PROPERTIES
@@ -133,7 +182,6 @@ app.post("/api/properties", async (req, res) => {
       },
     });
 
-    // Frontend's useProperties maps raw rows, so just return the row
     res.status(201).json(created);
   } catch (err) {
     console.error("Error in POST /api/properties", err);
@@ -156,25 +204,13 @@ app.patch("/api/properties/:id", async (req, res) => {
       where: { id },
       data: {
         name:
-          name !== undefined
-            ? (name || "").trim() || null
-            : existing.name,
+          name !== undefined ? (name || "").trim() || null : existing.name,
         address1:
-          address1 !== undefined
-            ? address1.trim()
-            : existing.address1,
-        city:
-          city !== undefined
-            ? city.trim()
-            : existing.city,
-        state:
-          state !== undefined
-            ? state.trim()
-            : existing.state,
+          address1 !== undefined ? address1.trim() : existing.address1,
+        city: city !== undefined ? city.trim() : existing.city,
+        state: state !== undefined ? state.trim() : existing.state,
         postalCode:
-          postalCode !== undefined
-            ? postalCode.trim()
-            : existing.postalCode,
+          postalCode !== undefined ? postalCode.trim() : existing.postalCode,
       },
     });
 
@@ -210,6 +246,116 @@ app.patch("/api/properties/:id/archive", async (req, res) => {
 // LEASES
 // ===================================================================
 
+// POST /api/leases - create a lease + upload file
+// If no propertyId is provided, attach to the most recently created property.
+// If no landlordId is provided, attach to the first user (landlord).
+app.post(
+  "/api/leases",
+  (req, res, next) => {
+    uploadLeaseFile.single("file")(req, res, (err) => {
+      if (err) {
+        if (err.code === "LIMIT_FILE_SIZE") {
+          return res
+            .status(400)
+            .json({ error: "File too large. Maximum size is 25 MB." });
+        }
+        return res
+          .status(400)
+          .json({ error: err.message || "Upload error" });
+      }
+      next();
+    });
+  },
+  async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ error: "Lease file is required" });
+      }
+
+      const {
+        propertyId: rawPropertyId = "",
+        landlordId: rawLandlordId = "",
+        tenantName,
+        rentAmount,
+        startDate,
+        endDate,
+      } = req.body || {};
+
+      if (!tenantName || !tenantName.trim()) {
+        return res.status(400).json({ error: "tenantName is required" });
+      }
+
+      // Rent parsing
+      const numericRent =
+        rentAmount !== undefined && rentAmount !== ""
+          ? Number(rentAmount)
+          : null;
+
+      // ---------- Resolve property ----------
+      // 1) If client sent a propertyId, use it.
+      // 2) Otherwise, attach to most recently created property.
+      let effectivePropertyId = rawPropertyId && String(rawPropertyId).trim();
+      if (!effectivePropertyId) {
+        const latestProperty = await prisma.property.findFirst({
+          orderBy: { createdAt: "desc" },
+        });
+
+        if (!latestProperty) {
+          return res.status(400).json({
+            error:
+              "No properties exist to attach this lease to. Create a property first.",
+          });
+        }
+
+        effectivePropertyId = latestProperty.id;
+      }
+
+      // ---------- Resolve landlord ----------
+      // 1) If client sent a landlordId, use it.
+      // 2) Otherwise, use the first user in the system.
+      let effectiveLandlordId =
+        rawLandlordId && String(rawLandlordId).trim();
+      if (!effectiveLandlordId) {
+        const firstUser = await prisma.user.findFirst({
+          orderBy: { createdAt: "asc" },
+        });
+
+        if (!firstUser) {
+          return res.status(400).json({
+            error:
+              "No landlord user exists to attach this lease to. Create a user first.",
+          });
+        }
+
+        effectiveLandlordId = firstUser.id;
+      }
+
+      const created = await prisma.lease.create({
+        data: {
+          // Satisfy required relations explicitly
+          property: { connect: { id: effectivePropertyId } },
+          landlord: { connect: { id: effectiveLandlordId } },
+
+          tenantName: tenantName.trim(),
+          rentAmount: numericRent,
+          status: "ACTIVE",
+          startDate: startDate ? new Date(startDate) : null,
+          endDate: endDate ? new Date(endDate) : null,
+          fileUrl: `/uploads/leases/${req.file.filename}`,
+          fileOriginalName: req.file.originalname,
+          fileMimeType: req.file.mimetype,
+          fileSize: req.file.size,
+        },
+      });
+
+      res.status(201).json(shapeLease(created));
+    } catch (err) {
+      console.error("Error in POST /api/leases", err);
+      res.status(500).json({ error: err.message || "Server error" });
+    }
+  }
+);
+
 // GET /api/leases - list all leases
 app.get("/api/leases", async (req, res) => {
   try {
@@ -224,6 +370,60 @@ app.get("/api/leases", async (req, res) => {
     res.json(leases.map(shapeLease));
   } catch (err) {
     console.error("Error in GET /api/leases", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+// PATCH /api/leases/:id - update lease fields
+app.patch("/api/leases/:id", async (req, res) => {
+  const { id } = req.params;
+  const { tenantName, rentAmount, startDate, endDate } = req.body || {};
+
+  try {
+    const existing = await prisma.lease.findUnique({ where: { id } });
+    if (!existing) {
+      return res.status(404).json({ error: "Lease not found" });
+    }
+
+    let numericRent = existing.rentAmount;
+    if (rentAmount !== undefined) {
+      if (rentAmount === null || rentAmount === "") {
+        numericRent = null;
+      } else {
+        const parsed = Number(rentAmount);
+        if (!Number.isFinite(parsed)) {
+          return res.status(400).json({ error: "rentAmount must be a number" });
+        }
+        numericRent = parsed;
+      }
+    }
+
+    const updated = await prisma.lease.update({
+      where: { id },
+      data: {
+        tenantName:
+          tenantName !== undefined
+            ? tenantName.trim() || existing.tenantName
+            : existing.tenantName,
+        rentAmount: numericRent,
+        startDate:
+          startDate !== undefined
+            ? startDate
+              ? new Date(startDate)
+              : null
+            : existing.startDate,
+        endDate:
+          endDate !== undefined
+            ? endDate
+              ? new Date(endDate)
+              : null
+            : existing.endDate,
+      },
+    });
+
+    res.json(shapeLease(updated));
+  } catch (err) {
+    console.error("Error in PATCH /api/leases/:id", err);
     res.status(500).json({ error: "Server error" });
   }
 });
@@ -418,9 +618,7 @@ app.patch("/api/tenants/:tenantId/occupants/:id", async (req, res) => {
       data: {
         name: name?.trim() ?? existing.name,
         relation:
-          relation !== undefined
-            ? relation.trim() || null
-            : existing.relation,
+          relation !== undefined ? relation.trim() || null : existing.relation,
       },
     });
 
