@@ -124,6 +124,20 @@ function shapePet(p) {
   };
 }
 
+function shapeEmergencyContact(c) {
+  return {
+    id: c.id,
+    tenantId: c.tenantId,
+    name: c.name,
+    phone: c.phone || "",
+    relation: c.relation || "",
+    email: c.email || "",
+    archived: c.isArchived,
+    createdAt: c.createdAt,
+    updatedAt: c.updatedAt,
+  };
+}
+
 // ===================================================================
 // FILE UPLOAD (LEASES)
 // ===================================================================
@@ -815,6 +829,152 @@ app.patch("/api/tenants/:tenantId/pets/:id/archive", async (req, res) => {
   }
 });
 
+// ===================================================================
+// EMERGENCY CONTACTS (per-tenant)
+// ===================================================================
+
+// GET /api/tenants/:tenantId/emergency-contacts
+app.get(
+  "/api/tenants/:tenantId/emergency-contacts",
+  async (req, res) => {
+    const { tenantId } = req.params;
+    const includeArchived =
+      req.query.includeArchived === "1" ||
+      req.query.includeArchived === "true";
+
+    try {
+      const where = {
+        tenantId,
+        ...(includeArchived ? {} : { isArchived: false }),
+      };
+
+      const contacts = await prisma.emergencyContact.findMany({
+        where,
+        orderBy: { createdAt: "asc" },
+      });
+
+      res.json(contacts.map(shapeEmergencyContact));
+    } catch (err) {
+      console.error(
+        "Error in GET /api/tenants/:tenantId/emergency-contacts",
+        err
+      );
+      res.status(500).json({ error: "Server error" });
+    }
+  }
+);
+
+// POST /api/tenants/:tenantId/emergency-contacts – create contact
+app.post(
+  "/api/tenants/:tenantId/emergency-contacts",
+  async (req, res) => {
+    const { tenantId } = req.params;
+    const { name, phone, relation, email } = req.body || {};
+
+    if (!name || !name.trim()) {
+      return res.status(400).json({ error: "name is required" });
+    }
+
+    try {
+      const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
+      if (!tenant) {
+        return res.status(404).json({ error: "Tenant not found" });
+      }
+
+      const created = await prisma.emergencyContact.create({
+        data: {
+          tenantId,
+          name: name.trim(),
+          phone: phone?.trim() || null,
+          relation: relation?.trim() || null,
+          email: email?.trim() || null,
+        },
+      });
+
+      res.status(201).json(shapeEmergencyContact(created));
+    } catch (err) {
+      console.error(
+        "Error in POST /api/tenants/:tenantId/emergency-contacts",
+        err
+      );
+      res.status(500).json({ error: "Server error" });
+    }
+  }
+);
+
+// PATCH /api/tenants/:tenantId/emergency-contacts/:id – update contact
+app.patch(
+  "/api/tenants/:tenantId/emergency-contacts/:id",
+  async (req, res) => {
+    const { tenantId, id } = req.params;
+    const { name, phone, relation, email } = req.body || {};
+
+    try {
+      const existing = await prisma.emergencyContact.findUnique({
+        where: { id },
+      });
+      if (!existing || existing.tenantId !== tenantId) {
+        return res.status(404).json({ error: "Emergency contact not found" });
+      }
+
+      const updated = await prisma.emergencyContact.update({
+        where: { id },
+        data: {
+          name:
+            name !== undefined
+              ? name.trim() || existing.name
+              : existing.name,
+          phone:
+            phone !== undefined ? phone.trim() || null : existing.phone,
+          relation:
+            relation !== undefined
+              ? relation.trim() || null
+              : existing.relation,
+          email:
+            email !== undefined ? email.trim() || null : existing.email,
+        },
+      });
+
+      res.json(shapeEmergencyContact(updated));
+    } catch (err) {
+      console.error(
+        "Error in PATCH /api/tenants/:tenantId/emergency-contacts/:id",
+        err
+      );
+      res.status(500).json({ error: "Server error" });
+    }
+  }
+);
+
+// PATCH /api/tenants/:tenantId/emergency-contacts/:id/archive – toggle isArchived
+app.patch(
+  "/api/tenants/:tenantId/emergency-contacts/:id/archive",
+  async (req, res) => {
+    const { tenantId, id } = req.params;
+
+    try {
+      const existing = await prisma.emergencyContact.findUnique({
+        where: { id },
+      });
+      if (!existing || existing.tenantId !== tenantId) {
+        return res.status(404).json({ error: "Emergency contact not found" });
+      }
+
+      const updated = await prisma.emergencyContact.update({
+        where: { id },
+        data: { isArchived: !existing.isArchived },
+      });
+
+      res.json(shapeEmergencyContact(updated));
+    } catch (err) {
+      console.error(
+        "Error in PATCH /api/tenants/:tenantId/emergency-contacts/:id/archive",
+        err
+      );
+      res.status(500).json({ error: "Server error" });
+    }
+  }
+);
 
 // ===================================================================
 // START SERVER

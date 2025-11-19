@@ -1,37 +1,94 @@
-/**
- * Emergency Contacts API (stub)
- * { id, tenantId, name, relation, phone, notes, archived }
- */
-const MOCK_EMERGENCYCONTACTS = [
-  { id: "ec-1", tenantId: "t1", name: "Mom", relation: "mother", phone: "555-123-4567", notes: "", archived: false },
-];
+// newsrc/features/tenants/api/emergencyContacts.api.js
+const BASE_URL = "http://localhost:4000";
+
+async function http(method, path, body) {
+  const res = await fetch(`${BASE_URL}${path}`, {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: body ? JSON.stringify(body) : undefined,
+  });
+
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    throw new Error(
+      `HTTP ${res.status} ${res.statusText} from ${path}: ${
+        text || "<no body>"
+      }`
+    );
+  }
+
+  const text = await res.text();
+  if (!text) return null;
+  try {
+    return JSON.parse(text);
+  } catch {
+    return null;
+  }
+}
+
+function mapEmergencyContactFromApi(c) {
+  return {
+    id: c.id,
+    tenantId: c.tenantId,
+    name: c.name,
+    phone: c.phone || "",
+    relation: c.relation || "",
+    email: c.email || "",
+    archived: !!c.archived,
+  };
+}
 
 export const emergencyContactsApi = {
-  async listByTenant(tenantId) {
+  async list(tenantId, { includeArchived = false } = {}) {
     if (!tenantId) return [];
-    return MOCK_EMERGENCYCONTACTS.filter(c => c.tenantId === tenantId).map(c => ({ ...c }));
+    const qs = includeArchived ? "?includeArchived=1" : "?includeArchived=0";
+    const rows = await http(
+      "GET",
+      `/api/tenants/${tenantId}/emergency-contacts${qs}`
+    );
+    if (!Array.isArray(rows)) return [];
+    return rows.map(mapEmergencyContactFromApi);
   },
-  async add(tenantId, payload) {
-    const id = payload?.id || (crypto.randomUUID?.() || String(Math.random()).slice(2));
-    const rec = { id, tenantId, archived: false, ...payload };
-    MOCK_EMERGENCYCONTACTS.push(rec);
-    return { ...rec };
+
+  async create(tenantId, payload) {
+    if (!tenantId) throw new Error("tenantId is required");
+    const row = await http(
+      "POST",
+      `/api/tenants/${tenantId}/emergency-contacts`,
+      payload
+    );
+    return mapEmergencyContactFromApi(row);
   },
-  async toggleArchive(id) {
-    const row = MOCK_EMERGENCYCONTACTS.find(c => c.id === id);
-    if (!row) return null;
-    row.archived = !row.archived;
-    return { ...row };
+
+  async update(tenantId, id, patch) {
+    if (!tenantId) throw new Error("tenantId is required");
+    const row = await http(
+      "PATCH",
+      `/api/tenants/${tenantId}/emergency-contacts/${id}`,
+      patch
+    );
+    return mapEmergencyContactFromApi(row);
   },
-  async setArchivedByTenant(tenantId, archivedFlag) {
-    for (const row of MOCK_EMERGENCYCONTACTS) {
-      if (row.tenantId === tenantId) row.archived = !!archivedFlag;
+
+  async toggleArchive(tenantId, id) {
+    if (!tenantId) throw new Error("tenantId is required");
+    const row = await http(
+      "PATCH",
+      `/api/tenants/${tenantId}/emergency-contacts/${id}/archive`
+    );
+    return mapEmergencyContactFromApi(row);
+  },
+
+  // used when archiving an entire tenant
+  async setArchivedByTenant(tenantId, archived) {
+    if (!tenantId) return;
+    const list = await this.list(tenantId, { includeArchived: true });
+    for (const c of list) {
+      if (c.archived !== archived) {
+        await this.toggleArchive(tenantId, c.id);
+      }
     }
-    return { ok: true };
-  },
-  async remove(id) {
-    const i = MOCK_EMERGENCYCONTACTS.findIndex(c => c.id === id);
-    if (i !== -1) MOCK_EMERGENCYCONTACTS.splice(i, 1);
-    return { ok: true };
   },
 };

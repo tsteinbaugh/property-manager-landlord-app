@@ -89,6 +89,7 @@ model Tenant {
 
   occupants  Occupant[]
   pets       Pet[]
+  emergencyContacts  EmergencyContact[]
 }
 
 model Occupant {
@@ -113,6 +114,21 @@ model Pet {
   species    String?
   breed      String?
   weightLbs  Int?
+  isArchived Boolean  @default(false)
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model EmergencyContact {
+  id         String   @id @default(cuid())
+  tenant     Tenant   @relation(fields: [tenantId], references: [id])
+  tenantId   String
+
+  name       String
+  phone      String?
+  relation   String?
+  email      String?
   isArchived Boolean  @default(false)
 
   createdAt  DateTime @default(now())
