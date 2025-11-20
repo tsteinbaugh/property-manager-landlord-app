@@ -40,7 +40,7 @@ import Users from "@features/admin/pages/Users.jsx";
 import InviteUser from "@features/admin/pages/InviteUser.jsx";
 import SystemLogs from "@features/admin/pages/SystemLogs.jsx";
 
-function PropertiesDemo() {
+function Properties() {
   const [showArchived, setShowArchived] = React.useState(true);
   return (
     <>
@@ -55,12 +55,7 @@ function PropertiesDemo() {
   );
 }
 
-/**
- * Demo section that ties Pets, Occupants, and Emergency Contacts
- * to the same tenant (the first non-archived tenant) and lets you
- * toggle "Include archived" for all three at once.
- */
-function OccupantsDemoSection() {
+function Occupants() {
   const { data: tenants, isLoading, error } = useTenants({
     includeArchived: false,
   });
@@ -147,7 +142,7 @@ function DashboardPage() {
 
       <section style={{ marginTop: 16 }}>
         <h3 style={{ margin: "0 0 6px" }}>Properties</h3>
-        <PropertiesDemo />
+        <Properties />
       </section>
 
       <section style={{ marginTop: 16 }}>
@@ -161,9 +156,7 @@ function DashboardPage() {
         <TenantsList includeArchived={showTenantsArchived} />
       </section>
 
-      {/* Pets + Occupants + Emergency Contacts all tied to the same tenant,
-          with their own Include Archived toggle */}
-      <OccupantsDemoSection />
+      <Occupants />
 
       <section style={{ marginTop: 16 }}>
         <MaintenanceTicketList propertyId="prop-123" />

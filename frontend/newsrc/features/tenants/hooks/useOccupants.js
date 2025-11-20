@@ -4,12 +4,6 @@ import { can } from "@lib/rbac/index.js";
 import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
 import { ROLES } from "@lib/rbac/roles.js";
 
-/**
- * useOccupants(tenantId, options)
- * options:
- *  - includeArchived?: boolean
- *  - role?: ROLES  (defaults SYSADMIN for tests/demo)
- */
 export function useOccupants(
   tenantId,
   { includeArchived = false, role = ROLES.SYSADMIN } = {}

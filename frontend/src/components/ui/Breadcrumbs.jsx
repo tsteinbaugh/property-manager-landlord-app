@@ -3,7 +3,6 @@ import css from "./Breadcrumbs.module.css";
 // your file
 
 export default function Breadcrumbs({ items = [] }) {
-  // items: [{ label: "Dashboard", to: "/dashboard" }, { label: "123 Main St" }]
   return (
     <nav className={css.wrap} aria-label="Breadcrumb">
       <ol className={css.list}>

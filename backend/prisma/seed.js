@@ -1,82 +1,46 @@
 // backend/prisma/seed.js
-const { PrismaClient, Role, LeaseStatus } = require("@prisma/client");
+const { PrismaClient, Role } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
+/**
+ * This seed script is now a *bootstrap* helper, not a destructive reset.
+ *
+ * Behavior:
+ *   - If there are NO users, create a single SYSADMIN account:
+ *       email: sysadmin@example.com
+ *       password: password123  (matches the stub sign-in)
+ *   - If users already exist, do nothing.
+ *
+ * Run with:
+ *   npm run seed
+ */
 async function main() {
-  console.log("Seeding database…");
+  console.log("Bootstrapping database…");
 
-  // Clear in child → parent order to avoid FK issues
-  await prisma.occupant.deleteMany();
-  await prisma.lease.deleteMany();
-  await prisma.property.deleteMany();
-  await prisma.tenant.deleteMany();
-  await prisma.user.deleteMany();
+  const userCount = await prisma.user.count();
+  if (userCount > 0) {
+    console.log(`Users already exist (${userCount}). Skipping bootstrap.`);
+    return;
+  }
 
-  // 1) Create a SYSADMIN user
+  console.log("No users found. Creating initial sysadmin user…");
+
   const sysadmin = await prisma.user.create({
     data: {
       email: "sysadmin@example.com",
       name: "System Admin",
-      // still plain text for now to match our stub auth
+      // still plain-text-ish because our auth stub compares directly
+      // (we'll switch to real hashing later)
       passwordHash: "password123",
       baseRole: Role.SYSADMIN,
     },
   });
 
-  // 2) Create a landlord user (so we still have a demo landlord)
-  const landlord = await prisma.user.create({
-    data: {
-      email: "landlord@example.com",
-      name: "Demo Landlord",
-      passwordHash: "password123",
-      baseRole: Role.LANDLORD,
-    },
-  });
-
-  // 3) Create a property
-  const prop = await prisma.property.create({
-    data: {
-      name: "6740 Sequoia Street",
-      address1: "6740 Sequoia Street",
-      city: "Frederick",
-      state: "CO",
-      postalCode: "80530",
-      isArchived: false,
-    },
-  });
-
-  // 4) Create a couple of tenants
-  const tenant1 = await prisma.tenant.create({
-    data: {
-      name: "John Renter",
-      email: "john.renter@example.com",
-      phone: "555-111-2222",
-    },
-  });
-
-  const tenant2 = await prisma.tenant.create({
-    data: {
-      name: "Jane Roommate",
-      email: "jane.roommate@example.com",
-      phone: "555-333-4444",
-      isArchived: false,
-    },
-  });
-
-  // 5) Create a lease for the property (attach to landlord user)
-  await prisma.lease.create({
-    data: {
-      propertyId: prop.id,
-      landlordId: landlord.id,
-      tenantName: tenant1.name,
-      rentAmount: 295000, // just a demo value
-      status: LeaseStatus.ACTIVE,
-      startDate: new Date("2025-01-01T00:00:00Z"),
-    },
-  });
-
-  console.log("Seed complete.");
+  console.log("Created initial sysadmin user:");
+  console.log(`  email: ${sysadmin.email}`);
+  console.log(`  role:  ${sysadmin.baseRole}`);
+  console.log("You can now sign in with sysadmin@example.com / password123");
 }
 
 main()

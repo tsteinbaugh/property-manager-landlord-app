@@ -15,7 +15,7 @@ export default function SmartBreadcrumbs() {
   const { getPropertyById } = useProperties();
 
   const items = useMemo(() => {
-    const parts = location.pathname.split("/").filter(Boolean); // e.g., ["properties","123","financials"]
+    const parts = location.pathname.split("/").filter(Boolean);
     const itemsBase = [{ label: "Dashboard", to: "/dashboard" }];
 
     const isSingular = parts[0] === "property";

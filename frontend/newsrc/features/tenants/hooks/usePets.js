@@ -4,12 +4,6 @@ import { can } from "@lib/rbac/index.js";
 import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
 import { ROLES } from "@lib/rbac/roles.js";
 
-/**
- * usePets(tenantId, options)
- * options:
- *  - includeArchived: boolean
- *  - role: one of ROLES (defaults to SYSADMIN for tests/demo)
- */
 export function usePets(
   tenantId,
   { includeArchived = false, role = ROLES.SYSADMIN } = {}
