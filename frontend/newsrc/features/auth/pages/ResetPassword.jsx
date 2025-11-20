@@ -1,79 +1,154 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import css from "../SignCard.module.css";
-import { useUser } from "../../../app/providers.jsx";
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+
+const BASE_URL = "http://localhost:4000";
+
+async function resetPassword({ token, newPassword }) {
+  const res = await fetch(`${BASE_URL}/api/auth/reset-password`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ token, newPassword }),
+  });
+
+  const text = await res.text().catch(() => "");
+  let payload = null;
+  try {
+    payload = text ? JSON.parse(text) : null;
+  } catch {
+    payload = null;
+  }
+
+  if (!res.ok) {
+    const msg =
+      (payload && payload.error) ||
+      text ||
+      `HTTP ${res.status} ${res.statusText}`;
+    throw new Error(msg);
+  }
+
+  return payload || { ok: true };
+}
+
+function useQueryToken() {
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  return params.get("token") || "";
+}
 
 export default function ResetPassword() {
-  const [params] = useSearchParams();
-  const token = params.get("token") || "";
-  const [pw, setPw] = useState("");
-  const [pw2, setPw2] = useState("");
   const navigate = useNavigate();
-  const { resetPassword } = useUser();
+  const token = useQueryToken();
 
-  useEffect(() => {
-    document.body.classList.add("lockScroll");
-    return () => {
-      document.body.classList.remove("lockScroll");
-    };
-  }, []);
+  const [newPassword, setNewPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(null);
+  const [info, setInfo] = useState("");
 
-  const handleSubmit = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
+    setError(null);
+    setInfo("");
 
     if (!token) {
-      alert("Invalid reset link.");
+      setError(new Error("Missing or invalid reset token."));
       return;
     }
-    if (!pw || pw.length < 8) {
-      alert("Password must be at least 8 characters.");
+
+    if (!newPassword.trim()) {
+      setError(new Error("New password is required."));
       return;
     }
-    if (pw !== pw2) {
-      alert("Passwords do not match.");
+
+    if (newPassword !== confirm) {
+      setError(new Error("New password and confirmation do not match."));
+      return;
+    }
+
+    if (newPassword.trim().length < 8) {
+      setError(
+        new Error("New password must be at least 8 characters long.")
+      );
       return;
     }
 
     try {
-      if (resetPassword) {
-        await resetPassword({ token, password: pw });
-      } else {
-        // test stub fallback so the test doesn't explode if context isn't wired
-        // (the test suite mocks useUser anyway)
-        // eslint-disable-next-line no-console
-        console.log("[stub] resetPassword", { token });
-      }
-      navigate("/sign-in?reset=1");
+      setSubmitting(true);
+      await resetPassword({ token, newPassword });
+      setInfo("Password updated. You can now sign in.");
+      setNewPassword("");
+      setConfirm("");
     } catch (err) {
-      // eslint-disable-next-line no-console
-      console.error(err);
-      alert("Reset failed. Your link may be invalid or expired.");
+      console.error("ResetPassword error", err);
+      setError(err);
+    } finally {
+      setSubmitting(false);
     }
   };
 
+  const goToSignIn = () => {
+    navigate("/sign-in");
+  };
+
   return (
-    <div className={css.signInContainer}>
-      <form onSubmit={handleSubmit} className={css.card}>
-        <h2 className={css.heading}>Reset password</h2>
+    <div style={{ maxWidth: 400, margin: "40px auto" }}>
+      <h2>Reset password</h2>
+
+      {!token && (
+        <div style={{ color: "crimson", marginBottom: 12 }}>
+          This reset link is missing a token. Please use the link from your
+          email.
+        </div>
+      )}
+
+      <form
+        onSubmit={onSubmit}
+        style={{ display: "grid", gap: 8, marginTop: 12 }}
+      >
         <input
-          className={css.input}
           type="password"
-          placeholder="New password"
-          value={pw}
-          onChange={(e) => setPw(e.target.value)}
-          autoFocus
+          placeholder="New password (min 8 chars)"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+          disabled={submitting}
+          style={{ padding: 8 }}
         />
         <input
-          className={css.input}
           type="password"
           placeholder="Confirm new password"
-          value={pw2}
-          onChange={(e) => setPw2(e.target.value)}
+          value={confirm}
+          onChange={(e) => setConfirm(e.target.value)}
+          disabled={submitting}
+          style={{ padding: 8 }}
         />
-        <button type="submit" className={css.button}>
-          Update password
+
+        {error && (
+          <div style={{ color: "crimson", fontSize: 13 }}>
+            {String(error.message || error)}
+          </div>
+        )}
+        {info && (
+          <div style={{ color: "green", fontSize: 13 }}>
+            {info}
+          </div>
+        )}
+
+        <button
+          type="submit"
+          disabled={submitting || !token}
+          style={{ padding: "8px 12px" }}
+        >
+          {submitting ? "Updating…" : "Update password"}
         </button>
       </form>
+
+      <button
+        type="button"
+        onClick={goToSignIn}
+        style={{ marginTop: 12, padding: "6px 10px" }}
+      >
+        Back to sign-in
+      </button>
     </div>
   );
 }

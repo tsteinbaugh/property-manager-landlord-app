@@ -1,28 +1,78 @@
 import React, { useState } from "react";
-import { useUser } from "../../../app/providers.jsx";
 import { ROLES } from "@lib/rbac/roles.js";
 
+const BASE_URL = "http://localhost:4000";
+
+const ROLE_LABEL = {
+  [ROLES.SYSADMIN]: "System Admin",
+  [ROLES.LANDLORD]: "Landlord",
+  [ROLES.PROPERTY_MANAGER]: "Property Manager",
+  [ROLES.MAINTENANCE_TECH]: "Maintenance Tech",
+  [ROLES.TENANT]: "Tenant",
+  [ROLES.CLEANER]: "Cleaner",
+};
+
+async function createInvite({ email, baseRole }) {
+  const res = await fetch(`${BASE_URL}/api/admin/invites`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, baseRole }),
+  });
+
+  const text = await res.text().catch(() => "");
+  let payload = null;
+  try {
+    payload = text ? JSON.parse(text) : null;
+  } catch {
+    payload = null;
+  }
+
+  if (!res.ok) {
+    const msg =
+      (payload && payload.error) ||
+      text ||
+      `HTTP ${res.status} ${res.statusText}`;
+    throw new Error(msg);
+  }
+
+  return payload;
+}
+
 export default function InviteUser() {
-  const { inviteUser } = useUser(); // still stubbed for now
   const [email, setEmail] = useState("");
-  const [role, setRole] = useState(ROLES.CLEANER);
+  const [baseRole, setBaseRole] = useState(ROLES.TENANT);
   const [sending, setSending] = useState(false);
-  const [msg, setMsg] = useState("");
+  const [error, setError] = useState(null);
+  const [info, setInfo] = useState("");
+  const [inviteUrl, setInviteUrl] = useState("");
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    setSending(true);
-    setMsg("");
+    setError(null);
+    setInfo("");
+    setInviteUrl("");
+
+    if (!email.trim()) {
+      setError(new Error("Email is required."));
+      return;
+    }
+
     try {
-      if (inviteUser) {
-        await inviteUser({ email, baseRole: role });
+      setSending(true);
+      const payload = await createInvite({
+        email: email.trim(),
+        baseRole,
+      });
+
+      setInfo(
+        `Invite created for ${payload.email} with role ${payload.baseRole}.`
+      );
+      if (payload.inviteUrl) {
+        setInviteUrl(payload.inviteUrl);
       }
-      setMsg("Invite recorded (no real email is sent in this demo).");
-      setEmail("");
-      setRole(ROLES.CLEANER);
-    } catch (e2) {
-      console.error("InviteUser error", e2);
-      setMsg("Failed to record invite.");
+    } catch (err) {
+      console.error("InviteUser error", err);
+      setError(err);
     } finally {
       setSending(false);
     }
@@ -31,34 +81,66 @@ export default function InviteUser() {
   return (
     <section>
       <h2>Invite User</h2>
-      <p style={{ maxWidth: 480, fontSize: 14, color: "#555" }}>
-        In this demo, invites are stored in the backend only; no actual emails
-        are sent yet.
+      <p style={{ color: "#555" }}>
+        Generate an invite link you can send by email or message. Later this
+        can hook into a real mailer.
       </p>
+
       <form
         onSubmit={onSubmit}
-        style={{ display: "grid", gap: 12, maxWidth: 420 }}
+        style={{ display: "grid", gap: 8, maxWidth: 420, marginTop: 12 }}
       >
         <input
           type="email"
-          placeholder="you@example.com"
+          placeholder="user@example.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          required
+          disabled={sending}
+          style={{ padding: 8 }}
         />
-        <select value={role} onChange={(e) => setRole(e.target.value)}>
-          <option value={ROLES.CLEANER}>Cleaner</option>
-          <option value={ROLES.MAINTENANCE_TECH}>Maintenance Tech</option>
-          <option value={ROLES.TENANT}>Tenant</option>
-          <option value={ROLES.PROPERTY_MANAGER}>Property Manager</option>
-          <option value={ROLES.LANDLORD}>Landlord</option>
-          <option value={ROLES.SYSADMIN}>System Admin</option>
+
+        <select
+          value={baseRole}
+          onChange={(e) => setBaseRole(e.target.value)}
+          disabled={sending}
+          style={{ padding: 8 }}
+        >
+          {Object.values(ROLES).map((r) => (
+            <option key={r} value={r}>
+              {ROLE_LABEL[r] || r}
+            </option>
+          ))}
         </select>
-        <button disabled={sending} type="submit">
-          {sending ? "Sending…" : "Send Invite"}
+
+        {error && (
+          <div style={{ color: "crimson", fontSize: 13 }}>
+            {String(error.message || error)}
+          </div>
+        )}
+        {info && (
+          <div style={{ color: "green", fontSize: 13 }}>
+            {info}
+          </div>
+        )}
+
+        <button
+          type="submit"
+          disabled={sending}
+          style={{ padding: "8px 12px" }}
+        >
+          {sending ? "Creating invite…" : "Create invite"}
         </button>
-        {msg && <div>{msg}</div>}
       </form>
+
+      {inviteUrl && (
+        <div style={{ marginTop: 16, fontSize: 12 }}>
+          <div>Invite link (dev helper):</div>
+          <a href={inviteUrl}>{inviteUrl}</a>
+          <div style={{ color: "#666", marginTop: 4 }}>
+            Copy this link into an email or message to the user.
+          </div>
+        </div>
+      )}
     </section>
   );
 }

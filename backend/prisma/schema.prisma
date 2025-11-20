@@ -29,6 +29,11 @@ enum LeaseStatus {
   ARCHIVED
 }
 
+enum AuthTokenKind {
+  INVITE
+  RESET_PASSWORD
+}
+
 model User {
   id           String      @id @default(cuid())
   email        String      @unique
@@ -42,6 +47,9 @@ model User {
   updatedAt    DateTime    @updatedAt
 
   leases       Lease[]     @relation("UserLeases")
+  authTokens   AuthToken[]
+
+  
 }
 
 model Property {
@@ -138,4 +146,16 @@ model EmergencyContact {
 
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+}
+
+model AuthToken {
+  id        String        @id @default(cuid())
+  token     String        @unique
+  kind      AuthTokenKind
+  user      User          @relation(fields: [userId], references: [id])
+  userId    String
+  email     String
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime      @default(now())
 }

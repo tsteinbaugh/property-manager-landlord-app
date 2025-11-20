@@ -5,12 +5,18 @@ const cors = require("cors");
 const path = require("path");
 const fs = require("fs");
 const multer = require("multer");
-const { PrismaClient, Role, UserStatus } = require("@prisma/client");
+const crypto = require("crypto");
+const { PrismaClient, Role, UserStatus, AuthTokenKind } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 const app = express();
 
 const PORT = process.env.PORT || 4000;
+const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "http://localhost:5173";
+
+function generateToken() {
+  return crypto.randomBytes(32).toString("hex");
+}
 
 const bcrypt = require("bcryptjs");
 
@@ -141,6 +147,222 @@ app.post("/api/auth/change-password", async (req, res) => {
     return res.json({ ok: true });
   } catch (err) {
     console.error("Error in /api/auth/change-password", err);
+    return res.status(500).json({ error: "Server error" });
+  }
+});
+
+// GET /api/auth/invite/:token - validate invite token and return basic info
+app.get("/api/auth/invite/:token", async (req, res) => {
+  const { token } = req.params;
+  try {
+    const authToken = await prisma.authToken.findUnique({
+      where: { token },
+      include: { user: true },
+    });
+
+    if (
+      !authToken ||
+      authToken.kind !== AuthTokenKind.INVITE ||
+      authToken.usedAt ||
+      authToken.expiresAt < new Date()
+    ) {
+      return res.status(400).json({ error: "Invalid or expired invite link" });
+    }
+
+    if (!authToken.user) {
+      return res.status(400).json({ error: "Invite is not attached to a user" });
+    }
+
+    return res.json({
+      email: authToken.email || authToken.user.email,
+      baseRole: authToken.user.baseRole,
+      status: authToken.user.status,
+    });
+  } catch (err) {
+    console.error("Error in GET /api/auth/invite/:token", err);
+    return res.status(500).json({ error: "Server error" });
+  }
+});
+
+// POST /api/auth/accept-invite
+// Body: { token, name?, password }
+app.post("/api/auth/accept-invite", async (req, res) => {
+  const { token, name, password } = req.body || {};
+
+  if (!token || !password || !password.trim()) {
+    return res
+      .status(400)
+      .json({ error: "token and password are required" });
+  }
+
+  try {
+    const authToken = await prisma.authToken.findUnique({
+      where: { token },
+      include: { user: true },
+    });
+
+    if (
+      !authToken ||
+      authToken.kind !== AuthTokenKind.INVITE ||
+      authToken.usedAt ||
+      authToken.expiresAt < new Date()
+    ) {
+      return res.status(400).json({ error: "Invalid or expired invite link" });
+    }
+
+    if (!authToken.user) {
+      return res.status(400).json({ error: "Invite is not attached to a user" });
+    }
+
+    const trimmedPassword = password.trim();
+    if (trimmedPassword.length < 8) {
+      return res
+        .status(400)
+        .json({ error: "Password must be at least 8 characters long" });
+    }
+
+    const hash = await bcrypt.hash(trimmedPassword, 10);
+
+    const updatedUser = await prisma.user.update({
+      where: { id: authToken.userId },
+      data: {
+        name: name && name.trim() ? name.trim() : authToken.user.name,
+        passwordHash: hash,
+        status: UserStatus.ACTIVE,
+        isArchived: false,
+      },
+    });
+
+    await prisma.authToken.update({
+      where: { id: authToken.id },
+      data: { usedAt: new Date() },
+    });
+
+    return res.json({
+      user: {
+        id: updatedUser.id,
+        email: updatedUser.email,
+        name: updatedUser.name,
+        baseRole: updatedUser.baseRole,
+      },
+    });
+  } catch (err) {
+    console.error("Error in POST /api/auth/accept-invite", err);
+    return res.status(500).json({ error: "Server error" });
+  }
+});
+
+// POST /api/auth/request-password-reset
+// Body: { email }
+app.post("/api/auth/request-password-reset", async (req, res) => {
+  const { email } = req.body || {};
+  if (!email || !email.trim()) {
+    return res.status(400).json({ error: "email is required" });
+  }
+
+  const emailTrimmed = email.trim().toLowerCase();
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { email: emailTrimmed },
+    });
+
+    // Always respond with generic success to avoid leaking which emails exist
+    if (!user || user.isArchived || user.status === UserStatus.DISABLED) {
+      return res.json({ ok: true });
+    }
+
+    const token = generateToken();
+    const expiresAt = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
+
+    const resetToken = await prisma.authToken.create({
+      data: {
+        token,
+        kind: AuthTokenKind.RESET_PASSWORD,
+        userId: user.id,
+        email: emailTrimmed,
+        expiresAt,
+      },
+    });
+
+    const resetUrl = `${FRONTEND_ORIGIN}/reset-password?token=${encodeURIComponent(
+      resetToken.token
+    )}`;
+
+    console.log(
+      `Password reset requested for ${emailTrimmed}: ${resetUrl}`
+    );
+
+    // For now we also return the URL so you can click it in dev
+    return res.json({ ok: true, resetUrl });
+  } catch (err) {
+    console.error("Error in POST /api/auth/request-password-reset", err);
+    return res.status(500).json({ error: "Server error" });
+  }
+});
+
+// POST /api/auth/reset-password
+// Body: { token, newPassword }
+app.post("/api/auth/reset-password", async (req, res) => {
+  const { token, newPassword } = req.body || {};
+
+  if (!token || !newPassword || !newPassword.trim()) {
+    return res
+      .status(400)
+      .json({ error: "token and newPassword are required" });
+  }
+
+  try {
+    const authToken = await prisma.authToken.findUnique({
+      where: { token },
+      include: { user: true },
+    });
+
+    if (
+      !authToken ||
+      authToken.kind !== AuthTokenKind.RESET_PASSWORD ||
+      authToken.usedAt ||
+      authToken.expiresAt < new Date()
+    ) {
+      return res
+        .status(400)
+        .json({ error: "Invalid or expired reset link" });
+    }
+
+    if (!authToken.user) {
+      return res
+        .status(400)
+        .json({ error: "Reset token not attached to a user" });
+    }
+
+    const trimmed = newPassword.trim();
+    if (trimmed.length < 8) {
+      return res
+        .status(400)
+        .json({ error: "Password must be at least 8 characters long" });
+    }
+
+    const hash = await bcrypt.hash(trimmed, 10);
+
+    await prisma.user.update({
+      where: { id: authToken.userId },
+      data: {
+        passwordHash: hash,
+        status:
+          authToken.user.status === UserStatus.INVITED
+            ? UserStatus.ACTIVE
+            : authToken.user.status,
+      },
+    });
+
+    await prisma.authToken.update({
+      where: { id: authToken.id },
+      data: { usedAt: new Date() },
+    });
+
+    return res.json({ ok: true });
+  } catch (err) {
+    console.error("Error in POST /api/auth/reset-password", err);
     return res.status(500).json({ error: "Server error" });
   }
 });
@@ -494,6 +716,91 @@ app.delete("/api/admin/users/:id", async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
     res.status(500).json({ error: "Server error" });
+  }
+});
+
+// ===================================================================
+// ADMIN INVITES (sysadmin in UI; backend currently trusts caller)
+// ===================================================================
+
+// POST /api/admin/invites
+// Body: { email, baseRole }
+// Creates/updates a user in INVITED status and generates an invite token.
+app.post("/api/admin/invites", async (req, res) => {
+  try {
+    const { email, baseRole } = req.body || {};
+
+    if (!email || !email.trim()) {
+      return res.status(400).json({ error: "email is required" });
+    }
+
+    const normalizedRole = normalizeBaseRole(baseRole);
+    if (!normalizedRole) {
+      return res
+        .status(400)
+        .json({ error: `Invalid baseRole: ${baseRole}` });
+    }
+
+    const emailTrimmed = email.trim().toLowerCase();
+
+    // Either find existing user or create a new INVITED one
+    let user = await prisma.user.findUnique({ where: { email: emailTrimmed } });
+
+    if (!user) {
+      const tempPasswordHash = await bcrypt.hash(generateToken(), 10);
+      user = await prisma.user.create({
+        data: {
+          email: emailTrimmed,
+          name: null,
+          passwordHash: tempPasswordHash,
+          baseRole: normalizedRole,
+          status: UserStatus.INVITED,
+          isArchived: false,
+        },
+      });
+    } else {
+      // If user exists and isn't disabled, mark them invited / active again
+      if (user.status !== UserStatus.DISABLED) {
+        user = await prisma.user.update({
+          where: { id: user.id },
+          data: {
+            baseRole: normalizedRole,
+            status: UserStatus.INVITED,
+            isArchived: false,
+          },
+        });
+      }
+    }
+
+    const token = generateToken();
+    const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days
+
+    const authToken = await prisma.authToken.create({
+      data: {
+        token,
+        kind: AuthTokenKind.INVITE,
+        userId: user.id,
+        email: emailTrimmed,
+        expiresAt,
+      },
+    });
+
+    const inviteUrl = `${FRONTEND_ORIGIN}/accept-invite?token=${encodeURIComponent(
+      authToken.token
+    )}`;
+
+    console.log(`Invite created for ${emailTrimmed}: ${inviteUrl}`);
+
+    return res.status(201).json({
+      userId: user.id,
+      email: user.email,
+      baseRole: user.baseRole,
+      status: user.status,
+      inviteUrl,
+    });
+  } catch (err) {
+    console.error("Error in POST /api/admin/invites", err);
+    return res.status(500).json({ error: "Server error" });
   }
 });
 
