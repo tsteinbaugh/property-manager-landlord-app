@@ -4,9 +4,9 @@ import { petsApi } from "../api/pets.api.js";
 
 function AddPetForm({ onCreate, disabled }) {
   const [name, setName] = useState("");
-  const [species, setSpecies] = useState("");
+  const [type, setType] = useState("");
   const [breed, setBreed] = useState("");
-  const [weightLbs, setWeightLbs] = useState("");
+  const [weightLb, setWeightLb] = useState("");
   const [isSubmitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
 
@@ -22,14 +22,14 @@ function AddPetForm({ onCreate, disabled }) {
       setError(null);
       await onCreate({
         name: name.trim(),
-        species: species.trim() || null,
+        type: type.trim() || null,
         breed: breed.trim() || null,
-        weightLbs: weightLbs.trim() || null,
+        weightLb: weightLb.trim() || null,
       });
       setName("");
-      setSpecies("");
+      setType("");
       setBreed("");
-      setWeightLbs("");
+      setWeightLb("");
     } catch (err) {
       console.error("AddPetForm submit error", err);
       setError(err);
@@ -68,9 +68,9 @@ function AddPetForm({ onCreate, disabled }) {
         />
         <input
           type="text"
-          placeholder="species"
-          value={species}
-          onChange={(e) => setSpecies(e.target.value)}
+          placeholder="type"
+          value={type}
+          onChange={(e) => setType(e.target.value)}
           style={{ padding: 6, minWidth: 120 }}
           disabled={disabled || isSubmitting}
         />
@@ -85,8 +85,8 @@ function AddPetForm({ onCreate, disabled }) {
         <input
           type="number"
           placeholder="weight (lbs)"
-          value={weightLbs}
-          onChange={(e) => setWeightLbs(e.target.value)}
+          value={weightLb}
+          onChange={(e) => setWeightLb(e.target.value)}
           style={{ padding: 6, width: 120 }}
           disabled={disabled || isSubmitting}
         />
@@ -123,7 +123,7 @@ export default function PetsList({ tenantId, includeArchived = false }) {
   // inline edit
   const [editingId, setEditingId] = useState(null);
   const [draftName, setDraftName] = useState("");
-  const [draftSpecies, setDraftSpecies] = useState("");
+  const [draftType, setDraftType] = useState("");
   const [draftBreed, setDraftBreed] = useState("");
   const [draftWeight, setDraftWeight] = useState("");
   const [savingId, setSavingId] = useState(null);
@@ -163,10 +163,10 @@ export default function PetsList({ tenantId, includeArchived = false }) {
   const startEdit = (p) => {
     setEditingId(p.id);
     setDraftName(p.name || "");
-    setDraftSpecies(p.species || "");
+    setDraftType(p.type || "");
     setDraftBreed(p.breed || "");
     setDraftWeight(
-      p.weightLbs !== null && p.weightLbs !== undefined ? String(p.weightLbs) : ""
+      p.weightLb !== null && p.weightLb !== undefined ? String(p.weightLb) : ""
     );
     setInlineError(null);
   };
@@ -174,7 +174,7 @@ export default function PetsList({ tenantId, includeArchived = false }) {
   const cancelEdit = () => {
     setEditingId(null);
     setDraftName("");
-    setDraftSpecies("");
+    setDraftType("");
     setDraftBreed("");
     setDraftWeight("");
     setInlineError(null);
@@ -191,9 +191,9 @@ export default function PetsList({ tenantId, includeArchived = false }) {
       setInlineError(null);
       await petsApi.update(tenantId, id, {
         name: draftName.trim(),
-        species: draftSpecies.trim(),
+        type: draftType.trim(),
         breed: draftBreed.trim(),
-        weightLbs: draftWeight.trim(),
+        weightLb: draftWeight.trim(),
       });
       await load();
       cancelEdit();
@@ -272,9 +272,9 @@ export default function PetsList({ tenantId, includeArchived = false }) {
                   />
                   <input
                     type="text"
-                    value={draftSpecies}
-                    onChange={(e) => setDraftSpecies(e.target.value)}
-                    placeholder="Species"
+                    value={draftType}
+                    onChange={(e) => setDraftType(e.target.value)}
+                    placeholder="Type"
                     style={{ padding: 4 }}
                   />
                   <input
@@ -319,9 +319,9 @@ export default function PetsList({ tenantId, includeArchived = false }) {
           return (
             <li key={p.id} style={{ opacity: p.archived ? 0.6 : 1 }}>
               <strong>{p.name}</strong>
-              {p.species && <> — {p.species}</>}
+              {p.type && <> — {p.type}</>}
               {p.breed && <> ({p.breed})</>}
-              {p.weightLbs != null && <> — {p.weightLbs} lbs</>}
+              {p.weightLb != null && <> — {p.weightLb} lbs</>}
               {p.archived && (
                 <span style={{ marginLeft: 8, fontSize: 12, color: "#888" }}>
                   (Archived)

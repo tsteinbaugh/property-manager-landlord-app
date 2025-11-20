@@ -33,44 +33,12 @@ import CleaningTicketList from "@features/cleaning/components/CleaningTicketList
 
 import { useTenants } from "@features/tenants/hooks/useTenants.js";
 
-// ---------- Simple stubs so the Admin area doesn't explode ----------
-function Admin() {
-  return (
-    <div style={{ padding: 16 }}>
-      <h2>Admin</h2>
-      <p>Select an admin page from the sidebar.</p>
-    </div>
-  );
-}
-function AdminHome() {
-  return (
-    <div style={{ padding: 16 }}>
-      <h3>Admin Home</h3>
-    </div>
-  );
-}
-function Users() {
-  return (
-    <div style={{ padding: 16 }}>
-      <h3>Users</h3>
-    </div>
-  );
-}
-function InviteUser() {
-  return (
-    <div style={{ padding: 16 }}>
-      <h3>Invite User</h3>
-    </div>
-  );
-}
-function SystemLogs() {
-  return (
-    <div style={{ padding: 16 }}>
-      <h3>System Logs</h3>
-    </div>
-  );
-}
-// --------------------------------------------------------------------
+// Admin pages
+import AdminLayout from "@features/admin/pages/AdminLayout.jsx";
+import AdminHome from "@features/admin/pages/AdminHome.jsx";
+import Users from "@features/admin/pages/Users.jsx";
+import InviteUser from "@features/admin/pages/InviteUser.jsx";
+import SystemLogs from "@features/admin/pages/SystemLogs.jsx";
 
 function PropertiesDemo() {
   const [showArchived, setShowArchived] = React.useState(true);
@@ -274,6 +242,21 @@ export function AppRoutes() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/accept-invite" element={<AcceptInvite />} />
+
+        {/* Admin (SYSADMIN only) */}
+        <Route
+          path="/admin"
+          element={
+            <RequireRole allow={[ROLES.SYSADMIN]}>
+              <AdminLayout />
+            </RequireRole>
+          }
+        >
+          <Route index element={<AdminHome />} />
+          <Route path="users" element={<Users />} />
+          <Route path="invite" element={<InviteUser />} />
+          <Route path="logs" element={<SystemLogs />} />
+        </Route>
 
         {/* Logged-in main screen */}
         <Route path="/dashboard" element={<DashboardPage />} />

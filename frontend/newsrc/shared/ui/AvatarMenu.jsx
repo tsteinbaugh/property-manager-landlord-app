@@ -1,5 +1,6 @@
 // newsrc/shared/ui/AvatarMenu.jsx
 import React, { useRef, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import css from "./AvatarMenu.module.css";
 import { useUser } from "@app/providers.jsx";
 import { ROLES } from "@lib/rbac/roles.js";
@@ -23,6 +24,7 @@ export default function AvatarMenu() {
     clearImpersonation,
     signOut,
   } = useUser();
+  const navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState({
@@ -64,6 +66,12 @@ export default function AvatarMenu() {
   const currentRoleLabel =
     ROLE_LABEL[effectiveRole] ?? effectiveRole ?? "Unknown";
 
+  const goToAdmin = () => {
+    setOpen(false);
+    setExpanded({ profile: false, settings: false, admin: false });
+    navigate("/admin");
+  };
+
   return (
     <div className={css.wrap} ref={ref}>
       <button
@@ -77,7 +85,9 @@ export default function AvatarMenu() {
           {initials}
         </span>
         <span className={css.meta}>
-          <span className={css.name}>{user?.name || user?.email || "Signed out"}</span>
+          <span className={css.name}>
+            {user?.name || user?.email || "Signed out"}
+          </span>
           <span className={css.role} data-testid="role-text">
             {currentRoleLabel}
           </span>
@@ -141,7 +151,7 @@ export default function AvatarMenu() {
           </button>
           {expanded.settings && (
             <div className={css.sectionBody}>
-              {/* These are placeholders for now – easy to wire to real prefs later */}
+              {/* placeholders for real prefs later */}
               <div className={css.fieldRow}>
                 <span className={css.fieldLabel}>Theme</span>
                 <span className={css.fieldValue}>Light (default)</span>
@@ -170,33 +180,12 @@ export default function AvatarMenu() {
               </button>
               {expanded.admin && (
                 <div className={css.sectionBody}>
-                  <div className={css.fieldRow}>
-                    <label
-                      htmlFor="impersonate-role"
-                      className={css.fieldLabel}
-                    >
-                      Impersonate role
-                    </label>
-                    <select
-                      id="impersonate-role"
-                      className={css.select}
-                      value={effectiveRole || ""}
-                      onChange={handleImpersonateChange}
-                    >
-                      {allRoles.map((r) => (
-                        <option key={r} value={r}>
-                          {ROLE_LABEL[r] || r}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
                   <button
                     type="button"
                     className={css.subtleAction}
-                    onClick={clearImpersonation}
+                    onClick={() => navigate("/admin")}
                   >
-                    Clear impersonation
+                    Open admin
                   </button>
                 </div>
               )}

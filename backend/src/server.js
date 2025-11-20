@@ -5,7 +5,7 @@ const cors = require("cors");
 const path = require("path");
 const fs = require("fs");
 const multer = require("multer");
-const { PrismaClient } = require("@prisma/client");
+const { PrismaClient, Role, UserStatus } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 const app = express();
@@ -68,6 +68,34 @@ app.post("/api/auth/sign-in", async (req, res) => {
 // HELPERS
 // ===================================================================
 
+function normalizeBaseRole(raw) {
+  if (!raw) return null;
+  const s = String(raw).trim().toUpperCase();
+
+  if (s === "SYSTEM_ADMIN") return Role.SYSADMIN;
+
+  // If s matches one of the enum keys, use it
+  if (Role[s]) {
+    return Role[s];
+  }
+
+  return null;
+}
+
+function shapeUser(u) {
+  if (!u) return null;
+  return {
+    id: u.id,
+    email: u.email,
+    name: u.name || "",
+    baseRole: u.baseRole,
+    status: u.status,
+    archived: !!u.isArchived,
+    createdAt: u.createdAt,
+    updatedAt: u.updatedAt,
+  };
+}
+
 function shapeLease(row) {
   return {
     id: row.id,
@@ -115,9 +143,9 @@ function shapePet(p) {
     id: p.id,
     tenantId: p.tenantId,
     name: p.name,
-    species: p.species || "",
+    type: p.type || "",
     breed: p.breed || "",
-    weightLbs: p.weightLbs ?? null,
+    weightLb: p.weightLb ?? null,
     archived: p.isArchived,
     createdAt: p.createdAt,
     updatedAt: p.updatedAt,
@@ -170,6 +198,162 @@ const uploadLeaseFile = multer({
   limits: {
     fileSize: 25 * 1024 * 1024, // 25 MB
   },
+});
+
+// ===================================================================
+// ADMIN USERS (sysadmin only in UI; backend currently trusts caller)
+// ===================================================================
+
+// GET /api/admin/users?includeArchived=0|1
+app.get("/api/admin/users", async (req, res) => {
+  const includeArchived =
+    req.query.includeArchived === "1" ||
+    req.query.includeArchived === "true";
+
+  try {
+    const users = await prisma.user.findMany({
+      where: includeArchived ? {} : { isArchived: false },
+      orderBy: { createdAt: "desc" },
+    });
+
+    res.json(users.map(shapeUser));
+  } catch (err) {
+    console.error("Error in GET /api/admin/users", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+// POST /api/admin/users
+// Body: { email, name?, baseRole, password?, status? }
+app.post("/api/admin/users", async (req, res) => {
+  try {
+    const { email, name, baseRole } = req.body || {};
+
+    if (!email || !email.trim()) {
+      return res.status(400).json({ error: "email is required" });
+    }
+
+    const normalizedRole = normalizeBaseRole(baseRole);
+    if (!normalizedRole) {
+      return res
+        .status(400)
+        .json({ error: `Invalid baseRole: ${baseRole}` });
+    }
+
+    const created = await prisma.user.create({
+      data: {
+        email: email.trim(),
+        name: name?.trim() || null,
+        passwordHash: "changeme123", // placeholder
+        baseRole: normalizedRole,
+      },
+    });
+
+    res.status(201).json({
+      id: created.id,
+      email: created.email,
+      name: created.name,
+      baseRole: created.baseRole,
+      createdAt: created.createdAt,
+    });
+  } catch (err) {
+    console.error("Error in POST /api/admin/users", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+
+// PATCH /api/admin/users/:id
+// Body: partial { email?, name?, baseRole?, status?, password? }
+app.patch("/api/admin/users/:id", async (req, res) => {
+  const { id } = req.params;
+  const { email, name, baseRole, status, password } = req.body || {};
+
+  try {
+    const existing = await prisma.user.findUnique({ where: { id } });
+    if (!existing) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const data = {};
+
+    if (email !== undefined) {
+      if (!email.trim()) {
+        return res.status(400).json({ error: "email cannot be empty" });
+      }
+      data.email = email.trim().toLowerCase();
+    }
+
+    if (name !== undefined) {
+      data.name = name.trim() || null;
+    }
+
+    if (baseRole !== undefined) {
+      if (!Object.values(Role).includes(baseRole)) {
+        return res.status(400).json({ error: `Invalid baseRole: ${baseRole}` });
+      }
+      data.baseRole = baseRole;
+    }
+
+    if (status !== undefined) {
+      if (!Object.values(UserStatus).includes(status)) {
+        return res.status(400).json({ error: `Invalid status: ${status}` });
+      }
+      data.status = status;
+    }
+
+    if (password !== undefined && password.trim()) {
+      data.passwordHash = password.trim(); // still plain text for now
+    }
+
+    const updated = await prisma.user.update({
+      where: { id },
+      data,
+    });
+
+    res.json(shapeUser(updated));
+  } catch (err) {
+    console.error("Error in PATCH /api/admin/users/:id", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+// PATCH /api/admin/users/:id/archive - toggle isArchived
+app.patch("/api/admin/users/:id/archive", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const existing = await prisma.user.findUnique({ where: { id } });
+    if (!existing) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const updated = await prisma.user.update({
+      where: { id },
+      data: { isArchived: !existing.isArchived },
+    });
+
+    res.json(shapeUser(updated));
+  } catch (err) {
+    console.error("Error in PATCH /api/admin/users/:id/archive", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+// DELETE /api/admin/users/:id
+app.delete("/api/admin/users/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await prisma.user.delete({ where: { id } });
+    res.json({ ok: true });
+  } catch (err) {
+    console.error("Error in DELETE /api/admin/users/:id", err);
+    if (err.code === "P2025") {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.status(500).json({ error: "Server error" });
+  }
 });
 
 // ===================================================================
@@ -320,8 +504,6 @@ app.post(
           : null;
 
       // ---------- Resolve property ----------
-      // 1) If client sent a propertyId, use it.
-      // 2) Otherwise, attach to most recently created property.
       let effectivePropertyId = rawPropertyId && String(rawPropertyId).trim();
       if (!effectivePropertyId) {
         const latestProperty = await prisma.property.findFirst({
@@ -339,8 +521,6 @@ app.post(
       }
 
       // ---------- Resolve landlord ----------
-      // 1) If client sent a landlordId, use it.
-      // 2) Otherwise, use the first user in the system.
       let effectiveLandlordId =
         rawLandlordId && String(rawLandlordId).trim();
       if (!effectiveLandlordId) {
@@ -360,7 +540,6 @@ app.post(
 
       const created = await prisma.lease.create({
         data: {
-          // Satisfy required relations explicitly
           property: { connect: { id: effectivePropertyId } },
           landlord: { connect: { id: effectiveLandlordId } },
 
@@ -720,7 +899,7 @@ app.get("/api/tenants/:tenantId/pets", async (req, res) => {
 // POST /api/tenants/:tenantId/pets – create pet
 app.post("/api/tenants/:tenantId/pets", async (req, res) => {
   const { tenantId } = req.params;
-  const { name, species, breed, weightLbs } = req.body || {};
+  const { name, type, breed, weightLb } = req.body || {};
 
   if (!name || !name.trim()) {
     return res.status(400).json({ error: "name is required" });
@@ -732,22 +911,18 @@ app.post("/api/tenants/:tenantId/pets", async (req, res) => {
       return res.status(404).json({ error: "Tenant not found" });
     }
 
-    let weight = null;
-    if (weightLbs !== undefined && weightLbs !== null && weightLbs !== "") {
-      const parsed = Number(weightLbs);
-      if (!Number.isFinite(parsed)) {
-        return res.status(400).json({ error: "weightLbs must be a number" });
-      }
-      weight = Math.round(parsed);
-    }
+    const parsedWeight =
+      weightLb !== undefined && weightLb !== null && weightLb !== ""
+        ? Number(weightLb)
+        : null;
 
     const created = await prisma.pet.create({
       data: {
         tenantId,
         name: name.trim(),
-        species: species?.trim() || null,
+        type: type?.trim() || null,
         breed: breed?.trim() || null,
-        weightLbs: weight,
+        weightLb: parsedWeight,
       },
     });
 
@@ -761,7 +936,7 @@ app.post("/api/tenants/:tenantId/pets", async (req, res) => {
 // PATCH /api/tenants/:tenantId/pets/:id – update pet
 app.patch("/api/tenants/:tenantId/pets/:id", async (req, res) => {
   const { tenantId, id } = req.params;
-  const { name, species, breed, weightLbs } = req.body || {};
+  const { name, type, breed, weightLb } = req.body || {};
 
   try {
     const existing = await prisma.pet.findUnique({ where: { id } });
@@ -769,31 +944,19 @@ app.patch("/api/tenants/:tenantId/pets/:id", async (req, res) => {
       return res.status(404).json({ error: "Pet not found" });
     }
 
-    let weight = existing.weightLbs;
-    if (weightLbs !== undefined) {
-      if (weightLbs === null || weightLbs === "") {
-        weight = null;
-      } else {
-        const parsed = Number(weightLbs);
-        if (!Number.isFinite(parsed)) {
-          return res.status(400).json({ error: "weightLbs must be a number" });
-        }
-        weight = Math.round(parsed);
-      }
-    }
+    const parsedWeight =
+      weightLb !== undefined && weightLb !== null && weightLb !== ""
+        ? Number(weightLb)
+        : null;
 
     const updated = await prisma.pet.update({
       where: { id },
       data: {
-        name:
-          name !== undefined ? name.trim() || existing.name : existing.name,
-        species:
-          species !== undefined
-            ? species.trim() || null
-            : existing.species,
-        breed:
-          breed !== undefined ? breed.trim() || null : existing.breed,
-        weightLbs: weight,
+        name: name !== undefined ? name.trim() || existing.name : existing.name,
+        type: type !== undefined ? type.trim() || null : existing.type,
+        breed: breed !== undefined ? breed.trim() || null : existing.breed,
+        weightLb:
+          weightLb !== undefined ? parsedWeight : existing.weightLb,
       },
     });
 
@@ -975,6 +1138,39 @@ app.patch(
     }
   }
 );
+
+// ===================================================================
+// ADMIN OVERVIEW
+// ===================================================================
+
+app.get("/api/admin/overview", async (req, res) => {
+  try {
+    const totalUsers = await prisma.user.count();
+    const landlords = await prisma.user.count({
+      where: { baseRole: "LANDLORD" },
+    });
+    const tenants = await prisma.user.count({
+      where: { baseRole: "TENANT" },
+    });
+    const propertyManagers = await prisma.user.count({
+      where: { baseRole: "PROPERTY_MANAGER" },
+    });
+
+    // We don't have a real Invite model yet → treat as 0 for now
+    const pendingInvites = 0;
+
+    res.json({
+      totalUsers,
+      landlords,
+      tenants,
+      propertyManagers,
+      pendingInvites,
+    });
+  } catch (err) {
+    console.error("Error in GET /api/admin/overview", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
 
 // ===================================================================
 // START SERVER

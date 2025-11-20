@@ -12,7 +12,7 @@ describe("PetList", () => {
 
     // Add a new pet
     fireEvent.change(screen.getByPlaceholderText(/name/i), { target: { value: "Mochi" } });
-    fireEvent.change(screen.getByPlaceholderText(/species/i), { target: { value: "cat" } });
+    fireEvent.change(screen.getByPlaceholderText(/type/i), { target: { value: "cat" } });
     fireEvent.change(screen.getByPlaceholderText(/breed/i), { target: { value: "DSH" } });
     fireEvent.change(screen.getByPlaceholderText(/weight/i), { target: { value: "10" } });
     fireEvent.click(screen.getByText(/^Add$/i));

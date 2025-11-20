@@ -33,9 +33,9 @@ function mapPetFromApi(p) {
     id: p.id,
     tenantId: p.tenantId,
     name: p.name,
-    species: p.species || "",
+    type: p.type || "",
     breed: p.breed || "",
-    weightLbs: p.weightLbs ?? null,
+    weightLb: p.weightLb ?? null,
     archived: !!p.archived,
   };
 }

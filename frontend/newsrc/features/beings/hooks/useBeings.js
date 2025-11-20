@@ -21,7 +21,7 @@ function normalize(record = {}) {
 
   // Heuristics (safe fallbacks)
   let kind = "person";
-  if ("species" in record) kind = "pet";
+  if ("type" in record) kind = "pet";
   else if ("relation" in record && "phone" in record) kind = "emergency_contact";
   else if ("relationship" in record && "age" in record) kind = "occupant";
   else if ("leaseId" in record && "status" in record) kind = "tenant";
