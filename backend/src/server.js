@@ -12,6 +12,8 @@ const app = express();
 
 const PORT = process.env.PORT || 4000;
 
+const bcrypt = require("bcryptjs");
+
 // Ensure uploads directory exists
 const uploadsRoot = path.join(__dirname, "..", "uploads");
 const leasesUploadDir = path.join(uploadsRoot, "leases");
@@ -35,7 +37,7 @@ app.get("/health", (req, res) => {
 });
 
 // ===================================================================
-// AUTH (simple stub sign-in)
+// AUTH (bcrypt-backed sign-in)
 // ===================================================================
 app.post("/api/auth/sign-in", async (req, res) => {
   const { email, password } = req.body || {};
@@ -46,7 +48,27 @@ app.post("/api/auth/sign-in", async (req, res) => {
 
   try {
     const user = await prisma.user.findUnique({ where: { email } });
-    if (!user || user.passwordHash !== password) {
+
+    if (!user) {
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
+
+    const stored = user.passwordHash || "";
+    let ok = false;
+
+    // If it looks like a bcrypt hash, use bcrypt.compare
+    if (
+      stored.startsWith("$2a$") ||
+      stored.startsWith("$2b$") ||
+      stored.startsWith("$2y$")
+    ) {
+      ok = await bcrypt.compare(password, stored);
+    } else {
+      // Backwards-compat: allow old plain-text passwords to keep working
+      ok = stored === password;
+    }
+
+    if (!ok) {
       return res.status(401).json({ error: "Invalid credentials" });
     }
 
@@ -60,6 +82,65 @@ app.post("/api/auth/sign-in", async (req, res) => {
     });
   } catch (err) {
     console.error("Error in /api/auth/sign-in", err);
+    return res.status(500).json({ error: "Server error" });
+  }
+});
+
+// ===================================================================
+// AUTH – change password for current user
+// ===================================================================
+app.post("/api/auth/change-password", async (req, res) => {
+  const { email, currentPassword, newPassword } = req.body || {};
+
+  if (!email || !currentPassword || !newPassword) {
+    return res.status(400).json({
+      error: "email, currentPassword, and newPassword are required",
+    });
+  }
+
+  try {
+    const user = await prisma.user.findUnique({ where: { email } });
+
+    // Don't leak which part is wrong – generic invalid creds
+    if (!user) {
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
+
+    const stored = user.passwordHash || "";
+    let ok = false;
+
+    // Same logic as sign-in: bcrypt first, fallback to legacy plain text
+    if (
+      stored.startsWith("$2a$") ||
+      stored.startsWith("$2b$") ||
+      stored.startsWith("$2y$")
+    ) {
+      ok = await bcrypt.compare(currentPassword, stored);
+    } else {
+      ok = stored === currentPassword;
+    }
+
+    if (!ok) {
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
+
+    const trimmedNew = newPassword.trim();
+    if (trimmedNew.length < 8) {
+      return res
+        .status(400)
+        .json({ error: "Password must be at least 8 characters long" });
+    }
+
+    const hashed = await bcrypt.hash(trimmedNew, 10);
+
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { passwordHash: hashed },
+    });
+
+    return res.json({ ok: true });
+  } catch (err) {
+    console.error("Error in /api/auth/change-password", err);
     return res.status(500).json({ error: "Server error" });
   }
 });
@@ -227,7 +308,7 @@ app.get("/api/admin/users", async (req, res) => {
 // Body: { email, name?, baseRole, password?, status? }
 app.post("/api/admin/users", async (req, res) => {
   try {
-    const { email, name, baseRole } = req.body || {};
+    const { email, name, baseRole, password } = req.body || {};
 
     if (!email || !email.trim()) {
       return res.status(400).json({ error: "email is required" });
@@ -240,14 +321,25 @@ app.post("/api/admin/users", async (req, res) => {
         .json({ error: `Invalid baseRole: ${baseRole}` });
     }
 
+    // If no password provided, give them a temporary one.
+    const plainPassword =
+      (password && password.trim()) || "changeme123";
+    const hashed = await bcrypt.hash(plainPassword, 10);
+
     const created = await prisma.user.create({
       data: {
         email: email.trim(),
         name: name?.trim() || null,
-        passwordHash: "changeme123", // placeholder
+        passwordHash: hashed,
         baseRole: normalizedRole,
       },
     });
+
+    // For now we don't expose the hash or temp password in the API response.
+    // If you want the temp password in dev, you can log it here:
+    console.log(
+      `Admin created user ${created.email} with temp password: ${plainPassword}`
+    );
 
     res.status(201).json({
       id: created.id,
@@ -302,8 +394,14 @@ app.patch("/api/admin/users/:id", async (req, res) => {
       data.status = status;
     }
 
-    if (password !== undefined && password.trim()) {
-      data.passwordHash = password.trim(); // still plain text for now
+    if (password !== undefined) {
+      const trimmed = password.trim();
+      if (!trimmed) {
+        return res
+          .status(400)
+          .json({ error: "password cannot be empty when provided" });
+      }
+      data.passwordHash = await bcrypt.hash(trimmed, 10);
     }
 
     const updated = await prisma.user.update({
@@ -328,9 +426,29 @@ app.patch("/api/admin/users/:id/archive", async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
+    const nextArchived = !existing.isArchived;
+
+    // If we're about to archive a SYSADMIN, ensure it's not the last active one
+    if (nextArchived && existing.baseRole === Role.SYSADMIN) {
+      const otherActiveSysadmins = await prisma.user.count({
+        where: {
+          id: { not: id },
+          baseRole: Role.SYSADMIN,
+          isArchived: false,
+          // optionally: status: "ACTIVE"
+        },
+      });
+
+      if (otherActiveSysadmins === 0) {
+        return res.status(400).json({
+          error: "Cannot archive the last active system administrator.",
+        });
+      }
+    }
+
     const updated = await prisma.user.update({
       where: { id },
-      data: { isArchived: !existing.isArchived },
+      data: { isArchived: nextArchived },
     });
 
     res.json(shapeUser(updated));
@@ -345,6 +463,29 @@ app.delete("/api/admin/users/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
+    const existing = await prisma.user.findUnique({ where: { id } });
+    if (!existing) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Prevent deleting the last active SYSADMIN
+    if (existing.baseRole === Role.SYSADMIN) {
+      const otherActiveSysadmins = await prisma.user.count({
+        where: {
+          id: { not: id },
+          baseRole: Role.SYSADMIN,
+          isArchived: false,
+          // optionally add: status: "ACTIVE"
+        },
+      });
+
+      if (otherActiveSysadmins === 0) {
+        return res.status(400).json({
+          error: "Cannot delete the last active system administrator.",
+        });
+      }
+    }
+
     await prisma.user.delete({ where: { id } });
     res.json({ ok: true });
   } catch (err) {

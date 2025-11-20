@@ -1,16 +1,15 @@
 // backend/prisma/seed.js
 const { PrismaClient, Role } = require("@prisma/client");
+const bcrypt = require("bcryptjs");
 
 const prisma = new PrismaClient();
 
 /**
- * This seed script is now a *bootstrap* helper, not a destructive reset.
- *
- * Behavior:
- *   - If there are NO users, create a single SYSADMIN account:
- *       email: sysadmin@example.com
- *       password: password123  (matches the stub sign-in)
- *   - If users already exist, do nothing.
+ * Bootstrap seed:
+ *  - If there are NO users, create a single SYSADMIN account:
+ *      email:    sysadmin@example.com
+ *      password: password123
+ *  - If users already exist, do nothing.
  *
  * Run with:
  *   npm run seed
@@ -26,20 +25,22 @@ async function main() {
 
   console.log("No users found. Creating initial sysadmin user…");
 
+  const plainPassword = "password123";
+  const hashed = await bcrypt.hash(plainPassword, 10);
+
   const sysadmin = await prisma.user.create({
     data: {
       email: "sysadmin@example.com",
       name: "System Admin",
-      // still plain-text-ish because our auth stub compares directly
-      // (we'll switch to real hashing later)
-      passwordHash: "password123",
+      passwordHash: hashed,
       baseRole: Role.SYSADMIN,
     },
   });
 
   console.log("Created initial sysadmin user:");
-  console.log(`  email: ${sysadmin.email}`);
-  console.log(`  role:  ${sysadmin.baseRole}`);
+  console.log(`  email:    ${sysadmin.email}`);
+  console.log(`  password: ${plainPassword}`);
+  console.log(`  role:     ${sysadmin.baseRole}`);
   console.log("You can now sign in with sysadmin@example.com / password123");
 }
 

@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import css from "./AvatarMenu.module.css";
 import { useUser } from "@app/providers.jsx";
 import { ROLES } from "@lib/rbac/roles.js";
+import ChangePasswordForm from "@features/auth/components/ChangePasswordForm.jsx";
+
 
 const ROLE_LABEL = {
   [ROLES.SYSADMIN]: "System Admin",
@@ -151,7 +153,7 @@ export default function AvatarMenu() {
           </button>
           {expanded.settings && (
             <div className={css.sectionBody}>
-              {/* placeholders for real prefs later */}
+              {/* Placeholder prefs */}
               <div className={css.fieldRow}>
                 <span className={css.fieldLabel}>Theme</span>
                 <span className={css.fieldValue}>Light (default)</span>
@@ -160,6 +162,9 @@ export default function AvatarMenu() {
                 <span className={css.fieldLabel}>Notifications</span>
                 <span className={css.fieldValue}>Enabled</span>
               </div>
+          
+              {/* Change password form */}
+              <ChangePasswordForm />
             </div>
           )}
 
