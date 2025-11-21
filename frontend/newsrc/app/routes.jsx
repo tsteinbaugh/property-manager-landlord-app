@@ -31,6 +31,9 @@ import LegalCaseList from "@features/legal/components/LegalCaseList.jsx";
 import LegalCasePanel from "@features/legal/components/LegalCasePanel.jsx";
 import CleaningTicketList from "@features/cleaning/components/CleaningTicketList.jsx";
 
+import { useParams } from "react-router-dom";
+import PropertyDetails from "@features/properties/pages/PropertyDetails.jsx";
+
 import { useTenants } from "@features/tenants/hooks/useTenants.js";
 
 // Admin pages
@@ -53,6 +56,11 @@ function Properties() {
       <PropertiesList includeArchived={showArchived} />
     </>
   );
+}
+
+function PropertyDetailsRoute() {
+  const { id } = useParams();
+  return <PropertyDetails propertyId={id} />;
 }
 
 function Occupants() {
@@ -235,6 +243,9 @@ export function AppRoutes() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/accept-invite" element={<AcceptInvite />} />
+
+        <Route path="/properties" element={<Properties />} />
+        <Route path="/properties/:id" element={<PropertyDetailsRoute />} />
 
         {/* Admin (SYSADMIN only) */}
         <Route

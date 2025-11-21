@@ -924,96 +924,59 @@ app.patch("/api/properties/:id/archive", async (req, res) => {
 });
 
 // GET /api/properties/:id/summary
+// Returns: property + active lease (if any) + tenant + occupants + pets + emergency contacts
 app.get("/api/properties/:id/summary", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const property = await prisma.property.findUnique({ where: { id } });
+    const property = await prisma.property.findUnique({
+      where: { id },
+      include: {
+        leases: {
+          where: { status: "ACTIVE" },
+          orderBy: { startDate: "desc" },
+          include: {
+            tenant: true,
+          },
+        },
+      },
+    });
+
     if (!property) {
       return res.status(404).json({ error: "Property not found" });
     }
 
-    // Fetch leases for this property
-    const leasesRaw = await prisma.lease.findMany({
-      where: {
-        propertyId: id,
-        status: { not: "ARCHIVED" },
-      },
-      orderBy: { startDate: "desc" },
-      include: {
-        tenant: true,
-      },
-    });
+    const activeLease = property.leases[0] || null;
+    const tenant = activeLease?.tenant || null;
 
-    // Collect tenant ids we need details for
-    const tenantIds = leasesRaw
-      .map((l) => l.tenantId)
-      .filter((tid) => tid && typeof tid === "string");
+    let occupants = [];
+    let pets = [];
+    let emergencyContacts = [];
 
-    const uniqueTenantIds = [...new Set(tenantIds)];
-
-    let tenantsMap = new Map();
-
-    if (uniqueTenantIds.length > 0) {
-      // Base tenants
-      const tenants = await prisma.tenant.findMany({
-        where: { id: { in: uniqueTenantIds } },
+    if (tenant) {
+      occupants = await prisma.occupant.findMany({
+        where: { tenantId: tenant.id, isArchived: false },
+        orderBy: { createdAt: "asc" },
       });
 
-      tenants.forEach((t) => {
-        tenantsMap.set(t.id, {
-          ...shapeTenant(t),
-          occupants: [],
-          pets: [],
-          emergencyContacts: [],
-        });
+      pets = await prisma.pet.findMany({
+        where: { tenantId: tenant.id, isArchived: false },
+        orderBy: { createdAt: "asc" },
       });
 
-      // Fetch dependents in parallel
-      const [occupants, pets, contacts] = await Promise.all([
-        prisma.occupant.findMany({
-          where: { tenantId: { in: uniqueTenantIds }, isArchived: false },
-          orderBy: { createdAt: "asc" },
-        }),
-        prisma.pet.findMany({
-          where: { tenantId: { in: uniqueTenantIds }, isArchived: false },
-          orderBy: { createdAt: "asc" },
-        }),
-        prisma.emergencyContact.findMany({
-          where: { tenantId: { in: uniqueTenantIds }, isArchived: false },
-          orderBy: { createdAt: "asc" },
-        }),
-      ]);
-
-      occupants.forEach((o) => {
-        const b = tenantsMap.get(o.tenantId);
-        if (b) b.occupants.push(shapeOccupant(o));
-      });
-
-      pets.forEach((p) => {
-        const b = tenantsMap.get(p.tenantId);
-        if (b) b.pets.push(shapePet(p));
-      });
-
-      contacts.forEach((c) => {
-        const b = tenantsMap.get(c.tenantId);
-        if (b) b.emergencyContacts.push(shapeEmergencyContact(c));
+      emergencyContacts = await prisma.emergencyContact.findMany({
+        where: { tenantId: tenant.id, isArchived: false },
+        orderBy: { createdAt: "asc" },
       });
     }
 
-    // Shape leases & attach expanded tenant if present
-    const leases = leasesRaw.map((l) => {
-      const shaped = shapeLease(l);
-      shaped.tenant =
-        l.tenantId && tenantsMap.has(l.tenantId)
-          ? tenantsMap.get(l.tenantId)
-          : null;
-      return shaped;
-    });
-
     res.json({
       property,
-      leases,
+      lease: activeLease,
+      tenant,
+      occupants,
+      pets,
+      emergencyContacts,
     });
   } catch (err) {
     console.error("Error in GET /api/properties/:id/summary", err);

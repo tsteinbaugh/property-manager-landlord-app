@@ -7,6 +7,7 @@ import { ROLES } from "@lib/rbac/roles.js";
 import AddPropertyForm from "./AddPropertyForm.jsx";
 import { apiFetch } from "@lib/apiClient.js";
 import { useUser } from "@app/providers.jsx";
+import { Link } from "react-router-dom";
 
 function PropertyRow({ p, canArchive, onArchive, onUpdated }) {
   const { token } = useUser() || {};
@@ -122,6 +123,15 @@ function PropertyRow({ p, canArchive, onArchive, onUpdated }) {
           (Archived)
         </span>
       )}
+
+      {/* View details link */}
+      <Link
+        to={`/properties/${p.id}`}
+        style={{ marginLeft: 8, fontSize: 13 }}
+      >
+        View details
+      </Link>
+
       <button
         type="button"
         style={{ marginLeft: 8 }}
@@ -129,6 +139,7 @@ function PropertyRow({ p, canArchive, onArchive, onUpdated }) {
       >
         Edit
       </button>
+
       {canArchive ? (
         <ArchiveButton
           archived={p.archived}
