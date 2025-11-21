@@ -5,8 +5,9 @@ const path = require("path");
 const fs = require("fs");
 const multer = require("multer");
 const crypto = require("crypto");
-const { PrismaClient, Role, UserStatus, AuthTokenKind } = require("@prisma/client");
+const { PrismaClient } = require("@prisma/client");
 
+// Route modules
 const { registerPropertyRoutes } = require("./routes/properties.routes.js");
 const { registerTenantRoutes } = require("./routes/tenants.routes.js");
 const { registerTenantDependenciesRoutes } = require("./routes/tenantDependencies.routes.js");
@@ -14,23 +15,25 @@ const { registerLeaseRoutes } = require("./routes/leases.routes.js");
 const { registerAuthRoutes } = require("./routes/auth.routes.js");
 const { registerAdminRoutes } = require("./routes/admin.routes.js");
 
+// Initialize
 const prisma = new PrismaClient();
 const app = express();
 
 const PORT = process.env.PORT || 4000;
 const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "http://localhost:5173";
 
-function generateToken() {
-  return crypto.randomBytes(32).toString("hex");
-}
+// Ensure uploads directory exists BEFORE storage is configured
+const uploadsRoot = path.join(__dirname, "..", "uploads");
+const leasesUploadDir = path.join(uploadsRoot, "leases");
+fs.mkdirSync(leasesUploadDir, { recursive: true });
 
-// File upload - leases
+// ---------- Lease File Upload Middleware ----------
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, leasesUploadDir);
   },
   filename: (req, file, cb) => {
-    const safeName = file.originalname.replace(/[^a-z0-9.\-_.]/gi, "_");
+    const safeName = file.originalname.replace(/[^a-z0-9.\-_]/gi, "_");
     cb(null, `${Date.now()}_${safeName}`);
   },
 });
@@ -44,9 +47,7 @@ const uploadLeaseFile = multer({
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     ];
     if (!allowed.includes(file.mimetype)) {
-      return cb(
-        new Error("Only PDF or Word documents are allowed for leases.")
-      );
+      return cb(new Error("Only PDF or Word documents are allowed for leases."));
     }
     cb(null, true);
   },
@@ -55,26 +56,20 @@ const uploadLeaseFile = multer({
   },
 });
 
-const bcrypt = require("bcryptjs");
-
-// Ensure uploads directory exists
-const uploadsRoot = path.join(__dirname, "..", "uploads");
-const leasesUploadDir = path.join(uploadsRoot, "leases");
-fs.mkdirSync(leasesUploadDir, { recursive: true });
-
 // ---------- Middleware ----------
 app.use(
   cors({
-    origin: FRONTEND_ORIGIN, // or "http://localhost:5173"
+    origin: FRONTEND_ORIGIN,
     credentials: true,
   })
 );
+
 app.use(express.json());
 
-// Serve uploaded files (e.g. /uploads/leases/....)
+// Serve uploaded files (e.g. /uploads/leases/...)
 app.use("/uploads", express.static(uploadsRoot));
 
-// ---------- Health check ----------
+// ---------- Health Check ----------
 app.get("/health", (req, res) => {
   res.json({ status: "ok" });
 });
@@ -105,13 +100,15 @@ registerAdminRoutes(app, prisma, {
   FRONTEND_ORIGIN,
 });
 
-// ---------- Start server ----------
-app.listen(PORT, () => {
-  console.log(`Backend listening on http://localhost:${PORT}`);
-});
+// ---------- Start Server ----------
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server listening on http://localhost:${PORT}`);
+  });
+}
 
 // ===================================================================
-// HELPERS
+// HELPERS (used by route modules)
 // ===================================================================
 
 function shapeLease(lease) {
@@ -203,3 +200,8 @@ function shapeEmergencyContact(c) {
     updatedAt: c.updatedAt,
   };
 }
+
+module.exports = {
+  app,
+  prisma,
+};

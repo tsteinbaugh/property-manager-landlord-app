@@ -8,7 +8,9 @@
     "prisma:migrate": "prisma migrate dev",
     "prisma:generate": "prisma generate",
     "prisma:studio": "prisma studio",
-    "seed": "node prisma/seed.js"
+    "seed": "node prisma/seed.js",
+    "test": "cross-env NODE_ENV=test vitest run",
+    "test:watch": "cross-env NODE_ENV=test vitest"
   },
   "dependencies": {
     "@prisma/client": "^5.0.0",
@@ -21,6 +23,10 @@
   },
   "devDependencies": {
     "nodemon": "^3.0.0",
-    "prisma": "^5.0.0"
+    "prisma": "^5.0.0",
+    "vitest": "^2.0.0",
+    "supertest": "^7.0.0",
+    "dotenv": "^16.0.0",
+    "cross-env": "^7.0.0"
   }
 }
