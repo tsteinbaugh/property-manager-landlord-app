@@ -399,21 +399,42 @@ function shapeUser(u) {
   };
 }
 
-function shapeLease(row) {
+function shapeLease(lease) {
+  if (!lease) return null;
+
+  const isArchived = lease.status === "ARCHIVED";
+
   return {
-    id: row.id,
-    propertyId: row.propertyId,
-    landlordId: row.landlordId,
-    tenantName: row.tenantName,
-    rentAmount: row.rentAmount,
-    status: row.status,
-    startDate: row.startDate,
-    endDate: row.endDate,
-    fileUrl: row.fileUrl || null,
-    fileOriginalName: row.fileOriginalName || null,
-    fileMimeType: row.fileMimeType || null,
-    fileSize: row.fileSize ?? null,
-    archived: row.status === "ARCHIVED",
+    id: lease.id,
+    propertyId: lease.propertyId,
+    landlordId: lease.landlordId,
+
+    tenantId: lease.tenantId ?? null,
+    tenantName: lease.tenantName ?? null,
+
+    rentAmount: lease.rentAmount ?? null,
+    status: lease.status,
+    startDate: lease.startDate ?? null,
+    endDate: lease.endDate ?? null,
+
+    archived: isArchived,
+    isArchived: isArchived,
+
+    // optional ISO helpers if you ever need them
+    startDateISO: lease.startDate ? lease.startDate.toISOString() : null,
+    endDateISO: lease.endDate ? lease.endDate.toISOString() : null,
+    createdAtISO: lease.createdAt ? lease.createdAt.toISOString() : null,
+    updatedAtISO: lease.updatedAt ? lease.updatedAt.toISOString() : null,
+
+    fileUrl: lease.fileUrl ?? null,
+    fileOriginalName: lease.fileOriginalName ?? null,
+    fileMimeType: lease.fileMimeType ?? null,
+    fileSize: lease.fileSize ?? null,
+
+    // included relations when present
+    property: lease.property || null,
+    landlord: lease.landlord || null,
+    tenant: lease.tenant || null,
   };
 }
 
@@ -902,6 +923,104 @@ app.patch("/api/properties/:id/archive", async (req, res) => {
   }
 });
 
+// GET /api/properties/:id/summary
+app.get("/api/properties/:id/summary", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const property = await prisma.property.findUnique({ where: { id } });
+    if (!property) {
+      return res.status(404).json({ error: "Property not found" });
+    }
+
+    // Fetch leases for this property
+    const leasesRaw = await prisma.lease.findMany({
+      where: {
+        propertyId: id,
+        status: { not: "ARCHIVED" },
+      },
+      orderBy: { startDate: "desc" },
+      include: {
+        tenant: true,
+      },
+    });
+
+    // Collect tenant ids we need details for
+    const tenantIds = leasesRaw
+      .map((l) => l.tenantId)
+      .filter((tid) => tid && typeof tid === "string");
+
+    const uniqueTenantIds = [...new Set(tenantIds)];
+
+    let tenantsMap = new Map();
+
+    if (uniqueTenantIds.length > 0) {
+      // Base tenants
+      const tenants = await prisma.tenant.findMany({
+        where: { id: { in: uniqueTenantIds } },
+      });
+
+      tenants.forEach((t) => {
+        tenantsMap.set(t.id, {
+          ...shapeTenant(t),
+          occupants: [],
+          pets: [],
+          emergencyContacts: [],
+        });
+      });
+
+      // Fetch dependents in parallel
+      const [occupants, pets, contacts] = await Promise.all([
+        prisma.occupant.findMany({
+          where: { tenantId: { in: uniqueTenantIds }, isArchived: false },
+          orderBy: { createdAt: "asc" },
+        }),
+        prisma.pet.findMany({
+          where: { tenantId: { in: uniqueTenantIds }, isArchived: false },
+          orderBy: { createdAt: "asc" },
+        }),
+        prisma.emergencyContact.findMany({
+          where: { tenantId: { in: uniqueTenantIds }, isArchived: false },
+          orderBy: { createdAt: "asc" },
+        }),
+      ]);
+
+      occupants.forEach((o) => {
+        const b = tenantsMap.get(o.tenantId);
+        if (b) b.occupants.push(shapeOccupant(o));
+      });
+
+      pets.forEach((p) => {
+        const b = tenantsMap.get(p.tenantId);
+        if (b) b.pets.push(shapePet(p));
+      });
+
+      contacts.forEach((c) => {
+        const b = tenantsMap.get(c.tenantId);
+        if (b) b.emergencyContacts.push(shapeEmergencyContact(c));
+      });
+    }
+
+    // Shape leases & attach expanded tenant if present
+    const leases = leasesRaw.map((l) => {
+      const shaped = shapeLease(l);
+      shaped.tenant =
+        l.tenantId && tenantsMap.has(l.tenantId)
+          ? tenantsMap.get(l.tenantId)
+          : null;
+      return shaped;
+    });
+
+    res.json({
+      property,
+      leases,
+    });
+  } catch (err) {
+    console.error("Error in GET /api/properties/:id/summary", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 // ===================================================================
 // LEASES
 // ===================================================================
@@ -909,6 +1028,7 @@ app.patch("/api/properties/:id/archive", async (req, res) => {
 // POST /api/leases - create a lease + upload file
 // If no propertyId is provided, attach to the most recently created property.
 // If no landlordId is provided, attach to the first user (landlord).
+// POST /api/leases - create a lease + upload file
 app.post(
   "/api/leases",
   (req, res, next) => {
@@ -935,21 +1055,12 @@ app.post(
       const {
         propertyId: rawPropertyId = "",
         landlordId: rawLandlordId = "",
+        tenantId: rawTenantId = "",
         tenantName,
         rentAmount,
         startDate,
         endDate,
       } = req.body || {};
-
-      if (!tenantName || !tenantName.trim()) {
-        return res.status(400).json({ error: "tenantName is required" });
-      }
-
-      // Rent parsing
-      const numericRent =
-        rentAmount !== undefined && rentAmount !== ""
-          ? Number(rentAmount)
-          : null;
 
       // ---------- Resolve property ----------
       let effectivePropertyId = rawPropertyId && String(rawPropertyId).trim();
@@ -986,12 +1097,39 @@ app.post(
         effectiveLandlordId = firstUser.id;
       }
 
+      // ---------- Resolve tenant (REQUIRED now) ----------
+      let effectiveTenantId =
+        rawTenantId && String(rawTenantId).trim()
+          ? String(rawTenantId).trim()
+          : null;
+
+      if (!effectiveTenantId) {
+        return res.status(400).json({ error: "tenantId is required" });
+      }
+
+      const tenant = await prisma.tenant.findUnique({
+        where: { id: effectiveTenantId },
+      });
+      if (!tenant) {
+        return res.status(400).json({ error: "Invalid tenantId" });
+      }
+
+      // Rent parsing
+      const numericRent =
+        rentAmount !== undefined && rentAmount !== ""
+          ? Number(rentAmount)
+          : null;
+
       const created = await prisma.lease.create({
         data: {
           property: { connect: { id: effectivePropertyId } },
           landlord: { connect: { id: effectiveLandlordId } },
-
-          tenantName: tenantName.trim(),
+        
+          tenant: { connect: { id: effectiveTenantId } },
+        
+          tenantName:
+            tenantName && tenantName.trim() ? tenantName.trim() : null,
+        
           rentAmount: numericRent,
           status: "ACTIVE",
           startDate: startDate ? new Date(startDate) : null,
@@ -1000,6 +1138,9 @@ app.post(
           fileOriginalName: req.file.originalname,
           fileMimeType: req.file.mimetype,
           fileSize: req.file.size,
+        },
+        include: {
+          tenant: true,
         },
       });
 
@@ -1019,6 +1160,7 @@ app.get("/api/leases", async (req, res) => {
       include: {
         property: true,
         landlord: true,
+        tenant: true,   // NEW
       },
     });
 
@@ -1032,7 +1174,7 @@ app.get("/api/leases", async (req, res) => {
 // PATCH /api/leases/:id - update lease fields
 app.patch("/api/leases/:id", async (req, res) => {
   const { id } = req.params;
-  const { tenantName, rentAmount, startDate, endDate } = req.body || {};
+  const { tenantName, tenantId, rentAmount, startDate, endDate } = req.body || {};
 
   try {
     const existing = await prisma.lease.findUnique({ where: { id } });
@@ -1040,6 +1182,23 @@ app.patch("/api/leases/:id", async (req, res) => {
       return res.status(404).json({ error: "Lease not found" });
     }
 
+    // ---------- Resolve tenantId ----------
+    let nextTenantId = existing.tenantId;
+    if (tenantId !== undefined) {
+      const trimmed = String(tenantId || "").trim();
+      nextTenantId = trimmed || null;
+
+      if (nextTenantId) {
+        const t = await prisma.tenant.findUnique({
+          where: { id: nextTenantId },
+        });
+        if (!t) {
+          return res.status(400).json({ error: "Invalid tenantId" });
+        }
+      }
+    }
+
+    // ---------- Rent handling ----------
     let numericRent = existing.rentAmount;
     if (rentAmount !== undefined) {
       if (rentAmount === null || rentAmount === "") {
@@ -1053,27 +1212,31 @@ app.patch("/api/leases/:id", async (req, res) => {
       }
     }
 
+    const dataToUpdate = {
+      tenantName:
+        tenantName !== undefined
+          ? tenantName.trim() || existing.tenantName
+          : existing.tenantName,
+      rentAmount: numericRent,
+      startDate:
+        startDate !== undefined
+          ? startDate ? new Date(startDate) : null
+          : existing.startDate,
+      endDate:
+        endDate !== undefined
+          ? endDate ? new Date(endDate) : null
+          : existing.endDate,
+    };
+
+    // only reconnect tenant if a new tenantId was provided
+    if (tenantId !== undefined) {
+      dataToUpdate.tenant = { connect: { id: nextTenantId } };
+    }
+
     const updated = await prisma.lease.update({
       where: { id },
-      data: {
-        tenantName:
-          tenantName !== undefined
-            ? tenantName.trim() || existing.tenantName
-            : existing.tenantName,
-        rentAmount: numericRent,
-        startDate:
-          startDate !== undefined
-            ? startDate
-              ? new Date(startDate)
-              : null
-            : existing.startDate,
-        endDate:
-          endDate !== undefined
-            ? endDate
-              ? new Date(endDate)
-              : null
-            : existing.endDate,
-      },
+      data: dataToUpdate,
+      include: { tenant: true },
     });
 
     res.json(shapeLease(updated));
@@ -1082,6 +1245,7 @@ app.patch("/api/leases/:id", async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
+
 
 // PATCH /api/leases/:id/archive - toggle status ARCHIVED/ACTIVE
 app.patch("/api/leases/:id/archive", async (req, res) => {

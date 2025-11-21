@@ -2,7 +2,8 @@ import React, { useState } from "react";
 
 const BASE_URL = "http://localhost:4000";
 
-export default function AddLeaseForm({ onCreated }) {
+export default function AddLeaseForm({ onCreated, tenants = [] }) {
+  const [tenantId, setTenantId] = useState("");
   const [tenantName, setTenantName] = useState("");
   const [rentAmount, setRentAmount] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -14,17 +15,26 @@ export default function AddLeaseForm({ onCreated }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!tenantName.trim()) {
-      alert("Tenant name is required");
+
+    // Tenant is required
+    if (!tenantId) {
+      alert("Please select a tenant.");
       return;
     }
+
     if (!file) {
       alert("Please select a lease file to upload");
       return;
     }
 
     const formData = new FormData();
-    formData.append("tenantName", tenantName.trim());
+    formData.append("tenantId", tenantId);
+
+    // Optional label: "what the lease document says, if different"
+    if (tenantName.trim()) {
+      formData.append("tenantName", tenantName.trim());
+    }
+
     if (rentAmount.trim()) formData.append("rentAmount", rentAmount.trim());
     if (startDate) formData.append("startDate", startDate);
     if (endDate) formData.append("endDate", endDate);
@@ -50,6 +60,7 @@ export default function AddLeaseForm({ onCreated }) {
       const lease = await res.json().catch(() => null);
 
       // clear form
+      setTenantId("");
       setTenantName("");
       setRentAmount("");
       setStartDate("");
@@ -82,9 +93,24 @@ export default function AddLeaseForm({ onCreated }) {
       <div style={{ fontWeight: 600, marginBottom: 6 }}>Add Lease</div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        {/* REQUIRED: Assign to tenant */}
+        <select
+          value={tenantId}
+          onChange={(e) => setTenantId(e.target.value)}
+          style={{ padding: 6 }}
+        >
+          <option value="">Assign to tenant (required)</option>
+          {tenants.map((t) => (
+            <option key={t.id} value={t.id}>
+              {t.name} ({t.id.slice(0, 6)})
+            </option>
+          ))}
+        </select>
+
+        {/* OPTIONAL label */}
         <input
           type="text"
-          placeholder="Tenant name (required)"
+          placeholder="Tenant label (text on lease, optional)"
           value={tenantName}
           onChange={(e) => setTenantName(e.target.value)}
           style={{ padding: 6 }}

@@ -69,16 +69,23 @@ model Property {
 
 model Lease {
   id          String       @id @default(cuid())
+
   property    Property     @relation(fields: [propertyId], references: [id])
   propertyId  String
 
   landlord    User         @relation("UserLeases", fields: [landlordId], references: [id])
   landlordId  String
 
-  tenantName  String
-  rentAmount  Int
+  // OPTIONAL lease display name
+  tenantName  String?
+
+  // REQUIRED: real tenant relationship
+  tenantId    String
+  tenant      Tenant       @relation(fields: [tenantId], references: [id])
+
+  rentAmount  Int?         // <-- make optional; backend allows null
   status      LeaseStatus  @default(ACTIVE)
-  startDate   DateTime
+  startDate   DateTime?
   endDate     DateTime?
 
   createdAt   DateTime     @default(now())
@@ -100,6 +107,7 @@ model Tenant {
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
 
+  leases             Lease[]
   occupants          Occupant[]
   pets               Pet[]
   emergencyContacts  EmergencyContact[]

@@ -5,7 +5,6 @@ import { ROLES } from "@lib/rbac/roles.js";
 /**
  * LeaseStatusPanel (backend-driven)
  * - Reads leases via useLeases (which already talks to the backend).
- * - No useLeaseLifecycle, no Map().get, no mtmSince/endedAt.
  * - If leaseId is provided, it tries to find that lease; otherwise falls back to the first.
  */
 export default function LeaseStatusPanel({ leaseId, role = ROLES.SYSADMIN }) {
@@ -31,12 +30,18 @@ export default function LeaseStatusPanel({ leaseId, role = ROLES.SYSADMIN }) {
   if (!lease) return <div>No lease found.</div>;
 
   const fmt = (iso) => (iso ? iso : "");
+  const tenantLabel = lease.tenant
+    ? lease.tenant.name
+    : lease.tenantName || "(no tenant assigned)";
 
   return (
     <div>
       <h3 style={{ margin: "8px 0" }}>Lease status</h3>
       <div>
         Lease <strong>#{lease.id}</strong>
+      </div>
+      <div>
+        Tenant: <strong>{tenantLabel}</strong>
       </div>
       <div>
         Status: <strong>{lease.status}</strong>
