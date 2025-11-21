@@ -15,9 +15,6 @@ import AcceptInvite from "@features/auth/pages/AcceptInvite.jsx";
 // Feature panels/lists
 import PropertiesList from "@features/properties/components/PropertiesList.jsx";
 import TenantsList from "@features/tenants/components/TenantsList.jsx";
-import OccupantList from "@features/tenants/components/OccupantList.jsx";
-import PetList from "@features/tenants/components/PetList.jsx";
-import EmergencyContactList from "@features/tenants/components/EmergencyContactList.jsx";
 import MaintenanceTicketList from "@features/maintenance/components/MaintenanceTicketList.jsx";
 import RoutineList from "@features/maintenance/components/RoutineList.jsx";
 import ExpenseList from "@features/expenses/components/ExpenseList.jsx";
@@ -30,6 +27,7 @@ import NoticeList from "@features/notices/components/NoticeList.jsx";
 import LegalCaseList from "@features/legal/components/LegalCaseList.jsx";
 import LegalCasePanel from "@features/legal/components/LegalCasePanel.jsx";
 import CleaningTicketList from "@features/cleaning/components/CleaningTicketList.jsx";
+import AddTenantDependentsForm from "@features/tenants/components/AddTenantDependentsForm.jsx";
 
 import { useParams } from "react-router-dom";
 import PropertyDetails from "@features/properties/pages/PropertyDetails.jsx";
@@ -63,82 +61,6 @@ function PropertyDetailsRoute() {
   return <PropertyDetails propertyId={id} />;
 }
 
-function Occupants() {
-  const { data: tenants, isLoading, error } = useTenants({
-    includeArchived: false,
-  });
-
-  // local toggle for sub-resources (pets/occupants/emergency contacts)
-  const [showSubArchived, setShowSubArchived] = React.useState(true);
-
-  if (isLoading) {
-    return (
-      <section style={{ marginTop: 16 }}>
-        <h3 style={{ margin: "0 0 6px" }}>Tenant details</h3>
-        <div>Loading tenant-related data…</div>
-      </section>
-    );
-  }
-
-  if (error) {
-    return (
-      <section style={{ marginTop: 16 }}>
-        <h3 style={{ margin: "0 0 6px" }}>Tenant details</h3>
-        <div style={{ color: "crimson" }}>
-          Error loading tenants: {String(error.message || error)}
-        </div>
-      </section>
-    );
-  }
-
-  if (!tenants.length) {
-    return (
-      <section style={{ marginTop: 16 }}>
-        <h3 style={{ margin: "0 0 6px" }}>Tenant details</h3>
-        <div style={{ color: "#666" }}>
-          Create a tenant first to attach pets, occupants, and emergency
-          contacts.
-        </div>
-      </section>
-    );
-  }
-
-  const tenant = tenants[0];
-  const tenantLabel = tenant.name || tenant.email || tenant.id;
-  const tenantId = tenant.id;
-
-  return (
-    <section style={{ marginTop: 16 }}>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 8,
-          marginBottom: 8,
-        }}
-      >
-        <h3 style={{ margin: 0 }}>Tenant details (tenant {tenantLabel})</h3>
-        <IncludeArchivedToggle
-          value={showSubArchived}
-          onChange={setShowSubArchived}
-        />
-      </div>
-
-      <h4 style={{ margin: "8px 0 6px" }}>Pets</h4>
-      <PetList tenantId={tenantId} includeArchived={showSubArchived} />
-
-      <h4 style={{ margin: "16px 0 6px" }}>Occupants</h4>
-      <OccupantList tenantId={tenantId} includeArchived={showSubArchived} />
-
-      <h4 style={{ margin: "16px 0 6px" }}>Emergency contacts</h4>
-      <EmergencyContactList
-        tenantId={tenantId}
-        includeArchived={showSubArchived}
-      />
-    </section>
-  );
-}
-
 function DashboardPage() {
   const [showLeasesArchived, setShowLeasesArchived] = React.useState(true);
   const [showTenantsArchived, setShowTenantsArchived] = React.useState(true);
@@ -164,7 +86,7 @@ function DashboardPage() {
         <TenantsList includeArchived={showTenantsArchived} />
       </section>
 
-      <Occupants />
+      <AddTenantDependentsForm />
 
       <section style={{ marginTop: 16 }}>
         <MaintenanceTicketList propertyId="prop-123" />
