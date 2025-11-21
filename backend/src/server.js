@@ -407,6 +407,7 @@ function shapeLease(lease) {
   return {
     id: lease.id,
     propertyId: lease.propertyId,
+    propertyLabel: lease.propertyLabel ?? null,
     landlordId: lease.landlordId,
 
     tenantId: lease.tenantId ?? null,
@@ -420,7 +421,6 @@ function shapeLease(lease) {
     archived: isArchived,
     isArchived: isArchived,
 
-    // optional ISO helpers if you ever need them
     startDateISO: lease.startDate ? lease.startDate.toISOString() : null,
     endDateISO: lease.endDate ? lease.endDate.toISOString() : null,
     createdAtISO: lease.createdAt ? lease.createdAt.toISOString() : null,
@@ -431,7 +431,6 @@ function shapeLease(lease) {
     fileMimeType: lease.fileMimeType ?? null,
     fileSize: lease.fileSize ?? null,
 
-    // included relations when present
     property: lease.property || null,
     landlord: lease.landlord || null,
     tenant: lease.tenant || null,
@@ -1020,6 +1019,7 @@ app.post(
         landlordId: rawLandlordId = "",
         tenantId: rawTenantId = "",
         tenantName,
+        propertyLabel,
         rentAmount,
         startDate,
         endDate,
@@ -1090,8 +1090,11 @@ app.post(
         
           tenant: { connect: { id: effectiveTenantId } },
         
+          // labels (optional)
           tenantName:
             tenantName && tenantName.trim() ? tenantName.trim() : null,
+          propertyLabel:
+            propertyLabel && propertyLabel.trim() ? propertyLabel.trim() : null,
         
           rentAmount: numericRent,
           status: "ACTIVE",
@@ -1103,6 +1106,8 @@ app.post(
           fileSize: req.file.size,
         },
         include: {
+          property: true,
+          landlord: true,
           tenant: true,
         },
       });
@@ -1123,7 +1128,7 @@ app.get("/api/leases", async (req, res) => {
       include: {
         property: true,
         landlord: true,
-        tenant: true,   // NEW
+        tenant: true,
       },
     });
 
@@ -1137,7 +1142,15 @@ app.get("/api/leases", async (req, res) => {
 // PATCH /api/leases/:id - update lease fields
 app.patch("/api/leases/:id", async (req, res) => {
   const { id } = req.params;
-  const { tenantName, tenantId, rentAmount, startDate, endDate } = req.body || {};
+  const {
+    propertyId,
+    propertyLabel,
+    tenantId,
+    tenantName,
+    rentAmount,
+    startDate,
+    endDate,
+  } = req.body || {};
 
   try {
     const existing = await prisma.lease.findUnique({ where: { id } });
@@ -1145,23 +1158,7 @@ app.patch("/api/leases/:id", async (req, res) => {
       return res.status(404).json({ error: "Lease not found" });
     }
 
-    // ---------- Resolve tenantId ----------
-    let nextTenantId = existing.tenantId;
-    if (tenantId !== undefined) {
-      const trimmed = String(tenantId || "").trim();
-      nextTenantId = trimmed || null;
-
-      if (nextTenantId) {
-        const t = await prisma.tenant.findUnique({
-          where: { id: nextTenantId },
-        });
-        if (!t) {
-          return res.status(400).json({ error: "Invalid tenantId" });
-        }
-      }
-    }
-
-    // ---------- Rent handling ----------
+    // rent parsing
     let numericRent = existing.rentAmount;
     if (rentAmount !== undefined) {
       if (rentAmount === null || rentAmount === "") {
@@ -1175,31 +1172,54 @@ app.patch("/api/leases/:id", async (req, res) => {
       }
     }
 
-    const dataToUpdate = {
+    const data = {
+      // optional labels
       tenantName:
         tenantName !== undefined
-          ? tenantName.trim() || existing.tenantName
+          ? tenantName.trim() || null
           : existing.tenantName,
+      propertyLabel:
+        propertyLabel !== undefined
+          ? propertyLabel.trim() || null
+          : existing.propertyLabel,
+
       rentAmount: numericRent,
       startDate:
         startDate !== undefined
-          ? startDate ? new Date(startDate) : null
+          ? startDate
+            ? new Date(startDate)
+            : null
           : existing.startDate,
       endDate:
         endDate !== undefined
-          ? endDate ? new Date(endDate) : null
+          ? endDate
+            ? new Date(endDate)
+            : null
           : existing.endDate,
     };
 
-    // only reconnect tenant if a new tenantId was provided
-    if (tenantId !== undefined) {
-      dataToUpdate.tenant = { connect: { id: nextTenantId } };
+    // reassign property if provided
+    if (propertyId !== undefined && propertyId) {
+      data.property = {
+        connect: { id: String(propertyId).trim() },
+      };
+    }
+
+    // reassign tenant if provided
+    if (tenantId !== undefined && tenantId) {
+      data.tenant = {
+        connect: { id: String(tenantId).trim() },
+      };
     }
 
     const updated = await prisma.lease.update({
       where: { id },
-      data: dataToUpdate,
-      include: { tenant: true },
+      data,
+      include: {
+        property: true,
+        landlord: true,
+        tenant: true,
+      },
     });
 
     res.json(shapeLease(updated));
@@ -1208,7 +1228,6 @@ app.patch("/api/leases/:id", async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
-
 
 // PATCH /api/leases/:id/archive - toggle status ARCHIVED/ACTIVE
 app.patch("/api/leases/:id/archive", async (req, res) => {

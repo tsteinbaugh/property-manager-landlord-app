@@ -72,18 +72,16 @@ model Lease {
 
   property    Property     @relation(fields: [propertyId], references: [id])
   propertyId  String
+  propertyLabel String? 
 
   landlord    User         @relation("UserLeases", fields: [landlordId], references: [id])
   landlordId  String
 
-  // OPTIONAL lease display name
   tenantName  String?
-
-  // REQUIRED: real tenant relationship
   tenantId    String
   tenant      Tenant       @relation(fields: [tenantId], references: [id])
 
-  rentAmount  Int?         // <-- make optional; backend allows null
+  rentAmount  Int?
   status      LeaseStatus  @default(ACTIVE)
   startDate   DateTime?
   endDate     DateTime?

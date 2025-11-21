@@ -18,13 +18,15 @@ function toDateInputValue(iso) {
   }
 }
 
-function LeaseRow({ lease, tenants, canArchive, onArchive, onUpdated }) {
+function LeaseRow({ lease, tenants, properties, canArchive, onArchive, onUpdated }) {
   const [isEditing, setEditing] = useState(false);
 
   const archived = lease.archived ?? lease.isArchived ?? false;
 
   const [tenantId, setTenantId] = useState(lease.tenantId || "");
   const [tenantName, setTenantName] = useState(lease.tenantName || "");
+  const [propertyId, setPropertyId] = useState(lease.propertyId || "");
+  const [propertyLabel, setPropertyLabel] = useState(lease.propertyLabel || "");
   const [rentAmount, setRentAmount] = useState(
     lease.rentAmount != null ? String(lease.rentAmount) : ""
   );
@@ -36,16 +38,31 @@ function LeaseRow({ lease, tenants, canArchive, onArchive, onUpdated }) {
   );
   const [saving, setSaving] = useState(false);
 
+  const resetFields = () => {
+    setTenantId(lease.tenantId || "");
+    setTenantName(lease.tenantName || "");
+    setPropertyId(lease.propertyId || "");
+    setPropertyLabel(lease.propertyLabel || "");
+    setRentAmount(lease.rentAmount != null ? String(lease.rentAmount) : "");
+    setStartDate(toDateInputValue(lease.startDate || lease.startDateISO));
+    setEndDate(toDateInputValue(lease.endDate || lease.endDateISO));
+  };
+
   const handleSave = async () => {
-    // Tenant required on update as well
     if (!tenantId) {
       alert("Please select a tenant.");
+      return;
+    }
+    if (!propertyId) {
+      alert("Please select a property.");
       return;
     }
 
     const patch = {
       tenantId,
-      tenantName, // optional; backend will accept empty/null
+      tenantName,
+      propertyId,
+      propertyLabel,
     };
 
     if (rentAmount.trim() !== "") {
@@ -84,22 +101,16 @@ function LeaseRow({ lease, tenants, canArchive, onArchive, onUpdated }) {
 
   const buildFileUrl = () => {
     if (!lease.fileUrl) return null;
-    if (lease.fileUrl.startsWith("http://") || lease.fileUrl.startsWith("https://")) {
+    if (
+      lease.fileUrl.startsWith("http://") ||
+      lease.fileUrl.startsWith("https://")
+    ) {
       return lease.fileUrl;
     }
-    // assume backend is at localhost:4000 for dev
     return `http://localhost:4000${lease.fileUrl}`;
   };
 
   const fileHref = buildFileUrl();
-
-  const resetFields = () => {
-    setTenantId(lease.tenantId || "");
-    setTenantName(lease.tenantName || "");
-    setRentAmount(lease.rentAmount != null ? String(lease.rentAmount) : "");
-    setStartDate(toDateInputValue(lease.startDate || lease.startDateISO));
-    setEndDate(toDateInputValue(lease.endDate || lease.endDateISO));
-  };
 
   if (isEditing) {
     return (
@@ -109,7 +120,7 @@ function LeaseRow({ lease, tenants, canArchive, onArchive, onUpdated }) {
             <strong>Lease #{lease.id}</strong>
           </div>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
-            {/* REQUIRED: Assign to tenant */}
+            {/* Tenant select + label */}
             <select
               value={tenantId || ""}
               onChange={(e) => setTenantId(e.target.value)}
@@ -130,6 +141,29 @@ function LeaseRow({ lease, tenants, canArchive, onArchive, onUpdated }) {
               onChange={(e) => setTenantName(e.target.value)}
               style={{ minWidth: 200 }}
             />
+
+            {/* Property select + label */}
+            <select
+              value={propertyId || ""}
+              onChange={(e) => setPropertyId(e.target.value)}
+              style={{ minWidth: 220 }}
+            >
+              <option value="">(Select property – required)</option>
+              {properties.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {(p.name || p.address1) ?? p.id} ({p.id.slice(0, 6)})
+                </option>
+              ))}
+            </select>
+
+            <input
+              type="text"
+              placeholder="Property label (text on lease, optional)"
+              value={propertyLabel}
+              onChange={(e) => setPropertyLabel(e.target.value)}
+              style={{ minWidth: 220 }}
+            />
+
             <input
               type="text"
               placeholder="Rent amount"
@@ -171,9 +205,15 @@ function LeaseRow({ lease, tenants, canArchive, onArchive, onUpdated }) {
   const end = lease.endDateISO || lease.endDate || "";
   const fmt = (iso) => (iso ? iso : "");
 
-  const tenantLabel = lease.tenant
-    ? `${lease.tenant.name} (${lease.tenant.id.slice(0, 6)})`
-    : lease.tenantName || "(no tenant assigned)";
+  const tenantLabel =
+    lease.tenant && lease.tenant.name
+      ? `${lease.tenant.name} (${lease.tenant.id.slice(0, 6)})`
+      : lease.tenantName || "(no tenant assigned)";
+
+  const propertyLabelDisplay =
+    lease.property && (lease.property.name || lease.property.address1)
+      ? `${lease.property.name || lease.property.address1} (${lease.property.id.slice(0, 6)})`
+      : lease.propertyLabel || "(no property)";
 
   return (
     <li style={{ opacity: archived ? 0.6 : 1 }}>
@@ -187,9 +227,12 @@ function LeaseRow({ lease, tenants, canArchive, onArchive, onUpdated }) {
           )}
         </div>
 
-        {/* Tenant info display */}
         <div style={{ fontSize: 13, color: "#333" }}>
           Tenant: {tenantLabel}
+        </div>
+
+        <div style={{ fontSize: 13, color: "#333" }}>
+          Property: {propertyLabelDisplay}
         </div>
 
         {fileHref && (
@@ -228,9 +271,6 @@ function LeaseRow({ lease, tenants, canArchive, onArchive, onUpdated }) {
 
 /**
  * LeasesList
- * - Uses useLeases for list + archive
- * - Adds inline edit via leasesApi.update
- * - Adds AddLeaseForm for new leases with uploaded docs
  */
 export default function LeasesList({
   includeArchived = false,
@@ -244,9 +284,10 @@ export default function LeasesList({
     role,
   });
 
-  // Tenants for dropdowns
   const [tenants, setTenants] = useState([]);
   const [tenantsError, setTenantsError] = useState(null);
+  const [properties, setProperties] = useState([]);
+  const [propertiesError, setPropertiesError] = useState(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -254,22 +295,29 @@ export default function LeasesList({
     async function loadTenants() {
       try {
         const res = await fetch(`${BASE_URL}/api/tenants`);
-        if (!res.ok) {
-          throw new Error(`Failed to load tenants: ${res.status}`);
-        }
+        if (!res.ok) throw new Error(`Failed to load tenants: ${res.status}`);
         const json = await res.json();
-        if (!cancelled) {
-          setTenants(Array.isArray(json) ? json : []);
-        }
+        if (!cancelled) setTenants(Array.isArray(json) ? json : []);
       } catch (err) {
         console.error("Failed to load tenants", err);
-        if (!cancelled) {
-          setTenantsError(err);
-        }
+        if (!cancelled) setTenantsError(err);
+      }
+    }
+
+    async function loadProperties() {
+      try {
+        const res = await fetch(`${BASE_URL}/api/properties`);
+        if (!res.ok) throw new Error(`Failed to load properties: ${res.status}`);
+        const json = await res.json();
+        if (!cancelled) setProperties(Array.isArray(json) ? json : []);
+      } catch (err) {
+        console.error("Failed to load properties", err);
+        if (!cancelled) setPropertiesError(err);
       }
     }
 
     loadTenants();
+    loadProperties();
 
     return () => {
       cancelled = true;
@@ -300,13 +348,23 @@ export default function LeasesList({
 
       {tenantsError && (
         <div style={{ color: "darkorange", marginBottom: 4, fontSize: 12 }}>
-          Warning: failed to load tenants for assignment. You can still create leases,
-          but assigning to a tenant may not work:{" "}
+          Warning: failed to load tenants:{" "}
           {String(tenantsError.message || tenantsError)}
         </div>
       )}
 
-      <AddLeaseForm onCreated={handleCreated} tenants={tenants} />
+      {propertiesError && (
+        <div style={{ color: "darkorange", marginBottom: 4, fontSize: 12 }}>
+          Warning: failed to load properties:{" "}
+          {String(propertiesError.message || propertiesError)}
+        </div>
+      )}
+
+      <AddLeaseForm
+        onCreated={handleCreated}
+        tenants={tenants}
+        properties={properties}
+      />
 
       <ul style={{ paddingLeft: 16, lineHeight: 1.7 }}>
         {data.map((l) => (
@@ -314,6 +372,7 @@ export default function LeasesList({
             key={l.id}
             lease={l}
             tenants={tenants}
+            properties={properties}
             canArchive={canArchive}
             onArchive={async () => {
               await toggleArchive(l.id);

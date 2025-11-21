@@ -2,13 +2,14 @@ import React, { useState } from "react";
 
 const BASE_URL = "http://localhost:4000";
 
-export default function AddLeaseForm({ onCreated, tenants = [] }) {
+export default function AddLeaseForm({ onCreated, tenants = [], properties = [] }) {
   const [tenantId, setTenantId] = useState("");
   const [tenantName, setTenantName] = useState("");
+  const [propertyId, setPropertyId] = useState("");
+  const [propertyLabel, setPropertyLabel] = useState("");
   const [rentAmount, setRentAmount] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [propertyId, setPropertyId] = useState("");
   const [file, setFile] = useState(null);
   const [isSubmitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
@@ -16,12 +17,14 @@ export default function AddLeaseForm({ onCreated, tenants = [] }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Tenant is required
     if (!tenantId) {
       alert("Please select a tenant.");
       return;
     }
-
+    if (!propertyId) {
+      alert("Please select a property.");
+      return;
+    }
     if (!file) {
       alert("Please select a lease file to upload");
       return;
@@ -29,16 +32,23 @@ export default function AddLeaseForm({ onCreated, tenants = [] }) {
 
     const formData = new FormData();
     formData.append("tenantId", tenantId);
+    formData.append("propertyId", propertyId);
 
-    // Optional label: "what the lease document says, if different"
     if (tenantName.trim()) {
       formData.append("tenantName", tenantName.trim());
     }
-
-    if (rentAmount.trim()) formData.append("rentAmount", rentAmount.trim());
-    if (startDate) formData.append("startDate", startDate);
-    if (endDate) formData.append("endDate", endDate);
-    if (propertyId.trim()) formData.append("propertyId", propertyId.trim());
+    if (propertyLabel.trim()) {
+      formData.append("propertyLabel", propertyLabel.trim());
+    }
+    if (rentAmount.trim()) {
+      formData.append("rentAmount", rentAmount.trim());
+    }
+    if (startDate) {
+      formData.append("startDate", startDate);
+    }
+    if (endDate) {
+      formData.append("endDate", endDate);
+    }
     formData.append("file", file);
 
     try {
@@ -62,10 +72,11 @@ export default function AddLeaseForm({ onCreated, tenants = [] }) {
       // clear form
       setTenantId("");
       setTenantName("");
+      setPropertyId("");
+      setPropertyLabel("");
       setRentAmount("");
       setStartDate("");
       setEndDate("");
-      setPropertyId("");
       setFile(null);
 
       if (onCreated) {
@@ -87,7 +98,7 @@ export default function AddLeaseForm({ onCreated, tenants = [] }) {
         padding: 8,
         borderRadius: 6,
         border: "1px solid #e5e7eb",
-        maxWidth: 480,
+        maxWidth: 520,
       }}
     >
       <div style={{ fontWeight: 600, marginBottom: 6 }}>Add Lease</div>
@@ -107,7 +118,7 @@ export default function AddLeaseForm({ onCreated, tenants = [] }) {
           ))}
         </select>
 
-        {/* OPTIONAL label */}
+        {/* OPTIONAL: tenant label */}
         <input
           type="text"
           placeholder="Tenant label (text on lease, optional)"
@@ -116,11 +127,26 @@ export default function AddLeaseForm({ onCreated, tenants = [] }) {
           style={{ padding: 6 }}
         />
 
-        <input
-          type="text"
-          placeholder="Property ID (optional for now)"
+        {/* REQUIRED: Assign to property */}
+        <select
           value={propertyId}
           onChange={(e) => setPropertyId(e.target.value)}
+          style={{ padding: 6 }}
+        >
+          <option value="">Assign to property (required)</option>
+          {properties.map((p) => (
+            <option key={p.id} value={p.id}>
+              {(p.name || p.address1) ?? p.id} ({p.id.slice(0, 6)})
+            </option>
+          ))}
+        </select>
+
+        {/* OPTIONAL: property label */}
+        <input
+          type="text"
+          placeholder="Property label (text on lease, optional)"
+          value={propertyLabel}
+          onChange={(e) => setPropertyLabel(e.target.value)}
           style={{ padding: 6 }}
         />
 
