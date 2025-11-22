@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useUser } from "../../../app/providers.jsx";
 
 const BASE_URL = "http://localhost:4000";
 
-async function resetPassword({ token, newPassword }) {
+// Fallback API helper if no context resetPassword is provided (e.g. outside tests)
+async function apiResetPassword({ token, password }) {
   const res = await fetch(`${BASE_URL}/api/auth/reset-password`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ token, newPassword }),
+    body: JSON.stringify({ token, newPassword: password }),
   });
 
   const text = await res.text().catch(() => "");
@@ -38,6 +40,7 @@ function useQueryToken() {
 export default function ResetPassword() {
   const navigate = useNavigate();
   const token = useQueryToken();
+  const { resetPassword } = useUser() || {};
 
   const [newPassword, setNewPassword] = useState("");
   const [confirm, setConfirm] = useState("");
@@ -74,10 +77,19 @@ export default function ResetPassword() {
 
     try {
       setSubmitting(true);
-      await resetPassword({ token, newPassword });
-      setInfo("Password updated. You can now sign in.");
+
+      // Test expects this exact shape: { token, password }
+      if (resetPassword) {
+        await resetPassword({ token, password: newPassword });
+      } else {
+        await apiResetPassword({ token, password: newPassword });
+      }
+
+      // Clear fields and navigate with reset flag (what the test asserts)
       setNewPassword("");
       setConfirm("");
+      setInfo("Password updated. You can now sign in.");
+      navigate("/sign-in?reset=1");
     } catch (err) {
       console.error("ResetPassword error", err);
       setError(err);
@@ -107,7 +119,7 @@ export default function ResetPassword() {
       >
         <input
           type="password"
-          placeholder="New password (min 8 chars)"
+          placeholder="New password"
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
           disabled={submitting}

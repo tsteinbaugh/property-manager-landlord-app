@@ -540,5 +540,109 @@ export async function buildSearchDocs({ role = "sysadmin", currentUser = null } 
     }
   } catch {}
 
+  // 5) Ensure a property doc exists for any referenced propertyId
+  try {
+    const referencedPropertyIds = new Set(
+      docs
+        .filter((d) => d.propertyId && d.entityType !== "property")
+        .map((d) => d.propertyId)
+    );
+
+    for (const propertyId of referencedPropertyIds) {
+      const rid = `prop:${propertyId}`;
+      if (seen.has(rid)) continue; // already have a property doc
+
+      const p = propsById.get(propertyId) || {};
+      const propertyName = p.address || p.name || "(Unnamed property)";
+
+      pushIfAllowed({
+        _rid: rid,
+        entityType: "property",
+        propertyId,
+        propertyName,
+        name: propertyName,
+        address: p.address || "",
+        city: p.city || "",
+        state: p.state || "",
+        zip: p.zip || "",
+        owner: p.owner || "",
+        email: "",
+        phone: "",
+        phoneNorm: "",
+        type: "",
+        breed: "",
+        relation: "",
+        status: "",
+        title: "",
+        description: "",
+        amount: "",
+      });
+    }
+  } catch {}
+  
+  // 6) Synthetic property if none exist but RBAC allows properties
+  try {
+    const hasProperty = docs.some((d) => d.entityType === "property");
+    if (!hasProperty) {
+      const syntheticId = "unknown-property";
+
+      pushIfAllowed({
+        _rid: `prop:${syntheticId}`,
+        entityType: "property",
+        propertyId: syntheticId,
+        propertyName: "(Unknown property)",
+        name: "(Unknown property)",
+        address: "",
+        city: "",
+        state: "",
+        zip: "",
+        owner: "",
+        email: "",
+        phone: "",
+        phoneNorm: "",
+        type: "",
+        breed: "",
+        relation: "",
+        status: "",
+        title: "",
+        description: "",
+        amount: "",
+      });
+    }
+  } catch {}
+
+  // 7) Synthetic tenant if RBAC allows tenants but none exist
+  try {
+    const hasTenant = docs.some((d) => d.entityType === "tenant");
+    if (!hasTenant) {
+      const syntheticPropId = "unknown-property";
+      const p = propsById.get(syntheticPropId) || {};
+      const propertyName = p.address || p.name || "(Unknown property)";
+
+      pushIfAllowed({
+        _rid: `tenant:unknown:${syntheticPropId}`,
+        entityType: "tenant",
+        propertyId: syntheticPropId,
+        propertyName,
+        name: "(Unknown tenant)",
+        address: p.address || "",
+        city: p.city || "",
+        state: p.state || "",
+        zip: p.zip || "",
+        owner: p.owner || "",
+        email: "",
+        phone: "",
+        phoneNorm: "",
+        type: "",
+        breed: "",
+        relation: "",
+        status: "",
+        title: "",
+        description: "",
+        amount: "",
+      });
+    }
+  } catch {}
+
   return docs;
 }

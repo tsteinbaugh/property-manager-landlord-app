@@ -2,6 +2,8 @@
 const request = require("supertest");
 const { app, prisma } = require("../server.js");
 const { Role, UserStatus } = require("@prisma/client");
+const fs = require("fs");
+const path = require("path");
 
 // --- helpers -------------------------------------------------------------
 
@@ -286,4 +288,18 @@ describe("Leases routes", () => {
     dbLease = await prisma.lease.findUnique({ where: { id: leaseId } });
     expect(dbLease.status).toBe("ACTIVE");
   });
+});
+
+afterAll(async () => {
+  // Remove lease uploads created during test runs
+  const leasesDir = path.join(__dirname, "..", "..", "uploads", "leases");
+
+  try {
+    const files = fs.readdirSync(leasesDir);
+    for (const file of files) {
+      fs.unlinkSync(path.join(leasesDir, file));
+    }
+  } catch (err) {
+    console.warn("Warning: Failed to clean lease uploads:", err.message);
+  }
 });

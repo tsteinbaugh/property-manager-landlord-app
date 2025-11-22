@@ -6,7 +6,6 @@ import { useUser } from "@app/providers.jsx";
 import { ROLES } from "@lib/rbac/roles.js";
 import ChangePasswordForm from "@features/auth/components/ChangePasswordForm.jsx";
 
-
 const ROLE_LABEL = {
   [ROLES.SYSADMIN]: "System Admin",
   [ROLES.LANDLORD]: "Landlord",
@@ -55,14 +54,10 @@ export default function AvatarMenu() {
     .join("");
 
   const allRoles = Object.values(ROLES);
+  const impersonableRoles = allRoles;
 
   const toggleSection = (key) => {
     setExpanded((prev) => ({ ...prev, [key]: !prev[key] }));
-  };
-
-  const handleImpersonateChange = (e) => {
-    const nextRole = e.target.value;
-    if (nextRole && impersonate) impersonate(nextRole);
   };
 
   const currentRoleLabel =
@@ -153,7 +148,6 @@ export default function AvatarMenu() {
           </button>
           {expanded.settings && (
             <div className={css.sectionBody}>
-              {/* Placeholder prefs */}
               <div className={css.fieldRow}>
                 <span className={css.fieldLabel}>Theme</span>
                 <span className={css.fieldValue}>Light (default)</span>
@@ -162,9 +156,44 @@ export default function AvatarMenu() {
                 <span className={css.fieldLabel}>Notifications</span>
                 <span className={css.fieldValue}>Enabled</span>
               </div>
-          
+
               {/* Change password form */}
               <ChangePasswordForm />
+            </div>
+          )}
+
+          {/* IMPERSONATION CONTROLS (always visible for sysadmin while menu is open) */}
+          {isSysAdmin && impersonate && (
+            <div className={css.sectionBody}>
+              <div className={css.fieldRow}>
+                <span className={css.fieldLabel}>Impersonate as</span>
+                <div className={css.fieldValue}>
+                  {impersonableRoles.map((role) => {
+                    const label = ROLE_LABEL[role] ?? role;
+                    return (
+                      <button
+                        key={role}
+                        type="button"
+                        className={css.subtleAction}
+                        onClick={() => impersonate(role)}
+                      >
+                        {label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {clearImpersonation && (
+                <button
+                  type="button"
+                  className={css.subtleAction}
+                  role="menuitem"
+                  onClick={clearImpersonation}
+                >
+                  Clear impersonation
+                </button>
+              )}
             </div>
           )}
 
@@ -188,7 +217,7 @@ export default function AvatarMenu() {
                   <button
                     type="button"
                     className={css.subtleAction}
-                    onClick={() => navigate("/admin")}
+                    onClick={goToAdmin}
                   >
                     Open admin
                   </button>
