@@ -36,13 +36,18 @@ export default function PropertyCard({ property, onClick }) {
   return (
     <button
       type="button"
-      className={styles.card}
+      className={`${styles.card} ${property.isArchived ? styles.archived : ""}`}
       onClick={onClick}
       aria-label={`Open property ${displayName}`}
     >
       <div className={styles.header}>
         <div className={styles.title}>{displayName}</div>
-        {activeLease ? (
+
+        {property.isArchived ? (
+          <span className={`${styles.badge} ${styles.badgeArchived}`}>
+            Archived
+          </span>
+        ) : activeLease ? (
           <span className={`${styles.badge} ${styles.badgeActive}`}>
             Active lease
           </span>

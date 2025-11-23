@@ -112,3 +112,16 @@
   font-weight: 500;
   color: #1f2933;
 }
+
+.badgeArchived {
+  background: #fee2e2; /* soft red */
+  color: #991b1b;      /* darker red text */
+}
+
+
+.card.archived {
+  opacity: 0.65;
+}
+
+
+

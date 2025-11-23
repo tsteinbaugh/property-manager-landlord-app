@@ -4,12 +4,13 @@ import { useUser } from "@app/providers.jsx";
 import PropertyCard from "../components/PropertyCard.jsx";
 import styles from "./LandlordPropertiesPage.module.css";
 
-const BASE_URL = "http://localhost:4000"; // or import from your api client
+const BASE_URL = "http://localhost:4000";
 
 export default function LandlordPropertiesPage() {
   const [properties, setProperties] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [showArchived, setShowArchived] = useState(false);
   const navigate = useNavigate();
   const { user } = useUser();
 
@@ -48,16 +49,21 @@ export default function LandlordPropertiesPage() {
   const visibleProperties = useMemo(() => {
     if (!user) return properties || [];
 
-    // TEMP: during migration, you can keep properties with no landlordId visible
-    // so you don't think everything disappeared. Once you're happy with data,
-    // change this to just `p.landlordId === user.id`.
-    return (properties || []).filter((p) => {
+    // First, landlord-owned (plus unassigned during migration)
+    const landlordProps = (properties || []).filter((p) => {
       if (!p.landlordId) return true; // migration-friendly
       return p.landlordId === user.id;
     });
-  }, [properties, user]);
+
+    // Then, filter archived vs active
+    if (showArchived) return landlordProps;
+    return landlordProps.filter((p) => !p.isArchived);
+  }, [properties, user, showArchived]);
 
   const hasVisibleProperties = visibleProperties.length > 0;
+  const hasAnyArchived = (properties || []).some(
+    (p) => p.landlordId === user?.id && p.isArchived
+  );
 
   const handleAddProperty = () => {
     navigate("/landlord/properties/new");
@@ -77,7 +83,10 @@ export default function LandlordPropertiesPage() {
           </p>
         </div>
 
-        <div className={styles.actions}>
+        <div
+          className={styles.actions}
+          style={{ display: "flex", flexDirection: "column", gap: 8 }}
+        >
           {hasVisibleProperties && (
             <button
               type="button"
@@ -85,6 +94,25 @@ export default function LandlordPropertiesPage() {
               onClick={handleAddProperty}
             >
               + Add property
+            </button>
+          )}
+
+          {hasAnyArchived && (
+            <button
+              type="button"
+              onClick={() => setShowArchived((s) => !s)}
+              style={{
+                background: "none",
+                border: "none",
+                padding: 0,
+                fontSize: 14,
+                textDecoration: "underline",
+                cursor: "pointer",
+                alignSelf: "flex-end",
+                color: "#4b5563",
+              }}
+            >
+              {showArchived ? "Hide archived properties" : "View archived properties"}
             </button>
           )}
         </div>
@@ -104,18 +132,23 @@ export default function LandlordPropertiesPage() {
 
       {!isLoading && !error && !hasVisibleProperties && (
         <div className={styles.empty}>
-          <h2 className={styles.emptyTitle}>No properties yet</h2>
+          <h2 className={styles.emptyTitle}>
+            {hasAnyArchived ? "No active properties" : "No properties yet"}
+          </h2>
           <p className={styles.emptyText}>
-            Once you add your first property, you’ll see it here with its tenants, lease, and
-            financials.
+            {hasAnyArchived
+              ? "Archived properties are hidden from your active list. You can view them using the link above."
+              : "Once you add your first property, you’ll see it here with its tenants, lease, and financials."}
           </p>
-          <button
-            type="button"
-            className={styles.primaryButton}
-            onClick={handleAddProperty}
-          >
-            Create your first property
-          </button>
+          {!hasAnyArchived && (
+            <button
+              type="button"
+              className={styles.primaryButton}
+              onClick={handleAddProperty}
+            >
+              Create your first property
+            </button>
+          )}
         </div>
       )}
 

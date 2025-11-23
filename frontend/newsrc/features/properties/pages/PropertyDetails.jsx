@@ -9,6 +9,8 @@ import { ROLES } from "@lib/rbac/roles.js";
 
 export default function PropertyDetails({ propertyId }) {
   const { token, effectiveRole, isSysAdmin } = useUser() || {};
+
+  // Normalize role to match ROLE_GRANTS keys (lowercase)
   const role = isSysAdmin
     ? ROLES.SYSADMIN
     : typeof effectiveRole === "string"
@@ -16,7 +18,7 @@ export default function PropertyDetails({ propertyId }) {
       : ROLES.LANDLORD;
 
   const canUpdate = can(role, R.PROPERTIES, A.UPDATE);
-  const canArchive = can(role, R.PROPERTIES, A.ARCHIVE);
+  const canArchiveGrant = can(role, R.PROPERTIES, A.ARCHIVE);
 
   const [summary, setSummary] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -138,6 +140,26 @@ export default function PropertyDetails({ propertyId }) {
   const handleToggleArchive = async () => {
     if (!summary?.property) return;
 
+    const currentlyArchived = !!summary.property.isArchived;
+
+    // If we're archiving (active -> archived)
+    if (!currentlyArchived) {
+      const ok = window.confirm(
+        "Are you sure you want to archive this property?\n\n" +
+          "This will make it read-only for landlords. Only a system administrator can unarchive it."
+      );
+      if (!ok) return;
+    } else {
+      // Unarchive request
+      if (!isSysAdmin) {
+        alert(
+          "Only a system administrator can unarchive an archived property. " +
+            "Please contact your system admin if this needs to be reactivated."
+        );
+        return;
+      }
+    }
+
     try {
       setArchiving(true);
       const updated = await apiFetch(
@@ -182,6 +204,18 @@ export default function PropertyDetails({ propertyId }) {
     summary;
 
   const title = property.name || property.address1;
+  const isArchived = !!property.isArchived;
+
+  // landlord: can edit *only* if not archived
+  // sysadmin: can still edit even if archived
+  const canEditNow = canUpdate && (!isArchived || isSysAdmin);
+
+  // archive rules:
+  // - archive (active -> archived): anyone with ARCHIVE on PROPERTIES
+  // - unarchive (archived -> active): sysadmin only
+  const canArchiveNow = !isArchived && canArchiveGrant;
+  const canUnarchiveNow = isArchived && isSysAdmin;
+  const showArchiveButton = canArchiveNow || canUnarchiveNow;
 
   return (
     <div style={{ padding: 16 }}>
@@ -208,8 +242,10 @@ export default function PropertyDetails({ propertyId }) {
                 {property.address1}, {property.city}, {property.state}{" "}
                 {property.postalCode}
               </div>
-              {property.isArchived && (
-                <div style={{ color: "#888", fontSize: 12 }}>(Archived)</div>
+              {isArchived && (
+                <div style={{ color: "#888", fontSize: 12 }}>
+                  (Archived – read-only for landlords)
+                </div>
               )}
             </>
           ) : (
@@ -273,15 +309,15 @@ export default function PropertyDetails({ propertyId }) {
         </div>
 
         <div style={{ display: "flex", gap: 8 }}>
-          {canUpdate && !isEditing && (
+          {canEditNow && !isEditing && (
             <button type="button" onClick={() => setEditing(true)}>
               Edit
             </button>
           )}
 
-          {canArchive ? (
+          {showArchiveButton ? (
             <ArchiveButton
-              archived={!!property.isArchived}
+              archived={isArchived}
               onToggle={handleToggleArchive}
               disabled={isArchiving}
             />
@@ -289,10 +325,14 @@ export default function PropertyDetails({ propertyId }) {
             <button
               type="button"
               disabled
-              title="Insufficient permissions"
+              title={
+                isArchived
+                  ? "Only a system administrator can unarchive this property."
+                  : "Insufficient permissions to archive this property."
+              }
               style={{ opacity: 0.5 }}
             >
-              {property.isArchived ? "Unarchive" : "Archive"}
+              {isArchived ? "Unarchive" : "Archive"}
             </button>
           )}
         </div>
