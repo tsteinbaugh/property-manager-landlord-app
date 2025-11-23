@@ -1,3 +1,4 @@
+// newsrc/features/tenants/pages/LandlordAddTenantPage.jsx
 import { useNavigate } from "react-router-dom";
 import AddTenantForm from "@features/tenants/components/AddTenantForm.jsx";
 import { tenantsApi } from "@features/tenants/api/tenants.api.js";
@@ -7,8 +8,13 @@ export default function LandlordAddTenantPage() {
   const navigate = useNavigate();
 
   const handleCreate = async (payload) => {
-    await tenantsApi.create(payload);
-    navigate("/landlord/tenants");
+    const created = await tenantsApi.create(payload);
+    if (created && created.id) {
+      navigate(`/landlord/tenants/${created.id}`);
+    } else {
+      // fallback if something is weird
+      navigate("/landlord/tenants");
+    }
   };
 
   return (
@@ -17,7 +23,8 @@ export default function LandlordAddTenantPage() {
         <div>
           <h1 className={styles.title}>Add tenant</h1>
           <p className={styles.subtitle}>
-            Create a tenant profile. You can link them to leases and properties later.
+            Create a tenant profile. You can add occupants, pets, and emergency
+            contacts right after this.
           </p>
         </div>
       </header>

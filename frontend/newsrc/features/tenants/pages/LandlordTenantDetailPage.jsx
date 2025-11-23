@@ -8,6 +8,7 @@ import { can } from "@lib/rbac/index.js";
 import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
 import { ROLES } from "@lib/rbac/roles.js";
 import { tenantsApi } from "@features/tenants/api/tenants.api.js";
+import TenantDependentsSection from "@features/tenants/components/TenantDependentsSection.jsx";
 
 export default function LandlordTenantDetailPage() {
   const { tenantId } = useParams();
@@ -284,30 +285,8 @@ export default function LandlordTenantDetailPage() {
 
       <hr style={{ margin: "16px 0" }} />
 
-      {/* Future sections – for now we just lay out placeholders to match the pattern */}
-      <h3>Occupants</h3>
-      <div style={{ marginBottom: 12 }}>
-        {/* later: load real occupants for this tenant */}
-        No occupants listed here yet.
-      </div>
-
-      <h3>Pets</h3>
-      <div style={{ marginBottom: 12 }}>
-        {/* later: load real pets for this tenant */}
-        No pets listed here yet.
-      </div>
-
-      <h3>Emergency Contacts</h3>
-      <div style={{ marginBottom: 12 }}>
-        {/* later: load real emergency contacts for this tenant */}
-        No emergency contacts listed here yet.
-      </div>
-
-      <h3>Leases</h3>
-      <div style={{ marginBottom: 12 }}>
-        {/* later: show leases linked to this tenant */}
-        No leases displayed on this screen yet.
-      </div>
+      {/* Occupants / Pets / Emergency Contacts */}
+      <TenantDependentsSection tenantId={tenant.id} />
     </div>
   );
 }
