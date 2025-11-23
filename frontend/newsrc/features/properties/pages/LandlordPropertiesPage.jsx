@@ -1,168 +1,36 @@
-import { useEffect, useState, useMemo } from "react";
+// newsrc/features/properties/pages/LandlordAddPropertyPage.jsx
 import { useNavigate } from "react-router-dom";
-import { useUser } from "@app/providers.jsx";
-import PropertyCard from "../components/PropertyCard.jsx";
+import AddPropertyForm from "../components/AddPropertyForm.jsx";
 import styles from "./LandlordPropertiesPage.module.css";
 
-const BASE_URL = "http://localhost:4000";
-
-export default function LandlordPropertiesPage() {
-  const [properties, setProperties] = useState([]);
-  const [isLoading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [showArchived, setShowArchived] = useState(false);
+export default function LandlordAddPropertyPage() {
   const navigate = useNavigate();
-  const { user } = useUser();
 
-  useEffect(() => {
-    let cancelled = false;
-
-    async function load() {
-      try {
-        setLoading(true);
-        setError("");
-        const res = await fetch(`${BASE_URL}/api/properties`);
-        if (!res.ok) {
-          throw new Error(`Failed to load properties (status ${res.status})`);
-        }
-        const data = await res.json();
-        if (!cancelled) {
-          setProperties(Array.isArray(data) ? data : data.properties || []);
-        }
-      } catch (err) {
-        if (!cancelled) {
-          console.error("Failed to load properties", err);
-          setError("Failed to load properties. Please try again.");
-        }
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    }
-
-    load();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  // Only show properties owned by this landlord
-  const visibleProperties = useMemo(() => {
-    if (!user) return properties || [];
-
-    // First, landlord-owned (plus unassigned during migration)
-    const landlordProps = (properties || []).filter((p) => {
-      if (!p.landlordId) return true; // migration-friendly
-      return p.landlordId === user.id;
-    });
-
-    // Then, filter archived vs active
-    if (showArchived) return landlordProps;
-    return landlordProps.filter((p) => !p.isArchived);
-  }, [properties, user, showArchived]);
-
-  const hasVisibleProperties = visibleProperties.length > 0;
-  const hasAnyArchived = (properties || []).some(
-    (p) => p.landlordId === user?.id && p.isArchived
-  );
-
-  const handleAddProperty = () => {
-    navigate("/landlord/properties/new");
-  };
-
-  const handleOpenProperty = (propertyId) => {
-    navigate(`/landlord/properties/${propertyId}`);
+  const handleCreated = () => {
+    navigate("/landlord/properties");
   };
 
   return (
     <div className={styles.page}>
       <header className={styles.header}>
         <div>
-          <h1 className={styles.title}>Your properties</h1>
+          <h1 className={styles.title}>Add property</h1>
           <p className={styles.subtitle}>
-            Manage your rentals, track tenants, leases, and finances from one place.
+            Create a new rental property. You can add tenants, leases, and financials later.
           </p>
-        </div>
-
-        <div
-          className={styles.actions}
-          style={{ display: "flex", flexDirection: "column", gap: 8 }}
-        >
-          {hasVisibleProperties && (
-            <button
-              type="button"
-              className={styles.primaryButton}
-              onClick={handleAddProperty}
-            >
-              + Add property
-            </button>
-          )}
-
-          {hasAnyArchived && (
-            <button
-              type="button"
-              onClick={() => setShowArchived((s) => !s)}
-              style={{
-                background: "none",
-                border: "none",
-                padding: 0,
-                fontSize: 14,
-                textDecoration: "underline",
-                cursor: "pointer",
-                alignSelf: "flex-end",
-                color: "#4b5563",
-              }}
-            >
-              {showArchived ? "Hide archived properties" : "View archived properties"}
-            </button>
-          )}
         </div>
       </header>
 
-      {isLoading && (
-        <div className={styles.center}>
-          <p className={styles.muted}>Loading your properties…</p>
-        </div>
-      )}
-
-      {!isLoading && error && (
-        <div className={styles.center}>
-          <p className={styles.error}>{error}</p>
-        </div>
-      )}
-
-      {!isLoading && !error && !hasVisibleProperties && (
-        <div className={styles.empty}>
-          <h2 className={styles.emptyTitle}>
-            {hasAnyArchived ? "No active properties" : "No properties yet"}
-          </h2>
-          <p className={styles.emptyText}>
-            {hasAnyArchived
-              ? "Archived properties are hidden from your active list. You can view them using the link above."
-              : "Once you add your first property, you’ll see it here with its tenants, lease, and financials."}
-          </p>
-          {!hasAnyArchived && (
-            <button
-              type="button"
-              className={styles.primaryButton}
-              onClick={handleAddProperty}
-            >
-              Create your first property
-            </button>
-          )}
-        </div>
-      )}
-
-      {!isLoading && !error && hasVisibleProperties && (
-        <div className={styles.grid}>
-          {visibleProperties.map((p) => (
-            <PropertyCard
-              key={p.id}
-              property={p}
-              onClick={() => handleOpenProperty(p.id)}
-            />
-          ))}
-        </div>
-      )}
+      <div style={{ marginTop: 12 }}>
+        <AddPropertyForm onCreated={handleCreated} />
+        <button
+          type="button"
+          onClick={() => navigate("/landlord/properties")}
+          style={{ marginTop: 8 }}
+        >
+          Cancel
+        </button>
+      </div>
     </div>
   );
 }

@@ -7,7 +7,7 @@ import { can } from "@lib/rbac/index.js";
 import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
 import { ROLES } from "@lib/rbac/roles.js";
 
-export default function PropertyDetails({ propertyId }) {
+export default function LandlordPropertyDetailPage({ propertyId }) {
   const { token, effectiveRole, isSysAdmin } = useUser() || {};
 
   // Normalize role to match ROLE_GRANTS keys (lowercase)

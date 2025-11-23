@@ -30,9 +30,12 @@ import CleaningTicketList from "@features/cleaning/components/CleaningTicketList
 import AddTenantDependentsForm from "@features/tenants/components/AddTenantDependentsForm.jsx";
 
 import { useParams } from "react-router-dom";
-import PropertyDetails from "@features/properties/pages/PropertyDetails.jsx";
+import LandlordPropertyDetailPage from "@features/properties/pages/LandlordPropertyDetailPage.jsx";
 import LandlordPropertiesPage from "../features/properties/pages/LandlordPropertiesPage.jsx";
-import AddPropertyForm from "@features/properties/components/AddPropertyForm.jsx";
+import LandlordAddPropertyPage from "@features/properties/pages/LandlordAddPropertyPage.jsx";
+import LandlordTenantsPage from "@features/tenants/pages/LandlordTenantsPage.jsx";
+import LandlordAddTenantPage from "@features/tenants/pages/LandlordAddTenantPage.jsx";
+import LandlordTenantDetailPage from "@features/tenants/pages/LandlordTenantDetailPage.jsx";
 import TenantHomePage from "@features/tenants/pages/TenantHomePage.jsx";
 import { useTenants } from "@features/tenants/hooks/useTenants.js";
 import { useUser } from "@app/providers.jsx";
@@ -108,7 +111,7 @@ function Properties() {
 
 function LandlordPropertyDetailsRoute() {
   const { id } = useParams();
-  return <PropertyDetails propertyId={id} />;
+  return <LandlordPropertyDetailPage propertyId={id} />;
 }
 
 function FeaturesPage() {
@@ -260,7 +263,7 @@ export function AppRoutes() {
             </RequireRole>
           }
         />
-        
+
         {/* LANDLORD property details */}
         <Route
           path="/landlord/properties/:id"
@@ -276,7 +279,47 @@ export function AppRoutes() {
           path="/landlord/properties/new"
           element={
             <RequireRole allow={[ROLES.LANDLORD]}>
-              <AddPropertyForm />
+              <LandlordAddPropertyPage />
+            </RequireRole>
+          }
+        />
+
+        {/* LANDLORD tenants page */}
+        <Route
+          path="/landlord/tenants"
+          element={
+            <RequireRole allow={[ROLES.LANDLORD]}>
+              <LandlordTenantsPage />
+            </RequireRole>
+          }
+        />
+
+        {/* LANDLORD new tenants */}
+        <Route
+          path="/landlord/tenants/new"
+          element={
+            <RequireRole allow={[ROLES.LANDLORD]}>
+              <LandlordAddTenantPage />
+            </RequireRole>
+          }
+        />
+
+        {/* LANDLORD tenants details */}
+        <Route
+          path="/landlord/tenants"
+          element={
+            <RequireRole allow={[ROLES.LANDLORD]}>
+              <LandlordTenantsPage />
+            </RequireRole>
+          }
+        />
+
+        {/* LANDLORD leases details */}
+        <Route
+          path="/landlord/tenants/:tenantId"
+          element={
+            <RequireRole allow={[ROLES.LANDLORD]}>
+              <LandlordTenantDetailPage />
             </RequireRole>
           }
         />
