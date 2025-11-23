@@ -31,8 +31,11 @@ import AddTenantDependentsForm from "@features/tenants/components/AddTenantDepen
 
 import { useParams } from "react-router-dom";
 import PropertyDetails from "@features/properties/pages/PropertyDetails.jsx";
-
+import LandlordPropertiesPage from "../features/properties/pages/LandlordPropertiesPage.jsx";
+import AddPropertyForm from "@features/properties/components/AddPropertyForm.jsx";
+import TenantHomePage from "@features/tenants/pages/TenantHomePage.jsx";
 import { useTenants } from "@features/tenants/hooks/useTenants.js";
+import { useUser } from "@app/providers.jsx";
 
 // Admin pages
 import AdminLayout from "@features/admin/pages/AdminLayout.jsx";
@@ -41,8 +44,55 @@ import Users from "@features/admin/pages/Users.jsx";
 import InviteUser from "@features/admin/pages/InviteUser.jsx";
 import SystemLogs from "@features/admin/pages/SystemLogs.jsx";
 
+function RoleLandingRouter() {
+  const { user, effectiveRole, isSysAdmin } = useUser();
+
+  // TEMP: helpful while we're wiring this
+  console.log("RoleLandingRouter debug", { user, effectiveRole, isSysAdmin });
+
+  // 1) Not signed in
+  if (!user) {
+    return <Navigate to="/sign-in" replace />;
+  }
+
+  // 2) Normalize role string
+  const rawRole = effectiveRole || user.baseRole || user.role;
+  const role = rawRole ? String(rawRole).toLowerCase() : null;
+
+  // 3) Sysadmin → admin features page
+  if (isSysAdmin || role === ROLES.SYSADMIN) {
+    return <Navigate to="/admin/features-page" replace />;
+  }
+
+  // 4) Route by normalized role
+  switch (role) {
+    case ROLES.LANDLORD: // "landlord"
+      return <Navigate to="/landlord/properties" replace />;
+
+    case ROLES.TENANT: // "tenant"
+      return <Navigate to="/tenant/home" replace />;
+
+    case ROLES.PROPERTY_MANAGER: // "property_manager"
+      // TODO: real manager landing later
+      return <Navigate to="/landlord/properties" replace />;
+
+    case ROLES.MAINTENANCE_TECH: // "maintenance_tech"
+      // TODO: /tech/tickets later
+      return <Navigate to="/tenant/home" replace />;
+
+    case ROLES.CLEANER: // "cleaner"
+      // TODO: /clean/tickets later
+      return <Navigate to="/tenant/home" replace />;
+
+    default:
+      console.warn("RoleLandingRouter: unknown role", { rawRole, role });
+      return <Navigate to="/sign-in" replace />;
+  }
+}
+
 function Properties() {
   const [showArchived, setShowArchived] = React.useState(true);
+
   return (
     <>
       <div style={{ marginBottom: 8 }}>
@@ -56,12 +106,12 @@ function Properties() {
   );
 }
 
-function PropertyDetailsRoute() {
+function LandlordPropertyDetailsRoute() {
   const { id } = useParams();
   return <PropertyDetails propertyId={id} />;
 }
 
-function DashboardPage() {
+function FeaturesPage() {
   const [showLeasesArchived, setShowLeasesArchived] = React.useState(true);
   const [showTenantsArchived, setShowTenantsArchived] = React.useState(true);
   const [showLegalArchived, setShowLegalArchived] = React.useState(true);
@@ -166,9 +216,6 @@ export function AppRoutes() {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/accept-invite" element={<AcceptInvite />} />
 
-        <Route path="/properties" element={<Properties />} />
-        <Route path="/properties/:id" element={<PropertyDetailsRoute />} />
-
         {/* Admin (SYSADMIN only) */}
         <Route
           path="/admin"
@@ -184,8 +231,66 @@ export function AppRoutes() {
           <Route path="logs" element={<SystemLogs />} />
         </Route>
 
-        {/* Logged-in main screen */}
-        <Route path="/dashboard" element={<DashboardPage />} />
+        {/* Logged-in routing */}
+        <Route
+          path="/dashboard"
+          element={
+            <RequireRole>
+              <RoleLandingRouter />
+            </RequireRole>
+          }
+        />
+
+        {/* SYSADMIN main screen */}
+        <Route
+          path="/admin/features-page"
+          element={
+            <RequireRole allow={[ROLES.SYSADMIN]}>
+              <FeaturesPage />
+            </RequireRole>
+          }
+        />
+
+        {/* LANDLORD main screen */}
+        <Route
+          path="/landlord/properties"
+          element={
+            <RequireRole allow={[ROLES.LANDLORD]}>
+              <LandlordPropertiesPage />
+            </RequireRole>
+          }
+        />
+        
+        {/* LANDLORD property details */}
+        <Route
+          path="/landlord/properties/:id"
+          element={
+            <RequireRole allow={[ROLES.LANDLORD]}>
+              <LandlordPropertyDetailsRoute />
+            </RequireRole>
+          }
+        />
+
+        {/* LANDLORD create property */}
+        <Route
+          path="/landlord/properties/new"
+          element={
+            <RequireRole allow={[ROLES.LANDLORD]}>
+              <AddPropertyForm />
+            </RequireRole>
+          }
+        />
+
+
+        {/* TENANT main screen */}
+        <Route
+          path="/tenant/home"
+          element={
+            <RequireRole allow={[ROLES.TENANT]}>
+              <TenantHomePage />
+            </RequireRole>
+          }
+        />
 
         {/* Default + 404 */}
         <Route path="/" element={<Navigate to="/sign-in" replace />} />

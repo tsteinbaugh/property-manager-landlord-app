@@ -25,7 +25,7 @@ export default function SiteHeader() {
         display: "flex", alignItems: "center", gap: 12, justifyContent: "space-between",
       }}
     >
-      <Breadcrumbs items={[{ label: "Dashboard", to: "/" }]} />
+      <Breadcrumbs items={[{ label: "Dashboard", to: "/dashboard" }]} />
       <div style={{ flex: "0 1 520px" }}>
         <SearchInput
           value={query}

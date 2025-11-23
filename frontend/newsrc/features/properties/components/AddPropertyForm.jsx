@@ -1,15 +1,22 @@
 import React, { useState } from "react";
 import { apiFetch } from "@lib/apiClient.js";
 import { useUser } from "@app/providers.jsx";
+import { useNavigate } from "react-router-dom";
 
 export default function AddPropertyForm({ onCreated }) {
-  const { token } = useUser() || {};
+  const { user, token } = useUser() || {};
   const [name, setName] = useState("");
   const [address1, setAddress1] = useState("");
   const [city, setCity] = useState("");
   const [state, setStateVal] = useState("CO");
   const [postalCode, setPostalCode] = useState("");
   const [isSaving, setSaving] = useState(false);
+  const navigate = useNavigate();
+
+  const handleCancel = () => {
+    // landlord landing page
+    navigate("/landlord/properties");
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,6 +37,7 @@ export default function AddPropertyForm({ onCreated }) {
           city,
           state,
           postalCode,
+          landlordId: user?.id ?? null,
         },
       });
 
@@ -40,8 +48,11 @@ export default function AddPropertyForm({ onCreated }) {
       setStateVal("CO");
       setPostalCode("");
 
-      // Let parent refresh list
+      // Let parent refresh list (if used)
       if (onCreated) onCreated();
+
+      // Or just go back to landlord properties page
+      navigate("/landlord/properties");
     } catch (err) {
       console.error("Failed to create property", err);
       alert("Failed to create property. Check console for details.");
@@ -100,6 +111,9 @@ export default function AddPropertyForm({ onCreated }) {
         style={{ width: 90 }}
       />
 
+      <button type="button" onClick={handleCancel}>
+        Cancel
+      </button>
       <button type="submit" disabled={isSaving}>
         {isSaving ? "Saving…" : "Add property"}
       </button>

@@ -56,7 +56,7 @@ export default function PropertyDetails({ propertyId }) {
   return (
     <div style={{ padding: 16 }}>
       <div style={{ marginBottom: 8 }}>
-        <Link to="/properties">← Back to properties</Link>
+        <Link to="/dashboard">← Back to properties</Link>
       </div>
 
       <h2 style={{ margin: "8px 0" }}>

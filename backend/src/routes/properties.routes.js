@@ -1,165 +1,205 @@
 // backend/src/routes/properties.routes.js
-const express = require("express");
 
-function registerPropertyRoutes(app, prisma) {
-    // ===================================================================
-    // PROPERTIES
-    // ===================================================================
+/**
+ * Property routes
+ *
+ * Assumes:
+ * - `requireAuth` middleware attaches `req.user = { id, baseRole, ... }`
+ *   with baseRole like "LANDLORD", "TENANT", "SYSADMIN", etc.
+ * - Property model has landlordId and createdById fields.
+ */
+function registerPropertyRoutes(app, prisma, requireAuth) {
+  // ===================================================================
+  // PROPERTIES
+  // ===================================================================
 
-    // GET /api/properties - list all properties (raw Prisma rows)
-    app.get("/api/properties", async (req, res) => {
+  // GET /api/properties - list all properties (no auth required for now)
+  app.get("/api/properties", async (req, res) => {
     try {
-        const props = await prisma.property.findMany({
+      const props = await prisma.property.findMany({
         orderBy: { createdAt: "desc" },
-        });
-        res.json(props);
+      });
+      res.json(props);
     } catch (err) {
-        console.error("Error in GET /api/properties", err);
-        res.status(500).json({ error: "Server error" });
+      console.error("Error in GET /api/properties", err);
+      res.status(500).json({ error: "Server error" });
     }
-    });
+  });
 
-    // POST /api/properties - create a property
-    app.post("/api/properties", async (req, res) => {
-    const { name, address1, city, state, postalCode } = req.body || {};
+  // POST /api/properties - create a property
+  app.post("/api/properties", async (req, res) => {
+    const {
+      name,
+      address1,
+      city,
+      state,
+      postalCode,
+      landlordId: bodyLandlordId,
+      createdById: bodyCreatedById,
+    } = req.body || {};
 
     if (!address1 || !city || !state || !postalCode) {
-        return res.status(400).json({
+      return res.status(400).json({
         error: "address1, city, state, and postalCode are required",
-        });
+      });
     }
 
     try {
-        const created = await prisma.property.create({
+      const user = req.user || null;
+
+      // Prefer landlordId from body (sent by frontend),
+      // otherwise fall back to req.user.id if present.
+      let landlordId = bodyLandlordId || null;
+      if (!landlordId && user && user.id) {
+        landlordId = user.id;
+      }
+
+      // createdById priority:
+      // 1) explicit in body
+      // 2) req.user.id if we have a user
+      // 3) landlordId as a last resort
+      let createdById = bodyCreatedById || null;
+      if (!createdById) {
+        if (user && user.id) {
+          createdById = user.id;
+        } else if (landlordId) {
+          createdById = landlordId;
+        }
+      }
+
+      const created = await prisma.property.create({
         data: {
-            name: name?.trim() || null,
-            address1: address1.trim(),
-            city: city.trim(),
-            state: state.trim(),
-            postalCode: postalCode.trim(),
+          name: name?.trim() || null,
+          address1: address1.trim(),
+          city: city.trim(),
+          state: state.trim(),
+          postalCode: postalCode.trim(),
+
+          landlordId,
+          createdById,
         },
-        });
+      });
 
-        res.status(201).json(created);
+      res.status(201).json(created);
     } catch (err) {
-        console.error("Error in POST /api/properties", err);
-        res.status(500).json({ error: "Server error" });
+      console.error("Error in POST /api/properties", err);
+      res.status(500).json({ error: "Server error" });
     }
-    });
+  });
 
-    // PATCH /api/properties/:id - update property fields
-    app.patch("/api/properties/:id", async (req, res) => {
+  // PATCH /api/properties/:id - update property fields
+  app.patch("/api/properties/:id", async (req, res) => {
     const { id } = req.params;
     const { name, address1, city, state, postalCode } = req.body || {};
 
     try {
-        const existing = await prisma.property.findUnique({ where: { id } });
-        if (!existing) {
+      const existing = await prisma.property.findUnique({ where: { id } });
+      if (!existing) {
         return res.status(404).json({ error: "Property not found" });
-        }
+      }
 
-        const updated = await prisma.property.update({
+      const updated = await prisma.property.update({
         where: { id },
         data: {
-            name:
+          name:
             name !== undefined ? (name || "").trim() || null : existing.name,
-            address1:
+          address1:
             address1 !== undefined ? address1.trim() : existing.address1,
-            city: city !== undefined ? city.trim() : existing.city,
-            state: state !== undefined ? state.trim() : existing.state,
-            postalCode:
+          city: city !== undefined ? city.trim() : existing.city,
+          state: state !== undefined ? state.trim() : existing.state,
+          postalCode:
             postalCode !== undefined ? postalCode.trim() : existing.postalCode,
         },
-        });
+      });
 
-        res.json(updated);
+      res.json(updated);
     } catch (err) {
-        console.error("Error in PATCH /api/properties/:id", err);
-        res.status(500).json({ error: "Server error" });
+      console.error("Error in PATCH /api/properties/:id", err);
+      res.status(500).json({ error: "Server error" });
     }
-    });
+  });
 
-    // PATCH /api/properties/:id/archive - toggle isArchived flag
-    app.patch("/api/properties/:id/archive", async (req, res) => {
+  // PATCH /api/properties/:id/archive - toggle isArchived flag
+  app.patch("/api/properties/:id/archive", async (req, res) => {
     const { id } = req.params;
     try {
-        const existing = await prisma.property.findUnique({ where: { id } });
-        if (!existing) {
+      const existing = await prisma.property.findUnique({ where: { id } });
+      if (!existing) {
         return res.status(404).json({ error: "Property not found" });
-        }
+      }
 
-        const updated = await prisma.property.update({
+      const updated = await prisma.property.update({
         where: { id },
         data: { isArchived: !existing.isArchived },
-        });
+      });
 
-        res.json(updated);
+      res.json(updated);
     } catch (err) {
-        console.error("Error in PATCH /api/properties/:id/archive", err);
-        res.status(500).json({ error: "Server error" });
+      console.error("Error in PATCH /api/properties/:id/archive", err);
+      res.status(500).json({ error: "Server error" });
     }
-    });
+  });
 
-    // GET /api/properties/:id/summary
-    // Returns: property + active lease (if any) + tenant + occupants + pets + emergency contacts
-    app.get("/api/properties/:id/summary", async (req, res) => {
+  // GET /api/properties/:id/summary
+  // Returns: property + active lease (if any) + tenant + occupants + pets + emergency contacts
+  app.get("/api/properties/:id/summary", async (req, res) => {
     const { id } = req.params;
 
     try {
-        const property = await prisma.property.findUnique({
+      const property = await prisma.property.findUnique({
         where: { id },
         include: {
-            leases: {
+          leases: {
             where: { status: "ACTIVE" },
             orderBy: { startDate: "desc" },
             include: {
-                tenant: true,
+              tenant: true,
             },
-            },
+          },
         },
-        });
+      });
 
-        if (!property) {
+      if (!property) {
         return res.status(404).json({ error: "Property not found" });
-        }
+      }
 
-        const activeLease = property.leases[0] || null;
-        const tenant = activeLease?.tenant || null;
+      const activeLease = property.leases[0] || null;
+      const tenant = activeLease?.tenant || null;
 
-        let occupants = [];
-        let pets = [];
-        let emergencyContacts = [];
+      let occupants = [];
+      let pets = [];
+      let emergencyContacts = [];
 
-        if (tenant) {
+      if (tenant) {
         occupants = await prisma.occupant.findMany({
-            where: { tenantId: tenant.id, isArchived: false },
-            orderBy: { createdAt: "asc" },
+          where: { tenantId: tenant.id, isArchived: false },
+          orderBy: { createdAt: "asc" },
         });
 
         pets = await prisma.pet.findMany({
-            where: { tenantId: tenant.id, isArchived: false },
-            orderBy: { createdAt: "asc" },
+          where: { tenantId: tenant.id, isArchived: false },
+          orderBy: { createdAt: "asc" },
         });
 
         emergencyContacts = await prisma.emergencyContact.findMany({
-            where: { tenantId: tenant.id, isArchived: false },
-            orderBy: { createdAt: "asc" },
+          where: { tenantId: tenant.id, isArchived: false },
+          orderBy: { createdAt: "asc" },
         });
-        }
+      }
 
-        res.json({
+      res.json({
         property,
         lease: activeLease,
         tenant,
         occupants,
         pets,
         emergencyContacts,
-        });
+      });
     } catch (err) {
-        console.error("Error in GET /api/properties/:id/summary", err);
-        res.status(500).json({ error: "Server error" });
+      console.error("Error in GET /api/properties/:id/summary", err);
+      res.status(500).json({ error: "Server error" });
     }
-    });
+  });
 }
 
 module.exports = {
