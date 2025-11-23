@@ -2,13 +2,37 @@ import React, { useEffect, useState } from "react";
 import { apiFetch } from "@lib/apiClient.js";
 import { useUser } from "@app/providers.jsx";
 import { Link } from "react-router-dom";
+import ArchiveButton from "@shared/ui/ArchiveButton.jsx";
+import { can } from "@lib/rbac/index.js";
+import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
+import { ROLES } from "@lib/rbac/roles.js";
 
 export default function PropertyDetails({ propertyId }) {
-  const { token } = useUser() || {};
+  const { token, effectiveRole, isSysAdmin } = useUser() || {};
+  const role = isSysAdmin
+    ? ROLES.SYSADMIN
+    : typeof effectiveRole === "string"
+      ? effectiveRole.toLowerCase()
+      : ROLES.LANDLORD;
+
+  const canUpdate = can(role, R.PROPERTIES, A.UPDATE);
+  const canArchive = can(role, R.PROPERTIES, A.ARCHIVE);
+
   const [summary, setSummary] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // edit state
+  const [isEditing, setEditing] = useState(false);
+  const [name, setName] = useState("");
+  const [address1, setAddress1] = useState("");
+  const [city, setCity] = useState("");
+  const [stateVal, setStateVal] = useState("CO");
+  const [postalCode, setPostalCode] = useState("");
+  const [isSaving, setSaving] = useState(false);
+  const [isArchiving, setArchiving] = useState(false);
+
+  // Load summary
   useEffect(() => {
     let cancelled = false;
 
@@ -41,6 +65,109 @@ export default function PropertyDetails({ propertyId }) {
     };
   }, [propertyId, token]);
 
+  // When summary loads, initialize edit fields
+  useEffect(() => {
+    if (summary?.property) {
+      const p = summary.property;
+      setName(p.name || "");
+      setAddress1(p.address1 || "");
+      setCity(p.city || "");
+      setStateVal(p.state || "CO");
+      setPostalCode(p.postalCode || "");
+    }
+  }, [summary]);
+
+  const handleSave = async () => {
+    if (!address1 || !city || !stateVal || !postalCode) {
+      alert("Address, city, state, and ZIP are required.");
+      return;
+    }
+
+    try {
+      setSaving(true);
+      await apiFetch(`/api/properties/${propertyId}`, {
+        method: "PATCH",
+        token,
+        body: {
+          name: name || address1,
+          address1,
+          city,
+          state: stateVal,
+          postalCode,
+        },
+      });
+
+      // Update local summary so UI reflects the change
+      setSummary((prev) =>
+        prev
+          ? {
+              ...prev,
+              property: {
+                ...prev.property,
+                name: name || address1,
+                address1,
+                city,
+                state: stateVal,
+                postalCode,
+              },
+            }
+          : prev
+      );
+
+      setEditing(false);
+    } catch (err) {
+      console.error("Failed to update property", err);
+      alert("Failed to update property. Check console for details.");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleCancelEdit = () => {
+    if (summary?.property) {
+      const p = summary.property;
+      setName(p.name || "");
+      setAddress1(p.address1 || "");
+      setCity(p.city || "");
+      setStateVal(p.state || "CO");
+      setPostalCode(p.postalCode || "");
+    }
+    setEditing(false);
+  };
+
+  const handleToggleArchive = async () => {
+    if (!summary?.property) return;
+
+    try {
+      setArchiving(true);
+      const updated = await apiFetch(
+        `/api/properties/${propertyId}/archive`,
+        {
+          method: "PATCH",
+          token,
+        }
+      );
+
+      // Update archive flag on the property
+      setSummary((prev) =>
+        prev
+          ? {
+              ...prev,
+              property: {
+                ...prev.property,
+                isArchived: updated.isArchived,
+              },
+            }
+          : prev
+      );
+    } catch (err) {
+      console.error("Failed to toggle archived state", err);
+      alert("Failed to change archive status. Check console for details.");
+    } finally {
+      setArchiving(false);
+    }
+  };
+
   if (loading) return <div>Loading property…</div>;
   if (error) {
     return (
@@ -51,32 +178,137 @@ export default function PropertyDetails({ propertyId }) {
   }
   if (!summary) return <div>No data.</div>;
 
-  const { property, lease, tenant, occupants, pets, emergencyContacts } = summary;
+  const { property, lease, tenant, occupants, pets, emergencyContacts } =
+    summary;
+
+  const title = property.name || property.address1;
 
   return (
     <div style={{ padding: 16 }}>
       <div style={{ marginBottom: 8 }}>
-        <Link to="/dashboard">← Back to properties</Link>
+        {/* landlord landing page */}
+        <Link to="/landlord/properties">← Back to properties</Link>
       </div>
 
-      <h2 style={{ margin: "8px 0" }}>
-        {property.name || property.address1}
-      </h2>
-      <div style={{ color: "#555", marginBottom: 4 }}>
-        {property.address1}, {property.city}, {property.state}{" "}
-        {property.postalCode}
+      {/* Header + actions */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "flex-start",
+          gap: 12,
+          marginBottom: 12,
+        }}
+      >
+        <div>
+          {!isEditing ? (
+            <>
+              <h2 style={{ margin: "8px 0" }}>{title}</h2>
+              <div style={{ color: "#555", marginBottom: 4 }}>
+                {property.address1}, {property.city}, {property.state}{" "}
+                {property.postalCode}
+              </div>
+              {property.isArchived && (
+                <div style={{ color: "#888", fontSize: 12 }}>(Archived)</div>
+              )}
+            </>
+          ) : (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 6,
+                maxWidth: 480,
+              }}
+            >
+              <input
+                type="text"
+                placeholder="Name (optional)"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="Street address"
+                value={address1}
+                onChange={(e) => setAddress1(e.target.value)}
+              />
+              <div style={{ display: "flex", gap: 6 }}>
+                <input
+                  type="text"
+                  placeholder="City"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  style={{ flex: 2 }}
+                />
+                <input
+                  type="text"
+                  placeholder="State"
+                  value={stateVal}
+                  onChange={(e) => setStateVal(e.target.value)}
+                  style={{ width: 70 }}
+                />
+                <input
+                  type="text"
+                  placeholder="ZIP"
+                  value={postalCode}
+                  onChange={(e) => setPostalCode(e.target.value)}
+                  style={{ width: 100 }}
+                />
+              </div>
+              <div style={{ display: "flex", gap: 8, marginTop: 4 }}>
+                <button
+                  type="button"
+                  onClick={handleSave}
+                  disabled={isSaving}
+                >
+                  {isSaving ? "Saving…" : "Save"}
+                </button>
+                <button type="button" onClick={handleCancelEdit}>
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div style={{ display: "flex", gap: 8 }}>
+          {canUpdate && !isEditing && (
+            <button type="button" onClick={() => setEditing(true)}>
+              Edit
+            </button>
+          )}
+
+          {canArchive ? (
+            <ArchiveButton
+              archived={!!property.isArchived}
+              onToggle={handleToggleArchive}
+              disabled={isArchiving}
+            />
+          ) : (
+            <button
+              type="button"
+              disabled
+              title="Insufficient permissions"
+              style={{ opacity: 0.5 }}
+            >
+              {property.isArchived ? "Unarchive" : "Archive"}
+            </button>
+          )}
+        </div>
       </div>
-      {property.isArchived && (
-        <div style={{ color: "#888", fontSize: 12 }}>(Archived)</div>
-      )}
 
       <hr style={{ margin: "16px 0" }} />
 
       <h3>Current Lease</h3>
       {lease ? (
         <div style={{ marginBottom: 12 }}>
-          <div>Lease ID: <strong>{lease.id}</strong></div>
-          <div>Status: <strong>{lease.status}</strong></div>
+          <div>
+            Lease ID: <strong>{lease.id}</strong>
+          </div>
+          <div>
+            Status: <strong>{lease.status}</strong>
+          </div>
           <div>
             Rent:{" "}
             {lease.rentAmount != null ? `$${lease.rentAmount}` : "N/A"}
