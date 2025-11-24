@@ -22,11 +22,11 @@
     "multer": "^2.0.2"
   },
   "devDependencies": {
+    "cross-env": "^7.0.0",
+    "dotenv": "^16.0.0",
     "nodemon": "^3.0.0",
     "prisma": "^5.0.0",
-    "vitest": "^2.0.0",
     "supertest": "^7.0.0",
-    "dotenv": "^16.0.0",
-    "cross-env": "^7.0.0"
+    "vitest": "^2.0.0"
   }
 }

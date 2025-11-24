@@ -1,7 +1,10 @@
 // backend/src/routes/auth.routes.js
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
+const jwt = require("jsonwebtoken");
 const { UserStatus, AuthTokenKind } = require("@prisma/client");
+
+const JWT_SECRET = process.env.JWT_SECRET || "dev-only-change-me";
 
 function generateToken() {
   return crypto.randomBytes(32).toString("hex");
@@ -55,6 +58,18 @@ function registerAuthRoutes(app, prisma, { FRONTEND_ORIGIN }) {
         return res.status(401).json({ error: "Invalid credentials" });
       }
 
+      // Issue a JWT so the frontend can send it on subsequent requests
+      const token = jwt.sign(
+        {
+          sub: user.id,
+          role: user.baseRole,
+        },
+        JWT_SECRET,
+        {
+          expiresIn: "7d", // adjust if you want shorter/longer sessions
+        }
+      );
+
       return res.json({
         user: {
           id: user.id,
@@ -62,6 +77,7 @@ function registerAuthRoutes(app, prisma, { FRONTEND_ORIGIN }) {
           name: user.name,
           baseRole: user.baseRole,
         },
+        token,
       });
     } catch (err) {
       console.error("Error in /api/auth/sign-in", err);

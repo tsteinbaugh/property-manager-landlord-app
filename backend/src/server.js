@@ -6,6 +6,8 @@ const fs = require("fs");
 const multer = require("multer");
 const crypto = require("crypto");
 const { PrismaClient } = require("@prisma/client");
+const { attachUser, requireAuth } = require("./middleware/auth.middleware.js");
+
 
 // Route modules
 const { registerPropertyRoutes } = require("./routes/properties.routes.js");
@@ -65,6 +67,8 @@ app.use(
 );
 
 app.use(express.json());
+
+app.use(attachUser(prisma));
 
 // Serve uploaded files (e.g. /uploads/leases/...)
 app.use("/uploads", express.static(uploadsRoot));

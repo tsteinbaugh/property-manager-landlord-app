@@ -13,12 +13,26 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
   // PROPERTIES
   // ===================================================================
 
-  // GET /api/properties - list all properties (no auth required for now)
+  // GET /api/properties
+  // - LANDLORD: only their properties (landlordId = req.user.id)
+  // - SYSADMIN: all properties
+  // - no user: all properties (for now, so nothing breaks)
   app.get("/api/properties", async (req, res) => {
     try {
+      const user = req.user || null;
+
+      const where = {};
+
+      if (user && user.baseRole === "LANDLORD") {
+        where.landlordId = user.id;
+      }
+
+      // For SYSADMIN or unauthenticated, where stays {} (all properties)
       const props = await prisma.property.findMany({
+        where,
         orderBy: { createdAt: "desc" },
       });
+
       res.json(props);
     } catch (err) {
       console.error("Error in GET /api/properties", err);
@@ -98,6 +112,16 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
         return res.status(404).json({ error: "Property not found" });
       }
 
+      const user = req.user || null;
+
+      // If a landlord is logged in, they can only edit their own properties.
+      if (user && user.baseRole === "LANDLORD") {
+        if (existing.landlordId && existing.landlordId !== user.id) {
+          return res.status(403).json({ error: "Forbidden" });
+        }
+      }
+      // SYSADMIN can edit anything; unauthenticated falls through for now.
+
       const updated = await prisma.property.update({
         where: { id },
         data: {
@@ -126,6 +150,15 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
       const existing = await prisma.property.findUnique({ where: { id } });
       if (!existing) {
         return res.status(404).json({ error: "Property not found" });
+      }
+
+      const user = req.user || null;
+
+      // Landlords can only archive/unarchive their own properties
+      if (user && user.baseRole === "LANDLORD") {
+        if (existing.landlordId && existing.landlordId !== user.id) {
+          return res.status(403).json({ error: "Forbidden" });
+        }
       }
 
       const updated = await prisma.property.update({
@@ -162,6 +195,16 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
       if (!property) {
         return res.status(404).json({ error: "Property not found" });
       }
+
+      const user = req.user || null;
+
+      // If a landlord is logged in, they should only see their own property.
+      if (user && user.baseRole === "LANDLORD") {
+        if (property.landlordId && property.landlordId !== user.id) {
+          return res.status(404).json({ error: "Property not found" });
+        }
+      }
+      // SYSADMIN or unauthenticated can still fetch any property for now.
 
       const activeLease = property.leases[0] || null;
       const tenant = activeLease?.tenant || null;
