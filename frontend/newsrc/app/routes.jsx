@@ -1,10 +1,17 @@
+// newsrc/app/routes.jsx
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Navigate,
+  useParams,
+} from "react-router-dom";
 
 import AppLayout from "@layout/AppLayout.jsx";
 import IncludeArchivedToggle from "@shared/ui/IncludeArchivedToggle.jsx";
 import RequireRole from "./RequireRole.jsx";
 import { ROLES } from "@lib/rbac/roles.js";
+import { useUser } from "@app/providers.jsx";
 
 // Auth pages
 import SignIn from "@features/auth/pages/SignIn.jsx";
@@ -12,7 +19,7 @@ import ForgotPassword from "@features/auth/pages/ForgotPassword.jsx";
 import ResetPassword from "@features/auth/pages/ResetPassword.jsx";
 import AcceptInvite from "@features/auth/pages/AcceptInvite.jsx";
 
-// Feature panels/lists
+// Feature panels/lists (used on the sysadmin FeaturesPage)
 import PropertiesList from "@features/properties/components/PropertiesList.jsx";
 import TenantsList from "@features/tenants/components/TenantsList.jsx";
 import MaintenanceTicketList from "@features/maintenance/components/MaintenanceTicketList.jsx";
@@ -29,16 +36,17 @@ import LegalCasePanel from "@features/legal/components/LegalCasePanel.jsx";
 import CleaningTicketList from "@features/cleaning/components/CleaningTicketList.jsx";
 import AddTenantDependentsForm from "@features/tenants/components/AddTenantDependentsForm.jsx";
 
-import { useParams } from "react-router-dom";
-import LandlordPropertyDetailPage from "@features/properties/pages/LandlordPropertyDetailPage.jsx";
-import LandlordPropertiesPage from "../features/properties/pages/LandlordPropertiesPage.jsx";
+// Landlord flows
+import LandlordPropertiesPage from "@features/properties/pages/LandlordPropertiesPage.jsx";
 import LandlordAddPropertyPage from "@features/properties/pages/LandlordAddPropertyPage.jsx";
+import LandlordPropertyDetailPage from "@features/properties/pages/LandlordPropertyDetailPage.jsx";
+
 import LandlordTenantsPage from "@features/tenants/pages/LandlordTenantsPage.jsx";
 import LandlordAddTenantPage from "@features/tenants/pages/LandlordAddTenantPage.jsx";
 import LandlordTenantDetailPage from "@features/tenants/pages/LandlordTenantDetailPage.jsx";
+
+// Tenant flows
 import TenantHomePage from "@features/tenants/pages/TenantHomePage.jsx";
-import { useTenants } from "@features/tenants/hooks/useTenants.js";
-import { useUser } from "@app/providers.jsx";
 
 // Admin pages
 import AdminLayout from "@features/admin/pages/AdminLayout.jsx";
@@ -47,43 +55,40 @@ import Users from "@features/admin/pages/Users.jsx";
 import InviteUser from "@features/admin/pages/InviteUser.jsx";
 import SystemLogs from "@features/admin/pages/SystemLogs.jsx";
 
+/* ------------------------------------------------------------------ */
+/* Role-based landing router                                          */
+/* ------------------------------------------------------------------ */
+
 function RoleLandingRouter() {
   const { user, effectiveRole, isSysAdmin } = useUser();
 
-  // TEMP: helpful while we're wiring this
-  console.log("RoleLandingRouter debug", { user, effectiveRole, isSysAdmin });
-
-  // 1) Not signed in
   if (!user) {
     return <Navigate to="/sign-in" replace />;
   }
 
-  // 2) Normalize role string
   const rawRole = effectiveRole || user.baseRole || user.role;
   const role = rawRole ? String(rawRole).toLowerCase() : null;
 
-  // 3) Sysadmin → admin features page
   if (isSysAdmin || role === ROLES.SYSADMIN) {
     return <Navigate to="/admin/features-page" replace />;
   }
 
-  // 4) Route by normalized role
   switch (role) {
-    case ROLES.LANDLORD: // "landlord"
+    case ROLES.LANDLORD:
       return <Navigate to="/landlord/properties" replace />;
 
-    case ROLES.TENANT: // "tenant"
+    case ROLES.TENANT:
       return <Navigate to="/tenant/home" replace />;
 
-    case ROLES.PROPERTY_MANAGER: // "property_manager"
+    case ROLES.PROPERTY_MANAGER:
       // TODO: real manager landing later
       return <Navigate to="/landlord/properties" replace />;
 
-    case ROLES.MAINTENANCE_TECH: // "maintenance_tech"
+    case ROLES.MAINTENANCE_TECH:
       // TODO: /tech/tickets later
       return <Navigate to="/tenant/home" replace />;
 
-    case ROLES.CLEANER: // "cleaner"
+    case ROLES.CLEANER:
       // TODO: /clean/tickets later
       return <Navigate to="/tenant/home" replace />;
 
@@ -92,6 +97,10 @@ function RoleLandingRouter() {
       return <Navigate to="/sign-in" replace />;
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* Small helper for sysadmin FeaturesPage                             */
+/* ------------------------------------------------------------------ */
 
 function Properties() {
   const [showArchived, setShowArchived] = React.useState(true);
@@ -209,6 +218,10 @@ function FeaturesPage() {
   );
 }
 
+/* ------------------------------------------------------------------ */
+/* Main app routes                                                    */
+/* ------------------------------------------------------------------ */
+
 export function AppRoutes() {
   return (
     <AppLayout>
@@ -234,7 +247,7 @@ export function AppRoutes() {
           <Route path="logs" element={<SystemLogs />} />
         </Route>
 
-        {/* Logged-in routing */}
+        {/* Logged-in landing router */}
         <Route
           path="/dashboard"
           element={
@@ -254,27 +267,9 @@ export function AppRoutes() {
           }
         />
 
-        {/* LANDLORD main screen */}
-        <Route
-          path="/landlord/properties"
-          element={
-            <RequireRole allow={[ROLES.LANDLORD]}>
-              <LandlordPropertiesPage />
-            </RequireRole>
-          }
-        />
+        {/* -------- LANDLORD FLOWS -------- */}
 
-        {/* LANDLORD property details */}
-        <Route
-          path="/landlord/properties/:id"
-          element={
-            <RequireRole allow={[ROLES.LANDLORD]}>
-              <LandlordPropertyDetailsRoute />
-            </RequireRole>
-          }
-        />
-
-        {/* LANDLORD create property */}
+        {/* Create property */}
         <Route
           path="/landlord/properties/new"
           element={
@@ -284,7 +279,27 @@ export function AppRoutes() {
           }
         />
 
-        {/* LANDLORD tenants page */}
+        {/* Properties list */}
+        <Route
+          path="/landlord/properties"
+          element={
+            <RequireRole allow={[ROLES.LANDLORD]}>
+              <LandlordPropertiesPage />
+            </RequireRole>
+          }
+        />
+
+        {/* Property detail */}
+        <Route
+          path="/landlord/properties/:id"
+          element={
+            <RequireRole allow={[ROLES.LANDLORD]}>
+              <LandlordPropertyDetailsRoute />
+            </RequireRole>
+          }
+        />
+
+        {/* Landlord tenants list */}
         <Route
           path="/landlord/tenants"
           element={
@@ -294,7 +309,7 @@ export function AppRoutes() {
           }
         />
 
-        {/* LANDLORD new tenants */}
+        {/* Landlord add tenant */}
         <Route
           path="/landlord/tenants/new"
           element={
@@ -304,17 +319,7 @@ export function AppRoutes() {
           }
         />
 
-        {/* LANDLORD tenants details */}
-        <Route
-          path="/landlord/tenants"
-          element={
-            <RequireRole allow={[ROLES.LANDLORD]}>
-              <LandlordTenantsPage />
-            </RequireRole>
-          }
-        />
-
-        {/* LANDLORD leases details */}
+        {/* Landlord tenant detail */}
         <Route
           path="/landlord/tenants/:tenantId"
           element={
@@ -324,8 +329,8 @@ export function AppRoutes() {
           }
         />
 
+        {/* -------- TENANT FLOWS -------- */}
 
-        {/* TENANT main screen */}
         <Route
           path="/tenant/home"
           element={
