@@ -46,13 +46,30 @@ model User {
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt
 
+  // Relations
   leases       Lease[]     @relation("UserLeases")
   authTokens   AuthToken[]
 
   tenant       Tenant?
 
-  propertiesOwned Property[] @relation("LandlordProperties")  
+  propertiesOwned   Property[] @relation("LandlordProperties")
   propertiesCreated Property[] @relation("PropertyCreatedBy")
+
+  // Who created which tenants
+  tenantsCreated    Tenant[]   @relation("TenantCreatedBy")
+
+  // NEW: who created which leases
+  leasesCreated     Lease[]    @relation("LeaseCreatedBy")
+
+  // NEW: who created which occupants/pets/eContacts
+  occupantsCreated       Occupant[]        @relation("OccupantCreatedBy")
+  petsCreated            Pet[]             @relation("PetCreatedBy")
+  emergencyContactsCreated EmergencyContact[] @relation("EmergencyContactCreatedBy")
+
+  // NEW: who created which users (self-relation)
+  createdById  String?
+  createdBy    User?      @relation("UserCreatedBy", fields: [createdById], references: [id])
+  usersCreated User[]     @relation("UserCreatedBy")
 }
 
 model Property {
@@ -81,7 +98,7 @@ model Lease {
 
   property    Property     @relation(fields: [propertyId], references: [id])
   propertyId  String
-  propertyLabel String? 
+  propertyLabel String?
 
   landlord    User         @relation("UserLeases", fields: [landlordId], references: [id])
   landlordId  String
@@ -102,6 +119,9 @@ model Lease {
   fileOriginalName String?
   fileMimeType     String?
   fileSize         Int?
+
+  createdById String?
+  createdBy   User?   @relation("LeaseCreatedBy", fields: [createdById], references: [id])
 }
 
 model Tenant {
@@ -114,6 +134,9 @@ model Tenant {
   userId     String?   @unique
   user       User?     @relation(fields: [userId], references: [id])
 
+  createdById String?
+  createdBy   User?    @relation("TenantCreatedBy", fields: [createdById], references: [id])
+
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
 
@@ -125,8 +148,8 @@ model Tenant {
 
 model Occupant {
   id         String   @id @default(cuid())
-  tenant     Tenant   @relation(fields: [tenantId], references: [id])
-  tenantId   String
+  tenant     Tenant?  @relation(fields: [tenantId], references: [id])
+  tenantId   String?
 
   name       String
   relation   String?
@@ -134,12 +157,15 @@ model Occupant {
 
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+
+  createdById String?
+  createdBy   User?   @relation("OccupantCreatedBy", fields: [createdById], references: [id])
 }
 
 model Pet {
   id         String   @id @default(cuid())
-  tenant     Tenant   @relation(fields: [tenantId], references: [id])
-  tenantId   String
+  tenant     Tenant?   @relation(fields: [tenantId], references: [id])
+  tenantId   String?
 
   name       String
   type       String?
@@ -149,12 +175,15 @@ model Pet {
 
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+
+  createdById String?
+  createdBy   User?   @relation("PetCreatedBy", fields: [createdById], references: [id])
 }
 
 model EmergencyContact {
   id         String   @id @default(cuid())
-  tenant     Tenant   @relation(fields: [tenantId], references: [id])
-  tenantId   String
+  tenant     Tenant?   @relation(fields: [tenantId], references: [id])
+  tenantId   String?
 
   name       String
   phone      String?
@@ -164,6 +193,9 @@ model EmergencyContact {
 
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+
+  createdById String?
+  createdBy   User?   @relation("EmergencyContactCreatedBy", fields: [createdById], references: [id])
 }
 
 model AuthToken {

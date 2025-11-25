@@ -37,13 +37,21 @@ import CleaningTicketList from "@features/cleaning/components/CleaningTicketList
 import AddTenantDependentsForm from "@features/tenants/components/AddTenantDependentsForm.jsx";
 
 // Landlord flows
+////Properties
 import LandlordPropertiesPage from "@features/properties/pages/LandlordPropertiesPage.jsx";
 import LandlordAddPropertyPage from "@features/properties/pages/LandlordAddPropertyPage.jsx";
 import LandlordPropertyDetailPage from "@features/properties/pages/LandlordPropertyDetailPage.jsx";
 
+////Residents
+//////Tenants
+import LandlordResidentsPage from "@features/residents/pages/LandlordResidentsPage.jsx";
 import LandlordTenantsPage from "@features/tenants/pages/LandlordTenantsPage.jsx";
 import LandlordAddTenantPage from "@features/tenants/pages/LandlordAddTenantPage.jsx";
 import LandlordTenantDetailPage from "@features/tenants/pages/LandlordTenantDetailPage.jsx";
+//////Occupants
+import LandlordOccupantsPage from "@features/tenants/pages/LandlordOccupantsPage.jsx";
+import LandlordAddOccupantPage from "@features/tenants/pages/LandlordAddOccupantPage.jsx";
+import LandlordOccupantDetailPage from "@features/tenants/pages/LandlordOccupantDetailPage.jsx";
 
 // Tenant flows
 import TenantHomePage from "@features/tenants/pages/TenantHomePage.jsx";
@@ -75,7 +83,7 @@ function RoleLandingRouter() {
 
   switch (role) {
     case ROLES.LANDLORD:
-      return <Navigate to="/landlord/properties" replace />;
+      return <Navigate to="/landlord/residents" replace />;
 
     case ROLES.TENANT:
       return <Navigate to="/tenant/home" replace />;
@@ -279,7 +287,7 @@ export function AppRoutes() {
           }
         />
 
-        {/* Properties list */}
+        {/* Properties main */}
         <Route
           path="/landlord/properties"
           element={
@@ -299,17 +307,17 @@ export function AppRoutes() {
           }
         />
 
-        {/* Landlord tenants list */}
+        {/* Residents--> tenant main */}
         <Route
-          path="/landlord/tenants"
+          path="/landlord/residents"
           element={
             <RequireRole allow={[ROLES.LANDLORD]}>
-              <LandlordTenantsPage />
+              <LandlordResidentsPage />
             </RequireRole>
           }
         />
 
-        {/* Landlord add tenant */}
+        {/* Add tenant */}
         <Route
           path="/landlord/tenants/new"
           element={
@@ -319,12 +327,42 @@ export function AppRoutes() {
           }
         />
 
-        {/* Landlord tenant detail */}
+        {/* Tenant detail */}
         <Route
           path="/landlord/tenants/:tenantId"
           element={
             <RequireRole allow={[ROLES.LANDLORD]}>
               <LandlordTenantDetailPage />
+            </RequireRole>
+          }
+        />
+
+        {/* Residents --> occupant main */}
+        <Route
+          path="/landlord/occupants"
+          element={
+            <RequireRole allow={[ROLES.LANDLORD]}>
+              <LandlordOccupantsPage />
+            </RequireRole>
+          }
+        />
+
+        {/* Add occupant */}
+        <Route
+          path="/landlord/occupants/new"
+          element={
+            <RequireRole allow={[ROLES.LANDLORD]}>
+              <LandlordAddOccupantPage />
+            </RequireRole>
+          }
+        />
+
+        {/* Occupant detail */}
+        <Route
+          path="/landlord/occupants/:occupantId"
+          element={
+            <RequireRole allow={[ROLES.LANDLORD]}>
+              <LandlordOccupantDetailPage />
             </RequireRole>
           }
         />

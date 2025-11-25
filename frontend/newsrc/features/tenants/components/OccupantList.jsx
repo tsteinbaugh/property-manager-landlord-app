@@ -86,13 +86,17 @@ function AddOccupantForm({ onCreate, disabled }) {
  * Props:
  *   - tenantId: string (required)
  *   - includeArchived?: boolean (default false)
+ *   - showAddForm?: boolean (default true)
  */
-export default function OccupantList({ tenantId, includeArchived = false }) {
+export default function OccupantList({
+  tenantId,
+  includeArchived = false,
+  showAddForm = true,
+}) {
   const [data, setData] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // inline edit state
   const [editingId, setEditingId] = useState(null);
   const [draftName, setDraftName] = useState("");
   const [draftRelation, setDraftRelation] = useState("");
@@ -178,7 +182,11 @@ export default function OccupantList({ tenantId, includeArchived = false }) {
   };
 
   if (!tenantId) {
-    return <div style={{ color: "#888" }}>Create a tenant first to attach occupants.</div>;
+    return (
+      <div style={{ color: "#888" }}>
+        Create a tenant first to attach occupants.
+      </div>
+    );
   }
 
   if (isLoading) return <div>Loading occupants…</div>;
@@ -193,7 +201,9 @@ export default function OccupantList({ tenantId, includeArchived = false }) {
 
   return (
     <div>
-      <AddOccupantForm onCreate={handleCreate} disabled={!tenantId} />
+      {showAddForm && (
+        <AddOccupantForm onCreate={handleCreate} disabled={!tenantId} />
+      )}
 
       {inlineError && (
         <div style={{ color: "crimson", marginBottom: 8, fontSize: 12 }}>

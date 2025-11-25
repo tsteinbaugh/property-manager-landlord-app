@@ -7,11 +7,12 @@ const multer = require("multer");
 const crypto = require("crypto");
 const { PrismaClient } = require("@prisma/client");
 const { attachUser, requireAuth } = require("./middleware/auth.middleware.js");
-
+// ^ requireAuth is imported but not used anywhere in this file (not wrong, just unused)
 
 // Route modules
 const { registerPropertyRoutes } = require("./routes/properties.routes.js");
 const { registerTenantRoutes } = require("./routes/tenants.routes.js");
+const { registerOccupantRoutes } = require("./routes/occupants.routes.js");
 const { registerTenantDependenciesRoutes } = require("./routes/tenantDependencies.routes.js");
 const { registerLeaseRoutes } = require("./routes/leases.routes.js");
 const { registerAuthRoutes } = require("./routes/auth.routes.js");
@@ -85,8 +86,11 @@ registerTenantRoutes(app, prisma, {
   shapeTenant,
 });
 
-registerTenantDependenciesRoutes(app, prisma, {
+registerOccupantRoutes(app, prisma, {
   shapeOccupant,
+});
+
+registerTenantDependenciesRoutes(app, prisma, {
   shapePet,
   shapeEmergencyContact,
 });

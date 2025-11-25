@@ -1,3 +1,4 @@
+// newsrc/features/tenants/pages/LandlordTenantsPage.jsx
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { tenantsApi } from "@features/tenants/api/tenants.api.js";
@@ -68,15 +69,14 @@ export default function LandlordTenantsPage() {
           className={styles.actions}
           style={{ display: "flex", flexDirection: "column", gap: 8 }}
         >
-          {hasVisibleTenants && (
-            <button
-              type="button"
-              className={styles.primaryButton}
-              onClick={handleAddTenant}
-            >
-              + Add tenant
-            </button>
-          )}
+          {/* Always allow adding a tenant, even if all are archived */}
+          <button
+            type="button"
+            className={styles.primaryButton}
+            onClick={handleAddTenant}
+          >
+            + Add tenant
+          </button>
 
           {hasAnyArchived && (
             <button

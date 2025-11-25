@@ -1,3 +1,4 @@
+// newsrc/features/tenants/api/occupants.api.js
 const BASE_URL = "http://localhost:4000";
 
 async function http(method, path, body) {
@@ -28,57 +29,55 @@ async function http(method, path, body) {
 }
 
 function mapOccupantFromApi(o) {
+  if (!o) return null;
+
+  // backend shapeOccupant returns { id, name, relation, archived, ... }
+  const archived = !!(o.archived ?? o.isArchived);
+
   return {
     id: o.id,
-    tenantId: o.tenantId,
     name: o.name,
     relation: o.relation || "",
-    archived: !!o.archived,
+    archived,
+    createdAt: o.createdAt || o.createdAtISO || null,
+    updatedAt: o.updatedAt || o.updatedAtISO || null,
   };
 }
 
 export const occupantsApi = {
-  async list(tenantId, { includeArchived = false } = {}) {
-    if (!tenantId) return [];
+  // primary way: list all occupants across the system
+  async listAll({ includeArchived = false } = {}) {
     const qs = includeArchived ? "?includeArchived=1" : "?includeArchived=0";
-    const rows = await http("GET", `/api/tenants/${tenantId}/occupants${qs}`);
+    const rows = await http("GET", `/api/occupants${qs}`);
     if (!Array.isArray(rows)) return [];
     return rows.map(mapOccupantFromApi);
   },
 
-  async create(tenantId, payload) {
-    if (!tenantId) throw new Error("tenantId is required");
-    const row = await http("POST", `/api/tenants/${tenantId}/occupants`, payload);
+  // alias in case anything still calls `list`
+  async list(opts) {
+    return this.listAll(opts);
+  },
+
+  async get(id) {
+    if (!id) throw new Error("id is required");
+    const row = await http("GET", `/api/occupants/${id}`);
     return mapOccupantFromApi(row);
   },
 
-  async update(tenantId, id, patch) {
-    if (!tenantId) throw new Error("tenantId is required");
-    const row = await http(
-      "PATCH",
-      `/api/tenants/${tenantId}/occupants/${id}`,
-      patch
-    );
+  async create(payload) {
+    const row = await http("POST", "/api/occupants", payload);
     return mapOccupantFromApi(row);
   },
 
-  async toggleArchive(tenantId, id) {
-    if (!tenantId) throw new Error("tenantId is required");
-    const row = await http(
-      "PATCH",
-      `/api/tenants/${tenantId}/occupants/${id}/archive`
-    );
+  async update(id, patch) {
+    if (!id) throw new Error("id is required");
+    const row = await http("PATCH", `/api/occupants/${id}`, patch);
     return mapOccupantFromApi(row);
   },
 
-  // used when archiving an entire tenant
-  async setArchivedByTenant(tenantId, archived) {
-    if (!tenantId) return;
-    const list = await this.list(tenantId, { includeArchived: true });
-    for (const o of list) {
-      if (o.archived !== archived) {
-        await this.toggleArchive(tenantId, o.id);
-      }
-    }
+  async toggleArchive(id) {
+    if (!id) throw new Error("id is required");
+    const row = await http("PATCH", `/api/occupants/${id}/archive`);
+    return mapOccupantFromApi(row);
   },
 };

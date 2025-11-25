@@ -69,12 +69,6 @@ export const tenantsApi = {
 
   async toggleArchive(id) {
     const t = await http("PATCH", `/api/tenants/${id}/archive`);
-    const archived = !!t.archived;
-
-    await petsApi.setArchivedByTenant(id, archived);
-    await occupantsApi.setArchivedByTenant(id, archived);
-    await emergencyContactsApi.setArchivedByTenant(id, archived);
-
     return mapTenantFromApi(t);
   },
 

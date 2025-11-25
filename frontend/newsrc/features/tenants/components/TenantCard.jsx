@@ -56,21 +56,6 @@ export default function TenantCard({ tenant, onClick }) {
           <span className={styles.contactLineMuted}>No contact info added yet</span>
         )}
       </div>
-
-      <div className={styles.metaRow}>
-        <div className={styles.metaItem}>
-          <span className={styles.metaLabel}>Occupants</span>
-          <span className={styles.metaValue}>{occupantsCount}</span>
-        </div>
-        <div className={styles.metaItem}>
-          <span className={styles.metaLabel}>Pets</span>
-          <span className={styles.metaValue}>{petsCount}</span>
-        </div>
-        <div className={styles.metaItem}>
-          <span className={styles.metaLabel}>Emergency contacts</span>
-          <span className={styles.metaValue}>{econtactsCount}</span>
-        </div>
-      </div>
     </button>
   );
 }

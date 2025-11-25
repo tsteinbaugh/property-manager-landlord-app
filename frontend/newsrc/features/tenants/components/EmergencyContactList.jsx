@@ -116,10 +116,12 @@ function AddEmergencyContactForm({ onCreate, disabled }) {
  * Props:
  *   - tenantId: string (required)
  *   - includeArchived?: boolean (default false)
+ *   - showAddForm?: boolean (default true)
  */
 export default function EmergencyContactList({
   tenantId,
   includeArchived = false,
+  showAddForm = true,
 }) {
   const [data, setData] = useState([]);
   const [isLoading, setLoading] = useState(true);
@@ -239,7 +241,9 @@ export default function EmergencyContactList({
 
   return (
     <div>
-      <AddEmergencyContactForm onCreate={handleCreate} disabled={!tenantId} />
+      {showAddForm && (
+        <AddEmergencyContactForm onCreate={handleCreate} disabled={!tenantId} />
+      )}
 
       {inlineError && (
         <div style={{ color: "crimson", marginBottom: 8, fontSize: 12 }}>

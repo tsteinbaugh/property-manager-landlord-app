@@ -8,13 +8,19 @@ export default function LandlordAddTenantPage() {
   const navigate = useNavigate();
 
   const handleCreate = async (payload) => {
-    const created = await tenantsApi.create(payload);
-    if (created && created.id) {
-      navigate(`/landlord/tenants/${created.id}`);
-    } else {
-      // fallback if something is weird
-      navigate("/landlord/tenants");
+    try {
+      await tenantsApi.create(payload);
+      // After creation, go back to Residents page on the Tenants tab
+      navigate("/landlord/residents?tab=tenants");
+    } catch (err) {
+      console.error("Failed to create tenant", err);
+      alert("Failed to create tenant. Check console for details.");
     }
+  };
+
+  const handleCancel = () => {
+    // Just go back to the Residents page, tenants tab
+    navigate("/landlord/residents?tab=tenants");
   };
 
   return (
@@ -24,7 +30,7 @@ export default function LandlordAddTenantPage() {
           <h1 className={styles.title}>Add tenant</h1>
           <p className={styles.subtitle}>
             Create a tenant profile. You can add occupants, pets, and emergency
-            contacts right after this.
+            contacts after this.
           </p>
         </div>
       </header>
@@ -33,7 +39,7 @@ export default function LandlordAddTenantPage() {
         <AddTenantForm onCreate={handleCreate} />
         <button
           type="button"
-          onClick={() => navigate("/landlord/tenants")}
+          onClick={handleCancel}
           style={{ marginTop: 8 }}
         >
           Cancel

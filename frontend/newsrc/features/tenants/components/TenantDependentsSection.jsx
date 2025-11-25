@@ -3,7 +3,7 @@ import OccupantList from "./OccupantList.jsx";
 import PetsList from "./PetList.jsx";
 import EmergencyContactList from "./EmergencyContactList.jsx";
 
-export default function TenantDependentsSection({ tenantId }) {
+export default function TenantDependentsSection({ tenantId, showAddForm = true }) {
   if (!tenantId) return null;
 
   return (
@@ -29,17 +29,17 @@ export default function TenantDependentsSection({ tenantId }) {
       >
         <div>
           <h4 style={{ margin: "4px 0" }}>Occupants</h4>
-          <OccupantList tenantId={tenantId} />
+          <OccupantList tenantId={tenantId} showAddForm={showAddForm} />
         </div>
 
         <div>
           <h4 style={{ margin: "4px 0" }}>Pets</h4>
-          <PetsList tenantId={tenantId} />
+          <PetsList tenantId={tenantId} showAddForm={showAddForm} />
         </div>
 
         <div>
           <h4 style={{ margin: "4px 0" }}>Emergency contacts</h4>
-          <EmergencyContactList tenantId={tenantId} />
+          <EmergencyContactList tenantId={tenantId} showAddForm={showAddForm} />
         </div>
       </div>
     </div>

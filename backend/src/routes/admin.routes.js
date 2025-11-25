@@ -87,12 +87,16 @@ function registerAdminRoutes(app, prisma, { FRONTEND_ORIGIN }) {
         (password && password.trim()) || "changeme123";
       const hashed = await bcrypt.hash(plainPassword, 10);
 
+      const authUser = req.user || null;
+
       const created = await prisma.user.create({
         data: {
           email: email.trim(),
           name: name?.trim() || null,
           passwordHash: hashed,
           baseRole: normalizedRole,
+          // NEW: who created this user
+          createdById: authUser ? authUser.id : null,
         },
       });
 
@@ -278,6 +282,7 @@ function registerAdminRoutes(app, prisma, { FRONTEND_ORIGIN }) {
       }
 
       const emailTrimmed = email.trim().toLowerCase();
+      const authUser = req.user || null;
 
       // Either find existing user or create a new INVITED one
       let user = await prisma.user.findUnique({ where: { email: emailTrimmed } });
@@ -292,6 +297,8 @@ function registerAdminRoutes(app, prisma, { FRONTEND_ORIGIN }) {
             baseRole: normalizedRole,
             status: UserStatus.INVITED,
             isArchived: false,
+            // NEW: who created this invited user
+            createdById: authUser ? authUser.id : null,
           },
         });
       } else {
@@ -303,6 +310,7 @@ function registerAdminRoutes(app, prisma, { FRONTEND_ORIGIN }) {
               baseRole: normalizedRole,
               status: UserStatus.INVITED,
               isArchived: false,
+              // Do NOT touch createdById here; keep original creator
             },
           });
         }

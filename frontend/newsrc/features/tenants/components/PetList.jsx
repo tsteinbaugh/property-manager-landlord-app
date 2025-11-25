@@ -114,13 +114,17 @@ function AddPetForm({ onCreate, disabled }) {
  * Props:
  *   - tenantId: string (required)
  *   - includeArchived?: boolean (default false)
+ *   - showAddForm?: boolean (default true)
  */
-export default function PetsList({ tenantId, includeArchived = false }) {
+export default function PetsList({
+  tenantId,
+  includeArchived = false,
+  showAddForm = true,
+}) {
   const [data, setData] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // inline edit
   const [editingId, setEditingId] = useState(null);
   const [draftName, setDraftName] = useState("");
   const [draftType, setDraftType] = useState("");
@@ -235,7 +239,9 @@ export default function PetsList({ tenantId, includeArchived = false }) {
 
   return (
     <div>
-      <AddPetForm onCreate={handleCreate} disabled={!tenantId} />
+      {showAddForm && (
+        <AddPetForm onCreate={handleCreate} disabled={!tenantId} />
+      )}
 
       {inlineError && (
         <div style={{ color: "crimson", marginBottom: 8, fontSize: 12 }}>
