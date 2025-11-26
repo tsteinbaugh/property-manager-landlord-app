@@ -1,12 +1,12 @@
 // newsrc/features/tenants/components/TenantsList.jsx
 import React, { useState } from "react";
-import { useTenants } from "@features/tenants/hooks/useTenants.js";
+import { useTenants } from "@features/residents/hooks/useTenants.js";
 import ArchiveButton from "@shared/ui/ArchiveButton.jsx";
 import { can } from "@lib/rbac/index.js";
 import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
 import { ROLES } from "@lib/rbac/roles.js";
 import AddTenantForm from "./AddTenantForm.jsx";
-import { tenantsApi } from "../api/tenants.api.js";
+import { tenantsApi } from "../../api/tenants.api.js";
 
 export default function TenantsList({
   includeArchived = false,

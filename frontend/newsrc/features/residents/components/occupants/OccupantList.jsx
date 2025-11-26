@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import ArchiveButton from "@shared/ui/ArchiveButton.jsx";
-import { emergencyContactsApi } from "../api/emergencyContacts.api.js";
+import { occupantsApi } from "../../api/occupants.api.js";
 
-function AddEmergencyContactForm({ onCreate, disabled }) {
+function AddOccupantForm({ onCreate, disabled }) {
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
   const [relation, setRelation] = useState("");
-  const [email, setEmail] = useState("");
   const [isSubmitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
 
@@ -22,16 +20,12 @@ function AddEmergencyContactForm({ onCreate, disabled }) {
       setError(null);
       await onCreate({
         name: name.trim(),
-        phone: phone.trim() || null,
-        relation: relation.trim() || null,
-        email: email.trim() || null,
+        relation: relation.trim(),
       });
       setName("");
-      setPhone("");
       setRelation("");
-      setEmail("");
     } catch (err) {
-      console.error("AddEmergencyContactForm submit error", err);
+      console.error("AddOccupantForm submit error", err);
       setError(err);
     } finally {
       setSubmitting(false);
@@ -46,50 +40,26 @@ function AddEmergencyContactForm({ onCreate, disabled }) {
         padding: 8,
         borderRadius: 6,
         border: "1px solid #e5e7eb",
-        maxWidth: 600,
+        maxWidth: 420,
       }}
     >
-      <div style={{ fontWeight: 600, marginBottom: 6 }}>
-        Add emergency contact
-      </div>
+      <div style={{ fontWeight: 600, marginBottom: 6 }}>Add Occupant</div>
 
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: 6,
-        }}
-      >
+      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
         <input
           type="text"
-          placeholder="name"
+          placeholder="Name (required)"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          style={{ padding: 6, minWidth: 140 }}
-          disabled={disabled || isSubmitting}
-        />
-        <input
-          type="tel"
-          placeholder="phone"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          style={{ padding: 6, minWidth: 140 }}
+          style={{ padding: 6 }}
           disabled={disabled || isSubmitting}
         />
         <input
           type="text"
-          placeholder="relation"
+          placeholder="Relation (roommate, child, etc.)"
           value={relation}
           onChange={(e) => setRelation(e.target.value)}
-          style={{ padding: 6, minWidth: 140 }}
-          disabled={disabled || isSubmitting}
-        />
-        <input
-          type="email"
-          placeholder="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          style={{ padding: 6, minWidth: 180 }}
+          style={{ padding: 6 }}
           disabled={disabled || isSubmitting}
         />
       </div>
@@ -105,20 +75,20 @@ function AddEmergencyContactForm({ onCreate, disabled }) {
         disabled={disabled || isSubmitting}
         style={{ marginTop: 8, padding: "4px 10px" }}
       >
-        {isSubmitting ? "Saving…" : "Add"}
+        {isSubmitting ? "Saving…" : "Save occupant"}
       </button>
     </form>
   );
 }
 
 /**
- * EmergencyContactList
+ * OccupantList
  * Props:
  *   - tenantId: string (required)
  *   - includeArchived?: boolean (default false)
  *   - showAddForm?: boolean (default true)
  */
-export default function EmergencyContactList({
+export default function OccupantList({
   tenantId,
   includeArchived = false,
   showAddForm = true,
@@ -129,9 +99,7 @@ export default function EmergencyContactList({
 
   const [editingId, setEditingId] = useState(null);
   const [draftName, setDraftName] = useState("");
-  const [draftPhone, setDraftPhone] = useState("");
   const [draftRelation, setDraftRelation] = useState("");
-  const [draftEmail, setDraftEmail] = useState("");
   const [savingId, setSavingId] = useState(null);
   const [inlineError, setInlineError] = useState(null);
 
@@ -146,12 +114,10 @@ export default function EmergencyContactList({
     setError(null);
 
     try {
-      const rows = await emergencyContactsApi.list(tenantId, {
-        includeArchived,
-      });
+      const rows = await occupantsApi.list(tenantId, { includeArchived });
       setData(rows);
     } catch (e) {
-      console.error("Failed to load emergency contacts", e);
+      console.error("Failed to load occupants", e);
       setError(e);
     } finally {
       setLoading(false);
@@ -164,25 +130,21 @@ export default function EmergencyContactList({
   }, [tenantId, includeArchived]);
 
   const handleCreate = async (payload) => {
-    await emergencyContactsApi.create(tenantId, payload);
+    await occupantsApi.create(tenantId, payload);
     await load();
   };
 
-  const startEdit = (c) => {
-    setEditingId(c.id);
-    setDraftName(c.name || "");
-    setDraftPhone(c.phone || "");
-    setDraftRelation(c.relation || "");
-    setDraftEmail(c.email || "");
+  const startEdit = (o) => {
+    setEditingId(o.id);
+    setDraftName(o.name || "");
+    setDraftRelation(o.relation || "");
     setInlineError(null);
   };
 
   const cancelEdit = () => {
     setEditingId(null);
     setDraftName("");
-    setDraftPhone("");
     setDraftRelation("");
-    setDraftEmail("");
     setInlineError(null);
   };
 
@@ -195,16 +157,14 @@ export default function EmergencyContactList({
     try {
       setSavingId(id);
       setInlineError(null);
-      await emergencyContactsApi.update(tenantId, id, {
+      await occupantsApi.update(tenantId, id, {
         name: draftName.trim(),
-        phone: draftPhone.trim(),
         relation: draftRelation.trim(),
-        email: draftEmail.trim(),
       });
       await load();
       cancelEdit();
     } catch (err) {
-      console.error("Failed to save emergency contact", err);
+      console.error("Failed to save occupant", err);
       setInlineError(err);
     } finally {
       setSavingId(null);
@@ -213,10 +173,10 @@ export default function EmergencyContactList({
 
   const handleToggleArchive = async (id) => {
     try {
-      await emergencyContactsApi.toggleArchive(tenantId, id);
+      await occupantsApi.toggleArchive(tenantId, id);
       await load();
     } catch (err) {
-      console.error("Failed to toggle emergency contact archive", err);
+      console.error("Failed to toggle occupant archive", err);
       setInlineError(err);
     }
   };
@@ -224,17 +184,17 @@ export default function EmergencyContactList({
   if (!tenantId) {
     return (
       <div style={{ color: "#888" }}>
-        Create a tenant first to attach emergency contacts.
+        Create a tenant first to attach occupants.
       </div>
     );
   }
 
-  if (isLoading) return <div>Loading emergency contacts…</div>;
+  if (isLoading) return <div>Loading occupants…</div>;
 
   if (error) {
     return (
       <div style={{ color: "crimson" }}>
-        Error loading emergency contacts: {String(error.message || error)}
+        Error loading occupants: {String(error.message || error)}
       </div>
     );
   }
@@ -242,7 +202,7 @@ export default function EmergencyContactList({
   return (
     <div>
       {showAddForm && (
-        <AddEmergencyContactForm onCreate={handleCreate} disabled={!tenantId} />
+        <AddOccupantForm onCreate={handleCreate} disabled={!tenantId} />
       )}
 
       {inlineError && (
@@ -252,23 +212,23 @@ export default function EmergencyContactList({
       )}
 
       {data.length === 0 && (
-        <div style={{ color: "#666", marginTop: 4 }}>No emergency contacts.</div>
+        <div style={{ color: "#666", marginTop: 4 }}>No occupants.</div>
       )}
 
       <ul style={{ paddingLeft: 16, lineHeight: 1.7 }}>
-        {data.map((c) => {
-          const isEditing = editingId === c.id;
-          const isSaving = savingId === c.id;
+        {data.map((o) => {
+          const isEditing = editingId === o.id;
+          const isSaving = savingId === o.id;
 
           if (isEditing) {
             return (
-              <li key={c.id} style={{ opacity: c.archived ? 0.6 : 1 }}>
+              <li key={o.id} style={{ opacity: o.archived ? 0.6 : 1 }}>
                 <div
                   style={{
                     display: "flex",
                     flexDirection: "column",
                     gap: 4,
-                    maxWidth: 600,
+                    maxWidth: 420,
                   }}
                 >
                   <input
@@ -279,30 +239,16 @@ export default function EmergencyContactList({
                     style={{ padding: 4 }}
                   />
                   <input
-                    type="tel"
-                    value={draftPhone}
-                    onChange={(e) => setDraftPhone(e.target.value)}
-                    placeholder="Phone"
-                    style={{ padding: 4 }}
-                  />
-                  <input
                     type="text"
                     value={draftRelation}
                     onChange={(e) => setDraftRelation(e.target.value)}
                     placeholder="Relation"
                     style={{ padding: 4 }}
                   />
-                  <input
-                    type="email"
-                    value={draftEmail}
-                    onChange={(e) => setDraftEmail(e.target.value)}
-                    placeholder="Email"
-                    style={{ padding: 4 }}
-                  />
                   <div style={{ display: "flex", gap: 6, marginTop: 4 }}>
                     <button
                       type="button"
-                      onClick={() => saveEdit(c.id)}
+                      onClick={() => saveEdit(o.id)}
                       disabled={isSaving}
                     >
                       {isSaving ? "Saving…" : "Save"}
@@ -315,8 +261,8 @@ export default function EmergencyContactList({
                       Cancel
                     </button>
                     <ArchiveButton
-                      archived={c.archived}
-                      onToggle={() => handleToggleArchive(c.id)}
+                      archived={o.archived}
+                      onToggle={() => handleToggleArchive(o.id)}
                     />
                   </div>
                 </div>
@@ -325,13 +271,13 @@ export default function EmergencyContactList({
           }
 
           return (
-            <li key={c.id} style={{ opacity: c.archived ? 0.6 : 1 }}>
-              <strong>{c.name}</strong>
-              {c.relation && <> — {c.relation}</>}
-              {c.phone && <> — {c.phone}</>}
-              {c.email && <> — {c.email}</>}
-              {c.archived && (
-                <span style={{ marginLeft: 8, fontSize: 12, color: "#888" }}>
+            <li key={o.id} style={{ opacity: o.archived ? 0.6 : 1 }}>
+              <strong>{o.name}</strong>
+              {o.relation && <> — {o.relation}</>}
+              {o.archived && (
+                <span
+                  style={{ marginLeft: 8, fontSize: 12, color: "#888" }}
+                >
                   (Archived)
                 </span>
               )}
@@ -339,14 +285,14 @@ export default function EmergencyContactList({
               <button
                 type="button"
                 style={{ marginLeft: 8 }}
-                onClick={() => startEdit(c)}
+                onClick={() => startEdit(o)}
               >
                 Edit
               </button>
 
               <ArchiveButton
-                archived={c.archived}
-                onToggle={() => handleToggleArchive(c.id)}
+                archived={o.archived}
+                onToggle={() => handleToggleArchive(o.id)}
               />
             </li>
           );

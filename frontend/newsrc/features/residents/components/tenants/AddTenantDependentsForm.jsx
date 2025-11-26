@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import OccupantList from "./OccupantList.jsx";
-import PetsList from "./PetList.jsx";
-import EmergencyContactList from "./EmergencyContactList.jsx";
+import OccupantList from "../occupants/OccupantList.jsx";
+import PetsList from "../pets/PetList.jsx";
+import EmergencyContactList from "../emergencyContacts/EmergencyContactList.jsx";
 
 const BASE_URL = "http://localhost:4000";
 

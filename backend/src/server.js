@@ -11,9 +11,9 @@ const { attachUser, requireAuth } = require("./middleware/auth.middleware.js");
 
 // Route modules
 const { registerPropertyRoutes } = require("./routes/properties.routes.js");
-const { registerTenantRoutes } = require("./routes/tenants.routes.js");
-const { registerOccupantRoutes } = require("./routes/occupants.routes.js");
-const { registerTenantDependenciesRoutes } = require("./routes/tenantDependencies.routes.js");
+const { registerTenantRoutes } = require("./routes/residents/tenants.routes.js");
+const { registerOccupantRoutes } = require("./routes/residents/occupants.routes.js");
+const { registerTenantDependenciesRoutes } = require("./routes/residents/tenantDependencies.routes.js");
 const { registerLeaseRoutes } = require("./routes/leases.routes.js");
 const { registerAuthRoutes } = require("./routes/auth.routes.js");
 const { registerAdminRoutes } = require("./routes/admin.routes.js");

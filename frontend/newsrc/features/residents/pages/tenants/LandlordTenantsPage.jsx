@@ -2,8 +2,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
-import { tenantsApi } from "@features/tenants/api/tenants.api.js";
-import TenantCard from "@features/tenants/components/TenantCard.jsx";
+import { tenantsApi } from "@features/residents/api/tenants.api.js";
+import TenantCard from "@features/residents/components/tenants/TenantCard.jsx";
 import styles from "./LandlordTenantsPage.module.css";
 
 export default function LandlordTenantsPage() {

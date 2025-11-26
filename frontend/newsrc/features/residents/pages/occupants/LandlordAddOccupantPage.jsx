@@ -2,8 +2,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
-import styles from "./LandlordTenantsPage.module.css";
-import { occupantsApi } from "@features/tenants/api/occupants.api.js";
+import styles from "../tenants/LandlordTenantsPage.module.css";
+import { occupantsApi } from "@features/residents/api/occupants.api.js";
 
 export default function LandlordAddOccupantPage() {
   const navigate = useNavigate();

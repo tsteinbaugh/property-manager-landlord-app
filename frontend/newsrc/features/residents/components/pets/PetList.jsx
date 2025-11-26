@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import ArchiveButton from "@shared/ui/ArchiveButton.jsx";
-import { occupantsApi } from "../api/occupants.api.js";
+import { petsApi } from "../../api/pets.api.js";
 
-function AddOccupantForm({ onCreate, disabled }) {
+function AddPetForm({ onCreate, disabled }) {
   const [name, setName] = useState("");
-  const [relation, setRelation] = useState("");
+  const [type, setType] = useState("");
+  const [breed, setBreed] = useState("");
+  const [weightLb, setWeightLb] = useState("");
   const [isSubmitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
 
@@ -20,12 +22,16 @@ function AddOccupantForm({ onCreate, disabled }) {
       setError(null);
       await onCreate({
         name: name.trim(),
-        relation: relation.trim(),
+        type: type.trim() || null,
+        breed: breed.trim() || null,
+        weightLb: weightLb.trim() || null,
       });
       setName("");
-      setRelation("");
+      setType("");
+      setBreed("");
+      setWeightLb("");
     } catch (err) {
-      console.error("AddOccupantForm submit error", err);
+      console.error("AddPetForm submit error", err);
       setError(err);
     } finally {
       setSubmitting(false);
@@ -40,26 +46,48 @@ function AddOccupantForm({ onCreate, disabled }) {
         padding: 8,
         borderRadius: 6,
         border: "1px solid #e5e7eb",
-        maxWidth: 420,
+        maxWidth: 600,
       }}
     >
-      <div style={{ fontWeight: 600, marginBottom: 6 }}>Add Occupant</div>
+      <div style={{ fontWeight: 600, marginBottom: 6 }}>Add pet</div>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: 6,
+        }}
+      >
         <input
           type="text"
-          placeholder="Name (required)"
+          placeholder="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          style={{ padding: 6 }}
+          style={{ padding: 6, minWidth: 140 }}
           disabled={disabled || isSubmitting}
         />
         <input
           type="text"
-          placeholder="Relation (roommate, child, etc.)"
-          value={relation}
-          onChange={(e) => setRelation(e.target.value)}
-          style={{ padding: 6 }}
+          placeholder="type"
+          value={type}
+          onChange={(e) => setType(e.target.value)}
+          style={{ padding: 6, minWidth: 120 }}
+          disabled={disabled || isSubmitting}
+        />
+        <input
+          type="text"
+          placeholder="breed"
+          value={breed}
+          onChange={(e) => setBreed(e.target.value)}
+          style={{ padding: 6, minWidth: 140 }}
+          disabled={disabled || isSubmitting}
+        />
+        <input
+          type="number"
+          placeholder="weight (lbs)"
+          value={weightLb}
+          onChange={(e) => setWeightLb(e.target.value)}
+          style={{ padding: 6, width: 120 }}
           disabled={disabled || isSubmitting}
         />
       </div>
@@ -75,20 +103,20 @@ function AddOccupantForm({ onCreate, disabled }) {
         disabled={disabled || isSubmitting}
         style={{ marginTop: 8, padding: "4px 10px" }}
       >
-        {isSubmitting ? "Saving…" : "Save occupant"}
+        {isSubmitting ? "Saving…" : "Add"}
       </button>
     </form>
   );
 }
 
 /**
- * OccupantList
+ * PetsList
  * Props:
  *   - tenantId: string (required)
  *   - includeArchived?: boolean (default false)
  *   - showAddForm?: boolean (default true)
  */
-export default function OccupantList({
+export default function PetsList({
   tenantId,
   includeArchived = false,
   showAddForm = true,
@@ -99,7 +127,9 @@ export default function OccupantList({
 
   const [editingId, setEditingId] = useState(null);
   const [draftName, setDraftName] = useState("");
-  const [draftRelation, setDraftRelation] = useState("");
+  const [draftType, setDraftType] = useState("");
+  const [draftBreed, setDraftBreed] = useState("");
+  const [draftWeight, setDraftWeight] = useState("");
   const [savingId, setSavingId] = useState(null);
   const [inlineError, setInlineError] = useState(null);
 
@@ -114,10 +144,10 @@ export default function OccupantList({
     setError(null);
 
     try {
-      const rows = await occupantsApi.list(tenantId, { includeArchived });
+      const rows = await petsApi.list(tenantId, { includeArchived });
       setData(rows);
     } catch (e) {
-      console.error("Failed to load occupants", e);
+      console.error("Failed to load pets", e);
       setError(e);
     } finally {
       setLoading(false);
@@ -130,21 +160,27 @@ export default function OccupantList({
   }, [tenantId, includeArchived]);
 
   const handleCreate = async (payload) => {
-    await occupantsApi.create(tenantId, payload);
+    await petsApi.create(tenantId, payload);
     await load();
   };
 
-  const startEdit = (o) => {
-    setEditingId(o.id);
-    setDraftName(o.name || "");
-    setDraftRelation(o.relation || "");
+  const startEdit = (p) => {
+    setEditingId(p.id);
+    setDraftName(p.name || "");
+    setDraftType(p.type || "");
+    setDraftBreed(p.breed || "");
+    setDraftWeight(
+      p.weightLb !== null && p.weightLb !== undefined ? String(p.weightLb) : ""
+    );
     setInlineError(null);
   };
 
   const cancelEdit = () => {
     setEditingId(null);
     setDraftName("");
-    setDraftRelation("");
+    setDraftType("");
+    setDraftBreed("");
+    setDraftWeight("");
     setInlineError(null);
   };
 
@@ -157,14 +193,16 @@ export default function OccupantList({
     try {
       setSavingId(id);
       setInlineError(null);
-      await occupantsApi.update(tenantId, id, {
+      await petsApi.update(tenantId, id, {
         name: draftName.trim(),
-        relation: draftRelation.trim(),
+        type: draftType.trim(),
+        breed: draftBreed.trim(),
+        weightLb: draftWeight.trim(),
       });
       await load();
       cancelEdit();
     } catch (err) {
-      console.error("Failed to save occupant", err);
+      console.error("Failed to save pet", err);
       setInlineError(err);
     } finally {
       setSavingId(null);
@@ -173,10 +211,10 @@ export default function OccupantList({
 
   const handleToggleArchive = async (id) => {
     try {
-      await occupantsApi.toggleArchive(tenantId, id);
+      await petsApi.toggleArchive(tenantId, id);
       await load();
     } catch (err) {
-      console.error("Failed to toggle occupant archive", err);
+      console.error("Failed to toggle pet archive", err);
       setInlineError(err);
     }
   };
@@ -184,17 +222,17 @@ export default function OccupantList({
   if (!tenantId) {
     return (
       <div style={{ color: "#888" }}>
-        Create a tenant first to attach occupants.
+        Create a tenant first to attach pets.
       </div>
     );
   }
 
-  if (isLoading) return <div>Loading occupants…</div>;
+  if (isLoading) return <div>Loading pets…</div>;
 
   if (error) {
     return (
       <div style={{ color: "crimson" }}>
-        Error loading occupants: {String(error.message || error)}
+        Error loading pets: {String(error.message || error)}
       </div>
     );
   }
@@ -202,7 +240,7 @@ export default function OccupantList({
   return (
     <div>
       {showAddForm && (
-        <AddOccupantForm onCreate={handleCreate} disabled={!tenantId} />
+        <AddPetForm onCreate={handleCreate} disabled={!tenantId} />
       )}
 
       {inlineError && (
@@ -212,23 +250,23 @@ export default function OccupantList({
       )}
 
       {data.length === 0 && (
-        <div style={{ color: "#666", marginTop: 4 }}>No occupants.</div>
+        <div style={{ color: "#666", marginTop: 4 }}>No pets.</div>
       )}
 
       <ul style={{ paddingLeft: 16, lineHeight: 1.7 }}>
-        {data.map((o) => {
-          const isEditing = editingId === o.id;
-          const isSaving = savingId === o.id;
+        {data.map((p) => {
+          const isEditing = editingId === p.id;
+          const isSaving = savingId === p.id;
 
           if (isEditing) {
             return (
-              <li key={o.id} style={{ opacity: o.archived ? 0.6 : 1 }}>
+              <li key={p.id} style={{ opacity: p.archived ? 0.6 : 1 }}>
                 <div
                   style={{
                     display: "flex",
                     flexDirection: "column",
                     gap: 4,
-                    maxWidth: 420,
+                    maxWidth: 600,
                   }}
                 >
                   <input
@@ -240,15 +278,29 @@ export default function OccupantList({
                   />
                   <input
                     type="text"
-                    value={draftRelation}
-                    onChange={(e) => setDraftRelation(e.target.value)}
-                    placeholder="Relation"
+                    value={draftType}
+                    onChange={(e) => setDraftType(e.target.value)}
+                    placeholder="Type"
+                    style={{ padding: 4 }}
+                  />
+                  <input
+                    type="text"
+                    value={draftBreed}
+                    onChange={(e) => setDraftBreed(e.target.value)}
+                    placeholder="Breed"
+                    style={{ padding: 4 }}
+                  />
+                  <input
+                    type="number"
+                    value={draftWeight}
+                    onChange={(e) => setDraftWeight(e.target.value)}
+                    placeholder="Weight (lbs)"
                     style={{ padding: 4 }}
                   />
                   <div style={{ display: "flex", gap: 6, marginTop: 4 }}>
                     <button
                       type="button"
-                      onClick={() => saveEdit(o.id)}
+                      onClick={() => saveEdit(p.id)}
                       disabled={isSaving}
                     >
                       {isSaving ? "Saving…" : "Save"}
@@ -261,8 +313,8 @@ export default function OccupantList({
                       Cancel
                     </button>
                     <ArchiveButton
-                      archived={o.archived}
-                      onToggle={() => handleToggleArchive(o.id)}
+                      archived={p.archived}
+                      onToggle={() => handleToggleArchive(p.id)}
                     />
                   </div>
                 </div>
@@ -271,13 +323,13 @@ export default function OccupantList({
           }
 
           return (
-            <li key={o.id} style={{ opacity: o.archived ? 0.6 : 1 }}>
-              <strong>{o.name}</strong>
-              {o.relation && <> — {o.relation}</>}
-              {o.archived && (
-                <span
-                  style={{ marginLeft: 8, fontSize: 12, color: "#888" }}
-                >
+            <li key={p.id} style={{ opacity: p.archived ? 0.6 : 1 }}>
+              <strong>{p.name}</strong>
+              {p.type && <> — {p.type}</>}
+              {p.breed && <> ({p.breed})</>}
+              {p.weightLb != null && <> — {p.weightLb} lbs</>}
+              {p.archived && (
+                <span style={{ marginLeft: 8, fontSize: 12, color: "#888" }}>
                   (Archived)
                 </span>
               )}
@@ -285,14 +337,14 @@ export default function OccupantList({
               <button
                 type="button"
                 style={{ marginLeft: 8 }}
-                onClick={() => startEdit(o)}
+                onClick={() => startEdit(p)}
               >
                 Edit
               </button>
 
               <ArchiveButton
-                archived={o.archived}
-                onToggle={() => handleToggleArchive(o.id)}
+                archived={p.archived}
+                onToggle={() => handleToggleArchive(p.id)}
               />
             </li>
           );

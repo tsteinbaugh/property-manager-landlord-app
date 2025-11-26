@@ -3,13 +3,13 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useUser } from "@app/providers.jsx";
-import { tenantsApi } from "@features/tenants/api/tenants.api.js";
-import { occupantsApi } from "@features/tenants/api/occupants.api.js";
+import { tenantsApi } from "@features/residents/api/tenants.api.js";
+import { occupantsApi } from "@features/residents/api/occupants.api.js";
 
-import TenantCard from "@features/tenants/components/TenantCard.jsx";
-import OccupantCard from "../components/OccupantCard";
+import TenantCard from "@features/residents/components/tenants/TenantCard.jsx";
+import OccupantCard from "../components/occupants/OccupantCard";
 
-import styles from "@features/tenants/pages/LandlordTenantsPage.module.css";
+import styles from "@features/residents/pages/tenants/LandlordTenantsPage.module.css";
 
 export default function LandlordResidentsPage() {
   const [activeTab, setActiveTab] = useState("tenants");

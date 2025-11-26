@@ -1,6 +1,6 @@
 // backend/src/routes/tenantDependencies.routes.test.js
 const request = require("supertest");
-const { app, prisma } = require("../server.js");
+const { app, prisma } = require("../../server.js");
 
 // Helper: create a tenant via the real API so foreign keys are valid
 async function createTenant(overrides = {}) {

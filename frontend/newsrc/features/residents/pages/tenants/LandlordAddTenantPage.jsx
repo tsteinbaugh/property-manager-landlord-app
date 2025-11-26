@@ -1,8 +1,8 @@
 // newsrc/features/tenants/pages/LandlordAddTenantPage.jsx
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
-import AddTenantForm from "@features/tenants/components/AddTenantForm.jsx";
-import { tenantsApi } from "@features/tenants/api/tenants.api.js";
+import AddTenantForm from "@features/residents/components/tenants/AddTenantForm.jsx";
+import { tenantsApi } from "@features/residents/api/tenants.api.js";
 import styles from "./LandlordTenantsPage.module.css";
 
 export default function LandlordAddTenantPage() {

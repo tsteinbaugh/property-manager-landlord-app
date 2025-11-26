@@ -2,11 +2,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
-import { occupantsApi } from "@features/tenants/api/occupants.api.js";
+import { occupantsApi } from "@features/residents/api/occupants.api.js";
 
 // reuse tenant card styling so it visually matches tenants/properties
-import TenantCardStyles from "@features/tenants/components/TenantCard.module.css";
-import styles from "./LandlordTenantsPage.module.css";
+import TenantCardStyles from "@features/residents/components/tenants/TenantCard.module.css";
+import styles from "../tenants/LandlordTenantsPage.module.css";
 
 function OccupantCard({ occupant, onClick }) {
   const { name, relation, archived } = occupant;

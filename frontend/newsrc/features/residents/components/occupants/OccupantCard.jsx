@@ -1,6 +1,6 @@
 // newsrc/features/residents/components/OccupantCard.jsx
 import React from "react";
-import styles from "@features/tenants/components/TenantCard.module.css";
+import styles from "@features/residents/components/tenants/TenantCard.module.css";
 
 /**
  * OccupantCard

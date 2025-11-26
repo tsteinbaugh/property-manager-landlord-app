@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import ArchiveButton from "@shared/ui/ArchiveButton.jsx";
-import { petsApi } from "../api/pets.api.js";
+import { emergencyContactsApi } from "../../api/emergencyContacts.api.js";
 
-function AddPetForm({ onCreate, disabled }) {
+function AddEmergencyContactForm({ onCreate, disabled }) {
   const [name, setName] = useState("");
-  const [type, setType] = useState("");
-  const [breed, setBreed] = useState("");
-  const [weightLb, setWeightLb] = useState("");
+  const [phone, setPhone] = useState("");
+  const [relation, setRelation] = useState("");
+  const [email, setEmail] = useState("");
   const [isSubmitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
 
@@ -22,16 +22,16 @@ function AddPetForm({ onCreate, disabled }) {
       setError(null);
       await onCreate({
         name: name.trim(),
-        type: type.trim() || null,
-        breed: breed.trim() || null,
-        weightLb: weightLb.trim() || null,
+        phone: phone.trim() || null,
+        relation: relation.trim() || null,
+        email: email.trim() || null,
       });
       setName("");
-      setType("");
-      setBreed("");
-      setWeightLb("");
+      setPhone("");
+      setRelation("");
+      setEmail("");
     } catch (err) {
-      console.error("AddPetForm submit error", err);
+      console.error("AddEmergencyContactForm submit error", err);
       setError(err);
     } finally {
       setSubmitting(false);
@@ -49,7 +49,9 @@ function AddPetForm({ onCreate, disabled }) {
         maxWidth: 600,
       }}
     >
-      <div style={{ fontWeight: 600, marginBottom: 6 }}>Add pet</div>
+      <div style={{ fontWeight: 600, marginBottom: 6 }}>
+        Add emergency contact
+      </div>
 
       <div
         style={{
@@ -67,27 +69,27 @@ function AddPetForm({ onCreate, disabled }) {
           disabled={disabled || isSubmitting}
         />
         <input
-          type="text"
-          placeholder="type"
-          value={type}
-          onChange={(e) => setType(e.target.value)}
-          style={{ padding: 6, minWidth: 120 }}
-          disabled={disabled || isSubmitting}
-        />
-        <input
-          type="text"
-          placeholder="breed"
-          value={breed}
-          onChange={(e) => setBreed(e.target.value)}
+          type="tel"
+          placeholder="phone"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
           style={{ padding: 6, minWidth: 140 }}
           disabled={disabled || isSubmitting}
         />
         <input
-          type="number"
-          placeholder="weight (lbs)"
-          value={weightLb}
-          onChange={(e) => setWeightLb(e.target.value)}
-          style={{ padding: 6, width: 120 }}
+          type="text"
+          placeholder="relation"
+          value={relation}
+          onChange={(e) => setRelation(e.target.value)}
+          style={{ padding: 6, minWidth: 140 }}
+          disabled={disabled || isSubmitting}
+        />
+        <input
+          type="email"
+          placeholder="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          style={{ padding: 6, minWidth: 180 }}
           disabled={disabled || isSubmitting}
         />
       </div>
@@ -110,13 +112,13 @@ function AddPetForm({ onCreate, disabled }) {
 }
 
 /**
- * PetsList
+ * EmergencyContactList
  * Props:
  *   - tenantId: string (required)
  *   - includeArchived?: boolean (default false)
  *   - showAddForm?: boolean (default true)
  */
-export default function PetsList({
+export default function EmergencyContactList({
   tenantId,
   includeArchived = false,
   showAddForm = true,
@@ -127,9 +129,9 @@ export default function PetsList({
 
   const [editingId, setEditingId] = useState(null);
   const [draftName, setDraftName] = useState("");
-  const [draftType, setDraftType] = useState("");
-  const [draftBreed, setDraftBreed] = useState("");
-  const [draftWeight, setDraftWeight] = useState("");
+  const [draftPhone, setDraftPhone] = useState("");
+  const [draftRelation, setDraftRelation] = useState("");
+  const [draftEmail, setDraftEmail] = useState("");
   const [savingId, setSavingId] = useState(null);
   const [inlineError, setInlineError] = useState(null);
 
@@ -144,10 +146,12 @@ export default function PetsList({
     setError(null);
 
     try {
-      const rows = await petsApi.list(tenantId, { includeArchived });
+      const rows = await emergencyContactsApi.list(tenantId, {
+        includeArchived,
+      });
       setData(rows);
     } catch (e) {
-      console.error("Failed to load pets", e);
+      console.error("Failed to load emergency contacts", e);
       setError(e);
     } finally {
       setLoading(false);
@@ -160,27 +164,25 @@ export default function PetsList({
   }, [tenantId, includeArchived]);
 
   const handleCreate = async (payload) => {
-    await petsApi.create(tenantId, payload);
+    await emergencyContactsApi.create(tenantId, payload);
     await load();
   };
 
-  const startEdit = (p) => {
-    setEditingId(p.id);
-    setDraftName(p.name || "");
-    setDraftType(p.type || "");
-    setDraftBreed(p.breed || "");
-    setDraftWeight(
-      p.weightLb !== null && p.weightLb !== undefined ? String(p.weightLb) : ""
-    );
+  const startEdit = (c) => {
+    setEditingId(c.id);
+    setDraftName(c.name || "");
+    setDraftPhone(c.phone || "");
+    setDraftRelation(c.relation || "");
+    setDraftEmail(c.email || "");
     setInlineError(null);
   };
 
   const cancelEdit = () => {
     setEditingId(null);
     setDraftName("");
-    setDraftType("");
-    setDraftBreed("");
-    setDraftWeight("");
+    setDraftPhone("");
+    setDraftRelation("");
+    setDraftEmail("");
     setInlineError(null);
   };
 
@@ -193,16 +195,16 @@ export default function PetsList({
     try {
       setSavingId(id);
       setInlineError(null);
-      await petsApi.update(tenantId, id, {
+      await emergencyContactsApi.update(tenantId, id, {
         name: draftName.trim(),
-        type: draftType.trim(),
-        breed: draftBreed.trim(),
-        weightLb: draftWeight.trim(),
+        phone: draftPhone.trim(),
+        relation: draftRelation.trim(),
+        email: draftEmail.trim(),
       });
       await load();
       cancelEdit();
     } catch (err) {
-      console.error("Failed to save pet", err);
+      console.error("Failed to save emergency contact", err);
       setInlineError(err);
     } finally {
       setSavingId(null);
@@ -211,10 +213,10 @@ export default function PetsList({
 
   const handleToggleArchive = async (id) => {
     try {
-      await petsApi.toggleArchive(tenantId, id);
+      await emergencyContactsApi.toggleArchive(tenantId, id);
       await load();
     } catch (err) {
-      console.error("Failed to toggle pet archive", err);
+      console.error("Failed to toggle emergency contact archive", err);
       setInlineError(err);
     }
   };
@@ -222,17 +224,17 @@ export default function PetsList({
   if (!tenantId) {
     return (
       <div style={{ color: "#888" }}>
-        Create a tenant first to attach pets.
+        Create a tenant first to attach emergency contacts.
       </div>
     );
   }
 
-  if (isLoading) return <div>Loading pets…</div>;
+  if (isLoading) return <div>Loading emergency contacts…</div>;
 
   if (error) {
     return (
       <div style={{ color: "crimson" }}>
-        Error loading pets: {String(error.message || error)}
+        Error loading emergency contacts: {String(error.message || error)}
       </div>
     );
   }
@@ -240,7 +242,7 @@ export default function PetsList({
   return (
     <div>
       {showAddForm && (
-        <AddPetForm onCreate={handleCreate} disabled={!tenantId} />
+        <AddEmergencyContactForm onCreate={handleCreate} disabled={!tenantId} />
       )}
 
       {inlineError && (
@@ -250,17 +252,17 @@ export default function PetsList({
       )}
 
       {data.length === 0 && (
-        <div style={{ color: "#666", marginTop: 4 }}>No pets.</div>
+        <div style={{ color: "#666", marginTop: 4 }}>No emergency contacts.</div>
       )}
 
       <ul style={{ paddingLeft: 16, lineHeight: 1.7 }}>
-        {data.map((p) => {
-          const isEditing = editingId === p.id;
-          const isSaving = savingId === p.id;
+        {data.map((c) => {
+          const isEditing = editingId === c.id;
+          const isSaving = savingId === c.id;
 
           if (isEditing) {
             return (
-              <li key={p.id} style={{ opacity: p.archived ? 0.6 : 1 }}>
+              <li key={c.id} style={{ opacity: c.archived ? 0.6 : 1 }}>
                 <div
                   style={{
                     display: "flex",
@@ -277,30 +279,30 @@ export default function PetsList({
                     style={{ padding: 4 }}
                   />
                   <input
-                    type="text"
-                    value={draftType}
-                    onChange={(e) => setDraftType(e.target.value)}
-                    placeholder="Type"
+                    type="tel"
+                    value={draftPhone}
+                    onChange={(e) => setDraftPhone(e.target.value)}
+                    placeholder="Phone"
                     style={{ padding: 4 }}
                   />
                   <input
                     type="text"
-                    value={draftBreed}
-                    onChange={(e) => setDraftBreed(e.target.value)}
-                    placeholder="Breed"
+                    value={draftRelation}
+                    onChange={(e) => setDraftRelation(e.target.value)}
+                    placeholder="Relation"
                     style={{ padding: 4 }}
                   />
                   <input
-                    type="number"
-                    value={draftWeight}
-                    onChange={(e) => setDraftWeight(e.target.value)}
-                    placeholder="Weight (lbs)"
+                    type="email"
+                    value={draftEmail}
+                    onChange={(e) => setDraftEmail(e.target.value)}
+                    placeholder="Email"
                     style={{ padding: 4 }}
                   />
                   <div style={{ display: "flex", gap: 6, marginTop: 4 }}>
                     <button
                       type="button"
-                      onClick={() => saveEdit(p.id)}
+                      onClick={() => saveEdit(c.id)}
                       disabled={isSaving}
                     >
                       {isSaving ? "Saving…" : "Save"}
@@ -313,8 +315,8 @@ export default function PetsList({
                       Cancel
                     </button>
                     <ArchiveButton
-                      archived={p.archived}
-                      onToggle={() => handleToggleArchive(p.id)}
+                      archived={c.archived}
+                      onToggle={() => handleToggleArchive(c.id)}
                     />
                   </div>
                 </div>
@@ -323,12 +325,12 @@ export default function PetsList({
           }
 
           return (
-            <li key={p.id} style={{ opacity: p.archived ? 0.6 : 1 }}>
-              <strong>{p.name}</strong>
-              {p.type && <> — {p.type}</>}
-              {p.breed && <> ({p.breed})</>}
-              {p.weightLb != null && <> — {p.weightLb} lbs</>}
-              {p.archived && (
+            <li key={c.id} style={{ opacity: c.archived ? 0.6 : 1 }}>
+              <strong>{c.name}</strong>
+              {c.relation && <> — {c.relation}</>}
+              {c.phone && <> — {c.phone}</>}
+              {c.email && <> — {c.email}</>}
+              {c.archived && (
                 <span style={{ marginLeft: 8, fontSize: 12, color: "#888" }}>
                   (Archived)
                 </span>
@@ -337,14 +339,14 @@ export default function PetsList({
               <button
                 type="button"
                 style={{ marginLeft: 8 }}
-                onClick={() => startEdit(p)}
+                onClick={() => startEdit(c)}
               >
                 Edit
               </button>
 
               <ArchiveButton
-                archived={p.archived}
-                onToggle={() => handleToggleArchive(p.id)}
+                archived={c.archived}
+                onToggle={() => handleToggleArchive(c.id)}
               />
             </li>
           );

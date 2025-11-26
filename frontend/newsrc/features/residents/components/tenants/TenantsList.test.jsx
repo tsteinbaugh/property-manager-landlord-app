@@ -74,8 +74,8 @@ vi.mock("./AddTenantForm.jsx", () => ({
 }));
 
 // Import after mocks
-import { useTenants } from "@features/tenants/hooks/useTenants.js";
-import { tenantsApi } from "../api/tenants.api.js";
+import { useTenants } from "@features/residents/hooks/useTenants.js";
+import { tenantsApi } from "../../api/tenants.api.js";
 import { can } from "@lib/rbac/index.js";
 import TenantsList from "./TenantsList.jsx";
 

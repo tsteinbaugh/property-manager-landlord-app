@@ -30,7 +30,7 @@ vi.mock("@shared/ui/ArchiveButton.jsx", () => ({
   },
 }));
 
-import { emergencyContactsApi } from "../api/emergencyContacts.api.js";
+import { emergencyContactsApi } from "../../api/emergencyContacts.api.js";
 import EmergencyContactList from "./EmergencyContactList.jsx";
 
 describe("EmergencyContactList", () => {

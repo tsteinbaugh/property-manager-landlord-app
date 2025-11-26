@@ -1,7 +1,7 @@
 import React from "react";
-import OccupantList from "./OccupantList.jsx";
-import PetsList from "./PetList.jsx";
-import EmergencyContactList from "./EmergencyContactList.jsx";
+import OccupantList from "../occupants/OccupantList.jsx";
+import PetsList from "../pets/PetList.jsx";
+import EmergencyContactList from "../emergencyContacts/EmergencyContactList.jsx";
 
 export default function TenantDependentsSection({ tenantId, showAddForm = true }) {
   if (!tenantId) return null;

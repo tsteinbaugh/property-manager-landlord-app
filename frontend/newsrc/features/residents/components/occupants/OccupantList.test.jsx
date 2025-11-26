@@ -29,7 +29,7 @@ vi.mock("@shared/ui/ArchiveButton.jsx", () => ({
   },
 }));
 
-import { occupantsApi } from "../api/occupants.api.js";
+import { occupantsApi } from "../../api/occupants.api.js";
 import OccupantList from "./OccupantList.jsx";
 
 describe("OccupantList", () => {

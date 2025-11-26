@@ -29,7 +29,7 @@ vi.mock("@shared/ui/ArchiveButton.jsx", () => ({
   },
 }));
 
-import { petsApi } from "../api/pets.api.js";
+import { petsApi } from "../../api/pets.api.js";
 // NOTE: file is PetList.jsx, component is PetsList
 import PetsList from "./PetList.jsx";
 

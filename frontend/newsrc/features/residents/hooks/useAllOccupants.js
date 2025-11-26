@@ -1,7 +1,7 @@
 // newsrc/features/residents/hooks/useAllOccupants.js
 import { useCallback, useEffect, useState } from "react";
-import { tenantsApi } from "@features/tenants/api/tenants.api.js";
-import { occupantsApi } from "@features/tenants/api/occupants.api.js";
+import { tenantsApi } from "@features/residents/api/tenants.api.js";
+import { occupantsApi } from "@features/residents/api/occupants.api.js";
 
 /**
  * useAllOccupants({ includeArchived })

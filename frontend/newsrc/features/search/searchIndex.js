@@ -1,9 +1,9 @@
 // newsrc/features/search/searchIndex.js
 import { propertiesApi } from "@features/properties/api/properties.api.js";
-import { tenantsApi } from "@features/tenants/api/tenants.api.js";
-import { occupantsApi } from "@features/tenants/api/occupants.api.js";
-import { petsApi } from "@features/tenants/api/pets.api.js";
-import { emergencyContactsApi } from "@features/tenants/api/emergencyContacts.api.js";
+import { tenantsApi } from "@features/residents/api/tenants.api.js";
+import { occupantsApi } from "@features/residents/api/occupants.api.js";
+import { petsApi } from "@features/residents/api/pets.api.js";
+import { emergencyContactsApi } from "@features/residents/api/emergencyContacts.api.js";
 
 import { leasesApi } from "@features/leases/api/leases.api.js";
 import { financialsApi } from "@features/financials/api/financials.api.js";

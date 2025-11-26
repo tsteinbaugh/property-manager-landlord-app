@@ -21,7 +21,7 @@ import AcceptInvite from "@features/auth/pages/AcceptInvite.jsx";
 
 // Feature panels/lists (used on the sysadmin FeaturesPage)
 import PropertiesList from "@features/properties/components/PropertiesList.jsx";
-import TenantsList from "@features/tenants/components/TenantsList.jsx";
+import TenantsList from "@features/residents/components/tenants/TenantsList.jsx";
 import MaintenanceTicketList from "@features/maintenance/components/MaintenanceTicketList.jsx";
 import RoutineList from "@features/maintenance/components/RoutineList.jsx";
 import ExpenseList from "@features/expenses/components/ExpenseList.jsx";
@@ -34,7 +34,7 @@ import NoticeList from "@features/notices/components/NoticeList.jsx";
 import LegalCaseList from "@features/legal/components/LegalCaseList.jsx";
 import LegalCasePanel from "@features/legal/components/LegalCasePanel.jsx";
 import CleaningTicketList from "@features/cleaning/components/CleaningTicketList.jsx";
-import AddTenantDependentsForm from "@features/tenants/components/AddTenantDependentsForm.jsx";
+import AddTenantDependentsForm from "@features/residents/components/tenants/AddTenantDependentsForm.jsx";
 
 // Landlord flows
 ////Properties
@@ -45,16 +45,16 @@ import LandlordPropertyDetailPage from "@features/properties/pages/LandlordPrope
 ////Residents
 //////Tenants
 import LandlordResidentsPage from "@features/residents/pages/LandlordResidentsPage.jsx";
-import LandlordTenantsPage from "@features/tenants/pages/LandlordTenantsPage.jsx";
-import LandlordAddTenantPage from "@features/tenants/pages/LandlordAddTenantPage.jsx";
-import LandlordTenantDetailPage from "@features/tenants/pages/LandlordTenantDetailPage.jsx";
+import LandlordTenantsPage from "@features/residents/pages/tenants/LandlordTenantsPage.jsx";
+import LandlordAddTenantPage from "@features/residents/pages/tenants/LandlordAddTenantPage.jsx";
+import LandlordTenantDetailPage from "@features/residents/pages/tenants/LandlordTenantDetailPage.jsx";
 //////Occupants
-import LandlordOccupantsPage from "@features/tenants/pages/LandlordOccupantsPage.jsx";
-import LandlordAddOccupantPage from "@features/tenants/pages/LandlordAddOccupantPage.jsx";
-import LandlordOccupantDetailPage from "@features/tenants/pages/LandlordOccupantDetailPage.jsx";
+import LandlordOccupantsPage from "@features/residents/pages/occupants/LandlordOccupantsPage.jsx";
+import LandlordAddOccupantPage from "@features/residents/pages/occupants/LandlordAddOccupantPage.jsx";
+import LandlordOccupantDetailPage from "@features/residents/pages/occupants/LandlordOccupantDetailPage.jsx";
 
 // Tenant flows
-import TenantHomePage from "@features/tenants/pages/TenantHomePage.jsx";
+import TenantHomePage from "@features/residents/pages/tenants/TenantHomePage.jsx";
 
 // Admin pages
 import AdminLayout from "@features/admin/pages/AdminLayout.jsx";

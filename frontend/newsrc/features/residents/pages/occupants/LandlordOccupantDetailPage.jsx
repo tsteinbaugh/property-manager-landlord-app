@@ -1,41 +1,30 @@
-// newsrc/features/tenants/pages/LandlordTenantDetailPage.jsx
+// newsrc/features/tenants/pages/LandlordOccupantDetailsPage.jsx
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
 import ArchiveButton from "@shared/ui/ArchiveButton.jsx";
-import { can } from "@lib/rbac/index.js";
-import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
+import { occupantsApi } from "@features/residents/api/occupants.api.js";
 import { ROLES } from "@lib/rbac/roles.js";
-import { tenantsApi } from "@features/tenants/api/tenants.api.js";
-import TenantDependentsSection from "@features/tenants/components/TenantDependentsSection.jsx";
 
-export default function LandlordTenantDetailPage() {
-  const { tenantId } = useParams();
-  const { token, effectiveRole, isSysAdmin } = useUser() || {};
+export default function LandlordOccupantDetailsPage() {
+  const { occupantId } = useParams();
+  const { effectiveRole, isSysAdmin, token } = useUser() || {};
 
-  // Normalize role similar to PropertyDetails.jsx
-  const role = isSysAdmin
-    ? ROLES.SYSADMIN
-    : typeof effectiveRole === "string"
-      ? effectiveRole.toLowerCase()
-      : ROLES.LANDLORD;
+  const role =
+    isSysAdmin && effectiveRole !== ROLES.SYSADMIN
+      ? ROLES.SYSADMIN
+      : effectiveRole || ROLES.LANDLORD;
 
-  const canUpdate = can(role, R.TENANTS, A.UPDATE);
-  const canArchiveGrant = can(role, R.TENANTS, A.ARCHIVE);
-
-  const [tenant, setTenant] = useState(null);
+  const [occupant, setOccupant] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // edit state
   const [isEditing, setEditing] = useState(false);
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [relation, setRelation] = useState("");
   const [isSaving, setSaving] = useState(false);
   const [isArchiving, setArchiving] = useState(false);
 
-  // Load tenant
   useEffect(() => {
     let cancelled = false;
 
@@ -44,17 +33,17 @@ export default function LandlordTenantDetailPage() {
         setLoading(true);
         setError(null);
 
-        const t = await tenantsApi.get(tenantId, { token });
+        const o = await occupantsApi.get(occupantId, { token });
 
         if (!cancelled) {
-          if (!t) {
-            setError(new Error("Tenant not found"));
+          if (!o) {
+            setError(new Error("Occupant not found"));
           } else {
-            setTenant(t);
+            setOccupant(o);
           }
         }
       } catch (err) {
-        console.error("Failed to load tenant", err);
+        console.error("Failed to load occupant", err);
         if (!cancelled) {
           setError(err);
         }
@@ -63,23 +52,26 @@ export default function LandlordTenantDetailPage() {
       }
     }
 
-    if (tenantId && token) {
+    if (occupantId && token) {
       load();
+    } else if (!occupantId) {
+      setLoading(false);
+      setError(new Error("Missing occupant id"));
     }
 
     return () => {
       cancelled = true;
     };
-  }, [tenantId, token]);
+  }, [occupantId, token]);
 
-  // When tenant loads, initialize edit fields
   useEffect(() => {
-    if (tenant) {
-      setName(tenant.name || "");
-      setEmail(tenant.email || "");
-      setPhone(tenant.phone || "");
+    if (occupant) {
+      setName(occupant.name || "");
+      setRelation(occupant.relation || "");
     }
-  }, [tenant]);
+  }, [occupant]);
+
+  const isArchived = !!occupant?.archived;
 
   const handleSave = async () => {
     if (!name.trim()) {
@@ -89,51 +81,46 @@ export default function LandlordTenantDetailPage() {
 
     try {
       setSaving(true);
-      const updated = await tenantsApi.update(
-        tenant.id,
+      const updated = await occupantsApi.update(
+        occupant.id,
         {
           name: name.trim(),
-          email: email.trim(),
-          phone: phone.trim(),
+          relation: relation.trim(),
         },
         { token }
       );
-
-      setTenant(updated);
+      setOccupant(updated);
       setEditing(false);
     } catch (err) {
-      console.error("Failed to update tenant", err);
-      alert("Failed to update tenant. Check console for details.");
+      console.error("Failed to update occupant", err);
+      alert("Failed to update occupant. Check console for details.");
     } finally {
       setSaving(false);
     }
   };
 
   const handleCancelEdit = () => {
-    if (tenant) {
-      setName(tenant.name || "");
-      setEmail(tenant.email || "");
-      setPhone(tenant.phone || "");
+    if (occupant) {
+      setName(occupant.name || "");
+      setRelation(occupant.relation || "");
     }
     setEditing(false);
   };
 
   const handleToggleArchive = async () => {
-    if (!tenant) return;
+    if (!occupant) return;
 
-    const currentlyArchived = !!(tenant.isArchived ?? tenant.archived);
-
-    if (!currentlyArchived) {
+    if (!isArchived) {
       const ok = window.confirm(
-        "Are you sure you want to archive this tenant?\n\n" +
-          "They will be hidden from active tenant lists. Only a system administrator can unarchive them."
+        "Are you sure you want to archive this occupant?\n\n" +
+          "They will be hidden from active occupant lists. Only a system administrator can unarchive them."
       );
       if (!ok) return;
     } else {
       if (!isSysAdmin) {
         alert(
-          "Only a system administrator can unarchive an archived tenant. " +
-            "Please contact your system admin if this needs to be reactivated."
+          "Only a system administrator can unarchive an archived occupant.\n\n" +
+            "Please contact your system administrator if this needs to be reactivated."
         );
         return;
       }
@@ -141,42 +128,47 @@ export default function LandlordTenantDetailPage() {
 
     try {
       setArchiving(true);
-      const updated = await tenantsApi.toggleArchive(tenant.id, { token });
-      setTenant(updated);
+      const updated = await occupantsApi.toggleArchive(occupant.id, { token });
+      setOccupant(updated);
     } catch (err) {
-      console.error("Failed to toggle tenant archived state", err);
+      console.error("Failed to toggle occupant archived state", err);
       alert("Failed to change archive status. Check console for details.");
     } finally {
       setArchiving(false);
     }
   };
 
-  if (loading) return <div>Loading tenant…</div>;
+  if (loading) return <div>Loading occupant…</div>;
+
   if (error) {
     return (
       <div style={{ color: "crimson", padding: 16 }}>
-        Error loading tenant: {String(error.message || error)}
+        Error loading occupant: {String(error.message || error)}
       </div>
     );
   }
-  if (!tenant) return <div style={{ padding: 16 }}>No data.</div>;
 
-  const isArchived = !!(tenant.isArchived ?? tenant.archived);
-  const title = tenant.name || tenant.email || "Unnamed tenant";
+  if (!occupant) {
+    return <div style={{ padding: 16 }}>No data.</div>;
+  }
 
-  const canEditNow = canUpdate && (!isArchived || isSysAdmin);
-  const canArchiveNow = !isArchived && canArchiveGrant;
+  const title = occupant.name || "Unnamed occupant";
+
+  const canEditNow = !isArchived || isSysAdmin;
+  const canArchiveNow = !isArchived; // any landlord can archive
   const canUnarchiveNow = isArchived && isSysAdmin;
   const showArchiveButton = canArchiveNow || canUnarchiveNow;
 
   return (
     <div style={{ padding: 16 }}>
       <div style={{ marginBottom: 8 }}>
-        {/* residents flow is the new primary list */}
-        <Link to="/landlord/residents">← Back to residents</Link>
+        {/* mirror tenant details back-link to residents */}
+        <Link to="/landlord/residents?tab=occupants">
+          ← Back to residents
+        </Link>
       </div>
 
-      {/* Header + actions */}
+      {/* header + actions */}
       <div
         style={{
           display: "flex",
@@ -191,8 +183,9 @@ export default function LandlordTenantDetailPage() {
             <>
               <h2 style={{ margin: "8px 0" }}>{title}</h2>
               <div style={{ color: "#555", marginBottom: 4 }}>
-                {tenant.email && <div>Email: {tenant.email}</div>}
-                {tenant.phone && <div>Phone: {tenant.phone}</div>}
+                {occupant.relation && (
+                  <div>Relation: {occupant.relation}</div>
+                )}
               </div>
               {isArchived && (
                 <div style={{ color: "#888", fontSize: 12 }}>
@@ -216,16 +209,10 @@ export default function LandlordTenantDetailPage() {
                 onChange={(e) => setName(e.target.value)}
               />
               <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <input
-                type="tel"
-                placeholder="Phone"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                type="text"
+                placeholder="Relation (roommate, child, partner, etc.)"
+                value={relation}
+                onChange={(e) => setRelation(e.target.value)}
               />
               <div style={{ display: "flex", gap: 8, marginTop: 4 }}>
                 <button
@@ -262,8 +249,8 @@ export default function LandlordTenantDetailPage() {
               disabled
               title={
                 isArchived
-                  ? "Only a system administrator can unarchive this tenant."
-                  : "Insufficient permissions to archive this tenant."
+                  ? "Only a system administrator can unarchive this occupant."
+                  : "Insufficient permissions to archive this occupant."
               }
               style={{ opacity: 0.5 }}
             >
@@ -275,8 +262,38 @@ export default function LandlordTenantDetailPage() {
 
       <hr style={{ margin: "16px 0" }} />
 
-      {/* Occupants / Pets / Emergency Contacts – read-only lists */}
-      <TenantDependentsSection tenantId={tenant.id} showAddForm={false} />
+      <section
+        style={{
+          padding: 16,
+          borderRadius: 12,
+          border: "1px solid #e5e7eb",
+          background: "#ffffff",
+          maxWidth: 640,
+        }}
+      >
+        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 12 }}>
+          Occupant info
+        </h3>
+
+        <dl
+          style={{
+            display: "grid",
+            gridTemplateColumns: "120px 1fr",
+            rowGap: 8,
+            columnGap: 12,
+            fontSize: 14,
+          }}
+        >
+          <dt style={{ fontWeight: 500, color: "#4b5563" }}>Name</dt>
+          <dd>{occupant.name || "—"}</dd>
+
+          <dt style={{ fontWeight: 500, color: "#4b5563" }}>Relation</dt>
+          <dd>{occupant.relation || "Not set"}</dd>
+
+          <dt style={{ fontWeight: 500, color: "#4b5563" }}>Status</dt>
+          <dd>{isArchived ? "Archived" : "Active"}</dd>
+        </dl>
+      </section>
     </div>
   );
 }

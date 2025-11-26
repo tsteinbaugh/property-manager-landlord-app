@@ -1,6 +1,6 @@
 // backend/src/routes/tenants.routes.test.js
 const request = require("supertest");
-const { app } = require("../server.js");
+const { app } = require("../../server.js");
 
 describe("Tenants routes", () => {
   const baseTenantPayload = {
