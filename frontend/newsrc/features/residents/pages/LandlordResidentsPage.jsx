@@ -1,6 +1,6 @@
 // newsrc/features/residents/pages/LandlordResidentsPage.jsx
 import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { useUser } from "@app/providers.jsx";
 import { tenantsApi } from "@features/residents/api/tenants.api.js";
@@ -12,9 +12,32 @@ import OccupantCard from "../components/occupants/OccupantCard";
 import styles from "@features/residents/pages/tenants/LandlordTenantsPage.module.css";
 
 export default function LandlordResidentsPage() {
-  const [activeTab, setActiveTab] = useState("tenants");
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { token } = useUser() || {};
+
+  const initialTab = (() => {
+    const tab = searchParams.get("tab");
+    if (tab === "occupants" || tab === "pets" || tab === "econtacts") {
+      return tab;
+    }
+    return "tenants";
+  })();
+
+  const [activeTab, setActiveTab] = useState(initialTab);
+
+    const handleTabChange = (nextTab) => {
+    setActiveTab(nextTab);
+
+    // keep URL in sync; omit ?tab when on tenants
+    if (nextTab === "tenants") {
+      setSearchParams({});
+    } else {
+      setSearchParams({ tab: nextTab });
+    }
+  };
+
+
 
   // ---------------- TENANTS STATE ----------------
 
@@ -345,7 +368,7 @@ export default function LandlordResidentsPage() {
             <button
               key={tab.key}
               type="button"
-              onClick={() => setActiveTab(tab.key)}
+              onClick={() => handleTabChange(tab.key)}
               style={{
                 border: "none",
                 background: "none",
