@@ -1,12 +1,18 @@
 // newsrc/features/tenants/api/occupants.api.js
 const BASE_URL = "http://localhost:4000";
 
-async function http(method, path, body) {
+async function http(method, path, body, token) {
+  const headers = {
+    "Content-Type": "application/json",
+  };
+
+  if (token) {
+headers["Authorization"] = `Bearer ${token}`;
+  }
+
   const res = await fetch(`${BASE_URL}${path}`, {
     method,
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers,
     body: body ? JSON.stringify(body) : undefined,
   });
 
@@ -46,9 +52,9 @@ function mapOccupantFromApi(o) {
 
 export const occupantsApi = {
   // primary way: list all occupants across the system
-  async listAll({ includeArchived = false } = {}) {
+  async listAll({ includeArchived = false, token } = {}) {
     const qs = includeArchived ? "?includeArchived=1" : "?includeArchived=0";
-    const rows = await http("GET", `/api/occupants${qs}`);
+    const rows = await http("GET", `/api/occupants${qs}`, null, token);
     if (!Array.isArray(rows)) return [];
     return rows.map(mapOccupantFromApi);
   },
@@ -58,26 +64,26 @@ export const occupantsApi = {
     return this.listAll(opts);
   },
 
-  async get(id) {
+  async get(id, { token } = {}) {
     if (!id) throw new Error("id is required");
-    const row = await http("GET", `/api/occupants/${id}`);
+    const row = await http("GET", `/api/occupants/${id}`, null, token);
     return mapOccupantFromApi(row);
   },
 
-  async create(payload) {
-    const row = await http("POST", "/api/occupants", payload);
+  async create(payload, { token } = {}) {
+    const row = await http("POST", "/api/occupants", payload, token);
     return mapOccupantFromApi(row);
   },
 
-  async update(id, patch) {
+  async update(id, patch, { token } = {}) {
     if (!id) throw new Error("id is required");
-    const row = await http("PATCH", `/api/occupants/${id}`, patch);
+    const row = await http("PATCH", `/api/occupants/${id}`, patch, token);
     return mapOccupantFromApi(row);
   },
 
-  async toggleArchive(id) {
+  async toggleArchive(id, { token } = {}) {
     if (!id) throw new Error("id is required");
-    const row = await http("PATCH", `/api/occupants/${id}/archive`);
+    const row = await http("PATCH", `/api/occupants/${id}/archive`, undefined, token);
     return mapOccupantFromApi(row);
   },
 };

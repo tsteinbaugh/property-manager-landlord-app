@@ -44,7 +44,7 @@ export default function LandlordTenantDetailPage() {
         setLoading(true);
         setError(null);
 
-        const t = await tenantsApi.get(tenantId);
+        const t = await tenantsApi.get(tenantId, { token });
 
         if (!cancelled) {
           if (!t) {
@@ -63,14 +63,14 @@ export default function LandlordTenantDetailPage() {
       }
     }
 
-    if (tenantId) {
+    if (tenantId && token) {
       load();
     }
 
     return () => {
       cancelled = true;
     };
-  }, [tenantId]);
+  }, [tenantId, token]);
 
   // When tenant loads, initialize edit fields
   useEffect(() => {
@@ -89,11 +89,15 @@ export default function LandlordTenantDetailPage() {
 
     try {
       setSaving(true);
-      const updated = await tenantsApi.update(tenant.id, {
-        name: name.trim(),
-        email: email.trim(),
-        phone: phone.trim(),
-      });
+      const updated = await tenantsApi.update(
+        tenant.id,
+        {
+          name: name.trim(),
+          email: email.trim(),
+          phone: phone.trim(),
+        },
+        { token }
+      );
 
       setTenant(updated);
       setEditing(false);
@@ -137,7 +141,7 @@ export default function LandlordTenantDetailPage() {
 
     try {
       setArchiving(true);
-      const updated = await tenantsApi.toggleArchive(tenant.id);
+      const updated = await tenantsApi.toggleArchive(tenant.id, { token });
       setTenant(updated);
     } catch (err) {
       console.error("Failed to toggle tenant archived state", err);

@@ -1,10 +1,9 @@
 // backend/src/routes/occupants.routes.js
-
 const { Role } = require("@prisma/client");
 
 function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
   // ============================================================
-  // LIST ALL OCCUPANTS (decoupled from tenants)
+  // LIST OCCUPANTS (decoupled from tenants, scoped by landlord)
   // GET /api/occupants?includeArchived=0|1
   // ============================================================
   app.get("/api/occupants", async (req, res) => {
@@ -12,9 +11,30 @@ function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
       req.query.includeArchived === "1" ||
       req.query.includeArchived === "true";
 
+    const user = req.user || null;
+    if (!user) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
     try {
+      const where = {
+        ...(includeArchived ? {} : { isArchived: false }),
+      };
+
+      if (user.baseRole === Role.LANDLORD) {
+        // landlord only sees their own occupants
+        where.landlordId = user.id;
+      } else if (user.baseRole === Role.SYSADMIN) {
+        // sysadmin sees all
+      } else {
+        // for now, block others; we can relax later if needed
+        return res
+          .status(403)
+          .json({ error: "You are not allowed to list occupants." });
+      }
+
       const occupants = await prisma.occupant.findMany({
-        where: includeArchived ? {} : { isArchived: false },
+        where,
         orderBy: { createdAt: "desc" },
       });
 
@@ -31,11 +51,27 @@ function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
   // ============================================================
   app.get("/api/occupants/:id", async (req, res) => {
     const { id } = req.params;
+    const user = req.user || null;
+
+    if (!user) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
 
     try {
       const occupant = await prisma.occupant.findUnique({ where: { id } });
       if (!occupant) {
         return res.status(404).json({ error: "Occupant not found" });
+      }
+
+      // Landlord can only view their own occupant; sysadmin can view any
+      if (
+        user.baseRole === Role.LANDLORD &&
+        occupant.landlordId &&
+        occupant.landlordId !== user.id
+      ) {
+        return res
+          .status(403)
+          .json({ error: "You are not allowed to view this occupant." });
       }
 
       res.json(shapeOccupant(occupant));
@@ -52,6 +88,11 @@ function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
   // ============================================================
   app.post("/api/occupants", async (req, res) => {
     const { name, relation, tenantId } = req.body || {};
+    const user = req.user || null;
+
+    if (!user) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
 
     if (!name || !String(name).trim()) {
       return res.status(400).json({ error: "name is required" });
@@ -64,9 +105,15 @@ function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
           typeof relation === "string" && relation.trim()
             ? relation.trim()
             : null,
+
+        // OWNER landlord
+        landlordId: user.id,
+
+        // CREATOR
+        createdById: user.id,
       };
 
-      // Optional linkage to a tenant, but not required
+      // Optional linkage to a tenant
       if (tenantId && String(tenantId).trim()) {
         data.tenant = {
           connect: { id: String(tenantId).trim() },
@@ -89,11 +136,27 @@ function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
   app.patch("/api/occupants/:id", async (req, res) => {
     const { id } = req.params;
     const { name, relation, tenantId } = req.body || {};
+    const user = req.user || null;
+
+    if (!user) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
 
     try {
       const existing = await prisma.occupant.findUnique({ where: { id } });
       if (!existing) {
         return res.status(404).json({ error: "Occupant not found" });
+      }
+
+      // Landlord can only update their own occupants; sysadmin can update any
+      if (
+        user.baseRole === Role.LANDLORD &&
+        existing.landlordId &&
+        existing.landlordId !== user.id
+      ) {
+        return res
+          .status(403)
+          .json({ error: "You are not allowed to update this occupant." });
       }
 
       const data = {};
@@ -116,7 +179,7 @@ function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
       // tenantId: optional linkage, if your schema allows it
       if (tenantId !== undefined) {
         const trimmed = String(tenantId).trim();
-        data.tenantId = trimmed || null; // requires tenantId to be optional in schema
+        data.tenantId = trimmed || null;
       }
 
       const updated = await prisma.occupant.update({
@@ -137,6 +200,11 @@ function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
   // ============================================================
   app.patch("/api/occupants/:id/archive", async (req, res) => {
     const { id } = req.params;
+    const user = req.user || null;
+
+    if (!user) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
 
     try {
       const existing = await prisma.occupant.findUnique({ where: { id } });
@@ -144,11 +212,22 @@ function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
         return res.status(404).json({ error: "Occupant not found" });
       }
 
-      const user = req.user || null;
-      const isSysAdmin = user && user.baseRole === Role.SYSADMIN;
+      // Landlord can only archive their own occupants
+      if (
+        user.baseRole === Role.LANDLORD &&
+        existing.landlordId &&
+        existing.landlordId !== user.id
+      ) {
+        return res
+          .status(403)
+          .json({ error: "You are not allowed to archive this occupant." });
+      }
+
+      const currentlyArchived = !!existing.isArchived;
+      const isSysAdmin = user.baseRole === Role.SYSADMIN;
 
       // If currently archived and someone tries to unarchive who is not sysadmin → block
-      if (existing.isArchived && !isSysAdmin) {
+      if (currentlyArchived && !isSysAdmin) {
         return res.status(403).json({
           error: "Only a system administrator can unarchive an occupant.",
         });

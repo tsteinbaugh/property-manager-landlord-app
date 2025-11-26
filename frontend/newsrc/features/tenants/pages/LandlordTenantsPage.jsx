@@ -1,6 +1,7 @@
 // newsrc/features/tenants/pages/LandlordTenantsPage.jsx
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "@app/providers.jsx";
 import { tenantsApi } from "@features/tenants/api/tenants.api.js";
 import TenantCard from "@features/tenants/components/TenantCard.jsx";
 import styles from "./LandlordTenantsPage.module.css";
@@ -11,15 +12,18 @@ export default function LandlordTenantsPage() {
   const [error, setError] = useState("");
   const [showArchived, setShowArchived] = useState(false);
   const navigate = useNavigate();
+  const { token } = useUser() || {};
 
   useEffect(() => {
+    if (!token) return;
+
     let cancelled = false;
 
     async function load() {
       try {
         setLoading(true);
         setError("");
-        const data = await tenantsApi.list();
+        const data = await tenantsApi.list({ token });
         if (!cancelled) {
           setTenants(Array.isArray(data) ? data : []);
         }
@@ -37,7 +41,7 @@ export default function LandlordTenantsPage() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [token]);
 
   const visibleTenants = useMemo(() => {
     if (showArchived) return tenants;

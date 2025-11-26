@@ -1,6 +1,7 @@
 // newsrc/features/tenants/pages/LandlordOccupantsPage.jsx
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "@app/providers.jsx";
 import { occupantsApi } from "@features/tenants/api/occupants.api.js";
 
 // reuse tenant card styling so it visually matches tenants/properties
@@ -53,8 +54,11 @@ export default function LandlordOccupantsPage() {
   const [showArchived, setShowArchived] = useState(false);
 
   const navigate = useNavigate();
+  const { token } = useUser() || {};
 
   useEffect(() => {
+    if (!token) return;
+
     let cancelled = false;
 
     async function load() {
@@ -62,7 +66,10 @@ export default function LandlordOccupantsPage() {
         setLoading(true);
         setError("");
 
-        const data = await occupantsApi.listAll({ includeArchived: true });
+        const data = await occupantsApi.listAll({
+          includeArchived: true,
+          token,
+        });
         if (!cancelled) {
           setOccupants(Array.isArray(data) ? data : []);
         }
@@ -80,7 +87,7 @@ export default function LandlordOccupantsPage() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [token]);
 
   const visibleOccupants = useMemo(() => {
     if (showArchived) return occupants;

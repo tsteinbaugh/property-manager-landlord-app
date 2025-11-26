@@ -21,7 +21,9 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
     }
 
     if (user.baseRole !== "TENANT") {
-      return res.status(403).json({ error: "Only tenants can access this endpoint" });
+      return res
+        .status(403)
+        .json({ error: "Only tenants can access this endpoint" });
     }
 
     try {
@@ -52,7 +54,9 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
     }
 
     if (user.baseRole !== "TENANT") {
-      return res.status(403).json({ error: "Only tenants can access this endpoint" });
+      return res
+        .status(403)
+        .json({ error: "Only tenants can access this endpoint" });
     }
 
     const { name, email, phone } = req.body || {};
@@ -125,10 +129,31 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
     }
   });
 
-  // GET /api/tenants – list all tenants
+  // GET /api/tenants – list tenants, scoped by landlord
   app.get("/api/tenants", async (req, res) => {
+    const user = req.user || null;
+
+    if (!user) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
     try {
+      let where = {};
+
+      if (user.baseRole === Role.LANDLORD) {
+        // landlord only sees their own tenants
+        where.landlordId = user.id;
+      } else if (user.baseRole === Role.SYSADMIN) {
+        // sysadmin sees everything (no landlord filter)
+      } else {
+        // other roles: for now, block; we can relax later if needed
+        return res
+          .status(403)
+          .json({ error: "You are not allowed to list tenants." });
+      }
+
       const tenants = await prisma.tenant.findMany({
+        where,
         orderBy: { createdAt: "desc" },
       });
 
@@ -152,6 +177,9 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
 
     // who is creating this tenant (and possibly the tenant user)
     const authUser = req.user || null;
+    if (!authUser) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
 
     try {
       let user = null;
@@ -196,8 +224,8 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
               baseRole: Role.TENANT,
               status: UserStatus.INVITED,
               isArchived: false,
-              // NEW: who created this user
-              createdById: authUser ? authUser.id : null,
+              // who created this user (could be landlord or sysadmin)
+              createdById: authUser.id,
             },
           });
 
@@ -213,8 +241,12 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
           email: trimmedEmail,
           phone: trimmedPhone,
           userId: user ? user.id : null,
-          // who created this tenant
-          createdById: authUser ? authUser.id : null,
+
+          // OWNER landlord – for now, whoever is creating
+          landlordId: authUser.id,
+
+          // CREATOR (also authUser)
+          createdById: authUser.id,
         },
       });
 
@@ -237,11 +269,27 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
   app.patch("/api/tenants/:id", async (req, res) => {
     const { id } = req.params;
     const { name, email, phone } = req.body || {};
+    const user = req.user || null;
+
+    if (!user) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
 
     try {
       const existing = await prisma.tenant.findUnique({ where: { id } });
       if (!existing) {
         return res.status(404).json({ error: "Tenant not found" });
+      }
+
+      // Landlord can only update their own tenant; sysadmin can update any
+      if (
+        user.baseRole === Role.LANDLORD &&
+        existing.landlordId &&
+        existing.landlordId !== user.id
+      ) {
+        return res
+          .status(403)
+          .json({ error: "You are not allowed to update this tenant." });
       }
 
       const nextName =
@@ -303,6 +351,11 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
   // PATCH /api/tenants/:id/archive – toggle archive flag (and archive linked User)
   app.patch("/api/tenants/:id/archive", async (req, res) => {
     const { id } = req.params;
+    const user = req.user || null;
+
+    if (!user) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
 
     try {
       const existing = await prisma.tenant.findUnique({ where: { id } });
@@ -310,7 +363,28 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
         return res.status(404).json({ error: "Tenant not found" });
       }
 
-      const nextArchived = !existing.isArchived;
+      // Landlord can only archive their own tenant
+      if (
+        user.baseRole === Role.LANDLORD &&
+        existing.landlordId &&
+        existing.landlordId !== user.id
+      ) {
+        return res
+          .status(403)
+          .json({ error: "You are not allowed to archive this tenant." });
+      }
+
+      const currentlyArchived = !!existing.isArchived;
+      const isSysAdmin = user.baseRole === Role.SYSADMIN;
+
+      // If currently archived and someone tries to unarchive who is not sysadmin → block
+      if (currentlyArchived && !isSysAdmin) {
+        return res.status(403).json({
+          error: "Only a system administrator can unarchive a tenant.",
+        });
+      }
+
+      const nextArchived = !currentlyArchived;
 
       const updated = await prisma.tenant.update({
         where: { id },

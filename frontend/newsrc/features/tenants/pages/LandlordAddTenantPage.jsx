@@ -1,15 +1,17 @@
 // newsrc/features/tenants/pages/LandlordAddTenantPage.jsx
 import { useNavigate } from "react-router-dom";
+import { useUser } from "@app/providers.jsx";
 import AddTenantForm from "@features/tenants/components/AddTenantForm.jsx";
 import { tenantsApi } from "@features/tenants/api/tenants.api.js";
 import styles from "./LandlordTenantsPage.module.css";
 
 export default function LandlordAddTenantPage() {
   const navigate = useNavigate();
+  const { token } = useUser() || {};
 
   const handleCreate = async (payload) => {
     try {
-      await tenantsApi.create(payload);
+      await tenantsApi.create(payload, { token });
       // After creation, go back to Residents page on the Tenants tab
       navigate("/landlord/residents?tab=tenants");
     } catch (err) {

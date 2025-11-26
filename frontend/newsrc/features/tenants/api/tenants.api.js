@@ -5,12 +5,18 @@ import { emergencyContactsApi } from "./emergencyContacts.api.js";
 
 const BASE_URL = "http://localhost:4000";
 
-async function http(method, path, body) {
+async function http(method, path, body, token) {
+  const headers = {
+    "Content-Type": "application/json",
+  };
+
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
   const res = await fetch(`${BASE_URL}${path}`, {
     method,
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers,
     body: body ? JSON.stringify(body) : undefined,
   });
 
@@ -46,29 +52,33 @@ function mapTenantFromApi(t) {
 }
 
 export const tenantsApi = {
-  async list() {
-    const rows = await http("GET", "/api/tenants");
+  async list(options = {}) {
+    const { token } = options;
+    const rows = await http("GET", "/api/tenants", null, token);
     if (!Array.isArray(rows)) return [];
     return rows.map(mapTenantFromApi);
   },
 
-  async get(id) {
-    const rows = await this.list();
+  async get(id, options = {}) {
+    const rows = await this.list(options);
     return rows.find((t) => t.id === id) || null;
   },
 
-  async create(payload) {
-    const row = await http("POST", "/api/tenants", payload);
+  async create(payload, options = {}) {
+    const { token } = options;
+    const row = await http("POST", "/api/tenants", payload, token);
     return mapTenantFromApi(row);
   },
 
-  async update(id, patch) {
-    const row = await http("PATCH", `/api/tenants/${id}`, patch);
+  async update(id, patch, options = {}) {
+    const { token } = options;
+    const row = await http("PATCH", `/api/tenants/${id}`, patch, token);
     return mapTenantFromApi(row);
   },
 
-  async toggleArchive(id) {
-    const t = await http("PATCH", `/api/tenants/${id}/archive`);
+  async toggleArchive(id, options = {}) {
+    const { token } = options;
+    const t = await http("PATCH", `/api/tenants/${id}/archive`, undefined, token);
     return mapTenantFromApi(t);
   },
 

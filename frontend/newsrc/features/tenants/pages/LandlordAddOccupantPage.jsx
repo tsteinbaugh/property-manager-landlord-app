@@ -1,11 +1,13 @@
 // newsrc/features/tenants/pages/LandlordAddOccupantPage.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "@app/providers.jsx";
 import styles from "./LandlordTenantsPage.module.css";
 import { occupantsApi } from "@features/tenants/api/occupants.api.js";
 
 export default function LandlordAddOccupantPage() {
   const navigate = useNavigate();
+  const { token } = useUser() || {};
 
   const [name, setName] = useState("");
   const [relation, setRelation] = useState("");
@@ -24,11 +26,14 @@ export default function LandlordAddOccupantPage() {
       setSubmitting(true);
       setFormError("");
 
-      await occupantsApi.create({
-        name: name.trim(),
-        relation: relation.trim(),
-        // tenantId is intentionally omitted for now – occupants are global
-      });
+      await occupantsApi.create(
+        {
+          name: name.trim(),
+          relation: relation.trim(),
+          // tenantId is intentionally omitted for now – occupants are global
+        },
+        { token }
+      );
 
       navigate("/landlord/residents?tab=occupants");
     } catch (err) {

@@ -2,6 +2,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { useUser } from "@app/providers.jsx";
 import { tenantsApi } from "@features/tenants/api/tenants.api.js";
 import { occupantsApi } from "@features/tenants/api/occupants.api.js";
 
@@ -13,6 +14,7 @@ import styles from "@features/tenants/pages/LandlordTenantsPage.module.css";
 export default function LandlordResidentsPage() {
   const [activeTab, setActiveTab] = useState("tenants");
   const navigate = useNavigate();
+  const { token } = useUser() || {};
 
   // ---------------- TENANTS STATE ----------------
 
@@ -24,6 +26,7 @@ export default function LandlordResidentsPage() {
   // Load tenants when Tenants tab is active
   useEffect(() => {
     if (activeTab !== "tenants") return;
+    if (!token) return;
 
     let cancelled = false;
 
@@ -31,7 +34,7 @@ export default function LandlordResidentsPage() {
       try {
         setTenantsLoading(true);
         setTenantsError("");
-        const data = await tenantsApi.list();
+        const data = await tenantsApi.list({ token });
         if (!cancelled) {
           setTenants(Array.isArray(data) ? data : []);
         }
@@ -50,7 +53,7 @@ export default function LandlordResidentsPage() {
     return () => {
       cancelled = true;
     };
-  }, [activeTab]);
+  }, [activeTab, token]);
 
   const visibleTenants = useMemo(() => {
     if (showArchivedTenants) return tenants;
@@ -128,6 +131,7 @@ export default function LandlordResidentsPage() {
   // Load occupants when Occupants tab is active
   useEffect(() => {
     if (activeTab !== "occupants") return;
+    if (!token) return;
 
     let cancelled = false;
 
@@ -135,8 +139,10 @@ export default function LandlordResidentsPage() {
       try {
         setOccupantsLoading(true);
         setOccupantsError("");
-        // NEW: use decoupled API – listAll across all occupants
-        const data = await occupantsApi.listAll({ includeArchived: true });
+        const data = await occupantsApi.listAll({
+          includeArchived: true,
+          token,
+        });
         if (!cancelled) {
           setOccupants(Array.isArray(data) ? data : []);
         }
@@ -155,7 +161,7 @@ export default function LandlordResidentsPage() {
     return () => {
       cancelled = true;
     };
-  }, [activeTab]);
+  }, [activeTab, token]);
 
   const visibleOccupants = useMemo(() => {
     if (showArchivedOccupants) return occupants;

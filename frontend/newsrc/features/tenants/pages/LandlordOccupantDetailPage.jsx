@@ -8,7 +8,7 @@ import { ROLES } from "@lib/rbac/roles.js";
 
 export default function LandlordOccupantDetailsPage() {
   const { occupantId } = useParams();
-  const { effectiveRole, isSysAdmin } = useUser() || {};
+  const { effectiveRole, isSysAdmin, token } = useUser() || {};
 
   const role =
     isSysAdmin && effectiveRole !== ROLES.SYSADMIN
@@ -33,7 +33,7 @@ export default function LandlordOccupantDetailsPage() {
         setLoading(true);
         setError(null);
 
-        const o = await occupantsApi.get(occupantId);
+        const o = await occupantsApi.get(occupantId, { token });
 
         if (!cancelled) {
           if (!o) {
@@ -52,9 +52,9 @@ export default function LandlordOccupantDetailsPage() {
       }
     }
 
-    if (occupantId) {
+    if (occupantId && token) {
       load();
-    } else {
+    } else if (!occupantId) {
       setLoading(false);
       setError(new Error("Missing occupant id"));
     }
@@ -62,7 +62,7 @@ export default function LandlordOccupantDetailsPage() {
     return () => {
       cancelled = true;
     };
-  }, [occupantId]);
+  }, [occupantId, token]);
 
   useEffect(() => {
     if (occupant) {
@@ -71,7 +71,7 @@ export default function LandlordOccupantDetailsPage() {
     }
   }, [occupant]);
 
-  const isArchived = !!(occupant?.archived);
+  const isArchived = !!occupant?.archived;
 
   const handleSave = async () => {
     if (!name.trim()) {
@@ -81,10 +81,14 @@ export default function LandlordOccupantDetailsPage() {
 
     try {
       setSaving(true);
-      const updated = await occupantsApi.update(occupant.id, {
-        name: name.trim(),
-        relation: relation.trim(),
-      });
+      const updated = await occupantsApi.update(
+        occupant.id,
+        {
+          name: name.trim(),
+          relation: relation.trim(),
+        },
+        { token }
+      );
       setOccupant(updated);
       setEditing(false);
     } catch (err) {
@@ -124,7 +128,7 @@ export default function LandlordOccupantDetailsPage() {
 
     try {
       setArchiving(true);
-      const updated = await occupantsApi.toggleArchive(occupant.id);
+      const updated = await occupantsApi.toggleArchive(occupant.id, { token });
       setOccupant(updated);
     } catch (err) {
       console.error("Failed to toggle occupant archived state", err);
