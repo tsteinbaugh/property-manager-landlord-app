@@ -1,12 +1,18 @@
 // newsrc/features/tenants/api/pets.api.js
 const BASE_URL = "http://localhost:4000";
 
-async function http(method, path, body) {
+async function http(method, path, body, token) {
+  const headers = {
+    "Content-Type": "application/json",
+  };
+
+  if (token) {
+headers["Authorization"] = `Bearer ${token}`;
+  }
+
   const res = await fetch(`${BASE_URL}${path}`, {
     method,
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers,
     body: body ? JSON.stringify(body) : undefined,
   });
 
@@ -29,59 +35,57 @@ async function http(method, path, body) {
 }
 
 function mapPetFromApi(p) {
+  if (!p) return null;
+
+  // backend shapePet returns { id, name, relation, archived, ... }
+  const archived = !!(p.archived ?? p.isArchived);
+
   return {
     id: p.id,
-    tenantId: p.tenantId,
     name: p.name,
-    type: p.type || "",
-    breed: p.breed || "",
-    weightLb: p.weightLb ?? null,
-    archived: !!p.archived,
+    type: p.type,
+    breed: p.breed,
+    weightLb: p.weightLb,
+    archived,
+    createdAt: p.createdAt || p.createdAtISO || null,
+    updatedAt: p.updatedAt || p.updatedAtISO || null,
   };
 }
 
 export const petsApi = {
-  async list(tenantId, { includeArchived = false } = {}) {
-    if (!tenantId) return [];
+  // primary way: list all pets across the system
+  async listAll({ includeArchived = false, token } = {}) {
     const qs = includeArchived ? "?includeArchived=1" : "?includeArchived=0";
-    const rows = await http("GET", `/api/tenants/${tenantId}/pets${qs}`);
+    const rows = await http("GET", `/api/pets${qs}`, null, token);
     if (!Array.isArray(rows)) return [];
     return rows.map(mapPetFromApi);
   },
 
-  async create(tenantId, payload) {
-    if (!tenantId) throw new Error("tenantId is required");
-    const row = await http("POST", `/api/tenants/${tenantId}/pets`, payload);
+  // alias in case anything still calls `list`
+  async list(opts) {
+    return this.listAll(opts);
+  },
+
+  async get(id, { token } = {}) {
+    if (!id) throw new Error("id is required");
+    const row = await http("GET", `/api/pets/${id}`, null, token);
     return mapPetFromApi(row);
   },
 
-  async update(tenantId, id, patch) {
-    if (!tenantId) throw new Error("tenantId is required");
-    const row = await http(
-      "PATCH",
-      `/api/tenants/${tenantId}/pets/${id}`,
-      patch
-    );
+  async create(payload, { token } = {}) {
+    const row = await http("POST", "/api/pets", payload, token);
     return mapPetFromApi(row);
   },
 
-  async toggleArchive(tenantId, id) {
-    if (!tenantId) throw new Error("tenantId is required");
-    const row = await http(
-      "PATCH",
-      `/api/tenants/${tenantId}/pets/${id}/archive`
-    );
+  async update(id, patch, { token } = {}) {
+    if (!id) throw new Error("id is required");
+    const row = await http("PATCH", `/api/pets/${id}`, patch, token);
     return mapPetFromApi(row);
   },
 
-  // used when archiving an entire tenant
-  async setArchivedByTenant(tenantId, archived) {
-    if (!tenantId) return;
-    const list = await this.list(tenantId, { includeArchived: true });
-    for (const p of list) {
-      if (p.archived !== archived) {
-        await this.toggleArchive(tenantId, p.id);
-      }
-    }
+  async toggleArchive(id, { token } = {}) {
+    if (!id) throw new Error("id is required");
+    const row = await http("PATCH", `/api/pets/${id}/archive`, undefined, token);
+    return mapPetFromApi(row);
   },
 };

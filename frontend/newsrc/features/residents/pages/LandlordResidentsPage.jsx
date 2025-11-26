@@ -5,9 +5,11 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
 import { tenantsApi } from "@features/residents/api/tenants.api.js";
 import { occupantsApi } from "@features/residents/api/occupants.api.js";
+import { petsApi } from "@features/residents/api/pets.api.js";
 
 import TenantCard from "@features/residents/components/tenants/TenantCard.jsx";
 import OccupantCard from "../components/occupants/OccupantCard";
+import PetCard from "../components/pets/PetCard";
 
 import styles from "@features/residents/pages/tenants/LandlordTenantsPage.module.css";
 
@@ -252,6 +254,114 @@ export default function LandlordResidentsPage() {
     </>
   );
 
+    // ---------------- PETS STATE ----------------
+
+  const [pets, setPets] = useState([]);
+  const [petsLoading, setPetsLoading] = useState(true);
+  const [petsError, setPetsError] = useState("");
+  const [showArchivedPets, setShowArchivedPets] = useState(false);
+
+  // Load pets when Pets tab is active
+  useEffect(() => {
+    if (activeTab !== "pets") return;
+    if (!token) return;
+
+    let cancelled = false;
+
+    async function load() {
+      try {
+        setPetsLoading(true);
+        setPetsError("");
+        const data = await petsApi.listAll({
+          includeArchived: true,
+          token,
+        });
+        if (!cancelled) {
+          setPets(Array.isArray(data) ? data : []);
+        }
+      } catch (err) {
+        console.error("Failed to load pets (Residents page)", err);
+        if (!cancelled) {
+          setPetsError("Failed to load pets. Please try again.");
+        }
+      } finally {
+        if (!cancelled) setPetsLoading(false);
+      }
+    }
+
+    load();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [activeTab, token]);
+
+  const visiblePets = useMemo(() => {
+    if (showArchivedPets) return pets;
+    return (pets || []).filter((o) => !o.archived);
+  }, [pets, showArchivedPets]);
+
+  const hasVisiblePets = visiblePets.length > 0;
+  const hasAnyArchivedPets = (pets || []).some((o) => o.archived);
+
+  const handleAddPet = () => {
+    navigate("/landlord/pets/new");
+  };
+
+  const handleOpenPet = (petId) => {
+    navigate(`/landlord/pets/${petId}`);
+  };
+
+  const renderPetsTab = () => (
+    <>
+      {petsLoading && (
+        <div className={styles.center}>
+          <p className={styles.muted}>Loading your pets…</p>
+        </div>
+      )}
+
+      {!petsLoading && petsError && (
+        <div className={styles.center}>
+          <p className={styles.error}>{petsError}</p>
+        </div>
+      )}
+
+      {!petsLoading && !petsError && !hasVisiblePets && (
+        <div className={styles.empty}>
+          <h2 className={styles.emptyTitle}>
+            {hasAnyArchivedPets ? "No active pets" : "No pets yet"}
+          </h2>
+          <p className={styles.emptyText}>
+            {hasAnyArchivedPets
+              ? "Archived pets are hidden from your active list. You can view them using the link above."
+              : "Once you add your first pet, you’ll see them here. You can link them to leases later."}
+          </p>
+          {!hasAnyArchivedPets && (
+            <button
+              type="button"
+              className={styles.primaryButton}
+              onClick={handleAddPet}
+            >
+              Create your first pet
+            </button>
+          )}
+        </div>
+      )}
+
+      {!petsLoading && !petsError && hasVisiblePets && (
+        <div className={styles.grid}>
+          {visiblePets.map((o) => (
+            <PetCard
+              key={o.id}
+              pet={o}
+              onClick={() => handleOpenPet(o.id)}
+            />
+          ))}
+        </div>
+      )}
+    </>
+  );
+
   const renderPlaceholderTab = (title, body) => (
     <div className={styles.empty}>
       <h2 className={styles.emptyTitle}>{title}</h2>
@@ -346,6 +456,43 @@ export default function LandlordResidentsPage() {
             )}
           </div>
         )}
+
+        {activeTab === "pets" && (
+          <div
+            className={styles.actions}
+            style={{ display: "flex", flexDirection: "column", gap: 8 }}
+          >
+            {/* Always allow adding an pet, even if all are archived */}
+            <button
+              type="button"
+              className={styles.primaryButton}
+              onClick={handleAddPet}
+            >
+              + Add pet
+            </button>
+
+            {hasAnyArchivedPets && (
+              <button
+                type="button"
+                onClick={() => setShowArchivedPets((s) => !s)}
+                style={{
+                  background: "none",
+                  border: "none",
+                  padding: 0,
+                  fontSize: 14,
+                  textDecoration: "underline",
+                  cursor: "pointer",
+                  alignSelf: "flex-end",
+                  color: "#4b5563",
+                }}
+              >
+                {showArchivedPets
+                  ? "Hide archived pets"
+                  : "View archived pets"}
+              </button>
+            )}
+          </div>
+        )}
       </header>
 
       {/* Tabs */}
@@ -361,7 +508,7 @@ export default function LandlordResidentsPage() {
           { key: "tenants", label: "Tenants" },
           { key: "occupants", label: "Occupants" },
           { key: "pets", label: "Pets" },
-          { key: "econtacts", label: "Emergency contacts" },
+          { key: "econtacts", label: "Emergency Contacts" },
         ].map((tab) => {
           const isActive = activeTab === tab.key;
           return (
@@ -391,11 +538,7 @@ export default function LandlordResidentsPage() {
       {/* Tab content */}
       {activeTab === "tenants" && renderTenantsTab()}
       {activeTab === "occupants" && renderOccupantsTab()}
-      {activeTab === "pets" &&
-        renderPlaceholderTab(
-          "Pets dashboard coming soon",
-          "We’ll surface all pets here once the resident flow is wired up. For now, pets live under each tenant."
-        )}
+      {activeTab === "pets" && renderPetsTab()}
       {activeTab === "econtacts" &&
         renderPlaceholderTab(
           "Emergency contacts dashboard coming soon",

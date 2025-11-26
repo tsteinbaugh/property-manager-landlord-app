@@ -13,6 +13,7 @@ const { attachUser, requireAuth } = require("./middleware/auth.middleware.js");
 const { registerPropertyRoutes } = require("./routes/properties.routes.js");
 const { registerTenantRoutes } = require("./routes/residents/tenants.routes.js");
 const { registerOccupantRoutes } = require("./routes/residents/occupants.routes.js");
+const { registerPetRoutes } = require("./routes/residents/pets.routes.js");
 const { registerTenantDependenciesRoutes } = require("./routes/residents/tenantDependencies.routes.js");
 const { registerLeaseRoutes } = require("./routes/leases.routes.js");
 const { registerAuthRoutes } = require("./routes/auth.routes.js");
@@ -90,8 +91,11 @@ registerOccupantRoutes(app, prisma, {
   shapeOccupant,
 });
 
-registerTenantDependenciesRoutes(app, prisma, {
+registerPetRoutes(app, prisma, {
   shapePet,
+});
+
+registerTenantDependenciesRoutes(app, prisma, {
   shapeEmergencyContact,
 });
 

@@ -1,25 +1,27 @@
-// newsrc/features/residents/components/OccupantCard.jsx
+// newsrc/features/residents/components/petCard.jsx
 import React from "react";
 import styles from "@features/residents/components/tenants/TenantCard.module.css";
 
-export default function OccupantCard({ occupant, onClick, onToggleArchive }) {
-  if (!occupant) return null;
+export default function petCard({ pet, onClick, onToggleArchive }) {
+  if (!pet) return null;
 
   const {
     name,
-    relation,
+    type,
+    breed,
+    weightLb,
     archived,
     tenantName,
-  } = occupant;
+  } = pet;
 
-  const displayName = name && name.trim() ? name.trim() : "Unnamed occupant";
+  const displayName = name && name.trim() ? name.trim() : "Unnamed pet";
 
   return (
     <div
       className={`${styles.card} ${archived ? styles.archived : ""}`}
       style={{ cursor: "pointer" }}
       onClick={onClick}
-      aria-label={`Open occupant ${displayName}`}
+      aria-label={`Open pet ${displayName}`}
     >
       <div className={styles.header}>
         <div className={styles.title}>{displayName}</div>
@@ -34,9 +36,19 @@ export default function OccupantCard({ occupant, onClick, onToggleArchive }) {
       </div>
 
       <div className={styles.contact}>
-        {relation && (
+        {type && (
           <span className={styles.contactLine}>
-            Relation: {relation}
+            Type: {type}
+          </span>
+        )}
+        {breed && (
+          <span className={styles.contactLine}>
+            Breed: {breed}
+          </span>
+        )}
+        {weightLb && (
+          <span className={styles.contactLine}>
+            Weight (lbs): {weightLb}
           </span>
         )}
         {tenantName && (
@@ -44,7 +56,7 @@ export default function OccupantCard({ occupant, onClick, onToggleArchive }) {
             Tenant: {tenantName}
           </span>
         )}
-        {!relation && !tenantName && (
+        {!type && !breed && !weightLb && !tenantName && (
           <span className={styles.contactLineMuted}>
             No additional info yet
           </span>
