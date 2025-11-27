@@ -7,7 +7,6 @@ import { can } from "@lib/rbac/index.js";
 import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
 import { ROLES } from "@lib/rbac/roles.js";
 import { tenantsApi } from "@features/residents/api/tenants.api.js";
-import TenantDependentsSection from "@features/residents/components/tenants/TenantDependentsSection.jsx";
 
 export default function LandlordTenantDetailPage() {
   const { tenantId } = useParams();
@@ -272,11 +271,6 @@ export default function LandlordTenantDetailPage() {
           )}
         </div>
       </div>
-
-      <hr style={{ margin: "16px 0" }} />
-
-      {/* Occupants / Pets / Emergency Contacts – read-only lists */}
-      <TenantDependentsSection tenantId={tenant.id} showAddForm={false} />
     </div>
   );
 }

@@ -163,8 +163,6 @@ function FeaturesPage() {
         <TenantsList includeArchived={showTenantsArchived} />
       </section>
 
-      <AddTenantDependentsForm />
-
       <section style={{ marginTop: 16 }}>
         <MaintenanceTicketList propertyId="prop-123" />
       </section>
