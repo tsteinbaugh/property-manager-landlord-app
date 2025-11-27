@@ -34,7 +34,6 @@ import NoticeList from "@features/notices/components/NoticeList.jsx";
 import LegalCaseList from "@features/legal/components/LegalCaseList.jsx";
 import LegalCasePanel from "@features/legal/components/LegalCasePanel.jsx";
 import CleaningTicketList from "@features/cleaning/components/CleaningTicketList.jsx";
-import AddTenantDependentsForm from "@features/residents/components/tenants/AddTenantDependentsForm.jsx";
 
 // Landlord flows
 ////Properties
@@ -56,6 +55,10 @@ import LandlordOccupantDetailPage from "@features/residents/pages/occupants/Land
 import LandlordPetsPage from "@features/residents/pages/pets/LandlordPetsPage.jsx";
 import LandlordAddPetPage from "@features/residents/pages/pets/LandlordAddPetPage.jsx";
 import LandlordPetDetailPage from "@features/residents/pages/pets/LandlordPetDetailPage.jsx";
+//////Emergency Contacts
+import LandlordEmergencyContactsPage from "@features/residents/pages/emergencyContacts/LandlordEmergencyContactsPage.jsx";
+import LandlordAddEmergencyContactPage from "@features/residents/pages/emergencyContacts/LandlordAddEmergencyContactPage.jsx";
+import LandlordEmergencyContactDetailPage from "@features/residents/pages/emergencyContacts/LandlordEmergencyContactDetailPage.jsx";
 
 // Tenant flows
 import TenantHomePage from "@features/residents/pages/tenants/TenantHomePage.jsx";
@@ -397,6 +400,36 @@ export function AppRoutes() {
           element={
             <RequireRole allow={[ROLES.LANDLORD]}>
               <LandlordPetDetailPage />
+            </RequireRole>
+          }
+        />
+
+        {/* Residents --> emergency contact main */}
+        <Route
+          path="/landlord/emergencyContacts"
+          element={
+            <RequireRole allow={[ROLES.LANDLORD]}>
+              <LandlordEmergencyContactsPage />
+            </RequireRole>
+          }
+        />
+
+        {/* Add emergency contact */}
+        <Route
+          path="/landlord/emergencyContacts/new"
+          element={
+            <RequireRole allow={[ROLES.LANDLORD]}>
+              <LandlordAddEmergencyContactPage />
+            </RequireRole>
+          }
+        />
+
+        {/* Emergency contact detail */}
+        <Route
+          path="/landlord/emergencyContacts/:emergencyContactId"
+          element={
+            <RequireRole allow={[ROLES.LANDLORD]}>
+              <LandlordEmergencyContactDetailPage />
             </RequireRole>
           }
         />

@@ -22,9 +22,9 @@ function AddEmergencyContactForm({ onCreate, disabled }) {
       setError(null);
       await onCreate({
         name: name.trim(),
-        phone: phone.trim() || null,
-        relation: relation.trim() || null,
-        email: email.trim() || null,
+        phone: phone.trim(),
+        relation: relation.trim(),
+        email: email.trim(),
       });
       setName("");
       setPhone("");
@@ -46,50 +46,42 @@ function AddEmergencyContactForm({ onCreate, disabled }) {
         padding: 8,
         borderRadius: 6,
         border: "1px solid #e5e7eb",
-        maxWidth: 600,
+        maxWidth: 420,
       }}
     >
-      <div style={{ fontWeight: 600, marginBottom: 6 }}>
-        Add emergency contact
-      </div>
+      <div style={{ fontWeight: 600, marginBottom: 6 }}>Add Emergency Contact</div>
 
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: 6,
-        }}
-      >
+      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
         <input
           type="text"
-          placeholder="name"
+          placeholder="Name (required)"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          style={{ padding: 6, minWidth: 140 }}
-          disabled={disabled || isSubmitting}
-        />
-        <input
-          type="tel"
-          placeholder="phone"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          style={{ padding: 6, minWidth: 140 }}
+          style={{ padding: 6 }}
           disabled={disabled || isSubmitting}
         />
         <input
           type="text"
-          placeholder="relation"
-          value={relation}
-          onChange={(e) => setRelation(e.target.value)}
-          style={{ padding: 6, minWidth: 140 }}
+          placeholder="Phone number"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          style={{ padding: 6 }}
           disabled={disabled || isSubmitting}
         />
         <input
-          type="email"
-          placeholder="email"
+          type="text"
+          placeholder="Relation (roommate, child, etc.)"
+          value={relation}
+          onChange={(e) => setRelation(e.target.value)}
+          style={{ padding: 6 }}
+          disabled={disabled || isSubmitting}
+        />
+        <input
+          type="text"
+          placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          style={{ padding: 6, minWidth: 180 }}
+          style={{ padding: 6 }}
           disabled={disabled || isSubmitting}
         />
       </div>
@@ -105,7 +97,7 @@ function AddEmergencyContactForm({ onCreate, disabled }) {
         disabled={disabled || isSubmitting}
         style={{ marginTop: 8, padding: "4px 10px" }}
       >
-        {isSubmitting ? "Saving…" : "Add"}
+        {isSubmitting ? "Saving…" : "Save emergency contact"}
       </button>
     </form>
   );
@@ -146,9 +138,7 @@ export default function EmergencyContactList({
     setError(null);
 
     try {
-      const rows = await emergencyContactsApi.list(tenantId, {
-        includeArchived,
-      });
+      const rows = await emergencyContactsApi.list(tenantId, { includeArchived });
       setData(rows);
     } catch (e) {
       console.error("Failed to load emergency contacts", e);
@@ -168,12 +158,12 @@ export default function EmergencyContactList({
     await load();
   };
 
-  const startEdit = (c) => {
-    setEditingId(c.id);
-    setDraftName(c.name || "");
-    setDraftPhone(c.phone || "");
-    setDraftRelation(c.relation || "");
-    setDraftEmail(c.email || "");
+  const startEdit = (o) => {
+    setEditingId(o.id);
+    setDraftName(o.name || "");
+    setDraftPhone(o.phone || "");
+    setDraftRelation(o.relation || "");
+    setDraftEmail(o.email || "");
     setInlineError(null);
   };
 
@@ -256,19 +246,19 @@ export default function EmergencyContactList({
       )}
 
       <ul style={{ paddingLeft: 16, lineHeight: 1.7 }}>
-        {data.map((c) => {
-          const isEditing = editingId === c.id;
-          const isSaving = savingId === c.id;
+        {data.map((o) => {
+          const isEditing = editingId === o.id;
+          const isSaving = savingId === o.id;
 
           if (isEditing) {
             return (
-              <li key={c.id} style={{ opacity: c.archived ? 0.6 : 1 }}>
+              <li key={o.id} style={{ opacity: o.archived ? 0.6 : 1 }}>
                 <div
                   style={{
                     display: "flex",
                     flexDirection: "column",
                     gap: 4,
-                    maxWidth: 600,
+                    maxWidth: 420,
                   }}
                 >
                   <input
@@ -279,7 +269,7 @@ export default function EmergencyContactList({
                     style={{ padding: 4 }}
                   />
                   <input
-                    type="tel"
+                    type="text"
                     value={draftPhone}
                     onChange={(e) => setDraftPhone(e.target.value)}
                     placeholder="Phone"
@@ -293,7 +283,7 @@ export default function EmergencyContactList({
                     style={{ padding: 4 }}
                   />
                   <input
-                    type="email"
+                    type="text"
                     value={draftEmail}
                     onChange={(e) => setDraftEmail(e.target.value)}
                     placeholder="Email"
@@ -302,7 +292,7 @@ export default function EmergencyContactList({
                   <div style={{ display: "flex", gap: 6, marginTop: 4 }}>
                     <button
                       type="button"
-                      onClick={() => saveEdit(c.id)}
+                      onClick={() => saveEdit(o.id)}
                       disabled={isSaving}
                     >
                       {isSaving ? "Saving…" : "Save"}
@@ -315,8 +305,8 @@ export default function EmergencyContactList({
                       Cancel
                     </button>
                     <ArchiveButton
-                      archived={c.archived}
-                      onToggle={() => handleToggleArchive(c.id)}
+                      archived={o.archived}
+                      onToggle={() => handleToggleArchive(o.id)}
                     />
                   </div>
                 </div>
@@ -325,13 +315,15 @@ export default function EmergencyContactList({
           }
 
           return (
-            <li key={c.id} style={{ opacity: c.archived ? 0.6 : 1 }}>
-              <strong>{c.name}</strong>
-              {c.relation && <> — {c.relation}</>}
-              {c.phone && <> — {c.phone}</>}
-              {c.email && <> — {c.email}</>}
-              {c.archived && (
-                <span style={{ marginLeft: 8, fontSize: 12, color: "#888" }}>
+            <li key={o.id} style={{ opacity: o.archived ? 0.6 : 1 }}>
+              <strong>{o.name}</strong>
+              {o.phone && <> — {o.phone}</>}
+              {o.relation && <> — {o.relation}</>}
+              {o.email && <> — {o.email}</>}
+              {o.archived && (
+                <span
+                  style={{ marginLeft: 8, fontSize: 12, color: "#888" }}
+                >
                   (Archived)
                 </span>
               )}
@@ -339,14 +331,14 @@ export default function EmergencyContactList({
               <button
                 type="button"
                 style={{ marginLeft: 8 }}
-                onClick={() => startEdit(c)}
+                onClick={() => startEdit(o)}
               >
                 Edit
               </button>
 
               <ArchiveButton
-                archived={c.archived}
-                onToggle={() => handleToggleArchive(c.id)}
+                archived={o.archived}
+                onToggle={() => handleToggleArchive(o.id)}
               />
             </li>
           );

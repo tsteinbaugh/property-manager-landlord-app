@@ -6,10 +6,12 @@ import { useUser } from "@app/providers.jsx";
 import { tenantsApi } from "@features/residents/api/tenants.api.js";
 import { occupantsApi } from "@features/residents/api/occupants.api.js";
 import { petsApi } from "@features/residents/api/pets.api.js";
+import { emergencyContactsApi } from "@features/residents/api/emergencyContacts.api.js";
 
 import TenantCard from "@features/residents/components/tenants/TenantCard.jsx";
 import OccupantCard from "../components/occupants/OccupantCard";
 import PetCard from "../components/pets/PetCard";
+import EmergencyContactCard from "../components/emergencyContacts/EmergencyContactCard";
 
 import styles from "@features/residents/pages/tenants/LandlordTenantsPage.module.css";
 
@@ -20,7 +22,7 @@ export default function LandlordResidentsPage() {
 
   const initialTab = (() => {
     const tab = searchParams.get("tab");
-    if (tab === "occupants" || tab === "pets" || tab === "econtacts") {
+    if (tab === "occupants" || tab === "pets" || tab === "emergencyContacts") {
       return tab;
     }
     return "tenants";
@@ -369,6 +371,114 @@ export default function LandlordResidentsPage() {
     </div>
   );
 
+  // ---------------- EMERGENCY CONTACTS STATE ----------------
+
+  const [emergencyContacts, setEmergencyContacts] = useState([]);
+  const [emergencyContactsLoading, setEmergencyContactsLoading] = useState(true);
+  const [emergencyContactsError, setEmergencyContactsError] = useState("");
+  const [showArchivedEmergencyContacts, setShowArchivedEmergencyContacts] = useState(false);
+
+  // Load emergency contacts when Emergency Contacts tab is active
+  useEffect(() => {
+    if (activeTab !== "emergencyContacts") return;
+    if (!token) return;
+
+    let cancelled = false;
+
+    async function load() {
+      try {
+        setEmergencyContactsLoading(true);
+        setEmergencyContactsError("");
+        const data = await emergencyContactsApi.listAll({
+          includeArchived: true,
+          token,
+        });
+        if (!cancelled) {
+          setEmergencyContacts(Array.isArray(data) ? data : []);
+        }
+      } catch (err) {
+        console.error("Failed to load emergency contacts (Residents page)", err);
+        if (!cancelled) {
+          setEmergencyContactsError("Failed to load emergency contacts. Please try again.");
+        }
+      } finally {
+        if (!cancelled) setEmergencyContactsLoading(false);
+      }
+    }
+
+    load();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [activeTab, token]);
+
+  const visibleEmergencyContacts = useMemo(() => {
+    if (showArchivedEmergencyContacts) return emergencyContacts;
+    return (emergencyContacts || []).filter((o) => !o.archived);
+  }, [emergencyContacts, showArchivedEmergencyContacts]);
+
+  const hasVisibleEmergencyContacts = visibleEmergencyContacts.length > 0;
+  const hasAnyArchivedEmergencyContacts = (emergencyContacts || []).some((o) => o.archived);
+
+  const handleAddEmergencyContact = () => {
+    navigate("/landlord/emergencyContacts/new");
+  };
+
+  const handleOpenEmergencyContact = (emergencyContactId) => {
+    navigate(`/landlord/emergencyContacts/${emergencyContactId}`);
+  };
+
+  const renderEmergencyContactsTab = () => (
+    <>
+      {emergencyContactsLoading && (
+        <div className={styles.center}>
+          <p className={styles.muted}>Loading your emergency contacts…</p>
+        </div>
+      )}
+
+      {!emergencyContactsLoading && emergencyContactsError && (
+        <div className={styles.center}>
+          <p className={styles.error}>{emergencyContactsError}</p>
+        </div>
+      )}
+
+      {!emergencyContactsLoading && !emergencyContactsError && !hasVisibleEmergencyContacts && (
+        <div className={styles.empty}>
+          <h2 className={styles.emptyTitle}>
+            {hasAnyArchivedEmergencyContacts ? "No active emergency contacts" : "No emergency contacts yet"}
+          </h2>
+          <p className={styles.emptyText}>
+            {hasAnyArchivedEmergencyContacts
+              ? "Archived emergency contacts are hidden from your active list. You can view them using the link above."
+              : "Once you add your first emergency contact, you’ll see them here. You can link them to leases later."}
+          </p>
+          {!hasAnyArchivedEmergencyContacts && (
+            <button
+              type="button"
+              className={styles.primaryButton}
+              onClick={handleAddEmergencyContact}
+            >
+              Create your first emergency contact
+            </button>
+          )}
+        </div>
+      )}
+
+      {!emergencyContactsLoading && !emergencyContactsError && hasVisibleEmergencyContacts && (
+        <div className={styles.grid}>
+          {visibleEmergencyContacts.map((o) => (
+            <EmergencyContactCard
+              key={o.id}
+              emergencyContact={o}
+              onClick={() => handleOpenEmergencyContact(o.id)}
+            />
+          ))}
+        </div>
+      )}
+    </>
+  );
+
   // ---------------- RENDER ----------------
 
   return (
@@ -493,6 +603,44 @@ export default function LandlordResidentsPage() {
             )}
           </div>
         )}
+
+        {activeTab === "emergencyContacts" && (
+          <div
+            className={styles.actions}
+            style={{ display: "flex", flexDirection: "column", gap: 8 }}
+          >
+            {/* Always allow adding an emergency contact, even if all are archived */}
+            <button
+              type="button"
+              className={styles.primaryButton}
+              onClick={handleAddEmergencyContact}
+            >
+              + Add emergency contact
+            </button>
+
+            {hasAnyArchivedEmergencyContacts && (
+              <button
+                type="button"
+                onClick={() => setShowArchivedEmergencyContacts((s) => !s)}
+                style={{
+                  background: "none",
+                  border: "none",
+                  padding: 0,
+                  fontSize: 14,
+                  textDecoration: "underline",
+                  cursor: "pointer",
+                  alignSelf: "flex-end",
+                  color: "#4b5563",
+                }}
+              >
+                {showArchivedEmergencyContacts
+                  ? "Hide archived emergency contacts"
+                  : "View archived emergency contacts"}
+              </button>
+            )}
+          </div>
+        )}
+
       </header>
 
       {/* Tabs */}
@@ -508,7 +656,7 @@ export default function LandlordResidentsPage() {
           { key: "tenants", label: "Tenants" },
           { key: "occupants", label: "Occupants" },
           { key: "pets", label: "Pets" },
-          { key: "econtacts", label: "Emergency Contacts" },
+          { key: "emergencyContacts", label: "Emergency Contacts" },
         ].map((tab) => {
           const isActive = activeTab === tab.key;
           return (
@@ -539,11 +687,7 @@ export default function LandlordResidentsPage() {
       {activeTab === "tenants" && renderTenantsTab()}
       {activeTab === "occupants" && renderOccupantsTab()}
       {activeTab === "pets" && renderPetsTab()}
-      {activeTab === "econtacts" &&
-        renderPlaceholderTab(
-          "Emergency contacts dashboard coming soon",
-          "Later you’ll see all emergency contacts here in one place. For now, they’re available in each tenant profile."
-        )}
+      {activeTab === "emergencyContacts" && renderEmergencyContactsTab() }
     </div>
   );
 }

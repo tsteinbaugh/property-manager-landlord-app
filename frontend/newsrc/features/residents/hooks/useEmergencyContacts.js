@@ -1,64 +1,59 @@
+// newsrc/features/residents/hooks/useAllEmergencyContacts.js
 import { useCallback, useEffect, useState } from "react";
-import { emergencyContactsApi } from "../api/emergencyContacts.api.js";
-import { can } from "@lib/rbac/index.js";
-import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
-import { ROLES } from "@lib/rbac/roles.js";
+import { tenantsApi } from "@features/residents/api/tenants.api.js";
+import { emergencyContactsApi } from "@features/residents/api/emergencyContacts.api.js";
 
-export function useEmergencyContacts(
-  tenantId,
-  { includeArchived = false, role = ROLES.SYSADMIN } = {}
-) {
+export function useAllEmergencyContacts({ includeArchived = false } = {}) {
   const [data, setData] = useState([]);
-  const [isLoading, setLoading] = useState(!!tenantId);
+  const [tenants, setTenants] = useState([]);
+  const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const refresh = useCallback(async () => {
     try {
-      if (!tenantId) {
-        setData([]);
-        setLoading(false);
-        return;
-      }
-
-      // Enforce VIEW
-      if (!can(role, R.TENANT_ECONTACTS, A.VIEW)) {
-        setData([]);
-        setLoading(false);
-        return;
-      }
-
       setLoading(true);
-      const rows = await emergencyContactsApi.listByTenant(tenantId);
-      setData(includeArchived ? rows : rows.filter(r => !r.archived));
-      setLoading(false);
-    } catch (e) {
-      setError(e);
+      setError(null);
+
+      // 1) load all tenants
+      const tenantRows = await tenantsApi.list();
+      const allEmergencyContacts = [];
+
+      // 2) for each tenant, load emergency contacts
+      for (const t of tenantRows) {
+        const occs = await emergencyContactsApi.list(t.id, { includeArchived: true });
+
+        for (const o of occs) {
+          allEmergencyContacts.push({
+            ...o,
+            tenantId: t.id,
+            tenantName: t.name || t.email || "(unnamed tenant)",
+          });
+        }
+      }
+
+      const filtered = includeArchived
+        ? allEmergencyContacts
+        : allEmergencyContacts.filter((o) => !o.archived);
+
+      setTenants(tenantRows);
+      setData(filtered);
+    } catch (err) {
+      console.error("[useAllEmergencyContacts] refresh error", err);
+      setError(err);
+    } finally {
       setLoading(false);
     }
-  }, [tenantId, includeArchived, role]);
+  }, [includeArchived]);
 
-  useEffect(() => { refresh(); }, [refresh]);
+  useEffect(() => {
+    refresh();
+  }, [refresh]);
 
-  const add = useCallback(async (payload) => {
-    if (!tenantId) return null;
-    if (!can(role, R.TENANT_ECONTACTS, A.CREATE)) return null;
-    await emergencyContactsApi.add(tenantId, payload);
-    await refresh();
-  }, [tenantId, role, refresh]);
-
-  const toggleArchive = useCallback(async (id) => {
-    if (!can(role, R.TENANT_ECONTACTS, A.ARCHIVE)) return null;
-    await emergencyContactsApi.toggleArchive(id);
-    await refresh();
-  }, [role, refresh]);
-
-  const remove = useCallback(async (id) => {
-    // Prefer ARCHIVE in prod; DELETE allowed here for stub parity
-    const allowed = can(role, R.TENANT_ECONTACTS, A.DELETE) || can(role, R.TENANT_ECONTACTS, A.ARCHIVE);
-    if (!allowed) return null;
-    await emergencyContactsApi.remove(id);
-    await refresh();
-  }, [role, refresh]);
-
-  return { data, isLoading, error, add, toggleArchive, remove, refetch: refresh };
+  return {
+    data,        // emergency contacts with tenantName attached
+    tenants,     // raw tenant rows (for dropdowns, etc.)
+    isLoading,
+    error,
+    refetch: refresh,
+  };
 }

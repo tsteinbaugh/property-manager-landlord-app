@@ -26,7 +26,7 @@ export const ROLE_GRANTS = {
     [R.TENANTS,             all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE, A.DELETE)],
     [R.TENANT_PETS,         all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE, A.DELETE)],
     [R.TENANT_OCCUPANTS,    all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE, A.DELETE)],
-    [R.TENANT_ECONTACTS,    all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE, A.DELETE)],
+    [R.TENANT_EMERGENCYCONTACTS,    all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE, A.DELETE)],
     [R.LEASES,              all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE, A.DELETE)],
     [R.LEASE_FINANCIALS,    all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE, A.DELETE, A.EXPORT)],
     [R.LEGAL_CASES,         all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE, A.DELETE, A.STATUS)],
@@ -47,7 +47,7 @@ export const ROLE_GRANTS = {
     [R.TENANTS,             all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE)],
     [R.TENANT_PETS,         all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE)],
     [R.TENANT_OCCUPANTS,    all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE)],
-    [R.TENANT_ECONTACTS,    all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE)],
+    [R.TENANT_EMERGENCYCONTACTS,    all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE)],
     [R.LEASES,              all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE, A.STATUS)],
     [R.LEASE_FINANCIALS,    all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE, A.EXPORT)],
     [R.LEGAL_CASES,         all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE, A.STATUS)],
@@ -67,7 +67,7 @@ export const ROLE_GRANTS = {
     [R.TENANTS,             all(A.VIEW)],
     [R.TENANT_PETS,         all(A.VIEW)],
     [R.TENANT_OCCUPANTS,    all(A.VIEW)],
-    [R.TENANT_ECONTACTS,    all(A.VIEW)],
+    [R.TENANT_EMERGENCYCONTACTS,    all(A.VIEW)],
   
     [R.LEASES,              all(A.VIEW, A.UPDATE, A.STATUS)],         // manage terms/dates/status
     [R.NOTICES,             all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE, A.STATUS)],
@@ -97,7 +97,7 @@ export const ROLE_GRANTS = {
     [R.TENANTS,             all(A.VIEW, A.UPDATE)],          // own record only (enforce in APIs)
     [R.TENANT_PETS,         all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE)], // own
     [R.TENANT_OCCUPANTS,    all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE)], // own
-    [R.TENANT_ECONTACTS,    all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE)], // own
+    [R.TENANT_EMERGENCYCONTACTS,    all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE)], // own
     [R.LEASES,              all(A.VIEW, A.EXPORT)],                     // own
     [R.LEASE_FINANCIALS,    all(A.VIEW, A.EXPORT)],                     // own
     [R.MAINTENANCE_TICKETS, all(A.VIEW, A.CREATE, A.UPDATE)], // own tickets

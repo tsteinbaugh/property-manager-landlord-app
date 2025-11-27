@@ -14,7 +14,7 @@ const { registerPropertyRoutes } = require("./routes/properties.routes.js");
 const { registerTenantRoutes } = require("./routes/residents/tenants.routes.js");
 const { registerOccupantRoutes } = require("./routes/residents/occupants.routes.js");
 const { registerPetRoutes } = require("./routes/residents/pets.routes.js");
-const { registerTenantDependenciesRoutes } = require("./routes/residents/tenantDependencies.routes.js");
+const { registerEmergencyContactRoutes } = require("./routes/residents/emergencyContacts.routes.js");
 const { registerLeaseRoutes } = require("./routes/leases.routes.js");
 const { registerAuthRoutes } = require("./routes/auth.routes.js");
 const { registerAdminRoutes } = require("./routes/admin.routes.js");
@@ -95,7 +95,7 @@ registerPetRoutes(app, prisma, {
   shapePet,
 });
 
-registerTenantDependenciesRoutes(app, prisma, {
+registerEmergencyContactRoutes(app, prisma, {
   shapeEmergencyContact,
 });
 

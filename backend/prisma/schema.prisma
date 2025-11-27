@@ -64,12 +64,12 @@ model User {
   // NEW: who created which leases
   leasesCreated     Lease[]    @relation("LeaseCreatedBy")
 
-  // NEW: who created which occupants/pets/eContacts
+  // NEW: who created which occupants/pets/emergencyContacts
   occupantsCreated        Occupant[]        @relation("OccupantCreatedBy")
   petsCreated             Pet[]             @relation("PetCreatedBy")
   emergencyContactsCreated EmergencyContact[] @relation("EmergencyContactCreatedBy")
 
-  // NEW: who owns which occupants/pets/eContacts (landlord-level ownership)
+  // NEW: who owns which occupants/pets/emergencyContacts (landlord-level ownership)
   occupantsOwned          Occupant[]        @relation("LandlordOccupants")
   petsOwned               Pet[]             @relation("LandlordPets")
   emergencyContactsOwned  EmergencyContact[] @relation("LandlordEmergencyContacts")

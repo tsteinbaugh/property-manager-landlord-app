@@ -4,7 +4,7 @@ import styles from "./TenantCard.module.css";
 export default function TenantCard({ tenant, onClick }) {
   if (!tenant) return null;
 
-  const { displayName, email, phone, petsCount, occupantsCount, econtactsCount, isArchived } =
+  const { displayName, email, phone, petsCount, occupantsCount, emergencyContactsCount, isArchived } =
     useMemo(() => {
       const name =
         (tenant.name && tenant.name.trim()) ||
@@ -23,7 +23,7 @@ export default function TenantCard({ tenant, onClick }) {
         phone: tenant.phone || "",
         petsCount: pets,
         occupantsCount: occs,
-        econtactsCount: ecs,
+        emergencyContactsCount: ecs,
         isArchived: !!(tenant.isArchived ?? tenant.archived),
       };
     }, [tenant]);

@@ -1,12 +1,18 @@
 // newsrc/features/tenants/api/emergencyContacts.api.js
 const BASE_URL = "http://localhost:4000";
 
-async function http(method, path, body) {
+async function http(method, path, body, token) {
+  const headers = {
+    "Content-Type": "application/json",
+  };
+
+  if (token) {
+headers["Authorization"] = `Bearer ${token}`;
+  }
+
   const res = await fetch(`${BASE_URL}${path}`, {
     method,
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers,
     body: body ? JSON.stringify(body) : undefined,
   });
 
@@ -28,67 +34,58 @@ async function http(method, path, body) {
   }
 }
 
-function mapEmergencyContactFromApi(c) {
+function mapEmergencyContactFromApi(o) {
+  if (!o) return null;
+
+  // backend shapeEmergencyContact returns { id, name, phone, relation, email, archived, ... }
+  const archived = !!(o.archived ?? o.isArchived);
+
   return {
-    id: c.id,
-    tenantId: c.tenantId,
-    name: c.name,
-    phone: c.phone || "",
-    relation: c.relation || "",
-    email: c.email || "",
-    archived: !!c.archived,
+    id: o.id,
+    name: o.name,
+    phone: o.phone || "",
+    relation: o.relation || "",
+    email: o.email || "",
+    archived,
+    createdAt: o.createdAt || o.createdAtISO || null,
+    updatedAt: o.updatedAt || o.updatedAtISO || null,
   };
 }
 
 export const emergencyContactsApi = {
-  async list(tenantId, { includeArchived = false } = {}) {
-    if (!tenantId) return [];
+  // primary way: list all emergency contacts across the system
+  async listAll({ includeArchived = false, token } = {}) {
     const qs = includeArchived ? "?includeArchived=1" : "?includeArchived=0";
-    const rows = await http(
-      "GET",
-      `/api/tenants/${tenantId}/emergency-contacts${qs}`
-    );
+    const rows = await http("GET", `/api/emergencyContacts${qs}`, null, token);
     if (!Array.isArray(rows)) return [];
     return rows.map(mapEmergencyContactFromApi);
   },
 
-  async create(tenantId, payload) {
-    if (!tenantId) throw new Error("tenantId is required");
-    const row = await http(
-      "POST",
-      `/api/tenants/${tenantId}/emergency-contacts`,
-      payload
-    );
+  // alias in case anything still calls `list`
+  async list(opts) {
+    return this.listAll(opts);
+  },
+
+  async get(id, { token } = {}) {
+    if (!id) throw new Error("id is required");
+    const row = await http("GET", `/api/emergencyContacts/${id}`, null, token);
     return mapEmergencyContactFromApi(row);
   },
 
-  async update(tenantId, id, patch) {
-    if (!tenantId) throw new Error("tenantId is required");
-    const row = await http(
-      "PATCH",
-      `/api/tenants/${tenantId}/emergency-contacts/${id}`,
-      patch
-    );
+  async create(payload, { token } = {}) {
+    const row = await http("POST", "/api/emergencyContacts", payload, token);
     return mapEmergencyContactFromApi(row);
   },
 
-  async toggleArchive(tenantId, id) {
-    if (!tenantId) throw new Error("tenantId is required");
-    const row = await http(
-      "PATCH",
-      `/api/tenants/${tenantId}/emergency-contacts/${id}/archive`
-    );
+  async update(id, patch, { token } = {}) {
+    if (!id) throw new Error("id is required");
+    const row = await http("PATCH", `/api/emergencyContacts/${id}`, patch, token);
     return mapEmergencyContactFromApi(row);
   },
 
-  // used when archiving an entire tenant
-  async setArchivedByTenant(tenantId, archived) {
-    if (!tenantId) return;
-    const list = await this.list(tenantId, { includeArchived: true });
-    for (const c of list) {
-      if (c.archived !== archived) {
-        await this.toggleArchive(tenantId, c.id);
-      }
-    }
+  async toggleArchive(id, { token } = {}) {
+    if (!id) throw new Error("id is required");
+    const row = await http("PATCH", `/api/emergencyContacts/${id}/archive`, undefined, token);
+    return mapEmergencyContactFromApi(row);
   },
 };
