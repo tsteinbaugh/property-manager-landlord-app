@@ -125,7 +125,7 @@ export default function LandlordAddPetPage() {
               type="text"
               value={type}
               onChange={(e) => setType(e.target.value)}
-              placeholder="dog, cat, bird, etc."
+              placeholder="Type (dog, cat, bird, etc.)"
               style={{
                 width: "100%",
                 padding: "6px 8px",
@@ -173,7 +173,7 @@ export default function LandlordAddPetPage() {
               type="number"
               value={weightLb}
               onChange={(e) => setWeightLb(e.target.value)}
-              placeholder="(Lb)"
+              placeholder="Weight (Lb)"
               style={{
                 width: "100%",
                 padding: "6px 8px",

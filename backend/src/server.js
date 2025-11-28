@@ -15,6 +15,7 @@ const { registerTenantRoutes } = require("./routes/residents/tenants.routes.js")
 const { registerOccupantRoutes } = require("./routes/residents/occupants.routes.js");
 const { registerPetRoutes } = require("./routes/residents/pets.routes.js");
 const { registerEmergencyContactRoutes } = require("./routes/residents/emergencyContacts.routes.js");
+const { registerVehicleRoutes } = require("./routes/residents/vehicles.routes.js");
 const { registerLeaseRoutes } = require("./routes/leases.routes.js");
 const { registerAuthRoutes } = require("./routes/auth.routes.js");
 const { registerAdminRoutes } = require("./routes/admin.routes.js");
@@ -97,6 +98,10 @@ registerPetRoutes(app, prisma, {
 
 registerEmergencyContactRoutes(app, prisma, {
   shapeEmergencyContact,
+});
+
+registerVehicleRoutes(app, prisma, {
+  shapeVehicle,
 });
 
 registerLeaseRoutes(app, prisma, {
@@ -210,6 +215,23 @@ function shapeEmergencyContact(c) {
     archived: c.isArchived,
     createdAt: c.createdAt,
     updatedAt: c.updatedAt,
+  };
+}
+
+function shapeVehicle(v) {
+  return {
+    id: v.id,
+    tenantId: v.tenantId,
+    make: v.make || "",
+    model: v.model || "",
+    year: v.year ?? null,
+    color: v.color || "",
+    state: v.state || "",
+    plate: v.plate || "",
+    permit: v.permit || "",
+    archived: v.isArchived,
+    createdAt: v.createdAt,
+    updatedAt: v.updatedAt,
   };
 }
 

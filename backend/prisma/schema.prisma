@@ -64,15 +64,17 @@ model User {
   // NEW: who created which leases
   leasesCreated     Lease[]    @relation("LeaseCreatedBy")
 
-  // NEW: who created which occupants/pets/emergencyContacts
+  // NEW: who created which occupants/pets/emergencyContacts/vehicles
   occupantsCreated        Occupant[]        @relation("OccupantCreatedBy")
   petsCreated             Pet[]             @relation("PetCreatedBy")
   emergencyContactsCreated EmergencyContact[] @relation("EmergencyContactCreatedBy")
+  vehiclesCreated         Vehicle[]         @relation("VehicleCreatedBy")
 
-  // NEW: who owns which occupants/pets/emergencyContacts (landlord-level ownership)
+  // NEW: who owns which occupants/pets/emergencyContacts/vehicles (landlord-level ownership)
   occupantsOwned          Occupant[]        @relation("LandlordOccupants")
   petsOwned               Pet[]             @relation("LandlordPets")
   emergencyContactsOwned  EmergencyContact[] @relation("LandlordEmergencyContacts")
+  vehiclesOwned           Vehicle[]         @relation("LandlordVehicles")
 
   // NEW: who created which users (self-relation)
   createdById  String?
@@ -157,6 +159,7 @@ model Tenant {
   occupants          Occupant[]
   pets               Pet[]
   emergencyContacts  EmergencyContact[]
+  vehicles           Vehicle[]
 }
 
 model Occupant {
@@ -224,6 +227,32 @@ model EmergencyContact {
   // CREATOR
   createdById String?
   createdBy   User?   @relation("EmergencyContactCreatedBy", fields: [createdById], references: [id])
+}
+
+model Vehicle {
+  id         String   @id @default(cuid())
+  tenant     Tenant?   @relation(fields: [tenantId], references: [id])
+  tenantId   String?
+
+  make       String?
+  model      String?
+  year       Int?
+  color      String?
+  state      String?
+  plate      String?
+  permit     String?
+  isArchived Boolean  @default(false)
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // OWNER landlord
+  landlordId String?
+  landlord   User?   @relation("LandlordVehicles", fields: [landlordId], references: [id])
+
+  // CREATOR
+  createdById String?
+  createdBy   User?   @relation("VehicleCreatedBy", fields: [createdById], references: [id])
 }
 
 model AuthToken {

@@ -7,11 +7,13 @@ import { tenantsApi } from "@features/residents/api/tenants.api.js";
 import { occupantsApi } from "@features/residents/api/occupants.api.js";
 import { petsApi } from "@features/residents/api/pets.api.js";
 import { emergencyContactsApi } from "@features/residents/api/emergencyContacts.api.js";
+import { vehiclesApi } from "@features/residents/api/vehicles.api.js";
 
 import TenantCard from "@features/residents/components/tenants/TenantCard.jsx";
 import OccupantCard from "../components/occupants/OccupantCard";
 import PetCard from "../components/pets/PetCard";
 import EmergencyContactCard from "../components/emergencyContacts/EmergencyContactCard";
+import VehicleCard from "../components/vehicles/VehicleCard";
 
 import styles from "@features/residents/pages/tenants/LandlordTenantsPage.module.css";
 
@@ -22,7 +24,7 @@ export default function LandlordResidentsPage() {
 
   const initialTab = (() => {
     const tab = searchParams.get("tab");
-    if (tab === "occupants" || tab === "pets" || tab === "emergencyContacts") {
+    if (tab === "occupants" || tab === "pets" || tab === "emergencyContacts" || tab == 'vehicles') {
       return tab;
     }
     return "tenants";
@@ -479,6 +481,114 @@ export default function LandlordResidentsPage() {
     </>
   );
 
+  // ---------------- VEHICLES STATE ----------------
+
+  const [vehicles, setVehicles] = useState([]);
+  const [vehiclesLoading, setVehiclesLoading] = useState(true);
+  const [vehiclesError, setVehiclesError] = useState("");
+  const [showArchivedVehicles, setShowArchivedVehicles] = useState(false);
+
+  // Load vehicles when Vehicles tab is active
+  useEffect(() => {
+    if (activeTab !== "vehicles") return;
+    if (!token) return;
+
+    let cancelled = false;
+
+    async function load() {
+      try {
+        setVehiclesLoading(true);
+        setVehiclesError("");
+        const data = await vehiclesApi.listAll({
+          includeArchived: true,
+          token,
+        });
+        if (!cancelled) {
+          setVehicles(Array.isArray(data) ? data : []);
+        }
+      } catch (err) {
+        console.error("Failed to load vehicles (Residents page)", err);
+        if (!cancelled) {
+          setVehiclesError("Failed to load vehicles. Please try again.");
+        }
+      } finally {
+        if (!cancelled) setVehiclesLoading(false);
+      }
+    }
+
+    load();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [activeTab, token]);
+
+  const visibleVehicles = useMemo(() => {
+    if (showArchivedVehicles) return vehicles;
+    return (vehicles || []).filter((o) => !o.archived);
+  }, [vehicles, showArchivedVehicles]);
+
+  const hasVisibleVehicles = visibleVehicles.length > 0;
+  const hasAnyArchivedVehicles = (vehicles || []).some((o) => o.archived);
+
+  const handleAddVehicle = () => {
+    navigate("/landlord/vehicles/new");
+  };
+
+  const handleOpenVehicle = (vehicleId) => {
+    navigate(`/landlord/vehicles/${vehicleId}`);
+  };
+
+  const renderVehiclesTab = () => (
+    <>
+      {vehiclesLoading && (
+        <div className={styles.center}>
+          <p className={styles.muted}>Loading your vehicles…</p>
+        </div>
+      )}
+
+      {!vehiclesLoading && vehiclesError && (
+        <div className={styles.center}>
+          <p className={styles.error}>{vehiclesError}</p>
+        </div>
+      )}
+
+      {!vehiclesLoading && !vehiclesError && !hasVisibleVehicles && (
+        <div className={styles.empty}>
+          <h2 className={styles.emptyTitle}>
+            {hasAnyArchivedVehicles ? "No active vehicles" : "No vehicles yet"}
+          </h2>
+          <p className={styles.emptyText}>
+            {hasAnyArchivedVehicles
+              ? "Archived vehicles are hidden from your active list. You can view them using the link above."
+              : "Once you add your first vehicle, you’ll see them here. You can link them to leases later."}
+          </p>
+          {!hasAnyArchivedVehicles && (
+            <button
+              type="button"
+              className={styles.primaryButton}
+              onClick={handleAddVehicle}
+            >
+              Create your first vehicle
+            </button>
+          )}
+        </div>
+      )}
+
+      {!vehiclesLoading && !vehiclesError && hasVisibleVehicles && (
+        <div className={styles.grid}>
+          {visibleVehicles.map((o) => (
+            <VehicleCard
+              key={o.id}
+              vehicle={o}
+              onClick={() => handleOpenVehicle(o.id)}
+            />
+          ))}
+        </div>
+      )}
+    </>
+  );
+
   // ---------------- RENDER ----------------
 
   return (
@@ -488,7 +598,7 @@ export default function LandlordResidentsPage() {
         <div>
           <h1 className={styles.title}>Your residents</h1>
           <p className={styles.subtitle}>
-            Tenants, occupants, pets, and emergency contacts all live here.
+            Tenants, occupants, pets, emergency contacts and vehicles all live here.
           </p>
         </div>
 
@@ -641,6 +751,43 @@ export default function LandlordResidentsPage() {
           </div>
         )}
 
+        {activeTab === "vehicles" && (
+          <div
+            className={styles.actions}
+            style={{ display: "flex", flexDirection: "column", gap: 8 }}
+          >
+            {/* Always allow adding an vehicle, even if all are archived */}
+            <button
+              type="button"
+              className={styles.primaryButton}
+              onClick={handleAddVehicle}
+            >
+              + Add vehicle
+            </button>
+
+            {hasAnyArchivedVehicles && (
+              <button
+                type="button"
+                onClick={() => setShowArchivedVehicles((s) => !s)}
+                style={{
+                  background: "none",
+                  border: "none",
+                  padding: 0,
+                  fontSize: 14,
+                  textDecoration: "underline",
+                  cursor: "pointer",
+                  alignSelf: "flex-end",
+                  color: "#4b5563",
+                }}
+              >
+                {showArchivedVehicles
+                  ? "Hide archived vehicles"
+                  : "View archived vehicles"}
+              </button>
+            )}
+          </div>
+        )}
+
       </header>
 
       {/* Tabs */}
@@ -657,6 +804,7 @@ export default function LandlordResidentsPage() {
           { key: "occupants", label: "Occupants" },
           { key: "pets", label: "Pets" },
           { key: "emergencyContacts", label: "Emergency Contacts" },
+          { key: "vehicles", label: "Vehicles" },
         ].map((tab) => {
           const isActive = activeTab === tab.key;
           return (
@@ -688,6 +836,7 @@ export default function LandlordResidentsPage() {
       {activeTab === "occupants" && renderOccupantsTab()}
       {activeTab === "pets" && renderPetsTab()}
       {activeTab === "emergencyContacts" && renderEmergencyContactsTab() }
+      {activeTab === "vehicles" && renderVehiclesTab()}
     </div>
   );
 }

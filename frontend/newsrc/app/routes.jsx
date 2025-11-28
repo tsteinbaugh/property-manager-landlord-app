@@ -59,6 +59,10 @@ import LandlordPetDetailPage from "@features/residents/pages/pets/LandlordPetDet
 import LandlordEmergencyContactsPage from "@features/residents/pages/emergencyContacts/LandlordEmergencyContactsPage.jsx";
 import LandlordAddEmergencyContactPage from "@features/residents/pages/emergencyContacts/LandlordAddEmergencyContactPage.jsx";
 import LandlordEmergencyContactDetailPage from "@features/residents/pages/emergencyContacts/LandlordEmergencyContactDetailPage.jsx";
+//////Vehicles
+import LandlordVehiclesPage from "@features/residents/pages/vehicles/LandlordVehiclesPage.jsx";
+import LandlordAddVehiclePage from "@features/residents/pages/vehicles/LandlordAddVehiclePage.jsx";
+import LandlordVehicleDetailPage from "@features/residents/pages/vehicles/LandlordVehicleDetailPage.jsx";
 
 // Tenant flows
 import TenantHomePage from "@features/residents/pages/tenants/TenantHomePage.jsx";
@@ -398,6 +402,36 @@ export function AppRoutes() {
           element={
             <RequireRole allow={[ROLES.LANDLORD]}>
               <LandlordPetDetailPage />
+            </RequireRole>
+          }
+        />
+
+        {/* Residents --> vehicle main */}
+        <Route
+          path="/landlord/vehicles"
+          element={
+            <RequireRole allow={[ROLES.LANDLORD]}>
+              <LandlordVehiclesPage />
+            </RequireRole>
+          }
+        />
+
+        {/* Add vehicle */}
+        <Route
+          path="/landlord/vehicles/new"
+          element={
+            <RequireRole allow={[ROLES.LANDLORD]}>
+              <LandlordAddVehiclePage />
+            </RequireRole>
+          }
+        />
+
+        {/* Vehicle detail */}
+        <Route
+          path="/landlord/vehicles/:vehicleId"
+          element={
+            <RequireRole allow={[ROLES.LANDLORD]}>
+              <LandlordVehicleDetailPage />
             </RequireRole>
           }
         />
