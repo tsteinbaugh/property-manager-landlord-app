@@ -366,13 +366,6 @@ export default function LandlordResidentsPage() {
     </>
   );
 
-  const renderPlaceholderTab = (title, body) => (
-    <div className={styles.empty}>
-      <h2 className={styles.emptyTitle}>{title}</h2>
-      <p className={styles.emptyText}>{body}</p>
-    </div>
-  );
-
   // ---------------- EMERGENCY CONTACTS STATE ----------------
 
   const [emergencyContacts, setEmergencyContacts] = useState([]);

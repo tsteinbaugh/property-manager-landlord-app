@@ -1,390 +1,345 @@
 import React, { useEffect, useState } from "react";
-import { useLeases } from "@features/leases/hooks/useLeases.js";
-import { leasesApi } from "@features/leases/api/leases.api.js";
 import ArchiveButton from "@shared/ui/ArchiveButton.jsx";
-import { can } from "@lib/rbac/index.js";
-import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
-import { ROLES } from "@lib/rbac/roles.js";
-import AddLeaseForm from "../components/AddLeaseForm.jsx";
+import { leasesApi } from "../api/leases.api.js";
 
-const BASE_URL = "http://localhost:4000";
+function AddLeaseForm({ onCreate, disabled }) {
+  const [rentAmount, setRentAmount] = useState("");
+  const [status, setStatus] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [isSubmitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(null);
 
-function toDateInputValue(iso) {
-  if (!iso) return "";
-  try {
-    return iso.slice(0, 10);
-  } catch {
-    return "";
-  }
-}
-
-function LeaseRow({ lease, tenants, properties, canArchive, onArchive, onUpdated }) {
-  const [isEditing, setEditing] = useState(false);
-
-  const archived = lease.archived ?? lease.isArchived ?? false;
-
-  const [tenantId, setTenantId] = useState(lease.tenantId || "");
-  const [tenantName, setTenantName] = useState(lease.tenantName || "");
-  const [propertyId, setPropertyId] = useState(lease.propertyId || "");
-  const [propertyLabel, setPropertyLabel] = useState(lease.propertyLabel || "");
-  const [rentAmount, setRentAmount] = useState(
-    lease.rentAmount != null ? String(lease.rentAmount) : ""
-  );
-  const [startDate, setStartDate] = useState(
-    toDateInputValue(lease.startDate || lease.startDateISO)
-  );
-  const [endDate, setEndDate] = useState(
-    toDateInputValue(lease.endDate || lease.endDateISO)
-  );
-  const [saving, setSaving] = useState(false);
-
-  const resetFields = () => {
-    setTenantId(lease.tenantId || "");
-    setTenantName(lease.tenantName || "");
-    setPropertyId(lease.propertyId || "");
-    setPropertyLabel(lease.propertyLabel || "");
-    setRentAmount(lease.rentAmount != null ? String(lease.rentAmount) : "");
-    setStartDate(toDateInputValue(lease.startDate || lease.startDateISO));
-    setEndDate(toDateInputValue(lease.endDate || lease.endDateISO));
-  };
-
-  const handleSave = async () => {
-    if (!tenantId) {
-      alert("Please select a tenant.");
-      return;
-    }
-    if (!propertyId) {
-      alert("Please select a property.");
-      return;
-    }
-
-    const patch = {
-      tenantId,
-      tenantName,
-      propertyId,
-      propertyLabel,
-    };
-
-    if (rentAmount.trim() !== "") {
-      const parsed = Number(rentAmount.replace(/[^0-9.-]/g, ""));
-      if (!Number.isFinite(parsed)) {
-        alert("Rent must be a number.");
-        return;
-      }
-      patch.rentAmount = parsed;
-    } else {
-      patch.rentAmount = null;
-    }
-
-    if (startDate) {
-      patch.startDate = new Date(startDate).toISOString();
-    }
-
-    if (endDate) {
-      patch.endDate = new Date(endDate).toISOString();
-    } else {
-      patch.endDate = null;
-    }
-
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      setSaving(true);
-      await leasesApi.update(lease.id, patch);
-      setEditing(false);
-      if (onUpdated) onUpdated();
+      setSubmitting(true);
+      setError(null);
+      await onCreate({
+        rentAmount: rentAmount.trim(),
+        status: status.trim(),
+        startDate: startDate.trim(),
+        endDate: endDate.trim(),
+      });
+      setRentAmount("");
+      setStatus("");
+      setStartDate("");
+      setEndDate("");
     } catch (err) {
-      console.error("Failed to update lease", err);
-      alert("Failed to update lease. See console for details.");
+      console.error("AddLeaseForm submit error", err);
+      setError(err);
     } finally {
-      setSaving(false);
+      setSubmitting(false);
     }
   };
-
-  const buildFileUrl = () => {
-    if (!lease.fileUrl) return null;
-    if (
-      lease.fileUrl.startsWith("http://") ||
-      lease.fileUrl.startsWith("https://")
-    ) {
-      return lease.fileUrl;
-    }
-    return `http://localhost:4000${lease.fileUrl}`;
-  };
-
-  const fileHref = buildFileUrl();
-
-  if (isEditing) {
-    return (
-      <li style={{ opacity: archived ? 0.6 : 1 }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-          <div>
-            <strong>Lease #{lease.id}</strong>
-          </div>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
-            {/* Tenant select + label */}
-            <select
-              value={tenantId || ""}
-              onChange={(e) => setTenantId(e.target.value)}
-              style={{ minWidth: 200 }}
-            >
-              <option value="">(Select tenant – required)</option>
-              {tenants.map((t) => (
-                <option key={t.id} value={t.id}>
-                  {t.name} ({t.id.slice(0, 6)})
-                </option>
-              ))}
-            </select>
-
-            <input
-              type="text"
-              placeholder="Tenant label (text on lease, optional)"
-              value={tenantName}
-              onChange={(e) => setTenantName(e.target.value)}
-              style={{ minWidth: 200 }}
-            />
-
-            {/* Property select + label */}
-            <select
-              value={propertyId || ""}
-              onChange={(e) => setPropertyId(e.target.value)}
-              style={{ minWidth: 220 }}
-            >
-              <option value="">(Select property – required)</option>
-              {properties.map((p) => (
-                <option key={p.id} value={p.id}>
-                  {(p.name || p.address1) ?? p.id} ({p.id.slice(0, 6)})
-                </option>
-              ))}
-            </select>
-
-            <input
-              type="text"
-              placeholder="Property label (text on lease, optional)"
-              value={propertyLabel}
-              onChange={(e) => setPropertyLabel(e.target.value)}
-              style={{ minWidth: 220 }}
-            />
-
-            <input
-              type="text"
-              placeholder="Rent amount"
-              value={rentAmount}
-              onChange={(e) => setRentAmount(e.target.value)}
-              style={{ width: 120 }}
-            />
-            <input
-              type="date"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-            />
-            <input
-              type="date"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-            />
-          </div>
-          <div style={{ display: "flex", gap: 8, marginTop: 4 }}>
-            <button type="button" onClick={handleSave} disabled={saving}>
-              {saving ? "Saving…" : "Save"}
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setEditing(false);
-                resetFields();
-              }}
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      </li>
-    );
-  }
-
-  const start = lease.startDateISO || lease.startDate || "";
-  const end = lease.endDateISO || lease.endDate || "";
-  const fmt = (iso) => (iso ? iso : "");
-
-  const tenantLabel =
-    lease.tenant && lease.tenant.name
-      ? `${lease.tenant.name} (${lease.tenant.id.slice(0, 6)})`
-      : lease.tenantName || "(no tenant assigned)";
-
-  const propertyLabelDisplay =
-    lease.property && (lease.property.name || lease.property.address1)
-      ? `${lease.property.name || lease.property.address1} (${lease.property.id.slice(0, 6)})`
-      : lease.propertyLabel || "(no property)";
 
   return (
-    <li style={{ opacity: archived ? 0.6 : 1 }}>
-      <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-        <div>
-          <strong>Lease #{lease.id}</strong> — {fmt(start)} → {fmt(end)}
-          {archived && (
-            <span style={{ marginLeft: 8, fontSize: 12, color: "#888" }}>
-              (Archived)
-            </span>
-          )}
-        </div>
+    <form
+      onSubmit={handleSubmit}
+      style={{
+        marginBottom: 8,
+        padding: 8,
+        borderRadius: 6,
+        border: "1px solid #e5e7eb",
+        maxWidth: 420,
+      }}
+    >
+      <div style={{ fontWeight: 600, marginBottom: 6 }}>Add Lease</div>
 
-        <div style={{ fontSize: 13, color: "#333" }}>
-          Tenant: {tenantLabel}
-        </div>
-
-        <div style={{ fontSize: 13, color: "#333" }}>
-          Property: {propertyLabelDisplay}
-        </div>
-
-        {fileHref && (
-          <div style={{ fontSize: 13 }}>
-            <a href={fileHref} target="_blank" rel="noreferrer">
-              View lease document
-            </a>
-            {lease.fileOriginalName && (
-              <span style={{ marginLeft: 4 }}>({lease.fileOriginalName})</span>
-            )}
-          </div>
-        )}
-
-        <div style={{ marginTop: 4 }}>
-          <button
-            type="button"
-            style={{ marginRight: 8 }}
-            onClick={() => setEditing(true)}
-          >
-            Edit
-          </button>
-          {canArchive && (
-            <ArchiveButton
-              archived={archived}
-              data-testid={`archive-btn-${lease.id}`}
-              onToggle={async () => {
-                await onArchive();
-              }}
-            />
-          )}
-        </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        <input
+          type="number"
+          placeholder="Rent amount"
+          value={rentAmount}
+          onChange={(e) => setRentAmount(e.target.value)}
+          style={{ padding: 6 }}
+          disabled={disabled || isSubmitting}
+        />
+        <input
+          type="text"
+          placeholder="Status"
+          value={status}
+          onChange={(e) => setStatus(e.target.value)}
+          style={{ padding: 6 }}
+          disabled={disabled || isSubmitting}
+        />
+        <input
+          type="text"
+          placeholder="Start Date"
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)}
+          style={{ padding: 6 }}
+          disabled={disabled || isSubmitting}
+        />
+        <input
+          type="text"
+          placeholder="End Date"
+          value={endDate}
+          onChange={(e) => setEndDate(e.target.value)}
+          style={{ padding: 6 }}
+          disabled={disabled || isSubmitting}
+        />
       </div>
-    </li>
+
+      {error && (
+        <div style={{ color: "crimson", marginTop: 4, fontSize: 12 }}>
+          {String(error.message || error)}
+        </div>
+      )}
+
+      <button
+        type="submit"
+        disabled={disabled || isSubmitting}
+        style={{ marginTop: 8, padding: "4px 10px" }}
+      >
+        {isSubmitting ? "Saving…" : "Save lease"}
+      </button>
+    </form>
   );
 }
 
 /**
- * LeasesList
+ * LeaseList
+ * Props:
+ *   - tenantId: string (required)
+ *   - includeArchived?: boolean (default false)
+ *   - showAddForm?: boolean (default true)
  */
-export default function LeasesList({
+export default function LeaseList({
+  tenantId,
   includeArchived = false,
-  role = ROLES.SYSADMIN,
+  showAddForm = true,
 }) {
-  const canView = can(role, R.LEASES, A.VIEW);
-  const canArchive = can(role, R.LEASES, A.ARCHIVE);
+  const [data, setData] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const { data, isLoading, error, toggleArchive, refetch } = useLeases({
-    includeArchived,
-    role,
-  });
+  const [editingId, setEditingId] = useState(null);
+  const [draftRentAmount, setDraftRentAmount] = useState("");
+  const [draftStatus, setDraftStatus] = useState("");
+  const [draftStartDate, setDraftStartDate] = useState("");
+  const [draftEndDate, setDraftEndDate] = useState("");
+  const [savingId, setSavingId] = useState(null);
+  const [inlineError, setInlineError] = useState(null);
 
-  const [tenants, setTenants] = useState([]);
-  const [tenantsError, setTenantsError] = useState(null);
-  const [properties, setProperties] = useState([]);
-  const [propertiesError, setPropertiesError] = useState(null);
+  const load = async () => {
+    if (!tenantId) {
+      setData([]);
+      setLoading(false);
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const rows = await leasesApi.list(tenantId, { includeArchived });
+      setData(rows);
+    } catch (e) {
+      console.error("Failed to load leases", e);
+      setError(e);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    let cancelled = false;
+    load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tenantId, includeArchived]);
 
-    async function loadTenants() {
-      try {
-        const res = await fetch(`${BASE_URL}/api/tenants`);
-        if (!res.ok) throw new Error(`Failed to load tenants: ${res.status}`);
-        const json = await res.json();
-        if (!cancelled) setTenants(Array.isArray(json) ? json : []);
-      } catch (err) {
-        console.error("Failed to load tenants", err);
-        if (!cancelled) setTenantsError(err);
-      }
+  const handleCreate = async (payload) => {
+    await leasesApi.create(tenantId, payload);
+    await load();
+  };
+
+  const startEdit = (o) => {
+    setEditingId(o.id);
+    setDraftRentAmount(o.rentAmount || "");
+    setDraftStatus(o.status || "");
+    setDraftStartDate(o.startDate || "");
+    setDraftendDate(o.endDate || "");
+    setInlineError(null);
+  };
+
+  const cancelEdit = () => {
+    setEditingId(null);
+    setDraftRentAmount("");
+    setDraftStatus("");
+    setDraftStartDate("");
+    setDraftEndDate("");
+    setInlineError(null);
+  };
+
+  const saveEdit = async (id) => {
+    if (!draftName.trim()) {
+      setInlineError(new Error("Name is required"));
+      return;
     }
 
-    async function loadProperties() {
-      try {
-        const res = await fetch(`${BASE_URL}/api/properties`);
-        if (!res.ok) throw new Error(`Failed to load properties: ${res.status}`);
-        const json = await res.json();
-        if (!cancelled) setProperties(Array.isArray(json) ? json : []);
-      } catch (err) {
-        console.error("Failed to load properties", err);
-        if (!cancelled) setPropertiesError(err);
-      }
+    try {
+      setSavingId(id);
+      setInlineError(null);
+      await leasesApi.update(tenantId, id, {
+        rentAmount: draftName.trim(),
+        status: draftStatus.trim(),
+        startDate: draftStartDate.trim(),
+        endDate: draftEndDate.trim(),
+      });
+      await load();
+      cancelEdit();
+    } catch (err) {
+      console.error("Failed to save lease", err);
+      setInlineError(err);
+    } finally {
+      setSavingId(null);
     }
+  };
 
-    loadTenants();
-    loadProperties();
+  const handleToggleArchive = async (id) => {
+    try {
+      await leasesApi.toggleArchive(tenantId, id);
+      await load();
+    } catch (err) {
+      console.error("Failed to toggle lease archive", err);
+      setInlineError(err);
+    }
+  };
 
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  if (!canView)
+  if (!tenantId) {
     return (
       <div style={{ color: "#888" }}>
-        You don’t have permission to view leases.
+        Create a tenant first to attach leases.
       </div>
     );
+  }
+
   if (isLoading) return <div>Loading leases…</div>;
-  if (error)
+
+  if (error) {
     return (
       <div style={{ color: "crimson" }}>
         Error loading leases: {String(error.message || error)}
       </div>
     );
-
-  const handleCreated = async () => {
-    await refetch();
-  };
+  }
 
   return (
     <div>
-      <h3 style={{ margin: "8px 0" }}>Leases</h3>
-
-      {tenantsError && (
-        <div style={{ color: "darkorange", marginBottom: 4, fontSize: 12 }}>
-          Warning: failed to load tenants:{" "}
-          {String(tenantsError.message || tenantsError)}
-        </div>
+      {showAddForm && (
+        <AddLeaseForm onCreate={handleCreate} disabled={!tenantId} />
       )}
 
-      {propertiesError && (
-        <div style={{ color: "darkorange", marginBottom: 4, fontSize: 12 }}>
-          Warning: failed to load properties:{" "}
-          {String(propertiesError.message || propertiesError)}
+      {inlineError && (
+        <div style={{ color: "crimson", marginBottom: 8, fontSize: 12 }}>
+          {String(inlineError.message || inlineError)}
         </div>
       )}
-
-      <AddLeaseForm
-        onCreated={handleCreated}
-        tenants={tenants}
-        properties={properties}
-      />
-
-      <ul style={{ paddingLeft: 16, lineHeight: 1.7 }}>
-        {data.map((l) => (
-          <LeaseRow
-            key={l.id}
-            lease={l}
-            tenants={tenants}
-            properties={properties}
-            canArchive={canArchive}
-            onArchive={async () => {
-              await toggleArchive(l.id);
-            }}
-            onUpdated={refetch}
-          />
-        ))}
-      </ul>
 
       {data.length === 0 && (
-        <div style={{ color: "#666", marginTop: 4 }}>No leases yet.</div>
+        <div style={{ color: "#666", marginTop: 4 }}>No leases.</div>
       )}
+
+      <ul style={{ paddingLeft: 16, lineHeight: 1.7 }}>
+        {data.map((o) => {
+          const isEditing = editingId === o.id;
+          const isSaving = savingId === o.id;
+
+          if (isEditing) {
+            return (
+              <li key={o.id} style={{ opacity: o.archived ? 0.6 : 1 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 4,
+                    maxWidth: 420,
+                  }}
+                >
+                  <input
+                    type="number"
+                    value={draftRentAmount}
+                    onChange={(e) => setDraftRentAmount(e.target.value)}
+                    placeholder="Rent Amount"
+                    style={{ padding: 4 }}
+                  />
+                  <input
+                    type="text"
+                    value={draftStatus}
+                    onChange={(e) => setDraftStatus(e.target.value)}
+                    placeholder="Status"
+                    style={{ padding: 4 }}
+                  />
+                  <input
+                    type="text"
+                    value={draftStartDate}
+                    onChange={(e) => setDraftStartDate(e.target.value)}
+                    placeholder="Status"
+                    style={{ padding: 4 }}
+                  />
+                  <input
+                    type="text"
+                    value={draftEndDate}
+                    onChange={(e) => setDraftEndDate(e.target.value)}
+                    placeholder="Status"
+                    style={{ padding: 4 }}
+                  />
+                  <div style={{ display: "flex", gap: 6, marginTop: 4 }}>
+                    <button
+                      type="button"
+                      onClick={() => saveEdit(o.id)}
+                      disabled={isSaving}
+                    >
+                      {isSaving ? "Saving…" : "Save"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={cancelEdit}
+                      disabled={isSaving}
+                    >
+                      Cancel
+                    </button>
+                    <ArchiveButton
+                      archived={o.archived}
+                      onToggle={() => handleToggleArchive(o.id)}
+                    />
+                  </div>
+                </div>
+              </li>
+            );
+          }
+
+          return (
+            <li key={o.id} style={{ opacity: o.archived ? 0.6 : 1 }}>
+              <strong>Lease Name</strong>
+              {o.rentAmount && <> — {o.rentAmount}</>}
+              {o.status && <> — {o.status}</>}
+              {o.startDate && <> — {o.startDate}</>}
+              {o.endDate && <> — {o.endDate}</>}
+              {o.archived && (
+                <span
+                  style={{ marginLeft: 8, fontSize: 12, color: "#888" }}
+                >
+                  (Archived)
+                </span>
+              )}
+
+              <button
+                type="button"
+                style={{ marginLeft: 8 }}
+                onClick={() => startEdit(o)}
+              >
+                Edit
+              </button>
+
+              <ArchiveButton
+                archived={o.archived}
+                onToggle={() => handleToggleArchive(o.id)}
+              />
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }

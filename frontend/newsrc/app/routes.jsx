@@ -41,6 +41,12 @@ import LandlordPropertiesPage from "@features/properties/pages/LandlordPropertie
 import LandlordAddPropertyPage from "@features/properties/pages/LandlordAddPropertyPage.jsx";
 import LandlordPropertyDetailPage from "@features/properties/pages/LandlordPropertyDetailPage.jsx";
 
+////Leases
+import LandlordLeasesPage from "@features/leases/pages/LandlordLeasesPage.jsx";
+import LandlordAddLeasePage from "@features/leases/pages/LandlordAddLeasePage.jsx";
+import LandlordLeaseDetailPage from "@features/leases/pages/LandlordLeaseDetailPage.jsx";
+
+
 ////Residents
 //////Tenants
 import LandlordResidentsPage from "@features/residents/pages/LandlordResidentsPage.jsx";
@@ -462,6 +468,36 @@ export function AppRoutes() {
           element={
             <RequireRole allow={[ROLES.LANDLORD]}>
               <LandlordEmergencyContactDetailPage />
+            </RequireRole>
+          }
+        />
+
+        {/* Leases main */}
+        <Route
+          path="/landlord/leases"
+          element={
+            <RequireRole allow={[ROLES.LANDLORD]}>
+              <LandlordLeasesPage />
+            </RequireRole>
+          }
+        />
+
+        {/* Add lease */}
+        <Route
+          path="/landlord/leases/new"
+          element={
+            <RequireRole allow={[ROLES.LANDLORD]}>
+              <LandlordAddLeasePage />
+            </RequireRole>
+          }
+        />
+
+        {/* Lease detail */}
+        <Route
+          path="/landlord/leases/:leaseId"
+          element={
+            <RequireRole allow={[ROLES.LANDLORD]}>
+              <LandlordLeaseDetailPage />
             </RequireRole>
           }
         />

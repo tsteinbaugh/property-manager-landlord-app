@@ -1,77 +1,78 @@
-// newsrc/features/tenants/pages/LandlordAddPetPage.jsx
+// newsrc/features/tenants/pages/LandlordAddLeasePage.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
-import styles from "../tenants/LandlordTenantsPage.module.css";
-import { petsApi } from "@features/residents/api/pets.api.js";
+import styles from "@features/residents/pages/tenants/LandlordTenantsPage.module.css";
+import { leasesApi } from "@features/leases/api/leases.api.js";
 
-export default function LandlordAddPetPage() {
+export default function LandlordAddLeasePage() {
   const navigate = useNavigate();
   const { token } = useUser() || {};
 
-  const [name, setName] = useState("");
-  const [type, setType] = useState("");
-  const [breed, setBreed] = useState("");
-  const [weightLb, setWeightLb] = useState("");
+  const [rentAmount, setRentAmount] = useState("");
+  const [status, setStatus] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [file, setFile] = useState(null);
   const [isSubmitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!name.trim()) {
-      setFormError("Name is required.");
-      return;
-    }
+    const rawRentAmount = rentAmount.trim();
+    let normalizedRentAmount = null;
 
-     const rawWeight = weightLb.trim();
-    let normalizedWeight = null;
-
-    if (rawWeight) {
-      const parsed = Number(rawWeight);
+    if (rawRentAmount) {
+      const parsed = Number(rawRentAmount);
       if (Number.isNaN(parsed) || parsed < 0) {
-        setFormError("Weight must be a positive number.");
+        setFormError("Rent amount must be a positive number.");
         return;
       }
-      normalizedWeight = parsed;
+      normalizedRentAmount = parsed;
     }
-
+  
     try {
       setSubmitting(true);
       setFormError("");
-
-      await petsApi.create(
+    
+      // 1) Create the lease record (JSON only)
+      const created = await leasesApi.create(
         {
-          name: name.trim(),
-          type: type.trim(),
-          breed: breed.trim(),
-          weightLb: normalizedWeight,
+          rentAmount: normalizedRentAmount,
+          status: status.trim(),
+          startDate: startDate.trim(),
+          endDate: endDate.trim(),
+          // tenantId is intentionally omitted for now – leases are global
         },
         { token }
       );
-
-      navigate("/landlord/residents?tab=pets");
+    
+      // 2) If we have a file, upload it against the created lease
+      if (file && created && created.id) {
+        await leasesApi.uploadFile(created.id, file, { token });
+      }
+    
+      navigate("/landlord/leases");
     } catch (err) {
-      console.error("Failed to create pet", err);
-      setFormError("Failed to create pet. Check console for details.");
+      console.error("Failed to create lease", err);
+      setFormError("Failed to create lease. Check console for details.");
     } finally {
       setSubmitting(false);
     }
   };
 
   const handleCancel = () => {
-    navigate("/landlord/residents?tab=pets");
+    navigate("/landlord/leases");
   };
-
-  const saveDisabled = isSubmitting || !name.trim();
 
   return (
     <div className={styles.page}>
       <header className={styles.header}>
         <div>
-          <h1 className={styles.title}>Add pet</h1>
+          <h1 className={styles.title}>Add lease</h1>
           <p className={styles.subtitle}>
-            Create a pet record. You’ll be able to connect pets to
+            Create a lease record. You’ll be able to connect leases to
             leases (and optionally tenants) later.
           </p>
         </div>
@@ -88,92 +89,20 @@ export default function LandlordAddPetPage() {
             background: "#ffffff",
           }}
         >
-          {/* Name */}
+          {/* Rent Amount */}
           <div style={{ marginBottom: 12 }}>
             <label
-              htmlFor="name"
+              htmlFor="rentAmount"
               style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
             >
-              Pet name <span style={{ color: "#b91c1c" }}>*</span>
+              Rent amount <span style={{ color: "#b91c1c" }}>*</span>
             </label>
             <input
-              id="name"
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Name (required)"
-              style={{
-                width: "100%",
-                padding: "6px 8px",
-                borderRadius: 8,
-                border: "1px solid #d1d5db",
-              }}
-              disabled={isSubmitting}
-            />
-          </div>
-
-          {/* Type*/}
-          <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="type"
-              style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
-            >
-              Type
-            </label>
-            <input
-              id="type"
-              type="text"
-              value={type}
-              onChange={(e) => setType(e.target.value)}
-              placeholder="Type (dog, cat, bird, etc.)"
-              style={{
-                width: "100%",
-                padding: "6px 8px",
-                borderRadius: 8,
-                border: "1px solid #d1d5db",
-              }}
-              disabled={isSubmitting}
-            />
-          </div>
-
-          {/* Breed */}
-          <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="breed"
-              style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
-            >
-              Breed
-            </label>
-            <input
-              id="breed"
-              type="text"
-              value={breed}
-              onChange={(e) => setBreed(e.target.value)}
-              placeholder="poodle, boxer, etc."
-              style={{
-                width: "100%",
-                padding: "6px 8px",
-                borderRadius: 8,
-                border: "1px solid #d1d5db",
-              }}
-              disabled={isSubmitting}
-            />
-          </div>
-
-          {/* WeightLb */}
-          <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="weightLb"
-              style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
-            >
-              Weight (Lb)
-            </label>
-            <input
-              id="weightLb"
+              id="rentAmount"
               type="number"
-              value={weightLb}
-              onChange={(e) => setWeightLb(e.target.value)}
-              placeholder="Weight (Lb)"
+              value={rentAmount}
+              onChange={(e) => setRentAmount(e.target.value)}
+              placeholder="Rent amount"
               style={{
                 width: "100%",
                 padding: "6px 8px",
@@ -182,6 +111,110 @@ export default function LandlordAddPetPage() {
               }}
               disabled={isSubmitting}
             />
+          </div>
+
+          {/* Status */}
+          <div style={{ marginBottom: 12 }}>
+            <label
+              htmlFor="status"
+              style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
+            >
+              Status
+            </label>
+            <input
+              id="status"
+              type="text"
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+              placeholder="status"
+              style={{
+                width: "100%",
+                padding: "6px 8px",
+                borderRadius: 8,
+                border: "1px solid #d1d5db",
+              }}
+              disabled={isSubmitting}
+            />
+          </div>
+
+          {/* Start Date */}
+          <div style={{ marginBottom: 12 }}>
+            <label
+              htmlFor="startDate"
+              style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
+            >
+              Start Date
+            </label>
+            <input
+              id="startDate"
+              type="text"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              placeholder="Start date"
+              style={{
+                width: "100%",
+                padding: "6px 8px",
+                borderRadius: 8,
+                border: "1px solid #d1d5db",
+              }}
+              disabled={isSubmitting}
+            />
+          </div>
+
+          {/* End Date */}
+          <div style={{ marginBottom: 12 }}>
+            <label
+              htmlFor="endDate"
+              style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
+            >
+              End Date
+            </label>
+            <input
+              id="endDate"
+              type="text"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              placeholder="End date"
+              style={{
+                width: "100%",
+                padding: "6px 8px",
+                borderRadius: 8,
+                border: "1px solid #d1d5db",
+              }}
+              disabled={isSubmitting}
+            />
+          </div>
+
+          {/* Lease file (optional) */}
+          <div style={{ marginBottom: 12 }}>
+            <label
+              htmlFor="leaseFile"
+              style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
+            >
+              Lease file
+            </label>
+            <input
+              id="leaseFile"
+              type="file"
+              accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+              onChange={(e) => {
+                const selected = e.target.files && e.target.files[0];
+                setFile(selected || null);
+              }}
+              style={{
+                width: "100%",
+                padding: "6px 8px",
+                borderRadius: 8,
+                border: "1px solid #d1d5db",
+                background: "#f9fafb",
+              }}
+              disabled={isSubmitting}
+            />
+            {file && (
+              <div style={{ marginTop: 4, fontSize: 12, color: "#4b5563" }}>
+                Selected: {file.name}
+              </div>
+            )}
           </div>
 
           {formError && (
@@ -194,9 +227,8 @@ export default function LandlordAddPetPage() {
             <button
               type="submit"
               className={styles.primaryButton}
-              disabled={saveDisabled}
             >
-              {isSubmitting ? "Saving…" : "Save pet"}
+              {isSubmitting ? "Saving…" : "Save lease"}
             </button>
 
             <button

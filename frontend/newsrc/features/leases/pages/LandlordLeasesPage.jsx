@@ -1,21 +1,21 @@
-// newsrc/features/tenants/pages/LandlordVehiclesPage.jsx
+// newsrc/features/tenants/pages/LandlordLeasesPage.jsx
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
-import { vehiclesApi } from "@features/residents/api/vehicles.api.js";
+import { leasesApi } from "@features/leases/api/leases.api.js";
 
 // reuse tenant card styling so it visually matches tenants/properties
 import TenantCardStyles from "@features/residents/components/tenants/TenantCard.module.css";
-import styles from "../tenants/LandlordTenantsPage.module.css";
+import styles from "@features/residents/pages/tenants/LandlordTenantsPage.module.css";
 
-function VehicleCard({ vehicle, onClick }) {
-  const { make, model, year, color, state, plate, permit, archived } = vehicle;
+function LeaseCard({ lease, onClick }) {
+  const { rentAmount, status, startDate, endDate, archived } = lease;
 
   const badgeClass = archived
     ? TenantCardStyles.badgeArchived
     : TenantCardStyles.badgeIdle;
 
-  const badgeLabel = archived ? "Archived" : "Active vehicle";
+  const badgeLabel = archived ? "Archived" : "Active lease";
 
   return (
     <div
@@ -27,7 +27,7 @@ function VehicleCard({ vehicle, onClick }) {
     >
       <div className={TenantCardStyles.header}>
         <div className={TenantCardStyles.title}>
-          {permit || plate || "Unnamed vehicle"}
+          {"Unnamed lease"}
         </div>
         <span className={`${TenantCardStyles.badge} ${badgeClass}`}>
           {badgeLabel}
@@ -35,65 +35,38 @@ function VehicleCard({ vehicle, onClick }) {
       </div>
 
       <div className={TenantCardStyles.contact}>
-        {make ? (
-          <span className={TenantCardStyles.contactLine}>{make}</span>
+        {rentAmount ? (
+          <span className={TenantCardStyles.contactLine}>{rentAmount}</span>
         ) : (
           <span className={TenantCardStyles.contactLineMuted}>
-            No make set (Honda, Tacoma, Nissan, etc.)
+            No rent amount set
           </span>
         )}
       </div>
       <div className={TenantCardStyles.contact}>
-        {model ? (
-          <span className={TenantCardStyles.contactLine}>{model}</span>
+        {status ? (
+          <span className={TenantCardStyles.contactLine}>{status}</span>
         ) : (
           <span className={TenantCardStyles.contactLineMuted}>
-            No model set (Civic, Tacoma, Rouge, etc.)
+            No status not determined
           </span>
         )}
       </div>
       <div className={TenantCardStyles.contact}>
-        {year ? (
-          <span className={TenantCardStyles.contactLine}>{year}</span>
+        {startDate ? (
+          <span className={TenantCardStyles.contactLine}>{startDate}</span>
         ) : (
           <span className={TenantCardStyles.contactLineMuted}>
-            No year set
+            No start date set
           </span>
         )}
       </div>
       <div className={TenantCardStyles.contact}>
-        {color ? (
-          <span className={TenantCardStyles.contactLine}>{color}</span>
+        {endDate ? (
+          <span className={TenantCardStyles.contactLine}>{endDate}</span>
         ) : (
           <span className={TenantCardStyles.contactLineMuted}>
-            No color set
-          </span>
-        )}
-      </div>
-      <div className={TenantCardStyles.contact}>
-        {state ? (
-          <span className={TenantCardStyles.contactLine}>{state}</span>
-        ) : (
-          <span className={TenantCardStyles.contactLineMuted}>
-            No state set
-          </span>
-        )}
-      </div>
-      <div className={TenantCardStyles.contact}>
-        {plate ? (
-          <span className={TenantCardStyles.contactLine}>{plate}</span>
-        ) : (
-          <span className={TenantCardStyles.contactLineMuted}>
-            No license plate set
-          </span>
-        )}
-      </div>
-      <div className={TenantCardStyles.contact}>
-        {permit ? (
-          <span className={TenantCardStyles.contactLine}>{permit}</span>
-        ) : (
-          <span className={TenantCardStyles.contactLineMuted}>
-            No permit # set
+            No end date set
           </span>
         )}
       </div>
@@ -101,8 +74,8 @@ function VehicleCard({ vehicle, onClick }) {
   );
 }
 
-export default function LandlordVehiclesPage() {
-  const [vehicles, setVehicles] = useState([]);
+export default function LandlordLeasesPage() {
+  const [leases, setLeases] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [showArchived, setShowArchived] = useState(false);
@@ -120,17 +93,17 @@ export default function LandlordVehiclesPage() {
         setLoading(true);
         setError("");
 
-        const data = await vehiclesApi.listAll({
+        const data = await leasesApi.listAll({
           includeArchived: true,
           token,
         });
         if (!cancelled) {
-          setVehicles(Array.isArray(data) ? data : []);
+          setLeases(Array.isArray(data) ? data : []);
         }
       } catch (err) {
-        console.error("Failed to load vehicles", err);
+        console.error("Failed to load leases", err);
         if (!cancelled) {
-          setError("Failed to load vehicles. Please try again.");
+          setError("Failed to load leases. Please try again.");
         }
       } finally {
         if (!cancelled) setLoading(false);
@@ -143,29 +116,29 @@ export default function LandlordVehiclesPage() {
     };
   }, [token]);
 
-  const visibleVehicles = useMemo(() => {
-    if (showArchived) return vehicles;
-    return (vehicles || []).filter((o) => !o.archived);
-  }, [vehicles, showArchived]);
+  const visibleLeases = useMemo(() => {
+    if (showArchived) return leases;
+    return (leases || []).filter((o) => !o.archived);
+  }, [leases, showArchived]);
 
-  const hasVisibleVehicles = visibleVehicles.length > 0;
-  const hasAnyArchived = (vehicles || []).some((o) => o.archived);
+  const hasVisibleLeases = visibleLeases.length > 0;
+  const hasAnyArchived = (leases || []).some((o) => o.archived);
 
-  const handleAddVehicle = () => {
-    navigate("/landlord/vehicles/new");
+  const handleAddLease = () => {
+    navigate("/landlord/leases/new");
   };
 
-  const handleOpenVehicle = (id) => {
-    navigate(`/landlord/vehicles/${id}`);
+  const handleOpenLease = (id) => {
+    navigate(`/landlord/leases/${id}`);
   };
 
   return (
     <div className={styles.page}>
       <header className={styles.header}>
         <div>
-          <h1 className={styles.title}>Your vehicles</h1>
+          <h1 className={styles.title}>Your leases</h1>
           <p className={styles.subtitle}>
-            See everyone living in your rentals, across all tenants and leases.
+            Manage your active, archived and draft leases..
           </p>
         </div>
 
@@ -176,9 +149,9 @@ export default function LandlordVehiclesPage() {
           <button
             type="button"
             className={styles.primaryButton}
-            onClick={handleAddVehicle}
+            onClick={handleAddLease}
           >
-            + Add vehicle
+            + Add lease
           </button>
 
           {hasAnyArchived && (
@@ -197,8 +170,8 @@ export default function LandlordVehiclesPage() {
               }}
             >
               {showArchived
-                ? "Hide archived vehicles"
-                : "View archived vehicles"}
+                ? "Hide archived leases"
+                : "View archived leases"}
             </button>
           )}
         </div>
@@ -206,7 +179,7 @@ export default function LandlordVehiclesPage() {
 
       {isLoading && (
         <div className={styles.center}>
-          <p className={styles.muted}>Loading your vehicles…</p>
+          <p className={styles.muted}>Loading your leases…</p>
         </div>
       )}
 
@@ -216,36 +189,36 @@ export default function LandlordVehiclesPage() {
         </div>
       )}
 
-      {!isLoading && !error && !hasVisibleVehicles && (
+      {!isLoading && !error && !hasVisibleLeases && (
         <div className={styles.empty}>
           <h2 className={styles.emptyTitle}>
-            {hasAnyArchived ? "No active vehicles" : "No vehicles yet"}
+            {hasAnyArchived ? "No active leases" : "No leases yet"}
           </h2>
           <p className={styles.emptyText}>
             {hasAnyArchived
-              ? "Archived vehicles are hidden from your active list. You can view them using the link above."
-              : "Once you add your first vehicle, you’ll see them here. You can link them to tenants and leases later."}
+              ? "Archived leases are hidden from your active list. You can view them using the link above."
+              : "Once you add your first lease, you’ll see them here. You can link them to tenants and leases later."}
           </p>
 
           {!hasAnyArchived && (
             <button
               type="button"
               className={styles.primaryButton}
-              onClick={handleAddVehicle}
+              onClick={handleAddLease}
             >
-              Create your first vehicle
+              Create your first lease
             </button>
           )}
         </div>
       )}
 
-      {!isLoading && !error && hasVisibleVehicles && (
+      {!isLoading && !error && hasVisibleLeases && (
         <div className={styles.grid}>
-          {visibleVehicles.map((o) => (
-            <VehicleCard
+          {visibleLeases.map((o) => (
+            <LeaseCard
               key={o.id}
-              vehicle={o}
-              onClick={() => handleOpenVehicle(o.id)}
+              lease={o}
+              onClick={() => handleOpenLease(o.id)}
             />
           ))}
         </div>
