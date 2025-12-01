@@ -7,7 +7,7 @@ async function http(method, path, body, token) {
   };
 
   if (token) {
-headers["Authorization"] = `Bearer ${token}`;
+    headers["Authorization"] = `Bearer ${token}`;
   }
 
   const res = await fetch(`${BASE_URL}${path}`, {
@@ -75,7 +75,7 @@ function mapLeaseFromApi(o) {
 
   return {
     id: o.id,
-    rentAmount: o.rentAmount || "",
+    rentAmount: o.rentAmount ?? null,
     status: o.status || "",
     startDate: o.startDate || "",
     endDate: o.endDate || "",
@@ -83,14 +83,36 @@ function mapLeaseFromApi(o) {
     createdAt: o.createdAt || o.createdAtISO || null,
     updatedAt: o.updatedAt || o.updatedAtISO || null,
 
-    // file metadata (already in your Prisma model)
+    // NEW: linkage info
+    propertyId: o.propertyId || (o.property && o.property.id) || null,
+    landlordId: o.landlordId || (o.landlord && o.landlord.id) || null,
+    tenantId: o.tenantId || (o.tenant && o.tenant.id) || null,
+
+    property: o.property || null,
+    tenant: o.tenant || null,
+
+    // NEW: full leaseTenants info (if backend includes it)
+    leaseTenants: Array.isArray(o.leaseTenants)
+      ? o.leaseTenants.map((lt) => ({
+          id: lt.id,
+          tenantId: lt.tenantId,
+          tenantName:
+            lt.tenantName ||
+            (lt.tenant && lt.tenant.name) ||
+            "",
+          isPrimary: !!lt.isPrimary,
+          startDate: lt.startDate || "",
+          endDate: lt.endDate || "",
+        }))
+      : [],
+
+    // file metadata
     fileUrl: o.fileUrl || null,
     fileOriginalName: o.fileOriginalName || null,
     fileMimeType: o.fileMimeType || null,
     fileSize: o.fileSize ?? null,
   };
 }
-
 
 export const leasesApi = {
   // primary way: list all leases across the system
@@ -141,4 +163,3 @@ export const leasesApi = {
     return mapLeaseFromApi(row);
   },
 };
-

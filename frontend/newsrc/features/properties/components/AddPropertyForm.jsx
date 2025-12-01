@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { apiFetch } from "@lib/apiClient.js";
 import { useUser } from "@app/providers.jsx";
 
-export default function AddPropertyForm({ onCreated }) {
+export default function AddPropertyForm({ onCreated, onSubmit }) {
   const { user, token } = useUser() || {};
   const [name, setName] = useState("");
   const [address1, setAddress1] = useState("");
@@ -19,19 +19,28 @@ export default function AddPropertyForm({ onCreated }) {
       return;
     }
 
+    const payload = {
+      name: name || address1,
+      address1,
+      city,
+      state,
+      postalCode,
+      landlordId: user?.id ?? null,
+    };
+
+    // If parent provided a custom onSubmit (e.g., staging for a lease),
+    // use that instead of calling the API here.
+    if (onSubmit) {
+      onSubmit(payload);
+      return;
+    }
+
     try {
       setSaving(true);
       await apiFetch("/api/properties", {
         method: "POST",
         token,
-        body: {
-          name: name || address1,
-          address1,
-          city,
-          state,
-          postalCode,
-          landlordId: user?.id ?? null,
-        },
+        body: payload,
       });
 
       // Clear form
@@ -41,7 +50,7 @@ export default function AddPropertyForm({ onCreated }) {
       setStateVal("CO");
       setPostalCode("");
 
-    if (onCreated) onCreated();
+      if (onCreated) onCreated();
     } catch (err) {
       console.error("Failed to create property", err);
       alert("Failed to create property. Check console for details.");

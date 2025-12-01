@@ -2,12 +2,18 @@
 
 const BASE_URL = "http://localhost:4000";
 
-async function http(method, path, body) {
+async function http(method, path, body, token) {
+  const headers = {
+    "Content-Type": "application/json",
+  };
+
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
   const res = await fetch(`${BASE_URL}${path}`, {
     method,
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers,
     body: body ? JSON.stringify(body) : undefined,
   });
 
@@ -30,45 +36,75 @@ async function http(method, path, body) {
 }
 
 function mapPropertyFromApi(p) {
-  // backend server.js returns: { id, name, address, archived, leases: [...] }
+  if (!p) return null;
+
+  const archived = !!(p.archived ?? p.isArchived);
+
+  const address1 = p.address1 || "";
+  const city = p.city || "";
+  const state = p.state || "";
+  const postalCode = p.postalCode || "";
+
+  // Keep `address` as a single string for existing UIs, but derive from real fields.
+  const address =
+    p.address ||
+    [address1, city, state, postalCode].filter(Boolean).join(", ");
+
   return {
     id: p.id,
     name: p.name || "",
-    address: p.address || "",
-    archived: !!p.archived,
-    status: p.status || "occupied", // placeholder until we model status in DB
+    address,
+    address1,
+    city,
+    state,
+    postalCode,
+    archived,
+    status: p.status || "occupied", // still a placeholder until modeled in DB
+
+    // For list() this will usually be [], for detail() this will include full lease objects.
     leases: Array.isArray(p.leases) ? p.leases : [],
   };
 }
 
 export const propertiesApi = {
-  async list() {
-    const rows = await http("GET", "/api/properties");
+  // List properties (optionally scoped with token)
+  async list(options = {}) {
+    const { token } = options;
+    const rows = await http("GET", "/api/properties", null, token);
     if (!Array.isArray(rows)) return [];
     return rows.map(mapPropertyFromApi);
   },
 
-  async get(id) {
-    const all = await this.list();
-    return all.find((p) => p.id === id) || null;
+  // Property detail with leases + tenants (uses GET /api/properties/:id)
+  async get(id, options = {}) {
+    const { token } = options;
+    if (!id) throw new Error("id is required");
+
+    const p = await http("GET", `/api/properties/${id}`, null, token);
+    if (!p) return null;
+    return mapPropertyFromApi(p);
   },
 
-  // we’ll hook this up later with POST /api/properties
-  async add(payload) {
-    console.warn("[propertiesApi.add] not implemented against backend yet");
-    return {
-      id: payload?.id || String(Math.random()).slice(2),
-      name: payload?.name || "",
-      address: payload?.address || "",
-      archived: false,
-      status: payload?.status || "vacant",
-      leases: [],
-    };
+  // Create property (wired to POST /api/properties)
+  async add(payload, options = {}) {
+    const { token } = options;
+
+    const created = await http("POST", "/api/properties", payload, token);
+    return mapPropertyFromApi(created);
   },
 
-  async update(id, patch) {
-    console.warn("[propertiesApi.update] not implemented against backend yet");
-    return { id, ...patch };
+  // Update property (PATCH /api/properties/:id)
+  async update(id, patch, options = {}) {
+    const { token } = options;
+    if (!id) throw new Error("id is required");
+
+    const updated = await http(
+      "PATCH",
+      `/api/properties/${id}`,
+      patch,
+      token
+    );
+    return mapPropertyFromApi(updated);
   },
 
   async setStatus(id, status) {
@@ -76,18 +112,31 @@ export const propertiesApi = {
     return { id, status };
   },
 
-  async toggleArchive(id) {
+  // Archive/unarchive property, and cascade archive to leases
+  async toggleArchive(id, options = {}) {
+    const { token } = options;
+    if (!id) throw new Error("id is required");
+
     // Try PATCH first; if backend only supports POST, we can fall back
     let updated;
     try {
-      updated = await http("PATCH", `/api/properties/${id}/archive`);
+      updated = await http(
+        "PATCH",
+        `/api/properties/${id}/archive`,
+        undefined,
+        token
+      );
     } catch (err) {
-      // Fallback to POST /toggle-archive if PATCH is not supported
       console.warn(
         "[propertiesApi.toggleArchive] PATCH failed, trying POST /toggle-archive",
         err
       );
-      updated = await http("POST", `/api/properties/${id}/toggle-archive`);
+      updated = await http(
+        "POST",
+        `/api/properties/${id}/toggle-archive`,
+        undefined,
+        token
+      );
     }
 
     const mapped = mapPropertyFromApi(updated);
@@ -95,13 +144,13 @@ export const propertiesApi = {
     // Cascade to leases so they archive/unarchive with the property
     try {
       const { leasesApi } = await import("../../leases/api/leases.api.js");
-      const leases = await leasesApi.list();
+      const leases = await leasesApi.list({ token });
       const byProperty = leases.filter((l) => l.propertyId === id);
       for (const l of byProperty) {
         const shouldBeArchived = mapped.archived;
         const isArchived = !!l.archived || l.status === "ARCHIVED";
         if (shouldBeArchived !== isArchived) {
-          await leasesApi.toggleArchive(l.id);
+          await leasesApi.toggleArchive(l.id, { token });
         }
       }
     } catch (err) {

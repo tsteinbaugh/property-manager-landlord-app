@@ -1,0 +1,170 @@
+/* newsrc/layout/LandlordSideNav.module.css */
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-size: 14px;
+}
+
+/* Generic section wrapper */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Collapsible section header button: "Main", "Operations", etc. */
+.sectionHeaderButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 4px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.sectionHeaderLabel {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  color: #9ca3af; /* gray-400-ish */
+}
+
+/* Container for the links within a section */
+.sectionBody {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Shared caret indicator */
+.caret {
+  font-size: 10px;
+  color: #9ca3af;
+}
+
+/* Base top-level link */
+.link {
+  display: block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  text-decoration: none;
+  color: #374151; /* gray-700-ish */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.linkActive {
+  background: #eef2ff; /* indigo-50-ish */
+  color: #312e81; /* indigo-900-ish */
+  font-weight: 500;
+}
+
+/* Group around "Residents" + its toggle + children */
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.groupActive .link {
+  /* subtle emphasis when any of the residents links are active */
+  font-weight: 500;
+}
+
+/* Row containing "Residents" link and its caret toggle button */
+.groupHeader {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Button next to the Residents link to toggle its children */
+.groupToggle {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0 2px;
+  display: flex;
+  align-items: center;
+}
+
+/* Nested residents sub-links */
+.subList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-left: 8px;
+}
+
+.subLink {
+  display: block;
+  padding: 4px 10px 4px 18px;
+  border-radius: 999px;
+  font-size: 13px;
+  text-decoration: none;
+  color: #6b7280; /* gray-500-ish */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.subLinkActive {
+  background: #eef2ff;
+  color: #312e81;
+  font-weight: 500;
+}
+
+/* at the end of newsrc/layout/LandlordSideNav.module.css */
+
+.bottomToggleRow {
+  margin-top: auto;
+  padding-top: 8px;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.bottomToggleButton {
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.sidebarCollapsed {
+  flex: 0 0 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;  /* arrow at bottom */
+  align-items: center;
+  height: 100%;
+}
+
+.sidebarCollapsedButton {
+  width: 100%;
+  height: 72px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .sidebarCollapsed {
+    flex: 0 0 auto;
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .sidebarCollapsedButton {
+    width: 56px;
+  }
+}

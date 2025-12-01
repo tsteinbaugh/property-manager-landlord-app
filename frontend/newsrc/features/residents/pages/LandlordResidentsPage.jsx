@@ -22,28 +22,40 @@ export default function LandlordResidentsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { token } = useUser() || {};
 
-  const initialTab = (() => {
-    const tab = searchParams.get("tab");
-    if (tab === "occupants" || tab === "pets" || tab === "emergencyContacts" || tab == 'vehicles') {
-      return tab;
-    }
-    return "tenants";
-  })();
+  const VALID_TABS = [
+    "tenants",
+    "occupants",
+    "pets",
+    "emergencyContacts",
+    "vehicles",
+  ];
 
-  const [activeTab, setActiveTab] = useState(initialTab);
-
-    const handleTabChange = (nextTab) => {
-    setActiveTab(nextTab);
-
-    // keep URL in sync; omit ?tab when on tenants
-    if (nextTab === "tenants") {
-      setSearchParams({});
-    } else {
-      setSearchParams({ tab: nextTab });
-    }
+  const normalizeTab = (raw) => {
+    if (!raw) return "tenants";
+    return VALID_TABS.includes(raw) ? raw : "tenants";
   };
 
+  const [activeTab, setActiveTab] = useState(
+    normalizeTab(searchParams.get("tab"))
+  );
 
+  // Keep activeTab in sync with ?tab in the URL (e.g. when sidebar links are clicked)
+  useEffect(() => {
+    const tabFromUrl = normalizeTab(searchParams.get("tab"));
+    setActiveTab(tabFromUrl);
+  }, [searchParams]);
+
+  const handleTabChange = (nextTab) => {
+    const safeTab = normalizeTab(nextTab);
+    setActiveTab(safeTab);
+
+    // keep URL in sync; omit ?tab when on tenants
+    if (safeTab === "tenants") {
+      setSearchParams({});
+    } else {
+      setSearchParams({ tab: safeTab });
+    }
+  };
 
   // ---------------- TENANTS STATE ----------------
 

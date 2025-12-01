@@ -129,6 +129,77 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
     }
   });
 
+    // GET /api/tenants/:id – detail, including leases + properties
+  app.get("/api/tenants/:id", async (req, res) => {
+    const { id } = req.params;
+    const user = req.user || null;
+
+    if (!user) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    if (user.baseRole !== Role.LANDLORD && user.baseRole !== Role.SYSADMIN) {
+      return res.status(403).json({
+        error: "You are not allowed to view tenant details.",
+      });
+    }
+
+    try {
+      const tenant = await prisma.tenant.findUnique({
+        where: { id },
+        include: {
+          // ALL leases (past + current) this tenant is/was on
+          leaseTenants: {
+            orderBy: { startDate: "desc" },
+            include: {
+              lease: {
+                include: {
+                  property: true,
+                },
+              },
+            },
+          },
+
+          // Household info (non-archived)
+          occupants: {
+            where: { isArchived: false },
+            orderBy: { createdAt: "asc" },
+          },
+          pets: {
+            where: { isArchived: false },
+            orderBy: { createdAt: "asc" },
+          },
+          emergencyContacts: {
+            where: { isArchived: false },
+            orderBy: { createdAt: "asc" },
+          },
+          vehicles: {
+            where: { isArchived: false },
+            orderBy: { createdAt: "asc" },
+          },
+        },
+      });
+
+      if (!tenant) {
+        return res.status(404).json({ error: "Tenant not found" });
+      }
+
+      // Landlord can only see their own tenants
+      if (user.baseRole === Role.LANDLORD) {
+        if (tenant.landlordId && tenant.landlordId !== user.id) {
+          return res
+            .status(403)
+            .json({ error: "You are not allowed to view this tenant." });
+        }
+      }
+
+      res.json(tenant);
+    } catch (err) {
+      console.error("Error in GET /api/tenants/:id", err);
+      res.status(500).json({ error: "Server error" });
+    }
+  });
+
   // GET /api/tenants – list tenants, scoped by landlord
   app.get("/api/tenants", async (req, res) => {
     const user = req.user || null;

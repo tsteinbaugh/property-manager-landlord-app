@@ -35,95 +35,104 @@ enum AuthTokenKind {
 }
 
 model User {
-  id           String      @id @default(cuid())
-  email        String      @unique
+  id           String     @id @default(cuid())
+  email        String     @unique
   name         String?
   passwordHash String
-  baseRole     Role        @default(LANDLORD)
-  status       UserStatus  @default(ACTIVE)
-  isArchived   Boolean     @default(false)
+  baseRole     Role       @default(LANDLORD)
+  status       UserStatus @default(ACTIVE)
+  isArchived   Boolean    @default(false)
 
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // Relations
-  leases       Lease[]     @relation("UserLeases")
-  authTokens   AuthToken[]
+  leases     Lease[]     @relation("UserLeases")
+  authTokens AuthToken[]
 
-  tenant       Tenant?
+  tenant Tenant?
 
   propertiesOwned   Property[] @relation("LandlordProperties")
   propertiesCreated Property[] @relation("PropertyCreatedBy")
 
   // Who created which tenants
-  tenantsCreated    Tenant[]   @relation("TenantCreatedBy")
+  tenantsCreated Tenant[] @relation("TenantCreatedBy")
 
   // Who owns which tenants (landlord-level ownership)
-  tenantsOwned      Tenant[]   @relation("LandlordTenants")
+  tenantsOwned Tenant[] @relation("LandlordTenants")
 
   // NEW: who created which leases
-  leasesCreated     Lease[]    @relation("LeaseCreatedBy")
+  leasesCreated Lease[] @relation("LeaseCreatedBy")
 
   // NEW: who created which occupants/pets/emergencyContacts/vehicles
-  occupantsCreated        Occupant[]        @relation("OccupantCreatedBy")
-  petsCreated             Pet[]             @relation("PetCreatedBy")
+  occupantsCreated         Occupant[]         @relation("OccupantCreatedBy")
+  petsCreated              Pet[]              @relation("PetCreatedBy")
   emergencyContactsCreated EmergencyContact[] @relation("EmergencyContactCreatedBy")
-  vehiclesCreated         Vehicle[]         @relation("VehicleCreatedBy")
+  vehiclesCreated          Vehicle[]          @relation("VehicleCreatedBy")
 
   // NEW: who owns which occupants/pets/emergencyContacts/vehicles (landlord-level ownership)
-  occupantsOwned          Occupant[]        @relation("LandlordOccupants")
-  petsOwned               Pet[]             @relation("LandlordPets")
-  emergencyContactsOwned  EmergencyContact[] @relation("LandlordEmergencyContacts")
-  vehiclesOwned           Vehicle[]         @relation("LandlordVehicles")
+  occupantsOwned         Occupant[]         @relation("LandlordOccupants")
+  petsOwned              Pet[]              @relation("LandlordPets")
+  emergencyContactsOwned EmergencyContact[] @relation("LandlordEmergencyContacts")
+  vehiclesOwned          Vehicle[]          @relation("LandlordVehicles")
 
   // NEW: who created which users (self-relation)
   createdById  String?
-  createdBy    User?      @relation("UserCreatedBy", fields: [createdById], references: [id])
-  usersCreated User[]     @relation("UserCreatedBy")
+  createdBy    User?   @relation("UserCreatedBy", fields: [createdById], references: [id])
+  usersCreated User[]  @relation("UserCreatedBy")
 }
 
 model Property {
-  id          String   @id @default(cuid())
-  name        String?
-  address1    String
-  city        String
-  state       String
-  postalCode  String
-  isArchived  Boolean  @default(false)
+  id         String  @id @default(cuid())
+  name       String?
+  address1   String
+  city       String
+  state      String
+  postalCode String
+  bedrooms   Int?
+  bathrooms  Int?
+  sqft       Int?
+  yearBuilt  Int?
+  notes      String?
 
-  leases      Lease[]
+  isArchived Boolean @default(false)
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  leases Lease[]
 
-  landlordId  String?     // FK to User
-  landlord    User?       @relation("LandlordProperties", fields: [landlordId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  landlordId String? // FK to User
+  landlord   User?   @relation("LandlordProperties", fields: [landlordId], references: [id])
 
   createdById String?
   createdBy   User?   @relation("PropertyCreatedBy", fields: [createdById], references: [id])
 }
 
 model Lease {
-  id          String       @id @default(cuid())
+  id String @id @default(cuid())
 
-  property    Property     @relation(fields: [propertyId], references: [id])
-  propertyId  String
+  property      Property? @relation(fields: [propertyId], references: [id])
+  propertyId    String?
   propertyLabel String?
 
-  landlord    User         @relation("UserLeases", fields: [landlordId], references: [id])
-  landlordId  String
+  leaseTenants LeaseTenant[]
 
-  tenantName  String?
-  tenantId    String
-  tenant      Tenant       @relation(fields: [tenantId], references: [id])
+  landlord   User   @relation("UserLeases", fields: [landlordId], references: [id])
+  landlordId String
 
-  rentAmount  Int?
-  status      LeaseStatus  @default(ACTIVE)
-  startDate   DateTime?
-  endDate     DateTime?
+  tenantName String?
+  tenantId   String?
+  tenant     Tenant?  @relation(fields: [tenantId], references: [id])
 
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
+  rentAmount Int?
+  status     LeaseStatus @default(DRAFT)
+  startDate  DateTime?
+  endDate    DateTime?
+  notes      String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   fileUrl          String?
   fileOriginalName String?
@@ -135,44 +144,73 @@ model Lease {
 }
 
 model Tenant {
-  id         String    @id @default(cuid())
+  id         String  @id @default(cuid())
   name       String
   email      String?
   phone      String?
-  isArchived Boolean   @default(false)
+  occupation String?
+  age        Int?
+  income     Int?
+  creditScore Int?
+  violations String?
+  notes      String?
+  isArchived Boolean @default(false)
 
-  userId     String?   @unique
-  user       User?     @relation(fields: [userId], references: [id])
+  userId String? @unique
+  user   User?   @relation(fields: [userId], references: [id])
 
   // OWNER landlord – who “owns/controls” this tenant in the app
   landlordId String?
-  landlord   User?     @relation("LandlordTenants", fields: [landlordId], references: [id])
+  landlord   User?   @relation("LandlordTenants", fields: [landlordId], references: [id])
 
   // CREATOR – who originally created this row (landlord or sysadmin)
   createdById String?
-  createdBy   User?    @relation("TenantCreatedBy", fields: [createdById], references: [id])
+  createdBy   User?   @relation("TenantCreatedBy", fields: [createdById], references: [id])
 
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  leases             Lease[]
-  occupants          Occupant[]
-  pets               Pet[]
-  emergencyContacts  EmergencyContact[]
-  vehicles           Vehicle[]
+  leaseTenants      LeaseTenant[]
+  occupants         Occupant[]
+  pets              Pet[]
+  emergencyContacts EmergencyContact[]
+  vehicles          Vehicle[]
+  Lease             Lease[]
+}
+
+model LeaseTenant {
+  id String @id @default(cuid())
+
+  leaseId    String
+  tenantId   String
+  tenantName String?
+
+  // Optional but useful metadata
+  isPrimary Boolean   @default(false)
+  startDate DateTime?
+  endDate   DateTime?
+
+  lease  Lease  @relation(fields: [leaseId], references: [id])
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@unique([leaseId, tenantId])
 }
 
 model Occupant {
-  id         String   @id @default(cuid())
-  tenant     Tenant?  @relation(fields: [tenantId], references: [id])
-  tenantId   String?
+  id       String  @id @default(cuid())
+  tenant   Tenant? @relation(fields: [tenantId], references: [id])
+  tenantId String?
 
   name       String
+  phone      String?
+  email      String?
   relation   String?
-  isArchived Boolean  @default(false)
+  notes      String?
+  violations String?
+  isArchived Boolean @default(false)
 
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // OWNER landlord – whose portfolio this occupant belongs to
   landlordId String?
@@ -184,18 +222,22 @@ model Occupant {
 }
 
 model Pet {
-  id         String   @id @default(cuid())
-  tenant     Tenant?   @relation(fields: [tenantId], references: [id])
-  tenantId   String?
+  id       String  @id @default(cuid())
+  tenant   Tenant? @relation(fields: [tenantId], references: [id])
+  tenantId String?
 
   name       String
   type       String?
   breed      String?
   weightLb   Int?
-  isArchived Boolean  @default(false)
+  age        Int?
+  license    String?
+  notes      String?
+  violations String?
+  isArchived Boolean @default(false)
 
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // OWNER landlord
   landlordId String?
@@ -207,18 +249,23 @@ model Pet {
 }
 
 model EmergencyContact {
-  id         String   @id @default(cuid())
-  tenant     Tenant?   @relation(fields: [tenantId], references: [id])
-  tenantId   String?
+  id       String  @id @default(cuid())
+  tenant   Tenant? @relation(fields: [tenantId], references: [id])
+  tenantId String?
 
   name       String
   phone      String?
   relation   String?
   email      String?
-  isArchived Boolean  @default(false)
+  address1   String?
+  city       String?
+  state      String?
+  postalCode String?
+  notes      String?
+  isArchived Boolean @default(false)
 
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // OWNER landlord
   landlordId String?
@@ -230,9 +277,9 @@ model EmergencyContact {
 }
 
 model Vehicle {
-  id         String   @id @default(cuid())
-  tenant     Tenant?   @relation(fields: [tenantId], references: [id])
-  tenantId   String?
+  id       String  @id @default(cuid())
+  tenant   Tenant? @relation(fields: [tenantId], references: [id])
+  tenantId String?
 
   make       String?
   model      String?
@@ -241,10 +288,13 @@ model Vehicle {
   state      String?
   plate      String?
   permit     String?
-  isArchived Boolean  @default(false)
+  parking    String?
+  notes      String?
+  violations String?
+  isArchived Boolean @default(false)
 
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // OWNER landlord
   landlordId String?

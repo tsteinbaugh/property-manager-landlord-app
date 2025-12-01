@@ -1,4 +1,4 @@
-// newsrc/features/tenants/pages/LandlordTenantDetailPage.jsx
+// newsrc/features/residents/pages/tenants/LandlordTenantDetailPage.jsx
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
@@ -34,7 +34,7 @@ export default function LandlordTenantDetailPage() {
   const [isSaving, setSaving] = useState(false);
   const [isArchiving, setArchiving] = useState(false);
 
-  // Load tenant
+  // Load tenant (rich detail)
   useEffect(() => {
     let cancelled = false;
 
@@ -43,7 +43,7 @@ export default function LandlordTenantDetailPage() {
         setLoading(true);
         setError(null);
 
-        const t = await tenantsApi.get(tenantId, { token });
+        const t = await tenantsApi.detail(tenantId, { token });
 
         if (!cancelled) {
           if (!t) {
@@ -98,7 +98,17 @@ export default function LandlordTenantDetailPage() {
         { token }
       );
 
-      setTenant(updated);
+      // update only simple fields, preserve leases/household from previous state
+      setTenant((prev) => ({
+        ...prev,
+        ...updated,
+        leaseTenants: prev.leaseTenants,
+        occupants: prev.occupants,
+        pets: prev.pets,
+        emergencyContacts: prev.emergencyContacts,
+        vehicles: prev.vehicles,
+      }));
+
       setEditing(false);
     } catch (err) {
       console.error("Failed to update tenant", err);
@@ -141,7 +151,15 @@ export default function LandlordTenantDetailPage() {
     try {
       setArchiving(true);
       const updated = await tenantsApi.toggleArchive(tenant.id, { token });
-      setTenant(updated);
+      setTenant((prev) => ({
+        ...prev,
+        ...updated,
+        leaseTenants: prev.leaseTenants,
+        occupants: prev.occupants,
+        pets: prev.pets,
+        emergencyContacts: prev.emergencyContacts,
+        vehicles: prev.vehicles,
+      }));
     } catch (err) {
       console.error("Failed to toggle tenant archived state", err);
       alert("Failed to change archive status. Check console for details.");
@@ -167,6 +185,10 @@ export default function LandlordTenantDetailPage() {
   const canArchiveNow = !isArchived && canArchiveGrant;
   const canUnarchiveNow = isArchived && isSysAdmin;
   const showArchiveButton = canArchiveNow || canUnarchiveNow;
+
+  const leaseTenants = Array.isArray(tenant.leaseTenants)
+    ? tenant.leaseTenants
+    : [];
 
   return (
     <div style={{ padding: 16 }}>
@@ -270,6 +292,54 @@ export default function LandlordTenantDetailPage() {
             </button>
           )}
         </div>
+      </div>
+
+      {/* Leases for this tenant */}
+      <hr style={{ margin: "16px 0" }} />
+      <h3>Leases</h3>
+      {leaseTenants.length > 0 ? (
+        <ul style={{ paddingLeft: 18 }}>
+          {leaseTenants.map((lt) => {
+            const lease = lt.lease;
+            if (!lease) return null;
+            const property = lease.property;
+
+            return (
+              <li key={lt.id} style={{ marginBottom: 6 }}>
+                <Link to={`/landlord/leases/${lease.id}`}>
+                  Lease {lease.id.slice(0, 8)}
+                </Link>{" "}
+                – {lease.status || "UNKNOWN"}
+                {lease.rentAmount != null && ` · $${lease.rentAmount}/mo`}
+                {lease.startDate && ` · from ${lease.startDate}`}
+                {lease.endDate && ` to ${lease.endDate}`}
+
+                {property && (
+                  <div style={{ fontSize: 12, color: "#4b5563" }}>
+                    Property:{" "}
+                    {property.name ||
+                      property.address1 ||
+                      "(property details)"}
+                  </div>
+                )}
+
+                {lt.isPrimary && (
+                  <div style={{ fontSize: 12, color: "#2563eb" }}>
+                    Primary tenant on this lease
+                  </div>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      ) : (
+        <div>No leases associated with this tenant yet.</div>
+      )}
+
+      <div style={{ marginTop: 8, marginBottom: 8 }}>
+        <Link to={`/landlord/leases/new?tenantId=${tenant.id}`}>
+          + Add lease for this tenant
+        </Link>
       </div>
     </div>
   );

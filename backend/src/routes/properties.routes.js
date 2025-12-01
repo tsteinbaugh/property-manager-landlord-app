@@ -173,6 +173,46 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
     }
   });
 
+  // GET /api/properties/:id - full detail including leases + tenants
+  app.get("/api/properties/:id", async (req, res) => {
+    const { id } = req.params;
+
+    try {
+      const user = req.user || null;
+
+      const property = await prisma.property.findUnique({
+        where: { id },
+        include: {
+          leases: {
+            orderBy: { startDate: "desc" },
+            include: {
+              tenant: true, // primary tenant
+              leaseTenants: {
+                include: { tenant: true }, // all tenants
+              },
+            },
+          },
+        },
+      });
+
+      if (!property) {
+        return res.status(404).json({ error: "Property not found" });
+      }
+
+      // Landlord scoping: only see your own properties
+      if (user && user.baseRole === "LANDLORD") {
+        if (property.landlordId && property.landlordId !== user.id) {
+          return res.status(404).json({ error: "Property not found" });
+        }
+      }
+
+      res.json(property);
+    } catch (err) {
+      console.error("Error in GET /api/properties/:id", err);
+      res.status(500).json({ error: "Server error" });
+    }
+  });
+
   // GET /api/properties/:id/summary
   // Returns: property + active lease (if any) + tenant + occupants + pets + emergency contacts
   app.get("/api/properties/:id/summary", async (req, res) => {

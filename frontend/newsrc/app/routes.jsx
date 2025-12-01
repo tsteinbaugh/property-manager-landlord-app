@@ -46,7 +46,6 @@ import LandlordLeasesPage from "@features/leases/pages/LandlordLeasesPage.jsx";
 import LandlordAddLeasePage from "@features/leases/pages/LandlordAddLeasePage.jsx";
 import LandlordLeaseDetailPage from "@features/leases/pages/LandlordLeaseDetailPage.jsx";
 
-
 ////Residents
 //////Tenants
 import LandlordResidentsPage from "@features/residents/pages/LandlordResidentsPage.jsx";

@@ -7,10 +7,7 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
   // LEASES
   // ===================================================================
 
-  // POST /api/leases - create a lease + upload file
-  // If no propertyId is provided, attach to the most recently created property.
-  // If no landlordId is provided, attach to the first user (landlord).
-  // POST /api/leases - create a lease + upload file
+  // POST /api/leases - create a lease + optional file upload
   app.post(
     "/api/leases",
     (req, res, next) => {
@@ -21,9 +18,7 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
               .status(400)
               .json({ error: "File too large. Maximum size is 25 MB." });
           }
-          return res
-            .status(400)
-            .json({ error: err.message || "Upload error" });
+          return res.status(400).json({ error: err.message || "Upload error" });
         }
         next();
       });
@@ -31,36 +26,33 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
     async (req, res) => {
       try {
         const {
+          // property / landlord
           propertyId: rawPropertyId = "",
           landlordId: rawLandlordId = "",
+
+          // SINGLE tenantId (for backwards compatibility / “primary” tenant)
           tenantId: rawTenantId = "",
+
+          // NEW: multi-tenant support
+          tenantIds: rawTenantIds,
+
           tenantName,
           propertyLabel,
           rentAmount,
           startDate,
           endDate,
+          status, // optional, can be "DRAFT", "ACTIVE", etc.
         } = req.body || {};
 
         const authUser = req.user || null;
 
-        // ---------- Resolve property ----------
-        let effectivePropertyId = rawPropertyId && String(rawPropertyId).trim();
-        if (!effectivePropertyId) {
-          const latestProperty = await prisma.property.findFirst({
-            orderBy: { createdAt: "desc" },
-          });
+        // ---------- Optional property ----------
+        const effectivePropertyId =
+          rawPropertyId && String(rawPropertyId).trim()
+            ? String(rawPropertyId).trim()
+            : null;
 
-          if (!latestProperty) {
-            return res.status(400).json({
-              error:
-                "No properties exist to attach this lease to. Create a property first.",
-            });
-          }
-
-          effectivePropertyId = latestProperty.id;
-        }
-
-        // ---------- Resolve landlord (prefer auth user) ----------
+        // ---------- Landlord (required, use auth user if possible) ----------
         let effectiveLandlordId =
           rawLandlordId && String(rawLandlordId).trim();
 
@@ -83,40 +75,45 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
           }
         }
 
-        // ---------- Resolve tenant (REQUIRED, but can auto-fill) ----------
-        let effectiveTenantId =
+        // ---------- Collect tenant IDs (multi-tenant aware) ----------
+        let tenantIds = [];
+
+        // 1) from tenantIds array
+        if (Array.isArray(rawTenantIds)) {
+          tenantIds = rawTenantIds
+            .map((id) => String(id).trim())
+            .filter(Boolean);
+        }
+
+        // 2) from single tenantId field (used by older UI / primary tenant)
+        const singleTenantId =
           rawTenantId && String(rawTenantId).trim()
             ? String(rawTenantId).trim()
             : null;
 
-        if (!effectiveTenantId) {
-          // If caller didn't specify tenantId, fall back to most recently created tenant
-          // Prefer tenants owned by this landlord, if we have one.
-          const tenantWhere = effectiveLandlordId
-            ? { landlordId: effectiveLandlordId }
-            : {};
+        if (singleTenantId && !tenantIds.includes(singleTenantId)) {
+          tenantIds.unshift(singleTenantId);
+        }
 
-          const latestTenant = await prisma.tenant.findFirst({
-            where: tenantWhere,
-            orderBy: { createdAt: "desc" },
+        // Load all referenced tenants (if any)
+        let tenants = [];
+        if (tenantIds.length > 0) {
+          tenants = await prisma.tenant.findMany({
+            where: { id: { in: tenantIds } },
           });
 
-          if (!latestTenant) {
-            return res.status(400).json({
-              error:
-                "No tenants exist to attach this lease to. Create a tenant first, or pass tenantId.",
-            });
+          if (tenants.length !== tenantIds.length) {
+            return res
+              .status(400)
+              .json({ error: "One or more tenantIds are invalid." });
           }
-
-          effectiveTenantId = latestTenant.id;
         }
 
-        const tenant = await prisma.tenant.findUnique({
-          where: { id: effectiveTenantId },
-        });
-        if (!tenant) {
-          return res.status(400).json({ error: "Invalid tenantId" });
-        }
+        const primaryTenantId = tenantIds.length > 0 ? tenantIds[0] : null;
+        const primaryTenant =
+          primaryTenantId != null
+            ? tenants.find((t) => t.id === primaryTenantId) || null
+            : null;
 
         // Rent parsing
         const numericRent =
@@ -124,47 +121,94 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
             ? Number(rentAmount)
             : null;
 
+        const startDateValue = startDate ? new Date(startDate) : null;
+        const endDateValue = endDate ? new Date(endDate) : null;
+
+        // Decide initial status:
+        // - if client supplied one, use it
+        // - otherwise:
+        //   - if property + at least one tenant present => ACTIVE
+        //   - else => DRAFT
+        const initialStatus =
+          status && String(status).trim()
+            ? String(status).trim()
+            : effectivePropertyId && primaryTenantId
+            ? "ACTIVE"
+            : "DRAFT";
+
+        const createData = {
+          landlord: { connect: { id: effectiveLandlordId } },
+
+          // labels
+          tenantName:
+            tenantName && tenantName.trim()
+              ? tenantName.trim()
+              : primaryTenant?.name ?? null,
+          propertyLabel:
+            propertyLabel && propertyLabel.trim()
+              ? propertyLabel.trim()
+              : null,
+
+          rentAmount: numericRent,
+          status: initialStatus,
+          startDate: startDateValue,
+          endDate: endDateValue,
+
+          ...(req.file
+            ? {
+                fileUrl: `/uploads/leases/${req.file.filename}`,
+                fileOriginalName: req.file.originalname,
+                fileMimeType: req.file.mimetype,
+                fileSize: req.file.size,
+              }
+            : {}),
+
+          ...(authUser && authUser.id
+            ? {
+                createdBy: { connect: { id: authUser.id } },
+              }
+            : {}),
+        };
+
+        // Attach property if provided
+        if (effectivePropertyId) {
+          createData.property = {
+            connect: { id: effectivePropertyId },
+          };
+        }
+
+        // Attach primary tenant to Lease.tenantId (if any)
+        if (primaryTenantId) {
+          createData.tenant = {
+            connect: { id: primaryTenantId },
+          };
+        }
+
+        // Attach ALL tenants to LeaseTenant join table
+        if (tenantIds.length > 0) {
+          createData.leaseTenants = {
+            create: tenantIds.map((id, index) => {
+              const t = tenants.find((tt) => tt.id === id);
+              return {
+                tenant: { connect: { id } },
+                tenantName: t?.name || null,
+                isPrimary: index === 0,
+                startDate: startDateValue,
+                endDate: endDateValue,
+              };
+            }),
+          };
+        }
+
         const created = await prisma.lease.create({
-          data: {
-            property: { connect: { id: effectivePropertyId } },
-            landlord: { connect: { id: effectiveLandlordId } },
-            tenant: { connect: { id: effectiveTenantId } },
-
-            // labels (optional)
-            tenantName:
-              tenantName && tenantName.trim() ? tenantName.trim() : null,
-            propertyLabel:
-              propertyLabel && propertyLabel.trim()
-                ? propertyLabel.trim()
-                : null,
-
-            rentAmount: numericRent,
-            status: "ACTIVE",
-            startDate: startDate ? new Date(startDate) : null,
-            endDate: endDate ? new Date(endDate) : null,
-
-            ...(req.file
-              ? {
-                  fileUrl: `/uploads/leases/${req.file.filename}`,
-                  fileOriginalName: req.file.originalname,
-                  fileMimeType: req.file.mimetype,
-                  fileSize: req.file.size,
-                }
-              : {}),
-
-            // who created this lease – use relation, which the client *does* know about
-            ...(authUser && authUser.id
-              ? {
-                  createdBy: {
-                    connect: { id: authUser.id },
-                  },
-                }
-              : {}),
-          },
+          data: createData,
           include: {
             property: true,
             landlord: true,
             tenant: true,
+            leaseTenants: {
+              include: { tenant: true },
+            },
           },
         });
 
@@ -209,6 +253,9 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
             property: true,
             landlord: true,
             tenant: true,
+            leaseTenants: {
+              include: { tenant: true },
+            },
           },
         });
 
@@ -233,6 +280,9 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
             property: true,
             landlord: true,
             tenant: true,
+            leaseTenants: {
+              include: { tenant: true },
+            },
           },
         });
 
@@ -244,16 +294,20 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
     }
   );
 
-
   // GET /api/leases - list all leases (scoped by landlord if logged in)
+  // Optional ?includeArchived=0/1 flag
   app.get("/api/leases", async (req, res) => {
     try {
       const authUser = req.user || null;
+      const includeArchived = req.query.includeArchived === "1";
 
       const where = {};
       if (authUser && authUser.id) {
         // landlord-scoped
         where.landlordId = authUser.id;
+      }
+      if (!includeArchived) {
+        where.status = { not: "ARCHIVED" };
       }
 
       const leases = await prisma.lease.findMany({
@@ -263,6 +317,9 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
           property: true,
           landlord: true,
           tenant: true,
+          leaseTenants: {
+            include: { tenant: true },
+          },
         },
       });
 
@@ -289,6 +346,9 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
           property: true,
           landlord: true,
           tenant: true,
+          leaseTenants: {
+            include: { tenant: true },
+          },
         },
       });
 
@@ -324,7 +384,9 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
     }
   });
 
-  // PATCH /api/leases/:id - update lease fields
+  // PATCH /api/leases/:id - update lease fields (including reassign property/tenant)
+  // NOTE: This still only supports single tenant reassignment via tenantId.
+  // Multi-tenant editing can be added later if you want.
   app.patch("/api/leases/:id", async (req, res) => {
     const { id } = req.params;
     const {
@@ -338,7 +400,13 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
     } = req.body || {};
 
     try {
-      const existing = await prisma.lease.findUnique({ where: { id } });
+      const existing = await prisma.lease.findUnique({
+        where: { id },
+        include: {
+          leaseTenants: true,
+        },
+      });
+
       if (!existing) {
         return res.status(404).json({ error: "Lease not found" });
       }
@@ -351,7 +419,9 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
         } else {
           const parsed = Number(rentAmount);
           if (!Number.isFinite(parsed)) {
-            return res.status(400).json({ error: "rentAmount must be a number" });
+            return res
+              .status(400)
+              .json({ error: "rentAmount must be a number" });
           }
           numericRent = parsed;
         }
@@ -390,7 +460,7 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
         };
       }
 
-      // reassign tenant if provided
+      // reassign tenant if provided (still single)
       if (tenantId !== undefined && tenantId) {
         data.tenant = {
           connect: { id: String(tenantId).trim() },
@@ -404,6 +474,9 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
           property: true,
           landlord: true,
           tenant: true,
+          leaseTenants: {
+            include: { tenant: true },
+          },
         },
       });
 

@@ -39,12 +39,15 @@ async function http(method, path, body, token) {
 }
 
 function mapTenantFromApi(t) {
+  if (!t) return null;
+
   return {
     id: t.id,
     name: t.name,
     email: t.email || "",
     phone: t.phone || "",
-    archived: !!t.archived,
+    // Prefer `archived` if provided (shapeTenant), fall back to `isArchived`
+    archived: !!(t.archived ?? t.isArchived),
     pets: [],
     occupants: [],
     emergencyContacts: [],
@@ -52,6 +55,7 @@ function mapTenantFromApi(t) {
 }
 
 export const tenantsApi = {
+  // Simple list (uses /api/tenants)
   async list(options = {}) {
     const { token } = options;
     const rows = await http("GET", "/api/tenants", null, token);
@@ -59,9 +63,40 @@ export const tenantsApi = {
     return rows.map(mapTenantFromApi);
   },
 
+  // Legacy get: resolve from list() so callers aren't broken
   async get(id, options = {}) {
     const rows = await this.list(options);
     return rows.find((t) => t.id === id) || null;
+  },
+
+  // NEW: full-detail tenant, including leases + property + household
+  // Uses backend GET /api/tenants/:id (the new route we added)
+  async detail(id, options = {}) {
+    const { token } = options;
+    if (!id) throw new Error("id is required");
+
+    const t = await http("GET", `/api/tenants/${id}`, null, token);
+    if (!t) return null;
+
+    return {
+      id: t.id,
+      name: t.name,
+      email: t.email || "",
+      phone: t.phone || "",
+      archived: !!(t.archived ?? t.isArchived),
+
+      // All leases this tenant is/was on (from LeaseTenant join)
+      // Each item has: { id, isPrimary, startDate, endDate, lease: { ... } }
+      leaseTenants: Array.isArray(t.leaseTenants) ? t.leaseTenants : [],
+
+      // Household info (non-archived, as returned by the backend)
+      occupants: Array.isArray(t.occupants) ? t.occupants : [],
+      pets: Array.isArray(t.pets) ? t.pets : [],
+      emergencyContacts: Array.isArray(t.emergencyContacts)
+        ? t.emergencyContacts
+        : [],
+      vehicles: Array.isArray(t.vehicles) ? t.vehicles : [],
+    };
   },
 
   async create(payload, options = {}) {
@@ -78,7 +113,12 @@ export const tenantsApi = {
 
   async toggleArchive(id, options = {}) {
     const { token } = options;
-    const t = await http("PATCH", `/api/tenants/${id}/archive`, undefined, token);
+    const t = await http(
+      "PATCH",
+      `/api/tenants/${id}/archive`,
+      undefined,
+      token
+    );
     return mapTenantFromApi(t);
   },
 

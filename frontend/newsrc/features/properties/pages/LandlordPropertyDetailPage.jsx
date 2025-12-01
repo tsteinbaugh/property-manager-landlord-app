@@ -1,3 +1,4 @@
+// newsrc/features/properties/pages/LandlordPropertyDetailPage.jsx
 import React, { useEffect, useState } from "react";
 import { apiFetch } from "@lib/apiClient.js";
 import { useUser } from "@app/providers.jsx";
@@ -6,6 +7,7 @@ import ArchiveButton from "@shared/ui/ArchiveButton.jsx";
 import { can } from "@lib/rbac/index.js";
 import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
 import { ROLES } from "@lib/rbac/roles.js";
+import { propertiesApi } from "@features/properties/api/properties.api.js";
 
 export default function LandlordPropertyDetailPage({ propertyId }) {
   const { token, effectiveRole, isSysAdmin } = useUser() || {};
@@ -21,6 +23,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
   const canArchiveGrant = can(role, R.PROPERTIES, A.ARCHIVE);
 
   const [summary, setSummary] = useState(null);
+  const [leases, setLeases] = useState([]); // all leases for this property
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -34,7 +37,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
   const [isSaving, setSaving] = useState(false);
   const [isArchiving, setArchiving] = useState(false);
 
-  // Load summary
+  // Load summary + full leases
   useEffect(() => {
     let cancelled = false;
 
@@ -42,14 +45,18 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
       try {
         setLoading(true);
         setError(null);
-        const data = await apiFetch(`/api/properties/${propertyId}/summary`, {
-          token,
-        });
+
+        const [summaryData, detail] = await Promise.all([
+          apiFetch(`/api/properties/${propertyId}/summary`, { token }),
+          propertiesApi.get(propertyId, { token }),
+        ]);
+
         if (!cancelled) {
-          setSummary(data);
+          setSummary(summaryData || null);
+          setLeases(Array.isArray(detail?.leases) ? detail.leases : []);
         }
       } catch (err) {
-        console.error("Failed to load property summary", err);
+        console.error("Failed to load property", err);
         if (!cancelled) {
           setError(err);
         }
@@ -87,7 +94,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
 
     try {
       setSaving(true);
-      await apiFetch(`/api/properties/${propertyId}`, {
+      const updated = await apiFetch(`/api/properties/${propertyId}`, {
         method: "PATCH",
         token,
         body: {
@@ -111,6 +118,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
                 city,
                 state: stateVal,
                 postalCode,
+                isArchived: updated.isArchived ?? prev.property.isArchived,
               },
             }
           : prev
@@ -206,13 +214,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
   const title = property.name || property.address1;
   const isArchived = !!property.isArchived;
 
-  // landlord: can edit *only* if not archived
-  // sysadmin: can still edit even if archived
   const canEditNow = canUpdate && (!isArchived || isSysAdmin);
-
-  // archive rules:
-  // - archive (active -> archived): anyone with ARCHIVE on PROPERTIES
-  // - unarchive (archived -> active): sysadmin only
   const canArchiveNow = !isArchived && canArchiveGrant;
   const canUnarchiveNow = isArchived && isSysAdmin;
   const showArchiveButton = canArchiveNow || canUnarchiveNow;
@@ -340,6 +342,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
 
       <hr style={{ margin: "16px 0" }} />
 
+      {/* Current active lease (from /summary) */}
       <h3>Current Lease</h3>
       {lease ? (
         <div style={{ marginBottom: 12 }}>
@@ -375,6 +378,47 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
       ) : (
         <div style={{ marginBottom: 12 }}>No active lease.</div>
       )}
+
+      {/* All leases for this property (from /api/properties/:id) */}
+      <hr style={{ margin: "16px 0" }} />
+      <h3>All leases for this property</h3>
+      {leases.length > 0 ? (
+        <ul style={{ paddingLeft: 18 }}>
+          {leases.map((l) => {
+            const leaseTenants = Array.isArray(l.leaseTenants)
+              ? l.leaseTenants
+              : [];
+            const tenantNames = leaseTenants
+              .map((lt) => lt.tenant?.name || lt.tenantName)
+              .filter(Boolean);
+
+            return (
+              <li key={l.id} style={{ marginBottom: 6 }}>
+                <Link to={`/landlord/leases/${l.id}`}>
+                  Lease {l.id.slice(0, 8)}
+                </Link>{" "}
+                – {l.status || "UNKNOWN"}
+                {l.rentAmount != null && ` · $${l.rentAmount}/mo`}
+                {l.startDate && ` · from ${l.startDate}`}
+                {l.endDate && ` to ${l.endDate}`}
+                {tenantNames.length > 0 && (
+                  <div style={{ fontSize: 12, color: "#4b5563" }}>
+                    Tenants: {tenantNames.join(", ")}
+                  </div>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      ) : (
+        <div>No leases recorded for this property yet.</div>
+      )}
+
+      <div style={{ marginTop: 8, marginBottom: 8 }}>
+        <Link to={`/landlord/leases/new?propertyId=${property.id}`}>
+          + Add lease for this property
+        </Link>
+      </div>
 
       <hr style={{ margin: "16px 0" }} />
 

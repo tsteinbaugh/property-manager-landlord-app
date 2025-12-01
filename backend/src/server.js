@@ -135,34 +135,59 @@ function shapeLease(lease) {
 
   return {
     id: lease.id,
-    propertyId: lease.propertyId,
-    propertyLabel: lease.propertyLabel ?? null,
-    landlordId: lease.landlordId,
-
-    tenantId: lease.tenantId ?? null,
-    tenantName: lease.tenantName ?? null,
-
-    rentAmount: lease.rentAmount ?? null,
     status: lease.status,
-    startDate: lease.startDate ?? null,
-    endDate: lease.endDate ?? null,
+    rentAmount: lease.rentAmount,
+    startDate: lease.startDate,
+    endDate: lease.endDate,
+    archived: lease.status === "ARCHIVED",
 
-    archived: isArchived,
-    isArchived: isArchived,
+    // linkage info
+    propertyId: lease.propertyId || null,
+    tenantId: lease.tenantId || null,
+    landlordId: lease.landlordId || null,
 
-    startDateISO: lease.startDate ? lease.startDate.toISOString() : null,
-    endDateISO: lease.endDate ? lease.endDate.toISOString() : null,
-    createdAtISO: lease.createdAt ? lease.createdAt.toISOString() : null,
-    updatedAtISO: lease.updatedAt ? lease.updatedAt.toISOString() : null,
+    property: lease.property
+      ? {
+          id: lease.property.id,
+          name: lease.property.name,
+          address1: lease.property.address1,
+          city: lease.property.city,
+          state: lease.property.state,
+          postalCode: lease.property.postalCode,
+        }
+      : null,
 
-    fileUrl: lease.fileUrl ?? null,
-    fileOriginalName: lease.fileOriginalName ?? null,
-    fileMimeType: lease.fileMimeType ?? null,
+    tenant: lease.tenant
+      ? {
+          id: lease.tenant.id,
+          name: lease.tenant.name,
+          email: lease.tenant.email,
+          phone: lease.tenant.phone,
+        }
+      : null,
+
+    leaseTenants: Array.isArray(lease.leaseTenants)
+      ? lease.leaseTenants.map((lt) => ({
+          id: lt.id,
+          tenantId: lt.tenantId,
+          tenantName: lt.tenantName,
+          isPrimary: !!lt.isPrimary,
+          startDate: lt.startDate,
+          endDate: lt.endDate,
+        }))
+      : [],
+
+    tenantName: lease.tenantName || null,
+    propertyLabel: lease.propertyLabel || null,
+
+    // file metadata
+    fileUrl: lease.fileUrl || null,
+    fileOriginalName: lease.fileOriginalName || null,
+    fileMimeType: lease.fileMimeType || null,
     fileSize: lease.fileSize ?? null,
 
-    property: lease.property || null,
-    landlord: lease.landlord || null,
-    tenant: lease.tenant || null,
+    createdAt: lease.createdAt,
+    updatedAt: lease.updatedAt,
   };
 }
 

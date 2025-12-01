@@ -1,0 +1,107 @@
+/* newsrc/layout/AppLayout.module.css */
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f9fafb;
+}
+
+/* AUTH / SIGN-IN SHELL (standalone, no header/footer/sidebar) */
+.authShell {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f9fafb;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.authMain {
+  width: 100%;
+  max-width: 420px;
+}
+
+/* Wrapper for sidebar + main content */
+.body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: 100%;
+  padding: 16px 20px 24px;
+  box-sizing: border-box;
+  gap: 12px;
+}
+
+/* Left column for landlord sidebar (open) */
+.sidebar {
+  flex: 0 0 220px;
+  border-right: 1px solid #e5e7eb;
+  padding-right: 12px;
+  margin-right: 16px;
+  box-sizing: border-box;
+  display: flex;
+}
+
+/* Thin strip when sidebar is collapsed */
+.sidebarCollapsed {
+  flex: 0 0 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebarCollapsedButton {
+  width: 100%;
+  height: 72px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* Main content when there is a sidebar */
+.mainWithSidebar {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Main content when there is NO sidebar (non-landlord pages
+   OR landlord with sidebar hidden) */
+.mainStandalone {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Mobile: stack sidebar above content */
+@media (max-width: 900px) {
+  .body {
+    flex-direction: column;
+    padding: 12px 16px 20px;
+    gap: 8px;
+  }
+
+  .sidebar {
+    flex: 0 0 auto;
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #e5e7eb;
+    padding-right: 0;
+    padding-bottom: 12px;
+    margin-right: 0;
+    margin-bottom: 12px;
+  }
+
+  .sidebarCollapsed {
+    flex: 0 0 auto;
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .sidebarCollapsedButton {
+    width: 56px;
+  }
+}
