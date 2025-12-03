@@ -99,7 +99,7 @@ function RoleLandingRouter() {
 
   switch (role) {
     case ROLES.LANDLORD:
-      return <Navigate to="/landlord/residents" replace />;
+      return <Navigate to="/landlord/properties" replace />;
 
     case ROLES.TENANT:
       return <Navigate to="/tenant/home" replace />;
