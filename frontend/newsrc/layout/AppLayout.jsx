@@ -6,12 +6,11 @@ import SiteFooter from "./SiteFooter.jsx";
 import LandlordSideNav from "./LandlordSideNav.jsx";
 import styles from "./AppLayout.module.css";
 
-// newsrc/layout/AppLayout.jsx
-// ...imports...
-
 export default function AppLayout({ children }) {
+  // ✅ All hooks at the top, before any early returns
   const location = useLocation();
   const pathname = location.pathname || "";
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const isAuthRoute =
     pathname === "/sign-in" ||
@@ -29,8 +28,6 @@ export default function AppLayout({ children }) {
 
   const isLandlordRoute =
     pathname === "/landlord" || pathname.startsWith("/landlord/");
-
-  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   return (
     <div className={styles.app}>

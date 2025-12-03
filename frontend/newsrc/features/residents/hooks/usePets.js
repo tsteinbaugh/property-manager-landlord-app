@@ -13,7 +13,6 @@ export function useAllPets({ includeArchived = false } = {}) {
 
   const refresh = useCallback(
     async () => {
-      // 🚫 Not authenticated: don't hit the API
       if (!token) {
         setData([]);
         setTenants([]);
@@ -26,26 +25,34 @@ export function useAllPets({ includeArchived = false } = {}) {
         setLoading(true);
         setError(null);
 
-        // 1) load all tenants
-        const tenantRows = await tenantsApi.list();
-        const allPets = [];
+        const tenantRows = await tenantsApi.list({ token });
+        const tenantMap = new Map(
+          tenantRows.map((t) => [
+            t.id,
+            t.name || t.email || "(unnamed tenant)",
+          ])
+        );
 
-        // 2) for each tenant, load pets
-        for (const t of tenantRows) {
-          const occs = await petsApi.list(t.id, { includeArchived: true });
+        const pets = await petsApi.listAll({
+          includeArchived: true,
+          token,
+        });
 
-          for (const o of occs) {
-            allPets.push({
-              ...o,
-              tenantId: t.id,
-              tenantName: t.name || t.email || "(unnamed tenant)",
-            });
-          }
-        }
+        const withTenant = pets.map((p) => {
+          const tenantName =
+            p.tenantId && tenantMap.get(p.tenantId)
+              ? tenantMap.get(p.tenantId)
+              : null;
+
+          return {
+            ...p,
+            tenantName,
+          };
+        });
 
         const filtered = includeArchived
-          ? allPets
-          : allPets.filter((o) => !o.archived);
+          ? withTenant
+          : withTenant.filter((o) => !o.archived);
 
         setTenants(tenantRows);
         setData(filtered);
@@ -56,7 +63,7 @@ export function useAllPets({ includeArchived = false } = {}) {
         setLoading(false);
       }
     },
-    [includeArchived, token] // 🔁 re-run if auth or filter changes
+    [includeArchived, token]
   );
 
   useEffect(() => {
@@ -64,8 +71,8 @@ export function useAllPets({ includeArchived = false } = {}) {
   }, [refresh]);
 
   return {
-    data,    // pets with tenantName attached
-    tenants, // raw tenant rows (for dropdowns, etc.)
+    data, // pets with optional tenantName
+    tenants,
     isLoading,
     error,
     refetch: refresh,

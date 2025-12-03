@@ -11,60 +11,70 @@ export function useAllEmergencyContacts({ includeArchived = false } = {}) {
   const [error, setError] = useState(null);
   const { token } = useUser() || {};
 
-  const refresh = useCallback(async () => {
-    // 🚫 Not authenticated: don't hit the API at all
-    if (!token) {
-      setData([]);
-      setTenants([]);
-      setError(null);
-      setLoading(false);
-      return;
-    }
-
-    try {
-      setLoading(true);
-      setError(null);
-
-      // 1) load all tenants
-      const tenantRows = await tenantsApi.list();
-      const allEmergencyContacts = [];
-
-      // 2) for each tenant, load emergency contacts
-      for (const t of tenantRows) {
-        const occs = await emergencyContactsApi.list(t.id, {
-          includeArchived: true,
-        });
-
-        for (const o of occs) {
-          allEmergencyContacts.push({
-            ...o,
-            tenantId: t.id,
-            tenantName: t.name || t.email || "(unnamed tenant)",
-          });
-        }
+  const refresh = useCallback(
+    async () => {
+      if (!token) {
+        setData([]);
+        setTenants([]);
+        setError(null);
+        setLoading(false);
+        return;
       }
 
-      const filtered = includeArchived
-        ? allEmergencyContacts
-        : allEmergencyContacts.filter((o) => !o.archived);
+      try {
+        setLoading(true);
+        setError(null);
 
-      setTenants(tenantRows);
-      setData(filtered);
-    } catch (err) {
-      console.error("[useAllEmergencyContacts] refresh error", err);
-      setError(err);
-    } finally {
-      setLoading(false);
-    }
-  }, [includeArchived, token]); // 🔁 re-create when auth or filter changes
+        // Load tenants (for tenantName)
+        const tenantRows = await tenantsApi.list({ token });
+        const tenantMap = new Map(
+          tenantRows.map((t) => [
+            t.id,
+            t.name || t.email || "(unnamed tenant)",
+          ])
+        );
+
+        // Load ALL emergency contacts (archived + active)
+        const contacts = await emergencyContactsApi.listAll({
+          includeArchived: true,
+          token,
+        });
+
+        const withTenant = contacts.map((c) => {
+          const tenantName =
+            c.tenantId && tenantMap.get(c.tenantId)
+              ? tenantMap.get(c.tenantId)
+              : null;
+
+          return {
+            ...c,
+            tenantName,
+          };
+        });
+
+        const filtered = includeArchived
+          ? withTenant
+          : withTenant.filter((o) => !o.archived);
+
+        setTenants(tenantRows);
+        setData(filtered);
+      } catch (err) {
+        console.error("[useAllEmergencyContacts] refresh error", err);
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [includeArchived, token]
+  );
 
   useEffect(() => {
     refresh();
   }, [refresh]);
 
   return {
-    data, // emergency contacts with tenantName attached
-    tenants, // raw tenant rows (for dropdowns, etc.)
+    data, // emergency contacts with optional tenantName
+    tenants, // raw tenant rows
     isLoading,
     error,
     refetch: refresh,

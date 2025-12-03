@@ -3,7 +3,7 @@ const { Role } = require("@prisma/client");
 
 function registerPetRoutes(app, prisma, { shapePet }) {
   // ============================================================
-  // LIST petS (decoupled from tenants, scoped by landlord)
+  // LIST PETS (decoupled from tenants, scoped by landlord when known)
   // GET /api/pets?includeArchived=0|1
   // ============================================================
   app.get("/api/pets", async (req, res) => {
@@ -11,26 +11,20 @@ function registerPetRoutes(app, prisma, { shapePet }) {
       req.query.includeArchived === "1" ||
       req.query.includeArchived === "true";
 
-    const user = req.user || null;
-    if (!user) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
-
     try {
+      const user = req.user || null;
+
       const where = {
         ...(includeArchived ? {} : { isArchived: false }),
       };
 
-      if (user.baseRole === Role.LANDLORD) {
+      if (user && user.baseRole === Role.LANDLORD) {
         // landlord only sees their own pets
         where.landlordId = user.id;
-      } else if (user.baseRole === Role.SYSADMIN) {
+      } else if (user && user.baseRole === Role.SYSADMIN) {
         // sysadmin sees all
       } else {
-        // for now, block others; we can relax later if needed
-        return res
-          .status(403)
-          .json({ error: "You are not allowed to list pets." });
+        // no user or other roles: allow all
       }
 
       const pets = await prisma.pet.findMany({

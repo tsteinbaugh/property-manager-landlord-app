@@ -13,7 +13,6 @@ export function useAllOccupants({ includeArchived = false } = {}) {
 
   const refresh = useCallback(
     async () => {
-      // 🚫 Not authenticated: don't hit the API at all
       if (!token) {
         setData([]);
         setTenants([]);
@@ -26,26 +25,34 @@ export function useAllOccupants({ includeArchived = false } = {}) {
         setLoading(true);
         setError(null);
 
-        // 1) load all tenants
-        const tenantRows = await tenantsApi.list();
-        const allOccupants = [];
+        const tenantRows = await tenantsApi.list({ token });
+        const tenantMap = new Map(
+          tenantRows.map((t) => [
+            t.id,
+            t.name || t.email || "(unnamed tenant)",
+          ])
+        );
 
-        // 2) for each tenant, load occupants
-        for (const t of tenantRows) {
-          const occs = await occupantsApi.list(t.id, { includeArchived: true });
+        const occupants = await occupantsApi.listAll({
+          includeArchived: true,
+          token,
+        });
 
-          for (const o of occs) {
-            allOccupants.push({
-              ...o,
-              tenantId: t.id,
-              tenantName: t.name || t.email || "(unnamed tenant)",
-            });
-          }
-        }
+        const withTenant = occupants.map((o) => {
+          const tenantName =
+            o.tenantId && tenantMap.get(o.tenantId)
+              ? tenantMap.get(o.tenantId)
+              : null;
+
+          return {
+            ...o,
+            tenantName,
+          };
+        });
 
         const filtered = includeArchived
-          ? allOccupants
-          : allOccupants.filter((o) => !o.archived);
+          ? withTenant
+          : withTenant.filter((o) => !o.archived);
 
         setTenants(tenantRows);
         setData(filtered);
@@ -56,7 +63,7 @@ export function useAllOccupants({ includeArchived = false } = {}) {
         setLoading(false);
       }
     },
-    [includeArchived, token] // 🔁 re-run if auth or filter changes
+    [includeArchived, token]
   );
 
   useEffect(() => {
@@ -64,8 +71,8 @@ export function useAllOccupants({ includeArchived = false } = {}) {
   }, [refresh]);
 
   return {
-    data,    // occupants with tenantName attached
-    tenants, // raw tenant rows (for dropdowns, etc.)
+    data, // occupants with optional tenantName
+    tenants,
     isLoading,
     error,
     refetch: refresh,

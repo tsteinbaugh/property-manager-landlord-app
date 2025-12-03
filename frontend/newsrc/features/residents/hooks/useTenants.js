@@ -9,8 +9,8 @@ import { ROLES } from "@lib/rbac/roles.js";
 /**
  * useTenants({ includeArchived, role })
  * - Respects VIEW/ARCHIVE permissions for TENANTS resource
- * - Uses your DRY useArchiveList under the hood
- * - NOW: also respects auth (won't call API without a token)
+ * - Uses useArchiveList under the hood
+ * - Ensures auth token is passed to the API
  */
 export function useTenants({
   includeArchived = false,
@@ -18,27 +18,35 @@ export function useTenants({
 } = {}) {
   const { token } = useUser() || {};
 
+  // This function is called by useArchiveList to load data
   const listFn = async () => {
-    // 🚫 If not authenticated, don't even try the API
+    // Not authenticated → no call
     if (!token) return [];
 
-    // 🚫 If no VIEW permission, surface an empty list (UI will show "no permission")
+    // No permission → no data
     if (!can(role, R.TENANTS, A.VIEW)) return [];
 
-    const res = await tenantsApi.list();
+    const res = await tenantsApi.list({ token });
     return includeArchived ? res : res.filter((t) => !t.archived);
   };
 
+  // Wrap tenantsApi so that useArchiveList has a toggleArchive
+  // that ALWAYS sends the token.
+  const archiveApi = {
+    async toggleArchive(id) {
+      if (!token) return null;
+      return tenantsApi.toggleArchive(id, { token });
+    },
+  };
+
   const { data, isLoading, error, toggleArchive, refresh } = useArchiveList(
-    tenantsApi, // api must expose toggleArchive(id)
+    archiveApi,
     listFn,
-    // 🔁 Re-run when auth, archive filter, or role changes
     [includeArchived, role, token]
   );
 
   // Guard the toggle by ARCHIVE permission
   const guardedToggleArchive = async (id) => {
-    // No auth or no permission → no-op
     if (!token) return null;
     if (!can(role, R.TENANTS, A.ARCHIVE)) return null;
     return toggleArchive(id);

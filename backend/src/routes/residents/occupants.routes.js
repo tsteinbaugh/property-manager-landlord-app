@@ -3,7 +3,7 @@ const { Role } = require("@prisma/client");
 
 function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
   // ============================================================
-  // LIST OCCUPANTS (decoupled from tenants, scoped by landlord)
+  // LIST OCCUPANTS (decoupled from tenants, scoped by landlord when known)
   // GET /api/occupants?includeArchived=0|1
   // ============================================================
   app.get("/api/occupants", async (req, res) => {
@@ -11,26 +11,21 @@ function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
       req.query.includeArchived === "1" ||
       req.query.includeArchived === "true";
 
-    const user = req.user || null;
-    if (!user) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
-
     try {
+      const user = req.user || null;
+
       const where = {
         ...(includeArchived ? {} : { isArchived: false }),
       };
 
-      if (user.baseRole === Role.LANDLORD) {
+      if (user && user.baseRole === Role.LANDLORD) {
         // landlord only sees their own occupants
         where.landlordId = user.id;
-      } else if (user.baseRole === Role.SYSADMIN) {
+      } else if (user && user.baseRole === Role.SYSADMIN) {
         // sysadmin sees all
       } else {
-        // for now, block others; we can relax later if needed
-        return res
-          .status(403)
-          .json({ error: "You are not allowed to list occupants." });
+        // no user or other roles: allow all (dev parity with properties)
+        // tighten later if needed.
       }
 
       const occupants = await prisma.occupant.findMany({

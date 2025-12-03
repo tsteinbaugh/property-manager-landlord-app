@@ -200,27 +200,23 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
     }
   });
 
-  // GET /api/tenants – list tenants, scoped by landlord
+  // GET /api/tenants – list tenants, scoped by landlord when user is known
   app.get("/api/tenants", async (req, res) => {
-    const user = req.user || null;
-
-    if (!user) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
-
     try {
-      let where = {};
+      const user = req.user || null;
 
-      if (user.baseRole === Role.LANDLORD) {
+      const where = {};
+
+      if (user && user.baseRole === Role.LANDLORD) {
         // landlord only sees their own tenants
         where.landlordId = user.id;
-      } else if (user.baseRole === Role.SYSADMIN) {
+      } else if (user && user.baseRole === Role.SYSADMIN) {
         // sysadmin sees everything (no landlord filter)
+        // where stays {}
       } else {
-        // other roles: for now, block; we can relax later if needed
-        return res
-          .status(403)
-          .json({ error: "You are not allowed to list tenants." });
+        // no user or some other role:
+        // in dev we allow listing all tenants (like properties does)
+        // tighten this later once auth is fully wired.
       }
 
       const tenants = await prisma.tenant.findMany({
