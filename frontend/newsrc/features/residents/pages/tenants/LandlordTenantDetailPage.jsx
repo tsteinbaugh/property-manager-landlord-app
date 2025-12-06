@@ -7,12 +7,12 @@ import { can } from "@lib/rbac/index.js";
 import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
 import { ROLES } from "@lib/rbac/roles.js";
 import { tenantsApi } from "@features/residents/api/tenants.api.js";
+import { occupantsApi } from "@features/residents/api/occupants.api.js";
 
 export default function LandlordTenantDetailPage() {
   const { tenantId } = useParams();
   const { token, effectiveRole, isSysAdmin } = useUser() || {};
 
-  // Normalize role similar to PropertyDetails.jsx
   const role = isSysAdmin
     ? ROLES.SYSADMIN
     : typeof effectiveRole === "string"
@@ -26,7 +26,6 @@ export default function LandlordTenantDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // edit state
   const [isEditing, setEditing] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -98,7 +97,6 @@ export default function LandlordTenantDetailPage() {
         { token }
       );
 
-      // update only simple fields, preserve leases/household from previous state
       setTenant((prev) => ({
         ...prev,
         ...updated,
@@ -189,6 +187,13 @@ export default function LandlordTenantDetailPage() {
   const leaseTenants = Array.isArray(tenant.leaseTenants)
     ? tenant.leaseTenants
     : [];
+  const tenantOccupants = Array.isArray(tenant.occupants)
+    ? tenant.occupants
+    : [];
+
+  const manageOccupantsUrl = `/landlord/occupants/new?tenantId=${
+    tenant.id
+  }&returnTo=${encodeURIComponent(`/landlord/tenants/${tenant.id}`)}`;
 
   return (
     <div style={{ padding: 16 }}>
@@ -317,9 +322,7 @@ export default function LandlordTenantDetailPage() {
                 {property && (
                   <div style={{ fontSize: 12, color: "#4b5563" }}>
                     Property:{" "}
-                    {property.name ||
-                      property.address1 ||
-                      "(property details)"}
+                    {property.name || property.address1 || "(property details)"}
                   </div>
                 )}
 
@@ -341,6 +344,92 @@ export default function LandlordTenantDetailPage() {
           + Add lease for this tenant
         </Link>
       </div>
+
+      {/* Household – occupants (read-only + button to AddOccupantPage) */}
+      <hr style={{ margin: "16px 0" }} />
+      <section
+        style={{
+          padding: 16,
+          borderRadius: 12,
+          border: "1px solid #e5e7eb",
+          background: "#ffffff",
+          maxWidth: 640,
+        }}
+      >
+        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
+          Household – occupants
+        </h3>
+
+        {tenantOccupants.length > 0 ? (
+          <ul style={{ paddingLeft: 18, fontSize: 14 }}>
+            {tenantOccupants.map((occ) => (
+              <li
+                key={occ.id}
+                style={{
+                  marginBottom: 6,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                <div>
+                  <strong>{occ.name}</strong>
+                  {occ.relation && (
+                    <span style={{ marginLeft: 6, color: "#6b7280" }}>
+                      ({occ.relation})
+                    </span>
+                  )}
+                </div>
+                
+                <button
+                  type="button"
+                  style={{
+                    fontSize: 12,
+                    color: "#b91c1c",
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                  }}
+                  onClick={async () => {
+                    const ok = window.confirm(
+                      `Unlink ${occ.name} from this tenant?\n\n` +
+                        `This does NOT delete or archive the occupant.`
+                    );
+                    if (!ok) return;
+                  
+                    try {
+                      await occupantsApi.update(
+                        occ.id,
+                        { tenantId: "" },
+                        { token }
+                      );
+                    
+                      // locally update tenant state
+                      setTenant((prev) => ({
+                        ...prev,
+                        occupants: prev.occupants.filter((o) => o.id !== occ.id),
+                      }));
+                    } catch (err) {
+                      console.error("Failed to unlink occupant", err);
+                      alert("Failed to unlink occupant. Check console for details.");
+                    }
+                  }}
+                >
+                  unlink
+                </button>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div style={{ color: "#6b7280" }}>No occupants linked to this tenant yet.</div>
+        )}
+
+        <div style={{ marginTop: 12 }}>
+          <Link to={manageOccupantsUrl}>
+            Manage occupants for this tenant
+          </Link>
+        </div>
+      </section>
     </div>
   );
 }

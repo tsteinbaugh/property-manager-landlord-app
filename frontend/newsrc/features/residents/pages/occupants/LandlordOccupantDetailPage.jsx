@@ -1,6 +1,6 @@
 // newsrc/features/tenants/pages/LandlordOccupantDetailsPage.jsx
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
 import ArchiveButton from "@shared/ui/ArchiveButton.jsx";
 import { occupantsApi } from "@features/residents/api/occupants.api.js";
@@ -8,6 +8,7 @@ import { ROLES } from "@lib/rbac/roles.js";
 
 export default function LandlordOccupantDetailsPage() {
   const { occupantId } = useParams();
+  const navigate = useNavigate();
   const { effectiveRole, isSysAdmin, token } = useUser() || {};
 
   const role =
@@ -159,13 +160,20 @@ export default function LandlordOccupantDetailsPage() {
   const canUnarchiveNow = isArchived && isSysAdmin;
   const showArchiveButton = canArchiveNow || canUnarchiveNow;
 
+  const handleManageTenant = () => {
+    const returnTo = encodeURIComponent(
+      `${window.location.pathname}${window.location.search || ""}`
+    );
+    navigate(
+      `/landlord/tenants/new?occupantId=${occupant.id}&returnTo=${returnTo}`
+    );
+  };
+
   return (
     <div style={{ padding: 16 }}>
       <div style={{ marginBottom: 8 }}>
         {/* mirror tenant details back-link to residents */}
-        <Link to="/landlord/residents?tab=occupants">
-          ← Back to residents
-        </Link>
+        <Link to="/landlord/residents?tab=occupants">← Back to residents</Link>
       </div>
 
       {/* header + actions */}
@@ -260,6 +268,30 @@ export default function LandlordOccupantDetailsPage() {
         </div>
       </div>
 
+      {/* Manage tenant button */}
+      <div style={{ marginBottom: 12 }}>
+        <button
+          type="button"
+          onClick={handleManageTenant}
+          disabled={isArchived}
+          style={{
+            borderRadius: 999,
+            padding: "6px 12px",
+            border: "1px solid #d1d5db",
+            background: "#ffffff",
+            cursor: isArchived ? "default" : "pointer",
+            fontSize: 13,
+          }}
+        >
+          Manage tenant for this occupant
+        </button>
+        {isArchived && (
+          <span style={{ marginLeft: 8, fontSize: 12, color: "#6b7280" }}>
+            Cannot manage tenant for an archived occupant.
+          </span>
+        )}
+      </div>
+
       <hr style={{ margin: "16px 0" }} />
 
       <section
@@ -289,6 +321,60 @@ export default function LandlordOccupantDetailsPage() {
 
           <dt style={{ fontWeight: 500, color: "#4b5563" }}>Relation</dt>
           <dd>{occupant.relation || "Not set"}</dd>
+
+          <dt style={{ fontWeight: 500, color: "#4b5563" }}>Tenant</dt>
+          <dd>
+            {occupant.tenantId ? (
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                }}
+              >
+                <Link to={`/landlord/tenants/${occupant.tenantId}`}>
+                  View tenant
+                </Link>
+                <button
+                  type="button"
+                  style={{
+                    fontSize: 12,
+                    color: "#b91c1c",
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                  }}
+                  onClick={async () => {
+                    const ok = window.confirm(
+                      "Unlink this occupant from the tenant?\n\n" +
+                        "This does NOT delete or archive either record."
+                    );
+                    if (!ok) return;
+                  
+                    try {
+                      // send empty string so backend turns it into null
+                      await occupantsApi.update(
+                        occupant.id,
+                        { tenantId: "" },
+                        { token }
+                      );
+                    
+                      setOccupant((prev) =>
+                        prev ? { ...prev, tenantId: null } : prev
+                      );
+                    } catch (err) {
+                      console.error("Failed to unlink tenant from occupant", err);
+                      alert("Failed to unlink tenant. Check console for details.");
+                    }
+                  }}
+                >
+                  unlink
+                </button>
+              </div>
+            ) : (
+              "Not linked"
+            )}
+          </dd>
 
           <dt style={{ fontWeight: 500, color: "#4b5563" }}>Status</dt>
           <dd>{isArchived ? "Archived" : "Active"}</dd>
