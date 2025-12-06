@@ -34,6 +34,10 @@ export default function LandlordLeaseDetailPage() {
   const [isSaving, setSaving] = useState(false);
   const [isArchiving, setArchiving] = useState(false);
 
+  const [tenantDetails, setTenantDetails] = useState([]);
+  const [tenantDetailsLoading, setTenantDetailsLoading] = useState(false);
+  const [tenantDetailsError, setTenantDetailsError] = useState(null);
+
   useEffect(() => {
     let cancelled = false;
 
@@ -98,6 +102,74 @@ export default function LandlordLeaseDetailPage() {
     setSelectedPropertyId(lease.property?.id || "");
     setSelectedTenantId(lease.tenant?.id || "");
   }, [lease]);
+
+  // Load full tenant details (including occupants) for this lease
+  useEffect(() => {
+    if (!lease || !token) {
+      setTenantDetails([]);
+      setTenantDetailsError(null);
+      return;
+    }
+
+    // Collect tenant IDs from multi-tenant join table or fallback to single tenant
+    let tenantIds = [];
+
+    if (Array.isArray(lease.leaseTenants) && lease.leaseTenants.length > 0) {
+      tenantIds = lease.leaseTenants
+        .map((lt) => lt.tenantId)
+        .filter(Boolean);
+    } else if (lease.tenant?.id) {
+      tenantIds = [lease.tenant.id];
+    } else if (lease.tenantId) {
+      tenantIds = [lease.tenantId];
+    }
+
+    const uniqueTenantIds = Array.from(new Set(tenantIds));
+
+    if (uniqueTenantIds.length === 0) {
+      setTenantDetails([]);
+      setTenantDetailsError(null);
+      return;
+    }
+
+    let cancelled = false;
+
+    async function loadTenantDetails() {
+      try {
+        setTenantDetailsLoading(true);
+        setTenantDetailsError(null);
+
+        const results = [];
+        for (const id of uniqueTenantIds) {
+          try {
+            const t = await tenantsApi.detail(id, { token });
+            if (t) results.push(t);
+          } catch (err) {
+            console.error("Failed to load tenant detail for lease occupants", err);
+          }
+        }
+
+        if (!cancelled) {
+          setTenantDetails(results);
+        }
+      } catch (err) {
+        if (!cancelled) {
+          console.error("Error loading tenant details for lease", err);
+          setTenantDetailsError(err);
+        }
+      } finally {
+        if (!cancelled) {
+          setTenantDetailsLoading(false);
+        }
+      }
+    }
+
+    loadTenantDetails();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [lease, token]);
 
   const isArchived = !!lease?.archived;
 
@@ -243,6 +315,25 @@ export default function LandlordLeaseDetailPage() {
   const leaseTenants = Array.isArray(lease.leaseTenants)
     ? lease.leaseTenants
     : [];
+
+    // Pooled occupants across all tenants on this lease
+  const leaseOccupants = [];
+  const seenOccupantIds = new Set();
+
+  for (const t of tenantDetails || []) {
+    const occs = Array.isArray(t.occupants) ? t.occupants : [];
+    for (const o of occs) {
+      if (!o || !o.id) continue;
+      if (seenOccupantIds.has(o.id)) continue;
+
+      seenOccupantIds.add(o.id);
+      leaseOccupants.push({
+        ...o,
+        _tenantName: t.name || "(unnamed tenant)",
+        _tenantId: t.id,
+      });
+    }
+  }
 
   const title =
     lease.propertyLabel ||
@@ -541,6 +632,55 @@ export default function LandlordLeaseDetailPage() {
         ) : (
           <div style={{ fontSize: 14, color: "#6b7280" }}>
             No tenants linked yet.
+          </div>
+        )}
+      </section>
+      
+      {/* Pooled occupants for this lease (via tenants) */}
+      <section
+        style={{
+          marginTop: 16,
+          padding: 16,
+          borderRadius: 12,
+          border: "1px solid #e5e7eb",
+          background: "#ffffff",
+          maxWidth: 640,
+        }}
+      >
+        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
+          Occupants on this lease
+        </h3>
+
+        {tenantDetailsLoading ? (
+          <div style={{ fontSize: 14, color: "#6b7280" }}>
+            Loading occupants…
+          </div>
+        ) : tenantDetailsError ? (
+          <div style={{ fontSize: 14, color: "#b91c1c" }}>
+            Failed to load occupants for this lease.
+          </div>
+        ) : leaseOccupants.length > 0 ? (
+          <ul style={{ paddingLeft: 18, fontSize: 14 }}>
+            {leaseOccupants.map((o) => (
+              <li key={o.id} style={{ marginBottom: 4 }}>
+                <strong>{o.name || "Unnamed occupant"}</strong>
+                {o.relation && (
+                  <span style={{ marginLeft: 6, fontSize: 12, color: "#4b5563" }}>
+                    ({o.relation})
+                  </span>
+                )}
+                <span style={{ marginLeft: 8, fontSize: 12, color: "#6b7280" }}>
+                  via{" "}
+                  <Link to={`/landlord/tenants/${o._tenantId}`}>
+                    {o._tenantName}
+                  </Link>
+                </span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div style={{ fontSize: 14, color: "#6b7280" }}>
+            No occupants linked through tenants on this lease yet.
           </div>
         )}
       </section>
