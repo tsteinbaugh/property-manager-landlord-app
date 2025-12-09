@@ -84,4 +84,30 @@ export const tenantsApi = {
     });
     return { ok: true };
   },
+
+  async linkOccupant(tenantId, occupantId, { token } = {}) {
+    if (!tenantId) throw new Error("tenantId is required");
+    if (!occupantId) throw new Error("occupantId is required");
+
+    return apiFetch(
+      `/api/tenants/${tenantId}/occupants/${occupantId}/link`,
+      {
+        method: "POST",
+        token,
+      }
+    );
+  },
+
+  async unlinkOccupant(tenantId, occupantId, { token } = {}) {
+    if (!tenantId) throw new Error("tenantId is required");
+    if (!occupantId) throw new Error("occupantId is required");
+
+    return apiFetch(
+      `/api/tenants/${tenantId}/occupants/${occupantId}/unlink`,
+      {
+        method: "DELETE",
+        token,
+      }
+    );
+  },
 };

@@ -129,7 +129,7 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
     }
   });
 
-    // GET /api/tenants/:id – detail, including leases + properties
+  // GET /api/tenants/:id – detail, including leases + properties
   app.get("/api/tenants/:id", async (req, res) => {
     const { id } = req.params;
     const user = req.user || null;
@@ -160,7 +160,7 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
             },
           },
 
-          // Household info (non-archived)
+          // Household info (non-archived, old 1-to-many fields)
           occupants: {
             where: { isArchived: false },
             orderBy: { createdAt: "asc" },
@@ -177,6 +177,14 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
             where: { isArchived: false },
             orderBy: { createdAt: "asc" },
           },
+
+          // NEW: join-table links for occupants (multi-tenant plumbing)
+          occupantLinks: {
+            include: {
+              occupant: true,
+            },
+          },
+          // (Later we can add petLinks/emergencyContactLinks/vehicleLinks similarly)
         },
       });
 
@@ -479,6 +487,154 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
       res.status(500).json({ error: "Server error" });
     }
   });
+  // POST /api/tenants/:tenantId/occupants/:occupantId/link
+  // Creates a TenantOccupant row (many-to-many link) without touching leases/properties.
+  app.post(
+    "/api/tenants/:tenantId/occupants/:occupantId/link",
+    async (req, res) => {
+      const { tenantId, occupantId } = req.params;
+      const user = req.user || null;
+
+      if (!user) {
+        return res.status(401).json({ error: "Unauthorized" });
+      }
+
+      try {
+        // Make sure tenant exists
+        const tenant = await prisma.tenant.findUnique({
+          where: { id: tenantId },
+        });
+        if (!tenant) {
+          return res.status(404).json({ error: "Tenant not found" });
+        }
+
+        // Make sure occupant exists
+        const occupant = await prisma.occupant.findUnique({
+          where: { id: occupantId },
+        });
+        if (!occupant) {
+          return res.status(404).json({ error: "Occupant not found" });
+        }
+
+        // Landlord scoping: landlord can only link within their own portfolio
+        const isSysAdmin = user.baseRole === Role.SYSADMIN;
+        if (!isSysAdmin) {
+          // Tenant must belong to this landlord (or be unowned but created by them, depending on your rules)
+          if (tenant.landlordId && tenant.landlordId !== user.id) {
+            return res
+              .status(403)
+              .json({ error: "You are not allowed to link this tenant." });
+          }
+
+          // Occupant must belong to this landlord as well
+          if (occupant.landlordId && occupant.landlordId !== user.id) {
+            return res
+              .status(403)
+              .json({ error: "You are not allowed to link this occupant." });
+          }
+        }
+
+        // Create or no-op TenantOccupant link
+        await prisma.tenantOccupant.upsert({
+          where: {
+            // compound unique from @@unique([tenantId, occupantId])
+            tenantId_occupantId: {
+              tenantId,
+              occupantId,
+            },
+          },
+          update: {}, // no-op if it already exists
+          create: {
+            tenantId,
+            occupantId,
+          },
+        });
+
+        // IMPORTANT: we DO NOT touch occupant.tenantId here yet.
+        // Existing flows still use occupant.tenantId as before.
+        // We'll move UI over to this join table in a later step.
+
+        return res.json({ ok: true });
+      } catch (err) {
+        console.error("Error in POST /api/tenants/:tenantId/occupants/:occupantId/link", err);
+        return res.status(500).json({ error: "Server error" });
+      }
+    }
+  );
+    // DELETE /api/tenants/:tenantId/occupants/:occupantId/unlink
+  // Removes a TenantOccupant row (many-to-many link) without touching leases/properties.
+  app.delete(
+    "/api/tenants/:tenantId/occupants/:occupantId/unlink",
+    async (req, res) => {
+      const { tenantId, occupantId } = req.params;
+      const user = req.user || null;
+
+      if (!user) {
+        return res.status(401).json({ error: "Unauthorized" });
+      }
+
+      try {
+        // Make sure tenant exists
+        const tenant = await prisma.tenant.findUnique({
+          where: { id: tenantId },
+        });
+        if (!tenant) {
+          return res.status(404).json({ error: "Tenant not found" });
+        }
+
+        // Make sure occupant exists
+        const occupant = await prisma.occupant.findUnique({
+          where: { id: occupantId },
+        });
+        if (!occupant) {
+          return res.status(404).json({ error: "Occupant not found" });
+        }
+
+        const isSysAdmin = user.baseRole === Role.SYSADMIN;
+        if (!isSysAdmin) {
+          if (tenant.landlordId && tenant.landlordId !== user.id) {
+            return res
+              .status(403)
+              .json({ error: "You are not allowed to unlink this tenant." });
+          }
+          if (occupant.landlordId && occupant.landlordId !== user.id) {
+            return res
+              .status(403)
+              .json({ error: "You are not allowed to unlink this occupant." });
+          }
+        }
+
+        // If the link doesn't exist, this will throw; we can catch and return 404.
+        try {
+          await prisma.tenantOccupant.delete({
+            where: {
+              tenantId_occupantId: {
+                tenantId,
+                occupantId,
+              },
+            },
+          });
+        } catch (deleteErr) {
+          // Prisma throws if no row; treat as 404 for this link
+          console.error("No TenantOccupant link to delete", deleteErr);
+          return res
+            .status(404)
+            .json({ error: "Tenant/occupant link not found" });
+        }
+
+        // Again: we do NOT change occupant.tenantId here yet.
+        // Old 1:1 logic keeps working until we move UI over.
+
+        return res.json({ ok: true });
+      } catch (err) {
+        console.error(
+          "Error in DELETE /api/tenants/:tenantId/occupants/:occupantId/unlink",
+          err
+        );
+        return res.status(500).json({ error: "Server error" });
+      }
+    }
+  );
 }
 
 module.exports = {

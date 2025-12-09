@@ -1,9 +1,9 @@
+// newsrc/features/leases/pages/LandlordLeaseDetailPage.jsx
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
 import ArchiveButton from "@shared/ui/ArchiveButton.jsx";
 import { leasesApi } from "@features/leases/api/leases.api.js";
-import { propertiesApi } from "@features/properties/api/properties.api.js";
 import { tenantsApi } from "@features/residents/api/tenants.api.js";
 import { ROLES } from "@lib/rbac/roles.js";
 
@@ -20,16 +20,11 @@ export default function LandlordLeaseDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const [properties, setProperties] = useState([]);
-  const [tenants, setTenants] = useState([]);
-
   const [isEditing, setEditing] = useState(false);
   const [rentAmount, setRentAmount] = useState("");
   const [status, setStatus] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [selectedPropertyId, setSelectedPropertyId] = useState("");
-  const [selectedTenantId, setSelectedTenantId] = useState("");
 
   const [isSaving, setSaving] = useState(false);
   const [isArchiving, setArchiving] = useState(false);
@@ -38,6 +33,7 @@ export default function LandlordLeaseDetailPage() {
   const [tenantDetailsLoading, setTenantDetailsLoading] = useState(false);
   const [tenantDetailsError, setTenantDetailsError] = useState(null);
 
+  // Load lease
   useEffect(() => {
     let cancelled = false;
 
@@ -46,11 +42,7 @@ export default function LandlordLeaseDetailPage() {
         setLoading(true);
         setError(null);
 
-        const [leaseRow, props, ts] = await Promise.all([
-          leasesApi.get(leaseId, { token }),
-          propertiesApi.list(),
-          tenantsApi.list({ token }),
-        ]);
+        const leaseRow = await leasesApi.get(leaseId, { token });
 
         if (cancelled) return;
 
@@ -61,8 +53,6 @@ export default function LandlordLeaseDetailPage() {
         }
 
         setLease(leaseRow);
-        setProperties(Array.isArray(props) ? props : []);
-        setTenants(Array.isArray(ts) ? ts : []);
       } catch (err) {
         console.error("Failed to load lease", err);
         if (!cancelled) {
@@ -97,10 +87,6 @@ export default function LandlordLeaseDetailPage() {
     setStatus(lease.status || "");
     setStartDate(lease.startDate || "");
     setEndDate(lease.endDate || "");
-
-    // property/tenant selections
-    setSelectedPropertyId(lease.property?.id || "");
-    setSelectedTenantId(lease.tenant?.id || "");
   }, [lease]);
 
   // Load full tenant details (including occupants) for this lease
@@ -145,7 +131,10 @@ export default function LandlordLeaseDetailPage() {
             const t = await tenantsApi.detail(id, { token });
             if (t) results.push(t);
           } catch (err) {
-            console.error("Failed to load tenant detail for lease occupants", err);
+            console.error(
+              "Failed to load tenant detail for lease occupants",
+              err
+            );
           }
         }
 
@@ -174,43 +163,6 @@ export default function LandlordLeaseDetailPage() {
   const isArchived = !!lease?.archived;
 
   const handleSave = async () => {
-    if (!selectedPropertyId) {
-      alert("Property is required.");
-      return;
-    }
-    if (!selectedTenantId) {
-      alert("Tenant is required.");
-      return;
-    }
-
-    // confirmation if linkages changed
-    const originalPropertyId = lease.property?.id || "";
-    const originalTenantId = lease.tenant?.id || "";
-
-    const propertyChanged = originalPropertyId && originalPropertyId !== selectedPropertyId;
-    const tenantChanged = originalTenantId && originalTenantId !== selectedTenantId;
-
-    if (propertyChanged || tenantChanged) {
-      const messageLines = [];
-      if (propertyChanged) {
-        messageLines.push(
-          "You are changing the property linked to this lease. " +
-            "This will move the lease to a different property."
-        );
-      }
-      if (tenantChanged) {
-        messageLines.push(
-          "You are changing the tenant linked to this lease. " +
-            "This will move the lease to a different tenant."
-        );
-      }
-      messageLines.push("");
-      messageLines.push("Are you sure you want to continue?");
-
-      const ok = window.confirm(messageLines.join("\n"));
-      if (!ok) return;
-    }
-
     try {
       setSaving(true);
 
@@ -229,8 +181,6 @@ export default function LandlordLeaseDetailPage() {
       const updated = await leasesApi.update(
         lease.id,
         {
-          propertyId: selectedPropertyId,
-          tenantId: selectedTenantId,
           rentAmount: normalizedRentAmount,
           status: status.trim(),
           startDate: startDate.trim(),
@@ -259,8 +209,6 @@ export default function LandlordLeaseDetailPage() {
       setStatus(lease.status || "");
       setStartDate(lease.startDate || "");
       setEndDate(lease.endDate || "");
-      setSelectedPropertyId(lease.property?.id || "");
-      setSelectedTenantId(lease.tenant?.id || "");
     }
     setEditing(false);
   };
@@ -311,12 +259,11 @@ export default function LandlordLeaseDetailPage() {
   }
 
   const property = lease.property || null;
-  const primaryTenant = lease.tenant || null;
   const leaseTenants = Array.isArray(lease.leaseTenants)
     ? lease.leaseTenants
     : [];
 
-    // Pooled occupants across all tenants on this lease
+  // Pooled occupants across all tenants on this lease
   const leaseOccupants = [];
   const seenOccupantIds = new Set();
 
@@ -395,38 +342,6 @@ export default function LandlordLeaseDetailPage() {
                 maxWidth: 520,
               }}
             >
-              {/* Property selector */}
-              <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                <span>Property</span>
-                <select
-                  value={selectedPropertyId}
-                  onChange={(e) => setSelectedPropertyId(e.target.value)}
-                >
-                  <option value="">Select a property…</option>
-                  {properties.map((p) => (
-                    <option key={p.id} value={p.id}>
-                      {p.name || p.address || p.address1 || p.id}
-                    </option>
-                  ))}
-                </select>
-              </label>
-
-              {/* Tenant selector */}
-              <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                <span>Primary tenant</span>
-                <select
-                  value={selectedTenantId}
-                  onChange={(e) => setSelectedTenantId(e.target.value)}
-                >
-                  <option value="">Select a tenant…</option>
-                  {tenants.map((t) => (
-                    <option key={t.id} value={t.id}>
-                      {t.name} {t.email ? `(${t.email})` : ""}
-                    </option>
-                  ))}
-                </select>
-              </label>
-
               <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                 <span>Rent amount</span>
                 <input
@@ -438,6 +353,7 @@ export default function LandlordLeaseDetailPage() {
                   onChange={(e) => setRentAmount(e.target.value)}
                 />
               </label>
+
               <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                 <span>Status</span>
                 <input
@@ -447,6 +363,7 @@ export default function LandlordLeaseDetailPage() {
                   onChange={(e) => setStatus(e.target.value)}
                 />
               </label>
+
               <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                 <span>Start date</span>
                 <input
@@ -456,6 +373,7 @@ export default function LandlordLeaseDetailPage() {
                   onChange={(e) => setStartDate(e.target.value)}
                 />
               </label>
+
               <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                 <span>End date</span>
                 <input
@@ -465,6 +383,7 @@ export default function LandlordLeaseDetailPage() {
                   onChange={(e) => setEndDate(e.target.value)}
                 />
               </label>
+
               <div style={{ display: "flex", gap: 8, marginTop: 4 }}>
                 <button
                   type="button"
@@ -590,6 +509,12 @@ export default function LandlordLeaseDetailPage() {
             No property linked yet.
           </div>
         )}
+
+        <div style={{ marginTop: 8 }}>
+          <Link to={`/landlord/properties/new?forLease=1&leaseId=${lease.id}`}>
+            Add / link property for this lease
+          </Link>
+        </div>
       </section>
 
       {/* Linked tenants */}
@@ -612,7 +537,9 @@ export default function LandlordLeaseDetailPage() {
               <li key={lt.id}>
                 {lt.tenantName || lt.tenantId || "Unnamed tenant"}
                 {lt.isPrimary && (
-                  <span style={{ marginLeft: 6, fontSize: 12, color: "#2563eb" }}>
+                  <span
+                    style={{ marginLeft: 6, fontSize: 12, color: "#2563eb" }}
+                  >
                     (primary)
                   </span>
                 )}
@@ -665,11 +592,15 @@ export default function LandlordLeaseDetailPage() {
               <li key={o.id} style={{ marginBottom: 4 }}>
                 <strong>{o.name || "Unnamed occupant"}</strong>
                 {o.relation && (
-                  <span style={{ marginLeft: 6, fontSize: 12, color: "#4b5563" }}>
+                  <span
+                    style={{ marginLeft: 6, fontSize: 12, color: "#4b5563" }}
+                  >
                     ({o.relation})
                   </span>
                 )}
-                <span style={{ marginLeft: 8, fontSize: 12, color: "#6b7280" }}>
+                <span
+                  style={{ marginLeft: 8, fontSize: 12, color: "#6b7280" }}
+                >
                   via{" "}
                   <Link to={`/landlord/tenants/${o._tenantId}`}>
                     {o._tenantName}
