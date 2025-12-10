@@ -38,7 +38,7 @@ async function httpUpload(path, file, token) {
   const headers = {};
 
   if (token) {
-    headers["Authorization"] = `Bearer ${token}`;
+    headers["Authorization"] = `Bearer token`;
   }
 
   const formData = new FormData();
@@ -83,7 +83,7 @@ function mapLeaseFromApi(o) {
     createdAt: o.createdAt || o.createdAtISO || null,
     updatedAt: o.updatedAt || o.updatedAtISO || null,
 
-    // NEW: linkage info
+    // linkage info
     propertyId: o.propertyId || (o.property && o.property.id) || null,
     landlordId: o.landlordId || (o.landlord && o.landlord.id) || null,
     tenantId: o.tenantId || (o.tenant && o.tenant.id) || null,
@@ -91,13 +91,15 @@ function mapLeaseFromApi(o) {
     property: o.property || null,
     tenant: o.tenant || null,
 
-    // NEW: full leaseTenants info (if backend includes it)
+    // full leaseTenants info (if backend includes it)
     leaseTenants: Array.isArray(o.leaseTenants)
       ? o.leaseTenants.map((lt) => ({
           id: lt.id,
           tenantId: lt.tenantId,
           tenantName:
-            lt.tenantName || (lt.tenant && lt.tenant.name) || "",
+            lt.tenantName ||
+            (lt.tenant && lt.tenant.name) ||
+            "",
           isPrimary: !!lt.isPrimary,
           startDate: lt.startDate || "",
           endDate: lt.endDate || "",
@@ -161,28 +163,45 @@ export const leasesApi = {
     return mapLeaseFromApi(row);
   },
 
-  // NEW: many-to-many helpers
+  // NEW: link tenant to lease via LeaseTenant join
   async linkTenant(leaseId, tenantId, { token } = {}) {
-    if (!leaseId || !tenantId) {
-      throw new Error("leaseId and tenantId are required");
-    }
-    return http(
+    if (!leaseId) throw new Error("leaseId is required");
+    if (!tenantId) throw new Error("tenantId is required");
+    const res = await http(
       "POST",
       `/api/leases/${leaseId}/tenants/${tenantId}/link`,
       null,
       token
     );
+    return res;
   },
 
+  // NEW: unlink tenant from lease via LeaseTenant join
   async unlinkTenant(leaseId, tenantId, { token } = {}) {
-    if (!leaseId || !tenantId) {
-      throw new Error("leaseId and tenantId are required");
+    if (!leaseId) throw new Error("leaseId is required");
+    if (!tenantId) throw new Error("tenantId is required");
+
+    try {
+      const res = await http(
+        "DELETE",
+        `/api/leases/${leaseId}/tenants/${tenantId}/unlink`,
+        null,
+        token
+      );
+      return res || { ok: true };
+    } catch (err) {
+      const msg = String(err.message || "");
+
+      // Gracefully handle the case where no LeaseTenant row exists
+      // (legacy single-tenant leases), and let caller fall back.
+      if (
+        msg.includes("404") &&
+        msg.includes("Lease/tenant link not found")
+      ) {
+        return { ok: false, notFound: true };
+      }
+
+      throw err;
     }
-    return http(
-      "DELETE",
-      `/api/leases/${leaseId}/tenants/${tenantId}/unlink`,
-      null,
-      token
-    );
   },
 };

@@ -29,14 +29,11 @@ export default function LandlordLeaseDetailPage() {
   const [isSaving, setSaving] = useState(false);
   const [isArchiving, setArchiving] = useState(false);
 
-  // Full tenant details (for occupants + nicer labels)
   const [tenantDetails, setTenantDetails] = useState([]);
   const [tenantDetailsLoading, setTenantDetailsLoading] = useState(false);
   const [tenantDetailsError, setTenantDetailsError] = useState(null);
 
-  // --------------------------------------------------
   // Load lease
-  // --------------------------------------------------
   useEffect(() => {
     let cancelled = false;
 
@@ -78,9 +75,7 @@ export default function LandlordLeaseDetailPage() {
     };
   }, [leaseId, token]);
 
-  // --------------------------------------------------
   // Initialize edit state when lease changes
-  // --------------------------------------------------
   useEffect(() => {
     if (!lease) return;
 
@@ -94,9 +89,7 @@ export default function LandlordLeaseDetailPage() {
     setEndDate(lease.endDate || "");
   }, [lease]);
 
-  // --------------------------------------------------
   // Load full tenant details (including occupants) for this lease
-  // --------------------------------------------------
   useEffect(() => {
     if (!lease || !token) {
       setTenantDetails([]);
@@ -108,7 +101,9 @@ export default function LandlordLeaseDetailPage() {
     let tenantIds = [];
 
     if (Array.isArray(lease.leaseTenants) && lease.leaseTenants.length > 0) {
-      tenantIds = lease.leaseTenants.map((lt) => lt.tenantId).filter(Boolean);
+      tenantIds = lease.leaseTenants
+        .map((lt) => lt.tenantId)
+        .filter(Boolean);
     } else if (lease.tenant?.id) {
       tenantIds = [lease.tenant.id];
     } else if (lease.tenantId) {
@@ -167,9 +162,6 @@ export default function LandlordLeaseDetailPage() {
 
   const isArchived = !!lease?.archived;
 
-  // --------------------------------------------------
-  // Save basic lease fields
-  // --------------------------------------------------
   const handleSave = async () => {
     try {
       setSaving(true);
@@ -182,7 +174,6 @@ export default function LandlordLeaseDetailPage() {
           normalizedRentAmount = parsed;
         } else {
           alert("Rent amount must be a positive number.");
-          setSaving(false);
           return;
         }
       }
@@ -222,9 +213,6 @@ export default function LandlordLeaseDetailPage() {
     setEditing(false);
   };
 
-  // --------------------------------------------------
-  // Archive toggle
-  // --------------------------------------------------
   const handleToggleArchive = async () => {
     if (!lease) return;
 
@@ -256,9 +244,37 @@ export default function LandlordLeaseDetailPage() {
     }
   };
 
-  // --------------------------------------------------
-  // Render guards
-  // --------------------------------------------------
+  const handleUnlinkTenant = async (tenantId) => {
+    if (!lease || !tenantId) return;
+
+    const ok = window.confirm(
+      "Unlink this tenant from this lease?\n\n" +
+        "This does NOT delete either record, it only removes the association."
+    );
+    if (!ok) return;
+
+    try {
+      // 1) Try the join-table unlink
+      const result = await leasesApi.unlinkTenant(lease.id, tenantId, { token });
+
+      // 2) If there was no LeaseTenant row, fall back to clearing the legacy tenantId
+      if (result?.notFound && lease.tenantId === tenantId) {
+        await leasesApi.update(
+          lease.id,
+          { tenantId: null },
+          { token }
+        );
+      }
+
+      // 3) Reload lease after unlink
+      const freshLease = await leasesApi.get(lease.id, { token });
+      setLease(freshLease);
+    } catch (err) {
+      console.error("Failed to unlink tenant from lease", err);
+      alert("Failed to unlink tenant. Check console for details.");
+    }
+  };
+
   if (loading) return <div>Loading lease…</div>;
 
   if (error) {
@@ -278,9 +294,7 @@ export default function LandlordLeaseDetailPage() {
     ? lease.leaseTenants
     : [];
 
-  // --------------------------------------------------
   // Pooled occupants across all tenants on this lease
-  // --------------------------------------------------
   const leaseOccupants = [];
   const seenOccupantIds = new Set();
 
@@ -300,7 +314,10 @@ export default function LandlordLeaseDetailPage() {
   }
 
   const base =
-    lease.propertyLabel || property?.name || property?.address1;
+    lease.propertyLabel ||
+    property?.name ||
+    property?.address1;
+
   const title = base ? `Lease for ${base}` : "Lease";
 
   const canEditNow = !isArchived || isSysAdmin;
@@ -308,12 +325,10 @@ export default function LandlordLeaseDetailPage() {
   const canUnarchiveNow = isArchived && isSysAdmin;
   const showArchiveButton = canArchiveNow || canUnarchiveNow;
 
-  // Small helper: get display label for a tenantId from tenantDetails
-  function labelForTenantId(tenantId, fallbackName) {
-    const t = tenantDetails.find((tt) => tt.id === tenantId);
-    if (!t) return fallbackName || tenantId || "Unnamed tenant";
-    return t.name || t.email || fallbackName || tenantId || "Unnamed tenant";
-  }
+  // For legacy single-tenant leases that have no leaseTenants row
+  const hasLegacySingleTenant =
+    (!leaseTenants || leaseTenants.length === 0) &&
+    (lease.tenantId || lease.tenant?.id);
 
   return (
     <div style={{ padding: 16 }}>
@@ -364,9 +379,7 @@ export default function LandlordLeaseDetailPage() {
                 maxWidth: 520,
               }}
             >
-              <label
-                style={{ display: "flex", flexDirection: "column", gap: 4 }}
-              >
+              <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                 <span>Rent amount</span>
                 <input
                   type="number"
@@ -378,9 +391,7 @@ export default function LandlordLeaseDetailPage() {
                 />
               </label>
 
-              <label
-                style={{ display: "flex", flexDirection: "column", gap: 4 }}
-              >
+              <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                 <span>Status</span>
                 <input
                   type="text"
@@ -390,9 +401,7 @@ export default function LandlordLeaseDetailPage() {
                 />
               </label>
 
-              <label
-                style={{ display: "flex", flexDirection: "column", gap: 4 }}
-              >
+              <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                 <span>Start date</span>
                 <input
                   type="text"
@@ -402,9 +411,7 @@ export default function LandlordLeaseDetailPage() {
                 />
               </label>
 
-              <label
-                style={{ display: "flex", flexDirection: "column", gap: 4 }}
-              >
+              <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                 <span>End date</span>
                 <input
                   type="text"
@@ -415,7 +422,11 @@ export default function LandlordLeaseDetailPage() {
               </label>
 
               <div style={{ display: "flex", gap: 8, marginTop: 4 }}>
-                <button type="button" onClick={handleSave} disabled={isSaving}>
+                <button
+                  type="button"
+                  onClick={handleSave}
+                  disabled={isSaving}
+                >
                   {isSaving ? "Saving…" : "Save"}
                 </button>
                 <button type="button" onClick={handleCancelEdit}>
@@ -501,7 +512,7 @@ export default function LandlordLeaseDetailPage() {
 
       <hr style={{ margin: "16px 0" }} />
 
-      {/* Linked property (read-only) */}
+      {/* Linked property */}
       <section
         style={{
           padding: 16,
@@ -518,18 +529,11 @@ export default function LandlordLeaseDetailPage() {
         {lease.property ? (
           <div style={{ fontSize: 14 }}>
             <div>
-              <strong>
-                {lease.property.name || lease.property.address1}
-              </strong>
+              <strong>{lease.property.name || lease.property.address1}</strong>
             </div>
             <div>
               {lease.property.address1}, {lease.property.city},{" "}
               {lease.property.state} {lease.property.postalCode}
-            </div>
-            <div style={{ marginTop: 4 }}>
-              <Link to={`/landlord/properties/${lease.property.id}`}>
-                View property details
-              </Link>
             </div>
           </div>
         ) : lease.propertyId ? (
@@ -542,9 +546,15 @@ export default function LandlordLeaseDetailPage() {
             No property linked yet.
           </div>
         )}
+
+        <div style={{ marginTop: 8 }}>
+          <Link to={`/landlord/properties/new?forLease=1&leaseId=${lease.id}`}>
+            Add / link property for this lease
+          </Link>
+        </div>
       </section>
 
-      {/* Linked tenants (READ-ONLY LIST + link to AddTenantPage) */}
+      {/* Linked tenants */}
       <section
         style={{
           padding: 16,
@@ -560,17 +570,18 @@ export default function LandlordLeaseDetailPage() {
 
         {Array.isArray(leaseTenants) && leaseTenants.length > 0 ? (
           <ul style={{ paddingLeft: 18, fontSize: 14 }}>
-            {leaseTenants.map((lt) => {
-              const label = labelForTenantId(lt.tenantId, lt.tenantName);
-              return (
-                <li key={lt.id}>
-                  {lt.tenantId ? (
-                    <Link to={`/landlord/tenants/${lt.tenantId}`}>
-                      {label}
-                    </Link>
-                  ) : (
-                    <span>{label}</span>
-                  )}
+            {leaseTenants.map((lt) => (
+              <li
+                key={lt.id}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  marginBottom: 4,
+                }}
+              >
+                <span>
+                  {lt.tenantName || lt.tenantId || "Unnamed tenant"}
                   {lt.isPrimary && (
                     <span
                       style={{ marginLeft: 6, fontSize: 12, color: "#2563eb" }}
@@ -578,33 +589,51 @@ export default function LandlordLeaseDetailPage() {
                       (primary)
                     </span>
                   )}
-                </li>
-              );
-            })}
+                </span>
+                {lt.tenantId && (
+                  <button
+                    type="button"
+                    onClick={() => handleUnlinkTenant(lt.tenantId)}
+                    style={{ fontSize: 11, padding: "2px 6px" }}
+                  >
+                    Unlink from this lease
+                  </button>
+                )}
+              </li>
+            ))}
           </ul>
-        ) : lease.tenant ? (
+        ) : hasLegacySingleTenant ? (
           <div style={{ fontSize: 14 }}>
-            <Link to={`/landlord/tenants/${lease.tenant.id}`}>
-              <strong>{lease.tenant.name}</strong>
-            </Link>
-            {lease.tenant.email && <> — {lease.tenant.email}</>}
-          </div>
-        ) : lease.tenantId ? (
-          <div style={{ fontSize: 14 }}>
-            Linked to tenant ID <code>{lease.tenantId}</code>, but details are
-            unavailable.
+            <span>
+              {lease.tenant?.name ||
+                lease.tenantId ||
+                "Linked tenant (legacy)"}
+            </span>
+            {(lease.tenant?.id || lease.tenantId) && (
+              <button
+                type="button"
+                onClick={() =>
+                  handleUnlinkTenant(lease.tenant?.id || lease.tenantId)
+                }
+                style={{
+                  fontSize: 11,
+                  padding: "2px 6px",
+                  marginLeft: 8,
+                }}
+              >
+                Unlink from this lease
+              </button>
+            )}
           </div>
         ) : (
           <div style={{ fontSize: 14, color: "#6b7280" }}>
-            No tenants linked to this lease.
+            No tenants linked yet.
           </div>
         )}
 
-        {/* 👇 THIS is the only “add/link tenant” entry point now */}
+        {/* Link / create tenant lives in AddTenant page, not here */}
         <div style={{ marginTop: 8 }}>
-          <Link
-            to={`/landlord/tenants/new?forLease=1&leaseId=${lease.id}&returnTo=/landlord/leases/${lease.id}`}
-          >
+          <Link to={`/landlord/tenants/new?forLease=1&leaseId=${lease.id}`}>
             Add or link tenant for this lease
           </Link>
         </div>

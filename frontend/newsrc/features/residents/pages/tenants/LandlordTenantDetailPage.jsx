@@ -8,6 +8,7 @@ import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
 import { ROLES } from "@lib/rbac/roles.js";
 import { tenantsApi } from "@features/residents/api/tenants.api.js";
 import { occupantsApi } from "@features/residents/api/occupants.api.js";
+import { leasesApi } from "@features/leases/api/leases.api.js";
 
 export default function LandlordTenantDetailPage() {
   const { tenantId } = useParams();
@@ -221,6 +222,37 @@ export default function LandlordTenantDetailPage() {
       setUnlinkingOccupantId(null);
     }
   };
+  
+  const handleUnlinkLease = async (leaseId) => {
+    if (!tenant || !leaseId) return;
+
+    const ok = window.confirm(
+      "Unlink this lease from this tenant?\n\n" +
+        "This does NOT delete the lease or tenant, it just removes the association."
+    );
+    if (!ok) return;
+
+    try {
+      // 1) Try to remove the LeaseTenant row
+      const result = await leasesApi.unlinkTenant(leaseId, tenant.id, { token });
+
+      // 2) Fallback: if there was no join row but this tenant is the legacy tenantId, clear it
+      if (result?.notFound) {
+        await leasesApi.update(
+          leaseId,
+          { tenantId: null },
+          { token }
+        );
+      }
+
+      // 3) Reload tenant so its leases list updates
+      const fresh = await tenantsApi.detail(tenant.id, { token });
+      setTenant(fresh);
+    } catch (err) {
+      console.error("Failed to unlink lease from tenant", err);
+      alert("Failed to unlink lease. Check console for details.");
+    }
+  };
 
   return (
     <div style={{ padding: 16 }}>
@@ -341,6 +373,15 @@ export default function LandlordTenantDetailPage() {
                 <Link to={`/landlord/leases/${lease.id}`}>
                   Lease {lease.id.slice(0, 8)}
                 </Link>{" "}
+                {lease.status && <> — {lease.status}</>}
+
+                <button
+                  type="button"
+                  onClick={() => handleUnlinkLease(lease.id)}
+                  style={{ marginLeft: 8, fontSize: 11, padding: "2px 6px" }}
+                >
+                  Unlink from this tenant
+                </button>
                 – {lease.status || "UNKNOWN"}
                 {lease.rentAmount != null && ` · $${lease.rentAmount}/mo`}
                 {lease.startDate && ` · from ${lease.startDate}`}

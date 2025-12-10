@@ -69,15 +69,10 @@ export default function LandlordAddTenantPage() {
       setLinkSaving(true);
 
       if (inLeaseContext) {
-        // ✅ Link tenant to lease via many-to-many join
+        // Link tenant to lease via many-to-many table
         await leasesApi.linkTenant(leaseId, selectedTenantId, { token });
         navigate(`/landlord/leases/${leaseId}`);
-      } else if (inOccupantContext) {
-        // Link tenant to occupant via join table
-        await tenantsApi.linkOccupant(selectedTenantId, occupantId, { token });
-
-        const target = returnTo || `/landlord/occupants/${occupantId}`;
-        navigate(target);
+        return;
       }
     } catch (err) {
       console.error("Failed to link tenant", err);
@@ -100,7 +95,7 @@ export default function LandlordAddTenantPage() {
 
         if (created && created.id) {
           try {
-            // ✅ link new tenant to this lease via LeaseTenant
+            // Use many-to-many join
             await leasesApi.linkTenant(leaseId, created.id, { token });
           } catch (err) {
             console.error("Tenant created but failed to link to lease", err);
