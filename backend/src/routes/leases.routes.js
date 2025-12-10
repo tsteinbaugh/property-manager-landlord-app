@@ -345,9 +345,22 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
         include: {
           property: true,
           landlord: true,
-          tenant: true,
+          tenant: true, // legacy single tenant (ok to keep for now)
           leaseTenants: {
-            include: { tenant: true },
+            include: {
+              tenant: {
+                include: {
+                  occupantLinks: {
+                    include: {
+                      occupant: true,
+                    },
+                  },
+                  occupants: {
+                    where: { isArchived: false },
+                  },
+                },
+              },
+            },
           },
         },
       });
@@ -384,9 +397,7 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
     }
   });
 
-  // PATCH /api/leases/:id - update lease fields (including reassign property/tenant)
-  // NOTE: This still only supports single tenant reassignment via tenantId.
-  // Multi-tenant editing can be added later if you want.
+  // PATCH /api/leases/:id - update lease fields (including reassign / clear property/tenant)
   app.patch("/api/leases/:id", async (req, res) => {
     const { id } = req.params;
     const {
@@ -431,11 +442,11 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
         // optional labels
         tenantName:
           tenantName !== undefined
-            ? tenantName.trim() || null
+            ? (tenantName || "").trim() || null
             : existing.tenantName,
         propertyLabel:
           propertyLabel !== undefined
-            ? propertyLabel.trim() || null
+            ? (propertyLabel || "").trim() || null
             : existing.propertyLabel,
 
         rentAmount: numericRent,
@@ -453,18 +464,39 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
             : existing.endDate,
       };
 
-      // reassign property if provided
-      if (propertyId !== undefined && propertyId) {
-        data.property = {
-          connect: { id: String(propertyId).trim() },
-        };
+      // --- Property reassignment / clearing ---
+      // undefined  => do nothing
+      // non-empty  => connect
+      // null / ""  => disconnect
+      if (propertyId !== undefined) {
+        const trimmed =
+          propertyId === null ? null : String(propertyId).trim();
+
+        if (trimmed) {
+          data.property = {
+            connect: { id: trimmed },
+          };
+        } else {
+          data.property = {
+            disconnect: true,
+          };
+        }
       }
 
-      // reassign tenant if provided (still single)
-      if (tenantId !== undefined && tenantId) {
-        data.tenant = {
-          connect: { id: String(tenantId).trim() },
-        };
+      // --- Tenant reassignment / clearing (still single tenant field) ---
+      if (tenantId !== undefined) {
+        const trimmed =
+          tenantId === null ? null : String(tenantId).trim();
+
+        if (trimmed) {
+          data.tenant = {
+            connect: { id: trimmed },
+          };
+        } else {
+          data.tenant = {
+            disconnect: true,
+          };
+        }
       }
 
       const updated = await prisma.lease.update({
@@ -511,6 +543,134 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
       res.status(500).json({ error: "Server error" });
     }
   });
+
+  // POST /api/leases/:leaseId/tenants/:tenantId/link
+  // Creates a LeaseTenant row (many-to-many link)
+  app.post(
+    "/api/leases/:leaseId/tenants/:tenantId/link",
+    async (req, res) => {
+      const { leaseId, tenantId } = req.params;
+      const user = req.user || null;
+
+      if (!user) {
+        return res.status(401).json({ error: "Unauthorized" });
+      }
+
+      try {
+        const lease = await prisma.lease.findUnique({ where: { id: leaseId } });
+        if (!lease) {
+          return res.status(404).json({ error: "Lease not found" });
+        }
+
+        const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
+        if (!tenant) {
+          return res.status(404).json({ error: "Tenant not found" });
+        }
+
+        // landlord scoping – same pattern as other routes
+        const isSysAdmin = user.baseRole === "SYSADMIN";
+        if (!isSysAdmin) {
+          if (lease.landlordId && lease.landlordId !== user.id) {
+            return res
+              .status(403)
+              .json({ error: "You are not allowed to link tenants on this lease." });
+          }
+          if (tenant.landlordId && tenant.landlordId !== user.id) {
+            return res
+              .status(403)
+              .json({ error: "You are not allowed to link this tenant." });
+          }
+        }
+
+        await prisma.leaseTenant.upsert({
+          where: {
+            leaseId_tenantId: {
+              leaseId,
+              tenantId,
+            },
+          },
+          update: {},
+          create: {
+            leaseId,
+            tenantId,
+            tenantName: tenant.name || null,
+          },
+        });
+
+        return res.json({ ok: true });
+      } catch (err) {
+        console.error(
+          "Error in POST /api/leases/:leaseId/tenants/:tenantId/link",
+          err
+        );
+        return res.status(500).json({ error: "Server error" });
+      }
+    }
+  );
+
+  // DELETE /api/leases/:leaseId/tenants/:tenantId/unlink
+  // Deletes a LeaseTenant row
+  app.delete(
+    "/api/leases/:leaseId/tenants/:tenantId/unlink",
+    async (req, res) => {
+      const { leaseId, tenantId } = req.params;
+      const user = req.user || null;
+
+      if (!user) {
+        return res.status(401).json({ error: "Unauthorized" });
+      }
+
+      try {
+        const lease = await prisma.lease.findUnique({ where: { id: leaseId } });
+        if (!lease) {
+          return res.status(404).json({ error: "Lease not found" });
+        }
+
+        const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
+        if (!tenant) {
+          return res.status(404).json({ error: "Tenant not found" });
+        }
+
+        const isSysAdmin = user.baseRole === "SYSADMIN";
+        if (!isSysAdmin) {
+          if (lease.landlordId && lease.landlordId !== user.id) {
+            return res
+              .status(403)
+              .json({ error: "You are not allowed to unlink tenants on this lease." });
+          }
+          if (tenant.landlordId && tenant.landlordId !== user.id) {
+            return res
+              .status(403)
+              .json({ error: "You are not allowed to unlink this tenant." });
+          }
+        }
+
+        try {
+          await prisma.leaseTenant.delete({
+            where: {
+              leaseId_tenantId: {
+                leaseId,
+                tenantId,
+              },
+            },
+          });
+        } catch (deleteErr) {
+          console.error("No LeaseTenant link to delete", deleteErr);
+          return res
+            .status(404)
+            .json({ error: "Lease/tenant link not found" });
+        }
+
+        return res.json({ ok: true });
+      } catch (err) {
+        console.error(
+          "Error in DELETE /api/leases/:leaseId/tenants/:tenantId/unlink",
+          err
+        );
+        return res.status(500).json({ error: "Server error" });
+      }
+    }
+  );
 }
 
 module.exports = {

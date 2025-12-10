@@ -282,11 +282,12 @@ export default function LandlordLeaseDetailPage() {
     }
   }
 
-  const title =
+  const base =
     lease.propertyLabel ||
     property?.name ||
-    property?.address1 ||
-    "Lease";
+    property?.address1;
+  
+  const title = base ? `Lease for ${base}` : "Lease";
 
   const canEditNow = !isArchived || isSysAdmin;
   const canArchiveNow = !isArchived; // any landlord can archive

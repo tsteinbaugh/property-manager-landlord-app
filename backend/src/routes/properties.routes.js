@@ -173,22 +173,50 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
     }
   });
 
-  // GET /api/properties/:id - full detail including leases + tenants
+  // GET /api/properties/:id – detail, including leases, tenants, and occupants
   app.get("/api/properties/:id", async (req, res) => {
     const { id } = req.params;
+    const user = req.user || null;
+
+    if (!user) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
 
     try {
-      const user = req.user || null;
-
       const property = await prisma.property.findUnique({
         where: { id },
         include: {
           leases: {
-            orderBy: { startDate: "desc" },
             include: {
-              tenant: true, // primary tenant
+              // direct 1:1 tenant on the lease
+              tenant: {
+                include: {
+                  occupants: {
+                    where: { isArchived: false },
+                  },
+                  occupantLinks: {
+                    include: {
+                      occupant: true,
+                    },
+                  },
+                },
+              },
+              // multi-tenant join table
               leaseTenants: {
-                include: { tenant: true }, // all tenants
+                include: {
+                  tenant: {
+                    include: {
+                      occupants: {
+                        where: { isArchived: false },
+                      },
+                      occupantLinks: {
+                        include: {
+                          occupant: true,
+                        },
+                      },
+                    },
+                  },
+                },
               },
             },
           },
@@ -206,10 +234,78 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
         }
       }
 
-      res.json(property);
+      // --- Aggregate tenants + occupants across all leases ---
+
+      const tenantMap = new Map();
+      const occupantMap = new Map();
+
+      function collectTenant(t) {
+        if (!t || !t.id) return;
+
+        if (!tenantMap.has(t.id)) {
+          tenantMap.set(t.id, {
+            id: t.id,
+            name: t.name,
+            email: t.email,
+            phone: t.phone,
+            archived: t.isArchived,
+          });
+        }
+
+        // legacy direct occupants
+        for (const o of t.occupants || []) {
+          if (!o || !o.id || o.isArchived) continue;
+          if (!occupantMap.has(o.id)) {
+            occupantMap.set(o.id, {
+              id: o.id,
+              name: o.name,
+              relation: o.relation,
+              archived: o.isArchived,
+            });
+          }
+        }
+
+        // many-to-many occupants via TenantOccupant
+        for (const link of t.occupantLinks || []) {
+          const o = link.occupant;
+          if (!o || !o.id || o.isArchived) continue;
+          if (!occupantMap.has(o.id)) {
+            occupantMap.set(o.id, {
+              id: o.id,
+              name: o.name,
+              relation: o.relation,
+              archived: o.isArchived,
+            });
+          }
+        }
+      }
+
+      for (const lease of property.leases || []) {
+        // direct lease.tenant
+        if (lease.tenant) {
+          collectTenant(lease.tenant);
+        }
+
+        // join-table leaseTenants[].tenant
+        for (const lt of lease.leaseTenants || []) {
+          if (lt.tenant) {
+            collectTenant(lt.tenant);
+          }
+        }
+      }
+
+      const tenants = Array.from(tenantMap.values());
+      const occupants = Array.from(occupantMap.values());
+
+      // Send raw property + extra arrays; frontend mapper will pick what it needs.
+      return res.json({
+        ...property,
+        tenants,
+        occupants,
+      });
     } catch (err) {
       console.error("Error in GET /api/properties/:id", err);
-      res.status(500).json({ error: "Server error" });
+      return res.status(500).json({ error: "Server error" });
     }
   });
 

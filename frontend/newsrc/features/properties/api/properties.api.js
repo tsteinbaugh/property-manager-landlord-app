@@ -53,20 +53,31 @@ function mapPropertyFromApi(p) {
   return {
     id: p.id,
     name: p.name || "",
-    address,
-    address1,
-    city,
-    state,
-    postalCode,
-    archived,
+    address1: p.address1 || "",
+    city: p.city || "",
+    state: p.state || "",
+    postalCode: p.postalCode || "",
+    bedrooms: p.bedrooms ?? null,
+    bathrooms: p.bathrooms ?? null,
+    sqft: p.sqft ?? null,
+    yearBuilt: p.yearBuilt ?? null,
+    notes: p.notes || "",
+    archived: !!(p.archived ?? p.isArchived),
+    createdAt: p.createdAt,
+    updatedAt: p.updatedAt,
     status: p.status || "occupied", // still a placeholder until modeled in DB
-
-    // For list() this will usually be [], for detail() this will include full lease objects.
     leases: Array.isArray(p.leases) ? p.leases : [],
+    tenants: Array.isArray(p.tenants) ? p.tenants : [],
+    occupants: Array.isArray(p.occupants) ? p.occupants : [],
   };
 }
 
 export const propertiesApi = {
+  // Just reuse .get() so they stay in sync
+  async detail(id, options = {}) {
+    return this.get(id, options);
+  },
+
   // List properties (optionally scoped with token)
   async list(options = {}) {
     const { token } = options;

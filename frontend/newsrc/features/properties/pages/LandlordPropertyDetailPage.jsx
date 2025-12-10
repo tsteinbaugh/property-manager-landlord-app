@@ -8,33 +8,6 @@ import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
 import { ROLES } from "@lib/rbac/roles.js";
 import { propertiesApi } from "@features/properties/api/properties.api.js";
 import { leasesApi } from "@features/leases/api/leases.api.js";
-import { tenantsApi } from "@features/residents/api/tenants.api.js";
-
-// Shared helper: what counts as an ACTIVE lease?
-function isActiveLease(lease) {
-  if (!lease) return false;
-  if (lease.status !== "ACTIVE") return false;
-  if (!lease.landlordId) return false;
-  if (!lease.propertyId) return false;
-
-  const today = new Date();
-
-  if (!lease.startDate) return false;
-  const start = new Date(lease.startDate);
-  if (Number.isNaN(start.getTime())) return false;
-  if (today < start) return false;
-
-  if (!lease.endDate) {
-    // month-to-month / open ended
-    return true;
-  }
-
-  const end = new Date(lease.endDate);
-  if (Number.isNaN(end.getTime())) return true;
-
-  // inclusive of end date
-  return today <= end;
-}
 
 export default function LandlordPropertyDetailPage({ propertyId }) {
   const { token, effectiveRole, isSysAdmin } = useUser() || {};
@@ -49,8 +22,12 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
   const canUpdate = can(role, R.PROPERTIES, A.UPDATE);
   const canArchiveGrant = can(role, R.PROPERTIES, A.ARCHIVE);
 
+  // Summary from /api/properties/:id/summary
   const [summary, setSummary] = useState(null);
-  const [leases, setLeases] = useState([]); // all leases for this property
+
+  // Full detail (leases + tenants + occupants) from /api/properties/:id
+  const [propertyDetail, setPropertyDetail] = useState(null);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -64,23 +41,30 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
   const [isSaving, setSaving] = useState(false);
   const [isArchiving, setArchiving] = useState(false);
 
-  // NEW: active leases + tenant details (used for pooled occupants)
-  const [activeLeases, setActiveLeases] = useState([]);
-  const [leasesLoading, setLeasesLoading] = useState(false);
-  const [leasesError, setLeasesError] = useState(null);
-
-  const [tenantDetails, setTenantDetails] = useState([]);
-  const [tenantDetailsLoading, setTenantDetailsLoading] = useState(false);
-  const [tenantDetailsError, setTenantDetailsError] = useState(null);
-
-  // Convenience aliases from summary (safe even when summary is null)
-  const property = summary?.property || null;
+  // Convenience aliases from summary
   const currentLease = summary?.lease || null;
   const currentTenant = summary?.tenant || null;
   const summaryPets = summary?.pets || [];
   const summaryEmergencyContacts = summary?.emergencyContacts || [];
 
-  // Load summary + full leases
+  // Property from summary and/or detail
+  const propertyFromSummary = summary?.property || null;
+  const richProperty = propertyDetail || propertyFromSummary || null;
+  const property = propertyFromSummary || richProperty;
+
+  const leasesForProperty = Array.isArray(richProperty?.leases)
+    ? richProperty.leases
+    : [];
+
+  const tenantsForProperty = Array.isArray(richProperty?.tenants)
+    ? richProperty.tenants
+    : [];
+
+  const occupantsForProperty = Array.isArray(richProperty?.occupants)
+    ? richProperty.occupants
+    : [];
+
+  // Load summary + full detail
   useEffect(() => {
     let cancelled = false;
 
@@ -91,12 +75,12 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
 
         const [summaryData, detail] = await Promise.all([
           apiFetch(`/api/properties/${propertyId}/summary`, { token }),
-          propertiesApi.get(propertyId, { token }),
+          propertiesApi.detail(propertyId, { token }),
         ]);
 
         if (!cancelled) {
           setSummary(summaryData || null);
-          setLeases(Array.isArray(detail?.leases) ? detail.leases : []);
+          setPropertyDetail(detail || null);
         }
       } catch (err) {
         console.error("Failed to load property", err);
@@ -117,7 +101,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
     };
   }, [propertyId, token]);
 
-  // When summary loads, initialize edit fields
+  // When property loads (from summary), initialize edit fields
   useEffect(() => {
     if (property) {
       setName(property.name || "");
@@ -127,127 +111,6 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
       setPostalCode(property.postalCode || "");
     }
   }, [property]);
-
-  // Load ACTIVE leases for this property
-  useEffect(() => {
-    if (!token) return;
-    if (!property || !property.id) {
-      setActiveLeases([]);
-      setLeasesError(null);
-      return;
-    }
-
-    let cancelled = false;
-
-    async function loadLeases() {
-      try {
-        setLeasesLoading(true);
-        setLeasesError(null);
-
-        // includeArchived=0 gives us non-ARCHIVED; we'll still apply isActiveLease
-        const allLeases = await leasesApi.listAll({
-          includeArchived: false,
-          token,
-        });
-
-        const filtered = (Array.isArray(allLeases) ? allLeases : []).filter(
-          (l) => l.propertyId === property.id && isActiveLease(l)
-        );
-
-        if (!cancelled) {
-          setActiveLeases(filtered);
-        }
-      } catch (err) {
-        if (!cancelled) {
-          console.error("Failed to load active leases for property", err);
-          setLeasesError(err);
-        }
-      } finally {
-        if (!cancelled) {
-          setLeasesLoading(false);
-        }
-      }
-    }
-
-    loadLeases();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [property, token]);
-
-  // Load tenant details (including occupants) for ACTIVE leases on this property
-  useEffect(() => {
-    if (!token) return;
-    if (!activeLeases || activeLeases.length === 0) {
-      setTenantDetails([]);
-      setTenantDetailsError(null);
-      return;
-    }
-
-    // Collect tenant IDs from multi-tenant join table or fallback fields
-    const tenantIds = new Set();
-
-    for (const lease of activeLeases) {
-      if (Array.isArray(lease.leaseTenants) && lease.leaseTenants.length > 0) {
-        for (const lt of lease.leaseTenants) {
-          if (lt.tenantId) tenantIds.add(lt.tenantId);
-        }
-      } else if (lease.tenant?.id) {
-        tenantIds.add(lease.tenant.id);
-      } else if (lease.tenantId) {
-        tenantIds.add(lease.tenantId);
-      }
-    }
-
-    const ids = Array.from(tenantIds);
-    if (ids.length === 0) {
-      setTenantDetails([]);
-      setTenantDetailsError(null);
-      return;
-    }
-
-    let cancelled = false;
-
-    async function loadTenantDetails() {
-      try {
-        setTenantDetailsLoading(true);
-        setTenantDetailsError(null);
-
-        const results = [];
-        for (const id of ids) {
-          try {
-            const t = await tenantsApi.detail(id, { token });
-            if (t) results.push(t);
-          } catch (err) {
-            console.error(
-              "Failed to load tenant detail for property occupants",
-              err
-            );
-          }
-        }
-
-        if (!cancelled) {
-          setTenantDetails(results);
-        }
-      } catch (err) {
-        if (!cancelled) {
-          console.error("Error loading tenant details for property", err);
-          setTenantDetailsError(err);
-        }
-      } finally {
-        if (!cancelled) {
-          setTenantDetailsLoading(false);
-        }
-      }
-    }
-
-    loadTenantDetails();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [activeLeases, token]);
 
   const handleSave = async () => {
     if (!address1 || !city || !stateVal || !postalCode) {
@@ -269,7 +132,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
         },
       });
 
-      // Update local summary so UI reflects the change
+      // Update summary copy
       setSummary((prev) =>
         prev
           ? {
@@ -283,6 +146,21 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
                 postalCode,
                 isArchived: updated.isArchived ?? prev.property.isArchived,
               },
+            }
+          : prev
+      );
+
+      // Update detail copy
+      setPropertyDetail((prev) =>
+        prev
+          ? {
+              ...prev,
+              name: name || address1,
+              address1,
+              city,
+              state: stateVal,
+              postalCode,
+              isArchived: updated.isArchived ?? prev.isArchived,
             }
           : prev
       );
@@ -312,7 +190,6 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
 
     const currentlyArchived = !!property.isArchived;
 
-    // If we're archiving (active -> archived)
     if (!currentlyArchived) {
       const ok = window.confirm(
         "Are you sure you want to archive this property?\n\n" +
@@ -320,7 +197,6 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
       );
       if (!ok) return;
     } else {
-      // Unarchive request
       if (!isSysAdmin) {
         alert(
           "Only a system administrator can unarchive an archived property. " +
@@ -340,7 +216,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
         }
       );
 
-      // Update archive flag on the property
+      // Update summary flag
       setSummary((prev) =>
         prev
           ? {
@@ -352,11 +228,52 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
             }
           : prev
       );
+
+      // Update detail flag
+      setPropertyDetail((prev) =>
+        prev
+          ? {
+              ...prev,
+              isArchived: updated.isArchived,
+            }
+          : prev
+      );
     } catch (err) {
       console.error("Failed to toggle archived state", err);
       alert("Failed to change archive status. Check console for details.");
     } finally {
       setArchiving(false);
+    }
+  };
+
+  const handleUnlinkLease = async (leaseId) => {
+    if (!leaseId || !property) return;
+
+    const ok = window.confirm(
+      "Unlink this lease from the property?\n\n" +
+        "This does NOT delete the lease; it just removes the property association."
+    );
+    if (!ok) return;
+
+    try {
+      // 1) Update the lease: drop the propertyId
+      await leasesApi.update(
+        leaseId,
+        { propertyId: null },
+        { token }
+      );
+
+      // 2) Reload BOTH summary and rich detail so everything is in sync
+      const [summaryData, detail] = await Promise.all([
+        apiFetch(`/api/properties/${property.id}/summary`, { token }),
+        propertiesApi.detail(property.id, { token }),
+      ]);
+
+      setSummary(summaryData || null);
+      setPropertyDetail(detail || null);
+    } catch (err) {
+      console.error("Failed to unlink lease from property", err);
+      alert("Failed to unlink lease. Check console for details.");
     }
   };
 
@@ -368,7 +285,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
       </div>
     );
   }
-  if (!summary || !property) return <div>No data.</div>;
+  if (!property) return <div>No data.</div>;
 
   const title = property.name || property.address1;
   const isArchived = !!property.isArchived;
@@ -378,29 +295,9 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
   const canUnarchiveNow = isArchived && isSysAdmin;
   const showArchiveButton = canArchiveNow || canUnarchiveNow;
 
-  // Pooled occupants across tenants on ACTIVE leases for this property
-  const propertyOccupants = [];
-  const seenOccupantIds = new Set();
-
-  for (const t of tenantDetails || []) {
-    const occs = Array.isArray(t.occupants) ? t.occupants : [];
-    for (const o of occs) {
-      if (!o || !o.id) continue;
-      if (seenOccupantIds.has(o.id)) continue;
-
-      seenOccupantIds.add(o.id);
-      propertyOccupants.push({
-        ...o,
-        _tenantName: t.name || "(unnamed tenant)",
-        _tenantId: t.id,
-      });
-    }
-  }
-
   return (
     <div style={{ padding: 16 }}>
       <div style={{ marginBottom: 8 }}>
-        {/* landlord landing page */}
         <Link to="/landlord/properties">← Back to properties</Link>
       </div>
 
@@ -559,65 +456,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
         <div style={{ marginBottom: 12 }}>No active lease.</div>
       )}
 
-      {/* All leases for this property (from /api/properties/:id) */}
-      <hr style={{ margin: "16px 0" }} />
-      <h3>All leases for this property</h3>
-      {leases.length > 0 ? (
-        <ul style={{ paddingLeft: 18 }}>
-          {leases.map((l) => {
-            const leaseTenants = Array.isArray(l.leaseTenants)
-              ? l.leaseTenants
-              : [];
-            const tenantNames = leaseTenants
-              .map((lt) => lt.tenant?.name || lt.tenantName)
-              .filter(Boolean);
-
-            return (
-              <li key={l.id} style={{ marginBottom: 6 }}>
-                <Link to={`/landlord/leases/${l.id}`}>
-                  Lease {l.id.slice(0, 8)}
-                </Link>{" "}
-                – {l.status || "UNKNOWN"}
-                {l.rentAmount != null && ` · $${l.rentAmount}/mo`}
-                {l.startDate && ` · from ${l.startDate}`}
-                {l.endDate && ` to ${l.endDate}`}
-                {tenantNames.length > 0 && (
-                  <div style={{ fontSize: 12, color: "#4b5563" }}>
-                    Tenants: {tenantNames.join(", ")}
-                  </div>
-                )}
-              </li>
-            );
-          })}
-        </ul>
-      ) : (
-        <div>No leases recorded for this property yet.</div>
-      )}
-
-      <div style={{ marginTop: 8, marginBottom: 8 }}>
-        <Link to={`/landlord/leases/new?propertyId=${property.id}`}>
-          + Add lease for this property
-        </Link>
-      </div>
-
-      <hr style={{ margin: "16px 0" }} />
-
-      <h3>Tenant</h3>
-      {currentTenant ? (
-        <div style={{ marginBottom: 12 }}>
-          <div>
-            <strong>{currentTenant.name}</strong>
-          </div>
-          <div>Email: {currentTenant.email || "—"}</div>
-          <div>Phone: {currentTenant.phone || "—"}</div>
-        </div>
-      ) : (
-        <div style={{ marginBottom: 12 }}>No tenant assigned.</div>
-      )}
-
-      <hr style={{ margin: "16px 0" }} />
-
-      {/* Occupants at this property (via ACTIVE leases) */}
+      {/* Leases on this property (from richProperty) */}
       <section
         style={{
           marginTop: 16,
@@ -625,60 +464,129 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
           borderRadius: 12,
           border: "1px solid #e5e7eb",
           background: "#ffffff",
-          maxWidth: 640,
+          maxWidth: 720,
         }}
       >
         <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
-          Occupants at this property (active leases)
+          Leases for this property
         </h3>
 
-        {leasesLoading || tenantDetailsLoading ? (
-          <div style={{ fontSize: 14, color: "#6b7280" }}>
-            Loading occupants…
-          </div>
-        ) : leasesError || tenantDetailsError ? (
-          <div style={{ fontSize: 14, color: "#b91c1c" }}>
-            Failed to load occupants for this property.
-          </div>
-        ) : propertyOccupants.length > 0 ? (
-          <ul style={{ paddingLeft: 18, fontSize: 14 }}>
-            {propertyOccupants.map((o) => (
-              <li key={o.id} style={{ marginBottom: 4 }}>
-                <strong>{o.name || "Unnamed occupant"}</strong>
-                {o.relation && (
-                  <span
-                    style={{
-                      marginLeft: 6,
-                      fontSize: 12,
-                      color: "#4b5563",
-                    }}
-                  >
-                    ({o.relation})
-                  </span>
-                )}
-                <span
-                  style={{
-                    marginLeft: 8,
-                    fontSize: 12,
-                    color: "#6b7280",
-                  }}
+        {leasesForProperty.length > 0 ? (
+          <ul style={{ paddingLeft: 18 }}>
+            {leasesForProperty.map((lease) => (
+              <li key={lease.id} style={{ marginBottom: 8 }}>
+                <div>
+                  <Link to={`/landlord/leases/${lease.id}`}>
+                    Lease {lease.id.slice(0, 8)}
+                  </Link>{" "}
+                  – {lease.status || "UNKNOWN"}
+                  {lease.rentAmount != null && ` · $${lease.rentAmount}/mo`}
+                </div>
+
+                {Array.isArray(lease.leaseTenants) &&
+                  lease.leaseTenants.length > 0 && (
+                    <div style={{ fontSize: 13, color: "#4b5563" }}>
+                      Tenants:{" "}
+                      {lease.leaseTenants
+                        .map(
+                          (lt) =>
+                            lt.tenant?.name ||
+                            lt.tenantName ||
+                            "(unnamed)"
+                        )
+                        .join(", ")}
+                    </div>
+                  )}
+
+                <button
+                  type="button"
+                  onClick={() => handleUnlinkLease(lease.id)}
+                  style={{ fontSize: 12, marginTop: 4 }}
                 >
-                  via{" "}
-                  <Link to={`/landlord/tenants/${o._tenantId}`}>
-                    {o._tenantName}
-                  </Link>
-                </span>
+                  Unlink lease from this property
+                </button>
               </li>
             ))}
           </ul>
         ) : (
           <div style={{ fontSize: 14, color: "#6b7280" }}>
-            No occupants linked through active leases at this property yet.
+            No leases linked to this property yet.
+          </div>
+        )}
+        <div style={{ marginTop: 8, marginBottom: 8 }}>
+          <Link to={`/landlord/leases/new?propertyId=${property.id}`}>
+            + Add lease for this property
+          </Link>
+        </div>
+      </section>
+
+      {/* Tenants aggregated across leases */}
+      <section
+        style={{
+          marginTop: 16,
+          padding: 16,
+          borderRadius: 12,
+          border: "1px solid #e5e7eb",
+          background: "#ffffff",
+          maxWidth: 720,
+        }}
+      >
+        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
+          Tenants for this property (via leases)
+        </h3>
+
+        {tenantsForProperty.length > 0 ? (
+          <ul style={{ paddingLeft: 18 }}>
+            {tenantsForProperty.map((t) => (
+              <li key={t.id} style={{ marginBottom: 4 }}>
+                <Link to={`/landlord/tenants/${t.id}`}>
+                  {t.name || "(unnamed tenant)"}
+                </Link>
+                {t.email ? ` (${t.email})` : ""}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div style={{ fontSize: 14, color: "#6b7280" }}>
+            No tenants associated with this property yet.
           </div>
         )}
       </section>
 
-      <h3>Pets</h3>
+      {/* Occupants aggregated via tenant links */}
+      <section
+        style={{
+          marginTop: 16,
+          padding: 16,
+          borderRadius: 12,
+          border: "1px solid #e5e7eb",
+          background: "#ffffff",
+          maxWidth: 720,
+        }}
+      >
+        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
+          Occupants for this property (via tenants)
+        </h3>
+
+        {occupantsForProperty.length > 0 ? (
+          <ul style={{ paddingLeft: 18 }}>
+            {occupantsForProperty.map((o) => (
+              <li key={o.id} style={{ marginBottom: 4 }}>
+                <Link to={`/landlord/occupants/${o.id}`}>
+                  {o.name || "(unnamed occupant)"}
+                </Link>
+                {o.relation ? ` (${o.relation})` : ""}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div style={{ fontSize: 14, color: "#6b7280" }}>
+            No occupants associated with this property yet.
+          </div>
+        )}
+      </section>
+
+      <h3 style={{ marginTop: 16 }}>Pets</h3>
       {summaryPets && summaryPets.length > 0 ? (
         <ul>
           {summaryPets.map((p) => (
