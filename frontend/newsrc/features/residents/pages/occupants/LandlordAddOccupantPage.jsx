@@ -79,16 +79,21 @@ export default function LandlordAddOccupantPage() {
       cancelled = true;
     };
   }, [tenantId, token]);
-
-  // occupants currently linked to this tenant (from tenant detail, when present)
-  const tenantOccupants = Array.isArray(tenant?.occupants)
-    ? tenant.occupants
+  // Occupants currently linked to this tenant via join table
+  const occupantLinks = Array.isArray(tenant?.occupantLinks)
+    ? tenant.occupantLinks
     : [];
 
+  const tenantOccupants = occupantLinks
+    .map((link) => link.occupant)
+    .filter(Boolean);
+
   // existing occupants that are NOT already linked to this tenant
+  const linkedIds = new Set(occupantLinks.map((l) => l.occupantId));
+
   const availableExistingOccupants =
     tenant && allOccupants.length > 0
-      ? allOccupants.filter((o) => o.tenantId !== tenant.id)
+      ? allOccupants.filter((o) => !linkedIds.has(o.id))
       : allOccupants;
 
   // ------------------------------------------------------------
@@ -159,13 +164,19 @@ export default function LandlordAddOccupantPage() {
 
     const ok = window.confirm(
       `Link ${occName} to tenant "${tenant?.name || ""}"?\n\n` +
-        "This will move the occupant under this tenant in your records."
+        "This will link the occupant to this tenant in your records."
     );
     if (!ok) return;
 
     try {
       setIsLinkingExisting(true);
 
+      // New many-to-many link
+      await tenantsApi.linkOccupant(tenantId, selectedExistingOccupantId, {
+        token,
+      });
+
+      // Optional: keep legacy occupant.tenantId in sync (can remove later)
       await occupantsApi.update(
         selectedExistingOccupantId,
         { tenantId },
@@ -193,7 +204,7 @@ export default function LandlordAddOccupantPage() {
       setSubmitting(true);
       setFormError("");
 
-      // 1) create the occupant globally (same pattern that already works)
+      // 1) create the occupant globally
       const created = await occupantsApi.create(
         {
           name: name.trim(),
@@ -202,12 +213,11 @@ export default function LandlordAddOccupantPage() {
         { token }
       );
 
-      // 2) link to this tenant (PATCH)
-      await occupantsApi.update(
-        created.id,
-        { tenantId },
-        { token }
-      );
+      // 2) link to this tenant via join table
+      await tenantsApi.linkOccupant(tenantId, created.id, { token });
+
+      // Optional: also keep legacy tenantId on occupant
+      await occupantsApi.update(created.id, { tenantId }, { token });
 
       goBackFromTenantContext();
     } catch (err) {

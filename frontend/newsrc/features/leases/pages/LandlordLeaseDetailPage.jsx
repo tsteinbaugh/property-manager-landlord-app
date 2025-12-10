@@ -561,6 +561,13 @@ export default function LandlordLeaseDetailPage() {
             No tenants linked yet.
           </div>
         )}
+
+        {/* NEW: link to tenant add/link flow for this lease */}
+        <div style={{ marginTop: 8 }}>
+          <Link to={`/landlord/tenants/new?forLease=1&leaseId=${lease.id}`}>
+            Add / link tenant for this lease
+          </Link>
+        </div>
       </section>
       
       {/* Pooled occupants for this lease (via tenants) */}

@@ -1,10 +1,9 @@
-// newsrc/features/tenants/pages/LandlordAddTenantPage.jsx
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
 import AddTenantForm from "@features/residents/components/tenants/AddTenantForm.jsx";
 import { tenantsApi } from "@features/residents/api/tenants.api.js";
-import { occupantsApi } from "@features/residents/api/occupants.api.js";
+import { leasesApi } from "@features/leases/api/leases.api.js";
 import styles from "./LandlordTenantsPage.module.css";
 
 const LEASE_DRAFT_KEY = "leaseDraft";
@@ -16,63 +15,120 @@ export default function LandlordAddTenantPage() {
   const { token } = useUser() || {};
 
   const forLease = searchParams.get("forLease") === "1";
-
-  // New: occupant context support
+  const leaseId = searchParams.get("leaseId") || "";
   const occupantId = searchParams.get("occupantId") || "";
-  const rawReturnTo = searchParams.get("returnTo") || "";
-  const returnTo = rawReturnTo ? decodeURIComponent(rawReturnTo) : "";
+  const returnTo = searchParams.get("returnTo") || "";
 
+  const inLeaseContext = forLease && !!leaseId;
+  const inOccupantContext = !!occupantId && !inLeaseContext;
+
+  // For "link existing tenant to lease/occupant"
   const [tenants, setTenants] = useState([]);
+  const [tenantsLoading, setTenantsLoading] = useState(false);
+  const [tenantsError, setTenantsError] = useState(null);
   const [selectedTenantId, setSelectedTenantId] = useState("");
+  const [linkSaving, setLinkSaving] = useState(false);
 
-  // When in occupant context (and not in lease-draft mode), load tenants to link
+  // Load tenants when we need to link an existing one
   useEffect(() => {
-    if (!occupantId || forLease || !token) return;
+    if (!(inLeaseContext || inOccupantContext) || !token) return;
 
     let cancelled = false;
 
     async function loadTenants() {
       try {
-        const rows = await tenantsApi.list({ token });
+        setTenantsLoading(true);
+        setTenantsError(null);
+        const list = await tenantsApi.list({ token });
         if (!cancelled) {
-          setTenants(Array.isArray(rows) ? rows : []);
+          setTenants(Array.isArray(list) ? list : []);
         }
       } catch (err) {
-        console.error("Failed to load tenants for occupant linking", err);
+        console.error("Failed to load tenants for context", err);
+        if (!cancelled) setTenantsError(err);
+      } finally {
+        if (!cancelled) setTenantsLoading(false);
       }
     }
 
     loadTenants();
-
     return () => {
       cancelled = true;
     };
-  }, [occupantId, forLease, token]);
+  }, [inLeaseContext, inOccupantContext, token]);
 
-  const handleLinkExistingTenant = async (e) => {
+  const handleLinkExisting = async (e) => {
     e.preventDefault();
-    if (!selectedTenantId) {
+    if (!token || !selectedTenantId) {
       alert("Select a tenant to link.");
       return;
     }
 
     try {
-      await occupantsApi.update(
-        occupantId,
-        { tenantId: selectedTenantId },
-        { token }
-      );
+      setLinkSaving(true);
 
-      navigate(returnTo || `/landlord/occupants/${occupantId}`);
+      if (inLeaseContext) {
+        // Link tenant to lease
+        await leasesApi.update(
+          leaseId,
+          { tenantId: selectedTenantId },
+          { token }
+        );
+        navigate(`/landlord/leases/${leaseId}`);
+      } else if (inOccupantContext) {
+        // Link tenant to occupant via join table
+        await tenantsApi.linkOccupant(selectedTenantId, occupantId, { token });
+
+        const target =
+          returnTo || `/landlord/occupants/${occupantId}`;
+        navigate(target);
+      }
     } catch (err) {
-      console.error("Failed to link tenant to occupant", err);
+      console.error("Failed to link tenant", err);
       alert("Failed to link tenant. Check console for details.");
+    } finally {
+      setLinkSaving(false);
     }
   };
 
   const handleCreate = async (payload) => {
-    if (forLease) {
-      // Special "draft for lease" mode: DO NOT hit the API here.
+    if (!token) {
+      alert("Missing auth token.");
+      return;
+    }
+
+    // 1) Lease context: create tenant and link to specific lease
+    if (inLeaseContext) {
+      try {
+        const created = await tenantsApi.create(payload, { token });
+
+        if (created && created.id) {
+          try {
+            await leasesApi.update(
+              leaseId,
+              { tenantId: created.id },
+              { token }
+            );
+          } catch (err) {
+            console.error("Tenant created but failed to link to lease", err);
+            alert(
+              "Tenant was created, but linking it to the lease failed. " +
+                "You can link it later from the lease or tenant detail pages."
+            );
+          }
+        }
+
+        navigate(`/landlord/leases/${leaseId}`);
+      } catch (err) {
+        console.error("Failed to create tenant in lease context", err);
+        alert("Failed to create tenant. Check console for details.");
+      }
+
+      return;
+    }
+
+    // 2) "Draft for lease" mode (no leaseId) used by Add Lease wizard
+    if (forLease && !leaseId) {
       try {
         const raw = sessionStorage.getItem(LEASE_DRAFT_KEY);
         const draft = raw ? JSON.parse(raw) : {};
@@ -92,50 +148,58 @@ export default function LandlordAddTenantPage() {
           draftNewTenants: nextDraftTenants,
         };
 
-        sessionStorage.setItem(LEASE_DRAFT_KEY, JSON.stringify(updatedDraft));
+        sessionStorage.setItem(
+          LEASE_DRAFT_KEY,
+          JSON.stringify(updatedDraft)
+        );
 
-        const leaseReturnTo =
+        const draftReturn =
           sessionStorage.getItem(LEASE_DRAFT_RETURN_KEY) ||
           "/landlord/leases/new";
 
-        navigate(leaseReturnTo);
+        navigate(draftReturn);
       } catch (err) {
-        console.error("Failed to stage tenant for lease", err);
+        console.error("Failed to stage tenant for lease draft", err);
         alert("Failed to stage tenant for lease. Check console for details.");
       }
       return;
     }
 
-    // Normal / occupant-context behavior: create real tenant
-    try {
-      const created = await tenantsApi.create(payload, { token });
+    // 3) Occupant context: create tenant and link to occupant
+    if (inOccupantContext) {
+      try {
+        const created = await tenantsApi.create(payload, { token });
 
-      // If we're in occupant context, immediately link this tenant to the occupant
-      if (occupantId && created && created.id) {
-        try {
-          await occupantsApi.update(
-            occupantId,
-            { tenantId: created.id },
-            { token }
-          );
-        } catch (linkErr) {
-          console.error(
-            "Tenant created but failed to link to occupant",
-            linkErr
-          );
-          alert(
-            "Tenant was created, but linking to the occupant failed. " +
-              "You can try linking the tenant again from the occupant page."
-          );
+        if (created && created.id) {
+          try {
+            await tenantsApi.linkOccupant(created.id, occupantId, { token });
+          } catch (err) {
+            console.error(
+              "Tenant created but failed to link to occupant",
+              err
+            );
+            alert(
+              "Tenant was created, but linking it to the occupant failed. " +
+                "You can link it later from the occupant or tenant detail pages."
+            );
+          }
         }
+
+        const target =
+          returnTo || `/landlord/occupants/${occupantId}`;
+        navigate(target);
+      } catch (err) {
+        console.error("Failed to create tenant in occupant context", err);
+        alert("Failed to create tenant. Check console for details.");
       }
 
-      if (occupantId) {
-        navigate(returnTo || `/landlord/occupants/${occupantId}`);
-      } else {
-        // Normal behavior: go back to Residents → Tenants
-        navigate("/landlord/residents?tab=tenants");
-      }
+      return;
+    }
+
+    // 4) Normal behavior: create tenant and go back to Residents → Tenants
+    try {
+      await tenantsApi.create(payload, { token });
+      navigate("/landlord/residents?tab=tenants");
     } catch (err) {
       console.error("Failed to create tenant", err);
       alert("Failed to create tenant. Check console for details.");
@@ -143,90 +207,124 @@ export default function LandlordAddTenantPage() {
   };
 
   const handleCancel = () => {
-    if (forLease) {
-      // Just go back to lease creation without changing draft
-      const leaseReturnTo =
+    // Lease context: go back to lease details
+    if (inLeaseContext) {
+      navigate(`/landlord/leases/${leaseId}`);
+      return;
+    }
+
+    // Draft-for-lease mode
+    if (forLease && !leaseId) {
+      const draftReturn =
         sessionStorage.getItem(LEASE_DRAFT_RETURN_KEY) ||
         "/landlord/leases/new";
-      navigate(leaseReturnTo);
-    } else if (occupantId) {
-      navigate(returnTo || `/landlord/occupants/${occupantId}`);
-    } else {
-      navigate("/landlord/residents?tab=tenants");
+      navigate(draftReturn);
+      return;
     }
+
+    // Occupant context: go back to occupant detail
+    if (inOccupantContext) {
+      const target =
+        returnTo || `/landlord/occupants/${occupantId}`;
+      navigate(target);
+      return;
+    }
+
+    // Normal mode
+    navigate("/landlord/residents?tab=tenants");
   };
 
-  const inOccupantContext = !!occupantId && !forLease;
+  const heading =
+    inLeaseContext
+      ? "Add or link tenant for lease"
+      : inOccupantContext
+      ? "Add or link tenant for occupant"
+      : "Add tenant";
+
+  const subtitle =
+    inLeaseContext
+      ? "Link an existing tenant to this lease or create a new tenant that will be automatically linked."
+      : inOccupantContext
+      ? "Link an existing tenant to this occupant or create a new tenant that will be automatically linked."
+      : "Create a tenant profile. You can add occupants, pets, and emergency contacts after this.";
 
   return (
     <div className={styles.page}>
       <header className={styles.header}>
         <div>
-          <h1 className={styles.title}>Add tenant</h1>
-          <p className={styles.subtitle}>
-            {inOccupantContext
-              ? "Create or link a tenant for this occupant."
-              : "Create a tenant profile. You can add occupants, pets, and emergency contacts after this."}
-          </p>
+          <h1 className={styles.title}>{heading}</h1>
+          <p className={styles.subtitle}>{subtitle}</p>
         </div>
       </header>
 
-      <div style={{ marginTop: 12 }}>
-        {/* Link existing tenant → occupant */}
-        {inOccupantContext && (
-          <section
-            style={{
-              marginBottom: 16,
-              padding: 12,
-              borderRadius: 8,
-              border: "1px solid #e5e7eb",
-              background: "#ffffff",
-              maxWidth: 480,
-            }}
-          >
-            <h2 style={{ fontSize: 14, margin: "0 0 8px" }}>
-              Link an existing tenant
-            </h2>
-            <p
-              style={{
-                fontSize: 12,
-                color: "#6b7280",
-                margin: "0 0 8px",
-              }}
-            >
-              Choose an existing tenant to link to this occupant.
-            </p>
+      {/* Context-only: link existing tenant */}
+      {(inLeaseContext || inOccupantContext) && (
+        <section
+          style={{
+            marginTop: 12,
+            marginBottom: 16,
+            padding: 12,
+            borderRadius: 8,
+            border: "1px solid #e5e7eb",
+            maxWidth: 480,
+          }}
+        >
+          <h2 style={{ fontSize: 14, margin: "0 0 8px" }}>
+            {inLeaseContext
+              ? "Link an existing tenant to this lease"
+              : "Link an existing tenant to this occupant"}
+          </h2>
 
+          {tenantsLoading ? (
+            <div style={{ fontSize: 13 }}>Loading tenants…</div>
+          ) : tenantsError ? (
+            <div style={{ fontSize: 13, color: "crimson" }}>
+              Failed to load tenants:{" "}
+              {String(tenantsError.message || tenantsError)}
+            </div>
+          ) : tenants.length === 0 ? (
+            <div style={{ fontSize: 13, color: "#6b7280" }}>
+              You don&apos;t have any tenants yet. Use the form below to create
+              one and it will be linked to this{" "}
+              {inLeaseContext ? "lease" : "occupant"}.
+            </div>
+          ) : (
             <form
-              onSubmit={handleLinkExistingTenant}
-              style={{
-                display: "flex",
-                gap: 8,
-                alignItems: "center",
-              }}
+              onSubmit={handleLinkExisting}
+              style={{ display: "flex", flexDirection: "column", gap: 8 }}
             >
-              <select
-                style={{ flex: 1 }}
-                value={selectedTenantId}
-                onChange={(e) => setSelectedTenantId(e.target.value)}
+              <label
+                style={{ display: "flex", flexDirection: "column", gap: 4 }}
               >
-                <option value="">Select a tenant…</option>
-                {tenants.map((t) => (
-                  <option key={t.id} value={t.id}>
-                    {t.name} {t.email ? `(${t.email})` : ""}
-                  </option>
-                ))}
-              </select>
-              <button type="submit" disabled={!selectedTenantId}>
-                Link
+                <span>Select tenant</span>
+                <select
+                  value={selectedTenantId}
+                  onChange={(e) => setSelectedTenantId(e.target.value)}
+                  disabled={linkSaving}
+                >
+                  <option value="">Choose a tenant…</option>
+                  {tenants.map((t) => (
+                    <option key={t.id} value={t.id}>
+                      {t.name} {t.email ? `(${t.email})` : ""}
+                    </option>
+                  ))}
+                </select>
+              </label>
+
+              <button
+                type="submit"
+                disabled={linkSaving || !selectedTenantId}
+                style={{ marginTop: 4 }}
+              >
+                {linkSaving ? "Linking…" : "Link tenant"}
               </button>
             </form>
-          </section>
-        )}
+          )}
+        </section>
+      )}
 
-        {/* Create new tenant (normal + occupant context) */}
+      <div style={{ marginTop: 12 }}>
         <AddTenantForm onCreate={handleCreate} />
-
         <button
           type="button"
           onClick={handleCancel}

@@ -41,23 +41,23 @@ function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
   });
 
   // ============================================================
-  // GET SINGLE OCCUPANT
+  // GET SINGLE OCCUPANT + linked tenants (via join table)
   // GET /api/occupants/:id
   // ============================================================
   app.get("/api/occupants/:id", async (req, res) => {
     const { id } = req.params;
     const user = req.user || null;
-
+  
     if (!user) {
       return res.status(401).json({ error: "Unauthorized" });
     }
-
+  
     try {
       const occupant = await prisma.occupant.findUnique({ where: { id } });
       if (!occupant) {
         return res.status(404).json({ error: "Occupant not found" });
       }
-
+    
       // Landlord can only view their own occupant; sysadmin can view any
       if (
         user.baseRole === Role.LANDLORD &&
@@ -68,11 +68,37 @@ function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
           .status(403)
           .json({ error: "You are not allowed to view this occupant." });
       }
-
-      res.json(shapeOccupant(occupant));
+    
+      // Look up join-table links: which tenants are linked to this occupant?
+      const links = await prisma.tenantOccupant.findMany({
+        where: { occupantId: id },
+        include: {
+          tenant: true,
+        },
+      });
+    
+      const tenants = links
+        .map((link) => link.tenant)
+        .filter((t) => !!t)
+        .map((t) => ({
+          id: t.id,
+          name: t.name,
+          email: t.email,
+          phone: t.phone,
+          archived: t.isArchived,
+          createdAt: t.createdAt,
+          updatedAt: t.updatedAt,
+        }));
+      
+      const shaped = shapeOccupant(occupant);
+      
+      return res.json({
+        ...shaped,
+        tenants,
+      });
     } catch (err) {
       console.error("Error in GET /api/occupants/:id", err);
-      res.status(500).json({ error: "Server error" });
+      return res.status(500).json({ error: "Server error" });
     }
   });
 

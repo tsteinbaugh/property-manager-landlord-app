@@ -1,6 +1,6 @@
 // newsrc/features/residents/pages/tenants/LandlordTenantDetailPage.jsx
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
 import ArchiveButton from "@shared/ui/ArchiveButton.jsx";
 import { can } from "@lib/rbac/index.js";
@@ -21,6 +21,7 @@ export default function LandlordTenantDetailPage() {
 
   const canUpdate = can(role, R.TENANTS, A.UPDATE);
   const canArchiveGrant = can(role, R.TENANTS, A.ARCHIVE);
+  const navigate = useNavigate();
 
   const [tenant, setTenant] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -32,6 +33,7 @@ export default function LandlordTenantDetailPage() {
   const [phone, setPhone] = useState("");
   const [isSaving, setSaving] = useState(false);
   const [isArchiving, setArchiving] = useState(false);
+  const [unlinkingOccupantId, setUnlinkingOccupantId] = useState(null);
 
   // Load tenant (rich detail)
   useEffect(() => {
@@ -195,6 +197,31 @@ export default function LandlordTenantDetailPage() {
     tenant.id
   }&returnTo=${encodeURIComponent(`/landlord/tenants/${tenant.id}`)}`;
 
+  const handleUnlinkOccupant = async (occupantId) => {
+    if (!tenant || !tenant.id || !occupantId) return;
+
+    const ok = window.confirm(
+      "Unlink this occupant from this tenant?\n\n" +
+        "This does NOT delete either record."
+    );
+    if (!ok) return;
+
+    try {
+      setUnlinkingOccupantId(occupantId);
+
+      await tenantsApi.unlinkOccupant(tenant.id, occupantId, { token });
+
+      // Refresh tenant detail so UI matches DB
+      const fresh = await tenantsApi.detail(tenant.id, { token });
+      setTenant(fresh || tenant);
+    } catch (err) {
+      console.error("Failed to unlink occupant from tenant", err);
+      alert("Failed to unlink occupant. Check console for details.");
+    } finally {
+      setUnlinkingOccupantId(null);
+    }
+  };
+
   return (
     <div style={{ padding: 16 }}>
       <div style={{ marginBottom: 8 }}>
@@ -345,8 +372,7 @@ export default function LandlordTenantDetailPage() {
         </Link>
       </div>
 
-      {/* Household – occupants (read-only + button to AddOccupantPage) */}
-      <hr style={{ margin: "16px 0" }} />
+      {/* Occupants for this tenant (via many-to-many) */}
       <section
         style={{
           padding: 16,
@@ -354,80 +380,67 @@ export default function LandlordTenantDetailPage() {
           border: "1px solid #e5e7eb",
           background: "#ffffff",
           maxWidth: 640,
+          marginTop: 16,
         }}
       >
         <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
-          Household – occupants
+          Occupants for this tenant
         </h3>
-
-        {tenantOccupants.length > 0 ? (
+      
+        {Array.isArray(tenant.occupantLinks) && tenant.occupantLinks.length > 0 ? (
           <ul style={{ paddingLeft: 18, fontSize: 14 }}>
-            {tenantOccupants.map((occ) => (
-              <li
-                key={occ.id}
-                style={{
-                  marginBottom: 6,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <div>
-                  <strong>{occ.name}</strong>
-                  {occ.relation && (
-                    <span style={{ marginLeft: 6, color: "#6b7280" }}>
-                      ({occ.relation})
-                    </span>
-                  )}
-                </div>
-                
-                <button
-                  type="button"
+            {tenant.occupantLinks.map((link) => {
+              const o = link.occupant;
+              if (!o || !o.id) return null;
+            
+              return (
+                <li
+                  key={o.id}
                   style={{
-                    fontSize: 12,
-                    color: "#b91c1c",
-                    background: "none",
-                    border: "none",
-                    cursor: "pointer",
-                  }}
-                  onClick={async () => {
-                    const ok = window.confirm(
-                      `Unlink ${occ.name} from this tenant?\n\n` +
-                        `This does NOT delete or archive the occupant.`
-                    );
-                    if (!ok) return;
-                  
-                    try {
-                      await occupantsApi.update(
-                        occ.id,
-                        { tenantId: "" },
-                        { token }
-                      );
-                    
-                      // locally update tenant state
-                      setTenant((prev) => ({
-                        ...prev,
-                        occupants: prev.occupants.filter((o) => o.id !== occ.id),
-                      }));
-                    } catch (err) {
-                      console.error("Failed to unlink occupant", err);
-                      alert("Failed to unlink occupant. Check console for details.");
-                    }
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 8,
+                    marginBottom: 4,
                   }}
                 >
-                  unlink
-                </button>
-              </li>
-            ))}
+                  <span>
+                    <Link to={`/landlord/occupants/${o.id}`}>
+                      {o.name || "Unnamed occupant"}
+                    </Link>
+                    {o.relation ? ` (${o.relation})` : ""}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => handleUnlinkOccupant(o.id)}
+                    disabled={unlinkingOccupantId === o.id}
+                    style={{ fontSize: 11, padding: "2px 6px" }}
+                  >
+                    {unlinkingOccupantId === o.id ? "Unlinking…" : "Unlink"}
+                  </button>
+                </li>
+              );
+            })}
           </ul>
         ) : (
-          <div style={{ color: "#6b7280" }}>No occupants linked to this tenant yet.</div>
+          <div style={{ fontSize: 14, color: "#6b7280" }}>
+            No occupants linked to this tenant yet.
+          </div>
         )}
-
+      
         <div style={{ marginTop: 12 }}>
-          <Link to={manageOccupantsUrl}>
+          <button
+            type="button"
+            onClick={() => {
+              const returnTo = encodeURIComponent(
+                `${window.location.pathname}${window.location.search || ""}`
+              );
+              navigate(
+                `/landlord/occupants/new?tenantId=${tenant.id}&returnTo=${returnTo}`
+              );
+            }}
+          >
             Manage occupants for this tenant
-          </Link>
+          </button>
         </div>
       </section>
     </div>

@@ -201,7 +201,33 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
         }
       }
 
-      res.json(tenant);
+      // --- Merge legacy 1-to-many occupants with join-based occupants ---
+      const directOccs = Array.isArray(tenant.occupants)
+        ? tenant.occupants
+        : [];
+
+      const joinOccs = Array.isArray(tenant.occupantLinks)
+        ? tenant.occupantLinks
+            .map((link) => link.occupant)
+            .filter(Boolean)
+        : [];
+
+      const seenOccIds = new Set();
+      const mergedOccupants = [];
+
+      for (const occ of [...directOccs, ...joinOccs]) {
+        if (!occ || !occ.id) continue;
+        if (seenOccIds.has(occ.id)) continue;
+        seenOccIds.add(occ.id);
+        mergedOccupants.push(occ);
+      }
+
+      const result = {
+        ...tenant,
+        occupants: mergedOccupants,
+      };
+
+      res.json(result);
     } catch (err) {
       console.error("Error in GET /api/tenants/:id", err);
       res.status(500).json({ error: "Server error" });

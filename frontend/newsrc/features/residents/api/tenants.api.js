@@ -4,19 +4,40 @@ import { apiFetch } from "@lib/apiClient.js";
 function mapTenantFromApi(t) {
   if (!t) return null;
 
+  // ONLY use real join-table links. If there are none, there are no links.
+  const occupantLinks = Array.isArray(t.occupantLinks)
+    ? t.occupantLinks.map((link) => ({
+        id: link.id,
+        occupantId: link.occupantId,
+        occupant: link.occupant
+          ? {
+              id: link.occupant.id,
+              name: link.occupant.name,
+              relation: link.occupant.relation || "",
+              archived: !!(link.occupant.isArchived ?? link.occupant.archived),
+            }
+          : null,
+      }))
+    : [];
+
   return {
     id: t.id,
     name: t.name,
     email: t.email || "",
     phone: t.phone || "",
     archived: !!(t.archived ?? t.isArchived),
+
     pets: Array.isArray(t.pets) ? t.pets : [],
+    // this "occupants" field is now just informational; the UI shouldn't treat it as link truth
     occupants: Array.isArray(t.occupants) ? t.occupants : [],
     emergencyContacts: Array.isArray(t.emergencyContacts)
       ? t.emergencyContacts
       : [],
     vehicles: Array.isArray(t.vehicles) ? t.vehicles : [],
     leaseTenants: Array.isArray(t.leaseTenants) ? t.leaseTenants : [],
+
+    // REAL links only
+    occupantLinks,
   };
 }
 

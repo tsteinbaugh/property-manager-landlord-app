@@ -204,6 +204,30 @@ function shapeTenant(t) {
 }
 
 function shapeOccupant(o) {
+  // Primary tenant from the old 1:1 field
+  const primaryTenant = o.tenant
+    ? {
+        id: o.tenant.id,
+        name: o.tenant.name,
+        email: o.tenant.email,
+        phone: o.tenant.phone,
+      }
+    : null;
+
+  // Additional tenants via join table
+  const tenantsFromLinks = Array.isArray(o.tenantLinks)
+    ? o.tenantLinks
+        .map((link) => link.tenant)
+        .filter(Boolean)
+        .map((t) => ({
+          id: t.id,
+          name: t.name,
+          email: t.email,
+          phone: t.phone,
+        }))
+    : [];
+
+  // We’ll let the frontend de-dupe if primaryTenant also appears in tenants[].
   return {
     id: o.id,
     tenantId: o.tenantId,
@@ -212,6 +236,9 @@ function shapeOccupant(o) {
     archived: o.isArchived,
     createdAt: o.createdAt,
     updatedAt: o.updatedAt,
+
+    primaryTenant,
+    tenants: tenantsFromLinks,
   };
 }
 
