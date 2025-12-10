@@ -1,4 +1,4 @@
-// newsrc/features/tenants/api/leases.api.js
+// newsrc/features/leases/api/leases.api.js
 const BASE_URL = "http://localhost:4000";
 
 async function http(method, path, body, token) {
@@ -97,9 +97,7 @@ function mapLeaseFromApi(o) {
           id: lt.id,
           tenantId: lt.tenantId,
           tenantName:
-            lt.tenantName ||
-            (lt.tenant && lt.tenant.name) ||
-            "",
+            lt.tenantName || (lt.tenant && lt.tenant.name) || "",
           isPrimary: !!lt.isPrimary,
           startDate: lt.startDate || "",
           endDate: lt.endDate || "",
@@ -161,5 +159,30 @@ export const leasesApi = {
     if (!file) throw new Error("file is required");
     const row = await httpUpload(`/api/leases/${id}/file`, file, token);
     return mapLeaseFromApi(row);
+  },
+
+  // NEW: many-to-many helpers
+  async linkTenant(leaseId, tenantId, { token } = {}) {
+    if (!leaseId || !tenantId) {
+      throw new Error("leaseId and tenantId are required");
+    }
+    return http(
+      "POST",
+      `/api/leases/${leaseId}/tenants/${tenantId}/link`,
+      null,
+      token
+    );
+  },
+
+  async unlinkTenant(leaseId, tenantId, { token } = {}) {
+    if (!leaseId || !tenantId) {
+      throw new Error("leaseId and tenantId are required");
+    }
+    return http(
+      "DELETE",
+      `/api/leases/${leaseId}/tenants/${tenantId}/unlink`,
+      null,
+      token
+    );
   },
 };

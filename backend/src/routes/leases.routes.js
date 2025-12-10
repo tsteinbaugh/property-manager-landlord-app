@@ -397,7 +397,8 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
     }
   });
 
-  // PATCH /api/leases/:id - update lease fields (including reassign / clear property/tenant)
+  // PATCH /api/leases/:id - update lease fields (including reassign property/tenant)
+  // NOTE: Still primarily single-tenant for tenantId; multi-tenant editing uses link/unlink endpoints.
   app.patch("/api/leases/:id", async (req, res) => {
     const { id } = req.params;
     const {
@@ -464,38 +465,27 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
             : existing.endDate,
       };
 
-      // --- Property reassignment / clearing ---
-      // undefined  => do nothing
-      // non-empty  => connect
-      // null / ""  => disconnect
+      // --- property reassignment / unlink ---
       if (propertyId !== undefined) {
-        const trimmed =
-          propertyId === null ? null : String(propertyId).trim();
-
-        if (trimmed) {
+        if (propertyId) {
           data.property = {
-            connect: { id: trimmed },
+            connect: { id: String(propertyId).trim() },
           };
         } else {
-          data.property = {
-            disconnect: true,
-          };
+          // explicit null/empty => disconnect property
+          data.property = { disconnect: true };
         }
       }
 
-      // --- Tenant reassignment / clearing (still single tenant field) ---
+      // --- tenant reassignment / unlink (single-tenant field) ---
       if (tenantId !== undefined) {
-        const trimmed =
-          tenantId === null ? null : String(tenantId).trim();
-
-        if (trimmed) {
+        if (tenantId) {
           data.tenant = {
-            connect: { id: trimmed },
+            connect: { id: String(tenantId).trim() },
           };
         } else {
-          data.tenant = {
-            disconnect: true,
-          };
+          // explicit null/empty => disconnect tenant
+          data.tenant = { disconnect: true };
         }
       }
 

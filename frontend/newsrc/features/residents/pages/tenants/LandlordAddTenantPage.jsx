@@ -1,3 +1,4 @@
+// newsrc/features/residents/pages/LandlordAddTenantPage.jsx
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
@@ -68,19 +69,14 @@ export default function LandlordAddTenantPage() {
       setLinkSaving(true);
 
       if (inLeaseContext) {
-        // Link tenant to lease
-        await leasesApi.update(
-          leaseId,
-          { tenantId: selectedTenantId },
-          { token }
-        );
+        // ✅ Link tenant to lease via many-to-many join
+        await leasesApi.linkTenant(leaseId, selectedTenantId, { token });
         navigate(`/landlord/leases/${leaseId}`);
       } else if (inOccupantContext) {
         // Link tenant to occupant via join table
         await tenantsApi.linkOccupant(selectedTenantId, occupantId, { token });
 
-        const target =
-          returnTo || `/landlord/occupants/${occupantId}`;
+        const target = returnTo || `/landlord/occupants/${occupantId}`;
         navigate(target);
       }
     } catch (err) {
@@ -104,11 +100,8 @@ export default function LandlordAddTenantPage() {
 
         if (created && created.id) {
           try {
-            await leasesApi.update(
-              leaseId,
-              { tenantId: created.id },
-              { token }
-            );
+            // ✅ link new tenant to this lease via LeaseTenant
+            await leasesApi.linkTenant(leaseId, created.id, { token });
           } catch (err) {
             console.error("Tenant created but failed to link to lease", err);
             alert(
@@ -148,10 +141,7 @@ export default function LandlordAddTenantPage() {
           draftNewTenants: nextDraftTenants,
         };
 
-        sessionStorage.setItem(
-          LEASE_DRAFT_KEY,
-          JSON.stringify(updatedDraft)
-        );
+        sessionStorage.setItem(LEASE_DRAFT_KEY, JSON.stringify(updatedDraft));
 
         const draftReturn =
           sessionStorage.getItem(LEASE_DRAFT_RETURN_KEY) ||
@@ -185,8 +175,7 @@ export default function LandlordAddTenantPage() {
           }
         }
 
-        const target =
-          returnTo || `/landlord/occupants/${occupantId}`;
+        const target = returnTo || `/landlord/occupants/${occupantId}`;
         navigate(target);
       } catch (err) {
         console.error("Failed to create tenant in occupant context", err);
@@ -224,8 +213,7 @@ export default function LandlordAddTenantPage() {
 
     // Occupant context: go back to occupant detail
     if (inOccupantContext) {
-      const target =
-        returnTo || `/landlord/occupants/${occupantId}`;
+      const target = returnTo || `/landlord/occupants/${occupantId}`;
       navigate(target);
       return;
     }
@@ -234,19 +222,17 @@ export default function LandlordAddTenantPage() {
     navigate("/landlord/residents?tab=tenants");
   };
 
-  const heading =
-    inLeaseContext
-      ? "Add or link tenant for lease"
-      : inOccupantContext
-      ? "Add or link tenant for occupant"
-      : "Add tenant";
+  const heading = inLeaseContext
+    ? "Add or link tenant for lease"
+    : inOccupantContext
+    ? "Add or link tenant for occupant"
+    : "Add tenant";
 
-  const subtitle =
-    inLeaseContext
-      ? "Link an existing tenant to this lease or create a new tenant that will be automatically linked."
-      : inOccupantContext
-      ? "Link an existing tenant to this occupant or create a new tenant that will be automatically linked."
-      : "Create a tenant profile. You can add occupants, pets, and emergency contacts after this.";
+  const subtitle = inLeaseContext
+    ? "Link an existing tenant to this lease or create a new tenant that will be automatically linked."
+    : inOccupantContext
+    ? "Link an existing tenant to this occupant or create a new tenant that will be automatically linked."
+    : "Create a tenant profile. You can add occupants, pets, and emergency contacts after this.";
 
   return (
     <div className={styles.page}>
