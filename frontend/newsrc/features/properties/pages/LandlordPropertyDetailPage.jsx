@@ -25,7 +25,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
   // Summary from /api/properties/:id/summary
   const [summary, setSummary] = useState(null);
 
-  // Full detail (leases + tenants + occupants + pets) from /api/properties/:id
+  // Full detail (leases + tenants + occupants + pets + emergency contacts) from /api/properties/:id
   const [propertyDetail, setPropertyDetail] = useState(null);
 
   const [loading, setLoading] = useState(true);
@@ -44,7 +44,6 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
   // Convenience aliases from summary
   const currentLease = summary?.lease || null;
   const currentTenant = summary?.tenant || null;
-  const summaryEmergencyContacts = summary?.emergencyContacts || [];
 
   // Property from summary and/or detail
   const propertyFromSummary = summary?.property || null;
@@ -65,6 +64,10 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
 
   const petsForProperty = Array.isArray(richProperty?.pets)
     ? richProperty.pets
+    : [];
+
+  const emergencyContactsForProperty = Array.isArray(richProperty?.emergencyContacts)
+    ? richProperty.emergencyContacts
     : [];
 
   // Load summary + full detail
@@ -624,20 +627,40 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
         )}
       </section>
 
-      <h3>Emergency Contacts</h3>
-      {summaryEmergencyContacts && summaryEmergencyContacts.length > 0 ? (
-        <ul>
-          {summaryEmergencyContacts.map((c) => (
-            <li key={c.id}>
-              {c.name}
-              {c.relation ? ` (${c.relation})` : ""} —{" "}
-              {c.phone || "no phone"}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <div>No emergency contacts.</div>
-      )}
+      {/* Emergency contacts aggregated via tenant links */}
+      <section
+        style={{
+          marginTop: 16,
+          padding: 16,
+          borderRadius: 12,
+          border: "1px solid #e5e7eb",
+          background: "#ffffff",
+          maxWidth: 720,
+        }}
+      >
+        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
+          Emergency contacts for this property (via tenants)
+        </h3>
+
+        {emergencyContactsForProperty.length > 0 ? (
+          <ul style={{ paddingLeft: 18 }}>
+            {emergencyContactsForProperty.map((e) => (
+              <li key={e.id} style={{ marginBottom: 4 }}>
+                <Link to={`/landlord/emergencyContacts/${e.id}`}>
+                  {e.name || "(unnamed emergency contact)"}
+                </Link>
+                {e.email || "no email"}
+                {e.relation ? ` (${e.relation})` : ""}
+                {e.phone || "no phone"}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div style={{ fontSize: 14, color: "#6b7280" }}>
+            No emergency contacts associated with this property yet.
+          </div>
+        )}
+      </section>
     </div>
   );
 }

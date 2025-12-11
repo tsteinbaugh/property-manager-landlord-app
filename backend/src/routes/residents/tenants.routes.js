@@ -189,6 +189,11 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
               pet: true,
             },
           },
+          emergencyContactLinks: {
+            include: {
+              emergencyContact: true,
+            },
+          },
           // (Later we can add petLinks/emergencyContactLinks/vehicleLinks similarly)
         },
       });
@@ -248,10 +253,32 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
         mergedPets.push(pet);
       }
 
+     // --- Merge legacy 1-to-many emergency contacts with join-based emergency contacts ---
+      const directEmcs = Array.isArray(tenant.emergencyContacts)
+        ? tenant.emergencyContacts
+        : [];
+
+      const joinEmcs = Array.isArray(tenant.emergencyContactLinks)
+        ? tenant.emergencyContactLinks
+            .map((link) => link.emergencyContact)
+            .filter(Boolean)
+        : [];
+
+      const seenEmcIds = new Set();
+      const mergedEmergencyContacts = [];
+
+      for (const emc of [...directEmcs, ...joinEmcs]) {
+        if (!emc || !emc.id) continue;
+        if (seenEmcIds.has(emc.id)) continue;
+        seenEmcIds.add(emc.id);
+        mergedEmergencyContacts.push(emc);
+      }
+
       const result = {
         ...tenant,
         occupants: mergedOccupants,
         pets: mergedPets,
+        emergencyContacts: mergedEmergencyContacts,
       };
 
       res.json(result);
@@ -831,6 +858,154 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
       } catch (err) {
         console.error(
           "Error in DELETE /api/tenants/:tenantId/pets/:petId/unlink",
+          err
+        );
+        return res.status(500).json({ error: "Server error" });
+      }
+    }
+  );
+  // POST /api/tenants/:tenantId/emergencyContacts/:emergencyContactId/link
+  // Creates a TenantEmergencyContact row (many-to-many link) without touching leases/properties.
+  app.post(
+    "/api/tenants/:tenantId/emergencyContacts/:emergencyContactId/link",
+    async (req, res) => {
+      const { tenantId, emergencyContactId } = req.params;
+      const user = req.user || null;
+
+      if (!user) {
+        return res.status(401).json({ error: "Unauthorized" });
+      }
+
+      try {
+        // Make sure tenant exists
+        const tenant = await prisma.tenant.findUnique({
+          where: { id: tenantId },
+        });
+        if (!tenant) {
+          return res.status(404).json({ error: "Tenant not found" });
+        }
+
+        // Make sure emergency contact exists
+        const emergencyContact = await prisma.emergencyContact.findUnique({
+          where: { id: emergencyContactId },
+        });
+        if (!emergencyContact) {
+          return res.status(404).json({ error: "EmergencyContact not found" });
+        }
+
+        // Landlord scoping: landlord can only link within their own portfolio
+        const isSysAdmin = user.baseRole === Role.SYSADMIN;
+        if (!isSysAdmin) {
+          // Tenant must belong to this landlord (or be unowned but created by them, depending on your rules)
+          if (tenant.landlordId && tenant.landlordId !== user.id) {
+            return res
+              .status(403)
+              .json({ error: "You are not allowed to link this tenant." });
+          }
+
+          // EmergencyContact must belong to this landlord as well
+          if (emergencyContact.landlordId && emergencyContact.landlordId !== user.id) {
+            return res
+              .status(403)
+              .json({ error: "You are not allowed to link this emergency contact." });
+          }
+        }
+
+        // Create or no-op TenantEmergencyContact link
+        await prisma.tenantEmergencyContact.upsert({
+          where: {
+            // compound unique from @@unique([tenantId, emergencyContactId])
+            tenantId_emergencyContactId: {
+              tenantId,
+              emergencyContactId,
+            },
+          },
+          update: {}, // no-op if it already exists
+          create: {
+            tenantId,
+            emergencyContactId,
+          },
+        });
+
+        // IMPORTANT: we DO NOT touch emergencyContact.tenantId here yet.
+        // Existing flows still use emergencyContact.tenantId as before.
+        // We'll move UI over to this join table in a later step.
+
+        return res.json({ ok: true });
+      } catch (err) {
+        console.error("Error in POST /api/tenants/:tenantId/emergencyContacts/:emergencyContactId/link", err);
+        return res.status(500).json({ error: "Server error" });
+      }
+    }
+  );
+    // DELETE /api/tenants/:tenantId/emergencyContacts/:emergencyContactId/unlink
+  // Removes a TenantEmergencyContact row (many-to-many link) without touching leases/properties.
+  app.delete(
+    "/api/tenants/:tenantId/emergencyContacts/:emergencyContactId/unlink",
+    async (req, res) => {
+      const { tenantId, emergencyContactId } = req.params;
+      const user = req.user || null;
+
+      if (!user) {
+        return res.status(401).json({ error: "Unauthorized" });
+      }
+
+      try {
+        // Make sure tenant exists
+        const tenant = await prisma.tenant.findUnique({
+          where: { id: tenantId },
+        });
+        if (!tenant) {
+          return res.status(404).json({ error: "Tenant not found" });
+        }
+
+        // Make sure emergency contact exists
+        const emergencyContact = await prisma.emergencyContact.findUnique({
+          where: { id: emergencyContactId },
+        });
+        if (!emergencyContact) {
+          return res.status(404).json({ error: "Emergency Contact not found" });
+        }
+
+        const isSysAdmin = user.baseRole === Role.SYSADMIN;
+        if (!isSysAdmin) {
+          if (tenant.landlordId && tenant.landlordId !== user.id) {
+            return res
+              .status(403)
+              .json({ error: "You are not allowed to unlink this tenant." });
+          }
+          if (emergencyContact.landlordId && emergencyContact.landlordId !== user.id) {
+            return res
+              .status(403)
+              .json({ error: "You are not allowed to unlink this emergency contact." });
+          }
+        }
+
+        // If the link doesn't exist, this will throw; we can catch and return 404.
+        try {
+          await prisma.tenantEmergencyContact.delete({
+            where: {
+              tenantId_emergencyContactId: {
+                tenantId,
+                emergencyContactId,
+              },
+            },
+          });
+        } catch (deleteErr) {
+          // Prisma throws if no row; treat as 404 for this link
+          console.error("No TenantEmergencyContact link to delete", deleteErr);
+          return res
+            .status(404)
+            .json({ error: "Tenant/emergency contact link not found" });
+        }
+
+        // Again: we do NOT change emergency contact.tenantId here yet.
+        // Old 1:1 logic keeps working until we move UI over.
+
+        return res.json({ ok: true });
+      } catch (err) {
+        console.error(
+          "Error in DELETE /api/tenants/:tenantId/emergencyContacts/:emergencyContactId/unlink",
           err
         );
         return res.status(500).json({ error: "Server error" });

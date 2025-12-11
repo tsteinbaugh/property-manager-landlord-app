@@ -1,21 +1,44 @@
 // newsrc/features/residents/api/emergencyContacts.api.js
 import { apiFetch } from "@lib/apiClient.js";
 
-function mapEmergencyContactFromApi(o) {
-  if (!o) return null;
+function mapEmergencyContactFromApi(e) {
+  if (!e) return null;
 
-  const archived = !!(o.archived ?? o.isArchived);
+  const archived = !!(e.archived ?? e.isArchived);
+
+  const primaryTenant = e.primaryTenant
+    ? {
+        id: e.primaryTenant.id,
+        name: e.primaryTenant.name,
+        email: e.primaryTenant.email || "",
+        phone: e.primaryTenant.phone || "",
+      }
+    : null;
+
+  const tenants = Array.isArray(e.tenants)
+    ? e.tenants.map((t) => ({
+        id: t.id,
+        name: t.name,
+        email: t.email || "",
+        phone: t.phone || "",
+        archived: !!(t.archived ?? t.isArchived),
+      }))
+    : [];
 
   return {
-    id: o.id,
-    name: o.name,
-    phone: o.phone || "",
-    relation: o.relation || "",
-    email: o.email || "",
-    tenantId: o.tenantId || null,
+    id: e.id,
+    name: e.name,
+    phone: e.phone || "",
+    relation: e.relation || "",
+    email: e.email || "",
+    tenantId: e.tenantId || null,
     archived,
-    createdAt: o.createdAt || o.createdAtISO || null,
-    updatedAt: o.updatedAt || o.updatedAtISO || null,
+    createdAt: e.createdAt || e.createdAtISO || null,
+    updatedAt: e.updatedAt || e.updatedAtISO || null,
+
+    // NEW: used by LandlordEmergencyContactDetailsPage
+    primaryTenant,
+    tenants,
   };
 }
 

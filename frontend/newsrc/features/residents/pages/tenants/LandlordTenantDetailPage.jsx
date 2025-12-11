@@ -35,6 +35,7 @@ export default function LandlordTenantDetailPage() {
   const [isArchiving, setArchiving] = useState(false);
   const [unlinkingOccupantId, setUnlinkingOccupantId] = useState(null);
   const [unlinkingPetId, setUnlinkingPetId] = useState(null);
+  const [unlinkingEmergencyContactId, setUnlinkingEmergencyContactId] = useState(null);
 
   // Load tenant (rich detail)
   useEffect(() => {
@@ -196,11 +197,17 @@ export default function LandlordTenantDetailPage() {
   const tenantPets = Array.isArray(tenant.pets)
     ? tenant.pets
     : [];
+  const tenantEmergencyContacts = Array.isArray(tenant.emergencyContacts)
+    ? tenant.emergencyContacts
+    : [];
 
   const manageOccupantsUrl = `/landlord/occupants/new?tenantId=${
     tenant.id
   }&returnTo=${encodeURIComponent(`/landlord/tenants/${tenant.id}`)}`;
   const managePetsUrl = `/landlord/pets/new?tenantId=${
+    tenant.id
+  }&returnTo=${encodeURIComponent(`/landlord/tenants/${tenant.id}`)}`;
+  const manageEmergencyContactsUrl = `/landlord/emergencyContacts/new?tenantId=${
     tenant.id
   }&returnTo=${encodeURIComponent(`/landlord/tenants/${tenant.id}`)}`;
 
@@ -251,6 +258,31 @@ export default function LandlordTenantDetailPage() {
       alert("Failed to unlink pet. Check console for details.");
     } finally {
       setUnlinkingPetId(null);
+    }
+  };
+
+  const handleUnlinkEmergencyContact = async (emergencyContactId) => {
+    if (!tenant || !tenant.id || !emergencyContactId) return;
+
+    const ok = window.confirm(
+      "Unlink this emergency contact from this tenant?\n\n" +
+        "This does NOT delete either record."
+    );
+    if (!ok) return;
+
+    try {
+      setUnlinkingEmergencyContactId(emergencyContactId);
+
+      await tenantsApi.unlinkEmergencyContact(tenant.id, emergencyContactId, { token });
+
+      // Refresh tenant detail so UI matches DB
+      const fresh = await tenantsApi.detail(tenant.id, { token });
+      setTenant(fresh || tenant);
+    } catch (err) {
+      console.error("Failed to unlink emergency contact from tenant", err);
+      alert("Failed to unlink emergency contact. Check console for details.");
+    } finally {
+      setUnlinkingEmergencyContactId(null);
     }
   };
   
@@ -586,6 +618,80 @@ export default function LandlordTenantDetailPage() {
             }}
           >
             Manage pets for this tenant
+          </button>
+        </div>
+      </section>
+
+      {/* Emergency contacts for this tenant (via many-to-many) */}
+      <section
+        style={{
+          padding: 16,
+          borderRadius: 12,
+          border: "1px solid #e5e7eb",
+          background: "#ffffff",
+          maxWidth: 640,
+          marginTop: 16,
+        }}
+      >
+        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
+          Emergency contacts for this tenant
+        </h3>
+      
+        {Array.isArray(tenant.emergencyContactLinks) && tenant.emergencyContactLinks.length > 0 ? (
+          <ul style={{ paddingLeft: 18, fontSize: 14 }}>
+            {tenant.emergencyContactLinks.map((link) => {
+              const e = link.emergencyContact;
+              if (!e || !e.id) return null;
+            
+              return (
+                <li
+                  key={e.id}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 8,
+                    marginBottom: 4,
+                  }}
+                >
+                  <span>
+                    <Link to={`/landlord/emergencyContacts/${e.id}`}>
+                      {e.name || "Unnamed emergencyContact"}
+                    </Link>
+                    {e.phone ? ` (${e.phone})` : ""}
+                    {e.relation ? ` (${e.relation})` : ""}
+                    {e.email ? ` (${e.email})` : ""}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => handleUnlinkEmergencyContact(e.id)}
+                    disabled={unlinkingEmergencyContactId === e.id}
+                    style={{ fontSize: 11, padding: "2px 6px" }}
+                  >
+                    {unlinkingEmergencyContactId === e.id ? "Unlinking…" : "Unlink"}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        ) : (
+          <div style={{ fontSize: 14, color: "#6b7280" }}>
+            No emergency contacts linked to this tenant yet.
+          </div>
+        )}
+      
+        <div style={{ marginTop: 12 }}>
+          <button
+            type="button"
+            onClick={() => {
+              const returnTo = encodeURIComponent(
+                `${window.location.pathname}${window.location.search || ""}`
+              );
+              navigate(
+                `/landlord/emergencyContacts/new?tenantId=${tenant.id}&returnTo=${returnTo}`
+              );
+            }}
+          >
+            Manage emergency contacts for this tenant
           </button>
         </div>
       </section>

@@ -3,7 +3,7 @@ const { Role } = require("@prisma/client");
 
 function registerEmergencyContactRoutes(app, prisma, { shapeEmergencyContact }) {
   // ============================================================
-  // LIST EMERGENCY CONTACTS (decoupled, scoped by landlord when known)
+  // LIST OCCUPANTS (decoupled from tenants, scoped by landlord when known)
   // GET /api/emergencyContacts?includeArchived=0|1
   // ============================================================
   app.get("/api/emergencyContacts", async (req, res) => {
@@ -19,12 +19,13 @@ function registerEmergencyContactRoutes(app, prisma, { shapeEmergencyContact }) 
       };
 
       if (user && user.baseRole === Role.LANDLORD) {
-        // landlord only sees their own emergency contacts
+        // landlord only sees their own emergencyContacts
         where.landlordId = user.id;
       } else if (user && user.baseRole === Role.SYSADMIN) {
         // sysadmin sees all
       } else {
-        // no user or other roles: allow all (dev mode)
+        // no user or other roles: allow all (dev parity with properties)
+        // tighten later if needed.
       }
 
       const emergencyContacts = await prisma.emergencyContact.findMany({
@@ -40,24 +41,24 @@ function registerEmergencyContactRoutes(app, prisma, { shapeEmergencyContact }) 
   });
 
   // ============================================================
-  // GET SINGLE OCCUPANT
+  // GET SINGLE OCCUPANT + linked tenants (via join table)
   // GET /api/emergencyContacts/:id
   // ============================================================
   app.get("/api/emergencyContacts/:id", async (req, res) => {
     const { id } = req.params;
     const user = req.user || null;
-
+  
     if (!user) {
       return res.status(401).json({ error: "Unauthorized" });
     }
-
+  
     try {
       const emergencyContact = await prisma.emergencyContact.findUnique({ where: { id } });
       if (!emergencyContact) {
         return res.status(404).json({ error: "Emergency contact not found" });
       }
-
-      // Landlord can only view their own emergency contact; sysadmin can view any
+    
+      // Landlord can only view their own emergencyContact; sysadmin can view any
       if (
         user.baseRole === Role.LANDLORD &&
         emergencyContact.landlordId &&
@@ -65,20 +66,46 @@ function registerEmergencyContactRoutes(app, prisma, { shapeEmergencyContact }) 
       ) {
         return res
           .status(403)
-          .json({ error: "You are not allowed to view this emergency contact." });
+          .json({ error: "You are not allowed to view this emergencyContact." });
       }
-
-      res.json(shapeEmergencyContact(emergencyContact));
+    
+      // Look up join-table links: which tenants are linked to this emergencyContact?
+      const links = await prisma.tenantEmergencyContact.findMany({
+        where: { emergencyContactId: id },
+        include: {
+          tenant: true,
+        },
+      });
+    
+      const tenants = links
+        .map((link) => link.tenant)
+        .filter((t) => !!t)
+        .map((t) => ({
+          id: t.id,
+          name: t.name,
+          email: t.email,
+          phone: t.phone,
+          archived: t.isArchived,
+          createdAt: t.createdAt,
+          updatedAt: t.updatedAt,
+        }));
+      
+      const shaped = shapeEmergencyContact(emergencyContact);
+      
+      return res.json({
+        ...shaped,
+        tenants,
+      });
     } catch (err) {
       console.error("Error in GET /api/emergencyContacts/:id", err);
-      res.status(500).json({ error: "Server error" });
+      return res.status(500).json({ error: "Server error" });
     }
   });
 
   // ============================================================
   // CREATE OCCUPANT
   // POST /api/emergencyContacts
-  // Body: { name, phone?, relation?, email?, tenantId? }  (tenantId is OPTIONAL now)
+  // Body: { name, relation?, tenantId? }  (tenantId is OPTIONAL now)
   // ============================================================
   app.post("/api/emergencyContacts", async (req, res) => {
     const { name, phone, relation, email, tenantId } = req.body || {};
@@ -99,12 +126,10 @@ function registerEmergencyContactRoutes(app, prisma, { shapeEmergencyContact }) 
           typeof phone === "string" && phone.trim()
             ? phone.trim()
             : null,
-
         relation:
           typeof relation === "string" && relation.trim()
             ? relation.trim()
             : null,
-
         email:
           typeof email === "string" && email.trim()
             ? email.trim()
@@ -135,7 +160,7 @@ function registerEmergencyContactRoutes(app, prisma, { shapeEmergencyContact }) 
   // ============================================================
   // UPDATE OCCUPANT
   // PATCH /api/emergencyContacts/:id
-  // Body: partial { name?, phone?, relation?, email?, tenantId? }
+  // Body: partial { name?, relation?, tenantId? }
   // ============================================================
   app.patch("/api/emergencyContacts/:id", async (req, res) => {
     const { id } = req.params;
@@ -152,7 +177,7 @@ function registerEmergencyContactRoutes(app, prisma, { shapeEmergencyContact }) 
         return res.status(404).json({ error: "Emergency contact not found" });
       }
 
-      // Landlord can only update their own emergency contacts; sysadmin can update any
+      // Landlord can only update their own emergencyContacts; sysadmin can update any
       if (
         user.baseRole === Role.LANDLORD &&
         existing.landlordId &&
@@ -160,7 +185,7 @@ function registerEmergencyContactRoutes(app, prisma, { shapeEmergencyContact }) 
       ) {
         return res
           .status(403)
-          .json({ error: "You are not allowed to update this emergency contact." });
+          .json({ error: "You are not allowed to update this emergencyContact." });
       }
 
       const data = {};
@@ -234,7 +259,7 @@ function registerEmergencyContactRoutes(app, prisma, { shapeEmergencyContact }) 
         return res.status(404).json({ error: "Emergency contact not found" });
       }
 
-      // Landlord can only archive their own emergency contacts
+      // Landlord can only archive their own emergencyContacts
       if (
         user.baseRole === Role.LANDLORD &&
         existing.landlordId &&
@@ -242,7 +267,7 @@ function registerEmergencyContactRoutes(app, prisma, { shapeEmergencyContact }) 
       ) {
         return res
           .status(403)
-          .json({ error: "You are not allowed to archive this emergency contact." });
+          .json({ error: "You are not allowed to archive this emergencyContact." });
       }
 
       const currentlyArchived = !!existing.isArchived;
@@ -251,7 +276,7 @@ function registerEmergencyContactRoutes(app, prisma, { shapeEmergencyContact }) 
       // If currently archived and someone tries to unarchive who is not sysadmin → block
       if (currentlyArchived && !isSysAdmin) {
         return res.status(403).json({
-          error: "Only a system administrator can unarchive an emergency contact.",
+          error: "Only a system administrator can unarchive an emergencyContact.",
         });
       }
 

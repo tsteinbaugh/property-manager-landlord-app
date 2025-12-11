@@ -332,6 +332,25 @@ export default function LandlordLeaseDetailPage() {
     }
   }
 
+  // Pooled emergency contacts across all tenants on this lease
+  const leaseEmergencyContacts = [];
+  const seenEmergencyContactIds = new Set();
+
+  for (const t of tenantDetails || []) {
+    const emcs = Array.isArray(t.emergencyContacts) ? t.emergencyContacts : [];
+    for (const e of emcs) {
+      if (!e || !e.id) continue;
+      if (seenEmergencyContactIds.has(e.id)) continue;
+
+      seenEmergencyContactIds.add(e.id);
+      leaseEmergencyContacts.push({
+        ...e,
+        _tenantName: t.name || "(unnamed tenant)",
+        _tenantId: t.id,
+      });
+    }
+  }
+
   const base =
     lease.propertyLabel ||
     property?.name ||
@@ -774,6 +793,73 @@ export default function LandlordLeaseDetailPage() {
         ) : (
           <div style={{ fontSize: 14, color: "#6b7280" }}>
             No pets linked through tenants on this lease yet.
+          </div>
+        )}
+      </section>
+
+      {/* Pooled emergency contacts for this lease (via tenants) */}
+      <section
+        style={{
+          marginTop: 16,
+          padding: 16,
+          borderRadius: 12,
+          border: "1px solid #e5e7eb",
+          background: "#ffffff",
+          maxWidth: 640,
+        }}
+      >
+        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
+          Emergency contacts on this lease
+        </h3>
+
+        {tenantDetailsLoading ? (
+          <div style={{ fontSize: 14, color: "#6b7280" }}>
+            Loading emergency contacts…
+          </div>
+        ) : tenantDetailsError ? (
+          <div style={{ fontSize: 14, color: "#b91c1c" }}>
+            Failed to load emergency contacts for this lease.
+          </div>
+        ) : leaseEmergencyContacts.length > 0 ? (
+          <ul style={{ paddingLeft: 18, fontSize: 14 }}>
+            {leaseEmergencyContacts.map((e) => (
+              <li key={e.id} style={{ marginBottom: 4 }}>
+                <strong>{e.name || "Unnamed emergency contact"}</strong>
+                {e.phone && (
+                  <span
+                    style={{ marginLeft: 6, fontSize: 12, color: "#4b5563" }}
+                  >
+                    ({e.phone})
+                  </span>
+                )}
+                {e.relation && (
+                  <span
+                    style={{ marginLeft: 6, fontSize: 12, color: "#4b5563" }}
+                  >
+                    ({e.relation})
+                  </span>
+                )}
+                {e.email && (
+                  <span
+                    style={{ marginLeft: 6, fontSize: 12, color: "#4b5563" }}
+                  >
+                    ({e.email})
+                  </span>
+                )}
+                <span
+                  style={{ marginLeft: 8, fontSize: 12, color: "#6b7280" }}
+                >
+                  via{" "}
+                  <Link to={`/landlord/tenants/${e._tenantId}`}>
+                    {e._tenantName}
+                  </Link>
+                </span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div style={{ fontSize: 14, color: "#6b7280" }}>
+            No emergency contacts linked through tenants on this lease yet.
           </div>
         )}
       </section>

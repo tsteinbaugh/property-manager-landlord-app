@@ -19,13 +19,15 @@ export default function LandlordAddTenantPage() {
   const leaseId = searchParams.get("leaseId") || "";
   const occupantId = searchParams.get("occupantId") || "";
   const petId = searchParams.get("petId") || "";
+  const emergencyContactId = searchParams.get("emergencyContactId") || "";
   const returnTo = searchParams.get("returnTo") || "";
 
   const inLeaseContext = forLease && !!leaseId;
   const inOccupantContext = !!occupantId && !inLeaseContext;
   const inPetContext = !!petId && !inLeaseContext;
+  const inEmergencyContactContext = !!emergencyContactId && !inLeaseContext;
 
-  // For "link existing tenant to lease/occupant/pet"
+  // For "link existing tenant to lease/occupant/pet/emergencyContact"
   const [tenants, setTenants] = useState([]);
   const [tenantsLoading, setTenantsLoading] = useState(false);
   const [tenantsError, setTenantsError] = useState(null);
@@ -34,7 +36,7 @@ export default function LandlordAddTenantPage() {
 
   // Load tenants when we need to link an existing one
   useEffect(() => {
-    if (!(inLeaseContext || inOccupantContext || inPetContext) || !token) return;
+    if (!(inLeaseContext || inOccupantContext || inPetContext || inEmergencyContactContext) || !token) return;
 
     let cancelled = false;
 
@@ -58,7 +60,7 @@ export default function LandlordAddTenantPage() {
     return () => {
       cancelled = true;
     };
-  }, [inLeaseContext, inOccupantContext, inPetContext, token]);
+  }, [inLeaseContext, inOccupantContext, inPetContext, inEmergencyContactContext, token]);
 
   const handleLinkExisting = async (e) => {
     e.preventDefault();
@@ -89,6 +91,14 @@ export default function LandlordAddTenantPage() {
         // Link tenant to pet via join table
         await tenantsApi.linkPet(selectedTenantId, petId, { token });
         const target = returnTo || `/landlord/pets/${petId}`;
+        navigate(target);
+        return;
+      }
+
+      if (inEmergencyContactContext) {
+        // Link tenant to emergency contact via join table
+        await tenantsApi.linkEmergencyContact(selectedTenantId, emergencyContactId, { token });
+        const target = returnTo || `/landlord/emergencyContacts/${emergencyContactId}`;
         navigate(target);
         return;
       }
@@ -170,7 +180,7 @@ export default function LandlordAddTenantPage() {
       return;
     }
 
-    // 3) Occupant context: create tenant and link to occupant
+    // 3a) Occupant context: create tenant and link to occupant
     if (inOccupantContext) {
       try {
         const created = await tenantsApi.create(payload, { token });
@@ -200,7 +210,7 @@ export default function LandlordAddTenantPage() {
       return;
     }
 
-    // 3) Pet context: create tenant and link to pet
+    // 3b) Pet context: create tenant and link to pet
     if (inPetContext) {
       try {
         const created = await tenantsApi.create(payload, { token });
@@ -224,6 +234,36 @@ export default function LandlordAddTenantPage() {
         navigate(target);
       } catch (err) {
         console.error("Failed to create tenant in pet context", err);
+        alert("Failed to create tenant. Check console for details.");
+      }
+
+      return;
+    }
+
+    // 3c) Emergency Contacts context: create tenant and link to emergency contact
+    if (inEmergencyContactContext) {
+      try {
+        const created = await tenantsApi.create(payload, { token });
+
+        if (created && created.id) {
+          try {
+            await tenantsApi.linkEmergencyContact(created.id, emergencyContactId, { token });
+          } catch (err) {
+            console.error(
+              "Tenant created but failed to link to emergency contact",
+              err
+            );
+            alert(
+              "Tenant was created, but linking it to the emergency contact failed. " +
+                "You can link it later from the emergency contact or tenant detail pages."
+            );
+          }
+        }
+
+        const target = returnTo || `/landlord/emergencyContacts/${emergencyContactId}`;
+        navigate(target);
+      } catch (err) {
+        console.error("Failed to create tenant in emergency contact context", err);
         alert("Failed to create tenant. Check console for details.");
       }
 
@@ -270,6 +310,13 @@ export default function LandlordAddTenantPage() {
       return;
     }
 
+    // Emergency contact context: go back to emergency contact detail
+    if (inEmergencyContactContext) {
+      const target = returnTo || `/landlord/emergencyContacts/${emergencyContactId}`;
+      navigate(target);
+      return;
+    }
+
     // Normal mode
     navigate("/landlord/residents?tab=tenants");
   };
@@ -280,6 +327,8 @@ export default function LandlordAddTenantPage() {
     ? "Add or link tenant for occupant"
     : inPetContext
     ? "Add or link tenant for pet"
+    : inEmergencyContactContext
+    ? "Add or link tenant for emergency contact"
     : "Add tenant";
 
   const subtitle = inLeaseContext
@@ -288,6 +337,8 @@ export default function LandlordAddTenantPage() {
     ? "Link an existing tenant to this occupant or create a new tenant that will be automatically linked."
     : inPetContext
     ? "Link an existing tenant to this pet or create a new tenant that will be automatically linked."
+    : inEmergencyContactContext
+    ? "Link an existing tenant to this emergency contact or create a new tenant that will be automatically linked."
     : "Create a tenant profile. You can add occupants, pets, and emergency contacts after this.";
 
   return (
@@ -300,7 +351,7 @@ export default function LandlordAddTenantPage() {
       </header>
 
       {/* Context-only: link existing tenant */}
-      {(inLeaseContext || inOccupantContext || inPetContext) && (
+      {(inLeaseContext || inOccupantContext || inPetContext || inEmergencyContactContext) && (
         <section
           style={{
             marginTop: 12,
@@ -318,6 +369,8 @@ export default function LandlordAddTenantPage() {
               ? "Link an existing tenant to this occupant"
               : inPetContext
               ? "Link an existing tenant to this pet"
+              : inEmergencyContactContext
+              ? "Link an existing tenant to this emergency contact"
               : "ERROR"}
           </h2>
 
@@ -332,7 +385,7 @@ export default function LandlordAddTenantPage() {
             <div style={{ fontSize: 13, color: "#6b7280" }}>
               You don&apos;t have any tenants yet. Use the form below to create
               one and it will be linked to this{" "}
-              {inLeaseContext ? "lease" : inOccupantContext ? "occupant" : inPetContext ? "pet" : "ERROR"}.
+              {inLeaseContext ? "lease" : inOccupantContext ? "occupant" : inPetContext ? "pet" : inEmergencyContactContext ? "emergency contact" : "ERROR"}.
             </div>
           ) : (
             <form

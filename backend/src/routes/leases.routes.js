@@ -366,6 +366,14 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
                   pets: {
                     where: { isArchived: false },
                   },
+                  emergencyContactLinks: {
+                    include: {
+                      emergencyContact: true,
+                    }
+                  },
+                  emergencyContacts: {
+                    where: { isArchived: false },
+                  },
                 },
               },
             },

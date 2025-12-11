@@ -52,7 +52,7 @@ export function useAllPets({ includeArchived = false } = {}) {
 
         const filtered = includeArchived
           ? withTenant
-          : withTenant.filter((o) => !o.archived);
+          : withTenant.filter((p) => !p.archived);
 
         setTenants(tenantRows);
         setData(filtered);

@@ -173,7 +173,7 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
     }
   });
 
-  // GET /api/properties/:id – detail, including leases, tenants, and occupants
+  // GET /api/properties/:id – detail, including leases, tenants, occupants, and emergency contacts
   app.get("/api/properties/:id", async (req, res) => {
     const { id } = req.params;
     const user = req.user || null;
@@ -206,7 +206,15 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
                     include: {
                       pet: true,
                     },
-                  },                  
+                  },
+                  emergencyContacts: {
+                    where: { isArchived: false },
+                  },
+                  emergencyContactLinks: {
+                    include: {
+                      emergencyContact: true,
+                    },
+                  },           
                 },
               },
               // multi-tenant join table
@@ -229,7 +237,15 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
                         include: {
                           pet: true,
                         },
-                      },                      
+                      },
+                      emergencyContacts: {
+                        where: { isArchived: false },
+                      },
+                      emergencyContactLinks: {
+                        include: {
+                          emergencyContact: true,
+                        },
+                      },    
                     },
                   },
                 },
@@ -250,11 +266,12 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
         }
       }
 
-      // --- Aggregate tenants + occupants across all leases ---
+      // --- Aggregate tenants + occupants + pets + emergency contacts across all leases ---
 
       const tenantMap = new Map();
       const occupantMap = new Map();
       const petMap = new Map();
+      const emergencyContactMap = new Map();
 
       function collectTenant(t) {
         if (!t || !t.id) return;
@@ -318,8 +335,41 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
             petMap.set(p.id, {
               id: p.id,
               name: p.name,
-              relation: p.relation,
+              type: p.type,
+              breed: p.breed,
+              weightLb: p.weightLb,
               archived: p.isArchived,
+            });
+          }
+        }        
+
+        // legacy direct emergency contacts
+        for (const e of t.emergencyContacts || []) {
+          if (!e || !e.id || e.isArchived) continue;
+          if (!emergencyContactMap.has(e.id)) {
+            emergencyContactMap.set(e.id, {
+              id: e.id,
+              name: e.name,
+              phone: e.phone,
+              relation: e.relation,
+              email: e.email,
+              archived: e.isArchived,
+            });
+          }
+        }
+
+        // many-to-many emergency contacts via TenantEmergencyContact
+        for (const link of t.emergencyContactLinks || []) {
+          const e = link.emergencyContact;
+          if (!e || !e.id || e.isArchived) continue;
+          if (!emergencyContactMap.has(e.id)) {
+            emergencyContactMap.set(e.id, {
+              id: e.id,
+              name: e.name,
+              phone: e.phone,
+              relation: e.relation,
+              email: e.email,
+              archived: e.isArchived,
             });
           }
         }        
@@ -342,6 +392,7 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
       const tenants = Array.from(tenantMap.values());
       const occupants = Array.from(occupantMap.values());
       const pets = Array.from(petMap.values());
+      const emergencyContacts = Array.from(emergencyContactMap.values());
 
       // Send raw property + extra arrays; frontend mapper will pick what it needs.
       return res.json({
@@ -349,6 +400,7 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
         tenants,
         occupants,
         pets,
+        emergencyContacts,
       });
     } catch (err) {
       console.error("Error in GET /api/properties/:id", err);

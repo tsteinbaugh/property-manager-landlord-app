@@ -1,5 +1,7 @@
 // newsrc/features/properties/api/properties.api.js
 
+import emergencyContactCard from "@features/residents/components/emergencyContacts/EmergencyContactCard.jsx";
+
 const BASE_URL = "http://localhost:4000";
 
 async function http(method, path, body, token) {
@@ -70,6 +72,7 @@ function mapPropertyFromApi(p) {
     tenants: Array.isArray(p.tenants) ? p.tenants : [],
     occupants: Array.isArray(p.occupants) ? p.occupants : [],
     pets: Array.isArray(p.pets) ? p.pets : [],
+    emergencyContacts: Array.isArray(p.emergencyContacts) ? p.emergencyContacts : [],
   };
 }
 

@@ -283,17 +283,44 @@ function shapePet(p) {
   };
 }
 
-function shapeEmergencyContact(c) {
+function shapeEmergencyContact(e) {
+  // Primary tenant from the old 1:1 field
+  const primaryTenant = e.tenant
+    ? {
+        id: e.tenant.id,
+        name: e.tenant.name,
+        email: e.tenant.email,
+        phone: e.tenant.phone,
+      }
+    : null;
+
+  // Additional tenants via join table
+  const tenantsFromLinks = Array.isArray(e.tenantLinks)
+    ? e.tenantLinks
+        .map((link) => link.tenant)
+        .filter(Boolean)
+        .map((t) => ({
+          id: t.id,
+          name: t.name,
+          email: t.email,
+          phone: t.phone,
+        }))
+    : [];
+
+  // We’ll let the frontend de-dupe if primaryTenant also appears in tenants[].
   return {
-    id: c.id,
-    tenantId: c.tenantId,
-    name: c.name,
-    phone: c.phone || "",
-    relation: c.relation || "",
-    email: c.email || "",
-    archived: c.isArchived,
-    createdAt: c.createdAt,
-    updatedAt: c.updatedAt,
+    id: e.id,
+    tenantId: e.tenantId,
+    name: e.name,
+    phone: e.phone,
+    relation: e.relation,
+    email: e.email,
+    archived: e.isArchived,
+    createdAt: e.createdAt,
+    updatedAt: e.updatedAt,
+
+    primaryTenant,
+    tenants: tenantsFromLinks,
   };
 }
 

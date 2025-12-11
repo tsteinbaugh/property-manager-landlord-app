@@ -42,9 +42,6 @@ function EmergencyContactCard({ emergencyContact, onClick }) {
             No phone number set
           </span>
         )}
-      </div>
-
-      <div className={TenantCardStyles.contact}>
         {relation ? (
           <span className={TenantCardStyles.contactLine}>{relation}</span>
         ) : (
@@ -52,9 +49,6 @@ function EmergencyContactCard({ emergencyContact, onClick }) {
             No relation set (roommate, child, etc.)
           </span>
         )}
-      </div>
-
-      <div className={TenantCardStyles.contact}>
         {email ? (
           <span className={TenantCardStyles.contactLine}>{email}</span>
         ) : (
@@ -111,11 +105,11 @@ export default function LandlordEmergencyContactsPage() {
 
   const visibleEmergencyContacts = useMemo(() => {
     if (showArchived) return emergencyContacts;
-    return (emergencyContacts || []).filter((o) => !o.archived);
+    return (emergencyContacts || []).filter((e) => !e.archived);
   }, [emergencyContacts, showArchived]);
 
   const hasVisibleEmergencyContacts = visibleEmergencyContacts.length > 0;
-  const hasAnyArchived = (emergencyContacts || []).some((o) => o.archived);
+  const hasAnyArchived = (emergencyContacts || []).some((e) => e.archived);
 
   const handleAddEmergencyContact = () => {
     navigate("/landlord/emergencyContacts/new");
@@ -209,11 +203,11 @@ export default function LandlordEmergencyContactsPage() {
 
       {!isLoading && !error && hasVisibleEmergencyContacts && (
         <div className={styles.grid}>
-          {visibleEmergencyContacts.map((o) => (
+          {visibleEmergencyContacts.map((e) => (
             <EmergencyContactCard
-              key={o.id}
-              emergencyContact={o}
-              onClick={() => handleOpenEmergencyContact(o.id)}
+              key={e.id}
+              emergencyContact={e}
+              onClick={() => handleOpenEmergencyContact(e.id)}
             />
           ))}
         </div>

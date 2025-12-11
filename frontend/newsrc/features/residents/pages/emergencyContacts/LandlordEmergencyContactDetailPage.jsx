@@ -1,13 +1,14 @@
-// newsrc/features/tenants/pages/LandlordEmergencyContactDetailsPage.jsx
-import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useEffect, useState, useMemo } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
 import ArchiveButton from "@shared/ui/ArchiveButton.jsx";
 import { emergencyContactsApi } from "@features/residents/api/emergencyContacts.api.js";
+import { tenantsApi } from "@features/residents/api/tenants.api.js";
 import { ROLES } from "@lib/rbac/roles.js";
 
 export default function LandlordEmergencyContactDetailsPage() {
   const { emergencyContactId } = useParams();
+  const navigate = useNavigate();
   const { effectiveRole, isSysAdmin, token } = useUser() || {};
 
   const role =
@@ -16,6 +17,7 @@ export default function LandlordEmergencyContactDetailsPage() {
       : effectiveRole || ROLES.LANDLORD;
 
   const [emergencyContact, setEmergencyContact] = useState(null);
+  const [tenants, setTenants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -27,6 +29,12 @@ export default function LandlordEmergencyContactDetailsPage() {
   const [isSaving, setSaving] = useState(false);
   const [isArchiving, setArchiving] = useState(false);
 
+  // many-to-many controls
+  const [tenantPickerId, setTenantPickerId] = useState("");
+  const [linking, setLinking] = useState(false);
+  const [unlinkingId, setUnlinkingId] = useState(null);
+
+  // Load emergency contact + tenants
   useEffect(() => {
     let cancelled = false;
 
@@ -35,13 +43,17 @@ export default function LandlordEmergencyContactDetailsPage() {
         setLoading(true);
         setError(null);
 
-        const o = await emergencyContactsApi.get(emergencyContactId, { token });
+        const [o, ts] = await Promise.all([
+          emergencyContactsApi.get(emergencyContactId, { token }),
+          tenantsApi.list({ token }),
+        ]);
 
         if (!cancelled) {
           if (!o) {
             setError(new Error("Emergency contact not found"));
           } else {
             setEmergencyContact(o);
+            setTenants(Array.isArray(ts) ? ts : []);
           }
         }
       } catch (err) {
@@ -66,6 +78,7 @@ export default function LandlordEmergencyContactDetailsPage() {
     };
   }, [emergencyContactId, token]);
 
+  // Initialize edit fields when emergency contact changes
   useEffect(() => {
     if (emergencyContact) {
       setName(emergencyContact.name || "");
@@ -76,6 +89,34 @@ export default function LandlordEmergencyContactDetailsPage() {
   }, [emergencyContact]);
 
   const isArchived = !!emergencyContact?.archived;
+
+  // Combine primaryTenant + tenants[] into one de-duplicated array
+  const linkedTenants = useMemo(() => {
+    if (!emergencyContact) return [];
+
+    const list = [];
+
+    if (Array.isArray(emergencyContact.tenants)) {
+      for (const t of emergencyContact.tenants) {
+        if (t && t.id) list.push({ ...t });
+      }
+    }
+
+    if (emergencyContact.primaryTenant && emergencyContact.primaryTenant.id) {
+      const exists = list.some((t) => t.id === emergencyContact.primaryTenant.id);
+      if (!exists) {
+        list.unshift({ ...emergencyContact.primaryTenant });
+      }
+    }
+
+    return list;
+  }, [emergencyContact]);
+
+  // Tenants that can still be added
+  const availableTenants = useMemo(() => {
+    const linkedIds = new Set(linkedTenants.map((t) => t.id));
+    return tenants.filter((t) => !linkedIds.has(t.id));
+  }, [tenants, linkedTenants]);
 
   const handleSave = async () => {
     if (!name.trim()) {
@@ -146,6 +187,60 @@ export default function LandlordEmergencyContactDetailsPage() {
     }
   };
 
+  const handleLinkTenant = async () => {
+    if (!tenantPickerId || !emergencyContact || !emergencyContact.id) return;
+
+    try {
+      setLinking(true);
+      await tenantsApi.linkEmergencyContact(tenantPickerId, emergencyContact.id, { token });
+
+      // Refresh emergency contact to pick up new tenants[]
+      const fresh = await emergencyContactsApi.get(emergencyContact.id, { token });
+      setEmergencyContact(fresh || emergencyContact);
+      setTenantPickerId("");
+    } catch (err) {
+      console.error("Failed to link tenant to emergency contact", err);
+      alert("Failed to link tenant. Check console for details.");
+    } finally {
+      setLinking(false);
+    }
+  };
+
+  const handleUnlinkTenant = async (tenantId) => {
+    if (!tenantId || !emergencyContact || !emergencyContact.id) return;
+
+    const ok = window.confirm(
+      "Remove this tenant from the emergency contact's links?\n\n" +
+        "This does not change leases or properties. It only removes this emergency contact↔tenant link."
+    );
+    if (!ok) return;
+
+    try {
+      setUnlinkingId(tenantId);
+      await tenantsApi.unlinkEmergencyContact(tenantId, emergencyContact.id, { token });
+
+      const fresh = await emergencyContactsApi.get(emergencyContact.id, { token });
+      setEmergencyContact(fresh || emergencyContact);
+    } catch (err) {
+      console.error("Failed to unlink tenant from emergency contact", err);
+      alert("Failed to unlink tenant. Check console for details.");
+    } finally {
+      setUnlinkingId(null);
+    }
+  };
+
+  const handleManageTenant = () => {
+    if (!emergencyContact || !emergencyContact.id) return;
+
+    const returnTo = encodeURIComponent(
+      `${window.location.pathname}${window.location.search || ""}`
+    );
+
+    navigate(
+      `/landlord/tenants/new?emergencyContactId=${emergencyContact.id}&returnTo=${returnTo}`
+    );
+  };
+
   if (loading) return <div>Loading emergency contact…</div>;
 
   if (error) {
@@ -163,14 +258,13 @@ export default function LandlordEmergencyContactDetailsPage() {
   const title = emergencyContact.name || "Unnamed emergency contact";
 
   const canEditNow = !isArchived || isSysAdmin;
-  const canArchiveNow = !isArchived; // any landlord can archive
+  const canArchiveNow = !isArchived;
   const canUnarchiveNow = isArchived && isSysAdmin;
   const showArchiveButton = canArchiveNow || canUnarchiveNow;
 
   return (
     <div style={{ padding: 16 }}>
       <div style={{ marginBottom: 8 }}>
-        {/* mirror tenant details back-link to residents */}
         <Link to="/landlord/residents?tab=emergencyContacts">
           ← Back to residents
         </Link>
@@ -201,7 +295,7 @@ export default function LandlordEmergencyContactDetailsPage() {
                 )}
               </div>
               <div style={{ color: "#555", marginBottom: 4 }}>
-                {emergencyContact.email && (
+                {emergencyContact.phone && (
                   <div>Email: {emergencyContact.email}</div>
                 )}
               </div>
@@ -290,8 +384,33 @@ export default function LandlordEmergencyContactDetailsPage() {
         </div>
       </div>
 
+      {/* Manage tenant button (now just "create new tenant" helper) */}
+      <div style={{ marginBottom: 12 }}>
+        <button
+          type="button"
+          onClick={handleManageTenant}
+          disabled={isArchived}
+          style={{
+            borderRadius: 999,
+            padding: "6px 12px",
+            border: "1px solid #d1d5db",
+            background: "#ffffff",
+            cursor: isArchived ? "default" : "pointer",
+            fontSize: 13,
+          }}
+        >
+          Manage tenants for this emergency contact
+        </button>
+        {isArchived && (
+          <span style={{ marginLeft: 8, fontSize: 12, color: "#6b7280" }}>
+            Cannot manage tenants for an archived emergency contact.
+          </span>
+        )}
+      </div>
+
       <hr style={{ margin: "16px 0" }} />
 
+      {/* Emergency contact info */}
       <section
         style={{
           padding: 16,
@@ -299,6 +418,7 @@ export default function LandlordEmergencyContactDetailsPage() {
           border: "1px solid #e5e7eb",
           background: "#ffffff",
           maxWidth: 640,
+          marginBottom: 16,
         }}
       >
         <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 12 }}>
@@ -329,6 +449,56 @@ export default function LandlordEmergencyContactDetailsPage() {
           <dt style={{ fontWeight: 500, color: "#4b5563" }}>Status</dt>
           <dd>{isArchived ? "Archived" : "Active"}</dd>
         </dl>
+      </section>
+
+      {/* Tenants linked to this emergency contact (true many-to-many) */}
+      <section
+        style={{
+          padding: 16,
+          borderRadius: 12,
+          border: "1px solid #e5e7eb",
+          background: "#ffffff",
+          maxWidth: 640,
+        }}
+      >
+        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
+          Tenants linked to this emergency contact
+        </h3>
+
+        {linkedTenants.length > 0 ? (
+          <ul style={{ paddingLeft: 18, fontSize: 14 }}>
+            {linkedTenants.map((t) => (
+              <li
+                key={t.id}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  marginBottom: 4,
+                }}
+              >
+                <span>
+                  <Link to={`/landlord/tenants/${t.id}`}>
+                    {t.name || "(unnamed tenant)"}
+                  </Link>
+                  {t.email ? ` (${t.email})` : ""}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => handleUnlinkTenant(t.id)}
+                  disabled={unlinkingId === t.id}
+                  style={{ fontSize: 11, padding: "2px 6px" }}
+                >
+                  {unlinkingId === t.id ? "Unlinking…" : "Unlink"}
+                </button>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div style={{ fontSize: 14, color: "#6b7280" }}>
+            This emergency contact is not linked to any tenants yet.
+          </div>
+        )}
       </section>
     </div>
   );

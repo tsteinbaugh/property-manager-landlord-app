@@ -37,6 +37,23 @@ function mapTenantFromApi(t) {
       }))
     : [];
 
+  const emergencyContactLinks = Array.isArray(t.emergencyContactLinks)
+    ? t.emergencyContactLinks.map((link) => ({
+        id: link.id,
+        emergencyContactId: link.emergencyContactId,
+        emergencyContact: link.emergencyContact
+          ? {
+              id: link.emergencyContact.id,
+              name: link.emergencyContact.name,
+              phone: link.emergencyContact.phone,
+              relation: link.emergencyContact.relation,
+              email: link.emergencyContact.email,
+              archived: !!(link.emergencyContact.isArchived ?? link.emergencyContact.archived),
+            }
+          : null,
+      }))
+    : [];
+
   return {
     id: t.id,
     name: t.name,
@@ -55,6 +72,7 @@ function mapTenantFromApi(t) {
     // REAL links only
     occupantLinks,
     petLinks,
+    emergencyContactLinks,
   };
 }
 
@@ -168,6 +186,32 @@ export const tenantsApi = {
 
     return apiFetch(
       `/api/tenants/${tenantId}/pets/${petId}/unlink`,
+      {
+        method: "DELETE",
+        token,
+      }
+    );
+  },
+
+  async linkEmergencyContact(tenantId, emergencyContactId, { token } = {}) {
+    if (!tenantId) throw new Error("tenantId is required");
+    if (!emergencyContactId) throw new Error("emergencyContactId is required");
+
+    return apiFetch(
+      `/api/tenants/${tenantId}/emergencyContacts/${emergencyContactId}/link`,
+      {
+        method: "POST",
+        token,
+      }
+    );
+  },
+
+  async unlinkEmergencyContact(tenantId, emergencyContactId, { token } = {}) {
+    if (!tenantId) throw new Error("tenantId is required");
+    if (!emergencyContactId) throw new Error("emergencyContacyId is required");
+
+    return apiFetch(
+      `/api/tenants/${tenantId}/emergencyContacts/${emergencyContactId}/unlink`,
       {
         method: "DELETE",
         token,
