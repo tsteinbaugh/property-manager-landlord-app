@@ -7,6 +7,7 @@ import { can } from "@lib/rbac/index.js";
 import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
 import { ROLES } from "@lib/rbac/roles.js";
 import { tenantsApi } from "@features/residents/api/tenants.api.js";
+import { occupantsApi } from "@features/residents/api/occupants.api.js";
 import { leasesApi } from "@features/leases/api/leases.api.js";
 
 export default function LandlordTenantDetailPage() {
@@ -34,7 +35,6 @@ export default function LandlordTenantDetailPage() {
   const [isSaving, setSaving] = useState(false);
   const [isArchiving, setArchiving] = useState(false);
   const [unlinkingOccupantId, setUnlinkingOccupantId] = useState(null);
-  const [unlinkingPetId, setUnlinkingPetId] = useState(null);
 
   // Load tenant (rich detail)
   useEffect(() => {
@@ -193,14 +193,8 @@ export default function LandlordTenantDetailPage() {
   const tenantOccupants = Array.isArray(tenant.occupants)
     ? tenant.occupants
     : [];
-  const tenantPets = Array.isArray(tenant.pets)
-    ? tenant.pets
-    : [];
 
   const manageOccupantsUrl = `/landlord/occupants/new?tenantId=${
-    tenant.id
-  }&returnTo=${encodeURIComponent(`/landlord/tenants/${tenant.id}`)}`;
-  const managePetsUrl = `/landlord/pets/new?tenantId=${
     tenant.id
   }&returnTo=${encodeURIComponent(`/landlord/tenants/${tenant.id}`)}`;
 
@@ -226,31 +220,6 @@ export default function LandlordTenantDetailPage() {
       alert("Failed to unlink occupant. Check console for details.");
     } finally {
       setUnlinkingOccupantId(null);
-    }
-  };
-
-  const handleUnlinkPet = async (petId) => {
-    if (!tenant || !tenant.id || !petId) return;
-
-    const ok = window.confirm(
-      "Unlink this pet from this tenant?\n\n" +
-        "This does NOT delete either record."
-    );
-    if (!ok) return;
-
-    try {
-      setUnlinkingPetId(petId);
-
-      await tenantsApi.unlinkPet(tenant.id, petId, { token });
-
-      // Refresh tenant detail so UI matches DB
-      const fresh = await tenantsApi.detail(tenant.id, { token });
-      setTenant(fresh || tenant);
-    } catch (err) {
-      console.error("Failed to unlink pet from tenant", err);
-      alert("Failed to unlink pet. Check console for details.");
-    } finally {
-      setUnlinkingPetId(null);
     }
   };
   
@@ -512,80 +481,6 @@ export default function LandlordTenantDetailPage() {
             }}
           >
             Manage occupants for this tenant
-          </button>
-        </div>
-      </section>
-      
-      {/* Pets for this tenant (via many-to-many) */}
-      <section
-        style={{
-          padding: 16,
-          borderRadius: 12,
-          border: "1px solid #e5e7eb",
-          background: "#ffffff",
-          maxWidth: 640,
-          marginTop: 16,
-        }}
-      >
-        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
-          Pets for this tenant
-        </h3>
-      
-        {Array.isArray(tenant.petLinks) && tenant.petLinks.length > 0 ? (
-          <ul style={{ paddingLeft: 18, fontSize: 14 }}>
-            {tenant.petLinks.map((link) => {
-              const p = link.pet;
-              if (!p || !p.id) return null;
-            
-              return (
-                <li
-                  key={p.id}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 8,
-                    marginBottom: 4,
-                  }}
-                >
-                  <span>
-                    <Link to={`/landlord/pets/${p.id}`}>
-                      {p.name || "Unnamed pet"}
-                    </Link>
-                    {p.type ? ` (${p.type})` : ""}
-                    {p.breed ? ` (${p.breed})` : ""}
-                    {p.weightLb ? ` (${p.weightLb})` : ""}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => handleUnlinkPet(p.id)}
-                    disabled={unlinkingPetId === p.id}
-                    style={{ fontSize: 11, padding: "2px 6px" }}
-                  >
-                    {unlinkingPetId === p.id ? "Unlinking…" : "Unlink"}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-        ) : (
-          <div style={{ fontSize: 14, color: "#6b7280" }}>
-            No pets linked to this tenant yet.
-          </div>
-        )}
-      
-        <div style={{ marginTop: 12 }}>
-          <button
-            type="button"
-            onClick={() => {
-              const returnTo = encodeURIComponent(
-                `${window.location.pathname}${window.location.search || ""}`
-              );
-              navigate(
-                `/landlord/pets/new?tenantId=${tenant.id}&returnTo=${returnTo}`
-              );
-            }}
-          >
-            Manage pets for this tenant
           </button>
         </div>
       </section>

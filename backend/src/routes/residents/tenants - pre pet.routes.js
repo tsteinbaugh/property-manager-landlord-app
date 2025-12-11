@@ -184,11 +184,6 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
               occupant: true,
             },
           },
-          petLinks: {
-            include: {
-              pet: true,
-            },
-          },
           // (Later we can add petLinks/emergencyContactLinks/vehicleLinks similarly)
         },
       });
@@ -227,31 +222,9 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
         mergedOccupants.push(occ);
       }
 
-      // --- Merge legacy 1-to-many pets with join-based pets ---
-      const directPets = Array.isArray(tenant.pets)
-        ? tenant.pets
-        : [];
-
-      const joinPets = Array.isArray(tenant.petLinks)
-        ? tenant.petLinks
-            .map((link) => link.pet)
-            .filter(Boolean)
-        : [];
-
-      const seenPetIds = new Set();
-      const mergedPets = [];
-
-      for (const pet of [...directPets, ...joinPets]) {
-        if (!pet || !pet.id) continue;
-        if (seenPetIds.has(pet.id)) continue;
-        seenPetIds.add(pet.id);
-        mergedPets.push(pet);
-      }
-
       const result = {
         ...tenant,
         occupants: mergedOccupants,
-        pets: mergedPets,
       };
 
       res.json(result);
@@ -682,155 +655,6 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
       } catch (err) {
         console.error(
           "Error in DELETE /api/tenants/:tenantId/occupants/:occupantId/unlink",
-          err
-        );
-        return res.status(500).json({ error: "Server error" });
-      }
-    }
-  );
-  
-  // POST /api/tenants/:tenantId/pets/:petId/link
-  // Creates a TenantPet row (many-to-many link) without touching leases/properties.
-  app.post(
-    "/api/tenants/:tenantId/pets/:petId/link",
-    async (req, res) => {
-      const { tenantId, petId } = req.params;
-      const user = req.user || null;
-
-      if (!user) {
-        return res.status(401).json({ error: "Unauthorized" });
-      }
-
-      try {
-        // Make sure tenant exists
-        const tenant = await prisma.tenant.findUnique({
-          where: { id: tenantId },
-        });
-        if (!tenant) {
-          return res.status(404).json({ error: "Tenant not found" });
-        }
-
-        // Make sure pet exists
-        const pet = await prisma.pet.findUnique({
-          where: { id: petId },
-        });
-        if (!pet) {
-          return res.status(404).json({ error: "Pet not found" });
-        }
-
-        // Landlord scoping: landlord can only link within their own portfolio
-        const isSysAdmin = user.baseRole === Role.SYSADMIN;
-        if (!isSysAdmin) {
-          // Tenant must belong to this landlord (or be unowned but created by them, depending on your rules)
-          if (tenant.landlordId && tenant.landlordId !== user.id) {
-            return res
-              .status(403)
-              .json({ error: "You are not allowed to link this tenant." });
-          }
-
-          // Pet must belong to this landlord as well
-          if (pet.landlordId && pet.landlordId !== user.id) {
-            return res
-              .status(403)
-              .json({ error: "You are not allowed to link this pet." });
-          }
-        }
-
-        // Create or no-op TenantPet link
-        await prisma.tenantPet.upsert({
-          where: {
-            // compound unique from @@unique([tenantId, petId])
-            tenantId_petId: {
-              tenantId,
-              petId,
-            },
-          },
-          update: {}, // no-op if it already exists
-          create: {
-            tenantId,
-            petId,
-          },
-        });
-
-        // IMPORTANT: we DO NOT touch pet.tenantId here yet.
-        // Existing flows still use pet.tenantId as before.
-        // We'll move UI over to this join table in a later step.
-
-        return res.json({ ok: true });
-      } catch (err) {
-        console.error("Error in POST /api/tenants/:tenantId/pets/:petId/link", err);
-        return res.status(500).json({ error: "Server error" });
-      }
-    }
-  );
-    // DELETE /api/tenants/:tenantId/pets/:petId/unlink
-  // Removes a TenantPet row (many-to-many link) without touching leases/properties.
-  app.delete(
-    "/api/tenants/:tenantId/pets/:petId/unlink",
-    async (req, res) => {
-      const { tenantId, petId } = req.params;
-      const user = req.user || null;
-
-      if (!user) {
-        return res.status(401).json({ error: "Unauthorized" });
-      }
-
-      try {
-        // Make sure tenant exists
-        const tenant = await prisma.tenant.findUnique({
-          where: { id: tenantId },
-        });
-        if (!tenant) {
-          return res.status(404).json({ error: "Tenant not found" });
-        }
-
-        // Make sure pet exists
-        const pet = await prisma.pet.findUnique({
-          where: { id: petId },
-        });
-        if (!pet) {
-          return res.status(404).json({ error: "Pet not found" });
-        }
-
-        const isSysAdmin = user.baseRole === Role.SYSADMIN;
-        if (!isSysAdmin) {
-          if (tenant.landlordId && tenant.landlordId !== user.id) {
-            return res
-              .status(403)
-              .json({ error: "You are not allowed to unlink this tenant." });
-          }
-          if (pet.landlordId && pet.landlordId !== user.id) {
-            return res
-              .status(403)
-              .json({ error: "You are not allowed to unlink this pet." });
-          }
-        }
-
-        // If the link doesn't exist, this will throw; we can catch and return 404.
-        try {
-          await prisma.tenantPet.delete({
-            where: {
-              tenantId_petId: {
-                tenantId,
-                petId,
-              },
-            },
-          });
-        } catch (deleteErr) {
-          // Prisma throws if no row; treat as 404 for this link
-          console.error("No TenantPet link to delete", deleteErr);
-          return res
-            .status(404)
-            .json({ error: "Tenant/pet link not found" });
-        }
-
-        // Again: we do NOT change pet.tenantId here yet.
-        // Old 1:1 logic keeps working until we move UI over.
-
-        return res.json({ ok: true });
-      } catch (err) {
-        console.error(
-          "Error in DELETE /api/tenants/:tenantId/pets/:petId/unlink",
           err
         );
         return res.status(500).json({ error: "Server error" });

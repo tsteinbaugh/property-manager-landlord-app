@@ -25,7 +25,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
   // Summary from /api/properties/:id/summary
   const [summary, setSummary] = useState(null);
 
-  // Full detail (leases + tenants + occupants + pets) from /api/properties/:id
+  // Full detail (leases + tenants + occupants) from /api/properties/:id
   const [propertyDetail, setPropertyDetail] = useState(null);
 
   const [loading, setLoading] = useState(true);
@@ -44,6 +44,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
   // Convenience aliases from summary
   const currentLease = summary?.lease || null;
   const currentTenant = summary?.tenant || null;
+  const summaryPets = summary?.pets || [];
   const summaryEmergencyContacts = summary?.emergencyContacts || [];
 
   // Property from summary and/or detail
@@ -61,10 +62,6 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
 
   const occupantsForProperty = Array.isArray(richProperty?.occupants)
     ? richProperty.occupants
-    : [];
-
-  const petsForProperty = Array.isArray(richProperty?.pets)
-    ? richProperty.pets
     : [];
 
   // Load summary + full detail
@@ -589,40 +586,20 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
         )}
       </section>
 
-      {/* Pets aggregated via tenant links */}
-      <section
-        style={{
-          marginTop: 16,
-          padding: 16,
-          borderRadius: 12,
-          border: "1px solid #e5e7eb",
-          background: "#ffffff",
-          maxWidth: 720,
-        }}
-      >
-        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
-          Pets for this property (via tenants)
-        </h3>
-
-        {petsForProperty.length > 0 ? (
-          <ul style={{ paddingLeft: 18 }}>
-            {petsForProperty.map((p) => (
-              <li key={p.id} style={{ marginBottom: 4 }}>
-                <Link to={`/landlord/pets/${p.id}`}>
-                  {p.name || "(unnamed pet)"}
-                </Link>
-                {p.type ? ` — ${p.type}` : ""}
-                {p.breed ? ` — ${p.breed}` : ""}
-                {p.weightLb != null ? ` (${p.weightLb} lb)` : ""}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <div style={{ fontSize: 14, color: "#6b7280" }}>
-            No pets associated with this property yet.
-          </div>
-        )}
-      </section>
+      <h3 style={{ marginTop: 16 }}>Pets</h3>
+      {summaryPets && summaryPets.length > 0 ? (
+        <ul>
+          {summaryPets.map((p) => (
+            <li key={p.id}>
+              {p.name}
+              {p.type ? ` — ${p.type}` : ""}
+              {p.weightLb != null ? ` (${p.weightLb} lb)` : ""}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div>No pets.</div>
+      )}
 
       <h3>Emergency Contacts</h3>
       {summaryEmergencyContacts && summaryEmergencyContacts.length > 0 ? (

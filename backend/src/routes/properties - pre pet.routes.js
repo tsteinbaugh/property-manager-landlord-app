@@ -199,14 +199,6 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
                       occupant: true,
                     },
                   },
-                  pets: {
-                    where: { isArchived: false },
-                  },
-                  petLinks: {
-                    include: {
-                      pet: true,
-                    },
-                  },                  
                 },
               },
               // multi-tenant join table
@@ -222,14 +214,6 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
                           occupant: true,
                         },
                       },
-                      pets: {
-                        where: { isArchived: false },
-                      },
-                      petLinks: {
-                        include: {
-                          pet: true,
-                        },
-                      },                      
                     },
                   },
                 },
@@ -254,7 +238,6 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
 
       const tenantMap = new Map();
       const occupantMap = new Map();
-      const petMap = new Map();
 
       function collectTenant(t) {
         if (!t || !t.id) return;
@@ -295,34 +278,6 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
             });
           }
         }
-        // legacy direct pets
-        for (const p of t.pets || []) {
-          if (!p || !p.id || p.isArchived) continue;
-          if (!petMap.has(p.id)) {
-            petMap.set(p.id, {
-              id: p.id,
-              name: p.name,
-              type: p.type,
-              breed: p.breed,
-              weightLb: p.weightLb,
-              archived: p.isArchived,
-            });
-          }
-        }
-
-        // many-to-many pets via TenantPet
-        for (const link of t.petLinks || []) {
-          const p = link.pet;
-          if (!p || !p.id || p.isArchived) continue;
-          if (!petMap.has(p.id)) {
-            petMap.set(p.id, {
-              id: p.id,
-              name: p.name,
-              relation: p.relation,
-              archived: p.isArchived,
-            });
-          }
-        }        
       }
 
       for (const lease of property.leases || []) {
@@ -341,14 +296,12 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
 
       const tenants = Array.from(tenantMap.values());
       const occupants = Array.from(occupantMap.values());
-      const pets = Array.from(petMap.values());
 
       // Send raw property + extra arrays; frontend mapper will pick what it needs.
       return res.json({
         ...property,
         tenants,
         occupants,
-        pets,
       });
     } catch (err) {
       console.error("Error in GET /api/properties/:id", err);

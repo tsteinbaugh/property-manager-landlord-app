@@ -89,7 +89,7 @@ export default function LandlordLeaseDetailPage() {
     setEndDate(lease.endDate || "");
   }, [lease]);
 
-  // Load full tenant details for this lease
+  // Load full tenant details (including occupants) for this lease
   useEffect(() => {
     if (!lease || !token) {
       setTenantDetails([]);
@@ -307,25 +307,6 @@ export default function LandlordLeaseDetailPage() {
       seenOccupantIds.add(o.id);
       leaseOccupants.push({
         ...o,
-        _tenantName: t.name || "(unnamed tenant)",
-        _tenantId: t.id,
-      });
-    }
-  }
-
-  // Pooled pets across all tenants on this lease
-  const leasePets = [];
-  const seenPetIds = new Set();
-
-  for (const t of tenantDetails || []) {
-    const pets = Array.isArray(t.pets) ? t.pets : [];
-    for (const p of pets) {
-      if (!p || !p.id) continue;
-      if (seenPetIds.has(p.id)) continue;
-
-      seenPetIds.add(p.id);
-      leasePets.push({
-        ...p,
         _tenantName: t.name || "(unnamed tenant)",
         _tenantId: t.id,
       });
@@ -707,73 +688,6 @@ export default function LandlordLeaseDetailPage() {
         ) : (
           <div style={{ fontSize: 14, color: "#6b7280" }}>
             No occupants linked through tenants on this lease yet.
-          </div>
-        )}
-      </section>
-
-      {/* Pooled pets for this lease (via tenants) */}
-      <section
-        style={{
-          marginTop: 16,
-          padding: 16,
-          borderRadius: 12,
-          border: "1px solid #e5e7eb",
-          background: "#ffffff",
-          maxWidth: 640,
-        }}
-      >
-        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
-          Pets on this lease
-        </h3>
-
-        {tenantDetailsLoading ? (
-          <div style={{ fontSize: 14, color: "#6b7280" }}>
-            Loading pets…
-          </div>
-        ) : tenantDetailsError ? (
-          <div style={{ fontSize: 14, color: "#b91c1c" }}>
-            Failed to load pets for this lease.
-          </div>
-        ) : leasePets.length > 0 ? (
-          <ul style={{ paddingLeft: 18, fontSize: 14 }}>
-            {leasePets.map((p) => (
-              <li key={p.id} style={{ marginBottom: 4 }}>
-                <strong>{p.name || "Unnamed pet"}</strong>
-                {p.type && (
-                  <span
-                    style={{ marginLeft: 6, fontSize: 12, color: "#4b5563" }}
-                  >
-                    ({p.type})
-                  </span>
-                )}
-                {p.breed && (
-                  <span
-                    style={{ marginLeft: 6, fontSize: 12, color: "#4b5563" }}
-                  >
-                    ({p.breed})
-                  </span>
-                )}
-                {p.weightLb && (
-                  <span
-                    style={{ marginLeft: 6, fontSize: 12, color: "#4b5563" }}
-                  >
-                    ({p.weightLb})
-                  </span>
-                )}
-                <span
-                  style={{ marginLeft: 8, fontSize: 12, color: "#6b7280" }}
-                >
-                  via{" "}
-                  <Link to={`/landlord/tenants/${p._tenantId}`}>
-                    {p._tenantName}
-                  </Link>
-                </span>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <div style={{ fontSize: 14, color: "#6b7280" }}>
-            No pets linked through tenants on this lease yet.
           </div>
         )}
       </section>

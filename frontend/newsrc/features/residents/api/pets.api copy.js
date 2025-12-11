@@ -6,39 +6,16 @@ function mapPetFromApi(p) {
 
   const archived = !!(p.archived ?? p.isArchived);
 
-  const primaryTenant = p.primaryTenant
-    ? {
-        id: p.primaryTenant.id,
-        name: p.primaryTenant.name,
-        email: p.primaryTenant.email || "",
-        phone: p.primaryTenant.phone || "",
-      }
-    : null;
-
-  const tenants = Array.isArray(p.tenants)
-    ? p.tenants.map((t) => ({
-        id: t.id,
-        name: t.name,
-        email: t.email || "",
-        phone: t.phone || "",
-        archived: !!(t.archived ?? t.isArchived),
-      }))
-    : [];
-
   return {
     id: p.id,
     name: p.name,
-    breed: p.breed || "",
-    type: p.type || "",
-    weightLb: p.weightLb || "",
+    type: p.type,
+    breed: p.breed,
+    weightLb: p.weightLb,
     tenantId: p.tenantId || null,
     archived,
     createdAt: p.createdAt || p.createdAtISO || null,
     updatedAt: p.updatedAt || p.updatedAtISO || null,
-
-    // NEW: used by LandlordPetDetailsPage
-    primaryTenant,
-    tenants,
   };
 }
 

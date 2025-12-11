@@ -18,14 +18,12 @@ export default function LandlordAddTenantPage() {
   const forLease = searchParams.get("forLease") === "1";
   const leaseId = searchParams.get("leaseId") || "";
   const occupantId = searchParams.get("occupantId") || "";
-  const petId = searchParams.get("petId") || "";
   const returnTo = searchParams.get("returnTo") || "";
 
   const inLeaseContext = forLease && !!leaseId;
   const inOccupantContext = !!occupantId && !inLeaseContext;
-  const inPetContext = !!petId && !inLeaseContext;
 
-  // For "link existing tenant to lease/occupant/pet"
+  // For "link existing tenant to lease/occupant"
   const [tenants, setTenants] = useState([]);
   const [tenantsLoading, setTenantsLoading] = useState(false);
   const [tenantsError, setTenantsError] = useState(null);
@@ -34,7 +32,7 @@ export default function LandlordAddTenantPage() {
 
   // Load tenants when we need to link an existing one
   useEffect(() => {
-    if (!(inLeaseContext || inOccupantContext || inPetContext) || !token) return;
+    if (!(inLeaseContext || inOccupantContext) || !token) return;
 
     let cancelled = false;
 
@@ -58,7 +56,7 @@ export default function LandlordAddTenantPage() {
     return () => {
       cancelled = true;
     };
-  }, [inLeaseContext, inOccupantContext, inPetContext, token]);
+  }, [inLeaseContext, inOccupantContext, token]);
 
   const handleLinkExisting = async (e) => {
     e.preventDefault();
@@ -76,24 +74,6 @@ export default function LandlordAddTenantPage() {
         navigate(`/landlord/leases/${leaseId}`);
         return;
       }
-
-      if (inOccupantContext) {
-        // Link tenant to occupant via join table
-        await tenantsApi.linkOccupant(selectedTenantId, occupantId, { token });
-        const target = returnTo || `/landlord/occupants/${occupantId}`;
-        navigate(target);
-        return;
-      }
-
-      if (inPetContext) {
-        // Link tenant to pet via join table
-        await tenantsApi.linkPet(selectedTenantId, petId, { token });
-        const target = returnTo || `/landlord/pets/${petId}`;
-        navigate(target);
-        return;
-      }
-      
-      console.warn("handleLinkExisting called without a valid context");
     } catch (err) {
       console.error("Failed to link tenant", err);
       alert("Failed to link tenant. Check console for details.");
@@ -200,36 +180,6 @@ export default function LandlordAddTenantPage() {
       return;
     }
 
-    // 3) Pet context: create tenant and link to pet
-    if (inPetContext) {
-      try {
-        const created = await tenantsApi.create(payload, { token });
-
-        if (created && created.id) {
-          try {
-            await tenantsApi.linkPet(created.id, petId, { token });
-          } catch (err) {
-            console.error(
-              "Tenant created but failed to link to pet",
-              err
-            );
-            alert(
-              "Tenant was created, but linking it to the pet failed. " +
-                "You can link it later from the pet or tenant detail pages."
-            );
-          }
-        }
-
-        const target = returnTo || `/landlord/pets/${petId}`;
-        navigate(target);
-      } catch (err) {
-        console.error("Failed to create tenant in pet context", err);
-        alert("Failed to create tenant. Check console for details.");
-      }
-
-      return;
-    }
-
     // 4) Normal behavior: create tenant and go back to Residents → Tenants
     try {
       await tenantsApi.create(payload, { token });
@@ -263,13 +213,6 @@ export default function LandlordAddTenantPage() {
       return;
     }
 
-    // Pet context: go back to pet detail
-    if (inPetContext) {
-      const target = returnTo || `/landlord/pets/${petId}`;
-      navigate(target);
-      return;
-    }
-
     // Normal mode
     navigate("/landlord/residents?tab=tenants");
   };
@@ -278,16 +221,12 @@ export default function LandlordAddTenantPage() {
     ? "Add or link tenant for lease"
     : inOccupantContext
     ? "Add or link tenant for occupant"
-    : inPetContext
-    ? "Add or link tenant for pet"
     : "Add tenant";
 
   const subtitle = inLeaseContext
     ? "Link an existing tenant to this lease or create a new tenant that will be automatically linked."
     : inOccupantContext
     ? "Link an existing tenant to this occupant or create a new tenant that will be automatically linked."
-    : inPetContext
-    ? "Link an existing tenant to this pet or create a new tenant that will be automatically linked."
     : "Create a tenant profile. You can add occupants, pets, and emergency contacts after this.";
 
   return (
@@ -300,7 +239,7 @@ export default function LandlordAddTenantPage() {
       </header>
 
       {/* Context-only: link existing tenant */}
-      {(inLeaseContext || inOccupantContext || inPetContext) && (
+      {(inLeaseContext || inOccupantContext) && (
         <section
           style={{
             marginTop: 12,
@@ -314,11 +253,7 @@ export default function LandlordAddTenantPage() {
           <h2 style={{ fontSize: 14, margin: "0 0 8px" }}>
             {inLeaseContext
               ? "Link an existing tenant to this lease"
-              : inOccupantContext
-              ? "Link an existing tenant to this occupant"
-              : inPetContext
-              ? "Link an existing tenant to this pet"
-              : "ERROR"}
+              : "Link an existing tenant to this occupant"}
           </h2>
 
           {tenantsLoading ? (
@@ -332,7 +267,7 @@ export default function LandlordAddTenantPage() {
             <div style={{ fontSize: 13, color: "#6b7280" }}>
               You don&apos;t have any tenants yet. Use the form below to create
               one and it will be linked to this{" "}
-              {inLeaseContext ? "lease" : inOccupantContext ? "occupant" : inPetContext ? "pet" : "ERROR"}.
+              {inLeaseContext ? "lease" : "occupant"}.
             </div>
           ) : (
             <form

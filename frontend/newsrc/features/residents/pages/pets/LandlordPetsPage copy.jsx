@@ -109,11 +109,11 @@ export default function LandlordPetsPage() {
 
   const visiblePets = useMemo(() => {
     if (showArchived) return pets;
-    return (pets || []).filter((p) => !p.archived);
+    return (pets || []).filter((o) => !o.archived);
   }, [pets, showArchived]);
 
   const hasVisiblePets = visiblePets.length > 0;
-  const hasAnyArchived = (pets || []).some((p) => p.archived);
+  const hasAnyArchived = (pets || []).some((o) => o.archived);
 
   const handleAddPet = () => {
     navigate("/landlord/pets/new");
@@ -207,11 +207,11 @@ export default function LandlordPetsPage() {
 
       {!isLoading && !error && hasVisiblePets && (
         <div className={styles.grid}>
-          {visiblePets.map((p) => (
+          {visiblePets.map((o) => (
             <PetCard
-              key={p.id}
-              pet={p}
-              onClick={() => handleOpenPet(p.id)}
+              key={o.id}
+              pet={o}
+              onClick={() => handleOpenPet(o.id)}
             />
           ))}
         </div>

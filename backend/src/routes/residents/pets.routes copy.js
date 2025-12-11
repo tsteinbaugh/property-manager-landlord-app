@@ -3,7 +3,7 @@ const { Role } = require("@prisma/client");
 
 function registerPetRoutes(app, prisma, { shapePet }) {
   // ============================================================
-  // LIST OCCUPANTS (decoupled from tenants, scoped by landlord when known)
+  // LIST PETS (decoupled from tenants, scoped by landlord when known)
   // GET /api/pets?includeArchived=0|1
   // ============================================================
   app.get("/api/pets", async (req, res) => {
@@ -24,8 +24,7 @@ function registerPetRoutes(app, prisma, { shapePet }) {
       } else if (user && user.baseRole === Role.SYSADMIN) {
         // sysadmin sees all
       } else {
-        // no user or other roles: allow all (dev parity with properties)
-        // tighten later if needed.
+        // no user or other roles: allow all
       }
 
       const pets = await prisma.pet.findMany({
@@ -41,23 +40,23 @@ function registerPetRoutes(app, prisma, { shapePet }) {
   });
 
   // ============================================================
-  // GET SINGLE OCCUPANT + linked tenants (via join table)
+  // GET SINGLE pet
   // GET /api/pets/:id
   // ============================================================
   app.get("/api/pets/:id", async (req, res) => {
     const { id } = req.params;
     const user = req.user || null;
-  
+
     if (!user) {
       return res.status(401).json({ error: "Unauthorized" });
     }
-  
+
     try {
       const pet = await prisma.pet.findUnique({ where: { id } });
       if (!pet) {
         return res.status(404).json({ error: "Pet not found" });
       }
-    
+
       // Landlord can only view their own pet; sysadmin can view any
       if (
         user.baseRole === Role.LANDLORD &&
@@ -68,42 +67,16 @@ function registerPetRoutes(app, prisma, { shapePet }) {
           .status(403)
           .json({ error: "You are not allowed to view this pet." });
       }
-    
-      // Look up join-table links: which tenants are linked to this pet?
-      const links = await prisma.tenantPet.findMany({
-        where: { petId: id },
-        include: {
-          tenant: true,
-        },
-      });
-    
-      const tenants = links
-        .map((link) => link.tenant)
-        .filter((t) => !!t)
-        .map((t) => ({
-          id: t.id,
-          name: t.name,
-          email: t.email,
-          phone: t.phone,
-          archived: t.isArchived,
-          createdAt: t.createdAt,
-          updatedAt: t.updatedAt,
-        }));
-      
-      const shaped = shapePet(pet);
-      
-      return res.json({
-        ...shaped,
-        tenants,
-      });
+
+      res.json(shapePet(pet));
     } catch (err) {
       console.error("Error in GET /api/pets/:id", err);
-      return res.status(500).json({ error: "Server error" });
+      res.status(500).json({ error: "Server error" });
     }
   });
 
   // ============================================================
-  // CREATE PET
+  // CREATE pet
   // POST /api/pets
   // Body: { name, type?, breed?, weightLb? tenantId? }  (tenantId is OPTIONAL now)
   // ============================================================

@@ -20,23 +20,6 @@ function mapTenantFromApi(t) {
       }))
     : [];
 
-    const petLinks = Array.isArray(t.petLinks)
-    ? t.petLinks.map((link) => ({
-        id: link.id,
-        petId: link.petId,
-        pet: link.pet
-          ? {
-              id: link.pet.id,
-              name: link.pet.name,
-              type: link.pet.type,
-              breed: link.pet.breed,
-              weightLb: link.pet.weightLb,
-              archived: !!(link.pet.isArchived ?? link.pet.archived),
-            }
-          : null,
-      }))
-    : [];
-
   return {
     id: t.id,
     name: t.name,
@@ -45,6 +28,7 @@ function mapTenantFromApi(t) {
     archived: !!(t.archived ?? t.isArchived),
 
     pets: Array.isArray(t.pets) ? t.pets : [],
+    // this "occupants" field is now just informational; the UI shouldn't treat it as link truth
     occupants: Array.isArray(t.occupants) ? t.occupants : [],
     emergencyContacts: Array.isArray(t.emergencyContacts)
       ? t.emergencyContacts
@@ -54,7 +38,6 @@ function mapTenantFromApi(t) {
 
     // REAL links only
     occupantLinks,
-    petLinks,
   };
 }
 
@@ -142,32 +125,6 @@ export const tenantsApi = {
 
     return apiFetch(
       `/api/tenants/${tenantId}/occupants/${occupantId}/unlink`,
-      {
-        method: "DELETE",
-        token,
-      }
-    );
-  },
-
-  async linkPet(tenantId, petId, { token } = {}) {
-    if (!tenantId) throw new Error("tenantId is required");
-    if (!petId) throw new Error("petId is required");
-
-    return apiFetch(
-      `/api/tenants/${tenantId}/pets/${petId}/link`,
-      {
-        method: "POST",
-        token,
-      }
-    );
-  },
-
-  async unlinkPet(tenantId, petId, { token } = {}) {
-    if (!tenantId) throw new Error("tenantId is required");
-    if (!petId) throw new Error("petId is required");
-
-    return apiFetch(
-      `/api/tenants/${tenantId}/pets/${petId}/unlink`,
       {
         method: "DELETE",
         token,

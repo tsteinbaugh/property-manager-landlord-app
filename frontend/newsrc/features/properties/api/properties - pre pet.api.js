@@ -69,7 +69,6 @@ function mapPropertyFromApi(p) {
     leases: Array.isArray(p.leases) ? p.leases : [],
     tenants: Array.isArray(p.tenants) ? p.tenants : [],
     occupants: Array.isArray(p.occupants) ? p.occupants : [],
-    pets: Array.isArray(p.pets) ? p.pets : [],
   };
 }
 
