@@ -173,7 +173,7 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
     }
   });
 
-  // GET /api/properties/:id – detail, including leases, tenants, occupants, emergency contacts, and vehicles
+  // GET /api/properties/:id – detail, including leases, tenants, occupants, and emergency contacts
   app.get("/api/properties/:id", async (req, res) => {
     const { id } = req.params;
     const user = req.user || null;
@@ -214,15 +214,7 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
                     include: {
                       emergencyContact: true,
                     },
-                  },
-                  vehicles: {
-                    where: { isArchived: false },
-                  },
-                  vehicleLinks: {
-                    include: {
-                      vehicle: true,
-                    },
-                  },     
+                  },           
                 },
               },
               // multi-tenant join table
@@ -253,15 +245,7 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
                         include: {
                           emergencyContact: true,
                         },
-                      },
-                      vehicles: {
-                        where: { isArchived: false },
-                      },
-                      vehicleLinks: {
-                        include: {
-                          vehicle: true,
-                        },
-                      },  
+                      },    
                     },
                   },
                 },
@@ -282,13 +266,12 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
         }
       }
 
-      // --- Aggregate tenants + occupants + pets + emergency contacts + vehicle across all leases ---
+      // --- Aggregate tenants + occupants + pets + emergency contacts across all leases ---
 
       const tenantMap = new Map();
       const occupantMap = new Map();
       const petMap = new Map();
       const emergencyContactMap = new Map();
-      const vehicleMap = new Map();
 
       function collectTenant(t) {
         if (!t || !t.id) return;
@@ -329,7 +312,6 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
             });
           }
         }
-
         // legacy direct pets
         for (const p of t.pets || []) {
           if (!p || !p.id || p.isArchived) continue;
@@ -391,43 +373,6 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
             });
           }
         }        
-
-        // legacy direct vehicles
-        for (const v of t.vehicles || []) {
-          if (!v || !v.id || v.isArchived) continue;
-          if (!vehicleMap.has(v.id)) {
-            vehicleMap.set(v.id, {
-              id: v.id,
-              make: v.make || "",
-              model: v.model || "",
-              year: v.year ?? null,
-              color: v.color || "",
-              state: v.state || "",
-              plate: v.plate || "",
-              permit: v.permit || "",
-              archived: v.isArchived,
-            });
-          }
-        }
-
-        // many-to-many vehicles via TenantVehicle
-        for (const link of t.vehicleLinks || []) {
-          const v = link.vehicle;
-          if (!v || !v.id || v.isArchived) continue;
-          if (!vehicleMap.has(v.id)) {
-            vehicleMap.set(v.id, {
-              id: v.id,
-              make: v.make || "",
-              model: v.model || "",
-              year: v.year ?? null,
-              color: v.color || "",
-              state: v.state || "",
-              plate: v.plate || "",
-              permit: v.permit || "",
-              archived: v.isArchived,
-            });
-          }
-        }
       }
 
       for (const lease of property.leases || []) {
@@ -448,7 +393,6 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
       const occupants = Array.from(occupantMap.values());
       const pets = Array.from(petMap.values());
       const emergencyContacts = Array.from(emergencyContactMap.values());
-      const vehicles = Array.from(vehicleMap.values());
 
       // Send raw property + extra arrays; frontend mapper will pick what it needs.
       return res.json({
@@ -457,7 +401,6 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
         occupants,
         pets,
         emergencyContacts,
-        vehicles,
       });
     } catch (err) {
       console.error("Error in GET /api/properties/:id", err);
@@ -466,7 +409,7 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
   });
 
   // GET /api/properties/:id/summary
-  // Returns: property + active lease (if any) + tenant + occupants + pets + emergency contacts + vehicles
+  // Returns: property + active lease (if any) + tenant + occupants + pets + emergency contacts
   app.get("/api/properties/:id/summary", async (req, res) => {
     const { id } = req.params;
 
@@ -504,7 +447,6 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
       let occupants = [];
       let pets = [];
       let emergencyContacts = [];
-      let vehicles = [];
 
       if (tenant) {
         occupants = await prisma.occupant.findMany({
@@ -521,10 +463,6 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
           where: { tenantId: tenant.id, isArchived: false },
           orderBy: { createdAt: "asc" },
         });
-        vehicles = await prisma.vehicle.findMany({
-          where: { tenantId: tenant.id, isArchived: false },
-          orderBy: { createdAt: "asc" },
-        });
       }
 
       res.json({
@@ -534,7 +472,6 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
         occupants,
         pets,
         emergencyContacts,
-        vehicles,
       });
     } catch (err) {
       console.error("Error in GET /api/properties/:id/summary", err);

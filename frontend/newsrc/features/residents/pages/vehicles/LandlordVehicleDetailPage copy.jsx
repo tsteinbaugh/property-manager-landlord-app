@@ -1,14 +1,13 @@
-import React, { useEffect, useState, useMemo } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+// newsrc/features/tenants/pages/LandlordVehicleDetailsPage.jsx
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
 import ArchiveButton from "@shared/ui/ArchiveButton.jsx";
 import { vehiclesApi } from "@features/residents/api/vehicles.api.js";
-import { tenantsApi } from "@features/residents/api/tenants.api.js";
 import { ROLES } from "@lib/rbac/roles.js";
 
 export default function LandlordVehicleDetailsPage() {
   const { vehicleId } = useParams();
-  const navigate = useNavigate();
   const { effectiveRole, isSysAdmin, token } = useUser() || {};
 
   const role =
@@ -17,7 +16,6 @@ export default function LandlordVehicleDetailsPage() {
       : effectiveRole || ROLES.LANDLORD;
 
   const [vehicle, setVehicle] = useState(null);
-  const [tenants, setTenants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -32,12 +30,6 @@ export default function LandlordVehicleDetailsPage() {
   const [isSaving, setSaving] = useState(false);
   const [isArchiving, setArchiving] = useState(false);
 
-  // many-to-many controls
-  const [tenantPickerId, setTenantPickerId] = useState("");
-  const [linking, setLinking] = useState(false);
-  const [unlinkingId, setUnlinkingId] = useState(null);
-
-  // Load vehicle + tenants
   useEffect(() => {
     let cancelled = false;
 
@@ -46,17 +38,13 @@ export default function LandlordVehicleDetailsPage() {
         setLoading(true);
         setError(null);
 
-        const [o, ts] = await Promise.all([
-          vehiclesApi.get(vehicleId, { token }),
-          tenantsApi.list({ token }),
-        ]);
+        const p = await vehiclesApi.get(vehicleId, { token });
 
         if (!cancelled) {
-          if (!o) {
+          if (!p) {
             setError(new Error("Vehicle not found"));
           } else {
-            setVehicle(o);
-            setTenants(Array.isArray(ts) ? ts : []);
+            setVehicle(p);
           }
         }
       } catch (err) {
@@ -81,7 +69,6 @@ export default function LandlordVehicleDetailsPage() {
     };
   }, [vehicleId, token]);
 
-  // Initialize edit fields when vehicle changes
   useEffect(() => {
     if (vehicle) {
       setMake(vehicle.make || "");
@@ -99,34 +86,6 @@ export default function LandlordVehicleDetailsPage() {
 
   const isArchived = !!vehicle?.archived;
 
-  // Combine primaryTenant + tenants[] into one de-duplicated array
-  const linkedTenants = useMemo(() => {
-    if (!vehicle) return [];
-
-    const list = [];
-
-    if (Array.isArray(vehicle.tenants)) {
-      for (const t of vehicle.tenants) {
-        if (t && t.id) list.push({ ...t });
-      }
-    }
-
-    if (vehicle.primaryTenant && vehicle.primaryTenant.id) {
-      const exists = list.some((t) => t.id === vehicle.primaryTenant.id);
-      if (!exists) {
-        list.unshift({ ...vehicle.primaryTenant });
-      }
-    }
-
-    return list;
-  }, [vehicle]);
-
-  // Tenants that can still be added
-  const availableTenants = useMemo(() => {
-    const linkedIds = new Set(linkedTenants.map((t) => t.id));
-    return tenants.filter((t) => !linkedIds.has(t.id));
-  }, [tenants, linkedTenants]);
-
   const handleSave = async () => {
     try {
       setSaving(true);
@@ -141,6 +100,7 @@ export default function LandlordVehicleDetailsPage() {
           return;
         }
       }
+
       const updated = await vehiclesApi.update(
         vehicle.id,
         {
@@ -212,60 +172,6 @@ export default function LandlordVehicleDetailsPage() {
     }
   };
 
-  const handleLinkTenant = async () => {
-    if (!tenantPickerId || !vehicle || !vehicle.id) return;
-
-    try {
-      setLinking(true);
-      await tenantsApi.linkVehicle(tenantPickerId, vehicle.id, { token });
-
-      // Refresh vehicle to pick up new tenants[]
-      const fresh = await vehiclesApi.get(vehicle.id, { token });
-      setVehicle(fresh || vehicle);
-      setTenantPickerId("");
-    } catch (err) {
-      console.error("Failed to link tenant to vehicle", err);
-      alert("Failed to link tenant. Check console for details.");
-    } finally {
-      setLinking(false);
-    }
-  };
-
-  const handleUnlinkTenant = async (tenantId) => {
-    if (!tenantId || !vehicle || !vehicle.id) return;
-
-    const ok = window.confirm(
-      "Remove this tenant from the vehicle's links?\n\n" +
-        "This does not change leases or properties. It only removes this vehicle↔tenant link."
-    );
-    if (!ok) return;
-
-    try {
-      setUnlinkingId(tenantId);
-      await tenantsApi.unlinkVehicle(tenantId, vehicle.id, { token });
-
-      const fresh = await vehiclesApi.get(vehicle.id, { token });
-      setVehicle(fresh || vehicle);
-    } catch (err) {
-      console.error("Failed to unlink tenant from vehicle", err);
-      alert("Failed to unlink tenant. Check console for details.");
-    } finally {
-      setUnlinkingId(null);
-    }
-  };
-
-  const handleManageTenant = () => {
-    if (!vehicle || !vehicle.id) return;
-
-    const returnTo = encodeURIComponent(
-      `${window.location.pathname}${window.location.search || ""}`
-    );
-
-    navigate(
-      `/landlord/tenants/new?vehicleId=${vehicle.id}&returnTo=${returnTo}`
-    );
-  };
-
   if (loading) return <div>Loading vehicle…</div>;
 
   if (error) {
@@ -283,13 +189,14 @@ export default function LandlordVehicleDetailsPage() {
   const title = vehicle.name || "Unnamed vehicle";
 
   const canEditNow = !isArchived || isSysAdmin;
-  const canArchiveNow = !isArchived;
+  const canArchiveNow = !isArchived; // any landlord can archive
   const canUnarchiveNow = isArchived && isSysAdmin;
   const showArchiveButton = canArchiveNow || canUnarchiveNow;
 
   return (
     <div style={{ padding: 16 }}>
       <div style={{ marginBottom: 8 }}>
+        {/* mirror tenant details back-link to residents */}
         <Link to="/landlord/residents?tab=vehicles">
           ← Back to residents
         </Link>
@@ -447,33 +354,8 @@ export default function LandlordVehicleDetailsPage() {
         </div>
       </div>
 
-      {/* Manage tenant button (now just "create new tenant" helper) */}
-      <div style={{ marginBottom: 12 }}>
-        <button
-          type="button"
-          onClick={handleManageTenant}
-          disabled={isArchived}
-          style={{
-            borderRadius: 999,
-            padding: "6px 12px",
-            border: "1px solid #d1d5db",
-            background: "#ffffff",
-            cursor: isArchived ? "default" : "pointer",
-            fontSize: 13,
-          }}
-        >
-          Manage tenants for this vehicle
-        </button>
-        {isArchived && (
-          <span style={{ marginLeft: 8, fontSize: 12, color: "#6b7280" }}>
-            Cannot manage tenants for an archived vehicle.
-          </span>
-        )}
-      </div>
-
       <hr style={{ margin: "16px 0" }} />
 
-      {/* Vehicle info */}
       <section
         style={{
           padding: 16,
@@ -481,7 +363,6 @@ export default function LandlordVehicleDetailsPage() {
           border: "1px solid #e5e7eb",
           background: "#ffffff",
           maxWidth: 640,
-          marginBottom: 16,
         }}
       >
         <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 12 }}>
@@ -521,56 +402,6 @@ export default function LandlordVehicleDetailsPage() {
           <dt style={{ fontWeight: 500, color: "#4b5563" }}>Status</dt>
           <dd>{isArchived ? "Archived" : "Active"}</dd>
         </dl>
-      </section>
-
-      {/* Tenants linked to this vehicle (true many-to-many) */}
-      <section
-        style={{
-          padding: 16,
-          borderRadius: 12,
-          border: "1px solid #e5e7eb",
-          background: "#ffffff",
-          maxWidth: 640,
-        }}
-      >
-        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
-          Tenants linked to this vehicle
-        </h3>
-
-        {linkedTenants.length > 0 ? (
-          <ul style={{ paddingLeft: 18, fontSize: 14 }}>
-            {linkedTenants.map((t) => (
-              <li
-                key={t.id}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 8,
-                  marginBottom: 4,
-                }}
-              >
-                <span>
-                  <Link to={`/landlord/tenants/${t.id}`}>
-                    {t.name || "(unnamed tenant)"}
-                  </Link>
-                  {t.email ? ` (${t.email})` : ""}
-                </span>
-                <button
-                  type="button"
-                  onClick={() => handleUnlinkTenant(t.id)}
-                  disabled={unlinkingId === t.id}
-                  style={{ fontSize: 11, padding: "2px 6px" }}
-                >
-                  {unlinkingId === t.id ? "Unlinking…" : "Unlink"}
-                </button>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <div style={{ fontSize: 14, color: "#6b7280" }}>
-            This vehicle is not linked to any tenants yet.
-          </div>
-        )}
       </section>
     </div>
   );

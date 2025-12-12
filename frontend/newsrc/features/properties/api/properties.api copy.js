@@ -73,7 +73,6 @@ function mapPropertyFromApi(p) {
     occupants: Array.isArray(p.occupants) ? p.occupants : [],
     pets: Array.isArray(p.pets) ? p.pets : [],
     emergencyContacts: Array.isArray(p.emergencyContacts) ? p.emergencyContacts : [],
-    vehicles: Array.isArray(p.vehicles) ? p.vehicles : [],
   };
 }
 

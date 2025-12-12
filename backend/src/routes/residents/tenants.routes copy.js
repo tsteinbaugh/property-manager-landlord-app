@@ -178,7 +178,7 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
             orderBy: { createdAt: "asc" },
           },
 
-          // NEW: join-table links for occupants, pets, emergency contacts and vehicles (multi-tenant plumbing)
+          // NEW: join-table links for occupants (multi-tenant plumbing)
           occupantLinks: {
             include: {
               occupant: true,
@@ -192,11 +192,6 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
           emergencyContactLinks: {
             include: {
               emergencyContact: true,
-            },
-          },
-          vehicleLinks: {
-            include: {
-              vehicle: true,
             },
           },
           // (Later we can add petLinks/emergencyContactLinks/vehicleLinks similarly)
@@ -279,33 +274,11 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
         mergedEmergencyContacts.push(emc);
       }
 
-     // --- Merge legacy 1-to-many vehicle with join-based vehicles ---
-      const directVehs = Array.isArray(tenant.vehicles)
-        ? tenant.vehicles
-        : [];
-
-      const joinVehs = Array.isArray(tenant.vehicleLinks)
-        ? tenant.vehicleLinks
-            .map((link) => link.vehicle)
-            .filter(Boolean)
-        : [];
-
-      const seenVehIds = new Set();
-      const mergedVehicles = [];
-
-      for (const veh of [...directVehs, ...joinVehs]) {
-        if (!veh || !veh.id) continue;
-        if (seenVehIds.has(veh.id)) continue;
-        seenVehIds.add(veh.id);
-        mergedVehicles.push(veh);
-      }
-
       const result = {
         ...tenant,
         occupants: mergedOccupants,
         pets: mergedPets,
         emergencyContacts: mergedEmergencyContacts,
-        vehicles: mergedVehicles,
       };
 
       res.json(result);
@@ -594,7 +567,6 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
       res.status(500).json({ error: "Server error" });
     }
   });
-
   // POST /api/tenants/:tenantId/occupants/:occupantId/link
   // Creates a TenantOccupant row (many-to-many link) without touching leases/properties.
   app.post(
@@ -1034,154 +1006,6 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
       } catch (err) {
         console.error(
           "Error in DELETE /api/tenants/:tenantId/emergencyContacts/:emergencyContactId/unlink",
-          err
-        );
-        return res.status(500).json({ error: "Server error" });
-      }
-    }
-  );
-  // POST /api/tenants/:tenantId/vehicles/:vehicleId/link
-  // Creates a TenantVehicle row (many-to-many link) without touching leases/properties.
-  app.post(
-    "/api/tenants/:tenantId/vehicles/:vehicleId/link",
-    async (req, res) => {
-      const { tenantId, vehicleId } = req.params;
-      const user = req.user || null;
-
-      if (!user) {
-        return res.status(401).json({ error: "Unauthorized" });
-      }
-
-      try {
-        // Make sure tenant exists
-        const tenant = await prisma.tenant.findUnique({
-          where: { id: tenantId },
-        });
-        if (!tenant) {
-          return res.status(404).json({ error: "Tenant not found" });
-        }
-
-        // Make sure vehicle exists
-        const vehicle = await prisma.vehicle.findUnique({
-          where: { id: vehicleId },
-        });
-        if (!vehicle) {
-          return res.status(404).json({ error: "Vehicle not found" });
-        }
-
-        // Landlord scoping: landlord can only link within their own portfolio
-        const isSysAdmin = user.baseRole === Role.SYSADMIN;
-        if (!isSysAdmin) {
-          // Tenant must belong to this landlord (or be unowned but created by them, depending on your rules)
-          if (tenant.landlordId && tenant.landlordId !== user.id) {
-            return res
-              .status(403)
-              .json({ error: "You are not allowed to link this tenant." });
-          }
-
-          // Vehicle must belong to this landlord as well
-          if (vehicle.landlordId && vehicle.landlordId !== user.id) {
-            return res
-              .status(403)
-              .json({ error: "You are not allowed to link this vehicle." });
-          }
-        }
-
-        // Create or no-op TenantVehicle link
-        await prisma.tenantVehicle.upsert({
-          where: {
-            // compound unique from @@unique([tenantId, vehicleId])
-            tenantId_vehicleId: {
-              tenantId,
-              vehicleId,
-            },
-          },
-          update: {}, // no-op if it already exists
-          create: {
-            tenantId,
-            vehicleId,
-          },
-        });
-
-        // IMPORTANT: we DO NOT touch vehicle.tenantId here yet.
-        // Existing flows still use vehicle.tenantId as before.
-        // We'll move UI over to this join table in a later step.
-
-        return res.json({ ok: true });
-      } catch (err) {
-        console.error("Error in POST /api/tenants/:tenantId/vehicles/:vehicleId/link", err);
-        return res.status(500).json({ error: "Server error" });
-      }
-    }
-  );
-    // DELETE /api/tenants/:tenantId/vehicles/:vehicleId/unlink
-  // Removes a TenantVehicle row (many-to-many link) without touching leases/properties.
-  app.delete(
-    "/api/tenants/:tenantId/vehicles/:vehicleId/unlink",
-    async (req, res) => {
-      const { tenantId, vehicleId } = req.params;
-      const user = req.user || null;
-
-      if (!user) {
-        return res.status(401).json({ error: "Unauthorized" });
-      }
-
-      try {
-        // Make sure tenant exists
-        const tenant = await prisma.tenant.findUnique({
-          where: { id: tenantId },
-        });
-        if (!tenant) {
-          return res.status(404).json({ error: "Tenant not found" });
-        }
-
-        // Make sure vehicle exists
-        const vehicle = await prisma.vehicle.findUnique({
-          where: { id: vehicleId },
-        });
-        if (!vehicle) {
-          return res.status(404).json({ error: "Vehicle not found" });
-        }
-
-        const isSysAdmin = user.baseRole === Role.SYSADMIN;
-        if (!isSysAdmin) {
-          if (tenant.landlordId && tenant.landlordId !== user.id) {
-            return res
-              .status(403)
-              .json({ error: "You are not allowed to unlink this tenant." });
-          }
-          if (vehicle.landlordId && vehicle.landlordId !== user.id) {
-            return res
-              .status(403)
-              .json({ error: "You are not allowed to unlink this vehicle." });
-          }
-        }
-
-        // If the link doesn't exist, this will throw; we can catch and return 404.
-        try {
-          await prisma.tenantVehicle.delete({
-            where: {
-              tenantId_vehicleId: {
-                tenantId,
-                vehicleId,
-              },
-            },
-          });
-        } catch (deleteErr) {
-          // Prisma throws if no row; treat as 404 for this link
-          console.error("No TenantVehicle link to delete", deleteErr);
-          return res
-            .status(404)
-            .json({ error: "Tenant/vehicle link not found" });
-        }
-
-        // Again: we do NOT change vehicle.tenantId here yet.
-        // Old 1:1 logic keeps working until we move UI over.
-
-        return res.json({ ok: true });
-      } catch (err) {
-        console.error(
-          "Error in DELETE /api/tenants/:tenantId/vehicles/:vehicleId/unlink",
           err
         );
         return res.status(500).json({ error: "Server error" });

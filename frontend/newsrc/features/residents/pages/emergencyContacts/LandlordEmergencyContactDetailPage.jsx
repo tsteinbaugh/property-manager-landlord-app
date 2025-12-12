@@ -43,16 +43,16 @@ export default function LandlordEmergencyContactDetailsPage() {
         setLoading(true);
         setError(null);
 
-        const [o, ts] = await Promise.all([
+        const [e, ts] = await Promise.all([
           emergencyContactsApi.get(emergencyContactId, { token }),
           tenantsApi.list({ token }),
         ]);
 
         if (!cancelled) {
-          if (!o) {
+          if (!e) {
             setError(new Error("Emergency contact not found"));
           } else {
-            setEmergencyContact(o);
+            setEmergencyContact(e);
             setTenants(Array.isArray(ts) ? ts : []);
           }
         }

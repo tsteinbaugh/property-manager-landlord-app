@@ -24,8 +24,7 @@ function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
       } else if (user && user.baseRole === Role.SYSADMIN) {
         // sysadmin sees all
       } else {
-        // no user or other roles: allow all (dev parity with properties)
-        // tighten later if needed.
+        // no user or other roles: allow all
       }
 
       const vehicles = await prisma.vehicle.findMany({
@@ -41,23 +40,23 @@ function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
   });
 
   // ============================================================
-  // GET SINGLE VEHICLE + linked tenants (via join table)
+  // GET SINGLE vehicle
   // GET /api/vehicles/:id
   // ============================================================
   app.get("/api/vehicles/:id", async (req, res) => {
     const { id } = req.params;
     const user = req.user || null;
-  
+
     if (!user) {
       return res.status(401).json({ error: "Unauthorized" });
     }
-  
+
     try {
       const vehicle = await prisma.vehicle.findUnique({ where: { id } });
       if (!vehicle) {
         return res.status(404).json({ error: "Vehicle not found" });
       }
-    
+
       // Landlord can only view their own vehicle; sysadmin can view any
       if (
         user.baseRole === Role.LANDLORD &&
@@ -68,42 +67,16 @@ function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
           .status(403)
           .json({ error: "You are not allowed to view this vehicle." });
       }
-    
-      // Look up join-table links: which tenants are linked to this vehicle?
-      const links = await prisma.tenantVehicle.findMany({
-        where: { vehicleId: id },
-        include: {
-          tenant: true,
-        },
-      });
-    
-      const tenants = links
-        .map((link) => link.tenant)
-        .filter((t) => !!t)
-        .map((t) => ({
-          id: t.id,
-          name: t.name,
-          email: t.email,
-          phone: t.phone,
-          archived: t.isArchived,
-          createdAt: t.createdAt,
-          updatedAt: t.updatedAt,
-        }));
-      
-      const shaped = shapeVehicle(vehicle);
-      
-      return res.json({
-        ...shaped,
-        tenants,
-      });
+
+      res.json(shapeVehicle(vehicle));
     } catch (err) {
       console.error("Error in GET /api/vehicles/:id", err);
-      return res.status(500).json({ error: "Server error" });
+      res.status(500).json({ error: "Server error" });
     }
   });
 
   // ============================================================
-  // CREATE VEHICLE
+  // CREATE vehicle
   // POST /api/vehicles
   // Body: { make?, model?, year?, color?, state?, plate?, permit? tenantId?}  (tenantId is OPTIONAL now)
   // ============================================================
@@ -149,7 +122,7 @@ function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
         permit:
           typeof permit === "string" && permit.trim()
             ? permit.trim()
-            : null, 
+            : null,        
 
         // OWNER landlord
         landlordId: user.id,
@@ -174,7 +147,7 @@ function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
   });
 
   // ============================================================
-  // UPDATE VEHICLE
+  // UPDATE vehicle
   // PATCH /api/vehicles/:id
   // Body: partial { make?, model?, year?, color?, state?, plate?, permit? tenantId? }
   // ============================================================

@@ -325,6 +325,30 @@ function shapeEmergencyContact(e) {
 }
 
 function shapeVehicle(v) {
+  // Primary tenant from the old 1:1 field
+  const primaryTenant = v.tenant
+    ? {
+        id: v.tenant.id,
+        name: v.tenant.name,
+        email: v.tenant.email,
+        phone: v.tenant.phone,
+      }
+    : null;
+
+  // Additional tenants via join table
+  const tenantsFromLinks = Array.isArray(v.tenantLinks)
+    ? v.tenantLinks
+        .map((link) => link.tenant)
+        .filter(Boolean)
+        .map((t) => ({
+          id: t.id,
+          name: t.name,
+          email: t.email,
+          phone: t.phone,
+        }))
+    : [];
+
+  // We’ll let the frontend de-dupe if primaryTenant also appears in tenants[].
   return {
     id: v.id,
     tenantId: v.tenantId,
@@ -338,6 +362,9 @@ function shapeVehicle(v) {
     archived: v.isArchived,
     createdAt: v.createdAt,
     updatedAt: v.updatedAt,
+
+    primaryTenant,
+    tenants: tenantsFromLinks,
   };
 }
 

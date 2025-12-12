@@ -145,11 +145,11 @@ export default function LandlordVehiclesPage() {
 
   const visibleVehicles = useMemo(() => {
     if (showArchived) return vehicles;
-    return (vehicles || []).filter((v) => !v.archived);
+    return (vehicles || []).filter((o) => !o.archived);
   }, [vehicles, showArchived]);
 
   const hasVisibleVehicles = visibleVehicles.length > 0;
-  const hasAnyArchived = (vehicles || []).some((v) => v.archived);
+  const hasAnyArchived = (vehicles || []).some((o) => o.archived);
 
   const handleAddVehicle = () => {
     navigate("/landlord/vehicles/new");
@@ -173,15 +173,13 @@ export default function LandlordVehiclesPage() {
           className={styles.actions}
           style={{ display: "flex", flexDirection: "column", gap: 8 }}
         >
-          {hasVisibleVehicles && (
-            <button
-              type="button"
-              className={styles.primaryButton}
-              onClick={handleAddVehicle}
-            >
-              + Add vehicle
-            </button>
-          )}
+          <button
+            type="button"
+            className={styles.primaryButton}
+            onClick={handleAddVehicle}
+          >
+            + Add vehicle
+          </button>
 
           {hasAnyArchived && (
             <button
@@ -243,11 +241,11 @@ export default function LandlordVehiclesPage() {
 
       {!isLoading && !error && hasVisibleVehicles && (
         <div className={styles.grid}>
-          {visibleVehicles.map((v) => (
+          {visibleVehicles.map((o) => (
             <VehicleCard
-              key={v.id}
-              vehicle={v}
-              onClick={() => handleOpenVehicle(v.id)}
+              key={o.id}
+              vehicle={o}
+              onClick={() => handleOpenVehicle(o.id)}
             />
           ))}
         </div>

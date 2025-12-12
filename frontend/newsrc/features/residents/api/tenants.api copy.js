@@ -20,22 +20,22 @@ function mapTenantFromApi(t) {
       }))
     : [];
 
-  const petLinks = Array.isArray(t.petLinks)
-  ? t.petLinks.map((link) => ({
-      id: link.id,
-      petId: link.petId,
-      pet: link.pet
-        ? {
-            id: link.pet.id,
-            name: link.pet.name,
-            type: link.pet.type,
-            breed: link.pet.breed,
-            weightLb: link.pet.weightLb,
-            archived: !!(link.pet.isArchived ?? link.pet.archived),
-          }
-        : null,
-    }))
-  : [];
+    const petLinks = Array.isArray(t.petLinks)
+    ? t.petLinks.map((link) => ({
+        id: link.id,
+        petId: link.petId,
+        pet: link.pet
+          ? {
+              id: link.pet.id,
+              name: link.pet.name,
+              type: link.pet.type,
+              breed: link.pet.breed,
+              weightLb: link.pet.weightLb,
+              archived: !!(link.pet.isArchived ?? link.pet.archived),
+            }
+          : null,
+      }))
+    : [];
 
   const emergencyContactLinks = Array.isArray(t.emergencyContactLinks)
     ? t.emergencyContactLinks.map((link) => ({
@@ -49,26 +49,6 @@ function mapTenantFromApi(t) {
               relation: link.emergencyContact.relation,
               email: link.emergencyContact.email,
               archived: !!(link.emergencyContact.isArchived ?? link.emergencyContact.archived),
-            }
-          : null,
-      }))
-    : [];
-
-  const vehicleLinks = Array.isArray(t.vehicleLinks)
-    ? t.vehicleLinks.map((link) => ({
-        id: link.id,
-        vehicleId: link.vehicleId,
-        vehicle: link.vehicle
-          ? {
-              id: link.vehicle.id,
-              make: link.vehicle.make,
-              model: link.vehicle.model,
-              year: link.vehicle.year,
-              color: link.vehicle.color,
-              state: link.vehicle.state,
-              plate: link.vehicle.plate,
-              permit: link.vehicle.permit,
-              archived: !!(link.vehicle.isArchived ?? link.vehicle.archived),
             }
           : null,
       }))
@@ -93,7 +73,6 @@ function mapTenantFromApi(t) {
     occupantLinks,
     petLinks,
     emergencyContactLinks,
-    vehicleLinks,
   };
 }
 
@@ -233,31 +212,6 @@ export const tenantsApi = {
 
     return apiFetch(
       `/api/tenants/${tenantId}/emergencyContacts/${emergencyContactId}/unlink`,
-      {
-        method: "DELETE",
-        token,
-      }
-    );
-  },
-  async linkVehicle(tenantId, vehicleId, { token } = {}) {
-    if (!tenantId) throw new Error("tenantId is required");
-    if (!vehicleId) throw new Error("vehicleId is required");
-
-    return apiFetch(
-      `/api/tenants/${tenantId}/vehicles/${vehicleId}/link`,
-      {
-        method: "POST",
-        token,
-      }
-    );
-  },
-
-  async unlinkVehicle(tenantId, vehicleId, { token } = {}) {
-    if (!tenantId) throw new Error("tenantId is required");
-    if (!vehicleId) throw new Error("vehicleId is required");
-
-    return apiFetch(
-      `/api/tenants/${tenantId}/vehicles/${vehicleId}/unlink`,
       {
         method: "DELETE",
         token,

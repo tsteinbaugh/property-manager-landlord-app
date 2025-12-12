@@ -36,7 +36,6 @@ export default function LandlordTenantDetailPage() {
   const [unlinkingOccupantId, setUnlinkingOccupantId] = useState(null);
   const [unlinkingPetId, setUnlinkingPetId] = useState(null);
   const [unlinkingEmergencyContactId, setUnlinkingEmergencyContactId] = useState(null);
-  const [unlinkingVehicleId, setUnlinkingVehicleId] = useState(null);
 
   // Load tenant (rich detail)
   useEffect(() => {
@@ -201,23 +200,14 @@ export default function LandlordTenantDetailPage() {
   const tenantEmergencyContacts = Array.isArray(tenant.emergencyContacts)
     ? tenant.emergencyContacts
     : [];
-  const tenantVehicles = Array.isArray(tenant.vehicles)
-    ? tenant.vehicles
-    : [];
 
   const manageOccupantsUrl = `/landlord/occupants/new?tenantId=${
     tenant.id
   }&returnTo=${encodeURIComponent(`/landlord/tenants/${tenant.id}`)}`;
-
   const managePetsUrl = `/landlord/pets/new?tenantId=${
     tenant.id
   }&returnTo=${encodeURIComponent(`/landlord/tenants/${tenant.id}`)}`;
-
   const manageEmergencyContactsUrl = `/landlord/emergencyContacts/new?tenantId=${
-    tenant.id
-  }&returnTo=${encodeURIComponent(`/landlord/tenants/${tenant.id}`)}`;
-
-  const manageVehicelsUrl = `/landlord/vehicles/new?tenantId=${
     tenant.id
   }&returnTo=${encodeURIComponent(`/landlord/tenants/${tenant.id}`)}`;
 
@@ -293,31 +283,6 @@ export default function LandlordTenantDetailPage() {
       alert("Failed to unlink emergency contact. Check console for details.");
     } finally {
       setUnlinkingEmergencyContactId(null);
-    }
-  };
-
-  const handleUnlinkVehicle = async (vehicleId) => {
-    if (!tenant || !tenant.id || !vehicleId) return;
-
-    const ok = window.confirm(
-      "Unlink this vehicle from this tenant?\n\n" +
-        "This does NOT delete either record."
-    );
-    if (!ok) return;
-
-    try {
-      setUnlinkingVehicleId(vehicleId);
-
-      await tenantsApi.unlinkVehicle(tenant.id, vehicleId, { token });
-
-      // Refresh tenant detail so UI matches DB
-      const fresh = await tenantsApi.detail(tenant.id, { token });
-      setTenant(fresh || tenant);
-    } catch (err) {
-      console.error("Failed to unlink vehicle from tenant", err);
-      alert("Failed to unlink vehicle. Check console for details.");
-    } finally {
-      setUnlinkingVehicleId(null);
     }
   };
   
@@ -727,82 +692,6 @@ export default function LandlordTenantDetailPage() {
             }}
           >
             Manage emergency contacts for this tenant
-          </button>
-        </div>
-      </section>
-
-      {/* Vehicles for this tenant (via many-to-many) */}
-      <section
-        style={{
-          padding: 16,
-          borderRadius: 12,
-          border: "1px solid #e5e7eb",
-          background: "#ffffff",
-          maxWidth: 640,
-          marginTop: 16,
-        }}
-      >
-        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
-          Vehicles for this tenant
-        </h3>
-      
-        {Array.isArray(tenant.vehicleLinks) && tenant.vehicleLinks.length > 0 ? (
-          <ul style={{ paddingLeft: 18, fontSize: 14 }}>
-            {tenant.vehicleLinks.map((link) => {
-              const v = link.vehicle;
-              if (!v || !v.id) return null;
-            
-              return (
-                <li
-                  key={v.id}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 8,
-                    marginBottom: 4,
-                  }}
-                >
-                  <span>
-                    <Link to={`/landlord/vehicles/${v.id}`}>
-                      {v.permit || v.plate || "Unnamed vehicle"}
-                    </Link>
-                    {v.make ? ` (${v.make})` : ""}
-                    {v.model ? ` (${v.model})` : ""}
-                    {v.year ? ` (${v.year})` : ""}
-                    {v.color ? ` (${v.color})` : ""}
-                    {v.state ? ` (${v.state})` : ""}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => handleUnlinkVehicle(v.id)}
-                    disabled={unlinkingVehicleId === v.id}
-                    style={{ fontSize: 11, padding: "2px 6px" }}
-                  >
-                    {unlinkingVehicleId === v.id ? "Unlinking…" : "Unlink"}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-        ) : (
-          <div style={{ fontSize: 14, color: "#6b7280" }}>
-            No vehicles linked to this tenant yet.
-          </div>
-        )}
-      
-        <div style={{ marginTop: 12 }}>
-          <button
-            type="button"
-            onClick={() => {
-              const returnTo = encodeURIComponent(
-                `${window.location.pathname}${window.location.search || ""}`
-              );
-              navigate(
-                `/landlord/vehicles/new?tenantId=${tenant.id}&returnTo=${returnTo}`
-              );
-            }}
-          >
-            Manage vehicles for this tenant
           </button>
         </div>
       </section>

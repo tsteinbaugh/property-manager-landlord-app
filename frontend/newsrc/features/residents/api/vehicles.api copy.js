@@ -1,47 +1,24 @@
 // newsrc/features/residents/api/vehicles.api.js
 import { apiFetch } from "@lib/apiClient.js";
 
-function mapVehicleFromApi(v) {
-  if (!v) return null;
+function mapVehicleFromApi(o) {
+  if (!o) return null;
 
-  const archived = !!(v.archived ?? v.isArchived);
-
-  const primaryTenant = v.primaryTenant
-    ? {
-        id: v.primaryTenant.id,
-        name: v.primaryTenant.name,
-        email: v.primaryTenant.email || "",
-        phone: v.primaryTenant.phone || "",
-      }
-    : null;
-
-  const tenants = Array.isArray(v.tenants)
-    ? v.tenants.map((t) => ({
-        id: t.id,
-        name: t.name,
-        email: t.email || "",
-        phone: t.phone || "",
-        archived: !!(t.archived ?? t.isArchived),
-      }))
-    : [];
+  const archived = !!(o.archived ?? o.isArchived);
 
   return {
-    id: v.id,
-    make: v.make || "",
-    model: v.model || "",
-    year: v.year || "",
-    color: v.color || "",
-    state: v.state || "",
-    plate: v.plate || "",
-    permit: v.permit || "",
-    tenantId: v.tenantId || null,
+    id: o.id,
+    make: o.make || "",
+    model: o.model || "",
+    year: o.year || "",
+    color: o.color || "",
+    state: o.state || "",
+    plate: o.plate || "",
+    permit: o.permit || "",
+    tenantId: o.tenantId || null,
     archived,
-    createdAt: v.createdAt || v.createdAtISO || null,
-    updatedAt: v.updatedAt || v.updatedAtISO || null,
-
-    // NEW: used by LandlordVehicleDetailsPage
-    primaryTenant,
-    tenants,
+    createdAt: o.createdAt || o.createdAtISO || null,
+    updatedAt: o.updatedAt || o.updatedAtISO || null,
   };
 }
 

@@ -351,25 +351,6 @@ export default function LandlordLeaseDetailPage() {
     }
   }
 
-  // Pooled vehicles across all tenants on this lease
-  const leaseVehicles = [];
-  const seenVehicleIds = new Set();
-
-  for (const t of tenantDetails || []) {
-    const vehs = Array.isArray(t.vehicles) ? t.vehicles : [];
-    for (const v of vehs) {
-      if (!v || !v.id) continue;
-      if (seenVehicleIds.has(v.id)) continue;
-
-      seenVehicleIds.add(v.id);
-      leaseVehicles.push({
-        ...v,
-        _tenantName: t.name || "(unnamed tenant)",
-        _tenantId: t.id,
-      });
-    }
-  }
-
   const base =
     lease.propertyLabel ||
     property?.name ||
@@ -879,100 +860,6 @@ export default function LandlordLeaseDetailPage() {
         ) : (
           <div style={{ fontSize: 14, color: "#6b7280" }}>
             No emergency contacts linked through tenants on this lease yet.
-          </div>
-        )}
-      </section>
-      {/* Pooled vehicles for this lease (via tenants) */}
-      <section
-        style={{
-          marginTop: 16,
-          padding: 16,
-          borderRadius: 12,
-          border: "1px solid #e5e7eb",
-          background: "#ffffff",
-          maxWidth: 640,
-        }}
-      >
-        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
-          Vehicles on this lease
-        </h3>
-
-        {tenantDetailsLoading ? (
-          <div style={{ fontSize: 14, color: "#6b7280" }}>
-            Loading vehicles…
-          </div>
-        ) : tenantDetailsError ? (
-          <div style={{ fontSize: 14, color: "#b91c1c" }}>
-            Failed to load vehicles for this lease.
-          </div>
-        ) : leaseVehicles.length > 0 ? (
-          <ul style={{ paddingLeft: 18, fontSize: 14 }}>
-            {leaseVehicles.map((v) => (
-              <li key={v.id} style={{ marginBottom: 4 }}>
-                <strong>{v.name || "Unnamed vehicle"}</strong>
-                {v.make && (
-                  <span
-                    style={{ marginLeft: 6, fontSize: 12, color: "#4b5563" }}
-                  >
-                    ({v.make})
-                  </span>
-                )}
-                {v.model && (
-                  <span
-                    style={{ marginLeft: 6, fontSize: 12, color: "#4b5563" }}
-                  >
-                    ({v.model})
-                  </span>
-                )}
-                {v.year && (
-                  <span
-                    style={{ marginLeft: 6, fontSize: 12, color: "#4b5563" }}
-                  >
-                    ({v.year})
-                  </span>
-                )}
-                {v.color && (
-                  <span
-                    style={{ marginLeft: 6, fontSize: 12, color: "#4b5563" }}
-                  >
-                    ({v.color})
-                  </span>
-                )}
-                {v.state && (
-                  <span
-                    style={{ marginLeft: 6, fontSize: 12, color: "#4b5563" }}
-                  >
-                    ({v.state})
-                  </span>
-                )}
-                {v.plate && (
-                  <span
-                    style={{ marginLeft: 6, fontSize: 12, color: "#4b5563" }}
-                  >
-                    ({v.plate})
-                  </span>
-                )}
-                {v.permit && (
-                  <span
-                    style={{ marginLeft: 6, fontSize: 12, color: "#4b5563" }}
-                  >
-                    ({v.permit})
-                  </span>
-                )}
-                <span
-                  style={{ marginLeft: 8, fontSize: 12, color: "#6b7280" }}
-                >
-                  via{" "}
-                  <Link to={`/landlord/tenants/${v._tenantId}`}>
-                    {v._tenantName}
-                  </Link>
-                </span>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <div style={{ fontSize: 14, color: "#6b7280" }}>
-            No vehicles linked through tenants on this lease yet.
           </div>
         )}
       </section>
