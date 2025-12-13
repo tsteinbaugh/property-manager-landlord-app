@@ -176,13 +176,6 @@ export default function LandlordAddOccupantPage() {
         token,
       });
 
-      // Optional: keep legacy occupant.tenantId in sync (can remove later)
-      await occupantsApi.update(
-        selectedExistingOccupantId,
-        { tenantId },
-        { token }
-      );
-
       goBackFromTenantContext();
     } catch (err) {
       console.error("Failed to link existing occupant", err);
@@ -215,9 +208,6 @@ export default function LandlordAddOccupantPage() {
 
       // 2) link to this tenant via join table
       await tenantsApi.linkOccupant(tenantId, created.id, { token });
-
-      // Optional: also keep legacy tenantId on occupant
-      await occupantsApi.update(created.id, { tenantId }, { token });
 
       goBackFromTenantContext();
     } catch (err) {

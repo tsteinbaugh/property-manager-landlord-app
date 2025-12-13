@@ -246,18 +246,23 @@ export default function LandlordAddLeasePage() {
     (t) => !selectedTenantIds.includes(t.id)
   );
 
-  // Candidate draft leases to link, based on context
   const candidateLeases = leases.filter((l) => {
-    if (l.status !== "DRAFT") return false;
+    if ((l.status || "DRAFT") !== "DRAFT") return false;
+
+    // If opened from a property, only show drafts that are NOT already attached to a property
     if (fromPropertyContext && l.propertyId) return false;
 
-    if (fromTenantContext) {
-      const hasTenant =
-        !!l.tenantId ||
-        (Array.isArray(l.leaseTenants) && l.leaseTenants.length > 0);
-      if (hasTenant) return false;
+    // If opened from a tenant, only hide drafts that ALREADY include this tenant.
+    // (We DO allow drafts that already have other tenants, because multi-tenant.)
+    if (fromTenantContext && qsTenantId) {
+      const alreadyLinked = Array.isArray(l.leaseTenants)
+        ? l.leaseTenants.some((lt) => lt.tenantId === qsTenantId)
+        : false;
+
+      if (alreadyLinked) return false;
     }
 
+    // Only show this section when launched from property or tenant context
     if (!fromPropertyContext && !fromTenantContext) return false;
 
     return true;
@@ -309,29 +314,23 @@ export default function LandlordAddLeasePage() {
       return;
     }
 
-    const patch = {};
-    if (fromPropertyContext) patch.propertyId = qsPropertyId;
-    if (fromTenantContext) patch.tenantId = qsTenantId;
-
-    if (!patch.propertyId && !patch.tenantId) {
-      alert(
-        "Unable to determine link context. Please open Add Lease from a property or tenant detail page."
-      );
-      return;
-    }
-
     try {
       setSaving(true);
-      const updated = await leasesApi.update(selectedLeaseId, patch, { token });
-
+    
+      // 1) If started from tenant context, link tenant to lease via join table
+      if (fromTenantContext && qsTenantId) {
+        await leasesApi.linkTenant(selectedLeaseId, qsTenantId, { token });
+      }
+    
+      // 2) If started from property context, connect property via PATCH (still correct)
+      if (fromPropertyContext && qsPropertyId) {
+        await leasesApi.update(selectedLeaseId, { propertyId: qsPropertyId }, { token });
+      }
+    
       sessionStorage.removeItem(LEASE_DRAFT_KEY);
       sessionStorage.removeItem(LEASE_DRAFT_RETURN_KEY);
-
-      if (updated && updated.id) {
-        navigate(`/landlord/leases/${updated.id}`);
-      } else {
-        navigate("/landlord/leases");
-      }
+    
+      navigate(`/landlord/leases/${selectedLeaseId}`);
     } catch (err) {
       console.error("Failed to link existing lease", err);
       alert("Failed to link lease. Check console for details.");
@@ -433,7 +432,6 @@ export default function LandlordAddLeasePage() {
 
       const payload = {
         propertyId: effectivePropertyId,
-        tenantId: tenantIds[0] || undefined, // primary
         tenantIds,
         rentAmount: numericRent,
         status: status.trim() || "DRAFT",
@@ -492,12 +490,6 @@ export default function LandlordAddLeasePage() {
 
   return (
     <div style={{ padding: 16 }}>
-      <div style={{ marginBottom: 8 }}>
-        <button type="button" onClick={handleCancelLease}>
-          ← Back
-        </button>
-      </div>
-
       <h2 style={{ margin: "8px 0 16px" }}>Add lease</h2>
 
       {/* SECTION 1: Link an existing draft lease (only from property/tenant) */}

@@ -338,7 +338,6 @@ export default function LandlordTenantDetailPage() {
       if (result?.notFound) {
         await leasesApi.update(
           leaseId,
-          { tenantId: null },
           { token }
         );
       }

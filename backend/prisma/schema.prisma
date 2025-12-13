@@ -1,6 +1,5 @@
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 generator client {
@@ -97,22 +96,22 @@ model User {
   // Who owns which tenants (landlord-level ownership)
   tenantsOwned Tenant[] @relation("LandlordTenants")
 
-  // NEW: who created which leases
+  //who created which leases
   leasesCreated Lease[] @relation("LeaseCreatedBy")
 
-  // NEW: who created which occupants/pets/emergencyContacts/vehicles
+  //who created which occupants/pets/emergencyContacts/vehicles
   occupantsCreated         Occupant[]         @relation("OccupantCreatedBy")
   petsCreated              Pet[]              @relation("PetCreatedBy")
   emergencyContactsCreated EmergencyContact[] @relation("EmergencyContactCreatedBy")
   vehiclesCreated          Vehicle[]          @relation("VehicleCreatedBy")
 
-  // NEW: who owns which occupants/pets/emergencyContacts/vehicles (landlord-level ownership)
+  //who owns which occupants/pets/emergencyContacts/vehicles (landlord-level ownership)
   occupantsOwned         Occupant[]         @relation("LandlordOccupants")
   petsOwned              Pet[]              @relation("LandlordPets")
   emergencyContactsOwned EmergencyContact[] @relation("LandlordEmergencyContacts")
   vehiclesOwned          Vehicle[]          @relation("LandlordVehicles")
 
-  // NEW: who created which users (self-relation)
+  //who created which users (self-relation)
   createdById  String?
   createdBy    User?   @relation("UserCreatedBy", fields: [createdById], references: [id])
   usersCreated User[]  @relation("UserCreatedBy")
@@ -156,10 +155,6 @@ model Lease {
 
   landlord   User   @relation("UserLeases", fields: [landlordId], references: [id])
   landlordId String
-
-  tenantName String?
-  tenantId   String?
-  tenant     Tenant? @relation(fields: [tenantId], references: [id])
 
   rentAmount Int?
   status     LeaseStatus @default(DRAFT)
@@ -216,14 +211,7 @@ model Tenant {
 
   leaseTenants LeaseTenant[]
 
-  // Existing 1-to-many relations (still in use)
-  occupants         Occupant[]
-  pets              Pet[]
-  emergencyContacts EmergencyContact[]
-  vehicles          Vehicle[]
-  Lease             Lease[]
-
-  // NEW: multi-tenant join links (not yet used by routes/UI)
+  //multi-tenant join links 
   occupantLinks         TenantOccupant[]
   petLinks              TenantPet[]
   emergencyContactLinks TenantEmergencyContact[]
@@ -250,8 +238,6 @@ model LeaseTenant {
 
 model Occupant {
   id       String  @id @default(cuid())
-  tenant   Tenant? @relation(fields: [tenantId], references: [id])
-  tenantId String?
 
   name         String
   phone        String?
@@ -281,14 +267,12 @@ model Occupant {
   createdById String?
   createdBy   User?   @relation("OccupantCreatedBy", fields: [createdById], references: [id])
 
-  // NEW: multi-tenant join links (not yet used by routes/UI)
+  //multi-tenant join links
   tenantLinks TenantOccupant[]
 }
 
 model Pet {
   id       String  @id @default(cuid())
-  tenant   Tenant? @relation(fields: [tenantId], references: [id])
-  tenantId String?
 
   name       String
   type       String?
@@ -311,14 +295,12 @@ model Pet {
   createdById String?
   createdBy   User?   @relation("PetCreatedBy", fields: [createdById], references: [id])
 
-  // NEW: multi-tenant join links (not yet used by routes/UI)
+  //multi-tenant join links 
   tenantLinks TenantPet[]
 }
 
 model EmergencyContact {
   id       String  @id @default(cuid())
-  tenant   Tenant? @relation(fields: [tenantId], references: [id])
-  tenantId String?
 
   name       String
   phone      String?
@@ -342,14 +324,12 @@ model EmergencyContact {
   createdById String?
   createdBy   User?   @relation("EmergencyContactCreatedBy", fields: [createdById], references: [id])
 
-  // NEW: multi-tenant join links (not yet used by routes/UI)
+  //multi-tenant join links 
   tenantLinks TenantEmergencyContact[]
 }
 
 model Vehicle {
   id       String  @id @default(cuid())
-  tenant   Tenant? @relation(fields: [tenantId], references: [id])
-  tenantId String?
 
   make       String?
   model      String?
@@ -374,7 +354,7 @@ model Vehicle {
   createdById String?
   createdBy   User?   @relation("VehicleCreatedBy", fields: [createdById], references: [id])
 
-  // NEW: multi-tenant join links (not yet used by routes/UI)
+  //multi-tenant join links 
   tenantLinks TenantVehicle[]
 }
 

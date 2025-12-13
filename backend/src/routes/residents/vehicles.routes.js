@@ -72,14 +72,12 @@ function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
       // Look up join-table links: which tenants are linked to this vehicle?
       const links = await prisma.tenantVehicle.findMany({
         where: { vehicleId: id },
-        include: {
-          tenant: true,
-        },
+        include: { tenant: true },
       });
     
       const tenants = links
         .map((link) => link.tenant)
-        .filter((t) => !!t)
+        .filter(Boolean)
         .map((t) => ({
           id: t.id,
           name: t.name,
@@ -105,10 +103,10 @@ function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
   // ============================================================
   // CREATE VEHICLE
   // POST /api/vehicles
-  // Body: { make?, model?, year?, color?, state?, plate?, permit? tenantId?}  (tenantId is OPTIONAL now)
+  // Body: { make?, model?, year?, color?, state?, plate?, permit?)
   // ============================================================
   app.post("/api/vehicles", async (req, res) => {
-    const { make, model, year, color, state, plate, permit, tenantId } = req.body || {};
+    const { make, model, year, color, state, plate, permit } = req.body || {};
     const user = req.user || null;
 
     if (!user) {
@@ -158,13 +156,6 @@ function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
         createdById: user.id,
       };
 
-      // Optional linkage to a tenant
-      if (tenantId && String(tenantId).trim()) {
-        data.tenant = {
-          connect: { id: String(tenantId).trim() },
-        };
-      }
-
       const created = await prisma.vehicle.create({ data });
       res.status(201).json(shapeVehicle(created));
     } catch (err) {
@@ -176,11 +167,11 @@ function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
   // ============================================================
   // UPDATE VEHICLE
   // PATCH /api/vehicles/:id
-  // Body: partial { make?, model?, year?, color?, state?, plate?, permit? tenantId? }
+  // Body: partial { make?, model?, year?, color?, state?, plate?, permit?}
   // ============================================================
   app.patch("/api/vehicles/:id", async (req, res) => {
     const { id } = req.params;
-    const { make, model, year, color, state, plate, permit, tenantId } = req.body || {};
+    const { make, model, year, color, state, plate, permit } = req.body || {};
     const user = req.user || null;
 
     if (!user) {
@@ -272,12 +263,6 @@ function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
         }
       }
 
-      // tenantId: optional linkage, if your schema allows it
-      if (tenantId !== undefined) {
-        const trimmed = String(tenantId).trim();
-        data.tenantId = trimmed || null;
-      }
-
       const updated = await prisma.vehicle.update({
         where: { id },
         data,
@@ -331,7 +316,7 @@ function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
 
       const updated = await prisma.vehicle.update({
         where: { id },
-        data: { isArchived: !existing.isArchived },
+        data: { isArchived: !currentlyArchived },
       });
 
       res.json(shapeVehicle(updated));

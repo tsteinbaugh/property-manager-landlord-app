@@ -193,13 +193,6 @@ export default function LandlordAddVehiclePage() {
         token,
       });
 
-      // Optional: keep legacy vehicle.tenantId in sync (can remove later)
-      await vehiclesApi.update(
-        selectedExistingVehicleId,
-        { tenantId },
-        { token }
-      );
-
       goBackFromTenantContext();
     } catch (err) {
       console.error("Failed to link existing vehicle", err);
@@ -244,9 +237,6 @@ export default function LandlordAddVehiclePage() {
 
       // 2) link to this tenant via join table
       await tenantsApi.linkVehicle(tenantId, created.id, { token });
-
-      // Optional: also keep legacy tenantId on vehicle
-      await vehiclesApi.update(created.id, { tenantId }, { token });
 
       goBackFromTenantContext();
     } catch (err) {

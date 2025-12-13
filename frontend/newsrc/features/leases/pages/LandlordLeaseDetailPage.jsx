@@ -254,19 +254,10 @@ export default function LandlordLeaseDetailPage() {
     if (!ok) return;
 
     try {
-      // 1) Try the join-table unlink
+      // Try the join-table unlink
       const result = await leasesApi.unlinkTenant(lease.id, tenantId, { token });
 
-      // 2) If there was no LeaseTenant row, fall back to clearing the legacy tenantId
-      if (result?.notFound && lease.tenantId === tenantId) {
-        await leasesApi.update(
-          lease.id,
-          { tenantId: null },
-          { token }
-        );
-      }
-
-      // 3) Reload lease after unlink
+      // Reload lease after unlink
       const freshLease = await leasesApi.get(lease.id, { token });
       setLease(freshLease);
     } catch (err) {
@@ -381,11 +372,6 @@ export default function LandlordLeaseDetailPage() {
   const canArchiveNow = !isArchived; // any landlord can archive
   const canUnarchiveNow = isArchived && isSysAdmin;
   const showArchiveButton = canArchiveNow || canUnarchiveNow;
-
-  // For legacy single-tenant leases that have no leaseTenants row
-  const hasLegacySingleTenant =
-    (!leaseTenants || leaseTenants.length === 0) &&
-    (lease.tenantId || lease.tenant?.id);
 
   return (
     <div style={{ padding: 16 }}>
@@ -659,29 +645,6 @@ export default function LandlordLeaseDetailPage() {
               </li>
             ))}
           </ul>
-        ) : hasLegacySingleTenant ? (
-          <div style={{ fontSize: 14 }}>
-            <span>
-              {lease.tenant?.name ||
-                lease.tenantId ||
-                "Linked tenant (legacy)"}
-            </span>
-            {(lease.tenant?.id || lease.tenantId) && (
-              <button
-                type="button"
-                onClick={() =>
-                  handleUnlinkTenant(lease.tenant?.id || lease.tenantId)
-                }
-                style={{
-                  fontSize: 11,
-                  padding: "2px 6px",
-                  marginLeft: 8,
-                }}
-              >
-                Unlink from this lease
-              </button>
-            )}
-          </div>
         ) : (
           <div style={{ fontSize: 14, color: "#6b7280" }}>
             No tenants linked yet.

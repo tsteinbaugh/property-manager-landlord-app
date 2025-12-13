@@ -4,8 +4,11 @@ const cors = require("cors");
 const path = require("path");
 const fs = require("fs");
 const multer = require("multer");
-const crypto = require("crypto");
 const { PrismaClient } = require("@prisma/client");
+const { PrismaPg } = require("@prisma/adapter-pg");
+const { Pool } = require("pg");
+
+
 const { attachUser, requireAuth } = require("./middleware/auth.middleware.js");
 // ^ requireAuth is imported but not used anywhere in this file (not wrong, just unused)
 
@@ -21,7 +24,10 @@ const { registerAuthRoutes } = require("./routes/auth.routes.js");
 const { registerAdminRoutes } = require("./routes/admin.routes.js");
 
 // Initialize
-const prisma = new PrismaClient();
+const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+const adapter = new PrismaPg(pool);
+
+const prisma = new PrismaClient({ adapter });
 const app = express();
 
 const PORT = process.env.PORT || 4000;
@@ -125,13 +131,11 @@ if (require.main === module) {
 }
 
 // ===================================================================
-// HELPERS (used by route modules)
+// SHAPES
 // ===================================================================
 
 function shapeLease(lease) {
   if (!lease) return null;
-
-  const isArchived = lease.status === "ARCHIVED";
 
   return {
     id: lease.id,
@@ -141,10 +145,8 @@ function shapeLease(lease) {
     endDate: lease.endDate,
     archived: lease.status === "ARCHIVED",
 
-    // linkage info
-    propertyId: lease.propertyId || null,
-    tenantId: lease.tenantId || null,
     landlordId: lease.landlordId || null,
+    propertyId: lease.propertyId || null,
 
     property: lease.property
       ? {
@@ -157,30 +159,34 @@ function shapeLease(lease) {
         }
       : null,
 
-    tenant: lease.tenant
-      ? {
-          id: lease.tenant.id,
-          name: lease.tenant.name,
-          email: lease.tenant.email,
-          phone: lease.tenant.phone,
-        }
-      : null,
-
+    // ✅ ONLY source of tenants for a lease now
     leaseTenants: Array.isArray(lease.leaseTenants)
       ? lease.leaseTenants.map((lt) => ({
           id: lt.id,
           tenantId: lt.tenantId,
-          tenantName: lt.tenantName,
+          tenantName:
+            lt.tenantName ||
+            lt.tenant?.name ||
+            null,
           isPrimary: !!lt.isPrimary,
           startDate: lt.startDate,
           endDate: lt.endDate,
+
+          // include a minimal tenant object if your include pulled it
+          tenant: lt.tenant
+            ? {
+                id: lt.tenant.id,
+                name: lt.tenant.name,
+                email: lt.tenant.email,
+                phone: lt.tenant.phone,
+                archived: lt.tenant.isArchived,
+              }
+            : null,
         }))
       : [],
 
-    tenantName: lease.tenantName || null,
     propertyLabel: lease.propertyLabel || null,
 
-    // file metadata
     fileUrl: lease.fileUrl || null,
     fileOriginalName: lease.fileOriginalName || null,
     fileMimeType: lease.fileMimeType || null,
@@ -204,72 +210,19 @@ function shapeTenant(t) {
 }
 
 function shapeOccupant(o) {
-  // Primary tenant from the old 1:1 field
-  const primaryTenant = o.tenant
-    ? {
-        id: o.tenant.id,
-        name: o.tenant.name,
-        email: o.tenant.email,
-        phone: o.tenant.phone,
-      }
-    : null;
-
-  // Additional tenants via join table
-  const tenantsFromLinks = Array.isArray(o.tenantLinks)
-    ? o.tenantLinks
-        .map((link) => link.tenant)
-        .filter(Boolean)
-        .map((t) => ({
-          id: t.id,
-          name: t.name,
-          email: t.email,
-          phone: t.phone,
-        }))
-    : [];
-
-  // We’ll let the frontend de-dupe if primaryTenant also appears in tenants[].
   return {
     id: o.id,
-    tenantId: o.tenantId,
     name: o.name,
     relation: o.relation,
     archived: o.isArchived,
     createdAt: o.createdAt,
     updatedAt: o.updatedAt,
-
-    primaryTenant,
-    tenants: tenantsFromLinks,
   };
 }
 
 function shapePet(p) {
-  // Primary tenant from the old 1:1 field
-  const primaryTenant = p.tenant
-    ? {
-        id: p.tenant.id,
-        name: p.tenant.name,
-        email: p.tenant.email,
-        phone: p.tenant.phone,
-      }
-    : null;
-
-  // Additional tenants via join table
-  const tenantsFromLinks = Array.isArray(p.tenantLinks)
-    ? p.tenantLinks
-        .map((link) => link.tenant)
-        .filter(Boolean)
-        .map((t) => ({
-          id: t.id,
-          name: t.name,
-          email: t.email,
-          phone: t.phone,
-        }))
-    : [];
-
-  // We’ll let the frontend de-dupe if primaryTenant also appears in tenants[].
   return {
     id: p.id,
-    tenantId: p.tenantId,
     name: p.name,
     type: p.type || "",
     breed: p.breed || "",
@@ -277,40 +230,12 @@ function shapePet(p) {
     archived: p.isArchived,
     createdAt: p.createdAt,
     updatedAt: p.updatedAt,
-
-    primaryTenant,
-    tenants: tenantsFromLinks,
   };
 }
 
 function shapeEmergencyContact(e) {
-  // Primary tenant from the old 1:1 field
-  const primaryTenant = e.tenant
-    ? {
-        id: e.tenant.id,
-        name: e.tenant.name,
-        email: e.tenant.email,
-        phone: e.tenant.phone,
-      }
-    : null;
-
-  // Additional tenants via join table
-  const tenantsFromLinks = Array.isArray(e.tenantLinks)
-    ? e.tenantLinks
-        .map((link) => link.tenant)
-        .filter(Boolean)
-        .map((t) => ({
-          id: t.id,
-          name: t.name,
-          email: t.email,
-          phone: t.phone,
-        }))
-    : [];
-
-  // We’ll let the frontend de-dupe if primaryTenant also appears in tenants[].
   return {
     id: e.id,
-    tenantId: e.tenantId,
     name: e.name,
     phone: e.phone,
     relation: e.relation,
@@ -318,40 +243,12 @@ function shapeEmergencyContact(e) {
     archived: e.isArchived,
     createdAt: e.createdAt,
     updatedAt: e.updatedAt,
-
-    primaryTenant,
-    tenants: tenantsFromLinks,
   };
 }
 
 function shapeVehicle(v) {
-  // Primary tenant from the old 1:1 field
-  const primaryTenant = v.tenant
-    ? {
-        id: v.tenant.id,
-        name: v.tenant.name,
-        email: v.tenant.email,
-        phone: v.tenant.phone,
-      }
-    : null;
-
-  // Additional tenants via join table
-  const tenantsFromLinks = Array.isArray(v.tenantLinks)
-    ? v.tenantLinks
-        .map((link) => link.tenant)
-        .filter(Boolean)
-        .map((t) => ({
-          id: t.id,
-          name: t.name,
-          email: t.email,
-          phone: t.phone,
-        }))
-    : [];
-
-  // We’ll let the frontend de-dupe if primaryTenant also appears in tenants[].
   return {
     id: v.id,
-    tenantId: v.tenantId,
     make: v.make || "",
     model: v.model || "",
     year: v.year ?? null,
@@ -362,9 +259,6 @@ function shapeVehicle(v) {
     archived: v.isArchived,
     createdAt: v.createdAt,
     updatedAt: v.updatedAt,
-
-    primaryTenant,
-    tenants: tenantsFromLinks,
   };
 }
 

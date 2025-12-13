@@ -86,26 +86,10 @@ export default function LandlordOccupantDetailsPage() {
 
   const isArchived = !!occupant?.archived;
 
-  // Combine primaryTenant + tenants[] into one de-duplicated array
+  // Tenants in one de-duplicated array
   const linkedTenants = useMemo(() => {
     if (!occupant) return [];
-
-    const list = [];
-
-    if (Array.isArray(occupant.tenants)) {
-      for (const t of occupant.tenants) {
-        if (t && t.id) list.push({ ...t });
-      }
-    }
-
-    if (occupant.primaryTenant && occupant.primaryTenant.id) {
-      const exists = list.some((t) => t.id === occupant.primaryTenant.id);
-      if (!exists) {
-        list.unshift({ ...occupant.primaryTenant });
-      }
-    }
-
-    return list;
+    return Array.isArray(occupant.tenants) ? occupant.tenants : [];
   }, [occupant]);
 
   // Tenants that can still be added

@@ -99,26 +99,9 @@ export default function LandlordVehicleDetailsPage() {
 
   const isArchived = !!vehicle?.archived;
 
-  // Combine primaryTenant + tenants[] into one de-duplicated array
   const linkedTenants = useMemo(() => {
     if (!vehicle) return [];
-
-    const list = [];
-
-    if (Array.isArray(vehicle.tenants)) {
-      for (const t of vehicle.tenants) {
-        if (t && t.id) list.push({ ...t });
-      }
-    }
-
-    if (vehicle.primaryTenant && vehicle.primaryTenant.id) {
-      const exists = list.some((t) => t.id === vehicle.primaryTenant.id);
-      if (!exists) {
-        list.unshift({ ...vehicle.primaryTenant });
-      }
-    }
-
-    return list;
+    return Array.isArray(vehicle.tenants) ? vehicle.tenants : [];
   }, [vehicle]);
 
   // Tenants that can still be added

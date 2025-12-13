@@ -72,14 +72,12 @@ function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
       // Look up join-table links: which tenants are linked to this occupant?
       const links = await prisma.tenantOccupant.findMany({
         where: { occupantId: id },
-        include: {
-          tenant: true,
-        },
+        include: { tenant: true },
       });
     
       const tenants = links
         .map((link) => link.tenant)
-        .filter((t) => !!t)
+        .filter(Boolean)
         .map((t) => ({
           id: t.id,
           name: t.name,
@@ -105,10 +103,10 @@ function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
   // ============================================================
   // CREATE OCCUPANT
   // POST /api/occupants
-  // Body: { name, relation?, tenantId? }  (tenantId is OPTIONAL now)
+  // Body: { name, relation? )
   // ============================================================
   app.post("/api/occupants", async (req, res) => {
-    const { name, relation, tenantId } = req.body || {};
+    const { name, relation } = req.body || {};
     const user = req.user || null;
 
     if (!user) {
@@ -134,13 +132,6 @@ function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
         createdById: user.id,
       };
 
-      // Optional linkage to a tenant
-      if (tenantId && String(tenantId).trim()) {
-        data.tenant = {
-          connect: { id: String(tenantId).trim() },
-        };
-      }
-
       const created = await prisma.occupant.create({ data });
       res.status(201).json(shapeOccupant(created));
     } catch (err) {
@@ -152,11 +143,11 @@ function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
   // ============================================================
   // UPDATE OCCUPANT
   // PATCH /api/occupants/:id
-  // Body: partial { name?, relation?, tenantId? }
+  // Body: partial { name?, relation?}
   // ============================================================
   app.patch("/api/occupants/:id", async (req, res) => {
     const { id } = req.params;
-    const { name, relation, tenantId } = req.body || {};
+    const { name, relation } = req.body || {};
     const user = req.user || null;
 
     if (!user) {
@@ -195,12 +186,6 @@ function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
         } else if (typeof relation === "string") {
           data.relation = relation.trim() || null;
         }
-      }
-
-      // tenantId: optional linkage, if your schema allows it
-      if (tenantId !== undefined) {
-        const trimmed = String(tenantId).trim();
-        data.tenantId = trimmed || null;
       }
 
       const updated = await prisma.occupant.update({
@@ -256,7 +241,7 @@ function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
 
       const updated = await prisma.occupant.update({
         where: { id },
-        data: { isArchived: !existing.isArchived },
+        data: { isArchived: !currentlyArchived },
       });
 
       res.json(shapeOccupant(updated));

@@ -101,6 +101,17 @@ export default function LandlordAddPropertyPage() {
     }
   };
 
+  const handleCancel = () => {
+    // lease context → go back to that lease
+    if (inLeaseContext && leaseId) {
+      navigate(`/landlord/leases/${leaseId}`);
+      return;
+    }
+
+    // default → back to properties list
+    navigate("/landlord/properties");
+  };
+
   return (
     <div className={styles.page}>
       <header className={styles.header}>
@@ -180,6 +191,12 @@ export default function LandlordAddPropertyPage() {
 
       <div style={{ marginTop: 12 }}>
         <AddPropertyForm onCreated={handleCreated} />
+
+        <div style={{ marginTop: 12 }}>
+          <button type="button" onClick={handleCancel}>
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
   );

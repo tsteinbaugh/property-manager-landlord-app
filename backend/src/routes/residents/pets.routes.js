@@ -72,14 +72,12 @@ function registerPetRoutes(app, prisma, { shapePet }) {
       // Look up join-table links: which tenants are linked to this pet?
       const links = await prisma.tenantPet.findMany({
         where: { petId: id },
-        include: {
-          tenant: true,
-        },
+        include: { tenant: true },
       });
     
       const tenants = links
         .map((link) => link.tenant)
-        .filter((t) => !!t)
+        .filter(Boolean)
         .map((t) => ({
           id: t.id,
           name: t.name,
@@ -105,10 +103,10 @@ function registerPetRoutes(app, prisma, { shapePet }) {
   // ============================================================
   // CREATE PET
   // POST /api/pets
-  // Body: { name, type?, breed?, weightLb? tenantId? }  (tenantId is OPTIONAL now)
+  // Body: { name, type?, breed?, weightLb? )
   // ============================================================
   app.post("/api/pets", async (req, res) => {
-    const { name, type, breed, weightLb, tenantId } = req.body || {};
+    const { name, type, breed, weightLb } = req.body || {};
     const user = req.user || null;
 
     if (!user) {
@@ -148,13 +146,6 @@ function registerPetRoutes(app, prisma, { shapePet }) {
         createdById: user.id,
       };
 
-      // Optional linkage to a tenant
-      if (tenantId && String(tenantId).trim()) {
-        data.tenant = {
-          connect: { id: String(tenantId).trim() },
-        };
-      }
-
       const created = await prisma.pet.create({ data });
       res.status(201).json(shapePet(created));
     } catch (err) {
@@ -166,11 +157,11 @@ function registerPetRoutes(app, prisma, { shapePet }) {
   // ============================================================
   // UPDATE pet
   // PATCH /api/pets/:id
-  // Body: partial { name?, type?, breed?, weightLb? tenantId? }
+  // Body: partial { name?, type?, breed?, weightLb? }
   // ============================================================
   app.patch("/api/pets/:id", async (req, res) => {
     const { id } = req.params;
-    const { name, type, breed, weightLb, tenantId } = req.body || {};
+    const { name, type, breed, weightLb } = req.body || {};
     const user = req.user || null;
 
     if (!user) {
@@ -232,12 +223,6 @@ function registerPetRoutes(app, prisma, { shapePet }) {
         }
       }
 
-      // tenantId: optional linkage, if your schema allows it
-      if (tenantId !== undefined) {
-        const trimmed = String(tenantId).trim();
-        data.tenantId = trimmed || null;
-      }
-
       const updated = await prisma.pet.update({
         where: { id },
         data,
@@ -291,7 +276,7 @@ function registerPetRoutes(app, prisma, { shapePet }) {
 
       const updated = await prisma.pet.update({
         where: { id },
-        data: { isArchived: !existing.isArchived },
+        data: { isArchived: !currentlyArchived },
       });
 
       res.json(shapePet(updated));

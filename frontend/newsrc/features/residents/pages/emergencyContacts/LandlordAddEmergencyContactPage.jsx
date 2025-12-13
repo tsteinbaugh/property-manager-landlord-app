@@ -180,13 +180,6 @@ export default function LandlordAddEmergencyContactPage() {
         token,
       });
 
-      // Optional: keep legacy emergencyContact.tenantId in sync (can remove later)
-      await emergencyContactsApi.update(
-        selectedExistingEmergencyContactId,
-        { tenantId },
-        { token }
-      );
-
       goBackFromTenantContext();
     } catch (err) {
       console.error("Failed to link existing emergency contact", err);
@@ -221,9 +214,6 @@ export default function LandlordAddEmergencyContactPage() {
 
       // 2) link to this tenant via join table
       await tenantsApi.linkEmergencyContact(tenantId, created.id, { token });
-
-      // Optional: also keep legacy tenantId on emergency contact
-      await emergencyContactsApi.update(created.id, { tenantId }, { token });
 
       goBackFromTenantContext();
     } catch (err) {

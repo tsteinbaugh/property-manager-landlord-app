@@ -94,26 +94,9 @@ export default function LandlordPetDetailsPage() {
 
   const isArchived = !!pet?.archived;
 
-  // Combine primaryTenant + tenants[] into one de-duplicated array
   const linkedTenants = useMemo(() => {
     if (!pet) return [];
-
-    const list = [];
-
-    if (Array.isArray(pet.tenants)) {
-      for (const t of pet.tenants) {
-        if (t && t.id) list.push({ ...t });
-      }
-    }
-
-    if (pet.primaryTenant && pet.primaryTenant.id) {
-      const exists = list.some((t) => t.id === pet.primaryTenant.id);
-      if (!exists) {
-        list.unshift({ ...pet.primaryTenant });
-      }
-    }
-
-    return list;
+    return Array.isArray(pet.tenants) ? pet.tenants : [];
   }, [pet]);
 
   // Tenants that can still be added

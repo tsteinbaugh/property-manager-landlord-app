@@ -1,14 +1,6 @@
 // backend/src/routes/properties.routes.js
 
-/**
- * Property routes
- *
- * Assumes:
- * - `requireAuth` middleware attaches `req.user = { id, baseRole, ... }`
- *   with baseRole like "LANDLORD", "TENANT", "SYSADMIN", etc.
- * - Property model has landlordId and createdById fields.
- */
-function registerPropertyRoutes(app, prisma, requireAuth) {
+function registerPropertyRoutes(app, prisma ) {
   // ===================================================================
   // PROPERTIES
   // ===================================================================
@@ -188,79 +180,25 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
         include: {
           leases: {
             include: {
-              // direct 1:1 tenant on the lease
-              tenant: {
-                include: {
-                  occupants: {
-                    where: { isArchived: false },
-                  },
-                  occupantLinks: {
-                    include: {
-                      occupant: true,
-                    },
-                  },
-                  pets: {
-                    where: { isArchived: false },
-                  },
-                  petLinks: {
-                    include: {
-                      pet: true,
-                    },
-                  },
-                  emergencyContacts: {
-                    where: { isArchived: false },
-                  },
-                  emergencyContactLinks: {
-                    include: {
-                      emergencyContact: true,
-                    },
-                  },
-                  vehicles: {
-                    where: { isArchived: false },
-                  },
-                  vehicleLinks: {
-                    include: {
-                      vehicle: true,
-                    },
-                  },     
-                },
-              },
-              // multi-tenant join table
               leaseTenants: {
                 include: {
                   tenant: {
                     include: {
-                      occupants: {
-                        where: { isArchived: false },
-                      },
                       occupantLinks: {
-                        include: {
-                          occupant: true,
-                        },
-                      },
-                      pets: {
-                        where: { isArchived: false },
+                        where: { occupant: { isArchived: false } },
+                        include: { occupant: true },
                       },
                       petLinks: {
-                        include: {
-                          pet: true,
-                        },
-                      },
-                      emergencyContacts: {
-                        where: { isArchived: false },
+                        where: { pet: {isArchived: false } },
+                        include: { pet: true },
                       },
                       emergencyContactLinks: {
-                        include: {
-                          emergencyContact: true,
-                        },
-                      },
-                      vehicles: {
-                        where: { isArchived: false },
+                        where: { emergencyContact: {isArchived: false } },
+                        include: { emergencyContact: true },
                       },
                       vehicleLinks: {
-                        include: {
-                          vehicle: true,
-                        },
+                        where: { vehicle: { isArchived: false } },
+                        include: { vehicle: true },
                       },  
                     },
                   },
@@ -303,19 +241,6 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
           });
         }
 
-        // legacy direct occupants
-        for (const o of t.occupants || []) {
-          if (!o || !o.id || o.isArchived) continue;
-          if (!occupantMap.has(o.id)) {
-            occupantMap.set(o.id, {
-              id: o.id,
-              name: o.name,
-              relation: o.relation,
-              archived: o.isArchived,
-            });
-          }
-        }
-
         // many-to-many occupants via TenantOccupant
         for (const link of t.occupantLinks || []) {
           const o = link.occupant;
@@ -326,21 +251,6 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
               name: o.name,
               relation: o.relation,
               archived: o.isArchived,
-            });
-          }
-        }
-
-        // legacy direct pets
-        for (const p of t.pets || []) {
-          if (!p || !p.id || p.isArchived) continue;
-          if (!petMap.has(p.id)) {
-            petMap.set(p.id, {
-              id: p.id,
-              name: p.name,
-              type: p.type,
-              breed: p.breed,
-              weightLb: p.weightLb,
-              archived: p.isArchived,
             });
           }
         }
@@ -361,21 +271,6 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
           }
         }        
 
-        // legacy direct emergency contacts
-        for (const e of t.emergencyContacts || []) {
-          if (!e || !e.id || e.isArchived) continue;
-          if (!emergencyContactMap.has(e.id)) {
-            emergencyContactMap.set(e.id, {
-              id: e.id,
-              name: e.name,
-              phone: e.phone,
-              relation: e.relation,
-              email: e.email,
-              archived: e.isArchived,
-            });
-          }
-        }
-
         // many-to-many emergency contacts via TenantEmergencyContact
         for (const link of t.emergencyContactLinks || []) {
           const e = link.emergencyContact;
@@ -391,24 +286,6 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
             });
           }
         }        
-
-        // legacy direct vehicles
-        for (const v of t.vehicles || []) {
-          if (!v || !v.id || v.isArchived) continue;
-          if (!vehicleMap.has(v.id)) {
-            vehicleMap.set(v.id, {
-              id: v.id,
-              make: v.make || "",
-              model: v.model || "",
-              year: v.year ?? null,
-              color: v.color || "",
-              state: v.state || "",
-              plate: v.plate || "",
-              permit: v.permit || "",
-              archived: v.isArchived,
-            });
-          }
-        }
 
         // many-to-many vehicles via TenantVehicle
         for (const link of t.vehicleLinks || []) {
@@ -431,11 +308,6 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
       }
 
       for (const lease of property.leases || []) {
-        // direct lease.tenant
-        if (lease.tenant) {
-          collectTenant(lease.tenant);
-        }
-
         // join-table leaseTenants[].tenant
         for (const lt of lease.leaseTenants || []) {
           if (lt.tenant) {
@@ -466,79 +338,124 @@ function registerPropertyRoutes(app, prisma, requireAuth) {
   });
 
   // GET /api/properties/:id/summary
-  // Returns: property + active lease (if any) + tenant + occupants + pets + emergency contacts + vehicles
+  // Returns: property + active lease (if any) + tenants + occupants + pets + emergency contacts + vehicles
   app.get("/api/properties/:id/summary", async (req, res) => {
     const { id } = req.params;
-
+    const user = req.user || null;
+  
     try {
       const property = await prisma.property.findUnique({
         where: { id },
         include: {
           leases: {
-            where: { status: "ACTIVE" },
+            //where: { status: "ACTIVE" },
             orderBy: { startDate: "desc" },
+            //take: 1,
             include: {
-              tenant: true,
+              leaseTenants: {
+                include: {
+                  tenant: {
+                    include: {
+                      occupantLinks: {
+                        where: { occupant: { isArchived: false } },
+                        include: { occupant: true },
+                      },
+                      petLinks: {
+                        where: { pet: { isArchived: false } },
+                        include: { pet: true },
+                      },
+                      emergencyContactLinks: {
+                        where: { emergencyContact: { isArchived: false } },
+                        include: { emergencyContact: true },
+                      },
+                      vehicleLinks: {
+                        where: { vehicle: { isArchived: false } },
+                        include: { vehicle: true },
+                      },
+                    },
+                  },
+                },
+              },
             },
           },
         },
       });
-
+    
       if (!property) {
         return res.status(404).json({ error: "Property not found" });
       }
-
-      const user = req.user || null;
-
-      // If a landlord is logged in, they should only see their own property.
+    
+      // Landlord scoping
       if (user && user.baseRole === "LANDLORD") {
         if (property.landlordId && property.landlordId !== user.id) {
           return res.status(404).json({ error: "Property not found" });
         }
       }
-      // SYSADMIN or unauthenticated can still fetch any property for now.
-
-      const activeLease = property.leases[0] || null;
-      const tenant = activeLease?.tenant || null;
-
-      let occupants = [];
-      let pets = [];
-      let emergencyContacts = [];
-      let vehicles = [];
-
-      if (tenant) {
-        occupants = await prisma.occupant.findMany({
-          where: { tenantId: tenant.id, isArchived: false },
-          orderBy: { createdAt: "asc" },
-        });
-
-        pets = await prisma.pet.findMany({
-          where: { tenantId: tenant.id, isArchived: false },
-          orderBy: { createdAt: "asc" },
-        });
-
-        emergencyContacts = await prisma.emergencyContact.findMany({
-          where: { tenantId: tenant.id, isArchived: false },
-          orderBy: { createdAt: "asc" },
-        });
-        vehicles = await prisma.vehicle.findMany({
-          where: { tenantId: tenant.id, isArchived: false },
-          orderBy: { createdAt: "asc" },
-        });
+    
+      const activeLease = property.leases?.[0] || null;
+    
+      const tenantMap = new Map();
+      const occupantMap = new Map();
+      const petMap = new Map();
+      const emergencyContactMap = new Map();
+      const vehicleMap = new Map();
+    
+      function collectTenant(t) {
+        if (!t?.id) return;
+      
+        if (!tenantMap.has(t.id)) {
+          tenantMap.set(t.id, {
+            id: t.id,
+            name: t.name,
+            email: t.email,
+            phone: t.phone,
+            archived: t.isArchived,
+          });
+        }
+      
+        for (const link of t.occupantLinks || []) {
+          const o = link.occupant;
+          if (!o?.id || o.isArchived) continue;
+          if (!occupantMap.has(o.id)) occupantMap.set(o.id, o);
+        }
+      
+        for (const link of t.petLinks || []) {
+          const p = link.pet;
+          if (!p?.id || p.isArchived) continue;
+          if (!petMap.has(p.id)) petMap.set(p.id, p);
+        }
+      
+        for (const link of t.emergencyContactLinks || []) {
+          const e = link.emergencyContact;
+          if (!e?.id || e.isArchived) continue;
+          if (!emergencyContactMap.has(e.id)) emergencyContactMap.set(e.id, e);
+        }
+      
+        for (const link of t.vehicleLinks || []) {
+          const v = link.vehicle;
+          if (!v?.id || v.isArchived) continue;
+          if (!vehicleMap.has(v.id)) vehicleMap.set(v.id, v);
+        }
       }
-
-      res.json({
+    
+      if (activeLease?.leaseTenants?.length) {
+        for (const lt of activeLease.leaseTenants) {
+          if (lt?.tenant) collectTenant(lt.tenant);
+        }
+      }
+    
+      return res.json({
         property,
         lease: activeLease,
-        tenant,
-        occupants,
-        pets,
-        emergencyContacts,
-        vehicles,
+        tenants: Array.from(tenantMap.values()),
+        occupants: Array.from(occupantMap.values()),
+        pets: Array.from(petMap.values()),
+        emergencyContacts: Array.from(emergencyContactMap.values()),
+        vehicles: Array.from(vehicleMap.values()),
       });
     } catch (err) {
       console.error("Error in GET /api/properties/:id/summary", err);
-      res.status(500).json({ error: "Server error" });
+      return res.status(500).json({ error: "Server error" });
     }
   });
 }

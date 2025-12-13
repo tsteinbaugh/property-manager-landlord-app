@@ -20,7 +20,7 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
       return res.status(401).json({ error: "Unauthorized" });
     }
 
-    if (user.baseRole !== "TENANT") {
+    if (user.baseRole !== Role.TENANT) {
       return res
         .status(403)
         .json({ error: "Only tenants can access this endpoint" });
@@ -53,7 +53,7 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
       return res.status(401).json({ error: "Unauthorized" });
     }
 
-    if (user.baseRole !== "TENANT") {
+    if (user.baseRole !== Role.TENANT) {
       return res
         .status(403)
         .json({ error: "Only tenants can access this endpoint" });
@@ -160,46 +160,23 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
             },
           },
 
-          // Household info (non-archived, old 1-to-many fields)
-          occupants: {
-            where: { isArchived: false },
-            orderBy: { createdAt: "asc" },
-          },
-          pets: {
-            where: { isArchived: false },
-            orderBy: { createdAt: "asc" },
-          },
-          emergencyContacts: {
-            where: { isArchived: false },
-            orderBy: { createdAt: "asc" },
-          },
-          vehicles: {
-            where: { isArchived: false },
-            orderBy: { createdAt: "asc" },
-          },
-
           // NEW: join-table links for occupants, pets, emergency contacts and vehicles (multi-tenant plumbing)
           occupantLinks: {
-            include: {
-              occupant: true,
-            },
+            where: { occupant: { isArchived: false } },
+            include: { occupant: true },
           },
           petLinks: {
-            include: {
-              pet: true,
-            },
+            where: { pet: { isArchived: false } },
+            include: { pet: true },
           },
           emergencyContactLinks: {
-            include: {
-              emergencyContact: true,
-            },
+            where: { emergencyContact: { isArchived: false } },
+            include: { emergencyContact: true },
           },
           vehicleLinks: {
-            include: {
-              vehicle: true,
-            },
+            where: { vehicle: { isArchived: false } },
+            include: { vehicle: true },
           },
-          // (Later we can add petLinks/emergencyContactLinks/vehicleLinks similarly)
         },
       });
 
@@ -216,99 +193,21 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
         }
       }
 
-      // --- Merge legacy 1-to-many occupants with join-based occupants ---
-      const directOccs = Array.isArray(tenant.occupants)
-        ? tenant.occupants
-        : [];
+      // flatten links into arrays that your UI already expects
+      const occupants = (tenant.occupantLinks || []).map((l) => l.occupant).filter(Boolean);
+      const pets = (tenant.petLinks || []).map((l) => l.pet).filter(Boolean);
+      const emergencyContacts = (tenant.emergencyContactLinks || [])
+        .map((l) => l.emergencyContact)
+        .filter(Boolean);
+      const vehicles = (tenant.vehicleLinks || []).map((l) => l.vehicle).filter(Boolean);
 
-      const joinOccs = Array.isArray(tenant.occupantLinks)
-        ? tenant.occupantLinks
-            .map((link) => link.occupant)
-            .filter(Boolean)
-        : [];
-
-      const seenOccIds = new Set();
-      const mergedOccupants = [];
-
-      for (const occ of [...directOccs, ...joinOccs]) {
-        if (!occ || !occ.id) continue;
-        if (seenOccIds.has(occ.id)) continue;
-        seenOccIds.add(occ.id);
-        mergedOccupants.push(occ);
-      }
-
-      // --- Merge legacy 1-to-many pets with join-based pets ---
-      const directPets = Array.isArray(tenant.pets)
-        ? tenant.pets
-        : [];
-
-      const joinPets = Array.isArray(tenant.petLinks)
-        ? tenant.petLinks
-            .map((link) => link.pet)
-            .filter(Boolean)
-        : [];
-
-      const seenPetIds = new Set();
-      const mergedPets = [];
-
-      for (const pet of [...directPets, ...joinPets]) {
-        if (!pet || !pet.id) continue;
-        if (seenPetIds.has(pet.id)) continue;
-        seenPetIds.add(pet.id);
-        mergedPets.push(pet);
-      }
-
-     // --- Merge legacy 1-to-many emergency contacts with join-based emergency contacts ---
-      const directEmcs = Array.isArray(tenant.emergencyContacts)
-        ? tenant.emergencyContacts
-        : [];
-
-      const joinEmcs = Array.isArray(tenant.emergencyContactLinks)
-        ? tenant.emergencyContactLinks
-            .map((link) => link.emergencyContact)
-            .filter(Boolean)
-        : [];
-
-      const seenEmcIds = new Set();
-      const mergedEmergencyContacts = [];
-
-      for (const emc of [...directEmcs, ...joinEmcs]) {
-        if (!emc || !emc.id) continue;
-        if (seenEmcIds.has(emc.id)) continue;
-        seenEmcIds.add(emc.id);
-        mergedEmergencyContacts.push(emc);
-      }
-
-     // --- Merge legacy 1-to-many vehicle with join-based vehicles ---
-      const directVehs = Array.isArray(tenant.vehicles)
-        ? tenant.vehicles
-        : [];
-
-      const joinVehs = Array.isArray(tenant.vehicleLinks)
-        ? tenant.vehicleLinks
-            .map((link) => link.vehicle)
-            .filter(Boolean)
-        : [];
-
-      const seenVehIds = new Set();
-      const mergedVehicles = [];
-
-      for (const veh of [...directVehs, ...joinVehs]) {
-        if (!veh || !veh.id) continue;
-        if (seenVehIds.has(veh.id)) continue;
-        seenVehIds.add(veh.id);
-        mergedVehicles.push(veh);
-      }
-
-      const result = {
+      res.json({
         ...tenant,
-        occupants: mergedOccupants,
-        pets: mergedPets,
-        emergencyContacts: mergedEmergencyContacts,
-        vehicles: mergedVehicles,
-      };
-
-      res.json(result);
+        occupants,
+        pets,
+        emergencyContacts,
+        vehicles,
+      });
     } catch (err) {
       console.error("Error in GET /api/tenants/:id", err);
       res.status(500).json({ error: "Server error" });
@@ -658,10 +557,6 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
           },
         });
 
-        // IMPORTANT: we DO NOT touch occupant.tenantId here yet.
-        // Existing flows still use occupant.tenantId as before.
-        // We'll move UI over to this join table in a later step.
-
         return res.json({ ok: true });
       } catch (err) {
         console.error("Error in POST /api/tenants/:tenantId/occupants/:occupantId/link", err);
@@ -698,6 +593,13 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
           return res.status(404).json({ error: "Occupant not found" });
         }
 
+        if (user.baseRole !== Role.LANDLORD && user.baseRole !== Role.SYSADMIN) {
+          return res.status(403).json({ error: "Forbidden" });
+        }
+        
+        if (user.baseRole !== Role.LANDLORD && user.baseRole !== Role.SYSADMIN) {
+          return res.status(403).json({ error: "Forbidden" });
+        }
         const isSysAdmin = user.baseRole === Role.SYSADMIN;
         if (!isSysAdmin) {
           if (tenant.landlordId && tenant.landlordId !== user.id) {
@@ -729,9 +631,6 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
             .status(404)
             .json({ error: "Tenant/occupant link not found" });
         }
-
-        // Again: we do NOT change occupant.tenantId here yet.
-        // Old 1:1 logic keeps working until we move UI over.
 
         return res.json({ ok: true });
       } catch (err) {
@@ -807,10 +706,6 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
           },
         });
 
-        // IMPORTANT: we DO NOT touch pet.tenantId here yet.
-        // Existing flows still use pet.tenantId as before.
-        // We'll move UI over to this join table in a later step.
-
         return res.json({ ok: true });
       } catch (err) {
         console.error("Error in POST /api/tenants/:tenantId/pets/:petId/link", err);
@@ -847,6 +742,10 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
           return res.status(404).json({ error: "Pet not found" });
         }
 
+        if (user.baseRole !== Role.LANDLORD && user.baseRole !== Role.SYSADMIN) {
+          return res.status(403).json({ error: "Forbidden" });
+        }
+
         const isSysAdmin = user.baseRole === Role.SYSADMIN;
         if (!isSysAdmin) {
           if (tenant.landlordId && tenant.landlordId !== user.id) {
@@ -878,9 +777,6 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
             .status(404)
             .json({ error: "Tenant/pet link not found" });
         }
-
-        // Again: we do NOT change pet.tenantId here yet.
-        // Old 1:1 logic keeps working until we move UI over.
 
         return res.json({ ok: true });
       } catch (err) {
@@ -955,10 +851,6 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
           },
         });
 
-        // IMPORTANT: we DO NOT touch emergencyContact.tenantId here yet.
-        // Existing flows still use emergencyContact.tenantId as before.
-        // We'll move UI over to this join table in a later step.
-
         return res.json({ ok: true });
       } catch (err) {
         console.error("Error in POST /api/tenants/:tenantId/emergencyContacts/:emergencyContactId/link", err);
@@ -995,6 +887,10 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
           return res.status(404).json({ error: "Emergency Contact not found" });
         }
 
+        if (user.baseRole !== Role.LANDLORD && user.baseRole !== Role.SYSADMIN) {
+          return res.status(403).json({ error: "Forbidden" });
+        }
+
         const isSysAdmin = user.baseRole === Role.SYSADMIN;
         if (!isSysAdmin) {
           if (tenant.landlordId && tenant.landlordId !== user.id) {
@@ -1026,9 +922,6 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
             .status(404)
             .json({ error: "Tenant/emergency contact link not found" });
         }
-
-        // Again: we do NOT change emergency contact.tenantId here yet.
-        // Old 1:1 logic keeps working until we move UI over.
 
         return res.json({ ok: true });
       } catch (err) {
@@ -1103,10 +996,6 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
           },
         });
 
-        // IMPORTANT: we DO NOT touch vehicle.tenantId here yet.
-        // Existing flows still use vehicle.tenantId as before.
-        // We'll move UI over to this join table in a later step.
-
         return res.json({ ok: true });
       } catch (err) {
         console.error("Error in POST /api/tenants/:tenantId/vehicles/:vehicleId/link", err);
@@ -1143,6 +1032,10 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
           return res.status(404).json({ error: "Vehicle not found" });
         }
 
+        if (user.baseRole !== Role.LANDLORD && user.baseRole !== Role.SYSADMIN) {
+          return res.status(403).json({ error: "Forbidden" });
+        }
+
         const isSysAdmin = user.baseRole === Role.SYSADMIN;
         if (!isSysAdmin) {
           if (tenant.landlordId && tenant.landlordId !== user.id) {
@@ -1174,9 +1067,6 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
             .status(404)
             .json({ error: "Tenant/vehicle link not found" });
         }
-
-        // Again: we do NOT change vehicle.tenantId here yet.
-        // Old 1:1 logic keeps working until we move UI over.
 
         return res.json({ ok: true });
       } catch (err) {

@@ -72,14 +72,12 @@ function registerEmergencyContactRoutes(app, prisma, { shapeEmergencyContact }) 
       // Look up join-table links: which tenants are linked to this emergencyContact?
       const links = await prisma.tenantEmergencyContact.findMany({
         where: { emergencyContactId: id },
-        include: {
-          tenant: true,
-        },
+        include: { tenant: true },
       });
     
       const tenants = links
         .map((link) => link.tenant)
-        .filter((t) => !!t)
+        .filter(Boolean)
         .map((t) => ({
           id: t.id,
           name: t.name,
@@ -105,10 +103,10 @@ function registerEmergencyContactRoutes(app, prisma, { shapeEmergencyContact }) 
   // ============================================================
   // CREATE OCCUPANT
   // POST /api/emergencyContacts
-  // Body: { name, relation?, tenantId? }  (tenantId is OPTIONAL now)
+  // Body: { name, relation? )
   // ============================================================
   app.post("/api/emergencyContacts", async (req, res) => {
-    const { name, phone, relation, email, tenantId } = req.body || {};
+    const { name, phone, relation, email } = req.body || {};
     const user = req.user || null;
 
     if (!user) {
@@ -142,13 +140,6 @@ function registerEmergencyContactRoutes(app, prisma, { shapeEmergencyContact }) 
         createdById: user.id,
       };
 
-      // Optional linkage to a tenant
-      if (tenantId && String(tenantId).trim()) {
-        data.tenant = {
-          connect: { id: String(tenantId).trim() },
-        };
-      }
-
       const created = await prisma.emergencyContact.create({ data });
       res.status(201).json(shapeEmergencyContact(created));
     } catch (err) {
@@ -160,11 +151,11 @@ function registerEmergencyContactRoutes(app, prisma, { shapeEmergencyContact }) 
   // ============================================================
   // UPDATE OCCUPANT
   // PATCH /api/emergencyContacts/:id
-  // Body: partial { name?, relation?, tenantId? }
+  // Body: partial { name?, relation? }
   // ============================================================
   app.patch("/api/emergencyContacts/:id", async (req, res) => {
     const { id } = req.params;
-    const { name, phone, relation, email, tenantId } = req.body || {};
+    const { name, phone, relation, email } = req.body || {};
     const user = req.user || null;
 
     if (!user) {
@@ -223,12 +214,6 @@ function registerEmergencyContactRoutes(app, prisma, { shapeEmergencyContact }) 
         }
       }
 
-      // tenantId: optional linkage, if your schema allows it
-      if (tenantId !== undefined) {
-        const trimmed = String(tenantId).trim();
-        data.tenantId = trimmed || null;
-      }
-
       const updated = await prisma.emergencyContact.update({
         where: { id },
         data,
@@ -282,7 +267,7 @@ function registerEmergencyContactRoutes(app, prisma, { shapeEmergencyContact }) 
 
       const updated = await prisma.emergencyContact.update({
         where: { id },
-        data: { isArchived: !existing.isArchived },
+        data: { isArchived: !currentlyArchived },
       });
 
       res.json(shapeEmergencyContact(updated));

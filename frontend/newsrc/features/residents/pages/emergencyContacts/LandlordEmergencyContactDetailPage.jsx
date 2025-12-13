@@ -90,26 +90,9 @@ export default function LandlordEmergencyContactDetailsPage() {
 
   const isArchived = !!emergencyContact?.archived;
 
-  // Combine primaryTenant + tenants[] into one de-duplicated array
   const linkedTenants = useMemo(() => {
     if (!emergencyContact) return [];
-
-    const list = [];
-
-    if (Array.isArray(emergencyContact.tenants)) {
-      for (const t of emergencyContact.tenants) {
-        if (t && t.id) list.push({ ...t });
-      }
-    }
-
-    if (emergencyContact.primaryTenant && emergencyContact.primaryTenant.id) {
-      const exists = list.some((t) => t.id === emergencyContact.primaryTenant.id);
-      if (!exists) {
-        list.unshift({ ...emergencyContact.primaryTenant });
-      }
-    }
-
-    return list;
+    return Array.isArray(emergencyContact.tenants) ? emergencyContact.tenants : [];
   }, [emergencyContact]);
 
   // Tenants that can still be added

@@ -190,13 +190,6 @@ export default function LandlordAddPetPage() {
         token,
       });
 
-      // Optional: keep legacy pet.tenantId in sync (can remove later)
-      await petsApi.update(
-        selectedExistingPetId,
-        { tenantId },
-        { token }
-      );
-
       goBackFromTenantContext();
     } catch (err) {
       console.error("Failed to link existing pet", err);
@@ -243,9 +236,6 @@ export default function LandlordAddPetPage() {
 
       // 2) link to this tenant via join table
       await tenantsApi.linkPet(tenantId, created.id, { token });
-
-      // Optional: also keep legacy tenantId on pet
-      await petsApi.update(created.id, { tenantId }, { token });
 
       goBackFromTenantContext();
     } catch (err) {
