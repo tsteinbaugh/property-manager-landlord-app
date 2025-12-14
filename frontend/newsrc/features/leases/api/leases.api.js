@@ -176,7 +176,7 @@ export const leasesApi = {
     return res;
   },
 
-  // NEW: unlink tenant from lease via LeaseTenant join
+  // unlink tenant from lease via LeaseTenant join
   async unlinkTenant(leaseId, tenantId, { token } = {}) {
     if (!leaseId) throw new Error("leaseId is required");
     if (!tenantId) throw new Error("tenantId is required");
@@ -204,4 +204,10 @@ export const leasesApi = {
       throw err;
     }
   },
+  // unlink property from lease
+  async unlinkProperty(leaseId, { token } = {}) {
+    if (!leaseId) throw new Error("leaseId is required");
+    return this.update(leaseId, { propertyId: "" }, { token });
+  },
+
 };

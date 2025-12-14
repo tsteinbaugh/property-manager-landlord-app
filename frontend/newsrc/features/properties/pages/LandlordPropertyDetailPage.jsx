@@ -427,45 +427,6 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
 
       <hr style={{ margin: "16px 0" }} />
 
-      {/* Current active lease (from /summary) */}
-      <h3>Current Lease</h3>
-      {currentLease ? (
-        <div style={{ marginBottom: 12 }}>
-          <div>
-            Lease ID: <strong>{currentLease.id}</strong>
-          </div>
-          <div>
-            Status: <strong>{currentLease.status}</strong>
-          </div>
-          <div>
-            Rent:{" "}
-            {currentLease.rentAmount != null
-              ? `$${currentLease.rentAmount}`
-              : "N/A"}
-          </div>
-          <div>Start: {currentLease.startDate || "—"}</div>
-          <div>End: {currentLease.endDate || "(open-ended)"}</div>
-          {currentLease.fileUrl && (
-            <div style={{ marginTop: 4 }}>
-              <a
-                href={`http://localhost:4000${currentLease.fileUrl}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                View lease document
-              </a>
-              {currentLease.fileOriginalName && (
-                <span style={{ marginLeft: 4 }}>
-                  ({currentLease.fileOriginalName})
-                </span>
-              )}
-            </div>
-          )}
-        </div>
-      ) : (
-        <div style={{ marginBottom: 12 }}>No active lease.</div>
-      )}
-
       {/* Leases on this property (from richProperty) */}
       <section
         style={{
@@ -487,7 +448,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
               <li key={lease.id} style={{ marginBottom: 8 }}>
                 <div>
                   <Link to={`/landlord/leases/${lease.id}`}>
-                    Lease {lease.id.slice(0, 8)}
+                    Lease
                   </Link>{" "}
                   – {lease.status || "UNKNOWN"}
                   {lease.rentAmount != null && ` · $${lease.rentAmount}/mo`}
@@ -552,7 +513,6 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
                 <Link to={`/landlord/tenants/${t.id}`}>
                   {t.name || "(unnamed tenant)"}
                 </Link>
-                {t.email ? ` (${t.email})` : ""}
               </li>
             ))}
           </ul>
@@ -653,9 +613,6 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
                 <Link to={`/landlord/emergencyContacts/${e.id}`}>
                   {e.name || "(unnamed emergency contact)"}
                 </Link>
-                {e.email || "no email"}
-                {e.relation ? ` (${e.relation})` : ""}
-                {e.phone || "no phone"}
               </li>
             ))}
           </ul>
@@ -685,13 +642,11 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
             {vehiclesForProperty.map((v) => (
               <li key={v.id} style={{ marginBottom: 4 }}>
                 <Link to={`/landlord/vehicles/${v.id}`}>
-                  {v.permit || v.plate || "(unnamed vehicle)"}
+                  {v.permit || 
+                  v.plate || 
+                  (v.make && v.model && v.year ? `${v.year}, ${v.make} ${v.model}`: 
+                  "(unnamed vehicle)")}
                 </Link>
-                {v.make ? ` (${v.make})` : ""}
-                {v.model ? ` (${v.model})` : ""}
-                {v.year ? ` (${v.year})` : ""}
-                {v.color ? ` (${v.color})` : ""}
-                {v.state ? ` (${v.state})` : ""}
               </li>
             ))}
           </ul>

@@ -266,6 +266,26 @@ export default function LandlordLeaseDetailPage() {
     }
   };
 
+  const handleUnlinkProperty = async () => {
+    if (!lease?.id) return;
+  
+    const ok = window.confirm(
+      "Unlink this property from this lease?\n\n" +
+        "This does NOT delete either record, it only removes the association."
+    );
+    if (!ok) return;
+  
+    try {
+      await leasesApi.unlinkProperty(lease.id, { token });
+    
+      const freshLease = await leasesApi.get(lease.id, { token });
+      setLease(freshLease);
+    } catch (err) {
+      console.error("Failed to unlink property from lease", err);
+      alert("Failed to unlink property. Check console for details.");
+    }
+  };
+
   if (loading) return <div>Loading lease…</div>;
 
   if (error) {
@@ -553,8 +573,6 @@ export default function LandlordLeaseDetailPage() {
         </dl>
       </section>
 
-      <hr style={{ margin: "16px 0" }} />
-
       {/* Linked property */}
       <section
         style={{
@@ -572,11 +590,17 @@ export default function LandlordLeaseDetailPage() {
         {lease.property ? (
           <div style={{ fontSize: 14 }}>
             <div>
-              <strong>{lease.property.name || lease.property.address1}</strong>
-            </div>
-            <div>
-              {lease.property.address1}, {lease.property.city},{" "}
-              {lease.property.state} {lease.property.postalCode}
+              <strong>
+                {lease.property.name || 
+                (lease.property.address1 && lease.property.city && lease.property.state && lease.property.postalCode
+                ? `${lease.property.address1}, ${lease.property.city}, ${lease.property.state} ${lease.property.postalCode}`
+                : "Unnamed property")}
+              </strong>
+              {lease.property.id && (
+                <button type="button" onClick={handleUnlinkProperty}>
+                  Unlink from this lease
+                </button>
+              )}
             </div>
           </div>
         ) : lease.propertyId ? (
@@ -625,13 +649,6 @@ export default function LandlordLeaseDetailPage() {
               >
                 <span>
                   {lt.tenantName || lt.tenantId || "Unnamed tenant"}
-                  {lt.isPrimary && (
-                    <span
-                      style={{ marginLeft: 6, fontSize: 12, color: "#2563eb" }}
-                    >
-                      (primary)
-                    </span>
-                  )}
                 </span>
                 {lt.tenantId && (
                   <button
