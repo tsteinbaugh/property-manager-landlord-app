@@ -268,16 +268,16 @@ export default function LandlordLeaseDetailPage() {
 
   const handleUnlinkProperty = async () => {
     if (!lease?.id) return;
-  
+
     const ok = window.confirm(
       "Unlink this property from this lease?\n\n" +
         "This does NOT delete either record, it only removes the association."
     );
     if (!ok) return;
-  
+
     try {
       await leasesApi.unlinkProperty(lease.id, { token });
-    
+
       const freshLease = await leasesApi.get(lease.id, { token });
       setLease(freshLease);
     } catch (err) {
@@ -590,12 +590,12 @@ export default function LandlordLeaseDetailPage() {
         {lease.property ? (
           <div style={{ fontSize: 14 }}>
             <div>
-              <strong>
+              <Link to={`/landlord/properties/${lease.property.id}`}>
                 {lease.property.name || 
                 (lease.property.address1 && lease.property.city && lease.property.state && lease.property.postalCode
                 ? `${lease.property.address1}, ${lease.property.city}, ${lease.property.state} ${lease.property.postalCode}`
                 : "Unnamed property")}
-              </strong>
+              </Link>
               {lease.property.id && (
                 <button type="button" onClick={handleUnlinkProperty}>
                   Unlink from this lease
@@ -647,9 +647,9 @@ export default function LandlordLeaseDetailPage() {
                   marginBottom: 4,
                 }}
               >
-                <span>
-                  {lt.tenantName || lt.tenantId || "Unnamed tenant"}
-                </span>
+                <Link to={`/landlord/tenants/${lt.tenantId}`}>
+                  {lt.tenantName || "(unnamed tenant)"}
+                </Link>
                 {lt.tenantId && (
                   <button
                     type="button"
@@ -703,21 +703,14 @@ export default function LandlordLeaseDetailPage() {
           <ul style={{ paddingLeft: 18, fontSize: 14 }}>
             {leaseOccupants.map((o) => (
               <li key={o.id} style={{ marginBottom: 4 }}>
-                <strong>{o.name || "Unnamed occupant"}</strong>
-                {o.relation && (
-                  <span
-                    style={{ marginLeft: 6, fontSize: 12, color: "#4b5563" }}
-                  >
-                    ({o.relation})
-                  </span>
-                )}
+                <Link to={`/landlord/occupants/${o.id}`}>
+                  {o.name || "Unnamed occupant"}
+                </Link>
                 <span
                   style={{ marginLeft: 8, fontSize: 12, color: "#6b7280" }}
                 >
                   via{" "}
-                  <Link to={`/landlord/tenants/${o._tenantId}`}>
-                    {o._tenantName}
-                  </Link>
+                  <span>{o._tenantName}</span>
                 </span>
               </li>
             ))}
@@ -756,35 +749,14 @@ export default function LandlordLeaseDetailPage() {
           <ul style={{ paddingLeft: 18, fontSize: 14 }}>
             {leasePets.map((p) => (
               <li key={p.id} style={{ marginBottom: 4 }}>
-                <strong>{p.name || "Unnamed pet"}</strong>
-                {p.type && (
-                  <span
-                    style={{ marginLeft: 6, fontSize: 12, color: "#4b5563" }}
-                  >
-                    ({p.type})
-                  </span>
-                )}
-                {p.breed && (
-                  <span
-                    style={{ marginLeft: 6, fontSize: 12, color: "#4b5563" }}
-                  >
-                    ({p.breed})
-                  </span>
-                )}
-                {p.weightLb && (
-                  <span
-                    style={{ marginLeft: 6, fontSize: 12, color: "#4b5563" }}
-                  >
-                    ({p.weightLb})
-                  </span>
-                )}
+                <Link to={`/landlord/pets/${p.id}`}>
+                  {p.name || "Unnamed pet"}
+                </Link>
                 <span
                   style={{ marginLeft: 8, fontSize: 12, color: "#6b7280" }}
                 >
                   via{" "}
-                  <Link to={`/landlord/tenants/${p._tenantId}`}>
-                    {p._tenantName}
-                  </Link>
+                  <span>{p._tenantName}</span>
                 </span>
               </li>
             ))}
@@ -823,35 +795,14 @@ export default function LandlordLeaseDetailPage() {
           <ul style={{ paddingLeft: 18, fontSize: 14 }}>
             {leaseEmergencyContacts.map((e) => (
               <li key={e.id} style={{ marginBottom: 4 }}>
-                <strong>{e.name || "Unnamed emergency contact"}</strong>
-                {e.phone && (
-                  <span
-                    style={{ marginLeft: 6, fontSize: 12, color: "#4b5563" }}
-                  >
-                    ({e.phone})
-                  </span>
-                )}
-                {e.relation && (
-                  <span
-                    style={{ marginLeft: 6, fontSize: 12, color: "#4b5563" }}
-                  >
-                    ({e.relation})
-                  </span>
-                )}
-                {e.email && (
-                  <span
-                    style={{ marginLeft: 6, fontSize: 12, color: "#4b5563" }}
-                  >
-                    ({e.email})
-                  </span>
-                )}
+                <Link to={`/landlord/emergencyContacts/${e.id}`}>
+                  {e.name || "Unnamed emergency contact"}
+                </Link>
                 <span
                   style={{ marginLeft: 8, fontSize: 12, color: "#6b7280" }}
                 >
                   via{" "}
-                  <Link to={`/landlord/tenants/${e._tenantId}`}>
-                    {e._tenantName}
-                  </Link>
+                  <span>{e._tenantName}</span>
                 </span>
               </li>
             ))}
@@ -889,63 +840,17 @@ export default function LandlordLeaseDetailPage() {
           <ul style={{ paddingLeft: 18, fontSize: 14 }}>
             {leaseVehicles.map((v) => (
               <li key={v.id} style={{ marginBottom: 4 }}>
-                <strong>{v.name || "Unnamed vehicle"}</strong>
-                {v.make && (
-                  <span
-                    style={{ marginLeft: 6, fontSize: 12, color: "#4b5563" }}
-                  >
-                    ({v.make})
-                  </span>
-                )}
-                {v.model && (
-                  <span
-                    style={{ marginLeft: 6, fontSize: 12, color: "#4b5563" }}
-                  >
-                    ({v.model})
-                  </span>
-                )}
-                {v.year && (
-                  <span
-                    style={{ marginLeft: 6, fontSize: 12, color: "#4b5563" }}
-                  >
-                    ({v.year})
-                  </span>
-                )}
-                {v.color && (
-                  <span
-                    style={{ marginLeft: 6, fontSize: 12, color: "#4b5563" }}
-                  >
-                    ({v.color})
-                  </span>
-                )}
-                {v.state && (
-                  <span
-                    style={{ marginLeft: 6, fontSize: 12, color: "#4b5563" }}
-                  >
-                    ({v.state})
-                  </span>
-                )}
-                {v.plate && (
-                  <span
-                    style={{ marginLeft: 6, fontSize: 12, color: "#4b5563" }}
-                  >
-                    ({v.plate})
-                  </span>
-                )}
-                {v.permit && (
-                  <span
-                    style={{ marginLeft: 6, fontSize: 12, color: "#4b5563" }}
-                  >
-                    ({v.permit})
-                  </span>
-                )}
+                <Link to={`/landlord/vehicles/${v.id}`}>
+                  {v.permit || 
+                  v.plate || 
+                  (v.make && v.model && v.year ? `${v.year}, ${v.make} ${v.model}`: 
+                  "(unnamed vehicle)")}
+                </Link>
                 <span
                   style={{ marginLeft: 8, fontSize: 12, color: "#6b7280" }}
                 >
                   via{" "}
-                  <Link to={`/landlord/tenants/${v._tenantId}`}>
-                    {v._tenantName}
-                  </Link>
+                  <span>{v._tenantName}</span>
                 </span>
               </li>
             ))}
