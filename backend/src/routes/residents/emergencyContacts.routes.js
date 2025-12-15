@@ -314,21 +314,23 @@ const optionalTrimToNull = (v) => {
   });
 
   // ============================================================
-  // CREATE EMERGENCY CONTACT
-  // POST /api/emergencyContacts
-  // Body: { name, phone, email, address1?, city?, state?, postalCode?/zip?, relation?, notes? }
+  // UPDATE EMERGENCY CONTACT
+  // PATCH /api/emergencyContacts/:id
+  // Body: partial { name?, phone?, email?, relation?, address1?, city?, state?, postalCode?/zip?, notes? }
   // ============================================================
-  app.post("/api/emergencyContacts", async (req, res) => {
+  app.patch("/api/emergencyContacts/:id", async (req, res) => {
+    const { id } = req.params;
+  
     const {
       name,
       phone,
       email,
+      relation,
       address1,
       city,
       state,
       postalCode,
       zip, // alias
-      relation,
       notes,
     } = req.body || {};
   
@@ -338,87 +340,130 @@ const optionalTrimToNull = (v) => {
       return res.status(401).json({ error: "Unauthorized" });
     }
   
-    const cleanName = typeof name === "string" ? name.trim() : "";
-    if (!cleanName) {
-      return res.status(400).json({ error: "name is required" });
-    }
-  
-    // REQUIRED: email
-    const cleanEmail = normalizeEmail(email);
-    if (!cleanEmail) {
-      return res.status(400).json({ error: "email is required" });
-    }
-    if (!isValidEmail(cleanEmail)) {
-      return res.status(400).json({ error: "email must be a valid email address" });
-    }
-  
-    // REQUIRED: phone
-    const cleanPhoneRaw = typeof phone === "string" ? phone.trim() : "";
-    if (!cleanPhoneRaw) {
-      return res.status(400).json({ error: "phone is required" });
-    }
-    const cleanPhone = normalizePhone(phone);
-    if (!isValidPhone(cleanPhone)) {
-      return res.status(400).json({ error: "phone must be a valid phone number" });
-    }
-  
-    // Optional: state (US only) -> store USPS code
-    let stateCode = null;
-    const stateVal = optionalTrimToNull(state);
-    if (stateVal !== undefined) {
-      if (stateVal === null) {
-        stateCode = null;
-      } else {
-        const code = normalizeState(stateVal);
-        if (!code) {
-          return res.status(400).json({ error: "state must be a valid US state or DC" });
-        }
-        stateCode = code;
-      }
-    }
-  
-    // Optional: zip/postalCode (ZIP5 or ZIP+4)
-    let postal = null;
-    const zipInput = postalCode ?? zip;
-    const zipVal = optionalTrimToNull(zipInput);
-    if (zipVal !== undefined) {
-      if (zipVal === null) {
-        postal = null;
-      } else {
-        const normalized = normalizeZipUS(zipVal);
-        if (!normalized) {
-          return res
-            .status(400)
-            .json({ error: "postalCode must be a valid US ZIP (12345 or 12345-6789)" });
-        }
-        postal = normalized;
-      }
-    }
-  
     try {
-      const data = {
-        name: cleanName,
-      
-        // REQUIRED + normalized
-        phone: cleanPhone,
-        email: cleanEmail,
-      
-        // Optional fields
-        address1: optionalTrimToNull(address1) ?? null,
-        city: optionalTrimToNull(city) ?? null,
-        state: stateCode,
-        postalCode: postal,
-        notes: optionalTrimToNull(notes) ?? null,
-        relation: optionalTrimToNull(relation) ?? null,
-      
-        landlordId: user.id,
-        createdById: user.id,
-      };
+      const existing = await prisma.emergencyContact.findUnique({ where: { id } });
+      if (!existing) {
+        return res.status(404).json({ error: "Emergency contact not found" });
+      }
     
-      const created = await prisma.emergencyContact.create({ data });
-      return res.status(201).json(shapeEmergencyContact(created));
+      // Landlord can only update their own emergencyContacts; sysadmin can update any
+      if (
+        user.baseRole === Role.LANDLORD &&
+        existing.landlordId &&
+        existing.landlordId !== user.id
+      ) {
+        return res
+          .status(403)
+          .json({ error: "You are not allowed to update this emergencyContact." });
+      }
+    
+      const data = {};
+    
+      // name: allow empty → keep existing, or override with trimmed
+      if (name !== undefined) {
+        const trimmed = String(name).trim();
+        data.name = trimmed || existing.name;
+      }
+    
+      // relation: optional
+      if (relation !== undefined) {
+        data.relation = optionalTrimToNull(relation);
+      }
+    
+      // address fields + notes: optional
+      if (address1 !== undefined) data.address1 = optionalTrimToNull(address1);
+      if (city !== undefined) data.city = optionalTrimToNull(city);
+      if (notes !== undefined) data.notes = optionalTrimToNull(notes);
+    
+      // state: optional, but if provided must be valid US state/DC; store USPS code
+      if (state !== undefined) {
+        const stateVal = optionalTrimToNull(state);
+        if (stateVal === null) {
+          data.state = null;
+        } else if (typeof stateVal === "string") {
+          const code = normalizeState(stateVal);
+          if (!code) {
+            return res.status(400).json({ error: "state must be a valid US state or DC" });
+          }
+          data.state = code;
+        }
+      }
+    
+      // zip/postalCode: optional, but if provided must be ZIP5 or ZIP+4; store normalized
+      const zipInput = postalCode ?? zip;
+      if (zipInput !== undefined) {
+        const zipVal = optionalTrimToNull(zipInput);
+        if (zipVal === null) {
+          data.postalCode = null;
+        } else if (typeof zipVal === "string") {
+          const normalized = normalizeZipUS(zipVal);
+          if (!normalized) {
+            return res
+              .status(400)
+              .json({ error: "postalCode must be a valid US ZIP (12345 or 12345-6789)" });
+          }
+          data.postalCode = normalized;
+        }
+      }
+    
+      // phone: REQUIRED overall; if provided in PATCH, must be valid + non-empty + non-null
+      if (phone !== undefined) {
+        if (phone === null) {
+          return res.status(400).json({ error: "phone cannot be null" });
+        }
+        if (typeof phone !== "string" || !phone.trim()) {
+          return res.status(400).json({ error: "phone is required" });
+        }
+        const cleaned = normalizePhone(phone);
+        if (!isValidPhone(cleaned)) {
+          return res.status(400).json({ error: "phone must be a valid phone number" });
+        }
+        data.phone = cleaned;
+      }
+    
+      // email: REQUIRED overall; if provided in PATCH, must be valid + non-empty + non-null
+      if (email !== undefined) {
+        if (email === null) {
+          return res.status(400).json({ error: "email cannot be null" });
+        }
+        if (typeof email !== "string" || !email.trim()) {
+          return res.status(400).json({ error: "email is required" });
+        }
+        const cleaned = normalizeEmail(email);
+        if (!isValidEmail(cleaned)) {
+          return res.status(400).json({ error: "email must be a valid email address" });
+        }
+        data.email = cleaned;
+      }
+    
+      // ---- final guard: phone/email must exist + be valid after patch ----
+      const finalPhone =
+        data.phone !== undefined ? data.phone : (existing.phone || "");
+      const finalEmail =
+        data.email !== undefined ? data.email : (existing.email || "");
+    
+      if (!finalPhone) {
+        return res.status(400).json({ error: "phone is required" });
+      }
+      if (!isValidPhone(finalPhone)) {
+        return res.status(400).json({ error: "phone must be a valid phone number" });
+      }
+    
+      if (!finalEmail) {
+        return res.status(400).json({ error: "email is required" });
+      }
+      if (!isValidEmail(finalEmail)) {
+        return res.status(400).json({ error: "email must be a valid email address" });
+      }
+    
+      const updated = await prisma.emergencyContact.update({
+        where: { id },
+        data,
+      });
+    
+      return res.json(shapeEmergencyContact(updated));
     } catch (err) {
-      console.error("Error in POST /api/emergencyContacts", err);
+      console.error("Error in PATCH /api/emergencyContacts/:id", err);
       return res.status(500).json({ error: "Server error" });
     }
   });

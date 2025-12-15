@@ -67,7 +67,10 @@ export default function LandlordAddEmergencyContactPage() {
   const [searchParams] = useSearchParams();
 
   const tenantId = searchParams.get("tenantId") || "";
+  const emergencyContactId = searchParams.get("emergencyContactId") || "";
   const returnTo = searchParams.get("returnTo") || "";
+
+  const isEditMode = !!emergencyContactId;
 
   // ---------- shared simple form state (name/relation) ----------
   const [name, setName] = useState("");
@@ -142,6 +145,46 @@ export default function LandlordAddEmergencyContactPage() {
       cancelled = true;
     };
   }, [tenantId, token]);
+
+  // ------------------------------------------------------------
+  // Load emergency contact for EDIT mode (global or tenant context)
+  // ------------------------------------------------------------
+  useEffect(() => {
+    let cancelled = false;
+    if (!emergencyContactId || !token) return;
+
+    async function loadEmergencyContactForEdit() {
+      try {
+        setFormError("");
+        const ec = await emergencyContactsApi.get(emergencyContactId, { token });
+        if (cancelled) return;
+
+        if (!ec) {
+          setFormError("Emergency contact not found.");
+          return;
+        }
+
+        setName(ec.name || "");
+        setPhone(ec.phone || "");
+        setEmail(ec.email || "");
+        setAddress1(ec.address1 || "");
+        setCity(ec.city || "");
+        setState(ec.state || "");
+        setPostalCode(ec.postalCode || "");
+        setRelation(ec.relation || "");
+        setNotes(ec.notes || "");
+      } catch (err) {
+        console.error("Failed to load emergency contact for edit", err);
+        if (!cancelled) setFormError("Failed to load emergency contact for editing.");
+      }
+    }
+
+    loadEmergencyContactForEdit();
+    return () => {
+      cancelled = true;
+    };
+  }, [emergencyContactId, token]);
+
   // Emergency contacts currently linked to this tenant via join table
   const emergencyContactLinks = Array.isArray(tenant?.emergencyContactLinks)
     ? tenant.emergencyContactLinks
@@ -173,16 +216,12 @@ export default function LandlordAddEmergencyContactPage() {
   };
 
   const handleCancel = () => {
-    if (tenantId) {
-      goBackFromTenantContext();
-    } else {
-      navigate("/landlord/residents?tab=emergencyContacts");
-    }
+    if (returnTo) return navigate(returnTo);
+    if (tenantId) return goBackFromTenantContext();
+    if (isEditMode) return navigate(`/landlord/emergencyContacts/${emergencyContactId}`);
+    return navigate("/landlord/residents?tab=emergencyContacts");
   };
 
-  // ------------------------------------------------------------
-  // GLOBAL MODE (no tenantId): original behavior
-  // ------------------------------------------------------------
   const handleSubmitGlobal = async (e) => {
     e.preventDefault();
     setTouched({ name: true, phone: true, email: true });
@@ -192,8 +231,8 @@ export default function LandlordAddEmergencyContactPage() {
     const cleanPhone = normalizePhone(phone);
 
     if (!cleanName) return setFormError("Name is required.");
-    if (cleanName.length < 2) {return setFormError("Name must be at least 2 characters.");}
-    if (!/^[a-zA-Z\s.'-]+$/.test(cleanName)) {return setFormError("Name contains invalid characters.");}
+    if (cleanName.length < 2) return setFormError("Name must be at least 2 characters.");
+    if (!/^[a-zA-Z\s.'-]+$/.test(cleanName)) return setFormError("Name contains invalid characters.");
 
     if (!cleanPhone || !isValidPhone(cleanPhone)) return setFormError("Valid phone number is required.");
     if (!cleanEmail || !isValidEmail(cleanEmail)) return setFormError("Valid email is required.");
@@ -206,29 +245,40 @@ export default function LandlordAddEmergencyContactPage() {
     const zipNormalized = cleanPostal ? normalizeZipUS(cleanPostal) : "";
     if (cleanPostal && !zipNormalized) return setFormError("Zip must be 12345 or 12345-6789.");
 
+    const payload = {
+      name: cleanName,
+      phone: cleanPhone,
+      email: cleanEmail,
+      address1: trimOrEmpty(address1) || null,
+      city: trimOrEmpty(city) || null,
+      state: stateCode || null,
+      postalCode: zipNormalized || null,
+      relation: trimOrEmpty(relation) || null,
+      notes: trimOrEmpty(notes) || null,
+    };
+
     try {
       setSubmitting(true);
       setFormError("");
 
-      await emergencyContactsApi.create(
-        {
-          name: cleanName,
-          phone: cleanPhone,
-          email: cleanEmail,
-          address1: trimOrEmpty(address1) || null,
-          city: trimOrEmpty(city) || null,
-          state: stateCode || null,
-          postalCode: zipNormalized || null,
-          relation: trimOrEmpty(relation) || null,
-          notes: trimOrEmpty(notes) || null,
-        },
-        { token }
-      );
+      let saved;
+      if (isEditMode) {
+        saved = await emergencyContactsApi.update(emergencyContactId, payload, { token });
+      } else {
+        saved = await emergencyContactsApi.create(payload, { token });
+      }
 
-      navigate("/landlord/residents?tab=emergencyContacts");
+      // After save: prefer returnTo, otherwise go to detail (edit) or list (create)
+      if (returnTo) {
+        navigate(returnTo);
+      } else if (isEditMode) {
+        navigate(`/landlord/emergencyContacts/${saved?.id || emergencyContactId}`);
+      } else {
+        navigate("/landlord/residents?tab=emergencyContacts");
+      }
     } catch (err) {
-      console.error("Failed to create emergency contact", err);
-      setFormError("Failed to create emergency contact. Check console for details.");
+      console.error("Failed to save emergency contact", err);
+      setFormError("Failed to save emergency contact. Check console for details.");
     } finally {
       setSubmitting(false);
     }
@@ -780,10 +830,13 @@ export default function LandlordAddEmergencyContactPage() {
     <div className={styles.page}>
       <header className={styles.header}>
         <div>
-          <h1 className={styles.title}>Add emergency contact</h1>
+          <h1 className={styles.title}>
+            {isEditMode ? "Edit emergency contact" : "Add emergency contact"}
+          </h1>
           <p className={styles.subtitle}>
-            Create an emergency contact record. You’ll be able to connect emergency contacts to
-            leases (and tenants) later.
+            {isEditMode
+                ? "Update this emergency contact record."
+                : "Create an emergency contact record. You’ll be able to connect emergency contacts to leases (and tenants) later."}
           </p>
         </div>
       </header>
@@ -1084,7 +1137,7 @@ export default function LandlordAddEmergencyContactPage() {
               className={styles.primaryButton}
               disabled={saveDisabled}
             >
-              {isSubmitting ? "Saving…" : "Save emergency contact"}
+              {isSubmitting ? "Saving…" : isEditMode ? "Save changes" : "Save emergency contact"}
             </button>
 
             <button

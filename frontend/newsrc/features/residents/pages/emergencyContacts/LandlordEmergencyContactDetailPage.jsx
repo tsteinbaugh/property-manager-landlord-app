@@ -4,39 +4,20 @@ import { useUser } from "@app/providers.jsx";
 import ArchiveButton from "@shared/ui/ArchiveButton.jsx";
 import { emergencyContactsApi } from "@features/residents/api/emergencyContacts.api.js";
 import { tenantsApi } from "@features/residents/api/tenants.api.js";
-import { ROLES } from "@lib/rbac/roles.js";
 
 export default function LandlordEmergencyContactDetailsPage() {
   const { emergencyContactId } = useParams();
   const navigate = useNavigate();
-  const { effectiveRole, isSysAdmin, token } = useUser() || {};
-
-  const role =
-    isSysAdmin && effectiveRole !== ROLES.SYSADMIN
-      ? ROLES.SYSADMIN
-      : effectiveRole || ROLES.LANDLORD;
+  const { isSysAdmin, token } = useUser() || {};
 
   const [emergencyContact, setEmergencyContact] = useState(null);
   const [tenants, setTenants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const [isEditing, setEditing] = useState(false);
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [address1, setAddress1] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [postalCode, setPostalCode] = useState("");
-  const [relation, setRelation] = useState("");
-  const [notes, setNotes] = useState("");
-  const [isSaving, setSaving] = useState(false);
   const [isArchiving, setArchiving] = useState(false);
 
   // many-to-many controls
-  const [tenantPickerId, setTenantPickerId] = useState("");
-  const [linking, setLinking] = useState(false);
   const [unlinkingId, setUnlinkingId] = useState(null);
 
   // Load emergency contact + tenants
@@ -83,21 +64,6 @@ export default function LandlordEmergencyContactDetailsPage() {
     };
   }, [emergencyContactId, token]);
 
-  // Initialize edit fields when emergency contact changes
-  useEffect(() => {
-    if (emergencyContact) {
-      setName(emergencyContact.name || "");
-      setPhone(emergencyContact.phone || "");
-      setEmail(emergencyContact.email || "");
-      setAddress1(emergencyContact.address1 || "");
-      setCity(emergencyContact.city || "");
-      setState(emergencyContact.state || "");
-      setPostalCode(emergencyContact.postalCode || "");
-      setRelation(emergencyContact.relation || "");
-      setNotes(emergencyContact.notes || "");
-    }
-  }, [emergencyContact]);
-
   const isArchived = !!emergencyContact?.archived;
 
   const linkedTenants = useMemo(() => {
@@ -110,54 +76,6 @@ export default function LandlordEmergencyContactDetailsPage() {
     const linkedIds = new Set(linkedTenants.map((t) => t.id));
     return tenants.filter((t) => !linkedIds.has(t.id));
   }, [tenants, linkedTenants]);
-
-  const handleSave = async () => {
-    if (!name.trim()) {
-      alert("Name is required.");
-      return;
-    }
-
-    try {
-      setSaving(true);
-      const updated = await emergencyContactsApi.update(
-        emergencyContact.id,
-        {
-          name: name.trim(),
-          phone: phone.trim(),
-          email: email.trim(),
-          address1: address1.trim(),
-          city: city.trim(),
-          state: state.trim(),
-          postalCode: postalCode.trim(),
-          relation: relation.trim(),
-          notes: notes.trim(),
-        },
-        { token }
-      );
-      setEmergencyContact(updated);
-      setEditing(false);
-    } catch (err) {
-      console.error("Failed to update emergency contact", err);
-      alert("Failed to update emergency contact. Check console for details.");
-    } finally {
-      setSaving(false);
-    }
-  };
-
-  const handleCancelEdit = () => {
-    if (emergencyContact) {
-      setName(emergencyContact.name || "");
-      setPhone(emergencyContact.phone || "");
-      setEmail(emergencyContact.email || "");
-      setAddress1(emergencyContact.address1 || "");
-      setCity(emergencyContact.city || "");
-      setState(emergencyContact.state || "");
-      setPostalCode(emergencyContact.postalCode || "");
-      setRelation(emergencyContact.relation || "");
-      setNotes(emergencyContact.notes || "");
-    }
-    setEditing(false);
-  };
 
   const handleToggleArchive = async () => {
     if (!emergencyContact) return;
@@ -187,25 +105,6 @@ export default function LandlordEmergencyContactDetailsPage() {
       alert("Failed to change archive status. Check console for details.");
     } finally {
       setArchiving(false);
-    }
-  };
-
-  const handleLinkTenant = async () => {
-    if (!tenantPickerId || !emergencyContact || !emergencyContact.id) return;
-
-    try {
-      setLinking(true);
-      await tenantsApi.linkEmergencyContact(tenantPickerId, emergencyContact.id, { token });
-
-      // Refresh emergency contact to pick up new tenants[]
-      const fresh = await emergencyContactsApi.get(emergencyContact.id, { token });
-      setEmergencyContact(fresh || emergencyContact);
-      setTenantPickerId("");
-    } catch (err) {
-      console.error("Failed to link tenant to emergency contact", err);
-      alert("Failed to link tenant. Check console for details.");
-    } finally {
-      setLinking(false);
     }
   };
 
@@ -258,6 +157,15 @@ export default function LandlordEmergencyContactDetailsPage() {
     return <div style={{ padding: 16 }}>No data.</div>;
   }
 
+  const handleEdit = () => {
+    const returnTo = encodeURIComponent(
+      `${window.location.pathname}${window.location.search || ""}`
+    );
+    navigate(
+      `/landlord/emergencyContacts/new?emergencyContactId=${emergencyContact.id}&returnTo=${returnTo}`
+    );
+  };
+
   const title = emergencyContact.name || "Unnamed emergency contact";
 
   const canEditNow = !isArchived || isSysAdmin;
@@ -283,68 +191,9 @@ export default function LandlordEmergencyContactDetailsPage() {
           marginBottom: 12,
         }}
       >
-        <div>
-          {!isEditing ? (
-            <>
-              <h2 style={{ margin: "8px 0" }}>{title}</h2>
-              {isArchived && (
-                <div style={{ color: "#888", fontSize: 12 }}>
-                  (Archived – read-only for landlords)
-                </div>
-              )}
-            </>
-          ) : (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 6,
-                maxWidth: 480,
-              }}
-            >
-              <input
-                type="text"
-                placeholder="Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-              <input
-                type="tel"
-                placeholder="Phone number"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="Relation (roommate, child, partner, etc.)"
-                value={relation}
-                onChange={(e) => setRelation(e.target.value)}
-              />
-              <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <div style={{ display: "flex", gap: 8, marginTop: 4 }}>
-                <button
-                  type="button"
-                  onClick={handleSave}
-                  disabled={isSaving}
-                >
-                  {isSaving ? "Saving…" : "Save"}
-                </button>
-                <button type="button" onClick={handleCancelEdit}>
-                  Cancel
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
-
         <div style={{ display: "flex", gap: 8 }}>
-          {canEditNow && !isEditing && (
-            <button type="button" onClick={() => setEditing(true)}>
+          {canEditNow && (
+            <button type="button" onClick={handleEdit}>
               Edit
             </button>
           )}
