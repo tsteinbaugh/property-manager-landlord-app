@@ -260,11 +260,6 @@ export default function LandlordOccupantDetailsPage() {
           {!isEditing ? (
             <>
               <h2 style={{ margin: "8px 0" }}>{title}</h2>
-              <div style={{ color: "#555", marginBottom: 4 }}>
-                {occupant.relation && (
-                  <div>Relation: {occupant.relation}</div>
-                )}
-              </div>
               {isArchived && (
                 <div style={{ color: "#888", fontSize: 12 }}>
                   (Archived – read-only for landlords)

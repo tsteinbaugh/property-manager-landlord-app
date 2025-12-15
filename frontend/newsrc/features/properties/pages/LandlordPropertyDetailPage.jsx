@@ -325,10 +325,6 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
           {!isEditing ? (
             <>
               <h2 style={{ margin: "8px 0" }}>{title}</h2>
-              <div style={{ color: "#555", marginBottom: 4 }}>
-                {property.address1}, {property.city}, {property.state}{" "}
-                {property.postalCode}
-              </div>
               {isArchived && (
                 <div style={{ color: "#888", fontSize: 12 }}>
                   (Archived – read-only for landlords)
@@ -427,6 +423,56 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
 
       <hr style={{ margin: "16px 0" }} />
 
+      {/* Property info */}
+      <section
+        style={{
+          marginTop: 16,
+          padding: 16,
+          borderRadius: 12,
+          border: "1px solid #e5e7eb",
+          background: "#ffffff",
+          maxWidth: 720,
+        }}
+      >
+        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
+          Property info
+        </h3>
+        
+        <dl
+          style={{
+            display: "grid",
+            gridTemplateColumns: "120px 1fr",
+            rowGap: 8,
+            columnGap: 12,
+            fontSize: 14,
+          }}
+        >
+          <dt style={{ fontWeight: 500, color: "#4b5563" }}>Address</dt>
+          <dd>{property.address1 || "———"}</dd>
+
+          <dt style={{ fontWeight: 500, color: "#4b5563" }}></dt>
+          <dd>{`${property.city}, ${property.state} ${property.postalCode}` || " "}</dd>
+
+          <dt style={{ fontWeight: 500, color: "#4b5563" }}>No. of Bedrooms</dt>
+          <dd>{property.bedrooms || "———"}</dd>
+
+          <dt style={{ fontWeight: 500, color: "#4b5563" }}>No. of Bathrooms</dt>
+          <dd>{property.bathrooms || "———"}</dd>
+
+          <dt style={{ fontWeight: 500, color: "#4b5563" }}>Square Feet</dt>
+          <dd>{property.sqft || "———"}</dd>
+
+          <dt style={{ fontWeight: 500, color: "#4b5563" }}>Year built</dt>
+          <dd>{property.yearBuilt || "———"}</dd>
+
+          <dt style={{ fontWeight: 500, color: "#4b5563" }}>Additional notes</dt>
+          <dd>{property.notes || "———"}</dd>
+
+          <dt style={{ fontWeight: 500, color: "#4b5563" }}>Archive</dt>
+          <dd>{isArchived ? "Archived" : "Active"}</dd>
+        </dl>
+      </section>
+
       {/* Leases on this property (from richProperty) */}
       <section
         style={{
@@ -503,7 +549,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
         }}
       >
         <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
-          Tenants for this property (via leases)
+          Tenants for this property
         </h3>
 
         {tenantsForProperty.length > 0 ? (
@@ -535,7 +581,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
         }}
       >
         <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
-          Occupants for this property (via tenants)
+          Occupants for this property
         </h3>
 
         {occupantsForProperty.length > 0 ? (
@@ -545,7 +591,6 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
                 <Link to={`/landlord/occupants/${o.id}`}>
                   {o.name || "(unnamed occupant)"}
                 </Link>
-                {o.relation ? ` (${o.relation})` : ""}
               </li>
             ))}
           </ul>
@@ -568,7 +613,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
         }}
       >
         <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
-          Pets for this property (via tenants)
+          Pets for this property
         </h3>
 
         {petsForProperty.length > 0 ? (
@@ -603,7 +648,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
         }}
       >
         <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
-          Emergency contacts for this property (via tenants)
+          Emergency contacts for this property
         </h3>
 
         {emergencyContactsForProperty.length > 0 ? (
@@ -634,7 +679,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
         }}
       >
         <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
-          Vehicles for this property (via tenants)
+          Vehicles for this property
         </h3>
 
         {vehiclesForProperty.length > 0 ? (

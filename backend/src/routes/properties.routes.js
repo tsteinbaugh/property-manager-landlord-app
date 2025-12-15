@@ -1,5 +1,7 @@
 // backend/src/routes/properties.routes.js
 
+const { HairColor, EyeColor, BodyBuild } = require("@prisma/client");
+
 function registerPropertyRoutes(app, prisma ) {
   // ===================================================================
   // PROPERTIES
@@ -249,7 +251,20 @@ function registerPropertyRoutes(app, prisma ) {
             occupantMap.set(o.id, {
               id: o.id,
               name: o.name,
+              phone: o.phone,
+              email: o.email,
               relation: o.relation,
+              age: o.age,
+              heightFeet: o.heightFeet,
+              heightInches: o.heightInches,
+              weight: o.weight,
+              sex: o.sex,
+              hairColor: o.hairColor,
+              eyeColor: o.eyeColor,
+              bodyBuild: o.bodyBuild,
+              markings: o.markings,
+              notes: o.notes,
+              violations: o.violations,
               archived: o.isArchived,
             });
           }
@@ -266,6 +281,10 @@ function registerPropertyRoutes(app, prisma ) {
               type: p.type,
               breed: p.breed,
               weightLb: p.weightLb,
+              age: p.age,
+              license: p.license,
+              notes: p.notes,
+              violations: p.violations,
               archived: p.isArchived,
             });
           }
@@ -280,8 +299,13 @@ function registerPropertyRoutes(app, prisma ) {
               id: e.id,
               name: e.name,
               phone: e.phone,
-              relation: e.relation,
               email: e.email,
+              address1: e.address1,
+              city: e.city,
+              state: e.state,
+              postalCode: e.postalCode,
+              relation: e.relation,
+              notes: e.notes,
               archived: e.isArchived,
             });
           }
@@ -294,13 +318,16 @@ function registerPropertyRoutes(app, prisma ) {
           if (!vehicleMap.has(v.id)) {
             vehicleMap.set(v.id, {
               id: v.id,
-              make: v.make || "",
-              model: v.model || "",
-              year: v.year ?? null,
-              color: v.color || "",
-              state: v.state || "",
-              plate: v.plate || "",
-              permit: v.permit || "",
+              make: v.make,
+              model: v.model,
+              year: v.year,
+              color: v.color,
+              state: v.state,
+              plate: v.plate,
+              permit: v.permit,
+              parking: v.parking,
+              note: v.notes,
+              violations: v.violations,
               archived: v.isArchived,
             });
           }

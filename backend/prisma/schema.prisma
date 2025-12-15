@@ -303,13 +303,13 @@ model EmergencyContact {
   id       String  @id @default(cuid())
 
   name       String
-  phone      String?
-  relation   String?
-  email      String?
+  phone      String
+  email      String
   address1   String?
   city       String?
   state      String?
   postalCode String?
+  relation   String?
   notes      String?
   isArchived Boolean @default(false)
 

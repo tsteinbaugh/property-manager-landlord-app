@@ -413,20 +413,6 @@ export default function LandlordLeaseDetailPage() {
           {!isEditing ? (
             <>
               <h2 style={{ margin: "8px 0" }}>{title}</h2>
-              <div style={{ color: "#555", marginBottom: 4 }}>
-                {lease.rentAmount && (
-                  <div>Rent amount: {lease.rentAmount}</div>
-                )}
-              </div>
-              <div style={{ color: "#555", marginBottom: 4 }}>
-                {lease.status && <div>Status: {lease.status}</div>}
-              </div>
-              <div style={{ color: "#555", marginBottom: 4 }}>
-                {lease.startDate && <div>Start date: {lease.startDate}</div>}
-              </div>
-              <div style={{ color: "#555", marginBottom: 4 }}>
-                {lease.endDate && <div>End Date: {lease.endDate}</div>}
-              </div>
               {isArchived && (
                 <div style={{ color: "#888", fontSize: 12 }}>
                   (Archived – read-only for landlords)

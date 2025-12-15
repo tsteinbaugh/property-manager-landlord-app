@@ -6,6 +6,61 @@ import styles from "../tenants/LandlordTenantsPage.module.css";
 import { emergencyContactsApi } from "@features/residents/api/emergencyContacts.api.js";
 import { tenantsApi } from "@features/residents/api/tenants.api.js";
 
+const US_STATES = new Map([
+  ["ALABAMA","AL"],["ALASKA","AK"],["ARIZONA","AZ"],["ARKANSAS","AR"],
+  ["CALIFORNIA","CA"],["COLORADO","CO"],["CONNECTICUT","CT"],["DELAWARE","DE"],
+  ["FLORIDA","FL"],["GEORGIA","GA"],["HAWAII","HI"],["IDAHO","ID"],
+  ["ILLINOIS","IL"],["INDIANA","IN"],["IOWA","IA"],["KANSAS","KS"],
+  ["KENTUCKY","KY"],["LOUISIANA","LA"],["MAINE","ME"],["MARYLAND","MD"],
+  ["MASSACHUSETTS","MA"],["MICHIGAN","MI"],["MINNESOTA","MN"],["MISSISSIPPI","MS"],
+  ["MISSOURI","MO"],["MONTANA","MT"],["NEBRASKA","NE"],["NEVADA","NV"],
+  ["NEW HAMPSHIRE","NH"],["NEW JERSEY","NJ"],["NEW MEXICO","NM"],["NEW YORK","NY"],
+  ["NORTH CAROLINA","NC"],["NORTH DAKOTA","ND"],["OHIO","OH"],["OKLAHOMA","OK"],
+  ["OREGON","OR"],["PENNSYLVANIA","PA"],["RHODE ISLAND","RI"],["SOUTH CAROLINA","SC"],
+  ["SOUTH DAKOTA","SD"],["TENNESSEE","TN"],["TEXAS","TX"],["UTAH","UT"],
+  ["VERMONT","VT"],["VIRGINIA","VA"],["WASHINGTON","WA"],["WEST VIRGINIA","WV"],
+  ["WISCONSIN","WI"],["WYOMING","WY"],
+  ["DISTRICT OF COLUMBIA","DC"],
+]);
+const US_STATE_CODES = new Set(Array.from(US_STATES.values()));
+
+function normalizeState(input) {
+  const raw = typeof input === "string" ? input.trim() : "";
+  if (!raw) return "";
+  const upper = raw.toUpperCase().replace(/\./g, "");
+  if (upper.length === 2 && US_STATE_CODES.has(upper)) return upper;
+  return US_STATES.get(upper) || "";
+}
+
+function normalizeZipUS(input) {
+  const raw = typeof input === "string" ? input.trim() : "";
+  if (!raw) return "";
+  const digits = raw.replace(/\D/g, "");
+  if (digits.length === 5) return digits;
+  if (digits.length === 9) return `${digits.slice(0, 5)}-${digits.slice(5)}`;
+  return "";
+}
+
+function normalizeEmail(input) {
+  return typeof input === "string" ? input.trim().toLowerCase() : "";
+}
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function normalizePhone(input) {
+  if (typeof input !== "string") return "";
+  return input.trim().replace(/(?!^\+)[^\d]/g, ""); // keep digits and leading +
+}
+function isValidPhone(phoneDigitsOrPlus) {
+  const digits = phoneDigitsOrPlus.replace(/\D/g, "");
+  return digits.length === 10 || (digits.length === 11 && digits.startsWith("1"));
+}
+
+function trimOrEmpty(v) {
+  return typeof v === "string" ? v.trim() : "";
+}
+
 export default function LandlordAddEmergencyContactPage() {
   const navigate = useNavigate();
   const { token } = useUser() || {};
@@ -17,8 +72,13 @@ export default function LandlordAddEmergencyContactPage() {
   // ---------- shared simple form state (name/relation) ----------
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [relation, setRelation] = useState("");
   const [email, setEmail] = useState("");
+  const [address1, setAddress1] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [relation, setRelation] = useState("");
+  const [notes, setNotes] = useState("");
   const [isSubmitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
 
@@ -34,6 +94,7 @@ export default function LandlordAddEmergencyContactPage() {
   const [selectedExistingEmergencyContactId, setSelectedExistingEmergencyContactId] =
     useState("");
   const [isLinkingExisting, setIsLinkingExisting] = useState(false);
+  const [touched, setTouched] = useState({ name: false, phone: false, email: false });
 
   // ------------------------------------------------------------
   // Load tenant + emergencyContacts list when tenantId is present
@@ -124,11 +185,26 @@ export default function LandlordAddEmergencyContactPage() {
   // ------------------------------------------------------------
   const handleSubmitGlobal = async (e) => {
     e.preventDefault();
+    setTouched({ name: true, phone: true, email: true });
 
-    if (!name.trim()) {
-      setFormError("Name is required.");
-      return;
-    }
+    const cleanName = trimOrEmpty(name);
+    const cleanEmail = normalizeEmail(email);
+    const cleanPhone = normalizePhone(phone);
+
+    if (!cleanName) return setFormError("Name is required.");
+    if (cleanName.length < 2) {return setFormError("Name must be at least 2 characters.");}
+    if (!/^[a-zA-Z\s.'-]+$/.test(cleanName)) {return setFormError("Name contains invalid characters.");}
+
+    if (!cleanPhone || !isValidPhone(cleanPhone)) return setFormError("Valid phone number is required.");
+    if (!cleanEmail || !isValidEmail(cleanEmail)) return setFormError("Valid email is required.");
+
+    const cleanState = trimOrEmpty(state);
+    const stateCode = cleanState ? normalizeState(cleanState) : "";
+    if (cleanState && !stateCode) return setFormError("State must be a valid US state or DC.");
+
+    const cleanPostal = trimOrEmpty(postalCode);
+    const zipNormalized = cleanPostal ? normalizeZipUS(cleanPostal) : "";
+    if (cleanPostal && !zipNormalized) return setFormError("Zip must be 12345 or 12345-6789.");
 
     try {
       setSubmitting(true);
@@ -136,11 +212,15 @@ export default function LandlordAddEmergencyContactPage() {
 
       await emergencyContactsApi.create(
         {
-          name: name.trim(),
-          phone: phone.trim(),
-          relation: relation.trim(),
-          email: email.trim(),
-          // tenantId intentionally omitted – global emergency contact
+          name: cleanName,
+          phone: cleanPhone,
+          email: cleanEmail,
+          address1: trimOrEmpty(address1) || null,
+          city: trimOrEmpty(city) || null,
+          state: stateCode || null,
+          postalCode: zipNormalized || null,
+          relation: trimOrEmpty(relation) || null,
+          notes: trimOrEmpty(notes) || null,
         },
         { token }
       );
@@ -191,28 +271,43 @@ export default function LandlordAddEmergencyContactPage() {
 
   const handleSubmitForTenant = async (e) => {
     e.preventDefault();
+    setTouched({ name: true, phone: true, email: true });
 
-    if (!name.trim()) {
-      setFormError("Name is required.");
-      return;
-    }
+    const cleanName = trimOrEmpty(name);
+    const cleanEmail = normalizeEmail(email);
+    const cleanPhone = normalizePhone(phone);
+
+    if (!cleanName) return setFormError("Name is required.");
+    if (!cleanPhone || !isValidPhone(cleanPhone)) return setFormError("Valid phone number is required.");
+    if (!cleanEmail || !isValidEmail(cleanEmail)) return setFormError("Valid email is required.");
+
+    const cleanState = trimOrEmpty(state);
+    const stateCode = cleanState ? normalizeState(cleanState) : "";
+    if (cleanState && !stateCode) return setFormError("State must be a valid US state or DC.");
+
+    const cleanPostal = trimOrEmpty(postalCode);
+    const zipNormalized = cleanPostal ? normalizeZipUS(cleanPostal) : "";
+    if (cleanPostal && !zipNormalized) return setFormError("Zip must be 12345 or 12345-6789.");
 
     try {
       setSubmitting(true);
       setFormError("");
 
-      // 1) create the emergency contact globally
       const created = await emergencyContactsApi.create(
         {
-          name: name.trim(),
-          phone: phone.trim(),
-          relation: relation.trim(),
-          email: email.trim(),
+          name: cleanName,
+          phone: cleanPhone,
+          email: cleanEmail,
+          address1: trimOrEmpty(address1) || null,
+          city: trimOrEmpty(city) || null,
+          state: stateCode || null,
+          postalCode: zipNormalized || null,
+          relation: trimOrEmpty(relation) || null,
+          notes: trimOrEmpty(notes) || null,
         },
         { token }
       );
 
-      // 2) link to this tenant via join table
       await tenantsApi.linkEmergencyContact(tenantId, created.id, { token });
 
       goBackFromTenantContext();
@@ -223,8 +318,8 @@ export default function LandlordAddEmergencyContactPage() {
       setSubmitting(false);
     }
   };
-
-  const saveDisabled = isSubmitting || !name.trim();
+  
+  const saveDisabled = isSubmitting;
 
   // ------------------------------------------------------------
   // RENDER
@@ -298,9 +393,14 @@ export default function LandlordAddEmergencyContactPage() {
                     {availableExistingEmergencyContacts.map((e) => (
                       <option key={e.id} value={e.id}>
                         {e.name}
-                        {e.phone ? ` (${e.phone})` : ""}
+                        {e.phone}
+                        {e.email}
+                        {e.address1 ? ` (${e.address1})` : ""}
+                        {e.city ? ` (${e.city})` : ""}
+                        {e.state ? ` (${e.state})` : ""}
+                        {e.postalCode ? ` (${e.postalCode})` : ""}
                         {e.relation ? ` (${e.relation})` : ""}
-                        {e.email ? ` (${e.email})` : ""}
+                        {e.notes ? ` (${e.notes})` : ""}
                         {e.tenantId ? " – linked to another tenant" : ""}
                       </option>
                     ))}
@@ -323,9 +423,14 @@ export default function LandlordAddEmergencyContactPage() {
                       {tenantEmergencyContacts.map((e) => (
                         <li key={e.id}>
                           {e.name}
-                          {e.phone ? ` (${e.phone})` : ""}
+                          {e.phone}
+                          {e.email}
+                          {e.address1 ? ` (${e.address1})` : ""}
+                          {e.city ? ` (${e.city})` : ""}
+                          {e.state ? ` (${e.state})` : ""}
+                          {e.postalCode ? ` (${e.postalCode})` : ""}
                           {e.relation ? ` (${e.relation})` : ""}
-                          {e.email ? ` (${e.email})` : ""}
+                          {e.notes ? ` (${e.notes})` : ""}
                         </li>
                       ))}
                     </ul>
@@ -368,6 +473,7 @@ export default function LandlordAddEmergencyContactPage() {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                  onBlur={() => setTouched((t) => ({ ...t, name: true }))}
                   placeholder="Name (required)"
                   style={{
                     width: "100%",
@@ -377,6 +483,11 @@ export default function LandlordAddEmergencyContactPage() {
                   }}
                   disabled={isSubmitting}
                 />
+                {touched.name && !trimOrEmpty(name) && (
+                  <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>
+                    Enter a name
+                  </div>
+                )}
               </div>
 
               {/* Phone */}
@@ -390,13 +501,83 @@ export default function LandlordAddEmergencyContactPage() {
                   }}
                 >
                   Phone
+                  <span style={{ color: "#b91c1c" }}>*</span>
                 </label>
                 <input
                   id="phone"
-                  type="text"
+                  type="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  placeholder="Phone number"
+                  onBlur={() => setTouched((t) => ({ ...t, phone: true }))}
+                  placeholder="Phone number (required) (123-123-1234)"
+                  style={{
+                    width: "100%",
+                    padding: "6px 8px",
+                    borderRadius: 8,
+                    border: "1px solid #d1d5db",
+                  }}
+                  disabled={isSubmitting}
+                />
+                {touched.phone && trimOrEmpty(phone) && !isValidPhone(normalizePhone(phone)) && (
+                  <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>
+                    Enter a valid phone number (e.g. 303-555-1212 or +13035551212)
+                  </div>
+                )}
+              </div>
+
+              {/* Email */}
+              <div style={{ marginBottom: 12 }}>
+                <label
+                  htmlFor="email"
+                  style={{
+                    display: "block",
+                    fontWeight: 500,
+                    marginBottom: 4,
+                  }}
+                >
+                  Email
+                  <span style={{ color: "#b91c1c" }}>*</span>
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  onBlur={() => setTouched((t) => ({ ...t, email: true }))}
+                  placeholder="Email (required) (john.doe@example.com)"
+                  style={{
+                    width: "100%",
+                    padding: "6px 8px",
+                    borderRadius: 8,
+                    border: "1px solid #d1d5db",
+                  }}
+                  disabled={isSubmitting}
+                />
+                {touched.email && trimOrEmpty(email) && !isValidEmail(normalizeEmail(email)) && (
+                  <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>
+                    Enter a valid email (e.g. john.doe@example.com)
+                  </div>
+                )}
+              </div>
+
+              {/* Address1 */}
+              <div style={{ marginBottom: 12 }}>
+                <label
+                  htmlFor="address1"
+                  style={{
+                    display: "block",
+                    fontWeight: 500,
+                    marginBottom: 4,
+                  }}
+                >
+                  Address1
+                </label>
+                <input
+                  id="address1"
+                  type="text"
+                  value={address1}
+                  onChange={(e) => setAddress1(e.target.value)}
+                  placeholder="Street address"
                   style={{
                     width: "100%",
                     padding: "6px 8px",
@@ -406,6 +587,93 @@ export default function LandlordAddEmergencyContactPage() {
                   disabled={isSubmitting}
                 />
               </div>
+
+
+              {/* City */}
+              <div style={{ marginBottom: 12 }}>
+                <label
+                  htmlFor="city"
+                  style={{
+                    display: "block",
+                    fontWeight: 500,
+                    marginBottom: 4,
+                  }}
+                >
+                  City
+                </label>
+                <input
+                  id="city"
+                  type="text"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  placeholder="City"
+                  style={{
+                    width: "100%",
+                    padding: "6px 8px",
+                    borderRadius: 8,
+                    border: "1px solid #d1d5db",
+                  }}
+                  disabled={isSubmitting}
+                />
+              </div>
+
+
+              {/* State */}
+              <div style={{ marginBottom: 12 }}>
+                <label
+                  htmlFor="state"
+                  style={{
+                    display: "block",
+                    fontWeight: 500,
+                    marginBottom: 4,
+                  }}
+                >
+                  State
+                </label>
+                <input
+                  id="state"
+                  type="text"
+                  value={state}
+                  onChange={(e) => setState(e.target.value)}
+                  placeholder="State"
+                  style={{
+                    width: "100%",
+                    padding: "6px 8px",
+                    borderRadius: 8,
+                    border: "1px solid #d1d5db",
+                  }}
+                  disabled={isSubmitting}
+                />
+              </div>
+
+
+              {/* PostalCode */}
+              <div style={{ marginBottom: 12 }}>
+                <label
+                  htmlFor="postalCode"
+                  style={{
+                    display: "block",
+                    fontWeight: 500,
+                    marginBottom: 4,
+                  }}
+                >
+                  PostalCode
+                </label>
+                <input
+                  id="postalCode"
+                  type="text"
+                  value={postalCode}
+                  onChange={(e) => setPostalCode(e.target.value)}
+                  placeholder="Zip code"
+                  style={{
+                    width: "100%",
+                    padding: "6px 8px",
+                    borderRadius: 8,
+                    border: "1px solid #d1d5db",
+                  }}
+                  disabled={isSubmitting}
+                />
+              </div>        
 
               {/* Relation */}
               <div style={{ marginBottom: 12 }}>
@@ -424,7 +692,7 @@ export default function LandlordAddEmergencyContactPage() {
                   type="text"
                   value={relation}
                   onChange={(e) => setRelation(e.target.value)}
-                  placeholder="roommate, child, partner, etc."
+                  placeholder="Relation to tenant(s) (roommate, child, partner, etc.)"
                   style={{
                     width: "100%",
                     padding: "6px 8px",
@@ -435,24 +703,25 @@ export default function LandlordAddEmergencyContactPage() {
                 />
               </div>
 
-              {/* Email */}
+
+              {/* Notes */}
               <div style={{ marginBottom: 12 }}>
                 <label
-                  htmlFor="email"
+                  htmlFor="notes"
                   style={{
                     display: "block",
                     fontWeight: 500,
                     marginBottom: 4,
                   }}
                 >
-                  Email
+                  Notes
                 </label>
                 <input
-                  id="email"
+                  id="notes"
                   type="text"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Email"
+                  value={notes}
+                  onChange={(e) => setNotes(e.target.value)}
+                  placeholder="Additional notes"
                   style={{
                     width: "100%",
                     padding: "6px 8px",
@@ -461,7 +730,7 @@ export default function LandlordAddEmergencyContactPage() {
                   }}
                   disabled={isSubmitting}
                 />
-              </div>
+              </div>                                                                            
 
               {formError && (
                 <div
@@ -534,15 +803,21 @@ export default function LandlordAddEmergencyContactPage() {
           <div style={{ marginBottom: 12 }}>
             <label
               htmlFor="name"
-              style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
+              style={{
+                display: "block",
+                fontWeight: 500,
+                marginBottom: 4,
+              }}
             >
-              Emergency contact name <span style={{ color: "#b91c1c" }}>*</span>
+              Emergency contact name{" "}
+              <span style={{ color: "#b91c1c" }}>*</span>
             </label>
             <input
               id="name"
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              onBlur={() => setTouched((t) => ({ ...t, name: true }))}
               placeholder="Name (required)"
               style={{
                 width: "100%",
@@ -552,6 +827,11 @@ export default function LandlordAddEmergencyContactPage() {
               }}
               disabled={isSubmitting}
             />
+            {touched.name && !trimOrEmpty(name) && (
+              <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>
+                Enter a name
+              </div>
+            )}
           </div>
 
           {/* Phone */}
@@ -565,13 +845,83 @@ export default function LandlordAddEmergencyContactPage() {
               }}
             >
               Phone
+              <span style={{ color: "#b91c1c" }}>*</span>
             </label>
             <input
               id="phone"
-              type="text"
+              type="tel"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              placeholder="Phone number"
+              onBlur={() => setTouched((t) => ({ ...t, phone: true }))}
+              placeholder="Phone number (required) (123-123-1234)"
+              style={{
+                width: "100%",
+                padding: "6px 8px",
+                borderRadius: 8,
+                border: "1px solid #d1d5db",
+              }}
+              disabled={isSubmitting}
+            />
+            {touched.phone && trimOrEmpty(phone) && !isValidPhone(normalizePhone(phone)) && (
+              <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>
+                Enter a valid phone number (e.g. 303-555-1212 or +13035551212)
+              </div>
+            )}
+          </div>
+
+          {/* Email */}
+          <div style={{ marginBottom: 12 }}>
+            <label
+              htmlFor="email"
+              style={{
+                display: "block",
+                fontWeight: 500,
+                marginBottom: 4,
+              }}
+            >
+              Email
+              <span style={{ color: "#b91c1c" }}>*</span>
+            </label>
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              onBlur={() => setTouched((t) => ({ ...t, email: true }))}
+              placeholder="Email (required) (john.doe@example.com)"
+              style={{
+                width: "100%",
+                padding: "6px 8px",
+                borderRadius: 8,
+                border: "1px solid #d1d5db",
+              }}
+              disabled={isSubmitting}
+            />
+            {touched.email && trimOrEmpty(email) && !isValidEmail(normalizeEmail(email)) && (
+              <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>
+                Enter a valid email (e.g. john.doe@example.com)
+              </div>
+            )}
+          </div>
+
+          {/* Address1 */}
+          <div style={{ marginBottom: 12 }}>
+            <label
+              htmlFor="address1"
+              style={{
+                display: "block",
+                fontWeight: 500,
+                marginBottom: 4,
+              }}
+            >
+              Address1
+            </label>
+            <input
+              id="address1"
+              type="text"
+              value={address1}
+              onChange={(e) => setAddress1(e.target.value)}
+              placeholder="Street address"
               style={{
                 width: "100%",
                 padding: "6px 8px",
@@ -581,7 +931,92 @@ export default function LandlordAddEmergencyContactPage() {
               disabled={isSubmitting}
             />
           </div>
-       {/* Relation */}
+
+          {/* City */}
+          <div style={{ marginBottom: 12 }}>
+            <label
+              htmlFor="city"
+              style={{
+                display: "block",
+                fontWeight: 500,
+                marginBottom: 4,
+              }}
+            >
+              City
+            </label>
+            <input
+              id="city"
+              type="text"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              placeholder="City"
+              style={{
+                width: "100%",
+                padding: "6px 8px",
+                borderRadius: 8,
+                border: "1px solid #d1d5db",
+              }}
+              disabled={isSubmitting}
+            />
+          </div>
+
+          {/* State */}
+          <div style={{ marginBottom: 12 }}>
+            <label
+              htmlFor="state"
+              style={{
+                display: "block",
+                fontWeight: 500,
+                marginBottom: 4,
+              }}
+            >
+              State
+            </label>
+            <input
+              id="state"
+              type="text"
+              value={state}
+              onChange={(e) => setState(e.target.value)}
+              placeholder="State"
+              style={{
+                width: "100%",
+                padding: "6px 8px",
+                borderRadius: 8,
+                border: "1px solid #d1d5db",
+              }}
+              disabled={isSubmitting}
+            />
+          </div>
+
+          {/* PostalCode */}
+          <div style={{ marginBottom: 12 }}>
+            <label
+              htmlFor="postalCode"
+              style={{
+                display: "block",
+                fontWeight: 500,
+                marginBottom: 4,
+              }}
+            >
+              PostalCode
+            </label>
+            <input
+              id="postalCode"
+              type="text"
+              value={postalCode}
+              onChange={(e) => setPostalCode(e.target.value)}
+              placeholder="Zip code"
+              style={{
+                width: "100%",
+                padding: "6px 8px",
+                borderRadius: 8,
+                border: "1px solid #d1d5db",
+              }}
+              disabled={isSubmitting}
+            />
+          </div>       
+
+          {/* Relation */}
           <div style={{ marginBottom: 12 }}>
             <label
               htmlFor="relation"
@@ -598,7 +1033,7 @@ export default function LandlordAddEmergencyContactPage() {
               type="text"
               value={relation}
               onChange={(e) => setRelation(e.target.value)}
-              placeholder="roommate, child, partner, etc."
+              placeholder="Relation to tenant(s) (roommate, child, partner, etc.)"
               style={{
                 width: "100%",
                 padding: "6px 8px",
@@ -608,24 +1043,25 @@ export default function LandlordAddEmergencyContactPage() {
               disabled={isSubmitting}
             />
           </div>
-       {/* Email */}
+
+          {/* Notes */}
           <div style={{ marginBottom: 12 }}>
             <label
-              htmlFor="email"
+              htmlFor="notes"
               style={{
                 display: "block",
                 fontWeight: 500,
                 marginBottom: 4,
               }}
             >
-              Email
+              Notes
             </label>
             <input
-              id="email"
+              id="notes"
               type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder="Additional notes"
               style={{
                 width: "100%",
                 padding: "6px 8px",

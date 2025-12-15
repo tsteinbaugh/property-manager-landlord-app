@@ -24,8 +24,13 @@ export default function LandlordEmergencyContactDetailsPage() {
   const [isEditing, setEditing] = useState(false);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [relation, setRelation] = useState("");
   const [email, setEmail] = useState("");
+  const [address1, setAddress1] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [relation, setRelation] = useState("");
+  const [notes, setNotes] = useState("");
   const [isSaving, setSaving] = useState(false);
   const [isArchiving, setArchiving] = useState(false);
 
@@ -83,8 +88,13 @@ export default function LandlordEmergencyContactDetailsPage() {
     if (emergencyContact) {
       setName(emergencyContact.name || "");
       setPhone(emergencyContact.phone || "");
-      setRelation(emergencyContact.relation || "");
       setEmail(emergencyContact.email || "");
+      setAddress1(emergencyContact.address1 || "");
+      setCity(emergencyContact.city || "");
+      setState(emergencyContact.state || "");
+      setPostalCode(emergencyContact.postalCode || "");
+      setRelation(emergencyContact.relation || "");
+      setNotes(emergencyContact.notes || "");
     }
   }, [emergencyContact]);
 
@@ -114,8 +124,13 @@ export default function LandlordEmergencyContactDetailsPage() {
         {
           name: name.trim(),
           phone: phone.trim(),
-          relation: relation.trim(),
           email: email.trim(),
+          address1: address1.trim(),
+          city: city.trim(),
+          state: state.trim(),
+          postalCode: postalCode.trim(),
+          relation: relation.trim(),
+          notes: notes.trim(),
         },
         { token }
       );
@@ -133,8 +148,13 @@ export default function LandlordEmergencyContactDetailsPage() {
     if (emergencyContact) {
       setName(emergencyContact.name || "");
       setPhone(emergencyContact.phone || "");
-      setRelation(emergencyContact.relation || "");
       setEmail(emergencyContact.email || "");
+      setAddress1(emergencyContact.address1 || "");
+      setCity(emergencyContact.city || "");
+      setState(emergencyContact.state || "");
+      setPostalCode(emergencyContact.postalCode || "");
+      setRelation(emergencyContact.relation || "");
+      setNotes(emergencyContact.notes || "");
     }
     setEditing(false);
   };
@@ -267,21 +287,6 @@ export default function LandlordEmergencyContactDetailsPage() {
           {!isEditing ? (
             <>
               <h2 style={{ margin: "8px 0" }}>{title}</h2>
-              <div style={{ color: "#555", marginBottom: 4 }}>
-                {emergencyContact.phone && (
-                  <div>Phone: {emergencyContact.phone}</div>
-                )}
-              </div>
-              <div style={{ color: "#555", marginBottom: 4 }}>
-                {emergencyContact.relation && (
-                  <div>Relation: {emergencyContact.relation}</div>
-                )}
-              </div>
-              <div style={{ color: "#555", marginBottom: 4 }}>
-                {emergencyContact.phone && (
-                  <div>Email: {emergencyContact.email}</div>
-                )}
-              </div>
               {isArchived && (
                 <div style={{ color: "#888", fontSize: 12 }}>
                   (Archived – read-only for landlords)
@@ -304,7 +309,7 @@ export default function LandlordEmergencyContactDetailsPage() {
                 onChange={(e) => setName(e.target.value)}
               />
               <input
-                type="text"
+                type="tel"
                 placeholder="Phone number"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
@@ -316,7 +321,7 @@ export default function LandlordEmergencyContactDetailsPage() {
                 onChange={(e) => setRelation(e.target.value)}
               />
               <input
-                type="text"
+                type="email"
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -418,17 +423,29 @@ export default function LandlordEmergencyContactDetailsPage() {
           }}
         >
           <dt style={{ fontWeight: 500, color: "#4b5563" }}>Name</dt>
-          <dd>{emergencyContact.name || "—"}</dd>
+          <dd>{emergencyContact.name || "———"}</dd>
 
           <dt style={{ fontWeight: 500, color: "#4b5563" }}>Phone</dt>
-          <dd>{emergencyContact.phone || "Not set"}</dd>
-
-          <dt style={{ fontWeight: 500, color: "#4b5563" }}>Relation</dt>
-          <dd>{emergencyContact.relation || "Not set"}</dd>
+          <dd>{emergencyContact.phone || "———"}</dd>
 
           <dt style={{ fontWeight: 500, color: "#4b5563" }}>Email</dt>
-          <dd>{emergencyContact.email || "Not set"}</dd>
+          <dd>{emergencyContact.email || "———"}</dd>
 
+          <dt style={{ fontWeight: 500, color: "#4b5563" }}>Address</dt>
+          <dd>{emergencyContact.address1 || "———"}</dd>
+
+          <dt style={{ fontWeight: 500, color: "#4b5563" }}></dt>
+          <dd>
+            {emergencyContact.city && emergencyContact.state && emergencyContact.postalCode ? 
+            `${emergencyContact.city}, ${emergencyContact.state} ${emergencyContact.postalCode}` : " "}
+          </dd>
+
+          <dt style={{ fontWeight: 500, color: "#4b5563" }}>Relation to tenant(s)</dt>
+          <dd>{emergencyContact.relation || "———"}</dd>  
+
+          <dt style={{ fontWeight: 500, color: "#4b5563" }}>Notes</dt>
+          <dd>{emergencyContact.notes || "———"}</dd>   
+                                                 
           <dt style={{ fontWeight: 500, color: "#4b5563" }}>Status</dt>
           <dd>{isArchived ? "Archived" : "Active"}</dd>
         </dl>

@@ -1,5 +1,5 @@
 // newsrc/features/residents/pages/tenants/LandlordTenantDetailPage.jsx
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
 import ArchiveButton from "@shared/ui/ArchiveButton.jsx";
@@ -12,6 +12,7 @@ import { leasesApi } from "@features/leases/api/leases.api.js";
 export default function LandlordTenantDetailPage() {
   const { tenantId } = useParams();
   const { token, effectiveRole, isSysAdmin } = useUser() || {};
+  const navigate = useNavigate();
 
   const role = isSysAdmin
     ? ROLES.SYSADMIN
@@ -21,7 +22,6 @@ export default function LandlordTenantDetailPage() {
 
   const canUpdate = can(role, R.TENANTS, A.UPDATE);
   const canArchiveGrant = can(role, R.TENANTS, A.ARCHIVE);
-  const navigate = useNavigate();
 
   const [tenant, setTenant] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -33,9 +33,11 @@ export default function LandlordTenantDetailPage() {
   const [phone, setPhone] = useState("");
   const [isSaving, setSaving] = useState(false);
   const [isArchiving, setArchiving] = useState(false);
+
   const [unlinkingOccupantId, setUnlinkingOccupantId] = useState(null);
   const [unlinkingPetId, setUnlinkingPetId] = useState(null);
-  const [unlinkingEmergencyContactId, setUnlinkingEmergencyContactId] = useState(null);
+  const [unlinkingEmergencyContactId, setUnlinkingEmergencyContactId] =
+    useState(null);
   const [unlinkingVehicleId, setUnlinkingVehicleId] = useState(null);
 
   // Load tenant (rich detail)
@@ -52,6 +54,7 @@ export default function LandlordTenantDetailPage() {
         if (!cancelled) {
           if (!t) {
             setError(new Error("Tenant not found"));
+            setTenant(null);
           } else {
             setTenant(t);
           }
@@ -60,15 +63,14 @@ export default function LandlordTenantDetailPage() {
         console.error("Failed to load tenant", err);
         if (!cancelled) {
           setError(err);
+          setTenant(null);
         }
       } finally {
         if (!cancelled) setLoading(false);
       }
     }
 
-    if (tenantId && token) {
-      load();
-    }
+    if (tenantId && token) load();
 
     return () => {
       cancelled = true;
@@ -84,14 +86,58 @@ export default function LandlordTenantDetailPage() {
     }
   }, [tenant]);
 
+  // ---------- Derived (MUST be hook-safe on ALL renders) ----------
+  const isArchived = !!(tenant?.isArchived ?? tenant?.archived);
+  const title = tenant?.name || tenant?.email || "Unnamed tenant";
+
+  const canEditNow = canUpdate && (!isArchived || isSysAdmin);
+  const canArchiveNow = !isArchived && canArchiveGrant;
+  const canUnarchiveNow = isArchived && isSysAdmin;
+  const showArchiveButton = canArchiveNow || canUnarchiveNow;
+
+  const leaseTenants = Array.isArray(tenant?.leaseTenants)
+    ? tenant.leaseTenants
+    : [];
+
+  const tenantOccupants = Array.isArray(tenant?.occupants) ? tenant.occupants : [];
+  const tenantPets = Array.isArray(tenant?.pets) ? tenant.pets : [];
+  const tenantEmergencyContacts = Array.isArray(tenant?.emergencyContacts)
+    ? tenant.emergencyContacts
+    : [];
+  const tenantVehicles = Array.isArray(tenant?.vehicles) ? tenant.vehicles : [];
+
+  const propertyGroups = useMemo(() => {
+    const map = new Map();
+
+    for (const lt of leaseTenants) {
+      const lease = lt?.lease;
+      const property = lease?.property;
+      if (!property?.id) continue;
+
+      if (!map.has(property.id)) {
+        map.set(property.id, { property, leases: [] });
+      }
+      map.get(property.id).leases.push({ lt, lease });
+    }
+
+    return Array.from(map.values());
+  }, [leaseTenants]);
+
+  const leasesMissingPropertyCount = useMemo(() => {
+    return leaseTenants.filter((lt) => !lt?.lease?.property?.id).length;
+  }, [leaseTenants]);
+
+  // ---------- Handlers ----------
   const handleSave = async () => {
     if (!name.trim()) {
       alert("Name is required.");
       return;
     }
+    if (!tenant?.id) return;
 
     try {
       setSaving(true);
+
       const updated = await tenantsApi.update(
         tenant.id,
         {
@@ -102,15 +148,23 @@ export default function LandlordTenantDetailPage() {
         { token }
       );
 
-      setTenant((prev) => ({
-        ...prev,
-        ...updated,
-        leaseTenants: prev.leaseTenants,
-        occupants: prev.occupants,
-        pets: prev.pets,
-        emergencyContacts: prev.emergencyContacts,
-        vehicles: prev.vehicles,
-      }));
+      setTenant((prev) =>
+        prev
+          ? {
+              ...prev,
+              ...updated,
+              leaseTenants: prev.leaseTenants,
+              occupants: prev.occupants,
+              pets: prev.pets,
+              emergencyContacts: prev.emergencyContacts,
+              vehicles: prev.vehicles,
+              occupantLinks: prev.occupantLinks,
+              petLinks: prev.petLinks,
+              emergencyContactLinks: prev.emergencyContactLinks,
+              vehicleLinks: prev.vehicleLinks,
+            }
+          : prev
+      );
 
       setEditing(false);
     } catch (err) {
@@ -131,7 +185,7 @@ export default function LandlordTenantDetailPage() {
   };
 
   const handleToggleArchive = async () => {
-    if (!tenant) return;
+    if (!tenant?.id) return;
 
     const currentlyArchived = !!(tenant.isArchived ?? tenant.archived);
 
@@ -154,15 +208,24 @@ export default function LandlordTenantDetailPage() {
     try {
       setArchiving(true);
       const updated = await tenantsApi.toggleArchive(tenant.id, { token });
-      setTenant((prev) => ({
-        ...prev,
-        ...updated,
-        leaseTenants: prev.leaseTenants,
-        occupants: prev.occupants,
-        pets: prev.pets,
-        emergencyContacts: prev.emergencyContacts,
-        vehicles: prev.vehicles,
-      }));
+
+      setTenant((prev) =>
+        prev
+          ? {
+              ...prev,
+              ...updated,
+              leaseTenants: prev.leaseTenants,
+              occupants: prev.occupants,
+              pets: prev.pets,
+              emergencyContacts: prev.emergencyContacts,
+              vehicles: prev.vehicles,
+              occupantLinks: prev.occupantLinks,
+              petLinks: prev.petLinks,
+              emergencyContactLinks: prev.emergencyContactLinks,
+              vehicleLinks: prev.vehicleLinks,
+            }
+          : prev
+      );
     } catch (err) {
       console.error("Failed to toggle tenant archived state", err);
       alert("Failed to change archive status. Check console for details.");
@@ -171,71 +234,17 @@ export default function LandlordTenantDetailPage() {
     }
   };
 
-  if (loading) return <div>Loading tenant…</div>;
-  if (error) {
-    return (
-      <div style={{ color: "crimson", padding: 16 }}>
-        Error loading tenant: {String(error.message || error)}
-      </div>
-    );
-  }
-  if (!tenant) return <div style={{ padding: 16 }}>No data.</div>;
-
-  const isArchived = !!(tenant.isArchived ?? tenant.archived);
-  const title = tenant.name || tenant.email || "Unnamed tenant";
-
-  const canEditNow = canUpdate && (!isArchived || isSysAdmin);
-  const canArchiveNow = !isArchived && canArchiveGrant;
-  const canUnarchiveNow = isArchived && isSysAdmin;
-  const showArchiveButton = canArchiveNow || canUnarchiveNow;
-
-  const leaseTenants = Array.isArray(tenant.leaseTenants)
-    ? tenant.leaseTenants
-    : [];
-  const tenantOccupants = Array.isArray(tenant.occupants)
-    ? tenant.occupants
-    : [];
-  const tenantPets = Array.isArray(tenant.pets)
-    ? tenant.pets
-    : [];
-  const tenantEmergencyContacts = Array.isArray(tenant.emergencyContacts)
-    ? tenant.emergencyContacts
-    : [];
-  const tenantVehicles = Array.isArray(tenant.vehicles)
-    ? tenant.vehicles
-    : [];
-
-  const manageOccupantsUrl = `/landlord/occupants/new?tenantId=${
-    tenant.id
-  }&returnTo=${encodeURIComponent(`/landlord/tenants/${tenant.id}`)}`;
-
-  const managePetsUrl = `/landlord/pets/new?tenantId=${
-    tenant.id
-  }&returnTo=${encodeURIComponent(`/landlord/tenants/${tenant.id}`)}`;
-
-  const manageEmergencyContactsUrl = `/landlord/emergencyContacts/new?tenantId=${
-    tenant.id
-  }&returnTo=${encodeURIComponent(`/landlord/tenants/${tenant.id}`)}`;
-
-  const manageVehicelsUrl = `/landlord/vehicles/new?tenantId=${
-    tenant.id
-  }&returnTo=${encodeURIComponent(`/landlord/tenants/${tenant.id}`)}`;
-
   const handleUnlinkOccupant = async (occupantId) => {
-    if (!tenant || !tenant.id || !occupantId) return;
+    if (!tenant?.id || !occupantId) return;
 
     const ok = window.confirm(
-      "Unlink this occupant from this tenant?\n\n" +
-        "This does NOT delete either record."
+      "Unlink this occupant from this tenant?\n\nThis does NOT delete either record."
     );
     if (!ok) return;
 
     try {
       setUnlinkingOccupantId(occupantId);
-
       await tenantsApi.unlinkOccupant(tenant.id, occupantId, { token });
-
-      // Refresh tenant detail so UI matches DB
       const fresh = await tenantsApi.detail(tenant.id, { token });
       setTenant(fresh || tenant);
     } catch (err) {
@@ -247,20 +256,16 @@ export default function LandlordTenantDetailPage() {
   };
 
   const handleUnlinkPet = async (petId) => {
-    if (!tenant || !tenant.id || !petId) return;
+    if (!tenant?.id || !petId) return;
 
     const ok = window.confirm(
-      "Unlink this pet from this tenant?\n\n" +
-        "This does NOT delete either record."
+      "Unlink this pet from this tenant?\n\nThis does NOT delete either record."
     );
     if (!ok) return;
 
     try {
       setUnlinkingPetId(petId);
-
       await tenantsApi.unlinkPet(tenant.id, petId, { token });
-
-      // Refresh tenant detail so UI matches DB
       const fresh = await tenantsApi.detail(tenant.id, { token });
       setTenant(fresh || tenant);
     } catch (err) {
@@ -272,20 +277,18 @@ export default function LandlordTenantDetailPage() {
   };
 
   const handleUnlinkEmergencyContact = async (emergencyContactId) => {
-    if (!tenant || !tenant.id || !emergencyContactId) return;
+    if (!tenant?.id || !emergencyContactId) return;
 
     const ok = window.confirm(
-      "Unlink this emergency contact from this tenant?\n\n" +
-        "This does NOT delete either record."
+      "Unlink this emergency contact from this tenant?\n\nThis does NOT delete either record."
     );
     if (!ok) return;
 
     try {
       setUnlinkingEmergencyContactId(emergencyContactId);
-
-      await tenantsApi.unlinkEmergencyContact(tenant.id, emergencyContactId, { token });
-
-      // Refresh tenant detail so UI matches DB
+      await tenantsApi.unlinkEmergencyContact(tenant.id, emergencyContactId, {
+        token,
+      });
       const fresh = await tenantsApi.detail(tenant.id, { token });
       setTenant(fresh || tenant);
     } catch (err) {
@@ -297,20 +300,16 @@ export default function LandlordTenantDetailPage() {
   };
 
   const handleUnlinkVehicle = async (vehicleId) => {
-    if (!tenant || !tenant.id || !vehicleId) return;
+    if (!tenant?.id || !vehicleId) return;
 
     const ok = window.confirm(
-      "Unlink this vehicle from this tenant?\n\n" +
-        "This does NOT delete either record."
+      "Unlink this vehicle from this tenant?\n\nThis does NOT delete either record."
     );
     if (!ok) return;
 
     try {
       setUnlinkingVehicleId(vehicleId);
-
       await tenantsApi.unlinkVehicle(tenant.id, vehicleId, { token });
-
-      // Refresh tenant detail so UI matches DB
       const fresh = await tenantsApi.detail(tenant.id, { token });
       setTenant(fresh || tenant);
     } catch (err) {
@@ -320,9 +319,9 @@ export default function LandlordTenantDetailPage() {
       setUnlinkingVehicleId(null);
     }
   };
-  
+
   const handleUnlinkLease = async (leaseId) => {
-    if (!tenant || !leaseId) return;
+    if (!tenant?.id || !leaseId) return;
 
     const ok = window.confirm(
       "Unlink this lease from this tenant?\n\n" +
@@ -331,18 +330,13 @@ export default function LandlordTenantDetailPage() {
     if (!ok) return;
 
     try {
-      // 1) Try to remove the LeaseTenant row
       const result = await leasesApi.unlinkTenant(leaseId, tenant.id, { token });
 
-      // 2) Fallback: if there was no join row but this tenant is the legacy tenantId, clear it
+      // Fallback: if there was no join row but this tenant is the legacy tenantId, clear it
       if (result?.notFound) {
-        await leasesApi.update(
-          leaseId,
-          { token }
-        );
+        await leasesApi.update(leaseId, { token });
       }
 
-      // 3) Reload tenant so its leases list updates
       const fresh = await tenantsApi.detail(tenant.id, { token });
       setTenant(fresh);
     } catch (err) {
@@ -351,10 +345,23 @@ export default function LandlordTenantDetailPage() {
     }
   };
 
+  // ---------- Early returns AFTER all hooks ----------
+  if (loading) return <div>Loading tenant…</div>;
+
+  if (error) {
+    return (
+      <div style={{ color: "crimson", padding: 16 }}>
+        Error loading tenant: {String(error.message || error)}
+      </div>
+    );
+  }
+
+  if (!tenant) return <div style={{ padding: 16 }}>No data.</div>;
+
+  // ---------- UI ----------
   return (
     <div style={{ padding: 16 }}>
       <div style={{ marginBottom: 8 }}>
-        {/* residents flow is the new primary list */}
         <Link to="/landlord/residents">← Back to residents</Link>
       </div>
 
@@ -372,10 +379,6 @@ export default function LandlordTenantDetailPage() {
           {!isEditing ? (
             <>
               <h2 style={{ margin: "8px 0" }}>{title}</h2>
-              <div style={{ color: "#555", marginBottom: 4 }}>
-                {tenant.email && <div>Email: {tenant.email}</div>}
-                {tenant.phone && <div>Phone: {tenant.phone}</div>}
-              </div>
               {isArchived && (
                 <div style={{ color: "#888", fontSize: 12 }}>
                   (Archived – read-only for landlords)
@@ -410,11 +413,7 @@ export default function LandlordTenantDetailPage() {
                 onChange={(e) => setPhone(e.target.value)}
               />
               <div style={{ display: "flex", gap: 8, marginTop: 4 }}>
-                <button
-                  type="button"
-                  onClick={handleSave}
-                  disabled={isSaving}
-                >
+                <button type="button" onClick={handleSave} disabled={isSaving}>
                   {isSaving ? "Saving…" : "Save"}
                 </button>
                 <button type="button" onClick={handleCancelEdit}>
@@ -455,60 +454,153 @@ export default function LandlordTenantDetailPage() {
         </div>
       </div>
 
+      {/* Properties for this tenant (aggregated across leases) */}
+      <section
+        style={{
+          padding: 16,
+          borderRadius: 12,
+          border: "1px solid #e5e7eb",
+          background: "#ffffff",
+          maxWidth: 640,
+          marginTop: 16,
+        }}
+      >
+        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
+          Properties
+        </h3>
+
+        {propertyGroups.length > 0 ? (
+          <ul style={{ paddingLeft: 18 }}>
+            {propertyGroups.map(({ property, leases }) => {
+              const label =
+                property.name || property.address1 || "(unnamed property)";
+
+              const line2 =
+                property.city || property.state || property.postalCode
+                  ? `${property.city || ""}${property.city ? ", " : ""}${
+                      property.state || ""
+                    } ${property.postalCode || ""}`.trim()
+                  : "";
+
+              return (
+                <li key={property.id} style={{ marginBottom: 10 }}>
+                  <div>
+                    <Link to={`/landlord/properties/${property.id}`}>
+                      {label}
+                    </Link>
+                  </div>
+
+                  {(property.address1 || line2) && (
+                    <div style={{ fontSize: 12, color: "#4b5563" }}>
+                      {property.address1 || ""}
+                      {line2 ? (
+                        <>
+                          {property.address1 ? " · " : ""}
+                          {line2}
+                        </>
+                      ) : null}
+                    </div>
+                  )}
+
+                  {leases?.length > 0 && (
+                    <div
+                      style={{
+                        fontSize: 12,
+                        color: "#6b7280",
+                        marginTop: 4,
+                      }}
+                    >
+                      Leases here:{" "}
+                      {leases
+                        .map(({ lease }) => lease?.status || "UNKNOWN")
+                        .join(", ")}
+                    </div>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        ) : (
+          <div style={{ fontSize: 14, color: "#6b7280" }}>
+            No properties associated with this tenant yet.
+          </div>
+        )}
+
+        {leasesMissingPropertyCount > 0 && (
+          <div style={{ fontSize: 12, color: "#6b7280", marginTop: 8 }}>
+            Note: {leasesMissingPropertyCount} lease
+            {leasesMissingPropertyCount === 1 ? "" : "s"} on this tenant{" "}
+            {leasesMissingPropertyCount === 1 ? "is" : "are"} not linked to a
+            property yet.
+          </div>
+        )}
+      </section>
+
       {/* Leases for this tenant */}
-      <hr style={{ margin: "16px 0" }} />
-      <h3>Leases</h3>
-      {leaseTenants.length > 0 ? (
-        <ul style={{ paddingLeft: 18 }}>
-          {leaseTenants.map((lt) => {
-            const lease = lt.lease;
-            if (!lease) return null;
-            const property = lease.property;
+      <section
+        style={{
+          padding: 16,
+          borderRadius: 12,
+          border: "1px solid #e5e7eb",
+          background: "#ffffff",
+          maxWidth: 640,
+          marginTop: 16,
+        }}
+      >
+        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
+          Leases
+        </h3>
 
-            return (
-              <li key={lt.id} style={{ marginBottom: 6 }}>
-                <Link to={`/landlord/leases/${lease.id}`}>
-                  Lease {lease.id.slice(0, 8)}
-                </Link>{" "}
-                {lease.status && <> — {lease.status}</>}
+        {leaseTenants.length > 0 ? (
+          <ul style={{ paddingLeft: 18 }}>
+            {leaseTenants.map((lt) => {
+              const lease = lt?.lease;
+              if (!lease) return null;
 
-                <button
-                  type="button"
-                  onClick={() => handleUnlinkLease(lease.id)}
-                  style={{ marginLeft: 8, fontSize: 11, padding: "2px 6px" }}
-                >
-                  Unlink from this tenant
-                </button>
-                – {lease.status || "UNKNOWN"}
-                {lease.rentAmount != null && ` · $${lease.rentAmount}/mo`}
-                {lease.startDate && ` · from ${lease.startDate}`}
-                {lease.endDate && ` to ${lease.endDate}`}
+              const property = lease.property;
 
-                {property && (
-                  <div style={{ fontSize: 12, color: "#4b5563" }}>
-                    Property:{" "}
-                    {property.name || property.address1 || "(property details)"}
-                  </div>
-                )}
+              return (
+                <li key={lt.id} style={{ marginBottom: 6 }}>
+                  <Link to={`/landlord/leases/${lease.id}`}>Lease</Link>
+                  {lease.status && <> — {lease.status}</>}
+                  {lease.rentAmount != null && ` · $${lease.rentAmount}/mo`}
+                  {lease.startDate && ` · from ${lease.startDate}`}
+                  {lease.endDate && ` to ${lease.endDate}`}
 
-                {lt.isPrimary && (
-                  <div style={{ fontSize: 12, color: "#2563eb" }}>
-                    Primary tenant on this lease
-                  </div>
-                )}
-              </li>
-            );
-          })}
-        </ul>
-      ) : (
-        <div>No leases associated with this tenant yet.</div>
-      )}
+                  <button
+                    type="button"
+                    onClick={() => handleUnlinkLease(lease.id)}
+                    style={{ marginLeft: 8, fontSize: 11, padding: "2px 6px" }}
+                  >
+                    Unlink from this tenant
+                  </button>
 
-      <div style={{ marginTop: 8, marginBottom: 8 }}>
-        <Link to={`/landlord/leases/new?tenantId=${tenant.id}`}>
-          + Add lease for this tenant
-        </Link>
-      </div>
+                  {property && (
+                    <div style={{ fontSize: 12, color: "#4b5563" }}>
+                      Property:{" "}
+                      {property.name || property.address1 || "(property details)"}
+                    </div>
+                  )}
+
+                  {lt.isPrimary && (
+                    <div style={{ fontSize: 12, color: "#2563eb" }}>
+                      Primary tenant on this lease
+                    </div>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        ) : (
+          <div>No leases associated with this tenant yet.</div>
+        )}
+
+        <div style={{ marginTop: 8, marginBottom: 8 }}>
+          <Link to={`/landlord/leases/new?tenantId=${tenant.id}`}>
+            + Add lease for this tenant
+          </Link>
+        </div>
+      </section>
 
       {/* Occupants for this tenant (via many-to-many) */}
       <section
@@ -524,13 +616,13 @@ export default function LandlordTenantDetailPage() {
         <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
           Occupants for this tenant
         </h3>
-      
+
         {Array.isArray(tenant.occupantLinks) && tenant.occupantLinks.length > 0 ? (
           <ul style={{ paddingLeft: 18, fontSize: 14 }}>
             {tenant.occupantLinks.map((link) => {
-              const o = link.occupant;
-              if (!o || !o.id) return null;
-            
+              const o = link?.occupant;
+              if (!o?.id) return null;
+
               return (
                 <li
                   key={o.id}
@@ -545,8 +637,8 @@ export default function LandlordTenantDetailPage() {
                     <Link to={`/landlord/occupants/${o.id}`}>
                       {o.name || "Unnamed occupant"}
                     </Link>
-                    {o.relation ? ` (${o.relation})` : ""}
                   </span>
+
                   <button
                     type="button"
                     onClick={() => handleUnlinkOccupant(o.id)}
@@ -564,7 +656,7 @@ export default function LandlordTenantDetailPage() {
             No occupants linked to this tenant yet.
           </div>
         )}
-      
+
         <div style={{ marginTop: 12 }}>
           <button
             type="button"
@@ -581,7 +673,7 @@ export default function LandlordTenantDetailPage() {
           </button>
         </div>
       </section>
-      
+
       {/* Pets for this tenant (via many-to-many) */}
       <section
         style={{
@@ -596,13 +688,13 @@ export default function LandlordTenantDetailPage() {
         <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
           Pets for this tenant
         </h3>
-      
+
         {Array.isArray(tenant.petLinks) && tenant.petLinks.length > 0 ? (
           <ul style={{ paddingLeft: 18, fontSize: 14 }}>
             {tenant.petLinks.map((link) => {
-              const p = link.pet;
-              if (!p || !p.id) return null;
-            
+              const p = link?.pet;
+              if (!p?.id) return null;
+
               return (
                 <li
                   key={p.id}
@@ -617,10 +709,8 @@ export default function LandlordTenantDetailPage() {
                     <Link to={`/landlord/pets/${p.id}`}>
                       {p.name || "Unnamed pet"}
                     </Link>
-                    {p.type ? ` (${p.type})` : ""}
-                    {p.breed ? ` (${p.breed})` : ""}
-                    {p.weightLb ? ` (${p.weightLb})` : ""}
                   </span>
+
                   <button
                     type="button"
                     onClick={() => handleUnlinkPet(p.id)}
@@ -638,7 +728,7 @@ export default function LandlordTenantDetailPage() {
             No pets linked to this tenant yet.
           </div>
         )}
-      
+
         <div style={{ marginTop: 12 }}>
           <button
             type="button"
@@ -670,13 +760,14 @@ export default function LandlordTenantDetailPage() {
         <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
           Emergency contacts for this tenant
         </h3>
-      
-        {Array.isArray(tenant.emergencyContactLinks) && tenant.emergencyContactLinks.length > 0 ? (
+
+        {Array.isArray(tenant.emergencyContactLinks) &&
+        tenant.emergencyContactLinks.length > 0 ? (
           <ul style={{ paddingLeft: 18, fontSize: 14 }}>
             {tenant.emergencyContactLinks.map((link) => {
-              const e = link.emergencyContact;
-              if (!e || !e.id) return null;
-            
+              const e = link?.emergencyContact;
+              if (!e?.id) return null;
+
               return (
                 <li
                   key={e.id}
@@ -689,19 +780,19 @@ export default function LandlordTenantDetailPage() {
                 >
                   <span>
                     <Link to={`/landlord/emergencyContacts/${e.id}`}>
-                      {e.name || "Unnamed emergencyContact"}
+                      {e.name || "Unnamed emergency contact"}
                     </Link>
-                    {e.phone ? ` (${e.phone})` : ""}
-                    {e.relation ? ` (${e.relation})` : ""}
-                    {e.email ? ` (${e.email})` : ""}
                   </span>
+
                   <button
                     type="button"
                     onClick={() => handleUnlinkEmergencyContact(e.id)}
                     disabled={unlinkingEmergencyContactId === e.id}
                     style={{ fontSize: 11, padding: "2px 6px" }}
                   >
-                    {unlinkingEmergencyContactId === e.id ? "Unlinking…" : "Unlink"}
+                    {unlinkingEmergencyContactId === e.id
+                      ? "Unlinking…"
+                      : "Unlink"}
                   </button>
                 </li>
               );
@@ -712,7 +803,7 @@ export default function LandlordTenantDetailPage() {
             No emergency contacts linked to this tenant yet.
           </div>
         )}
-      
+
         <div style={{ marginTop: 12 }}>
           <button
             type="button"
@@ -744,13 +835,13 @@ export default function LandlordTenantDetailPage() {
         <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
           Vehicles for this tenant
         </h3>
-      
+
         {Array.isArray(tenant.vehicleLinks) && tenant.vehicleLinks.length > 0 ? (
           <ul style={{ paddingLeft: 18, fontSize: 14 }}>
             {tenant.vehicleLinks.map((link) => {
-              const v = link.vehicle;
-              if (!v || !v.id) return null;
-            
+              const v = link?.vehicle;
+              if (!v?.id) return null;
+
               return (
                 <li
                   key={v.id}
@@ -765,12 +856,8 @@ export default function LandlordTenantDetailPage() {
                     <Link to={`/landlord/vehicles/${v.id}`}>
                       {v.permit || v.plate || "Unnamed vehicle"}
                     </Link>
-                    {v.make ? ` (${v.make})` : ""}
-                    {v.model ? ` (${v.model})` : ""}
-                    {v.year ? ` (${v.year})` : ""}
-                    {v.color ? ` (${v.color})` : ""}
-                    {v.state ? ` (${v.state})` : ""}
                   </span>
+
                   <button
                     type="button"
                     onClick={() => handleUnlinkVehicle(v.id)}
@@ -788,7 +875,7 @@ export default function LandlordTenantDetailPage() {
             No vehicles linked to this tenant yet.
           </div>
         )}
-      
+
         <div style={{ marginTop: 12 }}>
           <button
             type="button"

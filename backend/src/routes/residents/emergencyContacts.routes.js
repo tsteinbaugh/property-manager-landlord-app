@@ -2,6 +2,109 @@
 const { Role } = require("@prisma/client");
 
 function registerEmergencyContactRoutes(app, prisma, { shapeEmergencyContact }) {
+
+// ============================================================
+// Helpers (drop near top of emergencyContacts.routes.js)
+// ============================================================
+const US_STATES = new Map([
+  ["ALABAMA", "AL"],
+  ["ALASKA", "AK"],
+  ["ARIZONA", "AZ"],
+  ["ARKANSAS", "AR"],
+  ["CALIFORNIA", "CA"],
+  ["COLORADO", "CO"],
+  ["CONNECTICUT", "CT"],
+  ["DELAWARE", "DE"],
+  ["FLORIDA", "FL"],
+  ["GEORGIA", "GA"],
+  ["HAWAII", "HI"],
+  ["IDAHO", "ID"],
+  ["ILLINOIS", "IL"],
+  ["INDIANA", "IN"],
+  ["IOWA", "IA"],
+  ["KANSAS", "KS"],
+  ["KENTUCKY", "KY"],
+  ["LOUISIANA", "LA"],
+  ["MAINE", "ME"],
+  ["MARYLAND", "MD"],
+  ["MASSACHUSETTS", "MA"],
+  ["MICHIGAN", "MI"],
+  ["MINNESOTA", "MN"],
+  ["MISSISSIPPI", "MS"],
+  ["MISSOURI", "MO"],
+  ["MONTANA", "MT"],
+  ["NEBRASKA", "NE"],
+  ["NEVADA", "NV"],
+  ["NEW HAMPSHIRE", "NH"],
+  ["NEW JERSEY", "NJ"],
+  ["NEW MEXICO", "NM"],
+  ["NEW YORK", "NY"],
+  ["NORTH CAROLINA", "NC"],
+  ["NORTH DAKOTA", "ND"],
+  ["OHIO", "OH"],
+  ["OKLAHOMA", "OK"],
+  ["OREGON", "OR"],
+  ["PENNSYLVANIA", "PA"],
+  ["RHODE ISLAND", "RI"],
+  ["SOUTH CAROLINA", "SC"],
+  ["SOUTH DAKOTA", "SD"],
+  ["TENNESSEE", "TN"],
+  ["TEXAS", "TX"],
+  ["UTAH", "UT"],
+  ["VERMONT", "VT"],
+  ["VIRGINIA", "VA"],
+  ["WASHINGTON", "WA"],
+  ["WEST VIRGINIA", "WV"],
+  ["WISCONSIN", "WI"],
+  ["WYOMING", "WY"],
+  ["DISTRICT OF COLUMBIA", "DC"],
+]);
+
+const US_STATE_CODES = new Set(Array.from(US_STATES.values()));
+
+function normalizeState(input) {
+  if (typeof input !== "string") return "";
+  const raw = input.trim();
+  if (!raw) return "";
+
+  const upper = raw.toUpperCase().replace(/\./g, "");
+
+  // 2-letter code
+  if (upper.length === 2 && US_STATE_CODES.has(upper)) return upper;
+
+  // Full name
+  return US_STATES.get(upper) || "";
+}
+
+// Returns "" if invalid, otherwise "12345" or "12345-6789"
+function normalizeZipUS(input) {
+  if (typeof input !== "string") return "";
+  const digits = input.replace(/\D/g, "");
+  if (digits.length === 5) return digits;
+  if (digits.length === 9) return `${digits.slice(0, 5)}-${digits.slice(5)}`;
+  return "";
+}
+
+const normalizeEmail = (v) =>
+  typeof v === "string" ? v.trim().toLowerCase() : "";
+const isValidEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+
+const normalizePhone = (v) => {
+  if (typeof v !== "string") return "";
+  const raw = v.trim();
+  // keep digits and leading +
+  return raw.replace(/(?!^\+)[^\d]/g, "");
+};
+const isValidPhone = (v) => /^\+?[1-9]\d{7,14}$/.test(v); // E.164-ish
+
+const optionalTrimToNull = (v) => {
+  if (v === null) return null;
+  if (v === undefined) return undefined;
+  if (typeof v !== "string") return undefined;
+  const t = v.trim();
+  return t ? t : null;
+};
+
   // ============================================================
   // LIST OCCUPANTS (decoupled from tenants, scoped by landlord when known)
   // GET /api/emergencyContacts?includeArchived=0|1
@@ -101,128 +204,222 @@ function registerEmergencyContactRoutes(app, prisma, { shapeEmergencyContact }) 
   });
 
   // ============================================================
-  // CREATE OCCUPANT
+  // CREATE EMERGENCY CONTACT
   // POST /api/emergencyContacts
-  // Body: { name, relation? )
+  // Body: { name, phone, email, address1?, city?, state?, postalCode?/zip?, relation?, notes? }
   // ============================================================
   app.post("/api/emergencyContacts", async (req, res) => {
-    const { name, phone, relation, email } = req.body || {};
+    const {
+      name,
+      phone,
+      email,
+      address1,
+      city,
+      state,
+      postalCode,
+      zip, // alias
+      relation,
+      notes,
+    } = req.body || {};
+
     const user = req.user || null;
 
     if (!user) {
       return res.status(401).json({ error: "Unauthorized" });
     }
 
-    if (!name || !String(name).trim()) {
+    const cleanName = typeof name === "string" ? name.trim() : "";
+    if (!cleanName) {
       return res.status(400).json({ error: "name is required" });
+    }
+
+    // REQUIRED: email
+    const cleanEmail = normalizeEmail(email);
+    if (!cleanEmail) {
+      return res.status(400).json({ error: "email is required" });
+    }
+    if (!isValidEmail(cleanEmail)) {
+      return res.status(400).json({ error: "email must be a valid email address" });
+    }
+
+    // REQUIRED: phone
+    const cleanPhoneRaw = typeof phone === "string" ? phone.trim() : "";
+    if (!cleanPhoneRaw) {
+      return res.status(400).json({ error: "phone is required" });
+    }
+    const cleanPhone = normalizePhone(phone);
+    if (!isValidPhone(cleanPhone)) {
+      return res.status(400).json({ error: "phone must be a valid phone number" });
+    }
+
+    // Optional: state (US only) -> store USPS code
+    let stateCode = null;
+    const stateVal = optionalTrimToNull(state);
+    if (stateVal !== undefined) {
+      if (stateVal === null) {
+        stateCode = null;
+      } else {
+        const code = normalizeState(stateVal);
+        if (!code) {
+          return res.status(400).json({ error: "state must be a valid US state or DC" });
+        }
+        stateCode = code;
+      }
+    }
+
+    // Optional: zip/postalCode (ZIP5 or ZIP+4)
+    let postal = null;
+    const zipInput = postalCode ?? zip;
+    const zipVal = optionalTrimToNull(zipInput);
+    if (zipVal !== undefined) {
+      if (zipVal === null) {
+        postal = null;
+      } else {
+        const normalized = normalizeZipUS(zipVal);
+        if (!normalized) {
+          return res
+            .status(400)
+            .json({ error: "postalCode must be a valid US ZIP (12345 or 12345-6789)" });
+        }
+        postal = normalized;
+      }
     }
 
     try {
       const data = {
-        name: String(name).trim(),
-        phone:
-          typeof phone === "string" && phone.trim()
-            ? phone.trim()
-            : null,
-        relation:
-          typeof relation === "string" && relation.trim()
-            ? relation.trim()
-            : null,
-        email:
-          typeof email === "string" && email.trim()
-            ? email.trim()
-            : null,
+        name: cleanName,
 
-        // OWNER landlord
+        // REQUIRED + normalized
+        phone: cleanPhone,
+        email: cleanEmail,
+
+        // Optional fields
+        address1: optionalTrimToNull(address1) ?? null,
+        city: optionalTrimToNull(city) ?? null,
+        state: stateCode,
+        postalCode: postal,
+        notes: optionalTrimToNull(notes) ?? null,
+        relation: optionalTrimToNull(relation) ?? null,
+
         landlordId: user.id,
-
-        // CREATOR
         createdById: user.id,
       };
 
       const created = await prisma.emergencyContact.create({ data });
-      res.status(201).json(shapeEmergencyContact(created));
+      return res.status(201).json(shapeEmergencyContact(created));
     } catch (err) {
       console.error("Error in POST /api/emergencyContacts", err);
-      res.status(500).json({ error: "Server error" });
+      return res.status(500).json({ error: "Server error" });
     }
   });
 
   // ============================================================
-  // UPDATE OCCUPANT
-  // PATCH /api/emergencyContacts/:id
-  // Body: partial { name?, relation? }
+  // CREATE EMERGENCY CONTACT
+  // POST /api/emergencyContacts
+  // Body: { name, phone, email, address1?, city?, state?, postalCode?/zip?, relation?, notes? }
   // ============================================================
-  app.patch("/api/emergencyContacts/:id", async (req, res) => {
-    const { id } = req.params;
-    const { name, phone, relation, email } = req.body || {};
+  app.post("/api/emergencyContacts", async (req, res) => {
+    const {
+      name,
+      phone,
+      email,
+      address1,
+      city,
+      state,
+      postalCode,
+      zip, // alias
+      relation,
+      notes,
+    } = req.body || {};
+  
     const user = req.user || null;
-
+  
     if (!user) {
       return res.status(401).json({ error: "Unauthorized" });
     }
-
+  
+    const cleanName = typeof name === "string" ? name.trim() : "";
+    if (!cleanName) {
+      return res.status(400).json({ error: "name is required" });
+    }
+  
+    // REQUIRED: email
+    const cleanEmail = normalizeEmail(email);
+    if (!cleanEmail) {
+      return res.status(400).json({ error: "email is required" });
+    }
+    if (!isValidEmail(cleanEmail)) {
+      return res.status(400).json({ error: "email must be a valid email address" });
+    }
+  
+    // REQUIRED: phone
+    const cleanPhoneRaw = typeof phone === "string" ? phone.trim() : "";
+    if (!cleanPhoneRaw) {
+      return res.status(400).json({ error: "phone is required" });
+    }
+    const cleanPhone = normalizePhone(phone);
+    if (!isValidPhone(cleanPhone)) {
+      return res.status(400).json({ error: "phone must be a valid phone number" });
+    }
+  
+    // Optional: state (US only) -> store USPS code
+    let stateCode = null;
+    const stateVal = optionalTrimToNull(state);
+    if (stateVal !== undefined) {
+      if (stateVal === null) {
+        stateCode = null;
+      } else {
+        const code = normalizeState(stateVal);
+        if (!code) {
+          return res.status(400).json({ error: "state must be a valid US state or DC" });
+        }
+        stateCode = code;
+      }
+    }
+  
+    // Optional: zip/postalCode (ZIP5 or ZIP+4)
+    let postal = null;
+    const zipInput = postalCode ?? zip;
+    const zipVal = optionalTrimToNull(zipInput);
+    if (zipVal !== undefined) {
+      if (zipVal === null) {
+        postal = null;
+      } else {
+        const normalized = normalizeZipUS(zipVal);
+        if (!normalized) {
+          return res
+            .status(400)
+            .json({ error: "postalCode must be a valid US ZIP (12345 or 12345-6789)" });
+        }
+        postal = normalized;
+      }
+    }
+  
     try {
-      const existing = await prisma.emergencyContact.findUnique({ where: { id } });
-      if (!existing) {
-        return res.status(404).json({ error: "Emergency contact not found" });
-      }
-
-      // Landlord can only update their own emergencyContacts; sysadmin can update any
-      if (
-        user.baseRole === Role.LANDLORD &&
-        existing.landlordId &&
-        existing.landlordId !== user.id
-      ) {
-        return res
-          .status(403)
-          .json({ error: "You are not allowed to update this emergencyContact." });
-      }
-
-      const data = {};
-
-      // name: allow empty → keep existing, or override with trimmed
-      if (name !== undefined) {
-        const trimmed = String(name).trim();
-        data.name = trimmed || existing.name;
-      }
-
-      // phone: handle string, empty string, null, or omit
-      if (phone !== undefined) {
-        if (phone === null) {
-          data.phone = null;
-        } else if (typeof phone === "string") {
-          data.phone = phone.trim() || null;
-        }
-      }
-
-      // relation: handle string, empty string, null, or omit
-      if (relation !== undefined) {
-        if (relation === null) {
-          data.relation = null;
-        } else if (typeof relation === "string") {
-          data.relation = relation.trim() || null;
-        }
-      }
-
-      // email: handle string, empty string, null, or omit
-      if (email !== undefined) {
-        if (email === null) {
-          data.email = null;
-        } else if (typeof email === "string") {
-          data.email = email.trim() || null;
-        }
-      }
-
-      const updated = await prisma.emergencyContact.update({
-        where: { id },
-        data,
-      });
-
-      res.json(shapeEmergencyContact(updated));
+      const data = {
+        name: cleanName,
+      
+        // REQUIRED + normalized
+        phone: cleanPhone,
+        email: cleanEmail,
+      
+        // Optional fields
+        address1: optionalTrimToNull(address1) ?? null,
+        city: optionalTrimToNull(city) ?? null,
+        state: stateCode,
+        postalCode: postal,
+        notes: optionalTrimToNull(notes) ?? null,
+        relation: optionalTrimToNull(relation) ?? null,
+      
+        landlordId: user.id,
+        createdById: user.id,
+      };
+    
+      const created = await prisma.emergencyContact.create({ data });
+      return res.status(201).json(shapeEmergencyContact(created));
     } catch (err) {
-      console.error("Error in PATCH /api/emergencyContacts/:id", err);
-      res.status(500).json({ error: "Server error" });
+      console.error("Error in POST /api/emergencyContacts", err);
+      return res.status(500).json({ error: "Server error" });
     }
   });
 

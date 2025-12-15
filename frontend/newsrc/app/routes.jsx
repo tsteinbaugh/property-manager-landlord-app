@@ -20,13 +20,10 @@ import ResetPassword from "@features/auth/pages/ResetPassword.jsx";
 import AcceptInvite from "@features/auth/pages/AcceptInvite.jsx";
 
 // Feature panels/lists (used on the sysadmin FeaturesPage)
-import PropertiesList from "@features/properties/components/PropertiesList.jsx";
-import TenantsList from "@features/residents/components/tenants/TenantsList.jsx";
 import MaintenanceTicketList from "@features/maintenance/components/MaintenanceTicketList.jsx";
 import RoutineList from "@features/maintenance/components/RoutineList.jsx";
 import ExpenseList from "@features/expenses/components/ExpenseList.jsx";
 import TaxExportPreview from "@features/tax/components/TaxExportPreview.jsx";
-import LeasesList from "@features/leases/components/LeasesList.jsx";
 import LeaseStatusPanel from "@features/leases/components/LeaseStatusPanel.jsx";
 import LeaseFinancialsPanel from "@features/leases/components/LeaseFinancialsPanel.jsx";
 import FinancialsPanel from "@features/financials/components/FinancialsPanel.jsx";
@@ -49,23 +46,18 @@ import LandlordLeaseDetailPage from "@features/leases/pages/LandlordLeaseDetailP
 ////Residents
 //////Tenants
 import LandlordResidentsPage from "@features/residents/pages/LandlordResidentsPage.jsx";
-import LandlordTenantsPage from "@features/residents/pages/tenants/LandlordTenantsPage.jsx";
 import LandlordAddTenantPage from "@features/residents/pages/tenants/LandlordAddTenantPage.jsx";
 import LandlordTenantDetailPage from "@features/residents/pages/tenants/LandlordTenantDetailPage.jsx";
 //////Occupants
-import LandlordOccupantsPage from "@features/residents/pages/occupants/LandlordOccupantsPage.jsx";
 import LandlordAddOccupantPage from "@features/residents/pages/occupants/LandlordAddOccupantPage.jsx";
 import LandlordOccupantDetailPage from "@features/residents/pages/occupants/LandlordOccupantDetailPage.jsx";
 //////Pets
-import LandlordPetsPage from "@features/residents/pages/pets/LandlordPetsPage.jsx";
 import LandlordAddPetPage from "@features/residents/pages/pets/LandlordAddPetPage.jsx";
 import LandlordPetDetailPage from "@features/residents/pages/pets/LandlordPetDetailPage.jsx";
 //////Emergency Contacts
-import LandlordEmergencyContactsPage from "@features/residents/pages/emergencyContacts/LandlordEmergencyContactsPage.jsx";
 import LandlordAddEmergencyContactPage from "@features/residents/pages/emergencyContacts/LandlordAddEmergencyContactPage.jsx";
 import LandlordEmergencyContactDetailPage from "@features/residents/pages/emergencyContacts/LandlordEmergencyContactDetailPage.jsx";
 //////Vehicles
-import LandlordVehiclesPage from "@features/residents/pages/vehicles/LandlordVehiclesPage.jsx";
 import LandlordAddVehiclePage from "@features/residents/pages/vehicles/LandlordAddVehiclePage.jsx";
 import LandlordVehicleDetailPage from "@features/residents/pages/vehicles/LandlordVehicleDetailPage.jsx";
 
@@ -126,22 +118,6 @@ function RoleLandingRouter() {
 /* Small helper for sysadmin FeaturesPage                             */
 /* ------------------------------------------------------------------ */
 
-function Properties() {
-  const [showArchived, setShowArchived] = React.useState(true);
-
-  return (
-    <>
-      <div style={{ marginBottom: 8 }}>
-        <IncludeArchivedToggle
-          value={showArchived}
-          onChange={setShowArchived}
-        />
-      </div>
-      <PropertiesList includeArchived={showArchived} />
-    </>
-  );
-}
-
 function LandlordPropertyDetailsRoute() {
   const { id } = useParams();
   return <LandlordPropertyDetailPage propertyId={id} />;
@@ -162,17 +138,6 @@ function FeaturesPage() {
       </section>
 
       <section style={{ marginTop: 16 }}>
-        <h3 style={{ margin: "0 0 6px" }}>Tenants</h3>
-        <div style={{ marginBottom: 8 }}>
-          <IncludeArchivedToggle
-            value={showTenantsArchived}
-            onChange={setShowTenantsArchived}
-          />
-        </div>
-        <TenantsList includeArchived={showTenantsArchived} />
-      </section>
-
-      <section style={{ marginTop: 16 }}>
         <MaintenanceTicketList propertyId="prop-123" />
       </section>
 
@@ -190,17 +155,6 @@ function FeaturesPage() {
 
       <section style={{ marginTop: 16 }}>
         <TaxExportPreview propertyId="prop-123" defaultYear={2025} />
-      </section>
-
-      <section style={{ marginTop: 16 }}>
-        <h3 style={{ margin: "0 0 6px" }}>Leases</h3>
-        <div style={{ marginBottom: 8 }}>
-          <IncludeArchivedToggle
-            value={showLeasesArchived}
-            onChange={setShowLeasesArchived}
-          />
-        </div>
-        <LeasesList includeArchived={showLeasesArchived} />
       </section>
 
       <section style={{ marginTop: 16 }}>
@@ -351,16 +305,6 @@ export function AppRoutes() {
           }
         />
 
-        {/* Residents --> occupant main */}
-        <Route
-          path="/landlord/occupants"
-          element={
-            <RequireRole allow={[ROLES.LANDLORD]}>
-              <LandlordOccupantsPage />
-            </RequireRole>
-          }
-        />
-
         {/* Add occupant */}
         <Route
           path="/landlord/occupants/new"
@@ -377,16 +321,6 @@ export function AppRoutes() {
           element={
             <RequireRole allow={[ROLES.LANDLORD]}>
               <LandlordOccupantDetailPage />
-            </RequireRole>
-          }
-        />
-
-        {/* Residents --> pet main */}
-        <Route
-          path="/landlord/pets"
-          element={
-            <RequireRole allow={[ROLES.LANDLORD]}>
-              <LandlordPetsPage />
             </RequireRole>
           }
         />
@@ -411,16 +345,6 @@ export function AppRoutes() {
           }
         />
 
-        {/* Residents --> vehicle main */}
-        <Route
-          path="/landlord/vehicles"
-          element={
-            <RequireRole allow={[ROLES.LANDLORD]}>
-              <LandlordVehiclesPage />
-            </RequireRole>
-          }
-        />
-
         {/* Add vehicle */}
         <Route
           path="/landlord/vehicles/new"
@@ -437,16 +361,6 @@ export function AppRoutes() {
           element={
             <RequireRole allow={[ROLES.LANDLORD]}>
               <LandlordVehicleDetailPage />
-            </RequireRole>
-          }
-        />
-
-        {/* Residents --> emergency contact main */}
-        <Route
-          path="/landlord/emergencyContacts"
-          element={
-            <RequireRole allow={[ROLES.LANDLORD]}>
-              <LandlordEmergencyContactsPage />
             </RequireRole>
           }
         />
