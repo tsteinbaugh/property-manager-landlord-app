@@ -6,19 +6,30 @@ import styles from "../tenants/LandlordTenantsPage.module.css";
 import { petsApi } from "@features/residents/api/pets.api.js";
 import { tenantsApi } from "@features/residents/api/tenants.api.js";
 
+function trimOrEmpty(v) {
+  return typeof v === "string" ? v.trim() : "";
+}
+
 export default function LandlordAddPetPage() {
   const navigate = useNavigate();
   const { token } = useUser() || {};
   const [searchParams] = useSearchParams();
 
   const tenantId = searchParams.get("tenantId") || "";
+  const petId = searchParams.get("petId") || "";
   const returnTo = searchParams.get("returnTo") || "";
+
+  const isEditMode = !!petId;
 
   // ---------- shared simple form state (name/type/breed/weight) ----------
   const [name, setName] = useState("");
   const [type, setType] = useState("");
   const [breed, setBreed] = useState("");
   const [weightLb, setWeightLb] = useState("");
+  const [age, setAge] = useState("");
+  const [license, setLicense] = useState("");
+  const [notes, setNotes] = useState("");
+  const [violations, setViolations] = useState("");
   const [isSubmitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
 
@@ -34,6 +45,7 @@ export default function LandlordAddPetPage() {
   const [selectedExistingPetId, setSelectedExistingPetId] =
     useState("");
   const [isLinkingExisting, setIsLinkingExisting] = useState(false);
+  const [touched, setTouched] = useState({ name: false });
 
   // ------------------------------------------------------------
   // Load tenant + pets list when tenantId is present
@@ -81,6 +93,45 @@ export default function LandlordAddPetPage() {
       cancelled = true;
     };
   }, [tenantId, token]);
+
+  // ------------------------------------------------------------
+  // Load pet for EDIT mode (global or tenant context)
+  // ------------------------------------------------------------
+  useEffect(() => {
+    let cancelled = false;
+    if (!petId || !token) return;
+
+    async function loadPetForEdit() {
+      try {
+        setFormError("");
+        const p = await petsApi.get(petId, { token });
+        if (cancelled) return;
+
+        if (!p) {
+          setFormError("Pet not found.");
+          return;
+        }
+
+        setName(p.name || "");
+        setType(p.type || "");
+        setBreed(p.breed || "");
+        setWeightLb(p.weightLb != null ? String(p.weightLb) : "");
+        setAge(p.age != null ? String(p.age) : "");
+        setLicense(p.license || "");
+        setNotes(p.notes || "");
+        setViolations(p.violations || "");
+      } catch (err) {
+        console.error("Failed to load pet for edit", err);
+        if (!cancelled) setFormError("Failed to load pet for editing.");
+      }
+    }
+
+    loadPetForEdit();
+    return () => {
+      cancelled = true;
+    };
+  }, [petId, token]);
+
   // Pets currently linked to this tenant via join table
   const petLinks = Array.isArray(tenant?.petLinks)
     ? tenant.petLinks
@@ -95,7 +146,7 @@ export default function LandlordAddPetPage() {
 
   const availableExistingPets =
     tenant && allPets.length > 0
-      ? allPets.filter((p) => !linkedIds.has(p.id))
+      ? allPets.filter((e) => !linkedIds.has(e.id))
       : allPets;
 
   // ------------------------------------------------------------
@@ -112,53 +163,55 @@ export default function LandlordAddPetPage() {
   };
 
   const handleCancel = () => {
-    if (tenantId) {
-      goBackFromTenantContext();
-    } else {
-      navigate("/landlord/residents?tab=pets");
-    }
+    if (returnTo) return navigate(returnTo);
+    if (tenantId) return goBackFromTenantContext();
+    if (isEditMode) return navigate(`/landlord/pets/${petId}`);
+    return navigate("/landlord/residents?tab=pets");
   };
 
-  // ------------------------------------------------------------
-  // GLOBAL MODE (no tenantId): original behavior
-  // ------------------------------------------------------------
   const handleSubmitGlobal = async (e) => {
     e.preventDefault();
+    setTouched({ name: true });
 
-    if (!name.trim()) {
-      setFormError("Name is required.");
-      return;
-    }
-    const rawWeight = weightLb.trim();
-    let normalizedWeight = null;
+    const cleanName = trimOrEmpty(name);
 
-    if (rawWeight) {
-      const parsed = Number(rawWeight);
-      if (Number.isNaN(parsed) || parsed < 0) {
-        setFormError("Weight must be a positive number.");
-        return;
-      }
-      normalizedWeight = parsed;
-    }
+    if (!cleanName) return setFormError("Name is required.");
+    if (cleanName.length < 2) return setFormError("Name must be at least 2 characters.");
+    if (!/^[a-zA-Z\s.'-]+$/.test(cleanName)) return setFormError("Name contains invalid characters.");
+
+    const payload = {
+      name: cleanName,
+      type: trimOrEmpty(type) || null,
+      breed: trimOrEmpty(breed) || null,
+      weightLb: weightLb ? Number(weightLb) : null,
+      age: age ? Number(age) : null,
+      license: trimOrEmpty(license) || null,
+      notes: trimOrEmpty(notes) || null,
+      violations: trimOrEmpty(violations) || null,
+    };
 
     try {
       setSubmitting(true);
       setFormError("");
 
-      await petsApi.create(
-        {
-          name: name.trim(),
-          type: type.trim(),
-          breed: breed.trim(),
-          weightLb: normalizedWeight,
-        },
-        { token }
-      );
+      let saved;
+      if (isEditMode) {
+        saved = await petsApi.update(petId, payload, { token });
+      } else {
+        saved = await petsApi.create(payload, { token });
+      }
 
-      navigate("/landlord/residents?tab=pets");
+      // After save: prefer returnTo, otherwise go to detail (edit) or list (create)
+      if (returnTo) {
+        navigate(returnTo);
+      } else if (isEditMode) {
+        navigate(`/landlord/pets/${saved?.id || petId}`);
+      } else {
+        navigate("/landlord/residents?tab=pets");
+      }
     } catch (err) {
-      console.error("Failed to create pet", err);
-      setFormError("Failed to create pet. Check console for details.");
+      console.error("Failed to save pet", err);
+      setFormError("Failed to save pet. Check console for details.");
     } finally {
       setSubmitting(false);
     }
@@ -201,40 +254,30 @@ export default function LandlordAddPetPage() {
 
   const handleSubmitForTenant = async (e) => {
     e.preventDefault();
+    setTouched({ name: true });
 
-    if (!name.trim()) {
-      setFormError("Name is required.");
-      return;
-    }
+    const cleanName = trimOrEmpty(name);
 
-    const rawWeight = weightLb.trim();
-    let normalizedWeight = null;
-
-    if (rawWeight) {
-      const parsed = Number(rawWeight);
-      if (Number.isNaN(parsed) || parsed < 0) {
-        setFormError("Weight must be a positive number.");
-        return;
-      }
-      normalizedWeight = parsed;
-    }
+    if (!cleanName) return setFormError("Name is required.");
 
     try {
       setSubmitting(true);
       setFormError("");
 
-      // 1) create the pet globally
       const created = await petsApi.create(
         {
-          name: name.trim(),
-          type: type.trim(),
-          breed: breed.trim(),
-          weightLb: normalizedWeight,
+          name: cleanName,
+          type: trimOrEmpty(type) || null,
+          breed: trimOrEmpty(breed) || null,
+          weightLb: weightLb ? Number(weightLb) : null,
+          age: age ? Number(age) : null,
+          license: trimOrEmpty(license) || null,
+          notes: trimOrEmpty(notes) || null,
+          violations: trimOrEmpty(violations) || null,
         },
         { token }
       );
 
-      // 2) link to this tenant via join table
       await tenantsApi.linkPet(tenantId, created.id, { token });
 
       goBackFromTenantContext();
@@ -246,7 +289,7 @@ export default function LandlordAddPetPage() {
     }
   };
 
-  const saveDisabled = isSubmitting || !name.trim();
+  const saveDisabled = isSubmitting;
 
   // ------------------------------------------------------------
   // RENDER
@@ -316,14 +359,10 @@ export default function LandlordAddPetPage() {
                     }
                     disabled={isLinkingExisting}
                   >
-                    <option value="">Select an pet…</option>
+                    <option value="">Select a pet…</option>
                     {availableExistingPets.map((p) => (
                       <option key={p.id} value={p.id}>
                         {p.name}
-                        {p.type ? ` (${p.type})` : ""}
-                        {p.breed ? ` (${p.breed})` : ""}
-                        {p.weightLb ? ` (${p.weightLb})` : ""}
-                        {p.tenantId ? " – linked to another tenant" : ""}
                       </option>
                     ))}
                   </select>
@@ -345,9 +384,6 @@ export default function LandlordAddPetPage() {
                       {tenantPets.map((p) => (
                         <li key={p.id}>
                           {p.name}
-                          {p.type ? ` (${p.type})` : ""}
-                          {p.breed ? ` (${p.breed})` : ""}
-                          {p.weightLb ? ` (${p.weightLb})` : ""}
                         </li>
                       ))}
                     </ul>
@@ -390,6 +426,7 @@ export default function LandlordAddPetPage() {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                  onBlur={() => setTouched((t) => ({ ...t, name: true }))}
                   placeholder="Name (required)"
                   style={{
                     width: "100%",
@@ -473,6 +510,118 @@ export default function LandlordAddPetPage() {
                 />
               </div>
 
+              {/* Age */}
+              <div style={{ marginBottom: 12 }}>
+                <label
+                  htmlFor="age"
+                  style={{
+                    display: "block",
+                    fontWeight: 500,
+                    marginBottom: 4,
+                  }}
+                >
+                  Age
+                </label>
+                <input
+                  id="age"
+                  type="number"
+                  value={age}
+                  onChange={(p) => setAge(p.target.value)}
+                  placeholder="Age"
+                  style={{
+                    width: "100%",
+                    padding: "6px 8px",
+                    borderRadius: 8,
+                    border: "1px solid #d1d5db",
+                  }}
+                  disabled={isSubmitting}
+                />
+              </div>
+
+              {/* License */}
+              <div style={{ marginBottom: 12 }}>
+                <label
+                  htmlFor="license"
+                  style={{
+                    display: "block",
+                    fontWeight: 500,
+                    marginBottom: 4,
+                  }}
+                >
+                  License
+                </label>
+                <input
+                  id="license"
+                  type="text"
+                  value={license}
+                  onChange={(p) => setLicense(p.target.value)}
+                  placeholder="License number"
+                  style={{
+                    width: "100%",
+                    padding: "6px 8px",
+                    borderRadius: 8,
+                    border: "1px solid #d1d5db",
+                  }}
+                  disabled={isSubmitting}
+                />
+              </div>
+
+              {/* Notes */}
+              <div style={{ marginBottom: 12 }}>
+                <label
+                  htmlFor="notes"
+                  style={{
+                    display: "block",
+                    fontWeight: 500,
+                    marginBottom: 4,
+                  }}
+                >
+                  Notes
+                </label>
+                <input
+                  id="notes"
+                  type="text"
+                  value={notes}
+                  onChange={(p) => setNotes(p.target.value)}
+                  placeholder="Additional notes"
+                  style={{
+                    width: "100%",
+                    padding: "6px 8px",
+                    borderRadius: 8,
+                    border: "1px solid #d1d5db",
+                  }}
+                  disabled={isSubmitting}
+                />
+              </div>
+                
+              {/* Violations */}
+              <div style={{ marginBottom: 12 }}>
+                <label
+                  htmlFor="violations"
+                  style={{
+                    display: "block",
+                    fontWeight: 500,
+                    marginBottom: 4,
+                  }}
+                >
+                  Violations
+                </label>
+                <input
+                  id="violations"
+                  type="text"
+                  value={violations}
+                  onChange={(p) => setViolations(p.target.value)}
+                  placeholder="Record any violations"
+                  style={{
+                    width: "100%",
+                    padding: "6px 8px",
+                    borderRadius: 8,
+                    border: "1px solid #d1d5db",
+                  }}
+                  disabled={isSubmitting}
+                />
+              </div>
+
               {formError && (
                 <div
                   style={{
@@ -523,7 +672,7 @@ export default function LandlordAddPetPage() {
         <div>
           <h1 className={styles.title}>Add pet</h1>
           <p className={styles.subtitle}>
-            Create an pet record. You’ll be able to connect pets to
+            Create a pet record. You’ll be able to connect pets to
             leases (and tenants) later.
           </p>
         </div>
@@ -544,15 +693,21 @@ export default function LandlordAddPetPage() {
           <div style={{ marginBottom: 12 }}>
             <label
               htmlFor="name"
-              style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
+              style={{
+                display: "block",
+                fontWeight: 500,
+                marginBottom: 4,
+              }}
             >
-              Pet name <span style={{ color: "#b91c1c" }}>*</span>
+              Pet name{" "}
+              <span style={{ color: "#b91c1c" }}>*</span>
             </label>
             <input
               id="name"
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              onBlur={() => setTouched((t) => ({ ...t, name: true }))}
               placeholder="Name (required)"
               style={{
                 width: "100%",
@@ -564,7 +719,7 @@ export default function LandlordAddPetPage() {
             />
           </div>
 
-          {/* Type*/}
+         {/* Type*/}
           <div style={{ marginBottom: 12 }}>
             <label
               htmlFor="type"
@@ -587,7 +742,7 @@ export default function LandlordAddPetPage() {
               disabled={isSubmitting}
             />
           </div>
-
+            
           {/* Breed */}
           <div style={{ marginBottom: 12 }}>
             <label
@@ -611,7 +766,7 @@ export default function LandlordAddPetPage() {
               disabled={isSubmitting}
             />
           </div>
-
+            
           {/* WeightLb */}
           <div style={{ marginBottom: 12 }}>
             <label
@@ -626,6 +781,118 @@ export default function LandlordAddPetPage() {
               value={weightLb}
               onChange={(e) => setWeightLb(e.target.value)}
               placeholder="Weight (Lb)"
+              style={{
+                width: "100%",
+                padding: "6px 8px",
+                borderRadius: 8,
+                border: "1px solid #d1d5db",
+              }}
+              disabled={isSubmitting}
+            />
+          </div>
+
+         {/* Age */}
+          <div style={{ marginBottom: 12 }}>
+            <label
+              htmlFor="age"
+              style={{
+                display: "block",
+                fontWeight: 500,
+                marginBottom: 4,
+              }}
+            >
+              Age
+            </label>
+            <input
+              id="age"
+              type="number"
+              value={age}
+              onChange={(p) => setAge(p.target.value)}
+              placeholder="Age"
+              style={{
+                width: "100%",
+                padding: "6px 8px",
+                borderRadius: 8,
+                border: "1px solid #d1d5db",
+              }}
+              disabled={isSubmitting}
+            />
+          </div>
+
+         {/* License */}
+          <div style={{ marginBottom: 12 }}>
+            <label
+              htmlFor="license"
+              style={{
+                display: "block",
+                fontWeight: 500,
+                marginBottom: 4,
+              }}
+            >
+              License
+            </label>
+            <input
+              id="license"
+              type="text"
+              value={license}
+              onChange={(p) => setLicense(p.target.value)}
+              placeholder="License number"
+              style={{
+                width: "100%",
+                padding: "6px 8px",
+                borderRadius: 8,
+                border: "1px solid #d1d5db",
+              }}
+              disabled={isSubmitting}
+            />
+          </div>
+
+         {/* Notes */}
+          <div style={{ marginBottom: 12 }}>
+            <label
+              htmlFor="notes"
+              style={{
+                display: "block",
+                fontWeight: 500,
+                marginBottom: 4,
+              }}
+            >
+              Notes
+            </label>
+            <input
+              id="notes"
+              type="text"
+              value={notes}
+              onChange={(p) => setNotes(p.target.value)}
+              placeholder="Additional notes"
+              style={{
+                width: "100%",
+                padding: "6px 8px",
+                borderRadius: 8,
+                border: "1px solid #d1d5db",
+              }}
+              disabled={isSubmitting}
+            />
+          </div>
+            
+          {/* Violations */}
+          <div style={{ marginBottom: 12 }}>
+            <label
+              htmlFor="violations"
+              style={{
+                display: "block",
+                fontWeight: 500,
+                marginBottom: 4,
+              }}
+            >
+              Violations
+            </label>
+            <input
+              id="violations"
+              type="text"
+              value={violations}
+              onChange={(p) => setViolations(p.target.value)}
+              placeholder="Record any violations"
               style={{
                 width: "100%",
                 padding: "6px 8px",

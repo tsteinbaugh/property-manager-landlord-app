@@ -6,21 +6,10 @@ function mapEmergencyContactFromApi(e) {
 
   const archived = !!(e.archived ?? e.isArchived);
 
-  const primaryTenant = e.primaryTenant
-    ? {
-        id: e.primaryTenant.id,
-        name: e.primaryTenant.name,
-        email: e.primaryTenant.email || "",
-        phone: e.primaryTenant.phone || "",
-      }
-    : null;
-
   const tenants = Array.isArray(e.tenants)
     ? e.tenants.map((t) => ({
         id: t.id,
         name: t.name,
-        email: t.email || "",
-        phone: t.phone || "",
         archived: !!(t.archived ?? t.isArchived),
       }))
     : [];
@@ -36,13 +25,9 @@ function mapEmergencyContactFromApi(e) {
     postalCode: e.postalCode || "",
     relation: e.relation || "",
     notes: e.notes || "",
-    tenantId: e.tenantId || null,
     archived,
     createdAt: e.createdAt || e.createdAtISO || null,
     updatedAt: e.updatedAt || e.updatedAtISO || null,
-
-    // NEW: used by LandlordEmergencyContactDetailsPage
-    primaryTenant,
     tenants,
   };
 }

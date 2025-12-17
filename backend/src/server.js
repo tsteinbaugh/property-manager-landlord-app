@@ -218,6 +218,7 @@ function shapeTenant(t) {
     bodyBuild: t.bodyBuild,
     markings: t.markings,
     occupation: t.occupation,
+    employer: t.employer,
     income: t.income,
     creditScore: t.creditScore,
     violations: t.violations,

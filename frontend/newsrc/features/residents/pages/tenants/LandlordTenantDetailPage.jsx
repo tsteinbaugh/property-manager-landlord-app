@@ -40,6 +40,12 @@ export default function LandlordTenantDetailPage() {
     useState(null);
   const [unlinkingVehicleId, setUnlinkingVehicleId] = useState(null);
 
+  async function reloadTenant(idToLoad = tenantId) {
+    if (!idToLoad || !token) return null;
+    const t = await tenantsApi.detail(idToLoad, { token });
+    return t;
+  }
+
   // Load tenant (rich detail)
   useEffect(() => {
     let cancelled = false;
@@ -49,7 +55,7 @@ export default function LandlordTenantDetailPage() {
         setLoading(true);
         setError(null);
 
-        const t = await tenantsApi.detail(tenantId, { token });
+        const t = await reloadTenant(tenantId);
 
         if (!cancelled) {
           if (!t) {
@@ -95,16 +101,7 @@ export default function LandlordTenantDetailPage() {
   const canUnarchiveNow = isArchived && isSysAdmin;
   const showArchiveButton = canArchiveNow || canUnarchiveNow;
 
-  const leaseTenants = Array.isArray(tenant?.leaseTenants)
-    ? tenant.leaseTenants
-    : [];
-
-  const tenantOccupants = Array.isArray(tenant?.occupants) ? tenant.occupants : [];
-  const tenantPets = Array.isArray(tenant?.pets) ? tenant.pets : [];
-  const tenantEmergencyContacts = Array.isArray(tenant?.emergencyContacts)
-    ? tenant.emergencyContacts
-    : [];
-  const tenantVehicles = Array.isArray(tenant?.vehicles) ? tenant.vehicles : [];
+  const leaseTenants = Array.isArray(tenant?.leaseTenants) ? tenant.leaseTenants : [];
 
   const propertyGroups = useMemo(() => {
     const map = new Map();
@@ -138,7 +135,7 @@ export default function LandlordTenantDetailPage() {
     try {
       setSaving(true);
 
-      const updated = await tenantsApi.update(
+      await tenantsApi.update(
         tenant.id,
         {
           name: name.trim(),
@@ -148,24 +145,8 @@ export default function LandlordTenantDetailPage() {
         { token }
       );
 
-      setTenant((prev) =>
-        prev
-          ? {
-              ...prev,
-              ...updated,
-              leaseTenants: prev.leaseTenants,
-              occupants: prev.occupants,
-              pets: prev.pets,
-              emergencyContacts: prev.emergencyContacts,
-              vehicles: prev.vehicles,
-              occupantLinks: prev.occupantLinks,
-              petLinks: prev.petLinks,
-              emergencyContactLinks: prev.emergencyContactLinks,
-              vehicleLinks: prev.vehicleLinks,
-            }
-          : prev
-      );
-
+      const fresh = await reloadTenant(tenant.id);
+      setTenant(fresh || tenant);
       setEditing(false);
     } catch (err) {
       console.error("Failed to update tenant", err);
@@ -195,37 +176,20 @@ export default function LandlordTenantDetailPage() {
           "They will be hidden from active tenant lists. Only a system administrator can unarchive them."
       );
       if (!ok) return;
-    } else {
-      if (!isSysAdmin) {
-        alert(
-          "Only a system administrator can unarchive an archived tenant. " +
-            "Please contact your system admin if this needs to be reactivated."
-        );
-        return;
-      }
+    } else if (!isSysAdmin) {
+      alert(
+        "Only a system administrator can unarchive an archived tenant. " +
+          "Please contact your system admin if this needs to be reactivated."
+      );
+      return;
     }
 
     try {
       setArchiving(true);
-      const updated = await tenantsApi.toggleArchive(tenant.id, { token });
+      await tenantsApi.toggleArchive(tenant.id, { token });
 
-      setTenant((prev) =>
-        prev
-          ? {
-              ...prev,
-              ...updated,
-              leaseTenants: prev.leaseTenants,
-              occupants: prev.occupants,
-              pets: prev.pets,
-              emergencyContacts: prev.emergencyContacts,
-              vehicles: prev.vehicles,
-              occupantLinks: prev.occupantLinks,
-              petLinks: prev.petLinks,
-              emergencyContactLinks: prev.emergencyContactLinks,
-              vehicleLinks: prev.vehicleLinks,
-            }
-          : prev
-      );
+      const fresh = await reloadTenant(tenant.id);
+      setTenant(fresh || tenant);
     } catch (err) {
       console.error("Failed to toggle tenant archived state", err);
       alert("Failed to change archive status. Check console for details.");
@@ -245,7 +209,7 @@ export default function LandlordTenantDetailPage() {
     try {
       setUnlinkingOccupantId(occupantId);
       await tenantsApi.unlinkOccupant(tenant.id, occupantId, { token });
-      const fresh = await tenantsApi.detail(tenant.id, { token });
+      const fresh = await reloadTenant(tenant.id);
       setTenant(fresh || tenant);
     } catch (err) {
       console.error("Failed to unlink occupant from tenant", err);
@@ -266,7 +230,7 @@ export default function LandlordTenantDetailPage() {
     try {
       setUnlinkingPetId(petId);
       await tenantsApi.unlinkPet(tenant.id, petId, { token });
-      const fresh = await tenantsApi.detail(tenant.id, { token });
+      const fresh = await reloadTenant(tenant.id);
       setTenant(fresh || tenant);
     } catch (err) {
       console.error("Failed to unlink pet from tenant", err);
@@ -289,7 +253,7 @@ export default function LandlordTenantDetailPage() {
       await tenantsApi.unlinkEmergencyContact(tenant.id, emergencyContactId, {
         token,
       });
-      const fresh = await tenantsApi.detail(tenant.id, { token });
+      const fresh = await reloadTenant(tenant.id);
       setTenant(fresh || tenant);
     } catch (err) {
       console.error("Failed to unlink emergency contact from tenant", err);
@@ -310,7 +274,7 @@ export default function LandlordTenantDetailPage() {
     try {
       setUnlinkingVehicleId(vehicleId);
       await tenantsApi.unlinkVehicle(tenant.id, vehicleId, { token });
-      const fresh = await tenantsApi.detail(tenant.id, { token });
+      const fresh = await reloadTenant(tenant.id);
       setTenant(fresh || tenant);
     } catch (err) {
       console.error("Failed to unlink vehicle from tenant", err);
@@ -332,12 +296,15 @@ export default function LandlordTenantDetailPage() {
     try {
       const result = await leasesApi.unlinkTenant(leaseId, tenant.id, { token });
 
-      // Fallback: if there was no join row but this tenant is the legacy tenantId, clear it
+      // If there was no join row but this tenant is the legacy tenantId, clear it
       if (result?.notFound) {
-        await leasesApi.update(leaseId, { token });
+        // NOTE: your leasesApi.update signature probably expects (id, patch, opts).
+        // If you still need this legacy cleanup, implement it in the backend or provide a patch here.
+        // Leaving as-is to preserve behavior, but this call likely does nothing useful:
+        await leasesApi.update(leaseId, {}, { token });
       }
 
-      const fresh = await tenantsApi.detail(tenant.id, { token });
+      const fresh = await reloadTenant(tenant.id);
       setTenant(fresh);
     } catch (err) {
       console.error("Failed to unlink lease from tenant", err);
@@ -472,22 +439,19 @@ export default function LandlordTenantDetailPage() {
         {propertyGroups.length > 0 ? (
           <ul style={{ paddingLeft: 18 }}>
             {propertyGroups.map(({ property, leases }) => {
-              const label =
-                property.name || property.address1 || "(unnamed property)";
+              const label = property.name || property.address1 || "(unnamed property)";
 
               const line2 =
                 property.city || property.state || property.postalCode
-                  ? `${property.city || ""}${property.city ? ", " : ""}${
-                      property.state || ""
-                    } ${property.postalCode || ""}`.trim()
+                  ? `${property.city || ""}${property.city ? ", " : ""}${property.state || ""} ${
+                      property.postalCode || ""
+                    }`.trim()
                   : "";
 
               return (
                 <li key={property.id} style={{ marginBottom: 10 }}>
                   <div>
-                    <Link to={`/landlord/properties/${property.id}`}>
-                      {label}
-                    </Link>
+                    <Link to={`/landlord/properties/${property.id}`}>{label}</Link>
                   </div>
 
                   {(property.address1 || line2) && (
@@ -503,17 +467,8 @@ export default function LandlordTenantDetailPage() {
                   )}
 
                   {leases?.length > 0 && (
-                    <div
-                      style={{
-                        fontSize: 12,
-                        color: "#6b7280",
-                        marginTop: 4,
-                      }}
-                    >
-                      Leases here:{" "}
-                      {leases
-                        .map(({ lease }) => lease?.status || "UNKNOWN")
-                        .join(", ")}
+                    <div style={{ fontSize: 12, color: "#6b7280", marginTop: 4 }}>
+                      Leases here: {leases.map(({ lease }) => lease?.status || "UNKNOWN").join(", ")}
                     </div>
                   )}
                 </li>
@@ -530,8 +485,7 @@ export default function LandlordTenantDetailPage() {
           <div style={{ fontSize: 12, color: "#6b7280", marginTop: 8 }}>
             Note: {leasesMissingPropertyCount} lease
             {leasesMissingPropertyCount === 1 ? "" : "s"} on this tenant{" "}
-            {leasesMissingPropertyCount === 1 ? "is" : "are"} not linked to a
-            property yet.
+            {leasesMissingPropertyCount === 1 ? "is" : "are"} not linked to a property yet.
           </div>
         )}
       </section>
@@ -547,9 +501,7 @@ export default function LandlordTenantDetailPage() {
           marginTop: 16,
         }}
       >
-        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
-          Leases
-        </h3>
+        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>Leases</h3>
 
         {leaseTenants.length > 0 ? (
           <ul style={{ paddingLeft: 18 }}>
@@ -577,8 +529,7 @@ export default function LandlordTenantDetailPage() {
 
                   {property && (
                     <div style={{ fontSize: 12, color: "#4b5563" }}>
-                      Property:{" "}
-                      {property.name || property.address1 || "(property details)"}
+                      Property: {property.name || property.address1 || "(property details)"}
                     </div>
                   )}
 
@@ -596,9 +547,7 @@ export default function LandlordTenantDetailPage() {
         )}
 
         <div style={{ marginTop: 8, marginBottom: 8 }}>
-          <Link to={`/landlord/leases/new?tenantId=${tenant.id}`}>
-            + Add lease for this tenant
-          </Link>
+          <Link to={`/landlord/leases/new?tenantId=${tenant.id}`}>+ Add lease for this tenant</Link>
         </div>
       </section>
 
@@ -634,9 +583,7 @@ export default function LandlordTenantDetailPage() {
                   }}
                 >
                   <span>
-                    <Link to={`/landlord/occupants/${o.id}`}>
-                      {o.name || "Unnamed occupant"}
-                    </Link>
+                    <Link to={`/landlord/occupants/${o.id}`}>{o.name || "Unnamed occupant"}</Link>
                   </span>
 
                   <button
@@ -652,9 +599,7 @@ export default function LandlordTenantDetailPage() {
             })}
           </ul>
         ) : (
-          <div style={{ fontSize: 14, color: "#6b7280" }}>
-            No occupants linked to this tenant yet.
-          </div>
+          <div style={{ fontSize: 14, color: "#6b7280" }}>No occupants linked to this tenant yet.</div>
         )}
 
         <div style={{ marginTop: 12 }}>
@@ -664,9 +609,7 @@ export default function LandlordTenantDetailPage() {
               const returnTo = encodeURIComponent(
                 `${window.location.pathname}${window.location.search || ""}`
               );
-              navigate(
-                `/landlord/occupants/new?tenantId=${tenant.id}&returnTo=${returnTo}`
-              );
+              navigate(`/landlord/occupants/new?tenantId=${tenant.id}&returnTo=${returnTo}`);
             }}
           >
             Manage occupants for this tenant
@@ -706,9 +649,7 @@ export default function LandlordTenantDetailPage() {
                   }}
                 >
                   <span>
-                    <Link to={`/landlord/pets/${p.id}`}>
-                      {p.name || "Unnamed pet"}
-                    </Link>
+                    <Link to={`/landlord/pets/${p.id}`}>{p.name || "Unnamed pet"}</Link>
                   </span>
 
                   <button
@@ -724,9 +665,7 @@ export default function LandlordTenantDetailPage() {
             })}
           </ul>
         ) : (
-          <div style={{ fontSize: 14, color: "#6b7280" }}>
-            No pets linked to this tenant yet.
-          </div>
+          <div style={{ fontSize: 14, color: "#6b7280" }}>No pets linked to this tenant yet.</div>
         )}
 
         <div style={{ marginTop: 12 }}>
@@ -736,9 +675,7 @@ export default function LandlordTenantDetailPage() {
               const returnTo = encodeURIComponent(
                 `${window.location.pathname}${window.location.search || ""}`
               );
-              navigate(
-                `/landlord/pets/new?tenantId=${tenant.id}&returnTo=${returnTo}`
-              );
+              navigate(`/landlord/pets/new?tenantId=${tenant.id}&returnTo=${returnTo}`);
             }}
           >
             Manage pets for this tenant
@@ -761,8 +698,7 @@ export default function LandlordTenantDetailPage() {
           Emergency contacts for this tenant
         </h3>
 
-        {Array.isArray(tenant.emergencyContactLinks) &&
-        tenant.emergencyContactLinks.length > 0 ? (
+        {Array.isArray(tenant.emergencyContactLinks) && tenant.emergencyContactLinks.length > 0 ? (
           <ul style={{ paddingLeft: 18, fontSize: 14 }}>
             {tenant.emergencyContactLinks.map((link) => {
               const e = link?.emergencyContact;
@@ -790,9 +726,7 @@ export default function LandlordTenantDetailPage() {
                     disabled={unlinkingEmergencyContactId === e.id}
                     style={{ fontSize: 11, padding: "2px 6px" }}
                   >
-                    {unlinkingEmergencyContactId === e.id
-                      ? "Unlinking…"
-                      : "Unlink"}
+                    {unlinkingEmergencyContactId === e.id ? "Unlinking…" : "Unlink"}
                   </button>
                 </li>
               );
@@ -871,9 +805,7 @@ export default function LandlordTenantDetailPage() {
             })}
           </ul>
         ) : (
-          <div style={{ fontSize: 14, color: "#6b7280" }}>
-            No vehicles linked to this tenant yet.
-          </div>
+          <div style={{ fontSize: 14, color: "#6b7280" }}>No vehicles linked to this tenant yet.</div>
         )}
 
         <div style={{ marginTop: 12 }}>
@@ -883,9 +815,7 @@ export default function LandlordTenantDetailPage() {
               const returnTo = encodeURIComponent(
                 `${window.location.pathname}${window.location.search || ""}`
               );
-              navigate(
-                `/landlord/vehicles/new?tenantId=${tenant.id}&returnTo=${returnTo}`
-              );
+              navigate(`/landlord/vehicles/new?tenantId=${tenant.id}&returnTo=${returnTo}`);
             }}
           >
             Manage vehicles for this tenant

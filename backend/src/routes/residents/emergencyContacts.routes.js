@@ -3,110 +3,116 @@ const { Role } = require("@prisma/client");
 
 function registerEmergencyContactRoutes(app, prisma, { shapeEmergencyContact }) {
 
-// ============================================================
-// Helpers (drop near top of emergencyContacts.routes.js)
-// ============================================================
-const US_STATES = new Map([
-  ["ALABAMA", "AL"],
-  ["ALASKA", "AK"],
-  ["ARIZONA", "AZ"],
-  ["ARKANSAS", "AR"],
-  ["CALIFORNIA", "CA"],
-  ["COLORADO", "CO"],
-  ["CONNECTICUT", "CT"],
-  ["DELAWARE", "DE"],
-  ["FLORIDA", "FL"],
-  ["GEORGIA", "GA"],
-  ["HAWAII", "HI"],
-  ["IDAHO", "ID"],
-  ["ILLINOIS", "IL"],
-  ["INDIANA", "IN"],
-  ["IOWA", "IA"],
-  ["KANSAS", "KS"],
-  ["KENTUCKY", "KY"],
-  ["LOUISIANA", "LA"],
-  ["MAINE", "ME"],
-  ["MARYLAND", "MD"],
-  ["MASSACHUSETTS", "MA"],
-  ["MICHIGAN", "MI"],
-  ["MINNESOTA", "MN"],
-  ["MISSISSIPPI", "MS"],
-  ["MISSOURI", "MO"],
-  ["MONTANA", "MT"],
-  ["NEBRASKA", "NE"],
-  ["NEVADA", "NV"],
-  ["NEW HAMPSHIRE", "NH"],
-  ["NEW JERSEY", "NJ"],
-  ["NEW MEXICO", "NM"],
-  ["NEW YORK", "NY"],
-  ["NORTH CAROLINA", "NC"],
-  ["NORTH DAKOTA", "ND"],
-  ["OHIO", "OH"],
-  ["OKLAHOMA", "OK"],
-  ["OREGON", "OR"],
-  ["PENNSYLVANIA", "PA"],
-  ["RHODE ISLAND", "RI"],
-  ["SOUTH CAROLINA", "SC"],
-  ["SOUTH DAKOTA", "SD"],
-  ["TENNESSEE", "TN"],
-  ["TEXAS", "TX"],
-  ["UTAH", "UT"],
-  ["VERMONT", "VT"],
-  ["VIRGINIA", "VA"],
-  ["WASHINGTON", "WA"],
-  ["WEST VIRGINIA", "WV"],
-  ["WISCONSIN", "WI"],
-  ["WYOMING", "WY"],
-  ["DISTRICT OF COLUMBIA", "DC"],
-]);
+  const US_STATES = new Map([
+    ["ALABAMA", "AL"],
+    ["ALASKA", "AK"],
+    ["ARIZONA", "AZ"],
+    ["ARKANSAS", "AR"],
+    ["CALIFORNIA", "CA"],
+    ["COLORADO", "CO"],
+    ["CONNECTICUT", "CT"],
+    ["DELAWARE", "DE"],
+    ["FLORIDA", "FL"],
+    ["GEORGIA", "GA"],
+    ["HAWAII", "HI"],
+    ["IDAHO", "ID"],
+    ["ILLINOIS", "IL"],
+    ["INDIANA", "IN"],
+    ["IOWA", "IA"],
+    ["KANSAS", "KS"],
+    ["KENTUCKY", "KY"],
+    ["LOUISIANA", "LA"],
+    ["MAINE", "ME"],
+    ["MARYLAND", "MD"],
+    ["MASSACHUSETTS", "MA"],
+    ["MICHIGAN", "MI"],
+    ["MINNESOTA", "MN"],
+    ["MISSISSIPPI", "MS"],
+    ["MISSOURI", "MO"],
+    ["MONTANA", "MT"],
+    ["NEBRASKA", "NE"],
+    ["NEVADA", "NV"],
+    ["NEW HAMPSHIRE", "NH"],
+    ["NEW JERSEY", "NJ"],
+    ["NEW MEXICO", "NM"],
+    ["NEW YORK", "NY"],
+    ["NORTH CAROLINA", "NC"],
+    ["NORTH DAKOTA", "ND"],
+    ["OHIO", "OH"],
+    ["OKLAHOMA", "OK"],
+    ["OREGON", "OR"],
+    ["PENNSYLVANIA", "PA"],
+    ["RHODE ISLAND", "RI"],
+    ["SOUTH CAROLINA", "SC"],
+    ["SOUTH DAKOTA", "SD"],
+    ["TENNESSEE", "TN"],
+    ["TEXAS", "TX"],
+    ["UTAH", "UT"],
+    ["VERMONT", "VT"],
+    ["VIRGINIA", "VA"],
+    ["WASHINGTON", "WA"],
+    ["WEST VIRGINIA", "WV"],
+    ["WISCONSIN", "WI"],
+    ["WYOMING", "WY"],
+    ["DISTRICT OF COLUMBIA", "DC"],
+  ]);
 
-const US_STATE_CODES = new Set(Array.from(US_STATES.values()));
+  const US_STATE_CODES = new Set(Array.from(US_STATES.values()));
 
-function normalizeState(input) {
-  if (typeof input !== "string") return "";
-  const raw = input.trim();
-  if (!raw) return "";
+  function normalizeState(input) {
+    if (typeof input !== "string") return "";
+    const raw = input.trim();
+    if (!raw) return "";
 
-  const upper = raw.toUpperCase().replace(/\./g, "");
+    const upper = raw.toUpperCase().replace(/\./g, "");
 
-  // 2-letter code
-  if (upper.length === 2 && US_STATE_CODES.has(upper)) return upper;
+    // 2-letter code
+    if (upper.length === 2 && US_STATE_CODES.has(upper)) return upper;
 
-  // Full name
-  return US_STATES.get(upper) || "";
-}
+    // Full name
+    return US_STATES.get(upper) || "";
+  }
 
-// Returns "" if invalid, otherwise "12345" or "12345-6789"
-function normalizeZipUS(input) {
-  if (typeof input !== "string") return "";
-  const digits = input.replace(/\D/g, "");
-  if (digits.length === 5) return digits;
-  if (digits.length === 9) return `${digits.slice(0, 5)}-${digits.slice(5)}`;
-  return "";
-}
+  // Returns "" if invalid, otherwise "12345" or "12345-6789"
+  function normalizeZipUS(input) {
+    if (typeof input !== "string") return "";
+    const digits = input.replace(/\D/g, "");
+    if (digits.length === 5) return digits;
+    if (digits.length === 9) return `${digits.slice(0, 5)}-${digits.slice(5)}`;
+    return "";
+  }
 
-const normalizeEmail = (v) =>
-  typeof v === "string" ? v.trim().toLowerCase() : "";
-const isValidEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  const isValidEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
 
-const normalizePhone = (v) => {
-  if (typeof v !== "string") return "";
-  const raw = v.trim();
-  // keep digits and leading +
-  return raw.replace(/(?!^\+)[^\d]/g, "");
-};
-const isValidPhone = (v) => /^\+?[1-9]\d{7,14}$/.test(v); // E.164-ish
+  const normalizeEmail = (v) => {
+    if (v === undefined) return undefined; // PATCH omit
+    if (v === null) return null;
+    if (typeof v !== "string") return "__INVALID__";
+    const t = v.trim().toLowerCase();
+    return t ? t : null;
+  };
 
-const optionalTrimToNull = (v) => {
-  if (v === null) return null;
-  if (v === undefined) return undefined;
-  if (typeof v !== "string") return undefined;
-  const t = v.trim();
-  return t ? t : null;
-};
+  const isValidPhone = (v) => /^\+?[1-9]\d{7,14}$/.test(v); // E.164-ish
+
+  const normalizePhone = (v) => {
+    if (v === undefined) return undefined; // PATCH omit
+    if (v === null) return null;
+    if (typeof v !== "string") return "__INVALID__";
+    const raw = v.trim();
+    if (!raw) return null;
+    return raw.replace(/(?!^\+)[^\d]/g, "");
+  };
+
+  const optionalTrimToNull = (v) => {
+    if (v === null) return null;
+    if (v === undefined) return undefined;
+    if (typeof v !== "string") return undefined;
+    const t = v.trim();
+    return t ? t : null;
+  };
 
   // ============================================================
-  // LIST OCCUPANTS (decoupled from tenants, scoped by landlord when known)
+  // LIST EMERGENCY CONTACTS (decoupled from tenants, scoped by landlord when known)
   // GET /api/emergencyContacts?includeArchived=0|1
   // ============================================================
   app.get("/api/emergencyContacts", async (req, res) => {
@@ -144,7 +150,7 @@ const optionalTrimToNull = (v) => {
   });
 
   // ============================================================
-  // GET SINGLE OCCUPANT + linked tenants (via join table)
+  // GET SINGLE EMERGENCY CONTACT + linked tenants (via join table)
   // GET /api/emergencyContacts/:id
   // ============================================================
   app.get("/api/emergencyContacts/:id", async (req, res) => {
@@ -209,18 +215,7 @@ const optionalTrimToNull = (v) => {
   // Body: { name, phone, email, address1?, city?, state?, postalCode?/zip?, relation?, notes? }
   // ============================================================
   app.post("/api/emergencyContacts", async (req, res) => {
-    const {
-      name,
-      phone,
-      email,
-      address1,
-      city,
-      state,
-      postalCode,
-      zip, // alias
-      relation,
-      notes,
-    } = req.body || {};
+    const { name, phone, email, address1, city, state, postalCode, zip, relation, notes, } = req.body || {};
 
     const user = req.user || null;
 
@@ -233,21 +228,25 @@ const optionalTrimToNull = (v) => {
       return res.status(400).json({ error: "name is required" });
     }
 
-    // REQUIRED: email
     const cleanEmail = normalizeEmail(email);
+    if (cleanEmail === "__INVALID__") {
+      return res.status(400).json({ error: "email must be a string" });
+    }
     if (!cleanEmail) {
       return res.status(400).json({ error: "email is required" });
     }
     if (!isValidEmail(cleanEmail)) {
       return res.status(400).json({ error: "email must be a valid email address" });
     }
-
-    // REQUIRED: phone
-    const cleanPhoneRaw = typeof phone === "string" ? phone.trim() : "";
-    if (!cleanPhoneRaw) {
+    
+    // phone
+    const cleanPhone = normalizePhone(phone);
+    if (cleanPhone === "__INVALID__") {
+      return res.status(400).json({ error: "phone must be a string" });
+    }
+    if (!cleanPhone) {
       return res.status(400).json({ error: "phone is required" });
     }
-    const cleanPhone = normalizePhone(phone);
     if (!isValidPhone(cleanPhone)) {
       return res.status(400).json({ error: "phone must be a valid phone number" });
     }
@@ -321,18 +320,7 @@ const optionalTrimToNull = (v) => {
   app.patch("/api/emergencyContacts/:id", async (req, res) => {
     const { id } = req.params;
   
-    const {
-      name,
-      phone,
-      email,
-      relation,
-      address1,
-      city,
-      state,
-      postalCode,
-      zip, // alias
-      notes,
-    } = req.body || {};
+    const { name, phone, email, relation, address1, city, state, postalCode, zip, notes, } = req.body || {};
   
     const user = req.user || null;
   
@@ -359,10 +347,19 @@ const optionalTrimToNull = (v) => {
     
       const data = {};
     
-      // name: allow empty → keep existing, or override with trimmed
+      // name: if provided in PATCH, it MUST be a non-empty string
       if (name !== undefined) {
-        const trimmed = String(name).trim();
-        data.name = trimmed || existing.name;
+        if (name === null) {
+          return res.status(400).json({ error: "name cannot be null" });
+        }
+        if (typeof name !== "string") {
+          return res.status(400).json({ error: "name must be a string" });
+        }
+        const trimmed = name.trim();
+        if (!trimmed) {
+          return res.status(400).json({ error: "name is required" });
+        }
+        data.name = trimmed;
       }
     
       // relation: optional
@@ -415,6 +412,9 @@ const optionalTrimToNull = (v) => {
           return res.status(400).json({ error: "phone is required" });
         }
         const cleaned = normalizePhone(phone);
+        if (cleaned === "__INVALID__") {
+          return res.status(400).json({ error: "phone must be a string" });
+        }
         if (!isValidPhone(cleaned)) {
           return res.status(400).json({ error: "phone must be a valid phone number" });
         }
@@ -429,10 +429,13 @@ const optionalTrimToNull = (v) => {
         if (typeof email !== "string" || !email.trim()) {
           return res.status(400).json({ error: "email is required" });
         }
-        const cleaned = normalizeEmail(email);
-        if (!isValidEmail(cleaned)) {
-          return res.status(400).json({ error: "email must be a valid email address" });
-        }
+      const cleaned = normalizeEmail(email);
+      if (cleaned === "__INVALID__") {
+        return res.status(400).json({ error: "email must be a string" });
+      }
+      if (!isValidEmail(cleaned)) {
+        return res.status(400).json({ error: "email must be a valid email" });
+      }
         data.email = cleaned;
       }
     

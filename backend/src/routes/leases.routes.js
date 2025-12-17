@@ -1,22 +1,73 @@
 // backend/src/routes/leases.routes.js
-
 const { Role } = require("@prisma/client");
 
 function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
-  // ===================================================================
-  // LEASES
-  // ===================================================================
+  // ============================================================
+  // Helpers
+  // ============================================================
+  const ALLOWED_STATUS = new Set(["DRAFT", "ACTIVE", "TERMINATED", "ARCHIVED"]);
 
+  const trimToNull = (v) => {
+    if (v === undefined) return undefined;
+    if (v === null) return null;
+    if (typeof v !== "string") return "__INVALID__";
+    const t = v.trim();
+    return t ? t : null;
+  };
+
+  const parseMoneyOrNullOpt = (v) => {
+    if (v === undefined) return undefined; // PATCH omit
+    if (v === null) return null;
+    if (v === "") return null;
+    const n = typeof v === "number" ? v : Number(String(v).trim());
+    if (!Number.isFinite(n)) return "__INVALID__";
+    if (n < 0) return "__INVALID__";
+    // optional: cap to something sane
+    if (n > 1000000000) return "__INVALID__";
+    return n;
+  };
+
+  const parseDateOrNullOpt = (v) => {
+    if (v === undefined) return undefined; // PATCH omit
+    if (v === null) return null;
+    if (v === "") return null;
+    const d = new Date(v);
+    if (Number.isNaN(d.getTime())) return "__INVALID__";
+    return d;
+  };
+
+  const normalizeIdOrNull = (v) => {
+    const s = v === undefined || v === null ? "" : String(v).trim();
+    return s ? s : null;
+  };
+
+  const requireAuth = (req, res) => {
+    const user = req.user || null;
+    if (!user) {
+      res.status(401).json({ error: "Unauthorized" });
+      return null;
+    }
+    return user;
+  };
+
+  const requireLandlordOrSysadmin = (user, res) => {
+    if (user.baseRole !== Role.LANDLORD && user.baseRole !== Role.SYSADMIN) {
+      res.status(403).json({ error: "You are not allowed to perform this action." });
+      return false;
+    }
+    return true;
+  };
+
+  // ============================================================
   // POST /api/leases - create a lease + optional file upload
+  // ============================================================
   app.post(
     "/api/leases",
     (req, res, next) => {
       uploadLeaseFile.single("file")(req, res, (err) => {
         if (err) {
           if (err.code === "LIMIT_FILE_SIZE") {
-            return res
-              .status(400)
-              .json({ error: "File too large. Maximum size is 25 MB." });
+            return res.status(400).json({ error: "File too large. Maximum size is 25 MB." });
           }
           return res.status(400).json({ error: err.message || "Upload error" });
         }
@@ -26,111 +77,89 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
     async (req, res) => {
       try {
         const {
-          // property / landlord
           propertyId: rawPropertyId = "",
           landlordId: rawLandlordId = "",
-
-          // NEW: multi-tenant support
           tenantIds: rawTenantIds,
-
           propertyLabel,
           rentAmount,
           startDate,
           endDate,
-          status, // optional, can be "DRAFT", "ACTIVE", etc.
+          status,
         } = req.body || {};
 
         const authUser = req.user || null;
 
         // ---------- Optional property ----------
-        const effectivePropertyId =
-          rawPropertyId && String(rawPropertyId).trim()
-            ? String(rawPropertyId).trim()
-            : null;
+        const effectivePropertyId = normalizeIdOrNull(rawPropertyId);
 
-        // ---------- Landlord (required, use auth user if possible) ----------
-        let effectiveLandlordId =
-          rawLandlordId && String(rawLandlordId).trim();
+        // ---------- Landlord (required; prefer auth user) ----------
+        let effectiveLandlordId = normalizeIdOrNull(rawLandlordId);
 
         if (!effectiveLandlordId) {
           if (authUser && authUser.id) {
             effectiveLandlordId = authUser.id;
           } else {
-            const firstUser = await prisma.user.findFirst({
-              orderBy: { createdAt: "asc" },
-            });
-
+            const firstUser = await prisma.user.findFirst({ orderBy: { createdAt: "asc" } });
             if (!firstUser) {
               return res.status(400).json({
-                error:
-                  "No landlord user exists to attach this lease to. Create a user first.",
+                error: "No landlord user exists to attach this lease to. Create a user first.",
               });
             }
-
             effectiveLandlordId = firstUser.id;
           }
         }
 
-        // ---------- Collect tenant IDs (multi-tenant aware) ----------
+        // ---------- Collect tenant IDs ----------
         let tenantIds = [];
-
-        // 1) from tenantIds array
         if (Array.isArray(rawTenantIds)) {
-          tenantIds = rawTenantIds
-            .map((id) => String(id).trim())
-            .filter(Boolean);
+          tenantIds = rawTenantIds.map((id) => String(id).trim()).filter(Boolean);
         }
 
-        // Load all referenced tenants (if any)
         let tenants = [];
         if (tenantIds.length > 0) {
-          tenants = await prisma.tenant.findMany({
-            where: { id: { in: tenantIds } },
-          });
-
+          tenants = await prisma.tenant.findMany({ where: { id: { in: tenantIds } } });
           if (tenants.length !== tenantIds.length) {
-            return res
-              .status(400)
-              .json({ error: "One or more tenantIds are invalid." });
+            return res.status(400).json({ error: "One or more tenantIds are invalid." });
           }
         }
 
         const primaryTenantId = tenantIds.length > 0 ? tenantIds[0] : null;
 
-        // Rent parsing
-        const numericRent =
-          rentAmount !== undefined && rentAmount !== ""
-            ? Number(rentAmount)
-            : null;
+        // ---------- Parse / validate ----------
+        const labelVal = trimToNull(propertyLabel);
+        if (labelVal === "__INVALID__") return res.status(400).json({ error: "propertyLabel must be a string" });
 
-        const startDateValue = startDate ? new Date(startDate) : null;
-        const endDateValue = endDate ? new Date(endDate) : null;
+        const rentVal = parseMoneyOrNullOpt(rentAmount);
+        if (rentVal === "__INVALID__") return res.status(400).json({ error: "rentAmount must be a non-negative number" });
 
-        // Decide initial status:
-        // - if client supplied one, use it
-        // - otherwise:
-        //   - if property + at least one tenant present => ACTIVE
-        //   - else => DRAFT
-        const initialStatus =
-          status && String(status).trim()
-            ? String(status).trim()
-            : effectivePropertyId && primaryTenantId
-            ? "ACTIVE"
-            : "DRAFT";
+        const startDateValue = parseDateOrNullOpt(startDate);
+        if (startDateValue === "__INVALID__") return res.status(400).json({ error: "startDate must be a valid date" });
+
+        const endDateValue = parseDateOrNullOpt(endDate);
+        if (endDateValue === "__INVALID__") return res.status(400).json({ error: "endDate must be a valid date" });
+
+        if (startDateValue && endDateValue && endDateValue < startDateValue) {
+          return res.status(400).json({ error: "endDate cannot be before startDate" });
+        }
+
+        // status
+        let initialStatus;
+        const statusTrim = typeof status === "string" ? status.trim().toUpperCase() : "";
+        if (statusTrim) {
+          if (!ALLOWED_STATUS.has(statusTrim)) return res.status(400).json({ error: "Invalid status" });
+          initialStatus = statusTrim;
+        } else {
+          initialStatus = effectivePropertyId && primaryTenantId ? "ACTIVE" : "DRAFT";
+        }
 
         const createData = {
           landlord: { connect: { id: effectiveLandlordId } },
 
-          // labels
-          propertyLabel:
-            propertyLabel && propertyLabel.trim()
-              ? propertyLabel.trim()
-              : null,
-
-          rentAmount: numericRent,
+          propertyLabel: labelVal ?? null,
+          rentAmount: rentVal ?? null,
           status: initialStatus,
-          startDate: startDateValue,
-          endDate: endDateValue,
+          startDate: startDateValue ?? null,
+          endDate: endDateValue ?? null,
 
           ...(req.file
             ? {
@@ -141,21 +170,13 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
               }
             : {}),
 
-          ...(authUser && authUser.id
-            ? {
-                createdBy: { connect: { id: authUser.id } },
-              }
-            : {}),
+          ...(authUser && authUser.id ? { createdBy: { connect: { id: authUser.id } } } : {}),
         };
 
-        // Attach property if provided
         if (effectivePropertyId) {
-          createData.property = {
-            connect: { id: effectivePropertyId },
-          };
+          createData.property = { connect: { id: effectivePropertyId } };
         }
 
-        // Attach ALL tenants to LeaseTenant join table
         if (tenantIds.length > 0) {
           createData.leaseTenants = {
             create: tenantIds.map((id, index) => {
@@ -164,8 +185,8 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
                 tenant: { connect: { id } },
                 tenantName: t?.name || null,
                 isPrimary: index === 0,
-                startDate: startDateValue,
-                endDate: endDateValue,
+                startDate: startDateValue ?? null,
+                endDate: endDateValue ?? null,
               };
             }),
           };
@@ -178,7 +199,7 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
             landlord: true,
             leaseTenants: {
               include: { tenant: true },
-              orderBy: { startDate: "desc" }, 
+              orderBy: { startDate: "desc" },
             },
           },
         });
@@ -191,20 +212,18 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
     }
   );
 
+  // ============================================================
   // POST /api/leases/:id/file - upload or replace the lease file
+  // ============================================================
   app.post(
     "/api/leases/:id/file",
     (req, res, next) => {
       uploadLeaseFile.single("file")(req, res, (err) => {
         if (err) {
           if (err.code === "LIMIT_FILE_SIZE") {
-            return res
-              .status(400)
-              .json({ error: "File too large. Maximum size is 25 MB." });
+            return res.status(400).json({ error: "File too large. Maximum size is 25 MB." });
           }
-          return res
-            .status(400)
-            .json({ error: err.message || "Upload error" });
+          return res.status(400).json({ error: err.message || "Upload error" });
         }
         next();
       });
@@ -214,28 +233,20 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
         const { id } = req.params;
         const authUser = req.user || null;
 
-        if (!req.file) {
-          return res.status(400).json({ error: "Lease file is required" });
-        }
+        if (!req.file) return res.status(400).json({ error: "Lease file is required" });
 
         const existing = await prisma.lease.findUnique({
           where: { id },
           include: {
             property: true,
             landlord: true,
-            leaseTenants: {
-              include: { tenant: true },
-              orderBy: { startDate: "desc" },
-            },
+            leaseTenants: { include: { tenant: true }, orderBy: { startDate: "desc" } },
           },
         });
+        if (!existing) return res.status(404).json({ error: "Lease not found" });
 
-        if (!existing) {
-          return res.status(404).json({ error: "Lease not found" });
-        }
-
-        // Optional: landlord scoping – only allow owner to upload
-        if (authUser && authUser.id && existing.landlordId !== authUser.id) {
+        // landlord scoping
+        if (authUser && authUser.id && existing.landlordId !== authUser.id && authUser.baseRole !== Role.SYSADMIN) {
           return res.status(403).json({ error: "Forbidden" });
         }
 
@@ -250,10 +261,7 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
           include: {
             property: true,
             landlord: true,
-            leaseTenants: {
-              include: { tenant: true },
-              orderBy: { startDate: "desc" },
-            },
+            leaseTenants: { include: { tenant: true }, orderBy: { startDate: "desc" } },
           },
         });
 
@@ -265,16 +273,17 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
     }
   );
 
+  // ============================================================
   // GET /api/leases - list all leases (scoped by landlord if logged in)
   // Optional ?includeArchived=0/1 flag
+  // ============================================================
   app.get("/api/leases", async (req, res) => {
     try {
       const authUser = req.user || null;
-      const includeArchived = req.query.includeArchived === "1";
+      const includeArchived = req.query.includeArchived === "1" || req.query.includeArchived === "true";
 
       const where = {};
-      if (authUser && authUser.id) {
-        // landlord-scoped
+      if (authUser && authUser.id && authUser.baseRole === Role.LANDLORD) {
         where.landlordId = authUser.id;
       }
       if (!includeArchived) {
@@ -287,10 +296,7 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
         include: {
           property: true,
           landlord: true,
-          leaseTenants: {
-            include: { tenant: true },
-            orderBy: { startDate: "desc" },
-          },
+          leaseTenants: { include: { tenant: true }, orderBy: { startDate: "desc" } },
         },
       });
 
@@ -301,14 +307,13 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
     }
   });
 
+  // ============================================================
   // GET /api/leases/:id - get a single lease (scoped)
+  // ============================================================
   app.get("/api/leases/:id", async (req, res) => {
     const { id } = req.params;
-    const user = req.user || null;
-
-    if (!user) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
+    const user = requireAuth(req, res);
+    if (!user) return;
 
     try {
       const lease = await prisma.lease.findUnique({
@@ -320,22 +325,10 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
             include: {
               tenant: {
                 include: {
-                  occupantLinks: {
-                    where: { occupant: { isArchived: false } },
-                    include: { occupant: true },
-                  },
-                  petLinks: {
-                    where: { pet: {isArchived: false } },
-                    include: { pet: true },
-                  },
-                  emergencyContactLinks: {
-                    where: { emergencyContact: {isArchived: false } },
-                    include: { emergencyContact: true },
-                  },
-                  vehicleLinks: {
-                    where: { vehicle: { isArchived: false } },
-                    include: { vehicle: true },
-                  },
+                  occupantLinks: { where: { occupant: { isArchived: false } }, include: { occupant: true } },
+                  petLinks: { where: { pet: { isArchived: false } }, include: { pet: true } },
+                  emergencyContactLinks: { where: { emergencyContact: { isArchived: false } }, include: { emergencyContact: true } },
+                  vehicleLinks: { where: { vehicle: { isArchived: false } }, include: { vehicle: true } },
                 },
               },
             },
@@ -343,30 +336,13 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
         },
       });
 
-      if (!lease) {
-        return res.status(404).json({ error: "Lease not found" });
+      if (!lease) return res.status(404).json({ error: "Lease not found" });
+
+      if (user.baseRole === Role.LANDLORD && lease.landlordId && lease.landlordId !== user.id) {
+        return res.status(403).json({ error: "You are not allowed to view this lease." });
       }
 
-      // Landlord can only view their own lease; sysadmin can view any.
-      if (
-        user.baseRole === Role.LANDLORD &&
-        lease.landlordId &&
-        lease.landlordId !== user.id
-      ) {
-        return res
-          .status(403)
-          .json({ error: "You are not allowed to view this lease." });
-      }
-
-      // For now, block other roles; can relax later if needed
-      if (
-        user.baseRole !== Role.LANDLORD &&
-        user.baseRole !== Role.SYSADMIN
-      ) {
-        return res
-          .status(403)
-          .json({ error: "You are not allowed to view this lease." });
-      }
+      if (!requireLandlordOrSysadmin(user, res)) return;
 
       res.json(shapeLease(lease));
     } catch (err) {
@@ -375,18 +351,18 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
     }
   });
 
+  // ============================================================
   // PATCH /api/leases/:id - update lease fields
   // NOTE: Tenants are managed via link/unlink endpoints only.
+  // Also: if you change start/end dates, we mirror into LeaseTenant rows.
+  // ============================================================
   app.patch("/api/leases/:id", async (req, res) => {
     const { id } = req.params;
-    const user = req.user || null;
+    const user = requireAuth(req, res);
+    if (!user) return;
+    if (!requireLandlordOrSysadmin(user, res)) return;
 
-    const { propertyId, propertyLabel, rentAmount, startDate, endDate, status } =
-      req.body || {};
-
-    if (!user) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
+    const { propertyId, propertyLabel, rentAmount, startDate, endDate, status } = req.body || {};
 
     try {
       const existing = await prisma.lease.findUnique({
@@ -394,91 +370,99 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
         include: { leaseTenants: true },
       });
 
-      if (!existing) {
-        return res.status(404).json({ error: "Lease not found" });
+      if (!existing) return res.status(404).json({ error: "Lease not found" });
+
+      if (user.baseRole === Role.LANDLORD && existing.landlordId && existing.landlordId !== user.id) {
+        return res.status(403).json({ error: "You are not allowed to update this lease." });
       }
 
-      // Landlord scoping (same rules as GET)
-      if (
-        user.baseRole === Role.LANDLORD &&
-        existing.landlordId &&
-        existing.landlordId !== user.id
-      ) {
-        return res
-          .status(403)
-          .json({ error: "You are not allowed to update this lease." });
+      const data = {};
+
+      // propertyLabel
+      if (propertyLabel !== undefined) {
+        const v = trimToNull(propertyLabel);
+        if (v === "__INVALID__") return res.status(400).json({ error: "propertyLabel must be a string" });
+        data.propertyLabel = v;
       }
 
-      if (user.baseRole !== Role.LANDLORD && user.baseRole !== Role.SYSADMIN) {
-        return res
-          .status(403)
-          .json({ error: "You are not allowed to update this lease." });
-      }
-
-      // rent parsing
-      let numericRent = existing.rentAmount;
+      // rentAmount
       if (rentAmount !== undefined) {
-        if (rentAmount === null || rentAmount === "") {
-          numericRent = null;
-        } else {
-          const parsed = Number(rentAmount);
-          if (!Number.isFinite(parsed)) {
-            return res.status(400).json({ error: "rentAmount must be a number" });
-          }
-          numericRent = parsed;
-        }
+        const v = parseMoneyOrNullOpt(rentAmount);
+        if (v === "__INVALID__") return res.status(400).json({ error: "rentAmount must be a non-negative number" });
+        data.rentAmount = v;
       }
 
       // dates
-      const nextStartDate =
-        startDate !== undefined ? (startDate ? new Date(startDate) : null) : existing.startDate;
+      let nextStartDate = existing.startDate;
+      let nextEndDate = existing.endDate;
 
-      const nextEndDate =
-        endDate !== undefined ? (endDate ? new Date(endDate) : null) : existing.endDate;
+      if (startDate !== undefined) {
+        const v = parseDateOrNullOpt(startDate);
+        if (v === "__INVALID__") return res.status(400).json({ error: "startDate must be a valid date" });
+        nextStartDate = v;
+        data.startDate = v;
+      }
+      if (endDate !== undefined) {
+        const v = parseDateOrNullOpt(endDate);
+        if (v === "__INVALID__") return res.status(400).json({ error: "endDate must be a valid date" });
+        nextEndDate = v;
+        data.endDate = v;
+      }
+      if (nextStartDate && nextEndDate && nextEndDate < nextStartDate) {
+        return res.status(400).json({ error: "endDate cannot be before startDate" });
+      }
 
-      const data = {
-        propertyLabel:
-          propertyLabel !== undefined
-            ? (propertyLabel || "").trim() || null
-            : existing.propertyLabel,
-
-        rentAmount: numericRent,
-        startDate: nextStartDate,
-        endDate: nextEndDate,
-      };
-
-      // status (optional)
+      // status
       if (status !== undefined) {
-        const next = String(status || "").trim();
-        if (!next) {
-          // ignore empty
-        } else if (!["DRAFT", "ACTIVE", "TERMINATED", "ARCHIVED"].includes(next)) {
-          return res.status(400).json({ error: "Invalid status" });
-        } else {
+        const next = typeof status === "string" ? status.trim().toUpperCase() : "";
+        if (next) {
+          if (!ALLOWED_STATUS.has(next)) return res.status(400).json({ error: "Invalid status" });
           data.status = next;
         }
       }
 
       // property connect/disconnect
       if (propertyId !== undefined) {
-        if (propertyId) {
-          data.property = { connect: { id: String(propertyId).trim() } };
-        } else {
-          data.property = { disconnect: true };
-        }
+        const pid = normalizeIdOrNull(propertyId);
+        if (pid) data.property = { connect: { id: pid } };
+        else data.property = { disconnect: true };
       }
 
-      const updated = await prisma.lease.update({
-        where: { id },
-        data,
-        include: {
-          property: true,
-          landlord: true,
-          leaseTenants: {
-            include: { tenant: true },
-            orderBy: { startDate: "desc" },
+      // Update lease + optionally mirror dates into join rows
+      const updated = await prisma.$transaction(async (tx) => {
+        const leaseUpdated = await tx.lease.update({
+          where: { id },
+          data,
+          include: {
+            property: true,
+            landlord: true,
+            leaseTenants: { include: { tenant: true }, orderBy: { startDate: "desc" } },
           },
-        },
+        });
+
+        // Mirror lease date changes into LeaseTenant rows, but ONLY if dates were provided in patch
+        const shouldMirrorDates = startDate !== undefined || endDate !== undefined;
+        if (shouldMirrorDates && leaseUpdated.leaseTenants?.length) {
+          await tx.leaseTenant.updateMany({
+            where: { leaseId: id },
+            data: {
+              startDate: leaseUpdated.startDate,
+              endDate: leaseUpdated.endDate,
+            },
+          });
+
+          // re-fetch so response reflects mirrored dates
+          return tx.lease.findUnique({
+            where: { id },
+            include: {
+              property: true,
+              landlord: true,
+              leaseTenants: { include: { tenant: true }, orderBy: { startDate: "desc" } },
+            },
+          });
+        }
+
+        return leaseUpdated;
       });
 
       return res.json(shapeLease(updated));
@@ -488,18 +472,24 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
     }
   });
 
+  // ============================================================
   // PATCH /api/leases/:id/archive - toggle status ARCHIVED/ACTIVE
+  // ============================================================
   app.patch("/api/leases/:id/archive", async (req, res) => {
     const { id } = req.params;
+    const user = requireAuth(req, res);
+    if (!user) return;
+    if (!requireLandlordOrSysadmin(user, res)) return;
 
     try {
       const lease = await prisma.lease.findUnique({ where: { id } });
-      if (!lease) {
-        return res.status(404).json({ error: "Lease not found" });
+      if (!lease) return res.status(404).json({ error: "Lease not found" });
+
+      if (user.baseRole === Role.LANDLORD && lease.landlordId && lease.landlordId !== user.id) {
+        return res.status(403).json({ error: "You are not allowed to archive this lease." });
       }
 
       const nextStatus = lease.status === "ARCHIVED" ? "ACTIVE" : "ARCHIVED";
-      console.log(`Toggling lease ${id} from ${lease.status} -> ${nextStatus}`);
 
       const updated = await prisma.lease.update({
         where: { id },
@@ -513,133 +503,90 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
     }
   });
 
+  // ============================================================
   // POST /api/leases/:leaseId/tenants/:tenantId/link
-  // Creates a LeaseTenant row (many-to-many link)
-  app.post(
-    "/api/leases/:leaseId/tenants/:tenantId/link",
-    async (req, res) => {
-      const { leaseId, tenantId } = req.params;
-      const user = req.user || null;
+  // ============================================================
+  app.post("/api/leases/:leaseId/tenants/:tenantId/link", async (req, res) => {
+    const { leaseId, tenantId } = req.params;
+    const user = requireAuth(req, res);
+    if (!user) return;
+    if (!requireLandlordOrSysadmin(user, res)) return;
 
-      if (!user) {
-        return res.status(401).json({ error: "Unauthorized" });
+    try {
+      const lease = await prisma.lease.findUnique({ where: { id: leaseId } });
+      if (!lease) return res.status(404).json({ error: "Lease not found" });
+
+      const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
+      if (!tenant) return res.status(404).json({ error: "Tenant not found" });
+
+      const isSysAdmin = user.baseRole === Role.SYSADMIN;
+      if (!isSysAdmin) {
+        if (lease.landlordId && lease.landlordId !== user.id) {
+          return res.status(403).json({ error: "You are not allowed to link tenants on this lease." });
+        }
+        if (tenant.landlordId && tenant.landlordId !== user.id) {
+          return res.status(403).json({ error: "You are not allowed to link this tenant." });
+        }
       }
 
-      try {
-        const lease = await prisma.lease.findUnique({ where: { id: leaseId } });
-        if (!lease) {
-          return res.status(404).json({ error: "Lease not found" });
-        }
+      await prisma.leaseTenant.upsert({
+        where: { leaseId_tenantId: { leaseId, tenantId } },
+        update: {},
+        create: {
+          leaseId,
+          tenantId,
+          tenantName: tenant.name || null,
+        },
+      });
 
-        const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
-        if (!tenant) {
-          return res.status(404).json({ error: "Tenant not found" });
-        }
-
-        // landlord scoping – same pattern as other routes
-        const isSysAdmin = user.baseRole === "SYSADMIN";
-        if (!isSysAdmin) {
-          if (lease.landlordId && lease.landlordId !== user.id) {
-            return res
-              .status(403)
-              .json({ error: "You are not allowed to link tenants on this lease." });
-          }
-          if (tenant.landlordId && tenant.landlordId !== user.id) {
-            return res
-              .status(403)
-              .json({ error: "You are not allowed to link this tenant." });
-          }
-        }
-
-        await prisma.leaseTenant.upsert({
-          where: {
-            leaseId_tenantId: {
-              leaseId,
-              tenantId,
-            },
-          },
-          update: {},
-          create: {
-            leaseId,
-            tenantId,
-            tenantName: tenant.name || null,
-          },
-        });
-
-        return res.json({ ok: true });
-      } catch (err) {
-        console.error(
-          "Error in POST /api/leases/:leaseId/tenants/:tenantId/link",
-          err
-        );
-        return res.status(500).json({ error: "Server error" });
-      }
+      return res.json({ ok: true });
+    } catch (err) {
+      console.error("Error in POST /api/leases/:leaseId/tenants/:tenantId/link", err);
+      return res.status(500).json({ error: "Server error" });
     }
-  );
+  });
 
+  // ============================================================
   // DELETE /api/leases/:leaseId/tenants/:tenantId/unlink
-  // Deletes a LeaseTenant row
-  app.delete(
-    "/api/leases/:leaseId/tenants/:tenantId/unlink",
-    async (req, res) => {
-      const { leaseId, tenantId } = req.params;
-      const user = req.user || null;
+  // ============================================================
+  app.delete("/api/leases/:leaseId/tenants/:tenantId/unlink", async (req, res) => {
+    const { leaseId, tenantId } = req.params;
+    const user = requireAuth(req, res);
+    if (!user) return;
+    if (!requireLandlordOrSysadmin(user, res)) return;
 
-      if (!user) {
-        return res.status(401).json({ error: "Unauthorized" });
+    try {
+      const lease = await prisma.lease.findUnique({ where: { id: leaseId } });
+      if (!lease) return res.status(404).json({ error: "Lease not found" });
+
+      const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
+      if (!tenant) return res.status(404).json({ error: "Tenant not found" });
+
+      const isSysAdmin = user.baseRole === Role.SYSADMIN;
+      if (!isSysAdmin) {
+        if (lease.landlordId && lease.landlordId !== user.id) {
+          return res.status(403).json({ error: "You are not allowed to unlink tenants on this lease." });
+        }
+        if (tenant.landlordId && tenant.landlordId !== user.id) {
+          return res.status(403).json({ error: "You are not allowed to unlink this tenant." });
+        }
       }
 
       try {
-        const lease = await prisma.lease.findUnique({ where: { id: leaseId } });
-        if (!lease) {
-          return res.status(404).json({ error: "Lease not found" });
-        }
-
-        const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
-        if (!tenant) {
-          return res.status(404).json({ error: "Tenant not found" });
-        }
-
-        const isSysAdmin = user.baseRole === "SYSADMIN";
-        if (!isSysAdmin) {
-          if (lease.landlordId && lease.landlordId !== user.id) {
-            return res
-              .status(403)
-              .json({ error: "You are not allowed to unlink tenants on this lease." });
-          }
-          if (tenant.landlordId && tenant.landlordId !== user.id) {
-            return res
-              .status(403)
-              .json({ error: "You are not allowed to unlink this tenant." });
-          }
-        }
-
-        try {
-          await prisma.leaseTenant.delete({
-            where: {
-              leaseId_tenantId: {
-                leaseId,
-                tenantId,
-              },
-            },
-          });
-        } catch (deleteErr) {
-          console.error("No LeaseTenant link to delete", deleteErr);
-          return res
-            .status(404)
-            .json({ error: "Lease/tenant link not found" });
-        }
-
-        return res.json({ ok: true });
-      } catch (err) {
-        console.error(
-          "Error in DELETE /api/leases/:leaseId/tenants/:tenantId/unlink",
-          err
-        );
-        return res.status(500).json({ error: "Server error" });
+        await prisma.leaseTenant.delete({
+          where: { leaseId_tenantId: { leaseId, tenantId } },
+        });
+      } catch (deleteErr) {
+        console.error("No LeaseTenant link to delete", deleteErr);
+        return res.status(404).json({ error: "Lease/tenant link not found" });
       }
+
+      return res.json({ ok: true });
+    } catch (err) {
+      console.error("Error in DELETE /api/leases/:leaseId/tenants/:tenantId/unlink", err);
+      return res.status(500).json({ error: "Server error" });
     }
-  );
+  });
 }
 
 module.exports = {

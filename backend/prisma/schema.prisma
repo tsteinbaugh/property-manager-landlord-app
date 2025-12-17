@@ -42,6 +42,7 @@ enum HairColor {
   WHITE
   DYED
   BALD
+  OTHER
   UNKNOWN
 }
 
@@ -52,6 +53,7 @@ enum EyeColor {
   HAZEL
   GRAY
   AMBER
+  OTHER
   UNKNOWN
 }
 
@@ -60,12 +62,14 @@ enum BodyBuild {
   AVERAGE
   ATHLETIC
   HEAVYSET
+  OTHER
   UNKNOWN
 }
 
 enum Sex {
   MALE
   FEMALE
+  OTHER
   UNKNOWN
 }
 
@@ -189,6 +193,7 @@ model Tenant {
   bodyBuild    BodyBuild? @default(UNKNOWN)
   markings     String?
   occupation   String?
+  employer     String?
   income       Int?
   creditScore  Int?
   violations   String?

@@ -2,6 +2,107 @@
 const { Role } = require("@prisma/client");
 
 function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
+
+  const optionalTrimToNull = (v) => { 
+    if (v === null) return null; 
+    if (v === undefined) return undefined; 
+    if (typeof v !== "string") return undefined; 
+    const t = v.trim(); 
+    return t ? t : null; 
+  };
+
+  function parseIntOrNull(v, { min = null, max = null } = {}) {
+    if (v === undefined) return undefined; // PATCH omit
+    if (v === null) return null;
+    if (typeof v === "number") {
+      if (!Number.isInteger(v)) return "__INVALID__";
+      if (min !== null && v < min) return "__INVALID__";
+      if (max !== null && v > max) return "__INVALID__";
+      return v;
+    }
+    if (typeof v === "string") {
+      const s = v.trim();
+      if (!s) return null;
+      if (!/^-?\d+$/.test(s)) return "__INVALID__";
+      const n = Number(s);
+      if (!Number.isInteger(n)) return "__INVALID__";
+      if (min !== null && n < min) return "__INVALID__";
+      if (max !== null && n > max) return "__INVALID__";
+      return n;
+    }
+    return "__INVALID__";
+  }
+
+  const US_STATES = new Map([
+    ["ALABAMA", "AL"],
+    ["ALASKA", "AK"],
+    ["ARIZONA", "AZ"],
+    ["ARKANSAS", "AR"],
+    ["CALIFORNIA", "CA"],
+    ["COLORADO", "CO"],
+    ["CONNECTICUT", "CT"],
+    ["DELAWARE", "DE"],
+    ["FLORIDA", "FL"],
+    ["GEORGIA", "GA"],
+    ["HAWAII", "HI"],
+    ["IDAHO", "ID"],
+    ["ILLINOIS", "IL"],
+    ["INDIANA", "IN"],
+    ["IOWA", "IA"],
+    ["KANSAS", "KS"],
+    ["KENTUCKY", "KY"],
+    ["LOUISIANA", "LA"],
+    ["MAINE", "ME"],
+    ["MARYLAND", "MD"],
+    ["MASSACHUSETTS", "MA"],
+    ["MICHIGAN", "MI"],
+    ["MINNESOTA", "MN"],
+    ["MISSISSIPPI", "MS"],
+    ["MISSOURI", "MO"],
+    ["MONTANA", "MT"],
+    ["NEBRASKA", "NE"],
+    ["NEVADA", "NV"],
+    ["NEW HAMPSHIRE", "NH"],
+    ["NEW JERSEY", "NJ"],
+    ["NEW MEXICO", "NM"],
+    ["NEW YORK", "NY"],
+    ["NORTH CAROLINA", "NC"],
+    ["NORTH DAKOTA", "ND"],
+    ["OHIO", "OH"],
+    ["OKLAHOMA", "OK"],
+    ["OREGON", "OR"],
+    ["PENNSYLVANIA", "PA"],
+    ["RHODE ISLAND", "RI"],
+    ["SOUTH CAROLINA", "SC"],
+    ["SOUTH DAKOTA", "SD"],
+    ["TENNESSEE", "TN"],
+    ["TEXAS", "TX"],
+    ["UTAH", "UT"],
+    ["VERMONT", "VT"],
+    ["VIRGINIA", "VA"],
+    ["WASHINGTON", "WA"],
+    ["WEST VIRGINIA", "WV"],
+    ["WISCONSIN", "WI"],
+    ["WYOMING", "WY"],
+    ["DISTRICT OF COLUMBIA", "DC"],
+  ]);
+
+  const US_STATE_CODES = new Set(Array.from(US_STATES.values()));
+
+  function normalizeState(input) {
+    if (typeof input !== "string") return "";
+    const raw = input.trim();
+    if (!raw) return "";
+
+    const upper = raw.toUpperCase().replace(/\./g, "");
+
+    // 2-letter code
+    if (upper.length === 2 && US_STATE_CODES.has(upper)) return upper;
+
+    // Full name
+    return US_STATES.get(upper) || "";
+  }
+
   // ============================================================
   // LIST VEHICLES (decoupled from tenants, scoped by landlord when known)
   // GET /api/vehicles?includeArchived=0|1
@@ -106,53 +207,67 @@ function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
   // Body: { make?, model?, year?, color?, state?, plate?, permit?)
   // ============================================================
   app.post("/api/vehicles", async (req, res) => {
-    const { make, model, year, color, state, plate, permit } = req.body || {};
+    const { make, model, year, color, state, plate, permit, parking, notes, violations } = req.body || {};
     const user = req.user || null;
 
     if (!user) {
       return res.status(401).json({ error: "Unauthorized" });
     }
 
-    let normalizedYear = null;
-    if (year !== undefined && year !== null && String(year).trim() !== "") {
-      const parsed = Number(year);
-      if (!Number.isNaN(parsed) && parsed >= 0) {
-        normalizedYear = parsed;
+    const cleanMake = typeof name === "string" ? make.trim() : "";
+    if (!cleanMake) {
+      return res.status(400).json({ error: "make is required" });
+    }
+
+    const cleanModel = typeof model === "string" ? model.trim() : "";
+    if (!cleanName) {
+      return res.status(400).json({ error: "model is required" });
+    }
+
+    // year: if provided in PATCH, it MUST be a valid 4-digit year
+    if (year !== undefined) {
+      if (year === null) {
+        return res.status(400).json({ error: "year cannot be null" });
+      }
+    
+      const yearVal = parseIntOrNull(year, { min: 1000, max: 9999 });
+      if (yearVal === "__INVALID__") {
+        return res.status(400).json({
+          error: "year must be a valid 4-digit integer",
+        });
+      }
+    }
+
+
+    // Optional: state (US only) -> store USPS code
+    let stateCode = null;
+    const stateVal = optionalTrimToNull(state);
+    if (stateVal !== undefined) {
+      if (stateVal === null) {
+        stateCode = null;
+      } else {
+        const code = normalizeState(stateVal);
+        if (!code) {
+          return res.status(400).json({ error: "state must be a valid US state or DC" });
+        }
+        stateCode = code;
       }
     }
 
     try {
       const data = {
-        make:
-          typeof make === "string" && make.trim()
-            ? make.trim()
-            : null,
-        model:
-          typeof model === "string" && model.trim()
-            ? model.trim()
-            : null,
-        year: normalizedYear,
-        color:
-          typeof color === "string" && color.trim()
-            ? color.trim()
-            : null,
-        state:
-          typeof state === "string" && state.trim()
-            ? state.trim()
-            : null,
-        plate:
-          typeof plate === "string" && plate.trim()
-            ? plate.trim()
-            : null,
-        permit:
-          typeof permit === "string" && permit.trim()
-            ? permit.trim()
-            : null, 
+        make: cleanMake,
+        model: cleanModel,
+        year: yearVal,
+        color: optionalTrimToNull(color) ?? null,
+        state: stateCode,
+        plate: optionalTrimToNull(plate) ?? null,
+        permit: optionalTrimToNull(permit) ?? null,
+        parking: optionalTrimToNull(parking) ?? null,
+        notes: optionalTrimToNull(notes) ?? null,
+        violations: optionalTrimToNull(violations) ?? null,
 
-        // OWNER landlord
         landlordId: user.id,
-
-        // CREATOR
         createdById: user.id,
       };
 
@@ -171,7 +286,7 @@ function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
   // ============================================================
   app.patch("/api/vehicles/:id", async (req, res) => {
     const { id } = req.params;
-    const { make, model, year, color, state, plate, permit } = req.body || {};
+    const { make, model, year, color, state, plate, permit, parking, notes, violations } = req.body || {};
     const user = req.user || null;
 
     if (!user) {
@@ -197,71 +312,71 @@ function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
 
       const data = {};
 
-      // make: handle string, empty string, null, or omit
+      // make: if provided in PATCH, it MUST be a non-empty string
       if (make !== undefined) {
         if (make === null) {
-          data.make = null;
-        } else if (typeof make === "string") {
-          data.make = make.trim() || null;
+          return res.status(400).json({ error: "make cannot be null" });
         }
+        if (typeof make !== "string") {
+          return res.status(400).json({ error: "make must be a string" });
+        }
+        const trimmed = make.trim();
+        if (!trimmed) {
+          return res.status(400).json({ error: "make is required" });
+        }
+        data.make = trimmed;
       }
 
-      // model: handle string, empty string, null, or omit
+      // model: if provided in PATCH, it MUST be a non-empty string
       if (model !== undefined) {
         if (model === null) {
-          data.model = null;
-        } else if (typeof model === "string") {
-          data.model = model.trim() || null;
+          return res.status(400).json({ error: "model cannot be null" });
         }
+        if (typeof model !== "string") {
+          return res.status(400).json({ error: "model must be a string" });
+        }
+        const trimmed = namodelme.trim();
+        if (!trimmed) {
+          return res.status(400).json({ error: "model is required" });
+        }
+        data.model = trimmed;
       }
 
-      // year: handle string, number, empty string, null, or omit
+      // year: if provided in PATCH, it MUST be a valid 4-digit year
       if (year !== undefined) {
-        if (year === null || String(year).trim() === "") {
-          data.year = null;
-        } else {
-          const parsed = Number(year);
-          if (!Number.isNaN(parsed) && parsed >= 0) {
-            data.year = parsed;
-          }
+        if (year === null) {
+          return res.status(400).json({ error: "year cannot be null" });
         }
+      
+        const yearVal = parseIntOrNull(year, { min: 1000, max: 9999 });
+        if (yearVal === "__INVALID__") {
+          return res.status(400).json({
+            error: "year must be a valid 4-digit integer",
+          });
+        }
+        data.year = yearVal;
       }
 
-      // color: handle string, empty string, null, or omit
-      if (color !== undefined) {
-        if (color === null) {
-          data.color = null;
-        } else if (typeof color === "string") {
-          data.color = color.trim() || null;
-        }
-      }
-
-      // state: handle string, empty string, null, or omit
+      // state: optional, but if provided must be valid US state/DC; store USPS code
       if (state !== undefined) {
-        if (state === null) {
+        const stateVal = optionalTrimToNull(state);
+        if (stateVal === null) {
           data.state = null;
-        } else if (typeof state === "string") {
-          data.state = state.trim() || null;
+        } else if (typeof stateVal === "string") {
+          const code = normalizeState(stateVal);
+          if (!code) {
+            return res.status(400).json({ error: "state must be a valid US state or DC" });
+          }
+          data.state = code;
         }
       }
 
-      // plate: handle string, empty string, null, or omit
-      if (plate !== undefined) {
-        if (plate === null) {
-          data.plate = null;
-        } else if (typeof plate === "string") {
-          data.plate = plate.trim() || null;
-        }
-      }
-
-      // permit: handle string, empty string, null, or omit
-      if (permit !== undefined) {
-        if (permit === null) {
-          data.permit = null;
-        } else if (typeof permit === "string") {
-          data.permit = permit.trim() || null;
-        }
-      }
+      if (color !== undefined) data.color = optionalTrimToNull(color);
+      if (plate !== undefined) data.plate = optionalTrimToNull(plate);
+      if (permit !== undefined) data.permit = optionalTrimToNull(permit);
+      if (parking !== undefined) data.parking = optionalTrimToNull(parking);
+      if (notes !== undefined) data.notes = optionalTrimToNull(notes);
+      if (violations !== undefined) data.violations = optionalTrimToNull(violations);
 
       const updated = await prisma.vehicle.update({
         where: { id },

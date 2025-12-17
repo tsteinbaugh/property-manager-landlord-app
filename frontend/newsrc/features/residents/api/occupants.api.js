@@ -6,21 +6,10 @@ function mapOccupantFromApi(o) {
 
   const archived = !!(o.archived ?? o.isArchived);
 
-  const primaryTenant = o.primaryTenant
-    ? {
-        id: o.primaryTenant.id,
-        name: o.primaryTenant.name,
-        email: o.primaryTenant.email || "",
-        phone: o.primaryTenant.phone || "",
-      }
-    : null;
-
   const tenants = Array.isArray(o.tenants)
     ? o.tenants.map((t) => ({
         id: t.id,
         name: t.name,
-        email: t.email || "",
-        phone: t.phone || "",
         archived: !!(t.archived ?? t.isArchived),
       }))
     : [];
@@ -28,14 +17,23 @@ function mapOccupantFromApi(o) {
   return {
     id: o.id,
     name: o.name,
+    phone: o.phone || "",
+    email: o.email || "",
     relation: o.relation || "",
-    tenantId: o.tenantId || null,
+    age: o.age ?? null,
+    heightFeet: o.heightFeet ?? null,
+    heightInches: o.heightInches ?? null,
+    weight: o.weight ?? null,
+    sex: o.sex || "",
+    hairColor: o.hairColor || "",
+    eyeColor: o.eyeColor || "",
+    bodyBuild: o.bodyBuild || "",
+    markings: o.markings || "",
+    notes: o.notes || "",
+    violations: o.violations || "",
     archived,
     createdAt: o.createdAt || o.createdAtISO || null,
     updatedAt: o.updatedAt || o.updatedAtISO || null,
-
-    // NEW: used by LandlordOccupantDetailsPage
-    primaryTenant,
     tenants,
   };
 }

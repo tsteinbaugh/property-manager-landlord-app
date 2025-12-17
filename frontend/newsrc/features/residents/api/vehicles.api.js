@@ -6,21 +6,10 @@ function mapVehicleFromApi(v) {
 
   const archived = !!(v.archived ?? v.isArchived);
 
-  const primaryTenant = v.primaryTenant
-    ? {
-        id: v.primaryTenant.id,
-        name: v.primaryTenant.name,
-        email: v.primaryTenant.email || "",
-        phone: v.primaryTenant.phone || "",
-      }
-    : null;
-
   const tenants = Array.isArray(v.tenants)
     ? v.tenants.map((t) => ({
         id: t.id,
         name: t.name,
-        email: t.email || "",
-        phone: t.phone || "",
         archived: !!(t.archived ?? t.isArchived),
       }))
     : [];
@@ -29,18 +18,14 @@ function mapVehicleFromApi(v) {
     id: v.id,
     make: v.make || "",
     model: v.model || "",
-    year: v.year || "",
+    year: v.year ?? null,
     color: v.color || "",
-    state: v.state || "",
+    state: v.state ?? null,
     plate: v.plate || "",
     permit: v.permit || "",
-    tenantId: v.tenantId || null,
     archived,
     createdAt: v.createdAt || v.createdAtISO || null,
     updatedAt: v.updatedAt || v.updatedAtISO || null,
-
-    // NEW: used by LandlordVehicleDetailsPage
-    primaryTenant,
     tenants,
   };
 }

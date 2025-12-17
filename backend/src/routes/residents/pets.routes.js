@@ -2,6 +2,37 @@
 const { Role } = require("@prisma/client");
 
 function registerPetRoutes(app, prisma, { shapePet }) {
+
+  const optionalTrimToNull = (v) => { 
+    if (v === null) return null; 
+    if (v === undefined) return undefined; 
+    if (typeof v !== "string") return undefined; 
+    const t = v.trim(); 
+    return t ? t : null; 
+  };
+
+  function parseIntOrNull(v, { min = null, max = null } = {}) {
+    if (v === undefined) return undefined; // PATCH omit
+    if (v === null) return null;
+    if (typeof v === "number") {
+      if (!Number.isInteger(v)) return "__INVALID__";
+      if (min !== null && v < min) return "__INVALID__";
+      if (max !== null && v > max) return "__INVALID__";
+      return v;
+    }
+    if (typeof v === "string") {
+      const s = v.trim();
+      if (!s) return null;
+      if (!/^-?\d+$/.test(s)) return "__INVALID__";
+      const n = Number(s);
+      if (!Number.isInteger(n)) return "__INVALID__";
+      if (min !== null && n < min) return "__INVALID__";
+      if (max !== null && n > max) return "__INVALID__";
+      return n;
+    }
+    return "__INVALID__";
+  }
+
   // ============================================================
   // LIST OCCUPANTS (decoupled from tenants, scoped by landlord when known)
   // GET /api/pets?includeArchived=0|1
@@ -106,43 +137,37 @@ function registerPetRoutes(app, prisma, { shapePet }) {
   // Body: { name, type?, breed?, weightLb? )
   // ============================================================
   app.post("/api/pets", async (req, res) => {
-    const { name, type, breed, weightLb } = req.body || {};
+    const { name, type, breed, weightLb, age, license, notes, violations } = req.body || {};
     const user = req.user || null;
 
     if (!user) {
       return res.status(401).json({ error: "Unauthorized" });
     }
 
-    if (!name || !String(name).trim()) {
+    const cleanName = typeof name === "string" ? name.trim() : "";
+    if (!cleanName) {
       return res.status(400).json({ error: "name is required" });
     }
 
-    let normalizedWeight = null;
-    if (weightLb !== undefined && weightLb !== null && String(weightLb).trim() !== "") {
-      const parsed = Number(weightLb);
-      if (!Number.isNaN(parsed) && parsed >= 0) {
-        normalizedWeight = parsed;
-      }
-    }
+    const weightLbVal = parseIntOrNull(weightLb, { min: 0, max: 1500 });
+    if (weightLbVal === "__INVALID__") return res.status(400).json({ error: "weight must be an integer" });
+
+    const ageVal = parseIntOrNull(age, { min: 0, max: 120 });
+    if (ageVal === "__INVALID__") return res.status(400).json({ error: "age must be an integer between 0 and 120" });
 
     try {
       const data = {
-        name: String(name).trim(),
-        type:
-          typeof type === "string" && type.trim()
-            ? type.trim()
-            : null,
-        breed:
-          typeof breed === "string" && breed.trim()
-            ? breed.trim()
-            : null,
+        name: cleanName,
+        type: optionalTrimToNull(type) ?? null,
+        breed: optionalTrimToNull(breed) ?? null,
 
-        weightLb: normalizedWeight,
+        weightLb: weightLbVal ?? null,
 
-        // OWNER landlord
+        license: optionalTrimToNull(license) ?? null,
+        notes: optionalTrimToNull(notes) ?? null,
+        violations: optionalTrimToNull(violations) ?? null,
+
         landlordId: user.id,
-
-        // CREATOR
         createdById: user.id,
       };
 
@@ -161,7 +186,7 @@ function registerPetRoutes(app, prisma, { shapePet }) {
   // ============================================================
   app.patch("/api/pets/:id", async (req, res) => {
     const { id } = req.params;
-    const { name, type, breed, weightLb } = req.body || {};
+    const { name, type, breed, weightLb, age, license, notes, violations } = req.body || {};
     const user = req.user || null;
 
     if (!user) {
@@ -187,51 +212,46 @@ function registerPetRoutes(app, prisma, { shapePet }) {
 
       const data = {};
 
-      // name: allow empty → keep existing, or override with trimmed
+      // name: if provided in PATCH, it MUST be a non-empty string
       if (name !== undefined) {
-        const trimmed = String(name).trim();
-        data.name = trimmed || existing.name;
-      }
-
-      // type: handle string, empty string, null, or omit
-      if (type !== undefined) {
-        if (type === null) {
-          data.type = null;
-        } else if (typeof type === "string") {
-          data.type = type.trim() || null;
+        if (name === null) {
+          return res.status(400).json({ error: "name cannot be null" });
         }
-      }
-
-      // breed: handle string, empty string, null, or omit
-      if (breed !== undefined) {
-        if (breed === null) {
-          data.breed = null;
-        } else if (typeof breed === "string") {
-          data.breed = breed.trim() || null;
+        if (typeof name !== "string") {
+          return res.status(400).json({ error: "name must be a string" });
         }
+        const trimmed = name.trim();
+        if (!trimmed) {
+          return res.status(400).json({ error: "name is required" });
+        }
+        data.name = trimmed;
       }
 
-      // weightLb: handle string, number, empty string, null, or omit
+      if (type !== undefined) data.type = optionalTrimToNull(type);
+      if (breed !== undefined) data.breed = optionalTrimToNull(breed);
       if (weightLb !== undefined) {
-        if (weightLb === null || String(weightLb).trim() === "") {
-          data.weightLb = null;
-        } else {
-          const parsed = Number(weightLb);
-          if (!Number.isNaN(parsed) && parsed >= 0) {
-            data.weightLb = parsed;
-          }
-        }
+        const v = parseIntOrNull(weightLb, { min: 0, max: 1500 });
+        if (v === "__INVALID__") return res.status(400).json({ error: "weight must be an integer" });
+        data.weightLb = v;
       }
+      if (age !== undefined) {
+        const v = parseIntOrNull(age, { min: 0, max: 120 });
+        if (v === "__INVALID__") return res.status(400).json({ error: "age must be an integer between 0 and 120" });
+        data.age = v;
+      }
+      if (license !== undefined) data.license = optionalTrimToNull(license);
+      if (notes !== undefined) data.notes = optionalTrimToNull(notes);
+      if (violations !== undefined) data.violations = optionalTrimToNull(violations);
 
       const updated = await prisma.pet.update({
         where: { id },
         data,
       });
 
-      res.json(shapePet(updated));
+      return res.json(shapePet(updated));
     } catch (err) {
       console.error("Error in PATCH /api/pets/:id", err);
-      res.status(500).json({ error: "Server error" });
+      return res.status(500).json({ error: "Server error" });
     }
   });
 

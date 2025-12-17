@@ -6,13 +6,46 @@ import styles from "../tenants/LandlordTenantsPage.module.css";
 import { vehiclesApi } from "@features/residents/api/vehicles.api.js";
 import { tenantsApi } from "@features/residents/api/tenants.api.js";
 
+const US_STATES = new Map([
+  ["ALABAMA","AL"],["ALASKA","AK"],["ARIZONA","AZ"],["ARKANSAS","AR"],
+  ["CALIFORNIA","CA"],["COLORADO","CO"],["CONNECTICUT","CT"],["DELAWARE","DE"],
+  ["FLORIDA","FL"],["GEORGIA","GA"],["HAWAII","HI"],["IDAHO","ID"],
+  ["ILLINOIS","IL"],["INDIANA","IN"],["IOWA","IA"],["KANSAS","KS"],
+  ["KENTUCKY","KY"],["LOUISIANA","LA"],["MAINE","ME"],["MARYLAND","MD"],
+  ["MASSACHUSETTS","MA"],["MICHIGAN","MI"],["MINNESOTA","MN"],["MISSISSIPPI","MS"],
+  ["MISSOURI","MO"],["MONTANA","MT"],["NEBRASKA","NE"],["NEVADA","NV"],
+  ["NEW HAMPSHIRE","NH"],["NEW JERSEY","NJ"],["NEW MEXICO","NM"],["NEW YORK","NY"],
+  ["NORTH CAROLINA","NC"],["NORTH DAKOTA","ND"],["OHIO","OH"],["OKLAHOMA","OK"],
+  ["OREGON","OR"],["PENNSYLVANIA","PA"],["RHODE ISLAND","RI"],["SOUTH CAROLINA","SC"],
+  ["SOUTH DAKOTA","SD"],["TENNESSEE","TN"],["TEXAS","TX"],["UTAH","UT"],
+  ["VERMONT","VT"],["VIRGINIA","VA"],["WASHINGTON","WA"],["WEST VIRGINIA","WV"],
+  ["WISCONSIN","WI"],["WYOMING","WY"],
+  ["DISTRICT OF COLUMBIA","DC"],
+]);
+const US_STATE_CODES = new Set(Array.from(US_STATES.values()));
+
+function normalizeState(input) {
+  const raw = typeof input === "string" ? input.trim() : "";
+  if (!raw) return "";
+  const upper = raw.toUpperCase().replace(/\./g, "");
+  if (upper.length === 2 && US_STATE_CODES.has(upper)) return upper;
+  return US_STATES.get(upper) || "";
+}
+
+function trimOrEmpty(v) {
+  return typeof v === "string" ? v.trim() : "";
+}
+
 export default function LandlordAddVehiclePage() {
   const navigate = useNavigate();
   const { token } = useUser() || {};
   const [searchParams] = useSearchParams();
 
   const tenantId = searchParams.get("tenantId") || "";
+  const vehicleId = searchParams.get("vehicleId") || "";
   const returnTo = searchParams.get("returnTo") || "";
+
+  const isEditMode = !!vehicleId;
 
   // ---------- shared simple form state (make/model/year/color/state/plate/permit) ----------
   const [make, setMake] = useState("");
@@ -22,6 +55,9 @@ export default function LandlordAddVehiclePage() {
   const [state, setState] = useState("");
   const [plate, setPlate] = useState("");
   const [permit, setPermit] = useState("");
+  const [parking, setParking] = useState("");
+  const [notes, setNotes] = useState("");
+  const [violations, setViolations] = useState("");
   const [isSubmitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
 
@@ -37,6 +73,7 @@ export default function LandlordAddVehiclePage() {
   const [selectedExistingVehicleId, setSelectedExistingVehicleId] =
     useState("");
   const [isLinkingExisting, setIsLinkingExisting] = useState(false);
+  const [touched, setTouched] = useState({ make: false, model: false, year: false });
 
   // ------------------------------------------------------------
   // Load tenant + vehicles list when tenantId is present
@@ -84,6 +121,47 @@ export default function LandlordAddVehiclePage() {
       cancelled = true;
     };
   }, [tenantId, token]);
+
+  // ------------------------------------------------------------
+  // Load vehicle for EDIT mode (global or tenant context)
+  // ------------------------------------------------------------
+  useEffect(() => {
+    let cancelled = false;
+    if (!vehicleId || !token) return;
+
+    async function loadVehicleForEdit() {
+      try {
+        setFormError("");
+        const v = await vehiclesApi.get(vehicleId, { token });
+        if (cancelled) return;
+
+        if (!v) {
+          setFormError("Vehicle not found.");
+          return;
+        }
+
+        setMake(v.make || "");
+        setModel(v.model || "");
+        setYear(v.year || "");
+        setColor(v.color || "");
+        setState(v.state || "");
+        setPlate(v.plate || "");
+        setPermit(v.permit || "");
+        setParking(v.parking || "");
+        setNotes(v.notes || "");
+        setViolations(v.violations || "");
+      } catch (err) {
+        console.error("Failed to load vehicle for edit", err);
+        if (!cancelled) setFormError("Failed to load vehicle for editing.");
+      }
+    }
+
+    loadVehicleForEdit();
+    return () => {
+      cancelled = true;
+    };
+  }, [vehicleId, token]);
+
   // Vehicles currently linked to this tenant via join table
   const vehicleLinks = Array.isArray(tenant?.vehicleLinks)
     ? tenant.vehicleLinks
@@ -98,7 +176,7 @@ export default function LandlordAddVehiclePage() {
 
   const availableExistingVehicles =
     tenant && allVehicles.length > 0
-      ? allVehicles.filter((v) => !linkedIds.has(v.id))
+      ? allVehicles.filter((e) => !linkedIds.has(e.id))
       : allVehicles;
 
   // ------------------------------------------------------------
@@ -115,50 +193,53 @@ export default function LandlordAddVehiclePage() {
   };
 
   const handleCancel = () => {
-    if (tenantId) {
-      goBackFromTenantContext();
-    } else {
-      navigate("/landlord/residents?tab=vehicles");
-    }
+    if (returnTo) return navigate(returnTo);
+    if (tenantId) return goBackFromTenantContext();
+    if (isEditMode) return navigate(`/landlord/vehicles/${vehicleId}`);
+    return navigate("/landlord/residents?tab=vehicles");
   };
 
-  // ------------------------------------------------------------
-  // GLOBAL MODE (no tenantId): original behavior
-  // ------------------------------------------------------------
   const handleSubmitGlobal = async (e) => {
     e.preventDefault();
+    setTouched({ make: true, model: true, year: true });
 
-    const rawYear = year.trim();
-    let normalizedYear = null;
+    const cleanState = trimOrEmpty(state);
+    const stateCode = cleanState ? normalizeState(cleanState) : "";
+    if (cleanState && !stateCode) return setFormError("State must be a valid US state or DC.");
 
-    if (rawYear) {
-      const parsed = Number(rawYear);
-      if (Number.isNaN(parsed) || parsed < 0) {
-        setFormError("Year must be a positive number.");
-        return;
-      }
-      normalizedYear = parsed;
+    const payload = {
+      make: trimOrEmpty(make) || null,
+      model: trimOrEmpty(model) || null,
+      year: year ? Number(year) : null,      
+      color: trimOrEmpty(color) || null,
+      state: stateCode || null,
+      plate: trimOrEmpty(plate) || null,
+      permit: trimOrEmpty(permit) || null,
+      parking: trimOrEmpty(parking) || null,
+      notes: trimOrEmpty(notes) || null,
+      violations: trimOrEmpty(violations) || null,
     }
 
     try {
       setSubmitting(true);
       setFormError("");
 
-      await vehiclesApi.create(
-        {
-          make: make.trim(),
-          model: model.trim(),
-          year: normalizedYear,
-          color: color.trim(),
-          state: state.trim(),
-          plate: plate.trim(),
-          permit: permit.trim(),
-          // tenantId intentionally omitted – global vehicle
-        },
-        { token }
-      );
+      let saved;
+      if (isEditMode) {
+        saved = await vehiclesApi.update(vehicleId, payload, { token });
+      } else {
+        saved = await vehiclesApi.create(payload, { token });
+      }
 
-      navigate("/landlord/residents?tab=vehicles");
+      // After save: prefer returnTo, otherwise go to detail (edit) or list (create)
+      if (returnTo) {
+        navigate(returnTo);
+      } else if (isEditMode) {
+        navigate(`/landlord/vehicles/${saved?.id || vehicleId}`);
+      } else {
+        navigate("/landlord/residents?tab=vehicles");
+      }
+
     } catch (err) {
       console.error("Failed to create vehicle", err);
       setFormError("Failed to create vehicle. Check console for details.");
@@ -204,38 +285,32 @@ export default function LandlordAddVehiclePage() {
 
   const handleSubmitForTenant = async (e) => {
     e.preventDefault();
+    setTouched({ make: true, model: true, year: true });
 
-    const rawYear = year.trim();
-    let normalizedYear = null;
-
-    if (rawYear) {
-      const parsed = Number(rawYear);
-      if (Number.isNaN(parsed) || parsed < 0) {
-        setFormError("Year must be a positive number.");
-        return;
-      }
-      normalizedYear = parsed;
-    }
+    const cleanState = trimOrEmpty(state);
+    const stateCode = cleanState ? normalizeState(cleanState) : "";
+    if (cleanState && !stateCode) return setFormError("State must be a valid US state or DC.");
 
     try {
       setSubmitting(true);
       setFormError("");
 
-      // 1) create the vehicle globally
       const created = await vehiclesApi.create(
         {
-          make: make.trim(),
-          model: model.trim(),
-          year: normalizedYear,
-          color: color.trim(),
-          state: state.trim(),
-          plate: plate.trim(),
-          permit: permit.trim(),
+          make: trimOrEmpty(make) || null,
+          model: trimOrEmpty(model) || null,
+          year: year ? Number(year) : null,
+          color: trimOrEmpty(color) || null,
+          state: stateCode || null,
+          plate: trimOrEmpty(plate) || null,
+          parking: trimOrEmpty(parking) || null,
+          permit: trimOrEmpty(permit) || null,
+          notes: trimOrEmpty(notes) || null,
+          violations: trimOrEmpty(violations) || null,
         },
         { token }
       );
 
-      // 2) link to this tenant via join table
       await tenantsApi.linkVehicle(tenantId, created.id, { token });
 
       goBackFromTenantContext();
@@ -317,18 +392,13 @@ export default function LandlordAddVehiclePage() {
                     }
                     disabled={isLinkingExisting}
                   >
-                    <option value="">Select an vehicle…</option>
+                    <option value="">Select a vehicle…</option>
                     {availableExistingVehicles.map((v) => (
-                      <option key={v.id} value={v.id}>
-                        {v.make ? ` (${v.make})` : ""}
-                        {v.model ? ` (${v.model})` : ""}
-                        {v.year ? ` (${v.year})` : ""}
-                        {v.color ? ` (${v.color})` : ""}
-                        {v.state ? ` (${v.state})` : ""}
-                        {v.plate ? ` (${v.plate})` : ""}
-                        {v.permit ? ` (${v.permit})` : ""}
-                        {v.tenantId ? " – linked to another tenant" : ""}
-                      </option>
+                    <option key={v.id} value={v.id}>
+                      {[v.year, v.make, v.model].filter(Boolean).join(" ") || "Vehicle"}{" "}
+                      {v.plate ? `• ${v.plate}` : ""}
+                      {v.state ? ` (${v.state})` : ""}
+                    </option>
                     ))}
                   </select>
                   <button
@@ -348,13 +418,9 @@ export default function LandlordAddVehiclePage() {
                     <ul style={{ paddingLeft: 18, marginTop: 4 }}>
                       {tenantVehicles.map((v) => (
                         <li key={v.id}>
-                          {v.make ? ` (${v.make})` : ""}
-                          {v.model ? ` (${v.model})` : ""}
-                          {v.year ? ` (${v.year})` : ""}
-                          {v.color ? ` (${v.color})` : ""}
+                          {[v.year, v.make, v.model].filter(Boolean).join(" ") || "Vehicle"}{" "}
+                          {v.plate ? `• ${v.plate}` : ""}
                           {v.state ? ` (${v.state})` : ""}
-                          {v.plate ? ` (${v.plate})` : ""}
-                          {v.permit ? ` (${v.permit})` : ""}
                         </li>
                       ))}
                     </ul>
@@ -390,13 +456,15 @@ export default function LandlordAddVehiclePage() {
                   }}
                 >
                   Make
+                  <span style={{ color: "#b91c1c" }}>*</span>
                 </label>
                 <input
                   id="make"
                   type="text"
                   value={make}
                   onChange={(e) => setMake(e.target.value)}
-                  placeholder="Make (Honda, Toyota, Nissan, etc.)"
+                  onBlur={() => setTouched((t) => ({ ...t, make: true }))}
+                  placeholder="Manufacturer (Honda, Toyota, Nissan, etc.)"
                   style={{
                     width: "100%",
                     padding: "6px 8px",
@@ -405,6 +473,11 @@ export default function LandlordAddVehiclePage() {
                   }}
                   disabled={isSubmitting}
                 />
+                {touched.make && !trimOrEmpty(make) && (
+                  <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>
+                    Enter vehicle make
+                  </div>
+                )}
               </div>
               
               {/* Model */}
@@ -418,12 +491,14 @@ export default function LandlordAddVehiclePage() {
                   }}
                 >
                   Model
+                  <span style={{ color: "#b91c1c" }}>*</span>
                 </label>
                 <input
                   id="model"
                   type="text"
                   value={model}
                   onChange={(e) => setModel(e.target.value)}
+                  onBlur={() => setTouched((t) => ({ ...t, model: true }))}
                   placeholder="Model (Civic, Tacoma, Rouge, etc."
                   style={{
                     width: "100%",
@@ -433,6 +508,11 @@ export default function LandlordAddVehiclePage() {
                   }}
                   disabled={isSubmitting}
                 />
+                {touched.model && !trimOrEmpty(model) && (
+                  <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>
+                    Enter vehicle model
+                  </div>
+                )}
               </div>
 
               {/* Year */}
@@ -446,13 +526,15 @@ export default function LandlordAddVehiclePage() {
                   }}
                 >
                   Year
+                  <span style={{ color: "#b91c1c" }}>*</span>
                 </label>
                 <input
                   id="year"
-                  type="text"
+                  type="number"
                   value={year}
                   onChange={(e) => setYear(e.target.value)}
-                  placeholder="Year"
+                  onBlur={() => setTouched((t) => ({ ...t, year: true }))}
+                  placeholder="Year built"
                   style={{
                     width: "100%",
                     padding: "6px 8px",
@@ -461,6 +543,11 @@ export default function LandlordAddVehiclePage() {
                   }}
                   disabled={isSubmitting}
                 />
+                {touched.year && !trimOrEmpty(year) && (
+                  <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>
+                    Enter vehicle year
+                  </div>
+                )}
               </div>
 
               {/* Color */}
@@ -503,12 +590,10 @@ export default function LandlordAddVehiclePage() {
                 >
                   State
                 </label>
-                <input
+                <select
                   id="state"
-                  type="text"
                   value={state}
                   onChange={(e) => setState(e.target.value)}
-                  placeholder="State"
                   style={{
                     width: "100%",
                     padding: "6px 8px",
@@ -516,7 +601,17 @@ export default function LandlordAddVehiclePage() {
                     border: "1px solid #d1d5db",
                   }}
                   disabled={isSubmitting}
-                />
+                >
+                  <option value="">— Select —</option>
+                  {Array.from(US_STATES.entries()).map(([name, code]) => (
+                    <option key={code} value={code}>
+                      {name
+                        .toLowerCase()
+                        .replace(/\b\w/g, (c) => c.toUpperCase())}{" "}
+                      ({code})
+                    </option>
+                  ))}
+                </select>                
               </div>
 
               {/* Plate */}
@@ -565,6 +660,90 @@ export default function LandlordAddVehiclePage() {
                   value={permit}
                   onChange={(e) => setPermit(e.target.value)}
                   placeholder="Permit #"
+                  style={{
+                    width: "100%",
+                    padding: "6px 8px",
+                    borderRadius: 8,
+                    border: "1px solid #d1d5db",
+                  }}
+                  disabled={isSubmitting}
+                />
+              </div>
+
+              {/* Parking */}
+              <div style={{ marginBottom: 12 }}>
+                <label
+                  htmlFor="parking"
+                  style={{
+                    display: "block",
+                    fontWeight: 500,
+                    marginBottom: 4,
+                  }}
+                >
+                  Parking
+                </label>
+                <input
+                  id="parking"
+                  type="text"
+                  value={parking}
+                  onChange={(e) => setParking(e.target.value)}
+                  placeholder="Parking #"
+                  style={{
+                    width: "100%",
+                    padding: "6px 8px",
+                    borderRadius: 8,
+                    border: "1px solid #d1d5db",
+                  }}
+                  disabled={isSubmitting}
+                />
+              </div>
+
+              {/* Notes */}
+              <div style={{ marginBottom: 12 }}>
+                <label
+                  htmlFor="notes"
+                  style={{
+                    display: "block",
+                    fontWeight: 500,
+                    marginBottom: 4,
+                  }}
+                >
+                  Notes
+                </label>
+                <input
+                  id="notes"
+                  type="text"
+                  value={notes}
+                  onChange={(e) => setNotes(e.target.value)}
+                  placeholder="Additional notes"
+                  style={{
+                    width: "100%",
+                    padding: "6px 8px",
+                    borderRadius: 8,
+                    border: "1px solid #d1d5db",
+                  }}
+                  disabled={isSubmitting}
+                />
+              </div>
+
+              {/* Violations */}
+              <div style={{ marginBottom: 12 }}>
+                <label
+                  htmlFor="violations"
+                  style={{
+                    display: "block",
+                    fontWeight: 500,
+                    marginBottom: 4,
+                  }}
+                >
+                  Violations
+                </label>
+                <input
+                  id="violations"
+                  type="text"
+                  value={violations}
+                  onChange={(e) => setViolations(e.target.value)}
+                  placeholder="Record any violations"
                   style={{
                     width: "100%",
                     padding: "6px 8px",
@@ -653,13 +832,15 @@ export default function LandlordAddVehiclePage() {
               }}
             >
               Make
+              <span style={{ color: "#b91c1c" }}>*</span>
             </label>
             <input
               id="make"
               type="text"
               value={make}
               onChange={(e) => setMake(e.target.value)}
-              placeholder="Make (Honda, Toyota, Nissan, etc.)"
+              onBlur={() => setTouched((t) => ({ ...t, make: true }))}
+              placeholder="Manufacturer (Honda, Toyota, Nissan, etc.)"
               style={{
                 width: "100%",
                 padding: "6px 8px",
@@ -668,6 +849,11 @@ export default function LandlordAddVehiclePage() {
               }}
               disabled={isSubmitting}
             />
+            {touched.make && !trimOrEmpty(make) && (
+              <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>
+                Enter vehicle make
+              </div>
+            )}
           </div>
           
           {/* Model */}
@@ -681,12 +867,14 @@ export default function LandlordAddVehiclePage() {
               }}
             >
               Model
+              <span style={{ color: "#b91c1c" }}>*</span>
             </label>
             <input
               id="model"
               type="text"
               value={model}
               onChange={(e) => setModel(e.target.value)}
+              onBlur={() => setTouched((t) => ({ ...t, model: true }))}
               placeholder="Model (Civic, Tacoma, Rouge, etc."
               style={{
                 width: "100%",
@@ -696,7 +884,13 @@ export default function LandlordAddVehiclePage() {
               }}
               disabled={isSubmitting}
             />
+            {touched.model && !trimOrEmpty(model) && (
+              <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>
+                Enter vehicle model
+              </div>
+            )}
           </div>
+
           {/* Year */}
           <div style={{ marginBottom: 12 }}>
             <label
@@ -708,13 +902,15 @@ export default function LandlordAddVehiclePage() {
               }}
             >
               Year
+              <span style={{ color: "#b91c1c" }}>*</span>
             </label>
             <input
               id="year"
-              type="text"
+              type="number"
               value={year}
               onChange={(e) => setYear(e.target.value)}
-              placeholder="Year"
+              onBlur={() => setTouched((t) => ({ ...t, year: true }))}
+              placeholder="Year built"
               style={{
                 width: "100%",
                 padding: "6px 8px",
@@ -723,7 +919,13 @@ export default function LandlordAddVehiclePage() {
               }}
               disabled={isSubmitting}
             />
+            {touched.year && !trimOrEmpty(year) && (
+              <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>
+                Enter vehicle year
+              </div>
+            )}
           </div>
+
           {/* Color */}
           <div style={{ marginBottom: 12 }}>
             <label
@@ -751,6 +953,7 @@ export default function LandlordAddVehiclePage() {
               disabled={isSubmitting}
             />
           </div>
+
           {/* State */}
           <div style={{ marginBottom: 12 }}>
             <label
@@ -763,12 +966,10 @@ export default function LandlordAddVehiclePage() {
             >
               State
             </label>
-            <input
+            <select
               id="state"
-              type="text"
               value={state}
               onChange={(e) => setState(e.target.value)}
-              placeholder="State"
               style={{
                 width: "100%",
                 padding: "6px 8px",
@@ -776,8 +977,19 @@ export default function LandlordAddVehiclePage() {
                 border: "1px solid #d1d5db",
               }}
               disabled={isSubmitting}
-            />
+            >
+              <option value="">— Select —</option>
+              {Array.from(US_STATES.entries()).map(([name, code]) => (
+                <option key={code} value={code}>
+                  {name
+                    .toLowerCase()
+                    .replace(/\b\w/g, (c) => c.toUpperCase())}{" "}
+                  ({code})
+                </option>
+              ))}
+            </select>                
           </div>
+
           {/* Plate */}
           <div style={{ marginBottom: 12 }}>
             <label
@@ -805,6 +1017,7 @@ export default function LandlordAddVehiclePage() {
               disabled={isSubmitting}
             />
           </div>
+
           {/* Permit */}
           <div style={{ marginBottom: 12 }}>
             <label
@@ -823,6 +1036,90 @@ export default function LandlordAddVehiclePage() {
               value={permit}
               onChange={(e) => setPermit(e.target.value)}
               placeholder="Permit #"
+              style={{
+                width: "100%",
+                padding: "6px 8px",
+                borderRadius: 8,
+                border: "1px solid #d1d5db",
+              }}
+              disabled={isSubmitting}
+            />
+          </div>
+
+          {/* Parking */}
+          <div style={{ marginBottom: 12 }}>
+            <label
+              htmlFor="parking"
+              style={{
+                display: "block",
+                fontWeight: 500,
+                marginBottom: 4,
+              }}
+            >
+              Parking
+            </label>
+            <input
+              id="parking"
+              type="text"
+              value={parking}
+              onChange={(e) => setParking(e.target.value)}
+              placeholder="Parking #"
+              style={{
+                width: "100%",
+                padding: "6px 8px",
+                borderRadius: 8,
+                border: "1px solid #d1d5db",
+              }}
+              disabled={isSubmitting}
+            />
+          </div>
+
+          {/* Notes */}
+          <div style={{ marginBottom: 12 }}>
+            <label
+              htmlFor="notes"
+              style={{
+                display: "block",
+                fontWeight: 500,
+                marginBottom: 4,
+              }}
+            >
+              Notes
+            </label>
+            <input
+              id="notes"
+              type="text"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder="Additional notes"
+              style={{
+                width: "100%",
+                padding: "6px 8px",
+                borderRadius: 8,
+                border: "1px solid #d1d5db",
+              }}
+              disabled={isSubmitting}
+            />
+          </div>
+
+          {/* Violations */}
+          <div style={{ marginBottom: 12 }}>
+            <label
+              htmlFor="violations"
+              style={{
+                display: "block",
+                fontWeight: 500,
+                marginBottom: 4,
+              }}
+            >
+              Violations
+            </label>
+            <input
+              id="violations"
+              type="text"
+              value={violations}
+              onChange={(e) => setViolations(e.target.value)}
+              placeholder="Record any violations"
               style={{
                 width: "100%",
                 padding: "6px 8px",

@@ -4,92 +4,107 @@ import { apiFetch } from "@lib/apiClient.js";
 function mapTenantFromApi(t) {
   if (!t) return null;
 
-  // ONLY use real join-table links. If there are none, there are no links.
+  const archived = !!(t.archived ?? t.isArchived);
+
+  const leaseTenants = Array.isArray(t.leaseTenants) ? t.leaseTenants : [];
+
+  // Normalize link arrays (keep only what the Tenant Detail UI needs)
   const occupantLinks = Array.isArray(t.occupantLinks)
-    ? t.occupantLinks.map((link) => ({
-        id: link.id,
-        occupantId: link.occupantId,
-        occupant: link.occupant
-          ? {
-              id: link.occupant.id,
-              name: link.occupant.name,
-              relation: link.occupant.relation || "",
-              archived: !!(link.occupant.isArchived ?? link.occupant.archived),
-            }
-          : null,
-      }))
+    ? t.occupantLinks
+        .map((link) => {
+          const o = link?.occupant;
+          return {
+            id: link?.id ?? `${link?.tenantId || t.id}:${link?.occupantId || o?.id || "unknown"}`,
+            occupantId: link?.occupantId ?? o?.id ?? null,
+            occupant: o
+              ? {
+                  id: o.id,
+                  name: o.name,
+                  archived: !!(o.isArchived ?? o.archived),
+                }
+              : null,
+          };
+        })
+        .filter((l) => l.occupantId)
     : [];
 
   const petLinks = Array.isArray(t.petLinks)
-  ? t.petLinks.map((link) => ({
-      id: link.id,
-      petId: link.petId,
-      pet: link.pet
-        ? {
-            id: link.pet.id,
-            name: link.pet.name,
-            type: link.pet.type,
-            breed: link.pet.breed,
-            weightLb: link.pet.weightLb,
-            archived: !!(link.pet.isArchived ?? link.pet.archived),
-          }
-        : null,
-    }))
-  : [];
+    ? t.petLinks
+        .map((link) => {
+          const p = link?.pet;
+          return {
+            id: link?.id ?? `${link?.tenantId || t.id}:${link?.petId || p?.id || "unknown"}`,
+            petId: link?.petId ?? p?.id ?? null,
+            pet: p
+              ? {
+                  id: p.id,
+                  name: p.name,
+                  archived: !!(p.isArchived ?? p.archived),
+                }
+              : null,
+          };
+        })
+        .filter((l) => l.petId)
+    : [];
 
   const emergencyContactLinks = Array.isArray(t.emergencyContactLinks)
-    ? t.emergencyContactLinks.map((link) => ({
-        id: link.id,
-        emergencyContactId: link.emergencyContactId,
-        emergencyContact: link.emergencyContact
-          ? {
-              id: link.emergencyContact.id,
-              name: link.emergencyContact.name,
-              phone: link.emergencyContact.phone,
-              relation: link.emergencyContact.relation,
-              email: link.emergencyContact.email,
-              archived: !!(link.emergencyContact.isArchived ?? link.emergencyContact.archived),
-            }
-          : null,
-      }))
+    ? t.emergencyContactLinks
+        .map((link) => {
+          const e = link?.emergencyContact;
+          return {
+            id:
+              link?.id ??
+              `${link?.tenantId || t.id}:${link?.emergencyContactId || e?.id || "unknown"}`,
+            emergencyContactId: link?.emergencyContactId ?? e?.id ?? null,
+            emergencyContact: e
+              ? {
+                  id: e.id,
+                  name: e.name,
+                  archived: !!(e.isArchived ?? e.archived),
+                }
+              : null,
+          };
+        })
+        .filter((l) => l.emergencyContactId)
     : [];
 
   const vehicleLinks = Array.isArray(t.vehicleLinks)
-    ? t.vehicleLinks.map((link) => ({
-        id: link.id,
-        vehicleId: link.vehicleId,
-        vehicle: link.vehicle
-          ? {
-              id: link.vehicle.id,
-              make: link.vehicle.make,
-              model: link.vehicle.model,
-              year: link.vehicle.year,
-              color: link.vehicle.color,
-              state: link.vehicle.state,
-              plate: link.vehicle.plate,
-              permit: link.vehicle.permit,
-              archived: !!(link.vehicle.isArchived ?? link.vehicle.archived),
-            }
-          : null,
-      }))
+    ? t.vehicleLinks
+        .map((link) => {
+          const v = link?.vehicle;
+          return {
+            id: link?.id ?? `${link?.tenantId || t.id}:${link?.vehicleId || v?.id || "unknown"}`,
+            vehicleId: link?.vehicleId ?? v?.id ?? null,
+            vehicle: v
+              ? {
+                  id: v.id,
+                  make: v.make,
+                  model: v.model,
+                  year: v.year,
+                  state: v.state,
+                  plate: v.plate,
+                  permit: v.permit,
+                  archived: !!(v.isArchived ?? v.archived),
+                }
+              : null,
+          };
+        })
+        .filter((l) => l.vehicleId)
     : [];
 
   return {
+    // core fields used by LandlordTenantDetailPage edit form + header
     id: t.id,
-    name: t.name,
+    name: t.name || "",
     email: t.email || "",
     phone: t.phone || "",
-    archived: !!(t.archived ?? t.isArchived),
+    archived,
+    isArchived: t.isArchived ?? archived,
 
-    pets: Array.isArray(t.pets) ? t.pets : [],
-    occupants: Array.isArray(t.occupants) ? t.occupants : [],
-    emergencyContacts: Array.isArray(t.emergencyContacts)
-      ? t.emergencyContacts
-      : [],
-    vehicles: Array.isArray(t.vehicles) ? t.vehicles : [],
-    leaseTenants: Array.isArray(t.leaseTenants) ? t.leaseTenants : [],
+    // used by the Properties/Leases sections
+    leaseTenants,
 
-    // REAL links only
+    // REAL links only (used by the Occupants/Pets/EmergencyContacts/Vehicles sections)
     occupantLinks,
     petLinks,
     emergencyContactLinks,
@@ -98,7 +113,6 @@ function mapTenantFromApi(t) {
 }
 
 export const tenantsApi = {
-  // Simple list (GET /api/tenants)
   async list(options = {}) {
     const { token } = options;
     const rows = await apiFetch("/api/tenants", { token });
@@ -106,7 +120,6 @@ export const tenantsApi = {
     return rows.map(mapTenantFromApi);
   },
 
-  // Detail (GET /api/tenants/:id)
   async detail(id, options = {}) {
     if (!id) throw new Error("id is required");
     const { token } = options;
@@ -115,7 +128,6 @@ export const tenantsApi = {
     return mapTenantFromApi(t);
   },
 
-  // Legacy get: resolve from list() so callers aren't broken
   async get(id, options = {}) {
     const rows = await this.list(options);
     return rows.find((t) => t.id === id) || null;
@@ -166,52 +178,40 @@ export const tenantsApi = {
     if (!tenantId) throw new Error("tenantId is required");
     if (!occupantId) throw new Error("occupantId is required");
 
-    return apiFetch(
-      `/api/tenants/${tenantId}/occupants/${occupantId}/link`,
-      {
-        method: "POST",
-        token,
-      }
-    );
+    return apiFetch(`/api/tenants/${tenantId}/occupants/${occupantId}/link`, {
+      method: "POST",
+      token,
+    });
   },
 
   async unlinkOccupant(tenantId, occupantId, { token } = {}) {
     if (!tenantId) throw new Error("tenantId is required");
     if (!occupantId) throw new Error("occupantId is required");
 
-    return apiFetch(
-      `/api/tenants/${tenantId}/occupants/${occupantId}/unlink`,
-      {
-        method: "DELETE",
-        token,
-      }
-    );
+    return apiFetch(`/api/tenants/${tenantId}/occupants/${occupantId}/unlink`, {
+      method: "DELETE",
+      token,
+    });
   },
 
   async linkPet(tenantId, petId, { token } = {}) {
     if (!tenantId) throw new Error("tenantId is required");
     if (!petId) throw new Error("petId is required");
 
-    return apiFetch(
-      `/api/tenants/${tenantId}/pets/${petId}/link`,
-      {
-        method: "POST",
-        token,
-      }
-    );
+    return apiFetch(`/api/tenants/${tenantId}/pets/${petId}/link`, {
+      method: "POST",
+      token,
+    });
   },
 
   async unlinkPet(tenantId, petId, { token } = {}) {
     if (!tenantId) throw new Error("tenantId is required");
     if (!petId) throw new Error("petId is required");
 
-    return apiFetch(
-      `/api/tenants/${tenantId}/pets/${petId}/unlink`,
-      {
-        method: "DELETE",
-        token,
-      }
-    );
+    return apiFetch(`/api/tenants/${tenantId}/pets/${petId}/unlink`, {
+      method: "DELETE",
+      token,
+    });
   },
 
   async linkEmergencyContact(tenantId, emergencyContactId, { token } = {}) {
@@ -220,48 +220,37 @@ export const tenantsApi = {
 
     return apiFetch(
       `/api/tenants/${tenantId}/emergencyContacts/${emergencyContactId}/link`,
-      {
-        method: "POST",
-        token,
-      }
+      { method: "POST", token }
     );
   },
 
   async unlinkEmergencyContact(tenantId, emergencyContactId, { token } = {}) {
     if (!tenantId) throw new Error("tenantId is required");
-    if (!emergencyContactId) throw new Error("emergencyContacyId is required");
+    if (!emergencyContactId) throw new Error("emergencyContactId is required");
 
     return apiFetch(
       `/api/tenants/${tenantId}/emergencyContacts/${emergencyContactId}/unlink`,
-      {
-        method: "DELETE",
-        token,
-      }
+      { method: "DELETE", token }
     );
   },
+
   async linkVehicle(tenantId, vehicleId, { token } = {}) {
     if (!tenantId) throw new Error("tenantId is required");
     if (!vehicleId) throw new Error("vehicleId is required");
 
-    return apiFetch(
-      `/api/tenants/${tenantId}/vehicles/${vehicleId}/link`,
-      {
-        method: "POST",
-        token,
-      }
-    );
+    return apiFetch(`/api/tenants/${tenantId}/vehicles/${vehicleId}/link`, {
+      method: "POST",
+      token,
+    });
   },
 
   async unlinkVehicle(tenantId, vehicleId, { token } = {}) {
     if (!tenantId) throw new Error("tenantId is required");
     if (!vehicleId) throw new Error("vehicleId is required");
 
-    return apiFetch(
-      `/api/tenants/${tenantId}/vehicles/${vehicleId}/unlink`,
-      {
-        method: "DELETE",
-        token,
-      }
-    );
+    return apiFetch(`/api/tenants/${tenantId}/vehicles/${vehicleId}/unlink`, {
+      method: "DELETE",
+      token,
+    });
   },
 };

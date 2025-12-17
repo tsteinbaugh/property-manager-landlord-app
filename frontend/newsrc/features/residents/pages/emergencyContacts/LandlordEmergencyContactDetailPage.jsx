@@ -191,6 +191,12 @@ export default function LandlordEmergencyContactDetailsPage() {
           marginBottom: 12,
         }}
       >
+        <h2 style={{ margin: "8px 0" }}>{title}</h2>
+        {isArchived && (
+          <div style={{ color: "#888", fontSize: 12 }}>
+            (Archived – read-only for landlords)
+          </div>
+        )}
         <div style={{ display: "flex", gap: 8 }}>
           {canEditNow && (
             <button type="button" onClick={handleEdit}>
@@ -219,30 +225,6 @@ export default function LandlordEmergencyContactDetailsPage() {
             </button>
           )}
         </div>
-      </div>
-
-      {/* Manage tenant button (now just "create new tenant" helper) */}
-      <div style={{ marginBottom: 12 }}>
-        <button
-          type="button"
-          onClick={handleManageTenant}
-          disabled={isArchived}
-          style={{
-            borderRadius: 999,
-            padding: "6px 12px",
-            border: "1px solid #d1d5db",
-            background: "#ffffff",
-            cursor: isArchived ? "default" : "pointer",
-            fontSize: 13,
-          }}
-        >
-          Manage tenants for this emergency contact
-        </button>
-        {isArchived && (
-          <span style={{ marginLeft: 8, fontSize: 12, color: "#6b7280" }}>
-            Cannot manage tenants for an archived emergency contact.
-          </span>
-        )}
       </div>
 
       <hr style={{ margin: "16px 0" }} />
@@ -348,6 +330,30 @@ export default function LandlordEmergencyContactDetailsPage() {
             This emergency contact is not linked to any tenants yet.
           </div>
         )}
+        
+        {/* Manage tenant button (now just "create new tenant" helper) */}
+        <div style={{ marginBottom: 12 }}>
+          <button
+            type="button"
+            onClick={handleManageTenant}
+            disabled={isArchived}
+            style={{
+              borderRadius: 999,
+              padding: "6px 12px",
+              border: "1px solid #d1d5db",
+              background: "#ffffff",
+              cursor: isArchived ? "default" : "pointer",
+              fontSize: 13,
+            }}
+          >
+            Manage tenants for this emergency contact
+          </button>
+          {isArchived && (
+            <span style={{ marginLeft: 8, fontSize: 12, color: "#6b7280" }}>
+              Cannot manage tenants for an archived emergency contact.
+            </span>
+          )}
+        </div>
       </section>
     </div>
   );

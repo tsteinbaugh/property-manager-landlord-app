@@ -443,15 +443,6 @@ export default function LandlordAddEmergencyContactPage() {
                     {availableExistingEmergencyContacts.map((e) => (
                       <option key={e.id} value={e.id}>
                         {e.name}
-                        {e.phone}
-                        {e.email}
-                        {e.address1 ? ` (${e.address1})` : ""}
-                        {e.city ? ` (${e.city})` : ""}
-                        {e.state ? ` (${e.state})` : ""}
-                        {e.postalCode ? ` (${e.postalCode})` : ""}
-                        {e.relation ? ` (${e.relation})` : ""}
-                        {e.notes ? ` (${e.notes})` : ""}
-                        {e.tenantId ? " – linked to another tenant" : ""}
                       </option>
                     ))}
                   </select>
@@ -473,14 +464,6 @@ export default function LandlordAddEmergencyContactPage() {
                       {tenantEmergencyContacts.map((e) => (
                         <li key={e.id}>
                           {e.name}
-                          {e.phone}
-                          {e.email}
-                          {e.address1 ? ` (${e.address1})` : ""}
-                          {e.city ? ` (${e.city})` : ""}
-                          {e.state ? ` (${e.state})` : ""}
-                          {e.postalCode ? ` (${e.postalCode})` : ""}
-                          {e.relation ? ` (${e.relation})` : ""}
-                          {e.notes ? ` (${e.notes})` : ""}
                         </li>
                       ))}
                     </ul>
@@ -680,12 +663,10 @@ export default function LandlordAddEmergencyContactPage() {
                 >
                   State
                 </label>
-                <input
+                <select
                   id="state"
-                  type="text"
                   value={state}
                   onChange={(e) => setState(e.target.value)}
-                  placeholder="State"
                   style={{
                     width: "100%",
                     padding: "6px 8px",
@@ -693,9 +674,18 @@ export default function LandlordAddEmergencyContactPage() {
                     border: "1px solid #d1d5db",
                   }}
                   disabled={isSubmitting}
-                />
+                >
+                  <option value="">— Select —</option>
+                  {Array.from(US_STATES.entries()).map(([name, code]) => (
+                    <option key={code} value={code}>
+                      {name
+                        .toLowerCase()
+                        .replace(/\b\w/g, (c) => c.toUpperCase())}{" "}
+                      ({code})
+                    </option>
+                  ))}
+                </select>                
               </div>
-
 
               {/* PostalCode */}
               <div style={{ marginBottom: 12 }}>
@@ -1025,12 +1015,10 @@ export default function LandlordAddEmergencyContactPage() {
             >
               State
             </label>
-            <input
+            <select
               id="state"
-              type="text"
               value={state}
               onChange={(e) => setState(e.target.value)}
-              placeholder="State"
               style={{
                 width: "100%",
                 padding: "6px 8px",
@@ -1038,7 +1026,17 @@ export default function LandlordAddEmergencyContactPage() {
                 border: "1px solid #d1d5db",
               }}
               disabled={isSubmitting}
-            />
+            >
+              <option value="">— Select —</option>
+              {Array.from(US_STATES.entries()).map(([name, code]) => (
+                <option key={code} value={code}>
+                  {name
+                    .toLowerCase()
+                    .replace(/\b\w/g, (c) => c.toUpperCase())}{" "}
+                  ({code})
+                </option>
+              ))}
+            </select>                
           </div>
 
           {/* PostalCode */}
