@@ -1,18 +1,227 @@
-import React, { useEffect, useState } from "react";
-import { apiFetch } from "@lib/apiClient.js";
+//frontend/newsrc/features/properties/pages/LandlordPropertyDetailPage.jsx
+import React, { useEffect, useMemo, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
-import { Link } from "react-router-dom";
+import { apiFetch } from "@lib/apiClient.js";
+import { propertiesApi } from "@features/properties/api/properties.api.js";
+import { leasesApi } from "@features/leases/api/leases.api.js";
 import ArchiveButton from "@shared/ui/ArchiveButton.jsx";
 import { can } from "@lib/rbac/index.js";
 import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
 import { ROLES } from "@lib/rbac/roles.js";
-import { propertiesApi } from "@features/properties/api/properties.api.js";
-import { leasesApi } from "@features/leases/api/leases.api.js";
+
+import ui from "@shared/styles/CardLayout.module.css";
+
+function shortId(id) {
+  if (!id) return "";
+  return String(id).slice(0, 6);
+}
+
+function formatMoney(n) {
+  if (n === null || n === undefined || Number.isNaN(Number(n))) return "—";
+  try {
+    return Number(n).toLocaleString();
+  } catch {
+    return String(n);
+  }
+}
+
+function leaseTitle(lease, fallbackPropertyTitle) {
+  const base =
+    (lease?.propertyLabel && String(lease.propertyLabel).trim()) ||
+    (lease?.property?.name && String(lease.property.name).trim()) ||
+    (lease?.property?.address1 && String(lease.property.address1).trim()) ||
+    "";
+
+  if (base) return `Lease for ${base}`;
+
+  const fb = (fallbackPropertyTitle && String(fallbackPropertyTitle).trim()) || "";
+  return fb && fb !== "Property" ? `Lease for ${fb}` : "Lease";
+}
+
+function leaseLabel(lease) {
+  if (!lease) return "Lease";
+  const status = lease.status ? String(lease.status).toUpperCase() : "LEASE";
+  const dates =
+    lease.startDate && lease.endDate
+      ? `${lease.startDate} → ${lease.endDate}`
+      : lease.startDate
+        ? `${lease.startDate} → (no end date)`
+        : lease.endDate
+          ? `(no start date) → ${lease.endDate}`
+          : "(no dates)";
+
+  const rent =
+    lease.rentAmount !== null && lease.rentAmount !== undefined
+      ? ` · $${formatMoney(lease.rentAmount)}/mo`
+      : "";
+
+  return `${status} · ${dates}${rent}`;
+}
+
+function buildLinkageGraph(propertyDetail) {
+  const result = {
+    leases: [],
+    tenants: new Map(),
+    occupants: new Map(),
+    pets: new Map(),
+    emergencyContacts: new Map(),
+    vehicles: new Map(),
+  };
+
+  const leases = Array.isArray(propertyDetail?.leases) ? propertyDetail.leases : [];
+
+  for (const lease of leases) {
+    const lt = Array.isArray(lease?.leaseTenants) ? lease.leaseTenants : [];
+    const leaseTenants = [];
+
+    for (const row of lt) {
+      const tenant = row?.tenant || null;
+      if (!tenant?.id) continue;
+
+      leaseTenants.push(tenant);
+
+      if (!result.tenants.has(tenant.id)) {
+        result.tenants.set(tenant.id, { tenant, viaLeases: [] });
+      }
+      result.tenants.get(tenant.id).viaLeases.push({
+        leaseId: lease.id,
+        leaseLabel: leaseLabel(lease),
+        leaseTitle: leaseTitle(lease, propertyDetail?.name || propertyDetail?.address1 || "Property"),
+        leaseRaw: lease,
+      });
+
+      const occLinks = Array.isArray(tenant?.occupantLinks) ? tenant.occupantLinks : [];
+      for (const link of occLinks) {
+        const o = link?.occupant;
+        if (!o?.id) continue;
+        if (!result.occupants.has(o.id)) result.occupants.set(o.id, { entity: o, paths: [] });
+        result.occupants.get(o.id).paths.push({
+          tenantId: tenant.id,
+          tenantName: tenant.name || tenant.email || "Unnamed tenant",
+          leaseId: lease.id,
+          leaseLabel: leaseLabel(lease),
+          leaseTitle: leaseTitle(lease, propertyDetail?.name || propertyDetail?.address1 || "Property"),
+          leaseRaw: lease,
+        });
+      }
+
+      const petLinks = Array.isArray(tenant?.petLinks) ? tenant.petLinks : [];
+      for (const link of petLinks) {
+        const p = link?.pet;
+        if (!p?.id) continue;
+        if (!result.pets.has(p.id)) result.pets.set(p.id, { entity: p, paths: [] });
+        result.pets.get(p.id).paths.push({
+          tenantId: tenant.id,
+          tenantName: tenant.name || tenant.email || "Unnamed tenant",
+          leaseId: lease.id,
+          leaseLabel: leaseLabel(lease),
+          leaseTitle: leaseTitle(lease, propertyDetail?.name || propertyDetail?.address1 || "Property"),
+          leaseRaw: lease,
+        });
+      }
+
+      const ecLinks = Array.isArray(tenant?.emergencyContactLinks)
+        ? tenant.emergencyContactLinks
+        : [];
+      for (const link of ecLinks) {
+        const e = link?.emergencyContact;
+        if (!e?.id) continue;
+        if (!result.emergencyContacts.has(e.id))
+          result.emergencyContacts.set(e.id, { entity: e, paths: [] });
+        result.emergencyContacts.get(e.id).paths.push({
+          tenantId: tenant.id,
+          tenantName: tenant.name || tenant.email || "Unnamed tenant",
+          leaseId: lease.id,
+          leaseLabel: leaseLabel(lease),
+          leaseTitle: leaseTitle(lease, propertyDetail?.name || propertyDetail?.address1 || "Property"),
+          leaseRaw: lease,
+        });
+      }
+
+      const vLinks = Array.isArray(tenant?.vehicleLinks) ? tenant.vehicleLinks : [];
+      for (const link of vLinks) {
+        const v = link?.vehicle;
+        if (!v?.id) continue;
+        if (!result.vehicles.has(v.id)) result.vehicles.set(v.id, { entity: v, paths: [] });
+        result.vehicles.get(v.id).paths.push({
+          tenantId: tenant.id,
+          tenantName: tenant.name || tenant.email || "Unnamed tenant",
+          leaseId: lease.id,
+          leaseLabel: leaseLabel(lease),
+          leaseTitle: leaseTitle(lease, propertyDetail?.name || propertyDetail?.address1 || "Property"),
+          leaseRaw: lease,
+        });
+      }
+    }
+
+    result.leases.push({ lease, tenants: leaseTenants });
+  }
+
+  return result;
+}
+
+function Card({ children, onClick, archived = false, clickable = true }) {
+  return (
+    <div
+      className={`${ui.card} ${archived ? ui.cardArchived : ""}`}
+      onClick={clickable ? onClick : undefined}
+      style={{ cursor: clickable ? "pointer" : "default" }}
+      role={clickable ? "button" : undefined}
+      tabIndex={clickable ? 0 : undefined}
+      onKeyDown={
+        clickable
+          ? (e) => {
+              if (e.key === "Enter" || e.key === " ") onClick?.();
+            }
+          : undefined
+      }
+    >
+      {children}
+    </div>
+  );
+}
+
+function CardHeader({ title, badgeText, badgeTone = "idle" }) {
+  const badgeClass =
+    badgeTone === "active"
+      ? ui.badgeActive
+      : badgeTone === "archived"
+        ? ui.badgeArchived
+        : ui.badgeIdle;
+
+  return (
+    <div className={ui.cardHeader}>
+      <div className={ui.cardTitle}>{title}</div>
+      {badgeText ? <span className={`${ui.badge} ${badgeClass}`}>{badgeText}</span> : null}
+    </div>
+  );
+}
+
+function LinkageLine({ parts = [], hint }) {
+  const cleaned = (parts || []).filter(Boolean);
+  if (!cleaned.length) return null;
+
+  return (
+    <div className={ui.muted} style={{ marginTop: 6 }}>
+      <div>
+        <strong>Linkage: </strong>
+        {cleaned.map((p, idx) => (
+          <span key={`${p}-${idx}`}>
+            {idx > 0 ? " → " : ""}
+            <label>{p}</label>
+          </span>
+        ))}
+      </div>
+      {hint ? <div style={{ marginTop: 2 }}>{hint}</div> : null}
+    </div>
+  );
+}
 
 export default function LandlordPropertyDetailPage({ propertyId }) {
+  const navigate = useNavigate();
   const { token, effectiveRole, isSysAdmin } = useUser() || {};
 
-  // Normalize role to match ROLE_GRANTS keys (lowercase)
   const role = isSysAdmin
     ? ROLES.SYSADMIN
     : typeof effectiveRole === "string"
@@ -22,59 +231,12 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
   const canUpdate = can(role, R.PROPERTIES, A.UPDATE);
   const canArchiveGrant = can(role, R.PROPERTIES, A.ARCHIVE);
 
-  // Summary from /api/properties/:id/summary
+  const [property, setProperty] = useState(null);
   const [summary, setSummary] = useState(null);
-
-  // Full detail (leases + tenants + occupants + pets + emergency contacts+ vehicles) from /api/properties/:id
-  const [propertyDetail, setPropertyDetail] = useState(null);
-
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  // edit state
-  const [isEditing, setEditing] = useState(false);
-  const [name, setName] = useState("");
-  const [address1, setAddress1] = useState("");
-  const [city, setCity] = useState("");
-  const [stateVal, setStateVal] = useState("CO");
-  const [postalCode, setPostalCode] = useState("");
-  const [isSaving, setSaving] = useState(false);
   const [isArchiving, setArchiving] = useState(false);
 
-  // Convenience aliases from summary
-  const currentLease = summary?.lease || null;
-  const currentTenant = summary?.tenant || null;
-
-  // Property from summary and/or detail
-  const propertyFromSummary = summary?.property || null;
-  const richProperty = propertyDetail || propertyFromSummary || null;
-  const property = propertyFromSummary || richProperty;
-
-  const leasesForProperty = Array.isArray(richProperty?.leases)
-    ? richProperty.leases
-    : [];
-
-  const tenantsForProperty = Array.isArray(richProperty?.tenants)
-    ? richProperty.tenants
-    : [];
-
-  const occupantsForProperty = Array.isArray(richProperty?.occupants)
-    ? richProperty.occupants
-    : [];
-
-  const petsForProperty = Array.isArray(richProperty?.pets)
-    ? richProperty.pets
-    : [];
-
-  const emergencyContactsForProperty = Array.isArray(richProperty?.emergencyContacts)
-    ? richProperty.emergencyContacts
-    : [];
-
-  const vehiclesForProperty = Array.isArray(richProperty?.vehicles)
-    ? richProperty.vehicles
-    : [];
-
-  // Load summary + full detail
   useEffect(() => {
     let cancelled = false;
 
@@ -83,127 +245,52 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
         setLoading(true);
         setError(null);
 
-        const [summaryData, detail] = await Promise.all([
-          apiFetch(`/api/properties/${propertyId}/summary`, { token }),
+        const [detail, summaryData] = await Promise.all([
           propertiesApi.detail(propertyId, { token }),
+          apiFetch(`/api/properties/${propertyId}/summary`, { token }).catch(() => null),
         ]);
 
         if (!cancelled) {
+          setProperty(detail || null);
           setSummary(summaryData || null);
-          setPropertyDetail(detail || null);
         }
       } catch (err) {
-        console.error("Failed to load property", err);
-        if (!cancelled) {
-          setError(err);
-        }
+        if (!cancelled) setError(err);
       } finally {
         if (!cancelled) setLoading(false);
       }
     }
 
-    if (propertyId) {
-      load();
-    }
-
-    return () => {
-      cancelled = true;
-    };
+    if (propertyId) load();
+    return () => (cancelled = true);
   }, [propertyId, token]);
 
-  // When property loads (from summary), initialize edit fields
-  useEffect(() => {
-    if (property) {
-      setName(property.name || "");
-      setAddress1(property.address1 || "");
-      setCity(property.city || "");
-      setStateVal(property.state || "CO");
-      setPostalCode(property.postalCode || "");
-    }
-  }, [property]);
+  const graph = useMemo(() => buildLinkageGraph(property), [property]);
 
-  const handleSave = async () => {
-    if (!address1 || !city || !stateVal || !postalCode) {
-      alert("Address, city, state, and ZIP are required.");
-      return;
-    }
+  const isArchived = !!property?.isArchived;
+  const canEditNow = canUpdate && (!isArchived || isSysAdmin);
+  const canArchiveNow = !isArchived && canArchiveGrant;
+  const canUnarchiveNow = isArchived && isSysAdmin;
+  const showArchiveButton = canArchiveNow || canUnarchiveNow;
 
-    try {
-      setSaving(true);
-      const updated = await apiFetch(`/api/properties/${propertyId}`, {
-        method: "PATCH",
-        token,
-        body: {
-          name: name || address1,
-          address1,
-          city,
-          state: stateVal,
-          postalCode,
-        },
-      });
+  const title = property?.name || property?.address1 || "Property";
 
-      // Update summary copy
-      setSummary((prev) =>
-        prev
-          ? {
-              ...prev,
-              property: {
-                ...prev.property,
-                name: name || address1,
-                address1,
-                city,
-                state: stateVal,
-                postalCode,
-                isArchived: updated.isArchived ?? prev.property.isArchived,
-              },
-            }
-          : prev
-      );
-
-      // Update detail copy
-      setPropertyDetail((prev) =>
-        prev
-          ? {
-              ...prev,
-              name: name || address1,
-              address1,
-              city,
-              state: stateVal,
-              postalCode,
-              isArchived: updated.isArchived ?? prev.isArchived,
-            }
-          : prev
-      );
-
-      setEditing(false);
-    } catch (err) {
-      console.error("Failed to update property", err);
-      alert("Failed to update property. Check console for details.");
-    } finally {
-      setSaving(false);
-    }
-  };
-
-  const handleCancelEdit = () => {
-    if (property) {
-      setName(property.name || "");
-      setAddress1(property.address1 || "");
-      setCity(property.city || "");
-      setStateVal(property.state || "CO");
-      setPostalCode(property.postalCode || "");
-    }
-    setEditing(false);
+  const reload = async () => {
+    const refreshed = await propertiesApi.detail(propertyId, { token });
+    setProperty(refreshed);
+    const summaryData = await apiFetch(`/api/properties/${propertyId}/summary`, { token }).catch(
+      () => null
+    );
+    setSummary(summaryData || null);
   };
 
   const handleToggleArchive = async () => {
     if (!property) return;
 
-    const currentlyArchived = !!property.isArchived;
-
-    if (!currentlyArchived) {
+    if (!property.isArchived) {
       const ok = window.confirm(
         "Are you sure you want to archive this property?\n\n" +
-          "This will make it read-only for landlords. Only a system administrator can unarchive it."
+          "It will be hidden from active lists. Only a system administrator can unarchive it."
       );
       if (!ok) return;
     } else {
@@ -218,38 +305,10 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
 
     try {
       setArchiving(true);
-      const updated = await apiFetch(
-        `/api/properties/${propertyId}/archive`,
-        {
-          method: "PATCH",
-          token,
-        }
-      );
-
-      // Update summary flag
-      setSummary((prev) =>
-        prev
-          ? {
-              ...prev,
-              property: {
-                ...prev.property,
-                isArchived: updated.isArchived,
-              },
-            }
-          : prev
-      );
-
-      // Update detail flag
-      setPropertyDetail((prev) =>
-        prev
-          ? {
-              ...prev,
-              isArchived: updated.isArchived,
-            }
-          : prev
-      );
+      await propertiesApi.toggleArchive(propertyId, { token });
+      await reload();
     } catch (err) {
-      console.error("Failed to toggle archived state", err);
+      console.error("Failed to toggle archive", err);
       alert("Failed to change archive status. Check console for details.");
     } finally {
       setArchiving(false);
@@ -257,450 +316,471 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
   };
 
   const handleUnlinkLease = async (leaseId) => {
-    if (!leaseId || !property) return;
-
     const ok = window.confirm(
-      "Unlink this lease from the property?\n\n" +
-        "This does NOT delete the lease; it just removes the property association."
+      "Unlink this lease from the property?\n\nThis does NOT delete either record, it only removes the association."
     );
     if (!ok) return;
 
     try {
-      // 1) Update the lease: drop the propertyId
-      await leasesApi.update(
-        leaseId,
-        { propertyId: null },
-        { token }
-      );
-
-      // 2) Reload BOTH summary and rich detail so everything is in sync
-      const [summaryData, detail] = await Promise.all([
-        apiFetch(`/api/properties/${property.id}/summary`, { token }),
-        propertiesApi.detail(property.id, { token }),
-      ]);
-
-      setSummary(summaryData || null);
-      setPropertyDetail(detail || null);
+      await leasesApi.unlinkProperty(leaseId, { token });
+      await reload();
     } catch (err) {
       console.error("Failed to unlink lease from property", err);
       alert("Failed to unlink lease. Check console for details.");
     }
   };
 
-  if (loading) return <div>Loading property…</div>;
-  if (error) {
+  if (loading) return <div className={ui.page}>Loading property…</div>;
+  if (error)
     return (
-      <div style={{ color: "crimson" }}>
-        Error loading property: {String(error.message || error)}
+      <div className={ui.page} style={{ color: "crimson" }}>
+        Error loading property: {String(error?.message || error)}
       </div>
     );
-  }
-  if (!property) return <div>No data.</div>;
-
-  const title = property.name || property.address1;
-  const isArchived = !!property.isArchived;
-
-  const canEditNow = canUpdate && (!isArchived || isSysAdmin);
-  const canArchiveNow = !isArchived && canArchiveGrant;
-  const canUnarchiveNow = isArchived && isSysAdmin;
-  const showArchiveButton = canArchiveNow || canUnarchiveNow;
+  if (!property) return <div className={ui.page}>No data.</div>;
 
   return (
-    <div style={{ padding: 16 }}>
+    <div className={ui.page}>
       <div style={{ marginBottom: 8 }}>
         <Link to="/landlord/properties">← Back to properties</Link>
       </div>
 
-      {/* Header + actions */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-start",
-          gap: 12,
-          marginBottom: 12,
-        }}
-      >
-        <div>
-          {!isEditing ? (
-            <>
-              <h2 style={{ margin: "8px 0" }}>{title}</h2>
-              {isArchived && (
-                <div style={{ color: "#888", fontSize: 12 }}>
-                  (Archived – read-only for landlords)
-                </div>
-              )}
-            </>
-          ) : (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 6,
-                maxWidth: 480,
-              }}
-            >
-              <input
-                type="text"
-                placeholder="Name (optional)"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="Street address"
-                value={address1}
-                onChange={(e) => setAddress1(e.target.value)}
-              />
-              <div style={{ display: "flex", gap: 6 }}>
-                <input
-                  type="text"
-                  placeholder="City"
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                  style={{ flex: 2 }}
-                />
-                <input
-                  type="text"
-                  placeholder="State"
-                  value={stateVal}
-                  onChange={(e) => setStateVal(e.target.value)}
-                  style={{ width: 70 }}
-                />
-                <input
-                  type="text"
-                  placeholder="ZIP"
-                  value={postalCode}
-                  onChange={(e) => setPostalCode(e.target.value)}
-                  style={{ width: 100 }}
-                />
-              </div>
-              <div style={{ display: "flex", gap: 8, marginTop: 4 }}>
+      {/* Header */}
+      <div className={ui.section}>
+        <div className={ui.sectionHeader}>
+          <div>
+            <h1 style={{ margin: 0 }}>{title}</h1>
+
+            <div className={ui.headerLinksRow}>
+              {canEditNow ? (
                 <button
                   type="button"
-                  onClick={handleSave}
-                  disabled={isSaving}
+                  className={ui.linkAction}
+                  onClick={() => navigate(`/landlord/properties/new?propertyId=${property.id}`)}
                 >
-                  {isSaving ? "Saving…" : "Save"}
+                  Edit property
                 </button>
-                <button type="button" onClick={handleCancelEdit}>
-                  Cancel
+              ) : null}
+
+              {showArchiveButton ? (
+                <button
+                  type="button"
+                  className={ui.linkAction}
+                  onClick={handleToggleArchive}
+                  disabled={isArchiving}
+                  aria-disabled={isArchiving ? "true" : "false"}
+                >
+                  {isArchived ? "Unarchive property" : "Archive property"}
                 </button>
-              </div>
+              ) : (
+                <span className={ui.linkActionDisabled}>
+                  {isArchived ? "Unarchive property" : "Archive property"}
+                </span>
+              )}
             </div>
-          )}
-        </div>
 
-        <div style={{ display: "flex", gap: 8 }}>
-          {canEditNow && !isEditing && (
-            <button type="button" onClick={() => setEditing(true)}>
-              Edit
-            </button>
-          )}
-
-          {showArchiveButton ? (
-            <ArchiveButton
-              archived={isArchived}
-              onToggle={handleToggleArchive}
-              disabled={isArchiving}
-            />
-          ) : (
-            <button
-              type="button"
-              disabled
-              title={
-                isArchived
-                  ? "Only a system administrator can unarchive this property."
-                  : "Insufficient permissions to archive this property."
-              }
-              style={{ opacity: 0.5 }}
-            >
-              {isArchived ? "Unarchive" : "Archive"}
-            </button>
-          )}
+            {isArchived ? <div className={ui.muted}>(Archived – read-only for landlords)</div> : null}
+          </div>
         </div>
       </div>
 
-      <hr style={{ margin: "16px 0" }} />
+      {/* Property info card */}
+      <div className={ui.section}>
+        <div className={ui.sectionHeader}></div>
 
-      {/* Property info */}
-      <section
-        style={{
-          marginTop: 16,
-          padding: 16,
-          borderRadius: 12,
-          border: "1px solid #e5e7eb",
-          background: "#ffffff",
-          maxWidth: 720,
-        }}
-      >
-        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
-          Property info
-        </h3>
-        
-        <dl
-          style={{
-            display: "grid",
-            gridTemplateColumns: "120px 1fr",
-            rowGap: 8,
-            columnGap: 12,
-            fontSize: 14,
-          }}
-        >
-          <dt style={{ fontWeight: 500, color: "#4b5563" }}>Address</dt>
-          <dd>{property.address1 || "———"}</dd>
+        <Card clickable={false} archived={isArchived}>
+          <CardHeader
+            title="Property Info"
+            badgeText={isArchived ? "Archived" : "Active"}
+            badgeTone={isArchived ? "archived" : "idle"}
+          />
 
-          <dt style={{ fontWeight: 500, color: "#4b5563" }}></dt>
-          <dd>{`${property.city}, ${property.state} ${property.postalCode}` || " "}</dd>
-
-          <dt style={{ fontWeight: 500, color: "#4b5563" }}>No. of Bedrooms</dt>
-          <dd>{property.bedrooms || "———"}</dd>
-
-          <dt style={{ fontWeight: 500, color: "#4b5563" }}>No. of Bathrooms</dt>
-          <dd>{property.bathrooms || "———"}</dd>
-
-          <dt style={{ fontWeight: 500, color: "#4b5563" }}>Square Feet</dt>
-          <dd>{property.sqft || "———"}</dd>
-
-          <dt style={{ fontWeight: 500, color: "#4b5563" }}>Year built</dt>
-          <dd>{property.yearBuilt || "———"}</dd>
-
-          <dt style={{ fontWeight: 500, color: "#4b5563" }}>Additional notes</dt>
-          <dd>{property.notes || "———"}</dd>
-
-          <dt style={{ fontWeight: 500, color: "#4b5563" }}>Archive</dt>
-          <dd>{isArchived ? "Archived" : "Active"}</dd>
-        </dl>
-      </section>
-
-      {/* Leases on this property (from richProperty) */}
-      <section
-        style={{
-          marginTop: 16,
-          padding: 16,
-          borderRadius: 12,
-          border: "1px solid #e5e7eb",
-          background: "#ffffff",
-          maxWidth: 720,
-        }}
-      >
-        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
-          Leases for this property
-        </h3>
-
-        {leasesForProperty.length > 0 ? (
-          <ul style={{ paddingLeft: 18 }}>
-            {leasesForProperty.map((lease) => (
-              <li key={lease.id} style={{ marginBottom: 8 }}>
-                <div>
-                  <Link to={`/landlord/leases/${lease.id}`}>
-                    Lease
-                  </Link>{" "}
-                  – {lease.status || "UNKNOWN"}
-                  {lease.rentAmount != null && ` · $${lease.rentAmount}/mo`}
+          <div className={ui.cardBody}>
+            <div>
+              Address: {property.address1 || "—"}
+              {property.city || property.state || property.postalCode ? (
+                <div className={ui.muted}>
+                  {[property.city || "", property.state || "", property.postalCode || ""]
+                    .filter(Boolean)
+                    .join(", ")}
                 </div>
+              ) : null}
+            </div>
 
-                {Array.isArray(lease.leaseTenants) &&
-                  lease.leaseTenants.length > 0 && (
-                    <div style={{ fontSize: 13, color: "#4b5563" }}>
-                      Tenants:{" "}
-                      {lease.leaseTenants
-                        .map(
-                          (lt) =>
-                            lt.tenant?.name ||
-                            lt.tenantName ||
-                            "(unnamed)"
-                        )
-                        .join(", ")}
-                    </div>
-                  )}
+            <div>
+              Beds: {property.bedrooms ?? "—"} · Baths: {property.bathrooms ?? "—"} · Sqft:{" "}
+              {property.sqft ?? "—"} · Year: {property.yearBuilt ?? "—"}
+            </div>
 
-                <button
-                  type="button"
-                  onClick={() => handleUnlinkLease(lease.id)}
-                  style={{ fontSize: 12, marginTop: 4 }}
-                >
-                  Unlink lease from this property
-                </button>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <div style={{ fontSize: 14, color: "#6b7280" }}>
-            No leases linked to this property yet.
+            {property.notes ? <div>Notes: {property.notes}</div> : <div className={ui.muted}>No notes.</div>}
           </div>
-        )}
-        <div style={{ marginTop: 8, marginBottom: 8 }}>
-          <Link to={`/landlord/leases/new?propertyId=${property.id}`}>
-            + Add lease for this property
-          </Link>
+        </Card>
+      </div>
+
+      {/* Leases */}
+      <div className={ui.section}>
+        <div className={ui.sectionHeader}>
+          <div className={ui.sectionTitle}>Leases</div>
+          <div className={ui.sectionHint}>Direct link: Lease ↔ Property</div>
         </div>
-      </section>
 
-      {/* Tenants aggregated across leases */}
-      <section
-        style={{
-          marginTop: 16,
-          padding: 16,
-          borderRadius: 12,
-          border: "1px solid #e5e7eb",
-          background: "#ffffff",
-          maxWidth: 720,
-        }}
-      >
-        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
-          Tenants for this property
-        </h3>
+        {graph.leases.length ? (
+          <div className={ui.grid}>
+            {graph.leases.map(({ lease }) => {
+              const archived = !!(lease.isArchived ?? lease.archived);
+              const label = leaseTitle(lease, title);
 
-        {tenantsForProperty.length > 0 ? (
-          <ul style={{ paddingLeft: 18 }}>
-            {tenantsForProperty.map((t) => (
-              <li key={t.id} style={{ marginBottom: 4 }}>
-                <Link to={`/landlord/tenants/${t.id}`}>
-                  {t.name || "(unnamed tenant)"}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <div style={{ fontSize: 14, color: "#6b7280" }}>
-            No tenants associated with this property yet.
+              return (
+                <Card
+                  key={lease.id}
+                  archived={archived}
+                  onClick={() => navigate(`/landlord/leases/${lease.id}`)}
+                >
+                  <CardHeader
+                    title={label}
+                    badgeText={lease.status || (archived ? "ARCHIVED" : "LEASE")}
+                    badgeTone={archived ? "archived" : "idle"}
+                  />
+                  <div className={ui.cardBody}>
+                    <LinkageLine parts={[label]} />
+                  </div>
+
+                  <div className={ui.inlineActions}>
+                    <button
+                      className={`${ui.inlineAction} ${ui.inlineActionDanger}`}
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleUnlinkLease(lease.id);
+                      }}
+                    >
+                      Unlink from property
+                    </button>
+                  </div>
+                </Card>
+              );
+            })}
           </div>
-        )}
-      </section>
-
-      {/* Occupants aggregated via tenant links */}
-      <section
-        style={{
-          marginTop: 16,
-          padding: 16,
-          borderRadius: 12,
-          border: "1px solid #e5e7eb",
-          background: "#ffffff",
-          maxWidth: 720,
-        }}
-      >
-        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
-          Occupants for this property
-        </h3>
-
-        {occupantsForProperty.length > 0 ? (
-          <ul style={{ paddingLeft: 18 }}>
-            {occupantsForProperty.map((o) => (
-              <li key={o.id} style={{ marginBottom: 4 }}>
-                <Link to={`/landlord/occupants/${o.id}`}>
-                  {o.name || "(unnamed occupant)"}
-                </Link>
-              </li>
-            ))}
-          </ul>
         ) : (
-          <div style={{ fontSize: 14, color: "#6b7280" }}>
-            No occupants associated with this property yet.
-          </div>
+          <div className={ui.muted}>No leases linked to this property yet.</div>
         )}
-      </section>
 
-      {/* Pets aggregated via tenant links */}
-      <section
-        style={{
-          marginTop: 16,
-          padding: 16,
-          borderRadius: 12,
-          border: "1px solid #e5e7eb",
-          background: "#ffffff",
-          maxWidth: 720,
-        }}
-      >
-        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
-          Pets for this property
-        </h3>
+        <div style={{ marginTop: 10 }}>
+          <button
+            type="button"
+            className={ui.linkAction}
+            onClick={() => navigate(`/landlord/leases/new?propertyId=${property.id}`)}
+          >
+            Add a lease (new or existing)
+          </button>
+        </div>
+      </div>
 
-        {petsForProperty.length > 0 ? (
-          <ul style={{ paddingLeft: 18 }}>
-            {petsForProperty.map((p) => (
-              <li key={p.id} style={{ marginBottom: 4 }}>
-                <Link to={`/landlord/pets/${p.id}`}>
-                  {p.name || "(unnamed pet)"}
-                </Link>
-                {p.type ? ` — ${p.type}` : ""}
-                {p.breed ? ` — ${p.breed}` : ""}
-                {p.weightLb != null ? ` (${p.weightLb} lb)` : ""}
-              </li>
-            ))}
-          </ul>
+      {/* Tenants */}
+      <div className={ui.section}>
+        <div className={ui.sectionHeader}>
+          <div className={ui.sectionTitle}>Tenants</div>
+          <div className={ui.sectionHint}>Indirect link: Tenant → Lease → Property </div>
+        </div>
+
+        {graph.tenants.size ? (
+          <div className={ui.grid}>
+            {Array.from(graph.tenants.values()).map(({ tenant, viaLeases }) => {
+              const archived = !!(tenant.isArchived ?? tenant.archived);
+              const displayName = tenant.name || tenant.email || "Unnamed tenant";
+
+              const uniqueLeases = [];
+              const seen = new Set();
+              for (const x of viaLeases || []) {
+                const key = `${x.leaseId}`;
+                if (seen.has(key)) continue;
+                seen.add(key);
+                uniqueLeases.push(x);
+              }
+
+              const firstLeaseTitle = uniqueLeases[0]?.leaseTitle || leaseTitle(null, title);
+
+              return (
+                <Card
+                  key={tenant.id}
+                  archived={archived}
+                  onClick={() => navigate(`/landlord/tenants/${tenant.id}`)}
+                >
+                  <CardHeader
+                    title={displayName}
+                    badgeText={archived ? "Archived" : "Tenant"}
+                    badgeTone={archived ? "archived" : "idle"}
+                  />
+
+                  <div className={ui.cardBody}>
+                    <LinkageLine
+                      parts={[tenant.name, firstLeaseTitle, title]}
+                      hint="To remove this tenant from this property, unlink it from the relevant lease."
+                    />
+
+                    {uniqueLeases.length ? (
+                      <div className={ui.inlineActions} style={{ flexWrap: "wrap" }}>
+                        {uniqueLeases.map((x) => (
+                          <button
+                            key={x.leaseId}
+                            type="button"
+                            className={ui.inlineAction}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              navigate(`/landlord/leases/${x.leaseId}`);
+                            }}
+                            title={x.leaseLabel}
+                          >
+                            Manage link on lease
+                          </button>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className={ui.muted} style={{ marginTop: 6 }}>
+                        No tenants linked through leases on this property yet.
+                      </div>
+                    )}
+                  </div>
+                </Card>
+              );
+            })}
+          </div>
         ) : (
-          <div style={{ fontSize: 14, color: "#6b7280" }}>
-            No pets associated with this property yet.
-          </div>
+          <div className={ui.muted}>No tenants associated with this property yet.</div>
         )}
-      </section>
+      </div>
 
-      {/* Emergency contacts aggregated via tenant links */}
-      <section
-        style={{
-          marginTop: 16,
-          padding: 16,
-          borderRadius: 12,
-          border: "1px solid #e5e7eb",
-          background: "#ffffff",
-          maxWidth: 720,
-        }}
-      >
-        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
-          Emergency contacts for this property
-        </h3>
+      {/* Occupants */}
+      <div className={ui.section}>
+        <div className={ui.sectionHeader}>
+          <div className={ui.sectionTitle}>Occupants</div>
+          <div className={ui.sectionHint}>Indirect link: Occupant → Tenant → Lease → Property</div>
+        </div>
 
-        {emergencyContactsForProperty.length > 0 ? (
-          <ul style={{ paddingLeft: 18 }}>
-            {emergencyContactsForProperty.map((e) => (
-              <li key={e.id} style={{ marginBottom: 4 }}>
-                <Link to={`/landlord/emergencyContacts/${e.id}`}>
-                  {e.name || "(unnamed emergency contact)"}
-                </Link>
-              </li>
-            ))}
-          </ul>
+        {graph.occupants.size ? (
+          <div className={ui.grid}>
+            {Array.from(graph.occupants.values()).map(({ entity, paths }) => {
+              const archived = !!(entity.isArchived ?? entity.archived);
+              const displayName = entity.name || "Unnamed occupant";
+              const first = paths?.[0];
+              const firstLeaseTitle = first?.leaseTitle || leaseTitle(null, title);
+
+              return (
+                <Card
+                  key={entity.id}
+                  archived={archived}
+                  onClick={() => navigate(`/landlord/occupants/${entity.id}`)}
+                >
+                  <CardHeader
+                    title={displayName}
+                    badgeText={archived ? "Archived" : "Occupant"}
+                    badgeTone={archived ? "archived" : "idle"}
+                  />
+
+                  <div className={ui.cardBody}>
+                    <LinkageLine
+                      parts={[entity.name, first?.tenantName, firstLeaseTitle, title]}
+                      hint="To remove this occupant from this property, unlink it from the relevant tenant."
+                    />
+                  </div>
+
+                  {first ? (
+                    <div className={ui.inlineActions}>
+                      <button
+                        type="button"
+                        className={ui.inlineAction}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate(`/landlord/tenants/${first.tenantId}`);
+                        }}
+                      >
+                        Manage link on tenant
+                      </button>
+                    </div>
+                  ) : null}
+                </Card>
+              );
+            })}
+          </div>
         ) : (
-          <div style={{ fontSize: 14, color: "#6b7280" }}>
-            No emergency contacts associated with this property yet.
-          </div>
+          <div className={ui.muted}>No occupants associated with this property yet.</div>
         )}
-      </section>
-      {/* Vehicles aggregated via tenant links */}
-      <section
-        style={{
-          marginTop: 16,
-          padding: 16,
-          borderRadius: 12,
-          border: "1px solid #e5e7eb",
-          background: "#ffffff",
-          maxWidth: 720,
-        }}
-      >
-        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
-          Vehicles for this property
-        </h3>
+      </div>
 
-        {vehiclesForProperty.length > 0 ? (
-          <ul style={{ paddingLeft: 18 }}>
-            {vehiclesForProperty.map((v) => (
-              <li key={v.id} style={{ marginBottom: 4 }}>
-                <Link to={`/landlord/vehicles/${v.id}`}>
-                  {v.permit || 
-                  v.plate || 
-                  (v.make && v.model && v.year ? `${v.year}, ${v.make} ${v.model}`: 
-                  "(unnamed vehicle)")}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <div style={{ fontSize: 14, color: "#6b7280" }}>
-            No vehicles associated with this property yet.
+      {/* Pets */}
+      <div className={ui.section}>
+        <div className={ui.sectionHeader}>
+          <div className={ui.sectionTitle}>Pets</div>
+          <div className={ui.sectionHint}>Indirect link: Pet → Tenant → Lease → Property</div>
+        </div>
+
+        {graph.pets.size ? (
+          <div className={ui.grid}>
+            {Array.from(graph.pets.values()).map(({ entity, paths }) => {
+              const archived = !!(entity.isArchived ?? entity.archived);
+              const displayName = entity.name || "Unnamed pet";
+              const first = paths?.[0];
+              const firstLeaseTitle = first?.leaseTitle || leaseTitle(null, title);
+
+              return (
+                <Card
+                  key={entity.id}
+                  archived={archived}
+                  onClick={() => navigate(`/landlord/pets/${entity.id}`)}
+                >
+                  <CardHeader
+                    title={displayName}
+                    badgeText={archived ? "Archived" : "Pet"}
+                    badgeTone={archived ? "archived" : "idle"}
+                  />
+                  <div className={ui.cardBody}>
+                    <LinkageLine
+                      parts={[entity.name, first?.tenantName, firstLeaseTitle, title]}
+                      hint="To remove this pet from this property, unlink it from the relevant tenant."
+                    />
+                  </div>
+
+                  {first ? (
+                    <div className={ui.inlineActions}>
+                      <button
+                        type="button"
+                        className={ui.inlineAction}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate(`/landlord/tenants/${first.tenantId}`);
+                        }}
+                      >
+                        Manage link on tenant
+                      </button>
+                    </div>
+                  ) : null}
+                </Card>
+              );
+            })}
           </div>
+        ) : (
+          <div className={ui.muted}>No pets associated with this property yet.</div>
         )}
-      </section>
+      </div>
+
+      {/* Emergency Contacts */}
+      <div className={ui.section}>
+        <div className={ui.sectionHeader}>
+          <div className={ui.sectionTitle}>Emergency Contacts</div>
+          <div className={ui.sectionHint}>
+            Indirect link: Emergency Contact → Tenant → Lease → Property
+          </div>
+        </div>
+
+        {graph.emergencyContacts.size ? (
+          <div className={ui.grid}>
+            {Array.from(graph.emergencyContacts.values()).map(({ entity, paths }) => {
+              const archived = !!(entity.isArchived ?? entity.archived);
+              const displayName = entity.name || "Unnamed emergency contact";
+              const first = paths?.[0];
+              const firstLeaseTitle = first?.leaseTitle || leaseTitle(null, title);
+
+              return (
+                <Card
+                  key={entity.id}
+                  archived={archived}
+                  onClick={() => navigate(`/landlord/emergencyContacts/${entity.id}`)}
+                >
+                  <CardHeader
+                    title={displayName}
+                    badgeText={archived ? "Archived" : "Contact"}
+                    badgeTone={archived ? "archived" : "idle"}
+                  />
+                  <div className={ui.cardBody}>
+                    <LinkageLine
+                      parts={[entity.name, first?.tenantName, firstLeaseTitle, title]}
+                      hint="To remove this emergency contact from this property, unlink it from the relevant tenant."
+                    />
+                  </div>
+
+                  {first ? (
+                    <div className={ui.inlineActions}>
+                      <button
+                        type="button"
+                        className={ui.inlineAction}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate(`/landlord/tenants/${first.tenantId}`);
+                        }}
+                      >
+                        Manage link on tenant
+                      </button>
+                    </div>
+                  ) : null}
+                </Card>
+              );
+            })}
+          </div>
+        ) : (
+          <div className={ui.muted}>No emergency contacts associated with this property yet.</div>
+        )}
+      </div>
+
+      {/* Vehicles */}
+      <div className={ui.section}>
+        <div className={ui.sectionHeader}>
+          <div className={ui.sectionTitle}>Vehicles</div>
+          <div className={ui.sectionHint}>Indirect link: Vehicle → Tenant → Lease → Property</div>
+        </div>
+
+        {graph.vehicles.size ? (
+          <div className={ui.grid}>
+            {Array.from(graph.vehicles.values()).map(({ entity, paths }) => {
+              const archived = !!(entity.isArchived ?? entity.archived);
+              const label =
+                entity.permit ||
+                entity.plate ||
+                `${entity.year}, ${entity.make} ${entity.model}` ||
+                "Unnamed vehicle";
+
+              const first = paths?.[0];
+              const firstLeaseTitle = first?.leaseTitle || leaseTitle(null, title);
+
+              return (
+                <Card
+                  key={entity.id}
+                  archived={archived}
+                  onClick={() => navigate(`/landlord/vehicles/${entity.id}`)}
+                >
+                  <CardHeader
+                    title={label}
+                    badgeText={archived ? "Archived" : "Vehicle"}
+                    badgeTone={archived ? "archived" : "idle"}
+                  />
+                  <div className={ui.cardBody}>
+                    <LinkageLine
+                      parts={[label, first?.tenantName, firstLeaseTitle, title]}
+                      hint="To remove this vehicle from this property, unlink it from the relevant tenant."
+                    />
+                  </div>
+
+                  {first ? (
+                    <div className={ui.inlineActions}>
+                      <button
+                        type="button"
+                        className={ui.inlineAction}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate(`/landlord/tenants/${first.tenantId}`);
+                        }}
+                      >
+                        Manage link on tenant
+                      </button>
+                    </div>
+                  ) : null}
+                </Card>
+              );
+            })}
+          </div>
+        ) : (
+          <div className={ui.muted}>No vehicles associated with this property yet.</div>
+        )}
+      </div>
     </div>
   );
 }

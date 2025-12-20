@@ -588,7 +588,7 @@ export default function LandlordAddVehiclePage() {
                     marginBottom: 4,
                   }}
                 >
-                  State
+                  License plate state
                 </label>
                 <select
                   id="state"
@@ -624,7 +624,7 @@ export default function LandlordAddVehiclePage() {
                     marginBottom: 4,
                   }}
                 >
-                  Plate
+                  License plate number
                 </label>
                 <input
                   id="plate"
@@ -680,7 +680,7 @@ export default function LandlordAddVehiclePage() {
                     marginBottom: 4,
                   }}
                 >
-                  Parking
+                  Parking space
                 </label>
                 <input
                   id="parking"
@@ -964,7 +964,7 @@ export default function LandlordAddVehiclePage() {
                 marginBottom: 4,
               }}
             >
-              State
+              License plate state
             </label>
             <select
               id="state"
@@ -1000,7 +1000,7 @@ export default function LandlordAddVehiclePage() {
                 marginBottom: 4,
               }}
             >
-              Plate
+              License plate number
             </label>
             <input
               id="plate"
@@ -1056,7 +1056,7 @@ export default function LandlordAddVehiclePage() {
                 marginBottom: 4,
               }}
             >
-              Parking
+              Parking space
             </label>
             <input
               id="parking"

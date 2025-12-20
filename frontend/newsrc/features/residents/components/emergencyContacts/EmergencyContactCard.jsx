@@ -1,65 +1,50 @@
 // newsrc/features/residents/components/emergencyContactCard.jsx
-import React from "react";
-import styles from "@features/residents/components/tenants/TenantCard.module.css";
+import { useMemo } from "react";
+import ui from "@shared/styles/CardLayout.module.css";
 
-export default function EmergencyContactCard({
-  emergencyContact,
-  onClick,
-}) {
+export default function EmergencyContactCard({ emergencyContact, onClick }) {
   if (!emergencyContact) return null;
 
-  const {
-    name,
-    phone,
-    email,
-    relation,
-    archived,
-    address1,
-    city,
-    state,
-    postalCode,
-    notes,
-  } = emergencyContact;
+  const vm = useMemo(() => {
+    const isArchived = !!(emergencyContact.isArchived ?? emergencyContact.archived);
 
-  const displayName = name && name.trim() ? name.trim() : "Unnamed emergency contact";
+    const displayName =
+      (emergencyContact.name && String(emergencyContact.name).trim()) ||
+      "Unnamed emergency contact";
 
-  const hasAnyInfo =
-    !!phone ||
-    !!email ||
-    !!address1 ||
-    !!city ||
-    !!state ||
-    !!postalCode ||
-    !!relation ||
-    !!notes;
+    const phone = emergencyContact.phone ? String(emergencyContact.phone).trim() : "";
+    const email = emergencyContact.email ? String(emergencyContact.email).trim() : "";
+    const relation = emergencyContact.relation ? String(emergencyContact.relation).trim() : "";
+
+    const hasAnyInfo = !!phone || !!email || !!relation;
+
+    return { isArchived, displayName, phone, email, relation, hasAnyInfo };
+  }, [emergencyContact]);
 
   return (
-    <div
-      className={`${styles.card} ${archived ? styles.archived : ""}`}
-      style={{ cursor: "pointer" }}
+    <button
+      type="button"
+      className={`${ui.card} ${vm.isArchived ? ui.cardArchived : ""}`}
       onClick={onClick}
-      aria-label={`Open emergency contact ${displayName}`}
+      aria-label={`Open emergency contact ${vm.displayName}`}
     >
-      <div className={styles.header}>
-        <div className={styles.title}>{displayName}</div>
+      <div className={ui.cardHeader}>
+        <div className={ui.cardTitle}>{vm.displayName}</div>
 
-        <span
-          className={`${styles.badge} ${
-            archived ? styles.badgeArchived : styles.badgeIdle
-          }`}
-        >
-          {archived ? "Archived" : "Active contact"}
-        </span>
-      </div>
-
-      <div className={styles.contact}>
-        {phone && <span className={styles.contactLine}>Phone: {phone}</span>}
-        {email && <span className={styles.contactLine}>Email: {email}</span>}
-
-        {!hasAnyInfo && (
-          <span className={styles.contactLineMuted}>No additional info yet</span>
+        {vm.isArchived ? (
+          <span className={`${ui.badge} ${ui.badgeArchived}`}>Archived</span>
+        ) : (
+          <span className={`${ui.badge} ${ui.badgeIdle}`}>Emergency contact</span>
         )}
       </div>
-    </div>
+
+      <div className={ui.cardBody}>
+        {vm.phone ? <div>Phone: {vm.phone}</div> : null}
+        {vm.email ? <div>Email: {vm.email}</div> : null}
+        {vm.relation ? <div>Relation: {vm.relation}</div> : null}
+
+        {!vm.hasAnyInfo ? <div className={ui.muted}>No additional info yet</div> : null}
+      </div>
+    </button>
   );
 }

@@ -1,56 +1,47 @@
-// newsrc/features/residents/components/OccupantCard.jsx
-import React from "react";
-import styles from "@features/residents/components/tenants/TenantCard.module.css";
+//frontend/newsrc/features/residents/components/OccupantCard.jsx
+import { useMemo } from "react";
+import ui from "@shared/styles/CardLayout.module.css";
 
-export default function OccupantCard({ occupant, onClick, onToggleArchive }) {
+export default function OccupantCard({ occupant, onClick }) {
   if (!occupant) return null;
 
-  const {
-    name,
-    relation,
-    archived,
-    tenantName,
-  } = occupant;
+  const { displayName, relation, tenantName, isArchived } = useMemo(() => {
+    const name =
+      (occupant.name && String(occupant.name).trim()) ||
+      "Unnamed occupant";
 
-  const displayName = name && name.trim() ? name.trim() : "Unnamed occupant";
+    return {
+      displayName: name,
+      relation: occupant.relation || "",
+      tenantName: occupant.tenantName || "",
+      isArchived: !!(occupant.isArchived ?? occupant.archived),
+    };
+  }, [occupant]);
 
   return (
-    <div
-      className={`${styles.card} ${archived ? styles.archived : ""}`}
-      style={{ cursor: "pointer" }}
+    <button
+      type="button"
+      className={`${ui.card} ${isArchived ? ui.cardArchived : ""}`}
       onClick={onClick}
       aria-label={`Open occupant ${displayName}`}
     >
-      <div className={styles.header}>
-        <div className={styles.title}>{displayName}</div>
+      <div className={ui.cardHeader}>
+        <div className={ui.cardTitle}>{displayName}</div>
 
-        <span
-          className={`${styles.badge} ${
-            archived ? styles.badgeArchived : styles.badgeIdle
-          }`}
-        >
-          {archived ? "Archived" : "Active resident"}
-        </span>
-      </div>
-
-      <div className={styles.contact}>
-        {relation && (
-          <span className={styles.contactLine}>
-            Relation: {relation}
-          </span>
-        )}
-        {tenantName && (
-          <span className={styles.contactLine}>
-            Tenant: {tenantName}
-          </span>
-        )}
-        {!relation && !tenantName && (
-          <span className={styles.contactLineMuted}>
-            No additional info yet
-          </span>
+        {isArchived ? (
+          <span className={`${ui.badge} ${ui.badgeArchived}`}>Archived</span>
+        ) : (
+          <span className={`${ui.badge} ${ui.badgeIdle}`}>Occupant</span>
         )}
       </div>
 
-    </div>
+      <div className={ui.cardBody}>
+        {relation ? <div>Relation: {relation}</div> : null}
+        {tenantName ? <div className={ui.muted}>Tenant: {tenantName}</div> : null}
+        {!relation && !tenantName ? (
+          <div className={ui.muted}>No additional info yet</div>
+        ) : null}
+      </div>
+    </button>
   );
 }

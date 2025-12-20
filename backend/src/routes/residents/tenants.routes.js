@@ -1,4 +1,4 @@
-// backend/src/routes/tenants.routes.js
+// backend/src/routes/residents/tenants.routes.js
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 const { Role, UserStatus } = require("@prisma/client");
@@ -398,7 +398,7 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
       bodyBuild,
       markings,
       occupation,
-      enployer,
+      employer,
       income,
       creditScore,
       violations,

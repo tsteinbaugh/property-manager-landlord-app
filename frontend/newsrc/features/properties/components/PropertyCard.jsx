@@ -1,95 +1,111 @@
+// newsrc/features/properties/components/PropertyCard.jsx
 import { useMemo } from "react";
-import styles from "./PropertyCard.module.css";
+import card from "@shared/styles/CardLayout.module.css";
+
+function moneyLabel(n) {
+  if (n === null || n === undefined || n === "") return "—";
+  const num = Number(n);
+  if (!Number.isFinite(num)) return "—";
+  return `$${num.toLocaleString()}/mo`;
+}
 
 export default function PropertyCard({ property, onClick }) {
   if (!property) return null;
 
   const {
     displayName,
-    street,
-    city,
-    state,
-    postalCode,
+    line1,
+    line2,
     activeLease,
     tenantCount,
+    rentLabel,
+    leaseDates,
+    isArchived,
   } = useMemo(() => {
-    const addr = property.address || {};
-    const lease = property.activeLease || null;
-  
+    const isArchived = !!(property.isArchived ?? property.archived);
+
+    // Support BOTH shapes:
+    // - old: property.address = { street, city, state, postalCode }
+    // - new (your api mapper): property.address1, city, state, postalCode
+    const addrObj = property.address && typeof property.address === "object" ? property.address : null;
+
+    const street =
+      (addrObj?.street && String(addrObj.street).trim()) ||
+      (property.address1 && String(property.address1).trim()) ||
+      "";
+
+    const city =
+      (addrObj?.city && String(addrObj.city).trim()) ||
+      (property.city && String(property.city).trim()) ||
+      "";
+
+    const state =
+      (addrObj?.state && String(addrObj.state).trim()) ||
+      (property.state && String(property.state).trim()) ||
+      "";
+
+    const postalCode =
+      (addrObj?.postalCode && String(addrObj.postalCode).trim()) ||
+      (property.postalCode && String(property.postalCode).trim()) ||
+      "";
+
+    const activeLease = property.activeLease || null;
+
     const displayName =
       (property.name && property.name.trim()) ||
       (property.nickname && property.nickname.trim()) ||
-      (addr.street && addr.street.trim()) ||
+      (street && street.trim()) ||
       "Unnamed property";
-  
+
+    const tenantCount = property.tenantCount ?? (Array.isArray(property.tenants) ? property.tenants.length : 0);
+
+    const rentLabel = activeLease ? moneyLabel(activeLease.rentAmount) : null;
+
+    const leaseDates =
+      activeLease && (activeLease.startDate || activeLease.endDate)
+        ? `${activeLease.startDate || "—"} → ${activeLease.endDate || "—"}`
+        : null;
+
+    const line1 = street || "—";
+    const line2 = [city, state, postalCode].filter(Boolean).join(", ");
+
     return {
       displayName,
-      street: addr.street || "",
-      city: addr.city || "",
-      state: addr.state || "",
-      postalCode: addr.postalCode || "",
-      activeLease: lease,
-      tenantCount: property.tenantCount ?? (property.tenants?.length || 0),
+      line1,
+      line2,
+      activeLease,
+      tenantCount,
+      rentLabel,
+      leaseDates,
+      isArchived,
     };
   }, [property]);
+
+  const badgeClass = isArchived
+    ? `${card.badge} ${card.badgeArchived}`
+    : activeLease
+      ? `${card.badge} ${card.badgeActive}`
+      : `${card.badge} ${card.badgeIdle}`;
+
+  const badgeText = isArchived ? "Archived" : activeLease ? "Active lease" : "No active lease";
 
   return (
     <button
       type="button"
-      className={`${styles.card} ${property.isArchived ? styles.archived : ""}`}
+      className={`${card.card} ${isArchived ? card.cardArchived : ""}`}
       onClick={onClick}
       aria-label={`Open property ${displayName}`}
     >
-      <div className={styles.header}>
-        <div className={styles.title}>{displayName}</div>
-
-        {property.isArchived ? (
-          <span className={`${styles.badge} ${styles.badgeArchived}`}>
-            Archived
-          </span>
-        ) : activeLease ? (
-          <span className={`${styles.badge} ${styles.badgeActive}`}>
-            Active lease
-          </span>
-        ) : (
-          <span className={`${styles.badge} ${styles.badgeIdle}`}>
-            No active lease
-          </span>
-        )}
+      <div className={card.cardHeader}>
+        <div className={card.cardTitle}>{displayName}</div>
+        <span className={badgeClass}>{badgeText}</span>
       </div>
 
-      <div className={styles.address}>
-        <span>{street}</span>
-        {(city || state || postalCode) && (
-          <span className={styles.addressLine2}>
-            {[city, state, postalCode].filter(Boolean).join(", ")}
-          </span>
-        )}
-      </div>
+      <div className={card.cardBody}>
+        <div>{line1}</div>
+        {line2 ? <div className={card.muted}>{line2}</div> : null}
 
-      <div className={styles.metaRow}>
-        <div className={styles.metaItem}>
-          <span className={styles.metaLabel}>Tenants</span>
-          <span className={styles.metaValue}>{tenantCount}</span>
-        </div>
-        {activeLease && (
-          <div className={styles.metaItem}>
-            <span className={styles.metaLabel}>Rent</span>
-            <span className={styles.metaValue}>
-              ${activeLease.rentAmount?.toLocaleString?.() ?? "—"}/mo
-            </span>
-          </div>
-        )}
       </div>
-
-      {activeLease && (
-        <div className={styles.footer}>
-          <span className={styles.metaLabel}>Lease</span>
-          <span className={styles.footerValue}>
-            {activeLease.startDate} → {activeLease.endDate}
-          </span>
-        </div>
-      )}
     </button>
   );
 }

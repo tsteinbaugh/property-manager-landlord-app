@@ -1,68 +1,58 @@
-// newsrc/features/residents/components/petCard.jsx
-import React from "react";
-import styles from "@features/residents/components/tenants/TenantCard.module.css";
+// newsrc/features/residents/components/PetCard.jsx
+import { useMemo } from "react";
+import ui from "@shared/styles/CardLayout.module.css";
 
-export default function petCard({ pet, onClick, onToggleArchive }) {
+export default function PetCard({ pet, onClick }) {
   if (!pet) return null;
 
-  const {
-    name,
-    type,
-    breed,
-    weightLb,
-    archived,
-    tenantName,
-  } = pet;
+  const vm = useMemo(() => {
+    const isArchived = !!(pet.isArchived ?? pet.archived);
 
-  const displayName = name && name.trim() ? name.trim() : "Unnamed pet";
+    const displayName =
+      (pet.name && String(pet.name).trim()) || "Unnamed pet";
+
+    const type = pet.type ? String(pet.type).trim() : "";
+    const breed = pet.breed ? String(pet.breed).trim() : "";
+    const weight =
+      pet.weightLb === null || pet.weightLb === undefined || pet.weightLb === ""
+        ? null
+        : String(pet.weightLb);
+
+    return {
+      isArchived,
+      displayName,
+      type,
+      breed,
+      weight,
+    };
+  }, [pet]);
 
   return (
-    <div
-      className={`${styles.card} ${archived ? styles.archived : ""}`}
-      style={{ cursor: "pointer" }}
+    <button
+      type="button"
+      className={`${ui.card} ${vm.isArchived ? ui.cardArchived : ""}`}
       onClick={onClick}
-      aria-label={`Open pet ${displayName}`}
+      aria-label={`Open pet ${vm.displayName}`}
     >
-      <div className={styles.header}>
-        <div className={styles.title}>{displayName}</div>
+      <div className={ui.cardHeader}>
+        <div className={ui.cardTitle}>{vm.displayName}</div>
 
-        <span
-          className={`${styles.badge} ${
-            archived ? styles.badgeArchived : styles.badgeIdle
-          }`}
-        >
-          {archived ? "Archived" : "Active resident"}
-        </span>
-      </div>
-
-      <div className={styles.contact}>
-        {type && (
-          <span className={styles.contactLine}>
-            Type: {type}
-          </span>
-        )}
-        {breed && (
-          <span className={styles.contactLine}>
-            Breed: {breed}
-          </span>
-        )}
-        {weightLb && (
-          <span className={styles.contactLine}>
-            Weight (lbs): {weightLb}
-          </span>
-        )}
-        {tenantName && (
-          <span className={styles.contactLine}>
-            Tenant: {tenantName}
-          </span>
-        )}
-        {!type && !breed && !weightLb && !tenantName && (
-          <span className={styles.contactLineMuted}>
-            No additional info yet
-          </span>
+        {vm.isArchived ? (
+          <span className={`${ui.badge} ${ui.badgeArchived}`}>Archived</span>
+        ) : (
+          <span className={`${ui.badge} ${ui.badgeIdle}`}>Pet</span>
         )}
       </div>
 
-    </div>
+      <div className={ui.cardBody}>
+        {vm.type ? <div>Type: {vm.type}</div> : null}
+        {vm.breed ? <div>Breed: {vm.breed}</div> : null}
+        {vm.weight ? <div>Weight (lbs): {vm.weight}</div> : null}
+
+        {!vm.type && !vm.breed && !vm.weight ? (
+          <div className={ui.muted}>No additional info yet</div>
+        ) : null}
+      </div>
+    </button>
   );
 }

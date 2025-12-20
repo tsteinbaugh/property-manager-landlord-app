@@ -47,13 +47,9 @@ async function uploadLeaseFile(leaseId, file, token) {
   const form = new FormData();
   form.append("file", file);
 
-  // This assumes you have a backend route for lease file upload.
-  // If your route differs, change just this URL.
   const res = await fetch(`/api/leases/${leaseId}/file`, {
     method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: { Authorization: `Bearer ${token}` },
     body: form,
   });
 
@@ -72,20 +68,23 @@ export default function LandlordAddLeasePage() {
 
   const qsPropertyId = searchParams.get("propertyId") || "";
   const qsTenantId = searchParams.get("tenantId") || "";
+  const qsLeaseId = searchParams.get("leaseId") || ""; // <-- EDIT MODE
+
+  const isEditMode = !!qsLeaseId;
 
   const fromPropertyContext = !!qsPropertyId;
   const fromTenantContext = !!qsTenantId;
 
-  const propertyLockedFromQuery = fromPropertyContext;
-  const tenantLockedFromQuery = fromTenantContext;
+  const propertyLockedFromQuery = fromPropertyContext && !isEditMode;
+  const tenantLockedFromQuery = fromTenantContext && !isEditMode;
 
   const mode = fromPropertyContext && fromTenantContext
     ? "BOTH"
     : fromTenantContext
-    ? "TENANT"
-    : fromPropertyContext
-    ? "PROPERTY"
-    : "GLOBAL";
+      ? "TENANT"
+      : fromPropertyContext
+        ? "PROPERTY"
+        : "GLOBAL";
 
   // ------------------------------------------------------------
   // Loaded lists
@@ -98,18 +97,13 @@ export default function LandlordAddLeasePage() {
   const [loadingError, setLoadingError] = useState(null);
 
   // ------------------------------------------------------------
-  // Draft + form state
+  // Form state
   // ------------------------------------------------------------
   const [propertyId, setPropertyId] = useState("");
-
-  // multi-tenant: existing tenants selected on this lease
   const [selectedTenantIds, setSelectedTenantIds] = useState([]);
   const [tenantPickerId, setTenantPickerId] = useState("");
 
-  // staged *new* tenants (from AddTenantPage in forLease mode)
   const [draftNewTenants, setDraftNewTenants] = useState([]);
-
-  // staged *new* property (comes from AddPropertyPage in forLease mode)
   const [draftProperty, setDraftProperty] = useState(null);
 
   const [rentAmount, setRentAmount] = useState("");
@@ -117,15 +111,13 @@ export default function LandlordAddLeasePage() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
-  // lease file
   const [leaseFile, setLeaseFile] = useState(null);
 
   const [isSaving, setSaving] = useState(false);
   const [formError, setFormError] = useState("");
 
-  // Link existing draft lease
+  // Link existing draft lease (create-mode only)
   const [selectedLeaseId, setSelectedLeaseId] = useState("");
-
   const [hydratedDraft, setHydratedDraft] = useState(false);
 
   // ------------------------------------------------------------
@@ -147,23 +139,21 @@ export default function LandlordAddLeasePage() {
 
         if (cancelled) return;
 
-        const nextProps = Array.isArray(props) ? props : [];
-        const nextTs = Array.isArray(ts) ? ts : [];
-        const nextLs = Array.isArray(ls) ? ls : [];
+        setProperties(Array.isArray(props) ? props : []);
+        setTenants(Array.isArray(ts) ? ts : []);
+        setLeases(Array.isArray(ls) ? ls : []);
 
-        setProperties(nextProps);
-        setTenants(nextTs);
-        setLeases(nextLs);
+        // Context defaults only in create-mode
+        if (!isEditMode) {
+          const propertyMatch = (Array.isArray(props) ? props : []).some((p) => p.id === qsPropertyId);
+          const tenantMatch = (Array.isArray(ts) ? ts : []).some((t) => t.id === qsTenantId);
 
-        // Context defaults
-        const propertyMatch = nextProps.some((p) => p.id === qsPropertyId);
-        const tenantMatch = nextTs.some((t) => t.id === qsTenantId);
+          if (qsPropertyId && propertyMatch) setPropertyId(qsPropertyId);
+          else setPropertyId("");
 
-        if (qsPropertyId && propertyMatch) setPropertyId(qsPropertyId);
-        else setPropertyId("");
-
-        if (qsTenantId && tenantMatch) setSelectedTenantIds([qsTenantId]);
-        else setSelectedTenantIds([]);
+          if (qsTenantId && tenantMatch) setSelectedTenantIds([qsTenantId]);
+          else setSelectedTenantIds([]);
+        }
       } catch (err) {
         console.error("Failed to load properties/tenants/leases for lease", err);
         if (!cancelled) setLoadingError(err);
@@ -178,16 +168,49 @@ export default function LandlordAddLeasePage() {
       setLoadingError(new Error("Missing auth token"));
     }
 
-    return () => {
-      cancelled = true;
-    };
-  }, [token, qsPropertyId, qsTenantId]);
+    return () => { cancelled = true; };
+  }, [token, qsPropertyId, qsTenantId, isEditMode]);
 
   // ------------------------------------------------------------
-  // Hydrate from existing draft in sessionStorage (once)
+  // EDIT MODE: load lease + hydrate form
+  // (no draft/session stuff in edit mode)
   // ------------------------------------------------------------
   useEffect(() => {
-    if (!token || loading || hydratedDraft) return;
+    if (!isEditMode || !token || loading) return;
+
+    let cancelled = false;
+
+    async function loadLease() {
+      try {
+        const l = await leasesApi.get(qsLeaseId, { token });
+        if (cancelled) return;
+
+        setPropertyId(l?.propertyId || "");
+        const lt = Array.isArray(l?.leaseTenants) ? l.leaseTenants : [];
+        setSelectedTenantIds(Array.from(new Set(lt.map((x) => x.tenantId).filter(Boolean))));
+
+        setRentAmount(l?.rentAmount == null ? "" : String(l.rentAmount));
+        setStatus(l?.status || "DRAFT");
+        setStartDate(l?.startDate || "");
+        setEndDate(l?.endDate || "");
+      } catch (err) {
+        console.error("Failed to load lease for edit", err);
+        setLoadingError(err);
+      } finally {
+        setHydratedDraft(true);
+      }
+    }
+
+    loadLease();
+
+    return () => { cancelled = true; };
+  }, [isEditMode, qsLeaseId, token, loading]);
+
+  // ------------------------------------------------------------
+  // CREATE MODE ONLY: hydrate from draft + persist draft
+  // ------------------------------------------------------------
+  useEffect(() => {
+    if (!token || loading || hydratedDraft || isEditMode) return;
 
     const raw = sessionStorage.getItem(LEASE_DRAFT_KEY);
     if (!raw) {
@@ -218,14 +241,10 @@ export default function LandlordAddLeasePage() {
     } finally {
       setHydratedDraft(true);
     }
-  }, [token, loading, hydratedDraft, qsTenantId]);
+  }, [token, loading, hydratedDraft, qsTenantId, isEditMode]);
 
-  // ------------------------------------------------------------
-  // Persist draft to sessionStorage whenever key pieces change
-  // (file is NOT persisted; just staged in-memory)
-  // ------------------------------------------------------------
   useEffect(() => {
-    if (!hydratedDraft) return;
+    if (!hydratedDraft || isEditMode) return;
 
     const draft = {
       propertyId,
@@ -245,6 +264,7 @@ export default function LandlordAddLeasePage() {
     }
   }, [
     hydratedDraft,
+    isEditMode,
     propertyId,
     selectedTenantIds,
     draftNewTenants,
@@ -256,7 +276,7 @@ export default function LandlordAddLeasePage() {
   ]);
 
   // ------------------------------------------------------------
-  // Compute which properties/tenants are already on an ACTIVE lease
+  // Compute availability (create mode UX)
   // ------------------------------------------------------------
   const usedPropertyIds = useMemo(() => {
     const s = new Set();
@@ -281,7 +301,6 @@ export default function LandlordAddLeasePage() {
   const candidateLeases = useMemo(() => {
     return leases.filter((l) => {
       if ((l.status || "DRAFT") !== "DRAFT") return false;
-
       if (fromPropertyContext && l.propertyId) return false;
 
       if (fromTenantContext && qsTenantId) {
@@ -291,18 +310,16 @@ export default function LandlordAddLeasePage() {
         if (alreadyLinked) return false;
       }
 
-      // Only show link-existing section when launched from property or tenant context
       if (!fromPropertyContext && !fromTenantContext) return false;
-
       return true;
     });
   }, [leases, fromPropertyContext, fromTenantContext, qsTenantId]);
 
   const canLinkExisting =
-    (fromPropertyContext || fromTenantContext) && candidateLeases.length > 0;
+    !isEditMode && (fromPropertyContext || fromTenantContext) && candidateLeases.length > 0;
 
   // ------------------------------------------------------------
-  // Tenant helpers (multi-tenant existing)
+  // Tenant helpers
   // ------------------------------------------------------------
   const handleAddTenantToLease = () => {
     if (!tenantPickerId) return;
@@ -318,7 +335,7 @@ export default function LandlordAddLeasePage() {
   };
 
   // ------------------------------------------------------------
-  // Nav: create new tenant/property (staged)
+  // Nav: create new tenant/property (create-mode only)
   // ------------------------------------------------------------
   const handleGoCreateNewTenant = () => {
     const returnTo = `${window.location.pathname}${window.location.search}`;
@@ -333,7 +350,7 @@ export default function LandlordAddLeasePage() {
   };
 
   // ------------------------------------------------------------
-  // Link existing draft lease
+  // Link existing draft lease (create-mode only)
   // ------------------------------------------------------------
   const handleLinkSubmit = async (e) => {
     e.preventDefault();
@@ -372,7 +389,55 @@ export default function LandlordAddLeasePage() {
   };
 
   // ------------------------------------------------------------
-  // Create lease (including staged tenants & staged property + optional file)
+  // EDIT MODE: save changes (fields only)
+  // ------------------------------------------------------------
+  const handleEditSubmit = async (e) => {
+    e.preventDefault();
+
+    let numericRent = null;
+    if (trimOrEmpty(rentAmount)) {
+      const parsed = Number(trimOrEmpty(rentAmount));
+      if (!Number.isFinite(parsed) || parsed < 0) {
+        setFormError("Rent amount must be a non-negative number.");
+        return;
+      }
+      numericRent = parsed;
+    }
+
+    try {
+      setSaving(true);
+      setFormError("");
+
+      // NOTE: Lease PATCH does not manage tenants; keep edit form focused on lease fields.
+      const patch = {
+        rentAmount: numericRent,
+        status: trimOrEmpty(status) || "DRAFT",
+        startDate: trimOrEmpty(startDate) || undefined,
+        endDate: trimOrEmpty(endDate) || undefined,
+      };
+
+      const updated = await leasesApi.update(qsLeaseId, patch, { token });
+
+      if (updated?.id && leaseFile) {
+        try {
+          await uploadLeaseFile(updated.id, leaseFile, token);
+        } catch (err) {
+          console.error("Lease updated but file upload failed", err);
+          alert("Changes saved, but uploading the lease document failed. You can upload it later.");
+        }
+      }
+
+      navigate(`/landlord/leases/${qsLeaseId}`);
+    } catch (err) {
+      console.error("Failed to update lease", err);
+      setFormError("Failed to save changes. Check console for details.");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  // ------------------------------------------------------------
+  // CREATE MODE: create lease (your existing flow)
   // ------------------------------------------------------------
   const handleCreateSubmit = async (e) => {
     e.preventDefault();
@@ -391,7 +456,6 @@ export default function LandlordAddLeasePage() {
       setSaving(true);
       setFormError("");
 
-      // 1) Create any staged tenants (only now)
       const newTenantIds = [];
       for (const draft of draftNewTenants) {
         try {
@@ -412,7 +476,6 @@ export default function LandlordAddLeasePage() {
         }
       }
 
-      // 2) Decide which property to use
       let effectivePropertyId = propertyId || undefined;
 
       if (!effectivePropertyId && hasDraftProperty) {
@@ -444,7 +507,6 @@ export default function LandlordAddLeasePage() {
         }
       }
 
-      // 3) Combine tenants
       const tenantIds = [...selectedTenantIds, ...newTenantIds];
 
       const payload = {
@@ -458,23 +520,19 @@ export default function LandlordAddLeasePage() {
 
       const createdLease = await leasesApi.create(payload, { token });
 
-      // 4) Optional file upload (after lease exists)
       if (createdLease?.id && leaseFile) {
         try {
           await uploadLeaseFile(createdLease.id, leaseFile, token);
         } catch (err) {
           console.error("Lease created but file upload failed", err);
-          alert(
-            "Lease was created, but uploading the lease document failed. " +
-              "You can upload it later from the lease detail page."
-          );
+          alert("Lease was created, but uploading the document failed. You can upload it later.");
         }
       }
 
       sessionStorage.removeItem(LEASE_DRAFT_KEY);
       sessionStorage.removeItem(LEASE_DRAFT_RETURN_KEY);
 
-      if (createdLease && createdLease.id) navigate(`/landlord/leases/${createdLease.id}`);
+      if (createdLease?.id) navigate(`/landlord/leases/${createdLease.id}`);
       else navigate("/landlord/leases");
     } catch (err) {
       console.error("Failed to create lease", err);
@@ -491,7 +549,8 @@ export default function LandlordAddLeasePage() {
     sessionStorage.removeItem(LEASE_DRAFT_KEY);
     sessionStorage.removeItem(LEASE_DRAFT_RETURN_KEY);
 
-    if (fromPropertyContext && qsPropertyId) navigate(`/landlord/properties/${qsPropertyId}`);
+    if (isEditMode) navigate(`/landlord/leases/${qsLeaseId}`);
+    else if (fromPropertyContext && qsPropertyId) navigate(`/landlord/properties/${qsPropertyId}`);
     else if (fromTenantContext && qsTenantId) navigate(`/landlord/tenants/${qsTenantId}`);
     else navigate("/landlord/leases");
   };
@@ -499,14 +558,12 @@ export default function LandlordAddLeasePage() {
   // ------------------------------------------------------------
   // Render
   // ------------------------------------------------------------
-  if (loading) {
-    return <div className={styles.page} style={{ padding: 16 }}>Loading…</div>;
-  }
+  if (loading) return <div className={styles.page} style={{ padding: 16 }}>Loading…</div>;
 
   if (loadingError) {
     return (
       <div className={styles.page} style={{ padding: 16, color: "crimson" }}>
-        Failed to load data for creating a lease: {String(loadingError.message || loadingError)}
+        Failed to load data: {String(loadingError.message || loadingError)}
       </div>
     );
   }
@@ -519,47 +576,33 @@ export default function LandlordAddLeasePage() {
     ? tenants.find((t) => t.id === qsTenantId)
     : null;
 
-  const showPropertyControls = !propertyLockedFromQuery;
-  const showTenantControls = !tenantLockedFromQuery;
+  const showPropertyControls = !propertyLockedFromQuery && !isEditMode; // keep edit focused
+  const showTenantControls = !tenantLockedFromQuery && !isEditMode; // keep edit focused
 
   return (
     <div className={styles.page}>
       <header className={styles.header}>
         <div>
-          <h1 className={styles.title}>Add lease</h1>
+          <h1 className={styles.title}>{isEditMode ? "Edit lease" : "Add lease"}</h1>
           <p className={styles.subtitle}>
-            {mode === "GLOBAL"
-              ? "Create a new lease. You can leave property and tenants blank to keep it as a draft."
-              : mode === "TENANT"
-              ? "Manage leases for this tenant. Property is optional."
-              : mode === "PROPERTY"
-              ? "Manage leases for this property. Tenants are optional."
-              : "Manage leases for this property and tenant."}
+            {isEditMode
+              ? "Update rent, status, and dates. To change tenants or property, use the lease detail page."
+              : mode === "GLOBAL"
+                ? "Create a new lease. You can leave property and tenants blank to keep it as a draft."
+                : mode === "TENANT"
+                  ? "Manage leases for this tenant. Property is optional."
+                  : mode === "PROPERTY"
+                    ? "Manage leases for this property. Tenants are optional."
+                    : "Manage leases for this property and tenant."}
           </p>
         </div>
       </header>
 
       <div style={{ marginTop: 12, display: "flex", flexDirection: "column", gap: 16 }}>
-        {/* SECTION 1: Link an existing draft lease (only from property/tenant context) */}
-        {(fromPropertyContext || fromTenantContext) && (
-          <section
-            style={{
-              maxWidth: 520,
-              padding: 16,
-              borderRadius: 12,
-              border: "1px solid #e5e7eb",
-              background: "#ffffff",
-            }}
-          >
-            <h2 style={{ fontSize: 16, marginBottom: 8 }}>
-              Link an existing draft lease
-            </h2>
-            <p style={{ margin: "0 0 8px", fontSize: 12, color: "#6b7280" }}>
-              Use this if you already drafted a lease and now want to attach it to{" "}
-              {fromPropertyContext && !fromTenantContext && "this property."}
-              {fromTenantContext && !fromPropertyContext && "this tenant."}
-              {fromPropertyContext && fromTenantContext && "this property and tenant."}
-            </p>
+        {/* Link existing draft lease (create-mode only) */}
+        {!isEditMode && (fromPropertyContext || fromTenantContext) && (
+          <section style={{ maxWidth: 520, padding: 16, borderRadius: 12, border: "1px solid #e5e7eb", background: "#ffffff" }}>
+            <h2 style={{ fontSize: 16, marginBottom: 8 }}>Link an existing draft lease</h2>
 
             <form onSubmit={handleLinkSubmit} style={{ display: "flex", flexDirection: "column", gap: 8 }}>
               <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
@@ -568,28 +611,16 @@ export default function LandlordAddLeasePage() {
                   value={selectedLeaseId}
                   onChange={(e) => setSelectedLeaseId(e.target.value)}
                   disabled={!canLinkExisting || isSaving}
-                  style={{
-                    padding: "6px 8px",
-                    borderRadius: 8,
-                    border: "1px solid #d1d5db",
-                  }}
+                  style={{ padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
                 >
                   <option value="">Select a draft lease…</option>
                   {candidateLeases.map((l) => (
                     <option key={l.id} value={l.id}>
-                      {l.id.slice(0, 8)} – {l.status || "DRAFT"}
-                      {l.startDate ? ` (starts ${l.startDate})` : ""}
+                      {l.id.slice(0, 8)} – {l.status || "DRAFT"}{l.startDate ? ` (starts ${l.startDate})` : ""}
                     </option>
                   ))}
                 </select>
               </label>
-
-              {!canLinkExisting && (
-                <span style={{ fontSize: 12, color: "#6b7280" }}>
-                  There are no draft leases available to link in this context.
-                  Create a new lease below instead.
-                </span>
-              )}
 
               <button
                 type="submit"
@@ -602,273 +633,121 @@ export default function LandlordAddLeasePage() {
           </section>
         )}
 
-        {/* SECTION 2: Create a new lease */}
-        <section
-          style={{
-            maxWidth: 520,
-            padding: 16,
-            borderRadius: 12,
-            border: "1px solid #e5e7eb",
-            background: "#ffffff",
-          }}
-        >
-          <h2 style={{ fontSize: 16, marginBottom: 8 }}>Create a new lease</h2>
+        {/* Main form (create or edit) */}
+        <section style={{ maxWidth: 520, padding: 16, borderRadius: 12, border: "1px solid #e5e7eb", background: "#ffffff" }}>
+          <h2 style={{ fontSize: 16, marginBottom: 8 }}>
+            {isEditMode ? "Save changes" : "Create a new lease"}
+          </h2>
 
-          {(propertyLockedFromQuery || tenantLockedFromQuery) && (
-            <div style={{ fontSize: 12, color: "#6b7280", marginBottom: 8 }}>
-              {propertyLockedFromQuery && (
-                <div>
-                  Property locked: <strong>{lockedProperty?.name || lockedProperty?.address1 || qsPropertyId}</strong>
-                </div>
-              )}
-              {tenantLockedFromQuery && (
-                <div>
-                  Tenant locked: <strong>{lockedTenant?.name || qsTenantId}</strong>
-                </div>
-              )}
-            </div>
-          )}
+          <form
+            onSubmit={isEditMode ? handleEditSubmit : handleCreateSubmit}
+            style={{ display: "flex", flexDirection: "column", gap: 12 }}
+          >
+            {/* Property / Tenant controls stay create-only (edit stays clean) */}
+            {!isEditMode && (propertyLockedFromQuery || tenantLockedFromQuery) && (
+              <div style={{ fontSize: 12, color: "#6b7280", marginBottom: 8 }}>
+                {propertyLockedFromQuery && (
+                  <div>
+                    Property locked: <strong>{lockedProperty?.name || lockedProperty?.address1 || qsPropertyId}</strong>
+                  </div>
+                )}
+                {tenantLockedFromQuery && (
+                  <div>
+                    Tenant locked: <strong>{lockedTenant?.name || qsTenantId}</strong>
+                  </div>
+                )}
+              </div>
+            )}
 
-          <form onSubmit={handleCreateSubmit} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            {/* Property (Mode A/B) */}
-            {showPropertyControls ? (
-              <>
-                <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                  <span>Property (optional, existing)</span>
+            {!isEditMode && showPropertyControls && (
+              <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                <span>Property (optional, existing)</span>
+                <select
+                  value={propertyId}
+                  onChange={(e) => setPropertyId(e.target.value)}
+                  disabled={isSaving}
+                  style={{ padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
+                >
+                  <option value="">No property yet (draft)…</option>
+                  {availableProperties.map((p) => (
+                    <option key={p.id} value={p.id}>
+                      {p.name || p.address1 || p.address || p.id}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            )}
+
+            {!isEditMode && showTenantControls && (
+              <div style={{ padding: 12, borderRadius: 12, border: "1px solid #e5e7eb", background: "#ffffff" }}>
+                <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
+                  Tenants (optional, can add multiple)
+                </div>
+
+                <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
                   <select
-                    value={propertyId}
-                    onChange={(e) => setPropertyId(e.target.value)}
+                    style={{ flex: 1, padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
+                    value={tenantPickerId}
+                    onChange={(e) => setTenantPickerId(e.target.value)}
                     disabled={isSaving}
-                    style={{
-                      padding: "6px 8px",
-                      borderRadius: 8,
-                      border: "1px solid #d1d5db",
-                    }}
                   >
-                    <option value="">No property yet (draft)…</option>
-                    {availableProperties.map((p) => (
-                      <option key={p.id} value={p.id}>
-                        {p.name || p.address1 || p.address || p.id}
+                    <option value="">Select existing tenant to add…</option>
+                    {availableTenantsForPicker.map((t) => (
+                      <option key={t.id} value={t.id}>
+                        {t.name} {t.email ? `(${t.email})` : ""}
                       </option>
                     ))}
                   </select>
-                  {availableProperties.length === 0 && !propertyId && (
-                    <span style={{ fontSize: 12, color: "#6b7280" }}>
-                      All properties currently have an active lease.
-                    </span>
-                  )}
-                </label>
-
-                {/* Staged new property summary + button */}
-                <div
-                  style={{
-                    marginTop: 4,
-                    padding: 12,
-                    borderRadius: 12,
-                    border: "1px solid #e5e7eb",
-                    background: "#ffffff",
-                  }}
-                >
-                  <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-                    New property (optional)
-                  </div>
-                  <div style={{ fontSize: 12, color: "#6b7280", marginBottom: 8 }}>
-                    Use the button below to fill out the full property form. Any new
-                    property will only be created if you save this lease.
-                  </div>
-
-                  {hasDraftProperty ? (
-                    <div
-                      style={{
-                        fontSize: 13,
-                        padding: 10,
-                        borderRadius: 10,
-                        border: "1px dashed #d1d5db",
-                        background: "#f9fafb",
-                      }}
-                    >
-                      <div>
-                        <strong>{draftProperty.name || draftProperty.address1}</strong>
-                      </div>
-                      <div style={{ marginTop: 2 }}>
-                        {draftProperty.address1}
-                        {draftProperty.city ? `, ${draftProperty.city}` : ""}
-                        {draftProperty.state ? `, ${draftProperty.state}` : ""}
-                        {draftProperty.postalCode ? ` ${draftProperty.postalCode}` : ""}
-                      </div>
-                      <div style={{ fontSize: 11, color: "#4b5563", marginTop: 4 }}>
-                        Will be created and linked when you create this lease.
-                      </div>
-                    </div>
-                  ) : (
-                    <div style={{ fontSize: 12, color: "#6b7280" }}>
-                      No new property staged yet.
-                    </div>
-                  )}
 
                   <button
                     type="button"
                     className={styles.primaryButton}
-                    style={{ marginTop: 10, width: "fit-content" }}
-                    onClick={handleGoCreateNewProperty}
-                    disabled={isSaving}
+                    onClick={handleAddTenantToLease}
+                    disabled={!tenantPickerId || isSaving}
+                    style={{ whiteSpace: "nowrap" }}
                   >
-                    + Create new property
+                    + Add
                   </button>
                 </div>
-              </>
-            ) : (
-              // Property locked (Mode C / BOTH): keep it visible but not editable
-              <div
-                style={{
-                  padding: 12,
-                  borderRadius: 12,
-                  border: "1px solid #e5e7eb",
-                  background: "#ffffff",
-                }}
-              >
-                <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 4 }}>
-                  Property
-                </div>
-                <div style={{ fontSize: 13, color: "#111827" }}>
-                  {lockedProperty?.name || lockedProperty?.address1 || qsPropertyId}
-                </div>
-                <div style={{ fontSize: 12, color: "#6b7280", marginTop: 4 }}>
-                  Linked from property detail – cannot change here.
-                </div>
-              </div>
-            )}
 
-            {/* Tenants (Mode A/C) */}
-            <div
-              style={{
-                padding: 12,
-                borderRadius: 12,
-                border: "1px solid #e5e7eb",
-                background: "#ffffff",
-              }}
-            >
-              <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-                Tenants (optional, can add multiple)
-              </div>
+                {selectedTenantIds.length > 0 ? (
+                  <ul style={{ paddingLeft: 18, margin: 0, fontSize: 13 }}>
+                    {selectedTenantIds.map((tid, index) => {
+                      const t = tenants.find((tt) => tt.id === tid);
+                      return (
+                        <li key={tid} style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+                          <span>
+                            {t?.name || "(unknown tenant)"} {t?.email ? `(${t.email})` : ""}
+                            {index === 0 && (
+                              <span style={{ marginLeft: 6, fontSize: 11, color: "#2563eb" }}>
+                                primary
+                              </span>
+                            )}
+                          </span>
 
-              {/* Existing tenant picker + add button (hidden in tenant context) */}
-              {showTenantControls && (
-                <>
-                  <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
-                    <select
-                      style={{
-                        flex: 1,
-                        padding: "6px 8px",
-                        borderRadius: 8,
-                        border: "1px solid #d1d5db",
-                      }}
-                      value={tenantPickerId}
-                      onChange={(e) => setTenantPickerId(e.target.value)}
-                      disabled={isSaving}
-                    >
-                      <option value="">Select existing tenant to add…</option>
-                      {availableTenantsForPicker.map((t) => (
-                        <option key={t.id} value={t.id}>
-                          {t.name} {t.email ? `(${t.email})` : ""}
-                        </option>
-                      ))}
-                    </select>
-
-                    <button
-                      type="button"
-                      className={styles.primaryButton}
-                      onClick={handleAddTenantToLease}
-                      disabled={!tenantPickerId || isSaving}
-                      style={{ whiteSpace: "nowrap" }}
-                    >
-                      + Add
-                    </button>
-                  </div>
-                </>
-              )}
-
-              {/* Selected tenants list (always shown) */}
-              {selectedTenantIds.length > 0 ? (
-                <ul style={{ paddingLeft: 18, margin: 0, fontSize: 13 }}>
-                  {selectedTenantIds.map((tid, index) => {
-                    const t = tenants.find((tt) => tt.id === tid);
-                    const isLockedContextTenant =
-                      tenantLockedFromQuery && tid === qsTenantId;
-
-                    return (
-                      <li
-                        key={tid}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 8,
-                          marginBottom: 4,
-                        }}
-                      >
-                        <span>
-                          {t?.name || "(unknown tenant)"} {t?.email ? `(${t.email})` : ""}
-                          {index === 0 && (
-                            <span style={{ marginLeft: 6, fontSize: 11, color: "#2563eb" }}>
-                              primary
-                            </span>
-                          )}
-                          {isLockedContextTenant && (
-                            <span style={{ marginLeft: 6, fontSize: 11, color: "#6b7280" }}>
-                              (from tenant detail)
-                            </span>
-                          )}
-                        </span>
-
-                        {/* Remove only when tenant controls are enabled */}
-                        {showTenantControls && (
                           <button
                             type="button"
                             onClick={() => handleRemoveTenantFromLease(tid)}
-                            disabled={isLockedContextTenant || isSaving}
+                            disabled={isSaving}
                             style={{
                               fontSize: 11,
                               padding: "2px 6px",
                               borderRadius: 8,
                               border: "1px solid #d1d5db",
                               background: "#ffffff",
-                              opacity: isLockedContextTenant ? 0.5 : 1,
-                              cursor: isLockedContextTenant ? "not-allowed" : "pointer",
+                              cursor: "pointer",
                             }}
                           >
                             Remove
                           </button>
-                        )}
-                      </li>
-                    );
-                  })}
-                </ul>
-              ) : (
-                <div style={{ fontSize: 12, color: "#6b7280" }}>
-                  No existing tenants on this lease yet.
-                </div>
-              )}
-
-              {/* Staged new tenants (always shown) */}
-              {draftNewTenants.length > 0 && (
-                <>
-                  <div style={{ marginTop: 10, fontSize: 12, color: "#6b7280" }}>
-                    New tenants that will be created with this lease:
-                  </div>
-                  <ul style={{ paddingLeft: 18, margin: "6px 0 0", fontSize: 13 }}>
-                    {draftNewTenants.map((t, idx) => (
-                      <li key={`${t.name}-${idx}`}>
-                        {t.name}
-                        {t.email ? ` (${t.email})` : ""}
-                        {t.phone ? ` · ${t.phone}` : ""}
-                      </li>
-                    ))}
+                        </li>
+                      );
+                    })}
                   </ul>
-                </>
-              )}
+                ) : (
+                  <div style={{ fontSize: 12, color: "#6b7280" }}>No tenants selected yet.</div>
+                )}
 
-              {/* Create new tenant button (hidden in tenant context) */}
-              {showTenantControls && (
                 <button
                   type="button"
                   className={styles.primaryButton}
@@ -878,15 +757,12 @@ export default function LandlordAddLeasePage() {
                 >
                   + Create new tenant
                 </button>
-              )}
-            </div>
+              </div>
+            )}
 
             {/* Lease document */}
             <div style={{ marginTop: 4 }}>
-              <label
-                htmlFor="leaseFile"
-                style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
-              >
+              <label htmlFor="leaseFile" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
                 Lease document (optional)
               </label>
               <input
@@ -904,10 +780,7 @@ export default function LandlordAddLeasePage() {
 
             {/* Rent amount */}
             <div style={{ marginBottom: 4 }}>
-              <label
-                htmlFor="rentAmount"
-                style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
-              >
+              <label htmlFor="rentAmount" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
                 Rent amount (per month)
               </label>
               <input
@@ -918,22 +791,14 @@ export default function LandlordAddLeasePage() {
                 value={rentAmount}
                 onChange={(e) => setRentAmount(e.target.value)}
                 placeholder="e.g. 2500"
-                style={{
-                  width: "100%",
-                  padding: "6px 8px",
-                  borderRadius: 8,
-                  border: "1px solid #d1d5db",
-                }}
+                style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
                 disabled={isSaving}
               />
             </div>
 
             {/* Status */}
             <div style={{ marginBottom: 4 }}>
-              <label
-                htmlFor="status"
-                style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
-              >
+              <label htmlFor="status" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
                 Status
               </label>
               <input
@@ -942,12 +807,7 @@ export default function LandlordAddLeasePage() {
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
                 placeholder="DRAFT / ACTIVE / TERMINATED / ARCHIVED"
-                style={{
-                  width: "100%",
-                  padding: "6px 8px",
-                  borderRadius: 8,
-                  border: "1px solid #d1d5db",
-                }}
+                style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
                 disabled={isSaving}
               />
             </div>
@@ -955,10 +815,7 @@ export default function LandlordAddLeasePage() {
             {/* Dates */}
             <div style={{ display: "flex", gap: 8 }}>
               <div style={{ flex: 1 }}>
-                <label
-                  htmlFor="startDate"
-                  style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
-                >
+                <label htmlFor="startDate" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
                   Start date
                 </label>
                 <input
@@ -966,21 +823,13 @@ export default function LandlordAddLeasePage() {
                   type="date"
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
-                  style={{
-                    width: "100%",
-                    padding: "6px 8px",
-                    borderRadius: 8,
-                    border: "1px solid #d1d5db",
-                  }}
+                  style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
                   disabled={isSaving}
                 />
               </div>
 
               <div style={{ flex: 1 }}>
-                <label
-                  htmlFor="endDate"
-                  style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
-                >
+                <label htmlFor="endDate" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
                   End date (optional)
                 </label>
                 <input
@@ -988,12 +837,7 @@ export default function LandlordAddLeasePage() {
                   type="date"
                   value={endDate}
                   onChange={(e) => setEndDate(e.target.value)}
-                  style={{
-                    width: "100%",
-                    padding: "6px 8px",
-                    borderRadius: 8,
-                    border: "1px solid #d1d5db",
-                  }}
+                  style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
                   disabled={isSaving}
                 />
               </div>
@@ -1006,12 +850,8 @@ export default function LandlordAddLeasePage() {
             )}
 
             <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
-              <button
-                type="submit"
-                className={styles.primaryButton}
-                disabled={isSaving}
-              >
-                {isSaving ? "Creating…" : "Create lease"}
+              <button type="submit" className={styles.primaryButton} disabled={isSaving}>
+                {isSaving ? (isEditMode ? "Saving…" : "Creating…") : (isEditMode ? "Save changes" : "Create lease")}
               </button>
 
               <button

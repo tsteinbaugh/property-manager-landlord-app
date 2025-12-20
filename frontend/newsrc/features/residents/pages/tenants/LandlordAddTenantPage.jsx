@@ -1,5 +1,5 @@
-// newsrc/features/residents/pages/LandlordAddTenantPage.jsx
-import { useEffect, useState } from "react";
+// frontend/newsrc/features/residents/pages/tenants/LandlordAddTenantPage.jsx
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
 import { tenantsApi } from "@features/residents/api/tenants.api.js";
@@ -27,10 +27,63 @@ function normalizePhone(v) {
   return digits;
 }
 
-const SEX_OPTIONS = ["UNKNOWN", "MALE", "FEMALE", "OTHER"];
-const HAIRCOLOR_OPTIONS = [ "UNKNOWN", "BLACK", "BROWN", "BLONDE", "RED", "GRAY", "WHITE", "DYED", "BALD", "OTHER" ];
-const EYECOLOR_OPTIONS = ["UNKNOWN", "BROWN", "BLUE", "GREEN", "HAZEL", "GRAY", "AMBER", "OTHER"];
-const BODYBUILD_OPTIONS = ["UNKNOWN", "SLIM", "AVERAGE", "ATHLETIC", "HEAVYSET", "OTHER"];
+// If you already have these elsewhere, keep yours.
+// Keeping minimal safe versions here so the page doesn’t crash.
+function isValidEmail(v) {
+  const s = trimOrEmpty(v);
+  if (!s) return true;
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
+}
+function isValidPhone(v) {
+  const s = trimOrEmpty(v);
+  if (!s) return true;
+  // 10 digits (US) after normalization
+  return /^\d{10}$/.test(s);
+}
+
+const SEX_OPTIONS = [
+  { value: "", label: "— Select —" },
+  { value: "MALE", label: "Male" },
+  { value: "FEMALE", label: "Female" },
+  { value: "OTHER", label: "Other" },
+  { value: "UNKNOWN", label: "Unknown" },
+];
+
+const HAIRCOLOR_OPTIONS = [
+  { value: "", label: "— Select —" },
+  { value: "BLACK", label: "Black"},
+  { value: "BROWN", label: "Brown"},
+  { value: "BLONDE", label: "Blonde"},
+  { value: "RED", label: "Red"},
+  { value: "GRAY", label: "Gray"},
+  { value: "WHITE", label: "White"},
+  { value: "DYED", label: "Dyed"},
+  { value: "BALD", label: "Bald"},
+  { value: "OTHER", label: "Other"},
+  { value: "UNKNOWN", label: "Unknown"},
+];
+
+const EYECOLOR_OPTIONS = [
+  { value: "", label: "— Select —" },
+  { value: "BROWN", label: "Brown" },
+  { value: "BLUE", label: "Blue" },
+  { value: "GREEN", label: "Green" },
+  { value: "HAZEL", label: "Hazel" },
+  { value: "GRAY", label: "Gray" },
+  { value: "AMBER", label: "Amber" },
+  { value: "OTHER", label: "Other" },
+  { value: "UNKNOWN", label: "Unknown" },
+];
+
+const BODYBUILD_OPTIONS = [
+  { value: "", label: "— Select —" },
+  { value: "SLIM", label: "Slim" },
+  { value: "AVERAGE", label: "Average" },
+  { value: "ATHLETIC", label: "Athletic" },
+  { value: "HEAVYSET", label: "Heavyset" },
+  { value: "OTHER", label: "Other" },
+  { value: "UNKNOWN", label: "Unknown" },
+];
 
 export default function LandlordAddTenantPage() {
   const navigate = useNavigate();
@@ -39,11 +92,16 @@ export default function LandlordAddTenantPage() {
 
   const forLease = searchParams.get("forLease") === "1";
   const leaseId = searchParams.get("leaseId") || "";
+
   const occupantId = searchParams.get("occupantId") || "";
   const petId = searchParams.get("petId") || "";
   const emergencyContactId = searchParams.get("emergencyContactId") || "";
   const vehicleId = searchParams.get("vehicleId") || "";
-  const returnTo = searchParams.get("returnTo") || "";
+
+  const tenantId = searchParams.get("tenantId") || ""; // <-- EDIT MODE
+  const isEditMode = !!tenantId;
+
+  const returnTo = searchParams.get("returnTo") || ""; // <-- IMPORTANT for cancel/back
 
   const inLeaseContext = forLease && !!leaseId;
   const inOccupantContext = !!occupantId && !inLeaseContext;
@@ -59,41 +117,83 @@ export default function LandlordAddTenantPage() {
     inVehicleContext;
 
   // ------------------------------------------------------------
-  // Form state (ordered like Occupants, with tenant-only fields inserted)
+  // Form state
   // ------------------------------------------------------------
-  // Name/Phone/Email
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
 
-  // Age/Height/Weight
   const [age, setAge] = useState(null);
   const [heightFeet, setHeightFeet] = useState(null);
   const [heightInches, setHeightInches] = useState(null);
   const [weight, setWeight] = useState(null);
 
-  // Sex/Hair/Eyes/Build
-  const [sex, setSex] = useState("UNKNOWN");
-  const [hairColor, setHairColor] = useState("UNKNOWN");
-  const [eyeColor, setEyeColor] = useState("UNKNOWN");
-  const [bodyBuild, setBodyBuild] = useState("UNKNOWN");
+  const [sex, setSex] = useState("");
+  const [hairColor, setHairColor] = useState("");
+  const [eyeColor, setEyeColor] = useState("");
+  const [bodyBuild, setBodyBuild] = useState("");
 
-  // Markings
   const [markings, setMarkings] = useState("");
 
-  // Tenant-only extras (inserted after markings)
   const [occupation, setOccupation] = useState("");
   const [employer, setEmployer] = useState("");
   const [income, setIncome] = useState(null);
   const [creditScore, setCreditScore] = useState(null);
 
-  // Notes / Violations (same order as Occupants)
   const [notes, setNotes] = useState("");
   const [violations, setViolations] = useState("");
 
   const [isSubmitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
-  const [touched, setTouched] = useState({ name: false });
+  const [touched, setTouched] = useState({ name: false, phone: false, email: false });
+
+  // ------------------------------------------------------------
+  // Edit mode: load tenant
+  // ------------------------------------------------------------
+  useEffect(() => {
+    if (!isEditMode || !token) return;
+
+    let cancelled = false;
+
+    async function load() {
+      try {
+        const t = await tenantsApi.detail(tenantId, { token });
+        if (cancelled) return;
+
+        setName(t?.name || "");
+        setPhone(t?.phone || "");
+        setEmail(t?.email || "");
+
+        setAge(t?.age ?? null);
+        setHeightFeet(t?.heightFeet ?? null);
+        setHeightInches(t?.heightInches ?? null);
+        setWeight(t?.weight ?? null);
+
+        setSex(t?.sex || "UNKNOWN");
+        setHairColor(t?.hairColor || "UNKNOWN");
+        setEyeColor(t?.eyeColor || "UNKNOWN");
+        setBodyBuild(t?.bodyBuild || "UNKNOWN");
+
+        setMarkings(t?.markings || "");
+
+        setOccupation(t?.occupation || "");
+        setEmployer(t?.employer || "");
+        setIncome(t?.income ?? null);
+        setCreditScore(t?.creditScore ?? null);
+
+        setNotes(t?.notes || "");
+        setViolations(t?.violations || "");
+      } catch (err) {
+        console.error("Failed to load tenant for edit", err);
+        setFormError("Failed to load tenant. Check console for details.");
+      }
+    }
+
+    load();
+    return () => {
+      cancelled = true;
+    };
+  }, [isEditMode, tenantId, token]);
 
   // ------------------------------------------------------------
   // Link existing tenant (context-only)
@@ -129,20 +229,28 @@ export default function LandlordAddTenantPage() {
     };
   }, [inAnyLinkContext, token]);
 
+  // ------------------------------------------------------------
+  // Back/cancel
+  // ------------------------------------------------------------
   const goBack = () => {
+    // 1) Always honor returnTo if provided (THIS fixes your bug)
+    if (returnTo) return navigate(decodeURIComponent(returnTo));
+
+    // 2) Lease context
     if (inLeaseContext) return navigate(`/landlord/leases/${leaseId}`);
 
+    // 3) Draft-for-lease mode (no leaseId)
     if (forLease && !leaseId) {
       const draftReturn =
         sessionStorage.getItem(LEASE_DRAFT_RETURN_KEY) || "/landlord/leases/new";
       return navigate(draftReturn);
     }
 
-    if (inOccupantContext) return navigate(returnTo || `/landlord/occupants/${occupantId}`);
-    if (inPetContext) return navigate(returnTo || `/landlord/pets/${petId}`);
-    if (inEmergencyContactContext)
-      return navigate(returnTo || `/landlord/emergencyContacts/${emergencyContactId}`);
-    if (inVehicleContext) return navigate(returnTo || `/landlord/vehicles/${vehicleId}`);
+    // 4) Other contexts
+    if (inOccupantContext) return navigate(`/landlord/occupants/${occupantId}`);
+    if (inPetContext) return navigate(`/landlord/pets/${petId}`);
+    if (inEmergencyContactContext) return navigate(`/landlord/emergencyContacts/${emergencyContactId}`);
+    if (inVehicleContext) return navigate(`/landlord/vehicles/${vehicleId}`);
 
     return navigate("/landlord/residents?tab=tenants");
   };
@@ -166,25 +274,25 @@ export default function LandlordAddTenantPage() {
 
       if (inOccupantContext) {
         await tenantsApi.linkOccupant(selectedTenantId, occupantId, { token });
-        navigate(returnTo || `/landlord/occupants/${occupantId}`);
+        goBack();
         return;
       }
 
       if (inPetContext) {
         await tenantsApi.linkPet(selectedTenantId, petId, { token });
-        navigate(returnTo || `/landlord/pets/${petId}`);
+        goBack();
         return;
       }
 
       if (inEmergencyContactContext) {
         await tenantsApi.linkEmergencyContact(selectedTenantId, emergencyContactId, { token });
-        navigate(returnTo || `/landlord/emergencyContacts/${emergencyContactId}`);
+        goBack();
         return;
       }
 
       if (inVehicleContext) {
         await tenantsApi.linkVehicle(selectedTenantId, vehicleId, { token });
-        navigate(returnTo || `/landlord/vehicles/${vehicleId}`);
+        goBack();
         return;
       }
 
@@ -199,7 +307,6 @@ export default function LandlordAddTenantPage() {
 
   const buildPayload = () => ({
     name: trimOrEmpty(name),
-
     phone: normalizePhone(phone) || null,
     email: normalizeEmail(email) || null,
 
@@ -226,9 +333,17 @@ export default function LandlordAddTenantPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setTouched({ name: true });
+    setTouched((t) => ({ ...t, name: true, phone: true, email: true }));
 
     if (!trimOrEmpty(name)) return setFormError("Name is required.");
+
+    // if you truly want phone/email required, enforce here
+    // (keeping consistent w/ your UI showing * required)
+    if (!trimOrEmpty(phone)) return setFormError("Phone is required.");
+    if (!trimOrEmpty(email)) return setFormError("Email is required.");
+
+    if (!isValidPhone(normalizePhone(phone))) return setFormError("Enter a valid phone number.");
+    if (!isValidEmail(normalizeEmail(email))) return setFormError("Enter a valid email.");
 
     if (!token) {
       alert("Missing auth token.");
@@ -236,6 +351,22 @@ export default function LandlordAddTenantPage() {
     }
 
     const payload = buildPayload();
+
+    // EDIT MODE (no linking side effects)
+    if (isEditMode) {
+      try {
+        setSubmitting(true);
+        setFormError("");
+        await tenantsApi.update(tenantId, payload, { token });
+        goBack();
+      } catch (err) {
+        console.error("Failed to update tenant", err);
+        setFormError("Failed to update tenant. Check console for details.");
+      } finally {
+        setSubmitting(false);
+      }
+      return;
+    }
 
     // 1) Lease context: create tenant and link to lease
     if (inLeaseContext) {
@@ -250,10 +381,7 @@ export default function LandlordAddTenantPage() {
             await leasesApi.linkTenant(leaseId, created.id, { token });
           } catch (err) {
             console.error("Tenant created but failed to link to lease", err);
-            alert(
-              "Tenant was created, but linking it to the lease failed. " +
-                "You can link it later from the lease or tenant detail pages."
-            );
+            alert("Tenant was created, but linking it to the lease failed. You can link it later.");
           }
         }
 
@@ -286,12 +414,10 @@ export default function LandlordAddTenantPage() {
           phone: payload.phone?.trim() || "",
         });
 
-        const updatedDraft = {
-          ...draft,
-          draftNewTenants: nextDraftTenants,
-        };
-
-        sessionStorage.setItem(LEASE_DRAFT_KEY, JSON.stringify(updatedDraft));
+        sessionStorage.setItem(
+          LEASE_DRAFT_KEY,
+          JSON.stringify({ ...draft, draftNewTenants: nextDraftTenants })
+        );
 
         const draftReturn =
           sessionStorage.getItem(LEASE_DRAFT_RETURN_KEY) || "/landlord/leases/new";
@@ -327,10 +453,7 @@ export default function LandlordAddTenantPage() {
             }
           } catch (err) {
             console.error("Tenant created but failed to link in context", err);
-            alert(
-              "Tenant was created, but linking failed. " +
-                "You can link it later from the tenant or detail pages."
-            );
+            alert("Tenant was created, but linking failed. You can link it later.");
           }
         }
 
@@ -358,33 +481,39 @@ export default function LandlordAddTenantPage() {
     }
   };
 
-  const heading = inLeaseContext
-    ? "Add or link tenant for lease"
-    : inOccupantContext
-    ? "Add or link tenant for occupant"
-    : inPetContext
-    ? "Add or link tenant for pet"
-    : inEmergencyContactContext
-    ? "Add or link tenant for emergency contact"
-    : inVehicleContext
-    ? "Add or link tenant for vehicle"
-    : forLease && !leaseId
-    ? "Add tenant for lease draft"
-    : "Add tenant";
+  const heading = isEditMode
+    ? "Edit tenant"
+    : inLeaseContext
+      ? "Add or link tenant for lease"
+      : inOccupantContext
+        ? "Add or link tenant for occupant"
+        : inPetContext
+          ? "Add or link tenant for pet"
+          : inEmergencyContactContext
+            ? "Add or link tenant for emergency contact"
+            : inVehicleContext
+              ? "Add or link tenant for vehicle"
+              : forLease && !leaseId
+                ? "Add tenant for lease draft"
+                : "Add tenant";
 
-  const subtitle = inLeaseContext
-    ? "Link an existing tenant to this lease or create a new tenant that will be automatically linked."
-    : inOccupantContext
-    ? "Link an existing tenant to this occupant or create a new tenant that will be automatically linked."
-    : inPetContext
-    ? "Link an existing tenant to this pet or create a new tenant that will be automatically linked."
-    : inEmergencyContactContext
-    ? "Link an existing tenant to this emergency contact or create a new tenant that will be automatically linked."
-    : inVehicleContext
-    ? "Link an existing tenant to this vehicle or create a new tenant that will be automatically linked."
-    : forLease && !leaseId
-    ? "Add a tenant to your lease draft."
-    : "Create a tenant profile. You can add occupants, pets, emergency contacts and vehicles after this.";
+  const subtitle = isEditMode
+    ? "Update this tenant’s information."
+    : inLeaseContext
+      ? "Link an existing tenant to this lease or create a new tenant that will be automatically linked."
+      : inOccupantContext
+        ? "Link an existing tenant to this occupant or create a new tenant that will be automatically linked."
+        : inPetContext
+          ? "Link an existing tenant to this pet or create a new tenant that will be automatically linked."
+          : inEmergencyContactContext
+            ? "Link an existing tenant to this emergency contact or create a new tenant that will be automatically linked."
+            : inVehicleContext
+              ? "Link an existing tenant to this vehicle or create a new tenant that will be automatically linked."
+              : forLease && !leaseId
+                ? "Add a tenant to your lease draft."
+                : "Create a tenant profile. You can add occupants, pets, emergency contacts and vehicles after this.";
+
+  const showLinkExisting = inAnyLinkContext && !isEditMode;
 
   return (
     <div className={styles.page}>
@@ -396,8 +525,8 @@ export default function LandlordAddTenantPage() {
       </header>
 
       <div style={{ marginTop: 12, display: "flex", flexDirection: "column", gap: 16 }}>
-        {/* Section 1: Link existing tenant (context only) */}
-        {inAnyLinkContext && (
+        {/* Section 1: Link existing tenant (context only, not edit mode) */}
+        {showLinkExisting && (
           <section
             style={{
               maxWidth: 520,
@@ -452,7 +581,7 @@ export default function LandlordAddTenantPage() {
           </section>
         )}
 
-        {/* Section 2: Create new tenant */}
+        {/* Section 2: Create / Edit tenant */}
         <section
           style={{
             maxWidth: 520,
@@ -462,7 +591,9 @@ export default function LandlordAddTenantPage() {
             background: "#ffffff",
           }}
         >
-          <h2 style={{ fontSize: 16, marginBottom: 8 }}>Create new tenant</h2>
+          <h2 style={{ fontSize: 16, marginBottom: 8 }}>
+            {isEditMode ? "Save changes" : "Create new tenant"}
+          </h2>
 
           <form onSubmit={handleSubmit}>
             {/* Name */}
@@ -494,16 +625,8 @@ export default function LandlordAddTenantPage() {
 
             {/* Phone */}
             <div style={{ marginBottom: 12 }}>
-              <label
-                htmlFor="phone"
-                style={{
-                  display: "block",
-                  fontWeight: 500,
-                  marginBottom: 4,
-                }}
-              >
-                Phone
-                <span style={{ color: "#b91c1c" }}>*</span>
+              <label htmlFor="phone" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
+                Phone <span style={{ color: "#b91c1c" }}>*</span>
               </label>
               <input
                 id="phone"
@@ -522,23 +645,15 @@ export default function LandlordAddTenantPage() {
               />
               {touched.phone && trimOrEmpty(phone) && !isValidPhone(normalizePhone(phone)) && (
                 <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>
-                  Enter a valid phone number (e.g. 303-555-1212 or +13035551212)
+                  Enter a valid phone number (e.g. 303-555-1212)
                 </div>
               )}
             </div>
 
-           {/* Email */}
+            {/* Email */}
             <div style={{ marginBottom: 12 }}>
-              <label
-                htmlFor="email"
-                style={{
-                  display: "block",
-                  fontWeight: 500,
-                  marginBottom: 4,
-                }}
-              >
-                Email
-                <span style={{ color: "#b91c1c" }}>*</span>
+              <label htmlFor="email" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
+                Email <span style={{ color: "#b91c1c" }}>*</span>
               </label>
               <input
                 id="email"
@@ -564,20 +679,13 @@ export default function LandlordAddTenantPage() {
 
             {/* Age */}
             <div style={{ marginBottom: 12 }}>
-              <label
-                htmlFor="age"
-                style={{
-                  display: "block",
-                  fontWeight: 500,
-                  marginBottom: 4,
-                }}
-              >
+              <label htmlFor="age" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
                 Age
               </label>
               <input
                 id="age"
                 type="number"
-                value={age}
+                value={age ?? ""}
                 onChange={(o) => setAge(o.target.value)}
                 placeholder="Age"
                 style={{
@@ -588,71 +696,44 @@ export default function LandlordAddTenantPage() {
                 }}
                 disabled={isSubmitting}
               />
-            </div> 
+            </div>
 
             {/* Height */}
             <div style={{ marginBottom: 12 }}>
-              <label
-                style={{
-                  display: "block",
-                  fontWeight: 500,
-                  marginBottom: 4,
-                }}
-              >
+              <label style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
                 Height
               </label>
-              
               <div style={{ display: "flex", gap: 8 }}>
-                {/* Feet */}
                 <input
                   id="heightFeet"
                   type="number"
-                  value={heightFeet}
+                  value={heightFeet ?? ""}
                   onChange={(e) => setHeightFeet(e.target.value)}
                   placeholder="Feet"
-                  style={{
-                    flex: 1,
-                    padding: "6px 8px",
-                    borderRadius: 8,
-                    border: "1px solid #d1d5db",
-                  }}
+                  style={{ flex: 1, padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
                   disabled={isSubmitting}
                 />
-
-                {/* Inches */}
                 <input
                   id="heightInches"
                   type="number"
-                  value={heightInches}
+                  value={heightInches ?? ""}
                   onChange={(e) => setHeightInches(e.target.value)}
                   placeholder="Inches"
-                  style={{
-                    flex: 1,
-                    padding: "6px 8px",
-                    borderRadius: 8,
-                    border: "1px solid #d1d5db",
-                  }}
+                  style={{ flex: 1, padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
                   disabled={isSubmitting}
                 />
               </div>
             </div>
-              
+
             {/* Weight */}
             <div style={{ marginBottom: 12 }}>
-              <label
-                htmlFor="weight"
-                style={{
-                  display: "block",
-                  fontWeight: 500,
-                  marginBottom: 4,
-                }}
-              >
+              <label htmlFor="weight" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
                 Weight
               </label>
               <input
                 id="weight"
                 type="number"
-                value={weight}
+                value={weight ?? ""}
                 onChange={(o) => setWeight(o.target.value)}
                 placeholder="Weight in pounds"
                 style={{
@@ -663,7 +744,8 @@ export default function LandlordAddTenantPage() {
                 }}
                 disabled={isSubmitting}
               />
-            </div> 
+            </div>
+
 
             {/* Sex */}
             <div style={{ marginBottom: 12 }}>
@@ -671,7 +753,7 @@ export default function LandlordAddTenantPage() {
                 htmlFor="sex"
                 style={{
                   display: "block",
-                  fonWeight: 500,
+                  fontWeight: 500,
                   marginBottom: 4,
                 }}
               >
@@ -695,30 +777,18 @@ export default function LandlordAddTenantPage() {
                   </option>
                 ))}
               </select>
-            </div>     
+            </div>  
 
             {/* HairColor */}
             <div style={{ marginBottom: 12 }}>
-              <label
-                htmlFor="hairColor"
-                style={{
-                  display: "block",
-                  fonWeight: 500,
-                  marginBottom: 4,
-                }}
-              >
+              <label htmlFor="hairColor" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
                 Hair Color
               </label>
               <select
                 id="hairColor"
                 value={hairColor}
                 onChange={(o) => setHairColor(o.target.value)}
-                style={{
-                  width: "100%",
-                  padding: "6px 8px",
-                  borderRadius: 8,
-                  border: "1px solid #d1d5db",
-                }}
+                style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
                 disabled={isSubmitting}
               >
                 {HAIRCOLOR_OPTIONS.map((o) => (
@@ -727,30 +797,18 @@ export default function LandlordAddTenantPage() {
                   </option>
                 ))}
               </select>
-            </div>   
+            </div>
 
             {/* EyeColor */}
             <div style={{ marginBottom: 12 }}>
-              <label
-                htmlFor="eyeColor"
-                style={{
-                  display: "block",
-                  fonWeight: 500,
-                  marginBottom: 4,
-                }}
-              >
+              <label htmlFor="eyeColor" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
                 Eye Color
               </label>
               <select
                 id="eyeColor"
                 value={eyeColor}
                 onChange={(o) => setEyeColor(o.target.value)}
-                style={{
-                  width: "100%",
-                  padding: "6px 8px",
-                  borderRadius: 8,
-                  border: "1px solid #d1d5db",
-                }}
+                style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
                 disabled={isSubmitting}
               >
                 {EYECOLOR_OPTIONS.map((o) => (
@@ -759,30 +817,18 @@ export default function LandlordAddTenantPage() {
                   </option>
                 ))}
               </select>
-            </div>   
+            </div>
 
             {/* BodyBuild */}
             <div style={{ marginBottom: 12 }}>
-              <label
-                htmlFor="bodyBuild"
-                style={{
-                  display: "block",
-                  fonWeight: 500,
-                  marginBottom: 4,
-                }}
-              >
+              <label htmlFor="bodyBuild" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
                 Body Type
               </label>
               <select
                 id="bodyBuild"
                 value={bodyBuild}
                 onChange={(o) => setBodyBuild(o.target.value)}
-                style={{
-                  width: "100%",
-                  padding: "6px 8px",
-                  borderRadius: 8,
-                  border: "1px solid #d1d5db",
-                }}
+                style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
                 disabled={isSubmitting}
               >
                 {BODYBUILD_OPTIONS.map((o) => (
@@ -791,18 +837,11 @@ export default function LandlordAddTenantPage() {
                   </option>
                 ))}
               </select>
-            </div>   
+            </div>
 
             {/* Markings */}
             <div style={{ marginBottom: 12 }}>
-              <label
-                htmlFor="markings"
-                style={{
-                  display: "block",
-                  fontWeight: 500,
-                  marginBottom: 4,
-                }}
-              >
+              <label htmlFor="markings" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
                 Markings
               </label>
               <input
@@ -810,13 +849,8 @@ export default function LandlordAddTenantPage() {
                 type="text"
                 value={markings}
                 onChange={(e) => setMarkings(e.target.value)}
-                placeholder="Idnetifying markings (tattoos, scars, birth marks, etc.)"
-                style={{
-                  width: "100%",
-                  padding: "6px 8px",
-                  borderRadius: 8,
-                  border: "1px solid #d1d5db",
-                }}
+                placeholder="Identifying markings (tattoos, scars, etc.)"
+                style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
                 disabled={isSubmitting}
               />
             </div>
@@ -832,12 +866,7 @@ export default function LandlordAddTenantPage() {
                 value={occupation}
                 onChange={(e) => setOccupation(e.target.value)}
                 placeholder="Occupation"
-                style={{
-                  width: "100%",
-                  padding: "6px 8px",
-                  borderRadius: 8,
-                  border: "1px solid #d1d5db",
-                }}
+                style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
                 disabled={isSubmitting}
               />
             </div>
@@ -853,12 +882,7 @@ export default function LandlordAddTenantPage() {
                 value={employer}
                 onChange={(e) => setEmployer(e.target.value)}
                 placeholder="Employer"
-                style={{
-                  width: "100%",
-                  padding: "6px 8px",
-                  borderRadius: 8,
-                  border: "1px solid #d1d5db",
-                }}
+                style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
                 disabled={isSubmitting}
               />
             </div>
@@ -871,19 +895,14 @@ export default function LandlordAddTenantPage() {
               <input
                 id="income"
                 type="number"
-                value={income}
+                value={income ?? ""}
                 onChange={(e) => setIncome(e.target.value)}
                 placeholder="Monthly income"
-                style={{
-                  width: "100%",
-                  padding: "6px 8px",
-                  borderRadius: 8,
-                  border: "1px solid #d1d5db",
-                }}
+                style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
                 disabled={isSubmitting}
               />
             </div>
-            
+
             {/* Credit Score */}
             <div style={{ marginBottom: 12 }}>
               <label htmlFor="creditScore" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
@@ -892,15 +911,10 @@ export default function LandlordAddTenantPage() {
               <input
                 id="creditScore"
                 type="number"
-                value={creditScore}
+                value={creditScore ?? ""}
                 onChange={(e) => setCreditScore(e.target.value)}
                 placeholder="Score"
-                style={{
-                  width: "100%",
-                  padding: "6px 8px",
-                  borderRadius: 8,
-                  border: "1px solid #d1d5db",
-                }}
+                style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
                 disabled={isSubmitting}
               />
             </div>
@@ -916,12 +930,7 @@ export default function LandlordAddTenantPage() {
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 placeholder="Additional notes"
-                style={{
-                  width: "100%",
-                  padding: "6px 8px",
-                  borderRadius: 8,
-                  border: "1px solid #d1d5db",
-                }}
+                style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
                 disabled={isSubmitting}
               />
             </div>
@@ -937,12 +946,7 @@ export default function LandlordAddTenantPage() {
                 value={violations}
                 onChange={(e) => setViolations(e.target.value)}
                 placeholder="Record any violations"
-                style={{
-                  width: "100%",
-                  padding: "6px 8px",
-                  borderRadius: 8,
-                  border: "1px solid #d1d5db",
-                }}
+                style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
                 disabled={isSubmitting}
               />
             </div>
@@ -955,7 +959,7 @@ export default function LandlordAddTenantPage() {
 
             <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
               <button type="submit" className={styles.primaryButton} disabled={isSubmitting}>
-                {isSubmitting ? "Saving…" : "Save tenant"}
+                {isSubmitting ? "Saving…" : (isEditMode ? "Save changes" : "Save tenant")}
               </button>
 
               <button

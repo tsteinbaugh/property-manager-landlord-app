@@ -663,60 +663,51 @@ export default function LandlordAddOccupantPage() {
                 />
               </div> 
 
-              {/* HeightFeet */}
+              {/* Height */}
               <div style={{ marginBottom: 12 }}>
                 <label
-                  htmlFor="heightFeet"
                   style={{
                     display: "block",
                     fontWeight: 500,
                     marginBottom: 4,
                   }}
                 >
-                  Height - Feet
+                  Height
                 </label>
-                <input
-                  id="heightFeet"
-                  type="number"
-                  value={heightFeet}
-                  onChange={(o) => setHeightFeet(o.target.value)}
-                  placeholder="Height (Feet)"
-                  style={{
-                    width: "100%",
-                    padding: "6px 8px",
-                    borderRadius: 8,
-                    border: "1px solid #d1d5db",
-                  }}
-                  disabled={isSubmitting}
-                />
-              </div>               
-
-              {/* HeightInches */}
-              <div style={{ marginBottom: 12 }}>
-                <label
-                  htmlFor="heightInches"
-                  style={{
-                    display: "block",
-                    fontWeight: 500,
-                    marginBottom: 4,
-                  }}
-                >
-                  Height - Inches
-                </label>
-                <input
-                  id="heightInches"
-                  type="number"
-                  value={heightInches}
-                  onChange={(o) => setHeightInches(o.target.value)}
-                  placeholder="Height (Inches)"
-                  style={{
-                    width: "100%",
-                    padding: "6px 8px",
-                    borderRadius: 8,
-                    border: "1px solid #d1d5db",
-                  }}
-                  disabled={isSubmitting}
-                />
+                
+                <div style={{ display: "flex", gap: 8 }}>
+                  {/* Feet */}
+                  <input
+                    id="heightFeet"
+                    type="number"
+                    value={heightFeet}
+                    onChange={(e) => setHeightFeet(e.target.value)}
+                    placeholder="Feet"
+                    style={{
+                      flex: 1,
+                      padding: "6px 8px",
+                      borderRadius: 8,
+                      border: "1px solid #d1d5db",
+                    }}
+                    disabled={isSubmitting}
+                  />
+  
+                  {/* Inches */}
+                  <input
+                    id="heightInches"
+                    type="number"
+                    value={heightInches}
+                    onChange={(e) => setHeightInches(e.target.value)}
+                    placeholder="Inches"
+                    style={{
+                      flex: 1,
+                      padding: "6px 8px",
+                      borderRadius: 8,
+                      border: "1px solid #d1d5db",
+                    }}
+                    disabled={isSubmitting}
+                  />
+                </div>
               </div>
 
               {/* Weight */}
@@ -1185,59 +1176,51 @@ export default function LandlordAddOccupantPage() {
             />
           </div> 
 
-          {/* HeightFeet */}
+          {/* Height */}
           <div style={{ marginBottom: 12 }}>
             <label
-              htmlFor="heightFeet"
               style={{
                 display: "block",
                 fontWeight: 500,
                 marginBottom: 4,
               }}
             >
-              Height - Feet
+              Height
             </label>
-            <input
-              id="heightFeet"
-              type="number"
-              value={heightFeet}
-              onChange={(o) => setHeightFeet(o.target.value)}
-              placeholder="Height (Feet)"
-              style={{
-                width: "100%",
-                padding: "6px 8px",
-                borderRadius: 8,
-                border: "1px solid #d1d5db",
-              }}
-              disabled={isSubmitting}
-            />
-          </div>               
-          {/* HeightInches */}
-          <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="heightInches"
-              style={{
-                display: "block",
-                fontWeight: 500,
-                marginBottom: 4,
-              }}
-            >
-              Height - Inches
-            </label>
-            <input
-              id="heightInches"
-              type="number"
-              value={heightInches}
-              onChange={(o) => setHeightInches(o.target.value)}
-              placeholder="Height (Inches)"
-              style={{
-                width: "100%",
-                padding: "6px 8px",
-                borderRadius: 8,
-                border: "1px solid #d1d5db",
-              }}
-              disabled={isSubmitting}
-            />
+            
+            <div style={{ display: "flex", gap: 8 }}>
+              {/* Feet */}
+              <input
+                id="heightFeet"
+                type="number"
+                value={heightFeet}
+                onChange={(e) => setHeightFeet(e.target.value)}
+                placeholder="Feet"
+                style={{
+                  flex: 1,
+                  padding: "6px 8px",
+                  borderRadius: 8,
+                  border: "1px solid #d1d5db",
+                }}
+                disabled={isSubmitting}
+              />
+
+              {/* Inches */}
+              <input
+                id="heightInches"
+                type="number"
+                value={heightInches}
+                onChange={(e) => setHeightInches(e.target.value)}
+                placeholder="Inches"
+                style={{
+                  flex: 1,
+                  padding: "6px 8px",
+                  borderRadius: 8,
+                  border: "1px solid #d1d5db",
+                }}
+                disabled={isSubmitting}
+              />
+            </div>
           </div>
 
           {/* Weight */}
@@ -1299,7 +1282,7 @@ export default function LandlordAddOccupantPage() {
               ))}
             </select>
           </div>     
-                    
+
           {/* HairColor */}
           <div style={{ marginBottom: 12 }}>
             <label

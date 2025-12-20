@@ -98,6 +98,25 @@ function mapTenantFromApi(t) {
     name: t.name || "",
     email: t.email || "",
     phone: t.phone || "",
+    age: t.age ?? null,
+    heightFeet: t.heightFeet ?? null,
+    heightInches: t.heightInches ?? null,
+    weight: t.weight ?? null,
+
+    sex: t.sex ?? "UNKNOWN",
+    hairColor: t.hairColor ?? "UNKNOWN",
+    eyeColor: t.eyeColor ?? "UNKNOWN",
+    bodyBuild: t.bodyBuild ?? "UNKNOWN",
+
+    markings: t.markings ?? "",
+    occupation: t.occupation ?? "",
+    employer: t.employer ?? "",
+    income: t.income ?? null,
+    creditScore: t.creditScore ?? null,
+
+    notes: t.notes ?? "",
+    violations: t.violations ?? "",
+    
     archived,
     isArchived: t.isArchived ?? archived,
 

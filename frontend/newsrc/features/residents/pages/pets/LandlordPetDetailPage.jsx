@@ -1,10 +1,69 @@
-import React, { useEffect, useState, useMemo } from "react";
+// newsrc/features/residents/pages/pets/LandlordPetDetailsPage.jsx
+import React, { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
-import ArchiveButton from "@shared/ui/ArchiveButton.jsx";
 import { petsApi } from "@features/residents/api/pets.api.js";
 import { tenantsApi } from "@features/residents/api/tenants.api.js";
 import { ROLES } from "@lib/rbac/roles.js";
+
+import ui from "@shared/styles/CardLayout.module.css";
+
+function Card({ children, onClick, archived = false, clickable = true }) {
+  return (
+    <div
+      className={`${ui.card} ${archived ? ui.cardArchived : ""}`}
+      onClick={clickable ? onClick : undefined}
+      style={{ cursor: clickable ? "pointer" : "default" }}
+      role={clickable ? "button" : undefined}
+      tabIndex={clickable ? 0 : undefined}
+      onKeyDown={
+        clickable
+          ? (e) => {
+              if (e.key === "Enter" || e.key === " ") onClick?.();
+            }
+          : undefined
+      }
+    >
+      {children}
+    </div>
+  );
+}
+
+function CardHeader({ title, badgeText, badgeTone = "idle" }) {
+  const badgeClass =
+    badgeTone === "active"
+      ? ui.badgeActive
+      : badgeTone === "archived"
+        ? ui.badgeArchived
+        : ui.badgeIdle;
+
+  return (
+    <div className={ui.cardHeader}>
+      <div className={ui.cardTitle}>{title}</div>
+      {badgeText ? <span className={`${ui.badge} ${badgeClass}`}>{badgeText}</span> : null}
+    </div>
+  );
+}
+
+function LinkageLine({ parts = [], hint }) {
+  const cleaned = (parts || []).filter(Boolean);
+  if (!cleaned.length) return null;
+
+  return (
+    <div className={ui.muted} style={{ marginTop: 6 }}>
+      <div>
+        <strong>Linkage: </strong>
+        {cleaned.map((p, idx) => (
+          <span key={`${p}-${idx}`}>
+            {idx > 0 ? " → " : ""}
+            <label>{p}</label>
+          </span>
+        ))}
+      </div>
+      {hint ? <div style={{ marginTop: 2 }}>{hint}</div> : null}
+    </div>
+  );
+}
 
 export default function LandlordPetDetailsPage() {
   const { petId } = useParams();
@@ -14,27 +73,18 @@ export default function LandlordPetDetailsPage() {
   const role =
     isSysAdmin && effectiveRole !== ROLES.SYSADMIN
       ? ROLES.SYSADMIN
-      : effectiveRole || ROLES.LANDLORD;
+      : typeof effectiveRole === "string"
+        ? effectiveRole.toLowerCase()
+        : effectiveRole || ROLES.LANDLORD;
 
   const [pet, setPet] = useState(null);
   const [tenants, setTenants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const [isEditing, setEditing] = useState(false);
-  const [name, setName] = useState("");
-  const [type, setType] = useState("");
-  const [breed, setBreed] = useState("");
-  const [weightLb, setWeightLb] = useState("");
-  const [isSaving, setSaving] = useState(false);
   const [isArchiving, setArchiving] = useState(false);
+  const [unlinkingTenantId, setUnlinkingTenantId] = useState(null);
 
-  // many-to-many controls
-  const [tenantPickerId, setTenantPickerId] = useState("");
-  const [linking, setLinking] = useState(false);
-  const [unlinkingId, setUnlinkingId] = useState(null);
-
-  // Load pet + tenants
   useEffect(() => {
     let cancelled = false;
 
@@ -49,26 +99,19 @@ export default function LandlordPetDetailsPage() {
         ]);
 
         if (!cancelled) {
-          if (!p) {
-            setError(new Error("Pet not found"));
-          } else {
-            setPet(p);
-            setTenants(Array.isArray(ts) ? ts : []);
-          }
+          setPet(p || null);
+          setTenants(Array.isArray(ts) ? ts : []);
+          if (!p) setError(new Error("Pet not found"));
         }
       } catch (err) {
-        console.error("Failed to load pet", err);
-        if (!cancelled) {
-          setError(err);
-        }
+        if (!cancelled) setError(err);
       } finally {
         if (!cancelled) setLoading(false);
       }
     }
 
-    if (petId && token) {
-      load();
-    } else if (!petId) {
+    if (petId && token) load();
+    else if (!petId) {
       setLoading(false);
       setError(new Error("Missing pet id"));
     }
@@ -78,85 +121,32 @@ export default function LandlordPetDetailsPage() {
     };
   }, [petId, token]);
 
-  // Initialize edit fields when pet changes
-  useEffect(() => {
-    if (pet) {
-      setName(pet.name || "");
-      setType(pet.type || "");
-      setBreed(pet.breed || "");
-      setWeightLb(
-        pet.weightLb === null || pet.weightLb === undefined
-          ? ""
-          : String(pet.weightLb)
-      );
-    }
-  }, [pet]);
+  const isArchived = !!(pet?.isArchived ?? pet?.archived);
 
-  const isArchived = !!pet?.archived;
+  const canEditNow = !isArchived || isSysAdmin;
+  const canArchiveNow = !isArchived;
+  const canUnarchiveNow = isArchived && isSysAdmin;
+  const showArchiveLink = canArchiveNow || canUnarchiveNow;
+
+  const title = pet?.name || "Pet";
 
   const linkedTenants = useMemo(() => {
     if (!pet) return [];
     return Array.isArray(pet.tenants) ? pet.tenants : [];
   }, [pet]);
 
-  // Tenants that can still be added
   const availableTenants = useMemo(() => {
-    const linkedIds = new Set(linkedTenants.map((t) => t.id));
-    return tenants.filter((t) => !linkedIds.has(t.id));
+    const linkedIds = new Set((linkedTenants || []).map((t) => t?.id).filter(Boolean));
+    return (tenants || []).filter((t) => t?.id && !linkedIds.has(t.id));
   }, [tenants, linkedTenants]);
 
-  const handleSave = async () => {
-    if (!name.trim()) {
-      alert("Name is required.");
-      return;
-    }
-
-    try {
-      setSaving(true);
-      const rawWeight = weightLb.trim();
-      let normalizedWeight = null;
-      if (rawWeight) {
-        const parsed = Number(rawWeight);
-        if (!Number.isNaN(parsed) && parsed >= 0) {
-          normalizedWeight = parsed;
-        } else {
-          alert("Weight must be a positive number.");
-          return;
-        }
-      }
-
-      const updated = await petsApi.update(
-        pet.id,
-        {
-          name: name.trim(),
-          type: type.trim(),
-          breed: breed.trim(),
-          weightLb: normalizedWeight,
-        },
-        { token }
-      );
-      setPet(updated);
-      setEditing(false);
-    } catch (err) {
-      console.error("Failed to update pet", err);
-      alert("Failed to update pet. Check console for details.");
-    } finally {
-      setSaving(false);
-    }
-  };
-
-  const handleCancelEdit = () => {
-    if (pet) {
-      setName(pet.name || "");
-      setType(pet.type || "");
-      setBreed(pet.breed || "");
-      setWeightLb(
-        pet.weightLb === null || pet.weightLb === undefined
-          ? ""
-          : String(pet.weightLb)
-      );
-    }
-    setEditing(false);
+  const reload = async () => {
+    const [p, ts] = await Promise.all([
+      petsApi.get(petId, { token }),
+      tenantsApi.list({ token }),
+    ]);
+    setPet(p || null);
+    setTenants(Array.isArray(ts) ? ts : []);
   };
 
   const handleToggleArchive = async () => {
@@ -180,8 +170,8 @@ export default function LandlordPetDetailsPage() {
 
     try {
       setArchiving(true);
-      const updated = await petsApi.toggleArchive(pet.id, { token });
-      setPet(updated);
+      await petsApi.toggleArchive(pet.id, { token });
+      await reload();
     } catch (err) {
       console.error("Failed to toggle pet archived state", err);
       alert("Failed to change archive status. Check console for details.");
@@ -190,319 +180,185 @@ export default function LandlordPetDetailsPage() {
     }
   };
 
-  const handleLinkTenant = async () => {
-    if (!tenantPickerId || !pet || !pet.id) return;
-
-    try {
-      setLinking(true);
-      await tenantsApi.linkPet(tenantPickerId, pet.id, { token });
-
-      // Refresh pet to pick up new tenants[]
-      const fresh = await petsApi.get(pet.id, { token });
-      setPet(fresh || pet);
-      setTenantPickerId("");
-    } catch (err) {
-      console.error("Failed to link tenant to pet", err);
-      alert("Failed to link tenant. Check console for details.");
-    } finally {
-      setLinking(false);
-    }
+  const goEditPet = () => {
+    if (!pet?.id) return;
+    const returnTo = encodeURIComponent(`${window.location.pathname}${window.location.search || ""}`);
+    navigate(`/landlord/pets/new?petId=${pet.id}&returnTo=${returnTo}`);
   };
 
   const handleUnlinkTenant = async (tenantId) => {
-    if (!tenantId || !pet || !pet.id) return;
+    if (!tenantId || !pet?.id) return;
 
     const ok = window.confirm(
-      "Remove this tenant from the pet's links?\n\n" +
-        "This does not change leases or properties. It only removes this pet↔tenant link."
+      "Unlink this pet from this tenant?\n\n" +
+        "This does NOT delete either record. It only removes the pet↔tenant association."
     );
     if (!ok) return;
 
     try {
-      setUnlinkingId(tenantId);
+      setUnlinkingTenantId(tenantId);
       await tenantsApi.unlinkPet(tenantId, pet.id, { token });
-
-      const fresh = await petsApi.get(pet.id, { token });
-      setPet(fresh || pet);
+      await reload();
     } catch (err) {
       console.error("Failed to unlink tenant from pet", err);
       alert("Failed to unlink tenant. Check console for details.");
     } finally {
-      setUnlinkingId(null);
+      setUnlinkingTenantId(null);
     }
   };
 
-  const handleManageTenant = () => {
-    if (!pet || !pet.id) return;
-
-    const returnTo = encodeURIComponent(
-      `${window.location.pathname}${window.location.search || ""}`
-    );
-
-    navigate(
-      `/landlord/tenants/new?petId=${pet.id}&returnTo=${returnTo}`
-    );
-  };
-
-  if (loading) return <div>Loading pet…</div>;
-
-  if (error) {
+  if (loading) return <div className={ui.page}>Loading pet…</div>;
+  if (error)
     return (
-      <div style={{ color: "crimson", padding: 16 }}>
-        Error loading pet: {String(error.message || error)}
+      <div className={ui.page} style={{ color: "crimson" }}>
+        Error loading pet: {String(error?.message || error)}
       </div>
     );
-  }
+  if (!pet) return <div className={ui.page}>No data.</div>;
 
-  if (!pet) {
-    return <div style={{ padding: 16 }}>No data.</div>;
-  }
-
-  const title = pet.name || "Unnamed pet";
-
-  const canEditNow = !isArchived || isSysAdmin;
-  const canArchiveNow = !isArchived;
-  const canUnarchiveNow = isArchived && isSysAdmin;
-  const showArchiveButton = canArchiveNow || canUnarchiveNow;
+  const type = pet.type ? String(pet.type).trim() : "";
+  const breed = pet.breed ? String(pet.breed).trim() : "";
+  const weight =
+    pet.weightLb === null || pet.weightLb === undefined || pet.weightLb === ""
+      ? ""
+      : String(pet.weightLb);
 
   return (
-    <div style={{ padding: 16 }}>
+    <div className={ui.page}>
       <div style={{ marginBottom: 8 }}>
-        <Link to="/landlord/residents?tab=pets">
-          ← Back to residents
-        </Link>
+        <Link to="/landlord/residents?tab=pets">← Back to residents</Link>
       </div>
 
-      {/* header + actions */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-start",
-          gap: 12,
-          marginBottom: 12,
-        }}
-      >
-        <div>
-          {!isEditing ? (
-            <>
-              <h2 style={{ margin: "8px 0" }}>{title}</h2>
-              <div style={{ color: "#555", marginBottom: 4 }}>
-                {pet.type && (
-                  <div>Type: {pet.type}</div>
-                )}
-              </div>
-              <div style={{ color: "#555", marginBottom: 4 }}>
-                {pet.breed && (
-                  <div>Breed: {pet.breed}</div>
-                )}
-              </div>
-              <div style={{ color: "#555", marginBottom: 4 }}>
-                {pet.weightLb && (
-                  <div>Weight (Lb): {pet.weightLb}</div>
-                )}
-              </div>
-              {isArchived && (
-                <div style={{ color: "#888", fontSize: 12 }}>
-                  (Archived – read-only for landlords)
-                </div>
-              )}
-            </>
-          ) : (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 6,
-                maxWidth: 480,
-              }}
-            >
-              <input
-                type="text"
-                placeholder="Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="Type (dog, cat, bird, etc.)"
-                value={type}
-                onChange={(e) => setType(e.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="Breed (Poodle, Boxer, etc.)"
-                value={breed}
-                onChange={(e) => setBreed(e.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="Weight (Lb)"
-                value={weightLb}
-                onChange={(e) => setWeightLb(e.target.value)}
-              />
-              <div style={{ display: "flex", gap: 8, marginTop: 4 }}>
+      {/* Header */}
+      <div className={ui.section}>
+        <div className={ui.sectionHeader}>
+          <div>
+            <h1 style={{ margin: 0 }}>{title}</h1>
+
+            <div className={ui.headerLinksRow}>
+              {canEditNow ? (
+                <button type="button" className={ui.linkAction} onClick={goEditPet}>
+                  Edit pet
+                </button>
+              ) : null}
+
+              {showArchiveLink ? (
                 <button
                   type="button"
-                  onClick={handleSave}
-                  disabled={isSaving}
+                  className={ui.linkAction}
+                  onClick={handleToggleArchive}
+                  disabled={isArchiving}
+                  aria-disabled={isArchiving ? "true" : "false"}
                 >
-                  {isSaving ? "Saving…" : "Save"}
+                  {isArchived ? "Unarchive pet" : "Archive pet"}
                 </button>
-                <button type="button" onClick={handleCancelEdit}>
-                  Cancel
-                </button>
-              </div>
+              ) : (
+                <span className={ui.linkActionDisabled}>
+                  {isArchived ? "Unarchive pet" : "Archive pet"}
+                </span>
+              )}
             </div>
-          )}
-        </div>
 
-        <div style={{ display: "flex", gap: 8 }}>
-          {canEditNow && !isEditing && (
-            <button type="button" onClick={() => setEditing(true)}>
-              Edit
-            </button>
-          )}
-
-          {showArchiveButton ? (
-            <ArchiveButton
-              archived={isArchived}
-              onToggle={handleToggleArchive}
-              disabled={isArchiving}
-            />
-          ) : (
-            <button
-              type="button"
-              disabled
-              title={
-                isArchived
-                  ? "Only a system administrator can unarchive this pet."
-                  : "Insufficient permissions to archive this pet."
-              }
-              style={{ opacity: 0.5 }}
-            >
-              {isArchived ? "Unarchive" : "Archive"}
-            </button>
-          )}
+            {isArchived ? <div className={ui.muted}>(Archived – read-only for landlords)</div> : null}
+          </div>
         </div>
       </div>
-
-      {/* Manage tenant button (now just "create new tenant" helper) */}
-      <div style={{ marginBottom: 12 }}>
-        <button
-          type="button"
-          onClick={handleManageTenant}
-          disabled={isArchived}
-          style={{
-            borderRadius: 999,
-            padding: "6px 12px",
-            border: "1px solid #d1d5db",
-            background: "#ffffff",
-            cursor: isArchived ? "default" : "pointer",
-            fontSize: 13,
-          }}
-        >
-          Manage tenants for this pet
-        </button>
-        {isArchived && (
-          <span style={{ marginLeft: 8, fontSize: 12, color: "#6b7280" }}>
-            Cannot manage tenants for an archived pet.
-          </span>
-        )}
-      </div>
-
-      <hr style={{ margin: "16px 0" }} />
 
       {/* Pet info */}
-      <section
-        style={{
-          padding: 16,
-          borderRadius: 12,
-          border: "1px solid #e5e7eb",
-          background: "#ffffff",
-          maxWidth: 640,
-          marginBottom: 16,
-        }}
-      >
-        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 12 }}>
-          Pet info
-        </h3>
+      <div className={ui.section}>
+        <div className={ui.sectionHeader}></div>
 
-        <dl
-          style={{
-            display: "grid",
-            gridTemplateColumns: "120px 1fr",
-            rowGap: 8,
-            columnGap: 12,
-            fontSize: 14,
-          }}
-        >
-          <dt style={{ fontWeight: 500, color: "#4b5563" }}>Name</dt>
-          <dd>{pet.name || "—"}</dd>
-
-          <dt style={{ fontWeight: 500, color: "#4b5563" }}>Type</dt>
-          <dd>{pet.type || "Not set"}</dd>
-
-          <dt style={{ fontWeight: 500, color: "#4b5563" }}>Breed</dt>
-          <dd>{pet.breed || "Not set"}</dd>
-
-          <dt style={{ fontWeight: 500, color: "#4b5563" }}>Weight</dt>
-          <dd>{pet.weightLb || "Not set"}</dd>
-
-          <dt style={{ fontWeight: 500, color: "#4b5563" }}>Status</dt>
-          <dd>{isArchived ? "Archived" : "Active"}</dd>
-        </dl>
-      </section>
-
-      {/* Tenants linked to this pet (true many-to-many) */}
-      <section
-        style={{
-          padding: 16,
-          borderRadius: 12,
-          border: "1px solid #e5e7eb",
-          background: "#ffffff",
-          maxWidth: 640,
-        }}
-      >
-        <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
-          Tenants linked to this pet
-        </h3>
-
-        {linkedTenants.length > 0 ? (
-          <ul style={{ paddingLeft: 18, fontSize: 14 }}>
-            {linkedTenants.map((t) => (
-              <li
-                key={t.id}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 8,
-                  marginBottom: 4,
-                }}
-              >
-                <span>
-                  <Link to={`/landlord/tenants/${t.id}`}>
-                    {t.name || "(unnamed tenant)"}
-                  </Link>
-                  {t.email ? ` (${t.email})` : ""}
-                </span>
-                <button
-                  type="button"
-                  onClick={() => handleUnlinkTenant(t.id)}
-                  disabled={unlinkingId === t.id}
-                  style={{ fontSize: 11, padding: "2px 6px" }}
-                >
-                  {unlinkingId === t.id ? "Unlinking…" : "Unlink"}
-                </button>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <div style={{ fontSize: 14, color: "#6b7280" }}>
-            This pet is not linked to any tenants yet.
+        <Card clickable={false} archived={isArchived}>
+          <CardHeader
+            title="Pet Info"
+            badgeText={isArchived ? "Archived" : "Pet"}
+            badgeTone={isArchived ? "archived" : "idle"}
+          />
+          <div className={ui.cardBody}>
+            {pet.type ? <div>Type of pet:{pet.type}</div> : null}
+            {pet.breed ? <div>Breed: {pet.breed}</div> : null}
+            {pet.weightLbs ? <div> Weight (pounds):{pet.weightLb}</div> : null}
+            {pet.age ? <div>Age:{pet.age}</div> : null}
+            {pet.license ? <div>License: {pet.license}</div> : null}
+            {pet.notes ? <div>Notes: {pet.notes}</div> : null}
+            {pet.violations ? <div>Violations: {pet.violations}</div> : null}
           </div>
+        </Card>
+      </div>
+
+      {/* Tenants */}
+      <div className={ui.section}>
+        <div className={ui.sectionHeader}>
+          <div className={ui.sectionTitle}>Tenants</div>
+          <div className={ui.sectionHint}>Direct link: Tenant ↔ Pet</div>
+        </div>
+
+        {linkedTenants.length ? (
+          <div className={ui.grid}>
+            {linkedTenants.map((t) => {
+              if (!t?.id) return null;
+
+              const archived = !!(t.isArchived ?? t.archived);
+              const displayName = t.name || t.email || "Unnamed tenant";
+
+              return (
+                <Card key={t.id} archived={archived} onClick={() => navigate(`/landlord/tenants/${t.id}`)}>
+                  <CardHeader
+                    title={displayName}
+                    badgeText={archived ? "Archived" : "Tenant"}
+                    badgeTone={archived ? "archived" : "idle"}
+                  />
+                  <div className={ui.cardBody}>
+                    <LinkageLine parts={[displayName, title]} />
+                  </div>
+
+                  <div className={ui.inlineActions}>
+                    <button
+                      type="button"
+                      className={`${ui.inlineAction} ${ui.inlineActionDanger}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleUnlinkTenant(t.id);
+                      }}
+                      disabled={unlinkingTenantId === t.id}
+                    >
+                      {unlinkingTenantId === t.id ? "Unlinking…" : "Unlink from pet"}
+                    </button>
+                  </div>
+                </Card>
+              );
+            })}
+          </div>
+        ) : (
+          <div className={ui.muted}>No tenants linked to this pet yet.</div>
         )}
-      </section>
+
+        <div style={{ marginTop: 10 }}>
+          <button
+            type="button"
+            className={ui.linkAction}
+            onClick={() => {
+              const returnTo = encodeURIComponent(
+                `${window.location.pathname}${window.location.search || ""}`
+              );
+              navigate(`/landlord/tenants/new?petId=${pet.id}&returnTo=${returnTo}`);
+            }}
+            disabled={isArchived}
+            aria-disabled={isArchived ? "true" : "false"}
+          >
+            Add a tenant (new or existing)
+          </button>
+
+          {isArchived ? (
+            <div className={ui.muted} style={{ marginTop: 6 }}>
+              Cannot manage links for an archived pet.
+            </div>
+          ) : null}
+        </div>
+      </div>
+
+      {/* If you later want a “Link existing tenant” picker on this page,
+          this is where it would go. For now, matching Occupants: tenant form owns linking. */}
     </div>
   );
 }
