@@ -1,0 +1,35 @@
+model Occupant {
+  id       String  @id @default(cuid())
+
+  name         String
+  phone        String?
+  email        String?
+  relation     String?
+  age          Int?
+  heightFeet   Int?
+  heightInches Int?
+  weight       Int?
+  sex          Sex?       @default(UNKNOWN)
+  hairColor    HairColor? @default(UNKNOWN)
+  eyeColor     EyeColor   @default(UNKNOWN)
+  bodyBuild    BodyBuild? @default(UNKNOWN)
+  markings     String?
+  notes        String?
+  violations   String?
+  archivedAt   DateTime?
+  archiveReason String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // OWNER landlord – whose portfolio this occupant belongs to
+  landlordId String?
+  landlord   User?   @relation("LandlordOccupants", fields: [landlordId], references: [id])
+
+  // CREATOR – who actually created this occupant
+  createdById String?
+  createdBy   User?   @relation("OccupantCreatedBy", fields: [createdById], references: [id])
+
+  //multi-tenant join links
+  tenantLinks TenantOccupant[]
+}

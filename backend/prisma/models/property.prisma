@@ -1,0 +1,28 @@
+model Property {
+  id         String  @id @default(cuid())
+  name       String?
+  address1   String
+  city       String
+  state      StateCode
+  postalCode String
+  bedrooms   Int?
+  bathrooms  Int?
+  sqft       Int?
+  yearBuilt  Int?
+  status     PropertyStatus  @default(ACTIVE)
+  notes      String?
+
+  archivedAt   DateTime?
+  archiveReason String?
+
+  leases Lease[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  landlordId String? // FK to User
+  landlord   User?   @relation("LandlordProperties", fields: [landlordId], references: [id])
+
+  createdById String?
+  createdBy   User?   @relation("PropertyCreatedBy", fields: [createdById], references: [id])
+}

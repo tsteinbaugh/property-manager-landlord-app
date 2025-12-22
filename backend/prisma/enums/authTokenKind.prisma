@@ -1,0 +1,4 @@
+enum AuthTokenKind {
+  INVITE
+  RESET_PASSWORD
+}

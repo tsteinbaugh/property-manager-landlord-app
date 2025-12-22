@@ -1,0 +1,10 @@
+model TenantPet {
+  id       String @id @default(cuid())
+  tenantId String
+  petId    String
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  pet    Pet    @relation(fields: [petId], references: [id])
+
+  @@unique([tenantId, petId])
+}

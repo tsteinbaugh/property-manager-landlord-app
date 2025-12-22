@@ -1,0 +1,16 @@
+model LeaseTenant {
+  id String @id @default(cuid())
+
+  leaseId    String
+  tenantId   String
+  tenantName String?
+
+  // Optional but useful metadata
+  startDate DateTime?
+  endDate   DateTime?
+
+  lease  Lease  @relation(fields: [leaseId], references: [id])
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@unique([leaseId, tenantId])
+}

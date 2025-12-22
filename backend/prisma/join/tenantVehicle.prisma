@@ -1,0 +1,10 @@
+model TenantVehicle {
+  id        String @id @default(cuid())
+  tenantId  String
+  vehicleId String
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id])
+  vehicle Vehicle @relation(fields: [vehicleId], references: [id])
+
+  @@unique([tenantId, vehicleId])
+}

@@ -1,0 +1,46 @@
+model User {
+  id           String     @id @default(cuid())
+  email        String     @unique
+  name         String?
+  passwordHash String
+  baseRole     Role       @default(LANDLORD)
+  status       UserStatus @default(ACTIVE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  leases     Lease[]     @relation("UserLeases")
+  authTokens AuthToken[]
+
+  tenant Tenant?
+
+  propertiesOwned   Property[] @relation("LandlordProperties")
+  propertiesCreated Property[] @relation("PropertyCreatedBy")
+
+  // Who created which tenants
+  tenantsCreated Tenant[] @relation("TenantCreatedBy")
+
+  // Who owns which tenants (landlord-level ownership)
+  tenantsOwned Tenant[] @relation("LandlordTenants")
+
+  //who created which leases
+  leasesCreated Lease[] @relation("LeaseCreatedBy")
+
+  //who created which occupants/pets/emergencyContacts/vehicles
+  occupantsCreated         Occupant[]         @relation("OccupantCreatedBy")
+  petsCreated              Pet[]              @relation("PetCreatedBy")
+  emergencyContactsCreated EmergencyContact[] @relation("EmergencyContactCreatedBy")
+  vehiclesCreated          Vehicle[]          @relation("VehicleCreatedBy")
+
+  //who owns which occupants/pets/emergencyContacts/vehicles (landlord-level ownership)
+  occupantsOwned         Occupant[]         @relation("LandlordOccupants")
+  petsOwned              Pet[]              @relation("LandlordPets")
+  emergencyContactsOwned EmergencyContact[] @relation("LandlordEmergencyContacts")
+  vehiclesOwned          Vehicle[]          @relation("LandlordVehicles")
+
+  //who created which users (self-relation)
+  createdById  String?
+  createdBy    User?   @relation("UserCreatedBy", fields: [createdById], references: [id])
+  usersCreated User[]  @relation("UserCreatedBy")
+}

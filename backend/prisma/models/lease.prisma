@@ -1,0 +1,38 @@
+model Lease {
+  id String @id @default(cuid())
+
+  property      Property? @relation(fields: [propertyId], references: [id])
+  propertyId    String?
+  propertyLabel String?
+
+  leaseTenants LeaseTenant[]
+
+  landlord   User   @relation("UserLeases", fields: [landlordId], references: [id])
+  landlordId String
+
+  rentAmount Int?
+  status     LeaseStatus @default(DRAFT)
+  startDate  DateTime?
+  endDate    DateTime?
+  leaseType  LeaseType @default(FIXED_TERM)
+  notes      String?
+
+  archivedAt   DateTime?
+  archiveReason String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  fileUrl          String?
+  fileOriginalName String?
+  fileMimeType     String?
+  fileSize         Int?
+
+  createdById String?
+  createdBy   User?   @relation("LeaseCreatedBy", fields: [createdById], references: [id])
+}
+
+enum LeaseType {
+  FIXED_TERM
+  MONTH_TO_MONTH
+}

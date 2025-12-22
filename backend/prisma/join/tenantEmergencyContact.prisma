@@ -1,0 +1,10 @@
+model TenantEmergencyContact {
+  id                 String @id @default(cuid())
+  tenantId           String
+  emergencyContactId String
+
+  tenant           Tenant           @relation(fields: [tenantId], references: [id])
+  emergencyContact EmergencyContact @relation(fields: [emergencyContactId], references: [id])
+
+  @@unique([tenantId, emergencyContactId])
+}

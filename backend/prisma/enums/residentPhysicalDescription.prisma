@@ -1,0 +1,39 @@
+enum HairColor {
+  BLACK
+  BROWN
+  BLONDE
+  RED
+  GRAY
+  WHITE
+  DYED
+  BALD
+  OTHER
+  UNKNOWN
+}
+
+enum EyeColor {
+  BROWN
+  BLUE
+  GREEN
+  HAZEL
+  GRAY
+  AMBER
+  OTHER
+  UNKNOWN
+}
+
+enum BodyBuild {
+  SLIM
+  AVERAGE
+  ATHLETIC
+  HEAVYSET
+  OTHER
+  UNKNOWN
+}
+
+enum Sex {
+  MALE
+  FEMALE
+  OTHER
+  UNKNOWN
+}
