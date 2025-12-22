@@ -62,7 +62,7 @@ function registerPropertyRoutes(app, prisma) {
       const user = req.user || null;
 
       const where = {
-        ...(includeArchived ? {} : { isArchived: false }),
+        ...(includeArchived ? {} : { archivedAt: null }),
       };
 
       if (user && user.baseRole === Role.LANDLORD) {
@@ -279,7 +279,7 @@ function registerPropertyRoutes(app, prisma) {
   });
 
   // ============================================================
-  // PATCH /api/properties/:id/archive - toggle isArchived flag
+  // PATCH /api/properties/:id/archive - toggle archivedAt flag
   // ============================================================
   app.patch("/api/properties/:id/archive", async (req, res) => {
     const { id } = req.params;
@@ -300,7 +300,7 @@ function registerPropertyRoutes(app, prisma) {
 
       const updated = await prisma.property.update({
         where: { id },
-        data: { isArchived: !existing.isArchived },
+        data: { archivedAt: !existing.archivedAt },
       });
 
       res.json(updated);
@@ -330,19 +330,19 @@ function registerPropertyRoutes(app, prisma) {
                   tenant: {
                     include: {
                       occupantLinks: {
-                        where: { occupant: { isArchived: false } },
+                        where: { occupant: { archivedAt: null } },
                         include: { occupant: true },
                       },
                       petLinks: {
-                        where: { pet: { isArchived: false } },
+                        where: { pet: { archivedAt: null } },
                         include: { pet: true },
                       },
                       emergencyContactLinks: {
-                        where: { emergencyContact: { isArchived: false } },
+                        where: { emergencyContact: { archivedAt: null } },
                         include: { emergencyContact: true },
                       },
                       vehicleLinks: {
-                        where: { vehicle: { isArchived: false } },
+                        where: { vehicle: { archivedAt: null } },
                         include: { vehicle: true },
                       },
                     },
@@ -377,13 +377,13 @@ function registerPropertyRoutes(app, prisma) {
             name: t.name,
             email: t.email,
             phone: t.phone,
-            archived: t.isArchived,
+            archived: t.archivedAt,
           });
         }
 
         for (const link of t.occupantLinks || []) {
           const o = link.occupant;
-          if (!o?.id || o.isArchived) continue;
+          if (!o?.id || o.archivedAt) continue;
           if (!occupantMap.has(o.id)) {
             occupantMap.set(o.id, {
               id: o.id,
@@ -402,14 +402,14 @@ function registerPropertyRoutes(app, prisma) {
               markings: o.markings,
               notes: o.notes,
               violations: o.violations,
-              archived: o.isArchived,
+              archived: o.archivedAt,
             });
           }
         }
 
         for (const link of t.petLinks || []) {
           const p = link.pet;
-          if (!p?.id || p.isArchived) continue;
+          if (!p?.id || p.archivedAt) continue;
           if (!petMap.has(p.id)) {
             petMap.set(p.id, {
               id: p.id,
@@ -421,14 +421,14 @@ function registerPropertyRoutes(app, prisma) {
               license: p.license,
               notes: p.notes,
               violations: p.violations,
-              archived: p.isArchived,
+              archived: p.archivedAt,
             });
           }
         }
 
         for (const link of t.emergencyContactLinks || []) {
           const e = link.emergencyContact;
-          if (!e?.id || e.isArchived) continue;
+          if (!e?.id || e.archivedAt) continue;
           if (!emergencyContactMap.has(e.id)) {
             emergencyContactMap.set(e.id, {
               id: e.id,
@@ -441,14 +441,14 @@ function registerPropertyRoutes(app, prisma) {
               postalCode: e.postalCode,
               relation: e.relation,
               notes: e.notes,
-              archived: e.isArchived,
+              archived: e.archivedAt,
             });
           }
         }
 
         for (const link of t.vehicleLinks || []) {
           const v = link.vehicle;
-          if (!v?.id || v.isArchived) continue;
+          if (!v?.id || v.archivedAt) continue;
           if (!vehicleMap.has(v.id)) {
             vehicleMap.set(v.id, {
               id: v.id,
@@ -462,7 +462,7 @@ function registerPropertyRoutes(app, prisma) {
               parking: v.parking,
               notes: v.notes, // <-- fixed
               violations: v.violations,
-              archived: v.isArchived,
+              archived: v.archivedAt,
             });
           }
         }
@@ -508,19 +508,19 @@ function registerPropertyRoutes(app, prisma) {
                   tenant: {
                     include: {
                       occupantLinks: {
-                        where: { occupant: { isArchived: false } },
+                        where: { occupant: { archivedAt: null } },
                         include: { occupant: true },
                       },
                       petLinks: {
-                        where: { pet: { isArchived: false } },
+                        where: { pet: { archivedAt: null } },
                         include: { pet: true },
                       },
                       emergencyContactLinks: {
-                        where: { emergencyContact: { isArchived: false } },
+                        where: { emergencyContact: { archivedAt: null } },
                         include: { emergencyContact: true },
                       },
                       vehicleLinks: {
-                        where: { vehicle: { isArchived: false } },
+                        where: { vehicle: { archivedAt: null } },
                         include: { vehicle: true },
                       },
                     },
@@ -555,25 +555,25 @@ function registerPropertyRoutes(app, prisma) {
 
         for (const link of t.occupantLinks || []) {
           const o = link.occupant;
-          if (!o?.id || o.isArchived) continue;
+          if (!o?.id || o.archivedAt) continue;
           if (!occupantMap.has(o.id)) occupantMap.set(o.id, o);
         }
 
         for (const link of t.petLinks || []) {
           const p = link.pet;
-          if (!p?.id || p.isArchived) continue;
+          if (!p?.id || p.archivedAt) continue;
           if (!petMap.has(p.id)) petMap.set(p.id, p);
         }
 
         for (const link of t.emergencyContactLinks || []) {
           const e = link.emergencyContact;
-          if (!e?.id || e.isArchived) continue;
+          if (!e?.id || e.archivedAt) continue;
           if (!emergencyContactMap.has(e.id)) emergencyContactMap.set(e.id, e);
         }
 
         for (const link of t.vehicleLinks || []) {
           const v = link.vehicle;
-          if (!v?.id || v.isArchived) continue;
+          if (!v?.id || v.archivedAt) continue;
           if (!vehicleMap.has(v.id)) vehicleMap.set(v.id, v);
         }
       }

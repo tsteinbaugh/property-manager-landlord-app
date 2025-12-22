@@ -128,7 +128,7 @@ export default function LandlordOccupantDetailsPage() {
     };
   }, [occupantId, token]);
 
-  const isArchived = !!(occupant?.isArchived ?? occupant?.archived);
+  const isArchived = !!occupant?.archivedAt;
 
   // Match your earlier resident pages: keep it simple (no RBAC gating here)
   const canEditNow = !isArchived || isSysAdmin;
@@ -305,7 +305,7 @@ export default function LandlordOccupantDetailsPage() {
             {linkedTenants.map((t) => {
               if (!t?.id) return null;
 
-              const archived = !!(t.isArchived ?? t.archived);
+              const archived = !!t.archivedAt;
               const displayName = t.name || t.email || "Unnamed tenant";
 
               return (

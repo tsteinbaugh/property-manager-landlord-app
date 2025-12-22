@@ -287,7 +287,7 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
         where.landlordId = authUser.id;
       }
       if (!includeArchived) {
-        where.status = { not: "ARCHIVED" };
+        where.archivedAt = null;
       }
 
       const leases = await prisma.lease.findMany({
@@ -325,10 +325,10 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
             include: {
               tenant: {
                 include: {
-                  occupantLinks: { where: { occupant: { isArchived: false } }, include: { occupant: true } },
-                  petLinks: { where: { pet: { isArchived: false } }, include: { pet: true } },
-                  emergencyContactLinks: { where: { emergencyContact: { isArchived: false } }, include: { emergencyContact: true } },
-                  vehicleLinks: { where: { vehicle: { isArchived: false } }, include: { vehicle: true } },
+                  occupantLinks: { where: { occupant: { archivedAt: null } }, include: { occupant: true } },
+                  petLinks: { where: { pet: { archivedAt: null } }, include: { pet: true } },
+                  emergencyContactLinks: { where: { emergencyContact: { archivedAt: null } }, include: { emergencyContact: true } },
+                  vehicleLinks: { where: { vehicle: { archivedAt: null } }, include: { vehicle: true } },
                 },
               },
             },

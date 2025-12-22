@@ -54,12 +54,12 @@ export default function LandlordPropertiesPage() {
     });
 
     if (showArchived) return landlordProps;
-    return landlordProps.filter((p) => !p.isArchived);
+    return landlordProps.filter((p) => !p.archivedAt);
   }, [properties, user, showArchived]);
 
   const hasVisibleProperties = visibleProperties.length > 0;
   const hasAnyArchived = (properties || []).some(
-    (p) => p.landlordId === user?.id && p.isArchived
+    (p) => p.landlordId === user?.id && p.archivedAt
   );
 
   const handleAddProperty = () => {

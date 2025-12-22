@@ -46,7 +46,7 @@ function registerPetRoutes(app, prisma, { shapePet }) {
       const user = req.user || null;
 
       const where = {
-        ...(includeArchived ? {} : { isArchived: false }),
+        ...(includeArchived ? {} : { archivedAt: null }),
       };
 
       if (user && user.baseRole === Role.LANDLORD) {
@@ -114,7 +114,7 @@ function registerPetRoutes(app, prisma, { shapePet }) {
           name: t.name,
           email: t.email,
           phone: t.phone,
-          archived: t.isArchived,
+          archived: t.archivedAt,
           createdAt: t.createdAt,
           updatedAt: t.updatedAt,
         }));
@@ -284,7 +284,7 @@ function registerPetRoutes(app, prisma, { shapePet }) {
           .json({ error: "You are not allowed to archive this pet." });
       }
 
-      const currentlyArchived = !!existing.isArchived;
+      const currentlyArchived = !!existing.archivedAt;
       const isSysAdmin = user.baseRole === Role.SYSADMIN;
 
       // If currently archived and someone tries to unarchive who is not sysadmin → block
@@ -296,7 +296,7 @@ function registerPetRoutes(app, prisma, { shapePet }) {
 
       const updated = await prisma.pet.update({
         where: { id },
-        data: { isArchived: !currentlyArchived },
+        data: { archivedAt: !currentlyArchived },
       });
 
       res.json(shapePet(updated));

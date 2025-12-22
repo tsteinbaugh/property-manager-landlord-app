@@ -82,7 +82,7 @@ function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
       const user = req.user || null;
 
       const where = {
-        ...(includeArchived ? {} : { isArchived: false }),
+        ...(includeArchived ? {} : { archivedAt: null }),
       };
 
       if (user && user.baseRole === Role.LANDLORD) {
@@ -150,7 +150,7 @@ function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
           name: t.name,
           email: t.email,
           phone: t.phone,
-          archived: t.isArchived,
+          archived: t.archivedAt,
           createdAt: t.createdAt,
           updatedAt: t.updatedAt,
         }));
@@ -423,7 +423,7 @@ function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
           .json({ error: "You are not allowed to archive this occupant." });
       }
 
-      const currentlyArchived = !!existing.isArchived;
+      const currentlyArchived = !!existing.archivedAt;
       const isSysAdmin = user.baseRole === Role.SYSADMIN;
 
       // If currently archived and someone tries to unarchive who is not sysadmin → block
@@ -435,7 +435,7 @@ function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
 
       const updated = await prisma.occupant.update({
         where: { id },
-        data: { isArchived: !currentlyArchived },
+        data: { archivedAt: !currentlyArchived },
       });
 
       res.json(shapeOccupant(updated));

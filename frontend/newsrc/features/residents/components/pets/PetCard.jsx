@@ -6,7 +6,7 @@ export default function PetCard({ pet, onClick }) {
   if (!pet) return null;
 
   const vm = useMemo(() => {
-    const isArchived = !!(pet.isArchived ?? pet.archived);
+    const isArchived = !!pet.archivedAt;
 
     const displayName =
       (pet.name && String(pet.name).trim()) || "Unnamed pet";
@@ -30,14 +30,14 @@ export default function PetCard({ pet, onClick }) {
   return (
     <button
       type="button"
-      className={`${ui.card} ${vm.isArchived ? ui.cardArchived : ""}`}
+      className={`${ui.card} ${vm.archivedAt ? ui.cardArchived : ""}`}
       onClick={onClick}
       aria-label={`Open pet ${vm.displayName}`}
     >
       <div className={ui.cardHeader}>
         <div className={ui.cardTitle}>{vm.displayName}</div>
 
-        {vm.isArchived ? (
+        {vm.archivedAt ? (
           <span className={`${ui.badge} ${ui.badgeArchived}`}>Archived</span>
         ) : (
           <span className={`${ui.badge} ${ui.badgeIdle}`}>Pet</span>

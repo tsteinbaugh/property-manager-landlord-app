@@ -53,10 +53,6 @@ function attachUser(prisma) {
         return next();
       }
 
-      if (user.isArchived || user.status === UserStatus.DISABLED) {
-        return next();
-      }
-
       // Keep req.user light and explicit
       req.user = {
         id: user.id,

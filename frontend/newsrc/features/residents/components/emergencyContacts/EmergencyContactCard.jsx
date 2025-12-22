@@ -6,7 +6,7 @@ export default function EmergencyContactCard({ emergencyContact, onClick }) {
   if (!emergencyContact) return null;
 
   const vm = useMemo(() => {
-    const isArchived = !!(emergencyContact.isArchived ?? emergencyContact.archived);
+    const isArchived = !!emergencyContact.archivedAt;
 
     const displayName =
       (emergencyContact.name && String(emergencyContact.name).trim()) ||
@@ -24,14 +24,14 @@ export default function EmergencyContactCard({ emergencyContact, onClick }) {
   return (
     <button
       type="button"
-      className={`${ui.card} ${vm.isArchived ? ui.cardArchived : ""}`}
+      className={`${ui.card} ${vm.archivedAt ? ui.cardArchived : ""}`}
       onClick={onClick}
       aria-label={`Open emergency contact ${vm.displayName}`}
     >
       <div className={ui.cardHeader}>
         <div className={ui.cardTitle}>{vm.displayName}</div>
 
-        {vm.isArchived ? (
+        {vm.archivedAt ? (
           <span className={`${ui.badge} ${ui.badgeArchived}`}>Archived</span>
         ) : (
           <span className={`${ui.badge} ${ui.badgeIdle}`}>Emergency contact</span>

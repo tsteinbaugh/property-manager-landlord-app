@@ -116,7 +116,7 @@ function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
       const user = req.user || null;
 
       const where = {
-        ...(includeArchived ? {} : { isArchived: false }),
+        ...(includeArchived ? {} : { archivedAt: null }),
       };
 
       if (user && user.baseRole === Role.LANDLORD) {
@@ -184,7 +184,7 @@ function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
           name: t.name,
           email: t.email,
           phone: t.phone,
-          archived: t.isArchived,
+          archived: t.archivedAt,
           createdAt: t.createdAt,
           updatedAt: t.updatedAt,
         }));
@@ -419,7 +419,7 @@ function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
           .json({ error: "You are not allowed to archive this vehicle." });
       }
 
-      const currentlyArchived = !!existing.isArchived;
+      const currentlyArchived = !!existing.archivedAt;
       const isSysAdmin = user.baseRole === Role.SYSADMIN;
 
       // If currently archived and someone tries to unarchive who is not sysadmin → block
@@ -431,7 +431,7 @@ function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
 
       const updated = await prisma.vehicle.update({
         where: { id },
-        data: { isArchived: !currentlyArchived },
+        data: { archivedAt: !currentlyArchived },
       });
 
       res.json(shapeVehicle(updated));

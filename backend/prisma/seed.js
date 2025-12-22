@@ -1,8 +1,20 @@
 // backend/prisma/seed.js
+require("dotenv").config();
+
 const { PrismaClient, Role } = require("@prisma/client");
+const { PrismaPg } = require("@prisma/adapter-pg");
+const { Pool } = require("pg");
 const bcrypt = require("bcryptjs");
 
-const prisma = new PrismaClient();
+// Prisma v7: use a Driver Adapter (instead of datasource url in schema)
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+});
+
+// IMPORTANT: pass adapter to PrismaClient
+const prisma = new PrismaClient({
+  adapter: new PrismaPg(pool),
+});
 
 /**
  * Bootstrap seed:
@@ -10,9 +22,6 @@ const prisma = new PrismaClient();
  *      email:    sysadmin@example.com
  *      password: password123
  *  - If users already exist, do nothing.
- *
- * Run with:
- *   npm run seed
  */
 async function main() {
   console.log("Bootstrapping database…");
@@ -50,5 +59,7 @@ main()
     process.exit(1);
   })
   .finally(async () => {
+    // disconnect prisma AND close the pg pool
     await prisma.$disconnect();
+    await pool.end();
   });

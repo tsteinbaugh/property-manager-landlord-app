@@ -103,7 +103,7 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
 
     try {
       const tenant = await prisma.tenant.findFirst({
-        where: { userId: user.id, isArchived: false },
+        where: { userId: user.id, archivedAt: null },
       });
 
       if (!tenant) return res.status(404).json({ error: "Tenant profile not found" });
@@ -150,7 +150,7 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
 
     try {
       const existing = await prisma.tenant.findFirst({
-        where: { userId: user.id, isArchived: false },
+        where: { userId: user.id, archivedAt: null },
       });
 
       if (!existing) return res.status(404).json({ error: "Tenant profile not found" });
@@ -330,10 +330,10 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
             orderBy: { startDate: "desc" },
             include: { lease: { include: { property: true } } },
           },
-          occupantLinks: { where: { occupant: { isArchived: false } }, include: { occupant: true } },
-          petLinks: { where: { pet: { isArchived: false } }, include: { pet: true } },
-          emergencyContactLinks: { where: { emergencyContact: { isArchived: false } }, include: { emergencyContact: true } },
-          vehicleLinks: { where: { vehicle: { isArchived: false } }, include: { vehicle: true } },
+          occupantLinks: { where: { occupant: { archivedAt: null } }, include: { occupant: true } },
+          petLinks: { where: { pet: { archivedAt: null } }, include: { pet: true } },
+          emergencyContactLinks: { where: { emergencyContact: { archivedAt: null } }, include: { emergencyContact: true } },
+          vehicleLinks: { where: { vehicle: { archivedAt: null } }, include: { vehicle: true } },
         },
       });
 
@@ -514,7 +514,7 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
               passwordHash,
               baseRole: Role.TENANT,
               status: UserStatus.INVITED,
-              isArchived: false,
+              archivedAt: null,
               createdById: authUser.id,
             },
           });
@@ -786,7 +786,7 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
         return res.status(403).json({ error: "You are not allowed to archive this tenant." });
       }
 
-      const currentlyArchived = !!existing.isArchived;
+      const currentlyArchived = !!existing.archivedAt;
       const isSysAdmin = user.baseRole === Role.SYSADMIN;
 
       if (currentlyArchived && !isSysAdmin) {
@@ -799,14 +799,14 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
 
       const updated = await prisma.tenant.update({
         where: { id },
-        data: { isArchived: nextArchived },
+        data: { archivedAt: nextArchived },
       });
 
       if (updated.userId) {
         try {
           await prisma.user.update({
             where: { id: updated.userId },
-            data: { isArchived: nextArchived },
+            data: { archivedAt: nextArchived },
           });
         } catch (userErr) {
           console.error("Error syncing Tenant archive state to User:", userErr);

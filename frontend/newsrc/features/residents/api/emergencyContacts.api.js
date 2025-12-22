@@ -4,13 +4,13 @@ import { apiFetch } from "@lib/apiClient.js";
 function mapEmergencyContactFromApi(e) {
   if (!e) return null;
 
-  const archived = !!(e.archived ?? e.isArchived);
+  const archived = !!(e.archived ?? e.archivedAt);
 
   const tenants = Array.isArray(e.tenants)
     ? e.tenants.map((t) => ({
         id: t.id,
         name: t.name,
-        archived: !!(t.archived ?? t.isArchived),
+        archived: !!(t.archived ?? t.archivedAt),
       }))
     : [];
 

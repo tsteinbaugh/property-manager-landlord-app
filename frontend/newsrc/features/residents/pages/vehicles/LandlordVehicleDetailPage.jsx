@@ -136,7 +136,7 @@ export default function LandlordVehicleDetailsPage() {
     };
   }, [vehicleId, token]);
 
-  const isArchived = !!(vehicle?.isArchived ?? vehicle?.archived);
+  const isArchived = !!vehicle?.archivedAt;
 
   const canEditNow = !isArchived || isSysAdmin;
   const canArchiveNow = !isArchived;
@@ -307,7 +307,7 @@ export default function LandlordVehicleDetailsPage() {
             {linkedTenants.map((t) => {
               if (!t?.id) return null;
 
-              const archived = !!(t.isArchived ?? t.archived);
+              const archived = !!t.archivedAt;
               const displayName = t.name || t.email || "Unnamed tenant";
 
               return (

@@ -4,13 +4,13 @@ import { apiFetch } from "@lib/apiClient.js";
 function mapVehicleFromApi(v) {
   if (!v) return null;
 
-  const archived = !!(v.archived ?? v.isArchived);
+  const archived = !!(v.archived ?? v.archivedAt);
 
   const tenants = Array.isArray(v.tenants)
     ? v.tenants.map((t) => ({
         id: t.id,
         name: t.name,
-        archived: !!(t.archived ?? t.isArchived),
+        archived: !!(t.archived ?? t.archivedAt),
       }))
     : [];
 

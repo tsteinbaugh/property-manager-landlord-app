@@ -4,7 +4,7 @@ import { apiFetch } from "@lib/apiClient.js";
 function mapPropertyFromApi(p) {
   if (!p) return null;
 
-  const archived = !!(p.archived ?? p.isArchived);
+  const archived = !!p.archivedAt;
 
   const address1 = p.address1 || "";
   const city = p.city || "";
@@ -31,7 +31,7 @@ function mapPropertyFromApi(p) {
     notes: p.notes || "",
 
     archived,
-    isArchived: p.isArchived ?? archived,
+    archivedAt: p.archivedAt,
     createdAt: p.createdAt || p.createdAtISO || null,
     updatedAt: p.updatedAt || p.updatedAtISO || null,
 
@@ -111,7 +111,7 @@ export const propertiesApi = {
 
       for (const l of byProperty) {
         const shouldBeArchived = mapped.archived;
-        const isArchived = !!l.archived || l.status === "ARCHIVED";
+        const isArchived = !!l.archivedAt;
         if (shouldBeArchived !== isArchived) {
           await leasesApi.toggleArchive(l.id, { token });
         }

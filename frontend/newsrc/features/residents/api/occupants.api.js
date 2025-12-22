@@ -4,13 +4,13 @@ import { apiFetch } from "@lib/apiClient.js";
 function mapOccupantFromApi(o) {
   if (!o) return null;
 
-  const archived = !!(o.archived ?? o.isArchived);
+  const archived = !!(o.archived ?? o.archivedAt);
 
   const tenants = Array.isArray(o.tenants)
     ? o.tenants.map((t) => ({
         id: t.id,
         name: t.name,
-        archived: !!(t.archived ?? t.isArchived),
+        archived: !!(t.archived ?? t.archivedAt),
       }))
     : [];
 

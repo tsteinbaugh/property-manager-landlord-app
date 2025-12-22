@@ -4,7 +4,7 @@ import { apiFetch } from "@lib/apiClient.js";
 function mapLeaseFromApi(o) {
   if (!o) return null;
 
-  const archived = !!(o.archived ?? o.isArchived);
+  const archived = !!(o.archived ?? o.archivedAt);
 
   const leaseTenants = Array.isArray(o.leaseTenants)
     ? o.leaseTenants.map((lt) => ({
@@ -26,7 +26,7 @@ function mapLeaseFromApi(o) {
     endDate: o.endDate || "",
 
     archived,
-    isArchived: o.isArchived ?? archived,
+    archivedAt: o.archivedAt,
     createdAt: o.createdAt || o.createdAtISO || null,
     updatedAt: o.updatedAt || o.updatedAtISO || null,
 

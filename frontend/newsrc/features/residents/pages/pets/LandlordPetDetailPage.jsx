@@ -121,7 +121,7 @@ export default function LandlordPetDetailsPage() {
     };
   }, [petId, token]);
 
-  const isArchived = !!(pet?.isArchived ?? pet?.archived);
+  const isArchived = !!pet?.archivedAt;
 
   const canEditNow = !isArchived || isSysAdmin;
   const canArchiveNow = !isArchived;
@@ -298,7 +298,7 @@ export default function LandlordPetDetailsPage() {
             {linkedTenants.map((t) => {
               if (!t?.id) return null;
 
-              const archived = !!(t.isArchived ?? t.archived);
+              const archived = !!t.archivedAt;
               const displayName = t.name || t.email || "Unnamed tenant";
 
               return (

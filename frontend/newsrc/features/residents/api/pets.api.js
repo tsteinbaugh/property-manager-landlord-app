@@ -4,13 +4,13 @@ import { apiFetch } from "@lib/apiClient.js";
 function mapPetFromApi(p) {
   if (!p) return null;
 
-  const archived = !!(p.archived ?? p.isArchived);
+  const archived = !!(p.archived ?? p.archivedAt);
 
   const tenants = Array.isArray(p.tenants)
     ? p.tenants.map((t) => ({
         id: t.id,
         name: t.name,
-        archived: !!(t.archived ?? t.isArchived),
+        archived: !!(t.archived ?? t.archivedAt),
       }))
     : [];
 

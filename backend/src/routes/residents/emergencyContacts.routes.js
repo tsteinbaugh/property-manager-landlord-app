@@ -124,7 +124,7 @@ function registerEmergencyContactRoutes(app, prisma, { shapeEmergencyContact }) 
       const user = req.user || null;
 
       const where = {
-        ...(includeArchived ? {} : { isArchived: false }),
+        ...(includeArchived ? {} : { archivedAt: null }),
       };
 
       if (user && user.baseRole === Role.LANDLORD) {
@@ -192,7 +192,7 @@ function registerEmergencyContactRoutes(app, prisma, { shapeEmergencyContact }) 
           name: t.name,
           email: t.email,
           phone: t.phone,
-          archived: t.isArchived,
+          archived: t.archivedAt,
           createdAt: t.createdAt,
           updatedAt: t.updatedAt,
         }));
@@ -500,7 +500,7 @@ function registerEmergencyContactRoutes(app, prisma, { shapeEmergencyContact }) 
           .json({ error: "You are not allowed to archive this emergencyContact." });
       }
 
-      const currentlyArchived = !!existing.isArchived;
+      const currentlyArchived = !!existing.archivedAt;
       const isSysAdmin = user.baseRole === Role.SYSADMIN;
 
       // If currently archived and someone tries to unarchive who is not sysadmin → block
@@ -512,7 +512,7 @@ function registerEmergencyContactRoutes(app, prisma, { shapeEmergencyContact }) 
 
       const updated = await prisma.emergencyContact.update({
         where: { id },
-        data: { isArchived: !currentlyArchived },
+        data: { archivedAt: !currentlyArchived },
       });
 
       res.json(shapeEmergencyContact(updated));

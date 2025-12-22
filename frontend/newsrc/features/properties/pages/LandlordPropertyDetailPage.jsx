@@ -5,7 +5,6 @@ import { useUser } from "@app/providers.jsx";
 import { apiFetch } from "@lib/apiClient.js";
 import { propertiesApi } from "@features/properties/api/properties.api.js";
 import { leasesApi } from "@features/leases/api/leases.api.js";
-import ArchiveButton from "@shared/ui/ArchiveButton.jsx";
 import { can } from "@lib/rbac/index.js";
 import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
 import { ROLES } from "@lib/rbac/roles.js";
@@ -267,7 +266,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
 
   const graph = useMemo(() => buildLinkageGraph(property), [property]);
 
-  const isArchived = !!property?.isArchived;
+  const isArchived = !!property?.archivedAt;
   const canEditNow = canUpdate && (!isArchived || isSysAdmin);
   const canArchiveNow = !isArchived && canArchiveGrant;
   const canUnarchiveNow = isArchived && isSysAdmin;
@@ -287,7 +286,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
   const handleToggleArchive = async () => {
     if (!property) return;
 
-    if (!property.isArchived) {
+    if (!property.archivedAt) {
       const ok = window.confirm(
         "Are you sure you want to archive this property?\n\n" +
           "It will be hidden from active lists. Only a system administrator can unarchive it."
@@ -427,7 +426,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
         {graph.leases.length ? (
           <div className={ui.grid}>
             {graph.leases.map(({ lease }) => {
-              const archived = !!(lease.isArchived ?? lease.archived);
+              const archived = !!lease.archivedAt;
               const label = leaseTitle(lease, title);
 
               return (
@@ -438,7 +437,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
                 >
                   <CardHeader
                     title={label}
-                    badgeText={lease.status || (archived ? "ARCHIVED" : "LEASE")}
+                    badgeText={archived ? "Archived" : (lease.status || "LEASE")}
                     badgeTone={archived ? "archived" : "idle"}
                   />
                   <div className={ui.cardBody}>
@@ -486,7 +485,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
         {graph.tenants.size ? (
           <div className={ui.grid}>
             {Array.from(graph.tenants.values()).map(({ tenant, viaLeases }) => {
-              const archived = !!(tenant.isArchived ?? tenant.archived);
+              const archived = !!tenant.archivedAt;
               const displayName = tenant.name || tenant.email || "Unnamed tenant";
 
               const uniqueLeases = [];
@@ -560,7 +559,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
         {graph.occupants.size ? (
           <div className={ui.grid}>
             {Array.from(graph.occupants.values()).map(({ entity, paths }) => {
-              const archived = !!(entity.isArchived ?? entity.archived);
+              const archived = !!entity.archivedAt;
               const displayName = entity.name || "Unnamed occupant";
               const first = paths?.[0];
               const firstLeaseTitle = first?.leaseTitle || leaseTitle(null, title);
@@ -617,7 +616,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
         {graph.pets.size ? (
           <div className={ui.grid}>
             {Array.from(graph.pets.values()).map(({ entity, paths }) => {
-              const archived = !!(entity.isArchived ?? entity.archived);
+              const archived = !!entity.archivedAt;
               const displayName = entity.name || "Unnamed pet";
               const first = paths?.[0];
               const firstLeaseTitle = first?.leaseTitle || leaseTitle(null, title);
@@ -675,7 +674,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
         {graph.emergencyContacts.size ? (
           <div className={ui.grid}>
             {Array.from(graph.emergencyContacts.values()).map(({ entity, paths }) => {
-              const archived = !!(entity.isArchived ?? entity.archived);
+              const archived = !!entity.archivedAt;
               const displayName = entity.name || "Unnamed emergency contact";
               const first = paths?.[0];
               const firstLeaseTitle = first?.leaseTitle || leaseTitle(null, title);
@@ -731,7 +730,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
         {graph.vehicles.size ? (
           <div className={ui.grid}>
             {Array.from(graph.vehicles.values()).map(({ entity, paths }) => {
-              const archived = !!(entity.isArchived ?? entity.archived);
+              const archived = !!entity.archivedAt;
               const label =
                 entity.permit ||
                 entity.plate ||

@@ -133,11 +133,6 @@ function FeaturesPage() {
       <h2 style={{ margin: "0 0 8px" }}>Home</h2>
 
       <section style={{ marginTop: 16 }}>
-        <h3 style={{ margin: "0 0 6px" }}>Properties</h3>
-        <Properties />
-      </section>
-
-      <section style={{ marginTop: 16 }}>
         <MaintenanceTicketList propertyId="prop-123" />
       </section>
 

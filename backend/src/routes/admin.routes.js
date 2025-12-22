@@ -29,7 +29,6 @@ function shapeUser(u) {
     name: u.name || "",
     baseRole: u.baseRole,
     status: u.status,
-    archived: !!u.isArchived,
     createdAt: u.createdAt,
     updatedAt: u.updatedAt,
   };
@@ -37,7 +36,7 @@ function shapeUser(u) {
 
 /**
  * Admin routes:
- * - /api/admin/users (CRUD + archive)
+ * - /api/admin/users (CRUD)
  * - /api/admin/invites
  * - /api/admin/overview
  */
@@ -46,15 +45,10 @@ function registerAdminRoutes(app, prisma, { FRONTEND_ORIGIN }) {
   // ADMIN USERS
   // ===================================================================
 
-  // GET /api/admin/users?includeArchived=0|1
+  // GET /api/admin/users
   app.get("/api/admin/users", async (req, res) => {
-    const includeArchived =
-      req.query.includeArchived === "1" ||
-      req.query.includeArchived === "true";
-
     try {
       const users = await prisma.user.findMany({
-        where: includeArchived ? {} : { isArchived: false },
         orderBy: { createdAt: "desc" },
       });
 
@@ -91,7 +85,7 @@ function registerAdminRoutes(app, prisma, { FRONTEND_ORIGIN }) {
 
       const created = await prisma.user.create({
         data: {
-          email: email.trim(),
+          email: email.trim().toLowerCase(),
           name: name?.trim() || null,
           passwordHash: hashed,
           baseRole: normalizedRole,
@@ -180,47 +174,6 @@ function registerAdminRoutes(app, prisma, { FRONTEND_ORIGIN }) {
     }
   });
 
-  // PATCH /api/admin/users/:id/archive - toggle isArchived
-  app.patch("/api/admin/users/:id/archive", async (req, res) => {
-    const { id } = req.params;
-
-    try {
-      const existing = await prisma.user.findUnique({ where: { id } });
-      if (!existing) {
-        return res.status(404).json({ error: "User not found" });
-      }
-
-      const nextArchived = !existing.isArchived;
-
-      // If we're about to archive a SYSADMIN, ensure it's not the last active one
-      if (nextArchived && existing.baseRole === Role.SYSADMIN) {
-        const otherActiveSysadmins = await prisma.user.count({
-          where: {
-            id: { not: id },
-            baseRole: Role.SYSADMIN,
-            isArchived: false,
-          },
-        });
-
-        if (otherActiveSysadmins === 0) {
-          return res.status(400).json({
-            error: "Cannot archive the last active system administrator.",
-          });
-        }
-      }
-
-      const updated = await prisma.user.update({
-        where: { id },
-        data: { isArchived: nextArchived },
-      });
-
-      res.json(shapeUser(updated));
-    } catch (err) {
-      console.error("Error in PATCH /api/admin/users/:id/archive", err);
-      res.status(500).json({ error: "Server error" });
-    }
-  });
-
   // DELETE /api/admin/users/:id
   app.delete("/api/admin/users/:id", async (req, res) => {
     const { id } = req.params;
@@ -237,7 +190,7 @@ function registerAdminRoutes(app, prisma, { FRONTEND_ORIGIN }) {
           where: {
             id: { not: id },
             baseRole: Role.SYSADMIN,
-            isArchived: false,
+            status: { not: UserStatus.DISABLED },
           },
         });
 
@@ -296,7 +249,6 @@ function registerAdminRoutes(app, prisma, { FRONTEND_ORIGIN }) {
             passwordHash: tempPasswordHash,
             baseRole: normalizedRole,
             status: UserStatus.INVITED,
-            isArchived: false,
             // NEW: who created this invited user
             createdById: authUser ? authUser.id : null,
           },
@@ -309,7 +261,6 @@ function registerAdminRoutes(app, prisma, { FRONTEND_ORIGIN }) {
             data: {
               baseRole: normalizedRole,
               status: UserStatus.INVITED,
-              isArchived: false,
               // Do NOT touch createdById here; keep original creator
             },
           });

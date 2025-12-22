@@ -14,7 +14,7 @@ export default function OccupantCard({ occupant, onClick }) {
       displayName: name,
       relation: occupant.relation || "",
       tenantName: occupant.tenantName || "",
-      isArchived: !!(occupant.isArchived ?? occupant.archived),
+      isArchived: !!occupant.archivedAt,
     };
   }, [occupant]);
 

@@ -185,7 +185,7 @@ function shapeLease(lease) {
                 name: lt.tenant.name,
                 email: lt.tenant.email,
                 phone: lt.tenant.phone,
-                archived: lt.tenant.isArchived,
+                archived: lt.tenant.archivedAt,
               }
             : null,
         }))
@@ -224,7 +224,7 @@ function shapeTenant(t) {
     creditScore: t.creditScore,
     violations: t.violations,
     notes: t.notes,
-    archived: t.isArchived,
+    archived: t.archivedAt,
     createdAt: t.createdAt,
     updatedAt: t.updatedAt,
   };
@@ -248,7 +248,7 @@ function shapeOccupant(o) {
     markings: o.markings,
     violations: o.violations,
     notes: o.notes,
-    archived: o.isArchived,
+    archived: o.archivedAt,
     createdAt: o.createdAt,
     updatedAt: o.updatedAt,
   };
@@ -265,7 +265,7 @@ function shapePet(p) {
     license: p.license,
     notes: p.notes,
     violations: p.violations,
-    archived: p.isArchived,
+    archived: p.archivedAt,
     createdAt: p.createdAt,
     updatedAt: p.updatedAt,
   };
@@ -283,7 +283,7 @@ function shapeEmergencyContact(e) {
     postalCode: e.postalCode,
     relation: e.relation,
     notes: e.notes,
-    archived: e.isArchived,
+    archived: e.archivedAt,
     createdAt: e.createdAt,
     updatedAt: e.updatedAt,
   };
@@ -302,7 +302,7 @@ function shapeVehicle(v) {
     parking: v.parking,
     notes: v.notes,
     violations: v.violations,
-    archived: v.isArchived,
+    archived: v.archivedAt,
     createdAt: v.createdAt,
     updatedAt: v.updatedAt,
   };

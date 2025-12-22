@@ -4,7 +4,7 @@ import { apiFetch } from "@lib/apiClient.js";
 function mapTenantFromApi(t) {
   if (!t) return null;
 
-  const archived = !!(t.archived ?? t.isArchived);
+  const archived = !!(t.archived ?? t.archivedAt);
 
   const leaseTenants = Array.isArray(t.leaseTenants) ? t.leaseTenants : [];
 
@@ -20,7 +20,7 @@ function mapTenantFromApi(t) {
               ? {
                   id: o.id,
                   name: o.name,
-                  archived: !!(o.isArchived ?? o.archived),
+                  archived: !!o.archivedAt,
                 }
               : null,
           };
@@ -39,7 +39,7 @@ function mapTenantFromApi(t) {
               ? {
                   id: p.id,
                   name: p.name,
-                  archived: !!(p.isArchived ?? p.archived),
+                  archived: !!p.archivedAt,
                 }
               : null,
           };
@@ -60,7 +60,7 @@ function mapTenantFromApi(t) {
               ? {
                   id: e.id,
                   name: e.name,
-                  archived: !!(e.isArchived ?? e.archived),
+                  archived: !!e.archivedAt,
                 }
               : null,
           };
@@ -84,7 +84,7 @@ function mapTenantFromApi(t) {
                   state: v.state,
                   plate: v.plate,
                   permit: v.permit,
-                  archived: !!(v.isArchived ?? v.archived),
+                  archived: !!v.archivedAt,
                 }
               : null,
           };
@@ -118,7 +118,7 @@ function mapTenantFromApi(t) {
     violations: t.violations ?? "",
     
     archived,
-    isArchived: t.isArchived ?? archived,
+    archivedAt: t.archivedAt,
 
     // used by the Properties/Leases sections
     leaseTenants,

@@ -120,7 +120,7 @@ export default function LandlordEmergencyContactDetailsPage() {
     };
   }, [emergencyContactId, token]);
 
-  const isArchived = !!(emergencyContact?.isArchived ?? emergencyContact?.archived);
+  const isArchived = !!emergencyContact?.archivedAt;
 
   const canEditNow = !isArchived || isSysAdmin;
   const canArchiveNow = !isArchived;
@@ -298,7 +298,7 @@ export default function LandlordEmergencyContactDetailsPage() {
             {linkedTenants.map((t) => {
               if (!t?.id) return null;
 
-              const archived = !!(t.isArchived ?? t.archived);
+              const archived = !!t.archivedAt;
               const displayName = t.name || t.email || "Unnamed tenant";
 
               return (

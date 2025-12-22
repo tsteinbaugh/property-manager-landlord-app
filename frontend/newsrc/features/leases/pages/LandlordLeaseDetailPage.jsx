@@ -199,8 +199,7 @@ export default function LandlordLeaseDetailPage() {
   }, [leaseId, token]);
 
   const isArchived = useMemo(() => {
-    const status = (lease?.status || "").toUpperCase();
-    return !!(lease?.archived ?? lease?.isArchived) || status === "ARCHIVED";
+    return !!lease?.archivedAt;
   }, [lease]);
 
   const canEditNow = canUpdate && (!isArchived || isSysAdmin);
@@ -467,11 +466,11 @@ export default function LandlordLeaseDetailPage() {
         </div>
 
         {property ? (
-          <Card onClick={() => navigate(`/landlord/properties/${property.id}`)} archived={!!property.isArchived}>
+          <Card onClick={() => navigate(`/landlord/properties/${property.id}`)} archived={!!property.archivedAt}>
             <CardHeader
               title={property.name || property.address1 || "Property"}
-              badgeText={property.isArchived ? "Archived" : "Property"}
-              badgeTone={property.isArchived ? "archived" : "idle"}
+              badgeText={property.archivedAt ? "Archived" : "Property"}
+              badgeTone={property.archivedAt ? "archived" : "idle"}
             />
             <div className={ui.cardBody}>
               <div>
@@ -525,7 +524,7 @@ export default function LandlordLeaseDetailPage() {
             {leaseTenants.map((lt) => {
               const t = tenantById.get(lt.tenantId) || null;
               const displayName = t?.name || lt.tenantName || "(unnamed tenant)";
-              const archived = !!(t?.isArchived ?? t?.archived);
+              const archived = !!t?.archivedAt;
 
               return (
                 <Card
@@ -588,7 +587,7 @@ export default function LandlordLeaseDetailPage() {
         ) : pooled.occupants.length ? (
           <div className={ui.grid}>
             {pooled.occupants.map((o) => {
-              const archived = !!(o.isArchived ?? o.archived);
+              const archived = !!o.archivedAt;
               const displayName = o.name || "Unnamed occupant";
               return (
                 <Card key={o.id} archived={archived} onClick={() => navigate(`/landlord/occupants/${o.id}`)}>
@@ -626,7 +625,7 @@ export default function LandlordLeaseDetailPage() {
         ) : pooled.pets.length ? (
           <div className={ui.grid}>
             {pooled.pets.map((p) => {
-              const archived = !!(p.isArchived ?? p.archived);
+              const archived = !!p.archivedAt;
               const displayName = p.name || "Unnamed pet";
               return (
                 <Card key={p.id} archived={archived} onClick={() => navigate(`/landlord/pets/${p.id}`)}>
@@ -664,7 +663,7 @@ export default function LandlordLeaseDetailPage() {
         ) : pooled.emergencyContacts.length ? (
           <div className={ui.grid}>
             {pooled.emergencyContacts.map((e) => {
-              const archived = !!(e.isArchived ?? e.archived);
+              const archived = !!e.archivedAt;
               const displayName = e.name || "Unnamed emergency contact";
               return (
                 <Card key={e.id} archived={archived} onClick={() => navigate(`/landlord/emergencyContacts/${e.id}`)}>
@@ -702,7 +701,7 @@ export default function LandlordLeaseDetailPage() {
         ) : pooled.vehicles.length ? (
           <div className={ui.grid}>
             {pooled.vehicles.map((v) => {
-              const archived = !!(v.isArchived ?? v.archived);
+              const archived = !!v.archivedAt;
               const label =
                 v.permit ||
                 v.plate ||

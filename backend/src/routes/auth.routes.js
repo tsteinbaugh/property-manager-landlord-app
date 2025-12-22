@@ -230,7 +230,7 @@ function registerAuthRoutes(app, prisma, { FRONTEND_ORIGIN }) {
           name: name && name.trim() ? name.trim() : authToken.user.name,
           passwordHash: hash,
           status: UserStatus.ACTIVE,
-          isArchived: false,
+          archivedAt: null,
         },
       });
 
@@ -273,7 +273,7 @@ function registerAuthRoutes(app, prisma, { FRONTEND_ORIGIN }) {
       });
 
       // Always respond with generic success to avoid leaking which emails exist
-      if (!user || user.isArchived || user.status === UserStatus.DISABLED) {
+      if (!user || user.status === UserStatus.DISABLED) {
         return res.json({ ok: true });
       }
 

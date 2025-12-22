@@ -159,7 +159,7 @@ export default function LandlordTenantDetailPage() {
     };
   }, [tenantId, token]);
 
-  const isArchived = !!(tenant?.isArchived ?? tenant?.archived);
+  const isArchived = !!tenant?.archivedAt;
   const title = tenant?.name || tenant?.email || "Tenant";
 
   const canEditNow = canUpdate && (!isArchived || isSysAdmin);
@@ -210,7 +210,7 @@ export default function LandlordTenantDetailPage() {
   const handleToggleArchive = async () => {
     if (!tenant?.id) return;
 
-    const currentlyArchived = !!(tenant.isArchived ?? tenant.archived);
+    const currentlyArchived = !!tenant.archivedAt;
 
     if (!currentlyArchived) {
       const ok = window.confirm(
@@ -444,7 +444,7 @@ export default function LandlordTenantDetailPage() {
         {leaseItems.length ? (
           <div className={ui.grid}>
             {leaseItems.map(({ lt, lease }) => {
-              const archived = !!(lease.isArchived ?? lease.archived);
+              const archived = !!lease.archivedAt;
               const label = leaseLabel(lease);
 
               const property = lease?.property || null;
@@ -514,7 +514,7 @@ export default function LandlordTenantDetailPage() {
         {propertyGroups.length ? (
           <div className={ui.grid}>
             {propertyGroups.map(({ property, leases }) => {
-              const archived = !!(property.isArchived ?? property.archived);
+              const archived = !!property.archivedAt;
               const label = property.name || property.address1 || property.address || "Property";
               const line2 =
                 property.city || property.state || property.postalCode
@@ -590,7 +590,7 @@ export default function LandlordTenantDetailPage() {
               const o = link?.occupant;
               if (!o?.id) return null;
 
-              const archived = !!(o.isArchived ?? o.archived);
+              const archived = !!o.archivedAt;
               const name = o.name || "Unnamed occupant";
 
               return (
@@ -649,7 +649,7 @@ export default function LandlordTenantDetailPage() {
               const p = link?.pet;
               if (!p?.id) return null;
 
-              const archived = !!(p.isArchived ?? p.archived);
+              const archived = !!p.archivedAt;
               const name = p.name || "Unnamed pet";
 
               return (
@@ -708,7 +708,7 @@ export default function LandlordTenantDetailPage() {
               const e = link?.emergencyContact;
               if (!e?.id) return null;
 
-              const archived = !!(e.isArchived ?? e.archived);
+              const archived = !!e.archivedAt;
               const name = e.name || "Unnamed emergency contact";
 
               return (
@@ -767,7 +767,7 @@ export default function LandlordTenantDetailPage() {
               const v = link?.vehicle;
               if (!v?.id) return null;
 
-              const archived = !!(v.isArchived ?? v.archived);
+              const archived = !!v.archivedAt;
               const label =
                 v.permit ||
                 v.plate ||

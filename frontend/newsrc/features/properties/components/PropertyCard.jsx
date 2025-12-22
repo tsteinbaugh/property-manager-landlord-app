@@ -17,12 +17,9 @@ export default function PropertyCard({ property, onClick }) {
     line1,
     line2,
     activeLease,
-    tenantCount,
-    rentLabel,
-    leaseDates,
     isArchived,
   } = useMemo(() => {
-    const isArchived = !!(property.isArchived ?? property.archived);
+    const isArchived = !!property.archivedAt;
 
     // Support BOTH shapes:
     // - old: property.address = { street, city, state, postalCode }
@@ -57,15 +54,6 @@ export default function PropertyCard({ property, onClick }) {
       (street && street.trim()) ||
       "Unnamed property";
 
-    const tenantCount = property.tenantCount ?? (Array.isArray(property.tenants) ? property.tenants.length : 0);
-
-    const rentLabel = activeLease ? moneyLabel(activeLease.rentAmount) : null;
-
-    const leaseDates =
-      activeLease && (activeLease.startDate || activeLease.endDate)
-        ? `${activeLease.startDate || "—"} → ${activeLease.endDate || "—"}`
-        : null;
-
     const line1 = street || "—";
     const line2 = [city, state, postalCode].filter(Boolean).join(", ");
 
@@ -74,9 +62,6 @@ export default function PropertyCard({ property, onClick }) {
       line1,
       line2,
       activeLease,
-      tenantCount,
-      rentLabel,
-      leaseDates,
       isArchived,
     };
   }, [property]);

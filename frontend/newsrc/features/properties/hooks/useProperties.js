@@ -44,7 +44,7 @@ export function useProperties({
           state,
           postalCode,
           address: `${address1}, ${city}, ${state} ${postalCode}`.trim(),
-          archived: !!p.isArchived,
+          archived: !!p.archivedAt,
         };
       });
 
@@ -79,7 +79,7 @@ export function useProperties({
             p.id === id
               ? {
                   ...p,
-                  archived: !!updated.isArchived,
+                  archived: !!updated.archivedAt,
                 }
               : p
           )

@@ -14,7 +14,7 @@ export default function LeaseCard({ lease, onClick }) {
 
   const vm = useMemo(() => {
     const status = (lease.status || "").toUpperCase();
-    const isArchived = !!(lease.archived ?? lease.isArchived) || status === "ARCHIVED";
+    const isArchived = !!lease.archivedAt;
 
     const start = lease.startDate || "—";
     const end = lease.endDate || "—";
@@ -53,7 +53,7 @@ export default function LeaseCard({ lease, onClick }) {
   return (
     <button
       type="button"
-      className={`${card.card} ${vm.isArchived ? card.cardArchived : ""}`}
+      className={`${card.card} ${vm.archivedAt ? card.cardArchived : ""}`}
       onClick={onClick}
       aria-label={`Open lease ${vm.title}`}
     >

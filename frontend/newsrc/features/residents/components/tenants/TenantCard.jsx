@@ -23,7 +23,7 @@ export default function TenantCard({ tenant, onClick }) {
         petsCount: pets,
         occupantsCount: occs,
         emergencyContactsCount: ecs,
-        isArchived: !!(tenant.isArchived ?? tenant.archived),
+        isArchived: !!tenant.archivedAt,
       };
     }, [tenant]);
 
