@@ -2,9 +2,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
-import styles from "../tenants/LandlordTenantsPage.module.css";
+import styles from "@shared/styles/LandlordPage.module.css";
 import { emergencyContactsApi } from "@features/residents/api/emergencyContacts.api.js";
-import { tenantsApi } from "@features/residents/api/tenants.api.js";
+import { tenantsApi } from "@features/tenants/api/tenants.api.js";
 
 const US_STATES = new Map([
   ["ALABAMA","AL"],["ALASKA","AK"],["ARIZONA","AZ"],["ARKANSAS","AR"],

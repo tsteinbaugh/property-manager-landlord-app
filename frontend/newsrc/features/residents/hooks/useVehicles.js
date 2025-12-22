@@ -1,6 +1,6 @@
 // newsrc/features/residents/hooks/useAllVehicles.js
 import { useCallback, useEffect, useState } from "react";
-import { tenantsApi } from "@features/residents/api/tenants.api.js";
+import { tenantsApi } from "@features/tenants/api/tenants.api.js";
 import { vehiclesApi } from "@features/residents/api/vehicles.api.js";
 import { useUser } from "@app/providers.jsx";
 

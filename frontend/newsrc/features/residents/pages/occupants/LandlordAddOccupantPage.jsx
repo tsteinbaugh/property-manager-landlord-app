@@ -2,9 +2,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
-import styles from "../tenants/LandlordTenantsPage.module.css";
+import styles from "@shared/styles/LandlordPage.module.css";
 import { occupantsApi } from "@features/residents/api/occupants.api.js";
-import { tenantsApi } from "@features/residents/api/tenants.api.js";
+import { tenantsApi } from "@features/tenants/api/tenants.api.js";
 
 function normalizeEmail(input) {
   return typeof input === "string" ? input.trim().toLowerCase() : "";
@@ -256,13 +256,13 @@ export default function LandlordAddOccupantPage() {
     if (cleanName.length < 2) return setFormError("Name must be at least 2 characters.");
     if (!/^[a-zA-Z\s.'-]+$/.test(cleanName)) return setFormError("Name contains invalid characters.");
 
-    if (!cleanPhone || !isValidPhone(cleanPhone)) return setFormError("Valid phone number is required.");
-    if (!cleanEmail || !isValidEmail(cleanEmail)) return setFormError("Valid email is required.");
+    if (cleanPhone && !isValidPhone(cleanPhone)) return setFormError("Phone number is invalid.");
+    if (cleanEmail && !isValidEmail(cleanEmail)) return setFormError("Email is invalid.");
 
     const payload = {
       name: cleanName,
-      phone: cleanPhone,
-      email: cleanEmail,
+      phone: cleanPhone || null,
+      email: cleanEmail || null,
       relation: trimOrEmpty(relation) || null,
       age: age ? Number(age) : null,
       heightFeet: heightFeet ? Number(heightFeet) : null,
@@ -348,8 +348,8 @@ export default function LandlordAddOccupantPage() {
     const cleanPhone = normalizePhone(phone);
 
     if (!cleanName) return setFormError("Name is required.");
-    if (!cleanPhone || !isValidPhone(cleanPhone)) return setFormError("Valid phone number is required.");
-    if (!cleanEmail || !isValidEmail(cleanEmail)) return setFormError("Valid email is required.");
+    if (cleanPhone && !isValidPhone(cleanPhone)) return setFormError("Phone number is invalid.");
+    if (cleanEmail && !isValidEmail(cleanEmail)) return setFormError("Email is invalid.");
 
     try {
       setSubmitting(true);
@@ -358,8 +358,8 @@ export default function LandlordAddOccupantPage() {
       const created = await occupantsApi.create(
         {
           name: cleanName,
-          phone: cleanPhone,
-          email: cleanEmail,
+          phone: cleanPhone || null,
+          email: cleanEmail || null,
           relation: trimOrEmpty(relation) || null,
           age: age ? Number(age) : null,
           heightFeet: heightFeet ? Number(heightFeet) : null,
@@ -567,11 +567,6 @@ export default function LandlordAddOccupantPage() {
                   }}
                   disabled={isSubmitting}
                 />
-                {touched.phone && trimOrEmpty(phone) && !isValidPhone(normalizePhone(phone)) && (
-                  <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>
-                    Enter a valid phone number (e.g. 303-555-1212 or +13035551212)
-                  </div>
-                )}
               </div>
 
               {/* Email */}
@@ -600,11 +595,6 @@ export default function LandlordAddOccupantPage() {
                   }}
                   disabled={isSubmitting}
                 />
-                {touched.email && trimOrEmpty(email) && !isValidEmail(normalizeEmail(email)) && (
-                  <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>
-                    Enter a valid email (e.g. john.doe@example.com)
-                  </div>
-                )}
               </div>
 
               {/* Relation */}
@@ -1081,11 +1071,6 @@ export default function LandlordAddOccupantPage() {
               }}
               disabled={isSubmitting}
             />
-            {touched.phone && trimOrEmpty(phone) && !isValidPhone(normalizePhone(phone)) && (
-              <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>
-                Enter a valid phone number (e.g. 303-555-1212 or +13035551212)
-              </div>
-            )}
           </div>
           {/* Email */}
           <div style={{ marginBottom: 12 }}>
@@ -1113,11 +1098,6 @@ export default function LandlordAddOccupantPage() {
               }}
               disabled={isSubmitting}
             />
-            {touched.email && trimOrEmpty(email) && !isValidEmail(normalizeEmail(email)) && (
-              <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>
-                Enter a valid email (e.g. john.doe@example.com)
-              </div>
-            )}
           </div>
 
           {/* Relation */}

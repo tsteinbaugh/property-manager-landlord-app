@@ -406,12 +406,11 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
               ) : null}
             </div>
 
-            <div>
-              Beds: {property.bedrooms ?? "—"} · Baths: {property.bathrooms ?? "—"} · Sqft:{" "}
-              {property.sqft ?? "—"} · Year: {property.yearBuilt ?? "—"}
-            </div>
-
-            {property.notes ? <div>Notes: {property.notes}</div> : <div className={ui.muted}>No notes.</div>}
+            {property.bedrooms ? <div>Bedrooms: {property.bedrooms}</div> : null}
+            {property.bathrooms ? <div>Bathrooms: {property.bathrooms}</div> : null}
+            {property.sqft ? <div>Size: {property.sqft} square feet</div> : null}
+            {property.yearBuilt ? <div>Year built: {property.yearBuilt}</div> : null}
+            {property.notes ? <div>Notes: {property.notes}</div> : null}
           </div>
         </Card>
       </div>

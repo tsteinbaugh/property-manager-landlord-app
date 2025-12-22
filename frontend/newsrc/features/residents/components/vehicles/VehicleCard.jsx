@@ -1,6 +1,6 @@
 // newsrc/features/residents/components/vehicleCard.jsx
 import React from "react";
-import styles from "@features/residents/components/tenants/TenantCard.module.css";
+import styles from "@shared/styles/CardLayout.module.css";
 
 export default function vehicleCard({ vehicle, onClick, onToggleArchive }) {
   if (!vehicle) return null;

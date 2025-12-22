@@ -46,8 +46,8 @@ import LandlordLeaseDetailPage from "@features/leases/pages/LandlordLeaseDetailP
 ////Residents
 //////Tenants
 import LandlordResidentsPage from "@features/residents/pages/LandlordResidentsPage.jsx";
-import LandlordAddTenantPage from "@features/residents/pages/tenants/LandlordAddTenantPage.jsx";
-import LandlordTenantDetailPage from "@features/residents/pages/tenants/LandlordTenantDetailPage.jsx";
+import LandlordAddTenantPage from "@features/tenants/pages/LandlordAddTenantPage.jsx";
+import LandlordTenantDetailPage from "@features/tenants/pages/LandlordTenantDetailPage.jsx";
 //////Occupants
 import LandlordAddOccupantPage from "@features/residents/pages/occupants/LandlordAddOccupantPage.jsx";
 import LandlordOccupantDetailPage from "@features/residents/pages/occupants/LandlordOccupantDetailPage.jsx";
@@ -62,7 +62,7 @@ import LandlordAddVehiclePage from "@features/residents/pages/vehicles/LandlordA
 import LandlordVehicleDetailPage from "@features/residents/pages/vehicles/LandlordVehicleDetailPage.jsx";
 
 // Tenant flows
-import TenantHomePage from "@features/residents/pages/tenants/TenantHomePage.jsx";
+import TenantHomePage from "@features/tenants/pages/TenantUserHomePage.jsx";
 
 // Admin pages
 import AdminLayout from "@features/admin/pages/AdminLayout.jsx";

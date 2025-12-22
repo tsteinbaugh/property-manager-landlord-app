@@ -2,9 +2,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
-import styles from "../tenants/LandlordTenantsPage.module.css";
+import styles from "@shared/styles/LandlordPage.module.css";
 import { petsApi } from "@features/residents/api/pets.api.js";
-import { tenantsApi } from "@features/residents/api/tenants.api.js";
+import { tenantsApi } from "@features/tenants/api/tenants.api.js";
 
 function trimOrEmpty(v) {
   return typeof v === "string" ? v.trim() : "";

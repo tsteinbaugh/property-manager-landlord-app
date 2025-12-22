@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
 import { leasesApi } from "@features/leases/api/leases.api.js";
-import { tenantsApi } from "@features/residents/api/tenants.api.js";
+import { tenantsApi } from "@features/tenants/api/tenants.api.js";
 import { can } from "@lib/rbac/index.js";
 import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
 import { ROLES } from "@lib/rbac/roles.js";

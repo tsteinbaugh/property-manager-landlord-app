@@ -4,7 +4,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
 import { propertiesApi } from "@features/properties/api/properties.api.js";
 import { leasesApi } from "@features/leases/api/leases.api.js";
-import styles from "./LandlordPropertiesPage.module.css";
+import styles from "@shared/styles/LandlordPage.module.css";
 
 const US_STATES = new Map([
   ["ALABAMA", "AL"],
@@ -172,7 +172,6 @@ export default function LandlordAddPropertyPage() {
   const [formError, setFormError] = useState("");
 
   const [touched, setTouched] = useState({
-    name: false,
     address1: false,
     city: false,
     state: false,
@@ -246,14 +245,12 @@ export default function LandlordAddPropertyPage() {
 
     setTouched((t) => ({
       ...t,
-      name: true,
       address1: true,
       city: true,
       state: true,
       postalCode: true,
     }));
 
-    if (!trimOrEmpty(name)) return setFormError("Name is required.");
     if (!trimOrEmpty(address1)) return setFormError("Address is required.");
     if (!trimOrEmpty(city)) return setFormError("City is required.");
 
@@ -264,7 +261,7 @@ export default function LandlordAddPropertyPage() {
     if (!zipNormalized) return setFormError("Zip must be 12345 or 12345-6789.");
 
     const payload = {
-      name: trimOrEmpty(name),
+      name: trimOrEmpty(name) || null,
       address1: trimOrEmpty(address1),
       city: trimOrEmpty(city),
       state: stateCode || null,
@@ -429,7 +426,7 @@ export default function LandlordAddPropertyPage() {
               htmlFor="name"
               style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
             >
-              Property name <span style={{ color: "#b91c1c" }}>*</span>
+              Property name
             </label>
             <input
               id="name"
@@ -437,7 +434,7 @@ export default function LandlordAddPropertyPage() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               onBlur={() => setTouched((t) => ({ ...t, name: true }))}
-              placeholder="Name (required)"
+              placeholder="Name"
               style={{
                 width: "100%",
                 padding: "6px 8px",
@@ -446,11 +443,6 @@ export default function LandlordAddPropertyPage() {
               }}
               disabled={isSubmitting}
             />
-            {touched.name && !trimOrEmpty(name) && (
-              <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>
-                Enter a property name
-              </div>
-            )}
           </div>
 
           {/* Address */}

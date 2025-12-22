@@ -3,19 +3,19 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { useUser } from "@app/providers.jsx";
-import { tenantsApi } from "@features/residents/api/tenants.api.js";
+import { tenantsApi } from "@features/tenants/api/tenants.api.js";
 import { occupantsApi } from "@features/residents/api/occupants.api.js";
 import { petsApi } from "@features/residents/api/pets.api.js";
 import { emergencyContactsApi } from "@features/residents/api/emergencyContacts.api.js";
 import { vehiclesApi } from "@features/residents/api/vehicles.api.js";
 
-import TenantCard from "@features/residents/components/tenants/TenantCard.jsx";
+import TenantCard from "@features/tenants/components/TenantCard.jsx";
 import OccupantCard from "../components/occupants/OccupantCard";
 import PetCard from "../components/pets/PetCard";
 import EmergencyContactCard from "../components/emergencyContacts/EmergencyContactCard";
 import VehicleCard from "../components/vehicles/VehicleCard";
 
-import styles from "@features/residents/pages/tenants/LandlordTenantsPage.module.css";
+import styles from "@shared/styles/LandlordPage.module.css";
 
 export default function LandlordResidentsPage() {
   const navigate = useNavigate();

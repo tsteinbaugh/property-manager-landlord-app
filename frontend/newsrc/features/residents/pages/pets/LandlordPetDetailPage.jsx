@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
 import { petsApi } from "@features/residents/api/pets.api.js";
-import { tenantsApi } from "@features/residents/api/tenants.api.js";
+import { tenantsApi } from "@features/tenants/api/tenants.api.js";
 import { ROLES } from "@lib/rbac/roles.js";
 
 import ui from "@shared/styles/CardLayout.module.css";

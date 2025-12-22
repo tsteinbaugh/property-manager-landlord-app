@@ -103,7 +103,7 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
 
     try {
       const tenant = await prisma.tenant.findFirst({
-        where: { userId: user.id, archivedAt: null },
+        where: { userId: user.id },
       });
 
       if (!tenant) return res.status(404).json({ error: "Tenant profile not found" });
@@ -514,7 +514,6 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
               passwordHash,
               baseRole: Role.TENANT,
               status: UserStatus.INVITED,
-              archivedAt: null,
               createdById: authUser.id,
             },
           });

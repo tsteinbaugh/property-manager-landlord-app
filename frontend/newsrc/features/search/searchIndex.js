@@ -1,6 +1,6 @@
 // newsrc/features/search/searchIndex.js
 import { propertiesApi } from "@features/properties/api/properties.api.js";
-import { tenantsApi } from "@features/residents/api/tenants.api.js";
+import { tenantsApi } from "@features/tenants/api/tenants.api.js";
 import { occupantsApi } from "@features/residents/api/occupants.api.js";
 import { petsApi } from "@features/residents/api/pets.api.js";
 import { emergencyContactsApi } from "@features/residents/api/emergencyContacts.api.js";

@@ -1,6 +1,6 @@
 // newsrc/features/residents/hooks/useAllPets.js
 import { useCallback, useEffect, useState } from "react";
-import { tenantsApi } from "@features/residents/api/tenants.api.js";
+import { tenantsApi } from "@features/tenants/api/tenants.api.js";
 import { petsApi } from "@features/residents/api/pets.api.js";
 import { useUser } from "@app/providers.jsx";
 

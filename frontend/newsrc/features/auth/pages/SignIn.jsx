@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import css from "../SignCard.module.css";
+import css from "../SignInCard.module.css";
 import buttonCss from "../../../shared/styles/Buttons.module.css"; // if you have it
 import React from "react";
 

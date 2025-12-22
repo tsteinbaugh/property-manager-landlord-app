@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
 import { apiFetch } from "@lib/apiClient.js";
 import PropertyCard from "../components/PropertyCard.jsx";
-import styles from "./LandlordPropertiesPage.module.css";
+
+import styles from "@shared/styles/LandlordPage.module.css";
 
 export default function LandlordPropertiesPage() {
   const [properties, setProperties] = useState([]);

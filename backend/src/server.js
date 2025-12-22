@@ -13,7 +13,7 @@ const { attachUser } = require("./middleware/auth.middleware.js");
 
 // Route modules
 const { registerPropertyRoutes } = require("./routes/properties.routes.js");
-const { registerTenantRoutes } = require("./routes/residents/tenants.routes.js");
+const { registerTenantRoutes } = require("./routes/tenants.routes.js");
 const { registerOccupantRoutes } = require("./routes/residents/occupants.routes.js");
 const { registerPetRoutes } = require("./routes/residents/pets.routes.js");
 const { registerEmergencyContactRoutes } = require("./routes/residents/emergencyContacts.routes.js");

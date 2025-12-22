@@ -5,8 +5,7 @@ import { useUser } from "@app/providers.jsx";
 import { leasesApi } from "@features/leases/api/leases.api.js";
 
 // reuse tenant card styling so it visually matches tenants/properties
-import TenantCardStyles from "@features/residents/components/tenants/TenantCard.module.css";
-import styles from "@features/residents/pages/tenants/LandlordTenantsPage.module.css";
+import styles from "@shared/styles/LandlordPage.module.css";
 
 function LeaseCard({ lease, onClick }) {
   const { rentAmount, status, startDate, endDate, archived } = lease;

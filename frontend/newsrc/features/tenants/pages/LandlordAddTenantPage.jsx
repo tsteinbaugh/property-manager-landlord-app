@@ -2,9 +2,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
-import { tenantsApi } from "@features/residents/api/tenants.api.js";
+import { tenantsApi } from "@features/tenants/api/tenants.api.js";
 import { leasesApi } from "@features/leases/api/leases.api.js";
-import styles from "./LandlordTenantsPage.module.css";
+import styles from "@shared/styles/LandlordPage.module.css";
 
 const LEASE_DRAFT_KEY = "leaseDraft";
 const LEASE_DRAFT_RETURN_KEY = "leaseDraftReturnTo";
