@@ -7,89 +7,21 @@ function generateTempPassword() {
   return crypto.randomBytes(16).toString("hex");
 }
 
+const {
+  isValidEmail,
+  isValidPhone,
+  optionalTrimToNull,
+  normalizeEmail,
+  normalizePhone,
+  parseIntOrNullOpt,
+  parseEnumOrNullOpt,
+} = require("../utils/validation.js");
+
+const { SEX, HAIR_COLOR, EYE_COLOR, BODY_BUILD } =
+  require("../shared/residentPhysicalDescription.enums.js"); 
+
 function registerTenantRoutes(app, prisma, { shapeTenant }) {
-  // ============================================================
-  // Helpers
-  // ============================================================
-  const isValidEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-  const isValidPhone = (v) => /^\+?[1-9]\d{7,14}$/.test(v); // E.164-ish
-
-  const optionalTrimToNull = (v) => {
-    if (v === null) return null;
-    if (v === undefined) return undefined;
-    if (typeof v !== "string") return "__INVALID__";
-    const t = v.trim();
-    return t ? t : null;
-  };
-
-  const normalizeEmail = (v) => {
-    if (v === undefined) return undefined; // PATCH omit
-    if (v === null) return null;
-    if (typeof v !== "string") return "__INVALID__";
-    const t = v.trim().toLowerCase();
-    return t ? t : null;
-  };
-
-  const normalizePhone = (v) => {
-    if (v === undefined) return undefined; // PATCH omit
-    if (v === null) return null;
-    if (typeof v !== "string") return "__INVALID__";
-    const raw = v.trim();
-    if (!raw) return null;
-    return raw.replace(/(?!^\+)[^\d]/g, "");
-  };
-
-  function parseIntOrNullOpt(v, { min = null, max = null } = {}) {
-    if (v === undefined) return undefined; // PATCH omit
-    if (v === null) return null;
-
-    if (typeof v === "number") {
-      if (!Number.isInteger(v)) return "__INVALID__";
-      if (min !== null && v < min) return "__INVALID__";
-      if (max !== null && v > max) return "__INVALID__";
-      return v;
-    }
-
-    if (typeof v === "string") {
-      const s = v.trim();
-      if (!s) return null; // allow "" to clear optional ints
-      if (!/^-?\d+$/.test(s)) return "__INVALID__";
-      const n = Number(s);
-      if (!Number.isInteger(n)) return "__INVALID__";
-      if (min !== null && n < min) return "__INVALID__";
-      if (max !== null && n > max) return "__INVALID__";
-      return n;
-    }
-
-    return "__INVALID__";
-  }
-
-  function parseEnumOrNullOpt(v, allowed) {
-    if (v === undefined) return undefined; // PATCH omit
-    if (v === null) return null;
-    if (typeof v !== "string") return "__INVALID__";
-    const s = v.trim();
-    if (!s) return null;
-    const upper = s.toUpperCase();
-    return allowed.has(upper) ? upper : "__INVALID__";
-  }
-
-  const SEX = new Set(["MALE", "FEMALE", "OTHER", "UNKNOWN"]);
-  const HAIR = new Set([
-    "BLACK",
-    "BROWN",
-    "BLONDE",
-    "RED",
-    "GRAY",
-    "WHITE",
-    "DYED",
-    "BALD",
-    "OTHER",
-    "UNKNOWN",
-  ]);
-  const EYE = new Set(["BROWN", "BLUE", "GREEN", "HAZEL", "GRAY", "AMBER", "OTHER", "UNKNOWN"]);
-  const BODY = new Set(["SLIM", "AVERAGE", "ATHLETIC", "HEAVYSET", "OTHER", "UNKNOWN"]);
-
+  
   // ============================================================
   // GET /api/tenants/me – current logged-in tenant's profile
   // ============================================================
@@ -225,18 +157,18 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
         data.sex = v;
       }
       if (hairColor !== undefined) {
-        const v = parseEnumOrNullOpt(hairColor, HAIR);
-        if (v === "__INVALID__") return res.status(400).json({ error: "hairColor is invalid" });
+        const v = parseEnumOrNullOpt(hairColor, HAIR_COLOR);
+        if (v === "__INVALID__") return res.status(400).json({ error: "hair color is invalid" });
         data.hairColor = v;
       }
       if (eyeColor !== undefined) {
-        const v = parseEnumOrNullOpt(eyeColor, EYE);
-        if (v === "__INVALID__") return res.status(400).json({ error: "eyeColor is invalid" });
+        const v = parseEnumOrNullOpt(eyeColor, EYE_COLOR);
+        if (v === "__INVALID__") return res.status(400).json({ error: "eye color is invalid" });
         data.eyeColor = v;
       }
       if (bodyBuild !== undefined) {
-        const v = parseEnumOrNullOpt(bodyBuild, BODY);
-        if (v === "__INVALID__") return res.status(400).json({ error: "bodyBuild is invalid" });
+        const v = parseEnumOrNullOpt(bodyBuild, BODY_BUILD);
+        if (v === "__INVALID__") return res.status(400).json({ error: "body build is invalid" });
         data.bodyBuild = v;
       }
 
@@ -451,13 +383,13 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
     const sexVal = parseEnumOrNullOpt(sex, SEX);
     if (sexVal === "__INVALID__") return res.status(400).json({ error: "sex is invalid" });
 
-    const hairVal = parseEnumOrNullOpt(hairColor, HAIR);
+    const hairVal = parseEnumOrNullOpt(hairColor, HAIR_COLOR);
     if (hairVal === "__INVALID__") return res.status(400).json({ error: "hairColor is invalid" });
 
-    const eyeVal = parseEnumOrNullOpt(eyeColor, EYE);
+    const eyeVal = parseEnumOrNullOpt(eyeColor, EYE_COLOR);
     if (eyeVal === "__INVALID__") return res.status(400).json({ error: "eyeColor is invalid" });
 
-    const bodyVal = parseEnumOrNullOpt(bodyBuild, BODY);
+    const bodyVal = parseEnumOrNullOpt(bodyBuild, BODY_BUILD);
     if (bodyVal === "__INVALID__") return res.status(400).json({ error: "bodyBuild is invalid" });
 
     // strings
@@ -678,18 +610,18 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
         data.sex = v;
       }
       if (hairColor !== undefined) {
-        const v = parseEnumOrNullOpt(hairColor, HAIR);
-        if (v === "__INVALID__") return res.status(400).json({ error: "hairColor is invalid" });
+        const v = parseEnumOrNullOpt(hairColor, HAIR_COLOR);
+        if (v === "__INVALID__") return res.status(400).json({ error: "hair color is invalid" });
         data.hairColor = v;
       }
       if (eyeColor !== undefined) {
-        const v = parseEnumOrNullOpt(eyeColor, EYE);
-        if (v === "__INVALID__") return res.status(400).json({ error: "eyeColor is invalid" });
+        const v = parseEnumOrNullOpt(eyeColor, EYE_COLOR);
+        if (v === "__INVALID__") return res.status(400).json({ error: "eye color is invalid" });
         data.eyeColor = v;
       }
       if (bodyBuild !== undefined) {
-        const v = parseEnumOrNullOpt(bodyBuild, BODY);
-        if (v === "__INVALID__") return res.status(400).json({ error: "bodyBuild is invalid" });
+        const v = parseEnumOrNullOpt(bodyBuild, BODY_BUILD);
+        if (v === "__INVALID__") return res.status(400).json({ error: "body build is invalid" });
         data.bodyBuild = v;
       }
 

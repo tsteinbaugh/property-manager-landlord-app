@@ -1,6 +1,7 @@
 // backend/src/middleware/auth.middleware.js
 const jwt = require("jsonwebtoken");
 const { UserStatus } = require("@prisma/client");
+const { Role } = require("@prisma/client");
 
 const JWT_SECRET = process.env.JWT_SECRET || "dev-only-change-me";
 
@@ -90,7 +91,31 @@ function requireAuth(prisma) {
   };
 }
 
+function requireRoles(...allowed) {
+  return function requireRolesMiddleware(req, res, next) {
+    const user = req.user || null;
+    if (!user) return res.status(401).json({ error: "Unauthorized" });
+
+    if (!allowed.includes(user.baseRole)) {
+      return res.status(403).json({ error: "You are not allowed to perform this action." });
+    }
+    return next();
+  };
+}
+
+function requireLandlordOrSysadmin(req, res, next) {
+  const user = req.user || null;
+  if (!user) return res.status(401).json({ error: "Unauthorized" });
+
+  if (user.baseRole !== Role.LANDLORD && user.baseRole !== Role.SYSADMIN) {
+    return res.status(403).json({ error: "You are not allowed to perform this action." });
+  }
+  return next();
+}
+
 module.exports = {
   attachUser,
   requireAuth,
+  requireRoles,
+  requireLandlordOrSysadmin,
 };

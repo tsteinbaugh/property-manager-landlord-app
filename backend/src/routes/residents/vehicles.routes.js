@@ -1,108 +1,13 @@
 // backend/src/routes/vehicles.routes.js
 const { Role } = require("@prisma/client");
 
+const {
+  optionalTrimToNull,
+  parseIntOrNullOpt,
+  normalizeState,
+} = require("../../utils/validation.js");
+
 function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
-
-  const optionalTrimToNull = (v) => { 
-    if (v === null) return null; 
-    if (v === undefined) return undefined; 
-    if (typeof v !== "string") return undefined; 
-    const t = v.trim(); 
-    return t ? t : null; 
-  };
-
-  function parseIntOrNull(v, { min = null, max = null } = {}) {
-    if (v === undefined) return undefined; // PATCH omit
-    if (v === null) return null;
-    if (typeof v === "number") {
-      if (!Number.isInteger(v)) return "__INVALID__";
-      if (min !== null && v < min) return "__INVALID__";
-      if (max !== null && v > max) return "__INVALID__";
-      return v;
-    }
-    if (typeof v === "string") {
-      const s = v.trim();
-      if (!s) return null;
-      if (!/^-?\d+$/.test(s)) return "__INVALID__";
-      const n = Number(s);
-      if (!Number.isInteger(n)) return "__INVALID__";
-      if (min !== null && n < min) return "__INVALID__";
-      if (max !== null && n > max) return "__INVALID__";
-      return n;
-    }
-    return "__INVALID__";
-  }
-
-  const US_STATES = new Map([
-    ["ALABAMA", "AL"],
-    ["ALASKA", "AK"],
-    ["ARIZONA", "AZ"],
-    ["ARKANSAS", "AR"],
-    ["CALIFORNIA", "CA"],
-    ["COLORADO", "CO"],
-    ["CONNECTICUT", "CT"],
-    ["DELAWARE", "DE"],
-    ["FLORIDA", "FL"],
-    ["GEORGIA", "GA"],
-    ["HAWAII", "HI"],
-    ["IDAHO", "ID"],
-    ["ILLINOIS", "IL"],
-    ["INDIANA", "IN"],
-    ["IOWA", "IA"],
-    ["KANSAS", "KS"],
-    ["KENTUCKY", "KY"],
-    ["LOUISIANA", "LA"],
-    ["MAINE", "ME"],
-    ["MARYLAND", "MD"],
-    ["MASSACHUSETTS", "MA"],
-    ["MICHIGAN", "MI"],
-    ["MINNESOTA", "MN"],
-    ["MISSISSIPPI", "MS"],
-    ["MISSOURI", "MO"],
-    ["MONTANA", "MT"],
-    ["NEBRASKA", "NE"],
-    ["NEVADA", "NV"],
-    ["NEW HAMPSHIRE", "NH"],
-    ["NEW JERSEY", "NJ"],
-    ["NEW MEXICO", "NM"],
-    ["NEW YORK", "NY"],
-    ["NORTH CAROLINA", "NC"],
-    ["NORTH DAKOTA", "ND"],
-    ["OHIO", "OH"],
-    ["OKLAHOMA", "OK"],
-    ["OREGON", "OR"],
-    ["PENNSYLVANIA", "PA"],
-    ["RHODE ISLAND", "RI"],
-    ["SOUTH CAROLINA", "SC"],
-    ["SOUTH DAKOTA", "SD"],
-    ["TENNESSEE", "TN"],
-    ["TEXAS", "TX"],
-    ["UTAH", "UT"],
-    ["VERMONT", "VT"],
-    ["VIRGINIA", "VA"],
-    ["WASHINGTON", "WA"],
-    ["WEST VIRGINIA", "WV"],
-    ["WISCONSIN", "WI"],
-    ["WYOMING", "WY"],
-    ["DISTRICT OF COLUMBIA", "DC"],
-  ]);
-
-  const US_STATE_CODES = new Set(Array.from(US_STATES.values()));
-
-  function normalizeState(input) {
-    if (typeof input !== "string") return "";
-    const raw = input.trim();
-    if (!raw) return "";
-
-    const upper = raw.toUpperCase().replace(/\./g, "");
-
-    // 2-letter code
-    if (upper.length === 2 && US_STATE_CODES.has(upper)) return upper;
-
-    // Full name
-    return US_STATES.get(upper) || "";
-  }
-
   // ============================================================
   // LIST VEHICLES (decoupled from tenants, scoped by landlord when known)
   // GET /api/vehicles?includeArchived=0|1
@@ -230,7 +135,7 @@ function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
         return res.status(400).json({ error: "year cannot be null" });
       }
     
-      const yearVal = parseIntOrNull(year, { min: 1000, max: 9999 });
+      const yearVal = parseIntOrNullOpt(year, { min: 1000, max: 9999 });
       if (yearVal === "__INVALID__") {
         return res.status(400).json({
           error: "year must be a valid 4-digit integer",
@@ -241,17 +146,12 @@ function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
 
     // Optional: state (US only) -> store USPS code
     let stateCode = null;
-    const stateVal = optionalTrimToNull(state);
-    if (stateVal !== undefined) {
-      if (stateVal === null) {
-        stateCode = null;
-      } else {
-        const code = normalizeState(stateVal);
-        if (!code) {
-          return res.status(400).json({ error: "state must be a valid US state or DC" });
-        }
-        stateCode = code;
-      }
+    const stateNorm = normalizeState(state); // returns null/undefined/__INVALID__/CODE
+    if (stateNorm === "__INVALID__") {
+      return res.status(400).json({ error: "state must be a valid US state (2-letter) or full name, or DC" });
+    }
+    if (stateNorm !== undefined) {
+      stateCode = stateNorm; // may be null or "CO"
     }
 
     try {
@@ -348,7 +248,7 @@ function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
           return res.status(400).json({ error: "year cannot be null" });
         }
       
-        const yearVal = parseIntOrNull(year, { min: 1000, max: 9999 });
+        const yearVal = parseIntOrNullOpt(year, { min: 1000, max: 9999 });
         if (yearVal === "__INVALID__") {
           return res.status(400).json({
             error: "year must be a valid 4-digit integer",
@@ -357,18 +257,13 @@ function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
         data.year = yearVal;
       }
 
-      // state: optional, but if provided must be valid US state/DC; store USPS code
+      // state: optional, if provided must be valid; allow clearing with null/""
       if (state !== undefined) {
-        const stateVal = optionalTrimToNull(state);
-        if (stateVal === null) {
-          data.state = null;
-        } else if (typeof stateVal === "string") {
-          const code = normalizeState(stateVal);
-          if (!code) {
-            return res.status(400).json({ error: "state must be a valid US state or DC" });
-          }
-          data.state = code;
+        const stateNorm = normalizeState(state);
+        if (stateNorm === "__INVALID__") {
+          return res.status(400).json({ error: "state must be a valid US state (2-letter) or full name, or DC" });
         }
+        data.state = stateNorm; // null or "CO"
       }
 
       if (color !== undefined) data.color = optionalTrimToNull(color);

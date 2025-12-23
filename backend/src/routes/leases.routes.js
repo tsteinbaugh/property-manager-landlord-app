@@ -1,63 +1,17 @@
 // backend/src/routes/leases.routes.js
 const { Role } = require("@prisma/client");
 
+const {
+  optionalTrimToNull,
+  normalizeIdOrNull,
+  parseMoneyOrNullOpt,
+  parseDateOrNullOpt,
+} = require("../utils/validation.js");
+
+const { LEASE_STATUS } = require("../shared/status.enums.js")
+const { requireAuth, requireLandlordOrSysadmin } = require("../middleware/auth.middleware.js");
+
 function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
-  // ============================================================
-  // Helpers
-  // ============================================================
-  const ALLOWED_STATUS = new Set(["DRAFT", "ACTIVE", "TERMINATED", "ARCHIVED"]);
-
-  const trimToNull = (v) => {
-    if (v === undefined) return undefined;
-    if (v === null) return null;
-    if (typeof v !== "string") return "__INVALID__";
-    const t = v.trim();
-    return t ? t : null;
-  };
-
-  const parseMoneyOrNullOpt = (v) => {
-    if (v === undefined) return undefined; // PATCH omit
-    if (v === null) return null;
-    if (v === "") return null;
-    const n = typeof v === "number" ? v : Number(String(v).trim());
-    if (!Number.isFinite(n)) return "__INVALID__";
-    if (n < 0) return "__INVALID__";
-    // optional: cap to something sane
-    if (n > 1000000000) return "__INVALID__";
-    return n;
-  };
-
-  const parseDateOrNullOpt = (v) => {
-    if (v === undefined) return undefined; // PATCH omit
-    if (v === null) return null;
-    if (v === "") return null;
-    const d = new Date(v);
-    if (Number.isNaN(d.getTime())) return "__INVALID__";
-    return d;
-  };
-
-  const normalizeIdOrNull = (v) => {
-    const s = v === undefined || v === null ? "" : String(v).trim();
-    return s ? s : null;
-  };
-
-  const requireAuth = (req, res) => {
-    const user = req.user || null;
-    if (!user) {
-      res.status(401).json({ error: "Unauthorized" });
-      return null;
-    }
-    return user;
-  };
-
-  const requireLandlordOrSysadmin = (user, res) => {
-    if (user.baseRole !== Role.LANDLORD && user.baseRole !== Role.SYSADMIN) {
-      res.status(403).json({ error: "You are not allowed to perform this action." });
-      return false;
-    }
-    return true;
-  };
-
   // ============================================================
   // POST /api/leases - create a lease + optional file upload
   // ============================================================
@@ -126,7 +80,7 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
         const primaryTenantId = tenantIds.length > 0 ? tenantIds[0] : null;
 
         // ---------- Parse / validate ----------
-        const labelVal = trimToNull(propertyLabel);
+        const labelVal = optionalTrimToNull(propertyLabel);
         if (labelVal === "__INVALID__") return res.status(400).json({ error: "propertyLabel must be a string" });
 
         const rentVal = parseMoneyOrNullOpt(rentAmount);
@@ -146,7 +100,7 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
         let initialStatus;
         const statusTrim = typeof status === "string" ? status.trim().toUpperCase() : "";
         if (statusTrim) {
-          if (!ALLOWED_STATUS.has(statusTrim)) return res.status(400).json({ error: "Invalid status" });
+          if (!LEASE_STATUS.has(statusTrim)) return res.status(400).json({ error: "Invalid status" });
           initialStatus = statusTrim;
         } else {
           initialStatus = effectivePropertyId && primaryTenantId ? "ACTIVE" : "DRAFT";
@@ -380,7 +334,7 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
 
       // propertyLabel
       if (propertyLabel !== undefined) {
-        const v = trimToNull(propertyLabel);
+        const v = optionalTrimToNull(propertyLabel);
         if (v === "__INVALID__") return res.status(400).json({ error: "propertyLabel must be a string" });
         data.propertyLabel = v;
       }
@@ -416,7 +370,7 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
       if (status !== undefined) {
         const next = typeof status === "string" ? status.trim().toUpperCase() : "";
         if (next) {
-          if (!ALLOWED_STATUS.has(next)) return res.status(400).json({ error: "Invalid status" });
+          if (!LEASE_STATUS.has(next)) return res.status(400).json({ error: "Invalid status" });
           data.status = next;
         }
       }

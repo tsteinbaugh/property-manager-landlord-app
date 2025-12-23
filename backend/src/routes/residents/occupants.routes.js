@@ -1,74 +1,23 @@
 // backend/src/routes/occupants.routes.js
 const { Role } = require("@prisma/client");
 
+// ============================================================
+// Helpers
+// ============================================================
+const {
+  isValidEmail,
+  isValidPhone,
+  optionalTrimToNull,
+  normalizeEmail,
+  normalizePhone,
+  parseIntOrNullOpt,
+  parseEnumOrNullOpt,
+} = require("../../utils/validation.js");
+
+const { SEX, HAIR_COLOR, EYE_COLOR, BODY_BUILD } =
+  require("../../shared/residentPhysicalDescription.enums.js");
+
 function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
-
-  const optionalTrimToNull = (v) => { 
-    if (v === null) return null; 
-    if (v === undefined) return undefined; 
-    if (typeof v !== "string") return undefined; 
-    const t = v.trim(); 
-    return t ? t : null; 
-  };
-
-  const isValidEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-
-  const normalizeEmail = (v) => {
-    if (v === undefined) return undefined; // PATCH omit
-    if (v === null) return null;
-    if (typeof v !== "string") return "__INVALID__";
-    const t = v.trim().toLowerCase();
-    return t ? t : null;
-  };
-
-  const isValidPhone = (v) => /^\+?[1-9]\d{7,14}$/.test(v); // E.164-ish
-
-  const normalizePhone = (v) => {
-    if (v === undefined) return undefined; // PATCH omit
-    if (v === null) return null;
-    if (typeof v !== "string") return "__INVALID__";
-    const raw = v.trim();
-    if (!raw) return null;
-    return raw.replace(/(?!^\+)[^\d]/g, "");
-  };
-
-  function parseIntOrNull(v, { min = null, max = null } = {}) {
-    if (v === undefined) return undefined; // PATCH omit
-    if (v === null) return null;
-    if (typeof v === "number") {
-      if (!Number.isInteger(v)) return "__INVALID__";
-      if (min !== null && v < min) return "__INVALID__";
-      if (max !== null && v > max) return "__INVALID__";
-      return v;
-    }
-    if (typeof v === "string") {
-      const s = v.trim();
-      if (!s) return null;
-      if (!/^-?\d+$/.test(s)) return "__INVALID__";
-      const n = Number(s);
-      if (!Number.isInteger(n)) return "__INVALID__";
-      if (min !== null && n < min) return "__INVALID__";
-      if (max !== null && n > max) return "__INVALID__";
-      return n;
-    }
-    return "__INVALID__";
-  }
-
-  function parseEnumOrNullOpt(v, allowed) {
-    if (v === undefined) return undefined; // PATCH omit
-    if (v === null) return null;
-    if (typeof v !== "string") return "__INVALID__";
-    const s = v.trim();
-    if (!s) return null;
-    const upper = s.toUpperCase();
-    return allowed.has(upper) ? upper : "__INVALID__";
-  }
-
-  const SEX = new Set(["MALE", "FEMALE", "OTHER", "UNKNOWN"]);
-  const HAIR = new Set(["BLACK", "BROWN", "BLONDE", "RED", "GRAY", "WHITE", "DYED", "BALD", "OTHER", "UNKNOWN"]);
-  const EYE = new Set(["BROWN", "BLUE", "GREEN", "HAZEL", "GRAY", "AMBER", "OTHER", "UNKNOWN"]);
-  const BODY = new Set(["SLIM", "AVERAGE", "ATHLETIC", "HEAVYSET", "OTHER", "UNKNOWN"]);
-
   // ============================================================
   // LIST OCCUPANTS (decoupled from tenants, scoped by landlord when known)
   // GET /api/occupants?includeArchived=0|1
@@ -203,29 +152,29 @@ function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
     }
 
     // numbers
-    const ageVal = parseIntOrNull(age, { min: 0, max: 120 });
+    const ageVal = parseIntOrNullOpt(age, { min: 0, max: 120 });
     if (ageVal === "__INVALID__") return res.status(400).json({ error: "age must be an integer between 0 and 120" });
 
-    const heightFeetVal = parseIntOrNull(heightFeet, { min: 0, max: 8 });
+    const heightFeetVal = parseIntOrNullOpt(heightFeet, { min: 0, max: 8 });
     if (heightFeetVal === "__INVALID__") return res.status(400).json({ error: "heightFeet must be an integer 0-8" });
 
-    const heightInchesVal = parseIntOrNull(heightInches, { min: 0, max: 11 });
+    const heightInchesVal = parseIntOrNullOpt(heightInches, { min: 0, max: 11 });
     if (heightInchesVal === "__INVALID__") return res.status(400).json({ error: "heightInches must be an integer 0-11" });
 
-    const weightVal = parseIntOrNull(weight, { min: 0, max: 1500 });
+    const weightVal = parseIntOrNullOpt(weight, { min: 0, max: 1500 });
     if (weightVal === "__INVALID__") return res.status(400).json({ error: "weight must be an integer" });
 
     // enums
     const sexVal = parseEnumOrNullOpt(sex, SEX);
     if (sexVal === "__INVALID__") return res.status(400).json({ error: "sex is invalid" });
 
-    const hairVal = parseEnumOrNullOpt(hairColor, HAIR);
+    const hairVal = parseEnumOrNullOpt(hairColor, HAIR_COLOR);
     if (hairVal === "__INVALID__") return res.status(400).json({ error: "hair color is invalid" });
 
-    const eyeVal = parseEnumOrNullOpt(eyeColor, EYE);
+    const eyeVal = parseEnumOrNullOpt(eyeColor, EYE_COLOR);
     if (eyeVal === "__INVALID__") return res.status(400).json({ error: "eye color is invalid" });
 
-    const bodyVal = parseEnumOrNullOpt(bodyBuild, BODY);
+    const bodyVal = parseEnumOrNullOpt(bodyBuild, BODY_BUILD);
     if (bodyVal === "__INVALID__") return res.status(400).json({ error: "body build is invalid" });
 
     try {
@@ -314,22 +263,22 @@ function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
 
       // numbers (optional)
       if (age !== undefined) {
-        const v = parseIntOrNull(age, { min: 0, max: 120 });
+        const v = parseIntOrNullOpt(age, { min: 0, max: 120 });
         if (v === "__INVALID__") return res.status(400).json({ error: "age must be an integer between 0 and 120" });
         data.age = v;
       }
       if (heightFeet !== undefined) {
-        const v = parseIntOrNull(heightFeet, { min: 0, max: 8 });
+        const v = parseIntOrNullOpt(heightFeet, { min: 0, max: 8 });
         if (v === "__INVALID__") return res.status(400).json({ error: "heightFeet must be an integer 0-8" });
         data.heightFeet = v;
       }
       if (heightInches !== undefined) {
-        const v = parseIntOrNull(heightInches, { min: 0, max: 11 });
+        const v = parseIntOrNullOpt(heightInches, { min: 0, max: 11 });
         if (v === "__INVALID__") return res.status(400).json({ error: "heightInches must be an integer 0-11" });
         data.heightInches = v;
       }
       if (weight !== undefined) {
-        const v = parseIntOrNull(weight, { min: 0, max: 1500 });
+        const v = parseIntOrNullOpt(weight, { min: 0, max: 1500 });
         if (v === "__INVALID__") return res.status(400).json({ error: "weight must be an integer" });
         data.weight = v;
       }
@@ -341,17 +290,17 @@ function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
         data.sex = v;
       }
       if (hairColor !== undefined) {
-        const v = parseEnumOrNullOpt(hairColor, HAIR);
+        const v = parseEnumOrNullOpt(hairColor, HAIR_COLOR);
         if (v === "__INVALID__") return res.status(400).json({ error: "hairColor is invalid" });
         data.hairColor = v;
       }
       if (eyeColor !== undefined) {
-        const v = parseEnumOrNullOpt(eyeColor, EYE);
+        const v = parseEnumOrNullOpt(eyeColor, EYE_COLOR);
         if (v === "__INVALID__") return res.status(400).json({ error: "eyeColor is invalid" });
         data.eyeColor = v;
       }
       if (bodyBuild !== undefined) {
-        const v = parseEnumOrNullOpt(bodyBuild, BODY);
+        const v = parseEnumOrNullOpt(bodyBuild, BODY_BUILD);
         if (v === "__INVALID__") return res.status(400).json({ error: "bodyBuild is invalid" });
         data.bodyBuild = v;
       }

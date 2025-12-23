@@ -1,53 +1,15 @@
 // backend/src/routes/properties.routes.js
 const { Role } = require("@prisma/client");
 
+const {
+  optionalTrimToNull,
+  requiredTrimmedString,
+  parseIntOrNullOpt,
+  normalizeState,
+  normalizeZipUS,
+} = require("../utils/validation.js");
+
 function registerPropertyRoutes(app, prisma) {
-  // ============================================================
-  // Helpers
-  // ============================================================
-  const optionalTrimToNull = (v) => {
-    if (v === null) return null;
-    if (v === undefined) return undefined;
-    if (typeof v !== "string") return undefined;
-    const t = v.trim();
-    return t ? t : null;
-  };
-
-  function parseIntOrNullOpt(v, { min = null, max = null } = {}) {
-    // PATCH semantics:
-    // - undefined => omit (no change)
-    // - null => clear
-    // - "" => clear
-    if (v === undefined) return undefined;
-    if (v === null) return null;
-
-    if (typeof v === "number") {
-      if (!Number.isInteger(v)) return "__INVALID__";
-      if (min !== null && v < min) return "__INVALID__";
-      if (max !== null && v > max) return "__INVALID__";
-      return v;
-    }
-
-    if (typeof v === "string") {
-      const s = v.trim();
-      if (!s) return null;
-      if (!/^-?\d+$/.test(s)) return "__INVALID__";
-      const n = Number(s);
-      if (!Number.isInteger(n)) return "__INVALID__";
-      if (min !== null && n < min) return "__INVALID__";
-      if (max !== null && n > max) return "__INVALID__";
-      return n;
-    }
-
-    return "__INVALID__";
-  }
-
-  function trimRequiredString(v) {
-    if (v === null || v === undefined) return "";
-    if (typeof v !== "string") return "";
-    return v.trim();
-  }
-
   // ============================================================
   // GET /api/properties?includeArchived=0|1
   // - LANDLORD: only their properties
@@ -93,6 +55,7 @@ function registerPropertyRoutes(app, prisma) {
       city,
       state,
       postalCode,
+      zip,
       bedrooms,
       bathrooms,
       sqft,
@@ -102,14 +65,48 @@ function registerPropertyRoutes(app, prisma) {
       createdById: bodyCreatedById,
     } = req.body || {};
 
-    const cleanAddress1 = trimRequiredString(address1);
-    const cleanCity = trimRequiredString(city);
-    const cleanState = trimRequiredString(state);
-    const cleanPostalCode = trimRequiredString(postalCode);
+    // Optional: state (US only) -> store USPS code
+    let stateCode = null;
+    const stateNorm = normalizeState(state); // returns null/undefined/__INVALID__/CODE
+    if (stateNorm === "__INVALID__") {
+      return res.status(400).json({ error: "state must be a valid US state (2-letter) or full name, or DC" });
+    }
+    if (stateNorm !== undefined) {
+      stateCode = stateNorm; // may be null or "CO"
+    }
 
-    if (!cleanAddress1 || !cleanCity || !cleanState || !cleanPostalCode) {
+    // Optional: zip/postalCode (ZIP5 or ZIP+4)
+    const zipInput = postalCode ?? zip;
+    let postal = null;
+
+    const zipNorm = normalizeZipUS(zipInput);
+    if (zipNorm === "__INVALID__") {
+      return res
+        .status(400)
+        .json({ error: "postalCode must be a valid US ZIP (12345 or 12345-6789)" });
+    }
+    if (zipNorm !== undefined) {
+      postal = zipNorm; // may be null or "80530" or "80530-1234"
+    }
+
+    const cleanAddress1 = requiredTrimmedString(address1);
+    const cleanCity = requiredTrimmedString(city);
+
+    if (cleanAddress1 === "__INVALID__" || cleanCity === "__INVALID__") {
       return res.status(400).json({
-        error: "address1, city, state, and postalCode are required",
+        error: "street address and city are required",
+      });
+    }
+
+    if (!stateCode) {
+      return res.status(400).json({
+        error: "state must be a valid US state (2-letter) or full name, or DC",
+      });
+    }
+
+    if (!postal) {
+      return res.status(400).json({
+        error: "postalCode must be a valid US ZIP (12345 or 12345-6789)",
       });
     }
 
@@ -149,19 +146,25 @@ function registerPropertyRoutes(app, prisma) {
         else if (landlordId) createdById = landlordId;
       }
 
+      const nameVal = optionalTrimToNull(name);
+      if (nameVal === "__INVALID__") return res.status(400).json({ error: "name must be a string" });
+          
+      const notesVal = optionalTrimToNull(notes);
+      if (notesVal === "__INVALID__") return res.status(400).json({ error: "notes must be a string" });
+
       const created = await prisma.property.create({
         data: {
-          name: optionalTrimToNull(name) ?? null,
+          name: nameVal ?? null,
           address1: cleanAddress1,
           city: cleanCity,
-          state: cleanState,
-          postalCode: cleanPostalCode,
+          state: stateCode,
+          postalCode: postal,
 
           bedrooms: bedroomsVal ?? null,
           bathrooms: bathroomsVal ?? null,
           sqft: sqftVal ?? null,
           yearBuilt: yearBuiltVal ?? null,
-          notes: optionalTrimToNull(notes) ?? null,
+          notes: notesVal ?? null,
 
           landlordId,
           createdById,
@@ -188,6 +191,7 @@ function registerPropertyRoutes(app, prisma) {
       city,
       state,
       postalCode,
+      zip,
       bedrooms,
       bathrooms,
       sqft,
@@ -213,28 +217,45 @@ function registerPropertyRoutes(app, prisma) {
       const data = {};
 
       // strings
-      if (name !== undefined) data.name = optionalTrimToNull(name);
+      if (name !== undefined) {
+        const v = optionalTrimToNull(name);
+        if (v === "__INVALID__") return res.status(400).json({ error: "name must be a string" });
+        data.name = v;
+      }
+      if (notes !== undefined) {
+        const v = optionalTrimToNull(notes);
+        if (v === "__INVALID__") return res.status(400).json({ error: "notes must be a string" });
+        data.notes = v;
+      }
 
       // required-ish address fields: if provided in PATCH, must be non-empty strings
       if (address1 !== undefined) {
-        const t = trimRequiredString(address1);
-        if (!t) return res.status(400).json({ error: "address1 is required" });
+        const t = requiredTrimmedString(address1);
+        if (t === "__INVALID__") return res.status(400).json({ error: "address1 is required" });
         data.address1 = t;
       }
       if (city !== undefined) {
-        const t = trimRequiredString(city);
-        if (!t) return res.status(400).json({ error: "city is required" });
+        const t = requiredTrimmedString(city);
+        if (t === "__INVALID__") return res.status(400).json({ error: "city is required" });
         data.city = t;
       }
+      // state: optional, if provided must be valid; allow clearing with null/""
       if (state !== undefined) {
-        const t = trimRequiredString(state);
-        if (!t) return res.status(400).json({ error: "state is required" });
-        data.state = t;
+        const stateNorm = normalizeState(state);
+        if (stateNorm === "__INVALID__" || stateNorm === null) {
+          return res.status(400).json({ error: "state is required and must be a valid US state or DC" });
+        }
+        data.state = stateNorm;
       }
-      if (postalCode !== undefined) {
-        const t = trimRequiredString(postalCode);
-        if (!t) return res.status(400).json({ error: "postalCode is required" });
-        data.postalCode = t;
+
+      // zip/postalCode: optional, but if provided must be ZIP5 or ZIP+4; store normalized
+      const zipInput = postalCode ?? zip;
+      if (zipInput !== undefined) {
+        const zipNorm = normalizeZipUS(zipInput);
+        if (zipNorm === "__INVALID__" || zipNorm === null) {
+          return res.status(400).json({ error: "postalCode is required and must be a valid US ZIP" });
+        }
+        data.postalCode = zipNorm;
       }
 
       // numbers (optional)
@@ -262,9 +283,6 @@ function registerPropertyRoutes(app, prisma) {
           return res.status(400).json({ error: "yearBuilt must be a 4-digit integer" });
         data.yearBuilt = v;
       }
-
-      // notes
-      if (notes !== undefined) data.notes = optionalTrimToNull(notes);
 
       const updated = await prisma.property.update({
         where: { id },

@@ -1,40 +1,14 @@
 // backend/src/routes/pets.routes.js
 const { Role } = require("@prisma/client");
 
+const {
+  optionalTrimToNull,
+  parseIntOrNullOpt,
+} = require("../../utils/validation.js");
+
 function registerPetRoutes(app, prisma, { shapePet }) {
-
-  const optionalTrimToNull = (v) => { 
-    if (v === null) return null; 
-    if (v === undefined) return undefined; 
-    if (typeof v !== "string") return undefined; 
-    const t = v.trim(); 
-    return t ? t : null; 
-  };
-
-  function parseIntOrNull(v, { min = null, max = null } = {}) {
-    if (v === undefined) return undefined; // PATCH omit
-    if (v === null) return null;
-    if (typeof v === "number") {
-      if (!Number.isInteger(v)) return "__INVALID__";
-      if (min !== null && v < min) return "__INVALID__";
-      if (max !== null && v > max) return "__INVALID__";
-      return v;
-    }
-    if (typeof v === "string") {
-      const s = v.trim();
-      if (!s) return null;
-      if (!/^-?\d+$/.test(s)) return "__INVALID__";
-      const n = Number(s);
-      if (!Number.isInteger(n)) return "__INVALID__";
-      if (min !== null && n < min) return "__INVALID__";
-      if (max !== null && n > max) return "__INVALID__";
-      return n;
-    }
-    return "__INVALID__";
-  }
-
   // ============================================================
-  // LIST OCCUPANTS (decoupled from tenants, scoped by landlord when known)
+  // LIST PETS (decoupled from tenants, scoped by landlord when known)
   // GET /api/pets?includeArchived=0|1
   // ============================================================
   app.get("/api/pets", async (req, res) => {
@@ -72,7 +46,7 @@ function registerPetRoutes(app, prisma, { shapePet }) {
   });
 
   // ============================================================
-  // GET SINGLE OCCUPANT + linked tenants (via join table)
+  // GET SINGLE PET + linked tenants (via join table)
   // GET /api/pets/:id
   // ============================================================
   app.get("/api/pets/:id", async (req, res) => {
@@ -149,10 +123,10 @@ function registerPetRoutes(app, prisma, { shapePet }) {
       return res.status(400).json({ error: "name is required" });
     }
 
-    const weightLbVal = parseIntOrNull(weightLb, { min: 0, max: 1500 });
+    const weightLbVal = parseIntOrNullOpt(weightLb, { min: 0, max: 1500 });
     if (weightLbVal === "__INVALID__") return res.status(400).json({ error: "weight must be an integer" });
 
-    const ageVal = parseIntOrNull(age, { min: 0, max: 120 });
+    const ageVal = parseIntOrNullOpt(age, { min: 0, max: 120 });
     if (ageVal === "__INVALID__") return res.status(400).json({ error: "age must be an integer between 0 and 120" });
 
     try {
@@ -230,12 +204,12 @@ function registerPetRoutes(app, prisma, { shapePet }) {
       if (type !== undefined) data.type = optionalTrimToNull(type);
       if (breed !== undefined) data.breed = optionalTrimToNull(breed);
       if (weightLb !== undefined) {
-        const v = parseIntOrNull(weightLb, { min: 0, max: 1500 });
+        const v = parseIntOrNullOpt(weightLb, { min: 0, max: 1500 });
         if (v === "__INVALID__") return res.status(400).json({ error: "weight must be an integer" });
         data.weightLb = v;
       }
       if (age !== undefined) {
-        const v = parseIntOrNull(age, { min: 0, max: 120 });
+        const v = parseIntOrNullOpt(age, { min: 0, max: 120 });
         if (v === "__INVALID__") return res.status(400).json({ error: "age must be an integer between 0 and 120" });
         data.age = v;
       }

@@ -1,116 +1,17 @@
 // backend/src/routes/emergencyContacts.routes.js
 const { Role } = require("@prisma/client");
 
+const {
+  isValidEmail,
+  isValidPhone,
+  optionalTrimToNull,
+  normalizeEmail,
+  normalizePhone,
+  normalizeState,
+  normalizeZipUS,
+} = require("../../utils/validation.js");
+
 function registerEmergencyContactRoutes(app, prisma, { shapeEmergencyContact }) {
-
-  const US_STATES = new Map([
-    ["ALABAMA", "AL"],
-    ["ALASKA", "AK"],
-    ["ARIZONA", "AZ"],
-    ["ARKANSAS", "AR"],
-    ["CALIFORNIA", "CA"],
-    ["COLORADO", "CO"],
-    ["CONNECTICUT", "CT"],
-    ["DELAWARE", "DE"],
-    ["FLORIDA", "FL"],
-    ["GEORGIA", "GA"],
-    ["HAWAII", "HI"],
-    ["IDAHO", "ID"],
-    ["ILLINOIS", "IL"],
-    ["INDIANA", "IN"],
-    ["IOWA", "IA"],
-    ["KANSAS", "KS"],
-    ["KENTUCKY", "KY"],
-    ["LOUISIANA", "LA"],
-    ["MAINE", "ME"],
-    ["MARYLAND", "MD"],
-    ["MASSACHUSETTS", "MA"],
-    ["MICHIGAN", "MI"],
-    ["MINNESOTA", "MN"],
-    ["MISSISSIPPI", "MS"],
-    ["MISSOURI", "MO"],
-    ["MONTANA", "MT"],
-    ["NEBRASKA", "NE"],
-    ["NEVADA", "NV"],
-    ["NEW HAMPSHIRE", "NH"],
-    ["NEW JERSEY", "NJ"],
-    ["NEW MEXICO", "NM"],
-    ["NEW YORK", "NY"],
-    ["NORTH CAROLINA", "NC"],
-    ["NORTH DAKOTA", "ND"],
-    ["OHIO", "OH"],
-    ["OKLAHOMA", "OK"],
-    ["OREGON", "OR"],
-    ["PENNSYLVANIA", "PA"],
-    ["RHODE ISLAND", "RI"],
-    ["SOUTH CAROLINA", "SC"],
-    ["SOUTH DAKOTA", "SD"],
-    ["TENNESSEE", "TN"],
-    ["TEXAS", "TX"],
-    ["UTAH", "UT"],
-    ["VERMONT", "VT"],
-    ["VIRGINIA", "VA"],
-    ["WASHINGTON", "WA"],
-    ["WEST VIRGINIA", "WV"],
-    ["WISCONSIN", "WI"],
-    ["WYOMING", "WY"],
-    ["DISTRICT OF COLUMBIA", "DC"],
-  ]);
-
-  const US_STATE_CODES = new Set(Array.from(US_STATES.values()));
-
-  function normalizeState(input) {
-    if (typeof input !== "string") return "";
-    const raw = input.trim();
-    if (!raw) return "";
-
-    const upper = raw.toUpperCase().replace(/\./g, "");
-
-    // 2-letter code
-    if (upper.length === 2 && US_STATE_CODES.has(upper)) return upper;
-
-    // Full name
-    return US_STATES.get(upper) || "";
-  }
-
-  // Returns "" if invalid, otherwise "12345" or "12345-6789"
-  function normalizeZipUS(input) {
-    if (typeof input !== "string") return "";
-    const digits = input.replace(/\D/g, "");
-    if (digits.length === 5) return digits;
-    if (digits.length === 9) return `${digits.slice(0, 5)}-${digits.slice(5)}`;
-    return "";
-  }
-
-  const isValidEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-
-  const normalizeEmail = (v) => {
-    if (v === undefined) return undefined; // PATCH omit
-    if (v === null) return null;
-    if (typeof v !== "string") return "__INVALID__";
-    const t = v.trim().toLowerCase();
-    return t ? t : null;
-  };
-
-  const isValidPhone = (v) => /^\+?[1-9]\d{7,14}$/.test(v); // E.164-ish
-
-  const normalizePhone = (v) => {
-    if (v === undefined) return undefined; // PATCH omit
-    if (v === null) return null;
-    if (typeof v !== "string") return "__INVALID__";
-    const raw = v.trim();
-    if (!raw) return null;
-    return raw.replace(/(?!^\+)[^\d]/g, "");
-  };
-
-  const optionalTrimToNull = (v) => {
-    if (v === null) return null;
-    if (v === undefined) return undefined;
-    if (typeof v !== "string") return undefined;
-    const t = v.trim();
-    return t ? t : null;
-  };
-
   // ============================================================
   // LIST EMERGENCY CONTACTS (decoupled from tenants, scoped by landlord when known)
   // GET /api/emergencyContacts?includeArchived=0|1
@@ -253,35 +154,26 @@ function registerEmergencyContactRoutes(app, prisma, { shapeEmergencyContact }) 
 
     // Optional: state (US only) -> store USPS code
     let stateCode = null;
-    const stateVal = optionalTrimToNull(state);
-    if (stateVal !== undefined) {
-      if (stateVal === null) {
-        stateCode = null;
-      } else {
-        const code = normalizeState(stateVal);
-        if (!code) {
-          return res.status(400).json({ error: "state must be a valid US state or DC" });
-        }
-        stateCode = code;
-      }
+    const stateNorm = normalizeState(state); // returns null/undefined/__INVALID__/CODE
+    if (stateNorm === "__INVALID__") {
+      return res.status(400).json({ error: "state must be a valid US state (2-letter) or full name, or DC" });
+    }
+    if (stateNorm !== undefined) {
+      stateCode = stateNorm; // may be null or "CO"
     }
 
     // Optional: zip/postalCode (ZIP5 or ZIP+4)
     let postal = null;
     const zipInput = postalCode ?? zip;
-    const zipVal = optionalTrimToNull(zipInput);
-    if (zipVal !== undefined) {
-      if (zipVal === null) {
-        postal = null;
-      } else {
-        const normalized = normalizeZipUS(zipVal);
-        if (!normalized) {
-          return res
-            .status(400)
-            .json({ error: "postalCode must be a valid US ZIP (12345 or 12345-6789)" });
-        }
-        postal = normalized;
-      }
+
+    const zipNorm = normalizeZipUS(zipInput);
+    if (zipNorm === "__INVALID__") {
+      return res
+        .status(400)
+        .json({ error: "postalCode must be a valid US ZIP (12345 or 12345-6789)" });
+    }
+    if (zipNorm !== undefined) {
+      postal = zipNorm; // may be null or "80530" or "80530-1234"
     }
 
     try {
@@ -372,35 +264,25 @@ function registerEmergencyContactRoutes(app, prisma, { shapeEmergencyContact }) 
       if (city !== undefined) data.city = optionalTrimToNull(city);
       if (notes !== undefined) data.notes = optionalTrimToNull(notes);
     
-      // state: optional, but if provided must be valid US state/DC; store USPS code
+      // state: optional, if provided must be valid; allow clearing with null/""
       if (state !== undefined) {
-        const stateVal = optionalTrimToNull(state);
-        if (stateVal === null) {
-          data.state = null;
-        } else if (typeof stateVal === "string") {
-          const code = normalizeState(stateVal);
-          if (!code) {
-            return res.status(400).json({ error: "state must be a valid US state or DC" });
-          }
-          data.state = code;
+        const stateNorm = normalizeState(state);
+        if (stateNorm === "__INVALID__") {
+          return res.status(400).json({ error: "state must be a valid US state (2-letter) or full name, or DC" });
         }
+        data.state = stateNorm; // null or "CO"
       }
-    
+
       // zip/postalCode: optional, but if provided must be ZIP5 or ZIP+4; store normalized
       const zipInput = postalCode ?? zip;
       if (zipInput !== undefined) {
-        const zipVal = optionalTrimToNull(zipInput);
-        if (zipVal === null) {
-          data.postalCode = null;
-        } else if (typeof zipVal === "string") {
-          const normalized = normalizeZipUS(zipVal);
-          if (!normalized) {
-            return res
-              .status(400)
-              .json({ error: "postalCode must be a valid US ZIP (12345 or 12345-6789)" });
-          }
-          data.postalCode = normalized;
+        const zipNorm = normalizeZipUS(zipInput);
+        if (zipNorm === "__INVALID__") {
+          return res
+            .status(400)
+            .json({ error: "postalCode must be a valid US ZIP (12345 or 12345-6789)" });
         }
+        data.postalCode = zipNorm; // null or normalized
       }
     
       // phone: REQUIRED overall; if provided in PATCH, must be valid + non-empty + non-null
