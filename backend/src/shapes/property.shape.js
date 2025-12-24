@@ -1,3 +1,4 @@
+//backend/src/shapes/property.shape.js
 function shapeProperty(property) {
     if (!property) return null;
     return {
@@ -13,7 +14,8 @@ function shapeProperty(property) {
         yearBuilt: property.yearBuilt,
         status: property.status,
         notes: property.notes,
-        archived: property.archivedAt,
+        archived: !!property.archivedAt,
+        archivedAt: property.archivedAt,
         createdAt: property.createdAt,
         updatedAt: property.updatedAt,
         landlordId: property.landlordId,

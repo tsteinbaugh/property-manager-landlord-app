@@ -3,25 +3,18 @@ const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 const { Role, UserStatus } = require("@prisma/client");
 
+const { requireAuth, requireLandlordOrSysadmin } = require("../middleware/auth.middleware.js");
+
+const { parseTenantPost, parseTenantPatch } = require("../utils/tenantFields.js");
+const { normalizeEmail } = require("../utils/validation.js");
+
+const { getTenantDetails } = require("../services/tenantDetails.service.js");
+
 function generateTempPassword() {
   return crypto.randomBytes(16).toString("hex");
 }
 
-const {
-  isValidEmail,
-  isValidPhone,
-  optionalTrimToNull,
-  normalizeEmail,
-  normalizePhone,
-  parseIntOrNullOpt,
-  parseEnumOrNullOpt,
-} = require("../utils/validation.js");
-
-const { SEX, HAIR_COLOR, EYE_COLOR, BODY_BUILD } =
-  require("../shared/residentPhysicalDescription.enums.js"); 
-
 function registerTenantRoutes(app, prisma, { shapeTenant }) {
-  
   // ============================================================
   // GET /api/tenants/me – current logged-in tenant's profile
   // ============================================================
@@ -40,16 +33,15 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
 
       if (!tenant) return res.status(404).json({ error: "Tenant profile not found" });
 
-      res.json(shapeTenant(tenant));
+      return res.json(shapeTenant(tenant));
     } catch (err) {
       console.error("Error in GET /api/tenants/me", err);
-      res.status(500).json({ error: "Server error" });
+      return res.status(500).json({ error: "Server error" });
     }
   });
 
   // ============================================================
   // PATCH /api/tenants/me – update current tenant (and sync to linked User)
-  // Allows updating the expanded fields too (same as landlord PATCH).
   // ============================================================
   app.patch("/api/tenants/me", async (req, res) => {
     const user = req.user || null;
@@ -59,27 +51,6 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
       return res.status(403).json({ error: "Only tenants can access this endpoint" });
     }
 
-    const {
-      name,
-      email,
-      phone,
-      age,
-      heightFeet,
-      heightInches,
-      weight,
-      sex,
-      hairColor,
-      eyeColor,
-      bodyBuild,
-      markings,
-      occupation,
-      employer,
-      income,
-      creditScore,
-      violations,
-      notes,
-    } = req.body || {};
-
     try {
       const existing = await prisma.tenant.findFirst({
         where: { userId: user.id, archivedAt: null },
@@ -87,124 +58,17 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
 
       if (!existing) return res.status(404).json({ error: "Tenant profile not found" });
 
-      const data = {};
+      const parsed = parseTenantPatch(req.body);
+      if (parsed.error) return res.status(400).json({ error: parsed.error });
 
-      // name: if provided, must be non-empty string
-      if (name !== undefined) {
-        if (name === null) return res.status(400).json({ error: "name cannot be null" });
-        if (typeof name !== "string") return res.status(400).json({ error: "name must be a string" });
-        const trimmed = name.trim();
-        if (!trimmed) return res.status(400).json({ error: "name is required" });
-        data.name = trimmed;
-      }
-
-      // email: optional, but if provided must be valid; allow clearing with null/""
-      if (email !== undefined) {
-        const emailNorm = normalizeEmail(email);
-        if (emailNorm === "__INVALID__") return res.status(400).json({ error: "email must be a string" });
-        if (emailNorm && !isValidEmail(emailNorm)) {
-          return res.status(400).json({ error: "email must be a valid email address" });
-        }
-        data.email = emailNorm; // may be null
-      }
-
-      // phone: optional, but if provided must be valid; allow clearing with null/""
-      if (phone !== undefined) {
-        const phoneNorm = normalizePhone(phone);
-        if (phoneNorm === "__INVALID__") return res.status(400).json({ error: "phone must be a string" });
-        if (phoneNorm && !isValidPhone(phoneNorm)) {
-          return res.status(400).json({ error: "phone must be a valid phone number" });
-        }
-        data.phone = phoneNorm; // may be null
-      }
-
-      // numbers (optional)
-      if (age !== undefined) {
-        const v = parseIntOrNullOpt(age, { min: 0, max: 120 });
-        if (v === "__INVALID__") return res.status(400).json({ error: "age must be an integer between 0 and 120" });
-        data.age = v;
-      }
-      if (heightFeet !== undefined) {
-        const v = parseIntOrNullOpt(heightFeet, { min: 0, max: 8 });
-        if (v === "__INVALID__") return res.status(400).json({ error: "heightFeet must be an integer 0-8" });
-        data.heightFeet = v;
-      }
-      if (heightInches !== undefined) {
-        const v = parseIntOrNullOpt(heightInches, { min: 0, max: 11 });
-        if (v === "__INVALID__") return res.status(400).json({ error: "heightInches must be an integer 0-11" });
-        data.heightInches = v;
-      }
-      if (weight !== undefined) {
-        const v = parseIntOrNullOpt(weight, { min: 0, max: 1500 });
-        if (v === "__INVALID__") return res.status(400).json({ error: "weight must be an integer" });
-        data.weight = v;
-      }
-      if (income !== undefined) {
-        const v = parseIntOrNullOpt(income, { min: 0, max: 1000000000 });
-        if (v === "__INVALID__") return res.status(400).json({ error: "income must be an integer" });
-        data.income = v;
-      }
-      if (creditScore !== undefined) {
-        const v = parseIntOrNullOpt(creditScore, { min: 0, max: 850 });
-        if (v === "__INVALID__") return res.status(400).json({ error: "creditScore must be an integer 0-850" });
-        data.creditScore = v;
-      }
-
-      // enums (optional)
-      if (sex !== undefined) {
-        const v = parseEnumOrNullOpt(sex, SEX);
-        if (v === "__INVALID__") return res.status(400).json({ error: "sex is invalid" });
-        data.sex = v;
-      }
-      if (hairColor !== undefined) {
-        const v = parseEnumOrNullOpt(hairColor, HAIR_COLOR);
-        if (v === "__INVALID__") return res.status(400).json({ error: "hair color is invalid" });
-        data.hairColor = v;
-      }
-      if (eyeColor !== undefined) {
-        const v = parseEnumOrNullOpt(eyeColor, EYE_COLOR);
-        if (v === "__INVALID__") return res.status(400).json({ error: "eye color is invalid" });
-        data.eyeColor = v;
-      }
-      if (bodyBuild !== undefined) {
-        const v = parseEnumOrNullOpt(bodyBuild, BODY_BUILD);
-        if (v === "__INVALID__") return res.status(400).json({ error: "body build is invalid" });
-        data.bodyBuild = v;
-      }
-
-      // strings (optional)
-      if (markings !== undefined) {
-        const v = optionalTrimToNull(markings);
-        if (v === "__INVALID__") return res.status(400).json({ error: "markings must be a string" });
-        data.markings = v;
-      }
-      if (occupation !== undefined) {
-        const v = optionalTrimToNull(occupation);
-        if (v === "__INVALID__") return res.status(400).json({ error: "occupation must be a string" });
-        data.occupation = v;
-      }
-      if (employer !== undefined) {
-        const v = optionalTrimToNull(employer);
-        if (v === "__INVALID__") return res.status(400).json({ error: "employer must be a string" });
-        data.employer = v;
-      }
-      if (violations !== undefined) {
-        const v = optionalTrimToNull(violations);
-        if (v === "__INVALID__") return res.status(400).json({ error: "violations must be a string" });
-        data.violations = v;
-      }
-      if (notes !== undefined) {
-        const v = optionalTrimToNull(notes);
-        if (v === "__INVALID__") return res.status(400).json({ error: "notes must be a string" });
-        data.notes = v;
-      }
+      const data = parsed.data;
 
       const updated = await prisma.tenant.update({
         where: { id: existing.id },
         data,
       });
 
-      // Sync to linked User (keep your original intent: don't null out user.email)
+      // Sync to linked User (keep your intent: don't null out user.email)
       if (updated.userId) {
         try {
           const userUpdateData = {};
@@ -235,10 +99,10 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
         }
       }
 
-      res.json(shapeTenant(updated));
+      return res.json(shapeTenant(updated));
     } catch (err) {
       console.error("Error in PATCH /api/tenants/me", err);
-      res.status(500).json({ error: "Server error" });
+      return res.status(500).json({ error: "Server error" });
     }
   });
 
@@ -249,53 +113,28 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
     const { id } = req.params;
     const user = req.user || null;
 
-    if (!user) return res.status(401).json({ error: "Unauthorized" });
-    if (user.baseRole !== Role.LANDLORD && user.baseRole !== Role.SYSADMIN) {
-      return res.status(403).json({ error: "You are not allowed to view tenant details." });
-    }
-
     try {
-      const tenant = await prisma.tenant.findUnique({
-        where: { id },
-        include: {
-          leaseTenants: {
-            orderBy: { startDate: "desc" },
-            include: { lease: { include: { property: true } } },
-          },
-          occupantLinks: { where: { occupant: { archivedAt: null } }, include: { occupant: true } },
-          petLinks: { where: { pet: { archivedAt: null } }, include: { pet: true } },
-          emergencyContactLinks: { where: { emergencyContact: { archivedAt: null } }, include: { emergencyContact: true } },
-          vehicleLinks: { where: { vehicle: { archivedAt: null } }, include: { vehicle: true } },
-        },
-      });
-
-      if (!tenant) return res.status(404).json({ error: "Tenant not found" });
-
-      if (user.baseRole === Role.LANDLORD) {
-        if (tenant.landlordId && tenant.landlordId !== user.id) {
-          return res.status(403).json({ error: "You are not allowed to view this tenant." });
-        }
-      }
-
-      const occupants = (tenant.occupantLinks || []).map((l) => l.occupant).filter(Boolean);
-      const pets = (tenant.petLinks || []).map((l) => l.pet).filter(Boolean);
-      const emergencyContacts = (tenant.emergencyContactLinks || []).map((l) => l.emergencyContact).filter(Boolean);
-      const vehicles = (tenant.vehicleLinks || []).map((l) => l.vehicle).filter(Boolean);
-
-      res.json({ ...tenant, occupants, pets, emergencyContacts, vehicles });
+      const payload = await getTenantDetails(prisma, { tenantId: id, user });
+      return res.json(payload);
     } catch (err) {
+      if (err?.status) return res.status(err.status).json({ error: err.message });
       console.error("Error in GET /api/tenants/:id", err);
-      res.status(500).json({ error: "Server error" });
+      return res.status(500).json({ error: "Server error" });
     }
   });
 
   // ============================================================
   // GET /api/tenants – list tenants (scoped by landlord)
+  // Optional ?includeArchived=0/1 flag
   // ============================================================
   app.get("/api/tenants", async (req, res) => {
     try {
       const user = req.user || null;
-      const where = {};
+      const includeArchived = req.query.includeArchived === "1" || req.query.includeArchived === "true";
+
+      const where = {
+        ...(includeArchived ? {} : { archivedAt: null }),
+      };
 
       if (user && user.baseRole === Role.LANDLORD) where.landlordId = user.id;
 
@@ -304,117 +143,32 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
         orderBy: { createdAt: "desc" },
       });
 
-      res.json(tenants.map(shapeTenant));
+      return res.json(tenants.map(shapeTenant));
     } catch (err) {
       console.error("Error in GET /api/tenants", err);
-      res.status(500).json({ error: "Server error" });
+      return res.status(500).json({ error: "Server error" });
     }
   });
 
   // ============================================================
   // POST /api/tenants – create tenant (and link/create TENANT user if email present)
-  // Supports expanded fields from schema.prisma too.
   // ============================================================
   app.post("/api/tenants", async (req, res) => {
-    const {
-      name,
-      email,
-      phone,
-      age,
-      heightFeet,
-      heightInches,
-      weight,
-      sex,
-      hairColor,
-      eyeColor,
-      bodyBuild,
-      markings,
-      occupation,
-      employer,
-      income,
-      creditScore,
-      violations,
-      notes,
-    } = req.body || {};
-
-    if (name === null) return res.status(400).json({ error: "name cannot be null" });
-    if (typeof name !== "string" || !name.trim()) {
-      return res.status(400).json({ error: "name is required" });
-    }
-    const trimmedName = name.trim();
-
-    // auth required
     const authUser = req.user || null;
     if (!authUser) return res.status(401).json({ error: "Unauthorized" });
 
-    // optional email/phone, but valid if present
-    const emailNorm = normalizeEmail(email);
-    if (emailNorm === "__INVALID__") return res.status(400).json({ error: "email must be a string" });
-    if (emailNorm && !isValidEmail(emailNorm)) {
-      return res.status(400).json({ error: "email must be a valid email address" });
-    }
-
-    const phoneNorm = normalizePhone(phone);
-    if (phoneNorm === "__INVALID__") return res.status(400).json({ error: "phone must be a string" });
-    if (phoneNorm && !isValidPhone(phoneNorm)) {
-      return res.status(400).json({ error: "phone must be a valid phone number" });
-    }
-
-    // numbers
-    const ageVal = parseIntOrNullOpt(age, { min: 0, max: 120 });
-    if (ageVal === "__INVALID__") return res.status(400).json({ error: "age must be an integer between 0 and 120" });
-
-    const heightFeetVal = parseIntOrNullOpt(heightFeet, { min: 0, max: 8 });
-    if (heightFeetVal === "__INVALID__") return res.status(400).json({ error: "heightFeet must be an integer 0-8" });
-
-    const heightInchesVal = parseIntOrNullOpt(heightInches, { min: 0, max: 11 });
-    if (heightInchesVal === "__INVALID__") return res.status(400).json({ error: "heightInches must be an integer 0-11" });
-
-    const weightVal = parseIntOrNullOpt(weight, { min: 0, max: 1500 });
-    if (weightVal === "__INVALID__") return res.status(400).json({ error: "weight must be an integer" });
-
-    const incomeVal = parseIntOrNullOpt(income, { min: 0, max: 1000000000 });
-    if (incomeVal === "__INVALID__") return res.status(400).json({ error: "income must be an integer" });
-
-    const creditScoreVal = parseIntOrNullOpt(creditScore, { min: 0, max: 850 });
-    if (creditScoreVal === "__INVALID__") return res.status(400).json({ error: "creditScore must be an integer 0-850" });
-
-    // enums
-    const sexVal = parseEnumOrNullOpt(sex, SEX);
-    if (sexVal === "__INVALID__") return res.status(400).json({ error: "sex is invalid" });
-
-    const hairVal = parseEnumOrNullOpt(hairColor, HAIR_COLOR);
-    if (hairVal === "__INVALID__") return res.status(400).json({ error: "hairColor is invalid" });
-
-    const eyeVal = parseEnumOrNullOpt(eyeColor, EYE_COLOR);
-    if (eyeVal === "__INVALID__") return res.status(400).json({ error: "eyeColor is invalid" });
-
-    const bodyVal = parseEnumOrNullOpt(bodyBuild, BODY_BUILD);
-    if (bodyVal === "__INVALID__") return res.status(400).json({ error: "bodyBuild is invalid" });
-
-    // strings
-    const markingsVal = optionalTrimToNull(markings);
-    if (markingsVal === "__INVALID__") return res.status(400).json({ error: "markings must be a string" });
-
-    const occupationVal = optionalTrimToNull(occupation);
-    if (occupationVal === "__INVALID__") return res.status(400).json({ error: "occupation must be a string" });
-
-    const employerVal = optionalTrimToNull(employer);
-    if (employerVal === "__INVALID__") return res.status(400).json({ error: "employer must be a string" });
-
-    const violationsVal = optionalTrimToNull(violations);
-    if (violationsVal === "__INVALID__") return res.status(400).json({ error: "violations must be a string" });
-
-    const notesVal = optionalTrimToNull(notes);
-    if (notesVal === "__INVALID__") return res.status(400).json({ error: "notes must be a string" });
-
     try {
+      const parsed = parseTenantPost(req.body);
+      if (parsed.error) return res.status(400).json({ error: parsed.error });
+
+      const tenantData = parsed.data;
+
       let linkedUser = null;
 
       // If we got an email, try to link/create a User with baseRole = TENANT
-      if (emailNorm) {
+      if (tenantData.email) {
         const existingUser = await prisma.user.findUnique({
-          where: { email: emailNorm },
+          where: { email: tenantData.email },
         });
 
         if (existingUser) {
@@ -441,8 +195,8 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
 
           linkedUser = await prisma.user.create({
             data: {
-              email: emailNorm,
-              name: trimmedName,
+              email: tenantData.email,
+              name: tenantData.name,
               passwordHash,
               baseRole: Role.TENANT,
               status: UserStatus.INVITED,
@@ -450,33 +204,13 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
             },
           });
 
-          console.log(`Created TENANT user ${emailNorm} with temp password (hidden)`);
+          console.log(`Created TENANT user ${tenantData.email} with temp password (hidden)`);
         }
       }
 
       const created = await prisma.tenant.create({
         data: {
-          name: trimmedName,
-          email: emailNorm ?? null,
-          phone: phoneNorm ?? null,
-
-          age: ageVal ?? null,
-          heightFeet: heightFeetVal ?? null,
-          heightInches: heightInchesVal ?? null,
-          weight: weightVal ?? null,
-
-          sex: sexVal ?? null,
-          hairColor: hairVal ?? null,
-          eyeColor: eyeVal ?? null,
-          bodyBuild: bodyVal ?? null,
-
-          markings: markingsVal ?? null,
-          occupation: occupationVal ?? null,
-          employer: employerVal ?? null,
-          income: incomeVal ?? null,
-          creditScore: creditScoreVal ?? null,
-          violations: violationsVal ?? null,
-          notes: notesVal ?? null,
+          ...tenantData,
 
           userId: linkedUser ? linkedUser.id : null,
 
@@ -485,7 +219,7 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
         },
       });
 
-      res.status(201).json(shapeTenant(created));
+      return res.status(201).json(shapeTenant(created));
     } catch (err) {
       console.error("Error in POST /api/tenants", err);
 
@@ -493,37 +227,15 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
         return res.status(400).json({ error: "Email is already in use by another user." });
       }
 
-      res.status(500).json({ error: "Server error" });
+      return res.status(500).json({ error: "Server error" });
     }
   });
 
   // ============================================================
   // PATCH /api/tenants/:id – update tenant (and sync to linked User)
-  // Supports expanded fields from schema.prisma
   // ============================================================
   app.patch("/api/tenants/:id", async (req, res) => {
     const { id } = req.params;
-
-    const {
-      name,
-      email,
-      phone,
-      age,
-      heightFeet,
-      heightInches,
-      weight,
-      sex,
-      hairColor,
-      eyeColor,
-      bodyBuild,
-      markings,
-      occupation,
-      employer,
-      income,
-      creditScore,
-      violations,
-      notes,
-    } = req.body || {};
 
     const user = req.user || null;
     if (!user) return res.status(401).json({ error: "Unauthorized" });
@@ -532,125 +244,14 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
       const existing = await prisma.tenant.findUnique({ where: { id } });
       if (!existing) return res.status(404).json({ error: "Tenant not found" });
 
-      if (
-        user.baseRole === Role.LANDLORD &&
-        existing.landlordId &&
-        existing.landlordId !== user.id
-      ) {
+      if (user.baseRole === Role.LANDLORD && existing.landlordId && existing.landlordId !== user.id) {
         return res.status(403).json({ error: "You are not allowed to update this tenant." });
       }
 
-      const data = {};
+      const parsed = parseTenantPatch(req.body);
+      if (parsed.error) return res.status(400).json({ error: parsed.error });
 
-      // name: if provided, MUST be non-empty string
-      if (name !== undefined) {
-        if (name === null) return res.status(400).json({ error: "name cannot be null" });
-        if (typeof name !== "string") return res.status(400).json({ error: "name must be a string" });
-        const trimmed = name.trim();
-        if (!trimmed) return res.status(400).json({ error: "name is required" });
-        data.name = trimmed;
-      }
-
-      // email: optional but valid if present; allow clearing with null/""
-      if (email !== undefined) {
-        const emailNorm = normalizeEmail(email);
-        if (emailNorm === "__INVALID__") return res.status(400).json({ error: "email must be a string" });
-        if (emailNorm && !isValidEmail(emailNorm)) {
-          return res.status(400).json({ error: "email must be a valid email address" });
-        }
-        data.email = emailNorm; // may be null
-      }
-
-      // phone: optional but valid if present; allow clearing with null/""
-      if (phone !== undefined) {
-        const phoneNorm = normalizePhone(phone);
-        if (phoneNorm === "__INVALID__") return res.status(400).json({ error: "phone must be a string" });
-        if (phoneNorm && !isValidPhone(phoneNorm)) {
-          return res.status(400).json({ error: "phone must be a valid phone number" });
-        }
-        data.phone = phoneNorm; // may be null
-      }
-
-      // numbers (optional)
-      if (age !== undefined) {
-        const v = parseIntOrNullOpt(age, { min: 0, max: 120 });
-        if (v === "__INVALID__") return res.status(400).json({ error: "age must be an integer between 0 and 120" });
-        data.age = v;
-      }
-      if (heightFeet !== undefined) {
-        const v = parseIntOrNullOpt(heightFeet, { min: 0, max: 8 });
-        if (v === "__INVALID__") return res.status(400).json({ error: "heightFeet must be an integer 0-8" });
-        data.heightFeet = v;
-      }
-      if (heightInches !== undefined) {
-        const v = parseIntOrNullOpt(heightInches, { min: 0, max: 11 });
-        if (v === "__INVALID__") return res.status(400).json({ error: "heightInches must be an integer 0-11" });
-        data.heightInches = v;
-      }
-      if (weight !== undefined) {
-        const v = parseIntOrNullOpt(weight, { min: 0, max: 1500 });
-        if (v === "__INVALID__") return res.status(400).json({ error: "weight must be an integer" });
-        data.weight = v;
-      }
-      if (income !== undefined) {
-        const v = parseIntOrNullOpt(income, { min: 0, max: 1000000000 });
-        if (v === "__INVALID__") return res.status(400).json({ error: "income must be an integer" });
-        data.income = v;
-      }
-      if (creditScore !== undefined) {
-        const v = parseIntOrNullOpt(creditScore, { min: 0, max: 850 });
-        if (v === "__INVALID__") return res.status(400).json({ error: "creditScore must be an integer 0-850" });
-        data.creditScore = v;
-      }
-
-      // enums (optional)
-      if (sex !== undefined) {
-        const v = parseEnumOrNullOpt(sex, SEX);
-        if (v === "__INVALID__") return res.status(400).json({ error: "sex is invalid" });
-        data.sex = v;
-      }
-      if (hairColor !== undefined) {
-        const v = parseEnumOrNullOpt(hairColor, HAIR_COLOR);
-        if (v === "__INVALID__") return res.status(400).json({ error: "hair color is invalid" });
-        data.hairColor = v;
-      }
-      if (eyeColor !== undefined) {
-        const v = parseEnumOrNullOpt(eyeColor, EYE_COLOR);
-        if (v === "__INVALID__") return res.status(400).json({ error: "eye color is invalid" });
-        data.eyeColor = v;
-      }
-      if (bodyBuild !== undefined) {
-        const v = parseEnumOrNullOpt(bodyBuild, BODY_BUILD);
-        if (v === "__INVALID__") return res.status(400).json({ error: "body build is invalid" });
-        data.bodyBuild = v;
-      }
-
-      // strings (optional)
-      if (markings !== undefined) {
-        const v = optionalTrimToNull(markings);
-        if (v === "__INVALID__") return res.status(400).json({ error: "markings must be a string" });
-        data.markings = v;
-      }
-      if (occupation !== undefined) {
-        const v = optionalTrimToNull(occupation);
-        if (v === "__INVALID__") return res.status(400).json({ error: "occupation must be a string" });
-        data.occupation = v;
-      }
-      if (employer !== undefined) {
-        const v = optionalTrimToNull(employer);
-        if (v === "__INVALID__") return res.status(400).json({ error: "employer must be a string" });
-        data.employer = v;
-      }
-      if (violations !== undefined) {
-        const v = optionalTrimToNull(violations);
-        if (v === "__INVALID__") return res.status(400).json({ error: "violations must be a string" });
-        data.violations = v;
-      }
-      if (notes !== undefined) {
-        const v = optionalTrimToNull(notes);
-        if (v === "__INVALID__") return res.status(400).json({ error: "notes must be a string" });
-        data.notes = v;
-      }
+      const data = parsed.data;
 
       const updated = await prisma.tenant.update({
         where: { id },
@@ -689,15 +290,17 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
         }
       }
 
-      res.json(shapeTenant(updated));
+      return res.json(shapeTenant(updated));
     } catch (err) {
       console.error("Error in PATCH /api/tenants/:id", err);
-      res.status(500).json({ error: "Server error" });
+      return res.status(500).json({ error: "Server error" });
     }
   });
 
   // ============================================================
-  // PATCH /api/tenants/:id/archive – toggle archive flag (and archive linked User)
+  // PATCH /api/tenants/:id/archive – toggle archivedAt timestamp (and archive linked User)
+  // - LANDLORD can archive
+  // - Only SYSADMIN can unarchive
   // ============================================================
   app.patch("/api/tenants/:id/archive", async (req, res) => {
     const { id } = req.params;
@@ -709,11 +312,7 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
       const existing = await prisma.tenant.findUnique({ where: { id } });
       if (!existing) return res.status(404).json({ error: "Tenant not found" });
 
-      if (
-        user.baseRole === Role.LANDLORD &&
-        existing.landlordId &&
-        existing.landlordId !== user.id
-      ) {
+      if (user.baseRole === Role.LANDLORD && existing.landlordId && existing.landlordId !== user.id) {
         return res.status(403).json({ error: "You are not allowed to archive this tenant." });
       }
 
@@ -721,45 +320,42 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
       const isSysAdmin = user.baseRole === Role.SYSADMIN;
 
       if (currentlyArchived && !isSysAdmin) {
-        return res.status(403).json({
-          error: "Only a system administrator can unarchive a tenant.",
-        });
+        return res.status(403).json({ error: "Only a system administrator can unarchive a tenant." });
       }
 
-      const nextArchived = !currentlyArchived;
+      const nextArchivedAt = currentlyArchived ? null : new Date();
 
       const updated = await prisma.tenant.update({
         where: { id },
-        data: { archivedAt: nextArchived },
+        data: { archivedAt: nextArchivedAt },
       });
 
       if (updated.userId) {
         try {
           await prisma.user.update({
             where: { id: updated.userId },
-            data: { archivedAt: nextArchived },
+            data: { archivedAt: nextArchivedAt },
           });
         } catch (userErr) {
           console.error("Error syncing Tenant archive state to User:", userErr);
         }
       }
 
-      res.json(shapeTenant(updated));
+      return res.json(shapeTenant(updated));
     } catch (err) {
       console.error("Error in PATCH /api/tenants/:id/archive", err);
-      res.status(500).json({ error: "Server error" });
+      return res.status(500).json({ error: "Server error" });
     }
   });
 
   // ============================================================
-  // Linking endpoints (unchanged from your file)
+  // Linking endpoints (kept as-is from your file)
   // ============================================================
 
   // POST /api/tenants/:tenantId/occupants/:occupantId/link
   app.post("/api/tenants/:tenantId/occupants/:occupantId/link", async (req, res) => {
     const { tenantId, occupantId } = req.params;
     const user = req.user || null;
-
     if (!user) return res.status(401).json({ error: "Unauthorized" });
 
     try {
@@ -796,7 +392,6 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
   app.delete("/api/tenants/:tenantId/occupants/:occupantId/unlink", async (req, res) => {
     const { tenantId, occupantId } = req.params;
     const user = req.user || null;
-
     if (!user) return res.status(401).json({ error: "Unauthorized" });
 
     try {
@@ -840,7 +435,6 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
   app.post("/api/tenants/:tenantId/pets/:petId/link", async (req, res) => {
     const { tenantId, petId } = req.params;
     const user = req.user || null;
-
     if (!user) return res.status(401).json({ error: "Unauthorized" });
 
     try {
@@ -877,7 +471,6 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
   app.delete("/api/tenants/:tenantId/pets/:petId/unlink", async (req, res) => {
     const { tenantId, petId } = req.params;
     const user = req.user || null;
-
     if (!user) return res.status(401).json({ error: "Unauthorized" });
 
     try {
@@ -921,7 +514,6 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
   app.post("/api/tenants/:tenantId/emergencyContacts/:emergencyContactId/link", async (req, res) => {
     const { tenantId, emergencyContactId } = req.params;
     const user = req.user || null;
-
     if (!user) return res.status(401).json({ error: "Unauthorized" });
 
     try {
@@ -958,7 +550,6 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
   app.delete("/api/tenants/:tenantId/emergencyContacts/:emergencyContactId/unlink", async (req, res) => {
     const { tenantId, emergencyContactId } = req.params;
     const user = req.user || null;
-
     if (!user) return res.status(401).json({ error: "Unauthorized" });
 
     try {
@@ -1002,7 +593,6 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
   app.post("/api/tenants/:tenantId/vehicles/:vehicleId/link", async (req, res) => {
     const { tenantId, vehicleId } = req.params;
     const user = req.user || null;
-
     if (!user) return res.status(401).json({ error: "Unauthorized" });
 
     try {
@@ -1039,7 +629,6 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
   app.delete("/api/tenants/:tenantId/vehicles/:vehicleId/unlink", async (req, res) => {
     const { tenantId, vehicleId } = req.params;
     const user = req.user || null;
-
     if (!user) return res.status(401).json({ error: "Unauthorized" });
 
     try {
@@ -1080,6 +669,4 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
   });
 }
 
-module.exports = {
-  registerTenantRoutes,
-};
+module.exports = { registerTenantRoutes };

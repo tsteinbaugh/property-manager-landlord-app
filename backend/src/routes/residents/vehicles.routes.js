@@ -1,21 +1,16 @@
 // backend/src/routes/vehicles.routes.js
 const { Role } = require("@prisma/client");
 
-const {
-  optionalTrimToNull,
-  parseIntOrNullOpt,
-  normalizeState,
-} = require("../../utils/validation.js");
+const { parseVehiclePost, parseVehiclePatch } = require("../../utils/vehicleFields.js");
+const { getVehicleDetails } = require("../../services/vehicleDetails.service.js");
 
 function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
   // ============================================================
-  // LIST VEHICLES (decoupled from tenants, scoped by landlord when known)
   // GET /api/vehicles?includeArchived=0|1
   // ============================================================
   app.get("/api/vehicles", async (req, res) => {
     const includeArchived =
-      req.query.includeArchived === "1" ||
-      req.query.includeArchived === "true";
+      req.query.includeArchived === "1" || req.query.includeArchived === "true";
 
     try {
       const user = req.user || null;
@@ -25,13 +20,7 @@ function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
       };
 
       if (user && user.baseRole === Role.LANDLORD) {
-        // landlord only sees their own vehicles
         where.landlordId = user.id;
-      } else if (user && user.baseRole === Role.SYSADMIN) {
-        // sysadmin sees all
-      } else {
-        // no user or other roles: allow all (dev parity with properties)
-        // tighten later if needed.
       }
 
       const vehicles = await prisma.vehicle.findMany({
@@ -39,300 +28,134 @@ function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
         orderBy: { createdAt: "desc" },
       });
 
-      res.json(vehicles.map(shapeVehicle));
+      return res.json(vehicles.map(shapeVehicle));
     } catch (err) {
       console.error("Error in GET /api/vehicles", err);
-      res.status(500).json({ error: "Server error" });
+      return res.status(500).json({ error: "Server error" });
     }
   });
 
   // ============================================================
-  // GET SINGLE VEHICLE + linked tenants (via join table)
-  // GET /api/vehicles/:id
+  // GET /api/vehicles/:id (detail + linked tenants)
   // ============================================================
   app.get("/api/vehicles/:id", async (req, res) => {
     const { id } = req.params;
     const user = req.user || null;
-  
-    if (!user) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
-  
+
     try {
-      const vehicle = await prisma.vehicle.findUnique({ where: { id } });
-      if (!vehicle) {
-        return res.status(404).json({ error: "Vehicle not found" });
-      }
-    
-      // Landlord can only view their own vehicle; sysadmin can view any
-      if (
-        user.baseRole === Role.LANDLORD &&
-        vehicle.landlordId &&
-        vehicle.landlordId !== user.id
-      ) {
-        return res
-          .status(403)
-          .json({ error: "You are not allowed to view this vehicle." });
-      }
-    
-      // Look up join-table links: which tenants are linked to this vehicle?
-      const links = await prisma.tenantVehicle.findMany({
-        where: { vehicleId: id },
-        include: { tenant: true },
+      const payload = await getVehicleDetails(prisma, {
+        vehicleId: id,
+        user,
+        shapeVehicle,
       });
-    
-      const tenants = links
-        .map((link) => link.tenant)
-        .filter(Boolean)
-        .map((t) => ({
-          id: t.id,
-          name: t.name,
-          email: t.email,
-          phone: t.phone,
-          archived: t.archivedAt,
-          createdAt: t.createdAt,
-          updatedAt: t.updatedAt,
-        }));
-      
-      const shaped = shapeVehicle(vehicle);
-      
-      return res.json({
-        ...shaped,
-        tenants,
-      });
+      return res.json(payload);
     } catch (err) {
+      if (err?.status) return res.status(err.status).json({ error: err.message });
       console.error("Error in GET /api/vehicles/:id", err);
       return res.status(500).json({ error: "Server error" });
     }
   });
 
   // ============================================================
-  // CREATE VEHICLE
   // POST /api/vehicles
-  // Body: { make?, model?, year?, color?, state?, plate?, permit?)
+  // Body: { make, model, year?, color?, state?, plate?, permit?, parking?, notes?, violations? }
   // ============================================================
   app.post("/api/vehicles", async (req, res) => {
-    const { make, model, year, color, state, plate, permit, parking, notes, violations } = req.body || {};
     const user = req.user || null;
-
-    if (!user) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
-
-    const cleanMake = typeof name === "string" ? make.trim() : "";
-    if (!cleanMake) {
-      return res.status(400).json({ error: "make is required" });
-    }
-
-    const cleanModel = typeof model === "string" ? model.trim() : "";
-    if (!cleanName) {
-      return res.status(400).json({ error: "model is required" });
-    }
-
-    // year: if provided in PATCH, it MUST be a valid 4-digit year
-    if (year !== undefined) {
-      if (year === null) {
-        return res.status(400).json({ error: "year cannot be null" });
-      }
-    
-      const yearVal = parseIntOrNullOpt(year, { min: 1000, max: 9999 });
-      if (yearVal === "__INVALID__") {
-        return res.status(400).json({
-          error: "year must be a valid 4-digit integer",
-        });
-      }
-    }
-
-
-    // Optional: state (US only) -> store USPS code
-    let stateCode = null;
-    const stateNorm = normalizeState(state); // returns null/undefined/__INVALID__/CODE
-    if (stateNorm === "__INVALID__") {
-      return res.status(400).json({ error: "state must be a valid US state (2-letter) or full name, or DC" });
-    }
-    if (stateNorm !== undefined) {
-      stateCode = stateNorm; // may be null or "CO"
-    }
+    if (!user) return res.status(401).json({ error: "Unauthorized" });
 
     try {
-      const data = {
-        make: cleanMake,
-        model: cleanModel,
-        year: yearVal,
-        color: optionalTrimToNull(color) ?? null,
-        state: stateCode,
-        plate: optionalTrimToNull(plate) ?? null,
-        permit: optionalTrimToNull(permit) ?? null,
-        parking: optionalTrimToNull(parking) ?? null,
-        notes: optionalTrimToNull(notes) ?? null,
-        violations: optionalTrimToNull(violations) ?? null,
+      const { data, error } = parseVehiclePost(req.body);
+      if (error) return res.status(400).json({ error });
 
-        landlordId: user.id,
-        createdById: user.id,
-      };
+      const created = await prisma.vehicle.create({
+        data: {
+          ...data,
+          landlordId: user.id,
+          createdById: user.id,
+        },
+      });
 
-      const created = await prisma.vehicle.create({ data });
-      res.status(201).json(shapeVehicle(created));
+      return res.status(201).json(shapeVehicle(created));
     } catch (err) {
       console.error("Error in POST /api/vehicles", err);
-      res.status(500).json({ error: "Server error" });
+      return res.status(500).json({ error: "Server error" });
     }
   });
 
   // ============================================================
-  // UPDATE VEHICLE
   // PATCH /api/vehicles/:id
-  // Body: partial { make?, model?, year?, color?, state?, plate?, permit?}
+  // Body: partial { make?, model?, year?, color?, state?, plate?, permit?, parking?, notes?, violations? }
   // ============================================================
   app.patch("/api/vehicles/:id", async (req, res) => {
     const { id } = req.params;
-    const { make, model, year, color, state, plate, permit, parking, notes, violations } = req.body || {};
     const user = req.user || null;
 
-    if (!user) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
+    if (!user) return res.status(401).json({ error: "Unauthorized" });
 
     try {
       const existing = await prisma.vehicle.findUnique({ where: { id } });
-      if (!existing) {
-        return res.status(404).json({ error: "Vehicle not found" });
+      if (!existing) return res.status(404).json({ error: "Vehicle not found" });
+
+      if (user.baseRole === Role.LANDLORD && existing.landlordId && existing.landlordId !== user.id) {
+        return res.status(403).json({ error: "You are not allowed to update this vehicle." });
       }
 
-      // Landlord can only update their own vehicles; sysadmin can update any
-      if (
-        user.baseRole === Role.LANDLORD &&
-        existing.landlordId &&
-        existing.landlordId !== user.id
-      ) {
-        return res
-          .status(403)
-          .json({ error: "You are not allowed to update this vehicle." });
-      }
-
-      const data = {};
-
-      // make: if provided in PATCH, it MUST be a non-empty string
-      if (make !== undefined) {
-        if (make === null) {
-          return res.status(400).json({ error: "make cannot be null" });
-        }
-        if (typeof make !== "string") {
-          return res.status(400).json({ error: "make must be a string" });
-        }
-        const trimmed = make.trim();
-        if (!trimmed) {
-          return res.status(400).json({ error: "make is required" });
-        }
-        data.make = trimmed;
-      }
-
-      // model: if provided in PATCH, it MUST be a non-empty string
-      if (model !== undefined) {
-        if (model === null) {
-          return res.status(400).json({ error: "model cannot be null" });
-        }
-        if (typeof model !== "string") {
-          return res.status(400).json({ error: "model must be a string" });
-        }
-        const trimmed = namodelme.trim();
-        if (!trimmed) {
-          return res.status(400).json({ error: "model is required" });
-        }
-        data.model = trimmed;
-      }
-
-      // year: if provided in PATCH, it MUST be a valid 4-digit year
-      if (year !== undefined) {
-        if (year === null) {
-          return res.status(400).json({ error: "year cannot be null" });
-        }
-      
-        const yearVal = parseIntOrNullOpt(year, { min: 1000, max: 9999 });
-        if (yearVal === "__INVALID__") {
-          return res.status(400).json({
-            error: "year must be a valid 4-digit integer",
-          });
-        }
-        data.year = yearVal;
-      }
-
-      // state: optional, if provided must be valid; allow clearing with null/""
-      if (state !== undefined) {
-        const stateNorm = normalizeState(state);
-        if (stateNorm === "__INVALID__") {
-          return res.status(400).json({ error: "state must be a valid US state (2-letter) or full name, or DC" });
-        }
-        data.state = stateNorm; // null or "CO"
-      }
-
-      if (color !== undefined) data.color = optionalTrimToNull(color);
-      if (plate !== undefined) data.plate = optionalTrimToNull(plate);
-      if (permit !== undefined) data.permit = optionalTrimToNull(permit);
-      if (parking !== undefined) data.parking = optionalTrimToNull(parking);
-      if (notes !== undefined) data.notes = optionalTrimToNull(notes);
-      if (violations !== undefined) data.violations = optionalTrimToNull(violations);
+      const { data, error } = parseVehiclePatch(req.body);
+      if (error) return res.status(400).json({ error });
 
       const updated = await prisma.vehicle.update({
         where: { id },
         data,
       });
 
-      res.json(shapeVehicle(updated));
+      return res.json(shapeVehicle(updated));
     } catch (err) {
       console.error("Error in PATCH /api/vehicles/:id", err);
-      res.status(500).json({ error: "Server error" });
+      return res.status(500).json({ error: "Server error" });
     }
   });
 
   // ============================================================
-  // TOGGLE ARCHIVE
   // PATCH /api/vehicles/:id/archive
+  // toggle archivedAt timestamp
+  // - LANDLORD can archive their own
+  // - only SYSADMIN can unarchive
   // ============================================================
   app.patch("/api/vehicles/:id/archive", async (req, res) => {
     const { id } = req.params;
     const user = req.user || null;
 
-    if (!user) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
+    if (!user) return res.status(401).json({ error: "Unauthorized" });
 
     try {
       const existing = await prisma.vehicle.findUnique({ where: { id } });
-      if (!existing) {
-        return res.status(404).json({ error: "Vehicle not found" });
-      }
+      if (!existing) return res.status(404).json({ error: "Vehicle not found" });
 
-      // Landlord can only archive their own vehicles
-      if (
-        user.baseRole === Role.LANDLORD &&
-        existing.landlordId &&
-        existing.landlordId !== user.id
-      ) {
-        return res
-          .status(403)
-          .json({ error: "You are not allowed to archive this vehicle." });
+      if (user.baseRole === Role.LANDLORD && existing.landlordId && existing.landlordId !== user.id) {
+        return res.status(403).json({ error: "You are not allowed to archive this vehicle." });
       }
 
       const currentlyArchived = !!existing.archivedAt;
       const isSysAdmin = user.baseRole === Role.SYSADMIN;
 
-      // If currently archived and someone tries to unarchive who is not sysadmin → block
       if (currentlyArchived && !isSysAdmin) {
         return res.status(403).json({
-          error: "Only a system administrator can unarchive an vehicle.",
+          error: "Only a system administrator can unarchive a vehicle.",
         });
       }
 
+      const nextArchivedAt = currentlyArchived ? null : new Date();
+
       const updated = await prisma.vehicle.update({
         where: { id },
-        data: { archivedAt: !currentlyArchived },
+        data: { archivedAt: nextArchivedAt },
       });
 
-      res.json(shapeVehicle(updated));
+      return res.json(shapeVehicle(updated));
     } catch (err) {
       console.error("Error in PATCH /api/vehicles/:id/archive", err);
-      res.status(500).json({ error: "Server error" });
+      return res.status(500).json({ error: "Server error" });
     }
   });
 }

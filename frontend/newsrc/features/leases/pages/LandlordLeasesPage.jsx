@@ -3,75 +3,9 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
 import { leasesApi } from "@features/leases/api/leases.api.js";
+import LeaseCard from "../components/LeaseCard";
 
-// reuse tenant card styling so it visually matches tenants/properties
 import styles from "@shared/styles/LandlordPage.module.css";
-
-function LeaseCard({ lease, onClick }) {
-  const { rentAmount, status, startDate, endDate, archived } = lease;
-
-  const badgeClass = archived
-    ? TenantCardStyles.badgeArchived
-    : TenantCardStyles.badgeIdle;
-
-  const badgeLabel = archived ? "Archived" : "Active lease";
-
-  return (
-    <div
-      className={`${TenantCardStyles.card} ${
-        archived ? TenantCardStyles.archived : ""
-      }`}
-      onClick={onClick}
-      style={{ cursor: "pointer" }}
-    >
-      <div className={TenantCardStyles.header}>
-        <div className={TenantCardStyles.title}>
-          {"Unnamed lease"}
-        </div>
-        <span className={`${TenantCardStyles.badge} ${badgeClass}`}>
-          {badgeLabel}
-        </span>
-      </div>
-
-      <div className={TenantCardStyles.contact}>
-        {rentAmount ? (
-          <span className={TenantCardStyles.contactLine}>{rentAmount}</span>
-        ) : (
-          <span className={TenantCardStyles.contactLineMuted}>
-            No rent amount set
-          </span>
-        )}
-      </div>
-      <div className={TenantCardStyles.contact}>
-        {status ? (
-          <span className={TenantCardStyles.contactLine}>{status}</span>
-        ) : (
-          <span className={TenantCardStyles.contactLineMuted}>
-            No status not determined
-          </span>
-        )}
-      </div>
-      <div className={TenantCardStyles.contact}>
-        {startDate ? (
-          <span className={TenantCardStyles.contactLine}>{startDate}</span>
-        ) : (
-          <span className={TenantCardStyles.contactLineMuted}>
-            No start date set
-          </span>
-        )}
-      </div>
-      <div className={TenantCardStyles.contact}>
-        {endDate ? (
-          <span className={TenantCardStyles.contactLine}>{endDate}</span>
-        ) : (
-          <span className={TenantCardStyles.contactLineMuted}>
-            No end date set
-          </span>
-        )}
-      </div>
-    </div>
-  );
-}
 
 export default function LandlordLeasesPage() {
   const [leases, setLeases] = useState([]);

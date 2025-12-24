@@ -1,3 +1,4 @@
+//backend/src/shapes/tenant.shape.js
 function shapeTenant(tenant) {
   return {
     id: tenant.id,

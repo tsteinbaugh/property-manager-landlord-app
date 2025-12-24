@@ -33,7 +33,6 @@ function shapeLease(lease) {
             leaseTenant.tenantName ||
             leaseTenant.tenant?.name ||
             null,
-          isPrimary: !!leaseTenant.isPrimary,
           startDate: leaseTenant.startDate,
           endDate: leaseTenant.endDate,
 

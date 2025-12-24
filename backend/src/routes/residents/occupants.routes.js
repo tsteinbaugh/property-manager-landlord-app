@@ -1,31 +1,20 @@
 // backend/src/routes/occupants.routes.js
 const { Role } = require("@prisma/client");
 
-// ============================================================
-// Helpers
-// ============================================================
 const {
-  isValidEmail,
-  isValidPhone,
-  optionalTrimToNull,
-  normalizeEmail,
-  normalizePhone,
-  parseIntOrNullOpt,
-  parseEnumOrNullOpt,
-} = require("../../utils/validation.js");
+  parseOccupantPost,
+  parseOccupantPatch,
+} = require("../../utils/occupantFields.js");
 
-const { SEX, HAIR_COLOR, EYE_COLOR, BODY_BUILD } =
-  require("../../shared/residentPhysicalDescription.enums.js");
+const { getOccupantDetails } = require("../../services/occupantDetails.service.js");
 
 function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
   // ============================================================
-  // LIST OCCUPANTS (decoupled from tenants, scoped by landlord when known)
   // GET /api/occupants?includeArchived=0|1
   // ============================================================
   app.get("/api/occupants", async (req, res) => {
     const includeArchived =
-      req.query.includeArchived === "1" ||
-      req.query.includeArchived === "true";
+      req.query.includeArchived === "1" || req.query.includeArchived === "true";
 
     try {
       const user = req.user || null;
@@ -35,13 +24,7 @@ function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
       };
 
       if (user && user.baseRole === Role.LANDLORD) {
-        // landlord only sees their own occupants
         where.landlordId = user.id;
-      } else if (user && user.baseRole === Role.SYSADMIN) {
-        // sysadmin sees all
-      } else {
-        // no user or other roles: allow all (dev parity with properties)
-        // tighten later if needed.
       }
 
       const occupants = await prisma.occupant.findMany({
@@ -49,287 +32,79 @@ function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
         orderBy: { createdAt: "desc" },
       });
 
-      res.json(occupants.map(shapeOccupant));
+      return res.json(occupants.map(shapeOccupant));
     } catch (err) {
       console.error("Error in GET /api/occupants", err);
-      res.status(500).json({ error: "Server error" });
+      return res.status(500).json({ error: "Server error" });
     }
   });
 
   // ============================================================
-  // GET SINGLE OCCUPANT + linked tenants (via join table)
-  // GET /api/occupants/:id
+  // GET /api/occupants/:id  (detail + linked tenants)
   // ============================================================
   app.get("/api/occupants/:id", async (req, res) => {
     const { id } = req.params;
     const user = req.user || null;
-  
-    if (!user) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
-  
+
     try {
-      const occupant = await prisma.occupant.findUnique({ where: { id } });
-      if (!occupant) {
-        return res.status(404).json({ error: "Occupant not found" });
-      }
-    
-      // Landlord can only view their own occupant; sysadmin can view any
-      if (
-        user.baseRole === Role.LANDLORD &&
-        occupant.landlordId &&
-        occupant.landlordId !== user.id
-      ) {
-        return res
-          .status(403)
-          .json({ error: "You are not allowed to view this occupant." });
-      }
-    
-      // Look up join-table links: which tenants are linked to this occupant?
-      const links = await prisma.tenantOccupant.findMany({
-        where: { occupantId: id },
-        include: { tenant: true },
+      const payload = await getOccupantDetails(prisma, {
+        occupantId: id,
+        user,
+        shapeOccupant,
       });
-    
-      const tenants = links
-        .map((link) => link.tenant)
-        .filter(Boolean)
-        .map((t) => ({
-          id: t.id,
-          name: t.name,
-          email: t.email,
-          phone: t.phone,
-          archived: t.archivedAt,
-          createdAt: t.createdAt,
-          updatedAt: t.updatedAt,
-        }));
-      
-      const shaped = shapeOccupant(occupant);
-      
-      return res.json({
-        ...shaped,
-        tenants,
-      });
+      return res.json(payload);
     } catch (err) {
+      if (err?.status) return res.status(err.status).json({ error: err.message });
       console.error("Error in GET /api/occupants/:id", err);
       return res.status(500).json({ error: "Server error" });
     }
   });
 
   // ============================================================
-  // CREATE OCCUPANT
   // POST /api/occupants
-  // Body: { name, relation? )
   // ============================================================
   app.post("/api/occupants", async (req, res) => {
-    const { name, phone, email, relation, age, heightFeet, heightInches, weight, sex, hairColor, eyeColor, bodyBuild, markings, notes, violations } = req.body || {};
     const user = req.user || null;
-
-    if (!user) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
-
-    const cleanName = typeof name === "string" ? name.trim() : "";
-    if (!cleanName) {
-      return res.status(400).json({ error: "name is required" });
-    }
-
-    // phone/email OPTIONAL, but if provided must be valid
-    const emailNorm = normalizeEmail(email);
-    if (emailNorm === "__INVALID__") {
-      return res.status(400).json({ error: "email must be a string" });
-    }
-    if (emailNorm && !isValidEmail(emailNorm)) {
-      return res.status(400).json({ error: "email must be a valid email address" });
-    }
-
-    const phoneNorm = normalizePhone(phone);
-    if (phoneNorm === "__INVALID__") {
-      return res.status(400).json({ error: "phone must be a string" });
-    }
-    if (phoneNorm && !isValidPhone(phoneNorm)) {
-      return res.status(400).json({ error: "phone must be a valid phone number" });
-    }
-
-    // numbers
-    const ageVal = parseIntOrNullOpt(age, { min: 0, max: 120 });
-    if (ageVal === "__INVALID__") return res.status(400).json({ error: "age must be an integer between 0 and 120" });
-
-    const heightFeetVal = parseIntOrNullOpt(heightFeet, { min: 0, max: 8 });
-    if (heightFeetVal === "__INVALID__") return res.status(400).json({ error: "heightFeet must be an integer 0-8" });
-
-    const heightInchesVal = parseIntOrNullOpt(heightInches, { min: 0, max: 11 });
-    if (heightInchesVal === "__INVALID__") return res.status(400).json({ error: "heightInches must be an integer 0-11" });
-
-    const weightVal = parseIntOrNullOpt(weight, { min: 0, max: 1500 });
-    if (weightVal === "__INVALID__") return res.status(400).json({ error: "weight must be an integer" });
-
-    // enums
-    const sexVal = parseEnumOrNullOpt(sex, SEX);
-    if (sexVal === "__INVALID__") return res.status(400).json({ error: "sex is invalid" });
-
-    const hairVal = parseEnumOrNullOpt(hairColor, HAIR_COLOR);
-    if (hairVal === "__INVALID__") return res.status(400).json({ error: "hair color is invalid" });
-
-    const eyeVal = parseEnumOrNullOpt(eyeColor, EYE_COLOR);
-    if (eyeVal === "__INVALID__") return res.status(400).json({ error: "eye color is invalid" });
-
-    const bodyVal = parseEnumOrNullOpt(bodyBuild, BODY_BUILD);
-    if (bodyVal === "__INVALID__") return res.status(400).json({ error: "body build is invalid" });
+    if (!user) return res.status(401).json({ error: "Unauthorized" });
 
     try {
-      const data = {
-        name: cleanName,
-        phone: phoneNorm ?? null,
-        email: emailNorm ?? null,
-        relation: optionalTrimToNull(relation) ?? null,
-      
-        age: ageVal ?? null,
-        heightFeet: heightFeetVal ?? null,
-        heightInches: heightInchesVal ?? null,
-        weight: weightVal ?? null,
-      
-        sex: sexVal ?? null,
-        hairColor: hairVal ?? null,
-        eyeColor: eyeVal ?? null,
-        bodyBuild: bodyVal ?? null,
-      
-        markings: optionalTrimToNull(markings) ?? null,
-        notes: optionalTrimToNull(notes) ?? null,
-        violations: optionalTrimToNull(violations) ?? null,
-      
-        landlordId: user.id,
-        createdById: user.id,
-      };
+      const { data, error } = parseOccupantPost(req.body);
+      if (error) return res.status(400).json({ error });
 
-      const created = await prisma.occupant.create({ data });
-      res.status(201).json(shapeOccupant(created));
+      const created = await prisma.occupant.create({
+        data: {
+          ...data,
+          landlordId: user.id,
+          createdById: user.id,
+        },
+      });
+
+      return res.status(201).json(shapeOccupant(created));
     } catch (err) {
       console.error("Error in POST /api/occupants", err);
-      res.status(500).json({ error: "Server error" });
+      return res.status(500).json({ error: "Server error" });
     }
   });
 
   // ============================================================
-  // UPDATE OCCUPANT
   // PATCH /api/occupants/:id
-  // Body: partial { name?, relation?}
   // ============================================================
   app.patch("/api/occupants/:id", async (req, res) => {
     const { id } = req.params;
-
-    const { name, phone, email, relation, age, heightFeet, heightInches, weight, sex, hairColor, eyeColor, bodyBuild, markings, notes, violations } = req.body || {};
-
     const user = req.user || null;
 
-    if (!user) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
+    if (!user) return res.status(401).json({ error: "Unauthorized" });
 
     try {
       const existing = await prisma.occupant.findUnique({ where: { id } });
-      if (!existing) {
-        return res.status(404).json({ error: "Occupant not found" });
+      if (!existing) return res.status(404).json({ error: "Occupant not found" });
+
+      if (user.baseRole === Role.LANDLORD && existing.landlordId && existing.landlordId !== user.id) {
+        return res.status(403).json({ error: "You are not allowed to update this occupant." });
       }
 
-      // Landlord can only update their own occupants; sysadmin can update any
-      if (
-        user.baseRole === Role.LANDLORD &&
-        existing.landlordId &&
-        existing.landlordId !== user.id
-      ) {
-        return res
-          .status(403)
-          .json({ error: "You are not allowed to update this occupant." });
-      }
-
-      const data = {};
-
-      // phone: optional; if provided must be valid; allow clearing via null/"".
-      if (phone !== undefined) {
-        const phoneNorm = normalizePhone(phone);
-        if (phoneNorm === "__INVALID__") return res.status(400).json({ error: "phone must be a string" });
-        if (phoneNorm && !isValidPhone(phoneNorm)) return res.status(400).json({ error: "phone must be a valid phone number" });
-        data.phone = phoneNorm; // may be null
-      }
-
-      // email: optional; if provided must be valid; allow clearing via null/"".
-      if (email !== undefined) {
-        const emailNorm = normalizeEmail(email);
-        if (emailNorm === "__INVALID__") return res.status(400).json({ error: "email must be a string" });
-        if (emailNorm && !isValidEmail(emailNorm)) return res.status(400).json({ error: "email must be a valid email address" });
-        data.email = emailNorm; // may be null
-      }
-
-      // numbers (optional)
-      if (age !== undefined) {
-        const v = parseIntOrNullOpt(age, { min: 0, max: 120 });
-        if (v === "__INVALID__") return res.status(400).json({ error: "age must be an integer between 0 and 120" });
-        data.age = v;
-      }
-      if (heightFeet !== undefined) {
-        const v = parseIntOrNullOpt(heightFeet, { min: 0, max: 8 });
-        if (v === "__INVALID__") return res.status(400).json({ error: "heightFeet must be an integer 0-8" });
-        data.heightFeet = v;
-      }
-      if (heightInches !== undefined) {
-        const v = parseIntOrNullOpt(heightInches, { min: 0, max: 11 });
-        if (v === "__INVALID__") return res.status(400).json({ error: "heightInches must be an integer 0-11" });
-        data.heightInches = v;
-      }
-      if (weight !== undefined) {
-        const v = parseIntOrNullOpt(weight, { min: 0, max: 1500 });
-        if (v === "__INVALID__") return res.status(400).json({ error: "weight must be an integer" });
-        data.weight = v;
-      }
-
-      // enums (optional)
-      if (sex !== undefined) {
-        const v = parseEnumOrNullOpt(sex, SEX);
-        if (v === "__INVALID__") return res.status(400).json({ error: "sex is invalid" });
-        data.sex = v;
-      }
-      if (hairColor !== undefined) {
-        const v = parseEnumOrNullOpt(hairColor, HAIR_COLOR);
-        if (v === "__INVALID__") return res.status(400).json({ error: "hairColor is invalid" });
-        data.hairColor = v;
-      }
-      if (eyeColor !== undefined) {
-        const v = parseEnumOrNullOpt(eyeColor, EYE_COLOR);
-        if (v === "__INVALID__") return res.status(400).json({ error: "eyeColor is invalid" });
-        data.eyeColor = v;
-      }
-      if (bodyBuild !== undefined) {
-        const v = parseEnumOrNullOpt(bodyBuild, BODY_BUILD);
-        if (v === "__INVALID__") return res.status(400).json({ error: "bodyBuild is invalid" });
-        data.bodyBuild = v;
-      }
-
-      // strings (optional)
-      if (markings !== undefined) data.markings = optionalTrimToNull(markings);
-      if (notes !== undefined) data.notes = optionalTrimToNull(notes);
-      if (violations !== undefined) data.violations = optionalTrimToNull(violations);
-
-
-      // name: if provided in PATCH, it MUST be a non-empty string
-      if (name !== undefined) {
-        if (name === null) {
-          return res.status(400).json({ error: "name cannot be null" });
-        }
-        if (typeof name !== "string") {
-          return res.status(400).json({ error: "name must be a string" });
-        }
-        const trimmed = name.trim();
-        if (!trimmed) {
-          return res.status(400).json({ error: "name is required" });
-        }
-        data.name = trimmed;
-      }
-
-      // relation: optional
-      if (relation !== undefined) {
-        data.relation = optionalTrimToNull(relation);
-      }
+      const { data, error } = parseOccupantPatch(req.body);
+      if (error) return res.status(400).json({ error });
 
       const updated = await prisma.occupant.update({
         where: { id },
@@ -344,53 +119,45 @@ function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
   });
 
   // ============================================================
-  // TOGGLE ARCHIVE
   // PATCH /api/occupants/:id/archive
+  // toggle archivedAt timestamp
+  // - LANDLORD can archive their own
+  // - only SYSADMIN can unarchive
   // ============================================================
   app.patch("/api/occupants/:id/archive", async (req, res) => {
     const { id } = req.params;
     const user = req.user || null;
 
-    if (!user) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
+    if (!user) return res.status(401).json({ error: "Unauthorized" });
 
     try {
       const existing = await prisma.occupant.findUnique({ where: { id } });
-      if (!existing) {
-        return res.status(404).json({ error: "Occupant not found" });
-      }
+      if (!existing) return res.status(404).json({ error: "Occupant not found" });
 
-      // Landlord can only archive their own occupants
-      if (
-        user.baseRole === Role.LANDLORD &&
-        existing.landlordId &&
-        existing.landlordId !== user.id
-      ) {
-        return res
-          .status(403)
-          .json({ error: "You are not allowed to archive this occupant." });
+      if (user.baseRole === Role.LANDLORD && existing.landlordId && existing.landlordId !== user.id) {
+        return res.status(403).json({ error: "You are not allowed to archive this occupant." });
       }
 
       const currentlyArchived = !!existing.archivedAt;
       const isSysAdmin = user.baseRole === Role.SYSADMIN;
 
-      // If currently archived and someone tries to unarchive who is not sysadmin → block
       if (currentlyArchived && !isSysAdmin) {
         return res.status(403).json({
           error: "Only a system administrator can unarchive an occupant.",
         });
       }
 
+      const nextArchivedAt = currentlyArchived ? null : new Date();
+
       const updated = await prisma.occupant.update({
         where: { id },
-        data: { archivedAt: !currentlyArchived },
+        data: { archivedAt: nextArchivedAt },
       });
 
-      res.json(shapeOccupant(updated));
+      return res.json(shapeOccupant(updated));
     } catch (err) {
       console.error("Error in PATCH /api/occupants/:id/archive", err);
-      res.status(500).json({ error: "Server error" });
+      return res.status(500).json({ error: "Server error" });
     }
   });
 }

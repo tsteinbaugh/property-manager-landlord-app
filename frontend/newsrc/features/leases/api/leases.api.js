@@ -11,7 +11,6 @@ function mapLeaseFromApi(o) {
         id: lt.id ?? `${lt.leaseId || o.id}:${lt.tenantId || "unknown"}`,
         tenantId: lt.tenantId || null,
         tenantName: lt.tenantName || lt?.tenant?.name || "",
-        isPrimary: !!lt.isPrimary,
         startDate: lt.startDate || "",
         endDate: lt.endDate || "",
       }))
