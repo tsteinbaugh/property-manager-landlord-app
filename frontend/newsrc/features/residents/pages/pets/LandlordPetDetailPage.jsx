@@ -5,65 +5,10 @@ import { useUser } from "@app/providers.jsx";
 import { petsApi } from "@features/residents/api/pets.api.js";
 import { tenantsApi } from "@features/tenants/api/tenants.api.js";
 import { ROLES } from "@lib/rbac/roles.js";
+import PetCard from "@features/residents/components/pets/PetCard.jsx"
+import LinkageCard from "@shared/ui/cards/LinkageCard.jsx"
 
 import ui from "@shared/styles/CardLayout.module.css";
-
-function Card({ children, onClick, archived = false, clickable = true }) {
-  return (
-    <div
-      className={`${ui.card} ${archived ? ui.cardArchived : ""}`}
-      onClick={clickable ? onClick : undefined}
-      style={{ cursor: clickable ? "pointer" : "default" }}
-      role={clickable ? "button" : undefined}
-      tabIndex={clickable ? 0 : undefined}
-      onKeyDown={
-        clickable
-          ? (e) => {
-              if (e.key === "Enter" || e.key === " ") onClick?.();
-            }
-          : undefined
-      }
-    >
-      {children}
-    </div>
-  );
-}
-
-function CardHeader({ title, badgeText, badgeTone = "idle" }) {
-  const badgeClass =
-    badgeTone === "active"
-      ? ui.badgeActive
-      : badgeTone === "archived"
-        ? ui.badgeArchived
-        : ui.badgeIdle;
-
-  return (
-    <div className={ui.cardHeader}>
-      <div className={ui.cardTitle}>{title}</div>
-      {badgeText ? <span className={`${ui.badge} ${badgeClass}`}>{badgeText}</span> : null}
-    </div>
-  );
-}
-
-function LinkageLine({ parts = [], hint }) {
-  const cleaned = (parts || []).filter(Boolean);
-  if (!cleaned.length) return null;
-
-  return (
-    <div className={ui.muted} style={{ marginTop: 6 }}>
-      <div>
-        <strong>Linkage: </strong>
-        {cleaned.map((p, idx) => (
-          <span key={`${p}-${idx}`}>
-            {idx > 0 ? " → " : ""}
-            <label>{p}</label>
-          </span>
-        ))}
-      </div>
-      {hint ? <div style={{ marginTop: 2 }}>{hint}</div> : null}
-    </div>
-  );
-}
 
 export default function LandlordPetDetailsPage() {
   const { petId } = useParams();
@@ -267,23 +212,10 @@ export default function LandlordPetDetailsPage() {
       {/* Pet info */}
       <div className={ui.section}>
         <div className={ui.sectionHeader}></div>
-
-        <Card clickable={false} archived={isArchived}>
-          <CardHeader
-            title="Pet Info"
-            badgeText={isArchived ? "Archived" : "Pet"}
-            badgeTone={isArchived ? "archived" : "idle"}
-          />
-          <div className={ui.cardBody}>
-            {pet.type ? <div>Type of pet:{pet.type}</div> : null}
-            {pet.breed ? <div>Breed: {pet.breed}</div> : null}
-            {pet.weightLbs ? <div> Weight (pounds):{pet.weightLb}</div> : null}
-            {pet.age ? <div>Age:{pet.age}</div> : null}
-            {pet.license ? <div>License: {pet.license}</div> : null}
-            {pet.notes ? <div>Notes: {pet.notes}</div> : null}
-            {pet.violations ? <div>Violations: {pet.violations}</div> : null}
-          </div>
-        </Card>
+        <PetCard
+          pet={pet}
+          variant="detail"
+        />
       </div>
 
       {/* Tenants */}
@@ -299,33 +231,31 @@ export default function LandlordPetDetailsPage() {
               if (!t?.id) return null;
 
               const archived = !!t.archivedAt;
-              const displayName = t.name || t.email || "Unnamed tenant";
+              const tenantName = t.name || t.email || "Unnamed tenant";
 
               return (
-                <Card key={t.id} archived={archived} onClick={() => navigate(`/landlord/tenants/${t.id}`)}>
-                  <CardHeader
-                    title={displayName}
-                    badgeText={archived ? "Archived" : "Tenant"}
-                    badgeTone={archived ? "archived" : "idle"}
-                  />
-                  <div className={ui.cardBody}>
-                    <LinkageLine parts={[displayName, title]} />
-                  </div>
-
-                  <div className={ui.inlineActions}>
+                <LinkageCard
+                  key={t.id}
+                  title={tenantName}
+                  archived={archived}
+                  badgeText={archived ? "Archived" : "Tenant"}
+                  badgeTone={archived ? "archived" : "idle"}
+                  onClick={() => navigate(`/landlord/tenants/${t.id}`)}
+                  linkageParts={[tenantName, title]}
+                  footer={
                     <button
                       type="button"
                       className={`${ui.inlineAction} ${ui.inlineActionDanger}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
+                      onClick={(pe) => {
+                        pe.stopPropagation();
                         handleUnlinkTenant(t.id);
                       }}
                       disabled={unlinkingTenantId === t.id}
                     >
                       {unlinkingTenantId === t.id ? "Unlinking…" : "Unlink from pet"}
                     </button>
-                  </div>
-                </Card>
+                  }
+                />
               );
             })}
           </div>

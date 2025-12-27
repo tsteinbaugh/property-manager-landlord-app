@@ -4,71 +4,10 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
 import { emergencyContactsApi } from "@features/residents/api/emergencyContacts.api.js";
 import { tenantsApi } from "@features/tenants/api/tenants.api.js";
+import EmergencyContactCard from "@features/residents/components/emergencyContacts/EmergencyContactCard";
+import LinkageCard from "@shared/ui/cards/LinkageCard.jsx"
 
 import ui from "@shared/styles/CardLayout.module.css";
-
-function Card({ children, onClick, archived = false, clickable = true }) {
-  return (
-    <div
-      className={`${ui.card} ${archived ? ui.cardArchived : ""}`}
-      onClick={clickable ? onClick : undefined}
-      style={{ cursor: clickable ? "pointer" : "default" }}
-      role={clickable ? "button" : undefined}
-      tabIndex={clickable ? 0 : undefined}
-      onKeyDown={
-        clickable
-          ? (e) => {
-              if (e.key === "Enter" || e.key === " ") onClick?.();
-            }
-          : undefined
-      }
-    >
-      {children}
-    </div>
-  );
-}
-
-function CardHeader({ title, badgeText, badgeTone = "idle" }) {
-  const badgeClass =
-    badgeTone === "active"
-      ? ui.badgeActive
-      : badgeTone === "archived"
-        ? ui.badgeArchived
-        : ui.badgeIdle;
-
-  return (
-    <div className={ui.cardHeader}>
-      <div className={ui.cardTitle}>{title}</div>
-      {badgeText ? <span className={`${ui.badge} ${badgeClass}`}>{badgeText}</span> : null}
-    </div>
-  );
-}
-
-function LinkageLine({ parts = [], hint }) {
-  const cleaned = (parts || []).filter(Boolean);
-  if (!cleaned.length) return null;
-
-  return (
-    <div className={ui.muted} style={{ marginTop: 6 }}>
-      <div>
-        <strong>Linkage: </strong>
-        {cleaned.map((p, idx) => (
-          <span key={`${p}-${idx}`}>
-            {idx > 0 ? " → " : ""}
-            <label>{p}</label>
-          </span>
-        ))}
-      </div>
-      {hint ? <div style={{ marginTop: 2 }}>{hint}</div> : null}
-    </div>
-  );
-}
-
-function showIfBlank(v) {
-  if (v === null || v === undefined) return "Not provided";
-  const s = String(v).trim();
-  return s ? s : "Not provided";
-}
 
 export default function LandlordEmergencyContactDetailsPage() {
   const { emergencyContactId } = useParams();
@@ -260,30 +199,10 @@ export default function LandlordEmergencyContactDetailsPage() {
       <div className={ui.section}>
         <div className={ui.sectionHeader}></div>
 
-        <Card clickable={false} archived={isArchived}>
-          <CardHeader
-            title="Emergency Contact Info"
-            badgeText={isArchived ? "Archived" : "Emergency contact"}
-            badgeTone={isArchived ? "archived" : "idle"}
-          />
-          <div className={ui.cardBody}>
-            <div>Phone: {showIfBlank(emergencyContact.phone)}</div>
-            <div>Email: {showIfBlank(emergencyContact.email)}</div>
-            <div>
-              Address: {emergencyContact.address1 || "—"}
-              {emergencyContact.city || emergencyContact.state || emergencyContact.postalCode ? (
-                <div className={ui.muted}>
-                  {[emergencyContact.city || "", emergencyContact.state || "", emergencyContact.postalCode || ""]
-                    .filter(Boolean)
-                    .join(", ")}
-                </div>
-              ) : null}
-            </div>
-            {emergencyContact.relation ? <div>Relation: {emergencyContact.relation}</div> : null}
-            {emergencyContact.notes ? <div>Notes: {emergencyContact.notes}</div> : null}
-            {emergencyContact.violations ? <div>Violations: {emergencyContact.violations}</div> : null}
-          </div>
-        </Card>
+        <EmergencyContactCard
+          emergencyContact={emergencyContact}
+          variant="detail"
+        />
       </div>
 
       {/* Tenants */}
@@ -302,34 +221,28 @@ export default function LandlordEmergencyContactDetailsPage() {
               const displayName = t.name || t.email || "Unnamed tenant";
 
               return (
-                <Card
+                <LinkageCard
                   key={t.id}
+                  title={tenantName}
                   archived={archived}
+                  badgeText={archived ? "Archived" : "Tenant"}
+                  badgeTone={archived ? "archived" : "idle"}
                   onClick={() => navigate(`/landlord/tenants/${t.id}`)}
-                >
-                  <CardHeader
-                    title={displayName}
-                    badgeText={archived ? "Archived" : "Tenant"}
-                    badgeTone={archived ? "archived" : "idle"}
-                  />
-                  <div className={ui.cardBody}>
-                    <LinkageLine parts={[displayName, title]} />
-                  </div>
-
-                  <div className={ui.inlineActions}>
+                  linkageParts={[tenantName, title]}
+                  footer={
                     <button
                       type="button"
                       className={`${ui.inlineAction} ${ui.inlineActionDanger}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
+                      onClick={(le) => {
+                        le.stopPropagation();
                         handleUnlinkTenant(t.id);
                       }}
                       disabled={unlinkingTenantId === t.id}
                     >
                       {unlinkingTenantId === t.id ? "Unlinking…" : "Unlink from emergency contact"}
                     </button>
-                  </div>
-                </Card>
+                  }
+                />
               );
             })}
           </div>

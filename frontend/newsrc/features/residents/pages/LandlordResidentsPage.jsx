@@ -10,10 +10,10 @@ import { emergencyContactsApi } from "@features/residents/api/emergencyContacts.
 import { vehiclesApi } from "@features/residents/api/vehicles.api.js";
 
 import TenantCard from "@features/tenants/components/TenantCard.jsx";
-import OccupantCard from "../components/occupants/OccupantCard";
-import PetCard from "../components/pets/PetCard";
-import EmergencyContactCard from "../components/emergencyContacts/EmergencyContactCard";
-import VehicleCard from "../components/vehicles/VehicleCard";
+import OccupantCard from "@features/residents/components/occupants/OccupantCard.jsx"
+import PetCard from "@features/residents/components/pets/PetCard.jsx";
+import EmergencyContactCard from "@features/residents/components/emergencyContacts/EmergencyContactCard.jsx";
+import VehicleCard from "@features/residents/components/vehicles/VehicleCard.jsx";
 
 import styles from "@shared/styles/LandlordPage.module.css";
 
@@ -260,7 +260,6 @@ export default function LandlordResidentsPage() {
         <div className={styles.grid}>
           {visibleOccupants.map((o) => (
             <OccupantCard
-              key={o.id}
               occupant={o}
               onClick={() => handleOpenOccupant(o.id)}
             />
@@ -368,7 +367,6 @@ export default function LandlordResidentsPage() {
         <div className={styles.grid}>
           {visiblePets.map((o) => (
             <PetCard
-              key={o.id}
               pet={o}
               onClick={() => handleOpenPet(o.id)}
             />
@@ -476,7 +474,6 @@ export default function LandlordResidentsPage() {
         <div className={styles.grid}>
           {visibleEmergencyContacts.map((o) => (
             <EmergencyContactCard
-              key={o.id}
               emergencyContact={o}
               onClick={() => handleOpenEmergencyContact(o.id)}
             />
@@ -584,7 +581,6 @@ export default function LandlordResidentsPage() {
         <div className={styles.grid}>
           {visibleVehicles.map((o) => (
             <VehicleCard
-              key={o.id}
               vehicle={o}
               onClick={() => handleOpenVehicle(o.id)}
             />

@@ -1,95 +1,147 @@
 // newsrc/features/properties/components/PropertyCard.jsx
 import { useMemo } from "react";
-import card from "@shared/styles/CardLayout.module.css";
+import ui from "@shared/styles/CardLayout.module.css";
 
-function moneyLabel(n) {
-  if (n === null || n === undefined || n === "") return "—";
-  const num = Number(n);
-  if (!Number.isFinite(num)) return "—";
-  return `$${num.toLocaleString()}/mo`;
-}
+export default function PropertyCard({ 
+  property, 
+  onClick,
+  variant = "summary", // "summary" | "detail" 
+ }) {
 
-export default function PropertyCard({ property, onClick }) {
   if (!property) return null;
 
-  const {
-    displayName,
-    line1,
-    line2,
-    activeLease,
-    isArchived,
-  } = useMemo(() => {
+  const vm = useMemo(() => {
     const isArchived = !!property.archivedAt;
-
-    // Support BOTH shapes:
-    // - old: property.address = { street, city, state, postalCode }
-    // - new (your api mapper): property.address1, city, state, postalCode
-    const addrObj = property.address && typeof property.address === "object" ? property.address : null;
+    
+    const name =
+      (property.name && String(property.name).trim()) ||
+      "";    
 
     const street =
-      (addrObj?.street && String(addrObj.street).trim()) ||
       (property.address1 && String(property.address1).trim()) ||
       "";
 
     const city =
-      (addrObj?.city && String(addrObj.city).trim()) ||
       (property.city && String(property.city).trim()) ||
       "";
 
     const state =
-      (addrObj?.state && String(addrObj.state).trim()) ||
       (property.state && String(property.state).trim()) ||
       "";
 
     const postalCode =
-      (addrObj?.postalCode && String(addrObj.postalCode).trim()) ||
       (property.postalCode && String(property.postalCode).trim()) ||
       "";
 
-    const activeLease = property.activeLease || null;
-
     const displayName =
       (property.name && property.name.trim()) ||
-      (property.nickname && property.nickname.trim()) ||
-      (street && street.trim()) ||
+      (street && street.trim())
+      (city && city.trim())
+      (state && state.trim())
+      (postalCode && postalCode.trim()) ||
       "Unnamed property";
 
-    const line1 = street || "—";
-    const line2 = [city, state, postalCode].filter(Boolean).join(", ");
+    const bedrooms = 
+      property.bedrooms === null || property.bedrooms === undefined || property.bedrooms === ""
+        ? null
+        : String(property.bedrooms);
+
+    const bathrooms = 
+      property.bathrooms === null || property.bathrooms === undefined || property.bathrooms === ""
+        ? null
+        : String(property.bathrooms);
+        
+    const sqft = 
+      property.sqft === null || property.sqft === undefined || property.sqft === ""
+        ? null
+        : String(property.sqft);
+        
+    const yearBuilt = 
+      property.yearBuilt === null || property.yearBuilt === undefined || property.yearBuilt === ""
+        ? null
+        : String(property.yearBuilt);
+        
+    const notes = property.notes ? String(property.notes).trim() : "";        
 
     return {
-      displayName,
-      line1,
-      line2,
-      activeLease,
       isArchived,
+      name,
+      displayName,
+      street,
+      city,
+      state,
+      postalCode,
+      bedrooms,
+      bathrooms,
+      sqft,
+      yearBuilt,
+      notes,
     };
   }, [property]);
 
-  const badgeClass = isArchived
-    ? `${card.badge} ${card.badgeArchived}`
-    : activeLease
-      ? `${card.badge} ${card.badgeActive}`
-      : `${card.badge} ${card.badgeIdle}`;
+  const badgeText = vm.isArchived ? "Archived" : "Property";
+  const badgeClass = vm.isArchived ? ui.badgeArchived : ui.badgeIdle;
 
-  const badgeText = isArchived ? "Archived" : activeLease ? "Active lease" : "No active lease";
+  // ============================================================
+  // DETAIL VARIANT (full info, non-clickable)
+  // ============================================================
+  if (variant === "detail") {
+    const headerTitle = "Property Info";
+
+    return (
+      <div className={`${ui.card} ${vm.isArchived ? ui.cardArchived : ""}`}>
+        <div className={ui.cardHeader}>
+          <div className={ui.cardTitle}>{headerTitle}</div>
+          <span className={`${ui.badge} ${badgeClass}`}>
+            {badgeText}
+          </span>
+        </div>
+
+        <div className={ui.cardBody}>
+          <div><strong>Address:</strong></div>
+          <div className={ui.indent}>
+            <div>
+              {vm.street || "—"}
+              {vm.city && vm.state && vm.postalCode ? <div className={ui.muted}>{vm.city}, {vm.state} {vm.postalCode}</div> : null}
+            </div>
+          </div>
+          {vm.bedrooms ? <div><strong>Bedrooms: </strong>{vm.bedrooms}</div> : null}
+          {vm.bathrooms ? <div><strong>Bathrooms: </strong>{vm.bathrooms}</div> : null}
+          {vm.sqft ? <div><strong>Size: </strong>{vm.sqft} square feet</div> : null}
+          {vm.yearBuilt ? <div><strong>Year Built: </strong>{vm.yearBuilt}</div> : null}
+          {vm.notes ? <div><strong>Notes: </strong>{vm.notes}</div> : null}          
+        </div>
+      </div>
+    );
+  }
+
+  // ============================================================
+  // SUMMARY VARIANT (phone + email only)
+  // ============================================================
+  const headerTitle = vm.displayName;
 
   return (
     <button
       type="button"
-      className={`${card.card} ${isArchived ? card.cardArchived : ""}`}
+      className={`${ui.card} ${vm.isArchived ? ui.cardArchived : ""}`}
       onClick={onClick}
-      aria-label={`Open property ${displayName}`}
+      aria-label={`Open property ${vm.displayName}`}
     >
-      <div className={card.cardHeader}>
-        <div className={card.cardTitle}>{displayName}</div>
-        <span className={badgeClass}>{badgeText}</span>
+      <div className={ui.cardHeader}>
+        <div className={ui.cardTitle}>{headerTitle}</div>
+        <span className={`${ui.badge} ${badgeClass}`}>
+          {vm.isArchived ? "Archived" : "Property"}
+        </span>
       </div>
 
-      <div className={card.cardBody}>
-        <div>{line1}</div>
-        {line2 ? <div className={card.muted}>{line2}</div> : null}
-
+      <div className={ui.cardBody}>
+        <div><strong>Address:</strong></div>
+        <div className={ui.indent}>
+          <div>
+            {vm.street || "—"}
+            {vm.city && vm.state && vm.postalCode ? <div className={ui.muted}>{vm.city}, {vm.state} {vm.postalCode}</div> : null}
+          </div>
+        </div>
       </div>
     </button>
   );

@@ -5,72 +5,10 @@ import { useUser } from "@app/providers.jsx";
 import { occupantsApi } from "@features/residents/api/occupants.api.js";
 import { tenantsApi } from "@features/tenants/api/tenants.api.js";
 import { ROLES } from "@lib/rbac/roles.js";
+import OccupantCard from "@features/residents/components/occupants/OccupantCard.jsx"
+import LinkageCard from "@shared/ui/cards/LinkageCard.jsx"
 
 import ui from "@shared/styles/CardLayout.module.css";
-
-function Card({ children, onClick, archived = false, clickable = true }) {
-  return (
-    <div
-      className={`${ui.card} ${archived ? ui.cardArchived : ""}`}
-      onClick={clickable ? onClick : undefined}
-      style={{ cursor: clickable ? "pointer" : "default" }}
-      role={clickable ? "button" : undefined}
-      tabIndex={clickable ? 0 : undefined}
-      onKeyDown={
-        clickable
-          ? (e) => {
-              if (e.key === "Enter" || e.key === " ") onClick?.();
-            }
-          : undefined
-      }
-    >
-      {children}
-    </div>
-  );
-}
-
-function CardHeader({ title, badgeText, badgeTone = "idle" }) {
-  const badgeClass =
-    badgeTone === "active"
-      ? ui.badgeActive
-      : badgeTone === "archived"
-        ? ui.badgeArchived
-        : ui.badgeIdle;
-
-  return (
-    <div className={ui.cardHeader}>
-      <div className={ui.cardTitle}>{title}</div>
-      {badgeText ? <span className={`${ui.badge} ${badgeClass}`}>{badgeText}</span> : null}
-    </div>
-  );
-}
-
-function LinkageLine({ parts = [], hint }) {
-  const cleaned = (parts || []).filter(Boolean);
-  if (!cleaned.length) return null;
-
-  return (
-    <div className={ui.muted} style={{ marginTop: 6 }}>
-      <div>
-        <strong>Linkage: </strong>
-        {cleaned.map((p, idx) => (
-          <span key={`${p}-${idx}`}>
-            {idx > 0 ? " → " : ""}
-            <label>{p}</label>
-          </span>
-        ))}
-      </div>
-      {hint ? <div style={{ marginTop: 2 }}>{hint}</div> : null}
-    </div>
-  );
-}
-
-function showIfKnown(v) {
-  if (v === null || v === undefined) return null;
-  const s = String(v).trim();
-  if (!s) return null;
-  return s.toUpperCase() === "UNKNOWN" ? null : s;
-}
 
 export default function LandlordOccupantDetailsPage() {
   const { occupantId } = useParams();
@@ -268,29 +206,10 @@ export default function LandlordOccupantDetailsPage() {
       {/* Occupant info */}
       <div className={ui.section}>
         <div className={ui.sectionHeader}></div>
-
-        <Card clickable={false} archived={isArchived}>
-          <CardHeader
-            title="Occupant Info"
-            badgeText={isArchived ? "Archived" : "Occupant"}
-            badgeTone={isArchived ? "archived" : "idle"}
-          />
-          <div className={ui.cardBody}>
-            <div>Email: {occupant.email || "Not provided"}</div>
-            <div>Phone: {occupant.phone || "Not provided"}</div>
-            {occupant.relation ? <div>Relation: {occupant.relation}</div> : null}
-            {occupant.age ? <div>Age: {occupant.age}</div> : null}
-            {occupant.heightFeet && occupant.heightInches ? <div>Height: {occupant.heightFeet}' {occupant.heightInches}"</div> : null}
-            {occupant.weight ? <div>Weight: {occupant.weight} pounds</div> : null}
-            {showIfKnown(occupant.sex) ? <div>Sex: {showIfKnown(occupant.sex)}</div> : null}
-            {showIfKnown(occupant.hairColor) ? <div>Hair color: {showIfKnown(occupant.hairColor)}</div> : null}
-            {showIfKnown(occupant.eyeColor) ? <div>Eye Color: {showIfKnown(occupant.eyeColor)}</div> : null}
-            {showIfKnown(occupant.bodyBuild) ? <div>Body build: {showIfKnown(occupant.bodyBuild)}</div> : null}
-            {occupant.markings ? <div>Markings: {occupant.markings}</div> : null}
-            {occupant.notes ? <div>Notes: {occupant.notes}</div> : null}
-            {occupant.violations ? <div>Violations: {occupant.violations}</div> : null}
-          </div>
-        </Card>
+        <OccupantCard
+          occupant={occupant}
+          variant="detail"
+        />
       </div>
 
       {/* Tenants */}
@@ -306,37 +225,31 @@ export default function LandlordOccupantDetailsPage() {
               if (!t?.id) return null;
 
               const archived = !!t.archivedAt;
-              const displayName = t.name || t.email || "Unnamed tenant";
+              const tenantame = t.name || t.email || "Unnamed tenant";
 
               return (
-                <Card
+                <LinkageCard
                   key={t.id}
+                  title={tenantName}
                   archived={archived}
+                  badgeText={archived ? "Archived" : "Tenant"}
+                  badgeTone={archived ? "archived" : "idle"}
                   onClick={() => navigate(`/landlord/tenants/${t.id}`)}
-                >
-                  <CardHeader
-                    title={displayName}
-                    badgeText={archived ? "Archived" : "Tenant"}
-                    badgeTone={archived ? "archived" : "idle"}
-                  />
-                  <div className={ui.cardBody}>
-                    <LinkageLine parts={[displayName, title]} />
-                  </div>
-
-                  <div className={ui.inlineActions}>
+                  linkageParts={[tenantName, title]}
+                  footer={
                     <button
                       type="button"
                       className={`${ui.inlineAction} ${ui.inlineActionDanger}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
+                      onClick={(le) => {
+                        le.stopPropagation();
                         handleUnlinkTenant(t.id);
                       }}
                       disabled={unlinkingTenantId === t.id}
                     >
                       {unlinkingTenantId === t.id ? "Unlinking…" : "Unlink from occupant"}
                     </button>
-                  </div>
-                </Card>
+                  }
+                />
               );
             })}
           </div>

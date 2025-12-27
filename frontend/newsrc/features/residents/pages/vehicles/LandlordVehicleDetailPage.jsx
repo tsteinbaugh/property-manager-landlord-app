@@ -4,86 +4,18 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
 import { vehiclesApi } from "@features/residents/api/vehicles.api.js";
 import { tenantsApi } from "@features/tenants/api/tenants.api.js";
+import VehicleCard from "@features/residents/components/vehicles/VehicleCard.jsx"
+import LinkageCard from "@shared/ui/cards/LinkageCard.jsx"
 
 import ui from "@shared/styles/CardLayout.module.css";
 
-function Card({ children, onClick, archived = false, clickable = true }) {
-  return (
-    <div
-      className={`${ui.card} ${archived ? ui.cardArchived : ""}`}
-      onClick={clickable ? onClick : undefined}
-      style={{ cursor: clickable ? "pointer" : "default" }}
-      role={clickable ? "button" : undefined}
-      tabIndex={clickable ? 0 : undefined}
-      onKeyDown={
-        clickable
-          ? (e) => {
-              if (e.key === "Enter" || e.key === " ") onClick?.();
-            }
-          : undefined
-      }
-    >
-      {children}
-    </div>
-  );
-}
-
-function CardHeader({ title, badgeText, badgeTone = "idle" }) {
-  const badgeClass =
-    badgeTone === "active"
-      ? ui.badgeActive
-      : badgeTone === "archived"
-        ? ui.badgeArchived
-        : ui.badgeIdle;
-
-  return (
-    <div className={ui.cardHeader}>
-      <div className={ui.cardTitle}>{title}</div>
-      {badgeText ? <span className={`${ui.badge} ${badgeClass}`}>{badgeText}</span> : null}
-    </div>
-  );
-}
-
-function LinkageLine({ parts = [], hint }) {
-  const cleaned = (parts || []).filter(Boolean);
-  if (!cleaned.length) return null;
-
-  return (
-    <div className={ui.muted} style={{ marginTop: 6 }}>
-      <div>
-        <strong>Linkage: </strong>
-        {cleaned.map((p, idx) => (
-          <span key={`${p}-${idx}`}>
-            {idx > 0 ? " → " : ""}
-            <label>{p}</label>
-          </span>
-        ))}
-      </div>
-      {hint ? <div style={{ marginTop: 2 }}>{hint}</div> : null}
-    </div>
-  );
-}
-
 function vehicleLabel(v) {
-  if (!v) return "Vehicle";
-  const permit = v.permit ? String(v.permit).trim() : "";
-  const plate = v.plate ? String(v.plate).trim() : "";
   const year = v.year ? String(v.year).trim() : "";
   const make = v.make ? String(v.make).trim() : "";
   const model = v.model ? String(v.model).trim() : "";
 
-  if (permit) return `Permit ${permit}`;
-  if (plate) return `Plate ${plate}`;
-
   const ymm = [`${year},`, make, model].filter(Boolean).join(" ");
-  return ymm || "Vehicle";
-}
-
-function showIfKnown(v) {
-  if (v === null || v === undefined) return null;
-  const s = String(v).trim();
-  if (!s) return null;
-  return s.toUpperCase() === "UNKNOWN" ? null : s;
+  return ymm || "Unnamed vehicle";
 }
 
 export default function LandlordVehicleDetailsPage() {
@@ -273,26 +205,10 @@ export default function LandlordVehicleDetailsPage() {
       {/* Vehicle info */}
       <div className={ui.section}>
         <div className={ui.sectionHeader}></div>
-
-        <Card clickable={false} archived={isArchived}>
-          <CardHeader
-            title="Vehicle Info"
-            badgeText={isArchived ? "Archived" : "Vehicle"}
-            badgeTone={isArchived ? "archived" : "idle"}
-          />
-          <div className={ui.cardBody}>
-            {showIfKnown(vehicle.make) ? <div>Make: {showIfKnown(vehicle.make)}</div> : <div>Make: Not provided</div>}
-            {showIfKnown(vehicle.model) ? <div>Model: {showIfKnown(vehicle.model)}</div> : <div>Model: Not provided</div>}
-            {vehicle.year ? <div>Year: {vehicle.year}</div> : <div>Year: Not provided</div>}
-            {showIfKnown(vehicle.color) ? <div>Color: {showIfKnown(vehicle.color)}</div> : null}
-            {showIfKnown(vehicle.state) ? <div>License plate state: {showIfKnown(vehicle.state)}</div> : null}
-            {showIfKnown(vehicle.plate) ? <div>Licence plate number: {showIfKnown(vehicle.plate)}</div> : null}
-            {showIfKnown(vehicle.permit) ? <div>Permit number: {showIfKnown(vehicle.permit)}</div> : null}
-            {showIfKnown(vehicle.parking) ? <div>Parking space: {showIfKnown(vehicle.parking)}</div> : null}
-            {vehicle.notes ? <div>Notes: {vehicle.notes}</div> : null}
-            {vehicle.violations ? <div>Violations: {vehicle.violations}</div> : null}
-          </div>
-        </Card>
+        <VehicleCard
+          vehicle={vehicle}
+          variant="detail"
+        />
       </div>
 
       {/* Tenants */}
@@ -308,39 +224,31 @@ export default function LandlordVehicleDetailsPage() {
               if (!t?.id) return null;
 
               const archived = !!t.archivedAt;
-              const displayName = t.name || t.email || "Unnamed tenant";
+              const tenantName = t.name || t.email || "Unnamed tenant";
 
               return (
-                <Card
+                <LinkageCard
                   key={t.id}
+                  title={tenantName}
                   archived={archived}
+                  badgeText={archived ? "Archived" : "Tenant"}
+                  badgeTone={archived ? "archived" : "idle"}
                   onClick={() => navigate(`/landlord/tenants/${t.id}`)}
-                >
-                  <CardHeader
-                    title={displayName}
-                    badgeText={archived ? "Archived" : "Tenant"}
-                    badgeTone={archived ? "archived" : "idle"}
-                  />
-                  <div className={ui.cardBody}>
-                    {t.email ? <div>{t.email}</div> : null}
-                    {t.phone ? <div>Phone: {t.phone}</div> : null}
-                    <LinkageLine parts={[displayName, title]} />
-                  </div>
-
-                  <div className={ui.inlineActions}>
+                  linkageParts={[tenantName, title]}
+                  footer={
                     <button
                       type="button"
                       className={`${ui.inlineAction} ${ui.inlineActionDanger}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
+                      onClick={(le) => {
+                        le.stopPropagation();
                         handleUnlinkTenant(t.id);
                       }}
                       disabled={unlinkingTenantId === t.id}
                     >
                       {unlinkingTenantId === t.id ? "Unlinking…" : "Unlink from vehicle"}
                     </button>
-                  </div>
-                </Card>
+                  }
+                />
               );
             })}
           </div>

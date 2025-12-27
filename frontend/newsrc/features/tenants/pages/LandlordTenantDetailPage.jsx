@@ -7,89 +7,18 @@ import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
 import { ROLES } from "@lib/rbac/roles.js";
 import { tenantsApi } from "@features/tenants/api/tenants.api.js";
 import { leasesApi } from "@features/leases/api/leases.api.js";
+import LinkageCard from "@shared/ui/cards/LinkageCard.jsx"
+import TenantCard from "@features/tenants/components/TenantCard.jsx";
 
 import ui from "@shared/styles/CardLayout.module.css";
 
-function formatMoney(n) {
-  if (n === null || n === undefined || Number.isNaN(Number(n))) return "—";
-  try {
-    return Number(n).toLocaleString();
-  } catch {
-    return String(n);
-  }
-}
-
 function leaseLabel(lease) {
   const base =
-    lease?.propertyLabel ||
+    lease?.propertyName ||
     lease?.property?.name ||
     lease?.property?.address1 ||
     "";
   return base ? `Lease for ${base}` : "Lease";
-}
-
-function Card({ children, onClick, archived = false, clickable = true }) {
-  return (
-    <div
-      className={`${ui.card} ${archived ? ui.cardArchived : ""}`}
-      onClick={clickable ? onClick : undefined}
-      style={{ cursor: clickable ? "pointer" : "default" }}
-      role={clickable ? "button" : undefined}
-      tabIndex={clickable ? 0 : undefined}
-      onKeyDown={
-        clickable
-          ? (e) => {
-              if (e.key === "Enter" || e.key === " ") onClick?.();
-            }
-          : undefined
-      }
-    >
-      {children}
-    </div>
-  );
-}
-
-function CardHeader({ title, badgeText, badgeTone = "idle" }) {
-  const badgeClass =
-    badgeTone === "active"
-      ? ui.badgeActive
-      : badgeTone === "archived"
-        ? ui.badgeArchived
-        : ui.badgeIdle;
-
-  return (
-    <div className={ui.cardHeader}>
-      <div className={ui.cardTitle}>{title}</div>
-      {badgeText ? <span className={`${ui.badge} ${badgeClass}`}>{badgeText}</span> : null}
-    </div>
-  );
-}
-
-function LinkageLine({ parts = [], hint }) {
-  const cleaned = (parts || []).filter(Boolean);
-  if (!cleaned.length) return null;
-
-  return (
-    <div className={ui.muted} style={{ marginTop: 6 }}>
-      <div>
-        <strong>Linkage: </strong>
-        {cleaned.map((p, idx) => (
-          <span key={`${p}-${idx}`}>
-            {idx > 0 ? " → " : ""}
-            <label>{p}</label>
-          </span>
-        ))}
-      </div>
-      {hint ? <div style={{ marginTop: 2 }}>{hint}</div> : null}
-    </div>
-  );
-}
-
-function showIfKnown(v) {
-  if (v === null || v === undefined) return null;
-  const s = String(v).trim();
-  if (!s) return null;
-  return s.toUpperCase() === "UNKNOWN" ? null : s;
 }
 
 export default function LandlordTenantDetailPage() {
@@ -403,35 +332,12 @@ export default function LandlordTenantDetailPage() {
 
       {/* Tenant info */}
       <div className={ui.section}>
-        <div className={ui.sectionHeader}>
-        </div>
+        <div className={ui.sectionHeader}></div>
 
-        <Card clickable={false} archived={isArchived}>
-          <CardHeader
-            title="Tenant Info"
-            badgeText={isArchived ? "Archived" : "Tenant"}
-            badgeTone={isArchived ? "archived" : "idle"}
-          />
-
-          <div className={ui.cardBody}>
-            <div>Email: {tenant.email || "—"}</div>
-            <div>Phone: {tenant.phone || "—"}</div>
-            {tenant.age ? <div>Age: {tenant.age}</div> : null}
-            {tenant.heightFeet && tenant.heightInches ? <div>Height: {tenant.heightFeet}' {tenant.heightInches}"</div> : null}
-            {tenant.weight ? <div>Weight: {tenant.weight} pounds</div> : null}
-            {tenant.income ? <div>Income: ${tenant.income}/mo</div> : null}
-            {tenant.creditScore ? <div>Credit Score: {tenant.creditScore}</div> : null}
-            {showIfKnown(tenant.sex) ? <div>Sex: {showIfKnown(tenant.sex)}</div> : null}
-            {showIfKnown(tenant.hairColor) ? <div>Hair color: {showIfKnown(tenant.hairColor)}</div> : null}
-            {showIfKnown(tenant.eyeColor) ? <div>Eye Color: {showIfKnown(tenant.eyeColor)}</div> : null}
-            {showIfKnown(tenant.bodyBuild) ? <div>Body build: {showIfKnown(tenant.bodyBuild)}</div> : null}
-            {tenant.markings ? <div>Markings: {tenant.markings}</div> : null}
-            {tenant.occupation ? <div>Occupation: {tenant.occupation}</div> : null}
-            {tenant.employer ? <div>Employer: {tenant.employer}</div> : null}
-            {tenant.notes ? <div>Notes: {tenant.notes}</div> : null}
-            {tenant.violations ? <div>Violations: {tenant.violations}</div> : null}
-          </div>
-        </Card>
+        <TenantCard
+          tenant={tenant}
+          variant="detail"
+        />
       </div>
 
       {/* Leases (DIRECT) */}
@@ -445,42 +351,31 @@ export default function LandlordTenantDetailPage() {
           <div className={ui.grid}>
             {leaseItems.map(({ lt, lease }) => {
               const archived = !!lease.archivedAt;
-              const label = leaseLabel(lease);
-
-              const property = lease?.property || null;
-              const propertyLabel =
-                property?.name || property?.address1 || property?.address || "";
+              const leaseName = leaseLabel(lease);
 
               return (
-                <Card
+                <LinkageCard
                   key={lease.id}
+                  title={leaseName}
                   archived={archived}
+                  badgeText={archived ? "Archived" : "Lease"}
+                  badgeTone={archived ? "archived" : "idle"}
                   onClick={() => navigate(`/landlord/leases/${lease.id}`)}
-                >
-                  <CardHeader
-                    title={label}
-                    badgeText={archived ? "Archived" : (lease.status || "Lease")}
-                    badgeTone={archived ? "archived" : "idle"}
-                  />
-
-                  <div className={ui.cardBody}>
-                    <LinkageLine parts={[label, title]} />
-                  </div>
-
-                  <div className={ui.inlineActions}>
+                  linkageParts={[leaseName, title]}
+                  footer={
                     <button
-                      className={`${ui.inlineAction} ${ui.inlineActionDanger}`}
                       type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
+                      className={`${ui.inlineAction} ${ui.inlineActionDanger}`}
+                      onClick={(le) => {
+                        le.stopPropagation();
                         handleUnlinkLease(lease.id);
                       }}
                       disabled={unlinkingLeaseId === lease.id}
                     >
                       {unlinkingLeaseId === lease.id ? "Unlinking…" : "Unlink from tenant"}
                     </button>
-                  </div>
-                </Card>
+                  }
+                />
               );
             })}
           </div>
@@ -515,52 +410,27 @@ export default function LandlordTenantDetailPage() {
           <div className={ui.grid}>
             {propertyGroups.map(({ property, leases }) => {
               const archived = !!property.archivedAt;
-              const label = property.name || property.address1 || property.address || "Property";
-              const line2 =
-                property.city || property.state || property.postalCode
-                  ? [property.city, property.state, property.postalCode].filter(Boolean).join(", ")
-                  : "";
+              const propertyName = property.name || property.address1 || property.address || "Property";
 
               // pick a lease to “manage link on lease”
               const firstLease = Array.isArray(leases) ? leases[0] : null;
               const firstLeaseLabel = firstLease ? leaseLabel(firstLease) : null;
 
               return (
-                <Card
+                <LinkageCard
                   key={property.id}
+                  title={propertyName}
                   archived={archived}
+                  badgeText={archived ? "Archived" : "Property"}
+                  badgeTone={archived ? "archived" : "idle"}
                   onClick={() => navigate(`/landlord/properties/${property.id}`)}
-                >
-                  <CardHeader
-                    title={label}
-                    badgeText={archived ? "Archived" : "Property"}
-                    badgeTone={archived ? "archived" : "idle"}
-                  />
-
-                  <div className={ui.cardBody}>
-                    {property.address1 ? <div>{property.address1}</div> : null}
-                    {line2 ? <div className={ui.muted}>{line2}</div> : null}
-
-                    {firstLeaseLabel ? (
-                      <LinkageLine parts={[label, firstLeaseLabel, title]} />
-                    ) : null}
-                  </div>
-
-                  {firstLease?.id ? (
-                    <div className={ui.inlineActions}>
-                      <button
-                        type="button"
-                        className={ui.inlineAction}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          navigate(`/landlord/leases/${firstLease.id}`);
-                        }}
-                      >
-                        Manage link on lease
-                      </button>
+                  linkageParts={[propertyName, firstLeaseLabel, title]}
+                  footer={
+                    <div className={`${ui.inlineAction}`}>
+                      Manage link on Lease
                     </div>
-                  ) : null}
-                </Card>
+                  }
+                />
               );
             })}
           </div>
@@ -591,28 +461,31 @@ export default function LandlordTenantDetailPage() {
               if (!o?.id) return null;
 
               const archived = !!o.archivedAt;
-              const name = o.name || "Unnamed occupant";
+              const occupantName = o.name || "Unnamed occupant";
 
               return (
-                <Card key={o.id} archived={archived} onClick={() => navigate(`/landlord/occupants/${o.id}`)}>
-                  <CardHeader title={name} badgeText={archived ? "Archived" : "Occupant"} badgeTone={archived ? "archived" : "idle"} />
-                  <div className={ui.cardBody}>
-                    <LinkageLine parts={[name, title]} />
-                  </div>
-                  <div className={ui.inlineActions}>
+                <LinkageCard
+                  key={o.id}
+                  title={occupantName}
+                  archived={archived}
+                  badgeText={archived ? "Archived" : "Occupant"}
+                  badgeTone={archived ? "archived" : "idle"}
+                  onClick={() => navigate(`/landlord/occupants/${o.id}`)}
+                  linkageParts={[occupantName, title]}
+                  footer={
                     <button
                       type="button"
                       className={`${ui.inlineAction} ${ui.inlineActionDanger}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
+                      onClick={(oc) => {
+                        oc.stopPropagation();
                         handleUnlinkOccupant(o.id);
                       }}
                       disabled={unlinkingOccupantId === o.id}
                     >
                       {unlinkingOccupantId === o.id ? "Unlinking…" : "Unlink from tenant"}
                     </button>
-                  </div>
-                </Card>
+                  }
+                />
               );
             })}
           </div>
@@ -650,28 +523,31 @@ export default function LandlordTenantDetailPage() {
               if (!p?.id) return null;
 
               const archived = !!p.archivedAt;
-              const name = p.name || "Unnamed pet";
+              const petName = p.name || "Unnamed pet";
 
               return (
-                <Card key={p.id} archived={archived} onClick={() => navigate(`/landlord/pets/${p.id}`)}>
-                  <CardHeader title={name} badgeText={archived ? "Archived" : "Pet"} badgeTone={archived ? "archived" : "idle"} />
-                  <div className={ui.cardBody}>
-                    <LinkageLine parts={[name, title]} />
-                  </div>
-                  <div className={ui.inlineActions}>
+                <LinkageCard
+                  key={p.id}
+                  title={petName}
+                  archived={archived}
+                  badgeText={archived ? "Archived" : "Pet"}
+                  badgeTone={archived ? "archived" : "idle"}
+                  onClick={() => navigate(`/landlord/pets/${p.id}`)}
+                  linkageParts={[petName, title]}
+                  footer={
                     <button
                       type="button"
                       className={`${ui.inlineAction} ${ui.inlineActionDanger}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
+                      onClick={(pe) => {
+                        pe.stopPropagation();
                         handleUnlinkPet(p.id);
                       }}
                       disabled={unlinkingPetId === p.id}
                     >
                       {unlinkingPetId === p.id ? "Unlinking…" : "Unlink from tenant"}
                     </button>
-                  </div>
-                </Card>
+                  }
+                />
               );
             })}
           </div>
@@ -707,17 +583,20 @@ export default function LandlordTenantDetailPage() {
             {emergencyContactLinks.map((link) => {
               const e = link?.emergencyContact;
               if (!e?.id) return null;
-
+            
+              const emergencyContactName = e.name || "Unnamed emergency contact";
               const archived = !!e.archivedAt;
-              const name = e.name || "Unnamed emergency contact";
-
+            
               return (
-                <Card key={e.id} archived={archived} onClick={() => navigate(`/landlord/emergencyContacts/${e.id}`)}>
-                  <CardHeader title={name} badgeText={archived ? "Archived" : "Contact"} badgeTone={archived ? "archived" : "idle"} />
-                  <div className={ui.cardBody}>
-                    <LinkageLine parts={[name, title]} />
-                  </div>
-                  <div className={ui.inlineActions}>
+                <LinkageCard
+                  key={e.id}
+                  title={emergencyContactName}
+                  archived={archived}
+                  badgeText={archived ? "Archived" : "Emergency Contact"}
+                  badgeTone={archived ? "archived" : "idle"}
+                  onClick={() => navigate(`/landlord/emergencyContacts/${e.id}`)}
+                  linkageParts={[emergencyContactName, title]}
+                  footer={
                     <button
                       type="button"
                       className={`${ui.inlineAction} ${ui.inlineActionDanger}`}
@@ -729,10 +608,9 @@ export default function LandlordTenantDetailPage() {
                     >
                       {unlinkingEmergencyContactId === e.id ? "Unlinking…" : "Unlink from tenant"}
                     </button>
-                  </div>
-                </Card>
-              );
-            })}
+                  }
+                />
+            )})}
           </div>
         ) : (
           <div className={ui.muted}>No emergency contacts linked to this tenant yet.</div>
@@ -768,32 +646,35 @@ export default function LandlordTenantDetailPage() {
               if (!v?.id) return null;
 
               const archived = !!v.archivedAt;
-              const label =
+              const vehicleName =
                 v.permit ||
                 v.plate ||
                 [v.year ? `${v.year},` : null, v.make, v.model].filter(Boolean).join(" ") ||
                 "Unnamed vehicle";
 
               return (
-                <Card key={v.id} archived={archived} onClick={() => navigate(`/landlord/vehicles/${v.id}`)}>
-                  <CardHeader title={label} badgeText={archived ? "Archived" : "Vehicle"} badgeTone={archived ? "archived" : "idle"} />
-                  <div className={ui.cardBody}>
-                    <LinkageLine parts={[label, title]} />
-                  </div>
-                  <div className={ui.inlineActions}>
+                <LinkageCard
+                  key={v.id}
+                  title={vehicleName}
+                  archived={archived}
+                  badgeText={archived ? "Archived" : "Vehicle"}
+                  badgeTone={archived ? "archived" : "idle"}
+                  onClick={() => navigate(`/landlord/vehicles/${v.id}`)}
+                  linkageParts={[vehicleName, title]}
+                  footer={
                     <button
                       type="button"
                       className={`${ui.inlineAction} ${ui.inlineActionDanger}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
+                      onClick={(vi) => {
+                        vi.stopPropagation();
                         handleUnlinkVehicle(v.id);
                       }}
                       disabled={unlinkingVehicleId === v.id}
                     >
                       {unlinkingVehicleId === v.id ? "Unlinking…" : "Unlink from tenant"}
                     </button>
-                  </div>
-                </Card>
+                  }
+                />
               );
             })}
           </div>

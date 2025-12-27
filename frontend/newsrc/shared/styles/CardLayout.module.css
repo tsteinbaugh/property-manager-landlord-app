@@ -115,6 +115,7 @@
   gap: 4px;
   font-size: 0.9rem;
   color: #4b5563;
+  margin-top: 10px;
 }
 
 .muted {
@@ -206,4 +207,8 @@
   text-decoration: underline;
   text-decoration-color: rgba(156, 163, 175, 0.45);
   text-underline-offset: 2px;
+}
+
+.indent {
+  margin-left: 1.25rem; /* or padding-left */
 }
