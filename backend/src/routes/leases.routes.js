@@ -1,10 +1,10 @@
 // backend/src/routes/leases.routes.js
 const { Role } = require("@prisma/client");
 
-const { parseLeasePost, parseLeasePatch } = require("../utils/leaseFields.js");
-const { requireAuth, requireLandlordOrSysadmin } = require("../middleware/auth.middleware.js");
+const { parseLeasePost, parseLeasePatch } = require("@utils/leaseFields.js");
+const { requireAuth, requireLandlordOrSysadmin } = require("@src/middleware/auth.middleware.js");
 
-const { getLeaseDetails, listLeases } = require("../services/leaseDetails.service.js");
+const { getLeaseDetails, listLeases } = require("@services/leaseDetails.service.js");
 
 function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
   // IMPORTANT: requireAuth is a factory (needs prisma)

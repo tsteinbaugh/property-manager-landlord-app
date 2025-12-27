@@ -1,11 +1,11 @@
 // backend/src/services/propertyDetails.service.js
 const { Role } = require("@prisma/client");
 
-const { shapeTenant } = require("../shapes/tenant.shape.js");
-const { shapeOccupant } = require("../shapes/occupant.shape.js");
-const { shapePet } = require("../shapes/pet.shape.js");
-const { shapeEmergencyContact } = require("../shapes/emergencyContact.shape.js");
-const { shapeVehicle } = require("../shapes/vehicle.shape.js");
+const { shapeTenant } = require("@shapes/tenant.shape.js");
+const { shapeOccupant } = require("@shapes/occupant.shape.js");
+const { shapePet } = require("@shapes/pet.shape.js");
+const { shapeEmergencyContact } = require("@shapes/emergencyContact.shape.js");
+const { shapeVehicle } = require("@shapes/vehicle.shape.js");
 
 // Prisma include used by both detail + summary
 const PROPERTY_DETAILS_INCLUDE = {

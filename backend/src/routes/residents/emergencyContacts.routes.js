@@ -4,11 +4,11 @@ const { Role } = require("@prisma/client");
 const {
   parseEmergencyContactPost,
   parseEmergencyContactPatch,
-} = require("../../utils/emergencyContactFields.js");
+} = require("@utils/emergencyContactFields.js");
 
 const {
   getEmergencyContactDetails,
-} = require("../../services/emergencyContactDetails.service.js");
+} = require("@services/emergencyContactDetails.service.js");
 
 function registerEmergencyContactRoutes(app, prisma, { shapeEmergencyContact }) {
   // ============================================================

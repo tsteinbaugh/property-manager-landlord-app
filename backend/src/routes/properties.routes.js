@@ -4,16 +4,16 @@ const { Role } = require("@prisma/client");
 const {
   getPropertyDetails,
   getPropertySummary,
-} = require("../services/propertyDetails.service.js");
+} = require("@services/propertyDetails.service.js");
 
 const { 
   parsePropertyPost, 
   parsePropertyPatch,
-} = require("../utils/propertyFields.js");
+} = require("@utils/propertyFields.js");
 
 const {
   shapeProperty,
-} = require("../shapes/property.shape.js")
+} = require("@shapes/property.shape.js")
 
 function registerPropertyRoutes(app, prisma) {
   // ============================================================

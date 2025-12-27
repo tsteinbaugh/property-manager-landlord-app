@@ -1,6 +1,6 @@
 // backend/src/utils/validation.js
 
-const { US_STATE_CODES, US_STATE_NAME_TO_CODE } = require("../shared/state.enums.js");
+const { US_STATE_CODES, US_STATE_NAME_TO_CODE } = require("@shared/state.enums.js");
 
 // ------------------------------
 // basic validators

@@ -1,8 +1,8 @@
 // backend/src/routes/vehicles.routes.js
 const { Role } = require("@prisma/client");
 
-const { parseVehiclePost, parseVehiclePatch } = require("../../utils/vehicleFields.js");
-const { getVehicleDetails } = require("../../services/vehicleDetails.service.js");
+const { parseVehiclePost, parseVehiclePatch } = require("@utils/vehicleFields.js");
+const { getVehicleDetails } = require("@services/vehicleDetails.service.js");
 
 function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
   // ============================================================

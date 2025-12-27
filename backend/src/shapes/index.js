@@ -1,10 +1,10 @@
-const { shapeProperty } = require("./property.shape.js");
-const { shapeLease } = require("./lease.shape.js");
-const { shapeTenant } = require("./tenant.shape.js");
-const { shapeOccupant } = require("./occupant.shape.js");
-const { shapePet } = require("./pet.shape.js");
-const { shapeEmergencyContact } = require("./emergencyContact.shape.js");
-const { shapeVehicle } = require("./vehicle.shape.js");
+const { shapeProperty } = require("@shapes/property.shape.js");
+const { shapeLease } = require("@shapes/lease.shape.js");
+const { shapeTenant } = require("@shapes/tenant.shape.js");
+const { shapeOccupant } = require("@shapes/occupant.shape.js");
+const { shapePet } = require("@shapes/pet.shape.js");
+const { shapeEmergencyContact } = require("@shapes/emergencyContact.shape.js");
+const { shapeVehicle } = require("@shapes/vehicle.shape.js");
 
 module.exports = {
   shapeProperty,

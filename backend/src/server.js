@@ -1,4 +1,5 @@
 //backend/src/server.js
+require("module-alias/register");
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
@@ -9,19 +10,18 @@ const { PrismaClient } = require("@prisma/client");
 const { PrismaPg } = require("@prisma/adapter-pg");
 const { Pool } = require("pg");
 
-const { attachUser } = require("./middleware/auth.middleware.js");
+const { attachUser } = require("@src/middleware/auth.middleware.js");
 
 // Route modules
-const { registerPropertyRoutes } = require("./routes/properties.routes.js");
-const { registerTenantRoutes } = require("./routes/tenants.routes.js");
-const { registerOccupantRoutes } = require("./routes/residents/occupants.routes.js");
-const { registerPetRoutes } = require("./routes/residents/pets.routes.js");
-const { registerEmergencyContactRoutes } = require("./routes/residents/emergencyContacts.routes.js");
-const { registerVehicleRoutes } = require("./routes/residents/vehicles.routes.js");
-const { registerLeaseRoutes } = require("./routes/leases.routes.js");
-const { registerAuthRoutes } = require("./routes/auth.routes.js");
-const { registerAdminRoutes } = require("./routes/admin.routes.js");
-const { default: properties } = require("../../frontend/src/data/properties.js");
+const { registerPropertyRoutes } = require("@routes/properties.routes.js");
+const { registerTenantRoutes } = require("@routes/tenants.routes.js");
+const { registerOccupantRoutes } = require("@routes/residents/occupants.routes.js");
+const { registerPetRoutes } = require("@routes/residents/pets.routes.js");
+const { registerEmergencyContactRoutes } = require("@routes/residents/emergencyContacts.routes.js");
+const { registerVehicleRoutes } = require("@routes/residents/vehicles.routes.js");
+const { registerLeaseRoutes } = require("@routes/leases.routes.js");
+const { registerAuthRoutes } = require("@routes/auth.routes.js");
+const { registerAdminRoutes } = require("@routes/admin.routes.js");
 
 const {
   shapeProperty,
@@ -31,7 +31,7 @@ const {
   shapePet,
   shapeEmergencyContact,
   shapeVehicle,
-} = require("./shapes");
+} = require("@shapes");
 
 // Initialize
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });

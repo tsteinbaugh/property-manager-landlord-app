@@ -8,10 +8,10 @@ const {
   parseIntOrNullOpt,
   parseEnumOrNullOpt,
   requiredTrimmedString,
-} = require("./validation.js");
+} = require("@utils/validation.js");
 
 const { SEX, HAIR_COLOR, EYE_COLOR, BODY_BUILD } =
-  require("../shared/residentPhysicalDescription.enums.js");
+  require("@shared/residentPhysicalDescription.enums.js");
 
 // POST: requires name. email/phone optional but if provided must validate.
 function parseOccupantPost(body) {

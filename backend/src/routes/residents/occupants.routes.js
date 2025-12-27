@@ -4,9 +4,9 @@ const { Role } = require("@prisma/client");
 const {
   parseOccupantPost,
   parseOccupantPatch,
-} = require("../../utils/occupantFields.js");
+} = require("@utils/occupantFields.js");
 
-const { getOccupantDetails } = require("../../services/occupantDetails.service.js");
+const { getOccupantDetails } = require("@services/occupantDetails.service.js");
 
 function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
   // ============================================================

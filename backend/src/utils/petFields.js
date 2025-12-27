@@ -3,7 +3,7 @@ const {
   optionalTrimToNull,
   parseIntOrNullOpt,
   requiredTrimmedString,
-} = require("./validation.js");
+} = require("@utils/validation.js");
 
 // POST: requires name
 function parsePetPost(body) {

@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
 import { leasesApi } from "@features/leases/api/leases.api.js";
-import LeaseCard from "../components/LeaseCard";
+import LeaseCard from "@features/leases/components/LeaseCard.jsx"
 
 import styles from "@shared/styles/LandlordPage.module.css";
 

@@ -4,7 +4,7 @@ const {
   parseIntOrNullOpt,
   normalizeState,
   requiredTrimmedString,
-} = require("./validation.js");
+} = require("@utils/validation.js");
 
 function parseVehiclePost(body) {
   const src = body || {};

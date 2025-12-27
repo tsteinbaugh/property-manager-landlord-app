@@ -5,7 +5,7 @@ const {
   parseIntOrNullOpt,
   normalizeState,
   normalizeZipUS,
-} = require("./validation.js");
+} = require("@utils/validation.js");
 
 // POST: requires address1/city/state/postalCode
 function parsePropertyPost(body) {

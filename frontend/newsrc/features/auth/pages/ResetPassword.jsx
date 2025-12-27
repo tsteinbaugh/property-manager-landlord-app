@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useUser } from "../../../app/providers.jsx";
+import { useUser } from "@app/providers.jsx";
 
 const BASE_URL = "http://localhost:4000";
 

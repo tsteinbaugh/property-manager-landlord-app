@@ -3,12 +3,12 @@ const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 const { Role, UserStatus } = require("@prisma/client");
 
-const { requireAuth, requireLandlordOrSysadmin } = require("../middleware/auth.middleware.js");
+const { requireAuth, requireLandlordOrSysadmin } = require("@src/middleware/auth.middleware.js");
 
-const { parseTenantPost, parseTenantPatch } = require("../utils/tenantFields.js");
-const { normalizeEmail } = require("../utils/validation.js");
+const { parseTenantPost, parseTenantPatch } = require("@utils/tenantFields.js");
+const { normalizeEmail } = require("@utils/validation.js");
 
-const { getTenantDetails } = require("../services/tenantDetails.service.js");
+const { getTenantDetails } = require("@services/tenantDetails.service.js");
 
 function generateTempPassword() {
   return crypto.randomBytes(16).toString("hex");

@@ -20,6 +20,7 @@
     "dotenv": "^16.6.1",
     "express": "^4.19.0",
     "jsonwebtoken": "^9.0.2",
+    "module-alias": "^2.2.3",
     "multer": "^2.0.2",
     "pg": "^8.16.3"
   },
@@ -30,5 +31,13 @@
     "prisma": "^7.1.0",
     "supertest": "^7.0.0",
     "vitest": "^2.0.0"
+  },
+  "_moduleAliases": {
+    "@src": "src",
+    "@services": "src/services",
+    "@shapes": "src/shapes",
+    "@shared": "src/shared",
+    "@utils": "src/utils",
+    "@routes": "src/routes"
   }
 }

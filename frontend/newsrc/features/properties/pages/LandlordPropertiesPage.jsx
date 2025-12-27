@@ -3,7 +3,7 @@ import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
 import { apiFetch } from "@lib/apiClient.js";
-import PropertyCard from "../components/PropertyCard.jsx";
+import PropertyCard from "@features/properties/components/PropertyCard.jsx"
 
 import styles from "@shared/styles/LandlordPage.module.css";
 

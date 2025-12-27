@@ -8,7 +8,7 @@ const {
   normalizeState,
   normalizeZipUS,
   requiredTrimmedString,
-} = require("./validation.js");
+} = require("@utils/validation.js");
 
 // POST: requires name, email, phone
 function parseEmergencyContactPost(body) {

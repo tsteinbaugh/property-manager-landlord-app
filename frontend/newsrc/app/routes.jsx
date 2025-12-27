@@ -9,7 +9,7 @@ import {
 
 import AppLayout from "@layout/AppLayout.jsx";
 import IncludeArchivedToggle from "@shared/ui/IncludeArchivedToggle.jsx";
-import RequireRole from "./RequireRole.jsx";
+import RequireRole from "@app/requireRole.jsx";
 import { ROLES } from "@lib/rbac/roles.js";
 import { useUser } from "@app/providers.jsx";
 

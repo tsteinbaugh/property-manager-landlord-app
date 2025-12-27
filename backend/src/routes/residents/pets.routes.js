@@ -1,8 +1,8 @@
 // backend/src/routes/pets.routes.js
 const { Role } = require("@prisma/client");
 
-const { parsePetPost, parsePetPatch } = require("../../utils/petFields.js");
-const { getPetDetails } = require("../../services/petDetails.service.js");
+const { parsePetPost, parsePetPatch } = require("@utils/petFields.js");
+const { getPetDetails } = require("@services/petDetails.service.js");
 
 function registerPetRoutes(app, prisma, { shapePet }) {
   // ============================================================

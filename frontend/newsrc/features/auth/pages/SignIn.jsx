@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import css from "../SignInCard.module.css";
-import buttonCss from "../../../shared/styles/Buttons.module.css"; // if you have it
+import css from "@features/auth/SignInCard.module.css";
+import buttonCss from "@shared/styles/Buttons.module.css";
 import React from "react";
 
-import { useUser } from "../../../app/providers.jsx";
+import { useUser } from "@app/providers.jsx";
 
 export default function SignIn() {
   const [username, setUsername] = useState("");
