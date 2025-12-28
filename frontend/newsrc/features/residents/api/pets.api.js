@@ -23,7 +23,6 @@ function mapPetFromApi(p) {
     age: p.age ?? null,
     license: p.license || "",
     notes: p.notes || "",
-    violations: p.violations || "",
     archived,
     createdAt: p.createdAt || p.createdAtISO || null,
     updatedAt: p.updatedAt || p.updatedAtISO || null,

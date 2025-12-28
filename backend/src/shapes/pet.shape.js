@@ -8,7 +8,6 @@ function shapePet(pet) {
     age: pet.age,
     license: pet.license,
     notes: pet.notes,
-    violations: pet.violations,
     archived: pet.archivedAt,
     createdAt: pet.createdAt,
     updatedAt: pet.updatedAt,

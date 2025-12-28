@@ -24,9 +24,6 @@ function parsePetPost(body) {
   const notes = optionalTrimToNull(src.notes);
   if (notes === "__INVALID__") return { error: "notes must be a string" };
 
-  const violations = optionalTrimToNull(src.violations);
-  if (violations === "__INVALID__") return { error: "violations must be a string" };
-
   const weightLbVal = parseIntOrNullOpt(src.weightLb, { min: 0, max: 1500 });
   if (weightLbVal === "__INVALID__") return { error: "weight must be an integer" };
 
@@ -42,7 +39,6 @@ function parsePetPost(body) {
       age: ageVal ?? null,
       license: license ?? null,
       notes: notes ?? null,
-      violations: violations ?? null,
     },
   };
 }
@@ -80,12 +76,6 @@ function parsePetPatch(body) {
     const v = optionalTrimToNull(src.notes);
     if (v === "__INVALID__") return { error: "notes must be a string" };
     data.notes = v;
-  }
-
-  if (src.violations !== undefined) {
-    const v = optionalTrimToNull(src.violations);
-    if (v === "__INVALID__") return { error: "violations must be a string" };
-    data.violations = v;
   }
 
   if (src.weightLb !== undefined) {

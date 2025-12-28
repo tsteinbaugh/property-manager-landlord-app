@@ -16,7 +16,6 @@ model Tenant {
   employer     String?
   income       Int?
   creditScore  Int?
-  violations   String?
   status       TenantStatus @default(DRAFT)
   notes        String?
   archivedAt   DateTime?

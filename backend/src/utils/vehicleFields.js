@@ -41,9 +41,6 @@ function parseVehiclePost(body) {
   const notes = optionalTrimToNull(src.notes);
   if (notes === "__INVALID__") return { error: "notes must be a string" };
 
-  const violations = optionalTrimToNull(src.violations);
-  if (violations === "__INVALID__") return { error: "violations must be a string" };
-
   return {
     data: {
       make,
@@ -55,7 +52,6 @@ function parseVehiclePost(body) {
       permit: permit ?? null,
       parking: parking ?? null,
       notes: notes ?? null,
-      violations: violations ?? null,
     },
   };
 }
@@ -119,12 +115,6 @@ function parseVehiclePatch(body) {
     const v = optionalTrimToNull(src.notes);
     if (v === "__INVALID__") return { error: "notes must be a string" };
     data.notes = v;
-  }
-
-  if (src.violations !== undefined) {
-    const v = optionalTrimToNull(src.violations);
-    if (v === "__INVALID__") return { error: "violations must be a string" };
-    data.violations = v;
   }
 
   return { data };

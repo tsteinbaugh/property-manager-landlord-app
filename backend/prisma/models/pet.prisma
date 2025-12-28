@@ -8,7 +8,6 @@ model Pet {
   age        Int?
   license    String?
   notes      String?
-  violations String?
   archivedAt   DateTime?
   archiveReason String?
 

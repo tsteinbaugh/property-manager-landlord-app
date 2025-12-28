@@ -37,9 +37,6 @@ function parseOccupantPost(body) {
   const notes = optionalTrimToNull(src.notes);
   if (notes === "__INVALID__") return { error: "notes must be a string" };
 
-  const violations = optionalTrimToNull(src.violations);
-  if (violations === "__INVALID__") return { error: "violations must be a string" };
-
   // numbers
   const ageVal = parseIntOrNullOpt(src.age, { min: 0, max: 120 });
   if (ageVal === "__INVALID__") return { error: "age must be an integer between 0 and 120" };
@@ -85,7 +82,6 @@ function parseOccupantPost(body) {
 
       markings: markings ?? null,
       notes: notes ?? null,
-      violations: violations ?? null,
     },
   };
 }
@@ -176,11 +172,6 @@ function parseOccupantPatch(body) {
     const v = optionalTrimToNull(src.notes);
     if (v === "__INVALID__") return { error: "notes must be a string" };
     data.notes = v;
-  }
-  if (src.violations !== undefined) {
-    const v = optionalTrimToNull(src.violations);
-    if (v === "__INVALID__") return { error: "violations must be a string" };
-    data.violations = v;
   }
 
   return { data };

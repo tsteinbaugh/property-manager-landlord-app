@@ -27,7 +27,6 @@ export default function EmergencyContactCard({
 
     const relation = emergencyContact.relation ? String(emergencyContact.relation).trim() : "";
     const notes = emergencyContact.notes ? String(emergencyContact.notes).trim() : "";
-    const violations = emergencyContact.violations ? String(emergencyContact.violations).trim() : "";
 
     return {
       isArchived,
@@ -38,7 +37,6 @@ export default function EmergencyContactCard({
       cityLine,
       relation,
       notes,
-      violations,
     };
   }, [emergencyContact]);
 
@@ -78,10 +76,6 @@ export default function EmergencyContactCard({
 
           {vm.notes ? (
             <div><strong>Notes: </strong>{vm.notes}</div>
-          ) : null}
-
-          {vm.violations ? (
-            <div><strong>Violations: </strong>{vm.violations}</div>
           ) : null}
         </div>
       </div>

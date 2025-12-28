@@ -15,7 +15,6 @@ model Occupant {
   bodyBuild    BodyBuild? @default(UNKNOWN)
   markings     String?
   notes        String?
-  violations   String?
   archivedAt   DateTime?
   archiveReason String?
 

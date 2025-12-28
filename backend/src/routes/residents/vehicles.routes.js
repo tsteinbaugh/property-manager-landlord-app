@@ -58,7 +58,7 @@ function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
 
   // ============================================================
   // POST /api/vehicles
-  // Body: { make, model, year?, color?, state?, plate?, permit?, parking?, notes?, violations? }
+  // Body: { make, model, year?, color?, state?, plate?, permit?, parking?, notes? }
   // ============================================================
   app.post("/api/vehicles", async (req, res) => {
     const user = req.user || null;
@@ -85,7 +85,7 @@ function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
 
   // ============================================================
   // PATCH /api/vehicles/:id
-  // Body: partial { make?, model?, year?, color?, state?, plate?, permit?, parking?, notes?, violations? }
+  // Body: partial { make?, model?, year?, color?, state?, plate?, permit?, parking?, notes? }
   // ============================================================
   app.patch("/api/vehicles/:id", async (req, res) => {
     const { id } = req.params;

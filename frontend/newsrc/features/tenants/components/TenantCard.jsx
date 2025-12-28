@@ -50,7 +50,6 @@ export default function TenantCard({
       tenant.creditScore === null || tenant.creditScore === undefined || tenant.creditScore === ""
         ? null
         : String(tenant.creditScore);    const notes = tenant.notes ? String(tenant.notes).trim() : "";
-    const violations = tenant.violations ? String(tenant.violations).trim() : "";
 
     return {
       isArchived,
@@ -71,7 +70,6 @@ export default function TenantCard({
       income,
       creditScore,
       notes,
-      violations,
     };
   }, [tenant]);
 
@@ -151,10 +149,6 @@ export default function TenantCard({
 
           {vm.notes ? (
             <div><strong>Notes: </strong>{vm.notes}</div>
-          ) : null}
-
-          {vm.violations ? (
-            <div><strong>Violations: </strong>{vm.violations}</div>
           ) : null}
         </div>
       </div>

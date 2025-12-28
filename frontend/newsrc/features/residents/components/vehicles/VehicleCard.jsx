@@ -24,7 +24,6 @@ export default function vehicleCard({
     const plate = vehicle.plate ? String(vehicle.plate).trim() : "";
     const permit = vehicle.permit ? String(vehicle.permit).trim() : "";
     const notes = vehicle.notes ? String(vehicle.notes).trim() : "";
-    const violations = vehicle.violations ? String(vehicle.violations).trim() : "";
     const displayName = [`${year},`, make, model].filter(Boolean).join(" ") || "Unnamed vehicle"
 
     return {
@@ -39,7 +38,6 @@ export default function vehicleCard({
       permit,
       parking,
       notes,
-      violations,
     };
   }, [vehicle]);
 
@@ -84,10 +82,6 @@ export default function vehicleCard({
 
           {vm.notes ? (
             <div><strong>Notes: </strong>{vm.notes}</div>
-          ) : null}
-
-          {vm.violations ? (
-            <div><strong>Violations: </strong>{vm.violations}</div>
           ) : null}
         </div>
       </div>

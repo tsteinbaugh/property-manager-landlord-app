@@ -27,7 +27,6 @@ export default function PetCard({
         : String(pet.age);
     const license = pet.license ? String(pet.license).trim() : "";
     const notes = pet.notes ? String(pet.notes).trim() : "";
-    const violations = pet.violations ? String(pet.violations).trim() : "";
 
     return {
       isArchived,
@@ -38,7 +37,6 @@ export default function PetCard({
       age,
       license,
       notes,
-      violations,
     };
   }, [pet]);
 
@@ -83,10 +81,6 @@ export default function PetCard({
 
           {vm.notes ? (
             <div><strong>Notes: </strong>{vm.notes}</div>
-            ) : null}
-
-          {vm.violations ? (
-            <div><strong>Violations: </strong>{vm.violations}</div>
             ) : null}
         </div>
       </div>

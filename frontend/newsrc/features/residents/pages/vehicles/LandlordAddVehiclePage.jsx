@@ -57,7 +57,6 @@ export default function LandlordAddVehiclePage() {
   const [permit, setPermit] = useState("");
   const [parking, setParking] = useState("");
   const [notes, setNotes] = useState("");
-  const [violations, setViolations] = useState("");
   const [isSubmitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
 
@@ -149,7 +148,6 @@ export default function LandlordAddVehiclePage() {
         setPermit(v.permit || "");
         setParking(v.parking || "");
         setNotes(v.notes || "");
-        setViolations(v.violations || "");
       } catch (err) {
         console.error("Failed to load vehicle for edit", err);
         if (!cancelled) setFormError("Failed to load vehicle for editing.");
@@ -217,7 +215,6 @@ export default function LandlordAddVehiclePage() {
       permit: trimOrEmpty(permit) || null,
       parking: trimOrEmpty(parking) || null,
       notes: trimOrEmpty(notes) || null,
-      violations: trimOrEmpty(violations) || null,
     }
 
     try {
@@ -306,7 +303,6 @@ export default function LandlordAddVehiclePage() {
           parking: trimOrEmpty(parking) || null,
           permit: trimOrEmpty(permit) || null,
           notes: trimOrEmpty(notes) || null,
-          violations: trimOrEmpty(violations) || null,
         },
         { token }
       );
@@ -726,34 +722,6 @@ export default function LandlordAddVehiclePage() {
                 />
               </div>
 
-              {/* Violations */}
-              <div style={{ marginBottom: 12 }}>
-                <label
-                  htmlFor="violations"
-                  style={{
-                    display: "block",
-                    fontWeight: 500,
-                    marginBottom: 4,
-                  }}
-                >
-                  Violations
-                </label>
-                <input
-                  id="violations"
-                  type="text"
-                  value={violations}
-                  onChange={(e) => setViolations(e.target.value)}
-                  placeholder="Record any violations"
-                  style={{
-                    width: "100%",
-                    padding: "6px 8px",
-                    borderRadius: 8,
-                    border: "1px solid #d1d5db",
-                  }}
-                  disabled={isSubmitting}
-                />
-              </div>
-
               {formError && (
                 <div
                   style={{
@@ -1092,34 +1060,6 @@ export default function LandlordAddVehiclePage() {
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="Additional notes"
-              style={{
-                width: "100%",
-                padding: "6px 8px",
-                borderRadius: 8,
-                border: "1px solid #d1d5db",
-              }}
-              disabled={isSubmitting}
-            />
-          </div>
-
-          {/* Violations */}
-          <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="violations"
-              style={{
-                display: "block",
-                fontWeight: 500,
-                marginBottom: 4,
-              }}
-            >
-              Violations
-            </label>
-            <input
-              id="violations"
-              type="text"
-              value={violations}
-              onChange={(e) => setViolations(e.target.value)}
-              placeholder="Record any violations"
               style={{
                 width: "100%",
                 padding: "6px 8px",

@@ -47,7 +47,6 @@ export default function OccupantCard({
     const bodyBuild = occupant.bodyBuild ? String(occupant.bodyBuild).trim() : "";
     const markings = occupant.markings ? String(occupant.markings).trim() : "";
     const notes = occupant.notes ? String(occupant.notes).trim() : "";
-    const violations = occupant.violations ? String(occupant.violations).trim() : "";
 
     return {
       isArchived,
@@ -65,7 +64,6 @@ export default function OccupantCard({
       bodyBuild,
       markings,
       notes,
-      violations,
     };
   }, [occupant]);
 
@@ -129,10 +127,6 @@ export default function OccupantCard({
                                         
           {vm.notes ? (
             <div><strong>Notes: </strong>{vm.notes}</div>
-          ) : null}
-
-          {vm.violations ? (
-            <div><strong>Violations: </strong>{vm.violations}</div>
           ) : null}
         </div>
       </div>

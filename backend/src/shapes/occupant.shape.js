@@ -14,7 +14,6 @@ function shapeOccupant(occupant) {
     eyeColor: occupant.eyeColor,
     bodyBuild: occupant.bodyBuild,
     markings: occupant.markings,
-    violations: occupant.violations,
     notes: occupant.notes,
     archived: occupant.archivedAt,
     createdAt: occupant.createdAt,

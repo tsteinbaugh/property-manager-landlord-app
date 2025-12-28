@@ -66,9 +66,6 @@ function parseTenantPost(body) {
   const employer = optionalTrimToNull(src.employer);
   if (employer === "__INVALID__") return { error: "employer must be a string" };
 
-  const violations = optionalTrimToNull(src.violations);
-  if (violations === "__INVALID__") return { error: "violations must be a string" };
-
   const notes = optionalTrimToNull(src.notes);
   if (notes === "__INVALID__") return { error: "notes must be a string" };
 
@@ -93,7 +90,6 @@ function parseTenantPost(body) {
       employer: employer ?? null,
       income: income ?? null,
       creditScore: creditScore ?? null,
-      violations: violations ?? null,
       notes: notes ?? null,
     },
   };
@@ -155,7 +151,7 @@ function parseTenantPatch(body) {
     }
   }
 
-  const stringFields = ["markings", "occupation", "employer", "violations", "notes"];
+  const stringFields = ["markings", "occupation", "employer", "notes"];
   for (const k of stringFields) {
     if (src[k] !== undefined) {
       const v = optionalTrimToNull(src[k]);

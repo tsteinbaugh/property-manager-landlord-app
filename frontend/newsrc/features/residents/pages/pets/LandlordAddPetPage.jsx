@@ -29,7 +29,6 @@ export default function LandlordAddPetPage() {
   const [age, setAge] = useState("");
   const [license, setLicense] = useState("");
   const [notes, setNotes] = useState("");
-  const [violations, setViolations] = useState("");
   const [isSubmitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
 
@@ -119,7 +118,6 @@ export default function LandlordAddPetPage() {
         setAge(p.age != null ? String(p.age) : "");
         setLicense(p.license || "");
         setNotes(p.notes || "");
-        setViolations(p.violations || "");
       } catch (err) {
         console.error("Failed to load pet for edit", err);
         if (!cancelled) setFormError("Failed to load pet for editing.");
@@ -187,7 +185,6 @@ export default function LandlordAddPetPage() {
       age: age ? Number(age) : null,
       license: trimOrEmpty(license) || null,
       notes: trimOrEmpty(notes) || null,
-      violations: trimOrEmpty(violations) || null,
     };
 
     try {
@@ -273,7 +270,6 @@ export default function LandlordAddPetPage() {
           age: age ? Number(age) : null,
           license: trimOrEmpty(license) || null,
           notes: trimOrEmpty(notes) || null,
-          violations: trimOrEmpty(violations) || null,
         },
         { token }
       );
@@ -594,34 +590,6 @@ export default function LandlordAddPetPage() {
                 />
               </div>
                 
-              {/* Violations */}
-              <div style={{ marginBottom: 12 }}>
-                <label
-                  htmlFor="violations"
-                  style={{
-                    display: "block",
-                    fontWeight: 500,
-                    marginBottom: 4,
-                  }}
-                >
-                  Violations
-                </label>
-                <input
-                  id="violations"
-                  type="text"
-                  value={violations}
-                  onChange={(p) => setViolations(p.target.value)}
-                  placeholder="Record any violations"
-                  style={{
-                    width: "100%",
-                    padding: "6px 8px",
-                    borderRadius: 8,
-                    border: "1px solid #d1d5db",
-                  }}
-                  disabled={isSubmitting}
-                />
-              </div>
-
               {formError && (
                 <div
                   style={{
@@ -875,34 +843,6 @@ export default function LandlordAddPetPage() {
             />
           </div>
             
-          {/* Violations */}
-          <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="violations"
-              style={{
-                display: "block",
-                fontWeight: 500,
-                marginBottom: 4,
-              }}
-            >
-              Violations
-            </label>
-            <input
-              id="violations"
-              type="text"
-              value={violations}
-              onChange={(p) => setViolations(p.target.value)}
-              placeholder="Record any violations"
-              style={{
-                width: "100%",
-                padding: "6px 8px",
-                borderRadius: 8,
-                border: "1px solid #d1d5db",
-              }}
-              disabled={isSubmitting}
-            />
-          </div>
-
           {formError && (
             <div style={{ color: "#b91c1c", fontSize: 13, marginBottom: 8 }}>
               {formError}

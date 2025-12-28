@@ -52,7 +52,6 @@ export default function LandlordAddOccupantPage() {
   const [bodyBuild, setBodyBuild] = useState("");
   const [markings, setMarkings] = useState("");
   const [notes, setNotes] = useState("");
-  const [violations, setViolations] = useState("");
   const [isSubmitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
 
@@ -194,7 +193,6 @@ export default function LandlordAddOccupantPage() {
         setBodyBuild(o.bodyBuild || "");
         setMarkings(o.markings || "");
         setNotes(o.notes || "");
-        setViolations(o.violations || "");
       } catch (err) {
         console.error("Failed to load occupant for edit", err);
         if (!cancelled) setFormError("Failed to load occupant for editing.");
@@ -274,7 +272,6 @@ export default function LandlordAddOccupantPage() {
       bodyBuild: bodyBuild || null,
       markings: trimOrEmpty(markings) || null,
       notes: trimOrEmpty(notes) || null,
-      violations: trimOrEmpty(violations) || null,
     };
 
     try {
@@ -371,7 +368,6 @@ export default function LandlordAddOccupantPage() {
           bodyBuild: bodyBuild || null,
           markings: trimOrEmpty(markings) || null,
           notes: trimOrEmpty(notes) || null,
-          violations: trimOrEmpty(violations) || null,
         },
         { token }
       );
@@ -912,34 +908,6 @@ export default function LandlordAddOccupantPage() {
                 />
               </div>
 
-              {/* Violations */}
-              <div style={{ marginBottom: 12 }}>
-                <label
-                  htmlFor="violations"
-                  style={{
-                    display: "block",
-                    fontWeight: 500,
-                    marginBottom: 4,
-                  }}
-                >
-                  Violations
-                </label>
-                <input
-                  id="violations"
-                  type="text"
-                  value={violations}
-                  onChange={(e) => setViolations(e.target.value)}
-                  placeholder="Record any violations"
-                  style={{
-                    width: "100%",
-                    padding: "6px 8px",
-                    borderRadius: 8,
-                    border: "1px solid #d1d5db",
-                  }}
-                  disabled={isSubmitting}
-                />
-              </div>
-
               {formError && (
                 <div
                   style={{
@@ -1405,34 +1373,6 @@ export default function LandlordAddOccupantPage() {
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="Additional notes"
-              style={{
-                width: "100%",
-                padding: "6px 8px",
-                borderRadius: 8,
-                border: "1px solid #d1d5db",
-              }}
-              disabled={isSubmitting}
-            />
-          </div>
-
-          {/* Violations */}
-          <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="violations"
-              style={{
-                display: "block",
-                fontWeight: 500,
-                marginBottom: 4,
-              }}
-            >
-              Violations
-            </label>
-            <input
-              id="violations"
-              type="text"
-              value={violations}
-              onChange={(e) => setViolations(e.target.value)}
-              placeholder="Record any violations"
               style={{
                 width: "100%",
                 padding: "6px 8px",

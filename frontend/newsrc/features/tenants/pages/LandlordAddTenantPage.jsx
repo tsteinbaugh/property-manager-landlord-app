@@ -141,7 +141,6 @@ export default function LandlordAddTenantPage() {
   const [creditScore, setCreditScore] = useState(null);
 
   const [notes, setNotes] = useState("");
-  const [violations, setViolations] = useState("");
 
   const [isSubmitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
@@ -182,7 +181,6 @@ export default function LandlordAddTenantPage() {
         setCreditScore(t?.creditScore ?? null);
 
         setNotes(t?.notes || "");
-        setViolations(t?.violations || "");
       } catch (err) {
         console.error("Failed to load tenant for edit", err);
         setFormError("Failed to load tenant. Check console for details.");
@@ -328,7 +326,6 @@ export default function LandlordAddTenantPage() {
     creditScore: creditScore ? Number(creditScore) : null,
 
     notes: trimOrEmpty(notes) || null,
-    violations: trimOrEmpty(violations) || null,
   });
 
   const handleSubmit = async (e) => {
@@ -930,22 +927,6 @@ export default function LandlordAddTenantPage() {
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 placeholder="Additional notes"
-                style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
-                disabled={isSubmitting}
-              />
-            </div>
-
-            {/* Violations */}
-            <div style={{ marginBottom: 12 }}>
-              <label htmlFor="violations" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                Violations
-              </label>
-              <input
-                id="violations"
-                type="text"
-                value={violations}
-                onChange={(e) => setViolations(e.target.value)}
-                placeholder="Record any violations"
                 style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
                 disabled={isSubmitting}
               />

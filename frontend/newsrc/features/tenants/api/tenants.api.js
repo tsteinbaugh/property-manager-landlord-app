@@ -115,7 +115,6 @@ function mapTenantFromApi(t) {
     creditScore: t.creditScore ?? null,
 
     notes: t.notes ?? "",
-    violations: t.violations ?? "",
     
     archived,
     archivedAt: t.archivedAt,

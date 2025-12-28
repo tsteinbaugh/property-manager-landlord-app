@@ -18,7 +18,6 @@ function shapeTenant(tenant) {
     employer: tenant.employer,
     income: tenant.income,
     creditScore: tenant.creditScore,
-    violations: tenant.violations,
     notes: tenant.notes,
     archived: tenant.archivedAt,
     createdAt: tenant.createdAt,

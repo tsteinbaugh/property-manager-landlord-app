@@ -10,7 +10,6 @@ model Vehicle {
   permit     String?
   parking    String?
   notes      String?
-  violations String?
   archivedAt   DateTime?
   archiveReason String?
 

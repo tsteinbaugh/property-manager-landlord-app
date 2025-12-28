@@ -30,7 +30,6 @@ function mapOccupantFromApi(o) {
     bodyBuild: o.bodyBuild || "",
     markings: o.markings || "",
     notes: o.notes || "",
-    violations: o.violations || "",
     archived,
     createdAt: o.createdAt || o.createdAtISO || null,
     updatedAt: o.updatedAt || o.updatedAtISO || null,

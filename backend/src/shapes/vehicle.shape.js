@@ -10,7 +10,6 @@ function shapeVehicle(vehicle) {
     permit: vehicle.permit,
     parking: vehicle.parking,
     notes: vehicle.notes,
-    violations: vehicle.violations,
     archived: vehicle.archivedAt,
     createdAt: vehicle.createdAt,
     updatedAt: vehicle.updatedAt,
