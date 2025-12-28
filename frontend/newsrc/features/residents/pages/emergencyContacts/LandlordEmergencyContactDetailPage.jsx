@@ -218,7 +218,7 @@ export default function LandlordEmergencyContactDetailsPage() {
               if (!t?.id) return null;
 
               const archived = !!t.archivedAt;
-              const displayName = t.name || t.email || "Unnamed tenant";
+              const tenantName = t.name || t.email || "Unnamed tenant";
 
               return (
                 <LinkageCard

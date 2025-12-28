@@ -225,7 +225,7 @@ export default function LandlordOccupantDetailsPage() {
               if (!t?.id) return null;
 
               const archived = !!t.archivedAt;
-              const tenantame = t.name || t.email || "Unnamed tenant";
+              const tenantName = t.name || t.email || "Unnamed tenant";
 
               return (
                 <LinkageCard

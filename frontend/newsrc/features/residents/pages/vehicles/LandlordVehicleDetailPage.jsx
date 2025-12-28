@@ -10,6 +10,7 @@ import LinkageCard from "@shared/ui/cards/LinkageCard.jsx"
 import ui from "@shared/styles/CardLayout.module.css";
 
 function vehicleLabel(v) {
+
   const year = v.year ? String(v.year).trim() : "";
   const make = v.make ? String(v.make).trim() : "";
   const model = v.model ? String(v.model).trim() : "";
@@ -74,8 +75,6 @@ export default function LandlordVehicleDetailsPage() {
   const canArchiveNow = !isArchived;
   const canUnarchiveNow = isArchived && isSysAdmin;
   const showArchiveLink = canArchiveNow || canUnarchiveNow;
-
-  const title = vehicleLabel(vehicle);
 
   const linkedTenants = useMemo(() => {
     if (!vehicle) return [];
@@ -160,6 +159,8 @@ export default function LandlordVehicleDetailsPage() {
       </div>
     );
   if (!vehicle) return <div className={ui.page}>No data.</div>;
+
+  const title = vehicleLabel(vehicle);
 
   return (
     <div className={ui.page}>
