@@ -1,40 +1,44 @@
 // newsrc/features/residents/components/vehicleCard.jsx
 import { useMemo } from "react";
 import ui from "@shared/styles/CardLayout.module.css";
+import { formatText, formatInt } from "@shared/utils/validation.js";
 
-export default function vehicleCard({ 
-  vehicle, 
-  onClick, 
-  variant = "summary", // "summary" | "detail" 
+export default function vehicleCard({
+  vehicle,
+  onClick,
+  variant = "summary", // "summary" | "detail"
 }) {
   if (!vehicle) return null;
 
   const vm = useMemo(() => {
     const isArchived = !!vehicle.archivedAt;
 
-    const year = 
-      vehicle.year === null || vehicle.year === undefined || vehicle.year === ""
-        ? null
-        : String(vehicle.year);
-    const make = vehicle.make ? String(vehicle.make).trim() : "";
-    const model = vehicle.model ? String(vehicle.model).trim() : "";
-    const color = vehicle.color ? String(vehicle.color).trim() : "";
-    const state = vehicle.state ? String(vehicle.state).trim() : "";
-    const parking = vehicle.parking ? String(vehicle.parking).trim() : "";
-    const plate = vehicle.plate ? String(vehicle.plate).trim() : "";
-    const permit = vehicle.permit ? String(vehicle.permit).trim() : "";
-    const notes = vehicle.notes ? String(vehicle.notes).trim() : "";
-    const displayName = [`${year},`, make, model].filter(Boolean).join(" ") || "Unnamed vehicle"
+    const year = formatInt(vehicle.year, { fallback: null });
+    const make = formatText(vehicle.make, { fallback: null });
+    const model = formatText(vehicle.model, { fallback: null });
+
+    const color = formatText(vehicle.color, { fallback: null });
+    const state = formatText(vehicle.state, { fallback: null });
+    const parking = formatText(vehicle.parking, { fallback: null });
+    const plate = formatText(vehicle.plate, { fallback: null });
+    const permit = formatText(vehicle.permit, { fallback: null });
+    const notes = formatText(vehicle.notes, { fallback: null });
+
+    const displayName =
+      [year, make, model].filter(Boolean).join(" ") || "Unnamed vehicle";
+
+    const plateLine = plate && state ? `${plate} • ${state}` : null;
 
     return {
       isArchived,
       displayName,
+
       make,
       model,
       year,
+
       color,
-      state,
-      plate,
+      plateLine,
       permit,
       parking,
       notes,
@@ -54,45 +58,26 @@ export default function vehicleCard({
       <div className={`${ui.card} ${vm.isArchived ? ui.cardArchived : ""}`}>
         <div className={ui.cardHeader}>
           <div className={ui.cardTitle}>{headerTitle}</div>
-          <span className={`${ui.badge} ${badgeClass}`}>
-            {badgeText}
-          </span>
+          <span className={`${ui.badge} ${badgeClass}`}>{badgeText}</span>
         </div>
 
         <div className={ui.cardBody}>
-          <div><strong>Make: </strong>{vm.make}</div>
-          <div><strong>Model: </strong>{vm.model}</div>
-          <div><strong>Year: </strong>{vm.year}</div>
-
-          {vm.color ? (
-            <div><strong>Color: </strong>{vm.color}</div>
-          ) : null}
-
-          {vm.plate ? (
-            <div><strong>License Plate # and State: </strong>{vm.plate} • {vm.state}</div>
-          ) : null}
-
-          {vm.permit ? (
-            <div><strong>Permit #: </strong>{vm.permit}</div>
-          ) : null}
-
-          {vm.parking ? (
-            <div><strong>Parking #: </strong>{vm.parking}</div>
-          ) : null}
-
-          {vm.notes ? (
-            <div><strong>Notes: </strong>{vm.notes}</div>
-          ) : null}
+          {vm.make && (<div><strong>Make: </strong>{vm.make}</div>)}
+          {vm.model && (<div><strong>Model: </strong>{vm.model}</div>)}
+          {vm.year && (<div><strong>Year: </strong>{vm.year}</div>)}
+          {vm.color && (<div><strong>Color: </strong>{vm.color}</div>)}
+          {vm.plateLine && (<div><strong>License Plate # and State: </strong>{vm.plateLine}</div>)}
+          {vm.permit && (<div><strong>Permit #: </strong>{vm.permit}</div>)}
+          {vm.parking && (<div><strong>Parking #: </strong>{vm.parking}</div>)}
+          {vm.notes && (<div><strong>Notes: </strong>{vm.notes}</div>)}
         </div>
       </div>
     );
   }
 
   // ============================================================
-  // SUMMARY VARIANT (phone + email, + age if no phone/email)
+  // SUMMARY VARIANT
   // ============================================================
-  const headerTitle = vm.displayName;
-
   return (
     <button
       type="button"
@@ -101,29 +86,19 @@ export default function vehicleCard({
       aria-label={`Open vehicle ${vm.displayName}`}
     >
       <div className={ui.cardHeader}>
-        <div className={ui.cardTitle}>{headerTitle}</div>
-        <span className={`${ui.badge} ${badgeClass}`}>
-          {badgeText}
-        </span>
+        <div className={ui.cardTitle}>{vm.displayName}</div>
+        <span className={`${ui.badge} ${badgeClass}`}>{badgeText}</span>
       </div>
 
       <div className={ui.cardBody}>
-        {vm.color ? (
-          <div><strong>Color: </strong>{vm.color}</div>
-        ) : null}
-        {vm.plate && vm.state ? (
-          <div><strong>License Plate # and State: </strong>{vm.plate} • {vm.state}</div>
-        ) : null}
-        {vm.permit ? (
-          <div><strong>Permit #: </strong>{vm.permit}</div>
-        ) : null}
-        {vm.parking ? (
-          <div><strong>Parking #: </strong>{vm.parking}</div>
-        ) : null}
-        {!vm.color && !vm.plate && !vm.permit && !vm.parking && !vm.state ? (
+        {vm.color && (<div><strong>Color: </strong>{vm.color}</div>)}
+        {vm.plateLine && (<div><strong>License Plate # and State: </strong>{vm.plateLine}</div>)}
+        {vm.permit && (<div><strong>Permit #: </strong>{vm.permit}</div>)}
+        {vm.parking && (<div><strong>Parking #: </strong>{vm.parking}</div>)}
+        {!vm.color && !vm.plateLine && !vm.permit && !vm.parking && (
           <div>Click for more details</div>
-          ) : null}
+        )}
       </div>
     </button>
-  );  
+  );
 }

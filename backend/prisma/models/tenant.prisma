@@ -7,10 +7,10 @@ model Tenant {
   heightFeet   Int?
   heightInches Int?
   weight       Int?
-  sex          Sex?       @default(UNKNOWN)
-  hairColor    HairColor? @default(UNKNOWN)
-  eyeColor     EyeColor?   @default(UNKNOWN)
-  bodyBuild    BodyBuild? @default(UNKNOWN)
+  sex          Sex?      
+  hairColor    HairColor?
+  eyeColor     EyeColor?
+  bodyBuild    BodyBuild?
   markings     String?
   occupation   String?
   employer     String?

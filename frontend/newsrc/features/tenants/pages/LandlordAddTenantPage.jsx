@@ -168,10 +168,10 @@ export default function LandlordAddTenantPage() {
         setHeightInches(t?.heightInches ?? null);
         setWeight(t?.weight ?? null);
 
-        setSex(t?.sex || "UNKNOWN");
-        setHairColor(t?.hairColor || "UNKNOWN");
-        setEyeColor(t?.eyeColor || "UNKNOWN");
-        setBodyBuild(t?.bodyBuild || "UNKNOWN");
+        setSex(t?.sex || null);
+        setHairColor(t?.hairColor || null);
+        setEyeColor(t?.eyeColor || null);
+        setBodyBuild(t?.bodyBuild || null);
 
         setMarkings(t?.markings || "");
 

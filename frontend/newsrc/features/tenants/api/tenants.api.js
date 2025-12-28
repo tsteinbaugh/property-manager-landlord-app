@@ -103,10 +103,10 @@ function mapTenantFromApi(t) {
     heightInches: t.heightInches ?? null,
     weight: t.weight ?? null,
 
-    sex: t.sex ?? "UNKNOWN",
-    hairColor: t.hairColor ?? "UNKNOWN",
-    eyeColor: t.eyeColor ?? "UNKNOWN",
-    bodyBuild: t.bodyBuild ?? "UNKNOWN",
+    sex: t.sex ?? null,
+    hairColor: t.hairColor ?? null,
+    eyeColor: t.eyeColor ?? null,
+    bodyBuild: t.bodyBuild ?? null,
 
     markings: t.markings ?? "",
     occupation: t.occupation ?? "",

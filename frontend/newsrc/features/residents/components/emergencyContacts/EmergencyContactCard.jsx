@@ -1,40 +1,43 @@
 // newsrc/features/residents/components/emergencyContactCard.jsx
 import { useMemo } from "react";
 import ui from "@shared/styles/CardLayout.module.css";
+import { formatText, formatPhoneRaw, formatEmail } from "@shared/utils/validation.js";
 
 export default function EmergencyContactCard({
   emergencyContact,
   onClick,
-  variant = "summary", // "summary" | "detail" 
+  variant = "summary", // "summary" | "detail"
 }) {
   if (!emergencyContact) return null;
 
   const vm = useMemo(() => {
     const isArchived = !!emergencyContact.archivedAt;
 
-    const displayName =
-      (emergencyContact.name && String(emergencyContact.name).trim()) ||
-      "Unnamed emergency contact";
+    const displayName = formatText(emergencyContact.name, {
+      fallback: "Unnamed emergency contact",
+    });
 
-    const phone = emergencyContact.phone ? String(emergencyContact.phone).trim() : "";
-    const email = emergencyContact.email ? String(emergencyContact.email).trim() : "";
+    const phone = formatPhoneRaw(emergencyContact.phone, { fallback: "—" });
+    const email = formatEmail(emergencyContact.email, { fallback: "—" });
 
-    const address1 = emergencyContact.address1 ? String(emergencyContact.address1).trim() : "";
-    const city = emergencyContact.city ? String(emergencyContact.city).trim() : "";
-    const state = emergencyContact.state ? String(emergencyContact.state).trim() : "";
-    const postalCode = emergencyContact.postalCode ? String(emergencyContact.postalCode).trim() : "";
-    const cityLine = [city, state, postalCode].filter(Boolean).join(", ");
+    const street = formatText(emergencyContact.address1, { fallback: null });
+    const city = formatText(emergencyContact.city, { fallback: null });
+    const state = formatText(emergencyContact.state, { fallback: null });
+    const postalCode = formatText(emergencyContact.postalCode, { fallback: null });
 
-    const relation = emergencyContact.relation ? String(emergencyContact.relation).trim() : "";
-    const notes = emergencyContact.notes ? String(emergencyContact.notes).trim() : "";
+    const cityStateZip =
+      city && state && postalCode ? `${city}, ${state} ${postalCode}` : null;
+
+    const relation = formatText(emergencyContact.relation, { fallback: null });
+    const notes = formatText(emergencyContact.notes, { fallback: null });
 
     return {
       isArchived,
       displayName,
       phone,
       email,
-      address1,
-      cityLine,
+      street,
+      cityStateZip,
       relation,
       notes,
     };
@@ -42,6 +45,20 @@ export default function EmergencyContactCard({
 
   const badgeText = vm.isArchived ? "Archived" : "Emergency Contact";
   const badgeClass = vm.isArchived ? ui.badgeArchived : ui.badgeIdle;
+
+  const AddressBlock = (
+    <>
+      <div>
+        <strong>Address:</strong>
+      </div>
+      <div className={ui.indent}>
+        <div>
+          {vm.street || null}
+          {vm.cityStateZip && <div className={ui.muted}>{vm.cityStateZip}</div>}
+        </div>
+      </div>
+    </>
+  );
 
   // ============================================================
   // DETAIL VARIANT (full info, non-clickable)
@@ -53,30 +70,15 @@ export default function EmergencyContactCard({
       <div className={`${ui.card} ${vm.isArchived ? ui.cardArchived : ""}`}>
         <div className={ui.cardHeader}>
           <div className={ui.cardTitle}>{headerTitle}</div>
-          <span className={`${ui.badge} ${badgeClass}`}>
-            ${badgeText}
-          </span>
+          <span className={`${ui.badge} ${badgeClass}`}>{badgeText}</span>
         </div>
 
         <div className={ui.cardBody}>
           <div><strong>Phone: </strong>{vm.phone}</div>
           <div><strong>Email: </strong>{vm.email}</div>
-
-          <div><strong>Address:</strong></div>
-          <div className={ui.indent}>
-            <div>
-              {vm.address1 || "—"}
-              {vm.cityLine ? <div className={ui.muted}>{vm.cityLine}</div> : null}
-            </div>
-          </div>
-
-          {vm.relation ? (
-            <div><strong>Relation: </strong>{vm.relation}</div>
-          ) : null}
-
-          {vm.notes ? (
-            <div><strong>Notes: </strong>{vm.notes}</div>
-          ) : null}
+          {AddressBlock}
+          {vm.relation && (<div><strong>Relation: </strong>{vm.relation}</div>)}
+          {vm.notes && (<div><strong>Notes: </strong>{vm.notes}</div>)}
         </div>
       </div>
     );
@@ -85,8 +87,6 @@ export default function EmergencyContactCard({
   // ============================================================
   // SUMMARY VARIANT (phone + email only)
   // ============================================================
-  const headerTitle = vm.displayName;
-
   return (
     <button
       type="button"
@@ -95,20 +95,17 @@ export default function EmergencyContactCard({
       aria-label={`Open emergency contact ${vm.displayName}`}
     >
       <div className={ui.cardHeader}>
-        <div className={ui.cardTitle}>{headerTitle}</div>
-        <span className={`${ui.badge} ${badgeClass}`}>
-          {vm.isArchived ? "Archived" : "Emergency contact"}
-        </span>
+        <div className={ui.cardTitle}>{vm.displayName}</div>
+        <span className={`${ui.badge} ${badgeClass}`}>{badgeText}</span>
       </div>
 
       <div className={ui.cardBody}>
-        <div>
-          <strong>Phone: </strong>{vm.phone}
-        </div>
-        <div>
-          <strong>Email: </strong>{vm.email}
-        </div>
+        <div><strong>Phone: </strong>{vm.phone}</div>
+        <div><strong>Email: </strong>{vm.email}</div>
       </div>
+      {!vm.phone && !vm.email && (
+        <div>Click for more details</div>
+      )}      
     </button>
   );
 }
