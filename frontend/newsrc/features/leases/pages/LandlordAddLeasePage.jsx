@@ -2,9 +2,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
-import { apiFetch } from "@lib/apiClient.js";
-import { propertiesApi } from "@features/properties/api/properties.api.js";
-import { tenantsApi } from "@features/tenants/api/tenants.api.js";
 import { leasesApi } from "@features/leases/api/leases.api.js";
 import styles from "@shared/styles/LandlordPage.module.css";
 
@@ -13,41 +10,13 @@ import {
   parseMoneyOrNullOpt,
   parseEnumOrNullOpt,
   parseDateOrNullOpt,
-  normalizeIdOrNull,
 } from "@shared/utils/validation.js";
 
 const LEASE_DRAFT_KEY = "leaseDraft";
-const LEASE_DRAFT_RETURN_KEY = "leaseDraftReturnTo";
 
-function trimOrEmpty(v) {
-  return typeof v === "string" ? v.trim() : "";
-}
-
-function isActiveLease(lease) {
-  if (!lease) return false;
-  if (lease.status !== "ACTIVE") return false;
-  if (!lease.landlordId) return false;
-  if (!lease.propertyId) return false;
-
-  const hasAnyTenant =
-    !!lease.tenantId ||
-    (Array.isArray(lease.leaseTenants) && lease.leaseTenants.length > 0);
-  if (!hasAnyTenant) return false;
-
-  if (!lease.startDate) return false;
-
-  const today = new Date();
-  const start = new Date(lease.startDate);
-  if (Number.isNaN(start.getTime())) return false;
-  if (today < start) return false;
-
-  if (!lease.endDate) return true;
-
-  const end = new Date(lease.endDate);
-  if (Number.isNaN(end.getTime())) return true;
-
-  return today <= end;
-}
+// Lease status enum (matches backend)
+const LEASE_STATUS = new Set(["DRAFT", "ACTIVE", "ENDED", "TERMINATED", "LEGAL_HOLD"]);
+const LEASE_STATUS_OPTIONS = ["DRAFT", "ACTIVE", "ENDED", "TERMINATED", "LEGAL_HOLD"];
 
 async function uploadLeaseFile(leaseId, file, token) {
   if (!leaseId || !file || !token) return;
@@ -69,8 +38,11 @@ async function uploadLeaseFile(leaseId, file, token) {
   return res.json().catch(() => null);
 }
 
-// Lease status enum (matches backend)
-const LEASE_STATUS = new Set(["DRAFT", "ACTIVE", "TERMINATED", "ARCHIVED"]);
+const RequiredMark = () => (
+  <span style={{ color: "#b91c1c", marginLeft: 4 }} aria-hidden="true">
+    *
+  </span>
+);
 
 export default function LandlordAddLeasePage() {
   const navigate = useNavigate();
@@ -79,15 +51,12 @@ export default function LandlordAddLeasePage() {
 
   const qsPropertyId = searchParams.get("propertyId") || "";
   const qsTenantId = searchParams.get("tenantId") || "";
-  const qsLeaseId = searchParams.get("leaseId") || ""; // <-- EDIT MODE
+  const qsLeaseId = searchParams.get("leaseId") || ""; // EDIT MODE
 
   const isEditMode = !!qsLeaseId;
 
   const fromPropertyContext = !!qsPropertyId;
   const fromTenantContext = !!qsTenantId;
-
-  const propertyLockedFromQuery = fromPropertyContext && !isEditMode;
-  const tenantLockedFromQuery = fromTenantContext && !isEditMode;
 
   const mode =
     fromPropertyContext && fromTenantContext
@@ -99,10 +68,8 @@ export default function LandlordAddLeasePage() {
           : "GLOBAL";
 
   // ------------------------------------------------------------
-  // Loaded lists
+  // Loaded lists (leases only)
   // ------------------------------------------------------------
-  const [properties, setProperties] = useState([]);
-  const [tenants, setTenants] = useState([]);
   const [leases, setLeases] = useState([]);
 
   const [loading, setLoading] = useState(true);
@@ -111,13 +78,6 @@ export default function LandlordAddLeasePage() {
   // ------------------------------------------------------------
   // Form state
   // ------------------------------------------------------------
-  const [propertyId, setPropertyId] = useState("");
-  const [selectedTenantIds, setSelectedTenantIds] = useState([]);
-  const [tenantPickerId, setTenantPickerId] = useState("");
-
-  const [draftNewTenants, setDraftNewTenants] = useState([]);
-  const [draftProperty, setDraftProperty] = useState(null);
-
   const [rentAmount, setRentAmount] = useState("");
   const [status, setStatus] = useState("DRAFT");
   const [startDate, setStartDate] = useState("");
@@ -133,7 +93,7 @@ export default function LandlordAddLeasePage() {
   const [hydratedDraft, setHydratedDraft] = useState(false);
 
   // ------------------------------------------------------------
-  // Load properties + tenants + leases
+  // Load leases (for link-existing section)
   // ------------------------------------------------------------
   useEffect(() => {
     let cancelled = false;
@@ -143,35 +103,12 @@ export default function LandlordAddLeasePage() {
         setLoading(true);
         setLoadingError(null);
 
-        const [props, ts, ls] = await Promise.all([
-          propertiesApi.list({ token }),
-          tenantsApi.list({ token }),
-          leasesApi.listAll({ includeArchived: false, token }),
-        ]);
-
+        const ls = await leasesApi.listAll({ includeArchived: false, token });
         if (cancelled) return;
 
-        setProperties(Array.isArray(props) ? props : []);
-        setTenants(Array.isArray(ts) ? ts : []);
         setLeases(Array.isArray(ls) ? ls : []);
-
-        // Context defaults only in create-mode
-        if (!isEditMode) {
-          const propertyMatch = (Array.isArray(props) ? props : []).some(
-            (p) => p.id === qsPropertyId
-          );
-          const tenantMatch = (Array.isArray(ts) ? ts : []).some(
-            (t) => t.id === qsTenantId
-          );
-
-          if (qsPropertyId && propertyMatch) setPropertyId(qsPropertyId);
-          else setPropertyId("");
-
-          if (qsTenantId && tenantMatch) setSelectedTenantIds([qsTenantId]);
-          else setSelectedTenantIds([]);
-        }
       } catch (err) {
-        console.error("Failed to load properties/tenants/leases for lease", err);
+        console.error("Failed to load leases for lease page", err);
         if (!cancelled) setLoadingError(err);
       } finally {
         if (!cancelled) setLoading(false);
@@ -187,11 +124,10 @@ export default function LandlordAddLeasePage() {
     return () => {
       cancelled = true;
     };
-  }, [token, qsPropertyId, qsTenantId, isEditMode]);
+  }, [token]);
 
   // ------------------------------------------------------------
   // EDIT MODE: load lease + hydrate form
-  // (no draft/session stuff in edit mode)
   // ------------------------------------------------------------
   useEffect(() => {
     if (!isEditMode || !token || loading) return;
@@ -202,12 +138,6 @@ export default function LandlordAddLeasePage() {
       try {
         const l = await leasesApi.get(qsLeaseId, { token });
         if (cancelled) return;
-
-        setPropertyId(l?.propertyId || "");
-        const lt = Array.isArray(l?.leaseTenants) ? l.leaseTenants : [];
-        setSelectedTenantIds(
-          Array.from(new Set(lt.map((x) => x.tenantId).filter(Boolean)))
-        );
 
         setRentAmount(l?.rentAmount == null ? "" : String(l.rentAmount));
         setStatus(l?.status || "DRAFT");
@@ -230,6 +160,7 @@ export default function LandlordAddLeasePage() {
 
   // ------------------------------------------------------------
   // CREATE MODE ONLY: hydrate from draft + persist draft
+  // (ONLY rent/status/dates)
   // ------------------------------------------------------------
   useEffect(() => {
     if (!token || loading || hydratedDraft || isEditMode) return;
@@ -242,18 +173,6 @@ export default function LandlordAddLeasePage() {
 
     try {
       const draft = JSON.parse(raw);
-
-      if (draft.propertyId) setPropertyId(draft.propertyId);
-
-      if (Array.isArray(draft.selectedTenantIds)) {
-        const base = new Set(draft.selectedTenantIds);
-        if (qsTenantId && !base.has(qsTenantId)) base.add(qsTenantId);
-        setSelectedTenantIds(Array.from(base));
-      }
-
-      if (Array.isArray(draft.draftNewTenants)) setDraftNewTenants(draft.draftNewTenants);
-      if (draft.draftProperty) setDraftProperty(draft.draftProperty);
-
       if (draft.rentAmount != null) setRentAmount(String(draft.rentAmount));
       if (draft.status) setStatus(draft.status);
       if (draft.startDate) setStartDate(draft.startDate);
@@ -263,66 +182,27 @@ export default function LandlordAddLeasePage() {
     } finally {
       setHydratedDraft(true);
     }
-  }, [token, loading, hydratedDraft, qsTenantId, isEditMode]);
+  }, [token, loading, hydratedDraft, isEditMode]);
 
   useEffect(() => {
     if (!hydratedDraft || isEditMode) return;
 
-    const draft = {
-      propertyId,
-      selectedTenantIds,
-      draftNewTenants,
-      draftProperty,
-      rentAmount,
-      status,
-      startDate,
-      endDate,
-    };
+    const draft = { rentAmount, status, startDate, endDate };
 
     try {
       sessionStorage.setItem(LEASE_DRAFT_KEY, JSON.stringify(draft));
     } catch (e) {
       console.warn("Failed to persist leaseDraft", e);
     }
-  }, [
-    hydratedDraft,
-    isEditMode,
-    propertyId,
-    selectedTenantIds,
-    draftNewTenants,
-    draftProperty,
-    rentAmount,
-    status,
-    startDate,
-    endDate,
-  ]);
+  }, [hydratedDraft, isEditMode, rentAmount, status, startDate, endDate]);
 
   // ------------------------------------------------------------
-  // Compute availability (create mode UX)
+  // Candidate leases for "link existing draft lease"
   // ------------------------------------------------------------
-  const usedPropertyIds = useMemo(() => {
-    const s = new Set();
-    for (const l of leases) {
-      if (!isActiveLease(l)) continue;
-      if (l.propertyId) s.add(l.propertyId);
-    }
-    return s;
-  }, [leases]);
-
-  const availableProperties = useMemo(() => {
-    return properties.filter((p) => !usedPropertyIds.has(p.id) || p.id === propertyId);
-  }, [properties, usedPropertyIds, propertyId]);
-
-  const availableTenantsForPicker = useMemo(() => {
-    return tenants.filter((t) => !selectedTenantIds.includes(t.id));
-  }, [tenants, selectedTenantIds]);
-
-  const hasDraftProperty =
-    draftProperty && draftProperty.address1 && trimOrEmpty(draftProperty.address1);
-
   const candidateLeases = useMemo(() => {
     return leases.filter((l) => {
       if ((l.status || "DRAFT") !== "DRAFT") return false;
+
       if (fromPropertyContext && l.propertyId) return false;
 
       if (fromTenantContext && qsTenantId) {
@@ -333,43 +213,13 @@ export default function LandlordAddLeasePage() {
       }
 
       if (!fromPropertyContext && !fromTenantContext) return false;
+
       return true;
     });
   }, [leases, fromPropertyContext, fromTenantContext, qsTenantId]);
 
   const canLinkExisting =
     !isEditMode && (fromPropertyContext || fromTenantContext) && candidateLeases.length > 0;
-
-  // ------------------------------------------------------------
-  // Tenant helpers
-  // ------------------------------------------------------------
-  const handleAddTenantToLease = () => {
-    if (!tenantPickerId) return;
-    setSelectedTenantIds((prev) =>
-      prev.includes(tenantPickerId) ? prev : [...prev, tenantPickerId]
-    );
-    setTenantPickerId("");
-  };
-
-  const handleRemoveTenantFromLease = (id) => {
-    if (tenantLockedFromQuery && id === qsTenantId) return;
-    setSelectedTenantIds((prev) => prev.filter((tid) => tid !== id));
-  };
-
-  // ------------------------------------------------------------
-  // Nav: create new tenant/property (create-mode only)
-  // ------------------------------------------------------------
-  const handleGoCreateNewTenant = () => {
-    const returnTo = `${window.location.pathname}${window.location.search}`;
-    sessionStorage.setItem(LEASE_DRAFT_RETURN_KEY, returnTo);
-    navigate("/landlord/tenants/new?forLease=1");
-  };
-
-  const handleGoCreateNewProperty = () => {
-    const returnTo = `${window.location.pathname}${window.location.search}`;
-    sessionStorage.setItem(LEASE_DRAFT_RETURN_KEY, returnTo);
-    navigate("/landlord/properties/new?forLease=1");
-  };
 
   // ------------------------------------------------------------
   // Link existing draft lease (create-mode only)
@@ -399,7 +249,6 @@ export default function LandlordAddLeasePage() {
       }
 
       sessionStorage.removeItem(LEASE_DRAFT_KEY);
-      sessionStorage.removeItem(LEASE_DRAFT_RETURN_KEY);
 
       navigate(`/landlord/leases/${selectedLeaseId}`);
     } catch (err) {
@@ -414,19 +263,34 @@ export default function LandlordAddLeasePage() {
   // Shared: validate lease fields (edit/create)
   // ------------------------------------------------------------
   const validateLeaseFields = (input) => {
-    // status: allow blank -> DRAFT
+    // status: required and must be in enum
     const statusOut = parseEnumOrNullOpt(input.status, LEASE_STATUS);
-    if (statusOut === INVALID) return { ok: false, error: "Status must be DRAFT, ACTIVE, TERMINATED, or ARCHIVED." };
-    const normalizedStatus = statusOut || "DRAFT";
+    if (!statusOut) return { ok: false, error: "Status is required." };
+    if (statusOut === INVALID) {
+      return {
+        ok: false,
+        error: "Status must be DRAFT, ACTIVE, TERMINATED, or ARCHIVED.",
+      };
+    }
 
-    // rent: optional, must be >= 0 if present
-    const rentOut = parseMoneyOrNullOpt(input.rentAmount, { min: 0, max: 1_000_000_000 });
-    if (rentOut === INVALID) return { ok: false, error: "Rent amount must be a non-negative number." };
+    // rent: REQUIRED, must be >= 0
+    const rentOut = parseMoneyOrNullOpt(input.rentAmount, {
+      min: 0,
+      max: 1_000_000_000,
+    });
+    if (rentOut === INVALID) {
+      return { ok: false, error: "Rent amount must be a non-negative number." };
+    }
+    if (rentOut === null || rentOut === undefined) {
+      return { ok: false, error: "Rent amount is required." };
+    }
 
-    // dates: optional, must be valid YYYY-MM-DD if present
+    // start date: REQUIRED, must be valid YYYY-MM-DD
     const startOut = parseDateOrNullOpt(input.startDate);
     if (startOut === INVALID) return { ok: false, error: "Start date is invalid." };
+    if (!startOut) return { ok: false, error: "Start date is required." };
 
+    // end date: optional but must be valid if present
     const endOut = parseDateOrNullOpt(input.endDate);
     if (endOut === INVALID) return { ok: false, error: "End date is invalid." };
 
@@ -442,10 +306,10 @@ export default function LandlordAddLeasePage() {
     return {
       ok: true,
       value: {
-        status: normalizedStatus,
-        rentAmount: rentOut, // number|null|undefined
-        startDate: startOut, // "YYYY-MM-DD"|null|undefined
-        endDate: endOut, // "YYYY-MM-DD"|null|undefined
+        status: statusOut,
+        rentAmount: rentOut,
+        startDate: startOut,
+        endDate: endOut,
       },
     };
   };
@@ -466,7 +330,6 @@ export default function LandlordAddLeasePage() {
       setSaving(true);
       setFormError("");
 
-      // PATCH: undefined omits; null clears
       const patch = {
         rentAmount: checked.value.rentAmount,
         status: checked.value.status,
@@ -495,7 +358,7 @@ export default function LandlordAddLeasePage() {
   };
 
   // ------------------------------------------------------------
-  // CREATE MODE: create lease (your existing flow)
+  // CREATE MODE: create lease (minimal + still links from context)
   // ------------------------------------------------------------
   const handleCreateSubmit = async (e) => {
     e.preventDefault();
@@ -510,65 +373,9 @@ export default function LandlordAddLeasePage() {
       setSaving(true);
       setFormError("");
 
-      const newTenantIds = [];
-      for (const draft of draftNewTenants) {
-        try {
-          const created = await tenantsApi.create(
-            {
-              name: trimOrEmpty(draft.name) || "New tenant",
-              email: trimOrEmpty(draft.email) || undefined,
-              phone: trimOrEmpty(draft.phone) || undefined,
-            },
-            { token }
-          );
-          if (created && created.id) newTenantIds.push(created.id);
-        } catch (err) {
-          console.error("Failed to create staged tenant", err);
-          alert(`Failed to create tenant "${draft.name}". Lease was not created.`);
-          setSaving(false);
-          return;
-        }
-      }
-
-      let effectivePropertyId = normalizeIdOrNull(propertyId) || undefined;
-
-      if (!effectivePropertyId && hasDraftProperty) {
-        try {
-          const createdProp = await apiFetch("/api/properties", {
-            method: "POST",
-            token,
-            body: {
-              name:
-                trimOrEmpty(draftProperty.name) ||
-                trimOrEmpty(draftProperty.address1) ||
-                undefined,
-              address1: trimOrEmpty(draftProperty.address1) || undefined,
-              city: trimOrEmpty(draftProperty.city) || undefined,
-              state: trimOrEmpty(draftProperty.state) || "CO",
-              postalCode: trimOrEmpty(draftProperty.postalCode) || undefined,
-            },
-          });
-
-          if (!createdProp || !createdProp.id) {
-            alert("Failed to create the new property. The lease was not created.");
-            setSaving(false);
-            return;
-          }
-
-          effectivePropertyId = createdProp.id;
-        } catch (err) {
-          console.error("Failed to create staged property", err);
-          alert("Failed to create the new property. The lease was not created.");
-          setSaving(false);
-          return;
-        }
-      }
-
-      const tenantIds = [...selectedTenantIds, ...newTenantIds];
-
       const payload = {
-        propertyId: effectivePropertyId,
-        tenantIds,
+        propertyId: qsPropertyId || undefined,
+        tenantIds: qsTenantId ? [qsTenantId] : [],
         rentAmount: checked.value.rentAmount,
         status: checked.value.status,
         startDate: checked.value.startDate,
@@ -587,7 +394,6 @@ export default function LandlordAddLeasePage() {
       }
 
       sessionStorage.removeItem(LEASE_DRAFT_KEY);
-      sessionStorage.removeItem(LEASE_DRAFT_RETURN_KEY);
 
       if (createdLease?.id) navigate(`/landlord/leases/${createdLease.id}`);
       else navigate("/landlord/leases");
@@ -604,7 +410,6 @@ export default function LandlordAddLeasePage() {
   // ------------------------------------------------------------
   const handleCancelLease = () => {
     sessionStorage.removeItem(LEASE_DRAFT_KEY);
-    sessionStorage.removeItem(LEASE_DRAFT_RETURN_KEY);
 
     if (isEditMode) navigate(`/landlord/leases/${qsLeaseId}`);
     else if (fromPropertyContext && qsPropertyId) navigate(`/landlord/properties/${qsPropertyId}`);
@@ -625,17 +430,6 @@ export default function LandlordAddLeasePage() {
     );
   }
 
-  const lockedProperty = fromPropertyContext
-    ? properties.find((p) => p.id === qsPropertyId)
-    : null;
-
-  const lockedTenant = fromTenantContext
-    ? tenants.find((t) => t.id === qsTenantId)
-    : null;
-
-  const showPropertyControls = !propertyLockedFromQuery && !isEditMode; // keep edit focused
-  const showTenantControls = !tenantLockedFromQuery && !isEditMode; // keep edit focused
-
   return (
     <div className={styles.page}>
       <header className={styles.header}>
@@ -645,12 +439,12 @@ export default function LandlordAddLeasePage() {
             {isEditMode
               ? "Update rent, status, and dates. To change tenants or property, use the lease detail page."
               : mode === "GLOBAL"
-                ? "Create a new lease. You can leave property and tenants blank to keep it as a draft."
+                ? "Create a new lease."
                 : mode === "TENANT"
-                  ? "Manage leases for this tenant. Property is optional."
+                  ? "Create a lease linked to this tenant."
                   : mode === "PROPERTY"
-                    ? "Manage leases for this property. Tenants are optional."
-                    : "Manage leases for this property and tenant."}
+                    ? "Create a lease linked to this property."
+                    : "Create a lease linked to this property and tenant."}
           </p>
         </div>
       </header>
@@ -673,7 +467,8 @@ export default function LandlordAddLeasePage() {
                   <option value="">Select a draft lease…</option>
                   {candidateLeases.map((l) => (
                     <option key={l.id} value={l.id}>
-                      {l.id.slice(0, 8)} – {l.status || "DRAFT"}{l.startDate ? ` (starts ${l.startDate})` : ""}
+                      {l.id.slice(0, 8)} – {l.status || "DRAFT"}
+                      {l.startDate ? ` (starts ${l.startDate})` : ""}
                     </option>
                   ))}
                 </select>
@@ -700,123 +495,6 @@ export default function LandlordAddLeasePage() {
             onSubmit={isEditMode ? handleEditSubmit : handleCreateSubmit}
             style={{ display: "flex", flexDirection: "column", gap: 12 }}
           >
-            {/* Property / Tenant controls stay create-only (edit stays clean) */}
-            {!isEditMode && (propertyLockedFromQuery || tenantLockedFromQuery) && (
-              <div style={{ fontSize: 12, color: "#6b7280", marginBottom: 8 }}>
-                {propertyLockedFromQuery && (
-                  <div>
-                    Property locked: <strong>{lockedProperty?.name || lockedProperty?.address1 || qsPropertyId}</strong>
-                  </div>
-                )}
-                {tenantLockedFromQuery && (
-                  <div>
-                    Tenant locked: <strong>{lockedTenant?.name || qsTenantId}</strong>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {!isEditMode && showPropertyControls && (
-              <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                <span>Property (optional, existing)</span>
-                <select
-                  value={propertyId}
-                  onChange={(e) => setPropertyId(e.target.value)}
-                  disabled={isSaving}
-                  style={{ padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
-                >
-                  <option value="">No property yet (draft)…</option>
-                  {availableProperties.map((p) => (
-                    <option key={p.id} value={p.id}>
-                      {p.name || p.address1 || p.address || p.id}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            )}
-
-            {!isEditMode && showTenantControls && (
-              <div style={{ padding: 12, borderRadius: 12, border: "1px solid #e5e7eb", background: "#ffffff" }}>
-                <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-                  Tenants (optional, can add multiple)
-                </div>
-
-                <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
-                  <select
-                    style={{ flex: 1, padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
-                    value={tenantPickerId}
-                    onChange={(e) => setTenantPickerId(e.target.value)}
-                    disabled={isSaving}
-                  >
-                    <option value="">Select existing tenant to add…</option>
-                    {availableTenantsForPicker.map((t) => (
-                      <option key={t.id} value={t.id}>
-                        {t.name} {t.email ? `(${t.email})` : ""}
-                      </option>
-                    ))}
-                  </select>
-
-                  <button
-                    type="button"
-                    className={styles.primaryButton}
-                    onClick={handleAddTenantToLease}
-                    disabled={!tenantPickerId || isSaving}
-                    style={{ whiteSpace: "nowrap" }}
-                  >
-                    + Add
-                  </button>
-                </div>
-
-                {selectedTenantIds.length > 0 ? (
-                  <ul style={{ paddingLeft: 18, margin: 0, fontSize: 13 }}>
-                    {selectedTenantIds.map((tid, index) => {
-                      const t = tenants.find((tt) => tt.id === tid);
-                      return (
-                        <li key={tid} style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-                          <span>
-                            {t?.name || "(unknown tenant)"} {t?.email ? `(${t.email})` : ""}
-                            {index === 0 && (
-                              <span style={{ marginLeft: 6, fontSize: 11, color: "#2563eb" }}>
-                                primary
-                              </span>
-                            )}
-                          </span>
-
-                          <button
-                            type="button"
-                            onClick={() => handleRemoveTenantFromLease(tid)}
-                            disabled={isSaving}
-                            style={{
-                              fontSize: 11,
-                              padding: "2px 6px",
-                              borderRadius: 8,
-                              border: "1px solid #d1d5db",
-                              background: "#ffffff",
-                              cursor: "pointer",
-                            }}
-                          >
-                            Remove
-                          </button>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                ) : (
-                  <div style={{ fontSize: 12, color: "#6b7280" }}>No tenants selected yet.</div>
-                )}
-
-                <button
-                  type="button"
-                  className={styles.primaryButton}
-                  style={{ marginTop: 10, width: "fit-content" }}
-                  onClick={handleGoCreateNewTenant}
-                  disabled={isSaving}
-                >
-                  + Create new tenant
-                </button>
-              </div>
-            )}
-
             {/* Lease document */}
             <div style={{ marginTop: 4 }}>
               <label htmlFor="leaseFile" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
@@ -835,16 +513,17 @@ export default function LandlordAddLeasePage() {
               )}
             </div>
 
-            {/* Rent amount */}
+            {/* Rent amount (required) */}
             <div style={{ marginBottom: 4 }}>
               <label htmlFor="rentAmount" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                Rent amount (per month)
+                Rent amount (per month)<RequiredMark />
               </label>
               <input
                 id="rentAmount"
                 type="number"
                 min="0"
                 step="1"
+                required
                 value={rentAmount}
                 onChange={(e) => setRentAmount(e.target.value)}
                 placeholder="e.g. 2500"
@@ -853,31 +532,37 @@ export default function LandlordAddLeasePage() {
               />
             </div>
 
-            {/* Status */}
+            {/* Status (required dropdown) */}
             <div style={{ marginBottom: 4 }}>
               <label htmlFor="status" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                Status
+                Status<RequiredMark />
               </label>
-              <input
+              <select
                 id="status"
-                type="text"
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
-                placeholder="DRAFT / ACTIVE / TERMINATED / ARCHIVED"
+                required
                 style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
                 disabled={isSaving}
-              />
+              >
+                {LEASE_STATUS_OPTIONS.map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
+              </select>
             </div>
 
             {/* Dates */}
             <div style={{ display: "flex", gap: 8 }}>
               <div style={{ flex: 1 }}>
                 <label htmlFor="startDate" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                  Start date
+                  Start date<RequiredMark />
                 </label>
                 <input
                   id="startDate"
                   type="date"
+                  required
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
                   style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
