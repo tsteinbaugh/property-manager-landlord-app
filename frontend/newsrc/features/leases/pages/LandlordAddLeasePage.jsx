@@ -8,6 +8,14 @@ import { tenantsApi } from "@features/tenants/api/tenants.api.js";
 import { leasesApi } from "@features/leases/api/leases.api.js";
 import styles from "@shared/styles/LandlordPage.module.css";
 
+import {
+  INVALID,
+  parseMoneyOrNullOpt,
+  parseEnumOrNullOpt,
+  parseDateOrNullOpt,
+  normalizeIdOrNull,
+} from "@shared/utils/validation.js";
+
 const LEASE_DRAFT_KEY = "leaseDraft";
 const LEASE_DRAFT_RETURN_KEY = "leaseDraftReturnTo";
 
@@ -61,6 +69,9 @@ async function uploadLeaseFile(leaseId, file, token) {
   return res.json().catch(() => null);
 }
 
+// Lease status enum (matches backend)
+const LEASE_STATUS = new Set(["DRAFT", "ACTIVE", "TERMINATED", "ARCHIVED"]);
+
 export default function LandlordAddLeasePage() {
   const navigate = useNavigate();
   const { token } = useUser() || {};
@@ -78,13 +89,14 @@ export default function LandlordAddLeasePage() {
   const propertyLockedFromQuery = fromPropertyContext && !isEditMode;
   const tenantLockedFromQuery = fromTenantContext && !isEditMode;
 
-  const mode = fromPropertyContext && fromTenantContext
-    ? "BOTH"
-    : fromTenantContext
-      ? "TENANT"
-      : fromPropertyContext
-        ? "PROPERTY"
-        : "GLOBAL";
+  const mode =
+    fromPropertyContext && fromTenantContext
+      ? "BOTH"
+      : fromTenantContext
+        ? "TENANT"
+        : fromPropertyContext
+          ? "PROPERTY"
+          : "GLOBAL";
 
   // ------------------------------------------------------------
   // Loaded lists
@@ -145,8 +157,12 @@ export default function LandlordAddLeasePage() {
 
         // Context defaults only in create-mode
         if (!isEditMode) {
-          const propertyMatch = (Array.isArray(props) ? props : []).some((p) => p.id === qsPropertyId);
-          const tenantMatch = (Array.isArray(ts) ? ts : []).some((t) => t.id === qsTenantId);
+          const propertyMatch = (Array.isArray(props) ? props : []).some(
+            (p) => p.id === qsPropertyId
+          );
+          const tenantMatch = (Array.isArray(ts) ? ts : []).some(
+            (t) => t.id === qsTenantId
+          );
 
           if (qsPropertyId && propertyMatch) setPropertyId(qsPropertyId);
           else setPropertyId("");
@@ -168,7 +184,9 @@ export default function LandlordAddLeasePage() {
       setLoadingError(new Error("Missing auth token"));
     }
 
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [token, qsPropertyId, qsTenantId, isEditMode]);
 
   // ------------------------------------------------------------
@@ -187,12 +205,14 @@ export default function LandlordAddLeasePage() {
 
         setPropertyId(l?.propertyId || "");
         const lt = Array.isArray(l?.leaseTenants) ? l.leaseTenants : [];
-        setSelectedTenantIds(Array.from(new Set(lt.map((x) => x.tenantId).filter(Boolean))));
+        setSelectedTenantIds(
+          Array.from(new Set(lt.map((x) => x.tenantId).filter(Boolean)))
+        );
 
         setRentAmount(l?.rentAmount == null ? "" : String(l.rentAmount));
         setStatus(l?.status || "DRAFT");
-        setStartDate(l?.startDate || "");
-        setEndDate(l?.endDate || "");
+        setStartDate(parseDateOrNullOpt(l?.startDate) || "");
+        setEndDate(parseDateOrNullOpt(l?.endDate) || "");
       } catch (err) {
         console.error("Failed to load lease for edit", err);
         setLoadingError(err);
@@ -203,7 +223,9 @@ export default function LandlordAddLeasePage() {
 
     loadLease();
 
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [isEditMode, qsLeaseId, token, loading]);
 
   // ------------------------------------------------------------
@@ -389,31 +411,67 @@ export default function LandlordAddLeasePage() {
   };
 
   // ------------------------------------------------------------
+  // Shared: validate lease fields (edit/create)
+  // ------------------------------------------------------------
+  const validateLeaseFields = (input) => {
+    // status: allow blank -> DRAFT
+    const statusOut = parseEnumOrNullOpt(input.status, LEASE_STATUS);
+    if (statusOut === INVALID) return { ok: false, error: "Status must be DRAFT, ACTIVE, TERMINATED, or ARCHIVED." };
+    const normalizedStatus = statusOut || "DRAFT";
+
+    // rent: optional, must be >= 0 if present
+    const rentOut = parseMoneyOrNullOpt(input.rentAmount, { min: 0, max: 1_000_000_000 });
+    if (rentOut === INVALID) return { ok: false, error: "Rent amount must be a non-negative number." };
+
+    // dates: optional, must be valid YYYY-MM-DD if present
+    const startOut = parseDateOrNullOpt(input.startDate);
+    if (startOut === INVALID) return { ok: false, error: "Start date is invalid." };
+
+    const endOut = parseDateOrNullOpt(input.endDate);
+    if (endOut === INVALID) return { ok: false, error: "End date is invalid." };
+
+    // end >= start if both present
+    if (startOut && endOut) {
+      const s = new Date(`${startOut}T00:00:00`);
+      const e = new Date(`${endOut}T00:00:00`);
+      if (Number.isFinite(s.getTime()) && Number.isFinite(e.getTime()) && e < s) {
+        return { ok: false, error: "End date must be on or after the start date." };
+      }
+    }
+
+    return {
+      ok: true,
+      value: {
+        status: normalizedStatus,
+        rentAmount: rentOut, // number|null|undefined
+        startDate: startOut, // "YYYY-MM-DD"|null|undefined
+        endDate: endOut, // "YYYY-MM-DD"|null|undefined
+      },
+    };
+  };
+
+  // ------------------------------------------------------------
   // EDIT MODE: save changes (fields only)
   // ------------------------------------------------------------
   const handleEditSubmit = async (e) => {
     e.preventDefault();
 
-    let numericRent = null;
-    if (trimOrEmpty(rentAmount)) {
-      const parsed = Number(trimOrEmpty(rentAmount));
-      if (!Number.isFinite(parsed) || parsed < 0) {
-        setFormError("Rent amount must be a non-negative number.");
-        return;
-      }
-      numericRent = parsed;
+    const checked = validateLeaseFields({ rentAmount, status, startDate, endDate });
+    if (!checked.ok) {
+      setFormError(checked.error || "Invalid lease fields.");
+      return;
     }
 
     try {
       setSaving(true);
       setFormError("");
 
-      // NOTE: Lease PATCH does not manage tenants; keep edit form focused on lease fields.
+      // PATCH: undefined omits; null clears
       const patch = {
-        rentAmount: numericRent,
-        status: trimOrEmpty(status) || "DRAFT",
-        startDate: trimOrEmpty(startDate) || undefined,
-        endDate: trimOrEmpty(endDate) || undefined,
+        rentAmount: checked.value.rentAmount,
+        status: checked.value.status,
+        startDate: checked.value.startDate,
+        endDate: checked.value.endDate,
       };
 
       const updated = await leasesApi.update(qsLeaseId, patch, { token });
@@ -442,14 +500,10 @@ export default function LandlordAddLeasePage() {
   const handleCreateSubmit = async (e) => {
     e.preventDefault();
 
-    let numericRent = null;
-    if (trimOrEmpty(rentAmount)) {
-      const parsed = Number(trimOrEmpty(rentAmount));
-      if (!Number.isFinite(parsed) || parsed < 0) {
-        setFormError("Rent amount must be a non-negative number.");
-        return;
-      }
-      numericRent = parsed;
+    const checked = validateLeaseFields({ rentAmount, status, startDate, endDate });
+    if (!checked.ok) {
+      setFormError(checked.error || "Invalid lease fields.");
+      return;
     }
 
     try {
@@ -476,7 +530,7 @@ export default function LandlordAddLeasePage() {
         }
       }
 
-      let effectivePropertyId = propertyId || undefined;
+      let effectivePropertyId = normalizeIdOrNull(propertyId) || undefined;
 
       if (!effectivePropertyId && hasDraftProperty) {
         try {
@@ -484,7 +538,10 @@ export default function LandlordAddLeasePage() {
             method: "POST",
             token,
             body: {
-              name: trimOrEmpty(draftProperty.name) || trimOrEmpty(draftProperty.address1) || undefined,
+              name:
+                trimOrEmpty(draftProperty.name) ||
+                trimOrEmpty(draftProperty.address1) ||
+                undefined,
               address1: trimOrEmpty(draftProperty.address1) || undefined,
               city: trimOrEmpty(draftProperty.city) || undefined,
               state: trimOrEmpty(draftProperty.state) || "CO",
@@ -512,10 +569,10 @@ export default function LandlordAddLeasePage() {
       const payload = {
         propertyId: effectivePropertyId,
         tenantIds,
-        rentAmount: numericRent,
-        status: trimOrEmpty(status) || "DRAFT",
-        startDate: trimOrEmpty(startDate) || undefined,
-        endDate: trimOrEmpty(endDate) || undefined,
+        rentAmount: checked.value.rentAmount,
+        status: checked.value.status,
+        startDate: checked.value.startDate,
+        endDate: checked.value.endDate,
       };
 
       const createdLease = await leasesApi.create(payload, { token });

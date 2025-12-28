@@ -5,7 +5,7 @@ model Vehicle {
   model      String?
   year       Int?
   color      String?
-  state      StateCode
+  state      StateCode?
   plate      String?
   permit     String?
   parking    String?

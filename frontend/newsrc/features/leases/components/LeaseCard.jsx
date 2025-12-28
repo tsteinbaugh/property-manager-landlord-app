@@ -93,11 +93,11 @@ export default function LeaseCard({
       <div className={ui.cardBody}>
         {vm.term && (<div><strong>Term: </strong>{vm.term}</div>)}
         {vm.rentAmount && (<div><strong>Total Rent: </strong>{vm.rentAmount}/month</div>)}
-      </div>
 
-      {!vm.term && !vm.rentAmount && (
-        <div>Click for more details</div>
-      )}      
+        {!vm.term && !vm.rentAmount && (
+          <div>Click for more details</div>
+        )}      
+      </div>
     </button>
   );
 }

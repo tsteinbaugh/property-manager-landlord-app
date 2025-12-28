@@ -1,87 +1,21 @@
 // newsrc/features/properties/pages/LandlordAddPropertyPage.jsx
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
 import { propertiesApi } from "@features/properties/api/properties.api.js";
 import { leasesApi } from "@features/leases/api/leases.api.js";
 import styles from "@shared/styles/LandlordPage.module.css";
 
-const US_STATES = new Map([
-  ["ALABAMA", "AL"],
-  ["ALASKA", "AK"],
-  ["ARIZONA", "AZ"],
-  ["ARKANSAS", "AR"],
-  ["CALIFORNIA", "CA"],
-  ["COLORADO", "CO"],
-  ["CONNECTICUT", "CT"],
-  ["DELAWARE", "DE"],
-  ["FLORIDA", "FL"],
-  ["GEORGIA", "GA"],
-  ["HAWAII", "HI"],
-  ["IDAHO", "ID"],
-  ["ILLINOIS", "IL"],
-  ["INDIANA", "IN"],
-  ["IOWA", "IA"],
-  ["KANSAS", "KS"],
-  ["KENTUCKY", "KY"],
-  ["LOUISIANA", "LA"],
-  ["MAINE", "ME"],
-  ["MARYLAND", "MD"],
-  ["MASSACHUSETTS", "MA"],
-  ["MICHIGAN", "MI"],
-  ["MINNESOTA", "MN"],
-  ["MISSISSIPPI", "MS"],
-  ["MISSOURI", "MO"],
-  ["MONTANA", "MT"],
-  ["NEBRASKA", "NE"],
-  ["NEVADA", "NV"],
-  ["NEW HAMPSHIRE", "NH"],
-  ["NEW JERSEY", "NJ"],
-  ["NEW MEXICO", "NM"],
-  ["NEW YORK", "NY"],
-  ["NORTH CAROLINA", "NC"],
-  ["NORTH DAKOTA", "ND"],
-  ["OHIO", "OH"],
-  ["OKLAHOMA", "OK"],
-  ["OREGON", "OR"],
-  ["PENNSYLVANIA", "PA"],
-  ["RHODE ISLAND", "RI"],
-  ["SOUTH CAROLINA", "SC"],
-  ["SOUTH DAKOTA", "SD"],
-  ["TENNESSEE", "TN"],
-  ["TEXAS", "TX"],
-  ["UTAH", "UT"],
-  ["VERMONT", "VT"],
-  ["VIRGINIA", "VA"],
-  ["WASHINGTON", "WA"],
-  ["WEST VIRGINIA", "WV"],
-  ["WISCONSIN", "WI"],
-  ["WYOMING", "WY"],
-  ["DISTRICT OF COLUMBIA", "DC"],
-]);
-
-const US_STATE_CODES = new Set(Array.from(US_STATES.values()));
-
-function normalizeState(input) {
-  const raw = typeof input === "string" ? input.trim() : "";
-  if (!raw) return "";
-  const upper = raw.toUpperCase().replace(/\./g, "");
-  if (upper.length === 2 && US_STATE_CODES.has(upper)) return upper;
-  return US_STATES.get(upper) || "";
-}
-
-function normalizeZipUS(input) {
-  const raw = typeof input === "string" ? input.trim() : "";
-  if (!raw) return "";
-  const digits = raw.replace(/\D/g, "");
-  if (digits.length === 5) return digits;
-  if (digits.length === 9) return `${digits.slice(0, 5)}-${digits.slice(5)}`;
-  return "";
-}
-
-function trimOrEmpty(v) {
-  return typeof v === "string" ? v.trim() : "";
-}
+import {
+  INVALID,
+  optionalTrimToNull,
+  requiredTrimmedString,
+  normalizeState,
+  normalizeZipUS,
+  parseIntOrNullOpt,
+  parseMoneyOrNullOpt,
+} from "@shared/utils/validation.js";
+import { US_STATE_NAME_TO_CODE } from "@shared/state.enums.js";
 
 export default function LandlordAddPropertyPage() {
   const navigate = useNavigate();
@@ -95,6 +29,18 @@ export default function LandlordAddPropertyPage() {
   const propertyId = searchParams.get("propertyId") || "";
   const returnTo = searchParams.get("returnTo") || "";
   const isEditMode = !!propertyId;
+
+  // ------------------------------------------------------------
+  // State dropdown options (same UX as vehicles: select -> code)
+  // ------------------------------------------------------------
+  const stateOptions = useMemo(() => {
+    const entries = Array.from(US_STATE_NAME_TO_CODE.entries()); // NAME -> CODE
+    entries.sort((a, b) => a[0].localeCompare(b[0]));
+    return entries.map(([name, code]) => ({
+      code,
+      label: `${name.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase())} (${code})`,
+    }));
+  }, []);
 
   // ------------------------------------------------------------
   // Lease-context: list properties for linking
@@ -204,11 +150,10 @@ export default function LandlordAddPropertyPage() {
         setState(p.state || "");
         setPostalCode(p.postalCode || "");
 
-        // keep your existing pattern (same as occupants/pets)
-        setBedrooms(p.bedrooms ?? null);
-        setBathrooms(p.bathrooms ?? null);
-        setSqft(p.sqft ?? null);
-        setYearBuilt(p.yearBuilt ?? null);
+        setBedrooms(p.bedrooms == null ? "" : String(p.bedrooms));
+        setBathrooms(p.bathrooms == null ? "" : String(p.bathrooms));
+        setSqft(p.sqft == null ? "" : String(p.sqft));
+        setYearBuilt(p.yearBuilt == null ? "" : String(p.yearBuilt));
 
         setNotes(p.notes || "");
       } catch (err) {
@@ -238,6 +183,53 @@ export default function LandlordAddPropertyPage() {
   const handleCancel = () => goBack();
 
   // ------------------------------------------------------------
+  // Build payload (validation.js)
+  // ------------------------------------------------------------
+  const buildPayloadOrError = () => {
+    const addr = requiredTrimmedString(address1);
+    if (addr === INVALID) return { error: "Address is required." };
+
+    const cty = requiredTrimmedString(city);
+    if (cty === INVALID) return { error: "City is required." };
+
+    const st = normalizeState(state);
+    if (st === INVALID || st === null) return { error: "State must be a valid US state or DC." };
+
+    const zip = normalizeZipUS(postalCode);
+    if (zip === INVALID || zip === null) return { error: "Zip must be 12345 or 12345-6789." };
+
+    const beds = parseIntOrNullOpt(bedrooms, { min: 0, max: 50 });
+    if (beds === INVALID) return { error: "Bedrooms must be a whole number." };
+
+    // bathrooms can be 0.5 steps; parseMoneyOrNullOpt is a good generic float parser
+    const baths = parseMoneyOrNullOpt(bathrooms, { min: 0, max: 50 });
+    if (baths === INVALID) return { error: "Bathrooms must be a number (e.g. 2 or 2.5)." };
+
+    const sf = parseIntOrNullOpt(sqft, { min: 0, max: 200_000 });
+    if (sf === INVALID) return { error: "Square feet must be a whole number." };
+
+    const yb = parseIntOrNullOpt(yearBuilt, { min: 1600, max: 2100 });
+    if (yb === INVALID) return { error: "Year built must be a whole number." };
+
+    return {
+      payload: {
+        name: optionalTrimToNull(name),
+        address1: addr,
+        city: cty,
+        state: st,
+        postalCode: zip,
+
+        bedrooms: beds === undefined ? null : beds,
+        bathrooms: baths === undefined ? null : baths,
+        sqft: sf === undefined ? null : sf,
+        yearBuilt: yb === undefined ? null : yb,
+
+        notes: optionalTrimToNull(notes),
+      },
+    };
+  };
+
+  // ------------------------------------------------------------
   // Submit
   // ------------------------------------------------------------
   const handleSubmit = async (e) => {
@@ -251,29 +243,8 @@ export default function LandlordAddPropertyPage() {
       postalCode: true,
     }));
 
-    if (!trimOrEmpty(address1)) return setFormError("Address is required.");
-    if (!trimOrEmpty(city)) return setFormError("City is required.");
-
-    const stateCode = normalizeState(state);
-    if (!stateCode) return setFormError("State must be a valid US state or DC.");
-
-    const zipNormalized = normalizeZipUS(postalCode);
-    if (!zipNormalized) return setFormError("Zip must be 12345 or 12345-6789.");
-
-    const payload = {
-      name: trimOrEmpty(name) || null,
-      address1: trimOrEmpty(address1),
-      city: trimOrEmpty(city),
-      state: stateCode || null,
-      postalCode: zipNormalized || null,
-
-      bedrooms: bedrooms ? Number(bedrooms) : null,
-      bathrooms: bathrooms ? Number(bathrooms) : null,
-      sqft: sqft ? Number(sqft) : null,
-      yearBuilt: yearBuilt ? Number(yearBuilt) : null,
-
-      notes: trimOrEmpty(notes) || null,
-    };
+    const built = buildPayloadOrError();
+    if (built.error) return setFormError(built.error);
 
     try {
       setSubmitting(true);
@@ -281,10 +252,10 @@ export default function LandlordAddPropertyPage() {
 
       let saved;
       if (isEditMode) {
-        saved = await propertiesApi.update(propertyId, payload, { token });
+        saved = await propertiesApi.update(propertyId, built.payload, { token });
       } else {
         // keep your existing naming convention; if your api uses create(), swap it
-        saved = await propertiesApi.add(payload, { token });
+        saved = await propertiesApi.add(built.payload, { token });
       }
 
       if (inLeaseContext && saved?.id) {
@@ -321,18 +292,14 @@ export default function LandlordAddPropertyPage() {
       <header className={styles.header}>
         <div>
           <h1 className={styles.title}>
-            {inLeaseContext
-              ? "Add or link property for lease"
-              : isEditMode
-                ? "Edit property"
-                : "Add property"}
+            {inLeaseContext ? "Add or link property for lease" : isEditMode ? "Edit property" : "Add property"}
           </h1>
           <p className={styles.subtitle}>
             {inLeaseContext
               ? "Link an existing property to this lease or create a new property that will be automatically linked."
               : isEditMode
-                ? "Update this property record."
-                : "Create a new rental property. You can add tenants, leases, and financials later."}
+              ? "Update this property record."
+              : "Create a new rental property. You can add tenants, leases, and financials later."}
           </p>
         </div>
       </header>
@@ -349,16 +316,12 @@ export default function LandlordAddPropertyPage() {
             maxWidth: 520,
           }}
         >
-          <h2 style={{ fontSize: 16, marginBottom: 8 }}>
-            Link existing property
-          </h2>
+          <h2 style={{ fontSize: 16, marginBottom: 8 }}>Link existing property</h2>
 
           {loadingProps ? (
             <div style={{ fontSize: 13, color: "#6b7280" }}>Loading properties…</div>
           ) : propsError ? (
-            <div style={{ fontSize: 13, color: "#b91c1c" }}>
-              Failed to load properties.
-            </div>
+            <div style={{ fontSize: 13, color: "#b91c1c" }}>Failed to load properties.</div>
           ) : properties.length === 0 ? (
             <div style={{ fontSize: 13, color: "#6b7280" }}>
               You don&apos;t have any properties yet. Create one below and it will be linked.
@@ -414,18 +377,13 @@ export default function LandlordAddPropertyPage() {
         </h2>
 
         {loadingProperty && (
-          <div style={{ fontSize: 13, color: "#6b7280", marginBottom: 8 }}>
-            Loading property…
-          </div>
+          <div style={{ fontSize: 13, color: "#6b7280", marginBottom: 8 }}>Loading property…</div>
         )}
 
         <form onSubmit={handleSubmit}>
           {/* Name */}
           <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="name"
-              style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
-            >
+            <label htmlFor="name" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
               Property name
             </label>
             <input
@@ -433,7 +391,6 @@ export default function LandlordAddPropertyPage() {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              onBlur={() => setTouched((t) => ({ ...t, name: true }))}
               placeholder="Name"
               style={{
                 width: "100%",
@@ -447,10 +404,7 @@ export default function LandlordAddPropertyPage() {
 
           {/* Address */}
           <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="address1"
-              style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
-            >
+            <label htmlFor="address1" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
               Address <span style={{ color: "#b91c1c" }}>*</span>
             </label>
             <input
@@ -468,19 +422,14 @@ export default function LandlordAddPropertyPage() {
               }}
               disabled={isSubmitting}
             />
-            {touched.address1 && !trimOrEmpty(address1) && (
-              <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>
-                Enter an address
-              </div>
+            {touched.address1 && requiredTrimmedString(address1) === INVALID && (
+              <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>Enter an address</div>
             )}
           </div>
 
           {/* City */}
           <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="city"
-              style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
-            >
+            <label htmlFor="city" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
               City <span style={{ color: "#b91c1c" }}>*</span>
             </label>
             <input
@@ -498,19 +447,14 @@ export default function LandlordAddPropertyPage() {
               }}
               disabled={isSubmitting}
             />
-            {touched.city && !trimOrEmpty(city) && (
-              <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>
-                Enter a city
-              </div>
+            {touched.city && requiredTrimmedString(city) === INVALID && (
+              <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>Enter a city</div>
             )}
           </div>
 
-          {/* State */}
+          {/* State (dropdown like vehicles) */}
           <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="state"
-              style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
-            >
+            <label htmlFor="state" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
               State <span style={{ color: "#b91c1c" }}>*</span>
             </label>
             <select
@@ -527,25 +471,20 @@ export default function LandlordAddPropertyPage() {
               disabled={isSubmitting}
             >
               <option value="">— Select —</option>
-              {Array.from(US_STATES.entries()).map(([name, code]) => (
-                <option key={code} value={code}>
-                  {name.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase())} ({code})
+              {stateOptions.map((o) => (
+                <option key={o.code} value={o.code}>
+                  {o.label}
                 </option>
               ))}
             </select>
-            {touched.state && !normalizeState(state) && (
-              <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>
-                Select a valid state
-              </div>
+            {touched.state && (normalizeState(state) === INVALID || normalizeState(state) === null) && (
+              <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>Select a valid state</div>
             )}
           </div>
 
           {/* Zip */}
           <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="postalCode"
-              style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
-            >
+            <label htmlFor="postalCode" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
               Zip <span style={{ color: "#b91c1c" }}>*</span>
             </label>
             <input
@@ -563,19 +502,14 @@ export default function LandlordAddPropertyPage() {
               }}
               disabled={isSubmitting}
             />
-            {touched.postalCode && !normalizeZipUS(postalCode) && (
-              <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>
-                Enter a valid zip
-              </div>
+            {touched.postalCode && (normalizeZipUS(postalCode) === INVALID || normalizeZipUS(postalCode) === null) && (
+              <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>Enter a valid zip</div>
             )}
           </div>
 
           {/* Bedrooms */}
           <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="bedrooms"
-              style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
-            >
+            <label htmlFor="bedrooms" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
               Bedrooms
             </label>
             <input
@@ -596,10 +530,7 @@ export default function LandlordAddPropertyPage() {
 
           {/* Bathrooms */}
           <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="bathrooms"
-              style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
-            >
+            <label htmlFor="bathrooms" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
               Bathrooms
             </label>
             <input
@@ -621,10 +552,7 @@ export default function LandlordAddPropertyPage() {
 
           {/* Sqft */}
           <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="sqft"
-              style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
-            >
+            <label htmlFor="sqft" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
               House Size
             </label>
             <input
@@ -645,10 +573,7 @@ export default function LandlordAddPropertyPage() {
 
           {/* YearBuilt */}
           <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="yearBuilt"
-              style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
-            >
+            <label htmlFor="yearBuilt" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
               Year built
             </label>
             <input
@@ -669,10 +594,7 @@ export default function LandlordAddPropertyPage() {
 
           {/* Notes */}
           <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="notes"
-              style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
-            >
+            <label htmlFor="notes" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
               Notes
             </label>
             <input
@@ -692,17 +614,11 @@ export default function LandlordAddPropertyPage() {
           </div>
 
           {formError && (
-            <div style={{ color: "#b91c1c", fontSize: 13, marginBottom: 8 }}>
-              {formError}
-            </div>
+            <div style={{ color: "#b91c1c", fontSize: 13, marginBottom: 8 }}>{formError}</div>
           )}
 
           <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
-            <button
-              type="submit"
-              className={styles.primaryButton}
-              disabled={isSubmitting}
-            >
+            <button type="submit" className={styles.primaryButton} disabled={isSubmitting}>
               {isSubmitting ? "Saving…" : isEditMode ? "Save changes" : "Save property"}
             </button>
 

@@ -1,45 +1,31 @@
 // frontend/newsrc/features/residents/pages/tenants/LandlordAddTenantPage.jsx
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
 import { tenantsApi } from "@features/tenants/api/tenants.api.js";
 import { leasesApi } from "@features/leases/api/leases.api.js";
 import styles from "@shared/styles/LandlordPage.module.css";
 
+import {
+  INVALID,
+  isValidEmail,
+  isValidPhone,
+  normalizeEmail,
+  normalizePhone,
+  optionalTrimToNull,
+  requiredTrimmedString,
+  parseIntOrNullOpt,
+  parseMoneyOrNullOpt,
+  parseEnumOrNullOpt,
+  validateObject,
+  SEX,
+  HAIR_COLOR,
+  EYE_COLOR,
+  BODY_BUILD,
+} from "@shared/utils/validation.js";
+
 const LEASE_DRAFT_KEY = "leaseDraft";
 const LEASE_DRAFT_RETURN_KEY = "leaseDraftReturnTo";
-
-function trimOrEmpty(v) {
-  return typeof v === "string" ? v.trim() : "";
-}
-
-function normalizeEmail(v) {
-  const s = trimOrEmpty(v);
-  return s ? s.toLowerCase() : "";
-}
-
-function normalizePhone(v) {
-  const raw = trimOrEmpty(v);
-  if (!raw) return "";
-  const digits = raw.replace(/\D/g, "");
-  if (!digits) return "";
-  if (digits.length === 11 && digits.startsWith("1")) return digits.slice(1);
-  return digits;
-}
-
-// If you already have these elsewhere, keep yours.
-// Keeping minimal safe versions here so the page doesn’t crash.
-function isValidEmail(v) {
-  const s = trimOrEmpty(v);
-  if (!s) return true;
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
-}
-function isValidPhone(v) {
-  const s = trimOrEmpty(v);
-  if (!s) return true;
-  // 10 digits (US) after normalization
-  return /^\d{10}$/.test(s);
-}
 
 const SEX_OPTIONS = [
   { value: "", label: "— Select —" },
@@ -51,16 +37,16 @@ const SEX_OPTIONS = [
 
 const HAIRCOLOR_OPTIONS = [
   { value: "", label: "— Select —" },
-  { value: "BLACK", label: "Black"},
-  { value: "BROWN", label: "Brown"},
-  { value: "BLONDE", label: "Blonde"},
-  { value: "RED", label: "Red"},
-  { value: "GRAY", label: "Gray"},
-  { value: "WHITE", label: "White"},
-  { value: "DYED", label: "Dyed"},
-  { value: "BALD", label: "Bald"},
-  { value: "OTHER", label: "Other"},
-  { value: "UNKNOWN", label: "Unknown"},
+  { value: "BLACK", label: "Black" },
+  { value: "BROWN", label: "Brown" },
+  { value: "BLONDE", label: "Blonde" },
+  { value: "RED", label: "Red" },
+  { value: "GRAY", label: "Gray" },
+  { value: "WHITE", label: "White" },
+  { value: "DYED", label: "Dyed" },
+  { value: "BALD", label: "Bald" },
+  { value: "OTHER", label: "Other" },
+  { value: "UNKNOWN", label: "Unknown" },
 ];
 
 const EYECOLOR_OPTIONS = [
@@ -84,6 +70,16 @@ const BODYBUILD_OPTIONS = [
   { value: "OTHER", label: "Other" },
   { value: "UNKNOWN", label: "Unknown" },
 ];
+
+// required wrappers (so validateObject can enforce required fields)
+const requiredPhone = (v) => {
+  const out = normalizePhone(v);
+  return out === null ? INVALID : out;
+};
+const requiredEmail = (v) => {
+  const out = normalizeEmail(v);
+  return out === null ? INVALID : out;
+};
 
 export default function LandlordAddTenantPage() {
   const navigate = useNavigate();
@@ -144,7 +140,11 @@ export default function LandlordAddTenantPage() {
 
   const [isSubmitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
-  const [touched, setTouched] = useState({ name: false, phone: false, email: false });
+  const [touched, setTouched] = useState({
+    name: false,
+    phone: false,
+    email: false,
+  });
 
   // ------------------------------------------------------------
   // Edit mode: load tenant
@@ -168,10 +168,11 @@ export default function LandlordAddTenantPage() {
         setHeightInches(t?.heightInches ?? null);
         setWeight(t?.weight ?? null);
 
-        setSex(t?.sex || null);
-        setHairColor(t?.hairColor || null);
-        setEyeColor(t?.eyeColor || null);
-        setBodyBuild(t?.bodyBuild || null);
+        // keep selects stable ("" means not set)
+        setSex(t?.sex ?? "");
+        setHairColor(t?.hairColor ?? "");
+        setEyeColor(t?.eyeColor ?? "");
+        setBodyBuild(t?.bodyBuild ?? "");
 
         setMarkings(t?.markings || "");
 
@@ -231,23 +232,19 @@ export default function LandlordAddTenantPage() {
   // Back/cancel
   // ------------------------------------------------------------
   const goBack = () => {
-    // 1) Always honor returnTo if provided (THIS fixes your bug)
     if (returnTo) return navigate(decodeURIComponent(returnTo));
-
-    // 2) Lease context
     if (inLeaseContext) return navigate(`/landlord/leases/${leaseId}`);
 
-    // 3) Draft-for-lease mode (no leaseId)
     if (forLease && !leaseId) {
       const draftReturn =
         sessionStorage.getItem(LEASE_DRAFT_RETURN_KEY) || "/landlord/leases/new";
       return navigate(draftReturn);
     }
 
-    // 4) Other contexts
     if (inOccupantContext) return navigate(`/landlord/occupants/${occupantId}`);
     if (inPetContext) return navigate(`/landlord/pets/${petId}`);
-    if (inEmergencyContactContext) return navigate(`/landlord/emergencyContacts/${emergencyContactId}`);
+    if (inEmergencyContactContext)
+      return navigate(`/landlord/emergencyContacts/${emergencyContactId}`);
     if (inVehicleContext) return navigate(`/landlord/vehicles/${vehicleId}`);
 
     return navigate("/landlord/residents?tab=tenants");
@@ -283,7 +280,11 @@ export default function LandlordAddTenantPage() {
       }
 
       if (inEmergencyContactContext) {
-        await tenantsApi.linkEmergencyContact(selectedTenantId, emergencyContactId, { token });
+        await tenantsApi.linkEmergencyContact(
+          selectedTenantId,
+          emergencyContactId,
+          { token }
+        );
         goBack();
         return;
       }
@@ -303,57 +304,106 @@ export default function LandlordAddTenantPage() {
     }
   };
 
-  const buildPayload = () => ({
-    name: trimOrEmpty(name),
-    phone: normalizePhone(phone) || null,
-    email: normalizeEmail(email) || null,
+  const buildPayload = () => {
+    const input = {
+      name,
+      phone,
+      email,
+      age,
+      heightFeet,
+      heightInches,
+      weight,
+      sex,
+      hairColor,
+      eyeColor,
+      bodyBuild,
+      markings,
+      occupation,
+      employer,
+      income,
+      creditScore,
+      notes,
+    };
 
-    age: age ? Number(age) : null,
-    heightFeet: heightFeet ? Number(heightFeet) : null,
-    heightInches: heightInches ? Number(heightInches) : null,
-    weight: weight ? Number(weight) : null,
+    const schema = {
+      name: requiredTrimmedString,
+      phone: requiredPhone,
+      email: requiredEmail,
 
-    sex: sex || null,
-    hairColor: hairColor || null,
-    eyeColor: eyeColor || null,
-    bodyBuild: bodyBuild || null,
+      age: (v) => parseIntOrNullOpt(v, { min: 0, max: 130 }),
+      heightFeet: (v) => parseIntOrNullOpt(v, { min: 0, max: 8 }),
+      heightInches: (v) => parseIntOrNullOpt(v, { min: 0, max: 11 }),
+      weight: (v) => parseIntOrNullOpt(v, { min: 0, max: 2000 }),
 
-    markings: trimOrEmpty(markings) || null,
+      sex: (v) => parseEnumOrNullOpt(v, SEX),
+      hairColor: (v) => parseEnumOrNullOpt(v, HAIR_COLOR),
+      eyeColor: (v) => parseEnumOrNullOpt(v, EYE_COLOR),
+      bodyBuild: (v) => parseEnumOrNullOpt(v, BODY_BUILD),
 
-    occupation: trimOrEmpty(occupation) || null,
-    employer: trimOrEmpty(employer) || null,
-    income: income ? Number(income) : null,
-    creditScore: creditScore ? Number(creditScore) : null,
+      markings: optionalTrimToNull,
+      occupation: optionalTrimToNull,
+      employer: optionalTrimToNull,
+      income: (v) => parseMoneyOrNullOpt(v, { min: 0, max: 1_000_000_000 }),
+      creditScore: (v) => parseIntOrNullOpt(v, { min: 0, max: 900 }),
+      notes: optionalTrimToNull,
+    };
 
-    notes: trimOrEmpty(notes) || null,
-  });
+    return validateObject(input, schema, {
+      errorMessages: {
+        name: "Name is required.",
+        phone: "Phone is required.",
+        email: "Email is required.",
+      },
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setTouched((t) => ({ ...t, name: true, phone: true, email: true }));
-
-    if (!trimOrEmpty(name)) return setFormError("Name is required.");
-
-    // if you truly want phone/email required, enforce here
-    // (keeping consistent w/ your UI showing * required)
-    if (!trimOrEmpty(phone)) return setFormError("Phone is required.");
-    if (!trimOrEmpty(email)) return setFormError("Email is required.");
-
-    if (!isValidPhone(normalizePhone(phone))) return setFormError("Enter a valid phone number.");
-    if (!isValidEmail(normalizeEmail(email))) return setFormError("Enter a valid email.");
+    setFormError("");
 
     if (!token) {
       alert("Missing auth token.");
       return;
     }
 
-    const payload = buildPayload();
+    // keep your “required + format” behavior
+    const normalizedPhone = normalizePhone(phone);
+    const normalizedEmail = normalizeEmail(email);
+
+    if (requiredTrimmedString(name) === INVALID) {
+      setFormError("Name is required.");
+      return;
+    }
+    if (!normalizedPhone) {
+      setFormError("Phone is required.");
+      return;
+    }
+    if (!normalizedEmail) {
+      setFormError("Email is required.");
+      return;
+    }
+    if (!isValidPhone(normalizedPhone)) {
+      setFormError("Enter a valid phone number.");
+      return;
+    }
+    if (!isValidEmail(normalizedEmail)) {
+      setFormError("Enter a valid email.");
+      return;
+    }
+
+    const { value: payload, ok, errors } = buildPayload();
+    if (!ok) {
+      // show first validation error
+      const first = Object.values(errors || {})[0];
+      setFormError(first || "Please fix the highlighted fields.");
+      return;
+    }
 
     // EDIT MODE (no linking side effects)
     if (isEditMode) {
       try {
         setSubmitting(true);
-        setFormError("");
         await tenantsApi.update(tenantId, payload, { token });
         goBack();
       } catch (err) {
@@ -369,7 +419,6 @@ export default function LandlordAddTenantPage() {
     if (inLeaseContext) {
       try {
         setSubmitting(true);
-        setFormError("");
 
         const created = await tenantsApi.create(payload, { token });
 
@@ -378,7 +427,9 @@ export default function LandlordAddTenantPage() {
             await leasesApi.linkTenant(leaseId, created.id, { token });
           } catch (err) {
             console.error("Tenant created but failed to link to lease", err);
-            alert("Tenant was created, but linking it to the lease failed. You can link it later.");
+            alert(
+              "Tenant was created, but linking it to the lease failed. You can link it later."
+            );
           }
         }
 
@@ -396,7 +447,6 @@ export default function LandlordAddTenantPage() {
     if (forLease && !leaseId) {
       try {
         setSubmitting(true);
-        setFormError("");
 
         const raw = sessionStorage.getItem(LEASE_DRAFT_KEY);
         const draft = raw ? JSON.parse(raw) : {};
@@ -417,7 +467,8 @@ export default function LandlordAddTenantPage() {
         );
 
         const draftReturn =
-          sessionStorage.getItem(LEASE_DRAFT_RETURN_KEY) || "/landlord/leases/new";
+          sessionStorage.getItem(LEASE_DRAFT_RETURN_KEY) ||
+          "/landlord/leases/new";
 
         navigate(draftReturn);
       } catch (err) {
@@ -430,10 +481,14 @@ export default function LandlordAddTenantPage() {
     }
 
     // 3) Context modes: create tenant + link
-    if (inOccupantContext || inPetContext || inEmergencyContactContext || inVehicleContext) {
+    if (
+      inOccupantContext ||
+      inPetContext ||
+      inEmergencyContactContext ||
+      inVehicleContext
+    ) {
       try {
         setSubmitting(true);
-        setFormError("");
 
         const created = await tenantsApi.create(payload, { token });
 
@@ -444,7 +499,11 @@ export default function LandlordAddTenantPage() {
             } else if (inPetContext) {
               await tenantsApi.linkPet(created.id, petId, { token });
             } else if (inEmergencyContactContext) {
-              await tenantsApi.linkEmergencyContact(created.id, emergencyContactId, { token });
+              await tenantsApi.linkEmergencyContact(
+                created.id,
+                emergencyContactId,
+                { token }
+              );
             } else if (inVehicleContext) {
               await tenantsApi.linkVehicle(created.id, vehicleId, { token });
             }
@@ -467,7 +526,6 @@ export default function LandlordAddTenantPage() {
     // 4) Normal behavior
     try {
       setSubmitting(true);
-      setFormError("");
       await tenantsApi.create(payload, { token });
       navigate("/landlord/residents?tab=tenants");
     } catch (err) {
@@ -521,7 +579,14 @@ export default function LandlordAddTenantPage() {
         </div>
       </header>
 
-      <div style={{ marginTop: 12, display: "flex", flexDirection: "column", gap: 16 }}>
+      <div
+        style={{
+          marginTop: 12,
+          display: "flex",
+          flexDirection: "column",
+          gap: 16,
+        }}
+      >
         {/* Section 1: Link existing tenant (context only, not edit mode) */}
         {showLinkExisting && (
           <section
@@ -533,12 +598,18 @@ export default function LandlordAddTenantPage() {
               background: "#ffffff",
             }}
           >
-            <h2 style={{ fontSize: 16, marginBottom: 8 }}>Link existing tenant</h2>
+            <h2 style={{ fontSize: 16, marginBottom: 8 }}>
+              Link existing tenant
+            </h2>
 
             {tenantsLoading ? (
-              <div style={{ fontSize: 13, color: "#6b7280" }}>Loading tenants…</div>
+              <div style={{ fontSize: 13, color: "#6b7280" }}>
+                Loading tenants…
+              </div>
             ) : tenantsError ? (
-              <div style={{ fontSize: 13, color: "#b91c1c" }}>Failed to load tenants.</div>
+              <div style={{ fontSize: 13, color: "#b91c1c" }}>
+                Failed to load tenants.
+              </div>
             ) : tenants.length === 0 ? (
               <div style={{ fontSize: 13, color: "#6b7280" }}>
                 You don&apos;t have any tenants yet. Create one below.
@@ -595,7 +666,14 @@ export default function LandlordAddTenantPage() {
           <form onSubmit={handleSubmit}>
             {/* Name */}
             <div style={{ marginBottom: 12 }}>
-              <label htmlFor="name" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
+              <label
+                htmlFor="name"
+                style={{
+                  display: "block",
+                  fontWeight: 500,
+                  marginBottom: 4,
+                }}
+              >
                 Tenant name <span style={{ color: "#b91c1c" }}>*</span>
               </label>
               <input
@@ -613,7 +691,7 @@ export default function LandlordAddTenantPage() {
                 }}
                 disabled={isSubmitting}
               />
-              {touched.name && !trimOrEmpty(name) && (
+              {touched.name && requiredTrimmedString(name) === INVALID && (
                 <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>
                   Enter tenant name
                 </div>
@@ -622,7 +700,14 @@ export default function LandlordAddTenantPage() {
 
             {/* Phone */}
             <div style={{ marginBottom: 12 }}>
-              <label htmlFor="phone" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
+              <label
+                htmlFor="phone"
+                style={{
+                  display: "block",
+                  fontWeight: 500,
+                  marginBottom: 4,
+                }}
+              >
                 Phone <span style={{ color: "#b91c1c" }}>*</span>
               </label>
               <input
@@ -640,16 +725,25 @@ export default function LandlordAddTenantPage() {
                 }}
                 disabled={isSubmitting}
               />
-              {touched.phone && trimOrEmpty(phone) && !isValidPhone(normalizePhone(phone)) && (
-                <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>
-                  Enter a valid phone number (e.g. 303-555-1212)
-                </div>
-              )}
+              {touched.phone &&
+                normalizePhone(phone) &&
+                !isValidPhone(normalizePhone(phone)) && (
+                  <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>
+                    Enter a valid phone number (e.g. 303-555-1212)
+                  </div>
+                )}
             </div>
 
             {/* Email */}
             <div style={{ marginBottom: 12 }}>
-              <label htmlFor="email" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
+              <label
+                htmlFor="email"
+                style={{
+                  display: "block",
+                  fontWeight: 500,
+                  marginBottom: 4,
+                }}
+              >
                 Email <span style={{ color: "#b91c1c" }}>*</span>
               </label>
               <input
@@ -667,16 +761,25 @@ export default function LandlordAddTenantPage() {
                 }}
                 disabled={isSubmitting}
               />
-              {touched.email && trimOrEmpty(email) && !isValidEmail(normalizeEmail(email)) && (
-                <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>
-                  Enter a valid email (e.g. john.doe@example.com)
-                </div>
-              )}
+              {touched.email &&
+                normalizeEmail(email) &&
+                !isValidEmail(normalizeEmail(email)) && (
+                  <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>
+                    Enter a valid email (e.g. john.doe@example.com)
+                  </div>
+                )}
             </div>
 
             {/* Age */}
             <div style={{ marginBottom: 12 }}>
-              <label htmlFor="age" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
+              <label
+                htmlFor="age"
+                style={{
+                  display: "block",
+                  fontWeight: 500,
+                  marginBottom: 4,
+                }}
+              >
                 Age
               </label>
               <input
@@ -707,7 +810,12 @@ export default function LandlordAddTenantPage() {
                   value={heightFeet ?? ""}
                   onChange={(e) => setHeightFeet(e.target.value)}
                   placeholder="Feet"
-                  style={{ flex: 1, padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
+                  style={{
+                    flex: 1,
+                    padding: "6px 8px",
+                    borderRadius: 8,
+                    border: "1px solid #d1d5db",
+                  }}
                   disabled={isSubmitting}
                 />
                 <input
@@ -716,7 +824,12 @@ export default function LandlordAddTenantPage() {
                   value={heightInches ?? ""}
                   onChange={(e) => setHeightInches(e.target.value)}
                   placeholder="Inches"
-                  style={{ flex: 1, padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
+                  style={{
+                    flex: 1,
+                    padding: "6px 8px",
+                    borderRadius: 8,
+                    border: "1px solid #d1d5db",
+                  }}
                   disabled={isSubmitting}
                 />
               </div>
@@ -724,7 +837,14 @@ export default function LandlordAddTenantPage() {
 
             {/* Weight */}
             <div style={{ marginBottom: 12 }}>
-              <label htmlFor="weight" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
+              <label
+                htmlFor="weight"
+                style={{
+                  display: "block",
+                  fontWeight: 500,
+                  marginBottom: 4,
+                }}
+              >
                 Weight
               </label>
               <input
@@ -742,7 +862,6 @@ export default function LandlordAddTenantPage() {
                 disabled={isSubmitting}
               />
             </div>
-
 
             {/* Sex */}
             <div style={{ marginBottom: 12 }}>
@@ -774,18 +893,30 @@ export default function LandlordAddTenantPage() {
                   </option>
                 ))}
               </select>
-            </div>  
+            </div>
 
             {/* HairColor */}
             <div style={{ marginBottom: 12 }}>
-              <label htmlFor="hairColor" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
+              <label
+                htmlFor="hairColor"
+                style={{
+                  display: "block",
+                  fontWeight: 500,
+                  marginBottom: 4,
+                }}
+              >
                 Hair Color
               </label>
               <select
                 id="hairColor"
                 value={hairColor}
                 onChange={(o) => setHairColor(o.target.value)}
-                style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
+                style={{
+                  width: "100%",
+                  padding: "6px 8px",
+                  borderRadius: 8,
+                  border: "1px solid #d1d5db",
+                }}
                 disabled={isSubmitting}
               >
                 {HAIRCOLOR_OPTIONS.map((o) => (
@@ -798,14 +929,26 @@ export default function LandlordAddTenantPage() {
 
             {/* EyeColor */}
             <div style={{ marginBottom: 12 }}>
-              <label htmlFor="eyeColor" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
+              <label
+                htmlFor="eyeColor"
+                style={{
+                  display: "block",
+                  fontWeight: 500,
+                  marginBottom: 4,
+                }}
+              >
                 Eye Color
               </label>
               <select
                 id="eyeColor"
                 value={eyeColor}
                 onChange={(o) => setEyeColor(o.target.value)}
-                style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
+                style={{
+                  width: "100%",
+                  padding: "6px 8px",
+                  borderRadius: 8,
+                  border: "1px solid #d1d5db",
+                }}
                 disabled={isSubmitting}
               >
                 {EYECOLOR_OPTIONS.map((o) => (
@@ -818,14 +961,26 @@ export default function LandlordAddTenantPage() {
 
             {/* BodyBuild */}
             <div style={{ marginBottom: 12 }}>
-              <label htmlFor="bodyBuild" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
+              <label
+                htmlFor="bodyBuild"
+                style={{
+                  display: "block",
+                  fontWeight: 500,
+                  marginBottom: 4,
+                }}
+              >
                 Body Type
               </label>
               <select
                 id="bodyBuild"
                 value={bodyBuild}
                 onChange={(o) => setBodyBuild(o.target.value)}
-                style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
+                style={{
+                  width: "100%",
+                  padding: "6px 8px",
+                  borderRadius: 8,
+                  border: "1px solid #d1d5db",
+                }}
                 disabled={isSubmitting}
               >
                 {BODYBUILD_OPTIONS.map((o) => (
@@ -838,7 +993,14 @@ export default function LandlordAddTenantPage() {
 
             {/* Markings */}
             <div style={{ marginBottom: 12 }}>
-              <label htmlFor="markings" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
+              <label
+                htmlFor="markings"
+                style={{
+                  display: "block",
+                  fontWeight: 500,
+                  marginBottom: 4,
+                }}
+              >
                 Markings
               </label>
               <input
@@ -847,14 +1009,26 @@ export default function LandlordAddTenantPage() {
                 value={markings}
                 onChange={(e) => setMarkings(e.target.value)}
                 placeholder="Identifying markings (tattoos, scars, etc.)"
-                style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
+                style={{
+                  width: "100%",
+                  padding: "6px 8px",
+                  borderRadius: 8,
+                  border: "1px solid #d1d5db",
+                }}
                 disabled={isSubmitting}
               />
             </div>
 
             {/* Occupation */}
             <div style={{ marginBottom: 12 }}>
-              <label htmlFor="occupation" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
+              <label
+                htmlFor="occupation"
+                style={{
+                  display: "block",
+                  fontWeight: 500,
+                  marginBottom: 4,
+                }}
+              >
                 Occupation
               </label>
               <input
@@ -863,14 +1037,26 @@ export default function LandlordAddTenantPage() {
                 value={occupation}
                 onChange={(e) => setOccupation(e.target.value)}
                 placeholder="Occupation"
-                style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
+                style={{
+                  width: "100%",
+                  padding: "6px 8px",
+                  borderRadius: 8,
+                  border: "1px solid #d1d5db",
+                }}
                 disabled={isSubmitting}
               />
             </div>
 
             {/* Employer */}
             <div style={{ marginBottom: 12 }}>
-              <label htmlFor="employer" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
+              <label
+                htmlFor="employer"
+                style={{
+                  display: "block",
+                  fontWeight: 500,
+                  marginBottom: 4,
+                }}
+              >
                 Employer
               </label>
               <input
@@ -879,14 +1065,26 @@ export default function LandlordAddTenantPage() {
                 value={employer}
                 onChange={(e) => setEmployer(e.target.value)}
                 placeholder="Employer"
-                style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
+                style={{
+                  width: "100%",
+                  padding: "6px 8px",
+                  borderRadius: 8,
+                  border: "1px solid #d1d5db",
+                }}
                 disabled={isSubmitting}
               />
             </div>
 
             {/* Income */}
             <div style={{ marginBottom: 12 }}>
-              <label htmlFor="income" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
+              <label
+                htmlFor="income"
+                style={{
+                  display: "block",
+                  fontWeight: 500,
+                  marginBottom: 4,
+                }}
+              >
                 Income
               </label>
               <input
@@ -895,14 +1093,26 @@ export default function LandlordAddTenantPage() {
                 value={income ?? ""}
                 onChange={(e) => setIncome(e.target.value)}
                 placeholder="Monthly income"
-                style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
+                style={{
+                  width: "100%",
+                  padding: "6px 8px",
+                  borderRadius: 8,
+                  border: "1px solid #d1d5db",
+                }}
                 disabled={isSubmitting}
               />
             </div>
 
             {/* Credit Score */}
             <div style={{ marginBottom: 12 }}>
-              <label htmlFor="creditScore" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
+              <label
+                htmlFor="creditScore"
+                style={{
+                  display: "block",
+                  fontWeight: 500,
+                  marginBottom: 4,
+                }}
+              >
                 Credit score
               </label>
               <input
@@ -911,14 +1121,26 @@ export default function LandlordAddTenantPage() {
                 value={creditScore ?? ""}
                 onChange={(e) => setCreditScore(e.target.value)}
                 placeholder="Score"
-                style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
+                style={{
+                  width: "100%",
+                  padding: "6px 8px",
+                  borderRadius: 8,
+                  border: "1px solid #d1d5db",
+                }}
                 disabled={isSubmitting}
               />
             </div>
 
             {/* Notes */}
             <div style={{ marginBottom: 12 }}>
-              <label htmlFor="notes" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
+              <label
+                htmlFor="notes"
+                style={{
+                  display: "block",
+                  fontWeight: 500,
+                  marginBottom: 4,
+                }}
+              >
                 Notes
               </label>
               <input
@@ -927,7 +1149,12 @@ export default function LandlordAddTenantPage() {
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 placeholder="Additional notes"
-                style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
+                style={{
+                  width: "100%",
+                  padding: "6px 8px",
+                  borderRadius: 8,
+                  border: "1px solid #d1d5db",
+                }}
                 disabled={isSubmitting}
               />
             </div>
@@ -939,8 +1166,12 @@ export default function LandlordAddTenantPage() {
             )}
 
             <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
-              <button type="submit" className={styles.primaryButton} disabled={isSubmitting}>
-                {isSubmitting ? "Saving…" : (isEditMode ? "Save changes" : "Save tenant")}
+              <button
+                type="submit"
+                className={styles.primaryButton}
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Saving…" : isEditMode ? "Save changes" : "Save tenant"}
               </button>
 
               <button

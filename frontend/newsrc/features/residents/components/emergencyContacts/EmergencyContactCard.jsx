@@ -102,10 +102,10 @@ export default function EmergencyContactCard({
       <div className={ui.cardBody}>
         <div><strong>Phone: </strong>{vm.phone}</div>
         <div><strong>Email: </strong>{vm.email}</div>
+        {!vm.phone && !vm.email && (
+          <div>Click for more details</div>
+        )}      
       </div>
-      {!vm.phone && !vm.email && (
-        <div>Click for more details</div>
-      )}      
     </button>
   );
 }

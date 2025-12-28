@@ -100,10 +100,10 @@ export default function OccupantCard({
         {vm.phone && (<div><strong>Phone:</strong>{vm.phone}</div>)}
         {vm.email && (<div><strong>Email:</strong>{vm.email}</div>)} 
         {vm.age && !vm.phone && !vm.email && (<div><strong>Age: </strong>{vm.age}</div>)}
-      </div>
       {!vm.phone && !vm.email && !vm.age && (
         <div>Click for more details</div>
       )}            
+      </div>
     </button>
   );
 }

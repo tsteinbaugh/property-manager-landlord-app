@@ -102,11 +102,12 @@ export default function PropertyCard({
         <span className={`${ui.badge} ${badgeClass}`}>{badgeText}</span>
       </div>
 
-      <div className={ui.cardBody}>{AddressBlock}</div>
+      <div className={ui.cardBody}>{AddressBlock}
 
-      {!AddressBlock && (
-        <div>Click for more details</div>
-      )}      
+        {!AddressBlock && (
+          <div>Click for more details</div>
+        )}
+      </div>
     </button>
   );
 }

@@ -1,14 +1,18 @@
 // newsrc/features/tenants/pages/LandlordAddPetPage.jsx
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
 import styles from "@shared/styles/LandlordPage.module.css";
 import { petsApi } from "@features/residents/api/pets.api.js";
 import { tenantsApi } from "@features/tenants/api/tenants.api.js";
 
-function trimOrEmpty(v) {
-  return typeof v === "string" ? v.trim() : "";
-}
+import {
+  INVALID,
+  validateObject,
+  requiredTrimmedString,
+  optionalTrimToNull,
+  parseIntOrNullOpt,
+} from "@shared/utils/validation.js";
 
 export default function LandlordAddPetPage() {
   const navigate = useNavigate();
@@ -21,7 +25,7 @@ export default function LandlordAddPetPage() {
 
   const isEditMode = !!petId;
 
-  // ---------- shared simple form state (name/type/breed/weight) ----------
+  // ---------- shared simple form state ----------
   const [name, setName] = useState("");
   const [type, setType] = useState("");
   const [breed, setBreed] = useState("");
@@ -29,6 +33,7 @@ export default function LandlordAddPetPage() {
   const [age, setAge] = useState("");
   const [license, setLicense] = useState("");
   const [notes, setNotes] = useState("");
+
   const [isSubmitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
 
@@ -41,9 +46,9 @@ export default function LandlordAddPetPage() {
   const [loadingPets, setLoadingPets] = useState(!!tenantId);
   const [petsError, setPetsError] = useState(null);
 
-  const [selectedExistingPetId, setSelectedExistingPetId] =
-    useState("");
+  const [selectedExistingPetId, setSelectedExistingPetId] = useState("");
   const [isLinkingExisting, setIsLinkingExisting] = useState(false);
+
   const [touched, setTouched] = useState({ name: false });
 
   // ------------------------------------------------------------
@@ -51,7 +56,6 @@ export default function LandlordAddPetPage() {
   // ------------------------------------------------------------
   useEffect(() => {
     let cancelled = false;
-
     if (!tenantId || !token) return;
 
     async function loadTenant() {
@@ -72,10 +76,7 @@ export default function LandlordAddPetPage() {
       try {
         setLoadingPets(true);
         setPetsError(null);
-        const list = await petsApi.listAll({
-          token,
-          includeArchived: false,
-        });
+        const list = await petsApi.listAll({ token, includeArchived: false });
         if (!cancelled) setAllPets(Array.isArray(list) ? list : []);
       } catch (err) {
         console.error("Failed to load pets for AddPetPage", err);
@@ -130,34 +131,24 @@ export default function LandlordAddPetPage() {
     };
   }, [petId, token]);
 
-  // Pets currently linked to this tenant via join table
-  const petLinks = Array.isArray(tenant?.petLinks)
-    ? tenant.petLinks
-    : [];
+  // ------------------------------------------------------------
+  // Tenant-context computed lists
+  // ------------------------------------------------------------
+  const petLinks = Array.isArray(tenant?.petLinks) ? tenant.petLinks : [];
+  const tenantPets = petLinks.map((l) => l.pet).filter(Boolean);
 
-  const tenantPets = petLinks
-    .map((link) => link.pet)
-    .filter(Boolean);
-
-  // existing pets that are NOT already linked to this tenant
-  const linkedIds = new Set(petLinks.map((l) => l.petId));
+  const linkedIds = useMemo(() => new Set(petLinks.map((l) => l.petId)), [petLinks]);
 
   const availableExistingPets =
-    tenant && allPets.length > 0
-      ? allPets.filter((e) => !linkedIds.has(e.id))
-      : allPets;
+    tenant && allPets.length > 0 ? allPets.filter((p) => !linkedIds.has(p.id)) : allPets;
 
   // ------------------------------------------------------------
   // Navigation helpers
   // ------------------------------------------------------------
   const goBackFromTenantContext = () => {
-    if (returnTo) {
-      navigate(returnTo);
-    } else if (tenantId) {
-      navigate(`/landlord/tenants/${tenantId}`);
-    } else {
-      navigate("/landlord/residents?tab=pets");
-    }
+    if (returnTo) navigate(returnTo);
+    else if (tenantId) navigate(`/landlord/tenants/${tenantId}`);
+    else navigate("/landlord/residents?tab=pets");
   };
 
   const handleCancel = () => {
@@ -167,29 +158,56 @@ export default function LandlordAddPetPage() {
     return navigate("/landlord/residents?tab=pets");
   };
 
+  // ------------------------------------------------------------
+  // Shared validation + payload builder
+  // ------------------------------------------------------------
+  const buildPayload = () => {
+    const input = {
+      name,
+      type,
+      breed,
+      weightLb,
+      age,
+      license,
+      notes,
+    };
+
+    const schema = {
+      name: requiredTrimmedString,
+      type: optionalTrimToNull,
+      breed: optionalTrimToNull,
+      weightLb: (v) => parseIntOrNullOpt(v, { min: 0, max: 2000 }),
+      age: (v) => parseIntOrNullOpt(v, { min: 0, max: 80 }),
+      license: optionalTrimToNull,
+      notes: optionalTrimToNull,
+    };
+
+    return validateObject(input, schema, {
+      errorMessages: {
+        name: "Name is required.",
+        weightLb: "Weight must be a valid number.",
+        age: "Age must be a valid number.",
+      },
+    });
+  };
+
+  // ------------------------------------------------------------
+  // Global create/edit submit
+  // ------------------------------------------------------------
   const handleSubmitGlobal = async (e) => {
     e.preventDefault();
     setTouched({ name: true });
+    setFormError("");
 
-    const cleanName = trimOrEmpty(name);
-
-    if (!cleanName) return setFormError("Name is required.");
-    if (cleanName.length < 2) return setFormError("Name must be at least 2 characters.");
-    if (!/^[a-zA-Z\s.'-]+$/.test(cleanName)) return setFormError("Name contains invalid characters.");
-
-    const payload = {
-      name: cleanName,
-      type: trimOrEmpty(type) || null,
-      breed: trimOrEmpty(breed) || null,
-      weightLb: weightLb ? Number(weightLb) : null,
-      age: age ? Number(age) : null,
-      license: trimOrEmpty(license) || null,
-      notes: trimOrEmpty(notes) || null,
-    };
+    const { value: payload, ok, errors } = buildPayload();
+    if (!ok) {
+      const firstKey = Object.keys(errors || {})[0];
+      setFormError(errors?.[firstKey] || "Please fix the highlighted fields.");
+      return;
+    }
 
     try {
       setSubmitting(true);
-      setFormError("");
 
       let saved;
       if (isEditMode) {
@@ -198,7 +216,6 @@ export default function LandlordAddPetPage() {
         saved = await petsApi.create(payload, { token });
       }
 
-      // After save: prefer returnTo, otherwise go to detail (edit) or list (create)
       if (returnTo) {
         navigate(returnTo);
       } else if (isEditMode) {
@@ -215,15 +232,12 @@ export default function LandlordAddPetPage() {
   };
 
   // ------------------------------------------------------------
-  // TENANT-CONTEXT MODE: link existing + create & link new
+  // Tenant-context: link existing
   // ------------------------------------------------------------
-
   const handleLinkExisting = async () => {
     if (!tenantId || !selectedExistingPetId) return;
 
-    const pet = availableExistingPets.find(
-      (p) => p.id === selectedExistingPetId
-    );
+    const pet = availableExistingPets.find((p) => p.id === selectedExistingPetId);
     const petName = pet?.name || "this pet";
 
     const ok = window.confirm(
@@ -234,12 +248,7 @@ export default function LandlordAddPetPage() {
 
     try {
       setIsLinkingExisting(true);
-
-      // New many-to-many link
-      await tenantsApi.linkPet(tenantId, selectedExistingPetId, {
-        token,
-      });
-
+      await tenantsApi.linkPet(tenantId, selectedExistingPetId, { token });
       goBackFromTenantContext();
     } catch (err) {
       console.error("Failed to link existing pet", err);
@@ -249,31 +258,25 @@ export default function LandlordAddPetPage() {
     }
   };
 
+  // ------------------------------------------------------------
+  // Tenant-context: create & link new
+  // ------------------------------------------------------------
   const handleSubmitForTenant = async (e) => {
     e.preventDefault();
     setTouched({ name: true });
+    setFormError("");
 
-    const cleanName = trimOrEmpty(name);
-
-    if (!cleanName) return setFormError("Name is required.");
+    const { value: payload, ok, errors } = buildPayload();
+    if (!ok) {
+      const firstKey = Object.keys(errors || {})[0];
+      setFormError(errors?.[firstKey] || "Please fix the highlighted fields.");
+      return;
+    }
 
     try {
       setSubmitting(true);
-      setFormError("");
 
-      const created = await petsApi.create(
-        {
-          name: cleanName,
-          type: trimOrEmpty(type) || null,
-          breed: trimOrEmpty(breed) || null,
-          weightLb: weightLb ? Number(weightLb) : null,
-          age: age ? Number(age) : null,
-          license: trimOrEmpty(license) || null,
-          notes: trimOrEmpty(notes) || null,
-        },
-        { token }
-      );
-
+      const created = await petsApi.create(payload, { token });
       await tenantsApi.linkPet(tenantId, created.id, { token });
 
       goBackFromTenantContext();
@@ -290,8 +293,6 @@ export default function LandlordAddPetPage() {
   // ------------------------------------------------------------
   // RENDER
   // ------------------------------------------------------------
-
-  // === Mode A: tenantId is present → tenant-context management page ===
   if (tenantId) {
     return (
       <div className={styles.page}>
@@ -302,13 +303,11 @@ export default function LandlordAddPetPage() {
               <p className={styles.subtitle}>Loading tenant…</p>
             ) : tenantError || !tenant ? (
               <p className={styles.subtitle} style={{ color: "#b91c1c" }}>
-                Failed to load tenant. You can still add pets, but
-                linking may not behave as expected.
+                Failed to load tenant. You can still add pets, but linking may not behave as expected.
               </p>
             ) : (
               <p className={styles.subtitle}>
-                Link existing pets or create new ones for{" "}
-                <strong>{tenant.name}</strong>.
+                Link existing pets or create new ones for <strong>{tenant.name}</strong>.
               </p>
             )}
           </div>
@@ -328,17 +327,11 @@ export default function LandlordAddPetPage() {
             <h2 style={{ fontSize: 16, marginBottom: 8 }}>Link existing pet</h2>
 
             {loadingPets ? (
-              <div style={{ fontSize: 13, color: "#6b7280" }}>
-                Loading pets…
-              </div>
+              <div style={{ fontSize: 13, color: "#6b7280" }}>Loading pets…</div>
             ) : petsError ? (
-              <div style={{ fontSize: 13, color: "#b91c1c" }}>
-                Failed to load pets list.
-              </div>
+              <div style={{ fontSize: 13, color: "#b91c1c" }}>Failed to load pets list.</div>
             ) : availableExistingPets.length === 0 ? (
-              <div style={{ fontSize: 13, color: "#6b7280" }}>
-                No other pets available to link.
-              </div>
+              <div style={{ fontSize: 13, color: "#6b7280" }}>No other pets available to link.</div>
             ) : (
               <>
                 <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
@@ -350,9 +343,7 @@ export default function LandlordAddPetPage() {
                       border: "1px solid #d1d5db",
                     }}
                     value={selectedExistingPetId}
-                    onChange={(e) =>
-                      setSelectedExistingPetId(e.target.value)
-                    }
+                    onChange={(e) => setSelectedExistingPetId(e.target.value)}
                     disabled={isLinkingExisting}
                   >
                     <option value="">Select a pet…</option>
@@ -362,6 +353,7 @@ export default function LandlordAddPetPage() {
                       </option>
                     ))}
                   </select>
+
                   <button
                     type="button"
                     className={styles.primaryButton}
@@ -378,9 +370,7 @@ export default function LandlordAddPetPage() {
                     Already linked to this tenant:
                     <ul style={{ paddingLeft: 18, marginTop: 4 }}>
                       {tenantPets.map((p) => (
-                        <li key={p.id}>
-                          {p.name}
-                        </li>
+                        <li key={p.id}>{p.name}</li>
                       ))}
                     </ul>
                   </div>
@@ -399,23 +389,13 @@ export default function LandlordAddPetPage() {
               background: "#ffffff",
             }}
           >
-            <h2 style={{ fontSize: 16, marginBottom: 8 }}>
-              Create new pet for this tenant
-            </h2>
+            <h2 style={{ fontSize: 16, marginBottom: 8 }}>Create new pet for this tenant</h2>
 
             <form onSubmit={handleSubmitForTenant}>
               {/* Name */}
               <div style={{ marginBottom: 12 }}>
-                <label
-                  htmlFor="name"
-                  style={{
-                    display: "block",
-                    fontWeight: 500,
-                    marginBottom: 4,
-                  }}
-                >
-                  Pet name{" "}
-                  <span style={{ color: "#b91c1c" }}>*</span>
+                <label htmlFor="name" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
+                  Pet name <span style={{ color: "#b91c1c" }}>*</span>
                 </label>
                 <input
                   id="name"
@@ -432,14 +412,14 @@ export default function LandlordAddPetPage() {
                   }}
                   disabled={isSubmitting}
                 />
+                {touched.name && requiredTrimmedString(name) === INVALID && (
+                  <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>Enter a name</div>
+                )}
               </div>
 
-              {/* Type*/}
+              {/* Type */}
               <div style={{ marginBottom: 12 }}>
-                <label
-                  htmlFor="type"
-                  style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
-                >
+                <label htmlFor="type" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
                   Type
                 </label>
                 <input
@@ -457,13 +437,10 @@ export default function LandlordAddPetPage() {
                   disabled={isSubmitting}
                 />
               </div>
-                
+
               {/* Breed */}
               <div style={{ marginBottom: 12 }}>
-                <label
-                  htmlFor="breed"
-                  style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
-                >
+                <label htmlFor="breed" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
                   Breed
                 </label>
                 <input
@@ -481,13 +458,10 @@ export default function LandlordAddPetPage() {
                   disabled={isSubmitting}
                 />
               </div>
-                
-              {/* WeightLb */}
+
+              {/* Weight */}
               <div style={{ marginBottom: 12 }}>
-                <label
-                  htmlFor="weightLb"
-                  style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
-                >
+                <label htmlFor="weightLb" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
                   Weight (Lb)
                 </label>
                 <input
@@ -508,21 +482,14 @@ export default function LandlordAddPetPage() {
 
               {/* Age */}
               <div style={{ marginBottom: 12 }}>
-                <label
-                  htmlFor="age"
-                  style={{
-                    display: "block",
-                    fontWeight: 500,
-                    marginBottom: 4,
-                  }}
-                >
+                <label htmlFor="age" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
                   Age
                 </label>
                 <input
                   id="age"
                   type="number"
                   value={age}
-                  onChange={(p) => setAge(p.target.value)}
+                  onChange={(e) => setAge(e.target.value)}
                   placeholder="Age"
                   style={{
                     width: "100%",
@@ -536,21 +503,14 @@ export default function LandlordAddPetPage() {
 
               {/* License */}
               <div style={{ marginBottom: 12 }}>
-                <label
-                  htmlFor="license"
-                  style={{
-                    display: "block",
-                    fontWeight: 500,
-                    marginBottom: 4,
-                  }}
-                >
+                <label htmlFor="license" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
                   License
                 </label>
                 <input
                   id="license"
                   type="text"
                   value={license}
-                  onChange={(p) => setLicense(p.target.value)}
+                  onChange={(e) => setLicense(e.target.value)}
                   placeholder="License number"
                   style={{
                     width: "100%",
@@ -564,21 +524,14 @@ export default function LandlordAddPetPage() {
 
               {/* Notes */}
               <div style={{ marginBottom: 12 }}>
-                <label
-                  htmlFor="notes"
-                  style={{
-                    display: "block",
-                    fontWeight: 500,
-                    marginBottom: 4,
-                  }}
-                >
+                <label htmlFor="notes" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
                   Notes
                 </label>
                 <input
                   id="notes"
                   type="text"
                   value={notes}
-                  onChange={(p) => setNotes(p.target.value)}
+                  onChange={(e) => setNotes(e.target.value)}
                   placeholder="Additional notes"
                   style={{
                     width: "100%",
@@ -589,25 +542,13 @@ export default function LandlordAddPetPage() {
                   disabled={isSubmitting}
                 />
               </div>
-                
+
               {formError && (
-                <div
-                  style={{
-                    color: "#b91c1c",
-                    fontSize: 13,
-                    marginBottom: 8,
-                  }}
-                >
-                  {formError}
-                </div>
+                <div style={{ color: "#b91c1c", fontSize: 13, marginBottom: 8 }}>{formError}</div>
               )}
 
               <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
-                <button
-                  type="submit"
-                  className={styles.primaryButton}
-                  disabled={saveDisabled}
-                >
+                <button type="submit" className={styles.primaryButton} disabled={saveDisabled}>
                   {isSubmitting ? "Saving…" : "Save pet"}
                 </button>
 
@@ -633,15 +574,16 @@ export default function LandlordAddPetPage() {
     );
   }
 
-  // === Mode B: NO tenantId → original global "add pet" behavior ===
+  // Global add/edit
   return (
     <div className={styles.page}>
       <header className={styles.header}>
         <div>
-          <h1 className={styles.title}>Add pet</h1>
+          <h1 className={styles.title}>{isEditMode ? "Edit pet" : "Add pet"}</h1>
           <p className={styles.subtitle}>
-            Create a pet record. You’ll be able to connect pets to
-            leases (and tenants) later.
+            {isEditMode
+              ? "Update this pet record."
+              : "Create a pet record. You’ll be able to connect pets to leases (and tenants) later."}
           </p>
         </div>
       </header>
@@ -659,16 +601,8 @@ export default function LandlordAddPetPage() {
         >
           {/* Name */}
           <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="name"
-              style={{
-                display: "block",
-                fontWeight: 500,
-                marginBottom: 4,
-              }}
-            >
-              Pet name{" "}
-              <span style={{ color: "#b91c1c" }}>*</span>
+            <label htmlFor="name" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
+              Pet name <span style={{ color: "#b91c1c" }}>*</span>
             </label>
             <input
               id="name"
@@ -685,14 +619,14 @@ export default function LandlordAddPetPage() {
               }}
               disabled={isSubmitting}
             />
+            {touched.name && requiredTrimmedString(name) === INVALID && (
+              <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>Enter a name</div>
+            )}
           </div>
 
-         {/* Type*/}
+          {/* Type */}
           <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="type"
-              style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
-            >
+            <label htmlFor="type" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
               Type
             </label>
             <input
@@ -710,13 +644,10 @@ export default function LandlordAddPetPage() {
               disabled={isSubmitting}
             />
           </div>
-            
+
           {/* Breed */}
           <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="breed"
-              style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
-            >
+            <label htmlFor="breed" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
               Breed
             </label>
             <input
@@ -734,13 +665,10 @@ export default function LandlordAddPetPage() {
               disabled={isSubmitting}
             />
           </div>
-            
-          {/* WeightLb */}
+
+          {/* Weight */}
           <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="weightLb"
-              style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
-            >
+            <label htmlFor="weightLb" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
               Weight (Lb)
             </label>
             <input
@@ -759,23 +687,16 @@ export default function LandlordAddPetPage() {
             />
           </div>
 
-         {/* Age */}
+          {/* Age */}
           <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="age"
-              style={{
-                display: "block",
-                fontWeight: 500,
-                marginBottom: 4,
-              }}
-            >
+            <label htmlFor="age" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
               Age
             </label>
             <input
               id="age"
               type="number"
               value={age}
-              onChange={(p) => setAge(p.target.value)}
+              onChange={(e) => setAge(e.target.value)}
               placeholder="Age"
               style={{
                 width: "100%",
@@ -787,23 +708,16 @@ export default function LandlordAddPetPage() {
             />
           </div>
 
-         {/* License */}
+          {/* License */}
           <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="license"
-              style={{
-                display: "block",
-                fontWeight: 500,
-                marginBottom: 4,
-              }}
-            >
+            <label htmlFor="license" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
               License
             </label>
             <input
               id="license"
               type="text"
               value={license}
-              onChange={(p) => setLicense(p.target.value)}
+              onChange={(e) => setLicense(e.target.value)}
               placeholder="License number"
               style={{
                 width: "100%",
@@ -815,23 +729,16 @@ export default function LandlordAddPetPage() {
             />
           </div>
 
-         {/* Notes */}
+          {/* Notes */}
           <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="notes"
-              style={{
-                display: "block",
-                fontWeight: 500,
-                marginBottom: 4,
-              }}
-            >
+            <label htmlFor="notes" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
               Notes
             </label>
             <input
               id="notes"
               type="text"
               value={notes}
-              onChange={(p) => setNotes(p.target.value)}
+              onChange={(e) => setNotes(e.target.value)}
               placeholder="Additional notes"
               style={{
                 width: "100%",
@@ -842,20 +749,14 @@ export default function LandlordAddPetPage() {
               disabled={isSubmitting}
             />
           </div>
-            
+
           {formError && (
-            <div style={{ color: "#b91c1c", fontSize: 13, marginBottom: 8 }}>
-              {formError}
-            </div>
+            <div style={{ color: "#b91c1c", fontSize: 13, marginBottom: 8 }}>{formError}</div>
           )}
 
           <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
-            <button
-              type="submit"
-              className={styles.primaryButton}
-              disabled={saveDisabled}
-            >
-              {isSubmitting ? "Saving…" : "Save pet"}
+            <button type="submit" className={styles.primaryButton} disabled={saveDisabled}>
+              {isSubmitting ? "Saving…" : isEditMode ? "Save changes" : "Save pet"}
             </button>
 
             <button

@@ -1,30 +1,27 @@
 // newsrc/features/tenants/pages/LandlordAddOccupantPage.jsx
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
 import styles from "@shared/styles/LandlordPage.module.css";
 import { occupantsApi } from "@features/residents/api/occupants.api.js";
 import { tenantsApi } from "@features/tenants/api/tenants.api.js";
 
-function normalizeEmail(input) {
-  return typeof input === "string" ? input.trim().toLowerCase() : "";
-}
-function isValidEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-function normalizePhone(input) {
-  if (typeof input !== "string") return "";
-  return input.trim().replace(/(?!^\+)[^\d]/g, ""); // keep digits and leading +
-}
-function isValidPhone(phoneDigitsOrPlus) {
-  const digits = phoneDigitsOrPlus.replace(/\D/g, "");
-  return digits.length === 10 || (digits.length === 11 && digits.startsWith("1"));
-}
-
-function trimOrEmpty(v) {
-  return typeof v === "string" ? v.trim() : "";
-}
+import {
+  INVALID,
+  validateObject,
+  requiredTrimmedString,
+  optionalTrimToNull,
+  parseIntOrNullOpt,
+  parseEnumOrNullOpt,
+  normalizeEmail,
+  normalizePhone,
+  isValidEmail,
+  isValidPhone,
+  SEX,
+  HAIR_COLOR,
+  EYE_COLOR,
+  BODY_BUILD,
+} from "@shared/utils/validation.js";
 
 export default function LandlordAddOccupantPage() {
   const navigate = useNavigate();
@@ -37,7 +34,7 @@ export default function LandlordAddOccupantPage() {
 
   const isEditMode = !!occupantId;
 
-  // ---------- shared simple form state (name/relation) ----------
+  // ---------- form state ----------
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -52,8 +49,10 @@ export default function LandlordAddOccupantPage() {
   const [bodyBuild, setBodyBuild] = useState("");
   const [markings, setMarkings] = useState("");
   const [notes, setNotes] = useState("");
+
   const [isSubmitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
+  const [touched, setTouched] = useState({ name: false });
 
   // ---------- tenant-context-only state ----------
   const [tenant, setTenant] = useState(null);
@@ -64,12 +63,10 @@ export default function LandlordAddOccupantPage() {
   const [loadingOccupants, setLoadingOccupants] = useState(!!tenantId);
   const [occupantsError, setOccupantsError] = useState(null);
 
-  const [selectedExistingOccupantId, setSelectedExistingOccupantId] =
-    useState("");
+  const [selectedExistingOccupantId, setSelectedExistingOccupantId] = useState("");
   const [isLinkingExisting, setIsLinkingExisting] = useState(false);
-  const [touched, setTouched] = useState({ name: false });
 
-  //---------------------enums------------------------
+  // ------------------ UI dropdown options (unchanged) ------------------
   const SEX_OPTIONS = [
     { value: "", label: "— Select —" },
     { value: "MALE", label: "Male" },
@@ -80,16 +77,16 @@ export default function LandlordAddOccupantPage() {
 
   const HAIRCOLOR_OPTIONS = [
     { value: "", label: "— Select —" },
-    { value: "BLACK", label: "Black"},
-    { value: "BROWN", label: "Brown"},
-    { value: "BLONDE", label: "Blonde"},
-    { value: "RED", label: "Red"},
-    { value: "GRAY", label: "Gray"},
-    { value: "WHITE", label: "White"},
-    { value: "DYED", label: "Dyed"},
-    { value: "BALD", label: "Bald"},
-    { value: "OTHER", label: "Other"},
-    { value: "UNKNOWN", label: "Unknown"},
+    { value: "BLACK", label: "Black" },
+    { value: "BROWN", label: "Brown" },
+    { value: "BLONDE", label: "Blonde" },
+    { value: "RED", label: "Red" },
+    { value: "GRAY", label: "Gray" },
+    { value: "WHITE", label: "White" },
+    { value: "DYED", label: "Dyed" },
+    { value: "BALD", label: "Bald" },
+    { value: "OTHER", label: "Other" },
+    { value: "UNKNOWN", label: "Unknown" },
   ];
 
   const EYECOLOR_OPTIONS = [
@@ -119,7 +116,6 @@ export default function LandlordAddOccupantPage() {
   // ------------------------------------------------------------
   useEffect(() => {
     let cancelled = false;
-
     if (!tenantId || !token) return;
 
     async function loadTenant() {
@@ -140,10 +136,7 @@ export default function LandlordAddOccupantPage() {
       try {
         setLoadingOccupants(true);
         setOccupantsError(null);
-        const list = await occupantsApi.listAll({
-          token,
-          includeArchived: false,
-        });
+        const list = await occupantsApi.listAll({ token, includeArchived: false });
         if (!cancelled) setAllOccupants(Array.isArray(list) ? list : []);
       } catch (err) {
         console.error("Failed to load occupants for AddOccupantPage", err);
@@ -162,7 +155,7 @@ export default function LandlordAddOccupantPage() {
   }, [tenantId, token]);
 
   // ------------------------------------------------------------
-  // Load occupant for EDIT mode (global or tenant context)
+  // Load occupant for EDIT mode
   // ------------------------------------------------------------
   useEffect(() => {
     let cancelled = false;
@@ -205,34 +198,29 @@ export default function LandlordAddOccupantPage() {
     };
   }, [occupantId, token]);
 
-  // Occupants currently linked to this tenant via join table
-  const occupantLinks = Array.isArray(tenant?.occupantLinks)
-    ? tenant.occupantLinks
-    : [];
+  // ------------------------------------------------------------
+  // Tenant-context links
+  // ------------------------------------------------------------
+  const occupantLinks = Array.isArray(tenant?.occupantLinks) ? tenant.occupantLinks : [];
 
   const tenantOccupants = occupantLinks
     .map((link) => link.occupant)
     .filter(Boolean);
 
-  // existing occupants that are NOT already linked to this tenant
-  const linkedIds = new Set(occupantLinks.map((l) => l.occupantId));
+  const linkedIds = useMemo(() => new Set(occupantLinks.map((l) => l.occupantId)), [occupantLinks]);
 
   const availableExistingOccupants =
     tenant && allOccupants.length > 0
-      ? allOccupants.filter((e) => !linkedIds.has(e.id))
+      ? allOccupants.filter((o) => !linkedIds.has(o.id))
       : allOccupants;
-       
+
   // ------------------------------------------------------------
   // Navigation helpers
   // ------------------------------------------------------------
   const goBackFromTenantContext = () => {
-    if (returnTo) {
-      navigate(returnTo);
-    } else if (tenantId) {
-      navigate(`/landlord/tenants/${tenantId}`);
-    } else {
-      navigate("/landlord/residents?tab=occupants");
-    }
+    if (returnTo) navigate(returnTo);
+    else if (tenantId) navigate(`/landlord/tenants/${tenantId}`);
+    else navigate("/landlord/residents?tab=occupants");
   };
 
   const handleCancel = () => {
@@ -242,41 +230,88 @@ export default function LandlordAddOccupantPage() {
     return navigate("/landlord/residents?tab=occupants");
   };
 
+  // ------------------------------------------------------------
+  // Validation + payload builder (shared)
+  // name required, phone/email optional but validated if present
+  // ------------------------------------------------------------
+  const buildPayload = () => {
+    const input = {
+      name,
+      phone,
+      email,
+      relation,
+      age,
+      heightFeet,
+      heightInches,
+      weight,
+      sex,
+      hairColor,
+      eyeColor,
+      bodyBuild,
+      markings,
+      notes,
+    };
+
+    const schema = {
+      name: requiredTrimmedString,
+
+      phone: (v) => {
+        const out = normalizePhone(v); // returns null/"" depending on your helper
+        if (out == null || out === "") return null; // optional
+        return isValidPhone(out) ? out : INVALID;
+      },
+
+      email: (v) => {
+        const out = normalizeEmail(v);
+        if (out == null || out === "") return null; // optional
+        return isValidEmail(out) ? out : INVALID;
+      },
+
+      relation: optionalTrimToNull,
+      age: (v) => parseIntOrNullOpt(v, { min: 0, max: 130 }),
+      heightFeet: (v) => parseIntOrNullOpt(v, { min: 0, max: 8 }),
+      heightInches: (v) => parseIntOrNullOpt(v, { min: 0, max: 11 }),
+      weight: (v) => parseIntOrNullOpt(v, { min: 0, max: 2000 }),
+
+      sex: (v) => parseEnumOrNullOpt(v, SEX),
+      hairColor: (v) => parseEnumOrNullOpt(v, HAIR_COLOR),
+      eyeColor: (v) => parseEnumOrNullOpt(v, EYE_COLOR),
+      bodyBuild: (v) => parseEnumOrNullOpt(v, BODY_BUILD),
+
+      markings: optionalTrimToNull,
+      notes: optionalTrimToNull,
+    };
+
+    return validateObject(input, schema, {
+      errorMessages: {
+        name: "Name is required.",
+        phone: "Enter a valid phone number.",
+        email: "Enter a valid email.",
+        sex: "Invalid sex value.",
+        hairColor: "Invalid hair color value.",
+        eyeColor: "Invalid eye color value.",
+        bodyBuild: "Invalid body build value.",
+      },
+    });
+  };
+
+  // ------------------------------------------------------------
+  // Save (global create/edit)
+  // ------------------------------------------------------------
   const handleSubmitGlobal = async (e) => {
     e.preventDefault();
     setTouched({ name: true });
+    setFormError("");
 
-    const cleanName = trimOrEmpty(name);
-    const cleanEmail = normalizeEmail(email);
-    const cleanPhone = normalizePhone(phone);
-
-    if (!cleanName) return setFormError("Name is required.");
-    if (cleanName.length < 2) return setFormError("Name must be at least 2 characters.");
-    if (!/^[a-zA-Z\s.'-]+$/.test(cleanName)) return setFormError("Name contains invalid characters.");
-
-    if (cleanPhone && !isValidPhone(cleanPhone)) return setFormError("Phone number is invalid.");
-    if (cleanEmail && !isValidEmail(cleanEmail)) return setFormError("Email is invalid.");
-
-    const payload = {
-      name: cleanName,
-      phone: cleanPhone || null,
-      email: cleanEmail || null,
-      relation: trimOrEmpty(relation) || null,
-      age: age ? Number(age) : null,
-      heightFeet: heightFeet ? Number(heightFeet) : null,
-      heightInches: heightInches ? Number(heightInches) : null,
-      weight: weight ? Number(weight) : null,
-      sex: sex || null,
-      hairColor: hairColor || null,
-      eyeColor: eyeColor || null,
-      bodyBuild: bodyBuild || null,
-      markings: trimOrEmpty(markings) || null,
-      notes: trimOrEmpty(notes) || null,
-    };
+    const { value: payload, ok, errors } = buildPayload();
+    if (!ok) {
+      const firstKey = Object.keys(errors || {})[0];
+      setFormError(errors?.[firstKey] || "Please fix the highlighted fields.");
+      return;
+    }
 
     try {
       setSubmitting(true);
-      setFormError("");
 
       let saved;
       if (isEditMode) {
@@ -285,14 +320,9 @@ export default function LandlordAddOccupantPage() {
         saved = await occupantsApi.create(payload, { token });
       }
 
-      // After save: prefer returnTo, otherwise go to detail (edit) or list (create)
-      if (returnTo) {
-        navigate(returnTo);
-      } else if (isEditMode) {
-        navigate(`/landlord/occupants/${saved?.id || occupantId}`);
-      } else {
-        navigate("/landlord/residents?tab=occupants");
-      }
+      if (returnTo) navigate(returnTo);
+      else if (isEditMode) navigate(`/landlord/occupants/${saved?.id || occupantId}`);
+      else navigate("/landlord/residents?tab=occupants");
     } catch (err) {
       console.error("Failed to save occupant", err);
       setFormError("Failed to save occupant. Check console for details.");
@@ -302,15 +332,12 @@ export default function LandlordAddOccupantPage() {
   };
 
   // ------------------------------------------------------------
-  // TENANT-CONTEXT MODE: link existing + create & link new
+  // TENANT-CONTEXT: link existing + create & link new
   // ------------------------------------------------------------
-
   const handleLinkExisting = async () => {
     if (!tenantId || !selectedExistingOccupantId) return;
 
-    const occ = availableExistingOccupants.find(
-      (o) => o.id === selectedExistingOccupantId
-    );
+    const occ = availableExistingOccupants.find((o) => o.id === selectedExistingOccupantId);
     const occName = occ?.name || "this occupant";
 
     const ok = window.confirm(
@@ -321,12 +348,7 @@ export default function LandlordAddOccupantPage() {
 
     try {
       setIsLinkingExisting(true);
-
-      // New many-to-many link
-      await tenantsApi.linkOccupant(tenantId, selectedExistingOccupantId, {
-        token,
-      });
-
+      await tenantsApi.linkOccupant(tenantId, selectedExistingOccupantId, { token });
       goBackFromTenantContext();
     } catch (err) {
       console.error("Failed to link existing occupant", err);
@@ -339,39 +361,19 @@ export default function LandlordAddOccupantPage() {
   const handleSubmitForTenant = async (e) => {
     e.preventDefault();
     setTouched({ name: true });
+    setFormError("");
 
-    const cleanName = trimOrEmpty(name);
-    const cleanEmail = normalizeEmail(email);
-    const cleanPhone = normalizePhone(phone);
-
-    if (!cleanName) return setFormError("Name is required.");
-    if (cleanPhone && !isValidPhone(cleanPhone)) return setFormError("Phone number is invalid.");
-    if (cleanEmail && !isValidEmail(cleanEmail)) return setFormError("Email is invalid.");
+    const { value: payload, ok, errors } = buildPayload();
+    if (!ok) {
+      const firstKey = Object.keys(errors || {})[0];
+      setFormError(errors?.[firstKey] || "Please fix the highlighted fields.");
+      return;
+    }
 
     try {
       setSubmitting(true);
-      setFormError("");
 
-      const created = await occupantsApi.create(
-        {
-          name: cleanName,
-          phone: cleanPhone || null,
-          email: cleanEmail || null,
-          relation: trimOrEmpty(relation) || null,
-          age: age ? Number(age) : null,
-          heightFeet: heightFeet ? Number(heightFeet) : null,
-          heightInches: heightInches ? Number(heightInches) : null,
-          weight: weight ? Number(weight) : null,
-          sex: sex || null,
-          hairColor: hairColor || null,
-          eyeColor: eyeColor || null,
-          bodyBuild: bodyBuild || null,
-          markings: trimOrEmpty(markings) || null,
-          notes: trimOrEmpty(notes) || null,
-        },
-        { token }
-      );
-
+      const created = await occupantsApi.create(payload, { token });
       await tenantsApi.linkOccupant(tenantId, created.id, { token });
 
       goBackFromTenantContext();
@@ -388,8 +390,6 @@ export default function LandlordAddOccupantPage() {
   // ------------------------------------------------------------
   // RENDER
   // ------------------------------------------------------------
-
-  // === Mode A: tenantId is present → tenant-context management page ===
   if (tenantId) {
     return (
       <div className={styles.page}>
@@ -400,13 +400,11 @@ export default function LandlordAddOccupantPage() {
               <p className={styles.subtitle}>Loading tenant…</p>
             ) : tenantError || !tenant ? (
               <p className={styles.subtitle} style={{ color: "#b91c1c" }}>
-                Failed to load tenant. You can still add occupants, but
-                linking may not behave as expected.
+                Failed to load tenant. You can still add occupants, but linking may not behave as expected.
               </p>
             ) : (
               <p className={styles.subtitle}>
-                Link existing occupants or create new ones for{" "}
-                <strong>{tenant.name}</strong>.
+                Link existing occupants or create new ones for <strong>{tenant.name}</strong>.
               </p>
             )}
           </div>
@@ -426,17 +424,11 @@ export default function LandlordAddOccupantPage() {
             <h2 style={{ fontSize: 16, marginBottom: 8 }}>Link existing occupant</h2>
 
             {loadingOccupants ? (
-              <div style={{ fontSize: 13, color: "#6b7280" }}>
-                Loading occupants…
-              </div>
+              <div style={{ fontSize: 13, color: "#6b7280" }}>Loading occupants…</div>
             ) : occupantsError ? (
-              <div style={{ fontSize: 13, color: "#b91c1c" }}>
-                Failed to load occupants list.
-              </div>
+              <div style={{ fontSize: 13, color: "#b91c1c" }}>Failed to load occupants list.</div>
             ) : availableExistingOccupants.length === 0 ? (
-              <div style={{ fontSize: 13, color: "#6b7280" }}>
-                No other occupants available to link.
-              </div>
+              <div style={{ fontSize: 13, color: "#6b7280" }}>No other occupants available to link.</div>
             ) : (
               <>
                 <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
@@ -448,9 +440,7 @@ export default function LandlordAddOccupantPage() {
                       border: "1px solid #d1d5db",
                     }}
                     value={selectedExistingOccupantId}
-                    onChange={(e) =>
-                      setSelectedExistingOccupantId(e.target.value)
-                    }
+                    onChange={(e) => setSelectedExistingOccupantId(e.target.value)}
                     disabled={isLinkingExisting}
                   >
                     <option value="">Select an occupant…</option>
@@ -476,9 +466,7 @@ export default function LandlordAddOccupantPage() {
                     Already linked to this tenant:
                     <ul style={{ paddingLeft: 18, marginTop: 4 }}>
                       {tenantOccupants.map((o) => (
-                        <li key={o.id}>
-                          {o.name}
-                        </li>
+                        <li key={o.id}>{o.name}</li>
                       ))}
                     </ul>
                   </div>
@@ -497,23 +485,13 @@ export default function LandlordAddOccupantPage() {
               background: "#ffffff",
             }}
           >
-            <h2 style={{ fontSize: 16, marginBottom: 8 }}>
-              Create new occupant for this tenant
-            </h2>
+            <h2 style={{ fontSize: 16, marginBottom: 8 }}>Create new occupant for this tenant</h2>
 
             <form onSubmit={handleSubmitForTenant}>
               {/* Name */}
               <div style={{ marginBottom: 12 }}>
-                <label
-                  htmlFor="name"
-                  style={{
-                    display: "block",
-                    fontWeight: 500,
-                    marginBottom: 4,
-                  }}
-                >
-                  Occupant name{" "}
-                  <span style={{ color: "#b91c1c" }}>*</span>
+                <label htmlFor="name" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
+                  Occupant name <span style={{ color: "#b91c1c" }}>*</span>
                 </label>
                 <input
                   id="name"
@@ -530,23 +508,14 @@ export default function LandlordAddOccupantPage() {
                   }}
                   disabled={isSubmitting}
                 />
-                {touched.name && !trimOrEmpty(name) && (
-                  <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>
-                    Enter a name
-                  </div>
+                {touched.name && requiredTrimmedString(name) === INVALID && (
+                  <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>Enter a name</div>
                 )}
               </div>
 
               {/* Phone */}
               <div style={{ marginBottom: 12 }}>
-                <label
-                  htmlFor="phone"
-                  style={{
-                    display: "block",
-                    fontWeight: 500,
-                    marginBottom: 4,
-                  }}
-                >
+                <label htmlFor="phone" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
                   Phone
                 </label>
                 <input
@@ -567,14 +536,7 @@ export default function LandlordAddOccupantPage() {
 
               {/* Email */}
               <div style={{ marginBottom: 12 }}>
-                <label
-                  htmlFor="email"
-                  style={{
-                    display: "block",
-                    fontWeight: 500,
-                    marginBottom: 4,
-                  }}
-                >
+                <label htmlFor="email" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
                   Email
                 </label>
                 <input
@@ -595,14 +557,7 @@ export default function LandlordAddOccupantPage() {
 
               {/* Relation */}
               <div style={{ marginBottom: 12 }}>
-                <label
-                  htmlFor="relation"
-                  style={{
-                    display: "block",
-                    fontWeight: 500,
-                    marginBottom: 4,
-                  }}
-                >
+                <label htmlFor="relation" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
                   Relation
                 </label>
                 <input
@@ -623,21 +578,14 @@ export default function LandlordAddOccupantPage() {
 
               {/* Age */}
               <div style={{ marginBottom: 12 }}>
-                <label
-                  htmlFor="age"
-                  style={{
-                    display: "block",
-                    fontWeight: 500,
-                    marginBottom: 4,
-                  }}
-                >
+                <label htmlFor="age" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
                   Age
                 </label>
                 <input
                   id="age"
                   type="number"
                   value={age}
-                  onChange={(o) => setAge(o.target.value)}
+                  onChange={(e) => setAge(e.target.value)}
                   placeholder="Age"
                   style={{
                     width: "100%",
@@ -647,22 +595,12 @@ export default function LandlordAddOccupantPage() {
                   }}
                   disabled={isSubmitting}
                 />
-              </div> 
+              </div>
 
               {/* Height */}
               <div style={{ marginBottom: 12 }}>
-                <label
-                  style={{
-                    display: "block",
-                    fontWeight: 500,
-                    marginBottom: 4,
-                  }}
-                >
-                  Height
-                </label>
-                
+                <label style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>Height</label>
                 <div style={{ display: "flex", gap: 8 }}>
-                  {/* Feet */}
                   <input
                     id="heightFeet"
                     type="number"
@@ -677,8 +615,6 @@ export default function LandlordAddOccupantPage() {
                     }}
                     disabled={isSubmitting}
                   />
-  
-                  {/* Inches */}
                   <input
                     id="heightInches"
                     type="number"
@@ -698,21 +634,14 @@ export default function LandlordAddOccupantPage() {
 
               {/* Weight */}
               <div style={{ marginBottom: 12 }}>
-                <label
-                  htmlFor="weight"
-                  style={{
-                    display: "block",
-                    fontWeight: 500,
-                    marginBottom: 4,
-                  }}
-                >
+                <label htmlFor="weight" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
                   Weight
                 </label>
                 <input
                   id="weight"
                   type="number"
                   value={weight}
-                  onChange={(o) => setWeight(o.target.value)}
+                  onChange={(e) => setWeight(e.target.value)}
                   placeholder="Weight in pounds"
                   style={{
                     width: "100%",
@@ -722,24 +651,17 @@ export default function LandlordAddOccupantPage() {
                   }}
                   disabled={isSubmitting}
                 />
-              </div> 
+              </div>
 
               {/* Sex */}
               <div style={{ marginBottom: 12 }}>
-                <label
-                  htmlFor="sex"
-                  style={{
-                    display: "block",
-                    fontWeight: 500,
-                    marginBottom: 4,
-                  }}
-                >
+                <label htmlFor="sex" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
                   Sex
                 </label>
                 <select
                   id="sex"
                   value={sex}
-                  onChange={(o) => setSex(o.target.value)}
+                  onChange={(e) => setSex(e.target.value)}
                   style={{
                     width: "100%",
                     padding: "6px 8px",
@@ -754,24 +676,17 @@ export default function LandlordAddOccupantPage() {
                     </option>
                   ))}
                 </select>
-              </div>               
+              </div>
 
               {/* HairColor */}
               <div style={{ marginBottom: 12 }}>
-                <label
-                  htmlFor="hairColor"
-                  style={{
-                    display: "block",
-                    fonWeight: 500,
-                    marginBottom: 4,
-                  }}
-                >
+                <label htmlFor="hairColor" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
                   Hair Color
                 </label>
                 <select
                   id="hairColor"
                   value={hairColor}
-                  onChange={(o) => setHairColor(o.target.value)}
+                  onChange={(e) => setHairColor(e.target.value)}
                   style={{
                     width: "100%",
                     padding: "6px 8px",
@@ -786,24 +701,17 @@ export default function LandlordAddOccupantPage() {
                     </option>
                   ))}
                 </select>
-              </div>   
+              </div>
 
               {/* EyeColor */}
               <div style={{ marginBottom: 12 }}>
-                <label
-                  htmlFor="eyeColor"
-                  style={{
-                    display: "block",
-                    fonWeight: 500,
-                    marginBottom: 4,
-                  }}
-                >
+                <label htmlFor="eyeColor" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
                   Eye Color
                 </label>
                 <select
                   id="eyeColor"
                   value={eyeColor}
-                  onChange={(o) => setEyeColor(o.target.value)}
+                  onChange={(e) => setEyeColor(e.target.value)}
                   style={{
                     width: "100%",
                     padding: "6px 8px",
@@ -818,24 +726,17 @@ export default function LandlordAddOccupantPage() {
                     </option>
                   ))}
                 </select>
-              </div>                 
+              </div>
 
               {/* BodyBuild */}
               <div style={{ marginBottom: 12 }}>
-                <label
-                  htmlFor="bodyBuild"
-                  style={{
-                    display: "block",
-                    fonWeight: 500,
-                    marginBottom: 4,
-                  }}
-                >
+                <label htmlFor="bodyBuild" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
                   Body Type
                 </label>
                 <select
                   id="bodyBuild"
                   value={bodyBuild}
-                  onChange={(o) => setBodyBuild(o.target.value)}
+                  onChange={(e) => setBodyBuild(e.target.value)}
                   style={{
                     width: "100%",
                     padding: "6px 8px",
@@ -850,18 +751,11 @@ export default function LandlordAddOccupantPage() {
                     </option>
                   ))}
                 </select>
-              </div>   
+              </div>
 
               {/* Markings */}
               <div style={{ marginBottom: 12 }}>
-                <label
-                  htmlFor="markings"
-                  style={{
-                    display: "block",
-                    fontWeight: 500,
-                    marginBottom: 4,
-                  }}
-                >
+                <label htmlFor="markings" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
                   Markings
                 </label>
                 <input
@@ -869,7 +763,7 @@ export default function LandlordAddOccupantPage() {
                   type="text"
                   value={markings}
                   onChange={(e) => setMarkings(e.target.value)}
-                  placeholder="Idnetifying markings (tattoos, scars, birth marks, etc.)"
+                  placeholder="Identifying markings (tattoos, scars, birth marks, etc.)"
                   style={{
                     width: "100%",
                     padding: "6px 8px",
@@ -879,17 +773,10 @@ export default function LandlordAddOccupantPage() {
                   disabled={isSubmitting}
                 />
               </div>
-              
+
               {/* Notes */}
               <div style={{ marginBottom: 12 }}>
-                <label
-                  htmlFor="notes"
-                  style={{
-                    display: "block",
-                    fontWeight: 500,
-                    marginBottom: 4,
-                  }}
-                >
+                <label htmlFor="notes" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
                   Notes
                 </label>
                 <input
@@ -909,23 +796,11 @@ export default function LandlordAddOccupantPage() {
               </div>
 
               {formError && (
-                <div
-                  style={{
-                    color: "#b91c1c",
-                    fontSize: 13,
-                    marginBottom: 8,
-                  }}
-                >
-                  {formError}
-                </div>
+                <div style={{ color: "#b91c1c", fontSize: 13, marginBottom: 8 }}>{formError}</div>
               )}
 
               <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
-                <button
-                  type="submit"
-                  className={styles.primaryButton}
-                  disabled={saveDisabled}
-                >
+                <button type="submit" className={styles.primaryButton} disabled={saveDisabled}>
                   {isSubmitting ? "Saving…" : "Save occupant"}
                 </button>
 
@@ -951,14 +826,12 @@ export default function LandlordAddOccupantPage() {
     );
   }
 
-  // === Mode B: NO tenantId → original global "add occupant" behavior ===
+  // Global add/edit
   return (
     <div className={styles.page}>
       <header className={styles.header}>
         <div>
-          <h1 className={styles.title}>
-            {isEditMode ? "Edit Occupant" : "Add occupant"}
-          </h1>
+          <h1 className={styles.title}>{isEditMode ? "Edit occupant" : "Add occupant"}</h1>
           <p className={styles.subtitle}>
             {isEditMode
               ? "Update this occupant record."
@@ -980,16 +853,8 @@ export default function LandlordAddOccupantPage() {
         >
           {/* Name */}
           <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="name"
-              style={{
-                display: "block",
-                fontWeight: 500,
-                marginBottom: 4,
-              }}
-            >
-              Occupant name{" "}
-              <span style={{ color: "#b91c1c" }}>*</span>
+            <label htmlFor="name" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
+              Occupant name <span style={{ color: "#b91c1c" }}>*</span>
             </label>
             <input
               id="name"
@@ -1006,23 +871,14 @@ export default function LandlordAddOccupantPage() {
               }}
               disabled={isSubmitting}
             />
-            {touched.name && !trimOrEmpty(name) && (
-              <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>
-                Enter a name
-              </div>
+            {touched.name && requiredTrimmedString(name) === INVALID && (
+              <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>Enter a name</div>
             )}
           </div>
 
           {/* Phone */}
           <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="phone"
-              style={{
-                display: "block",
-                fontWeight: 500,
-                marginBottom: 4,
-              }}
-            >
+            <label htmlFor="phone" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
               Phone
             </label>
             <input
@@ -1040,16 +896,10 @@ export default function LandlordAddOccupantPage() {
               disabled={isSubmitting}
             />
           </div>
+
           {/* Email */}
           <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="email"
-              style={{
-                display: "block",
-                fontWeight: 500,
-                marginBottom: 4,
-              }}
-            >
+            <label htmlFor="email" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
               Email
             </label>
             <input
@@ -1070,14 +920,7 @@ export default function LandlordAddOccupantPage() {
 
           {/* Relation */}
           <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="relation"
-              style={{
-                display: "block",
-                fontWeight: 500,
-                marginBottom: 4,
-              }}
-            >
+            <label htmlFor="relation" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
               Relation
             </label>
             <input
@@ -1098,21 +941,14 @@ export default function LandlordAddOccupantPage() {
 
           {/* Age */}
           <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="age"
-              style={{
-                display: "block",
-                fontWeight: 500,
-                marginBottom: 4,
-              }}
-            >
+            <label htmlFor="age" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
               Age
             </label>
             <input
               id="age"
               type="number"
               value={age}
-              onChange={(o) => setAge(o.target.value)}
+              onChange={(e) => setAge(e.target.value)}
               placeholder="Age"
               style={{
                 width: "100%",
@@ -1122,22 +958,12 @@ export default function LandlordAddOccupantPage() {
               }}
               disabled={isSubmitting}
             />
-          </div> 
+          </div>
 
           {/* Height */}
           <div style={{ marginBottom: 12 }}>
-            <label
-              style={{
-                display: "block",
-                fontWeight: 500,
-                marginBottom: 4,
-              }}
-            >
-              Height
-            </label>
-            
+            <label style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>Height</label>
             <div style={{ display: "flex", gap: 8 }}>
-              {/* Feet */}
               <input
                 id="heightFeet"
                 type="number"
@@ -1152,8 +978,6 @@ export default function LandlordAddOccupantPage() {
                 }}
                 disabled={isSubmitting}
               />
-
-              {/* Inches */}
               <input
                 id="heightInches"
                 type="number"
@@ -1173,21 +997,14 @@ export default function LandlordAddOccupantPage() {
 
           {/* Weight */}
           <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="weight"
-              style={{
-                display: "block",
-                fontWeight: 500,
-                marginBottom: 4,
-              }}
-            >
+            <label htmlFor="weight" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
               Weight
             </label>
             <input
               id="weight"
               type="number"
               value={weight}
-              onChange={(o) => setWeight(o.target.value)}
+              onChange={(e) => setWeight(e.target.value)}
               placeholder="Weight in pounds"
               style={{
                 width: "100%",
@@ -1197,24 +1014,17 @@ export default function LandlordAddOccupantPage() {
               }}
               disabled={isSubmitting}
             />
-          </div> 
+          </div>
 
           {/* Sex */}
           <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="sex"
-              style={{
-                display: "block",
-                fonWeight: 500,
-                marginBottom: 4,
-              }}
-            >
+            <label htmlFor="sex" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
               Sex
             </label>
             <select
               id="sex"
               value={sex}
-              onChange={(o) => setSex(o.target.value)}
+              onChange={(e) => setSex(e.target.value)}
               style={{
                 width: "100%",
                 padding: "6px 8px",
@@ -1229,24 +1039,17 @@ export default function LandlordAddOccupantPage() {
                 </option>
               ))}
             </select>
-          </div>     
+          </div>
 
           {/* HairColor */}
           <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="hairColor"
-              style={{
-                display: "block",
-                fonWeight: 500,
-                marginBottom: 4,
-              }}
-            >
+            <label htmlFor="hairColor" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
               Hair Color
             </label>
             <select
               id="hairColor"
               value={hairColor}
-              onChange={(o) => setHairColor(o.target.value)}
+              onChange={(e) => setHairColor(e.target.value)}
               style={{
                 width: "100%",
                 padding: "6px 8px",
@@ -1261,24 +1064,17 @@ export default function LandlordAddOccupantPage() {
                 </option>
               ))}
             </select>
-          </div>   
+          </div>
 
           {/* EyeColor */}
           <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="eyeColor"
-              style={{
-                display: "block",
-                fonWeight: 500,
-                marginBottom: 4,
-              }}
-            >
+            <label htmlFor="eyeColor" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
               Eye Color
             </label>
             <select
               id="eyeColor"
               value={eyeColor}
-              onChange={(o) => setEyeColor(o.target.value)}
+              onChange={(e) => setEyeColor(e.target.value)}
               style={{
                 width: "100%",
                 padding: "6px 8px",
@@ -1293,24 +1089,17 @@ export default function LandlordAddOccupantPage() {
                 </option>
               ))}
             </select>
-          </div>   
+          </div>
 
           {/* BodyBuild */}
           <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="bodyBuild"
-              style={{
-                display: "block",
-                fonWeight: 500,
-                marginBottom: 4,
-              }}
-            >
+            <label htmlFor="bodyBuild" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
               Body Type
             </label>
             <select
               id="bodyBuild"
               value={bodyBuild}
-              onChange={(o) => setBodyBuild(o.target.value)}
+              onChange={(e) => setBodyBuild(e.target.value)}
               style={{
                 width: "100%",
                 padding: "6px 8px",
@@ -1325,18 +1114,11 @@ export default function LandlordAddOccupantPage() {
                 </option>
               ))}
             </select>
-          </div>   
+          </div>
 
           {/* Markings */}
           <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="markings"
-              style={{
-                display: "block",
-                fontWeight: 500,
-                marginBottom: 4,
-              }}
-            >
+            <label htmlFor="markings" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
               Markings
             </label>
             <input
@@ -1344,7 +1126,7 @@ export default function LandlordAddOccupantPage() {
               type="text"
               value={markings}
               onChange={(e) => setMarkings(e.target.value)}
-              placeholder="Idnetifying markings (tattoos, scars, birth marks, etc.)"
+              placeholder="Identifying markings (tattoos, scars, birth marks, etc.)"
               style={{
                 width: "100%",
                 padding: "6px 8px",
@@ -1354,17 +1136,10 @@ export default function LandlordAddOccupantPage() {
               disabled={isSubmitting}
             />
           </div>
-          
+
           {/* Notes */}
           <div style={{ marginBottom: 12 }}>
-            <label
-              htmlFor="notes"
-              style={{
-                display: "block",
-                fontWeight: 500,
-                marginBottom: 4,
-              }}
-            >
+            <label htmlFor="notes" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
               Notes
             </label>
             <input
@@ -1384,17 +1159,11 @@ export default function LandlordAddOccupantPage() {
           </div>
 
           {formError && (
-            <div style={{ color: "#b91c1c", fontSize: 13, marginBottom: 8 }}>
-              {formError}
-            </div>
+            <div style={{ color: "#b91c1c", fontSize: 13, marginBottom: 8 }}>{formError}</div>
           )}
 
           <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
-            <button
-              type="submit"
-              className={styles.primaryButton}
-              disabled={saveDisabled}
-            >
+            <button type="submit" className={styles.primaryButton} disabled={saveDisabled}>
               {isSubmitting ? "Saving…" : "Save occupant"}
             </button>
 
