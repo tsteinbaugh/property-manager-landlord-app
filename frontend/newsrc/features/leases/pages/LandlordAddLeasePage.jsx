@@ -11,6 +11,8 @@ import {
   parseEnumOrNullOpt,
   parseDateOrNullOpt,
   LEASE_STATUS,
+  optionsFromEnumMap,
+  formatEnumLabel,
 } from "@shared/utils/validation.js";
 
 const LEASE_DRAFT_KEY = "leaseDraft";
@@ -63,6 +65,21 @@ export default function LandlordAddLeasePage() {
         : fromPropertyContext
           ? "PROPERTY"
           : "GLOBAL";
+
+  // ------------------------------------------------------------
+  // Lease status dropdown options
+  // ------------------------------------------------------------
+  const leaseStatusOptions = useMemo(
+    () =>
+      optionsFromEnumMap(LEASE_STATUS, {
+        sortBy: "key",
+        toOption: (name, code) => ({
+          value: code,
+          label: `${formatEnumLabel(name, { hideUnknown: false })}`,
+        }),
+      }),
+    []
+  );          
 
   // ------------------------------------------------------------
   // Loaded lists (leases only)
@@ -542,9 +559,10 @@ export default function LandlordAddLeasePage() {
                 style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
                 disabled={isSaving}
               >
-                {LEASE_STATUS.map((s) => (
-                  <option key={s} value={s}>
-                    {s}
+                <option value="">— Select —</option>
+                {leaseStatusOptions.map((s) => (
+                  <option key={s.code} value={s.code}>
+                    {s.label}
                   </option>
                 ))}
               </select>

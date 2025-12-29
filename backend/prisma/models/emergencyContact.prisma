@@ -10,8 +10,11 @@ model EmergencyContact {
   postalCode String?
   relation   String?
   notes      String?
+  
   archivedAt   DateTime?
   archiveReason String?
+  archivedById    String?
+  archivedBy      User? @relation("EmergencyContactArchivedBy", fields: [archivedById], references: [id])    
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

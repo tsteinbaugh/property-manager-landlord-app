@@ -18,8 +18,11 @@ model Tenant {
   creditScore  Int?
   status       TenantStatus @default(DRAFT)
   notes        String?
+
   archivedAt   DateTime?
   archiveReason String?
+  archivedById    String?
+  archivedBy      User? @relation("TenantArchivedBy", fields: [archivedById], references: [id])    
 
   userId String? @unique
   user   User?   @relation(fields: [userId], references: [id])

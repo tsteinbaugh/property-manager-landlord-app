@@ -4,6 +4,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
 import { petsApi } from "@features/residents/api/pets.api.js";
 import { tenantsApi } from "@features/tenants/api/tenants.api.js";
+import { can } from "@lib/rbac/index.js";
+import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
 import { ROLES } from "@lib/rbac/roles.js";
 import PetCard from "@features/residents/components/pets/PetCard.jsx"
 import LinkageCard from "@shared/ui/cards/LinkageCard.jsx"
@@ -21,6 +23,9 @@ export default function LandlordPetDetailsPage() {
       : typeof effectiveRole === "string"
         ? effectiveRole.toLowerCase()
         : effectiveRole || ROLES.LANDLORD;
+
+  const canUpdate = can(role, R.PETS, A.UPDATE);
+  const canArchiveGrant = can(role, R.PETS, A.ARCHIVE);
 
   const [pet, setPet] = useState(null);
   const [tenants, setTenants] = useState([]);
@@ -68,7 +73,7 @@ export default function LandlordPetDetailsPage() {
 
   const isArchived = !!pet?.archivedAt;
 
-  const canEditNow = !isArchived || isSysAdmin;
+  const canEditNow = canUpdate && (!isArchived || isSysAdmin);
   const canArchiveNow = !isArchived;
   const canUnarchiveNow = isArchived && isSysAdmin;
   const showArchiveLink = canArchiveNow || canUnarchiveNow;
@@ -98,19 +103,50 @@ export default function LandlordPetDetailsPage() {
     if (!pet) return;
 
     if (!isArchived) {
-      const ok = window.confirm(
-        "Are you sure you want to archive this pet?\n\n" +
-          "They will be hidden from active pet lists. Only a system administrator can unarchive them."
-      );
-      if (!ok) return;
-    } else {
-      if (!isSysAdmin) {
-        alert(
-          "Only a system administrator can unarchive an archived pet.\n\n" +
-            "Please contact your system administrator if this needs to be reactivated."
-        );
+      if (!canArchiveGrant) {
+        alert("You do not have permission to archive pets.");
         return;
       }
+
+      const archiveReason = window.prompt(
+        "Please provide a reason for archiving this pet."
+      );
+
+      if (archiveReason === null) return;
+
+      if (!archiveReason.trim()) {
+        alert("Archiving requires a reason.");
+        return;
+      }
+
+      const ok = window.confirm(
+        "Are you sure you want to archive this pet?\n\n" +
+          "It will be hidden from active lists. Only a system administrator can unarchive it."
+      );
+      if (!ok) return;
+
+      try {
+        setArchiving(true);
+        await petsApi.toggleArchive(pet.id, {
+          token,
+          archiveReason: archiveReason.trim(),
+        });
+        await reload();
+      } catch (err) {
+        console.error("Failed to toggle pet archive state", err);
+        alert("Failed to change archive status. Check console for details.");
+      } finally {
+        setArchiving(false);
+      }
+      return;
+    }
+
+    if (!isSysAdmin) {
+      alert(
+        "Only a system administrator can unarchive an archived pet.\n\n" +
+          "Please contact your system administrator if this needs to be reactivated."
+      );
+      return;
     }
 
     try {
@@ -118,7 +154,7 @@ export default function LandlordPetDetailsPage() {
       await petsApi.toggleArchive(pet.id, { token });
       await reload();
     } catch (err) {
-      console.error("Failed to toggle pet archived state", err);
+      console.error("Failed to toggle pet archive state", err);
       alert("Failed to change archive status. Check console for details.");
     } finally {
       setArchiving(false);

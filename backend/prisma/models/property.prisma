@@ -14,6 +14,8 @@ model Property {
 
   archivedAt   DateTime?
   archiveReason String?
+  archivedById    String?
+  archivedBy      User? @relation("PropertyArchivedBy", fields: [archivedById], references: [id])  
 
   leases Lease[]
 

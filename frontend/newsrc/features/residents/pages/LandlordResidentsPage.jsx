@@ -75,7 +75,10 @@ export default function LandlordResidentsPage() {
       try {
         setTenantsLoading(true);
         setTenantsError("");
-        const data = await tenantsApi.list({ token });
+        const data = await tenantsApi.listAll({
+          includeArchived: true,
+          token,
+        });        
         if (!cancelled) {
           setTenants(Array.isArray(data) ? data : []);
         }

@@ -15,7 +15,10 @@ const {
   shapeProperty,
 } = require("@shapes/property.shape.js")
 
+const { requireAuth, requireLandlordOrSysadmin } = require("@src/middleware/auth.middleware.js");
+
 function registerPropertyRoutes(app, prisma) {
+  const auth = requireAuth(prisma);
   // ============================================================
   // GET /api/properties?includeArchived=0|1
   // - LANDLORD: only their properties
@@ -54,113 +57,152 @@ function registerPropertyRoutes(app, prisma) {
   // Required: address1, city, state, postalCode
   // Optional: name, bedrooms, bathrooms, sqft, yearBuilt, notes
   // ============================================================
-  app.post("/api/properties", async (req, res) => {
-    try {
-      const { data, error } = parsePropertyPost(req.body);
-      if (error) return res.status(400).json({ error });
+  app.post(
+    "/api/properties",
+    auth,
+    requireLandlordOrSysadmin,    
+    async (req, res) => {
+      try {
+        const { data, error } = parsePropertyPost(req.body);
+        if (error) return res.status(400).json({ error });
 
-      const user = req.user || null;
-      const bodyLandlordId = req.body?.landlordId || null;
-      const bodyCreatedById = req.body?.createdById || null;
+        const user = req.user || null;
+        const bodyLandlordId = req.body?.landlordId || null;
+        const bodyCreatedById = req.body?.createdById || null;
 
-      let landlordId = bodyLandlordId || null;
-      if (!landlordId && user?.id) landlordId = user.id;
+        let landlordId = bodyLandlordId || null;
+        if (!landlordId && user?.id) landlordId = user.id;
 
-      let createdById = bodyCreatedById || null;
-      if (!createdById) {
-        if (user?.id) createdById = user.id;
-        else if (landlordId) createdById = landlordId;
+        let createdById = bodyCreatedById || null;
+        if (!createdById) {
+          if (user?.id) createdById = user.id;
+          else if (landlordId) createdById = landlordId;
+        }
+
+        const created = await prisma.property.create({
+          data: { ...data, landlordId, createdById },
+        });
+
+        return res.status(201).json(created);
+      } catch (err) {
+        console.error("Error in POST /api/properties", err);
+        return res.status(500).json({ error: "Server error" });
       }
-
-      const created = await prisma.property.create({
-        data: { ...data, landlordId, createdById },
-      });
-
-      return res.status(201).json(created);
-    } catch (err) {
-      console.error("Error in POST /api/properties", err);
-      return res.status(500).json({ error: "Server error" });
     }
-  });
+  );
 
   // ============================================================
   // PATCH /api/properties/:id - update property fields
   // Optional fields may be cleared via null/""
   // ============================================================
-  app.patch("/api/properties/:id", async (req, res) => {
-    const { id } = req.params;
+  app.patch(
+    "/api/properties/:id",
+    auth,
+    requireLandlordOrSysadmin,    
+    async (req, res) => {
+      const { id } = req.params;
 
-    try {
-      const existing = await prisma.property.findUnique({ where: { id } });
-      if (!existing) return res.status(404).json({ error: "Property not found" });
+      try {
+        const existing = await prisma.property.findUnique({ where: { id } });
+        if (!existing) return res.status(404).json({ error: "Property not found" });
 
-      const user = req.user || null;
-      if (user && user.baseRole === Role.LANDLORD) {
-        if (existing.landlordId && existing.landlordId !== user.id) {
-          return res.status(403).json({ error: "Forbidden" });
+        const user = req.user || null;
+        if (user && user.baseRole === Role.LANDLORD) {
+          if (existing.landlordId && existing.landlordId !== user.id) {
+            return res.status(403).json({ error: "Forbidden" });
+          }
         }
+
+        const { data, error } = parsePropertyPatch(req.body);
+        if (error) return res.status(400).json({ error });
+
+        const updated = await prisma.property.update({ where: { id }, data });
+        return res.json(updated);
+      } catch (err) {
+        console.error("Error in PATCH /api/properties/:id", err);
+        return res.status(500).json({ error: "Server error" });
       }
-
-      const { data, error } = parsePropertyPatch(req.body);
-      if (error) return res.status(400).json({ error });
-
-      const updated = await prisma.property.update({ where: { id }, data });
-      return res.json(updated);
-    } catch (err) {
-      console.error("Error in PATCH /api/properties/:id", err);
-      return res.status(500).json({ error: "Server error" });
     }
-  });
+  );
 
   // ============================================================
-  // PATCH /api/properties/:id/archive - toggle archivedAt timestamp
+  // PATCH /api/properties/:id/archive - toggle archivedAt + archiveReason
   // ============================================================
-  app.patch("/api/properties/:id/archive", async (req, res) => {
-    const { id } = req.params;
-  
-    try {
-      const existing = await prisma.property.findUnique({ where: { id } });
-      if (!existing) return res.status(404).json({ error: "Property not found" });
-    
-      const user = req.user || null;
-    
-      if (user && user.baseRole === Role.LANDLORD) {
-        if (existing.landlordId && existing.landlordId !== user.id) {
-          return res.status(403).json({ error: "Forbidden" });
+  app.patch(
+    "/api/properties/:id/archive",
+    auth,
+    requireLandlordOrSysadmin,
+    async (req, res) => {
+      const { id } = req.params;
+      const user = req.user;
+
+      try {
+        const property = await prisma.property.findUnique({ where: { id } });
+        if (!property) return res.status(404).json({ error: "Property not found" });
+
+        // landlord scoping
+        if (
+          user.baseRole === Role.LANDLORD &&
+          property.landlordId &&
+          property.landlordId !== user.id
+        ) {
+          return res.status(403).json({
+            error: "You are not allowed to archive this property.",
+          });
         }
+
+        const isArchiving = !property.archivedAt;
+
+        // Frontend sends { archiveReason }
+        const raw = req.body?.archiveReason;
+        const reason = typeof raw === "string" ? raw.trim() : "";
+
+        // Require reason ONLY when archiving
+        if (isArchiving && !reason) {
+          return res.status(400).json({ error: "archiveReason is required" });
+        }
+
+        const updated = await prisma.property.update({
+          where: { id },
+          data: {
+            archivedAt: isArchiving ? new Date() : null,
+            archiveReason: isArchiving ? reason : null,
+            archivedById: isArchiving ? user.id : null,
+          },
+        });
+
+        return res.json(shapeProperty(updated));
+      } catch (err) {
+        console.error("Error in PATCH /api/properties/:id/archive", err);
+        return res.status(500).json({ error: "Server error" });
       }
-    
-      const updated = await prisma.property.update({
-        where: { id },
-        data: { archivedAt: existing.archivedAt ? null : new Date() },
-      });
-    
-      return res.json(updated);
-    } catch (err) {
-      console.error("Error in PATCH /api/properties/:id/archive", err);
-      return res.status(500).json({ error: "Server error" });
     }
-  });
+  );
 
   // ============================================================
   // GET /api/properties/:id – detail, including leases, tenants, occupants, emergency contacts, and vehicles
   // ============================================================
-  app.get("/api/properties/:id", async (req, res) => {
-    const { id } = req.params;
-    const user = req.user || null;
+  app.get(
+    "/api/properties/:id",
+    auth,
+    requireLandlordOrSysadmin,    
+    async (req, res) => {
+      const { id } = req.params;
+      const user = req.user || null;
 
-    try {
-      const payload = await getPropertyDetails(prisma, {
-        propertyId: id,
-        user,
-      });
-      return res.json(payload);
-    } catch (err) {
-      if (err?.status) return res.status(err.status).json({ error: err.message });
-      console.error("Error in GET /api/properties/:id", err);
-      return res.status(500).json({ error: "Server error" });
+      try {
+        const payload = await getPropertyDetails(prisma, {
+          propertyId: id,
+          user,
+        });
+        return res.json(payload);
+      } catch (err) {
+        if (err?.status) return res.status(err.status).json({ error: err.message });
+        console.error("Error in GET /api/properties/:id", err);
+        return res.status(500).json({ error: "Server error" });
+      }
     }
-  });
+  );
 
   // ============================================================
   // GET /api/properties/:id/summary

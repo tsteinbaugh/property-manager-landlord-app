@@ -3,9 +3,10 @@
 
 export const RESOURCES = {
   TENANTS: "tenants",                             // features/tenants
-  TENANT_PETS: "tenant_pets",                     // features/tenants (pets)
-  TENANT_OCCUPANTS: "tenant_occupants",           // features/tenants (occupants)
-  TENANT_EMERGENCYCONTACTS: "tenant_emergency_contacts",  // features/tenants (emergencyContacts)
+  PETS: "pets",                                   // features/tenants (pets)
+  OCCUPANTS: "occupants",                         // features/tenants (occupants)
+  EMERGENCYCONTACTS: "emergency_contacts",        // features/tenants (emergencyContacts)
+  VEHICLES: "vehicles",                           // features/tenants (occupants)
   LEASES: "leases",                               // features/leases
   LEASE_FINANCIALS: "lease_financials",           // features/leases (financials)
   LEGAL_CASES: "legal_cases",                     // features/legal

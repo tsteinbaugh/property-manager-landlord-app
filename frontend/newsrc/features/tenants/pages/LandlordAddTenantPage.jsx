@@ -1,5 +1,5 @@
 // frontend/newsrc/features/residents/pages/tenants/LandlordAddTenantPage.jsx
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
 import { tenantsApi } from "@features/tenants/api/tenants.api.js";
@@ -28,54 +28,6 @@ import {
 
 const LEASE_DRAFT_KEY = "leaseDraft";
 const LEASE_DRAFT_RETURN_KEY = "leaseDraftReturnTo";
-
-const sexOptions = useMemo(
-  () =>
-    optionsFromEnumMap(SEX, {
-      sortBy: "key",
-      toOption: (name, code) => ({
-        value: code,
-        label: `${formatEnumLabel(name, { hideUnknown: false })} (${code})`,
-      }),
-    }),
-  []
-);  
-
-const hairColorOptions = useMemo(
-  () =>
-    optionsFromEnumMap(HAIR_COLOR, {
-      sortBy: "key",
-      toOption: (name, code) => ({
-        value: code,
-        label: `${formatEnumLabel(name, { hideUnknown: false })} (${code})`,
-      }),
-    }),
-  []
-);  
-
-const eyeColorOptions = useMemo(
-  () =>
-    optionsFromEnumMap(EYE_COLOR, {
-      sortBy: "key",
-      toOption: (name, code) => ({
-        value: code,
-        label: `${formatEnumLabel(name, { hideUnknown: false })} (${code})`,
-      }),
-    }),
-  []
-);  
-
-const bodyBuildOptions = useMemo(
-  () =>
-    optionsFromEnumMap(BODY_BUILD, {
-      sortBy: "key",
-      toOption: (name, code) => ({
-        value: code,
-        label: `${formatEnumLabel(name, { hideUnknown: false })} (${code})`,
-      }),
-    }),
-  []
-); 
 
 // required wrappers (so validateObject can enforce required fields)
 const requiredPhone = (v) => {
@@ -151,6 +103,54 @@ export default function LandlordAddTenantPage() {
     phone: false,
     email: false,
   });
+
+  const sexOptions = useMemo(
+    () =>
+      optionsFromEnumMap(SEX, {
+        sortBy: "key",
+        toOption: (name, code) => ({
+          value: code,
+          label: `${formatEnumLabel(name, { hideUnknown: false })} (${code})`,
+        }),
+      }),
+    []
+  );  
+
+  const hairColorOptions = useMemo(
+    () =>
+      optionsFromEnumMap(HAIR_COLOR, {
+        sortBy: "key",
+        toOption: (name, code) => ({
+          value: code,
+          label: `${formatEnumLabel(name, { hideUnknown: false })} (${code})`,
+        }),
+      }),
+    []
+  );  
+
+  const eyeColorOptions = useMemo(
+    () =>
+      optionsFromEnumMap(EYE_COLOR, {
+        sortBy: "key",
+        toOption: (name, code) => ({
+          value: code,
+          label: `${formatEnumLabel(name, { hideUnknown: false })} (${code})`,
+        }),
+      }),
+    []
+  );  
+
+  const bodyBuildOptions = useMemo(
+    () =>
+      optionsFromEnumMap(BODY_BUILD, {
+        sortBy: "key",
+        toOption: (name, code) => ({
+          value: code,
+          label: `${formatEnumLabel(name, { hideUnknown: false })} (${code})`,
+        }),
+      }),
+    []
+  );   
 
   // ------------------------------------------------------------
   // Edit mode: load tenant

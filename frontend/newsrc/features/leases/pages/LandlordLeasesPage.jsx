@@ -71,7 +71,7 @@ export default function LandlordLeasesPage() {
         <div>
           <h1 className={styles.title}>Your leases</h1>
           <p className={styles.subtitle}>
-            Manage your active, archived and draft leases..
+            Manage your active, archived and draft leases.
           </p>
         </div>
 

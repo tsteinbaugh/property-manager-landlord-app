@@ -12,15 +12,6 @@ import LeaseCard from "@features/leases/components/LeaseCard.jsx"
 
 import ui from "@shared/styles/CardLayout.module.css";
 
-function formatMoney(n) {
-  if (n === null || n === undefined || Number.isNaN(Number(n))) return "—";
-  try {
-    return Number(n).toLocaleString();
-  } catch {
-    return String(n);
-  }
-}
-
 function leaseTitle(lease) {
   const base =
     lease?.propertyName ||
@@ -28,33 +19,6 @@ function leaseTitle(lease) {
     lease?.property?.address1 ||
     "";
   return base ? `Lease for ${base}` : "Lease";
-}
-
-function leaseTermLabel(lease) {
-  if (!lease) return "Lease";
-  const status = lease.status ? String(lease.status).toUpperCase() : "LEASE";
-
-  const dates =
-    lease.startDate && lease.endDate
-      ? `${lease.startDate} → ${lease.endDate}`
-      : lease.startDate
-        ? `${lease.startDate} → (no end date)`
-        : lease.endDate
-          ? `(no start date) → ${lease.endDate}`
-          : "(no dates)";
-  return `${dates}`;
-}
-
-function leaseRentLabel(lease) {
-  if (!lease) return "Lease";
-  const status = lease.status ? String(lease.status).toUpperCase() : "LEASE";
-
-  const rent =
-    lease.rentAmount !== null && lease.rentAmount !== undefined
-      ? ` $${formatMoney(lease.rentAmount)}/mo`
-      : "—";
-
-  return `${rent}`;
 }
 
 function normalizeLinkedEntities(tenant) {
@@ -115,7 +79,6 @@ export default function LandlordLeaseDetailPage() {
   const [unlinkingTenantId, setUnlinkingTenantId] = useState(null);
   const [unlinkingPropertyId, setUnlinkingPropertyId] = useState(null);
   
-
   const [tenantDetails, setTenantDetails] = useState([]);
   const [tenantDetailsLoading, setTenantDetailsLoading] = useState(false);
   const [tenantDetailsError, setTenantDetailsError] = useState(null);
@@ -177,19 +140,50 @@ export default function LandlordLeaseDetailPage() {
     if (!lease) return;
 
     if (!isArchived) {
+      if (!canArchiveGrant) {
+        alert("You do not have permission to archive leases.");
+        return;
+      }
+
+      const archiveReason = window.prompt(
+        "Please provide a reason for archiving this lease."
+      );
+
+      if (archiveReason === null) return;
+
+      if (!archiveReason.trim()) {
+        alert("Archiving requires a reason.");
+        return;
+      }
+
       const ok = window.confirm(
         "Are you sure you want to archive this lease?\n\n" +
           "It will be hidden from active lists. Only a system administrator can unarchive it."
       );
       if (!ok) return;
-    } else {
-      if (!isSysAdmin) {
-        alert(
-          "Only a system administrator can unarchive an archived lease.\n\n" +
-            "Please contact your system administrator if this needs to be reactivated."
-        );
-        return;
+
+      try {
+        setArchiving(true);
+        await leasesApi.toggleArchive(lease.id, {
+          token,
+          archiveReason: archiveReason.trim(),
+        });
+        await reload();
+      } catch (err) {
+        console.error("Failed to toggle lease archive state", err);
+        alert("Failed to change archive status. Check console for details.");
+      } finally {
+        setArchiving(false);
       }
+      return;
+    }
+
+    if (!isSysAdmin) {
+      alert(
+        "Only a system administrator can unarchive an archived lease.\n\n" +
+          "Please contact your system administrator if this needs to be reactivated."
+      );
+      return;
     }
 
     try {

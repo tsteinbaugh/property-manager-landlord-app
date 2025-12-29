@@ -15,6 +15,7 @@ function generateTempPassword() {
 }
 
 function registerTenantRoutes(app, prisma, { shapeTenant }) {
+  const auth = requireAuth(prisma);
   // ============================================================
   // GET /api/tenants/me – current logged-in tenant's profile
   // ============================================================
@@ -109,19 +110,24 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
   // ============================================================
   // GET /api/tenants/:id – detail, including leases + properties + linked residents
   // ============================================================
-  app.get("/api/tenants/:id", async (req, res) => {
-    const { id } = req.params;
-    const user = req.user || null;
+  app.get(
+    "/api/tenants/:id",
+    auth,
+    requireLandlordOrSysadmin,    
+    async (req, res) => {
+      const { id } = req.params;
+      const user = req.user || null;
 
-    try {
-      const payload = await getTenantDetails(prisma, { tenantId: id, user });
-      return res.json(payload);
-    } catch (err) {
-      if (err?.status) return res.status(err.status).json({ error: err.message });
-      console.error("Error in GET /api/tenants/:id", err);
-      return res.status(500).json({ error: "Server error" });
+      try {
+        const payload = await getTenantDetails(prisma, { tenantId: id, user });
+        return res.json(payload);
+      } catch (err) {
+        if (err?.status) return res.status(err.status).json({ error: err.message });
+        console.error("Error in GET /api/tenants/:id", err);
+        return res.status(500).json({ error: "Server error" });
+      }
     }
-  });
+  );
 
   // ============================================================
   // GET /api/tenants – list tenants (scoped by landlord)
@@ -234,202 +240,220 @@ function registerTenantRoutes(app, prisma, { shapeTenant }) {
   // ============================================================
   // PATCH /api/tenants/:id – update tenant (and sync to linked User)
   // ============================================================
-  app.patch("/api/tenants/:id", async (req, res) => {
-    const { id } = req.params;
+  app.patch(
+    "/api/tenants/:id",
+    auth,
+    requireLandlordOrSysadmin,    
+    async (req, res) => {
+      const { id } = req.params;
 
-    const user = req.user || null;
-    if (!user) return res.status(401).json({ error: "Unauthorized" });
+      const user = req.user || null;
+      if (!user) return res.status(401).json({ error: "Unauthorized" });
 
-    try {
-      const existing = await prisma.tenant.findUnique({ where: { id } });
-      if (!existing) return res.status(404).json({ error: "Tenant not found" });
+      try {
+        const existing = await prisma.tenant.findUnique({ where: { id } });
+        if (!existing) return res.status(404).json({ error: "Tenant not found" });
 
-      if (user.baseRole === Role.LANDLORD && existing.landlordId && existing.landlordId !== user.id) {
-        return res.status(403).json({ error: "You are not allowed to update this tenant." });
-      }
+        if (user.baseRole === Role.LANDLORD && existing.landlordId && existing.landlordId !== user.id) {
+          return res.status(403).json({ error: "You are not allowed to update this tenant." });
+        }
 
-      const parsed = parseTenantPatch(req.body);
-      if (parsed.error) return res.status(400).json({ error: parsed.error });
+        const parsed = parseTenantPatch(req.body);
+        if (parsed.error) return res.status(400).json({ error: parsed.error });
 
-      const data = parsed.data;
+        const data = parsed.data;
 
-      const updated = await prisma.tenant.update({
-        where: { id },
-        data,
-      });
+        const updated = await prisma.tenant.update({
+          where: { id },
+          data,
+        });
 
-      // Sync linked User
-      if (updated.userId) {
-        try {
-          const userUpdateData = {};
+        // Sync linked User
+        if (updated.userId) {
+          try {
+            const userUpdateData = {};
 
-          if (data.name !== undefined) userUpdateData.name = data.name;
+            if (data.name !== undefined) userUpdateData.name = data.name;
 
-          if (data.email !== undefined) {
-            if (data.email === null) {
-              // Do NOT null out user.email
-            } else {
-              userUpdateData.email = data.email;
+            if (data.email !== undefined) {
+              if (data.email === null) {
+                // Do NOT null out user.email
+              } else {
+                userUpdateData.email = data.email;
+              }
+            }
+
+            if (Object.keys(userUpdateData).length > 0) {
+              await prisma.user.update({
+                where: { id: updated.userId },
+                data: userUpdateData,
+              });
+            }
+          } catch (userErr) {
+            console.error("Error syncing Tenant update to User:", userErr);
+
+            if (userErr.code === "P2002") {
+              return res.status(400).json({
+                error: "Cannot change tenant email because it is already used by another user.",
+              });
             }
           }
-
-          if (Object.keys(userUpdateData).length > 0) {
-            await prisma.user.update({
-              where: { id: updated.userId },
-              data: userUpdateData,
-            });
-          }
-        } catch (userErr) {
-          console.error("Error syncing Tenant update to User:", userErr);
-
-          if (userErr.code === "P2002") {
-            return res.status(400).json({
-              error: "Cannot change tenant email because it is already used by another user.",
-            });
-          }
         }
-      }
 
-      return res.json(shapeTenant(updated));
-    } catch (err) {
-      console.error("Error in PATCH /api/tenants/:id", err);
-      return res.status(500).json({ error: "Server error" });
+        return res.json(shapeTenant(updated));
+      } catch (err) {
+        console.error("Error in PATCH /api/tenants/:id", err);
+        return res.status(500).json({ error: "Server error" });
+      }
     }
-  });
+  );
 
   // ============================================================
-  // PATCH /api/tenants/:id/archive – toggle archivedAt timestamp (and archive linked User)
-  // - LANDLORD can archive
-  // - Only SYSADMIN can unarchive
+  // PATCH /api/tenants/:id/archive - toggle archivedAt + archiveReason
   // ============================================================
-  app.patch("/api/tenants/:id/archive", async (req, res) => {
-    const { id } = req.params;
-    const user = req.user || null;
+  app.patch(
+    "/api/tenants/:id/archive",
+    auth,
+    requireLandlordOrSysadmin,
+    async (req, res) => {
+      const { id } = req.params;
+      const user = req.user;
 
-    if (!user) return res.status(401).json({ error: "Unauthorized" });
+      try {
+        const tenant = await prisma.tenant.findUnique({ where: { id } });
+        if (!tenant) return res.status(404).json({ error: "Tenant not found" });
 
-    try {
-      const existing = await prisma.tenant.findUnique({ where: { id } });
-      if (!existing) return res.status(404).json({ error: "Tenant not found" });
-
-      if (user.baseRole === Role.LANDLORD && existing.landlordId && existing.landlordId !== user.id) {
-        return res.status(403).json({ error: "You are not allowed to archive this tenant." });
-      }
-
-      const currentlyArchived = !!existing.archivedAt;
-      const isSysAdmin = user.baseRole === Role.SYSADMIN;
-
-      if (currentlyArchived && !isSysAdmin) {
-        return res.status(403).json({ error: "Only a system administrator can unarchive a tenant." });
-      }
-
-      const nextArchivedAt = currentlyArchived ? null : new Date();
-
-      const updated = await prisma.tenant.update({
-        where: { id },
-        data: { archivedAt: nextArchivedAt },
-      });
-
-      if (updated.userId) {
-        try {
-          await prisma.user.update({
-            where: { id: updated.userId },
-            data: { archivedAt: nextArchivedAt },
+        // landlord scoping
+        if (
+          user.baseRole === Role.LANDLORD &&
+          tenant.landlordId &&
+          tenant.landlordId !== user.id
+        ) {
+          return res.status(403).json({
+            error: "You are not allowed to archive this tenant.",
           });
-        } catch (userErr) {
-          console.error("Error syncing Tenant archive state to User:", userErr);
         }
-      }
 
-      return res.json(shapeTenant(updated));
-    } catch (err) {
-      console.error("Error in PATCH /api/tenants/:id/archive", err);
-      return res.status(500).json({ error: "Server error" });
+        const isArchiving = !tenant.archivedAt;
+
+        // Frontend sends { archiveReason }
+        const raw = req.body?.archiveReason;
+        const reason = typeof raw === "string" ? raw.trim() : "";
+
+        // Require reason ONLY when archiving
+        if (isArchiving && !reason) {
+          return res.status(400).json({ error: "archiveReason is required" });
+        }
+
+        const updated = await prisma.tenant.update({
+          where: { id },
+          data: {
+            archivedAt: isArchiving ? new Date() : null,
+            archiveReason: isArchiving ? reason : null,
+            archivedById: isArchiving ? user.id : null,
+          },
+        });
+
+        return res.json(shapeTenant(updated));
+      } catch (err) {
+        console.error("Error in PATCH /api/tenants/:id/archive", err);
+        return res.status(500).json({ error: "Server error" });
+      }
     }
-  });
+  );
 
   // ============================================================
   // Linking endpoints (kept as-is from your file)
   // ============================================================
 
   // POST /api/tenants/:tenantId/occupants/:occupantId/link
-  app.post("/api/tenants/:tenantId/occupants/:occupantId/link", async (req, res) => {
-    const { tenantId, occupantId } = req.params;
-    const user = req.user || null;
-    if (!user) return res.status(401).json({ error: "Unauthorized" });
-
-    try {
-      const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
-      if (!tenant) return res.status(404).json({ error: "Tenant not found" });
-
-      const occupant = await prisma.occupant.findUnique({ where: { id: occupantId } });
-      if (!occupant) return res.status(404).json({ error: "Occupant not found" });
-
-      const isSysAdmin = user.baseRole === Role.SYSADMIN;
-      if (!isSysAdmin) {
-        if (tenant.landlordId && tenant.landlordId !== user.id) {
-          return res.status(403).json({ error: "You are not allowed to link this tenant." });
-        }
-        if (occupant.landlordId && occupant.landlordId !== user.id) {
-          return res.status(403).json({ error: "You are not allowed to link this occupant." });
-        }
-      }
-
-      await prisma.tenantOccupant.upsert({
-        where: { tenantId_occupantId: { tenantId, occupantId } },
-        update: {},
-        create: { tenantId, occupantId },
-      });
-
-      return res.json({ ok: true });
-    } catch (err) {
-      console.error("Error in POST /api/tenants/:tenantId/occupants/:occupantId/link", err);
-      return res.status(500).json({ error: "Server error" });
-    }
-  });
-
-  // DELETE /api/tenants/:tenantId/occupants/:occupantId/unlink
-  app.delete("/api/tenants/:tenantId/occupants/:occupantId/unlink", async (req, res) => {
-    const { tenantId, occupantId } = req.params;
-    const user = req.user || null;
-    if (!user) return res.status(401).json({ error: "Unauthorized" });
-
-    try {
-      const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
-      if (!tenant) return res.status(404).json({ error: "Tenant not found" });
-
-      const occupant = await prisma.occupant.findUnique({ where: { id: occupantId } });
-      if (!occupant) return res.status(404).json({ error: "Occupant not found" });
-
-      if (user.baseRole !== Role.LANDLORD && user.baseRole !== Role.SYSADMIN) {
-        return res.status(403).json({ error: "Forbidden" });
-      }
-
-      const isSysAdmin = user.baseRole === Role.SYSADMIN;
-      if (!isSysAdmin) {
-        if (tenant.landlordId && tenant.landlordId !== user.id) {
-          return res.status(403).json({ error: "You are not allowed to unlink this tenant." });
-        }
-        if (occupant.landlordId && occupant.landlordId !== user.id) {
-          return res.status(403).json({ error: "You are not allowed to unlink this occupant." });
-        }
-      }
+  app.post(
+    "/api/tenants/:tenantId/occupants/:occupantId/link",
+    auth,
+    requireLandlordOrSysadmin,    
+      async (req, res) => {
+      const { tenantId, occupantId } = req.params;
+      const user = req.user || null;
+      if (!user) return res.status(401).json({ error: "Unauthorized" });
 
       try {
-        await prisma.tenantOccupant.delete({
-          where: { tenantId_occupantId: { tenantId, occupantId } },
-        });
-      } catch (deleteErr) {
-        console.error("No TenantOccupant link to delete", deleteErr);
-        return res.status(404).json({ error: "Tenant/occupant link not found" });
-      }
+        const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
+        if (!tenant) return res.status(404).json({ error: "Tenant not found" });
 
-      return res.json({ ok: true });
-    } catch (err) {
-      console.error("Error in DELETE /api/tenants/:tenantId/occupants/:occupantId/unlink", err);
-      return res.status(500).json({ error: "Server error" });
+        const occupant = await prisma.occupant.findUnique({ where: { id: occupantId } });
+        if (!occupant) return res.status(404).json({ error: "Occupant not found" });
+
+        const isSysAdmin = user.baseRole === Role.SYSADMIN;
+        if (!isSysAdmin) {
+          if (tenant.landlordId && tenant.landlordId !== user.id) {
+            return res.status(403).json({ error: "You are not allowed to link this tenant." });
+          }
+          if (occupant.landlordId && occupant.landlordId !== user.id) {
+            return res.status(403).json({ error: "You are not allowed to link this occupant." });
+          }
+        }
+
+        await prisma.tenantOccupant.upsert({
+          where: { tenantId_occupantId: { tenantId, occupantId } },
+          update: {},
+          create: { tenantId, occupantId },
+        });
+
+        return res.json({ ok: true });
+      } catch (err) {
+        console.error("Error in POST /api/tenants/:tenantId/occupants/:occupantId/link", err);
+        return res.status(500).json({ error: "Server error" });
+      }
     }
-  });
+  );
+
+  // DELETE /api/tenants/:tenantId/occupants/:occupantId/unlink
+  app.delete(
+    "/api/tenants/:tenantId/occupants/:occupantId/unlink",
+    auth,
+    requireLandlordOrSysadmin,    
+    async (req, res) => {
+      const { tenantId, occupantId } = req.params;
+      const user = req.user || null;
+      if (!user) return res.status(401).json({ error: "Unauthorized" });
+
+      try {
+        const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
+        if (!tenant) return res.status(404).json({ error: "Tenant not found" });
+
+        const occupant = await prisma.occupant.findUnique({ where: { id: occupantId } });
+        if (!occupant) return res.status(404).json({ error: "Occupant not found" });
+
+        if (user.baseRole !== Role.LANDLORD && user.baseRole !== Role.SYSADMIN) {
+          return res.status(403).json({ error: "Forbidden" });
+        }
+
+        const isSysAdmin = user.baseRole === Role.SYSADMIN;
+        if (!isSysAdmin) {
+          if (tenant.landlordId && tenant.landlordId !== user.id) {
+            return res.status(403).json({ error: "You are not allowed to unlink this tenant." });
+          }
+          if (occupant.landlordId && occupant.landlordId !== user.id) {
+            return res.status(403).json({ error: "You are not allowed to unlink this occupant." });
+          }
+        }
+
+        try {
+          await prisma.tenantOccupant.delete({
+            where: { tenantId_occupantId: { tenantId, occupantId } },
+          });
+        } catch (deleteErr) {
+          console.error("No TenantOccupant link to delete", deleteErr);
+          return res.status(404).json({ error: "Tenant/occupant link not found" });
+        }
+
+        return res.json({ ok: true });
+      } catch (err) {
+        console.error("Error in DELETE /api/tenants/:tenantId/occupants/:occupantId/unlink", err);
+        return res.status(500).json({ error: "Server error" });
+      }
+    }
+  );
 
   // POST /api/tenants/:tenantId/pets/:petId/link
   app.post("/api/tenants/:tenantId/pets/:petId/link", async (req, res) => {

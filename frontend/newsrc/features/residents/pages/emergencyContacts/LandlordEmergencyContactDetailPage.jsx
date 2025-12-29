@@ -4,6 +4,9 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
 import { emergencyContactsApi } from "@features/residents/api/emergencyContacts.api.js";
 import { tenantsApi } from "@features/tenants/api/tenants.api.js";
+import { can } from "@lib/rbac/index.js";
+import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
+import { ROLES } from "@lib/rbac/roles.js";
 import EmergencyContactCard from "@features/residents/components/emergencyContacts/EmergencyContactCard";
 import LinkageCard from "@shared/ui/cards/LinkageCard.jsx"
 
@@ -12,7 +15,16 @@ import ui from "@shared/styles/CardLayout.module.css";
 export default function LandlordEmergencyContactDetailsPage() {
   const { emergencyContactId } = useParams();
   const navigate = useNavigate();
-  const { isSysAdmin, token } = useUser() || {};
+  const { isSysAdmin, effectiveRole, token } = useUser() || {};
+
+  const role = isSysAdmin
+    ? ROLES.SYSADMIN
+    : typeof effectiveRole === "string"
+      ? effectiveRole.toLowerCase()
+      : ROLES.LANDLORD;
+
+  const canUpdate = can(role, R.EMERGENCYCONTACTS, A.UPDATE);
+  const canArchiveGrant = can(role, R.EMERGENCYCONTACTS, A.ARCHIVE);
 
   const [emergencyContact, setEmergencyContact] = useState(null);
   const [tenants, setTenants] = useState([]);
@@ -61,7 +73,7 @@ export default function LandlordEmergencyContactDetailsPage() {
 
   const isArchived = !!emergencyContact?.archivedAt;
 
-  const canEditNow = !isArchived || isSysAdmin;
+  const canEditNow = canUpdate && (!isArchived || isSysAdmin);
   const canArchiveNow = !isArchived;
   const canUnarchiveNow = isArchived && isSysAdmin;
   const showArchiveLink = canArchiveNow || canUnarchiveNow;
@@ -88,15 +100,48 @@ export default function LandlordEmergencyContactDetailsPage() {
   };
 
   const handleToggleArchive = async () => {
-    if (!emergencyContact?.id) return;
+    if (!emergencyContact) return;
 
     if (!isArchived) {
+      if (!canArchiveGrant) {
+        alert("You do not have permission to archive emergency contacts.");
+        return;
+      }
+
+      const archiveReason = window.prompt(
+        "Please provide a reason for archiving this emergency contact."
+      );
+
+      if (archiveReason === null) return;
+
+      if (!archiveReason.trim()) {
+        alert("Archiving requires a reason.");
+        return;
+      }
+
       const ok = window.confirm(
         "Are you sure you want to archive this emergency contact?\n\n" +
-          "They will be hidden from active emergency contact lists. Only a system administrator can unarchive them."
+          "It will be hidden from active lists. Only a system administrator can unarchive it."
       );
       if (!ok) return;
-    } else if (!isSysAdmin) {
+
+      try {
+        setArchiving(true);
+        await emergencyContactsApi.toggleArchive(emergencyContact.id, {
+          token,
+          archiveReason: archiveReason.trim(),
+        });
+        await reload();
+      } catch (err) {
+        console.error("Failed to toggle emergency contact archive state", err);
+        alert("Failed to change archive status. Check console for details.");
+      } finally {
+        setArchiving(false);
+      }
+      return;
+    }
+
+    if (!isSysAdmin) {
       alert(
         "Only a system administrator can unarchive an archived emergency contact.\n\n" +
           "Please contact your system administrator if this needs to be reactivated."
@@ -109,7 +154,7 @@ export default function LandlordEmergencyContactDetailsPage() {
       await emergencyContactsApi.toggleArchive(emergencyContact.id, { token });
       await reload();
     } catch (err) {
-      console.error("Failed to toggle emergency contact archived state", err);
+      console.error("Failed to toggle emergency contact archive state", err);
       alert("Failed to change archive status. Check console for details.");
     } finally {
       setArchiving(false);
@@ -122,7 +167,7 @@ export default function LandlordEmergencyContactDetailsPage() {
     navigate(
       `/landlord/emergencyContacts/new?emergencyContactId=${emergencyContact.id}&returnTo=${returnTo}`
     );
-  };
+  };  
 
   const handleUnlinkTenant = async (tenantId) => {
     if (!tenantId || !emergencyContact?.id) return;

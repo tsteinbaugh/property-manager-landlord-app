@@ -15,8 +15,11 @@ model Occupant {
   bodyBuild    BodyBuild?
   markings     String?
   notes        String?
+  
   archivedAt   DateTime?
   archiveReason String?
+  archivedById    String?
+  archivedBy      User? @relation("OccupantArchivedBy", fields: [archivedById], references: [id])    
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

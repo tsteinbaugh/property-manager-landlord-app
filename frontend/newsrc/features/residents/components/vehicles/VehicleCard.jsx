@@ -25,7 +25,7 @@ export default function vehicleCard({
     const notes = formatText(vehicle.notes, { fallback: null });
 
     const displayName =
-      [year, make, model].filter(Boolean).join(" ") || "Unnamed vehicle";
+      [`${year},`, make, model].filter(Boolean).join(" ") || "Unnamed vehicle";
 
     const plateLine = plate && state ? `${plate} • ${state}` : null;
 

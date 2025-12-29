@@ -67,12 +67,20 @@ export const petsApi = {
     return mapPetFromApi(row);
   },
 
-  async toggleArchive(id, { token } = {}) {
+  async toggleArchive(id, { token, archiveReason } = {}) {
     if (!id) throw new Error("id is required");
+
+    const body =
+      archiveReason === undefined
+        ? undefined
+        : { archiveReason }; // can be string or null depending on your backend rules
+
     const row = await apiFetch(`/api/pets/${id}/archive`, {
       method: "PATCH",
+      body,
       token,
     });
+    
     return mapPetFromApi(row);
   },
 };

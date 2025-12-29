@@ -228,28 +228,59 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
   const handleToggleArchive = async () => {
     if (!property) return;
 
-    if (!property.archivedAt) {
+    if (!isArchived) {
+      if (!canArchiveGrant) {
+        alert("You do not have permission to archive properties.");
+        return;
+      }
+
+      const archiveReason = window.prompt(
+        "Please provide a reason for archiving this property."
+      );
+
+      if (archiveReason === null) return;
+
+      if (!archiveReason.trim()) {
+        alert("Archiving requires a reason.");
+        return;
+      }
+
       const ok = window.confirm(
         "Are you sure you want to archive this property?\n\n" +
           "It will be hidden from active lists. Only a system administrator can unarchive it."
       );
       if (!ok) return;
-    } else {
-      if (!isSysAdmin) {
-        alert(
-          "Only a system administrator can unarchive an archived property. " +
-            "Please contact your system admin if this needs to be reactivated."
-        );
-        return;
+
+      try {
+        setArchiving(true);
+        await propertiesApi.toggleArchive(property.id, {
+          token,
+          archiveReason: archiveReason.trim(),
+        });
+        await reload();
+      } catch (err) {
+        console.error("Failed to toggle property archive state", err);
+        alert("Failed to change archive status. Check console for details.");
+      } finally {
+        setArchiving(false);
       }
+      return;
+    }
+
+    if (!isSysAdmin) {
+      alert(
+        "Only a system administrator can unarchive an archived property.\n\n" +
+          "Please contact your system administrator if this needs to be reactivated."
+      );
+      return;
     }
 
     try {
       setArchiving(true);
-      await propertiesApi.toggleArchive(propertyId, { token });
+      await propertiesApi.toggleArchive(property.id, { token });
       await reload();
     } catch (err) {
-      console.error("Failed to toggle archive", err);
+      console.error("Failed to toggle property archive state", err);
       alert("Failed to change archive status. Check console for details.");
     } finally {
       setArchiving(false);

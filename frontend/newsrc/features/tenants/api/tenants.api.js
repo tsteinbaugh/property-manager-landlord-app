@@ -131,11 +131,15 @@ function mapTenantFromApi(t) {
 }
 
 export const tenantsApi = {
-  async list(options = {}) {
-    const { token } = options;
-    const rows = await apiFetch("/api/tenants", { token });
+  async listAll({ includeArchived = false, token } = {}) {
+    const qs = includeArchived ? "?includeArchived=1" : "?includeArchived=0";
+    const rows = await apiFetch(`/api/tenants${qs}`, { token });
     if (!Array.isArray(rows)) return [];
     return rows.map(mapTenantFromApi);
+  },
+
+  async list(opts) {
+    return this.listAll(opts);
   },
 
   async detail(id, options = {}) {
@@ -172,11 +176,17 @@ export const tenantsApi = {
     return mapTenantFromApi(row);
   },
 
-  async toggleArchive(id, options = {}) {
+  async toggleArchive(id, { token, archiveReason }= {}) {
     if (!id) throw new Error("id is required");
-    const { token } = options;
+
+    const body =
+      archiveReason === undefined
+        ? undefined
+        : { archiveReason }; // can be string or null depending on your backend rules
+
     const row = await apiFetch(`/api/tenants/${id}/archive`, {
       method: "PATCH",
+      body,
       token,
     });
     return mapTenantFromApi(row);

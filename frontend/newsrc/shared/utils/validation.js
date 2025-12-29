@@ -1,6 +1,4 @@
 //frontend/newsrc/shared/utils/validation.js
-import { US_STATE_CODES, US_STATE_NAME_TO_CODE } from "@shared/lib/state.enums.js";
-
 export const INVALID = "__INVALID__";
 
 // ============================================================
@@ -343,6 +341,29 @@ export function formatEnumLabel(
     .map((w) => (w ? w[0].toUpperCase() + w.slice(1) : w))
     .join(" ");
 }
+
+export function optionsFromEnumMap(
+  map,
+  {
+    sortBy = "key",          // "key" | "value" | null
+    includeEmpty = false,    // add { value:"", label:"— Select —" }
+    emptyLabel = "— Select —",
+    toOption = (key, value) => ({ value, label: String(key) }),
+    collatorLocale = "en",
+  } = {}
+) {
+  const entries = Array.from(map.entries()); // [key, value]
+
+  if (sortBy === "key") {
+    entries.sort((a, b) => String(a[0]).localeCompare(String(b[0]), collatorLocale));
+  } else if (sortBy === "value") {
+    entries.sort((a, b) => String(a[1]).localeCompare(String(b[1]), collatorLocale));
+  }
+
+  const opts = entries.map(([k, v]) => toOption(k, v));
+  return includeEmpty ? [{ value: "", label: emptyLabel }, ...opts] : opts;
+}
+
 
 export function formatHeightFeetInches(heightFeet, heightInches, { fallback = null } = {}) {
   const f =

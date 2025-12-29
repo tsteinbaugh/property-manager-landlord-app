@@ -4,6 +4,9 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
 import { vehiclesApi } from "@features/residents/api/vehicles.api.js";
 import { tenantsApi } from "@features/tenants/api/tenants.api.js";
+import { can } from "@lib/rbac/index.js";
+import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
+import { ROLES } from "@lib/rbac/roles.js";
 import VehicleCard from "@features/residents/components/vehicles/VehicleCard.jsx"
 import LinkageCard from "@shared/ui/cards/LinkageCard.jsx"
 
@@ -22,7 +25,16 @@ function vehicleLabel(v) {
 export default function LandlordVehicleDetailsPage() {
   const { vehicleId } = useParams();
   const navigate = useNavigate();
-  const { isSysAdmin, token } = useUser() || {};
+  const { isSysAdmin, token, effectiveRole } = useUser() || {};
+
+  const role = isSysAdmin
+    ? ROLES.SYSADMIN
+    : typeof effectiveRole === "string"
+      ? effectiveRole.toLowerCase()
+      : ROLES.LANDLORD;
+
+  const canUpdate = can(role, R.VEHICLES, A.UPDATE);
+  const canArchiveGrant = can(role, R.VEHICLES, A.ARCHIVE);
 
   const [vehicle, setVehicle] = useState(null);
   const [tenants, setTenants] = useState([]);
@@ -71,8 +83,8 @@ export default function LandlordVehicleDetailsPage() {
 
   const isArchived = !!vehicle?.archivedAt;
 
-  const canEditNow = !isArchived || isSysAdmin;
-  const canArchiveNow = !isArchived;
+  const canEditNow = canUpdate && (!isArchived || isSysAdmin);
+  const canArchiveNow = !isArchived && canArchiveGrant;
   const canUnarchiveNow = isArchived && isSysAdmin;
   const showArchiveLink = canArchiveNow || canUnarchiveNow;
 
@@ -96,15 +108,48 @@ export default function LandlordVehicleDetailsPage() {
   };
 
   const handleToggleArchive = async () => {
-    if (!vehicle?.id) return;
+    if (!vehicle) return;
 
     if (!isArchived) {
+      if (!canArchiveGrant) {
+        alert("You do not have permission to archive vehicles.");
+        return;
+      }
+
+      const archiveReason = window.prompt(
+        "Please provide a reason for archiving this vehicle."
+      );
+
+      if (archiveReason === null) return;
+
+      if (!archiveReason.trim()) {
+        alert("Archiving requires a reason.");
+        return;
+      }
+
       const ok = window.confirm(
         "Are you sure you want to archive this vehicle?\n\n" +
-          "They will be hidden from active vehicle lists. Only a system administrator can unarchive them."
+          "It will be hidden from active lists. Only a system administrator can unarchive it."
       );
       if (!ok) return;
-    } else if (!isSysAdmin) {
+
+      try {
+        setArchiving(true);
+        await vehiclesApi.toggleArchive(vehicle.id, {
+          token,
+          archiveReason: archiveReason.trim(),
+        });
+        await reload();
+      } catch (err) {
+        console.error("Failed to toggle vehicle archive state", err);
+        alert("Failed to change archive status. Check console for details.");
+      } finally {
+        setArchiving(false);
+      }
+      return;
+    }
+
+    if (!isSysAdmin) {
       alert(
         "Only a system administrator can unarchive an archived vehicle.\n\n" +
           "Please contact your system administrator if this needs to be reactivated."
@@ -117,7 +162,7 @@ export default function LandlordVehicleDetailsPage() {
       await vehiclesApi.toggleArchive(vehicle.id, { token });
       await reload();
     } catch (err) {
-      console.error("Failed to toggle vehicle archived state", err);
+      console.error("Failed to toggle vehicle archive state", err);
       alert("Failed to change archive status. Check console for details.");
     } finally {
       setArchiving(false);

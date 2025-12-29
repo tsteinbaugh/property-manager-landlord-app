@@ -7,7 +7,6 @@ const { requireAuth, requireLandlordOrSysadmin } = require("@src/middleware/auth
 const { getLeaseDetails, listLeases } = require("@services/leaseDetails.service.js");
 
 function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
-  // IMPORTANT: requireAuth is a factory (needs prisma)
   const auth = requireAuth(prisma);
 
   // Shared upload wrapper
@@ -340,8 +339,10 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
     }
   );
 
+
+
   // ============================================================
-  // PATCH /api/leases/:id/archive - toggle archivedAt timestamp
+  // PATCH /api/leases/:id/archive - toggle archivedAt + archiveReason
   // ============================================================
   app.patch(
     "/api/leases/:id/archive",
@@ -355,6 +356,7 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
         const lease = await prisma.lease.findUnique({ where: { id } });
         if (!lease) return res.status(404).json({ error: "Lease not found" });
 
+        // landlord scoping
         if (
           user.baseRole === Role.LANDLORD &&
           lease.landlordId &&
@@ -365,9 +367,24 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
           });
         }
 
+        const isArchiving = !lease.archivedAt;
+
+        // Frontend sends { archiveReason }
+        const raw = req.body?.archiveReason;
+        const reason = typeof raw === "string" ? raw.trim() : "";
+
+        // Require reason ONLY when archiving
+        if (isArchiving && !reason) {
+          return res.status(400).json({ error: "archiveReason is required" });
+        }
+
         const updated = await prisma.lease.update({
           where: { id },
-          data: { archivedAt: lease.archivedAt ? null : new Date() },
+          data: {
+            archivedAt: isArchiving ? new Date() : null,
+            archiveReason: isArchiving ? reason : null,
+            archivedById: isArchiving ? user.id : null,
+          },
         });
 
         return res.json(shapeLease(updated));

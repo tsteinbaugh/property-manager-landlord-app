@@ -22,11 +22,12 @@ const allow = (...pairs) => {
 // Note: “own data only” scoping for TENANT will be enforced in your hooks/APIs later.
 export const ROLE_GRANTS = {
   [ROLES.SYSADMIN]: allow(
-    [R.USERS,             all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE, A.DELETE)],
+    [R.USERS,               all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE, A.DELETE)],
     [R.TENANTS,             all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE, A.DELETE)],
-    [R.TENANT_PETS,         all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE, A.DELETE)],
-    [R.TENANT_OCCUPANTS,    all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE, A.DELETE)],
-    [R.TENANT_EMERGENCYCONTACTS,    all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE, A.DELETE)],
+    [R.PETS,                all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE, A.DELETE)],
+    [R.OCCUPANTS,           all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE, A.DELETE)],
+    [R.EMERGENCYCONTACTS,   all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE, A.DELETE)],
+    [R.VEHICLES,                all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE, A.DELETE)],
     [R.LEASES,              all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE, A.DELETE)],
     [R.LEASE_FINANCIALS,    all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE, A.DELETE, A.EXPORT)],
     [R.LEGAL_CASES,         all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE, A.DELETE, A.STATUS)],
@@ -45,9 +46,10 @@ export const ROLE_GRANTS = {
 
   [ROLES.LANDLORD]: allow(
     [R.TENANTS,             all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE)],
-    [R.TENANT_PETS,         all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE)],
-    [R.TENANT_OCCUPANTS,    all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE)],
-    [R.TENANT_EMERGENCYCONTACTS,    all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE)],
+    [R.PETS,                all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE)],
+    [R.OCCUPANTS,           all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE)],
+    [R.EMERGENCYCONTACTS,   all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE)],
+    [R.VEHICLES,                all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE)],
     [R.LEASES,              all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE, A.STATUS)],
     [R.LEASE_FINANCIALS,    all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE, A.EXPORT)],
     [R.LEGAL_CASES,         all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE, A.STATUS)],
@@ -65,9 +67,10 @@ export const ROLE_GRANTS = {
 
   [ROLES.PROPERTY_MANAGER]: allow(
     [R.TENANTS,             all(A.VIEW)],
-    [R.TENANT_PETS,         all(A.VIEW)],
-    [R.TENANT_OCCUPANTS,    all(A.VIEW)],
-    [R.TENANT_EMERGENCYCONTACTS,    all(A.VIEW)],
+    [R.PETS,                all(A.VIEW)],
+    [R.OCCUPANTS,           all(A.VIEW)],
+    [R.EMERGENCYCONTACTS,   all(A.VIEW)],
+    [R.VEHICLES,            all(A.VIEW)],
   
     [R.LEASES,              all(A.VIEW, A.UPDATE, A.STATUS)],         // manage terms/dates/status
     [R.NOTICES,             all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE, A.STATUS)],
@@ -95,9 +98,10 @@ export const ROLE_GRANTS = {
 
   [ROLES.TENANT]: allow(
     [R.TENANTS,             all(A.VIEW, A.UPDATE)],          // own record only (enforce in APIs)
-    [R.TENANT_PETS,         all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE)], // own
-    [R.TENANT_OCCUPANTS,    all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE)], // own
-    [R.TENANT_EMERGENCYCONTACTS,    all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE)], // own
+    [R.PETS,                all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE)], // own
+    [R.OCCUPANTS,           all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE)], // own
+    [R.EMERGENCYCONTACTS,   all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE)], // own
+    [R.VEHICLES,                all(A.VIEW, A.CREATE, A.UPDATE, A.ARCHIVE)], // own
     [R.LEASES,              all(A.VIEW, A.EXPORT)],                     // own
     [R.LEASE_FINANCIALS,    all(A.VIEW, A.EXPORT)],                     // own
     [R.MAINTENANCE_TICKETS, all(A.VIEW, A.CREATE, A.UPDATE)], // own tickets

@@ -4,6 +4,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
 import { occupantsApi } from "@features/residents/api/occupants.api.js";
 import { tenantsApi } from "@features/tenants/api/tenants.api.js";
+import { can } from "@lib/rbac/index.js";
+import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
 import { ROLES } from "@lib/rbac/roles.js";
 import OccupantCard from "@features/residents/components/occupants/OccupantCard.jsx"
 import LinkageCard from "@shared/ui/cards/LinkageCard.jsx"
@@ -21,6 +23,9 @@ export default function LandlordOccupantDetailsPage() {
       : typeof effectiveRole === "string"
         ? effectiveRole.toLowerCase()
         : effectiveRole || ROLES.LANDLORD;
+
+  const canUpdate = can(role, R.OCCUPANTS, A.UPDATE);
+  const canArchiveGrant = can(role, R.OCCUPANTS, A.ARCHIVE);        
 
   const [occupant, setOccupant] = useState(null);
   const [tenants, setTenants] = useState([]);
@@ -67,9 +72,10 @@ export default function LandlordOccupantDetailsPage() {
   }, [occupantId, token]);
 
   const isArchived = !!occupant?.archivedAt;
+  
 
   // Match your earlier resident pages: keep it simple (no RBAC gating here)
-  const canEditNow = !isArchived || isSysAdmin;
+  const canEditNow = canUpdate && (!isArchived || isSysAdmin);
   const canArchiveNow = !isArchived;
   const canUnarchiveNow = isArchived && isSysAdmin;
   const showArchiveLink = canArchiveNow || canUnarchiveNow;
@@ -99,19 +105,50 @@ export default function LandlordOccupantDetailsPage() {
     if (!occupant) return;
 
     if (!isArchived) {
-      const ok = window.confirm(
-        "Are you sure you want to archive this occupant?\n\n" +
-          "They will be hidden from active occupant lists. Only a system administrator can unarchive them."
-      );
-      if (!ok) return;
-    } else {
-      if (!isSysAdmin) {
-        alert(
-          "Only a system administrator can unarchive an archived occupant.\n\n" +
-            "Please contact your system administrator if this needs to be reactivated."
-        );
+      if (!canArchiveGrant) {
+        alert("You do not have permission to archive occupants.");
         return;
       }
+
+      const archiveReason = window.prompt(
+        "Please provide a reason for archiving this occupant."
+      );
+
+      if (archiveReason === null) return;
+
+      if (!archiveReason.trim()) {
+        alert("Archiving requires a reason.");
+        return;
+      }
+
+      const ok = window.confirm(
+        "Are you sure you want to archive this occupant?\n\n" +
+          "It will be hidden from active lists. Only a system administrator can unarchive it."
+      );
+      if (!ok) return;
+
+      try {
+        setArchiving(true);
+        await occupantsApi.toggleArchive(occupant.id, {
+          token,
+          archiveReason: archiveReason.trim(),
+        });
+        await reload();
+      } catch (err) {
+        console.error("Failed to toggle occupant archive state", err);
+        alert("Failed to change archive status. Check console for details.");
+      } finally {
+        setArchiving(false);
+      }
+      return;
+    }
+
+    if (!isSysAdmin) {
+      alert(
+        "Only a system administrator can unarchive an archived occupant.\n\n" +
+          "Please contact your system administrator if this needs to be reactivated."
+      );
+      return;
     }
 
     try {
@@ -119,7 +156,7 @@ export default function LandlordOccupantDetailsPage() {
       await occupantsApi.toggleArchive(occupant.id, { token });
       await reload();
     } catch (err) {
-      console.error("Failed to toggle occupant archived state", err);
+      console.error("Failed to toggle occupant archive state", err);
       alert("Failed to change archive status. Check console for details.");
     } finally {
       setArchiving(false);

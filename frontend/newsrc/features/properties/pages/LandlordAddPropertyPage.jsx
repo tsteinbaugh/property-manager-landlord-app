@@ -33,7 +33,7 @@ export default function LandlordAddPropertyPage() {
   const isEditMode = !!propertyId;
 
   // ------------------------------------------------------------
-  // State dropdown options (same UX as vehicles: select -> code)
+  // State dropdown options
   // ------------------------------------------------------------
   const stateOptions = useMemo(
     () =>
@@ -457,7 +457,7 @@ export default function LandlordAddPropertyPage() {
             )}
           </div>
 
-          {/* State (dropdown like vehicles) */}
+          {/* State (dropdown) */}
           <div style={{ marginBottom: 12 }}>
             <label htmlFor="state" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
               State <span style={{ color: "#b91c1c" }}>*</span>

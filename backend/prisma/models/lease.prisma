@@ -19,6 +19,8 @@ model Lease {
 
   archivedAt   DateTime?
   archiveReason String?
+  archivedById    String?
+  archivedBy      User? @relation("LeaseArchivedBy", fields: [archivedById], references: [id])  
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

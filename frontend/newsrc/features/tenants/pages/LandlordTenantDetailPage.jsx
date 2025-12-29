@@ -136,21 +136,57 @@ export default function LandlordTenantDetailPage() {
   const emergencyContactLinks = Array.isArray(tenant?.emergencyContactLinks) ? tenant.emergencyContactLinks : [];
   const vehicleLinks = Array.isArray(tenant?.vehicleLinks) ? tenant.vehicleLinks : [];
 
+  const reload = async () => {
+    const row = await tenantsApi.get(tenantId, { token });
+    setTenant(row || null);
+  };
+
   const handleToggleArchive = async () => {
-    if (!tenant?.id) return;
+    if (!tenant) return;
 
-    const currentlyArchived = !!tenant.archivedAt;
+    if (!isArchived) {
+      if (!canArchiveGrant) {
+        alert("You do not have permission to archive tenants.");
+        return;
+      }
 
-    if (!currentlyArchived) {
+      const archiveReason = window.prompt(
+        "Please provide a reason for archiving this tenant."
+      );
+
+      if (archiveReason === null) return;
+
+      if (!archiveReason.trim()) {
+        alert("Archiving requires a reason.");
+        return;
+      }
+
       const ok = window.confirm(
         "Are you sure you want to archive this tenant?\n\n" +
           "It will be hidden from active lists. Only a system administrator can unarchive it."
       );
       if (!ok) return;
-    } else if (!isSysAdmin) {
+
+      try {
+        setArchiving(true);
+        await tenantsApi.toggleArchive(tenant.id, {
+          token,
+          archiveReason: archiveReason.trim(),
+        });
+        await reload();
+      } catch (err) {
+        console.error("Failed to toggle tenant archive state", err);
+        alert("Failed to change archive status. Check console for details.");
+      } finally {
+        setArchiving(false);
+      }
+      return;
+    }
+
+    if (!isSysAdmin) {
       alert(
-        "Only a system administrator can unarchive an archived tenant. " +
-          "Please contact your system admin if this needs to be reactivated."
+        "Only a system administrator can unarchive an archived tenant.\n\n" +
+          "Please contact your system administrator if this needs to be reactivated."
       );
       return;
     }
@@ -158,10 +194,9 @@ export default function LandlordTenantDetailPage() {
     try {
       setArchiving(true);
       await tenantsApi.toggleArchive(tenant.id, { token });
-      const fresh = await reloadTenant(tenant.id);
-      setTenant(fresh || tenant);
+      await reload();
     } catch (err) {
-      console.error("Failed to toggle tenant archived state", err);
+      console.error("Failed to toggle tenant archive state", err);
       alert("Failed to change archive status. Check console for details.");
     } finally {
       setArchiving(false);

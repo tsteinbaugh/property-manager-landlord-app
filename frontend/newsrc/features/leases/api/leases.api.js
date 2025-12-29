@@ -87,15 +87,23 @@ export const leasesApi = {
     return mapLeaseFromApi(row);
   },
 
-  async toggleArchive(id, { token } = {}) {
+  async toggleArchive(id, { token, archiveReason } = {}) {
     if (!id) throw new Error("id is required");
+
+    const body =
+      archiveReason === undefined
+        ? undefined
+        : { archiveReason }; // can be string or null depending on your backend rules
+
     const row = await apiFetch(`/api/leases/${id}/archive`, {
       method: "PATCH",
+      body,
       token,
     });
+
     return mapLeaseFromApi(row);
   },
-
+  
   async uploadFile(id, file, { token } = {}) {
     if (!id) throw new Error("id is required");
     if (!file) throw new Error("file is required");

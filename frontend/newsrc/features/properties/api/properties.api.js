@@ -92,12 +92,17 @@ export const propertiesApi = {
     return { id, status };
   },
 
-  async toggleArchive(id, options = {}) {
-    const { token } = options;
+  async toggleArchive(id, { token, archiveReason } = {}) {
     if (!id) throw new Error("id is required");
+
+    const body =
+      archiveReason === undefined
+        ? undefined
+        : { archiveReason }; // can be string or null depending on your backend rules    
 
     const updated = await apiFetch(`/api/properties/${id}/archive`, {
       method: "PATCH",
+      body,
       token,
     });
 
