@@ -148,17 +148,17 @@ function parseOccupantPatch(body) {
   }
   if (src.hairColor !== undefined) {
     const v = parseEnumOrNullOpt(src.hairColor, HAIR_COLOR);
-    if (v === "__INVALID__") return { error: "hairColor is invalid" };
+    if (v === "__INVALID__") return { error: "hair color is invalid" };
     data.hairColor = v;
   }
   if (src.eyeColor !== undefined) {
     const v = parseEnumOrNullOpt(src.eyeColor, EYE_COLOR);
-    if (v === "__INVALID__") return { error: "eyeColor is invalid" };
+    if (v === "__INVALID__") return { error: "eye color is invalid" };
     data.eyeColor = v;
   }
   if (src.bodyBuild !== undefined) {
     const v = parseEnumOrNullOpt(src.bodyBuild, BODY_BUILD);
-    if (v === "__INVALID__") return { error: "bodyBuild is invalid" };
+    if (v === "__INVALID__") return { error: "body build is invalid" };
     data.bodyBuild = v;
   }
 

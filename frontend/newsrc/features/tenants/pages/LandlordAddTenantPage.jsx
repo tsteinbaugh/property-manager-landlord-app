@@ -110,7 +110,7 @@ export default function LandlordAddTenantPage() {
         sortBy: "key",
         toOption: (name, code) => ({
           value: code,
-          label: `${formatEnumLabel(name, { hideUnknown: false })} (${code})`,
+          label: `${formatEnumLabel(name, { hideUnknown: false })}`,
         }),
       }),
     []
@@ -122,7 +122,7 @@ export default function LandlordAddTenantPage() {
         sortBy: "key",
         toOption: (name, code) => ({
           value: code,
-          label: `${formatEnumLabel(name, { hideUnknown: false })} (${code})`,
+          label: `${formatEnumLabel(name, { hideUnknown: false })}`,
         }),
       }),
     []
@@ -134,7 +134,7 @@ export default function LandlordAddTenantPage() {
         sortBy: "key",
         toOption: (name, code) => ({
           value: code,
-          label: `${formatEnumLabel(name, { hideUnknown: false })} (${code})`,
+          label: `${formatEnumLabel(name, { hideUnknown: false })}`,
         }),
       }),
     []
@@ -146,7 +146,7 @@ export default function LandlordAddTenantPage() {
         sortBy: "key",
         toOption: (name, code) => ({
           value: code,
-          label: `${formatEnumLabel(name, { hideUnknown: false })} (${code})`,
+          label: `${formatEnumLabel(name, { hideUnknown: false })}`,
         }),
       }),
     []

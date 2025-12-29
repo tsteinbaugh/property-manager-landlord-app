@@ -1,7 +1,7 @@
 // newsrc/features/residents/components/vehicleCard.jsx
 import { useMemo } from "react";
 import ui from "@shared/styles/CardLayout.module.css";
-import { formatText, formatInt } from "@shared/utils/validation.js";
+import { formatText, formatInt, formatEnumLabel } from "@shared/utils/validation.js";
 
 export default function vehicleCard({
   vehicle,
@@ -22,6 +22,9 @@ export default function vehicleCard({
     const parking = formatText(vehicle.parking, { fallback: null });
     const plate = formatText(vehicle.plate, { fallback: null });
     const permit = formatText(vehicle.permit, { fallback: null });
+    const vehicleType = formatEnumLabel(vehicle.vehicleType);
+    const vehicleSubType = formatText(vehicle.vehicleSubType, { fallback: null });
+    
     const notes = formatText(vehicle.notes, { fallback: null });
 
     const displayName =
@@ -41,6 +44,8 @@ export default function vehicleCard({
       plateLine,
       permit,
       parking,
+      vehicleType,
+      vehicleSubType,
       notes,
     };
   }, [vehicle]);
@@ -62,6 +67,8 @@ export default function vehicleCard({
         </div>
 
         <div className={ui.cardBody}>
+          {vm.vehicleType && vm.vehicleSubType && (<div><strong>Vehicle Type: </strong>{vm.vehicleType} • {vm.vehicleSubType}</div>)}
+          {vm.vehicleType && !vm.vehicleSubType && (<div><strong>Vehicle Type: </strong>{vm.vehicleType}</div>)}
           {vm.make && (<div><strong>Make: </strong>{vm.make}</div>)}
           {vm.model && (<div><strong>Model: </strong>{vm.model}</div>)}
           {vm.year && (<div><strong>Year: </strong>{vm.year}</div>)}
@@ -91,6 +98,8 @@ export default function vehicleCard({
       </div>
 
       <div className={ui.cardBody}>
+        {vm.vehicleType && vm.vehicleSubType && (<div><strong>Vehicle Type: </strong>{vm.vehicleType} • {vm.vehicleSubType}</div>)}
+        {vm.vehicleType && !vm.vehicleSubType && (<div><strong>Vehicle Type: </strong>{vm.vehicleType}</div>)}
         {vm.color && (<div><strong>Color: </strong>{vm.color}</div>)}
         {vm.plateLine && (<div><strong>License Plate # and State: </strong>{vm.plateLine}</div>)}
         {vm.permit && (<div><strong>Permit #: </strong>{vm.permit}</div>)}

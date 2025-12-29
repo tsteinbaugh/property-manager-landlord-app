@@ -1,15 +1,17 @@
 model Vehicle {
   id       String  @id @default(cuid())
 
-  make       String?
-  model      String?
-  year       Int?
-  color      String?
-  state      StateCode?
-  plate      String?
-  permit     String?
-  parking    String?
-  notes      String?
+  make              String
+  model             String
+  year              Int
+  color             String?
+  vehicleType       VehicleType
+  vehicleSubType    String?
+  state             StateCode?
+  plate             String?
+  permit            String?
+  parking           String?
+  notes             String?
 
   archivedAt   DateTime?
   archiveReason String?

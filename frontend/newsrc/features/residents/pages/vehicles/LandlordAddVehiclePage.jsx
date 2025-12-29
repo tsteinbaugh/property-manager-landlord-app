@@ -13,7 +13,11 @@ import {
   parseIntOrNullOpt,
   US_STATE_NAME_TO_CODE,
   optionsFromEnumMap,
-  formatEnumLabel
+  formatEnumLabel,
+  VEHICLE_TYPE,
+  parseEnumOrNullOpt,
+  validateObject,
+  requiredTrimmedString,
 } from "@shared/utils/validation.js";
 
 export default function LandlordAddVehiclePage() {
@@ -36,6 +40,9 @@ export default function LandlordAddVehiclePage() {
   const [plate, setPlate] = useState("");
   const [permit, setPermit] = useState("");
   const [parking, setParking] = useState("");
+  const [vehicleType, setVehicleType] = useState("");
+  const [vehicleSubType, setVehicleSubType] = useState("");
+
   const [notes, setNotes] = useState("");
   const [isSubmitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
@@ -51,10 +58,23 @@ export default function LandlordAddVehiclePage() {
 
   const [selectedExistingVehicleId, setSelectedExistingVehicleId] = useState("");
   const [isLinkingExisting, setIsLinkingExisting] = useState(false);
-  const [touched, setTouched] = useState({ make: false, model: false, year: false });
+  const [touched, setTouched] = useState({ make: false, model: false, year: false, vehicleType: false });
+
+  // ------------------ UI dropdown options ------------------
+  const vehicleTypeOptions = useMemo(
+    () =>
+      optionsFromEnumMap(VEHICLE_TYPE, {
+        sortBy: "key",
+        toOption: (name, code) => ({
+          value: code,
+          label: `${formatEnumLabel(name, { hideUnknown: false })}`,
+        }),
+      }),
+    []
+  ); 
 
   // ------------------------------------------------------------
-  // State dropdown list (gold-standard UX: select -> code)
+  // State dropdown list
   // ------------------------------------------------------------
   const stateOptions = useMemo(
     () =>
@@ -141,6 +161,8 @@ export default function LandlordAddVehiclePage() {
         setPlate(v.plate || "");
         setPermit(v.permit || "");
         setParking(v.parking || "");
+        setVehicleType(v.vehicleType || "");
+        setVehicleSubType(v.vehicleSubType || "");
         setNotes(v.notes || "");
       } catch (err) {
         console.error("Failed to load vehicle for edit", err);
@@ -190,46 +212,66 @@ export default function LandlordAddVehiclePage() {
   // ------------------------------------------------------------
   // Shared payload builder (uses validation.js)
   // ------------------------------------------------------------
-  const buildPayloadOrError = () => {
-    // year: optional int
-    const parsedYear = parseIntOrNullOpt(year, { min: 1886, max: 2100 });
-    if (parsedYear === INVALID) return { error: "Year must be a whole number." };
-
-    // state: optional, must be valid if provided
-    const stateNorm = normalizeState(state);
-    if (stateNorm === INVALID) return { error: "State must be a valid US state or DC." };
-
-    return {
-      payload: {
-        make: optionalTrimToNull(make),
-        model: optionalTrimToNull(model),
-        year: parsedYear === undefined ? null : parsedYear, // form is create/update, so treat empty as null
-        color: optionalTrimToNull(color),
-        state: stateNorm === undefined ? null : stateNorm, // empty -> null
-        plate: optionalTrimToNull(plate),
-        permit: optionalTrimToNull(permit),
-        parking: optionalTrimToNull(parking),
-        notes: optionalTrimToNull(notes),
-      },
+  const buildPayload = () => {
+    const input = {
+      make,
+      model,
+      year,
+      color,
+      state,
+      plate,
+      permit,
+      parking,
+      vehicleType,
+      vehicleSubType,
+      notes,
     };
+    
+    const schema = {
+      make: requiredTrimmedString,
+      model: requiredTrimmedString,
+      year: (v) => parseIntOrNullOpt(v, { min: 1886, max: 2100 }),
+      color: optionalTrimToNull,
+      state: (v) => normalizeState(v),
+      plate: optionalTrimToNull,
+      permit: optionalTrimToNull,
+      parking: optionalTrimToNull,
+      vehicleType: (v) => parseEnumOrNullOpt(v, VEHICLE_TYPE),
+      vehicleSubType: optionalTrimToNull,
+      notes: optionalTrimToNull,
+    };
+    
+    return validateObject(input, schema, {
+      errorMessages: {
+        make: "Make is required.",
+        model: "Model is required.",
+        year: "Year must be a whole number.",
+        state: "State must be a valid US state or DC.",
+        vehicleType: "Vehicle type is invalid.",
+      },
+    });
   };
 
   const handleSubmitGlobal = async (e) => {
     e.preventDefault();
-    setTouched({ make: true, model: true, year: true });
+    setTouched({ make: true, model: true, year: true, vehicleType: true });
+    setFormError("");
 
-    const built = buildPayloadOrError();
-    if (built.error) return setFormError(built.error);
+    const { value: payload, ok, errors } = buildPayload();
+    if (!ok) {
+      const firstKey = Object.keys(errors || {})[0];
+      setFormError(errors?.[firstKey] || "Please fix the highlighted fields.");
+      return;
+    }
 
     try {
       setSubmitting(true);
-      setFormError("");
 
       let saved;
       if (isEditMode) {
-        saved = await vehiclesApi.update(vehicleId, built.payload, { token });
+        saved = await vehiclesApi.update(vehicleId, payload, { token });
       } else {
-        saved = await vehiclesApi.create(built.payload, { token });
+        saved = await vehiclesApi.create(payload, { token });
       }
 
       // After save: prefer returnTo, otherwise go to detail (edit) or list (create)
@@ -279,9 +321,9 @@ export default function LandlordAddVehiclePage() {
 
   const handleSubmitForTenant = async (e) => {
     e.preventDefault();
-    setTouched({ make: true, model: true, year: true });
+    setTouched({ make: true, model: true, year: true, vehicleType: true });
 
-    const built = buildPayloadOrError();
+    const built = buildPayload();
     if (built.error) return setFormError(built.error);
 
     try {
@@ -413,6 +455,46 @@ export default function LandlordAddVehiclePage() {
             <h2 style={{ fontSize: 16, marginBottom: 8 }}>Create new vehicle for this tenant</h2>
 
             <form onSubmit={handleSubmitForTenant}>
+              {/* Vehicle Type */}
+              <div style={{ marginBottom: 12 }}>
+                <label htmlFor="vehicleType" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
+                  Type of vehicle
+                </label>
+                <select
+                  id="vehicleType"
+                  value={vehicleType}
+                  onChange={(e) => setVehicleType(e.target.value)}
+                  style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
+                  disabled={isSubmitting}
+                >               
+                  <option value="">— Select —</option>
+                  {vehicleTypeOptions.map((o) => (
+                    <option key={o.value} value={o.value}>
+                      {o.label}
+                    </option>
+                  ))}
+                </select>
+                {touched.vehicleType && !String(vehicleType).trim() && (
+                  <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>Enter valid vehicle type</div>
+                )}                   
+              </div>
+
+              {/* Vehicle Sub-Type */}
+              <div style={{ marginBottom: 12 }}>
+                <label htmlFor="vehicleSubType" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
+                  Color
+                </label>
+                <input
+                  id="vehicleSubType"
+                  type="text"
+                  value={vehicleSubType}
+                  onChange={(e) => setVehicleSubType(e.target.value)}
+                  placeholder="Jet Ski, Utility Trailer, Class A"
+                  style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
+                  disabled={isSubmitting}
+                />
+              </div>              
+
               {/* Make */}
               <div style={{ marginBottom: 12 }}>
                 <label htmlFor="make" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
@@ -489,7 +571,7 @@ export default function LandlordAddVehiclePage() {
                 />
               </div>
 
-              {/* State (gold standard dropdown) */}
+              {/* State */}
               <div style={{ marginBottom: 12 }}>
                 <label htmlFor="state" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
                   License plate state
@@ -503,7 +585,7 @@ export default function LandlordAddVehiclePage() {
                 >
                   <option value="">— Select —</option>
                   {stateOptions.map((o) => (
-                    <option key={o.code} value={o.code}>
+                    <option key={o.value} value={o.value}>
                       {o.label}
                     </option>
                   ))}
@@ -612,7 +694,7 @@ export default function LandlordAddVehiclePage() {
         <div>
           <h1 className={styles.title}>Add vehicle</h1>
           <p className={styles.subtitle}>
-            Create an vehicle record. You’ll be able to connect vehicles to leases (and tenants) later.
+            Create a vehicle record. You’ll be able to connect vehicles tenants later.
           </p>
         </div>
       </header>
@@ -628,6 +710,46 @@ export default function LandlordAddVehiclePage() {
             background: "#ffffff",
           }}
         >
+          {/* Vehicle Type */}
+          <div style={{ marginBottom: 12 }}>
+            <label htmlFor="vehicleType" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
+              Type of vehicle <span style={{ color: "#b91c1c" }}>*</span>
+            </label>
+            <select
+              id="vehicleType"
+              value={vehicleType}
+              onChange={(e) => setVehicleType(e.target.value)}
+              style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
+              disabled={isSubmitting}
+            >
+              <option value="">— Select —</option>
+              {vehicleTypeOptions.map((o) => (
+                <option key={o.value} value={o.value}>
+                  {o.label}
+                </option>
+              ))}
+            </select>
+            {touched.vehicleType && !String(vehicleType).trim() && (
+              <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>Enter valid vehicle type</div>
+            )}            
+          </div>
+
+          {/* Vehicle Sub-Type */}
+          <div style={{ marginBottom: 12 }}>
+            <label htmlFor="vehicleSubType" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
+              Vehicle Sub-Type
+            </label>
+            <input
+              id="vehicleSubType"
+              type="text"
+              value={vehicleSubType}
+              onChange={(e) => setVehicleSubType(e.target.value)}
+              placeholder="Jet Ski, Utility Trailer, Class A"
+              style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
+              disabled={isSubmitting}
+            />
+          </div>   
+
           {/* Make */}
           <div style={{ marginBottom: 12 }}>
             <label htmlFor="make" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
@@ -704,7 +826,7 @@ export default function LandlordAddVehiclePage() {
             />
           </div>
 
-          {/* State (gold standard dropdown) */}
+          {/* State */}
           <div style={{ marginBottom: 12 }}>
             <label htmlFor="state" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
               License plate state
@@ -718,7 +840,7 @@ export default function LandlordAddVehiclePage() {
             >
               <option value="">— Select —</option>
               {stateOptions.map((o) => (
-                <option key={o.code} value={o.code}>
+                <option key={o.value} value={o.value}>
                   {o.label}
                 </option>
               ))}

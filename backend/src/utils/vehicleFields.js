@@ -6,6 +6,10 @@ const {
   requiredTrimmedString,
 } = require("@utils/validation.js");
 
+const { VEHICLE_TYPE } =
+  require("@shared/vehicleType.enum.js");
+const { parseEnumOrNullOpt } = require("./validation");
+
 function parseVehiclePost(body) {
   const src = body || {};
 
@@ -25,6 +29,10 @@ function parseVehiclePost(body) {
     return { error: "state must be a valid US state (2-letter) or full name, or DC" };
   }
 
+  // enum
+  const vehicleTypeVal = parseEnumOrNullOpt(src.vehicleType, VEHICLE_TYPE);
+  if (vehicleTypeVal === "__INVALID__") return { error: "vehicle type is invalid" };
+
   // optional strings
   const color = optionalTrimToNull(src.color);
   if (color === "__INVALID__") return { error: "color must be a string" };
@@ -37,6 +45,9 @@ function parseVehiclePost(body) {
 
   const parking = optionalTrimToNull(src.parking);
   if (parking === "__INVALID__") return { error: "parking must be a string" };
+
+  const vehicleSubType = optionalTrimToNull(src.vehicleSubType);
+  if (vehicleSubType === "__INVALID__") return { error: "vehicle sub-type must be a string" };
 
   const notes = optionalTrimToNull(src.notes);
   if (notes === "__INVALID__") return { error: "notes must be a string" };
@@ -51,6 +62,8 @@ function parseVehiclePost(body) {
       plate: plate ?? null,
       permit: permit ?? null,
       parking: parking ?? null,
+      vehicleType: vehicleTypeVal ?? null,
+      vehicleSubType: vehicleSubType ?? null,
       notes: notes ?? null,
     },
   };
@@ -109,6 +122,18 @@ function parseVehiclePatch(body) {
     const v = optionalTrimToNull(src.parking);
     if (v === "__INVALID__") return { error: "parking must be a string" };
     data.parking = v;
+  }
+
+  if (src.vehicleType !== undefined) {
+    const v = parseEnumOrNullOpt(src.vehicleType, VEHICLE_TYPE);
+    if (v === "__INVALID__") return { error: "vehicle type is invalid" };
+    data.vehicleType = v;
+  }
+
+  if (src.vehicleSubType !== undefined) {
+    const v = optionalTrimToNull(src.vehicleSubType);
+    if (v === "__INVALID__") return { error: "vehicle sub-type must be a string" };
+    data.vehicleSubType = v;
   }
 
   if (src.notes !== undefined) {

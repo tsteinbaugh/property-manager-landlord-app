@@ -9,6 +9,8 @@ function shapeVehicle(vehicle) {
     plate: vehicle.plate,
     permit: vehicle.permit,
     parking: vehicle.parking,
+    vehicleType: vehicle.vehicleType,
+    vehicleSubType: vehicle.vehicleSubType,
     notes: vehicle.notes,
     archived: vehicle.archivedAt,
     createdAt: vehicle.createdAt,

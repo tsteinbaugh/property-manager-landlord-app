@@ -477,7 +477,7 @@ export default function LandlordAddPropertyPage() {
             >
               <option value="">— Select —</option>
               {stateOptions.map((o) => (
-                <option key={o.code} value={o.code}>
+                <option key={o.value} value={o.value}>
                   {o.label}
                 </option>
               ))}

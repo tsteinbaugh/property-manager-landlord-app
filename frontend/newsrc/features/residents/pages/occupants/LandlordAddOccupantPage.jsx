@@ -68,14 +68,14 @@ export default function LandlordAddOccupantPage() {
   const [selectedExistingOccupantId, setSelectedExistingOccupantId] = useState("");
   const [isLinkingExisting, setIsLinkingExisting] = useState(false);
 
-  // ------------------ UI dropdown options (unchanged) ------------------
+  // ------------------ UI dropdown options ------------------
   const sexOptions = useMemo(
     () =>
       optionsFromEnumMap(SEX, {
         sortBy: "key",
         toOption: (name, code) => ({
           value: code,
-          label: `${formatEnumLabel(name, { hideUnknown: false })} (${code})`,
+          label: `${formatEnumLabel(name, { hideUnknown: false })}`,
         }),
       }),
     []
@@ -87,7 +87,7 @@ export default function LandlordAddOccupantPage() {
         sortBy: "key",
         toOption: (name, code) => ({
           value: code,
-          label: `${formatEnumLabel(name, { hideUnknown: false })} (${code})`,
+          label: `${formatEnumLabel(name, { hideUnknown: false })}`,
         }),
       }),
     []
@@ -99,7 +99,7 @@ export default function LandlordAddOccupantPage() {
         sortBy: "key",
         toOption: (name, code) => ({
           value: code,
-          label: `${formatEnumLabel(name, { hideUnknown: false })} (${code})`,
+          label: `${formatEnumLabel(name, { hideUnknown: false })}`,
         }),
       }),
     []
@@ -111,7 +111,7 @@ export default function LandlordAddOccupantPage() {
         sortBy: "key",
         toOption: (name, code) => ({
           value: code,
-          label: `${formatEnumLabel(name, { hideUnknown: false })} (${code})`,
+          label: `${formatEnumLabel(name, { hideUnknown: false })}`,
         }),
       }),
     []

@@ -151,6 +151,25 @@ export const TENANT_STATUS = new Set ([
 ]);
 
 // ============================================================
+// Vwhicle type enum (from Prisma)
+// ============================================================
+
+export const VEHICLE_TYPE = new Set ([
+  "CAR",
+  "MOTORCYCLE",
+  "TRUCK",
+  "SUV",
+  "VAN",
+  "RV",
+  "BOAT",
+  "TRAILER",
+  "ATV",
+  "UTV",
+  "GOLF_CART",
+  "OTHER",
+]);
+
+// ============================================================
 // String helpers
 // ============================================================
 export function optionalTrimToNull(v) {

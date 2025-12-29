@@ -1,0 +1,14 @@
+enum VehicleType {
+  CAR
+  MOTORCYCLE
+  TRUCK
+  SUV
+  VAN
+  RV
+  BOAT
+  TRAILER
+  ATV
+  UTV
+  GOLF_CART
+  OTHER
+}
