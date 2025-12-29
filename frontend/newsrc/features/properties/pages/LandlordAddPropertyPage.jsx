@@ -14,8 +14,10 @@ import {
   normalizeZipUS,
   parseIntOrNullOpt,
   parseMoneyOrNullOpt,
+  US_STATE_NAME_TO_CODE,
+  optionsFromEnumMap,
+  formatEnumLabel,
 } from "@shared/utils/validation.js";
-import { US_STATE_NAME_TO_CODE } from "@shared/state.enums.js";
 
 export default function LandlordAddPropertyPage() {
   const navigate = useNavigate();
@@ -33,14 +35,17 @@ export default function LandlordAddPropertyPage() {
   // ------------------------------------------------------------
   // State dropdown options (same UX as vehicles: select -> code)
   // ------------------------------------------------------------
-  const stateOptions = useMemo(() => {
-    const entries = Array.from(US_STATE_NAME_TO_CODE.entries()); // NAME -> CODE
-    entries.sort((a, b) => a[0].localeCompare(b[0]));
-    return entries.map(([name, code]) => ({
-      code,
-      label: `${name.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase())} (${code})`,
-    }));
-  }, []);
+  const stateOptions = useMemo(
+    () =>
+      optionsFromEnumMap(US_STATE_NAME_TO_CODE, {
+        sortBy: "key", // state name
+        toOption: (name, code) => ({
+          value: code,
+          label: `${formatEnumLabel(name, { hideUnknown: false })} (${code})`,
+        }),
+      }),
+    []
+  );
 
   // ------------------------------------------------------------
   // Lease-context: list properties for linking

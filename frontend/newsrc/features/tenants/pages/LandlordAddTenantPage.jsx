@@ -22,54 +22,60 @@ import {
   HAIR_COLOR,
   EYE_COLOR,
   BODY_BUILD,
+  optionsFromEnumMap,
+  formatEnumLabel,  
 } from "@shared/utils/validation.js";
 
 const LEASE_DRAFT_KEY = "leaseDraft";
 const LEASE_DRAFT_RETURN_KEY = "leaseDraftReturnTo";
 
-const SEX_OPTIONS = [
-  { value: "", label: "— Select —" },
-  { value: "MALE", label: "Male" },
-  { value: "FEMALE", label: "Female" },
-  { value: "OTHER", label: "Other" },
-  { value: "UNKNOWN", label: "Unknown" },
-];
+const sexOptions = useMemo(
+  () =>
+    optionsFromEnumMap(SEX, {
+      sortBy: "key",
+      toOption: (name, code) => ({
+        value: code,
+        label: `${formatEnumLabel(name, { hideUnknown: false })} (${code})`,
+      }),
+    }),
+  []
+);  
 
-const HAIRCOLOR_OPTIONS = [
-  { value: "", label: "— Select —" },
-  { value: "BLACK", label: "Black" },
-  { value: "BROWN", label: "Brown" },
-  { value: "BLONDE", label: "Blonde" },
-  { value: "RED", label: "Red" },
-  { value: "GRAY", label: "Gray" },
-  { value: "WHITE", label: "White" },
-  { value: "DYED", label: "Dyed" },
-  { value: "BALD", label: "Bald" },
-  { value: "OTHER", label: "Other" },
-  { value: "UNKNOWN", label: "Unknown" },
-];
+const hairColorOptions = useMemo(
+  () =>
+    optionsFromEnumMap(HAIR_COLOR, {
+      sortBy: "key",
+      toOption: (name, code) => ({
+        value: code,
+        label: `${formatEnumLabel(name, { hideUnknown: false })} (${code})`,
+      }),
+    }),
+  []
+);  
 
-const EYECOLOR_OPTIONS = [
-  { value: "", label: "— Select —" },
-  { value: "BROWN", label: "Brown" },
-  { value: "BLUE", label: "Blue" },
-  { value: "GREEN", label: "Green" },
-  { value: "HAZEL", label: "Hazel" },
-  { value: "GRAY", label: "Gray" },
-  { value: "AMBER", label: "Amber" },
-  { value: "OTHER", label: "Other" },
-  { value: "UNKNOWN", label: "Unknown" },
-];
+const eyeColorOptions = useMemo(
+  () =>
+    optionsFromEnumMap(EYE_COLOR, {
+      sortBy: "key",
+      toOption: (name, code) => ({
+        value: code,
+        label: `${formatEnumLabel(name, { hideUnknown: false })} (${code})`,
+      }),
+    }),
+  []
+);  
 
-const BODYBUILD_OPTIONS = [
-  { value: "", label: "— Select —" },
-  { value: "SLIM", label: "Slim" },
-  { value: "AVERAGE", label: "Average" },
-  { value: "ATHLETIC", label: "Athletic" },
-  { value: "HEAVYSET", label: "Heavyset" },
-  { value: "OTHER", label: "Other" },
-  { value: "UNKNOWN", label: "Unknown" },
-];
+const bodyBuildOptions = useMemo(
+  () =>
+    optionsFromEnumMap(BODY_BUILD, {
+      sortBy: "key",
+      toOption: (name, code) => ({
+        value: code,
+        label: `${formatEnumLabel(name, { hideUnknown: false })} (${code})`,
+      }),
+    }),
+  []
+); 
 
 // required wrappers (so validateObject can enforce required fields)
 const requiredPhone = (v) => {
@@ -887,7 +893,7 @@ export default function LandlordAddTenantPage() {
                 }}
                 disabled={isSubmitting}
               >
-                {SEX_OPTIONS.map((o) => (
+                {sexOptions.map((o) => (
                   <option key={o.value} value={o.value}>
                     {o.label}
                   </option>
@@ -919,7 +925,7 @@ export default function LandlordAddTenantPage() {
                 }}
                 disabled={isSubmitting}
               >
-                {HAIRCOLOR_OPTIONS.map((o) => (
+                {hairColorOptions.map((o) => (
                   <option key={o.value} value={o.value}>
                     {o.label}
                   </option>
@@ -951,7 +957,7 @@ export default function LandlordAddTenantPage() {
                 }}
                 disabled={isSubmitting}
               >
-                {EYECOLOR_OPTIONS.map((o) => (
+                {eyeColorOptions.map((o) => (
                   <option key={o.value} value={o.value}>
                     {o.label}
                   </option>
@@ -983,7 +989,7 @@ export default function LandlordAddTenantPage() {
                 }}
                 disabled={isSubmitting}
               >
-                {BODYBUILD_OPTIONS.map((o) => (
+                {bodyBuildOptions.map((o) => (
                   <option key={o.value} value={o.value}>
                     {o.label}
                   </option>

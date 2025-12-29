@@ -7,7 +7,7 @@ import {
   formatEnumLabel,
   formatHeightFeetInches,
   formatWeight,
-  formatPhoneRaw,
+  formatPhonePretty,
   formatEmail,
 } from "@shared/utils/validation.js";
 
@@ -27,7 +27,7 @@ export default function OccupantCard({
       isArchived,
       displayName,
 
-      phone: formatPhoneRaw(occupant.phone, { fallback: null}),
+      phone: formatPhonePretty(occupant.phone, { fallback: null}),
       email: formatEmail(occupant.email, { fallback: null}),
 
       relation: formatText(occupant.relation, { fallback: null }),
@@ -97,8 +97,8 @@ export default function OccupantCard({
       </div>
 
       <div className={ui.cardBody}>
-        {vm.phone && (<div><strong>Phone:</strong>{vm.phone}</div>)}
-        {vm.email && (<div><strong>Email:</strong>{vm.email}</div>)} 
+        {vm.phone && (<div><strong>Phone: </strong>{vm.phone}</div>)}
+        {vm.email && (<div><strong>Email: </strong>{vm.email}</div>)} 
         {vm.age && !vm.phone && !vm.email && (<div><strong>Age: </strong>{vm.age}</div>)}
         {!vm.phone && !vm.email && !vm.age && (
           <div>Click for more details</div>

@@ -15,8 +15,10 @@ import {
   normalizePhone,
   normalizeState,
   normalizeZipUS,
+  US_STATE_NAME_TO_CODE,
+  optionsFromEnumMap,
+  formatEnumLabel,
 } from "@shared/utils/validation.js";
-import { US_STATE_NAME_TO_CODE } from "@shared/state.enums.js";
 
 export default function LandlordAddEmergencyContactPage() {
   const navigate = useNavigate();
@@ -32,14 +34,17 @@ export default function LandlordAddEmergencyContactPage() {
   // ------------------------------------------------------------
   // State dropdown options (same pattern as vehicles/properties)
   // ------------------------------------------------------------
-  const stateOptions = useMemo(() => {
-    const entries = Array.from(US_STATE_NAME_TO_CODE.entries()); // NAME -> CODE
-    entries.sort((a, b) => a[0].localeCompare(b[0]));
-    return entries.map(([name, code]) => ({
-      code,
-      label: `${name.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase())} (${code})`,
-    }));
-  }, []);
+  const stateOptions = useMemo(
+    () =>
+      optionsFromEnumMap(US_STATE_NAME_TO_CODE, {
+        sortBy: "key", // state name
+        toOption: (name, code) => ({
+          value: code,
+          label: `${formatEnumLabel(name, { hideUnknown: false })} (${code})`,
+        }),
+      }),
+    []
+  );
 
   // ---------- form state ----------
   const [name, setName] = useState("");

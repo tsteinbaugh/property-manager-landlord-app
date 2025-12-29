@@ -1,7 +1,7 @@
 // newsrc/features/residents/components/emergencyContactCard.jsx
 import { useMemo } from "react";
 import ui from "@shared/styles/CardLayout.module.css";
-import { formatText, formatPhoneRaw, formatEmail } from "@shared/utils/validation.js";
+import { formatText, formatPhonePretty, formatEmail } from "@shared/utils/validation.js";
 
 export default function EmergencyContactCard({
   emergencyContact,
@@ -17,7 +17,7 @@ export default function EmergencyContactCard({
       fallback: "Unnamed emergency contact",
     });
 
-    const phone = formatPhoneRaw(emergencyContact.phone, { fallback: "—" });
+    const phone = formatPhonePretty(emergencyContact.phone, { fallback: "—" });
     const email = formatEmail(emergencyContact.email, { fallback: "—" });
 
     const street = formatText(emergencyContact.address1, { fallback: null });

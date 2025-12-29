@@ -1,5 +1,5 @@
 //frontend/newsrc/shared/utils/validation.js
-import { US_STATE_CODES, US_STATE_NAME_TO_CODE } from "@shared/state.enums.js";
+import { US_STATE_CODES, US_STATE_NAME_TO_CODE } from "@shared/lib/state.enums.js";
 
 export const INVALID = "__INVALID__";
 
@@ -16,7 +16,12 @@ export const isValidPhone = (v) =>
 // ============================================================
 // Tenant physical-description enums (from Prisma)
 // ============================================================
-export const SEX = new Set(["MALE", "FEMALE", "OTHER", "UNKNOWN"]);
+export const SEX = new Set([
+  "MALE", 
+  "FEMALE", 
+  "OTHER", 
+  "UNKNOWN",
+]);
 export const HAIR_COLOR = new Set([
   "BLACK",
   "BROWN",
@@ -46,6 +51,105 @@ export const BODY_BUILD = new Set([
   "HEAVYSET",
   "OTHER",
   "UNKNOWN",
+]);
+
+
+// ============================================================
+// State enums (from Prisma)
+// ============================================================
+
+export const US_STATE_CODES = new Set([
+  "AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA",
+  "HI","ID","IL","IN","IA","KS","KY","LA","ME","MD",
+  "MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ",
+  "NM","NY","NC","ND","OH","OK","OR","PA","RI","SC",
+  "SD","TN","TX","UT","VT","VA","WA","WV","WI","WY",
+  "DC",
+]);
+
+export const US_STATE_NAME_TO_CODE = new Map([
+  ["ALABAMA","AL"],
+  ["ALASKA","AK"],
+  ["ARIZONA","AZ"],
+  ["ARKANSAS","AR"],
+  ["CALIFORNIA","CA"],
+  ["COLORADO","CO"],
+  ["CONNECTICUT","CT"],
+  ["DELAWARE","DE"],
+  ["FLORIDA","FL"],
+  ["GEORGIA","GA"],
+  ["HAWAII","HI"],
+  ["IDAHO","ID"],
+  ["ILLINOIS","IL"],
+  ["INDIANA","IN"],
+  ["IOWA","IA"],
+  ["KANSAS","KS"],
+  ["KENTUCKY","KY"],
+  ["LOUISIANA","LA"],
+  ["MAINE","ME"],
+  ["MARYLAND","MD"],
+  ["MASSACHUSETTS","MA"],
+  ["MICHIGAN","MI"],
+  ["MINNESOTA","MN"],
+  ["MISSISSIPPI","MS"],
+  ["MISSOURI","MO"],
+  ["MONTANA","MT"],
+  ["NEBRASKA","NE"],
+  ["NEVADA","NV"],
+  ["NEW HAMPSHIRE","NH"],
+  ["NEW JERSEY","NJ"],
+  ["NEW MEXICO","NM"],
+  ["NEW YORK","NY"],
+  ["NORTH CAROLINA","NC"],
+  ["NORTH DAKOTA","ND"],
+  ["OHIO","OH"],
+  ["OKLAHOMA","OK"],
+  ["OREGON","OR"],
+  ["PENNSYLVANIA","PA"],
+  ["RHODE ISLAND","RI"],
+  ["SOUTH CAROLINA","SC"],
+  ["SOUTH DAKOTA","SD"],
+  ["TENNESSEE","TN"],
+  ["TEXAS","TX"],
+  ["UTAH","UT"],
+  ["VERMONT","VT"],
+  ["VIRGINIA","VA"],
+  ["WASHINGTON","WA"],
+  ["WEST VIRGINIA","WV"],
+  ["WISCONSIN","WI"],
+  ["WYOMING","WY"],
+  ["DISTRICT OF COLUMBIA","DC"],
+]);
+
+// ============================================================
+// Status enums (from Prisma)
+// ============================================================
+
+export const USER_STATUS = new Set ([
+  "ACTIVE",
+  "INVITED",
+  "DISABLED",
+]);
+
+
+export const PROPERTY_STATUS = new Set ([
+  "ACTIVE",
+  "INACTIVE",
+]);
+
+export const LEASE_STATUS = new Set ([
+  "DRAFT",
+  "ACTIVE",
+  "ENDED",
+  "TERMINATED",
+  "LEGAL_HOLD",
+]);
+
+export const TENANT_STATUS = new Set ([
+  "DRAFT",
+  "CANDIDATE",
+  "ACTIVE",
+  "INACTIVE",
 ]);
 
 // ============================================================
@@ -272,6 +376,65 @@ export function formatPhoneRaw(phone, { fallback = null } = {}) {
   if (phone === null || phone === undefined) return fallback;
   const s = String(phone).trim();
   return s ? s : fallback;
+}
+
+export function formatPhonePretty(phone, { fallback = null } = {}) {
+  if (phone === null || phone === undefined) return fallback;
+
+  const raw = String(phone).trim();
+  if (!raw) return fallback;
+
+  // Preserve leading +
+  const hasPlus = raw.startsWith("+");
+
+  // Digits only
+  const digits = raw.replace(/\D/g, "");
+  if (!digits) return fallback;
+
+  // ===============================
+  // US / NANP numbers
+  // ===============================
+  // 10-digit: 3035551212
+  if (digits.length === 10) {
+    const [a, b, c] = [
+      digits.slice(0, 3),
+      digits.slice(3, 6),
+      digits.slice(6),
+    ];
+    return `(${a}) ${b}-${c}`;
+  }
+
+  // 11-digit with country code 1
+  // 13035551212 or +13035551212
+  if (digits.length === 11 && digits.startsWith("1")) {
+    const cc = digits[0];
+    const [a, b, c] = [
+      digits.slice(1, 4),
+      digits.slice(4, 7),
+      digits.slice(7),
+    ];
+    return hasPlus
+      ? `+${cc} (${a}) ${b}-${c}`
+      : `(${a}) ${b}-${c}`;
+  }
+
+  // ===============================
+  // International (best-effort)
+  // ===============================
+  // Group as: +CC rest-of-number
+  if (hasPlus && digits.length > 11) {
+    // naive split: country code = first 1–3 digits
+    const cc = digits.slice(0, digits.length - 10);
+    const rest = digits.slice(-10);
+
+    const parts = rest.match(/.{1,3}/g)?.join(" ") ?? rest;
+    return `+${cc} ${parts}`;
+  }
+
+  // ===============================
+  // Fallback — don’t guess
+  // ===============================
+  return raw;
 }
 
 export function formatEmail(email, { fallback = null } = {}) {

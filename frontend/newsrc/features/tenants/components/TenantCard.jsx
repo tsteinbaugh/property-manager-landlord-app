@@ -4,7 +4,7 @@ import ui from "@shared/styles/CardLayout.module.css";
 
 import {
   formatEmail,
-  formatPhoneRaw,
+  formatPhonePretty,
   formatInt,
   formatEnumLabel,
   formatHeightFeetInches,
@@ -27,7 +27,7 @@ export default function TenantCard({
     return {
       isArchived,
       displayName,
-      phone: formatPhoneRaw(tenant.phone, { fallback: "—"}),
+      phone: formatPhonePretty(tenant.phone, { fallback: "—"}),
       email: formatEmail(tenant.email, { fallback: "—"}),
       age: formatInt(tenant.age, { fallback: null }),
     

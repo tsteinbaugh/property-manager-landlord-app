@@ -10,13 +10,10 @@ import {
   parseMoneyOrNullOpt,
   parseEnumOrNullOpt,
   parseDateOrNullOpt,
+  LEASE_STATUS,
 } from "@shared/utils/validation.js";
 
 const LEASE_DRAFT_KEY = "leaseDraft";
-
-// Lease status enum (matches backend)
-const LEASE_STATUS = new Set(["DRAFT", "ACTIVE", "ENDED", "TERMINATED", "LEGAL_HOLD"]);
-const LEASE_STATUS_OPTIONS = ["DRAFT", "ACTIVE", "ENDED", "TERMINATED", "LEGAL_HOLD"];
 
 async function uploadLeaseFile(leaseId, file, token) {
   if (!leaseId || !file || !token) return;
@@ -545,7 +542,7 @@ export default function LandlordAddLeasePage() {
                 style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
                 disabled={isSaving}
               >
-                {LEASE_STATUS_OPTIONS.map((s) => (
+                {LEASE_STATUS.map((s) => (
                   <option key={s} value={s}>
                     {s}
                   </option>

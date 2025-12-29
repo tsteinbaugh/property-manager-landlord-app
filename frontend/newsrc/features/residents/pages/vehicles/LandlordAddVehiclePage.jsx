@@ -11,8 +11,10 @@ import {
   optionalTrimToNull,
   normalizeState,
   parseIntOrNullOpt,
+  US_STATE_NAME_TO_CODE,
+  optionsFromEnumMap,
+  formatEnumLabel
 } from "@shared/utils/validation.js";
-import { US_STATE_NAME_TO_CODE } from "@shared/state.enums.js";
 
 export default function LandlordAddVehiclePage() {
   const navigate = useNavigate();
@@ -54,15 +56,17 @@ export default function LandlordAddVehiclePage() {
   // ------------------------------------------------------------
   // State dropdown list (gold-standard UX: select -> code)
   // ------------------------------------------------------------
-  const stateOptions = useMemo(() => {
-    const entries = Array.from(US_STATE_NAME_TO_CODE.entries()); // NAME -> CODE
-    entries.sort((a, b) => a[0].localeCompare(b[0]));
-    return entries.map(([name, code]) => ({
-      code,
-      label:
-        `${name.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase())} (${code})`,
-    }));
-  }, []);
+  const stateOptions = useMemo(
+    () =>
+      optionsFromEnumMap(US_STATE_NAME_TO_CODE, {
+        sortBy: "key", // state name
+        toOption: (name, code) => ({
+          value: code,
+          label: `${formatEnumLabel(name, { hideUnknown: false })} (${code})`,
+        }),
+      }),
+    []
+  );
 
   // ------------------------------------------------------------
   // Load tenant + vehicles list when tenantId is present
