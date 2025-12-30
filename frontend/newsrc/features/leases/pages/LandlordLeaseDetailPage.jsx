@@ -70,6 +70,8 @@ export default function LandlordLeaseDetailPage() {
   const canUpdate = can(role, R.LEASES, A.UPDATE);
   const canArchiveGrant = can(role, R.LEASES, A.ARCHIVE);
 
+  const [showArchivedDocs, setShowArchivedDocs] = useState(false);
+
   const [lease, setLease] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -131,7 +133,8 @@ export default function LandlordLeaseDetailPage() {
 
   const archived = !!property?.archivedAt;
 
-  const reload = async () => {
+  const reload = async (opts = {}) => {
+    const nextShow = opts.showArchivedDocs ?? showArchivedDocs;
     const row = await leasesApi.get(leaseId, { token });
     setLease(row || null);
   };
@@ -392,10 +395,20 @@ export default function LandlordLeaseDetailPage() {
       {/* Lease info */}
       <div className={ui.section}>
         <div className={ui.sectionHeader}></div>
-          <LeaseCard
-            lease={lease}
-            variant="detail"
-          />
+        <LeaseCard
+          lease={lease}
+          variant="detail"
+          onArchiveDocument={async (docId, reason) => {
+            await leasesApi.archiveDocument(lease.id, docId, { token, archiveReason: reason });
+            await reload(); // keep current toggle mode
+          }}
+          showArchivedDocs={showArchivedDocs}
+          onToggleShowArchivedDocs={async () => {
+            const next = !showArchivedDocs;
+            setShowArchivedDocs(next);
+            await reload({ showArchivedDocs: next });
+          }}
+        />
       </div>
 
       {/* Property */}

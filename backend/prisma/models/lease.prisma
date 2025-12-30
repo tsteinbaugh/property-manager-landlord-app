@@ -17,24 +17,48 @@ model Lease {
   leaseType  LeaseType @default(FIXED_TERM)
   notes      String?
 
-  archivedAt   DateTime?
-  archiveReason String?
+  archivedAt      DateTime?
+  archiveReason   String?
   archivedById    String?
-  archivedBy      User? @relation("LeaseArchivedBy", fields: [archivedById], references: [id])  
+  archivedBy      User? @relation("LeaseArchivedBy", fields: [archivedById], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  fileUrl          String?
-  fileOriginalName String?
-  fileMimeType     String?
-  fileSize         Int?
+  documents LeaseDocument[]
 
   createdById String?
-  createdBy   User?   @relation("LeaseCreatedBy", fields: [createdById], references: [id])
+  createdBy   User? @relation("LeaseCreatedBy", fields: [createdById], references: [id])
 }
 
 enum LeaseType {
   FIXED_TERM
   MONTH_TO_MONTH
+}
+
+model LeaseDocument {
+  id String @id @default(cuid())
+
+  lease   Lease   @relation(fields: [leaseId], references: [id], onDelete: Cascade)
+  leaseId String
+
+  url          String
+  originalName String
+  mimeType     String?
+  size         Int?
+
+  createdAt DateTime @default(now())
+
+  createdById String?
+  createdBy   User? @relation("LeaseDocumentCreatedBy", fields: [createdById], references: [id])
+
+  archivedAt    DateTime?
+  archiveReason String?
+  archivedById  String?
+  archivedBy    User? @relation("LeaseDocumentArchivedBy", fields: [archivedById], references: [id])
+
+  @@index([leaseId])
+  @@index([createdById])
+  @@index([archivedById])
+  @@index([archivedAt])
 }

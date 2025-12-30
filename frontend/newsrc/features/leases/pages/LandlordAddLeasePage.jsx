@@ -17,26 +17,6 @@ import {
 
 const LEASE_DRAFT_KEY = "leaseDraft";
 
-async function uploadLeaseFile(leaseId, file, token) {
-  if (!leaseId || !file || !token) return;
-
-  const form = new FormData();
-  form.append("file", file);
-
-  const res = await fetch(`/api/leases/${leaseId}/file`, {
-    method: "POST",
-    headers: { Authorization: `Bearer ${token}` },
-    body: form,
-  });
-
-  if (!res.ok) {
-    const txt = await res.text().catch(() => "");
-    throw new Error(txt || `Upload failed (${res.status})`);
-  }
-
-  return res.json().catch(() => null);
-}
-
 const RequiredMark = () => (
   <span style={{ color: "#b91c1c", marginLeft: 4 }} aria-hidden="true">
     *
@@ -97,7 +77,7 @@ export default function LandlordAddLeasePage() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
-  const [leaseFile, setLeaseFile] = useState(null);
+  const [leaseFiles, setLeaseFiles] = useState([]);
 
   const [isSaving, setSaving] = useState(false);
   const [formError, setFormError] = useState("");
@@ -353,14 +333,14 @@ export default function LandlordAddLeasePage() {
 
       const updated = await leasesApi.update(qsLeaseId, patch, { token });
 
-      if (updated?.id && leaseFile) {
-        try {
-          await uploadLeaseFile(updated.id, leaseFile, token);
-        } catch (err) {
-          console.error("Lease updated but file upload failed", err);
-          alert("Changes saved, but uploading the lease document failed. You can upload it later.");
-        }
+    if (updated?.id && leaseFiles.length) {
+      try {
+        await leasesApi.uploadDocuments(updated.id, leaseFiles, { token });
+      } catch (err) {
+        console.error("Lease saved but document upload failed", err);
+        alert("Lease was saved, but uploading documents failed. You can upload them later.");
       }
+    }
 
       navigate(`/landlord/leases/${qsLeaseId}`);
     } catch (err) {
@@ -398,12 +378,12 @@ export default function LandlordAddLeasePage() {
 
       const createdLease = await leasesApi.create(payload, { token });
 
-      if (createdLease?.id && leaseFile) {
+      if (createdLease?.id && leaseFiles.length) {
         try {
-          await uploadLeaseFile(createdLease.id, leaseFile, token);
+          await leasesApi.uploadDocuments(createdLease.id, leaseFiles, { token });
         } catch (err) {
-          console.error("Lease created but file upload failed", err);
-          alert("Lease was created, but uploading the document failed. You can upload it later.");
+          console.error("Lease created but document upload failed", err);
+          alert("Lease was created, but uploading documents failed. You can upload them later.");
         }
       }
 
@@ -517,12 +497,23 @@ export default function LandlordAddLeasePage() {
               <input
                 id="leaseFile"
                 type="file"
-                onChange={(e) => setLeaseFile(e.target.files?.[0] || null)}
+                multiple
+                onChange={(e) => setLeaseFiles(Array.from(e.target.files || []))}
                 disabled={isSaving}
               />
-              {leaseFile && (
+              <div style={{ marginTop: 4, fontSize: 12, color: "#6b7280" }}>
+                Upload multiple documents by selecting multiple files
+              </div>
+              {leaseFiles.length > 0 && (
                 <div style={{ marginTop: 4, fontSize: 12, color: "#6b7280" }}>
-                  Selected: {leaseFile.name}
+                  <div>Selected:</div>
+                  <ul style={{ margin: "4px 0 0 16px", padding: 0 }}>
+                    {leaseFiles.map((f) => (
+                      <li key={f.name} style={{ listStyleType: "disc" }}>
+                        {f.name}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               )}
             </div>
@@ -561,7 +552,7 @@ export default function LandlordAddLeasePage() {
               >
                 <option value="">— Select —</option>
                 {leaseStatusOptions.map((s) => (
-                  <option key={s.code} value={s.code}>
+                  <option key={s.value} value={s.value}>
                     {s.label}
                   </option>
                 ))}

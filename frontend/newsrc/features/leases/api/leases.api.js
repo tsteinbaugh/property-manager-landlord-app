@@ -16,6 +16,21 @@ function mapLeaseFromApi(o) {
       }))
     : [];
 
+  const documents = Array.isArray(o.documents)
+    ? o.documents.map((d) => ({
+        id: d.id,
+        url: d.url,
+        originalName: d.originalName,
+        mimeType: d.mimeType,
+        size: d.size ?? null,
+        createdAt: d.createdAt || null,
+        createdById: d.createdById ?? null,
+        archivedAt: d.archivedAt ?? null,
+        archiveReason: d.archiveReason ?? null,
+        archivedById: d.archivedById ?? null,
+      }))
+    : [];
+
   return {
     id: o.id,
 
@@ -43,10 +58,7 @@ function mapLeaseFromApi(o) {
     leaseTenants,
 
     // file metadata
-    fileUrl: o.fileUrl || null,
-    fileOriginalName: o.fileOriginalName || null,
-    fileMimeType: o.fileMimeType || null,
-    fileSize: o.fileSize ?? null,
+    documents,
   };
 }
 
@@ -104,20 +116,18 @@ export const leasesApi = {
     return mapLeaseFromApi(row);
   },
   
-  async uploadFile(id, file, { token } = {}) {
+  async uploadDocuments(id, files, { token } = {}) {
     if (!id) throw new Error("id is required");
-    if (!file) throw new Error("file is required");
+    const list = Array.isArray(files) ? files : [];
+    if (!list.length) throw new Error("files are required");
 
     const form = new FormData();
-    form.append("file", file);
+    for (const f of list) form.append("files", f);
 
-    const row = await apiFetch(`/api/leases/${id}/file`, {
+    const row = await apiFetch(`/api/leases/${id}/documents`, {
       method: "POST",
       body: form,
       token,
-      // apiFetch should NOT force JSON headers when body is FormData.
-      // If your apiFetch currently always sets Content-Type: application/json,
-      // update it to skip that header for FormData bodies.
     });
 
     return mapLeaseFromApi(row);
@@ -155,5 +165,18 @@ export const leasesApi = {
   async unlinkProperty(leaseId, { token } = {}) {
     if (!leaseId) throw new Error("leaseId is required");
     return this.update(leaseId, { propertyId: "" }, { token });
+  },
+
+  async archiveDocument(leaseId, docId, { token, archiveReason } = {}) {
+    if (!leaseId) throw new Error("leaseId is required");
+    if (!docId) throw new Error("docId is required");
+  
+    const row = await apiFetch(`/api/leases/${leaseId}/documents/${docId}/archive`, {
+      method: "PATCH",
+      body: { archiveReason },
+      token,
+    });
+  
+    return mapLeaseFromApi(row);
   },
 };

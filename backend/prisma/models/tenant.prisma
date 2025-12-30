@@ -38,6 +38,8 @@ model Tenant {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  documents TenantDocument[]
+
   leaseTenants LeaseTenant[]
 
   //multi-tenant join links 
@@ -45,4 +47,29 @@ model Tenant {
   petLinks              TenantPet[]
   emergencyContactLinks TenantEmergencyContact[]
   vehicleLinks          TenantVehicle[]
+}
+
+model TenantDocument {
+  id String @id @default(cuid())
+
+  tenant   Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  tenantId String
+
+  url          String
+  originalName String
+  mimeType     String?
+  size         Int?
+
+  createdAt DateTime @default(now())
+  createdById String?
+  createdBy   User? @relation("TenantDocumentCreatedBy", fields: [createdById], references: [id])
+
+  archivedAt      DateTime?
+  archiveReason   String?
+  archivedById    String?
+  archivedBy      User? @relation("TenantDocumentArchivedBy", fields: [archivedById], references: [id])  
+
+  @@index([tenantId])
+  @@index([createdById])
+  @@index([archivedById])
 }

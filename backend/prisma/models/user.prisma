@@ -10,7 +10,12 @@ model User {
   updatedAt DateTime @updatedAt
 
   // Relations
-  leases     Lease[]     @relation("UserLeases")
+  leases                  Lease[]              @relation("UserLeases")
+  leaseDocumentsCreated  LeaseDocument[] @relation("LeaseDocumentCreatedBy")
+  leaseDocumentsArchived LeaseDocument[] @relation("LeaseDocumentArchivedBy")
+  tenantDocumentsCreated  TenantDocument[] @relation("TenantDocumentCreatedBy")
+  tenantDocumentsArchived TenantDocument[] @relation("TenantDocumentArchivedBy")
+
   authTokens AuthToken[]
 
   tenant Tenant?

@@ -1,3 +1,4 @@
+//backend/src/shapes/lease.shape.js
 function shapeLease(lease) {
   if (!lease) return null;
 
@@ -8,7 +9,8 @@ function shapeLease(lease) {
     startDate: lease.startDate,
     endDate: lease.endDate,
     notes: lease.notes,
-    archived: lease.archivedAt,
+    archived: !!lease.archivedAt,
+    archivedAt: lease.archivedAt,
 
     landlordId: lease.landlordId,
     propertyId: lease.propertyId,
@@ -21,7 +23,8 @@ function shapeLease(lease) {
           city: lease.property.city,
           state: lease.property.state,
           postalCode: lease.property.postalCode,
-          archived: lease.property.archivedAt,
+          archived: !!lease.property.archivedAt,
+          archivedAt: lease.property.archivedAt
         }
       : null,
 
@@ -42,7 +45,8 @@ function shapeLease(lease) {
                 name: leaseTenant.tenant.name,
                 email: leaseTenant.tenant.email,
                 phone: leaseTenant.tenant.phone,
-                archived: leaseTenant.tenant.archivedAt,
+                archived: !!leaseTenant.tenant.archivedAt,
+                archivedAt: leaseTenant.tenant.archivedAt
               }
             : null,
         }))
@@ -50,10 +54,20 @@ function shapeLease(lease) {
 
     propertyLabel: lease.propertyLabel || null,
 
-    fileUrl: lease.fileUrl || null,
-    fileOriginalName: lease.fileOriginalName || null,
-    fileMimeType: lease.fileMimeType || null,
-    fileSize: lease.fileSize ?? null,
+    documents: Array.isArray(lease.documents)
+      ? lease.documents.map((d) => ({
+          id: d.id,
+          url: d.url,
+          originalName: d.originalName,
+          mimeType: d.mimeType,
+          size: d.size,
+          createdAt: d.createdAt,
+          createdById: d.createdById,
+          archivedAt: d.archivedAt,
+          archiveReason: d.archiveReason,
+          archivedById: d.archivedById,
+        }))
+      : [],
 
     createdAt: lease.createdAt,
     updatedAt: lease.updatedAt,

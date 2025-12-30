@@ -55,11 +55,16 @@ function assertCanAccessLease(user, lease, { requireUser = true } = {}) {
 async function getLeaseDetails(prisma, { leaseId, user }) {
   const lease = await prisma.lease.findUnique({
     where: { id: leaseId },
-    include: LEASE_DETAILS_INCLUDE,
+    include: {
+      ...LEASE_DETAILS_INCLUDE,
+      documents: {
+        orderBy: { createdAt: "desc" },
+      },
+    },
   });
 
   assertCanAccessLease(user, lease, { requireUser: true });
-  return lease;
+  return lease;  
 }
 
 async function listLeases(prisma, { user, includeArchived = false }) {
@@ -79,6 +84,10 @@ async function listLeases(prisma, { user, includeArchived = false }) {
       property: true,
       landlord: true,
       leaseTenants: { include: { tenant: true }, orderBy: { startDate: "desc" } },
+      documents: { 
+        where: {archivedAt: null },
+        orderBy: { createdAt: "desc" } 
+      },  
     },
   });
 }
