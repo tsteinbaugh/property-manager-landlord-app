@@ -23,7 +23,7 @@ import {
   EYE_COLOR,
   BODY_BUILD,
   optionsFromEnumMap,
-  formatEnumLabel,  
+  formatEnumLabel,
 } from "@shared/utils/validation.js";
 
 const LEASE_DRAFT_KEY = "leaseDraft";
@@ -70,6 +70,8 @@ export default function LandlordAddTenantPage() {
     inEmergencyContactContext ||
     inVehicleContext;
 
+  const isLeaseDraftMode = forLease && !leaseId; // <-- NO tenant exists yet
+
   // ------------------------------------------------------------
   // Form state
   // ------------------------------------------------------------
@@ -96,6 +98,9 @@ export default function LandlordAddTenantPage() {
 
   const [notes, setNotes] = useState("");
 
+  // NEW: attachments (documents/photos)
+  const [tenantFiles, setTenantFiles] = useState([]);
+
   const [isSubmitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
   const [touched, setTouched] = useState({
@@ -114,7 +119,7 @@ export default function LandlordAddTenantPage() {
         }),
       }),
     []
-  );  
+  );
 
   const hairColorOptions = useMemo(
     () =>
@@ -126,7 +131,7 @@ export default function LandlordAddTenantPage() {
         }),
       }),
     []
-  );  
+  );
 
   const eyeColorOptions = useMemo(
     () =>
@@ -138,7 +143,7 @@ export default function LandlordAddTenantPage() {
         }),
       }),
     []
-  );  
+  );
 
   const bodyBuildOptions = useMemo(
     () =>
@@ -150,7 +155,7 @@ export default function LandlordAddTenantPage() {
         }),
       }),
     []
-  );   
+  );
 
   // ------------------------------------------------------------
   // Edit mode: load tenant
@@ -363,6 +368,22 @@ export default function LandlordAddTenantPage() {
     });
   };
 
+  // helper: upload files if present
+  const maybeUploadAttachments = async (tenantIdToUse) => {
+    const list = Array.isArray(tenantFiles) ? tenantFiles : [];
+    if (!tenantIdToUse) return;
+    if (!list.length) return;
+
+    try {
+      await tenantsApi.uploadAttachments(tenantIdToUse, list, { token });
+    } catch (err) {
+      console.error("Tenant saved but attachment upload failed", err);
+      alert(
+        "Tenant was saved, but uploading attachments failed. You can upload them later."
+      );
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setTouched((t) => ({ ...t, name: true, phone: true, email: true }));
@@ -411,6 +432,10 @@ export default function LandlordAddTenantPage() {
       try {
         setSubmitting(true);
         await tenantsApi.update(tenantId, payload, { token });
+
+        // upload attachments AFTER save (edit mode)
+        await maybeUploadAttachments(tenantId);
+
         goBack();
       } catch (err) {
         console.error("Failed to update tenant", err);
@@ -429,6 +454,9 @@ export default function LandlordAddTenantPage() {
         const created = await tenantsApi.create(payload, { token });
 
         if (created?.id) {
+          // upload attachments after create
+          await maybeUploadAttachments(created.id);
+
           try {
             await leasesApi.linkTenant(leaseId, created.id, { token });
           } catch (err) {
@@ -499,6 +527,9 @@ export default function LandlordAddTenantPage() {
         const created = await tenantsApi.create(payload, { token });
 
         if (created?.id) {
+          // upload attachments after create
+          await maybeUploadAttachments(created.id);
+
           try {
             if (inOccupantContext) {
               await tenantsApi.linkOccupant(created.id, occupantId, { token });
@@ -532,7 +563,12 @@ export default function LandlordAddTenantPage() {
     // 4) Normal behavior
     try {
       setSubmitting(true);
-      await tenantsApi.create(payload, { token });
+      const created = await tenantsApi.create(payload, { token });
+
+      if (created?.id) {
+        await maybeUploadAttachments(created.id);
+      }
+
       navigate("/landlord/residents?tab=tenants");
     } catch (err) {
       console.error("Failed to create tenant", err);
@@ -670,6 +706,47 @@ export default function LandlordAddTenantPage() {
           </h2>
 
           <form onSubmit={handleSubmit}>
+            {/* NEW: Attachments */}
+            <div style={{ marginBottom: 12 }}>
+              <label
+                htmlFor="tenantFiles"
+                style={{ display: "block", fontWeight: 500, marginBottom: 4 }}
+              >
+                Attachments (optional)
+              </label>
+
+              <input
+                id="tenantFiles"
+                type="file"
+                multiple
+                onChange={(e) => setTenantFiles(Array.from(e.target.files || []))}
+                disabled={isSubmitting || isLeaseDraftMode}
+              />
+
+              <div style={{ marginTop: 4, fontSize: 12, color: "#6b7280" }}>
+                Upload documents or photos. (Multiple files supported.)
+                {isLeaseDraftMode ? (
+                  <div style={{ marginTop: 4 }}>
+                    Note: lease draft mode does not create a tenant yet, so attachments
+                    can’t be uploaded here. Upload attachments after the tenant exists.
+                  </div>
+                ) : null}
+              </div>
+
+              {tenantFiles.length > 0 && (
+                <div style={{ marginTop: 6, fontSize: 12, color: "#6b7280" }}>
+                  <div>Selected:</div>
+                  <ul style={{ margin: "4px 0 0 16px", padding: 0 }}>
+                    {tenantFiles.map((f) => (
+                      <li key={`${f.name}-${f.size}`} style={{ listStyleType: "disc" }}>
+                        {f.name}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+
             {/* Name */}
             <div style={{ marginBottom: 12 }}>
               <label

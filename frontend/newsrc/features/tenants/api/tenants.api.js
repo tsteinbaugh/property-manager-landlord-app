@@ -1,4 +1,3 @@
-// newsrc/features/residents/api/tenants.api.js
 import { apiFetch } from "@lib/apiClient.js";
 
 function mapTenantFromApi(t) {
@@ -8,20 +7,17 @@ function mapTenantFromApi(t) {
 
   const leaseTenants = Array.isArray(t.leaseTenants) ? t.leaseTenants : [];
 
-  // Normalize link arrays (keep only what the Tenant Detail UI needs)
   const occupantLinks = Array.isArray(t.occupantLinks)
     ? t.occupantLinks
         .map((link) => {
           const o = link?.occupant;
           return {
-            id: link?.id ?? `${link?.tenantId || t.id}:${link?.occupantId || o?.id || "unknown"}`,
+            id:
+              link?.id ??
+              `${link?.tenantId || t.id}:${link?.occupantId || o?.id || "unknown"}`,
             occupantId: link?.occupantId ?? o?.id ?? null,
             occupant: o
-              ? {
-                  id: o.id,
-                  name: o.name,
-                  archived: !!o.archivedAt,
-                }
+              ? { id: o.id, name: o.name, archived: !!o.archivedAt }
               : null,
           };
         })
@@ -33,15 +29,11 @@ function mapTenantFromApi(t) {
         .map((link) => {
           const p = link?.pet;
           return {
-            id: link?.id ?? `${link?.tenantId || t.id}:${link?.petId || p?.id || "unknown"}`,
+            id:
+              link?.id ??
+              `${link?.tenantId || t.id}:${link?.petId || p?.id || "unknown"}`,
             petId: link?.petId ?? p?.id ?? null,
-            pet: p
-              ? {
-                  id: p.id,
-                  name: p.name,
-                  archived: !!p.archivedAt,
-                }
-              : null,
+            pet: p ? { id: p.id, name: p.name, archived: !!p.archivedAt } : null,
           };
         })
         .filter((l) => l.petId)
@@ -57,11 +49,7 @@ function mapTenantFromApi(t) {
               `${link?.tenantId || t.id}:${link?.emergencyContactId || e?.id || "unknown"}`,
             emergencyContactId: link?.emergencyContactId ?? e?.id ?? null,
             emergencyContact: e
-              ? {
-                  id: e.id,
-                  name: e.name,
-                  archived: !!e.archivedAt,
-                }
+              ? { id: e.id, name: e.name, archived: !!e.archivedAt }
               : null,
           };
         })
@@ -73,7 +61,9 @@ function mapTenantFromApi(t) {
         .map((link) => {
           const v = link?.vehicle;
           return {
-            id: link?.id ?? `${link?.tenantId || t.id}:${link?.vehicleId || v?.id || "unknown"}`,
+            id:
+              link?.id ??
+              `${link?.tenantId || t.id}:${link?.vehicleId || v?.id || "unknown"}`,
             vehicleId: link?.vehicleId ?? v?.id ?? null,
             vehicle: v
               ? {
@@ -92,8 +82,22 @@ function mapTenantFromApi(t) {
         .filter((l) => l.vehicleId)
     : [];
 
+  const attachments = Array.isArray(t.attachments)
+    ? t.attachments.map((a) => ({
+        id: a.id,
+        url: a.url,
+        originalName: a.originalName,
+        mimeType: a.mimeType,
+        size: a.size ?? null,
+        createdAt: a.createdAt || null,
+        createdById: a.createdById ?? null,
+        archivedAt: a.archivedAt ?? null,
+        archiveReason: a.archiveReason ?? null,
+        archivedById: a.archivedById ?? null,
+      }))
+    : [];
+
   return {
-    // core fields used by LandlordTenantDetailPage edit form + header
     id: t.id,
     name: t.name || "",
     email: t.email || "",
@@ -115,18 +119,21 @@ function mapTenantFromApi(t) {
     creditScore: t.creditScore ?? null,
 
     notes: t.notes ?? "",
-    
+
     archived,
     archivedAt: t.archivedAt,
 
-    // used by the Properties/Leases sections
+    createdAt: t.createdAt || t.createdAtISO || null,
+    updatedAt: t.updatedAt || t.updatedAtISO || null,
+
     leaseTenants,
 
-    // REAL links only (used by the Occupants/Pets/EmergencyContacts/Vehicles sections)
     occupantLinks,
     petLinks,
     emergencyContactLinks,
     vehicleLinks,
+
+    attachments,
   };
 }
 
@@ -142,17 +149,32 @@ export const tenantsApi = {
     return this.listAll(opts);
   },
 
+  // ------------------------------------------------------------
+  // DETAIL / GET (consistent with leases)
+  // detail() = fetch-by-id
+  // get() = backwards-compatible wrapper
+  // ------------------------------------------------------------
   async detail(id, options = {}) {
     if (!id) throw new Error("id is required");
-    const { token } = options;
-    const t = await apiFetch(`/api/tenants/${id}`, { token });
+
+    const { token, includeArchivedAttachments = false } = options;
+
+    const qs = includeArchivedAttachments ? "?includeArchivedAttachments=1" : "";
+    const t = await apiFetch(`/api/tenants/${id}${qs}`, { token });
+
     if (!t) return null;
     return mapTenantFromApi(t);
   },
 
   async get(id, options = {}) {
+    if (!id) throw new Error("id is required");
+
+    // If token is present, behave like "detail" (fetch by id)
+    if (options?.token) return this.detail(id, options);
+
+    // Legacy fallback (rare): try to find from list
     const rows = await this.list(options);
-    return rows.find((t) => t.id === id) || null;
+    return rows.find((t) => t?.id === id) || null;
   },
 
   async create(payload, options = {}) {
@@ -168,43 +190,92 @@ export const tenantsApi = {
   async update(id, patch, options = {}) {
     if (!id) throw new Error("id is required");
     const { token } = options;
+
     const row = await apiFetch(`/api/tenants/${id}`, {
       method: "PATCH",
       body: patch,
       token,
     });
+
     return mapTenantFromApi(row);
   },
 
-  async toggleArchive(id, { token, archiveReason }= {}) {
+  async toggleArchive(id, options = {}) {
     if (!id) throw new Error("id is required");
 
-    const body =
-      archiveReason === undefined
-        ? undefined
-        : { archiveReason }; // can be string or null depending on your backend rules
+    const { token, archiveReason } = options;
+
+    const body = archiveReason === undefined ? undefined : { archiveReason };
 
     const row = await apiFetch(`/api/tenants/${id}/archive`, {
       method: "PATCH",
       body,
       token,
     });
+
     return mapTenantFromApi(row);
   },
 
   async remove(id, options = {}) {
     if (!id) throw new Error("id is required");
     const { token } = options;
+
     await apiFetch(`/api/tenants/${id}`, {
       method: "DELETE",
       token,
     });
+
     return { ok: true };
   },
 
-  async linkOccupant(tenantId, occupantId, { token } = {}) {
+  // ------------------------------------------------------------
+  // ATTACHMENTS
+  // ------------------------------------------------------------
+  async uploadAttachments(id, files, options = {}) {
+    if (!id) throw new Error("id is required");
+    const { token } = options;
+
+    const list = Array.isArray(files) ? files : [];
+    if (!list.length) throw new Error("files are required");
+
+    const form = new FormData();
+    for (const f of list) form.append("files", f);
+
+    const row = await apiFetch(`/api/tenants/${id}/attachments`, {
+      method: "POST",
+      body: form,
+      token,
+    });
+
+    return mapTenantFromApi(row);
+  },
+
+  async archiveAttachment(tenantId, attachId, options = {}) {
+    if (!tenantId) throw new Error("tenantId is required");
+    if (!attachId) throw new Error("attachId is required");
+
+    const { token, archiveReason } = options;
+
+    const row = await apiFetch(
+      `/api/tenants/${tenantId}/attachments/${attachId}/archive`,
+      {
+        method: "PATCH",
+        body: { archiveReason },
+        token,
+      }
+    );
+
+    return mapTenantFromApi(row);
+  },
+
+  // ------------------------------------------------------------
+  // LINKING
+  // ------------------------------------------------------------
+  async linkOccupant(tenantId, occupantId, options = {}) {
     if (!tenantId) throw new Error("tenantId is required");
     if (!occupantId) throw new Error("occupantId is required");
+
+    const { token } = options;
 
     return apiFetch(`/api/tenants/${tenantId}/occupants/${occupantId}/link`, {
       method: "POST",
@@ -212,9 +283,11 @@ export const tenantsApi = {
     });
   },
 
-  async unlinkOccupant(tenantId, occupantId, { token } = {}) {
+  async unlinkOccupant(tenantId, occupantId, options = {}) {
     if (!tenantId) throw new Error("tenantId is required");
     if (!occupantId) throw new Error("occupantId is required");
+
+    const { token } = options;
 
     return apiFetch(`/api/tenants/${tenantId}/occupants/${occupantId}/unlink`, {
       method: "DELETE",
@@ -222,9 +295,11 @@ export const tenantsApi = {
     });
   },
 
-  async linkPet(tenantId, petId, { token } = {}) {
+  async linkPet(tenantId, petId, options = {}) {
     if (!tenantId) throw new Error("tenantId is required");
     if (!petId) throw new Error("petId is required");
+
+    const { token } = options;
 
     return apiFetch(`/api/tenants/${tenantId}/pets/${petId}/link`, {
       method: "POST",
@@ -232,9 +307,11 @@ export const tenantsApi = {
     });
   },
 
-  async unlinkPet(tenantId, petId, { token } = {}) {
+  async unlinkPet(tenantId, petId, options = {}) {
     if (!tenantId) throw new Error("tenantId is required");
     if (!petId) throw new Error("petId is required");
+
+    const { token } = options;
 
     return apiFetch(`/api/tenants/${tenantId}/pets/${petId}/unlink`, {
       method: "DELETE",
@@ -242,9 +319,11 @@ export const tenantsApi = {
     });
   },
 
-  async linkEmergencyContact(tenantId, emergencyContactId, { token } = {}) {
+  async linkEmergencyContact(tenantId, emergencyContactId, options = {}) {
     if (!tenantId) throw new Error("tenantId is required");
     if (!emergencyContactId) throw new Error("emergencyContactId is required");
+
+    const { token } = options;
 
     return apiFetch(
       `/api/tenants/${tenantId}/emergencyContacts/${emergencyContactId}/link`,
@@ -252,9 +331,11 @@ export const tenantsApi = {
     );
   },
 
-  async unlinkEmergencyContact(tenantId, emergencyContactId, { token } = {}) {
+  async unlinkEmergencyContact(tenantId, emergencyContactId, options = {}) {
     if (!tenantId) throw new Error("tenantId is required");
     if (!emergencyContactId) throw new Error("emergencyContactId is required");
+
+    const { token } = options;
 
     return apiFetch(
       `/api/tenants/${tenantId}/emergencyContacts/${emergencyContactId}/unlink`,
@@ -262,9 +343,11 @@ export const tenantsApi = {
     );
   },
 
-  async linkVehicle(tenantId, vehicleId, { token } = {}) {
+  async linkVehicle(tenantId, vehicleId, options = {}) {
     if (!tenantId) throw new Error("tenantId is required");
     if (!vehicleId) throw new Error("vehicleId is required");
+
+    const { token } = options;
 
     return apiFetch(`/api/tenants/${tenantId}/vehicles/${vehicleId}/link`, {
       method: "POST",
@@ -272,9 +355,11 @@ export const tenantsApi = {
     });
   },
 
-  async unlinkVehicle(tenantId, vehicleId, { token } = {}) {
+  async unlinkVehicle(tenantId, vehicleId, options = {}) {
     if (!tenantId) throw new Error("tenantId is required");
     if (!vehicleId) throw new Error("vehicleId is required");
+
+    const { token } = options;
 
     return apiFetch(`/api/tenants/${tenantId}/vehicles/${vehicleId}/unlink`, {
       method: "DELETE",

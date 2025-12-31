@@ -7,7 +7,7 @@ import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
 import { ROLES } from "@lib/rbac/roles.js";
 import { tenantsApi } from "@features/tenants/api/tenants.api.js";
 import { leasesApi } from "@features/leases/api/leases.api.js";
-import LinkageCard from "@shared/ui/cards/LinkageCard.jsx"
+import LinkageCard from "@shared/ui/cards/LinkageCard.jsx";
 import TenantCard from "@features/tenants/components/TenantCard.jsx";
 
 import ui from "@shared/styles/CardLayout.module.css";
@@ -35,6 +35,8 @@ export default function LandlordTenantDetailPage() {
   const canUpdate = can(role, R.TENANTS, A.UPDATE);
   const canArchiveGrant = can(role, R.TENANTS, A.ARCHIVE);
 
+  const [showArchivedAttachs, setShowArchivedAttachs] = useState(false);
+
   const [tenant, setTenant] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -49,8 +51,14 @@ export default function LandlordTenantDetailPage() {
 
   async function reloadTenant(idToLoad = tenantId) {
     if (!idToLoad || !token) return null;
-    return tenantsApi.detail(idToLoad, { token });
+    return tenantsApi.detail(idToLoad, { token, includeArchivedAttachments: true });
   }
+
+  const reload = async () => {
+    const row = await reloadTenant(tenantId);
+    setTenant(row || null);
+    return row || null;
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -59,30 +67,21 @@ export default function LandlordTenantDetailPage() {
       try {
         setLoading(true);
         setError(null);
-
-        const t = await reloadTenant(tenantId);
-
-        if (cancelled) return;
-
-        if (!t) {
-          setError(new Error("Tenant not found"));
-          setTenant(null);
-        } else {
-          setTenant(t);
-        }
+        const row = await tenantsApi.detail(tenantId, { token, includeArchivedAttachments: true });
+        if (!cancelled) setTenant(row || null);
       } catch (err) {
-        console.error("Failed to load tenant", err);
-        if (!cancelled) {
-          setError(err);
-          setTenant(null);
-        }
+        if (!cancelled) setError(err);
       } finally {
         if (!cancelled) setLoading(false);
       }
     }
 
     if (tenantId && token) load();
-
+    else if (!tenantId) {
+      setLoading(false);
+      setError(new Error("Missing tenant id"));
+    }
+    
     return () => {
       cancelled = true;
     };
@@ -133,13 +132,10 @@ export default function LandlordTenantDetailPage() {
 
   const occupantLinks = Array.isArray(tenant?.occupantLinks) ? tenant.occupantLinks : [];
   const petLinks = Array.isArray(tenant?.petLinks) ? tenant.petLinks : [];
-  const emergencyContactLinks = Array.isArray(tenant?.emergencyContactLinks) ? tenant.emergencyContactLinks : [];
+  const emergencyContactLinks = Array.isArray(tenant?.emergencyContactLinks)
+    ? tenant.emergencyContactLinks
+    : [];
   const vehicleLinks = Array.isArray(tenant?.vehicleLinks) ? tenant.vehicleLinks : [];
-
-  const reload = async () => {
-    const row = await tenantsApi.get(tenantId, { token });
-    setTenant(row || null);
-  };
 
   const handleToggleArchive = async () => {
     if (!tenant) return;
@@ -153,7 +149,6 @@ export default function LandlordTenantDetailPage() {
       const archiveReason = window.prompt(
         "Please provide a reason for archiving this tenant."
       );
-
       if (archiveReason === null) return;
 
       if (!archiveReason.trim()) {
@@ -372,6 +367,17 @@ export default function LandlordTenantDetailPage() {
         <TenantCard
           tenant={tenant}
           variant="detail"
+          onArchiveAttachment={async (attachId, reason) => {
+            await tenantsApi.archiveAttachment(tenant.id, attachId, {
+              token,
+              archiveReason: reason,
+            });
+            await reload();
+          }}
+          showArchivedAttachs={showArchivedAttachs}
+          onToggleShowArchivedAttachs={() => {
+            setShowArchivedAttachs((v) => !v);
+          }}
         />
       </div>
 
@@ -384,7 +390,7 @@ export default function LandlordTenantDetailPage() {
 
         {leaseItems.length ? (
           <div className={ui.grid}>
-            {leaseItems.map(({ lt, lease }) => {
+            {leaseItems.map(({ lease }) => {
               const archived = !!lease.archivedAt;
               const leaseName = leaseLabel(lease);
 
@@ -438,16 +444,16 @@ export default function LandlordTenantDetailPage() {
       <div className={ui.section}>
         <div className={ui.sectionHeader}>
           <div className={ui.sectionTitle}>Properties</div>
-          <div className={ui.sectionHint}>Indirect link:  Property → Lease → Tenant</div>
+          <div className={ui.sectionHint}>Indirect link: Property → Lease → Tenant</div>
         </div>
 
         {propertyGroups.length ? (
           <div className={ui.grid}>
             {propertyGroups.map(({ property, leases }) => {
               const archived = !!property.archivedAt;
-              const propertyName = property.name || property.address1 || property.address || "Property";
+              const propertyName =
+                property.name || property.address1 || property.address || "Property";
 
-              // pick a lease to “manage link on lease”
               const firstLease = Array.isArray(leases) ? leases[0] : null;
               const firstLeaseLabel = firstLease ? leaseLabel(firstLease) : null;
 
@@ -460,11 +466,7 @@ export default function LandlordTenantDetailPage() {
                   badgeTone={archived ? "archived" : "idle"}
                   onClick={() => navigate(`/landlord/properties/${property.id}`)}
                   linkageParts={[propertyName, firstLeaseLabel, title]}
-                  footer={
-                    <div className={`${ui.inlineAction}`}>
-                      Manage link on Lease
-                    </div>
-                  }
+                  footer={<div className={`${ui.inlineAction}`}>Manage link on Lease</div>}
                 />
               );
             })}
@@ -486,7 +488,7 @@ export default function LandlordTenantDetailPage() {
       <div className={ui.section}>
         <div className={ui.sectionHeader}>
           <div className={ui.sectionTitle}>Occupants</div>
-          <div className={ui.sectionHint}>Direct link:  Occupant ↔ Tenant</div>
+          <div className={ui.sectionHint}>Direct link: Occupant ↔ Tenant</div>
         </div>
 
         {occupantLinks.length ? (
@@ -618,10 +620,10 @@ export default function LandlordTenantDetailPage() {
             {emergencyContactLinks.map((link) => {
               const e = link?.emergencyContact;
               if (!e?.id) return null;
-            
+
               const emergencyContactName = e.name || "Unnamed emergency contact";
               const archived = !!e.archivedAt;
-            
+
               return (
                 <LinkageCard
                   key={e.id}
@@ -641,11 +643,14 @@ export default function LandlordTenantDetailPage() {
                       }}
                       disabled={unlinkingEmergencyContactId === e.id}
                     >
-                      {unlinkingEmergencyContactId === e.id ? "Unlinking…" : "Unlink from tenant"}
+                      {unlinkingEmergencyContactId === e.id
+                        ? "Unlinking…"
+                        : "Unlink from tenant"}
                     </button>
                   }
                 />
-            )})}
+              );
+            })}
           </div>
         ) : (
           <div className={ui.muted}>No emergency contacts linked to this tenant yet.</div>
@@ -659,7 +664,9 @@ export default function LandlordTenantDetailPage() {
               const returnTo = encodeURIComponent(
                 `${window.location.pathname}${window.location.search || ""}`
               );
-              navigate(`/landlord/emergencyContacts/new?tenantId=${tenant.id}&returnTo=${returnTo}`);
+              navigate(
+                `/landlord/emergencyContacts/new?tenantId=${tenant.id}&returnTo=${returnTo}`
+              );
             }}
           >
             Add an emergency contact (new or existing)
@@ -671,7 +678,7 @@ export default function LandlordTenantDetailPage() {
       <div className={ui.section}>
         <div className={ui.sectionHeader}>
           <div className={ui.sectionTitle}>Vehicles</div>
-          <div className={ui.sectionHint}>Direct link:  Vehicle ↔ Tenant</div>
+          <div className={ui.sectionHint}>Direct link: Vehicle ↔ Tenant</div>
         </div>
 
         {vehicleLinks.length ? (

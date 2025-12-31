@@ -25,7 +25,7 @@ model Lease {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  documents LeaseDocument[]
+  attachments LeaseAttachment[]
 
   createdById String?
   createdBy   User? @relation("LeaseCreatedBy", fields: [createdById], references: [id])
@@ -36,7 +36,7 @@ enum LeaseType {
   MONTH_TO_MONTH
 }
 
-model LeaseDocument {
+model LeaseAttachment {
   id String @id @default(cuid())
 
   lease   Lease   @relation(fields: [leaseId], references: [id], onDelete: Cascade)
@@ -48,14 +48,13 @@ model LeaseDocument {
   size         Int?
 
   createdAt DateTime @default(now())
-
   createdById String?
-  createdBy   User? @relation("LeaseDocumentCreatedBy", fields: [createdById], references: [id])
+  createdBy   User? @relation("LeaseAttachmentCreatedBy", fields: [createdById], references: [id])
 
   archivedAt    DateTime?
   archiveReason String?
   archivedById  String?
-  archivedBy    User? @relation("LeaseDocumentArchivedBy", fields: [archivedById], references: [id])
+  archivedBy    User? @relation("LeaseAttachmentArchivedBy", fields: [archivedById], references: [id])
 
   @@index([leaseId])
   @@index([createdById])

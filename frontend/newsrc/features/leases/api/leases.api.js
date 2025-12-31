@@ -1,4 +1,3 @@
-// newsrc/features/leases/api/leases.api.js
 import { apiFetch } from "@lib/apiClient.js";
 
 function mapLeaseFromApi(o) {
@@ -16,8 +15,8 @@ function mapLeaseFromApi(o) {
       }))
     : [];
 
-  const documents = Array.isArray(o.documents)
-    ? o.documents.map((d) => ({
+  const attachments = Array.isArray(o.attachments)
+    ? o.attachments.map((d) => ({
         id: d.id,
         url: d.url,
         originalName: d.originalName,
@@ -48,8 +47,7 @@ function mapLeaseFromApi(o) {
     propertyId: o.propertyId || o?.property?.id || null,
     landlordId: o.landlordId || o?.landlord?.id || null,
 
-    // NOTE: tenantId is legacy; keep it for now so old UI doesn't explode,
-    // but prefer leaseTenants going forward.
+    // legacy
     tenantId: o.tenantId || o?.tenant?.id || (leaseTenants[0]?.tenantId ?? null),
 
     property: o.property || null,
@@ -57,8 +55,7 @@ function mapLeaseFromApi(o) {
 
     leaseTenants,
 
-    // file metadata
-    documents,
+    attachments,
   };
 }
 
@@ -74,13 +71,31 @@ export const leasesApi = {
     return this.listAll(opts);
   },
 
-  async get(id, { token } = {}) {
+  // ------------------------------------------------------------
+  // DETAIL / GET (consistent with tenants)
+  // detail() = fetch-by-id
+  // get() = backwards-compatible wrapper
+  // ------------------------------------------------------------
+  async detail(id, options = {}) {
     if (!id) throw new Error("id is required");
+    const { token } = options;
     const row = await apiFetch(`/api/leases/${id}`, { token });
     return mapLeaseFromApi(row);
   },
 
-  async create(payload, { token } = {}) {
+  async get(id, options = {}) {
+    if (!id) throw new Error("id is required");
+
+    // If token is present, behave like "detail" (fetch by id)
+    if (options?.token) return this.detail(id, options);
+
+    // Legacy fallback (rare): try to find from list
+    const rows = await this.list(options);
+    return rows.find((x) => x?.id === id) || null;
+  },
+
+  async create(payload, options = {}) {
+    const { token } = options;
     const row = await apiFetch("/api/leases", {
       method: "POST",
       body: payload,
@@ -89,8 +104,9 @@ export const leasesApi = {
     return mapLeaseFromApi(row);
   },
 
-  async update(id, patch, { token } = {}) {
+  async update(id, patch, options = {}) {
     if (!id) throw new Error("id is required");
+    const { token } = options;
     const row = await apiFetch(`/api/leases/${id}`, {
       method: "PATCH",
       body: patch,
@@ -99,13 +115,13 @@ export const leasesApi = {
     return mapLeaseFromApi(row);
   },
 
-  async toggleArchive(id, { token, archiveReason } = {}) {
+  async toggleArchive(id, options = {}) {
     if (!id) throw new Error("id is required");
 
+    const { token, archiveReason } = options;
+
     const body =
-      archiveReason === undefined
-        ? undefined
-        : { archiveReason }; // can be string or null depending on your backend rules
+      archiveReason === undefined ? undefined : { archiveReason };
 
     const row = await apiFetch(`/api/leases/${id}/archive`, {
       method: "PATCH",
@@ -115,16 +131,21 @@ export const leasesApi = {
 
     return mapLeaseFromApi(row);
   },
-  
-  async uploadDocuments(id, files, { token } = {}) {
+
+  // ------------------------------------------------------------
+  // ATTACHMENTS
+  // ------------------------------------------------------------
+  async uploadAttachments(id, files, options = {}) {
     if (!id) throw new Error("id is required");
+    const { token } = options;
+
     const list = Array.isArray(files) ? files : [];
     if (!list.length) throw new Error("files are required");
 
     const form = new FormData();
     for (const f of list) form.append("files", f);
 
-    const row = await apiFetch(`/api/leases/${id}/documents`, {
+    const row = await apiFetch(`/api/leases/${id}/attachments`, {
       method: "POST",
       body: form,
       token,
@@ -133,9 +154,32 @@ export const leasesApi = {
     return mapLeaseFromApi(row);
   },
 
-  async linkTenant(leaseId, tenantId, { token } = {}) {
+  async archiveAttachment(leaseId, attachId, options = {}) {
+    if (!leaseId) throw new Error("leaseId is required");
+    if (!attachId) throw new Error("attachId is required");
+
+    const { token, archiveReason } = options;
+
+    const row = await apiFetch(
+      `/api/leases/${leaseId}/attachments/${attachId}/archive`,
+      {
+        method: "PATCH",
+        body: { archiveReason },
+        token,
+      }
+    );
+
+    return mapLeaseFromApi(row);
+  },
+
+  // ------------------------------------------------------------
+  // LINKING
+  // ------------------------------------------------------------
+  async linkTenant(leaseId, tenantId, options = {}) {
     if (!leaseId) throw new Error("leaseId is required");
     if (!tenantId) throw new Error("tenantId is required");
+
+    const { token } = options;
 
     return apiFetch(`/api/leases/${leaseId}/tenants/${tenantId}/link`, {
       method: "POST",
@@ -143,9 +187,11 @@ export const leasesApi = {
     });
   },
 
-  async unlinkTenant(leaseId, tenantId, { token } = {}) {
+  async unlinkTenant(leaseId, tenantId, options = {}) {
     if (!leaseId) throw new Error("leaseId is required");
     if (!tenantId) throw new Error("tenantId is required");
+
+    const { token } = options;
 
     try {
       const res = await apiFetch(
@@ -162,21 +208,15 @@ export const leasesApi = {
     }
   },
 
-  async unlinkProperty(leaseId, { token } = {}) {
+  async linkProperty(leaseId, propertyId, { token } = {}) {
     if (!leaseId) throw new Error("leaseId is required");
-    return this.update(leaseId, { propertyId: "" }, { token });
+    if (!propertyId) throw new Error("propertyId is required");
+    return this.update(leaseId, { propertyId }, { token });
   },
 
-  async archiveDocument(leaseId, docId, { token, archiveReason } = {}) {
+  async unlinkProperty(leaseId, options = {}) {
     if (!leaseId) throw new Error("leaseId is required");
-    if (!docId) throw new Error("docId is required");
-  
-    const row = await apiFetch(`/api/leases/${leaseId}/documents/${docId}/archive`, {
-      method: "PATCH",
-      body: { archiveReason },
-      token,
-    });
-  
-    return mapLeaseFromApi(row);
+    const { token } = options;
+    return this.update(leaseId, { propertyId: "" }, { token });
   },
 };

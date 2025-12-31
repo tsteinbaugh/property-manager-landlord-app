@@ -38,7 +38,7 @@ model Tenant {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  documents TenantDocument[]
+  attachments TenantAttachment[]
 
   leaseTenants LeaseTenant[]
 
@@ -49,7 +49,7 @@ model Tenant {
   vehicleLinks          TenantVehicle[]
 }
 
-model TenantDocument {
+model TenantAttachment {
   id String @id @default(cuid())
 
   tenant   Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
@@ -62,14 +62,15 @@ model TenantDocument {
 
   createdAt DateTime @default(now())
   createdById String?
-  createdBy   User? @relation("TenantDocumentCreatedBy", fields: [createdById], references: [id])
+  createdBy   User? @relation("TenantAttachmentCreatedBy", fields: [createdById], references: [id])
 
   archivedAt      DateTime?
   archiveReason   String?
   archivedById    String?
-  archivedBy      User? @relation("TenantDocumentArchivedBy", fields: [archivedById], references: [id])  
+  archivedBy      User? @relation("TenantAttachmentArchivedBy", fields: [archivedById], references: [id])  
 
   @@index([tenantId])
   @@index([createdById])
   @@index([archivedById])
+  @@index([archivedAt])  
 }

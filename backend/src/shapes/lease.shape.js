@@ -54,8 +54,8 @@ function shapeLease(lease) {
 
     propertyLabel: lease.propertyLabel || null,
 
-    documents: Array.isArray(lease.documents)
-      ? lease.documents.map((d) => ({
+    attachments: Array.isArray(lease.attachments)
+      ? lease.attachments.map((d) => ({
           id: d.id,
           url: d.url,
           originalName: d.originalName,

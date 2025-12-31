@@ -11,14 +11,14 @@ model User {
 
   // Relations
   leases                  Lease[]              @relation("UserLeases")
-  leaseDocumentsCreated  LeaseDocument[] @relation("LeaseDocumentCreatedBy")
-  leaseDocumentsArchived LeaseDocument[] @relation("LeaseDocumentArchivedBy")
-  tenantDocumentsCreated  TenantDocument[] @relation("TenantDocumentCreatedBy")
-  tenantDocumentsArchived TenantDocument[] @relation("TenantDocumentArchivedBy")
+  leaseAttachmentsCreated  LeaseAttachment[] @relation("LeaseAttachmentCreatedBy")
+  leaseAttachmentsArchived LeaseAttachment[] @relation("LeaseAttachmentArchivedBy")
 
   authTokens AuthToken[]
 
   tenant Tenant?
+  tenantAttachmentsCreated  TenantAttachment[] @relation("TenantAttachmentCreatedBy")
+  tenantAttachmentsArchived TenantAttachment[] @relation("TenantAttachmentArchivedBy")
 
   propertiesOwned   Property[] @relation("LandlordProperties")
   propertiesCreated Property[] @relation("PropertyCreatedBy")

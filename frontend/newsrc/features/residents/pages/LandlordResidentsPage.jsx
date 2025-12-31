@@ -67,7 +67,11 @@ export default function LandlordResidentsPage() {
   // Load tenants when Tenants tab is active
   useEffect(() => {
     if (activeTab !== "tenants") return;
-    if (!token) return;
+    if (!token) {
+      setTenantsLoading(false);
+      setTenantsError("Not signed in.");
+      return;
+    }
 
     let cancelled = false;
 
@@ -175,7 +179,11 @@ export default function LandlordResidentsPage() {
   // Load occupants when Occupants tab is active
   useEffect(() => {
     if (activeTab !== "occupants") return;
-    if (!token) return;
+    if (!token) {
+      setOccupantsLoading(false);
+      setOccupantsError("Not signed in.");
+      return;
+    }
 
     let cancelled = false;
 
@@ -263,6 +271,7 @@ export default function LandlordResidentsPage() {
         <div className={styles.grid}>
           {visibleOccupants.map((o) => (
             <OccupantCard
+              key={o.id || `${o.name || "occupant"}:${o.createdAt || ""}`}
               occupant={o}
               onClick={() => handleOpenOccupant(o.id)}
             />
@@ -282,7 +291,11 @@ export default function LandlordResidentsPage() {
   // Load pets when Pets tab is active
   useEffect(() => {
     if (activeTab !== "pets") return;
-    if (!token) return;
+    if (!token) {
+      setPetsLoading(false);
+      setPetsError("Not signed in.");
+      return;
+    }
 
     let cancelled = false;
 
@@ -370,6 +383,7 @@ export default function LandlordResidentsPage() {
         <div className={styles.grid}>
           {visiblePets.map((o) => (
             <PetCard
+              key={o.id || `${o.name || "pet"}:${o.createdAt || ""}`}
               pet={o}
               onClick={() => handleOpenPet(o.id)}
             />
@@ -389,7 +403,11 @@ export default function LandlordResidentsPage() {
   // Load emergency contacts when Emergency Contacts tab is active
   useEffect(() => {
     if (activeTab !== "emergencyContacts") return;
-    if (!token) return;
+    if (!token) {
+      setEmergencyContactsLoading(false);
+      setEmergencyContactsError("Not signed in.");
+      return;
+    }
 
     let cancelled = false;
 
@@ -477,6 +495,7 @@ export default function LandlordResidentsPage() {
         <div className={styles.grid}>
           {visibleEmergencyContacts.map((o) => (
             <EmergencyContactCard
+              key={o.id || `${o.name || "emergency contact"}:${o.createdAt || ""}`}
               emergencyContact={o}
               onClick={() => handleOpenEmergencyContact(o.id)}
             />
@@ -496,7 +515,11 @@ export default function LandlordResidentsPage() {
   // Load vehicles when Vehicles tab is active
   useEffect(() => {
     if (activeTab !== "vehicles") return;
-    if (!token) return;
+    if (!token) {
+      setVehiclesLoading(false);
+      setVehiclesError("Not signed in.");
+      return;
+    }
 
     let cancelled = false;
 
@@ -584,6 +607,7 @@ export default function LandlordResidentsPage() {
         <div className={styles.grid}>
           {visibleVehicles.map((o) => (
             <VehicleCard
+              key={o.id || `${o.plate || o.permit || "vehicle"}:${o.createdAt || ""}`}
               vehicle={o}
               onClick={() => handleOpenVehicle(o.id)}
             />

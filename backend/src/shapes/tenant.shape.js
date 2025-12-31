@@ -1,5 +1,7 @@
-//backend/src/shapes/tenant.shape.js
+// backend/src/shapes/tenant.shape.js
 function shapeTenant(tenant) {
+  if (!tenant) return null;
+
   return {
     id: tenant.id,
     name: tenant.name,
@@ -19,11 +21,38 @@ function shapeTenant(tenant) {
     income: tenant.income,
     creditScore: tenant.creditScore,
     notes: tenant.notes,
-    archived: tenant.archivedAt,
+
+    archived: !!tenant.archivedAt,
+    archivedAt: tenant.archivedAt,
+
+    landlordId: tenant.landlordId,
+
+    // Keep any extra payload your detail service returns (leases + linked residents)
+    leaseTenants: Array.isArray(tenant.leaseTenants) ? tenant.leaseTenants : undefined,
+    occupants: Array.isArray(tenant.occupants) ? tenant.occupants : undefined,
+    pets: Array.isArray(tenant.pets) ? tenant.pets : undefined,
+    emergencyContacts: Array.isArray(tenant.emergencyContacts) ? tenant.emergencyContacts : undefined,
+    vehicles: Array.isArray(tenant.vehicles) ? tenant.vehicles : undefined,
+
+    // Attachments (documents + photos) - same shape as lease attachments
+    attachments: Array.isArray(tenant.attachments)
+      ? tenant.attachments.map((a) => ({
+          id: a.id,
+          url: a.url,
+          originalName: a.originalName,
+          mimeType: a.mimeType,
+          size: a.size,
+          createdAt: a.createdAt,
+          createdById: a.createdById,
+          archivedAt: a.archivedAt,
+          archiveReason: a.archiveReason,
+          archivedById: a.archivedById,
+        }))
+      : [],
+
     createdAt: tenant.createdAt,
     updatedAt: tenant.updatedAt,
-    landlordId: tenant.landlordId,
   };
 }
 
-module.exports = { shapeTenant }
+module.exports = { shapeTenant };

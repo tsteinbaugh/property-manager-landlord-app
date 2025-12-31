@@ -6,10 +6,22 @@ const TENANT_DETAILS_INCLUDE = {
     orderBy: { startDate: "desc" },
     include: { lease: { include: { property: true } } },
   },
-  occupantLinks: { where: { occupant: { archivedAt: null } }, include: { occupant: true } },
-  petLinks: { where: { pet: { archivedAt: null } }, include: { pet: true } },
-  emergencyContactLinks: { where: { emergencyContact: { archivedAt: null } }, include: { emergencyContact: true } },
-  vehicleLinks: { where: { vehicle: { archivedAt: null } }, include: { vehicle: true } },
+  occupantLinks: {
+    where: { occupant: { archivedAt: null } },
+    include: { occupant: true },
+  },
+  petLinks: {
+    where: { pet: { archivedAt: null } },
+    include: { pet: true },
+  },
+  emergencyContactLinks: {
+    where: { emergencyContact: { archivedAt: null } },
+    include: { emergencyContact: true },
+  },
+  vehicleLinks: {
+    where: { vehicle: { archivedAt: null } },
+    include: { vehicle: true },
+  },
 };
 
 function assertCanViewTenant(user, tenant) {
@@ -41,18 +53,39 @@ function assertCanViewTenant(user, tenant) {
 }
 
 function buildLinkedResidents(tenant) {
-  const occupants = (tenant.occupantLinks || []).map((l) => l.occupant).filter(Boolean);
-  const pets = (tenant.petLinks || []).map((l) => l.pet).filter(Boolean);
-  const emergencyContacts = (tenant.emergencyContactLinks || []).map((l) => l.emergencyContact).filter(Boolean);
-  const vehicles = (tenant.vehicleLinks || []).map((l) => l.vehicle).filter(Boolean);
+  const occupants = (tenant.occupantLinks || [])
+    .map((l) => l.occupant)
+    .filter(Boolean);
+  const pets = (tenant.petLinks || [])
+    .map((l) => l.pet)
+    .filter(Boolean);
+  const emergencyContacts = (tenant.emergencyContactLinks || [])
+    .map((l) => l.emergencyContact)
+    .filter(Boolean);
+  const vehicles = (tenant.vehicleLinks || [])
+    .map((l) => l.vehicle)
+    .filter(Boolean);
 
   return { occupants, pets, emergencyContacts, vehicles };
 }
 
-async function getTenantDetails(prisma, { tenantId, user }) {
+/**
+ * getTenantDetails(prisma, { tenantId, user, includeArchivedAttachments })
+ *
+ * includeArchivedAttachments:
+ *  - false (default): only return attachments where archivedAt is null
+ *  - true: return all attachments (archived + active)
+ */
+async function getTenantDetails(prisma, { tenantId, user, includeArchivedAttachments = false }) {
   const tenant = await prisma.tenant.findUnique({
     where: { id: tenantId },
-    include: TENANT_DETAILS_INCLUDE,
+    include: {
+      ...TENANT_DETAILS_INCLUDE,
+      attachments: {
+        ...(includeArchivedAttachments ? {} : { where: { archivedAt: null } }),
+        orderBy: { createdAt: "desc" },
+      },
+    },
   });
 
   assertCanViewTenant(user, tenant);

@@ -1,6 +1,7 @@
 // newsrc/features/residents/components/tenants/TenantCard.jsx
 import { useMemo } from "react";
 import ui from "@shared/styles/CardLayout.module.css";
+import AttachmentsSection from "@shared/ui/AttachmentsSection.jsx";
 
 import {
   formatEmail,
@@ -13,7 +14,10 @@ import {
 } from "@shared/utils/validation.js";
 
 export default function TenantCard({ 
-  tenant, 
+  tenant,
+  onArchiveAttachment,
+  showArchivedAttachs = false,
+  onToggleShowArchivedAttachs,  
   onClick,
   variant = "summary", // "summary" | "detail" 
  }) {
@@ -83,6 +87,15 @@ export default function TenantCard({
           {vm.income && <div><strong>Income: </strong>{vm.income}</div>}
           {vm.creditScore && <div><strong>Credit Score: </strong>{vm.creditScore}</div>}
           {vm.notes && <div><strong>Notes: </strong>{vm.notes}</div>}
+          <AttachmentsSection
+            title="Attachments"
+            attachments={tenant.attachments}
+            showArchived={showArchivedAttachs}
+            onToggleShowArchived={onToggleShowArchivedAttachs}
+            onArchive={(attachId, reason) => 
+              onArchiveAttachment?.(attachId, reason)
+            }
+          />     
         </div>
       </div>
     );

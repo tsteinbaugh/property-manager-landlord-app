@@ -7,8 +7,8 @@ import { tenantsApi } from "@features/tenants/api/tenants.api.js";
 import { can } from "@lib/rbac/index.js";
 import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
 import { ROLES } from "@lib/rbac/roles.js";
-import LinkageCard from "@shared/ui/cards/LinkageCard.jsx"
-import LeaseCard from "@features/leases/components/LeaseCard.jsx"
+import LinkageCard from "@shared/ui/cards/LinkageCard.jsx";
+import LeaseCard from "@features/leases/components/LeaseCard.jsx";
 
 import ui from "@shared/styles/CardLayout.module.css";
 
@@ -25,33 +25,29 @@ function normalizeLinkedEntities(tenant) {
   // Supports BOTH shapes:
   // - tenant.occupants/pets/emergencyContacts/vehicles
   // - tenant.occupantLinks/petLinks/emergencyContactLinks/vehicleLinks
-  const occupants =
-    Array.isArray(tenant?.occupants)
-      ? tenant.occupants
-      : Array.isArray(tenant?.occupantLinks)
-        ? tenant.occupantLinks.map((x) => x?.occupant).filter(Boolean)
-        : [];
+  const occupants = Array.isArray(tenant?.occupants)
+    ? tenant.occupants
+    : Array.isArray(tenant?.occupantLinks)
+      ? tenant.occupantLinks.map((x) => x?.occupant).filter(Boolean)
+      : [];
 
-  const pets =
-    Array.isArray(tenant?.pets)
-      ? tenant.pets
-      : Array.isArray(tenant?.petLinks)
-        ? tenant.petLinks.map((x) => x?.pet).filter(Boolean)
-        : [];
+  const pets = Array.isArray(tenant?.pets)
+    ? tenant.pets
+    : Array.isArray(tenant?.petLinks)
+      ? tenant.petLinks.map((x) => x?.pet).filter(Boolean)
+      : [];
 
-  const emergencyContacts =
-    Array.isArray(tenant?.emergencyContacts)
-      ? tenant.emergencyContacts
-      : Array.isArray(tenant?.emergencyContactLinks)
-        ? tenant.emergencyContactLinks.map((x) => x?.emergencyContact).filter(Boolean)
-        : [];
+  const emergencyContacts = Array.isArray(tenant?.emergencyContacts)
+    ? tenant.emergencyContacts
+    : Array.isArray(tenant?.emergencyContactLinks)
+      ? tenant.emergencyContactLinks.map((x) => x?.emergencyContact).filter(Boolean)
+      : [];
 
-  const vehicles =
-    Array.isArray(tenant?.vehicles)
-      ? tenant.vehicles
-      : Array.isArray(tenant?.vehicleLinks)
-        ? tenant.vehicleLinks.map((x) => x?.vehicle).filter(Boolean)
-        : [];
+  const vehicles = Array.isArray(tenant?.vehicles)
+    ? tenant.vehicles
+    : Array.isArray(tenant?.vehicleLinks)
+      ? tenant.vehicleLinks.map((x) => x?.vehicle).filter(Boolean)
+      : [];
 
   return { occupants, pets, emergencyContacts, vehicles };
 }
@@ -70,7 +66,7 @@ export default function LandlordLeaseDetailPage() {
   const canUpdate = can(role, R.LEASES, A.UPDATE);
   const canArchiveGrant = can(role, R.LEASES, A.ARCHIVE);
 
-  const [showArchivedDocs, setShowArchivedDocs] = useState(false);
+  const [showArchivedAttachs, setShowArchivedAttachs] = useState(false);
 
   const [lease, setLease] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -80,10 +76,21 @@ export default function LandlordLeaseDetailPage() {
 
   const [unlinkingTenantId, setUnlinkingTenantId] = useState(null);
   const [unlinkingPropertyId, setUnlinkingPropertyId] = useState(null);
-  
+
   const [tenantDetails, setTenantDetails] = useState([]);
   const [tenantDetailsLoading, setTenantDetailsLoading] = useState(false);
   const [tenantDetailsError, setTenantDetailsError] = useState(null);
+
+  async function reloadLease(idToLoad = leaseId) {
+    if (!idToLoad || !token) return null;
+    return leasesApi.get(idToLoad, { token });
+  }
+
+  const reload = async () => {
+    const row = await reloadLease(leaseId);
+    setLease(row || null);
+    return row || null;
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -107,7 +114,9 @@ export default function LandlordLeaseDetailPage() {
       setError(new Error("Missing lease id"));
     }
 
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [leaseId, token]);
 
   const isArchived = useMemo(() => {
@@ -131,13 +140,7 @@ export default function LandlordLeaseDetailPage() {
 
   const title = leaseTitle(lease);
 
-  const archived = !!property?.archivedAt;
-
-  const reload = async (opts = {}) => {
-    const nextShow = opts.showArchivedDocs ?? showArchivedDocs;
-    const row = await leasesApi.get(leaseId, { token });
-    setLease(row || null);
-  };
+  const propertyArchived = !!property?.archivedAt;
 
   const handleToggleArchive = async () => {
     if (!lease) return;
@@ -151,7 +154,6 @@ export default function LandlordLeaseDetailPage() {
       const archiveReason = window.prompt(
         "Please provide a reason for archiving this lease."
       );
-
       if (archiveReason === null) return;
 
       if (!archiveReason.trim()) {
@@ -213,13 +215,12 @@ export default function LandlordLeaseDetailPage() {
     try {
       setUnlinkingTenantId(tenantId);
       await leasesApi.unlinkTenant(lease.id, tenantId, { token });
-      const fresh = await reloadLease(lease.id);
-      setLease(fresh || lease);
+      await reload();
     } catch (err) {
       console.error("Failed to unlink tenant from lease", err);
       alert("Failed to unlink tenant. Check console for details.");
     } finally {
-      setUnlinkingTenantId(null)
+      setUnlinkingTenantId(null);
     }
   };
 
@@ -234,14 +235,13 @@ export default function LandlordLeaseDetailPage() {
 
     try {
       setUnlinkingPropertyId(propertyId);
-      await leasesApi.unlinkProperty(lease.id, propertyId, { token });
-      const fresh = await reloadLease(lease.id);
-      setLease(fresh || lease);
+      await leasesApi.unlinkProperty(lease.id, { token });
+      await reload();
     } catch (err) {
       console.error("Failed to unlink property from lease", err);
       alert("Failed to unlink property. Check console for details.");
     } finally {
-      setUnlinkingPropertyId(null)
+      setUnlinkingPropertyId(null);
     }
   };
 
@@ -254,7 +254,9 @@ export default function LandlordLeaseDetailPage() {
     }
 
     const leaseTenants = Array.isArray(lease.leaseTenants) ? lease.leaseTenants : [];
-    const tenantIds = Array.from(new Set(leaseTenants.map((lt) => lt.tenantId).filter(Boolean)));
+    const tenantIds = Array.from(
+      new Set(leaseTenants.map((lt) => lt.tenantId).filter(Boolean))
+    );
 
     if (!tenantIds.length) {
       setTenantDetails([]);
@@ -288,8 +290,9 @@ export default function LandlordLeaseDetailPage() {
     }
 
     loadTenantDetails();
-
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [lease, token]);
 
   const tenantById = useMemo(() => {
@@ -344,7 +347,12 @@ export default function LandlordLeaseDetailPage() {
   const leaseTenants = Array.isArray(lease?.leaseTenants) ? lease.leaseTenants : [];
 
   if (loading) return <div className={ui.page}>Loading lease…</div>;
-  if (error) return <div className={ui.page} style={{ color: "crimson" }}>Error loading lease: {String(error?.message || error)}</div>;
+  if (error)
+    return (
+      <div className={ui.page} style={{ color: "crimson" }}>
+        Error loading lease: {String(error?.message || error)}
+      </div>
+    );
   if (!lease) return <div className={ui.page}>No data.</div>;
 
   return (
@@ -366,7 +374,7 @@ export default function LandlordLeaseDetailPage() {
                   className={ui.linkAction}
                   onClick={() => navigate(`/landlord/leases/new?leaseId=${lease.id}`)}
                 >
-                  Edit lease
+                  Edit lease/Add attachments
                 </button>
               ) : null}
 
@@ -387,7 +395,9 @@ export default function LandlordLeaseDetailPage() {
               )}
             </div>
 
-            {isArchived ? <div className={ui.muted}>(Archived – read-only for landlords)</div> : null}
+            {isArchived ? (
+              <div className={ui.muted}>(Archived – read-only for landlords)</div>
+            ) : null}
           </div>
         </div>
       </div>
@@ -398,15 +408,16 @@ export default function LandlordLeaseDetailPage() {
         <LeaseCard
           lease={lease}
           variant="detail"
-          onArchiveDocument={async (docId, reason) => {
-            await leasesApi.archiveDocument(lease.id, docId, { token, archiveReason: reason });
-            await reload(); // keep current toggle mode
+          onArchiveAttachment={async (attachId, reason) => {
+            await leasesApi.archiveAttachment(lease.id, attachId, {
+              token,
+              archiveReason: reason,
+            });
+            await reload();
           }}
-          showArchivedDocs={showArchivedDocs}
-          onToggleShowArchivedDocs={async () => {
-            const next = !showArchivedDocs;
-            setShowArchivedDocs(next);
-            await reload({ showArchivedDocs: next });
+          showArchivedAttachs={showArchivedAttachs}
+          onToggleShowArchivedAttachs={() => {
+            setShowArchivedAttachs((v) => !v);
           }}
         />
       </div>
@@ -422,9 +433,9 @@ export default function LandlordLeaseDetailPage() {
           <LinkageCard
             key={property.id}
             title={propertyName}
-            archived={archived}
-            badgeText={archived ? "Archived" : "Property"}
-            badgeTone={archived ? "archived" : "idle"}
+            archived={propertyArchived}
+            badgeText={propertyArchived ? "Archived" : "Property"}
+            badgeTone={propertyArchived ? "archived" : "idle"}
             onClick={() => navigate(`/landlord/properties/${property.id}`)}
             linkageParts={[propertyName, title]}
             footer={
@@ -437,10 +448,10 @@ export default function LandlordLeaseDetailPage() {
                 }}
                 disabled={unlinkingPropertyId === property.id}
               >
-                {unlinkingTenantId === property.id ? "Unlinking…" : "Unlink from lease"}
+                {unlinkingPropertyId === property.id ? "Unlinking…" : "Unlink from lease"}
               </button>
-            }                  
-          />          
+            }
+          />
         ) : (
           <div className={ui.muted}>No property linked yet.</div>
         )}
@@ -477,7 +488,7 @@ export default function LandlordLeaseDetailPage() {
                   archived={archived}
                   badgeText={archived ? "Archived" : "Tenant"}
                   badgeTone={archived ? "archived" : "idle"}
-                  onClick={() => navigate(`/landlord/tenants/${t.id}`)}
+                  onClick={() => navigate(`/landlord/tenants/${lt.tenantId}`)}
                   linkageParts={[tenantName, title]}
                   footer={
                     <button
@@ -485,13 +496,13 @@ export default function LandlordLeaseDetailPage() {
                       className={`${ui.inlineAction} ${ui.inlineActionDanger}`}
                       onClick={(lete) => {
                         lete.stopPropagation();
-                        handleUnlinkTenant(lt.id);
+                        handleUnlinkTenant(lt.tenantId);
                       }}
-                      disabled={unlinkingTenantId === lt.id}
+                      disabled={unlinkingTenantId === lt.tenantId}
                     >
-                      {unlinkingTenantId === lt.id ? "Unlinking…" : "Unlink from lease"}
+                      {unlinkingTenantId === lt.tenantId ? "Unlinking…" : "Unlink from lease"}
                     </button>
-                  }                  
+                  }
                 />
               );
             })}
@@ -616,7 +627,9 @@ export default function LandlordLeaseDetailPage() {
             })}
           </div>
         ) : (
-          <div className={ui.muted}>No emergency contacts linked through tenants on this lease yet.</div>
+          <div className={ui.muted}>
+            No emergency contacts linked through tenants on this lease yet.
+          </div>
         )}
       </div>
 
@@ -637,9 +650,11 @@ export default function LandlordLeaseDetailPage() {
               const vehicleName =
                 v.permit ||
                 v.plate ||
-                [v.year ? `${v.year},` : null, v.make, v.model].filter(Boolean).join(" ") ||
+                [v.year ? `${v.year},` : null, v.make, v.model]
+                  .filter(Boolean)
+                  .join(" ") ||
                 "Unnamed vehicle";
-              const tenantName = v._tenantName || "UInnamed tenant";
+              const tenantName = v._tenantName || "Unnamed tenant";
 
               return (
                 <LinkageCard

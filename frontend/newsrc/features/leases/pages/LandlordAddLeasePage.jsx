@@ -335,10 +335,10 @@ export default function LandlordAddLeasePage() {
 
     if (updated?.id && leaseFiles.length) {
       try {
-        await leasesApi.uploadDocuments(updated.id, leaseFiles, { token });
+        await leasesApi.uploadAttachments(updated.id, leaseFiles, { token });
       } catch (err) {
-        console.error("Lease saved but document upload failed", err);
-        alert("Lease was saved, but uploading documents failed. You can upload them later.");
+        console.error("Lease saved but attachment upload failed", err);
+        alert("Lease was saved, but uploading attachments failed. You can upload them later.");
       }
     }
 
@@ -380,10 +380,10 @@ export default function LandlordAddLeasePage() {
 
       if (createdLease?.id && leaseFiles.length) {
         try {
-          await leasesApi.uploadDocuments(createdLease.id, leaseFiles, { token });
+          await leasesApi.uploadAttachments(createdLease.id, leaseFiles, { token });
         } catch (err) {
-          console.error("Lease created but document upload failed", err);
-          alert("Lease was created, but uploading documents failed. You can upload them later.");
+          console.error("Lease created but attachment upload failed", err);
+          alert("Lease was created, but uploading attachments failed. You can upload them later.");
         }
       }
 
@@ -489,10 +489,10 @@ export default function LandlordAddLeasePage() {
             onSubmit={isEditMode ? handleEditSubmit : handleCreateSubmit}
             style={{ display: "flex", flexDirection: "column", gap: 12 }}
           >
-            {/* Lease document */}
+            {/* Lease attachment */}
             <div style={{ marginTop: 4 }}>
               <label htmlFor="leaseFile" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                Lease document (optional)
+                Lease attachment (optional)
               </label>
               <input
                 id="leaseFile"
@@ -502,7 +502,7 @@ export default function LandlordAddLeasePage() {
                 disabled={isSaving}
               />
               <div style={{ marginTop: 4, fontSize: 12, color: "#6b7280" }}>
-                Upload multiple documents by selecting multiple files
+                Upload multiple attachments by selecting multiple files
               </div>
               {leaseFiles.length > 0 && (
                 <div style={{ marginTop: 4, fontSize: 12, color: "#6b7280" }}>

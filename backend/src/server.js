@@ -1,4 +1,4 @@
-//backend/src/server.js
+// backend/src/server.js
 require("module-alias/register");
 require("dotenv").config();
 const express = require("express");
@@ -46,10 +46,12 @@ const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "http://localhost:5173";
 // Ensure uploads directory exists BEFORE storage is configured
 const uploadsRoot = path.join(__dirname, "..", "uploads");
 const leasesUploadDir = path.join(uploadsRoot, "leases");
+const tenantsUploadDir = path.join(uploadsRoot, "tenants"); // ✅ ADD
 fs.mkdirSync(leasesUploadDir, { recursive: true });
+fs.mkdirSync(tenantsUploadDir, { recursive: true }); // ✅ ADD
 
 // ---------- Lease File Upload Middleware ----------
-const storage = multer.diskStorage({
+const leaseStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, leasesUploadDir);
   },
@@ -60,15 +62,51 @@ const storage = multer.diskStorage({
 });
 
 const uploadLeaseFile = multer({
-  storage,
+  storage: leaseStorage,
   fileFilter(req, file, cb) {
     const allowed = [
       "application/pdf",
       "application/msword",
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      // If you truly want JPEG here, add:
+      // "image/jpeg",
     ];
     if (!allowed.includes(file.mimetype)) {
-      return cb(new Error("Only PDF or Word documents are allowed for leases."));
+      return cb(new Error("Only PDF, Word or JPEG attachments are allowed."));
+    }
+    cb(null, true);
+  },
+  limits: {
+    fileSize: 25 * 1024 * 1024, // 25 MB
+  },
+});
+
+// ---------- Tenant File Upload Middleware ----------
+const tenantStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, tenantsUploadDir);
+  },
+  filename: (req, file, cb) => {
+    const safeName = file.originalname.replace(/[^a-z0-9.\-_]/gi, "_");
+    cb(null, `${Date.now()}_${safeName}`);
+  },
+});
+
+const uploadTenantFile = multer({
+  storage: tenantStorage,
+  fileFilter(req, file, cb) {
+    // Tenants routes comment says "docs/images"
+    // Keep it similar to leases but allow images too.
+    const allowed = [
+      "application/pdf",
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "image/jpeg",
+      "image/png",
+      "image/webp",
+    ];
+    if (!allowed.includes(file.mimetype)) {
+      return cb(new Error("Only PDF, Word, or image attachments are allowed."));
     }
     cb(null, true);
   },
@@ -89,7 +127,7 @@ app.use(express.json());
 
 app.use(attachUser(prisma));
 
-// Serve uploaded files (e.g. /uploads/leases/...)
+// Serve uploaded files (e.g. /uploads/leases/... and /uploads/tenants/...)
 app.use("/uploads", express.static(uploadsRoot));
 
 // ---------- Health Check ----------
@@ -104,6 +142,7 @@ registerPropertyRoutes(app, prisma, {
 
 registerTenantRoutes(app, prisma, {
   shapeTenant,
+  uploadTenantFile, // ✅ THIS IS THE FIX
 });
 
 registerOccupantRoutes(app, prisma, {

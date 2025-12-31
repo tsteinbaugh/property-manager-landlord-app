@@ -57,7 +57,7 @@ async function getLeaseDetails(prisma, { leaseId, user }) {
     where: { id: leaseId },
     include: {
       ...LEASE_DETAILS_INCLUDE,
-      documents: {
+      attachments: {
         orderBy: { createdAt: "desc" },
       },
     },
@@ -84,7 +84,7 @@ async function listLeases(prisma, { user, includeArchived = false }) {
       property: true,
       landlord: true,
       leaseTenants: { include: { tenant: true }, orderBy: { startDate: "desc" } },
-      documents: { 
+      attachments: { 
         where: {archivedAt: null },
         orderBy: { createdAt: "desc" } 
       },  

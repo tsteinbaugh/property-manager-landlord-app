@@ -135,7 +135,7 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
               include: { tenant: true },
               orderBy: { startDate: "desc" },
             },
-            documents: { 
+            attachments: { 
               orderBy: { createdAt: "desc" } 
             },
           },
@@ -150,11 +150,11 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
   );
 
   // ============================================================
-  // POST /api/leases/:id/documents - upload one or more docs
+  // POST /api/leases/:id/attachments - upload one or more attachs
   // field name: "files"
   // ============================================================
   app.post(
-    "/api/leases/:id/documents",
+    "/api/leases/:id/attachments",
     auth,
     requireLandlordOrSysadmin,
     uploadMany("files", 10),
@@ -181,7 +181,7 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
           return res.status(400).json({ error: "At least one file is required" });
         }
 
-        await prisma.leaseDocument.createMany({
+        await prisma.leaseAttachment.createMany({
           data: files.map((f) => ({
             leaseId: id,
             url: `/uploads/leases/${f.filename}`,
@@ -192,7 +192,7 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
           })),
         });
 
-        // return updated lease (with documents)
+        // return updated lease (with attachments)
         const lease = await prisma.lease.findUnique({
           where: { id },
           include: {
@@ -202,7 +202,7 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
               include: { tenant: true },
               orderBy: { startDate: "desc" },
             },
-            documents: { 
+            attachments: { 
               orderBy: { createdAt: "desc" } 
             },
           },
@@ -210,7 +210,7 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
 
         return res.json(shapeLease(lease));
       } catch (err) {
-        console.error("Error in POST /api/leases/:id/documents", err);
+        console.error("Error in POST /api/leases/:id/attachments", err);
         return res.status(500).json({ error: err.message || "Server error" });
       }
     }
@@ -417,7 +417,7 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
               include: { tenant: true },
               orderBy: { startDate: "desc" },
             },
-            documents: {
+            attachments: {
               orderBy: { createdAt: "desc" },
             },
           },
@@ -432,16 +432,16 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
   );
 
   // ============================================================
-  // PATCH /api/leases/:leaseId/documents/:docId/archive
+  // PATCH /api/leases/:leaseId/attachments/:attachId/archive
   // Body: { archiveReason: string }  (required when archiving)
   // ============================================================
   app.patch(
-    "/api/leases/:leaseId/documents/:docId/archive",
+    "/api/leases/:leaseId/attachments/:attachId/archive",
     auth,
     requireLandlordOrSysadmin,
     async (req, res) => {
       try {
-        const { leaseId, docId } = req.params;
+        const { leaseId, attachId } = req.params;
         const user = req.user;
 
         const lease = await prisma.lease.findUnique({ where: { id: leaseId } });
@@ -452,12 +452,12 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
           return res.status(403).json({ error: "Forbidden" });
         }
 
-        const doc = await prisma.leaseDocument.findUnique({ where: { id: docId } });
-        if (!doc || doc.leaseId !== leaseId) {
-          return res.status(404).json({ error: "Document not found" });
+        const attach = await prisma.leaseAttachment.findUnique({ where: { id: attachId } });
+        if (!attach || attach.leaseId !== leaseId) {
+          return res.status(404).json({ error: "Attachment not found" });
         }
 
-        const isArchiving = !doc.archivedAt;
+        const isArchiving = !attach.archivedAt;
 
         const raw = req.body?.archiveReason;
         const reason = typeof raw === "string" ? raw.trim() : "";
@@ -466,8 +466,8 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
           return res.status(400).json({ error: "archiveReason is required" });
         }
 
-        await prisma.leaseDocument.update({
-          where: { id: docId },
+        await prisma.leaseAttachment.update({
+          where: { id: attachId },
           data: {
             archivedAt: isArchiving ? new Date() : null,
             archiveReason: isArchiving ? reason : null,
@@ -475,7 +475,7 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
           },
         });
 
-        // return refreshed lease (hide archived docs by default)
+        // return refreshed lease (hide archived attachs by default)
         const refreshed = await prisma.lease.findUnique({
           where: { id: leaseId },
           include: {
@@ -485,7 +485,7 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
               include: { tenant: true },
               orderBy: { startDate: "desc" },
             },
-            documents: {
+            attachments: {
               orderBy: { createdAt: "desc" },
             },
           },
@@ -493,7 +493,7 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
 
         return res.json(shapeLease(refreshed));
       } catch (err) {
-        console.error("Error archiving lease document", err);
+        console.error("Error archiving lease attachment", err);
         return res.status(500).json({ error: "Server error" });
       }
     }
