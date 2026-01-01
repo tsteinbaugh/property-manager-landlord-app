@@ -1,13 +1,10 @@
 // newsrc/features/residents/components/vehicleCard.jsx
 import { useMemo } from "react";
-import ui from "@shared/styles/CardLayout.module.css";
+import card from "@shared/styles/ui.cards.module.css";
+import shared from "@shared/styles/ui.shared.module.css";
 import { formatText, formatInt, formatEnumLabel } from "@shared/utils/validation.js";
 
-export default function vehicleCard({
-  vehicle,
-  onClick,
-  variant = "summary", // "summary" | "detail"
-}) {
+export default function VehicleCard({ vehicle, onClick, variant = "summary" }) {
   if (!vehicle) return null;
 
   const vm = useMemo(() => {
@@ -24,22 +21,18 @@ export default function vehicleCard({
     const permit = formatText(vehicle.permit, { fallback: null });
     const vehicleType = formatEnumLabel(vehicle.vehicleType);
     const vehicleSubType = formatText(vehicle.vehicleSubType, { fallback: null });
-    
+
     const notes = formatText(vehicle.notes, { fallback: null });
 
-    const displayName =
-      [`${year},`, make, model].filter(Boolean).join(" ") || "Unnamed vehicle";
-
+    const displayName = [`${year},`, make, model].filter(Boolean).join(" ") || "Unnamed vehicle";
     const plateLine = plate && state ? `${plate} • ${state}` : null;
 
     return {
       isArchived,
       displayName,
-
       make,
       model,
       year,
-
       color,
       plateLine,
       permit,
@@ -51,7 +44,7 @@ export default function vehicleCard({
   }, [vehicle]);
 
   const badgeText = vm.isArchived ? "Archived" : "Vehicle";
-  const badgeClass = vm.isArchived ? ui.badgeArchived : ui.badgeIdle;
+  const badgeClass = vm.isArchived ? card.badgeArchived : card.badgeIdle;
 
   // ============================================================
   // DETAIL VARIANT (full info, non-clickable)
@@ -60,23 +53,79 @@ export default function vehicleCard({
     const headerTitle = "Vehicle Info";
 
     return (
-      <div className={`${ui.card} ${vm.isArchived ? ui.cardArchived : ""}`}>
-        <div className={ui.cardHeader}>
-          <div className={ui.cardTitle}>{headerTitle}</div>
-          <span className={`${ui.badge} ${badgeClass}`}>{badgeText}</span>
+      <div className={`${card.card} ${card.cardForm} ${vm.isArchived ? card.cardArchived : ""}`}>
+        <div className={card.cardHeader}>
+          <div className={card.cardTitle}>{headerTitle}</div>
+          <span className={`${card.badge} ${badgeClass}`}>{badgeText}</span>
         </div>
 
-        <div className={ui.cardBody}>
-          {vm.vehicleType && vm.vehicleSubType && (<div><strong>Vehicle Type: </strong>{vm.vehicleType} • {vm.vehicleSubType}</div>)}
-          {vm.vehicleType && !vm.vehicleSubType && (<div><strong>Vehicle Type: </strong>{vm.vehicleType}</div>)}
-          {vm.make && (<div><strong>Make: </strong>{vm.make}</div>)}
-          {vm.model && (<div><strong>Model: </strong>{vm.model}</div>)}
-          {vm.year && (<div><strong>Year: </strong>{vm.year}</div>)}
-          {vm.color && (<div><strong>Color: </strong>{vm.color}</div>)}
-          {vm.plateLine && (<div><strong>License Plate # and State: </strong>{vm.plateLine}</div>)}
-          {vm.permit && (<div><strong>Permit #: </strong>{vm.permit}</div>)}
-          {vm.parking && (<div><strong>Parking #: </strong>{vm.parking}</div>)}
-          {vm.notes && (<div><strong>Notes: </strong>{vm.notes}</div>)}
+        <div className={card.cardBody}>
+          {vm.vehicleType ? (
+            <div>
+              <strong>Type: </strong>
+              {vm.vehicleType}
+              {vm.vehicleSubType ? ` • ${vm.vehicleSubType}` : null}
+            </div>
+          ) : null}
+          {vm.make ? (
+            <div>
+              <strong>Make: </strong>
+              {vm.make}
+            </div>
+          ) : null}
+          {vm.model ? (
+            <div>
+              <strong>Model: </strong>
+              {vm.model}
+            </div>
+          ) : null}
+          {vm.year ? (
+            <div>
+              <strong>Year: </strong>
+              {vm.year}
+            </div>
+          ) : null}
+          {vm.color ? (
+            <div>
+              <strong>Color: </strong>
+              {vm.color}
+            </div>
+          ) : null}
+          {vm.plateLine ? (
+            <div>
+              <strong>License Plate: </strong>
+              {vm.plateLine}
+            </div>
+          ) : null}
+          {vm.permit || vm.parking ? (
+            <>
+              <div>
+                <strong>Parking details:</strong>
+              </div>
+          
+              <div className={shared.indent}>
+                {vm.permit ? (
+                  <div>
+                    Permit #: 
+                    <span className={shared.muted}> {vm.permit}</span>
+                  </div>
+                ) : null}
+
+                {vm.parking ? (
+                  <div>
+                    Parking space: 
+                    <span className={shared.muted}> {vm.parking}</span>
+                  </div>
+                ) : null}
+              </div>
+            </>
+          ) : null}
+          {vm.notes ? (
+            <div>
+              <strong>Notes: </strong>
+              {vm.notes}
+            </div>
+          ) : null}
         </div>
       </div>
     );
@@ -88,25 +137,33 @@ export default function vehicleCard({
   return (
     <button
       type="button"
-      className={`${ui.card} ${vm.isArchived ? ui.cardArchived : ""}`}
+      className={`${card.card} ${vm.isArchived ? card.cardArchived : ""}`}
       onClick={onClick}
       aria-label={`Open vehicle ${vm.displayName}`}
     >
-      <div className={ui.cardHeader}>
-        <div className={ui.cardTitle}>{vm.displayName}</div>
-        <span className={`${ui.badge} ${badgeClass}`}>{badgeText}</span>
+      <div className={card.cardHeader}>
+        <div className={card.cardTitle}>{vm.displayName}</div>
+        <span className={`${card.badge} ${badgeClass}`}>{badgeText}</span>
       </div>
 
-      <div className={ui.cardBody}>
-        {vm.vehicleType && vm.vehicleSubType && (<div><strong>Vehicle Type: </strong>{vm.vehicleType} • {vm.vehicleSubType}</div>)}
-        {vm.vehicleType && !vm.vehicleSubType && (<div><strong>Vehicle Type: </strong>{vm.vehicleType}</div>)}
-        {vm.color && (<div><strong>Color: </strong>{vm.color}</div>)}
-        {vm.plateLine && (<div><strong>License Plate # and State: </strong>{vm.plateLine}</div>)}
-        {vm.permit && (<div><strong>Permit #: </strong>{vm.permit}</div>)}
-        {vm.parking && (<div><strong>Parking #: </strong>{vm.parking}</div>)}
-        {!vm.color && !vm.plateLine && !vm.permit && !vm.parking && (
-          <div>Click for more details</div>
-        )}
+      <div className={card.cardBody}>
+        {vm.vehicleType && vm.vehicleSubType ? (
+          <div>
+            <strong>Vehicle Type: </strong>
+            {vm.vehicleType} • {vm.vehicleSubType}
+          </div>
+        ) : null}
+        {vm.vehicleType && !vm.vehicleSubType ? (
+          <div>
+            <strong>Vehicle Type: </strong>
+            {vm.vehicleType}
+          </div>
+        ) : null}
+        {!vm.color && !vm.plateLine && !vm.permit && !vm.parking ? (
+          <div>
+            Click for more details
+            </div>
+        ) : null}
       </div>
     </button>
   );

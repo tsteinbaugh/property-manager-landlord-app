@@ -2,12 +2,15 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
-import styles from "@shared/styles/LandlordPage.module.css";
+
+import page from "@shared/styles/ui.pages.module.css";
+import card from "@shared/styles/ui.cards.module.css";
+import shared from "@shared/styles/ui.shared.module.css";
+
 import { petsApi } from "@features/residents/api/pets.api.js";
 import { tenantsApi } from "@features/tenants/api/tenants.api.js";
 
 import {
-  INVALID,
   validateObject,
   requiredTrimmedString,
   optionalTrimToNull,
@@ -29,7 +32,7 @@ export default function LandlordAddPetPage() {
   const [name, setName] = useState("");
   const [type, setType] = useState("");
   const [breed, setBreed] = useState("");
-  const [weightLb, setWeightLb] = useState("");
+  const [weight, setWeight] = useState("");
   const [age, setAge] = useState("");
   const [license, setLicense] = useState("");
   const [notes, setNotes] = useState("");
@@ -65,7 +68,7 @@ export default function LandlordAddPetPage() {
         const t = await tenantsApi.detail(tenantId, { token });
         if (!cancelled) setTenant(t || null);
       } catch (err) {
-        console.error("Failed to load tenant for AddPetPage", err);
+        console.error("Failed to load tenant for Add Pet Page", err);
         if (!cancelled) setTenantError(err);
       } finally {
         if (!cancelled) setLoadingTenant(false);
@@ -79,7 +82,7 @@ export default function LandlordAddPetPage() {
         const list = await petsApi.listAll({ token, includeArchived: false });
         if (!cancelled) setAllPets(Array.isArray(list) ? list : []);
       } catch (err) {
-        console.error("Failed to load pets for AddPetPage", err);
+        console.error("Failed to load pets for Add Pet Page", err);
         if (!cancelled) setPetsError(err);
       } finally {
         if (!cancelled) setLoadingPets(false);
@@ -115,7 +118,7 @@ export default function LandlordAddPetPage() {
         setName(p.name || "");
         setType(p.type || "");
         setBreed(p.breed || "");
-        setWeightLb(p.weightLb != null ? String(p.weightLb) : "");
+        setWeight(p.weight != null ? String(p.weight) : "");
         setAge(p.age != null ? String(p.age) : "");
         setLicense(p.license || "");
         setNotes(p.notes || "");
@@ -132,13 +135,12 @@ export default function LandlordAddPetPage() {
   }, [petId, token]);
 
   // ------------------------------------------------------------
-  // Tenant-context computed lists
+  // Derived lists (tenant context)
   // ------------------------------------------------------------
   const petLinks = Array.isArray(tenant?.petLinks) ? tenant.petLinks : [];
   const tenantPets = petLinks.map((l) => l.pet).filter(Boolean);
 
   const linkedIds = useMemo(() => new Set(petLinks.map((l) => l.petId)), [petLinks]);
-
   const availableExistingPets =
     tenant && allPets.length > 0 ? allPets.filter((p) => !linkedIds.has(p.id)) : allPets;
 
@@ -166,7 +168,7 @@ export default function LandlordAddPetPage() {
       name,
       type,
       breed,
-      weightLb,
+      weight,
       age,
       license,
       notes,
@@ -176,7 +178,7 @@ export default function LandlordAddPetPage() {
       name: requiredTrimmedString,
       type: optionalTrimToNull,
       breed: optionalTrimToNull,
-      weightLb: (v) => parseIntOrNullOpt(v, { min: 0, max: 2000 }),
+      weight: (v) => parseIntOrNullOpt(v, { min: 0, max: 2000 }),
       age: (v) => parseIntOrNullOpt(v, { min: 0, max: 80 }),
       license: optionalTrimToNull,
       notes: optionalTrimToNull,
@@ -185,10 +187,20 @@ export default function LandlordAddPetPage() {
     return validateObject(input, schema, {
       errorMessages: {
         name: "Name is required.",
-        weightLb: "Weight must be a valid number.",
+        weight: "Weight must be a valid number.",
         age: "Age must be a valid number.",
       },
     });
+  };
+
+  const validateAndSetError = () => {
+    const { value: payload, ok, errors } = buildPayload();
+    if (!ok) {
+      const firstKey = Object.keys(errors || {})[0];
+      setFormError(errors?.[firstKey] || "Please fix the highlighted fields.");
+      return { ok: false, payload: null };
+    }
+    return { ok: true, payload };
   };
 
   // ------------------------------------------------------------
@@ -199,12 +211,8 @@ export default function LandlordAddPetPage() {
     setTouched({ name: true });
     setFormError("");
 
-    const { value: payload, ok, errors } = buildPayload();
-    if (!ok) {
-      const firstKey = Object.keys(errors || {})[0];
-      setFormError(errors?.[firstKey] || "Please fix the highlighted fields.");
-      return;
-    }
+    const { ok, payload } = validateAndSetError();
+    if (!ok) return;
 
     try {
       setSubmitting(true);
@@ -266,12 +274,8 @@ export default function LandlordAddPetPage() {
     setTouched({ name: true });
     setFormError("");
 
-    const { value: payload, ok, errors } = buildPayload();
-    if (!ok) {
-      const firstKey = Object.keys(errors || {})[0];
-      setFormError(errors?.[firstKey] || "Please fix the highlighted fields.");
-      return;
-    }
+    const { ok, payload } = validateAndSetError();
+    if (!ok) return;
 
     try {
       setSubmitting(true);
@@ -290,319 +294,22 @@ export default function LandlordAddPetPage() {
 
   const saveDisabled = isSubmitting;
 
+  const ctrl = (isError) => `${card.control} ${isError ? card.controlError : ""}`;
+
   // ------------------------------------------------------------
-  // RENDER
+  // FORM JSX (no inner React components!)
   // ------------------------------------------------------------
-  if (tenantId) {
-    return (
-      <div className={styles.page}>
-        <header className={styles.header}>
-          <div>
-            <h1 className={styles.title}>Manage pets</h1>
-            {loadingTenant ? (
-              <p className={styles.subtitle}>Loading tenant…</p>
-            ) : tenantError || !tenant ? (
-              <p className={styles.subtitle} style={{ color: "#b91c1c" }}>
-                Failed to load tenant. You can still add pets, but linking may not behave as expected.
-              </p>
-            ) : (
-              <p className={styles.subtitle}>
-                Link existing pets or create new ones for <strong>{tenant.name}</strong>.
-              </p>
-            )}
-          </div>
-        </header>
-
-        <div style={{ marginTop: 12, display: "flex", flexDirection: "column", gap: 16 }}>
-          {/* Section 1: Link existing pet */}
-          <section
-            style={{
-              maxWidth: 520,
-              padding: 16,
-              borderRadius: 12,
-              border: "1px solid #e5e7eb",
-              background: "#ffffff",
-            }}
-          >
-            <h2 style={{ fontSize: 16, marginBottom: 8 }}>Link existing pet</h2>
-
-            {loadingPets ? (
-              <div style={{ fontSize: 13, color: "#6b7280" }}>Loading pets…</div>
-            ) : petsError ? (
-              <div style={{ fontSize: 13, color: "#b91c1c" }}>Failed to load pets list.</div>
-            ) : availableExistingPets.length === 0 ? (
-              <div style={{ fontSize: 13, color: "#6b7280" }}>No other pets available to link.</div>
-            ) : (
-              <>
-                <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
-                  <select
-                    style={{
-                      flex: 1,
-                      padding: "6px 8px",
-                      borderRadius: 8,
-                      border: "1px solid #d1d5db",
-                    }}
-                    value={selectedExistingPetId}
-                    onChange={(e) => setSelectedExistingPetId(e.target.value)}
-                    disabled={isLinkingExisting}
-                  >
-                    <option value="">Select a pet…</option>
-                    {availableExistingPets.map((p) => (
-                      <option key={p.id} value={p.id}>
-                        {p.name}
-                      </option>
-                    ))}
-                  </select>
-
-                  <button
-                    type="button"
-                    className={styles.primaryButton}
-                    style={{ whiteSpace: "nowrap" }}
-                    onClick={handleLinkExisting}
-                    disabled={!selectedExistingPetId || isLinkingExisting}
-                  >
-                    {isLinkingExisting ? "Linking…" : "Link"}
-                  </button>
-                </div>
-
-                {tenantPets.length > 0 && (
-                  <div style={{ fontSize: 12, color: "#6b7280" }}>
-                    Already linked to this tenant:
-                    <ul style={{ paddingLeft: 18, marginTop: 4 }}>
-                      {tenantPets.map((p) => (
-                        <li key={p.id}>{p.name}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </>
-            )}
-          </section>
-
-          {/* Section 2: Create & link new pet */}
-          <section
-            style={{
-              maxWidth: 520,
-              padding: 16,
-              borderRadius: 12,
-              border: "1px solid #e5e7eb",
-              background: "#ffffff",
-            }}
-          >
-            <h2 style={{ fontSize: 16, marginBottom: 8 }}>Create new pet for this tenant</h2>
-
-            <form onSubmit={handleSubmitForTenant}>
-              {/* Name */}
-              <div style={{ marginBottom: 12 }}>
-                <label htmlFor="name" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                  Pet name <span style={{ color: "#b91c1c" }}>*</span>
-                </label>
-                <input
-                  id="name"
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  onBlur={() => setTouched((t) => ({ ...t, name: true }))}
-                  placeholder="Name (required)"
-                  style={{
-                    width: "100%",
-                    padding: "6px 8px",
-                    borderRadius: 8,
-                    border: "1px solid #d1d5db",
-                  }}
-                  disabled={isSubmitting}
-                />
-                {touched.name && requiredTrimmedString(name) === INVALID && (
-                  <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>Enter a name</div>
-                )}
-              </div>
-
-              {/* Type */}
-              <div style={{ marginBottom: 12 }}>
-                <label htmlFor="type" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                  Type
-                </label>
-                <input
-                  id="type"
-                  type="text"
-                  value={type}
-                  onChange={(e) => setType(e.target.value)}
-                  placeholder="Type (dog, cat, bird, etc.)"
-                  style={{
-                    width: "100%",
-                    padding: "6px 8px",
-                    borderRadius: 8,
-                    border: "1px solid #d1d5db",
-                  }}
-                  disabled={isSubmitting}
-                />
-              </div>
-
-              {/* Breed */}
-              <div style={{ marginBottom: 12 }}>
-                <label htmlFor="breed" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                  Breed
-                </label>
-                <input
-                  id="breed"
-                  type="text"
-                  value={breed}
-                  onChange={(e) => setBreed(e.target.value)}
-                  placeholder="poodle, boxer, etc."
-                  style={{
-                    width: "100%",
-                    padding: "6px 8px",
-                    borderRadius: 8,
-                    border: "1px solid #d1d5db",
-                  }}
-                  disabled={isSubmitting}
-                />
-              </div>
-
-              {/* Weight */}
-              <div style={{ marginBottom: 12 }}>
-                <label htmlFor="weightLb" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                  Weight (Lb)
-                </label>
-                <input
-                  id="weightLb"
-                  type="number"
-                  value={weightLb}
-                  onChange={(e) => setWeightLb(e.target.value)}
-                  placeholder="Weight (Lb)"
-                  style={{
-                    width: "100%",
-                    padding: "6px 8px",
-                    borderRadius: 8,
-                    border: "1px solid #d1d5db",
-                  }}
-                  disabled={isSubmitting}
-                />
-              </div>
-
-              {/* Age */}
-              <div style={{ marginBottom: 12 }}>
-                <label htmlFor="age" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                  Age
-                </label>
-                <input
-                  id="age"
-                  type="number"
-                  value={age}
-                  onChange={(e) => setAge(e.target.value)}
-                  placeholder="Age"
-                  style={{
-                    width: "100%",
-                    padding: "6px 8px",
-                    borderRadius: 8,
-                    border: "1px solid #d1d5db",
-                  }}
-                  disabled={isSubmitting}
-                />
-              </div>
-
-              {/* License */}
-              <div style={{ marginBottom: 12 }}>
-                <label htmlFor="license" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                  License
-                </label>
-                <input
-                  id="license"
-                  type="text"
-                  value={license}
-                  onChange={(e) => setLicense(e.target.value)}
-                  placeholder="License number"
-                  style={{
-                    width: "100%",
-                    padding: "6px 8px",
-                    borderRadius: 8,
-                    border: "1px solid #d1d5db",
-                  }}
-                  disabled={isSubmitting}
-                />
-              </div>
-
-              {/* Notes */}
-              <div style={{ marginBottom: 12 }}>
-                <label htmlFor="notes" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                  Notes
-                </label>
-                <input
-                  id="notes"
-                  type="text"
-                  value={notes}
-                  onChange={(e) => setNotes(e.target.value)}
-                  placeholder="Additional notes"
-                  style={{
-                    width: "100%",
-                    padding: "6px 8px",
-                    borderRadius: 8,
-                    border: "1px solid #d1d5db",
-                  }}
-                  disabled={isSubmitting}
-                />
-              </div>
-
-              {formError && (
-                <div style={{ color: "#b91c1c", fontSize: 13, marginBottom: 8 }}>{formError}</div>
-              )}
-
-              <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
-                <button type="submit" className={styles.primaryButton} disabled={saveDisabled}>
-                  {isSubmitting ? "Saving…" : "Save pet"}
-                </button>
-
-                <button
-                  type="button"
-                  onClick={handleCancel}
-                  style={{
-                    borderRadius: 999,
-                    padding: "8px 16px",
-                    border: "1px solid #d1d5db",
-                    background: "#ffffff",
-                    cursor: "pointer",
-                  }}
-                  disabled={isSubmitting}
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
-          </section>
+  const renderForm = (onSubmit) => (
+    <form className={card.form} onSubmit={onSubmit}>
+      <section className={`${card.card} ${card.cardForm} ${page.narrow}`}>
+        <div className={card.cardHeader}>
+          <div className={card.cardTitle}>Basics</div>
         </div>
-      </div>
-    );
-  }
 
-  // Global add/edit
-  return (
-    <div className={styles.page}>
-      <header className={styles.header}>
-        <div>
-          <h1 className={styles.title}>{isEditMode ? "Edit pet" : "Add pet"}</h1>
-          <p className={styles.subtitle}>
-            {isEditMode
-              ? "Update this pet record."
-              : "Create a pet record. You’ll be able to connect pets to leases (and tenants) later."}
-          </p>
-        </div>
-      </header>
-
-      <div style={{ marginTop: 12 }}>
-        <form
-          onSubmit={handleSubmitGlobal}
-          style={{
-            maxWidth: 480,
-            padding: 16,
-            borderRadius: 12,
-            border: "1px solid #e5e7eb",
-            background: "#ffffff",
-          }}
-        >
-          {/* Name */}
-          <div style={{ marginBottom: 12 }}>
-            <label htmlFor="name" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-              Pet name <span style={{ color: "#b91c1c" }}>*</span>
+        <div className={card.cardBody}>        
+          <div className={card.field}>
+            <label className={card.label} htmlFor="name">
+              Name <span className={card.required}>*</span>
             </label>
             <input
               id="name"
@@ -610,24 +317,16 @@ export default function LandlordAddPetPage() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               onBlur={() => setTouched((t) => ({ ...t, name: true }))}
-              placeholder="Name (required)"
-              style={{
-                width: "100%",
-                padding: "6px 8px",
-                borderRadius: 8,
-                border: "1px solid #d1d5db",
-              }}
+              placeholder="Name"
+              className={ctrl(touched.name && !String(name).trim())}
               disabled={isSubmitting}
             />
-            {touched.name && requiredTrimmedString(name) === INVALID && (
-              <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>Enter a name</div>
-            )}
-          </div>
+            {touched.name && !String(name).trim() ? <div className={card.errorText}>Enter a name</div> : null}
+          </div>        
 
-          {/* Type */}
-          <div style={{ marginBottom: 12 }}>
-            <label htmlFor="type" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-              Type
+          <div className={card.field}>
+            <label className={card.label} htmlFor="type">
+              Type <span className={shared.muted}>(optional)</span>
             </label>
             <input
               id="type"
@@ -635,20 +334,14 @@ export default function LandlordAddPetPage() {
               value={type}
               onChange={(e) => setType(e.target.value)}
               placeholder="Type (dog, cat, bird, etc.)"
-              style={{
-                width: "100%",
-                padding: "6px 8px",
-                borderRadius: 8,
-                border: "1px solid #d1d5db",
-              }}
+              className={card.control}
               disabled={isSubmitting}
             />
           </div>
 
-          {/* Breed */}
-          <div style={{ marginBottom: 12 }}>
-            <label htmlFor="breed" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-              Breed
+          <div className={card.field}>
+            <label className={card.label} htmlFor="breed">
+              Breed <span className={shared.muted}>(optional)</span>
             </label>
             <input
               id="breed"
@@ -656,62 +349,54 @@ export default function LandlordAddPetPage() {
               value={breed}
               onChange={(e) => setBreed(e.target.value)}
               placeholder="poodle, boxer, etc."
-              style={{
-                width: "100%",
-                padding: "6px 8px",
-                borderRadius: 8,
-                border: "1px solid #d1d5db",
-              }}
+              className={card.control}
               disabled={isSubmitting}
             />
           </div>
 
-          {/* Weight */}
-          <div style={{ marginBottom: 12 }}>
-            <label htmlFor="weightLb" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-              Weight (Lb)
+          <div className={card.field}>
+            <label className={card.label} htmlFor="weight">
+              Weight <span className={shared.muted}>(optional)</span>
             </label>
             <input
-              id="weightLb"
+              id="weight"
               type="number"
-              value={weightLb}
-              onChange={(e) => setWeightLb(e.target.value)}
-              placeholder="Weight (Lb)"
-              style={{
-                width: "100%",
-                padding: "6px 8px",
-                borderRadius: 8,
-                border: "1px solid #d1d5db",
-              }}
+              value={weight}
+              onChange={(e) => setWeight(e.target.value)}
+              onBlur={() => setTouched((t) => ({ ...t, weight: true }))}
+              placeholder="Weight (pounds)"
+              className={ctrl(touched.weight && !String(weight).trim())}
               disabled={isSubmitting}
             />
           </div>
-
-          {/* Age */}
-          <div style={{ marginBottom: 12 }}>
-            <label htmlFor="age" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-              Age
+          
+          <div className={card.field}>
+            <label className={card.label} htmlFor="age">
+              Age (years) <span className={shared.muted}>(optional)</span>
             </label>
             <input
               id="age"
               type="number"
               value={age}
               onChange={(e) => setAge(e.target.value)}
-              placeholder="Age"
-              style={{
-                width: "100%",
-                padding: "6px 8px",
-                borderRadius: 8,
-                border: "1px solid #d1d5db",
-              }}
+              onBlur={() => setTouched((t) => ({ ...t, age: true }))}
+              placeholder="5"
+              className={ctrl(touched.age && !String(age).trim())}
               disabled={isSubmitting}
             />
-          </div>
+          </div>          
+        </div>          
+      </section>
 
-          {/* License */}
-          <div style={{ marginBottom: 12 }}>
-            <label htmlFor="license" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-              License
+      <section className={`${card.card} ${card.cardForm} ${page.narrow}`}>
+        <div className={card.cardHeader}>
+          <div className={card.cardTitle}>Registration</div>
+        </div>
+
+        <div className={card.cardBody}>
+          <div className={card.field}>
+            <label className={card.label} htmlFor="license">
+              License <span className={shared.muted}>(optional)</span>
             </label>
             <input
               id="license"
@@ -719,63 +404,178 @@ export default function LandlordAddPetPage() {
               value={license}
               onChange={(e) => setLicense(e.target.value)}
               placeholder="License number"
-              style={{
-                width: "100%",
-                padding: "6px 8px",
-                borderRadius: 8,
-                border: "1px solid #d1d5db",
-              }}
+              className={card.control}
               disabled={isSubmitting}
             />
           </div>
+        </div>
+      </section>
 
-          {/* Notes */}
-          <div style={{ marginBottom: 12 }}>
-            <label htmlFor="notes" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-              Notes
+      <section className={`${card.card} ${card.cardForm} ${page.narrow}`}>
+        <div className={card.cardHeader}>
+          <div className={card.cardTitle}>Notes</div>
+        </div>
+
+        <div className={card.cardBody}>
+          <div className={card.field}>
+            <label className={card.label} htmlFor="notes">
+              Additional notes <span className={shared.muted}>(optional)</span>
             </label>
             <input
               id="notes"
               type="text"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="Additional notes"
-              style={{
-                width: "100%",
-                padding: "6px 8px",
-                borderRadius: 8,
-                border: "1px solid #d1d5db",
-              }}
+              placeholder="Add any additional information"
+              className={card.control}
               disabled={isSubmitting}
             />
           </div>
 
-          {formError && (
-            <div style={{ color: "#b91c1c", fontSize: 13, marginBottom: 8 }}>{formError}</div>
-          )}
+          {formError ? <div className={shared.error}>{formError}</div> : null}
 
-          <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
-            <button type="submit" className={styles.primaryButton} disabled={saveDisabled}>
+          <div className={card.formActions}>
+            <button type="submit" className={card.primaryButton} disabled={saveDisabled}>
               {isSubmitting ? "Saving…" : isEditMode ? "Save changes" : "Save pet"}
             </button>
 
-            <button
-              type="button"
-              onClick={handleCancel}
-              style={{
-                borderRadius: 999,
-                padding: "8px 16px",
-                border: "1px solid #d1d5db",
-                background: "#ffffff",
-                cursor: "pointer",
-              }}
-              disabled={isSubmitting}
-            >
+            <button type="button" className={card.linkAction} onClick={handleCancel} disabled={isSubmitting}>
               Cancel
             </button>
           </div>
-        </form>
+        </div>
+      </section>
+    </form>
+  );
+
+  // ------------------------------------------------------------
+  // RENDER
+  // ------------------------------------------------------------
+
+  // === Mode A: tenantId present (manage pets for tenant) ===
+  if (tenantId) {
+    return (
+      <div className={page.page}>
+        <header className={page.header}>
+          <div>
+            <h1 className={page.title}>Manage pet linking</h1>
+            {loadingTenant ? (
+              <p className={page.subtitle}>Loading tenant…</p>
+            ) : tenantError || !tenant ? (
+              <p className={page.subtitle} style={{ color: "#b91c1c" }}>
+                Failed to load tenant. You can still add pets, but linking may not behave as expected.
+              </p>
+            ) : (
+              <p className={page.subtitle}>
+                Link an existing pet or create a new one for <strong>{tenant.name}</strong>.
+              </p>
+            )}
+          </div>
+        </header>
+
+        <div className={page.grid}>
+
+          {/* Link existing */}
+          <section className={page.section}>
+            <div className={page.sectionHeader}>
+              <div className={page.sectionHeaderStack}>
+                <div className={page.sectionTitle}>Link existing</div>
+                <div className={page.sectionHint}>
+                  Quickly associate an existing pet with this tenant
+                </div>
+              </div>
+            </div>
+
+            <div className={`${card.card} ${card.cardForm} ${page.narrow}`}>
+              <div className={card.cardBody}>
+                {loadingPets ? (
+                  <div className={shared.muted}>Loading pets…</div>
+                ) : petsError ? (
+                  <div className={shared.error}>Failed to load pets list.</div>
+                ) : availableExistingPets.length === 0 ? (
+                  <div className={shared.muted}>No other pets available to link.</div>
+                ) : (
+                  <>
+                    <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                      <select
+                        className={card.control}
+                        value={selectedExistingPetId}
+                        onChange={(e) => setSelectedExistingPetId(e.target.value)}
+                        disabled={isLinkingExisting}
+                        style={{ flex: 1 }}
+                      >
+                        <option value="">Select a pet…</option>
+                        {availableExistingPets.map((v) => (
+                          <option key={v.id} value={v.id}>
+                            {[v.year, v.make, v.model].filter(Boolean).join(" ") || "Pet"}
+                            {v.plate ? ` • ${v.plate}` : ""}
+                            {v.state ? ` (${v.state})` : ""}
+                          </option>
+                        ))}
+                      </select>
+
+                      <button
+                        type="button"
+                        className={card.primaryButton}
+                        onClick={handleLinkExisting}
+                        disabled={!selectedExistingPetId || isLinkingExisting}
+                        style={{ whiteSpace: "nowrap" }}
+                      >
+                        {isLinkingExisting ? "Linking…" : "Link"}
+                      </button>
+                    </div>
+
+                    {tenantPets.length > 0 ? (
+                      <div className={shared.muted} style={{ marginTop: 10 }}>
+                        Already linked:
+                        <ul style={{ paddingLeft: 18, marginTop: 4 }}>
+                          {tenantPets.map((v) => (
+                            <li key={v.id}>
+                              {[v.year, v.make, v.model].filter(Boolean).join(" ") || "Pet"}
+                              {v.plate ? ` • ${v.plate}` : ""}
+                              {v.state ? ` (${v.state})` : ""}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : null}
+                  </>
+                )}
+              </div>
+            </div>
+          </section>
+
+          {/* Create new (same form, different submit) */}
+          <section className={page.section}>
+            <div className={page.sectionHeader}>
+              <div className={page.sectionHeaderStack}>
+                <div className={page.sectionTitle}>Create new</div>
+                <div className={page.sectionHint}>
+                  Create a new pet record and link it to this tenant.
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {renderForm(handleSubmitForTenant)}
+        </div>
       </div>
+    );
+  }
+
+  // === Mode B: global add/edit ===
+  return (
+    <div className={page.page}>
+      <header className={page.header}>
+        <div>
+          <h1 className={page.title}>{isEditMode ? "Edit pet" : "Create pet"}</h1>
+          <p className={page.subtitle}>
+            {isEditMode ? "Update pet details." : "Create a pet record.  It can be linked to a tenant."}
+          </p>
+        </div>
+      </header>
+
+      {renderForm(handleSubmitGlobal)}
     </div>
   );
 }

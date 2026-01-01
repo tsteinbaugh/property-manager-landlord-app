@@ -10,7 +10,9 @@ import { ROLES } from "@lib/rbac/roles.js";
 import PetCard from "@features/residents/components/pets/PetCard.jsx"
 import LinkageCard from "@shared/ui/cards/LinkageCard.jsx"
 
-import ui from "@shared/styles/CardLayout.module.css";
+import page from "@shared/styles/ui.pages.module.css";
+import card from "@shared/styles/ui.cards.module.css";
+import shared from "@shared/styles/ui.shared.module.css";
 
 export default function LandlordPetDetailsPage() {
   const { petId } = useParams();
@@ -28,7 +30,6 @@ export default function LandlordPetDetailsPage() {
   const canArchiveGrant = can(role, R.PETS, A.ARCHIVE);
 
   const [pet, setPet] = useState(null);
-  const [tenants, setTenants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -43,14 +44,10 @@ export default function LandlordPetDetailsPage() {
         setLoading(true);
         setError(null);
 
-        const [p, ts] = await Promise.all([
-          petsApi.get(petId, { token }),
-          tenantsApi.list({ token }),
-        ]);
+        const p = await petsApi.get(petId, { token });
 
         if (!cancelled) {
           setPet(p || null);
-          setTenants(Array.isArray(ts) ? ts : []);
           if (!p) setError(new Error("Pet not found"));
         }
       } catch (err) {
@@ -85,18 +82,9 @@ export default function LandlordPetDetailsPage() {
     return Array.isArray(pet.tenants) ? pet.tenants : [];
   }, [pet]);
 
-  const availableTenants = useMemo(() => {
-    const linkedIds = new Set((linkedTenants || []).map((t) => t?.id).filter(Boolean));
-    return (tenants || []).filter((t) => t?.id && !linkedIds.has(t.id));
-  }, [tenants, linkedTenants]);
-
   const reload = async () => {
-    const [p, ts] = await Promise.all([
-      petsApi.get(petId, { token }),
-      tenantsApi.list({ token }),
-    ]);
+    const p = await petsApi.get(petId, { token });
     setPet(p || null);
-    setTenants(Array.isArray(ts) ? ts : []);
   };
 
   const handleToggleArchive = async () => {
@@ -188,37 +176,30 @@ export default function LandlordPetDetailsPage() {
     }
   };
 
-  if (loading) return <div className={ui.page}>Loading pet…</div>;
+  if (loading) return <div className={page.page}>Loading pet…</div>;
   if (error)
     return (
-      <div className={ui.page} style={{ color: "crimson" }}>
+      <div className={page.page} style={{ color: "crimson" }}>
         Error loading pet: {String(error?.message || error)}
       </div>
     );
-  if (!pet) return <div className={ui.page}>No data.</div>;
-
-  const type = pet.type ? String(pet.type).trim() : "";
-  const breed = pet.breed ? String(pet.breed).trim() : "";
-  const weight =
-    pet.weightLb === null || pet.weightLb === undefined || pet.weightLb === ""
-      ? ""
-      : String(pet.weightLb);
+  if (!pet) return <div className={page.page}>No data.</div>;
 
   return (
-    <div className={ui.page}>
-      <div style={{ marginBottom: 8 }}>
+    <div className={page.page}>
+      <div className={page.header}>
         <Link to="/landlord/residents?tab=pets">← Back to residents</Link>
       </div>
 
       {/* Header */}
-      <div className={ui.section}>
-        <div className={ui.sectionHeader}>
+      <div className={page.section}>
+        <div className={page.sectionHeader}>
           <div>
-            <h1 style={{ margin: 0 }}>{title}</h1>
+            <h1 className={page.title}>{title}</h1>
 
-            <div className={ui.headerLinksRow}>
+            <div className={card.headerLinksRow}>
               {canEditNow ? (
-                <button type="button" className={ui.linkAction} onClick={goEditPet}>
+                <button type="button" className={card.linkAction} onClick={goEditPet}>
                   Edit pet
                 </button>
               ) : null}
@@ -226,7 +207,7 @@ export default function LandlordPetDetailsPage() {
               {showArchiveLink ? (
                 <button
                   type="button"
-                  className={ui.linkAction}
+                  className={card.linkAction}
                   onClick={handleToggleArchive}
                   disabled={isArchiving}
                   aria-disabled={isArchiving ? "true" : "false"}
@@ -234,35 +215,31 @@ export default function LandlordPetDetailsPage() {
                   {isArchived ? "Unarchive pet" : "Archive pet"}
                 </button>
               ) : (
-                <span className={ui.linkActionDisabled}>
+                <span className={card.linkActionDisabled}>
                   {isArchived ? "Unarchive pet" : "Archive pet"}
                 </span>
               )}
             </div>
 
-            {isArchived ? <div className={ui.muted}>(Archived – read-only for landlords)</div> : null}
+            {isArchived ? <div className={shared.muted}>(Archived – read-only for landlords)</div> : null}
           </div>
         </div>
       </div>
 
       {/* Pet info */}
-      <div className={ui.section}>
-        <div className={ui.sectionHeader}></div>
-        <PetCard
-          pet={pet}
-          variant="detail"
-        />
+      <div className={page.section}>
+        <PetCard pet={pet} variant="detail" />
       </div>
 
       {/* Tenants */}
-      <div className={ui.section}>
-        <div className={ui.sectionHeader}>
-          <div className={ui.sectionTitle}>Tenants</div>
-          <div className={ui.sectionHint}>Direct link: Tenant ↔ Pet</div>
+      <div className={page.section}>
+        <div className={page.sectionHeader}>
+          <div className={page.sectionTitle}>Tenants</div>
+          <div className={page.sectionHint}>Direct link: Tenant ↔ Pet</div>
         </div>
 
         {linkedTenants.length ? (
-          <div className={ui.grid}>
+          <div className={page.grid}>
             {linkedTenants.map((t) => {
               if (!t?.id) return null;
 
@@ -281,7 +258,7 @@ export default function LandlordPetDetailsPage() {
                   footer={
                     <button
                       type="button"
-                      className={`${ui.inlineAction} ${ui.inlineActionDanger}`}
+                      className={`${card.inlineAction} ${card.inlineActionDanger}`}
                       onClick={(pe) => {
                         pe.stopPropagation();
                         handleUnlinkTenant(t.id);
@@ -296,13 +273,13 @@ export default function LandlordPetDetailsPage() {
             })}
           </div>
         ) : (
-          <div className={ui.muted}>No tenants linked to this pet yet.</div>
+          <div className={shared.muted}>No tenants linked to this pet yet.</div>
         )}
 
-        <div style={{ marginTop: 10 }}>
+        <div className={card.formActions}>
           <button
             type="button"
-            className={ui.linkAction}
+            className={card.linkAction}
             onClick={() => {
               const returnTo = encodeURIComponent(
                 `${window.location.pathname}${window.location.search || ""}`
@@ -316,15 +293,12 @@ export default function LandlordPetDetailsPage() {
           </button>
 
           {isArchived ? (
-            <div className={ui.muted} style={{ marginTop: 6 }}>
+            <div className={shared.muted}>
               Cannot manage links for an archived pet.
             </div>
           ) : null}
         </div>
       </div>
-
-      {/* If you later want a “Link existing tenant” picker on this page,
-          this is where it would go. For now, matching Occupants: tenant form owns linking. */}
     </div>
   );
 }

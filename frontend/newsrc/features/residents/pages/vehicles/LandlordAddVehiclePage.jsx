@@ -2,12 +2,15 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
-import styles from "@shared/styles/LandlordPage.module.css";
+
+import page from "@shared/styles/ui.pages.module.css";
+import card from "@shared/styles/ui.cards.module.css";
+import shared from "@shared/styles/ui.shared.module.css";
+
 import { vehiclesApi } from "@features/residents/api/vehicles.api.js";
 import { tenantsApi } from "@features/tenants/api/tenants.api.js";
 
 import {
-  INVALID,
   optionalTrimToNull,
   normalizeState,
   parseIntOrNullOpt,
@@ -31,7 +34,7 @@ export default function LandlordAddVehiclePage() {
 
   const isEditMode = !!vehicleId;
 
-  // ---------- shared simple form state (make/model/year/color/state/plate/permit) ----------
+  // ---------- form state ----------
   const [make, setMake] = useState("");
   const [model, setModel] = useState("");
   const [year, setYear] = useState("");
@@ -42,8 +45,8 @@ export default function LandlordAddVehiclePage() {
   const [parking, setParking] = useState("");
   const [vehicleType, setVehicleType] = useState("");
   const [vehicleSubType, setVehicleSubType] = useState("");
-
   const [notes, setNotes] = useState("");
+
   const [isSubmitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
 
@@ -58,7 +61,13 @@ export default function LandlordAddVehiclePage() {
 
   const [selectedExistingVehicleId, setSelectedExistingVehicleId] = useState("");
   const [isLinkingExisting, setIsLinkingExisting] = useState(false);
-  const [touched, setTouched] = useState({ make: false, model: false, year: false, vehicleType: false });
+
+  const [touched, setTouched] = useState({
+    make: false,
+    model: false,
+    year: false,
+    vehicleType: false,
+  });
 
   // ------------------ UI dropdown options ------------------
   const vehicleTypeOptions = useMemo(
@@ -71,15 +80,12 @@ export default function LandlordAddVehiclePage() {
         }),
       }),
     []
-  ); 
+  );
 
-  // ------------------------------------------------------------
-  // State dropdown list
-  // ------------------------------------------------------------
   const stateOptions = useMemo(
     () =>
       optionsFromEnumMap(US_STATE_NAME_TO_CODE, {
-        sortBy: "key", // state name
+        sortBy: "key",
         toOption: (name, code) => ({
           value: code,
           label: `${formatEnumLabel(name, { hideUnknown: false })} (${code})`,
@@ -93,7 +99,6 @@ export default function LandlordAddVehiclePage() {
   // ------------------------------------------------------------
   useEffect(() => {
     let cancelled = false;
-
     if (!tenantId || !token) return;
 
     async function loadTenant() {
@@ -103,7 +108,7 @@ export default function LandlordAddVehiclePage() {
         const t = await tenantsApi.detail(tenantId, { token });
         if (!cancelled) setTenant(t || null);
       } catch (err) {
-        console.error("Failed to load tenant for AddVehiclePage", err);
+        console.error("Failed to load tenant for Add Vehicle Page", err);
         if (!cancelled) setTenantError(err);
       } finally {
         if (!cancelled) setLoadingTenant(false);
@@ -114,13 +119,10 @@ export default function LandlordAddVehiclePage() {
       try {
         setLoadingVehicles(true);
         setVehiclesError(null);
-        const list = await vehiclesApi.listAll({
-          token,
-          includeArchived: false,
-        });
+        const list = await vehiclesApi.listAll({ token, includeArchived: false });
         if (!cancelled) setAllVehicles(Array.isArray(list) ? list : []);
       } catch (err) {
-        console.error("Failed to load vehicles for AddVehiclePage", err);
+        console.error("Failed to load vehicles for Add Vehicle Page", err);
         if (!cancelled) setVehiclesError(err);
       } finally {
         if (!cancelled) setLoadingVehicles(false);
@@ -136,7 +138,7 @@ export default function LandlordAddVehiclePage() {
   }, [tenantId, token]);
 
   // ------------------------------------------------------------
-  // Load vehicle for EDIT mode (global or tenant context)
+  // Load vehicle for EDIT mode
   // ------------------------------------------------------------
   useEffect(() => {
     let cancelled = false;
@@ -176,30 +178,23 @@ export default function LandlordAddVehiclePage() {
     };
   }, [vehicleId, token]);
 
-  // Vehicles currently linked to this tenant via join table
+  // ------------------------------------------------------------
+  // Derived lists (tenant context)
+  // ------------------------------------------------------------
   const vehicleLinks = Array.isArray(tenant?.vehicleLinks) ? tenant.vehicleLinks : [];
-
   const tenantVehicles = vehicleLinks.map((link) => link.vehicle).filter(Boolean);
 
-  // existing vehicles that are NOT already linked to this tenant
   const linkedIds = new Set(vehicleLinks.map((l) => l.vehicleId));
-
   const availableExistingVehicles =
-    tenant && allVehicles.length > 0
-      ? allVehicles.filter((e) => !linkedIds.has(e.id))
-      : allVehicles;
+    tenant && allVehicles.length > 0 ? allVehicles.filter((e) => !linkedIds.has(e.id)) : allVehicles;
 
   // ------------------------------------------------------------
   // Navigation helpers
   // ------------------------------------------------------------
   const goBackFromTenantContext = () => {
-    if (returnTo) {
-      navigate(returnTo);
-    } else if (tenantId) {
-      navigate(`/landlord/tenants/${tenantId}`);
-    } else {
-      navigate("/landlord/residents?tab=vehicles");
-    }
+    if (returnTo) navigate(returnTo);
+    else if (tenantId) navigate(`/landlord/tenants/${tenantId}`);
+    else navigate("/landlord/residents?tab=vehicles");
   };
 
   const handleCancel = () => {
@@ -210,7 +205,7 @@ export default function LandlordAddVehiclePage() {
   };
 
   // ------------------------------------------------------------
-  // Shared payload builder (uses validation.js)
+  // Validation + payload
   // ------------------------------------------------------------
   const buildPayload = () => {
     const input = {
@@ -226,7 +221,7 @@ export default function LandlordAddVehiclePage() {
       vehicleSubType,
       notes,
     };
-    
+
     const schema = {
       make: requiredTrimmedString,
       model: requiredTrimmedString,
@@ -240,7 +235,7 @@ export default function LandlordAddVehiclePage() {
       vehicleSubType: optionalTrimToNull,
       notes: optionalTrimToNull,
     };
-    
+
     return validateObject(input, schema, {
       errorMessages: {
         make: "Make is required.",
@@ -252,17 +247,26 @@ export default function LandlordAddVehiclePage() {
     });
   };
 
+  const validateAndSetError = () => {
+    const { value: payload, ok, errors } = buildPayload();
+    if (!ok) {
+      const firstKey = Object.keys(errors || {})[0];
+      setFormError(errors?.[firstKey] || "Please fix the highlighted fields.");
+      return { ok: false, payload: null };
+    }
+    return { ok: true, payload };
+  };
+
+  // ------------------------------------------------------------
+  // Submit handlers
+  // ------------------------------------------------------------
   const handleSubmitGlobal = async (e) => {
     e.preventDefault();
     setTouched({ make: true, model: true, year: true, vehicleType: true });
     setFormError("");
 
-    const { value: payload, ok, errors } = buildPayload();
-    if (!ok) {
-      const firstKey = Object.keys(errors || {})[0];
-      setFormError(errors?.[firstKey] || "Please fix the highlighted fields.");
-      return;
-    }
+    const { ok, payload } = validateAndSetError();
+    if (!ok) return;
 
     try {
       setSubmitting(true);
@@ -274,7 +278,6 @@ export default function LandlordAddVehiclePage() {
         saved = await vehiclesApi.create(payload, { token });
       }
 
-      // After save: prefer returnTo, otherwise go to detail (edit) or list (create)
       if (returnTo) {
         navigate(returnTo);
       } else if (isEditMode) {
@@ -283,21 +286,21 @@ export default function LandlordAddVehiclePage() {
         navigate("/landlord/residents?tab=vehicles");
       }
     } catch (err) {
-      console.error("Failed to create vehicle", err);
-      setFormError("Failed to create vehicle. Check console for details.");
+      console.error("Failed to save vehicle", err);
+      setFormError("Failed to save vehicle. Check console for details.");
     } finally {
       setSubmitting(false);
     }
   };
 
   // ------------------------------------------------------------
-  // TENANT-CONTEXT MODE: link existing + create & link new
+  // Tenant-context: link existing
   // ------------------------------------------------------------
   const handleLinkExisting = async () => {
     if (!tenantId || !selectedExistingVehicleId) return;
 
     const veh = availableExistingVehicles.find((v) => v.id === selectedExistingVehicleId);
-    const vehName = veh?.plate || "this vehicle";
+    const vehName = veh?.plate ? `${veh.plate}${veh.state ? ` (${veh.state})` : ""}` : "this vehicle";
 
     const ok = window.confirm(
       `Link ${vehName} to tenant "${tenant?.name || ""}"?\n\n` +
@@ -307,9 +310,7 @@ export default function LandlordAddVehiclePage() {
 
     try {
       setIsLinkingExisting(true);
-
       await tenantsApi.linkVehicle(tenantId, selectedExistingVehicleId, { token });
-
       goBackFromTenantContext();
     } catch (err) {
       console.error("Failed to link existing vehicle", err);
@@ -318,20 +319,22 @@ export default function LandlordAddVehiclePage() {
       setIsLinkingExisting(false);
     }
   };
-
+  
+  // ------------------------------------------------------------
+  // Tenant-context: create & link new
+  // ------------------------------------------------------------
   const handleSubmitForTenant = async (e) => {
     e.preventDefault();
     setTouched({ make: true, model: true, year: true, vehicleType: true });
+    setFormError("");
 
-    const built = buildPayload();
-    if (built.error) return setFormError(built.error);
+    const { ok, payload } = validateAndSetError();
+    if (!ok) return;
 
     try {
       setSubmitting(true);
-      setFormError("");
 
-      const created = await vehiclesApi.create(built.payload, { token });
-
+      const created = await vehiclesApi.create(payload, { token });
       await tenantsApi.linkVehicle(tenantId, created.id, { token });
 
       goBackFromTenantContext();
@@ -345,415 +348,65 @@ export default function LandlordAddVehiclePage() {
 
   const saveDisabled = isSubmitting;
 
+  const ctrl = (isError) => `${card.control} ${isError ? card.controlError : ""}`;
+
   // ------------------------------------------------------------
-  // RENDER
+  // FORM JSX (no inner React components!)
   // ------------------------------------------------------------
-
-  // === Mode A: tenantId is present → tenant-context management page ===
-  if (tenantId) {
-    return (
-      <div className={styles.page}>
-        <header className={styles.header}>
-          <div>
-            <h1 className={styles.title}>Manage vehicles</h1>
-            {loadingTenant ? (
-              <p className={styles.subtitle}>Loading tenant…</p>
-            ) : tenantError || !tenant ? (
-              <p className={styles.subtitle} style={{ color: "#b91c1c" }}>
-                Failed to load tenant. You can still add vehicles, but linking may not behave as expected.
-              </p>
-            ) : (
-              <p className={styles.subtitle}>
-                Link existing vehicles or create new ones for <strong>{tenant.name}</strong>.
-              </p>
-            )}
-          </div>
-        </header>
-
-        <div style={{ marginTop: 12, display: "flex", flexDirection: "column", gap: 16 }}>
-          {/* Section 1: Link existing vehicle */}
-          <section
-            style={{
-              maxWidth: 520,
-              padding: 16,
-              borderRadius: 12,
-              border: "1px solid #e5e7eb",
-              background: "#ffffff",
-            }}
-          >
-            <h2 style={{ fontSize: 16, marginBottom: 8 }}>Link existing vehicle</h2>
-
-            {loadingVehicles ? (
-              <div style={{ fontSize: 13, color: "#6b7280" }}>Loading vehicles…</div>
-            ) : vehiclesError ? (
-              <div style={{ fontSize: 13, color: "#b91c1c" }}>Failed to load vehicles list.</div>
-            ) : availableExistingVehicles.length === 0 ? (
-              <div style={{ fontSize: 13, color: "#6b7280" }}>No other vehicles available to link.</div>
-            ) : (
-              <>
-                <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
-                  <select
-                    style={{
-                      flex: 1,
-                      padding: "6px 8px",
-                      borderRadius: 8,
-                      border: "1px solid #d1d5db",
-                    }}
-                    value={selectedExistingVehicleId}
-                    onChange={(e) => setSelectedExistingVehicleId(e.target.value)}
-                    disabled={isLinkingExisting}
-                  >
-                    <option value="">Select a vehicle…</option>
-                    {availableExistingVehicles.map((v) => (
-                      <option key={v.id} value={v.id}>
-                        {[v.year, v.make, v.model].filter(Boolean).join(" ") || "Vehicle"}{" "}
-                        {v.plate ? `• ${v.plate}` : ""}
-                        {v.state ? ` (${v.state})` : ""}
-                      </option>
-                    ))}
-                  </select>
-
-                  <button
-                    type="button"
-                    className={styles.primaryButton}
-                    style={{ whiteSpace: "nowrap" }}
-                    onClick={handleLinkExisting}
-                    disabled={!selectedExistingVehicleId || isLinkingExisting}
-                  >
-                    {isLinkingExisting ? "Linking…" : "Link"}
-                  </button>
-                </div>
-
-                {tenantVehicles.length > 0 && (
-                  <div style={{ fontSize: 12, color: "#6b7280" }}>
-                    Already linked to this tenant:
-                    <ul style={{ paddingLeft: 18, marginTop: 4 }}>
-                      {tenantVehicles.map((v) => (
-                        <li key={v.id}>
-                          {[v.year, v.make, v.model].filter(Boolean).join(" ") || "Vehicle"}{" "}
-                          {v.plate ? `• ${v.plate}` : ""}
-                          {v.state ? ` (${v.state})` : ""}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </>
-            )}
-          </section>
-
-          {/* Section 2: Create & link new vehicle */}
-          <section
-            style={{
-              maxWidth: 520,
-              padding: 16,
-              borderRadius: 12,
-              border: "1px solid #e5e7eb",
-              background: "#ffffff",
-            }}
-          >
-            <h2 style={{ fontSize: 16, marginBottom: 8 }}>Create new vehicle for this tenant</h2>
-
-            <form onSubmit={handleSubmitForTenant}>
-              {/* Vehicle Type */}
-              <div style={{ marginBottom: 12 }}>
-                <label htmlFor="vehicleType" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                  Type of vehicle
-                </label>
-                <select
-                  id="vehicleType"
-                  value={vehicleType}
-                  onChange={(e) => setVehicleType(e.target.value)}
-                  style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
-                  disabled={isSubmitting}
-                >               
-                  <option value="">— Select —</option>
-                  {vehicleTypeOptions.map((o) => (
-                    <option key={o.value} value={o.value}>
-                      {o.label}
-                    </option>
-                  ))}
-                </select>
-                {touched.vehicleType && !String(vehicleType).trim() && (
-                  <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>Enter valid vehicle type</div>
-                )}                   
-              </div>
-
-              {/* Vehicle Sub-Type */}
-              <div style={{ marginBottom: 12 }}>
-                <label htmlFor="vehicleSubType" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                  Color
-                </label>
-                <input
-                  id="vehicleSubType"
-                  type="text"
-                  value={vehicleSubType}
-                  onChange={(e) => setVehicleSubType(e.target.value)}
-                  placeholder="Jet Ski, Utility Trailer, Class A"
-                  style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
-                  disabled={isSubmitting}
-                />
-              </div>              
-
-              {/* Make */}
-              <div style={{ marginBottom: 12 }}>
-                <label htmlFor="make" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                  Make <span style={{ color: "#b91c1c" }}>*</span>
-                </label>
-                <input
-                  id="make"
-                  type="text"
-                  value={make}
-                  onChange={(e) => setMake(e.target.value)}
-                  onBlur={() => setTouched((t) => ({ ...t, make: true }))}
-                  placeholder="Manufacturer (Honda, Toyota, Nissan, etc.)"
-                  style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
-                  disabled={isSubmitting}
-                />
-                {touched.make && !String(make).trim() && (
-                  <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>Enter vehicle make</div>
-                )}
-              </div>
-
-              {/* Model */}
-              <div style={{ marginBottom: 12 }}>
-                <label htmlFor="model" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                  Model <span style={{ color: "#b91c1c" }}>*</span>
-                </label>
-                <input
-                  id="model"
-                  type="text"
-                  value={model}
-                  onChange={(e) => setModel(e.target.value)}
-                  onBlur={() => setTouched((t) => ({ ...t, model: true }))}
-                  placeholder="Model (Civic, Tacoma, Rogue, etc.)"
-                  style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
-                  disabled={isSubmitting}
-                />
-                {touched.model && !String(model).trim() && (
-                  <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>Enter vehicle model</div>
-                )}
-              </div>
-
-              {/* Year */}
-              <div style={{ marginBottom: 12 }}>
-                <label htmlFor="year" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                  Year <span style={{ color: "#b91c1c" }}>*</span>
-                </label>
-                <input
-                  id="year"
-                  type="number"
-                  value={year}
-                  onChange={(e) => setYear(e.target.value)}
-                  onBlur={() => setTouched((t) => ({ ...t, year: true }))}
-                  placeholder="e.g. 2019"
-                  style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
-                  disabled={isSubmitting}
-                />
-                {touched.year && !String(year).trim() && (
-                  <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>Enter vehicle year</div>
-                )}
-              </div>
-
-              {/* Color */}
-              <div style={{ marginBottom: 12 }}>
-                <label htmlFor="color" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                  Color
-                </label>
-                <input
-                  id="color"
-                  type="text"
-                  value={color}
-                  onChange={(e) => setColor(e.target.value)}
-                  placeholder="Color"
-                  style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
-                  disabled={isSubmitting}
-                />
-              </div>
-
-              {/* State */}
-              <div style={{ marginBottom: 12 }}>
-                <label htmlFor="state" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                  License plate state
-                </label>
-                <select
-                  id="state"
-                  value={state}
-                  onChange={(e) => setState(e.target.value)}
-                  style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
-                  disabled={isSubmitting}
-                >
-                  <option value="">— Select —</option>
-                  {stateOptions.map((o) => (
-                    <option key={o.value} value={o.value}>
-                      {o.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Plate */}
-              <div style={{ marginBottom: 12 }}>
-                <label htmlFor="plate" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                  License plate number
-                </label>
-                <input
-                  id="plate"
-                  type="text"
-                  value={plate}
-                  onChange={(e) => setPlate(e.target.value)}
-                  placeholder="License plate"
-                  style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
-                  disabled={isSubmitting}
-                />
-              </div>
-
-              {/* Permit */}
-              <div style={{ marginBottom: 12 }}>
-                <label htmlFor="permit" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                  Permit
-                </label>
-                <input
-                  id="permit"
-                  type="text"
-                  value={permit}
-                  onChange={(e) => setPermit(e.target.value)}
-                  placeholder="Permit #"
-                  style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
-                  disabled={isSubmitting}
-                />
-              </div>
-
-              {/* Parking */}
-              <div style={{ marginBottom: 12 }}>
-                <label htmlFor="parking" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                  Parking space
-                </label>
-                <input
-                  id="parking"
-                  type="text"
-                  value={parking}
-                  onChange={(e) => setParking(e.target.value)}
-                  placeholder="Parking #"
-                  style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
-                  disabled={isSubmitting}
-                />
-              </div>
-
-              {/* Notes */}
-              <div style={{ marginBottom: 12 }}>
-                <label htmlFor="notes" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                  Notes
-                </label>
-                <input
-                  id="notes"
-                  type="text"
-                  value={notes}
-                  onChange={(e) => setNotes(e.target.value)}
-                  placeholder="Additional notes"
-                  style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
-                  disabled={isSubmitting}
-                />
-              </div>
-
-              {formError && (
-                <div style={{ color: "#b91c1c", fontSize: 13, marginBottom: 8 }}>{formError}</div>
-              )}
-
-              <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
-                <button type="submit" className={styles.primaryButton} disabled={saveDisabled}>
-                  {isSubmitting ? "Saving…" : "Save vehicle"}
-                </button>
-
-                <button
-                  type="button"
-                  onClick={handleCancel}
-                  style={{
-                    borderRadius: 999,
-                    padding: "8px 16px",
-                    border: "1px solid #d1d5db",
-                    background: "#ffffff",
-                    cursor: "pointer",
-                  }}
-                  disabled={isSubmitting}
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
-          </section>
+  const renderForm = (onSubmit) => (
+    <form className={card.form} onSubmit={onSubmit}>
+      <section className={`${card.card} ${card.cardForm} ${page.narrow}`}>
+        <div className={card.cardHeader}>
+          <div className={card.cardTitle}>Basics</div>
         </div>
-      </div>
-    );
-  }
 
-  // === Mode B: NO tenantId → original global "add vehicle" behavior ===
-  return (
-    <div className={styles.page}>
-      <header className={styles.header}>
-        <div>
-          <h1 className={styles.title}>Add vehicle</h1>
-          <p className={styles.subtitle}>
-            Create a vehicle record. You’ll be able to connect vehicles tenants later.
-          </p>
-        </div>
-      </header>
+        <div className={card.cardBody}>
+          <div className={shared.groupRow}>
+            <div className={`${card.field} ${shared.groupField}`}>
+              <label className={card.label} htmlFor="vehicleType">
+                Type <span className={card.required}>*</span>
+              </label>
 
-      <div style={{ marginTop: 12 }}>
-        <form
-          onSubmit={handleSubmitGlobal}
-          style={{
-            maxWidth: 480,
-            padding: 16,
-            borderRadius: 12,
-            border: "1px solid #e5e7eb",
-            background: "#ffffff",
-          }}
-        >
-          {/* Vehicle Type */}
-          <div style={{ marginBottom: 12 }}>
-            <label htmlFor="vehicleType" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-              Type of vehicle <span style={{ color: "#b91c1c" }}>*</span>
-            </label>
-            <select
-              id="vehicleType"
-              value={vehicleType}
-              onChange={(e) => setVehicleType(e.target.value)}
-              style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
-              disabled={isSubmitting}
-            >
-              <option value="">— Select —</option>
-              {vehicleTypeOptions.map((o) => (
-                <option key={o.value} value={o.value}>
-                  {o.label}
-                </option>
-              ))}
-            </select>
-            {touched.vehicleType && !String(vehicleType).trim() && (
-              <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>Enter valid vehicle type</div>
-            )}            
+              <select
+                id="vehicleType"
+                value={vehicleType}
+                onChange={(e) => setVehicleType(e.target.value)}
+                className={ctrl(touched.vehicleType && !String(vehicleType).trim())}
+                disabled={isSubmitting}
+              >
+                <option value="">— Select —</option>
+                {vehicleTypeOptions.map((o) => (
+                  <option key={o.value} value={o.value}>
+                    {o.label}
+                  </option>
+                ))}
+              </select>
+              
+              {touched.vehicleType && !String(vehicleType).trim() ? (
+                <div className={card.errorText}>Select a vehicle type</div>
+              ) : null}
+            </div>
+            
+            <div className={`${card.field} ${shared.groupField}`}>
+              <label className={card.label} htmlFor="vehicleSubType">
+                Sub-type <span className={shared.muted}>(optional)</span>
+              </label>
+            
+              <input
+                id="vehicleSubType"
+                type="text"
+                value={vehicleSubType}
+                onChange={(e) => setVehicleSubType(e.target.value)}
+                placeholder="Jet Ski, Utility Trailer, Class A"
+                className={card.control}
+                disabled={isSubmitting}
+              />
+            </div>
           </div>
 
-          {/* Vehicle Sub-Type */}
-          <div style={{ marginBottom: 12 }}>
-            <label htmlFor="vehicleSubType" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-              Vehicle Sub-Type
-            </label>
-            <input
-              id="vehicleSubType"
-              type="text"
-              value={vehicleSubType}
-              onChange={(e) => setVehicleSubType(e.target.value)}
-              placeholder="Jet Ski, Utility Trailer, Class A"
-              style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
-              disabled={isSubmitting}
-            />
-          </div>   
-
-          {/* Make */}
-          <div style={{ marginBottom: 12 }}>
-            <label htmlFor="make" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-              Make <span style={{ color: "#b91c1c" }}>*</span>
+          <div className={card.field}>
+            <label className={card.label} htmlFor="make">
+              Make <span className={card.required}>*</span>
             </label>
             <input
               id="make"
@@ -761,19 +414,16 @@ export default function LandlordAddVehiclePage() {
               value={make}
               onChange={(e) => setMake(e.target.value)}
               onBlur={() => setTouched((t) => ({ ...t, make: true }))}
-              placeholder="Manufacturer (Honda, Toyota, Nissan, etc.)"
-              style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
+              placeholder="Toyota"
+              className={ctrl(touched.make && !String(make).trim())}
               disabled={isSubmitting}
             />
-            {touched.make && !String(make).trim() && (
-              <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>Enter vehicle make</div>
-            )}
+            {touched.make && !String(make).trim() ? <div className={card.errorText}>Enter a make</div> : null}
           </div>
 
-          {/* Model */}
-          <div style={{ marginBottom: 12 }}>
-            <label htmlFor="model" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-              Model <span style={{ color: "#b91c1c" }}>*</span>
+          <div className={card.field}>
+            <label className={card.label} htmlFor="model">
+              Model <span className={card.required}>*</span>
             </label>
             <input
               id="model"
@@ -781,19 +431,16 @@ export default function LandlordAddVehiclePage() {
               value={model}
               onChange={(e) => setModel(e.target.value)}
               onBlur={() => setTouched((t) => ({ ...t, model: true }))}
-              placeholder="Model (Civic, Tacoma, Rogue, etc.)"
-              style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
+              placeholder="4Runner"
+              className={ctrl(touched.model && !String(model).trim())}
               disabled={isSubmitting}
             />
-            {touched.model && !String(model).trim() && (
-              <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>Enter vehicle model</div>
-            )}
+            {touched.model && !String(model).trim() ? <div className={card.errorText}>Enter a model</div> : null}
           </div>
 
-          {/* Year */}
-          <div style={{ marginBottom: 12 }}>
-            <label htmlFor="year" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-              Year <span style={{ color: "#b91c1c" }}>*</span>
+          <div className={card.field}>
+            <label className={card.label} htmlFor="year">
+              Year <span className={card.required}>*</span>
             </label>
             <input
               id="year"
@@ -801,142 +448,284 @@ export default function LandlordAddVehiclePage() {
               value={year}
               onChange={(e) => setYear(e.target.value)}
               onBlur={() => setTouched((t) => ({ ...t, year: true }))}
-              placeholder="e.g. 2019"
-              style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
+              placeholder="2019"
+              className={ctrl(touched.year && !String(year).trim())}
               disabled={isSubmitting}
             />
-            {touched.year && !String(year).trim() && (
-              <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>Enter vehicle year</div>
-            )}
+            {touched.year && !String(year).trim() ? <div className={card.errorText}>Enter a year</div> : null}
           </div>
 
-          {/* Color */}
-          <div style={{ marginBottom: 12 }}>
-            <label htmlFor="color" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-              Color
+          <div className={card.field}>
+            <label className={card.label} htmlFor="color">
+              Color <span className={shared.muted}>(optional)</span>
             </label>
             <input
               id="color"
               type="text"
               value={color}
               onChange={(e) => setColor(e.target.value)}
-              placeholder="Color"
-              style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
+              placeholder="Silver"
+              className={card.control}
               disabled={isSubmitting}
             />
           </div>
+        </div>
+      </section>
 
-          {/* State */}
-          <div style={{ marginBottom: 12 }}>
-            <label htmlFor="state" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-              License plate state
-            </label>
-            <select
-              id="state"
-              value={state}
-              onChange={(e) => setState(e.target.value)}
-              style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
-              disabled={isSubmitting}
-            >
-              <option value="">— Select —</option>
-              {stateOptions.map((o) => (
-                <option key={o.value} value={o.value}>
-                  {o.label}
-                </option>
-              ))}
-            </select>
+      <section className={`${card.card} ${card.cardForm} ${page.narrow}`}>
+        <div className={card.cardHeader}>
+          <div className={card.cardTitle}>License Plate</div>
+        </div>
+
+        <div className={card.cardBody}>
+          <fieldset className={shared.groupRow}>
+            <legend className={shared.srOnly}>License plate</legend>
+
+            <div className={`${card.field} ${shared.groupField}`}>
+              <label className={card.label} htmlFor="state">
+                State <span className={shared.muted}>(optional)</span>
+              </label>
+
+              <select
+                id="state"
+                value={state}
+                onChange={(e) => setState(e.target.value)}
+                className={card.control}
+                disabled={isSubmitting}
+              >
+                <option value="">— Select —</option>
+                {stateOptions.map((o) => (
+                  <option key={o.value} value={o.value}>
+                    {o.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+              
+            <div className={`${card.field} ${shared.groupField}`}>
+              <label className={card.label} htmlFor="plate">
+                Plate number <span className={shared.muted}>(optional)</span>
+              </label>
+              
+              <input
+                id="plate"
+                type="text"
+                value={plate}
+                onChange={(e) => setPlate(e.target.value)}
+                placeholder="ABC123"
+                className={card.control}
+                disabled={isSubmitting}
+              />
+            </div>
+          </fieldset>
+        </div>
+      </section>
+
+      <section className={`${card.card} ${card.cardForm} ${page.narrow}`}>
+        <div className={card.cardHeader}>
+          <div className={card.cardTitle}>Parking</div>
+        </div>
+                    
+        <div className={card.cardBody}>
+          <div className={shared.groupRow}>
+            <div className={`${card.field} ${shared.groupField}`}>
+              <label className={card.label} htmlFor="permit">
+                Permit <span className={shared.muted}>(optional)</span>
+              </label>
+              <input
+                id="permit"
+                type="text"
+                value={permit}
+                onChange={(e) => setPermit(e.target.value)}
+                placeholder="Permit #"
+                className={card.control}
+                disabled={isSubmitting}
+              />
+            </div>
+                    
+            <div className={`${card.field} ${shared.groupField}`}>
+              <label className={card.label} htmlFor="parking">
+                Parking space <span className={shared.muted}>(optional)</span>
+              </label>
+              <input
+                id="parking"
+                type="text"
+                value={parking}
+                onChange={(e) => setParking(e.target.value)}
+                placeholder="Space 12"
+                className={card.control}
+                disabled={isSubmitting}
+              />
+            </div>
           </div>
+        </div>
+      </section>
 
-          {/* Plate */}
-          <div style={{ marginBottom: 12 }}>
-            <label htmlFor="plate" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-              License plate number
-            </label>
-            <input
-              id="plate"
-              type="text"
-              value={plate}
-              onChange={(e) => setPlate(e.target.value)}
-              placeholder="License plate"
-              style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
-              disabled={isSubmitting}
-            />
-          </div>
+      <section className={`${card.card} ${card.cardForm} ${page.narrow}`}>
+        <div className={card.cardHeader}>
+          <div className={card.cardTitle}>Notes</div>
+        </div>
 
-          {/* Permit */}
-          <div style={{ marginBottom: 12 }}>
-            <label htmlFor="permit" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-              Permit
-            </label>
-            <input
-              id="permit"
-              type="text"
-              value={permit}
-              onChange={(e) => setPermit(e.target.value)}
-              placeholder="Permit #"
-              style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
-              disabled={isSubmitting}
-            />
-          </div>
-
-          {/* Parking */}
-          <div style={{ marginBottom: 12 }}>
-            <label htmlFor="parking" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-              Parking space
-            </label>
-            <input
-              id="parking"
-              type="text"
-              value={parking}
-              onChange={(e) => setParking(e.target.value)}
-              placeholder="Parking #"
-              style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
-              disabled={isSubmitting}
-            />
-          </div>
-
-          {/* Notes */}
-          <div style={{ marginBottom: 12 }}>
-            <label htmlFor="notes" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-              Notes
+        <div className={card.cardBody}>
+          <div className={card.field}>
+            <label className={card.label} htmlFor="notes">
+              Additional notes <span className={shared.muted}>(optional)</span>
             </label>
             <input
               id="notes"
               type="text"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="Additional notes"
-              style={{ width: "100%", padding: "6px 8px", borderRadius: 8, border: "1px solid #d1d5db" }}
+              placeholder="Add any additional information"
+              className={card.control}
               disabled={isSubmitting}
             />
           </div>
 
-          {formError && (
-            <div style={{ color: "#b91c1c", fontSize: 13, marginBottom: 8 }}>{formError}</div>
-          )}
+          {formError ? <div className={shared.error}>{formError}</div> : null}
 
-          <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
-            <button type="submit" className={styles.primaryButton} disabled={saveDisabled}>
-              {isSubmitting ? "Saving…" : "Save vehicle"}
+          <div className={card.formActions}>
+            <button type="submit" className={card.primaryButton} disabled={saveDisabled}>
+              {isSubmitting ? "Saving…" : isEditMode ? "Save changes" : "Save vehicle"}
             </button>
 
-            <button
-              type="button"
-              onClick={handleCancel}
-              style={{
-                borderRadius: 999,
-                padding: "8px 16px",
-                border: "1px solid #d1d5db",
-                background: "#ffffff",
-                cursor: "pointer",
-              }}
-              disabled={isSubmitting}
-            >
+            <button type="button" className={card.linkAction} onClick={handleCancel} disabled={isSubmitting}>
               Cancel
             </button>
           </div>
-        </form>
+        </div>
+      </section>
+    </form>
+  );
+
+  // ------------------------------------------------------------
+  // RENDER
+  // ------------------------------------------------------------
+
+  // === Mode A: tenantId present (manage vehicles for tenant) ===
+  if (tenantId) {
+    return (
+      <div className={page.page}>
+        <header className={page.header}>
+          <div>
+            <h1 className={page.title}>Manage vehicle linking</h1>
+            {loadingTenant ? (
+              <p className={page.subtitle}>Loading tenant…</p>
+            ) : tenantError || !tenant ? (
+              <p className={page.subtitle} style={{ color: "#b91c1c" }}>
+                Failed to load tenant. You can still add vehicles, but linking may not behave as expected.
+              </p>
+            ) : (
+              <p className={page.subtitle}>
+                Link an existing vehicle or create a new one for <strong>{tenant.name}</strong>.
+              </p>
+            )}
+          </div>
+        </header>
+
+        <div className={page.grid}>
+
+          {/* Link existing */}
+          <section className={page.section}>
+            <div className={page.sectionHeader}>
+              <div className={page.sectionHeaderStack}>
+                <div className={page.sectionTitle}>Link existing</div>
+                <div className={page.sectionHint}>
+                  Quickly associate an existing vehicle with this tenant
+                </div>
+              </div>
+            </div>
+
+            <div className={`${card.card} ${card.cardForm} ${page.narrow}`}>
+              <div className={card.cardBody}>
+                {loadingVehicles ? (
+                  <div className={shared.muted}>Loading vehicles…</div>
+                ) : vehiclesError ? (
+                  <div className={shared.error}>Failed to load vehicles list.</div>
+                ) : availableExistingVehicles.length === 0 ? (
+                  <div className={shared.muted}>No other vehicles available to link.</div>
+                ) : (
+                  <>
+                    <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                      <select
+                        className={card.control}
+                        value={selectedExistingVehicleId}
+                        onChange={(e) => setSelectedExistingVehicleId(e.target.value)}
+                        disabled={isLinkingExisting}
+                        style={{ flex: 1 }}
+                      >
+                        <option value="">Select a vehicle…</option>
+                        {availableExistingVehicles.map((v) => (
+                          <option key={v.id} value={v.id}>
+                            {[v.year, v.make, v.model].filter(Boolean).join(" ") || "Vehicle"}
+                            {v.plate ? ` • ${v.plate}` : ""}
+                            {v.state ? ` (${v.state})` : ""}
+                          </option>
+                        ))}
+                      </select>
+
+                      <button
+                        type="button"
+                        className={card.primaryButton}
+                        onClick={handleLinkExisting}
+                        disabled={!selectedExistingVehicleId || isLinkingExisting}
+                        style={{ whiteSpace: "nowrap" }}
+                      >
+                        {isLinkingExisting ? "Linking…" : "Link"}
+                      </button>
+                    </div>
+
+                    {tenantVehicles.length > 0 ? (
+                      <div className={shared.muted} style={{ marginTop: 10 }}>
+                        Already linked:
+                        <ul style={{ paddingLeft: 18, marginTop: 4 }}>
+                          {tenantVehicles.map((v) => (
+                            <li key={v.id}>
+                              {[v.year, v.make, v.model].filter(Boolean).join(" ") || "Vehicle"}
+                              {v.plate ? ` • ${v.plate}` : ""}
+                              {v.state ? ` (${v.state})` : ""}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : null}
+                  </>
+                )}
+              </div>
+            </div>
+          </section>
+
+          {/* Create new (same form, different submit) */}
+          <section className={page.section}>
+            <div className={page.sectionHeader}>
+              <div className={page.sectionHeaderStack}>
+                <div className={page.sectionTitle}>Create new</div>
+                <div className={page.sectionHint}>
+                  Create a new vehicle record and link it to this tenant.
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {renderForm(handleSubmitForTenant)}
+        </div>
       </div>
+    );
+  }
+
+  // === Mode B: global add/edit ===
+  return (
+    <div className={page.page}>
+      <header className={page.header}>
+        <div>
+          <h1 className={page.title}>{isEditMode ? "Edit vehicle" : "Create vehicle"}</h1>
+          <p className={page.subtitle}>
+            {isEditMode ? "Update vehicle details." : "Create a vehicle record.  It can be linked to a tenant."}
+          </p>
+        </div>
+      </header>
+
+      {renderForm(handleSubmitGlobal)}
     </div>
   );
 }

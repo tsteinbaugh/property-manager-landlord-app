@@ -10,7 +10,9 @@ import { ROLES } from "@lib/rbac/roles.js";
 import OccupantCard from "@features/residents/components/occupants/OccupantCard.jsx"
 import LinkageCard from "@shared/ui/cards/LinkageCard.jsx"
 
-import ui from "@shared/styles/CardLayout.module.css";
+import page from "@shared/styles/ui.pages.module.css";
+import card from "@shared/styles/ui.cards.module.css";
+import shared from "@shared/styles/ui.shared.module.css";
 
 export default function LandlordOccupantDetailsPage() {
   const { occupantId } = useParams();
@@ -28,7 +30,6 @@ export default function LandlordOccupantDetailsPage() {
   const canArchiveGrant = can(role, R.OCCUPANTS, A.ARCHIVE);        
 
   const [occupant, setOccupant] = useState(null);
-  const [tenants, setTenants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -43,14 +44,10 @@ export default function LandlordOccupantDetailsPage() {
         setLoading(true);
         setError(null);
 
-        const [o, ts] = await Promise.all([
-          occupantsApi.get(occupantId, { token }),
-          tenantsApi.list({ token }),
-        ]);
+        const o = await occupantsApi.get(occupantId, { token });
 
         if (!cancelled) {
           setOccupant(o || null);
-          setTenants(Array.isArray(ts) ? ts : []);
           if (!o) setError(new Error("Occupant not found"));
         }
       } catch (err) {
@@ -73,8 +70,6 @@ export default function LandlordOccupantDetailsPage() {
 
   const isArchived = !!occupant?.archivedAt;
   
-
-  // Match your earlier resident pages: keep it simple (no RBAC gating here)
   const canEditNow = canUpdate && (!isArchived || isSysAdmin);
   const canArchiveNow = !isArchived;
   const canUnarchiveNow = isArchived && isSysAdmin;
@@ -87,18 +82,9 @@ export default function LandlordOccupantDetailsPage() {
     return Array.isArray(occupant.tenants) ? occupant.tenants : [];
   }, [occupant]);
 
-  const availableTenants = useMemo(() => {
-    const linkedIds = new Set((linkedTenants || []).map((t) => t?.id).filter(Boolean));
-    return (tenants || []).filter((t) => t?.id && !linkedIds.has(t.id));
-  }, [tenants, linkedTenants]);
-
   const reload = async () => {
-    const [o, ts] = await Promise.all([
-      occupantsApi.get(occupantId, { token }),
-      tenantsApi.list({ token }),
-    ]);
+    const o = await occupantsApi.get(occupantId, { token });
     setOccupant(o || null);
-    setTenants(Array.isArray(ts) ? ts : []);
   };
 
   const handleToggleArchive = async () => {
@@ -190,30 +176,30 @@ export default function LandlordOccupantDetailsPage() {
     }
   };
 
-  if (loading) return <div className={ui.page}>Loading occupant…</div>;
+  if (loading) return <div className={page.page}>Loading occupant…</div>;
   if (error)
     return (
-      <div className={ui.page} style={{ color: "crimson" }}>
+      <div className={page.page} style={{ color: "crimson" }}>
         Error loading occupant: {String(error?.message || error)}
       </div>
     );
-  if (!occupant) return <div className={ui.page}>No data.</div>;
+  if (!occupant) return <div className={page.page}>No data.</div>;
 
   return (
-    <div className={ui.page}>
-      <div style={{ marginBottom: 8 }}>
+    <div className={page.page}>
+      <div className={page.header}>
         <Link to="/landlord/residents?tab=occupants">← Back to residents</Link>
       </div>
 
       {/* Header */}
-      <div className={ui.section}>
-        <div className={ui.sectionHeader}>
+      <div className={page.section}>
+        <div className={page.sectionHeader}>
           <div>
-            <h1 style={{ margin: 0 }}>{title}</h1>
+            <h1 className={page.title}>{title}</h1>
 
-            <div className={ui.headerLinksRow}>
+            <div className={card.headerLinksRow}>
               {canEditNow ? (
-                <button type="button" className={ui.linkAction} onClick={goEditOccupant}>
+                <button type="button" className={card.linkAction} onClick={goEditOccupant}>
                   Edit occupant
                 </button>
               ) : null}
@@ -221,7 +207,7 @@ export default function LandlordOccupantDetailsPage() {
               {showArchiveLink ? (
                 <button
                   type="button"
-                  className={ui.linkAction}
+                  className={card.linkAction}
                   onClick={handleToggleArchive}
                   disabled={isArchiving}
                   aria-disabled={isArchiving ? "true" : "false"}
@@ -229,35 +215,31 @@ export default function LandlordOccupantDetailsPage() {
                   {isArchived ? "Unarchive occupant" : "Archive occupant"}
                 </button>
               ) : (
-                <span className={ui.linkActionDisabled}>
+                <span className={card.linkActionDisabled}>
                   {isArchived ? "Unarchive occupant" : "Archive occupant"}
                 </span>
               )}
             </div>
 
-            {isArchived ? <div className={ui.muted}>(Archived – read-only for landlords)</div> : null}
+            {isArchived ? <div className={shared.muted}>(Archived – read-only for landlords)</div> : null}
           </div>
         </div>
       </div>
 
       {/* Occupant info */}
-      <div className={ui.section}>
-        <div className={ui.sectionHeader}></div>
-        <OccupantCard
-          occupant={occupant}
-          variant="detail"
-        />
+      <div className={page.section}>
+        <OccupantCard occupant={occupant} variant="detail" />
       </div>
 
       {/* Tenants */}
-      <div className={ui.section}>
-        <div className={ui.sectionHeader}>
-          <div className={ui.sectionTitle}>Tenants</div>
-          <div className={ui.sectionHint}>Direct link: Tenant ↔ Occupant</div>
+      <div className={page.section}>
+        <div className={page.sectionHeader}>
+          <div className={page.sectionTitle}>Tenants</div>
+          <div className={page.sectionHint}>Direct link: Tenant ↔ Occupant</div>
         </div>
 
         {linkedTenants.length ? (
-          <div className={ui.grid}>
+          <div className={page.grid}>
             {linkedTenants.map((t) => {
               if (!t?.id) return null;
 
@@ -276,7 +258,7 @@ export default function LandlordOccupantDetailsPage() {
                   footer={
                     <button
                       type="button"
-                      className={`${ui.inlineAction} ${ui.inlineActionDanger}`}
+                      className={`${card.inlineAction} ${card.inlineActionDanger}`}
                       onClick={(le) => {
                         le.stopPropagation();
                         handleUnlinkTenant(t.id);
@@ -291,13 +273,13 @@ export default function LandlordOccupantDetailsPage() {
             })}
           </div>
         ) : (
-          <div className={ui.muted}>No tenants linked to this occupant yet.</div>
+          <div className={shared.muted}>No tenants linked to this occupant yet.</div>
         )}
 
-        <div style={{ marginTop: 10 }}>
+        <div className={card.formActions}>
           <button
             type="button"
-            className={ui.linkAction}
+            className={card.linkAction}
             onClick={() => {
               const returnTo = encodeURIComponent(
                 `${window.location.pathname}${window.location.search || ""}`
@@ -311,7 +293,7 @@ export default function LandlordOccupantDetailsPage() {
           </button>
 
           {isArchived ? (
-            <div className={ui.muted} style={{ marginTop: 6 }}>
+            <div className={shared.muted}>
               Cannot manage links for an archived occupant.
             </div>
           ) : null}

@@ -1,0 +1,148 @@
+/* ui.pages.module.css
+   Page + sections (merge of LandlordPage.module.css + CardLayout page bits)
+*/
+
+.page {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: var(--ui-page-pad-top) var(--ui-page-pad-x) var(--ui-page-pad-bottom);
+}
+
+/* Existing LandlordPage "header" pattern */
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--ui-text);
+  margin: 0;
+}
+
+.subtitle {
+  margin: 4px 0 0;
+  font-size: 0.95rem;
+  color: var(--ui-muted);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Detail-page sections */
+.section {
+  margin-top: 20px;
+}
+
+.sectionHeaderStack {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  gap: 12px;
+}
+
+.sectionTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--ui-text);
+}
+
+.sectionHint {
+  font-size: 0.85rem;
+  color: var(--ui-muted);
+}
+
+/* Grids */
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+/* Common helpers */
+.center {
+  display: flex;
+  justify-content: center;
+  padding: 24px 0;
+}
+
+.empty {
+  border-radius: var(--ui-radius-lg);
+  border: 1px dashed var(--ui-border-2);
+  padding: 32px 20px;
+  text-align: center;
+  background: var(--ui-bg-soft);
+  margin-top: 12px;
+}
+
+.emptyTitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--ui-text);
+  margin: 0 0 4px;
+}
+
+.emptyText {
+  font-size: 0.95rem;
+  color: var(--ui-muted);
+  margin: 0 0 16px;
+}
+
+/* Narrow content blocks (forms/panels) */
+.narrow {
+  max-width: 520px;
+}
+
+/* --- Add/Edit "builder" layout (two column) --- */
+
+.twoCol {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+/* desktop: form + preview */
+@media (min-width: 980px) {
+  .twoCol {
+    grid-template-columns: minmax(520px, 1fr) 420px;
+    gap: 20px;
+  }
+}
+
+.mainCol {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* right rail preview */
+.previewCol {
+  display: none;
+}
+
+@media (min-width: 980px) {
+  .previewCol {
+    display: block;
+  }
+}
+
+.previewSticky {
+  position: sticky;
+  top: 18px;
+}

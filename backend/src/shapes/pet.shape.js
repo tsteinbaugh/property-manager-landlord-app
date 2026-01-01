@@ -4,7 +4,7 @@ function shapePet(pet) {
     name: pet.name,
     type: pet.type,
     breed: pet.breed,
-    weightLb: pet.weightLb,
+    weight: pet.weight,
     age: pet.age,
     license: pet.license,
     notes: pet.notes,

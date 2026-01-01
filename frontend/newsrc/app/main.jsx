@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import { AppRoutes } from "@app/routes.jsx";
 import { AppProviders } from "@app/providers.jsx";
 import "@styles/global.css";
+import "@shared/styles/ui.shared.module.css";
 
 const rootEl = document.getElementById("root");
 const root = createRoot(rootEl);

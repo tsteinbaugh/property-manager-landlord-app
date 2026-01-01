@@ -469,7 +469,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
             })}
           </div>
         ) : (
-          <div className={ui.muted}>No tenants associated with this property yet.</div>
+          <div className={ui.muted}>No tenants associated with this property yet. Link via lease first.</div>
         )}
       </div>
 
@@ -504,7 +504,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
             })}
           </div>
         ) : (
-          <div className={ui.muted}>No occupants associated with this property yet.</div>
+          <div className={ui.muted}>No occupants associated with this property yet. Link via tenant first.</div>
         )}
       </div>
 
@@ -539,7 +539,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
             })}
           </div>
         ) : (
-          <div className={ui.muted}>No pets associated with this property yet.</div>
+          <div className={ui.muted}>No pets associated with this property yet. Link via tenant first.</div>
         )}
       </div>
 
@@ -576,7 +576,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
             })}
           </div>
         ) : (
-          <div className={ui.muted}>No emergency contacts associated with this property yet.</div>
+          <div className={ui.muted}>No emergency contacts associated with this property yet. Link via tenant first.</div>
         )}
       </div>
 
@@ -616,7 +616,7 @@ export default function LandlordPropertyDetailPage({ propertyId }) {
             })}
           </div>
         ) : (
-          <div className={ui.muted}>No vehicles associated with this property yet.</div>
+          <div className={ui.muted}>No vehicles associated with this property yet. Link via tenant first.</div>
         )}
       </div>
     </div>

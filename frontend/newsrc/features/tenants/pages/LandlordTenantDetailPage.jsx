@@ -472,7 +472,7 @@ export default function LandlordTenantDetailPage() {
             })}
           </div>
         ) : (
-          <div className={ui.muted}>No properties associated with this tenant yet.</div>
+          <div className={ui.muted}>No properties associated with this tenant yet. Link via lease first.</div>
         )}
 
         {leasesMissingPropertyCount > 0 ? (
@@ -541,7 +541,7 @@ export default function LandlordTenantDetailPage() {
               navigate(`/landlord/occupants/new?tenantId=${tenant.id}&returnTo=${returnTo}`);
             }}
           >
-            Add a occupant (new or existing)
+            Add an occupant (new or existing)
           </button>
         </div>
       </div>

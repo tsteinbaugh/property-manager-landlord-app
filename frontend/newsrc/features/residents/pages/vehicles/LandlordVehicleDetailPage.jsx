@@ -7,12 +7,15 @@ import { tenantsApi } from "@features/tenants/api/tenants.api.js";
 import { can } from "@lib/rbac/index.js";
 import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
 import { ROLES } from "@lib/rbac/roles.js";
-import VehicleCard from "@features/residents/components/vehicles/VehicleCard.jsx"
-import LinkageCard from "@shared/ui/cards/LinkageCard.jsx"
+import VehicleCard from "@features/residents/components/vehicles/VehicleCard.jsx";
+import LinkageCard from "@shared/ui/cards/LinkageCard.jsx";
 
-import ui from "@shared/styles/CardLayout.module.css";
+import page from "@shared/styles/ui.pages.module.css";
+import card from "@shared/styles/ui.cards.module.css";
+import shared from "@shared/styles/ui.shared.module.css";
 
 function vehicleLabel(v) {
+  if (!v) return "Unnamed vehicle";
 
   const year = v.year ? String(v.year).trim() : "";
   const make = v.make ? String(v.make).trim() : "";
@@ -27,17 +30,17 @@ export default function LandlordVehicleDetailsPage() {
   const navigate = useNavigate();
   const { isSysAdmin, token, effectiveRole } = useUser() || {};
 
-  const role = isSysAdmin
+  const role =
+    isSysAdmin && effectiveRole !== ROLES.SYSADMIN
     ? ROLES.SYSADMIN
     : typeof effectiveRole === "string"
       ? effectiveRole.toLowerCase()
-      : ROLES.LANDLORD;
+      : effectiveRole || ROLES.LANDLORD;
 
   const canUpdate = can(role, R.VEHICLES, A.UPDATE);
   const canArchiveGrant = can(role, R.VEHICLES, A.ARCHIVE);
 
   const [vehicle, setVehicle] = useState(null);
-  const [tenants, setTenants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -52,14 +55,10 @@ export default function LandlordVehicleDetailsPage() {
         setLoading(true);
         setError(null);
 
-        const [v, ts] = await Promise.all([
-          vehiclesApi.get(vehicleId, { token }),
-          tenantsApi.list({ token }),
-        ]);
+        const v = await vehiclesApi.get(vehicleId, { token });
 
         if (!cancelled) {
           setVehicle(v || null);
-          setTenants(Array.isArray(ts) ? ts : []);
           if (!v) setError(new Error("Vehicle not found"));
         }
       } catch (err) {
@@ -88,23 +87,16 @@ export default function LandlordVehicleDetailsPage() {
   const canUnarchiveNow = isArchived && isSysAdmin;
   const showArchiveLink = canArchiveNow || canUnarchiveNow;
 
+  const title = vehicleLabel(vehicle);
+
   const linkedTenants = useMemo(() => {
     if (!vehicle) return [];
     return Array.isArray(vehicle.tenants) ? vehicle.tenants : [];
   }, [vehicle]);
 
-  const availableTenants = useMemo(() => {
-    const linkedIds = new Set((linkedTenants || []).map((t) => t?.id).filter(Boolean));
-    return (tenants || []).filter((t) => t?.id && !linkedIds.has(t.id));
-  }, [tenants, linkedTenants]);
-
   const reload = async () => {
-    const [v, ts] = await Promise.all([
-      vehiclesApi.get(vehicleId, { token }),
-      tenantsApi.list({ token }),
-    ]);
+    const v = await vehiclesApi.get(vehicleId, { token });
     setVehicle(v || null);
-    setTenants(Array.isArray(ts) ? ts : []);
   };
 
   const handleToggleArchive = async () => {
@@ -119,7 +111,7 @@ export default function LandlordVehicleDetailsPage() {
       const archiveReason = window.prompt(
         "Please provide a reason for archiving this vehicle."
       );
-
+      
       if (archiveReason === null) return;
 
       if (!archiveReason.trim()) {
@@ -196,32 +188,30 @@ export default function LandlordVehicleDetailsPage() {
     }
   };
 
-  if (loading) return <div className={ui.page}>Loading vehicle…</div>;
+  if (loading) return <div className={page.page}>Loading vehicle…</div>;
   if (error)
     return (
-      <div className={ui.page} style={{ color: "crimson" }}>
+      <div className={page.page} style={{ color: "crimson" }}>
         Error loading vehicle: {String(error?.message || error)}
       </div>
     );
-  if (!vehicle) return <div className={ui.page}>No data.</div>;
-
-  const title = vehicleLabel(vehicle);
+  if (!vehicle) return <div className={page.page}>No data.</div>;
 
   return (
-    <div className={ui.page}>
-      <div style={{ marginBottom: 8 }}>
+    <div className={page.page}>
+      <div className={page.header}>
         <Link to="/landlord/residents?tab=vehicles">← Back to residents</Link>
       </div>
 
       {/* Header */}
-      <div className={ui.section}>
-        <div className={ui.sectionHeader}>
+      <div className={page.section}>
+        <div className={page.sectionHeader}>
           <div>
-            <h1 style={{ margin: 0 }}>{title}</h1>
+            <h1 className={page.title}>{title}</h1>
 
-            <div className={ui.headerLinksRow}>
+            <div className={card.headerLinksRow}>
               {canEditNow ? (
-                <button type="button" className={ui.linkAction} onClick={goEditVehicle}>
+                <button type="button" className={card.linkAction} onClick={goEditVehicle}>
                   Edit vehicle
                 </button>
               ) : null}
@@ -229,7 +219,7 @@ export default function LandlordVehicleDetailsPage() {
               {showArchiveLink ? (
                 <button
                   type="button"
-                  className={ui.linkAction}
+                  className={card.linkAction}
                   onClick={handleToggleArchive}
                   disabled={isArchiving}
                   aria-disabled={isArchiving ? "true" : "false"}
@@ -237,35 +227,31 @@ export default function LandlordVehicleDetailsPage() {
                   {isArchived ? "Unarchive vehicle" : "Archive vehicle"}
                 </button>
               ) : (
-                <span className={ui.linkActionDisabled}>
+                <span className={card.linkActionDisabled}>
                   {isArchived ? "Unarchive vehicle" : "Archive vehicle"}
                 </span>
               )}
             </div>
 
-            {isArchived ? <div className={ui.muted}>(Archived – read-only for landlords)</div> : null}
+            {isArchived ? <div className={shared.muted}>(Archived – read-only for landlords)</div> : null}
           </div>
         </div>
       </div>
 
       {/* Vehicle info */}
-      <div className={ui.section}>
-        <div className={ui.sectionHeader}></div>
-        <VehicleCard
-          vehicle={vehicle}
-          variant="detail"
-        />
+      <div className={page.section}>
+        <VehicleCard vehicle={vehicle} variant="detail" />
       </div>
 
       {/* Tenants */}
-      <div className={ui.section}>
-        <div className={ui.sectionHeader}>
-          <div className={ui.sectionTitle}>Tenants</div>
-          <div className={ui.sectionHint}>Direct link: Tenant ↔ Vehicle</div>
+      <div className={page.section}>
+        <div className={page.sectionHeader}>
+          <div className={page.sectionTitle}>Tenants</div>
+          <div className={page.sectionHint}>Direct link: Tenant ↔ Vehicle</div>
         </div>
 
         {linkedTenants.length ? (
-          <div className={ui.grid}>
+          <div className={page.grid}>
             {linkedTenants.map((t) => {
               if (!t?.id) return null;
 
@@ -284,7 +270,7 @@ export default function LandlordVehicleDetailsPage() {
                   footer={
                     <button
                       type="button"
-                      className={`${ui.inlineAction} ${ui.inlineActionDanger}`}
+                      className={`${card.inlineAction} ${card.inlineActionDanger}`}
                       onClick={(le) => {
                         le.stopPropagation();
                         handleUnlinkTenant(t.id);
@@ -299,13 +285,13 @@ export default function LandlordVehicleDetailsPage() {
             })}
           </div>
         ) : (
-          <div className={ui.muted}>No tenants linked to this vehicle yet.</div>
+          <div className={shared.muted}>No tenants linked to this vehicle yet.</div>
         )}
 
-        <div style={{ marginTop: 10 }}>
+        <div className={card.formActions}>
           <button
             type="button"
-            className={ui.linkAction}
+            className={card.linkAction}
             onClick={() => {
               const returnTo = encodeURIComponent(
                 `${window.location.pathname}${window.location.search || ""}`
@@ -319,7 +305,7 @@ export default function LandlordVehicleDetailsPage() {
           </button>
 
           {isArchived ? (
-            <div className={ui.muted} style={{ marginTop: 6 }}>
+            <div className={shared.muted}>
               Cannot manage links for an archived vehicle.
             </div>
           ) : null}

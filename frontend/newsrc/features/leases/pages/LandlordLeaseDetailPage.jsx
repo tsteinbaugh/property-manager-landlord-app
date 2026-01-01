@@ -453,7 +453,7 @@ export default function LandlordLeaseDetailPage() {
             }
           />
         ) : (
-          <div className={ui.muted}>No property linked yet.</div>
+          <div className={ui.muted}>No property associated with this lease yet.</div>
         )}
 
         <div style={{ marginTop: 10 }}>
@@ -508,7 +508,7 @@ export default function LandlordLeaseDetailPage() {
             })}
           </div>
         ) : (
-          <div className={ui.muted}>No tenants linked to this lease yet.</div>
+          <div className={ui.muted}>No tenants associated with this lease yet.</div>
         )}
 
         <div style={{ marginTop: 10 }}>
@@ -555,7 +555,7 @@ export default function LandlordLeaseDetailPage() {
             })}
           </div>
         ) : (
-          <div className={ui.muted}>No occupants linked through tenants on this lease yet.</div>
+          <div className={ui.muted}>No occupants associated with this lease yet. Link via tenant first.</div>
         )}
       </div>
 
@@ -591,7 +591,7 @@ export default function LandlordLeaseDetailPage() {
             })}
           </div>
         ) : (
-          <div className={ui.muted}>No pets linked through tenants on this lease yet.</div>
+          <div className={ui.muted}>No pets associated with this lease yet. Link via tenant first..</div>
         )}
       </div>
 
@@ -628,7 +628,7 @@ export default function LandlordLeaseDetailPage() {
           </div>
         ) : (
           <div className={ui.muted}>
-            No emergency contacts linked through tenants on this lease yet.
+            No emergency contacts associated with this lease yet. Link via tenant first.
           </div>
         )}
       </div>
@@ -672,7 +672,7 @@ export default function LandlordLeaseDetailPage() {
             })}
           </div>
         ) : (
-          <div className={ui.muted}>No vehicles linked through tenants on this lease yet.</div>
+          <div className={ui.muted}>No vehicles associated with this lease yet. Link via tenant first.</div>
         )}
       </div>
     </div>

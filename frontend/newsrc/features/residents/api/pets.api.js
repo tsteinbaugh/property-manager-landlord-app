@@ -19,7 +19,7 @@ function mapPetFromApi(p) {
     name: p.name,
     breed: p.breed || "",
     type: p.type || "",
-    weightLb: p.weightLb ?? null,
+    weight: p.weight ?? null,
     age: p.age ?? null,
     license: p.license || "",
     notes: p.notes || "",

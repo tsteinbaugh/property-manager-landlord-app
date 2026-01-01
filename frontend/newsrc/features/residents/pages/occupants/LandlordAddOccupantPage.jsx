@@ -2,7 +2,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useUser } from "@app/providers.jsx";
-import styles from "@shared/styles/LandlordPage.module.css";
+
+import page from "@shared/styles/ui.pages.module.css";
+import card from "@shared/styles/ui.cards.module.css";
+import shared from "@shared/styles/ui.shared.module.css";
+
 import { occupantsApi } from "@features/residents/api/occupants.api.js";
 import { tenantsApi } from "@features/tenants/api/tenants.api.js";
 
@@ -41,6 +45,7 @@ export default function LandlordAddOccupantPage() {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [relation, setRelation] = useState("");
+
   const [age, setAge] = useState("");
   const [heightFeet, setHeightFeet] = useState("");
   const [heightInches, setHeightInches] = useState("");
@@ -50,11 +55,11 @@ export default function LandlordAddOccupantPage() {
   const [eyeColor, setEyeColor] = useState("");
   const [bodyBuild, setBodyBuild] = useState("");
   const [markings, setMarkings] = useState("");
+
   const [notes, setNotes] = useState("");
 
   const [isSubmitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
-  const [touched, setTouched] = useState({ name: false });
 
   // ---------- tenant-context-only state ----------
   const [tenant, setTenant] = useState(null);
@@ -67,6 +72,8 @@ export default function LandlordAddOccupantPage() {
 
   const [selectedExistingOccupantId, setSelectedExistingOccupantId] = useState("");
   const [isLinkingExisting, setIsLinkingExisting] = useState(false);
+
+  const [touched, setTouched] = useState({ name: false });
 
   // ------------------ UI dropdown options ------------------
   const sexOptions = useMemo(
@@ -205,20 +212,14 @@ export default function LandlordAddOccupantPage() {
   }, [occupantId, token]);
 
   // ------------------------------------------------------------
-  // Tenant-context links
+  // Derived lists (tenant context)
   // ------------------------------------------------------------
   const occupantLinks = Array.isArray(tenant?.occupantLinks) ? tenant.occupantLinks : [];
+  const tenantOccupants = occupantLinks.map((link) => link.occupant).filter(Boolean);
 
-  const tenantOccupants = occupantLinks
-    .map((link) => link.occupant)
-    .filter(Boolean);
-
-  const linkedIds = useMemo(() => new Set(occupantLinks.map((l) => l.occupantId)), [occupantLinks]);
-
+  const linkedIds = new Set(occupantLinks.map((l) => l.occupantId));
   const availableExistingOccupants =
-    tenant && allOccupants.length > 0
-      ? allOccupants.filter((o) => !linkedIds.has(o.id))
-      : allOccupants;
+    tenant && allOccupants.length > 0 ? allOccupants.filter((o) => !linkedIds.has(o.id)) : allOccupants;
 
   // ------------------------------------------------------------
   // Navigation helpers
@@ -262,14 +263,14 @@ export default function LandlordAddOccupantPage() {
       name: requiredTrimmedString,
 
       phone: (v) => {
-        const out = normalizePhone(v); // returns null/"" depending on your helper
-        if (out == null || out === "") return null; // optional
+        const out = normalizePhone(v);
+        if (out == null || out === "") return null;
         return isValidPhone(out) ? out : INVALID;
       },
 
       email: (v) => {
         const out = normalizeEmail(v);
-        if (out == null || out === "") return null; // optional
+        if (out == null || out === "") return null;
         return isValidEmail(out) ? out : INVALID;
       },
 
@@ -301,20 +302,26 @@ export default function LandlordAddOccupantPage() {
     });
   };
 
+  const validateAndSetError = () => {
+    const { value: payload, ok, errors } = buildPayload();
+    if (!ok) {
+      const firstKey = Object.keys(errors || {})[0];
+      setFormError(errors?.[firstKey] || "Please fix the highlighted fields.");
+      return { ok: false, payload: null };
+    }
+    return { ok: true, payload };
+  };
+
   // ------------------------------------------------------------
-  // Save (global create/edit)
+  // Submit handlers
   // ------------------------------------------------------------
   const handleSubmitGlobal = async (e) => {
     e.preventDefault();
     setTouched({ name: true });
     setFormError("");
 
-    const { value: payload, ok, errors } = buildPayload();
-    if (!ok) {
-      const firstKey = Object.keys(errors || {})[0];
-      setFormError(errors?.[firstKey] || "Please fix the highlighted fields.");
-      return;
-    }
+    const { ok, payload } = validateAndSetError();
+    if (!ok) return;
 
     try {
       setSubmitting(true);
@@ -326,9 +333,13 @@ export default function LandlordAddOccupantPage() {
         saved = await occupantsApi.create(payload, { token });
       }
 
-      if (returnTo) navigate(returnTo);
-      else if (isEditMode) navigate(`/landlord/occupants/${saved?.id || occupantId}`);
-      else navigate("/landlord/residents?tab=occupants");
+      if (returnTo) {
+        navigate(returnTo);
+      } else if (isEditMode) {
+        navigate(`/landlord/occupants/${saved?.id || occupantId}`);
+      } else {
+        navigate("/landlord/residents?tab=occupants");
+      }
     } catch (err) {
       console.error("Failed to save occupant", err);
       setFormError("Failed to save occupant. Check console for details.");
@@ -338,7 +349,7 @@ export default function LandlordAddOccupantPage() {
   };
 
   // ------------------------------------------------------------
-  // TENANT-CONTEXT: link existing + create & link new
+  // Tenant-context: link existing
   // ------------------------------------------------------------
   const handleLinkExisting = async () => {
     if (!tenantId || !selectedExistingOccupantId) return;
@@ -364,17 +375,16 @@ export default function LandlordAddOccupantPage() {
     }
   };
 
+  // ------------------------------------------------------------
+  // Tenant-context: create & link new
+  // ------------------------------------------------------------
   const handleSubmitForTenant = async (e) => {
     e.preventDefault();
     setTouched({ name: true });
     setFormError("");
 
-    const { value: payload, ok, errors } = buildPayload();
-    if (!ok) {
-      const firstKey = Object.keys(errors || {})[0];
-      setFormError(errors?.[firstKey] || "Please fix the highlighted fields.");
-      return;
-    }
+    const { ok, payload } = validateAndSetError();
+    if (!ok) return;
 
     try {
       setSubmitting(true);
@@ -393,474 +403,22 @@ export default function LandlordAddOccupantPage() {
 
   const saveDisabled = isSubmitting;
 
+  const ctrl = (isError) => `${card.control} ${isError ? card.controlError : ""}`;
+
   // ------------------------------------------------------------
-  // RENDER
+  // FORM JSX (no inner React components!)
   // ------------------------------------------------------------
-  if (tenantId) {
-    return (
-      <div className={styles.page}>
-        <header className={styles.header}>
-          <div>
-            <h1 className={styles.title}>Manage occupants</h1>
-            {loadingTenant ? (
-              <p className={styles.subtitle}>Loading tenant…</p>
-            ) : tenantError || !tenant ? (
-              <p className={styles.subtitle} style={{ color: "#b91c1c" }}>
-                Failed to load tenant. You can still add occupants, but linking may not behave as expected.
-              </p>
-            ) : (
-              <p className={styles.subtitle}>
-                Link existing occupants or create new ones for <strong>{tenant.name}</strong>.
-              </p>
-            )}
-          </div>
-        </header>
-
-        <div style={{ marginTop: 12, display: "flex", flexDirection: "column", gap: 16 }}>
-          {/* Section 1: Link existing occupant */}
-          <section
-            style={{
-              maxWidth: 520,
-              padding: 16,
-              borderRadius: 12,
-              border: "1px solid #e5e7eb",
-              background: "#ffffff",
-            }}
-          >
-            <h2 style={{ fontSize: 16, marginBottom: 8 }}>Link existing occupant</h2>
-
-            {loadingOccupants ? (
-              <div style={{ fontSize: 13, color: "#6b7280" }}>Loading occupants…</div>
-            ) : occupantsError ? (
-              <div style={{ fontSize: 13, color: "#b91c1c" }}>Failed to load occupants list.</div>
-            ) : availableExistingOccupants.length === 0 ? (
-              <div style={{ fontSize: 13, color: "#6b7280" }}>No other occupants available to link.</div>
-            ) : (
-              <>
-                <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
-                  <select
-                    style={{
-                      flex: 1,
-                      padding: "6px 8px",
-                      borderRadius: 8,
-                      border: "1px solid #d1d5db",
-                    }}
-                    value={selectedExistingOccupantId}
-                    onChange={(e) => setSelectedExistingOccupantId(e.target.value)}
-                    disabled={isLinkingExisting}
-                  >
-                    <option value="">Select an occupant…</option>
-                    {availableExistingOccupants.map((o) => (
-                      <option key={o.id} value={o.id}>
-                        {o.name}
-                      </option>
-                    ))}
-                  </select>
-                  <button
-                    type="button"
-                    className={styles.primaryButton}
-                    style={{ whiteSpace: "nowrap" }}
-                    onClick={handleLinkExisting}
-                    disabled={!selectedExistingOccupantId || isLinkingExisting}
-                  >
-                    {isLinkingExisting ? "Linking…" : "Link"}
-                  </button>
-                </div>
-
-                {tenantOccupants.length > 0 && (
-                  <div style={{ fontSize: 12, color: "#6b7280" }}>
-                    Already linked to this tenant:
-                    <ul style={{ paddingLeft: 18, marginTop: 4 }}>
-                      {tenantOccupants.map((o) => (
-                        <li key={o.id}>{o.name}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </>
-            )}
-          </section>
-
-          {/* Section 2: Create & link new occupant */}
-          <section
-            style={{
-              maxWidth: 520,
-              padding: 16,
-              borderRadius: 12,
-              border: "1px solid #e5e7eb",
-              background: "#ffffff",
-            }}
-          >
-            <h2 style={{ fontSize: 16, marginBottom: 8 }}>Create new occupant for this tenant</h2>
-
-            <form onSubmit={handleSubmitForTenant}>
-              {/* Name */}
-              <div style={{ marginBottom: 12 }}>
-                <label htmlFor="name" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                  Occupant name <span style={{ color: "#b91c1c" }}>*</span>
-                </label>
-                <input
-                  id="name"
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  onBlur={() => setTouched((t) => ({ ...t, name: true }))}
-                  placeholder="Name (required)"
-                  style={{
-                    width: "100%",
-                    padding: "6px 8px",
-                    borderRadius: 8,
-                    border: "1px solid #d1d5db",
-                  }}
-                  disabled={isSubmitting}
-                />
-                {touched.name && requiredTrimmedString(name) === INVALID && (
-                  <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>Enter a name</div>
-                )}
-              </div>
-
-              {/* Phone */}
-              <div style={{ marginBottom: 12 }}>
-                <label htmlFor="phone" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                  Phone
-                </label>
-                <input
-                  id="phone"
-                  type="tel"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder="Phone number (123-123-1234)"
-                  style={{
-                    width: "100%",
-                    padding: "6px 8px",
-                    borderRadius: 8,
-                    border: "1px solid #d1d5db",
-                  }}
-                  disabled={isSubmitting}
-                />
-              </div>
-
-              {/* Email */}
-              <div style={{ marginBottom: 12 }}>
-                <label htmlFor="email" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                  Email
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Email (john.doe@example.com)"
-                  style={{
-                    width: "100%",
-                    padding: "6px 8px",
-                    borderRadius: 8,
-                    border: "1px solid #d1d5db",
-                  }}
-                  disabled={isSubmitting}
-                />
-              </div>
-
-              {/* Relation */}
-              <div style={{ marginBottom: 12 }}>
-                <label htmlFor="relation" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                  Relation
-                </label>
-                <input
-                  id="relation"
-                  type="text"
-                  value={relation}
-                  onChange={(e) => setRelation(e.target.value)}
-                  placeholder="Relation to tenant(s) (roommate, child, partner, etc.)"
-                  style={{
-                    width: "100%",
-                    padding: "6px 8px",
-                    borderRadius: 8,
-                    border: "1px solid #d1d5db",
-                  }}
-                  disabled={isSubmitting}
-                />
-              </div>
-
-              {/* Age */}
-              <div style={{ marginBottom: 12 }}>
-                <label htmlFor="age" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                  Age
-                </label>
-                <input
-                  id="age"
-                  type="number"
-                  value={age}
-                  onChange={(e) => setAge(e.target.value)}
-                  placeholder="Age"
-                  style={{
-                    width: "100%",
-                    padding: "6px 8px",
-                    borderRadius: 8,
-                    border: "1px solid #d1d5db",
-                  }}
-                  disabled={isSubmitting}
-                />
-              </div>
-
-              {/* Height */}
-              <div style={{ marginBottom: 12 }}>
-                <label style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>Height</label>
-                <div style={{ display: "flex", gap: 8 }}>
-                  <input
-                    id="heightFeet"
-                    type="number"
-                    value={heightFeet}
-                    onChange={(e) => setHeightFeet(e.target.value)}
-                    placeholder="Feet"
-                    style={{
-                      flex: 1,
-                      padding: "6px 8px",
-                      borderRadius: 8,
-                      border: "1px solid #d1d5db",
-                    }}
-                    disabled={isSubmitting}
-                  />
-                  <input
-                    id="heightInches"
-                    type="number"
-                    value={heightInches}
-                    onChange={(e) => setHeightInches(e.target.value)}
-                    placeholder="Inches"
-                    style={{
-                      flex: 1,
-                      padding: "6px 8px",
-                      borderRadius: 8,
-                      border: "1px solid #d1d5db",
-                    }}
-                    disabled={isSubmitting}
-                  />
-                </div>
-              </div>
-
-              {/* Weight */}
-              <div style={{ marginBottom: 12 }}>
-                <label htmlFor="weight" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                  Weight
-                </label>
-                <input
-                  id="weight"
-                  type="number"
-                  value={weight}
-                  onChange={(e) => setWeight(e.target.value)}
-                  placeholder="Weight in pounds"
-                  style={{
-                    width: "100%",
-                    padding: "6px 8px",
-                    borderRadius: 8,
-                    border: "1px solid #d1d5db",
-                  }}
-                  disabled={isSubmitting}
-                />
-              </div>
-
-              {/* Sex */}
-              <div style={{ marginBottom: 12 }}>
-                <label htmlFor="sex" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                  Sex
-                </label>
-                <select
-                  id="sex"
-                  value={sex}
-                  onChange={(e) => setSex(e.target.value)}
-                  style={{
-                    width: "100%",
-                    padding: "6px 8px",
-                    borderRadius: 8,
-                    border: "1px solid #d1d5db",
-                  }}
-                  disabled={isSubmitting}
-                >
-                  {sexOptions.map((o) => (
-                    <option key={o.value} value={o.value}>
-                      {o.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* HairColor */}
-              <div style={{ marginBottom: 12 }}>
-                <label htmlFor="hairColor" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                  Hair Color
-                </label>
-                <select
-                  id="hairColor"
-                  value={hairColor}
-                  onChange={(e) => setHairColor(e.target.value)}
-                  style={{
-                    width: "100%",
-                    padding: "6px 8px",
-                    borderRadius: 8,
-                    border: "1px solid #d1d5db",
-                  }}
-                  disabled={isSubmitting}
-                >
-                  {hairColorOptions.map((o) => (
-                    <option key={o.value} value={o.value}>
-                      {o.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* EyeColor */}
-              <div style={{ marginBottom: 12 }}>
-                <label htmlFor="eyeColor" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                  Eye Color
-                </label>
-                <select
-                  id="eyeColor"
-                  value={eyeColor}
-                  onChange={(e) => setEyeColor(e.target.value)}
-                  style={{
-                    width: "100%",
-                    padding: "6px 8px",
-                    borderRadius: 8,
-                    border: "1px solid #d1d5db",
-                  }}
-                  disabled={isSubmitting}
-                >
-                  {eyeColorOptions.map((o) => (
-                    <option key={o.value} value={o.value}>
-                      {o.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* BodyBuild */}
-              <div style={{ marginBottom: 12 }}>
-                <label htmlFor="bodyBuild" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                  Body Type
-                </label>
-                <select
-                  id="bodyBuild"
-                  value={bodyBuild}
-                  onChange={(e) => setBodyBuild(e.target.value)}
-                  style={{
-                    width: "100%",
-                    padding: "6px 8px",
-                    borderRadius: 8,
-                    border: "1px solid #d1d5db",
-                  }}
-                  disabled={isSubmitting}
-                >
-                  {bodyBuildOptions.map((o) => (
-                    <option key={o.value} value={o.value}>
-                      {o.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Markings */}
-              <div style={{ marginBottom: 12 }}>
-                <label htmlFor="markings" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                  Markings
-                </label>
-                <input
-                  id="markings"
-                  type="text"
-                  value={markings}
-                  onChange={(e) => setMarkings(e.target.value)}
-                  placeholder="Identifying markings (tattoos, scars, birth marks, etc.)"
-                  style={{
-                    width: "100%",
-                    padding: "6px 8px",
-                    borderRadius: 8,
-                    border: "1px solid #d1d5db",
-                  }}
-                  disabled={isSubmitting}
-                />
-              </div>
-
-              {/* Notes */}
-              <div style={{ marginBottom: 12 }}>
-                <label htmlFor="notes" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-                  Notes
-                </label>
-                <input
-                  id="notes"
-                  type="text"
-                  value={notes}
-                  onChange={(e) => setNotes(e.target.value)}
-                  placeholder="Additional notes"
-                  style={{
-                    width: "100%",
-                    padding: "6px 8px",
-                    borderRadius: 8,
-                    border: "1px solid #d1d5db",
-                  }}
-                  disabled={isSubmitting}
-                />
-              </div>
-
-              {formError && (
-                <div style={{ color: "#b91c1c", fontSize: 13, marginBottom: 8 }}>{formError}</div>
-              )}
-
-              <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
-                <button type="submit" className={styles.primaryButton} disabled={saveDisabled}>
-                  {isSubmitting ? "Saving…" : "Save occupant"}
-                </button>
-
-                <button
-                  type="button"
-                  onClick={handleCancel}
-                  style={{
-                    borderRadius: 999,
-                    padding: "8px 16px",
-                    border: "1px solid #d1d5db",
-                    background: "#ffffff",
-                    cursor: "pointer",
-                  }}
-                  disabled={isSubmitting}
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
-          </section>
-        </div>
-      </div>
-    );
-  }
-
-  // Global add/edit
-  return (
-    <div className={styles.page}>
-      <header className={styles.header}>
-        <div>
-          <h1 className={styles.title}>{isEditMode ? "Edit occupant" : "Add occupant"}</h1>
-          <p className={styles.subtitle}>
-            {isEditMode
-              ? "Update this occupant record."
-              : "Create an occupant record. You’ll be able to connect occupants to leases (and tenants) later."}
-          </p>
-        </div>
-      </header>
-
-      <div style={{ marginTop: 12 }}>
-        <form
-          onSubmit={handleSubmitGlobal}
-          style={{
-            maxWidth: 480,
-            padding: 16,
-            borderRadius: 12,
-            border: "1px solid #e5e7eb",
-            background: "#ffffff",
-          }}
-        >
-          {/* Name */}
-          <div style={{ marginBottom: 12 }}>
-            <label htmlFor="name" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-              Occupant name <span style={{ color: "#b91c1c" }}>*</span>
+  const renderForm = (onSubmit) => (
+    <form className={card.form} onSubmit={onSubmit}>
+      <section className={`${card.card} ${card.cardForm} ${page.narrow}`}>
+        <div className={card.cardHeader}>
+          <div className={card.cardTitle}>Basics</div>
+        </div>  
+  
+        <div className={card.cardBody}>
+          <div className={card.field}>
+            <label className={card.label} htmlFor="name">
+              Name <span className={card.required}>*</span>
             </label>
             <input
               id="name"
@@ -869,65 +427,46 @@ export default function LandlordAddOccupantPage() {
               onChange={(e) => setName(e.target.value)}
               onBlur={() => setTouched((t) => ({ ...t, name: true }))}
               placeholder="Name (required)"
-              style={{
-                width: "100%",
-                padding: "6px 8px",
-                borderRadius: 8,
-                border: "1px solid #d1d5db",
-              }}
+              className={ctrl(touched.name && !String(name).trim())}
               disabled={isSubmitting}
             />
-            {touched.name && requiredTrimmedString(name) === INVALID && (
-              <div style={{ color: "#b91c1c", fontSize: 12, marginTop: 4 }}>Enter a name</div>
-            )}
+            {touched.name && !String(name).trim() ? <div className={card.errorText}>Enter a name</div> : null}
           </div>
 
-          {/* Phone */}
-          <div style={{ marginBottom: 12 }}>
-            <label htmlFor="phone" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-              Phone
-            </label>
-            <input
-              id="phone"
-              type="tel"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              placeholder="Phone number (123-123-1234)"
-              style={{
-                width: "100%",
-                padding: "6px 8px",
-                borderRadius: 8,
-                border: "1px solid #d1d5db",
-              }}
-              disabled={isSubmitting}
-            />
-          </div>
+          <fieldset className={shared.groupRow}>
+            <legend className={`${card.label} ${shared.groupLegend}`}>
+              Contact <span className={shared.muted}>(optional)</span>
+            </legend>
 
-          {/* Email */}
-          <div style={{ marginBottom: 12 }}>
-            <label htmlFor="email" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email (john.doe@example.com)"
-              style={{
-                width: "100%",
-                padding: "6px 8px",
-                borderRadius: 8,
-                border: "1px solid #d1d5db",
-              }}
-              disabled={isSubmitting}
-            />
-          </div>
+            <div className={`${card.field} ${shared.groupField}`}>
+              <input
+                id="phone"
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="Phone (123-123-1234)"
+                className={card.control}
+                disabled={isSubmitting}
+              />
+            </div>
 
-          {/* Relation */}
-          <div style={{ marginBottom: 12 }}>
-            <label htmlFor="relation" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-              Relation
+            <div className={`${card.field} ${shared.groupField}`}>
+              <input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email (john.doe@example.com)"
+                className={card.control}
+                disabled={isSubmitting}
+              />
+            </div>
+          </fieldset>
+
+
+          <div className={card.field}>
+            <label className={card.label} htmlFor="relation">
+              Relation <span className={shared.muted}>(optional)</span>
             </label>
             <input
               id="relation"
@@ -935,110 +474,96 @@ export default function LandlordAddOccupantPage() {
               value={relation}
               onChange={(e) => setRelation(e.target.value)}
               placeholder="Relation to tenant(s) (roommate, child, partner, etc.)"
-              style={{
-                width: "100%",
-                padding: "6px 8px",
-                borderRadius: 8,
-                border: "1px solid #d1d5db",
-              }}
+              className={card.control}
               disabled={isSubmitting}
             />
           </div>
+        </div>
+      </section>
 
-          {/* Age */}
-          <div style={{ marginBottom: 12 }}>
-            <label htmlFor="age" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-              Age
+      <section className={`${card.card} ${card.cardForm} ${page.narrow}`}>
+        <div className={card.cardHeader}>
+          <div className={page.sectionHeaderStack}>
+            <div className={card.cardTitle}>Physical characteristics</div>
+            <div className={shared.muted}>Used for indentifying purposes</div>
+          </div>
+        </div>
+
+        <div className={card.cardBody}>
+          <div className={card.field}>
+            <label className={card.label} htmlFor="age">
+              Age <span className={shared.muted}>(optional)</span>
             </label>
             <input
               id="age"
               type="number"
               value={age}
               onChange={(e) => setAge(e.target.value)}
-              placeholder="Age"
-              style={{
-                width: "100%",
-                padding: "6px 8px",
-                borderRadius: 8,
-                border: "1px solid #d1d5db",
-              }}
+              onBlur={() => setTouched((t) => ({ ...t, age: true }))}
+              placeholder="2019"
+              className={card.control}
               disabled={isSubmitting}
             />
           </div>
 
-          {/* Height */}
-          <div style={{ marginBottom: 12 }}>
-            <label style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>Height</label>
-            <div style={{ display: "flex", gap: 8 }}>
+          <fieldset className={shared.groupRow}>
+            <legend className={`${card.label} ${shared.groupLegend}`}>
+              Height <span className={shared.muted}>(optional)</span>
+            </legend>
+            
+            <div className={`${card.field} ${shared.groupField}`}>
               <input
                 id="heightFeet"
                 type="number"
                 value={heightFeet}
                 onChange={(e) => setHeightFeet(e.target.value)}
                 placeholder="Feet"
-                style={{
-                  flex: 1,
-                  padding: "6px 8px",
-                  borderRadius: 8,
-                  border: "1px solid #d1d5db",
-                }}
+                className={card.control}
                 disabled={isSubmitting}
               />
+            </div>
+            
+            <div className={`${card.field} ${shared.groupField}`}>
               <input
                 id="heightInches"
                 type="number"
                 value={heightInches}
                 onChange={(e) => setHeightInches(e.target.value)}
                 placeholder="Inches"
-                style={{
-                  flex: 1,
-                  padding: "6px 8px",
-                  borderRadius: 8,
-                  border: "1px solid #d1d5db",
-                }}
+                className={card.control}
                 disabled={isSubmitting}
               />
             </div>
-          </div>
+          </fieldset>
 
-          {/* Weight */}
-          <div style={{ marginBottom: 12 }}>
-            <label htmlFor="weight" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-              Weight
+          <div className={card.field}>
+            <label className={card.label} htmlFor="weight">
+              Weight <span className={shared.muted}>(optional)</span>
             </label>
             <input
               id="weight"
               type="number"
               value={weight}
               onChange={(e) => setWeight(e.target.value)}
-              placeholder="Weight in pounds"
-              style={{
-                width: "100%",
-                padding: "6px 8px",
-                borderRadius: 8,
-                border: "1px solid #d1d5db",
-              }}
+              onBlur={() => setTouched((t) => ({ ...t, weight: true }))}
+              placeholder="Weight (pounds)"
+              className={card.control}
               disabled={isSubmitting}
             />
           </div>
 
-          {/* Sex */}
-          <div style={{ marginBottom: 12 }}>
-            <label htmlFor="sex" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-              Sex
+          <div className={card.field}>
+            <label className={card.label} htmlFor="sex">
+              Sex <span className={shared.muted}>(optional)</span>
             </label>
             <select
               id="sex"
               value={sex}
               onChange={(e) => setSex(e.target.value)}
-              style={{
-                width: "100%",
-                padding: "6px 8px",
-                borderRadius: 8,
-                border: "1px solid #d1d5db",
-              }}
+              className={card.control}
               disabled={isSubmitting}
             >
+              <option value="">— Select —</option>
               {sexOptions.map((o) => (
                 <option key={o.value} value={o.value}>
                   {o.label}
@@ -1047,23 +572,18 @@ export default function LandlordAddOccupantPage() {
             </select>
           </div>
 
-          {/* HairColor */}
-          <div style={{ marginBottom: 12 }}>
-            <label htmlFor="hairColor" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-              Hair Color
+          <div className={card.field}>
+            <label className={card.label} htmlFor="hairColor">
+              Hair color <span className={shared.muted}>(optional)</span>
             </label>
             <select
               id="hairColor"
               value={hairColor}
               onChange={(e) => setHairColor(e.target.value)}
-              style={{
-                width: "100%",
-                padding: "6px 8px",
-                borderRadius: 8,
-                border: "1px solid #d1d5db",
-              }}
+              className={card.control}
               disabled={isSubmitting}
             >
+              <option value="">— Select —</option>
               {hairColorOptions.map((o) => (
                 <option key={o.value} value={o.value}>
                   {o.label}
@@ -1072,23 +592,18 @@ export default function LandlordAddOccupantPage() {
             </select>
           </div>
 
-          {/* EyeColor */}
-          <div style={{ marginBottom: 12 }}>
-            <label htmlFor="eyeColor" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-              Eye Color
+          <div className={card.field}>
+            <label className={card.label} htmlFor="eyeColor">
+              Eye color <span className={shared.muted}>(optional)</span>
             </label>
             <select
               id="eyeColor"
               value={eyeColor}
               onChange={(e) => setEyeColor(e.target.value)}
-              style={{
-                width: "100%",
-                padding: "6px 8px",
-                borderRadius: 8,
-                border: "1px solid #d1d5db",
-              }}
+              className={card.control}
               disabled={isSubmitting}
             >
+              <option value="">— Select —</option>
               {eyeColorOptions.map((o) => (
                 <option key={o.value} value={o.value}>
                   {o.label}
@@ -1097,23 +612,18 @@ export default function LandlordAddOccupantPage() {
             </select>
           </div>
 
-          {/* BodyBuild */}
-          <div style={{ marginBottom: 12 }}>
-            <label htmlFor="bodyBuild" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-              Body Type
+          <div className={card.field}>
+            <label className={card.label} htmlFor="bodyBuild">
+              Body build <span className={shared.muted}>(optional)</span>
             </label>
             <select
               id="bodyBuild"
               value={bodyBuild}
               onChange={(e) => setBodyBuild(e.target.value)}
-              style={{
-                width: "100%",
-                padding: "6px 8px",
-                borderRadius: 8,
-                border: "1px solid #d1d5db",
-              }}
+              className={card.control}
               disabled={isSubmitting}
             >
+              <option value="">— Select —</option>
               {bodyBuildOptions.map((o) => (
                 <option key={o.value} value={o.value}>
                   {o.label}
@@ -1122,10 +632,9 @@ export default function LandlordAddOccupantPage() {
             </select>
           </div>
 
-          {/* Markings */}
-          <div style={{ marginBottom: 12 }}>
-            <label htmlFor="markings" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-              Markings
+          <div className={card.field}>
+            <label className={card.label} htmlFor="markings">
+              Markings <span className={shared.muted}>(optional)</span>
             </label>
             <input
               id="markings"
@@ -1133,63 +642,178 @@ export default function LandlordAddOccupantPage() {
               value={markings}
               onChange={(e) => setMarkings(e.target.value)}
               placeholder="Identifying markings (tattoos, scars, birth marks, etc.)"
-              style={{
-                width: "100%",
-                padding: "6px 8px",
-                borderRadius: 8,
-                border: "1px solid #d1d5db",
-              }}
+              className={card.control}
               disabled={isSubmitting}
             />
-          </div>
+          </div>                 
+        </div>
+      </section>
 
-          {/* Notes */}
-          <div style={{ marginBottom: 12 }}>
-            <label htmlFor="notes" style={{ display: "block", fontWeight: 500, marginBottom: 4 }}>
-              Notes
+      <section className={`${card.card} ${card.cardForm} ${page.narrow}`}>
+        <div className={card.cardHeader}>
+          <div className={card.cardTitle}>Notes</div>
+        </div>
+
+        <div className={card.cardBody}>
+          <div className={card.field}>
+            <label className={card.label} htmlFor="notes">
+              Additional notes <span className={shared.muted}>(optional)</span>
             </label>
             <input
               id="notes"
               type="text"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="Additional notes"
-              style={{
-                width: "100%",
-                padding: "6px 8px",
-                borderRadius: 8,
-                border: "1px solid #d1d5db",
-              }}
+              placeholder="Add any additional information"
+              className={card.control}
               disabled={isSubmitting}
             />
           </div>
 
-          {formError && (
-            <div style={{ color: "#b91c1c", fontSize: 13, marginBottom: 8 }}>{formError}</div>
-          )}
+          {formError ? <div className={shared.error}>{formError}</div> : null}
 
-          <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
-            <button type="submit" className={styles.primaryButton} disabled={saveDisabled}>
-              {isSubmitting ? "Saving…" : "Save occupant"}
+          <div className={card.formActions}>
+            <button type="submit" className={card.primaryButton} disabled={saveDisabled}>
+              {isSubmitting ? "Saving…" : isEditMode ? "Save changes" : "Save occupant"}
             </button>
 
-            <button
-              type="button"
-              onClick={handleCancel}
-              style={{
-                borderRadius: 999,
-                padding: "8px 16px",
-                border: "1px solid #d1d5db",
-                background: "#ffffff",
-                cursor: "pointer",
-              }}
-              disabled={isSubmitting}
-            >
+            <button type="button" className={card.linkAction} onClick={handleCancel} disabled={isSubmitting}>
               Cancel
             </button>
           </div>
-        </form>
+        </div>
+      </section>
+    </form>
+  );
+
+  // ------------------------------------------------------------
+  // RENDER
+  // ------------------------------------------------------------
+
+  // === Mode A: tenantId present (manage occupants for tenant) ===
+  if (tenantId) {
+    return (
+      <div className={page.page}>
+        <header className={page.header}>
+          <div>
+            <h1 className={page.title}>Manage occupant linking</h1>
+            {loadingTenant ? (
+              <p className={page.subtitle}>Loading tenant…</p>
+            ) : tenantError || !tenant ? (
+              <p className={page.subtitle} style={{ color: "#b91c1c" }}>
+                Failed to load tenant. You can still add occupants, but linking may not behave as expected.
+              </p>
+            ) : (
+              <p className={page.subtitle}>
+                Link an existing occupant or create a new one for <strong>{tenant.name}</strong>.
+              </p>
+            )}
+          </div>
+        </header>
+
+        <div className={page.grid}>
+
+          {/* Link existing */}
+          <section className={page.section}>
+            <div className={page.sectionHeader}>
+              <div className={page.sectionHeaderStack}>
+                <div className={page.sectionTitle}>Link existing</div>
+                <div className={page.sectionHint}>
+                  Quickly associate an existing occupant with this tenant
+                </div>
+              </div>
+            </div>
+
+            <div className={`${card.card} ${card.cardForm} ${page.narrow}`}>
+              <div className={card.cardBody}>
+                {loadingOccupants ? (
+                  <div className={shared.muted}>Loading occupants…</div>
+                ) : occupantsError ? (
+                  <div className={shared.error}>Failed to load occupants list.</div>
+                ) : availableExistingOccupants.length === 0 ? (
+                  <div className={shared.muted}>No other occupants available to link.</div>
+                ) : (
+                  <>
+                    <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                      <select
+                        className={card.control}
+                        value={selectedExistingOccupantId}
+                        onChange={(e) => setSelectedExistingOccupantId(e.target.value)}
+                        disabled={isLinkingExisting}
+                        style={{ flex: 1 }}
+                      >
+                        <option value="">Select an occupant…</option>
+                        {availableExistingOccupants.map((v) => (
+                          <option key={v.id} value={v.id}>
+                            {[v.year, v.make, v.model].filter(Boolean).join(" ") || "Occupant"}
+                            {v.plate ? ` • ${v.plate}` : ""}
+                            {v.state ? ` (${v.state})` : ""}
+                          </option>
+                        ))}
+                      </select>
+
+                      <button
+                        type="button"
+                        className={card.primaryButton}
+                        onClick={handleLinkExisting}
+                        disabled={!selectedExistingOccupantId || isLinkingExisting}
+                        style={{ whiteSpace: "nowrap" }}
+                      >
+                        {isLinkingExisting ? "Linking…" : "Link"}
+                      </button>
+                    </div>
+
+                    {tenantOccupants.length > 0 ? (
+                      <div className={shared.muted} style={{ marginTop: 10 }}>
+                        Already linked:
+                        <ul style={{ paddingLeft: 18, marginTop: 4 }}>
+                          {tenantOccupants.map((v) => (
+                            <li key={v.id}>
+                              {[v.year, v.make, v.model].filter(Boolean).join(" ") || "Occupant"}
+                              {v.plate ? ` • ${v.plate}` : ""}
+                              {v.state ? ` (${v.state})` : ""}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : null}
+                  </>
+                )}
+              </div>
+            </div>
+          </section>
+
+          {/* Create new (same form, different submit) */}
+          <section className={page.section}>
+            <div className={page.sectionHeader}>
+              <div className={page.sectionHeaderStack}>
+                <div className={page.sectionTitle}>Create new</div>
+                <div className={page.sectionHint}>
+                  Create a new occupant record and link it to this tenant.
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {renderForm(handleSubmitForTenant)}
+        </div>
       </div>
+    );
+  }
+
+  // === Mode B: global add/edit ===
+  return (
+    <div className={page.page}>
+      <header className={page.header}>
+        <div>
+          <h1 className={page.title}>{isEditMode ? "Edit occupant" : "Create occupant"}</h1>
+          <p className={page.subtitle}>
+            {isEditMode ? "Update occupant details." : "Create an occupant record.  It can be linked to a tenant."}
+          </p>
+        </div>
+      </header>
+
+      {renderForm(handleSubmitGlobal)}
     </div>
   );
 }

@@ -1,17 +1,21 @@
 // newsrc/features/residents/components/PetCard.jsx
 import { useMemo } from "react";
-import ui from "@shared/styles/CardLayout.module.css";
+import card from "@shared/styles/ui.cards.module.css";
 import { formatText, formatInt, formatWeight } from "@shared/utils/validation.js";
 
-export default function PetCard({
-  pet,
-  onClick,
-  variant = "summary", // "summary" | "detail"
-}) {
+export default function PetCard({ pet, onClick, variant = "summary" }) {
   if (!pet) return null;
 
   const vm = useMemo(() => {
     const isArchived = !!pet.archivedAt;
+
+    const type = formatText(pet.type, { fallback: null });
+    const breed = formatText(pet.breed, { fallback: null });
+    const weight = formatWeight(pet.weight, { fallback: null });
+    const age = formatInt(pet.age, { fallback: null });
+    const license = formatText(pet.license, { fallback: null });
+
+    const notes = formatText(pet.notes, { fallback: null });
 
     const displayName = formatText(pet.name, { fallback: "Unnamed pet" });
 
@@ -19,17 +23,17 @@ export default function PetCard({
       isArchived,
       displayName,
 
-      type: formatText(pet.type, { fallback: null }),
-      breed: formatText(pet.breed, { fallback: null }),
-      weight: formatWeight(pet.weight, { fallback: null }),
-      age: formatInt(pet.age, { fallback: null }),
-      license: formatText(pet.license, { fallback: null }),
-      notes: formatText(pet.notes, { fallback: null }),
+      type,
+      breed,
+      weight,
+      age,
+      license,
+      notes,
     };
   }, [pet]);
 
   const badgeText = vm.isArchived ? "Archived" : "Pet";
-  const badgeClass = vm.isArchived ? ui.badgeArchived : ui.badgeIdle;
+  const badgeClass = vm.isArchived ? card.badgeArchived : card.badgeIdle;
 
   // ============================================================
   // DETAIL VARIANT (full info, non-clickable)
@@ -38,19 +42,49 @@ export default function PetCard({
     const headerTitle = "Pet Info";
 
     return (
-      <div className={`${ui.card} ${vm.isArchived ? ui.cardArchived : ""}`}>
-        <div className={ui.cardHeader}>
-          <div className={ui.cardTitle}>{headerTitle}</div>
-          <span className={`${ui.badge} ${badgeClass}`}>{badgeText}</span>
+      <div className={`${card.card} ${card.cardForm} ${vm.isArchived ? card.cardArchived : ""}`}>
+        <div className={card.cardHeader}>
+          <div className={card.cardTitle}>{headerTitle}</div>
+          <span className={`${card.badge} ${badgeClass}`}>{badgeText}</span>
         </div>
 
-        <div className={ui.cardBody}>
-          {vm.type && (<div><strong>Type: </strong>{vm.type}</div>)}
-          {vm.breed && (<div><strong>Breed: </strong>{vm.breed}</div>)}
-          {vm.weight && (<div><strong>Weight: </strong>{vm.weight}</div>)}
-          {vm.age && (<div><strong>Age: </strong>{vm.age}</div>)}
-          {vm.license && (<div><strong>License: </strong>{vm.license}</div>)}
-          {vm.notes && (<div><strong>Notes: </strong>{vm.notes}</div>)}
+        <div className={card.cardBody}>
+          {vm.type ? (
+            <div>
+              <strong>Type: </strong>
+              {vm.type}
+            </div>
+          ) : null}
+          {vm.breed ? (
+            <div>
+              <strong>Breed: </strong>
+              {vm.breed}
+            </div>
+          ) : null}
+          {vm.weight ? (
+            <div>
+              <strong>Weight: </strong>
+              {vm.weight}
+            </div>
+          ) : null}
+          {vm.age ? (
+            <div>
+              <strong>Age: </strong>
+              {vm.age}
+            </div>
+          ) : null}
+          {vm.license ?(
+            <div>
+              <strong>License: </strong>
+              {vm.license}
+            </div>
+          ) : null}
+          {vm.notes ? (
+            <div>
+              <strong>Notes: </strong>
+              {vm.notes}
+            </div>
+          ) : null}
         </div>
       </div>
     );
@@ -62,20 +96,27 @@ export default function PetCard({
   return (
     <button
       type="button"
-      className={`${ui.card} ${vm.isArchived ? ui.cardArchived : ""}`}
+      className={`${card.card} ${vm.isArchived ? card.cardArchived : ""}`}
       onClick={onClick}
       aria-label={`Open pet ${vm.displayName}`}
     >
-      <div className={ui.cardHeader}>
-        <div className={ui.cardTitle}>{vm.displayName}</div>
-        <span className={`${ui.badge} ${badgeClass}`}>{badgeText}</span>
+      <div className={card.cardHeader}>
+        <div className={card.cardTitle}>{vm.displayName}</div>
+        <span className={`${card.badge} ${badgeClass}`}>{badgeText}</span>
       </div>
 
-      <div className={ui.cardBody}>
-        {vm.type && (<div><strong>Type: </strong>{vm.type}</div>)}
-        {vm.breed && (<div><strong>Breed: </strong>{vm.breed}</div>)}
-
-        {!vm.type && !vm.breed && <div>Click for more details</div>}
+      <div className={card.cardBody}>
+        {vm.type ? (
+          <div>
+            <strong>Type: </strong>
+            {vm.type}
+          </div>
+        ) : null}
+        {!vm.type ? (
+          <div>
+            Click for more details
+          </div>
+        ) : null}
       </div>
     </button>
   );

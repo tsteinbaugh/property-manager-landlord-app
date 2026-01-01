@@ -10,24 +10,26 @@ import { ROLES } from "@lib/rbac/roles.js";
 import EmergencyContactCard from "@features/residents/components/emergencyContacts/EmergencyContactCard";
 import LinkageCard from "@shared/ui/cards/LinkageCard.jsx"
 
-import ui from "@shared/styles/CardLayout.module.css";
+import page from "@shared/styles/ui.pages.module.css";
+import card from "@shared/styles/ui.cards.module.css";
+import shared from "@shared/styles/ui.shared.module.css";
 
 export default function LandlordEmergencyContactDetailsPage() {
   const { emergencyContactId } = useParams();
   const navigate = useNavigate();
   const { isSysAdmin, effectiveRole, token } = useUser() || {};
 
-  const role = isSysAdmin
-    ? ROLES.SYSADMIN
-    : typeof effectiveRole === "string"
-      ? effectiveRole.toLowerCase()
-      : ROLES.LANDLORD;
+  const role =
+    isSysAdmin && effectiveRole !== ROLES.SYSADMIN
+      ? ROLES.SYSADMIN
+      : typeof effectiveRole === "string"
+        ? effectiveRole.toLowerCase()
+        : effectiveRole || ROLES.LANDLORD;
 
   const canUpdate = can(role, R.EMERGENCYCONTACTS, A.UPDATE);
   const canArchiveGrant = can(role, R.EMERGENCYCONTACTS, A.ARCHIVE);
 
   const [emergencyContact, setEmergencyContact] = useState(null);
-  const [tenants, setTenants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -42,14 +44,10 @@ export default function LandlordEmergencyContactDetailsPage() {
         setLoading(true);
         setError(null);
 
-        const [e, ts] = await Promise.all([
-          emergencyContactsApi.get(emergencyContactId, { token }),
-          tenantsApi.list({ token }),
-        ]);
+        const e = await emergencyContactsApi.get(emergencyContactId, { token });
 
         if (!cancelled) {
           setEmergencyContact(e || null);
-          setTenants(Array.isArray(ts) ? ts : []);
           if (!e) setError(new Error("Emergency contact not found"));
         }
       } catch (err) {
@@ -85,18 +83,9 @@ export default function LandlordEmergencyContactDetailsPage() {
     return Array.isArray(emergencyContact.tenants) ? emergencyContact.tenants : [];
   }, [emergencyContact]);
 
-  const availableTenants = useMemo(() => {
-    const linkedIds = new Set((linkedTenants || []).map((t) => t?.id).filter(Boolean));
-    return (tenants || []).filter((t) => t?.id && !linkedIds.has(t.id));
-  }, [tenants, linkedTenants]);
-
   const reload = async () => {
-    const [e, ts] = await Promise.all([
-      emergencyContactsApi.get(emergencyContactId, { token }),
-      tenantsApi.list({ token }),
-    ]);
+    const e = await emergencyContactsApi.get(emergencyContactId, { token });
     setEmergencyContact(e || null);
-    setTenants(Array.isArray(ts) ? ts : []);
   };
 
   const handleToggleArchive = async () => {
@@ -190,30 +179,30 @@ export default function LandlordEmergencyContactDetailsPage() {
     }
   };
 
-  if (loading) return <div className={ui.page}>Loading emergency contact…</div>;
+  if (loading) return <div className={page.page}>Loading emergency contact…</div>;
   if (error)
     return (
-      <div className={ui.page} style={{ color: "crimson" }}>
+      <div className={page.page} style={{ color: "crimson" }}>
         Error loading emergency contact: {String(error?.message || error)}
       </div>
     );
-  if (!emergencyContact) return <div className={ui.page}>No data.</div>;
+  if (!emergencyContact) return <div className={page.page}>No data.</div>;
 
   return (
-    <div className={ui.page}>
-      <div style={{ marginBottom: 8 }}>
+    <div className={page.page}>
+      <div className={page.header}>
         <Link to="/landlord/residents?tab=emergencyContacts">← Back to residents</Link>
       </div>
 
       {/* Header */}
-      <div className={ui.section}>
-        <div className={ui.sectionHeader}>
+      <div className={page.section}>
+        <div className={page.sectionHeader}>
           <div>
-            <h1 style={{ margin: 0 }}>{title}</h1>
+            <h1 className={page.title}>{title}</h1>
 
-            <div className={ui.headerLinksRow}>
+            <div className={card.headerLinksRow}>
               {canEditNow ? (
-                <button type="button" className={ui.linkAction} onClick={goEditEmergencyContact}>
+                <button type="button" className={card.linkAction} onClick={goEditEmergencyContact}>
                   Edit emergency contact
                 </button>
               ) : null}
@@ -221,7 +210,7 @@ export default function LandlordEmergencyContactDetailsPage() {
               {showArchiveLink ? (
                 <button
                   type="button"
-                  className={ui.linkAction}
+                  className={card.linkAction}
                   onClick={handleToggleArchive}
                   disabled={isArchiving}
                   aria-disabled={isArchiving ? "true" : "false"}
@@ -229,36 +218,31 @@ export default function LandlordEmergencyContactDetailsPage() {
                   {isArchived ? "Unarchive emergency contact" : "Archive emergency contact"}
                 </button>
               ) : (
-                <span className={ui.linkActionDisabled}>
+                <span className={card.linkActionDisabled}>
                   {isArchived ? "Unarchive emergency contact" : "Archive emergency contact"}
                 </span>
               )}
             </div>
 
-            {isArchived ? <div className={ui.muted}>(Archived – read-only for landlords)</div> : null}
+            {isArchived ? <div className={shared.muted}>(Archived – read-only for landlords)</div> : null}
           </div>
         </div>
       </div>
 
       {/* Emergency contact info */}
-      <div className={ui.section}>
-        <div className={ui.sectionHeader}></div>
-
-        <EmergencyContactCard
-          emergencyContact={emergencyContact}
-          variant="detail"
-        />
+      <div className={page.section}>
+        <EmergencyContactCard emergencyContact={emergencyContact} variant="detail" />
       </div>
 
       {/* Tenants */}
-      <div className={ui.section}>
-        <div className={ui.sectionHeader}>
-          <div className={ui.sectionTitle}>Tenants</div>
-          <div className={ui.sectionHint}>Direct link: Tenant ↔ Emergency Contact</div>
+      <div className={page.section}>
+        <div className={page.sectionHeader}>
+          <div className={page.sectionTitle}>Tenants</div>
+          <div className={page.sectionHint}>Direct link: Tenant ↔ Emergency Contact</div>
         </div>
 
         {linkedTenants.length ? (
-          <div className={ui.grid}>
+          <div className={page.grid}>
             {linkedTenants.map((t) => {
               if (!t?.id) return null;
 
@@ -277,7 +261,7 @@ export default function LandlordEmergencyContactDetailsPage() {
                   footer={
                     <button
                       type="button"
-                      className={`${ui.inlineAction} ${ui.inlineActionDanger}`}
+                      className={`${card.inlineAction} ${card.inlineActionDanger}`}
                       onClick={(le) => {
                         le.stopPropagation();
                         handleUnlinkTenant(t.id);
@@ -292,13 +276,13 @@ export default function LandlordEmergencyContactDetailsPage() {
             })}
           </div>
         ) : (
-          <div className={ui.muted}>No tenants linked to this emergency contact yet.</div>
+          <div className={shared.muted}>No tenants linked to this emergency contact yet.</div>
         )}
 
-        <div style={{ marginTop: 10 }}>
+        <div className={card.formActions}>
           <button
             type="button"
-            className={ui.linkAction}
+            className={card.linkAction}
             onClick={() => {
               const returnTo = encodeURIComponent(
                 `${window.location.pathname}${window.location.search || ""}`
@@ -314,7 +298,7 @@ export default function LandlordEmergencyContactDetailsPage() {
           </button>
 
           {isArchived ? (
-            <div className={ui.muted} style={{ marginTop: 6 }}>
+            <div className={shared.muted}>
               Cannot manage links for an archived emergency contact.
             </div>
           ) : null}

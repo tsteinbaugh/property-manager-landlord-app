@@ -24,8 +24,8 @@ function parsePetPost(body) {
   const notes = optionalTrimToNull(src.notes);
   if (notes === "__INVALID__") return { error: "notes must be a string" };
 
-  const weightLbVal = parseIntOrNullOpt(src.weightLb, { min: 0, max: 1500 });
-  if (weightLbVal === "__INVALID__") return { error: "weight must be an integer" };
+  const weightVal = parseIntOrNullOpt(src.weight, { min: 0, max: 1500 });
+  if (weightVal === "__INVALID__") return { error: "weight must be an integer" };
 
   const ageVal = parseIntOrNullOpt(src.age, { min: 0, max: 120 });
   if (ageVal === "__INVALID__") return { error: "age must be an integer between 0 and 120" };
@@ -35,7 +35,7 @@ function parsePetPost(body) {
       name,
       type: type ?? null,
       breed: breed ?? null,
-      weightLb: weightLbVal ?? null,
+      weight: weightVal ?? null,
       age: ageVal ?? null,
       license: license ?? null,
       notes: notes ?? null,
@@ -78,10 +78,10 @@ function parsePetPatch(body) {
     data.notes = v;
   }
 
-  if (src.weightLb !== undefined) {
-    const v = parseIntOrNullOpt(src.weightLb, { min: 0, max: 1500 });
+  if (src.weight !== undefined) {
+    const v = parseIntOrNullOpt(src.weight, { min: 0, max: 1500 });
     if (v === "__INVALID__") return { error: "weight must be an integer" };
-    data.weightLb = v;
+    data.weight = v;
   }
 
   if (src.age !== undefined) {

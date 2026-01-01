@@ -1,0 +1,253 @@
+/* ui.cards.module.css
+   Card + badge + action patterns (from CardLayout.module.css)
+*/
+
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: var(--ui-radius-lg);
+  border: 1px solid var(--ui-border);
+  padding: 16px 18px;
+  background: var(--ui-bg);
+  box-shadow: var(--ui-shadow);
+  cursor: pointer;
+  transition:
+    box-shadow 0.15s ease,
+    transform 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease;
+  align-items: stretch;
+  text-align: left;
+}
+
+.card:hover {
+  box-shadow: var(--ui-shadow-hover);
+  transform: translateY(-2px);
+  border-color: #cbd5f5;
+  background: var(--ui-bg-soft);
+}
+
+.cardArchived {
+  opacity: 0.65;
+}
+
+/* Use this for non-clickable cards (forms, panels) */
+.cardForm {
+  cursor: default;
+}
+
+.cardForm:hover {
+  transform: none;
+  background: var(--ui-bg);
+  border-color: var(--ui-border);
+  box-shadow: var(--ui-shadow);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.cardTitle {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ui-text);
+}
+
+.badge {
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: var(--ui-radius-pill);
+}
+
+.badgeIdle {
+  background: #f3f4f6;
+  color: #4b5563;
+}
+
+.badgeActive {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.badgeArchived {
+  background: #fee2e2;
+  color: var(--ui-danger-2);
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ui-gap-1);
+  font-size: 0.9rem;
+  color: #4b5563;
+  margin-top: 10px;
+}
+
+/* =========================
+   Inline actions
+   ========================= */
+
+.inlineActions {
+  margin-top: 6px;
+  display: flex;
+  gap: 12px;
+  font-size: 0.85rem;
+}
+
+.inlineAction {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--ui-primary);
+  cursor: pointer;
+}
+
+.inlineActionDanger {
+  color: var(--ui-danger);
+}
+
+/* =========================
+   Header/action links
+   ========================= */
+
+.headerLinksRow {
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.linkAction {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #4b5563; /* subtle */
+  text-decoration: underline;
+  text-decoration-color: rgba(75, 85, 99, 0.35);
+  text-underline-offset: 2px;
+}
+
+.linkAction:hover {
+  color: var(--ui-text);
+  text-decoration-color: rgba(17, 24, 39, 0.55);
+}
+
+.linkAction:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.linkActionDisabled {
+  font-size: 0.9rem;
+  color: var(--ui-muted-2);
+  text-decoration: underline;
+  text-decoration-color: rgba(156, 163, 175, 0.45);
+  text-underline-offset: 2px;
+}
+
+/* =========================
+   Primary button
+   ========================= */
+
+.primaryButton {
+  border: none;
+  border-radius: var(--ui-radius-pill);
+  padding: 8px 16px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  background: var(--ui-primary);
+  color: var(--ui-bg);
+  cursor: pointer;
+  box-shadow: var(--ui-shadow-primary);
+  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+}
+
+.primaryButton:hover {
+  background: var(--ui-primary-hover);
+  box-shadow: var(--ui-shadow-primary-hover);
+  transform: translateY(-1px);
+}
+
+.primaryButton:active {
+  background: var(--ui-primary-active);
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+/* =========================
+   (Optional) Form control styling
+   Use if/when you remove inline input/select styles
+   ========================= */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Also critical: the field wrapper must be allowed to shrink */
+.field {
+  min-width: 0;
+}
+
+.label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: var(--ui-text);
+}
+
+.required {
+  color: var(--ui-danger);
+}
+
+.control {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  display: block;
+  min-width: 0;  
+  padding: 8px 10px;
+  border-radius: var(--ui-radius-sm);
+  border: 1px solid var(--ui-border-2);
+  background: var(--ui-bg);
+  font-size: 0.95rem;
+  color: var(--ui-text);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.control:focus {
+  border-color: var(--ui-primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.18);
+}
+
+.controlError {
+  border-color: var(--ui-danger);
+  box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.14);
+}
+
+.errorText {
+  margin-top: 4px;
+  font-size: 0.8rem;
+  color: var(--ui-danger);
+}
+
+.formActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+
+
+
+

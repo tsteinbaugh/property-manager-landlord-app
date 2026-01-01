@@ -1,24 +1,20 @@
 // newsrc/features/residents/components/emergencyContactCard.jsx
 import { useMemo } from "react";
-import ui from "@shared/styles/CardLayout.module.css";
+import card from "@shared/styles/ui.cards.module.css";
+import shared from "@shared/styles/ui.shared.module.css";
 import { formatText, formatPhonePretty, formatEmail } from "@shared/utils/validation.js";
 
-export default function EmergencyContactCard({
-  emergencyContact,
-  onClick,
-  variant = "summary", // "summary" | "detail"
-}) {
+export default function EmergencyContactCard({ emergencyContact, onClick, variant = "summary" }) {
   if (!emergencyContact) return null;
 
   const vm = useMemo(() => {
     const isArchived = !!emergencyContact.archivedAt;
 
-    const displayName = formatText(emergencyContact.name, {
-      fallback: "Unnamed emergency contact",
-    });
 
     const phone = formatPhonePretty(emergencyContact.phone, { fallback: "—" });
     const email = formatEmail(emergencyContact.email, { fallback: "—" });
+
+    const relation = formatText(emergencyContact.relation, { fallback: null });
 
     const street = formatText(emergencyContact.address1, { fallback: null });
     const city = formatText(emergencyContact.city, { fallback: null });
@@ -28,8 +24,24 @@ export default function EmergencyContactCard({
     const cityStateZip =
       city && state && postalCode ? `${city}, ${state} ${postalCode}` : null;
 
-    const relation = formatText(emergencyContact.relation, { fallback: null });
+
+    const addressBlock = (
+      <>
+        <div>
+          <strong>Address:</strong>
+        </div>
+        <div className={shared.indent}>
+          <div>
+            {street ? <div>{street}</div> : null}
+            {cityStateZip ? <div className={shared.muted}>{cityStateZip}</div> : null}
+          </div>
+        </div>
+      </>
+    );      
+
     const notes = formatText(emergencyContact.notes, { fallback: null });
+
+    const displayName = formatText(emergencyContact.name, { fallback: "Unnamed emergency contact" });
 
     return {
       isArchived,
@@ -38,27 +50,14 @@ export default function EmergencyContactCard({
       email,
       street,
       cityStateZip,
+      addressBlock,
       relation,
       notes,
     };
   }, [emergencyContact]);
 
   const badgeText = vm.isArchived ? "Archived" : "Emergency Contact";
-  const badgeClass = vm.isArchived ? ui.badgeArchived : ui.badgeIdle;
-
-  const AddressBlock = (
-    <>
-      <div>
-        <strong>Address:</strong>
-      </div>
-      <div className={ui.indent}>
-        <div>
-          {vm.street || null}
-          {vm.cityStateZip && <div className={ui.muted}>{vm.cityStateZip}</div>}
-        </div>
-      </div>
-    </>
-  );
+  const badgeClass = vm.isArchived ? card.badgeArchived : card.badgeIdle;
 
   // ============================================================
   // DETAIL VARIANT (full info, non-clickable)
@@ -67,18 +66,34 @@ export default function EmergencyContactCard({
     const headerTitle = "Emergency Contact Info";
 
     return (
-      <div className={`${ui.card} ${vm.isArchived ? ui.cardArchived : ""}`}>
-        <div className={ui.cardHeader}>
-          <div className={ui.cardTitle}>{headerTitle}</div>
-          <span className={`${ui.badge} ${badgeClass}`}>{badgeText}</span>
+      <div className={`${card.card} ${vm.isArchived ? card.cardArchived : ""}`}>
+        <div className={card.cardHeader}>
+          <div className={card.cardTitle}>{headerTitle}</div>
+          <span className={`${card.badge} ${badgeClass}`}>{badgeText}</span>
         </div>
 
-        <div className={ui.cardBody}>
-          <div><strong>Phone: </strong>{vm.phone}</div>
-          <div><strong>Email: </strong>{vm.email}</div>
-          {AddressBlock}
-          {vm.relation && (<div><strong>Relation: </strong>{vm.relation}</div>)}
-          {vm.notes && (<div><strong>Notes: </strong>{vm.notes}</div>)}
+        <div className={card.cardBody}>
+          <div>
+            <strong>Phone: </strong>
+            {vm.phone}
+          </div>
+          <div>
+            <strong>Email: </strong>
+            {vm.email}
+          </div>
+          {vm.addressBlock}
+          {vm.relation ? (
+            <div>
+              <strong>Relation: </strong>
+              {vm.relation}
+            </div>
+          ) : null}
+          {vm.notes ? (
+            <div>
+              <strong>Notes: </strong>
+              {vm.notes}
+            </div>
+          ) : null}
         </div>
       </div>
     );
@@ -90,21 +105,29 @@ export default function EmergencyContactCard({
   return (
     <button
       type="button"
-      className={`${ui.card} ${vm.isArchived ? ui.cardArchived : ""}`}
+      className={`${card.card} ${vm.isArchived ? card.cardArchived : ""}`}
       onClick={onClick}
       aria-label={`Open emergency contact ${vm.displayName}`}
     >
-      <div className={ui.cardHeader}>
-        <div className={ui.cardTitle}>{vm.displayName}</div>
-        <span className={`${ui.badge} ${badgeClass}`}>{badgeText}</span>
+      <div className={card.cardHeader}>
+        <div className={card.cardTitle}>{vm.displayName}</div>
+        <span className={`${card.badge} ${badgeClass}`}>{badgeText}</span>
       </div>
 
-      <div className={ui.cardBody}>
-        <div><strong>Phone: </strong>{vm.phone}</div>
-        <div><strong>Email: </strong>{vm.email}</div>
-        {!vm.phone && !vm.email && (
-          <div>Click for more details</div>
-        )}      
+      <div className={card.cardBody}>
+        <div>
+          <strong>Phone: </strong>
+          {vm.phone}
+        </div>
+        <div>
+          <strong>Email: </strong>
+          {vm.email}
+        </div>
+        {!vm.phone && !vm.email ? (
+          <div>
+            Click for more details
+          </div>
+        ) : null}
       </div>
     </button>
   );
