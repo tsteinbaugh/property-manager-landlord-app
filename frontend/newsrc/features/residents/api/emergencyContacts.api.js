@@ -40,10 +40,6 @@ export const emergencyContactsApi = {
     return rows.map(mapEmergencyContactFromApi);
   },
 
-  async list(opts) {
-    return this.listAll(opts);
-  },
-
   async get(id, { token } = {}) {
     if (!id) throw new Error("id is required");
     const row = await apiFetch(`/api/emergencyContacts/${id}`, { token });

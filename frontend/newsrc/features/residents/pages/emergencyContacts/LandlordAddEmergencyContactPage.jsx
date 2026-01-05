@@ -36,6 +36,7 @@ export default function LandlordAddEmergencyContactPage() {
   const returnTo = searchParams.get("returnTo") || "";
 
   const isEditMode = !!emergencyContactId;
+  const isTenantContext = !!tenantId;
 
   // ---------- form state ----------
   const [name, setName] = useState("");
@@ -86,13 +87,13 @@ export default function LandlordAddEmergencyContactPage() {
   // ------------------------------------------------------------
   useEffect(() => {
     let cancelled = false;
-    if (!tenantId || !token) return;
+    if (!isTenantContext || !token) return;
 
     async function loadTenant() {
       try {
         setLoadingTenant(true);
         setTenantError(null);
-        const t = await tenantsApi.detail(tenantId, { token });
+        const t = await tenantsApi.get(tenantId, { token });
         if (!cancelled) setTenant(t || null);
       } catch (err) {
         console.error("Failed to load tenant for AddEmergencyContactPage", err);
@@ -129,7 +130,7 @@ export default function LandlordAddEmergencyContactPage() {
   // ------------------------------------------------------------
   useEffect(() => {
     let cancelled = false;
-    if (!emergencyContactId || !token) return;
+    if (!isEditMode || !emergencyContactId || !token) return;
 
     async function loadEmergencyContactForEdit() {
       try {
@@ -161,33 +162,38 @@ export default function LandlordAddEmergencyContactPage() {
     return () => {
       cancelled = true;
     };
-  }, [emergencyContactId, token]);
+  }, [isEditMode, emergencyContactId, token]);
 
   // ------------------------------------------------------------
   // Derived lists (tenant context)
   // ------------------------------------------------------------
-  const emergencyContactLinks = Array.isArray(tenant?.emergencyContactLinks) ? tenant.emergencyContactLinks : [];
-  const tenantEmergencyContacts = emergencyContactLinks.map((link) => link.emergencyContact).filter(Boolean);
+  const emergencyContactLinks = useMemo(
+    () => (Array.isArray(tenant?.emergencyContactLinks) ? tenant.emergencyContactLinks : []),
+    [tenant]
+  );
+  const tenantEmergencyContacts = useMemo(
+    () => emergencyContactLinks.map((link) => link?.emergencyContact).filter(Boolean),
+    [emergencyContactLinks]
+  );
 
-  const linkedIds = new Set(emergencyContactLinks.map((l) => l.emergencyContactId));
-  const availableExistingEmergencyContacts =
-    tenant && allEmergencyContacts.length > 0 ? allEmergencyContacts.filter((e) => !linkedIds.has(e.id)) : allEmergencyContacts;
+  const availableExistingEmergencyContacts = useMemo(() => {
+    const linkedIds = new Set(emergencyContactLinks.map((l) => l?.emergencyContactId).filter(Boolean));
+    const list = Array.isArray(allEmergencyContacts) ? allEmergencyContacts : [];
+    if (!tenantId) return list;
+    return list.filter((v) => v?.id && !linkedIds.has(v.id));
+  }, [allEmergencyContacts, emergencyContactLinks, tenantId]);
 
   // ------------------------------------------------------------
   // Navigation helpers
   // ------------------------------------------------------------
-  const goBackFromTenantContext = () => {
-    if (returnTo) navigate(returnTo);
-    else if (tenantId) navigate(`/landlord/tenants/${tenantId}`);
-    else navigate("/landlord/residents?tab=emergencyContacts");
-  };
-
-  const handleCancel = () => {
+  const goBack = () => {
     if (returnTo) return navigate(returnTo);
-    if (tenantId) return goBackFromTenantContext();
+    if (isTenantContext) return navigate(`/landlord/tenants/${tenantId}`);
     if (isEditMode) return navigate(`/landlord/emergencyContacts/${emergencyContactId}`);
     return navigate("/landlord/residents?tab=emergencyContacts");
   };
+
+  const handleCancel = () => goBack();
 
   // ------------------------------------------------------------
   // Validation + payload builder (shared)
@@ -266,19 +272,11 @@ export default function LandlordAddEmergencyContactPage() {
       setSubmitting(true);
 
       let saved;
-      if (isEditMode) {
-        saved = await emergencyContactsApi.update(emergencyContactId, payload, { token });
-      } else {
-        saved = await emergencyContactsApi.create(payload, { token });
-      }
-
-      if (returnTo) {
-        navigate(returnTo);
-      } else if (isEditMode) {
-        navigate(`/landlord/emergencyContacts/${saved?.id || emergencyContactId}`);
-      } else {
-        navigate("/landlord/residents?tab=emergencyContacts");
-      }
+      if (isEditMode) saved = await emergencyContactsApi.update(emergencyContactId, payload, { token });
+      else saved = await emergencyContactsApi.create(payload, { token });
+      if (returnTo) return navigate(returnTo);
+      if (isEditMode) return navigate(`/landlord/emergencyContacts/${saved?.id || emergencyContactId}`);
+      return navigate("/landlord/residents?tab=emergencyContacts");
     } catch (err) {
       console.error("Failed to save emergency contact", err);
       setFormError("Failed to save emergency contact. Check console for details.");
@@ -293,11 +291,11 @@ export default function LandlordAddEmergencyContactPage() {
   const handleLinkExisting = async () => {
     if (!tenantId || !selectedExistingEmergencyContactId) return;
 
-    const emc = availableExistingEmergencyContacts.find((e) => e.id === selectedExistingEmergencyContactId);
+    const emc = availableExistingEmergencyContacts.find((e) => e?.id === selectedExistingEmergencyContactId);
     const emcName = emc?.name || "this emergency contact";
 
     const ok = window.confirm(
-      `Link ${emcName} to tenant "${tenant?.name || ""}"?\n\n` +
+      `Link ${emcName} to tenant "${tenant?.name || "Unnamed tenant"}"?\n\n` +
         "This will link the emergency contact to this tenant in your records."
     );
     if (!ok) return;
@@ -307,7 +305,7 @@ export default function LandlordAddEmergencyContactPage() {
       await tenantsApi.linkEmergencyContact(tenantId, selectedExistingEmergencyContactId, {
         token,
       });
-      goBackFromTenantContext();
+      goBack();
     } catch (err) {
       console.error("Failed to link existing emergency contact", err);
       alert("Failed to link emergency contact. Check console for details.");
@@ -333,7 +331,7 @@ export default function LandlordAddEmergencyContactPage() {
       const created = await emergencyContactsApi.create(payload, { token });
       await tenantsApi.linkEmergencyContact(tenantId, created.id, { token });
 
-      goBackFromTenantContext();
+      goBack();
     } catch (err) {
       console.error("Failed to create emergency contact for tenant", err);
       setFormError("Failed to create emergency contact. Check console for details.");
@@ -347,7 +345,7 @@ export default function LandlordAddEmergencyContactPage() {
   const ctrl = (isError) => `${card.control} ${isError ? card.controlError : ""}`;
 
   // ------------------------------------------------------------
-  // FORM JSX (no inner React components!)
+  // FORM JSX
   // ------------------------------------------------------------
   const renderForm = (onSubmit) => (
     <form className={card.form} onSubmit={onSubmit}>
@@ -371,7 +369,7 @@ export default function LandlordAddEmergencyContactPage() {
               className={ctrl(touched.name && !String(name).trim())}
               disabled={isSubmitting}
             />
-            {touched.name && !String(name).trim() ? <div className={card.errorText}>Enter a name</div> : null}
+            {touched.name && !String(name).trim() ? <div className={shared.error}>Enter a name</div> : null}
           </div>
 
           <fieldset className={shared.groupRow}>
@@ -385,6 +383,7 @@ export default function LandlordAddEmergencyContactPage() {
                 type="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
+                onBlur={() => setTouched((t) => ({ ...t, phone: true }))}
                 placeholder="Phone (123-123-1234)"
                 className={ctrl(touched.name && !String(phone).trim())}
                 disabled={isSubmitting}
@@ -397,6 +396,7 @@ export default function LandlordAddEmergencyContactPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                onBlur={() => setTouched((t) => ({ ...t, email: true }))}
                 placeholder="Email (john.doe@example.com)"
                 className={ctrl(touched.name && !String(email).trim())}
                 disabled={isSubmitting}
@@ -507,17 +507,17 @@ export default function LandlordAddEmergencyContactPage() {
 
           {formError ? <div className={shared.error}>{formError}</div> : null}
 
-          <div className={card.formActions}>
-            <button type="submit" className={card.primaryButton} disabled={saveDisabled}>
-              {isSubmitting ? "Saving…" : isEditMode ? "Save changes" : "Save emergency contact"}
-            </button>
-
-            <button type="button" className={card.linkAction} onClick={handleCancel} disabled={isSubmitting}>
-              Cancel
-            </button>
-          </div>
         </div>
       </section>
+
+      <div className={card.formActions}>
+        <button type="submit" className={card.primaryButton} disabled={saveDisabled}>
+          {isSubmitting ? "Saving…" : isEditMode ? "Save changes" : "Save emergency contact"}
+        </button>
+        <button type="button" className={card.linkAction} onClick={handleCancel} disabled={isSubmitting}>
+          Cancel
+        </button>
+      </div>
     </form>
   );
 
@@ -525,8 +525,10 @@ export default function LandlordAddEmergencyContactPage() {
   // RENDER
   // ------------------------------------------------------------
 
-  // === Mode A: tenantId present (manage emergency contacts for tenant) ===
-  if (tenantId) {
+  // === Mode A: isTenantContext present (manage emergency contacts for tenant) ===
+  if (isTenantContext) {
+    const tenantName = tenant?.name || "Unnamed tenant";
+
     return (
       <div className={page.page}>
         <header className={page.header}>
@@ -535,12 +537,12 @@ export default function LandlordAddEmergencyContactPage() {
             {loadingTenant ? (
               <p className={page.subtitle}>Loading tenant…</p>
             ) : tenantError || !tenant ? (
-              <p className={page.subtitle} style={{ color: "#b91c1c" }}>
+              <p className={`${page.subtitle} ${shared.error}`}>
                 Failed to load tenant. You can still add emergency contacts, but linking may not behave as expected.
               </p>
             ) : (
               <p className={page.subtitle}>
-                Link an existing emergency contact or create a new one for <strong>{tenant.name}</strong>.
+                Link an existing emergency contact or create a new one for <strong>{tenantName}</strong>.
               </p>
             )}
           </div>
@@ -569,23 +571,23 @@ export default function LandlordAddEmergencyContactPage() {
                   <div className={shared.muted}>No other emergency contacts available to link.</div>
                 ) : (
                   <>
-                    <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-                      <select
-                        className={card.control}
-                        value={selectedExistingEmergencyContactId}
-                        onChange={(e) => setSelectedExistingEmergencyContactId(e.target.value)}
-                        disabled={isLinkingExisting}
-                        style={{ flex: 1 }}
-                      >
-                        <option value="">Select an emergency contact…</option>
-                        {availableExistingEmergencyContacts.map((v) => (
-                          <option key={v.id} value={v.id}>
-                            {[v.year, v.make, v.model].filter(Boolean).join(" ") || "Emergency contact"}
-                            {v.plate ? ` • ${v.plate}` : ""}
-                            {v.state ? ` (${v.state})` : ""}
-                          </option>
-                        ))}
-                      </select>
+                    <div className={shared.groupRow} style={{ alignItems: "center" }}>
+                      <div className={shared.groupField} style={{ flex: 1 }}>                            
+                        <select
+                          className={card.control}
+                          value={selectedExistingEmergencyContactId}
+                          onChange={(e) => setSelectedExistingEmergencyContactId(e.target.value)}
+                          disabled={isLinkingExisting}
+                          style={{ flex: 1 }}
+                        >
+                          <option value="">Select an emergency contact…</option>
+                          {availableExistingEmergencyContacts.map((e) => (
+                            <option key={e.id} value={e.id}>
+                              {e.name || "Emergency contact"}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
 
                       <button
                         type="button"
@@ -604,9 +606,7 @@ export default function LandlordAddEmergencyContactPage() {
                         <ul style={{ paddingLeft: 18, marginTop: 4 }}>
                           {tenantEmergencyContacts.map((v) => (
                             <li key={v.id}>
-                              {[v.year, v.make, v.model].filter(Boolean).join(" ") || "Emergency contact"}
-                              {v.plate ? ` • ${v.plate}` : ""}
-                              {v.state ? ` (${v.state})` : ""}
+                              {v.name || "Emergency contact"}
                             </li>
                           ))}
                         </ul>
@@ -618,7 +618,7 @@ export default function LandlordAddEmergencyContactPage() {
             </div>
           </section>
 
-          {/* Create new (same form, different submit) */}
+          {/* Create new */}
           <section className={page.section}>
             <div className={page.sectionHeader}>
               <div className={page.sectionHeaderStack}>
@@ -628,9 +628,8 @@ export default function LandlordAddEmergencyContactPage() {
                 </div>
               </div>
             </div>
+            {renderForm(handleSubmitForTenant)}
           </section>
-
-          {renderForm(handleSubmitForTenant)}
         </div>
       </div>
     );
@@ -643,7 +642,7 @@ export default function LandlordAddEmergencyContactPage() {
         <div>
           <h1 className={page.title}>{isEditMode ? "Edit emergency contact" : "Create emergency contact"}</h1>
           <p className={page.subtitle}>
-            {isEditMode ? "Update emergency contact details." : "Create an emergency contact record.  It can be linked to a tenant."}
+            {isEditMode ? "Update emergency contact details." : "Create an emergency contact record. It can be linked to a tenant."}
           </p>
         </div>
       </header>

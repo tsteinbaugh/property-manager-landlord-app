@@ -15,7 +15,7 @@ export default function VehicleCard({ vehicle, onClick, variant = "summary" }) {
     const model = formatText(vehicle.model, { fallback: null });
 
     const color = formatText(vehicle.color, { fallback: null });
-    const state = formatText(vehicle.state, { fallback: null });
+    const state = formatEnumLabel(vehicle.state, { fallback: null });
     const parking = formatText(vehicle.parking, { fallback: null });
     const plate = formatText(vehicle.plate, { fallback: null });
     const permit = formatText(vehicle.permit, { fallback: null });

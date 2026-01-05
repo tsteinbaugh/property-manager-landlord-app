@@ -10,9 +10,11 @@ import { ROLES } from "@lib/rbac/roles.js";
 import LinkageCard from "@shared/ui/cards/LinkageCard.jsx";
 import LeaseCard from "@features/leases/components/LeaseCard.jsx";
 
-import ui from "@shared/styles/CardLayout.module.css";
+import page from "@shared/styles/ui.pages.module.css";
+import card from "@shared/styles/ui.cards.module.css";
+import shared from "@shared/styles/ui.shared.module.css";
 
-function leaseTitle(lease) {
+function leaseLabel(lease) {
   const base =
     lease?.propertyName ||
     lease?.property?.name ||
@@ -22,9 +24,6 @@ function leaseTitle(lease) {
 }
 
 function normalizeLinkedEntities(tenant) {
-  // Supports BOTH shapes:
-  // - tenant.occupants/pets/emergencyContacts/vehicles
-  // - tenant.occupantLinks/petLinks/emergencyContactLinks/vehicleLinks
   const occupants = Array.isArray(tenant?.occupants)
     ? tenant.occupants
     : Array.isArray(tenant?.occupantLinks)
@@ -57,11 +56,12 @@ export default function LandlordLeaseDetailPage() {
   const navigate = useNavigate();
   const { token, effectiveRole, isSysAdmin } = useUser() || {};
 
-  const role = isSysAdmin
+  const role =
+    isSysAdmin && effectiveRole !== ROLES.SYSADMIN
     ? ROLES.SYSADMIN
     : typeof effectiveRole === "string"
       ? effectiveRole.toLowerCase()
-      : ROLES.LANDLORD;
+      : effectiveRole || ROLES.LANDLORD;
 
   const canUpdate = can(role, R.LEASES, A.UPDATE);
   const canArchiveGrant = can(role, R.LEASES, A.ARCHIVE);
@@ -81,17 +81,6 @@ export default function LandlordLeaseDetailPage() {
   const [tenantDetailsLoading, setTenantDetailsLoading] = useState(false);
   const [tenantDetailsError, setTenantDetailsError] = useState(null);
 
-  async function reloadLease(idToLoad = leaseId) {
-    if (!idToLoad || !token) return null;
-    return leasesApi.get(idToLoad, { token });
-  }
-
-  const reload = async () => {
-    const row = await reloadLease(leaseId);
-    setLease(row || null);
-    return row || null;
-  };
-
   useEffect(() => {
     let cancelled = false;
 
@@ -100,8 +89,12 @@ export default function LandlordLeaseDetailPage() {
         setLoading(true);
         setError(null);
         const row = await leasesApi.get(leaseId, { token });
-        if (!cancelled) setLease(row || null);
+        if (!cancelled) {
+          setLease(row || null);
+          if (!row) setError(new Error("Lease not found"));
+        }
       } catch (err) {
+        console.error("Failed to load lease", err);
         if (!cancelled) setError(err);
       } finally {
         if (!cancelled) setLoading(false);
@@ -119,28 +112,40 @@ export default function LandlordLeaseDetailPage() {
     };
   }, [leaseId, token]);
 
-  const isArchived = useMemo(() => {
-    return !!lease?.archivedAt;
-  }, [lease]);
+  const isArchived = useMemo(() => {return !!lease?.archivedAt;}, [lease]);
 
   const canEditNow = canUpdate && (!isArchived || isSysAdmin);
   const canArchiveNow = !isArchived && canArchiveGrant;
   const canUnarchiveNow = isArchived && isSysAdmin;
   const showArchiveLink = canArchiveNow || canUnarchiveNow;
 
-  const property = lease?.property || null;
-  const propertyName =
-    property?.name ||
-    (property?.address1
-      ? [property.address1, property.city, property.state, property.postalCode]
-          .filter(Boolean)
-          .join(", ")
-      : "") ||
-    "Unlinked property";
+  const vm = useMemo(() => {
+    const property = lease?.property || null;
+    const propertyArchived = !!property?.archivedAt;
 
-  const title = leaseTitle(lease);
+    const propertyName =
+      property?.name ||
+      (property?.address1
+        ? [property.address1, property.city, property.state, property.postalCode]
+            .filter(Boolean)
+            .join(", ")
+        : "") ||
+      "Unlinked property";
 
-  const propertyArchived = !!property?.archivedAt;
+    const title = leaseLabel(lease);
+
+    return {
+      title,
+      property,
+      propertyName,
+      propertyArchived,
+    };
+  }, [lease]);
+
+  const reload = async () => {
+    const row = await leasesApi.get(leaseId, { token });
+    setLease(row || null);
+  };  
 
   const handleToggleArchive = async () => {
     if (!lease) return;
@@ -203,15 +208,20 @@ export default function LandlordLeaseDetailPage() {
     }
   };
 
-  const handleUnlinkTenant = async (tenantId) => {
-    if (!lease?.id || !tenantId) return;
+  const goEditLease = () => {
+    if (!lease?.id) return;
+    const returnTo = encodeURIComponent(`${window.location.pathname}${window.location.search || ""}`);
+    navigate(`/landlord/leases/new?leaseId=${lease.id}&returnTo=${returnTo}`);
+  };
 
+  const handleUnlinkTenantFromLease = async (tenantId) => {
+    if (!lease?.id || !tenantId) return;
+  
     const ok = window.confirm(
-      "Unlink this tenant from this lease?\n\n" +
-        "This does NOT delete either record, it only removes the association."
+      "Unlink this tenant from this lease?\n\nThis does NOT delete either record, it only removes the association."
     );
     if (!ok) return;
-
+  
     try {
       setUnlinkingTenantId(tenantId);
       await leasesApi.unlinkTenant(lease.id, tenantId, { token });
@@ -224,18 +234,18 @@ export default function LandlordLeaseDetailPage() {
     }
   };
 
-  const handleUnlinkProperty = async (propertyId) => {
+
+  const handleUnlinkPropertyFromLease = async (propertyId) => {
     if (!lease?.id || !propertyId) return;
 
     const ok = window.confirm(
-      "Unlink this property from this lease?\n\n" +
-        "This does NOT delete either record, it only removes the association."
+      "Unlink this property from this lease?\n\nThis does NOT delete either record, it only removes the association."
     );
     if (!ok) return;
 
     try {
       setUnlinkingPropertyId(propertyId);
-      await leasesApi.unlinkProperty(lease.id, { token });
+      await leasesApi.unlinkProperty(lease.id, propertyId, { token });
       await reload();
     } catch (err) {
       console.error("Failed to unlink property from lease", err);
@@ -254,9 +264,7 @@ export default function LandlordLeaseDetailPage() {
     }
 
     const leaseTenants = Array.isArray(lease.leaseTenants) ? lease.leaseTenants : [];
-    const tenantIds = Array.from(
-      new Set(leaseTenants.map((lt) => lt.tenantId).filter(Boolean))
-    );
+    const tenantIds = Array.from(new Set(leaseTenants.map((lt) => lt?.tenantId).filter(Boolean)));
 
     if (!tenantIds.length) {
       setTenantDetails([]);
@@ -274,7 +282,7 @@ export default function LandlordLeaseDetailPage() {
         const results = [];
         for (const id of tenantIds) {
           try {
-            const t = await tenantsApi.detail(id, { token });
+            const t = await tenantsApi.get(id, { token });
             if (t) results.push(t);
           } catch (err) {
             console.error("Failed to load tenant detail", err);
@@ -346,34 +354,32 @@ export default function LandlordLeaseDetailPage() {
 
   const leaseTenants = Array.isArray(lease?.leaseTenants) ? lease.leaseTenants : [];
 
-  if (loading) return <div className={ui.page}>Loading lease…</div>;
+  if (loading) return <div className={page.page}>Loading lease…</div>;
   if (error)
     return (
-      <div className={ui.page} style={{ color: "crimson" }}>
-        Error loading lease: {String(error?.message || error)}
+      <div className={page.page}>
+        <div className={shared.error}>
+          Error loading lease: {String(error?.message || error)}
+        </div>
       </div>
     );
-  if (!lease) return <div className={ui.page}>No data.</div>;
+  if (!lease) return <div className={page.page}>No data.</div>;
 
   return (
-    <div className={ui.page}>
-      <div style={{ marginBottom: 8 }}>
+    <div className={page.page}>
+      <div className={page.header}>
         <Link to="/landlord/leases">← Back to leases</Link>
       </div>
 
       {/* Header */}
-      <div className={ui.section}>
-        <div className={ui.sectionHeader}>
+      <div className={page.section}>
+        <div className={page.sectionHeader}>
           <div>
-            <h1 style={{ margin: 0 }}>{title}</h1>
+            <h1 className={page.title}>{vm.title}</h1>
 
-            <div className={ui.headerLinksRow}>
+            <div className={card.headerLinksRow}>
               {canEditNow ? (
-                <button
-                  type="button"
-                  className={ui.linkAction}
-                  onClick={() => navigate(`/landlord/leases/new?leaseId=${lease.id}`)}
-                >
+                <button type="button" className={card.linkAction} onClick={goEditLease}>
                   Edit lease/Add attachments
                 </button>
               ) : null}
@@ -381,7 +387,7 @@ export default function LandlordLeaseDetailPage() {
               {showArchiveLink ? (
                 <button
                   type="button"
-                  className={ui.linkAction}
+                  className={card.linkAction}
                   onClick={handleToggleArchive}
                   disabled={isArchiving}
                   aria-disabled={isArchiving ? "true" : "false"}
@@ -389,22 +395,19 @@ export default function LandlordLeaseDetailPage() {
                   {isArchived ? "Unarchive lease" : "Archive lease"}
                 </button>
               ) : (
-                <span className={ui.linkActionDisabled}>
+                <span className={card.linkActionDisabled}>
                   {isArchived ? "Unarchive lease" : "Archive lease"}
                 </span>
               )}
             </div>
 
-            {isArchived ? (
-              <div className={ui.muted}>(Archived – read-only for landlords)</div>
-            ) : null}
+            {isArchived ? <div className={shared.muted}>(Archived – read-only for landlords)</div> : null}
           </div>
         </div>
       </div>
 
       {/* Lease info */}
-      <div className={ui.section}>
-        <div className={ui.sectionHeader}></div>
+      <div className={page.section}>
         <LeaseCard
           lease={lease}
           variant="detail"
@@ -423,44 +426,51 @@ export default function LandlordLeaseDetailPage() {
       </div>
 
       {/* Property */}
-      <div className={ui.section}>
-        <div className={ui.sectionHeader}>
-          <div className={ui.sectionTitle}>Property</div>
-          <div className={ui.sectionHint}>Direct link: Property ↔ Lease</div>
+      <div className={page.section}>
+        <div className={page.sectionHeader}>
+          <div className={page.sectionTitle}>Property</div>
+          <div className={page.sectionHint}>Direct link: Property ↔ Lease</div>
         </div>
 
-        {property ? (
+        {vm.property ? (
           <LinkageCard
-            key={property.id}
-            title={propertyName}
-            archived={propertyArchived}
-            badgeText={propertyArchived ? "Archived" : "Property"}
-            badgeTone={propertyArchived ? "archived" : "idle"}
-            onClick={() => navigate(`/landlord/properties/${property.id}`)}
-            linkageParts={[propertyName, title]}
+            key={vm.property.id}
+            title={vm.propertyName}
+            archived={vm.propertyArchived}
+            badgeText={vm.propertyArchived ? "Archived" : "Property"}
+            badgeTone={vm.propertyArchived ? "archived" : "idle"}
+            onClick={() => navigate(`/landlord/properties/${vm.property.id}`)}
+            linkageParts={[vm.propertyName, vm.title]}
             footer={
               <button
                 type="button"
-                className={`${ui.inlineAction} ${ui.inlineActionDanger}`}
-                onClick={(pr) => {
-                  pr.stopPropagation();
-                  handleUnlinkProperty(property.id);
+                className={`${card.inlineAction} ${card.inlineActionDanger}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleUnlinkPropertyFromLease(vm.property.id);
                 }}
-                disabled={unlinkingPropertyId === property.id}
+                disabled={unlinkingPropertyId === vm.property.id}
               >
-                {unlinkingPropertyId === property.id ? "Unlinking…" : "Unlink from lease"}
+                {unlinkingPropertyId === vm.property.id ? "Unlinking…" : "Unlink from lease"}
               </button>
             }
           />
         ) : (
-          <div className={ui.muted}>No property associated with this lease yet.</div>
+          <div className={shared.muted}>No property associated with this lease yet.</div>
         )}
 
-        <div style={{ marginTop: 10 }}>
+        <div className={card.formActions}>
           <button
             type="button"
-            className={ui.linkAction}
-            onClick={() => navigate(`/landlord/properties/new?forLease=1&leaseId=${lease.id}`)}
+            className={card.linkAction}
+            onClick={() => {
+              const returnTo = encodeURIComponent(
+                `${window.location.pathname}${window.location.search || ""}`
+              );
+              navigate(`/landlord/properties/new?forLease=1&leaseId=${lease.id}&returnTo=${returnTo}`);
+            }}
+            disabled={isArchived}
+            aria-disabled={isArchived ? "true" : "false"}              
           >
             Add a property (new or existing)
           </button>
@@ -468,18 +478,20 @@ export default function LandlordLeaseDetailPage() {
       </div>
 
       {/* Tenants */}
-      <div className={ui.section}>
-        <div className={ui.sectionHeader}>
-          <div className={ui.sectionTitle}>Tenants</div>
-          <div className={ui.sectionHint}>Direct link: Tenant ↔ Lease</div>
+      <div className={page.section}>
+        <div className={page.sectionHeader}>
+          <div className={page.sectionTitle}>Tenants</div>
+          <div className={page.sectionHint}>Direct link: Tenant ↔ Lease</div>
         </div>
 
         {leaseTenants.length ? (
-          <div className={ui.grid}>
+          <div className={page.grid}>
             {leaseTenants.map((lt) => {
+              if (!lt?.id || !lt?.tenantId) return null;
+
               const t = tenantById.get(lt.tenantId) || null;
-              const tenantName = t?.name || lt.tenantName || "(Unnamed tenant)";
-              const archived = !!t?.archivedAt;
+              const archived = !!t?.archivedAt || !!lt?.archivedAt;
+              const tenantName = t?.name || t?.email || lt.tenantName || lt?. email || "(Unnamed tenant)";
 
               return (
                 <LinkageCard
@@ -489,14 +501,14 @@ export default function LandlordLeaseDetailPage() {
                   badgeText={archived ? "Archived" : "Tenant"}
                   badgeTone={archived ? "archived" : "idle"}
                   onClick={() => navigate(`/landlord/tenants/${lt.tenantId}`)}
-                  linkageParts={[tenantName, title]}
+                  linkageParts={[tenantName, vm.title]}
                   footer={
                     <button
                       type="button"
-                      className={`${ui.inlineAction} ${ui.inlineActionDanger}`}
-                      onClick={(lete) => {
-                        lete.stopPropagation();
-                        handleUnlinkTenant(lt.tenantId);
+                      className={`${card.inlineAction} ${card.inlineActionDanger}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleUnlinkTenantFromLease(lt.tenantId);
                       }}
                       disabled={unlinkingTenantId === lt.tenantId}
                     >
@@ -508,14 +520,21 @@ export default function LandlordLeaseDetailPage() {
             })}
           </div>
         ) : (
-          <div className={ui.muted}>No tenants associated with this lease yet.</div>
+          <div className={shared.muted}>No tenants associated with this lease yet.</div>
         )}
 
-        <div style={{ marginTop: 10 }}>
+        <div className={card.formActions}>
           <button
             type="button"
-            className={ui.linkAction}
-            onClick={() => navigate(`/landlord/tenants/new?forLease=1&leaseId=${lease.id}`)}
+            className={card.linkAction}
+            onClick={() => {
+              const returnTo = encodeURIComponent(
+                `${window.location.pathname}${window.location.search || ""}`
+              );
+              navigate(`/landlord/tenants/new?forLease=1&leaseId=${lease.id}&returnTo=${returnTo}`);
+            }}
+            disabled={isArchived}
+            aria-disabled={isArchived ? "true" : "false"}            
           >
             Add a tenant (new or existing)
           </button>
@@ -523,22 +542,25 @@ export default function LandlordLeaseDetailPage() {
       </div>
 
       {/* Residents via tenants */}
-      <div className={ui.section}>
-        <div className={ui.sectionHeader}>
-          <div className={ui.sectionTitle}>Occupants</div>
-          <div className={ui.sectionHint}>Indirect link: Occupant → Tenant → Lease</div>
+      <div className={page.section}>
+        <div className={page.sectionHeader}>
+          <div className={page.sectionTitle}>Occupants</div>
+          <div className={page.sectionHint}>Indirect link: Occupant → Tenant → Lease</div>
         </div>
 
         {tenantDetailsLoading ? (
-          <div className={ui.muted}>Loading occupants…</div>
+          <div className={shared.muted}>Loading occupants…</div>
         ) : tenantDetailsError ? (
-          <div style={{ color: "#b91c1c" }}>Failed to load occupants for this lease.</div>
+          <div className={shared.error}>Failed to load occupants for this lease.</div>
         ) : pooled.occupants.length ? (
-          <div className={ui.grid}>
+          <div className={page.grid}>
             {pooled.occupants.map((o) => {
+              if (!o?.id) return null;
+
               const archived = !!o.archivedAt;
               const occupantName = o.name || "Unnamed occupant";
               const tenantName = o._tenantName || "Unnamed tenant";
+              
               return (
                 <LinkageCard
                   key={o.id}
@@ -547,34 +569,37 @@ export default function LandlordLeaseDetailPage() {
                   badgeText={archived ? "Archived" : "Occupant"}
                   badgeTone={archived ? "archived" : "idle"}
                   onClick={() => navigate(`/landlord/occupants/${o.id}`)}
-                  linkageParts={[occupantName, tenantName, title]}
+                  linkageParts={[occupantName, tenantName, vm.title]}
                   linkageHint="To remove this occupant from this lease, unlink it from the relevant tenant."
-                  footer={<div className={`${ui.inlineAction}`}>Manage link on tenant</div>}
+                  footer={<div className={card.inlineAction}>Manage link on tenant</div>}
                 />
               );
             })}
           </div>
         ) : (
-          <div className={ui.muted}>No occupants associated with this lease yet. Link via tenant first.</div>
+          <div className={shared.muted}>No occupants associated with this lease yet. Link via tenant first.</div>
         )}
       </div>
 
-      <div className={ui.section}>
-        <div className={ui.sectionHeader}>
-          <div className={ui.sectionTitle}>Pets</div>
-          <div className={ui.sectionHint}>Indirect link: Pet → Tenant → Lease</div>
+      <div className={page.section}>
+        <div className={page.sectionHeader}>
+          <div className={page.sectionTitle}>Pets</div>
+          <div className={page.sectionHint}>Indirect link: Pet → Tenant → Lease</div>
         </div>
 
         {tenantDetailsLoading ? (
-          <div className={ui.muted}>Loading pets…</div>
+          <div className={shared.muted}>Loading pets…</div>
         ) : tenantDetailsError ? (
-          <div style={{ color: "#b91c1c" }}>Failed to load pets for this lease.</div>
+          <div className={shared.error}>Failed to load pets for this lease.</div>
         ) : pooled.pets.length ? (
-          <div className={ui.grid}>
+          <div className={page.grid}>
             {pooled.pets.map((p) => {
+              if (!p?.id) return null;
+              
               const archived = !!p.archivedAt;
               const petName = p.name || "Unnamed pet";
               const tenantName = p._tenantName || "Unnamed tenant";
+              
               return (
                 <LinkageCard
                   key={p.id}
@@ -583,77 +608,79 @@ export default function LandlordLeaseDetailPage() {
                   badgeText={archived ? "Archived" : "Pet"}
                   badgeTone={archived ? "archived" : "idle"}
                   onClick={() => navigate(`/landlord/pets/${p.id}`)}
-                  linkageParts={[petName, tenantName, title]}
+                  linkageParts={[petName, tenantName, vm.title]}
                   linkageHint="To remove this pet from this lease, unlink it from the relevant tenant."
-                  footer={<div className={`${ui.inlineAction}`}>Manage link on tenant</div>}
+                  footer={<div className={card.inlineAction}>Manage link on tenant</div>}
                 />
               );
             })}
           </div>
         ) : (
-          <div className={ui.muted}>No pets associated with this lease yet. Link via tenant first..</div>
+          <div className={shared.muted}>No pets associated with this lease yet. Link via tenant first..</div>
         )}
       </div>
 
-      <div className={ui.section}>
-        <div className={ui.sectionHeader}>
-          <div className={ui.sectionTitle}>Emergency Contacts</div>
-          <div className={ui.sectionHint}>Indirect link: Emergency Contact → Tenant → Lease</div>
+      <div className={page.section}>
+        <div className={page.sectionHeader}>
+          <div className={page.sectionTitle}>Emergency Contacts</div>
+          <div className={page.sectionHint}>Indirect link: Emergency Contact → Tenant → Lease</div>
         </div>
 
         {tenantDetailsLoading ? (
-          <div className={ui.muted}>Loading emergency contacts…</div>
+          <div className={shared.muted}>Loading emergency contacts…</div>
         ) : tenantDetailsError ? (
-          <div style={{ color: "#b91c1c" }}>Failed to load emergency contacts for this lease.</div>
+          <div className={shared.error}>Failed to load emergency contacts for this lease.</div>
         ) : pooled.emergencyContacts.length ? (
-          <div className={ui.grid}>
-            {pooled.emergencyContacts.map((e) => {
-              const archived = !!e.archivedAt;
-              const emergencyContactName = e.name || "Unnamed emergency contact";
-              const tenantName = e._tenantName || "Unnamed tenant";
+          <div className={page.grid}>
+            {pooled.emergencyContacts.map((ec) => {
+              if (!ec?.id) return null;
+
+              const archived = !!ec.archivedAt;
+              const emergencyContactName = ec.name || "Unnamed emergency contact";
+              const tenantName = ec._tenantName || "Unnamed tenant";
+
               return (
                 <LinkageCard
-                  key={e.id}
+                  key={ec.id}
                   title={emergencyContactName}
                   archived={archived}
                   badgeText={archived ? "Archived" : "Emergency Contact"}
                   badgeTone={archived ? "archived" : "idle"}
-                  onClick={() => navigate(`/landlord/emergencyContacts/${e.id}`)}
-                  linkageParts={[emergencyContactName, tenantName, title]}
+                  onClick={() => navigate(`/landlord/emergencyContacts/${ec.id}`)}
+                  linkageParts={[emergencyContactName, tenantName, vm.title]}
                   linkageHint="To remove this emergency contact from this lease, unlink it from the relevant tenant."
-                  footer={<div className={`${ui.inlineAction}`}>Manage link on tenant</div>}
+                  footer={<div className={card.inlineAction}>Manage link on tenant</div>}
                 />
               );
             })}
           </div>
         ) : (
-          <div className={ui.muted}>
+          <div className={shared.muted}>
             No emergency contacts associated with this lease yet. Link via tenant first.
           </div>
         )}
       </div>
 
-      <div className={ui.section}>
-        <div className={ui.sectionHeader}>
-          <div className={ui.sectionTitle}>Vehicles</div>
-          <div className={ui.sectionHint}>Indirect link: Vehicle → Tenant → Lease</div>
+      <div className={page.section}>
+        <div className={page.sectionHeader}>
+          <div className={page.sectionTitle}>Vehicles</div>
+          <div className={page.sectionHint}>Indirect link: Vehicle → Tenant → Lease</div>
         </div>
 
         {tenantDetailsLoading ? (
-          <div className={ui.muted}>Loading vehicles…</div>
+          <div className={shared.muted}>Loading vehicles…</div>
         ) : tenantDetailsError ? (
-          <div style={{ color: "#b91c1c" }}>Failed to load vehicles for this lease.</div>
+          <div className={shared.error}>Failed to load vehicles for this lease.</div>
         ) : pooled.vehicles.length ? (
-          <div className={ui.grid}>
+          <div className={page.grid}>
             {pooled.vehicles.map((v) => {
+              if (!v?.id) return null;
+
               const archived = !!v.archivedAt;
               const vehicleName =
-                v.permit ||
-                v.plate ||
-                [v.year ? `${v.year},` : null, v.make, v.model]
-                  .filter(Boolean)
-                  .join(" ") ||
-                "Unnamed vehicle";
+                v.year && v.make && v.model
+                  ? [`${v.year}`, v.make, v.model].filter(Boolean).join(" ")
+                  : "Unnamed vehicle";
               const tenantName = v._tenantName || "Unnamed tenant";
 
               return (
@@ -664,15 +691,15 @@ export default function LandlordLeaseDetailPage() {
                   badgeText={archived ? "Archived" : "Vehicle"}
                   badgeTone={archived ? "archived" : "idle"}
                   onClick={() => navigate(`/landlord/vehicles/${v.id}`)}
-                  linkageParts={[vehicleName, tenantName, title]}
+                  linkageParts={[vehicleName, tenantName, vm.title]}
                   linkageHint="To remove this vehicle from this lease, unlink it from the relevant tenant."
-                  footer={<div className={`${ui.inlineAction}`}>Manage link on tenant</div>}
+                  footer={<div className={card.inlineAction}>Manage link on tenant</div>}
                 />
               );
             })}
           </div>
         ) : (
-          <div className={ui.muted}>No vehicles associated with this lease yet. Link via tenant first.</div>
+          <div className={shared.muted}>No vehicles associated with this lease yet. Link via tenant first.</div>
         )}
       </div>
     </div>

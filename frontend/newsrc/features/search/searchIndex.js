@@ -46,8 +46,8 @@ function allowByRBAC(role, _currentUser, entityType) {
 
 export async function buildSearchDocs({ role = "sysadmin", currentUser = null } = {}) {
   // 1) base scopes
-  const props = await (propertiesApi.list?.({}) ?? propertiesApi.list());
-  const leases = await (leasesApi.list?.({}) ?? leasesApi.list?.() ?? []);
+  const props = await (propertiesApi.listAll?.({}) ?? propertiesApi.listAll());
+  const leases = await (leasesApi.listAll?.({}) ?? leasesApi.listAll?.() ?? []);
 
   const propsById = new Map(props.map((p) => [p.id, p]));
   const propIds = props.map((p) => p.id);
@@ -100,8 +100,8 @@ export async function buildSearchDocs({ role = "sysadmin", currentUser = null } 
       // tenants
       try {
         const tenants =
-          (await tenantsApi.listByProperty?.(propertyId)) ??
-          (await tenantsApi.list?.({ propertyId })) ??
+          (await tenantsApi.listAllByProperty?.(propertyId)) ??
+          (await tenantsApi.listAll?.({ propertyId })) ??
           [];
         for (const t of tenants) {
           const phone = t?.contact?.phone || "";
@@ -134,8 +134,8 @@ export async function buildSearchDocs({ role = "sysadmin", currentUser = null } 
       // occupants
       try {
         const occs =
-          (await occupantsApi.listByProperty?.(propertyId)) ??
-          (await occupantsApi.list?.({ propertyId })) ??
+          (await occupantsApi.listAllByProperty?.(propertyId)) ??
+          (await occupantsApi.listAll?.({ propertyId })) ??
           [];
         for (const o of occs) {
           pushIfAllowed({
@@ -166,8 +166,8 @@ export async function buildSearchDocs({ role = "sysadmin", currentUser = null } 
       // pets
       try {
         const petList =
-          (await petsApi.listByProperty?.(propertyId)) ??
-          (await petsApi.list?.({ propertyId })) ??
+          (await petsApi.listAllByProperty?.(propertyId)) ??
+          (await petsApi.listAll?.({ propertyId })) ??
           [];
         for (const pet of petList) {
           pushIfAllowed({
@@ -198,8 +198,8 @@ export async function buildSearchDocs({ role = "sysadmin", currentUser = null } 
       // emergency contacts
       try {
         const ecs =
-          (await emergencyContactsApi.listByProperty?.(propertyId)) ??
-          (await emergencyContactsApi.list?.({ propertyId })) ??
+          (await emergencyContactsApi.listAllByProperty?.(propertyId)) ??
+          (await emergencyContactsApi.listAll?.({ propertyId })) ??
           [];
         for (const ec of ecs) {
           const phone = ec?.contact?.phone || "";
@@ -232,8 +232,8 @@ export async function buildSearchDocs({ role = "sysadmin", currentUser = null } 
       // maintenance tickets
       try {
         const maint =
-          (await maintenanceTicketsApi.listByProperty?.(propertyId)) ??
-          (await maintenanceTicketsApi.list?.({ propertyId })) ??
+          (await maintenanceTicketsApi.listAllByProperty?.(propertyId)) ??
+          (await maintenanceTicketsApi.listAll?.({ propertyId })) ??
           [];
         for (const m of maint) {
           pushIfAllowed({
@@ -264,8 +264,8 @@ export async function buildSearchDocs({ role = "sysadmin", currentUser = null } 
       // routines
       try {
         const routines =
-          (await routinesApi.listByProperty?.(propertyId)) ??
-          (await routinesApi.list?.({ propertyId })) ??
+          (await routinesApi.listAllByProperty?.(propertyId)) ??
+          (await routinesApi.listAll?.({ propertyId })) ??
           [];
         for (const r of routines) {
           pushIfAllowed({
@@ -296,8 +296,8 @@ export async function buildSearchDocs({ role = "sysadmin", currentUser = null } 
       // cleaning tickets
       try {
         const cleaning =
-          (await cleaningTicketsApi.listByProperty?.(propertyId)) ??
-          (await cleaningTicketsApi.list?.({ propertyId })) ??
+          (await cleaningTicketsApi.listAllByProperty?.(propertyId)) ??
+          (await cleaningTicketsApi.listAll?.({ propertyId })) ??
           [];
         for (const c of cleaning) {
           pushIfAllowed({
@@ -328,8 +328,8 @@ export async function buildSearchDocs({ role = "sysadmin", currentUser = null } 
       // expenses
       try {
         const expenses =
-          (await expensesApi.listByProperty?.(propertyId)) ??
-          (await expensesApi.list?.({ propertyId })) ??
+          (await expensesApi.listAllByProperty?.(propertyId)) ??
+          (await expensesApi.listAll?.({ propertyId })) ??
           [];
         for (const ex of expenses) {
           pushIfAllowed({
@@ -360,8 +360,8 @@ export async function buildSearchDocs({ role = "sysadmin", currentUser = null } 
       // legal cases
       try {
         const legal =
-          (await legalCasesApi.listByProperty?.(propertyId)) ??
-          (await legalCasesApi.list?.({ propertyId })) ??
+          (await legalCasesApi.listAllByProperty?.(propertyId)) ??
+          (await legalCasesApi.listAll?.({ propertyId })) ??
           [];
         for (const lc of legal) {
           pushIfAllowed({
@@ -397,8 +397,8 @@ export async function buildSearchDocs({ role = "sysadmin", currentUser = null } 
       // financials by lease
       try {
         const fin =
-          (await financialsApi.listByLease?.(leaseId)) ??
-          (await financialsApi.list?.({ leaseId })) ??
+          (await financialsApi.listAllByLease?.(leaseId)) ??
+          (await financialsApi.listAll?.({ leaseId })) ??
           [];
         for (const f of fin) {
           const p =
@@ -433,8 +433,8 @@ export async function buildSearchDocs({ role = "sysadmin", currentUser = null } 
       // notices by lease
       try {
         const ns =
-          (await noticesApi.listByLease?.(leaseId)) ??
-          (await noticesApi.list?.({ leaseId })) ??
+          (await noticesApi.listAllByLease?.(leaseId)) ??
+          (await noticesApi.listAll?.({ leaseId })) ??
           [];
         for (const n of ns) {
           const p =
@@ -473,7 +473,7 @@ export async function buildSearchDocs({ role = "sysadmin", currentUser = null } 
   try {
     const hasFinancials = docs.some((d) => d.entityType === "financial");
     if (!hasFinancials) {
-      const finAll = (await financialsApi.list?.({})) ?? [];
+      const finAll = (await financialsApi.listAll?.({})) ?? [];
       for (const f of finAll) {
         const p =
           propsById.get(f.propertyId) || propsById.get(f?.meta?.propertyId);
@@ -508,7 +508,7 @@ export async function buildSearchDocs({ role = "sysadmin", currentUser = null } 
   try {
     const hasNotices = docs.some((d) => d.entityType === "notice");
     if (!hasNotices) {
-      const nsAll = (await noticesApi.list?.({})) ?? [];
+      const nsAll = (await noticesApi.listAll?.({})) ?? [];
       for (const n of nsAll) {
         const p =
           propsById.get(n.propertyId) || propsById.get(n?.meta?.propertyId);

@@ -1,5 +1,6 @@
 // backend/src/utils/leaseFields.js
 const {
+  INVALID,
   optionalTrimToNull,
   normalizeIdOrNull,
   parseMoneyOrNullOpt,
@@ -57,16 +58,16 @@ function parseLeasePost(body) {
   const landlordId = normalizeIdOrNull(src.landlordId);
 
   const propertyLabel = optionalTrimToNull(src.propertyLabel);
-  if (propertyLabel === "__INVALID__") return { error: "propertyLabel must be a string" };
+  if (propertyLabel === INVALID) return { error: "propertyLabel must be a string" };
 
   const rentAmount = parseMoneyOrNullOpt(src.rentAmount);
-  if (rentAmount === "__INVALID__") return { error: "rentAmount must be a non-negative number" };
+  if (rentAmount === INVALID) return { error: "rentAmount must be a non-negative number" };
 
   const startDate = parseDateOrNullOpt(src.startDate);
-  if (startDate === "__INVALID__") return { error: "startDate must be a valid date" };
+  if (startDate === INVALID) return { error: "startDate must be a valid date" };
 
   const endDate = parseDateOrNullOpt(src.endDate);
-  if (endDate === "__INVALID__") return { error: "endDate must be a valid date" };
+  if (endDate === INVALID) return { error: "endDate must be a valid date" };
 
   if (startDate && endDate && endDate < startDate) {
     return { error: "endDate cannot be before startDate" };
@@ -104,27 +105,27 @@ function parseLeasePatch(body) {
   // propertyLabel
   if (src.propertyLabel !== undefined) {
     const v = optionalTrimToNull(src.propertyLabel);
-    if (v === "__INVALID__") return { error: "propertyLabel must be a string" };
+    if (v === INVALID) return { error: "propertyLabel must be a string" };
     data.propertyLabel = v;
   }
 
   // rentAmount
   if (src.rentAmount !== undefined) {
     const v = parseMoneyOrNullOpt(src.rentAmount);
-    if (v === "__INVALID__") return { error: "rentAmount must be a non-negative number" };
+    if (v === INVALID) return { error: "rentAmount must be a non-negative number" };
     data.rentAmount = v;
   }
 
   // dates (validate ordering if either provided)
   if (src.startDate !== undefined) {
     const v = parseDateOrNullOpt(src.startDate);
-    if (v === "__INVALID__") return { error: "startDate must be a valid date" };
+    if (v === INVALID) return { error: "startDate must be a valid date" };
     nextStartDate = v;
     data.startDate = v;
   }
   if (src.endDate !== undefined) {
     const v = parseDateOrNullOpt(src.endDate);
-    if (v === "__INVALID__") return { error: "endDate must be a valid date" };
+    if (v === INVALID) return { error: "endDate must be a valid date" };
     nextEndDate = v;
     data.endDate = v;
   }

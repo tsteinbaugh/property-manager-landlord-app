@@ -2,7 +2,7 @@
 import { useMemo } from "react";
 import card from "@shared/styles/ui.cards.module.css";
 import shared from "@shared/styles/ui.shared.module.css";
-import { formatText, formatPhonePretty, formatEmail } from "@shared/utils/validation.js";
+import { formatText, formatPhonePretty, formatEmail, formatEnumLabel } from "@shared/utils/validation.js";
 
 export default function EmergencyContactCard({ emergencyContact, onClick, variant = "summary" }) {
   if (!emergencyContact) return null;
@@ -18,7 +18,7 @@ export default function EmergencyContactCard({ emergencyContact, onClick, varian
 
     const street = formatText(emergencyContact.address1, { fallback: null });
     const city = formatText(emergencyContact.city, { fallback: null });
-    const state = formatText(emergencyContact.state, { fallback: null });
+    const state = formatEnumLabel(emergencyContact.state, { fallback: null });
     const postalCode = formatText(emergencyContact.postalCode, { fallback: null });
 
     const cityStateZip =
@@ -81,7 +81,9 @@ export default function EmergencyContactCard({ emergencyContact, onClick, varian
             <strong>Email: </strong>
             {vm.email}
           </div>
-          {vm.addressBlock}
+          {vm.addressBlock ? (
+            <div>{addressBlock}</div>
+          ) : null}
           {vm.relation ? (
             <div>
               <strong>Relation: </strong>

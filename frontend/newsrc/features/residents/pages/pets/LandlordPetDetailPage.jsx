@@ -155,12 +155,11 @@ export default function LandlordPetDetailsPage() {
     navigate(`/landlord/pets/new?petId=${pet.id}&returnTo=${returnTo}`);
   };
 
-  const handleUnlinkTenant = async (tenantId) => {
+  const handleUnlinkPetFromTenant = async (tenantId) => {
     if (!tenantId || !pet?.id) return;
 
     const ok = window.confirm(
-      "Unlink this pet from this tenant?\n\n" +
-        "This does NOT delete either record. It only removes the pet↔tenant association."
+      "Unlink this pet from this tenant?\n\nThis does NOT delete either record. It only removes the pet↔tenant association."
     );
     if (!ok) return;
 
@@ -261,7 +260,7 @@ export default function LandlordPetDetailsPage() {
                       className={`${card.inlineAction} ${card.inlineActionDanger}`}
                       onClick={(pe) => {
                         pe.stopPropagation();
-                        handleUnlinkTenant(t.id);
+                        handleUnlinkPetFromTenant(t.id);
                       }}
                       disabled={unlinkingTenantId === t.id}
                     >

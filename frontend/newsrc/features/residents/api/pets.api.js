@@ -38,10 +38,6 @@ export const petsApi = {
     return rows.map(mapPetFromApi);
   },
 
-  async list(opts) {
-    return this.listAll(opts);
-  },
-
   async get(id, { token } = {}) {
     if (!id) throw new Error("id is required");
     const row = await apiFetch(`/api/pets/${id}`, { token });

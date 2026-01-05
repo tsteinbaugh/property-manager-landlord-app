@@ -235,19 +235,74 @@
   box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.14);
 }
 
-.errorText {
-  margin-top: 4px;
-  font-size: 0.8rem;
-  color: var(--ui-danger);
-}
-
 .formActions {
   display: flex;
   gap: 10px;
   margin-top: 8px;
 }
 
+/* =========================
+   File input "Browse" button
+   (style like .primaryButton)
+   ========================= */
 
+.fileControl::file-selector-button {
+  border: none;
+  border-radius: var(--ui-radius-pill);
+  padding: 8px 16px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  background: var(--ui-primary);
+  color: var(--ui-bg);
+  cursor: pointer;
+  box-shadow: var(--ui-shadow-primary);
+  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+  margin-right: 12px;
+}
 
+.fileControl::file-selector-button:hover {
+  background: var(--ui-primary-hover);
+  box-shadow: var(--ui-shadow-primary-hover);
+  transform: translateY(-1px);
+}
 
+.fileControl::file-selector-button:active {
+  background: var(--ui-primary-active);
+  box-shadow: none;
+  transform: translateY(0);
+}
 
+/* Firefox support */
+.fileControl::-moz-file-upload-button {
+  border: none;
+  border-radius: var(--ui-radius-pill);
+  padding: 8px 16px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  background: var(--ui-primary);
+  color: var(--ui-bg);
+  cursor: pointer;
+  box-shadow: var(--ui-shadow-primary);
+  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+  margin-right: 12px;
+}
+
+.fileControl::-moz-file-upload-button:hover {
+  background: var(--ui-primary-hover);
+  box-shadow: var(--ui-shadow-primary-hover);
+  transform: translateY(-1px);
+}
+
+.fileControl::-moz-file-upload-button:active {
+  background: var(--ui-primary-active);
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+.fileControl:disabled::file-selector-button,
+.fileControl:disabled::-moz-file-upload-button {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}

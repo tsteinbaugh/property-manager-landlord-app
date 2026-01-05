@@ -11,6 +11,7 @@ import { vehiclesApi } from "@features/residents/api/vehicles.api.js";
 import { tenantsApi } from "@features/tenants/api/tenants.api.js";
 
 import {
+  INVALID,
   optionalTrimToNull,
   normalizeState,
   parseIntOrNullOpt,
@@ -33,6 +34,7 @@ export default function LandlordAddVehiclePage() {
   const returnTo = searchParams.get("returnTo") || "";
 
   const isEditMode = !!vehicleId;
+  const isTenantContext = !!tenantId;
 
   // ---------- form state ----------
   const [make, setMake] = useState("");
@@ -99,13 +101,13 @@ export default function LandlordAddVehiclePage() {
   // ------------------------------------------------------------
   useEffect(() => {
     let cancelled = false;
-    if (!tenantId || !token) return;
+    if (!isTenantContext || !token) return;
 
     async function loadTenant() {
       try {
         setLoadingTenant(true);
         setTenantError(null);
-        const t = await tenantsApi.detail(tenantId, { token });
+        const t = await tenantsApi.get(tenantId, { token });
         if (!cancelled) setTenant(t || null);
       } catch (err) {
         console.error("Failed to load tenant for Add Vehicle Page", err);
@@ -142,7 +144,7 @@ export default function LandlordAddVehiclePage() {
   // ------------------------------------------------------------
   useEffect(() => {
     let cancelled = false;
-    if (!vehicleId || !token) return;
+    if (!isEditMode || !vehicleId || !token) return;
 
     async function loadVehicleForEdit() {
       try {
@@ -176,33 +178,39 @@ export default function LandlordAddVehiclePage() {
     return () => {
       cancelled = true;
     };
-  }, [vehicleId, token]);
+  }, [isEditMode, vehicleId, token]);
 
   // ------------------------------------------------------------
   // Derived lists (tenant context)
   // ------------------------------------------------------------
-  const vehicleLinks = Array.isArray(tenant?.vehicleLinks) ? tenant.vehicleLinks : [];
-  const tenantVehicles = vehicleLinks.map((link) => link.vehicle).filter(Boolean);
+  const vehicleLinks = useMemo(
+    () => (Array.isArray(tenant?.vehicleLinks) ? tenant.vehicleLinks : []),
+    [tenant]
+  );
+  const tenantVehicles = useMemo(
+    () => vehicleLinks.map((link) => link?.vehicle).filter(Boolean),
+    [vehicleLinks]
+  );
 
-  const linkedIds = new Set(vehicleLinks.map((l) => l.vehicleId));
-  const availableExistingVehicles =
-    tenant && allVehicles.length > 0 ? allVehicles.filter((e) => !linkedIds.has(e.id)) : allVehicles;
+  const availableExistingVehicles = useMemo(() => {
+    const linkedIds = new Set(vehicleLinks.map((l) => l?.vehicleId).filter(Boolean));
+    const list = Array.isArray(allVehicles) ? allVehicles : [];
+    if (!tenantId) return list;
+    return list.filter((v) => v?.id && !linkedIds.has(v.id));
+  }, [allVehicles, vehicleLinks, tenantId]);
+
 
   // ------------------------------------------------------------
   // Navigation helpers
   // ------------------------------------------------------------
-  const goBackFromTenantContext = () => {
-    if (returnTo) navigate(returnTo);
-    else if (tenantId) navigate(`/landlord/tenants/${tenantId}`);
-    else navigate("/landlord/residents?tab=vehicles");
-  };
-
-  const handleCancel = () => {
+  const goBack = () => {
     if (returnTo) return navigate(returnTo);
-    if (tenantId) return goBackFromTenantContext();
+    if (isTenantContext) return navigate(`/landlord/tenants/${tenantId}`);
     if (isEditMode) return navigate(`/landlord/vehicles/${vehicleId}`);
     return navigate("/landlord/residents?tab=vehicles");
   };
+
+  const handleCancel = () => goBack();
 
   // ------------------------------------------------------------
   // Validation + payload
@@ -225,7 +233,12 @@ export default function LandlordAddVehiclePage() {
     const schema = {
       make: requiredTrimmedString,
       model: requiredTrimmedString,
-      year: (v) => parseIntOrNullOpt(v, { min: 1886, max: 2100 }),
+      year: (v) => {
+        const out = parseIntOrNullOpt(v, { min: 1886, max: 2200 });
+        // Force year required (your UI marks it required)
+        if (out === null) return INVALID;
+        return out;
+      },
       color: optionalTrimToNull,
       state: (v) => normalizeState(v),
       plate: optionalTrimToNull,
@@ -240,9 +253,9 @@ export default function LandlordAddVehiclePage() {
       errorMessages: {
         make: "Make is required.",
         model: "Model is required.",
-        year: "Year must be a whole number.",
+        year: "Year must be a whole number between 1886 and 2200.",
         state: "State must be a valid US state or DC.",
-        vehicleType: "Vehicle type is invalid.",
+        vehicleType: "Vehicle type is required and must be valid.",
       },
     });
   };
@@ -272,19 +285,11 @@ export default function LandlordAddVehiclePage() {
       setSubmitting(true);
 
       let saved;
-      if (isEditMode) {
-        saved = await vehiclesApi.update(vehicleId, payload, { token });
-      } else {
-        saved = await vehiclesApi.create(payload, { token });
-      }
-
-      if (returnTo) {
-        navigate(returnTo);
-      } else if (isEditMode) {
-        navigate(`/landlord/vehicles/${saved?.id || vehicleId}`);
-      } else {
-        navigate("/landlord/residents?tab=vehicles");
-      }
+      if (isEditMode) saved = await vehiclesApi.update(vehicleId, payload, { token });
+      else saved = await vehiclesApi.create(payload, { token });
+      if (returnTo) return navigate(returnTo);
+      if (isEditMode) return navigate(`/landlord/vehicles/${saved?.id || vehicleId}`);
+      return navigate("/landlord/residents?tab=vehicles");
     } catch (err) {
       console.error("Failed to save vehicle", err);
       setFormError("Failed to save vehicle. Check console for details.");
@@ -299,11 +304,13 @@ export default function LandlordAddVehiclePage() {
   const handleLinkExisting = async () => {
     if (!tenantId || !selectedExistingVehicleId) return;
 
-    const veh = availableExistingVehicles.find((v) => v.id === selectedExistingVehicleId);
-    const vehName = veh?.plate ? `${veh.plate}${veh.state ? ` (${veh.state})` : ""}` : "this vehicle";
+    const veh = availableExistingVehicles.find((v) => v?.id === selectedExistingVehicleId);
+    const vehName =
+      [veh?.year, veh?.make, veh?.model].filter(Boolean).join(" ") ||
+      (veh?.plate ? `Plate ${veh.plate}` : "this vehicle");
 
     const ok = window.confirm(
-      `Link ${vehName} to tenant "${tenant?.name || ""}"?\n\n` +
+      `Link ${vehName} to tenant "${tenant?.name || "Unnamed tenant"}"?\n\n` +
         "This will link the vehicle to this tenant in your records."
     );
     if (!ok) return;
@@ -311,7 +318,7 @@ export default function LandlordAddVehiclePage() {
     try {
       setIsLinkingExisting(true);
       await tenantsApi.linkVehicle(tenantId, selectedExistingVehicleId, { token });
-      goBackFromTenantContext();
+      goBack();
     } catch (err) {
       console.error("Failed to link existing vehicle", err);
       alert("Failed to link vehicle. Check console for details.");
@@ -337,7 +344,7 @@ export default function LandlordAddVehiclePage() {
       const created = await vehiclesApi.create(payload, { token });
       await tenantsApi.linkVehicle(tenantId, created.id, { token });
 
-      goBackFromTenantContext();
+      goBack();
     } catch (err) {
       console.error("Failed to create vehicle for tenant", err);
       setFormError("Failed to create vehicle. Check console for details.");
@@ -351,7 +358,7 @@ export default function LandlordAddVehiclePage() {
   const ctrl = (isError) => `${card.control} ${isError ? card.controlError : ""}`;
 
   // ------------------------------------------------------------
-  // FORM JSX (no inner React components!)
+  // FORM JSX
   // ------------------------------------------------------------
   const renderForm = (onSubmit) => (
     <form className={card.form} onSubmit={onSubmit}>
@@ -371,6 +378,7 @@ export default function LandlordAddVehiclePage() {
                 id="vehicleType"
                 value={vehicleType}
                 onChange={(e) => setVehicleType(e.target.value)}
+                onBlur={() => setTouched((t) => ({ ...t, vehicleType: true }))}
                 className={ctrl(touched.vehicleType && !String(vehicleType).trim())}
                 disabled={isSubmitting}
               >
@@ -383,7 +391,7 @@ export default function LandlordAddVehiclePage() {
               </select>
               
               {touched.vehicleType && !String(vehicleType).trim() ? (
-                <div className={card.errorText}>Select a vehicle type</div>
+                <div className={shared.error}>Select a vehicle type</div>
               ) : null}
             </div>
             
@@ -418,7 +426,7 @@ export default function LandlordAddVehiclePage() {
               className={ctrl(touched.make && !String(make).trim())}
               disabled={isSubmitting}
             />
-            {touched.make && !String(make).trim() ? <div className={card.errorText}>Enter a make</div> : null}
+            {touched.make && !String(make).trim() ? <div className={shared.error}>Enter a make</div> : null}
           </div>
 
           <div className={card.field}>
@@ -435,7 +443,7 @@ export default function LandlordAddVehiclePage() {
               className={ctrl(touched.model && !String(model).trim())}
               disabled={isSubmitting}
             />
-            {touched.model && !String(model).trim() ? <div className={card.errorText}>Enter a model</div> : null}
+            {touched.model && !String(model).trim() ? <div className={shared.error}>Enter a model</div> : null}
           </div>
 
           <div className={card.field}>
@@ -452,7 +460,7 @@ export default function LandlordAddVehiclePage() {
               className={ctrl(touched.year && !String(year).trim())}
               disabled={isSubmitting}
             />
-            {touched.year && !String(year).trim() ? <div className={card.errorText}>Enter a year</div> : null}
+            {touched.year && !String(year).trim() ? <div className={shared.error}>Enter a year</div> : null}
           </div>
 
           <div className={card.field}>
@@ -584,17 +592,17 @@ export default function LandlordAddVehiclePage() {
 
           {formError ? <div className={shared.error}>{formError}</div> : null}
 
-          <div className={card.formActions}>
-            <button type="submit" className={card.primaryButton} disabled={saveDisabled}>
-              {isSubmitting ? "Saving…" : isEditMode ? "Save changes" : "Save vehicle"}
-            </button>
-
-            <button type="button" className={card.linkAction} onClick={handleCancel} disabled={isSubmitting}>
-              Cancel
-            </button>
-          </div>
         </div>
       </section>
+
+      <div className={card.formActions}>
+        <button type="submit" className={card.primaryButton} disabled={saveDisabled}>
+          {isSubmitting ? "Saving…" : isEditMode ? "Save changes" : "Save vehicle"}
+        </button>
+        <button type="button" className={card.linkAction} onClick={handleCancel} disabled={isSubmitting}>
+          Cancel
+        </button>
+      </div>      
     </form>
   );
 
@@ -602,8 +610,10 @@ export default function LandlordAddVehiclePage() {
   // RENDER
   // ------------------------------------------------------------
 
-  // === Mode A: tenantId present (manage vehicles for tenant) ===
-  if (tenantId) {
+  // === Mode A: isTenantContext present (manage vehicles for tenant) ===
+  if (isTenantContext) {
+    const tenantName = tenant?.name || "Unnamed tenant";
+
     return (
       <div className={page.page}>
         <header className={page.header}>
@@ -612,12 +622,12 @@ export default function LandlordAddVehiclePage() {
             {loadingTenant ? (
               <p className={page.subtitle}>Loading tenant…</p>
             ) : tenantError || !tenant ? (
-              <p className={page.subtitle} style={{ color: "#b91c1c" }}>
+              <p className={`${page.subtitle} ${shared.error}`}>
                 Failed to load tenant. You can still add vehicles, but linking may not behave as expected.
               </p>
             ) : (
               <p className={page.subtitle}>
-                Link an existing vehicle or create a new one for <strong>{tenant.name}</strong>.
+                Link an existing vehicle or create a new one for <strong>{tenantName}</strong>.
               </p>
             )}
           </div>
@@ -646,23 +656,25 @@ export default function LandlordAddVehiclePage() {
                   <div className={shared.muted}>No other vehicles available to link.</div>
                 ) : (
                   <>
-                    <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-                      <select
-                        className={card.control}
-                        value={selectedExistingVehicleId}
-                        onChange={(e) => setSelectedExistingVehicleId(e.target.value)}
-                        disabled={isLinkingExisting}
-                        style={{ flex: 1 }}
-                      >
-                        <option value="">Select a vehicle…</option>
-                        {availableExistingVehicles.map((v) => (
-                          <option key={v.id} value={v.id}>
-                            {[v.year, v.make, v.model].filter(Boolean).join(" ") || "Vehicle"}
-                            {v.plate ? ` • ${v.plate}` : ""}
-                            {v.state ? ` (${v.state})` : ""}
-                          </option>
-                        ))}
-                      </select>
+                    <div className={shared.groupRow} style={{ alignItems: "center" }}>
+                      <div className={shared.groupField} style={{ flex: 1 }}>                  
+                        <select
+                          className={card.control}
+                          value={selectedExistingVehicleId}
+                          onChange={(e) => setSelectedExistingVehicleId(e.target.value)}
+                          disabled={isLinkingExisting}
+                          style={{ flex: 1 }}
+                        >
+                          <option value="">Select a vehicle…</option>
+                          {availableExistingVehicles.map((v) => (
+                            <option key={v.id} value={v.id}>
+                              {[v.year, v.make, v.model].filter(Boolean).join(" ") || "Vehicle"}
+                              {v.plate ? ` • ${v.plate}` : ""}
+                              {v.state ? ` (${v.state})` : ""}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
 
                       <button
                         type="button"
@@ -695,7 +707,7 @@ export default function LandlordAddVehiclePage() {
             </div>
           </section>
 
-          {/* Create new (same form, different submit) */}
+          {/* Create new */}
           <section className={page.section}>
             <div className={page.sectionHeader}>
               <div className={page.sectionHeaderStack}>
@@ -705,9 +717,8 @@ export default function LandlordAddVehiclePage() {
                 </div>
               </div>
             </div>
+            {renderForm(handleSubmitForTenant)}
           </section>
-
-          {renderForm(handleSubmitForTenant)}
         </div>
       </div>
     );
@@ -720,11 +731,10 @@ export default function LandlordAddVehiclePage() {
         <div>
           <h1 className={page.title}>{isEditMode ? "Edit vehicle" : "Create vehicle"}</h1>
           <p className={page.subtitle}>
-            {isEditMode ? "Update vehicle details." : "Create a vehicle record.  It can be linked to a tenant."}
+            {isEditMode ? "Update vehicle details." : "Create a vehicle record. It can be linked to a tenant."}
           </p>
         </div>
       </header>
-
       {renderForm(handleSubmitGlobal)}
     </div>
   );

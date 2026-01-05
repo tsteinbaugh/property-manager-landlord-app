@@ -27,6 +27,7 @@ export default function LandlordAddPetPage() {
   const returnTo = searchParams.get("returnTo") || "";
 
   const isEditMode = !!petId;
+  const isTenantContext = !!tenantId;
 
   // ---------- shared simple form state ----------
   const [name, setName] = useState("");
@@ -65,7 +66,7 @@ export default function LandlordAddPetPage() {
       try {
         setLoadingTenant(true);
         setTenantError(null);
-        const t = await tenantsApi.detail(tenantId, { token });
+        const t = await tenantsApi.get(tenantId, { token });
         if (!cancelled) setTenant(t || null);
       } catch (err) {
         console.error("Failed to load tenant for Add Pet Page", err);
@@ -102,7 +103,7 @@ export default function LandlordAddPetPage() {
   // ------------------------------------------------------------
   useEffect(() => {
     let cancelled = false;
-    if (!petId || !token) return;
+    if (!isEditMode || !isTenantContext || !token) return;
 
     async function loadPetForEdit() {
       try {
@@ -132,33 +133,38 @@ export default function LandlordAddPetPage() {
     return () => {
       cancelled = true;
     };
-  }, [petId, token]);
+  }, [isEditMode, petId, token]);
 
   // ------------------------------------------------------------
   // Derived lists (tenant context)
   // ------------------------------------------------------------
-  const petLinks = Array.isArray(tenant?.petLinks) ? tenant.petLinks : [];
-  const tenantPets = petLinks.map((l) => l.pet).filter(Boolean);
+  const petLinks = useMemo(
+    () => (Array.isArray(tenant?.petLinks) ? tenant.petLinks : []),
+    [tenant]
+  );
+  const tenantPets = useMemo(
+    () => petLinks.map((link) => link?.pet).filter(Boolean),
+    [petLinks]
+  );
 
-  const linkedIds = useMemo(() => new Set(petLinks.map((l) => l.petId)), [petLinks]);
-  const availableExistingPets =
-    tenant && allPets.length > 0 ? allPets.filter((p) => !linkedIds.has(p.id)) : allPets;
+  const availableExistingPets = useMemo(() => {
+    const linkedIds = new Set(petLinks.map((l) => l?.petId).filter(Boolean));
+    const list = Array.isArray(allPets) ? allPets : [];
+    if (!tenantId) return list;
+    return list.filter((v) => v?.id && !linkedIds.has(v.id));
+  }, [allPets, petLinks, tenantId]);
 
   // ------------------------------------------------------------
   // Navigation helpers
   // ------------------------------------------------------------
-  const goBackFromTenantContext = () => {
-    if (returnTo) navigate(returnTo);
-    else if (tenantId) navigate(`/landlord/tenants/${tenantId}`);
-    else navigate("/landlord/residents?tab=pets");
-  };
-
-  const handleCancel = () => {
+  const goBack = () => {
     if (returnTo) return navigate(returnTo);
-    if (tenantId) return goBackFromTenantContext();
+    if (isTenantContext) return navigate(`/landlord/tenants/${tenantId}`);
     if (isEditMode) return navigate(`/landlord/pets/${petId}`);
     return navigate("/landlord/residents?tab=pets");
   };
+
+  const handleCancel = () => goBack();
 
   // ------------------------------------------------------------
   // Shared validation + payload builder
@@ -218,19 +224,11 @@ export default function LandlordAddPetPage() {
       setSubmitting(true);
 
       let saved;
-      if (isEditMode) {
-        saved = await petsApi.update(petId, payload, { token });
-      } else {
-        saved = await petsApi.create(payload, { token });
-      }
-
-      if (returnTo) {
-        navigate(returnTo);
-      } else if (isEditMode) {
-        navigate(`/landlord/pets/${saved?.id || petId}`);
-      } else {
-        navigate("/landlord/residents?tab=pets");
-      }
+      if (isEditMode) saved = await petsApi.update(petId, payload, { token });
+      else saved = await petsApi.create(payload, { token });
+      if (returnTo) return navigate(returnTo);
+      if (isEditMode) return navigate(`/landlord/pets/${saved?.id || petId}`);
+      return navigate("/landlord/residents?tab=pets");
     } catch (err) {
       console.error("Failed to save pet", err);
       setFormError("Failed to save pet. Check console for details.");
@@ -240,16 +238,16 @@ export default function LandlordAddPetPage() {
   };
 
   // ------------------------------------------------------------
-  // Tenant-context: link existing
+  // Submit handlers
   // ------------------------------------------------------------
   const handleLinkExisting = async () => {
     if (!tenantId || !selectedExistingPetId) return;
 
-    const pet = availableExistingPets.find((p) => p.id === selectedExistingPetId);
+    const pet = availableExistingPets.find((p) => p?.id === selectedExistingPetId);
     const petName = pet?.name || "this pet";
 
     const ok = window.confirm(
-      `Link ${petName} to tenant "${tenant?.name || ""}"?\n\n` +
+      `Link ${petName} to tenant "${tenant?.name || "Unnamed tenant"}"?\n\n` +
         "This will link the pet to this tenant in your records."
     );
     if (!ok) return;
@@ -257,7 +255,7 @@ export default function LandlordAddPetPage() {
     try {
       setIsLinkingExisting(true);
       await tenantsApi.linkPet(tenantId, selectedExistingPetId, { token });
-      goBackFromTenantContext();
+      goBack();
     } catch (err) {
       console.error("Failed to link existing pet", err);
       alert("Failed to link pet. Check console for details.");
@@ -283,7 +281,7 @@ export default function LandlordAddPetPage() {
       const created = await petsApi.create(payload, { token });
       await tenantsApi.linkPet(tenantId, created.id, { token });
 
-      goBackFromTenantContext();
+      goBack();
     } catch (err) {
       console.error("Failed to create pet for tenant", err);
       setFormError("Failed to create pet. Check console for details.");
@@ -297,7 +295,7 @@ export default function LandlordAddPetPage() {
   const ctrl = (isError) => `${card.control} ${isError ? card.controlError : ""}`;
 
   // ------------------------------------------------------------
-  // FORM JSX (no inner React components!)
+  // FORM JSX
   // ------------------------------------------------------------
   const renderForm = (onSubmit) => (
     <form className={card.form} onSubmit={onSubmit}>
@@ -321,7 +319,7 @@ export default function LandlordAddPetPage() {
               className={ctrl(touched.name && !String(name).trim())}
               disabled={isSubmitting}
             />
-            {touched.name && !String(name).trim() ? <div className={card.errorText}>Enter a name</div> : null}
+            {touched.name && !String(name).trim() ? <div className={shared.error}>Enter a name</div> : null}
           </div>        
 
           <div className={card.field}>
@@ -363,7 +361,6 @@ export default function LandlordAddPetPage() {
               type="number"
               value={weight}
               onChange={(e) => setWeight(e.target.value)}
-              onBlur={() => setTouched((t) => ({ ...t, weight: true }))}
               placeholder="Weight (pounds)"
               className={ctrl(touched.weight && !String(weight).trim())}
               disabled={isSubmitting}
@@ -379,7 +376,6 @@ export default function LandlordAddPetPage() {
               type="number"
               value={age}
               onChange={(e) => setAge(e.target.value)}
-              onBlur={() => setTouched((t) => ({ ...t, age: true }))}
               placeholder="5"
               className={ctrl(touched.age && !String(age).trim())}
               disabled={isSubmitting}
@@ -434,17 +430,17 @@ export default function LandlordAddPetPage() {
 
           {formError ? <div className={shared.error}>{formError}</div> : null}
 
-          <div className={card.formActions}>
-            <button type="submit" className={card.primaryButton} disabled={saveDisabled}>
-              {isSubmitting ? "Saving…" : isEditMode ? "Save changes" : "Save pet"}
-            </button>
-
-            <button type="button" className={card.linkAction} onClick={handleCancel} disabled={isSubmitting}>
-              Cancel
-            </button>
-          </div>
         </div>
       </section>
+
+      <div className={card.formActions}>
+        <button type="submit" className={card.primaryButton} disabled={saveDisabled}>
+          {isSubmitting ? "Saving…" : isEditMode ? "Save changes" : "Save pet"}
+        </button>
+        <button type="button" className={card.linkAction} onClick={handleCancel} disabled={isSubmitting}>
+          Cancel
+        </button>
+      </div>      
     </form>
   );
 
@@ -452,8 +448,10 @@ export default function LandlordAddPetPage() {
   // RENDER
   // ------------------------------------------------------------
 
-  // === Mode A: tenantId present (manage pets for tenant) ===
-  if (tenantId) {
+  // === Mode A: isTenantContext present (manage pets for tenant) ===
+  if (isTenantContext) {
+    const tenantName = tenant?.name || "Unnamed tenant";
+
     return (
       <div className={page.page}>
         <header className={page.header}>
@@ -462,12 +460,12 @@ export default function LandlordAddPetPage() {
             {loadingTenant ? (
               <p className={page.subtitle}>Loading tenant…</p>
             ) : tenantError || !tenant ? (
-              <p className={page.subtitle} style={{ color: "#b91c1c" }}>
+              <p className={`${page.subtitle} ${shared.error}`}>
                 Failed to load tenant. You can still add pets, but linking may not behave as expected.
               </p>
             ) : (
               <p className={page.subtitle}>
-                Link an existing pet or create a new one for <strong>{tenant.name}</strong>.
+                Link an existing pet or create a new one for <strong>{tenantName}</strong>.
               </p>
             )}
           </div>
@@ -496,23 +494,25 @@ export default function LandlordAddPetPage() {
                   <div className={shared.muted}>No other pets available to link.</div>
                 ) : (
                   <>
-                    <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-                      <select
-                        className={card.control}
-                        value={selectedExistingPetId}
-                        onChange={(e) => setSelectedExistingPetId(e.target.value)}
-                        disabled={isLinkingExisting}
-                        style={{ flex: 1 }}
-                      >
-                        <option value="">Select a pet…</option>
-                        {availableExistingPets.map((v) => (
-                          <option key={v.id} value={v.id}>
-                            {[v.year, v.make, v.model].filter(Boolean).join(" ") || "Pet"}
-                            {v.plate ? ` • ${v.plate}` : ""}
-                            {v.state ? ` (${v.state})` : ""}
-                          </option>
-                        ))}
-                      </select>
+                    <div className={shared.groupRow} style={{ alignItems: "center" }}>
+                      <div className={shared.groupField} style={{ flex: 1 }}>                            
+                        <select
+                          className={card.control}
+                          value={selectedExistingPetId}
+                          onChange={(e) => setSelectedExistingPetId(e.target.value)}
+                          disabled={isLinkingExisting}
+                          style={{ flex: 1 }}
+                        >
+                          <option value="">Select a pet…</option>
+                          {availableExistingPets.map((v) => (
+                            <option key={v.id} value={v.id}>
+                              {[v.year, v.make, v.model].filter(Boolean).join(" ") || "Pet"}
+                              {v.plate ? ` • ${v.plate}` : ""}
+                              {v.state ? ` (${v.state})` : ""}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
 
                       <button
                         type="button"
@@ -531,9 +531,7 @@ export default function LandlordAddPetPage() {
                         <ul style={{ paddingLeft: 18, marginTop: 4 }}>
                           {tenantPets.map((v) => (
                             <li key={v.id}>
-                              {[v.year, v.make, v.model].filter(Boolean).join(" ") || "Pet"}
-                              {v.plate ? ` • ${v.plate}` : ""}
-                              {v.state ? ` (${v.state})` : ""}
+                              {v.name || "Pet"}
                             </li>
                           ))}
                         </ul>
@@ -545,7 +543,7 @@ export default function LandlordAddPetPage() {
             </div>
           </section>
 
-          {/* Create new (same form, different submit) */}
+          {/* Create new */}
           <section className={page.section}>
             <div className={page.sectionHeader}>
               <div className={page.sectionHeaderStack}>
@@ -555,9 +553,8 @@ export default function LandlordAddPetPage() {
                 </div>
               </div>
             </div>
+            {renderForm(handleSubmitForTenant)}
           </section>
-
-          {renderForm(handleSubmitForTenant)}
         </div>
       </div>
     );
@@ -570,11 +567,10 @@ export default function LandlordAddPetPage() {
         <div>
           <h1 className={page.title}>{isEditMode ? "Edit pet" : "Create pet"}</h1>
           <p className={page.subtitle}>
-            {isEditMode ? "Update pet details." : "Create a pet record.  It can be linked to a tenant."}
+            {isEditMode ? "Update pet details." : "Create a pet record. It can be linked to a tenant."}
           </p>
         </div>
       </header>
-
       {renderForm(handleSubmitGlobal)}
     </div>
   );

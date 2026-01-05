@@ -155,12 +155,11 @@ export default function LandlordOccupantDetailsPage() {
     navigate(`/landlord/occupants/new?occupantId=${occupant.id}&returnTo=${returnTo}`);
   };
 
-  const handleUnlinkTenant = async (tenantId) => {
+  const handleUnlinkOccupantFromTenant = async (tenantId) => {
     if (!tenantId || !occupant?.id) return;
 
     const ok = window.confirm(
-      "Unlink this occupant from this tenant?\n\n" +
-        "This does NOT delete either record. It only removes the occupant↔tenant association."
+      "Unlink this occupant from this tenant?\n\nThis does NOT delete either record. It only removes the occupant↔tenant association."
     );
     if (!ok) return;
 
@@ -261,7 +260,7 @@ export default function LandlordOccupantDetailsPage() {
                       className={`${card.inlineAction} ${card.inlineActionDanger}`}
                       onClick={(le) => {
                         le.stopPropagation();
-                        handleUnlinkTenant(t.id);
+                        handleUnlinkOccupantFromTenant(t.id);
                       }}
                       disabled={unlinkingTenantId === t.id}
                     >

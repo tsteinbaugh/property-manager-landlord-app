@@ -39,6 +39,7 @@ export default function LandlordAddOccupantPage() {
   const returnTo = searchParams.get("returnTo") || "";
 
   const isEditMode = !!occupantId;
+  const isTenantContext = !!tenantId;
 
   // ---------- form state ----------
   const [name, setName] = useState("");
@@ -129,13 +130,13 @@ export default function LandlordAddOccupantPage() {
   // ------------------------------------------------------------
   useEffect(() => {
     let cancelled = false;
-    if (!tenantId || !token) return;
+    if (!isTenantContext || !token) return;
 
     async function loadTenant() {
       try {
         setLoadingTenant(true);
         setTenantError(null);
-        const t = await tenantsApi.detail(tenantId, { token });
+        const t = await tenantsApi.get(tenantId, { token });
         if (!cancelled) setTenant(t || null);
       } catch (err) {
         console.error("Failed to load tenant for AddOccupantPage", err);
@@ -172,7 +173,7 @@ export default function LandlordAddOccupantPage() {
   // ------------------------------------------------------------
   useEffect(() => {
     let cancelled = false;
-    if (!occupantId || !token) return;
+    if (!isEditMode || !occupantId || !token) return;
 
     async function loadOccupantForEdit() {
       try {
@@ -209,33 +210,38 @@ export default function LandlordAddOccupantPage() {
     return () => {
       cancelled = true;
     };
-  }, [occupantId, token]);
+  }, [isEditMode, occupantId, token]);
 
   // ------------------------------------------------------------
   // Derived lists (tenant context)
   // ------------------------------------------------------------
-  const occupantLinks = Array.isArray(tenant?.occupantLinks) ? tenant.occupantLinks : [];
-  const tenantOccupants = occupantLinks.map((link) => link.occupant).filter(Boolean);
+  const occupantLinks = useMemo(
+    () => (Array.isArray(tenant?.occupantLinks) ? tenant.occupantLinks : []),
+    [tenant]
+  );
+  const tenantOccupants = useMemo(
+    () => occupantLinks.map((link) => link?.occupant).filter(Boolean),
+    [occupantLinks]
+  );
 
-  const linkedIds = new Set(occupantLinks.map((l) => l.occupantId));
-  const availableExistingOccupants =
-    tenant && allOccupants.length > 0 ? allOccupants.filter((o) => !linkedIds.has(o.id)) : allOccupants;
+  const availableExistingOccupants = useMemo(() => {
+    const linkedIds = new Set(occupantLinks.map((l) => l?.occupantId).filter(Boolean));
+    const list = Array.isArray(allOccupants) ? allOccupants : [];
+    if (!tenantId) return list;
+    return list.filter((v) => v?.id && !linkedIds.has(v.id));
+  }, [allOccupants, occupantLinks, tenantId]);
 
   // ------------------------------------------------------------
   // Navigation helpers
   // ------------------------------------------------------------
-  const goBackFromTenantContext = () => {
-    if (returnTo) navigate(returnTo);
-    else if (tenantId) navigate(`/landlord/tenants/${tenantId}`);
-    else navigate("/landlord/residents?tab=occupants");
-  };
-
-  const handleCancel = () => {
+  const goBack = () => {
     if (returnTo) return navigate(returnTo);
-    if (tenantId) return goBackFromTenantContext();
+    if (isTenantContext) return navigate(`/landlord/tenants/${tenantId}`);
     if (isEditMode) return navigate(`/landlord/occupants/${occupantId}`);
     return navigate("/landlord/residents?tab=occupants");
   };
+
+  const handleCancel = () => goBack();
 
   // ------------------------------------------------------------
   // Validation + payload builder (shared)
@@ -327,19 +333,11 @@ export default function LandlordAddOccupantPage() {
       setSubmitting(true);
 
       let saved;
-      if (isEditMode) {
-        saved = await occupantsApi.update(occupantId, payload, { token });
-      } else {
-        saved = await occupantsApi.create(payload, { token });
-      }
-
-      if (returnTo) {
-        navigate(returnTo);
-      } else if (isEditMode) {
-        navigate(`/landlord/occupants/${saved?.id || occupantId}`);
-      } else {
-        navigate("/landlord/residents?tab=occupants");
-      }
+      if (isEditMode) saved = await occupantsApi.update(occupantId, payload, { token });
+      else saved = await occupantsApi.create(payload, { token });
+      if (returnTo) return navigate(returnTo);
+      if (isEditMode) return navigate(`/landlord/occupants/${saved?.id || occupantId}`);
+      return navigate("/landlord/residents?tab=occupants");
     } catch (err) {
       console.error("Failed to save occupant", err);
       setFormError("Failed to save occupant. Check console for details.");
@@ -354,11 +352,11 @@ export default function LandlordAddOccupantPage() {
   const handleLinkExisting = async () => {
     if (!tenantId || !selectedExistingOccupantId) return;
 
-    const occ = availableExistingOccupants.find((o) => o.id === selectedExistingOccupantId);
+    const occ = availableExistingOccupants.find((o) => o?.id === selectedExistingOccupantId);
     const occName = occ?.name || "this occupant";
 
     const ok = window.confirm(
-      `Link ${occName} to tenant "${tenant?.name || ""}"?\n\n` +
+      `Link ${occName} to tenant "${tenant?.name || "Unnamed tenant"}"?\n\n` +
         "This will link the occupant to this tenant in your records."
     );
     if (!ok) return;
@@ -366,7 +364,7 @@ export default function LandlordAddOccupantPage() {
     try {
       setIsLinkingExisting(true);
       await tenantsApi.linkOccupant(tenantId, selectedExistingOccupantId, { token });
-      goBackFromTenantContext();
+      goBack();
     } catch (err) {
       console.error("Failed to link existing occupant", err);
       alert("Failed to link occupant. Check console for details.");
@@ -392,7 +390,7 @@ export default function LandlordAddOccupantPage() {
       const created = await occupantsApi.create(payload, { token });
       await tenantsApi.linkOccupant(tenantId, created.id, { token });
 
-      goBackFromTenantContext();
+      goBack();
     } catch (err) {
       console.error("Failed to create occupant for tenant", err);
       setFormError("Failed to create occupant. Check console for details.");
@@ -406,7 +404,7 @@ export default function LandlordAddOccupantPage() {
   const ctrl = (isError) => `${card.control} ${isError ? card.controlError : ""}`;
 
   // ------------------------------------------------------------
-  // FORM JSX (no inner React components!)
+  // FORM JSX
   // ------------------------------------------------------------
   const renderForm = (onSubmit) => (
     <form className={card.form} onSubmit={onSubmit}>
@@ -430,7 +428,7 @@ export default function LandlordAddOccupantPage() {
               className={ctrl(touched.name && !String(name).trim())}
               disabled={isSubmitting}
             />
-            {touched.name && !String(name).trim() ? <div className={card.errorText}>Enter a name</div> : null}
+            {touched.name && !String(name).trim() ? <div className={shared.error}>Enter a name</div> : null}
           </div>
 
           <fieldset className={shared.groupRow}>
@@ -499,8 +497,7 @@ export default function LandlordAddOccupantPage() {
               type="number"
               value={age}
               onChange={(e) => setAge(e.target.value)}
-              onBlur={() => setTouched((t) => ({ ...t, age: true }))}
-              placeholder="2019"
+              placeholder="35"
               className={card.control}
               disabled={isSubmitting}
             />
@@ -545,7 +542,6 @@ export default function LandlordAddOccupantPage() {
               type="number"
               value={weight}
               onChange={(e) => setWeight(e.target.value)}
-              onBlur={() => setTouched((t) => ({ ...t, weight: true }))}
               placeholder="Weight (pounds)"
               className={card.control}
               disabled={isSubmitting}
@@ -672,17 +668,17 @@ export default function LandlordAddOccupantPage() {
 
           {formError ? <div className={shared.error}>{formError}</div> : null}
 
-          <div className={card.formActions}>
-            <button type="submit" className={card.primaryButton} disabled={saveDisabled}>
-              {isSubmitting ? "Saving…" : isEditMode ? "Save changes" : "Save occupant"}
-            </button>
-
-            <button type="button" className={card.linkAction} onClick={handleCancel} disabled={isSubmitting}>
-              Cancel
-            </button>
-          </div>
         </div>
       </section>
+
+      <div className={card.formActions}>
+        <button type="submit" className={card.primaryButton} disabled={saveDisabled}>
+          {isSubmitting ? "Saving…" : isEditMode ? "Save changes" : "Save occupant"}
+        </button>
+        <button type="button" className={card.linkAction} onClick={handleCancel} disabled={isSubmitting}>
+          Cancel
+        </button>
+      </div>
     </form>
   );
 
@@ -690,8 +686,10 @@ export default function LandlordAddOccupantPage() {
   // RENDER
   // ------------------------------------------------------------
 
-  // === Mode A: tenantId present (manage occupants for tenant) ===
-  if (tenantId) {
+  // === Mode A: isTenantContext present (manage occupants for tenant) ===
+  if (isTenantContext) {
+    const tenantName = tenant?.name || "Unnamed tenant";
+
     return (
       <div className={page.page}>
         <header className={page.header}>
@@ -700,12 +698,12 @@ export default function LandlordAddOccupantPage() {
             {loadingTenant ? (
               <p className={page.subtitle}>Loading tenant…</p>
             ) : tenantError || !tenant ? (
-              <p className={page.subtitle} style={{ color: "#b91c1c" }}>
+              <p className={`${page.subtitle} ${shared.error}`}>
                 Failed to load tenant. You can still add occupants, but linking may not behave as expected.
               </p>
             ) : (
               <p className={page.subtitle}>
-                Link an existing occupant or create a new one for <strong>{tenant.name}</strong>.
+                Link an existing occupant or create a new one for <strong>{tenantName}</strong>.
               </p>
             )}
           </div>
@@ -734,23 +732,25 @@ export default function LandlordAddOccupantPage() {
                   <div className={shared.muted}>No other occupants available to link.</div>
                 ) : (
                   <>
-                    <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-                      <select
-                        className={card.control}
-                        value={selectedExistingOccupantId}
-                        onChange={(e) => setSelectedExistingOccupantId(e.target.value)}
-                        disabled={isLinkingExisting}
-                        style={{ flex: 1 }}
-                      >
-                        <option value="">Select an occupant…</option>
-                        {availableExistingOccupants.map((v) => (
-                          <option key={v.id} value={v.id}>
-                            {[v.year, v.make, v.model].filter(Boolean).join(" ") || "Occupant"}
-                            {v.plate ? ` • ${v.plate}` : ""}
-                            {v.state ? ` (${v.state})` : ""}
-                          </option>
-                        ))}
-                      </select>
+                    <div className={shared.groupRow} style={{ alignItems: "center" }}>
+                      <div className={shared.groupField} style={{ flex: 1 }}>                            
+                        <select
+                          className={card.control}
+                          value={selectedExistingOccupantId}
+                          onChange={(e) => setSelectedExistingOccupantId(e.target.value)}
+                          disabled={isLinkingExisting}
+                          style={{ flex: 1 }}
+                        >
+                          <option value="">Select an occupant…</option>
+                          {availableExistingOccupants.map((v) => (
+                            <option key={v.id} value={v.id}>
+                              {[v.year, v.make, v.model].filter(Boolean).join(" ") || "Occupant"}
+                              {v.plate ? ` • ${v.plate}` : ""}
+                              {v.state ? ` (${v.state})` : ""}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
 
                       <button
                         type="button"
@@ -769,9 +769,7 @@ export default function LandlordAddOccupantPage() {
                         <ul style={{ paddingLeft: 18, marginTop: 4 }}>
                           {tenantOccupants.map((v) => (
                             <li key={v.id}>
-                              {[v.year, v.make, v.model].filter(Boolean).join(" ") || "Occupant"}
-                              {v.plate ? ` • ${v.plate}` : ""}
-                              {v.state ? ` (${v.state})` : ""}
+                              {v.name || "Occupant"}
                             </li>
                           ))}
                         </ul>
@@ -783,7 +781,7 @@ export default function LandlordAddOccupantPage() {
             </div>
           </section>
 
-          {/* Create new (same form, different submit) */}
+          {/* Create new */}
           <section className={page.section}>
             <div className={page.sectionHeader}>
               <div className={page.sectionHeaderStack}>
@@ -793,9 +791,8 @@ export default function LandlordAddOccupantPage() {
                 </div>
               </div>
             </div>
+            {renderForm(handleSubmitForTenant)}
           </section>
-
-          {renderForm(handleSubmitForTenant)}
         </div>
       </div>
     );
@@ -808,7 +805,7 @@ export default function LandlordAddOccupantPage() {
         <div>
           <h1 className={page.title}>{isEditMode ? "Edit occupant" : "Create occupant"}</h1>
           <p className={page.subtitle}>
-            {isEditMode ? "Update occupant details." : "Create an occupant record.  It can be linked to a tenant."}
+            {isEditMode ? "Update occupant details." : "Create an occupant record. It can be linked to a tenant."}
           </p>
         </div>
       </header>

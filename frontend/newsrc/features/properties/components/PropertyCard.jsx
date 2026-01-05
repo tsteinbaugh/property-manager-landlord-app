@@ -1,13 +1,10 @@
 // newsrc/features/properties/components/PropertyCard.jsx
 import { useMemo } from "react";
-import ui from "@shared/styles/CardLayout.module.css";
+import card from "@shared/styles/ui.cards.module.css";
+import shared from "@shared/styles/ui.shared.module.css";
 import { formatText, formatInt } from "@shared/utils/validation.js";
 
-export default function PropertyCard({
-  property,
-  onClick,
-  variant = "summary", // "summary" | "detail"
-}) {
+export default function PropertyCard({ property, onClick, variant = "summary" }) {
   if (!property) return null;
 
   const vm = useMemo(() => {
@@ -23,43 +20,46 @@ export default function PropertyCard({
     const cityStateZip =
       city && state && postalCode ? `${city}, ${state} ${postalCode}` : null;
 
-    const displayName =
-      name ||
-      (street && cityStateZip ? `${street}, ${cityStateZip}` : null) ||
-      "Unnamed property";
+    const addressBlock = (
+      <>
+        <div>
+          <strong>Address:</strong>
+        </div>
+        <div className={shared.indent}>
+          <div>
+            {street ? <div>{street}</div> : null}
+            {cityStateZip ? <div className={shared.muted}>{cityStateZip}</div> : null}
+          </div>
+        </div>
+      </>
+    ); 
+
+    const displayName = name || (street) || "Unnamed property";
+
+    const bedrooms = formatInt(property.bedrooms, { fallback: null });
+    const bathrooms = formatInt(property.bathrooms, { fallback: null });
+    const size = formatInt(property.sqft, { fallback: null });
+    const yearBuilt = formatInt(property.yearBuilt, { fallback: null });
+
+    const notes = formatText(property.notes, { fallback: null });
+
 
     return {
       isArchived,
       displayName,
-
       street,
       cityStateZip,
-
-      bedrooms: formatInt(property.bedrooms, { fallback: null }),
-      bathrooms: formatInt(property.bathrooms, { fallback: null }),
-      sqft: formatInt(property.sqft, { fallback: null }),
-      yearBuilt: formatInt(property.yearBuilt, { fallback: null }),
-
-      notes: formatText(property.notes, { fallback: null }),
+      addressBlock,
+      bedrooms,
+      bathrooms,
+      size,
+      yearBuilt,
+      notes,
     };
   }, [property]);
 
   const badgeText = vm.isArchived ? "Archived" : "Property";
-  const badgeClass = vm.isArchived ? ui.badgeArchived : ui.badgeIdle;
-
-  const AddressBlock = (
-    <>
-      <div>
-        <strong>Address:</strong>
-      </div>
-      <div className={ui.indent}>
-        <div>
-          {vm.street || null}
-          {vm.cityStateZip && <div className={ui.muted}>{vm.cityStateZip}</div>}
-        </div>
-      </div>
-    </>
-  );
+  const badgeClass = vm.isArchived ? card.badgeArchived : card.badgeIdle;
 
   // ============================================================
   // DETAIL VARIANT (full info, non-clickable)
@@ -68,20 +68,46 @@ export default function PropertyCard({
     const headerTitle = "Property Info";
 
     return (
-      <div className={`${ui.card} ${vm.isArchived ? ui.cardArchived : ""}`}>
-        <div className={ui.cardHeader}>
-          <div className={ui.cardTitle}>{headerTitle}</div>
-          <span className={`${ui.badge} ${badgeClass}`}>{badgeText}</span>
+      <div className={`${card.card} ${vm.isArchived ? card.cardArchived : ""}`}>
+        <div className={card.cardHeader}>
+          <div className={card.cardTitle}>{headerTitle}</div>
+          <span className={`${card.badge} ${badgeClass}`}>{badgeText}</span>
         </div>
 
-        <div className={ui.cardBody}>
-          {AddressBlock}
-
-          {vm.bedrooms && (<div><strong>Bedrooms: </strong>{vm.bedrooms}</div>)}
-          {vm.bathrooms && (<div><strong>Bathrooms: </strong>{vm.bathrooms}</div>)}
-          {vm.sqft && (<div><strong>Size: </strong>{vm.sqft} square feet</div>)} 
-          {vm.yearBuilt && (<div><strong>Year Built: </strong>{vm.yearBuilt}</div>)}
-          {vm.notes && (<div><strong>Notes: </strong>{vm.notes}</div>)}
+        <div className={card.cardBody}>
+          {vm.addressBlock ? (
+            <div>{vm.addressBlock}</div>
+          ) : null}
+          {vm.bedrooms ? (
+            <div>
+              <strong>Bedrooms: </strong>
+             {vm.bedrooms}
+            </div>
+          ) : null}
+          {vm.bathrooms ? (
+            <div>
+              <strong>Bathrooms: </strong>
+              {vm.bathrooms}
+            </div>
+          ) : null}
+          {vm.size ? (
+            <div>
+              <strong>Size: </strong>
+              {vm.size} square feet
+            </div>
+          ) : null}
+          {vm.yearBuilt ? (
+            <div>
+              <strong>Year Built: </strong>
+              {vm.yearBuilt}
+            </div>
+          ) : null}
+          {vm.notes ? (
+            <div>
+              <strong>Notes: </strong>
+              {vm.notes}
+            </div>
+          ) : null}
         </div>
       </div>
     );
@@ -93,20 +119,21 @@ export default function PropertyCard({
   return (
     <button
       type="button"
-      className={`${ui.card} ${vm.isArchived ? ui.cardArchived : ""}`}
+      className={`${card.card} ${vm.isArchived ? card.cardArchived : ""}`}
       onClick={onClick}
       aria-label={`Open property ${vm.displayName}`}
     >
-      <div className={ui.cardHeader}>
-        <div className={ui.cardTitle}>{vm.displayName}</div>
-        <span className={`${ui.badge} ${badgeClass}`}>{badgeText}</span>
+      <div className={card.cardHeader}>
+        <div className={card.cardTitle}>{vm.displayName}</div>
+        <span className={`${card.badge} ${badgeClass}`}>{badgeText}</span>
       </div>
 
-      <div className={ui.cardBody}>{AddressBlock}
-
-        {!AddressBlock && (
+      <div className={card.cardBody}>
+        {vm.addressBlock ? (
+          <div>{vm.addressBlock}</div>
+        ) :
           <div>Click for more details</div>
-        )}
+        }
       </div>
     </button>
   );

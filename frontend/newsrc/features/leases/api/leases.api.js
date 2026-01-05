@@ -67,31 +67,18 @@ export const leasesApi = {
     return rows.map(mapLeaseFromApi);
   },
 
-  async list(opts) {
-    return this.listAll(opts);
-  },
-
   // ------------------------------------------------------------
   // DETAIL / GET (consistent with tenants)
   // detail() = fetch-by-id
   // get() = backwards-compatible wrapper
   // ------------------------------------------------------------
-  async detail(id, options = {}) {
-    if (!id) throw new Error("id is required");
-    const { token } = options;
-    const row = await apiFetch(`/api/leases/${id}`, { token });
-    return mapLeaseFromApi(row);
-  },
 
   async get(id, options = {}) {
     if (!id) throw new Error("id is required");
-
-    // If token is present, behave like "detail" (fetch by id)
-    if (options?.token) return this.detail(id, options);
-
-    // Legacy fallback (rare): try to find from list
-    const rows = await this.list(options);
-    return rows.find((x) => x?.id === id) || null;
+    const { token, includeArchivedAttachments = false } = options;
+    const qs = includeArchivedAttachments ? "?includeArchivedAttachments=1" : "";
+    const t = await apiFetch(`/api/leases/${id}${qs}`, { token });
+    return t ? mapLeaseFromApi(t) : null;
   },
 
   async create(payload, options = {}) {

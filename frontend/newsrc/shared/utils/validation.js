@@ -169,6 +169,11 @@ export const VEHICLE_TYPE = new Set ([
   "OTHER",
 ]);
 
+export const LEASE_TYPE = new Set ([
+  "FIXED_TERM",
+  "MONTH_TO_MONTH",
+])
+
 // ============================================================
 // String helpers
 // ============================================================

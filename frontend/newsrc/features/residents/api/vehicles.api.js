@@ -42,10 +42,6 @@ export const vehiclesApi = {
     return rows.map(mapVehicleFromApi);
   },
 
-  async list(opts) {
-    return this.listAll(opts);
-  },
-
   async get(id, { token } = {}) {
     if (!id) throw new Error("id is required");
     const row = await apiFetch(`/api/vehicles/${id}`, { token });

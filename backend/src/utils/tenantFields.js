@@ -1,5 +1,6 @@
 // backend/src/utils/tenantFields.js
 const {
+  INVALID,
   isValidEmail,
   isValidPhone,
   optionalTrimToNull,
@@ -17,57 +18,57 @@ function parseTenantPost(body) {
   const src = body || {};
 
   const name = requiredTrimmedString(src.name);
-  if (name === "__INVALID__") return { error: "name is required" };
+  if (name === INVALID) return { error: "name is required" };
 
   const email = normalizeEmail(src.email);
-  if (email === "__INVALID__") return { error: "email must be a string" };
+  if (email === INVALID) return { error: "email must be a string" };
   if (email && !isValidEmail(email)) return { error: "email must be a valid email address" };
 
   const phone = normalizePhone(src.phone);
-  if (phone === "__INVALID__") return { error: "phone must be a string" };
+  if (phone === INVALID) return { error: "phone must be a string" };
   if (phone && !isValidPhone(phone)) return { error: "phone must be a valid phone number" };
 
   const age = parseIntOrNullOpt(src.age, { min: 0, max: 120 });
-  if (age === "__INVALID__") return { error: "age must be an integer between 0 and 120" };
+  if (age === INVALID) return { error: "age must be an integer between 0 and 120" };
 
   const heightFeet = parseIntOrNullOpt(src.heightFeet, { min: 0, max: 8 });
-  if (heightFeet === "__INVALID__") return { error: "heightFeet must be an integer 0-8" };
+  if (heightFeet === INVALID) return { error: "heightFeet must be an integer 0-8" };
 
   const heightInches = parseIntOrNullOpt(src.heightInches, { min: 0, max: 11 });
-  if (heightInches === "__INVALID__") return { error: "heightInches must be an integer 0-11" };
+  if (heightInches === INVALID) return { error: "heightInches must be an integer 0-11" };
 
   const weight = parseIntOrNullOpt(src.weight, { min: 0, max: 1500 });
-  if (weight === "__INVALID__") return { error: "weight must be an integer" };
+  if (weight === INVALID) return { error: "weight must be an integer" };
 
   const income = parseIntOrNullOpt(src.income, { min: 0, max: 1000000000 });
-  if (income === "__INVALID__") return { error: "income must be an integer" };
+  if (income === INVALID) return { error: "income must be an integer" };
 
   const creditScore = parseIntOrNullOpt(src.creditScore, { min: 0, max: 850 });
-  if (creditScore === "__INVALID__") return { error: "creditScore must be an integer 0-850" };
+  if (creditScore === INVALID) return { error: "creditScore must be an integer 0-850" };
 
   const sex = parseEnumOrNullOpt(src.sex, SEX);
-  if (sex === "__INVALID__") return { error: "sex is invalid" };
+  if (sex === INVALID) return { error: "sex is invalid" };
 
   const hairColor = parseEnumOrNullOpt(src.hairColor, HAIR_COLOR);
-  if (hairColor === "__INVALID__") return { error: "hairColor is invalid" };
+  if (hairColor === INVALID) return { error: "hairColor is invalid" };
 
   const eyeColor = parseEnumOrNullOpt(src.eyeColor, EYE_COLOR);
-  if (eyeColor === "__INVALID__") return { error: "eyeColor is invalid" };
+  if (eyeColor === INVALID) return { error: "eyeColor is invalid" };
 
   const bodyBuild = parseEnumOrNullOpt(src.bodyBuild, BODY_BUILD);
-  if (bodyBuild === "__INVALID__") return { error: "bodyBuild is invalid" };
+  if (bodyBuild === INVALID) return { error: "bodyBuild is invalid" };
 
   const markings = optionalTrimToNull(src.markings);
-  if (markings === "__INVALID__") return { error: "markings must be a string" };
+  if (markings === INVALID) return { error: "markings must be a string" };
 
   const occupation = optionalTrimToNull(src.occupation);
-  if (occupation === "__INVALID__") return { error: "occupation must be a string" };
+  if (occupation === INVALID) return { error: "occupation must be a string" };
 
   const employer = optionalTrimToNull(src.employer);
-  if (employer === "__INVALID__") return { error: "employer must be a string" };
+  if (employer === INVALID) return { error: "employer must be a string" };
 
   const notes = optionalTrimToNull(src.notes);
-  if (notes === "__INVALID__") return { error: "notes must be a string" };
+  if (notes === INVALID) return { error: "notes must be a string" };
 
   return {
     data: {
@@ -101,20 +102,20 @@ function parseTenantPatch(body) {
 
   if (src.name !== undefined) {
     const name = requiredTrimmedString(src.name);
-    if (name === "__INVALID__") return { error: "name is required" };
+    if (name === INVALID) return { error: "name is required" };
     data.name = name;
   }
 
   if (src.email !== undefined) {
     const email = normalizeEmail(src.email);
-    if (email === "__INVALID__") return { error: "email must be a string" };
+    if (email === INVALID) return { error: "email must be a string" };
     if (email && !isValidEmail(email)) return { error: "email must be a valid email address" };
     data.email = email; // may be null
   }
 
   if (src.phone !== undefined) {
     const phone = normalizePhone(src.phone);
-    if (phone === "__INVALID__") return { error: "phone must be a string" };
+    if (phone === INVALID) return { error: "phone must be a string" };
     if (phone && !isValidPhone(phone)) return { error: "phone must be a valid phone number" };
     data.phone = phone; // may be null
   }
@@ -131,7 +132,7 @@ function parseTenantPatch(body) {
   for (const [k, min, max] of intFields) {
     if (src[k] !== undefined) {
       const v = parseIntOrNullOpt(src[k], { min, max });
-      if (v === "__INVALID__") return { error: `${k} must be an integer` };
+      if (v === INVALID) return { error: `${k} must be an integer` };
       data[k] = v;
     }
   }
@@ -146,7 +147,7 @@ function parseTenantPatch(body) {
   for (const [k, set] of enumFields) {
     if (src[k] !== undefined) {
       const v = parseEnumOrNullOpt(src[k], set);
-      if (v === "__INVALID__") return { error: `${k} is invalid` };
+      if (v === INVALID) return { error: `${k} is invalid` };
       data[k] = v;
     }
   }
@@ -155,7 +156,7 @@ function parseTenantPatch(body) {
   for (const k of stringFields) {
     if (src[k] !== undefined) {
       const v = optionalTrimToNull(src[k]);
-      if (v === "__INVALID__") return { error: `${k} must be a string` };
+      if (v === INVALID) return { error: `${k} must be a string` };
       data[k] = v;
     }
   }

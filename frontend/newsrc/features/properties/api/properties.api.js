@@ -48,11 +48,8 @@ function mapPropertyFromApi(p) {
 }
 
 export const propertiesApi = {
-  async detail(id, options = {}) {
-    return this.get(id, options);
-  },
 
-  async list(options = {}) {
+  async listAll(options = {}) {
     const { token } = options;
     const rows = await apiFetch("/api/properties", { token });
     if (!Array.isArray(rows)) return [];
@@ -60,13 +57,14 @@ export const propertiesApi = {
   },
 
   async get(id, options = {}) {
-    const { token } = options;
     if (!id) throw new Error("id is required");
-    const p = await apiFetch(`/api/properties/${id}`, { token });
-    return mapPropertyFromApi(p);
+    const { token, includeArchivedAttachments = false } = options;
+    const qs = includeArchivedAttachments ? "?includeArchivedAttachments=1" : "";
+    const t = await apiFetch(`/api/properties/${id}${qs}`, { token });
+    return t ? mapPropertyFromApi(t) : null;
   },
 
-  async add(payload, options = {}) {
+  async create(payload, options = {}) {
     const { token } = options;
     const created = await apiFetch("/api/properties", {
       method: "POST",

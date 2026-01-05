@@ -158,12 +158,11 @@ export default function LandlordEmergencyContactDetailsPage() {
     );
   };  
 
-  const handleUnlinkTenant = async (tenantId) => {
+  const handleUnlinkEmergencyContactFromTenant = async (tenantId) => {
     if (!tenantId || !emergencyContact?.id) return;
 
     const ok = window.confirm(
-      "Unlink this emergency contact from this tenant?\n\n" +
-        "This does NOT delete either record. It only removes the emergencyContact↔tenant association."
+      "Unlink this emergency contact from this tenant?\n\nThis does NOT delete either record. It only removes the emergency contact↔tenant association."
     );
     if (!ok) return;
 
@@ -264,7 +263,7 @@ export default function LandlordEmergencyContactDetailsPage() {
                       className={`${card.inlineAction} ${card.inlineActionDanger}`}
                       onClick={(le) => {
                         le.stopPropagation();
-                        handleUnlinkTenant(t.id);
+                        handleUnlinkEmergencyContactFromTenant(t.id);
                       }}
                       disabled={unlinkingTenantId === t.id}
                     >

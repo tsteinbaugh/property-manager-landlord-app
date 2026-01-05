@@ -167,12 +167,11 @@ export default function LandlordVehicleDetailsPage() {
     navigate(`/landlord/vehicles/new?vehicleId=${vehicle.id}&returnTo=${returnTo}`);
   };
 
-  const handleUnlinkTenant = async (tenantId) => {
+  const handleUnlinkVehicleFromTenant = async (tenantId) => {
     if (!tenantId || !vehicle?.id) return;
 
     const ok = window.confirm(
-      "Unlink this vehicle from this tenant?\n\n" +
-        "This does NOT delete either record. It only removes the vehicle↔tenant association."
+      "Unlink this vehicle from this tenant?\n\nThis does NOT delete either record. It only removes the vehicle↔tenant association."
     );
     if (!ok) return;
 
@@ -273,7 +272,7 @@ export default function LandlordVehicleDetailsPage() {
                       className={`${card.inlineAction} ${card.inlineActionDanger}`}
                       onClick={(le) => {
                         le.stopPropagation();
-                        handleUnlinkTenant(t.id);
+                        handleUnlinkVehicleFromTenant(t.id);
                       }}
                       disabled={unlinkingTenantId === t.id}
                     >
