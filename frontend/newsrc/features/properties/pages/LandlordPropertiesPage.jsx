@@ -5,7 +5,9 @@ import { useUser } from "@app/providers.jsx";
 import { apiFetch } from "@lib/apiClient.js";
 import PropertyCard from "@features/properties/components/PropertyCard.jsx"
 
-import styles from "@shared/styles/LandlordPage.module.css";
+import page from "@shared/styles/ui.pages.module.css";
+import card from "@shared/styles/ui.cards.module.css";
+import shared from "@shared/styles/ui.shared.module.css";
 
 export default function LandlordPropertiesPage() {
   const [properties, setProperties] = useState([]);
@@ -72,23 +74,23 @@ export default function LandlordPropertiesPage() {
   };
 
   return (
-    <div className={styles.page}>
-      <header className={styles.header}>
+    <div className={page.page}>
+      <header className={page.header}>
         <div>
-          <h1 className={styles.title}>Your properties</h1>
-          <p className={styles.subtitle}>
+          <h1 className={page.title}>Your properties</h1>
+          <p className={page.subtitle}>
             Manage your rentals, track tenants, leases, and finances from one place.
           </p>
         </div>
 
         <div
-          className={styles.actions}
+          className={page.actions}
           style={{ display: "flex", flexDirection: "column", gap: 8 }}
         >
           {hasVisibleProperties && (
             <button
               type="button"
-              className={styles.primaryButton}
+              className={card.primaryButton}
               onClick={handleAddProperty}
             >
               + Add property
@@ -117,23 +119,23 @@ export default function LandlordPropertiesPage() {
       </header>
 
       {isLoading && (
-        <div className={styles.center}>
-          <p className={styles.muted}>Loading your properties…</p>
+        <div className={page.center}>
+          <p className={shared.muted}>Loading your properties…</p>
         </div>
       )}
 
       {!isLoading && error && (
-        <div className={styles.center}>
-          <p className={styles.error}>{error}</p>
+        <div className={page.center}>
+          <p className={shared.error}>{error}</p>
         </div>
       )}
 
       {!isLoading && !error && !hasVisibleProperties && (
-        <div className={styles.empty}>
-          <h2 className={styles.emptyTitle}>
+        <div className={page.empty}>
+          <h2 className={page.emptyTitle}>
             {hasAnyArchived ? "No active properties" : "No properties yet"}
           </h2>
-          <p className={styles.emptyText}>
+          <p className={page.emptyText}>
             {hasAnyArchived
               ? "Archived properties are hidden from your active list. You can view them using the link above."
               : "Once you add your first property, you’ll see it here with its tenants, lease, and financials."}
@@ -141,7 +143,7 @@ export default function LandlordPropertiesPage() {
           {!hasAnyArchived && (
             <button
               type="button"
-              className={styles.primaryButton}
+              className={card.primaryButton}
               onClick={handleAddProperty}
             >
               Create your first property
@@ -151,7 +153,7 @@ export default function LandlordPropertiesPage() {
       )}
 
       {!isLoading && !error && hasVisibleProperties && (
-        <div className={styles.grid}>
+        <div className={page.grid}>
           {visibleProperties.map((p) => (
             <PropertyCard
               key={p.id}

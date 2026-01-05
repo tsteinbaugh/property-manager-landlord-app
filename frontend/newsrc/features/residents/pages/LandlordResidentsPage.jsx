@@ -15,7 +15,9 @@ import PetCard from "@features/residents/components/pets/PetCard.jsx";
 import EmergencyContactCard from "@features/residents/components/emergencyContacts/EmergencyContactCard.jsx";
 import VehicleCard from "@features/residents/components/vehicles/VehicleCard.jsx";
 
-import styles from "@shared/styles/LandlordPage.module.css";
+import page from "@shared/styles/ui.pages.module.css";
+import card from "@shared/styles/ui.cards.module.css";
+import shared from "@shared/styles/ui.shared.module.css";
 
 export default function LandlordResidentsPage() {
   const navigate = useNavigate();
@@ -122,23 +124,23 @@ export default function LandlordResidentsPage() {
   const renderTenantsTab = () => (
     <>
       {tenantsLoading && (
-        <div className={styles.center}>
-          <p className={styles.muted}>Loading your tenants…</p>
+        <div className={page.center}>
+          <p className={shared.muted}>Loading your tenants…</p>
         </div>
       )}
 
       {!tenantsLoading && tenantsError && (
-        <div className={styles.center}>
-          <p className={styles.error}>{tenantsError}</p>
+        <div className={page.center}>
+          <p className={shared.error}>{tenantsError}</p>
         </div>
       )}
 
       {!tenantsLoading && !tenantsError && !hasVisibleTenants && (
-        <div className={styles.empty}>
-          <h2 className={styles.emptyTitle}>
+        <div className={page.empty}>
+          <h2 className={page.emptyTitle}>
             {hasAnyArchivedTenants ? "No active tenants" : "No tenants yet"}
           </h2>
-          <p className={styles.emptyText}>
+          <p className={page.emptyText}>
             {hasAnyArchivedTenants
               ? "Archived tenants are hidden from your active list. You can view them using the link above."
               : "Once you add your first tenant, you’ll see them here."}
@@ -146,7 +148,7 @@ export default function LandlordResidentsPage() {
           {!hasAnyArchivedTenants && (
             <button
               type="button"
-              className={styles.primaryButton}
+              className={card.primaryButton}
               onClick={handleAddTenant}
             >
               Create your first tenant
@@ -156,7 +158,7 @@ export default function LandlordResidentsPage() {
       )}
 
       {!tenantsLoading && !tenantsError && hasVisibleTenants && (
-        <div className={styles.grid}>
+        <div className={page.grid}>
           {visibleTenants.map((t) => (
             <TenantCard
               key={t.id}
@@ -234,23 +236,23 @@ export default function LandlordResidentsPage() {
   const renderOccupantsTab = () => (
     <>
       {occupantsLoading && (
-        <div className={styles.center}>
-          <p className={styles.muted}>Loading your occupants…</p>
+        <div className={page.center}>
+          <p className={shared.muted}>Loading your occupants…</p>
         </div>
       )}
 
       {!occupantsLoading && occupantsError && (
-        <div className={styles.center}>
-          <p className={styles.error}>{occupantsError}</p>
+        <div className={page.center}>
+          <p className={shared.error}>{occupantsError}</p>
         </div>
       )}
 
       {!occupantsLoading && !occupantsError && !hasVisibleOccupants && (
-        <div className={styles.empty}>
-          <h2 className={styles.emptyTitle}>
+        <div className={page.empty}>
+          <h2 className={page.emptyTitle}>
             {hasAnyArchivedOccupants ? "No active occupants" : "No occupants yet"}
           </h2>
-          <p className={styles.emptyText}>
+          <p className={page.emptyText}>
             {hasAnyArchivedOccupants
               ? "Archived occupants are hidden from your active list. You can view them using the link above."
               : "Once you add your first occupant, you’ll see them here. You can link them to leases later."}
@@ -258,7 +260,7 @@ export default function LandlordResidentsPage() {
           {!hasAnyArchivedOccupants && (
             <button
               type="button"
-              className={styles.primaryButton}
+              className={card.primaryButton}
               onClick={handleAddOccupant}
             >
               Create your first occupant
@@ -268,7 +270,7 @@ export default function LandlordResidentsPage() {
       )}
 
       {!occupantsLoading && !occupantsError && hasVisibleOccupants && (
-        <div className={styles.grid}>
+        <div className={page.grid}>
           {visibleOccupants.map((o) => (
             <OccupantCard
               key={o.id || `${o.name || "occupant"}:${o.createdAt || ""}`}
@@ -346,23 +348,23 @@ export default function LandlordResidentsPage() {
   const renderPetsTab = () => (
     <>
       {petsLoading && (
-        <div className={styles.center}>
-          <p className={styles.muted}>Loading your pets…</p>
+        <div className={page.center}>
+          <p className={shared.muted}>Loading your pets…</p>
         </div>
       )}
 
       {!petsLoading && petsError && (
-        <div className={styles.center}>
-          <p className={styles.error}>{petsError}</p>
+        <div className={page.center}>
+          <p className={shared.error}>{petsError}</p>
         </div>
       )}
 
       {!petsLoading && !petsError && !hasVisiblePets && (
-        <div className={styles.empty}>
-          <h2 className={styles.emptyTitle}>
+        <div className={page.empty}>
+          <h2 className={page.emptyTitle}>
             {hasAnyArchivedPets ? "No active pets" : "No pets yet"}
           </h2>
-          <p className={styles.emptyText}>
+          <p className={page.emptyText}>
             {hasAnyArchivedPets
               ? "Archived pets are hidden from your active list. You can view them using the link above."
               : "Once you add your first pet, you’ll see them here. You can link them to leases later."}
@@ -370,7 +372,7 @@ export default function LandlordResidentsPage() {
           {!hasAnyArchivedPets && (
             <button
               type="button"
-              className={styles.primaryButton}
+              className={card.primaryButton}
               onClick={handleAddPet}
             >
               Create your first pet
@@ -380,7 +382,7 @@ export default function LandlordResidentsPage() {
       )}
 
       {!petsLoading && !petsError && hasVisiblePets && (
-        <div className={styles.grid}>
+        <div className={page.grid}>
           {visiblePets.map((o) => (
             <PetCard
               key={o.id || `${o.name || "pet"}:${o.createdAt || ""}`}
@@ -458,23 +460,23 @@ export default function LandlordResidentsPage() {
   const renderEmergencyContactsTab = () => (
     <>
       {emergencyContactsLoading && (
-        <div className={styles.center}>
-          <p className={styles.muted}>Loading your emergency contacts…</p>
+        <div className={page.center}>
+          <p className={shared.muted}>Loading your emergency contacts…</p>
         </div>
       )}
 
       {!emergencyContactsLoading && emergencyContactsError && (
-        <div className={styles.center}>
-          <p className={styles.error}>{emergencyContactsError}</p>
+        <div className={page.center}>
+          <p className={shared.error}>{emergencyContactsError}</p>
         </div>
       )}
 
       {!emergencyContactsLoading && !emergencyContactsError && !hasVisibleEmergencyContacts && (
-        <div className={styles.empty}>
-          <h2 className={styles.emptyTitle}>
+        <div className={page.empty}>
+          <h2 className={page.emptyTitle}>
             {hasAnyArchivedEmergencyContacts ? "No active emergency contacts" : "No emergency contacts yet"}
           </h2>
-          <p className={styles.emptyText}>
+          <p className={page.emptyText}>
             {hasAnyArchivedEmergencyContacts
               ? "Archived emergency contacts are hidden from your active list. You can view them using the link above."
               : "Once you add your first emergency contact, you’ll see them here. You can link them to leases later."}
@@ -482,7 +484,7 @@ export default function LandlordResidentsPage() {
           {!hasAnyArchivedEmergencyContacts && (
             <button
               type="button"
-              className={styles.primaryButton}
+              className={card.primaryButton}
               onClick={handleAddEmergencyContact}
             >
               Create your first emergency contact
@@ -492,7 +494,7 @@ export default function LandlordResidentsPage() {
       )}
 
       {!emergencyContactsLoading && !emergencyContactsError && hasVisibleEmergencyContacts && (
-        <div className={styles.grid}>
+        <div className={page.grid}>
           {visibleEmergencyContacts.map((o) => (
             <EmergencyContactCard
               key={o.id || `${o.name || "emergency contact"}:${o.createdAt || ""}`}
@@ -570,23 +572,23 @@ export default function LandlordResidentsPage() {
   const renderVehiclesTab = () => (
     <>
       {vehiclesLoading && (
-        <div className={styles.center}>
-          <p className={styles.muted}>Loading your vehicles…</p>
+        <div className={page.center}>
+          <p className={shared.muted}>Loading your vehicles…</p>
         </div>
       )}
 
       {!vehiclesLoading && vehiclesError && (
-        <div className={styles.center}>
-          <p className={styles.error}>{vehiclesError}</p>
+        <div className={page.center}>
+          <p className={shared.error}>{vehiclesError}</p>
         </div>
       )}
 
       {!vehiclesLoading && !vehiclesError && !hasVisibleVehicles && (
-        <div className={styles.empty}>
-          <h2 className={styles.emptyTitle}>
+        <div className={page.empty}>
+          <h2 className={page.emptyTitle}>
             {hasAnyArchivedVehicles ? "No active vehicles" : "No vehicles yet"}
           </h2>
-          <p className={styles.emptyText}>
+          <p className={page.emptyText}>
             {hasAnyArchivedVehicles
               ? "Archived vehicles are hidden from your active list. You can view them using the link above."
               : "Once you add your first vehicle, you’ll see them here. You can link them to leases later."}
@@ -594,7 +596,7 @@ export default function LandlordResidentsPage() {
           {!hasAnyArchivedVehicles && (
             <button
               type="button"
-              className={styles.primaryButton}
+              className={card.primaryButton}
               onClick={handleAddVehicle}
             >
               Create your first vehicle
@@ -604,7 +606,7 @@ export default function LandlordResidentsPage() {
       )}
 
       {!vehiclesLoading && !vehiclesError && hasVisibleVehicles && (
-        <div className={styles.grid}>
+        <div className={page.grid}>
           {visibleVehicles.map((o) => (
             <VehicleCard
               key={o.id || `${o.plate || o.permit || "vehicle"}:${o.createdAt || ""}`}
@@ -620,12 +622,12 @@ export default function LandlordResidentsPage() {
   // ---------------- RENDER ----------------
 
   return (
-    <div className={styles.page}>
+    <div className={page.page}>
       {/* Header */}
-      <header className={styles.header}>
+      <header className={page.header}>
         <div>
-          <h1 className={styles.title}>Your residents</h1>
-          <p className={styles.subtitle}>
+          <h1 className={page.title}>Your residents</h1>
+          <p className={page.subtitle}>
             Tenants, occupants, pets, emergency contacts and vehicles all live here.
           </p>
         </div>
@@ -633,13 +635,13 @@ export default function LandlordResidentsPage() {
         {/* Tab-specific header actions */}
         {activeTab === "tenants" && (
           <div
-            className={styles.actions}
+            className={page.actions}
             style={{ display: "flex", flexDirection: "column", gap: 8 }}
           >
             {/* Always allow adding a tenant (matches LandlordTenantsPage) */}
             <button
               type="button"
-              className={styles.primaryButton}
+              className={card.primaryButton}
               onClick={handleAddTenant}
             >
               + Add tenant
@@ -670,13 +672,13 @@ export default function LandlordResidentsPage() {
 
         {activeTab === "occupants" && (
           <div
-            className={styles.actions}
+            className={page.actions}
             style={{ display: "flex", flexDirection: "column", gap: 8 }}
           >
             {/* Always allow adding an occupant, even if all are archived */}
             <button
               type="button"
-              className={styles.primaryButton}
+              className={card.primaryButton}
               onClick={handleAddOccupant}
             >
               + Add occupant
@@ -707,13 +709,13 @@ export default function LandlordResidentsPage() {
 
         {activeTab === "pets" && (
           <div
-            className={styles.actions}
+            className={page.actions}
             style={{ display: "flex", flexDirection: "column", gap: 8 }}
           >
             {/* Always allow adding an pet, even if all are archived */}
             <button
               type="button"
-              className={styles.primaryButton}
+              className={card.primaryButton}
               onClick={handleAddPet}
             >
               + Add pet
@@ -744,13 +746,13 @@ export default function LandlordResidentsPage() {
 
         {activeTab === "emergencyContacts" && (
           <div
-            className={styles.actions}
+            className={page.actions}
             style={{ display: "flex", flexDirection: "column", gap: 8 }}
           >
             {/* Always allow adding an emergency contact, even if all are archived */}
             <button
               type="button"
-              className={styles.primaryButton}
+              className={card.primaryButton}
               onClick={handleAddEmergencyContact}
             >
               + Add emergency contact
@@ -781,13 +783,13 @@ export default function LandlordResidentsPage() {
 
         {activeTab === "vehicles" && (
           <div
-            className={styles.actions}
+            className={page.actions}
             style={{ display: "flex", flexDirection: "column", gap: 8 }}
           >
             {/* Always allow adding an vehicle, even if all are archived */}
             <button
               type="button"
-              className={styles.primaryButton}
+              className={card.primaryButton}
               onClick={handleAddVehicle}
             >
               + Add vehicle

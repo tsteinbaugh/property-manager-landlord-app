@@ -1,12 +1,14 @@
 import React from "react";
-import ui from "@shared/styles/CardLayout.module.css"
+
+import shared from "@shared/styles/ui.shared.module.css";
+import card from "@shared/styles/ui.cards.module.css";
 
 function LinkageLine({ parts = [], hint }) {
   const cleaned = (parts || []).filter(Boolean);
   if (!cleaned.length) return null;
 
   return (
-    <div className={ui.muted} style={{ marginTop: 6 }}>
+    <div className={shared.muted} style={{ marginTop: 6 }}>
       <div>
         <strong>Linkage: </strong>
         {cleaned.map((p, idx) => (
@@ -38,10 +40,10 @@ export default function LinkageCard({
 
   const badgeClass =
     tone === "active"
-      ? ui.badgeActive
+      ? card.badgeActive
       : tone === "archived"
-        ? ui.badgeArchived
-        : ui.badgeIdle;
+        ? card.badgeArchived
+        : card.badgeIdle;
 
   const canClick = typeof onClick === "function";
 
@@ -55,7 +57,7 @@ export default function LinkageCard({
 
   return (
     <div
-      className={`${ui.card} ${archived ? ui.cardArchived : ""}`}
+      className={`${card.card} ${archived ? card.cardArchived : ""}`}
       onClick={canClick ? onClick : undefined}
       role={canClick ? "button" : undefined}
       tabIndex={canClick ? 0 : undefined}
@@ -63,18 +65,18 @@ export default function LinkageCard({
       style={{ cursor: canClick ? "pointer" : "default" }}
       aria-label={canClick ? (ariaLabel || `Open ${title || "item"}`) : undefined}
     >
-      <div className={ui.cardHeader}>
-        <div className={ui.cardTitle}>{title || "Untitled"}</div>
+      <div className={card.cardHeader}>
+        <div className={ucardi.cardTitle}>{title || "Untitled"}</div>
         {badgeText ? (
-          <span className={`${ui.badge} ${badgeClass}`}>{badgeText}</span>
+          <span className={`${card.badge} ${badgeClass}`}>{badgeText}</span>
         ) : null}
       </div>
 
-      <div className={ui.cardBody}>
+      <div className={card.cardBody}>
         <LinkageLine parts={linkageParts} hint={linkageHint} />
       </div>
 
-      {footer ? <div className={ui.inlineActions}>{footer}</div> : null}
+      {footer ? <div className={card.inlineActions}>{footer}</div> : null}
     </div>
   );
 }

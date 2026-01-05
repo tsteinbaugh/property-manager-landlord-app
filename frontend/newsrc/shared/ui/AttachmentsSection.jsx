@@ -1,6 +1,7 @@
 // newsrc/shared/ui/attachments/AttachmentsSection.jsx
-import ui from "@shared/styles/CardLayout.module.css";
 import { formatDateLong } from "@shared/utils/validation.js";
+import card from "@shared/styles/ui.cards.module.css";
+
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:4000";
 
@@ -48,7 +49,7 @@ export default function AttachmentsSection({
         {hasArchived && (
           <button
             type="button"
-            className={ui.linkAction}
+            className={card.linkAction}
             style={{ fontSize: "inherit" }}
             onClick={(e) => {
               e.preventDefault();
@@ -132,7 +133,7 @@ export default function AttachmentsSection({
 
                   <button
                     type="button"
-                    className={ui.linkAction}
+                    className={card.linkAction}
                     style={{ fontSize: 12, padding: 0 }}
                     onClick={(e) => {
                       e.preventDefault();

@@ -5,7 +5,9 @@ import { useUser } from "@app/providers.jsx";
 import { leasesApi } from "@features/leases/api/leases.api.js";
 import LeaseCard from "@features/leases/components/LeaseCard.jsx"
 
-import styles from "@shared/styles/LandlordPage.module.css";
+import page from "@shared/styles/ui.pages.module.css";
+import card from "@shared/styles/ui.cards.module.css";
+import shared from "@shared/styles/ui.shared.module.css";
 
 export default function LandlordLeasesPage() {
   const [leases, setLeases] = useState([]);
@@ -66,22 +68,22 @@ export default function LandlordLeasesPage() {
   };
 
   return (
-    <div className={styles.page}>
-      <header className={styles.header}>
+    <div className={page.page}>
+      <header className={page.header}>
         <div>
-          <h1 className={styles.title}>Your leases</h1>
-          <p className={styles.subtitle}>
+          <h1 className={page.title}>Your leases</h1>
+          <p className={page.subtitle}>
             Manage your active, archived and draft leases.
           </p>
         </div>
 
         <div
-          className={styles.actions}
+          className={page.actions}
           style={{ display: "flex", flexDirection: "column", gap: 8 }}
         >
           <button
             type="button"
-            className={styles.primaryButton}
+            className={card.primaryButton}
             onClick={handleAddLease}
           >
             + Add lease
@@ -111,23 +113,23 @@ export default function LandlordLeasesPage() {
       </header>
 
       {isLoading && (
-        <div className={styles.center}>
-          <p className={styles.muted}>Loading your leases…</p>
+        <div className={page.center}>
+          <p className={shared.muted}>Loading your leases…</p>
         </div>
       )}
 
       {!isLoading && error && (
-        <div className={styles.center}>
-          <p className={styles.error}>{error}</p>
+        <div className={page.center}>
+          <p className={shared.error}>{error}</p>
         </div>
       )}
 
       {!isLoading && !error && !hasVisibleLeases && (
-        <div className={styles.empty}>
-          <h2 className={styles.emptyTitle}>
+        <div className={page.empty}>
+          <h2 className={page.emptyTitle}>
             {hasAnyArchived ? "No active leases" : "No leases yet"}
           </h2>
-          <p className={styles.emptyText}>
+          <p className={page.emptyText}>
             {hasAnyArchived
               ? "Archived leases are hidden from your active list. You can view them using the link above."
               : "Once you add your first lease, you’ll see them here. You can link them to tenants and leases later."}
@@ -136,7 +138,7 @@ export default function LandlordLeasesPage() {
           {!hasAnyArchived && (
             <button
               type="button"
-              className={styles.primaryButton}
+              className={card.primaryButton}
               onClick={handleAddLease}
             >
               Create your first lease
@@ -146,7 +148,7 @@ export default function LandlordLeasesPage() {
       )}
 
       {!isLoading && !error && hasVisibleLeases && (
-        <div className={styles.grid}>
+        <div className={page.grid}>
           {visibleLeases.map((o) => (
             <LeaseCard
               key={o.id}
