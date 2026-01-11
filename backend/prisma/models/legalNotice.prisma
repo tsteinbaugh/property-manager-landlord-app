@@ -1,0 +1,73 @@
+model LegalNoticeDelivery {
+  id String @id @default(cuid())
+
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  propertyId String
+
+  lease   Lease?  @relation(fields: [leaseId], references: [id], onDelete: SetNull)
+  leaseId String?
+
+  // Optional: if this was delivered as part of a visit
+  visit   PropertyVisit? @relation(fields: [visitId], references: [id], onDelete: SetNull)
+  visitId String?
+
+  // What legal notice was delivered
+  noticeType   LegalNoticeType
+  jurisdiction String? // "CO" or county/city, optional
+  formRef      String? // "JDF 99" or "Demand for Compliance", etc.
+
+  // Service details
+  servedAt      DateTime           @default(now())
+  serviceMethod LegalServiceMethod
+  servedById    String?
+  servedBy      User?              @relation("LegalNoticeServedBy", fields: [servedById], references: [id])
+
+  // Who it was served to (optional now; can evolve)
+  servedToTenantLinks LegalNoticeTenant[]
+  servedToName        String? // if not a tenant record
+
+  // Proof / evidence
+  proofUrl String? // uploaded photo, certified mail receipt, etc.
+  notes    String?
+
+  createdAt   DateTime @default(now())
+  createdById String?
+  createdBy   User?    @relation("LegalNoticeCreatedBy", fields: [createdById], references: [id])
+
+  @@index([propertyId])
+  @@index([leaseId])
+  @@index([visitId])
+  @@index([servedAt])
+  @@index([noticeType])
+}
+
+model LegalNoticeTenant {
+  id String @id @default(cuid())
+
+  legalNotice   LegalNoticeDelivery @relation(fields: [legalNoticeId], references: [id], onDelete: Cascade)
+  legalNoticeId String
+
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  tenantId String
+
+  @@unique([legalNoticeId, tenantId])
+  @@index([tenantId])
+}
+
+enum LegalServiceMethod {
+  PERSONAL_SERVICE
+  POSTING
+  FIRST_CLASS_MAIL
+  CERTIFIED_MAIL
+  EMAIL
+  OTHER
+}
+
+enum LegalNoticeType {
+  DEMAND_COMPLIANCE_OR_RIGHT_TO_CURE // ex: JDF 99
+  DEMAND_FOR_PAYMENT
+  NOTICE_TO_QUIT
+  NOTICE_OF_NON_RENEWAL
+  ENTRY_NOTICE // if you ever want to store “formal entry notice” as legal doc too
+  OTHER
+}

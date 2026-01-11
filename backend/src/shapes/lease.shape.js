@@ -5,6 +5,7 @@ function shapeLease(lease) {
   return {
     id: lease.id,
     status: lease.status,
+    leaseType: lease.leaseType,
     rentAmount: lease.rentAmount,
     startDate: lease.startDate,
     endDate: lease.endDate,

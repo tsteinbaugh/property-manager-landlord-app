@@ -553,14 +553,14 @@ export default function LandlordAddVehiclePage() {
                     
             <div className={`${card.field} ${shared.groupField}`}>
               <label className={card.label} htmlFor="parking">
-                Parking space <span className={shared.muted}>(optional)</span>
+                Location/assigned space <span className={shared.muted}>(optional)</span>
               </label>
               <input
                 id="parking"
                 type="text"
                 value={parking}
                 onChange={(e) => setParking(e.target.value)}
-                placeholder="Space 12"
+                placeholder="Street parking, attached garage, Space 12, etc."
                 className={card.control}
                 disabled={isSubmitting}
               />

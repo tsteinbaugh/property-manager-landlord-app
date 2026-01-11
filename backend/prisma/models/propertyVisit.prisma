@@ -1,0 +1,89 @@
+model PropertyVisit {
+  id String @id @default(cuid())
+
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  propertyId String
+
+  lease   Lease?  @relation(fields: [leaseId], references: [id], onDelete: SetNull)
+  leaseId String?
+
+  enteredById String?
+  enteredBy   User?   @relation("PropertyVisitEnteredBy", fields: [enteredById], references: [id])
+
+  vendorName String?
+
+  reasonType    VisitReasonType
+  reasonDetails String?
+
+  scheduledStart DateTime?
+  scheduledEnd   DateTime?
+  occurredAt     DateTime?
+  status         VisitStatus @default(SCHEDULED)
+
+  entryNoticeRequired Boolean            @default(false)
+  entryNoticeGivenAt  DateTime?
+  entryNoticeMethod   EntryNoticeMethod?
+  entryNoticeNotes    String?
+
+  tenantPresent      Boolean?
+  tenantPresentLinks VisitTenantPresent[]
+
+  outcomeNotes String?
+
+  // ✅ link any legal notices delivered during/around this visit
+  legalDeliveries LegalNoticeDelivery[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdById String?
+  createdBy   User?    @relation("PropertyVisitCreatedBy", fields: [createdById], references: [id])
+
+  @@index([propertyId])
+  @@index([leaseId])
+  @@index([occurredAt])
+  @@index([reasonType])
+  @@index([status])
+}
+
+model VisitTenantPresent {
+  id String @id @default(cuid())
+
+  visit   PropertyVisit @relation(fields: [visitId], references: [id], onDelete: Cascade)
+  visitId String
+
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  tenantId String
+
+  @@unique([visitId, tenantId])
+  @@index([tenantId])
+}
+
+enum EntryNoticeMethod {
+  NONE
+  EMAIL
+  TEXT
+  PHONE
+  POSTED_NOTICE
+  IN_PERSON
+  OTHER
+}
+
+enum VisitReasonType {
+  INSPECTION
+  MAINTENANCE
+  REPAIR
+  EMERGENCY
+  NOTICE_DELIVERY
+  RENT_COLLECTION
+  SHOWING
+  MOVE_IN
+  MOVE_OUT
+  OTHER
+}
+
+enum VisitStatus {
+  SCHEDULED
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}

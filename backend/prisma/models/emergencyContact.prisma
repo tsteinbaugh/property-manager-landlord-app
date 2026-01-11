@@ -1,20 +1,21 @@
 model EmergencyContact {
-  id       String  @id @default(cuid())
+  id String @id @default(cuid())
 
   name       String
   phone      String
   email      String
   address1   String?
+  address2   String?
   city       String?
   state      StateCode?
   postalCode String?
   relation   String?
   notes      String?
-  
-  archivedAt   DateTime?
+
+  archivedAt    DateTime?
   archiveReason String?
-  archivedById    String?
-  archivedBy      User? @relation("EmergencyContactArchivedBy", fields: [archivedById], references: [id])    
+  archivedById  String?
+  archivedBy    User?     @relation("EmergencyContactArchivedBy", fields: [archivedById], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

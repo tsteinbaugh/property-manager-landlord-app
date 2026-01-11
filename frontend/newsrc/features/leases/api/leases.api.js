@@ -35,6 +35,7 @@ function mapLeaseFromApi(o) {
 
     rentAmount: o.rentAmount ?? null,
     status: o.status || "",
+    leaseType: o.leaseType || "",
     startDate: o.startDate || "",
     endDate: o.endDate || "",
 

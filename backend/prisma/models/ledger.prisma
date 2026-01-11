@@ -1,0 +1,93 @@
+model LedgerCharge {
+  id String @id @default(cuid())
+
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  propertyId String
+
+  // If set => lease-scope charge. If null => property-scope charge.
+  lease   Lease?  @relation(fields: [leaseId], references: [id], onDelete: SetNull)
+  leaseId String?
+
+  // immutable truth fields
+  type        LedgerChargeType
+  amountCents Int
+
+  incurredAt DateTime  @default(now())
+  dueDate    DateTime?
+
+  memo String?
+
+  // lifecycle control (avoid deletes)
+  voidedAt   DateTime?
+  voidReason String?
+  voidedById String?
+  voidedBy   User?     @relation("LedgerChargeVoidedBy", fields: [voidedById], references: [id])
+
+  createdAt   DateTime @default(now())
+  createdById String?
+  createdBy   User?    @relation("LedgerChargeCreatedBy", fields: [createdById], references: [id])
+
+  @@index([propertyId])
+  @@index([leaseId])
+  @@index([type])
+  @@index([dueDate])
+  @@index([incurredAt])
+}
+
+model LedgerPayment {
+  id String @id @default(cuid())
+
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  propertyId String
+
+  // Option A: usually set (tenant paid for a lease), but allow null for owner contributions/refunds
+  lease   Lease?  @relation(fields: [leaseId], references: [id], onDelete: SetNull)
+  leaseId String?
+
+  amountCents Int
+  receivedAt  DateTime @default(now())
+
+  method LedgerPaymentMethod?
+  source String? // "Zillow", "Venmo", "Cash", "Check 1021", etc.
+  memo   String?
+
+  // lifecycle control
+  reversedAt    DateTime?
+  reverseReason String?
+  reversedById  String?
+  reversedBy    User?     @relation("LedgerPaymentReversedBy", fields: [reversedById], references: [id])
+
+  createdAt   DateTime @default(now())
+  createdById String?
+  createdBy   User?    @relation("LedgerPaymentCreatedBy", fields: [createdById], references: [id])
+
+  @@index([propertyId])
+  @@index([leaseId])
+  @@index([receivedAt])
+}
+
+enum LedgerChargeType {
+  RENT
+  LATE_FEE
+  UTILITY
+  DAMAGE
+  PET_RENT
+  HOA_DUES
+  HOA_ASSESSMENT
+  MAINTENANCE
+  TURNOVER
+  CREDIT
+  OTHER
+}
+
+enum LedgerPaymentMethod {
+  ACH
+  CARD
+  CHECK
+  CASH
+  ZELLE
+  VENMO
+  PAYPAL
+  CRYPTO
+  OTHER
+}

@@ -1,0 +1,17 @@
+model LateFeePolicy {
+  id   String @id @default(cuid())
+  name String
+
+  // examples of common policies (keep it simple now)
+  flatFeeCents     Int?
+  dailyFeeCents    Int?
+  percentOfRentBps Int? // basis points (e.g. 500 = 5.00%)
+
+  maxFeeCents             Int?
+  gracePeriodDaysOverride Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  leases Lease[]
+}

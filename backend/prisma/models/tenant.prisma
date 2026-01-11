@@ -1,5 +1,5 @@
 model Tenant {
-  id           String     @id @default(cuid())
+  id           String              @id @default(cuid())
   name         String
   email        String?
   phone        String?
@@ -7,7 +7,7 @@ model Tenant {
   heightFeet   Int?
   heightInches Int?
   weight       Int?
-  sex          Sex?      
+  sex          Sex?
   hairColor    HairColor?
   eyeColor     EyeColor?
   bodyBuild    BodyBuild?
@@ -16,13 +16,18 @@ model Tenant {
   employer     String?
   income       Int?
   creditScore  Int?
-  status       TenantStatus @default(DRAFT)
+  status       TenantStatus        @default(DRAFT)
+  statusReason TenantStatusReason?
+  statusNotes  String?
   notes        String?
 
-  archivedAt   DateTime?
+  moveInDate  DateTime?
+  moveOutDate DateTime?
+
+  archivedAt    DateTime?
   archiveReason String?
-  archivedById    String?
-  archivedBy      User? @relation("TenantArchivedBy", fields: [archivedById], references: [id])    
+  archivedById  String?
+  archivedBy    User?     @relation("TenantArchivedBy", fields: [archivedById], references: [id])
 
   userId String? @unique
   user   User?   @relation(fields: [userId], references: [id])
@@ -47,12 +52,16 @@ model Tenant {
   petLinks              TenantPet[]
   emergencyContactLinks TenantEmergencyContact[]
   vehicleLinks          TenantVehicle[]
+
+  // Visits / notices
+  visitsPresent      VisitTenantPresent[]
+  legalNoticeTargets LegalNoticeTenant[]
 }
 
 model TenantAttachment {
   id String @id @default(cuid())
 
-  tenant   Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   tenantId String
 
   url          String
@@ -60,17 +69,27 @@ model TenantAttachment {
   mimeType     String?
   size         Int?
 
-  createdAt DateTime @default(now())
+  createdAt   DateTime @default(now())
   createdById String?
-  createdBy   User? @relation("TenantAttachmentCreatedBy", fields: [createdById], references: [id])
+  createdBy   User?    @relation("TenantAttachmentCreatedBy", fields: [createdById], references: [id])
 
-  archivedAt      DateTime?
-  archiveReason   String?
-  archivedById    String?
-  archivedBy      User? @relation("TenantAttachmentArchivedBy", fields: [archivedById], references: [id])  
+  archivedAt    DateTime?
+  archiveReason String?
+  archivedById  String?
+  archivedBy    User?     @relation("TenantAttachmentArchivedBy", fields: [archivedById], references: [id])
 
   @@index([tenantId])
   @@index([createdById])
   @@index([archivedById])
-  @@index([archivedAt])  
+  @@index([archivedAt])
+}
+
+enum TenantStatusReason {
+  MOVED_OUT
+  EVICTED
+  NON_RENEWED
+  TRANSFERRED
+  MERGED_DUPLICATE
+  DATA_CLEANUP
+  OTHER
 }

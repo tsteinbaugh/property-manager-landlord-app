@@ -10,17 +10,34 @@ model Lease {
   landlord   User   @relation("UserLeases", fields: [landlordId], references: [id])
   landlordId String
 
-  rentAmount Int?
-  status     LeaseStatus @default(DRAFT)
-  startDate  DateTime?
-  endDate    DateTime?
-  leaseType  LeaseType @default(FIXED_TERM)
-  notes      String?
+  rentAmountCents Int?
+  startDate       DateTime?
+  endDate         DateTime?
+  leaseType       LeaseType @default(FIXED_TERM)
 
-  archivedAt      DateTime?
-  archiveReason   String?
-  archivedById    String?
-  archivedBy      User? @relation("LeaseArchivedBy", fields: [archivedById], references: [id])
+  rentDueDay       Int?
+  gracePeriodDays  Int?
+  noticePeriodDays Int?
+  requiresAutoPay  Boolean @default(false)
+
+  lateFeePolicyId String?
+  lateFeePolicy   LateFeePolicy? @relation(fields: [lateFeePolicyId], references: [id])
+
+  securityDepositAmountCents Int?
+  depositHeldSince           DateTime?
+
+  allocationOrder AllocationOrder?
+
+  status       LeaseStatus        @default(DRAFT)
+  statusReason LeaseStatusReason?
+  statusNotes  String?
+
+  notes String?
+
+  archivedAt    DateTime?
+  archiveReason String?
+  archivedById  String?
+  archivedBy    User?     @relation("LeaseArchivedBy", fields: [archivedById], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -28,7 +45,19 @@ model Lease {
   attachments LeaseAttachment[]
 
   createdById String?
-  createdBy   User? @relation("LeaseCreatedBy", fields: [createdById], references: [id])
+  createdBy   User?   @relation("LeaseCreatedBy", fields: [createdById], references: [id])
+
+  ledgerCharges  LedgerCharge[]
+  ledgerPayments LedgerPayment[]
+
+  visits       PropertyVisit[]
+  legalNotices LegalNoticeDelivery[]
+
+  @@index([propertyId])
+  @@index([landlordId])
+  @@index([status])
+  @@index([startDate])
+  @@index([endDate])
 }
 
 enum LeaseType {
@@ -39,7 +68,7 @@ enum LeaseType {
 model LeaseAttachment {
   id String @id @default(cuid())
 
-  lease   Lease   @relation(fields: [leaseId], references: [id], onDelete: Cascade)
+  lease   Lease  @relation(fields: [leaseId], references: [id], onDelete: Cascade)
   leaseId String
 
   url          String
@@ -47,17 +76,38 @@ model LeaseAttachment {
   mimeType     String?
   size         Int?
 
-  createdAt DateTime @default(now())
+  createdAt   DateTime @default(now())
   createdById String?
-  createdBy   User? @relation("LeaseAttachmentCreatedBy", fields: [createdById], references: [id])
+  createdBy   User?    @relation("LeaseAttachmentCreatedBy", fields: [createdById], references: [id])
 
   archivedAt    DateTime?
   archiveReason String?
   archivedById  String?
-  archivedBy    User? @relation("LeaseAttachmentArchivedBy", fields: [archivedById], references: [id])
+  archivedBy    User?     @relation("LeaseAttachmentArchivedBy", fields: [archivedById], references: [id])
 
   @@index([leaseId])
   @@index([createdById])
   @@index([archivedById])
   @@index([archivedAt])
+}
+
+enum LeaseStatusReason {
+  EXPIRED
+  NON_RENEWED
+  NONPAYMENT
+  LEASE_VIOLATION
+  MUTUAL_AGREEMENT
+  UNINHABITABLE
+  PROPERTY_SOLD
+  TENANT_REQUEST
+  LANDLORD_REQUEST
+  EVICTION
+  OTHER
+}
+
+enum AllocationOrder {
+  FEES_FIRST
+  RENT_FIRST
+  UTILITIES_FIRST
+  CUSTOM
 }

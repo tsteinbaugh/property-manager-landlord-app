@@ -1,7 +1,9 @@
 model Property {
-  id         String  @id @default(cuid())
+  id         String        @id @default(cuid())
   name       String?
+  type       PropertyType?
   address1   String
+  address2   String?
   city       String
   state      StateCode
   postalCode String
@@ -9,13 +11,25 @@ model Property {
   bathrooms  Int?
   sqft       Int?
   yearBuilt  Int?
-  status     PropertyStatus  @default(ACTIVE)
-  notes      String?
 
-  archivedAt   DateTime?
+  parkingType   ParkingType?
+  parkingSpaces Int?
+  parkingNotes  String?
+
+  hoaName    String?
+  hoaContact String?
+  hoaNotes   String?
+
+  status       PropertyStatus        @default(ACTIVE)
+  statusReason PropertyStatusReason?
+  statusNotes  String?
+
+  notes String?
+
+  archivedAt    DateTime?
   archiveReason String?
-  archivedById    String?
-  archivedBy      User? @relation("PropertyArchivedBy", fields: [archivedById], references: [id])  
+  archivedById  String?
+  archivedBy    User?     @relation("PropertyArchivedBy", fields: [archivedById], references: [id])
 
   leases Lease[]
 
@@ -27,4 +41,30 @@ model Property {
 
   createdById String?
   createdBy   User?   @relation("PropertyCreatedBy", fields: [createdById], references: [id])
+
+  ledgerCharges  LedgerCharge[]
+  ledgerPayments LedgerPayment[]
+
+  // Visits / notices
+  visits       PropertyVisit[]
+  legalNotices LegalNoticeDelivery[]
+}
+
+enum PropertyType {
+  APARTMENT
+  CONDO
+  TOWNHOME
+  HOUSE
+  MULTI_FAMILY
+  OTHER
+}
+
+enum PropertyStatusReason {
+  SOLD
+  OFFLINE_RENOVATION
+  OFFLINE_REPAIR
+  OFFLINE_CITY_ORDER
+  OFFLINE_OWNER_USE
+  LEGAL_HOLD
+  OTHER
 }

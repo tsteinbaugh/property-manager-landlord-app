@@ -1,18 +1,18 @@
 model Pet {
-  id       String  @id @default(cuid())
+  id String @id @default(cuid())
 
-  name       String
-  type       String?
-  breed      String?
-  weight   Int?
-  age        Int?
-  license    String?
-  notes      String?
+  name    String
+  type    String?
+  breed   String?
+  weight  Int?
+  age     Int?
+  license String?
+  notes   String?
 
-  archivedAt   DateTime?
+  archivedAt    DateTime?
   archiveReason String?
-  archivedById    String?
-  archivedBy      User? @relation("PetArchivedBy", fields: [archivedById], references: [id])    
+  archivedById  String?
+  archivedBy    User?     @relation("PetArchivedBy", fields: [archivedById], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

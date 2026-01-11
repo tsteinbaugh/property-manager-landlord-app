@@ -113,7 +113,7 @@ export default function VehicleCard({ vehicle, onClick, variant = "summary" }) {
 
                 {vm.parking ? (
                   <div>
-                    Parking space: 
+                    Location/assigned space: 
                     <span className={shared.muted}> {vm.parking}</span>
                   </div>
                 ) : null}

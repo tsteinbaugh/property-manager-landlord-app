@@ -1,5 +1,5 @@
 model Occupant {
-  id       String  @id @default(cuid())
+  id String @id @default(cuid())
 
   name         String
   phone        String?
@@ -9,17 +9,17 @@ model Occupant {
   heightFeet   Int?
   heightInches Int?
   weight       Int?
-  sex          Sex?      
+  sex          Sex?
   hairColor    HairColor?
-  eyeColor     EyeColor? 
+  eyeColor     EyeColor?
   bodyBuild    BodyBuild?
   markings     String?
   notes        String?
-  
-  archivedAt   DateTime?
+
+  archivedAt    DateTime?
   archiveReason String?
-  archivedById    String?
-  archivedBy      User? @relation("OccupantArchivedBy", fields: [archivedById], references: [id])    
+  archivedById  String?
+  archivedBy    User?     @relation("OccupantArchivedBy", fields: [archivedById], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

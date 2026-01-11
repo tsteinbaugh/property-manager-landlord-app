@@ -10,13 +10,13 @@ model User {
   updatedAt DateTime @updatedAt
 
   // Relations
-  leases                  Lease[]              @relation("UserLeases")
+  leases                   Lease[]           @relation("UserLeases")
   leaseAttachmentsCreated  LeaseAttachment[] @relation("LeaseAttachmentCreatedBy")
   leaseAttachmentsArchived LeaseAttachment[] @relation("LeaseAttachmentArchivedBy")
 
   authTokens AuthToken[]
 
-  tenant Tenant?
+  tenant                    Tenant?
   tenantAttachmentsCreated  TenantAttachment[] @relation("TenantAttachmentCreatedBy")
   tenantAttachmentsArchived TenantAttachment[] @relation("TenantAttachmentArchivedBy")
 
@@ -50,11 +50,51 @@ model User {
   usersCreated User[]  @relation("UserCreatedBy")
 
   //who archieved it
-  leasesArchived Lease[] @relation("LeaseArchivedBy")
-  propertiesArchived Property[] @relation("PropertyArchivedBy")
-  tenantsArchived Tenant[] @relation("TenantArchivedBy")
-  occupantsArchived Occupant[] @relation("OccupantArchivedBy")
+  leasesArchived            Lease[]            @relation("LeaseArchivedBy")
+  propertiesArchived        Property[]         @relation("PropertyArchivedBy")
+  tenantsArchived           Tenant[]           @relation("TenantArchivedBy")
+  occupantsArchived         Occupant[]         @relation("OccupantArchivedBy")
   emergencyContactsArchived EmergencyContact[] @relation("EmergencyContactArchivedBy")
-  petsArchived Pet[] @relation("PetArchivedBy")
-  vehiclesArchived Vehicle[] @relation("VehicleArchivedBy")
+  petsArchived              Pet[]              @relation("PetArchivedBy")
+  vehiclesArchived          Vehicle[]          @relation("VehicleArchivedBy")
+
+  // Ledger
+  ledgerChargesCreated   LedgerCharge[]  @relation("LedgerChargeCreatedBy")
+  ledgerChargesVoided    LedgerCharge[]  @relation("LedgerChargeVoidedBy")
+  ledgerPaymentsCreated  LedgerPayment[] @relation("LedgerPaymentCreatedBy")
+  ledgerPaymentsReversed LedgerPayment[] @relation("LedgerPaymentReversedBy")
+
+  // Visits
+  propertyVisitsEntered PropertyVisit[] @relation("PropertyVisitEnteredBy")
+  propertyVisitsCreated PropertyVisit[] @relation("PropertyVisitCreatedBy")
+
+  // Legal notices
+  legalNoticesServed  LegalNoticeDelivery[] @relation("LegalNoticeServedBy")
+  legalNoticesCreated LegalNoticeDelivery[] @relation("LegalNoticeCreatedBy")
+}
+
+enum AuthTokenKind {
+  INVITE
+  RESET_PASSWORD
+}
+
+model AuthToken {
+  id        String        @id @default(cuid())
+  token     String        @unique
+  kind      AuthTokenKind
+  user      User          @relation(fields: [userId], references: [id])
+  userId    String
+  email     String
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime      @default(now())
+}
+
+enum Role {
+  SYSADMIN
+  LANDLORD
+  PROPERTY_MANAGER
+  MAINTENANCE_TECH
+  TENANT
+  CLEANER
 }
