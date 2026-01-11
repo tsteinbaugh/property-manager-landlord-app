@@ -14,6 +14,7 @@ function parsePropertyPost(body) {
   const {
     name,
     address1,
+    address2,
     city,
     state,
     postalCode,
@@ -45,7 +46,10 @@ function parsePropertyPost(body) {
     return { error: "street address and city are required" };
   }
 
-  // optional strings
+  // optional 
+  const cleanAddress2 = optionalTrimToNull(name);
+  if (cleanAddress2 === INVALID) return { error: "address unit must be a string" };
+
   const nameVal = optionalTrimToNull(name);
   if (nameVal === INVALID) return { error: "name must be a string" };
 
@@ -69,6 +73,7 @@ function parsePropertyPost(body) {
     data: {
       name: nameVal ?? null,
       address1: cleanAddress1,
+      address2: cleanAddress2,
       city: cleanCity,
       state: stateNorm,
       postalCode: zipNorm,
@@ -88,6 +93,7 @@ function parsePropertyPatch(body) {
   const {
     name,
     address1,
+    address2,
     city,
     state,
     postalCode,
@@ -112,6 +118,12 @@ function parsePropertyPatch(body) {
     const v = optionalTrimToNull(notes);
     if (v === INVALID) return { error: "notes must be a string" };
     data.notes = v;
+  }
+
+  if (address2 !== undefined) {
+    const v = optionalTrimToNull(address2);
+    if (v === INVALID) return { error: "address2 must be a string" };
+    data.address2 = v;
   }
 
   // address fields (if provided, must be non-empty)

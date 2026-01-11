@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import css from "@features/auth/SignInCard.module.css";
-import buttonCss from "@shared/styles/Buttons.module.css";
 import React from "react";
 
 import { useUser } from "@app/providers.jsx";
@@ -83,7 +82,7 @@ export default function SignIn() {
           {/* No "Create account" link — onboarding is controlled by Admin */}
         </div>
 
-        <button type="submit" className={buttonCss?.primaryButton || css.button}>
+        <button type="submit" className={css?.primaryButton || css.button}>
           Sign In
         </button>
 

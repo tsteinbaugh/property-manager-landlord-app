@@ -54,8 +54,6 @@ function registerPropertyRoutes(app, prisma) {
 
   // ============================================================
   // POST /api/properties - create a property
-  // Required: address1, city, state, postalCode
-  // Optional: name, bedrooms, bathrooms, sqft, yearBuilt, notes
   // ============================================================
   app.post(
     "/api/properties",

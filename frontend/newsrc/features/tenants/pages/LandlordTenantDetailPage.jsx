@@ -18,7 +18,10 @@ function leaseLabel(lease) {
   const base =
     lease?.propertyName ||
     lease?.property?.name ||
-    lease?.property?.address1 ||
+    (lease?.property?.address1 && lease?.property?.address2
+      ? `${lease.property.address1} ${lease.property.address2}`
+      : lease?.property?.address1) ||
+    null;
     "";
   return base ? `Lease for ${base}` : "Lease";
 }

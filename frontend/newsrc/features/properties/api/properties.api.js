@@ -7,18 +7,20 @@ function mapPropertyFromApi(p) {
   const archived = !!p.archivedAt;
 
   const address1 = p.address1 || "";
+  const address2 = p.address2 || "";
   const city = p.city || "";
   const state = p.state || "";
   const postalCode = p.postalCode || "";
 
   const address =
-    p.address || [address1, city, state, postalCode].filter(Boolean).join(", ");
+    p.address || [address1, address2, city, state, postalCode].filter(Boolean).join(", ");
 
   return {
     id: p.id,
     name: p.name || "",
 
     address1,
+    address2,
     city,
     state,
     postalCode,

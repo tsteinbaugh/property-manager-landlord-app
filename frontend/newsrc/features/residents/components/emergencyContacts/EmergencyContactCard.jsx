@@ -17,6 +17,7 @@ export default function EmergencyContactCard({ emergencyContact, onClick, varian
     const relation = formatText(emergencyContact.relation, { fallback: null });
 
     const street = formatText(emergencyContact.address1, { fallback: null });
+    const unit = formatText(emergencyContact.address2, { fallback: null });
     const city = formatText(emergencyContact.city, { fallback: null });
     const state = formatEnumLabel(emergencyContact.state, { fallback: null });
     const postalCode = formatText(emergencyContact.postalCode, { fallback: null });
@@ -32,7 +33,8 @@ export default function EmergencyContactCard({ emergencyContact, onClick, varian
         </div>
         <div className={shared.indent}>
           <div>
-            {street ? <div>{street}</div> : null}
+            {street && !unit ? <div>{street}</div> : null}
+            {street && unit ? <div>{street} {unit}</div> : null}
             {cityStateZip ? <div className={shared.muted}>{cityStateZip}</div> : null}
           </div>
         </div>
@@ -49,6 +51,7 @@ export default function EmergencyContactCard({ emergencyContact, onClick, varian
       phone,
       email,
       street,
+      unit,
       cityStateZip,
       addressBlock,
       relation,

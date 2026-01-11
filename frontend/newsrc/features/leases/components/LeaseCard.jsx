@@ -19,14 +19,15 @@ export default function LeaseCard({
 
     const propName = formatText(lease?.property?.name, { fallback: null });
     const street = formatText(lease?.property?.address1, { fallback: null });
-    const base = propName || (street ? `${street}` : null) || null;
+    const unit = formatText(lease?.property?.address2, { fallback: null});
+    const base = propName || (street && unit ? `${street} ${unit}` : street && !unit ? `${street}` : null) || null;
     const displayName = base ? `Lease for ${base}` : "Lease";
 
     const startDate = formatDateLong(lease?.startDate, { fallback: null });
     const endDate = formatDateLong(lease?.endDate, { fallback: null });
     const term = startDate || endDate ? `${startDate || "—"} → ${endDate || "—"}` : null;
 
-    const rentAmount = formatMoney(lease?.rentAmount, { fallback: null });
+    const rentAmountCents = formatMoney(lease?.rentAmountCents, { fallback: null });
 
     const leaseType = formatEnumLabel(lease?.leaseType, { fallback: null });
 
@@ -39,7 +40,7 @@ export default function LeaseCard({
       displayName,
       term,
       leaseType,
-      rentAmount,
+      rentAmountCents,
       notes,
       attachments,
     };
@@ -74,10 +75,10 @@ export default function LeaseCard({
               {vm.term}
             </div>
           ) : null}
-          {vm.rentAmount ? (
+          {vm.rentAmountCents ? (
             <div>
               <strong>Total Rent: </strong>
-              ${vm.rentAmount}/month
+              ${vm.rentAmountCents}/month
             </div>
           ) : null}
           {vm.notes ? (
@@ -123,13 +124,13 @@ export default function LeaseCard({
             {vm.term}
           </div>
         ) : null}
-        {vm.rentAmount ? (
+        {vm.rentAmountCents ? (
           <div>
             <strong>Total Rent: </strong>
-            ${vm.rentAmount}/month
+            ${vm.rentAmountCents}/month
           </div>
         ) : null}
-        {!vm.term && !vm.rentAmount ? (
+        {!vm.term && !vm.rentAmountCents ? (
           <div>
             Click for more details
           </div>

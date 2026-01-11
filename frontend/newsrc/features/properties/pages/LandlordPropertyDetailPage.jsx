@@ -18,13 +18,14 @@ import shared from "@shared/styles/ui.shared.module.css";
 const SHOW_ARCHIVED_LINKED = false;
 
 function propertyTitle(p) {
-  return p?.name || p?.address1 || "Property";
+  return p?.name || p?.address1 && p?.address2 || p?.address1 || "Property";
 }
 
 function leaseTitle(lease, propTitle) {
   const base =
     lease?.propertyName ||
     lease?.property?.name ||
+    lease?.property?.address1 && lease?.property?.address2 ||
     lease?.property?.address1 ||
     propTitle ||
     "";
@@ -44,8 +45,8 @@ function leaseLabel(lease) {
           : "(no dates)";
 
   const rent =
-    lease.rentAmount !== null && lease.rentAmount !== undefined
-      ? ` · $${formatMoney(lease.rentAmount)}/mo`
+    lease.rentAmountCents !== null && lease.rentAmountCents !== undefined
+      ? ` · $${formatMoney(lease.rentAmountCents)}/mo`
       : "";
 
   return `${status} · ${dates}${rent}`;

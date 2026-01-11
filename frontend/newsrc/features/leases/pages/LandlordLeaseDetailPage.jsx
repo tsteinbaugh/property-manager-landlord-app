@@ -18,10 +18,14 @@ function leaseLabel(lease) {
   const base =
     lease?.propertyName ||
     lease?.property?.name ||
-    lease?.property?.address1 ||
-    "";
+    (lease?.property?.address1 && lease?.property?.address2
+      ? `${lease.property.address1} ${lease.property.address2}`
+      : lease?.property?.address1) ||
+    null;
+
   return base ? `Lease for ${base}` : "Lease";
 }
+
 
 function normalizeLinkedEntities(tenant) {
   const occupants = Array.isArray(tenant?.occupants)
@@ -126,7 +130,7 @@ export default function LandlordLeaseDetailPage() {
     const propertyName =
       property?.name ||
       (property?.address1
-        ? [property.address1, property.city, property.state, property.postalCode]
+        ? [property.address1, property.address2, property.city, property.state, property.postalCode]
             .filter(Boolean)
             .join(", ")
         : "") ||

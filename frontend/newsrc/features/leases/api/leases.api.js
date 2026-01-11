@@ -33,7 +33,7 @@ function mapLeaseFromApi(o) {
   return {
     id: o.id,
 
-    rentAmount: o.rentAmount ?? null,
+    rentAmountCents: o.rentAmountCents ?? null,
     status: o.status || "",
     leaseType: o.leaseType || "",
     startDate: o.startDate || "",

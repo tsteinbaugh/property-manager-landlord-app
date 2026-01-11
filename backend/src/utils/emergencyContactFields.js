@@ -37,6 +37,9 @@ function parseEmergencyContactPost(body) {
   const address1 = optionalTrimToNull(src.address1);
   if (address1 === INVALID) return { error: "address1 must be a string" };
 
+  const address2 = optionalTrimToNull(src.address2);
+  if (address2 === INVALID) return { error: "address2 must be a string" };  
+
   const city = optionalTrimToNull(src.city);
   if (city === INVALID) return { error: "city must be a string" };
 
@@ -62,6 +65,7 @@ function parseEmergencyContactPost(body) {
       relation: relation ?? null,
       notes: notes ?? null,
       address1: address1 ?? null,
+      address2: address2 ?? null,
       city: city ?? null,
       state: stateNorm ?? null,
       postalCode: zipNorm ?? null,
@@ -92,6 +96,12 @@ function parseEmergencyContactPatch(body, { existing } = {}) {
     if (v === INVALID) return { error: "address1 must be a string" };
     data.address1 = v;
   }
+
+  if (src.address2 !== undefined) {
+    const v = optionalTrimToNull(src.address2);
+    if (v === INVALID) return { error: "address2 must be a string" };
+    data.address2 = v;
+  }  
 
   if (src.city !== undefined) {
     const v = optionalTrimToNull(src.city);

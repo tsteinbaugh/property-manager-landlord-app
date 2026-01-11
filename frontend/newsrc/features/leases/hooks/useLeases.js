@@ -23,7 +23,7 @@ export function useLeases({ includeArchived = false, role = ROLES.SYSADMIN } = {
     setError(null);
 
     try {
-      const list = await leasesApi.list();
+      const list = await leasesApi.listAll();
       const filtered = includeArchived
         ? list
         : list.filter((l) => !l.archived);

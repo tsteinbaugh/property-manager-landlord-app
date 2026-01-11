@@ -60,8 +60,8 @@ function parseLeasePost(body) {
   const propertyLabel = optionalTrimToNull(src.propertyLabel);
   if (propertyLabel === INVALID) return { error: "propertyLabel must be a string" };
 
-  const rentAmount = parseMoneyOrNullOpt(src.rentAmount);
-  if (rentAmount === INVALID) return { error: "rentAmount must be a non-negative number" };
+  const rentAmountCents = parseMoneyOrNullOpt(src.rentAmountCents);
+  if (rentAmountCents === INVALID) return { error: "rent amount must be a non-negative number" };
 
   const startDate = parseDateOrNullOpt(src.startDate);
   if (startDate === INVALID) return { error: "startDate must be a valid date" };
@@ -88,7 +88,7 @@ function parseLeasePost(body) {
       landlordId: landlordId ?? null,
       tenantIds,
       propertyLabel: propertyLabel ?? null,
-      rentAmount: rentAmount ?? null,
+      rentAmountCents: rentAmountCents ?? null,
       startDate: startDate ?? null,
       endDate: endDate ?? null,
       status: statusRes.value,
@@ -110,10 +110,10 @@ function parseLeasePatch(body) {
   }
 
   // rentAmount
-  if (src.rentAmount !== undefined) {
-    const v = parseMoneyOrNullOpt(src.rentAmount);
-    if (v === INVALID) return { error: "rentAmount must be a non-negative number" };
-    data.rentAmount = v;
+  if (src.rentAmountCents !== undefined) {
+    const v = parseMoneyOrNullOpt(src.rentAmounCentst);
+    if (v === INVALID) return { error: "rent amount must be a non-negative number" };
+    data.rentAmountCents = v;
   }
 
   // dates (validate ordering if either provided)

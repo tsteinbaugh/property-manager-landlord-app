@@ -57,7 +57,7 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
           landlordId,
           tenantIds,
           propertyLabel,
-          rentAmount,
+          rentAmountCents,
           startDate,
           endDate,
           status,
@@ -98,7 +98,7 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
           landlord: { connect: { id: landlordId } },
 
           propertyLabel,
-          rentAmount,
+          rentAmountCents,
           status,
           startDate,
           endDate,
@@ -220,19 +220,25 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
   // GET /api/leases - list all leases (scoped by landlord if logged in)
   // Optional ?includeArchived=0/1 flag
   // ============================================================
-  app.get("/api/leases", async (req, res) => {
-    try {
-      const user = req.user || null;
-      const includeArchived =
-        req.query.includeArchived === "1" || req.query.includeArchived === "true";
-
-      const leases = await listLeases(prisma, { user, includeArchived });
-      return res.json(leases.map(shapeLease));
-    } catch (err) {
-      console.error("Error in GET /api/leases", err);
-      return res.status(500).json({ error: "Server error" });
+  app.get(
+    "/api/leases",
+    auth,
+    requireLandlordOrSysadmin,
+    async (req, res) => {
+      try {
+        const user = req.user || null;
+        const includeArchived =
+          req.query.includeArchived === "1" ||
+          req.query.includeArchived === "true";
+      
+        const leases = await listLeases(prisma, { user, includeArchived });
+        return res.json(leases.map(shapeLease));
+      } catch (err) {
+        console.error("Error in GET /api/leases", err);
+        return res.status(500).json({ error: err.message || "Server error" });
+      }
     }
-  });
+  );
 
   // ============================================================
   // GET /api/leases/:id - get a single lease (scoped)

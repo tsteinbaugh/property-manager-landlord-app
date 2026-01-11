@@ -26,7 +26,7 @@ function propertyLabel(p) {
   if (!p) return "Property";
   return (
     p.name ||
-    [p.address1, p.city, p.state, p.postalCode].filter(Boolean).join(", ") ||
+    [p.address1, p.address2, p.city, p.state, p.postalCode].filter(Boolean).join(", ") ||
     "Property"
   );
 }
@@ -46,6 +46,7 @@ export default function LandlordAddPropertyPage() {
   // ---------- form state ----------
   const [name, setName] = useState("");
   const [address1, setAddress1] = useState("");
+  const [address2, setAddress2] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [postalCode, setPostalCode] = useState("");
@@ -157,6 +158,7 @@ export default function LandlordAddPropertyPage() {
 
         setName(p.name || "");
         setAddress1(p.address1 || "");
+        setAddress2(p.address2 || "");
         setCity(p.city || "");
         setState(p.state || "");
         setPostalCode(p.postalCode || "");
@@ -217,6 +219,7 @@ export default function LandlordAddPropertyPage() {
     const input = {
       name,
       address1,
+      assress2,
       city,
       state,
       postalCode,
@@ -230,6 +233,7 @@ export default function LandlordAddPropertyPage() {
     const schema = {
       name: optionalTrimToNull,
       address1: requiredTrimmedString,
+      address2: optionalTrimToNull,
       city: requiredTrimmedString,
       state: (v) => {
         const out = normalizeState(v);
@@ -403,6 +407,21 @@ export default function LandlordAddPropertyPage() {
                   disabled={isSubmitting}
                 />
                 {touched.address1 && !String(address1).trim() ? <div className={shared.error}>Enter a street address</div> : null}
+              </div>
+            </div>
+
+            <div className={shared.rowWrap}>
+              <div className={`${card.field} ${shared.full}`}>
+                <input
+                  id="address2"
+                  type="text"
+                  value={address2}
+                  onChange={(e) => setAddress2(e.target.value)}
+                  onBlur={() => setTouched((t) => ({ ...t, address2: true }))}
+                  placeholder="Unit (3E)"
+                  className={card.control}
+                  disabled={isSubmitting}
+                />
               </div>
             </div>
 

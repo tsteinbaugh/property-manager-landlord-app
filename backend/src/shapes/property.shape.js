@@ -5,6 +5,7 @@ function shapeProperty(property) {
         id: property.id,
         name: property.name,
         address1: property.address1,
+        address2: property.address2,
         city: property.city,
         state: property.state,
         postalCode: property.postalCode,

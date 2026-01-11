@@ -43,6 +43,7 @@ export default function LandlordAddEmergencyContactPage() {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [address1, setAddress1] = useState("");
+  const [address2, setAddress2] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [postalCode, setPostalCode] = useState("");
@@ -147,6 +148,7 @@ export default function LandlordAddEmergencyContactPage() {
         setPhone(ec.phone || "");
         setEmail(ec.email || "");
         setAddress1(ec.address1 || "");
+        setAddress2(ec.address2 || "");
         setCity(ec.city || "");
         setState(ec.state || "");
         setPostalCode(ec.postalCode || "");
@@ -205,6 +207,7 @@ export default function LandlordAddEmergencyContactPage() {
       phone,
       email,
       address1,
+      address2,
       city,
       state,
       postalCode,
@@ -228,6 +231,7 @@ export default function LandlordAddEmergencyContactPage() {
       },
 
       address1: optionalTrimToNull,
+      address2: optionalTrimToNull,
       city: optionalTrimToNull,
       state: normalizeState,
       postalCode: normalizeZipUS,
@@ -422,6 +426,20 @@ export default function LandlordAddEmergencyContactPage() {
                 />
               </div>
             </div>
+
+            <div className={shared.rowWrap}>
+              <div className={`${card.field} ${shared.full}`}>
+                <input
+                  id="address2"
+                  type="text"
+                  value={address2}
+                  onChange={(e) => setAddress2(e.target.value)}
+                  placeholder="Unit (3E)"
+                  className={card.control}
+                  disabled={isSubmitting}
+                />
+              </div>
+            </div>            
 
             <div className={`${shared.rowNoWrap} ${shared.mt3}`}>
               <div className={`${card.field} ${shared.growEqual}`}>

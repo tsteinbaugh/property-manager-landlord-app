@@ -13,6 +13,7 @@ export default function PropertyCard({ property, onClick, variant = "summary" })
     const name = formatText(property.name, { fallback: null });
 
     const street = formatText(property.address1, { fallback: null });
+    const unit = formatText(property.address2, { fallback: null });
     const city = formatText(property.city, { fallback: null });
     const state = formatText(property.state, { fallback: null });
     const postalCode = formatText(property.postalCode, { fallback: null });
@@ -27,7 +28,7 @@ export default function PropertyCard({ property, onClick, variant = "summary" })
         </div>
         <div className={shared.indent}>
           <div>
-            {street ? <div>{street}</div> : null}
+            {street && unit? <div>{street} {unit}</div> : street && !unit ? <div>{street}</div> : null}
             {cityStateZip ? <div className={shared.muted}>{cityStateZip}</div> : null}
           </div>
         </div>
@@ -48,6 +49,7 @@ export default function PropertyCard({ property, onClick, variant = "summary" })
       isArchived,
       displayName,
       street,
+      unit,
       cityStateZip,
       addressBlock,
       bedrooms,

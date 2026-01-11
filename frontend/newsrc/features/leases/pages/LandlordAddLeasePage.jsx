@@ -24,10 +24,10 @@ import {
 } from "@shared/utils/validation.js";
 
 function leaseLabel(l) {
-  const propName = l?.property?.name || l?.propertyName || l?.property?.address1 || "";
+  const propName = l?.property?.name || l?.propertyName || l?.property?.address1 && l?.property?.address2 || l?.property?.address1 ||  "";
   const base = propName ? `Lease for ${propName}` : "Lease";
   const term = l?.startDate || l?.endDate ? `${l.startDate || "—"} → ${l.endDate || "—"}` : "";
-  const rent = l?.rentAmount != null ? ` • $${l.rentAmount}/mo` : "";
+  const rent = l?.rentAmountCents != null ? ` • $${l.rentAmountCents}/mo` : "";
   return term ? `${base} • ${term}${rent}` : `${base}${rent}`;
 }
 
@@ -49,7 +49,7 @@ export default function LandlordAddLeasePage() {
 
   // ---------- form state ----------
   const [leaseType, setLeaseType] = useState("");
-  const [rentAmount, setRentAmount] = useState("");
+  const [rentAmountCents, setRentAmountCents] = useState("");
   const [status, setStatus] = useState("DRAFT");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -62,7 +62,7 @@ export default function LandlordAddLeasePage() {
 
   const [touched, setTouched] = useState({
     leaseType: false,
-    rentAmount: false,
+    rentAmountCents: false,
     startDate: false,
     status: false,
   });
@@ -186,7 +186,7 @@ export default function LandlordAddLeasePage() {
         }
 
         setLeaseType(l.leaseType || "");
-        setRentAmount(l.rentAmount == null ? "" : String(l.rentAmount));
+        setRentAmountCents(l.rentAmountCents == null ? "" : String(l.rentAmountCents));
         setStatus(l.status || "DRAFT");
 
         const s = parseDateOrNullOpt(l.startDate);
@@ -267,7 +267,7 @@ export default function LandlordAddLeasePage() {
     const input = {
       leaseType,
       status,
-      rentAmount,
+      rentAmountCents,
       startDate,
       endDate,
       notes,
@@ -284,7 +284,7 @@ export default function LandlordAddLeasePage() {
         if (out === null) return INVALID;
         return out;
       },
-      rentAmount: (v) => {
+      rentAmountCents: (v) => {
         const out = parseMoneyOrNullOpt(v, { min: 0, max: 1_000_000_000 });
         if (out === null) return INVALID;
         return out;
@@ -302,7 +302,7 @@ export default function LandlordAddLeasePage() {
       errorMessages: {
         leaseType: "Lease type is required and must be valid.",
         status: "Status is required and must be valid.",
-        rentAmount: "Rent amount is required and must be a non-negative number.",
+        rentAmountCents: "Rent amount is required and must be a non-negative number.",
         startDate: "Start date is required and must be valid.",
         endDate: "End date is invalid.",
       },
@@ -348,7 +348,7 @@ export default function LandlordAddLeasePage() {
     const targetName =
       contextKind === "TENANT"
         ? tenant?.name || tenant?.email || "Unnamed tenant"
-        : property?.name || property?.address1 || "Unnamed property";
+        : property?.name || property?.address1 && property?.address2 || property?.address1 || "Unnamed property";
 
     const ok = window.confirm(
       `Link ${label} to ${contextKind === "TENANT" ? "tenant" : "property"} "${targetName}"?\n\n` +
@@ -396,7 +396,7 @@ export default function LandlordAddLeasePage() {
   // ------------------------------------------------------------
   const handleSubmitForContext = async (e) => {
     e.preventDefault();
-    setTouched({ leaseType: true, rentAmount: true, startDate: true, status: true });
+    setTouched({ leaseType: true, rentAmountCents: true, startDate: true, status: true });
     setFormError("");
 
     if (hasBothContexts) return;
@@ -434,7 +434,7 @@ export default function LandlordAddLeasePage() {
   // ------------------------------------------------------------
   const handleSubmitGlobal = async (e) => {
     e.preventDefault();
-    setTouched({ leaseType: true, rentAmount: true, startDate: true, status: true });
+    setTouched({ leaseType: true, rentAmountCents: true, startDate: true, status: true });
     setFormError("");
 
     const { ok, payload } = validateAndSetError();
@@ -529,20 +529,20 @@ export default function LandlordAddLeasePage() {
           </div>
 
           <div className={card.field}>
-            <label className={card.label} htmlFor="rentAmount">
+            <label className={card.label} htmlFor="rentAmountCents">
               Total rent (per month) <span className={card.required}>*</span>
             </label>
             <input
-              id="rentAmount"
+              id="rentAmountCents"
               type="number"
-              value={rentAmount}
-              onChange={(e) => setRentAmount(e.target.value)}
-              onBlur={() => setTouched((t) => ({ ...t, rentAmount: true }))}
+              value={rentAmountCents}
+              onChange={(e) => setRentAmountCents(e.target.value)}
+              onBlur={() => setTouched((t) => ({ ...t, rentAmountCents: true }))}
               placeholder="2500"
-              className={ctrl(touched.rentAmount && !String(rentAmount).trim())}
+              className={ctrl(touched.rentAmountCents && !String(rentAmountCents).trim())}
               disabled={isSubmitting}
             />
-            {touched.rentAmount && !String(rentAmount).trim() ? (
+            {touched.rentAmountCents && !String(rentAmountCents).trim() ? (
               <div className={shared.error}>Enter rent amount</div>
             ) : null}
           </div>
@@ -672,7 +672,7 @@ export default function LandlordAddLeasePage() {
     const targetName =
       contextKind === "TENANT"
         ? tenant?.name || tenant?.email || "Unnamed tenant"
-        : property?.name || property?.address1 || "Unnamed property";
+        : property?.name || property?.address1 && property?.address2 || property?.address1 || "Unnamed property";
 
     return (
       <div className={page.page}>

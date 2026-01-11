@@ -5,6 +5,7 @@ function shapeEmergencyContact(emergencyContact) {
     phone: emergencyContact.phone,
     email: emergencyContact.email,
     address1: emergencyContact.address1,
+    address2: emergencyContact.address2,
     city: emergencyContact.city,
     state: emergencyContact.state,
     postalCode: emergencyContact.postalCode,

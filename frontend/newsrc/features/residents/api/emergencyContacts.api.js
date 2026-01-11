@@ -20,6 +20,7 @@ function mapEmergencyContactFromApi(e) {
     phone: e.phone,
     email: e.email,
     address1: e.address1 || "",
+    address2: e.address2 || "",
     city: e.city  || "",
     state: e.state || "",
     postalCode: e.postalCode || "",

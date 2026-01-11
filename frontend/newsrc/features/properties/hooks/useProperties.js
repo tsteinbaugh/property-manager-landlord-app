@@ -32,6 +32,7 @@ export function useProperties({
       const mapped = props.map((p) => {
         const name = p.name || p.address1;
         const address1 = p.address1 || "";
+        const address2 = p.address2 || "";
         const city = p.city || "";
         const state = p.state || "";
         const postalCode = p.postalCode || "";
@@ -40,10 +41,11 @@ export function useProperties({
           id: p.id,
           name,
           address1,
+          address2,
           city,
           state,
           postalCode,
-          address: `${address1}, ${city}, ${state} ${postalCode}`.trim(),
+          address: `${address1}, ${address2}, ${city}, ${state} ${postalCode}`.trim(),
           archived: !!p.archivedAt,
         };
       });

@@ -88,3 +88,20 @@
   margin-bottom: 12px;
   text-align: left;
 }
+
+.primaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #2563eb;
+  background: #3b82f6;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+.primaryButton:hover { background: #2563eb; border-color: #1d4ed8; }
+.primaryButton:disabled { opacity: .6; cursor: not-allowed; }
