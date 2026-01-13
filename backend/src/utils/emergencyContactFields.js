@@ -49,11 +49,23 @@ function parseEmergencyContactPost(body) {
     return { error: "state must be a valid US state (2-letter) or full name, or DC" };
   }
 
-  // Optional: postalCode/zip (ZIP5 or ZIP+4) - allow null/"" => null
+  // Optional: postalCode/zip (ZIP5 or ZIP+4)
   const zipInput = src.postalCode ?? src.zip;
-  const zipNorm = normalizeZipUS(zipInput);
-  if (zipNorm === INVALID) {
-    return { error: "postalCode must be a valid US ZIP (12345 or 12345-6789)" };
+
+  let zipNorm = null;
+
+  // Only validate if something meaningful was provided
+  if (zipInput !== undefined && zipInput !== null && String(zipInput).trim() !== "") {
+    zipNorm = normalizeZipUS(zipInput);
+
+    if (zipNorm === INVALID) {
+      console.log("[EC POST ZIP INVALID] raw zipInput =", zipInput);
+      return {
+        error: "[EC_FIELDS_V1] postalCode must be a valid US ZIP (12345 or 12345-6789)",
+      };
+    }
+  } else {
+    zipNorm = null;
   }
 
   return {
@@ -124,12 +136,23 @@ function parseEmergencyContactPatch(body, { existing } = {}) {
   }
 
   const zipInput = src.postalCode ?? src.zip;
+  
   if (zipInput !== undefined) {
-    const zipNorm = normalizeZipUS(zipInput);
-    if (zipNorm === INVALID) {
-      return { error: "postalCode must be a valid US ZIP (12345 or 12345-6789)" };
+    // allow clearing
+    if (zipInput === null || String(zipInput).trim() === "") {
+      data.postalCode = null;
+    } else {
+      const zipNorm = normalizeZipUS(zipInput);
+    
+      if (zipNorm === INVALID) {
+        console.log("[EC PATCH ZIP INVALID] raw zipInput =", zipInput);
+        return {
+          error: "[EC_FIELDS_V1] postalCode must be a valid US ZIP (12345 or 12345-6789)",
+        };
+      }
+    
+      data.postalCode = zipNorm;
     }
-    data.postalCode = zipNorm; // may be null
   }
 
   // phone: required overall; if provided in PATCH must be non-empty and valid

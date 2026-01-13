@@ -9,6 +9,7 @@ import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
 import { ROLES } from "@lib/rbac/roles.js";
 import VehicleCard from "@features/residents/components/vehicles/VehicleCard.jsx";
 import LinkageCard from "@shared/ui/cards/LinkageCard.jsx";
+import ArchivedHeaderActions from "@shared/ui/actions/ArchivedHeaderActions.jsx";
 
 import page from "@shared/styles/ui.pages.module.css";
 import card from "@shared/styles/ui.cards.module.css";
@@ -80,12 +81,11 @@ export default function LandlordVehicleDetailsPage() {
     };
   }, [vehicleId, token]);
 
-  const isArchived = !!vehicle?.archivedAt;
+  const isArchived = !!(vehicle?.archivedAt || vehicle?.archived);
 
   const canEditNow = canUpdate && (!isArchived || isSysAdmin);
   const canArchiveNow = !isArchived && canArchiveGrant;
   const canUnarchiveNow = isArchived && isSysAdmin;
-  const showArchiveLink = canArchiveNow || canUnarchiveNow;
 
   const title = vehicleLabel(vehicle);
 
@@ -208,31 +208,22 @@ export default function LandlordVehicleDetailsPage() {
           <div>
             <h1 className={page.title}>{title}</h1>
 
-            <div className={card.headerLinksRow}>
-              {canEditNow ? (
-                <button type="button" className={card.linkAction} onClick={goEditVehicle}>
-                  Edit vehicle
-                </button>
-              ) : null}
-
-              {showArchiveLink ? (
-                <button
-                  type="button"
-                  className={card.linkAction}
-                  onClick={handleToggleArchive}
-                  disabled={isArchiving}
-                  aria-disabled={isArchiving ? "true" : "false"}
-                >
-                  {isArchived ? "Unarchive vehicle" : "Archive vehicle"}
-                </button>
-              ) : (
-                <span className={card.linkActionDisabled}>
-                  {isArchived ? "Unarchive vehicle" : "Archive vehicle"}
-                </span>
-              )}
-            </div>
-
-            {isArchived ? <div className={shared.muted}>(Archived – read-only for landlords)</div> : null}
+            <ArchivedHeaderActions
+              isArchived={isArchived}
+              isBusy={isArchiving}
+              archivedMessage="Cannot edit an archived vehicle. To edit, contact a system admin to unarchive first."
+              canEdit={canEditNow}
+              onEdit={goEditVehicle}
+              editLabel="Edit vehicle"
+              canArchive={canArchiveNow}
+              onArchive={handleToggleArchive}
+              archiveLabel="Archive vehicle"
+              canUnarchive={canUnarchiveNow}
+              onUnarchive={handleToggleArchive}
+              unarchiveLabel="Unarchive vehicle"
+              card={card}
+              shared={shared}
+            />
           </div>
         </div>
       </div>
@@ -302,13 +293,13 @@ export default function LandlordVehicleDetailsPage() {
           >
             Add a tenant (new or existing)
           </button>
-
-          {isArchived ? (
-            <div className={shared.muted}>
-              Cannot manage links for an archived vehicle.
-            </div>
-          ) : null}
         </div>
+
+        {isArchived ? (
+          <div className={shared.muted}>
+            Cannot manage links for an archived vehicle.
+          </div>
+        ) : null}
       </div>
     </div>
   );

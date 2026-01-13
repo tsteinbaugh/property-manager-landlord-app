@@ -85,7 +85,7 @@ export default function EmergencyContactCard({ emergencyContact, onClick, varian
             {vm.email}
           </div>
           {vm.addressBlock ? (
-            <div>{addressBlock}</div>
+            <div>{vm.addressBlock}</div>
           ) : null}
           {vm.relation ? (
             <div>

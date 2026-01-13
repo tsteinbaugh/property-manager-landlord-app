@@ -560,7 +560,7 @@ export default function LandlordAddVehiclePage() {
                 type="text"
                 value={parking}
                 onChange={(e) => setParking(e.target.value)}
-                placeholder="Street parking, attached garage, Space 12, etc."
+                placeholder="Street parking, Space 12..."
                 className={card.control}
                 disabled={isSubmitting}
               />

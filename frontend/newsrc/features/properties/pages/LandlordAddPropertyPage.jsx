@@ -20,6 +20,7 @@ import {
   optionsFromEnumMap,
   formatEnumLabel,
   validateObject,
+  parseMoneyOrNullOpt,
 } from "@shared/utils/validation.js";
 
 function propertyLabel(p) {
@@ -219,7 +220,7 @@ export default function LandlordAddPropertyPage() {
     const input = {
       name,
       address1,
-      assress2,
+      address2,
       city,
       state,
       postalCode,

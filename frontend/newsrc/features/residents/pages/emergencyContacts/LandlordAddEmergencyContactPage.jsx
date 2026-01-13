@@ -269,7 +269,7 @@ export default function LandlordAddEmergencyContactPage() {
     setTouched({ name: true, phone: true, email: true });
     setFormError("");
 
-    const { ok, payload } = buildvalidateAndSetErrorayload();
+    const { ok, payload } = validateAndSetError();
     if (!ok) return;
 
     try {

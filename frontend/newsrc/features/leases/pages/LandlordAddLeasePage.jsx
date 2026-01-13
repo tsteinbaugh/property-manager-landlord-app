@@ -21,6 +21,7 @@ import {
   LEASE_STATUS,
   LEASE_TYPE,
   optionalTrimToNull,
+  validateObject,
 } from "@shared/utils/validation.js";
 
 function leaseLabel(l) {

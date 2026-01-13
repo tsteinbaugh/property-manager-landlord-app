@@ -9,6 +9,7 @@ import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
 import { ROLES } from "@lib/rbac/roles.js";
 import PetCard from "@features/residents/components/pets/PetCard.jsx"
 import LinkageCard from "@shared/ui/cards/LinkageCard.jsx"
+import ArchivedHeaderActions from "@shared/ui/actions/ArchivedHeaderActions.jsx";
 
 import page from "@shared/styles/ui.pages.module.css";
 import card from "@shared/styles/ui.cards.module.css";
@@ -68,7 +69,7 @@ export default function LandlordPetDetailsPage() {
     };
   }, [petId, token]);
 
-  const isArchived = !!pet?.archivedAt;
+  const isArchived = !!(pet?.archivedAt ||  pet?.archived);
 
   const canEditNow = canUpdate && (!isArchived || isSysAdmin);
   const canArchiveNow = !isArchived;
@@ -196,31 +197,22 @@ export default function LandlordPetDetailsPage() {
           <div>
             <h1 className={page.title}>{title}</h1>
 
-            <div className={card.headerLinksRow}>
-              {canEditNow ? (
-                <button type="button" className={card.linkAction} onClick={goEditPet}>
-                  Edit pet
-                </button>
-              ) : null}
-
-              {showArchiveLink ? (
-                <button
-                  type="button"
-                  className={card.linkAction}
-                  onClick={handleToggleArchive}
-                  disabled={isArchiving}
-                  aria-disabled={isArchiving ? "true" : "false"}
-                >
-                  {isArchived ? "Unarchive pet" : "Archive pet"}
-                </button>
-              ) : (
-                <span className={card.linkActionDisabled}>
-                  {isArchived ? "Unarchive pet" : "Archive pet"}
-                </span>
-              )}
-            </div>
-
-            {isArchived ? <div className={shared.muted}>(Archived – read-only for landlords)</div> : null}
+            <ArchivedHeaderActions
+              isArchived={isArchived}
+              isBusy={isArchiving}
+              archivedMessage="Cannot edit an archived pet. To edit, contact a system admin to unarchive first."
+              canEdit={canEditNow}
+              onEdit={goEditPet}
+              editLabel="Edit pet"
+              canArchive={canArchiveNow}
+              onArchive={handleToggleArchive}
+              archiveLabel="Archive pet"
+              canUnarchive={canUnarchiveNow}
+              onUnarchive={handleToggleArchive}
+              unarchiveLabel="Unarchive pet"
+              card={card}
+              shared={shared}
+            />
           </div>
         </div>
       </div>
@@ -290,13 +282,13 @@ export default function LandlordPetDetailsPage() {
           >
             Add a tenant (new or existing)
           </button>
-
-          {isArchived ? (
-            <div className={shared.muted}>
-              Cannot manage links for an archived pet.
-            </div>
-          ) : null}
         </div>
+
+        {isArchived ? (
+          <div className={shared.muted}>
+            Cannot manage links for an archived pet.
+          </div>
+        ) : null}
       </div>
     </div>
   );

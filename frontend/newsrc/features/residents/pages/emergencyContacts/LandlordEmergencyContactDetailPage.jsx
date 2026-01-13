@@ -9,6 +9,7 @@ import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
 import { ROLES } from "@lib/rbac/roles.js";
 import EmergencyContactCard from "@features/residents/components/emergencyContacts/EmergencyContactCard";
 import LinkageCard from "@shared/ui/cards/LinkageCard.jsx"
+import ArchivedHeaderActions from "@shared/ui/actions/ArchivedHeaderActions.jsx";
 
 import page from "@shared/styles/ui.pages.module.css";
 import card from "@shared/styles/ui.cards.module.css";
@@ -69,12 +70,11 @@ export default function LandlordEmergencyContactDetailsPage() {
     };
   }, [emergencyContactId, token]);
 
-  const isArchived = !!emergencyContact?.archivedAt;
+  const isArchived = !!(emergencyContact?.archivedAt || emergencyContact?.archived);
 
   const canEditNow = canUpdate && (!isArchived || isSysAdmin);
   const canArchiveNow = !isArchived;
   const canUnarchiveNow = isArchived && isSysAdmin;
-  const showArchiveLink = canArchiveNow || canUnarchiveNow;
 
   const title = emergencyContact?.name || "Emergency contact";
 
@@ -199,31 +199,22 @@ export default function LandlordEmergencyContactDetailsPage() {
           <div>
             <h1 className={page.title}>{title}</h1>
 
-            <div className={card.headerLinksRow}>
-              {canEditNow ? (
-                <button type="button" className={card.linkAction} onClick={goEditEmergencyContact}>
-                  Edit emergency contact
-                </button>
-              ) : null}
-
-              {showArchiveLink ? (
-                <button
-                  type="button"
-                  className={card.linkAction}
-                  onClick={handleToggleArchive}
-                  disabled={isArchiving}
-                  aria-disabled={isArchiving ? "true" : "false"}
-                >
-                  {isArchived ? "Unarchive emergency contact" : "Archive emergency contact"}
-                </button>
-              ) : (
-                <span className={card.linkActionDisabled}>
-                  {isArchived ? "Unarchive emergency contact" : "Archive emergency contact"}
-                </span>
-              )}
-            </div>
-
-            {isArchived ? <div className={shared.muted}>(Archived – read-only for landlords)</div> : null}
+            <ArchivedHeaderActions
+              isArchived={isArchived}
+              isBusy={isArchiving}
+              archivedMessage="Cannot edit an archived emergency contact. To edit, contact a system admin to unarchive first."
+              canEdit={canEditNow}
+              onEdit={goEditEmergencyContact}
+              editLabel="Edit emergency contact"
+              canArchive={canArchiveNow}
+              onArchive={handleToggleArchive}
+              archiveLabel="Archive emergency contact"
+              canUnarchive={canUnarchiveNow}
+              onUnarchive={handleToggleArchive}
+              unarchiveLabel="Unarchive emergency contact"
+              card={card}
+              shared={shared}
+            />
           </div>
         </div>
       </div>
@@ -295,13 +286,13 @@ export default function LandlordEmergencyContactDetailsPage() {
           >
             Add a tenant (new or existing)
           </button>
-
-          {isArchived ? (
-            <div className={shared.muted}>
-              Cannot manage links for an archived emergency contact.
-            </div>
-          ) : null}
         </div>
+
+        {isArchived ? (
+          <div className={shared.muted}>
+            Cannot manage links for an archived emergency contact.
+          </div>
+        ) : null}
       </div>
     </div>
   );

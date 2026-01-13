@@ -57,8 +57,15 @@ function parseLeasePost(body) {
   const propertyId = normalizeIdOrNull(src.propertyId);
   const landlordId = normalizeIdOrNull(src.landlordId);
 
-  const propertyLabel = optionalTrimToNull(src.propertyLabel);
-  if (propertyLabel === INVALID) return { error: "propertyLabel must be a string" };
+  let propertyLabel = null;
+
+  if (src.propertyLabel !== undefined && src.propertyLabel !== null) {
+    if (typeof src.propertyLabel !== "string") {
+      return { error: "propertyLabel must be a string" };
+    }
+    const t = src.propertyLabel.trim();
+    propertyLabel = t ? t : null;
+  }
 
   const rentAmountCents = parseMoneyOrNullOpt(src.rentAmountCents);
   if (rentAmountCents === INVALID) return { error: "rent amount must be a non-negative number" };
@@ -104,14 +111,19 @@ function parseLeasePatch(body) {
 
   // propertyLabel
   if (src.propertyLabel !== undefined) {
-    const v = optionalTrimToNull(src.propertyLabel);
-    if (v === INVALID) return { error: "propertyLabel must be a string" };
-    data.propertyLabel = v;
+    if (src.propertyLabel === null) {
+      data.propertyLabel = null; // allow clearing
+    } else if (typeof src.propertyLabel !== "string") {
+      return { error: "propertyLabel must be a string" };
+    } else {
+      const t = src.propertyLabel.trim();
+      data.propertyLabel = t ? t : null;
+    }
   }
 
   // rentAmount
   if (src.rentAmountCents !== undefined) {
-    const v = parseMoneyOrNullOpt(src.rentAmounCentst);
+    const v = parseMoneyOrNullOpt(src.rentAmountCents);
     if (v === INVALID) return { error: "rent amount must be a non-negative number" };
     data.rentAmountCents = v;
   }

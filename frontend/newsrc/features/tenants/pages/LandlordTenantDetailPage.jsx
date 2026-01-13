@@ -9,6 +9,7 @@ import { RESOURCES as R, ACTIONS as A } from "@lib/rbac/resources.js";
 import { ROLES } from "@lib/rbac/roles.js";
 import LinkageCard from "@shared/ui/cards/LinkageCard.jsx";
 import TenantCard from "@features/tenants/components/TenantCard.jsx";
+import ArchivedHeaderActions from "@shared/ui/actions/ArchivedHeaderActions.jsx";
 
 import page from "@shared/styles/ui.pages.module.css";
 import card from "@shared/styles/ui.cards.module.css";
@@ -82,12 +83,11 @@ export default function LandlordTenantDetailPage() {
     };
   }, [tenantId, token]);
 
-  const isArchived = !!tenant?.archivedAt;
+  const isArchived = !!(tenant?.archivedAt || tenant?.archived);
 
   const canEditNow = canUpdate && (!isArchived || isSysAdmin);
   const canArchiveNow = !isArchived && canArchiveGrant;
   const canUnarchiveNow = isArchived && isSysAdmin;
-  const showArchiveLink = canArchiveNow || canUnarchiveNow;
 
   const title = tenant?.name || tenant?.email || "Tenant";
 
@@ -329,31 +329,22 @@ const handleUnlinkLeaseFromTenant = async (leaseId) => {
           <div>
             <h1 style={{ margin: 0 }}>{title}</h1>
 
-            <div className={card.headerLinksRow}>
-              {canEditNow ? (
-                <button type="button" className={card.linkAction} onClick={goEditTenant}>
-                  Edit tenant
-                </button>
-              ) : null}
-
-              {showArchiveLink ? (
-                <button
-                  type="button"
-                  className={card.linkAction}
-                  onClick={handleToggleArchive}
-                  disabled={isArchiving}
-                  aria-disabled={isArchiving ? "true" : "false"}
-                >
-                  {isArchived ? "Unarchive tenant" : "Archive tenant"}
-                </button>
-              ) : (
-                <span className={card.linkActionDisabled}>
-                  {isArchived ? "Unarchive tenant" : "Archive tenant"}
-                </span>
-              )}
-            </div>
-
-            {isArchived ? <div className={shared.muted}>(Archived – read-only for landlords)</div> : null}
+            <ArchivedHeaderActions
+              isArchived={isArchived}
+              isBusy={isArchiving}
+              archivedMessage="Cannot edit an archived tenant. To edit, contact a system admin to unarchive first."
+              canEdit={canEditNow}
+              onEdit={goEditTenant}
+              editLabel="Edit tenant"
+              canArchive={canArchiveNow}
+              onArchive={handleToggleArchive}
+              archiveLabel="Archive tenant"
+              canUnarchive={canUnarchiveNow}
+              onUnarchive={handleToggleArchive}
+              unarchiveLabel="Unarchive tenant"
+              card={card}
+              shared={shared}
+            />
           </div>
         </div>
       </div>
@@ -432,10 +423,17 @@ const handleUnlinkLeaseFromTenant = async (leaseId) => {
               );
               navigate(`/landlord/leases/new?tenantId=${tenant.id}&returnTo=${returnTo}`);
             }}
+            disabled={isArchived}
+            aria-disabled={isArchived ? "true" : "false"}            
           >
             Add a lease (new or existing)
           </button>
         </div>
+        {isArchived ? (
+          <div className={shared.muted}>
+            Cannot manage links for an archived tenant.
+          </div>
+        ) : null}        
       </div>
 
       {/* Properties (INDIRECT via leases) */}
@@ -538,10 +536,17 @@ const handleUnlinkLeaseFromTenant = async (leaseId) => {
               );
               navigate(`/landlord/occupants/new?tenantId=${tenant.id}&returnTo=${returnTo}`);
             }}
+            disabled={isArchived}
+            aria-disabled={isArchived ? "true" : "false"}            
           >
             Add an occupant (new or existing)
           </button>
         </div>
+        {isArchived ? (
+          <div className={shared.muted}>
+            Cannot manage links for an archived tenant.
+          </div>
+        ) : null}        
       </div>
 
       {/* Pets (DIRECT) */}
@@ -600,10 +605,17 @@ const handleUnlinkLeaseFromTenant = async (leaseId) => {
               );
               navigate(`/landlord/pets/new?tenantId=${tenant.id}&returnTo=${returnTo}`);
             }}
+            disabled={isArchived}
+            aria-disabled={isArchived ? "true" : "false"}            
           >
             Add a pet (new or existing)
           </button>
         </div>
+        {isArchived ? (
+          <div className={shared.muted}>
+            Cannot manage links for an archived tenant.
+          </div>
+        ) : null}        
       </div>
 
       {/* Emergency contacts (DIRECT) */}
@@ -666,10 +678,17 @@ const handleUnlinkLeaseFromTenant = async (leaseId) => {
                 `/landlord/emergencyContacts/new?tenantId=${tenant.id}&returnTo=${returnTo}`
               );
             }}
+            disabled={isArchived}
+            aria-disabled={isArchived ? "true" : "false"}            
           >
             Add an emergency contact (new or existing)
           </button>
         </div>
+        {isArchived ? (
+          <div className={shared.muted}>
+            Cannot manage links for an archived tenant.
+          </div>
+        ) : null}        
       </div>
 
       {/* Vehicles (DIRECT) */}
@@ -732,10 +751,17 @@ const handleUnlinkLeaseFromTenant = async (leaseId) => {
               );
               navigate(`/landlord/vehicles/new?tenantId=${tenant.id}&returnTo=${returnTo}`);
             }}
+            disabled={isArchived}
+            aria-disabled={isArchived ? "true" : "false"}            
           >
             Add a vehicle (new or existing)
           </button>
         </div>
+        {isArchived ? (
+          <div className={shared.muted}>
+            Cannot manage links for an archived tenant.
+          </div>
+        ) : null}
       </div>
     </div>
   );

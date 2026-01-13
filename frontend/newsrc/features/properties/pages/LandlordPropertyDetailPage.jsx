@@ -10,6 +10,7 @@ import { ROLES } from "@lib/rbac/roles.js";
 import LinkageCard from "@shared/ui/cards/LinkageCard.jsx";
 import PropertyCard from "@features/properties/components/PropertyCard.jsx";
 import { formatMoney } from "@shared/utils/validation.js";
+import ArchivedHeaderActions from "@shared/ui/actions/ArchivedHeaderActions.jsx";
 
 import page from "@shared/styles/ui.pages.module.css";
 import card from "@shared/styles/ui.cards.module.css";
@@ -217,7 +218,7 @@ export default function LandlordPropertyDetailPage() {
 
   const graph = useMemo(() => buildLinkageGraph(property), [property]);
 
-  const isArchived = !!property?.archivedAt;
+  const isArchived = !!(property?.archivedAt || property?.archived);
 
   const canEditNow = canUpdate && (!isArchived || isSysAdmin);
   const canArchiveNow = !isArchived && canArchiveGrant;
@@ -346,31 +347,22 @@ export default function LandlordPropertyDetailPage() {
           <div>
             <h1 className={page.title}>{title}</h1>
 
-            <div className={card.headerLinksRow}>
-              {canEditNow ? (
-                <button type="button" className={card.linkAction} onClick={goEditProperty}>
-                  Edit property
-                </button>
-              ) : null}
-
-              {showArchiveButton ? (
-                <button
-                  type="button"
-                  className={card.linkAction}
-                  onClick={handleToggleArchive}
-                  disabled={isArchiving}
-                  aria-disabled={isArchiving ? "true" : "false"}
-                >
-                  {isArchived ? "Unarchive property" : "Archive property"}
-                </button>
-              ) : (
-                <span className={card.linkActionDisabled}>
-                  {isArchived ? "Unarchive property" : "Archive property"}
-                </span>
-              )}
-            </div>
-
-            {isArchived ? <div className={shared.muted}>(Archived – read-only for landlords)</div> : null}
+            <ArchivedHeaderActions
+              isArchived={isArchived}
+              isBusy={isArchiving}
+              archivedMessage="Cannot edit an archived property. To edit, contact a system admin to unarchive first."
+              canEdit={canEditNow}
+              onEdit={goEditProperty}
+              editLabel="Edit property"
+              canArchive={canArchiveNow}
+              onArchive={handleToggleArchive}
+              archiveLabel="Archive property"
+              canUnarchive={canUnarchiveNow}
+              onUnarchive={handleToggleArchive}
+              unarchiveLabel="Unarchive property"
+              card={card}
+              shared={shared}
+            />
           </div>
         </div>
       </div>
@@ -445,8 +437,12 @@ export default function LandlordPropertyDetailPage() {
           >
             Add a lease (new or existing)
           </button>
-          {isArchived ? <div className={shared.muted}>Cannot manage links for an archived property.</div> : null}
         </div>
+        {isArchived ? (
+          <div className={shared.muted}>
+            Cannot manage links for an archived vehicle.
+          </div>
+        ) : null}        
       </div>
 
       {/* Tenants */}
