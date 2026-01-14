@@ -15,6 +15,10 @@ import page from "@shared/styles/ui.pages.module.css";
 import card from "@shared/styles/ui.cards.module.css";
 import shared from "@shared/styles/ui.shared.module.css";
 
+function isArchivedEntity(x) {
+  return !!(x?.archivedAt || x?.archived);
+}
+
 function leaseLabel(lease) {
   const base =
     lease?.propertyName ||
@@ -22,7 +26,6 @@ function leaseLabel(lease) {
     (lease?.property?.address1 && lease?.property?.address2
       ? `${lease.property.address1} ${lease.property.address2}`
       : lease?.property?.address1) ||
-    null;
     "";
   return base ? `Lease for ${base}` : "Lease";
 }
@@ -34,15 +37,22 @@ export default function LandlordTenantDetailPage() {
 
   const role =
     isSysAdmin && effectiveRole !== ROLES.SYSADMIN
-    ? ROLES.SYSADMIN
-    : typeof effectiveRole === "string"
-      ? effectiveRole.toLowerCase()
-      : effectiveRole || ROLES.LANDLORD;
+      ? ROLES.SYSADMIN
+      : typeof effectiveRole === "string"
+        ? effectiveRole.toLowerCase()
+        : effectiveRole || ROLES.LANDLORD;
 
   const canUpdate = can(role, R.TENANTS, A.UPDATE);
   const canArchiveGrant = can(role, R.TENANTS, A.ARCHIVE);
 
   const [showArchivedAttachs, setShowArchivedAttachs] = useState(false);
+
+  const [showArchivedLeases, setShowArchivedLeases] = useState(false);
+  const [showArchivedProperties, setShowArchivedProperties] = useState(false);
+  const [showArchivedOccupants, setShowArchivedOccupants] = useState(false);
+  const [showArchivedPets, setShowArchivedPets] = useState(false);
+  const [showArchivedEmergencyContacts, setShowArchivedEmergencyContacts] = useState(false);
+  const [showArchivedVehicles, setShowArchivedVehicles] = useState(false);
 
   const [tenant, setTenant] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -56,6 +66,17 @@ export default function LandlordTenantDetailPage() {
   const [unlinkingEmergencyContactId, setUnlinkingEmergencyContactId] = useState(null);
   const [unlinkingVehicleId, setUnlinkingVehicleId] = useState(null);
 
+  // Reset show/hide toggles when switching tenants
+  useEffect(() => {
+    setShowArchivedAttachs(false);
+    setShowArchivedLeases(false);
+    setShowArchivedProperties(false);
+    setShowArchivedOccupants(false);
+    setShowArchivedPets(false);
+    setShowArchivedEmergencyContacts(false);
+    setShowArchivedVehicles(false);
+  }, [tenantId]);
+
   useEffect(() => {
     let cancelled = false;
 
@@ -63,7 +84,10 @@ export default function LandlordTenantDetailPage() {
       try {
         setLoading(true);
         setError(null);
-        const row = await tenantsApi.get(tenantId, { token, includeArchivedAttachments: true });
+        const row = await tenantsApi.get(tenantId, {
+          token,
+          includeArchivedAttachments: true,
+        });
         if (!cancelled) setTenant(row || null);
       } catch (err) {
         if (!cancelled) setError(err);
@@ -77,13 +101,13 @@ export default function LandlordTenantDetailPage() {
       setLoading(false);
       setError(new Error("Missing tenant id"));
     }
-    
+
     return () => {
       cancelled = true;
     };
   }, [tenantId, token]);
 
-  const isArchived = !!(tenant?.archivedAt || tenant?.archived);
+  const isArchived = isArchivedEntity(tenant);
 
   const canEditNow = canUpdate && (!isArchived || isSysAdmin);
   const canArchiveNow = !isArchived && canArchiveGrant;
@@ -91,7 +115,7 @@ export default function LandlordTenantDetailPage() {
 
   const title = tenant?.name || tenant?.email || "Tenant";
 
-  // Dedupe leases
+  // Dedupe leases (DIRECT)
   const leaseTenantsRaw = Array.isArray(tenant?.leaseTenants) ? tenant.leaseTenants : [];
   const leaseItems = useMemo(() => {
     const seen = new Set();
@@ -106,7 +130,7 @@ export default function LandlordTenantDetailPage() {
     return out;
   }, [leaseTenantsRaw]);
 
-  // Properties aggregated via leases (indirect)
+  // Properties aggregated via leases (INDIRECT)
   const propertyGroups = useMemo(() => {
     const map = new Map();
     for (const { lease } of leaseItems) {
@@ -133,6 +157,78 @@ export default function LandlordTenantDetailPage() {
     : [];
   const vehicleLinks = Array.isArray(tenant?.vehicleLinks) ? tenant.vehicleLinks : [];
 
+  // ---------- Leases ----------
+  const leaseCounts = useMemo(() => {
+    const total = leaseItems.length;
+    const archived = leaseItems.filter(({ lease }) => isArchivedEntity(lease)).length;
+    return { total, archived, active: total - archived };
+  }, [leaseItems]);
+
+  const visibleLeaseItems = useMemo(() => {
+    if (showArchivedLeases) return leaseItems;
+    return leaseItems.filter(({ lease }) => !isArchivedEntity(lease));
+  }, [leaseItems, showArchivedLeases]);
+
+  // ---------- Properties ----------
+  const propertyCounts = useMemo(() => {
+    const total = propertyGroups.length;
+    const archived = propertyGroups.filter(({ property }) => isArchivedEntity(property)).length;
+    return { total, archived, active: total - archived };
+  }, [propertyGroups]);
+
+  const visiblePropertyGroups = useMemo(() => {
+    if (showArchivedProperties) return propertyGroups;
+    return propertyGroups.filter(({ property }) => !isArchivedEntity(property));
+  }, [propertyGroups, showArchivedProperties]);
+
+  // ---------- Occupants ----------
+  const occupantCounts = useMemo(() => {
+    const total = occupantLinks.length;
+    const archived = occupantLinks.filter((l) => isArchivedEntity(l?.occupant)).length;
+    return { total, archived, active: total - archived };
+  }, [occupantLinks]);
+
+  const visibleOccupantLinks = useMemo(() => {
+    if (showArchivedOccupants) return occupantLinks;
+    return occupantLinks.filter((l) => !isArchivedEntity(l?.occupant));
+  }, [occupantLinks, showArchivedOccupants]);
+
+  // ---------- Pets ----------
+  const petCounts = useMemo(() => {
+    const total = petLinks.length;
+    const archived = petLinks.filter((l) => isArchivedEntity(l?.pet)).length;
+    return { total, archived, active: total - archived };
+  }, [petLinks]);
+
+  const visiblePetLinks = useMemo(() => {
+    if (showArchivedPets) return petLinks;
+    return petLinks.filter((l) => !isArchivedEntity(l?.pet));
+  }, [petLinks, showArchivedPets]);
+
+  // ---------- Emergency Contacts ----------
+  const emergencyContactCounts = useMemo(() => {
+    const total = emergencyContactLinks.length;
+    const archived = emergencyContactLinks.filter((l) => isArchivedEntity(l?.emergencyContact)).length;
+    return { total, archived, active: total - archived };
+  }, [emergencyContactLinks]);
+
+  const visibleEmergencyContactLinks = useMemo(() => {
+    if (showArchivedEmergencyContacts) return emergencyContactLinks;
+    return emergencyContactLinks.filter((l) => !isArchivedEntity(l?.emergencyContact));
+  }, [emergencyContactLinks, showArchivedEmergencyContacts]);
+
+  // ---------- Vehicles ----------
+  const vehicleCounts = useMemo(() => {
+    const total = vehicleLinks.length;
+    const archived = vehicleLinks.filter((l) => isArchivedEntity(l?.vehicle)).length;
+    return { total, archived, active: total - archived };
+  }, [vehicleLinks]);
+
+  const visibleVehicleLinks = useMemo(() => {
+    if (showArchivedVehicles) return vehicleLinks;
+    return vehicleLinks.filter((l) => !isArchivedEntity(l?.vehicle));
+  }, [vehicleLinks, showArchivedVehicles]);
+
   const reload = async () => {
     const row = await tenantsApi.get(tenantId, { token, includeArchivedAttachments: true });
     setTenant(row || null);
@@ -148,9 +244,7 @@ export default function LandlordTenantDetailPage() {
         return;
       }
 
-      const archiveReason = window.prompt(
-        "Please provide a reason for archiving this tenant."
-      );
+      const archiveReason = window.prompt("Please provide a reason for archiving this tenant.");
       if (archiveReason === null) return;
 
       if (!archiveReason.trim()) {
@@ -202,17 +296,35 @@ export default function LandlordTenantDetailPage() {
 
   const goEditTenant = () => {
     if (!tenant?.id) return;
-    const returnTo = encodeURIComponent(
-      `${window.location.pathname}${window.location.search || ""}`
-    );
+    const returnTo = encodeURIComponent(`${window.location.pathname}${window.location.search || ""}`);
     navigate(`/landlord/tenants/new?tenantId=${tenant.id}&returnTo=${returnTo}`);
+  };
+
+  const handleUnlinkLeaseFromTenant = async (leaseId) => {
+    if (!tenant?.id || !leaseId) return;
+
+    const ok = window.confirm(
+      "Unlink this lease from this tenant?\n\nThis does NOT delete either record, it only removes the lease↔tenant association."
+    );
+    if (!ok) return;
+
+    try {
+      setUnlinkingLeaseId(leaseId);
+      await leasesApi.unlinkTenant(leaseId, tenant.id, { token });
+      await reload();
+    } catch (err) {
+      console.error("Failed to unlink lease from tenant", err);
+      alert("Failed to unlink lease. Check console for details.");
+    } finally {
+      setUnlinkingLeaseId(null);
+    }
   };
 
   const handleUnlinkOccupantFromTenant = async (occupantId) => {
     if (!tenant?.id || !occupantId) return;
 
     const ok = window.confirm(
-      "Unlink this occupant from this tenant?\n\nThis does NOT delete either record, it only removes the tenant↔occuapnt association."
+      "Unlink this occupant from this tenant?\n\nThis does NOT delete either record, it only removes the tenant↔occupant association."
     );
     if (!ok) return;
 
@@ -272,47 +384,27 @@ export default function LandlordTenantDetailPage() {
     if (!tenant?.id || !vehicleIdToUnlink) return;
 
     const ok = window.confirm(
-      "Unlink this tenant from this vehicle?\n\nThis does NOT delete either record, it only removes the tenant↔vehicle association."
+      "Unlink this vehicle from this tenant?\n\nThis does NOT delete either record, it only removes the tenant↔vehicle association."
     );
     if (!ok) return;
 
     try {
       setUnlinkingVehicleId(vehicleIdToUnlink);
-      await vehiclesApi.unlinkTenant(vehicleIdToUnlink, tenant.id, { token });
+      await tenantsApi.unlinkVehicle(tenant.id, vehicleIdToUnlink, { token });
       await reload();
     } catch (err) {
-      console.error("Failed to unlink tenant from vehicle", err);
-      alert("Failed to unlink tenant. Check console for details.");
+      console.error("Failed to unlink vehicle from tenant", err);
+      alert("Failed to unlink vehicle. Check console for details.");
     } finally {
       setUnlinkingVehicleId(null);
     }
   };
-  
-const handleUnlinkLeaseFromTenant = async (leaseId) => {
-  if (!tenant?.id || !leaseId) return;
-
-  const ok = window.confirm(
-    "Unlink this lease from this tenant?\n\nThis does NOT delete either record, it only removes the lease↔tenant association."
-  );
-  if (!ok) return;
-
-  try {
-    setUnlinkingLeaseId(leaseId);
-    await leasesApi.unlinkTenant(leaseId, tenant.id, { token });
-    await reload();
-  } catch (err) {
-    console.error("Failed to unlink lease from tenant", err);
-    alert("Failed to unlink lease. Check console for details.");
-  } finally {
-    setUnlinkingLeaseId(null);
-  }
-};
 
   if (loading) return <div className={page.page}>Loading tenant…</div>;
   if (error)
     return (
       <div className={page.page} style={{ color: "crimson" }}>
-        Error loading tenant: {String(error.message || error)}
+        Error loading tenant: {String(error?.message || error)}
       </div>
     );
   if (!tenant) return <div className={page.page}>No data.</div>;
@@ -364,23 +456,55 @@ const handleUnlinkLeaseFromTenant = async (leaseId) => {
             await reload();
           }}
           showArchivedAttachs={showArchivedAttachs}
-          onToggleShowArchivedAttachs={() => {
-            setShowArchivedAttachs((v) => !v);
-          }}
+          onToggleShowArchivedAttachs={() => setShowArchivedAttachs((v) => !v)}
         />
       </div>
 
       {/* Leases (DIRECT) */}
       <div className={page.section}>
         <div className={page.sectionHeader}>
-          <div className={page.sectionTitle}>Leases</div>
-          <div className={page.sectionHint}>Direct link: Lease ↔ Tenant</div>
+          <div>
+            <div className={page.sectionTitle}>Leases</div>
+            <div className={page.sectionHint}>Direct link: Lease ↔ Tenant</div>
+
+            {leaseCounts.archived > 0 ? (
+              <div className={shared.muted} style={{ marginBottom: 8 }}>
+                {!showArchivedLeases ? (
+                  <>
+                    <button
+                      type="button"
+                      className={card.linkAction}
+                      onClick={() => setShowArchivedLeases(true)}
+                      style={{ padding: 0 }}
+                    >
+                      Show archived leases
+                    </button>
+                    <div>Archived leases are hidden</div>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      type="button"
+                      className={card.linkAction}
+                      onClick={() => setShowArchivedLeases(false)}
+                      style={{ padding: 0 }}
+                    >
+                      Hide archived leases
+                    </button>
+                    <div>Showing all leases</div>
+                  </>
+                )}
+              </div>
+            ) : null}
+          </div>
         </div>
 
-        {leaseItems.length ? (
+        {visibleLeaseItems.length > 0 ? (
           <div className={page.grid}>
-            {leaseItems.map(({ lease }) => {
-              const archived = !!lease.archivedAt;
+            {visibleLeaseItems.map(({ lease }) => {
+              if (!lease?.id) return null;
+
+              const archived = isArchivedEntity(lease);
               const leaseName = leaseLabel(lease);
 
               return (
@@ -410,7 +534,11 @@ const handleUnlinkLeaseFromTenant = async (leaseId) => {
             })}
           </div>
         ) : (
-          <div className={shared.muted}>No leases linked to this tenant yet.</div>
+          <div className={shared.muted}>
+            {leaseCounts.total === 0
+              ? "No leases associated with this tenant yet."
+              : "No active leases associated with this tenant."}
+          </div>
         )}
 
         <div style={{ marginTop: 10 }}>
@@ -424,32 +552,63 @@ const handleUnlinkLeaseFromTenant = async (leaseId) => {
               navigate(`/landlord/leases/new?tenantId=${tenant.id}&returnTo=${returnTo}`);
             }}
             disabled={isArchived}
-            aria-disabled={isArchived ? "true" : "false"}            
+            aria-disabled={isArchived ? "true" : "false"}
           >
             Add a lease (new or existing)
           </button>
         </div>
+
         {isArchived ? (
-          <div className={shared.muted}>
-            Cannot manage links for an archived tenant.
-          </div>
-        ) : null}        
+          <div className={shared.muted}>Cannot manage links for an archived tenant.</div>
+        ) : null}
       </div>
 
       {/* Properties (INDIRECT via leases) */}
       <div className={page.section}>
         <div className={page.sectionHeader}>
-          <div className={page.sectionTitle}>Properties</div>
-          <div className={page.sectionHint}>Indirect link: Property → Lease → Tenant</div>
+          <div>
+            <div className={page.sectionTitle}>Properties</div>
+            <div className={page.sectionHint}>Indirect link: Property → Lease → Tenant</div>
+
+            {propertyCounts.archived > 0 ? (
+              <div className={shared.muted} style={{ marginBottom: 8 }}>
+                {!showArchivedProperties ? (
+                  <>
+                    <button
+                      type="button"
+                      className={card.linkAction}
+                      onClick={() => setShowArchivedProperties(true)}
+                      style={{ padding: 0 }}
+                    >
+                      Show archived properties
+                    </button>
+                    <div>Archived properties are hidden</div>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      type="button"
+                      className={card.linkAction}
+                      onClick={() => setShowArchivedProperties(false)}
+                      style={{ padding: 0 }}
+                    >
+                      Hide archived properties
+                    </button>
+                    <div>Showing all properties</div>
+                  </>
+                )}
+              </div>
+            ) : null}
+          </div>
         </div>
 
-        {propertyGroups.length ? (
+        {visiblePropertyGroups.length > 0 ? (
           <div className={page.grid}>
-            {propertyGroups.map(({ property, leases }) => {
-              const archived = !!property.archivedAt;
-              const propertyName =
-                property.name || property.address1 || property.address || "Property";
+            {visiblePropertyGroups.map(({ property, leases }) => {
+              if (!property?.id) return null;
 
+              const archived = isArchivedEntity(property);
+              const propertyName = property.name || property.address1 || property.address || "Property";
               const firstLease = Array.isArray(leases) ? leases[0] : null;
               const firstLeaseLabel = firstLease ? leaseLabel(firstLease) : null;
 
@@ -461,14 +620,18 @@ const handleUnlinkLeaseFromTenant = async (leaseId) => {
                   badgeText={archived ? "Archived" : "Property"}
                   badgeTone={archived ? "archived" : "idle"}
                   onClick={() => navigate(`/landlord/properties/${property.id}`)}
-                  linkageParts={[propertyName, firstLeaseLabel, title]}
-                  footer={<div className={`${card.inlineAction}`}>Manage link on Lease</div>}
+                  linkageParts={[propertyName, firstLeaseLabel || "Lease", title]}
+                  footer={<div className={card.inlineAction}>Manage link on Lease</div>}
                 />
               );
             })}
           </div>
         ) : (
-          <div className={shared.muted}>No properties associated with this tenant yet. Link via lease first.</div>
+          <div className={shared.muted}>
+            {propertyCounts.total === 0
+              ? "No properties associated with this tenant yet. Link via lease first."
+              : "No active properties associated with this tenant"}
+          </div>
         )}
 
         {leasesMissingPropertyCount > 0 ? (
@@ -483,17 +646,49 @@ const handleUnlinkLeaseFromTenant = async (leaseId) => {
       {/* Occupants (DIRECT) */}
       <div className={page.section}>
         <div className={page.sectionHeader}>
-          <div className={page.sectionTitle}>Occupants</div>
-          <div className={page.sectionHint}>Direct link: Occupant ↔ Tenant</div>
+          <div>
+            <div className={page.sectionTitle}>Occupants</div>
+            <div className={page.sectionHint}>Direct link: Occupant ↔ Tenant</div>
+
+            {occupantCounts.archived > 0 ? (
+              <div className={shared.muted} style={{ marginBottom: 8 }}>
+                {!showArchivedOccupants ? (
+                  <>
+                    <button
+                      type="button"
+                      className={card.linkAction}
+                      onClick={() => setShowArchivedOccupants(true)}
+                      style={{ padding: 0 }}
+                    >
+                      Show archived occupants
+                    </button>
+                    <div>Archived occupants are hidden</div>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      type="button"
+                      className={card.linkAction}
+                      onClick={() => setShowArchivedOccupants(false)}
+                      style={{ padding: 0 }}
+                    >
+                      Hide archived occupants
+                    </button>
+                    <div>Showing all occupants</div>
+                  </>
+                )}
+              </div>
+            ) : null}
+          </div>
         </div>
 
-        {occupantLinks.length ? (
+        {visibleOccupantLinks.length > 0 ? (
           <div className={page.grid}>
-            {occupantLinks.map((link) => {
+            {visibleOccupantLinks.map((link) => {
               const o = link?.occupant;
               if (!o?.id) return null;
 
-              const archived = !!o.archivedAt;
+              const archived = isArchivedEntity(o);
               const occupantName = o.name || "Unnamed occupant";
 
               return (
@@ -523,7 +718,11 @@ const handleUnlinkLeaseFromTenant = async (leaseId) => {
             })}
           </div>
         ) : (
-          <div className={shared.muted}>No occupants linked to this tenant yet.</div>
+          <div className={shared.muted}>
+            {occupantCounts.total === 0
+              ? "No occupants linked to this tenant yet."
+              : "No active occupants associated with this tenant."}
+          </div>
         )}
 
         <div style={{ marginTop: 10 }}>
@@ -537,32 +736,63 @@ const handleUnlinkLeaseFromTenant = async (leaseId) => {
               navigate(`/landlord/occupants/new?tenantId=${tenant.id}&returnTo=${returnTo}`);
             }}
             disabled={isArchived}
-            aria-disabled={isArchived ? "true" : "false"}            
+            aria-disabled={isArchived ? "true" : "false"}
           >
             Add an occupant (new or existing)
           </button>
         </div>
+
         {isArchived ? (
-          <div className={shared.muted}>
-            Cannot manage links for an archived tenant.
-          </div>
-        ) : null}        
+          <div className={shared.muted}>Cannot manage links for an archived tenant.</div>
+        ) : null}
       </div>
 
       {/* Pets (DIRECT) */}
       <div className={page.section}>
         <div className={page.sectionHeader}>
-          <div className={page.sectionTitle}>Pets</div>
-          <div className={page.sectionHint}>Direct link: Pet ↔ Tenant</div>
+          <div>
+            <div className={page.sectionTitle}>Pets</div>
+            <div className={page.sectionHint}>Direct link: Pet ↔ Tenant</div>
+
+            {petCounts.archived > 0 ? (
+              <div className={shared.muted} style={{ marginBottom: 8 }}>
+                {!showArchivedPets ? (
+                  <>
+                    <button
+                      type="button"
+                      className={card.linkAction}
+                      onClick={() => setShowArchivedPets(true)}
+                      style={{ padding: 0 }}
+                    >
+                      Show archived pets
+                    </button>
+                    <div>Archived pets are hidden</div>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      type="button"
+                      className={card.linkAction}
+                      onClick={() => setShowArchivedPets(false)}
+                      style={{ padding: 0 }}
+                    >
+                      Hide archived pets
+                    </button>
+                    <div>Showing all pets</div>
+                  </>
+                )}
+              </div>
+            ) : null}
+          </div>
         </div>
 
-        {petLinks.length ? (
+        {visiblePetLinks.length > 0 ? (
           <div className={page.grid}>
-            {petLinks.map((link) => {
+            {visiblePetLinks.map((link) => {
               const p = link?.pet;
               if (!p?.id) return null;
 
-              const archived = !!p.archivedAt;
+              const archived = isArchivedEntity(p);
               const petName = p.name || "Unnamed pet";
 
               return (
@@ -592,7 +822,11 @@ const handleUnlinkLeaseFromTenant = async (leaseId) => {
             })}
           </div>
         ) : (
-          <div className={shared.muted}>No pets linked to this tenant yet.</div>
+          <div className={shared.muted}>
+            {petCounts.total === 0
+              ? "No pets linked to this tenant yet."
+              : "No active pets associated with this tenant."}
+          </div>
         )}
 
         <div style={{ marginTop: 10 }}>
@@ -606,33 +840,64 @@ const handleUnlinkLeaseFromTenant = async (leaseId) => {
               navigate(`/landlord/pets/new?tenantId=${tenant.id}&returnTo=${returnTo}`);
             }}
             disabled={isArchived}
-            aria-disabled={isArchived ? "true" : "false"}            
+            aria-disabled={isArchived ? "true" : "false"}
           >
             Add a pet (new or existing)
           </button>
         </div>
+
         {isArchived ? (
-          <div className={shared.muted}>
-            Cannot manage links for an archived tenant.
-          </div>
-        ) : null}        
+          <div className={shared.muted}>Cannot manage links for an archived tenant.</div>
+        ) : null}
       </div>
 
-      {/* Emergency contacts (DIRECT) */}
+      {/* Emergency Contacts (DIRECT) */}
       <div className={page.section}>
         <div className={page.sectionHeader}>
-          <div className={page.sectionTitle}>Emergency Contacts</div>
-          <div className={page.sectionHint}>Direct link: Emergency Contact ↔ Tenant</div>
+          <div>
+            <div className={page.sectionTitle}>Emergency Contacts</div>
+            <div className={page.sectionHint}>Direct link: Emergency Contact ↔ Tenant</div>
+
+            {emergencyContactCounts.archived > 0 ? (
+              <div className={shared.muted} style={{ marginBottom: 8 }}>
+                {!showArchivedEmergencyContacts ? (
+                  <>
+                    <button
+                      type="button"
+                      className={card.linkAction}
+                      onClick={() => setShowArchivedEmergencyContacts(true)}
+                      style={{ padding: 0 }}
+                    >
+                      Show archived emergency contacts
+                    </button>
+                    <div>Archived emergency contacts are hidden</div>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      type="button"
+                      className={card.linkAction}
+                      onClick={() => setShowArchivedEmergencyContacts(false)}
+                      style={{ padding: 0 }}
+                    >
+                      Hide archived emergency contacts
+                    </button>
+                    <div>Showing all emergency contacts</div>
+                  </>
+                )}
+              </div>
+            ) : null}
+          </div>
         </div>
 
-        {emergencyContactLinks.length ? (
+        {visibleEmergencyContactLinks.length > 0 ? (
           <div className={page.grid}>
-            {emergencyContactLinks.map((link) => {
+            {visibleEmergencyContactLinks.map((link) => {
               const e = link?.emergencyContact;
               if (!e?.id) return null;
 
+              const archived = isArchivedEntity(e);
               const emergencyContactName = e.name || "Unnamed emergency contact";
-              const archived = !!e.archivedAt;
 
               return (
                 <LinkageCard
@@ -653,9 +918,7 @@ const handleUnlinkLeaseFromTenant = async (leaseId) => {
                       }}
                       disabled={unlinkingEmergencyContactId === e.id}
                     >
-                      {unlinkingEmergencyContactId === e.id
-                        ? "Unlinking…"
-                        : "Unlink from tenant"}
+                      {unlinkingEmergencyContactId === e.id ? "Unlinking…" : "Unlink from tenant"}
                     </button>
                   }
                 />
@@ -663,7 +926,11 @@ const handleUnlinkLeaseFromTenant = async (leaseId) => {
             })}
           </div>
         ) : (
-          <div className={shared.muted}>No emergency contacts linked to this tenant yet.</div>
+          <div className={shared.muted}>
+            {emergencyContactCounts.total === 0
+              ? "No emergency contacts linked to this tenant yet."
+              : "No active emergency contacts associated with this tenant."}
+          </div>
         )}
 
         <div style={{ marginTop: 10 }}>
@@ -679,32 +946,63 @@ const handleUnlinkLeaseFromTenant = async (leaseId) => {
               );
             }}
             disabled={isArchived}
-            aria-disabled={isArchived ? "true" : "false"}            
+            aria-disabled={isArchived ? "true" : "false"}
           >
             Add an emergency contact (new or existing)
           </button>
         </div>
+
         {isArchived ? (
-          <div className={shared.muted}>
-            Cannot manage links for an archived tenant.
-          </div>
-        ) : null}        
+          <div className={shared.muted}>Cannot manage links for an archived tenant.</div>
+        ) : null}
       </div>
 
       {/* Vehicles (DIRECT) */}
       <div className={page.section}>
         <div className={page.sectionHeader}>
-          <div className={page.sectionTitle}>Vehicles</div>
-          <div className={page.sectionHint}>Direct link: Vehicle ↔ Tenant</div>
+          <div>
+            <div className={page.sectionTitle}>Vehicles</div>
+            <div className={page.sectionHint}>Direct link: Vehicle ↔ Tenant</div>
+
+            {vehicleCounts.archived > 0 ? (
+              <div className={shared.muted} style={{ marginBottom: 8 }}>
+                {!showArchivedVehicles ? (
+                  <>
+                    <button
+                      type="button"
+                      className={card.linkAction}
+                      onClick={() => setShowArchivedVehicles(true)}
+                      style={{ padding: 0 }}
+                    >
+                      Show archived vehicles
+                    </button>
+                    <div>Archived vehicles are hidden</div>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      type="button"
+                      className={card.linkAction}
+                      onClick={() => setShowArchivedVehicles(false)}
+                      style={{ padding: 0 }}
+                    >
+                      Hide archived vehicles
+                    </button>
+                    <div>Showing all vehicles</div>
+                  </>
+                )}
+              </div>
+            ) : null}
+          </div>
         </div>
 
-        {vehicleLinks.length ? (
+        {visibleVehicleLinks.length > 0 ? (
           <div className={page.grid}>
-            {vehicleLinks.map((link) => {
+            {visibleVehicleLinks.map((link) => {
               const v = link?.vehicle;
               if (!v?.id) return null;
 
-              const archived = !!v.archivedAt;
+              const archived = isArchivedEntity(v);
               const vehicleName =
                 v.permit ||
                 v.plate ||
@@ -724,8 +1022,8 @@ const handleUnlinkLeaseFromTenant = async (leaseId) => {
                     <button
                       type="button"
                       className={`${card.inlineAction} ${card.inlineActionDanger}`}
-                      onClick={(vi) => {
-                        vi.stopPropagation();
+                      onClick={(ve) => {
+                        ve.stopPropagation();
                         handleUnlinkVehicleFromTenant(v.id);
                       }}
                       disabled={unlinkingVehicleId === v.id}
@@ -738,7 +1036,11 @@ const handleUnlinkLeaseFromTenant = async (leaseId) => {
             })}
           </div>
         ) : (
-          <div className={shared.muted}>No vehicles linked to this tenant yet.</div>
+          <div className={shared.muted}>
+            {vehicleCounts.total === 0
+              ? "No vehicles linked to this tenant yet."
+              : "No active vehicles associated with this tenant."}
+          </div>
         )}
 
         <div style={{ marginTop: 10 }}>
@@ -752,15 +1054,14 @@ const handleUnlinkLeaseFromTenant = async (leaseId) => {
               navigate(`/landlord/vehicles/new?tenantId=${tenant.id}&returnTo=${returnTo}`);
             }}
             disabled={isArchived}
-            aria-disabled={isArchived ? "true" : "false"}            
+            aria-disabled={isArchived ? "true" : "false"}
           >
             Add a vehicle (new or existing)
           </button>
         </div>
+
         {isArchived ? (
-          <div className={shared.muted}>
-            Cannot manage links for an archived tenant.
-          </div>
+          <div className={shared.muted}>Cannot manage links for an archived tenant.</div>
         ) : null}
       </div>
     </div>

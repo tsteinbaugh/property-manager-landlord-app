@@ -504,11 +504,9 @@ export default function LandlordAddPetPage() {
                           style={{ flex: 1 }}
                         >
                           <option value="">Select a pet…</option>
-                          {availableExistingPets.map((v) => (
-                            <option key={v.id} value={v.id}>
-                              {[v.year, v.make, v.model].filter(Boolean).join(" ") || "Pet"}
-                              {v.plate ? ` • ${v.plate}` : ""}
-                              {v.state ? ` (${v.state})` : ""}
+                          {availableExistingPets.map((p) => (
+                            <option key={p.id} value={p.id}>
+                              {p.name || "Pet"}
                             </option>
                           ))}
                         </select>

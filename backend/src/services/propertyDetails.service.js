@@ -16,19 +16,15 @@ const PROPERTY_DETAILS_INCLUDE = {
           tenant: {
             include: {
               occupantLinks: {
-                where: { occupant: { archivedAt: null } },
                 include: { occupant: true },
               },
               petLinks: {
-                where: { pet: { archivedAt: null } },
                 include: { pet: true },
               },
               emergencyContactLinks: {
-                where: { emergencyContact: { archivedAt: null } },
                 include: { emergencyContact: true },
               },
               vehicleLinks: {
-                where: { vehicle: { archivedAt: null } },
                 include: { vehicle: true },
               },
             },
@@ -90,7 +86,7 @@ function buildResidentsFromProperty(property, { mode = "DETAIL" } = {}) {
 
     for (const link of t.occupantLinks || []) {
       const o = link.occupant;
-      if (!o?.id || o.archivedAt) continue;
+      if (!o?.id) continue;
       if (!occupantMap.has(o.id)) {
         occupantMap.set(o.id, mode === "DETAIL" ? shapeOccupant(o) : o);
       }
@@ -98,7 +94,7 @@ function buildResidentsFromProperty(property, { mode = "DETAIL" } = {}) {
 
     for (const link of t.petLinks || []) {
       const p = link.pet;
-      if (!p?.id || p.archivedAt) continue;
+      if (!p?.id) continue;
       if (!petMap.has(p.id)) {
         petMap.set(p.id, mode === "DETAIL" ? shapePet(p) : p);
       }
@@ -106,7 +102,7 @@ function buildResidentsFromProperty(property, { mode = "DETAIL" } = {}) {
 
     for (const link of t.emergencyContactLinks || []) {
       const e = link.emergencyContact;
-      if (!e?.id || e.archivedAt) continue;
+      if (!e?.id) continue;
       if (!emergencyContactMap.has(e.id)) {
         emergencyContactMap.set(
           e.id,
@@ -117,7 +113,7 @@ function buildResidentsFromProperty(property, { mode = "DETAIL" } = {}) {
 
     for (const link of t.vehicleLinks || []) {
       const v = link.vehicle;
-      if (!v?.id || v.archivedAt) continue;
+      if (!v?.id) continue;
       if (!vehicleMap.has(v.id)) {
         vehicleMap.set(v.id, mode === "DETAIL" ? shapeVehicle(v) : v);
       }

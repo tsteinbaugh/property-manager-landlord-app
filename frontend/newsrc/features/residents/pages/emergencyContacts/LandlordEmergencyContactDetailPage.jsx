@@ -15,6 +15,10 @@ import page from "@shared/styles/ui.pages.module.css";
 import card from "@shared/styles/ui.cards.module.css";
 import shared from "@shared/styles/ui.shared.module.css";
 
+function isTenantArchived(t) {
+  return !!(t?.archivedAt || t?.archived);
+}
+
 export default function LandlordEmergencyContactDetailsPage() {
   const { emergencyContactId } = useParams();
   const navigate = useNavigate();
@@ -36,6 +40,7 @@ export default function LandlordEmergencyContactDetailsPage() {
 
   const [isArchiving, setArchiving] = useState(false);
   const [unlinkingTenantId, setUnlinkingTenantId] = useState(null);
+  const [showArchivedTenants, setShowArchivedTenants] = useState(false);  
 
   useEffect(() => {
     let cancelled = false;
@@ -82,6 +87,18 @@ export default function LandlordEmergencyContactDetailsPage() {
     if (!emergencyContact) return [];
     return Array.isArray(emergencyContact.tenants) ? emergencyContact.tenants : [];
   }, [emergencyContact]);
+
+  const tenantCounts = useMemo(() => {
+    const total = linkedTenants.length;
+    const archived = linkedTenants.filter((t) => isTenantArchived(t)).length;
+    const active = total - archived;
+    return { total, active, archived };
+  }, [linkedTenants]);
+  
+  const visibleTenants = useMemo(() => {
+    if (showArchivedTenants) return linkedTenants;
+    return linkedTenants.filter((t) => !isTenantArchived(t));
+  }, [linkedTenants, showArchivedTenants]);
 
   const reload = async () => {
     const e = await emergencyContactsApi.get(emergencyContactId, { token });
@@ -227,16 +244,32 @@ export default function LandlordEmergencyContactDetailsPage() {
       {/* Tenants */}
       <div className={page.section}>
         <div className={page.sectionHeader}>
-          <div className={page.sectionTitle}>Tenants</div>
-          <div className={page.sectionHint}>Direct link: Tenant ↔ Emergency Contact</div>
+          <div>
+            <div className={page.sectionTitle}>Tenants</div>
+            <div className={page.sectionHint}>Direct link: Tenant ↔ Emergency Contact</div>
+          </div>
         </div>
 
-        {linkedTenants.length ? (
+        {tenantCounts.archived && showArchivedTenants ? (
+          <div className={shared.muted} style={{ marginBottom: 8 }}>
+            <div>Showing archived tenants</div>
+            <button
+              type="button"
+              className={card.linkAction}
+              onClick={() => setShowArchivedTenants(false)}
+              style={{ padding: 0 }}
+            >
+              Hide archived tenants
+            </button>
+          </div>
+        ) : null}
+
+        {visibleTenants.length ? (
           <div className={page.grid}>
-            {linkedTenants.map((t) => {
+            {visibleTenants.map((t) => {
               if (!t?.id) return null;
 
-              const archived = !!t.archivedAt;
+              const archived = isTenantArchived(t);
               const tenantName = t.name || t.email || "Unnamed tenant";
 
               return (
@@ -266,7 +299,26 @@ export default function LandlordEmergencyContactDetailsPage() {
             })}
           </div>
         ) : (
-          <div className={shared.muted}>No tenants linked to this emergency contact yet.</div>
+          <div className={shared.muted}>
+            {tenantCounts.total ? (
+              <>
+                <div>No active tenants linked</div>
+            
+                {tenantCounts.archived ? (
+                  <button
+                    type="button"
+                    className={card.linkAction}
+                    onClick={() => setShowArchivedTenants(true)}
+                    style={{ padding: 0 }}
+                  >
+                    Show archived tenants
+                  </button>
+                ) : null}
+              </>
+            ) : (
+              "No tenants linked to this emergency contact yet."
+            )}
+          </div>          
         )}
 
         <div className={card.formActions}>

@@ -66,7 +66,7 @@ export default function LinkageCard({
       aria-label={canClick ? (ariaLabel || `Open ${title || "item"}`) : undefined}
     >
       <div className={card.cardHeader}>
-        <div className={ucardi.cardTitle}>{title || "Untitled"}</div>
+        <div className={card.cardTitle}>{title || "Untitled"}</div>
         {badgeText ? (
           <span className={`${card.badge} ${badgeClass}`}>{badgeText}</span>
         ) : null}

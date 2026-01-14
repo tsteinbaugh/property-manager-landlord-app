@@ -742,11 +742,9 @@ export default function LandlordAddOccupantPage() {
                           style={{ flex: 1 }}
                         >
                           <option value="">Select an occupant…</option>
-                          {availableExistingOccupants.map((v) => (
-                            <option key={v.id} value={v.id}>
-                              {[v.year, v.make, v.model].filter(Boolean).join(" ") || "Occupant"}
-                              {v.plate ? ` • ${v.plate}` : ""}
-                              {v.state ? ` (${v.state})` : ""}
+                          {availableExistingOccupants.map((o) => (
+                            <option key={o.id} value={o.id}>
+                              {o.name || "Occupant"}
                             </option>
                           ))}
                         </select>
