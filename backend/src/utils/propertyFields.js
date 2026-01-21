@@ -47,7 +47,7 @@ function parsePropertyPost(body) {
   }
 
   // optional 
-  const cleanAddress2 = optionalTrimToNull(name);
+  const cleanAddress2 = optionalTrimToNull(address2);
   if (cleanAddress2 === INVALID) return { error: "address unit must be a string" };
 
   const nameVal = optionalTrimToNull(name);

@@ -303,6 +303,11 @@ export default function LandlordTenantDetailPage() {
   const handleUnlinkLeaseFromTenant = async (leaseId) => {
     if (!tenant?.id || !leaseId) return;
 
+    if (isArchived) {
+      alert("Cannot manage links for an archived tenant.");
+      return;
+    }
+
     const ok = window.confirm(
       "Unlink this lease from this tenant?\n\nThis does NOT delete either record, it only removes the lease↔tenant association."
     );
@@ -322,6 +327,11 @@ export default function LandlordTenantDetailPage() {
 
   const handleUnlinkOccupantFromTenant = async (occupantId) => {
     if (!tenant?.id || !occupantId) return;
+
+    if (isArchived) {
+      alert("Cannot manage links for an archived tenant.");
+      return;
+    }
 
     const ok = window.confirm(
       "Unlink this occupant from this tenant?\n\nThis does NOT delete either record, it only removes the tenant↔occupant association."
@@ -343,6 +353,11 @@ export default function LandlordTenantDetailPage() {
   const handleUnlinkPetFromTenant = async (petId) => {
     if (!tenant?.id || !petId) return;
 
+    if (isArchived) {
+      alert("Cannot manage links for an archived tenant.");
+      return;
+    }
+
     const ok = window.confirm(
       "Unlink this pet from this tenant?\n\nThis does NOT delete either record, it only removes the tenant↔pet association."
     );
@@ -363,6 +378,11 @@ export default function LandlordTenantDetailPage() {
   const handleUnlinkEmergencyContactFromTenant = async (emergencyContactId) => {
     if (!tenant?.id || !emergencyContactId) return;
 
+    if (isArchived) {
+      alert("Cannot manage links for an archived tenant.");
+      return;
+    }
+
     const ok = window.confirm(
       "Unlink this emergency contact from this tenant?\n\nThis does NOT delete either record, it only removes the tenant↔emergency contact association."
     );
@@ -382,6 +402,11 @@ export default function LandlordTenantDetailPage() {
 
   const handleUnlinkVehicleFromTenant = async (vehicleIdToUnlink) => {
     if (!tenant?.id || !vehicleIdToUnlink) return;
+
+    if (isArchived) {
+      alert("Cannot manage links for an archived tenant.");
+      return;
+    }
 
     const ok = window.confirm(
       "Unlink this vehicle from this tenant?\n\nThis does NOT delete either record, it only removes the tenant↔vehicle association."
@@ -516,19 +541,26 @@ export default function LandlordTenantDetailPage() {
                   badgeTone={archived ? "archived" : "idle"}
                   onClick={() => navigate(`/landlord/leases/${lease.id}`)}
                   linkageParts={[leaseName, title]}
-                  footer={
-                    <button
-                      type="button"
-                      className={`${card.inlineAction} ${card.inlineActionDanger}`}
-                      onClick={(le) => {
-                        le.stopPropagation();
-                        handleUnlinkLeaseFromTenant(lease.id);
-                      }}
-                      disabled={unlinkingLeaseId === lease.id}
-                    >
-                      {unlinkingLeaseId === lease.id ? "Unlinking…" : "Unlink from tenant"}
-                    </button>
-                  }
+                  actions={[
+                    {
+                      key: "unlink",
+                      label: "Unlink from tenant",
+                      busyLabel: "Unlinking…",
+                      danger: true,
+
+                      // busy implies disabled; don't include busy in disabled
+                      busy: unlinkingLeaseId === l.id,
+                      disabled: isArchived || archived,
+
+                      disabledMessage: isArchived
+                        ? "Cannot manage links for an archived tenant."
+                        : archived
+                          ? "Cannot manage links for an archived lease."
+                          : null,
+
+                      onClick: () => handleUnlinkLeaseFromTenant(l.id),
+                    },
+                  ]}
                 />
               );
             })}
@@ -633,14 +665,6 @@ export default function LandlordTenantDetailPage() {
               : "No active properties associated with this tenant"}
           </div>
         )}
-
-        {leasesMissingPropertyCount > 0 ? (
-          <div className={shared.muted} style={{ marginTop: 8 }}>
-            Note: {leasesMissingPropertyCount} lease
-            {leasesMissingPropertyCount === 1 ? "" : "s"} linked to this tenant{" "}
-            {leasesMissingPropertyCount === 1 ? "is" : "are"} not linked to a property yet.
-          </div>
-        ) : null}
       </div>
 
       {/* Occupants (DIRECT) */}
@@ -700,19 +724,26 @@ export default function LandlordTenantDetailPage() {
                   badgeTone={archived ? "archived" : "idle"}
                   onClick={() => navigate(`/landlord/occupants/${o.id}`)}
                   linkageParts={[occupantName, title]}
-                  footer={
-                    <button
-                      type="button"
-                      className={`${card.inlineAction} ${card.inlineActionDanger}`}
-                      onClick={(oc) => {
-                        oc.stopPropagation();
-                        handleUnlinkOccupantFromTenant(o.id);
-                      }}
-                      disabled={unlinkingOccupantId === o.id}
-                    >
-                      {unlinkingOccupantId === o.id ? "Unlinking…" : "Unlink from tenant"}
-                    </button>
-                  }
+                  actions={[
+                    {
+                      key: "unlink",
+                      label: "Unlink from tenant",
+                      busyLabel: "Unlinking…",
+                      danger: true,
+
+                      // busy implies disabled; don't include busy in disabled
+                      busy: unlinkingOccupantId === o.id,
+                      disabled: isArchived || archived,
+
+                      disabledMessage: isArchived
+                        ? "Cannot manage links for an archived tenant."
+                        : archived
+                          ? "Cannot manage links for an archived occupant."
+                          : null,
+
+                      onClick: () => handleUnlinkOccupantFromTenant(o.id),
+                    },
+                  ]}
                 />
               );
             })}
@@ -804,19 +835,26 @@ export default function LandlordTenantDetailPage() {
                   badgeTone={archived ? "archived" : "idle"}
                   onClick={() => navigate(`/landlord/pets/${p.id}`)}
                   linkageParts={[petName, title]}
-                  footer={
-                    <button
-                      type="button"
-                      className={`${card.inlineAction} ${card.inlineActionDanger}`}
-                      onClick={(pe) => {
-                        pe.stopPropagation();
-                        handleUnlinkPetFromTenant(p.id);
-                      }}
-                      disabled={unlinkingPetId === p.id}
-                    >
-                      {unlinkingPetId === p.id ? "Unlinking…" : "Unlink from tenant"}
-                    </button>
-                  }
+                  actions={[
+                    {
+                      key: "unlink",
+                      label: "Unlink from tenant",
+                      busyLabel: "Unlinking…",
+                      danger: true,
+
+                      // busy implies disabled; don't include busy in disabled
+                      busy: unlinkingPetId === p.id,
+                      disabled: isArchived || archived,
+
+                      disabledMessage: isArchived
+                        ? "Cannot manage links for an archived tenant."
+                        : archived
+                          ? "Cannot manage links for an archived pet."
+                          : null,
+
+                      onClick: () => handleUnlinkPetFromTenant(p.id),
+                    },
+                  ]}
                 />
               );
             })}
@@ -908,19 +946,26 @@ export default function LandlordTenantDetailPage() {
                   badgeTone={archived ? "archived" : "idle"}
                   onClick={() => navigate(`/landlord/emergencyContacts/${e.id}`)}
                   linkageParts={[emergencyContactName, title]}
-                  footer={
-                    <button
-                      type="button"
-                      className={`${card.inlineAction} ${card.inlineActionDanger}`}
-                      onClick={(ev) => {
-                        ev.stopPropagation();
-                        handleUnlinkEmergencyContactFromTenant(e.id);
-                      }}
-                      disabled={unlinkingEmergencyContactId === e.id}
-                    >
-                      {unlinkingEmergencyContactId === e.id ? "Unlinking…" : "Unlink from tenant"}
-                    </button>
-                  }
+                  actions={[
+                    {
+                      key: "unlink",
+                      label: "Unlink from tenant",
+                      busyLabel: "Unlinking…",
+                      danger: true,
+
+                      // busy implies disabled; don't include busy in disabled
+                      busy: unlinkingEmergencyContactId === e.id,
+                      disabled: isArchived || archived,
+
+                      disabledMessage: isArchived
+                        ? "Cannot manage links for an archived tenant."
+                        : archived
+                          ? "Cannot manage links for an archived emergency contact."
+                          : null,
+
+                      onClick: () => handleUnlinkEmergencyContactFromTenant(e.id),
+                    },
+                  ]}                  
                 />
               );
             })}
@@ -1018,19 +1063,26 @@ export default function LandlordTenantDetailPage() {
                   badgeTone={archived ? "archived" : "idle"}
                   onClick={() => navigate(`/landlord/vehicles/${v.id}`)}
                   linkageParts={[vehicleName, title]}
-                  footer={
-                    <button
-                      type="button"
-                      className={`${card.inlineAction} ${card.inlineActionDanger}`}
-                      onClick={(ve) => {
-                        ve.stopPropagation();
-                        handleUnlinkVehicleFromTenant(v.id);
-                      }}
-                      disabled={unlinkingVehicleId === v.id}
-                    >
-                      {unlinkingVehicleId === v.id ? "Unlinking…" : "Unlink from tenant"}
-                    </button>
-                  }
+                  actions={[
+                    {
+                      key: "unlink",
+                      label: "Unlink from tenant",
+                      busyLabel: "Unlinking…",
+                      danger: true,
+
+                      // busy implies disabled; don't include busy in disabled
+                      busy: unlinkingVehicleId === v.id,
+                      disabled: isArchived || archived,
+
+                      disabledMessage: isArchived
+                        ? "Cannot manage links for an archived tenant."
+                        : archived
+                          ? "Cannot manage links for an archived vehicle."
+                          : null,
+
+                      onClick: () => handleUnlinkVehicleFromTenant(v.id),
+                    },
+                  ]}
                 />
               );
             })}

@@ -496,7 +496,10 @@ export default function LandlordLeaseDetailPage() {
           lease={lease}
           variant="detail"
           onArchiveAttachment={async (attachId, reason) => {
-            await leasesApi.archiveAttachment(lease.id, { attachId, archiveReason: reason }, { token });
+            await leasesApi.archiveAttachment(lease.id, attachId, {
+              archiveReason: reason,
+              token,
+            });
             await reload();
           }}
           showArchivedAttachs={showArchivedAttachs}
@@ -520,20 +523,24 @@ export default function LandlordLeaseDetailPage() {
             badgeTone={vm.propertyArchived ? "archived" : "idle"}
             onClick={() => navigate(`/landlord/properties/${vm.property.id}`)}
             linkageParts={[vm.propertyName, vm.title]}
-            footer={
-              <button
-                type="button"
-                className={`${card.inlineAction} ${card.inlineActionDanger}`}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleUnlinkPropertyFromLease(vm.property.id);
-                }}
-                disabled={isArchived || unlinkingPropertyId === vm.property.id}
-                aria-disabled={isArchived ? "true" : "false"}
-              >
-                {unlinkingPropertyId === vm.property.id ? "Unlinking…" : "Unlink from lease"}
-              </button>
-            }
+            actions={[
+              {
+                key: "unlink",
+                label: "Unlink from lease",
+                busyLabel: "Unlinking…",
+                danger: true,
+                busy: unlinkingPropertyId === vm.property.id,
+                disabled: isArchived || isArchivedEntity(vm.property),
+
+                disabledMessage: isArchived
+                  ? "Cannot manage links for an archived lease."
+                  : isArchivedEntity(vm.property)
+                    ? "Cannot manage links for an archived property."
+                    : null,
+
+                onClick: () => handleUnlinkPropertyFromLease(vm.property.id),
+              },
+            ]}
           />
         ) : (
           <div className={shared.muted}>No property associated with this lease yet.</div>
@@ -553,8 +560,6 @@ export default function LandlordLeaseDetailPage() {
             Add a property (new or existing)
           </button>
         </div>
-
-        {isArchived ? <div className={shared.muted}>Cannot manage links for an archived lease.</div> : null}
       </div>
 
       {/* Tenants */}
@@ -606,7 +611,7 @@ export default function LandlordLeaseDetailPage() {
                 lt?.tenantName ||
                 lt?.email ||
                 "(Unnamed tenant)";
-
+            
               return (
                 <LinkageCard
                   key={tenantId}
@@ -616,20 +621,26 @@ export default function LandlordLeaseDetailPage() {
                   badgeTone={archived ? "archived" : "idle"}
                   onClick={() => navigate(`/landlord/tenants/${tenantId}`)}
                   linkageParts={[tenantName, vm.title]}
-                  footer={
-                    <button
-                      type="button"
-                      className={`${card.inlineAction} ${card.inlineActionDanger}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleUnlinkTenantFromLease(tenantId);
-                      }}
-                      disabled={isArchived || unlinkingTenantId === tenantId}
-                      aria-disabled={isArchived ? "true" : "false"}
-                    >
-                      {unlinkingTenantId === tenantId ? "Unlinking…" : "Unlink from lease"}
-                    </button>
-                  }
+                  actions={[
+                    {
+                      key: "unlink",
+                      label: "Unlink from lease",
+                      busyLabel: "Unlinking…",
+                      danger: true,
+
+                      // busy implies disabled; don't include busy in disabled
+                      busy: unlinkingTenantId === tenantId,
+                      disabled: isArchived || archived,
+
+                      disabledMessage: isArchived
+                        ? "Cannot manage links for an archived lease."
+                        : archived
+                          ? "Cannot manage links for an archived tenant."
+                          : null,
+
+                      onClick: () => handleUnlinkTenantFromLease(tenantId),
+                    },
+                  ]}
                 />
               );
             })}

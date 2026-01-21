@@ -15,8 +15,8 @@ import page from "@shared/styles/ui.pages.module.css";
 import card from "@shared/styles/ui.cards.module.css";
 import shared from "@shared/styles/ui.shared.module.css";
 
-function isTenantArchived(t) {
-  return !!(t?.archivedAt || t?.archived);
+function isArchivedEntity(x) {
+  return !!(x?.archivedAt || x?.archived);
 }
 
 export default function LandlordPetDetailsPage() {
@@ -77,9 +77,8 @@ export default function LandlordPetDetailsPage() {
   const isArchived = !!(pet?.archivedAt ||  pet?.archived);
 
   const canEditNow = canUpdate && (!isArchived || isSysAdmin);
-  const canArchiveNow = !isArchived;
+  const canArchiveNow = !isArchived && canArchiveGrant;
   const canUnarchiveNow = isArchived && isSysAdmin;
-  const showArchiveLink = canArchiveNow || canUnarchiveNow;
 
   const title = pet?.name || "Pet";
 
@@ -90,14 +89,14 @@ export default function LandlordPetDetailsPage() {
 
   const tenantCounts = useMemo(() => {
     const total = linkedTenants.length;
-    const archived = linkedTenants.filter((t) => isTenantArchived(t)).length;
+    const archived = linkedTenants.filter((t) => isArchivedEntity(t)).length;
     const active = total - archived;
     return { total, active, archived };
   }, [linkedTenants]);
   
   const visibleTenants = useMemo(() => {
     if (showArchivedTenants) return linkedTenants;
-    return linkedTenants.filter((t) => !isTenantArchived(t));
+    return linkedTenants.filter((t) => !isArchivedEntity(t));
   }, [linkedTenants, showArchivedTenants])
 
   const reload = async () => {
@@ -176,6 +175,11 @@ export default function LandlordPetDetailsPage() {
   const handleUnlinkPetFromTenant = async (tenantId) => {
     if (!tenantId || !pet?.id) return;
 
+    if (isArchived) {
+      alert("Cannot manage links for an archived emergency contact.");
+      return;
+    }    
+
     const ok = window.confirm(
       "Unlink this pet from this tenant?\n\nThis does NOT delete either record. It only removes the pet↔tenant association."
     );
@@ -248,17 +252,33 @@ export default function LandlordPetDetailsPage() {
           </div>
         </div>
 
-        {tenantCounts.archived && showArchivedTenants ? (
+        {tenantCounts.archived > 0 ? (
           <div className={shared.muted} style={{ marginBottom: 8 }}>
-            <div>Showing archived tenants</div>
-            <button
-              type="button"
-              className={card.linkAction}
-              onClick={() => setShowArchivedTenants(false)}
-              style={{ padding: 0 }}
-            >
-              Hide archived tenants
-            </button>
+            {!showArchivedTenants ? (
+              <>
+                <button
+                  type="button"
+                  className={card.linkAction}
+                  onClick={() => setShowArchivedTenants(false)}
+                  style={{ padding: 0 }}
+                >
+                  Show archived tenants
+                </button>
+                <div>Archived tenants are hidden</div>
+              </>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  className={card.linkAction}
+                  onClick={() => setShowArchivedTenants(false)}
+                  style={{ padding: 0 }}
+                >
+                  Hide archived tenants
+                </button>
+                <div>Showing all tenants</div>                
+              </>
+            )}
           </div>
         ) : null}
 
@@ -267,7 +287,7 @@ export default function LandlordPetDetailsPage() {
             {visibleTenants.map((t) => {
               if (!t?.id) return null;
 
-              const archived = isTenantArchived(t);
+              const archived = isArchivedEntity(t);
               const tenantName = t.name || t.email || "Unnamed tenant";
 
               return (
@@ -279,19 +299,26 @@ export default function LandlordPetDetailsPage() {
                   badgeTone={archived ? "archived" : "idle"}
                   onClick={() => navigate(`/landlord/tenants/${t.id}`)}
                   linkageParts={[tenantName, title]}
-                  footer={
-                    <button
-                      type="button"
-                      className={`${card.inlineAction} ${card.inlineActionDanger}`}
-                      onClick={(pe) => {
-                        pe.stopPropagation();
-                        handleUnlinkPetFromTenant(t.id);
-                      }}
-                      disabled={unlinkingTenantId === t.id}
-                    >
-                      {unlinkingTenantId === t.id ? "Unlinking…" : "Unlink from pet"}
-                    </button>
-                  }
+                  actions={[
+                    {
+                      key: "unlink",
+                      label: "Unlink from pet",
+                      busyLabel: "Unlinking…",
+                      danger: true,
+
+                      // busy implies disabled; don't include busy in disabled
+                      busy: unlinkingTenantId === t.id,
+                      disabled: isArchived || archived,
+
+                      disabledMessage: isArchived
+                        ? "Cannot manage links for an archived pet."
+                        : archived
+                          ? "Cannot manage links for an archived tenant."
+                          : null,
+
+                      onClick: () => handleUnlinkPetFromTenant(t.id),
+                    },
+                  ]}                    
                 />
               );
             })}

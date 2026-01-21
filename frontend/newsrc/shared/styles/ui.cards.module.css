@@ -107,6 +107,11 @@
   cursor: pointer;
 }
 
+.inlineAction:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
 .inlineActionDanger {
   color: var(--ui-danger);
 }

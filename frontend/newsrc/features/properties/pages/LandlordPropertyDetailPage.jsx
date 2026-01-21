@@ -17,7 +17,7 @@ import card from "@shared/styles/ui.cards.module.css";
 import shared from "@shared/styles/ui.shared.module.css";
 
 function propertyTitle(p) {
-  return p?.name || (p?.address1 && p?.address2) || p?.address1 || "Property";
+  return p?.name || [p?.address1, p?.address2].filter(Boolean).join(" ") || "Property";
 }
 
 function leaseTitle(lease, propTitle) {
@@ -432,7 +432,7 @@ export default function LandlordPropertyDetailPage() {
             <div className={page.sectionHint}>Direct link: Lease ↔ Property</div>
 
             {leaseCounts.archived > 0 ? (
-              <div className={shared.muted} style={{ marginBottom: 8 }}>
+              <div className={shared.muted} style={{ marginTop: 6 }}>
                 {!showArchivedLeases ? (
                   <>
                     <button
@@ -468,8 +468,8 @@ export default function LandlordPropertyDetailPage() {
             {visibleLeases.map((lease) => {
               if (!lease?.id) return null;
 
-              const archived = isArchivedEntity(lease);
               const leaseName = leaseTitle(lease, title);
+              const archived = isArchivedEntity(lease);
 
               return (
                 <LinkageCard
@@ -480,20 +480,24 @@ export default function LandlordPropertyDetailPage() {
                   badgeTone={archived ? "archived" : "idle"}
                   onClick={() => navigate(`/landlord/leases/${lease.id}`)}
                   linkageParts={[leaseName, title]}
-                  footer={
-                    <button
-                      type="button"
-                      className={`${card.inlineAction} ${card.inlineActionDanger}`}
-                      onClick={(le) => {
-                        le.stopPropagation();
-                        handleUnlinkLeaseFromProperty(lease.id);
-                      }}
-                      disabled={isArchived || unlinkingLeaseId === lease.id}
-                      aria-disabled={isArchived ? "true" : "false"}
-                    >
-                      {unlinkingLeaseId === lease.id ? "Unlinking…" : "Unlink from property"}
-                    </button>
-                  }
+                  actions={[
+                    {
+                      key: "unlink",
+                      label: "Unlink from property",
+                      busyLabel: "Unlinking…",
+                      danger: true,
+                      busy: unlinkingLeaseId === lease.id,
+                      disabled: isArchived || archived,
+                    
+                      disabledMessage: isArchived
+                        ? "Cannot manage links for an archived property."
+                        : archived
+                          ? "Cannot manage links for an archived lease."
+                          : null,
+                    
+                      onClick: () => handleUnlinkLeaseFromProperty(lease.id),
+                    },
+                  ]}
                 />
               );
             })}
@@ -522,10 +526,6 @@ export default function LandlordPropertyDetailPage() {
             Add a lease (new or existing)
           </button>
         </div>
-
-        {isArchived ? (
-          <div className={shared.muted}>Cannot manage links for an archived property.</div>
-        ) : null}
       </div>
 
       {/* Tenants */}
@@ -536,7 +536,7 @@ export default function LandlordPropertyDetailPage() {
             <div className={page.sectionHint}>Indirect link: Tenant → Lease → Property</div>
 
             {tenantCounts.archived > 0 ? (
-              <div className={shared.muted} style={{ marginBottom: 8 }}>
+              <div className={shared.muted} style={{ marginTop: 6 }}>
                 {!showArchivedTenants ? (
                   <>
                     <button
@@ -618,7 +618,7 @@ export default function LandlordPropertyDetailPage() {
             <div className={page.sectionHint}>Indirect link: Occupant → Tenant → Lease → Property</div>
 
             {occupantCounts.archived > 0 ? (
-              <div className={shared.muted} style={{ marginBottom: 8 }}>
+              <div className={shared.muted} style={{ marginTop: 6 }}>
                 {!showArchivedOccupants ? (
                   <>
                     <button
@@ -690,7 +690,7 @@ export default function LandlordPropertyDetailPage() {
             <div className={page.sectionHint}>Indirect link: Pet → Tenant → Lease → Property</div>
 
             {petCounts.archived > 0 ? (
-              <div className={shared.muted} style={{ marginBottom: 8 }}>
+              <div className={shared.muted} style={{ marginTop: 6 }}>
                 {!showArchivedPets ? (
                   <>
                     <button
@@ -762,7 +762,7 @@ export default function LandlordPropertyDetailPage() {
             <div className={page.sectionHint}>Indirect link: Emergency Contact → Tenant → Lease → Property</div>
 
             {emergencyContactCounts.archived > 0 ? (
-              <div className={shared.muted} style={{ marginBottom: 8 }}>
+              <div className={shared.muted} style={{ marginTop: 6 }}>
                 {!showArchivedEmergencyContacts ? (
                   <>
                     <button
@@ -834,7 +834,7 @@ export default function LandlordPropertyDetailPage() {
             <div className={page.sectionHint}>Indirect link: Vehicle → Tenant → Lease → Property</div>
 
             {vehicleCounts.archived > 0 ? (
-              <div className={shared.muted} style={{ marginBottom: 8 }}>
+              <div className={shared.muted} style={{ marginTop: 6 }}>
                 {!showArchivedVehicles ? (
                   <>
                     <button
