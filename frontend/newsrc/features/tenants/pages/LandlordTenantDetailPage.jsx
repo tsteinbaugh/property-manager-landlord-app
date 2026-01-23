@@ -549,7 +549,7 @@ export default function LandlordTenantDetailPage() {
                       danger: true,
 
                       // busy implies disabled; don't include busy in disabled
-                      busy: unlinkingLeaseId === l.id,
+                      busy: unlinkingLeaseId === lease.id,
                       disabled: isArchived || archived,
 
                       disabledMessage: isArchived
@@ -558,7 +558,7 @@ export default function LandlordTenantDetailPage() {
                           ? "Cannot manage links for an archived lease."
                           : null,
 
-                      onClick: () => handleUnlinkLeaseFromTenant(l.id),
+                      onClick: () => handleUnlinkLeaseFromTenant(lease.id),
                     },
                   ]}
                 />

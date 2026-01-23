@@ -20,32 +20,37 @@ function registerEmergencyContactRoutes(app, prisma, { shapeEmergencyContact }) 
   // - SYSADMIN: all
   // - no user/other: allow all for now (dev parity with properties)
   // ============================================================
-  app.get("/api/emergencyContacts", async (req, res) => {
-    const includeArchived =
-      req.query.includeArchived === "1" || req.query.includeArchived === "true";
+  app.get(
+    "/api/emergencyContacts",
+    auth,
+    requireLandlordOrSysadmin,
+    async (req, res) => {
+      const includeArchived =
+        req.query.includeArchived === "1" || req.query.includeArchived === "true";
 
-    try {
-      const user = req.user || null;
+      try {
+        const user = req.user || null;
 
-      const where = {
-        ...(includeArchived ? {} : { archivedAt: null }),
-      };
+        const where = {
+          ...(includeArchived ? {} : { archivedAt: null }),
+        };
 
-      if (user && user.baseRole === Role.LANDLORD) {
-        where.landlordId = user.id;
+        if (user && user.baseRole === Role.LANDLORD) {
+          where.landlordId = user.id;
+        }
+
+        const emergencyContacts = await prisma.emergencyContact.findMany({
+          where,
+          orderBy: { createdAt: "desc" },
+        });
+
+        return res.json(emergencyContacts.map(shapeEmergencyContact));
+      } catch (err) {
+        console.error("Error in GET /api/emergencyContacts", err);
+        return res.status(500).json({ error: "Server error" });
       }
-
-      const emergencyContacts = await prisma.emergencyContact.findMany({
-        where,
-        orderBy: { createdAt: "desc" },
-      });
-
-      return res.json(emergencyContacts.map(shapeEmergencyContact));
-    } catch (err) {
-      console.error("Error in GET /api/emergencyContacts", err);
-      return res.status(500).json({ error: "Server error" });
     }
-  });
+  );
 
   // ============================================================
   // GET /api/emergencyContacts/:id
@@ -77,28 +82,33 @@ function registerEmergencyContactRoutes(app, prisma, { shapeEmergencyContact }) 
   // ============================================================
   // POST /api/emergencyContacts
   // ============================================================
-  app.post("/api/emergencyContacts", async (req, res) => {
-    const user = req.user || null;
-    if (!user) return res.status(401).json({ error: "Unauthorized" });
+  app.post(
+    "/api/emergencyContacts",
+    auth,
+    requireLandlordOrSysadmin,
+    async (req, res) => {
+      const user = req.user || null;
+      if (!user) return res.status(401).json({ error: "Unauthorized" });
 
-    try {
-      const { data, error } = parseEmergencyContactPost(req.body);
-      if (error) return res.status(400).json({ error });
+      try {
+        const { data, error } = parseEmergencyContactPost(req.body);
+        if (error) return res.status(400).json({ error });
 
-      const created = await prisma.emergencyContact.create({
-        data: {
-          ...data,
-          landlordId: user.id,
-          createdById: user.id,
-        },
-      });
+        const created = await prisma.emergencyContact.create({
+          data: {
+            ...data,
+            landlordId: user.id,
+            createdById: user.id,
+          },
+        });
 
-      return res.status(201).json(shapeEmergencyContact(created));
-    } catch (err) {
-      console.error("Error in POST /api/emergencyContacts", err);
-      return res.status(500).json({ error: "Server error" });
+        return res.status(201).json(shapeEmergencyContact(created));
+      } catch (err) {
+        console.error("Error in POST /api/emergencyContacts", err);
+        return res.status(500).json({ error: "Server error" });
+      }
     }
-  });
+  );
 
   // ============================================================
   // PATCH /api/emergencyContacts/:id
@@ -116,6 +126,13 @@ function registerEmergencyContactRoutes(app, prisma, { shapeEmergencyContact }) 
       try {
         const existing = await prisma.emergencyContact.findUnique({ where: { id } });
         if (!existing) return res.status(404).json({ error: "Emergency contact not found" });
+
+        if (existing.archivedAt) {
+          return res.status(409).json({
+            error:
+              "Emergency contact is archived and cannot be edited. Restore (unarchive) first, then edit, then re-archive.",
+          });
+        }
 
         if (user.baseRole === Role.LANDLORD && existing.landlordId && existing.landlordId !== user.id) {
           return res.status(403).json({ error: "You are not allowed to update this emergencyContact." });

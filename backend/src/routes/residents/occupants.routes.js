@@ -15,32 +15,37 @@ function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
   // ============================================================
   // GET /api/occupants?includeArchived=0|1
   // ============================================================
-  app.get("/api/occupants", async (req, res) => {
-    const includeArchived =
-      req.query.includeArchived === "1" || req.query.includeArchived === "true";
+  app.get(
+    "/api/occupants",
+    auth,
+    requireLandlordOrSysadmin,
+    async (req, res) => {
+      const includeArchived =
+        req.query.includeArchived === "1" || req.query.includeArchived === "true";
 
-    try {
-      const user = req.user || null;
+      try {
+        const user = req.user || null;
 
-      const where = {
-        ...(includeArchived ? {} : { archivedAt: null }),
-      };
+        const where = {
+          ...(includeArchived ? {} : { archivedAt: null }),
+        };
 
-      if (user && user.baseRole === Role.LANDLORD) {
-        where.landlordId = user.id;
+        if (user && user.baseRole === Role.LANDLORD) {
+          where.landlordId = user.id;
+        }
+
+        const occupants = await prisma.occupant.findMany({
+          where,
+          orderBy: { createdAt: "desc" },
+        });
+
+        return res.json(occupants.map(shapeOccupant));
+      } catch (err) {
+        console.error("Error in GET /api/occupants", err);
+        return res.status(500).json({ error: "Server error" });
       }
-
-      const occupants = await prisma.occupant.findMany({
-        where,
-        orderBy: { createdAt: "desc" },
-      });
-
-      return res.json(occupants.map(shapeOccupant));
-    } catch (err) {
-      console.error("Error in GET /api/occupants", err);
-      return res.status(500).json({ error: "Server error" });
     }
-  });
+  );
 
   // ============================================================
   // GET /api/occupants/:id  (detail + linked tenants)
@@ -71,28 +76,33 @@ function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
   // ============================================================
   // POST /api/occupants
   // ============================================================
-  app.post("/api/occupants", async (req, res) => {
-    const user = req.user || null;
-    if (!user) return res.status(401).json({ error: "Unauthorized" });
+  app.post(
+    "/api/occupants",
+    auth,
+    requireLandlordOrSysadmin,    
+    async (req, res) => {
+      const user = req.user || null;
+      if (!user) return res.status(401).json({ error: "Unauthorized" });
 
-    try {
-      const { data, error } = parseOccupantPost(req.body);
-      if (error) return res.status(400).json({ error });
+      try {
+        const { data, error } = parseOccupantPost(req.body);
+        if (error) return res.status(400).json({ error });
 
-      const created = await prisma.occupant.create({
-        data: {
-          ...data,
-          landlordId: user.id,
-          createdById: user.id,
-        },
-      });
+        const created = await prisma.occupant.create({
+          data: {
+            ...data,
+            landlordId: user.id,
+            createdById: user.id,
+          },
+        });
 
-      return res.status(201).json(shapeOccupant(created));
-    } catch (err) {
-      console.error("Error in POST /api/occupants", err);
-      return res.status(500).json({ error: "Server error" });
+        return res.status(201).json(shapeOccupant(created));
+      } catch (err) {
+        console.error("Error in POST /api/occupants", err);
+        return res.status(500).json({ error: "Server error" });
+      }
     }
-  });
+  );
 
   // ============================================================
   // PATCH /api/occupants/:id
@@ -110,6 +120,13 @@ function registerOccupantRoutes(app, prisma, { shapeOccupant }) {
       try {
         const existing = await prisma.occupant.findUnique({ where: { id } });
         if (!existing) return res.status(404).json({ error: "Occupant not found" });
+
+        if (existing.archivedAt) {
+          return res.status(409).json({
+            error:
+              "Occupant is archived and cannot be edited. Restore (unarchive) first, then edit, then re-archive.",
+          });
+        }
 
         if (user.baseRole === Role.LANDLORD && existing.landlordId && existing.landlordId !== user.id) {
           return res.status(403).json({ error: "You are not allowed to update this occupant." });

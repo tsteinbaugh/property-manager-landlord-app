@@ -164,7 +164,10 @@ function registerTenantRoutes(app, prisma, { shapeTenant, uploadTenantFile }) {
   // GET /api/tenants – list tenants (scoped by landlord)
   // Optional ?includeArchived=0|1 flag
   // ============================================================
-  app.get("/api/tenants", async (req, res) => {
+  app.get("/api/tenants", 
+    auth,
+    requireLandlordOrSysadmin,
+    async (req, res) => {
     try {
       const user = req.user || null;
       const includeArchived =
@@ -191,7 +194,11 @@ function registerTenantRoutes(app, prisma, { shapeTenant, uploadTenantFile }) {
   // ============================================================
   // POST /api/tenants – create tenant (and link/create TENANT user if email present)
   // ============================================================
-  app.post("/api/tenants", async (req, res) => {
+  app.post("/api/tenants", 
+    auth,
+    requireLandlordOrSysadmin,
+    async (req, res) => {
+
     const authUser = req.user || null;
     if (!authUser) return res.status(401).json({ error: "Unauthorized" });
 
@@ -285,6 +292,13 @@ function registerTenantRoutes(app, prisma, { shapeTenant, uploadTenantFile }) {
       try {
         const existing = await prisma.tenant.findUnique({ where: { id } });
         if (!existing) return res.status(404).json({ error: "Tenant not found" });
+
+        if (existing.archivedAt) {
+          return res.status(409).json({
+            error:
+              "Tenant is archived and cannot be edited. Restore (unarchive) first, then edit, then re-archive.",
+          });
+        }
 
         if (
           user.baseRole === Role.LANDLORD &&
@@ -525,6 +539,24 @@ function registerTenantRoutes(app, prisma, { shapeTenant, uploadTenantFile }) {
       const user = req.user || null;
       if (!user) return res.status(401).json({ error: "Unauthorized" });
 
+      const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
+      if (!tenant) return res.status(404).json({ error: "Tenant not found" });
+
+      const occupant = await prisma.occupant.findUnique({ where: { id: occupantId } });
+      if (!occupant) return res.status(404).json({ error: "Pet not found" });
+
+      if (tenant.archivedAt) {
+        return res.status(409).json({
+          error: "Cannot modify links for an archived tenant. Restore it first."
+        });
+      }
+
+      if (occupant.archivedAt) {
+        return res.status(409).json({
+          error: "Cannot modify links for an archived occupant. Restore it first."
+        });
+      }
+
       try {
         const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
         if (!tenant) return res.status(404).json({ error: "Tenant not found" });
@@ -570,6 +602,24 @@ function registerTenantRoutes(app, prisma, { shapeTenant, uploadTenantFile }) {
       const { tenantId, occupantId } = req.params;
       const user = req.user || null;
       if (!user) return res.status(401).json({ error: "Unauthorized" });
+
+      const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
+      if (!tenant) return res.status(404).json({ error: "Tenant not found" });
+
+      const occupant = await prisma.occupant.findUnique({ where: { id: occupantId } });
+      if (!occupant) return res.status(404).json({ error: "Pet not found" });
+
+      if (tenant.archivedAt) {
+        return res.status(409).json({
+          error: "Cannot modify links for an archived tenant. Restore it first."
+        });
+      }
+
+      if (occupant.archivedAt) {
+        return res.status(409).json({
+          error: "Cannot modify links for an archived occupant. Restore it first."
+        });
+      }
 
       try {
         const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
@@ -617,93 +667,159 @@ function registerTenantRoutes(app, prisma, { shapeTenant, uploadTenantFile }) {
   );
 
   // POST /api/tenants/:tenantId/pets/:petId/link
-  app.post("/api/tenants/:tenantId/pets/:petId/link", async (req, res) => {
-    const { tenantId, petId } = req.params;
-    const user = req.user || null;
-    if (!user) return res.status(401).json({ error: "Unauthorized" });
+  app.post(
+    "/api/tenants/:tenantId/pets/:petId/link",
+    auth,
+    requireLandlordOrSysadmin,
+    async (req, res) => {
+      const { tenantId, petId } = req.params;
+      const user = req.user || null;
+      if (!user) return res.status(401).json({ error: "Unauthorized" });
 
-    try {
       const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
       if (!tenant) return res.status(404).json({ error: "Tenant not found" });
 
       const pet = await prisma.pet.findUnique({ where: { id: petId } });
       if (!pet) return res.status(404).json({ error: "Pet not found" });
 
-      const isSysAdmin = user.baseRole === Role.SYSADMIN;
-      if (!isSysAdmin) {
-        if (tenant.landlordId && tenant.landlordId !== user.id) {
-          return res.status(403).json({ error: "You are not allowed to link this tenant." });
-        }
-        if (pet.landlordId && pet.landlordId !== user.id) {
-          return res.status(403).json({ error: "You are not allowed to link this pet." });
-        }
+      if (tenant.archivedAt) {
+        return res.status(409).json({
+          error: "Cannot modify links for an archived tenant. Restore it first."
+        });
       }
 
-      await prisma.tenantPet.upsert({
-        where: { tenantId_petId: { tenantId, petId } },
-        update: {},
-        create: { tenantId, petId },
-      });
-
-      return res.json({ ok: true });
-    } catch (err) {
-      console.error("Error in POST /api/tenants/:tenantId/pets/:petId/link", err);
-      return res.status(500).json({ error: "Server error" });
-    }
-  });
-
-  // DELETE /api/tenants/:tenantId/pets/:petId/unlink
-  app.delete("/api/tenants/:tenantId/pets/:petId/unlink", async (req, res) => {
-    const { tenantId, petId } = req.params;
-    const user = req.user || null;
-    if (!user) return res.status(401).json({ error: "Unauthorized" });
-
-    try {
-      const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
-      if (!tenant) return res.status(404).json({ error: "Tenant not found" });
-
-      const pet = await prisma.pet.findUnique({ where: { id: petId } });
-      if (!pet) return res.status(404).json({ error: "Pet not found" });
-
-      if (user.baseRole !== Role.LANDLORD && user.baseRole !== Role.SYSADMIN) {
-        return res.status(403).json({ error: "Forbidden" });
-      }
-
-      const isSysAdmin = user.baseRole === Role.SYSADMIN;
-      if (!isSysAdmin) {
-        if (tenant.landlordId && tenant.landlordId !== user.id) {
-          return res
-            .status(403)
-            .json({ error: "You are not allowed to unlink this tenant." });
-        }
-        if (pet.landlordId && pet.landlordId !== user.id) {
-          return res.status(403).json({ error: "You are not allowed to unlink this pet." });
-        }
+      if (pet.archivedAt) {
+        return res.status(409).json({
+          error: "Cannot modify links for an archived pet. Restore it first."
+        });
       }
 
       try {
-        await prisma.tenantPet.delete({
+        const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
+        if (!tenant) return res.status(404).json({ error: "Tenant not found" });
+
+        const pet = await prisma.pet.findUnique({ where: { id: petId } });
+        if (!pet) return res.status(404).json({ error: "Pet not found" });
+
+        const isSysAdmin = user.baseRole === Role.SYSADMIN;
+        if (!isSysAdmin) {
+          if (tenant.landlordId && tenant.landlordId !== user.id) {
+            return res.status(403).json({ error: "You are not allowed to link this tenant." });
+          }
+          if (pet.landlordId && pet.landlordId !== user.id) {
+            return res.status(403).json({ error: "You are not allowed to link this pet." });
+          }
+        }
+
+        await prisma.tenantPet.upsert({
           where: { tenantId_petId: { tenantId, petId } },
+          update: {},
+          create: { tenantId, petId },
         });
-      } catch (deleteErr) {
-        console.error("No TenantPet link to delete", deleteErr);
-        return res.status(404).json({ error: "Tenant/pet link not found" });
+
+        return res.json({ ok: true });
+      } catch (err) {
+        console.error("Error in POST /api/tenants/:tenantId/pets/:petId/link", err);
+        return res.status(500).json({ error: "Server error" });
+      }
+    }
+  );
+
+  // DELETE /api/tenants/:tenantId/pets/:petId/unlink
+  app.delete(
+    "/api/tenants/:tenantId/pets/:petId/unlink",
+    auth,
+    requireLandlordOrSysadmin,
+    async (req, res) => {
+      const { tenantId, petId } = req.params;
+      const user = req.user || null;
+      if (!user) return res.status(401).json({ error: "Unauthorized" });
+     
+      const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
+      if (!tenant) return res.status(404).json({ error: "Tenant not found" });
+
+      const pet = await prisma.pet.findUnique({ where: { id: petId } });
+      if (!pet) return res.status(404).json({ error: "Pet not found" });
+
+      if (tenant.archivedAt) {
+        return res.status(409).json({
+          error: "Cannot modify links for an archived tenant. Restore it first."
+        });
       }
 
-      return res.json({ ok: true });
-    } catch (err) {
-      console.error("Error in DELETE /api/tenants/:tenantId/pets/:petId/unlink", err);
-      return res.status(500).json({ error: "Server error" });
+      if (pet.archivedAt) {
+        return res.status(409).json({
+          error: "Cannot modify links for an archived pet. Restore it first."
+        });
+      }
+
+      try {
+        const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
+        if (!tenant) return res.status(404).json({ error: "Tenant not found" });
+
+        const pet = await prisma.pet.findUnique({ where: { id: petId } });
+        if (!pet) return res.status(404).json({ error: "Pet not found" });
+
+        if (user.baseRole !== Role.LANDLORD && user.baseRole !== Role.SYSADMIN) {
+          return res.status(403).json({ error: "Forbidden" });
+        }
+
+        const isSysAdmin = user.baseRole === Role.SYSADMIN;
+        if (!isSysAdmin) {
+          if (tenant.landlordId && tenant.landlordId !== user.id) {
+            return res
+              .status(403)
+              .json({ error: "You are not allowed to unlink this tenant." });
+          }
+          if (pet.landlordId && pet.landlordId !== user.id) {
+            return res.status(403).json({ error: "You are not allowed to unlink this pet." });
+          }
+        }
+
+        try {
+          await prisma.tenantPet.delete({
+            where: { tenantId_petId: { tenantId, petId } },
+          });
+        } catch (deleteErr) {
+          console.error("No TenantPet link to delete", deleteErr);
+          return res.status(404).json({ error: "Tenant/pet link not found" });
+        }
+
+        return res.json({ ok: true });
+      } catch (err) {
+        console.error("Error in DELETE /api/tenants/:tenantId/pets/:petId/unlink", err);
+        return res.status(500).json({ error: "Server error" });
+      }
     }
-  });
+  );
 
   // POST /api/tenants/:tenantId/emergencyContacts/:emergencyContactId/link
   app.post(
     "/api/tenants/:tenantId/emergencyContacts/:emergencyContactId/link",
+    auth,
+    requireLandlordOrSysadmin,
     async (req, res) => {
       const { tenantId, emergencyContactId } = req.params;
       const user = req.user || null;
       if (!user) return res.status(401).json({ error: "Unauthorized" });
+
+      const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
+      if (!tenant) return res.status(404).json({ error: "Tenant not found" });
+
+      const emergencyContact = await prisma.emergencyContact.findUnique({ where: { id: emergencyContactId } });
+      if (!emergencyContact) return res.status(404).json({ error: "Pet not found" });
+
+      if (tenant.archivedAt) {
+        return res.status(409).json({
+          error: "Cannot modify links for an archived tenant. Restore it first."
+        });
+      }
+
+      if (emergencyContact.archivedAt) {
+        return res.status(409).json({
+          error: "Cannot modify links for an archived emergency contact. Restore it first."
+        });
+      }
 
       try {
         const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
@@ -747,10 +863,30 @@ function registerTenantRoutes(app, prisma, { shapeTenant, uploadTenantFile }) {
   // DELETE /api/tenants/:tenantId/emergencyContacts/:emergencyContactId/unlink
   app.delete(
     "/api/tenants/:tenantId/emergencyContacts/:emergencyContactId/unlink",
+    auth,
+    requireLandlordOrSysadmin,
     async (req, res) => {
       const { tenantId, emergencyContactId } = req.params;
       const user = req.user || null;
       if (!user) return res.status(401).json({ error: "Unauthorized" });
+
+      const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
+      if (!tenant) return res.status(404).json({ error: "Tenant not found" });
+
+      const emergencyContact = await prisma.emergencyContact.findUnique({ where: { id: emergencyContactId } });
+      if (!emergencyContact) return res.status(404).json({ error: "Pet not found" });
+
+      if (tenant.archivedAt) {
+        return res.status(409).json({
+          error: "Cannot modify links for an archived tenant. Restore it first."
+        });
+      }
+
+      if (emergencyContact.archivedAt) {
+        return res.status(409).json({
+          error: "Cannot modify links for an archived emergency contact. Restore it first."
+        });
+      }
 
       try {
         const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
@@ -801,87 +937,133 @@ function registerTenantRoutes(app, prisma, { shapeTenant, uploadTenantFile }) {
   );
 
   // POST /api/tenants/:tenantId/vehicles/:vehicleId/link
-  app.post("/api/tenants/:tenantId/vehicles/:vehicleId/link", async (req, res) => {
-    const { tenantId, vehicleId } = req.params;
-    const user = req.user || null;
-    if (!user) return res.status(401).json({ error: "Unauthorized" });
+  app.post(
+    "/api/tenants/:tenantId/vehicles/:vehicleId/link",
+    auth,
+    requireLandlordOrSysadmin,
+    async (req, res) => {
+      const { tenantId, vehicleId } = req.params;
+      const user = req.user || null;
+      if (!user) return res.status(401).json({ error: "Unauthorized" });
 
-    try {
       const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
       if (!tenant) return res.status(404).json({ error: "Tenant not found" });
 
       const vehicle = await prisma.vehicle.findUnique({ where: { id: vehicleId } });
-      if (!vehicle) return res.status(404).json({ error: "Vehicle not found" });
+      if (!vehicle) return res.status(404).json({ error: "Pet not found" });
 
-      const isSysAdmin = user.baseRole === Role.SYSADMIN;
-      if (!isSysAdmin) {
-        if (tenant.landlordId && tenant.landlordId !== user.id) {
-          return res.status(403).json({ error: "You are not allowed to link this tenant." });
-        }
-        if (vehicle.landlordId && vehicle.landlordId !== user.id) {
-          return res.status(403).json({ error: "You are not allowed to link this vehicle." });
-        }
+      if (tenant.archivedAt) {
+        return res.status(409).json({
+          error: "Cannot modify links for an archived tenant. Restore it first."
+        });
       }
 
-      await prisma.tenantVehicle.upsert({
-        where: { tenantId_vehicleId: { tenantId, vehicleId } },
-        update: {},
-        create: { tenantId, vehicleId },
-      });
-
-      return res.json({ ok: true });
-    } catch (err) {
-      console.error("Error in POST /api/tenants/:tenantId/vehicles/:vehicleId/link", err);
-      return res.status(500).json({ error: "Server error" });
-    }
-  });
-
-  // DELETE /api/tenants/:tenantId/vehicles/:vehicleId/unlink
-  app.delete("/api/tenants/:tenantId/vehicles/:vehicleId/unlink", async (req, res) => {
-    const { tenantId, vehicleId } = req.params;
-    const user = req.user || null;
-    if (!user) return res.status(401).json({ error: "Unauthorized" });
-
-    try {
-      const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
-      if (!tenant) return res.status(404).json({ error: "Tenant not found" });
-
-      const vehicle = await prisma.vehicle.findUnique({ where: { id: vehicleId } });
-      if (!vehicle) return res.status(404).json({ error: "Vehicle not found" });
-
-      if (user.baseRole !== Role.LANDLORD && user.baseRole !== Role.SYSADMIN) {
-        return res.status(403).json({ error: "Forbidden" });
-      }
-
-      const isSysAdmin = user.baseRole === Role.SYSADMIN;
-      if (!isSysAdmin) {
-        if (tenant.landlordId && tenant.landlordId !== user.id) {
-          return res
-            .status(403)
-            .json({ error: "You are not allowed to unlink this tenant." });
-        }
-        if (vehicle.landlordId && vehicle.landlordId !== user.id) {
-          return res
-            .status(403)
-            .json({ error: "You are not allowed to unlink this vehicle." });
-        }
+      if (vehicle.archivedAt) {
+        return res.status(409).json({
+          error: "Cannot modify links for an archived vehicle. Restore it first."
+        });
       }
 
       try {
-        await prisma.tenantVehicle.delete({
+        const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
+        if (!tenant) return res.status(404).json({ error: "Tenant not found" });
+
+        const vehicle = await prisma.vehicle.findUnique({ where: { id: vehicleId } });
+        if (!vehicle) return res.status(404).json({ error: "Vehicle not found" });
+
+        const isSysAdmin = user.baseRole === Role.SYSADMIN;
+        if (!isSysAdmin) {
+          if (tenant.landlordId && tenant.landlordId !== user.id) {
+            return res.status(403).json({ error: "You are not allowed to link this tenant." });
+          }
+          if (vehicle.landlordId && vehicle.landlordId !== user.id) {
+            return res.status(403).json({ error: "You are not allowed to link this vehicle." });
+          }
+        }
+
+        await prisma.tenantVehicle.upsert({
           where: { tenantId_vehicleId: { tenantId, vehicleId } },
+          update: {},
+          create: { tenantId, vehicleId },
         });
-      } catch (deleteErr) {
-        console.error("No TenantVehicle link to delete", deleteErr);
-        return res.status(404).json({ error: "Tenant/vehicle link not found" });
+
+        return res.json({ ok: true });
+      } catch (err) {
+        console.error("Error in POST /api/tenants/:tenantId/vehicles/:vehicleId/link", err);
+        return res.status(500).json({ error: "Server error" });
+      }
+    }
+  );
+
+  // DELETE /api/tenants/:tenantId/vehicles/:vehicleId/unlink
+  app.delete(
+    "/api/tenants/:tenantId/vehicles/:vehicleId/unlink",
+    auth,
+    requireLandlordOrSysadmin,
+    async (req, res) => {
+      const { tenantId, vehicleId } = req.params;
+      const user = req.user || null;
+      if (!user) return res.status(401).json({ error: "Unauthorized" });
+
+      const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
+      if (!tenant) return res.status(404).json({ error: "Tenant not found" });
+
+      const vehicle = await prisma.vehicle.findUnique({ where: { id: vehicleId } });
+      if (!vehicle) return res.status(404).json({ error: "Pet not found" });
+
+      if (tenant.archivedAt) {
+        return res.status(409).json({
+          error: "Cannot modify links for an archived tenant. Restore it first."
+        });
       }
 
-      return res.json({ ok: true });
-    } catch (err) {
-      console.error("Error in DELETE /api/tenants/:tenantId/vehicles/:vehicleId/unlink", err);
-      return res.status(500).json({ error: "Server error" });
+      if (vehicle.archivedAt) {
+        return res.status(409).json({
+          error: "Cannot modify links for an archived vehicle. Restore it first."
+        });
+      }
+
+      try {
+        const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
+        if (!tenant) return res.status(404).json({ error: "Tenant not found" });
+
+        const vehicle = await prisma.vehicle.findUnique({ where: { id: vehicleId } });
+        if (!vehicle) return res.status(404).json({ error: "Vehicle not found" });
+
+        if (user.baseRole !== Role.LANDLORD && user.baseRole !== Role.SYSADMIN) {
+          return res.status(403).json({ error: "Forbidden" });
+        }
+
+        const isSysAdmin = user.baseRole === Role.SYSADMIN;
+        if (!isSysAdmin) {
+          if (tenant.landlordId && tenant.landlordId !== user.id) {
+            return res
+              .status(403)
+              .json({ error: "You are not allowed to unlink this tenant." });
+          }
+          if (vehicle.landlordId && vehicle.landlordId !== user.id) {
+            return res
+              .status(403)
+              .json({ error: "You are not allowed to unlink this vehicle." });
+          }
+        }
+
+        try {
+          await prisma.tenantVehicle.delete({
+            where: { tenantId_vehicleId: { tenantId, vehicleId } },
+          });
+        } catch (deleteErr) {
+          console.error("No TenantVehicle link to delete", deleteErr);
+          return res.status(404).json({ error: "Tenant/vehicle link not found" });
+        }
+
+        return res.json({ ok: true });
+      } catch (err) {
+        console.error("Error in DELETE /api/tenants/:tenantId/vehicles/:vehicleId/unlink", err);
+        return res.status(500).json({ error: "Server error" });
+      }
     }
-  });
+  );
 }
 
 module.exports = { registerTenantRoutes };

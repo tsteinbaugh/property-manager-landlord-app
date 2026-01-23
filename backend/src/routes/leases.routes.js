@@ -286,6 +286,13 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
         });
         if (!existing) return res.status(404).json({ error: "Lease not found" });
 
+        if (existing.archivedAt) {
+          return res.status(409).json({
+            error:
+              "Lease is archived and cannot be edited. Restore (unarchive) first, then edit, then re-archive.",
+          });
+        }
+
         // landlord scoping
         if (
           user.baseRole === Role.LANDLORD &&
@@ -516,6 +523,26 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
       const { leaseId, tenantId } = req.params;
       const user = req.user;
 
+      if (!user) return res.status(401).json({ error: "Unauthorized" });
+
+      const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
+      if (!lease) return res.status(404).json({ error: "Tenant not found" });
+
+      const lease = await prisma.lease.findUnique({ where: { id: leaseId } });
+      if (!lease) return res.status(404).json({ error: "lease not found" });
+
+      if (lease.archivedAt) {
+        return res.status(409).json({
+          error: "Cannot modify links for an archived lease. Restore it first."
+        });
+      }
+
+      if (tenant.archivedAt) {
+        return res.status(409).json({
+          error: "Cannot modify links for an archived tenant. Restore it first."
+        });
+      }
+            
       try {
         const lease = await prisma.lease.findUnique({ where: { id: leaseId } });
         if (!lease) return res.status(404).json({ error: "Lease not found" });
@@ -568,6 +595,23 @@ function registerLeaseRoutes(app, prisma, { uploadLeaseFile, shapeLease }) {
     async (req, res) => {
       const { leaseId, tenantId } = req.params;
       const user = req.user;
+
+      if (!user) return res.status(401).json({ error: "Unauthorized" });
+
+      const lease = await prisma.lease.findUnique({ where: { id: leaseId } });
+      if (!lease) return res.status(404).json({ error: "lease not found" });
+
+      if (lease.archivedAt) {
+        return res.status(409).json({
+          error: "Cannot modify links for an archived lease. Restore it first."
+        });
+      }
+
+      if (tenant.archivedAt) {
+        return res.status(409).json({
+          error: "Cannot modify links for an archived tenant. Restore it first."
+        });
+      }      
 
       try {
         const lease = await prisma.lease.findUnique({ where: { id: leaseId } });

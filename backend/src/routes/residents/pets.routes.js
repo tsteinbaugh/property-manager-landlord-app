@@ -11,32 +11,37 @@ function registerPetRoutes(app, prisma, { shapePet }) {
   // ============================================================
   // GET /api/pets?includeArchived=0|1
   // ============================================================
-  app.get("/api/pets", async (req, res) => {
-    const includeArchived =
-      req.query.includeArchived === "1" || req.query.includeArchived === "true";
+  app.get(
+    "/api/pets",
+    auth,
+    requireLandlordOrSysadmin,
+    async (req, res) => {
+      const includeArchived =
+        req.query.includeArchived === "1" || req.query.includeArchived === "true";
 
-    try {
-      const user = req.user || null;
+      try {
+        const user = req.user || null;
 
-      const where = {
-        ...(includeArchived ? {} : { archivedAt: null }),
-      };
+        const where = {
+          ...(includeArchived ? {} : { archivedAt: null }),
+        };
 
-      if (user && user.baseRole === Role.LANDLORD) {
-        where.landlordId = user.id;
+        if (user && user.baseRole === Role.LANDLORD) {
+          where.landlordId = user.id;
+        }
+
+        const pets = await prisma.pet.findMany({
+          where,
+          orderBy: { createdAt: "desc" },
+        });
+
+        return res.json(pets.map(shapePet));
+      } catch (err) {
+        console.error("Error in GET /api/pets", err);
+        return res.status(500).json({ error: "Server error" });
       }
-
-      const pets = await prisma.pet.findMany({
-        where,
-        orderBy: { createdAt: "desc" },
-      });
-
-      return res.json(pets.map(shapePet));
-    } catch (err) {
-      console.error("Error in GET /api/pets", err);
-      return res.status(500).json({ error: "Server error" });
     }
-  });
+  );
 
   // ============================================================
   // GET /api/pets/:id (detail + linked tenants)
@@ -67,28 +72,33 @@ function registerPetRoutes(app, prisma, { shapePet }) {
   // ============================================================
   // POST /api/pets
   // ============================================================
-  app.post("/api/pets", async (req, res) => {
-    const user = req.user || null;
-    if (!user) return res.status(401).json({ error: "Unauthorized" });
+  app.post(
+    "/api/pets",
+    auth,
+    requireLandlordOrSysadmin,
+    async (req, res) => {
+      const user = req.user || null;
+      if (!user) return res.status(401).json({ error: "Unauthorized" });
 
-    try {
-      const { data, error } = parsePetPost(req.body);
-      if (error) return res.status(400).json({ error });
+      try {
+        const { data, error } = parsePetPost(req.body);
+        if (error) return res.status(400).json({ error });
 
-      const created = await prisma.pet.create({
-        data: {
-          ...data,
-          landlordId: user.id,
-          createdById: user.id,
-        },
-      });
+        const created = await prisma.pet.create({
+          data: {
+            ...data,
+            landlordId: user.id,
+            createdById: user.id,
+          },
+        });
 
-      return res.status(201).json(shapePet(created));
-    } catch (err) {
-      console.error("Error in POST /api/pets", err);
-      return res.status(500).json({ error: "Server error" });
+        return res.status(201).json(shapePet(created));
+      } catch (err) {
+        console.error("Error in POST /api/pets", err);
+        return res.status(500).json({ error: "Server error" });
+      }
     }
-  });
+  );
 
   // ============================================================
   // PATCH /api/pets/:id
@@ -106,6 +116,13 @@ function registerPetRoutes(app, prisma, { shapePet }) {
       try {
         const existing = await prisma.pet.findUnique({ where: { id } });
         if (!existing) return res.status(404).json({ error: "Pet not found" });
+
+        if (existing.archivedAt) {
+          return res.status(409).json({
+            error:
+              "Pet is archived and cannot be edited. Restore (unarchive) first, then edit, then re-archive.",
+          });
+        }
 
         if (user.baseRole === Role.LANDLORD && existing.landlordId && existing.landlordId !== user.id) {
           return res.status(403).json({ error: "You are not allowed to update this pet." });

@@ -10,19 +10,15 @@ const LEASE_DETAILS_INCLUDE = {
       tenant: {
         include: {
           occupantLinks: {
-            where: { occupant: { archivedAt: null } },
             include: { occupant: true },
           },
           petLinks: {
-            where: { pet: { archivedAt: null } },
             include: { pet: true },
           },
           emergencyContactLinks: {
-            where: { emergencyContact: { archivedAt: null } },
             include: { emergencyContact: true },
           },
           vehicleLinks: {
-            where: { vehicle: { archivedAt: null } },
             include: { vehicle: true },
           },
         },
@@ -85,7 +81,6 @@ async function listLeases(prisma, { user, includeArchived = false }) {
       landlord: true,
       leaseTenants: { include: { tenant: true }, orderBy: { startDate: "desc" } },
       attachments: { 
-        where: {archivedAt: null },
         orderBy: { createdAt: "desc" } 
       },  
     },

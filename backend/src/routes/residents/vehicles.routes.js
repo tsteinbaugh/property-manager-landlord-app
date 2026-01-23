@@ -11,32 +11,37 @@ function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
   // ============================================================
   // GET /api/vehicles?includeArchived=0|1
   // ============================================================
-  app.get("/api/vehicles", async (req, res) => {
-    const includeArchived =
-      req.query.includeArchived === "1" || req.query.includeArchived === "true";
+  app.get(
+    "/api/vehicles",
+    auth,
+    requireLandlordOrSysadmin,
+    async (req, res) => {
+      const includeArchived =
+        req.query.includeArchived === "1" || req.query.includeArchived === "true";
 
-    try {
-      const user = req.user || null;
+      try {
+        const user = req.user || null;
 
-      const where = {
-        ...(includeArchived ? {} : { archivedAt: null }),
-      };
+        const where = {
+          ...(includeArchived ? {} : { archivedAt: null }),
+        };
 
-      if (user && user.baseRole === Role.LANDLORD) {
-        where.landlordId = user.id;
+        if (user && user.baseRole === Role.LANDLORD) {
+          where.landlordId = user.id;
+        }
+
+        const vehicles = await prisma.vehicle.findMany({
+          where,
+          orderBy: { createdAt: "desc" },
+        });
+
+        return res.json(vehicles.map(shapeVehicle));
+      } catch (err) {
+        console.error("Error in GET /api/vehicles", err);
+        return res.status(500).json({ error: "Server error" });
       }
-
-      const vehicles = await prisma.vehicle.findMany({
-        where,
-        orderBy: { createdAt: "desc" },
-      });
-
-      return res.json(vehicles.map(shapeVehicle));
-    } catch (err) {
-      console.error("Error in GET /api/vehicles", err);
-      return res.status(500).json({ error: "Server error" });
     }
-  });
+  );
 
   // ============================================================
   // GET /api/vehicles/:id (detail + linked tenants)
@@ -68,28 +73,33 @@ function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
   // POST /api/vehicles
   // Body: { make, model, year?, color?, state?, plate?, permit?, parking?, notes? }
   // ============================================================
-  app.post("/api/vehicles", async (req, res) => {
-    const user = req.user || null;
-    if (!user) return res.status(401).json({ error: "Unauthorized" });
+  app.post(
+    "/api/vehicles", 
+    auth,
+    requireLandlordOrSysadmin,
+    async (req, res) => {
+      const user = req.user || null;
+      if (!user) return res.status(401).json({ error: "Unauthorized" });
 
-    try {
-      const { data, error } = parseVehiclePost(req.body);
-      if (error) return res.status(400).json({ error });
+      try {
+        const { data, error } = parseVehiclePost(req.body);
+        if (error) return res.status(400).json({ error });
 
-      const created = await prisma.vehicle.create({
-        data: {
-          ...data,
-          landlordId: user.id,
-          createdById: user.id,
-        },
-      });
+        const created = await prisma.vehicle.create({
+          data: {
+            ...data,
+            landlordId: user.id,
+            createdById: user.id,
+          },
+        });
 
-      return res.status(201).json(shapeVehicle(created));
-    } catch (err) {
-      console.error("Error in POST /api/vehicles", err);
-      return res.status(500).json({ error: "Server error" });
+        return res.status(201).json(shapeVehicle(created));
+      } catch (err) {
+        console.error("Error in POST /api/vehicles", err);
+        return res.status(500).json({ error: "Server error" });
+      }
     }
-  });
+  );
 
   // ============================================================
   // PATCH /api/vehicles/:id
@@ -108,6 +118,13 @@ function registerVehicleRoutes(app, prisma, { shapeVehicle }) {
       try {
         const existing = await prisma.vehicle.findUnique({ where: { id } });
         if (!existing) return res.status(404).json({ error: "Vehicle not found" });
+
+        if (existing.archivedAt) {
+          return res.status(409).json({
+            error:
+              "Vehicle is archived and cannot be edited. Restore (unarchive) first, then edit, then re-archive.",
+          });
+        }
 
         if (user.baseRole === Role.LANDLORD && existing.landlordId && existing.landlordId !== user.id) {
           return res.status(403).json({ error: "You are not allowed to update this vehicle." });

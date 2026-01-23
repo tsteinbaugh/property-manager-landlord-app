@@ -7,19 +7,15 @@ const TENANT_DETAILS_INCLUDE = {
     include: { lease: { include: { property: true } } },
   },
   occupantLinks: {
-    where: { occupant: { archivedAt: null } },
     include: { occupant: true },
   },
   petLinks: {
-    where: { pet: { archivedAt: null } },
     include: { pet: true },
   },
   emergencyContactLinks: {
-    where: { emergencyContact: { archivedAt: null } },
     include: { emergencyContact: true },
   },
   vehicleLinks: {
-    where: { vehicle: { archivedAt: null } },
     include: { vehicle: true },
   },
 };
@@ -82,7 +78,6 @@ async function getTenantDetails(prisma, { tenantId, user, includeArchivedAttachm
     include: {
       ...TENANT_DETAILS_INCLUDE,
       attachments: {
-        ...(includeArchivedAttachments ? {} : { where: { archivedAt: null } }),
         orderBy: { createdAt: "desc" },
       },
     },

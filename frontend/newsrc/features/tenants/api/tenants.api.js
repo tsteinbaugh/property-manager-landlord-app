@@ -1,3 +1,4 @@
+//frontend/newsrc/features/tenants/api/tenants.api.js
 import { apiFetch } from "@lib/apiClient.js";
 
 function mapTenantFromApi(t) {

@@ -25,33 +25,38 @@ function registerPropertyRoutes(app, prisma) {
   // - SYSADMIN: all properties
   // - no user: all properties (for now)
   // ============================================================
-  app.get("/api/properties", async (req, res) => {
-    const includeArchived =
-      req.query.includeArchived === "1" || req.query.includeArchived === "true";
-
-    try {
-      const user = req.user || null;
-
-      const where = {
-        ...(includeArchived ? {} : { archivedAt: null }),
-      };
-
-      if (user && user.baseRole === Role.LANDLORD) {
-        where.landlordId = user.id;
+  app.get(
+    "/api/properties",
+    auth,
+    requireLandlordOrSysadmin,
+    async (req, res) => {
+      const includeArchived =
+        req.query.includeArchived === "1" || req.query.includeArchived === "true";
+      
+      try {
+        const user = req.user || null;
+      
+        const where = {
+          ...(includeArchived ? {} : { archivedAt: null }),
+        };
+      
+        if (user && user.baseRole === Role.LANDLORD) {
+          where.landlordId = user.id;
+        }
+      
+        const props = await prisma.property.findMany({
+          where,
+          orderBy: { createdAt: "desc" },
+        });
+      
+        res.json(props.map(shapeProperty));
+      } catch (err) {
+        console.error("Error in GET /api/properties", err);
+        res.status(500).json({ error: "Server error" });
       }
-
-      const props = await prisma.property.findMany({
-        where,
-        orderBy: { createdAt: "desc" },
-      });
-
-      res.json(props.map(shapeProperty));
-    } catch (err) {
-      console.error("Error in GET /api/properties", err);
-      res.status(500).json({ error: "Server error" });
     }
-  });
-
+  );
+  
   // ============================================================
   // POST /api/properties - create a property
   // ============================================================
@@ -103,6 +108,13 @@ function registerPropertyRoutes(app, prisma) {
       try {
         const existing = await prisma.property.findUnique({ where: { id } });
         if (!existing) return res.status(404).json({ error: "Property not found" });
+
+        if (existing.archivedAt) {
+          return res.status(409).json({
+            error:
+              "Proeprty is archived and cannot be edited. Restore (unarchive) first, then edit, then re-archive.",
+          });
+        }
 
         const user = req.user || null;
         if (user && user.baseRole === Role.LANDLORD) {

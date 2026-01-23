@@ -40,7 +40,11 @@ function tenantTitle(t) {
 }
 
 function propertyTitle(p) {
-  return p?.name || p?.address1, p?.address1 || "Property";
+  return p?.name
+    ?? (p?.address1 && p?.address2
+        ? `${p.address1} ${p.address2}`
+        : p?.address1
+          ?? "Property");
 }
 
 function leaseTitle(lease) {
