@@ -367,3 +367,81 @@ Claude Code should:
 ---
 
 *Last updated: August 2026 — based on full product design session in claude.ai*
+
+---
+
+## AI integration plan
+
+### Philosophy
+AI earns its place when it saves the landlord real time or catches something they'd otherwise miss.
+It's gimmicky when it summarizes things the landlord already knows or answers questions Google could answer faster.
+**AI should make the landlord feel like they have a knowledgeable friend in their pocket — not a chatbot.**
+
+### Hard rules
+- Never give legal *advice* — only legal *information*. "Colorado law requires 10 days notice" is fine. "You'll win this case" is not.
+- Never make tenant screening recommendations — Fair Housing Act liability risk. Avoid entirely.
+- Never predict rent prices — dedicated tools do this better. Integrate with Rentometer/Zillow if needed, don't compete.
+- Always make AI output reviewable and editable before it's sent or saved — the landlord is always in control.
+- AI is a suggestion engine, not an autopilot.
+
+### How it works technically
+- Use the Anthropic API (Claude) — same model Taylor is talking to right now
+- Backend calls the API with relevant context (state, tenant name, amount owed, etc.)
+- Response streams back into the UI
+- Cost: cents per call — absorb into subscription price or add a small AI usage tier in v3+
+- Model to use: claude-sonnet-4-6 (fast, cost-effective for in-app features)
+
+### Roadmap
+
+#### v1 — No AI
+Get the core app solid first. AI on a broken foundation is expensive noise.
+
+#### v2 — Two features that clearly earn their place
+
+**1. Legal notice drafter**
+Highest value AI feature in the entire app. Legal language is intimidating, state-specific, and time-sensitive.
+- Landlord selects: state, notice type, tenant name, amount owed, days late
+- AI generates the correct notice with proper statutory language for that state
+- Landlord reviews and edits before printing/sending
+- Also: plain-English translation of court documents — landlord pastes in a document, AI explains what it means
+- Warning system: "You served a 3-day notice but Colorado requires 10 days for non-payment — this may not hold up in court"
+
+**2. Maintenance triage**
+Tenant submits a request in plain language ("water coming out from under the sink").
+AI reads it and surfaces:
+- Likely cause
+- Urgency level (low / medium / high / emergency)
+- Suggested vendor type (plumber, electrician, HVAC, general handyman)
+- Estimated cost range
+Saves the landlord a Google search and helps them prioritize the queue.
+
+#### v3 — Expanded AI features
+
+**Lease clause reviewer**
+When building a lease (v2 feature), AI reviews the draft and flags:
+- Missing clauses based on state requirements
+- Missing clauses based on Taylor's own lesson learned (e.g. no early termination clause)
+- Clauses that may exceed state statutory limits (e.g. late fees)
+- Suggests additions based on property type
+
+**Inspection photo comparison**
+- Landlord uploads move-out photo alongside the stored move-in photo
+- AI flags potential damage differences
+- Draft deposit deduction letter automatically from damage notes already in the system
+
+**Expense categorization & tax flagging**
+- Flag likely Schedule E deductions the landlord may be missing
+- Flag unusual expense spikes: "Repairs this month are 3x your average — want to review?"
+- Year-end summary formatted for accountant handoff
+
+**Smart data entry (property specs)**
+- Landlord types "painted kitchen with Sherwin-Williams Agreeable Gray eggshell" → AI parses into correct fields
+- Photo of paint can label or appliance data plate → AI reads it and populates the record
+- Reduces friction for filling out property specs
+
+### Features to never build with AI
+- General "chat with your property" chatbot — sounds cool, rarely used after week one
+- Tenant approval recommendations — Fair Housing Act risk
+- Rent price predictions — better tools exist for this
+- Anything that sends to a tenant without landlord review first
+
