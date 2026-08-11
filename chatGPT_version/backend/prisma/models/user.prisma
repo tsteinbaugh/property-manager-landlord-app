@@ -98,3 +98,9 @@ enum Role {
   TENANT
   CLEANER
 }
+
+enum UserStatus {
+  ACTIVE
+  INVITED
+  DISABLED
+}

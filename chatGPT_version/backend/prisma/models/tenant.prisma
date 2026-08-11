@@ -84,6 +84,13 @@ model TenantAttachment {
   @@index([archivedAt])
 }
 
+enum TenantStatus {
+  DRAFT
+  CANDIDATE
+  ACTIVE
+  INACTIVE
+}
+
 enum TenantStatusReason {
   MOVED_OUT
   EVICTED

@@ -73,9 +73,37 @@ export default function TenantCard({
     };
   }, [tenant]);
 
-  const badgeText = vm.isArchived ? "Archived" : "Tenant";
-  const badgeClass = vm.isArchived ? card.badgeArchived : card.badgeIdle;
+  function tenantStatusLabel(status) {
+    switch (status) {
+      case "DRAFT": return "Draft";
+      case "CANDIDATE": return "Candidate";
+      case "ACTIVE": return "Active";
+      case "INACTIVE": return "Inactive";
+      default: return "Tenant";
+    }
+  }
 
+
+  function tenantStatusTone(status) {
+    switch (String(status || "").toUpperCase()) {
+    case "ACTIVE": return "active";
+    case "INACTIVE": return "muted";
+    default: return "idle";
+    }
+  }  
+
+const statusTone = tenantStatusTone(tenant?.status);
+const badgeText = vm.isArchived ? "Archived" : tenantStatusLabel(tenant?.status);
+
+
+const badgeClass = vm.isArchived
+  ? card.badgeArchived
+  : statusTone === "active"
+    ? card.badgeActive
+    : statusTone === "muted"
+      ? card.badgeMuted
+      : card.badgeIdle;
+  
   // ============================================================
   // DETAIL VARIANT (full info, non-clickable)
   // ============================================================

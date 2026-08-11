@@ -74,6 +74,11 @@
   color: #166534;
 }
 
+.badgeMuted {
+  background: #eef2ff;
+  color: #475569;
+}
+
 .badgeArchived {
   background: #fee2e2;
   color: var(--ui-danger-2);

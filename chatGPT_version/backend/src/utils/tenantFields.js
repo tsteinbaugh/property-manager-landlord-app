@@ -14,6 +14,9 @@ const {
 const { SEX, HAIR_COLOR, EYE_COLOR, BODY_BUILD } =
   require("@shared/residentPhysicalDescription.enums.js");
 
+const TENANT_STATUS = {DRAFT, CANDIDATE, ACTIVE, INACTIVE} =
+  require("@shared/status.enum.js");
+
 function parseTenantPost(body) {
   const src = body || {};
 
@@ -70,6 +73,14 @@ function parseTenantPost(body) {
   const notes = optionalTrimToNull(src.notes);
   if (notes === INVALID) return { error: "notes must be a string" };
 
+  const statusRaw = src.status;
+  let status = null;
+  if (statusRaw !== undefined) {
+    const s = typeof statusRaw === "string" ? statusRaw.trim().toUpperCase() : INVALID;
+    if (s === INVALID || !TENANT_STATUS.has(s)) return { error: "status is invalid" };
+    status = s;
+  }
+
   return {
     data: {
       name,
@@ -91,6 +102,8 @@ function parseTenantPost(body) {
       employer: employer ?? null,
       income: income ?? null,
       creditScore: creditScore ?? null,
+      
+      status: status ?? undefined,
       notes: notes ?? null,
     },
   };
@@ -118,6 +131,12 @@ function parseTenantPatch(body) {
     if (phone === INVALID) return { error: "phone must be a string" };
     if (phone && !isValidPhone(phone)) return { error: "phone must be a valid phone number" };
     data.phone = phone; // may be null
+  }
+
+  if (src.status !== undefined) {
+    const s = typeof src.status === "string" ? src.status.trim().toUpperCase() : INVALID;
+    if (s === INVALID || !TENANT_STATUS.has(s)) return { error: "status is invalid" };
+    data.status = s;
   }
 
   const intFields = [

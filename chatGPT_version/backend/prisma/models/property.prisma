@@ -59,6 +59,11 @@ enum PropertyType {
   OTHER
 }
 
+enum PropertyStatus {
+  ACTIVE
+  INACTIVE
+}
+
 enum PropertyStatusReason {
   SOLD
   OFFLINE_RENOVATION

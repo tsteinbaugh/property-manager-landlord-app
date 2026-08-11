@@ -91,6 +91,14 @@ model LeaseAttachment {
   @@index([archivedAt])
 }
 
+enum LeaseStatus {
+  DRAFT
+  ACTIVE
+  ENDED
+  TERMINATED
+  LEGAL_HOLD
+}
+
 enum LeaseStatusReason {
   EXPIRED
   NON_RENEWED
