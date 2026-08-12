@@ -8,7 +8,7 @@
 > Update this at the start of every session. One or two lines max.
 > Example: "Working on Prisma schema for Tenants + Leases. Backend only, no frontend yet."
 
-Backend foundation is up (Entity + Property models, `properties.routes.js` CRUD, tests passing). Next: Clerk auth, or Tenants + Leases schema — ask Taylor which.
+Clerk auth is wired into the backend and protecting `/api/properties`. Next: Tenants + Leases schema, or start the frontend (sign-in screens, property list UI) — ask Taylor which.
 
 ---
 
@@ -20,6 +20,7 @@ Backend foundation is up (Entity + Property models, `properties.routes.js` CRUD,
 - [x] [Aug 2026] — Prisma schema: `User`, `Entity`, `Property` models with the User → Entity → Property ownership hierarchy. First migration applied to both dev and test databases.
 - [x] [Aug 2026] — Express app skeleton (`backend/src/app.js`, `backend/index.js`) with `GET /health`.
 - [x] [Aug 2026] — `properties.routes.js` — full CRUD (create/list/get/update/delete), mounted at `/api/properties`. `userId` on a property is derived server-side from its Entity, not trusted from the client. 8 Vitest + Supertest tests passing against the real `property_hq_test` Postgres database.
+- [x] [Aug 2026] — Clerk authentication wired into the backend. `/api/properties` now requires a valid Clerk session (`clerkMiddleware()` + a custom `getAuth()` check that returns JSON 401s, since Clerk's own `requireAuth()` is built for redirecting browsers, not APIs). First authenticated request from a given Clerk user just-in-time provisions the matching local `User` row (no reachable webhook endpoint in local dev). Routes are now scoped per-user: an Entity/Property belonging to someone else 404s instead of leaking. 12 tests passing (4 new: unauthenticated rejection, JIT provisioning, cross-user entity rejection, cross-user property 404).
 
 ---
 
@@ -35,6 +36,9 @@ Backend foundation is up (Entity + Property models, `properties.routes.js` CRUD,
 - [Aug 2026] — Dye lot / run number on flooring is optional, not flagged or required. Nice to have if noted at install time. Matching dye lots when buying replacement planks later is nearly impossible anyway.
 - [Aug 2026] — Prisma generator set to `prisma-client-js` (the classic/legacy generator), not the new v7-default `prisma-client` generator. The new default outputs TypeScript-only client code (even in CommonJS mode, files are `.cts` with type annotations), which would force a TypeScript build step onto a stack that's plain JS everywhere else. `prisma-client-js` avoids that. Note: Prisma 7 requires a driver adapter regardless of generator choice — `@prisma/adapter-pg` + `pg` are installed and `PrismaClient` is constructed with `new PrismaPg({ connectionString })` in `backend/src/lib/prisma.js`. Do not revisit unless the project adopts TypeScript.
 - [Aug 2026] — On a `Property`, `userId` is derived server-side from its `Entity` (`entity.userId`) at creation time, never trusted from the request body. Prevents a client from claiming a property under someone else's user id.
+- [Aug 2026] — Clerk CLI (`clerk init`, the flow Clerk's dashboard now pushes you toward) doesn't work in this dev environment — its native binary needs AVX2, which this sandboxed CPU doesn't expose, so it crashes with an illegal-instruction error on every platform variant tried. Set up Clerk manually instead: `@clerk/express` installed directly, keys pasted into `.env`/`.env.example` by hand. Do not retry the CLI here; if a future environment has real hardware, it may work fine there.
+- [Aug 2026] — `app.js` and `properties.routes.js` are factory functions (`createApp(overrides)`, `createPropertiesRouter({ getAuth, clerkClient })`) that take Clerk's `getAuth`/`clerkClient`/`clerkMiddleware` as injectable dependencies, defaulting to the real `@clerk/express` exports. Reason: `vi.mock()` does not intercept plain CommonJS `require()` calls in this project's Vitest setup (confirmed empirically — the mock factory never ran), so mocking the Clerk SDK module directly doesn't work. Dependency injection sidesteps that entirely and lets `properties.routes.test.js` run against fake auth without touching the real Clerk network. Keep using this pattern for any future route module that depends on Clerk.
+- [Aug 2026] — New Clerk users are provisioned into the local `User` table just-in-time, on their first authenticated request (see `resolveCurrentUser` in `backend/src/middleware/auth.js`), rather than via a Clerk webhook. Reason: webhooks need a publicly reachable endpoint, which local dev doesn't have. Revisit this when deploying to Railway — a webhook-based sync may be worth adding then, but JIT provisioning can likely stay as the fallback either way.
 
 ---
 
@@ -371,7 +375,7 @@ Claude Code should:
 
 ---
 
-*Last updated: 2026-08-11 — backend foundation session with Claude Code*
+*Last updated: 2026-08-12 — Clerk auth session with Claude Code*
 
 ---
 

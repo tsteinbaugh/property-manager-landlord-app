@@ -1,14 +1,29 @@
 const express = require("express");
-const propertiesRoutes = require("./routes/properties.routes");
+const createPropertiesRouter = require("./routes/properties.routes");
 
-const app = express();
+function createApp(overrides = {}) {
+  const clerk = require("@clerk/express");
+  const clerkMiddleware = overrides.clerkMiddleware || clerk.clerkMiddleware;
+  const getAuth = overrides.getAuth || clerk.getAuth;
+  const clerkClient = overrides.clerkClient || clerk.clerkClient;
 
-app.use(express.json());
+  const app = express();
 
-app.get("/health", (req, res) => {
-  res.json({ status: "ok" });
-});
+  app.use(express.json());
+  app.use(clerkMiddleware());
 
-app.use("/api/properties", propertiesRoutes);
+  app.get("/health", (req, res) => {
+    res.json({ status: "ok" });
+  });
 
-module.exports = app;
+  app.use("/api/properties", createPropertiesRouter({ getAuth, clerkClient }));
+
+  app.use((err, req, res, next) => {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  });
+
+  return app;
+}
+
+module.exports = createApp;
