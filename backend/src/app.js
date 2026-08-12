@@ -1,5 +1,8 @@
 const express = require("express");
-const createPropertiesRouter = require("./routes/properties.routes");
+const { createRequireAuth, createResolveCurrentUser } = require("./middleware/auth");
+const propertiesRoutes = require("./routes/properties.routes");
+const tenantsRoutes = require("./routes/tenants.routes");
+const leasesRoutes = require("./routes/leases.routes");
 
 function createApp(overrides = {}) {
   const clerk = require("@clerk/express");
@@ -16,7 +19,12 @@ function createApp(overrides = {}) {
     res.json({ status: "ok" });
   });
 
-  app.use("/api/properties", createPropertiesRouter({ getAuth, clerkClient }));
+  // Every /api/* route requires a logged-in user, resolved to a local User row.
+  app.use("/api", createRequireAuth({ getAuth }), createResolveCurrentUser({ getAuth, clerkClient }));
+
+  app.use("/api/properties", propertiesRoutes);
+  app.use("/api/tenants", tenantsRoutes);
+  app.use("/api/leases", leasesRoutes);
 
   app.use((err, req, res, next) => {
     console.error(err);

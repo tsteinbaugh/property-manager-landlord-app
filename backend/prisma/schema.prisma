@@ -21,6 +21,7 @@ model User {
   updatedAt DateTime @updatedAt
 
   entities Entity[]
+  tenants  Tenant[]
 }
 
 enum EntityType {
@@ -65,8 +66,115 @@ model Property {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  entity Entity @relation(fields: [entityId], references: [id])
+  entity Entity  @relation(fields: [entityId], references: [id])
+  leases Lease[]
 
   @@index([userId])
   @@index([entityId])
+}
+
+// Tenants exist independently of a lease (a landlord may screen someone before
+// deciding which lease/property they go on) and are linked to leases through
+// LeaseTenant, which carries the per-lease role (Primary / Co-tenant / Guarantor).
+model Tenant {
+  id          String    @id @default(cuid())
+  userId      String
+  name        String
+  phone       String?
+  email       String?
+  dateOfBirth DateTime?
+
+  idVerified        Boolean   @default(false)
+  creditCheckStatus String?
+  creditCheckDate   DateTime?
+
+  employer         String?
+  employmentStatus String?
+
+  emergencyContactName     String?
+  emergencyContactPhone    String?
+  emergencyContactRelation String?
+
+  // Renter's insurance lives on the tenant, not the landlord Insurance module (v2).
+  rentersInsuranceInsurer                   String?
+  rentersInsurancePolicyNumber              String?
+  rentersInsuranceCoverageAmount            Decimal?  @db.Decimal(10, 2)
+  rentersInsuranceExpirationDate            DateTime?
+  rentersInsuranceLandlordAdditionalInsured Boolean?
+  rentersInsuranceCertificateOnFile         Boolean?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user         User          @relation(fields: [userId], references: [id])
+  leaseTenants LeaseTenant[]
+
+  @@index([userId])
+}
+
+enum LeaseStatus {
+  ACTIVE
+  EXPIRED
+  MONTH_TO_MONTH
+  TERMINATED
+}
+
+// v1 is upload PDF + key fields only — no clause library / lease builder until v2.
+model Lease {
+  id         String @id @default(cuid())
+  userId     String
+  propertyId String
+
+  startDate DateTime
+  endDate   DateTime?
+
+  monthlyRent           Decimal  @db.Decimal(10, 2)
+  securityDepositAmount Decimal? @db.Decimal(10, 2)
+
+  lateFeeAmount    Decimal? @db.Decimal(10, 2)
+  lateFeeGraceDays Int?
+
+  petPolicy     Boolean  @default(false)
+  petRentAmount Decimal? @db.Decimal(10, 2)
+
+  // What the lease promises tenants, e.g. "3% max annually" — free text since caps vary in phrasing.
+  renewalRentIncreaseCap String?
+
+  // Non-lease occupants (children, aging parent) — occupancy count only, no separate profiles in v1.
+  nonLeaseOccupantCount Int?
+
+  notes  String?
+  status LeaseStatus @default(ACTIVE)
+
+  // Set once Cloudflare R2 storage is wired up; nothing writes here yet.
+  documentUrl String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  property     Property      @relation(fields: [propertyId], references: [id])
+  leaseTenants LeaseTenant[]
+
+  @@index([userId])
+  @@index([propertyId])
+}
+
+enum LeaseTenantRole {
+  PRIMARY
+  CO_TENANT
+  GUARANTOR
+}
+
+model LeaseTenant {
+  id       String          @id @default(cuid())
+  leaseId  String
+  tenantId String
+  role     LeaseTenantRole
+
+  lease  Lease  @relation(fields: [leaseId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([leaseId, tenantId])
+  @@index([leaseId])
+  @@index([tenantId])
 }
