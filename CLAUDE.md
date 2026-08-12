@@ -290,6 +290,9 @@ v1 is upload + key fields only. Full lease builder is v2.
 - Expenses flow to the correct Entity's books — do not commingle between entities
 
 ### Maintenance
+> Before building this module, re-read "Competitive research: Manora" above — its
+> property-centric-history and zero-friction-link design choices should shape this schema.
+
 - Request: title, description, reported by, reported date, status, estimated cost, actual cost
 - Status flow: Open → In Progress → Closed
 - Linked to: property, tenant (if reported by tenant), vendor
@@ -318,6 +321,25 @@ v1 is upload + key fields only. Full lease builder is v2.
 4. **Touch-up paint storage** — always note where leftover paint is stored (e.g. "labeled quart, garage shelf"). Critical at tenant turnover when you need to touch up walls.
 
 5. **Spare flooring** — keep 2-3 spare boxes of each floor type. If a floor gets damaged and the product is discontinued, you'll need those spares. Flag when spare stock hits zero.
+
+---
+
+## Competitive research: Manora
+
+> Discovered while brainstorming names with Claude Desktop. Not a landlord lesson from Taylor —
+> external research to inform the Maintenance module's design when it's built.
+
+Manora (manora.io) is an early-access, maintenance-only app for landlords — no rent, leases, or accounting. Core flow: tenant reports an issue via a unique link (no login/app required) → landlord classifies urgency/category and assigns a contractor → contractor gets a dedicated portal (invite-only, no account needed) to accept, upload photos, log costs → landlord reviews and closes. Every property automatically builds a searchable maintenance history.
+
+Design choices worth incorporating into our maintenance module:
+- **Property-centric history, not task-centric** — repairs, visits, and photos roll up into a permanent per-property timeline. Build the data model around "property → full history," not "list of requests."
+- **Zero-friction entry points** — tenants and contractors interact via unique, revocable links with no account required.
+- **Role-based access separation** — landlord/property manager, contractor, and tenant each see only their own scoped view; contractor sees only assigned jobs; tenant links are per-property and revocable.
+- **Full audit trail as a selling point** — every status change is timestamped and attributed, surfaced to the user, not just logged internally.
+- **Sharp problem framing in positioning** — built around a concrete pain point ("repairs coordinated over WhatsApp get lost"), not generic "manage your properties" messaging.
+- **Reporting layer** — cost per property/contractor, average resolution time, portfolio-level view.
+
+**Differentiation angle:** Manora doesn't do rent, leases, or accounting — so "everything Manora does for maintenance, plus the rest of property management" is a clean positioning story once our maintenance module is built.
 
 ---
 
