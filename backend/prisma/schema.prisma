@@ -66,23 +66,34 @@ model Property {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  entity Entity  @relation(fields: [entityId], references: [id])
-  leases Lease[]
+  entity  Entity   @relation(fields: [entityId], references: [id])
+  leases  Lease[]
+  tenants Tenant[]
 
   @@index([userId])
   @@index([entityId])
 }
 
-// Tenants exist independently of a lease (a landlord may screen someone before
-// deciding which lease/property they go on) and are linked to leases through
-// LeaseTenant, which carries the per-lease role (Primary / Co-tenant / Guarantor).
+enum TenantApplicationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+// A Tenant record starts life as an application to a specific property —
+// applicants apply for the property they're interested in, not "a tenancy
+// in general." Only once the landlord approves does a Tenant get linked to
+// a Lease (via LeaseTenant, which carries the per-lease role). Rejected
+// applicants keep their record for history; they just never get a lease link.
 model Tenant {
-  id          String    @id @default(cuid())
-  userId      String
-  name        String
-  phone       String?
-  email       String?
-  dateOfBirth DateTime?
+  id                String                  @id @default(cuid())
+  userId            String
+  propertyId        String
+  applicationStatus TenantApplicationStatus @default(PENDING)
+  name              String
+  phone             String?
+  email             String?
+  dateOfBirth       DateTime?
 
   idVerified        Boolean   @default(false)
   creditCheckStatus String?
@@ -107,9 +118,11 @@ model Tenant {
   updatedAt DateTime @updatedAt
 
   user         User          @relation(fields: [userId], references: [id])
+  property     Property      @relation(fields: [propertyId], references: [id])
   leaseTenants LeaseTenant[]
 
   @@index([userId])
+  @@index([propertyId])
 }
 
 enum LeaseStatus {

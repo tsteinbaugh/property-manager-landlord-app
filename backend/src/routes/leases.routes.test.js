@@ -61,7 +61,7 @@ describe("leases routes", () => {
       },
     });
     tenant = await prisma.tenant.create({
-      data: { userId: user.id, name: "Jamie Rivera" },
+      data: { userId: user.id, propertyId: property.id, name: "Jamie Rivera" },
     });
   });
 
@@ -260,8 +260,21 @@ describe("leases routes", () => {
       const otherUser = await prisma.user.create({
         data: { clerkId: "clerk_other_user", email: "other@example.com" },
       });
+      const otherEntity = await prisma.entity.create({
+        data: { userId: otherUser.id, legalName: "Someone Else LLC", entityType: "LLC" },
+      });
+      const otherProperty = await prisma.property.create({
+        data: {
+          entityId: otherEntity.id,
+          userId: otherUser.id,
+          address1: "456 Oak St",
+          city: "Frederick",
+          state: "CO",
+          zip: "80530",
+        },
+      });
       const otherTenant = await prisma.tenant.create({
-        data: { userId: otherUser.id, name: "Not Mine" },
+        data: { userId: otherUser.id, propertyId: otherProperty.id, name: "Not Mine" },
       });
 
       const res = await request(app)
