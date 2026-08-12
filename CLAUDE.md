@@ -8,7 +8,7 @@
 > Update this at the start of every session. One or two lines max.
 > Example: "Working on Prisma schema for Tenants + Leases. Backend only, no frontend yet."
 
-_Nothing in progress yet — just getting started._
+Backend foundation is up (Entity + Property models, `properties.routes.js` CRUD, tests passing). Next: Clerk auth, or Tenants + Leases schema — ask Taylor which.
 
 ---
 
@@ -16,7 +16,10 @@ _Nothing in progress yet — just getting started._
 > Keep a running log of completed work. Add to this at the end of every session.
 > Format: `[Date] — What was built / what was confirmed working`
 
-- [ ] _Nothing built yet — starting fresh_
+- [x] [Aug 2026] — Local Postgres dev setup: `tsteinbaugh` role + `property_hq_dev` and `property_hq_test` databases created.
+- [x] [Aug 2026] — Prisma schema: `User`, `Entity`, `Property` models with the User → Entity → Property ownership hierarchy. First migration applied to both dev and test databases.
+- [x] [Aug 2026] — Express app skeleton (`backend/src/app.js`, `backend/index.js`) with `GET /health`.
+- [x] [Aug 2026] — `properties.routes.js` — full CRUD (create/list/get/update/delete), mounted at `/api/properties`. `userId` on a property is derived server-side from its Entity, not trusted from the client. 8 Vitest + Supertest tests passing against the real `property_hq_test` Postgres database.
 
 ---
 
@@ -30,6 +33,8 @@ _Nothing in progress yet — just getting started._
 - [Aug 2026] — Payment responsibility (joint vs individual, primary payer) removed from tenant model. Rent is due in full. If it's late, all tenants are late. Tracking individual splits is the tenants' problem, not the landlord's.
 - [Aug 2026] — Prisma schema from prior ChatGPT sessions is a starting point only — treat as a draft, review with Claude Code before using. Do not treat it as settled architecture.
 - [Aug 2026] — Dye lot / run number on flooring is optional, not flagged or required. Nice to have if noted at install time. Matching dye lots when buying replacement planks later is nearly impossible anyway.
+- [Aug 2026] — Prisma generator set to `prisma-client-js` (the classic/legacy generator), not the new v7-default `prisma-client` generator. The new default outputs TypeScript-only client code (even in CommonJS mode, files are `.cts` with type annotations), which would force a TypeScript build step onto a stack that's plain JS everywhere else. `prisma-client-js` avoids that. Note: Prisma 7 requires a driver adapter regardless of generator choice — `@prisma/adapter-pg` + `pg` are installed and `PrismaClient` is constructed with `new PrismaPg({ connectionString })` in `backend/src/lib/prisma.js`. Do not revisit unless the project adopts TypeScript.
+- [Aug 2026] — On a `Property`, `userId` is derived server-side from its `Entity` (`entity.userId`) at creation time, never trusted from the request body. Prevents a client from claiming a property under someone else's user id.
 
 ---
 
@@ -366,7 +371,7 @@ Claude Code should:
 
 ---
 
-*Last updated: August 2026 — based on full product design session in claude.ai*
+*Last updated: 2026-08-11 — backend foundation session with Claude Code*
 
 ---
 

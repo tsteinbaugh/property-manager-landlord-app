@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Roles are stored as plain strings ("landlord", "system_admin"), not an enum,
+// per CLAUDE.md RBAC notes — ROLE_GRANTS maps strings to permissions in app code.
+model User {
+  id        String   @id @default(cuid())
+  clerkId   String?  @unique
+  email     String   @unique
+  name      String?
+  role      String   @default("landlord")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  entities Entity[]
+}
+
+enum EntityType {
+  LLC
+  S_CORP
+  PERSONAL
+  OTHER
+}
+
+// Every property is owned by an Entity, never directly by a User.
+// "Self / Personal" (entityType = PERSONAL) is a valid entity for landlords without an LLC.
+model Entity {
+  id                  String     @id @default(cuid())
+  userId              String
+  legalName           String
+  entityType          EntityType
+  stateOfFormation    String?
+  ein                 String? // encrypted at rest at the app layer
+  registeredAgent     String?
+  formationDate       DateTime?
+  annualReportDueDate DateTime? // reminder fires 60 days before this date
+  bankAccount         String? // which account rent flows into
+  createdAt           DateTime   @default(now())
+  updatedAt           DateTime   @updatedAt
+
+  user       User       @relation(fields: [userId], references: [id])
+  properties Property[]
+
+  @@index([userId])
+}
+
+model Property {
+  id        String   @id @default(cuid())
+  userId    String
+  entityId  String
+  name      String? // optional nickname, e.g. "The Maple St duplex"
+  address1  String
+  address2  String?
+  city      String
+  state     String // drives legal notice-period rules in v2
+  zip       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  entity Entity @relation(fields: [entityId], references: [id])
+
+  @@index([userId])
+  @@index([entityId])
+}
