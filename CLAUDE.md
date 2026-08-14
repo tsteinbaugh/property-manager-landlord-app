@@ -62,9 +62,11 @@ Tenants + Leases are built (schema, CRUD, tenant-to-lease attach/detach with rol
 A SaaS web app for landlords to manage rental properties end-to-end.
 Built from real landlord experience — every feature exists because a real problem was encountered.
 
-**Working name:** Property HQ (placeholder — not final)
+**Working name:** Steinoak (placeholder — not final)
 **Owner:** Taylor (Steinbaugh Estates LLC) — solo developer
 **Business goal:** Use it personally first, then open to other landlords as a paid SaaS product
+
+**Branding:** Logo files live in `logos/` (seasonal oak variants — acorn, spring, summer, fall, winter). Font: **Poppins**.
 
 ---
 
