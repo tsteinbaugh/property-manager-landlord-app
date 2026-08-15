@@ -8,7 +8,7 @@
 > Update this at the start of every session. One or two lines max.
 > Example: "Working on Prisma schema for Tenants + Leases. Backend only, no frontend yet."
 
-Tenants + Leases are built (schema, CRUD, tenant-to-lease attach/detach with roles). Next: start the frontend (sign-in screens, property/tenant/lease UI), or Finances/Maintenance modules — ask Taylor which.
+Finances v1 is built (Income, Expenses, Security Deposits — schema, CRUD, deduction sub-resource). Next: start the frontend (sign-in screens, property/tenant/lease/finances UI), or the Maintenance module — ask Taylor which.
 
 ---
 
@@ -25,6 +25,7 @@ Tenants + Leases are built (schema, CRUD, tenant-to-lease attach/detach with rol
 - [x] [Aug 2026] — Prisma schema: `Tenant`, `Lease`, `LeaseTenant` (join table with `role`: `PRIMARY` / `CO_TENANT` / `GUARANTOR`, unique per lease+tenant). A `Tenant` applies to a specific `Property` (`propertyId` required, `applicationStatus`: `PENDING`/`APPROVED`/`REJECTED`) — only approved tenants get linked to a `Lease`. Leases carry all v1 key fields (dates, rent, deposit, late fee, pet policy, renewal cap, occupant count, notes, status) plus a `documentUrl` field that nothing writes to yet — waiting on Cloudflare R2. `LeaseTenant` cascade-deletes when either the lease or the tenant is deleted, but deleting one never deletes the other.
 - [x] [Aug 2026] — `tenants.routes.js` — full CRUD scoped to the authenticated user; creating a tenant validates the named property belongs to you; `applicationStatus` is updatable (validated against the enum) so Taylor can approve/reject applicants. Mounted at `/api/tenants`. 11 tests passing.
 - [x] [Aug 2026] — `leases.routes.js` — full CRUD scoped via property ownership, plus `POST /api/leases/:id/tenants` and `DELETE /api/leases/:id/tenants/:tenantId` to attach/detach tenants with a role, mounted at `/api/leases`. 15 tests passing. 38 tests total across the backend.
+- [x] [Aug 2026] — Finances v1: `Income`, `Expense`, `Deposit`, `DepositDeduction` Prisma models. `Income`/`Expense`/`Deposit` carry `entityId` derived server-side from `property.entityId` (never trusted from the client) so records can be scoped per-Entity's books. `income.routes.js` (`/api/income`) and `expenses.routes.js` (`/api/expenses`) are full CRUD scoped to the current user, with category enums matching CLAUDE.md's Finances section. `deposits.routes.js` (`/api/deposits`) is full CRUD for a lease's deposits — `Deposit` has a `type` field (`SECURITY` or `PET`, `@@unique([leaseId, type])`) so a lease can hold one of each, tracked independently — plus `POST /:id/deductions` / `DELETE /:id/deductions/:deductionId` for itemized deductions per deposit. Rent tracking is a simple ledger for v1 — no recurring-charge/scheduler engine; "expected vs collected" is meant to be computed against `Lease.monthlyRent`, not stored. 41 new tests passing (income 12, expenses 12, deposits 17). 79 tests total across the backend.
 
 ---
 
@@ -46,6 +47,13 @@ Tenants + Leases are built (schema, CRUD, tenant-to-lease attach/detach with rol
 - [Aug 2026] — Route bodies coerce known date fields (e.g. `startDate`, `dateOfBirth`) from plain strings to JS `Date` objects via `backend/src/lib/pickFields.js` before handing them to Prisma. Reason: Prisma 7 rejects bare date strings like `"2026-09-01"` (what an HTML date input sends) and wants a full ISO-8601 datetime or a `Date` object. Any new route accepting a date field should list it in that route's `DATE_FIELDS` array and use `pickFields`, not hand-roll its own picking logic.
 - [Aug 2026] — `app.js` is a factory function (`createApp(overrides)`) that takes Clerk's `getAuth`/`clerkClient`/`clerkMiddleware` as injectable dependencies, defaulting to the real `@clerk/express` exports, and feeds them into global `requireAuth`/`resolveCurrentUser` middleware mounted on `/api`. Reason: `vi.mock()` does not intercept plain CommonJS `require()` calls in this project's Vitest setup (confirmed empirically — the mock factory never ran), so mocking the Clerk SDK module directly doesn't work. Dependency injection sidesteps that entirely — tests call `createApp({ getAuth: fakeGetAuth, ... })` to run against fake auth without touching the real Clerk network. Resource routers themselves (`properties.routes.js`, `tenants.routes.js`, `leases.routes.js`) are plain `express.Router()`s that just read `req.currentUser` — they don't know Clerk exists. Keep this pattern (auth deps only in `app.js`, resource routers stay Clerk-agnostic) for any future route module.
 - [Aug 2026] — New Clerk users are provisioned into the local `User` table just-in-time, on their first authenticated request (see `resolveCurrentUser` in `backend/src/middleware/auth.js`), rather than via a Clerk webhook. Reason: webhooks need a publicly reachable endpoint, which local dev doesn't have. Revisit this when deploying to Railway — a webhook-based sync may be worth adding then, but JIT provisioning can likely stay as the fallback either way.
+- [Aug 2026] — Finances v1 rent tracking is a simple ledger, not an auto-generated charge schedule. Taylor's explicit call: log payments as received (`Income` rows with `category: RENT`); "expected vs collected" is a comparison computed on the fly against `Lease.monthlyRent`, not a stored due-date/charge model. A recurring-charge scheduler (auto-generate a due charge each period, apply payments against it) is v2-territory — do not build it into v1 without Taylor asking.
+- [Aug 2026] — `Income` and `Expense` store `entityId` directly (not just derived via `property.entityId` on read), same server-derived-never-trusted pattern as `Property.userId`. Reason: CLAUDE.md requires expenses/income "flow to the correct Entity's books" and stay un-commingled between entities — storing `entityId` directly on the record makes entity-scoped financial reporting a direct filter instead of a join through Property every time.
+- [Aug 2026] — `Deposit` is a separate model from `Lease.securityDepositAmount`, not an extension of it. `Lease.securityDepositAmount` is the lease-term promise (what the lease says the security deposit is); `Deposit` is the actual ledger of what's held, where (`storageMethod`), and what happened to it at move-out (`status`, `returnedAmount`, itemized `DepositDeduction` rows). Taylor charges a pet deposit separate from the security deposit, refundable independently — so `Deposit` has a `type` field (`SECURITY` / `PET`) rather than being 1:1 with `Lease`; `@@unique([leaseId, type])` allows at most one of each type per lease, each tracked (held/returned/deducted) on its own. Originally built as a `SecurityDeposit` model 1:1 with `Lease` before this came up — renamed/generalized same session, no separate `PetDeposit` model, to avoid duplicating identical CRUD logic. If a third deposit type ever comes up (e.g. key deposit), extend the enum rather than adding another model.
+- [Aug 2026] — `ExpenseCategory.LEGAL` added in v1, ahead of the v2 Legal Tracker module. Taylor's call: legal costs (attorney consult, court filing fees, process server) are real cash outflows landlords track for taxes now, independent of whether the full case-timeline/notice-generation Legal Tracker feature exists yet. This is scaffolding for expense tracking only — it does not pull in any v2 Legal Tracker functionality (case linking, notice periods, clause violations), so it doesn't violate "no v2 scope creep into v1."
+- [Aug 2026] — `ExpenseCategory.LANDSCAPING`, not `LAWN`. Taylor's call: "lawn" is too narrow — landscaping covers trees, bushes, etc. too, not just the grass, matching the broader "Exterior / Grounds" framing already used in Property Specs. Applied via a hand-written `ALTER TYPE ... RENAME VALUE` migration rather than a Prisma-generated drop/recreate, since `prisma migrate dev` refuses to run non-interactively on a change it flags as data-losing (even though nothing used the old value yet) — renaming the enum value in place is also just safer in general for any future case where rows do exist. Use the same manual-migration approach for any future enum *value* rename (schema-level renames like table/column names can still go through `migrate dev` as usual).
+- [Aug 2026] — `ExpenseCategory` has separate `REPAIRS` and `MAINTENANCE` values, not one lumped category. Taylor's call: repairs (fixing something broken) and maintenance (routine/preventive upkeep) are two different things in real landlord bookkeeping, even though they weren't distinguished in CLAUDE.md's original Finances list. Keep them separate in any future expense reporting/categorization (e.g. Schedule E tax flagging in v3) — don't re-merge them.
+- [Aug 2026] — After adding new Prisma models, `npx prisma migrate dev` alone does not regenerate the client in this project's setup — run `npx prisma generate` explicitly afterward, and separately apply the migration to the test database (`DATABASE_URL=<test db url> npx prisma migrate deploy`, since there's no dedicated test-migrate script). Discovered when new `Income`/`Expense`/`SecurityDeposit` routes threw "Cannot read properties of undefined" (client not regenerated) and then "table does not exist" (migration only applied to dev db) before tests passed. Do this two-step dance for any future schema change.
 
 ---
 
@@ -285,10 +293,16 @@ v1 is upload + key fields only. Full lease builder is v2.
 - Violation builder
 - Lease generator from clause templates
 
-### Finances
+### Finances — v1 (basics only, no automation)
+v1 is manual entry only. You log income and expenses by hand as they happen — there is no
+automation yet: no auto-generated recurring rent charges, no automatic late-fee calculation,
+no payment/due-date reminders, no recurring-expense scheduling, no reporting or analytics
+beyond raw CRUD + filtering. "Rent expected vs collected" is a comparison a future UI computes
+on the fly against `Lease.monthlyRent` — it is not a stored due-date/charge schedule. Any of
+that automation is a deliberate later add, not an oversight — see the decisions log.
 - Income: rent (expected vs collected), late fees, pet rent, deposits received
-- Expenses: mortgage, utilities, repairs, lawn, insurance premiums, tax, other
-- Security deposit: amount held, storage method (escrow account, etc.), deductions
+- Expenses: mortgage, utilities, repairs, maintenance, landscaping, insurance premiums, tax, legal, other — repairs (fixing something broken) and maintenance (routine/preventive upkeep) are tracked as separate categories, per Taylor's real-world distinction. "Landscaping" (not "lawn") since it covers more than just the lawn — trees, bushes, etc., matching the Property Specs → Exterior/Grounds section. "Legal" is scaffolded into v1 ahead of the full v2 Legal Tracker module — see decisions log
+- Deposits: security deposit and pet deposit, each tracked independently — amount held, storage method (escrow account, etc.), deductions, return status
 - Expenses flow to the correct Entity's books — do not commingle between entities
 
 ### Maintenance
@@ -406,7 +420,7 @@ Claude Code should:
 
 ---
 
-*Last updated: 2026-08-12 — Tenants + Leases session with Claude Code*
+*Last updated: 2026-08-14 — Finances v1 (Income, Expenses, Security Deposits) session with Claude Code*
 
 ---
 

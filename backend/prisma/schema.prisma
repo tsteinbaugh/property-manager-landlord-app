@@ -49,6 +49,9 @@ model Entity {
 
   user       User       @relation(fields: [userId], references: [id])
   properties Property[]
+  incomes    Income[]
+  expenses   Expense[]
+  deposits   Deposit[]
 
   @@index([userId])
 }
@@ -66,9 +69,12 @@ model Property {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  entity  Entity   @relation(fields: [entityId], references: [id])
-  leases  Lease[]
-  tenants Tenant[]
+  entity   Entity    @relation(fields: [entityId], references: [id])
+  leases   Lease[]
+  tenants  Tenant[]
+  incomes  Income[]
+  expenses Expense[]
+  deposits Deposit[]
 
   @@index([userId])
   @@index([entityId])
@@ -167,6 +173,8 @@ model Lease {
 
   property     Property      @relation(fields: [propertyId], references: [id])
   leaseTenants LeaseTenant[]
+  incomes      Income[]
+  deposits     Deposit[]
 
   @@index([userId])
   @@index([propertyId])
@@ -190,4 +198,132 @@ model LeaseTenant {
   @@unique([leaseId, tenantId])
   @@index([leaseId])
   @@index([tenantId])
+}
+
+enum IncomeCategory {
+  RENT
+  LATE_FEE
+  PET_RENT
+  DEPOSIT
+  OTHER
+}
+
+// v1 rent tracking is a simple ledger: log payments as received. "Expected vs
+// collected" is a comparison computed against Lease.monthlyRent, not a stored
+// schedule — no recurring-charge engine until v2.
+model Income {
+  id         String         @id @default(cuid())
+  userId     String
+  entityId   String
+  propertyId String
+  leaseId    String?
+  category   IncomeCategory
+  amount     Decimal        @db.Decimal(10, 2)
+  date       DateTime
+  method     String? // free text, e.g. "check", "cash", "bank transfer"
+  notes      String?
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+
+  entity   Entity   @relation(fields: [entityId], references: [id])
+  property Property @relation(fields: [propertyId], references: [id])
+  lease    Lease?   @relation(fields: [leaseId], references: [id])
+
+  @@index([userId])
+  @@index([entityId])
+  @@index([propertyId])
+  @@index([leaseId])
+}
+
+// REPAIRS (fixing something broken) and MAINTENANCE (routine/preventive upkeep)
+// are kept as separate categories — real distinction in how Taylor tracks spend,
+// not just code-vs-reality drift.
+enum ExpenseCategory {
+  MORTGAGE
+  UTILITIES
+  REPAIRS
+  MAINTENANCE
+  LANDSCAPING
+  INSURANCE_PREMIUM
+  TAX
+  LEGAL
+  OTHER
+}
+
+// Expenses flow to the owning Entity's books — entityId is derived server-side
+// from property.entityId at creation, never trusted from the client.
+model Expense {
+  id         String          @id @default(cuid())
+  userId     String
+  entityId   String
+  propertyId String
+  category   ExpenseCategory
+  amount     Decimal         @db.Decimal(10, 2)
+  date       DateTime
+  payee      String?
+  notes      String?
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+
+  entity   Entity   @relation(fields: [entityId], references: [id])
+  property Property @relation(fields: [propertyId], references: [id])
+
+  @@index([userId])
+  @@index([entityId])
+  @@index([propertyId])
+}
+
+enum DepositType {
+  SECURITY
+  PET
+}
+
+enum DepositStatus {
+  HELD
+  PARTIALLY_RETURNED
+  FULLY_RETURNED
+  FORFEITED
+}
+
+// Separate from Lease.securityDepositAmount (the lease-term promise) — this is
+// the actual ledger of what's held, where, and what happened to it at move-out.
+// A lease can hold more than one deposit (e.g. security + pet), each tracked
+// independently — @@unique([leaseId, type]) allows at most one per type.
+model Deposit {
+  id             String        @id @default(cuid())
+  userId         String
+  entityId       String
+  propertyId     String
+  leaseId        String
+  type           DepositType
+  amountHeld     Decimal       @db.Decimal(10, 2)
+  dateReceived   DateTime
+  storageMethod  String? // e.g. "escrow account"
+  status         DepositStatus @default(HELD)
+  returnedAmount Decimal?      @db.Decimal(10, 2)
+  returnedDate   DateTime?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  entity     Entity            @relation(fields: [entityId], references: [id])
+  property   Property          @relation(fields: [propertyId], references: [id])
+  lease      Lease             @relation(fields: [leaseId], references: [id])
+  deductions DepositDeduction[]
+
+  @@unique([leaseId, type])
+  @@index([userId])
+  @@index([entityId])
+  @@index([propertyId])
+}
+
+model DepositDeduction {
+  id          String   @id @default(cuid())
+  depositId   String
+  description String
+  amount      Decimal  @db.Decimal(10, 2)
+  createdAt   DateTime @default(now())
+
+  deposit Deposit @relation(fields: [depositId], references: [id], onDelete: Cascade)
+
+  @@index([depositId])
 }

@@ -3,6 +3,9 @@ const { createRequireAuth, createResolveCurrentUser } = require("./middleware/au
 const propertiesRoutes = require("./routes/properties.routes");
 const tenantsRoutes = require("./routes/tenants.routes");
 const leasesRoutes = require("./routes/leases.routes");
+const incomeRoutes = require("./routes/income.routes");
+const expensesRoutes = require("./routes/expenses.routes");
+const depositsRoutes = require("./routes/deposits.routes");
 
 function createApp(overrides = {}) {
   const clerk = require("@clerk/express");
@@ -25,6 +28,9 @@ function createApp(overrides = {}) {
   app.use("/api/properties", propertiesRoutes);
   app.use("/api/tenants", tenantsRoutes);
   app.use("/api/leases", leasesRoutes);
+  app.use("/api/income", incomeRoutes);
+  app.use("/api/expenses", expensesRoutes);
+  app.use("/api/deposits", depositsRoutes);
 
   app.use((err, req, res, next) => {
     console.error(err);

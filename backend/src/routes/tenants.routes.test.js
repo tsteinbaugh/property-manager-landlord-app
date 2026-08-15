@@ -20,6 +20,10 @@ const app = createApp({
 });
 
 async function resetDatabase() {
+  await prisma.depositDeduction.deleteMany();
+  await prisma.deposit.deleteMany();
+  await prisma.income.deleteMany();
+  await prisma.expense.deleteMany();
   await prisma.leaseTenant.deleteMany();
   await prisma.lease.deleteMany();
   await prisma.tenant.deleteMany();

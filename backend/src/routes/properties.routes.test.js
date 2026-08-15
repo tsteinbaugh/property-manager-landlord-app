@@ -25,6 +25,13 @@ describe("properties routes", () => {
   beforeEach(async () => {
     mockGetAuth.mockReturnValue({ userId: "clerk_test_user_1" });
 
+    await prisma.depositDeduction.deleteMany();
+    await prisma.deposit.deleteMany();
+    await prisma.income.deleteMany();
+    await prisma.expense.deleteMany();
+    await prisma.leaseTenant.deleteMany();
+    await prisma.lease.deleteMany();
+    await prisma.tenant.deleteMany();
     await prisma.property.deleteMany();
     await prisma.entity.deleteMany();
     await prisma.user.deleteMany();
@@ -47,6 +54,13 @@ describe("properties routes", () => {
   });
 
   afterAll(async () => {
+    await prisma.depositDeduction.deleteMany();
+    await prisma.deposit.deleteMany();
+    await prisma.income.deleteMany();
+    await prisma.expense.deleteMany();
+    await prisma.leaseTenant.deleteMany();
+    await prisma.lease.deleteMany();
+    await prisma.tenant.deleteMany();
     await prisma.property.deleteMany();
     await prisma.entity.deleteMany();
     await prisma.user.deleteMany();
