@@ -13,10 +13,17 @@ const mockGetUser = vi.fn(() =>
   }),
 );
 
+const mockR2 = {
+  getUploadUrl: vi.fn((key) => Promise.resolve(`https://r2.example.com/upload/${key}`)),
+  getDownloadUrl: vi.fn((key) => Promise.resolve(`https://r2.example.com/download/${key}`)),
+  deleteObject: vi.fn(() => Promise.resolve()),
+};
+
 const app = createApp({
   clerkMiddleware: () => (req, res, next) => next(),
   getAuth: (req) => mockGetAuth(req),
   clerkClient: { users: { getUser: (...args) => mockGetUser(...args) } },
+  r2: mockR2,
 });
 
 async function resetDatabase() {
@@ -42,6 +49,9 @@ describe("leases routes", () => {
 
   beforeEach(async () => {
     mockGetAuth.mockReturnValue({ userId: "clerk_test_user_1" });
+    mockR2.getUploadUrl.mockClear();
+    mockR2.getDownloadUrl.mockClear();
+    mockR2.deleteObject.mockClear();
     await resetDatabase();
 
     const user = await prisma.user.create({
@@ -318,6 +328,138 @@ describe("leases routes", () => {
 
     it("404s when detaching a tenant not on the lease", async () => {
       const res = await request(app).delete(`/api/leases/${lease.id}/tenants/${tenant.id}`);
+      expect(res.status).toBe(404);
+    });
+  });
+
+  describe("lease document (R2)", () => {
+    let lease;
+
+    beforeEach(async () => {
+      lease = await prisma.lease.create({
+        data: {
+          propertyId: property.id,
+          userId: property.userId,
+          startDate: new Date("2026-09-01"),
+          monthlyRent: "1800.00",
+        },
+      });
+    });
+
+    it("issues a presigned upload URL scoped to the lease", async () => {
+      const res = await request(app)
+        .post(`/api/leases/${lease.id}/document-upload-url`)
+        .send({ fileName: "signed lease.pdf", contentType: "application/pdf" });
+
+      expect(res.status).toBe(200);
+      expect(res.body.uploadUrl).toBeTruthy();
+      expect(res.body.key).toMatch(new RegExp(`^leases/${lease.id}/.+signed_lease\\.pdf$`));
+      expect(mockR2.getUploadUrl).toHaveBeenCalledWith(res.body.key, "application/pdf");
+    });
+
+    it("rejects a non-PDF content type", async () => {
+      const res = await request(app)
+        .post(`/api/leases/${lease.id}/document-upload-url`)
+        .send({ fileName: "lease.docx", contentType: "application/msword" });
+
+      expect(res.status).toBe(400);
+    });
+
+    it("confirms an upload and attaches the key to the lease", async () => {
+      const key = `leases/${lease.id}/abc-lease.pdf`;
+
+      const res = await request(app).post(`/api/leases/${lease.id}/document-confirm`).send({ key });
+
+      expect(res.status).toBe(200);
+      expect(res.body.documentKey).toBe(key);
+    });
+
+    it("rejects confirming a key that doesn't belong to the lease", async () => {
+      const res = await request(app)
+        .post(`/api/leases/${lease.id}/document-confirm`)
+        .send({ key: "leases/some-other-lease/abc-lease.pdf" });
+
+      expect(res.status).toBe(400);
+    });
+
+    it("deletes the old object when replacing an existing document", async () => {
+      const firstKey = `leases/${lease.id}/first-lease.pdf`;
+      const secondKey = `leases/${lease.id}/second-lease.pdf`;
+
+      await request(app).post(`/api/leases/${lease.id}/document-confirm`).send({ key: firstKey });
+      const res = await request(app)
+        .post(`/api/leases/${lease.id}/document-confirm`)
+        .send({ key: secondKey });
+
+      expect(res.status).toBe(200);
+      expect(res.body.documentKey).toBe(secondKey);
+      expect(mockR2.deleteObject).toHaveBeenCalledWith(firstKey);
+    });
+
+    it("returns a presigned download URL for an uploaded document", async () => {
+      const key = `leases/${lease.id}/lease.pdf`;
+      await request(app).post(`/api/leases/${lease.id}/document-confirm`).send({ key });
+
+      const res = await request(app).get(`/api/leases/${lease.id}/document-url`);
+
+      expect(res.status).toBe(200);
+      expect(res.body.downloadUrl).toBeTruthy();
+      expect(mockR2.getDownloadUrl).toHaveBeenCalledWith(key);
+    });
+
+    it("404s for a download URL when no document is uploaded", async () => {
+      const res = await request(app).get(`/api/leases/${lease.id}/document-url`);
+      expect(res.status).toBe(404);
+    });
+
+    it("deletes the lease document", async () => {
+      const key = `leases/${lease.id}/lease.pdf`;
+      await request(app).post(`/api/leases/${lease.id}/document-confirm`).send({ key });
+
+      const res = await request(app).delete(`/api/leases/${lease.id}/document`);
+
+      expect(res.status).toBe(204);
+      expect(mockR2.deleteObject).toHaveBeenCalledWith(key);
+
+      const updated = await prisma.lease.findUnique({ where: { id: lease.id } });
+      expect(updated.documentKey).toBeNull();
+    });
+
+    it("404s deleting a document when none is uploaded", async () => {
+      const res = await request(app).delete(`/api/leases/${lease.id}/document`);
+      expect(res.status).toBe(404);
+    });
+
+    it("404s document endpoints for another user's lease", async () => {
+      const otherUser = await prisma.user.create({
+        data: { clerkId: "clerk_other_user", email: "other@example.com" },
+      });
+      const otherEntity = await prisma.entity.create({
+        data: { userId: otherUser.id, legalName: "Someone Else LLC", entityType: "LLC" },
+      });
+      const otherProperty = await prisma.property.create({
+        data: {
+          entityId: otherEntity.id,
+          userId: otherUser.id,
+          address1: "456 Oak St",
+          city: "Frederick",
+          state: "CO",
+          zip: "80530",
+        },
+      });
+      const otherLease = await prisma.lease.create({
+        data: {
+          propertyId: otherProperty.id,
+          userId: otherUser.id,
+          startDate: new Date("2026-09-01"),
+          monthlyRent: "1800.00",
+        },
+      });
+
+      const res = await request(app)
+        .post(`/api/leases/${otherLease.id}/document-upload-url`)
+        .send({ fileName: "lease.pdf", contentType: "application/pdf" });
+
       expect(res.status).toBe(404);
     });
   });

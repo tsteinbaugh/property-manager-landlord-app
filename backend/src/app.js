@@ -2,7 +2,7 @@ const express = require("express");
 const { createRequireAuth, createResolveCurrentUser } = require("./middleware/auth");
 const propertiesRoutes = require("./routes/properties.routes");
 const tenantsRoutes = require("./routes/tenants.routes");
-const leasesRoutes = require("./routes/leases.routes");
+const createLeasesRoutes = require("./routes/leases.routes");
 const incomeRoutes = require("./routes/income.routes");
 const expensesRoutes = require("./routes/expenses.routes");
 const depositsRoutes = require("./routes/deposits.routes");
@@ -30,7 +30,7 @@ function createApp(overrides = {}) {
 
   app.use("/api/properties", propertiesRoutes);
   app.use("/api/tenants", tenantsRoutes);
-  app.use("/api/leases", leasesRoutes);
+  app.use("/api/leases", createLeasesRoutes({ r2: overrides.r2 }));
   app.use("/api/income", incomeRoutes);
   app.use("/api/expenses", expensesRoutes);
   app.use("/api/deposits", depositsRoutes);

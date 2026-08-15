@@ -173,8 +173,10 @@ model Lease {
   notes  String?
   status LeaseStatus @default(ACTIVE)
 
-  // Set once Cloudflare R2 storage is wired up; nothing writes here yet.
-  documentUrl String?
+  // R2 object key for the uploaded lease PDF. Bucket is private — downloads
+  // go through a short-lived presigned URL generated on demand, never a
+  // stored public URL.
+  documentKey String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

@@ -8,7 +8,7 @@
 > Update this at the start of every session. One or two lines max.
 > Example: "Working on Prisma schema for Tenants + Leases. Backend only, no frontend yet."
 
-All v1 MVP backend modules are built: Entities/Properties, Tenants+Leases, Finances (Income/Expenses/Deposits), and now Maintenance (Requests, Vendors, Preventive Schedules). Next: start the frontend, or wire up Cloudflare R2 to unblock lease PDF upload — ask Taylor which.
+All v1 MVP backend modules are built and Cloudflare R2 is wired up, so lease PDF upload is fully unblocked end-to-end (verified against the real `steinoak-documents` bucket). Next: start the frontend.
 
 ---
 
@@ -27,6 +27,7 @@ All v1 MVP backend modules are built: Entities/Properties, Tenants+Leases, Finan
 - [x] [Aug 2026] — `leases.routes.js` — full CRUD scoped via property ownership, plus `POST /api/leases/:id/tenants` and `DELETE /api/leases/:id/tenants/:tenantId` to attach/detach tenants with a role, mounted at `/api/leases`. 15 tests passing. 38 tests total across the backend.
 - [x] [Aug 2026] — Finances v1: `Income`, `Expense`, `Deposit`, `DepositDeduction` Prisma models. `Income`/`Expense`/`Deposit` carry `entityId` derived server-side from `property.entityId` (never trusted from the client) so records can be scoped per-Entity's books. `income.routes.js` (`/api/income`) and `expenses.routes.js` (`/api/expenses`) are full CRUD scoped to the current user, with category enums matching CLAUDE.md's Finances section. `deposits.routes.js` (`/api/deposits`) is full CRUD for a lease's deposits — `Deposit` has a `type` field (`SECURITY` or `PET`, `@@unique([leaseId, type])`) so a lease can hold one of each, tracked independently — plus `POST /:id/deductions` / `DELETE /:id/deductions/:deductionId` for itemized deductions per deposit. Rent tracking is a simple ledger for v1 — no recurring-charge/scheduler engine; "expected vs collected" is meant to be computed against `Lease.monthlyRent`, not stored. 41 new tests passing (income 12, expenses 12, deposits 17). 79 tests total across the backend.
 - [x] [Aug 2026] — Maintenance v1: `Vendor`, `MaintenanceRequest`, `MaintenanceStatusChange`, `MaintenanceSchedule` Prisma models. `Vendor` is scoped by `userId` only (not property/entity) — one vendor can service properties across multiple entities; no stored cost-history field, it's derived by querying `MaintenanceRequest` rows for that vendor. `MaintenanceRequest` (`/api/maintenance-requests`) is a repair/ad-hoc ticket — `OPEN`/`IN_PROGRESS`/`CLOSED`, linked to property (required), tenant and vendor (both optional) — with `entityId` derived server-side. Every create and every status-changing update auto-inserts a `MaintenanceStatusChange` row (full audit trail per the Manora research — timestamped, surfaced in every GET response, not a client-writable sub-resource). `MaintenanceSchedule` (`/api/maintenance-schedules`) is the preventive side — `intervalDays`/`lastDoneDate`/`nextDueDate`, with `nextDueDate` auto-computed from the other two when not given, a `POST /:id/mark-done` action that advances both, and a computed `overdue` boolean on every response (no real alerting system — just a flag a future UI can badge). Landscaping recurring service is just a `MaintenanceSchedule` row with a `vendorId` set, no special modeling. Maintenance costs are deliberately NOT auto-linked to Finances `Expense` records — Taylor's call, matches the manual-ledger stance. 34 new tests passing (vendors 8, maintenance requests 13, maintenance schedules 13). 113 tests total across the backend.
+- [x] [Aug 2026] — Cloudflare R2 wired up for lease PDF upload, closing the last v1 blocker. `Lease.documentUrl` renamed to `documentKey` (holds an R2 object key, not a URL — bucket `steinoak-documents` is private since lease PDFs are sensitive documents). `backend/src/lib/r2.js` wraps the S3-compatible R2 client (`@aws-sdk/client-s3` + `@aws-sdk/s3-request-presigner`) with `getUploadUrl`/`getDownloadUrl` (presigned, 15min/5min expiry) and `deleteObject`. `leases.routes.js` converted to an injectable factory (`createLeasesRoutes({ r2 })`, defaulting to the real client) — same DI pattern as Clerk in `app.js` — so R2 calls are mockable in tests without hitting the network. Four new endpoints on `/api/leases`: `POST /:id/document-upload-url` (returns a presigned PUT URL; file bytes go straight from client to R2, never through the backend), `POST /:id/document-confirm` (attaches the key to the lease after verifying it's prefixed with that lease's id; deletes the old object if replacing one), `GET /:id/document-url` (presigned download URL, generated on demand — never a stored public link), `DELETE /:id/document`. Verified with a real round-trip smoke test against the live bucket (upload → download → delete), not just mocked tests. 10 new tests passing. 123 tests total across the backend.
 
 ---
 
@@ -58,6 +59,9 @@ All v1 MVP backend modules are built: Entities/Properties, Tenants+Leases, Finan
 - [Aug 2026] — `MaintenanceStatusChange` has no `changedBy` field yet. v1 has exactly one possible actor (the landlord), so it'd just duplicate the parent request's `userId`. Add `changedBy` once v2's contractor/tenant portals (per the Manora research — zero-friction links, role-scoped views) introduce other actors who can change status.
 - [Aug 2026] — `Vendor` is scoped by `userId` only, not property or entity — one vendor (e.g. a plumber) can reasonably service properties under different entities, and CLAUDE.md's vendor directory spec doesn't tie it to a single property.
 - [Aug 2026] — After adding new Prisma models, `npx prisma migrate dev` alone does not regenerate the client in this project's setup — run `npx prisma generate` explicitly afterward, and separately apply the migration to the test database (`DATABASE_URL=<test db url> npx prisma migrate deploy`, since there's no dedicated test-migrate script). Discovered when new `Income`/`Expense`/`SecurityDeposit` routes threw "Cannot read properties of undefined" (client not regenerated) and then "table does not exist" (migration only applied to dev db) before tests passed. Do this two-step dance for any future schema change.
+- [Aug 2026] — Lease document storage uses a presigned-URL pattern, not a proxy upload through the backend. Reason: `documentUrl` was renamed to `documentKey` and the R2 bucket is private (lease PDFs, IDs, inspection photos are sensitive per CLAUDE.md's file-storage rule) — client PUTs bytes directly to a presigned R2 URL, and downloads always go through a freshly generated short-lived presigned GET URL, never a stored/public URL. Do not switch to a public bucket or store a permanent public `documentUrl` — that would leak sensitive documents. `POST /:id/document-confirm` requires the key to be prefixed `leases/{leaseId}/` before attaching it, so one lease can't claim another lease's uploaded object.
+- [Aug 2026] — R2 credentials (`R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME=steinoak-documents`) live in `backend/.env` only (gitignored), same as Clerk keys — never commit them. Verified working with a real round-trip script (upload/download/delete against the live bucket) run once during setup and then deleted; do not leave ad-hoc smoke-test scripts checked into the repo.
+- [Aug 2026] — Any resource router that needs to call an external service (R2, and previously Clerk in `app.js`) should take it as an injectable dependency via a factory function (e.g. `createLeasesRoutes({ r2 })`), defaulting to the real client, so tests can pass a mock without hitting the network — `vi.mock()` doesn't work in this project's CommonJS setup (see the `app.js` factory decision above). `leases.routes.js` is the first resource router (beyond `app.js` itself) to follow this pattern; use it as the template for any future route module that talks to an external API.
 
 ---
 
@@ -65,7 +69,7 @@ All v1 MVP backend modules are built: Entities/Properties, Tenants+Leases, Finan
 > Things that are broken, stuck, or need a decision before moving forward.
 > Clear these out as they're resolved.
 
-- Lease PDF upload isn't built — v1 leases are supposed to be "upload PDF + key fields" but only the key fields exist. The schema has a `documentUrl` field ready on `Lease`, but nothing writes to it, because Cloudflare R2 (file storage) isn't set up yet. Needs R2 wired up before this can be finished.
+- None currently. (Lease PDF upload via R2 — the last v1 blocker — was resolved Aug 2026.)
 
 ---
 
@@ -424,7 +428,7 @@ Claude Code should:
 
 ---
 
-*Last updated: 2026-08-14 — Finances v1 (Income, Expenses, Deposits) and Maintenance v1 (Requests, Vendors, Preventive Schedules) session with Claude Code — all v1 MVP backend modules complete*
+*Last updated: 2026-08-15 — Cloudflare R2 wired up for lease PDF upload with Claude Code — v1 MVP backend is fully complete, no open blockers, next up is the frontend*
 
 ---
 
