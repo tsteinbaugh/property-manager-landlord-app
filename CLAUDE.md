@@ -424,7 +424,7 @@ Claude Code should:
 
 ---
 
-*Last updated: 2026-08-14 — Finances v1 (Income, Expenses, Security Deposits) session with Claude Code*
+*Last updated: 2026-08-14 — Finances v1 (Income, Expenses, Deposits) and Maintenance v1 (Requests, Vendors, Preventive Schedules) session with Claude Code — all v1 MVP backend modules complete*
 
 ---
 
