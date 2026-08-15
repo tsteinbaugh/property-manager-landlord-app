@@ -20,6 +20,10 @@ const app = createApp({
 });
 
 async function resetDatabase() {
+  await prisma.maintenanceStatusChange.deleteMany();
+  await prisma.maintenanceRequest.deleteMany();
+  await prisma.maintenanceSchedule.deleteMany();
+  await prisma.vendor.deleteMany();
   await prisma.depositDeduction.deleteMany();
   await prisma.deposit.deleteMany();
   await prisma.income.deleteMany();

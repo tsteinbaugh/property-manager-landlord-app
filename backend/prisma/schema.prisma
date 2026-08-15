@@ -20,8 +20,11 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  entities Entity[]
-  tenants  Tenant[]
+  entities             Entity[]
+  tenants              Tenant[]
+  vendors              Vendor[]
+  maintenanceRequests  MaintenanceRequest[]
+  maintenanceSchedules MaintenanceSchedule[]
 }
 
 enum EntityType {
@@ -47,11 +50,13 @@ model Entity {
   createdAt           DateTime   @default(now())
   updatedAt           DateTime   @updatedAt
 
-  user       User       @relation(fields: [userId], references: [id])
-  properties Property[]
-  incomes    Income[]
-  expenses   Expense[]
-  deposits   Deposit[]
+  user                 User                  @relation(fields: [userId], references: [id])
+  properties           Property[]
+  incomes              Income[]
+  expenses             Expense[]
+  deposits             Deposit[]
+  maintenanceRequests  MaintenanceRequest[]
+  maintenanceSchedules MaintenanceSchedule[]
 
   @@index([userId])
 }
@@ -69,12 +74,14 @@ model Property {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  entity   Entity    @relation(fields: [entityId], references: [id])
-  leases   Lease[]
-  tenants  Tenant[]
-  incomes  Income[]
-  expenses Expense[]
-  deposits Deposit[]
+  entity               Entity                @relation(fields: [entityId], references: [id])
+  leases               Lease[]
+  tenants              Tenant[]
+  incomes              Income[]
+  expenses             Expense[]
+  deposits             Deposit[]
+  maintenanceRequests  MaintenanceRequest[]
+  maintenanceSchedules MaintenanceSchedule[]
 
   @@index([userId])
   @@index([entityId])
@@ -123,9 +130,10 @@ model Tenant {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user         User          @relation(fields: [userId], references: [id])
-  property     Property      @relation(fields: [propertyId], references: [id])
-  leaseTenants LeaseTenant[]
+  user                User                 @relation(fields: [userId], references: [id])
+  property            Property             @relation(fields: [propertyId], references: [id])
+  leaseTenants        LeaseTenant[]
+  maintenanceRequests MaintenanceRequest[]
 
   @@index([userId])
   @@index([propertyId])
@@ -305,9 +313,9 @@ model Deposit {
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
 
-  entity     Entity            @relation(fields: [entityId], references: [id])
-  property   Property          @relation(fields: [propertyId], references: [id])
-  lease      Lease             @relation(fields: [leaseId], references: [id])
+  entity     Entity             @relation(fields: [entityId], references: [id])
+  property   Property           @relation(fields: [propertyId], references: [id])
+  lease      Lease              @relation(fields: [leaseId], references: [id])
   deductions DepositDeduction[]
 
   @@unique([leaseId, type])
@@ -326,4 +334,125 @@ model DepositDeduction {
   deposit Deposit @relation(fields: [depositId], references: [id], onDelete: Cascade)
 
   @@index([depositId])
+}
+
+// The vendor directory. Scoped by userId only, not property/entity — one
+// vendor (e.g. a plumber) can service properties across multiple entities.
+// No stored "cost history" field: it's derived by querying MaintenanceRequest
+// rows for this vendor, same computed-not-stored approach as Finances'
+// "expected vs collected."
+model Vendor {
+  id        String   @id @default(cuid())
+  userId    String
+  name      String
+  trade     String? // free text — plumber, electrician, HVAC, etc. No fixed list yet.
+  phone     String?
+  email     String?
+  preferred Boolean  @default(false)
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user                 User                  @relation(fields: [userId], references: [id])
+  maintenanceRequests  MaintenanceRequest[]
+  maintenanceSchedules MaintenanceSchedule[]
+
+  @@index([userId])
+}
+
+enum MaintenanceStatus {
+  OPEN
+  IN_PROGRESS
+  CLOSED
+}
+
+// A "repair" is just a MaintenanceRequest — something reactive/ad-hoc, tracked
+// through OPEN -> IN_PROGRESS -> CLOSED. Preventive/recurring work lives in
+// MaintenanceSchedule instead. Deliberately not linked to Expense — actualCost
+// here is descriptive only; Taylor logs a matching Expense by hand if wanted,
+// per the same manual-ledger, no-automation stance as the rest of Finances.
+model MaintenanceRequest {
+  id         String  @id @default(cuid())
+  userId     String
+  entityId   String
+  propertyId String
+  tenantId   String? // only set if an actual Tenant record reported it
+  vendorId   String? // assigned once a vendor is picked
+
+  title        String
+  description  String?
+  reportedBy   String? // free text — landlord, tenant name, neighbor, etc.
+  reportedDate DateTime @default(now())
+
+  status        MaintenanceStatus @default(OPEN)
+  estimatedCost Decimal?          @db.Decimal(10, 2)
+  actualCost    Decimal?          @db.Decimal(10, 2)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  entity        Entity                    @relation(fields: [entityId], references: [id])
+  property      Property                  @relation(fields: [propertyId], references: [id])
+  tenant        Tenant?                   @relation(fields: [tenantId], references: [id])
+  vendor        Vendor?                   @relation(fields: [vendorId], references: [id])
+  statusChanges MaintenanceStatusChange[]
+  user          User                      @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([entityId])
+  @@index([propertyId])
+  @@index([tenantId])
+  @@index([vendorId])
+}
+
+// The audit trail Manora's design explicitly calls out as a differentiator —
+// every status change timestamped, surfaced to the user. Auto-inserted by the
+// route (on create, and on update whenever status actually changes), not a
+// client-writable sub-resource. No changedBy field yet: v1 has exactly one
+// possible actor (the landlord), so it'd be redundant with the parent's
+// userId — add it once v2's contractor/tenant portals introduce other actors.
+model MaintenanceStatusChange {
+  id                   String             @id @default(cuid())
+  maintenanceRequestId String
+  fromStatus           MaintenanceStatus?
+  toStatus             MaintenanceStatus
+  changedAt            DateTime           @default(now())
+  note                 String?
+
+  maintenanceRequest MaintenanceRequest @relation(fields: [maintenanceRequestId], references: [id], onDelete: Cascade)
+
+  @@index([maintenanceRequestId])
+}
+
+// Preventive schedule: interval + last done -> next due. "Auto-alert when
+// overdue" is a computed `overdue` flag in the API response (nextDueDate in
+// the past) — no notification system exists yet, same no-automation stance
+// as elsewhere in v1. Landscaping service is just a row here with a vendorId
+// set, not a separate model.
+model MaintenanceSchedule {
+  id         String  @id @default(cuid())
+  userId     String
+  entityId   String
+  propertyId String
+  vendorId   String?
+
+  title        String
+  description  String?
+  intervalDays Int
+  lastDoneDate DateTime?
+  nextDueDate  DateTime?
+  notes        String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  entity   Entity   @relation(fields: [entityId], references: [id])
+  property Property @relation(fields: [propertyId], references: [id])
+  vendor   Vendor?  @relation(fields: [vendorId], references: [id])
+  user     User     @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([entityId])
+  @@index([propertyId])
+  @@index([vendorId])
 }

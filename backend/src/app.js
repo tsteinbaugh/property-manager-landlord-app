@@ -6,6 +6,9 @@ const leasesRoutes = require("./routes/leases.routes");
 const incomeRoutes = require("./routes/income.routes");
 const expensesRoutes = require("./routes/expenses.routes");
 const depositsRoutes = require("./routes/deposits.routes");
+const vendorsRoutes = require("./routes/vendors.routes");
+const maintenanceRequestsRoutes = require("./routes/maintenance-requests.routes");
+const maintenanceSchedulesRoutes = require("./routes/maintenance-schedules.routes");
 
 function createApp(overrides = {}) {
   const clerk = require("@clerk/express");
@@ -31,6 +34,9 @@ function createApp(overrides = {}) {
   app.use("/api/income", incomeRoutes);
   app.use("/api/expenses", expensesRoutes);
   app.use("/api/deposits", depositsRoutes);
+  app.use("/api/vendors", vendorsRoutes);
+  app.use("/api/maintenance-requests", maintenanceRequestsRoutes);
+  app.use("/api/maintenance-schedules", maintenanceSchedulesRoutes);
 
   app.use((err, req, res, next) => {
     console.error(err);
