@@ -69,7 +69,7 @@ router.get("/:id", async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
-  const { name, address1, address2, city, state, zip } = req.body;
+  const { entityId, name, address1, address2, city, state, zip } = req.body;
 
   const existing = await prisma.property.findUnique({
     where: { id: req.params.id },
@@ -78,9 +78,21 @@ router.put("/:id", async (req, res) => {
     return res.status(404).json({ error: "Property not found" });
   }
 
+  const data = { name, address1, address2, city, state, zip };
+
+  // Reassigning a property to a different entity (e.g. after forming an LLC)
+  // — the target entity must belong to the same user, same check as on create.
+  if (entityId !== undefined) {
+    const entity = await prisma.entity.findUnique({ where: { id: entityId } });
+    if (!entity || entity.userId !== req.currentUser.id) {
+      return res.status(400).json({ error: `Entity ${entityId} not found` });
+    }
+    data.entityId = entityId;
+  }
+
   const property = await prisma.property.update({
     where: { id: req.params.id },
-    data: { name, address1, address2, city, state, zip },
+    data,
   });
 
   res.json(property);

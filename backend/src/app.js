@@ -1,5 +1,8 @@
 const express = require("express");
+const cors = require("cors");
 const { createRequireAuth, createResolveCurrentUser } = require("./middleware/auth");
+const createMeRoutes = require("./routes/me.routes");
+const entitiesRoutes = require("./routes/entities.routes");
 const propertiesRoutes = require("./routes/properties.routes");
 const tenantsRoutes = require("./routes/tenants.routes");
 const createLeasesRoutes = require("./routes/leases.routes");
@@ -18,6 +21,7 @@ function createApp(overrides = {}) {
 
   const app = express();
 
+  app.use(cors({ origin: process.env.FRONTEND_URL || "http://localhost:5173" }));
   app.use(express.json());
   app.use(clerkMiddleware());
 
@@ -28,6 +32,8 @@ function createApp(overrides = {}) {
   // Every /api/* route requires a logged-in user, resolved to a local User row.
   app.use("/api", createRequireAuth({ getAuth }), createResolveCurrentUser({ getAuth, clerkClient }));
 
+  app.use("/api/me", createMeRoutes({ clerkClient }));
+  app.use("/api/entities", entitiesRoutes);
   app.use("/api/properties", propertiesRoutes);
   app.use("/api/tenants", tenantsRoutes);
   app.use("/api/leases", createLeasesRoutes({ r2: overrides.r2 }));

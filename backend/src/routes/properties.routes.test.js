@@ -97,6 +97,21 @@ describe("properties routes", () => {
     expect(user.email).toBe("landlord@example.com");
   });
 
+  it("gives a newly provisioned user a default Self / Personal entity", async () => {
+    await prisma.entity.deleteMany();
+    await prisma.user.deleteMany();
+
+    await request(app).get("/api/properties");
+
+    const user = await prisma.user.findUnique({ where: { clerkId: "clerk_test_user_1" } });
+    const entities = await prisma.entity.findMany({ where: { userId: user.id } });
+
+    expect(entities).toHaveLength(1);
+    expect(entities[0].entityType).toBe("PERSONAL");
+    expect(entities[0].legalName).toBe("Taylor");
+    expect(entities[0].isDefault).toBe(true);
+  });
+
   it("creates a property under an entity, deriving userId from the entity", async () => {
     const res = await request(app).post("/api/properties").send({
       entityId: entity.id,
@@ -241,6 +256,57 @@ describe("properties routes", () => {
 
     expect(res.status).toBe(200);
     expect(res.body.name).toBe("Renamed");
+  });
+
+  it("reassigns a property to a different entity owned by the same user", async () => {
+    const property = await prisma.property.create({
+      data: {
+        entityId: entity.id,
+        userId: entity.userId,
+        address1: "123 Maple St",
+        city: "Frederick",
+        state: "CO",
+        zip: "80530",
+      },
+    });
+    const llc = await prisma.entity.create({
+      data: { userId: entity.userId, legalName: "New LLC", entityType: "LLC" },
+    });
+
+    const res = await request(app)
+      .put(`/api/properties/${property.id}`)
+      .send({ entityId: llc.id });
+
+    expect(res.status).toBe(200);
+    expect(res.body.entityId).toBe(llc.id);
+  });
+
+  it("rejects reassigning a property to an entity owned by another user", async () => {
+    const property = await prisma.property.create({
+      data: {
+        entityId: entity.id,
+        userId: entity.userId,
+        address1: "123 Maple St",
+        city: "Frederick",
+        state: "CO",
+        zip: "80530",
+      },
+    });
+    const otherUser = await prisma.user.create({
+      data: { clerkId: "clerk_other_user", email: "other@example.com" },
+    });
+    const otherEntity = await prisma.entity.create({
+      data: { userId: otherUser.id, legalName: "Someone Else LLC", entityType: "LLC" },
+    });
+
+    const res = await request(app)
+      .put(`/api/properties/${property.id}`)
+      .send({ entityId: otherEntity.id });
+
+    expect(res.status).toBe(400);
+
+    const check = await prisma.property.findUnique({ where: { id: property.id } });
+    expect(check.entityId).toBe(entity.id);
   });
 
   it("deletes a property", async () => {

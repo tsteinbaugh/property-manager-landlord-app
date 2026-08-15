@@ -25,11 +25,22 @@ function createResolveCurrentUser({ getAuth, clerkClient }) {
         (e) => e.id === clerkUser.primaryEmailAddressId,
       )?.emailAddress;
 
+      const name = [clerkUser.firstName, clerkUser.lastName].filter(Boolean).join(" ") || null;
+
+      // Every property needs an Entity, and "Self / Personal" is a valid one
+      // for landlords without an LLC — so give every new user a default
+      // entity up front instead of blocking property creation on setting
+      // one up manually. Marked isDefault so entities.routes.js locks it
+      // from direct edit/delete — the invariant "every user always has at
+      // least one entity to fall back to" depends on this one being permanent.
       user = await prisma.user.create({
         data: {
           clerkId,
           email,
-          name: [clerkUser.firstName, clerkUser.lastName].filter(Boolean).join(" ") || null,
+          name,
+          entities: {
+            create: { legalName: name || "Self / Personal", entityType: "PERSONAL", isDefault: true },
+          },
         },
       });
     }

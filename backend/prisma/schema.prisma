@@ -41,6 +41,17 @@ model Entity {
   userId              String
   legalName           String
   entityType          EntityType
+  // The one Self / Personal entity auto-created at signup so every property
+  // always has somewhere to default to. Locked from edit/delete at the app
+  // layer (see entities.routes.js) — a user can still add other PERSONAL
+  // entities (e.g. tracking a property they don't personally own), those
+  // are ordinary editable/deletable entities with isDefault left false.
+  isDefault           Boolean    @default(false)
+  // Correspondence for this entity specifically — e.g. a business email for
+  // an LLC, separate from the landlord's own account email/phone in Clerk.
+  contactEmail        String?
+  contactPhone        String?
+  mailingAddress      String?
   stateOfFormation    String?
   ein                 String? // encrypted at rest at the app layer
   registeredAgent     String?
