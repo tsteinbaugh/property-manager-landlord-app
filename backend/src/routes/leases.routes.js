@@ -16,7 +16,6 @@ const ASSIGNABLE_FIELDS = [
   "petPolicy",
   "petRentAmount",
   "renewalRentIncreaseCap",
-  "nonLeaseOccupantCount",
   "notes",
   "status",
 ];

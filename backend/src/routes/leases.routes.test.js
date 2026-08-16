@@ -230,7 +230,7 @@ describe("leases routes", () => {
     expect(res.body.notes).toBe("Tenant broke lease early");
   });
 
-  it("updates integer fields (lateFeeGraceDays, nonLeaseOccupantCount)", async () => {
+  it("updates an integer field (lateFeeGraceDays)", async () => {
     const lease = await prisma.lease.create({
       data: {
         propertyId: property.id,
@@ -240,13 +240,10 @@ describe("leases routes", () => {
       },
     });
 
-    const res = await request(app)
-      .put(`/api/leases/${lease.id}`)
-      .send({ lateFeeGraceDays: 5, nonLeaseOccupantCount: 3 });
+    const res = await request(app).put(`/api/leases/${lease.id}`).send({ lateFeeGraceDays: 5 });
 
     expect(res.status).toBe(200);
     expect(res.body.lateFeeGraceDays).toBe(5);
-    expect(res.body.nonLeaseOccupantCount).toBe(3);
   });
 
   it("deletes a lease", async () => {

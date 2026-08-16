@@ -208,9 +208,6 @@ model Lease {
   // What the lease promises tenants, e.g. "3% max annually" — free text since caps vary in phrasing.
   renewalRentIncreaseCap String?
 
-  // Non-lease occupants (children, aging parent) — occupancy count only, no separate profiles in v1.
-  nonLeaseOccupantCount Int?
-
   notes  String?
   status LeaseStatus @default(ACTIVE)
 
@@ -226,6 +223,9 @@ model Lease {
   leaseTenants LeaseTenant[]
   incomes      Income[]
   deposits     Deposit[]
+  occupants    Occupant[]
+  pets         Pet[]
+  vehicles     Vehicle[]
 
   @@index([userId])
   @@index([propertyId])
@@ -249,6 +249,62 @@ model LeaseTenant {
   @@unique([leaseId, tenantId])
   @@index([leaseId])
   @@index([tenantId])
+}
+
+// Anyone living at the property who isn't on the lease as a tenant (kids,
+// an aging parent, etc.) — an individual record per person, not just a
+// headcount. Replaces the old Lease.nonLeaseOccupantCount bare integer.
+model Occupant {
+  id    String @id @default(cuid())
+  lease Lease  @relation(fields: [leaseId], references: [id], onDelete: Cascade)
+
+  leaseId String
+  name    String
+  age     Int?
+  phone   String?
+  email   String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([leaseId])
+}
+
+model Pet {
+  id    String @id @default(cuid())
+  lease Lease  @relation(fields: [leaseId], references: [id], onDelete: Cascade)
+
+  leaseId String
+  type    String // cat, dog, bird, etc. — free text, no fixed list, same approach as Vendor.trade
+  breed   String?
+  name    String?
+  license String?
+  age     Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([leaseId])
+}
+
+model Vehicle {
+  id    String @id @default(cuid())
+  lease Lease  @relation(fields: [leaseId], references: [id], onDelete: Cascade)
+
+  leaseId      String
+  make         String?
+  model        String?
+  year         Int?
+  color        String?
+  licensePlate String?
+  state        String?
+  vin          String?
+  parkingSpot  String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([leaseId])
 }
 
 enum IncomeCategory {
