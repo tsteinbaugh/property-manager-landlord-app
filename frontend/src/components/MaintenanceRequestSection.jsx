@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useApi } from "../hooks/useApi";
+import { SPEC_LINK_FIELD_NAMES, fetchSpecLinkOptions, encodeSpecLink, decodeSpecLink } from "../lib/specLinks";
 
 const MAINTENANCE_STATUSES = ["OPEN", "IN_PROGRESS", "CLOSED"];
 const MAINTENANCE_STATUS_STYLES = {
@@ -13,6 +14,7 @@ const EMPTY_REQUEST_FORM = {
   description: "",
   tenantId: "",
   vendorId: "",
+  specLink: "",
   reportedBy: "",
   status: "OPEN",
   estimatedCost: "",
@@ -41,6 +43,7 @@ export default function MaintenanceRequestSection({ items, vendors, onChange, pr
   const [form, setForm] = useState(EMPTY_REQUEST_FORM);
   const [formPropertyId, setFormPropertyId] = useState(propertyId || "");
   const [tenants, setTenants] = useState([]);
+  const [specLinkOptions, setSpecLinkOptions] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [expandedId, setExpandedId] = useState(null);
   const [submitting, setSubmitting] = useState(false);
@@ -66,6 +69,17 @@ export default function MaintenanceRequestSection({ items, vendors, onChange, pr
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formPropertyId]);
 
+  useEffect(() => {
+    let cancelled = false;
+    fetchSpecLinkOptions(api, formPropertyId).then((options) => {
+      if (!cancelled) setSpecLinkOptions(options);
+    });
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formPropertyId]);
+
   function propertyLabel(pid) {
     const p = properties?.find((pp) => pp.id === pid);
     return p ? p.name || p.address1 : "—";
@@ -79,6 +93,7 @@ export default function MaintenanceRequestSection({ items, vendors, onChange, pr
         description: request.description || "",
         tenantId: request.tenantId || "",
         vendorId: request.vendorId || "",
+        specLink: encodeSpecLink(request),
         reportedBy: request.reportedBy || "",
         status: request.status,
         estimatedCost: request.estimatedCost ?? "",
@@ -110,6 +125,13 @@ export default function MaintenanceRequestSection({ items, vendors, onChange, pr
       else body.estimatedCost = Number(body.estimatedCost);
       if (body.actualCost === "") delete body.actualCost;
       else body.actualCost = Number(body.actualCost);
+
+      // Explicitly null out all 7 possible links, then set whichever one is
+      // actually chosen — otherwise switching the dropdown (or clearing it)
+      // wouldn't clear out whatever was previously linked.
+      delete body.specLink;
+      for (const field of SPEC_LINK_FIELD_NAMES) body[field] = null;
+      Object.assign(body, decodeSpecLink(form.specLink));
 
       if (editingId) {
         await api.put(`/api/maintenance-requests/${editingId}`, body);
@@ -259,6 +281,24 @@ export default function MaintenanceRequestSection({ items, vendors, onChange, pr
                   </option>
                 ))}
               </select>
+            </label>
+            <label className="block text-sm">
+              <span className="mb-1 block font-medium text-stone-700">Linked item</span>
+              <select
+                value={form.specLink}
+                onChange={(e) => setForm({ ...form, specLink: e.target.value })}
+                className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+              >
+                <option value="">None</option>
+                {specLinkOptions.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+              <span className="mt-1 block text-xs text-stone-400">
+                Links this to a specific Property Specs item — its maintenance history shows there.
+              </span>
             </label>
             <label className="block text-sm">
               <span className="mb-1 block font-medium text-stone-700">Estimated cost</span>

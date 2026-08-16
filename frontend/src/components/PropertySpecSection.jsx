@@ -68,6 +68,20 @@ export default function PropertySpecSection({ title, addLabel, emptyLabel, items
     }
   }
 
+  // Replacing is deliberately not "edit in place" — that would silently
+  // misattribute this item's prior maintenance history to whatever comes
+  // after it. This creates a fresh active row and retires the current one.
+  async function handleReplace(itemId) {
+    if (!confirm("Replace this item? The current record will be retired (kept for history), and a new one created.")) return;
+    setError(null);
+    try {
+      await api.post(`${apiPath}/${itemId}/replace`, {});
+      onChange();
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
   return (
     <section className="space-y-3">
       <div className="flex items-center justify-between">
@@ -143,17 +157,31 @@ export default function PropertySpecSection({ title, addLabel, emptyLabel, items
           {items.map((item) => (
             <div
               key={item.id}
-              className="flex items-center justify-between rounded-xl border border-stone-200 bg-white p-4 shadow-sm"
+              className={`flex items-center justify-between rounded-xl border bg-white p-4 shadow-sm ${item.active === false ? "border-stone-200 opacity-60" : "border-stone-200"}`}
             >
-              <p className="text-sm text-stone-700">{renderSummary(item)}</p>
-              <div className="flex gap-3 text-sm">
-                <button onClick={() => openForm(item)} className="text-emerald-700 hover:underline">
-                  Edit
-                </button>
-                <button onClick={() => handleDelete(item.id)} className="text-red-600 hover:underline">
+              <div className="flex items-center gap-2">
+                <p className="text-sm text-stone-700">{renderSummary(item)}</p>
+                {item.active === false && (
+                  <span className="rounded-full bg-stone-200 px-2 py-0.5 text-xs font-medium text-stone-500">Retired</span>
+                )}
+              </div>
+              {item.active === false ? (
+                <button onClick={() => handleDelete(item.id)} className="text-sm text-red-600 hover:underline">
                   Delete
                 </button>
-              </div>
+              ) : (
+                <div className="flex gap-3 text-sm">
+                  <button onClick={() => openForm(item)} className="text-emerald-700 hover:underline">
+                    Edit
+                  </button>
+                  <button onClick={() => handleReplace(item.id)} className="text-emerald-700 hover:underline">
+                    Replace
+                  </button>
+                  <button onClick={() => handleDelete(item.id)} className="text-red-600 hover:underline">
+                    Delete
+                  </button>
+                </div>
+              )}
             </div>
           ))}
         </div>

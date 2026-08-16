@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useApi } from "../hooks/useApi";
+import { SPEC_LINK_FIELD_NAMES, fetchSpecLinkOptions, encodeSpecLink, decodeSpecLink } from "../lib/specLinks";
 
 const EMPTY_SCHEDULE_FORM = {
   title: "",
   description: "",
   intervalDays: "",
   vendorId: "",
+  specLink: "",
   lastDoneDate: "",
   notes: "",
 };
@@ -20,10 +22,22 @@ export default function MaintenanceScheduleSection({ items, vendors, onChange, p
   const [formOpen, setFormOpen] = useState(false);
   const [form, setForm] = useState(EMPTY_SCHEDULE_FORM);
   const [formPropertyId, setFormPropertyId] = useState(propertyId || "");
+  const [specLinkOptions, setSpecLinkOptions] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [expandedId, setExpandedId] = useState(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetchSpecLinkOptions(api, formPropertyId).then((options) => {
+      if (!cancelled) setSpecLinkOptions(options);
+    });
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formPropertyId]);
 
   function propertyLabel(pid) {
     const p = properties?.find((pp) => pp.id === pid);
@@ -38,6 +52,7 @@ export default function MaintenanceScheduleSection({ items, vendors, onChange, p
         description: schedule.description || "",
         intervalDays: schedule.intervalDays,
         vendorId: schedule.vendorId || "",
+        specLink: encodeSpecLink(schedule),
         lastDoneDate: schedule.lastDoneDate ? schedule.lastDoneDate.slice(0, 10) : "",
         notes: schedule.notes || "",
       });
@@ -61,6 +76,10 @@ export default function MaintenanceScheduleSection({ items, vendors, onChange, p
       if (!body.vendorId) delete body.vendorId;
       if (!body.lastDoneDate) delete body.lastDoneDate;
       if (!body.notes) delete body.notes;
+
+      delete body.specLink;
+      for (const field of SPEC_LINK_FIELD_NAMES) body[field] = null;
+      Object.assign(body, decodeSpecLink(form.specLink));
 
       if (editingId) {
         await api.put(`/api/maintenance-schedules/${editingId}`, body);
@@ -189,6 +208,24 @@ export default function MaintenanceScheduleSection({ items, vendors, onChange, p
                   </option>
                 ))}
               </select>
+            </label>
+            <label className="block text-sm">
+              <span className="mb-1 block font-medium text-stone-700">Linked item</span>
+              <select
+                value={form.specLink}
+                onChange={(e) => setForm({ ...form, specLink: e.target.value })}
+                className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+              >
+                <option value="">None</option>
+                {specLinkOptions.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+              <span className="mt-1 block text-xs text-stone-400">
+                Links this to a specific Property Specs item — its maintenance history shows there.
+              </span>
             </label>
             <label className="block text-sm sm:col-span-2 lg:col-span-3">
               <span className="mb-1 block font-medium text-stone-700">Notes</span>
