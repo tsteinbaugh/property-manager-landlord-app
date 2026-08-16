@@ -1,9 +1,25 @@
 const express = require("express");
+const { Prisma } = require("@prisma/client");
 const prisma = require("../lib/prisma");
 const { buildMatch } = require("../lib/search");
 
 const MIN_QUERY_LENGTH = 2;
 const PER_TYPE_LIMIT = 6;
+
+// Occupant/Pet/Vehicle are linked to a Tenant, not a Lease (a Tenant can be
+// on several leases over time as they move between units) — so search links
+// to whichever lease is most likely the one you're looking for: the active
+// one, or failing that, the most recently started one. Falls back to the
+// Tenant's own page (mapRows below) if they aren't on any lease yet.
+function currentLeaseIdSubquery(tenantIdExpr) {
+  return Prisma.sql`
+    SELECT lt."leaseId" FROM "LeaseTenant" lt
+    JOIN "Lease" cl ON cl.id = lt."leaseId"
+    WHERE lt."tenantId" = ${Prisma.raw(tenantIdExpr)}
+    ORDER BY (cl.status = 'ACTIVE') DESC, cl."startDate" DESC
+    LIMIT 1
+  `;
+}
 
 function mapRows(rows, type, routeFor) {
   return rows.map((row) => ({
@@ -74,38 +90,38 @@ router.get("/", async (req, res) => {
     `,
     prisma.$queryRaw`
       SELECT o.id, o.name AS title,
-             concat_ws(', ', p.address1, p.city) AS subtitle,
-             l.id AS "leaseId",
+             concat_ws(' ', 'Linked to', t."firstName", t."lastName") AS subtitle,
+             t.id AS "tenantId",
+             (${currentLeaseIdSubquery(`o."tenantId"`)}) AS "leaseId",
              ${occupantMatch.score} AS score
       FROM "Occupant" o
-      JOIN "Lease" l ON l.id = o."leaseId"
-      JOIN "Property" p ON p.id = l."propertyId"
-      WHERE l."userId" = ${userId} AND ${occupantMatch.where}
+      JOIN "Tenant" t ON t.id = o."tenantId"
+      WHERE t."userId" = ${userId} AND ${occupantMatch.where}
       ORDER BY score DESC
       LIMIT ${PER_TYPE_LIMIT}
     `,
     prisma.$queryRaw`
       SELECT pt.id, COALESCE(pt.name, pt.type) AS title,
-             concat_ws(' · ', pt.type, pr.address1) AS subtitle,
-             l.id AS "leaseId",
+             concat_ws(' · ', pt.type, 'Linked to', t."firstName", t."lastName") AS subtitle,
+             t.id AS "tenantId",
+             (${currentLeaseIdSubquery(`pt."tenantId"`)}) AS "leaseId",
              ${petMatch.score} AS score
       FROM "Pet" pt
-      JOIN "Lease" l ON l.id = pt."leaseId"
-      JOIN "Property" pr ON pr.id = l."propertyId"
-      WHERE l."userId" = ${userId} AND ${petMatch.where}
+      JOIN "Tenant" t ON t.id = pt."tenantId"
+      WHERE t."userId" = ${userId} AND ${petMatch.where}
       ORDER BY score DESC
       LIMIT ${PER_TYPE_LIMIT}
     `,
     prisma.$queryRaw`
       SELECT v.id,
              COALESCE(NULLIF(trim(concat_ws(' ', v.year::text, v.make, v.model)), ''), v."licensePlate", 'Vehicle') AS title,
-             concat_ws(' · ', v."licensePlate", pr.address1) AS subtitle,
-             l.id AS "leaseId",
+             concat_ws(' · ', v."licensePlate", 'Linked to', t."firstName", t."lastName") AS subtitle,
+             t.id AS "tenantId",
+             (${currentLeaseIdSubquery(`v."tenantId"`)}) AS "leaseId",
              ${vehicleMatch.score} AS score
       FROM "Vehicle" v
-      JOIN "Lease" l ON l.id = v."leaseId"
-      JOIN "Property" pr ON pr.id = l."propertyId"
-      WHERE l."userId" = ${userId} AND ${vehicleMatch.where}
+      JOIN "Tenant" t ON t.id = v."tenantId"
+      WHERE t."userId" = ${userId} AND ${vehicleMatch.where}
       ORDER BY score DESC
       LIMIT ${PER_TYPE_LIMIT}
     `,
@@ -116,9 +132,9 @@ router.get("/", async (req, res) => {
     ...mapRows(properties, "property", (r) => `/properties/${r.id}`),
     ...mapRows(tenants, "tenant", (r) => `/tenants/${r.id}`),
     ...mapRows(vendors, "vendor", (r) => `/vendors/${r.id}`),
-    ...mapRows(occupants, "occupant", (r) => `/leases/${r.leaseId}`),
-    ...mapRows(pets, "pet", (r) => `/leases/${r.leaseId}`),
-    ...mapRows(vehicles, "vehicle", (r) => `/leases/${r.leaseId}`),
+    ...mapRows(occupants, "occupant", (r) => (r.leaseId ? `/leases/${r.leaseId}` : `/tenants/${r.tenantId}`)),
+    ...mapRows(pets, "pet", (r) => (r.leaseId ? `/leases/${r.leaseId}` : `/tenants/${r.tenantId}`)),
+    ...mapRows(vehicles, "vehicle", (r) => (r.leaseId ? `/leases/${r.leaseId}` : `/tenants/${r.tenantId}`)),
   ].sort((a, b) => b.score - a.score);
 
   res.json({ results });

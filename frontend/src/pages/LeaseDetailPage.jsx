@@ -22,32 +22,6 @@ function money(amount) {
   return `$${Number(amount).toLocaleString()}`;
 }
 
-const OCCUPANT_FIELDS = [
-  { key: "name", label: "Name", required: true },
-  { key: "age", label: "Age", type: "number" },
-  { key: "phone", label: "Phone" },
-  { key: "email", label: "Email", type: "email" },
-];
-
-const PET_FIELDS = [
-  { key: "type", label: "Type", required: true, placeholder: "Cat, dog, bird..." },
-  { key: "breed", label: "Breed" },
-  { key: "name", label: "Name" },
-  { key: "license", label: "License" },
-  { key: "age", label: "Age", type: "number" },
-];
-
-const VEHICLE_FIELDS = [
-  { key: "make", label: "Make" },
-  { key: "model", label: "Model" },
-  { key: "year", label: "Year", type: "number" },
-  { key: "color", label: "Color" },
-  { key: "licensePlate", label: "License plate" },
-  { key: "state", label: "State" },
-  { key: "vin", label: "VIN" },
-  { key: "parkingSpot", label: "Parking spot" },
-];
-
 export default function LeaseDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -139,14 +113,29 @@ export default function LeaseDetailPage() {
     }
   }
 
+  // Defaults the Role picker to Primary for the first tenant on a lease
+  // (there's no primary yet) and Co-Tenant after that — re-derived any time
+  // the attached-tenant count changes (initial load, after an attach, after
+  // a detach), so it's always the right guess for whoever's added next.
+  // Still just a default: the landlord can override it before submitting.
+  useEffect(() => {
+    if (!lease) return;
+    setAttachRole(lease.leaseTenants.length === 0 ? "PRIMARY" : "CO_TENANT");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lease?.leaseTenants?.length]);
+
   async function handleAttachTenant(e) {
     e.preventDefault();
     if (!attachTenantId) return;
     setError(null);
     try {
-      const updated = await api.post(`/api/leases/${id}/tenants`, { tenantId: attachTenantId, role: attachRole });
-      setLease(updated);
+      await api.post(`/api/leases/${id}/tenants`, { tenantId: attachTenantId, role: attachRole });
       setAttachTenantId("");
+      // Occupants/Pets/Vehicles are keyed off which tenants are on this
+      // lease, so a full reload is needed here too (not just setLease) —
+      // otherwise the newly-attached tenant's records only show up after a
+      // manual refresh.
+      await load();
     } catch (err) {
       setError(err.message);
     }
@@ -232,6 +221,7 @@ export default function LeaseDetailPage() {
   const hasUnapprovedTenants = propertyTenants.some(
     (t) => t.applicationStatus !== "APPROVED" && !lease.leaseTenants.some((lt) => lt.tenantId === t.id),
   );
+
 
   return (
     <div className="space-y-6">
@@ -520,15 +510,10 @@ export default function LeaseDetailPage() {
         )}
       </section>
 
-      <SimpleRecordSection
+      <LinkedRecordsSection
         title="Occupants"
-        addLabel="Add occupant"
-        emptyLabel="No occupants on this lease yet — anyone living here who isn't a tenant on the lease (kids, an aging parent, etc.)."
+        emptyLabel="No occupants linked to a tenant on this lease yet — add them from the tenant's page (anyone living here who isn't a tenant on the lease: kids, an aging parent, etc.)."
         items={occupants}
-        fields={OCCUPANT_FIELDS}
-        apiPath="/api/occupants"
-        leaseId={id}
-        onChange={load}
         renderSummary={(o) =>
           [o.name, o.age ? `age ${o.age}` : null, [o.phone, o.email].filter(Boolean).join(", ") || null]
             .filter(Boolean)
@@ -536,15 +521,10 @@ export default function LeaseDetailPage() {
         }
       />
 
-      <SimpleRecordSection
+      <LinkedRecordsSection
         title="Pets"
-        addLabel="Add pet"
-        emptyLabel="No pets on this lease yet."
+        emptyLabel="No pets linked to a tenant on this lease yet — add them from the tenant's page."
         items={pets}
-        fields={PET_FIELDS}
-        apiPath="/api/pets"
-        leaseId={id}
-        onChange={load}
         renderSummary={(p) =>
           [p.name, p.type, p.breed, p.license ? `license ${p.license}` : null, p.age ? `age ${p.age}` : null]
             .filter(Boolean)
@@ -552,15 +532,10 @@ export default function LeaseDetailPage() {
         }
       />
 
-      <SimpleRecordSection
+      <LinkedRecordsSection
         title="Vehicles"
-        addLabel="Add vehicle"
-        emptyLabel="No vehicles on this lease yet."
+        emptyLabel="No vehicles linked to a tenant on this lease yet — add them from the tenant's page."
         items={vehicles}
-        fields={VEHICLE_FIELDS}
-        apiPath="/api/vehicles"
-        leaseId={id}
-        onChange={load}
         renderSummary={(v) =>
           [
             [v.year, v.color, v.make, v.model].filter(Boolean).join(" ") || null,
@@ -899,119 +874,16 @@ function DepositCard({ leaseId, type, label, deposit, onChange }) {
   );
 }
 
-function emptyFormFor(fields) {
-  return Object.fromEntries(fields.map((f) => [f.key, ""]));
-}
-
-function SimpleRecordSection({ title, addLabel, emptyLabel, items, fields, apiPath, leaseId, onChange, renderSummary }) {
-  const api = useApi();
-  const [formOpen, setFormOpen] = useState(false);
-  const [form, setForm] = useState(() => emptyFormFor(fields));
-  const [editingId, setEditingId] = useState(null);
-  const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState(null);
-
-  function openForm(item) {
-    if (item) {
-      const f = {};
-      for (const field of fields) f[field.key] = item[field.key] ?? "";
-      setForm(f);
-      setEditingId(item.id);
-    } else {
-      setForm(emptyFormFor(fields));
-      setEditingId(null);
-    }
-    setFormOpen(true);
-  }
-
-  async function handleSave(e) {
-    e.preventDefault();
-    setSubmitting(true);
-    setError(null);
-    try {
-      const body = { ...form };
-      for (const field of fields) {
-        if (body[field.key] === "") delete body[field.key];
-        else if (field.type === "number") body[field.key] = Number(body[field.key]);
-      }
-
-      if (editingId) {
-        await api.put(`${apiPath}/${editingId}`, body);
-      } else {
-        await api.post(apiPath, { ...body, leaseId });
-      }
-      setFormOpen(false);
-      onChange();
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setSubmitting(false);
-    }
-  }
-
-  async function handleDelete(itemId) {
-    if (!confirm("Delete this record? This can't be undone.")) return;
-    setError(null);
-    try {
-      await api.del(`${apiPath}/${itemId}`);
-      onChange();
-    } catch (err) {
-      setError(err.message);
-    }
-  }
-
+// Occupants/Pets/Vehicles are linked to a Tenant now, not this Lease — the
+// Tenant page is where they're added/edited (available even pre-lease,
+// during application). This section is a read-only rollup of everything
+// linked to a tenant currently on this lease, linking back to that tenant's
+// page for any changes — same "detail page edits, rollup links back" pattern
+// CLAUDE.md already uses for the top-level Tenants/Leases/Finances nav.
+function LinkedRecordsSection({ title, emptyLabel, items, renderSummary }) {
   return (
     <section className="space-y-3">
-      <div className="flex items-center justify-between">
-        <h2 className="text-lg font-medium text-stone-900">{title}</h2>
-        <button
-          onClick={() => openForm(null)}
-          className="rounded-lg bg-emerald-700 px-3 py-1.5 text-sm font-medium text-white hover:bg-emerald-800"
-        >
-          {addLabel}
-        </button>
-      </div>
-
-      {error && <p className="text-sm text-red-700">{error}</p>}
-
-      {formOpen && (
-        <form onSubmit={handleSave} className="space-y-4 rounded-xl border border-stone-200 bg-white p-5 shadow-sm">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {fields.map((field) => (
-              <label key={field.key} className="block text-sm">
-                <span className="mb-1 block font-medium text-stone-700">
-                  {field.label}
-                  {field.required ? " *" : ""}
-                </span>
-                <input
-                  required={field.required}
-                  type={field.type || "text"}
-                  value={form[field.key]}
-                  onChange={(e) => setForm({ ...form, [field.key]: e.target.value })}
-                  placeholder={field.placeholder}
-                  className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
-                />
-              </label>
-            ))}
-          </div>
-          <div className="flex gap-2">
-            <button
-              type="submit"
-              disabled={submitting}
-              className="rounded-lg bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
-            >
-              {submitting ? "Saving..." : editingId ? "Save changes" : addLabel}
-            </button>
-            <button
-              type="button"
-              onClick={() => setFormOpen(false)}
-              className="rounded-lg border border-stone-300 px-4 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50"
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
-      )}
+      <h2 className="text-lg font-medium text-stone-900">{title}</h2>
 
       {items.length === 0 ? (
         <p className="rounded-xl border border-dashed border-stone-300 bg-white p-6 text-sm text-stone-500">
@@ -1020,19 +892,13 @@ function SimpleRecordSection({ title, addLabel, emptyLabel, items, fields, apiPa
       ) : (
         <div className="space-y-2">
           {items.map((item) => (
-            <div
-              key={item.id}
-              className="flex items-center justify-between rounded-xl border border-stone-200 bg-white p-4 shadow-sm"
-            >
+            <div key={item.id} className="rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
               <p className="text-sm text-stone-700">{renderSummary(item)}</p>
-              <div className="flex gap-3 text-sm">
-                <button onClick={() => openForm(item)} className="text-emerald-700 hover:underline">
-                  Edit
-                </button>
-                <button onClick={() => handleDelete(item.id)} className="text-red-600 hover:underline">
-                  Delete
-                </button>
-              </div>
+              {item.tenant && (
+                <Link to={`/tenants/${item.tenant.id}`} className="text-xs text-emerald-700 hover:underline">
+                  Linked to {item.tenant.firstName} {item.tenant.lastName} — edit there
+                </Link>
+              )}
             </div>
           ))}
         </div>

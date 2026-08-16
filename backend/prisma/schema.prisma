@@ -150,6 +150,9 @@ model Tenant {
   leaseTenants        LeaseTenant[]
   maintenanceRequests MaintenanceRequest[]
   documents           TenantDocument[]
+  occupants           Occupant[]
+  pets                Pet[]
+  vehicles            Vehicle[]
 
   @@index([userId])
   @@index([propertyId])
@@ -223,9 +226,6 @@ model Lease {
   leaseTenants LeaseTenant[]
   incomes      Income[]
   deposits     Deposit[]
-  occupants    Occupant[]
-  pets         Pet[]
-  vehicles     Vehicle[]
 
   @@index([userId])
   @@index([propertyId])
@@ -254,44 +254,53 @@ model LeaseTenant {
 // Anyone living at the property who isn't on the lease as a tenant (kids,
 // an aging parent, etc.) — an individual record per person, not just a
 // headcount. Replaces the old Lease.nonLeaseOccupantCount bare integer.
+//
+// Linked to a Tenant, not a Lease. A Lease is per-term paperwork that ends
+// when a tenant moves; a Tenant persists across that move. Attaching an
+// existing Tenant to a new Lease (via LeaseTenant) should bring their
+// occupants/pets/vehicles along automatically, not require recreating them —
+// which only works if the link points at the thing that doesn't change.
+// With co-tenants, one tenant is picked as the anchor (defaults to whoever's
+// Primary on the lease, app-layer only — still just a pointer, not a claim
+// about real-world ownership).
 model Occupant {
-  id    String @id @default(cuid())
-  lease Lease  @relation(fields: [leaseId], references: [id], onDelete: Cascade)
+  id     String @id @default(cuid())
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
 
-  leaseId String
-  name    String
-  age     Int?
-  phone   String?
-  email   String?
+  tenantId String
+  name     String
+  age      Int?
+  phone    String?
+  email    String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([leaseId])
+  @@index([tenantId])
 }
 
 model Pet {
-  id    String @id @default(cuid())
-  lease Lease  @relation(fields: [leaseId], references: [id], onDelete: Cascade)
+  id     String @id @default(cuid())
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
 
-  leaseId String
-  type    String // cat, dog, bird, etc. — free text, no fixed list, same approach as Vendor.trade
-  breed   String?
-  name    String?
-  license String?
-  age     Int?
+  tenantId String
+  type     String // cat, dog, bird, etc. — free text, no fixed list, same approach as Vendor.trade
+  breed    String?
+  name     String?
+  license  String?
+  age      Int?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([leaseId])
+  @@index([tenantId])
 }
 
 model Vehicle {
-  id    String @id @default(cuid())
-  lease Lease  @relation(fields: [leaseId], references: [id], onDelete: Cascade)
+  id     String @id @default(cuid())
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
 
-  leaseId      String
+  tenantId     String
   make         String?
   model        String?
   year         Int?
@@ -304,7 +313,7 @@ model Vehicle {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([leaseId])
+  @@index([tenantId])
 }
 
 enum IncomeCategory {

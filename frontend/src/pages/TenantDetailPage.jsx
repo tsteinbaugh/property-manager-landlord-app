@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
+import SimpleRecordSection from "../components/SimpleRecordSection";
 
 const APPLICATION_STATUSES = ["PENDING", "APPROVED", "REJECTED"];
 
@@ -29,6 +30,32 @@ const DOCUMENT_CATEGORIES = [
 ];
 const ALLOWED_DOCUMENT_TYPES = ["application/pdf", "image/jpeg", "image/png"];
 
+const OCCUPANT_FIELDS = [
+  { key: "name", label: "Name", required: true },
+  { key: "age", label: "Age", type: "number" },
+  { key: "phone", label: "Phone" },
+  { key: "email", label: "Email", type: "email" },
+];
+
+const PET_FIELDS = [
+  { key: "type", label: "Type", required: true, placeholder: "Cat, dog, bird..." },
+  { key: "breed", label: "Breed" },
+  { key: "name", label: "Name" },
+  { key: "license", label: "License" },
+  { key: "age", label: "Age", type: "number" },
+];
+
+const VEHICLE_FIELDS = [
+  { key: "make", label: "Make" },
+  { key: "model", label: "Model" },
+  { key: "year", label: "Year", type: "number" },
+  { key: "color", label: "Color" },
+  { key: "licensePlate", label: "License plate" },
+  { key: "state", label: "State" },
+  { key: "vin", label: "VIN" },
+  { key: "parkingSpot", label: "Parking spot" },
+];
+
 function toForm(tenant) {
   const form = {
     firstName: tenant.firstName,
@@ -50,6 +77,9 @@ export default function TenantDetailPage() {
 
   const [tenant, setTenant] = useState(null);
   const [documents, setDocuments] = useState([]);
+  const [occupants, setOccupants] = useState([]);
+  const [pets, setPets] = useState([]);
+  const [vehicles, setVehicles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [editing, setEditing] = useState(false);
@@ -71,13 +101,19 @@ export default function TenantDetailPage() {
   async function load() {
     setLoading(true);
     try {
-      const [data, docs] = await Promise.all([
+      const [data, docs, occupantData, petData, vehicleData] = await Promise.all([
         api.get(`/api/tenants/${id}`),
         api.get(`/api/tenants/${id}/documents`),
+        api.get(`/api/occupants?tenantId=${id}`),
+        api.get(`/api/pets?tenantId=${id}`),
+        api.get(`/api/vehicles?tenantId=${id}`),
       ]);
       setTenant(data);
       setForm(toForm(data));
       setDocuments(docs);
+      setOccupants(occupantData);
+      setPets(petData);
+      setVehicles(vehicleData);
       setError(null);
     } catch (err) {
       setError(err.message);
@@ -193,6 +229,11 @@ export default function TenantDetailPage() {
 
   if (loading) return <p className="text-sm text-stone-500">Loading...</p>;
   if (!tenant) return <p className="text-sm text-red-700">{error || "Tenant not found."}</p>;
+
+  // Occupants/Pets/Vehicles link to a single tenant — always just this one
+  // here, so SimpleRecordSection never shows a "which tenant" picker on this
+  // page (that only matters on a Lease page with co-tenants).
+  const tenantOptions = [{ id: tenant.id, firstName: tenant.firstName, lastName: tenant.lastName }];
 
   return (
     <div className="space-y-6">
@@ -623,6 +664,65 @@ export default function TenantDetailPage() {
           )}
         </div>
       </section>
+
+      <SimpleRecordSection
+        title="Occupants"
+        addLabel="Add occupant"
+        emptyLabel="No occupants yet — anyone who'll be living here who isn't a tenant on the lease (kids, an aging parent, etc.). Can be filled in now, even before a lease exists."
+        items={occupants}
+        fields={OCCUPANT_FIELDS}
+        apiPath="/api/occupants"
+        tenantOptions={tenantOptions}
+        defaultTenantId={tenant.id}
+        showTenantLabel={false}
+        onChange={load}
+        renderSummary={(o) =>
+          [o.name, o.age ? `age ${o.age}` : null, [o.phone, o.email].filter(Boolean).join(", ") || null]
+            .filter(Boolean)
+            .join(" · ")
+        }
+      />
+
+      <SimpleRecordSection
+        title="Pets"
+        addLabel="Add pet"
+        emptyLabel="No pets yet. Can be filled in now, even before a lease exists."
+        items={pets}
+        fields={PET_FIELDS}
+        apiPath="/api/pets"
+        tenantOptions={tenantOptions}
+        defaultTenantId={tenant.id}
+        showTenantLabel={false}
+        onChange={load}
+        renderSummary={(p) =>
+          [p.name, p.type, p.breed, p.license ? `license ${p.license}` : null, p.age ? `age ${p.age}` : null]
+            .filter(Boolean)
+            .join(" · ")
+        }
+      />
+
+      <SimpleRecordSection
+        title="Vehicles"
+        addLabel="Add vehicle"
+        emptyLabel="No vehicles yet. Can be filled in now, even before a lease exists."
+        items={vehicles}
+        fields={VEHICLE_FIELDS}
+        apiPath="/api/vehicles"
+        tenantOptions={tenantOptions}
+        defaultTenantId={tenant.id}
+        showTenantLabel={false}
+        onChange={load}
+        renderSummary={(v) =>
+          [
+            [v.year, v.color, v.make, v.model].filter(Boolean).join(" ") || null,
+            v.licensePlate ? `${v.licensePlate}${v.state ? ` (${v.state})` : ""}` : null,
+            v.vin ? `VIN ${v.vin}` : null,
+            v.parkingSpot ? `spot ${v.parkingSpot}` : null,
+          ]
+            .filter(Boolean)
+            .join(" · ") || "No details yet"
+        }
+      />
     </div>
   );
 }

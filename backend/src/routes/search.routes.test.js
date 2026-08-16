@@ -120,9 +120,19 @@ describe("search routes", () => {
     expect(hit).toBeDefined();
   });
 
-  it("finds a pet and routes to its parent lease", async () => {
+  it("finds a pet and routes to its tenant's current lease", async () => {
+    const petTenant = await prisma.tenant.create({
+      data: {
+        userId: user.id,
+        propertyId: property.id,
+        firstName: "Alex",
+        lastName: "Rivera",
+        applicationStatus: "APPROVED",
+      },
+    });
+    await prisma.leaseTenant.create({ data: { leaseId: lease.id, tenantId: petTenant.id, role: "PRIMARY" } });
     const pet = await prisma.pet.create({
-      data: { leaseId: lease.id, type: "dog", name: "Biscuit" },
+      data: { tenantId: petTenant.id, type: "dog", name: "Biscuit" },
     });
 
     const res = await request(app).get("/api/search").query({ q: "Biscuit" });
