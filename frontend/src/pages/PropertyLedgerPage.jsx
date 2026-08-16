@@ -1,17 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
+import IncomeSection from "../components/IncomeSection";
+import ExpenseSection from "../components/ExpenseSection";
+import { categoryLabel } from "../lib/financeLabels";
 
 function money(amount) {
   return `$${Number(amount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-}
-
-function categoryLabel(value) {
-  return value
-    .toLowerCase()
-    .split("_")
-    .map((w) => w[0].toUpperCase() + w.slice(1))
-    .join(" ");
 }
 
 export default function PropertyLedgerPage() {
@@ -19,32 +14,49 @@ export default function PropertyLedgerPage() {
   const api = useApi();
 
   const [property, setProperty] = useState(null);
-  const [entries, setEntries] = useState([]);
+  const [incomes, setIncomes] = useState([]);
+  const [expenses, setExpenses] = useState([]);
+  const [leases, setLeases] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  async function load() {
+    setLoading(true);
+    try {
+      const [propertyData, incomeData, expenseData, leaseData] = await Promise.all([
+        api.get(`/api/properties/${id}`),
+        api.get(`/api/income?propertyId=${id}`),
+        api.get(`/api/expenses?propertyId=${id}`),
+        api.get(`/api/leases?propertyId=${id}`),
+      ]);
+      setProperty(propertyData);
+      setIncomes(incomeData);
+      setExpenses(expenseData);
+      setLeases(leaseData);
+      setError(null);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   useEffect(() => {
-    Promise.all([api.get(`/api/properties/${id}`), api.get(`/api/income?propertyId=${id}`), api.get(`/api/expenses?propertyId=${id}`)])
-      .then(([propertyData, incomeData, expenseData]) => {
-        setProperty(propertyData);
-
-        const merged = [
-          ...incomeData.map((i) => ({ ...i, kind: "income" })),
-          ...expenseData.map((e) => ({ ...e, kind: "expense" })),
-        ].sort((a, b) => new Date(a.date) - new Date(b.date));
-
-        let balance = 0;
-        for (const entry of merged) {
-          balance += entry.kind === "income" ? Number(entry.amount) : -Number(entry.amount);
-          entry.balance = balance;
-        }
-        setEntries(merged.reverse());
-        setError(null);
-      })
-      .catch((err) => setError(err.message))
-      .finally(() => setLoading(false));
+    load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
+
+  const entries = [
+    ...incomes.map((i) => ({ ...i, kind: "income" })),
+    ...expenses.map((e) => ({ ...e, kind: "expense" })),
+  ].sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  let runningBalance = 0;
+  for (const entry of entries) {
+    runningBalance += entry.kind === "income" ? Number(entry.amount) : -Number(entry.amount);
+    entry.balance = runningBalance;
+  }
+  entries.reverse();
 
   const totalIncome = entries.filter((e) => e.kind === "income").reduce((sum, e) => sum + Number(e.amount), 0);
   const totalExpenses = entries.filter((e) => e.kind === "expense").reduce((sum, e) => sum + Number(e.amount), 0);
@@ -68,7 +80,7 @@ export default function PropertyLedgerPage() {
           {property.address1}, {property.city}, {property.state} {property.zip}
         </p>
         <Link to={`/properties/${property.id}`} className="text-xs text-emerald-700 hover:underline">
-          Manage entries on the property page →
+          View this property's full page →
         </Link>
       </div>
 
@@ -131,6 +143,9 @@ export default function PropertyLedgerPage() {
           </table>
         </div>
       )}
+
+      <IncomeSection propertyId={id} items={incomes} leases={leases} onChange={load} />
+      <ExpenseSection propertyId={id} items={expenses} onChange={load} />
     </div>
   );
 }

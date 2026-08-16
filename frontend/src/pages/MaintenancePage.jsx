@@ -1,12 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
-
-const MAINTENANCE_STATUS_STYLES = {
-  OPEN: "bg-amber-100 text-amber-800",
-  IN_PROGRESS: "bg-sky-100 text-sky-800",
-  CLOSED: "bg-stone-100 text-stone-600",
-};
+import MaintenanceRequestSection from "../components/MaintenanceRequestSection";
+import MaintenanceScheduleSection from "../components/MaintenanceScheduleSection";
 
 const EMPTY_VENDOR_FORM = { name: "", trade: "", phone: "", email: "", preferred: false, notes: "" };
 
@@ -72,11 +68,6 @@ export default function MaintenancePage() {
     }
   }
 
-  const propertyLabel = (propertyId) => {
-    const p = properties.find((prop) => prop.id === propertyId);
-    return p ? p.name || p.address1 : "—";
-  };
-
   const openRequests = requests.filter((r) => r.status !== "CLOSED");
   const upcomingSchedules = schedules
     .filter((s) => s.nextDueDate)
@@ -95,71 +86,19 @@ export default function MaintenancePage() {
         <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>
       )}
 
-      <section className="space-y-3">
-        <h2 className="text-lg font-medium text-stone-900">Open tickets</h2>
-        {openRequests.length === 0 ? (
-          <p className="rounded-xl border border-dashed border-stone-300 bg-white p-6 text-sm text-stone-500">
-            Nothing open — add a request from a property's page.
-          </p>
-        ) : (
-          <div className="space-y-2">
-            {openRequests.map((request) => (
-              <Link
-                key={request.id}
-                to={`/properties/${request.propertyId}`}
-                className="flex items-center justify-between rounded-xl border border-stone-200 bg-white p-4 shadow-sm hover:border-emerald-300"
-              >
-                <div>
-                  <span className="font-medium text-stone-900">{request.title}</span>
-                  <span className="ml-2 rounded-full bg-stone-100 px-2 py-0.5 text-xs font-medium text-stone-600">
-                    {propertyLabel(request.propertyId)}
-                  </span>
-                  <p className="text-xs text-stone-400">
-                    Reported {new Date(request.reportedDate).toLocaleDateString()}
-                  </p>
-                </div>
-                <span
-                  className={`rounded-full px-2 py-0.5 text-xs font-medium ${MAINTENANCE_STATUS_STYLES[request.status]}`}
-                >
-                  {request.status.replace("_", " ")}
-                </span>
-              </Link>
-            ))}
-          </div>
-        )}
-      </section>
+      <MaintenanceRequestSection
+        items={openRequests}
+        vendors={vendors}
+        properties={properties}
+        onChange={load}
+      />
 
-      <section className="space-y-3">
-        <h2 className="text-lg font-medium text-stone-900">Upcoming preventive maintenance</h2>
-        {upcomingSchedules.length === 0 ? (
-          <p className="rounded-xl border border-dashed border-stone-300 bg-white p-6 text-sm text-stone-500">
-            No preventive schedules with a due date yet.
-          </p>
-        ) : (
-          <div className="space-y-2">
-            {upcomingSchedules.map((schedule) => (
-              <Link
-                key={schedule.id}
-                to={`/properties/${schedule.propertyId}`}
-                className="flex items-center justify-between rounded-xl border border-stone-200 bg-white p-4 shadow-sm hover:border-emerald-300"
-              >
-                <div>
-                  <span className="font-medium text-stone-900">{schedule.title}</span>
-                  <span className="ml-2 rounded-full bg-stone-100 px-2 py-0.5 text-xs font-medium text-stone-600">
-                    {propertyLabel(schedule.propertyId)}
-                  </span>
-                  <p className="text-xs text-stone-400">Every {schedule.intervalDays} days</p>
-                </div>
-                <span
-                  className={`rounded-full px-2 py-0.5 text-xs font-medium ${schedule.overdue ? "bg-red-100 text-red-800" : "bg-stone-100 text-stone-600"}`}
-                >
-                  {schedule.overdue ? "Overdue" : `Due ${new Date(schedule.nextDueDate).toLocaleDateString()}`}
-                </span>
-              </Link>
-            ))}
-          </div>
-        )}
-      </section>
+      <MaintenanceScheduleSection
+        items={upcomingSchedules}
+        vendors={vendors}
+        properties={properties}
+        onChange={load}
+      />
 
       <section className="space-y-3">
         <div className="flex items-center justify-between">
