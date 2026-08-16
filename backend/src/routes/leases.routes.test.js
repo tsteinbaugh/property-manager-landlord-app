@@ -79,7 +79,13 @@ describe("leases routes", () => {
       },
     });
     tenant = await prisma.tenant.create({
-      data: { userId: user.id, propertyId: property.id, name: "Jamie Rivera" },
+      data: {
+        userId: user.id,
+        propertyId: property.id,
+        firstName: "Jamie",
+        lastName: "Rivera",
+        applicationStatus: "APPROVED",
+      },
     });
   });
 
@@ -224,6 +230,25 @@ describe("leases routes", () => {
     expect(res.body.notes).toBe("Tenant broke lease early");
   });
 
+  it("updates integer fields (lateFeeGraceDays, nonLeaseOccupantCount)", async () => {
+    const lease = await prisma.lease.create({
+      data: {
+        propertyId: property.id,
+        userId: property.userId,
+        startDate: new Date("2026-09-01"),
+        monthlyRent: "1800.00",
+      },
+    });
+
+    const res = await request(app)
+      .put(`/api/leases/${lease.id}`)
+      .send({ lateFeeGraceDays: 5, nonLeaseOccupantCount: 3 });
+
+    expect(res.status).toBe(200);
+    expect(res.body.lateFeeGraceDays).toBe(5);
+    expect(res.body.nonLeaseOccupantCount).toBe(3);
+  });
+
   it("deletes a lease", async () => {
     const lease = await prisma.lease.create({
       data: {
@@ -266,6 +291,18 @@ describe("leases routes", () => {
       expect(res.body.leaseTenants[0].tenant.id).toBe(tenant.id);
     });
 
+    it("rejects attaching a tenant who isn't approved yet", async () => {
+      const pendingTenant = await prisma.tenant.create({
+        data: { userId: property.userId, propertyId: property.id, firstName: "Pat", lastName: "Applicant" },
+      });
+
+      const res = await request(app)
+        .post(`/api/leases/${lease.id}/tenants`)
+        .send({ tenantId: pendingTenant.id, role: "PRIMARY" });
+
+      expect(res.status).toBe(400);
+    });
+
     it("rejects an invalid role", async () => {
       const res = await request(app)
         .post(`/api/leases/${lease.id}/tenants`)
@@ -292,7 +329,7 @@ describe("leases routes", () => {
         },
       });
       const otherTenant = await prisma.tenant.create({
-        data: { userId: otherUser.id, propertyId: otherProperty.id, name: "Not Mine" },
+        data: { userId: otherUser.id, propertyId: otherProperty.id, firstName: "Not", lastName: "Mine" },
       });
 
       const res = await request(app)

@@ -152,6 +152,9 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
     if (!tenant || tenant.userId !== req.currentUser.id) {
       return res.status(400).json({ error: `Tenant ${tenantId} not found` });
     }
+    if (tenant.applicationStatus !== "APPROVED") {
+      return res.status(400).json({ error: "Only approved tenants can be attached to a lease" });
+    }
 
     const existingLink = await prisma.leaseTenant.findUnique({
       where: { leaseId_tenantId: { leaseId: lease.id, tenantId } },
