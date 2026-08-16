@@ -291,5 +291,39 @@ describe("maintenance schedules routes", () => {
 
       expect(res.status).toBe(404);
     });
+
+    it("records a completion each time it's marked done, oldest and newest both kept", async () => {
+      const created = await request(app).post("/api/maintenance-schedules").send({
+        propertyId: property.id,
+        title: "HVAC filter change",
+        intervalDays: 90,
+      });
+
+      await request(app)
+        .post(`/api/maintenance-schedules/${created.body.id}/mark-done`)
+        .send({ doneDate: "2026-06-01" });
+      const res = await request(app)
+        .post(`/api/maintenance-schedules/${created.body.id}/mark-done`)
+        .send({ doneDate: "2026-09-01" });
+
+      expect(res.status).toBe(200);
+      expect(res.body.completions).toHaveLength(2);
+      const dates = res.body.completions.map((c) => c.completedDate.slice(0, 10));
+      expect(dates).toContain("2026-06-01");
+      expect(dates).toContain("2026-09-01");
+    });
+  });
+
+  it("records an initial completion when created with a lastDoneDate", async () => {
+    const res = await request(app).post("/api/maintenance-schedules").send({
+      propertyId: property.id,
+      title: "HVAC filter change",
+      intervalDays: 90,
+      lastDoneDate: "2026-06-01",
+    });
+
+    expect(res.status).toBe(201);
+    expect(res.body.completions).toHaveLength(1);
+    expect(res.body.completions[0].completedDate.slice(0, 10)).toBe("2026-06-01");
   });
 });

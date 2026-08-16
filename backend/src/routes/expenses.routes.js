@@ -1,10 +1,12 @@
 const express = require("express");
+const crypto = require("crypto");
 const prisma = require("../lib/prisma");
 const { pickFields } = require("../lib/pickFields");
+const defaultR2 = require("../lib/r2");
 
 const REQUIRED_FIELDS = ["propertyId", "category", "amount", "date"];
 
-const ASSIGNABLE_FIELDS = ["category", "amount", "date", "payee", "notes"];
+const ASSIGNABLE_FIELDS = ["category", "amount", "date", "payee", "method", "paid", "notes"];
 
 const DATE_FIELDS = ["date"];
 
@@ -19,6 +21,7 @@ const EXPENSE_CATEGORIES = [
   "LEGAL",
   "OTHER",
 ];
+const ALLOWED_DOCUMENT_TYPES = ["application/pdf", "image/jpeg", "image/png"];
 
 function pickAssignableFields(body) {
   return pickFields(body, ASSIGNABLE_FIELDS, DATE_FIELDS);
@@ -35,92 +38,191 @@ function validateExpenseBody(body) {
   return null;
 }
 
-const router = express.Router();
+function sanitizeFileName(fileName) {
+  return fileName.replace(/[^a-zA-Z0-9.\-_]/g, "_");
+}
 
-router.post("/", async (req, res) => {
-  const validationError = validateExpenseBody(req.body);
-  if (validationError) {
-    return res.status(400).json({ error: validationError });
-  }
+async function findOwnedExpense(id, userId) {
+  const expense = await prisma.expense.findUnique({ where: { id } });
+  if (!expense || expense.userId !== userId) return null;
+  return expense;
+}
 
-  const { propertyId } = req.body;
+function createExpensesRoutes({ r2 = defaultR2 } = {}) {
+  const router = express.Router();
 
-  const property = await prisma.property.findUnique({ where: { id: propertyId } });
-  if (!property || property.userId !== req.currentUser.id) {
-    return res.status(400).json({ error: `Property ${propertyId} not found` });
-  }
+  router.post("/", async (req, res) => {
+    const validationError = validateExpenseBody(req.body);
+    if (validationError) {
+      return res.status(400).json({ error: validationError });
+    }
 
-  const expense = await prisma.expense.create({
-    data: {
-      userId: req.currentUser.id,
-      entityId: property.entityId,
-      propertyId,
-      ...pickAssignableFields(req.body),
-    },
-  });
+    const { propertyId } = req.body;
 
-  res.status(201).json(expense);
-});
+    const property = await prisma.property.findUnique({ where: { id: propertyId } });
+    if (!property || property.userId !== req.currentUser.id) {
+      return res.status(400).json({ error: `Property ${propertyId} not found` });
+    }
 
-router.get("/", async (req, res) => {
-  const { propertyId } = req.query;
-
-  const expenses = await prisma.expense.findMany({
-    where: {
-      userId: req.currentUser.id,
-      ...(propertyId ? { propertyId } : {}),
-    },
-    orderBy: { date: "desc" },
-  });
-
-  res.json(expenses);
-});
-
-router.get("/:id", async (req, res) => {
-  const expense = await prisma.expense.findUnique({
-    where: { id: req.params.id },
-  });
-
-  if (!expense || expense.userId !== req.currentUser.id) {
-    return res.status(404).json({ error: "Expense not found" });
-  }
-
-  res.json(expense);
-});
-
-router.put("/:id", async (req, res) => {
-  if (req.body.category && !EXPENSE_CATEGORIES.includes(req.body.category)) {
-    return res.status(400).json({
-      error: `Invalid category. Must be one of: ${EXPENSE_CATEGORIES.join(", ")}`,
+    const expense = await prisma.expense.create({
+      data: {
+        userId: req.currentUser.id,
+        entityId: property.entityId,
+        propertyId,
+        ...pickAssignableFields(req.body),
+      },
     });
-  }
 
-  const existing = await prisma.expense.findUnique({
-    where: { id: req.params.id },
-  });
-  if (!existing || existing.userId !== req.currentUser.id) {
-    return res.status(404).json({ error: "Expense not found" });
-  }
-
-  const expense = await prisma.expense.update({
-    where: { id: req.params.id },
-    data: pickAssignableFields(req.body),
+    res.status(201).json(expense);
   });
 
-  res.json(expense);
-});
+  router.get("/", async (req, res) => {
+    const { propertyId } = req.query;
 
-router.delete("/:id", async (req, res) => {
-  const existing = await prisma.expense.findUnique({
-    where: { id: req.params.id },
+    const expenses = await prisma.expense.findMany({
+      where: {
+        userId: req.currentUser.id,
+        ...(propertyId ? { propertyId } : {}),
+      },
+      orderBy: { date: "desc" },
+    });
+
+    res.json(expenses);
   });
-  if (!existing || existing.userId !== req.currentUser.id) {
-    return res.status(404).json({ error: "Expense not found" });
-  }
 
-  await prisma.expense.delete({ where: { id: req.params.id } });
+  router.get("/:id", async (req, res) => {
+    const expense = await findOwnedExpense(req.params.id, req.currentUser.id);
+    if (!expense) {
+      return res.status(404).json({ error: "Expense not found" });
+    }
 
-  res.status(204).send();
-});
+    res.json(expense);
+  });
 
-module.exports = router;
+  router.put("/:id", async (req, res) => {
+    if (req.body.category && !EXPENSE_CATEGORIES.includes(req.body.category)) {
+      return res.status(400).json({
+        error: `Invalid category. Must be one of: ${EXPENSE_CATEGORIES.join(", ")}`,
+      });
+    }
+
+    const existing = await findOwnedExpense(req.params.id, req.currentUser.id);
+    if (!existing) {
+      return res.status(404).json({ error: "Expense not found" });
+    }
+
+    const expense = await prisma.expense.update({
+      where: { id: req.params.id },
+      data: pickAssignableFields(req.body),
+    });
+
+    res.json(expense);
+  });
+
+  router.delete("/:id", async (req, res) => {
+    const existing = await findOwnedExpense(req.params.id, req.currentUser.id);
+    if (!existing) {
+      return res.status(404).json({ error: "Expense not found" });
+    }
+
+    await prisma.expense.delete({ where: { id: req.params.id } });
+
+    res.status(204).send();
+  });
+
+  // Receipts / proof of payment — same presigned-URL R2 pattern as lease and
+  // tenant documents, just no categories (a flat list per record).
+  router.get("/:id/documents", async (req, res) => {
+    const expense = await findOwnedExpense(req.params.id, req.currentUser.id);
+    if (!expense) {
+      return res.status(404).json({ error: "Expense not found" });
+    }
+
+    const documents = await prisma.expenseDocument.findMany({
+      where: { expenseId: expense.id },
+      orderBy: { createdAt: "desc" },
+    });
+
+    res.json(documents);
+  });
+
+  router.post("/:id/documents/upload-url", async (req, res) => {
+    const { fileName, contentType } = req.body;
+
+    if (!fileName || !contentType) {
+      return res.status(400).json({ error: "Missing required field(s): fileName, contentType" });
+    }
+    if (!ALLOWED_DOCUMENT_TYPES.includes(contentType)) {
+      return res.status(400).json({ error: `contentType must be one of: ${ALLOWED_DOCUMENT_TYPES.join(", ")}` });
+    }
+
+    const expense = await findOwnedExpense(req.params.id, req.currentUser.id);
+    if (!expense) {
+      return res.status(404).json({ error: "Expense not found" });
+    }
+
+    const key = `expenses/${expense.id}/${crypto.randomUUID()}-${sanitizeFileName(fileName)}`;
+    const uploadUrl = await r2.getUploadUrl(key, contentType);
+
+    res.json({ uploadUrl, key });
+  });
+
+  router.post("/:id/documents/confirm", async (req, res) => {
+    const { key, fileName } = req.body;
+
+    if (!key || !fileName) {
+      return res.status(400).json({ error: "Missing required field(s): key, fileName" });
+    }
+
+    const expense = await findOwnedExpense(req.params.id, req.currentUser.id);
+    if (!expense) {
+      return res.status(404).json({ error: "Expense not found" });
+    }
+    if (!key.startsWith(`expenses/${expense.id}/`)) {
+      return res.status(400).json({ error: "Key does not belong to this expense record" });
+    }
+
+    const document = await prisma.expenseDocument.create({
+      data: { expenseId: expense.id, fileName, documentKey: key },
+    });
+
+    res.status(201).json(document);
+  });
+
+  router.get("/:id/documents/:documentId/download-url", async (req, res) => {
+    const expense = await findOwnedExpense(req.params.id, req.currentUser.id);
+    if (!expense) {
+      return res.status(404).json({ error: "Expense not found" });
+    }
+
+    const document = await prisma.expenseDocument.findUnique({ where: { id: req.params.documentId } });
+    if (!document || document.expenseId !== expense.id) {
+      return res.status(404).json({ error: "Document not found" });
+    }
+
+    const downloadUrl = await r2.getDownloadUrl(document.documentKey);
+
+    res.json({ downloadUrl });
+  });
+
+  router.delete("/:id/documents/:documentId", async (req, res) => {
+    const expense = await findOwnedExpense(req.params.id, req.currentUser.id);
+    if (!expense) {
+      return res.status(404).json({ error: "Expense not found" });
+    }
+
+    const document = await prisma.expenseDocument.findUnique({ where: { id: req.params.documentId } });
+    if (!document || document.expenseId !== expense.id) {
+      return res.status(404).json({ error: "Document not found" });
+    }
+
+    await r2.deleteObject(document.documentKey);
+    await prisma.expenseDocument.delete({ where: { id: document.id } });
+
+    res.status(204).send();
+  });
+
+  return router;
+}
+
+module.exports = createExpensesRoutes;

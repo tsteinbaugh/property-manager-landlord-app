@@ -13,10 +13,17 @@ const mockGetUser = vi.fn(() =>
   }),
 );
 
+const mockR2 = {
+  getUploadUrl: vi.fn((key) => Promise.resolve(`https://r2.example.com/upload/${key}`)),
+  getDownloadUrl: vi.fn((key) => Promise.resolve(`https://r2.example.com/download/${key}`)),
+  deleteObject: vi.fn(() => Promise.resolve()),
+};
+
 const app = createApp({
   clerkMiddleware: () => (req, res, next) => next(),
   getAuth: (req) => mockGetAuth(req),
   clerkClient: { users: { getUser: (...args) => mockGetUser(...args) } },
+  r2: mockR2,
 });
 
 async function resetDatabase() {
@@ -63,6 +70,9 @@ describe("income routes", () => {
 
   beforeEach(async () => {
     mockGetAuth.mockReturnValue({ userId: "clerk_test_user_1" });
+    mockR2.getUploadUrl.mockClear();
+    mockR2.getDownloadUrl.mockClear();
+    mockR2.deleteObject.mockClear();
     await resetDatabase();
 
     const user = await prisma.user.create({
@@ -286,5 +296,92 @@ describe("income routes", () => {
 
     const check = await prisma.income.findUnique({ where: { id: income.id } });
     expect(check).toBeNull();
+  });
+
+  describe("income documents (R2)", () => {
+    let income;
+
+    beforeEach(async () => {
+      income = await prisma.income.create({
+        data: {
+          userId: property.userId,
+          entityId: entity.id,
+          propertyId: property.id,
+          category: "RENT",
+          amount: "1800.00",
+          date: new Date("2026-09-01"),
+        },
+      });
+    });
+
+    it("returns a presigned upload URL scoped to the income record", async () => {
+      const res = await request(app)
+        .post(`/api/income/${income.id}/documents/upload-url`)
+        .send({ fileName: "transfer-screenshot.png", contentType: "image/png" });
+
+      expect(res.status).toBe(200);
+      expect(res.body.key).toMatch(new RegExp(`^income/${income.id}/`));
+      expect(mockR2.getUploadUrl).toHaveBeenCalledWith(res.body.key, "image/png");
+    });
+
+    it("confirms an upload and lists it", async () => {
+      const key = `income/${income.id}/abc-transfer.png`;
+      const confirmRes = await request(app)
+        .post(`/api/income/${income.id}/documents/confirm`)
+        .send({ key, fileName: "transfer.png" });
+
+      expect(confirmRes.status).toBe(201);
+      expect(confirmRes.body.documentKey).toBe(key);
+
+      const listRes = await request(app).get(`/api/income/${income.id}/documents`);
+      expect(listRes.status).toBe(200);
+      expect(listRes.body).toHaveLength(1);
+    });
+
+    it("rejects confirming a key that doesn't belong to this income record", async () => {
+      const res = await request(app)
+        .post(`/api/income/${income.id}/documents/confirm`)
+        .send({ key: "income/someone-elses-income/abc-transfer.png", fileName: "transfer.png" });
+
+      expect(res.status).toBe(400);
+    });
+
+    it("returns a presigned download URL and deletes a document", async () => {
+      const key = `income/${income.id}/abc-transfer.png`;
+      const created = await request(app)
+        .post(`/api/income/${income.id}/documents/confirm`)
+        .send({ key, fileName: "transfer.png" });
+
+      const downloadRes = await request(app).get(`/api/income/${income.id}/documents/${created.body.id}/download-url`);
+      expect(downloadRes.status).toBe(200);
+      expect(mockR2.getDownloadUrl).toHaveBeenCalledWith(key);
+
+      const deleteRes = await request(app).delete(`/api/income/${income.id}/documents/${created.body.id}`);
+      expect(deleteRes.status).toBe(204);
+      expect(mockR2.deleteObject).toHaveBeenCalledWith(key);
+
+      const check = await prisma.incomeDocument.findUnique({ where: { id: created.body.id } });
+      expect(check).toBeNull();
+    });
+
+    it("404s document endpoints for another user's income", async () => {
+      const { otherProperty } = await createOtherUsersProperty();
+      const otherIncome = await prisma.income.create({
+        data: {
+          userId: otherProperty.userId,
+          entityId: otherProperty.entityId,
+          propertyId: otherProperty.id,
+          category: "RENT",
+          amount: "1500.00",
+          date: new Date("2026-09-01"),
+        },
+      });
+
+      const res = await request(app)
+        .post(`/api/income/${otherIncome.id}/documents/upload-url`)
+        .send({ fileName: "transfer.png", contentType: "image/png" });
+
+      expect(res.status).toBe(404);
+    });
   });
 });

@@ -13,10 +13,17 @@ const mockGetUser = vi.fn(() =>
   }),
 );
 
+const mockR2 = {
+  getUploadUrl: vi.fn((key) => Promise.resolve(`https://r2.example.com/upload/${key}`)),
+  getDownloadUrl: vi.fn((key) => Promise.resolve(`https://r2.example.com/download/${key}`)),
+  deleteObject: vi.fn(() => Promise.resolve()),
+};
+
 const app = createApp({
   clerkMiddleware: () => (req, res, next) => next(),
   getAuth: (req) => mockGetAuth(req),
   clerkClient: { users: { getUser: (...args) => mockGetUser(...args) } },
+  r2: mockR2,
 });
 
 async function resetDatabase() {
@@ -62,6 +69,9 @@ describe("expenses routes", () => {
 
   beforeEach(async () => {
     mockGetAuth.mockReturnValue({ userId: "clerk_test_user_1" });
+    mockR2.getUploadUrl.mockClear();
+    mockR2.getDownloadUrl.mockClear();
+    mockR2.deleteObject.mockClear();
     await resetDatabase();
 
     const user = await prisma.user.create({
@@ -266,5 +276,124 @@ describe("expenses routes", () => {
 
     const check = await prisma.expense.findUnique({ where: { id: expense.id } });
     expect(check).toBeNull();
+  });
+
+  it("defaults paid to true and records a payment method", async () => {
+    const res = await request(app).post("/api/expenses").send({
+      propertyId: property.id,
+      category: "REPAIRS",
+      amount: "250.00",
+      date: "2026-09-01",
+      method: "check",
+    });
+
+    expect(res.status).toBe(201);
+    expect(res.body.paid).toBe(true);
+    expect(res.body.method).toBe("check");
+  });
+
+  it("allows logging an unpaid expense and marking it paid later", async () => {
+    const created = await request(app).post("/api/expenses").send({
+      propertyId: property.id,
+      category: "REPAIRS",
+      amount: "250.00",
+      date: "2026-09-01",
+      paid: false,
+    });
+    expect(created.body.paid).toBe(false);
+
+    const res = await request(app).put(`/api/expenses/${created.body.id}`).send({ paid: true });
+
+    expect(res.status).toBe(200);
+    expect(res.body.paid).toBe(true);
+  });
+
+  describe("expense documents (R2)", () => {
+    let expense;
+
+    beforeEach(async () => {
+      expense = await prisma.expense.create({
+        data: {
+          userId: property.userId,
+          entityId: entity.id,
+          propertyId: property.id,
+          category: "REPAIRS",
+          amount: "250.00",
+          date: new Date("2026-09-01"),
+        },
+      });
+    });
+
+    it("returns a presigned upload URL scoped to the expense", async () => {
+      const res = await request(app)
+        .post(`/api/expenses/${expense.id}/documents/upload-url`)
+        .send({ fileName: "receipt.pdf", contentType: "application/pdf" });
+
+      expect(res.status).toBe(200);
+      expect(res.body.key).toMatch(new RegExp(`^expenses/${expense.id}/`));
+      expect(mockR2.getUploadUrl).toHaveBeenCalledWith(res.body.key, "application/pdf");
+    });
+
+    it("confirms an upload and lists it", async () => {
+      const key = `expenses/${expense.id}/abc-receipt.pdf`;
+      const confirmRes = await request(app)
+        .post(`/api/expenses/${expense.id}/documents/confirm`)
+        .send({ key, fileName: "receipt.pdf" });
+
+      expect(confirmRes.status).toBe(201);
+      expect(confirmRes.body.documentKey).toBe(key);
+
+      const listRes = await request(app).get(`/api/expenses/${expense.id}/documents`);
+      expect(listRes.status).toBe(200);
+      expect(listRes.body).toHaveLength(1);
+    });
+
+    it("rejects confirming a key that doesn't belong to this expense", async () => {
+      const res = await request(app)
+        .post(`/api/expenses/${expense.id}/documents/confirm`)
+        .send({ key: "expenses/someone-elses-expense/abc-receipt.pdf", fileName: "receipt.pdf" });
+
+      expect(res.status).toBe(400);
+    });
+
+    it("returns a presigned download URL and deletes a document", async () => {
+      const key = `expenses/${expense.id}/abc-receipt.pdf`;
+      const created = await request(app)
+        .post(`/api/expenses/${expense.id}/documents/confirm`)
+        .send({ key, fileName: "receipt.pdf" });
+
+      const downloadRes = await request(app).get(
+        `/api/expenses/${expense.id}/documents/${created.body.id}/download-url`,
+      );
+      expect(downloadRes.status).toBe(200);
+      expect(mockR2.getDownloadUrl).toHaveBeenCalledWith(key);
+
+      const deleteRes = await request(app).delete(`/api/expenses/${expense.id}/documents/${created.body.id}`);
+      expect(deleteRes.status).toBe(204);
+      expect(mockR2.deleteObject).toHaveBeenCalledWith(key);
+
+      const check = await prisma.expenseDocument.findUnique({ where: { id: created.body.id } });
+      expect(check).toBeNull();
+    });
+
+    it("404s document endpoints for another user's expense", async () => {
+      const { otherProperty } = await createOtherUsersProperty();
+      const otherExpense = await prisma.expense.create({
+        data: {
+          userId: otherProperty.userId,
+          entityId: otherProperty.entityId,
+          propertyId: otherProperty.id,
+          category: "REPAIRS",
+          amount: "100.00",
+          date: new Date("2026-09-01"),
+        },
+      });
+
+      const res = await request(app)
+        .post(`/api/expenses/${otherExpense.id}/documents/upload-url`)
+        .send({ fileName: "receipt.pdf", contentType: "application/pdf" });
+
+      expect(res.status).toBe(404);
+    });
   });
 });

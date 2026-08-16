@@ -41,6 +41,10 @@ function addDays(date, days) {
   return result;
 }
 
+const includeCompletions = {
+  completions: { orderBy: { completedDate: "desc" } },
+};
+
 const router = express.Router();
 
 router.post("/", async (req, res) => {
@@ -74,7 +78,9 @@ router.post("/", async (req, res) => {
       entityId: property.entityId,
       propertyId,
       ...data,
+      ...(data.lastDoneDate ? { completions: { create: { completedDate: data.lastDoneDate } } } : {}),
     },
+    include: includeCompletions,
   });
 
   res.status(201).json(withOverdue(schedule));
@@ -90,6 +96,7 @@ router.get("/", async (req, res) => {
       ...(vendorId ? { vendorId } : {}),
       ...(overdue === "true" ? { nextDueDate: { lt: new Date() } } : {}),
     },
+    include: includeCompletions,
     orderBy: { nextDueDate: "asc" },
   });
 
@@ -99,6 +106,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const schedule = await prisma.maintenanceSchedule.findUnique({
     where: { id: req.params.id },
+    include: includeCompletions,
   });
 
   if (!schedule || schedule.userId !== req.currentUser.id) {
@@ -121,6 +129,7 @@ router.put("/:id", async (req, res) => {
   const schedule = await prisma.maintenanceSchedule.update({
     where: { id: req.params.id },
     data,
+    include: includeCompletions,
   });
 
   res.json(withOverdue(schedule));
@@ -152,7 +161,12 @@ router.post("/:id/mark-done", async (req, res) => {
 
   const schedule = await prisma.maintenanceSchedule.update({
     where: { id: req.params.id },
-    data: { lastDoneDate, nextDueDate },
+    data: {
+      lastDoneDate,
+      nextDueDate,
+      completions: { create: { completedDate: lastDoneDate } },
+    },
+    include: includeCompletions,
   });
 
   res.json(withOverdue(schedule));

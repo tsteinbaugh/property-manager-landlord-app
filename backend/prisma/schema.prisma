@@ -276,14 +276,30 @@ model Income {
   createdAt  DateTime       @default(now())
   updatedAt  DateTime       @updatedAt
 
-  entity   Entity   @relation(fields: [entityId], references: [id])
-  property Property @relation(fields: [propertyId], references: [id])
-  lease    Lease?   @relation(fields: [leaseId], references: [id])
+  entity    Entity           @relation(fields: [entityId], references: [id])
+  property  Property         @relation(fields: [propertyId], references: [id])
+  lease     Lease?           @relation(fields: [leaseId], references: [id])
+  documents IncomeDocument[]
 
   @@index([userId])
   @@index([entityId])
   @@index([propertyId])
   @@index([leaseId])
+}
+
+// Receipts / proof of payment (e.g. a bank transfer screenshot) — a flat
+// list per record, no categories needed unlike TenantDocument. Same
+// private-bucket/presigned-URL R2 pattern used throughout.
+model IncomeDocument {
+  id          String   @id @default(cuid())
+  incomeId    String
+  fileName    String
+  documentKey String
+  createdAt   DateTime @default(now())
+
+  income Income @relation(fields: [incomeId], references: [id], onDelete: Cascade)
+
+  @@index([incomeId])
 }
 
 // REPAIRS (fixing something broken) and MAINTENANCE (routine/preventive upkeep)
@@ -312,16 +328,35 @@ model Expense {
   amount     Decimal         @db.Decimal(10, 2)
   date       DateTime
   payee      String?
+  method     String? // free text, e.g. "check", "cash", "bank transfer"
+  // Expenses are accounts-payable-ish — a bill can be logged before it's
+  // paid. Defaults true since most entries are logged at the moment of
+  // payment; uncheck for "billed, not paid yet". Income has no equivalent —
+  // it's only ever logged once money is actually received.
+  paid       Boolean         @default(true)
   notes      String?
   createdAt  DateTime        @default(now())
   updatedAt  DateTime        @updatedAt
 
-  entity   Entity   @relation(fields: [entityId], references: [id])
-  property Property @relation(fields: [propertyId], references: [id])
+  entity    Entity            @relation(fields: [entityId], references: [id])
+  property  Property          @relation(fields: [propertyId], references: [id])
+  documents ExpenseDocument[]
 
   @@index([userId])
   @@index([entityId])
   @@index([propertyId])
+}
+
+model ExpenseDocument {
+  id          String   @id @default(cuid())
+  expenseId   String
+  fileName    String
+  documentKey String
+  createdAt   DateTime @default(now())
+
+  expense Expense @relation(fields: [expenseId], references: [id], onDelete: Cascade)
+
+  @@index([expenseId])
 }
 
 enum DepositType {
@@ -430,6 +465,7 @@ model MaintenanceRequest {
   status        MaintenanceStatus @default(OPEN)
   estimatedCost Decimal?          @db.Decimal(10, 2)
   actualCost    Decimal?          @db.Decimal(10, 2)
+  notes         String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -489,13 +525,29 @@ model MaintenanceSchedule {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  entity   Entity   @relation(fields: [entityId], references: [id])
-  property Property @relation(fields: [propertyId], references: [id])
-  vendor   Vendor?  @relation(fields: [vendorId], references: [id])
-  user     User     @relation(fields: [userId], references: [id])
+  entity      Entity                          @relation(fields: [entityId], references: [id])
+  property    Property                        @relation(fields: [propertyId], references: [id])
+  vendor      Vendor?                         @relation(fields: [vendorId], references: [id])
+  user        User                            @relation(fields: [userId], references: [id])
+  completions MaintenanceScheduleCompletion[]
 
   @@index([userId])
   @@index([entityId])
   @@index([propertyId])
   @@index([vendorId])
+}
+
+// One row per "mark done" action — same audit-trail idea as
+// MaintenanceStatusChange for requests. mark-done overwrites
+// lastDoneDate/nextDueDate on the schedule itself (needed for the overdue
+// check), but without this the prior completion dates would be lost.
+model MaintenanceScheduleCompletion {
+  id                    String   @id @default(cuid())
+  maintenanceScheduleId String
+  completedDate         DateTime
+  createdAt             DateTime @default(now())
+
+  maintenanceSchedule MaintenanceSchedule @relation(fields: [maintenanceScheduleId], references: [id], onDelete: Cascade)
+
+  @@index([maintenanceScheduleId])
 }

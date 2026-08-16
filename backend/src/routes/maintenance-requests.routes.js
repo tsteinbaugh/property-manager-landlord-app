@@ -14,6 +14,7 @@ const ASSIGNABLE_FIELDS = [
   "status",
   "estimatedCost",
   "actualCost",
+  "notes",
 ];
 
 const DATE_FIELDS = ["reportedDate"];

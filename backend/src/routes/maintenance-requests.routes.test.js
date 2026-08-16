@@ -281,4 +281,20 @@ describe("maintenance requests routes", () => {
     const check = await prisma.maintenanceRequest.findUnique({ where: { id: created.body.id } });
     expect(check).toBeNull();
   });
+
+  it("records and updates notes", async () => {
+    const created = await request(app).post("/api/maintenance-requests").send({
+      propertyId: property.id,
+      title: "Leak",
+      notes: "Tenant says it's worse at night",
+    });
+    expect(created.body.notes).toBe("Tenant says it's worse at night");
+
+    const res = await request(app)
+      .put(`/api/maintenance-requests/${created.body.id}`)
+      .send({ notes: "Plumber confirmed a slow drip, parts ordered" });
+
+    expect(res.status).toBe(200);
+    expect(res.body.notes).toBe("Plumber confirmed a slow drip, parts ordered");
+  });
 });
