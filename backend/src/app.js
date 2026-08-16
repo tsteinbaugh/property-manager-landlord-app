@@ -16,6 +16,13 @@ const vendorsRoutes = require("./routes/vendors.routes");
 const maintenanceRequestsRoutes = require("./routes/maintenance-requests.routes");
 const maintenanceSchedulesRoutes = require("./routes/maintenance-schedules.routes");
 const searchRoutes = require("./routes/search.routes");
+const paintSpecsRoutes = require("./routes/paint-specs.routes");
+const flooringSpecsRoutes = require("./routes/flooring-specs.routes");
+const countertopSpecsRoutes = require("./routes/countertop-specs.routes");
+const fixturesRoutes = require("./routes/fixtures.routes");
+const appliancesRoutes = require("./routes/appliances.routes");
+const backsplashSpecsRoutes = require("./routes/backsplash-specs.routes");
+const exteriorFeaturesRoutes = require("./routes/exterior-features.routes");
 
 function createApp(overrides = {}) {
   const clerk = require("@clerk/express");
@@ -51,6 +58,13 @@ function createApp(overrides = {}) {
   app.use("/api/maintenance-requests", maintenanceRequestsRoutes);
   app.use("/api/maintenance-schedules", maintenanceSchedulesRoutes);
   app.use("/api/search", searchRoutes);
+  app.use("/api/paint-specs", paintSpecsRoutes);
+  app.use("/api/flooring-specs", flooringSpecsRoutes);
+  app.use("/api/countertop-specs", countertopSpecsRoutes);
+  app.use("/api/fixtures", fixturesRoutes);
+  app.use("/api/appliances", appliancesRoutes);
+  app.use("/api/backsplash-specs", backsplashSpecsRoutes);
+  app.use("/api/exterior-features", exteriorFeaturesRoutes);
 
   app.use((err, req, res, next) => {
     console.error(err);

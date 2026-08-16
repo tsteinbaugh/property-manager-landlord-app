@@ -68,6 +68,13 @@ model Entity {
   deposits             Deposit[]
   maintenanceRequests  MaintenanceRequest[]
   maintenanceSchedules MaintenanceSchedule[]
+  paintSpecs           PaintSpec[]
+  flooringSpecs        FlooringSpec[]
+  countertopSpecs      CountertopSpec[]
+  fixtures             Fixture[]
+  appliances           Appliance[]
+  backsplashSpecs      BacksplashSpec[]
+  exteriorFeatures     ExteriorFeature[]
 
   @@index([userId])
 }
@@ -93,6 +100,13 @@ model Property {
   deposits             Deposit[]
   maintenanceRequests  MaintenanceRequest[]
   maintenanceSchedules MaintenanceSchedule[]
+  paintSpecs           PaintSpec[]
+  flooringSpecs        FlooringSpec[]
+  countertopSpecs      CountertopSpec[]
+  fixtures             Fixture[]
+  appliances           Appliance[]
+  backsplashSpecs      BacksplashSpec[]
+  exteriorFeatures     ExteriorFeature[]
 
   @@index([userId])
   @@index([entityId])
@@ -499,6 +513,7 @@ model Vendor {
   user                 User                  @relation(fields: [userId], references: [id])
   maintenanceRequests  MaintenanceRequest[]
   maintenanceSchedules MaintenanceSchedule[]
+  appliances           Appliance[]
 
   @@index([userId])
 }
@@ -615,4 +630,229 @@ model MaintenanceScheduleCompletion {
   maintenanceSchedule MaintenanceSchedule @relation(fields: [maintenanceScheduleId], references: [id], onDelete: Cascade)
 
   @@index([maintenanceScheduleId])
+}
+
+// Property Specs (v2) — dual "by room" (primary) / "by category" (secondary) view over the
+// same records, per CLAUDE.md's UI principles. No separate Room model: `location` is free
+// text (same convention as Vendor.trade/Pet.type for open-ended domains), grouped
+// case-insensitively client-side for the room view — items with no location land in an
+// "Unassigned" bucket there. Breadth-first pass (Taylor's call, 2026-08-16): core fields per
+// category now; deeper fields (Flooring's SKU/dye lot/install method, Appliance's
+// parts-replaced/service-history audit trail, Fixture's 5 type-specific field sets) are
+// deliberately deferred, addable later without breaking this schema.
+
+model PaintSpec {
+  id         String @id @default(cuid())
+  userId     String
+  entityId   String
+  propertyId String
+
+  location               String?
+  brand                  String?
+  colorName              String?
+  colorCode              String?
+  sheen                  String?
+  base                   String?
+  formula                String?
+  gallonsUsed            Decimal?  @db.Decimal(6, 2)
+  datePainted            DateTime?
+  paintedBy              String?
+  touchUpStorageLocation String? // where leftover paint is stored — Taylor's lesson: always note this, saves you at tenant turnover
+  notes                  String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  entity   Entity   @relation(fields: [entityId], references: [id])
+  property Property @relation(fields: [propertyId], references: [id])
+
+  @@index([userId])
+  @@index([entityId])
+  @@index([propertyId])
+}
+
+model FlooringSpec {
+  id         String @id @default(cuid())
+  userId     String
+  entityId   String
+  propertyId String
+
+  location                String?
+  brand                   String?
+  productName             String?
+  type                    String? // LVP, tile, carpet, hardwood — free text, no fixed list
+  sqFtCovered             Decimal?  @db.Decimal(8, 2)
+  boxesInstalled          Int?
+  boxesLeftover           Int? // lowStock is computed from this on every response, not stored
+  leftoverStorageLocation String?
+  installedBy             String?
+  installDate             DateTime?
+  cost                    Decimal?  @db.Decimal(10, 2)
+  warranty                String?
+  notes                   String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  entity   Entity   @relation(fields: [entityId], references: [id])
+  property Property @relation(fields: [propertyId], references: [id])
+
+  @@index([userId])
+  @@index([entityId])
+  @@index([propertyId])
+}
+
+model CountertopSpec {
+  id         String @id @default(cuid())
+  userId     String
+  entityId   String
+  propertyId String
+
+  location    String?
+  brand       String?
+  productName String?
+  material    String? // quartz, granite, cultured marble, laminate — free text
+  sqFt        Decimal?  @db.Decimal(8, 2)
+  installedBy String?
+  installDate DateTime?
+  cost        Decimal?  @db.Decimal(10, 2)
+  warranty    String?
+  notes       String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  entity   Entity   @relation(fields: [entityId], references: [id])
+  property Property @relation(fields: [propertyId], references: [id])
+
+  @@index([userId])
+  @@index([entityId])
+  @@index([propertyId])
+}
+
+// Collapses CLAUDE.md's 5 fixture sub-types (sinks, faucets, showers/tubs, toilets, hardware)
+// into one model with a discriminator enum, rather than 5 separate models, for this
+// breadth-first pass. Type-specific fields (GPF, rough-in, cartridge part #, recaulk
+// schedule, center-to-center, etc.) live in `notes` for now.
+enum FixtureType {
+  SINK
+  FAUCET
+  SHOWER_TUB
+  TOILET
+  HARDWARE
+}
+
+model Fixture {
+  id         String @id @default(cuid())
+  userId     String
+  entityId   String
+  propertyId String
+
+  location    String?
+  fixtureType FixtureType
+  brand       String?
+  model       String?
+  finish      String? // critical for matching replacements — store it
+  warranty    String?
+  notes       String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  entity   Entity   @relation(fields: [entityId], references: [id])
+  property Property @relation(fields: [propertyId], references: [id])
+
+  @@index([userId])
+  @@index([entityId])
+  @@index([propertyId])
+}
+
+model Appliance {
+  id         String @id @default(cuid())
+  userId     String
+  entityId   String
+  propertyId String
+
+  location                String?
+  make                    String?
+  model                   String?
+  year                    Int?
+  serialNumber            String?
+  warrantyExpiration      DateTime? // warrantyExpiringSoon is computed from this on every response, not stored
+  maintenanceIntervalDays Int?
+  lastServiceDate         DateTime?
+  filterSize              String?
+  preferredVendorId       String?
+  notes                   String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  entity          Entity   @relation(fields: [entityId], references: [id])
+  property        Property @relation(fields: [propertyId], references: [id])
+  preferredVendor Vendor?  @relation(fields: [preferredVendorId], references: [id])
+
+  @@index([userId])
+  @@index([entityId])
+  @@index([propertyId])
+  @@index([preferredVendorId])
+}
+
+model BacksplashSpec {
+  id         String @id @default(cuid())
+  userId     String
+  entityId   String
+  propertyId String
+
+  location         String?
+  brand            String?
+  productName      String?
+  material         String?
+  tileSize         String?
+  groutColor       String?
+  groutBrand       String?
+  spareTilesOnHand Int?
+  notes            String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  entity   Entity   @relation(fields: [entityId], references: [id])
+  property Property @relation(fields: [propertyId], references: [id])
+
+  @@index([userId])
+  @@index([entityId])
+  @@index([propertyId])
+}
+
+// Landscaping recurring service is tracked in Maintenance as a MaintenanceSchedule row
+// (per the existing decision) — the fields here are the descriptive "what's on the
+// property" side (trees, bushes, lawn) plus last-serviced dates, not a scheduler.
+model ExteriorFeature {
+  id         String @id @default(cuid())
+  userId     String
+  entityId   String
+  propertyId String
+
+  location            String? // e.g. "Front yard", "Backyard" — optional, same free-text convention as everywhere else
+  name                String? // e.g. "Oak tree", "Front lawn"
+  approxAge           Int? // years
+  size                String? // free text, e.g. "20 ft tall" — no fixed unit
+  lastTrimmedDate     DateTime?
+  lastTreatedDate     DateTime?
+  lastFertilizedDate  DateTime?
+  serviceContractor   String?
+  serviceContractType String? // e.g. "monthly", "seasonal"
+  serviceCost         Decimal?  @db.Decimal(10, 2)
+  notes               String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  entity   Entity   @relation(fields: [entityId], references: [id])
+  property Property @relation(fields: [propertyId], references: [id])
+
+  @@index([userId])
+  @@index([entityId])
+  @@index([propertyId])
 }

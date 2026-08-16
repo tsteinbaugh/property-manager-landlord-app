@@ -8,6 +8,7 @@ import EntitiesPage from "./pages/EntitiesPage";
 import EntityDetailPage from "./pages/EntityDetailPage";
 import PropertiesPage from "./pages/PropertiesPage";
 import PropertyDetailPage from "./pages/PropertyDetailPage";
+import PropertySpecsPage from "./pages/PropertySpecsPage";
 import TenantDetailPage from "./pages/TenantDetailPage";
 import LeaseDetailPage from "./pages/LeaseDetailPage";
 import VendorDetailPage from "./pages/VendorDetailPage";
@@ -37,6 +38,7 @@ export default function App() {
         <Route path="entities/:id" element={<EntityDetailPage />} />
         <Route path="properties" element={<PropertiesPage />} />
         <Route path="properties/:id" element={<PropertyDetailPage />} />
+        <Route path="properties/:id/specs" element={<PropertySpecsPage />} />
         <Route path="tenants" element={<TenantsPage />} />
         <Route path="tenants/:id" element={<TenantDetailPage />} />
         <Route path="leases" element={<LeasesPage />} />

@@ -116,6 +116,9 @@ export default function PropertyDetailPage() {
               {property.address2 ? `, ${property.address2}` : ""}, {property.city}, {property.state}{" "}
               {property.zip}
             </p>
+            <Link to={`/properties/${id}/specs`} className="text-xs text-emerald-700 hover:underline">
+              Property Specs →
+            </Link>
           </div>
           {!editing && (
             <div className="flex shrink-0 gap-3 text-sm">
