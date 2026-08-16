@@ -8,7 +8,10 @@ const NAV_ITEMS = [
   { to: "/dashboard", label: "Dashboard" },
   { to: "/entities", label: "Entities" },
   { to: "/properties", label: "Properties" },
-  { to: "/vendors", label: "Vendors" },
+  { to: "/tenants", label: "Tenants" },
+  { to: "/leases", label: "Leases" },
+  { to: "/finances", label: "Finances" },
+  { to: "/maintenance", label: "Maintenance" },
 ];
 
 function navLinkClass({ isActive }) {

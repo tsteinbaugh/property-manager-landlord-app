@@ -93,8 +93,8 @@ export default function VendorDetailPage() {
 
   return (
     <div className="space-y-6">
-      <Link to="/vendors" className="text-sm text-emerald-700 hover:underline">
-        ← Back to vendors
+      <Link to="/maintenance" className="text-sm text-emerald-700 hover:underline">
+        ← Back to maintenance
       </Link>
 
       {error && (
