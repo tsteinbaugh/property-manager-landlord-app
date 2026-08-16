@@ -4,7 +4,7 @@ const { createRequireAuth, createResolveCurrentUser } = require("./middleware/au
 const createMeRoutes = require("./routes/me.routes");
 const entitiesRoutes = require("./routes/entities.routes");
 const propertiesRoutes = require("./routes/properties.routes");
-const tenantsRoutes = require("./routes/tenants.routes");
+const createTenantsRoutes = require("./routes/tenants.routes");
 const createLeasesRoutes = require("./routes/leases.routes");
 const incomeRoutes = require("./routes/income.routes");
 const expensesRoutes = require("./routes/expenses.routes");
@@ -35,7 +35,7 @@ function createApp(overrides = {}) {
   app.use("/api/me", createMeRoutes({ clerkClient }));
   app.use("/api/entities", entitiesRoutes);
   app.use("/api/properties", propertiesRoutes);
-  app.use("/api/tenants", tenantsRoutes);
+  app.use("/api/tenants", createTenantsRoutes({ r2: overrides.r2 }));
   app.use("/api/leases", createLeasesRoutes({ r2: overrides.r2 }));
   app.use("/api/income", incomeRoutes);
   app.use("/api/expenses", expensesRoutes);

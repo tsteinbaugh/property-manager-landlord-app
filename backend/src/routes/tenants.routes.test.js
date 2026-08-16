@@ -13,10 +13,17 @@ const mockGetUser = vi.fn(() =>
   }),
 );
 
+const mockR2 = {
+  getUploadUrl: vi.fn((key) => Promise.resolve(`https://r2.example.com/upload/${key}`)),
+  getDownloadUrl: vi.fn((key) => Promise.resolve(`https://r2.example.com/download/${key}`)),
+  deleteObject: vi.fn(() => Promise.resolve()),
+};
+
 const app = createApp({
   clerkMiddleware: () => (req, res, next) => next(),
   getAuth: (req) => mockGetAuth(req),
   clerkClient: { users: { getUser: (...args) => mockGetUser(...args) } },
+  r2: mockR2,
 });
 
 async function resetDatabase() {
@@ -60,6 +67,9 @@ describe("tenants routes", () => {
 
   beforeEach(async () => {
     mockGetAuth.mockReturnValue({ userId: "clerk_test_user_1" });
+    mockR2.getUploadUrl.mockClear();
+    mockR2.getDownloadUrl.mockClear();
+    mockR2.deleteObject.mockClear();
     await resetDatabase();
 
     const user = await prisma.user.create({
@@ -103,21 +113,32 @@ describe("tenants routes", () => {
 
   it("creates a tenant applying to an owned property, defaulting to PENDING", async () => {
     const res = await request(app).post("/api/tenants").send({
-      name: "Jamie Rivera",
+      firstName: "Jamie",
+      lastName: "Rivera",
       propertyId: property.id,
       phone: "555-0100",
       email: "jamie@example.com",
     });
 
     expect(res.status).toBe(201);
-    expect(res.body.name).toBe("Jamie Rivera");
+    expect(res.body.firstName).toBe("Jamie");
+    expect(res.body.lastName).toBe("Rivera");
     expect(res.body.propertyId).toBe(property.id);
     expect(res.body.applicationStatus).toBe("PENDING");
   });
 
   it("rejects a tenant missing required fields", async () => {
     const res = await request(app).post("/api/tenants").send({
-      name: "Jamie Rivera",
+      firstName: "Jamie",
+    });
+
+    expect(res.status).toBe(400);
+  });
+
+  it("rejects a tenant missing a last name", async () => {
+    const res = await request(app).post("/api/tenants").send({
+      firstName: "Jamie",
+      propertyId: property.id,
     });
 
     expect(res.status).toBe(400);
@@ -127,7 +148,8 @@ describe("tenants routes", () => {
     const otherProperty = await createOtherLandlordsProperty();
 
     const res = await request(app).post("/api/tenants").send({
-      name: "Jamie Rivera",
+      firstName: "Jamie",
+      lastName: "Rivera",
       propertyId: otherProperty.id,
     });
 
@@ -136,7 +158,8 @@ describe("tenants routes", () => {
 
   it("ignores unassignable fields like userId on create", async () => {
     const res = await request(app).post("/api/tenants").send({
-      name: "Jamie Rivera",
+      firstName: "Jamie",
+      lastName: "Rivera",
       propertyId: property.id,
       userId: "someone-elses-id",
     });
@@ -148,21 +171,23 @@ describe("tenants routes", () => {
   it("lists only the current user's tenants, optionally filtered by property", async () => {
     const otherProperty = await createOtherLandlordsProperty();
     await prisma.tenant.create({
-      data: { userId: otherProperty.userId, propertyId: otherProperty.id, name: "Not Mine" },
+      data: { userId: otherProperty.userId, propertyId: otherProperty.id, firstName: "Not", lastName: "Mine" },
     });
-    await request(app).post("/api/tenants").send({ name: "Jamie Rivera", propertyId: property.id });
+    await request(app)
+      .post("/api/tenants")
+      .send({ firstName: "Jamie", lastName: "Rivera", propertyId: property.id });
 
     const res = await request(app).get("/api/tenants").query({ propertyId: property.id });
 
     expect(res.status).toBe(200);
     expect(res.body).toHaveLength(1);
-    expect(res.body[0].name).toBe("Jamie Rivera");
+    expect(res.body[0].firstName).toBe("Jamie");
   });
 
   it("gets a single tenant by id", async () => {
     const created = await request(app)
       .post("/api/tenants")
-      .send({ name: "Jamie Rivera", propertyId: property.id });
+      .send({ firstName: "Jamie", lastName: "Rivera", propertyId: property.id });
 
     const res = await request(app).get(`/api/tenants/${created.body.id}`);
 
@@ -173,7 +198,7 @@ describe("tenants routes", () => {
   it("404s for another user's tenant", async () => {
     const otherProperty = await createOtherLandlordsProperty();
     const otherTenant = await prisma.tenant.create({
-      data: { userId: otherProperty.userId, propertyId: otherProperty.id, name: "Not Mine" },
+      data: { userId: otherProperty.userId, propertyId: otherProperty.id, firstName: "Not", lastName: "Mine" },
     });
 
     const res = await request(app).get(`/api/tenants/${otherTenant.id}`);
@@ -184,7 +209,7 @@ describe("tenants routes", () => {
   it("approves a pending applicant", async () => {
     const created = await request(app)
       .post("/api/tenants")
-      .send({ name: "Jamie Rivera", propertyId: property.id });
+      .send({ firstName: "Jamie", lastName: "Rivera", propertyId: property.id });
 
     const res = await request(app)
       .put(`/api/tenants/${created.body.id}`)
@@ -199,7 +224,7 @@ describe("tenants routes", () => {
   it("rejects an invalid applicationStatus on update", async () => {
     const created = await request(app)
       .post("/api/tenants")
-      .send({ name: "Jamie Rivera", propertyId: property.id });
+      .send({ firstName: "Jamie", lastName: "Rivera", propertyId: property.id });
 
     const res = await request(app)
       .put(`/api/tenants/${created.body.id}`)
@@ -208,10 +233,23 @@ describe("tenants routes", () => {
     expect(res.status).toBe(400);
   });
 
+  it("rejects blanking out firstName or lastName on update", async () => {
+    const created = await request(app)
+      .post("/api/tenants")
+      .send({ firstName: "Jamie", lastName: "Rivera", propertyId: property.id });
+
+    const res = await request(app).put(`/api/tenants/${created.body.id}`).send({ lastName: "" });
+
+    expect(res.status).toBe(400);
+
+    const check = await prisma.tenant.findUnique({ where: { id: created.body.id } });
+    expect(check.lastName).toBe("Rivera");
+  });
+
   it("deletes a tenant", async () => {
     const created = await request(app)
       .post("/api/tenants")
-      .send({ name: "Jamie Rivera", propertyId: property.id });
+      .send({ firstName: "Jamie", lastName: "Rivera", propertyId: property.id });
 
     const res = await request(app).delete(`/api/tenants/${created.body.id}`);
     expect(res.status).toBe(204);
@@ -220,5 +258,132 @@ describe("tenants routes", () => {
       where: { id: created.body.id },
     });
     expect(check).toBeNull();
+  });
+
+  it("records background check and income fields", async () => {
+    const created = await request(app)
+      .post("/api/tenants")
+      .send({ firstName: "Jamie", lastName: "Rivera", propertyId: property.id });
+
+    const res = await request(app).put(`/api/tenants/${created.body.id}`).send({
+      backgroundCheckStatus: "clear",
+      backgroundCheckDate: "2026-08-01",
+      monthlyIncome: "5400.00",
+    });
+
+    expect(res.status).toBe(200);
+    expect(res.body.backgroundCheckStatus).toBe("clear");
+    expect(res.body.monthlyIncome).toBe("5400");
+  });
+
+  describe("tenant documents (R2)", () => {
+    let tenant;
+
+    beforeEach(async () => {
+      tenant = await prisma.tenant.create({
+        data: { userId: property.userId, propertyId: property.id, firstName: "Jamie", lastName: "Rivera" },
+      });
+    });
+
+    it("returns a presigned upload URL and R2 key scoped to the tenant", async () => {
+      const res = await request(app)
+        .post(`/api/tenants/${tenant.id}/documents/upload-url`)
+        .send({ fileName: "credit-report.pdf", contentType: "application/pdf", category: "CREDIT_REPORT" });
+
+      expect(res.status).toBe(200);
+      expect(res.body.key).toMatch(new RegExp(`^tenants/${tenant.id}/`));
+      expect(mockR2.getUploadUrl).toHaveBeenCalledWith(res.body.key, "application/pdf");
+    });
+
+    it("rejects an unsupported content type", async () => {
+      const res = await request(app)
+        .post(`/api/tenants/${tenant.id}/documents/upload-url`)
+        .send({ fileName: "report.docx", contentType: "application/msword", category: "CREDIT_REPORT" });
+
+      expect(res.status).toBe(400);
+    });
+
+    it("rejects an invalid category", async () => {
+      const res = await request(app)
+        .post(`/api/tenants/${tenant.id}/documents/upload-url`)
+        .send({ fileName: "id.png", contentType: "image/png", category: "PASSPORT" });
+
+      expect(res.status).toBe(400);
+    });
+
+    it("confirms an upload and lists it", async () => {
+      const key = `tenants/${tenant.id}/abc-id.png`;
+      const confirmRes = await request(app)
+        .post(`/api/tenants/${tenant.id}/documents/confirm`)
+        .send({ key, category: "ID", fileName: "id.png" });
+
+      expect(confirmRes.status).toBe(201);
+      expect(confirmRes.body.category).toBe("ID");
+      expect(confirmRes.body.documentKey).toBe(key);
+
+      const listRes = await request(app).get(`/api/tenants/${tenant.id}/documents`);
+      expect(listRes.status).toBe(200);
+      expect(listRes.body).toHaveLength(1);
+    });
+
+    it("allows multiple documents in the same category", async () => {
+      await request(app)
+        .post(`/api/tenants/${tenant.id}/documents/confirm`)
+        .send({ key: `tenants/${tenant.id}/1-paystub1.pdf`, category: "INCOME_VERIFICATION", fileName: "paystub1.pdf" });
+      await request(app)
+        .post(`/api/tenants/${tenant.id}/documents/confirm`)
+        .send({ key: `tenants/${tenant.id}/2-paystub2.pdf`, category: "INCOME_VERIFICATION", fileName: "paystub2.pdf" });
+
+      const res = await request(app).get(`/api/tenants/${tenant.id}/documents`);
+      expect(res.body).toHaveLength(2);
+    });
+
+    it("rejects confirming a key that doesn't belong to this tenant", async () => {
+      const res = await request(app)
+        .post(`/api/tenants/${tenant.id}/documents/confirm`)
+        .send({ key: "tenants/someone-elses-tenant/abc-id.png", category: "ID", fileName: "id.png" });
+
+      expect(res.status).toBe(400);
+    });
+
+    it("returns a presigned download URL for a document", async () => {
+      const key = `tenants/${tenant.id}/abc-id.png`;
+      const created = await request(app)
+        .post(`/api/tenants/${tenant.id}/documents/confirm`)
+        .send({ key, category: "ID", fileName: "id.png" });
+
+      const res = await request(app).get(`/api/tenants/${tenant.id}/documents/${created.body.id}/download-url`);
+
+      expect(res.status).toBe(200);
+      expect(res.body.downloadUrl).toContain(key);
+      expect(mockR2.getDownloadUrl).toHaveBeenCalledWith(key);
+    });
+
+    it("deletes a document from R2 and the database", async () => {
+      const key = `tenants/${tenant.id}/abc-id.png`;
+      const created = await request(app)
+        .post(`/api/tenants/${tenant.id}/documents/confirm`)
+        .send({ key, category: "ID", fileName: "id.png" });
+
+      const res = await request(app).delete(`/api/tenants/${tenant.id}/documents/${created.body.id}`);
+      expect(res.status).toBe(204);
+      expect(mockR2.deleteObject).toHaveBeenCalledWith(key);
+
+      const check = await prisma.tenantDocument.findUnique({ where: { id: created.body.id } });
+      expect(check).toBeNull();
+    });
+
+    it("404s document endpoints for another user's tenant", async () => {
+      const otherProperty = await createOtherLandlordsProperty();
+      const otherTenant = await prisma.tenant.create({
+        data: { userId: otherProperty.userId, propertyId: otherProperty.id, firstName: "Not", lastName: "Mine" },
+      });
+
+      const res = await request(app)
+        .post(`/api/tenants/${otherTenant.id}/documents/upload-url`)
+        .send({ fileName: "id.png", contentType: "image/png", category: "ID" });
+
+      expect(res.status).toBe(404);
+    });
   });
 });

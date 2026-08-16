@@ -54,7 +54,7 @@ async function createOtherUsersPropertyAndTenant() {
     },
   });
   const otherTenant = await prisma.tenant.create({
-    data: { userId: otherUser.id, propertyId: otherProperty.id, name: "Not Mine" },
+    data: { userId: otherUser.id, propertyId: otherProperty.id, firstName: "Not", lastName: "Mine" },
   });
   return { otherUser, otherProperty, otherTenant };
 }
@@ -90,7 +90,7 @@ describe("maintenance requests routes", () => {
       },
     });
     tenant = await prisma.tenant.create({
-      data: { userId: user.id, propertyId: property.id, name: "Jamie Rivera" },
+      data: { userId: user.id, propertyId: property.id, firstName: "Jamie", lastName: "Rivera" },
     });
     vendor = await prisma.vendor.create({
       data: { userId: user.id, name: "Frederick Plumbing Co.", trade: "plumber" },

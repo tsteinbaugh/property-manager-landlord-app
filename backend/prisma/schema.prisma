@@ -114,17 +114,21 @@ model Tenant {
   userId            String
   propertyId        String
   applicationStatus TenantApplicationStatus @default(PENDING)
-  name              String
+  firstName         String
+  lastName          String
   phone             String?
   email             String?
   dateOfBirth       DateTime?
 
-  idVerified        Boolean   @default(false)
-  creditCheckStatus String?
-  creditCheckDate   DateTime?
+  idVerified            Boolean   @default(false)
+  creditCheckStatus     String?
+  creditCheckDate       DateTime?
+  backgroundCheckStatus String?
+  backgroundCheckDate   DateTime?
 
   employer         String?
   employmentStatus String?
+  monthlyIncome    Decimal? @db.Decimal(10, 2)
 
   emergencyContactName     String?
   emergencyContactPhone    String?
@@ -145,9 +149,35 @@ model Tenant {
   property            Property             @relation(fields: [propertyId], references: [id])
   leaseTenants        LeaseTenant[]
   maintenanceRequests MaintenanceRequest[]
+  documents           TenantDocument[]
 
   @@index([userId])
   @@index([propertyId])
+}
+
+enum TenantDocumentCategory {
+  CREDIT_REPORT
+  BACKGROUND_CHECK
+  INCOME_VERIFICATION
+  ID
+}
+
+// Screening/ID documents (credit report, background check, income proof,
+// ID image) — a bucket per category since a tenant can reasonably have more
+// than one (e.g. two pay stubs), matching CLAUDE.md's "additional documents"
+// note. R2 object key only, same private-bucket/presigned-URL pattern as
+// Lease.documentKey — never a stored public link.
+model TenantDocument {
+  id          String                 @id @default(cuid())
+  tenantId    String
+  category    TenantDocumentCategory
+  fileName    String
+  documentKey String
+  createdAt   DateTime               @default(now())
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
 }
 
 enum LeaseStatus {
