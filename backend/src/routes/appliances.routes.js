@@ -1,5 +1,6 @@
 const prisma = require("../lib/prisma");
 const { createPropertySpecRoutes } = require("../lib/createPropertySpecRoutes");
+const { MAINTENANCE_INCLUDE } = require("../lib/propertySpecIncludes");
 
 const WARRANTY_ALERT_WINDOW_DAYS = 90;
 
@@ -20,6 +21,7 @@ module.exports = createPropertySpecRoutes({
   ],
   dateFields: ["warrantyExpiration", "lastServiceDate"],
   notFoundLabel: "Appliance",
+  include: MAINTENANCE_INCLUDE,
   validateExtra: async (body, userId) => {
     if (!body.preferredVendorId) return null;
     const vendor = await prisma.vendor.findUnique({ where: { id: body.preferredVendorId } });

@@ -162,4 +162,23 @@ describe("fixtures routes", () => {
 
     expect(res.status).toBe(404);
   });
+
+  it("replaces a fixture, carrying over fixtureType (required) along with location", async () => {
+    const original = await request(app).post("/api/fixtures").send({
+      propertyId: property.id,
+      fixtureType: "TOILET",
+      location: "Master Bathroom",
+      brand: "Kohler",
+    });
+
+    const res = await request(app).post(`/api/fixtures/${original.body.id}/replace`);
+
+    expect(res.status).toBe(201);
+    expect(res.body.fixtureType).toBe("TOILET");
+    expect(res.body.location).toBe("Master Bathroom");
+    expect(res.body.brand).toBeNull();
+
+    const oldRow = await prisma.fixture.findUnique({ where: { id: original.body.id } });
+    expect(oldRow.active).toBe(false);
+  });
 });

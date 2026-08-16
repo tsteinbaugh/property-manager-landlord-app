@@ -1,5 +1,6 @@
 const prisma = require("../lib/prisma");
 const { createPropertySpecRoutes } = require("../lib/createPropertySpecRoutes");
+const { MAINTENANCE_INCLUDE } = require("../lib/propertySpecIncludes");
 
 module.exports = createPropertySpecRoutes({
   model: prisma.exteriorFeature,
@@ -11,11 +12,9 @@ module.exports = createPropertySpecRoutes({
     "lastTrimmedDate",
     "lastTreatedDate",
     "lastFertilizedDate",
-    "serviceContractor",
-    "serviceContractType",
-    "serviceCost",
     "notes",
   ],
   dateFields: ["lastTrimmedDate", "lastTreatedDate", "lastFertilizedDate"],
   notFoundLabel: "Exterior feature",
+  include: MAINTENANCE_INCLUDE,
 });

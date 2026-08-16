@@ -123,10 +123,10 @@ describe("exterior features routes", () => {
   it("updates an exterior feature", async () => {
     const created = await request(app).post("/api/exterior-features").send({ propertyId: property.id, name: "Front lawn" });
 
-    const res = await request(app).put(`/api/exterior-features/${created.body.id}`).send({ serviceContractor: "Green Lawn Co" });
+    const res = await request(app).put(`/api/exterior-features/${created.body.id}`).send({ size: "2500 sq ft" });
 
     expect(res.status).toBe(200);
-    expect(res.body.serviceContractor).toBe("Green Lawn Co");
+    expect(res.body.size).toBe("2500 sq ft");
   });
 
   it("deletes an exterior feature", async () => {

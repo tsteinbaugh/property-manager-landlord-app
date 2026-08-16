@@ -1,11 +1,15 @@
 const express = require("express");
 const prisma = require("../lib/prisma");
 const { pickFields } = require("../lib/pickFields");
+const { SPEC_LINK_FIELDS, validateSpecLinks } = require("../lib/validateSpecLinks");
 
 const REQUIRED_FIELDS = ["propertyId", "title", "intervalDays"];
 
+const SPEC_LINK_FIELD_NAMES = SPEC_LINK_FIELDS.map((f) => f.field);
+
 const ASSIGNABLE_FIELDS = [
   "vendorId",
+  ...SPEC_LINK_FIELD_NAMES,
   "title",
   "description",
   "intervalDays",
@@ -67,6 +71,11 @@ router.post("/", async (req, res) => {
     }
   }
 
+  const specLinkError = await validateSpecLinks(req.body, req.currentUser.id, propertyId);
+  if (specLinkError) {
+    return res.status(400).json({ error: specLinkError });
+  }
+
   const data = pickAssignableFields(req.body);
   if (data.lastDoneDate && !data.nextDueDate) {
     data.nextDueDate = addDays(data.lastDoneDate, data.intervalDays);
@@ -122,6 +131,11 @@ router.put("/:id", async (req, res) => {
   });
   if (!existing || existing.userId !== req.currentUser.id) {
     return res.status(404).json({ error: "Maintenance schedule not found" });
+  }
+
+  const specLinkError = await validateSpecLinks(req.body, req.currentUser.id, existing.propertyId);
+  if (specLinkError) {
+    return res.status(400).json({ error: specLinkError });
   }
 
   const data = pickAssignableFields(req.body);

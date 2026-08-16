@@ -384,6 +384,12 @@ model IncomeDocument {
 // REPAIRS (fixing something broken) and MAINTENANCE (routine/preventive upkeep)
 // are kept as separate categories — real distinction in how Taylor tracks spend,
 // not just code-vs-reality drift.
+// IMPROVEMENT is distinct from REPAIRS — the real IRS distinction (a repair is
+// deducted the year it's paid, a capital improvement is depreciated over its
+// useful life on Schedule E), not just a bookkeeping preference. Property
+// Specs' Flooring/Countertop/Backsplash cost-linking (Expense.flooringSpecs
+// etc. below) exists mainly for this category, though nothing enforces the
+// pairing — any category can be linked from a spec item if it fits.
 enum ExpenseCategory {
   MORTGAGE
   UTILITIES
@@ -391,6 +397,7 @@ enum ExpenseCategory {
   MAINTENANCE
   LANDSCAPING
   INSURANCE_PREMIUM
+  IMPROVEMENT
   TAX
   LEGAL
   OTHER
@@ -417,9 +424,12 @@ model Expense {
   createdAt  DateTime        @default(now())
   updatedAt  DateTime        @updatedAt
 
-  entity    Entity            @relation(fields: [entityId], references: [id])
-  property  Property          @relation(fields: [propertyId], references: [id])
-  documents ExpenseDocument[]
+  entity          Entity            @relation(fields: [entityId], references: [id])
+  property        Property          @relation(fields: [propertyId], references: [id])
+  documents       ExpenseDocument[]
+  flooringSpecs   FlooringSpec[]
+  countertopSpecs CountertopSpec[]
+  backsplashSpecs BacksplashSpec[]
 
   @@index([userId])
   @@index([entityId])
@@ -529,6 +539,15 @@ enum MaintenanceStatus {
 // MaintenanceSchedule instead. Deliberately not linked to Expense — actualCost
 // here is descriptive only; Taylor logs a matching Expense by hand if wanted,
 // per the same manual-ledger, no-automation stance as the rest of Finances.
+// The 7 spec-link fields are real typed FKs, not a generic "linkedType +
+// linkedId" pointer, deliberately — consistent with how this app already
+// handles this tradeoff elsewhere (Occupant/Pet/Vehicle link straight to
+// Tenant, not through a polymorphic reference). Sparser schema in exchange
+// for real referential integrity and simple queries, the right tradeoff at
+// this app's scale. Any Property Specs category can have real, trackable
+// upkeep (touch-up paint, resealing a countertop, servicing a furnace) —
+// Taylor's call after discussing whether to scope this to just
+// Appliance/Fixture (2026-08-16): all 7 or none, not an arbitrary subset.
 model MaintenanceRequest {
   id         String  @id @default(cuid())
   userId     String
@@ -536,6 +555,14 @@ model MaintenanceRequest {
   propertyId String
   tenantId   String? // only set if an actual Tenant record reported it
   vendorId   String? // assigned once a vendor is picked
+
+  paintSpecId       String?
+  flooringSpecId    String?
+  countertopSpecId  String?
+  fixtureId         String?
+  applianceId       String?
+  backsplashSpecId  String?
+  exteriorFeatureId String?
 
   title        String
   description  String?
@@ -550,18 +577,32 @@ model MaintenanceRequest {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  entity        Entity                    @relation(fields: [entityId], references: [id])
-  property      Property                  @relation(fields: [propertyId], references: [id])
-  tenant        Tenant?                   @relation(fields: [tenantId], references: [id])
-  vendor        Vendor?                   @relation(fields: [vendorId], references: [id])
-  statusChanges MaintenanceStatusChange[]
-  user          User                      @relation(fields: [userId], references: [id])
+  entity          Entity                    @relation(fields: [entityId], references: [id])
+  property        Property                  @relation(fields: [propertyId], references: [id])
+  tenant          Tenant?                   @relation(fields: [tenantId], references: [id])
+  vendor          Vendor?                   @relation(fields: [vendorId], references: [id])
+  paintSpec       PaintSpec?                @relation(fields: [paintSpecId], references: [id])
+  flooringSpec    FlooringSpec?             @relation(fields: [flooringSpecId], references: [id])
+  countertopSpec  CountertopSpec?           @relation(fields: [countertopSpecId], references: [id])
+  fixture         Fixture?                  @relation(fields: [fixtureId], references: [id])
+  appliance       Appliance?                @relation(fields: [applianceId], references: [id])
+  backsplashSpec  BacksplashSpec?           @relation(fields: [backsplashSpecId], references: [id])
+  exteriorFeature ExteriorFeature?          @relation(fields: [exteriorFeatureId], references: [id])
+  statusChanges   MaintenanceStatusChange[]
+  user            User                      @relation(fields: [userId], references: [id])
 
   @@index([userId])
   @@index([entityId])
   @@index([propertyId])
   @@index([tenantId])
   @@index([vendorId])
+  @@index([paintSpecId])
+  @@index([flooringSpecId])
+  @@index([countertopSpecId])
+  @@index([fixtureId])
+  @@index([applianceId])
+  @@index([backsplashSpecId])
+  @@index([exteriorFeatureId])
 }
 
 // The audit trail Manora's design explicitly calls out as a differentiator —
@@ -595,6 +636,14 @@ model MaintenanceSchedule {
   propertyId String
   vendorId   String?
 
+  paintSpecId       String?
+  flooringSpecId    String?
+  countertopSpecId  String?
+  fixtureId         String?
+  applianceId       String?
+  backsplashSpecId  String?
+  exteriorFeatureId String?
+
   title        String
   description  String?
   intervalDays Int
@@ -605,16 +654,30 @@ model MaintenanceSchedule {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  entity      Entity                          @relation(fields: [entityId], references: [id])
-  property    Property                        @relation(fields: [propertyId], references: [id])
-  vendor      Vendor?                         @relation(fields: [vendorId], references: [id])
-  user        User                            @relation(fields: [userId], references: [id])
-  completions MaintenanceScheduleCompletion[]
+  entity          Entity                          @relation(fields: [entityId], references: [id])
+  property        Property                        @relation(fields: [propertyId], references: [id])
+  vendor          Vendor?                         @relation(fields: [vendorId], references: [id])
+  user            User                            @relation(fields: [userId], references: [id])
+  completions     MaintenanceScheduleCompletion[]
+  paintSpec       PaintSpec?                      @relation(fields: [paintSpecId], references: [id])
+  flooringSpec    FlooringSpec?                   @relation(fields: [flooringSpecId], references: [id])
+  countertopSpec  CountertopSpec?                 @relation(fields: [countertopSpecId], references: [id])
+  fixture         Fixture?                        @relation(fields: [fixtureId], references: [id])
+  appliance       Appliance?                      @relation(fields: [applianceId], references: [id])
+  backsplashSpec  BacksplashSpec?                 @relation(fields: [backsplashSpecId], references: [id])
+  exteriorFeature ExteriorFeature?                @relation(fields: [exteriorFeatureId], references: [id])
 
   @@index([userId])
   @@index([entityId])
   @@index([propertyId])
   @@index([vendorId])
+  @@index([paintSpecId])
+  @@index([flooringSpecId])
+  @@index([countertopSpecId])
+  @@index([fixtureId])
+  @@index([applianceId])
+  @@index([backsplashSpecId])
+  @@index([exteriorFeatureId])
 }
 
 // One row per "mark done" action — same audit-trail idea as
@@ -659,12 +722,16 @@ model PaintSpec {
   paintedBy              String?
   touchUpStorageLocation String? // where leftover paint is stored — Taylor's lesson: always note this, saves you at tenant turnover
   notes                  String?
+  active                 Boolean   @default(true)
+  retiredAt              DateTime?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  entity   Entity   @relation(fields: [entityId], references: [id])
-  property Property @relation(fields: [propertyId], references: [id])
+  entity               Entity                @relation(fields: [entityId], references: [id])
+  property             Property              @relation(fields: [propertyId], references: [id])
+  maintenanceRequests  MaintenanceRequest[]
+  maintenanceSchedules MaintenanceSchedule[]
 
   @@index([userId])
   @@index([entityId])
@@ -687,19 +754,25 @@ model FlooringSpec {
   leftoverStorageLocation String?
   installedBy             String?
   installDate             DateTime?
-  cost                    Decimal?  @db.Decimal(10, 2)
+  expenseId               String? // the real Expense that paid for this — no separate cost field to drift from it
   warranty                String?
   notes                   String?
+  active                  Boolean   @default(true)
+  retiredAt               DateTime?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  entity   Entity   @relation(fields: [entityId], references: [id])
-  property Property @relation(fields: [propertyId], references: [id])
+  entity               Entity                @relation(fields: [entityId], references: [id])
+  property             Property              @relation(fields: [propertyId], references: [id])
+  expense              Expense?              @relation(fields: [expenseId], references: [id])
+  maintenanceRequests  MaintenanceRequest[]
+  maintenanceSchedules MaintenanceSchedule[]
 
   @@index([userId])
   @@index([entityId])
   @@index([propertyId])
+  @@index([expenseId])
 }
 
 model CountertopSpec {
@@ -715,19 +788,25 @@ model CountertopSpec {
   sqFt        Decimal?  @db.Decimal(8, 2)
   installedBy String?
   installDate DateTime?
-  cost        Decimal?  @db.Decimal(10, 2)
+  expenseId   String? // the real Expense that paid for this — no separate cost field to drift from it
   warranty    String?
   notes       String?
+  active      Boolean   @default(true)
+  retiredAt   DateTime?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  entity   Entity   @relation(fields: [entityId], references: [id])
-  property Property @relation(fields: [propertyId], references: [id])
+  entity               Entity                @relation(fields: [entityId], references: [id])
+  property             Property              @relation(fields: [propertyId], references: [id])
+  expense              Expense?              @relation(fields: [expenseId], references: [id])
+  maintenanceRequests  MaintenanceRequest[]
+  maintenanceSchedules MaintenanceSchedule[]
 
   @@index([userId])
   @@index([entityId])
   @@index([propertyId])
+  @@index([expenseId])
 }
 
 // Collapses CLAUDE.md's 5 fixture sub-types (sinks, faucets, showers/tubs, toilets, hardware)
@@ -755,12 +834,16 @@ model Fixture {
   finish      String? // critical for matching replacements — store it
   warranty    String?
   notes       String?
+  active      Boolean     @default(true)
+  retiredAt   DateTime?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  entity   Entity   @relation(fields: [entityId], references: [id])
-  property Property @relation(fields: [propertyId], references: [id])
+  entity               Entity                @relation(fields: [entityId], references: [id])
+  property             Property              @relation(fields: [propertyId], references: [id])
+  maintenanceRequests  MaintenanceRequest[]
+  maintenanceSchedules MaintenanceSchedule[]
 
   @@index([userId])
   @@index([entityId])
@@ -784,13 +867,17 @@ model Appliance {
   filterSize              String?
   preferredVendorId       String?
   notes                   String?
+  active                  Boolean   @default(true)
+  retiredAt               DateTime?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  entity          Entity   @relation(fields: [entityId], references: [id])
-  property        Property @relation(fields: [propertyId], references: [id])
-  preferredVendor Vendor?  @relation(fields: [preferredVendorId], references: [id])
+  entity               Entity                @relation(fields: [entityId], references: [id])
+  property             Property              @relation(fields: [propertyId], references: [id])
+  preferredVendor      Vendor?               @relation(fields: [preferredVendorId], references: [id])
+  maintenanceRequests  MaintenanceRequest[]
+  maintenanceSchedules MaintenanceSchedule[]
 
   @@index([userId])
   @@index([entityId])
@@ -812,17 +899,24 @@ model BacksplashSpec {
   groutColor       String?
   groutBrand       String?
   spareTilesOnHand Int?
+  expenseId        String? // the real Expense that paid for this — no separate cost field to drift from it
   notes            String?
+  active           Boolean   @default(true)
+  retiredAt        DateTime?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  entity   Entity   @relation(fields: [entityId], references: [id])
-  property Property @relation(fields: [propertyId], references: [id])
+  entity               Entity                @relation(fields: [entityId], references: [id])
+  property             Property              @relation(fields: [propertyId], references: [id])
+  expense              Expense?              @relation(fields: [expenseId], references: [id])
+  maintenanceRequests  MaintenanceRequest[]
+  maintenanceSchedules MaintenanceSchedule[]
 
   @@index([userId])
   @@index([entityId])
   @@index([propertyId])
+  @@index([expenseId])
 }
 
 // Landscaping recurring service is tracked in Maintenance as a MaintenanceSchedule row
@@ -834,23 +928,24 @@ model ExteriorFeature {
   entityId   String
   propertyId String
 
-  location            String? // e.g. "Front yard", "Backyard" — optional, same free-text convention as everywhere else
-  name                String? // e.g. "Oak tree", "Front lawn"
-  approxAge           Int? // years
-  size                String? // free text, e.g. "20 ft tall" — no fixed unit
-  lastTrimmedDate     DateTime?
-  lastTreatedDate     DateTime?
-  lastFertilizedDate  DateTime?
-  serviceContractor   String?
-  serviceContractType String? // e.g. "monthly", "seasonal"
-  serviceCost         Decimal?  @db.Decimal(10, 2)
-  notes               String?
+  location           String? // e.g. "Front yard", "Backyard" — optional, same free-text convention as everywhere else
+  name               String? // e.g. "Oak tree", "Front lawn"
+  approxAge          Int? // years
+  size               String? // free text, e.g. "20 ft tall" — no fixed unit
+  lastTrimmedDate    DateTime?
+  lastTreatedDate    DateTime?
+  lastFertilizedDate DateTime?
+  notes              String?
+  active             Boolean   @default(true)
+  retiredAt          DateTime?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  entity   Entity   @relation(fields: [entityId], references: [id])
-  property Property @relation(fields: [propertyId], references: [id])
+  entity               Entity                @relation(fields: [entityId], references: [id])
+  property             Property              @relation(fields: [propertyId], references: [id])
+  maintenanceRequests  MaintenanceRequest[]
+  maintenanceSchedules MaintenanceSchedule[]
 
   @@index([userId])
   @@index([entityId])

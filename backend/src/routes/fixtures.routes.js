@@ -1,5 +1,6 @@
 const prisma = require("../lib/prisma");
 const { createPropertySpecRoutes } = require("../lib/createPropertySpecRoutes");
+const { MAINTENANCE_INCLUDE } = require("../lib/propertySpecIncludes");
 
 module.exports = createPropertySpecRoutes({
   model: prisma.fixture,
@@ -9,4 +10,7 @@ module.exports = createPropertySpecRoutes({
   requiredFields: ["propertyId", "fixtureType"],
   assignableFields: ["location", "fixtureType", "brand", "model", "finish", "warranty", "notes"],
   notFoundLabel: "Fixture",
+  include: MAINTENANCE_INCLUDE,
+  // fixtureType is required, so /replace must carry it over too, not just location.
+  replaceCarryFields: ["fixtureType"],
 });

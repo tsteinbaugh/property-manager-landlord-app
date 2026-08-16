@@ -20,7 +20,9 @@ const app = createApp({
 });
 
 async function resetDatabase() {
+  await prisma.maintenanceRequest.deleteMany();
   await prisma.flooringSpec.deleteMany();
+  await prisma.expense.deleteMany();
   await prisma.property.deleteMany();
   await prisma.entity.deleteMany();
   await prisma.user.deleteMany();
@@ -46,16 +48,18 @@ async function createOtherUsersProperty() {
 }
 
 describe("flooring specs routes", () => {
+  let user;
+  let entity;
   let property;
 
   beforeEach(async () => {
     mockGetAuth.mockReturnValue({ userId: "clerk_test_user_1" });
     await resetDatabase();
 
-    const user = await prisma.user.create({
+    user = await prisma.user.create({
       data: { clerkId: "clerk_test_user_1", email: "landlord@example.com", name: "Taylor" },
     });
-    const entity = await prisma.entity.create({
+    entity = await prisma.entity.create({
       data: { userId: user.id, legalName: "Steinbaugh Estates LLC", entityType: "LLC" },
     });
     property = await prisma.property.create({
@@ -167,5 +171,84 @@ describe("flooring specs routes", () => {
     const res = await request(app).put(`/api/flooring-specs/${otherSpec.id}`).send({ brand: "Hacked" });
 
     expect(res.status).toBe(404);
+  });
+
+  it("links to an Expense on the same property and returns its amount", async () => {
+    const expense = await prisma.expense.create({
+      data: { userId: user.id, entityId: entity.id, propertyId: property.id, category: "IMPROVEMENT", amount: "2800.00", date: new Date() },
+    });
+
+    const res = await request(app).post("/api/flooring-specs").send({
+      propertyId: property.id,
+      location: "Living room",
+      expenseId: expense.id,
+    });
+
+    expect(res.status).toBe(201);
+    expect(res.body.expenseId).toBe(expense.id);
+    expect(Number(res.body.expense.amount)).toBe(2800);
+  });
+
+  it("rejects an expense linked from a different property", async () => {
+    const otherProperty = await createOtherUsersProperty();
+    const otherExpense = await prisma.expense.create({
+      data: {
+        userId: otherProperty.userId,
+        entityId: otherProperty.entityId,
+        propertyId: otherProperty.id,
+        category: "IMPROVEMENT",
+        amount: "500.00",
+        date: new Date(),
+      },
+    });
+
+    const res = await request(app).post("/api/flooring-specs").send({
+      propertyId: property.id,
+      expenseId: otherExpense.id,
+    });
+
+    expect(res.status).toBe(400);
+  });
+
+  it("replaces a flooring spec: creates a new active row and retires the old one", async () => {
+    const original = await request(app).post("/api/flooring-specs").send({
+      propertyId: property.id,
+      location: "Living room",
+      brand: "CoreLuxe",
+    });
+
+    const request1 = await prisma.maintenanceRequest.create({
+      data: {
+        userId: user.id,
+        entityId: entity.id,
+        propertyId: property.id,
+        title: "Old floor repair",
+        flooringSpecId: original.body.id,
+        statusChanges: { create: { toStatus: "OPEN" } },
+      },
+    });
+
+    const res = await request(app).post(`/api/flooring-specs/${original.body.id}/replace`);
+
+    expect(res.status).toBe(201);
+    expect(res.body.id).not.toBe(original.body.id);
+    expect(res.body.location).toBe("Living room");
+    expect(res.body.brand).toBeNull();
+    expect(res.body.active).toBe(true);
+
+    const oldRow = await prisma.flooringSpec.findUnique({ where: { id: original.body.id } });
+    expect(oldRow.active).toBe(false);
+    expect(oldRow.retiredAt).not.toBeNull();
+
+    // Prior maintenance history stays attached to the retired row, not silently reattributed.
+    const stillLinked = await prisma.maintenanceRequest.findUnique({ where: { id: request1.id } });
+    expect(stillLinked.flooringSpecId).toBe(original.body.id);
+
+    // Default list excludes the retired row; ?includeRetired=true brings it back.
+    const activeOnly = await request(app).get("/api/flooring-specs").query({ propertyId: property.id });
+    expect(activeOnly.body.map((f) => f.id)).toEqual([res.body.id]);
+
+    const withRetired = await request(app).get("/api/flooring-specs").query({ propertyId: property.id, includeRetired: "true" });
+    expect(withRetired.body.map((f) => f.id).sort()).toEqual([original.body.id, res.body.id].sort());
   });
 });

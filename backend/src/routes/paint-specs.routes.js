@@ -1,5 +1,6 @@
 const prisma = require("../lib/prisma");
 const { createPropertySpecRoutes } = require("../lib/createPropertySpecRoutes");
+const { MAINTENANCE_INCLUDE } = require("../lib/propertySpecIncludes");
 
 module.exports = createPropertySpecRoutes({
   model: prisma.paintSpec,
@@ -19,4 +20,5 @@ module.exports = createPropertySpecRoutes({
   ],
   dateFields: ["datePainted"],
   notFoundLabel: "Paint spec",
+  include: MAINTENANCE_INCLUDE,
 });

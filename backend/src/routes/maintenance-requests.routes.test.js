@@ -23,6 +23,8 @@ async function resetDatabase() {
   await prisma.maintenanceStatusChange.deleteMany();
   await prisma.maintenanceRequest.deleteMany();
   await prisma.maintenanceSchedule.deleteMany();
+  await prisma.paintSpec.deleteMany();
+  await prisma.fixture.deleteMany();
   await prisma.vendor.deleteMany();
   await prisma.depositDeduction.deleteMany();
   await prisma.deposit.deleteMany();
@@ -60,6 +62,7 @@ async function createOtherUsersPropertyAndTenant() {
 }
 
 describe("maintenance requests routes", () => {
+  let user;
   let entity;
   let property;
   let tenant;
@@ -69,7 +72,7 @@ describe("maintenance requests routes", () => {
     mockGetAuth.mockReturnValue({ userId: "clerk_test_user_1" });
     await resetDatabase();
 
-    const user = await prisma.user.create({
+    user = await prisma.user.create({
       data: {
         clerkId: "clerk_test_user_1",
         email: "landlord@example.com",
@@ -178,6 +181,41 @@ describe("maintenance requests routes", () => {
       propertyId: property.id,
       title: "Leak",
       vendorId: otherVendor.id,
+    });
+
+    expect(res.status).toBe(400);
+  });
+
+  it("links to a Property Specs item (any of the 7 categories) owned by the same user and property", async () => {
+    const paintSpec = await prisma.paintSpec.create({
+      data: { propertyId: property.id, entityId: entity.id, userId: user.id, location: "Hallway" },
+    });
+
+    const res = await request(app).post("/api/maintenance-requests").send({
+      propertyId: property.id,
+      title: "Touch up scuffed hallway paint",
+      paintSpecId: paintSpec.id,
+    });
+
+    expect(res.status).toBe(201);
+    expect(res.body.paintSpecId).toBe(paintSpec.id);
+  });
+
+  it("rejects a spec link for an item on another user's property", async () => {
+    const { otherProperty } = await createOtherUsersPropertyAndTenant();
+    const otherFixture = await prisma.fixture.create({
+      data: {
+        propertyId: otherProperty.id,
+        entityId: otherProperty.entityId,
+        userId: otherProperty.userId,
+        fixtureType: "SINK",
+      },
+    });
+
+    const res = await request(app).post("/api/maintenance-requests").send({
+      propertyId: property.id,
+      title: "Fix sink",
+      fixtureId: otherFixture.id,
     });
 
     expect(res.status).toBe(400);
