@@ -136,6 +136,7 @@ function formatFieldValue(field, item) {
     return item.expense ? `${money(item.expense.amount)} · ${new Date(item.expense.date).toLocaleDateString()}` : null;
   }
   const value = item[field.key];
+  if (value === null || value === undefined || value === "") return null;
   if (field.type === "date") return new Date(value).toLocaleDateString();
   if (field.type === "select") return field.options.find((o) => o.value === value)?.label || value;
   return value;
@@ -497,11 +498,13 @@ export default function PropertySpecsPage() {
             addLabel="Add backsplash"
             emptyLabel="No backsplash specs yet."
             items={backsplashSpecs}
-            fields={BACKSPLASH_FIELDS}
+            fields={resolvedBacksplashFields}
             apiPath="/api/backsplash-specs"
             propertyId={id}
             onChange={load}
-            renderSummary={(b) => [b.location, b.brand, b.material].filter(Boolean).join(" · ")}
+            renderSummary={(b) =>
+              [b.location, b.brand, b.material, b.expense ? money(b.expense.amount) : null].filter(Boolean).join(" · ")
+            }
           />
 
           <PropertySpecSection
