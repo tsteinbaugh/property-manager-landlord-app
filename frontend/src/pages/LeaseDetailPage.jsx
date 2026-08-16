@@ -41,14 +41,20 @@ export default function LeaseDetailPage() {
   const [uploading, setUploading] = useState(false);
   const [documentBusy, setDocumentBusy] = useState(false);
 
+  const [deposits, setDeposits] = useState([]);
+
   async function load() {
     setLoading(true);
     try {
       const data = await api.get(`/api/leases/${id}`);
       setLease(data);
       setForm(toForm(data));
-      const tenants = await api.get(`/api/tenants?propertyId=${data.propertyId}`);
+      const [tenants, depositData] = await Promise.all([
+        api.get(`/api/tenants?propertyId=${data.propertyId}`),
+        api.get(`/api/deposits?leaseId=${id}`),
+      ]);
       setPropertyTenants(tenants);
+      setDeposits(depositData);
       setError(null);
     } catch (err) {
       setError(err.message);
@@ -393,6 +399,26 @@ export default function LeaseDetailPage() {
       </div>
 
       <section className="space-y-3">
+        <h2 className="text-lg font-medium text-stone-900">Deposits</h2>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <DepositCard
+            leaseId={id}
+            type="SECURITY"
+            label="Security deposit"
+            deposit={deposits.find((d) => d.type === "SECURITY") || null}
+            onChange={load}
+          />
+          <DepositCard
+            leaseId={id}
+            type="PET"
+            label="Pet deposit"
+            deposit={deposits.find((d) => d.type === "PET") || null}
+            onChange={load}
+          />
+        </div>
+      </section>
+
+      <section className="space-y-3">
         <h2 className="text-lg font-medium text-stone-900">Document</h2>
         <div className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm">
           {lease.documentKey ? (
@@ -522,6 +548,277 @@ function DetailRow({ label, value }) {
     <div>
       <span className="text-stone-400">{label}: </span>
       <span className="text-stone-700">{value}</span>
+    </div>
+  );
+}
+
+const DEPOSIT_STATUSES = ["HELD", "PARTIALLY_RETURNED", "FULLY_RETURNED", "FORFEITED"];
+
+function depositToForm(deposit) {
+  return {
+    amountHeld: deposit.amountHeld,
+    dateReceived: deposit.dateReceived.slice(0, 10),
+    storageMethod: deposit.storageMethod || "",
+    status: deposit.status,
+    returnedAmount: deposit.returnedAmount ?? "",
+    returnedDate: deposit.returnedDate ? deposit.returnedDate.slice(0, 10) : "",
+  };
+}
+
+const EMPTY_DEPOSIT_FORM = {
+  amountHeld: "",
+  dateReceived: "",
+  storageMethod: "",
+  status: "HELD",
+  returnedAmount: "",
+  returnedDate: "",
+};
+
+function DepositCard({ leaseId, type, label, deposit, onChange }) {
+  const api = useApi();
+  const [editing, setEditing] = useState(false);
+  const [form, setForm] = useState(deposit ? depositToForm(deposit) : EMPTY_DEPOSIT_FORM);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(null);
+  const [deductionForm, setDeductionForm] = useState({ description: "", amount: "" });
+
+  function startEditing() {
+    setForm(deposit ? depositToForm(deposit) : EMPTY_DEPOSIT_FORM);
+    setEditing(true);
+  }
+
+  async function handleSave(e) {
+    e.preventDefault();
+    setSubmitting(true);
+    setError(null);
+    try {
+      const body = { ...form, amountHeld: Number(form.amountHeld) };
+      if (!body.storageMethod) delete body.storageMethod;
+      if (body.returnedAmount === "") delete body.returnedAmount;
+      else body.returnedAmount = Number(body.returnedAmount);
+      if (!body.returnedDate) delete body.returnedDate;
+
+      if (deposit) {
+        await api.put(`/api/deposits/${deposit.id}`, body);
+      } else {
+        await api.post("/api/deposits", { ...body, leaseId, type });
+      }
+      setEditing(false);
+      onChange();
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  async function handleDelete() {
+    if (!confirm(`Delete the ${label.toLowerCase()}? This can't be undone.`)) return;
+    try {
+      await api.del(`/api/deposits/${deposit.id}`);
+      onChange();
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  async function handleAddDeduction(e) {
+    e.preventDefault();
+    if (!deductionForm.description || !deductionForm.amount) return;
+    setError(null);
+    try {
+      await api.post(`/api/deposits/${deposit.id}/deductions`, {
+        description: deductionForm.description,
+        amount: Number(deductionForm.amount),
+      });
+      setDeductionForm({ description: "", amount: "" });
+      onChange();
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  async function handleRemoveDeduction(deductionId) {
+    setError(null);
+    try {
+      await api.del(`/api/deposits/${deposit.id}/deductions/${deductionId}`);
+      onChange();
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  return (
+    <div className="rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
+      <div className="flex items-center justify-between">
+        <h3 className="font-medium text-stone-900">{label}</h3>
+        {!editing && deposit && (
+          <div className="flex gap-3 text-sm">
+            <button onClick={startEditing} className="text-emerald-700 hover:underline">
+              Edit
+            </button>
+            <button onClick={handleDelete} className="text-red-600 hover:underline">
+              Delete
+            </button>
+          </div>
+        )}
+      </div>
+
+      {error && <p className="mt-2 text-sm text-red-700">{error}</p>}
+
+      {!deposit && !editing && (
+        <div className="mt-2">
+          <p className="text-sm text-stone-500">Not tracked yet.</p>
+          <button onClick={startEditing} className="mt-2 text-sm text-emerald-700 hover:underline">
+            Add {label.toLowerCase()}
+          </button>
+        </div>
+      )}
+
+      {editing ? (
+        <form onSubmit={handleSave} className="mt-3 space-y-3">
+          <div className="grid grid-cols-2 gap-3">
+            <label className="block text-xs">
+              <span className="mb-1 block font-medium text-stone-700">Amount held *</span>
+              <input
+                required
+                type="number"
+                min="0"
+                step="0.01"
+                value={form.amountHeld}
+                onChange={(e) => setForm({ ...form, amountHeld: e.target.value })}
+                className="w-full rounded-lg border border-stone-300 px-2 py-1.5 text-sm focus:border-emerald-600 focus:outline-none"
+              />
+            </label>
+            <label className="block text-xs">
+              <span className="mb-1 block font-medium text-stone-700">Date received *</span>
+              <input
+                required
+                type="date"
+                value={form.dateReceived}
+                onChange={(e) => setForm({ ...form, dateReceived: e.target.value })}
+                className="w-full rounded-lg border border-stone-300 px-2 py-1.5 text-sm focus:border-emerald-600 focus:outline-none"
+              />
+            </label>
+            <label className="block text-xs">
+              <span className="mb-1 block font-medium text-stone-700">Storage method</span>
+              <input
+                value={form.storageMethod}
+                onChange={(e) => setForm({ ...form, storageMethod: e.target.value })}
+                className="w-full rounded-lg border border-stone-300 px-2 py-1.5 text-sm focus:border-emerald-600 focus:outline-none"
+                placeholder="Escrow account"
+              />
+            </label>
+            <label className="block text-xs">
+              <span className="mb-1 block font-medium text-stone-700">Status</span>
+              <select
+                value={form.status}
+                onChange={(e) => setForm({ ...form, status: e.target.value })}
+                className="w-full rounded-lg border border-stone-300 px-2 py-1.5 text-sm focus:border-emerald-600 focus:outline-none"
+              >
+                {DEPOSIT_STATUSES.map((s) => (
+                  <option key={s} value={s}>
+                    {s.replaceAll("_", " ")}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className="block text-xs">
+              <span className="mb-1 block font-medium text-stone-700">Returned amount</span>
+              <input
+                type="number"
+                min="0"
+                step="0.01"
+                value={form.returnedAmount}
+                onChange={(e) => setForm({ ...form, returnedAmount: e.target.value })}
+                className="w-full rounded-lg border border-stone-300 px-2 py-1.5 text-sm focus:border-emerald-600 focus:outline-none"
+              />
+            </label>
+            <label className="block text-xs">
+              <span className="mb-1 block font-medium text-stone-700">Returned date</span>
+              <input
+                type="date"
+                value={form.returnedDate}
+                onChange={(e) => setForm({ ...form, returnedDate: e.target.value })}
+                className="w-full rounded-lg border border-stone-300 px-2 py-1.5 text-sm focus:border-emerald-600 focus:outline-none"
+              />
+            </label>
+          </div>
+          <div className="flex gap-2">
+            <button
+              type="submit"
+              disabled={submitting}
+              className="rounded-lg bg-emerald-700 px-3 py-1.5 text-xs font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
+            >
+              {submitting ? "Saving..." : "Save"}
+            </button>
+            <button
+              type="button"
+              onClick={() => setEditing(false)}
+              className="rounded-lg border border-stone-300 px-3 py-1.5 text-xs font-medium text-stone-700 hover:bg-stone-50"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      ) : (
+        deposit && (
+          <div className="mt-2 space-y-1 text-sm">
+            <DetailRow label="Amount held" value={money(deposit.amountHeld)} />
+            <DetailRow label="Date received" value={new Date(deposit.dateReceived).toLocaleDateString()} />
+            <DetailRow label="Storage method" value={deposit.storageMethod} />
+            <DetailRow label="Status" value={deposit.status.replaceAll("_", " ")} />
+            <DetailRow label="Returned amount" value={money(deposit.returnedAmount)} />
+            <DetailRow
+              label="Returned date"
+              value={deposit.returnedDate ? new Date(deposit.returnedDate).toLocaleDateString() : null}
+            />
+
+            <div className="pt-2">
+              <p className="text-xs font-semibold text-stone-500">Deductions</p>
+              {deposit.deductions.length === 0 ? (
+                <p className="text-xs text-stone-400">None</p>
+              ) : (
+                <div className="mt-1 space-y-1">
+                  {deposit.deductions.map((d) => (
+                    <div key={d.id} className="flex items-center justify-between text-xs">
+                      <span>
+                        {d.description} — {money(d.amount)}
+                      </span>
+                      <button onClick={() => handleRemoveDeduction(d.id)} className="text-red-600 hover:underline">
+                        Remove
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+              <form onSubmit={handleAddDeduction} className="mt-2 flex gap-2">
+                <input
+                  value={deductionForm.description}
+                  onChange={(e) => setDeductionForm({ ...deductionForm, description: e.target.value })}
+                  placeholder="Description"
+                  className="min-w-0 flex-1 rounded-lg border border-stone-300 px-2 py-1 text-xs focus:border-emerald-600 focus:outline-none"
+                />
+                <input
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  value={deductionForm.amount}
+                  onChange={(e) => setDeductionForm({ ...deductionForm, amount: e.target.value })}
+                  placeholder="Amount"
+                  className="w-20 rounded-lg border border-stone-300 px-2 py-1 text-xs focus:border-emerald-600 focus:outline-none"
+                />
+                <button
+                  type="submit"
+                  className="shrink-0 rounded-lg border border-stone-300 px-2 py-1 text-xs font-medium text-stone-700 hover:bg-stone-50"
+                >
+                  Add
+                </button>
+              </form>
+            </div>
+          </div>
+        )
+      )}
     </div>
   );
 }
