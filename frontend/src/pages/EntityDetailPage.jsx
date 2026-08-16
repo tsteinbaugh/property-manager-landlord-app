@@ -332,7 +332,11 @@ export default function EntityDetailPage() {
         ) : (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {properties.map((property) => (
-              <div key={property.id} className="rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
+              <Link
+                key={property.id}
+                to={`/properties/${property.id}`}
+                className="block rounded-xl border border-stone-200 bg-white p-4 shadow-sm hover:border-emerald-300"
+              >
                 <h3 className="font-medium text-stone-900">{property.name || property.address1}</h3>
                 <p className="text-sm text-stone-500">
                   {property.address1}
@@ -340,7 +344,7 @@ export default function EntityDetailPage() {
                   <br />
                   {property.city}, {property.state} {property.zip}
                 </p>
-              </div>
+              </Link>
             ))}
           </div>
         )}

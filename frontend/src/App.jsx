@@ -7,6 +7,9 @@ import DashboardPage from "./pages/DashboardPage";
 import EntitiesPage from "./pages/EntitiesPage";
 import EntityDetailPage from "./pages/EntityDetailPage";
 import PropertiesPage from "./pages/PropertiesPage";
+import PropertyDetailPage from "./pages/PropertyDetailPage";
+import TenantDetailPage from "./pages/TenantDetailPage";
+import LeaseDetailPage from "./pages/LeaseDetailPage";
 
 export default function App() {
   return (
@@ -27,6 +30,9 @@ export default function App() {
         <Route path="entities" element={<EntitiesPage />} />
         <Route path="entities/:id" element={<EntityDetailPage />} />
         <Route path="properties" element={<PropertiesPage />} />
+        <Route path="properties/:id" element={<PropertyDetailPage />} />
+        <Route path="tenants/:id" element={<TenantDetailPage />} />
+        <Route path="leases/:id" element={<LeaseDetailPage />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />

@@ -12,7 +12,6 @@ export default function PropertiesPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [formOpen, setFormOpen] = useState(false);
-  const [editingId, setEditingId] = useState(null);
   const [form, setForm] = useState(EMPTY_FORM);
   const [submitting, setSubmitting] = useState(false);
 
@@ -40,21 +39,6 @@ export default function PropertiesPage() {
 
   function openCreateForm() {
     setForm({ ...EMPTY_FORM, entityId: entities[0]?.id || "" });
-    setEditingId(null);
-    setFormOpen(true);
-  }
-
-  function openEditForm(property) {
-    setForm({
-      entityId: property.entityId,
-      name: property.name || "",
-      address1: property.address1 || "",
-      address2: property.address2 || "",
-      city: property.city || "",
-      state: property.state || "",
-      zip: property.zip || "",
-    });
-    setEditingId(property.id);
     setFormOpen(true);
   }
 
@@ -64,27 +48,13 @@ export default function PropertiesPage() {
     setError(null);
 
     try {
-      if (editingId) {
-        await api.put(`/api/properties/${editingId}`, form);
-      } else {
-        await api.post("/api/properties", form);
-      }
+      await api.post("/api/properties", form);
       setFormOpen(false);
       await loadAll(entityFilter);
     } catch (err) {
       setError(err.message);
     } finally {
       setSubmitting(false);
-    }
-  }
-
-  async function handleDelete(property) {
-    if (!confirm(`Delete "${property.name || property.address1}"? This can't be undone.`)) return;
-    try {
-      await api.del(`/api/properties/${property.id}`);
-      await loadAll(entityFilter);
-    } catch (err) {
-      setError(err.message);
     }
   }
 
@@ -142,7 +112,7 @@ export default function PropertiesPage() {
 
       {formOpen && (
         <form onSubmit={handleSubmit} className="space-y-4 rounded-xl border border-stone-200 bg-white p-5 shadow-sm">
-          <h2 className="text-lg font-medium text-stone-900">{editingId ? "Edit property" : "New property"}</h2>
+          <h2 className="text-lg font-medium text-stone-900">New property</h2>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <label className="block text-sm">
@@ -234,7 +204,7 @@ export default function PropertiesPage() {
               disabled={submitting}
               className="rounded-lg bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
             >
-              {submitting ? "Saving..." : editingId ? "Save changes" : "Create property"}
+              {submitting ? "Saving..." : "Create property"}
             </button>
             <button
               type="button"
@@ -256,7 +226,11 @@ export default function PropertiesPage() {
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {properties.map((property) => (
-            <div key={property.id} className="space-y-2 rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
+            <Link
+              key={property.id}
+              to={`/properties/${property.id}`}
+              className="block space-y-2 rounded-xl border border-stone-200 bg-white p-4 shadow-sm hover:border-emerald-300"
+            >
               <h3 className="font-medium text-stone-900">{property.name || property.address1}</h3>
               <p className="text-sm text-stone-500">
                 {property.address1}
@@ -265,15 +239,7 @@ export default function PropertiesPage() {
                 {property.city}, {property.state} {property.zip}
               </p>
               <p className="text-xs text-stone-400">{entityName(property.entityId)}</p>
-              <div className="flex gap-3 pt-1 text-sm">
-                <button onClick={() => openEditForm(property)} className="text-emerald-700 hover:underline">
-                  Edit
-                </button>
-                <button onClick={() => handleDelete(property)} className="text-red-600 hover:underline">
-                  Delete
-                </button>
-              </div>
-            </div>
+            </Link>
           ))}
         </div>
       )}

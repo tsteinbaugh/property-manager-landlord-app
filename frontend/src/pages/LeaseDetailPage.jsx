@@ -1,0 +1,527 @@
+import { useEffect, useRef, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useApi } from "../hooks/useApi";
+
+const LEASE_STATUSES = ["ACTIVE", "EXPIRED", "MONTH_TO_MONTH", "TERMINATED"];
+const LEASE_TENANT_ROLES = ["PRIMARY", "CO_TENANT", "GUARANTOR"];
+
+const TEXT_FIELDS = ["renewalRentIncreaseCap", "notes"];
+const NUMBER_FIELDS = ["monthlyRent", "securityDepositAmount", "lateFeeAmount", "lateFeeGraceDays", "petRentAmount", "nonLeaseOccupantCount"];
+const DATE_FIELDS = ["startDate", "endDate"];
+
+function toForm(lease) {
+  const form = { status: lease.status, petPolicy: !!lease.petPolicy };
+  for (const f of TEXT_FIELDS) form[f] = lease[f] || "";
+  for (const f of NUMBER_FIELDS) form[f] = lease[f] ?? "";
+  for (const f of DATE_FIELDS) form[f] = lease[f] ? lease[f].slice(0, 10) : "";
+  return form;
+}
+
+function money(amount) {
+  if (amount === null || amount === undefined) return null;
+  return `$${Number(amount).toLocaleString()}`;
+}
+
+export default function LeaseDetailPage() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const api = useApi();
+  const fileInputRef = useRef(null);
+
+  const [lease, setLease] = useState(null);
+  const [propertyTenants, setPropertyTenants] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [editing, setEditing] = useState(false);
+  const [form, setForm] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
+
+  const [attachTenantId, setAttachTenantId] = useState("");
+  const [attachRole, setAttachRole] = useState("PRIMARY");
+  const [uploading, setUploading] = useState(false);
+  const [documentBusy, setDocumentBusy] = useState(false);
+
+  async function load() {
+    setLoading(true);
+    try {
+      const data = await api.get(`/api/leases/${id}`);
+      setLease(data);
+      setForm(toForm(data));
+      const tenants = await api.get(`/api/tenants?propertyId=${data.propertyId}`);
+      setPropertyTenants(tenants);
+      setError(null);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
+
+  async function handleSave(e) {
+    e.preventDefault();
+    setSubmitting(true);
+    setError(null);
+
+    const body = { ...form };
+    for (const key of [...TEXT_FIELDS, ...NUMBER_FIELDS, ...DATE_FIELDS]) {
+      if (body[key] === "") delete body[key];
+    }
+    for (const key of NUMBER_FIELDS) {
+      if (body[key] !== undefined) body[key] = Number(body[key]);
+    }
+
+    try {
+      const updated = await api.put(`/api/leases/${id}`, body);
+      setLease(updated);
+      setForm(toForm(updated));
+      setEditing(false);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  async function handleDelete() {
+    if (!confirm("Delete this lease? This can't be undone.")) return;
+    try {
+      const propertyId = lease.propertyId;
+      await api.del(`/api/leases/${id}`);
+      navigate(`/properties/${propertyId}`);
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  async function handleAttachTenant(e) {
+    e.preventDefault();
+    if (!attachTenantId) return;
+    setError(null);
+    try {
+      const updated = await api.post(`/api/leases/${id}/tenants`, { tenantId: attachTenantId, role: attachRole });
+      setLease(updated);
+      setAttachTenantId("");
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  async function handleDetachTenant(tenantId) {
+    setError(null);
+    try {
+      await api.del(`/api/leases/${id}/tenants/${tenantId}`);
+      await load();
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  async function handleFileSelected(e) {
+    const file = e.target.files[0];
+    e.target.value = "";
+    if (!file) return;
+
+    if (file.type !== "application/pdf") {
+      setError("Only PDF files are supported for lease documents.");
+      return;
+    }
+
+    setUploading(true);
+    setError(null);
+    try {
+      const { uploadUrl, key } = await api.post(`/api/leases/${id}/document-upload-url`, {
+        fileName: file.name,
+        contentType: file.type,
+      });
+
+      const putRes = await fetch(uploadUrl, {
+        method: "PUT",
+        headers: { "Content-Type": file.type },
+        body: file,
+      });
+      if (!putRes.ok) throw new Error("Upload to storage failed");
+
+      const updated = await api.post(`/api/leases/${id}/document-confirm`, { key });
+      setLease(updated);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setUploading(false);
+    }
+  }
+
+  async function handleViewDocument() {
+    setDocumentBusy(true);
+    setError(null);
+    try {
+      const { downloadUrl } = await api.get(`/api/leases/${id}/document-url`);
+      window.open(downloadUrl, "_blank", "noopener,noreferrer");
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setDocumentBusy(false);
+    }
+  }
+
+  async function handleDeleteDocument() {
+    if (!confirm("Remove the uploaded lease document?")) return;
+    setDocumentBusy(true);
+    setError(null);
+    try {
+      await api.del(`/api/leases/${id}/document`);
+      await load();
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setDocumentBusy(false);
+    }
+  }
+
+  if (loading) return <p className="text-sm text-stone-500">Loading...</p>;
+  if (!lease) return <p className="text-sm text-red-700">{error || "Lease not found."}</p>;
+
+  const attachableTenants = propertyTenants.filter(
+    (t) => t.applicationStatus === "APPROVED" && !lease.leaseTenants.some((lt) => lt.tenantId === t.id),
+  );
+  const hasUnapprovedTenants = propertyTenants.some(
+    (t) => t.applicationStatus !== "APPROVED" && !lease.leaseTenants.some((lt) => lt.tenantId === t.id),
+  );
+
+  return (
+    <div className="space-y-6">
+      <Link to={`/properties/${lease.propertyId}`} className="text-sm text-emerald-700 hover:underline">
+        ← Back to property
+      </Link>
+
+      {error && (
+        <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>
+      )}
+
+      <div className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm">
+        <div className="flex items-start justify-between gap-2">
+          <div>
+            <h1 className="text-2xl text-stone-900">{money(lease.monthlyRent)}/mo</h1>
+            <p className="text-sm text-stone-500">
+              {new Date(lease.startDate).toLocaleDateString()}
+              {lease.endDate ? ` – ${new Date(lease.endDate).toLocaleDateString()}` : " – open"}
+            </p>
+          </div>
+          {!editing && (
+            <div className="flex shrink-0 gap-3 text-sm">
+              <button onClick={() => setEditing(true)} className="text-emerald-700 hover:underline">
+                Edit
+              </button>
+              <button onClick={handleDelete} className="text-red-600 hover:underline">
+                Delete
+              </button>
+            </div>
+          )}
+        </div>
+
+        {editing ? (
+          <form onSubmit={handleSave} className="mt-4 space-y-4 border-t border-stone-200 pt-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <label className="block text-sm">
+                <span className="mb-1 block font-medium text-stone-700">Start date</span>
+                <input
+                  type="date"
+                  value={form.startDate}
+                  onChange={(e) => setForm({ ...form, startDate: e.target.value })}
+                  className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+                />
+              </label>
+              <label className="block text-sm">
+                <span className="mb-1 block font-medium text-stone-700">End date</span>
+                <input
+                  type="date"
+                  value={form.endDate}
+                  onChange={(e) => setForm({ ...form, endDate: e.target.value })}
+                  className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+                />
+              </label>
+              <label className="block text-sm">
+                <span className="mb-1 block font-medium text-stone-700">Monthly rent</span>
+                <input
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  value={form.monthlyRent}
+                  onChange={(e) => setForm({ ...form, monthlyRent: e.target.value })}
+                  className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+                />
+              </label>
+              <label className="block text-sm">
+                <span className="mb-1 block font-medium text-stone-700">Status</span>
+                <select
+                  value={form.status}
+                  onChange={(e) => setForm({ ...form, status: e.target.value })}
+                  className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+                >
+                  {LEASE_STATUSES.map((s) => (
+                    <option key={s} value={s}>
+                      {s}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="block text-sm">
+                <span className="mb-1 block font-medium text-stone-700">Security deposit</span>
+                <input
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  value={form.securityDepositAmount}
+                  onChange={(e) => setForm({ ...form, securityDepositAmount: e.target.value })}
+                  className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+                />
+              </label>
+              <label className="block text-sm">
+                <span className="mb-1 block font-medium text-stone-700">Late fee amount</span>
+                <input
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  value={form.lateFeeAmount}
+                  onChange={(e) => setForm({ ...form, lateFeeAmount: e.target.value })}
+                  className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+                />
+              </label>
+              <label className="block text-sm">
+                <span className="mb-1 block font-medium text-stone-700">Late fee grace days</span>
+                <input
+                  type="number"
+                  min="0"
+                  step="1"
+                  value={form.lateFeeGraceDays}
+                  onChange={(e) => setForm({ ...form, lateFeeGraceDays: e.target.value })}
+                  className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+                />
+              </label>
+              <label className="flex items-center gap-2 self-end pb-2 text-sm">
+                <input
+                  type="checkbox"
+                  checked={form.petPolicy}
+                  onChange={(e) => setForm({ ...form, petPolicy: e.target.checked })}
+                  className="h-4 w-4 rounded border-stone-300"
+                />
+                <span className="font-medium text-stone-700">Pets allowed</span>
+              </label>
+              <label className="block text-sm">
+                <span className="mb-1 block font-medium text-stone-700">Pet rent</span>
+                <input
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  value={form.petRentAmount}
+                  onChange={(e) => setForm({ ...form, petRentAmount: e.target.value })}
+                  className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+                />
+              </label>
+              <label className="block text-sm">
+                <span className="mb-1 block font-medium text-stone-700">Renewal rent increase cap</span>
+                <input
+                  value={form.renewalRentIncreaseCap}
+                  onChange={(e) => setForm({ ...form, renewalRentIncreaseCap: e.target.value })}
+                  className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+                  placeholder="e.g. 3% max annually"
+                />
+              </label>
+              <label className="block text-sm">
+                <span className="mb-1 block font-medium text-stone-700">Non-lease occupants</span>
+                <input
+                  type="number"
+                  min="0"
+                  step="1"
+                  value={form.nonLeaseOccupantCount}
+                  onChange={(e) => setForm({ ...form, nonLeaseOccupantCount: e.target.value })}
+                  className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+                />
+              </label>
+              <label className="block text-sm sm:col-span-2">
+                <span className="mb-1 block font-medium text-stone-700">Notes</span>
+                <textarea
+                  value={form.notes}
+                  onChange={(e) => setForm({ ...form, notes: e.target.value })}
+                  rows={3}
+                  className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+                />
+              </label>
+            </div>
+            <div className="flex gap-2">
+              <button
+                type="submit"
+                disabled={submitting}
+                className="rounded-lg bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
+              >
+                {submitting ? "Saving..." : "Save changes"}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setForm(toForm(lease));
+                  setEditing(false);
+                }}
+                className="rounded-lg border border-stone-300 px-4 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        ) : (
+          <div className="mt-4 grid grid-cols-1 gap-x-8 gap-y-2 border-t border-stone-200 pt-4 text-sm sm:grid-cols-2">
+            <DetailRow label="Status" value={lease.status} />
+            <DetailRow label="Security deposit" value={money(lease.securityDepositAmount)} />
+            <DetailRow label="Late fee" value={money(lease.lateFeeAmount)} />
+            <DetailRow label="Late fee grace days" value={lease.lateFeeGraceDays} />
+            <DetailRow label="Pets allowed" value={lease.petPolicy ? "Yes" : "No"} />
+            <DetailRow label="Pet rent" value={money(lease.petRentAmount)} />
+            <DetailRow label="Renewal rent increase cap" value={lease.renewalRentIncreaseCap} />
+            <DetailRow label="Non-lease occupants" value={lease.nonLeaseOccupantCount} />
+            {lease.notes && (
+              <div className="sm:col-span-2">
+                <span className="text-stone-400">Notes: </span>
+                <span className="text-stone-700">{lease.notes}</span>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
+      <section className="space-y-3">
+        <h2 className="text-lg font-medium text-stone-900">Document</h2>
+        <div className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm">
+          {lease.documentKey ? (
+            <div className="flex items-center gap-4 text-sm">
+              <button
+                onClick={handleViewDocument}
+                disabled={documentBusy}
+                className="text-emerald-700 hover:underline disabled:opacity-50"
+              >
+                View lease PDF
+              </button>
+              <button
+                onClick={handleDeleteDocument}
+                disabled={documentBusy}
+                className="text-red-600 hover:underline disabled:opacity-50"
+              >
+                Remove
+              </button>
+            </div>
+          ) : (
+            <p className="text-sm text-stone-500">No lease PDF uploaded yet.</p>
+          )}
+          <div className="mt-3">
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="application/pdf"
+              onChange={handleFileSelected}
+              className="hidden"
+            />
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploading}
+              className="rounded-lg border border-stone-300 px-4 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50 disabled:opacity-50"
+            >
+              {uploading ? "Uploading..." : lease.documentKey ? "Replace PDF" : "Upload PDF"}
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section className="space-y-3">
+        <h2 className="text-lg font-medium text-stone-900">Tenants on this lease</h2>
+
+        {lease.leaseTenants.length === 0 ? (
+          <p className="rounded-xl border border-dashed border-stone-300 bg-white p-6 text-sm text-stone-500">
+            No tenants attached yet.
+          </p>
+        ) : (
+          <div className="space-y-2">
+            {lease.leaseTenants.map((lt) => (
+              <div
+                key={lt.id}
+                className="flex items-center justify-between rounded-xl border border-stone-200 bg-white p-4 shadow-sm"
+              >
+                <div>
+                  <Link to={`/tenants/${lt.tenant.id}`} className="font-medium text-emerald-700 hover:underline">
+                    {lt.tenant.firstName} {lt.tenant.lastName}
+                  </Link>
+                  <span className="ml-2 rounded-full bg-stone-100 px-2 py-0.5 text-xs font-medium text-stone-600">
+                    {lt.role}
+                  </span>
+                </div>
+                <button onClick={() => handleDetachTenant(lt.tenant.id)} className="text-sm text-red-600 hover:underline">
+                  Remove
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {attachableTenants.length > 0 && (
+          <form onSubmit={handleAttachTenant} className="flex flex-wrap items-end gap-3 rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
+            <label className="block text-sm">
+              <span className="mb-1 block font-medium text-stone-700">Tenant</span>
+              <select
+                value={attachTenantId}
+                onChange={(e) => setAttachTenantId(e.target.value)}
+                className="rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+              >
+                <option value="">Select a tenant</option>
+                {attachableTenants.map((t) => (
+                  <option key={t.id} value={t.id}>
+                    {t.firstName} {t.lastName}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className="block text-sm">
+              <span className="mb-1 block font-medium text-stone-700">Role</span>
+              <select
+                value={attachRole}
+                onChange={(e) => setAttachRole(e.target.value)}
+                className="rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+              >
+                {LEASE_TENANT_ROLES.map((r) => (
+                  <option key={r} value={r}>
+                    {r}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <button
+              type="submit"
+              disabled={!attachTenantId}
+              className="rounded-lg bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
+            >
+              Attach
+            </button>
+          </form>
+        )}
+
+        {hasUnapprovedTenants && (
+          <p className="text-xs text-stone-400">
+            Some applicants on this property aren't shown here — only approved tenants can be attached to a
+            lease.
+          </p>
+        )}
+      </section>
+    </div>
+  );
+}
+
+function DetailRow({ label, value }) {
+  if (value === null || value === undefined || value === "") return null;
+  return (
+    <div>
+      <span className="text-stone-400">{label}: </span>
+      <span className="text-stone-700">{value}</span>
+    </div>
+  );
+}
