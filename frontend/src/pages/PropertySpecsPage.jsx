@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
 import PropertySpecSection from "../components/PropertySpecSection";
+import SpecItemDetailFields from "../components/SpecItemDetailFields";
 
 function money(amount) {
   if (amount === null || amount === undefined) return null;
@@ -32,8 +33,8 @@ function expenseLinkField(expenseOptions) {
   return {
     key: "expenseId",
     label: "Linked expense",
-    type: "select",
-    options: [{ value: "", label: "None" }, ...expenseOptions],
+    type: "searchable-select",
+    options: expenseOptions,
   };
 }
 
@@ -126,66 +127,6 @@ const EXTERIOR_FIELDS = [
   { key: "lastFertilizedDate", label: "Last fertilized", type: "date" },
   { key: "notes", label: "Notes" },
 ];
-
-// Special-cases the expense-link field to show the linked Expense's real
-// amount/date directly (already embedded on the item via the backend's
-// `include`) rather than doing an options-array lookup — simpler than
-// keeping a dynamic option list in sync just for read-only display.
-function formatFieldValue(field, item) {
-  if (field.key === "expenseId") {
-    return item.expense ? `${money(item.expense.amount)} · ${new Date(item.expense.date).toLocaleDateString()}` : null;
-  }
-  const value = item[field.key];
-  if (value === null || value === undefined || value === "") return null;
-  if (field.type === "date") return new Date(value).toLocaleDateString();
-  if (field.type === "select") return field.options.find((o) => o.value === value)?.label || value;
-  return value;
-}
-
-// Reuses the same field configs the Category-view edit forms use (passed in
-// by the parent, since Flooring/Countertop/Backsplash's fields depend on
-// fetched Expense options), so the By Room view's "click for details"
-// expansion never drifts out of sync with what's actually editable.
-function ItemDetailFields({ item, fields }) {
-  const populated = (fields || []).filter((f) => formatFieldValue(f, item) !== null && formatFieldValue(f, item) !== "");
-  const hasHistory = (item.maintenanceRequests?.length || 0) + (item.maintenanceSchedules?.length || 0) > 0;
-
-  return (
-    <div className="space-y-3">
-      {populated.length === 0 ? (
-        <p className="text-xs text-stone-400">No additional details recorded.</p>
-      ) : (
-        <dl className="grid grid-cols-1 gap-x-4 gap-y-1 text-xs sm:grid-cols-2">
-          {populated.map((f) => (
-            <div key={f.key}>
-              <dt className="inline text-stone-400">{f.label}: </dt>
-              <dd className="inline text-stone-700">{formatFieldValue(f, item)}</dd>
-            </div>
-          ))}
-        </dl>
-      )}
-
-      {hasHistory && (
-        <div className="border-t border-stone-200 pt-3">
-          <p className="mb-1 text-xs font-semibold text-stone-600">Maintenance history</p>
-          <div className="space-y-1 text-xs text-stone-500">
-            {(item.maintenanceRequests || []).map((r) => (
-              <p key={`req-${r.id}`}>
-                {r.title} — {r.status.replace("_", " ")} ({new Date(r.reportedDate).toLocaleDateString()})
-              </p>
-            ))}
-            {(item.maintenanceSchedules || []).map((s) => (
-              <p key={`sched-${s.id}`}>
-                {s.title} — every {s.intervalDays} days
-                {s.lastDoneDate ? `, last done ${new Date(s.lastDoneDate).toLocaleDateString()}` : ""}
-              </p>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
 
 function roomSummary(item) {
   switch (item.category) {
@@ -394,7 +335,7 @@ export default function PropertySpecsPage() {
                         </div>
                         {expanded && (
                           <div className="mt-3 border-t border-stone-200 pt-3">
-                            <ItemDetailFields item={item} fields={fieldsByCategory[item.category]} />
+                            <SpecItemDetailFields item={item} fields={fieldsByCategory[item.category]} />
                           </div>
                         )}
                       </div>

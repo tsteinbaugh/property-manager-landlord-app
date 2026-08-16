@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useApi } from "../hooks/useApi";
+import SearchableSelect from "./SearchableSelect";
+import SpecItemDetailFields from "./SpecItemDetailFields";
 
 function emptyFormFor(fields) {
   return Object.fromEntries(fields.map((f) => [f.key, f.type === "select" ? f.options[0]?.value || "" : ""]));
@@ -10,12 +12,13 @@ function emptyFormFor(fields) {
 // Exterior/Grounds), each with its own `fields` config. Same fixed-propertyId CRUD shape
 // as IncomeSection/ExpenseSection (Property Specs is always property-scoped, no
 // cross-property picker needed), combined with SimpleRecordSection's fields-array-driven
-// form rendering, extended with a `select` field type for Fixture.fixtureType.
+// form rendering, extended with `select`/`searchable-select` field types.
 export default function PropertySpecSection({ title, addLabel, emptyLabel, items, fields, apiPath, propertyId, onChange, renderSummary }) {
   const api = useApi();
   const [formOpen, setFormOpen] = useState(false);
   const [form, setForm] = useState(() => emptyFormFor(fields));
   const [editingId, setEditingId] = useState(null);
+  const [expandedId, setExpandedId] = useState(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
 
@@ -105,7 +108,14 @@ export default function PropertySpecSection({ title, addLabel, emptyLabel, items
                   {field.label}
                   {field.required ? " *" : ""}
                 </span>
-                {field.type === "select" ? (
+                {field.type === "searchable-select" ? (
+                  <SearchableSelect
+                    value={form[field.key]}
+                    onChange={(v) => setForm({ ...form, [field.key]: v })}
+                    options={field.options}
+                    placeholder={field.placeholder || "Search..."}
+                  />
+                ) : field.type === "select" ? (
                   <select
                     required={field.required}
                     value={form[field.key]}
@@ -154,36 +164,71 @@ export default function PropertySpecSection({ title, addLabel, emptyLabel, items
         <p className="rounded-xl border border-dashed border-stone-300 bg-white p-6 text-sm text-stone-500">{emptyLabel}</p>
       ) : (
         <div className="space-y-2">
-          {items.map((item) => (
-            <div
-              key={item.id}
-              className={`flex items-center justify-between rounded-xl border bg-white p-4 shadow-sm ${item.active === false ? "border-stone-200 opacity-60" : "border-stone-200"}`}
-            >
-              <div className="flex items-center gap-2">
-                <p className="text-sm text-stone-700">{renderSummary(item)}</p>
-                {item.active === false && (
-                  <span className="rounded-full bg-stone-200 px-2 py-0.5 text-xs font-medium text-stone-500">Retired</span>
+          {items.map((item) => {
+            const expanded = expandedId === item.id;
+            return (
+              <div
+                key={item.id}
+                onClick={() => setExpandedId(expanded ? null : item.id)}
+                className={`cursor-pointer rounded-xl border bg-white p-4 shadow-sm hover:border-emerald-300 ${item.active === false ? "border-stone-200 opacity-60" : "border-stone-200"}`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <p className="text-sm text-stone-700">{renderSummary(item)}</p>
+                    {item.active === false && (
+                      <span className="rounded-full bg-stone-200 px-2 py-0.5 text-xs font-medium text-stone-500">Retired</span>
+                    )}
+                  </div>
+                  {item.active === false ? (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDelete(item.id);
+                      }}
+                      className="text-sm text-red-600 hover:underline"
+                    >
+                      Delete
+                    </button>
+                  ) : (
+                    <div className="flex gap-3 text-sm">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          openForm(item);
+                        }}
+                        className="text-emerald-700 hover:underline"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleReplace(item.id);
+                        }}
+                        className="text-emerald-700 hover:underline"
+                      >
+                        Replace
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDelete(item.id);
+                        }}
+                        className="text-red-600 hover:underline"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  )}
+                </div>
+                {expanded && (
+                  <div className="mt-3 border-t border-stone-200 pt-3" onClick={(e) => e.stopPropagation()}>
+                    <SpecItemDetailFields item={item} fields={fields} />
+                  </div>
                 )}
               </div>
-              {item.active === false ? (
-                <button onClick={() => handleDelete(item.id)} className="text-sm text-red-600 hover:underline">
-                  Delete
-                </button>
-              ) : (
-                <div className="flex gap-3 text-sm">
-                  <button onClick={() => openForm(item)} className="text-emerald-700 hover:underline">
-                    Edit
-                  </button>
-                  <button onClick={() => handleReplace(item.id)} className="text-emerald-700 hover:underline">
-                    Replace
-                  </button>
-                  <button onClick={() => handleDelete(item.id)} className="text-red-600 hover:underline">
-                    Delete
-                  </button>
-                </div>
-              )}
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </section>
