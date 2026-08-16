@@ -15,6 +15,7 @@ const vehiclesRoutes = require("./routes/vehicles.routes");
 const vendorsRoutes = require("./routes/vendors.routes");
 const maintenanceRequestsRoutes = require("./routes/maintenance-requests.routes");
 const maintenanceSchedulesRoutes = require("./routes/maintenance-schedules.routes");
+const searchRoutes = require("./routes/search.routes");
 
 function createApp(overrides = {}) {
   const clerk = require("@clerk/express");
@@ -49,6 +50,7 @@ function createApp(overrides = {}) {
   app.use("/api/vendors", vendorsRoutes);
   app.use("/api/maintenance-requests", maintenanceRequestsRoutes);
   app.use("/api/maintenance-schedules", maintenanceSchedulesRoutes);
+  app.use("/api/search", searchRoutes);
 
   app.use((err, req, res, next) => {
     console.error(err);

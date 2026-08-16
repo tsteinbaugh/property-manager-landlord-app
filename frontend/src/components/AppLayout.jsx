@@ -3,6 +3,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import { UserButton } from "@clerk/clerk-react";
 import logo from "../assets/logo.svg";
 import { useApi } from "../hooks/useApi";
+import GlobalSearch from "./GlobalSearch";
 
 const NAV_ITEMS = [
   { to: "/dashboard", label: "Dashboard" },
@@ -39,6 +40,7 @@ export default function AppLayout() {
           <img src={logo} alt="Steinoak" className="h-8 w-8" />
           <span className="text-lg font-semibold tracking-tight text-stone-900">Steinoak</span>
         </div>
+        <GlobalSearch />
         <UserButton afterSignOutUrl="/sign-in" />
       </header>
 
