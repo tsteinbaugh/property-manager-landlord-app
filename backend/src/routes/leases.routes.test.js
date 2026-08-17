@@ -17,6 +17,7 @@ const mockR2 = {
   getUploadUrl: vi.fn((key) => Promise.resolve(`https://r2.example.com/upload/${key}`)),
   getDownloadUrl: vi.fn((key) => Promise.resolve(`https://r2.example.com/download/${key}`)),
   deleteObject: vi.fn(() => Promise.resolve()),
+  putObject: vi.fn(() => Promise.resolve()),
 };
 
 const app = createApp({
@@ -36,7 +37,9 @@ async function resetDatabase() {
   await prisma.income.deleteMany();
   await prisma.expense.deleteMany();
   await prisma.leaseTenant.deleteMany();
+  await prisma.leaseClause.deleteMany();
   await prisma.lease.deleteMany();
+  await prisma.clause.deleteMany();
   await prisma.tenant.deleteMany();
   await prisma.property.deleteMany();
   await prisma.entity.deleteMany();
@@ -52,6 +55,7 @@ describe("leases routes", () => {
     mockR2.getUploadUrl.mockClear();
     mockR2.getDownloadUrl.mockClear();
     mockR2.deleteObject.mockClear();
+    mockR2.putObject.mockClear();
     await resetDatabase();
 
     const user = await prisma.user.create({
@@ -494,6 +498,243 @@ describe("leases routes", () => {
         .post(`/api/leases/${otherLease.id}/document-upload-url`)
         .send({ fileName: "lease.pdf", contentType: "application/pdf" });
 
+      expect(res.status).toBe(404);
+    });
+  });
+
+  describe("lease builder clauses", () => {
+    let lease;
+    let clause;
+
+    beforeEach(async () => {
+      lease = await prisma.lease.create({
+        data: {
+          propertyId: property.id,
+          userId: property.userId,
+          startDate: new Date("2026-09-01"),
+          monthlyRent: "1800.00",
+        },
+      });
+      clause = await prisma.clause.create({
+        data: {
+          userId: property.userId,
+          title: "Late Fees",
+          bodyText: "Rent not received within the grace period incurs a late fee.",
+          sectionNumber: "2",
+          category: "Rent",
+        },
+      });
+    });
+
+    it("has no missing-early-termination warning with zero clauses", async () => {
+      const res = await request(app).get(`/api/leases/${lease.id}`);
+      expect(res.body.missingEarlyTerminationClause).toBe(false);
+    });
+
+    it("attaches a clause from the library as a snapshot", async () => {
+      const res = await request(app).post(`/api/leases/${lease.id}/clauses`).send({ clauseId: clause.id });
+
+      expect(res.status).toBe(201);
+      expect(res.body.leaseClauses).toHaveLength(1);
+      expect(res.body.leaseClauses[0].title).toBe("Late Fees");
+      expect(res.body.leaseClauses[0].order).toBe(1);
+    });
+
+    it("editing the library clause afterward does not change an already-attached snapshot", async () => {
+      await request(app).post(`/api/leases/${lease.id}/clauses`).send({ clauseId: clause.id });
+      await prisma.clause.update({ where: { id: clause.id }, data: { bodyText: "Edited later text." } });
+
+      const res = await request(app).get(`/api/leases/${lease.id}`);
+      expect(res.body.leaseClauses[0].bodyText).toBe("Rent not received within the grace period incurs a late fee.");
+    });
+
+    it("rejects attaching a clause owned by another user", async () => {
+      const otherUser = await prisma.user.create({
+        data: { clerkId: "clerk_other_user", email: "other@example.com" },
+      });
+      const otherClause = await prisma.clause.create({
+        data: { userId: otherUser.id, title: "Not mine", bodyText: "..." },
+      });
+
+      const res = await request(app).post(`/api/leases/${lease.id}/clauses`).send({ clauseId: otherClause.id });
+      expect(res.status).toBe(400);
+    });
+
+    it("adds a custom one-off clause without touching the library", async () => {
+      const res = await request(app).post(`/api/leases/${lease.id}/clauses`).send({
+        title: "Custom House Rule",
+        bodyText: "No smoking anywhere on the premises.",
+      });
+
+      expect(res.status).toBe(201);
+      expect(res.body.leaseClauses).toHaveLength(1);
+      expect(res.body.leaseClauses[0].sourceClauseId).toBeNull();
+
+      const libraryCount = await prisma.clause.count();
+      expect(libraryCount).toBe(1); // just the one created in beforeEach
+    });
+
+    it("rejects a custom clause missing required fields", async () => {
+      const res = await request(app).post(`/api/leases/${lease.id}/clauses`).send({ title: "No body" });
+      expect(res.status).toBe(400);
+    });
+
+    it("auto-increments order across multiple attached clauses", async () => {
+      await request(app).post(`/api/leases/${lease.id}/clauses`).send({ clauseId: clause.id });
+      const res = await request(app)
+        .post(`/api/leases/${lease.id}/clauses`)
+        .send({ title: "Second", bodyText: "Second clause body." });
+
+      expect(res.body.leaseClauses.map((c) => c.order)).toEqual([1, 2]);
+    });
+
+    it("flags a lease with clauses but no early-termination clause", async () => {
+      await request(app).post(`/api/leases/${lease.id}/clauses`).send({ clauseId: clause.id });
+
+      const res = await request(app).get(`/api/leases/${lease.id}`);
+      expect(res.body.missingEarlyTerminationClause).toBe(true);
+    });
+
+    it("clears the warning once an early-termination clause is attached", async () => {
+      await request(app).post(`/api/leases/${lease.id}/clauses`).send({ clauseId: clause.id });
+      await request(app).post(`/api/leases/${lease.id}/clauses`).send({
+        title: "Early Termination",
+        bodyText: "Breaking the lease early incurs a fee.",
+        isEarlyTermination: true,
+      });
+
+      const res = await request(app).get(`/api/leases/${lease.id}`);
+      expect(res.body.missingEarlyTerminationClause).toBe(false);
+    });
+
+    it("edits a lease clause snapshot", async () => {
+      const attach = await request(app).post(`/api/leases/${lease.id}/clauses`).send({ clauseId: clause.id });
+      const leaseClauseId = attach.body.leaseClauses[0].id;
+
+      const res = await request(app)
+        .put(`/api/leases/${lease.id}/clauses/${leaseClauseId}`)
+        .send({ bodyText: "Overridden text just for this lease." });
+
+      expect(res.status).toBe(200);
+      expect(res.body.leaseClauses[0].bodyText).toBe("Overridden text just for this lease.");
+
+      const sourceStillIntact = await prisma.clause.findUnique({ where: { id: clause.id } });
+      expect(sourceStillIntact.bodyText).toBe("Rent not received within the grace period incurs a late fee.");
+    });
+
+    it("removes a clause from a lease without touching the library", async () => {
+      const attach = await request(app).post(`/api/leases/${lease.id}/clauses`).send({ clauseId: clause.id });
+      const leaseClauseId = attach.body.leaseClauses[0].id;
+
+      const res = await request(app).delete(`/api/leases/${lease.id}/clauses/${leaseClauseId}`);
+      expect(res.status).toBe(204);
+
+      const updated = await request(app).get(`/api/leases/${lease.id}`);
+      expect(updated.body.leaseClauses).toEqual([]);
+
+      const libraryClause = await prisma.clause.findUnique({ where: { id: clause.id } });
+      expect(libraryClause).not.toBeNull();
+    });
+
+    it("404s clause actions for another user's lease", async () => {
+      const otherUser = await prisma.user.create({
+        data: { clerkId: "clerk_other_user", email: "other@example.com" },
+      });
+      const otherEntity = await prisma.entity.create({
+        data: { userId: otherUser.id, legalName: "Someone Else LLC", entityType: "LLC" },
+      });
+      const otherProperty = await prisma.property.create({
+        data: {
+          entityId: otherEntity.id,
+          userId: otherUser.id,
+          address1: "456 Oak St",
+          city: "Frederick",
+          state: "CO",
+          zip: "80530",
+        },
+      });
+      const otherLease = await prisma.lease.create({
+        data: {
+          propertyId: otherProperty.id,
+          userId: otherUser.id,
+          startDate: new Date("2026-09-01"),
+          monthlyRent: "1800.00",
+        },
+      });
+
+      const res = await request(app).post(`/api/leases/${otherLease.id}/clauses`).send({ clauseId: clause.id });
+      expect(res.status).toBe(404);
+    });
+  });
+
+  describe("generating a lease document", () => {
+    let lease;
+
+    beforeEach(async () => {
+      lease = await prisma.lease.create({
+        data: {
+          propertyId: property.id,
+          userId: property.userId,
+          startDate: new Date("2026-09-01"),
+          monthlyRent: "1800.00",
+        },
+      });
+      await request(app).post(`/api/leases/${lease.id}/tenants`).send({ tenantId: tenant.id, role: "PRIMARY" });
+      await request(app).post(`/api/leases/${lease.id}/clauses`).send({
+        title: "Early Termination",
+        bodyText: "Breaking the lease early incurs a fee.",
+        isEarlyTermination: true,
+      });
+    });
+
+    it("generates and attaches a PDF document", async () => {
+      const res = await request(app).post(`/api/leases/${lease.id}/generate-document`);
+
+      expect(res.status).toBe(200);
+      expect(res.body.documentKey).toMatch(new RegExp(`^leases/${lease.id}/generated-\\d+\\.pdf$`));
+      expect(mockR2.putObject).toHaveBeenCalledTimes(1);
+      const [key, buffer, contentType] = mockR2.putObject.mock.calls[0];
+      expect(key).toBe(res.body.documentKey);
+      expect(Buffer.isBuffer(buffer)).toBe(true);
+      expect(buffer.length).toBeGreaterThan(0);
+      expect(contentType).toBe("application/pdf");
+    });
+
+    it("deletes the previous generated document when regenerating", async () => {
+      const first = await request(app).post(`/api/leases/${lease.id}/generate-document`);
+      const res = await request(app).post(`/api/leases/${lease.id}/generate-document`);
+
+      expect(res.status).toBe(200);
+      expect(mockR2.deleteObject).toHaveBeenCalledWith(first.body.documentKey);
+    });
+
+    it("404s generating a document for another user's lease", async () => {
+      const otherUser = await prisma.user.create({
+        data: { clerkId: "clerk_other_user", email: "other@example.com" },
+      });
+      const otherEntity = await prisma.entity.create({
+        data: { userId: otherUser.id, legalName: "Someone Else LLC", entityType: "LLC" },
+      });
+      const otherProperty = await prisma.property.create({
+        data: {
+          entityId: otherEntity.id,
+          userId: otherUser.id,
+          address1: "456 Oak St",
+          city: "Frederick",
+          state: "CO",
+          zip: "80530",
+        },
+      });
+      const otherLease = await prisma.lease.create({
+        data: {
+          propertyId: otherProperty.id,
+          userId: otherUser.id,
+          startDate: new Date("2026-09-01"),
+          monthlyRent: "1800.00",
+        },
+      });
+
+      const res = await request(app).post(`/api/leases/${otherLease.id}/generate-document`);
       expect(res.status).toBe(404);
     });
   });

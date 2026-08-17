@@ -25,6 +25,7 @@ model User {
   vendors              Vendor[]
   maintenanceRequests  MaintenanceRequest[]
   maintenanceSchedules MaintenanceSchedule[]
+  clauses              Clause[]
 }
 
 enum EntityType {
@@ -204,7 +205,9 @@ enum LeaseStatus {
   TERMINATED
 }
 
-// v1 is upload PDF + key fields only — no clause library / lease builder until v2.
+// v1 fields (dates, rent, deposit, late fee, pet policy) still hold the key
+// terms regardless of whether the lease builder is used. leaseClauses is the
+// v2 clause-library-driven body of a generated lease document.
 model Lease {
   id         String @id @default(cuid())
   userId     String
@@ -240,9 +243,59 @@ model Lease {
   leaseTenants LeaseTenant[]
   incomes      Income[]
   deposits     Deposit[]
+  leaseClauses LeaseClause[]
 
   @@index([userId])
   @@index([propertyId])
+}
+
+// The landlord's personal clause library — scoped by userId only, not
+// property/entity, same reasoning as Vendor: one library reused across every
+// lease. bodyText is stored and reproduced verbatim (Taylor's lesson:
+// magistrates want the exact clause language, not a summary).
+model Clause {
+  id                 String   @id @default(cuid())
+  userId             String
+  title              String
+  bodyText           String
+  sectionNumber      String? // free text ("12", "12.3") — numbering schemes vary by landlord
+  category           String? // free-form tag, not an enum — clause taxonomy varies too much to lock down
+  isEarlyTermination Boolean  @default(false)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  user         User          @relation(fields: [userId], references: [id])
+  leaseClauses LeaseClause[]
+
+  @@index([userId])
+}
+
+// A clause attached to one specific lease — a SNAPSHOT copy of the library
+// Clause's fields at attach time, not a live reference. Once a lease is
+// generated (and potentially signed, potentially the document Taylor relies
+// on in court), editing the master library clause later must never silently
+// rewrite what a past lease says. sourceClauseId is kept only for
+// traceability back to the library entry it came from.
+model LeaseClause {
+  id              String  @id @default(cuid())
+  leaseId         String
+  sourceClauseId  String?
+
+  title              String
+  bodyText           String
+  sectionNumber      String?
+  category           String?
+  isEarlyTermination Boolean @default(false)
+  order              Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  lease        Lease   @relation(fields: [leaseId], references: [id], onDelete: Cascade)
+  sourceClause Clause? @relation(fields: [sourceClauseId], references: [id], onDelete: SetNull)
+
+  @@index([leaseId])
+  @@index([sourceClauseId])
 }
 
 enum LeaseTenantRole {

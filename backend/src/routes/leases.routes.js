@@ -3,6 +3,7 @@ const crypto = require("crypto");
 const prisma = require("../lib/prisma");
 const { pickFields } = require("../lib/pickFields");
 const defaultR2 = require("../lib/r2");
+const { buildLeasePdf } = require("../lib/generateLeasePdf");
 
 const REQUIRED_FIELDS = ["propertyId", "startDate", "monthlyRent"];
 
@@ -38,10 +39,31 @@ function validateLeaseBody(body) {
 
 const includeTenants = {
   leaseTenants: { include: { tenant: true } },
+  leaseClauses: { orderBy: { order: "asc" } },
 };
+
+const CLAUSE_REQUIRED_FIELDS = ["title", "bodyText"];
+const CLAUSE_ASSIGNABLE_FIELDS = ["title", "bodyText", "sectionNumber", "category", "isEarlyTermination", "order"];
+
+function pickClauseFields(body) {
+  return pickFields(body, CLAUSE_ASSIGNABLE_FIELDS);
+}
 
 function sanitizeFileName(fileName) {
   return fileName.replace(/[^a-zA-Z0-9.\-_]/g, "_");
+}
+
+// Compute-on-read, same pattern as MaintenanceSchedule.overdue: true only
+// when the builder has actually been used (>= 1 clause) and none of the
+// attached clauses is flagged as an early termination clause — a lease with
+// zero clauses (pure v1 upload-only) has nothing to inspect, so it stays
+// silent rather than warning about every plain upload.
+function withMissingEarlyTermination(lease) {
+  const clauses = lease.leaseClauses || [];
+  return {
+    ...lease,
+    missingEarlyTerminationClause: clauses.length > 0 && !clauses.some((c) => c.isEarlyTermination),
+  };
 }
 
 function createLeasesRoutes({ r2 = defaultR2 } = {}) {
@@ -69,7 +91,7 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
       include: includeTenants,
     });
 
-    res.status(201).json(lease);
+    res.status(201).json(withMissingEarlyTermination(lease));
   });
 
   router.get("/", async (req, res) => {
@@ -84,7 +106,7 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
       orderBy: { createdAt: "desc" },
     });
 
-    res.json(leases);
+    res.json(leases.map(withMissingEarlyTermination));
   });
 
   router.get("/:id", async (req, res) => {
@@ -97,7 +119,7 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
       return res.status(404).json({ error: "Lease not found" });
     }
 
-    res.json(lease);
+    res.json(withMissingEarlyTermination(lease));
   });
 
   router.put("/:id", async (req, res) => {
@@ -114,7 +136,7 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
       include: includeTenants,
     });
 
-    res.json(lease);
+    res.json(withMissingEarlyTermination(lease));
   });
 
   router.delete("/:id", async (req, res) => {
@@ -171,7 +193,7 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
       include: includeTenants,
     });
 
-    res.status(201).json(updatedLease);
+    res.status(201).json(withMissingEarlyTermination(updatedLease));
   });
 
   router.delete("/:id/tenants/:tenantId", async (req, res) => {
@@ -243,7 +265,7 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
       include: includeTenants,
     });
 
-    res.json(updatedLease);
+    res.json(withMissingEarlyTermination(updatedLease));
   });
 
   router.get("/:id/document-url", async (req, res) => {
@@ -273,6 +295,146 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
     await prisma.lease.update({ where: { id: lease.id }, data: { documentKey: null } });
 
     res.status(204).send();
+  });
+
+  // Attach a clause to this lease — either from the landlord's library
+  // (`clauseId`, copied into a fresh snapshot) or a custom one-off clause
+  // for this lease only (never touches the library). Snapshotting, not a
+  // live reference, so editing the library clause later never rewrites what
+  // a past — possibly signed — lease says.
+  router.post("/:id/clauses", async (req, res) => {
+    const lease = await prisma.lease.findUnique({ where: { id: req.params.id } });
+    if (!lease || lease.userId !== req.currentUser.id) {
+      return res.status(404).json({ error: "Lease not found" });
+    }
+
+    let snapshot;
+    if (req.body.clauseId) {
+      const clause = await prisma.clause.findUnique({ where: { id: req.body.clauseId } });
+      if (!clause || clause.userId !== req.currentUser.id) {
+        return res.status(400).json({ error: `Clause ${req.body.clauseId} not found` });
+      }
+      snapshot = {
+        sourceClauseId: clause.id,
+        title: clause.title,
+        bodyText: clause.bodyText,
+        sectionNumber: clause.sectionNumber,
+        category: clause.category,
+        isEarlyTermination: clause.isEarlyTermination,
+      };
+    } else {
+      const missing = CLAUSE_REQUIRED_FIELDS.filter((f) => !req.body[f]);
+      if (missing.length > 0) {
+        return res.status(400).json({ error: `Missing required field(s): ${missing.join(", ")}` });
+      }
+      snapshot = pickClauseFields(req.body);
+    }
+
+    const { _max } = await prisma.leaseClause.aggregate({
+      where: { leaseId: lease.id },
+      _max: { order: true },
+    });
+
+    await prisma.leaseClause.create({
+      data: { leaseId: lease.id, order: (_max.order ?? 0) + 1, ...snapshot },
+    });
+
+    const updatedLease = await prisma.lease.findUnique({
+      where: { id: lease.id },
+      include: includeTenants,
+    });
+
+    res.status(201).json(withMissingEarlyTermination(updatedLease));
+  });
+
+  router.put("/:id/clauses/:leaseClauseId", async (req, res) => {
+    const lease = await prisma.lease.findUnique({ where: { id: req.params.id } });
+    if (!lease || lease.userId !== req.currentUser.id) {
+      return res.status(404).json({ error: "Lease not found" });
+    }
+
+    const leaseClause = await prisma.leaseClause.findUnique({ where: { id: req.params.leaseClauseId } });
+    if (!leaseClause || leaseClause.leaseId !== lease.id) {
+      return res.status(404).json({ error: "Clause not found on this lease" });
+    }
+
+    await prisma.leaseClause.update({
+      where: { id: leaseClause.id },
+      data: pickClauseFields(req.body),
+    });
+
+    const updatedLease = await prisma.lease.findUnique({
+      where: { id: lease.id },
+      include: includeTenants,
+    });
+
+    res.json(withMissingEarlyTermination(updatedLease));
+  });
+
+  router.delete("/:id/clauses/:leaseClauseId", async (req, res) => {
+    const lease = await prisma.lease.findUnique({ where: { id: req.params.id } });
+    if (!lease || lease.userId !== req.currentUser.id) {
+      return res.status(404).json({ error: "Lease not found" });
+    }
+
+    const leaseClause = await prisma.leaseClause.findUnique({ where: { id: req.params.leaseClauseId } });
+    if (!leaseClause || leaseClause.leaseId !== lease.id) {
+      return res.status(404).json({ error: "Clause not found on this lease" });
+    }
+
+    await prisma.leaseClause.delete({ where: { id: leaseClause.id } });
+
+    res.status(204).send();
+  });
+
+  // Assembles the lease's key terms + ordered clause snapshots into a real
+  // PDF and uploads it directly (not a presigned client PUT — the backend
+  // generates the bytes itself), replacing any existing document the same
+  // way document-confirm does. The result then shows up in the same
+  // Document section as an uploaded PDF, downloaded through the same
+  // presigned-GET flow.
+  router.post("/:id/generate-document", async (req, res) => {
+    const lease = await prisma.lease.findUnique({
+      where: { id: req.params.id },
+      include: includeTenants,
+    });
+    if (!lease || lease.userId !== req.currentUser.id) {
+      return res.status(404).json({ error: "Lease not found" });
+    }
+
+    const property = await prisma.property.findUnique({
+      where: { id: lease.propertyId },
+      include: { entity: true },
+    });
+
+    const tenants = lease.leaseTenants.map((lt) => ({
+      firstName: lt.tenant.firstName,
+      lastName: lt.tenant.lastName,
+      role: lt.role,
+    }));
+
+    const pdfBuffer = await buildLeasePdf({
+      lease,
+      property,
+      entity: property.entity,
+      tenants,
+      clauses: lease.leaseClauses,
+    });
+
+    const key = `leases/${lease.id}/generated-${Date.now()}.pdf`;
+
+    if (lease.documentKey) {
+      await r2.deleteObject(lease.documentKey);
+    }
+    await r2.putObject(key, pdfBuffer, "application/pdf");
+
+    const updatedLease = await prisma.lease.update({
+      where: { id: lease.id },
+      data: { documentKey: key },
+      include: includeTenants,
+    });
+
+    res.json(withMissingEarlyTermination(updatedLease));
   });
 
   return router;

@@ -47,4 +47,17 @@ function deleteObject(key) {
   return client.send(command);
 }
 
-module.exports = { getUploadUrl, getDownloadUrl, deleteObject };
+// Direct backend-side upload for server-generated content (e.g. a lease PDF
+// assembled from clause data), as opposed to getUploadUrl's presigned-PUT
+// flow for bytes coming from the client.
+function putObject(key, buffer, contentType) {
+  const command = new PutObjectCommand({
+    Bucket: process.env.R2_BUCKET_NAME,
+    Key: key,
+    Body: buffer,
+    ContentType: contentType,
+  });
+  return client.send(command);
+}
+
+module.exports = { getUploadUrl, getDownloadUrl, deleteObject, putObject };
