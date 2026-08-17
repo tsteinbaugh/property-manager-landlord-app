@@ -20,12 +20,13 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  entities             Entity[]
-  tenants              Tenant[]
-  vendors              Vendor[]
-  maintenanceRequests  MaintenanceRequest[]
-  maintenanceSchedules MaintenanceSchedule[]
-  clauses              Clause[]
+  entities               Entity[]
+  tenants                Tenant[]
+  vendors                Vendor[]
+  defaultClauseTemplates DefaultClauseTemplate[]
+  maintenanceRequests    MaintenanceRequest[]
+  maintenanceSchedules   MaintenanceSchedule[]
+  clauses                Clause[]
 }
 
 enum EntityType {
@@ -264,12 +265,34 @@ model Clause {
   title     String
   bodyText  String
   group     String
+  // "Add my default clauses" (leases.routes.js) attaches every Clause with
+  // isDefault: true in one action, instead of the landlord attaching their
+  // usual set by hand on every new lease.
+  isDefault Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   user         User          @relation(fields: [userId], references: [id])
   leaseClauses LeaseClause[]
 
+  @@index([userId])
+}
+
+// Marks a provided/locked template (clauseTemplates.js — not a DB row) as
+// one of this landlord's defaults, without requiring them to copy it into
+// their own editable Clause first. Keeps the "no drift from the shipped
+// wording" guarantee: "Add my default clauses" resolves this row's
+// templateId back to the static list at attach time, same as attaching a
+// template manually.
+model DefaultClauseTemplate {
+  id         String   @id @default(cuid())
+  userId     String
+  templateId String
+  createdAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@unique([userId, templateId])
   @@index([userId])
 }
 
@@ -282,9 +305,9 @@ model Clause {
 // UI) — sourceTemplateId has no FK since templates aren't DB rows, they're
 // the static list in clauseTemplates.js.
 model LeaseClause {
-  id             String  @id @default(cuid())
-  leaseId        String
-  sourceClauseId String?
+  id               String  @id @default(cuid())
+  leaseId          String
+  sourceClauseId   String?
   sourceTemplateId String?
 
   title    String

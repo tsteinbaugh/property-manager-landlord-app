@@ -40,6 +40,7 @@ async function resetDatabase() {
   await prisma.leaseClause.deleteMany();
   await prisma.lease.deleteMany();
   await prisma.clause.deleteMany();
+  await prisma.defaultClauseTemplate.deleteMany();
   await prisma.tenant.deleteMany();
   await prisma.property.deleteMany();
   await prisma.entity.deleteMany();
@@ -686,6 +687,108 @@ describe("leases routes", () => {
       });
 
       const res = await request(app).post(`/api/leases/${otherLease.id}/clauses`).send({ clauseId: clause.id });
+      expect(res.status).toBe(404);
+    });
+  });
+
+  describe("adding default clauses", () => {
+    let lease;
+
+    beforeEach(async () => {
+      lease = await prisma.lease.create({
+        data: {
+          propertyId: property.id,
+          userId: property.userId,
+          startDate: new Date("2026-09-01"),
+          monthlyRent: "1800.00",
+        },
+      });
+    });
+
+    it("attaches every default clause and default template in one action", async () => {
+      await prisma.clause.create({
+        data: {
+          userId: property.userId,
+          title: "My Standard Late Fee",
+          bodyText: "...",
+          group: "Rent & Payment",
+          isDefault: true,
+        },
+      });
+      await prisma.clause.create({
+        data: { userId: property.userId, title: "Not a default", bodyText: "...", group: "Pets", isDefault: false },
+      });
+      await prisma.defaultClauseTemplate.create({ data: { userId: property.userId, templateId: "rent-payment" } });
+
+      const res = await request(app).post(`/api/leases/${lease.id}/clauses/add-defaults`);
+
+      expect(res.status).toBe(201);
+      expect(res.body.leaseClauses).toHaveLength(2);
+      const titles = res.body.leaseClauses.map((c) => c.title);
+      expect(titles).toContain("My Standard Late Fee");
+      expect(titles).toContain("Rent Payment");
+      expect(titles).not.toContain("Not a default");
+    });
+
+    it("does nothing when there are no defaults", async () => {
+      const res = await request(app).post(`/api/leases/${lease.id}/clauses/add-defaults`);
+
+      expect(res.status).toBe(201);
+      expect(res.body.leaseClauses).toEqual([]);
+    });
+
+    it("is safe to click twice — does not duplicate already-attached defaults", async () => {
+      await prisma.clause.create({
+        data: { userId: property.userId, title: "Default Clause", bodyText: "...", group: "Pets", isDefault: true },
+      });
+      await prisma.defaultClauseTemplate.create({ data: { userId: property.userId, templateId: "rent-payment" } });
+
+      await request(app).post(`/api/leases/${lease.id}/clauses/add-defaults`);
+      const res = await request(app).post(`/api/leases/${lease.id}/clauses/add-defaults`);
+
+      expect(res.body.leaseClauses).toHaveLength(2);
+    });
+
+    it("only adds defaults still missing, if some were already attached individually", async () => {
+      await prisma.clause.create({
+        data: { userId: property.userId, title: "Default Clause", bodyText: "...", group: "Pets", isDefault: true },
+      });
+      await prisma.defaultClauseTemplate.create({ data: { userId: property.userId, templateId: "rent-payment" } });
+
+      await request(app).post(`/api/leases/${lease.id}/clauses`).send({ templateId: "rent-payment" });
+      const res = await request(app).post(`/api/leases/${lease.id}/clauses/add-defaults`);
+
+      expect(res.body.leaseClauses).toHaveLength(2);
+      expect(res.body.leaseClauses.filter((c) => c.sourceTemplateId === "rent-payment")).toHaveLength(1);
+    });
+
+    it("404s for another user's lease", async () => {
+      const otherUser = await prisma.user.create({
+        data: { clerkId: "clerk_other_user", email: "other@example.com" },
+      });
+      const otherEntity = await prisma.entity.create({
+        data: { userId: otherUser.id, legalName: "Someone Else LLC", entityType: "LLC" },
+      });
+      const otherProperty = await prisma.property.create({
+        data: {
+          entityId: otherEntity.id,
+          userId: otherUser.id,
+          address1: "456 Oak St",
+          city: "Frederick",
+          state: "CO",
+          zip: "80530",
+        },
+      });
+      const otherLease = await prisma.lease.create({
+        data: {
+          propertyId: otherProperty.id,
+          userId: otherUser.id,
+          startDate: new Date("2026-09-01"),
+          monthlyRent: "1800.00",
+        },
+      });
+
+      const res = await request(app).post(`/api/leases/${otherLease.id}/clauses/add-defaults`);
       expect(res.status).toBe(404);
     });
   });

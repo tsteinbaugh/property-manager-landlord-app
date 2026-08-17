@@ -5,7 +5,7 @@ const { isValidGroup } = require("../lib/clauseGroups");
 
 const REQUIRED_FIELDS = ["title", "bodyText", "group"];
 
-const ASSIGNABLE_FIELDS = ["title", "bodyText", "group"];
+const ASSIGNABLE_FIELDS = ["title", "bodyText", "group", "isDefault"];
 
 function pickAssignableFields(body) {
   return pickFields(body, ASSIGNABLE_FIELDS);

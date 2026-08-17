@@ -371,6 +371,56 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
     res.status(201).json(withComputedLeaseFields(updatedLease));
   });
 
+  // Attaches every clause the landlord has marked "include by default" —
+  // their own Clause rows with isDefault: true, plus any provided templates
+  // they've toggled via DefaultClauseTemplate — in one action, instead of
+  // attaching their usual set by hand on every new lease. Already-attached
+  // defaults (by sourceClauseId/sourceTemplateId) are skipped rather than
+  // duplicated, so this is safe to click more than once.
+  router.post("/:id/clauses/add-defaults", async (req, res) => {
+    const lease = await prisma.lease.findUnique({ where: { id: req.params.id }, include: leaseInclude });
+    if (!lease || lease.userId !== req.currentUser.id) {
+      return res.status(404).json({ error: "Lease not found" });
+    }
+
+    const alreadyAttachedClauseIds = new Set(lease.leaseClauses.map((lc) => lc.sourceClauseId).filter(Boolean));
+    const alreadyAttachedTemplateIds = new Set(lease.leaseClauses.map((lc) => lc.sourceTemplateId).filter(Boolean));
+
+    const [defaultClauses, defaultTemplateLinks] = await Promise.all([
+      prisma.clause.findMany({ where: { userId: req.currentUser.id, isDefault: true } }),
+      prisma.defaultClauseTemplate.findMany({ where: { userId: req.currentUser.id } }),
+    ]);
+
+    const snapshots = [
+      ...defaultClauses
+        .filter((c) => !alreadyAttachedClauseIds.has(c.id))
+        .map((c) => ({ sourceClauseId: c.id, title: c.title, bodyText: c.bodyText, group: c.group })),
+      ...defaultTemplateLinks
+        .map((link) => CLAUSE_TEMPLATES.find((t) => t.id === link.templateId))
+        .filter((t) => t && !alreadyAttachedTemplateIds.has(t.id))
+        .map((t) => ({ sourceTemplateId: t.id, title: t.title, bodyText: t.bodyText, group: t.group })),
+    ];
+
+    if (snapshots.length > 0) {
+      const { _max } = await prisma.leaseClause.aggregate({
+        where: { leaseId: lease.id },
+        _max: { order: true },
+      });
+      let nextOrder = (_max.order ?? 0) + 1;
+
+      await prisma.leaseClause.createMany({
+        data: snapshots.map((snapshot) => ({ leaseId: lease.id, order: nextOrder++, ...snapshot })),
+      });
+    }
+
+    const updatedLease = await prisma.lease.findUnique({
+      where: { id: lease.id },
+      include: leaseInclude,
+    });
+
+    res.status(201).json(withComputedLeaseFields(updatedLease));
+  });
+
   router.put("/:id/clauses/:leaseClauseId", async (req, res) => {
     const lease = await prisma.lease.findUnique({ where: { id: req.params.id } });
     if (!lease || lease.userId !== req.currentUser.id) {

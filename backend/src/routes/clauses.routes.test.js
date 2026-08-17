@@ -69,6 +69,19 @@ describe("clauses routes", () => {
     expect(res.status).toBe(400);
   });
 
+  it("creates a clause as a default, and lets it be toggled off", async () => {
+    const created = await request(app).post("/api/clauses").send({
+      title: "Standard Late Fee",
+      bodyText: "...",
+      group: "Rent & Payment",
+      isDefault: true,
+    });
+    expect(created.body.isDefault).toBe(true);
+
+    const res = await request(app).put(`/api/clauses/${created.body.id}`).send({ isDefault: false });
+    expect(res.body.isDefault).toBe(false);
+  });
+
   it("rejects a clause with an invalid group", async () => {
     const res = await request(app)
       .post("/api/clauses")
