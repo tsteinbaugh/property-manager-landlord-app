@@ -25,6 +25,7 @@ const backsplashSpecsRoutes = require("./routes/backsplash-specs.routes");
 const exteriorFeaturesRoutes = require("./routes/exterior-features.routes");
 const clausesRoutes = require("./routes/clauses.routes");
 const clauseTemplatesRoutes = require("./routes/clause-templates.routes");
+const clauseGroupsRoutes = require("./routes/clause-groups.routes");
 
 function createApp(overrides = {}) {
   const clerk = require("@clerk/express");
@@ -69,6 +70,7 @@ function createApp(overrides = {}) {
   app.use("/api/exterior-features", exteriorFeaturesRoutes);
   app.use("/api/clauses", clausesRoutes);
   app.use("/api/clause-templates", clauseTemplatesRoutes);
+  app.use("/api/clause-groups", clauseGroupsRoutes);
 
   app.use((err, req, res, next) => {
     console.error(err);

@@ -54,18 +54,25 @@ describe("clauses routes", () => {
   it("creates a clause", async () => {
     const res = await request(app).post("/api/clauses").send({
       title: "Late Fees",
-      bodyText: "Rent not received within the grace period incurs a late fee.",
-      sectionNumber: "2",
-      category: "Rent",
+      bodyText: "A late fee applies if rent is not received within the grace period.",
+      group: "Rent & Payment",
     });
 
     expect(res.status).toBe(201);
     expect(res.body.title).toBe("Late Fees");
-    expect(res.body.isEarlyTermination).toBe(false);
+    expect(res.body.group).toBe("Rent & Payment");
   });
 
   it("rejects a clause missing required fields", async () => {
-    const res = await request(app).post("/api/clauses").send({ title: "No body text" });
+    const res = await request(app).post("/api/clauses").send({ title: "No body text or group" });
+
+    expect(res.status).toBe(400);
+  });
+
+  it("rejects a clause with an invalid group", async () => {
+    const res = await request(app)
+      .post("/api/clauses")
+      .send({ title: "Bad group", bodyText: "...", group: "Not A Real Group" });
 
     expect(res.status).toBe(400);
   });
@@ -74,8 +81,8 @@ describe("clauses routes", () => {
     const otherUser = await prisma.user.create({
       data: { clerkId: "clerk_other_user", email: "other@example.com" },
     });
-    await prisma.clause.create({ data: { userId: otherUser.id, title: "Not mine", bodyText: "..." } });
-    await request(app).post("/api/clauses").send({ title: "Mine", bodyText: "..." });
+    await prisma.clause.create({ data: { userId: otherUser.id, title: "Not mine", bodyText: "...", group: "Other / Miscellaneous" } });
+    await request(app).post("/api/clauses").send({ title: "Mine", bodyText: "...", group: "Other / Miscellaneous" });
 
     const res = await request(app).get("/api/clauses");
 
@@ -89,7 +96,7 @@ describe("clauses routes", () => {
       data: { clerkId: "clerk_other_user", email: "other@example.com" },
     });
     const otherClause = await prisma.clause.create({
-      data: { userId: otherUser.id, title: "Not mine", bodyText: "..." },
+      data: { userId: otherUser.id, title: "Not mine", bodyText: "...", group: "Other / Miscellaneous" },
     });
 
     const res = await request(app).get(`/api/clauses/${otherClause.id}`);
@@ -98,19 +105,31 @@ describe("clauses routes", () => {
   });
 
   it("updates a clause", async () => {
-    const created = await request(app).post("/api/clauses").send({ title: "Pets", bodyText: "No pets." });
+    const created = await request(app)
+      .post("/api/clauses")
+      .send({ title: "Pets", bodyText: "No pets.", group: "Pets" });
 
     const res = await request(app)
       .put(`/api/clauses/${created.body.id}`)
-      .send({ bodyText: "Pets allowed with written consent.", isEarlyTermination: true });
+      .send({ bodyText: "Pets allowed with written consent.", group: "Pets" });
 
     expect(res.status).toBe(200);
     expect(res.body.bodyText).toBe("Pets allowed with written consent.");
-    expect(res.body.isEarlyTermination).toBe(true);
+  });
+
+  it("rejects updating a clause to an invalid group", async () => {
+    const created = await request(app)
+      .post("/api/clauses")
+      .send({ title: "Pets", bodyText: "No pets.", group: "Pets" });
+
+    const res = await request(app).put(`/api/clauses/${created.body.id}`).send({ group: "Not A Real Group" });
+    expect(res.status).toBe(400);
   });
 
   it("deletes a clause", async () => {
-    const created = await request(app).post("/api/clauses").send({ title: "Pets", bodyText: "No pets." });
+    const created = await request(app)
+      .post("/api/clauses")
+      .send({ title: "Pets", bodyText: "No pets.", group: "Pets" });
 
     const res = await request(app).delete(`/api/clauses/${created.body.id}`);
     expect(res.status).toBe(204);

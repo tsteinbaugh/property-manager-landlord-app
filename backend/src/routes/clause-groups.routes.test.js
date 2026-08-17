@@ -1,6 +1,7 @@
 const request = require("supertest");
 const createApp = require("../app");
 const prisma = require("../lib/prisma");
+const { CLAUSE_GROUPS } = require("../lib/clauseGroups");
 
 const mockGetAuth = vi.fn(() => ({ userId: "clerk_test_user_1" }));
 const mockGetUser = vi.fn(() =>
@@ -19,7 +20,7 @@ const app = createApp({
   clerkClient: { users: { getUser: (...args) => mockGetUser(...args) } },
 });
 
-describe("clause templates route", () => {
+describe("clause groups route", () => {
   beforeEach(async () => {
     mockGetAuth.mockReturnValue({ userId: "clerk_test_user_1" });
     await prisma.user.deleteMany();
@@ -36,30 +37,16 @@ describe("clause templates route", () => {
   it("rejects unauthenticated requests", async () => {
     mockGetAuth.mockReturnValue({ userId: null });
 
-    const res = await request(app).get("/api/clause-templates");
+    const res = await request(app).get("/api/clause-groups");
 
     expect(res.status).toBe(401);
   });
 
-  it("returns a large static template list, each with a valid group", async () => {
-    const { CLAUSE_GROUPS } = require("../lib/clauseGroups");
-    const res = await request(app).get("/api/clause-templates");
+  it("returns the fixed ordered group list, ending with a catch-all", async () => {
+    const res = await request(app).get("/api/clause-groups");
 
     expect(res.status).toBe(200);
-    expect(res.body.length).toBeGreaterThan(20);
-    for (const template of res.body) {
-      expect(template.id).toBeTruthy();
-      expect(template.title).toBeTruthy();
-      expect(template.bodyText).toBeTruthy();
-      expect(CLAUSE_GROUPS).toContain(template.group);
-    }
-  });
-
-  it("includes an early termination template in Default & Termination", async () => {
-    const res = await request(app).get("/api/clause-templates");
-    const earlyTermination = res.body.find((t) => t.id === "early-termination");
-
-    expect(earlyTermination).toBeTruthy();
-    expect(earlyTermination.group).toBe("Default & Termination");
+    expect(res.body).toEqual(CLAUSE_GROUPS);
+    expect(res.body[res.body.length - 1]).toBe("Other / Miscellaneous");
   });
 });

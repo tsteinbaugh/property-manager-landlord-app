@@ -12,9 +12,13 @@ function formatDate(date) {
 
 // Assembles a lease PDF from the lease's own key-terms fields (dates, rent,
 // deposit, late fee, pet policy — always present regardless of whether the
-// builder is used) plus the ordered, verbatim clause snapshots attached via
-// the Lease Builder. Returns a Buffer, collected from pdfkit's stream events
-// rather than written to disk, since the caller uploads it straight to R2.
+// builder is used) plus the clauses, already ordered/grouped/numbered and
+// {{variable}}-resolved by leaseClauseOrdering.js + clauseVariables.js (the
+// exact same functions the JSON API response uses, so the PDF can never
+// show different numbering or text than what's displayed on screen). Prints
+// a group heading whenever a clause's group differs from the previous one.
+// Returns a Buffer, collected from pdfkit's stream events rather than
+// written to disk, since the caller uploads it straight to R2.
 function buildLeasePdf({ lease, property, entity, tenants, clauses }) {
   return new Promise((resolve, reject) => {
     const doc = new PDFDocument({ margin: 54 });
@@ -72,10 +76,19 @@ function buildLeasePdf({ lease, property, entity, tenants, clauses }) {
     if (clauses.length > 0) {
       doc.font("Helvetica-Bold").fontSize(13).text("Clauses");
       doc.moveDown(0.5);
+
+      let currentGroup = null;
+      let groupNumber = 0;
       for (const clause of clauses) {
-        const heading = clause.sectionNumber ? `${clause.sectionNumber}. ${clause.title}` : clause.title;
-        doc.font("Helvetica-Bold").fontSize(11).text(heading);
-        doc.font("Helvetica").fontSize(11).text(clause.bodyText, { align: "justify" });
+        if (clause.group !== currentGroup) {
+          currentGroup = clause.group;
+          groupNumber += 1;
+          doc.moveDown(0.5);
+          doc.font("Helvetica-Bold").fontSize(12).text(`${groupNumber}. ${currentGroup}`);
+          doc.moveDown(0.25);
+        }
+        doc.font("Helvetica-Bold").fontSize(11).text(`${clause.sectionLabel} ${clause.title}`);
+        doc.font("Helvetica").fontSize(11).text(clause.resolvedBodyText, { align: "justify" });
         doc.moveDown();
       }
     }

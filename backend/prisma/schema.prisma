@@ -253,16 +253,19 @@ model Lease {
 // property/entity, same reasoning as Vendor: one library reused across every
 // lease. bodyText is stored and reproduced verbatim (Taylor's lesson:
 // magistrates want the exact clause language, not a summary).
+// group is a plain string validated against CLAUSE_GROUPS (backend/src/lib/clauseGroups.js), not
+// a Prisma enum — Taylor wants the group list itself easy to rename/reorder later without a
+// migration (an enum value rename already needed a hand-written migration once, for
+// ExpenseCategory.LANDSCAPING). sectionNumber deliberately does not exist here: numbering is
+// computed at read time from a lease clause's group + attach order, never typed by anyone.
 model Clause {
-  id                 String   @id @default(cuid())
-  userId             String
-  title              String
-  bodyText           String
-  sectionNumber      String? // free text ("12", "12.3") — numbering schemes vary by landlord
-  category           String? // free-form tag, not an enum — clause taxonomy varies too much to lock down
-  isEarlyTermination Boolean  @default(false)
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  bodyText  String
+  group     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   user         User          @relation(fields: [userId], references: [id])
   leaseClauses LeaseClause[]
@@ -271,22 +274,23 @@ model Clause {
 }
 
 // A clause attached to one specific lease — a SNAPSHOT copy of the library
-// Clause's fields at attach time, not a live reference. Once a lease is
-// generated (and potentially signed, potentially the document Taylor relies
-// on in court), editing the master library clause later must never silently
-// rewrite what a past lease says. sourceClauseId is kept only for
-// traceability back to the library entry it came from.
+// Clause's (or a static template's) fields at attach time, not a live
+// reference. Once a lease is generated (and potentially signed, potentially
+// the document Taylor relies on in court), editing the master library clause
+// later must never silently rewrite what a past lease says. sourceClauseId/
+// sourceTemplateId are kept only for traceability (a "Provided" badge in the
+// UI) — sourceTemplateId has no FK since templates aren't DB rows, they're
+// the static list in clauseTemplates.js.
 model LeaseClause {
-  id              String  @id @default(cuid())
-  leaseId         String
-  sourceClauseId  String?
+  id             String  @id @default(cuid())
+  leaseId        String
+  sourceClauseId String?
+  sourceTemplateId String?
 
-  title              String
-  bodyText           String
-  sectionNumber      String?
-  category           String?
-  isEarlyTermination Boolean @default(false)
-  order              Int
+  title    String
+  bodyText String
+  group    String
+  order    Int
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

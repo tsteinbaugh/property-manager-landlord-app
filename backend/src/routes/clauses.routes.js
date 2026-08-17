@@ -1,10 +1,11 @@
 const express = require("express");
 const prisma = require("../lib/prisma");
 const { pickFields } = require("../lib/pickFields");
+const { isValidGroup } = require("../lib/clauseGroups");
 
-const REQUIRED_FIELDS = ["title", "bodyText"];
+const REQUIRED_FIELDS = ["title", "bodyText", "group"];
 
-const ASSIGNABLE_FIELDS = ["title", "bodyText", "sectionNumber", "category", "isEarlyTermination"];
+const ASSIGNABLE_FIELDS = ["title", "bodyText", "group"];
 
 function pickAssignableFields(body) {
   return pickFields(body, ASSIGNABLE_FIELDS);
@@ -14,6 +15,9 @@ function validateClauseBody(body) {
   const missing = REQUIRED_FIELDS.filter((field) => !body[field]);
   if (missing.length > 0) {
     return `Missing required field(s): ${missing.join(", ")}`;
+  }
+  if (!isValidGroup(body.group)) {
+    return `Invalid group: ${body.group}`;
   }
   return null;
 }
@@ -63,6 +67,9 @@ router.put("/:id", async (req, res) => {
   });
   if (!existing || existing.userId !== req.currentUser.id) {
     return res.status(404).json({ error: "Clause not found" });
+  }
+  if (req.body.group !== undefined && !isValidGroup(req.body.group)) {
+    return res.status(400).json({ error: `Invalid group: ${req.body.group}` });
   }
 
   const clause = await prisma.clause.update({

@@ -519,25 +519,43 @@ describe("leases routes", () => {
         data: {
           userId: property.userId,
           title: "Late Fees",
-          bodyText: "Rent not received within the grace period incurs a late fee.",
-          sectionNumber: "2",
-          category: "Rent",
+          bodyText: "A late fee of {{late_fee_amount}} applies after {{late_fee_grace_days}} days.",
+          group: "Rent & Payment",
         },
       });
     });
 
-    it("has no missing-early-termination warning with zero clauses", async () => {
-      const res = await request(app).get(`/api/leases/${lease.id}`);
-      expect(res.body.missingEarlyTerminationClause).toBe(false);
-    });
-
-    it("attaches a clause from the library as a snapshot", async () => {
+    it("attaches a clause from the library as a snapshot, grouped and numbered", async () => {
       const res = await request(app).post(`/api/leases/${lease.id}/clauses`).send({ clauseId: clause.id });
 
       expect(res.status).toBe(201);
       expect(res.body.leaseClauses).toHaveLength(1);
       expect(res.body.leaseClauses[0].title).toBe("Late Fees");
+      expect(res.body.leaseClauses[0].group).toBe("Rent & Payment");
+      expect(res.body.leaseClauses[0].sectionLabel).toBe("1.1");
       expect(res.body.leaseClauses[0].order).toBe(1);
+    });
+
+    it("resolves {{variables}} against the lease's own fields", async () => {
+      await prisma.lease.update({ where: { id: lease.id }, data: { lateFeeAmount: "75.00", lateFeeGraceDays: 5 } });
+      const res = await request(app).post(`/api/leases/${lease.id}/clauses`).send({ clauseId: clause.id });
+
+      expect(res.body.leaseClauses[0].resolvedBodyText).toContain("$75.00");
+      expect(res.body.leaseClauses[0].resolvedBodyText).toContain("5 days");
+      expect(res.body.leaseClauses[0].bodyText).toContain("{{late_fee_amount}}"); // raw text untouched
+    });
+
+    it("attaches a clause from the provided template set", async () => {
+      const res = await request(app).post(`/api/leases/${lease.id}/clauses`).send({ templateId: "rent-payment" });
+
+      expect(res.status).toBe(201);
+      expect(res.body.leaseClauses[0].sourceTemplateId).toBe("rent-payment");
+      expect(res.body.leaseClauses[0].sourceClauseId).toBeNull();
+    });
+
+    it("rejects an unknown template id", async () => {
+      const res = await request(app).post(`/api/leases/${lease.id}/clauses`).send({ templateId: "not-a-real-template" });
+      expect(res.status).toBe(400);
     });
 
     it("editing the library clause afterward does not change an already-attached snapshot", async () => {
@@ -545,7 +563,7 @@ describe("leases routes", () => {
       await prisma.clause.update({ where: { id: clause.id }, data: { bodyText: "Edited later text." } });
 
       const res = await request(app).get(`/api/leases/${lease.id}`);
-      expect(res.body.leaseClauses[0].bodyText).toBe("Rent not received within the grace period incurs a late fee.");
+      expect(res.body.leaseClauses[0].bodyText).toContain("{{late_fee_amount}}");
     });
 
     it("rejects attaching a clause owned by another user", async () => {
@@ -553,7 +571,7 @@ describe("leases routes", () => {
         data: { clerkId: "clerk_other_user", email: "other@example.com" },
       });
       const otherClause = await prisma.clause.create({
-        data: { userId: otherUser.id, title: "Not mine", bodyText: "..." },
+        data: { userId: otherUser.id, title: "Not mine", bodyText: "...", group: "Other / Miscellaneous" },
       });
 
       const res = await request(app).post(`/api/leases/${lease.id}/clauses`).send({ clauseId: otherClause.id });
@@ -562,8 +580,9 @@ describe("leases routes", () => {
 
     it("adds a custom one-off clause without touching the library", async () => {
       const res = await request(app).post(`/api/leases/${lease.id}/clauses`).send({
-        title: "Custom House Rule",
+        title: "Custom Rule",
         bodyText: "No smoking anywhere on the premises.",
+        group: "Rules & Regulations",
       });
 
       expect(res.status).toBe(201);
@@ -575,51 +594,55 @@ describe("leases routes", () => {
     });
 
     it("rejects a custom clause missing required fields", async () => {
-      const res = await request(app).post(`/api/leases/${lease.id}/clauses`).send({ title: "No body" });
+      const res = await request(app).post(`/api/leases/${lease.id}/clauses`).send({ title: "No body or group" });
       expect(res.status).toBe(400);
     });
 
-    it("auto-increments order across multiple attached clauses", async () => {
-      await request(app).post(`/api/leases/${lease.id}/clauses`).send({ clauseId: clause.id });
-      const res = await request(app)
-        .post(`/api/leases/${lease.id}/clauses`)
-        .send({ title: "Second", bodyText: "Second clause body." });
-
-      expect(res.body.leaseClauses.map((c) => c.order)).toEqual([1, 2]);
+    it("rejects a custom clause with an invalid group", async () => {
+      const res = await request(app).post(`/api/leases/${lease.id}/clauses`).send({
+        title: "Bad group",
+        bodyText: "...",
+        group: "Not A Real Group",
+      });
+      expect(res.status).toBe(400);
     });
 
-    it("flags a lease with clauses but no early-termination clause", async () => {
-      await request(app).post(`/api/leases/${lease.id}/clauses`).send({ clauseId: clause.id });
-
-      const res = await request(app).get(`/api/leases/${lease.id}`);
-      expect(res.body.missingEarlyTerminationClause).toBe(true);
-    });
-
-    it("clears the warning once an early-termination clause is attached", async () => {
-      await request(app).post(`/api/leases/${lease.id}/clauses`).send({ clauseId: clause.id });
-      await request(app).post(`/api/leases/${lease.id}/clauses`).send({
-        title: "Early Termination",
-        bodyText: "Breaking the lease early incurs a fee.",
-        isEarlyTermination: true,
+    it("groups clauses and numbers them compactly, skipping unused groups", async () => {
+      await request(app).post(`/api/leases/${lease.id}/clauses`).send({ clauseId: clause.id }); // Rent & Payment
+      const res = await request(app).post(`/api/leases/${lease.id}/clauses`).send({
+        title: "Pet Rule",
+        bodyText: "...",
+        group: "Pets", // 8th in CLAUSE_GROUPS, but only the 2nd group actually used here
       });
 
-      const res = await request(app).get(`/api/leases/${lease.id}`);
-      expect(res.body.missingEarlyTerminationClause).toBe(false);
+      const labels = res.body.leaseClauses.map((c) => c.sectionLabel);
+      expect(labels).toEqual(["1.1", "2.1"]);
     });
 
-    it("edits a lease clause snapshot", async () => {
+    it("edits a lease clause snapshot, including its group", async () => {
       const attach = await request(app).post(`/api/leases/${lease.id}/clauses`).send({ clauseId: clause.id });
       const leaseClauseId = attach.body.leaseClauses[0].id;
 
       const res = await request(app)
         .put(`/api/leases/${lease.id}/clauses/${leaseClauseId}`)
-        .send({ bodyText: "Overridden text just for this lease." });
+        .send({ bodyText: "Overridden text just for this lease.", group: "Other / Miscellaneous" });
 
       expect(res.status).toBe(200);
       expect(res.body.leaseClauses[0].bodyText).toBe("Overridden text just for this lease.");
+      expect(res.body.leaseClauses[0].group).toBe("Other / Miscellaneous");
 
       const sourceStillIntact = await prisma.clause.findUnique({ where: { id: clause.id } });
-      expect(sourceStillIntact.bodyText).toBe("Rent not received within the grace period incurs a late fee.");
+      expect(sourceStillIntact.group).toBe("Rent & Payment");
+    });
+
+    it("rejects editing a lease clause to an invalid group", async () => {
+      const attach = await request(app).post(`/api/leases/${lease.id}/clauses`).send({ clauseId: clause.id });
+      const leaseClauseId = attach.body.leaseClauses[0].id;
+
+      const res = await request(app)
+        .put(`/api/leases/${lease.id}/clauses/${leaseClauseId}`)
+        .send({ group: "Not A Real Group" });
+      expect(res.status).toBe(400);
     });
 
     it("removes a clause from a lease without touching the library", async () => {
@@ -677,14 +700,13 @@ describe("leases routes", () => {
           userId: property.userId,
           startDate: new Date("2026-09-01"),
           monthlyRent: "1800.00",
+          lateFeeAmount: "75.00",
+          lateFeeGraceDays: 5,
         },
       });
       await request(app).post(`/api/leases/${lease.id}/tenants`).send({ tenantId: tenant.id, role: "PRIMARY" });
-      await request(app).post(`/api/leases/${lease.id}/clauses`).send({
-        title: "Early Termination",
-        bodyText: "Breaking the lease early incurs a fee.",
-        isEarlyTermination: true,
-      });
+      await request(app).post(`/api/leases/${lease.id}/clauses`).send({ templateId: "rent-payment" });
+      await request(app).post(`/api/leases/${lease.id}/clauses`).send({ templateId: "early-termination" });
     });
 
     it("generates and attaches a PDF document", async () => {
