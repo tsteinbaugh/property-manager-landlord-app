@@ -1,4 +1,14 @@
+const fs = require("fs");
+const path = require("path");
 const PDFDocument = require("pdfkit");
+const SVGtoPDF = require("svg-to-pdfkit");
+
+// A copy of frontend/src/assets/logo.svg — duplicated rather than read
+// cross-package, since backend and frontend are otherwise fully independent
+// here. Keep the two in sync if the logo ever changes. Simple flat-fill SVG
+// (no gradients/clip-paths), so svg-to-pdfkit renders it directly onto the
+// page without needing to rasterize it first.
+const LOGO_SVG = fs.readFileSync(path.join(__dirname, "../assets/logo.svg"), "utf8");
 
 function money(amount) {
   if (amount === null || amount === undefined) return null;
@@ -26,6 +36,33 @@ function buildLeasePdf({ lease, property, entity, tenants, clauses }) {
     doc.on("data", (chunk) => chunks.push(chunk));
     doc.on("end", () => resolve(Buffer.concat(chunks)));
     doc.on("error", reject);
+
+    // Nothing in this app distinguishes a freshly generated PDF from a
+    // signed one — the landlord would replace this document with the
+    // actual signed copy afterward — so every page gets a "DRAFT"
+    // watermark until that happens. Drawn before any other content on the
+    // page (and re-drawn on every auto-added page via pageAdded) so it sits
+    // behind the text, not on top of it. doc.x/y are restored afterward
+    // since drawing at an explicit position otherwise leaves the text-flow
+    // cursor in the wrong place for what follows.
+    function drawWatermark() {
+      const { x: origX, y: origY } = doc;
+      doc.save();
+      doc.rotate(-45, { origin: [doc.page.width / 2, doc.page.height / 2] });
+      doc.font("Helvetica-Bold").fontSize(80).fillColor("#94a3b8", 0.25);
+      doc.text("DRAFT", 0, doc.page.height / 2 - 40, { width: doc.page.width, align: "center" });
+      doc.restore();
+      doc.fillColor("black");
+      doc.x = origX;
+      doc.y = origY;
+    }
+    drawWatermark();
+    doc.on("pageAdded", drawWatermark);
+
+    const logoWidth = 50;
+    const logoHeight = logoWidth * (340 / 320); // matches logo.svg's viewBox aspect ratio
+    SVGtoPDF(doc, LOGO_SVG, doc.page.margins.left, doc.page.margins.top, { width: logoWidth, height: logoHeight });
+    doc.y = doc.page.margins.top + logoHeight + 10;
 
     doc.font("Helvetica-Bold").fontSize(18).text("Residential Lease Agreement", { align: "center" });
     doc.moveDown(1.5);
