@@ -17,6 +17,7 @@ import LeasesPage from "./pages/LeasesPage";
 import FinancesPage from "./pages/FinancesPage";
 import PropertyLedgerPage from "./pages/PropertyLedgerPage";
 import MaintenancePage from "./pages/MaintenancePage";
+import ClauseLibraryPage from "./pages/ClauseLibraryPage";
 
 export default function App() {
   return (
@@ -43,6 +44,7 @@ export default function App() {
         <Route path="tenants/:id" element={<TenantDetailPage />} />
         <Route path="leases" element={<LeasesPage />} />
         <Route path="leases/:id" element={<LeaseDetailPage />} />
+        <Route path="clauses" element={<ClauseLibraryPage />} />
         <Route path="finances" element={<FinancesPage />} />
         <Route path="finances/:id" element={<PropertyLedgerPage />} />
         <Route path="maintenance" element={<MaintenancePage />} />

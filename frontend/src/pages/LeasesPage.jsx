@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
 import LeaseSection from "../components/LeaseSection";
 
@@ -30,9 +31,14 @@ export default function LeasesPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl text-stone-900">Leases</h1>
-        <p className="text-sm text-stone-500">Every lease across all your properties.</p>
+      <div className="flex items-start justify-between gap-2">
+        <div>
+          <h1 className="text-2xl text-stone-900">Leases</h1>
+          <p className="text-sm text-stone-500">Every lease across all your properties.</p>
+        </div>
+        <Link to="/clauses" className="whitespace-nowrap text-sm text-emerald-700 hover:underline">
+          Manage clause library →
+        </Link>
       </div>
 
       {error && (

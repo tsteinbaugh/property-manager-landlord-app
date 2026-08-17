@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
 import BackLink from "../components/BackLink";
+import LeaseBuilderSection from "../components/LeaseBuilderSection";
 
 const LEASE_STATUSES = ["ACTIVE", "EXPIRED", "MONTH_TO_MONTH", "TERMINATED"];
 const LEASE_TENANT_ROLES = ["PRIMARY", "CO_TENANT", "GUARANTOR"];
@@ -546,6 +547,8 @@ export default function LeaseDetailPage() {
             .join(" · ") || "No details yet"
         }
       />
+
+      <LeaseBuilderSection lease={lease} onChange={load} />
 
       <section className="space-y-3">
         <h2 className="text-lg font-medium text-stone-900">Document</h2>
