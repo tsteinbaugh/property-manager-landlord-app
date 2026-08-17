@@ -1,14 +1,51 @@
 import { useEffect, useState } from "react";
 import { useApi } from "../hooks/useApi";
 import BackLink from "../components/BackLink";
-import { CLAUSE_CATEGORIES } from "../lib/clauseCategories";
 
-const EMPTY_FORM = { title: "", bodyText: "", sectionNumber: "", category: "", isEarlyTermination: false };
+const EMPTY_FORM = { title: "", bodyText: "", group: "" };
+
+const AVAILABLE_VARIABLES = [
+  ["monthly_rent", "Monthly rent"],
+  ["security_deposit", "Security deposit amount"],
+  ["late_fee_amount", "Late fee amount"],
+  ["late_fee_grace_days", "Late fee grace period (days)"],
+  ["pet_rent_amount", "Pet rent amount"],
+  ["renewal_rent_increase_cap", "Renewal rent increase cap"],
+  ["start_date", "Lease start date"],
+  ["end_date", "Lease end date"],
+  ["tenant_names", "Tenant name(s)"],
+  ["property_address", "Property address"],
+  ["landlord_name", "Landlord / entity name"],
+  ["state", "Property's state"],
+];
+
+function groupByGroup(items, groups) {
+  return groups.map((group) => ({ group, items: items.filter((i) => i.group === group) })).filter((g) => g.items.length > 0);
+}
+
+function VariableHint() {
+  return (
+    <details className="text-xs text-stone-500">
+      <summary className="cursor-pointer text-emerald-700 hover:underline">Available variables</summary>
+      <p className="mt-1">
+        These fill in automatically from the lease they're attached to (left as-is if unset):
+      </p>
+      <ul className="mt-1 grid grid-cols-1 gap-x-4 sm:grid-cols-2">
+        {AVAILABLE_VARIABLES.map(([key, label]) => (
+          <li key={key}>
+            <code className="text-stone-700">{`{{${key}}}`}</code> — {label}
+          </li>
+        ))}
+      </ul>
+    </details>
+  );
+}
 
 export default function ClauseLibraryPage() {
   const api = useApi();
   const [clauses, setClauses] = useState([]);
   const [templates, setTemplates] = useState([]);
+  const [groups, setGroups] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -16,17 +53,18 @@ export default function ClauseLibraryPage() {
   const [form, setForm] = useState(EMPTY_FORM);
   const [editingId, setEditingId] = useState(null);
   const [submitting, setSubmitting] = useState(false);
-  const [templatesOpen, setTemplatesOpen] = useState(false);
 
   async function load() {
     setLoading(true);
     try {
-      const [clauseData, templateData] = await Promise.all([
+      const [clauseData, templateData, groupData] = await Promise.all([
         api.get("/api/clauses"),
         api.get("/api/clause-templates"),
+        api.get("/api/clause-groups"),
       ]);
       setClauses(clauseData);
       setTemplates(templateData);
+      setGroups(groupData);
       setError(null);
     } catch (err) {
       setError(err.message);
@@ -42,37 +80,21 @@ export default function ClauseLibraryPage() {
 
   function openForm(clause) {
     if (clause) {
-      setForm({
-        title: clause.title,
-        bodyText: clause.bodyText,
-        sectionNumber: clause.sectionNumber || "",
-        category: clause.category || "",
-        isEarlyTermination: clause.isEarlyTermination,
-      });
+      setForm({ title: clause.title, bodyText: clause.bodyText, group: clause.group });
       setEditingId(clause.id);
     } else {
-      setForm(EMPTY_FORM);
+      setForm({ ...EMPTY_FORM, group: groups[0] || "" });
       setEditingId(null);
     }
     setFormOpen(true);
-    setTemplatesOpen(false);
   }
 
-  // Importing a template just prefills the add-clause form with its content
-  // — the landlord edits before saving their own copy. Nothing is created
-  // until they submit, matching "template library, landlord edits to match
-  // their lease."
-  function importTemplate(template) {
-    setForm({
-      title: template.title,
-      bodyText: template.bodyText,
-      sectionNumber: template.sectionNumber || "",
-      category: template.category || "",
-      isEarlyTermination: template.isEarlyTermination,
-    });
+  // Copying a provided clause just prefills the add form with its content —
+  // nothing is created until the landlord edits and submits their own copy.
+  function copyTemplate(template) {
+    setForm({ title: template.title, bodyText: template.bodyText, group: template.group });
     setEditingId(null);
     setFormOpen(true);
-    setTemplatesOpen(false);
   }
 
   async function handleSave(e) {
@@ -80,14 +102,10 @@ export default function ClauseLibraryPage() {
     setSubmitting(true);
     setError(null);
     try {
-      const body = { ...form };
-      if (!body.sectionNumber) delete body.sectionNumber;
-      if (!body.category) delete body.category;
-
       if (editingId) {
-        await api.put(`/api/clauses/${editingId}`, body);
+        await api.put(`/api/clauses/${editingId}`, form);
       } else {
-        await api.post("/api/clauses", body);
+        await api.post("/api/clauses", form);
       }
       setFormOpen(false);
       await load();
@@ -118,7 +136,8 @@ export default function ClauseLibraryPage() {
       <div>
         <h1 className="text-2xl text-stone-900">Clause Library</h1>
         <p className="text-sm text-stone-500">
-          Your reusable clauses — stored verbatim, attached to leases from the Lease Builder.
+          Provided clauses are locked starting points — copy one to customize it. Your own clauses are fully
+          editable. Either kind attaches directly to a lease from the Lease Builder.
         </p>
       </div>
 
@@ -126,53 +145,12 @@ export default function ClauseLibraryPage() {
         <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>
       )}
 
-      <div className="flex flex-wrap gap-2">
-        <button
-          onClick={() => openForm(null)}
-          className="rounded-lg bg-emerald-700 px-3 py-1.5 text-sm font-medium text-white hover:bg-emerald-800"
-        >
-          Add clause
-        </button>
-        <button
-          onClick={() => {
-            setTemplatesOpen(!templatesOpen);
-            setFormOpen(false);
-          }}
-          className="rounded-lg border border-stone-300 px-3 py-1.5 text-sm font-medium text-stone-700 hover:bg-stone-50"
-        >
-          Browse templates
-        </button>
-      </div>
-
-      {templatesOpen && (
-        <div className="space-y-2 rounded-xl border border-stone-200 bg-stone-50 p-4">
-          <p className="text-xs text-stone-500">
-            Generic starting points, not legal advice — edit them to match your lease and state before use.
-          </p>
-          {templates.map((t) => (
-            <div key={t.id} className="flex items-start justify-between gap-3 rounded-lg bg-white p-3 shadow-sm">
-              <div>
-                <p className="text-sm font-medium text-stone-900">
-                  {t.sectionNumber ? `${t.sectionNumber}. ` : ""}
-                  {t.title}
-                  {t.isEarlyTermination && (
-                    <span className="ml-2 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-800">
-                      Early termination
-                    </span>
-                  )}
-                </p>
-                <p className="mt-1 text-xs text-stone-500">{t.bodyText}</p>
-              </div>
-              <button
-                onClick={() => importTemplate(t)}
-                className="shrink-0 text-sm text-emerald-700 hover:underline"
-              >
-                Add to my library
-              </button>
-            </div>
-          ))}
-        </div>
-      )}
+      <button
+        onClick={() => openForm(null)}
+        className="rounded-lg bg-emerald-700 px-3 py-1.5 text-sm font-medium text-white hover:bg-emerald-800"
+      >
+        Add clause
+      </button>
 
       {formOpen && (
         <form onSubmit={handleSave} className="space-y-4 rounded-xl border border-stone-200 bg-white p-5 shadow-sm">
@@ -187,36 +165,20 @@ export default function ClauseLibraryPage() {
               />
             </label>
             <label className="block text-sm">
-              <span className="mb-1 block font-medium text-stone-700">Section number</span>
-              <input
-                value={form.sectionNumber}
-                onChange={(e) => setForm({ ...form, sectionNumber: e.target.value })}
-                placeholder="e.g. 12 or 12.3"
+              <span className="mb-1 block font-medium text-stone-700">Group *</span>
+              <select
+                required
+                value={form.group}
+                onChange={(e) => setForm({ ...form, group: e.target.value })}
                 className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
-              />
-            </label>
-            <label className="block text-sm">
-              <span className="mb-1 block font-medium text-stone-700">Category</span>
-              <input
-                list="clause-categories"
-                value={form.category}
-                onChange={(e) => setForm({ ...form, category: e.target.value })}
-                className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
-              />
-              <datalist id="clause-categories">
-                {CLAUSE_CATEGORIES.map((c) => (
-                  <option key={c} value={c} />
+              >
+                <option value="">Select a group</option>
+                {groups.map((g) => (
+                  <option key={g} value={g}>
+                    {g}
+                  </option>
                 ))}
-              </datalist>
-            </label>
-            <label className="flex items-center gap-2 self-end pb-2 text-sm">
-              <input
-                type="checkbox"
-                checked={form.isEarlyTermination}
-                onChange={(e) => setForm({ ...form, isEarlyTermination: e.target.checked })}
-                className="h-4 w-4 rounded border-stone-300"
-              />
-              <span className="font-medium text-stone-700">This is an early termination clause</span>
+              </select>
             </label>
             <label className="block text-sm sm:col-span-2">
               <span className="mb-1 block font-medium text-stone-700">Clause text (verbatim) *</span>
@@ -228,6 +190,9 @@ export default function ClauseLibraryPage() {
                 className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
               />
             </label>
+            <div className="sm:col-span-2">
+              <VariableHint />
+            </div>
           </div>
           <div className="flex gap-2">
             <button
@@ -248,45 +213,64 @@ export default function ClauseLibraryPage() {
         </form>
       )}
 
-      {clauses.length === 0 ? (
-        <p className="rounded-xl border border-dashed border-stone-300 bg-white p-6 text-sm text-stone-500">
-          No clauses yet — add one, or browse templates for a starting point.
-        </p>
-      ) : (
-        <div className="space-y-2">
-          {clauses.map((clause) => (
-            <div key={clause.id} className="rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
-              <div className="flex items-start justify-between gap-2">
-                <div>
-                  <p className="text-sm font-medium text-stone-900">
-                    {clause.sectionNumber ? `${clause.sectionNumber}. ` : ""}
-                    {clause.title}
-                    {clause.category && (
-                      <span className="ml-2 rounded-full bg-stone-100 px-2 py-0.5 text-xs font-medium text-stone-600">
-                        {clause.category}
-                      </span>
-                    )}
-                    {clause.isEarlyTermination && (
-                      <span className="ml-2 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-800">
-                        Early termination
-                      </span>
-                    )}
-                  </p>
-                  <p className="mt-1 whitespace-pre-wrap text-sm text-stone-600">{clause.bodyText}</p>
-                </div>
-                <div className="flex shrink-0 gap-3 text-sm">
-                  <button onClick={() => openForm(clause)} className="text-emerald-700 hover:underline">
-                    Edit
-                  </button>
-                  <button onClick={() => handleDelete(clause.id)} className="text-red-600 hover:underline">
-                    Delete
-                  </button>
-                </div>
+      <section className="space-y-3">
+        <h2 className="text-lg font-medium text-stone-900">Your Clauses</h2>
+        {clauses.length === 0 ? (
+          <p className="rounded-xl border border-dashed border-stone-300 bg-white p-6 text-sm text-stone-500">
+            No clauses yet — add one, or copy a provided clause below to customize it.
+          </p>
+        ) : (
+          <div className="space-y-4">
+            {groupByGroup(clauses, groups).map(({ group, items }) => (
+              <div key={group} className="space-y-2">
+                <h3 className="text-xs font-semibold uppercase tracking-wide text-stone-400">{group}</h3>
+                {items.map((clause) => (
+                  <div key={clause.id} className="rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
+                    <div className="flex items-start justify-between gap-2">
+                      <p className="text-sm font-medium text-stone-900">{clause.title}</p>
+                      <div className="flex shrink-0 gap-3 text-sm">
+                        <button onClick={() => openForm(clause)} className="text-emerald-700 hover:underline">
+                          Edit
+                        </button>
+                        <button onClick={() => handleDelete(clause.id)} className="text-red-600 hover:underline">
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                    <p className="mt-1 whitespace-pre-wrap text-sm text-stone-600">{clause.bodyText}</p>
+                  </div>
+                ))}
               </div>
+            ))}
+          </div>
+        )}
+      </section>
+
+      <section className="space-y-3">
+        <h2 className="text-lg font-medium text-stone-900">Provided Clauses</h2>
+        <p className="text-xs text-stone-500">
+          Generic starting points, not legal advice — locked as shipped; copy one to edit it for your lease and
+          state.
+        </p>
+        <div className="space-y-4">
+          {groupByGroup(templates, groups).map(({ group, items }) => (
+            <div key={group} className="space-y-2">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-stone-400">{group}</h3>
+              {items.map((template) => (
+                <div key={template.id} className="rounded-xl border border-stone-200 bg-stone-50 p-4">
+                  <div className="flex items-start justify-between gap-2">
+                    <p className="text-sm font-medium text-stone-900">{template.title}</p>
+                    <button onClick={() => copyTemplate(template)} className="shrink-0 text-sm text-emerald-700 hover:underline">
+                      Copy to customize
+                    </button>
+                  </div>
+                  <p className="mt-1 whitespace-pre-wrap text-sm text-stone-600">{template.bodyText}</p>
+                </div>
+              ))}
             </div>
           ))}
         </div>
-      )}
+      </section>
     </div>
   );
 }
