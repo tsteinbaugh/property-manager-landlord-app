@@ -122,6 +122,19 @@ export default function LeaseBuilderSection({ lease, onChange }) {
     }
   }
 
+  async function handleAddDefaults() {
+    setSubmitting(true);
+    setError(null);
+    try {
+      await api.post(`/api/leases/${lease.id}/clauses/add-defaults`, {});
+      await onChange();
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
   async function handleGenerate() {
     setGenerating(true);
     setError(null);
@@ -254,6 +267,13 @@ export default function LeaseBuilderSection({ lease, onChange }) {
 
       {addMode === null && (
         <div className="flex flex-wrap gap-2">
+          <button
+            onClick={handleAddDefaults}
+            disabled={submitting}
+            className="rounded-lg border border-emerald-300 bg-emerald-50 px-3 py-1.5 text-sm font-medium text-emerald-800 hover:bg-emerald-100 disabled:opacity-50"
+          >
+            Add my default clauses
+          </button>
           <button
             onClick={() => setAddMode("library")}
             className="rounded-lg bg-emerald-700 px-3 py-1.5 text-sm font-medium text-white hover:bg-emerald-800"

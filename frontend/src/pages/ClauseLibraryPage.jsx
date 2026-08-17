@@ -127,6 +127,33 @@ export default function ClauseLibraryPage() {
     }
   }
 
+  async function toggleClauseDefault(clause) {
+    setError(null);
+    try {
+      await api.put(`/api/clauses/${clause.id}`, { isDefault: !clause.isDefault });
+      await load();
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  // Toggling a provided template's default status never copies or edits its
+  // wording — it's just remembered separately (DefaultClauseTemplate) and
+  // resolved fresh from the static template each time it's attached.
+  async function toggleTemplateDefault(template) {
+    setError(null);
+    try {
+      if (template.isDefault) {
+        await api.del(`/api/clause-templates/${template.id}/default`);
+      } else {
+        await api.post(`/api/clause-templates/${template.id}/default`, {});
+      }
+      await load();
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
   if (loading) return <p className="text-sm text-stone-500">Loading...</p>;
 
   return (
@@ -137,7 +164,8 @@ export default function ClauseLibraryPage() {
         <h1 className="text-2xl text-stone-900">Clause Library</h1>
         <p className="text-sm text-stone-500">
           Provided clauses are locked starting points — copy one to customize it. Your own clauses are fully
-          editable. Either kind attaches directly to a lease from the Lease Builder.
+          editable. Either kind attaches directly to a lease from the Lease Builder, or check "Include by
+          default" so it's added automatically whenever you click "Add my default clauses" on a lease.
         </p>
       </div>
 
@@ -228,7 +256,16 @@ export default function ClauseLibraryPage() {
                   <div key={clause.id} className="rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
                     <div className="flex items-start justify-between gap-2">
                       <p className="text-sm font-medium text-stone-900">{clause.title}</p>
-                      <div className="flex shrink-0 gap-3 text-sm">
+                      <div className="flex shrink-0 items-center gap-3 text-sm">
+                        <label className="flex items-center gap-1.5 text-xs text-stone-600">
+                          <input
+                            type="checkbox"
+                            checked={clause.isDefault}
+                            onChange={() => toggleClauseDefault(clause)}
+                            className="h-4 w-4 rounded border-stone-300"
+                          />
+                          Include by default
+                        </label>
                         <button onClick={() => openForm(clause)} className="text-emerald-700 hover:underline">
                           Edit
                         </button>
@@ -260,9 +297,20 @@ export default function ClauseLibraryPage() {
                 <div key={template.id} className="rounded-xl border border-stone-200 bg-stone-50 p-4">
                   <div className="flex items-start justify-between gap-2">
                     <p className="text-sm font-medium text-stone-900">{template.title}</p>
-                    <button onClick={() => copyTemplate(template)} className="shrink-0 text-sm text-emerald-700 hover:underline">
-                      Copy to customize
-                    </button>
+                    <div className="flex shrink-0 items-center gap-3 text-sm">
+                      <label className="flex items-center gap-1.5 text-xs text-stone-600">
+                        <input
+                          type="checkbox"
+                          checked={template.isDefault}
+                          onChange={() => toggleTemplateDefault(template)}
+                          className="h-4 w-4 rounded border-stone-300"
+                        />
+                        Include by default
+                      </label>
+                      <button onClick={() => copyTemplate(template)} className="text-emerald-700 hover:underline">
+                        Copy to customize
+                      </button>
+                    </div>
                   </div>
                   <p className="mt-1 whitespace-pre-wrap text-sm text-stone-600">{template.bodyText}</p>
                 </div>
