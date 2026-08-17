@@ -7,6 +7,7 @@ import IncomeSection from "../components/IncomeSection";
 import ExpenseSection from "../components/ExpenseSection";
 import MaintenanceRequestSection from "../components/MaintenanceRequestSection";
 import MaintenanceScheduleSection from "../components/MaintenanceScheduleSection";
+import BackLink from "../components/BackLink";
 
 export default function PropertyDetailPage() {
   const { id } = useParams();
@@ -99,9 +100,7 @@ export default function PropertyDetailPage() {
 
   return (
     <div className="space-y-8">
-      <Link to="/properties" className="text-sm text-emerald-700 hover:underline">
-        ← Back to properties
-      </Link>
+      <BackLink fallback="/properties" />
 
       {error && (
         <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>

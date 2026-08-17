@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
 import SimpleRecordSection from "../components/SimpleRecordSection";
+import BackLink from "../components/BackLink";
 
 const APPLICATION_STATUSES = ["PENDING", "APPROVED", "REJECTED"];
 
@@ -237,9 +238,7 @@ export default function TenantDetailPage() {
 
   return (
     <div className="space-y-6">
-      <Link to={`/properties/${tenant.propertyId}`} className="text-sm text-emerald-700 hover:underline">
-        ← Back to property
-      </Link>
+      <BackLink fallback={`/properties/${tenant.propertyId}`} />
 
       {error && (
         <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>

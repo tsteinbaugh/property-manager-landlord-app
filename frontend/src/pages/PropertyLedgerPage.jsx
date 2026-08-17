@@ -4,6 +4,7 @@ import { useApi } from "../hooks/useApi";
 import IncomeSection from "../components/IncomeSection";
 import ExpenseSection from "../components/ExpenseSection";
 import { categoryLabel } from "../lib/financeLabels";
+import BackLink from "../components/BackLink";
 
 function money(amount) {
   return `$${Number(amount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -66,9 +67,7 @@ export default function PropertyLedgerPage() {
 
   return (
     <div className="space-y-6">
-      <Link to="/finances" className="text-sm text-emerald-700 hover:underline">
-        ← Back to finances
-      </Link>
+      <BackLink fallback="/finances" />
 
       {error && (
         <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>

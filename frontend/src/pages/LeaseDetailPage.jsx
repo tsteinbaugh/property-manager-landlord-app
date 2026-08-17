@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
+import BackLink from "../components/BackLink";
 
 const LEASE_STATUSES = ["ACTIVE", "EXPIRED", "MONTH_TO_MONTH", "TERMINATED"];
 const LEASE_TENANT_ROLES = ["PRIMARY", "CO_TENANT", "GUARANTOR"];
@@ -225,9 +226,7 @@ export default function LeaseDetailPage() {
 
   return (
     <div className="space-y-6">
-      <Link to={`/properties/${lease.propertyId}`} className="text-sm text-emerald-700 hover:underline">
-        ← Back to property
-      </Link>
+      <BackLink fallback={`/properties/${lease.propertyId}`} />
 
       {error && (
         <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>

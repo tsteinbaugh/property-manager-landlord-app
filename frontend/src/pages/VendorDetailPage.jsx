@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
+import BackLink from "../components/BackLink";
 
 const STATUS_STYLES = {
   OPEN: "bg-amber-100 text-amber-800",
@@ -93,9 +94,7 @@ export default function VendorDetailPage() {
 
   return (
     <div className="space-y-6">
-      <Link to="/maintenance" className="text-sm text-emerald-700 hover:underline">
-        ← Back to maintenance
-      </Link>
+      <BackLink fallback="/maintenance" />
 
       {error && (
         <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>

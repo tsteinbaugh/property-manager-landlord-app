@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
 import PropertySpecSection from "../components/PropertySpecSection";
 import SpecItemDetailFields from "../components/SpecItemDetailFields";
+import BackLink from "../components/BackLink";
 
 function money(amount) {
   if (amount === null || amount === undefined) return null;
@@ -251,9 +252,7 @@ export default function PropertySpecsPage() {
 
   return (
     <div className="space-y-6">
-      <Link to={`/properties/${id}`} className="text-sm text-emerald-700 hover:underline">
-        ← Back to property
-      </Link>
+      <BackLink fallback={`/properties/${id}`} />
 
       {error && (
         <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>
