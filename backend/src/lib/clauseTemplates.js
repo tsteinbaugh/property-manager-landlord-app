@@ -39,12 +39,45 @@
 // pet emergency-removal + pet-specific insurance, smoking policy, snow
 // removal, fire-safety/grilling rules, and a handful of concrete property
 // rules (waterbeds, heavy furniture, candles, exterior signage) pulled
-// straight from the source Rules Addendum. The Colorado guest/squatter's-
-// rights clause is Taylor's own real-world addition, not sourced verbatim
-// from this document — flagged with its own state tag and written from the
-// general rule Taylor described, not a verified statutory citation; Taylor
-// should confirm it against their own addendum wording before relying on
-// it in a real lease.
+// straight from the source Rules Addendum. The Guest Policy clause with its
+// 14-day/6-month guest limit is Taylor's own real-world practice, not
+// sourced from this document — researched afterward and found to NOT trace
+// to any actual Colorado statute (the "14 days / 6 months" figure appears
+// verbatim across landlord-content sites for Colorado, California, AND
+// Florida alike, which is itself evidence of copied marketing content, not
+// independently verified law — the actual CO statute usually cited,
+// § 13-40-104, contains no such provision). Left untagged (state: null)
+// for that reason — it's enforceable as a plain contract term regardless of
+// jurisdiction, just not presented as reflecting any specific state's law.
+//
+// Two rounds of state-specific legal research (Aug 2026) added the
+// state-tagged clauses below. Round 1 covered Colorado + one California
+// example. Round 2, prompted by Taylor asking to add "anything required by
+// actual state statutes," went broader (28 states) but specifically
+// VERIFIED each candidate against a primary source (a state's official
+// statute text via a .gov site, law.justia.com, or casetext.com) rather
+// than trusting secondary landlord-content sites, precisely because the
+// guest-policy mistake above showed how easily a wrong number spreads
+// across those sites. Several round-1 secondary-sourced claims were
+// corrected or dropped in round 2 when checked against primary text (e.g.
+// Virginia's mold disclosure has no "10 sq ft" threshold — that was
+// invented by a content site; a rumored 2026 Colorado mold-disclosure law,
+// a specific state for asbestos disclosure, and Arkansas's deposit-return
+// deadline — which turned out to only apply to landlords with 6+ units or a
+// property manager, not this app's small-landlord audience — were all
+// dropped rather than shipped on weak sourcing). A few remaining nuances
+// worth knowing when reading these clauses: Tennessee's late fee cap only
+// applies in URLTA counties (population > 75,000); Texas's late-fee and
+// repair-timeline numbers are legal "safe harbor"/rebuttable-presumption
+// figures, not hard mandatory deadlines; Oregon's late fee allows a choice
+// of three fee structures, simplified here to the plain-language summary;
+// Virginia's late-fee-cap source was dated "effective July 1, 2027" in the
+// citation found, which is odd enough to double-check before relying on it.
+// IMPORTANT: several of the underlying Colorado rules specifically changed
+// within the last 1-2 years (deposit cap Jan 2026, entry notice 2026,
+// month-to-month notice 2024) — every state-tagged clause here is a
+// well-researched starting point, not a substitute for checking current law
+// or an attorney before relying on it in a real lease.
 const CLAUSE_TEMPLATES = [
   // Rent & Payment
   {
@@ -87,6 +120,163 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "All payments received shall be applied first to outstanding fees, charges, costs, utilities, or other amounts due under this Lease, and then to base rent, unless otherwise required by applicable law. Nothing in this provision limits Tenant's statutory right to cure nonpayment of base rent.",
   },
+  {
+    id: "late-fee-limit-co",
+    title: "Late Fee Limits (Colorado)",
+    group: "Rent & Payment",
+    state: "CO",
+    bodyText:
+      "Any late fee assessed under this Lease will not exceed the greater of $50.00 or 5% of the amount of Rent past due, and no late fee will be assessed until at least 7 days after Rent is due, as required by Colorado law.",
+  },
+  {
+    id: "nsf-fee-limit-co",
+    title: "NSF Fee Limit (Colorado)",
+    group: "Rent & Payment",
+    state: "CO",
+    bodyText:
+      "Any fee charged for a dishonored or returned payment under this Lease will not exceed $20.00 per occurrence, as required by Colorado law.",
+  },
+  {
+    id: "late-fee-limit-ny",
+    title: "Late Fee Limit (New York)",
+    group: "Rent & Payment",
+    state: "NY",
+    bodyText:
+      "Any late fee assessed under this Lease will not exceed the lesser of $50.00 or 5% of Monthly Rent, and no late fee will be assessed until at least 5 days after Rent is due, as required by New York law.",
+  },
+  {
+    id: "late-fee-limit-md",
+    title: "Late Fee Limit (Maryland)",
+    group: "Rent & Payment",
+    state: "MD",
+    bodyText: "Any late fee assessed under this Lease will not exceed 5% of the amount of Rent past due, as required by Maryland law.",
+  },
+  {
+    id: "late-fee-limit-mn",
+    title: "Late Fee Limit (Minnesota)",
+    group: "Rent & Payment",
+    state: "MN",
+    bodyText:
+      "Any late fee assessed under this Lease will not exceed 8% of the overdue payment, and must be agreed to in writing by both parties, as required by Minnesota law.",
+  },
+  {
+    id: "late-fee-limit-hi",
+    title: "Late Fee Limit (Hawaii)",
+    group: "Rent & Payment",
+    state: "HI",
+    bodyText: "Any late fee assessed under this Lease will not exceed 8% of the Rent due, as required by Hawaii law.",
+  },
+  {
+    id: "late-fee-limit-tn",
+    title: "Late Fee Limit (Tennessee)",
+    group: "Rent & Payment",
+    state: "TN",
+    bodyText:
+      "In a county to which Tennessee's Uniform Residential Landlord and Tenant Act applies (generally a county with a population over 75,000), any late fee assessed under this Lease will not exceed 10% of the Rent past due, and no late fee will be assessed until at least 5 days after Rent is due, as required by Tennessee law.",
+  },
+  {
+    id: "late-fee-limit-va",
+    title: "Late Fee Limit (Virginia)",
+    group: "Rent & Payment",
+    state: "VA",
+    bodyText:
+      "Any late fee assessed under this Lease will not exceed the lesser of 10% of the periodic Rent or 10% of the remaining balance due under this Lease, as required by Virginia law.",
+  },
+  {
+    id: "late-fee-limit-nc",
+    title: "Late Fee Limit (North Carolina)",
+    group: "Rent & Payment",
+    state: "NC",
+    bodyText:
+      "Any late fee assessed under this Lease will not exceed the greater of $15.00 or 5% of Monthly Rent, and no late fee will be assessed until at least 5 days after Rent is due, as required by North Carolina law.",
+  },
+  {
+    id: "late-fee-limit-me",
+    title: "Late Fee Limit (Maine)",
+    group: "Rent & Payment",
+    state: "ME",
+    bodyText:
+      "Any late fee assessed under this Lease will not exceed 4% of one month's Rent, and no late fee will be assessed until at least 15 days after Rent is due. Landlord will provide Tenant written notice of this late fee policy at signing, as required by Maine law.",
+  },
+  {
+    id: "late-fee-safe-harbor-tx",
+    title: "Late Fee Safe Harbor (Texas)",
+    group: "Rent & Payment",
+    state: "TX",
+    bodyText:
+      "Any late fee assessed under this Lease is intended to be a reasonable estimate of Landlord's damages from a late payment of Rent, consistent with Texas law, and will not exceed 12% of one rental period's Rent for a property with 4 or fewer units, or 10% of one rental period's Rent for a property with more than 4 units. No late fee will be assessed until at least 2 days after Rent is due.",
+  },
+  {
+    id: "late-fee-limit-de",
+    title: "Late Fee Limit (Delaware)",
+    group: "Rent & Payment",
+    state: "DE",
+    bodyText:
+      "Any late fee assessed under this Lease will not exceed 5% of Monthly Rent, and no late fee will be assessed until at least 5 days after Rent is due (8 days if Landlord has no office in the county where the property is located), as required by Delaware law.",
+  },
+  {
+    id: "late-fee-limit-or",
+    title: "Late Fee Limit (Oregon)",
+    group: "Rent & Payment",
+    state: "OR",
+    bodyText:
+      "Any late fee assessed under this Lease will follow one of the fee structures permitted under Oregon law: a single reasonable flat fee, a daily fee not exceeding 6% of a reasonable flat fee, or 5% of Rent assessed no more than once per 5-day period Rent remains unpaid. No late fee will be assessed until at least 4 days after Rent is due.",
+  },
+  {
+    id: "late-fee-safe-harbor-ca",
+    title: "Late Fee Guidance (California)",
+    group: "Rent & Payment",
+    state: "CA",
+    bodyText:
+      "California does not set a statutory cap on late fees, but any late fee under this Lease is intended to be a reasonable estimate of Landlord's actual damages from a late payment — a fee significantly higher than Landlord's actual costs risks being unenforceable as a penalty under California law.",
+  },
+  {
+    id: "nsf-fee-limit-ca",
+    title: "NSF Fee Limit (California)",
+    group: "Rent & Payment",
+    state: "CA",
+    bodyText:
+      "Any fee charged for a dishonored or returned payment under this Lease will not exceed $25.00 for a first occurrence or $35.00 for each subsequent occurrence, as required by California law.",
+  },
+  {
+    id: "nsf-fee-limit-fl",
+    title: "NSF Fee Limit (Florida)",
+    group: "Rent & Payment",
+    state: "FL",
+    bodyText:
+      "Any fee charged for a dishonored or returned payment under this Lease will not exceed $25.00 for a check of $50.00 or less, $30.00 for a check between $50.01 and $300.00, or the greater of $40.00 or 5% of the check amount for a check over $300.00, as required by Florida law.",
+  },
+  {
+    id: "nsf-fee-limit-or",
+    title: "NSF Fee Limit (Oregon)",
+    group: "Rent & Payment",
+    state: "OR",
+    bodyText:
+      "Any fee charged for a dishonored or returned payment under this Lease will not exceed $35.00, plus any actual bank charges Landlord incurs as a result, as required by Oregon law.",
+  },
+  {
+    id: "nsf-fee-limit-pa",
+    title: "NSF Fee Limit (Pennsylvania)",
+    group: "Rent & Payment",
+    state: "PA",
+    bodyText:
+      "Any fee charged for a dishonored or returned payment under this Lease will not exceed $50.00, or the actual fee Landlord's bank charges if higher, as required by Pennsylvania law.",
+  },
+  {
+    id: "nsf-fee-limit-tx",
+    title: "NSF Fee Limit (Texas)",
+    group: "Rent & Payment",
+    state: "TX",
+    bodyText:
+      "Any processing fee charged for a dishonored or returned payment under this Lease will not exceed $30.00, in addition to any fee the bank itself assesses, as required by Texas law.",
+  },
+  {
+    id: "nsf-fee-limit-hi",
+    title: "NSF Fee Limit (Hawaii)",
+    group: "Rent & Payment",
+    state: "HI",
+    bodyText: "Any fee charged for a dishonored or returned payment under this Lease will not exceed $30.00, as required by Hawaii law.",
+  },
 
   // Security Deposit
   {
@@ -104,6 +294,101 @@ const CLAUSE_TEMPLATES = [
     state: null,
     bodyText:
       "The Security Deposit, less any lawful deductions, will be returned to Tenant within the time period required by applicable law after Tenant vacates the property upon expiration or earlier termination of this Lease. Any deductions will be described in an itemized statement provided with the returned portion of the deposit. Tenant will provide Landlord a forwarding address to which the Security Deposit and itemized statement should be sent.",
+  },
+  {
+    id: "security-deposit-cap-co",
+    title: "Security Deposit Cap (Colorado)",
+    group: "Security Deposit",
+    state: "CO",
+    bodyText:
+      "The Security Deposit under this Lease will not exceed one month's Monthly Rent, as required by Colorado law. The Security Deposit will be returned to Tenant within 30 days after Tenant vacates the property, or within 60 days if this Lease so provides.",
+  },
+  {
+    id: "security-deposit-cap-ga",
+    title: "Security Deposit Cap (Georgia)",
+    group: "Security Deposit",
+    state: "GA",
+    bodyText:
+      "The Security Deposit under this Lease, including any pet deposit or other refundable deposit, will not exceed two months' Monthly Rent, as required by Georgia law. The Security Deposit will be returned to Tenant within 30 days after Tenant vacates the property.",
+  },
+  {
+    id: "security-deposit-cap-md",
+    title: "Security Deposit Cap (Maryland)",
+    group: "Security Deposit",
+    state: "MD",
+    bodyText:
+      "The Security Deposit under this Lease will not exceed one month's Monthly Rent, as required by Maryland law.",
+  },
+  {
+    id: "security-deposit-cap-ct",
+    title: "Security Deposit Cap (Connecticut)",
+    group: "Security Deposit",
+    state: "CT",
+    bodyText:
+      "The Security Deposit under this Lease will not exceed two months' Monthly Rent, or one month's Monthly Rent if Tenant is 62 years of age or older at the time the Security Deposit is paid, as required by Connecticut law.",
+  },
+  {
+    id: "security-deposit-return-ny",
+    title: "Security Deposit Return Deadline (New York)",
+    group: "Security Deposit",
+    state: "NY",
+    bodyText:
+      "The Security Deposit, less any lawful deductions, will be returned to Tenant within 14 days after Tenant vacates the property, as required by New York law.",
+  },
+  {
+    id: "security-deposit-return-hi",
+    title: "Security Deposit Return Deadline (Hawaii)",
+    group: "Security Deposit",
+    state: "HI",
+    bodyText:
+      "The Security Deposit, less any lawful deductions, will be returned to Tenant within 14 days after Tenant vacates the property, as required by Hawaii law.",
+  },
+  {
+    id: "security-deposit-return-wv",
+    title: "Security Deposit Return Deadline (West Virginia)",
+    group: "Security Deposit",
+    state: "WV",
+    bodyText:
+      "The Security Deposit, less any lawful deductions, will be returned to Tenant within 60 days after Tenant vacates the property, or within 45 days if a new tenant takes possession of the property sooner, as required by West Virginia law.",
+  },
+  {
+    id: "security-deposit-interest-ct",
+    title: "Security Deposit Interest (Connecticut)",
+    group: "Security Deposit",
+    state: "CT",
+    bodyText:
+      "Landlord will hold the Security Deposit in an escrow account and will pay Tenant interest on the Security Deposit, less an administrative fee of up to 1%, as required by Connecticut law.",
+  },
+  {
+    id: "security-deposit-interest-md",
+    title: "Security Deposit Interest (Maryland)",
+    group: "Security Deposit",
+    state: "MD",
+    bodyText: "Landlord will pay Tenant interest on the Security Deposit at the rate required by Maryland law.",
+  },
+  {
+    id: "security-deposit-interest-ma",
+    title: "Security Deposit Interest (Massachusetts)",
+    group: "Security Deposit",
+    state: "MA",
+    bodyText:
+      "Landlord will hold the Security Deposit in a separate interest-bearing account and will pay Tenant interest on the Security Deposit, as required by Massachusetts law.",
+  },
+  {
+    id: "security-deposit-interest-nj",
+    title: "Security Deposit Interest (New Jersey)",
+    group: "Security Deposit",
+    state: "NJ",
+    bodyText:
+      "Landlord will hold the Security Deposit in an insured interest-bearing account and will pay Tenant interest on the Security Deposit annually, as required by New Jersey law.",
+  },
+  {
+    id: "security-deposit-interest-oh",
+    title: "Security Deposit Interest (Ohio)",
+    group: "Security Deposit",
+    state: "OH",
+    bodyText:
+      "If the Term of this Lease exceeds 6 months, Landlord will pay Tenant interest on the Security Deposit at the rate required by Ohio law.",
   },
 
   // Tenant Responsibilities
@@ -245,6 +530,46 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "Subject to Tenant's own maintenance obligations under this Lease, Landlord will maintain the property, including its structural elements, roof, and systems, in good order and repair, and will be responsible for repairing the appliances, fixtures, and equipment located at the property, except where repair is necessary due to improper use by Tenant or a guest of Tenant. Tenant will notify Landlord promptly in writing of any condition requiring repair or maintenance, and Landlord will undertake required repairs within a reasonable time, consistent with applicable law.",
   },
+  {
+    id: "habitability-timeline-co",
+    title: "Repair Timeline (Colorado)",
+    group: "Landlord Responsibilities",
+    state: "CO",
+    bodyText:
+      "For a condition that materially affects health or safety, Landlord will begin remedial action within 24 hours of receiving notice from Tenant, as required by Colorado law. For any other condition Landlord is responsible to repair under this Lease, Landlord will begin remedial action within 72 hours. If a repair will reasonably take longer than 60 consecutive days to complete, Landlord will notify Tenant in writing of the expected timeline.",
+  },
+  {
+    id: "habitability-timeline-fl",
+    title: "Repair Timeline (Florida)",
+    group: "Landlord Responsibilities",
+    state: "FL",
+    bodyText:
+      "If a condition Landlord is responsible to repair under this Lease materially affects Tenant's health or safety, Landlord will begin remedial action within 7 days after receiving written notice from Tenant, as required by Florida law.",
+  },
+  {
+    id: "habitability-timeline-az",
+    title: "Repair Timeline (Arizona)",
+    group: "Landlord Responsibilities",
+    state: "AZ",
+    bodyText:
+      "For a condition that materially affects Tenant's health or safety, Landlord will begin remedial action within 5 days of receiving notice from Tenant. For any other essential-service repair Landlord is responsible for under this Lease, Landlord will begin remedial action within 10 days, as required by Arizona law.",
+  },
+  {
+    id: "habitability-timeline-tx",
+    title: "Repair Timeline (Texas)",
+    group: "Landlord Responsibilities",
+    state: "TX",
+    bodyText:
+      "A repair completed within 7 days after Landlord receives notice from Tenant is presumed reasonable under Texas law. Landlord will make a diligent effort to repair conditions it is responsible for under this Lease within that time, recognizing that a longer period may be reasonable depending on the nature of the repair and the availability of parts or labor.",
+  },
+  {
+    id: "habitability-timeline-or",
+    title: "Repair Timeline (Oregon)",
+    group: "Landlord Responsibilities",
+    state: "OR",
+    bodyText:
+      "For a condition affecting an essential service (such as heat, water, electricity, or plumbing), Landlord will remedy the condition within 7 days of receiving notice from Tenant, or Tenant may terminate this Lease. For any other condition Landlord is responsible to repair under this Lease, Landlord will remedy it within 30 days. If the loss of an essential service poses an imminent and serious threat to Tenant's health or safety, Tenant may terminate this Lease on 48 hours' written notice if Landlord does not remedy it, as required by Oregon law.",
+  },
 
   // Access & Entry
   {
@@ -254,6 +579,70 @@ const CLAUSE_TEMPLATES = [
     state: null,
     bodyText:
       "Landlord, its agents, and contractors will have the right of reasonable access to the property during normal business hours to perform maintenance and repair obligations and to show the property to prospective tenants or purchasers. Except in the case of an emergency, Landlord will provide Tenant at least 24 hours' notice, or the notice period required by applicable law if longer, prior to entry.",
+  },
+  {
+    id: "landlords-access-co",
+    title: "Landlord's Right of Entry (Colorado)",
+    group: "Access & Entry",
+    state: "CO",
+    bodyText:
+      "Landlord, its agents, and contractors will have the right of reasonable access to the property during normal business hours to perform maintenance and repair obligations and to show the property to prospective tenants or purchasers. Except in the case of an emergency, Landlord will provide Tenant at least 24 hours' written notice prior to entry, as required by Colorado law, or at least 48 hours' notice prior to an inspection or treatment related to bed bugs.",
+  },
+  {
+    id: "landlords-access-de",
+    title: "Landlord's Right of Entry (Delaware)",
+    group: "Access & Entry",
+    state: "DE",
+    bodyText:
+      "Landlord, its agents, and contractors will have the right of reasonable access to the property during normal business hours to perform maintenance and repair obligations and to show the property to prospective tenants or purchasers. Except in the case of an emergency, Landlord will provide Tenant at least 48 hours' notice, between 8:00 a.m. and 9:00 p.m., prior to entry, as required by Delaware law.",
+  },
+  {
+    id: "landlords-access-hi",
+    title: "Landlord's Right of Entry (Hawaii)",
+    group: "Access & Entry",
+    state: "HI",
+    bodyText:
+      "Landlord, its agents, and contractors will have the right of reasonable access to the property during normal business hours to perform maintenance and repair obligations and to show the property to prospective tenants or purchasers. Except in the case of an emergency, Landlord will provide Tenant at least 48 hours' notice prior to entry, as required by Hawaii law.",
+  },
+  {
+    id: "landlords-access-ky",
+    title: "Landlord's Right of Entry (Kentucky)",
+    group: "Access & Entry",
+    state: "KY",
+    bodyText:
+      "Landlord, its agents, and contractors will have the right of reasonable access to the property during normal business hours to perform maintenance and repair obligations and to show the property to prospective tenants or purchasers. Except in the case of an emergency, Landlord will provide Tenant at least 48 hours' notice prior to entry, as required by Kentucky law.",
+  },
+  {
+    id: "landlords-access-ri",
+    title: "Landlord's Right of Entry (Rhode Island)",
+    group: "Access & Entry",
+    state: "RI",
+    bodyText:
+      "Landlord, its agents, and contractors will have the right of reasonable access to the property during normal business hours to perform maintenance and repair obligations and to show the property to prospective tenants or purchasers. Except in the case of an emergency, Landlord will provide Tenant at least 48 hours' notice prior to entry, as required by Rhode Island law.",
+  },
+  {
+    id: "landlords-access-vt",
+    title: "Landlord's Right of Entry (Vermont)",
+    group: "Access & Entry",
+    state: "VT",
+    bodyText:
+      "Landlord, its agents, and contractors will have the right of reasonable access to the property during normal business hours to perform maintenance and repair obligations and to show the property to prospective tenants or purchasers. Except in the case of an emergency, Landlord will provide Tenant at least 48 hours' notice, between 9:00 a.m. and 9:00 p.m., prior to entry, as required by Vermont law.",
+  },
+  {
+    id: "landlords-access-dc",
+    title: "Landlord's Right of Entry (District of Columbia)",
+    group: "Access & Entry",
+    state: "DC",
+    bodyText:
+      "Landlord, its agents, and contractors will have the right of reasonable access to the property during normal business hours to perform maintenance and repair obligations and to show the property to prospective tenants or purchasers. Except in the case of an emergency, Landlord will provide Tenant at least 48 hours' notice prior to entry, as required by District of Columbia law.",
+  },
+  {
+    id: "landlords-access-wa",
+    title: "Landlord's Right of Entry (Washington)",
+    group: "Access & Entry",
+    state: "WA",
+    bodyText:
+      "Landlord, its agents, and contractors will have the right of reasonable access to the property during normal business hours to perform maintenance and repair obligations. Except in the case of an emergency, Landlord will provide Tenant at least 2 days' notice prior to entry for repairs or inspection, or at least 1 day's notice prior to showing the property to a prospective tenant or purchaser, as required by Washington law.",
   },
 
   // Default & Termination
@@ -296,6 +685,22 @@ const CLAUSE_TEMPLATES = [
     state: null,
     bodyText:
       "If Tenant does not vacate the property by the end of the Term, Landlord may pursue any remedy allowed by applicable law to recover possession, and will be entitled to recover from Tenant double the Monthly Rent, prorated on a daily basis, for each day Tenant remains in possession after the end of the Term (or the maximum amount allowed under applicable law, if less). Alternatively, Landlord may accept Tenant's continued payment of Rent, in which case this Lease will be deemed to continue on a month-to-month basis on the same terms and conditions, terminable by either party upon written notice as required by applicable law.",
+  },
+  {
+    id: "month-to-month-notice-co",
+    title: "Month-to-Month Termination Notice (Colorado)",
+    group: "Default & Termination",
+    state: "CO",
+    bodyText:
+      "Either Landlord or Tenant may terminate a month-to-month tenancy under this Lease by providing at least 21 days' written notice to the other party, as required by Colorado law, ending on the last day of a rental period.",
+  },
+  {
+    id: "month-to-month-notice-ca",
+    title: "Month-to-Month Termination Notice (California)",
+    group: "Default & Termination",
+    state: "CA",
+    bodyText:
+      "Either Landlord or Tenant may terminate a month-to-month tenancy under this Lease by providing written notice: at least 30 days if Tenant has occupied the property for less than one year, or at least 60 days if Tenant has occupied the property for one year or more, as required by California law.",
   },
 
   // Notices & General
@@ -426,10 +831,10 @@ const CLAUSE_TEMPLATES = [
       "Guests are welcome for reasonable, non-continuous stays. A guest who stays beyond the period specified by Landlord within a given time frame will be considered an unauthorized occupant and subject to Landlord's prior written consent under this Lease's occupancy terms.",
   },
   {
-    id: "guest-policy-colorado",
-    title: "Guest Policy — Colorado",
+    id: "guest-policy-day-limit",
+    title: "Guest Policy (14-Day Limit)",
     group: "Rules & Regulations",
-    state: "CO",
+    state: null,
     bodyText:
       "Tenant will not permit a guest to stay at the property for more than 14 consecutive days, or more than 14 total days within any rolling 6-month period, without Landlord's prior written consent to add that person to this Lease as an occupant or Tenant.",
   },
@@ -490,6 +895,134 @@ const CLAUSE_TEMPLATES = [
     state: null,
     bodyText:
       "If the property is located within a homeowner or condominium association, Tenant will comply with the association's rules and regulations applicable to the property. Any fines incurred due to Tenant's violation of association rules will be Tenant's responsibility.",
+  },
+  {
+    id: "bed-bug-disclosure-co",
+    title: "Bed Bug Disclosure (Colorado)",
+    group: "Disclosures",
+    state: "CO",
+    bodyText:
+      "As required by Colorado law, Landlord discloses the property's bed bug history within the past 8 months, if any: [describe any known infestation and treatment, or state 'none known']. Tenant acknowledges receipt of this disclosure.",
+  },
+  {
+    id: "utility-submetering-disclosure-co",
+    title: "Utility Allocation Disclosure (Colorado)",
+    group: "Disclosures",
+    state: "CO",
+    bodyText:
+      "If utilities at the property are not individually metered and Tenant's utility charges are calculated using a ratio or formula rather than a dedicated meter, Landlord will clearly disclose the calculation method in this Lease, as required by Colorado law: [describe the utility allocation method used]. Any administrative fee for this billing method will not exceed the greater of $10.00 per month or 2% of the utility charge, and Landlord will not add any markup to the utility cost itself.",
+  },
+  {
+    id: "bed-bug-disclosure-ca",
+    title: "Bed Bug Disclosure (California)",
+    group: "Disclosures",
+    state: "CA",
+    bodyText:
+      "As required by California law, Landlord provides Tenant the following information about bed bugs: information on their identification, behavior, biology, and prevention; the importance of prompt reporting; Landlord's process for investigating a suspected infestation; and the danger of self-treating with pesticides. Tenant acknowledges receipt of this disclosure.",
+  },
+  {
+    id: "bed-bug-disclosure-me",
+    title: "Bed Bug Disclosure (Maine)",
+    group: "Disclosures",
+    state: "ME",
+    bodyText:
+      "As required by Maine law, Landlord discloses whether, to Landlord's knowledge, a unit adjacent to the property is currently infested with bed bugs or is being treated for a bed bug infestation: [describe, or state 'none known']. Tenant may request the date of the property's most recent bed bug inspection.",
+  },
+  {
+    id: "meth-disclosure-va",
+    title: "Methamphetamine Contamination Disclosure (Virginia)",
+    group: "Disclosures",
+    state: "VA",
+    bodyText:
+      "If Landlord has actual knowledge that the property was used to manufacture methamphetamine and has not been cleaned up in accordance with applicable state standards, Landlord must disclose that fact to Tenant, as required by Virginia law. Landlord discloses: [describe any known contamination and remediation, or state 'none known']. If this disclosure is not made when required, Tenant may have the right to terminate this Lease within 60 days.",
+  },
+  {
+    id: "meth-disclosure-ca",
+    title: "Methamphetamine Contamination Disclosure (California)",
+    group: "Disclosures",
+    state: "CA",
+    bodyText:
+      "If the property is subject to an order prohibiting occupancy due to methamphetamine contamination that has not been satisfied, Landlord must disclose that fact to Tenant, as required by California law. Landlord discloses: [describe any known contamination order, or state 'none known'].",
+  },
+  {
+    id: "mold-disclosure-ca",
+    title: "Mold Disclosure (California)",
+    group: "Disclosures",
+    state: "CA",
+    bodyText:
+      "If Landlord knows, or has reasonable cause to believe, that mold is present at the property in an amount that may exceed exposure limits recommended by a health authority, Landlord must disclose that condition to Tenant in writing, as required by California law. Landlord discloses: [describe any known mold condition, or state 'none known'].",
+  },
+  {
+    id: "mold-disclosure-wa",
+    title: "Mold Disclosure (Washington)",
+    group: "Disclosures",
+    state: "WA",
+    bodyText:
+      "As required by Washington law, Landlord provides Tenant the Washington State Department of Health's mold information notice, addressing the health effects of indoor mold exposure and the respective responsibilities of Landlord and Tenant for preventing and addressing mold growth. Tenant acknowledges receipt of this disclosure.",
+  },
+  {
+    id: "mold-disclosure-va",
+    title: "Mold Disclosure (Virginia)",
+    group: "Disclosures",
+    state: "VA",
+    bodyText:
+      "As part of the move-in inspection report for this Lease, Landlord discloses any visible evidence of mold observed at the property, as required by Virginia law: [describe any visible mold observed, or state 'none observed'].",
+  },
+  {
+    id: "flood-disclosure-ca",
+    title: "Flood Zone Disclosure (California)",
+    group: "Disclosures",
+    state: "CA",
+    bodyText:
+      "If the property is located within a special flood hazard area as designated by the Federal Emergency Management Agency, Landlord must disclose that fact to Tenant and recommend that Tenant consider obtaining renter's insurance covering flood damage, as required by California law.",
+  },
+  {
+    id: "flood-disclosure-tx",
+    title: "Flood Disclosure (Texas)",
+    group: "Disclosures",
+    state: "TX",
+    bodyText:
+      "Landlord discloses the property's flood history and flood risk, as required by Texas law: [describe whether the property is located in a 100-year floodplain and any known prior flooding, or state 'Landlord is not aware the property is located in a floodplain or has previously flooded'].",
+  },
+  {
+    id: "flood-disclosure-fl",
+    title: "Flood Disclosure (Florida)",
+    group: "Disclosures",
+    state: "FL",
+    bodyText:
+      "As a separate written disclosure required by Florida law, Landlord discloses the property's flood zone designation and, if known, its flood history: [describe, or state 'Landlord is not aware the property is located in a flood zone or has previously flooded']. If Landlord fails to provide this disclosure and the property floods, Tenant may have the right to terminate this Lease.",
+  },
+  {
+    id: "utility-submetering-disclosure-tx",
+    title: "Utility Allocation Disclosure (Texas)",
+    group: "Disclosures",
+    state: "TX",
+    bodyText:
+      "If utilities at the property are billed using a ratio or formula rather than a dedicated meter, Landlord will disclose that fact and the calculation method used in this Lease, as required by Texas law: [describe the utility allocation method used].",
+  },
+  {
+    id: "foreclosure-disclosure-nv",
+    title: "Foreclosure Disclosure (Nevada)",
+    group: "Disclosures",
+    state: "NV",
+    bodyText:
+      "If the property is subject to a pending foreclosure proceeding, Landlord must disclose that fact to Tenant in writing, as required by Nevada law. Landlord discloses: [describe any known foreclosure proceeding, or state 'none known'].",
+  },
+  {
+    id: "foreclosure-disclosure-ca",
+    title: "Foreclosure Disclosure (California)",
+    group: "Disclosures",
+    state: "CA",
+    bodyText:
+      "If a notice of default has been recorded against the property, Landlord must post or deliver notice of that fact, as required by California law. Landlord discloses: [describe any known foreclosure proceeding, or state 'none known'].",
+  },
+  {
+    id: "sex-offender-registry-notice-ca",
+    title: "Sex Offender Registry Notice (California)",
+    group: "Disclosures",
+    state: "CA",
+    bodyText:
+      "As required by California law, Landlord provides Tenant the following notice: information about specified registered sex offenders is made available to the public via an internet website maintained by the Department of Justice. Depending on an offender's criminal history, this information will include either the offender's address or the community of residence and ZIP Code.",
   },
 ];
 

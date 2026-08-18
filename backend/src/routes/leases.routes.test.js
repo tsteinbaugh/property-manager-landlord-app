@@ -1022,14 +1022,14 @@ describe("leases routes", () => {
           isDefault: true,
         },
       });
-      await prisma.defaultClauseTemplate.create({ data: { userId: property.userId, templateId: "guest-policy-colorado" } });
+      await prisma.defaultClauseTemplate.create({ data: { userId: property.userId, templateId: "security-deposit-cap-co" } });
 
       const res = await request(app).post(`/api/leases/${lease.id}/clauses/add-defaults`);
 
       const titles = res.body.leaseClauses.map((c) => c.title);
       expect(titles).toContain("Colorado Default");
       expect(titles).toContain("Universal Default");
-      expect(titles).toContain("Guest Policy — Colorado");
+      expect(titles).toContain("Security Deposit Cap (Colorado)");
       expect(titles).not.toContain("Texas Default");
     });
   });
