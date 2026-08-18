@@ -91,6 +91,7 @@ model Property {
   city      String
   state     String // drives legal notice-period rules in v2
   zip       String
+  yearBuilt Int? // drives lead-based-paint disclosure applicability (federal law: pre-1978 only); not auto-enforced, just surfaced as context
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -226,6 +227,10 @@ model Lease {
   petPolicy     Boolean  @default(false)
   petRentAmount Decimal? @db.Decimal(10, 2)
 
+  // Minimum renter's-insurance liability coverage the lease requires Tenant to carry, backing the
+  // {{tenant_insurance_minimum}} clause variable. Null means no minimum is required.
+  tenantInsuranceMinimumCoverage Decimal? @db.Decimal(10, 2)
+
   // What the lease promises tenants, e.g. "3% max annually" — free text since caps vary in phrasing.
   renewalRentIncreaseCap String?
 
@@ -245,6 +250,7 @@ model Lease {
   incomes      Income[]
   deposits     Deposit[]
   leaseClauses LeaseClause[]
+  attachments  LeaseAttachment[]
 
   @@index([userId])
   @@index([propertyId])
@@ -265,6 +271,10 @@ model Clause {
   title     String
   bodyText  String
   group     String
+  // Two-letter state code (e.g. "CO") this clause's language is specific to, or null if it's
+  // generic/universal. Filters the library view and "Add my default clauses" by the lease's
+  // property state — not a Legal Tracker notice-period/deadline engine, just a content tag.
+  state     String?
   // "Add my default clauses" (leases.routes.js) attaches every Clause with
   // isDefault: true in one action, instead of the landlord attaching their
   // usual set by hand on every new lease.
@@ -323,6 +333,24 @@ model LeaseClause {
 
   @@index([leaseId])
   @@index([sourceClauseId])
+}
+
+// Supporting documents attached to a lease beyond the generated lease PDF itself — HOA rules,
+// a rules addendum, or any other reference document a landlord wants bundled with the lease.
+// Free-text category (not an enum, unlike TenantDocumentCategory) since these are open-ended,
+// landlord-defined attachments rather than a fixed set of screening-document types. Same
+// private-bucket/presigned-URL R2 pattern as every other document model in this app.
+model LeaseAttachment {
+  id          String   @id @default(cuid())
+  leaseId     String
+  category    String
+  fileName    String
+  documentKey String
+  createdAt   DateTime @default(now())
+
+  lease Lease @relation(fields: [leaseId], references: [id], onDelete: Cascade)
+
+  @@index([leaseId])
 }
 
 enum LeaseTenantRole {

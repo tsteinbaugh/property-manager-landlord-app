@@ -13,7 +13,7 @@ const CLAUSE_GROUPS = [
   "Default & Termination",
   "Notices & General",
   "Pets",
-  "Parking",
+  "Parking & Storage",
   "Rules & Regulations",
   "Disclosures",
   "Other / Miscellaneous",

@@ -8,7 +8,14 @@ const LEASE_STATUSES = ["ACTIVE", "EXPIRED", "MONTH_TO_MONTH", "TERMINATED"];
 const LEASE_TENANT_ROLES = ["PRIMARY", "CO_TENANT", "GUARANTOR"];
 
 const TEXT_FIELDS = ["renewalRentIncreaseCap", "notes"];
-const NUMBER_FIELDS = ["monthlyRent", "securityDepositAmount", "lateFeeAmount", "lateFeeGraceDays", "petRentAmount"];
+const NUMBER_FIELDS = [
+  "monthlyRent",
+  "securityDepositAmount",
+  "lateFeeAmount",
+  "lateFeeGraceDays",
+  "petRentAmount",
+  "tenantInsuranceMinimumCoverage",
+];
 const DATE_FIELDS = ["startDate", "endDate"];
 
 function toForm(lease) {
@@ -354,6 +361,18 @@ export default function LeaseDetailPage() {
                 />
               </label>
               <label className="block text-sm">
+                <span className="mb-1 block font-medium text-stone-700">Tenant insurance minimum coverage</span>
+                <input
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  value={form.tenantInsuranceMinimumCoverage}
+                  onChange={(e) => setForm({ ...form, tenantInsuranceMinimumCoverage: e.target.value })}
+                  className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+                  placeholder="e.g. 100000"
+                />
+              </label>
+              <label className="block text-sm">
                 <span className="mb-1 block font-medium text-stone-700">Renewal rent increase cap</span>
                 <input
                   value={form.renewalRentIncreaseCap}
@@ -400,6 +419,7 @@ export default function LeaseDetailPage() {
             <DetailRow label="Late fee grace days" value={lease.lateFeeGraceDays} />
             <DetailRow label="Pets allowed" value={lease.petPolicy ? "Yes" : "No"} />
             <DetailRow label="Pet rent" value={money(lease.petRentAmount)} />
+            <DetailRow label="Tenant insurance minimum coverage" value={money(lease.tenantInsuranceMinimumCoverage)} />
             <DetailRow label="Renewal rent increase cap" value={lease.renewalRentIncreaseCap} />
             {lease.notes && (
               <div className="sm:col-span-2">

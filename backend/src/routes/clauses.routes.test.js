@@ -63,6 +63,19 @@ describe("clauses routes", () => {
     expect(res.body.group).toBe("Rent & Payment");
   });
 
+  it("creates a clause tagged to a state, and lets it be updated back to universal", async () => {
+    const created = await request(app).post("/api/clauses").send({
+      title: "Colorado Guest Rule",
+      bodyText: "...",
+      group: "Rules & Regulations",
+      state: "CO",
+    });
+    expect(created.body.state).toBe("CO");
+
+    const res = await request(app).put(`/api/clauses/${created.body.id}`).send({ state: null });
+    expect(res.body.state).toBeNull();
+  });
+
   it("rejects a clause missing required fields", async () => {
     const res = await request(app).post("/api/clauses").send({ title: "No body text or group" });
 

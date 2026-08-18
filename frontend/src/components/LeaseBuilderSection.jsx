@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
 import SearchableSelect from "./SearchableSelect";
+import LeaseAttachmentsPanel from "./LeaseAttachmentsPanel";
 
 const EMPTY_CLAUSE_FORM = { title: "", bodyText: "", group: "" };
+const ALL_STATES = "ALL";
 
 // Encodes which pool an attach-picker option came from into its value, so a
 // single combined SearchableSelect can drive either POST body shape
@@ -32,6 +34,9 @@ export default function LeaseBuilderSection({ lease, onChange }) {
   const [submitting, setSubmitting] = useState(false);
   const [generating, setGenerating] = useState(false);
   const [error, setError] = useState(null);
+  // Defaults to this lease's own property state (if tagged), so the picker starts scoped to what
+  // actually applies here — still overridable to browse everything or another state's clauses.
+  const [stateFilter, setStateFilter] = useState(lease.property?.state || ALL_STATES);
 
   useEffect(() => {
     Promise.all([api.get("/api/clauses"), api.get("/api/clause-templates"), api.get("/api/clause-groups")])
@@ -47,14 +52,26 @@ export default function LeaseBuilderSection({ lease, onChange }) {
   const attachedClauseIds = new Set(lease.leaseClauses.map((lc) => lc.sourceClauseId).filter(Boolean));
   const attachedTemplateIds = new Set(lease.leaseClauses.map((lc) => lc.sourceTemplateId).filter(Boolean));
 
+  function matchesStateFilter(item) {
+    return stateFilter === ALL_STATES || !item.state || item.state === stateFilter;
+  }
+
   const pickerOptions = [
     ...library
-      .filter((c) => !attachedClauseIds.has(c.id))
-      .map((c) => ({ value: encodeOption("clause", c.id), label: `${c.title} — ${c.group}` })),
+      .filter((c) => !attachedClauseIds.has(c.id) && matchesStateFilter(c))
+      .map((c) => ({
+        value: encodeOption("clause", c.id),
+        label: `${c.title} — ${c.group}${c.state ? ` [${c.state}]` : ""}`,
+      })),
     ...templates
-      .filter((t) => !attachedTemplateIds.has(t.id))
-      .map((t) => ({ value: encodeOption("template", t.id), label: `${t.title} — ${t.group} (Provided)` })),
+      .filter((t) => !attachedTemplateIds.has(t.id) && matchesStateFilter(t))
+      .map((t) => ({
+        value: encodeOption("template", t.id),
+        label: `${t.title} — ${t.group}${t.state ? ` [${t.state}]` : ""} (Provided)`,
+      })),
   ];
+
+  const availableStates = [...new Set([...library, ...templates].map((c) => c.state).filter(Boolean))].sort();
 
   async function handleAttach(e) {
     e.preventDefault();
@@ -294,6 +311,21 @@ export default function LeaseBuilderSection({ lease, onChange }) {
           onSubmit={handleAttach}
           className="flex flex-wrap items-end gap-3 rounded-xl border border-stone-200 bg-white p-4 shadow-sm"
         >
+          <div>
+            <span className="mb-1 block text-sm font-medium text-stone-700">State</span>
+            <select
+              value={stateFilter}
+              onChange={(e) => setStateFilter(e.target.value)}
+              className="rounded-lg border border-stone-300 px-2 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+            >
+              <option value={ALL_STATES}>All states</option>
+              {availableStates.map((s) => (
+                <option key={s} value={s}>
+                  {s}
+                </option>
+              ))}
+            </select>
+          </div>
           <div className="min-w-64 flex-1">
             <span className="mb-1 block text-sm font-medium text-stone-700">Clause</span>
             {pickerOptions.length === 0 ? (
@@ -393,6 +425,8 @@ export default function LeaseBuilderSection({ lease, onChange }) {
           </div>
         </form>
       )}
+
+      <LeaseAttachmentsPanel api={api} leaseId={lease.id} />
 
       <div className="rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
         <button

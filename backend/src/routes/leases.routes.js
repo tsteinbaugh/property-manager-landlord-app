@@ -20,6 +20,7 @@ const ASSIGNABLE_FIELDS = [
   "lateFeeGraceDays",
   "petPolicy",
   "petRentAmount",
+  "tenantInsuranceMinimumCoverage",
   "renewalRentIncreaseCap",
   "notes",
   "status",
@@ -28,6 +29,8 @@ const ASSIGNABLE_FIELDS = [
 const DATE_FIELDS = ["startDate", "endDate"];
 
 const LEASE_TENANT_ROLES = ["PRIMARY", "CO_TENANT", "GUARANTOR"];
+
+const ATTACHMENT_TYPES = ["application/pdf", "image/jpeg", "image/png"];
 
 function pickAssignableFields(body) {
   return pickFields(body, ASSIGNABLE_FIELDS, DATE_FIELDS);
@@ -42,9 +45,11 @@ function validateLeaseBody(body) {
 }
 
 const leaseInclude = {
-  leaseTenants: { include: { tenant: true } },
+  leaseTenants: { include: { tenant: { include: { occupants: true } } } },
   leaseClauses: true,
-  property: { include: { entity: true } },
+  property: { include: { entity: true, appliances: { where: { active: true } } } },
+  deposits: { where: { type: "PET" } },
+  attachments: { orderBy: { createdAt: "asc" } },
 };
 
 const CLAUSE_REQUIRED_FIELDS = ["title", "bodyText", "group"];
@@ -68,7 +73,17 @@ function withComputedLeaseFields(lease) {
     firstName: lt.tenant.firstName,
     lastName: lt.tenant.lastName,
   }));
-  const context = buildVariableContext({ lease, property: lease.property, entity: lease.property?.entity, tenants });
+  const occupants = (lease.leaseTenants || []).flatMap((lt) => lt.tenant.occupants || []);
+  const petDeposit = (lease.deposits || []).find((d) => d.type === "PET");
+  const context = buildVariableContext({
+    lease,
+    property: lease.property,
+    entity: lease.property?.entity,
+    tenants,
+    occupants,
+    appliances: lease.property?.appliances || [],
+    petDepositAmount: petDeposit?.amountHeld ?? null,
+  });
   const leaseClauses = orderAndLabelClauses(lease.leaseClauses || []).map((clause) => ({
     ...clause,
     resolvedBodyText: substituteVariables(clause.bodyText, context),
@@ -307,6 +322,103 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
     res.status(204).send();
   });
 
+  // Supporting documents attached to the lease beyond the generated lease PDF itself — HOA
+  // rules, a rules addendum, etc. Multiple files, free-text category (unlike TenantDocument's
+  // fixed category enum, since these are open-ended/landlord-defined), same presigned-URL R2
+  // pattern as every other document endpoint in this app.
+  router.get("/:id/attachments", async (req, res) => {
+    const lease = await prisma.lease.findUnique({ where: { id: req.params.id } });
+    if (!lease || lease.userId !== req.currentUser.id) {
+      return res.status(404).json({ error: "Lease not found" });
+    }
+
+    // Ascending — Taylor wants these to read as "appended in the order they were uploaded"
+    // (unlike TenantDocument's newest-first listing, which is a browsing convenience, not a
+    // sequence that matters).
+    const attachments = await prisma.leaseAttachment.findMany({
+      where: { leaseId: lease.id },
+      orderBy: { createdAt: "asc" },
+    });
+
+    res.json(attachments);
+  });
+
+  router.post("/:id/attachments/upload-url", async (req, res) => {
+    const { fileName, contentType, category } = req.body;
+
+    if (!fileName || !contentType || !category) {
+      return res.status(400).json({ error: "Missing required field(s): fileName, contentType, category" });
+    }
+    if (!ATTACHMENT_TYPES.includes(contentType)) {
+      return res.status(400).json({ error: `contentType must be one of: ${ATTACHMENT_TYPES.join(", ")}` });
+    }
+
+    const lease = await prisma.lease.findUnique({ where: { id: req.params.id } });
+    if (!lease || lease.userId !== req.currentUser.id) {
+      return res.status(404).json({ error: "Lease not found" });
+    }
+
+    const key = `leases/${lease.id}/attachments/${crypto.randomUUID()}-${sanitizeFileName(fileName)}`;
+    const uploadUrl = await r2.getUploadUrl(key, contentType);
+
+    res.json({ uploadUrl, key });
+  });
+
+  router.post("/:id/attachments/confirm", async (req, res) => {
+    const { key, category, fileName } = req.body;
+
+    if (!key || !category || !fileName) {
+      return res.status(400).json({ error: "Missing required field(s): key, category, fileName" });
+    }
+
+    const lease = await prisma.lease.findUnique({ where: { id: req.params.id } });
+    if (!lease || lease.userId !== req.currentUser.id) {
+      return res.status(404).json({ error: "Lease not found" });
+    }
+    if (!key.startsWith(`leases/${lease.id}/attachments/`)) {
+      return res.status(400).json({ error: "Key does not belong to this lease" });
+    }
+
+    const attachment = await prisma.leaseAttachment.create({
+      data: { leaseId: lease.id, category, fileName, documentKey: key },
+    });
+
+    res.status(201).json(attachment);
+  });
+
+  router.get("/:id/attachments/:attachmentId/download-url", async (req, res) => {
+    const lease = await prisma.lease.findUnique({ where: { id: req.params.id } });
+    if (!lease || lease.userId !== req.currentUser.id) {
+      return res.status(404).json({ error: "Lease not found" });
+    }
+
+    const attachment = await prisma.leaseAttachment.findUnique({ where: { id: req.params.attachmentId } });
+    if (!attachment || attachment.leaseId !== lease.id) {
+      return res.status(404).json({ error: "Attachment not found" });
+    }
+
+    const downloadUrl = await r2.getDownloadUrl(attachment.documentKey);
+
+    res.json({ downloadUrl });
+  });
+
+  router.delete("/:id/attachments/:attachmentId", async (req, res) => {
+    const lease = await prisma.lease.findUnique({ where: { id: req.params.id } });
+    if (!lease || lease.userId !== req.currentUser.id) {
+      return res.status(404).json({ error: "Lease not found" });
+    }
+
+    const attachment = await prisma.leaseAttachment.findUnique({ where: { id: req.params.attachmentId } });
+    if (!attachment || attachment.leaseId !== lease.id) {
+      return res.status(404).json({ error: "Attachment not found" });
+    }
+
+    await r2.deleteObject(attachment.documentKey);
+    await prisma.leaseAttachment.delete({ where: { id: attachment.id } });
+
+    res.status(204).send();
+  });
+
   // Attach a clause to this lease from one of three sources — the
   // landlord's own library (`clauseId`), the provided/locked starter set
   // (`templateId`), or a custom one-off clause for this lease only (never
@@ -391,13 +503,19 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
       prisma.defaultClauseTemplate.findMany({ where: { userId: req.currentUser.id } }),
     ]);
 
+    // A default only applies automatically if it's universal (state: null) or matches this
+    // lease's property state — a Colorado-tagged default shouldn't get silently attached to a
+    // lease for a property in another state just because the landlord marked it as a default.
+    const propertyState = lease.property?.state ?? null;
+    const appliesToThisLease = (state) => !state || state === propertyState;
+
     const snapshots = [
       ...defaultClauses
-        .filter((c) => !alreadyAttachedClauseIds.has(c.id))
+        .filter((c) => !alreadyAttachedClauseIds.has(c.id) && appliesToThisLease(c.state))
         .map((c) => ({ sourceClauseId: c.id, title: c.title, bodyText: c.bodyText, group: c.group })),
       ...defaultTemplateLinks
         .map((link) => CLAUSE_TEMPLATES.find((t) => t.id === link.templateId))
-        .filter((t) => t && !alreadyAttachedTemplateIds.has(t.id))
+        .filter((t) => t && !alreadyAttachedTemplateIds.has(t.id) && appliesToThisLease(t.state))
         .map((t) => ({ sourceTemplateId: t.id, title: t.title, bodyText: t.bodyText, group: t.group })),
     ];
 
@@ -487,8 +605,18 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
       lastName: lt.tenant.lastName,
       role: lt.role,
     }));
+    const occupants = lease.leaseTenants.flatMap((lt) => lt.tenant.occupants || []);
+    const petDeposit = (lease.deposits || []).find((d) => d.type === "PET");
 
-    const context = buildVariableContext({ lease, property, entity, tenants });
+    const context = buildVariableContext({
+      lease,
+      property,
+      entity,
+      tenants,
+      occupants,
+      appliances: property?.appliances || [],
+      petDepositAmount: petDeposit?.amountHeld ?? null,
+    });
     const clauses = orderAndLabelClauses(lease.leaseClauses).map((clause) => ({
       ...clause,
       resolvedBodyText: substituteVariables(clause.bodyText, context),

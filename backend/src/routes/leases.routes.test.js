@@ -38,9 +38,12 @@ async function resetDatabase() {
   await prisma.expense.deleteMany();
   await prisma.leaseTenant.deleteMany();
   await prisma.leaseClause.deleteMany();
+  await prisma.leaseAttachment.deleteMany();
   await prisma.lease.deleteMany();
   await prisma.clause.deleteMany();
   await prisma.defaultClauseTemplate.deleteMany();
+  await prisma.occupant.deleteMany();
+  await prisma.appliance.deleteMany();
   await prisma.tenant.deleteMany();
   await prisma.property.deleteMany();
   await prisma.entity.deleteMany();
@@ -503,6 +506,117 @@ describe("leases routes", () => {
     });
   });
 
+  describe("lease attachments (R2)", () => {
+    let lease;
+
+    beforeEach(async () => {
+      lease = await prisma.lease.create({
+        data: {
+          propertyId: property.id,
+          userId: property.userId,
+          startDate: new Date("2026-09-01"),
+          monthlyRent: "1800.00",
+        },
+      });
+    });
+
+    it("issues a presigned upload URL scoped to the lease's attachments prefix", async () => {
+      const res = await request(app)
+        .post(`/api/leases/${lease.id}/attachments/upload-url`)
+        .send({ fileName: "hoa rules.pdf", contentType: "application/pdf", category: "HOA Rules" });
+
+      expect(res.status).toBe(200);
+      expect(res.body.uploadUrl).toBeTruthy();
+      expect(res.body.key).toMatch(new RegExp(`^leases/${lease.id}/attachments/.+hoa_rules\\.pdf$`));
+    });
+
+    it("rejects an unsupported content type", async () => {
+      const res = await request(app)
+        .post(`/api/leases/${lease.id}/attachments/upload-url`)
+        .send({ fileName: "rules.docx", contentType: "application/msword", category: "HOA Rules" });
+
+      expect(res.status).toBe(400);
+    });
+
+    it("confirms an upload, creating a new attachment row (not overwriting a single document field)", async () => {
+      const key = `leases/${lease.id}/attachments/abc-hoa-rules.pdf`;
+
+      const res = await request(app)
+        .post(`/api/leases/${lease.id}/attachments/confirm`)
+        .send({ key, category: "HOA Rules", fileName: "hoa rules.pdf" });
+
+      expect(res.status).toBe(201);
+      expect(res.body.category).toBe("HOA Rules");
+
+      const secondKey = `leases/${lease.id}/attachments/def-rules-addendum.pdf`;
+      await request(app)
+        .post(`/api/leases/${lease.id}/attachments/confirm`)
+        .send({ key: secondKey, category: "Rules Addendum", fileName: "rules addendum.pdf" });
+
+      const list = await request(app).get(`/api/leases/${lease.id}/attachments`);
+      expect(list.body).toHaveLength(2);
+    });
+
+    it("rejects confirming a key that doesn't belong to this lease's attachment prefix", async () => {
+      const res = await request(app)
+        .post(`/api/leases/${lease.id}/attachments/confirm`)
+        .send({ key: `leases/${lease.id}/generated-lease.pdf`, category: "HOA Rules", fileName: "sneaky.pdf" });
+
+      expect(res.status).toBe(400);
+    });
+
+    it("returns a presigned download URL and deletes the R2 object on removal", async () => {
+      const key = `leases/${lease.id}/attachments/abc-hoa-rules.pdf`;
+      const confirmed = await request(app)
+        .post(`/api/leases/${lease.id}/attachments/confirm`)
+        .send({ key, category: "HOA Rules", fileName: "hoa rules.pdf" });
+
+      const downloadRes = await request(app).get(`/api/leases/${lease.id}/attachments/${confirmed.body.id}/download-url`);
+      expect(downloadRes.status).toBe(200);
+      expect(downloadRes.body.downloadUrl).toBeTruthy();
+
+      const deleteRes = await request(app).delete(`/api/leases/${lease.id}/attachments/${confirmed.body.id}`);
+      expect(deleteRes.status).toBe(204);
+      expect(mockR2.deleteObject).toHaveBeenCalledWith(key);
+
+      const list = await request(app).get(`/api/leases/${lease.id}/attachments`);
+      expect(list.body).toHaveLength(0);
+    });
+
+    it("404s attachment endpoints for another user's lease", async () => {
+      const otherUser = await prisma.user.create({
+        data: { clerkId: "clerk_other_user", email: "other@example.com" },
+      });
+      const otherEntity = await prisma.entity.create({
+        data: { userId: otherUser.id, legalName: "Someone Else LLC", entityType: "LLC" },
+      });
+      const otherProperty = await prisma.property.create({
+        data: {
+          entityId: otherEntity.id,
+          userId: otherUser.id,
+          address1: "456 Oak St",
+          city: "Frederick",
+          state: "CO",
+          zip: "80530",
+        },
+      });
+      const otherLease = await prisma.lease.create({
+        data: {
+          propertyId: otherProperty.id,
+          userId: otherUser.id,
+          startDate: new Date("2026-09-01"),
+          monthlyRent: "1800.00",
+        },
+      });
+
+      const res = await request(app)
+        .post(`/api/leases/${otherLease.id}/attachments/upload-url`)
+        .send({ fileName: "rules.pdf", contentType: "application/pdf", category: "HOA Rules" });
+
+      expect(res.status).toBe(404);
+    });
+  });
+
   describe("lease builder clauses", () => {
     let lease;
     let clause;
@@ -544,6 +658,91 @@ describe("leases routes", () => {
       expect(res.body.leaseClauses[0].resolvedBodyText).toContain("$75.00");
       expect(res.body.leaseClauses[0].resolvedBodyText).toContain("5 days");
       expect(res.body.leaseClauses[0].bodyText).toContain("{{late_fee_amount}}"); // raw text untouched
+    });
+
+    it("resolves occupant_names from the primary tenant's linked Occupant records", async () => {
+      await prisma.occupant.create({ data: { tenantId: tenant.id, name: "Sam Rivera", age: 9 } });
+      await prisma.occupant.create({ data: { tenantId: tenant.id, name: "Alex Rivera", age: 5 } });
+      await prisma.leaseTenant.create({ data: { leaseId: lease.id, tenantId: tenant.id, role: "PRIMARY" } });
+      const occupantClause = await prisma.clause.create({
+        data: {
+          userId: property.userId,
+          title: "Occupants",
+          bodyText: "Occupied by {{tenant_names}}, together with {{occupant_names}}.",
+          group: "Tenant Responsibilities",
+        },
+      });
+
+      const res = await request(app).post(`/api/leases/${lease.id}/clauses`).send({ clauseId: occupantClause.id });
+
+      expect(res.body.leaseClauses[0].resolvedBodyText).toContain("Sam Rivera, Alex Rivera");
+    });
+
+    it("falls back to a plain-language default when no occupants are linked", async () => {
+      await prisma.leaseTenant.create({ data: { leaseId: lease.id, tenantId: tenant.id, role: "PRIMARY" } });
+      const occupantClause = await prisma.clause.create({
+        data: {
+          userId: property.userId,
+          title: "Occupants",
+          bodyText: "Occupied by {{tenant_names}}, together with {{occupant_names}}.",
+          group: "Tenant Responsibilities",
+        },
+      });
+
+      const res = await request(app).post(`/api/leases/${lease.id}/clauses`).send({ clauseId: occupantClause.id });
+
+      expect(res.body.leaseClauses[0].resolvedBodyText).toContain("no additional occupants identified");
+    });
+
+    it("resolves pet_deposit from the lease's PET-type Deposit, appliance_list from active Appliances, and tenant_insurance_minimum from the lease field", async () => {
+      await prisma.deposit.create({
+        data: {
+          userId: property.userId,
+          entityId: property.entityId,
+          propertyId: property.id,
+          leaseId: lease.id,
+          type: "PET",
+          amountHeld: "250.00",
+          dateReceived: new Date("2026-09-01"),
+        },
+      });
+      await prisma.appliance.create({
+        data: {
+          userId: property.userId,
+          entityId: property.entityId,
+          propertyId: property.id,
+          location: "Kitchen",
+          make: "Whirlpool",
+          model: "WRF555",
+        },
+      });
+      await prisma.appliance.create({
+        data: {
+          userId: property.userId,
+          entityId: property.entityId,
+          propertyId: property.id,
+          location: "Garage",
+          active: false, // retired — should not appear
+        },
+      });
+      await prisma.lease.update({ where: { id: lease.id }, data: { tenantInsuranceMinimumCoverage: "100000.00" } });
+
+      const variableClause = await prisma.clause.create({
+        data: {
+          userId: property.userId,
+          title: "Amounts & Equipment",
+          bodyText: "Pet deposit {{pet_deposit}}. Appliances: {{appliance_list}}. Insurance minimum {{tenant_insurance_minimum}}.",
+          group: "Other / Miscellaneous",
+        },
+      });
+
+      const res = await request(app).post(`/api/leases/${lease.id}/clauses`).send({ clauseId: variableClause.id });
+      const text = res.body.leaseClauses[0].resolvedBodyText;
+
+      expect(text).toContain("$250.00");
+      expect(text).toContain("Kitchen (Whirlpool WRF555)");
+      expect(text).not.toContain("Garage");
+      expect(text).toContain("$100,000.00");
     });
 
     it("attaches a clause from the provided template set", async () => {
@@ -790,6 +989,48 @@ describe("leases routes", () => {
 
       const res = await request(app).post(`/api/leases/${otherLease.id}/clauses/add-defaults`);
       expect(res.status).toBe(404);
+    });
+
+    it("only attaches a state-tagged default when it matches the lease's property state; universal defaults always attach", async () => {
+      await prisma.clause.create({
+        data: {
+          userId: property.userId, // property.state is "CO"
+          title: "Colorado Default",
+          bodyText: "...",
+          group: "Rules & Regulations",
+          state: "CO",
+          isDefault: true,
+        },
+      });
+      await prisma.clause.create({
+        data: {
+          userId: property.userId,
+          title: "Texas Default",
+          bodyText: "...",
+          group: "Rules & Regulations",
+          state: "TX",
+          isDefault: true,
+        },
+      });
+      await prisma.clause.create({
+        data: {
+          userId: property.userId,
+          title: "Universal Default",
+          bodyText: "...",
+          group: "Rules & Regulations",
+          state: null,
+          isDefault: true,
+        },
+      });
+      await prisma.defaultClauseTemplate.create({ data: { userId: property.userId, templateId: "guest-policy-colorado" } });
+
+      const res = await request(app).post(`/api/leases/${lease.id}/clauses/add-defaults`);
+
+      const titles = res.body.leaseClauses.map((c) => c.title);
+      expect(titles).toContain("Colorado Default");
+      expect(titles).toContain("Universal Default");
+      expect(titles).toContain("Guest Policy — Colorado");
+      expect(titles).not.toContain("Texas Default");
     });
   });
 
