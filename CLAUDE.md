@@ -12,7 +12,7 @@ All six v1 MVP scope items (Entities, Properties, Tenants + Leases, Finances, Ma
 
 **Immediately next: table of contents with page numbers on the generated lease PDF** — deliberately deferred during the clause review pass specifically so its numbering wouldn't need re-verifying every time the clause list changed; the clause list is now settled, so this is unblocked. Needs pdfkit's `bufferPages` two-pass approach since the TOC has to be written before the page numbers it references are known.
 
-**Also worth a look next session: expanding state coverage further.** The state-law research memory (`project_state_law_research_aug2026`) has a whole "explicitly dropped" list of candidate clauses that couldn't be verified against a primary source in Aug 2026's research pass (e.g. mold/foreclosure/entry-notice claims for several states) — a good next batch if Taylor wants broader coverage, following the same primary-source-or-don't-ship discipline established this session.
+**Also worth a look next session: expanding state coverage further.** The state-law research memory (`project_state_law_research_aug2026`) has a whole "explicitly dropped" list of candidate clauses that couldn't be verified against a primary source in Aug 2026's research pass (e.g. mold/foreclosure/entry-notice claims for several states) — a good next batch if Taylor wants broader coverage, following the same primary-source-or-don't-ship discipline established this session. See "Nationwide jurisdictional coverage plan" below for the full research methodology and how this fits together with Legal Tracker.
 
 **Also on the backlog, not urgent: real property attributes** — year built, bedrooms, bathrooms, square footage, amenities, etc. `Property.yearBuilt` already exists as a migrated-but-unused nullable column (added mid-session for lead-paint-disclosure context, then the whole feature was deliberately deferred — see decisions log) — treat it as a starting point, not a finished feature, when this gets picked up.
 
@@ -121,8 +121,7 @@ All six v1 MVP scope items (Entities, Properties, Tenants + Leases, Finances, Ma
 - [Aug 2026] — ~~The Colorado guest-policy clause (14-day/6-month rule) states only the operative restriction on Tenant, not the underlying reason (Colorado tenancy-rights law) — Taylor's explicit instruction: tenants shouldn't be handed the legal mechanism they're being restricted from triggering.~~ **Superseded later in Aug 2026** — the flagged "confirm against actual Colorado statute" turned out to matter: verification found no such provision in the statute usually cited (§ 13-40-104), and the same number is copy-pasted identically across CO/CA/FL landlord-content sites — a sign of unverified marketing content, not real law in any of the three. The clause was renamed "Guest Policy (14-Day Limit)" and untagged (`state: null`) rather than kept as a Colorado-specific clause implying legal backing it doesn't have. The underlying instinct (state the rule, not the "why," for a state-specific restriction) still stands and applies to the real state-tagged clauses added afterward — see the entry below. Left here so the history is visible; do not re-tag this clause to a specific state without fresh primary-source verification.
 - [Aug 2026] — **Any state-specific clause claim must be verified against a primary source (a state's own statute text via .gov, law.justia.com, or casetext.com) before shipping it in `clauseTemplates.js` — never trust a secondary landlord-content site's number, even when multiple such sites agree.** Established by the guest-policy episode above: the "14 days/6 months" figure was repeated identically across several sites for three different states, which reads as confidence but is actually evidence of copied content, not independent verification. Confirmed again during the subsequent 28-state research pass — several secondary-sourced round-1 claims turned out to be wrong or overstated when checked against primary text (Virginia's mold disclosure has no "10 sq ft" threshold — invented by a content site; a California flood-disclosure statute citation was wrong; Nevada's foreclosure-disclosure violation isn't literally a misdemeanor). When a primary source can't be found after a real attempt, say so and don't ship the clause rather than presenting a secondary-sourced guess as fact — see memory `project_state_law_research_aug2026` for the full list of what was verified vs. explicitly dropped for this reason.
 - [Aug 2026] — Maintenance request's Tenant dropdown and "Reported by" free-text field looked redundant since you'd naturally want to type the tenant's name in both. Resolved by having the Tenant select auto-fill and disable "Reported by" with the selected tenant's name; "Reported by" only opens for manual entry when no tenant is linked (landlord noticed it themselves, a neighbor called, etc.). Keep this auto-fill/lock pattern for any similar "structured link + free-text fallback" field pairing in the future.
-
----
+- [Aug 2026] — Taylor got outside research from ChatGPT on how to architect nationwide jurisdictional coverage for both lease clauses and Legal Tracker (full exchange captured in "Nationwide jurisdictional coverage plan" below). Considered adopting its proposed formal rules-database model (typed REQUIRED/CONDITIONAL/PROHIBITED/CONSTRAINED/RECOMMENDED rule objects, decoupled from clauses, plus a municipal-overlay layer and an automated legal-change-monitoring pipeline) — **decided not to, for now.** Reason: the existing lightweight `Clause.states[]` + `supersedes` mechanism already captures the same REQUIRED/CONSTRAINED/supersede intent at far lower cost, the app has zero real multi-municipality usage yet to justify a city-overlay layer, and an automated monitoring pipeline is solving a maintenance problem the library doesn't have at its current size. Do not build the separate rules-database/municipal-layer/monitoring-pipeline machinery unless the app actually reaches multi-state, multi-landlord, or multi-municipality real usage — revisit then, not preemptively.
 
 ## 🐛 Known issues / blockers
 > Things that are broken, stuck, or need a decision before moving forward.
@@ -300,6 +299,114 @@ Landscaping lives here — NOT a separate module:
 - Last trimmed / treated / fertilized: date, by whom, cost
 - Landscaping service: contractor, contract type (monthly/seasonal), cost
 - Recurring landscaping service also tracked in Maintenance as a scheduled item
+
+---
+
+## Nationwide jurisdictional coverage plan (lease clauses + Legal Tracker)
+
+> Captured Aug 2026 from outside research Taylor did with ChatGPT on how to scale both the
+> Lease Builder clause library and the not-yet-built Legal Tracker to cover all 50 states (+
+> municipalities) without re-researching everything from scratch per state. This is the one
+> place this research is recorded — Taylor is not saving it anywhere else. See the decisions
+> log entry (Aug 2026, "outside research from ChatGPT") for what was and wasn't adopted.
+
+### The core model: jurisdiction as inherited layers, not a flat per-state matrix
+
+Don't model "a Colorado lease" / "a Texas lease" / "a Denver lease" as separate documents, and
+don't model eviction process as "one procedure per county." Both are actually a stack of layers,
+where each layer only needs to store what it adds or overrides on top of the layer above it:
+
+- **Lease content:** `Federal → State → Municipality → Property/tenancy type → Landlord preference`
+  (e.g. Denver would store only what Denver adds on top of Colorado's baseline, not restate it).
+- **Eviction process:** `State → judicial district/circuit → county/courthouse → municipality`,
+  plus a property/tenancy-type branch (subsidized housing, mobile homes, tenancy-at-will, etc.,
+  since those can add their own procedural branches regardless of location).
+
+For lease content specifically, ChatGPT proposed classifying each rule as one of five types —
+useful vocabulary even though we're not building a separate rules-database object for this
+(see decisions log):
+- `REQUIRED` — must be in the lease
+- `CONDITIONAL` — required only if some property/tenancy fact is true (e.g. built pre-1978 →
+  lead paint disclosure)
+- `PROHIBITED` — lease cannot contain this provision at all
+- `CONSTRAINED` — allowed, but only within a statutory limit (late fees, deposit caps, entry
+  notice periods, etc.)
+- `RECOMMENDED` — not legally required, but risk-management advisable (this is exactly Taylor's
+  own early-termination lesson: not government-mandated, but materially affects enforceability)
+
+**What we're actually doing with this**: our existing `Clause.states` (`String[]`) + `supersedes`
+fields already cover the practical intent of REQUIRED/CONSTRAINED/supersede without a separate
+rules table — a state-tagged clause *is* a CONSTRAINED or REQUIRED rule, a `supersedes` link *is*
+the "this fully replaces the universal version" case. Keep using that mechanism for future clause
+research passes. Do not build a formal decoupled rules-database layer, and do not build a
+municipal-overlay layer, unless the app reaches real multi-municipality usage that actually needs
+it — see the decisions log entry for why this was deferred rather than adopted outright.
+
+### How to research it, state by state (same discipline already proven out)
+
+This matches the primary-source-or-don't-ship discipline already established in
+`project_state_law_research_aug2026` (the fabricated Colorado guest-policy episode) — ChatGPT's
+research independently arrived at the same rule:
+
+- **Canonical sources are government primary sources only**: each state's own legislature/code
+  publisher for statutes, the state's judiciary for court rules/forms/procedure, and the
+  municipality's own code for city overlays. Never a landlord-content site, even when several
+  agree — that's a sign of copied content, not independent verification.
+- **Cornell Legal Information Institute (Cornell LII)** — state law collection + landlord-tenant
+  topic area — is a good *discovery/index* tool for finding where a state's law lives, but treat
+  it as a pointer only; always trace through to the actual primary source it names.
+- Some states publish their own curated landlord-tenant guides, which are a great starting index
+  (someone in the legislature already did partial research for you) — Colorado's Legislative
+  Council publishes "Laws Regulating Landlords and Tenants" covering residential leases, federal
+  law interplay, and examples of stricter local law. Look for the equivalent in each new state.
+- Useful search patterns per state: `site:[state legislature domain] landlord tenant`,
+  `site:[state court domain] eviction`, `site:[state court domain] landlord tenant forms`,
+  `"[state] residential landlord tenant act"`, `"[state] required lease disclosures"`,
+  `"[state] eviction court forms"`.
+- **Build a "source registry" before researching individual rules**: one row per state naming
+  where its statutes, courts, eviction guide, forms, and municipal-code portal live. Do this once
+  per state as the first step of any future research pass — it turns "research this state's law"
+  into a repeatable pipeline instead of starting from zero each time.
+- No single database (commercial or government) covers this nationally — don't adopt a licensed
+  commercial dataset as the canonical source (licensing/redistribution/update-guarantee/vendor-
+  lock risk). Keep building our own normalized, primary-source-cited data on top of government
+  sources, the same way `clauseTemplates.js` already does.
+- Municipal overlays are the hardest layer (no national repository of municipal codes) — when
+  they're ever tackled, do it selectively for cities with real, substantial landlord-tenant
+  ordinances (Denver, Boulder, NYC, Chicago, LA, etc. were the examples raised), not
+  exhaustively across ~19,000 incorporated places. Several real candidates were already
+  identified and explicitly dropped for this exact reason — see
+  `project_state_law_research_aug2026`'s "explicitly dropped" list (NYC's bed bug disclosure
+  ordinance, Chicago's local deposit cap) for what's waiting once a city-level tagging mechanism
+  exists.
+- A future idea, explicitly not being built now: an AI pipeline that periodically re-checks state
+  legislature/judiciary/municipal sources for changes and flags a suggested diff for a human to
+  review — never auto-applies a change to a live legal rule. Revisit only as a v3+ idea if the
+  clause library's maintenance burden ever actually becomes a problem at the current manual pace.
+
+### Rollout order
+
+1. **Lease clauses**: continue expanding via the existing lightweight tagging model (no
+   architecture change). Next batch is the "explicitly dropped" list in
+   `project_state_law_research_aug2026` — those already have partial research done, just need
+   either a primary source found or a permanent pass.
+2. **Legal Tracker**: build Colorado-only first (matches the existing v2 roadmap ordering —
+   `project_v2_roadmap_priority` — where Legal Tracker is deliberately last due to legal-accuracy
+   risk, and Taylor already has real Colorado eviction experience/documents to test the model
+   against). A second state is what actually reveals whether the jurisdictional model is genuinely
+   general or accidentally Colorado-shaped — don't build for 50 states up front. Colorado-specific
+   pointers ChatGPT surfaced for when this starts: the CO Judicial Branch's residential eviction
+   packet (JDF forms 99–109; JDF 100 is the instructions form) and the same CO Legislative Council
+   "Laws Regulating Landlords and Tenants" guide mentioned above.
+3. **Eviction-rule field sketch** (from ChatGPT, not yet a committed schema — a starting point
+   when Legal Tracker's actual data model gets designed): jurisdiction, eviction reason, required
+   notice, notice period, required form, service method, waiting period, court, complaint/form,
+   filing fee, service requirements, hearing process, judgment, writ, sheriff process, appeal/stay
+   rules, authority (statute citation), source URL, effective date, last-verified date — mirrors
+   the citation/effective-date/source-URL discipline `clauseTemplates.js` already uses per clause.
+4. Only after Colorado's model is proven out for both features: expand state by state, following
+   the same primary-source discipline, and only add municipal granularity where a real need shows
+   up (see above).
 
 ---
 
@@ -487,7 +594,9 @@ Claude Code should:
 
 ---
 
-*Last updated: 2026-08-17 — Clause library review pass complete (53 clauses, 20 real gaps fixed against the real signed lease), then expanded further same day: clause state tagging, lease attachments (HOA rules/addenda uploads), a liability disclaimer on generated PDFs, and — after the Colorado guest-policy clause's "14 days/6 months" rule turned out to be fabricated marketing content, not real law — two rounds of primary-source-verified state-law research growing the library to 116 clauses across 28 states. `Clause.state` (single) was then changed to `Clause.states` (array) after Taylor pointed out some clauses genuinely apply identically across multiple states, merging 2 pairs down to **112 clause templates total**; those same 7 state-specific clauses also gained a `supersedes` link so a matching state filter hides the redundant universal version instead of showing both. Full research findings — verified and explicitly-dropped alike — saved in memory (`project_state_law_research_aug2026`). Two things deliberately deferred, not forgotten: table of contents with page numbers, and real property attributes (year built, bedrooms, bathrooms, sq ft, amenities — `Property.yearBuilt` exists as an unused column). 347 backend tests passing, no open blockers. Next session: pick up the TOC, expand state coverage further (see the memory's "explicitly dropped" list for what still needs primary-source work), or move to small computed-status automation per the v2 roadmap — Taylor's call.*
+*Last updated: 2026-08-18 — No code changes today. Documented a "Nationwide jurisdictional coverage plan" (see above, right before Data model notes) capturing outside research Taylor got from ChatGPT on scaling lease clauses and the future Legal Tracker to all 50 states + municipalities via an inherited-layers model. Decided not to adopt ChatGPT's proposed formal rules-database/municipal-overlay/AI-monitoring machinery for now — the existing lightweight `Clause.states`/`supersedes` mechanism already covers the practical intent at lower cost — but kept its research methodology (primary-source-only, source registry, Colorado-first for Legal Tracker) since it matches and extends the discipline already proven out. See the decisions log entry for the full reasoning.
+
+*Prior update (2026-08-17): Clause library review pass complete (53 clauses, 20 real gaps fixed against the real signed lease), then expanded further same day: clause state tagging, lease attachments (HOA rules/addenda uploads), a liability disclaimer on generated PDFs, and — after the Colorado guest-policy clause's "14 days/6 months" rule turned out to be fabricated marketing content, not real law — two rounds of primary-source-verified state-law research growing the library to 116 clauses across 28 states. `Clause.state` (single) was then changed to `Clause.states` (array) after Taylor pointed out some clauses genuinely apply identically across multiple states, merging 2 pairs down to **112 clause templates total**; those same 7 state-specific clauses also gained a `supersedes` link so a matching state filter hides the redundant universal version instead of showing both. Full research findings — verified and explicitly-dropped alike — saved in memory (`project_state_law_research_aug2026`). Two things deliberately deferred, not forgotten: table of contents with page numbers, and real property attributes (year built, bedrooms, bathrooms, sq ft, amenities — `Property.yearBuilt` exists as an unused column). 347 backend tests passing, no open blockers. Next session: pick up the TOC, expand state coverage further (see the memory's "explicitly dropped" list for what still needs primary-source work), or move to small computed-status automation per the v2 roadmap — Taylor's call.*
 
 ---
 
