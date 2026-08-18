@@ -503,19 +503,20 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
       prisma.defaultClauseTemplate.findMany({ where: { userId: req.currentUser.id } }),
     ]);
 
-    // A default only applies automatically if it's universal (state: null) or matches this
-    // lease's property state — a Colorado-tagged default shouldn't get silently attached to a
-    // lease for a property in another state just because the landlord marked it as a default.
+    // A default only applies automatically if it's universal (states: []) or its states list
+    // includes this lease's property state — a Colorado-tagged default shouldn't get silently
+    // attached to a lease for a property in another state just because the landlord marked it
+    // as a default.
     const propertyState = lease.property?.state ?? null;
-    const appliesToThisLease = (state) => !state || state === propertyState;
+    const appliesToThisLease = (states) => !states || states.length === 0 || states.includes(propertyState);
 
     const snapshots = [
       ...defaultClauses
-        .filter((c) => !alreadyAttachedClauseIds.has(c.id) && appliesToThisLease(c.state))
+        .filter((c) => !alreadyAttachedClauseIds.has(c.id) && appliesToThisLease(c.states))
         .map((c) => ({ sourceClauseId: c.id, title: c.title, bodyText: c.bodyText, group: c.group })),
       ...defaultTemplateLinks
         .map((link) => CLAUSE_TEMPLATES.find((t) => t.id === link.templateId))
-        .filter((t) => t && !alreadyAttachedTemplateIds.has(t.id) && appliesToThisLease(t.state))
+        .filter((t) => t && !alreadyAttachedTemplateIds.has(t.id) && appliesToThisLease(t.states))
         .map((t) => ({ sourceTemplateId: t.id, title: t.title, bodyText: t.bodyText, group: t.group })),
     ];
 

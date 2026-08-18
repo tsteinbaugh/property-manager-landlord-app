@@ -53,7 +53,7 @@ export default function LeaseBuilderSection({ lease, onChange }) {
   const attachedTemplateIds = new Set(lease.leaseClauses.map((lc) => lc.sourceTemplateId).filter(Boolean));
 
   function matchesStateFilter(item) {
-    return stateFilter === ALL_STATES || !item.state || item.state === stateFilter;
+    return stateFilter === ALL_STATES || !item.states || item.states.length === 0 || item.states.includes(stateFilter);
   }
 
   const pickerOptions = [
@@ -61,17 +61,17 @@ export default function LeaseBuilderSection({ lease, onChange }) {
       .filter((c) => !attachedClauseIds.has(c.id) && matchesStateFilter(c))
       .map((c) => ({
         value: encodeOption("clause", c.id),
-        label: `${c.title} — ${c.group}${c.state ? ` [${c.state}]` : ""}`,
+        label: `${c.title} — ${c.group}${c.states?.length ? ` [${c.states.join(", ")}]` : ""}`,
       })),
     ...templates
       .filter((t) => !attachedTemplateIds.has(t.id) && matchesStateFilter(t))
       .map((t) => ({
         value: encodeOption("template", t.id),
-        label: `${t.title} — ${t.group}${t.state ? ` [${t.state}]` : ""} (Provided)`,
+        label: `${t.title} — ${t.group}${t.states?.length ? ` [${t.states.join(", ")}]` : ""} (Provided)`,
       })),
   ];
 
-  const availableStates = [...new Set([...library, ...templates].map((c) => c.state).filter(Boolean))].sort();
+  const availableStates = [...new Set([...library, ...templates].flatMap((c) => c.states || []))].sort();
 
   async function handleAttach(e) {
     e.preventDefault();

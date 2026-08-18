@@ -2,8 +2,18 @@ import { useEffect, useState } from "react";
 import { useApi } from "../hooks/useApi";
 import BackLink from "../components/BackLink";
 
-const EMPTY_FORM = { title: "", bodyText: "", group: "", state: "" };
+// states is edited as a single comma-separated text field ("CO, NY, TX") and parsed into an
+// array on submit — simpler UI than a multi-select for what's usually 0-1 states, still
+// supports the multi-state case (several states sharing identical clause language).
+const EMPTY_FORM = { title: "", bodyText: "", group: "", states: "" };
 const ALL_STATES = "ALL";
+
+function parseStatesInput(value) {
+  return value
+    .split(",")
+    .map((s) => s.trim().toUpperCase())
+    .filter(Boolean);
+}
 
 const AVAILABLE_VARIABLES = [
   ["monthly_rent", "Monthly rent"],
@@ -86,7 +96,7 @@ export default function ClauseLibraryPage() {
 
   function openForm(clause) {
     if (clause) {
-      setForm({ title: clause.title, bodyText: clause.bodyText, group: clause.group, state: clause.state || "" });
+      setForm({ title: clause.title, bodyText: clause.bodyText, group: clause.group, states: (clause.states || []).join(", ") });
       setEditingId(clause.id);
     } else {
       setForm({ ...EMPTY_FORM, group: groups[0] || "" });
@@ -98,17 +108,22 @@ export default function ClauseLibraryPage() {
   // Copying a provided clause just prefills the add form with its content —
   // nothing is created until the landlord edits and submits their own copy.
   function copyTemplate(template) {
-    setForm({ title: template.title, bodyText: template.bodyText, group: template.group, state: template.state || "" });
+    setForm({
+      title: template.title,
+      bodyText: template.bodyText,
+      group: template.group,
+      states: (template.states || []).join(", "),
+    });
     setEditingId(null);
     setFormOpen(true);
   }
 
   // Derived from whatever's actually tagged, rather than a fixed 50-state list — most of that
   // list would be empty in practice, and any new state tag just shows up here automatically.
-  const availableStates = [...new Set([...clauses, ...templates].map((c) => c.state).filter(Boolean))].sort();
+  const availableStates = [...new Set([...clauses, ...templates].flatMap((c) => c.states || []))].sort();
 
   function matchesStateFilter(item) {
-    return stateFilter === ALL_STATES || !item.state || item.state === stateFilter;
+    return stateFilter === ALL_STATES || !item.states || item.states.length === 0 || item.states.includes(stateFilter);
   }
 
   async function handleSave(e) {
@@ -116,7 +131,7 @@ export default function ClauseLibraryPage() {
     setSubmitting(true);
     setError(null);
     try {
-      const payload = { ...form, state: form.state.trim() ? form.state.trim().toUpperCase() : null };
+      const payload = { ...form, states: parseStatesInput(form.states) };
       if (editingId) {
         await api.put(`/api/clauses/${editingId}`, payload);
       } else {
@@ -253,12 +268,11 @@ export default function ClauseLibraryPage() {
               </select>
             </label>
             <label className="block text-sm">
-              <span className="mb-1 block font-medium text-stone-700">State (optional)</span>
+              <span className="mb-1 block font-medium text-stone-700">States (optional)</span>
               <input
-                value={form.state}
-                onChange={(e) => setForm({ ...form, state: e.target.value })}
-                placeholder="e.g. CO — leave blank to apply everywhere"
-                maxLength={2}
+                value={form.states}
+                onChange={(e) => setForm({ ...form, states: e.target.value })}
+                placeholder="e.g. CO, or HI, KY, RI — leave blank to apply everywhere"
                 className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm uppercase focus:border-emerald-600 focus:outline-none"
               />
             </label>
@@ -311,11 +325,11 @@ export default function ClauseLibraryPage() {
                     <div className="flex items-start justify-between gap-2">
                       <p className="text-sm font-medium text-stone-900">
                         {clause.title}
-                        {clause.state && (
-                          <span className="ml-2 rounded-full bg-sky-100 px-2 py-0.5 text-xs font-medium text-sky-700">
-                            {clause.state}
+                        {clause.states?.map((s) => (
+                          <span key={s} className="ml-2 rounded-full bg-sky-100 px-2 py-0.5 text-xs font-medium text-sky-700">
+                            {s}
                           </span>
-                        )}
+                        ))}
                       </p>
                       <div className="flex shrink-0 items-center gap-3 text-sm">
                         <label className="flex items-center gap-1.5 text-xs text-stone-600">
@@ -359,11 +373,11 @@ export default function ClauseLibraryPage() {
                   <div className="flex items-start justify-between gap-2">
                     <p className="text-sm font-medium text-stone-900">
                       {template.title}
-                      {template.state && (
-                        <span className="ml-2 rounded-full bg-sky-100 px-2 py-0.5 text-xs font-medium text-sky-700">
-                          {template.state}
+                      {template.states?.map((s) => (
+                        <span key={s} className="ml-2 rounded-full bg-sky-100 px-2 py-0.5 text-xs font-medium text-sky-700">
+                          {s}
                         </span>
-                      )}
+                      ))}
                     </p>
                     <div className="flex shrink-0 items-center gap-3 text-sm">
                       <label className="flex items-center gap-1.5 text-xs text-stone-600">

@@ -271,10 +271,11 @@ model Clause {
   title     String
   bodyText  String
   group     String
-  // Two-letter state code (e.g. "CO") this clause's language is specific to, or null if it's
+  // Two-letter state codes (e.g. ["CO"], or ["HI", "KY", "RI", "DC"] when several states share
+  // identical language for the same rule) this clause's language is specific to, or [] if it's
   // generic/universal. Filters the library view and "Add my default clauses" by the lease's
   // property state — not a Legal Tracker notice-period/deadline engine, just a content tag.
-  state     String?
+  states    String[] @default([])
   // "Add my default clauses" (leases.routes.js) attaches every Clause with
   // isDefault: true in one action, instead of the landlord attaching their
   // usual set by hand on every new lease.

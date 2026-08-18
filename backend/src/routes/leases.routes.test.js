@@ -998,7 +998,7 @@ describe("leases routes", () => {
           title: "Colorado Default",
           bodyText: "...",
           group: "Rules & Regulations",
-          state: "CO",
+          states: ["CO"],
           isDefault: true,
         },
       });
@@ -1008,7 +1008,7 @@ describe("leases routes", () => {
           title: "Texas Default",
           bodyText: "...",
           group: "Rules & Regulations",
-          state: "TX",
+          states: ["TX"],
           isDefault: true,
         },
       });
@@ -1018,7 +1018,7 @@ describe("leases routes", () => {
           title: "Universal Default",
           bodyText: "...",
           group: "Rules & Regulations",
-          state: null,
+          states: [],
           isDefault: true,
         },
       });
@@ -1031,6 +1031,23 @@ describe("leases routes", () => {
       expect(titles).toContain("Universal Default");
       expect(titles).toContain("Security Deposit Cap");
       expect(titles).not.toContain("Texas Default");
+    });
+
+    it("attaches a default tagged with multiple states when the property matches any of them", async () => {
+      await prisma.clause.create({
+        data: {
+          userId: property.userId, // property.state is "CO"
+          title: "Multi-State Default",
+          bodyText: "...",
+          group: "Rules & Regulations",
+          states: ["TX", "CO", "NY"],
+          isDefault: true,
+        },
+      });
+
+      const res = await request(app).post(`/api/leases/${lease.id}/clauses/add-defaults`);
+
+      expect(res.body.leaseClauses.map((c) => c.title)).toContain("Multi-State Default");
     });
   });
 
