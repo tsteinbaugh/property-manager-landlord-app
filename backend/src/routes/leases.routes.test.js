@@ -1029,7 +1029,7 @@ describe("leases routes", () => {
       const titles = res.body.leaseClauses.map((c) => c.title);
       expect(titles).toContain("Colorado Default");
       expect(titles).toContain("Universal Default");
-      expect(titles).toContain("Security Deposit Cap (Colorado)");
+      expect(titles).toContain("Security Deposit Cap");
       expect(titles).not.toContain("Texas Default");
     });
   });

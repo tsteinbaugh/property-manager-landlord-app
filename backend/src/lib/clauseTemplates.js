@@ -122,7 +122,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "late-fee-limit-co",
-    title: "Late Fee Limits (Colorado)",
+    title: "Late Fee Limit",
     group: "Rent & Payment",
     state: "CO",
     bodyText:
@@ -130,7 +130,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "nsf-fee-limit-co",
-    title: "NSF Fee Limit (Colorado)",
+    title: "NSF Fee Limit",
     group: "Rent & Payment",
     state: "CO",
     bodyText:
@@ -138,7 +138,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "late-fee-limit-ny",
-    title: "Late Fee Limit (New York)",
+    title: "Late Fee Limit",
     group: "Rent & Payment",
     state: "NY",
     bodyText:
@@ -146,14 +146,14 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "late-fee-limit-md",
-    title: "Late Fee Limit (Maryland)",
+    title: "Late Fee Limit",
     group: "Rent & Payment",
     state: "MD",
     bodyText: "Any late fee assessed under this Lease will not exceed 5% of the amount of Rent past due, as required by Maryland law.",
   },
   {
     id: "late-fee-limit-mn",
-    title: "Late Fee Limit (Minnesota)",
+    title: "Late Fee Limit",
     group: "Rent & Payment",
     state: "MN",
     bodyText:
@@ -161,14 +161,14 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "late-fee-limit-hi",
-    title: "Late Fee Limit (Hawaii)",
+    title: "Late Fee Limit",
     group: "Rent & Payment",
     state: "HI",
     bodyText: "Any late fee assessed under this Lease will not exceed 8% of the Rent due, as required by Hawaii law.",
   },
   {
     id: "late-fee-limit-tn",
-    title: "Late Fee Limit (Tennessee)",
+    title: "Late Fee Limit",
     group: "Rent & Payment",
     state: "TN",
     bodyText:
@@ -176,7 +176,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "late-fee-limit-va",
-    title: "Late Fee Limit (Virginia)",
+    title: "Late Fee Limit",
     group: "Rent & Payment",
     state: "VA",
     bodyText:
@@ -184,7 +184,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "late-fee-limit-nc",
-    title: "Late Fee Limit (North Carolina)",
+    title: "Late Fee Limit",
     group: "Rent & Payment",
     state: "NC",
     bodyText:
@@ -192,7 +192,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "late-fee-limit-me",
-    title: "Late Fee Limit (Maine)",
+    title: "Late Fee Limit",
     group: "Rent & Payment",
     state: "ME",
     bodyText:
@@ -200,7 +200,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "late-fee-safe-harbor-tx",
-    title: "Late Fee Safe Harbor (Texas)",
+    title: "Late Fee Safe Harbor",
     group: "Rent & Payment",
     state: "TX",
     bodyText:
@@ -208,7 +208,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "late-fee-limit-de",
-    title: "Late Fee Limit (Delaware)",
+    title: "Late Fee Limit",
     group: "Rent & Payment",
     state: "DE",
     bodyText:
@@ -216,7 +216,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "late-fee-limit-or",
-    title: "Late Fee Limit (Oregon)",
+    title: "Late Fee Limit",
     group: "Rent & Payment",
     state: "OR",
     bodyText:
@@ -224,7 +224,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "late-fee-safe-harbor-ca",
-    title: "Late Fee Guidance (California)",
+    title: "Late Fee Guidance",
     group: "Rent & Payment",
     state: "CA",
     bodyText:
@@ -232,7 +232,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "nsf-fee-limit-ca",
-    title: "NSF Fee Limit (California)",
+    title: "NSF Fee Limit",
     group: "Rent & Payment",
     state: "CA",
     bodyText:
@@ -240,7 +240,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "nsf-fee-limit-fl",
-    title: "NSF Fee Limit (Florida)",
+    title: "NSF Fee Limit",
     group: "Rent & Payment",
     state: "FL",
     bodyText:
@@ -248,7 +248,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "nsf-fee-limit-or",
-    title: "NSF Fee Limit (Oregon)",
+    title: "NSF Fee Limit",
     group: "Rent & Payment",
     state: "OR",
     bodyText:
@@ -256,7 +256,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "nsf-fee-limit-pa",
-    title: "NSF Fee Limit (Pennsylvania)",
+    title: "NSF Fee Limit",
     group: "Rent & Payment",
     state: "PA",
     bodyText:
@@ -264,7 +264,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "nsf-fee-limit-tx",
-    title: "NSF Fee Limit (Texas)",
+    title: "NSF Fee Limit",
     group: "Rent & Payment",
     state: "TX",
     bodyText:
@@ -272,7 +272,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "nsf-fee-limit-hi",
-    title: "NSF Fee Limit (Hawaii)",
+    title: "NSF Fee Limit",
     group: "Rent & Payment",
     state: "HI",
     bodyText: "Any fee charged for a dishonored or returned payment under this Lease will not exceed $30.00, as required by Hawaii law.",
@@ -297,7 +297,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "security-deposit-cap-co",
-    title: "Security Deposit Cap (Colorado)",
+    title: "Security Deposit Cap",
     group: "Security Deposit",
     state: "CO",
     bodyText:
@@ -305,7 +305,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "security-deposit-cap-ga",
-    title: "Security Deposit Cap (Georgia)",
+    title: "Security Deposit Cap",
     group: "Security Deposit",
     state: "GA",
     bodyText:
@@ -313,7 +313,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "security-deposit-cap-md",
-    title: "Security Deposit Cap (Maryland)",
+    title: "Security Deposit Cap",
     group: "Security Deposit",
     state: "MD",
     bodyText:
@@ -321,7 +321,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "security-deposit-cap-ct",
-    title: "Security Deposit Cap (Connecticut)",
+    title: "Security Deposit Cap",
     group: "Security Deposit",
     state: "CT",
     bodyText:
@@ -329,7 +329,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "security-deposit-return-ny",
-    title: "Security Deposit Return Deadline (New York)",
+    title: "Security Deposit Return Deadline",
     group: "Security Deposit",
     state: "NY",
     bodyText:
@@ -337,7 +337,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "security-deposit-return-hi",
-    title: "Security Deposit Return Deadline (Hawaii)",
+    title: "Security Deposit Return Deadline",
     group: "Security Deposit",
     state: "HI",
     bodyText:
@@ -345,7 +345,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "security-deposit-return-wv",
-    title: "Security Deposit Return Deadline (West Virginia)",
+    title: "Security Deposit Return Deadline",
     group: "Security Deposit",
     state: "WV",
     bodyText:
@@ -353,7 +353,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "security-deposit-interest-ct",
-    title: "Security Deposit Interest (Connecticut)",
+    title: "Security Deposit Interest",
     group: "Security Deposit",
     state: "CT",
     bodyText:
@@ -361,14 +361,14 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "security-deposit-interest-md",
-    title: "Security Deposit Interest (Maryland)",
+    title: "Security Deposit Interest",
     group: "Security Deposit",
     state: "MD",
     bodyText: "Landlord will pay Tenant interest on the Security Deposit at the rate required by Maryland law.",
   },
   {
     id: "security-deposit-interest-ma",
-    title: "Security Deposit Interest (Massachusetts)",
+    title: "Security Deposit Interest",
     group: "Security Deposit",
     state: "MA",
     bodyText:
@@ -376,7 +376,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "security-deposit-interest-nj",
-    title: "Security Deposit Interest (New Jersey)",
+    title: "Security Deposit Interest",
     group: "Security Deposit",
     state: "NJ",
     bodyText:
@@ -384,7 +384,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "security-deposit-interest-oh",
-    title: "Security Deposit Interest (Ohio)",
+    title: "Security Deposit Interest",
     group: "Security Deposit",
     state: "OH",
     bodyText:
@@ -532,7 +532,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "habitability-timeline-co",
-    title: "Repair Timeline (Colorado)",
+    title: "Repair Timeline",
     group: "Landlord Responsibilities",
     state: "CO",
     bodyText:
@@ -540,7 +540,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "habitability-timeline-fl",
-    title: "Repair Timeline (Florida)",
+    title: "Repair Timeline",
     group: "Landlord Responsibilities",
     state: "FL",
     bodyText:
@@ -548,7 +548,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "habitability-timeline-az",
-    title: "Repair Timeline (Arizona)",
+    title: "Repair Timeline",
     group: "Landlord Responsibilities",
     state: "AZ",
     bodyText:
@@ -556,7 +556,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "habitability-timeline-tx",
-    title: "Repair Timeline (Texas)",
+    title: "Repair Timeline",
     group: "Landlord Responsibilities",
     state: "TX",
     bodyText:
@@ -564,7 +564,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "habitability-timeline-or",
-    title: "Repair Timeline (Oregon)",
+    title: "Repair Timeline",
     group: "Landlord Responsibilities",
     state: "OR",
     bodyText:
@@ -582,7 +582,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "landlords-access-co",
-    title: "Landlord's Right of Entry (Colorado)",
+    title: "Landlord's Right of Entry",
     group: "Access & Entry",
     state: "CO",
     bodyText:
@@ -590,7 +590,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "landlords-access-de",
-    title: "Landlord's Right of Entry (Delaware)",
+    title: "Landlord's Right of Entry",
     group: "Access & Entry",
     state: "DE",
     bodyText:
@@ -598,7 +598,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "landlords-access-hi",
-    title: "Landlord's Right of Entry (Hawaii)",
+    title: "Landlord's Right of Entry",
     group: "Access & Entry",
     state: "HI",
     bodyText:
@@ -606,7 +606,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "landlords-access-ky",
-    title: "Landlord's Right of Entry (Kentucky)",
+    title: "Landlord's Right of Entry",
     group: "Access & Entry",
     state: "KY",
     bodyText:
@@ -614,7 +614,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "landlords-access-ri",
-    title: "Landlord's Right of Entry (Rhode Island)",
+    title: "Landlord's Right of Entry",
     group: "Access & Entry",
     state: "RI",
     bodyText:
@@ -622,7 +622,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "landlords-access-vt",
-    title: "Landlord's Right of Entry (Vermont)",
+    title: "Landlord's Right of Entry",
     group: "Access & Entry",
     state: "VT",
     bodyText:
@@ -630,7 +630,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "landlords-access-dc",
-    title: "Landlord's Right of Entry (District of Columbia)",
+    title: "Landlord's Right of Entry",
     group: "Access & Entry",
     state: "DC",
     bodyText:
@@ -638,7 +638,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "landlords-access-wa",
-    title: "Landlord's Right of Entry (Washington)",
+    title: "Landlord's Right of Entry",
     group: "Access & Entry",
     state: "WA",
     bodyText:
@@ -688,7 +688,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "month-to-month-notice-co",
-    title: "Month-to-Month Termination Notice (Colorado)",
+    title: "Month-to-Month Termination Notice",
     group: "Default & Termination",
     state: "CO",
     bodyText:
@@ -696,7 +696,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "month-to-month-notice-ca",
-    title: "Month-to-Month Termination Notice (California)",
+    title: "Month-to-Month Termination Notice",
     group: "Default & Termination",
     state: "CA",
     bodyText:
@@ -898,7 +898,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "bed-bug-disclosure-co",
-    title: "Bed Bug Disclosure (Colorado)",
+    title: "Bed Bug Disclosure",
     group: "Disclosures",
     state: "CO",
     bodyText:
@@ -906,7 +906,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "utility-submetering-disclosure-co",
-    title: "Utility Allocation Disclosure (Colorado)",
+    title: "Utility Allocation Disclosure",
     group: "Disclosures",
     state: "CO",
     bodyText:
@@ -914,7 +914,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "bed-bug-disclosure-ca",
-    title: "Bed Bug Disclosure (California)",
+    title: "Bed Bug Disclosure",
     group: "Disclosures",
     state: "CA",
     bodyText:
@@ -922,7 +922,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "bed-bug-disclosure-me",
-    title: "Bed Bug Disclosure (Maine)",
+    title: "Bed Bug Disclosure",
     group: "Disclosures",
     state: "ME",
     bodyText:
@@ -930,7 +930,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "meth-disclosure-va",
-    title: "Methamphetamine Contamination Disclosure (Virginia)",
+    title: "Methamphetamine Contamination Disclosure",
     group: "Disclosures",
     state: "VA",
     bodyText:
@@ -938,7 +938,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "meth-disclosure-ca",
-    title: "Methamphetamine Contamination Disclosure (California)",
+    title: "Methamphetamine Contamination Disclosure",
     group: "Disclosures",
     state: "CA",
     bodyText:
@@ -946,7 +946,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "mold-disclosure-ca",
-    title: "Mold Disclosure (California)",
+    title: "Mold Disclosure",
     group: "Disclosures",
     state: "CA",
     bodyText:
@@ -954,7 +954,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "mold-disclosure-wa",
-    title: "Mold Disclosure (Washington)",
+    title: "Mold Disclosure",
     group: "Disclosures",
     state: "WA",
     bodyText:
@@ -962,7 +962,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "mold-disclosure-va",
-    title: "Mold Disclosure (Virginia)",
+    title: "Mold Disclosure",
     group: "Disclosures",
     state: "VA",
     bodyText:
@@ -970,7 +970,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "flood-disclosure-ca",
-    title: "Flood Zone Disclosure (California)",
+    title: "Flood Disclosure",
     group: "Disclosures",
     state: "CA",
     bodyText:
@@ -978,7 +978,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "flood-disclosure-tx",
-    title: "Flood Disclosure (Texas)",
+    title: "Flood Disclosure",
     group: "Disclosures",
     state: "TX",
     bodyText:
@@ -986,7 +986,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "flood-disclosure-fl",
-    title: "Flood Disclosure (Florida)",
+    title: "Flood Disclosure",
     group: "Disclosures",
     state: "FL",
     bodyText:
@@ -994,7 +994,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "utility-submetering-disclosure-tx",
-    title: "Utility Allocation Disclosure (Texas)",
+    title: "Utility Allocation Disclosure",
     group: "Disclosures",
     state: "TX",
     bodyText:
@@ -1002,7 +1002,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "foreclosure-disclosure-nv",
-    title: "Foreclosure Disclosure (Nevada)",
+    title: "Foreclosure Disclosure",
     group: "Disclosures",
     state: "NV",
     bodyText:
@@ -1010,7 +1010,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "foreclosure-disclosure-ca",
-    title: "Foreclosure Disclosure (California)",
+    title: "Foreclosure Disclosure",
     group: "Disclosures",
     state: "CA",
     bodyText:
@@ -1018,7 +1018,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "sex-offender-registry-notice-ca",
-    title: "Sex Offender Registry Notice (California)",
+    title: "Sex Offender Registry Notice",
     group: "Disclosures",
     state: "CA",
     bodyText:
