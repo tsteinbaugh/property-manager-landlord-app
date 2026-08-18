@@ -126,6 +126,18 @@ export default function ClauseLibraryPage() {
     return stateFilter === ALL_STATES || !item.states || item.states.length === 0 || item.states.includes(stateFilter);
   }
 
+  // When filtered to a specific state, a universal template that a visible state-specific
+  // template fully replaces (see clauseTemplates.js's `supersedes` field) is hidden — showing
+  // both would just be a more-generic and more-specific version of the same clause side by
+  // side. Only applies to provided templates; personal "Your Clauses" copies aren't linked
+  // back to a template, so there's nothing to supersede there.
+  function visibleTemplates() {
+    const filtered = templates.filter(matchesStateFilter);
+    if (stateFilter === ALL_STATES) return filtered;
+    const supersededIds = new Set(filtered.filter((t) => t.supersedes).map((t) => t.supersedes));
+    return filtered.filter((t) => !supersededIds.has(t.id));
+  }
+
   async function handleSave(e) {
     e.preventDefault();
     setSubmitting(true);
@@ -365,7 +377,7 @@ export default function ClauseLibraryPage() {
           state.
         </p>
         <div className="space-y-4">
-          {groupByGroup(templates.filter(matchesStateFilter), groups).map(({ group, items }) => (
+          {groupByGroup(visibleTemplates(), groups).map(({ group, items }) => (
             <div key={group} className="space-y-2">
               <h3 className="text-xs font-semibold uppercase tracking-wide text-stone-400">{group}</h3>
               {items.map((template) => (

@@ -56,6 +56,14 @@ export default function LeaseBuilderSection({ lease, onChange }) {
     return stateFilter === ALL_STATES || !item.states || item.states.length === 0 || item.states.includes(stateFilter);
   }
 
+  // When filtered to a specific state, hide a universal template that a visible state-specific
+  // template fully replaces (see clauseTemplates.js's `supersedes` field) — same behavior as
+  // ClauseLibraryPage, so the picker doesn't offer both a generic and a more-specific version
+  // of the same clause at once.
+  const matchingTemplates = templates.filter(matchesStateFilter);
+  const supersededTemplateIds =
+    stateFilter === ALL_STATES ? new Set() : new Set(matchingTemplates.filter((t) => t.supersedes).map((t) => t.supersedes));
+
   const pickerOptions = [
     ...library
       .filter((c) => !attachedClauseIds.has(c.id) && matchesStateFilter(c))
@@ -63,8 +71,8 @@ export default function LeaseBuilderSection({ lease, onChange }) {
         value: encodeOption("clause", c.id),
         label: `${c.title} — ${c.group}${c.states?.length ? ` [${c.states.join(", ")}]` : ""}`,
       })),
-    ...templates
-      .filter((t) => !attachedTemplateIds.has(t.id) && matchesStateFilter(t))
+    ...matchingTemplates
+      .filter((t) => !attachedTemplateIds.has(t.id) && !supersededTemplateIds.has(t.id))
       .map((t) => ({
         value: encodeOption("template", t.id),
         label: `${t.title} — ${t.group}${t.states?.length ? ` [${t.states.join(", ")}]` : ""} (Provided)`,

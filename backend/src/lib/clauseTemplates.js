@@ -17,11 +17,24 @@
 // is left as plain generic text — some with a "[bracketed prompt]" the
 // landlord fills in per lease — for the landlord to edit.
 //
-// `state` is an optional two-letter code (e.g. "CO") marking a clause's
-// language as specific to that state's law, or null for generic/universal
-// clauses. It's a content tag only — filters the library view and "Add my
-// default clauses" by the lease's property state — not a Legal Tracker
-// notice-period/deadline engine.
+// `states` is an array of two-letter codes (e.g. ["CO"], or ["HI","KY","RI","DC"]
+// when several states share identical language for the same rule) marking a
+// clause's language as specific to those states' law, or [] for generic/
+// universal clauses. It's a content tag only — filters the library view and
+// "Add my default clauses" by the lease's property state — not a Legal
+// Tracker notice-period/deadline engine.
+//
+// A state-specific clause that fully replaces a universal one's content
+// (not just adds a number, but restates everything the universal clause
+// covers) can set `supersedes: "<universal-clause-id>"`. When the library or
+// attach picker is filtered to a specific state, a superseded universal
+// clause is hidden in favor of its more specific replacement — but only
+// when the state clause is a genuine full replacement, not merely a related
+// clause on the same topic. Most same-topic state clauses (e.g. every
+// state's late-fee cap) are deliberately NOT marked this way, because they
+// only state a constraint (a ceiling/floor/deadline) and don't restate the
+// universal clause's other operative content — attaching both is intended
+// in those cases, not redundant.
 //
 // Expanded a second time after Taylor did a careful line-by-line review
 // against the real signed lease (all 26 pages of lease + addenda, not just
@@ -332,16 +345,18 @@ const CLAUSE_TEMPLATES = [
     title: "Security Deposit Return Deadline",
     group: "Security Deposit",
     states: ["NY", "HI"],
+    supersedes: "security-deposit-return",
     bodyText:
-      "The Security Deposit, less any lawful deductions, will be returned to Tenant within 14 days after Tenant vacates the property, as required by law in these states.",
+      "The Security Deposit, less any lawful deductions, will be returned to Tenant within 14 days after Tenant vacates the property, as required by law in these states. Any deductions will be described in an itemized statement provided with the returned portion of the deposit. Tenant will provide Landlord a forwarding address to which the Security Deposit and itemized statement should be sent.",
   },
   {
     id: "security-deposit-return-wv",
     title: "Security Deposit Return Deadline",
     group: "Security Deposit",
     states: ["WV"],
+    supersedes: "security-deposit-return",
     bodyText:
-      "The Security Deposit, less any lawful deductions, will be returned to Tenant within 60 days after Tenant vacates the property, or within 45 days if a new tenant takes possession of the property sooner, as required by West Virginia law.",
+      "The Security Deposit, less any lawful deductions, will be returned to Tenant within 60 days after Tenant vacates the property, or within 45 days if a new tenant takes possession of the property sooner, as required by West Virginia law. Any deductions will be described in an itemized statement provided with the returned portion of the deposit. Tenant will provide Landlord a forwarding address to which the Security Deposit and itemized statement should be sent.",
   },
   {
     id: "security-deposit-interest-ct",
@@ -577,6 +592,7 @@ const CLAUSE_TEMPLATES = [
     title: "Landlord's Right of Entry",
     group: "Access & Entry",
     states: ["CO"],
+    supersedes: "landlords-access",
     bodyText:
       "Landlord, its agents, and contractors will have the right of reasonable access to the property during normal business hours to perform maintenance and repair obligations and to show the property to prospective tenants or purchasers. Except in the case of an emergency, Landlord will provide Tenant at least 24 hours' written notice prior to entry, as required by Colorado law, or at least 48 hours' notice prior to an inspection or treatment related to bed bugs.",
   },
@@ -585,6 +601,7 @@ const CLAUSE_TEMPLATES = [
     title: "Landlord's Right of Entry",
     group: "Access & Entry",
     states: ["DE"],
+    supersedes: "landlords-access",
     bodyText:
       "Landlord, its agents, and contractors will have the right of reasonable access to the property during normal business hours to perform maintenance and repair obligations and to show the property to prospective tenants or purchasers. Except in the case of an emergency, Landlord will provide Tenant at least 48 hours' notice, between 8:00 a.m. and 9:00 p.m., prior to entry, as required by Delaware law.",
   },
@@ -593,6 +610,7 @@ const CLAUSE_TEMPLATES = [
     title: "Landlord's Right of Entry",
     group: "Access & Entry",
     states: ["HI", "KY", "RI", "DC"],
+    supersedes: "landlords-access",
     bodyText:
       "Landlord, its agents, and contractors will have the right of reasonable access to the property during normal business hours to perform maintenance and repair obligations and to show the property to prospective tenants or purchasers. Except in the case of an emergency, Landlord will provide Tenant at least 48 hours' notice prior to entry, as required by law in these states.",
   },
@@ -601,6 +619,7 @@ const CLAUSE_TEMPLATES = [
     title: "Landlord's Right of Entry",
     group: "Access & Entry",
     states: ["VT"],
+    supersedes: "landlords-access",
     bodyText:
       "Landlord, its agents, and contractors will have the right of reasonable access to the property during normal business hours to perform maintenance and repair obligations and to show the property to prospective tenants or purchasers. Except in the case of an emergency, Landlord will provide Tenant at least 48 hours' notice, between 9:00 a.m. and 9:00 p.m., prior to entry, as required by Vermont law.",
   },
@@ -609,6 +628,7 @@ const CLAUSE_TEMPLATES = [
     title: "Landlord's Right of Entry",
     group: "Access & Entry",
     states: ["WA"],
+    supersedes: "landlords-access",
     bodyText:
       "Landlord, its agents, and contractors will have the right of reasonable access to the property during normal business hours to perform maintenance and repair obligations. Except in the case of an emergency, Landlord will provide Tenant at least 2 days' notice prior to entry for repairs or inspection, or at least 1 day's notice prior to showing the property to a prospective tenant or purchaser, as required by Washington law.",
   },

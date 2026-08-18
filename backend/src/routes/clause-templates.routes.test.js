@@ -57,6 +57,19 @@ describe("clause templates route", () => {
     }
   });
 
+  it("every supersedes reference points to a real, universal (no-states) template", async () => {
+    const res = await request(app).get("/api/clause-templates");
+    const byId = new Map(res.body.map((t) => [t.id, t]));
+
+    const withSupersedes = res.body.filter((t) => t.supersedes);
+    expect(withSupersedes.length).toBeGreaterThan(0);
+    for (const template of withSupersedes) {
+      const target = byId.get(template.supersedes);
+      expect(target).toBeTruthy();
+      expect(target.states).toEqual([]);
+    }
+  });
+
   it("includes an early termination template in Default & Termination", async () => {
     const res = await request(app).get("/api/clause-templates");
     const earlyTermination = res.body.find((t) => t.id === "early-termination");
