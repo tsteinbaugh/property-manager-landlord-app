@@ -83,6 +83,7 @@ function createIncomeRoutes({ r2 = defaultR2 } = {}) {
         ...(propertyId ? { propertyId } : {}),
         ...(leaseId ? { leaseId } : {}),
       },
+      include: { allocations: true },
       orderBy: { date: "desc" },
     });
 

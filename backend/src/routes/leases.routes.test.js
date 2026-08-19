@@ -39,6 +39,7 @@ async function resetDatabase() {
   await prisma.leaseTenant.deleteMany();
   await prisma.leaseClause.deleteMany();
   await prisma.leaseAttachment.deleteMany();
+  await prisma.lateFeeWaiver.deleteMany();
   await prisma.lease.deleteMany();
   await prisma.clause.deleteMany();
   await prisma.defaultClauseTemplate.deleteMany();
@@ -1119,6 +1120,151 @@ describe("leases routes", () => {
 
       const res = await request(app).post(`/api/leases/${otherLease.id}/generate-document`);
       expect(res.status).toBe(404);
+    });
+  });
+
+  describe("rent tracker", () => {
+    let lease;
+
+    // Fixed safely in the past (well before this test suite will ever run)
+    // so "today" is always well past every period's grace deadline —
+    // deterministic OVERDUE/late-fee behavior regardless of when tests run.
+    beforeEach(async () => {
+      lease = await prisma.lease.create({
+        data: {
+          propertyId: property.id,
+          userId: property.userId,
+          startDate: new Date("2020-01-01"),
+          endDate: new Date("2020-03-31"),
+          monthlyRent: "3000.00",
+          lateFeeAmount: "150.00",
+          lateFeeGraceDays: 5,
+        },
+      });
+    });
+
+    it("computes one row per month of the term, with an unpaid past period OVERDUE and its late fee accrued", async () => {
+      const res = await request(app).get(`/api/leases/${lease.id}/rent-tracker`);
+
+      expect(res.status).toBe(200);
+      expect(res.body).toHaveLength(3);
+      const jan = res.body[0];
+      expect(jan.status).toBe("OVERDUE");
+      expect(jan.expectedLateFee).toBe(150);
+      expect(jan.balance).toBe(3150);
+    });
+
+    it("404s the rent tracker for another user's lease", async () => {
+      const otherUser = await prisma.user.create({ data: { clerkId: "clerk_other_user", email: "other@example.com" } });
+      const otherEntity = await prisma.entity.create({
+        data: { userId: otherUser.id, legalName: "Someone Else LLC", entityType: "LLC" },
+      });
+      const otherProperty = await prisma.property.create({
+        data: { entityId: otherEntity.id, userId: otherUser.id, address1: "456 Oak St", city: "Frederick", state: "CO", zip: "80530" },
+      });
+      const otherLease = await prisma.lease.create({
+        data: { propertyId: otherProperty.id, userId: otherUser.id, startDate: new Date("2020-01-01"), monthlyRent: "1800.00" },
+      });
+
+      const res = await request(app).get(`/api/leases/${otherLease.id}/rent-tracker`);
+      expect(res.status).toBe(404);
+    });
+
+    it("previews a payment split without writing anything", async () => {
+      const res = await request(app).post(`/api/leases/${lease.id}/rent-payments/preview`).send({ amount: 2000 });
+
+      expect(res.status).toBe(200);
+      expect(res.body.allocations[0]).toMatchObject({ category: "LATE_FEE", amount: 150 });
+      expect(res.body.unapplied).toBe(0);
+      expect(await prisma.income.count()).toBe(0);
+    });
+
+    it("logs a payment spanning multiple categories/periods as ONE Income row with allocation line items underneath", async () => {
+      // All three months of this fixed-past lease are overdue by the time this
+      // test runs, so $150/month in late fees ($450 total) is satisfied first,
+      // then the remainder applies to the oldest month's rent. It's still one
+      // real $2,000 payment, so it must be one Ledger row, not four.
+      const res = await request(app).post(`/api/leases/${lease.id}/rent-payments`).send({ amount: 2000, date: "2020-01-10" });
+
+      expect(res.status).toBe(201);
+      expect(await prisma.income.count()).toBe(1);
+      expect(res.body.income.amount).toBe("2000");
+      expect(res.body.income.category).toBe("RENT"); // dominant by dollar amount: $1,550 rent beats $450 in late fees
+      expect(res.body.income.appliesToPeriod).toBe(null);
+      expect(res.body.income.leaseId).toBe(lease.id);
+
+      const allocations = res.body.income.allocations;
+      expect(allocations.map((a) => a.category)).toEqual(["LATE_FEE", "LATE_FEE", "LATE_FEE", "RENT"]);
+      expect(allocations.map((a) => a.amount)).toEqual(["150", "150", "150", "1550"]);
+    });
+
+    it("rejects a payment that overshoots everything currently owed without explicit allocations", async () => {
+      const res = await request(app).post(`/api/leases/${lease.id}/rent-payments`).send({ amount: 100000, date: "2020-01-10" });
+
+      expect(res.status).toBe(400);
+      expect(await prisma.income.count()).toBe(0);
+    });
+
+    it("logs a single-bucket payment as a plain Income row with no allocation children", async () => {
+      const res = await request(app)
+        .post(`/api/leases/${lease.id}/rent-payments`)
+        .send({ date: "2020-01-10", allocations: [{ period: "2020-01-01", category: "RENT", amount: 500 }] });
+
+      expect(res.status).toBe(201);
+      expect(res.body.income.category).toBe("RENT");
+      expect(res.body.income.amount).toBe("500");
+      expect(res.body.income.appliesToPeriod).not.toBe(null);
+      expect(res.body.income.allocations).toEqual([]);
+    });
+
+    it("appears as one row in the property's income list, even when split across categories", async () => {
+      await request(app).post(`/api/leases/${lease.id}/rent-payments`).send({ amount: 2000, date: "2020-01-10" });
+
+      const res = await request(app).get(`/api/income?propertyId=${property.id}`);
+
+      expect(res.status).toBe(200);
+      expect(res.body).toHaveLength(1);
+      expect(res.body[0].amount).toBe("2000");
+      expect(res.body[0].allocations).toHaveLength(4);
+    });
+
+    it("lists waivers for a lease", async () => {
+      await request(app).post(`/api/leases/${lease.id}/late-fee-waivers`).send({ period: "2020-01-01" });
+
+      const res = await request(app).get(`/api/leases/${lease.id}/late-fee-waivers`);
+
+      expect(res.status).toBe(200);
+      expect(res.body).toHaveLength(1);
+      expect(res.body[0].leaseId).toBe(lease.id);
+    });
+
+    it("waives a period's late fee, excluding it from what's expected", async () => {
+      const waiveRes = await request(app).post(`/api/leases/${lease.id}/late-fee-waivers`).send({ period: "2020-01-01" });
+      expect(waiveRes.status).toBe(201);
+
+      const trackerRes = await request(app).get(`/api/leases/${lease.id}/rent-tracker`);
+      const jan = trackerRes.body[0];
+      expect(jan.isLateFeeWaived).toBe(true);
+      expect(jan.expectedLateFee).toBe(0);
+      expect(jan.balance).toBe(3000);
+    });
+
+    it("rejects a duplicate waiver for the same period", async () => {
+      await request(app).post(`/api/leases/${lease.id}/late-fee-waivers`).send({ period: "2020-01-01" });
+      const res = await request(app).post(`/api/leases/${lease.id}/late-fee-waivers`).send({ period: "2020-01-01" });
+
+      expect(res.status).toBe(400);
+    });
+
+    it("removes a waiver, restoring the late fee", async () => {
+      const waiveRes = await request(app).post(`/api/leases/${lease.id}/late-fee-waivers`).send({ period: "2020-01-01" });
+
+      const delRes = await request(app).delete(`/api/leases/${lease.id}/late-fee-waivers/${waiveRes.body.id}`);
+      expect(delRes.status).toBe(204);
+
+      const trackerRes = await request(app).get(`/api/leases/${lease.id}/rent-tracker`);
+      expect(trackerRes.body[0].isLateFeeWaived).toBe(false);
+      expect(trackerRes.body[0].expectedLateFee).toBe(150);
     });
   });
 });

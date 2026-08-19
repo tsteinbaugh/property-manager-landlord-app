@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
+import RentStatusPill from "../components/RentStatusPill";
 
 const EMPTY_FORM = { entityId: "", name: "", address1: "", address2: "", city: "", state: "", zip: "" };
 
@@ -8,6 +9,7 @@ export default function PropertiesPage() {
   const api = useApi();
   const [entities, setEntities] = useState([]);
   const [properties, setProperties] = useState([]);
+  const [rentStatuses, setRentStatuses] = useState([]);
   const [entityFilter, setEntityFilter] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -36,6 +38,16 @@ export default function PropertiesPage() {
     loadAll(entityFilter);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [entityFilter]);
+
+  useEffect(() => {
+    api
+      .get("/api/rent-status")
+      .then(setRentStatuses)
+      .catch(() => {}); // non-critical — the pill just doesn't render if this fails
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const rentStatusFor = (propertyId) => rentStatuses.find((r) => r.propertyId === propertyId)?.status;
 
   function openCreateForm() {
     setForm({ ...EMPTY_FORM, entityId: entities[0]?.id || "" });
@@ -231,7 +243,12 @@ export default function PropertiesPage() {
               to={`/properties/${property.id}`}
               className="block space-y-2 rounded-xl border border-stone-200 bg-white p-4 shadow-sm hover:border-emerald-300"
             >
-              <h3 className="font-medium text-stone-900">{property.name || property.address1}</h3>
+              <div className="flex items-start justify-between gap-2">
+                <h3 className="font-medium text-stone-900">{property.name || property.address1}</h3>
+                {rentStatusFor(property.id) && rentStatusFor(property.id) !== "PAID" && (
+                  <RentStatusPill status={rentStatusFor(property.id)} />
+                )}
+              </div>
               <p className="text-sm text-stone-500">
                 {property.address1}
                 {property.address2 ? `, ${property.address2}` : ""}

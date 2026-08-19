@@ -8,6 +8,48 @@ const { isValidGroup } = require("../lib/clauseGroups");
 const { CLAUSE_TEMPLATES } = require("../lib/clauseTemplates");
 const { buildVariableContext, substituteVariables } = require("../lib/clauseVariables");
 const { orderAndLabelClauses } = require("../lib/leaseClauseOrdering");
+const {
+  buildRentTracker,
+  suggestPaymentAllocation,
+  dominantCategory,
+  RENT_TRACKER_CATEGORIES,
+  monthStart,
+} = require("../lib/rentTracker");
+
+// Assembles the flat "income unit" list buildRentTracker expects: every
+// plain single-category Income row tied to this lease, plus one unit per
+// IncomeAllocation line item on a split payment (sharing that payment's
+// Income id/date/method, since it's still just one real transaction). A
+// payment only gets IncomeAllocation children when it actually spans more
+// than one category/period — see the schema comment on IncomeAllocation.
+async function loadRentTrackerIncomes(leaseId) {
+  const [plainIncomes, allocationRows] = await Promise.all([
+    prisma.income.findMany({
+      where: {
+        leaseId,
+        category: { in: RENT_TRACKER_CATEGORIES },
+        appliesToPeriod: { not: null },
+        allocations: { none: {} },
+      },
+    }),
+    prisma.incomeAllocation.findMany({
+      where: { income: { leaseId } },
+      include: { income: { select: { date: true, method: true } } },
+    }),
+  ]);
+
+  const allocationUnits = allocationRows.map((a) => ({
+    id: a.incomeId,
+    leaseId,
+    category: a.category,
+    amount: a.amount,
+    appliesToPeriod: a.period,
+    date: a.income.date,
+    method: a.income.method,
+  }));
+
+  return [...plainIncomes, ...allocationUnits];
+}
 
 const REQUIRED_FIELDS = ["propertyId", "startDate", "monthlyRent"];
 
@@ -645,6 +687,192 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
     });
 
     res.json(withComputedLeaseFields(updatedLease));
+  });
+
+  // Compute-on-read per-month payment history for this lease — see
+  // rentTracker.js for the full logic. Nothing here is stored; it's
+  // recomputed fresh from this lease's own RENT/LATE_FEE/PET_RENT Income
+  // rows (matched by appliesToPeriod, not `date`) and any LateFeeWaiver rows
+  // every time this endpoint is called.
+  router.get("/:id/rent-tracker", async (req, res) => {
+    const lease = await prisma.lease.findUnique({ where: { id: req.params.id } });
+    if (!lease || lease.userId !== req.currentUser.id) {
+      return res.status(404).json({ error: "Lease not found" });
+    }
+
+    const [incomes, waivers] = await Promise.all([
+      loadRentTrackerIncomes(lease.id),
+      prisma.lateFeeWaiver.findMany({ where: { leaseId: lease.id } }),
+    ]);
+
+    res.json(buildRentTracker({ lease, incomes, waivers, today: new Date() }));
+  });
+
+  // Suggests how a lump payment would split across what's outstanding, per
+  // the lease's own Application of Payments clause (fees first, then rent,
+  // oldest period first) — a preview only, nothing is written. Bookkeeping
+  // only; never a legal eviction-eligibility determination (see memory
+  // `project_late_fees_not_eviction_basis`).
+  router.post("/:id/rent-payments/preview", async (req, res) => {
+    const amount = Number(req.body.amount);
+    if (!amount || amount <= 0) {
+      return res.status(400).json({ error: "amount must be a positive number" });
+    }
+
+    const lease = await prisma.lease.findUnique({ where: { id: req.params.id } });
+    if (!lease || lease.userId !== req.currentUser.id) {
+      return res.status(404).json({ error: "Lease not found" });
+    }
+
+    const [incomes, waivers] = await Promise.all([
+      loadRentTrackerIncomes(lease.id),
+      prisma.lateFeeWaiver.findMany({ where: { leaseId: lease.id } }),
+    ]);
+
+    const rows = buildRentTracker({ lease, incomes, waivers, today: new Date() });
+    res.json(suggestPaymentAllocation({ rows, amount }));
+  });
+
+  // Logs a payment against this lease as exactly one Income row — matching
+  // the one real transaction it is, so it's one place to attach a receipt
+  // and one line in the Ledger, not a lump sum artificially broken apart.
+  // The rent/fee/period breakdown a split payment covers is still tracked,
+  // just as IncomeAllocation children *underneath* that single row (only
+  // created when the payment actually spans more than one category/period —
+  // most payments don't). Pass `allocations` directly (from a possibly-
+  // edited preview) to use an exact split; otherwise the suggested
+  // fees-first/oldest-first split is used, and a payment larger than
+  // everything currently owed is rejected rather than silently dropping the
+  // extra — the landlord has to say explicitly where an overpayment/
+  // prepayment goes.
+  router.post("/:id/rent-payments", async (req, res) => {
+    const { date, method, notes } = req.body;
+    if (!date) {
+      return res.status(400).json({ error: "Missing required field(s): date" });
+    }
+
+    const lease = await prisma.lease.findUnique({ where: { id: req.params.id } });
+    if (!lease || lease.userId !== req.currentUser.id) {
+      return res.status(404).json({ error: "Lease not found" });
+    }
+
+    let allocations = req.body.allocations;
+    if (!allocations) {
+      const amount = Number(req.body.amount);
+      if (!amount || amount <= 0) {
+        return res.status(400).json({ error: "amount must be a positive number" });
+      }
+
+      const [incomes, waivers] = await Promise.all([
+        loadRentTrackerIncomes(lease.id),
+        prisma.lateFeeWaiver.findMany({ where: { leaseId: lease.id } }),
+      ]);
+      const rows = buildRentTracker({ lease, incomes, waivers, today: new Date() });
+      const suggestion = suggestPaymentAllocation({ rows, amount });
+      if (suggestion.unapplied > 0) {
+        return res.status(400).json({
+          error: `$${suggestion.unapplied} of this payment doesn't match anything currently owed — specify allocations explicitly to apply it (e.g. as a prepayment).`,
+        });
+      }
+      allocations = suggestion.allocations;
+    }
+
+    if (!Array.isArray(allocations) || allocations.length === 0) {
+      return res.status(400).json({ error: "allocations must be a non-empty array" });
+    }
+    for (const a of allocations) {
+      if (!RENT_TRACKER_CATEGORIES.includes(a.category) || !a.period || !(Number(a.amount) > 0)) {
+        return res.status(400).json({ error: "Each allocation needs a valid category, period, and positive amount" });
+      }
+    }
+
+    const property = await prisma.property.findUnique({ where: { id: lease.propertyId } });
+    const totalAmount = Math.round(allocations.reduce((sum, a) => sum + Number(a.amount), 0) * 100) / 100;
+
+    const baseData = {
+      userId: req.currentUser.id,
+      entityId: property.entityId,
+      propertyId: property.id,
+      leaseId: lease.id,
+      amount: totalAmount,
+      date: new Date(date),
+      method: method || null,
+      notes: notes || null,
+    };
+
+    const income =
+      allocations.length === 1
+        ? await prisma.income.create({
+            data: { ...baseData, category: allocations[0].category, appliesToPeriod: monthStart(allocations[0].period) },
+            include: { allocations: true },
+          })
+        : await prisma.income.create({
+            data: {
+              ...baseData,
+              category: dominantCategory(allocations),
+              allocations: {
+                create: allocations.map((a) => ({ period: monthStart(a.period), category: a.category, amount: Number(a.amount) })),
+              },
+            },
+            include: { allocations: true },
+          });
+
+    res.status(201).json({ income });
+  });
+
+  router.get("/:id/late-fee-waivers", async (req, res) => {
+    const lease = await prisma.lease.findUnique({ where: { id: req.params.id } });
+    if (!lease || lease.userId !== req.currentUser.id) {
+      return res.status(404).json({ error: "Lease not found" });
+    }
+
+    const waivers = await prisma.lateFeeWaiver.findMany({ where: { leaseId: lease.id } });
+    res.json(waivers);
+  });
+
+  // Records a landlord's decision to waive a period's accrued late fee —
+  // see rentTracker.js's header comment for why this can't just be inferred
+  // by the compute-on-read logic. One waiver per lease+period.
+  router.post("/:id/late-fee-waivers", async (req, res) => {
+    const { period, note } = req.body;
+    if (!period) {
+      return res.status(400).json({ error: "Missing required field(s): period" });
+    }
+
+    const lease = await prisma.lease.findUnique({ where: { id: req.params.id } });
+    if (!lease || lease.userId !== req.currentUser.id) {
+      return res.status(404).json({ error: "Lease not found" });
+    }
+
+    const normalizedPeriod = monthStart(period);
+    const existing = await prisma.lateFeeWaiver.findUnique({
+      where: { leaseId_period: { leaseId: lease.id, period: normalizedPeriod } },
+    });
+    if (existing) {
+      return res.status(400).json({ error: "This period's late fee is already waived" });
+    }
+
+    const waiver = await prisma.lateFeeWaiver.create({
+      data: { leaseId: lease.id, period: normalizedPeriod, note: note || null },
+    });
+
+    res.status(201).json(waiver);
+  });
+
+  router.delete("/:id/late-fee-waivers/:waiverId", async (req, res) => {
+    const lease = await prisma.lease.findUnique({ where: { id: req.params.id } });
+    if (!lease || lease.userId !== req.currentUser.id) {
+      return res.status(404).json({ error: "Lease not found" });
+    }
+
+    const waiver = await prisma.lateFeeWaiver.findUnique({ where: { id: req.params.waiverId } });
+    if (!waiver || waiver.leaseId !== lease.id) {
+      return res.status(404).json({ error: "Waiver not found" });
+    }
+
+    await prisma.lateFeeWaiver.delete({ where: { id: waiver.id } });
+
+    res.status(204).send();
   });
 
   return router;

@@ -195,6 +195,11 @@ export default function IncomeSection({ items, leases, propertyId, onChange }) {
                   <span className="ml-2 rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-800">
                     {categoryLabel(income.category)}
                   </span>
+                  {income.allocations?.length > 1 && (
+                    <p className="text-xs text-stone-500">
+                      {income.allocations.map((a) => `${categoryLabel(a.category)} ${money(a.amount)}`).join(" + ")}
+                    </p>
+                  )}
                   <p className="text-xs text-stone-400">
                     {new Date(income.date).toLocaleDateString()}
                     {income.method ? ` · ${income.method}` : ""}

@@ -245,12 +245,13 @@ model Lease {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  property     Property      @relation(fields: [propertyId], references: [id])
-  leaseTenants LeaseTenant[]
-  incomes      Income[]
-  deposits     Deposit[]
-  leaseClauses LeaseClause[]
-  attachments  LeaseAttachment[]
+  property       Property          @relation(fields: [propertyId], references: [id])
+  leaseTenants   LeaseTenant[]
+  incomes        Income[]
+  deposits       Deposit[]
+  leaseClauses   LeaseClause[]
+  attachments    LeaseAttachment[]
+  lateFeeWaivers LateFeeWaiver[]
 
   @@index([userId])
   @@index([propertyId])
@@ -461,18 +462,53 @@ model Income {
   date       DateTime
   method     String? // free text, e.g. "check", "cash", "bank transfer"
   notes      String?
-  createdAt  DateTime       @default(now())
-  updatedAt  DateTime       @updatedAt
 
-  entity    Entity           @relation(fields: [entityId], references: [id])
-  property  Property         @relation(fields: [propertyId], references: [id])
-  lease     Lease?           @relation(fields: [leaseId], references: [id])
-  documents IncomeDocument[]
+  // Which calendar month (stored as that month's 1st, e.g. 2026-07-01) this
+  // RENT/LATE_FEE/PET_RENT income satisfies — distinct from `date`, which is
+  // when the money actually arrived. A late payment can be dated well after
+  // the period it's paying down, so the Rent Tracker (rentTracker.js)
+  // matches on this field, never on `date`, to attribute collected amounts
+  // to the right month. Null for anything not tied to a single specific
+  // lease period — a one-off reimbursement logged as OTHER, a payment split
+  // across categories/periods (see `allocations` below), or pre-existing
+  // rows from before this field existed.
+  appliesToPeriod DateTime?
+
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+
+  entity      Entity             @relation(fields: [entityId], references: [id])
+  property    Property           @relation(fields: [propertyId], references: [id])
+  lease       Lease?             @relation(fields: [leaseId], references: [id])
+  documents   IncomeDocument[]
+  allocations IncomeAllocation[]
 
   @@index([userId])
   @@index([entityId])
   @@index([propertyId])
   @@index([leaseId])
+}
+
+// A single real payment can cover more than one thing a tenant owes — e.g.
+// $1,150 that's really $1,000 of rent plus a $150 late fee, or one payment
+// spanning two overdue months. The Income row above is still exactly one
+// row per real-world payment (one place to attach a receipt, matching what
+// actually hit the bank account) — this table exists only so the Rent
+// Tracker can still see the true rent/fee/period breakdown underneath it.
+// Only created when a payment logged via the Rent Tracker's "Log a
+// payment" flow actually spans more than one category or period; a plain
+// single-category payment just uses Income.category/appliesToPeriod
+// directly and has no allocation rows at all.
+model IncomeAllocation {
+  id       String         @id @default(cuid())
+  incomeId String
+  period   DateTime
+  category IncomeCategory
+  amount   Decimal        @db.Decimal(10, 2)
+
+  income Income @relation(fields: [incomeId], references: [id], onDelete: Cascade)
+
+  @@index([incomeId])
 }
 
 // Receipts / proof of payment (e.g. a bank transfer screenshot) — a flat
@@ -488,6 +524,25 @@ model IncomeDocument {
   income Income @relation(fields: [incomeId], references: [id], onDelete: Cascade)
 
   @@index([incomeId])
+}
+
+// A landlord's decision not to charge a period's accrued late fee (e.g.
+// waived as a one-off courtesy) — recorded because it's a real decision to
+// remember, not something the Rent Tracker's compute-on-read late-fee logic
+// could infer on its own. `period` is that month's 1st, same convention as
+// Income.appliesToPeriod. A waived period's late fee is simply excluded from
+// what's expected/owed for that month; nothing else about the period changes.
+model LateFeeWaiver {
+  id        String   @id @default(cuid())
+  leaseId   String
+  period    DateTime
+  note      String?
+  createdAt DateTime @default(now())
+
+  lease Lease @relation(fields: [leaseId], references: [id], onDelete: Cascade)
+
+  @@unique([leaseId, period])
+  @@index([leaseId])
 }
 
 // REPAIRS (fixing something broken) and MAINTENANCE (routine/preventive upkeep)

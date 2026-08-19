@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
 import IncomeSection from "../components/IncomeSection";
 import ExpenseSection from "../components/ExpenseSection";
+import RentTrackerSection from "../components/RentTrackerSection";
 import { categoryLabel } from "../lib/financeLabels";
 import BackLink from "../components/BackLink";
 
@@ -20,6 +21,8 @@ export default function PropertyLedgerPage() {
   const [leases, setLeases] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [tab, setTab] = useState("ledger");
+  const [highlightIncomeId, setHighlightIncomeId] = useState(null);
 
   async function load() {
     setLoading(true);
@@ -46,6 +49,22 @@ export default function PropertyLedgerPage() {
     load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
+
+  // Jumping here from the Rent Tracker tab: switch to the Ledger, scroll the
+  // specific payment into view, and briefly highlight it so it's obvious
+  // which row answers "where's this money in my books."
+  function jumpToIncome(incomeId) {
+    setTab("ledger");
+    setHighlightIncomeId(incomeId);
+  }
+
+  useEffect(() => {
+    if (tab !== "ledger" || !highlightIncomeId) return;
+    const el = document.getElementById(`income-row-${highlightIncomeId}`);
+    el?.scrollIntoView({ behavior: "smooth", block: "center" });
+    const timeout = setTimeout(() => setHighlightIncomeId(null), 2500);
+    return () => clearTimeout(timeout);
+  }, [tab, highlightIncomeId]);
 
   const entries = [
     ...incomes.map((i) => ({ ...i, kind: "income" })),
@@ -83,68 +102,104 @@ export default function PropertyLedgerPage() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <div className="rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
-          <p className="text-xs font-medium text-stone-500">Total income</p>
-          <p className="mt-1 text-xl font-semibold text-emerald-700">{money(totalIncome)}</p>
-        </div>
-        <div className="rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
-          <p className="text-xs font-medium text-stone-500">Total expenses</p>
-          <p className="mt-1 text-xl font-semibold text-red-700">{money(totalExpenses)}</p>
-        </div>
-        <div className="rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
-          <p className="text-xs font-medium text-stone-500">Net</p>
-          <p className="mt-1 text-xl font-semibold text-stone-900">{money(totalIncome - totalExpenses)}</p>
-        </div>
+      <div className="flex gap-1 border-b border-stone-200">
+        {[
+          { key: "ledger", label: "Ledger" },
+          { key: "rent-tracker", label: "Rent Tracker" },
+        ].map((t) => (
+          <button
+            key={t.key}
+            onClick={() => setTab(t.key)}
+            className={`-mb-px border-b-2 px-4 py-2 text-sm font-medium ${
+              tab === t.key
+                ? "border-emerald-700 text-emerald-700"
+                : "border-transparent text-stone-500 hover:text-stone-700"
+            }`}
+          >
+            {t.label}
+          </button>
+        ))}
       </div>
 
-      {entries.length === 0 ? (
-        <p className="rounded-xl border border-dashed border-stone-300 bg-white p-6 text-sm text-stone-500">
-          No income or expenses logged for this property yet.
-        </p>
-      ) : (
-        <div className="overflow-x-auto rounded-xl border border-stone-200 bg-white shadow-sm">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-stone-200 text-left text-xs font-medium text-stone-500">
-                <th className="px-4 py-2">Date</th>
-                <th className="px-4 py-2">Category</th>
-                <th className="px-4 py-2">Details</th>
-                <th className="px-4 py-2 text-right">Amount</th>
-                <th className="px-4 py-2 text-right">Balance</th>
-              </tr>
-            </thead>
-            <tbody>
-              {entries.map((entry) => (
-                <tr key={`${entry.kind}-${entry.id}`} className="border-b border-stone-100 last:border-0">
-                  <td className="whitespace-nowrap px-4 py-2 text-stone-500">
-                    {new Date(entry.date).toLocaleDateString()}
-                  </td>
-                  <td className="whitespace-nowrap px-4 py-2 text-stone-700">{categoryLabel(entry.category)}</td>
-                  <td className="px-4 py-2 text-stone-500">
-                    {entry.kind === "expense" && !entry.paid && (
-                      <span className="mr-1 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-800">
-                        Unpaid
-                      </span>
-                    )}
-                    {[entry.payee, entry.method, entry.notes].filter(Boolean).join(" · ")}
-                  </td>
-                  <td
-                    className={`whitespace-nowrap px-4 py-2 text-right font-medium ${entry.kind === "income" ? "text-emerald-700" : "text-red-700"}`}
-                  >
-                    {entry.kind === "income" ? "+" : "-"}
-                    {money(entry.amount)}
-                  </td>
-                  <td className="whitespace-nowrap px-4 py-2 text-right text-stone-500">{money(entry.balance)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+      {tab === "ledger" ? (
+        <>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <div className="rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
+              <p className="text-xs font-medium text-stone-500">Total income</p>
+              <p className="mt-1 text-xl font-semibold text-emerald-700">{money(totalIncome)}</p>
+            </div>
+            <div className="rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
+              <p className="text-xs font-medium text-stone-500">Total expenses</p>
+              <p className="mt-1 text-xl font-semibold text-red-700">{money(totalExpenses)}</p>
+            </div>
+            <div className="rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
+              <p className="text-xs font-medium text-stone-500">Net</p>
+              <p className="mt-1 text-xl font-semibold text-stone-900">{money(totalIncome - totalExpenses)}</p>
+            </div>
+          </div>
 
-      <IncomeSection propertyId={id} items={incomes} leases={leases} onChange={load} />
-      <ExpenseSection propertyId={id} items={expenses} onChange={load} />
+          {entries.length === 0 ? (
+            <p className="rounded-xl border border-dashed border-stone-300 bg-white p-6 text-sm text-stone-500">
+              No income or expenses logged for this property yet.
+            </p>
+          ) : (
+            <div className="overflow-x-auto rounded-xl border border-stone-200 bg-white shadow-sm">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-stone-200 text-left text-xs font-medium text-stone-500">
+                    <th className="px-4 py-2">Date</th>
+                    <th className="px-4 py-2">Category</th>
+                    <th className="px-4 py-2">Details</th>
+                    <th className="px-4 py-2 text-right">Amount</th>
+                    <th className="px-4 py-2 text-right">Balance</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {entries.map((entry) => (
+                    <tr
+                      key={`${entry.kind}-${entry.id}`}
+                      id={entry.kind === "income" ? `income-row-${entry.id}` : undefined}
+                      className={`border-b border-stone-100 last:border-0 ${
+                        entry.kind === "income" && entry.id === highlightIncomeId ? "bg-emerald-50" : ""
+                      }`}
+                    >
+                      <td className="whitespace-nowrap px-4 py-2 text-stone-500">
+                        {new Date(entry.date).toLocaleDateString()}
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-2 text-stone-700">{categoryLabel(entry.category)}</td>
+                      <td className="px-4 py-2 text-stone-500">
+                        {entry.kind === "expense" && !entry.paid && (
+                          <span className="mr-1 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-800">
+                            Unpaid
+                          </span>
+                        )}
+                        {entry.kind === "income" && entry.allocations?.length > 1 && (
+                          <span className="mr-1 text-stone-600">
+                            {entry.allocations.map((a) => `${categoryLabel(a.category)} ${money(a.amount)}`).join(" + ")}
+                          </span>
+                        )}
+                        {[entry.payee, entry.method, entry.notes].filter(Boolean).join(" · ")}
+                      </td>
+                      <td
+                        className={`whitespace-nowrap px-4 py-2 text-right font-medium ${entry.kind === "income" ? "text-emerald-700" : "text-red-700"}`}
+                      >
+                        {entry.kind === "income" ? "+" : "-"}
+                        {money(entry.amount)}
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-2 text-right text-stone-500">{money(entry.balance)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          <IncomeSection propertyId={id} items={incomes} leases={leases} onChange={load} />
+          <ExpenseSection propertyId={id} items={expenses} onChange={load} />
+        </>
+      ) : (
+        <RentTrackerSection leases={leases} onJumpToPayment={jumpToIncome} onChange={load} />
+      )}
     </div>
   );
 }
