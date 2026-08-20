@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
 import { useApi } from "../hooks/useApi";
-import RentStatusPill from "../components/RentStatusPill";
+import { rentSeverity, maintenanceSeverity, severityStyle, buildFlags } from "../lib/domainStatus";
 
 export default function DashboardPage() {
   const { user } = useUser();
@@ -10,24 +10,43 @@ export default function DashboardPage() {
   const [entities, setEntities] = useState([]);
   const [properties, setProperties] = useState([]);
   const [rentStatuses, setRentStatuses] = useState([]);
+  const [maintenanceStatuses, setMaintenanceStatuses] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Promise.all([api.get("/api/entities"), api.get("/api/properties"), api.get("/api/rent-status")])
-      .then(([entityData, propertyData, rentStatusData]) => {
+    Promise.all([
+      api.get("/api/entities"),
+      api.get("/api/properties"),
+      api.get("/api/rent-status"),
+      api.get("/api/maintenance-status"),
+    ])
+      .then(([entityData, propertyData, rentStatusData, maintenanceStatusData]) => {
         setEntities(entityData);
         setProperties(propertyData);
         setRentStatuses(rentStatusData);
+        setMaintenanceStatuses(maintenanceStatusData);
       })
       .finally(() => setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const needsAttention = rentStatuses
-    .filter((r) => r.status === "OVERDUE" || r.status === "PARTIAL")
-    .map((r) => ({ ...r, property: properties.find((p) => p.id === r.propertyId) }))
-    .filter((r) => r.property)
-    .sort((a, b) => b.totalOwed - a.totalOwed);
+  // One card per property, worst-domain-wins color + a terse line per real
+  // issue — the per-property Finances/Maintenance snapshot cards on the
+  // property page show the same underlying data with more detail; this is
+  // the same idea compressed to fit next to every other property at once.
+  const propertyCards = properties
+    .map((property) => {
+      const rent = rentStatuses.find((r) => r.propertyId === property.id) || { status: "NONE" };
+      const maintenance = maintenanceStatuses.find((m) => m.propertyId === property.id) || {
+        status: "OK",
+        openRequestsCount: 0,
+        overdueSchedulesCount: 0,
+      };
+      const severity = Math.max(rentSeverity(rent.status), maintenanceSeverity(maintenance.status));
+      const flags = buildFlags({ rent, maintenance });
+      return { property, severity, flags };
+    })
+    .sort((a, b) => b.severity - a.severity);
 
   return (
     <div className="space-y-6">
@@ -40,43 +59,33 @@ export default function DashboardPage() {
         <p className="text-sm text-stone-500">Loading...</p>
       ) : (
         <>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <Link
-              to="/entities"
-              className="block rounded-xl border border-stone-200 bg-white p-5 shadow-sm hover:border-emerald-300"
-            >
-              <p className="text-sm font-medium text-stone-500">Entities</p>
-              <p className="mt-1 text-3xl font-semibold text-stone-900">{entities.length}</p>
-            </Link>
-            <Link
-              to="/properties"
-              className="block rounded-xl border border-stone-200 bg-white p-5 shadow-sm hover:border-emerald-300"
-            >
-              <p className="text-sm font-medium text-stone-500">Properties</p>
-              <p className="mt-1 text-3xl font-semibold text-stone-900">{properties.length}</p>
-            </Link>
-          </div>
-
-          {needsAttention.length > 0 && (
+          {propertyCards.length > 0 && (
             <div className="space-y-2">
-              <h2 className="text-sm font-medium text-stone-700">Needs attention</h2>
-              <div className="space-y-2">
-                {needsAttention.map((r) => (
-                  <Link
-                    key={r.propertyId}
-                    to={`/finances/${r.propertyId}`}
-                    className="flex items-center justify-between gap-3 rounded-xl border border-stone-200 bg-white p-4 shadow-sm hover:border-emerald-300"
-                  >
-                    <div>
-                      <p className="font-medium text-stone-900">{r.property.name || r.property.address1}</p>
-                      <p className="text-xs text-stone-500">
-                        ${r.totalOwed.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} owed
-                        {r.maxDaysLate > 0 ? ` · ${r.maxDaysLate}d late` : ""}
-                      </p>
-                    </div>
-                    <RentStatusPill status={r.status} />
-                  </Link>
-                ))}
+              <h2 className="text-sm font-medium text-stone-700">Your properties</h2>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {propertyCards.map(({ property, severity, flags }) => {
+                  const style = severityStyle(severity);
+                  return (
+                    <Link
+                      key={property.id}
+                      to={`/properties/${property.id}`}
+                      className={`block space-y-2 rounded-xl border p-4 shadow-sm hover:opacity-90 ${style.card}`}
+                    >
+                      <h3 className="font-medium text-stone-900">{property.name || property.address1}</h3>
+                      {flags.length === 0 ? (
+                        <p className="text-xs text-stone-400">All clear</p>
+                      ) : (
+                        <ul className="space-y-0.5">
+                          {flags.map((flag) => (
+                            <li key={flag.text} className={`text-xs font-medium ${severityStyle(flag.severity).flag}`}>
+                              {flag.text}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           )}

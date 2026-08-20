@@ -9,10 +9,10 @@ function emptyFormFor(fields) {
 
 // The Category-view building block for Property Specs — one shared component used for
 // all 7 categories (Paint, Flooring, Countertops, Fixtures, Appliances, Backsplash,
-// Exterior/Grounds), each with its own `fields` config. Same fixed-propertyId CRUD shape
-// as IncomeSection/ExpenseSection (Property Specs is always property-scoped, no
-// cross-property picker needed), combined with SimpleRecordSection's fields-array-driven
-// form rendering, extended with `select`/`searchable-select` field types.
+// Exterior/Grounds), each with its own `fields` config. Always fixed-propertyId (Property
+// Specs is always property-scoped, no cross-property picker needed), combined with
+// SimpleRecordSection's fields-array-driven form rendering, extended with
+// `select`/`searchable-select` field types.
 export default function PropertySpecSection({ title, addLabel, emptyLabel, items, fields, apiPath, propertyId, onChange, renderSummary }) {
   const api = useApi();
   const [formOpen, setFormOpen] = useState(false);

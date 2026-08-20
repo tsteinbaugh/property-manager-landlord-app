@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
 import MaintenanceRequestSection from "../components/MaintenanceRequestSection";
 import MaintenanceScheduleSection from "../components/MaintenanceScheduleSection";
+import BackLink from "../components/BackLink";
 
 const EMPTY_VENDOR_FORM = { name: "", trade: "", phone: "", email: "", preferred: false, notes: "" };
 
 export default function MaintenancePage() {
   const api = useApi();
+  const [searchParams] = useSearchParams();
+  const filterPropertyId = searchParams.get("propertyId") || "";
   const [requests, setRequests] = useState([]);
   const [schedules, setSchedules] = useState([]);
   const [vendors, setVendors] = useState([]);
@@ -68,19 +71,38 @@ export default function MaintenancePage() {
     }
   }
 
-  const openRequests = requests.filter((r) => r.status !== "CLOSED");
+  const filterProperty = filterPropertyId ? properties.find((p) => p.id === filterPropertyId) : null;
+
+  const openRequests = requests.filter(
+    (r) => r.status !== "CLOSED" && (!filterPropertyId || r.propertyId === filterPropertyId),
+  );
   const upcomingSchedules = schedules
-    .filter((s) => s.nextDueDate)
+    .filter((s) => s.nextDueDate && (!filterPropertyId || s.propertyId === filterPropertyId))
     .sort((a, b) => new Date(a.nextDueDate) - new Date(b.nextDueDate));
 
   if (loading) return <p className="text-sm text-stone-500">Loading...</p>;
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl text-stone-900">Maintenance</h1>
-        <p className="text-sm text-stone-500">Open tickets, upcoming preventive work, and your vendor directory.</p>
-      </div>
+      {filterProperty ? (
+        <>
+          <BackLink fallback={`/properties/${filterProperty.id}`} />
+          <div>
+            <h1 className="text-2xl text-stone-900">{filterProperty.name || filterProperty.address1}</h1>
+            <p className="text-sm text-stone-500">
+              {filterProperty.address1}, {filterProperty.city}, {filterProperty.state} {filterProperty.zip}
+            </p>
+            <Link to={`/properties/${filterProperty.id}`} className="text-xs text-emerald-700 hover:underline">
+              View this property's full page →
+            </Link>
+          </div>
+        </>
+      ) : (
+        <div>
+          <h1 className="text-2xl text-stone-900">Maintenance</h1>
+          <p className="text-sm text-stone-500">Open tickets, upcoming preventive work, and your vendor directory.</p>
+        </div>
+      )}
 
       {error && (
         <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>
@@ -89,15 +111,15 @@ export default function MaintenancePage() {
       <MaintenanceRequestSection
         items={openRequests}
         vendors={vendors}
-        properties={properties}
         onChange={load}
+        {...(filterPropertyId ? { propertyId: filterPropertyId } : { properties })}
       />
 
       <MaintenanceScheduleSection
         items={upcomingSchedules}
         vendors={vendors}
-        properties={properties}
         onChange={load}
+        {...(filterPropertyId ? { propertyId: filterPropertyId } : { properties })}
       />
 
       <section className="space-y-3">

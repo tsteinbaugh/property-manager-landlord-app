@@ -17,6 +17,7 @@ const maintenanceRequestsRoutes = require("./routes/maintenance-requests.routes"
 const maintenanceSchedulesRoutes = require("./routes/maintenance-schedules.routes");
 const searchRoutes = require("./routes/search.routes");
 const rentStatusRoutes = require("./routes/rent-status.routes");
+const maintenanceStatusRoutes = require("./routes/maintenance-status.routes");
 const paintSpecsRoutes = require("./routes/paint-specs.routes");
 const flooringSpecsRoutes = require("./routes/flooring-specs.routes");
 const countertopSpecsRoutes = require("./routes/countertop-specs.routes");
@@ -63,6 +64,7 @@ function createApp(overrides = {}) {
   app.use("/api/maintenance-schedules", maintenanceSchedulesRoutes);
   app.use("/api/search", searchRoutes);
   app.use("/api/rent-status", rentStatusRoutes);
+  app.use("/api/maintenance-status", maintenanceStatusRoutes);
   app.use("/api/paint-specs", paintSpecsRoutes);
   app.use("/api/flooring-specs", flooringSpecsRoutes);
   app.use("/api/countertop-specs", countertopSpecsRoutes);

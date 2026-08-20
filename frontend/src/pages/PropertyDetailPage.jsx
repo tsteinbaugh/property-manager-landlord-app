@@ -3,10 +3,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
 import TenantSection from "../components/TenantSection";
 import LeaseSection from "../components/LeaseSection";
-import IncomeSection from "../components/IncomeSection";
-import ExpenseSection from "../components/ExpenseSection";
-import MaintenanceRequestSection from "../components/MaintenanceRequestSection";
-import MaintenanceScheduleSection from "../components/MaintenanceScheduleSection";
+import FinancesSnapshotCard from "../components/FinancesSnapshotCard";
+import MaintenanceSnapshotCard from "../components/MaintenanceSnapshotCard";
 import BackLink from "../components/BackLink";
 
 export default function PropertyDetailPage() {
@@ -27,14 +25,13 @@ export default function PropertyDetailPage() {
 
   const [incomes, setIncomes] = useState([]);
   const [expenses, setExpenses] = useState([]);
-  const [vendors, setVendors] = useState([]);
   const [requests, setRequests] = useState([]);
   const [schedules, setSchedules] = useState([]);
 
   async function load() {
     setLoading(true);
     try {
-      const [propertyData, entityData, tenantData, leaseData, incomeData, expenseData, vendorData, requestData, scheduleData] =
+      const [propertyData, entityData, tenantData, leaseData, incomeData, expenseData, requestData, scheduleData] =
         await Promise.all([
           api.get(`/api/properties/${id}`),
           api.get("/api/entities"),
@@ -42,7 +39,6 @@ export default function PropertyDetailPage() {
           api.get(`/api/leases?propertyId=${id}`),
           api.get(`/api/income?propertyId=${id}`),
           api.get(`/api/expenses?propertyId=${id}`),
-          api.get("/api/vendors"),
           api.get(`/api/maintenance-requests?propertyId=${id}`),
           api.get(`/api/maintenance-schedules?propertyId=${id}`),
         ]);
@@ -52,7 +48,6 @@ export default function PropertyDetailPage() {
       setLeases(leaseData);
       setIncomes(incomeData);
       setExpenses(expenseData);
-      setVendors(vendorData);
       setRequests(requestData);
       setSchedules(scheduleData);
       setForm(propertyData);
@@ -234,10 +229,8 @@ export default function PropertyDetailPage() {
       <TenantSection propertyId={id} items={tenants} onChange={load} />
       <LeaseSection propertyId={id} items={leases} onChange={load} />
 
-      <IncomeSection propertyId={id} items={incomes} leases={leases} onChange={load} />
-      <ExpenseSection propertyId={id} items={expenses} onChange={load} />
-      <MaintenanceRequestSection propertyId={id} items={requests} vendors={vendors} onChange={load} />
-      <MaintenanceScheduleSection propertyId={id} items={schedules} vendors={vendors} onChange={load} />
+      <FinancesSnapshotCard propertyId={id} incomes={incomes} expenses={expenses} />
+      <MaintenanceSnapshotCard propertyId={id} requests={requests} schedules={schedules} />
     </div>
   );
 }
