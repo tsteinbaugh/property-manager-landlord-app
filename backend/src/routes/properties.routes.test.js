@@ -127,6 +127,123 @@ describe("properties routes", () => {
     expect(res.body.userId).toBe(entity.userId);
   });
 
+  it("creates a property with real attributes (yearBuilt, bedrooms, bathrooms, sqFt, amenities)", async () => {
+    const res = await request(app).post("/api/properties").send({
+      entityId: entity.id,
+      address1: "123 Maple St",
+      city: "Frederick",
+      state: "CO",
+      zip: "80530",
+      yearBuilt: 1998,
+      bedrooms: 3,
+      bathrooms: 2.5,
+      sqFt: 1800,
+      amenities: ["Garage", "Fenced yard"],
+    });
+
+    expect(res.status).toBe(201);
+    expect(res.body.yearBuilt).toBe(1998);
+    expect(res.body.bedrooms).toBe(3);
+    expect(res.body.bathrooms).toBe("2.5");
+    expect(res.body.sqFt).toBe(1800);
+    expect(res.body.amenities).toEqual(["Garage", "Fenced yard"]);
+  });
+
+  it("updates a property's attributes", async () => {
+    const property = await prisma.property.create({
+      data: {
+        entityId: entity.id,
+        userId: entity.userId,
+        address1: "123 Maple St",
+        city: "Frederick",
+        state: "CO",
+        zip: "80530",
+      },
+    });
+
+    const res = await request(app)
+      .put(`/api/properties/${property.id}`)
+      .send({ bedrooms: 4, bathrooms: 3, sqFt: 2200, amenities: ["Pool"] });
+
+    expect(res.status).toBe(200);
+    expect(res.body.bedrooms).toBe(4);
+    expect(res.body.bathrooms).toBe("3");
+    expect(res.body.sqFt).toBe(2200);
+    expect(res.body.amenities).toEqual(["Pool"]);
+  });
+
+  it("creates and updates a property with the second attributes batch (utilities/access/legal)", async () => {
+    const createRes = await request(app).post("/api/properties").send({
+      entityId: entity.id,
+      address1: "123 Maple St",
+      city: "Frederick",
+      state: "CO",
+      zip: "80530",
+      propertyType: "Single-family",
+      stories: 2,
+      basement: "Unfinished",
+      lotSize: "0.25 acres",
+      parking: "2-car garage",
+      storage: "Shed in backyard",
+      mailboxLocation: "Curbside, cluster box #4",
+      trashPickupDay: "Tuesday",
+      trashCanStorageLocation: "Side yard, behind gate",
+      hoaOrMetroDistrict: "Maple Grove Metro District",
+      hoaContact: "hoa@maplegrove.example",
+      acceptsSection8: true,
+      mortgageCompany: "Frederick Community Bank",
+      mortgageContact: "555-0111",
+      insuranceNotes: "State Farm, policy #12345, agent Jane Doe 555-0100",
+      electricityProvider: "Xcel Energy",
+      electricityContact: "1-800-895-4999, acct #555",
+      gasProvider: "Xcel Energy",
+      gasContact: "1-800-895-4999, acct #555",
+      waterProvider: "City of Frederick",
+      waterContact: "acct #778899",
+      sewerProvider: "City of Frederick",
+      sewerContact: "acct #778899",
+      trashProvider: "Republic Services",
+      trashContact: "555-0122",
+      internetProvider: "Comcast (required by HOA bulk agreement)",
+      internetContact: "1-800-555-0199",
+    });
+
+    expect(createRes.status).toBe(201);
+    expect(createRes.body.propertyType).toBe("Single-family");
+    expect(createRes.body.stories).toBe(2);
+    expect(createRes.body.acceptsSection8).toBe(true);
+    expect(createRes.body.hoaOrMetroDistrict).toBe("Maple Grove Metro District");
+    expect(createRes.body.trashPickupDay).toBe("Tuesday");
+    expect(createRes.body.insuranceNotes).toBe("State Farm, policy #12345, agent Jane Doe 555-0100");
+    expect(createRes.body.electricityProvider).toBe("Xcel Energy");
+    expect(createRes.body.waterContact).toBe("acct #778899");
+    expect(createRes.body.internetProvider).toBe("Comcast (required by HOA bulk agreement)");
+    expect(createRes.body.mortgageContact).toBe("555-0111");
+
+    const updateRes = await request(app)
+      .put(`/api/properties/${createRes.body.id}`)
+      .send({ acceptsSection8: false, mortgageCompany: "New Lender" });
+
+    expect(updateRes.status).toBe(200);
+    expect(updateRes.body.acceptsSection8).toBe(false);
+    expect(updateRes.body.mortgageCompany).toBe("New Lender");
+    // untouched fields survive a partial update
+    expect(updateRes.body.hoaOrMetroDistrict).toBe("Maple Grove Metro District");
+  });
+
+  it("defaults acceptsSection8 to false when not specified", async () => {
+    const res = await request(app).post("/api/properties").send({
+      entityId: entity.id,
+      address1: "123 Maple St",
+      city: "Frederick",
+      state: "CO",
+      zip: "80530",
+    });
+
+    expect(res.status).toBe(201);
+    expect(res.body.acceptsSection8).toBe(false);
+  });
+
   it("rejects a property missing required fields", async () => {
     const res = await request(app).post("/api/properties").send({
       entityId: entity.id,

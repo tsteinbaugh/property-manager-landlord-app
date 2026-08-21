@@ -1,7 +1,48 @@
 const express = require("express");
 const prisma = require("../lib/prisma");
+const { pickFields } = require("../lib/pickFields");
 
 const REQUIRED_FIELDS = ["entityId", "address1", "city", "state", "zip"];
+
+// Real property attributes (v2 backlog item) — yearBuilt already existed on the
+// model but was never wired into either route until this landed alongside it.
+const ATTRIBUTE_FIELDS = [
+  "yearBuilt",
+  "bedrooms",
+  "bathrooms",
+  "sqFt",
+  "amenities",
+  // Second pass (2026-08-20) — Taylor's curated list off a larger brainstorm.
+  "propertyType",
+  "stories",
+  "basement",
+  "lotSize",
+  "parking",
+  "storage",
+  "mailboxLocation",
+  "trashPickupDay",
+  "trashCanStorageLocation",
+  "hoaOrMetroDistrict",
+  "hoaContact",
+  "acceptsSection8",
+  "insuranceNotes",
+  // Utilities follow-up (2026-08-20) — provider + contact pairs, replacing the earlier
+  // single freeform utilityProviders field. No telephone/cable — tenant-chosen, not tracked.
+  "electricityProvider",
+  "electricityContact",
+  "gasProvider",
+  "gasContact",
+  "waterProvider",
+  "waterContact",
+  "sewerProvider",
+  "sewerContact",
+  "trashProvider",
+  "trashContact",
+  "internetProvider",
+  "internetContact",
+  "mortgageCompany",
+  "mortgageContact",
+];
 
 function validatePropertyBody(body) {
   const missing = REQUIRED_FIELDS.filter((field) => !body[field]);
@@ -36,6 +77,7 @@ router.post("/", async (req, res) => {
       city,
       state,
       zip,
+      ...pickFields(req.body, ATTRIBUTE_FIELDS),
     },
   });
 
@@ -78,7 +120,7 @@ router.put("/:id", async (req, res) => {
     return res.status(404).json({ error: "Property not found" });
   }
 
-  const data = { name, address1, address2, city, state, zip };
+  const data = { name, address1, address2, city, state, zip, ...pickFields(req.body, ATTRIBUTE_FIELDS) };
 
   // Reassigning a property to a different entity (e.g. after forming an LLC)
   // — the target entity must belong to the same user, same check as on create.

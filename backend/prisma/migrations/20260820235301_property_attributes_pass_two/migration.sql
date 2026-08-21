@@ -1,0 +1,17 @@
+-- AlterTable
+ALTER TABLE "Property" ADD COLUMN     "acceptsSection8" BOOLEAN NOT NULL DEFAULT false,
+ADD COLUMN     "basement" TEXT,
+ADD COLUMN     "hoaContact" TEXT,
+ADD COLUMN     "hoaOrMetroDistrict" TEXT,
+ADD COLUMN     "insuranceNotes" TEXT,
+ADD COLUMN     "lotSize" TEXT,
+ADD COLUMN     "mailboxLocation" TEXT,
+ADD COLUMN     "mortgageCompany" TEXT,
+ADD COLUMN     "parking" TEXT,
+ADD COLUMN     "propertyType" TEXT,
+ADD COLUMN     "storage" TEXT,
+ADD COLUMN     "stories" INTEGER,
+ADD COLUMN     "trashCanStorageLocation" TEXT,
+ADD COLUMN     "trashPickupDay" TEXT,
+ADD COLUMN     "trashProvider" TEXT,
+ADD COLUMN     "utilityProviders" TEXT;

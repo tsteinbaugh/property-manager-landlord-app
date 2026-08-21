@@ -129,6 +129,23 @@ const EXTERIOR_FIELDS = [
   { key: "notes", label: "Notes" },
 ];
 
+// Property.bedrooms/bathrooms seed placeholder room slots in the By Room view — e.g. a
+// property with 3 bedrooms and 2.5 bathrooms always shows "Bedroom 1".."Bedroom 3",
+// "Bathroom 1"/"Bathroom 2", and "Half Bathroom", even before any spec item is tagged to
+// them, so it's visible at a glance which rooms still need specs entered. Taylor's call
+// (memory `project_property_attributes_specs_linkage`): these counts should actually
+// drive the room list, not just sit as a disconnected number.
+function seededRoomLabels(property) {
+  const labels = [];
+  const bedrooms = Number(property.bedrooms) || 0;
+  for (let i = 1; i <= bedrooms; i++) labels.push(`Bedroom ${i}`);
+  const bathrooms = Number(property.bathrooms) || 0;
+  const fullBaths = Math.floor(bathrooms);
+  for (let i = 1; i <= fullBaths; i++) labels.push(`Bathroom ${i}`);
+  if (bathrooms - fullBaths >= 0.5 - 1e-9) labels.push("Half Bathroom");
+  return labels;
+}
+
 function roomSummary(item) {
   switch (item.category) {
     case "Paint":
@@ -238,6 +255,11 @@ export default function PropertySpecsPage() {
   };
 
   const roomMap = new Map();
+  // Seed placeholder rooms first so their canonical capitalization ("Bedroom 2") wins
+  // for display if a spec item's free-text location happens to match case-insensitively.
+  for (const label of seededRoomLabels(property)) {
+    roomMap.set(label.toLowerCase(), { label, items: [] });
+  }
   for (const item of allItems) {
     const label = item.location?.trim() || "Unassigned";
     const key = label.toLowerCase();
@@ -247,7 +269,7 @@ export default function PropertySpecsPage() {
   const rooms = Array.from(roomMap.values()).sort((a, b) => {
     if (a.label === "Unassigned") return 1;
     if (b.label === "Unassigned") return -1;
-    return a.label.localeCompare(b.label);
+    return a.label.localeCompare(b.label, undefined, { numeric: true });
   });
 
   return (
@@ -304,6 +326,11 @@ export default function PropertySpecsPage() {
               <div key={room.label} className="space-y-3">
                 <h2 className="text-lg font-medium text-stone-900">{room.label}</h2>
                 <div className="space-y-2">
+                  {room.items.length === 0 && (
+                    <p className="rounded-xl border border-dashed border-stone-200 bg-white px-4 py-3 text-sm text-stone-400">
+                      No specs recorded yet.
+                    </p>
+                  )}
                   {room.items.map((item) => {
                     const itemKey = `${item.category}-${item.id}`;
                     const expanded = expandedItem === itemKey;

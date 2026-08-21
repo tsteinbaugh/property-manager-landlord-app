@@ -92,6 +92,61 @@ model Property {
   state     String // drives legal notice-period rules in v2
   zip       String
   yearBuilt Int? // drives lead-based-paint disclosure applicability (federal law: pre-1978 only); not auto-enforced, just surfaced as context
+  // bedrooms/bathrooms double as the seed counts for Property Specs' By Room
+  // placeholder rooms ("Bedroom 1".."Bedroom N", "Bathroom 1".."Bathroom N",
+  // plus a "Half Bathroom" for a .5 remainder) — see PropertySpecsPage.jsx.
+  // Taylor's call: these should visibly show up as room slots to fill in,
+  // not just sit as a disconnected number.
+  bedrooms  Int?
+  bathrooms Decimal? @db.Decimal(3, 1) // supports half baths, e.g. 2.5
+  sqFt      Int?
+  amenities String[] @default([])
+
+  // Second attributes pass (2026-08-20), from Taylor's own curated list off a larger
+  // ChatGPT brainstorm — deliberately not the whole brainstorm. Free text over structured
+  // sub-fields throughout, matching the existing economy elsewhere in this schema
+  // (ExteriorFeature.size, FlooringSpec.type) — these are quick-reference facts, not a new
+  // structured domain. Water heater type/age and heating/cooling type were explicitly left
+  // out — they already fit as Appliance rows in Property Specs; no need to duplicate.
+  propertyType            String? // single-family, duplex, apartment building, ADU, condo, etc. — free text, no fixed list. For a unit within a multi-unit building, this Property row represents that one unit (see address2 for the unit number) — the multi-unit-building-as-one-entity question is still open, see memory `project_multiunit_property_model_question`.
+  stories                 Int?
+  basement                String? // finished, unfinished, crawlspace, none — free text
+  lotSize                 String? // free text, e.g. "0.25 acres" or "6,500 sq ft" — units vary, same convention as ExteriorFeature.size
+  parking                 String? // e.g. "2-car garage", "driveway + street" — type/count/assigned spot together in one field
+  storage                 String? // e.g. "Shed in backyard", "None" — physical storage available to a tenant, distinct from spec-item leftover-storage locations
+  mailboxLocation         String?
+  trashPickupDay          String?
+  trashCanStorageLocation String?
+  hoaOrMetroDistrict      String? // HOA, metro district, or covenant name — null if none applies. Rules/covenant documents themselves go through the existing LeaseAttachment upload, not a new field here.
+  hoaContact              String?
+  acceptsSection8         Boolean @default(false)
+  // Lightweight stopgap only — insurer/policy #/contact jotted down as free text.
+  // CLAUDE.md already has a full v2 Insurance module planned (policy, claims, premium
+  // history, coverage adequacy); this field gets superseded by that when it's built,
+  // not duplicated alongside it.
+  insuranceNotes          String?
+
+  // Utilities (2026-08-20 follow-up) — each split into provider name + a contact/account
+  // field, replacing the earlier single freeform `utilityProviders` blob. Telephone/cable
+  // deliberately excluded — Taylor's call: those are tenant-chosen with multiple carrier
+  // options, not a landlord fact to track. Internet is included because some
+  // complexes/HOAs mandate a specific bulk-agreement ISP; when that's not the case here,
+  // just leave it blank or note "tenant's choice" in the provider field.
+  electricityProvider String?
+  electricityContact  String?
+  gasProvider         String?
+  gasContact          String?
+  waterProvider       String?
+  waterContact        String?
+  sewerProvider       String?
+  sewerContact        String?
+  trashProvider       String?
+  trashContact        String?
+  internetProvider    String?
+  internetContact     String?
+  mortgageCompany     String? // who to call — not a loan-balance/escrow tracking model
+  mortgageContact     String?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -474,8 +529,8 @@ model Income {
   // rows from before this field existed.
   appliesToPeriod DateTime?
 
-  createdAt DateTime       @default(now())
-  updatedAt DateTime       @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   entity      Entity             @relation(fields: [entityId], references: [id])
   property    Property           @relation(fields: [propertyId], references: [id])

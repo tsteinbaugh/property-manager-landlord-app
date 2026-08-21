@@ -3,7 +3,29 @@ import { Link } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
 import RentStatusPill from "../components/RentStatusPill";
 
-const EMPTY_FORM = { entityId: "", name: "", address1: "", address2: "", city: "", state: "", zip: "" };
+const EMPTY_FORM = {
+  entityId: "",
+  name: "",
+  address1: "",
+  address2: "",
+  city: "",
+  state: "",
+  zip: "",
+  yearBuilt: "",
+  bedrooms: "",
+  bathrooms: "",
+  sqFt: "",
+  amenities: "",
+};
+
+// amenities is edited as a single comma-separated text field ("Garage, Fenced yard") and
+// parsed into an array on submit, same convention as ClauseLibraryPage's `states` field.
+function parseAmenitiesInput(value) {
+  return value
+    .split(",")
+    .map((a) => a.trim())
+    .filter(Boolean);
+}
 
 export default function PropertiesPage() {
   const api = useApi();
@@ -60,7 +82,15 @@ export default function PropertiesPage() {
     setError(null);
 
     try {
-      await api.post("/api/properties", form);
+      const payload = {
+        ...form,
+        yearBuilt: form.yearBuilt === "" ? undefined : Number(form.yearBuilt),
+        bedrooms: form.bedrooms === "" ? undefined : Number(form.bedrooms),
+        bathrooms: form.bathrooms === "" ? undefined : Number(form.bathrooms),
+        sqFt: form.sqFt === "" ? undefined : Number(form.sqFt),
+        amenities: parseAmenitiesInput(form.amenities),
+      };
+      await api.post("/api/properties", payload);
       setFormOpen(false);
       await loadAll(entityFilter);
     } catch (err) {
@@ -208,6 +238,64 @@ export default function PropertiesPage() {
                 />
               </label>
             </div>
+
+            <label className="block text-sm">
+              <span className="mb-1 block font-medium text-stone-700">Year built</span>
+              <input
+                type="number"
+                value={form.yearBuilt}
+                onChange={(e) => setForm({ ...form, yearBuilt: e.target.value })}
+                className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+                placeholder="1998"
+              />
+            </label>
+
+            <label className="block text-sm">
+              <span className="mb-1 block font-medium text-stone-700">Sq ft</span>
+              <input
+                type="number"
+                value={form.sqFt}
+                onChange={(e) => setForm({ ...form, sqFt: e.target.value })}
+                className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+                placeholder="1800"
+              />
+            </label>
+
+            <label className="block text-sm">
+              <span className="mb-1 block font-medium text-stone-700">Bedrooms</span>
+              <input
+                type="number"
+                min="0"
+                value={form.bedrooms}
+                onChange={(e) => setForm({ ...form, bedrooms: e.target.value })}
+                className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+                placeholder="3"
+              />
+            </label>
+
+            <label className="block text-sm">
+              <span className="mb-1 block font-medium text-stone-700">Bathrooms</span>
+              <input
+                type="number"
+                min="0"
+                step="0.5"
+                value={form.bathrooms}
+                onChange={(e) => setForm({ ...form, bathrooms: e.target.value })}
+                className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+                placeholder="2.5"
+              />
+            </label>
+
+            <label className="block text-sm sm:col-span-2">
+              <span className="mb-1 block font-medium text-stone-700">Amenities</span>
+              <input
+                value={form.amenities}
+                onChange={(e) => setForm({ ...form, amenities: e.target.value })}
+                className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+                placeholder="Garage, Fenced yard, Central AC"
+              />
+              <span className="mt-1 block text-xs text-stone-400">Comma-separated</span>
+            </label>
           </div>
 
           <div className="flex gap-2">
