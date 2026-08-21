@@ -57,7 +57,12 @@ describe("clause templates route", () => {
     }
   });
 
-  it("every supersedes reference points to a real, universal (no-states) template", async () => {
+  it("every supersedes reference points to a real template in the same set", async () => {
+    // "universal" no longer means blank/[] states (see clauseTemplates.js's
+    // Aug 2026 header comment) — a supersedes target can itself be
+    // state-tagged now (e.g. landlords-access-co supersedes landlords-access,
+    // both tagged ["CO"]). The only invariant left to check is that the
+    // reference actually resolves to a real, shipped template.
     const res = await request(app).get("/api/clause-templates");
     const byId = new Map(res.body.map((t) => [t.id, t]));
 
@@ -66,7 +71,7 @@ describe("clause templates route", () => {
     for (const template of withSupersedes) {
       const target = byId.get(template.supersedes);
       expect(target).toBeTruthy();
-      expect(target.states).toEqual([]);
+      expect(target.bodyText).toBeTruthy();
     }
   });
 
