@@ -58,6 +58,9 @@ router.post("/", async (req, res) => {
   if (!property || property.userId !== req.currentUser.id) {
     return res.status(400).json({ error: `Property ${propertyId} not found` });
   }
+  if (property.archived) {
+    return res.status(400).json({ error: "Property is archived — unarchive it before adding new records" });
+  }
 
   if (tenantId) {
     const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
@@ -97,15 +100,19 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  const { propertyId, tenantId, vendorId, status } = req.query;
+  const { propertyId, tenantId, vendorId, status, deleted } = req.query;
 
+  // Same archived-property hiding as tenants/leases lists — cross-property hub view only.
+  // `deleted` — same 3-mode convention (absent = active, "true" = only deleted, "all" = both —
+  // "all" also bypasses the archived-property hide, same reasoning as tenants.routes.js).
   const requests = await prisma.maintenanceRequest.findMany({
     where: {
       userId: req.currentUser.id,
-      ...(propertyId ? { propertyId } : {}),
+      ...(propertyId ? { propertyId } : deleted === "all" ? {} : { property: { archived: false } }),
       ...(tenantId ? { tenantId } : {}),
       ...(vendorId ? { vendorId } : {}),
       ...(status ? { status } : {}),
+      ...(deleted === "all" ? {} : { deleted: deleted === "true" }),
     },
     include: includeStatusChanges,
     orderBy: { createdAt: "desc" },
@@ -171,9 +178,33 @@ router.delete("/:id", async (req, res) => {
     return res.status(404).json({ error: "Maintenance request not found" });
   }
 
-  await prisma.maintenanceRequest.delete({ where: { id: req.params.id } });
+  // Soft delete — see tenants.routes.js's DELETE handler for the full reasoning. Also
+  // preserves the request's MaintenanceStatusChange audit trail, which a real delete would
+  // have cascade-destroyed.
+  await prisma.maintenanceRequest.update({
+    where: { id: req.params.id },
+    data: { deleted: true, deletedAt: new Date() },
+  });
 
   res.status(204).send();
+});
+
+router.post("/:id/restore", async (req, res) => {
+  const existing = await prisma.maintenanceRequest.findUnique({ where: { id: req.params.id } });
+  if (!existing || existing.userId !== req.currentUser.id) {
+    return res.status(404).json({ error: "Maintenance request not found" });
+  }
+  if (!existing.deleted) {
+    return res.status(400).json({ error: "Maintenance request is not deleted" });
+  }
+
+  const request = await prisma.maintenanceRequest.update({
+    where: { id: req.params.id },
+    data: { deleted: false, deletedAt: null },
+    include: includeStatusChanges,
+  });
+
+  res.json(request);
 });
 
 module.exports = router;

@@ -77,12 +77,15 @@ function createExpensesRoutes({ r2 = defaultR2 } = {}) {
   });
 
   router.get("/", async (req, res) => {
-    const { propertyId } = req.query;
+    const { propertyId, deleted } = req.query;
 
+    // `deleted` — same 3-mode convention as tenants/leases (absent = active, "true" = only
+    // deleted, "all" = both).
     const expenses = await prisma.expense.findMany({
       where: {
         userId: req.currentUser.id,
         ...(propertyId ? { propertyId } : {}),
+        ...(deleted === "all" ? {} : { deleted: deleted === "true" }),
       },
       orderBy: { date: "desc" },
     });
@@ -125,9 +128,27 @@ function createExpensesRoutes({ r2 = defaultR2 } = {}) {
       return res.status(404).json({ error: "Expense not found" });
     }
 
-    await prisma.expense.delete({ where: { id: req.params.id } });
+    // Soft delete — see tenants.routes.js's DELETE handler for the full reasoning.
+    await prisma.expense.update({ where: { id: req.params.id }, data: { deleted: true, deletedAt: new Date() } });
 
     res.status(204).send();
+  });
+
+  router.post("/:id/restore", async (req, res) => {
+    const existing = await findOwnedExpense(req.params.id, req.currentUser.id);
+    if (!existing) {
+      return res.status(404).json({ error: "Expense not found" });
+    }
+    if (!existing.deleted) {
+      return res.status(400).json({ error: "Expense is not deleted" });
+    }
+
+    const expense = await prisma.expense.update({
+      where: { id: req.params.id },
+      data: { deleted: false, deletedAt: null },
+    });
+
+    res.json(expense);
   });
 
   // Receipts / proof of payment — same presigned-URL R2 pattern as lease and

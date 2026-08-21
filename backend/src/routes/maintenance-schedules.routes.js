@@ -63,6 +63,9 @@ router.post("/", async (req, res) => {
   if (!property || property.userId !== req.currentUser.id) {
     return res.status(400).json({ error: `Property ${propertyId} not found` });
   }
+  if (property.archived) {
+    return res.status(400).json({ error: "Property is archived — unarchive it before adding new records" });
+  }
 
   if (vendorId) {
     const vendor = await prisma.vendor.findUnique({ where: { id: vendorId } });
@@ -96,14 +99,18 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  const { propertyId, vendorId, overdue } = req.query;
+  const { propertyId, vendorId, overdue, deleted } = req.query;
 
+  // Same archived-property hiding as tenants/leases lists — cross-property hub view only.
+  // `deleted` — same 3-mode convention (absent = active, "true" = only deleted, "all" = both —
+  // "all" also bypasses the archived-property hide, same reasoning as tenants.routes.js).
   const schedules = await prisma.maintenanceSchedule.findMany({
     where: {
       userId: req.currentUser.id,
-      ...(propertyId ? { propertyId } : {}),
+      ...(propertyId ? { propertyId } : deleted === "all" ? {} : { property: { archived: false } }),
       ...(vendorId ? { vendorId } : {}),
       ...(overdue === "true" ? { nextDueDate: { lt: new Date() } } : {}),
+      ...(deleted === "all" ? {} : { deleted: deleted === "true" }),
     },
     include: includeCompletions,
     orderBy: { nextDueDate: "asc" },
@@ -157,7 +164,13 @@ router.delete("/:id", async (req, res) => {
     return res.status(404).json({ error: "Maintenance schedule not found" });
   }
 
-  await prisma.maintenanceSchedule.delete({ where: { id: req.params.id } });
+  // Soft delete — see tenants.routes.js's DELETE handler for the full reasoning. Also
+  // preserves the schedule's MaintenanceScheduleCompletion audit trail, which a real delete
+  // would have cascade-destroyed.
+  await prisma.maintenanceSchedule.update({
+    where: { id: req.params.id },
+    data: { deleted: true, deletedAt: new Date() },
+  });
 
   res.status(204).send();
 });
@@ -180,6 +193,24 @@ router.post("/:id/mark-done", async (req, res) => {
       nextDueDate,
       completions: { create: { completedDate: lastDoneDate } },
     },
+    include: includeCompletions,
+  });
+
+  res.json(withOverdue(schedule));
+});
+
+router.post("/:id/restore", async (req, res) => {
+  const existing = await prisma.maintenanceSchedule.findUnique({ where: { id: req.params.id } });
+  if (!existing || existing.userId !== req.currentUser.id) {
+    return res.status(404).json({ error: "Maintenance schedule not found" });
+  }
+  if (!existing.deleted) {
+    return res.status(400).json({ error: "Maintenance schedule is not deleted" });
+  }
+
+  const schedule = await prisma.maintenanceSchedule.update({
+    where: { id: req.params.id },
+    data: { deleted: false, deletedAt: null },
     include: includeCompletions,
   });
 

@@ -279,7 +279,8 @@ describe("income routes", () => {
     expect(res.body.notes).toBe("Paid a bit late");
   });
 
-  it("deletes income", async () => {
+
+  it("soft-deletes an income row — the row survives, hidden from the default list", async () => {
     const income = await prisma.income.create({
       data: {
         userId: property.userId,
@@ -295,7 +296,35 @@ describe("income routes", () => {
     expect(res.status).toBe(204);
 
     const check = await prisma.income.findUnique({ where: { id: income.id } });
-    expect(check).toBeNull();
+    expect(check).not.toBeNull();
+    expect(check.deleted).toBe(true);
+
+    const listRes = await request(app).get("/api/income").query({ propertyId: property.id });
+    expect(listRes.body).toEqual([]);
+  });
+
+  it("lists deleted income with ?deleted=true, restores it via POST /:id/restore", async () => {
+    const income = await prisma.income.create({
+      data: {
+        userId: property.userId,
+        entityId: entity.id,
+        propertyId: property.id,
+        category: "RENT",
+        amount: "1800.00",
+        date: new Date("2026-09-01"),
+      },
+    });
+    await request(app).delete(`/api/income/${income.id}`);
+
+    const deletedOnly = await request(app).get("/api/income").query({ propertyId: property.id, deleted: "true" });
+    expect(deletedOnly.body.map((i) => i.id)).toEqual([income.id]);
+
+    const restoreRes = await request(app).post(`/api/income/${income.id}/restore`);
+    expect(restoreRes.status).toBe(200);
+    expect(restoreRes.body.deleted).toBe(false);
+
+    const restoreAgain = await request(app).post(`/api/income/${income.id}/restore`);
+    expect(restoreAgain.status).toBe(400);
   });
 
   describe("income documents (R2)", () => {

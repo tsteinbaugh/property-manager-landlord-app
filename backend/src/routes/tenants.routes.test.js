@@ -156,6 +156,29 @@ describe("tenants routes", () => {
     expect(res.status).toBe(400);
   });
 
+  it("rejects creating a tenant against an archived property", async () => {
+    await prisma.property.update({ where: { id: property.id }, data: { archived: true } });
+
+    const res = await request(app).post("/api/tenants").send({
+      firstName: "Jamie",
+      lastName: "Rivera",
+      propertyId: property.id,
+    });
+
+    expect(res.status).toBe(400);
+  });
+
+  it("excludes tenants of archived properties from the cross-property list, but not a property-scoped one", async () => {
+    await request(app).post("/api/tenants").send({ firstName: "Jamie", lastName: "Rivera", propertyId: property.id });
+    await prisma.property.update({ where: { id: property.id }, data: { archived: true } });
+
+    const hubRes = await request(app).get("/api/tenants");
+    expect(hubRes.body).toEqual([]);
+
+    const scopedRes = await request(app).get("/api/tenants").query({ propertyId: property.id });
+    expect(scopedRes.body).toHaveLength(1);
+  });
+
   it("ignores unassignable fields like userId on create", async () => {
     const res = await request(app).post("/api/tenants").send({
       firstName: "Jamie",
@@ -246,7 +269,8 @@ describe("tenants routes", () => {
     expect(check.lastName).toBe("Rivera");
   });
 
-  it("deletes a tenant", async () => {
+
+  it("soft-deletes a tenant — the row survives, hidden from the default list", async () => {
     const created = await request(app)
       .post("/api/tenants")
       .send({ firstName: "Jamie", lastName: "Rivera", propertyId: property.id });
@@ -254,10 +278,116 @@ describe("tenants routes", () => {
     const res = await request(app).delete(`/api/tenants/${created.body.id}`);
     expect(res.status).toBe(204);
 
-    const check = await prisma.tenant.findUnique({
-      where: { id: created.body.id },
+    const check = await prisma.tenant.findUnique({ where: { id: created.body.id } });
+    expect(check).not.toBeNull();
+    expect(check.deleted).toBe(true);
+    expect(check.deletedAt).toBeTruthy();
+
+    const listRes = await request(app).get("/api/tenants").query({ propertyId: property.id });
+    expect(listRes.body).toEqual([]);
+  });
+
+  it("is safe to delete an already-deleted tenant twice", async () => {
+    const created = await request(app)
+      .post("/api/tenants")
+      .send({ firstName: "Jamie", lastName: "Rivera", propertyId: property.id });
+
+    await request(app).delete(`/api/tenants/${created.body.id}`);
+    const res = await request(app).delete(`/api/tenants/${created.body.id}`);
+    expect(res.status).toBe(204);
+  });
+
+  it("lists deleted tenants with ?deleted=true, and all tenants with ?deleted=all", async () => {
+    const kept = await request(app)
+      .post("/api/tenants")
+      .send({ firstName: "Kept", lastName: "Tenant", propertyId: property.id });
+    const deleted = await request(app)
+      .post("/api/tenants")
+      .send({ firstName: "Deleted", lastName: "Tenant", propertyId: property.id });
+    await request(app).delete(`/api/tenants/${deleted.body.id}`);
+
+    const deletedOnly = await request(app).get("/api/tenants").query({ propertyId: property.id, deleted: "true" });
+    expect(deletedOnly.body.map((t) => t.id)).toEqual([deleted.body.id]);
+
+    const all = await request(app).get("/api/tenants").query({ propertyId: property.id, deleted: "all" });
+    expect(all.body.map((t) => t.id).sort()).toEqual([deleted.body.id, kept.body.id].sort());
+  });
+
+  it("restores a deleted tenant", async () => {
+    const created = await request(app)
+      .post("/api/tenants")
+      .send({ firstName: "Jamie", lastName: "Rivera", propertyId: property.id });
+    await request(app).delete(`/api/tenants/${created.body.id}`);
+
+    const res = await request(app).post(`/api/tenants/${created.body.id}/restore`);
+    expect(res.status).toBe(200);
+    expect(res.body.deleted).toBe(false);
+    expect(res.body.deletedAt).toBeNull();
+
+    const listRes = await request(app).get("/api/tenants").query({ propertyId: property.id });
+    expect(listRes.body.map((t) => t.id)).toContain(created.body.id);
+  });
+
+  it("rejects restoring a tenant that isn't deleted", async () => {
+    const created = await request(app)
+      .post("/api/tenants")
+      .send({ firstName: "Jamie", lastName: "Rivera", propertyId: property.id });
+
+    const res = await request(app).post(`/api/tenants/${created.body.id}/restore`);
+    expect(res.status).toBe(400);
+  });
+
+  it("copies details from a previous tenant record and links back to it", async () => {
+    const previous = await request(app)
+      .post("/api/tenants")
+      .send({ firstName: "Tim", lastName: "Renter", phone: "555-0100", propertyId: property.id });
+
+    const res = await request(app).post("/api/tenants").send({
+      firstName: "Tim",
+      lastName: "Renter",
+      phone: "555-0100",
+      propertyId: property.id,
+      previousTenantId: previous.body.id,
     });
-    expect(check).toBeNull();
+    expect(res.status).toBe(201);
+    expect(res.body.previousTenantId).toBe(previous.body.id);
+
+    const fetched = await request(app).get(`/api/tenants/${res.body.id}`);
+    expect(fetched.body.previousTenant.id).toBe(previous.body.id);
+
+    const fetchedPrevious = await request(app).get(`/api/tenants/${previous.body.id}`);
+    expect(fetchedPrevious.body.nextTenants.map((t) => t.id)).toEqual([res.body.id]);
+  });
+
+  it("?deleted=all finds a tenant even when their property is archived — the 'copy from an existing tenant' picker's use case", async () => {
+    const created = await request(app)
+      .post("/api/tenants")
+      .send({ firstName: "Sample", lastName: "Tenant", propertyId: property.id });
+    await prisma.property.update({ where: { id: property.id }, data: { archived: true } });
+
+    // The normal hub view (no propertyId) still hides them, since their property is archived.
+    const hubRes = await request(app).get("/api/tenants");
+    expect(hubRes.body.map((t) => t.id)).not.toContain(created.body.id);
+
+    // ?deleted=all bypasses both the deleted filter and the archived-property hide.
+    const allRes = await request(app).get("/api/tenants").query({ deleted: "all" });
+    expect(allRes.body.map((t) => t.id)).toContain(created.body.id);
+  });
+
+  it("rejects a previousTenantId that doesn't belong to the current user", async () => {
+    const otherProperty = await createOtherLandlordsProperty();
+    const otherTenant = await prisma.tenant.create({
+      data: { userId: otherProperty.userId, propertyId: otherProperty.id, firstName: "Not", lastName: "Mine" },
+    });
+
+    const res = await request(app).post("/api/tenants").send({
+      firstName: "Jamie",
+      lastName: "Rivera",
+      propertyId: property.id,
+      previousTenantId: otherTenant.id,
+    });
+
+    expect(res.status).toBe(400);
   });
 
   it("records background check and income fields", async () => {

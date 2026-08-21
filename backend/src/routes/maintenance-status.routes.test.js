@@ -65,6 +65,25 @@ describe("maintenance status rollup", () => {
     });
   });
 
+  it("excludes an archived property entirely, even with an overdue schedule", async () => {
+    await prisma.maintenanceSchedule.create({
+      data: {
+        propertyId: property.id,
+        entityId: property.entityId,
+        userId: user.id,
+        title: "Furnace filter",
+        intervalDays: 90,
+        nextDueDate: new Date("2020-01-01"),
+      },
+    });
+    await prisma.property.update({ where: { id: property.id }, data: { archived: true } });
+
+    const res = await request(app).get("/api/maintenance-status");
+
+    expect(res.status).toBe(200);
+    expect(res.body).toHaveLength(0);
+  });
+
   it("flags an overdue preventive schedule, outranking an open request", async () => {
     await prisma.maintenanceRequest.create({
       data: {

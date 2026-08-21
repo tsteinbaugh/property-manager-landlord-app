@@ -15,7 +15,9 @@ const EMPTY_SCHEDULE_FORM = {
 // Same fixed-property/picker dual mode as MaintenanceRequestSection — pass
 // exactly one of `propertyId` / `properties`. No tenant concept here, so
 // this one's simpler than the request section.
-export default function MaintenanceScheduleSection({ items, vendors, onChange, propertyId, properties }) {
+// `hideAddForm` suppresses the Add Schedule button/form — used by
+// MaintenancePage's "View deleted" mode, where adding a new schedule doesn't apply.
+export default function MaintenanceScheduleSection({ items, vendors, onChange, propertyId, properties, hideAddForm = false }) {
   const api = useApi();
   const isPickerMode = !propertyId;
 
@@ -96,9 +98,18 @@ export default function MaintenanceScheduleSection({ items, vendors, onChange, p
   }
 
   async function handleDelete(scheduleId) {
-    if (!confirm("Delete this maintenance schedule? This can't be undone.")) return;
+    if (!confirm('Delete this maintenance schedule? It\'ll be hidden but recoverable via "View deleted".')) return;
     try {
       await api.del(`/api/maintenance-schedules/${scheduleId}`);
+      onChange();
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  async function handleRestore(scheduleId) {
+    try {
+      await api.post(`/api/maintenance-schedules/${scheduleId}/restore`);
       onChange();
     } catch (err) {
       setError(err.message);
@@ -118,12 +129,14 @@ export default function MaintenanceScheduleSection({ items, vendors, onChange, p
     <section className="space-y-3">
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-medium text-stone-900">Preventive schedules</h2>
-        <button
-          onClick={() => openForm(null)}
-          className="rounded-lg bg-emerald-700 px-3 py-1.5 text-sm font-medium text-white hover:bg-emerald-800"
-        >
-          Add schedule
-        </button>
+        {!hideAddForm && (
+          <button
+            onClick={() => openForm(null)}
+            className="rounded-lg bg-emerald-700 px-3 py-1.5 text-sm font-medium text-white hover:bg-emerald-800"
+          >
+            Add schedule
+          </button>
+        )}
       </div>
 
       {error && <p className="text-sm text-red-700">{error}</p>}
@@ -257,7 +270,11 @@ export default function MaintenanceScheduleSection({ items, vendors, onChange, p
 
       {items.length === 0 ? (
         <p className="rounded-xl border border-dashed border-stone-300 bg-white p-6 text-sm text-stone-500">
-          {isPickerMode ? "No preventive schedules with a due date yet." : "No preventive schedules for this property yet."}
+          {hideAddForm
+            ? "No deleted preventive schedules."
+            : isPickerMode
+              ? "No preventive schedules with a due date yet."
+              : "No preventive schedules for this property yet."}
         </p>
       ) : (
         <div className="space-y-2">
@@ -289,15 +306,23 @@ export default function MaintenanceScheduleSection({ items, vendors, onChange, p
                   >
                     History
                   </button>
-                  <button onClick={() => handleMarkDone(schedule.id)} className="text-emerald-700 hover:underline">
-                    Mark done
-                  </button>
-                  <button onClick={() => openForm(schedule)} className="text-emerald-700 hover:underline">
-                    Edit
-                  </button>
-                  <button onClick={() => handleDelete(schedule.id)} className="text-red-600 hover:underline">
-                    Delete
-                  </button>
+                  {schedule.deleted ? (
+                    <button onClick={() => handleRestore(schedule.id)} className="text-emerald-700 hover:underline">
+                      Restore
+                    </button>
+                  ) : (
+                    <>
+                      <button onClick={() => handleMarkDone(schedule.id)} className="text-emerald-700 hover:underline">
+                        Mark done
+                      </button>
+                      <button onClick={() => openForm(schedule)} className="text-emerald-700 hover:underline">
+                        Edit
+                      </button>
+                      <button onClick={() => handleDelete(schedule.id)} className="text-red-600 hover:underline">
+                        Delete
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
               {expandedId === schedule.id && (

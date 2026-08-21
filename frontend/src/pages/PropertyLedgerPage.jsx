@@ -27,6 +27,13 @@ export default function PropertyLedgerPage() {
   const [highlightIncomeId, setHighlightIncomeId] = useState(null);
 
   const [kindFilter, setKindFilter] = useState("all");
+  // Deleted income/expense rows are hidden by default — this is the "dig and view" toggle,
+  // mirroring PropertiesPage's showArchived pattern. Kept as a separate fetch/list rather
+  // than folded into `entries` above, since the running balance must stay computed from only
+  // the real (non-deleted) ledger — a deleted row shouldn't count toward it.
+  const [showDeleted, setShowDeleted] = useState(false);
+  const [deletedEntries, setDeletedEntries] = useState([]);
+  const [loadingDeleted, setLoadingDeleted] = useState(false);
   const [formKind, setFormKind] = useState(null); // "income" | "expense" | null
   const [form, setForm] = useState(EMPTY_INCOME_FORM);
   const [editingEntry, setEditingEntry] = useState(null); // { kind, id }
@@ -59,6 +66,44 @@ export default function PropertyLedgerPage() {
     load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
+
+  async function loadDeleted() {
+    setLoadingDeleted(true);
+    try {
+      const [deletedIncome, deletedExpenses] = await Promise.all([
+        api.get(`/api/income?propertyId=${id}&deleted=true`),
+        api.get(`/api/expenses?propertyId=${id}&deleted=true`),
+      ]);
+      setDeletedEntries(
+        [
+          ...deletedIncome.map((i) => ({ ...i, kind: "income" })),
+          ...deletedExpenses.map((e) => ({ ...e, kind: "expense" })),
+        ].sort((a, b) => new Date(b.deletedAt) - new Date(a.deletedAt)),
+      );
+      setError(null);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoadingDeleted(false);
+    }
+  }
+
+  function toggleShowDeleted() {
+    const next = !showDeleted;
+    setShowDeleted(next);
+    if (next) loadDeleted();
+  }
+
+  async function handleRestore(entry) {
+    try {
+      const base = entry.kind === "income" ? "/api/income" : "/api/expenses";
+      await api.post(`${base}/${entry.id}/restore`);
+      await loadDeleted();
+      await load();
+    } catch (err) {
+      setError(err.message);
+    }
+  }
 
   // Jumping here from the Rent Tracker tab: switch to the Ledger, scroll the
   // specific payment into view, and briefly highlight it so it's obvious
@@ -161,7 +206,7 @@ export default function PropertyLedgerPage() {
 
   async function handleDelete(entry) {
     const label = entry.kind === "income" ? "income" : "expense";
-    if (!confirm(`Delete this ${label} record? This can't be undone.`)) return;
+    if (!confirm(`Delete this ${label} record? It'll be hidden but recoverable via the "Deleted" filter.`)) return;
     try {
       const base = entry.kind === "income" ? "/api/income" : "/api/expenses";
       await api.del(`${base}/${entry.id}`);
@@ -192,26 +237,83 @@ export default function PropertyLedgerPage() {
         </Link>
       </div>
 
-      <div className="flex gap-1 border-b border-stone-200">
-        {[
-          { key: "ledger", label: "Ledger" },
-          { key: "rent-tracker", label: "Rent Tracker" },
-        ].map((t) => (
+      <div className="flex items-center justify-between border-b border-stone-200">
+        <div className="flex gap-1">
+          {[
+            { key: "ledger", label: "Ledger" },
+            { key: "rent-tracker", label: "Rent Tracker" },
+          ].map((t) => (
+            <button
+              key={t.key}
+              onClick={() => setTab(t.key)}
+              className={`-mb-px border-b-2 px-4 py-2 text-sm font-medium ${
+                tab === t.key
+                  ? "border-emerald-700 text-emerald-700"
+                  : "border-transparent text-stone-500 hover:text-stone-700"
+              }`}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+        {tab === "ledger" && (
           <button
-            key={t.key}
-            onClick={() => setTab(t.key)}
-            className={`-mb-px border-b-2 px-4 py-2 text-sm font-medium ${
-              tab === t.key
-                ? "border-emerald-700 text-emerald-700"
-                : "border-transparent text-stone-500 hover:text-stone-700"
-            }`}
+            type="button"
+            onClick={toggleShowDeleted}
+            className="mb-2 whitespace-nowrap text-sm font-medium text-stone-500 hover:text-stone-700 hover:underline"
           >
-            {t.label}
+            {showDeleted ? "← Back to ledger" : "View deleted"}
           </button>
-        ))}
+        )}
       </div>
 
-      {tab === "ledger" ? (
+      {tab === "ledger" && showDeleted ? (
+        <div className="space-y-3">
+          <p className="text-sm text-stone-500">
+            Deleted income/expense records — hidden from the ledger and its totals, still fully recoverable.
+          </p>
+          {loadingDeleted ? (
+            <p className="text-sm text-stone-500">Loading...</p>
+          ) : deletedEntries.length === 0 ? (
+            <p className="rounded-xl border border-dashed border-stone-300 bg-white p-6 text-sm text-stone-500">
+              No deleted records.
+            </p>
+          ) : (
+            <div className="overflow-x-auto rounded-xl border border-stone-200 bg-white shadow-sm">
+              <table className="min-w-full divide-y divide-stone-200 text-sm">
+                <thead className="bg-stone-50">
+                  <tr>
+                    <th className="px-4 py-2 text-left font-medium text-stone-500">Date</th>
+                    <th className="px-4 py-2 text-left font-medium text-stone-500">Type</th>
+                    <th className="px-4 py-2 text-left font-medium text-stone-500">Category</th>
+                    <th className="px-4 py-2 text-right font-medium text-stone-500">Amount</th>
+                    <th className="px-4 py-2 text-left font-medium text-stone-500">Deleted</th>
+                    <th className="px-4 py-2"></th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-stone-100">
+                  {deletedEntries.map((entry) => (
+                    <tr key={`${entry.kind}-${entry.id}`}>
+                      <td className="px-4 py-2">{new Date(entry.date).toLocaleDateString()}</td>
+                      <td className="px-4 py-2 capitalize">{entry.kind}</td>
+                      <td className="px-4 py-2">{categoryLabel(entry.category)}</td>
+                      <td className="px-4 py-2 text-right">{money(entry.amount)}</td>
+                      <td className="px-4 py-2 text-stone-500">
+                        {entry.deletedAt ? new Date(entry.deletedAt).toLocaleDateString() : ""}
+                      </td>
+                      <td className="px-4 py-2 text-right">
+                        <button onClick={() => handleRestore(entry)} className="text-emerald-700 hover:underline">
+                          Restore
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      ) : tab === "ledger" ? (
         <>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             <div className="rounded-xl border border-stone-200 bg-white p-4 shadow-sm">

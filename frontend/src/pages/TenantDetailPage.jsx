@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
 import SimpleRecordSection from "../components/SimpleRecordSection";
 import BackLink from "../components/BackLink";
@@ -72,7 +72,6 @@ function toForm(tenant) {
 
 export default function TenantDetailPage() {
   const { id } = useParams();
-  const navigate = useNavigate();
   const api = useApi();
   const fileInputRef = useRef(null);
 
@@ -218,11 +217,21 @@ export default function TenantDetailPage() {
   }
 
   async function handleDelete() {
-    if (!confirm(`Delete "${tenant.firstName} ${tenant.lastName}"? This can't be undone.`)) return;
+    if (!confirm(`Delete "${tenant.firstName} ${tenant.lastName}"? They'll be hidden but recoverable via "View deleted" on the Tenants page.`)) return;
     try {
-      const propertyId = tenant.propertyId;
       await api.del(`/api/tenants/${id}`);
-      navigate(`/properties/${propertyId}`);
+      // Soft delete — stay on this page (it still resolves fine) and show the "Deleted"
+      // banner + Restore button, rather than navigating away as if the record were gone.
+      await load();
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  async function handleRestore() {
+    try {
+      await api.post(`/api/tenants/${id}/restore`);
+      await load();
     } catch (err) {
       setError(err.message);
     }
@@ -245,6 +254,20 @@ export default function TenantDetailPage() {
       )}
 
       <div className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm">
+        {tenant.deleted && (
+          <div className="mb-4 flex items-center justify-between gap-2 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+            <p>
+              Deleted {tenant.deletedAt ? new Date(tenant.deletedAt).toLocaleDateString() : ""} — hidden from normal
+              browsing, still fully recoverable.
+            </p>
+            <button
+              onClick={handleRestore}
+              className="shrink-0 rounded-lg border border-amber-300 bg-white px-3 py-1.5 text-sm font-medium text-amber-800 hover:bg-amber-100"
+            >
+              Restore
+            </button>
+          </div>
+        )}
         <div className="flex items-start justify-between gap-2">
           <div>
             <h1 className="text-2xl text-stone-900">
@@ -262,7 +285,7 @@ export default function TenantDetailPage() {
               {tenant.applicationStatus}
             </span>
           </div>
-          {!editing && (
+          {!editing && !tenant.deleted && (
             <div className="flex shrink-0 gap-3 text-sm">
               <button onClick={() => setEditing(true)} className="text-emerald-700 hover:underline">
                 Edit
@@ -273,6 +296,28 @@ export default function TenantDetailPage() {
             </div>
           )}
         </div>
+
+        {(tenant.previousTenant || tenant.nextTenants?.length > 0) && (
+          <div className="mt-3 space-y-1 border-t border-stone-100 pt-3 text-sm text-stone-500">
+            {tenant.previousTenant && (
+              <p>
+                Copied from{" "}
+                <Link to={`/tenants/${tenant.previousTenant.id}`} className="text-emerald-700 hover:underline">
+                  {tenant.previousTenant.firstName} {tenant.previousTenant.lastName}
+                  {tenant.previousTenant.property && ` at ${tenant.previousTenant.property.name || tenant.previousTenant.property.address1}`}
+                </Link>
+              </p>
+            )}
+            {tenant.nextTenants?.map((next) => (
+              <p key={next.id}>
+                Later became a tenant at{" "}
+                <Link to={`/tenants/${next.id}`} className="text-emerald-700 hover:underline">
+                  {next.property?.name || next.property?.address1 || "another property"}
+                </Link>
+              </p>
+            ))}
+          </div>
+        )}
 
         {editing ? (
           <form onSubmit={handleSave} className="mt-4 space-y-5 border-t border-stone-200 pt-4">

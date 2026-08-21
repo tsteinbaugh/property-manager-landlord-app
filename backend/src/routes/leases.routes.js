@@ -149,6 +149,9 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
     if (!property || property.userId !== req.currentUser.id) {
       return res.status(400).json({ error: `Property ${propertyId} not found` });
     }
+    if (property.archived) {
+      return res.status(400).json({ error: "Property is archived — unarchive it before adding new records" });
+    }
 
     const lease = await prisma.lease.create({
       data: {
@@ -163,12 +166,18 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
   });
 
   router.get("/", async (req, res) => {
-    const { propertyId } = req.query;
+    const { propertyId, deleted } = req.query;
 
+    // Same archived-property hiding as tenants.routes.js's list — cross-property hub view
+    // only, a property-scoped request always shows that property's leases regardless.
+    // `deleted` is independent of the property's archived status — same 3-mode convention
+    // as tenants.routes.js (absent = active, "true" = only deleted, "all" = both — "all" also
+    // bypasses the archived-property hide, same reasoning as tenants.routes.js).
     const leases = await prisma.lease.findMany({
       where: {
         userId: req.currentUser.id,
-        ...(propertyId ? { propertyId } : {}),
+        ...(propertyId ? { propertyId } : deleted === "all" ? {} : { property: { archived: false } }),
+        ...(deleted === "all" ? {} : { deleted: deleted === "true" }),
       },
       include: leaseInclude,
       orderBy: { createdAt: "desc" },
@@ -215,9 +224,28 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
       return res.status(404).json({ error: "Lease not found" });
     }
 
-    await prisma.lease.delete({ where: { id: req.params.id } });
+    // Soft delete — see tenants.routes.js's DELETE handler for the full reasoning.
+    await prisma.lease.update({ where: { id: req.params.id }, data: { deleted: true, deletedAt: new Date() } });
 
     res.status(204).send();
+  });
+
+  router.post("/:id/restore", async (req, res) => {
+    const existing = await prisma.lease.findUnique({ where: { id: req.params.id } });
+    if (!existing || existing.userId !== req.currentUser.id) {
+      return res.status(404).json({ error: "Lease not found" });
+    }
+    if (!existing.deleted) {
+      return res.status(400).json({ error: "Lease is not deleted" });
+    }
+
+    const lease = await prisma.lease.update({
+      where: { id: req.params.id },
+      data: { deleted: false, deletedAt: null },
+      include: leaseInclude,
+    });
+
+    res.json(withComputedLeaseFields(lease));
   });
 
   router.post("/:id/tenants", async (req, res) => {

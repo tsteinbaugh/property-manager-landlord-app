@@ -380,6 +380,51 @@ describe("properties routes", () => {
     expect(res.body.id).toBe(property.id);
   });
 
+  it("computes canDelete: true for a genuinely empty property, false once anything is attached", async () => {
+    const property = await prisma.property.create({
+      data: {
+        entityId: entity.id,
+        userId: entity.userId,
+        address1: "123 Maple St",
+        city: "Frederick",
+        state: "CO",
+        zip: "80530",
+      },
+    });
+
+    const emptyRes = await request(app).get(`/api/properties/${property.id}`);
+    expect(emptyRes.body.canDelete).toBe(true);
+
+    await prisma.tenant.create({
+      data: { userId: entity.userId, propertyId: property.id, firstName: "Jane", lastName: "Doe" },
+    });
+
+    const attachedRes = await request(app).get(`/api/properties/${property.id}`);
+    expect(attachedRes.body.canDelete).toBe(false);
+  });
+
+  it("includes canDelete on the update/archive/unarchive responses too, not just GET", async () => {
+    const property = await prisma.property.create({
+      data: {
+        entityId: entity.id,
+        userId: entity.userId,
+        address1: "123 Maple St",
+        city: "Frederick",
+        state: "CO",
+        zip: "80530",
+      },
+    });
+
+    const putRes = await request(app).put(`/api/properties/${property.id}`).send({ name: "New Name" });
+    expect(putRes.body.canDelete).toBe(true);
+
+    const archiveRes = await request(app).post(`/api/properties/${property.id}/archive`).send({});
+    expect(archiveRes.body.canDelete).toBe(true);
+
+    const unarchiveRes = await request(app).post(`/api/properties/${property.id}/unarchive`);
+    expect(unarchiveRes.body.canDelete).toBe(true);
+  });
+
   it("404s for a missing property", async () => {
     const res = await request(app).get("/api/properties/nonexistent-id");
     expect(res.status).toBe(404);
@@ -501,5 +546,125 @@ describe("properties routes", () => {
       where: { id: property.id },
     });
     expect(check).toBeNull();
+  });
+
+  describe("archiving", () => {
+    let property;
+
+    beforeEach(async () => {
+      property = await prisma.property.create({
+        data: {
+          entityId: entity.id,
+          userId: entity.userId,
+          address1: "123 Maple St",
+          city: "Frederick",
+          state: "CO",
+          zip: "80530",
+        },
+      });
+    });
+
+    it("archives a property with a reason", async () => {
+      const res = await request(app).post(`/api/properties/${property.id}/archive`).send({ reason: "Sold" });
+
+      expect(res.status).toBe(200);
+      expect(res.body.archived).toBe(true);
+      expect(res.body.archivedReason).toBe("Sold");
+      expect(res.body.archivedAt).toBeTruthy();
+    });
+
+    it("archives a property with no reason given", async () => {
+      const res = await request(app).post(`/api/properties/${property.id}/archive`).send({});
+
+      expect(res.status).toBe(200);
+      expect(res.body.archived).toBe(true);
+      expect(res.body.archivedReason).toBeNull();
+    });
+
+    it("rejects archiving a property that's already archived", async () => {
+      await request(app).post(`/api/properties/${property.id}/archive`).send({ reason: "Sold" });
+      const res = await request(app).post(`/api/properties/${property.id}/archive`).send({ reason: "Again" });
+
+      expect(res.status).toBe(400);
+    });
+
+    it("unarchives a property, clearing the archive fields", async () => {
+      await request(app).post(`/api/properties/${property.id}/archive`).send({ reason: "Sold" });
+      const res = await request(app).post(`/api/properties/${property.id}/unarchive`);
+
+      expect(res.status).toBe(200);
+      expect(res.body.archived).toBe(false);
+      expect(res.body.archivedAt).toBeNull();
+      expect(res.body.archivedReason).toBeNull();
+    });
+
+    it("rejects unarchiving a property that isn't archived", async () => {
+      const res = await request(app).post(`/api/properties/${property.id}/unarchive`);
+      expect(res.status).toBe(400);
+    });
+
+    it("404s archiving/unarchiving another user's property", async () => {
+      const otherUser = await prisma.user.create({
+        data: { clerkId: "clerk_other_user", email: "other@example.com" },
+      });
+      const otherEntity = await prisma.entity.create({
+        data: { userId: otherUser.id, legalName: "Someone Else LLC", entityType: "LLC" },
+      });
+      const otherProperty = await prisma.property.create({
+        data: { entityId: otherEntity.id, userId: otherUser.id, address1: "456 Oak St", city: "Frederick", state: "CO", zip: "80530" },
+      });
+
+      const archiveRes = await request(app).post(`/api/properties/${otherProperty.id}/archive`).send({});
+      expect(archiveRes.status).toBe(404);
+
+      await prisma.property.update({ where: { id: otherProperty.id }, data: { archived: true } });
+      const unarchiveRes = await request(app).post(`/api/properties/${otherProperty.id}/unarchive`);
+      expect(unarchiveRes.status).toBe(404);
+    });
+
+    it("excludes archived properties from the default list, and ?archived=true returns only archived ones", async () => {
+      await request(app).post(`/api/properties/${property.id}/archive`).send({ reason: "Sold" });
+      const otherActive = await prisma.property.create({
+        data: { entityId: entity.id, userId: entity.userId, address1: "999 Other St", city: "Frederick", state: "CO", zip: "80530" },
+      });
+
+      const activeRes = await request(app).get("/api/properties");
+      expect(activeRes.body.map((p) => p.id)).toEqual([otherActive.id]);
+
+      const archivedRes = await request(app).get("/api/properties?archived=true");
+      expect(archivedRes.body.map((p) => p.id)).toEqual([property.id]);
+    });
+
+    it("still returns an archived property directly by id", async () => {
+      await request(app).post(`/api/properties/${property.id}/archive`).send({ reason: "Sold" });
+      const res = await request(app).get(`/api/properties/${property.id}`);
+      expect(res.status).toBe(200);
+      expect(res.body.archived).toBe(true);
+    });
+
+    it("rejects editing an archived property until it's unarchived", async () => {
+      await request(app).post(`/api/properties/${property.id}/archive`).send({ reason: "Sold" });
+
+      const putRes = await request(app).put(`/api/properties/${property.id}`).send({ name: "New Name" });
+      expect(putRes.status).toBe(400);
+
+      await request(app).post(`/api/properties/${property.id}/unarchive`);
+      const putRes2 = await request(app).put(`/api/properties/${property.id}`).send({ name: "New Name" });
+      expect(putRes2.status).toBe(200);
+      expect(putRes2.body.name).toBe("New Name");
+    });
+
+    it("rejects deleting a property with dependents attached, suggesting archiving instead", async () => {
+      await prisma.tenant.create({
+        data: { userId: entity.userId, propertyId: property.id, firstName: "Jane", lastName: "Doe" },
+      });
+
+      const res = await request(app).delete(`/api/properties/${property.id}`);
+      expect(res.status).toBe(400);
+      expect(res.body.error).toMatch(/archive/i);
+
+      const check = await prisma.property.findUnique({ where: { id: property.id } });
+      expect(check).not.toBeNull();
+    });
   });
 });

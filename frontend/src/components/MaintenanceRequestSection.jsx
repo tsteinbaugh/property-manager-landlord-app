@@ -35,7 +35,9 @@ function money(amount) {
 // currently picked) — not eagerly loaded by the parent — since the hub
 // spans every property and most of those tenant lists are irrelevant most
 // of the time.
-export default function MaintenanceRequestSection({ items, vendors, onChange, propertyId, properties }) {
+// `hideAddForm` suppresses the Add Request button/form — used by
+// MaintenancePage's "View deleted" mode, where adding a new request doesn't apply.
+export default function MaintenanceRequestSection({ items, vendors, onChange, propertyId, properties, hideAddForm = false }) {
   const api = useApi();
   const isPickerMode = !propertyId;
 
@@ -148,9 +150,18 @@ export default function MaintenanceRequestSection({ items, vendors, onChange, pr
   }
 
   async function handleDelete(requestId) {
-    if (!confirm("Delete this maintenance request? This can't be undone.")) return;
+    if (!confirm('Delete this maintenance request? It\'ll be hidden but recoverable via "View deleted".')) return;
     try {
       await api.del(`/api/maintenance-requests/${requestId}`);
+      onChange();
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  async function handleRestore(requestId) {
+    try {
+      await api.post(`/api/maintenance-requests/${requestId}/restore`);
       onChange();
     } catch (err) {
       setError(err.message);
@@ -161,12 +172,14 @@ export default function MaintenanceRequestSection({ items, vendors, onChange, pr
     <section className="space-y-3">
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-medium text-stone-900">Maintenance requests</h2>
-        <button
-          onClick={() => openForm(null)}
-          className="rounded-lg bg-emerald-700 px-3 py-1.5 text-sm font-medium text-white hover:bg-emerald-800"
-        >
-          Add request
-        </button>
+        {!hideAddForm && (
+          <button
+            onClick={() => openForm(null)}
+            className="rounded-lg bg-emerald-700 px-3 py-1.5 text-sm font-medium text-white hover:bg-emerald-800"
+          >
+            Add request
+          </button>
+        )}
       </div>
 
       {error && <p className="text-sm text-red-700">{error}</p>}
@@ -353,7 +366,11 @@ export default function MaintenanceRequestSection({ items, vendors, onChange, pr
 
       {items.length === 0 ? (
         <p className="rounded-xl border border-dashed border-stone-300 bg-white p-6 text-sm text-stone-500">
-          {isPickerMode ? "Nothing here yet." : "No maintenance requests for this property yet."}
+          {hideAddForm
+            ? "No deleted maintenance requests."
+            : isPickerMode
+              ? "Nothing here yet."
+              : "No maintenance requests for this property yet."}
         </p>
       ) : (
         <div className="space-y-2">
@@ -386,12 +403,20 @@ export default function MaintenanceRequestSection({ items, vendors, onChange, pr
                   >
                     History
                   </button>
-                  <button onClick={() => openForm(request)} className="text-emerald-700 hover:underline">
-                    Edit
-                  </button>
-                  <button onClick={() => handleDelete(request.id)} className="text-red-600 hover:underline">
-                    Delete
-                  </button>
+                  {request.deleted ? (
+                    <button onClick={() => handleRestore(request.id)} className="text-emerald-700 hover:underline">
+                      Restore
+                    </button>
+                  ) : (
+                    <>
+                      <button onClick={() => openForm(request)} className="text-emerald-700 hover:underline">
+                        Edit
+                      </button>
+                      <button onClick={() => handleDelete(request.id)} className="text-red-600 hover:underline">
+                        Delete
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
               {expandedId === request.id && (

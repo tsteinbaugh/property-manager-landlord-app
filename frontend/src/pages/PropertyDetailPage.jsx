@@ -154,6 +154,10 @@ export default function PropertyDetailPage() {
   const [form, setForm] = useState(null);
   const [submitting, setSubmitting] = useState(false);
 
+  const [archiving, setArchiving] = useState(false);
+  const [archiveReason, setArchiveReason] = useState("");
+  const [archiveSubmitting, setArchiveSubmitting] = useState(false);
+
   const [incomes, setIncomes] = useState([]);
   const [expenses, setExpenses] = useState([]);
   const [requests, setRequests] = useState([]);
@@ -229,6 +233,34 @@ export default function PropertyDetailPage() {
     }
   }
 
+  async function handleArchive(e) {
+    e.preventDefault();
+    setArchiveSubmitting(true);
+    setError(null);
+    try {
+      const updated = await api.post(`/api/properties/${id}/archive`, { reason: archiveReason.trim() || null });
+      setProperty(updated);
+      setForm(updated);
+      setArchiving(false);
+      setArchiveReason("");
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setArchiveSubmitting(false);
+    }
+  }
+
+  async function handleUnarchive() {
+    setError(null);
+    try {
+      const updated = await api.post(`/api/properties/${id}/unarchive`);
+      setProperty(updated);
+      setForm(updated);
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
   if (loading) return <p className="text-sm text-stone-500">Loading...</p>;
   if (!property) return <p className="text-sm text-red-700">{error || "Property not found."}</p>;
 
@@ -241,6 +273,24 @@ export default function PropertyDetailPage() {
       )}
 
       <div className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm">
+        {property.archived && (
+          <div className="mb-4 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+            <p className="font-medium">
+              Archived {property.archivedAt ? new Date(property.archivedAt).toLocaleDateString() : ""}
+            </p>
+            {property.archivedReason && <p className="mt-0.5">{property.archivedReason}</p>}
+            <p className="mt-1 text-xs text-amber-700">
+              Hidden from normal browsing and locked from edits. Unarchive to make changes again.
+            </p>
+            <button
+              onClick={handleUnarchive}
+              className="mt-2 rounded-lg border border-amber-300 bg-white px-3 py-1.5 text-sm font-medium text-amber-800 hover:bg-amber-100"
+            >
+              Unarchive
+            </button>
+          </div>
+        )}
+
         <div className="flex items-start justify-between gap-2">
           <div>
             <h1 className="text-2xl text-stone-900">{property.name || property.address1}</h1>
@@ -253,17 +303,75 @@ export default function PropertyDetailPage() {
               Property Specs →
             </Link>
           </div>
-          {!editing && (
+          {!editing && !archiving && !property.archived && (
             <div className="flex shrink-0 gap-3 text-sm">
               <button onClick={() => setEditing(true)} className="text-emerald-700 hover:underline">
                 Edit
               </button>
-              <button onClick={handleDelete} className="text-red-600 hover:underline">
-                Delete
+              <button onClick={() => setArchiving(true)} className="text-stone-500 hover:underline">
+                Archive
               </button>
+              {/* Delete only ever appears for a genuinely empty property (a real mistake,
+                  nothing attached yet) — the moment anything real is attached, Archive is
+                  the only removal-adjacent action. Taylor's call. */}
+              {property.canDelete && (
+                <button onClick={handleDelete} className="text-red-600 hover:underline">
+                  Delete
+                </button>
+              )}
             </div>
           )}
         </div>
+
+        {archiving && (
+          <form onSubmit={handleArchive} className="mt-4 space-y-3 border-t border-stone-200 pt-4">
+            <div>
+              <p className="mb-1 text-sm font-medium text-stone-700">Reason for archiving (optional)</p>
+              <div className="mb-2 flex flex-wrap gap-2">
+                {["Sold", "Owner moved in / no longer rented", "Other"].map((suggestion) => (
+                  <button
+                    type="button"
+                    key={suggestion}
+                    onClick={() => setArchiveReason(suggestion === "Other" ? "" : suggestion)}
+                    className="rounded-full border border-stone-300 px-3 py-1 text-xs text-stone-600 hover:bg-stone-50"
+                  >
+                    {suggestion}
+                  </button>
+                ))}
+              </div>
+              <textarea
+                value={archiveReason}
+                onChange={(e) => setArchiveReason(e.target.value)}
+                rows={2}
+                placeholder="e.g. Sold March 2027, no longer renting it out..."
+                className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+              />
+            </div>
+            <p className="text-xs text-stone-500">
+              This hides the property from normal browsing and locks it from further edits. Nothing is deleted —
+              it stays fully recoverable via "View archived properties," and can be unarchived any time.
+            </p>
+            <div className="flex gap-2">
+              <button
+                type="submit"
+                disabled={archiveSubmitting}
+                className="rounded-lg bg-stone-700 px-4 py-2 text-sm font-medium text-white hover:bg-stone-800 disabled:opacity-50"
+              >
+                {archiveSubmitting ? "Archiving..." : "Archive property"}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setArchiving(false);
+                  setArchiveReason("");
+                }}
+                className="rounded-lg border border-stone-300 px-4 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        )}
 
         {editing ? (
           <form onSubmit={handleSave} className="mt-4 space-y-4 border-t border-stone-200 pt-4">

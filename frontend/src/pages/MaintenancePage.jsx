@@ -17,17 +17,22 @@ export default function MaintenancePage() {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  // Deleted requests/schedules are hidden by default — this is the "dig and view" toggle,
+  // mirroring PropertiesPage's showArchived pattern. Independent of the ?propertyId= mode:
+  // still respects whichever property is being filtered to, if any.
+  const [showDeleted, setShowDeleted] = useState(false);
 
   const [vendorFormOpen, setVendorFormOpen] = useState(false);
   const [vendorForm, setVendorForm] = useState(EMPTY_VENDOR_FORM);
   const [submitting, setSubmitting] = useState(false);
 
-  async function load() {
+  async function load(deleted) {
     setLoading(true);
     try {
+      const suffix = deleted ? "?deleted=true" : "";
       const [requestData, scheduleData, vendorData, propertyData] = await Promise.all([
-        api.get("/api/maintenance-requests"),
-        api.get("/api/maintenance-schedules"),
+        api.get(`/api/maintenance-requests${suffix}`),
+        api.get(`/api/maintenance-schedules${suffix}`),
         api.get("/api/vendors"),
         api.get("/api/properties"),
       ]);
@@ -44,9 +49,9 @@ export default function MaintenancePage() {
   }
 
   useEffect(() => {
-    load();
+    load(showDeleted);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [showDeleted]);
 
   async function handleAddVendor(e) {
     e.preventDefault();
@@ -63,7 +68,7 @@ export default function MaintenancePage() {
       await api.post("/api/vendors", body);
       setVendorForm(EMPTY_VENDOR_FORM);
       setVendorFormOpen(false);
-      await load();
+      await load(showDeleted);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -73,22 +78,26 @@ export default function MaintenancePage() {
 
   const filterProperty = filterPropertyId ? properties.find((p) => p.id === filterPropertyId) : null;
 
-  const openRequests = requests.filter(
-    (r) => r.status !== "CLOSED" && (!filterPropertyId || r.propertyId === filterPropertyId),
-  );
-  const upcomingSchedules = schedules
-    .filter((s) => s.nextDueDate && (!filterPropertyId || s.propertyId === filterPropertyId))
-    .sort((a, b) => new Date(a.nextDueDate) - new Date(b.nextDueDate));
+  // In "View deleted" mode, show every deleted item for the (optionally property-filtered)
+  // scope — status/nextDueDate filtering only makes sense for the normal open/upcoming view.
+  const openRequests = showDeleted
+    ? requests.filter((r) => !filterPropertyId || r.propertyId === filterPropertyId)
+    : requests.filter((r) => r.status !== "CLOSED" && (!filterPropertyId || r.propertyId === filterPropertyId));
+  const upcomingSchedules = showDeleted
+    ? schedules.filter((s) => !filterPropertyId || s.propertyId === filterPropertyId)
+    : schedules
+        .filter((s) => s.nextDueDate && (!filterPropertyId || s.propertyId === filterPropertyId))
+        .sort((a, b) => new Date(a.nextDueDate) - new Date(b.nextDueDate));
 
   if (loading) return <p className="text-sm text-stone-500">Loading...</p>;
 
   return (
     <div className="space-y-8">
-      {filterProperty ? (
-        <>
-          <BackLink fallback={`/properties/${filterProperty.id}`} />
+      <div className="flex items-start justify-between gap-2">
+        {filterProperty ? (
           <div>
-            <h1 className="text-2xl text-stone-900">{filterProperty.name || filterProperty.address1}</h1>
+            <BackLink fallback={`/properties/${filterProperty.id}`} />
+            <h1 className="mt-2 text-2xl text-stone-900">{filterProperty.name || filterProperty.address1}</h1>
             <p className="text-sm text-stone-500">
               {filterProperty.address1}, {filterProperty.city}, {filterProperty.state} {filterProperty.zip}
             </p>
@@ -96,13 +105,24 @@ export default function MaintenancePage() {
               View this property's full page →
             </Link>
           </div>
-        </>
-      ) : (
-        <div>
-          <h1 className="text-2xl text-stone-900">Maintenance</h1>
-          <p className="text-sm text-stone-500">Open tickets, upcoming preventive work, and your vendor directory.</p>
-        </div>
-      )}
+        ) : (
+          <div>
+            <h1 className="text-2xl text-stone-900">{showDeleted ? "Deleted maintenance items" : "Maintenance"}</h1>
+            <p className="text-sm text-stone-500">
+              {showDeleted
+                ? "Hidden from normal browsing — open one to restore it."
+                : "Open tickets, upcoming preventive work, and your vendor directory."}
+            </p>
+          </div>
+        )}
+        <button
+          type="button"
+          onClick={() => setShowDeleted((v) => !v)}
+          className="shrink-0 whitespace-nowrap text-sm font-medium text-stone-500 hover:text-stone-700 hover:underline"
+        >
+          {showDeleted ? "← Back to maintenance" : "View deleted"}
+        </button>
+      </div>
 
       {error && (
         <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>
@@ -111,17 +131,20 @@ export default function MaintenancePage() {
       <MaintenanceRequestSection
         items={openRequests}
         vendors={vendors}
-        onChange={load}
+        onChange={() => load(showDeleted)}
+        hideAddForm={showDeleted}
         {...(filterPropertyId ? { propertyId: filterPropertyId } : { properties })}
       />
 
       <MaintenanceScheduleSection
         items={upcomingSchedules}
         vendors={vendors}
-        onChange={load}
+        onChange={() => load(showDeleted)}
+        hideAddForm={showDeleted}
         {...(filterPropertyId ? { propertyId: filterPropertyId } : { properties })}
       />
 
+      {!showDeleted && (
       <section className="space-y-3">
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-medium text-stone-900">Vendors</h2>
@@ -243,6 +266,7 @@ export default function MaintenancePage() {
           </div>
         )}
       </section>
+      )}
     </div>
   );
 }

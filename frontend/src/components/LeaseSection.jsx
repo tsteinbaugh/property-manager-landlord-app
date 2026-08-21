@@ -19,7 +19,9 @@ function money(amount) {
 // Same fixed-property/picker dual mode as the other extracted sections. No
 // inline edit/delete — everything else about a lease (tenants, late fees,
 // pet policy, the PDF) is only ever managed from its own detail page.
-export default function LeaseSection({ items, onChange, propertyId, properties }) {
+// `hideAddForm` suppresses the Add Lease button/form — used by LeasesPage's
+// "View deleted" mode, where adding a new lease doesn't apply.
+export default function LeaseSection({ items, onChange, propertyId, properties, hideAddForm = false }) {
   const api = useApi();
   const isPickerMode = !propertyId;
 
@@ -62,12 +64,14 @@ export default function LeaseSection({ items, onChange, propertyId, properties }
     <section className="space-y-3">
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-medium text-stone-900">Leases</h2>
-        <button
-          onClick={openForm}
-          className="rounded-lg bg-emerald-700 px-3 py-1.5 text-sm font-medium text-white hover:bg-emerald-800"
-        >
-          Add lease
-        </button>
+        {!hideAddForm && (
+          <button
+            onClick={openForm}
+            className="rounded-lg bg-emerald-700 px-3 py-1.5 text-sm font-medium text-white hover:bg-emerald-800"
+          >
+            Add lease
+          </button>
+        )}
       </div>
 
       {error && <p className="text-sm text-red-700">{error}</p>}
@@ -160,7 +164,7 @@ export default function LeaseSection({ items, onChange, propertyId, properties }
 
       {items.length === 0 ? (
         <p className="rounded-xl border border-dashed border-stone-300 bg-white p-6 text-sm text-stone-500">
-          {isPickerMode ? "No leases yet." : "No leases for this property yet."}
+          {hideAddForm ? "No deleted leases." : isPickerMode ? "No leases yet." : "No leases for this property yet."}
         </p>
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -188,6 +192,11 @@ export default function LeaseSection({ items, onChange, propertyId, properties }
                   ? "No tenants attached"
                   : lease.leaseTenants.map((lt) => `${lt.tenant.firstName} ${lt.tenant.lastName}`).join(", ")}
               </p>
+              {lease.deleted && (
+                <p className="text-xs text-stone-500">
+                  Deleted {lease.deletedAt ? new Date(lease.deletedAt).toLocaleDateString() : ""}
+                </p>
+              )}
             </Link>
           ))}
         </div>

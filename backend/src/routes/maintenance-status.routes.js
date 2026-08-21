@@ -14,7 +14,8 @@ router.get("/", async (req, res) => {
   const userId = req.currentUser.id;
 
   const [properties, openRequestCounts, overdueScheduleCounts] = await Promise.all([
-    prisma.property.findMany({ where: { userId }, select: { id: true } }),
+    // Archived properties drop out of the Dashboard entirely, same as everywhere else.
+    prisma.property.findMany({ where: { userId, archived: false }, select: { id: true } }),
     prisma.maintenanceRequest.groupBy({
       by: ["propertyId"],
       where: { userId, status: { not: "CLOSED" } },

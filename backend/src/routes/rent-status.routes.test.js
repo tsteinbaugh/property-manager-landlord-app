@@ -92,6 +92,24 @@ describe("rent status rollup", () => {
     expect(res.body).toHaveLength(0);
   });
 
+  it("excludes an archived property, even with an overdue active lease", async () => {
+    await prisma.lease.create({
+      data: {
+        propertyId: property.id,
+        userId: property.userId,
+        startDate: new Date("2020-01-01"),
+        endDate: new Date("2020-01-31"),
+        monthlyRent: "3000.00",
+      },
+    });
+    await prisma.property.update({ where: { id: property.id }, data: { archived: true } });
+
+    const res = await request(app).get("/api/rent-status");
+
+    expect(res.status).toBe(200);
+    expect(res.body).toHaveLength(0);
+  });
+
   it("only returns rollups for the current user's own properties", async () => {
     const otherUser = await prisma.user.create({ data: { clerkId: "clerk_other_user", email: "other@example.com" } });
     const otherEntity = await prisma.entity.create({

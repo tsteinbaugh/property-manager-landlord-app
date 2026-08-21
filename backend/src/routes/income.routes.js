@@ -75,13 +75,16 @@ function createIncomeRoutes({ r2 = defaultR2 } = {}) {
   });
 
   router.get("/", async (req, res) => {
-    const { propertyId, leaseId } = req.query;
+    const { propertyId, leaseId, deleted } = req.query;
 
+    // `deleted` — same 3-mode convention as tenants/leases (absent = active, "true" = only
+    // deleted, "all" = both).
     const incomes = await prisma.income.findMany({
       where: {
         userId: req.currentUser.id,
         ...(propertyId ? { propertyId } : {}),
         ...(leaseId ? { leaseId } : {}),
+        ...(deleted === "all" ? {} : { deleted: deleted === "true" }),
       },
       include: { allocations: true },
       orderBy: { date: "desc" },
@@ -125,9 +128,27 @@ function createIncomeRoutes({ r2 = defaultR2 } = {}) {
       return res.status(404).json({ error: "Income not found" });
     }
 
-    await prisma.income.delete({ where: { id: req.params.id } });
+    // Soft delete — see tenants.routes.js's DELETE handler for the full reasoning.
+    await prisma.income.update({ where: { id: req.params.id }, data: { deleted: true, deletedAt: new Date() } });
 
     res.status(204).send();
+  });
+
+  router.post("/:id/restore", async (req, res) => {
+    const existing = await findOwnedIncome(req.params.id, req.currentUser.id);
+    if (!existing) {
+      return res.status(404).json({ error: "Income not found" });
+    }
+    if (!existing.deleted) {
+      return res.status(400).json({ error: "Income is not deleted" });
+    }
+
+    const income = await prisma.income.update({
+      where: { id: req.params.id },
+      data: { deleted: false, deletedAt: null },
+    });
+
+    res.json(income);
   });
 
   // Receipts / proof of payment — same presigned-URL R2 pattern as lease and

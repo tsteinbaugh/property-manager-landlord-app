@@ -121,6 +121,31 @@ describe("maintenance schedules routes", () => {
     expect(res.body.overdue).toBe(false);
   });
 
+  it("rejects creating a schedule against an archived property", async () => {
+    await prisma.property.update({ where: { id: property.id }, data: { archived: true } });
+
+    const res = await request(app).post("/api/maintenance-schedules").send({
+      propertyId: property.id,
+      title: "Landscaping service",
+      intervalDays: 30,
+    });
+
+    expect(res.status).toBe(400);
+  });
+
+  it("excludes schedules of archived properties from the cross-property list, but not a property-scoped one", async () => {
+    await request(app)
+      .post("/api/maintenance-schedules")
+      .send({ propertyId: property.id, title: "Landscaping service", intervalDays: 30 });
+    await prisma.property.update({ where: { id: property.id }, data: { archived: true } });
+
+    const hubRes = await request(app).get("/api/maintenance-schedules");
+    expect(hubRes.body).toEqual([]);
+
+    const scopedRes = await request(app).get("/api/maintenance-schedules").query({ propertyId: property.id });
+    expect(scopedRes.body).toHaveLength(1);
+  });
+
   it("computes nextDueDate from lastDoneDate + intervalDays when nextDueDate isn't given", async () => {
     const res = await request(app).post("/api/maintenance-schedules").send({
       propertyId: property.id,
@@ -283,7 +308,7 @@ describe("maintenance schedules routes", () => {
     expect(res.body.notes).toBe("Front and back gutters");
   });
 
-  it("deletes a schedule", async () => {
+  it("soft-deletes a schedule — the row survives, hidden from the default list", async () => {
     const created = await request(app).post("/api/maintenance-schedules").send({
       propertyId: property.id,
       title: "Gutter cleaning",
@@ -294,7 +319,40 @@ describe("maintenance schedules routes", () => {
     expect(res.status).toBe(204);
 
     const check = await prisma.maintenanceSchedule.findUnique({ where: { id: created.body.id } });
-    expect(check).toBeNull();
+    expect(check).not.toBeNull();
+    expect(check.deleted).toBe(true);
+
+    const listRes = await request(app).get("/api/maintenance-schedules").query({ propertyId: property.id });
+    expect(listRes.body).toEqual([]);
+  });
+
+  it("lists deleted schedules with ?deleted=true, restores via POST /:id/restore", async () => {
+    const created = await request(app).post("/api/maintenance-schedules").send({
+      propertyId: property.id,
+      title: "Gutter cleaning",
+      intervalDays: 180,
+    });
+    await request(app).delete(`/api/maintenance-schedules/${created.body.id}`);
+
+    const deletedOnly = await request(app).get("/api/maintenance-schedules").query({ propertyId: property.id, deleted: "true" });
+    expect(deletedOnly.body.map((s) => s.id)).toEqual([created.body.id]);
+
+    const restoreRes = await request(app).post(`/api/maintenance-schedules/${created.body.id}/restore`);
+    expect(restoreRes.status).toBe(200);
+    expect(restoreRes.body.deleted).toBe(false);
+  });
+
+  it("?deleted=all finds a schedule even when its property is archived", async () => {
+    const created = await request(app)
+      .post("/api/maintenance-schedules")
+      .send({ propertyId: property.id, title: "Gutter cleaning", intervalDays: 180 });
+    await prisma.property.update({ where: { id: property.id }, data: { archived: true } });
+
+    const hubRes = await request(app).get("/api/maintenance-schedules");
+    expect(hubRes.body.map((s) => s.id)).not.toContain(created.body.id);
+
+    const allRes = await request(app).get("/api/maintenance-schedules").query({ deleted: "all" });
+    expect(allRes.body.map((s) => s.id)).toContain(created.body.id);
   });
 
   describe("mark-done", () => {

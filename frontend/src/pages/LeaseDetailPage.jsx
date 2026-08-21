@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
 import BackLink from "../components/BackLink";
 import LeaseBuilderSection from "../components/LeaseBuilderSection";
@@ -33,7 +33,6 @@ function money(amount) {
 
 export default function LeaseDetailPage() {
   const { id } = useParams();
-  const navigate = useNavigate();
   const api = useApi();
   const fileInputRef = useRef(null);
 
@@ -112,11 +111,21 @@ export default function LeaseDetailPage() {
   }
 
   async function handleDelete() {
-    if (!confirm("Delete this lease? This can't be undone.")) return;
+    if (!confirm('Delete this lease? It\'ll be hidden but recoverable via "View deleted" on the Leases page.')) return;
     try {
-      const propertyId = lease.propertyId;
       await api.del(`/api/leases/${id}`);
-      navigate(`/properties/${propertyId}`);
+      // Soft delete — stay on this page (it still resolves fine) and show the "Deleted"
+      // banner + Restore button, rather than navigating away as if the record were gone.
+      await load();
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  async function handleRestore() {
+    try {
+      await api.post(`/api/leases/${id}/restore`);
+      await load();
     } catch (err) {
       setError(err.message);
     }
@@ -241,6 +250,20 @@ export default function LeaseDetailPage() {
       )}
 
       <div className="rounded-xl border border-stone-200 bg-white p-5 shadow-sm">
+        {lease.deleted && (
+          <div className="mb-4 flex items-center justify-between gap-2 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+            <p>
+              Deleted {lease.deletedAt ? new Date(lease.deletedAt).toLocaleDateString() : ""} — hidden from normal
+              browsing, still fully recoverable.
+            </p>
+            <button
+              onClick={handleRestore}
+              className="shrink-0 rounded-lg border border-amber-300 bg-white px-3 py-1.5 text-sm font-medium text-amber-800 hover:bg-amber-100"
+            >
+              Restore
+            </button>
+          </div>
+        )}
         <div className="flex items-start justify-between gap-2">
           <div>
             <h1 className="text-2xl text-stone-900">{money(lease.monthlyRent)}/mo</h1>
@@ -249,7 +272,7 @@ export default function LeaseDetailPage() {
               {lease.endDate ? ` – ${new Date(lease.endDate).toLocaleDateString()}` : " – open"}
             </p>
           </div>
-          {!editing && (
+          {!editing && !lease.deleted && (
             <div className="flex shrink-0 gap-3 text-sm">
               <button onClick={() => setEditing(true)} className="text-emerald-700 hover:underline">
                 Edit

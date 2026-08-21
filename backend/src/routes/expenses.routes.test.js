@@ -259,7 +259,8 @@ describe("expenses routes", () => {
     expect(res.body.notes).toBe("Extra part needed");
   });
 
-  it("deletes an expense", async () => {
+
+  it("soft-deletes an expense row — the row survives, hidden from the default list", async () => {
     const expense = await prisma.expense.create({
       data: {
         userId: property.userId,
@@ -275,7 +276,32 @@ describe("expenses routes", () => {
     expect(res.status).toBe(204);
 
     const check = await prisma.expense.findUnique({ where: { id: expense.id } });
-    expect(check).toBeNull();
+    expect(check).not.toBeNull();
+    expect(check.deleted).toBe(true);
+
+    const listRes = await request(app).get("/api/expenses").query({ propertyId: property.id });
+    expect(listRes.body).toEqual([]);
+  });
+
+  it("lists deleted expenses with ?deleted=true, restores via POST /:id/restore", async () => {
+    const expense = await prisma.expense.create({
+      data: {
+        userId: property.userId,
+        entityId: entity.id,
+        propertyId: property.id,
+        category: "TAX",
+        amount: "900.00",
+        date: new Date("2026-09-01"),
+      },
+    });
+    await request(app).delete(`/api/expenses/${expense.id}`);
+
+    const deletedOnly = await request(app).get("/api/expenses").query({ propertyId: property.id, deleted: "true" });
+    expect(deletedOnly.body.map((e) => e.id)).toEqual([expense.id]);
+
+    const restoreRes = await request(app).post(`/api/expenses/${expense.id}/restore`);
+    expect(restoreRes.status).toBe(200);
+    expect(restoreRes.body.deleted).toBe(false);
   });
 
   it("defaults paid to true and records a payment method", async () => {

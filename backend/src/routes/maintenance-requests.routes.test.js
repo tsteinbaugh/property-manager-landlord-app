@@ -130,6 +130,28 @@ describe("maintenance requests routes", () => {
     expect(res.body.statusChanges[0].toStatus).toBe("OPEN");
   });
 
+  it("rejects creating a request against an archived property", async () => {
+    await prisma.property.update({ where: { id: property.id }, data: { archived: true } });
+
+    const res = await request(app).post("/api/maintenance-requests").send({
+      propertyId: property.id,
+      title: "Water coming out from under the sink",
+    });
+
+    expect(res.status).toBe(400);
+  });
+
+  it("excludes requests of archived properties from the cross-property list, but not a property-scoped one", async () => {
+    await request(app).post("/api/maintenance-requests").send({ propertyId: property.id, title: "Leaky faucet" });
+    await prisma.property.update({ where: { id: property.id }, data: { archived: true } });
+
+    const hubRes = await request(app).get("/api/maintenance-requests");
+    expect(hubRes.body).toEqual([]);
+
+    const scopedRes = await request(app).get("/api/maintenance-requests").query({ propertyId: property.id });
+    expect(scopedRes.body).toHaveLength(1);
+  });
+
   it("rejects a request missing required fields", async () => {
     const res = await request(app).post("/api/maintenance-requests").send({ propertyId: property.id });
 
@@ -307,7 +329,7 @@ describe("maintenance requests routes", () => {
     expect(res.status).toBe(400);
   });
 
-  it("deletes a request", async () => {
+  it("soft-deletes a request — the row (and its audit trail) survives, hidden from the default list", async () => {
     const created = await request(app).post("/api/maintenance-requests").send({
       propertyId: property.id,
       title: "Leak",
@@ -317,7 +339,42 @@ describe("maintenance requests routes", () => {
     expect(res.status).toBe(204);
 
     const check = await prisma.maintenanceRequest.findUnique({ where: { id: created.body.id } });
-    expect(check).toBeNull();
+    expect(check).not.toBeNull();
+    expect(check.deleted).toBe(true);
+
+    const statusChanges = await prisma.maintenanceStatusChange.findMany({
+      where: { maintenanceRequestId: created.body.id },
+    });
+    expect(statusChanges.length).toBeGreaterThan(0);
+
+    const listRes = await request(app).get("/api/maintenance-requests").query({ propertyId: property.id });
+    expect(listRes.body).toEqual([]);
+  });
+
+  it("lists deleted requests with ?deleted=true, restores via POST /:id/restore", async () => {
+    const created = await request(app).post("/api/maintenance-requests").send({
+      propertyId: property.id,
+      title: "Leak",
+    });
+    await request(app).delete(`/api/maintenance-requests/${created.body.id}`);
+
+    const deletedOnly = await request(app).get("/api/maintenance-requests").query({ propertyId: property.id, deleted: "true" });
+    expect(deletedOnly.body.map((r) => r.id)).toEqual([created.body.id]);
+
+    const restoreRes = await request(app).post(`/api/maintenance-requests/${created.body.id}/restore`);
+    expect(restoreRes.status).toBe(200);
+    expect(restoreRes.body.deleted).toBe(false);
+  });
+
+  it("?deleted=all finds a request even when its property is archived", async () => {
+    const created = await request(app).post("/api/maintenance-requests").send({ propertyId: property.id, title: "Leak" });
+    await prisma.property.update({ where: { id: property.id }, data: { archived: true } });
+
+    const hubRes = await request(app).get("/api/maintenance-requests");
+    expect(hubRes.body.map((r) => r.id)).not.toContain(created.body.id);
+
+    const allRes = await request(app).get("/api/maintenance-requests").query({ deleted: "all" });
+    expect(allRes.body.map((r) => r.id)).toContain(created.body.id);
   });
 
   it("records and updates notes", async () => {

@@ -78,11 +78,29 @@ function createTenantsRoutes({ r2 = defaultR2 } = {}) {
     if (!property || property.userId !== req.currentUser.id) {
       return res.status(400).json({ error: `Property ${propertyId} not found` });
     }
+    if (property.archived) {
+      return res.status(400).json({ error: "Property is archived — unarchive it before adding new records" });
+    }
+
+    // Optional "copy details from an existing tenant" link (e.g. Tim moves from one property
+    // you own to another) — a pointer for traceability only, not a live reference to copy
+    // fields from server-side; the frontend pre-fills the form itself before submitting.
+    // Deliberately not filtered by `deleted` — the whole point is being able to link back to
+    // a tenant even if their old record was itself soft-deleted.
+    let previousTenantId;
+    if (req.body.previousTenantId) {
+      const previousTenant = await prisma.tenant.findUnique({ where: { id: req.body.previousTenantId } });
+      if (!previousTenant || previousTenant.userId !== req.currentUser.id) {
+        return res.status(400).json({ error: `Tenant ${req.body.previousTenantId} not found` });
+      }
+      previousTenantId = previousTenant.id;
+    }
 
     const tenant = await prisma.tenant.create({
       data: {
         userId: req.currentUser.id,
         propertyId,
+        ...(previousTenantId ? { previousTenantId } : {}),
         ...pickAssignableFields(req.body),
       },
     });
@@ -91,12 +109,26 @@ function createTenantsRoutes({ r2 = defaultR2 } = {}) {
   });
 
   router.get("/", async (req, res) => {
-    const { propertyId } = req.query;
+    const { propertyId, deleted } = req.query;
 
+    // Cross-property hub view (no propertyId) hides tenants whose property is archived,
+    // same as the property itself is hidden from PropertiesPage — a live filter via the
+    // relation, not a stored flag, so unarchiving instantly restores visibility here too.
+    // A property-scoped request (propertyId given, e.g. from that property's own detail
+    // page) always shows its tenants regardless of archived status.
+    //
+    // `deleted` is a separate, independent flag from the property's own archived status —
+    // absent = active only (default), "true" = only soft-deleted ones (the "View deleted"
+    // digging view), "all" = both (used by the "copy from an existing tenant" picker, which
+    // needs to find someone regardless of status). "all" also bypasses the archived-property
+    // hide above — the whole point of that mode is finding a tenant no matter why they'd
+    // otherwise be hidden, which includes their property having been archived (e.g. Tim, at
+    // 123 Oak, after it's archived).
     const tenants = await prisma.tenant.findMany({
       where: {
         userId: req.currentUser.id,
-        ...(propertyId ? { propertyId } : {}),
+        ...(propertyId ? { propertyId } : deleted === "all" ? {} : { property: { archived: false } }),
+        ...(deleted === "all" ? {} : { deleted: deleted === "true" }),
       },
       orderBy: { createdAt: "desc" },
     });
@@ -105,8 +137,14 @@ function createTenantsRoutes({ r2 = defaultR2 } = {}) {
   });
 
   router.get("/:id", async (req, res) => {
-    const tenant = await findOwnedTenant(req.params.id, req.currentUser.id);
-    if (!tenant) {
+    const tenant = await prisma.tenant.findUnique({
+      where: { id: req.params.id },
+      include: {
+        previousTenant: { select: { id: true, firstName: true, lastName: true, propertyId: true, property: { select: { name: true, address1: true } } } },
+        nextTenants: { select: { id: true, firstName: true, lastName: true, propertyId: true, property: { select: { name: true, address1: true } } } },
+      },
+    });
+    if (!tenant || tenant.userId !== req.currentUser.id) {
       return res.status(404).json({ error: "Tenant not found" });
     }
 
@@ -142,9 +180,30 @@ function createTenantsRoutes({ r2 = defaultR2 } = {}) {
       return res.status(404).json({ error: "Tenant not found" });
     }
 
-    await prisma.tenant.delete({ where: { id: req.params.id } });
+    // Soft delete — hides the tenant from normal views but never destroys the row (memory
+    // project_property_archiving_not_delete: rental history shouldn't be destroyable by
+    // accident). Idempotent, matching standard DELETE semantics: calling it again on an
+    // already-deleted tenant just re-confirms 204.
+    await prisma.tenant.update({ where: { id: req.params.id }, data: { deleted: true, deletedAt: new Date() } });
 
     res.status(204).send();
+  });
+
+  router.post("/:id/restore", async (req, res) => {
+    const existing = await findOwnedTenant(req.params.id, req.currentUser.id);
+    if (!existing) {
+      return res.status(404).json({ error: "Tenant not found" });
+    }
+    if (!existing.deleted) {
+      return res.status(400).json({ error: "Tenant is not deleted" });
+    }
+
+    const tenant = await prisma.tenant.update({
+      where: { id: req.params.id },
+      data: { deleted: false, deletedAt: null },
+    });
+
+    res.json(tenant);
   });
 
   // Documents: credit report, background check, income verification, ID —

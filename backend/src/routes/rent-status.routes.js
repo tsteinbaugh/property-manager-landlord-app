@@ -11,8 +11,13 @@ const { buildRentTracker, summarizeRentStatus, RENT_TRACKER_CATEGORIES } = requi
 const router = express.Router();
 
 router.get("/", async (req, res) => {
+  // Archived properties drop out of the Dashboard entirely, same as everywhere else.
   const leases = await prisma.lease.findMany({
-    where: { userId: req.currentUser.id, status: { in: ["ACTIVE", "MONTH_TO_MONTH"] } },
+    where: {
+      userId: req.currentUser.id,
+      status: { in: ["ACTIVE", "MONTH_TO_MONTH"] },
+      property: { archived: false },
+    },
   });
 
   const results = await Promise.all(

@@ -124,6 +124,31 @@ describe("leases routes", () => {
     expect(res.body.leaseTenants).toEqual([]);
   });
 
+  it("rejects creating a lease against an archived property", async () => {
+    await prisma.property.update({ where: { id: property.id }, data: { archived: true } });
+
+    const res = await request(app).post("/api/leases").send({
+      propertyId: property.id,
+      startDate: "2026-09-01",
+      monthlyRent: "1800.00",
+    });
+
+    expect(res.status).toBe(400);
+  });
+
+  it("excludes leases of archived properties from the cross-property list, but not a property-scoped one", async () => {
+    await request(app)
+      .post("/api/leases")
+      .send({ propertyId: property.id, startDate: "2026-09-01", monthlyRent: "1800.00" });
+    await prisma.property.update({ where: { id: property.id }, data: { archived: true } });
+
+    const hubRes = await request(app).get("/api/leases");
+    expect(hubRes.body).toEqual([]);
+
+    const scopedRes = await request(app).get("/api/leases").query({ propertyId: property.id });
+    expect(scopedRes.body).toHaveLength(1);
+  });
+
   it("rejects a lease missing required fields", async () => {
     const res = await request(app).post("/api/leases").send({
       propertyId: property.id,
@@ -255,7 +280,7 @@ describe("leases routes", () => {
     expect(res.body.lateFeeGraceDays).toBe(5);
   });
 
-  it("deletes a lease", async () => {
+  it("soft-deletes a lease — the row survives, hidden from the default list", async () => {
     const lease = await prisma.lease.create({
       data: {
         propertyId: property.id,
@@ -269,8 +294,66 @@ describe("leases routes", () => {
     expect(res.status).toBe(204);
 
     const check = await prisma.lease.findUnique({ where: { id: lease.id } });
-    expect(check).toBeNull();
+    expect(check).not.toBeNull();
+    expect(check.deleted).toBe(true);
+    expect(check.deletedAt).toBeTruthy();
+
+    const listRes = await request(app).get("/api/leases").query({ propertyId: property.id });
+    expect(listRes.body).toEqual([]);
   });
+
+  it("lists deleted leases with ?deleted=true, and all with ?deleted=all", async () => {
+    const kept = await prisma.lease.create({
+      data: { propertyId: property.id, userId: property.userId, startDate: new Date("2026-09-01"), monthlyRent: "1800.00" },
+    });
+    const deleted = await prisma.lease.create({
+      data: { propertyId: property.id, userId: property.userId, startDate: new Date("2026-09-01"), monthlyRent: "1800.00" },
+    });
+    await request(app).delete(`/api/leases/${deleted.id}`);
+
+    const deletedOnly = await request(app).get("/api/leases").query({ propertyId: property.id, deleted: "true" });
+    expect(deletedOnly.body.map((l) => l.id)).toEqual([deleted.id]);
+
+    const all = await request(app).get("/api/leases").query({ propertyId: property.id, deleted: "all" });
+    expect(all.body.map((l) => l.id).sort()).toEqual([deleted.id, kept.id].sort());
+  });
+
+  it("?deleted=all finds a lease even when its property is archived", async () => {
+    const lease = await prisma.lease.create({
+      data: { propertyId: property.id, userId: property.userId, startDate: new Date("2026-09-01"), monthlyRent: "1800.00" },
+    });
+    await prisma.property.update({ where: { id: property.id }, data: { archived: true } });
+
+    const hubRes = await request(app).get("/api/leases");
+    expect(hubRes.body.map((l) => l.id)).not.toContain(lease.id);
+
+    const allRes = await request(app).get("/api/leases").query({ deleted: "all" });
+    expect(allRes.body.map((l) => l.id)).toContain(lease.id);
+  });
+
+  it("restores a deleted lease", async () => {
+    const lease = await prisma.lease.create({
+      data: { propertyId: property.id, userId: property.userId, startDate: new Date("2026-09-01"), monthlyRent: "1800.00" },
+    });
+    await request(app).delete(`/api/leases/${lease.id}`);
+
+    const res = await request(app).post(`/api/leases/${lease.id}/restore`);
+    expect(res.status).toBe(200);
+    expect(res.body.deleted).toBe(false);
+
+    const listRes = await request(app).get("/api/leases").query({ propertyId: property.id });
+    expect(listRes.body.map((l) => l.id)).toContain(lease.id);
+  });
+
+  it("rejects restoring a lease that isn't deleted", async () => {
+    const lease = await prisma.lease.create({
+      data: { propertyId: property.id, userId: property.userId, startDate: new Date("2026-09-01"), monthlyRent: "1800.00" },
+    });
+
+    const res = await request(app).post(`/api/leases/${lease.id}/restore`);
+    expect(res.status).toBe(400);
+  });
+
 
   describe("attaching and detaching tenants", () => {
     let lease;

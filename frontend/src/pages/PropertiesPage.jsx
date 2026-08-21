@@ -33,18 +33,24 @@ export default function PropertiesPage() {
   const [properties, setProperties] = useState([]);
   const [rentStatuses, setRentStatuses] = useState([]);
   const [entityFilter, setEntityFilter] = useState("");
+  // Archived properties are hidden by default (GET /api/properties already excludes them) —
+  // this is the "dig and view" toggle Taylor asked for, not a separate route/page.
+  const [showArchived, setShowArchived] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [formOpen, setFormOpen] = useState(false);
   const [form, setForm] = useState(EMPTY_FORM);
   const [submitting, setSubmitting] = useState(false);
 
-  async function loadAll(filterEntityId) {
+  async function loadAll(filterEntityId, archived) {
     setLoading(true);
     try {
+      const params = new URLSearchParams();
+      if (filterEntityId) params.set("entityId", filterEntityId);
+      if (archived) params.set("archived", "true");
       const [entityData, propertyData] = await Promise.all([
         api.get("/api/entities"),
-        api.get(`/api/properties${filterEntityId ? `?entityId=${filterEntityId}` : ""}`),
+        api.get(`/api/properties?${params.toString()}`),
       ]);
       setEntities(entityData);
       setProperties(propertyData);
@@ -57,9 +63,9 @@ export default function PropertiesPage() {
   }
 
   useEffect(() => {
-    loadAll(entityFilter);
+    loadAll(entityFilter, showArchived);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [entityFilter]);
+  }, [entityFilter, showArchived]);
 
   useEffect(() => {
     api
@@ -92,7 +98,7 @@ export default function PropertiesPage() {
       };
       await api.post("/api/properties", payload);
       setFormOpen(false);
-      await loadAll(entityFilter);
+      await loadAll(entityFilter, showArchived);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -121,36 +127,51 @@ export default function PropertiesPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl text-stone-900">Properties</h1>
-          <p className="text-sm text-stone-500">Every property is owned by one of your entities.</p>
+          <h1 className="text-2xl text-stone-900">{showArchived ? "Archived properties" : "Properties"}</h1>
+          <p className="text-sm text-stone-500">
+            {showArchived
+              ? "Locked and hidden from normal browsing — unarchive one to bring it back."
+              : "Every property is owned by one of your entities."}
+          </p>
         </div>
-        <button
-          onClick={openCreateForm}
-          className="rounded-lg bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-800"
-        >
-          Add property
-        </button>
+        {!showArchived && (
+          <button
+            onClick={openCreateForm}
+            className="rounded-lg bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-800"
+          >
+            Add property
+          </button>
+        )}
       </div>
 
       {error && (
         <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>
       )}
 
-      <label className="block max-w-xs text-sm">
-        <span className="mb-1 block font-medium text-stone-700">Filter by entity</span>
-        <select
-          value={entityFilter}
-          onChange={(e) => setEntityFilter(e.target.value)}
-          className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <label className="block max-w-xs text-sm">
+          <span className="mb-1 block font-medium text-stone-700">Filter by entity</span>
+          <select
+            value={entityFilter}
+            onChange={(e) => setEntityFilter(e.target.value)}
+            className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none"
+          >
+            <option value="">All entities</option>
+            {entities.map((entity) => (
+              <option key={entity.id} value={entity.id}>
+                {entity.legalName}
+              </option>
+            ))}
+          </select>
+        </label>
+        <button
+          type="button"
+          onClick={() => setShowArchived((v) => !v)}
+          className="text-sm font-medium text-stone-500 hover:text-stone-700 hover:underline"
         >
-          <option value="">All entities</option>
-          {entities.map((entity) => (
-            <option key={entity.id} value={entity.id}>
-              {entity.legalName}
-            </option>
-          ))}
-        </select>
-      </label>
+          {showArchived ? "← Back to active properties" : "View archived properties"}
+        </button>
+      </div>
 
       {formOpen && (
         <form onSubmit={handleSubmit} className="space-y-4 rounded-xl border border-stone-200 bg-white p-5 shadow-sm">
@@ -321,7 +342,7 @@ export default function PropertiesPage() {
         <p className="text-sm text-stone-500">Loading...</p>
       ) : properties.length === 0 ? (
         <p className="rounded-xl border border-dashed border-stone-300 bg-white p-6 text-sm text-stone-500">
-          No properties yet.
+          {showArchived ? "No archived properties." : "No properties yet."}
         </p>
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -333,7 +354,7 @@ export default function PropertiesPage() {
             >
               <div className="flex items-start justify-between gap-2">
                 <h3 className="font-medium text-stone-900">{property.name || property.address1}</h3>
-                {rentStatusFor(property.id) && rentStatusFor(property.id) !== "PAID" && (
+                {!showArchived && rentStatusFor(property.id) && rentStatusFor(property.id) !== "PAID" && (
                   <RentStatusPill status={rentStatusFor(property.id)} />
                 )}
               </div>
@@ -344,6 +365,12 @@ export default function PropertiesPage() {
                 {property.city}, {property.state} {property.zip}
               </p>
               <p className="text-xs text-stone-400">{entityName(property.entityId)}</p>
+              {showArchived && (
+                <p className="text-xs text-stone-500">
+                  Archived {property.archivedAt ? new Date(property.archivedAt).toLocaleDateString() : ""}
+                  {property.archivedReason ? ` — ${property.archivedReason}` : ""}
+                </p>
+              )}
             </Link>
           ))}
         </div>

@@ -91,6 +91,21 @@ model Property {
   city      String
   state     String // drives legal notice-period rules in v2
   zip       String
+
+  // Archiving (2026-08-21) — properties are never hard-deleted (memory
+  // project_property_archiving_not_delete). Archived + archivedAt mirrors the
+  // active/retiredAt pattern already used by Property Specs models, but named
+  // for what a landlord actually does to a property, not what happens to a
+  // spec item. archivedReason is free text (Taylor's own examples: "sold",
+  // "owner moved in") — purely informational, never read by code, so no
+  // fixed set (unlike forCauseEvictionExemption). Archiving is a live flag
+  // checked at query time everywhere it matters (property lists, cross-
+  // property Tenants/Leases/Maintenance pages, the Dashboard rollups) — not
+  // a snapshot, so unarchiving instantly restores visibility everywhere
+  // with no data to reconcile.
+  archived       Boolean   @default(false)
+  archivedAt     DateTime?
+  archivedReason String?
   yearBuilt Int? // drives lead-based-paint disclosure applicability (federal law: pre-1978 only); not auto-enforced, just surfaced as context
   // bedrooms/bathrooms double as the seed counts for Property Specs' By Room
   // placeholder rooms ("Bedroom 1".."Bedroom N", "Bathroom 1".."Bathroom N",
@@ -225,6 +240,22 @@ model Tenant {
   rentersInsuranceLandlordAdditionalInsured Boolean?
   rentersInsuranceCertificateOnFile         Boolean?
 
+  // Soft delete (2026-08-21) — Delete hides, never destroys, "who rented it" history
+  // (memory project_property_archiving_not_delete). Independent of the tenant's property
+  // being archived — either, both, or neither can be true. See leases/income/expense/
+  // maintenance-request/maintenance-schedule for the same pattern on those models.
+  deleted   Boolean   @default(false)
+  deletedAt DateTime?
+
+  // Tenant reassignment (2026-08-21) — when a tenant moves to a different property you own,
+  // a fresh Tenant row is created there (matching the existing "Tenant = applied to this
+  // specific property" rule) rather than moving this row's propertyId, but pre-filled from
+  // and linked back to the prior record so their history isn't re-typed from scratch or lost.
+  // Traceability only, like Clause.sourceTemplateId — not a live data source.
+  previousTenantId String?
+  previousTenant    Tenant?  @relation("TenantHistory", fields: [previousTenantId], references: [id], onDelete: SetNull)
+  nextTenants       Tenant[] @relation("TenantHistory")
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -307,6 +338,10 @@ model Lease {
   // go through a short-lived presigned URL generated on demand, never a
   // stored public URL.
   documentKey String?
+
+  // Soft delete (2026-08-21) — see Tenant.deleted for the full reasoning.
+  deleted   Boolean   @default(false)
+  deletedAt DateTime?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -540,6 +575,10 @@ model Income {
   // rows from before this field existed.
   appliesToPeriod DateTime?
 
+  // Soft delete (2026-08-21) — see Tenant.deleted for the full reasoning.
+  deleted   Boolean   @default(false)
+  deletedAt DateTime?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -651,6 +690,11 @@ model Expense {
   // it's only ever logged once money is actually received.
   paid       Boolean         @default(true)
   notes      String?
+
+  // Soft delete (2026-08-21) — see Tenant.deleted for the full reasoning.
+  deleted   Boolean   @default(false)
+  deletedAt DateTime?
+
   createdAt  DateTime        @default(now())
   updatedAt  DateTime        @updatedAt
 
@@ -804,6 +848,11 @@ model MaintenanceRequest {
   actualCost    Decimal?          @db.Decimal(10, 2)
   notes         String?
 
+  // Soft delete (2026-08-21) — see Tenant.deleted for the full reasoning. Also means the
+  // MaintenanceStatusChange audit trail below is never cascade-destroyed by a delete either.
+  deleted   Boolean   @default(false)
+  deletedAt DateTime?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -880,6 +929,11 @@ model MaintenanceSchedule {
   lastDoneDate DateTime?
   nextDueDate  DateTime?
   notes        String?
+
+  // Soft delete (2026-08-21) — see Tenant.deleted for the full reasoning. Also means the
+  // MaintenanceScheduleCompletion history below is never cascade-destroyed by a delete either.
+  deleted   Boolean   @default(false)
+  deletedAt DateTime?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

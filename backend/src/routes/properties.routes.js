@@ -105,11 +105,15 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  const { entityId } = req.query;
+  const { entityId, archived } = req.query;
 
+  // Archived properties are hidden by default everywhere a landlord normally browses —
+  // ?archived=true is the one explicit way to "dig and view" them (see PropertiesPage's
+  // "View archived" link). Not offering a combined "all" mode — nothing in the app needs it.
   const properties = await prisma.property.findMany({
     where: {
       userId: req.currentUser.id,
+      archived: archived === "true",
       ...(entityId ? { entityId } : {}),
     },
     orderBy: { createdAt: "desc" },
@@ -127,7 +131,15 @@ router.get("/:id", async (req, res) => {
     return res.status(404).json({ error: "Property not found" });
   }
 
-  res.json(property);
+  // Computed on read (same "don't store what you can derive" pattern as MaintenanceSchedule's
+  // `overdue`) — Taylor's call: Delete should only ever be offered as a live option on a
+  // genuinely empty property (a real mistake, nothing attached yet). The moment anything real
+  // is attached, Archive becomes the only removal-adjacent action; this just tells the
+  // frontend which state it's in so it can show/hide the Delete button accordingly. The
+  // DELETE endpoint's own dependent check below is unchanged and still the actual guard.
+  const dependentCount = await countPropertyDependents(req.params.id);
+
+  res.json({ ...property, canDelete: dependentCount === 0 });
 });
 
 router.put("/:id", async (req, res) => {
@@ -143,6 +155,12 @@ router.put("/:id", async (req, res) => {
   });
   if (!existing || existing.userId !== req.currentUser.id) {
     return res.status(404).json({ error: "Property not found" });
+  }
+
+  // Locked while archived — unarchive first to make changes. Archiving/unarchiving
+  // themselves go through the dedicated actions below, not this general-purpose edit route.
+  if (existing.archived) {
+    return res.status(400).json({ error: "Property is archived — unarchive it before making changes" });
   }
 
   const data = { name, address1, address2, city, state, zip, ...pickFields(req.body, ATTRIBUTE_FIELDS) };
@@ -162,7 +180,103 @@ router.put("/:id", async (req, res) => {
     data,
   });
 
-  res.json(property);
+  // Same computed canDelete as GET /:id — keeps the frontend's Delete-button visibility
+  // consistent after an edit, without a full page refetch.
+  const dependentCount = await countPropertyDependents(req.params.id);
+  res.json({ ...property, canDelete: dependentCount === 0 });
+});
+
+// Every direct Property relation, for the "does this property have anything attached"
+// check below. Keep in sync with schema.prisma's Property model relation list.
+async function countPropertyDependents(propertyId) {
+  const [
+    leases,
+    tenants,
+    incomes,
+    expenses,
+    deposits,
+    maintenanceRequests,
+    maintenanceSchedules,
+    paintSpecs,
+    flooringSpecs,
+    countertopSpecs,
+    fixtures,
+    appliances,
+    backsplashSpecs,
+    exteriorFeatures,
+  ] = await Promise.all([
+    prisma.lease.count({ where: { propertyId } }),
+    prisma.tenant.count({ where: { propertyId } }),
+    prisma.income.count({ where: { propertyId } }),
+    prisma.expense.count({ where: { propertyId } }),
+    prisma.deposit.count({ where: { propertyId } }),
+    prisma.maintenanceRequest.count({ where: { propertyId } }),
+    prisma.maintenanceSchedule.count({ where: { propertyId } }),
+    prisma.paintSpec.count({ where: { propertyId } }),
+    prisma.flooringSpec.count({ where: { propertyId } }),
+    prisma.countertopSpec.count({ where: { propertyId } }),
+    prisma.fixture.count({ where: { propertyId } }),
+    prisma.appliance.count({ where: { propertyId } }),
+    prisma.backsplashSpec.count({ where: { propertyId } }),
+    prisma.exteriorFeature.count({ where: { propertyId } }),
+  ]);
+
+  return (
+    leases +
+    tenants +
+    incomes +
+    expenses +
+    deposits +
+    maintenanceRequests +
+    maintenanceSchedules +
+    paintSpecs +
+    flooringSpecs +
+    countertopSpecs +
+    fixtures +
+    appliances +
+    backsplashSpecs +
+    exteriorFeatures
+  );
+}
+
+router.post("/:id/archive", async (req, res) => {
+  const existing = await prisma.property.findUnique({
+    where: { id: req.params.id },
+  });
+  if (!existing || existing.userId !== req.currentUser.id) {
+    return res.status(404).json({ error: "Property not found" });
+  }
+  if (existing.archived) {
+    return res.status(400).json({ error: "Property is already archived" });
+  }
+
+  const property = await prisma.property.update({
+    where: { id: req.params.id },
+    data: { archived: true, archivedAt: new Date(), archivedReason: req.body.reason || null },
+  });
+
+  const dependentCount = await countPropertyDependents(req.params.id);
+  res.json({ ...property, canDelete: dependentCount === 0 });
+});
+
+router.post("/:id/unarchive", async (req, res) => {
+  const existing = await prisma.property.findUnique({
+    where: { id: req.params.id },
+  });
+  if (!existing || existing.userId !== req.currentUser.id) {
+    return res.status(404).json({ error: "Property not found" });
+  }
+  if (!existing.archived) {
+    return res.status(400).json({ error: "Property is not archived" });
+  }
+
+  const property = await prisma.property.update({
+    where: { id: req.params.id },
+    data: { archived: false, archivedAt: null, archivedReason: null },
+  });
+
+  const dependentCount = await countPropertyDependents(req.params.id);
+  res.json({ ...property, canDelete: dependentCount === 0 });
 });
 
 router.delete("/:id", async (req, res) => {
@@ -171,6 +285,18 @@ router.delete("/:id", async (req, res) => {
   });
   if (!existing || existing.userId !== req.currentUser.id) {
     return res.status(404).json({ error: "Property not found" });
+  }
+
+  // Properties are never hard-deleted once anything real is attached — archive instead
+  // (memory project_property_archiving_not_delete). Checked proactively rather than
+  // letting the FK constraint reject it, so the landlord gets a clear message instead of
+  // a raw Prisma error. Delete stays available for cleaning up a genuinely empty property
+  // (e.g. created by mistake).
+  const dependentCount = await countPropertyDependents(req.params.id);
+  if (dependentCount > 0) {
+    return res.status(400).json({
+      error: "This property has records attached and can't be deleted. Archive it instead to hide it and lock it from further changes.",
+    });
   }
 
   await prisma.property.delete({ where: { id: req.params.id } });

@@ -76,6 +76,9 @@ function createPropertySpecRoutes({
     if (!property) {
       return res.status(400).json({ error: `Property ${propertyId} not found` });
     }
+    if (property.archived) {
+      return res.status(400).json({ error: "Property is archived — unarchive it before adding new records" });
+    }
 
     if (validateExtra) {
       const extraError = await validateExtra(req.body, req.currentUser.id, propertyId);

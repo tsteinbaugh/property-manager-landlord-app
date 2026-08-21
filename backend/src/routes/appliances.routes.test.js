@@ -104,6 +104,14 @@ describe("appliances routes", () => {
     expect(res.body.warrantyExpiringSoon).toBe(false);
   });
 
+  it("rejects creating an appliance against an archived property — shared behavior across all 7 Property Specs categories via createPropertySpecRoutes.js", async () => {
+    await prisma.property.update({ where: { id: property.id }, data: { archived: true } });
+
+    const res = await request(app).post("/api/appliances").send({ propertyId: property.id, make: "Carrier" });
+
+    expect(res.status).toBe(400);
+  });
+
   it("flags a warranty expiring within 90 days", async () => {
     const res = await request(app).post("/api/appliances").send({
       propertyId: property.id,
@@ -199,6 +207,17 @@ describe("appliances routes", () => {
 
   it("deletes an appliance", async () => {
     const created = await request(app).post("/api/appliances").send({ propertyId: property.id, make: "Carrier" });
+
+    const res = await request(app).delete(`/api/appliances/${created.body.id}`);
+    expect(res.status).toBe(204);
+
+    const check = await prisma.appliance.findUnique({ where: { id: created.body.id } });
+    expect(check).toBeNull();
+  });
+
+  it("still allows deleting an appliance on an archived property — Property Specs use hard-delete plus their own retire/replace lifecycle, not the soft-delete used by Tenant/Lease/Income/Expense/Maintenance", async () => {
+    const created = await request(app).post("/api/appliances").send({ propertyId: property.id, make: "Carrier" });
+    await prisma.property.update({ where: { id: property.id }, data: { archived: true } });
 
     const res = await request(app).delete(`/api/appliances/${created.body.id}`);
     expect(res.status).toBe(204);
