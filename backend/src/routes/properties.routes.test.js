@@ -244,6 +244,62 @@ describe("properties routes", () => {
     expect(res.body.acceptsSection8).toBe(false);
   });
 
+  it("defaults forCauseEvictionExemption to STANDARD_LONG_TERM when not specified", async () => {
+    const res = await request(app).post("/api/properties").send({
+      entityId: entity.id,
+      address1: "123 Maple St",
+      city: "Frederick",
+      state: "CO",
+      zip: "80530",
+    });
+
+    expect(res.status).toBe(201);
+    expect(res.body.forCauseEvictionExemption).toBe("STANDARD_LONG_TERM");
+  });
+
+  it("accepts a valid forCauseEvictionExemption value on create and update", async () => {
+    const createRes = await request(app).post("/api/properties").send({
+      entityId: entity.id,
+      address1: "123 Maple St",
+      city: "Frederick",
+      state: "CO",
+      zip: "80530",
+      forCauseEvictionExemption: "SHORT_TERM_RENTAL",
+    });
+    expect(createRes.status).toBe(201);
+    expect(createRes.body.forCauseEvictionExemption).toBe("SHORT_TERM_RENTAL");
+
+    const updateRes = await request(app)
+      .put(`/api/properties/${createRes.body.id}`)
+      .send({ forCauseEvictionExemption: "OWNER_OCCUPIED_OR_ADJACENT" });
+    expect(updateRes.status).toBe(200);
+    expect(updateRes.body.forCauseEvictionExemption).toBe("OWNER_OCCUPIED_OR_ADJACENT");
+  });
+
+  it("rejects an invalid forCauseEvictionExemption value on create and update", async () => {
+    const createRes = await request(app).post("/api/properties").send({
+      entityId: entity.id,
+      address1: "123 Maple St",
+      city: "Frederick",
+      state: "CO",
+      zip: "80530",
+      forCauseEvictionExemption: "NOT_A_REAL_VALUE",
+    });
+    expect(createRes.status).toBe(400);
+
+    const goodRes = await request(app).post("/api/properties").send({
+      entityId: entity.id,
+      address1: "123 Maple St",
+      city: "Frederick",
+      state: "CO",
+      zip: "80530",
+    });
+    const updateRes = await request(app)
+      .put(`/api/properties/${goodRes.body.id}`)
+      .send({ forCauseEvictionExemption: "NOT_A_REAL_VALUE" });
+    expect(updateRes.status).toBe(400);
+  });
+
   it("rejects a property missing required fields", async () => {
     const res = await request(app).post("/api/properties").send({
       entityId: entity.id,

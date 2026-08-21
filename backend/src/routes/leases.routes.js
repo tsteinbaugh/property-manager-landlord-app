@@ -8,6 +8,7 @@ const { isValidGroup } = require("../lib/clauseGroups");
 const { CLAUSE_TEMPLATES } = require("../lib/clauseTemplates");
 const { buildVariableContext, substituteVariables } = require("../lib/clauseVariables");
 const { orderAndLabelClauses } = require("../lib/leaseClauseOrdering");
+const { isWrongForCauseVariant } = require("../lib/forCauseEvictionVariant");
 const {
   buildRentTracker,
   suggestPaymentAllocation,
@@ -558,7 +559,13 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
         .map((c) => ({ sourceClauseId: c.id, title: c.title, bodyText: c.bodyText, group: c.group })),
       ...defaultTemplateLinks
         .map((link) => CLAUSE_TEMPLATES.find((t) => t.id === link.templateId))
-        .filter((t) => t && !alreadyAttachedTemplateIds.has(t.id) && appliesToThisLease(t.states))
+        .filter(
+          (t) =>
+            t &&
+            !alreadyAttachedTemplateIds.has(t.id) &&
+            appliesToThisLease(t.states) &&
+            !isWrongForCauseVariant(t.id, lease.property?.forCauseEvictionExemption),
+        )
         .map((t) => ({ sourceTemplateId: t.id, title: t.title, bodyText: t.bodyText, group: t.group })),
     ];
 

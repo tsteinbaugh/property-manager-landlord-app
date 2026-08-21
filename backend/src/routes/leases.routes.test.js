@@ -1050,6 +1050,38 @@ describe("leases routes", () => {
 
       expect(res.body.leaseClauses.map((c) => c.title)).toContain("Multi-State Default");
     });
+
+    it("only auto-attaches the month-to-month notice variant matching the property's for-cause-eviction exemption", async () => {
+      await prisma.property.update({ where: { id: property.id }, data: { forCauseEvictionExemption: "OWNER_OCCUPIED_OR_ADJACENT" } });
+      await prisma.defaultClauseTemplate.create({
+        data: { userId: property.userId, templateId: "month-to-month-notice-co-exempt" },
+      });
+      await prisma.defaultClauseTemplate.create({
+        data: { userId: property.userId, templateId: "month-to-month-notice-co-covered" },
+      });
+
+      const res = await request(app).post(`/api/leases/${lease.id}/clauses/add-defaults`);
+
+      const titles = res.body.leaseClauses.map((c) => c.title);
+      expect(titles).toContain("Month-to-Month Termination Notice (Property Exempt from For-Cause Requirements)");
+      expect(titles).not.toContain("Month-to-Month Termination Notice (Subject to For-Cause Requirements)");
+    });
+
+    it("auto-attaches the covered variant for a standard long-term rental (the default)", async () => {
+      // property.forCauseEvictionExemption already defaults to STANDARD_LONG_TERM
+      await prisma.defaultClauseTemplate.create({
+        data: { userId: property.userId, templateId: "month-to-month-notice-co-exempt" },
+      });
+      await prisma.defaultClauseTemplate.create({
+        data: { userId: property.userId, templateId: "month-to-month-notice-co-covered" },
+      });
+
+      const res = await request(app).post(`/api/leases/${lease.id}/clauses/add-defaults`);
+
+      const titles = res.body.leaseClauses.map((c) => c.title);
+      expect(titles).toContain("Month-to-Month Termination Notice (Subject to For-Cause Requirements)");
+      expect(titles).not.toContain("Month-to-Month Termination Notice (Property Exempt from For-Cause Requirements)");
+    });
   });
 
   describe("generating a lease document", () => {

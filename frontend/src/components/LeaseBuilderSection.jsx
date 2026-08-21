@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
 import SearchableSelect from "./SearchableSelect";
 import LeaseAttachmentsPanel from "./LeaseAttachmentsPanel";
+import { isWrongForCauseVariant } from "../lib/forCauseEvictionVariant";
 
 const EMPTY_CLAUSE_FORM = { title: "", bodyText: "", group: "" };
 const ALL_STATES = "ALL";
@@ -64,6 +65,12 @@ export default function LeaseBuilderSection({ lease, onChange }) {
   const supersededTemplateIds =
     stateFilter === ALL_STATES ? new Set() : new Set(matchingTemplates.filter((t) => t.supersedes).map((t) => t.supersedes));
 
+  // Two CO clause templates (month-to-month-notice-co-exempt / -covered) cover mutually
+  // exclusive legal situations for the same property fact — which one applies is a property
+  // attribute (forCauseEvictionExemption), not a landlord judgment call, so hide whichever one
+  // doesn't match this lease's property rather than making the landlord pick correctly by hand.
+  const forCauseExemption = lease.property?.forCauseEvictionExemption;
+
   const pickerOptions = [
     ...library
       .filter((c) => !attachedClauseIds.has(c.id) && matchesStateFilter(c))
@@ -72,7 +79,12 @@ export default function LeaseBuilderSection({ lease, onChange }) {
         label: `${c.title} — ${c.group}${c.states?.length ? ` [${c.states.join(", ")}]` : ""}`,
       })),
     ...matchingTemplates
-      .filter((t) => !attachedTemplateIds.has(t.id) && !supersededTemplateIds.has(t.id))
+      .filter(
+        (t) =>
+          !attachedTemplateIds.has(t.id) &&
+          !supersededTemplateIds.has(t.id) &&
+          !isWrongForCauseVariant(t.id, forCauseExemption),
+      )
       .map((t) => ({
         value: encodeOption("template", t.id),
         label: `${t.title} — ${t.group}${t.states?.length ? ` [${t.states.join(", ")}]` : ""} (Provided)`,

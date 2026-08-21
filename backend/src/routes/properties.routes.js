@@ -42,14 +42,34 @@ const ATTRIBUTE_FIELDS = [
   "internetContact",
   "mortgageCompany",
   "mortgageContact",
+  // For-cause-eviction exemption (2026-08-21) — the one attribute field that's a fixed set,
+  // not free text (see the schema comment): the Lease Builder reads it to auto-select between
+  // month-to-month-notice-co-exempt and month-to-month-notice-co-covered.
+  "forCauseEvictionExemption",
 ];
+
+// Kept in sync by hand with the three options presented in
+// frontend/src/pages/PropertyDetailPage.jsx's exemption-status field — see
+// lease-clause-decision-log-CO.md §8a Part 13 for the underlying statute
+// (C.R.S. § 38-12-1302) these three categories come from.
+const FOR_CAUSE_EVICTION_EXEMPTION_VALUES = ["OWNER_OCCUPIED_OR_ADJACENT", "SHORT_TERM_RENTAL", "STANDARD_LONG_TERM"];
+
+function validateForCauseEvictionExemption(body) {
+  if (
+    body.forCauseEvictionExemption !== undefined &&
+    !FOR_CAUSE_EVICTION_EXEMPTION_VALUES.includes(body.forCauseEvictionExemption)
+  ) {
+    return `forCauseEvictionExemption must be one of: ${FOR_CAUSE_EVICTION_EXEMPTION_VALUES.join(", ")}`;
+  }
+  return null;
+}
 
 function validatePropertyBody(body) {
   const missing = REQUIRED_FIELDS.filter((field) => !body[field]);
   if (missing.length > 0) {
     return `Missing required field(s): ${missing.join(", ")}`;
   }
-  return null;
+  return validateForCauseEvictionExemption(body);
 }
 
 const router = express.Router();
@@ -111,6 +131,11 @@ router.get("/:id", async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
+  const exemptionError = validateForCauseEvictionExemption(req.body);
+  if (exemptionError) {
+    return res.status(400).json({ error: exemptionError });
+  }
+
   const { entityId, name, address1, address2, city, state, zip } = req.body;
 
   const existing = await prisma.property.findUnique({

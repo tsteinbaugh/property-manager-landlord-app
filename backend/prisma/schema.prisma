@@ -126,6 +126,17 @@ model Property {
   // not duplicated alongside it.
   insuranceNotes          String?
 
+  // For-cause-eviction exemption status (2026-08-21), surfaced by the CO clause-library
+  // verification pass — see lease-clause-decision-log-CO.md §8a Part 13. Unlike every other
+  // field on this model, this is deliberately a fixed set validated in properties.routes.js
+  // (see FOR_CAUSE_EVICTION_EXEMPTION_VALUES there), not free text — it drives real code (the
+  // Lease Builder auto-selects month-to-month-notice-co-exempt vs.
+  // month-to-month-notice-co-covered based on this value), so a landlord typo can't silently
+  // break that selection the way it could a display-only field. Defaults to STANDARD_LONG_TERM
+  // (the "neither" / not-exempt case) — the safer default, since it never asserts an exemption
+  // right the landlord may not actually have.
+  forCauseEvictionExemption String @default("STANDARD_LONG_TERM")
+
   // Utilities (2026-08-20 follow-up) — each split into provider name + a contact/account
   // field, replacing the earlier single freeform `utilityProviders` blob. Telephone/cable
   // deliberately excluded — Taylor's call: those are tenant-chosen with multiple carrier

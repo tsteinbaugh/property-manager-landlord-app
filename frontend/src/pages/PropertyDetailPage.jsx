@@ -6,6 +6,7 @@ import LeaseSection from "../components/LeaseSection";
 import FinancesSnapshotCard from "../components/FinancesSnapshotCard";
 import MaintenanceSnapshotCard from "../components/MaintenanceSnapshotCard";
 import BackLink from "../components/BackLink";
+import { FOR_CAUSE_EVICTION_EXEMPTION_OPTIONS } from "../lib/forCauseEvictionVariant";
 
 // amenities is edited as a comma-separated text field, same convention as
 // ClauseLibraryPage's `states` field and PropertiesPage's create form.
@@ -103,13 +104,24 @@ function PropertyDetailFacts({ property }) {
     label,
     utilityLine(property, providerKey, contactKey),
   ]).filter(([, line]) => line);
-  if (facts.length === 0 && utilities.length === 0 && !property.acceptsSection8) return null;
+  // Only surfaced when it's the exceptional case, same instinct as acceptsSection8 below —
+  // STANDARD_LONG_TERM is the default/expected value for most properties, not worth a line.
+  const exemptionLabel = FOR_CAUSE_EVICTION_EXEMPTION_OPTIONS.find(
+    (opt) => opt.value === property.forCauseEvictionExemption,
+  );
+  const showExemptionFact = exemptionLabel && property.forCauseEvictionExemption !== "STANDARD_LONG_TERM";
+  if (facts.length === 0 && utilities.length === 0 && !property.acceptsSection8 && !showExemptionFact) return null;
 
   return (
     <div className="mt-3 grid grid-cols-1 gap-x-6 gap-y-1 border-t border-stone-100 pt-3 text-sm sm:grid-cols-2">
       {property.acceptsSection8 && (
         <p className="text-stone-600 sm:col-span-2">
           <span className="font-medium text-stone-700">Accepts Section 8</span>
+        </p>
+      )}
+      {showExemptionFact && (
+        <p className="text-stone-600 sm:col-span-2">
+          <span className="font-medium text-stone-700">For-cause eviction status:</span> {exemptionLabel.label}
         </p>
       )}
       {facts.map(([key, label]) => (
@@ -464,6 +476,28 @@ export default function PropertyDetailPage() {
                   value={form.insuranceNotes}
                   onChange={(v) => setForm({ ...form, insuranceNotes: v })}
                 />
+                <div>
+                  <p className="mb-2 text-sm font-medium text-stone-700">Colorado for-cause eviction status</p>
+                  <p className="mb-2 text-xs text-stone-500">
+                    Determines which month-to-month termination-notice clause the Lease Builder offers for this property —
+                    see C.R.S. § 38-12-1302.
+                  </p>
+                  <div className="space-y-2">
+                    {FOR_CAUSE_EVICTION_EXEMPTION_OPTIONS.map((opt) => (
+                      <label key={opt.value} className="flex items-start gap-2 text-sm">
+                        <input
+                          type="radio"
+                          name="forCauseEvictionExemption"
+                          value={opt.value}
+                          checked={(form.forCauseEvictionExemption || "STANDARD_LONG_TERM") === opt.value}
+                          onChange={(e) => setForm({ ...form, forCauseEvictionExemption: e.target.value })}
+                          className="mt-0.5 h-4 w-4 border-stone-300"
+                        />
+                        <span className="text-stone-600">{opt.label}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
 
