@@ -233,3 +233,53 @@ Lower priority, but technically also unconfirmed: `edu-pet-caps-co`, `edu-carpet
 
 - **`security-deposit-use` (generic "what can the deposit be applied to" clause) vs. `security-deposit-return-wy`** (the WY-specific clause drafted in session 2, which already folds deposit-application language into its own text): extending the generic `security-deposit-use` to WY as well could create redundant/overlapping deposit language on the same lease. Not extended pending a decision on whether to split `security-deposit-return-wy` into two clauses (matching the CO pattern of separate "use" and "return" clauses) or leave it combined.
 - **`assistance-animal-accommodation` vs. `assistance-animal-accommodation-co`**: these appear to be a near-duplicate pair already existing in the CO-only portion of the library, predating this Wyoming work — worth a look independent of the Wyoming pass, not something decided here.
+
+- ## Decision Log Addendum: Wyoming (State #2) — Session 6, Closing Remaining Open Items
+
+**Date:** 2026-08-24 (conducted from within the Nebraska/cross-state conversation, applied directly to the shared CSV)
+**Prior status:** Closed 2026-08-21 per §13 of the main WY log, with known open items — see that file's §11 backlog notes, §12 flagged-for-Taylor items, and the consolidated named-topic checklist's "Not yet checked" rows for WY.
+
+This addendum resolves the specific items that were still open when Wyoming was last worked, prompted by a direct question about whether all four states (CO, WY, KS, NE) were actually complete.
+
+---
+
+### Correction to a claim made earlier in the cross-state conversation
+
+Before starting this session's work, `security-deposit-use` was incorrectly described (in conversation, not in any file) as a "genuine gap" for Wyoming — the claim was that WY has no clause governing what the deposit can be applied to. **This was wrong.** The main WY log's own §12 already documents why: `security-deposit-return-wy` (drafted in an earlier WY session) already folds deposit-application language into itself — "Landlord may apply the deposit to accrued rent, damage to the property beyond reasonable wear and tear, the cost to clean the property..." — combining "use" and "return" into one clause rather than following the CO pattern of two separate clauses. Confirmed by re-reading the actual clause text. Extending the separate generic `security-deposit-use` clause to WY on top of this would create redundant, overlapping deposit language on the same lease. No fix needed — this was a deliberate architectural choice, correctly left as-is, and the earlier conversational claim is retracted here.
+
+---
+
+### 1. Wyoming's exculpation/liability-limitation posture — checked directly, confirmed absent
+
+Prompted by the pattern found for Kansas and Nebraska (both have statutes banning categories of lease provisions, including landlord liability disclaimers, that several `CO;WY;KS;NE`-tagged clauses were found to violate) and by the Colorado scare (a secondary source falsely claiming a similar CO rule), Wyoming's own posture was checked directly rather than assumed.
+
+**Confirmed absent.** All 11 sections of Article 12 (W.S. 1-21-1201–1211) were already read directly from primary source during Wyoming's original session 3 (documented in the main log's §3 table) — no "prohibited lease provisions" section exists anywhere in it, unlike Colorado's §38-12-801, Kansas's §58-2547, or Nebraska's §76-1415. This means the liability-disclaimer exposure found in `tenants-property-insurance`, `services-utilities-provided`, `parking`, `storage-space`, and `pet-policy` for Kansas and Nebraska genuinely doesn't apply to Wyoming — the generic, `CO;WY`-tagged versions of these clauses are safe to keep as-is. Logged as `edu-no-prohibited-lease-provisions-statute-wy`.
+
+### 2. Three named-topic canvass items, previously "not yet checked" — all resolved
+
+- **Immigration-status inquiry prohibition** — confirmed absent. Multiple independent Wyoming landlord-tenant overviews consistently describe protected classes as federal-only with no state additions; none mention immigration status. Logged as `edu-no-immigrant-tenant-protection-wy`. Closes this checklist item for all four states now (CO: present/standing rule; WY, KS, NE: confirmed absent).
+- **Right to call police / emergency services (non-waivable)** — confirmed absent at the state level. Same weaker-evidence caveat as the equivalent KS/NE findings (absence-of-mention across general overviews, not an explicit "no such law" statement). Logged as `edu-no-right-to-call-police-statute-wy`. Closes this item across all four states.
+- **Rental application / tenant-screening fairness act** — confirmed absent with reasonable confidence. Landlord Studio's Wyoming guide explicitly states "despite there being no statute" regarding application fees — an affirmative statement, not mere silence. Logged as `edu-no-tenant-screening-fairness-act-wy`.
+
+### 3. A genuine new finding: returned-check fee cap
+
+Wyoming caps the fee a landlord can collect for a dishonored check at $30, on top of face value, after written demand (Wyo. Stat. §1-1-115(b)). Confirmed via 7+ independent sources all citing the same statute, one quoting the operative language directly. This is a real, correctly-attributed general bad-check statute — a materially stronger evidence base than the similarly-shaped but *incorrect* $15 figure rejected during the Nebraska liability audit (that one turned out to govern payday-loan licensees only, a different statute entirely). `returned-payments` doesn't hardcode a dollar figure, so no clause conflict exists — this is pure landlord-facing awareness. Logged as `edu-returned-check-fee-cap-wy`.
+
+### 4. Gap-discovery source #2 — attempted redo, judgment call not to force it
+
+The Wyoming Association of Realtors has real lease forms, but — same pattern as Nebraska — they're not publicly accessible (ezLandlordForms' own page notes "these can't be customized to your property," consistent with a member/association-restricted product). Checked ILRG/PublicLegal, the same publisher whose Nebraska lease proved valuable (attorney-reviewed, statutory citations woven throughout). **Wyoming's version is materially thinner** — the public preview shows generic fill-in-the-blank contract boilerplate with a bracketed placeholder note ("[Landlord should note above any disclosures... under Federal or Wyoming law...]") rather than the kind of state-specific statutory citation density the Nebraska document had.
+
+**Judgment call: not purchasing/reading the full ILRG Wyoming document.** Given the preview shows no meaningful state-specific substance beyond what a template-mill site would offer, and given Wyoming's law is already unusually thoroughly primary-source-verified (full statute reads of both Article 12 and the Safe Homes Act, plus an already-completed whole-library audit), a weak product isn't likely to surface much a careful statute read hasn't already caught — different from Nebraska's case, where the real product actually caught a genuine miss in this project's own prior work. Gap-discovery source #2 for Wyoming remains weaker in kind than Kansas's or Nebraska's, but this reflects Wyoming's genuinely thin professional-forms market, not unwillingness to look. Worth revisiting only if a better Wyoming-specific product surfaces later.
+
+### 5. Items intentionally left open, not part of this session's scope
+
+- **HB25-1249-style Colorado deposit-reform items** (`edu-pet-caps-co`, `edu-carpet-damage-co`, `edu-bad-faith-deposit-co`, `edu-wear-tear-void-co`, `edu-walkthrough-co`) — still unconfirmed for Wyoming, lower priority per the main log's own §11 backlog notes.
+- **`edu-fee-shifting-co`'s attorney-fee-mutuality question** — a different Colorado statute than the Honest Pricing Act items it was originally bundled with, still genuinely unresolved for Wyoming.
+- **Municipal-ordinance complexity** — never checked for Wyoming, not flagged as a known issue the way Denver/Boulder was for CO, consistent with the original scope-boundary warning at the top of the main WY log.
+- **Re-verification cadence** — still not set for Wyoming specifically (Wyoming's legislative session timing differs from Colorado's).
+
+---
+
+**CSV changes this session:** 5 new `LANDLORD_EDUCATION` rows (`edu-no-prohibited-lease-provisions-statute-wy`, `edu-no-immigrant-tenant-protection-wy`, `edu-no-right-to-call-police-statute-wy`, `edu-no-tenant-screening-fairness-act-wy`, `edu-returned-check-fee-cap-wy`), all `VERIFIED`. No lease-clause changes needed — every finding this session was a confirmed absence or a general-awareness item, nothing required a new or modified `LEASE_CLAUSE`. Running total: 298 rows in the library, 94 WY-tagged.
+
+**Wyoming status after this session:** the three previously-open named-topic canvass items are closed, the exculpation-ban question raised by the KS/NE liability audit is resolved (confirmed absent, no exposure), and one genuine new finding (returned-check fee cap) is added. Gap-discovery source #2 remains structurally weaker than Kansas's or Nebraska's, by judgment call rather than lack of effort — the professional forms market for Wyoming just doesn't offer an equivalent product. Remaining open items (HB25-1249-analog checks, the fee-shifting-mutuality question, municipal complexity, re-verification cadence) are lower-priority backlog, not blocking items.
