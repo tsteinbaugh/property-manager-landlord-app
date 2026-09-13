@@ -96,6 +96,33 @@ Colorado's legislative session runs roughly January–May; most non-emergency la
 
 ---
 
+### 5a. Cross-cutting process rules — added 2026-08-27
+
+Two rules that apply to every state, added after the Colorado re-audit surfaced both as real gaps. Placed here, in the methodology, rather than in a state's findings — both were previously buried as one-off observations inside CO-specific sections (§18 and §17 respectively) where a new state's pass would never encounter them.
+
+#### 5a.1 Shared-clause edits must propagate to every tagged state
+
+**The problem this solves.** During the CO re-audit, `lead-based-paint` was materially corrected — 40 CFR 745.113(b)(1) requires the Lead Warning Statement verbatim and our text paraphrased it. That clause is tagged **CO;WY;KS;NE;MN**. A single state's audit silently changed the operative lease text for four other states, whose decision logs still describe the old wording and whose `last_checked` dates still assert a verification that no longer matches the clause. Nothing in the process caught this; it was noticed by hand. As the state count grows, shared clauses accumulate tags and this failure mode compounds — a correction made during State 12's pass can quietly rewrite States 1–11.
+
+**The rule.** Any edit to the `bodyText`, `rule_type`, or `content_type` of a clause tagged with **more than one state** triggers all of the following, in the same session as the edit:
+1. A written note in **every** tagged state's decision log recording what changed, why, and which state's work prompted it.
+2. `last_checked` reset to the edit date for the clause — it is no longer verified as of any earlier date for any state.
+3. An explicit judgment, recorded, on whether the change is **uniform** (federal law, or generic contract mechanics — benefits all tagged states equally) or **state-driven** (one state's law forced it, in which case the other states may need a state-specific override instead of inheriting the edited text).
+
+That third step matters most. A federal fix like the lead-paint correction is safe to propagate. A change driven by one state's statute is **not** — inheriting it silently is how a clause becomes wrong for four states in order to be right for one.
+
+**Programmatic check to run before any commit:** list every clause where `states` contains more than one state and `last_checked` post-dates the earliest tagged state's completion date. Each hit needs a log note in the lagging states or an explanation of why none is required.
+
+#### 5a.2 Ask for primary statutory text early, not after two failed rounds
+
+**The evidence.** Twice on Colorado, search returned conflicting or incomplete secondary summaries and the item sat at NEEDS_REVIEW across multiple sessions. Both times, Taylor pasting the actual statutory text resolved it immediately — and in the case of C.R.S. 38-12-503, the primary text turned up substantially more than the original question: a materially wrong request-trigger in `edu-alt-housing-co`, an invented duty in `habitability-timeline-co`, a drafting trap in shipped tenant-facing text, an opt-in landlord right we were forfeiting, and a fifth non-waiver standing rule. None of that was reachable from summaries.
+
+**The rule.** When a specific statutory section is identified as controlling and two search attempts have not produced its actual text — or have produced conflicting versions of it — **ask Taylor to paste the section directly** rather than continuing to search or shipping the item at NEEDS_REVIEW. Do not treat a third and fourth search as the cheaper option; the evidence says it isn't.
+
+**Corollary:** an item may not be marked VERIFIED on the strength of secondary summaries alone where the specific controlling section was identified but never actually read. Marking it NEEDS_REVIEW and moving on is acceptable; marking it VERIFIED is not. (See §17's finding on `nsf-fee-limit-co`, which was shipped VERIFIED with an unresolved citation ambiguity recorded in its own notes.)
+
+---
+
 ### 6. Gap discovery: three independent sources, not one
 
 A single checklist (even a good one) can't be trusted alone — "it's hard to know what you don't know." Triangulate:
@@ -721,6 +748,551 @@ None of these are lease clauses. They're background knowledge, compliance guardr
 
 ---
 
-### 16. Explicitly out of scope for this workstream
+### 17. Re-audit of Colorado under higher research settings — 2026-08-27
+
+**Why:** the entire original CO pass was run on default settings (Sonnet, medium effort, plain web search). That produced a consistent failure pattern — working from search-result snippets rather than reading primary authority end to end — which surfaced repeatedly as confidently-wrong secondary sources (the "HB25-1249 cut the deposit cap to one month" claim, the "walkthrough bars later damage claims" claim, the meth-disclosure statute that actually governs sales, the "unpaid pet rent = eviction grounds" claim) and as material law found only incidentally (voucher acceptance in Title 24, Honest Pricing in Title 6, assistance-animal criminal statutes in Title 18). Re-run under Opus/high/research as an audit, treating the existing log and CSV as a **preliminary research record, not authoritative conclusions**.
+
+**Scope:** Colorado state law only. Municipal deferred by decision (unchanged). Federal deferred by decision, with a deliberate exception: a spot-check of the three federal-derived items already live and CO-tagged in production (lead paint, FHA assistance animals, SCRA) — reasoning that deferring those means sitting on a live error for however long the remaining 49 states take, which is a different risk profile from "we haven't swept federal yet."
+
+**Overall audit status: CONFIRMED WITH MODIFICATIONS.** The original record got the statutory architecture, the major 2023–2025 legislation, and most figures right. Failures clustered narrowly: numeric values copied from secondary sources, and one miscited statute.
+
+#### Material corrections applied to the CSV (v38 → v39)
+
+**1. Carpet damage lookback — 5 years → 10 years.** `edu-carpet-damage-co`
+- *Original:* carpet cannot be deemed substantially/irreparably damaged unless not replaced within the preceding **5 years**.
+- *New:* the period is **10 years**, and retention is limited to the minimum necessary to replace carpet or repaint **in the damaged area only** (C.R.S. 38-12-104).
+- *Reason:* the 5-year figure appears in the reengrossed/rerevised drafts of HB25-1249; the **enrolled** text raised it to 10. Prior research froze on a superseded draft.
+- *Authority:* HB25-1249 enrolled text; C.R.S. 38-12-103, -104 as amended, eff. 2026-01-01.
+- *Impact:* any deduction logic keyed to 5-year carpet age is wrong in the landlord's favor — it would have told landlords they could charge in year 6–10 when they cannot.
+
+**2. DV/stalking early termination — police report 120 days → 60 days.** `dv-stalking-termination-co`
+- *Original:* qualifying documentation includes a police report from the preceding **120 days**.
+- *New:* the report must be **written within the prior 60 days**.
+- *Reason:* the 120-day figure traced to a victim-advocacy summary, not the statute.
+- *Authority:* C.R.S. 38-12-402(2)(a.5).
+- *Impact:* this error ran **against the landlord** — the clause promised tenants a broader documentation window than the statute requires, and as tenant-facing lease text a landlord could be held to it.
+
+**3. NSF/returned payment — wrong citation, and no statutory $20 cap exists.** `nsf-fee-limit-co`
+- *Original:* "will not exceed $20.00 per occurrence, as required by Colorado law," citing C.R.S. 13-40-107(4) (with 13-21-109(1)(b) noted as an unresolved alternative).
+- *New:* clause rewritten to a reasonable returned-payment charge consistent with **C.R.S. 13-21-109** (dishonored instruments), plus actual bank charges, expressly marked non-Rent.
+- *Reason:* 13-40-107 is the **notice-to-quit statute** and has nothing to do with returned checks. No Colorado statute sets a flat $20 landlord NSF cap; $20 is a widely repeated industry figure. The original entry's own flagged "citation ambiguity" was the tell and should have been chased rather than shipped.
+- *Impact:* the clause asserted a legal requirement that does not exist, in tenant-facing text.
+
+**4. RUBS utility billing — uncertainty resolved by statute.** `edu-rubs-uncertainty-co`
+- *Original:* flagged NEEDS_REVIEW; described the AG's Nov 2025 flexible-enforcement guidance and an expected 2026 legislative fix.
+- *New:* the fix passed. **HB26-1013** codifies a RUBS safe harbor at C.R.S. 6-1-737(4.5): aggregate billed may not exceed the provider's total charge for the premises; no markup beyond the 38-12-801(3)(a)(VI) allowance; common-area costs excluded; allocation method clearly disclosed in the lease or addendum. Status NEEDS_REVIEW → VERIFIED.
+- *Impact:* RUBS is now affirmatively permitted on stated conditions rather than a gray area. A disclosure addendum should recite the allocation method.
+
+#### Material omissions found and added
+
+**5. `source-of-income-statement-co` (NEW, LEASE_CLAUSE, CONDITIONAL).** C.R.S. 38-12-801(2.5) requires a source-of-income non-discrimination statement **in the written rental agreement**. The original pass identified this section but never produced a clause for it. Exempt: landlords with ≤5 single-family rental homes and ≤5 total units.
+
+**6. `edu-source-of-income-exemption-trap-co` (NEW, LANDLORD_EDUCATION).** The original pass confirmed the 801(2.5) small-landlord exemption "still stands" and treated that as closing the question. It does stand — but HB25-1240 removed the small-landlord exemption from the **acceptance mandate** in C.R.S. 24-34-502 (eff. 2025-05-29). Net: a small landlord can be exempt from *printing the statement* while fully bound to *accept vouchers*. Two provisions, two different exemptions; the original record blurred them.
+
+**7. `rent-increase-notice-co` (NEW, LEASE_CLAUSE, CONSTRAINED).** Closes a genuine statutory gap. §14 of this log resolved that 38-12-701(2)'s 60-day notice applies only where there is **no written agreement** — correct, but the original pass stopped there. The consequence it missed: a *written* month-to-month lease silent on rent-increase notice has **no statutory default at all**. Stating a period in the lease removes the ambiguity. (The 38-12-702 once-per-12-months cap applies regardless and is restated because it constrains the landlord's own term.)
+
+**8. `edu-rental-application-fairness-co` (NEW, LANDLORD_EDUCATION).** Article 12 Part 9 was marked OUT_OF_SCOPE in the original Part map as "pre-lease only." That was half right: it is pre-lease, but it constrains landlord conduct materially (application fee must equal actual cost and be uniform; portable tenant screening reports; 7-year lookback on rental/credit history, 5-year on criminal history with enumerated exceptions). Added as education, not lease text.
+
+#### Federal spot-check (the three live CO-tagged items)
+
+**9. Assistance animals — currency flag, no text change.** HUD **withdrew FHEO-2020-01** effective **2025-09-17** (Fed. Reg. Docket FR-6571-N-01), stating it "should not be relied upon." Both `assistance-animal-accommodation` and `assistance-animal-accommodation-co` were moved to **NEEDS_REVIEW**. The clause bodies never cited FHEO-2020-01 — they rest on the Fair Housing Act itself (42 U.S.C. 3601 et seq.; 24 CFR 100.204), which is unchanged, so the operative language stands. Flagged rather than rewritten because the federal posture is genuinely in flux (including post-*Loper Bright* litigation over the ESA no-fee rule). The Colorado layer (documentation limits; misrepresentation warning, which the audit **re-confirmed** requires a prior written or verbal warning as a statutory element under C.R.S. 18-13-107.3(1)(b)) is unaffected.
+
+**10. Lead paint and SCRA — confirmed applicable, not yet fully reconciled to clause text.** The federal lead-paint regime (42 U.S.C. 4852d; 40 CFR 745 subpart F) requires the EPA pamphlet, disclosure of known hazards/records, the statutory **Lead Warning Statement** (40 CFR 745.113(b)(1)), a signed acknowledgment attachment, and 3-year record retention; penalty exposure is inflation-adjusted to **$22,263 per violation** (24 CFR 30.65(b)) plus treble damages and fees. Note the 10-day inspection opportunity is a **sale/purchaser** requirement, not a lease requirement. SCRA (50 U.S.C. 3955) confirmed: termination effective 30 days after the next rent due date following delivery of notice + orders. Whether the existing `lead-based-paint` clause carries the exact statutory Lead Warning Statement text was **not** verified — see open items.
+
+#### Confirmed correct — no change (explicitly preserved)
+
+Two-month security deposit cap (38-12-102.5) — the "HB25-1249 cut it to one month" claim is **wrong**; that language was introduced but struck before enactment, and the act never amended 102.5. Late fee rules (38-12-105) in full, including that a late fee is not rent and cannot alone support eviction. **No Colorado payment-application ordering rule exists** — the original pass's refusal to assert one was correct, and the source suggesting otherwise was describing another state. No general statewide entry-notice statute (only the 48-hour bed-bug notice, 38-12-1004) — the original correction was right. Meth disclosure (38-35.7-103) is a **seller-to-buyer** duty, not a landlord duty. Utility admin fee is "2% **or** $10 flat, **not both**" — the original correction was right. Letty's Act, EV charging, Immigrant Tenant Protection Act, radon (including the ≤1-year lease carve-out on the *void remedy* only), pet caps, rent-increase frequency, prohibited-clause list and its 801(4)/(8) exemptions — all confirmed against primary text.
+
+#### Still open — attorney verification required
+
+- **SB24-094 relocation mechanics.** The framework is confirmed (24hr/72hr commencement; 7/14-day rebuttable presumptions). The specifics in `edu-alt-housing-co` are **not** confirmed against primary text, and a secondary source describing "a comparable dwelling unit or hotel room for up to 60 days" conflicts with how the entry is currently worded. Remains NEEDS_REVIEW. Needs a line-by-line read of 38-12-503(4)–(6).
+- **Walkthrough effect on later-discovered damage.** §13 concluded a completed walkthrough does not bar later charges, reasoning from the exhaustive "wrongfully withheld" definition. The audit confirms the walkthrough right exists but could **not** confirm the no-limitation conclusion from the statutory text. The §13 reasoning is sound but is inference, not verified text.
+- **Pet rent and eviction.** Genuine tension between 38-12-106 (capping "pet rent") and 38-12-801(3)(a)(V) (only "the set monthly payment for occupancy" is Rent for rent remedies). Better reading: unpaid pet rent supports a general lease-violation action, not a nonpayment-of-rent eviction. Not settled by case law.
+- **Colorado appellate case law post-2023 was not exhaustively searched.** Nothing construing HB24-1098, SB24-094, HB23-1095, or HB25-1249 was located — expected given recency, but this is a research gap, not a finding of "no case law."
+
+#### Process lesson
+
+The two hard numeric errors (carpet, DV window) share a root cause the original methodology already had a rule for and didn't apply: *confident, specific secondary-source claims need the same primary-source verification as absence claims.* Both errors came from summaries, and both survived because the number "looked right." The NSF error is worse — the original entry **explicitly flagged** an unresolved citation ambiguity and shipped anyway. Flagged-but-shipped is the failure mode to watch; a flag should block VERIFIED status, not accompany it.
+
+---
+
+### 18. C.R.S. 38-12-503 primary-text read — Part 5 habitability — 2026-08-27
+
+**How this happened:** the re-audit (§17) left `edu-alt-housing-co` at NEEDS_REVIEW for the second time, because search kept returning conflicting secondary summaries. Taylor supplied the full statutory text of C.R.S. 38-12-503 directly. That resolved it immediately and turned up substantially more than the one open question — including a drafting trap in a clause already shipped. **Process note: Taylor supplying primary text directly has now outperformed continued searching twice. Ask earlier.**
+
+#### Corrections to shipped clauses
+
+**1. `edu-alt-housing-co` — RESOLVED, and it was materially wrong.**
+- *Original:* relocation owed "within 24 hours," with vague "full kitchen access or cover meal costs."
+- *New:* the duty is **request-triggered** — 38-12-503(4)(a)(II) requires the unit or hotel room "at the request of the tenant and within twenty-four hours after the tenant's request." No request, no duty; and the 24 hours runs from the request, not from notice of the condition. The >48-hour rule is an either/or: fridge-with-freezer **and** range/oven, **or** a per-diem for each tenant at the Colorado state employee intrastate rate, paid every 24 hours.
+- *Omitted entirely before:* bed count; habitability/accessibility; the 5-mile radius (10 if substantially cheaper, else nearest available); that the landlord pays only per diem plus reasonable relocation costs; that **the tenant still owes rent** throughout; and the whole 60-day hotel cap with its escape hatch (written notice + full deposit returned on or before that notice + tenant may terminate penalty-free).
+- The "up to 60 days" figure a secondary source raised during §17 is real but attaches **only to hotel rooms** under (4)(c) — not to comparable dwelling units. The §17 flag that it conflicted with our entry was right to raise.
+
+**2. `habitability-timeline-co` — the 60-day sentence was invented.** The clause promised written notice of the expected timeline for repairs exceeding 60 consecutive days. No such duty exists in 38-12-503; the statute's 60-day figure is the hotel cap in (4)(c), misattributed. Replaced with duties that actually exist: 24-hour contact stating intentions and estimated start/finish (6)(a)(I); the duty to affirmatively **inform the tenant of the relocation obligation** (6)(a)(II); and 24-hour advance written entry notice for remedial action (6)(a)(III). The 72-hour trigger was also retracked to the statute's language ("uninhabitable as described in 38-12-505 or otherwise") rather than our looser "any other condition Landlord is responsible to repair."
+
+**3. `habitability-notice-co` — drafting trap in shipped tenant-facing text.** 38-12-503(3)(f)(II): a lease or property rule stating a tenant **may or must** give notice of an uninhabitable condition verbally **waives the landlord's right to written notice**. Our bracket prompt read "e.g. phone, email, or mailing address" — designating a phone number would have surrendered that right. This matters because written notice is a strict element: *Anderson v. Shorter Arms Inv'rs, LLC*, 2023 COA 71, 537 P.3d 831 holds substantial compliance does not apply and oral notice is insufficient as a matter of law. Bracket rewritten to written-only with an explicit warning.
+
+**4. `lead-based-paint` — paraphrase where the regulation demands verbatim (federal spot-check).** 40 CFR 745.113(b)(1) requires the Lead Warning Statement to appear **verbatim**; ours paraphrased it. Replaced with exact regulatory text and the other required elements of 745.113(b): landlord disclosure or statement of no knowledge, records/reports list or statement of none, tenant acknowledgment, and the accuracy certification. **Cross-state impact:** this clause is tagged CO;WY;KS;NE;MN — the fix is federal and uniform so all five benefit, but each of those states' logs should record that this clause changed.
+
+**5. `landlords-access-co` — refinement, not correction.** The §17 conclusion that Colorado has no *general* statewide entry-notice statute stands. But 38-12-503(6)(a)(III) does require 24 hours' advance **written** notice for entry to commence or maintain habitability remedial action (except imminent threat to life/health/safety or active threat of substantial property damage). So the 24-hour figure is statutorily grounded for repair entry while remaining landlord policy for showings and general entry.
+
+#### Additions
+
+**6. `environmental-event-termination-co` (NEW, LEASE_CLAUSE) — an opt-in right we were forfeiting.** 38-12-503(11) grants the landlord a right to terminate after a sudden environmental public health event or government action rendering occupancy impossible or unlawful — but **only "if permitted by the rental agreement."** A silent lease forfeits it entirely. This inverts the usual Part 5 pattern, where provisions bind the landlord regardless of lease text; here, omission costs the landlord a statutory right. Clause states all conditions in (11)(a)-(f) so it cannot be invoked improperly.
+
+**7. `edu-part5-nonwaivable-co` (NEW) — 5th standing "void against public policy" rule, and the broadest.** 38-12-503(10) voids any agreement waiving or modifying **any** right, remedy, obligation, or prohibition in Part 5 — an entire Part, not a single right. Joins the police-call waiver (38-12-402), immigrant-tenant protections (38-12-1201 et seq.), security-deposit rights (38-12-103(7)), and the wear-and-tear fee rule (HB25-1249).
+
+**8. `edu-habitability-operational-duties-co` (NEW) — MATERIAL OMISSION.** The original pass took only the 24/72-hour commencement windows from Part 5 and none of the surrounding duties, several of which are **independent breach triggers** under (2)(b): the 24-hour contact-and-estimate duty and the affirmative duty to tell the tenant about relocation rights (6)(a); records kept for the tenancy plus 3 years and produced within 10 calendar days of request (5); the 72-hour mold containment/HEPA/water-stop sequence and full remediation protocol (12)(b); and the requirement to hire a professional for gas hazards (14). Also captures the rebuttable presumptions at 7 days (life/health/safety) and 14 days (uninhabitable) under (3)(a)(II).
+
+**9. `edu-tenant-insurance-claims-co` (NEW).** 38-12-503(13): a landlord may not require a tenant to claim on their renter's insurance for landlord-responsible remedial costs, and may not file against the tenant's policy without express written permission given at the time of the claim. Checked `tenants-property-insurance` — it requires coverage and proof only, so no clause change needed; logged as a constraint on conduct and on future custom language.
+
+**10. `edu-written-notice-strictly-required-co` (NEW).** Captures the *Anderson* holdings (strict compliance; oral notice insufficient; mold/dampness notice must include permission to enter) plus the breadth of what counts as written notice under (3)(e) — government entities, third parties, other tenants, maintenance correspondence, and the landlord's own written observations all qualify. **First Colorado appellate authority captured in this project**, partially filling the case-law gap §17 flagged.
+
+#### Status
+
+Part 5 is now read against primary text rather than summaries. `edu-alt-housing-co` moves NEEDS_REVIEW → VERIFIED. The only remaining NEEDS_REVIEW rows in the library are the two assistance-animal clauses, held open deliberately while the federal posture moves (§17.9).
+
+---
+
+### 19. ESA federal/state divergence — the last CO open item — 2026-08-27
+
+**Trigger:** §17 flagged both assistance-animal clauses NEEDS_REVIEW after HUD's 2025-09-17 withdrawal of FHEO-2020-01. On follow-up the picture turned out to be more developed than the audit captured, and the remaining question — whether the CO clause was leaning on federal law for the ESA piece — needed a real answer before CO could close.
+
+**Federal has moved twice, not once.** Beyond the 2025-09-17 withdrawal of FHEO-2020-01 and FHEO-2013-01, HUD's FHEO issued a memorandum on **2026-05-22** permanently rescinding the 2020 notice and adopting a new enforcement standard: it will find reasonable cause and recommend charges only for animals **individually trained** to provide disability-related assistance — the ADA service-animal standard — and will no longer expect housing providers to categorically grant accommodations or fee waivers for untrained assistance animals (ESAs). HUD has stated it intends notice-and-comment rulemaking to harmonize its regulations.
+
+**Decision: no clause text changes.** The reasoning, recorded so it isn't relitigated:
+1. This is an **enforcement posture, not a change in law.** 42 U.S.C. 3601 et seq. and 24 CFR 100.204 are unchanged. HUD declining to charge does not bind courts, private FHA plaintiffs, or DOJ.
+2. **Colorado has an independent basis.** C.R.S. 24-34-502 (CADA) makes it a discriminatory housing practice to refuse a reasonable accommodation necessary for a person with a disability to use and enjoy a dwelling, and that covers assistance animals including ESAs. HB 21-1271 supplies the documentation limits and misrepresentation penalties already captured in the clause. None of it depends on HUD guidance.
+3. **The risk is asymmetric.** Narrowing the clause trades an uncollectable pet fee against a discrimination claim.
+
+**Status split applied:**
+- `assistance-animal-accommodation-co` → **VERIFIED.** Independent CADA basis confirmed; federal movement does not disturb it.
+- `assistance-animal-accommodation` (generic, federal-baseline only) → **remains NEEDS_REVIEW, deliberately.** Not because the text is wrong, but because any *future* state adopting it without its own ESA protection inherits an unsettled federal picture. Each new state must confirm its own basis the way CO just did. This is now the only NEEDS_REVIEW row in the library.
+- `edu-esa-federal-state-divergence-co` — **NEW.** Added because the federal change is high-profile and a landlord reading headlines could reasonably conclude ESA obligations had ended. They have not, in Colorado.
+
+**Source-quality note, worth carrying into other states.** Most available commentary on this question comes from **ESA-certification vendors** — companies that sell ESA letters and have a direct commercial interest in maximally broad ESA protection. That is precisely the confident-but-interested secondary source this project has repeatedly been burned by (Hemlane, LeaseWisely, the "deposit cap cut to one month" claim). It was discounted; reliance is on the CADA statutory structure plus Colorado practitioner commentary. One source cited **C.R.S. 24-34-803** as a housing-specific assistance-animal provision — **not confirmed, not relied on**, flagged for the next CO review.
+
+**Cross-state implication for the Wyoming pass and beyond:** the ESA question is now a required per-state check, not a settled federal given. For each new state, determine whether that state has its own disability-accommodation statute reaching assistance animals, or whether the clause would rest on the federal baseline alone. If the latter, tag it NEEDS_REVIEW rather than VERIFIED.
+
+---
+
+### 20. Explicitly out of scope for this workstream
 
 The Legal Tracker feature (evictions, service/summons, court process, notice-to-quit workflows) is a separate, future feature. It is being tracked in notes only because it touches the clause library conceptually (e.g. for-cause eviction policy affects lease termination language) — it is not being designed or built as part of this effort.
+---
+
+## §5a.1 PROPAGATION NOTE — incoming from the Nebraska re-audit, 2026-08-31 (v62 → v63)
+
+Two shared clauses tagged to CO were touched by the Nebraska re-audit.
+
+### 1. `services-utilities-provided` (CO;WY;NE) — bodyText REWORDED, judged UNIFORM
+
+**Old:** "Tenant waives all liability of Landlord for any interruption or insufficiency of a service or utility resulting from causes beyond Landlord's reasonable control."
+**New:** "Landlord is not liable for any interruption or insufficiency of a service or utility resulting from causes beyond Landlord's reasonable control."
+
+**Why.** Neb. §76-1415(1)(d) bars exculpation or limitation of landlord liability "arising due to **active and actionable negligence**." Because the clause is already self-limited to causes beyond the landlord's reasonable control — which by definition is not the landlord's active negligence — the original Nebraska reasoning on (d) was **correct**, and no negligence carve-out was needed. The real exposure was **§76-1415(1)(a)**, which bars the tenant agreeing to "waive or forego rights or remedies under the Act": the clause opened with a tenant-side *waiver*, which invites that argument for free. Recast as an allocation. **Substance unchanged in every state.**
+
+**Beneficial for Colorado, not merely neutral.** C.R.S. §38-12-801(3) voids waivers of the covenant of quiet enjoyment and of good faith and fair dealing. A sentence framed as `Tenant waives all liability of Landlord` sits closer to that prohibited family than an allocation does, even though the clause's practical scope is limited by its own `beyond Landlord's reasonable control` qualifier. The reword reduces Colorado exposure at no cost.
+
+**§5a.1 judgment: UNIFORM, not state-driven.** No state is disadvantaged and no state needs an override. A Nebraska-only override was deliberately **not** created, because the improvement is not Nebraska-specific.
+
+### 2. `late-fee` (was CO;WY;NE;MN) — NE REMOVED, no text change
+
+Nebraska took its own `late-fee-ne`. Neb. §76-1433 waives the landlord's right to terminate for a breach on accepting rent with knowledge of it, "unless otherwise agreed **after the breach has occurred**" — an express timing rule the shared clause's unqualified "or to pursue any other remedy available under this Lease" collides with.
+
+**§5a.1 judgment: STATE-DRIVEN. Deliberately NOT propagated to CO.** A non-waiver clause preserving termination is genuinely valuable where contract can preserve it, and CO has not been shown to carry Nebraska's express timing rule. Narrowing every tagged state to solve one state's problem would surrender real protection in the others. **CO keeps the clause unchanged.**
+
+**Worth checking when CO is next revisited:** whether CO's own late-rent waiver rule is statutory or common-law, and whether it reaches *termination only* (as Nebraska's does) or other remedies too. Nebraska's narrowness was the surprise of that analysis — the prior conclusion had been wrong in both directions, overstating what the landlord loses and understating the clause's exposure.
+
+
+---
+
+## §5a.1 PROPAGATION NOTE — Shared-clause pass, 2026-09-03 (v93 → v94)
+
+Three shared multi-state clauses were edited. Per §5a.1, this note is recorded in **every tagged state's log**, with the uniform-vs-state-driven judgment for each.
+
+### 1. `notices` — EDIT — judgment: **UNIFORM**
+
+Added a saving clause: where applicable law requires a particular method, form, timing, or content for a notice, that requirement controls over the clause, and the lease does not designate an alternative delivery method for any notice governed by law.
+
+**Uniform**, therefore safe to inherit with no per-state override. Every tagged state specifies notice delivery per-statute, so deferring is correct in all of them.
+
+**Trigger:** the Minnesota re-audit found MN specifies delivery section by section with conflicting requirements — the 14-day pre-eviction notice is personal or first class mail **only** and failure means dismissal plus expungement; abandoned-property sale needs personal service **or** first class **and** certified mail **plus** posting; post-writ notice needs mail **plus** a telephone attempt. The prior text named only *where* notices go and was silent on *how*.
+
+**Correction to the original flag:** the concern as first raised (that the clause designated email or a portal) was overstated — the clause never designated anything. It was silent, not wrong. The edit closes a silence rather than fixing an assertion.
+
+### 2. `returned-payments` — EDIT — judgment: **UNIFORM**
+
+"may charge Tenant **any** fee associated with the failed payment" → "may charge Tenant **a** fee ... **not to exceed the maximum amount permitted by applicable law**."
+
+**Uniform**, safe to inherit, no per-state override. The self-limiting formulation is correct in every tagged state regardless of each state's figure.
+
+**Trigger:** all six tagged states have a cap and already carry a row recording it — CO `nsf-fee-limit-co`, WY `edu-returned-check-fee-cap-wy`, KS `edu-nsf-fee-cap-ks`, NE `edu-bad-check-restitution-vs-nsf-fee-ne`, ND `edu-returned-check-fee-cap-nd`, MN `edu-returned-check-fee-cap-mn` ($30, Minn. Stat. §604.113). The unbounded word "any" was therefore wrong in **all six states simultaneously** — the clause promised landlords something no tagged state permits.
+
+### 3. `holdover` — EDIT — judgment: **STATE-DRIVEN figure, uniform-safe edit**
+
+Removed the hardcoded "double the Monthly Rent ... or the maximum amount allowed under applicable law, if less" and replaced it with a pure deferral to the statutory maximum.
+
+The figure is genuinely state-driven, but no per-state override is needed because each state's figure is already carried by its own education row.
+
+**The old text was wrong in BOTH directions, which is why leaving it was not an option:**
+
+- **Over-promised in MN.** Minnesota has **no holdover multiplier at all**. "Double the Monthly Rent" described a remedy that does not exist. The self-limiting tail kept it lawful but misleading.
+- **Under-claimed in NE.** Nebraska allows **three months' periodic rent or threefold actual damages, whichever is greater, plus statutory attorney fees** (§76-1437(3)) — all of which **exceed** double monthly rent. The old "or the maximum allowed ... if less" language could only cap **downward**, so a Nebraska landlord relying on the clause would recover materially less than the statute allows.
+
+**The general lesson worth carrying:** a ceiling-only formulation silently forfeits recovery in any state whose statutory figure is *higher* than the hardcoded one. Self-limiting language protects against unlawfulness but not against under-claiming.
+
+KS is unaffected either way — its 1.5× cap (K.S.A. 58-2570(c)) already sits below double.
+
+**GAP SURFACED, NOT CLOSED:** **CO and WY have no holdover-damages education row**, and their statutory figures have never been verified in this project. The "double" figure appears to have originated as Colorado's, but that has not been confirmed against C.R.S. Recommend verifying both and adding `edu-holdover-co` / `edu-holdover-wy` to match KS, NE, and MN.
+
+**Relevance to Colorado:** all three clauses are CO-tagged. `holdover` matters most here — the removed "double" figure is believed to be Colorado's own, but it has never been verified against C.R.S. in this project, and CO has no holdover education row. **Colorado is now the only state where the removed number may have been correct and we cannot confirm it.**
+
+**CSV: v93 → v94 (484 rows, unchanged count — body text and notes only).** No new rows; no display collisions introduced.
+
+
+---
+
+## HOLDOVER FIGURE — PROVENANCE FINDING, 2026-09-03 (v96 → v97)
+
+Follow-up to the shared-clause pass, which removed "double the Monthly Rent" from the generic `holdover` clause and flagged that CO's and WY's figures had never been verified.
+
+**Both are now checked. The result: the "double" figure had no statutory basis in ANY of the five tagged states.**
+
+| State | Actual rule | vs. "double" |
+|---|---|---|
+| **CO** | No multiplier. C.R.S. §13-40-123 — damages, costs, and attorney fees (residential only if the lease provides). Damages measured as **reasonable rental value** (*Behr v. Burge*, 940 P.2d 1084 (Colo. App. 1996)) | Too high |
+| **WY** | No multiplier. Actual damages plus 10% annual interest (§1-21-1211(b), **provisional — see caveat**) | Too high |
+| **KS** | 1.5× cap (K.S.A. 58-2570(c)) | Too high |
+| **NE** | Three months' periodic rent or threefold actual damages, whichever greater, **plus attorney fees** (§76-1437(3)) | Too **low** |
+| **MN** | No multiplier at all | Baseless |
+
+**Wrong in every direction at once** — too high in three states, too low in one, and baseless in the two where it was assumed to have originated.
+
+**The shared-clause pass hypothesized the figure "appears to have originated as Colorado's." That hypothesis is disproved.** Colorado has no multiplier. The number appears to be generic template boilerplate that entered the library before any state-specific research and was never questioned — and it survived four state re-audits.
+
+**Why this one is worth recording as a pattern, not just a fix:** nothing in the library ever asserted a source for "double." Each state's own research quietly contradicted it — KS logged a 1.5× cap, NE logged a higher ceiling, MN logged none — and no pass ever compared the state findings back against the shared clause they were supposed to be qualifying. The self-limiting tail ("or the maximum allowed under applicable law, if less") made the clause lawful everywhere, which is exactly what stopped anyone from looking.
+
+**Also corrected:** `edu-holdover-ne` described double monthly rent as "Colorado's double-rent figure." That attribution was wrong and is now flagged in the row.
+
+New rows: `edu-holdover-co`, `edu-holdover-wy`.
+
+### Confidence caveats, stated plainly
+
+- **CO** — statute text and case annotation both from the Justia codification rather than the Colorado Revisor directly. Sound, but a single source family, and the "no multiplier" conclusion is an **absence finding across Article 40** rather than an express statutory statement. Confirm on the next CO pass.
+- **WY — lower confidence, flagged.** The §1-21-1211(b) actual-damages-plus-10%-interest figure comes from **one secondary source last updated in 2022** and was not confirmed against the Wyoming statute. The surrounding negative rests on absence across secondary overviews, not a primary read of Article 10. **This project has already recorded Wyoming secondary sources as unreliable specifically** (the WY log flags Hemlane and LeaseWisely). Primary-verify §1-21-1211 before relying on this row; treat the 10% figure as provisional.
+
+### [RESOLVED 2026-09-03 — see the resolution section appended below. Original flag retained for traceability.] PRIOR FLAG — post-writ tenant property, and a fabricated citation
+
+The eviction-duty screen (2026-09-03) flagged **C.R.S. § 38-12-126** as reportedly governing a landlord's handling of tenant personal property after a writ is executed, and deliberately did **not** write a row because the claim was sourced only to a commercial junk-removal site and a case-annotation PDF.
+
+**That caution was warranted: there is no active statutory section numbered § 38-12-126.** Article 12 of Title 38 governs residential landlords and tenants — security deposits, application fees, the warranty of habitability — but the cited section does not exist. **This is a fabricated citation, the same class of error this project has recorded for Wyoming (Hemlane, LeaseWisely) and Nebraska (the misattributed $15 payday-loan fee).** It is logged here so the number is not resurrected by a future search returning the same source.
+
+**The real open question for the CO re-audit is different and broader:** does Colorado impose **any** statutory duty on a landlord handling a tenant's possessions after an eviction — storage period, inventory, care standard, or notice before disposal?
+
+The comparison across the screened states makes this worth answering rather than assuming:
+
+- **MN** — highly prescriptive. Two tracks keyed to storage location: on-premises property goes to §504B.271's 28-day hold with 14-day sale notice and conspicuous posting, off-premises property goes to a lien with a 60-day public sale. Plus a mandatory signed inventory prepared in the officer's presence, dual-channel notice before the officer acts, and a care standard with liability for loss.
+- **WY** — nothing. §1-21-1211(a) lets the sheriff remove possessions and bar reentry "without further action by the court," with no storage, inventory, care, or notice duty anywhere in Article 12 (primary-verified 2026-09-03).
+- **CO** — unknown.
+
+Colorado may legitimately look like Wyoming here. But it is state #1, it has already been re-audited once, and the eviction-duty screen established that this whole area was under-covered library-wide because a scope decision made in the first Colorado session propagated silently through six states and four re-audits.
+
+### RESOLVED 2026-09-03 — Colorado's post-writ regime, and the correct citation
+
+Resolved immediately rather than deferred, because Colorado's re-audit has already run and the flag had no future session to land in.
+
+**The citation was fabricated. The real provision is C.R.S. § 13-40-122**, in Title 13 Article 40 (Forcible Entry and Detainer) — not the "§ 38-12-126" a commercial junk-removal site supplied, which does not exist. Same error class as WY's Hemlane/LeaseWisely incidents and NE's misattributed $15 payday-loan fee. Declining to ship a row on that source was correct.
+
+**Colorado is the polar opposite of Minnesota.** § 13-40-122(3) expressly negates every duty Minnesota imposes: no duty to store or maintain, no duty to inventory, no duty to determine ownership or condition, no express or implied bailment, and statutory immunity from liability for loss or damage. A landlord who follows the executing officer's lawful directions is immune from civil **and** criminal liability. Subsection (4) permits charging reasonable storage costs if the landlord elects to store, recoverable through title 38 lien rights or by requiring payment before the tenant reclaims. If not stored, the property must remain available for reclaim from the public right-of-way.
+
+**Three screened states, three genuinely different architectures** — which is itself the answer to whether this area deserved a screen:
+
+| State | Post-writ property regime |
+|---|---|
+| **MN** | Highly prescriptive — signed inventory in the officer's presence, dual-channel notice, care standard with liability, two disposal tracks (28-day vs 60-day) keyed to storage location |
+| **CO** | Duties expressly negated, plus statutory immunity; storage optional and chargeable |
+| **WY** | Silence — sheriff removes, no duties stated anywhere in Article 12 |
+
+**But Colorado does impose one affirmative duty, and the screen nearly missed it.** § 13-40-122 requires the landlord to give animal control access to remove or secure **pet animals**, supply the tenant's contact information, post visible notice at the premises naming the organization the animals were taken to, and provide that information to the tenant on request. No pet animal may be removed and left unattended on public or private property.
+
+**This is the strongest single vindication of the eviction-duty screen.** Colorado's regime reads at first glance as pure landlord immunity. A screen that stopped at "CO imposes no post-writ duties" — the natural conclusion from subsection (3) alone — would have recorded the exact opposite of the truth for the one category where being wrong produces an animal-cruelty referral rather than a damages claim.
+
+New rows: `edu-post-writ-possessions-co`, `edu-writ-pet-animal-duties-co`.
+
+**Timing rules recorded** (they bind the officer but govern a landlord's turnover schedule): writs execute in daylight only, no earlier than **10 days** after judgment, extended to **30 days** where the tenant receives SSI or Social Security disability benefits.
+
+**Not fully characterized, flagged:** the enclosing subsection number for the pet-animal provisions was not isolated (FindLaw renders those paragraphs without the subsection label), and the definition of "pet animal" — likely cross-referenced to another title — was not read. Confirm both before operational reliance.
+
+**CSV: v99 (487) → v100 (489). CO 108 → 110.**
+
+
+---
+
+## § 5a.1 PROPAGATION NOTE — received from the ND re-audit session, 2026-09-06
+
+**Shared clause edited: `lead-based-paint`.** Its `states` field changed from `CO;WY;KS;NE;MN` to `CO;WY;KS;NE;MN;ND;SD`. **The clause TEXT did not change.** No re-review is owed on this state's existing tag and this state's `last_checked` is unaffected.
+
+**Why the edit happened.** A checklist-to-CSV reconciliation screen — built and first run during the ND re-audit — found that this `REQUIRED` / `LEASE_CLAUSE` row was never tagged ND or SD, even though the consolidated named-topic checklist recorded lead-paint disclosure as "Present (federal)" for ND. Because the `states` field is the display source of truth, a Steinoak-generated ND or SD lease for pre-1978 target housing was **omitting the federally mandated Lead Warning Statement entirely**. Exposure per this row's own record: 42 U.S.C. § 4852d(b)(5), inflation-adjusted to **$22,263 per violation** (24 CFR 30.65(b)), plus treble damages and fees.
+
+**§ 5a.1 judgment: UNIFORM, safe to inherit.** The requirement is federal (40 CFR 745.113(b)) with no state-specific variation — the same judgment already recorded for the KS propagation when the Lead Warning Statement was corrected to verbatim text.
+
+**The transferable lesson, not the tag change, is the reason this note is here.** The checklist asserted coverage the library did not have. That assertion was true about the *law* and false about the *library*, and nothing in the process compared the two. Two new standing screens were earned from it:
+
+1. **Checklist-to-CSV reconciliation** — for every topic marked Present, assert a matching CSV row exists.
+2. **Exhaustive generic-clause audit by group** — enumerate every generic clause and test each state's tag, adjudicating misses rather than trusting a keyword probe.
+
+**This state's result on screen 2, run 2026-09-06 across all seven states:** every generic lease clause not tagged to this state has a state-specific override in place. **No defect found here.** The defect was confined to ND (43 clauses, since fixed) and SD (45 clauses, outstanding — flagged for the SD session).
+
+---
+
+# CORE-OBLIGATIONS CANVASS — 2026-09-07 (PARTIAL — one cell, and a flag)
+
+Appended during the **South Dakota** re-audit session. Context: SD's re-audit found the consolidated named-topic checklist had **no topic row** for several universal landlord obligations — **Addendum L.10**, accretion bias. A `CORE OBLIGATIONS` section was added; SD, ND, MN and KS have been canvassed. **Colorado is the fifth state, and this pass covers one cell** — because the first section read produced a discrepancy that should not be papered over.
+
+## § 38-12-103(3)(a) — the treble-damages trigger may have changed from "willful" to "wrongful"
+
+| Edition | Text |
+|---|---|
+| 2020, 2021, 2022 (Justia) | "The **willful** retention of a security deposit … **shall render** a landlord liable for treble the amount …" |
+| **2024 CRS edition** (colorado.public.law, citing `leg.colorado.gov/sites/default/files/images/olls/crs2024-title-38.pdf`) | "The **willful** retention …" |
+| **2025** (Justia) | "The **wrongful** retention of a security deposit … **renders** a landlord liable for treble the amount …" |
+
+**This is not a trivial edit.** *Turner v. Lyon*, 189 Colo. 234, 539 P.2d 1241 (1975) construes **"willful" to mean "deliberate."** A landlord who withheld a deposit wrongly but not deliberately escapes treble damages under the older text. Under "wrongful," that landlord does not. The change would materially expand exposure — treble damages plus reasonable attorney fees and court costs — for exactly the ordinary, non-deliberate withholding that most disputes involve.
+
+**Not resolved, and deliberately not asserted.** A single reproduction differing from four others is a flag, not a finding. This is the shape of both **L.6** (a stale or divergent secondary text on a hard rule) and **K.4** — and the SD session's own headline error was precisely a superseded deposit deadline that four sources disagreed about. **Escalated: the current § 38-12-103 text with its source/history line.**
+
+**A second observation worth recording independently.** Justia's 2025 page carries the *amended* operative text while its **case annotations still discuss "willful"** and still cite *Turner v. Lyon* for that construction. **Annotations lag amended text.** Any future pass that reads a Colorado section's annotations to interpret its operative language risks reading a construction of words the statute no longer uses.
+
+## Confirmed regardless of which text governs
+
+- **Tenant must give 7 days' written notice of intent to file** before suing — § 38-12-103(3)(a). *Mishkin v. Young*, 107 P.3d 393 (Colo. 2005): the landlord **cannot avoid treble damages by accounting during that seven-day window**, because the period sits beyond the statutory deadline and the right to retain is already forfeited.
+- **The landlord bears the burden of proving the withholding was not wrongful** — § 38-12-103(3)(b). *Only Colorado and Minnesota place the burden on the landlord; ND, SD and KS do not.*
+- **Treble damages plus reasonable attorney fees and court costs**, where triggered. Against the others: ND treble (no fees provision found), MN double plus $500 punitive, KS 1½×, SD forfeiture plus a $200 cap. **Colorado is the most exposed of the five.**
+- **Limitations split** — *Carlson v. McCoy*, 193 Colo. 391: the treble-damages provision is **penal** and carries a **one-year** limitation, while recovery of the deposit itself and attorney fees are **remedial** and carry **six years**. No other canvassed state splits its limitation period this way.
+
+## Colorado status
+
+**One of fourteen cells filled**, and that one carries an unresolved flag. Thirteen remain `NOT CANVASSED`.
+
+**Section leads for the next pass:** §§ 38-12-102 to 38-12-104 (deposits; § 38-12-104 is the gas-appliance hazardous-condition variant with a **72-hour/7-day** track), §§ 38-12-503 to 38-12-511 (warranty of habitability and tenant remedies), § 38-12-702 (rent-increase notice), § 38-12-801 et seq. (bed bugs), § 38-12-901 et seq. (fees), § 38-12-1101 et seq. (unreasonable lease terms).
+
+**No CSV changes.** Canvass and record only; **no §5a.1 propagation owed.**
+
+## FLAG RESOLVED — HB 25-1249 is enacted, and Colorado's deposit law was substantially rewritten
+
+**The willful/wrongful discrepancy flagged above is resolved, and the divergent 2025 reproduction was the correct one.** History line, § 38-12-103:
+
+> `L. 2025: (1) amended, (HB 25-1168), ch. 229, p. 1056, § 13, effective May 22; (1), (2), (3), IP(4), and (7) amended and (1.5), (2.5), (3.5), (8), (9), (10), (11), and (12) added, (HB 25-1249), ch. 401, pp. 2273, 2277, §§ 2, 3, effective January 1, 2026.`
+
+Editor's note: the act **"applies to conduct occurring on or after January 1, 2026."** Today is 2026-09-07, so **the amended text governs.**
+
+**This is the statute the project already had on its backlog.** The architecture review's standing cross-state item — *"HB25-1249-style Colorado deposit-reform analog (pet caps, carpet damage, bad-faith-deposit definition, wear-and-tear-void rule, walkthrough-inspection right) — confirmed only for CO … not yet checked against WY, KS, or NE"* — is this act. **Its primary text is now read**, which is the precondition for ever running that cross-state check properly.
+
+### What changed
+
+- **§ 38-12-103(3)(a): "willful" → "wrongful."** *Turner v. Lyon*, 189 Colo. 234, construes "willful" as **"deliberate."** A landlord who withheld wrongly but not deliberately escaped treble damages before; not now.
+- **§ 38-12-103(2.5) is new and deems a withholding wrongful** on four triggers: missing the written statement, giving one that fails to list *exact* reasons, failing to return the balance in time, or bad-faith retention.
+- **§ 38-12-103(3.5) is new and defines bad faith**, including retention that unreasonably exceeds actual damages — with a **rebuttable presumption of unreasonableness at 125% or more** of actual damages. The landlord bears the burden of proving the amount of actual damages.
+- **A good-faith safe harbour** at (3.5)(d): a landlord who acts in good faith and otherwise fully complies is liable **only for the excess retained plus court costs** — no trebling.
+- **§ 38-12-103(1)(b) closes the list of permissible retentions** to four categories, and bars retention for normal wear and tear or **preexisting** conditions.
+- **§ 38-12-103(1.5) creates a walk-through inspection right** on either party's request, before termination and after the tenant can remove furniture.
+- **§ 38-12-103(8), from January 1, 2026, adds a documentation duty**: on 14 days' written request the landlord must supply **photographs, inspection forms or reports, receipts, invoices or estimates** relevant to the retention. **No other canvassed state requires supporting evidence rather than mere reasons.**
+- **§ 38-12-103(11) constrains carpet and paint deductions** — and notably, **carpet cannot be deemed substantially and irreparably damaged if it has not been replaced within the preceding ten years.**
+- **§ 38-12-103(7) is a double non-waiver**: any provision waiving or modifying Part 1 for the tenant's benefit is void, **and** any provision assigning the tenant a fee for repairs, cleaning or other work due to **normal wear and tear or preexisting damage** is void.
+
+### Two method points worth carrying
+
+**The annotations lag the amended text, and they are still on the page.** Justia's 2025 § 38-12-103 carries the amended operative language while its annotation block still defines **"willful"** and cites *Turner v. Lyon* for it. A reader consulting the annotations to construe the section would be interpreting **words the statute no longer uses.** Recorded as a general caution for Colorado, where the 2025 reforms were extensive.
+
+**The divergent source was right.** Four reproductions said "willful"; one said "wrongful"; the outlier was correct because it alone reflected an amendment effective 2026-01-01. **Majority agreement among reproductions is not evidence of currency** — the same lesson as L.6, now demonstrated in the opposite direction: there, six stale sources agreed on $40; here, four stale sources agreed on "willful."
+
+## Colorado status
+
+**Four of fourteen cells filled**, all from § 38-12-103. Ten remain `NOT CANVASSED`.
+
+**Leads:** §§ 38-12-102 / 102.5 / 104 (deposit amount, pet deposits, gas-appliance hazard track), §§ 38-12-503 to 38-12-511 (warranty of habitability; tenant remedies), § 38-12-702 (rent-increase notice), §§ 38-12-801 et seq. (bed bugs), §§ 38-12-901 et seq. (fees), §§ 38-12-1101 et seq. (unreasonable lease terms), § 38-12-402 (DV/stalking termination, cross-referenced from (1)).
+
+**No CSV changes.** Canvass and record only; **no §5a.1 propagation owed.**
+
+## Part 5 — habitability, waivability, tenant duty, tenant remedy
+
+**Colorado's habitability regime is the most elaborate of the five states canvassed**, and two features have no counterpart anywhere else in the set.
+
+**A response clock measured in hours.** § 38-12-503(2)(b)(I): the landlord breaches by failing to **commence** remedial action within **24 hours** where the condition materially interferes with the tenant's life, health or safety, or **72 hours** where the premises is uninhabitable — and separately by commencing and then failing to continue, or failing to complete within a reasonable time. ND, MN, KS and SD all use "reasonable time" or a multi-day notice period. **Colorado is the only one of the five that starts counting in hours.**
+
+**Displacement obligations.** § 38-12-503(4) requires the landlord to provide a comparable alternative dwelling or hotel, subject to stated distance limits, with **per diems for meals where no full-use kitchen is provided after 48 hours**, and reimbursement of reasonable storage and travel costs; the hotel obligation ends after 60 days, and the tenant continues paying rent.
+
+**This is directly relevant to a South Dakota finding.** The SD re-audit recorded *"Alternate housing/relocation requirement during habitability failure — Confirmed absent"* for South Dakota, noting that SD's repair-and-deduct/vacate/escrow set is adjacent but not the same thing. **Colorado has exactly the requirement SD lacks**, in detail. The topic is live in at least one state in the footprint rather than theoretical.
+
+**Waivability: a clean 3–2 split emerges across the five states.** § 38-12-503(5) makes any agreement waiving or modifying the warranty **void as contrary to public policy**, and § 38-12-507 extends the bar to the **remedies** for agreements entered on or after **May 3, 2024**. So:
+
+| Non-waivable | Structured delegation permitted |
+|---|---|
+| **CO** (§ 38-12-503(5), § 38-12-507) · **MN** (§ 504B.161(1)(b)) · **SD** (§ 43-32-8) | **ND** (§ 47-16-13.1(4)–(5)) · **KS** (§ 58-2553(b)–(d)) |
+
+Colorado has a narrow statutory exception at **§ 38-12-506 for certain single-family residences** — the same axis on which ND draws its single-family distinction, reached from the opposite direction.
+
+**Tenant remedies: the widest set of the five, and the only one with punitive damages.** § 38-12-507 gives the tenant termination **without any liability or financial penalty** on 10–60 days' notice; or a claim or counterclaim for actual damages **including reduction in fair rental value**, plus court costs, reasonable attorney fees, **punitive damages**, and any other damages ordered; or **preliminary or permanent injunctive relief including specific performance**, with the court retaining **continuing jurisdiction**.
+
+Beyond the tenant's own hands: **§ 38-12-512 gives the attorney general enforcement authority with penalties**, and **§ 38-12-513 provides for receivership of residential housing.** Only MN's tenant-remedies action is comparable, and MN has no AG enforcement provision in ch. 504B.
+
+Five states, five architectures — now complete: ND repair-and-deduct · SD repair-and-deduct, vacate, own-account escrow · MN court-administered escrow with receivership · KS terminate-or-sue · **CO terminate, sue for punitive damages, injunctive relief, plus AG enforcement and receivership.**
+
+**Recorded as partially sourced:** § 38-12-504 ("Tenant's maintenance of premises") is confirmed to exist as a dedicated section from the official Part 5 index, but **its text was not read in this pass**. The tenant-attribution rule stated in the checklist cell comes from § 38-12-503's misconduct carve-out, which reaches the tenant, household members, guests, invitees, and persons under the tenant's direction or control.
+
+## Colorado status
+
+**Eight of fourteen cells filled.** Remaining `NOT CANVASSED`: both assistance-animal rows; general reasonable-accommodation duty; required state disclosures; rent-modification notice; periodic-tenancy termination notice.
+
+**Leads:** § 38-12-702 (rent-increase notice), § 38-12-1105 (late fees), §§ 38-12-901 et seq. (fees), §§ 38-12-1101 et seq. (unreasonable lease terms), §§ 38-12-801 et seq. (bed bugs — a disclosure candidate), § 38-12-402 (DV/stalking termination), § 24-34-502 (CADA housing discrimination — the reasonable-accommodation lead), § 13-40-107 (notice to quit / periodic tenancy termination, which sits in Title 13 not Title 38).
+
+**No CSV changes.** Canvass and record only; **no §5a.1 propagation owed.**
+
+## Parts 1, 7, 8 and Title 13 — Colorado canvass complete, 15 of 15
+
+**Rent increases: Colorado is the only canvassed state that limits FREQUENCY.** § 38-12-702 — *"a landlord shall not increase rent more than one time in any twelve-month period of consecutive occupancy by the tenant"* — **regardless of whether there is a written agreement, and regardless of whether the tenancy is fixed, month-to-month or indefinite.** § 38-12-701(2)(a) separately requires **60 days' written notice** where there is no written agreement, and (2)(b) bars terminating such a tenancy with the primary purpose of raising rent. ND, SD, MN and KS regulate notice only; none limits how often rent may rise.
+
+**Radon is a mandatory lease disclosure — and only here.** § 38-12-803 requires written disclosure of whether radon tests have been conducted, any concentration detected, and any mitigation performed. **The SD re-audit confirmed radon absent as a lease duty in South Dakota and caught the trap that SD's apparent radon statute (§§ 43-4-37 to -44) is a real-estate *sale* disclosure.** ND and MN likewise have none. Colorado is the exception that makes those three absences meaningful rather than merely unexamined. Bed bugs at §§ 38-12-801 et seq.
+
+**§ 13-40-107 was entirely rewritten by HB 24-1098, and residential landlords largely lost the section.** The notice tiers remain — 91 days for a year or longer, 28 days for six-to-twelve months, 21 days for one-to-six months, 3 days week-to-week or at will, 1 day under a week — **the longest periodic-tenancy notice of the five states by a wide margin.** But as amended, the section is available to *a landlord of nonresidential property or of a residential premises exempted under § 38-12-1302(1)(a),(b),(d),(e),(f), or a tenant of any property.* **An ordinary residential landlord must instead proceed under the just-cause regime at §§ 38-12-1301 et seq. — enumerated cause, or a no-fault ground with 90 days' written notice.** HB 24-1098 also eliminated the tenant-at-will presumption and the condominium carve-out.
+
+**No other canvassed state has a just-cause requirement.** ND, SD, MN and KS all permit no-cause termination on notice. This is the single largest structural divergence in the whole core-obligations table.
+
+### Assistance animals — Colorado regulates the provider, not the landlord
+
+Nothing in Title 38 art. 12 sets documentation limits. ND § 47-16-07.5, MN § 504B.113 and SD § 43-32-35 each constrain **what the landlord may demand**. Colorado instead constrains **what the provider may issue**: the **Mental Health Practice Act, § 12-245-229**, requires a licensed provider to establish a genuine provider-patient relationship and evaluate the patient before issuing an assistance-animal document. A letter written without clinical evaluation fails the standard.
+
+**Same anti-letter-mill policy, reached from the opposite end of the transaction.** Worth recording precisely because a canvass looking only in the landlord-tenant title would report Colorado as having no rule at all.
+
+**§ 38-12-106 (HB 23-1068, effective 2024-01-01) is the only statutory cap on ordinary pet charges in the five states**: pet security deposit **capped at $300 and required to be refundable** — non-refundable pet deposits were previously lawful — and **pet rent capped at $35/month or 1.5% of monthly rent, whichever is greater.** Service and assistance animals remain exempt from pet fees entirely.
+
+**The penalty structure runs the opposite way from the Dakotas.** § 24-34-309 provides a statutory fine of **$3,500 payable to each plaintiff for each violation** of §§ 24-34-502, 502.2, 601 or 803, plus a compliance order. **Colorado's assistance-animal penalties run against the landlord; ND's and SD's run against the tenant** (criminal infraction plus $1,000, and a $1,000 civil fee respectively). MN sits between, permitting only denial of the application.
+
+**Reasonable accommodation: CADA, and the most enforceable of the five.** § 24-34-502 makes refusal to accommodate a discriminatory housing practice, enforced by the Colorado Civil Rights Division alongside the FHA, with the § 24-34-309 fine and a private right of action. Exemptions reported as narrow — owner-occupied buildings of four or fewer units, and single-family homes sold or rented without a broker.
+
+### Source tiering, stated rather than implied
+
+Primary text read this pass: **§ 38-12-103** (in full), **§ 38-12-106**, **§ 38-12-701**, **§ 13-40-107** (tiers and the HB 24-1098 session-law amendment text), and §§ 38-12-503/505/507 substantially.
+
+**Identified but NOT read in this pass**, and marked as such in the checklist cells: § 38-12-504, §§ 38-12-801 et seq., § 38-12-803, §§ 38-12-1101 et seq., § 38-12-105, §§ 38-12-1301 et seq., §§ 24-34-502 / 502.2 / 803 / 309, § 12-245-229.
+
+**One flagged consequence.** §§ 38-12-1101 et seq., as expanded by HB 24-1098, reportedly void **unilateral (one-way) fee-shifting clauses** in residential leases, along with jury-trial waivers, class-action waivers, and waivers of good faith or quiet enjoyment. **If so, any one-way attorney-fee clause rendered for CO in the library would be void** — the same issue KS § 58-2547(a)(3) raises, which the CSV already guards against for KS and NE but not for CO. **Flagged for CO's next clause review; not actioned, this being an SD session.**
+
+## Colorado status — canvass complete
+
+**Fifteen of fifteen cells carry a status.** No cell left `NOT CANVASSED`.
+
+**No CSV changes.** Canvass and record only; **no §5a.1 propagation owed.**
+
+## HB 25-1249 coverage audit — CO's re-audit largely caught it; two gaps found
+
+Prompted by the canvass finding that § 38-12-103 was substantially rewritten effective 2026-01-01, the CO clause rows were checked against the act. **The concern that Colorado might be shipping superseded deposit law was largely unfounded, and that is worth stating plainly.** CO's re-audit of 2026-08-20 captured five HB 25-1249 elements:
+
+| Element | Row |
+|---|---|
+| 125% bad-faith presumption | `edu-bad-faith-deposit-co` — cites HB 25-1249 by name |
+| Walkthrough inspection right | `edu-walkthrough-co` |
+| Ten-year carpet rule | `edu-carpet-damage-co` — cites the act and its effective date |
+| § 38-12-103(7) non-waiver | `edu-deposit-nonwaiver-co`, `edu-part5-nonwaivable-co` |
+| Pet caps | `edu-pet-caps-co` |
+
+**Two gaps remained, and both are now fixed in v132.**
+
+### 1. `security-deposit-return-co` ran the clock from the wrong event
+
+The clause read: *"within 30 days after Tenant vacates the property, or within 60 days if this Lease so provides."*
+
+§ 38-12-103(1) runs the period from **"the termination of the lease or surrender of the premises, whichever occurs last."** Those diverge whenever a tenant surrenders early. A tenant who moves out two months before the term ends starts the clock on the clause's reading but not on the statute's — **understating the landlord's own time and inviting a premature wrongful-retention claim against a landlord who relied on the lease text.**
+
+The clause also omitted the **written statement of exact reasons** and the bar on retaining for **normal wear and tear or preexisting conditions**. Both are express in § 38-12-103(1), and both are material now that § 38-12-103(2.5) **deems** a withholding wrongful where the statement is missing or fails to list exact reasons, and § 38-12-103(2) **forfeits the right to withhold any portion** for non-compliance. Rewritten.
+
+**The shape of this gap is the inverse of South Dakota's.** In SD the `LANDLORD_EDUCATION` row hardcoded a stale figure while the self-limiting `LEASE_CLAUSE` survived unharmed. Here the education rows were correct and **the defect sat in the clause that actually ships into leases.** Neither direction is safe to assume; both need checking.
+
+### 2. § 38-12-103(8)'s documentation duty had no row at all
+
+Added as `edu-deposit-documentation-co`. From **January 1, 2026**, on a tenant's written request the landlord must within **14 days** provide documentation in its possession relevant to the retention — **photographs, inspection forms or reports, receipts, invoices, or estimates.**
+
+**This compounds with the burden provisions rather than standing alone.** §§ 38-12-103(3)(b) and (3.5)(c) put the burden on the landlord to prove both that a retention was not wrongful and the amount of actual damages. A landlord who has not kept photographs and invoices faces a production duty they cannot satisfy *and* an evidentiary burden they cannot discharge — with treble damages plus attorney fees and costs exposed.
+
+**Cross-state significance:** **no other canvassed state requires supporting evidence rather than a statement of reasons.** ND § 47-16-07.1(3) and NE § 76-1416(2) require mandatory itemization; SD § 43-32-24 an itemized accounting on request within 45 days; KS § 58-2550(b) written itemized notice; MN § 504B.178 subd. 3 only specific reasons, with the burden on the landlord. **Colorado alone requires the underlying documents.** That distinction was invisible until the seven states were run against the same row.
+
+## CSV — v132 (from v131)
+
+535 → **536 rows**; CO **111 → 112**. All other state tag counts unchanged. One row corrected (`security-deposit-return-co`), one added (`edu-deposit-documentation-co`). Integrity assertions clean.
+
+**§5a.1:** both rows are CO-only; no shared clause was touched; **no propagation owed.**
+
+## CORRECTION to this log's waivability finding — the 3–2 split was wrong
+
+The Part 5 entry above recorded a **"clean 3–2 split"** on habitability waivability: CO/MN/SD non-waivable against ND/KS delegating. **That grouping was built on a Wyoming cell sourced from secondary material, and the official Wyoming text refutes it.**
+
+**Wyo. Stat. § 1-21-1202(d)**, read from wyoleg.gov: *"Any duty or obligation in this article may be assigned to a different party or modified by explicit written agreement signed by the parties."* Wyoming has **no non-waivable floor at all** — the opposite of what the earlier entry recorded.
+
+**Corrected picture — three groups, not two:**
+
+| Non-waivable | Structured delegation permitted | Fully modifiable |
+|---|---|---|
+| **CO** § 38-12-503(5), § 38-12-507 · **MN** § 504B.161(1)(b) · **SD** § 43-32-8 | **ND** § 47-16-13.1(4)–(5) · **KS** § 58-2553(b)–(d) · **NE** § 76-1419 (narrowest, but paired with § 76-1415(1)(a)'s anti-waiver rule) | **WY** § 1-21-1202(d) |
+
+**Colorado's own position is unchanged and remains correctly recorded** — § 38-12-503(5) voids any agreement waiving or modifying the warranty, and § 38-12-507 extends that to the remedies for agreements entered on or after May 3, 2024. Only the comparative framing was wrong, and only because Wyoming was mis-sourced.
+
+**Recorded here rather than silently amended**, because the incorrect split was written into this log as a finding and would otherwise stand.
+
+## Fee-shifting flag — FALSE POSITIVE as to exposure, but my citation was wrong
+
+**My citation was wrong.** Earlier entries in this log and in the checklist cell cited **§§ 38-12-1101 et seq.** for Colorado's prohibited-lease-terms regime. **§ 38-12-1101 is the short title of the "Mobile Home Park Act Dispute Resolution and Enforcement Program"** (Part 11, added by HB 19-1309) and has nothing to do with lease terms.
+
+**The correct provision is C.R.S. § 38-12-801, Part 8** — *"Written rental agreement — prohibited clauses — copy — tenant — applicability — definitions"* — as substantially amended by **HB 23-1095** (ch. 372, p. 2229, § 1, effective **2023-08-07**).
+
+This is the **sixth miscitation** recorded in this canvass and **the second I committed myself**, after the § 20-13-23.2 scope error in the SD session. Both have the same cause: a section number carried forward from a secondary description without being opened. **L.8's rule — a title is not text — extends to a part number: a part number is not a subject.**
+
+### What § 38-12-801 actually prohibits
+
+Void if included: a clause assigning a **penalty** stemming from an eviction notice or action; a **one-way fee-shifting clause** — any fee-shifting clause must award fees to the **prevailing party**, and only after a determination that the party prevailed **and that the fee is reasonable**; **waivers** of the right to a jury trial (except in a possession hearing), of class or collective claims, of the implied covenant of **good faith and fair dealing**, of the implied covenant of **quiet enjoyment** (except third-party acts beyond the landlord's reasonable control), and of **mandatory mediation** under § 13-40-110(1); any fee, damages or penalty for a tenant's **failure to give notice of nonrenewal**, beyond actual losses; and characterising any amount other than the set monthly occupancy payment as **"rent"** for eviction purposes.
+
+**Carve-outs:** the § 38-12-801(3)(a)(III) waiver prohibitions do not reach mobile-home rental agreements, nor duplex, triplex or accessory-dwelling-unit agreements where the owner resides in one unit or on the same lot.
+
+### The exposure the flag was raised about is nil
+
+**Zero `LEASE_CLAUSE` rows tagged CO contain attorney-fee language.** The CSV's standing integrity assertion covers KS and NE explicitly; Colorado turns out to be clean as well, and **`edu-fee-shifting-co` already exists and already cites § 38-12-801.** The concern that a one-way CO fee clause might be shipping and void was unfounded.
+
+**That makes four false positives in five clause-level flags checked** — ND × 2, KS, and now CO, against one real defect (MN `pet-policy-mn`). All five were raised the same way: by reading a statute, noting the checklist had no dedicated row, and inferring the CSV had a gap, **without querying the CSV.** Recorded as **Addendum L.14** during this session; this instance is further confirmation.
+
+### One genuine open item, which the correct citation surfaces
+
+§ 38-12-801's history line carries **two amendments this project has not read**:
+
+- **HB 25-1108**, ch. 437, p. 2522, § 2 — added subsection **(3.5)**, effective **2025-09-01**
+- **HB 25-1090**, ch. 94, p. 432, § 4 — amended **(3)(a)(VI)**, effective **2026-01-01**, and applying to conduct on or after that date
+
+Both are **in force now**. Neither subsection's content is known, and neither is reflected anywhere in the CO rows. Given that this is the statute voiding lease clauses outright, **an unread amendment to it is the highest-value remaining CO item** — the same profile as HB 25-1249, which this canvass found had rewritten the deposit statute.
+
+**Escalated:** the current text of § 38-12-801(3.5) and (3)(a)(VI).
+
+**No CSV changes this pass.** Citation corrected in this log and in the checklist cell; no clause was wrong.
+
+## § 38-12-801 read in full — escalation was a false positive, but the sweep found two real gaps (v136)
+
+Taylor supplied the complete text of § 38-12-801 (CRS Annotated, current through July 1 2026). **The two amendments the escalation was raised about are already fully covered**, and the library is more current on Colorado than this canvass was:
+
+- **(3.5), "Letty's Act"** (HB 25-1108, eff. 2025-09-01) — `edu-death-of-tenant-co` carries it precisely: liquidated damages, rent acceleration beyond the end of the month **or ten business days after the unit is vacated, whichever is later**, move-in concession clawback, any other early-termination penalty, the deposit-retention allowance for death-related damage, and the possession route without an eviction action.
+- **(3)(a)(VI)** (HB 25-1090, eff. 2026-01-01) — `edu-rubs-uncertainty-co` carries the markup cap exactly: *"either 2% of the billed amount or a flat $10 per month, not both."* It also cites **C.R.S. 6-1-737(4.5), added by HB26-1013**, a 2026 development this canvass did not know existed.
+
+**That is the sixth false-positive escalation of this session**, and the second time the CO re-audit has proved ahead of the canvass.
+
+### But the L.12 sweep found two subsections with no coverage
+
+Rather than stopping at the two amendments, every subsection of § 38-12-801 was checked against the CO rows. Two had no home.
+
+**§ 38-12-801(1) — the seven-day signed-copy duty.** No CO row cited or covered it. Added as `edu-lease-copy-duty-co`: a copy signed by both parties no later than the seventh day after the tenant signs, electronic sufficient **unless the tenant requests paper**.
+
+**Cross-state context makes this more than housekeeping.** The core-obligations canvass established three different postures on the same duty: **ND has none** (`edu-no-lease-copy-duty-nd` records that failure to deliver is not a defence); **MN § 504B.115 requires it and makes failure a defence in eviction**; **CO requires it within seven days.** Exactly the kind of universal obligation L.10 identified as systematically missing.
+
+**§ 38-12-801(3)(a)(I) — the eviction-penalty clause ban.** Added as `edu-eviction-penalty-clause-ban-co`. The library carried **(3)(a)(II)** fee-shifting, **(3)(a)(V)** rent-mischaracterisation, **(3)(a)(VI)** markups and **(3)(a)(VII)** voucher/utility evictions — and **skipped the first item on the list.** Several rows cite "38-12-801(3)(a)" generally; none reaches (I).
+
+**An asymmetry in the carve-outs, recorded because it is easy to misread.** § 38-12-801(4) disapplies (3)(a)(III)(A),(C),(D),(IV),(V),(VI),(VII) to mobile homes in mobile home parks, and § 38-12-801(8) disapplies (3)(a)(III),(IV),(V),(VI),(VII) to owner-occupied duplexes, triplexes and ADUs. **Neither carve-out lists (3)(a)(I) or (3)(a)(II).** So the eviction-penalty ban and the one-way fee-shifting ban apply to **every** Colorado residential rental agreement, including the owner-occupied small properties that escape most of the rest of subsection (3). Both new rows state this explicitly.
+
+## CSV — v136 (from v135)
+
+537 → **539 rows**; CO **112 → 114**. All other state tag counts unchanged. Two new CO-only `LANDLORD_EDUCATION` rows; **no shared clause touched, no §5a.1 propagation owed.** Integrity assertions clean.

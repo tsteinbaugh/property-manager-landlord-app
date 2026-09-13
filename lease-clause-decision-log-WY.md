@@ -283,3 +283,480 @@ The Wyoming Association of Realtors has real lease forms, but — same pattern a
 **CSV changes this session:** 5 new `LANDLORD_EDUCATION` rows (`edu-no-prohibited-lease-provisions-statute-wy`, `edu-no-immigrant-tenant-protection-wy`, `edu-no-right-to-call-police-statute-wy`, `edu-no-tenant-screening-fairness-act-wy`, `edu-returned-check-fee-cap-wy`), all `VERIFIED`. No lease-clause changes needed — every finding this session was a confirmed absence or a general-awareness item, nothing required a new or modified `LEASE_CLAUSE`. Running total: 298 rows in the library, 94 WY-tagged.
 
 **Wyoming status after this session:** the three previously-open named-topic canvass items are closed, the exculpation-ban question raised by the KS/NE liability audit is resolved (confirmed absent, no exposure), and one genuine new finding (returned-check fee cap) is added. Gap-discovery source #2 remains structurally weaker than Kansas's or Nebraska's, by judgment call rather than lack of effort — the professional forms market for Wyoming just doesn't offer an equivalent product. Remaining open items (HB25-1249-analog checks, the fee-shifting-mutuality question, municipal complexity, re-verification cadence) are lower-priority backlog, not blocking items.
+
+---
+
+## Addendum — 2026-08-28: shared-clause propagation notes owed from the CO re-audit (§5a.1)
+
+Two clauses were edited during the Colorado re-audit on 2026-08-27. Under the propagation rule added at CO log §5a.1, every tagged state's log owes a written note recording what changed, why, which state's work prompted it, and — the step that matters most — an explicit judgment on whether the change is **uniform** or **state-driven**. Both are recorded here, including the one that turns out not to reach Wyoming.
+
+### 1. `lead-based-paint` — WY is tagged, change inherited, classification: UNIFORM
+
+**What changed.** 40 CFR 745.113(b)(1) requires the Lead Warning Statement to appear in the lease **verbatim**; the prior clause text paraphrased it, which does not satisfy the regulation. The paraphrase was replaced with the exact regulatory text, and the other elements 745.113(b) requires were added: the landlord's affirmative disclosure or statement of no knowledge (b)(2), the records/reports list or statement of none (b)(3), the tenant's acknowledgment of receipt (b)(4), and the accuracy certification (b)(6).
+
+**What prompted it.** Colorado's re-audit at higher research settings, as a federal spot-check — not a Colorado-law finding.
+
+**Classification: UNIFORM.** The forcing authority is federal (40 CFR 745.113(b)(1); 42 U.S.C. 4852d), not any state's statute. Wyoming inherits the corrected text safely and benefits equally; no Wyoming-specific override is needed or warranted. This is the clean case §5a.1 contemplates — a state-driven edit inherited silently is the dangerous one, and this is not that.
+
+**Confirmed against the CSV, not assumed.** Row `lead-based-paint` is tagged `CO;WY;KS;NE;MN`, and because Wyoming reads the same shared row rather than an override, the corrected text is already the operative Wyoming lease language. The `bodyText` now opens with the verbatim statutory Lead Warning Statement, and `last_checked` has been reset to `2026-08-27` per §5a.1 step 2. Nothing further is required on the Wyoming side; this entry is the §5a.1 step-1 obligation being discharged.
+
+Worth noting for exposure context: 42 U.S.C. 4852d(b)(5)'s statutory penalty is inflation-adjusted to **$22,263 per violation** (24 CFR 30.65(b)), plus treble damages and fees — so the paraphrase-vs-verbatim distinction was not cosmetic. Records retention is 3 years (40 CFR 745.113(c)). The 10-day inspection opportunity is a **sale** requirement, not a lease one, and is correctly absent.
+
+### 2. `assistance-animal-accommodation` — does NOT reach Wyoming, and here is why
+
+The instruction that prompted this entry scoped this clause to KS/NE only. **Confirmed correct against the CSV**, and the reason is worth recording rather than just accepting: row `assistance-animal-accommodation` is tagged `KS;NE` — Wyoming was removed from it during session 7's full-library `supersedes` audit, because Wyoming carries its own override, `assistance-animal-accommodation-wy` (Wyo. Stat. § 35-13-207 fraud penalty), and both rows were displaying simultaneously before that fix. So §5a.1's trigger — the tagged states of the *edited row* — genuinely does not include Wyoming. No propagation obligation is owed on this row.
+
+### 3. A gap in §5a.1 itself, surfaced by working item 2 — flagged for Taylor, not decided
+
+Item 2 is correct on the rule as written, but the rule as written may not be catching what it was built to catch. The reason KS/NE moved to `NEEDS_REVIEW` is **not** a Kansas or Nebraska law problem — it is a *federal* currency problem: HUD withdrew FHEO-2020-01 effective 2025-09-17 and narrowed enforcement to individually-trained animals on 2026-05-22, leaving the ESA basis unsettled.
+
+That unsettled federal baseline is expressed in **body text that is duplicated nearly verbatim across six rows**. Comparing them:
+
+| Row | states | status | last_checked |
+|---|---|---|---|
+| `assistance-animal-accommodation` | KS;NE | NEEDS_REVIEW | 2026-08-27 |
+| `assistance-animal-accommodation-co` | CO | VERIFIED | 2026-08-27 |
+| `assistance-animal-accommodation-wy` | WY | VERIFIED | **2026-08-21** |
+| `assistance-animal-accommodation-mn` | MN | VERIFIED | **2026-08-23** |
+| `assistance-animal-accommodation-nd` | ND | VERIFIED | **2026-08-24** |
+
+CO's override was re-checked on 2026-08-27 because CO was the state being audited — its notes now carry the CADA-based independent state-law reasoning. WY, MN, and ND's overrides were not, and still carry pre-audit dates. The WY override's operative text is the same federal-baseline paragraph as the shared row, differing only in the final sentence (the Wyoming fraud-penalty citation, which is independently sound and not affected by the HUD development).
+
+**The structural point:** §5a.1 triggers on *rows tagged with more than one state*. A single-state override row that was never edited never trips it — even when it carries the identical federal text whose basis just became unsettled. The rule tracks rows; the risk lives in shared *text*. This is the same class of failure §5a.1 was written to prevent, arriving through a door the rule does not cover.
+
+**Not acting on this unilaterally**, since it is a legally consequential status change across three states. The options, for Taylor's call:
+- **(a)** Run the same one-question state-law-basis check for WY (and MN, ND) that CO got via CADA, and record the result. Wyoming's likely answer is thinner than Colorado's — WY has no state analog to CADA that this project has found — which may mean WY lands at `NEEDS_REVIEW` alongside KS/NE rather than resolving to `VERIFIED`.
+- **(b)** Leave the override rows as-is and treat the HUD question as owned solely by the shared row.
+- **(c)** Extend §5a.1 to trigger on shared *text* rather than shared *row tags* — the durable fix, but the largest change, and it needs a way to detect near-duplicate bodies across override families.
+
+Recommend **(a)** at minimum, since it is one question per state and the current state is an affirmative `VERIFIED` resting on a basis that has since moved. Option (c) is the real fix and belongs in the architecture-review backlog either way.
+
+### 4. §5a.1's programmatic check — run for Wyoming, and it found more than expected
+
+§5a.1 prescribes: list every clause where `states` contains more than one state and `last_checked` post-dates the earliest tagged state's completion date; each hit needs a log note in the lagging states or an explanation of why none is required.
+
+**Run against the current CSV: 50 WY-tagged multi-state rows, of which 44 have `last_checked` after Wyoming's 2026-08-21 completion.** An earlier draft of this entry asserted `lead-based-paint` was the only hit. That was wrong, and the correction is worth recording because it exposes something about the check itself.
+
+**Most of the 44 are benign, but the check cannot tell you which.** The large majority are rows whose `last_checked` was bumped when MN, ND, or SD were *added to the `states` tag* during their own passes — a re-verification against a new state's law, not a modification of the text Wyoming reads. Those owe Wyoming nothing. But `last_checked` is bumped identically for a tag extension and for a text edit, and the schema records no distinction between them, so the prescribed check has a **high false-positive rate and requires a manual read of every hit's notes to resolve**. That is a real limitation of the check as specified, not a one-off.
+
+**Reading all 44, four rows besides `lead-based-paint` received an actual `bodyText` edit while Wyoming was tagged — and none was ever recorded in this log:**
+
+| Row | states | edit | date |
+|---|---|---|---|
+| `tenant-maintenance` | CO;WY;MN | long compound sentence split into shorter ones | 2026-08-23 |
+| `holdover` | CO;WY;KS;NE;MN | same plain-language split | 2026-08-23 |
+| `default-by-tenant` | CO;WY;MN;ND | same plain-language split | 2026-08-24 |
+| `early-termination` | CO;WY;MN;ND | same plain-language split | 2026-08-24 |
+
+All four came from the same cross-state plain-language cleanup during the Minnesota session, following MN's plain-language audit. **Classification: UNIFORM, and specifically not state-driven** — the rows' own notes are explicit that only MN's Plain Language Contract Act (Minn. Stat. § 325G.31) was confirmed to apply, and the cleanup was done as a general readability improvement because the pattern was library-wide rather than because MN's statute forced it on other states. Each is recorded as "no substantive change" — sentence splitting, not altered meaning. Wyoming inherits all four safely; no override is warranted.
+
+**Two honest caveats on that classification.** First, it rests on the editing session's own characterization of its work as non-substantive; this entry did not re-read the before/after text to confirm no meaning shifted. Second, these edits predate §5a.1's creation on 2026-08-27, so they were never subject to the rule — recording them now discharges the obligation retroactively rather than catching a live violation.
+
+**One row checked and excluded:** `services-utilities-provided` (CO;WY;NE) surfaced on a keyword scan for "CORRECTION," but reading its notes shows the correction concerns whether to tag MN, not an edit to the body text Wyoming reads. No note owed.
+
+**Recommended addition to §5a.1**, for Taylor's call: the programmatic check needs a way to distinguish a `last_checked` bump caused by a text edit from one caused by a tag extension. The cheapest version is a convention — a required marker in `notes` for any bodyText/rule_type/content_type change (the existing `MATERIAL CORRECTION` and `plain-language cleanup` phrasings are already doing this informally, which is why this pass could resolve the 44 at all). A stricter version is a separate `last_edited` column distinct from `last_checked`. Without one of these, the check as written will keep producing ~90% false positives and will get worse as the state count grows.
+
+### 5. ESA federal-currency question — RESOLVED for Wyoming, and a citation error found in shipped lease text (2026-08-28)
+
+Ran the one-question state-law-basis check flagged in §3 above. Taylor supplied the full primary text of Wyo. Stat. §§ 35-13-201 through 35-13-206, per §5a.2. Two outcomes: the ESA question resolves favorably, and a material citation error was found in Wyoming's shipped tenant-facing clause.
+
+**Determination: Wyoming HAS an independent state-law basis. `assistance-animal-accommodation-wy` stays VERIFIED.** It does *not* move to NEEDS_REVIEW alongside KS/NE.
+
+Two enacted provisions carry it, neither dependent on HUD guidance:
+- **§ 35-13-201(c):** "A person shall not be discriminated against in the leasing or rental of residential property because the person has an assistance animal, which shall be permitted in leased or rented residential property in accordance with the federal Fair Housing Act."
+- **§ 35-13-205(a)(iv):** "'Assistance animal' means an animal that works, provides assistance or performs tasks for the benefit of a person with a disability, **or provides emotional support that alleviates one (1) or more identified symptoms or effects of a person's disability**."
+
+That second definition is the whole ballgame. Many states protect only individually-trained service animals, which would leave ESAs exposed once HUD withdrew FHEO-2020-01 (2025-09-17) and narrowed enforcement to individually-trained animals (2026-05-22). Wyoming's legislature wrote emotional support into the statutory definition, so Wyoming's ESA housing protection rests on state law that has not moved.
+
+**Qualifier, recorded rather than glossed:** § 35-13-201(c) permits the animal "in accordance with the federal Fair Housing Act," so while the *right* is independently state-created, its operative *mechanics* (documentation, fees, the accommodation analysis) are federally referenced. This is a weaker basis than Colorado's CADA, which supplies its own standards. No Wyoming case law construes § 35-13-201(c). Classify Wyoming as **independent statute — yes, but federally-referenced and untested**, a notch below CO.
+
+**Note also § 35-13-201(a)(iii)**, a separate and broader hook: a person with a disability "shall not be discriminated against in the leasing or rental of apartments and other private residential property because of his disability."
+
+#### 5.1 Material citation error corrected — `assistance-animal-accommodation-wy`
+
+The clause's final sentence, shown to tenants, cited **§ 35-13-207**. **That section does not exist.** The article ends at § 35-13-206. The misrepresentation misdemeanor is at **§ 35-13-203(b)**.
+
+- **Corrected in `bodyText`**; `35-13-207` now appears nowhere in the library (verified programmatically post-write).
+- **The $750 figure was correct and is unchanged** — § 35-13-203(b) provides a fine of "not more than seven hundred fifty dollars ($750.00)." Only the section number was wrong.
+- **This was a verification-depth failure, not a research-methodology failure.** The row's own notes claimed the citation was "pulled directly from wyoleg.gov (primary source) to confirm wording, corroborated by 5 independent secondary sources." It was not. This is the same class of error the CO re-audit surfaced (§A of the architecture-review addendum) — shipped `VERIFIED` on a citation that primary text does not support. It is the first confirmed instance of that class in a state *other* than Colorado, which materially strengthens the addendum's warning that "all six other completed states were built under the same conditions… none has been tested."
+- **Contamination note:** the research pass independently flagged that fabricated "§ 35-13-207" citations circulate on ESA-letter-selling websites. The five "independent secondary sources" the original note relied on were most likely repeating one bad upstream source — precisely the aggregator-consistency failure mode this project already had a standing rule about.
+
+#### 5.2 Two collateral confirmations
+
+- **§ 35-13-203(b) reaches housing.** It penalizes misrepresenting "a service animal or an assistance animal" to obtain "any of the rights or privileges set forth in **this article**" — and § 35-13-201(c) is in that article. So the criminal deterrent genuinely applies to the rental scenario. This distinguishes Wyoming from Minnesota, where § 609.833 was found likely *not* to reach housing, making MN's lease-remedy sentence the operative protection instead.
+- **2025 SF0147's $5,000 penalty is a different offense.** It sits at § 35-13-206(a) — injuring or killing a service or assistance animal — not misrepresentation. The misrepresentation penalty remains $750. The clause needed no dollar-figure change.
+
+#### 5.3 Open, not addressed here
+
+- **MN and ND overrides remain unchecked.** Per §3's table, `assistance-animal-accommodation-mn` (2026-08-23) and `-nd` (2026-08-24) still carry pre-audit dates and the same federal-baseline text. Wyoming's result does not transfer — each needs its own state-basis check. ND's notes already self-flag that its penalty was "not independently verified against primary text," which given what this pass found in Wyoming is now a materially more concerning open item than it looked before.
+- **§5a.1's row-vs-text gap (§3 above) is unresolved.** This session confirms the gap is real and consequential: WY's override was carrying both an unverified federal basis *and* a fabricated citation while sitting at `VERIFIED`, and no programmatic check in the current schema would have surfaced either.
+- **Citation-existence check.** Nothing in the current process verifies that a cited section *exists*. A cheap programmatic screen — extract every statutory citation from `bodyText`, verify each against the state's actual section list — would have caught this in seconds. Recommend adding to the architecture-review backlog.
+
+---
+
+**CSV changes this session:** `steinoak_clauses_updated_42.csv`. One row modified (`assistance-animal-accommodation-wy`): `bodyText` citation corrected § 35-13-207 → § 35-13-203(b); `last_checked` → 2026-08-28; `verification_status` remains `VERIFIED`, now on a primary-source-confirmed state basis. No new rows, no `states` changes. 361 rows total, 94 WY-tagged. Duplicate-ID assertion passed pre-write; post-write verification confirmed row count, ID uniqueness, and zero remaining `35-13-207` references library-wide.
+
+### 6. Session 8 (2026-08-28): deposit split, fee-shifting resolved, cadence set
+
+Three items closed, all from Taylor's decisions this session.
+
+#### 6.1 Security deposit split to the CO pattern — DONE
+
+Wyoming had been carrying deposit *use* and deposit *return* in a single clause, unlike Colorado's two-clause pattern (generic `security-deposit-use` + short state-specific return override). Taylor elected to split and reuse the generic use clause rather than write a WY-specific one.
+
+- `security-deposit-use` extended `CO;NE;MN;ND` → **`CO;NE;MN;ND;WY`**
+- `security-deposit-return-wy` trimmed to return mechanics only — the application sentence was removed; still supersedes the generic `security-deposit-return`
+
+Retained in the WY return clause, all sourced to Wyo. Stat. § 1-21-1208(a): the 30-day deadline (or 15 days after forwarding address, whichever is later), the +30-day extension where the property is damaged, the written itemization with reasons, and the tenant's 30-day forwarding-address duty.
+
+**Two deliberate giveaways, accepted rather than overridden — recorded so they are decisions, not drift:**
+1. The generic clause permits cleaning deductions only where the property is *"substantially less clean"* than at move-in. § 1-21-1208(a) is more permissive: it allows the cost to clean *to the condition it was in at the start*. Wyoming landlords using this clause give up some cleaning-deduction latitude the statute would allow.
+2. § 1-21-1208(a)'s catch-all — "any other costs this Lease provides for" — is not carried into the generic clause.
+
+Neither is unlawful; both are more tenant-favorable than Wyoming requires. If either turns out to matter commercially, the fix is a WY-specific use clause superseding the generic, not an edit to the shared row.
+
+**Minor redundancy noted, not acted on:** the generic use clause and `nonrefundable-deposit-notice-wy` both render `{{security_deposit}}`, so the deposit amount will appear twice in a Wyoming lease — once on collection, once in the nonrefundable disclosure. Cosmetic, and the § 1-21-1207 disclosure genuinely needs the figure to be intelligible. Flagged for a future formatting pass.
+
+#### 6.2 Fee-shifting — the `edu-fee-shifting-co` counterpart, open since session 5, is closed
+
+**Wyoming has no reciprocity statute, and the answer is the opposite of Colorado's.** Wyoming applies the American Rule — each side bears its own fees absent contract or statute (*Circle Resources v. Hassler*, 2023 WY, citing *Levy v. Aspen S* and *Prancing Antelope I*) — and a contract must "unequivocally provide" for fee recovery before fees will be awarded (*Cowardin v. Finnerty*, 1999 WY, citing *Coulter v. City of Rawlins*). Wyoming is **not** among the seven reciprocity states (CA, FL, HI, MT, OR, UT, WA), and a Drake Law Review survey places it among the 31 states with no protection against one-sided fee provisions at all. **No WY analog to C.R.S. § 38-12-801(3)(a)(II) exists.** A landlord-only fee clause would be enforceable in Wyoming.
+
+Logged as `edu-no-fee-reciprocity-wy`.
+
+#### 6.3 A §5a.1 violation found retroactively — `default-by-tenant`
+
+Closing 6.2 surfaced a live instance of the exact failure §5a.1 was written to prevent.
+
+The prevailing-party attorney-fee language in `default-by-tenant` (CO;WY;MN;ND) was **forced by Colorado law** — C.R.S. § 38-12-801(3)(a)(II) voids landlord-only provisions there. That is a **state-driven** edit, not uniform. It was inherited by WY, MN, and ND with no classification recorded at the time. Wyoming landlords have therefore been extending tenants a reciprocal fee right that Wyoming law does not require, as a side effect of a Colorado fix, never as a decision.
+
+**Taylor's decision 2026-08-28: keep the mutual language for Wyoming.** Simpler, more even-handed, not unlawful, and not worth a WY override. Recorded as a choice rather than left as drift.
+
+**MN and ND still owe this check in their own logs.** The same unclassified Colorado-driven edit sits in both, and neither has been assessed against its own state's fee-shifting law.
+
+This is now the **second** §5a.1-class finding this state has produced in two sessions (the first being the fabricated § 35-13-207 citation in §5.1). Both were invisible to every programmatic check the schema currently supports.
+
+#### 6.4 Re-verification cadence — proposed, Taylor's to confirm
+
+**Proposed rule: re-verify Wyoming every April.** Wyoming's legislature runs a short session — roughly January through March, shorter still in budget years — so April is the first month each year when the year's new law is settled and knowable. The `last_checked` column added earlier is the mechanism; the cadence is just the rule for when a date has gone stale.
+
+Practical limitation, stated plainly: this cannot be automated from inside a session. There is no timer and no reminder — the cadence works only if a session is started to run it. Lowest-priority of this session's items; it matters at year two, not now.
+
+---
+
+**CSV changes this session:** `steinoak_clauses_updated_43.csv`. 362 rows (+1), 96 WY-tagged (+2). One row added (`edu-no-fee-reciprocity-wy`); one `states` extension (`security-deposit-use`); one `bodyText` trim (`security-deposit-return-wy`); one notes-only retroactive classification (`default-by-tenant`, no text change, `last_checked` deliberately not bumped since nothing was edited). Duplicate-ID assertion passed pre-write; post-write verification confirmed row count and ID uniqueness.
+
+---
+
+## Addendum — 2026-08-28, session 9: rebase, citation screen, and final close-out
+
+### 7. Both re-audits were running on a stale CSV — resolved
+
+The Colorado re-audit and this Wyoming session were each handed a CSV that **predated South Dakota entirely** (361 rows, zero SD content). SD was completed as state #7 and holds 37 rows in the real trunk. Both sessions therefore produced branches off the wrong base.
+
+| file | rows | SD? | CO re-audit fixes? | WY session fixes? |
+|---|---|---|---|---|
+| `_41` (stale base both chats used) | 361 | ❌ | ✅ | ❌ |
+| `_44` (this session's output) | 362 | ❌ | ✅ | ✅ |
+| `_55` (true trunk, all 7 states) | 384 | ✅ | ❌ | ❌ |
+| `_56` (reconciled merge) | 395 | ✅ | ✅ | ✅ |
+| **`_57` (current, CO wrote it)** | **395** | ✅ | ✅ | ✅ |
+
+Adopting `_44` would have silently deleted all 37 SD rows. Adopting `_55` would have re-shipped errors CO had already fixed — including a phantom **"$20.00 per occurrence, as required by Colorado law"** NSF cap in tenant-facing lease text and the non-verbatim lead-paint warning. `_56` merged both branches onto the trunk; the CO session verified the port as byte-identical on all 11 modified and 10 added rows, then wrote `_57` (one row, `edu-service-animal-fraud-ks`, notes only).
+
+**Process lesson worth carrying to every future state: confirm the CSV version at session start before doing any work.** A row-count and state-tag check takes seconds. Neither session ran one, and the cost was a full reconciliation session.
+
+### 8. Citation-existence screen — Wyoming's results
+
+Built in response to the fabricated `§ 35-13-207` (§5.1). Extracts every statutory citation from `bodyText` and checks the cited section exists.
+
+**Wyoming is clean on tenant-facing text.** WY's only lease-clause citation is `assistance-animal-accommodation-wy` → `Wyo. Stat. § 35-13-203(b)`, verified against primary text this session.
+
+Library-wide Tier 1 (citations inside lease clauses) is **5 rows across all seven states**, all now verified. Two of the five carried real errors — WY's phantom cite and CO's "criminal offense" mischaracterization of a civil infraction. A 40% error rate in the tier that actually reaches tenants.
+
+**Screen limitations found while building it, recorded so they aren't rediscovered:**
+- v1 undercounted by ~20%. It matched only the `§` glyph, missing the spelled-out `C.R.S. section 38-12-1301` form and continuation cites like `sections 18-13-107.3 and 18-13-107.7`. Both misses fell almost entirely on Colorado, whose drafting convention favors the spelled-out form — the state with the most clauses was the state least covered.
+- **An existence check cannot catch a correct citation described wrongly.** CO's "criminal offense" error was a valid cite with a false characterization. Per-state passes still require reading what the statute says.
+
+**WY has 16 citations that appear only in `notes`, not `bodyText`** — the lowest-risk pocket in the library. Nearly all are Article 12 sections (`1-21-1202` through `1-21-1211`) and Safe Homes sections read in full primary text during the statute walk, plus `35-13-201`–`206` from text Taylor supplied. The one genuinely unread cite is `Wyo. Stat. § 40-12-105` (Consumer Protection Act). `35-13-207` appears only as its own correction record.
+
+### 9. Final status — Wyoming closed
+
+Verified against `_57`, not memory: **96 WY-tagged rows, all `VERIFIED`**, zero `NEEDS_REVIEW`, zero supersedes collisions library-wide. 62 `LEASE_CLAUSE`, 34 `LANDLORD_EDUCATION`. One intentionally inactive row (`dv-safe-homes-proactive-wy`, the unselected Safe Homes posture).
+
+**Carried forward, not blocking:**
+- **South Dakota owes a §5a.1 note** on four shared rows tagged both WY and SD — `security-deposit-use`, `possession-delay`, `surrender-end-of-term`, `early-termination`. SD's log, not WY's.
+- **Re-verification cadence: April**, proposed, unconfirmed. WY's legislature runs Jan–Mar, so April is the first month the year's law is settled.
+- **Three checklist rows still genuinely open for WY** — immigration-status inquiry prohibition, right to call police (non-waivable), immigrant tenant protection act analog. Never checked here.
+
+**Wyoming's asterisk is unchanged and remains the honest headline:** Wyoming state law, verified against primary text. Municipal deferred. Federal deferred except the lead-paint and ESA spot-checks. No attorney review.
+
+---
+
+## §5a.1 PROPAGATION NOTE — incoming from the Nebraska re-audit, 2026-08-31 (v62 → v63)
+
+Two shared clauses tagged to WY were touched by the Nebraska re-audit.
+
+### 1. `services-utilities-provided` (CO;WY;NE) — bodyText REWORDED, judged UNIFORM
+
+**Old:** "Tenant waives all liability of Landlord for any interruption or insufficiency of a service or utility resulting from causes beyond Landlord's reasonable control."
+**New:** "Landlord is not liable for any interruption or insufficiency of a service or utility resulting from causes beyond Landlord's reasonable control."
+
+**Why.** Neb. §76-1415(1)(d) bars exculpation or limitation of landlord liability "arising due to **active and actionable negligence**." Because the clause is already self-limited to causes beyond the landlord's reasonable control — which by definition is not the landlord's active negligence — the original Nebraska reasoning on (d) was **correct**, and no negligence carve-out was needed. The real exposure was **§76-1415(1)(a)**, which bars the tenant agreeing to "waive or forego rights or remedies under the Act": the clause opened with a tenant-side *waiver*, which invites that argument for free. Recast as an allocation. **Substance unchanged in every state.**
+
+**Neutral for Wyoming.** The WY re-audit confirmed Wyoming has no prohibited-lease-provisions statute at all — no attorney-fee ban, no confession-of-judgment ban, no exculpation ban — so neither the old nor the new wording is at risk under Wyoming law. The change is adopted for consistency and clarity, and costs Wyoming nothing: the substance is identical.
+
+**§5a.1 judgment: UNIFORM, not state-driven.** No state is disadvantaged and no state needs an override. A Nebraska-only override was deliberately **not** created, because the improvement is not Nebraska-specific.
+
+### 2. `late-fee` (was CO;WY;NE;MN) — NE REMOVED, no text change
+
+Nebraska took its own `late-fee-ne`. Neb. §76-1433 waives the landlord's right to terminate for a breach on accepting rent with knowledge of it, "unless otherwise agreed **after the breach has occurred**" — an express timing rule the shared clause's unqualified "or to pursue any other remedy available under this Lease" collides with.
+
+**§5a.1 judgment: STATE-DRIVEN. Deliberately NOT propagated to WY.** A non-waiver clause preserving termination is genuinely valuable where contract can preserve it, and WY has not been shown to carry Nebraska's express timing rule. Narrowing every tagged state to solve one state's problem would surrender real protection in the others. **WY keeps the clause unchanged.**
+
+**Worth checking when WY is next revisited:** whether WY's own late-rent waiver rule is statutory or common-law, and whether it reaches *termination only* (as Nebraska's does) or other remedies too. Nebraska's narrowness was the surprise of that analysis — the prior conclusion had been wrong in both directions, overstating what the landlord loses and understating the clause's exposure.
+
+
+---
+
+## §5a.1 PROPAGATION NOTE — Shared-clause pass, 2026-09-03 (v93 → v94)
+
+Three shared multi-state clauses were edited. Per §5a.1, this note is recorded in **every tagged state's log**, with the uniform-vs-state-driven judgment for each.
+
+### 1. `notices` — EDIT — judgment: **UNIFORM**
+
+Added a saving clause: where applicable law requires a particular method, form, timing, or content for a notice, that requirement controls over the clause, and the lease does not designate an alternative delivery method for any notice governed by law.
+
+**Uniform**, therefore safe to inherit with no per-state override. Every tagged state specifies notice delivery per-statute, so deferring is correct in all of them.
+
+**Trigger:** the Minnesota re-audit found MN specifies delivery section by section with conflicting requirements — the 14-day pre-eviction notice is personal or first class mail **only** and failure means dismissal plus expungement; abandoned-property sale needs personal service **or** first class **and** certified mail **plus** posting; post-writ notice needs mail **plus** a telephone attempt. The prior text named only *where* notices go and was silent on *how*.
+
+**Correction to the original flag:** the concern as first raised (that the clause designated email or a portal) was overstated — the clause never designated anything. It was silent, not wrong. The edit closes a silence rather than fixing an assertion.
+
+### 2. `returned-payments` — EDIT — judgment: **UNIFORM**
+
+"may charge Tenant **any** fee associated with the failed payment" → "may charge Tenant **a** fee ... **not to exceed the maximum amount permitted by applicable law**."
+
+**Uniform**, safe to inherit, no per-state override. The self-limiting formulation is correct in every tagged state regardless of each state's figure.
+
+**Trigger:** all six tagged states have a cap and already carry a row recording it — CO `nsf-fee-limit-co`, WY `edu-returned-check-fee-cap-wy`, KS `edu-nsf-fee-cap-ks`, NE `edu-bad-check-restitution-vs-nsf-fee-ne`, ND `edu-returned-check-fee-cap-nd`, MN `edu-returned-check-fee-cap-mn` ($30, Minn. Stat. §604.113). The unbounded word "any" was therefore wrong in **all six states simultaneously** — the clause promised landlords something no tagged state permits.
+
+### 3. `holdover` — EDIT — judgment: **STATE-DRIVEN figure, uniform-safe edit**
+
+Removed the hardcoded "double the Monthly Rent ... or the maximum amount allowed under applicable law, if less" and replaced it with a pure deferral to the statutory maximum.
+
+The figure is genuinely state-driven, but no per-state override is needed because each state's figure is already carried by its own education row.
+
+**The old text was wrong in BOTH directions, which is why leaving it was not an option:**
+
+- **Over-promised in MN.** Minnesota has **no holdover multiplier at all**. "Double the Monthly Rent" described a remedy that does not exist. The self-limiting tail kept it lawful but misleading.
+- **Under-claimed in NE.** Nebraska allows **three months' periodic rent or threefold actual damages, whichever is greater, plus statutory attorney fees** (§76-1437(3)) — all of which **exceed** double monthly rent. The old "or the maximum allowed ... if less" language could only cap **downward**, so a Nebraska landlord relying on the clause would recover materially less than the statute allows.
+
+**The general lesson worth carrying:** a ceiling-only formulation silently forfeits recovery in any state whose statutory figure is *higher* than the hardcoded one. Self-limiting language protects against unlawfulness but not against under-claiming.
+
+KS is unaffected either way — its 1.5× cap (K.S.A. 58-2570(c)) already sits below double.
+
+**GAP SURFACED, NOT CLOSED:** **CO and WY have no holdover-damages education row**, and their statutory figures have never been verified in this project. The "double" figure appears to have originated as Colorado's, but that has not been confirmed against C.R.S. Recommend verifying both and adding `edu-holdover-co` / `edu-holdover-wy` to match KS, NE, and MN.
+
+**Relevance to Wyoming:** all three clauses are WY-tagged. WY has no holdover education row and its statutory holdover figure has never been verified in this project — flagged for the WY re-audit.
+
+**CSV: v93 → v94 (484 rows, unchanged count — body text and notes only).** No new rows; no display collisions introduced.
+
+
+---
+
+## HOLDOVER FIGURE — PROVENANCE FINDING, 2026-09-03 (v96 → v97)
+
+Follow-up to the shared-clause pass, which removed "double the Monthly Rent" from the generic `holdover` clause and flagged that CO's and WY's figures had never been verified.
+
+**Both are now checked. The result: the "double" figure had no statutory basis in ANY of the five tagged states.**
+
+| State | Actual rule | vs. "double" |
+|---|---|---|
+| **CO** | No multiplier. C.R.S. §13-40-123 — damages, costs, and attorney fees (residential only if the lease provides). Damages measured as **reasonable rental value** (*Behr v. Burge*, 940 P.2d 1084 (Colo. App. 1996)) | Too high |
+| **WY** | No multiplier. Actual damages plus 10% annual interest (§1-21-1211(b), **provisional — see caveat**) | Too high |
+| **KS** | 1.5× cap (K.S.A. 58-2570(c)) | Too high |
+| **NE** | Three months' periodic rent or threefold actual damages, whichever greater, **plus attorney fees** (§76-1437(3)) | Too **low** |
+| **MN** | No multiplier at all | Baseless |
+
+**Wrong in every direction at once** — too high in three states, too low in one, and baseless in the two where it was assumed to have originated.
+
+**The shared-clause pass hypothesized the figure "appears to have originated as Colorado's." That hypothesis is disproved.** Colorado has no multiplier. The number appears to be generic template boilerplate that entered the library before any state-specific research and was never questioned — and it survived four state re-audits.
+
+**Why this one is worth recording as a pattern, not just a fix:** nothing in the library ever asserted a source for "double." Each state's own research quietly contradicted it — KS logged a 1.5× cap, NE logged a higher ceiling, MN logged none — and no pass ever compared the state findings back against the shared clause they were supposed to be qualifying. The self-limiting tail ("or the maximum allowed under applicable law, if less") made the clause lawful everywhere, which is exactly what stopped anyone from looking.
+
+**Also corrected:** `edu-holdover-ne` described double monthly rent as "Colorado's double-rent figure." That attribution was wrong and is now flagged in the row.
+
+New rows: `edu-holdover-co`, `edu-holdover-wy`.
+
+### Confidence caveats, stated plainly
+
+- **CO** — statute text and case annotation both from the Justia codification rather than the Colorado Revisor directly. Sound, but a single source family, and the "no multiplier" conclusion is an **absence finding across Article 40** rather than an express statutory statement. Confirm on the next CO pass.
+- **WY — lower confidence, flagged.** The §1-21-1211(b) actual-damages-plus-10%-interest figure comes from **one secondary source last updated in 2022** and was not confirmed against the Wyoming statute. The surrounding negative rests on absence across secondary overviews, not a primary read of Article 10. **This project has already recorded Wyoming secondary sources as unreliable specifically** (the WY log flags Hemlane and LeaseWisely). Primary-verify §1-21-1211 before relying on this row; treat the 10% figure as provisional.
+
+---
+
+## §1-21-1211 PRIMARY-VERIFIED — 2026-09-03 (v97 → v98)
+
+The low-confidence caveat on `edu-holdover-wy` is discharged. §1-21-1211 read in full from **wyoleg.gov** (the Wyoming Legislature's own site) and cross-confirmed against **Justia's 2024 codification** — identical text, two independent source families.
+
+**The read found an error in my own row, written one turn earlier.**
+
+The prior body text presented §1-21-1211(b)'s "actual damages plus 10% interest" as the measure applying when a **holdover** tenant's liability exceeds the deposit. That is a misapplication. Subsection (b) opens *"If the renter **damages the rental property**"* — it governs **property damage**, not holdover rent, and says nothing about liability for a holdover period. I took a figure from a secondary source that had cited the section correctly, and attached it to the wrong subject.
+
+**This is precisely the failure mode Wyoming's own re-audit added to the checklist — "a correct citation can still be described wrongly."** A citation-existence screen passes it; only reading the section catches it. It is the second time this session I committed a failure mode I had just finished documenting.
+
+**The underlying negative stands and is now stronger.** Wyoming has **no holdover damages formula**. That conclusion no longer rests on a misread provision — it rests on §1-21-1211 being the residential rental article's damages section and containing no holdover measure at all.
+
+### New finding — post-writ possessions
+
+§1-21-1211(a): *"If the renter does not vacate the premises as required by a court order ... the sheriff may remove the renter's possessions and prevent the renter from reentering the premises **without further action by the court**."*
+
+**Wyoming imposes no storage period, no inventory requirement, no duty of care over removed property, and no notice-before-disposal obligation.** That is far less prescriptive than Minnesota, which requires a signed inventory prepared in the officer's presence, mailed notice, a care standard, and either a 28-day hold or a 60-day lien-and-sale track depending on storage location.
+
+Logged as `edu-post-writ-possessions-wy`. The eviction-duty screen had recorded WY at **0 post-writ property rows**; this fills that with a **confirmed-absent** answer rather than leaving the absence invisible, per the proof-of-absence rule.
+
+**Found incidentally** while verifying subsection (b) — which is itself an argument for the whole-section rule: the screen-relevant finding was in the subsection I did not go looking for.
+
+**Flagged:** the row's closing caution about conversion and bailment is general common-law reasoning, **not a Wyoming statutory finding**, and is marked as such in the row.
+
+
+---
+
+## § 5a.1 PROPAGATION NOTE — received from the ND re-audit session, 2026-09-06
+
+**Shared clause edited: `lead-based-paint`.** Its `states` field changed from `CO;WY;KS;NE;MN` to `CO;WY;KS;NE;MN;ND;SD`. **The clause TEXT did not change.** No re-review is owed on this state's existing tag and this state's `last_checked` is unaffected.
+
+**Why the edit happened.** A checklist-to-CSV reconciliation screen — built and first run during the ND re-audit — found that this `REQUIRED` / `LEASE_CLAUSE` row was never tagged ND or SD, even though the consolidated named-topic checklist recorded lead-paint disclosure as "Present (federal)" for ND. Because the `states` field is the display source of truth, a Steinoak-generated ND or SD lease for pre-1978 target housing was **omitting the federally mandated Lead Warning Statement entirely**. Exposure per this row's own record: 42 U.S.C. § 4852d(b)(5), inflation-adjusted to **$22,263 per violation** (24 CFR 30.65(b)), plus treble damages and fees.
+
+**§ 5a.1 judgment: UNIFORM, safe to inherit.** The requirement is federal (40 CFR 745.113(b)) with no state-specific variation — the same judgment already recorded for the KS propagation when the Lead Warning Statement was corrected to verbatim text.
+
+**The transferable lesson, not the tag change, is the reason this note is here.** The checklist asserted coverage the library did not have. That assertion was true about the *law* and false about the *library*, and nothing in the process compared the two. Two new standing screens were earned from it:
+
+1. **Checklist-to-CSV reconciliation** — for every topic marked Present, assert a matching CSV row exists.
+2. **Exhaustive generic-clause audit by group** — enumerate every generic clause and test each state's tag, adjudicating misses rather than trusting a keyword probe.
+
+**This state's result on screen 2, run 2026-09-06 across all seven states:** every generic lease clause not tagged to this state has a state-specific override in place. **No defect found here.** The defect was confined to ND (43 clauses, since fixed) and SD (45 clauses, outstanding — flagged for the SD session).
+
+---
+
+# CORE-OBLIGATIONS CANVASS — 2026-09-07 (PARTIAL — deposits, habitability, tenant remedy)
+
+Appended during the **South Dakota** re-audit session. Context: SD's re-audit found the consolidated named-topic checklist had **no topic row** for several universal landlord obligations — **Addendum L.10**, accretion bias. A `CORE OBLIGATIONS` section was added; SD, ND, MN, KS, CO and NE have been canvassed. **Wyoming is the seventh and last state.** This pass covers seven of fifteen cells.
+
+**Source tier stated up front:** Wyoming text here is from **Justia's 2025 codification plus concordant secondary sources, not from wyoleg.gov.** Every WY cell is marked accordingly and sits **below** the other six states in confidence. This should be upgraded before any WY clause work relies on it.
+
+## Wyoming is the most permissive of the seven — except where it isn't
+
+**No deposit cap. No separate account. No interest** — § 1-21-1208(a) requires return *"without interest"* in terms. **§ 1-21-1207 requires written notice of any NONREFUNDABLE deposit**, making Wyoming the only one of the seven to contemplate a nonrefundable deposit at all — at the opposite pole from Colorado, where § 38-12-106 now *requires* pet deposits to be refundable.
+
+**And the remedy for non-compliance is the weakest of the seven.** § 1-21-1208(c): the renter recovers **the full amount wrongfully withheld and court costs**. No multiplier, no punitive element, **no attorney fees**. Against CO treble plus fees, ND treble, MN double plus $500 punitive, KS 1½×, NE liquidated damages capped at the lesser of one month's rent or 2× the deposit plus fees as of right, and SD forfeiture plus a $200 cap — **Wyoming is the only state where a landlord who wrongfully withholds faces no consequence beyond returning what was owed.** Meanwhile § 1-21-1211(b) lets the *owner* recover damages exceeding the deposit **with 10% per annum interest.** The asymmetry is worth recording plainly.
+
+**A deadline mechanic no other state has.** § 1-21-1208(a) runs **30 days from termination or 15 days from receipt of the new mailing address, whichever is later** — and then: *"If there is damage to the residential rental unit, this period shall be extended by thirty (30) days."* **Wyoming is the only one of the seven where the landlord's own damage claim extends the landlord's own deadline**, to 60/45. Every other state runs a single clock the landlord cannot lengthen by asserting a claim.
+
+The renter carries a reciprocal duty: **within thirty days of termination, notify the owner where payment and notice may be made.**
+
+## But the habitability duty cannot be waived — and that changes a split recorded earlier
+
+§ 1-21-1202: **the warranty of habitability cannot be waived or modified by the parties.**
+
+**This revises a finding entered earlier in this canvass.** The CO entry recorded a clean **3–2 split** — CO/MN/SD non-waivable against ND/KS delegating. With NE and WY now canvassed the picture is **4–3**: **CO, MN, SD and WY non-waivable**; **ND, KS and NE permitting structured delegation** — with the NE entry's own caveat that Nebraska pairs the narrowest delegation with an express anti-waiver rule and so sits closer to the non-waivable group in substance.
+
+**The Wyoming case is the most striking.** Its substantive duty is the thinnest of the seven — safe, sanitary and fit for occupancy; operational electrical, heating and plumbing with hot and cold water unless otherwise agreed in writing; common areas sanitary and reasonably safe — and **it is conditioned on the renter being current in rent**, which no other state does. Yet the little that exists **cannot be contracted around**. Permissive in substance, rigid in form.
+
+## Tenant remedy: the narrowest of the seven
+
+The renter must be **current in rent**, give **written notice**, and allow a **reasonable time** to remedy. On failure the renter may terminate, with pro-rated rent to the termination date and return of prepaid rents and deposits after deductions (§ 1-21-1203(d)). **Wyoming does not permit rent withholding to compel repairs, and has no repair-and-deduct and no escrow.**
+
+All seven now recorded: **CO** terminate, punitive damages, injunctive relief, AG enforcement, receivership · **MN** court-administered escrow with receivership · **SD** repair-and-deduct, vacate, own-account escrow · **ND** repair-and-deduct · **KS** and **NE** terminate-or-sue for damages · **WY** terminate only, and only if paid up.
+
+## Eight cells still NOT CANVASSED for Wyoming
+
+Tenant repair duty (**§ 1-21-1204**); both assistance-animal rows; general reasonable-accommodation duty; required state disclosures (**§ 1-21-1207** is one, already noted); rent-modification notice (**reported as no statute**); periodic-tenancy termination notice (**§ 1-21-1002** is the lead); state-wide lease-content restrictions.
+
+**Also recorded for the next pass:** § 1-21-1205 (prohibited acts by renter; entry grounds), § 1-21-1206 (renter's remedies), § 1-21-1209 (holder of owner's interest bound), § 1-21-1211(b) (owner's recovery beyond the deposit, 10% interest), § 1-21-1303 (domestic-abuse termination), **§ 1-1-115(b) (returned-check fee capped at $30)** — the last being outside Article 12 entirely and the WY analogue to SD § 57A-3-421's $60 and ND's $40.
+
+## No CSV changes
+
+Canvass and record only; **no §5a.1 propagation owed.**
+
+## Remaining cells — Wyoming canvass complete, 15 of 15
+
+**A widely-repeated 30-day termination-notice claim rests on a miscitation.** Multiple sources state Wyoming has **no statute** governing notice to terminate a periodic tenancy of any length — month-to-month, week-to-week, or a year or longer. One commercial source asserts a **30-day** notice and cites **§ 1-21-1203**. That section is *"Owner's duties; notice by renter of noncompliance; duty to correct; exceptions; termination of rental agreement; liability limited"* — **it contains no termination-notice rule at all.**
+
+Recorded as **unsupported pending primary verification**, not adopted. This is the fourth miscitation this canvass has caught in a secondary source (after RocketRent's SDCL § 43-32-2, DocDraft's SDCL § 43-32-14, and the KS handbook chain), and the pattern is consistent: **a plausible-sounding number attached to a real section number that does not say it.**
+
+What Wyoming does have is an **eviction** notice — § 1-21-1003 requires a **3-day notice to quit** before filing a forcible entry and detainer action, for all § 1-21-1002 grounds, with rent required to be 3 days overdue for the nonpayment ground. **That is a precondition to suit, not a periodic-tenancy termination notice**, and conflating the two would materially misstate a landlord's obligations.
+
+### Wyoming is the thinnest regulatory regime of the seven, and in one place it runs the other way
+
+**No enumerated prohibited-provisions statute** (KS § 58-2547, NE § 76-1415 both have one). **No unconscionability statute** (ND § 47-16-13.3, KS § 58-2544, NE § 76-1412 all have one). No ban on confession of judgment, exculpation, or fee-shifting. **No state fair housing act** — the only one of the seven without one, so the FHA's accommodation duty operates directly with no state overlay.
+
+**§ 1-21-1203(e) is the outlier that runs the other direction:** *"The owner is not liable under this article for claims for mental suffering or anguish."* **A statutory damages exclusion in the landlord's favour — the only one found in any of the seven states.** Every other state's landlord-tenant statute constrains what the landlord may do; Wyoming's also constrains what the tenant may recover.
+
+**The comparison worth recording:** the SD re-audit established that South Dakota follows the ND pattern — no enumerated prohibited-provisions list — but does have **§ 53-9-3's general exculpatory limit** as a backstop. **Wyoming appears to have neither.** It is the SD pattern taken one step further, and the single non-waiver rule at § 1-21-1202 is the only lease-content restriction located.
+
+### Two further contrasts
+
+**The single mandated disclosure is the mirror image of every other state's.** § 1-21-1207 requires written notice of any **nonrefundable** deposit. KS § 58-2551, NE § 76-1417 and MN § 504B.181 all require **landlord or manager identity** disclosure; Wyoming requires none. Its one mandated disclosure instead protects the tenant against an unexpected forfeiture — a different problem entirely.
+
+**Wyoming joins South Dakota as the second of seven with no move-in inventory requirement**, against ND § 47-16-07.2, MN § 504B.182 and KS § 58-2548. That refines the pattern recorded in the KS entry, which had SD as the sole outlier on a four-state sample.
+
+**The tenant-duty row has a Wyoming-only element:** § 1-21-1204 requires the renter to **restore the unit to its original cleanliness and dispose of all waste before termination**. No other canvassed state imposes a statutory restore-to-original-condition obligation.
+
+## Wyoming status — canvass complete
+
+**Fifteen of fifteen cells carry a status**, every one tiered below the other six states because **the source was Justia's 2024/2025 codification plus concordant secondary material, not wyoleg.gov.** Three cells are recorded as *"not located"* rather than confirmed absent (both assistance-animal rows and reasonable accommodation), with the search boundary stated.
+
+**This tiering should be resolved before any Wyoming clause work relies on these cells.**
+
+**No CSV changes.** Canvass and record only; **no §5a.1 propagation owed.**
+
+## PRIMARY-SOURCE UPGRADE — wyoleg.gov read in full, and it REFUTES one of my own cells
+
+The tiering flag raised in the previous entry is resolved: **the whole of Title 1, ch. 21, art. 12 was read from wyoleg.gov**, the Legislature's own statute server (2024 Wyoming Statutes). All fifteen WY cells now rest on official text.
+
+**The flag was justified. One cell was flatly wrong, and it was the one I built a cross-state finding on.**
+
+### § 1-21-1202(d) — Wyoming is the MOST permissive of the seven, not the least
+
+The previous entry recorded, from a secondary source, that *"the warranty of habitability cannot be waived or modified by the parties."* The official text says the opposite:
+
+> **§ 1-21-1202(d).** "**Any duty or obligation in this article may be assigned to a different party or modified by explicit written agreement signed by the parties.**"
+
+**Every duty in the article — including the habitability standard itself — is assignable and rewritable by signed writing.** Wyoming has no non-waivable floor at all.
+
+**This invalidates the "4–3 split" recorded in this log's previous entry and in the CO entry.** The corrected picture:
+
+| Non-waivable | Structured delegation permitted | **Fully modifiable** |
+|---|---|---|
+| CO (§ 38-12-503(5), § 38-12-507) · MN (§ 504B.161(1)(b)) · SD (§ 43-32-8) | ND (§ 47-16-13.1(4)–(5)) · KS (§ 58-2553(b)–(d)) · NE (§ 76-1419, narrowest, but paired with § 76-1415(1)(a)'s anti-waiver rule) | **WY (§ 1-21-1202(d))** |
+
+**Wyoming is its own category.** Three groups, not two — and the state I had placed in the *most* protective group belongs in a group of its own at the opposite end.
+
+**Two further narrowings the secondary sources also missed.** § 1-21-1202(c): the article **"does not apply to breakage, malfunctions or other conditions which do not materially affect the physical health or safety of the ordinary renter."** And § 1-21-1202(a) exempts **seasonal units such as summer cabins** not intended to have the amenities.
+
+### § 1-21-1208(c) — two errors and one omission in the deposit-penalty cell
+
+Official text: *"If the owner … **unreasonably fails to comply** with subsection (a) or (b) …, the renter may recover **the full deposit** and court costs."*
+
+- The trigger carries a **reasonableness qualifier** the previous entry omitted.
+- The remedy is **the entire deposit**, not merely the portion wrongfully withheld — **more generous** than recorded, so the earlier entry understated the tenant's position while overstating it elsewhere.
+- **Missed entirely, and unique among the seven:** *"if the owner is the prevailing party and the court finds **the renter acted unreasonably in bringing the action**, the owner may be awarded court costs."* **No other canvassed state penalises a tenant for an unreasonable deposit claim.** Costs run both ways in Wyoming.
+
+### § 1-21-1206 — the tenant remedy is a three-step ladder, not a bare termination right
+
+The previous entry described "notice and reasonable time, then terminate." The actual structure: a § 1-21-1203(b) notice **served by certified mail**, to which the owner may respond by **disputing the claim in writing**; then a formal **"notice to repair or correct condition"** under § 1-21-1206(b) reciting the first notice and warning of court action in **three days**; then a **civil action in circuit court** where the court may award **costs, damages and affirmative relief**, damages expressly including **rent improperly retained or collected**, and relief including **an order directing repairs**.
+
+Still no repair-and-deduct, no escrow, no self-help — but a genuine judicial remedy with damages, which the earlier entry did not convey. Counterweight: **§ 1-21-1203(d) lets the owner refuse repair and terminate** where cost is unreasonable in light of the rent, on 10–20 days' notice for the renter to find substitute housing.
+
+### Confirmed correct on the official text
+
+The deposit return deadline and its damage extension; the mandatory written itemization; no cap, no interest, § 1-21-1207's nonrefundable-deposit notice; § 1-21-1209 successor liability; § 1-21-1203(e)'s mental-suffering exclusion; the absence of any statutory periodic-termination notice; and § 1-21-1204's renter duties including the restore-to-original-condition obligation at (viii).
+
+**Also now recorded**, previously absent: § 1-21-1210's **two-stage abandoned-property regime** — 7 days' notice, a further 7 days if the renter responds, storage costs payable before removal, owner not responsible for storage loss.
+
+## Method note
+
+**This is the clearest vindication in the whole canvass of tiering a source rather than trusting it.** The WY cells were marked below the other six precisely because they came from Justia and secondary compilations. Reading the official text changed **one cell to its opposite**, corrected **two more**, and invalidated **a cross-state structural finding** that had already been written into two other state logs. Had the tier not been flagged, that finding would have propagated as settled.
+
+**All fifteen WY cells now carry the wyoleg.gov verification marker.**
