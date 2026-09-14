@@ -20,6 +20,7 @@ on:
           - check
           - dry-run
           - test-email
+          - diagnose
         default: check
 
 permissions:
@@ -42,6 +43,13 @@ jobs:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           ALERT_EMAIL_TO: ${{ vars.ALERT_EMAIL_TO }}
         run: node checkCitations.js --test-email
+
+      - name: Diagnose LegiScan search behavior (temporary)
+        if: ${{ inputs.mode == 'diagnose' }}
+        working-directory: scripts/legal-watch
+        env:
+          LEGISCAN_API_KEY: ${{ secrets.LEGISCAN_API_KEY }}
+        run: node diagnose.js
 
       - name: Run Colorado legal-change check (dry-run)
         if: ${{ inputs.mode == 'dry-run' }}
