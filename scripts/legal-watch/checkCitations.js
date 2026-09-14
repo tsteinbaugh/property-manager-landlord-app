@@ -142,10 +142,73 @@ function buildSectionMap(rows) {
   return map;
 }
 
+// ---------- non-statute references (CFR, federal USC, case law / agency guidance) ----------
+//
+// A handful of CO rows cite something other than a plain C.R.S. section --
+// found by grepping lease-clause-citations-CO.csv for CFR/U.S.C./case-law/
+// agency-guidance markers (5 rows, 3 distinct kinds of reference). Each kind
+// needs a genuinely different monitoring approach, so this is a short,
+// hand-curated list (same "read it, don't regex-guess it" discipline as the
+// citation extraction itself), not a generic multi-format citation parser --
+// there are 5 rows total, a bespoke parser would be over-engineering.
+//
+// - CFR sections: automatable for real. eCFR.gov's public versioner API
+//   (no key needed) returns every amendment date for a section.
+// - The one federal statute (42 U.S.C. 4852d): automatable by reusing
+//   LegiScan against Congress (state=US) instead of a state legislature.
+// - Case law and HUD sub-regulatory guidance: NOT automatable for free.
+//   "Is this case still good law" is the actual paid feature of Westlaw
+//   KeyCite / Lexis Shepard's -- free tools like CourtListener only give raw
+//   citation counts, too noisy to trust as a real signal. These get a
+//   periodic manual-recheck REMINDER instead of a detection attempt, and the
+//   report/email must never present a reminder as if it were a real finding.
+const CFR_CHECKS = [
+  { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+  { title: "24", section: "30.65", clauseIds: ["lead-based-paint"] },
+];
+
+const FEDERAL_STATUTE_CHECKS = [{ section: "4852d", clauseIds: ["lead-based-paint"] }];
+
+const MANUAL_RECHECK_ITEMS = [
+  {
+    id: "case-anderson-shorter-arms",
+    label: "Anderson v. Shorter Arms Investors, LLC, 2023 COA 71, 537 P.3d 831",
+    clauseIds: ["habitability-notice-co", "edu-written-notice-strictly-required-co"],
+  },
+  {
+    id: "case-behr-burge",
+    label: "Behr v. Burge, 940 P.2d 1084 (Colo. App. 1996)",
+    clauseIds: ["edu-holdover-co"],
+  },
+  {
+    id: "hud-esa-guidance",
+    label: "HUD FHEO-2020-01 guidance withdrawal (2025-09-17) / HUD enforcement-narrowing memo (2026-05-22)",
+    clauseIds: ["edu-esa-federal-state-divergence-co"],
+  },
+];
+const MANUAL_RECHECK_INTERVAL_DAYS = 180;
+
+// ---------- eCFR ----------
+
+async function ecfrLastAmended(title, section) {
+  const url = `https://www.ecfr.gov/api/versioner/v1/versions/title-${title}.json?section=${section}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`eCFR versions lookup failed for ${title} CFR ${section}: HTTP ${res.status}`);
+  const data = await res.json();
+  if (VERBOSE) {
+    console.log(`\n--- raw eCFR versions(${title} CFR ${section}) ---`);
+    console.log(JSON.stringify(data, null, 2));
+  }
+  const versions = data.content_versions || [];
+  if (versions.length === 0) throw new Error(`eCFR returned no versions for ${title} CFR ${section}`);
+  // Versions are returned oldest-first; the last entry is the most recent amendment.
+  return versions[versions.length - 1].amendment_date;
+}
+
 // ---------- LegiScan ----------
 
-async function legiscanSearch(section) {
-  const url = `https://api.legiscan.com/?key=${LEGISCAN_API_KEY}&op=getSearch&state=${STATE_CODE}&query=${encodeURIComponent(section)}`;
+async function legiscanSearch(section, jurisdiction = STATE_CODE) {
+  const url = `https://api.legiscan.com/?key=${LEGISCAN_API_KEY}&op=getSearch&state=${jurisdiction}&query=${encodeURIComponent(section)}`;
   const res = await fetch(url);
   if (!res.ok) throw new Error(`LegiScan search failed for ${section}: HTTP ${res.status}`);
   const data = await res.json();
@@ -186,9 +249,14 @@ const ENACTED_STATUSES = new Set([3, 4]);
 
 function loadState() {
   try {
-    return JSON.parse(fs.readFileSync(STATE_FILE, "utf8"));
+    const state = JSON.parse(fs.readFileSync(STATE_FILE, "utf8"));
+    state.sections ||= {};
+    state.federalSections ||= {};
+    state.cfr ||= {};
+    state.manualRecheck ||= {};
+    return state;
   } catch {
-    return { sections: {} };
+    return { sections: {}, federalSections: {}, cfr: {}, manualRecheck: {} };
   }
 }
 
@@ -199,12 +267,35 @@ function saveState(state) {
 
 // ---------- email ----------
 
-async function sendAlertEmail(findings) {
-  const lines = findings.map(
-    (f) =>
-      `<li><b>${f.section}</b> (affects: ${[...f.clauseIds].join(", ")}) — <a href="${f.bill.url}">${f.bill.bill_number}</a>: ${f.bill.title || f.bill.last_action}. Status: ${f.statusLabel}. Last action ${f.bill.last_action_date}: ${f.bill.last_action}.</li>`,
-  );
-  const html = `<p>Possible Colorado law changes affecting shipped lease clauses -- verify against primary text before touching anything:</p><ul>${lines.join("")}</ul><p><i>Automated tripwire, not a verified finding. See lease-clause-citations-CO.csv for what each clause currently asserts.</i></p>`;
+async function sendAlertEmail({ billFindings = [], cfrFindings = [], reminders = [] }) {
+  const sections = [];
+
+  if (billFindings.length > 0) {
+    const lines = billFindings.map(
+      (f) =>
+        `<li><b>${f.section}</b> (${f.jurisdiction}, affects: ${[...f.clauseIds].join(", ")}) — <a href="${f.bill.url}">${f.bill.bill_number}</a>: ${f.bill.title || f.bill.last_action}. Status: ${f.statusLabel}. Last action ${f.bill.last_action_date}: ${f.bill.last_action}.</li>`,
+    );
+    sections.push(`<h3>Possible law changes (LegiScan)</h3><ul>${lines.join("")}</ul>`);
+  }
+
+  if (cfrFindings.length > 0) {
+    const lines = cfrFindings.map(
+      (f) => `<li><b>${f.title} CFR ${f.section}</b> (affects: ${[...f.clauseIds].join(", ")}) — amended ${f.lastAmended}.</li>`,
+    );
+    sections.push(`<h3>Possible federal regulation changes (eCFR)</h3><ul>${lines.join("")}</ul>`);
+  }
+
+  if (reminders.length > 0) {
+    const lines = reminders.map(
+      (r) => `<li><b>${r.label}</b> (affects: ${r.clauseIds.join(", ")}) — no automated check exists for this; time to look again.</li>`,
+    );
+    sections.push(
+      `<h3>Due for manual recheck (not an automated finding)</h3><p>These are case-law and agency-guidance citations with no reliable free automated signal -- "is this case still good law" is a paid Westlaw/Lexis feature. This is just a periodic nudge, not a detected change.</p><ul>${lines.join("")}</ul>`,
+    );
+  }
+
+  const totalRealFindings = billFindings.length + cfrFindings.length;
+  const html = `<p>Colorado lease-clause legal watch -- verify anything below against primary text before touching a clause; nothing here is a verified finding.</p>${sections.join("")}<p><i>See lease-clause-citations-CO.csv for what each clause currently asserts.</i></p>`;
 
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -215,7 +306,10 @@ async function sendAlertEmail(findings) {
     body: JSON.stringify({
       from: "Steinoak Legal Watch <onboarding@resend.dev>",
       to: [ALERT_EMAIL_TO],
-      subject: `[Steinoak] ${findings.length} possible Colorado law change${findings.length === 1 ? "" : "s"} to review`,
+      subject:
+        totalRealFindings > 0
+          ? `[Steinoak] ${totalRealFindings} possible Colorado law change${totalRealFindings === 1 ? "" : "s"} to review`
+          : `[Steinoak] ${reminders.length} Colorado citation${reminders.length === 1 ? "" : "s"} due for manual recheck`,
       html,
     }),
   });
@@ -233,20 +327,23 @@ async function main() {
       console.error("Missing RESEND_API_KEY or ALERT_EMAIL_TO");
       process.exit(1);
     }
-    await sendAlertEmail([
-      {
-        section: "38-12-105",
-        clauseIds: new Set(["late-fee-limit-co"]),
-        bill: {
-          bill_number: "TEST-0001",
-          title: "This is a test email from the Colorado legal-watch workflow, not a real finding.",
-          url: "https://legiscan.com/",
-          last_action: "Test run",
-          last_action_date: new Date().toISOString().slice(0, 10),
+    await sendAlertEmail({
+      billFindings: [
+        {
+          section: "38-12-105",
+          jurisdiction: "CO",
+          clauseIds: new Set(["late-fee-limit-co"]),
+          bill: {
+            bill_number: "TEST-0001",
+            title: "This is a test email from the Colorado legal-watch workflow, not a real finding.",
+            url: "https://legiscan.com/",
+            last_action: "Test run",
+            last_action_date: new Date().toISOString().slice(0, 10),
+          },
+          statusLabel: "Test",
         },
-        statusLabel: "Test",
-      },
-    ]);
+      ],
+    });
     console.log(`Test email sent to ${ALERT_EMAIL_TO}.`);
     return;
   }
@@ -259,28 +356,32 @@ async function main() {
   const rows = readCitationsRows();
   const sectionMap = buildSectionMap(rows);
   const state = loadState();
-  const findings = [];
+
+  let checksAttempted = 0;
+  let checksErrored = 0;
+
+  // ---- stream 1: Colorado statute sections, via LegiScan ----
 
   console.log(`Checking ${sectionMap.size} distinct C.R.S. sections cited by ${STATE_CODE} clauses...`);
+  const billFindings = [];
 
-  let sectionErrorCount = 0;
-
-  for (const [section, clauseIds] of sectionMap) {
-    const seen = state.sections[section] || { billIds: [] };
+  async function checkLegiscanSection(section, clauseIds, jurisdiction, stateBucket) {
+    checksAttempted++;
+    const seen = stateBucket[section] || { billIds: [] };
     let candidates;
     try {
-      candidates = await legiscanSearch(section);
+      candidates = await legiscanSearch(section, jurisdiction);
     } catch (err) {
-      console.error(`  ${section}: search error - ${err.message}`);
-      sectionErrorCount++;
-      continue;
+      console.error(`  [${jurisdiction}] ${section}: search error - ${err.message}`);
+      checksErrored++;
+      return;
     }
 
     // Only look closely at reasonably relevant hits -- LegiScan returns a
     // relevance score; low-relevance matches are usually noise (the section
     // number appearing incidentally in unrelated bill text).
     const relevant = candidates.filter((c) => Number(c.relevance) >= 50);
-    if (VERBOSE) console.log(`  ${section}: ${candidates.length} raw hits, ${relevant.length} relevant`);
+    if (VERBOSE) console.log(`  [${jurisdiction}] ${section}: ${candidates.length} raw hits, ${relevant.length} relevant`);
 
     for (const candidate of relevant) {
       if (seen.billIds.includes(candidate.bill_id)) continue; // already flagged before
@@ -289,14 +390,15 @@ async function main() {
       try {
         bill = await legiscanGetBill(candidate.bill_id);
       } catch (err) {
-        console.error(`  ${section}: getBill error for ${candidate.bill_id} - ${err.message}`);
+        console.error(`  [${jurisdiction}] ${section}: getBill error for ${candidate.bill_id} - ${err.message}`);
         continue;
       }
       if (!bill) continue;
 
       if (ENACTED_STATUSES.has(Number(bill.status))) {
-        findings.push({
+        billFindings.push({
           section,
+          jurisdiction,
           clauseIds,
           bill: {
             bill_id: bill.bill_id,
@@ -315,31 +417,82 @@ async function main() {
       seen.billIds.push(candidate.bill_id);
     }
 
-    state.sections[section] = seen;
+    stateBucket[section] = seen;
   }
 
-  // A run where every section errored out is a broken run, not a clean "all
-  // clear" -- fail loudly rather than silently reporting 0 findings and
+  for (const [section, clauseIds] of sectionMap) {
+    await checkLegiscanSection(section, clauseIds, STATE_CODE, state.sections);
+  }
+
+  // ---- stream 2: the one federal statute citation, via LegiScan against Congress ----
+
+  console.log(`\nChecking ${FEDERAL_STATUTE_CHECKS.length} federal statute section(s) via LegiScan (state=US)...`);
+  for (const { section, clauseIds } of FEDERAL_STATUTE_CHECKS) {
+    await checkLegiscanSection(section, new Set(clauseIds), "US", state.federalSections);
+  }
+
+  // ---- stream 3: federal regulation citations, via eCFR ----
+
+  console.log(`\nChecking ${CFR_CHECKS.length} CFR section(s) via eCFR...`);
+  const cfrFindings = [];
+  for (const { title, section, clauseIds } of CFR_CHECKS) {
+    checksAttempted++;
+    const key = `${title}-${section}`;
+    let lastAmended;
+    try {
+      lastAmended = await ecfrLastAmended(title, section);
+    } catch (err) {
+      console.error(`  ${title} CFR ${section}: eCFR error - ${err.message}`);
+      checksErrored++;
+      continue;
+    }
+    const seenAmendment = state.cfr[key]?.lastSeenAmendment;
+    if (seenAmendment && seenAmendment !== lastAmended) {
+      cfrFindings.push({ title, section, clauseIds, lastAmended });
+    }
+    state.cfr[key] = { lastSeenAmendment: lastAmended };
+  }
+
+  // A run where every real check errored out is a broken run, not a clean
+  // "all clear" -- fail loudly rather than silently reporting 0 findings and
   // writing state, which would look identical to a real clean check and give
-  // false confidence (e.g. an expired/revoked LegiScan key, or an outage).
-  if (sectionMap.size > 0 && sectionErrorCount === sectionMap.size) {
-    console.error(`\nAll ${sectionMap.size} section checks failed -- treating this as a failed run, not a clean result. Not sending an email, not updating state.`);
+  // false confidence (e.g. an expired/revoked LegiScan key, or an outage
+  // affecting both LegiScan and eCFR).
+  if (checksAttempted > 0 && checksErrored === checksAttempted) {
+    console.error(`\nAll ${checksAttempted} check(s) failed -- treating this as a failed run, not a clean result. Not sending an email, not updating state.`);
     process.exit(1);
   }
 
-  console.log(`\n${findings.length} finding(s) (${sectionErrorCount} section(s) errored and were skipped):`);
-  findings.forEach((f) => console.log(`  ${f.section} -> ${f.bill.bill_number} (${f.statusLabel}), affects: ${[...f.clauseIds].join(", ")}`));
+  // ---- stream 4: case law / agency guidance -- no live check, just a periodic reminder ----
+
+  const today = new Date().toISOString().slice(0, 10);
+  const daysSince = (dateStr) => (Date.now() - new Date(dateStr).getTime()) / 86_400_000;
+  const reminders = [];
+  for (const item of MANUAL_RECHECK_ITEMS) {
+    const lastReminded = state.manualRecheck[item.id]?.lastReminded;
+    if (!lastReminded || daysSince(lastReminded) >= MANUAL_RECHECK_INTERVAL_DAYS) {
+      reminders.push(item);
+      state.manualRecheck[item.id] = { lastReminded: today };
+    }
+  }
+
+  console.log(
+    `\n${billFindings.length + cfrFindings.length} real finding(s), ${reminders.length} manual-recheck reminder(s) (${checksErrored}/${checksAttempted} live checks errored):`,
+  );
+  billFindings.forEach((f) => console.log(`  [bill] ${f.jurisdiction} ${f.section} -> ${f.bill.bill_number} (${f.statusLabel}), affects: ${[...f.clauseIds].join(", ")}`));
+  cfrFindings.forEach((f) => console.log(`  [cfr] ${f.title} CFR ${f.section} amended ${f.lastAmended}, affects: ${[...f.clauseIds].join(", ")}`));
+  reminders.forEach((r) => console.log(`  [reminder] ${r.label}`));
 
   if (DRY_RUN) {
     console.log("\n--dry-run: not sending email, not writing state.");
     return;
   }
 
-  if (findings.length > 0) {
+  if (billFindings.length > 0 || cfrFindings.length > 0 || reminders.length > 0) {
     if (!RESEND_API_KEY || !ALERT_EMAIL_TO) {
-      console.error("Findings exist but RESEND_API_KEY/ALERT_EMAIL_TO not set -- skipping email.");
+      console.error("Findings/reminders exist but RESEND_API_KEY/ALERT_EMAIL_TO not set -- skipping email.");
     } else {
-      await sendAlertEmail(findings);
+      await sendAlertEmail({ billFindings, cfrFindings, reminders });
       console.log("Alert email sent.");
     }
   }
