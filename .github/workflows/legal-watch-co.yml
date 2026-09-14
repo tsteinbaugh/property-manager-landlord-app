@@ -73,5 +73,14 @@ jobs:
           git config user.name "legal-watch-bot"
           git config user.email "actions@github.com"
           git add scripts/legal-watch/state/CO.json
-          git diff --cached --quiet || git commit -m "Legal watch (CO): update seen-bill state [skip ci]"
-          git diff --cached --quiet || git push
+          # Re-checking `git diff --cached --quiet` on a second line to decide
+          # whether to push is a bug: by then the commit has already cleared
+          # the staged diff, so that check always passes and `push` never
+          # runs. One conditional block instead, so push always follows a
+          # real commit.
+          if ! git diff --cached --quiet; then
+            git commit -m "Legal watch (CO): update seen-bill state [skip ci]"
+            git push
+          else
+            echo "No state changes to commit."
+          fi
