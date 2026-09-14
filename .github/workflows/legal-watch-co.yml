@@ -14,10 +14,11 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "check = real run; test-email = just send a canned test email via Resend, no LegiScan call"
+        description: "check = real run; dry-run = query LegiScan/eCFR and print findings, touch nothing; test-email = just send a canned test email via Resend, no LegiScan call"
         type: choice
         options:
           - check
+          - dry-run
           - test-email
         default: check
 
@@ -42,8 +43,15 @@ jobs:
           ALERT_EMAIL_TO: ${{ vars.ALERT_EMAIL_TO }}
         run: node checkCitations.js --test-email
 
+      - name: Run Colorado legal-change check (dry-run)
+        if: ${{ inputs.mode == 'dry-run' }}
+        working-directory: scripts/legal-watch
+        env:
+          LEGISCAN_API_KEY: ${{ secrets.LEGISCAN_API_KEY }}
+        run: node checkCitations.js --dry-run --verbose
+
       - name: Run Colorado legal-change check
-        if: ${{ inputs.mode != 'test-email' }}
+        if: ${{ inputs.mode == 'check' }}
         working-directory: scripts/legal-watch
         env:
           LEGISCAN_API_KEY: ${{ secrets.LEGISCAN_API_KEY }}
@@ -52,7 +60,7 @@ jobs:
         run: node checkCitations.js
 
       - name: Commit updated state, if any
-        if: ${{ inputs.mode != 'test-email' }}
+        if: ${{ inputs.mode == 'check' }}
         run: |
           git config user.name "legal-watch-bot"
           git config user.email "actions@github.com"
