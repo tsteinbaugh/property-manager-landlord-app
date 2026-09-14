@@ -1146,8 +1146,8 @@ describe("leases routes", () => {
       const res = await request(app).post(`/api/leases/${lease.id}/clauses/add-defaults`);
 
       const titles = res.body.leaseClauses.map((c) => c.title);
-      expect(titles).toContain("Month-to-Month Termination Notice (Property Exempt from For-Cause Requirements)");
-      expect(titles).not.toContain("Month-to-Month Termination Notice (Subject to For-Cause Requirements)");
+      expect(titles).toContain("Termination Notice (Property Exempt from For-Cause Requirements)");
+      expect(titles).not.toContain("Termination Notice (Subject to For-Cause Requirements)");
     });
 
     it("auto-attaches the covered variant for a standard long-term rental (the default)", async () => {
@@ -1162,8 +1162,8 @@ describe("leases routes", () => {
       const res = await request(app).post(`/api/leases/${lease.id}/clauses/add-defaults`);
 
       const titles = res.body.leaseClauses.map((c) => c.title);
-      expect(titles).toContain("Month-to-Month Termination Notice (Subject to For-Cause Requirements)");
-      expect(titles).not.toContain("Month-to-Month Termination Notice (Property Exempt from For-Cause Requirements)");
+      expect(titles).toContain("Termination Notice (Subject to For-Cause Requirements)");
+      expect(titles).not.toContain("Termination Notice (Property Exempt from For-Cause Requirements)");
     });
   });
 
