@@ -1,0 +1,8 @@
+{
+  "name": "legal-watch",
+  "private": true,
+  "description": "Per-state legal-change tripwire scripts. Node 18+ only (uses native fetch) -- no dependencies needed.",
+  "scripts": {
+    "check:co": "node checkCitations.js"
+  }
+}

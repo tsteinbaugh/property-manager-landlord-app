@@ -1,0 +1,61 @@
+name: Legal watch (Colorado)
+
+# Proof-of-concept legal-change tripwire for the Colorado clause library.
+# Checks whether any bill has been enrolled/passed touching a statute section
+# a shipped CO clause depends on (per lease-clause-citations-CO.csv), and
+# emails a summary if so. Never edits clause content itself -- a hit here
+# means "go verify against primary text," nothing more. See
+# scripts/legal-watch/checkCitations.js for the full explanation.
+
+on:
+  schedule:
+    # Every Monday 13:00 UTC (~6-7am Mountain, depending on DST).
+    - cron: "0 13 * * 1"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "check = real run; test-email = just send a canned test email via Resend, no LegiScan call"
+        type: choice
+        options:
+          - check
+          - test-email
+        default: check
+
+permissions:
+  contents: write # needed to commit the updated "already seen" state file
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Send test email only
+        if: ${{ inputs.mode == 'test-email' }}
+        working-directory: scripts/legal-watch
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          ALERT_EMAIL_TO: ${{ vars.ALERT_EMAIL_TO }}
+        run: node checkCitations.js --test-email
+
+      - name: Run Colorado legal-change check
+        if: ${{ inputs.mode != 'test-email' }}
+        working-directory: scripts/legal-watch
+        env:
+          LEGISCAN_API_KEY: ${{ secrets.LEGISCAN_API_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          ALERT_EMAIL_TO: ${{ vars.ALERT_EMAIL_TO }}
+        run: node checkCitations.js
+
+      - name: Commit updated state, if any
+        if: ${{ inputs.mode != 'test-email' }}
+        run: |
+          git config user.name "legal-watch-bot"
+          git config user.email "actions@github.com"
+          git add scripts/legal-watch/state/CO.json
+          git diff --cached --quiet || git commit -m "Legal watch (CO): update seen-bill state [skip ci]"
+          git diff --cached --quiet || git push
