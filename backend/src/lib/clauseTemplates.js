@@ -121,7 +121,7 @@ const CLAUSE_TEMPLATES = [
     group: "Rent & Payment",
     states: ["CO"],
     bodyText:
-      "Any late fee assessed under this Lease will not exceed the greater of $50.00 or 5% of the amount of Rent past due, and no late fee will be assessed until at least 7 days after Rent is due, as required by Colorado law.",
+      "Any late fee assessed under this Lease will not exceed the greater of $50.00 or 5% of the amount of Rent past due, and no late fee will be assessed until at least 7 days after Rent is due, as required by Colorado law. Landlord will provide Tenant written notice of any late fee within 180 days after the date the related Rent payment was due.",
   },
   {
     id: "nsf-fee-limit-co",
@@ -137,7 +137,7 @@ const CLAUSE_TEMPLATES = [
     group: "Rent & Payment",
     states: ["CO"],
     bodyText:
-      "If Tenant's Rent is paid in whole or in part by a housing subsidy program, any late fee assessed under this Lease against Tenant will not exceed $20.00, regardless of the late fee amount otherwise stated in this Lease, as required by Colorado law.",
+      "If Tenant's Rent is paid in whole or in part by a housing subsidy program, Landlord will not impose a late fee against Tenant for the late payment or nonpayment of any portion of Rent that the subsidy provider, rather than Tenant, is responsible for paying, as required by Colorado law.",
   },
   {
     id: "late-fee-ks",
@@ -198,14 +198,6 @@ const CLAUSE_TEMPLATES = [
     supersedes: "security-deposit-return",
     bodyText:
       "The Security Deposit will be returned to Tenant, together with a written statement listing the exact reasons for retaining any portion, within 30 days after the later of the termination of this Lease or Tenant's surrender of the property, or within 60 days after that date if this Lease so provides. Landlord will not retain any portion of the Security Deposit for normal wear and tear or for any damage or defective condition that existed before the start of the Term.",
-  },
-  {
-    id: "security-deposit-installments-co",
-    title: "Security Deposit Paid in Installments",
-    group: "Security Deposit",
-    states: ["CO"],
-    bodyText:
-      "In lieu of paying the Security Deposit in full prior to occupancy, Tenant has elected to pay the Security Deposit in installments of [specify installment amount] due [specify schedule, e.g. on the 1st of each month], over a period of at least six months, as permitted by Colorado law. If Tenant fails to pay an installment when due, Landlord may pursue a civil action to recover the unpaid amount, but Landlord may not terminate this Lease or pursue eviction based solely on a missed installment payment.",
   },
   {
     id: "nonrefundable-deposit-notice-wy",
@@ -1522,7 +1514,7 @@ const CLAUSE_TEMPLATES = [
     group: "Disclosures",
     states: ["CO"],
     bodyText:
-      "As required by Colorado law, Landlord discloses the property's bed bug history within the past 8 months, if any: [describe any known infestation and treatment, or state 'none known']. Tenant acknowledges receipt of this disclosure.",
+      "Upon request, Colorado law entitles Tenant to disclosure of the property's bed bug history within the past 8 months and the most recent date, if any, the property was inspected for bed bugs. Landlord discloses the following: [describe any known infestation and treatment, and the most recent inspection date, or state 'none known']. Tenant acknowledges receipt of this disclosure.",
   },
   {
     id: "utility-submetering-disclosure-co",

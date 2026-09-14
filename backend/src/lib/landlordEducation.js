@@ -74,8 +74,19 @@ const LANDLORD_EDUCATION = [
     ruleTypes: ["CONSTRAINED"],
     verificationStatus: "VERIFIED",
     bodyText:
-      "You can't deduct from a security deposit for carpet being \"substantially and irreparably damaged\" unless the carpet has not been replaced with new carpet within the ten years preceding the end of the lease or surrender of the premises (C.R.S. 38-12-103, as amended by HB25-1249, effective January 1, 2026). Even then, you may retain only the minimum amount necessary to replace the carpet - or to repaint - in the specific area that is damaged, not the full room or unit and not the full replacement cost (C.R.S. 38-12-104). Keep this in mind at move-out before assuming worn or stained carpet justifies a deduction.",
-    notes: "NEW - LANDLORD_EDUCATION item, added 2026-08-20 per Taylor's direction to track these with the same schema as lease clauses | AUDIT 2026-08-27 (Opus/high/research re-audit): MATERIAL CORRECTION - lookback was 5 years, corrected to 10. The 5-year figure appeared in the reengrossed/rerevised drafts of HB25-1249 but the ENROLLED text raised it to 10 years; prior research froze on the superseded draft figure. Also added the minimum-necessary / damaged-area-only / repaint rule from 38-12-104.",
+      "You can't deduct from a security deposit for carpet being \"substantially and irreparably damaged\" unless the carpet has not been replaced with new carpet within the ten years preceding the end of the lease or surrender of the premises (C.R.S. 38-12-103(11)(c), as amended by HB25-1249, effective January 1, 2026). Even then, you may retain only the minimum amount necessary to replace the carpet - or to repaint - in the specific area that is damaged, not the full room or unit and not the full replacement cost (C.R.S. 38-12-103(11)(a)-(b)). Keep this in mind at move-out before assuming worn or stained carpet justifies a deduction.",
+    notes: "NEW - LANDLORD_EDUCATION item, added 2026-08-20 per Taylor's direction to track these with the same schema as lease clauses | AUDIT 2026-08-27 (Opus/high/research re-audit): MATERIAL CORRECTION - lookback was 5 years, corrected to 10. The 5-year figure appeared in the reengrossed/rerevised drafts of HB25-1249 but the ENROLLED text raised it to 10 years; prior research froze on the superseded draft figure. Also added the minimum-necessary / damaged-area-only / repaint rule from 38-12-104. | CORRECTION 2026-09-13 (citation-extraction follow-up, primary text re-read end to end): the minimum-necessary/damaged-area/repaint rule is NOT at C.R.S. 38-12-104 (a different section entirely) - it's 38-12-103(11)(a)-(b), with (11)(c) being the ten-year carpet rule. New carve-out also found and not yet added anywhere: 38-12-103(12) exempts mobile-home-park rental agreements from both the walkthrough right (1.5) and the carpet/paint rules (11).",
+  },
+  {
+    id: "edu-mobile-home-park-carveout-co",
+    title: "Mobile-Home-Park Leases Are Exempt From the Walkthrough and Carpet/Paint Rules",
+    group: "Security Deposit",
+    states: ["CO"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    bodyText:
+      "If the property is a mobile-home-park rental agreement, two specific security-deposit rules do not apply: the move-out walkthrough right, and the special carpet/paint deduction rules (the ten-year carpet lookback and the minimum-necessary, damaged-area-only repaint rule). Ordinary security-deposit rules still apply to a mobile-home-park agreement - only these two specific rules are carved out.",
+    notes: "Surfaced 2026-09-13 (Claude Browser follow-up) while correcting edu-carpet-damage-co's citation - confirmed via primary text of C.R.S. 38-12-103(12) alongside that correction. Not linked to any mobile-home-specific product logic since mobile-home-park leases aren't deeply modeled in this app yet; flag for any future mobile-home-lot handling.",
   },
   {
     id: "edu-bad-faith-deposit-co",

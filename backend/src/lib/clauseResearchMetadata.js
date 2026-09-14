@@ -637,14 +637,6 @@ const CLAUSE_RESEARCH_METADATA = {
     lastChecked: "2026-08-20",
     notes: "NEW - optional add-on, attaches alongside utilities-paid-by-landlord, sourced from Taylor's own observation not the statute walk",
   },
-  "security-deposit-installments-co": {
-    ruleTypes: ["REQUIRED", "CONSTRAINED"],
-    contentType: "LEASE_CLAUSE",
-    verificationStatus: "VERIFIED",
-    effectiveFrom: "2026-08-18",
-    lastChecked: "2026-08-20",
-    notes: "NEW - optional, used only when a tenant elects installments; due-at-signing left completely unchanged",
-  },
   "dv-safe-homes-wy": {
     ruleTypes: ["CONDITIONAL"],
     contentType: "LEASE_CLAUSE",
