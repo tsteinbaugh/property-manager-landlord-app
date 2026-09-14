@@ -14,13 +14,13 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "check = real run; dry-run = query LegiScan/eCFR and print findings, touch nothing; test-email = just send a canned test email via Resend, no LegiScan call"
+        description: "check = real run; dry-run = query and print findings, touch nothing; seed-baseline = real query, writes state, never emails (run once before the first real check); test-email = canned Resend test, no LegiScan call"
         type: choice
         options:
           - check
           - dry-run
+          - seed-baseline
           - test-email
-          - diagnose
         default: check
 
 permissions:
@@ -44,13 +44,6 @@ jobs:
           ALERT_EMAIL_TO: ${{ vars.ALERT_EMAIL_TO }}
         run: node checkCitations.js --test-email
 
-      - name: Diagnose LegiScan search behavior (temporary)
-        if: ${{ inputs.mode == 'diagnose' }}
-        working-directory: scripts/legal-watch
-        env:
-          LEGISCAN_API_KEY: ${{ secrets.LEGISCAN_API_KEY }}
-        run: node diagnose.js
-
       - name: Run Colorado legal-change check (dry-run)
         if: ${{ inputs.mode == 'dry-run' }}
         working-directory: scripts/legal-watch
@@ -58,8 +51,15 @@ jobs:
           LEGISCAN_API_KEY: ${{ secrets.LEGISCAN_API_KEY }}
         run: node checkCitations.js --dry-run --verbose
 
+      - name: Seed baseline state (writes state, never emails)
+        if: ${{ inputs.mode == 'seed-baseline' }}
+        working-directory: scripts/legal-watch
+        env:
+          LEGISCAN_API_KEY: ${{ secrets.LEGISCAN_API_KEY }}
+        run: node checkCitations.js --seed-baseline
+
       - name: Run Colorado legal-change check
-        if: ${{ inputs.mode == 'check' }}
+        if: ${{ github.event_name == 'schedule' || inputs.mode == 'check' }}
         working-directory: scripts/legal-watch
         env:
           LEGISCAN_API_KEY: ${{ secrets.LEGISCAN_API_KEY }}
@@ -68,7 +68,7 @@ jobs:
         run: node checkCitations.js
 
       - name: Commit updated state, if any
-        if: ${{ inputs.mode == 'check' }}
+        if: ${{ github.event_name == 'schedule' || inputs.mode == 'check' || inputs.mode == 'seed-baseline' }}
         run: |
           git config user.name "legal-watch-bot"
           git config user.email "actions@github.com"

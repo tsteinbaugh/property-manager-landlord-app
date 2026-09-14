@@ -25,6 +25,13 @@
 //   node checkCitations.js --test-email     -- send one canned test email via Resend, no LegiScan call at all
 //                                               (for validating the email path independently, e.g. while a
 //                                               LegiScan API key application is still pending)
+//   node checkCitations.js --seed-baseline  -- real LegiScan/eCFR queries, writes state, but never emails.
+//                                               Run this once before ever running a real (unqualified) check
+//                                               for the first time: every bill/regulation LegiScan and eCFR
+//                                               already know about predates this tool and is already reflected
+//                                               in the current clause library, so it should be recorded as
+//                                               "already seen," not reported as a new finding. Only genuinely
+//                                               new activity after the baseline should ever trigger an email.
 
 const fs = require("fs");
 const path = require("path");
@@ -39,6 +46,7 @@ const ALERT_EMAIL_TO = process.env.ALERT_EMAIL_TO;
 
 const DRY_RUN = process.argv.includes("--dry-run");
 const VERBOSE = process.argv.includes("--verbose");
+const SEED_BASELINE = process.argv.includes("--seed-baseline");
 
 // ---------- minimal RFC4180 CSV parser (no dependency needed) ----------
 
@@ -208,7 +216,12 @@ async function ecfrLastAmended(title, section) {
 // ---------- LegiScan ----------
 
 async function legiscanSearch(section, jurisdiction = STATE_CODE) {
-  const url = `https://api.legiscan.com/?key=${LEGISCAN_API_KEY}&op=getSearch&state=${jurisdiction}&query=${encodeURIComponent(section)}`;
+  // year=1 = all years. LegiScan's getSearch defaults to the CURRENT session
+  // only if year is omitted -- confirmed empirically 2026-09-14: searching
+  // "38-12-105"/"38-12-103" with no year param returned 0 hits, hiding
+  // SB21-173 and HB25-1249 entirely. Without this, the tool could only ever
+  // notice a change in the exact session it happened to run during.
+  const url = `https://api.legiscan.com/?key=${LEGISCAN_API_KEY}&op=getSearch&state=${jurisdiction}&year=1&query=${encodeURIComponent(section)}`;
   const res = await fetch(url);
   if (!res.ok) throw new Error(`LegiScan search failed for ${section}: HTTP ${res.status}`);
   const data = await res.json();
@@ -485,6 +498,14 @@ async function main() {
 
   if (DRY_RUN) {
     console.log("\n--dry-run: not sending email, not writing state.");
+    return;
+  }
+
+  if (SEED_BASELINE) {
+    console.log(
+      `\n--seed-baseline: recording ${billFindings.length} bill(s), ${cfrFindings.length} regulation amendment date(s), and ${reminders.length} manual-recheck item(s) as an already-known baseline. NOT emailing -- everything above predates this tool and is already reflected in the current clause library. Future runs will only alert on genuinely new activity from here.`,
+    );
+    saveState(state);
     return;
   }
 
