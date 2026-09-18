@@ -1,16 +1,18 @@
-name: Legal watch (Colorado)
+name: Legal watch (Kansas)
 
-# Proof-of-concept legal-change tripwire for the Colorado clause library.
-# Checks whether any bill has been enrolled/passed touching a statute section
-# a shipped CO clause depends on (per lease-clause-citations-CO.csv), and
+# Legal-change tripwire for the Kansas clause library, following the same
+# pattern validated as a Colorado proof of concept (see legal-watch-co.yml and
+# scripts/legal-watch/checkCitations.js for the full explanation). Checks
+# whether any bill has been enrolled/passed touching a statute section a
+# shipped KS clause depends on (per lease-clause-citations-KS.csv), and
 # emails a summary if so. Never edits clause content itself -- a hit here
-# means "go verify against primary text," nothing more. See
-# scripts/legal-watch/checkCitations.js for the full explanation.
+# means "go verify against primary text," nothing more.
 
 on:
   schedule:
-    # Every Monday 13:00 UTC (~6-7am Mountain, depending on DST).
-    - cron: "0 13 * * 1"
+    # Every Monday, staggered after Colorado's 13:00 UTC run so all seven states
+    # don't hit LegiScan at the exact same moment.
+    - cron: "30 13 * * 1"
   workflow_dispatch:
     inputs:
       mode:
@@ -42,44 +44,44 @@ jobs:
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           ALERT_EMAIL_TO: ${{ vars.ALERT_EMAIL_TO }}
-        run: node checkCitations.js --state=CO --test-email
+        run: node checkCitations.js --state=KS --test-email
 
-      - name: Run Colorado legal-change check (dry-run)
+      - name: Run Kansas legal-change check (dry-run)
         if: ${{ inputs.mode == 'dry-run' }}
         working-directory: scripts/legal-watch
         env:
           LEGISCAN_API_KEY: ${{ secrets.LEGISCAN_API_KEY }}
-        run: node checkCitations.js --state=CO --dry-run --verbose
+        run: node checkCitations.js --state=KS --dry-run --verbose
 
       - name: Seed baseline state (writes state, never emails)
         if: ${{ inputs.mode == 'seed-baseline' }}
         working-directory: scripts/legal-watch
         env:
           LEGISCAN_API_KEY: ${{ secrets.LEGISCAN_API_KEY }}
-        run: node checkCitations.js --state=CO --seed-baseline
+        run: node checkCitations.js --state=KS --seed-baseline
 
-      - name: Run Colorado legal-change check
+      - name: Run Kansas legal-change check
         if: ${{ github.event_name == 'schedule' || inputs.mode == 'check' }}
         working-directory: scripts/legal-watch
         env:
           LEGISCAN_API_KEY: ${{ secrets.LEGISCAN_API_KEY }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           ALERT_EMAIL_TO: ${{ vars.ALERT_EMAIL_TO }}
-        run: node checkCitations.js --state=CO
+        run: node checkCitations.js --state=KS
 
       - name: Commit updated state, if any
         if: ${{ github.event_name == 'schedule' || inputs.mode == 'check' || inputs.mode == 'seed-baseline' }}
         run: |
           git config user.name "legal-watch-bot"
           git config user.email "actions@github.com"
-          git add scripts/legal-watch/state/CO.json
+          git add scripts/legal-watch/state/KS.json
           # Re-checking `git diff --cached --quiet` on a second line to decide
           # whether to push is a bug: by then the commit has already cleared
           # the staged diff, so that check always passes and `push` never
           # runs. One conditional block instead, so push always follows a
           # real commit.
           if ! git diff --cached --quiet; then
-            git commit -m "Legal watch (CO): update seen-bill state [skip ci]"
+            git commit -m "Legal watch (KS): update seen-bill state [skip ci]"
             git push
           else
             echo "No state changes to commit."

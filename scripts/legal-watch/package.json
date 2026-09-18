@@ -3,6 +3,12 @@
   "private": true,
   "description": "Per-state legal-change tripwire scripts. Node 18+ only (uses native fetch) -- no dependencies needed.",
   "scripts": {
-    "check:co": "node checkCitations.js"
+    "check:co": "node checkCitations.js --state=CO",
+    "check:wy": "node checkCitations.js --state=WY",
+    "check:ks": "node checkCitations.js --state=KS",
+    "check:ne": "node checkCitations.js --state=NE",
+    "check:mn": "node checkCitations.js --state=MN",
+    "check:nd": "node checkCitations.js --state=ND",
+    "check:sd": "node checkCitations.js --state=SD"
   }
 }

@@ -1,8 +1,8 @@
-// Legal-change watcher, Colorado proof of concept.
+// Legal-change watcher -- per-state legal-change tripwire.
 //
-// Reads lease-clause-citations-CO.csv, pulls out every distinct C.R.S. section
-// number that a shipped clause/education row actually depends on, asks
-// LegiScan (https://legiscan.com/legiscan, free tier, 30k queries/month)
+// Reads lease-clause-citations-<STATE>.csv, pulls out every distinct statute
+// section number that a shipped clause/education row actually depends on,
+// asks LegiScan (https://legiscan.com/legiscan, free tier, 30k queries/month)
 // whether any bill has been enacted that touches that section since we last
 // checked, and emails a summary if anything looks worth a human review.
 //
@@ -16,27 +16,46 @@
 // regulatory changes, federal agency guidance, or incorporated model codes
 // (see CLAUDE.md's known-issues history: the CFR 36.104 version-trap finding,
 // ND's incorporated fire code) -- those categories need their own mechanism,
-// deliberately out of scope for this first pass.
+// deliberately out of scope for this first pass. See stateConfig.js for which
+// specific citations in each state fall into that gap and are knowingly left
+// unmonitored.
+//
+// Statute-numbering FORMATS genuinely differ state to state (Colorado/Wyoming/
+// North Dakota use a 3-part hyphenated form; Kansas/Nebraska use 2-part with
+// occasional comma-continuation numbering; Minnesota uses no hyphens at all).
+// A regex tuned to one state's format will silently mis-extract or miss
+// citations in another -- see stateConfig.js for the per-state pattern, each
+// validated against that state's own citations file before shipping.
 //
 // Usage:
-//   node checkCitations.js                 -- real run: query, diff, email if needed, update state
-//   node checkCitations.js --dry-run        -- query and print findings, touch nothing
-//   node checkCitations.js --dry-run --verbose  -- also dump raw LegiScan responses, for tuning queries
-//   node checkCitations.js --test-email     -- send one canned test email via Resend, no LegiScan call at all
+//   node checkCitations.js --state=CO                -- real run: query, diff, email if needed, update state
+//   node checkCitations.js --state=CO --dry-run       -- query and print findings, touch nothing
+//   node checkCitations.js --state=CO --dry-run --verbose  -- also dump raw LegiScan responses, for tuning queries
+//   node checkCitations.js --state=CO --test-email    -- send one canned test email via Resend, no LegiScan call at all
 //                                               (for validating the email path independently, e.g. while a
 //                                               LegiScan API key application is still pending)
-//   node checkCitations.js --seed-baseline  -- real LegiScan/eCFR queries, writes state, but never emails.
+//   node checkCitations.js --state=CO --seed-baseline -- real LegiScan/eCFR queries, writes state, but never emails.
 //                                               Run this once before ever running a real (unqualified) check
 //                                               for the first time: every bill/regulation LegiScan and eCFR
 //                                               already know about predates this tool and is already reflected
 //                                               in the current clause library, so it should be recorded as
 //                                               "already seen," not reported as a new finding. Only genuinely
 //                                               new activity after the baseline should ever trigger an email.
+//                                               --state defaults to CO if omitted, for backward compatibility.
 
 const fs = require("fs");
 const path = require("path");
+const { STATE_NAMES, STATE_CONFIG } = require("./stateConfig");
 
-const STATE_CODE = "CO";
+const stateArg = process.argv.find((a) => a.startsWith("--state="));
+const STATE_CODE = stateArg ? stateArg.slice("--state=".length).toUpperCase() : "CO";
+const STATE_NAME = STATE_NAMES[STATE_CODE];
+const CONFIG = STATE_CONFIG[STATE_CODE];
+if (!CONFIG) {
+  console.error(`Unknown --state=${STATE_CODE}. Known states: ${Object.keys(STATE_CONFIG).join(", ")}`);
+  process.exit(1);
+}
+
 const CITATIONS_CSV = path.join(__dirname, "..", "..", `lease-clause-citations-${STATE_CODE}.csv`);
 const STATE_FILE = path.join(__dirname, "state", `${STATE_CODE}.json`);
 
@@ -122,17 +141,19 @@ function readCitationsRows() {
 }
 
 // ---------- section-number extraction ----------
-
-// Matches a C.R.S.-style section number: 1-2 digit title, 1-3 digit article,
-// 2-4 digit section, optional decimal (e.g. "38-12-103", "6-1-737", "13-40-107").
-// Deliberately drops subsection parens like "(1)(j)" -- LegiScan's full-text
-// search works at the section level, and a bill amending any subsection of a
-// section is exactly what we want to catch.
-const SECTION_PATTERN = /\b(\d{1,2}-\d{1,3}-\d{2,4}(?:\.\d+)?)\b/g;
+//
+// Extraction pattern, admin-code/K.A.R.-style strip patterns, and a small
+// hand-curated alias list (for citations that abbreviate a shared prefix,
+// e.g. a slash-separated list) all come from the active state's entry in
+// stateConfig.js -- see that file for why each state needs its own pattern.
 
 function extractSections(citationText) {
   if (!citationText) return [];
-  const matches = citationText.match(SECTION_PATTERN) || [];
+  let text = citationText;
+  for (const strip of CONFIG.stripPatterns || []) {
+    text = text.replace(strip, "");
+  }
+  const matches = text.match(CONFIG.sectionPattern) || [];
   return [...new Set(matches)];
 }
 
@@ -140,60 +161,44 @@ function extractSections(citationText) {
 function buildSectionMap(rows) {
   const map = new Map();
   const MONITORABLE = new Set(["CITED", "PARTIAL"]);
+  const aliases = CONFIG.extraSectionAliases || {};
+
+  function addSection(section, clauseId) {
+    if (!map.has(section)) map.set(section, new Set());
+    map.get(section).add(clauseId);
+  }
+
   rows.forEach((row) => {
     if (!MONITORABLE.has(row.citationStatus)) return;
-    extractSections(row.citation).forEach((section) => {
-      if (!map.has(section)) map.set(section, new Set());
-      map.get(section).add(row.clauseId);
-    });
+    extractSections(row.citation).forEach((section) => addSection(section, row.clauseId));
+    (aliases[row.clauseId] || []).forEach((section) => addSection(section, row.clauseId));
   });
   return map;
 }
 
 // ---------- non-statute references (CFR, federal USC, case law / agency guidance) ----------
 //
-// A handful of CO rows cite something other than a plain C.R.S. section --
-// found by grepping lease-clause-citations-CO.csv for CFR/U.S.C./case-law/
-// agency-guidance markers (5 rows, 3 distinct kinds of reference). Each kind
-// needs a genuinely different monitoring approach, so this is a short,
-// hand-curated list (same "read it, don't regex-guess it" discipline as the
-// citation extraction itself), not a generic multi-format citation parser --
-// there are 5 rows total, a bespoke parser would be over-engineering.
+// A handful of rows in most states cite something other than a plain statute
+// section -- found by grepping each state's own citations file for CFR/
+// U.S.C./case-law/agency-guidance markers. Each kind needs a genuinely
+// different monitoring approach, so these are short, hand-curated lists per
+// state (same "read it, don't regex-guess it" discipline as the citation
+// extraction itself), not a generic multi-format citation parser -- a
+// handful of rows per state doesn't justify one.
 //
 // - CFR sections: automatable for real. eCFR.gov's public versioner API
 //   (no key needed) returns every amendment date for a section.
-// - The one federal statute (42 U.S.C. 4852d): automatable by reusing
-//   LegiScan against Congress (state=US) instead of a state legislature.
+// - Select federal statutes: automatable by reusing LegiScan against
+//   Congress (state=US) instead of a state legislature.
 // - Case law and HUD sub-regulatory guidance: NOT automatable for free.
 //   "Is this case still good law" is the actual paid feature of Westlaw
 //   KeyCite / Lexis Shepard's -- free tools like CourtListener only give raw
 //   citation counts, too noisy to trust as a real signal. These get a
 //   periodic manual-recheck REMINDER instead of a detection attempt, and the
 //   report/email must never present a reminder as if it were a real finding.
-const CFR_CHECKS = [
-  { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
-  { title: "24", section: "30.65", clauseIds: ["lead-based-paint"] },
-];
-
-const FEDERAL_STATUTE_CHECKS = [{ section: "4852d", clauseIds: ["lead-based-paint"] }];
-
-const MANUAL_RECHECK_ITEMS = [
-  {
-    id: "case-anderson-shorter-arms",
-    label: "Anderson v. Shorter Arms Investors, LLC, 2023 COA 71, 537 P.3d 831",
-    clauseIds: ["habitability-notice-co", "edu-written-notice-strictly-required-co"],
-  },
-  {
-    id: "case-behr-burge",
-    label: "Behr v. Burge, 940 P.2d 1084 (Colo. App. 1996)",
-    clauseIds: ["edu-holdover-co"],
-  },
-  {
-    id: "hud-esa-guidance",
-    label: "HUD FHEO-2020-01 guidance withdrawal (2025-09-17) / HUD enforcement-narrowing memo (2026-05-22)",
-    clauseIds: ["edu-esa-federal-state-divergence-co"],
-  },
-];
+const CFR_CHECKS = CONFIG.cfrChecks || [];
+const FEDERAL_STATUTE_CHECKS = CONFIG.federalStatuteChecks || [];
+const MANUAL_RECHECK_ITEMS = CONFIG.manualRecheckItems || [];
 const MANUAL_RECHECK_INTERVAL_DAYS = 180;
 
 // ---------- eCFR ----------
@@ -308,7 +313,7 @@ async function sendAlertEmail({ billFindings = [], cfrFindings = [], reminders =
   }
 
   const totalRealFindings = billFindings.length + cfrFindings.length;
-  const html = `<p>Colorado lease-clause legal watch -- verify anything below against primary text before touching a clause; nothing here is a verified finding.</p>${sections.join("")}<p><i>See lease-clause-citations-CO.csv for what each clause currently asserts.</i></p>`;
+  const html = `<p>${STATE_NAME} lease-clause legal watch -- verify anything below against primary text before touching a clause; nothing here is a verified finding.</p>${sections.join("")}<p><i>See lease-clause-citations-${STATE_CODE}.csv for what each clause currently asserts.</i></p>`;
 
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -321,8 +326,8 @@ async function sendAlertEmail({ billFindings = [], cfrFindings = [], reminders =
       to: [ALERT_EMAIL_TO],
       subject:
         totalRealFindings > 0
-          ? `[Steinoak] ${totalRealFindings} possible Colorado law change${totalRealFindings === 1 ? "" : "s"} to review`
-          : `[Steinoak] ${reminders.length} Colorado citation${reminders.length === 1 ? "" : "s"} due for manual recheck`,
+          ? `[Steinoak] ${totalRealFindings} possible ${STATE_NAME} law change${totalRealFindings === 1 ? "" : "s"} to review`
+          : `[Steinoak] ${reminders.length} ${STATE_NAME} citation${reminders.length === 1 ? "" : "s"} due for manual recheck`,
       html,
     }),
   });
@@ -343,12 +348,12 @@ async function main() {
     await sendAlertEmail({
       billFindings: [
         {
-          section: "38-12-105",
-          jurisdiction: "CO",
-          clauseIds: new Set(["late-fee-limit-co"]),
+          section: "TEST-SECTION",
+          jurisdiction: STATE_CODE,
+          clauseIds: new Set(["test-clause"]),
           bill: {
             bill_number: "TEST-0001",
-            title: "This is a test email from the Colorado legal-watch workflow, not a real finding.",
+            title: `This is a test email from the ${STATE_NAME} legal-watch workflow, not a real finding.`,
             url: "https://legiscan.com/",
             last_action: "Test run",
             last_action_date: new Date().toISOString().slice(0, 10),
@@ -373,9 +378,9 @@ async function main() {
   let checksAttempted = 0;
   let checksErrored = 0;
 
-  // ---- stream 1: Colorado statute sections, via LegiScan ----
+  // ---- stream 1: state statute sections, via LegiScan ----
 
-  console.log(`Checking ${sectionMap.size} distinct C.R.S. sections cited by ${STATE_CODE} clauses...`);
+  console.log(`Checking ${sectionMap.size} distinct ${STATE_NAME} statute sections cited by ${STATE_CODE} clauses...`);
   const billFindings = [];
 
   async function checkLegiscanSection(section, clauseIds, jurisdiction, stateBucket) {
