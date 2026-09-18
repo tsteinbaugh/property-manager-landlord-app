@@ -82,7 +82,24 @@ jobs:
           # real commit.
           if ! git diff --cached --quiet; then
             git commit -m "Legal watch (ND): update seen-bill state [skip ci]"
-            git push
+            # Each state writes to its own state/ND.json, so a concurrent
+            # push from another state's workflow never touches the same file --
+            # but git still rejects a non-fast-forward push if main moved in
+            # the meantime (confirmed in practice: seeding all six new states
+            # at once, only the first push landed, the other five failed here).
+            # Retry with a rebase rather than assuming these jobs never overlap.
+            attempt=1
+            until git push; do
+              if [ "$attempt" -ge 5 ]; then
+                echo "git push failed after $attempt attempts, giving up"
+                exit 1
+              fi
+              echo "push rejected (attempt $attempt), fetching and rebasing before retry..."
+              git fetch origin main
+              git rebase origin/main
+              attempt=$((attempt + 1))
+              sleep $((RANDOM % 10 + 1))
+            done
           else
             echo "No state changes to commit."
           fi
