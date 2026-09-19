@@ -376,3 +376,78 @@ My 53-of-61 statistic was also read the wrong way round. Redundancy is not inert
 7. **One budget bill reached three separate chapters.** HB 33 (135th GA, 2023 operating budget) amended **§5321.01** (landlord-tenant definitions), **§1923.02** (eviction grounds), **and §955.011** (assistance-dog definitions) — three different titles of the Code in one appropriations act. HB 281 (134th GA) likewise touched §4112.02, §955.43, and §5321.01.
 8. **Fourth budget-bill instance.** HB 33 (2023 operating budget) expanded §955.011(B)(1) "person with a mobility impairment" to include neurological or psychological disability, **seizure disorder, and autism**. Budget bills have now moved fair housing, eviction, manufactured-home procedure, and assistance-animal definitions.
 9. **Municipal layer is wider than the four named cities** — Newburgh Heights (pop. ~2,000) has a full DV lease-termination regime.
+
+---
+
+## Base-clause extend manifest (the separate full-library screen, run before the canvass above)
+
+Screened all **52 active base rows** (tagged to 2+ core states) against Ohio primary text.
+Output CSV: `lease-clauses-oh-extends.csv` — 541 rows, no ids added or removed, no duplicates.
+**46 rows newly tagged `OH`** (47 carry an OH tag in total, including the pre-existing inactive
+`security-deposit-interest-oh`). **8 of the 46 carry a delimited `OH:` note** per Instructions item 14.
+
+### ⚠️ Correction to the earlier screen — three more exculpation rows
+
+The first pass flagged only `tenants-property-insurance` as failing §5321.13(D). Re-screening
+with the clause text actually open found **three more rows carrying the same defect**:
+
+| Row | Offending language |
+|---|---|
+| `services-utilities-provided` | "Landlord is **not liable** for any interruption or insufficiency…" |
+| `parking` | "Landlord … is **not liable** for damage to or theft of a vehicle or its contents" |
+| `storage-space` | "Landlord is **not liable** for damage to or theft of items stored there" |
+
+§5321.13(D) bars any tenant agreement to the **exculpation or limitation of any liability of the
+landlord arising under law**. All three limit liability that would otherwise arise under law.
+
+This is the recall-vs-section-open failure that instruction 22 describes, caught by re-screening.
+Note the library already anticipated the pattern for Kansas — `parking-ks` and `storage-space-ks`
+exist as separate rows — so Ohio needs the same treatment, not a blanket extend.
+
+### Blocked — do NOT tag OH (7)
+
+| Row | Reason |
+|---|---|
+| `default-by-tenant` | §5321.13(C) voids the prevailing-party fee sentence, bilaterally. **Use `default-by-tenant-ks-ne`** (tagged OH). |
+| `tenants-property-insurance` | Exculpation — §5321.13(D). |
+| `services-utilities-provided` | Exculpation — §5321.13(D). **Newly found.** |
+| `parking` | Exculpation — §5321.13(D). **Newly found.** |
+| `storage-space` | Exculpation — §5321.13(D). **Newly found.** |
+| `holdover` | "Maximum permitted by applicable law" resolves to **nothing** in Ohio. Needs `holdover-oh` with a stated multiplier. |
+| `security-deposit-return` | Needs `security-deposit-return-oh` (§5321.16(B) timeline + forwarding-address forfeiture). |
+
+### Tagged with a delimited `OH:` note (8)
+
+`application-of-payments` · `due-at-signing` · `returned-payments` · `early-termination` ·
+`existing-condition` · `surrender-end-of-term` · `pet-policy` · `pet-insurance-requirement`
+
+Two of these are more than drafting notes:
+
+- **`application-of-payments`** promises that nothing limits "Tenant's statutory right to cure
+  nonpayment of base rent." **Ohio has no such right** — §1923.04 is a notice to *leave*, not a
+  pay-or-quit. The sentence has no referent in Ohio and should not ship as written.
+- **`pet-policy`** and **`pet-insurance-requirement`** charge pet rent, a pet deposit, and require
+  pet-liability coverage. **OAC 4112-5-07(C) bars *any* extra charge for an animal assistant**
+  (the tenant remains liable for damage it causes). Both need an assistance-animal carve-out.
+  `pet-policy` additionally carries an indemnity limb to review against §5321.13(D).
+
+### Still to build for Ohio (as of this screen)
+
+**Overrides (4):** `security-deposit-return-oh` · `holdover-oh` · `tenants-property-insurance-oh` ·
+rewrite of `security-deposit-interest-oh`. **Plus, newly required:** Ohio equivalents of
+`services-utilities-provided`, `parking`, `storage-space` with the exculpation removed.
+
+**New rows (9):** §5321.18 identity-as-lease-content · §5321.131 flag display · §5321.13(F) one-way
+delegation · §5321.07(C) portfolio exemption · §5321.04(A)(9) mandatory drug termination ·
+§5321.03(A)(5)/§5321.051 sex-offender proximity · §1923.05(B)–(C) minor-tenant filing trap ·
+§1923.04 verbatim notice script · §4112.055(A)(2) election right.
+
+**Education rows:** alarm duty in the fire code not the ORC · bilateral fee ban · two cure windows
+before bad-check exposure · waiver-by-acceptance procedure · deposit-on-sale pledge rule ·
+four portfolio thresholds · no abandoned-property safe harbour.
+
+### Not applied in this screen
+
+The filter fix (blank `states` → "All states" browsing only) is **deferred to the CSV sync**
+per the 2026-09-18 decision — see the "⚠️ Correction to this log" section above for the resolution
+that landed. The open `supersedes`-suppression question was answered before that fix shipped.
