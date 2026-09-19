@@ -574,12 +574,23 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
       prisma.defaultClauseTemplate.findMany({ where: { userId: req.currentUser.id } }),
     ]);
 
-    // A default only applies automatically if it's universal (states: []) or its states list
-    // includes this lease's property state — a Colorado-tagged default shouldn't get silently
-    // attached to a lease for a property in another state just because the landlord marked it
-    // as a default.
+    // A default only applies automatically if its states list includes this lease's property
+    // state, or (personal clauses only) it's genuinely universal because the landlord never
+    // tagged it. A Colorado-tagged default shouldn't get silently attached to a lease for a
+    // property in another state just because the landlord marked it as a default.
+    //
+    // Provided templates pass treatBlankAsUniversal: false — per clauseTemplates.js's header,
+    // blank `states` there means "not yet verified for any state," not "safe everywhere," so a
+    // blank template must never auto-attach to a specific-state lease (see the
+    // security-deposit-return latent-trap finding Ohio's research surfaced and Taylor decided to
+    // fix, 2026-09-18). Personal Clause rows have no such verification concept — the landlord
+    // wrote the text themselves — so a never-tagged personal default keeps auto-attaching
+    // everywhere, unchanged.
     const propertyState = lease.property?.state ?? null;
-    const appliesToThisLease = (states) => !states || states.length === 0 || states.includes(propertyState);
+    const appliesToThisLease = (states, { treatBlankAsUniversal = true } = {}) => {
+      if (!states || states.length === 0) return treatBlankAsUniversal;
+      return states.includes(propertyState);
+    };
 
     const snapshots = [
       ...defaultClauses
@@ -591,7 +602,7 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
           (t) =>
             t &&
             !alreadyAttachedTemplateIds.has(t.id) &&
-            appliesToThisLease(t.states) &&
+            appliesToThisLease(t.states, { treatBlankAsUniversal: false }) &&
             !isWrongForCauseVariant(t.id, lease.property?.forCauseEvictionExemption),
         )
         .map((t) => ({ sourceTemplateId: t.id, title: t.title, bodyText: t.bodyText, group: t.group })),

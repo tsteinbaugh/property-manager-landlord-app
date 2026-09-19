@@ -122,8 +122,17 @@ export default function ClauseLibraryPage() {
   // list would be empty in practice, and any new state tag just shows up here automatically.
   const availableStates = [...new Set([...clauses, ...templates].flatMap((c) => c.states || []))].sort();
 
-  function matchesStateFilter(item) {
-    return stateFilter === ALL_STATES || !item.states || item.states.length === 0 || item.states.includes(stateFilter);
+  // `treatBlankAsUniversal` defaults to true for a landlord's own personal clauses — they wrote
+  // the text themselves, so a never-tagged clause still means "applies everywhere I use it."
+  // Provided-library templates pass `false`: per clauseTemplates.js's header, blank `states`
+  // there means "not yet verified for any state," so it should only surface when actually
+  // browsing "All states," not silently stand in as a verified-looking clause for a specific
+  // state nobody's checked it against (see the security-deposit-return latent-trap finding
+  // Ohio's research surfaced and Taylor decided to fix, 2026-09-18).
+  function matchesStateFilter(item, { treatBlankAsUniversal = true } = {}) {
+    if (stateFilter === ALL_STATES) return true;
+    if (!item.states || item.states.length === 0) return treatBlankAsUniversal;
+    return item.states.includes(stateFilter);
   }
 
   // When filtered to a specific state, a universal template that a visible state-specific
@@ -132,7 +141,7 @@ export default function ClauseLibraryPage() {
   // side. Only applies to provided templates; personal "Your Clauses" copies aren't linked
   // back to a template, so there's nothing to supersede there.
   function visibleTemplates() {
-    const filtered = templates.filter(matchesStateFilter);
+    const filtered = templates.filter((t) => matchesStateFilter(t, { treatBlankAsUniversal: false }));
     if (stateFilter === ALL_STATES) return filtered;
     const supersededIds = new Set(filtered.filter((t) => t.supersedes).map((t) => t.supersedes));
     return filtered.filter((t) => !supersededIds.has(t.id));

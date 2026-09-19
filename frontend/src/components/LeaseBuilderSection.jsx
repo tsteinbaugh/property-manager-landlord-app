@@ -53,15 +53,24 @@ export default function LeaseBuilderSection({ lease, onChange }) {
   const attachedClauseIds = new Set(lease.leaseClauses.map((lc) => lc.sourceClauseId).filter(Boolean));
   const attachedTemplateIds = new Set(lease.leaseClauses.map((lc) => lc.sourceTemplateId).filter(Boolean));
 
-  function matchesStateFilter(item) {
-    return stateFilter === ALL_STATES || !item.states || item.states.length === 0 || item.states.includes(stateFilter);
+  // `treatBlankAsUniversal` defaults to true for a landlord's own personal clauses — they wrote
+  // the text themselves, so a never-tagged clause still means "applies everywhere I use it."
+  // Provided-library templates pass `false`: per clauseTemplates.js's header, blank `states`
+  // there means "not yet verified for any state," so it should only surface when actually
+  // browsing "All states," not silently stand in as a verified-looking clause for a specific
+  // state nobody's checked it against (see the security-deposit-return latent-trap finding
+  // Ohio's research surfaced and Taylor decided to fix, 2026-09-18).
+  function matchesStateFilter(item, { treatBlankAsUniversal = true } = {}) {
+    if (stateFilter === ALL_STATES) return true;
+    if (!item.states || item.states.length === 0) return treatBlankAsUniversal;
+    return item.states.includes(stateFilter);
   }
 
   // When filtered to a specific state, hide a universal template that a visible state-specific
   // template fully replaces (see clauseTemplates.js's `supersedes` field) — same behavior as
   // ClauseLibraryPage, so the picker doesn't offer both a generic and a more-specific version
   // of the same clause at once.
-  const matchingTemplates = templates.filter(matchesStateFilter);
+  const matchingTemplates = templates.filter((t) => matchesStateFilter(t, { treatBlankAsUniversal: false }));
   const supersededTemplateIds =
     stateFilter === ALL_STATES ? new Set() : new Set(matchingTemplates.filter((t) => t.supersedes).map((t) => t.supersedes));
 
