@@ -17,6 +17,7 @@ const STATE_NAMES = {
   MN: "Minnesota",
   ND: "North Dakota",
   SD: "South Dakota",
+  OH: "Ohio",
 };
 
 const STATE_CONFIG = {
@@ -200,6 +201,58 @@ const STATE_CONFIG = {
         id: "case-rozeboom-nw-bell",
         label: "Rozeboom v. Nw. Bell Tel. Co., 358 N.W.2d 241 (S.D. 1984)",
         clauseIds: ["edu-unconscionability-doctrine-sd"],
+      },
+    ],
+  },
+
+  OH: {
+    // OAC (Ohio Administrative Code) citations use a hyphenated format
+    // ("4112-5-07", "4112-3-05") -- agency rulemaking, not legislative bills,
+    // so LegiScan can't see them regardless (same reasoning as KS's K.A.R.,
+    // ND's N.D. Admin. Code, and SD's ARSD). Unlike ND's admin code, OH's OAC
+    // format has no decimal in it at all, so it doesn't structurally collide
+    // with the dot-based R.C. pattern below (confirmed: stripping this made
+    // no difference to what the R.C. pattern would have matched anyway) --
+    // stripped here purely for documentation clarity and defense-in-depth if
+    // the section pattern ever changes, not because a real collision exists
+    // today. NOT monitored, deliberately, as a result: the OAC 4112-5-07 and
+    // 4112-3-05 references in assistance-animal-accommodation-oh and
+    // edu-fair-housing-election-oh are administrative, not legislative.
+    stripPatterns: [/OAC[^;]*/g],
+    // R.C. (Ohio Revised Code) citations have no hyphens at all: chapter +
+    // "." + section, e.g. "5321.16", "1923.04", "4112.055" -- same shape as
+    // Minnesota's format. Confirmed against all 27 monitorable OH rows before
+    // shipping: 31 distinct sections auto-extracted, the only two
+    // zero-extraction rows independently confirmed to be genuine case-law-
+    // only citations (edu-waiver-by-acceptance-oh, edu-deposit-on-sale-oh).
+    sectionPattern: /\b(\d{2,4}[A-Z]?\.\d{1,4}[a-z]?)\b/g,
+    extraSectionAliases: {
+      // "R.C. 1923.12-.14" -- a range notation the base pattern can't parse
+      // (it correctly extracts 1923.12, but ".14" alone has no leading digit
+      // to match). Both sections describe the same manufactured-home-park-
+      // only abandoned-property procedure the clause's citation depends on,
+      // so both need to be monitored, not just the first.
+      "surrender-end-of-term": ["1923.13", "1923.14"],
+    },
+    cfrChecks: [],
+    federalStatuteChecks: [],
+    manualRecheckItems: [
+      {
+        id: "case-oh-waiver-by-acceptance-cluster",
+        label:
+          "King v. Dolton, 9th Dist. No. 02CA0041, 2003-Ohio-2423; Bristol Court v. Jones (4th Dist. 1994); N. Face Properties v. Lin, 2013-Ohio-2281 (12th Dist.); OZ Property Mgt. v. Williams, 2025-Ohio-318 (12th Dist.); Premiere Mgt. v. Nutt, 2010-Ohio-1255 (3d Dist.)",
+        clauseIds: ["edu-waiver-by-acceptance-oh", "holdover-oh"],
+      },
+      {
+        id: "case-oh-deposit-pledge-cluster",
+        label:
+          "Castlebrook, Ltd. v. Dayton Properties Ltd. Partnership, 78 Ohio App.3d 340 (2d Dist. 1992); Tuteur v. P. & F. Enterprises, Inc., 21 Ohio App.2d 122 (8th Dist. 1970); Grisham v. Meadow Ridge Cincinnati Assocs. (12th Dist.)",
+        clauseIds: ["edu-deposit-on-sale-oh"],
+      },
+      {
+        id: "case-oh-lemstone-mitigation",
+        label: "Frenchtown Square Partnership v. Lemstone, 99 Ohio St.3d 254, 2003-Ohio-3648",
+        clauseIds: ["edu-casualty-and-mitigation-waivable-oh"],
       },
     ],
   },
