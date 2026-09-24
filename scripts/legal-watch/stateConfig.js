@@ -367,12 +367,12 @@ const STATE_CONFIG = {
       },
       {
         id: "case-ca-jury-waiver",
-        label: "Grafton Partners L.P. v. Superior Court (2005) 36 Cal.4th 944; EpicentRx, Inc. v. Superior Court (Cal. 2025)",
+        label: "Grafton Partners L.P. v. Superior Court (2005) 36 Cal.4th 944; EpicentRx, Inc. v. Superior Court (2025) 18 Cal.5th 58 (fn. 7 preserves statutes voiding waivers)",
         clauseIds: ["edu-no-jury-waiver-ca"],
       },
       {
         id: "case-ca-waiver-by-acceptance",
-        label: "Kern Sunset Oil Co. v. Good Roads Oil Co. (1931); Karbelnig v. Brothwell (1966) 244 Cal.App.2d 333; Baca v. Kuang",
+        label: "Baca v. Kuang (2025) 107 Cal.App.5th 1292; Kaufman v. Goldman (2011) 195 Cal.App.4th 734; Woodman Partners v. Sofa U Love (2001) 94 Cal.App.4th 766; Kern Sunset Oil Co. v. Good Roads Oil Co. (1931); Karbelnig v. Brothwell (1966) 244 Cal.App.2d 333",
         clauseIds: ["edu-waiver-by-acceptance-ca"],
       },
       {
