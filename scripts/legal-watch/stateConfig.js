@@ -351,6 +351,12 @@ const STATE_CONFIG = {
         clauseIds: ["edu-lead-hazards-ca"],
       },
       {
+        id: "reg-ca-oehha-prop65",
+        label:
+          "OEHHA Proposition 65 regulations, 27 CCR §§25600-25607.35 (rental warnings §§25607.34-.35; symbol §25603) and the Prop 65 chemical list (agency rulemaking -- not visible to LegiScan)",
+        clauseIds: ["edu-prop65-rental-warning-ca", "edu-no-radon-disclosure-ca"],
+      },
+      {
         id: "ca-tpa-sunset-and-cpi",
         label:
           "Tenant Protection Act sunset 2030-01-01 (Civ. Code §§1946.2(n), 1947.12(o)) and §1946.3 sunset 2029-01-20 -- also re-check the CPI-indexed figures that can't be hardcoded: the §1950.6 screening-fee cap and the §1947.12 rent cap",
