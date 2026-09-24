@@ -293,7 +293,8 @@ const STATE_CONFIG = {
         if (!code) continue;
         // Drop subdivisions -- "1946.2(b)(2)(A)" is watched as 1946.2.
         const body = part.replace(code[0], "").replace(/\([^)]*\)/g, "");
-        for (const m of body.matchAll(/(\d{2,5}(?:\.\d+)?[a-z]?)(?:\s*-\s*(\d{2,5}))?/g)) {
+        // Up to 6 digits: H&S sections run that long (§105430).
+        for (const m of body.matchAll(/(\d{2,6}(?:\.\d+)?[a-z]?)(?:\s*-\s*(\d{2,6}))?/g)) {
           const [, start, end] = m;
           // Expand a short integer range ("§§1980-1991") into every section.
           if (end && /^\d+$/.test(start) && Number(end) > Number(start) && Number(end) - Number(start) <= 20) {
