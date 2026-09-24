@@ -80,6 +80,13 @@ export default function LeaseBuilderSection({ lease, onChange }) {
   // doesn't match this lease's property rather than making the landlord pick correctly by hand.
   const forCauseExemption = lease.property?.forCauseEvictionExemption;
 
+  // Templates sharing a `choiceGroup` are mutually exclusive alternatives (e.g. California's
+  // TPA-covered vs TPA-exempt notice) — once one is attached, stop offering the others. The
+  // backend refuses a second one anyway; see backend/src/lib/clauseChoiceGroups.js.
+  const attachedChoiceGroups = new Set(
+    templates.filter((t) => t.choiceGroup && attachedTemplateIds.has(t.id)).map((t) => t.choiceGroup),
+  );
+
   const pickerOptions = [
     ...library
       .filter((c) => !attachedClauseIds.has(c.id) && matchesStateFilter(c))
@@ -92,11 +99,14 @@ export default function LeaseBuilderSection({ lease, onChange }) {
         (t) =>
           !attachedTemplateIds.has(t.id) &&
           !supersededTemplateIds.has(t.id) &&
-          !isWrongForCauseVariant(t.id, forCauseExemption),
+          !isWrongForCauseVariant(t.id, forCauseExemption) &&
+          !(t.choiceGroup && attachedChoiceGroups.has(t.choiceGroup)),
       )
       .map((t) => ({
         value: encodeOption("template", t.id),
-        label: `${t.title} — ${t.group}${t.states?.length ? ` [${t.states.join(", ")}]` : ""} (Provided)`,
+        label: `${t.title} — ${t.group}${t.states?.length ? ` [${t.states.join(", ")}]` : ""} (Provided${
+          t.choiceGroup ? `, pick one of ${templates.filter((o) => o.choiceGroup === t.choiceGroup).length}` : ""
+        })`,
       })),
   ];
 

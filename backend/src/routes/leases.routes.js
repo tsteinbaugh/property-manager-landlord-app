@@ -9,6 +9,7 @@ const { CLAUSE_TEMPLATES } = require("../lib/clauseTemplates");
 const { buildVariableContext, substituteVariables } = require("../lib/clauseVariables");
 const { orderAndLabelClauses } = require("../lib/leaseClauseOrdering");
 const { isWrongForCauseVariant } = require("../lib/forCauseEvictionVariant");
+const { choiceGroupOf, findChoiceGroupConflict } = require("../lib/clauseChoiceGroups");
 const {
   buildRentTracker,
   suggestPaymentAllocation,
@@ -520,6 +521,22 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
       if (!template) {
         return res.status(400).json({ error: `Template ${req.body.templateId} not found` });
       }
+      // Templates in a choice group are mutually exclusive alternatives (see
+      // clauseChoiceGroups.js) — refuse a second one rather than produce a
+      // lease that contradicts itself.
+      const attached = await prisma.leaseClause.findMany({
+        where: { leaseId: lease.id, sourceTemplateId: { not: null } },
+        select: { sourceTemplateId: true },
+      });
+      const conflict = findChoiceGroupConflict(
+        template.id,
+        attached.map((lc) => lc.sourceTemplateId),
+      );
+      if (conflict) {
+        return res.status(409).json({
+          error: `This lease already has "${conflict.title}", which is an alternative to "${template.title}" — remove it first if you want to switch.`,
+        });
+      }
       snapshot = {
         sourceTemplateId: template.id,
         title: template.title,
@@ -592,6 +609,8 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
       return states.includes(propertyState);
     };
 
+    const takenChoiceGroups = new Set([...alreadyAttachedTemplateIds].map(choiceGroupOf).filter(Boolean));
+
     const snapshots = [
       ...defaultClauses
         .filter((c) => !alreadyAttachedClauseIds.has(c.id) && appliesToThisLease(c.states))
@@ -605,6 +624,17 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
             appliesToThisLease(t.states, { treatBlankAsUniversal: false }) &&
             !isWrongForCauseVariant(t.id, lease.property?.forCauseEvictionExemption),
         )
+        // At most one member per choice group: skip any whose group is
+        // already on the lease or already picked in this batch, preferring
+        // the group's designated default if the landlord somehow has more
+        // than one member marked.
+        .sort((a, b) => Number(Boolean(b.choiceGroupDefault)) - Number(Boolean(a.choiceGroupDefault)))
+        .filter((t) => {
+          if (!t.choiceGroup) return true;
+          if (takenChoiceGroups.has(t.choiceGroup)) return false;
+          takenChoiceGroups.add(t.choiceGroup);
+          return true;
+        })
         .map((t) => ({ sourceTemplateId: t.id, title: t.title, bodyText: t.bodyText, group: t.group })),
     ];
 

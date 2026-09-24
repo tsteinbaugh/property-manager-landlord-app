@@ -153,6 +153,9 @@ function extractSections(citationText) {
   for (const strip of CONFIG.stripPatterns || []) {
     text = text.replace(strip, "");
   }
+  // A state whose citations can't be reduced to a bare section number (CA:
+  // the same number exists in several codes) supplies its own extractor.
+  if (CONFIG.extractSections) return [...new Set(CONFIG.extractSections(text))];
   const matches = text.match(CONFIG.sectionPattern) || [];
   return [...new Set(matches)];
 }
@@ -226,7 +229,10 @@ async function legiscanSearch(section, jurisdiction = STATE_CODE) {
   // "38-12-105"/"38-12-103" with no year param returned 0 hits, hiding
   // SB21-173 and HB25-1249 entirely. Without this, the tool could only ever
   // notice a change in the exact session it happened to run during.
-  const url = `https://api.legiscan.com/?key=${LEGISCAN_API_KEY}&op=getSearch&state=${jurisdiction}&year=1&query=${encodeURIComponent(section)}`;
+  // Most states search the bare section number; a state with its own
+  // `buildQuery` (CA) turns its section key into a narrower boolean query.
+  const query = jurisdiction === STATE_CODE && CONFIG.buildQuery ? CONFIG.buildQuery(section) : section;
+  const url = `https://api.legiscan.com/?key=${LEGISCAN_API_KEY}&op=getSearch&state=${jurisdiction}&year=1&query=${encodeURIComponent(query)}`;
   const res = await fetch(url);
   if (!res.ok) throw new Error(`LegiScan search failed for ${section}: HTTP ${res.status}`);
   const data = await res.json();

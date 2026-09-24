@@ -1,6 +1,7 @@
 const express = require("express");
 const prisma = require("../lib/prisma");
 const { CLAUSE_TEMPLATES } = require("../lib/clauseTemplates");
+const { choiceGroupMembers } = require("../lib/clauseChoiceGroups");
 
 const router = express.Router();
 
@@ -21,6 +22,17 @@ router.post("/:templateId/default", async (req, res) => {
   const template = CLAUSE_TEMPLATES.find((t) => t.id === req.params.templateId);
   if (!template) {
     return res.status(404).json({ error: "Template not found" });
+  }
+
+  // Only one member of a choice group can be a default — marking one clears
+  // the others, so "Add my default clauses" never has to pick between them.
+  if (template.choiceGroup) {
+    const siblingIds = choiceGroupMembers(template.choiceGroup)
+      .map((t) => t.id)
+      .filter((id) => id !== template.id);
+    await prisma.defaultClauseTemplate.deleteMany({
+      where: { userId: req.currentUser.id, templateId: { in: siblingIds } },
+    });
   }
 
   await prisma.defaultClauseTemplate.upsert({

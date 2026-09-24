@@ -109,6 +109,28 @@ describe("clause templates route", () => {
     expect(count).toBe(1);
   });
 
+  it("marking one choice-group member as default clears its alternatives", async () => {
+    await request(app).post("/api/clause-templates/tpa-exemption-notice-ca/default");
+    await request(app).post("/api/clause-templates/tpa-notice-ca/default");
+
+    const list = (await request(app).get("/api/clause-templates")).body;
+    expect(list.find((t) => t.id === "tpa-notice-ca").isDefault).toBe(true);
+    expect(list.find((t) => t.id === "tpa-exemption-notice-ca").isDefault).toBe(false);
+  });
+
+  it("every choice group has exactly one default member", async () => {
+    const res = await request(app).get("/api/clause-templates");
+    const groups = {};
+    for (const t of res.body.filter((t) => t.choiceGroup)) {
+      (groups[t.choiceGroup] ||= []).push(t);
+    }
+    expect(Object.keys(groups).length).toBeGreaterThan(0);
+    for (const members of Object.values(groups)) {
+      expect(members.length).toBeGreaterThan(1);
+      expect(members.filter((t) => t.choiceGroupDefault)).toHaveLength(1);
+    }
+  });
+
   it("404s marking an unknown template as default", async () => {
     const res = await request(app).post("/api/clause-templates/not-a-real-template/default");
     expect(res.status).toBe(404);

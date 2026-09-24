@@ -415,6 +415,15 @@ export default function ClauseLibraryPage() {
                       </button>
                     </div>
                   </div>
+                  {template.choiceGroup && (
+                    <p className="mt-1 text-xs text-amber-700">
+                      Use only one of:{" "}
+                      {templates
+                        .filter((t) => t.choiceGroup === template.choiceGroup)
+                        .map((t) => `${t.title}${t.choiceGroupDefault ? " (usual choice)" : ""}`)
+                        .join(" · ")}
+                    </p>
+                  )}
                   <p className="mt-1 whitespace-pre-wrap text-sm text-stone-600">{template.bodyText}</p>
                 </div>
               ))}

@@ -18,6 +18,7 @@ const STATE_NAMES = {
   ND: "North Dakota",
   SD: "South Dakota",
   OH: "Ohio",
+  CA: "California",
 };
 
 const STATE_CONFIG = {
@@ -253,6 +254,131 @@ const STATE_CONFIG = {
         id: "case-oh-lemstone-mitigation",
         label: "Frenchtown Square Partnership v. Lemstone, 99 Ohio St.3d 254, 2003-Ohio-3648",
         clauseIds: ["edu-casualty-and-mitigation-waivable-oh"],
+      },
+    ],
+  },
+
+  CA: {
+    // California can't use a bare-number pattern like every other state: a
+    // section number is only a citation together with its code body -- §1953
+    // exists in both the Civil Code and the Code of Civil Procedure, §12178
+    // in two others (lease-clause-decision-log-CA.md, "Cross-body citation
+    // ambiguity"). And a bare 4-digit number like "1953" or "1717" would
+    // match every bill mentioning that year. So CA section keys carry their
+    // code ("Civ. Code 1946.2") and the LegiScan query pairs the section with
+    // the code name the way CA bills actually write it ("Section 1946.2 of
+    // the Civil Code").
+    //
+    // Regulations are stripped -- 2 CCR (Civil Rights Council) and 17 CCR
+    // (CDPH) are agency rulemaking LegiScan can't see (same reasoning as
+    // KS's K.A.R., ND's admin code, SD's ARSD, OH's OAC). The Civil Rights
+    // Council rules back the REQUIRED assistance-animal family, so they get a
+    // manual-recheck reminder below instead (CA log §9 item 4). Case-law
+    // names are stripped for the same reason and also get reminders.
+    stripPatterns: [/\d+ CCR[^;]*/g, /CASE LAW:.*$/g, /\d+ C\.F\.R\.[^;]*/g, /\d+ U\.S\.C\.[^;]*/g],
+    extractSections(text) {
+      const CODES = [
+        [/^Civ\. Code/, "Civ. Code"],
+        [/^CCP/, "CCP"],
+        [/^Gov\. Code/, "Gov. Code"],
+        [/^H&S/, "H&S"],
+        [/^Pen\. Code/, "Pen. Code"],
+        [/^Mil\. & Vet\.( Code)?/, "Mil. & Vet. Code"],
+        [/^Rev\. & Tax\.( Code)?/, "Rev. & Tax. Code"],
+        [/^Veh\. Code/, "Veh. Code"],
+      ];
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        const code = CODES.find(([re]) => re.test(part));
+        if (!code) continue;
+        // Drop subdivisions -- "1946.2(b)(2)(A)" is watched as 1946.2.
+        const body = part.replace(code[0], "").replace(/\([^)]*\)/g, "");
+        for (const m of body.matchAll(/(\d{2,5}(?:\.\d+)?[a-z]?)(?:\s*-\s*(\d{2,5}))?/g)) {
+          const [, start, end] = m;
+          // Expand a short integer range ("§§1980-1991") into every section.
+          if (end && /^\d+$/.test(start) && Number(end) > Number(start) && Number(end) - Number(start) <= 20) {
+            for (let n = Number(start); n <= Number(end); n++) out.push(`${code[1]} ${n}`);
+          } else {
+            out.push(`${code[1]} ${start}`);
+          }
+        }
+      }
+      return out;
+    },
+    buildQuery(sectionKey) {
+      const NAMES = {
+        "Civ. Code": "Civil Code",
+        CCP: "Code of Civil Procedure",
+        "Gov. Code": "Government Code",
+        "H&S": "Health and Safety Code",
+        "Pen. Code": "Penal Code",
+        "Mil. & Vet. Code": "Military and Veterans Code",
+        "Rev. & Tax. Code": "Revenue and Taxation Code",
+        "Veh. Code": "Vehicle Code",
+      };
+      const i = sectionKey.lastIndexOf(" ");
+      return `"Section ${sectionKey.slice(i + 1)}" AND "${NAMES[sectionKey.slice(0, i)]}"`;
+    },
+    cfrChecks: [
+      // Same regulation KS already watches; pet-insurance-requirement's
+      // assistance-animal carve-out rests on it (federal, all states).
+      { title: "24", section: "100.204", clauseIds: ["pet-insurance-requirement"] },
+    ],
+    federalStatuteChecks: [
+      // Servicemembers Civil Relief Act sections the CA military rows compare
+      // against (CA log §5.29).
+      { section: "3955", clauseIds: ["edu-military-tenant-protections-ca"] },
+      { section: "3931", clauseIds: ["edu-military-default-judgment-ca"] },
+    ],
+    manualRecheckItems: [
+      {
+        id: "reg-ca-civil-rights-council",
+        label:
+          "Civil Rights Council housing regulations, 2 CCR §§12176, 12178, 12180, 12181, 12185, 12264 (agency rulemaking -- not visible to LegiScan)",
+        clauseIds: [
+          "assistance-animal-accommodation-ca",
+          "edu-assistance-animal-documentation-ca",
+          "accommodation-request-rights-ca",
+          "edu-accommodation-process-ca",
+          "reasonable-modification-ca",
+          "edu-criminal-history-screening-ca",
+        ],
+      },
+      {
+        id: "reg-ca-cdph-lead",
+        label: "CDPH lead regulations, 17 CCR §35033 et seq. (agency rulemaking)",
+        clauseIds: ["edu-lead-hazards-ca"],
+      },
+      {
+        id: "ca-tpa-sunset-and-cpi",
+        label:
+          "Tenant Protection Act sunset 2030-01-01 (Civ. Code §§1946.2(n), 1947.12(o)) and §1946.3 sunset 2029-01-20 -- also re-check the CPI-indexed figures that can't be hardcoded: the §1950.6 screening-fee cap and the §1947.12 rent cap",
+        clauseIds: ["tpa-notice-ca", "tpa-exemption-notice-ca", "rent-increase-cap-ca", "edu-tpa-sunset-ca", "edu-screening-fee-ca", "edu-social-security-defense-ca"],
+      },
+      {
+        id: "ca-3485-revival",
+        label: "Civ. Code §3485 (nuisance-eviction assignment) -- repealed 2024-01-01 but revived four times before; watch for a re-add",
+        clauseIds: ["edu-nuisance-eviction-assignment-ca", "unbundled-parking-ca"],
+      },
+      {
+        id: "case-ca-exculpation",
+        label: "Henrioulle v. Marin Ventures, Inc. (1978) 20 Cal.3d 512; Tunkl v. Regents (1963) 60 Cal.2d 92; Lewis Operating Corp. v. Superior Court; Whitehead v. City of Oakland",
+        clauseIds: ["edu-exculpation-case-law-ca"],
+      },
+      {
+        id: "case-ca-jury-waiver",
+        label: "Grafton Partners L.P. v. Superior Court (2005) 36 Cal.4th 944; EpicentRx, Inc. v. Superior Court (Cal. 2025)",
+        clauseIds: ["edu-no-jury-waiver-ca"],
+      },
+      {
+        id: "case-ca-waiver-by-acceptance",
+        label: "Kern Sunset Oil Co. v. Good Roads Oil Co. (1931); Karbelnig v. Brothwell (1966) 244 Cal.App.2d 333; Baca v. Kuang",
+        clauseIds: ["edu-waiver-by-acceptance-ca"],
+      },
+      {
+        id: "case-ca-auburn-woods",
+        label: "Auburn Woods I Homeowners Assn. v. Fair Employment & Housing Com. (2004) 121 Cal.App.4th 1578",
+        clauseIds: ["assistance-animal-accommodation-ca"],
       },
     ],
   },

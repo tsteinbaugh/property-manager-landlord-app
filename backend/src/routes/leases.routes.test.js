@@ -1165,6 +1165,46 @@ describe("leases routes", () => {
       expect(titles).toContain("Termination Notice (Subject to For-Cause Requirements)");
       expect(titles).not.toContain("Termination Notice (Property Exempt from For-Cause Requirements)");
     });
+
+    it("attaches at most one member of a choice group, preferring the group's default", async () => {
+      await prisma.property.update({ where: { id: property.id }, data: { state: "CA" } });
+      await prisma.defaultClauseTemplate.create({ data: { userId: property.userId, templateId: "tpa-exemption-notice-ca" } });
+      await prisma.defaultClauseTemplate.create({ data: { userId: property.userId, templateId: "tpa-notice-ca" } });
+
+      const res = await request(app).post(`/api/leases/${lease.id}/clauses/add-defaults`);
+
+      const sourceIds = res.body.leaseClauses.map((c) => c.sourceTemplateId);
+      expect(sourceIds).toContain("tpa-notice-ca");
+      expect(sourceIds).not.toContain("tpa-exemption-notice-ca");
+    });
+
+    it("skips a choice-group default when an alternative is already attached", async () => {
+      await prisma.property.update({ where: { id: property.id }, data: { state: "CA" } });
+      await request(app).post(`/api/leases/${lease.id}/clauses`).send({ templateId: "no-sublet-assign-discretion-ca" });
+      await prisma.defaultClauseTemplate.create({ data: { userId: property.userId, templateId: "no-sublet-assign-ca" } });
+
+      const res = await request(app).post(`/api/leases/${lease.id}/clauses/add-defaults`);
+
+      const sourceIds = res.body.leaseClauses.map((c) => c.sourceTemplateId);
+      expect(sourceIds).toContain("no-sublet-assign-discretion-ca");
+      expect(sourceIds).not.toContain("no-sublet-assign-ca");
+    });
+  });
+
+  describe("choice-group clauses", () => {
+    it("refuses to manually attach a second member of the same choice group", async () => {
+      const lease = await prisma.lease.create({
+        data: { propertyId: property.id, userId: property.userId, startDate: new Date("2026-09-01"), monthlyRent: "1800.00" },
+      });
+      const first = await request(app).post(`/api/leases/${lease.id}/clauses`).send({ templateId: "tpa-notice-ca" });
+      expect(first.status).toBe(201);
+
+      const second = await request(app).post(`/api/leases/${lease.id}/clauses`).send({ templateId: "tpa-exemption-notice-ca" });
+
+      expect(second.status).toBe(409);
+      const count = await prisma.leaseClause.count({ where: { leaseId: lease.id } });
+      expect(count).toBe(1);
+    });
   });
 
   describe("generating a lease document", () => {

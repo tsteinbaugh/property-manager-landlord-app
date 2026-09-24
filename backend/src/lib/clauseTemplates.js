@@ -19,6 +19,21 @@
 // the architecture-review log's Addendum L §L.3: "a log entry is not a
 // library change" -- the CSV is the fact).
 //
+// **2026-09-24 refresh (California, state #9):** regenerated wholesale from
+// the CA pass's CSV -- 191 -> 242 shipped LEASE_CLAUSE rows (90 tagged CA:
+// 57 CA-specific plus 33 shared). The CA pass also edited other states'
+// rows, deliberately and with Taylor's sign-off (CA log §§5.35-5.40): 12
+// byte-identical per-state copies merged into 6 multi-state rows (e.g.
+// `parking-ks`/`-oh`/`-ca` -> `parking-ks-oh-ca`; no state lost a clause);
+// `rent-payment`, `addendum-precedence`, and `pet-insurance-requirement`
+// got uniform, protective text edits now shipping in every tagged state;
+// state-name suffixes stripped from titles library-wide. Two new template
+// fields: `choiceGroup`/`choiceGroupDefault` mark mutually exclusive
+// alternatives (see `clauseChoiceGroups.js`) -- a lease may carry at most
+// one member of a group. The CSV's research-only "Compliance & Prohibited
+// Terms" group (5 CA rows) is remapped to "Notices & General" at
+// generation time, per the closed-taxonomy rule for `CLAUSE_GROUPS`.
+//
 // **2026-09-19 correction:** `application-of-payments` (shared across all 8
 // states) asserted "Tenant's statutory right to cure nonpayment of base
 // rent" as if it exists everywhere -- it doesn't (Ohio has none; a CO
@@ -129,7 +144,7 @@ const CLAUSE_TEMPLATES = [
     group: "Rent & Payment",
     states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH"],
     bodyText:
-      "Tenant shall pay Landlord monthly rent of {{monthly_rent}} (Monthly Rent) in advance on the due date specified in this Lease, without demand, deduction, or setoff. If the due date falls on a weekend or legal holiday, rent is due on the next business day.",
+      "Tenant shall pay Landlord monthly rent of {{monthly_rent}} (Monthly Rent) in advance on the due date specified in this Lease, without demand, deduction, or setoff, except as permitted by applicable law. If the due date falls on a weekend or legal holiday, rent is due on the next business day.",
   },
   {
     id: "late-fee",
@@ -159,7 +174,7 @@ const CLAUSE_TEMPLATES = [
     id: "application-of-payments",
     title: "Application of Payments",
     group: "Rent & Payment",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA"],
     bodyText:
       "All payments received shall be applied first to outstanding fees, charges, costs, utilities, or other amounts due under this Lease, and then to base rent, unless otherwise required by applicable law. Nothing in this provision limits any statutory right Tenant may have to cure nonpayment of base rent.",
   },
@@ -178,6 +193,24 @@ const CLAUSE_TEMPLATES = [
     states: ["CO"],
     bodyText:
       "If any payment under this Lease is dishonored or returned unpaid, Tenant will be responsible for a reasonable returned-payment charge, consistent with Colorado's dishonored-instrument statute (C.R.S. 13-21-109), plus any actual bank charges Landlord incurs. This charge is not Rent, is not subject to any late fee applicable to Rent, and will not be characterized as Rent for purposes of any remedy available for nonpayment of Rent.",
+  },
+  {
+    id: "late-fee-safe-harbor-ca",
+    title: "Late Fee Guidance",
+    group: "Rent & Payment",
+    states: ["CA"],
+    supersedes: "late-fee",
+    bodyText:
+      "Landlord and Tenant agree that if Tenant fails to pay rent when due, the actual damage to Landlord from that late payment would, from the nature of the case, be impracticable or extremely difficult to fix. Landlord and Tenant therefore agree that {{late_fee}} shall be presumed to be the amount of damage sustained by Landlord from a late payment of rent. This amount is a presumed measure of Landlord's actual damages and is not a penalty.",
+  },
+  {
+    id: "nsf-fee-limit-ca",
+    title: "NSF Fee Limit",
+    group: "Rent & Payment",
+    states: ["CA"],
+    supersedes: "returned-payments",
+    bodyText:
+      "If Tenant pays rent or any other amount due under this Lease by check, draft or order for payment and it is not honored for lack of funds, because Tenant has no account with the drawee, or because Tenant stops payment, Tenant shall be liable to Landlord for the amount of the payment and a service charge of {{nsf_fee}}, not to exceed $25 for the first such instrument and $35 for each subsequent one. No service charge is owed if Tenant stopped payment to resolve a good faith dispute with Landlord, if Tenant provides written confirmation from Tenant's financial institution that the instrument was returned due to an error by that institution, or if Tenant provides written confirmation that the account had insufficient funds because of a delay in a regularly scheduled direct deposit of a social security or government benefit assistance payment.",
   },
   // Security Deposit
   {
@@ -198,7 +231,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "security-deposit-interest-oh",
-    title: "Security Deposit Interest (Ohio)",
+    title: "Security Deposit Interest",
     group: "Security Deposit",
     states: ["OH"],
     bodyText:
@@ -209,7 +242,7 @@ const CLAUSE_TEMPLATES = [
     id: "residential-use-only",
     title: "Residential Use Only",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA"],
     bodyText:
       "Tenant will use and occupy the property for residential purposes only and will not use or permit the use of the property for any non-residential, illegal, or otherwise inappropriate purpose, including any commercial purpose.",
   },
@@ -225,7 +258,7 @@ const CLAUSE_TEMPLATES = [
     id: "permitted-occupants",
     title: "Permitted Occupants",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA"],
     bodyText:
       "The property will be occupied only by {{tenant_names}}, together with {{occupant_names}}. Tenant will notify Landlord promptly if any additional occupant takes up residence at the property.",
   },
@@ -233,7 +266,7 @@ const CLAUSE_TEMPLATES = [
     id: "no-disturbance",
     title: "No Disturbance or Nuisance",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA"],
     bodyText:
       "Tenant will not, and will not permit any occupant or guest to: make any unreasonably loud or otherwise unreasonable use of the property; allow any condition on the property that poses a threat of injury to persons or property; or otherwise interfere with the rights, comfort, safety, or enjoyment of neighboring properties or other tenants.",
   },
@@ -241,7 +274,7 @@ const CLAUSE_TEMPLATES = [
     id: "smoking-policy",
     title: "Smoking Policy",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA"],
     bodyText:
       "Smoking of any kind, including tobacco, marijuana, and vaping, is not permitted anywhere on the property, including inside the dwelling, on porches, balconies, or in any common area. Tenant will be responsible for any cost Landlord incurs to remediate odor, staining, or damage caused by smoking in violation of this Section, and a violation may be treated as a default under this Lease.",
   },
@@ -249,7 +282,7 @@ const CLAUSE_TEMPLATES = [
     id: "utilities-responsibility",
     title: "Utilities Paid by Tenant",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA"],
     bodyText:
       "Except for any utility Landlord agrees in this Lease to provide, Tenant is responsible for arranging and paying directly to the service provider for all other utilities and services to the property, including electricity, gas, telephone, cable, and internet, as applicable.",
   },
@@ -257,7 +290,7 @@ const CLAUSE_TEMPLATES = [
     id: "utility-service-continuity",
     title: "Utility Service Continuity",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA"],
     bodyText:
       "Tenant will not cause water, gas, electricity, sewer, or trash service to the property to be interrupted during the Term. This requirement does not apply to telephone, cable, or internet service.",
   },
@@ -265,7 +298,7 @@ const CLAUSE_TEMPLATES = [
     id: "utility-payment-evidence",
     title: "Evidence of Utility Payment",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA"],
     bodyText:
       "Upon Landlord's reasonable request, Tenant will provide Landlord with reasonable evidence that any utility specified as Tenant's responsibility under this Lease has been paid.",
   },
@@ -297,7 +330,7 @@ const CLAUSE_TEMPLATES = [
     id: "no-alterations",
     title: "No Alterations",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA"],
     bodyText:
       "Tenant will not perform any alterations or improvements to the property, including adding, changing, or removing appliances, fixtures, shelving, wallpaper, or paint, without the prior written consent of Landlord. If Landlord approves an alteration, Tenant understands it will remain part of the property at the end of the Term unless Landlord requires its removal.",
   },
@@ -305,7 +338,7 @@ const CLAUSE_TEMPLATES = [
     id: "joint-liability",
     title: "Joint & Several Liability",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA"],
     bodyText:
       "If more than one individual signs this Lease as Tenant, all such individuals are jointly and severally liable for the performance of all agreements, covenants, and obligations of Tenant under this Lease. Rent is due in full regardless of how Tenant chooses to divide payment among themselves.",
   },
@@ -322,7 +355,7 @@ const CLAUSE_TEMPLATES = [
     id: "utilities-paid-by-landlord",
     title: "Utilities Paid by Landlord",
     group: "Landlord Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA"],
     bodyText:
       "Landlord will arrange and pay for the following utilities and services to the property, which are included in Monthly Rent unless this Lease states otherwise: [list utilities Landlord provides here, e.g. water, sewer, and trash removal].",
   },
@@ -330,7 +363,7 @@ const CLAUSE_TEMPLATES = [
     id: "appliances-included",
     title: "Appliances & Equipment Included",
     group: "Landlord Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA"],
     bodyText:
       "The property includes the following appliances and equipment as of the Start Date, which Landlord will maintain as described in this Lease's Maintenance & Repairs Section: {{appliance_list}}.",
   },
@@ -381,7 +414,7 @@ const CLAUSE_TEMPLATES = [
     id: "default-by-tenant",
     title: "Default by Tenant",
     group: "Default & Termination",
-    states: ["CO", "WY", "MN", "ND"],
+    states: ["CO", "WY", "MN", "ND", "CA"],
     bodyText:
       "Tenant will be in default under this Lease if Tenant fails to pay Rent when due and does not cure the failure within the time period specified by applicable law after receiving written notice from Landlord. Tenant will also be in default if Tenant fails to comply with any other obligation under this Lease and does not cure the failure after receiving written notice. Except as required by applicable law, Tenant's failure to pay an assessed late fee, apart from the underlying Rent itself, will not by itself entitle Landlord to terminate this Lease or pursue eviction. If Tenant is in default, Landlord may exercise all rights and remedies available under applicable law, including terminating this Lease, regaining possession of the property, and recovering unpaid Rent, late fees, and reasonable costs and expenses, less amounts obtained from the Security Deposit. Landlord will use reasonable efforts to mitigate damages resulting from Tenant's default to the extent required by applicable law. To the extent permitted under applicable law, the prevailing party may recover from the other party court costs and reasonable attorneys' fees and expenses incurred in connection with any legal proceedings related to this Lease.",
   },
@@ -389,7 +422,7 @@ const CLAUSE_TEMPLATES = [
     id: "surrender-end-of-term",
     title: "Surrender at End of Term",
     group: "Default & Termination",
-    states: ["CO", "WY", "SD", "OH"],
+    states: ["CO", "WY", "SD", "OH", "CA"],
     bodyText:
       "Upon the expiration or earlier termination of this Lease, Tenant will surrender possession of the property and return all keys to Landlord immediately. The property will be left in the same condition as at the start of the Term, except for ordinary wear and tear, and free of all personal property of Tenant and any occupants. Personal property left at the property after Tenant vacates may, to the extent permitted by applicable law, be treated as abandoned and disposed of at Tenant's cost.",
   },
@@ -409,12 +442,20 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "If Tenant does not vacate the property by the end of the Term, Landlord may pursue any remedy allowed by applicable law to recover possession. Landlord will also be entitled to recover from Tenant holdover damages in the maximum amount permitted by applicable law for each day Tenant remains in possession after the end of the Term. Alternatively, Landlord may accept Tenant's continued payment of Rent, in which case this Lease will be deemed to continue on a month-to-month basis on the same terms and conditions, terminable by either party upon written notice as required by applicable law.",
   },
+  {
+    id: "month-to-month-notice-ca",
+    title: "Month-to-Month Termination Notice",
+    group: "Default & Termination",
+    states: ["CA"],
+    bodyText:
+      "Either party may terminate a month-to-month tenancy by written notice served as provided in Code of Civil Procedure section 1162 or by certified or registered mail. Tenant must give notice at least as long as the period of the tenancy (30 days for a month-to-month tenancy), regardless of how long Tenant has resided at the property. Landlord must give at least 60 days' written notice, except that 30 days' notice is sufficient if Tenant has resided at the property for less than one year, or if the conditions in Civil Code section 1946.1(d) are met (unit separately alienable, sold to a natural-person bona fide purchaser in escrow, notice given within 120 days of escrow, no prior notice given, and purchaser intends to reside there at least one year). Landlord's notice must include the statutory abandoned-property statement required by Civil Code section 1946.1(h). Where this property is subject to Civil Code section 1946.2, notice alone is not sufficient: after the qualifying occupancy period Landlord must also state a just cause for termination.",
+  },
   // Notices & General
   {
     id: "notices",
     title: "Notices",
     group: "Notices & General",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA"],
     bodyText:
       "Any notice of termination, notice of default, or other notice required to be given in writing under this Lease or applicable law will be delivered to the addresses specified in this Lease, or to any updated address either party provides in writing to the other. Where applicable law requires a particular method, form, timing, or content for a notice, that requirement will control over this Section, and nothing in this Lease designates an alternative method of delivery for any notice governed by law.",
   },
@@ -422,7 +463,7 @@ const CLAUSE_TEMPLATES = [
     id: "governing-law",
     title: "Governing Law",
     group: "Notices & General",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA"],
     bodyText:
       "This Lease will be governed by the laws of the State of {{state}}, and any additional applicable laws of the city or county in which the property is located.",
   },
@@ -430,7 +471,7 @@ const CLAUSE_TEMPLATES = [
     id: "severability",
     title: "Severability",
     group: "Notices & General",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA"],
     bodyText:
       "If any provision of this Agreement shall be held or made invalid by a court decision, statute or rule, or shall be otherwise rendered invalid, the remainder of this Agreement shall not be affected thereby.",
   },
@@ -446,7 +487,7 @@ const CLAUSE_TEMPLATES = [
     id: "entire-agreement",
     title: "Entire Agreement",
     group: "Notices & General",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA"],
     bodyText:
       "This Lease, along with any attached addenda and legal disclosures, contains the entire agreement between Landlord and Tenant and may not be changed except in writing signed by all parties. This Lease is binding on and inures to the benefit of the permitted heirs, legal representatives, and assigns of the parties.",
   },
@@ -454,15 +495,15 @@ const CLAUSE_TEMPLATES = [
     id: "addendum-precedence",
     title: "Addendum Precedence",
     group: "Notices & General",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA"],
     bodyText:
-      "Tenant acknowledges that the legal disclosures and addenda attached to this Lease are part of this legal agreement. The terms of this Lease will control in the event of any conflict between the terms of an Addendum and the terms of this Lease.",
+      "Tenant acknowledges that the legal disclosures and addenda attached to this Lease are part of this legal agreement. The terms of this Lease will control in the event of any conflict between the terms of an Addendum and the terms of this Lease, except that any disclosure, notice, or addendum required by law will control over any conflicting term of this Lease.",
   },
   {
     id: "electronic-signatures",
     title: "Electronic Signatures",
     group: "Notices & General",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA"],
     bodyText:
       "All individuals indicated in the Basic Terms as comprising Tenant will sign this Lease and related attached Addenda where indicated. Each of Landlord and Tenant consents to the other party's execution of this Lease by electronic signature. Delivery of this Lease containing the electronic signature of a party or otherwise by facsimile through electronic means or as a digital copy will have the same full force and effect as a manually executed original version.",
   },
@@ -479,9 +520,9 @@ const CLAUSE_TEMPLATES = [
     id: "pet-insurance-requirement",
     title: "Pet Insurance Requirement",
     group: "Pets",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA"],
     bodyText:
-      "If Tenant keeps an approved pet at the property, Tenant will maintain renter's insurance that includes coverage for pet-related liability, and will name Landlord as an interested party on the policy upon Landlord's request.",
+      "If Tenant keeps an approved pet at the property, Tenant will maintain renter's insurance that includes coverage for pet-related liability, and will name Landlord as an interested party on the policy upon Landlord's request. This requirement does not apply to an assistance animal, and Tenant will not be required to carry liability insurance in connection with an assistance animal.",
   },
   // Parking & Storage
   {
@@ -496,7 +537,7 @@ const CLAUSE_TEMPLATES = [
     id: "assigned-parking-space",
     title: "Assigned Parking Space(s)",
     group: "Parking & Storage",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA"],
     bodyText:
       "Tenant is assigned the following parking space(s) for Tenant's exclusive use during the Term: [identify assigned space number(s)/location here]. Landlord may reassign a different space of comparable convenience on reasonable notice to Tenant.",
   },
@@ -521,7 +562,7 @@ const CLAUSE_TEMPLATES = [
     id: "keys",
     title: "Keys",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA"],
     bodyText:
       "At the start of the Term, Tenant will receive the keys specified by Landlord and will sign a receipt acknowledging the number and type of keys provided. Tenant will return all keys to Landlord at the end of the Term. If Tenant fails to return all keys or requires a replacement, Landlord may re-key the applicable locks and charge the cost to Tenant. Tenant may not duplicate keys without Landlord's consent.",
   },
@@ -529,7 +570,7 @@ const CLAUSE_TEMPLATES = [
     id: "guest-policy",
     title: "Guest Policy",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA"],
     bodyText:
       "Guests are welcome for reasonable, non-continuous stays. A guest who stays beyond the period specified by Landlord within a given time frame will be considered an unauthorized occupant and subject to Landlord's prior written consent under this Lease's occupancy terms.",
   },
@@ -537,7 +578,7 @@ const CLAUSE_TEMPLATES = [
     id: "guest-policy-day-limit",
     title: "Guest Policy (14-Day Limit)",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA"],
     bodyText:
       "Tenant will not permit a guest to stay at the property for more than 14 consecutive days, or more than 14 total days within any rolling 6-month period, without Landlord's prior written consent to add that person to this Lease as an occupant or Tenant.",
   },
@@ -553,7 +594,7 @@ const CLAUSE_TEMPLATES = [
     id: "fire-safety-grilling",
     title: "Fire Safety & Grilling",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA"],
     bodyText:
       "Tenant will not cook or use a barbecue, grill, or other open-flame device on a porch, balcony, or within 15 feet of any building, and will not keep or use any flammable chemical or other material at the property that increases the risk of fire, except in quantities and manner consistent with normal household use.",
   },
@@ -561,7 +602,7 @@ const CLAUSE_TEMPLATES = [
     id: "landscaping-irrigation",
     title: "Landscaping & Irrigation",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA"],
     bodyText:
       "Unless Landlord provides landscaping service, Tenant is responsible for reasonable upkeep of the property's landscaping, including lawn mowing and leaf raking. If Landlord has set an irrigation schedule, Tenant will not modify it, and will promptly inform Landlord of any irrigation or landscaping issue, such as a leak or watering deficiency.",
   },
@@ -569,7 +610,7 @@ const CLAUSE_TEMPLATES = [
     id: "snow-removal",
     title: "Snow Removal",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA"],
     bodyText:
       "Unless Landlord provides snow removal service, Tenant is responsible for prompt, reasonable removal of snow and ice from any walkway, driveway, porch, or entrance at the property that Tenant uses, to help keep those areas safe and passable.",
   },
@@ -586,7 +627,7 @@ const CLAUSE_TEMPLATES = [
     id: "lead-based-paint",
     title: "Lead-Based Paint Disclosure",
     group: "Disclosures",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA"],
     bodyText:
       "LEAD WARNING STATEMENT. Housing built before 1978 may contain lead-based paint. Lead from paint, paint chips, and dust can pose health hazards if not managed properly. Lead exposure is especially harmful to young children and pregnant women. Before renting pre-1978 housing, lessors must disclose the presence of known lead-based paint and/or lead-based paint hazards in the dwelling. Lessees must also receive a federally approved pamphlet on lead poisoning prevention. Landlord's disclosure: [state either that Landlord has no knowledge of lead-based paint or lead-based paint hazards in the dwelling, or describe all known lead-based paint and lead-based paint hazards]. Records and reports: [state either that Landlord has no reports or records pertaining to lead-based paint or lead-based paint hazards in the dwelling, or list all available records and reports and confirm they have been provided to Tenant]. Tenant acknowledges receipt of the information above and of the federally approved pamphlet Protect Your Family from Lead in Your Home. Landlord and Tenant each certify, to the best of their knowledge, that the information they have provided is true and accurate.",
   },
@@ -594,7 +635,7 @@ const CLAUSE_TEMPLATES = [
     id: "hoa-compliance",
     title: "Homeowner / Condominium Association Compliance",
     group: "Disclosures",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA"],
     bodyText:
       "If the property is located within a homeowner or condominium association, Tenant will comply with the association's rules and regulations applicable to the property. Any fines incurred due to Tenant's violation of association rules will be Tenant's responsibility.",
   },
@@ -613,6 +654,38 @@ const CLAUSE_TEMPLATES = [
     states: ["CO"],
     bodyText:
       "If utilities at the property are not individually metered and Tenant's utility charges are calculated using a ratio or formula rather than a dedicated meter, Landlord will clearly disclose the calculation method in this Lease, as required by Colorado law: [describe the utility allocation method used]. Landlord may charge an administrative fee for this billing method, not to exceed either 2% of the utility charge or a flat $10.00 per month — Landlord may use only one of these two methods, not both. Landlord will not add any markup to the utility cost itself.",
+  },
+  {
+    id: "bed-bug-disclosure-ca",
+    title: "Bed Bug Disclosure",
+    group: "Disclosures",
+    states: ["CA"],
+    bodyText:
+      "Information about Bed Bugs. Bed bug Appearance: Bed bugs have six legs. Adult bed bugs have flat bodies about 1/4 of an inch in length. Their color can vary from red and brown to copper colored. Young bed bugs are very small. Their bodies are about 1/16 of an inch in length. They have almost no color. When a bed bug feeds, its body swells, may lengthen, and becomes bright red, sometimes making it appear to be a different insect. Bed bugs do not fly. They can either crawl or be carried from place to place on objects, people, or animals. Bed bugs can be hard to find and identify because they are tiny and try to stay hidden. Life Cycle and Reproduction: An average bed bug lives for about 10 months. Female bed bugs lay one to five eggs per day. Bed bugs grow to full adulthood in about 21 days. Bed bugs can survive for months without feeding. Bed bug Bites: Because bed bugs usually feed at night, most people are bitten in their sleep and do not realize they were bitten. A person's reaction to insect bites is an immune response and so varies from person to person. Sometimes the red welts caused by the bites will not be noticed until many days after a person was bitten, if at all. Common signs and symptoms of a possible bed bug infestation: • Small red to reddish brown fecal spots on mattresses, box springs, bed frames, mattresses, linens, upholstery, or walls. • Molted bed bug skins, white, sticky eggs, or empty eggshells. • Very heavily infested areas may have a characteristically sweet odor. • Red, itchy bite marks, especially on the legs, arms, and other body parts exposed while sleeping. However, some people do not show bed bug lesions on their bodies even though bed bugs may have fed on them. For more information, see the Internet Web sites of the United States Environmental Protection Agency and the National Pest Management Association. Tenant shall report any suspected bed bug infestation to Landlord promptly and in writing, using the following procedure: {{bed_bug_reporting_procedure}}.",
+  },
+  {
+    id: "meth-disclosure-ca",
+    title: "Methamphetamine or Fentanyl Contamination Disclosure",
+    group: "Disclosures",
+    states: ["CA"],
+    bodyText:
+      "Methamphetamine or Fentanyl Contamination Disclosure. [If a local health officer has issued a remediation order affecting this property and no notice requiring no further action has since been received, state that fact here and attach a copy of the order to this Lease; otherwise state 'Landlord has received no remediation order affecting this property under Health and Safety Code section 25400.22 or 25400.25.'] Tenant acknowledges in writing receipt of this notice and of a copy of any pending order. Tenant signature: ____________________ Date: __________",
+  },
+  {
+    id: "flood-disclosure-ca",
+    title: "Flood Disclosure",
+    group: "Disclosures",
+    states: ["CA"],
+    bodyText:
+      "Flood Hazard Disclosure. [If Landlord has actual knowledge that the property is located in a special flood hazard area or an area of potential flooding, state that fact here; otherwise state 'Landlord has no actual knowledge that the property is located in a special flood hazard area or an area of potential flooding.'] Tenant may obtain information about hazards, including flood hazards, that may affect the property from the Internet Web site of the Office of Emergency Services, including the MyHazards tool at {{myhazards_url}}. Landlord's insurance does not cover the loss of Tenant's personal possessions, and it is recommended that Tenant consider purchasing renter's insurance and flood insurance to insure Tenant's possessions from loss due to fire, flood, or other risk of loss. Landlord is not required to provide additional information concerning the flood hazards to the property, and the information provided pursuant to Government Code section 8589.45 is deemed adequate to inform Tenant.",
+  },
+  {
+    id: "sex-offender-registry-notice-ca",
+    title: "Sex Offender Registry Notice",
+    group: "Disclosures",
+    states: ["CA"],
+    bodyText:
+      "Notice: Pursuant to Section 290.46 of the Penal Code, information about specified registered sex offenders is made available to the public via an Internet Web site maintained by the Department of Justice at www.meganslaw.ca.gov. Depending on an offender's criminal history, this information will include either the address at which the offender resides or the community of residence and ZIP Code in which the offender resides.",
   },
   // Security Deposit
   {
@@ -955,15 +1028,6 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay an early termination fee equal to one month's Rent ({{monthly_rent}}) or 30% of the remaining Rent due under the Term, whichever is greater, and remains responsible for Rent and other obligations up to the termination date. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or, except as prohibited by law in the case of a Tenant's death, any other termination right or limitation provided by applicable law.",
   },
-  {
-    id: "surrender-end-of-term-ks",
-    title: "Surrender at End of Term",
-    group: "Default & Termination",
-    states: ["KS"],
-    supersedes: "surrender-end-of-term",
-    bodyText:
-      "Upon the expiration or earlier termination of this Lease, Tenant will surrender possession of the property and return all keys to Landlord immediately. The property will be left in the same condition as at the start of the Term, except for ordinary wear and tear, and free of all personal property of Tenant and any occupants. Personal property left at the property after Tenant vacates will be handled in accordance with this Lease's Handling of Property Left Behind Section.",
-  },
   // Notices & General
   {
     id: "identity-change-liability-ks",
@@ -1082,15 +1146,6 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay an early termination fee equal to one month's Rent ({{monthly_rent}}) or 30% of the remaining Rent due under the Term, whichever is greater, and remains responsible for Rent and other obligations up to the termination date. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or any Nebraska domestic-violence housing protection, or, except as prohibited by law in the case of a Tenant's death, any other termination right or limitation provided by applicable law.",
   },
-  {
-    id: "surrender-end-of-term-ne",
-    title: "Surrender at End of Term",
-    group: "Default & Termination",
-    states: ["NE"],
-    supersedes: "surrender-end-of-term",
-    bodyText:
-      "Upon the expiration or earlier termination of this Lease, Tenant will surrender possession of the property and return all keys to Landlord immediately. The property will be left in the same condition as at the start of the Term, except for ordinary wear and tear, and free of all personal property of Tenant and any occupants. Personal property left at the property after Tenant vacates will be handled in accordance with this Lease's Handling of Property Left Behind Section.",
-  },
   // Landlord Responsibilities
   {
     id: "smoke-detector-duty-ne",
@@ -1110,36 +1165,7 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "Landlord's insurance does not cover loss or damage to Tenant's personal property. Landlord is not liable for any such loss or damage, except to the extent caused by Landlord's active and actionable negligence, or Landlord's willful misconduct. Tenant will obtain and maintain renter's insurance covering Tenant's personal property and liability throughout the Term, with liability coverage of at least {{tenant_insurance_minimum}}, and will provide Landlord with evidence of coverage upon request.",
   },
-  // Landlord Responsibilities
-  {
-    id: "services-utilities-provided-ks",
-    title: "Services & Utilities Provided",
-    group: "Landlord Responsibilities",
-    states: ["KS"],
-    supersedes: "services-utilities-provided",
-    bodyText:
-      "Landlord will provide only the services and utilities expressly specified in this Lease, and as otherwise required by applicable law.",
-  },
-  // Notices & General
-  {
-    id: "tenants-property-insurance-ks",
-    title: "Tenant's Property & Renter's Insurance",
-    group: "Notices & General",
-    states: ["KS"],
-    supersedes: "tenants-property-insurance",
-    bodyText:
-      "Landlord's insurance does not cover loss or damage to Tenant's personal property. Tenant will obtain and maintain renter's insurance covering Tenant's personal property and liability throughout the Term, with liability coverage of at least {{tenant_insurance_minimum}}, and will provide Landlord with evidence of coverage upon request.",
-  },
   // Parking & Storage
-  {
-    id: "parking-ks",
-    title: "Parking",
-    group: "Parking & Storage",
-    states: ["KS"],
-    supersedes: "parking",
-    bodyText:
-      "Tenant may park only in the area(s) designated by Landlord, subject to any parking rules or addendum attached to this Lease. Landlord does not provide security for the parking area.",
-  },
   {
     id: "parking-ne",
     title: "Parking",
@@ -1148,15 +1174,6 @@ const CLAUSE_TEMPLATES = [
     supersedes: "parking",
     bodyText:
       "Tenant may park only in the area(s) designated by Landlord, subject to any parking rules or addendum attached to this Lease. Landlord does not provide security for the parking area and is not liable for damage to or theft of a vehicle or its contents, except to the extent caused by Landlord's active and actionable negligence, or Landlord's willful misconduct.",
-  },
-  {
-    id: "storage-space-ks",
-    title: "Storage Space",
-    group: "Parking & Storage",
-    states: ["KS"],
-    supersedes: "storage-space",
-    bodyText:
-      "Tenant is assigned the following storage space for Tenant's exclusive use during the Term: [identify storage space/location here]. Tenant will not store any hazardous, flammable, or perishable materials in the storage space.",
   },
   {
     id: "storage-space-ne",
@@ -1298,16 +1315,6 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "Landlord will keep the property and all common areas fit for the use intended by the parties and in reasonable repair, including maintaining heat at a minimum of 68 degrees Fahrenheit from October 1 through April 30, and extermination of insects, rodents, vermin, or other pests, except where the disrepair is caused by Tenant's own willful, malicious, or irresponsible conduct or that of a person under Tenant's direction or control. Landlord will keep the property and common areas in compliance with applicable health and safety laws, and will make the property and common areas reasonably energy efficient where doing so is cost-effective under applicable law. Tenant will notify Landlord promptly in writing of any condition requiring repair, and Landlord will undertake required repairs within a reasonable time, consistent with applicable law.",
   },
-  // Default & Termination
-  {
-    id: "surrender-end-of-term-mn",
-    title: "Surrender at End of Term",
-    group: "Default & Termination",
-    states: ["MN"],
-    supersedes: "surrender-end-of-term",
-    bodyText:
-      "Upon the expiration or earlier termination of this Lease, Tenant will surrender possession of the property and return all keys to Landlord immediately. The property will be left in the same condition as at the start of the Term, except for ordinary wear and tear, and free of all personal property of Tenant and any occupants. Personal property left at the property after Tenant vacates will be handled as described in this Lease's provision governing property abandoned after termination.",
-  },
   // Pets
   {
     id: "assistance-animal-accommodation-mn",
@@ -1402,20 +1409,10 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "Landlord will comply with applicable building and housing codes materially affecting health and safety, will make all repairs necessary to keep the property in a fit and habitable condition, and will keep all common areas clean and safe. Landlord will maintain in good and safe working order all electrical, plumbing, sanitary, heating, ventilating, air-conditioning, and other facilities and appliances Landlord supplies or is required to supply, and will provide and maintain appropriate waste receptacles and arrange for waste removal. Landlord will supply running water and reasonable hot water and heat at all times, except where the building isn't required by law to be so equipped or where heat or hot water is within Tenant's exclusive control via a direct utility connection. Tenant will notify Landlord promptly in writing of any condition requiring repair, and Landlord will undertake required repairs within a reasonable time.",
   },
-  // Default & Termination
-  {
-    id: "surrender-end-of-term-nd",
-    title: "Surrender at End of Term",
-    group: "Default & Termination",
-    states: ["ND"],
-    supersedes: "surrender-end-of-term",
-    bodyText:
-      "Upon the expiration or earlier termination of this Lease, Tenant will surrender possession of the property and return all keys to Landlord immediately. The property will be left in the same condition as at the start of the Term, except for ordinary wear and tear, and free of all personal property of Tenant and any occupants. Personal property left at the property after Tenant vacates will be handled as described in this Lease's provision governing property abandoned after termination.",
-  },
   // Security Deposit
   {
     id: "security-deposit-return-sd",
-    title: "Security Deposit Return (South Dakota)",
+    title: "Security Deposit Return",
     group: "Security Deposit",
     states: ["SD"],
     supersedes: "security-deposit-return",
@@ -1425,7 +1422,7 @@ const CLAUSE_TEMPLATES = [
   // Pets
   {
     id: "assistance-animal-accommodation-sd",
-    title: "Assistance Animal Accommodation (South Dakota)",
+    title: "Assistance Animal Accommodation",
     group: "Pets",
     states: ["SD"],
     supersedes: "assistance-animal-accommodation",
@@ -1435,7 +1432,7 @@ const CLAUSE_TEMPLATES = [
   // Notices & General
   {
     id: "abandoned-property-sd",
-    title: "Abandoned Property (South Dakota)",
+    title: "Abandoned Property",
     group: "Notices & General",
     states: ["SD"],
     bodyText:
@@ -1444,7 +1441,7 @@ const CLAUSE_TEMPLATES = [
   // Default & Termination
   {
     id: "dv-lease-release-sd",
-    title: "Domestic Abuse / Stalking Early Termination (South Dakota)",
+    title: "Domestic Abuse / Stalking Early Termination",
     group: "Default & Termination",
     states: ["SD"],
     bodyText:
@@ -1453,7 +1450,7 @@ const CLAUSE_TEMPLATES = [
   // Disclosures
   {
     id: "meth-disclosure-sd",
-    title: "Prior Methamphetamine Manufacturing Disclosure (South Dakota)",
+    title: "Prior Methamphetamine Manufacturing Disclosure",
     group: "Disclosures",
     states: ["SD"],
     bodyText:
@@ -1462,7 +1459,7 @@ const CLAUSE_TEMPLATES = [
   // Default & Termination
   {
     id: "default-by-tenant-sd",
-    title: "Tenant Default (South Dakota)",
+    title: "Tenant Default",
     group: "Default & Termination",
     states: ["SD"],
     supersedes: "default-by-tenant",
@@ -1471,7 +1468,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "edu-tenant-termination-causes-sd",
-    title: "Tenant Early-Termination Causes (South Dakota)",
+    title: "Tenant Early-Termination Causes",
     group: "Default & Termination",
     states: ["SD"],
     bodyText:
@@ -1480,7 +1477,7 @@ const CLAUSE_TEMPLATES = [
   // Landlord Responsibilities
   {
     id: "fire-casualty-rent-abatement-sd",
-    title: "Fire/Casualty Rent Abatement (South Dakota)",
+    title: "Fire/Casualty Rent Abatement",
     group: "Landlord Responsibilities",
     states: ["SD"],
     bodyText:
@@ -1642,7 +1639,7 @@ const CLAUSE_TEMPLATES = [
   // Default & Termination
   {
     id: "dv-lease-release-nd",
-    title: "Domestic Violence Early Termination (North Dakota)",
+    title: "Domestic Violence Early Termination",
     group: "Default & Termination",
     states: ["ND"],
     bodyText:
@@ -1677,7 +1674,7 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "landlords-access-sd",
-    title: "Landlord Access and Entry (South Dakota)",
+    title: "Landlord Access and Entry",
     group: "Access & Entry",
     states: ["SD"],
     supersedes: "landlords-access",
@@ -1687,7 +1684,7 @@ const CLAUSE_TEMPLATES = [
   // Default & Termination
   {
     id: "holdover-sd",
-    title: "Holdover (South Dakota)",
+    title: "Holdover",
     group: "Default & Termination",
     states: ["SD"],
     supersedes: "holdover",
@@ -1697,7 +1694,7 @@ const CLAUSE_TEMPLATES = [
   // Landlord Responsibilities
   {
     id: "landlord-maintenance-sd",
-    title: "Landlord Maintenance and Repair (South Dakota)",
+    title: "Landlord Maintenance and Repair",
     group: "Landlord Responsibilities",
     states: ["SD"],
     supersedes: "landlord-maintenance",
@@ -1707,7 +1704,7 @@ const CLAUSE_TEMPLATES = [
   // Pets
   {
     id: "pet-policy-sd",
-    title: "Pet Policy (South Dakota)",
+    title: "Pet Policy",
     group: "Pets",
     states: ["SD"],
     supersedes: "pet-policy",
@@ -1717,7 +1714,7 @@ const CLAUSE_TEMPLATES = [
   // Security Deposit
   {
     id: "security-deposit-return-oh",
-    title: "Return of Security Deposit (Ohio)",
+    title: "Return of Security Deposit",
     group: "Security Deposit",
     states: ["OH"],
     supersedes: "security-deposit-return",
@@ -1727,56 +1724,17 @@ const CLAUSE_TEMPLATES = [
   // Default & Termination
   {
     id: "holdover-oh",
-    title: "Holdover (Ohio)",
+    title: "Holdover",
     group: "Default & Termination",
     states: ["OH"],
     supersedes: "holdover",
     bodyText:
       "If Tenant does not vacate the property by the end of the Term, Landlord may pursue any remedy allowed by applicable law to recover possession, and may join in that action a claim for Rent and other amounts due under this Lease. For each day Tenant remains in possession after the end of the Term, Tenant will pay holdover rent at the daily rate of {{holdover_daily_rate}}, which the parties agree is a reasonable estimate of Landlord's loss and not a penalty.",
   },
-  // Notices & General
-  {
-    id: "tenants-property-insurance-oh",
-    title: "Tenant's Property & Renter's Insurance (Ohio)",
-    group: "Notices & General",
-    states: ["OH"],
-    supersedes: "tenants-property-insurance",
-    bodyText:
-      "Landlord's insurance does not cover loss or damage to Tenant's personal property. Tenant will obtain and maintain renter's insurance covering Tenant's personal property and liability throughout the Term, with liability coverage of at least {{tenant_insurance_minimum}}, and will provide Landlord with evidence of coverage upon request.",
-  },
-  // Landlord Responsibilities
-  {
-    id: "services-utilities-provided-oh",
-    title: "Services & Utilities Provided (Ohio)",
-    group: "Landlord Responsibilities",
-    states: ["OH"],
-    supersedes: "services-utilities-provided",
-    bodyText:
-      "Landlord will provide only the services and utilities expressly specified in this Lease, and as otherwise required by applicable law.",
-  },
-  // Parking & Storage
-  {
-    id: "parking-oh",
-    title: "Parking (Ohio)",
-    group: "Parking & Storage",
-    states: ["OH"],
-    supersedes: "parking",
-    bodyText:
-      "Tenant may park only in the area(s) designated by Landlord, subject to any parking rules or addendum attached to this Lease. Landlord does not provide security for the parking area.",
-  },
-  {
-    id: "storage-space-oh",
-    title: "Storage Space (Ohio)",
-    group: "Parking & Storage",
-    states: ["OH"],
-    supersedes: "storage-space",
-    bodyText:
-      "Tenant is assigned the following storage space for Tenant's exclusive use during the Term: [identify storage space/location here]. Tenant will not store any hazardous, flammable, or perishable materials in the storage space.",
-  },
   // Disclosures
   {
     id: "landlord-identity-oh",
-    title: "Owner and Agent Identity (Ohio)",
+    title: "Owner and Agent Identity",
     group: "Disclosures",
     states: ["OH"],
     bodyText:
@@ -1785,7 +1743,7 @@ const CLAUSE_TEMPLATES = [
   // Rules & Regulations
   {
     id: "flag-display-oh",
-    title: "Flag Display (Ohio)",
+    title: "Flag Display",
     group: "Rules & Regulations",
     states: ["OH"],
     bodyText:
@@ -1794,7 +1752,7 @@ const CLAUSE_TEMPLATES = [
   // Landlord Responsibilities
   {
     id: "repair-escrow-exemption-notice-oh",
-    title: "Three-or-Fewer-Units Notice (Ohio)",
+    title: "Three-or-Fewer-Units Notice",
     group: "Landlord Responsibilities",
     states: ["OH"],
     bodyText:
@@ -1803,7 +1761,7 @@ const CLAUSE_TEMPLATES = [
   // Tenant Responsibilities
   {
     id: "sex-offender-occupancy-oh",
-    title: "Occupancy by a Registered Offender (Ohio)",
+    title: "Occupancy by a Registered Offender",
     group: "Tenant Responsibilities",
     states: ["OH"],
     bodyText:
@@ -1818,6 +1776,532 @@ const CLAUSE_TEMPLATES = [
     supersedes: "assistance-animal-accommodation",
     bodyText:
       "A service animal or other assistance animal that Tenant or an Occupant needs as a reasonable accommodation for a disability is not considered a pet under this Lease, regardless of any pet policy, breed, weight, or size restriction stated elsewhere in this Lease. Landlord will not charge a pet deposit, pet rent, additional deposit, or any other pet-related fee for an assistance animal. If the disability and the disability-related need for the animal are not readily apparent, Landlord may request reliable documentation confirming the need for the accommodation, to the extent permitted by applicable law; if the disability and need are readily apparent, Landlord will not require such documentation. Tenant remains responsible for any damage to the property caused by the animal, and for keeping the animal under control and cared for. Landlord may deny or withdraw this accommodation if the specific animal poses a direct threat to the health or safety of others, or would cause substantial physical damage to the property, that cannot be reduced or eliminated by another reasonable accommodation.",
+  },
+  // Disclosures
+  {
+    id: "tpa-notice-ca",
+    title: "Tenant Protection Act Notice",
+    group: "Disclosures",
+    states: ["CA"],
+    choiceGroup: "ca-tpa-coverage",
+    choiceGroupDefault: true,
+    bodyText:
+      "California law limits the amount your rent can be increased. See Section 1947.12 of the Civil Code for more information. California law also provides that after all of the tenants have continuously and lawfully occupied the property for 12 months or more or at least one of the tenants has continuously and lawfully occupied the property for 24 months or more, a landlord must provide a statement of cause in any notice to terminate a tenancy. See Section 1946.2 of the Civil Code for more information.",
+  },
+  {
+    id: "tpa-exemption-notice-ca",
+    title: "Tenant Protection Act Exemption Notice",
+    group: "Disclosures",
+    states: ["CA"],
+    choiceGroup: "ca-tpa-coverage",
+    choiceGroupDefault: false,
+    bodyText:
+      "This property is not subject to the rent limits imposed by Section 1947.12 of the Civil Code and is not subject to the just cause requirements of Section 1946.2 of the Civil Code. This property meets the requirements of Sections 1947.12 (d)(5) and 1946.2 (e)(8) of the Civil Code and the owner is not any of the following: (1) a real estate investment trust, as defined by Section 856 of the Internal Revenue Code; (2) a corporation; or (3) a limited liability company in which at least one member is a corporation.",
+  },
+  // Default & Termination
+  {
+    id: "owner-move-in-reservation-ca",
+    title: "Owner or Relative Occupancy Reservation",
+    group: "Default & Termination",
+    states: ["CA"],
+    bodyText:
+      "Landlord reserves the right to terminate this Lease, in accordance with Civil Code section 1946.2, if Landlord or Landlord's spouse, domestic partner, child, grandchild, parent or grandparent unilaterally decides to occupy the property as that person's primary residence for at least 12 continuous months. Any such termination is subject to all requirements of Civil Code section 1946.2, including the notice contents, the relocation assistance or final-month rent waiver, and Landlord's obligation to re-offer the unit and reimburse moving expenses if the intended occupant does not take occupancy within 90 days or does not occupy for 12 consecutive months.",
+  },
+  // Security Deposit
+  {
+    id: "security-deposit-cap-ca",
+    title: "Security Deposit Amount",
+    group: "Security Deposit",
+    states: ["CA"],
+    supersedes: "security-deposit-use",
+    bodyText:
+      "The security deposit for this Lease is {{security_deposit}}. Under Civil Code section 1950.5(c), Landlord may not demand or receive a security deposit, however denominated, greater than one month's rent, in addition to the first month's rent paid on or before initial occupancy. No portion of the security deposit is non-refundable.",
+  },
+  {
+    id: "security-deposit-return-ca",
+    title: "Security Deposit Return",
+    group: "Security Deposit",
+    states: ["CA"],
+    supersedes: "security-deposit-return",
+    bodyText:
+      "Within 21 calendar days after Tenant vacates, Landlord shall furnish Tenant an itemized statement of any amounts deducted from the security deposit and return the balance. Landlord may deduct only for unpaid rent, repair of damage beyond ordinary wear and tear, cleaning necessary to return the unit to the level of cleanliness at the inception of the tenancy, and, if this Lease so provides, replacement of personal property or appurtenances. Landlord may not charge for ordinary wear and tear or for preexisting conditions, and may not require Tenant to pay for professional carpet or other professional cleaning unless reasonably necessary. Where deductions for repairs and cleaning exceed $125, Landlord shall include copies of bills, invoices or receipts, and photographs of the unit, with the itemized statement. Tenant may request an initial inspection during the final two weeks of the tenancy and be present for it, and Landlord shall notify Tenant in writing of that right and give at least 48 hours' written notice of the inspection.",
+  },
+  // Rent & Payment
+  {
+    id: "rent-increase-cap-ca",
+    title: "Rent Increase Limit",
+    group: "Rent & Payment",
+    states: ["CA"],
+    bodyText:
+      "Where this property is subject to Civil Code section 1947.12, Landlord may not increase the rent over any 12-month period by more than 5 percent plus the percentage change in the cost of living, or 10 percent, whichever is lower, measured against the lowest rent charged for the unit in the 12 months before the increase takes effect, and may not impose more than two increases in any 12-month period. Any rent discount, incentive, concession or credit is excluded from that calculation and shall be listed separately in this Lease. Landlord shall give notice of any increase as required by Civil Code section 827.",
+  },
+  // Notices & General
+  {
+    id: "notice-service-fee-ban-ca",
+    title: "No Fee for Serving Notices",
+    group: "Notices & General",
+    states: ["CA"],
+    bodyText:
+      "Landlord shall not charge Tenant any fee for serving, posting or otherwise delivering any notice relating to this tenancy, including any notice terminating a periodic tenancy and any three-day notice to pay rent, perform covenants or quit.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "bed-bug-cooperation-ca",
+    title: "Bed Bug Inspection Cooperation",
+    group: "Tenant Responsibilities",
+    states: ["CA"],
+    bodyText:
+      "Tenant shall cooperate with any inspection to facilitate the detection and treatment of bed bugs, including the inspection of Tenant's unit and any followup inspections of surrounding units until bed bugs are eliminated, and shall provide the pest control operator with requested information necessary to facilitate detection and treatment. Landlord's entry to inspect shall comply with Civil Code section 1954.",
+  },
+  // Pets
+  {
+    id: "assistance-animal-accommodation-ca",
+    title: "Assistance Animal Accommodation",
+    group: "Pets",
+    states: ["CA"],
+    supersedes: "assistance-animal-accommodation",
+    bodyText:
+      "Landlord will make reasonable accommodations for assistance animals, which include both service animals and support animals and are not pets. Tenant will not be charged any pet fee, additional rent, additional security deposit, liability insurance requirement or other additional fee in connection with an assistance animal. No breed, size or weight limitation applies to an assistance animal. Tenant remains responsible for the cost of repairing damage the animal causes to the premises, excluding ordinary wear and tear, and for keeping the animal under control, including reasonable conditions on waste disposal and on behavior that would constitute a nuisance, provided those conditions are no more restrictive than those applied to other animals on the property and do not interfere with the animal's work. An assistance animal need not be allowed if that specific animal poses a direct threat to the health or safety of others, or would cause substantial physical damage to the property of others, and the threat cannot be sufficiently mitigated by another reasonable accommodation.",
+  },
+  // Access & Entry
+  {
+    id: "landlord-entry-ca",
+    title: "Landlord Entry",
+    group: "Access & Entry",
+    states: ["CA"],
+    supersedes: "landlords-access",
+    bodyText:
+      "Landlord may enter the dwelling unit only in an emergency; to make necessary or agreed repairs, decorations, alterations or improvements, supply necessary or agreed services, exhibit the unit to prospective or actual purchasers, mortgagees, tenants, workers or contractors, or make an initial inspection under Civil Code section 1950.5(f); when Tenant has abandoned or surrendered the premises; or pursuant to court order. Except in an emergency or after abandonment or surrender, Landlord will give Tenant reasonable written notice stating the date, approximate time and purpose of entry, and will enter only during normal business hours unless Tenant consents at the time of entry to a different time. Twenty-four hours is presumed reasonable notice; notice mailed at least six days before entry is presumed reasonable. No notice is required to respond to an emergency, where Tenant is present and consents at the time of entry, or after Tenant has abandoned or surrendered the unit. Landlord will not abuse the right of access or use it to harass Tenant.",
+  },
+  // Notices & General
+  {
+    id: "accommodation-request-rights-ca",
+    title: "Disability Accommodation Requests",
+    group: "Notices & General",
+    states: ["CA"],
+    bodyText:
+      "Tenant, a family member, or anyone Tenant authorizes to act on Tenant's behalf may request a reasonable accommodation or reasonable modification because of a disability at any time, orally or in writing, and need not use any particular words, form or procedure. Landlord will not charge any fee, deposit or other financial contribution as a condition of receiving, processing or granting such a request. Nothing in this Lease requires Tenant to give up the right to request a reasonable accommodation or modification in the future.",
+  },
+  {
+    id: "reasonable-modification-ca",
+    title: "Reasonable Modifications",
+    group: "Notices & General",
+    states: ["CA"],
+    bodyText:
+      "Tenant may make reasonable modifications to the premises at Tenant's expense where necessary because of a disability. Landlord may ask Tenant for a reasonable description of the proposed work and reasonable assurances that it will be done competently and that any required building permits will be obtained, but will not require that the work be done by any particular contractor. Landlord will not increase any customarily required security deposit, require a liability waiver or insurance, or require Tenant to move to a different unit, as a condition of a modification. Where it is reasonable to do so, Landlord may require Tenant to restore the interior of the premises to its prior condition at the end of the tenancy, reasonable wear and tear excepted; Landlord will not require restoration of exterior modifications or modifications to common or public use areas.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "repair-and-deduct-ca",
+    title: "Repair and Deduct",
+    group: "Landlord Responsibilities",
+    states: ["CA"],
+    bodyText:
+      "If Tenant gives Landlord or Landlord's agent written or oral notice of dilapidations rendering the premises untenantable that Landlord ought to repair, and Landlord neglects to repair them within a reasonable time, Tenant may either repair them and deduct the cost from rent when due, so long as the cost does not exceed one month's rent, or vacate the premises, in which case Tenant is discharged from further rent and other conditions as of the date of vacating. Tenant may use this remedy no more than twice in any 12-month period. This remedy is not available where the condition was caused by Tenant's own violation of Civil Code section 1929 or 1941.2. Nothing in this Lease limits any other remedy available to Tenant.",
+  },
+  // Disclosures
+  {
+    id: "owner-identity-disclosure-ca",
+    title: "Owner and Manager Identification",
+    group: "Disclosures",
+    states: ["CA"],
+    bodyText:
+      "Person authorized to manage the premises: {{manager_name}}, {{manager_phone}}, {{manager_street_address}}. Owner, or person authorized to act for the owner for service of process and for receiving and receipting all notices and demands: {{owner_agent_name}}, {{owner_agent_phone}}, {{owner_agent_street_address}}. Rent is payable to {{rent_payee_name}} at {{rent_payee_address}}, {{rent_payee_phone}}, in the following form or forms: {{rent_payment_forms}}. If rent may be paid personally, it may be paid on {{rent_payment_days_hours}}. Landlord will give Tenant a copy of this Lease within 15 days after Tenant signs it, and, once each calendar year on Tenant's request, an additional copy within 15 days.",
+  },
+  // Rent & Payment
+  {
+    id: "rent-increase-notice-ca",
+    title: "Rent Increase Notice",
+    group: "Rent & Payment",
+    states: ["CA"],
+    bodyText:
+      "For a tenancy from week to week, month to month, or any period less than a month, Landlord may increase the rent only on written notice delivered to Tenant personally or served by mail under Code of Civil Procedure section 1013. If the increase, by itself or combined with any other increases in the 12 months before its effective date, is 10 percent or less of the rent charged at any time during those 12 months, the notice will be delivered at least 30 days before the increase takes effect. If it is greater than 10 percent, the notice will be delivered at least 90 days before the increase takes effect. Where any other statute, regulation, recorded regulatory agreement or contract requires a longer notice period, that longer period applies.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "tenant-maintenance-obligations-ca",
+    title: "Tenant Care of Premises",
+    group: "Tenant Responsibilities",
+    states: ["CA"],
+    supersedes: "tenant-maintenance",
+    bodyText:
+      "Tenant shall keep the part of the premises Tenant occupies and uses clean and sanitary as the condition of the premises permits; dispose of all rubbish, garbage and other waste from the dwelling unit in a clean and sanitary manner; properly use and operate all electrical, gas and plumbing fixtures and keep them as clean and sanitary as their condition permits; neither do, nor permit any person on the premises with Tenant's permission to do, anything that willfully or wantonly destroys, defaces, damages, impairs or removes any part of the structure or dwelling unit or its facilities, equipment or appurtenances; and use the premises as Tenant's abode, using portions of it for living, sleeping, cooking or dining only as those portions were designed or intended to be used. Tenant shall repair deteriorations or injuries to the premises caused by Tenant's want of ordinary care.",
+  },
+  // Rent & Payment
+  {
+    id: "payment-methods-ca",
+    title: "Permitted Payment Methods",
+    group: "Rent & Payment",
+    states: ["CA"],
+    supersedes: "acceptable-payment-methods",
+    bodyText:
+      "Landlord will allow Tenant to pay rent and the security deposit by at least one form of payment that is neither cash nor electronic funds transfer, and will allow Tenant to pay rent through a third party who provides a signed acknowledgment that they are not a tenant of the premises and that acceptance of the payment does not create a new tenancy. Landlord will not charge Tenant any fee for paying rent or the security deposit by check. If Tenant attempts to pay with a check drawn on insufficient funds or instructs the drawee to stop payment, Landlord may require cash as the exclusive form of payment for a period of up to three months, but only after giving Tenant written notice that the instrument was dishonored, stating the length of the cash-only period, and attaching a copy of the dishonored instrument.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "political-signs-ca",
+    title: "Political Signs",
+    group: "Tenant Responsibilities",
+    states: ["CA"],
+    bodyText:
+      "Tenant may post or display political signs relating to an election or legislative vote, the initiative, referendum or recall process, or issues before a public commission, board or elected local body. In a multifamily dwelling such signs may be posted in the window or on the door of the premises; in a single-family dwelling they may also be posted from the yard, window, door, balcony or outside wall. Landlord may prohibit a political sign only if it is more than six square feet in size, if posting it would violate a local, state or federal law, or if it would violate a lawful provision of a common interest development governing document. Tenant will post and remove political signs within the time limits set by any local ordinance, or otherwise within the period Landlord reasonably establishes, which will begin at least 90 days before the election or vote and end at least 15 days after it.",
+  },
+  {
+    id: "waterbed-ca",
+    title: "Waterbeds and Liquid-Filled Bedding",
+    group: "Tenant Responsibilities",
+    states: ["CA"],
+    bodyText:
+      "If the structure received its valid certificate of occupancy after January 1, 1973, Landlord will not refuse to rent to Tenant, or refuse to continue renting to Tenant, solely because Tenant has a waterbed or other liquid-filled bedding, provided Tenant meets the requirements of Civil Code section 1940.5. Those include furnishing Landlord, before installation, a waterbed insurance policy for property damage of at least $100,000 written by a carrier licensed in California and maintained until the bedding is removed; conforming to the floor load capacity and distributing the weight on a pedestal or frame substantially the dimensions of the mattress; installing, maintaining and removing the bedding per manufacturer, retailer or state standards, whichever is safest; and giving Landlord 24 hours' written notice before installing, removing or moving it. Landlord may inspect the installation on notice under Civil Code section 1954, may increase the security deposit by one-half of one month's rent, and may charge a reasonable administration fee.",
+  },
+  // Default & Termination
+  {
+    id: "holdover-ca",
+    title: "Holdover",
+    group: "Default & Termination",
+    states: ["CA"],
+    supersedes: "holdover",
+    bodyText:
+      "If Tenant does not vacate the property by the end of the Term, Landlord may pursue any remedy allowed by law to recover possession and may recover the actual damages caused by Tenant's continued possession, including the reasonable rental value of the property for the period Tenant remains. Alternatively, Landlord may accept Tenant's continued payment of Rent, in which case this Lease will continue on a month-to-month basis on the same terms, terminable only as provided by law.",
+  },
+  // Rent & Payment
+  {
+    id: "rent-payment-ca",
+    title: "Rent Payment",
+    group: "Rent & Payment",
+    states: ["CA"],
+    supersedes: "rent-payment",
+    bodyText:
+      "Tenant shall pay Landlord monthly rent of {{monthly_rent}} (Monthly Rent) in advance on the due date specified in this Lease, without demand. If the due date falls on a weekend or legal holiday, rent is due on the next business day. Nothing in this Lease limits Tenant's rights under Civil Code sections 1941 and 1942, including Tenant's right to repair and deduct the cost from rent.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "existing-condition-ca",
+    title: "Existing Condition",
+    group: "Tenant Responsibilities",
+    states: ["CA"],
+    supersedes: "existing-condition",
+    bodyText:
+      "Tenant has examined the property and, by signing this Lease, acknowledges its condition as of the Start Date (Existing Condition), except as otherwise noted in this Lease or in any move-in inspection record. This acknowledgment does not waive or modify Landlord's obligations under Civil Code sections 1941 and 1941.1, does not apply to any condition rendering the premises untenantable, and does not affect Tenant's rights regarding any condition that existed before the tenancy began. Landlord will deliver possession of the property to Tenant on the Start Date in the same or better condition as the Existing Condition, except for ordinary wear and tear.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "services-utilities-provided-ca",
+    title: "Services and Utilities Provided",
+    group: "Landlord Responsibilities",
+    states: ["CA"],
+    supersedes: "services-utilities-provided",
+    bodyText:
+      "Landlord will provide only the services and utilities expressly specified in this Lease, and as otherwise required by applicable law. Except as to any condition that renders the premises untenantable, Landlord is not liable for an interruption or insufficiency of a service or utility resulting from causes beyond Landlord's reasonable control. Nothing in this Lease waives or modifies Landlord's obligations under Civil Code sections 1941 and 1941.1 or Tenant's rights under Civil Code section 1942.",
+  },
+  // Rules & Regulations
+  {
+    id: "common-area-use-ca",
+    title: "Property and Common Area Use",
+    group: "Rules & Regulations",
+    states: ["CA"],
+    supersedes: "common-area-use",
+    bodyText:
+      "Tenant will not, without Landlord's written consent, drill holes, use nails, hooks, or screws on the property, or fasten anything to its fixtures, appliances, or interior or exterior surfaces. Tenant will comply with any weight restrictions on balconies or porches and will not use them to store personal belongings without Landlord's consent. Tenant will not keep any item (such as a piano or safe) whose weight Landlord has not agreed is reasonable for the floor without Landlord's prior written consent. Tenant will not burn wax candles at the property. Except for political signs displayed as permitted by this Lease and by Civil Code section 1940.4, Tenant will not post or display any sign, banner, or advertisement visible from outside the property without Landlord's consent.",
+  },
+  // Pets
+  {
+    id: "pet-policy-ca",
+    title: "Pet Policy",
+    group: "Pets",
+    states: ["CA"],
+    supersedes: "pet-policy",
+    bodyText:
+      "Tenant may keep only pets identified in writing to and approved by Landlord. Tenant will pay Landlord a pet deposit, if applicable, and pet rent of {{pet_rent_amount}} per month. Tenant is responsible for all damage, waste removal, odor, and disturbance caused by a pet. Landlord may revoke approval of a pet that becomes a nuisance or safety concern. This Section does not apply to an assistance animal, meaning a service animal or a support animal that Tenant or an occupant needs as a reasonable accommodation for a disability: no pet deposit, pet rent, additional security deposit, liability insurance or other additional fee may be charged in connection with an assistance animal, and no breed, size or weight limitation applies to one. Tenant remains responsible for the cost of repairing damage an assistance animal causes, excluding ordinary wear and tear.",
+  },
+  // Rent & Payment
+  {
+    id: "due-at-signing-ca",
+    title: "Amounts Due at Signing",
+    group: "Rent & Payment",
+    states: ["CA"],
+    supersedes: "due-at-signing",
+    bodyText:
+      "Tenant will pay Landlord the following amounts, at the time specified for each: first month's Monthly Rent ({{monthly_rent}}) due at signing, and the Security Deposit ({{security_deposit}}) due at signing. The Security Deposit, together with any pet deposit or other amount taken to secure Tenant's performance, may not exceed the limit set by Civil Code section 1950.5(c). These amounts are due in addition to, and are not credited against, Rent due for any other month of the Term.",
+  },
+  // Default & Termination
+  {
+    id: "early-termination-ca",
+    title: "Early Termination",
+    group: "Default & Termination",
+    states: ["CA"],
+    supersedes: "early-termination",
+    bodyText:
+      "Tenant may terminate this Lease before the end of the Term by giving Landlord at least 30 days' written notice. Tenant remains responsible for Rent and other obligations up to the termination date. If this Lease terminates because Tenant breaches it and abandons the property, or because Landlord terminates Tenant's right to possession for breach, Landlord may recover the damages provided by Civil Code section 1951.2. Those damages include the worth at the time of award of the amount by which the unpaid rent for the balance of the Term after the time of award exceeds the amount of the rental loss that Tenant proves could be reasonably avoided. Unpaid rent earned before termination, and rent that would have been earned between termination and the award, shall bear interest at {{judgment_interest_rate}} or, if no rate is stated, at the legal rate. Landlord may terminate this Lease early only as permitted by law, including, where this property is subject to Civil Code section 1946.2, only for a just cause stated in the notice of termination, and only after giving Tenant an opportunity to cure where the law requires one. Nothing in this Section limits any right either party has under applicable law, including Tenant's right to terminate without penalty due to active military service, or due to the property becoming uninhabitable through no fault of Tenant.",
+  },
+  {
+    id: "continue-lease-remedy-ca",
+    title: "Continuation of Lease After Abandonment",
+    group: "Default & Termination",
+    states: ["CA"],
+    bodyText:
+      "The lessor has the remedy described in California Civil Code Section 1951.4 (lessor may continue lease in effect after lessee's breach and abandonment and recover rent as it becomes due, if lessee has right to sublet or assign, subject only to reasonable limitations).",
+  },
+  // Tenant Responsibilities
+  {
+    id: "no-sublet-assign-ca",
+    title: "Subletting and Assignment (Reasonable Consent)",
+    group: "Tenant Responsibilities",
+    states: ["CA"],
+    supersedes: "no-sublet-assign",
+    choiceGroup: "ca-sublet-consent",
+    choiceGroupDefault: true,
+    bodyText:
+      "Tenant will not sublease or assign all or any portion of the property or this Lease without Landlord's prior written consent, which Landlord will not unreasonably withhold. Tenant will not rent the property, or any portion of it, on any short-term rental or home-sharing platform.",
+  },
+  // Default & Termination
+  {
+    id: "dv-lease-termination-ca",
+    title: "Termination by a Victim of Abuse or Violence",
+    group: "Default & Termination",
+    states: ["CA"],
+    bodyText:
+      "Tenant may terminate this Lease if Tenant, a household member, or an immediate family member was the victim of domestic violence, sexual assault, stalking, human trafficking, abuse of an elder or dependent adult, a crime that caused bodily injury or death, a crime involving a firearm or other deadly weapon, or a crime involving the use or threat of force. Tenant must give Landlord written notice with one of the following attached: a copy of a qualifying restraining or protective order; a copy of a written report by a peace officer stating that a report has been filed; documentation from a qualified third party in the form set out in Civil Code section 1946.7; or any other documentation that reasonably verifies the act or crime occurred. Notice must be given within 180 days of the order, the report, or the act or crime. Tenant is responsible for rent for no more than 14 calendar days after giving notice, prorated if the property is re-rented sooner, and is released without penalty from any further obligation. Tenant will not forfeit any security deposit or advance rent because of the termination, and the termination is not a breach of this Lease. Any other tenant remains bound by this Lease.",
+  },
+  // Notices & General
+  {
+    id: "emergency-assistance-right-ca",
+    title: "Right to Summon Emergency Assistance",
+    group: "Notices & General",
+    states: ["CA"],
+    bodyText:
+      "Nothing in this Lease prohibits or limits Tenant, any resident, or any other person from summoning law enforcement assistance or emergency assistance on behalf of a victim of abuse, a victim of crime, or an individual in an emergency. Landlord will not impose or threaten any fee, fine, penalty, termination, non-renewal, or inferior terms of tenancy because such assistance was summoned.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "alarm-duties-ca",
+    title: "Smoke and Carbon Monoxide Alarms",
+    group: "Landlord Responsibilities",
+    states: ["CA"],
+    bodyText:
+      "Landlord has installed smoke alarms approved and listed by the State Fire Marshal, and, if the property has a fossil fuel burning heater or appliance, a fireplace, or an attached garage, a carbon monoxide device. Landlord has ensured that the smoke alarms are operable as of the start of this tenancy. Tenant shall notify Landlord or the manager if Tenant becomes aware that any alarm is inoperable, and Tenant shall not disable, remove or obstruct any alarm. Landlord will correct any reported deficiency. Landlord or Landlord's agent may enter the property to install, repair, test and maintain alarms on reasonable written notice, during normal business hours, except in an emergency.",
+  },
+  // Rules & Regulations
+  {
+    id: "ev-charging-ca",
+    title: "Electric Vehicle Charging Station",
+    group: "Rules & Regulations",
+    states: ["CA"],
+    bodyText:
+      "If Tenant has an allotted parking space, Landlord will approve Tenant's written request to install an electric vehicle charging station at that space where the request meets the requirements of Civil Code section 1947.6 and complies with Landlord's procedural approval process for modifications to the property. Tenant's request must include Tenant's consent to a written agreement covering Landlord's requirements for installation, use, maintenance and removal, a complete financial analysis and scope of work, a written description of the proposed modifications, Tenant's obligation to pay all costs associated with the installation and its infrastructure before any work is done, and Tenant's obligation to pay as part of rent the cost of electricity used and of any damage, maintenance, repair, removal and replacement. Tenant and any successor must maintain personal liability coverage in an amount not exceeding ten times the annual rent, covering property damage and personal injury caused by the installation or operation of the station, unless the station is certified by an OSHA-approved Nationally Recognized Testing Laboratory and the work is performed by a licensed electrician. Landlord is not required to provide an additional parking space, and may charge monthly rent for a space that becomes reserved as a result.",
+  },
+  // Default & Termination
+  {
+    id: "casualty-termination-ca",
+    title: "Damage, Destruction and Failure to Deliver",
+    group: "Default & Termination",
+    states: ["CA"],
+    bodyText:
+      "Tenant may terminate this Lease before the end of the Term if Landlord does not, within a reasonable time after Tenant's request, fulfill Landlord's obligations to place and secure Tenant in quiet possession of the property, to put it into good condition, or to repair it. Tenant may also terminate if the greater part of the property, or the part that was the material inducement to Tenant entering this Lease, is destroyed by any cause other than Tenant's want of ordinary care. If the property is destroyed, this Lease terminates.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "stove-refrigerator-ca",
+    title: "Stove and Refrigerator",
+    group: "Landlord Responsibilities",
+    states: ["CA"],
+    bodyText:
+      "Landlord will provide and maintain in good working order a stove capable of safely generating heat for cooking and a refrigerator capable of safely storing food. A stove or refrigerator subject to a recall by the manufacturer or a public entity is not considered capable of safe operation, and Landlord will repair or replace it within 30 days of receiving notice of the recall. [If Tenant has asked to supply their own refrigerator, include the following acknowledgment:] \"Under state law, the landlord is required to provide a refrigerator in good working order in your unit. By checking this box, you acknowledge that you have asked to bring your own refrigerator and that you are responsible for keeping that refrigerator in working order.\" If Tenant supplies their own refrigerator, Tenant may on 30 days' written notice inform Landlord that Tenant no longer wishes to keep it, and at the end of that 30-day period Landlord will install a refrigerator in good working order. Landlord will not condition this tenancy on Tenant providing a refrigerator and is not responsible for maintaining a refrigerator Tenant supplies.",
+  },
+  // Notices & General
+  {
+    id: "immigration-status-inquiry-ca",
+    title: "No Immigration or Citizenship Status Inquiry",
+    group: "Notices & General",
+    states: ["CA"],
+    bodyText:
+      "Landlord will not inquire about the immigration or citizenship status of Tenant, any prospective tenant, or any occupant or prospective occupant, will not require any of them to disclose or certify that status, and will not disclose information about that status to any person or entity for the purpose of harassing or intimidating them, retaliating against them for exercising their rights, influencing them to vacate, or recovering possession. Landlord may request information or documentation necessary to determine or verify financial qualifications or identity, and may comply with any obligation under federal law or a subpoena, warrant or court order.",
+  },
+  // Default & Termination
+  {
+    id: "auto-renewal-formatting-ca",
+    title: "Automatic Renewal Provision",
+    group: "Default & Termination",
+    states: ["CA"],
+    bodyText:
+      "[Any provision automatically renewing or extending this Lease if Tenant remains in possession after expiration, or fails to give notice of intent not to renew, must appear here in at least eight-point boldface type, and a recital that such a provision is contained in the body of this Lease must appear in at least eight-point boldface type immediately above the place where Tenant signs.]",
+  },
+  // Landlord Responsibilities
+  {
+    id: "security-devices-ca",
+    title: "Locks and Security Devices",
+    group: "Landlord Responsibilities",
+    states: ["CA"],
+    bodyText:
+      "Landlord has installed and will maintain an operable dead bolt lock on each main swinging entry door, operable window security or locking devices on windows designed to be opened, and locking mechanisms complying with fire and safety codes on exterior doors providing access to common areas in multifamily buildings. Tenant shall notify Landlord when Tenant becomes aware that any dead bolt lock or window security device in the unit is inoperable, and Landlord will correct it within a reasonable time.",
+  },
+  // Rules & Regulations
+  {
+    id: "tenant-use-rights-ca",
+    title: "Tenant Use Rights Landlord Cannot Prohibit",
+    group: "Rules & Regulations",
+    states: ["CA"],
+    bodyText:
+      "Nothing in this Lease prohibits Tenant from displaying a religious item on the entry door or door frame of the dwelling, subject to the limits in Civil Code section 1940.45; from owning a personal micromobility device, or storing and recharging up to one such device per occupant in the unit where it meets the applicable safety standard or is insured, unless Landlord provides secure long-term storage; from using a clothesline or drying rack in Tenant's private area on the conditions in Civil Code section 1940.20; or, where the property contains no more than two units and Tenant has a ground-level private outdoor area, from personal agriculture in portable containers on the conditions in Civil Code section 1940.10.",
+  },
+  // Disclosures
+  {
+    id: "pest-control-notice-ca",
+    title: "Pest Control and Pesticide Notices",
+    group: "Disclosures",
+    states: ["CA"],
+    bodyText:
+      "If a contract for periodic pest control service is in place, Landlord will give Tenant a copy of the notice provided by the registered structural pest control company. If Landlord or Landlord's agent applies any pesticide without a licensed pest control operator, Landlord will give Tenant written notice at least 24 hours in advance identifying the pest to be controlled, the name and brand of the pesticide, the approximate date, time and frequency of application, the statutory caution statement, and notice that the date, time and frequency may change. Where Landlord makes a broadcast application or uses a total release fogger or aerosol spray, Landlord will give the same notice to tenants of adjacent units that could reasonably be affected.",
+  },
+  {
+    id: "ordnance-demolition-meter-disclosures-ca",
+    title: "Ordnance, Demolition and Shared Utility Disclosures",
+    group: "Disclosures",
+    states: ["CA"],
+    bodyText:
+      "Former ordnance location: [If Landlord has actual knowledge of a former federal or state ordnance location within one mile of the property, disclose it here; otherwise state that Landlord has no such knowledge.] Demolition: [If Landlord has applied for a permit to demolish the unit, state the earliest approximate demolition date and the approximate date Landlord will terminate the tenancy.] Shared utility service: [If gas or electric service through Tenant's meter also serves areas outside the unit, disclose that here; a separate written agreement governs payment for it.]",
+  },
+  // Landlord Responsibilities
+  {
+    id: "disaster-duties-ca",
+    title: "Disaster Damage, Evacuation and Rent",
+    group: "Landlord Responsibilities",
+    states: ["CA"],
+    bodyText:
+      "If a declared disaster damages the property, Landlord will remove debris caused by the disaster and mitigate hazards arising from it, including mold, smoke, smoke residue, smoke odor, ash, asbestos and water damage, within a reasonable time and following any government cleaning protocols. Landlord will notify Tenant in writing that this has been done and that Tenant may view and request copies of any environmental studies, testing or reports. Unless this Lease is lawfully terminated, the tenancy remains in effect and Tenant may return at the same rent as soon as it is safe and practicable. Tenant's obligation to pay rent is discharged for any period Tenant cannot occupy the unit under a mandatory evacuation order, and Landlord will return any rent already paid for that period within 10 calendar days after the order is lifted, or Tenant may deduct it from the next month's rent. If this Lease terminates because the property was destroyed or because Tenant terminated under Civil Code section 1932(2), Landlord will return any advance rent covering a period after termination within 21 days.",
+  },
+  {
+    id: "lock-change-non-cotenant-ca",
+    title: "Lock Change After Abuse or Violence",
+    group: "Landlord Responsibilities",
+    states: ["CA"],
+    bodyText:
+      "If a person who has committed or is alleged to have committed abuse or violence against Tenant, or against Tenant's immediate family or household member, is not a tenant of the same unit, Landlord will change the locks of the unit at Landlord's own expense within 24 hours of Tenant's written request accompanied by any one of the forms of documentation listed in Civil Code section 1941.5(d), and will give Tenant a key. If Landlord does not, Tenant may change the locks without Landlord's permission, and Landlord will reimburse Tenant within 21 days, provided Tenant uses locks of similar or better quality, notifies Landlord within 24 hours and provides a key.",
+  },
+  {
+    id: "internet-billing-optout-ca",
+    title: "Bulk-Billed Internet Opt-Out",
+    group: "Landlord Responsibilities",
+    states: ["CA"],
+    bodyText:
+      "If this tenancy is on a month-to-month or other periodic basis and Landlord offers internet service through a bulk-billing arrangement or other subscription with a third-party internet service provider in connection with the tenancy, Tenant may opt out of paying for that subscription. Landlord will not retaliate against Tenant for doing so. If Landlord does not honour Tenant's opt-out, Tenant may deduct the cost of the subscription from rent.",
+  },
+  // Parking & Storage
+  {
+    id: "unbundled-parking-ca",
+    title: "Unbundled Parking",
+    group: "Parking & Storage",
+    states: ["CA"],
+    bodyText:
+      "Off-street parking is not included in the rent for this unit and is not part of this Lease. Any parking space is leased under a separate parking agreement or addendum. Tenant has a right of first refusal to parking spaces built for this property. Tenant's failure to pay a fee under a separate parking agreement will not be the basis of any unlawful detainer action; if the fee remains unpaid 45 days after it is owed, Landlord may revoke Tenant's right to lease that space.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "tenant-forward-proceedings-ca",
+    title: "Notice of Proceedings Against the Property",
+    group: "Tenant Responsibilities",
+    states: ["CA"],
+    bodyText:
+      "If Tenant receives notice of any proceeding to recover the property or its possession, Tenant shall immediately inform Landlord of the proceeding and deliver the notice to Landlord if it is in writing.",
+  },
+  // Default & Termination
+  {
+    id: "military-lease-termination-ca",
+    title: "Military Lease Termination",
+    group: "Default & Termination",
+    states: ["CA"],
+    bodyText:
+      "Tenant may terminate this Lease at any time after Tenant enters military service during the Term, or, if Tenant signed this Lease while already in military service, after Tenant receives military orders for a permanent change of station or to deploy with a military unit or in support of a military operation for at least 90 days. Tenant must deliver written notice of termination and a copy of the military orders to Landlord or Landlord's agent by hand delivery, private business carrier, or mail with return receipt requested. Where rent is payable monthly, termination takes effect 30 days after the first date on which the next rent payment is due following delivery of the notice. Rent for the period before termination is prorated. Landlord will not impose any early termination charge, although Tenant remains responsible for other amounts due under this Lease at termination, including reasonable charges for excess wear. Landlord will refund any rent paid in advance for a period after termination within 30 days. Termination also ends the obligations of Tenant's dependents under this Lease. Landlord will not hold Tenant's belongings or security deposit to satisfy a claim for rent accruing after termination. If Landlord believes a request under this section is incomplete, Landlord will respond in writing within 30 days identifying what is missing.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "no-sublet-assign-discretion-ca",
+    title: "Subletting and Assignment (Landlord's Sole Discretion)",
+    group: "Tenant Responsibilities",
+    states: ["CA"],
+    supersedes: "no-sublet-assign",
+    choiceGroup: "ca-sublet-consent",
+    choiceGroupDefault: false,
+    bodyText:
+      "Tenant will not sublease or assign all or any portion of the property or this Lease without Landlord's prior written consent, which Landlord may grant or withhold in Landlord's sole discretion. Tenant will not rent the property, or any portion of it, on any short-term rental or home-sharing platform.",
+  },
+  // Default & Termination
+  {
+    id: "possession-delay-ca",
+    title: "Possession Delay",
+    group: "Default & Termination",
+    states: ["CA"],
+    supersedes: "possession-delay",
+    bodyText:
+      "If Landlord is unable to deliver possession of the property to Tenant on the Start Date, Tenant will not owe Monthly Rent for any period before possession is delivered. If Tenant terminates this Lease because Landlord did not deliver possession, as permitted by the Damage, Destruction and Failure to Deliver section of this Lease, Landlord will return all amounts Tenant paid to Landlord.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "landlord-maintenance-ca",
+    title: "Maintenance & Repairs",
+    group: "Landlord Responsibilities",
+    states: ["CA"],
+    supersedes: "landlord-maintenance",
+    bodyText:
+      "Subject to Tenant's own maintenance obligations under this Lease, Landlord will maintain the property, including its structural elements, roof, and systems, in good order and repair, and will be responsible for repairing the appliances, fixtures, and equipment located at the property, except where repair is necessary due to improper use by Tenant or a guest of Tenant. Tenant will notify Landlord promptly of any condition requiring repair or maintenance; notice may be given orally or in writing, though written notice is encouraged. Landlord will undertake required repairs within a reasonable time, consistent with applicable law.",
+  },
+  // Parking & Storage
+  {
+    id: "storage-space-ks-oh-ca",
+    title: "Storage Space",
+    group: "Parking & Storage",
+    states: ["KS", "OH", "CA"],
+    supersedes: "storage-space",
+    bodyText:
+      "Tenant is assigned the following storage space for Tenant's exclusive use during the Term: [identify storage space/location here]. Tenant will not store any hazardous, flammable, or perishable materials in the storage space.",
+  },
+  {
+    id: "parking-ks-oh-ca",
+    title: "Parking",
+    group: "Parking & Storage",
+    states: ["KS", "OH", "CA"],
+    supersedes: "parking",
+    bodyText:
+      "Tenant may park only in the area(s) designated by Landlord, subject to any parking rules or addendum attached to this Lease. Landlord does not provide security for the parking area.",
+  },
+  // Notices & General
+  {
+    id: "tenants-property-insurance-ks-oh-ca",
+    title: "Tenant's Property & Renter's Insurance",
+    group: "Notices & General",
+    states: ["KS", "OH", "CA"],
+    supersedes: "tenants-property-insurance",
+    bodyText:
+      "Landlord's insurance does not cover loss or damage to Tenant's personal property. Tenant will obtain and maintain renter's insurance covering Tenant's personal property and liability throughout the Term, with liability coverage of at least {{tenant_insurance_minimum}}, and will provide Landlord with evidence of coverage upon request.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "services-utilities-provided-ks-oh",
+    title: "Services & Utilities Provided by Landlord",
+    group: "Landlord Responsibilities",
+    states: ["KS", "OH"],
+    supersedes: "services-utilities-provided",
+    bodyText:
+      "Landlord will provide only the services and utilities expressly specified in this Lease, and as otherwise required by applicable law.",
+  },
+  // Default & Termination
+  {
+    id: "surrender-end-of-term-mn-nd",
+    title: "Surrender at End of Term",
+    group: "Default & Termination",
+    states: ["MN", "ND"],
+    supersedes: "surrender-end-of-term",
+    bodyText:
+      "Upon the expiration or earlier termination of this Lease, Tenant will surrender possession of the property and return all keys to Landlord immediately. The property will be left in the same condition as at the start of the Term, except for ordinary wear and tear, and free of all personal property of Tenant and any occupants. Personal property left at the property after Tenant vacates will be handled as described in this Lease's provision governing property abandoned after termination.",
+  },
+  {
+    id: "surrender-end-of-term-ks-ne",
+    title: "Surrender at End of Term",
+    group: "Default & Termination",
+    states: ["KS", "NE"],
+    supersedes: "surrender-end-of-term",
+    bodyText:
+      "Upon the expiration or earlier termination of this Lease, Tenant will surrender possession of the property and return all keys to Landlord immediately. The property will be left in the same condition as at the start of the Term, except for ordinary wear and tear, and free of all personal property of Tenant and any occupants. Personal property left at the property after Tenant vacates will be handled in accordance with this Lease's Handling of Property Left Behind Section.",
   },
 ];
 
