@@ -675,3 +675,13 @@ That tracks § 58-2555(f) and (g) in substance — **including the absence of an
 **Not changed.** Restoring an exculpatory sentence is a risk decision, not a research conclusion, and "common areas" is undefined in the section. Flagged for KS's next review with the analysis recorded so it need not be redone.
 
 **Note the contrast now visible across the two URLTA states:** Kansas bans exculpation broadly with a **narrow common-area carve-out**; Nebraska bans it **narrowly** (active and actionable negligence only) with no carve-out. The two states' overrides reflect that correctly — KS strips, NE carves — which is the right outcome reached by two different routes.
+
+
+## Propagated from the Nevada pass, 2026-09-24
+
+Two shared rows tagged to this state were edited by the Nevada pass (§5a.1 / instruction 9):
+
+1. `common-area-use` — appended: "Nothing in this Section restricts any display that applicable law entitles Tenant to make, such as the display of the flag of the United States or of religious or cultural items, subject to any lawful limits on its size, placement, and manner." Driven by NRS 118A.325 / 118A.327 (NV). Classification: UNIFORM — self-limiting, adds no obligation where no such law exists. Inherit without override.
+2. `parking-vehicle-rules` — inserted "in accordance with applicable law" before the landlord's towing authority. Driven by NRS 487.038 (NV). Classification: UNIFORM — self-limiting. Inherit without override.
+
+`last_checked` on both rows reset to 2026-09-24. No other field changed. Detail: lease-clause-decision-log-NV.md §§3.1, 11.6, 16. (Appended at sync, 2026-09-25.)

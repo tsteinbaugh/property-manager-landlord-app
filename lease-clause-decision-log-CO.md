@@ -1296,3 +1296,13 @@ Rather than stopping at the two amendments, every subsection of § 38-12-801 was
 ## CSV — v136 (from v135)
 
 537 → **539 rows**; CO **112 → 114**. All other state tag counts unchanged. Two new CO-only `LANDLORD_EDUCATION` rows; **no shared clause touched, no §5a.1 propagation owed.** Integrity assertions clean.
+
+
+## Propagated from the Nevada pass, 2026-09-24
+
+Two shared rows tagged to this state were edited by the Nevada pass (§5a.1 / instruction 9):
+
+1. `common-area-use` — appended: "Nothing in this Section restricts any display that applicable law entitles Tenant to make, such as the display of the flag of the United States or of religious or cultural items, subject to any lawful limits on its size, placement, and manner." Driven by NRS 118A.325 / 118A.327 (NV). Classification: UNIFORM — self-limiting, adds no obligation where no such law exists. Inherit without override.
+2. `parking-vehicle-rules` — inserted "in accordance with applicable law" before the landlord's towing authority. Driven by NRS 487.038 (NV). Classification: UNIFORM — self-limiting. Inherit without override.
+
+`last_checked` on both rows reset to 2026-09-24. No other field changed. Detail: lease-clause-decision-log-NV.md §§3.1, 11.6, 16. (Appended at sync, 2026-09-25.)

@@ -760,3 +760,13 @@ The deposit return deadline and its damage extension; the mandatory written item
 **This is the clearest vindication in the whole canvass of tiering a source rather than trusting it.** The WY cells were marked below the other six precisely because they came from Justia and secondary compilations. Reading the official text changed **one cell to its opposite**, corrected **two more**, and invalidated **a cross-state structural finding** that had already been written into two other state logs. Had the tier not been flagged, that finding would have propagated as settled.
 
 **All fifteen WY cells now carry the wyoleg.gov verification marker.**
+
+
+## Propagated from the Nevada pass, 2026-09-24
+
+Two shared rows tagged to this state were edited by the Nevada pass (§5a.1 / instruction 9):
+
+1. `common-area-use` — appended: "Nothing in this Section restricts any display that applicable law entitles Tenant to make, such as the display of the flag of the United States or of religious or cultural items, subject to any lawful limits on its size, placement, and manner." Driven by NRS 118A.325 / 118A.327 (NV). Classification: UNIFORM — self-limiting, adds no obligation where no such law exists. Inherit without override.
+2. `parking-vehicle-rules` — inserted "in accordance with applicable law" before the landlord's towing authority. Driven by NRS 487.038 (NV). Classification: UNIFORM — self-limiting. Inherit without override.
+
+`last_checked` on both rows reset to 2026-09-24. No other field changed. Detail: lease-clause-decision-log-NV.md §§3.1, 11.6, 16. (Appended at sync, 2026-09-25.)

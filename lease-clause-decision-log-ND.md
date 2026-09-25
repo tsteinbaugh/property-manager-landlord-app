@@ -1383,3 +1383,15 @@ The problem is placement. A **`REQUIRED` affirmative duty**, whose output consti
 **Cross-state context from the canvass:** three of seven states mandate a move-in document — **ND § 47-16-07.2**, **MN § 504B.182** (initial and final inspections, with a deposit-**doubling** penalty attached to the notice failure), **KS § 58-2548** (joint five-day inventory). **SD and WY have none**, and **CO's § 38-12-103(1.5) walkthrough is on-request rather than mandatory.**
 
 **§5a.1:** new ND-only row; no shared clause touched; **no propagation owed.**
+
+
+## Propagated from the Nevada pass, 2026-09-24
+
+Two shared rows tagged to this state were edited by the Nevada pass (§5a.1 / instruction 9):
+
+1. `common-area-use` — appended: "Nothing in this Section restricts any display that applicable law entitles Tenant to make, such as the display of the flag of the United States or of religious or cultural items, subject to any lawful limits on its size, placement, and manner." Driven by NRS 118A.325 / 118A.327 (NV). Classification: UNIFORM — self-limiting, adds no obligation where no such law exists. Inherit without override.
+2. `parking-vehicle-rules` — inserted "in accordance with applicable law" before the landlord's towing authority. Driven by NRS 487.038 (NV). Classification: UNIFORM — self-limiting. Inherit without override.
+
+`last_checked` on both rows reset to 2026-09-24. No other field changed. Detail: lease-clause-decision-log-NV.md §§3.1, 11.6, 16. (Appended at sync, 2026-09-25.)
+
+Also from the Nevada pass (2026-09-24): `edu-unclaimed-deposit-holder-duties-nd` — topic_key changed "unclaimed-deposit-holder-duties" → "deposit-escheat", merging it with edu-deposit-escheat-ca and edu-deposit-escheat-nv (same topic, previously two keys). Metadata only; body, rule_type, states and verification_status untouched.

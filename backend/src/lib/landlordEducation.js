@@ -1,6 +1,6 @@
 // Landlord-education content from the state-by-state clause-library
-// verification passes (Aug-Sep 2026, now 8 states: CO, WY, KS, NE, MN, ND,
-// SD, OH) -- real, verified state law that doesn't belong in tenant-facing
+// verification passes (Aug-Sep 2026, now 10 states: CO, WY, KS, NE, MN, ND,
+// SD, OH, CA, NV) -- real, verified state law that doesn't belong in tenant-facing
 // lease text (see `lease-clause-decision-log-CO.md` §7's three-bucket
 // screening test: LEASE_CLAUSE / LANDLORD_EDUCATION / OUT_OF_SCOPE, reused
 // unchanged by every state since, including Ohio). Typical reasons an item
@@ -69,7 +69,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "security-deposit-cap",
     bodyText:
       "Colorado law caps the security deposit you can charge at two months' rent (C.R.S. section 38-12-102.5). This is a ceiling on what you're allowed to collect - it's not something your lease needs to tell the tenant, since stating the legal maximum only gives them a number to hold you to. The actual deposit amount you're charging this specific tenant is already captured in your lease through the Security Deposit clause. Use this as a guardrail when entering the deposit amount for a Colorado lease: if you type in more than two months' rent, that number is not enforceable.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 38-12-102.5 (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   // Landlord Responsibilities
   {
@@ -82,7 +82,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "retaliation",
     bodyText:
       "Colorado law prohibits taking action against a tenant - raising rent, cutting services, declining to renew, or starting an eviction - because they reported an unsafe condition, exercised a right under the lease, or joined a tenant organization (C.R.S. section 38-12-509). This applies whether or not your lease mentions it, so there's no need to include it in tenant-facing text. What matters practically: if you have an independent, legitimate reason to raise rent or not renew (the lease naturally ending, a real violation, etc.), document that reason - having a clear paper trail is what protects you if a tenant later claims a decision was retaliatory.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 38-12-509 (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   // Rent & Payment
   {
@@ -95,7 +95,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "rent-increase-frequency",
     bodyText:
       "No matter what your lease says, you cannot raise a tenant's rent more than once every 12 months in Colorado (C.R.S. section 38-12-702). This applies to month-to-month tenancies as much as fixed terms. Keep this in mind if you ever build a rent-escalation or annual-increase clause - the 12-month floor overrides anything the lease tries to specify.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 38-12-702 (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   // Default & Termination
   {
@@ -108,7 +108,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "for-cause-eviction",
     bodyText:
       "Once a tenant has lived in a property for 12 months or more, Colorado generally requires you to have a specific legal reason - 'cause' (like nonpayment or a lease violation) or a defined 'no-fault' reason (such as selling the property or doing major renovations, with 90 days' notice) - before you can end the tenancy or decline to renew (C.R.S. section 38-12-1301 et seq.). This does NOT apply if the property is your own primary residence or directly adjacent to it, a short-term rental, a mobile home lot, or employer-provided housing. Check which of your properties fall into an exempt category - this determines which version of the month-to-month termination clause applies.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 38-12-1301 et seq. (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   // Notices & General
   {
@@ -121,7 +121,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "police-call-waiver",
     bodyText:
       "Colorado law makes it void for any lease to contain language that waives, discourages, or penalizes a tenant for calling police or emergency services (C.R.S. section 38-12-402). This mainly matters if you're ever tempted to add a 'crime-free housing' or repeated-nuisance-call type clause - that pattern is exactly what this law targets, and any such clause would be unenforceable.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 38-12-402 (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   {
     id: "edu-dv-confidentiality-co",
@@ -133,7 +133,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "dv-confidentiality",
     bodyText:
       "If a tenant qualifies for early termination as a victim of domestic violence, stalking, or sexual assault, you have a legal duty not to disclose their status or new address to anyone without their consent, except where the law specifically requires it (C.R.S. section 38-12-401/402). This obligation exists regardless of whether the lease mentions it.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 38-12-401 / § 38-12-402 (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   {
     id: "edu-immigration-status-co",
@@ -145,7 +145,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "immigration-status",
     bodyText:
       "Colorado's Immigrant Tenant Protection Act prohibits asking a tenant about their immigration or citizenship status, disclosing or threatening to disclose it, or using it to harass, intimidate, or deny housing (C.R.S. section 38-12-1201 et seq.). Violations carry real penalties - up to $2,000 per violation plus attorney's fees. Any lease provision attempting to waive these protections is void, even if the tenant agrees to it in writing.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 38-12-1201 et seq. (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   // Default & Termination
   {
@@ -158,7 +158,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "fee-shifting",
     bodyText:
       "A lease clause that only lets the landlord recover attorney's fees and court costs - but not the tenant, if the tenant wins - is void under Colorado law (C.R.S. section 38-12-801(3)(a)(II)). Any attorney-fee provision needs to say the prevailing party recovers fees, not just the landlord. This was actually found and fixed in the Default by Tenant clause during this review - worth double-checking any custom clause you write yourself for the same issue.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 38-12-801(3)(a)(II) (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   {
     id: "edu-death-of-tenant-co",
@@ -170,7 +170,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "death-of-tenant",
     bodyText:
       "Colorado's 'Letty's Act' (C.R.S. section 38-12-801(3.5)) prohibits charging liquidated damages, accelerating rent beyond the end of the month (or 10 business days after the unit is vacated, whichever is later), clawing back move-in concessions, or any other early-termination penalty when a lease ends because a tenant died. You can retain enough of the security deposit to cover any damage related to the death, and you can take possession without filing an eviction once the estate's representative surrenders the unit, or automatically 30 days after death if rent is unpaid or the unit has been cleared out.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 38-12-801(3.5) (\"Letty's Act\") (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   // Notices & General
   {
@@ -183,7 +183,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "identity-change-notice",
     bodyText:
       "If you (or your authorized agent) change - for example, a property changes management companies, or ownership transfers - Colorado law requires the new landlord or agent to notify each tenant within 1 business day, either in writing/electronically or by posting the new information conspicuously at the property (C.R.S. section 38-12-801(2)). This is an ongoing operational duty, not something that needs to be in the lease itself.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 38-12-801(2) (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   // Rent & Payment
   {
@@ -196,7 +196,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "fee-unprovided-service",
     bodyText:
       "Colorado's Honest Pricing law prohibits charging a fee for any service you don't actually provide (C.R.S. section 6-1-737). This is a good general check for any fee-based clause you write yourself: make sure the fee corresponds to something real.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 6-1-737 (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   {
     id: "edu-fee-free-payment-method-co",
@@ -208,7 +208,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "fee-free-payment-method",
     bodyText:
       "You can't charge a rent payment processing fee unless you also offer at least one payment method with no fee attached (C.R.S. section 6-1-737). When you list your accepted payment methods in the lease, make sure at least one of them is genuinely free to the tenant.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 6-1-737 (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   // Disclosures
   {
@@ -221,7 +221,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "total-price-disclosure",
     bodyText:
       "When you advertise or list a property, Colorado's Honest Pricing law requires showing a single all-in price including mandatory fees, displayed more prominently than any broken-out fee amounts - not itemized separately (C.R.S. section 6-1-737). This applies to marketing and listings, not lease text, and becomes relevant if Steinoak ever adds a listing/marketing feature.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 6-1-737 (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   {
     id: "edu-rubs-uncertainty-co",
@@ -233,7 +233,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "rubs-uncertainty",
     bodyText:
       "If you use a shared or master utility meter and allocate costs among tenants by formula (RUBS), Colorado now has a statutory safe harbor (C.R.S. 6-1-737(4.5), added by HB26-1013). You may allocate utility costs this way if: the total you bill across all tenants does not exceed what the utility provider charged for the whole premises; you add no markup, surcharge, or administrative fee beyond what C.R.S. 38-12-801(3)(a)(VI) allows (either 2% of the billed amount or a flat $10 per month, not both); common-area and shared-facility costs are excluded from the allocation; and the allocation method is clearly disclosed in the lease or an addendum. This replaces the interim Attorney General enforcement guidance issued in late 2025.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 6-1-737(4.5) (HB26-1013); § 38-12-801(3)(a)(VI). Status moved NEEDS_REVIEW -> VERIFIED 2026-08-27 once HB26-1013 passed, codifying the safe harbor. (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   {
     id: "edu-radon-lease-length-co",
@@ -245,7 +245,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "radon-lease-length",
     bodyText:
       "The radon disclosure itself is required on every lease regardless of term length. But if you don't make a reasonable effort to fix elevated radon within 180 days of being notified, the consequence is different depending on the lease term: a tenant can void the lease over it if the term is longer than one year, but that specific remedy doesn't apply to a lease of one year or less (effective for leases signed on or after January 1, 2026). If you're offering a tenant a renewal longer than a year, this is a real new exposure to be aware of.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 38-12-803(3)(b). Citation supplied this round (Claude Browser follow-up, 2026-09-13) via the earlier pass that located radon-disclosure-co's § 38-12-803 - not independently re-confirmed at the (3)(b) pinpoint this round. (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   {
     id: "edu-voucher-acceptance-co",
@@ -257,7 +257,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "voucher-acceptance",
     bodyText:
       "Colorado law requires every residential landlord to accept applicants using a housing voucher - there is no exemption for small landlords anymore (HB25-1240 removed it). Refusing an applicant solely because they use a voucher is source-of-income discrimination and can carry penalties of $5,000 to $50,000 per violation. You can still decline a voucher applicant for legitimate, consistently-applied reasons - credit, income, rental history - just never because of the voucher itself. You also can't refuse to cooperate with the approval process (inspection, paperwork) as a way of avoiding this duty.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 24-34-502 (HB25-1240 removed the small-landlord exemption, eff. 2025-05-29) (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   {
     id: "edu-voucher-process-mechanics-co",
@@ -269,7 +269,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "voucher-process-mechanics",
     bodyText:
       "A voucher applicant doesn't move in until the unit is inspected and the Housing Assistance Payment contract is signed - you're not required to let someone occupy the unit before that happens. If a tenant does move in early anyway, standard guidance puts them on the hook for full, unsubsidized rent until the contract is finalized - you're not left holding the shortfall. The multi-year wait some landlords worry about is the tenant's wait to be issued a voucher in the first place; once a voucher holder actually applies to your specific unit, the approval process itself typically takes days to a few weeks, not years.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: NOT_STATUTE. Operational/practical guidance, not itself citing a statute. (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   // Security Deposit
   {
@@ -282,7 +282,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "deposit-nonwaiver",
     bodyText:
       "A tenant cannot waive their rights regarding return of the security deposit, whether orally or in writing - any lease provision attempting this is unenforceable (C.R.S. section 38-12-103(7)). Keep this in mind for any custom security deposit language you write yourself.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 38-12-103(7) (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   // Landlord Responsibilities
   {
@@ -295,7 +295,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "alt-housing",
     bodyText:
       "This is triggered by the TENANT'S REQUEST, not automatically. If a condition materially interferes with a tenant's life, health, or safety (or is a condition under C.R.S. 38-12-505(4)(l)), and the tenant requests it, you must provide - within 24 hours of that request, at no cost to the tenant - either a comparable dwelling unit or a hotel room, your choice which. Requirements: at least as many beds as the tenant uses; habitable; accessible if the tenant has a disability; within 5 miles of the unit unless the tenant consents otherwise (you may go 5-10 miles if substantially cheaper, and if nothing is available within 10 miles, the nearest available). If the stay runs past 48 hours, the place must have a refrigerator with a freezer and a range stove or oven - OR you pay each tenant a per diem for meals and incidentals at least equal to the Colorado state employee intrastate travel per diem, paid when you first reasonably expect the stay to exceed 48 hours and every 24 hours after. Beyond the per diem, you pay only reasonable relocation costs such as storage and transportation. Two things that protect you: the tenant still owes rent during the relocation and for the rest of the term; and if you put a tenant in a hotel and the condition cannot be fixed within 60 consecutive days for reasons outside your reasonable control, you can cap the hotel at 60 consecutive days - but only if you give written notice at the earliest opportunity stating that it cannot be fixed in 60 days, the end date for hotel coverage (no earlier than 60 days in), and that the tenant may terminate the lease with no liability or penalty, AND you return the tenant's full security deposit on or before you give that notice.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 38-12-503(4)(a)(II), (4)(c); referencing (505)(4)(l) (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   // Pets
   {
@@ -308,7 +308,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "pet-caps",
     bodyText:
       "Colorado caps what you can charge for a pet: the pet security deposit can't exceed $300 and must be fully refundable - you can no longer charge a non-refundable 'pet fee.' Pet rent can't exceed $35 per month or 1.5% of the monthly rent, whichever is greater (C.R.S. section 38-12-106, HB 23-1068). The actual amounts you charge a specific tenant are entered in your lease's Pets clause - use these numbers as the ceiling when entering them for a Colorado property.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 38-12-106 (HB 23-1068) (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   // Security Deposit
   {
@@ -321,7 +321,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "carpet-damage",
     bodyText:
       "You can't deduct from a security deposit for carpet being \"substantially and irreparably damaged\" unless the carpet has not been replaced with new carpet within the ten years preceding the end of the lease or surrender of the premises (C.R.S. 38-12-103(11)(c), as amended by HB25-1249, effective January 1, 2026). Even then, you may retain only the minimum amount necessary to replace the carpet - or to repaint - in the specific area that is damaged, not the full room or unit and not the full replacement cost (C.R.S. 38-12-103(11)(a)-(b)). Keep this in mind at move-out before assuming worn or stained carpet justifies a deduction.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 38-12-103(11)(c) (ten-year carpet rule); § 38-12-103(11)(a)-(b) (minimum-necessary/damaged-area/repaint rule); amended by HB25-1249, eff. 2026-01-01. Corrected 2026-08-27: lookback was written as 5 years (from a superseded reengrossed draft), corrected to the enrolled texts 10 years. CORRECTED AGAIN 2026-09-13 (Claude Browser follow-up): the minimum-necessary/damaged-area/repaint rule was miscited as C.R.S. 38-12-104 (a different section entirely) - actual citation is 38-12-103(11)(a)-(b), with (11)(c) being the ten-year carpet rule. Also surfaced, not yet added anywhere: 38-12-103(12) exempts mobile-home-park rental agreements from both this rule and the walkthrough right (1.5). (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   {
     id: "edu-bad-faith-deposit-co",
@@ -333,7 +333,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "bad-faith-deposit",
     bodyText:
       "If you retain 125% or more of a tenant's actual documented damages from their security deposit, Colorado law presumes you did so in bad faith (HB 25-1249). Bad-faith withholding also includes retaining a deposit without cause, or for an unlawful, retaliatory, or discriminatory reason. Bad-faith withholding exposes you to treble damages - document your actual costs carefully before making a deduction.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 38-12-103(3.5)(b); bad faith generally at (3.5)(a)(I)-(IV). Read verbatim (Claude Browser follow-up, 2026-09-13): '...if the amount retained is one hundred twenty-five percent or greater than the actual damages incurred.' (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   {
     id: "edu-walkthrough-co",
@@ -345,7 +345,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "walkthrough",
     bodyText:
       "Either you or the tenant can request a walkthrough inspection near the end of the lease (in person or by video) to identify anything beyond normal wear and tear before move-out (HB 25-1249). Doing a walkthrough does not legally lock you out of charging for genuine damage discovered afterward - the law's definition of 'wrongfully withheld' doesn't reference walkthrough completeness at all. That said, missing something during a walkthrough could still work against you if a dispute goes to court, since a tenant could argue you'd have caught it if it were real damage.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 38-12-103(1.5). Confirmed (Claude Browser follow-up, 2026-09-13): covers the mutual walkthrough request right, in person or by telecommunication, before termination and after furniture removal. (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   {
     id: "edu-wear-tear-void-co",
@@ -357,7 +357,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "wear-tear-void",
     bodyText:
       "Any lease provision assigning a tenant a fee or charge for repairs, cleaning, or other work due to normal wear and tear, or for damage/defective conditions that existed before their tenancy began, is void under Colorado law (HB 25-1249). This was actually the reason the Use of Security Deposit clause got corrected during this review - worth keeping in mind for any custom deposit-related language you write yourself.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 38-12-103(7)(b). Confirmed (Claude Browser follow-up, 2026-09-13). Related, not yet its own row: (7)(a) is broader - voids any provision waiving or modifying a Part 1 tenant benefit generally, not just the wear-and-tear charge. (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   // Disclosures
   {
@@ -2308,7 +2308,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "esa-federal-state-divergence",
     bodyText:
       "Federal and Colorado law have pulled apart on emotional support animals, and it would be easy to read the federal news and get this wrong. On September 17, 2025 HUD withdrew its assistance-animal guidance, and on May 22, 2026 it went further: HUD's Office of Fair Housing and Equal Opportunity now says it will pursue Fair Housing Act accommodation complaints only for animals individually trained to do work or tasks for a disability - the ADA service-animal standard - and will no longer expect landlords to automatically accommodate untrained emotional support animals. HUD says it intends to go through formal rulemaking. Here is what that does NOT change for you in Colorado. First, it is a change in how one agency prioritizes enforcement, not a change in the Fair Housing Act itself; the statute and its regulations are unchanged, and a tenant can still bring a private FHA claim, as can the Department of Justice. Second, and more directly: Colorado has its own law. C.R.S. 24-34-502 makes it a discriminatory housing practice to refuse a reasonable accommodation that a person with a disability needs to use and enjoy a dwelling, and that covers assistance animals including ESAs. That statute never depended on HUD guidance and was not affected by any of this. So in Colorado, continue to treat a documented ESA as an assistance animal, not a pet: no pet deposit, no pet rent, no breed or size restriction, and no demand for details about the nature or severity of the disability. The tenant stays responsible for actual damage, and you may still deny where the specific animal is a direct threat or would cause substantial property damage that cannot be otherwise addressed. Watch for HUD's rulemaking, but do not change your Colorado practice on the strength of the enforcement memo alone.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 24-34-502; federal: Fair Housing Act (42 U.S.C. 3601 et seq.), HUD FHEO-2020-01 guidance withdrawal (2025-09-17), HUD enforcement-narrowing memo (2026-05-22) (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   // Landlord Responsibilities
   {
@@ -2321,7 +2321,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "habitability-operational-duties",
     bodyText:
       "C.R.S. 38-12-503 imposes several duties that have nothing to do with the repair work itself, and missing them can independently establish a breach. Communication: contact the tenant within 24 hours of having notice (72 hours if the premises are inaccessible due to an environmental public health event), stating what you intend to do and when it will start and finish - and you must affirmatively tell the tenant about your obligation to provide a comparable unit or hotel room at no cost. Records: keep all written notices, correspondence, and documentation about the condition and your remedial action for the entire tenancy plus 3 years, and produce any of it to the tenant within 10 calendar days of a request. Mold and dampness: within 72 hours of notice you must install containment, stop active water sources, and install HEPA filtration, then maintain containment through remediation, dry and decontaminate affected materials, test after remediation, and reassemble to prevent recurrence. Gas: you must hire a professional (as defined in C.R.S. 38-12-104(3)) for any hazardous condition involving gas piping, facilities, appliances, or equipment. Timelines to watch: a rebuttable presumption that you failed to act on time attaches at 7 days for life/health/safety conditions and 14 days for uninhabitable conditions.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 38-12-503(5)(a)-(c), (6)(a)(I)-(II), (12)(b), (14), (3)(a)(II); § 38-12-104(3) (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   {
     id: "edu-part5-nonwaivable-co",
@@ -2333,7 +2333,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "part5-nonwaivable",
     bodyText:
       "C.R.S. 38-12-503(10): except as Part 5 itself allows, any agreement waiving or modifying ANY right, remedy, obligation, or prohibition in Part 5 is void as contrary to public policy. This is broader than the other non-waiver rules already tracked - it is not limited to a specific right, it covers the entire habitability regime. Practical effect: no lease language can shorten the 24/72-hour response windows, waive the relocation obligation, disclaim the warranty of habitability, or contract around the record-keeping and notice duties. Also note the reverse: 38-12-503(3)(f)(II) says designating a verbal notice method in the lease waives YOUR right to insist on written notice - one of the few places where lease language can cost you something under Part 5.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 38-12-503(10), (3)(f)(II) (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   // Disclosures
   {
@@ -2346,7 +2346,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "rental-application-fairness",
     bodyText:
       "Colorado's Rental Application Fairness Act (C.R.S. 38-12-901 et seq.) constrains the application stage, before any lease exists. In short: an application fee must reflect your actual cost to process the application, must be the same for every applicant for that property, and must be itemized on request. If an applicant provides a portable tenant screening report, you generally may not charge them an application fee at all - and you must tell applicants whether you accept portable reports. When screening, you generally may not consider rental or credit history older than 7 years, or criminal history older than 5 years, except for certain enumerated offenses (methamphetamine manufacture, offenses requiring sex-offender registration, homicide, and stalking). None of this belongs in the lease itself, but it governs how you get to a lease.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 38-12-901 et seq. (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   {
     id: "edu-source-of-income-exemption-trap-co",
@@ -2358,7 +2358,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "source-of-income-exemption-trap",
     bodyText:
       "Two different Colorado rules govern housing vouchers and they now have different exemptions - this is an easy trap. (1) The requirement to PRINT a source-of-income non-discrimination statement in the lease (C.R.S. 38-12-801(2.5)) still exempts landlords with five or fewer single-family rental homes and no more than five total units. (2) The requirement to actually ACCEPT vouchers (C.R.S. 24-34-502) no longer has any small-landlord exemption - HB25-1240 removed it effective May 29, 2025. So a small landlord may be exempt from printing the statement while still being fully obligated to accept vouchers. Being exempt from the disclosure is not being exempt from the duty.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 38-12-801(2.5); § 24-34-502 (HB25-1240) (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   // Notices & General
   {
@@ -2371,7 +2371,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "tenant-insurance-claims",
     bodyText:
       "C.R.S. 38-12-503(13): you may not require a tenant to submit a claim to their renter's insurance carrier to cover a cost or expense related to remedial action you are responsible for paying, and you may not file a claim against a tenant's renter's insurance policy at all without the tenant's express written permission given at the time the claim is submitted. Requiring renter's insurance in the lease remains fine - what you cannot do is treat that policy as a funding source for repairs Part 5 makes your responsibility.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 38-12-503(13) (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   // Landlord Responsibilities
   {
@@ -2384,7 +2384,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "written-notice-strictly-required",
     bodyText:
       "Colorado requires WRITTEN notice before the habitability clock starts against you, and the courts enforce that strictly: Anderson v. Shorter Arms Investors, LLC, 2023 COA 71, 537 P.3d 831 holds that substantial compliance does not apply and that a tenant's oral notices are insufficient as a matter of law. That is a real protection - but C.R.S. 38-12-503(3)(f)(II) lets you throw it away by accident: if your lease or your property rules say a tenant may or must give notice verbally, you have waived your right to written notice. Never designate a phone number or any verbal method as the habitability-notice channel. Note also that 'written notice' is broad and does not have to come from the tenant - notice from a government entity, a third party, another tenant about a condition affecting multiple units, tenant correspondence with maintenance, or your own written observations can all count under (3)(e). Anderson also held that notice of mold or dampness not presently interfering with life, health, or safety must include permission to enter in order to be sufficient.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 38-12-503(3)(f)(II), (3)(e); Anderson v. Shorter Arms Investors, LLC, 2023 COA 71, 537 P.3d 831 (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   // Default & Termination
   {
@@ -3336,7 +3336,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "self-help-eviction",
     bodyText:
       "Colorado makes it unlawful to remove or exclude a tenant from a dwelling unit without going through court process, and the penalty is one of the harshest in this library. Under C.R.S. § 38-12-510, a landlord who willfully and unlawfully removes a tenant — or willfully and unlawfully cuts off heat, running water, hot water, electricity, gas, or other essential services — owes the tenant statutory damages equal to the tenant's ACTUAL damages PLUS the greater of three times the monthly rent or $5,000, plus attorney fees and costs. The court may also order possession restored to the tenant. That means changing the locks, pulling the meter, or hauling belongings to the curb can cost you five figures on a unit renting for a fraction of that, and can put the tenant back in the property. A writ of restitution executed by an officer is the only lawful route.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 38-12-510; amended by SB 24-094 (applies to violations filed on/after 2024-05-03) (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   {
     id: "edu-self-help-eviction-ban-ks",
@@ -3361,7 +3361,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "holdover",
     bodyText:
       "Colorado does not give landlords a doubled or trebled rent remedy against a holdover tenant. Under C.R.S. § 13-40-123 the prevailing party in a forcible entry and detainer action recovers damages, costs, and — for residential tenancies — attorney fees only if the lease provides for them. Colorado courts have measured those damages as the reasonable rental value of the premises for the period of unlawful detention. So your recovery for a holdover period is ordinary rental value plus costs, not a penalty multiple. If you want attorney fees available in a Colorado holdover case, the lease must contain a fee provision — the statute withholds them from residential parties otherwise.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 13-40-123; Behr v. Burge, 940 P.2d 1084 (Colo. App. 1996). Confidence flagged as moderate - both statute text and case annotation sourced from Justia's codification, not the CO Revisor directly; the 'no multiplier' finding is an absence across the article rather than an express statement. (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   {
     id: "edu-holdover-wy",
@@ -3397,7 +3397,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "writ-execution",
     bodyText:
       "Colorado is unusually protective of landlords once a writ of restitution is executed. Under C.R.S. § 13-40-122(3) you have no duty to store or maintain a tenant's personal property removed from the premises, and even if you choose to store it you have no duty to inventory it, to determine who owns it, or to note its condition. Storing it creates neither an express nor an implied bailment, and the statute makes you immune from liability for loss or damage. A landlord who follows the lawful directions of the officer executing the writ is immune from both civil and criminal liability for acts or omissions involving the removed property. If you do elect to store, § 13-40-122(4) lets you charge the tenant reasonable storage costs, recovered either through your lien rights under title 38 or by requiring payment before the tenant reclaims the property. If you do not store it, the property must remain available for the tenant to reclaim from the public right-of-way. Two timing rules bind the officer, not you, but affect your schedule: a writ may only be executed between sunrise and sunset, no earlier than ten days after judgment — and no earlier than thirty days if the tenant receives SSI or Social Security disability benefits.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 13-40-122(3), (4), (1)(b). Corrects an earlier, now-abandoned citation (a fabricated '§38-12-126' from a commercial junk-removal site). (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   {
     id: "edu-writ-pet-animal-duties-co",
@@ -3409,7 +3409,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "writ-pet-animal-duties",
     bodyText:
       "Colorado relieves you of almost every duty toward a tenant's belongings after a writ is executed — but pet animals are the exception, and the duties are affirmative. Under C.R.S. § 13-40-122 you must give the local animal control authority access to the premises to remove or secure any pet animals in a timely manner, and provide the tenant's name and contact information if you have it. You must post notice at the premises, in a visible place, naming the organization the animals were taken to and how to contact it, and give the tenant that same information on request. No pet animal may be removed from the premises during execution of the writ and left unattended on public or private property. This is a genuine carve-out from the broad immunity elsewhere in the section: the statute treats leaving a pet on the curb the way it does not treat leaving furniture there.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 13-40-122(2.5)(a)(III), (2.5)(b); definition at § 35-80-102(10). RESOLVED 2026-09-13. (2.5) added by HB23-1068 (ch. 416, L. 2023) - the same bill as the pet deposit/pet rent caps. Full breakdown: (2.5)(a)(I)-(II) are the executing officer's duties (inspect for pets, hand over to tenant if present); (2.5)(a)(III) is the landlord's duty (animal-control access, tenant contact info if available, posted notice with the holding organization's info); (2.5)(b) bars leaving a pet animal unattended during execution; (2.5)(c) points to § 35-80-102(10) for the 'pet animal' definition. Existing bodyText already matches this substantively (already correctly cited § 13-40-122, just needed the subsection) - no rewrite needed. (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   {
     id: "edu-holdover-damages-nd",
@@ -3634,10 +3634,10 @@ const LANDLORD_EDUCATION = [
     states: ["ND"],
     ruleTypes: ["REQUIRED"],
     verificationStatus: "VERIFIED",
-    topicKey: "unclaimed-deposit-holder-duties",
+    topicKey: "deposit-escheat",
     bodyText:
       "A security deposit, including its interest, that stays unclaimed for more than one year after the lease ends is presumed abandoned and you become a holder under North Dakota's unclaimed property act. That carries real duties. If you have a usable address for the tenant and the deposit is worth $25 or more, you must mail them notice by first-class mail no more than 120 days before you file your report, using the wording the statute prescribes. You must file the report electronically before November 1 each year, covering the twelve months ending the previous July 1, and pay the money over when you file. You must keep the records for ten years. If you miss the deadlines the state can charge interest and a civil penalty for each day you are late, and deliberately evading the duty carries far steeper penalties. Paying over in good faith after giving proper notice releases you from further liability to the tenant.",
-    notes: "N.D.C.C. §§ 47-30.2-04(15), 47-30.2-21, 47-30.2-22, 47-30.2-23, 47-30.2-24, 47-30.2-26, 47-30.2-27, 47-30.2-32, 47-30.2-33, 47-30.2-65, 47-30.2-66. Primary text 2026-09-06. NEVER PREVIOUSLY ROWED. The entire escheat obligation existed in this library as a single trailing sentence inside security-deposit-return-nd's tenant-facing clause text ('Landlord will report and remit it as required by North Dakota's unclaimed property law'). That sentence is accurate and useless -- it tells the landlord a duty exists and nothing about what it is. A landlord holding an unclaimed deposit is a statutory HOLDER with reporting, notice, record-retention and remittance duties and day-rate penalties. FIGURES KEPT IN NOTES, not body, per the NE paraphrase discipline: § 47-30.2-65 interest accrues at an annual rate of one percent of the sum for each thirty-day period of delinquency or fraction thereof; civil penalty $200 per day to a cumulative maximum of $5,000. § 47-30.2-66: willful evasion or failure to perform, $1,000 per day to a cumulative maximum of $25,000 PLUS twenty-five percent of the amount that should have been reported; fraudulent report, same day-rate and cap plus twenty-five percent. § 47-30.2-67 allows a waiver request within thirty days of the assessment notice; the commissioner may waive up to $25,000, above which the board decides. DRAFTING OPPORTUNITY FLAGGED FOR TAYLOR: § 47-30.2-31 permits a holder to deduct a DORMANCY CHARGE from property before remitting, but ONLY if an enforceable WRITTEN CONTRACT between holder and apparent owner authorises the charge for failure to claim within a specified time, AND the holder regularly imposes it and regularly does not reverse or cancel it. That is a lease-drafting hook -- a clause could create the authorisation -- but it also imposes a consistency-of-practice condition a landlord can fail by being lenient. Not drafted as a clause; surfaced for decision. § 47-30.2-33 good-faith safe harbour: paying or delivering in full in good faith with substantial compliance with the notice sections relieves the holder of liability to the extent of the value delivered, and the state indemnifies.",
+    notes: "N.D.C.C. §§ 47-30.2-04(15), 47-30.2-21, 47-30.2-22, 47-30.2-23, 47-30.2-24, 47-30.2-26, 47-30.2-27, 47-30.2-32, 47-30.2-33, 47-30.2-65, 47-30.2-66. Primary text 2026-09-06. NEVER PREVIOUSLY ROWED. The entire escheat obligation existed in this library as a single trailing sentence inside security-deposit-return-nd's tenant-facing clause text ('Landlord will report and remit it as required by North Dakota's unclaimed property law'). That sentence is accurate and useless -- it tells the landlord a duty exists and nothing about what it is. A landlord holding an unclaimed deposit is a statutory HOLDER with reporting, notice, record-retention and remittance duties and day-rate penalties. FIGURES KEPT IN NOTES, not body, per the NE paraphrase discipline: § 47-30.2-65 interest accrues at an annual rate of one percent of the sum for each thirty-day period of delinquency or fraction thereof; civil penalty $200 per day to a cumulative maximum of $5,000. § 47-30.2-66: willful evasion or failure to perform, $1,000 per day to a cumulative maximum of $25,000 PLUS twenty-five percent of the amount that should have been reported; fraudulent report, same day-rate and cap plus twenty-five percent. § 47-30.2-67 allows a waiver request within thirty days of the assessment notice; the commissioner may waive up to $25,000, above which the board decides. DRAFTING OPPORTUNITY FLAGGED FOR TAYLOR: § 47-30.2-31 permits a holder to deduct a DORMANCY CHARGE from property before remitting, but ONLY if an enforceable WRITTEN CONTRACT between holder and apparent owner authorises the charge for failure to claim within a specified time, AND the holder regularly imposes it and regularly does not reverse or cancel it. That is a lease-drafting hook -- a clause could create the authorisation -- but it also imposes a consistency-of-practice condition a landlord can fail by being lenient. Not drafted as a clause; surfaced for decision. § 47-30.2-33 good-faith safe harbour: paying or delivering in full in good faith with substantial compliance with the notice sections relieves the holder of liability to the extent of the value delivered, and the state indemnifies. | NV pass (2026-09-24): topic_key changed \"unclaimed-deposit-holder-duties\" -> \"deposit-escheat\" to merge with edu-deposit-escheat-ca and -nv (same topic, two keys). METADATA-ONLY, UNIFORM: body, rule_type, states and status untouched. Propagation note owed to the ND log. | SYNC 2026-09-25: propagation notes appended to the affected state logs (NV log T1/T2).",
   },
   // Notices & General
   {
@@ -3792,7 +3792,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "fixed-term-nonrenewal-notice",
     bodyText:
       "Colorado used to excuse both parties from giving notice where the lease term ended at a time certain. Since the 2024 amendments, only the tenant is excused: no written termination notice is necessary from a tenant with a fixed-term tenancy that ends at an agreed time. As a landlord, electing not to renew a fixed-term tenancy is something you must do by written notice that expires at the end of the term, with the notice period scaled to how long the tenancy has run -- which for a tenancy of a year or longer is at least 91 days.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO).",
+    notes: "CO: CITED — C.R.S. § 13-40-107(1), (4); amended by HB24-1098, eff. 2024-04-19 (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
   },
   {
     id: "edu-no-statutory-termination-notice-wy",
@@ -3905,7 +3905,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "deposit-documentation",
     bodyText:
       "From January 1, 2026, a Colorado tenant may make a written request for the documentation behind any amount you retained from a security deposit, and you must provide it within 14 days. The duty covers documentation in your possession relevant to the retention - photographs, inspection forms or reports, receipts, invoices, and estimates. Keep this material as you go rather than assembling it after a dispute starts: the same statute deems a withholding wrongful where your written statement fails to list exact reasons, and the landlord carries the burden of proving both that a retention was not wrongful and what the actual damages were.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO). TITLE NORMALISED 2026-09-19: 'Deposit Documentation on Tenant Request (Colorado)' -> 'Deposit Documentation on Tenant Request' (state name in the title was a per-session convention used only by SD, OH, ND and CO).",
+    notes: "CO: CITED — C.R.S. § 38-12-103(8); added by HB 25-1249, eff. 2026-01-01 (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.) TITLE NORMALISED 2026-09-19: 'Deposit Documentation on Tenant Request (Colorado)' -> 'Deposit Documentation on Tenant Request' (state name in the title was a per-session convention used only by SD, OH, ND and CO).",
   },
   // Disclosures
   {
@@ -3930,7 +3930,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "lease-copy-duty",
     bodyText:
       "If there is a written rental agreement, you must give the tenant a copy signed by both you and the tenant no later than the seventh day after the tenant signs. An electronic copy is sufficient unless the tenant asks for a paper copy, in which case you must provide one on paper. The agreement must also state the name and address of the landlord or the landlord's authorized agent.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO). TITLE NORMALISED 2026-09-19: 'You Must Give the Tenant a Signed Copy Within Seven Days (Colorado)' -> 'You Must Give the Tenant a Signed Copy Within Seven Days' (state name in the title was a per-session convention used only by SD, OH, ND and CO).",
+    notes: "CO: CITED — C.R.S. § 38-12-801(1), (2) (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.) TITLE NORMALISED 2026-09-19: 'You Must Give the Tenant a Signed Copy Within Seven Days (Colorado)' -> 'You Must Give the Tenant a Signed Copy Within Seven Days' (state name in the title was a per-session convention used only by SD, OH, ND and CO).",
   },
   // Compliance & Prohibited Terms
   {
@@ -3943,7 +3943,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "eviction-penalty-clause-ban",
     bodyText:
       "A Colorado written rental agreement must not include a clause that assigns a penalty to a party stemming from an eviction notice or an eviction action resulting from a violation of the rental agreement. Any provision included in violation of this rule is void and unenforceable. This is separate from the rent and damages a court may award in an eviction proceeding - what is prohibited is a lease term imposing its own penalty because a notice was served or an action was filed.",
-    notes: "See lease-clause-citations.csv for citation, verification-date, and research-note detail (CO). TITLE NORMALISED 2026-09-19: 'No Penalty Clause Tied to an Eviction (Colorado)' -> 'No Penalty Clause Tied to an Eviction' (state name in the title was a per-session convention used only by SD, OH, ND and CO).",
+    notes: "CO: CITED — C.R.S. § 38-12-801(3)(a)(I), (3)(b) (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.) TITLE NORMALISED 2026-09-19: 'No Penalty Clause Tied to an Eviction (Colorado)' -> 'No Penalty Clause Tied to an Eviction' (state name in the title was a per-session convention used only by SD, OH, ND and CO).",
   },
   // Security Deposit
   {
@@ -4929,6 +4929,415 @@ const LANDLORD_EDUCATION = [
     bodyText:
       "California's bad-check statute contains no exception or special rule for postdated checks. What it does contain is a certified-mail demand procedure that raises a landlord's recovery from a service charge to treble the amount of the check, subject to a good-faith-dispute defence where the tenant stopped payment.",
     notes: "CA: CONFIRMED ABSENT from Civ. Code s1719 read IN FULL 2026-09-19 - no postdated-check exclusion in any subdivision. The trap other states carry (a postdated check forfeiting bad-check remedies) does not exist here. The real mechanics are in nsf-fee-limit-ca: s1719(a)(2) treble damages ($100-$1,500) after a certified-mail demand and 30 days; s1719(a)(3) good-faith-dispute defence on a stop payment, which the payee must rebut by clear and convincing evidence; (a)(4) bank error and (a)(5) delayed benefit-deposit exceptions. Scope caveat stands: s1719 reaches a 'check, draft, or order', not ACH or card.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-lease-content-requirements-nv",
+    title: "Required Lease Contents and Copies",
+    group: "Compliance & Prohibited Terms",
+    states: ["NV"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lease-content-requirements",
+    bodyText:
+      "A written rental agreement must be signed by you or your agent and the tenant or the tenant's agent, and you must give the tenant one copy free at signing and further copies within a reasonable time on request (a reasonable fee is allowed for extras). On request you must also give a prospective tenant a copy of the lease they would sign. Every written lease must address: duration; rent (as a single all-in figure) and how and when it is paid; occupancy by children or pets; services included; required fees and their purposes; required deposits and the conditions for refund; charges for late or partial payment and for a dishonored check; your inspection rights; who, or how many people, will occupy; who pays which utilities; a signed inventory and condition record; a summary of the state public-nuisance statute; how a tenant can report a nuisance or a code violation; and the tenant's rights to display the U.S. flag and religious or cultural items. Using a lease that does not conform is unlawful, and any nonconforming provision is void. With no written lease, the law presumes no restriction on children or pets, maintenance and trash service at no charge, no late or dishonored-check charges, and a return of the premises in move-in condition except normal wear.",
+    notes: "NV: Section-open read of revisor text (leg.state.nv.us, Rev. 4/15/2026). NRS 118A.200(1)-(3), (5), (9) and 118A.235 (2025). The (3)(l)-(o) items and the single-figure rule are the 2025 and older NV-specific content with rows of their own. effective_from left blank: the session-law effective-date sections were not read.  | NV (text batch 2, 2026-09-24): Session-law check: (3)(b) and (6)-(9) are AB 121 (eff. 2025-10-01); (3)(o) is SB 201 (eff. 2025-07-01). CORRECTION to batch 1: subsection (4) (the single-family top-of-page disclosure) appears as UNCHANGED text in both 2025 enrolled bills - it predates 2025 (section history points to 2017). effective_from left blank because the row mixes dates.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-application-fees-nv",
+    title: "Application and Screening Fees",
+    group: "Rent & Payment",
+    states: ["NV"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "application-fees",
+    bodyText:
+      "If you collect an application, credit-report or background-check fee from an applicant and then rent the unit to someone else without actually doing the thing the fee paid for (processing the application, pulling the report), you must refund that fee. You may not charge an application, credit-report or background-check fee for a minor (under 18) who is a member of the applicant's household - household meaning people living together who are related by blood, adoption, marriage or domestic partnership.",
+    notes: "NV: Section-open read of revisor text (leg.state.nv.us, Rev. 4/15/2026). NRS 118A.306 (2025, Stats. p. 1413). No cap on the amount of an application fee located in 118A. NEW TOPIC (fee refund + minor-fee ban); relates to the screening-fairness row. effective_from left blank: the session-law effective-date sections were not read.  | NV (text batch 2, 2026-09-24): effective_from 2025-10-01: AB 121 (2025) enrolled text read on the Legislature archive - it contains NO effective-date section, so the Oct. 1 default applies (NRS 218D.330, not itself read; corroborated by the NELIS chapter note \"Chapter 227, effective October 1, 2025\" as reported by BillTrack50). ",
+  },
+  // Security Deposit
+  {
+    id: "edu-security-deposit-rules-nv",
+    title: "Security Deposit Rules",
+    group: "Security Deposit",
+    states: ["NV"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-rules",
+    bodyText:
+      "Anything you collect to cover unpaid rent, damage beyond normal wear, or cleaning is a security deposit - whatever you call it. All deposits plus any surety bond, including prepaid last month's rent, are capped at three months' rent. A tenant may buy a surety bond instead if you agree, but you cannot require one. Within 30 days after the tenancy ends you must give an itemized written accounting and return the balance, in person where rent is paid or by mail. Keeping the balance past 30 days exposes you to the whole deposit plus up to the same amount again, depending on your good faith. Only a reasonable cleaning charge may be made nonrefundable; any other nonrefundable label or waiver of these rules is void. The tenant's claim to the deposit outranks your creditors. When you sell or transfer the property you must either transfer the deposit to the buyer with written notice to the tenant, or return it; before recording the deed you must transfer the balance to the buyer in writing or tell the buyer in writing that you returned it. The buyer must accept the existing deposit and cannot demand more during the lease. On request you must give a signed receipt for any deposit, rent or other payment, and the tenant may hold back rent until you do. No deposit interest is required.",
+    notes: "NV: Section-open read of revisor text (leg.state.nv.us, Rev. 4/15/2026). NRS 118A.240, .242, .244, .250, .349(1)(c). Confirmed-absence of an interest requirement is recorded in its own row (edu-no-deposit-interest-nv).",
+  },
+  {
+    id: "edu-no-deposit-interest-nv",
+    title: "No Deposit Interest Requirement",
+    group: "Security Deposit",
+    states: ["NV"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "deposit-interest",
+    bodyText:
+      "State law does not require you to pay interest on an ordinary security deposit or to hold it in a separate or interest-bearing account. One exception: if a tenant with a disability asks to make a reasonable modification and you require an additional deposit to secure restoration of the unit, that additional deposit must be necessary for the restoration, may not exceed its actual cost, and must be held in an interest-bearing account, with the interest paid to the tenant.",
+    notes: "NV: CONFIRMED ABSENT within NRS 118A - full primary read of 118A.240-.250 (revisor text, section-open), which is where every NV deposit rule sits; no interest or trust-account term. BOUNDARY (L.7): the rest of NRS was not searched, so this row asserts nothing outside ch. 118A. Evidentiary basis (instruction 15): full primary read of the governing sections, not secondary agreement. Municipal layer not checked. | NV (text batch 2, 2026-09-24): Text supplied by Taylor 2026-09-24 from the Justia 2025 NRS reproduction (host, with source lines) - one notch below revisor text, same basis CA accepted. CORRECTION (L.7 in action): batch 1 said NRS 118A.240-.250 is \"where every NV deposit rule sits\" and the body said state landlord-tenant law requires no interest. NRS 118.101(4) (A. 2021) is a deposit rule outside 118A and DOES require an interest-bearing account, interest to the tenant, for a disability-modification restoration deposit. Body rewritten. Remaining absence boundary: NRS 118A in full and NRS 118.010-118.205 in full; the rest of NRS not searched.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-habitability-duty-nv",
+    title: "Habitability Duty",
+    group: "Landlord Responsibilities",
+    states: ["NV"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-maintenance",
+    bodyText:
+      "You must keep the unit habitable at all times. A unit is not habitable if it violates housing or health codes on health, safety, sanitation or fitness, or substantially lacks: effective waterproofing and weather protection of roof, walls, windows and doors; plumbing that met code when installed and works; an approved water supply with hot and cold running water connected to an approved sewage system; adequate heating that met code when installed and works; electrical lighting, outlets, wiring and equipment that met code when installed and work; enough clean garbage receptacles at move-in, with trash removal arranged by you unless the lease says otherwise; building, grounds and areas you control clean, sanitary and reasonably free of debris, rodents, insects and vermin at move-in; floors, walls, ceilings, stairways and railings in good repair; and any ventilation, air-conditioning, elevators and appliances you supply in good repair. A tenant may agree to do specified repairs only if the agreement is made in good faith and does not reduce your duties to other tenants - and it is not in good faith if the tenant agreed because you refused a repair you owed. You may not charge a tenant any fee for repairs that are your duty, including a home-warranty deductible or copay, unless the tenant or their household or guests caused the condition.",
+    notes: "NV: Section-open read of revisor text (leg.state.nv.us, Rev. 4/15/2026). NRS 118A.290 (A. 1999, 2007, 2023) and 118A.280. The 2023 home-warranty deductible/copay pass-through ban (118A.290(4), 690B.100/690C.080 definitions not read) is a NEW TOPIC.",
+  },
+  {
+    id: "edu-tenant-repair-remedies-nv",
+    title: "Tenant Remedies for Repairs and Essential Services",
+    group: "Landlord Responsibilities",
+    states: ["NV"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "repair-and-deduct",
+    bodyText:
+      "If you breach the lease or fail to keep the unit habitable, the tenant must give written notice; you then have 14 days to fix a remediable problem or make best efforts. If you do not, the tenant may terminate immediately, recover actual damages, or seek court relief - and for a material habitability failure may withhold rent without late fees until you fix or try in good faith to fix it - though withheld rent is a defense to eviction only if the tenant deposits it into a justice-court escrow account. For repairs costing less than the greater of $100 or one month's rent, the tenant may instead give 14 days' written notice and then have the work done and deduct the reasonable cost from rent, capped at that amount per 12 months; you may name in the lease the person, firm or class of qualified firms who must do such work. If you willfully or negligently fail to supply heat, air-conditioning, running or hot water, electricity, gas, a working door lock or another essential service, making the unit unfit, the tenant's written notice gives you 48 hours (excluding weekends and holidays); then the tenant may buy the service and deduct it, recover damages, withhold rent if current, or move to comparable housing with rent abated and excess cost recoverable. None of these remedies is available for a condition the tenant's own household or guests caused.",
+    notes: "NV: Section-open read of revisor text (leg.state.nv.us, Rev. 4/15/2026). NRS 118A.350, .355 (A. 2021), .360, .380 (A. 2011). 118A.360(2) is a lease-drafting option (named repairer) the builder could offer - noted, not built.",
+  },
+  // Default & Termination
+  {
+    id: "edu-self-help-eviction-ban-nv",
+    title: "No Self-Help Eviction",
+    group: "Default & Termination",
+    states: ["NV"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "self-help-eviction",
+    bodyText:
+      "You may recover possession only through a court action or summary proceeding, or when the tenant has surrendered or abandoned the unit. Locking a tenant out, removing them, or willfully cutting or causing interruption of an essential service lets the tenant recover possession on an expedited court complaint (filed within 5 judicial days, heard within 3), terminate, or pursue the essential-services remedies - plus actual damages and up to $2,500 fixed by the court. The summary-eviction statute's permission to lock out after an uncontested pay-or-quit notice is expressly subject to this ban, so treat any lockout without a court order as prohibited.",
+    notes: "NV: Section-open read of revisor text (leg.state.nv.us, Rev. 4/15/2026). NRS 118A.480 (A. 2011), 118A.390 (A. 2019, 2021), 118A.090 (\"exclude\"). Ch. 40 summary-eviction procedure not read. | NV (text batch 2, 2026-09-24): NRS 40.253(5)(b) permits a landlord to \"provide for the nonadmittance of the tenant ... by locking or otherwise\" after an uncontested pay-or-quit notice, EXCEPT \"when the landlord is prohibited pursuant to NRS 118A.480\". For a 118A dwelling, 118A.480 allows recovery only through an action or summary proceeding in which the right of possession is determined. AMBIGUITY (research-mode trigger): whether an uncontested 40.253 notice is such a proceeding. The row takes the conservative reading. Also 118A.520(3): retaining a tenant's goods triggers 118A.390 damages. | NV (research pass, 2026-09-24): Research pass: no Nevada appellate decision squarely resolves the 40.253(5)(b)/118A.480 interplay (Anvui, LLC v. G.L. Dragon, LLC, 123 Nev. 212 (2007) sets summary-eviction standards, not this point; Hernandez v. Bennett-Haron (2012) is a coroner's-inquest case - do NOT cite it here). Practice evidence: Nevada Legal Services describes lockout by constable or sheriff after a court order; the Las Vegas Township Constable says a landlord cannot change locks without the court, sheriff or constable. The row's conservative reading is the right one for the product. | NV (research pass, 2026-09-24): Case-law note is secondary-sourced (research pass); treat as practice evidence, not holding.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-rules-regulations-nv",
+    title: "Landlord Rules and Regulations",
+    group: "Rules & Regulations",
+    states: ["NV"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rules-regulations-enforceability",
+    bodyText:
+      "A house rule binds the tenant only if it serves the convenience, safety or welfare of you or the tenants, protects the property from abuse, or fairly distributes services; is reasonably related to that purpose; applies to all tenants fairly; is explicit enough to tell the tenant what to do; is in good faith and not a way around your own obligations; does not affect rent, utilities or other charges; does not take away a pet the lease allows before the lease ends; and the tenant had notice of it. A rule adopted after signing that materially changes the bargain binds the tenant only with their written consent or 30 days' advance written notice.",
+    notes: "NV: Section-open read of revisor text (leg.state.nv.us, Rev. 4/15/2026). NRS 118A.320 (A. 2007).",
+  },
+  // Notices & General
+  {
+    id: "edu-sale-new-owner-notice-nv",
+    title: "Duties on Sale of the Property",
+    group: "Notices & General",
+    states: ["NV"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "broad-identity-change-notice",
+    bodyText:
+      "After a voluntary sale or transfer, the lease continues and the new owner steps into the old landlord's rights, duties and liabilities unless the new owner and tenant agree otherwise. Within 30 days after the transfer the new owner must give the tenant a notice with the new owner's contact information for rent, stating that the lease continues and the amount of deposit the new owner holds, and warning that failing to pay rent to the new owner or comply with the lease is a breach that may lead to eviction. Manager and owner disclosures must also be kept current, and bind a successor.",
+    notes: "NV: Section-open read of revisor text (leg.state.nv.us, Rev. 4/15/2026). NRS 118A.349 (2023), 118A.244, 118A.260(2).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-shutdown-worker-protection-nv",
+    title: "Rent Timing During a Government Shutdown",
+    group: "Rent & Payment",
+    states: ["NV"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "shutdown-rent-protection",
+    bodyText:
+      "During a federal, state or tribal government shutdown, a lease term requiring rent at a specified time cannot be enforced against a tenant who is a federal, state or tribal worker, or a household member of one, and you must accept that period's rent up to 30 days after the shutdown ends. A worker who gives you proof of that status during a shutdown is outside the pay-or-quit summary-eviction process, may ask in writing to stay in possession until 30 days after the shutdown ends, and every no-cause termination notice you serve must tell the tenant about that right. Retaliating against a tenant who uses this protection is prohibited. If the shutdown lasts 30 days or more, you may petition the court for relief on undue-hardship grounds (mortgage and foreclosure risk, your other financial obligations); if granted, the parties may modify the lease or you may terminate and start eviction proceedings.",
+    notes: "NV: Section-open read of revisor text (leg.state.nv.us, Rev. 4/15/2026). NRS 118A.310(2), 118A.315 (2019); definitions incorporated from NRS 40.0025-40.0045 NOT read. Related limbs in NRS 40.251(4) and 118A.510(1)(i) not read in revisor text. NEW TOPIC. | NV (text batch 2, 2026-09-24): Now read: NRS 40.0025 (household member = related by blood, marriage, adoption or other legal process and residing with the worker - WIDER than 118A.345's), 40.0035, 40.004, 40.0045; 40.251(3)-(5) (possession extension on request; termination notices must advise of it); 40.2512(2) and 40.253(12)(b) (pay-or-quit remedies unavailable against a worker who proves status); 118A.510(1)(i) retaliation.",
+  },
+  // Access & Entry
+  {
+    id: "edu-key-control-policy-nv",
+    title: "Key-Control Policy for Large Complexes",
+    group: "Access & Entry",
+    states: ["NV"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "key-control-policy",
+    bodyText:
+      "If you own a complex of more than 50 units on one parcel in a county of 100,000 or more people (or more than 30 units in a smaller county), you must: require a criminal background check of any job applicant whose position gives access to unit keys or codes; adopt written policies for storing, issuing, returning and securing keys (and for using and deactivating electronic keys); and keep on the premises a log of every key issued and returned, together with those policies. A tenant or the district attorney can sue for declaratory and injunctive relief, actual damages and attorney's fees. Financial institutions and licensed real estate brokers and salespeople are excluded from \"landlord\" for this rule.",
+    notes: "NV: Section-open read of revisor text (leg.state.nv.us, Rev. 4/15/2026). NRS 118A.332 (2025, Stats. p. 2079). \"Dwelling unit key\" includes combinations and access codes. Thresholds keyed to COUNTY POPULATION - effectively Clark and Washoe vs the rest; builder needs unit count and county. NEW TOPIC. effective_from left blank: the session-law effective-date sections were not read.  | NV (2026-09-24): effective_from 2025-10-01 - SB 114 (2025, \"Miya's Law\"), signed 2025-08-04. Basis SECONDARY: three independent sources agree on the Oct. 1, 2025 date; the enrolled bill was not read (the Oct. 1 default would give the same date if it has no effective-date section). Legislative history shows the unit threshold fell from >200 (introduced) to >100 (Assembly hearing) to the enacted 50/30-by-county-population test - matching the codified text read here. An industry summary's \"50 or more\" misstates the statute's \"more than 50\".",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-senior-housing-work-card-nv",
+    title: "Work Cards for Staff in 55-and-Older Housing",
+    group: "Landlord Responsibilities",
+    states: ["NV"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "senior-housing-work-card",
+    bodyText:
+      "If your units are intended and operated exclusively for people 55 and older, you may not employ anyone who will work 36 or more hours a week with access to all units unless they hold a current sheriff-issued work card (renewed every 5 years and on changing employers). Licensed property managers, independent contractors, inmate work-program participants and court-ordered community-service workers are exempt.",
+    notes: "NV: Section-open read of revisor text (leg.state.nv.us, Rev. 4/15/2026). NRS 118A.335 (A. 2007, 2009, 2025). NEW TOPIC; niche (senior housing).",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-prohibited-lease-terms-nv",
+    title: "Prohibited Lease Terms",
+    group: "Compliance & Prohibited Terms",
+    states: ["NV"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "prohibited-lease-terms",
+    bodyText:
+      "A lease may not make the tenant: waive rights or remedies under the landlord-tenant act; authorize a confession of judgment; pay your attorney's fees (a prevailing-party fee clause is allowed); exculpate or limit your liability, or indemnify you, for liability based on your own or your agents' acts or omissions; or give you a different termination notice than you must give them. Such a term is void and the tenant may recover actual damages caused by its inclusion. A court may also refuse to enforce, or limit, an unconscionable lease or term. Separately, a lease may not call a deposit nonrefundable (except a reasonable cleaning charge), may not prohibit display of religious or cultural items, and a lease that does not conform to the required-content rules is unlawful to use. A lease also may not shorten the notice periods the eviction statutes require.",
+    notes: "NV: Section-open read of revisor text (leg.state.nv.us, Rev. 4/15/2026). NRS 118A.220, .230, .242(8), .327(1), .200(9). The exculpation ban is keyed to liability \"based upon an act or omission of the landlord or any agent or employee\" - narrower than KS/OH's, which is why the library's ks-oh-ca rows (exculpation removed) were chosen over the bases rather than relying on that narrowness. | NV (text batch 2, 2026-09-24): Added: NRS 40.252 (a contract attempting to shorten statutory eviction notice periods is unlawful and void).",
+  },
+  // Default & Termination
+  {
+    id: "edu-dv-termination-documentation-nv",
+    title: "Domestic Violence Termination Documentation",
+    group: "Default & Termination",
+    states: ["NV"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-lease-termination",
+    bodyText:
+      "For a domestic-violence termination the tenant may use a protection order, a police report, or an affidavit in the statutory form signed by a qualified third party: a state-licensed physician, board-certified psychiatrist, psychologist, social worker, psychiatric-nursing RN with a master's degree, or licensed marriage and family therapist or clinical professional counselor; a trained, state-resident staff member, director or board member of a domestic-violence agency; or state-resident clergy of a tax-exempt religious organization. For harassment, sexual assault or stalking only a police report or a temporary or extended protective order qualifies. You may not tell a prospective landlord the tenant broke the lease early, and the tenant need not disclose it either. The person named as the adverse party can be sued for your economic losses from the early termination.",
+    notes: "NV: Section-open read of revisor text (leg.state.nv.us, Rev. 4/15/2026). NRS 118A.345(2)-(3), (6), (11)-(12)(f), 118A.347. Incorporated definitions (NRS 33.018, 200.366, 200.571, 200.575) not read.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-retaliation-nv",
+    title: "Retaliation Prohibited",
+    group: "Compliance & Prohibited Terms",
+    states: ["NV"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "retaliation",
+    bodyText:
+      "You may not, in retaliation, terminate or refuse to renew a tenancy, raise rent, cut essential services, or bring or threaten an eviction because the tenant: complained in good faith to a code-enforcement agency, or to you or law enforcement about a violation of the landlord-tenant act or a criminal statute; organized or joined a tenants' union; triggered a code citation; raised habitability in a court or administrative proceeding; refused to consent in writing to a rule adopted mid-lease that must wait out its notice period; complained about or exercised fair-housing rights; is or has a household member who is a victim of domestic violence, harassment, sexual assault or stalking, or used the termination right for those victims; or, as a government worker in a shutdown, paid rent within the allowed extension. The tenant gets the self-help-eviction remedies (including up to $2,500) and a defense to eviction. It is not retaliation if the code violation was mainly the tenant's fault, the termination is for cause, a citation requires the unit to be vacant for repairs, or a rent increase applies uniformly to all tenants.",
+    notes: "NV: Text supplied by Taylor 2026-09-24 from the Justia 2025 NRS reproduction (host, with source lines) - one notch below revisor text, same basis CA accepted. NRS 118A.510 (source line ends 2019). \"Cause\" is defined in 118A.060. Definitions in 510(4) incorporate 118A.345.",
+  },
+  {
+    id: "edu-emergency-assistance-nv",
+    title: "Calls for Emergency Help Protected",
+    group: "Compliance & Prohibited Terms",
+    states: ["NV"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "emergency-assistance-right",
+    bodyText:
+      "You may not evict, fine or take any other adverse action against a tenant based solely on the tenant or someone in the unit calling police, fire, rescue or emergency medical services, if they reasonably believed an emergency response was needed or a crime may have occurred - no matter how many earlier calls there were. A local government also may not treat such calls as a nuisance against you. You may still act on a nuisance or lease breach that a responding officer discovers or reports. A tenant, a landlord or the district attorney can sue for injunctive relief, actual damages and attorney's fees.",
+    notes: "NV: Text supplied by Taylor 2026-09-24 from the Justia 2025 NRS reproduction (host, with source lines) - one notch below revisor text, same basis CA accepted. NRS 118A.515 (2017); NRS 202.450(10). CA's emergency-assistance-right-ca NOT shared: it drops the \"reasonable belief\" and \"solely\" limits and is broader than NV law - tagging it would over-state NV's rule. LANDLORD_EDUCATION rather than a lease clause: NV does not require lease text on this, and 118A.220(1)(a) already voids any waiver.",
+  },
+  // Default & Termination
+  {
+    id: "edu-landlord-lien-abolished-nv",
+    title: "No Landlord Lien on Household Goods",
+    group: "Default & Termination",
+    states: ["NV"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-lien",
+    bodyText:
+      "A lien or security interest in a tenant's household goods to secure rent is unenforceable unless created by attachment or garnishment, and distraint for rent is abolished. Do not put a lien clause in the lease, and do not hold a tenant's belongings for unpaid rent - doing so exposes you to the self-help-eviction damages, including up to $2,500.",
+    notes: "NV: Text supplied by Taylor 2026-09-24 from the Justia 2025 NRS reproduction (host, with source lines) - one notch below revisor text, same basis CA accepted. NRS 118A.520 (A. 1985). Parallels the KS/NE/SD landlord-lien rows; NV adds the attachment/garnishment carve-out and routes damages through 118A.390.",
+  },
+  {
+    id: "edu-termination-notice-nv",
+    title: "Ending a Periodic Tenancy",
+    group: "Default & Termination",
+    states: ["NV"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-notice",
+    bodyText:
+      "A lease for a fixed term ends at its expiration without notice. A periodic tenancy can be ended without stating a cause by written notice of at least 7 days for a week-to-week tenancy and at least 30 days for any other periodic tenancy (5 days for a tenancy at will). A tenant who is 60 or older or has a disability may ask in writing, with proof, to stay 30 more days, and may petition the court if you refuse; a government worker affected by a shutdown may ask to stay until 30 days after it ends. Every such notice must tell the tenant about both rights. A 5-day notice applies instead where the tenant has failed to perform basic or lease obligations, and the 60-and-over extension does not apply to it. Notices must be served as the eviction statutes require, and a lease cannot shorten these periods.",
+    notes: "NV: Text supplied by Taylor 2026-09-24 from the Justia 2025 NRS reproduction (host, with source lines) - one notch below revisor text, same basis CA accepted. NRS 40.250, 40.251 (A. 2019), 40.252, 40.280. Canvass: NO just-cause or 12-months rule - 40.251 permits no-cause termination of a periodic tenancy on notice (confirmed from primary text of 40.215-40.425 and all of 118A); limits come only from retaliation (118A.510) and fair housing (118.100).",
+  },
+  {
+    id: "edu-nonpayment-eviction-nv",
+    title: "Nonpayment of Rent: Pay-or-Quit and Summary Eviction",
+    group: "Default & Termination",
+    states: ["NV"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nonpayment-notice",
+    bodyText:
+      "If rent is unpaid, you may serve a written notice to pay or surrender by close of business on the seventh judicial day after service (for rent reserved weekly or less in a tenancy under 45 days, you may instead use noon of the fourth full day, but only if the tenant signed a written acknowledgment at move-in of the short-term eviction procedure). The notice must name the court and tell the tenant how to contest it by filing an affidavit, what happens if the court rules against them, and that they can seek relief for an unlawful lockout. After serving it you may not refuse rent because collection fees, attorney's fees, other costs, a late or dishonored-check charge, or a deposit is still unpaid. In the court proceeding the tenant may counterclaim and can be ordered to deposit rent with the court; failing to deposit within 24 hours ends the right to a hearing. After an eviction judgment for unpaid rent on an unexpired lease, the tenant has 5 days to pay the judgment and costs and be restored. Summary eviction is not available against a government worker who proves shutdown status.",
+    notes: "NV: Text supplied by Taylor 2026-09-24 from the Justia 2025 NRS reproduction (host, with source lines) - one notch below revisor text, same basis CA accepted. NRS 40.2512, 40.253 (A. 2021), 40.280, 40.360(3), 118A.490. The short-term acknowledgment (40.253(2)(b)) is a lease-signing document the builder could generate for weekly tenancies - noted, not built (Steinoak's lease is monthly-rent-centric).",
+  },
+  {
+    id: "edu-no-cure-eviction-grounds-nv",
+    title: "Breach Notices: Cure and No-Cure Grounds",
+    group: "Default & Termination",
+    states: ["NV"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "cure-eviction-grounds",
+    bodyText:
+      "For most lease breaches you serve a written notice to perform or surrender within 5 days; the tenant saves the lease by performing within that time, and no notice is needed if the breach cannot be cured. For assigning or subletting contrary to the lease, committing waste, running an unlawful business, maintaining a nuisance that unreasonably obstructs others' use and injures other tenants, or violating the controlled-substances laws on the premises (other than simple possession), a 3-day notice to surrender applies with no cure. If you win a drug-based eviction the tenant contested, you are entitled to reasonable attorney's fees.",
+    notes: "NV: Text supplied by Taylor 2026-09-24 from the Justia 2025 NRS reproduction (host, with source lines) - one notch below revisor text, same basis CA accepted. NRS 40.2514, 40.2516, 40.254(3); consistent with 118A.430. Canvass row \"fast-track eviction for crime/drug sale\" answered.",
+  },
+  {
+    id: "edu-eviction-record-sealing-nv",
+    title: "Eviction Record Sealing",
+    group: "Default & Termination",
+    states: ["NV"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-record-access",
+    bodyText:
+      "A summary-eviction court file is sealed automatically when the case is dismissed, ten judicial days after the eviction is denied, or 31 days after a tenant files a contest affidavit if you have not filed your complaint within 30 days. A court may also seal a file on a stipulation to set aside the eviction, or on the tenant's motion in the interests of justice. A sealed eviction is treated as never having occurred, and a notice to surrender may not be made publicly available except as part of an unsealed court file.",
+    notes: "NV: Text supplied by Taylor 2026-09-24 from the Justia 2025 NRS reproduction (host, with source lines) - one notch below revisor text, same basis CA accepted. NRS 40.2545 (A. 2021). No duty on the landlord beyond not publicizing notices; relevant to tenant screening.",
+  },
+  // Notices & General
+  {
+    id: "edu-notice-service-nv",
+    title: "Serving Notices on a Tenant",
+    group: "Notices & General",
+    states: ["NV"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "notice-delivery-methods",
+    bodyText:
+      "Eviction notices must be served by a sheriff, constable, licensed process server or an attorney's agent: by handing a copy to the tenant; or, if the tenant is away, by leaving it with a person of suitable age at the home or workplace and mailing a copy; or, failing that, by posting it on the property, giving a copy to anyone living there, and mailing a copy. Proof of service must be filed before the court can order removal. Written notices to a tenant under the landlord-tenant act must be served \"in the manner provided\" by that same statute - the safe course is to use those methods, and a qualified server, for rent-increase, rule-change and repair notices too.",
+    notes: "NV: Text supplied by Taylor 2026-09-24 from the Justia 2025 NRS reproduction (host, with source lines) - one notch below revisor text, same basis CA accepted. NRS 40.280 (A. 2019), 118A.190(2)-(3). AMBIGUITY flagged (research-mode trigger): whether 118A.190(2)'s \"manner\" carries 40.280(1)'s server-identity requirement for non-eviction notices; body gives the conservative course without asserting the answer. Notices TO the landlord may be delivered or mailed to the address in the lease (118A.190(3)). NEW TOPIC. | NV (research pass, 2026-09-24): Research pass: SB 151 (2019, ch. 600, eff. 2019-07-01) amended NRS 40.280 (Stats. 2019 p. 3919) but did NOT amend NRS 118A.190 and never mentions 118A rent-increase, rules or repair notices; its who-serves rule is expressly for \"the notices required by NRS 40.251 to 40.260.\" LACSN's committee exhibit framed the change as due process in EVICTIONS. No appellate decision or AG opinion found. UNRESOLVED; the body's conservative course stands. Industry claims that landlords \"may no longer handle their own notices\" are about eviction notices only.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-fair-housing-nv",
+    title: "Fair Housing",
+    group: "Compliance & Prohibited Terms",
+    states: ["NV"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fair-housing-protected-classes",
+    bodyText:
+      "You may not refuse to rent, set different terms, deposits or fees, advertise a preference, misrepresent availability, or interfere with anyone's housing rights because of race, religious creed, color, national origin, disability, sexual orientation, gender identity or expression, ancestry, familial status or sex. You must allow a tenant with a disability to make reasonable modifications at the tenant's expense (you may require restoration at move-out, reasonable wear excepted) and must make reasonable accommodations in rules, policies, practices and services. You may not raise the usual deposit because a modification was requested; an additional restoration deposit is allowed only if necessary, no more than the actual cost, and held in an interest-bearing account with the interest paid to the tenant. A fair-housing violation is a defense to eviction, and a tenant may complain to the Nevada Equal Rights Commission or sue for actual and punitive damages and attorney's fees. A narrow exemption covers an owner of no more than three single-family houses renting without a licensed broker, and an owner-occupied building of up to four units - but the advertising ban applies to them too.",
+    notes: "NV: Text supplied by Taylor 2026-09-24 from the Justia 2025 NRS reproduction (host, with source lines) - one notch below revisor text, same basis CA accepted. NRS 118.020, .045-.093, .100, .101 (A. 2021), .103, .110, .115, .120. State classes beyond federal: sexual orientation, gender identity or expression, ancestry. NOT in the state list: source of income/vouchers, age, marital status, military status (confirmed absent within NRS 118.010-.120, full read; rest of NRS not searched). NRS 118.120 says an action may be commenced \"not less than 1 year after\" a violation - apparently a drafting error for \"not more than\"; reproduced, not relied on. Body names the Commission - an agency name, not a title.",
+  },
+  // Pets
+  {
+    id: "edu-assistance-animal-nv",
+    title: "Assistance and Support Animals",
+    group: "Pets",
+    states: ["NV"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "assistance-animal-documentation",
+    bodyText:
+      "You may not refuse to rent to a person with a disability solely because an animal that assists, supports or provides service to them will live in the unit - support animals are covered, not only trained service animals. You may require proof, which a statement from a health care provider that the animal performs a function easing the effects of the disability satisfies. No state statute or regulation expressly bans a pet fee or deposit for these animals. Waiving pet rules and fees is generally treated as a reasonable accommodation under fair-housing law, and the lease's assistance-animal clause promises it; federal guidance on the point has been withdrawn, so the promise is the product's choice as much as a legal requirement.",
+    notes: "NV: Text supplied by Taylor 2026-09-24 from the Justia 2025 NRS reproduction (host, with source lines) - one notch below revisor text, same basis CA accepted. NRS 118.105 (A. 2005), 118.101(1)(b). NAC ch. 118 not read (instruction 16). | NV (research pass, 2026-09-24): Research pass: body softened from \"require\" - Nevada has no express fee ban (NAC 233 procedural; no NAC 118), and Federal posture: HUD withdrew FHEO-2020-01 and FHEO Notice 2013-01 effective 2025-09-17; Federal Register notice FR Doc. 2026-06624 (published 2026-04-06) says they should not be relied upon. Any federal no-fee rule now rests on the Fair Housing Act text alone.",
+  },
+  // Default & Termination
+  {
+    id: "edu-abandonment-notice-nv",
+    title: "Abandonment and the Duty to Re-Rent",
+    group: "Default & Termination",
+    states: ["NV"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "abandonment-belief-notice",
+    bodyText:
+      "If you reasonably believe a tenant who is behind on rent has abandoned the unit, you may serve a written notice of that belief; unless within 5 days the tenant pays the rent due and gives you written notice of intent not to abandon with an address for service, the unit is deemed abandoned and the lease terminated. The notice must explain this rule and state the property address, the date of deemed abandonment, and where to pay; it must be served like an eviction notice and may be combined with a pay-or-quit notice. Leftover belongings alone do not make your belief unreasonable. When a tenant abandons, you must make reasonable efforts to re-rent at a fair rent; the former tenant owes your actual damages, but if you make no effort, only damages up to the point you had reason to believe the unit was abandoned.",
+    notes: "NV: Text supplied by Taylor 2026-09-24 from the Justia 2025 NRS reproduction (host, with source lines) - one notch below revisor text, same basis CA accepted. NRS 118.171-.205 (A. 2019); complements 118A.450 (presumption) and abandoned-property-nv. Mitigation duty also referenced in default-by-tenant's \"to the extent required by applicable law\".",
+  },
+  // Parking & Storage
+  {
+    id: "edu-towing-nv",
+    title: "Towing Vehicles from the Property",
+    group: "Parking & Storage",
+    states: ["NV"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "towing",
+    bodyText:
+      "To tow an unauthorized vehicle, the owner or person in lawful possession of the property must give oral notice to the police or sheriff stating when the vehicle was removed, from where, and where it was taken, and - except on single-family residential property - must have a sign in plain view declaring parking prohibited or restricted and showing the police or sheriff's number. Towing costs fall on the vehicle owner, but the vehicle owner can file an expedited court complaint within 21 days, and if the tow was unlawful the person who authorized it pays the towing and storage costs. In a single-family rental, the tenant may be the person in lawful possession of the driveway.",
+    notes: "NV: Text supplied by Taylor 2026-09-24 from the Justia 2025 NRS reproduction (host, with source lines) - one notch below revisor text, same basis CA accepted. NRS 487.038 (A. 2021), 487.039 (A. 2021); 487.0385 (boots) is resort-hotel-only and not relevant. Supports the parking-vehicle-rules edit. NEW TOPIC.",
+  },
+  // Disclosures
+  {
+    id: "edu-foreclosure-sale-tenants-nv",
+    title: "Tenants When the Property Is Sold at Foreclosure",
+    group: "Disclosures",
+    states: ["NV"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "foreclosure-tenant-protection",
+    bodyText:
+      "If a single-family residence (up to four units) is sold at foreclosure or trustee's sale, a tenant in actual occupation can be removed only after receiving a notice of change of ownership and a notice period of at least 60 days (or one rental period for tenancies shorter than a month). During that period the lease binds the new owner and the tenant, the notice must give the new owner's rent contact and warn that nonpayment is a breach, the tenant may leave at any time without further obligation, and no eviction record may be entered for a tenant who leaves within it.",
+    notes: "NV: Text supplied by Taylor 2026-09-24 from the Justia 2025 NRS reproduction (host, with source lines) - one notch below revisor text, same basis CA accepted. NRS 40.255 (A. 2023). Complements foreclosure-disclosure-nv (pre-lease disclosure duty, 118A.275).",
+  },
+  // Access & Entry
+  {
+    id: "edu-access-remedies-nv",
+    title: "Access Disputes",
+    group: "Access & Entry",
+    states: ["NV"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-entry",
+    bodyText:
+      "If a tenant unlawfully refuses access the lease or statute allows, you may get a court order compelling access or terminate the lease, and recover actual damages. If you enter unlawfully, enter unreasonably, or make repeated demands that harass the tenant, the tenant may get an injunction or terminate the lease, and recover actual damages. Outside emergencies, a court order, abandonment or surrender, or statutory remedial work, you have no other right of access.",
+    notes: "NV: Text supplied by Taylor 2026-09-24 from the Justia 2025 NRS reproduction (host, with source lines) - one notch below revisor text, same basis CA accepted. NRS 118A.500 (1977); 118A.330(4) (revisor text).",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-smoke-detector-scope-nv",
+    title: "Smoke Detector Law - Which Buildings",
+    group: "Landlord Responsibilities",
+    states: ["NV"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "smoke-detector-scope",
+    bodyText:
+      "State law requires a smoke detector in every dwelling unit of an apartment building with three or more units, placed as the fire authority approves; the same buildings must also seal corridor air-supply openings to units unless the corridor system meets fire-marshal requirements. The statute does not reach single-family homes, duplexes or a single condominium rented on its own, though local codes may. There is no statewide rule allocating testing or battery replacement, and disabling a detector is no longer a state-regulation misdemeanor - so put both in the lease. In Clark County and Washoe County the local building and fire officials, and their adopted fire codes, are the authority. No state carbon-monoxide alarm requirement for rentals was located.",
+    notes: "NV: NRS 477.140, 477.100, 477.030(11); R132-18 s66. See smoke-detector-duty-nv. CO absence is NOT LOCATED, not confirmed: NRS 477 searched; NRS 278, 461, 461A and the NRS index under \"carbon monoxide\" not completed.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-returned-check-remedies-nv",
+    title: "Returned Checks: Fees and Remedies",
+    group: "Rent & Payment",
+    states: ["NV"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nsf-fee-limit",
+    bodyText:
+      "If a tenant's check bounces, you may recover the amount of the check and, if the tenant does not pay it in cash within 30 days after you mail a written demand by certified mail, damages of three times the check amount, but not less than $100 or more than $500. A separate statute caps at $25 the fee a seller may collect for each check accepted for goods or services that bounces or on which the drawer stops payment; whether it reaches rent is unsettled, so keep the lease's returned-payment charge at $25 or less. The lease must state whatever charge you will impose, and after a pay-or-quit notice you cannot refuse rent because that charge is unpaid.",
+    notes: "NV: NRS 41.620(1) (civil liability; certified-mail demand; 30 days; 3x, floor $100, ceiling $500; payday/title-lender exclusions) and NRS 597.960(1) ($25 per dishonored check, \"seller ... goods or services\"; Added 1995, 342). BOTH READ FROM HOST COPIES (FindLaw \"current as of January 01, 2025\"; Justia) - the 2025 session is after that currency date, so NEEDS_REVIEW until checked against leg.state.nv.us. Whether rent is \"goods or services\" under 597.960: no authority found either way. Related: NRS 118A.200(3)(g) (charge must be in lease), NRS 40.253(11). Closes the canvass NSF-cap rows as Present. | NV (revisor text supplied by Taylor 2026-09-24): NEEDS_REVIEW CLEARED. NRS 41.620 source line \"Added to NRS by 1985, 1021; A 1987, 134, 1191; 1999, 50; 2005, 1710\" - last amended 2005, so the host copy was current. The demand must be paid \"in cash\" within 30 days to avoid damages (body now says so); the section also reaches use of an invalid credit or debit card. NRS 597.960 source line \"Added to NRS by 1995, 342\" - never amended; its trigger includes a STOPPED payment as well as no account / insufficient funds (body now says so). Whether rent is \"goods or services\" under 597.960 remains unsettled - the $25-or-less steer stands.",
+  },
+  // Pets
+  {
+    id: "edu-service-animal-misrepresentation-nv",
+    title: "Misrepresenting a Service Animal",
+    group: "Pets",
+    states: ["NV"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "service-animal-misrepresentation",
+    bodyText:
+      "It is a misdemeanor, punishable by a fine of up to $500, to fraudulently misrepresent an animal as a service animal or service animal in training. The crime covers only service animals - animals trained to perform tasks - not emotional-support or other support animals, and it gives a landlord no civil remedy. A support animal's status is handled through the documentation a landlord may request under the fair-housing rules.",
+    notes: "NV: NRS 426.805 (Added 2005, 626; revisor ch. 426 page). \"Service animal\" per NRS 426.097 (trained to perform tasks) - definition taken from the research report; NRS 426.097 NOT itself read (caught by the NV citation-existence screen, 2026-09-24). Not limited to public accommodations on its face. Parallels service-animal-misrepresentation rows elsewhere; do not describe it as reaching ESAs.",
+  },
+  // Security Deposit
+  {
+    id: "edu-deposit-escheat-nv",
+    title: "Unclaimed Deposit Refunds",
+    group: "Security Deposit",
+    states: ["NV"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "deposit-escheat",
+    bodyText:
+      "If a former tenant's deposit refund goes unclaimed - for example, the refund check is never cashed and the tenant cannot be found - the amount is presumed abandoned 3 years after the tenant's right to demand it arose, unless the tenant has communicated with you about it in the meantime. Your record of issuing the refund check is itself evidence that you owe the money. You then hold it as unclaimed property and must report it and pay it to the State rather than keep it: the report is due before November 1 each year, covers the 12 months before July 1, and is filed and paid electronically through the State's portal unless you obtain a waiver. If you have a usable mailing address and the amount is $50 or more, you must first send the former tenant written notice, 60 to 120 days before filing (also by email if they agreed to email delivery), and file an affidavit that you did. You may deduct a dormancy charge only if a written contract with the tenant allows it and you regularly impose the charge, and never more than $5 a month. You remain responsible for the report even if someone else prepares it.",
+    notes: "NV: NRS 120A.500(1)(q) (\"All other property, 3 years after the owner's right to demand the property or after the obligation to pay or distribute the property arises, whichever first occurs\") - text seen on the revisor's ch. 120A page via search excerpt, consistent with the Justia 2025 copy; 120A.500(3) defines \"unclaimed\" as no communication with the holder. Duty to deliver: NRS 120A.570(1) (Justia 2013 text: holder \"shall pay, deliver or cause to be paid or delivered to the Administrator\"). NOT READ: NRS 120A.560 (report timing and contents), 120A.540 (dormancy charge - the body says only that the Act regulates it), 120A.580-.590. Body therefore states no deadline and no dormancy limit. Parity with edu-unclaimed-deposit-holder-duties-nd and edu-deposit-escheat-ca. TOPIC-KEY INCONSISTENCY FLAGGED: ND uses \"unclaimed-deposit-holder-duties\", CA uses \"deposit-escheat\" for the same topic; NV follows CA. | NV (revisor text supplied by Taylor 2026-09-24): NRS 120A.540 (Added 2007, 759 - never amended), 120A.550 (Added 2007, 759), 120A.560 (Added 2007, 759; A 2019, 3016; 2023, 1056) now READ - the earlier \"NOT READ\" limits are lifted and the body now states the deadline, notice, filing and dormancy rules. 120A.560(7): report before Nov 1, covering the 12 months preceding July 1 (insurers differ, (8)). (9)-(11): owner notice 60-120 days before filing if a valid mailing address and value >= $50; also by email where the owner consented to email delivery. (13): affidavit of compliance. (14)-(15): electronic filing and payment via the Administrator's portal unless waived for good cause. (12): extensions for good cause. (3): holder stays responsible even if it contracts out the report. (3)(c): penalties, interest and fees under NRS 120A.730 - NOT read, so the body states no penalty amount. 120A.540: dormancy charge only under a valid written contract AND a regularly imposed, not regularly reversed charge; max $5/month. DRAFTING HOOK (candidate row 427.3): a lease clause could supply the \"written contract\" limb - noted, not built; a landlord that does not regularly impose the charge could not use it anyway. 120A.550: a record of issuing a check is prima facie evidence of the obligation; payment is the holder's affirmative defense.",
   },
 ];
 

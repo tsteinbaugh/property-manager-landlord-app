@@ -19,6 +19,7 @@ const STATE_NAMES = {
   SD: "South Dakota",
   OH: "Ohio",
   CA: "California",
+  NV: "Nevada",
 };
 
 const STATE_CONFIG = {
@@ -386,6 +387,47 @@ const STATE_CONFIG = {
         id: "case-ca-auburn-woods",
         label: "Auburn Woods I Homeowners Assn. v. Fair Employment & Housing Com. (2004) 121 Cal.App.4th 1578",
         clauseIds: ["assistance-animal-accommodation-ca"],
+      },
+    ],
+  },
+  NV: {
+    // NRS (Nevada Revised Statutes) sections are chapter + "." + section with
+    // no hyphens ("118A.200", "40.2514", "202.2483", "477.140") -- the same
+    // shape as Ohio's and Minnesota's, so the same pattern works. The
+    // LegiScan query is the phrase "NRS <section>" rather than the bare
+    // number, because Nevada bills cite sections that way ("NRS 118A.200 is
+    // hereby amended") and a bare short number like "40.250" or "41.620"
+    // would also match dollar amounts. No regulation citations appear in the
+    // NV citations file; NAC is not cited, so nothing needs stripping.
+    sectionPattern: /\b(\d{2,4}[A-Z]?\.\d{1,4})\b/g,
+    buildQuery: (section) => `"NRS ${section}"`,
+    extraSectionAliases: {
+      // Range citations ("118A.240-.250", "40.0025-.0045", "118.045-.093",
+      // "118.171-.205") -- the base pattern only catches the first section.
+      "edu-no-deposit-interest-nv": ["118A.250"],
+      "edu-shutdown-worker-protection-nv": ["40.0035", "40.004", "40.0045"],
+      "edu-fair-housing-nv": ["118.093"],
+      "edu-abandonment-notice-nv": ["118.205"],
+    },
+    cfrChecks: [
+      // The no-fee assistance-animal promise now rests on the federal
+      // reasonable-accommodation rule alone (HUD guidance withdrawn
+      // 2025-09-17) -- same regulation KS and CA watch.
+      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation", "edu-assistance-animal-nv"] },
+    ],
+    federalStatuteChecks: [],
+    manualRecheckItems: [
+      {
+        id: "nv-hud-assistance-animal-guidance",
+        label:
+          "HUD assistance-animal guidance: FHEO-2020-01 and FHEO Notice 2013-01 withdrawn 2025-09-17 (FR Doc. 2026-06624) -- check whether replacement guidance has issued",
+        clauseIds: ["assistance-animal-accommodation", "edu-assistance-animal-nv"],
+      },
+      {
+        id: "nv-open-interpretive-questions",
+        label:
+          "Open NV questions with no authority yet: NRS 118A.190(2)/40.280 notice-server scope; 40.253(5)(b)/118A.480 lockout interplay; 118A.303(1)(a) issuer-fee reading; 597.960 reach to rent -- check for a Nevada appellate decision or AG opinion",
+        clauseIds: ["notices", "edu-notice-service-nv", "edu-self-help-eviction-ban-nv", "payment-methods-nv", "returned-payments-nv"],
       },
     ],
   },

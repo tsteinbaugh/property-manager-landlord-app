@@ -1536,3 +1536,13 @@ The duty has been in force since at least 2021 (`1Sp2021 c 8 art 2 s 10`) and wa
 **§5a.1:** `pet-policy-mn` is an MN-only override; the generic `pet-policy` remains CO;WY;ND and was untouched. **No propagation owed.** Worth noting that **four of seven states now override this clause** — KS, NE, MN and SD each for a different state-law reason.
 
 **Not changed, and flagged:** the clause retains its indemnity and its entry-and-remove-a-pet language. Minnesota's limits on either were not examined in this pass — the SD session found § 53-9-3 problems with comparable language, and MN's § 504B.161 non-waiver and unconscionability posture may bear on it.
+
+
+## Propagated from the Nevada pass, 2026-09-24
+
+Two shared rows tagged to this state were edited by the Nevada pass (§5a.1 / instruction 9):
+
+1. `common-area-use` — appended: "Nothing in this Section restricts any display that applicable law entitles Tenant to make, such as the display of the flag of the United States or of religious or cultural items, subject to any lawful limits on its size, placement, and manner." Driven by NRS 118A.325 / 118A.327 (NV). Classification: UNIFORM — self-limiting, adds no obligation where no such law exists. Inherit without override.
+2. `parking-vehicle-rules` — inserted "in accordance with applicable law" before the landlord's towing authority. Driven by NRS 487.038 (NV). Classification: UNIFORM — self-limiting. Inherit without override.
+
+`last_checked` on both rows reset to 2026-09-24. No other field changed. Detail: lease-clause-decision-log-NV.md §§3.1, 11.6, 16. (Appended at sync, 2026-09-25.)

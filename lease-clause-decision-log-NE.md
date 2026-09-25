@@ -803,3 +803,13 @@ The existing NE overrides carved the exculpation as:
 **The generic was considered and left alone**, on the analysis Taylor and I worked through: its blanket not-liable sentence is **currently enforceable in all four tagged states** — SD (§ 53-9-3 reaches only fraud, willful injury and violation of law; *Holzer* and *Domson* confirm ordinary-negligence exculpation stands), ND (N.D.C.C. 9-08-02, the direct counterpart), WY (§ 1-21-1202(d) makes every duty modifiable), CO (§ 38-12-801 bans enumerated waivers, not negligence exculpation generally). Amending it would have surrendered protection those four states affirmatively allow in order to fix a fifth. **§5a.1: state-driven, not uniform.**
 
 **Still open, and it bears on how bad a non-compliant clause would be:** § 76-1415(2)'s consequence for *including* a prohibited provision has not been read. Kansas's analogue, § 58-2547(b), gives the tenant **actual damages** where the landlord "deliberately uses" a rental agreement containing provisions known to be prohibited. Nebraska's equivalent is unknown.
+
+
+## Propagated from the Nevada pass, 2026-09-24
+
+Two shared rows tagged to this state were edited by the Nevada pass (§5a.1 / instruction 9):
+
+1. `common-area-use` — appended: "Nothing in this Section restricts any display that applicable law entitles Tenant to make, such as the display of the flag of the United States or of religious or cultural items, subject to any lawful limits on its size, placement, and manner." Driven by NRS 118A.325 / 118A.327 (NV). Classification: UNIFORM — self-limiting, adds no obligation where no such law exists. Inherit without override.
+2. `parking-vehicle-rules` — inserted "in accordance with applicable law" before the landlord's towing authority. Driven by NRS 487.038 (NV). Classification: UNIFORM — self-limiting. Inherit without override.
+
+`last_checked` on both rows reset to 2026-09-24. No other field changed. Detail: lease-clause-decision-log-NV.md §§3.1, 11.6, 16. (Appended at sync, 2026-09-25.)

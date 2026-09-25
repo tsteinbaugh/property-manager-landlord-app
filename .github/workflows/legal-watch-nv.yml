@@ -1,0 +1,105 @@
+name: Legal watch (Nevada)
+
+# Legal-change tripwire for the Nevada clause library, following the same
+# pattern validated as a Colorado proof of concept (see legal-watch-co.yml and
+# scripts/legal-watch/checkCitations.js for the full explanation). Checks
+# whether any bill has been enrolled/passed touching a statute section a
+# shipped NV clause depends on (per lease-clause-citations-NV.csv), and
+# emails a summary if so. Never edits clause content itself -- a hit here
+# means "go verify against primary text," nothing more.
+
+on:
+  schedule:
+    # Every Monday, staggered after California's 15:00 UTC run so none of
+    # the ten states hit LegiScan at the exact same moment.
+    - cron: "15 15 * * 1"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "check = real run; dry-run = query and print findings, touch nothing; seed-baseline = real query, writes state, never emails (run once before the first real check); test-email = canned Resend test, no LegiScan call"
+        type: choice
+        options:
+          - check
+          - dry-run
+          - seed-baseline
+          - test-email
+        default: check
+
+permissions:
+  contents: write # needed to commit the updated "already seen" state file
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Send test email only
+        if: ${{ inputs.mode == 'test-email' }}
+        working-directory: scripts/legal-watch
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          ALERT_EMAIL_TO: ${{ vars.ALERT_EMAIL_TO }}
+        run: node checkCitations.js --state=NV --test-email
+
+      - name: Run Nevada legal-change check (dry-run)
+        if: ${{ inputs.mode == 'dry-run' }}
+        working-directory: scripts/legal-watch
+        env:
+          LEGISCAN_API_KEY: ${{ secrets.LEGISCAN_API_KEY }}
+        run: node checkCitations.js --state=NV --dry-run --verbose
+
+      - name: Seed baseline state (writes state, never emails)
+        if: ${{ inputs.mode == 'seed-baseline' }}
+        working-directory: scripts/legal-watch
+        env:
+          LEGISCAN_API_KEY: ${{ secrets.LEGISCAN_API_KEY }}
+        run: node checkCitations.js --state=NV --seed-baseline
+
+      - name: Run Nevada legal-change check
+        if: ${{ github.event_name == 'schedule' || inputs.mode == 'check' }}
+        working-directory: scripts/legal-watch
+        env:
+          LEGISCAN_API_KEY: ${{ secrets.LEGISCAN_API_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          ALERT_EMAIL_TO: ${{ vars.ALERT_EMAIL_TO }}
+        run: node checkCitations.js --state=NV
+
+      - name: Commit updated state, if any
+        if: ${{ github.event_name == 'schedule' || inputs.mode == 'check' || inputs.mode == 'seed-baseline' }}
+        run: |
+          git config user.name "legal-watch-bot"
+          git config user.email "actions@github.com"
+          git add scripts/legal-watch/state/NV.json
+          # Re-checking `git diff --cached --quiet` on a second line to decide
+          # whether to push is a bug: by then the commit has already cleared
+          # the staged diff, so that check always passes and `push` never
+          # runs. One conditional block instead, so push always follows a
+          # real commit.
+          if ! git diff --cached --quiet; then
+            git commit -m "Legal watch (NV): update seen-bill state [skip ci]"
+            # Each state writes to its own state/NV.json, so a concurrent
+            # push from another state's workflow never touches the same file --
+            # but git still rejects a non-fast-forward push if main moved in
+            # the meantime (confirmed in practice: seeding all six new states
+            # at once, only the first push landed, the other five failed here).
+            # Retry with a rebase rather than assuming these jobs never overlap.
+            attempt=1
+            until git push; do
+              if [ "$attempt" -ge 5 ]; then
+                echo "git push failed after $attempt attempts, giving up"
+                exit 1
+              fi
+              echo "push rejected (attempt $attempt), fetching and rebasing before retry..."
+              git fetch origin main
+              git rebase origin/main
+              attempt=$((attempt + 1))
+              sleep $((RANDOM % 10 + 1))
+            done
+          else
+            echo "No state changes to commit."
+          fi
