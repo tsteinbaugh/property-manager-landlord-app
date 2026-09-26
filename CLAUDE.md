@@ -116,6 +116,14 @@ Research not yet started.
 - **No re-audits (Taylor, 2026-09-26).** A standing rule now sits at the top of every decision log and the checklist: completed states are closed, and only an egregious defect reopens the affected rows. See the decisions log.
 - **Generator committed:** `scripts/clause-library/generate.py` (it had been lost twice with old scratchpads). Proven byte-identical against the pre-NJ shipped files before use.
 
+**State #13 chosen 2026-09-26: Florida, state-level only.** Taylor's pick. Research ownership stays the established pattern: Taylor + Claude Desktop externally, then a Claude Code sync against the 4-item completion list. The kickoff is staged at `~/Desktop/florida-kickoff/`: a ready-to-paste prompt (`00-florida-kickoff-prompt.md`) plus current copies of `lease-clauses.csv` (835 rows), the named-topic checklist, the architecture-review log, and the NJ and TX logs as reference examples. The prompt:
+- requires instructions 1–32 and states the no-re-audit rule up front;
+- requires `Fla. Stat. §` citations, because Florida section numbers look like decimals (83.49) and legal watch needs the prefix (likely an NV-style phrase query);
+- treats Florida's preemption of local rent control and landlord-tenant regulation as a research question, not a fact;
+- flags the three dormant, never-verified FL rows (`nsf-fee-limit-fl`, `habitability-timeline-fl`, `flood-disclosure-fl`) as research questions;
+- asks for exactly one FL log plus the CSV and checklist.
+Research not yet started.
+
 **Standing backlog, no active priority order right now — ask Taylor what's next:** Move-in/Move-out Inspections, Legal Tracker (Colorado-only first, per "Nationwide jurisdictional coverage plan" below), a maintenance-supplies inventory idea (memory `project_maintenance_supplies_inventory_idea`), the Addendum M product-backlog items surfaced by the legal research (see Known Issues) — most notably ND's `lease-notice-initial-requirement-nd` clause, which per Addendum M.1 "currently ships broken" without a lease-builder mechanism for an adjacent initialing field, plus the lease `formatting` field (Addendum M.12). Also open from Ohio's research: a real design gap in the legal-watch tripwire (Ohio moves landlord-tenant/fair-housing law through **budget/appropriations bills** across three separate general assemblies, which a watch filtering on bill title/subject/committee would miss — untested against the other seven states, not confirmed Ohio-specific).
 
 ---
@@ -841,7 +849,7 @@ Claude Code should:
 
 ---
 
-*Last updated: 2026-09-26 — New Jersey (state #12) synced, all 4 completion items done: 312 lease clauses, 484 education rows, `lease-clause-citations-NJ.csv` (no PARTIALs), NJ legal watch live and validated. Fixed the one blank-status CO row. Standing no-re-audit rule added to every decision log. State #13 not yet chosen.*
+*Last updated: 2026-09-26 — New Jersey (state #12) synced, all 4 completion items done: 312 lease clauses, 484 education rows, `lease-clause-citations-NJ.csv` (no PARTIALs), NJ legal watch live and validated. Fixed the one blank-status CO row. Standing no-re-audit rule added to every decision log. State #13 picked: Florida, state-level only; kickoff staged at `~/Desktop/florida-kickoff/`, research not yet started.*
 
 *Prior update, 2026-09-26 — Texas (state #11) synced: 291 lease clauses, 469 education rows, `lease-clause-citations-TX.csv`, TX legal watch live and validated (seed-baseline on `main`, follow-up dry-run 0 findings). 4 TX PARTIALs accepted by Taylor; the TX product defaults stay as drafted unless Taylor revisits them. State #12 picked: New Jersey, state-level only; kickoff staged at `~/Desktop/new-jersey-kickoff/`, research not yet started.*
 
