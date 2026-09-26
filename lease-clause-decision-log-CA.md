@@ -1,5 +1,7 @@
 # California — lease-clause decision log (state #9)
 
+> **STANDING RULE — NO RE-AUDITS (Taylor, 2026-09-26).** Every completed state (CO, WY, KS, NE, MN, ND, SD, OH, CA, NV, TX, NJ) is closed. **No re-audit of any completed state is planned, now or later.** The only thing that reopens a completed state is an egregious defect found in the course of other work, and then only the affected rows are fixed; the state is not re-audited. The word "re-audit" throughout these files refers to the one-time settings re-run of Aug–Sep 2026, which is finished. Older phrases such as "flag for the X re-audit", "live item for the X re-audit", "when X is next revisited" or "screen the completed states on their next revisit" are historical and dead: they are not a queue. Do not propose, plan or mention a re-audit, and do not park anything "for the re-audit". If something in a completed state looks wrong, say what and why, and let Taylor decide whether it is egregious.
+
 **Date:** 2026-09-19 · **Settings:** Opus, high effort, ordinary search/fetch (research mode not requested — see §1)
 **Scope:** California, state-level only. Municipal rent-control and just-cause ordinances flagged, not resolved.
 **Input CSV:** `lease-clauses__2_.csv`, 567 rows (CO 115, KS 114, NE 111, ND 110, MN 120, WY 99, SD 90, OH 73, CA 9 dormant).

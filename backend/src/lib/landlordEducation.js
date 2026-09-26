@@ -32,6 +32,9 @@
 // wholesale from the CSV (2026-09-18 refresh, Ohio added: 309 -> 324
 // entries across the now-8-state pass).
 //
+// **2026-09-26 (New Jersey sync):** regenerated from the 12-state CSV (NJ
+// added: 469 -> 484 entries).
+//
 // **2026-09-26 (Texas sync):** regenerated from the 11-state CSV (TX added).
 //
 // **2026-09-24 (California):** each entry also carries `topicKey`, from the
@@ -6013,6 +6016,196 @@ const LANDLORD_EDUCATION = [
     bodyText:
       "If you owe a former tenant a security deposit refund (or any other money) and for more than three years you cannot locate the tenant and the tenant has not claimed it, the money is presumed abandoned. You are the holder: if you hold it on March 1, you must report and deliver it to the Texas Comptroller by the following July 1, and if it is worth more than $250 you must first notify the tenant by mail or e-mail at the last known address at least 60 days before delivery. Once you have filed a report, you must file one every year after that, certifying if you hold nothing. You may not reduce the amount with service or dormancy charges, other than the postage for the required notice, and a lease term or other private arrangement that diverts unclaimed money to you to avoid this process is prohibited. Keep the records for 10 years. Delivering in good faith relieves you of liability to the tenant. Late delivery carries 10 percent annual interest, penalties of 5 percent plus another 5 percent after 30 days, a civil penalty of up to $100 a day, and willful violations are a misdemeanor.",
     notes: "TX: Official statutes.capitol.texas.gov text supplied by Taylor 2026-09-25, read section-open. Tex. Prop. Code §§72.001, 72.101, 72.103; §§74.101, 74.1011, 74.103, 74.106, 74.301, 74.304, 74.309, 74.502, 74.705-74.710 (ch. 74 last amended by Acts 2021, 87th Leg., R.S., Ch. 52 (H.B. 1514), eff. May 18, 2021; §74.106 Added 2019 (H.B. 3598)). A landlord owing a refund is a 'holder' as a person 'indebted to another on an obligation' (§72.001(e)(3)). The three-year presumption (§72.101(a)) applies; no residential-deposit exception exists (§72.1017 covers UTILITY deposits only, one year). Interaction with Tex. Prop. Code §92.107: the landlord owes no refund until the tenant gives a written forwarding address, but the tenant does not forfeit the deposit by failing to - so an unclaimed balance can ripen into reportable property. LEASE-CONTENT RESTRICTION: §74.309 prohibits taking unclaimed funds 'by private agreement' to circumvent the process - a clause declaring an unclaimed deposit forfeited to the landlord would be prohibited (added to edu-non-waivable-terms-tx notes). Dormancy charges: §72.103 bars reducing abandoned property by 'service, maintenance, or other charge'; the only allowance is postage for the §74.1011 notice (§74.1011(c)). Holder may pay a claimant directly and seek reimbursement (§74.502). Comptroller rules (34 TAC) not read.",
+  },
+  // Default & Termination
+  {
+    id: "edu-anti-eviction-act-nj",
+    title: "Good-Cause Eviction (Anti-Eviction Act)",
+    group: "Default & Termination",
+    states: ["NJ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction",
+    bodyText:
+      "In most New Jersey residential rentals a landlord can remove a tenant, or refuse to renew a lease, only for one of the good causes listed in N.J.S.A. 2A:18-61.1, proven in court. The causes include nonpayment of rent, disorderly conduct or rule violations after a written notice to cease, willful damage, habitual late payment, refusal of reasonable lease changes at renewal, certain criminal convictions, and owner occupancy in buildings of three or fewer units. Most causes need an advance written notice of a set length: three days, one month, two or three months, or longer. The Act does not cover owner-occupied buildings with no more than two rental units or transient and seasonal rentals. A lease term that waives these protections is unenforceable.",
+    notes: "NJ: Primary text read section-open 2026-09-26 from the official N.J.S.A. text supplied by Taylor (lis.njleg.state.nj.us), with per-section chapter-law history lines. N.J.S.A. 2A:18-61.1 (last amended 2013, c.51, s.7) grounds a.-r.; exemptions (1)-(3); 2A:18-61.2 notice periods: 3 days (b, c, m-r), one month (d, e, habitual nonpayment, i), 3 months (g), 18 months (h), 2 months (l), 3 years (k), service by personal delivery, abode (14+) or certified mail then regular; nonpayment (a, f) needs no notice; 2A:18-61.3 no eviction or non-renewal without good cause, and successor owners bound; 2A:18-61.4 waiver unenforceable; 2A:18-61.6(d) treble damages for eviction notices using a cause not provided by law; rules must be reasonable and accepted in writing or in the lease at the start of the term (61.1(d)); covenants must be reasonable and in the lease at the start of the term with a reserved right of reentry (61.1(e)(1)). Rent increases must not be unconscionable (61.1(f)); unconscionability standard is case law (not read). Case law generally not read this pass.",
+  },
+  {
+    id: "edu-self-help-eviction-ban-nj",
+    title: "Lockouts and Utility Shut-Offs Are Illegal",
+    group: "Default & Termination",
+    states: ["NJ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction",
+    bodyText:
+      "A New Jersey landlord may not change the locks, remove a tenant's belongings, shut off heat, water or electricity, or otherwise force a residential tenant out without a court judgment executed by a court officer. Doing so is a disorderly persons offense, and a repeat offense within five years is a fourth-degree crime. The tenant may reenter with a police officer present and can sue for possession, damages, costs and attorney's fees, or treble damages where returning is not appropriate. A court officer may execute a warrant for possession only between 8 a.m. and 6 p.m., and no earlier than the third business day after it is served.",
+    notes: "NJ: Primary text read section-open 2026-09-26 from the official N.J.S.A. text supplied by Taylor (lis.njleg.state.nj.us), with per-section chapter-law history lines. N.J.S.A. 2C:33-11.1 (L.2005,c.319,s.3): enumerated forcible entry and detainer, incl. padlocking/changing locks and shutting off vital services; 2A:39-1 (amended 2005,c.319,s.1) entry into a residence without consent except by legal process - disorderly persons offense; 2A:39-2 unlawful entry and detainer; 2A:39-8 possession + damages + costs + reasonable attorney fees, or treble damages in lieu of possession; 2A:42-10.16 warrant content and execution (3rd day after service excluding weekends/holidays, 8am-6pm, court retains jurisdiction 10 days after execution); N.J.A.C. 5:10-4.2 no intentional shut-off of required services in multiple dwellings. K.1 screen: self-help ban = yes; utility shut-off ban = yes.",
+  },
+  {
+    id: "edu-retaliation-nj",
+    title: "Retaliation Is Prohibited",
+    group: "Default & Termination",
+    states: ["NJ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "retaliation",
+    bodyText:
+      "A New Jersey landlord may not serve a notice to quit, sue for possession, or substantially change the terms of a tenancy in reprisal for a tenant's efforts to enforce the lease or the law, a good-faith complaint to a government agency (after first telling the landlord and allowing reasonable time to fix the problem), or tenant-organization activity. Taking one of these steps after such activity creates a presumption of retaliation. The presumption does not arise from refusing a renewal requested more than 90 days before the lease ends. The tenant can win the eviction case and sue for damages and other relief.",
+    notes: "NJ: Primary text read section-open 2026-09-26 from the official N.J.S.A. text supplied by Taylor (lis.njleg.state.nj.us), with per-section chapter-law history lines. N.J.S.A. 2A:42-10.10 to 2A:42-10.14 (L.1970,c.210; scope amended 1975,c.124): reprisal grounds; complaint must first go to landlord with reasonable time to correct; judgment for tenant (10.11); rebuttable presumption (10.12) with 90-day renewal-request carve-out; applies to all dwelling rentals except owner-occupied premises with not more than two rental units (10.13), mobile homes included.",
+  },
+  {
+    id: "edu-statutory-early-termination-nj",
+    title: "Tenant Rights to End a Lease Early",
+    group: "Default & Termination",
+    states: ["NJ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "early-termination",
+    bodyText:
+      "New Jersey lets a residential tenant end a lease early in several situations. After the tenant's death (or the spouse's, for a joint lease), the estate or surviving spouse can end a lease of one year or more on written notice, effective 40 days after the landlord receives it; this applies unless the lease expressly provides otherwise. A disabling illness or accident, or acceptance of a tenant or spouse aged 62 or older into assisted living, a nursing home or low- and moderate-income housing, allows the same 40-day termination with documentation. A domestic-violence victim facing an imminent threat can end any residential lease with written notice and documentation, effective 30 days after receipt; this right cannot be waived, and the landlord must keep the documents confidential. A court can also order the landlord to change the locks for a domestic-violence victim within 48 hours.",
+    notes: "NJ: Primary text read section-open 2026-09-26 from the official N.J.S.A. text supplied by Taylor (lis.njleg.state.nj.us), with per-section chapter-law history lines. N.J.S.A. 46:8-9.1 (death; yields to explicit lease terms; vacate 5 working days before day 40); 46:8-9.2 (amended 2005,c.112: disability, assisted living/nursing/CCRC, low-income housing, inaccessibility after landlord refused modification); 46:8-9.4 to 46:8-9.12 (Safe Housing Act, L.2008,c.111: 30 days, pro rata rent, co-tenants' lease also ends, non-waivable 9.9, confidentiality 9.11, public-housing notice rules 9.8, seasonal leases of <=125 days excluded 9.12); deposit return within 15 business days on DV termination (46:8-21.1); 46:8-9.13, 46:8-9.14 (L.2023,c.174: court-ordered lock change; landlord 48 hours, then victim may change at own cost with keys to landlord within 48 hours; landlord liability shield). Military (SCRA) is federal.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-rent-receivership-withholding-nj",
+    title: "Rent Deposited With the Court for Repairs",
+    group: "Landlord Responsibilities",
+    states: ["NJ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "habitability",
+    bodyText:
+      "When a New Jersey rental has a lack of heat, water, light, electricity or sewage service, or another serious code or safety violation, the tenant or a municipal officer can ask a court to order rent paid into court and used for repairs. The landlord's defenses are that the condition did not exist or has been fixed, that the tenant caused it, or that the landlord was refused entry to fix it. Separately, a court may appoint a receiver to run a multifamily building with persistent code violations. Lease terms waiving these rights are void.",
+    notes: "NJ: Primary text read section-open 2026-09-26 from the official N.J.S.A. text supplied by Taylor (lis.njleg.state.nj.us), with per-section chapter-law history lines. N.J.S.A. 2A:42-85 to 2A:42-96 (L.1971,c.224; amended 1985,c.411): scope all dwellings except owner-occupied premises with not more than two rental units; defenses 2A:42-91; rent deposited is a defense to nonpayment eviction (2A:42-92); waiver void (2A:42-96); utility-diversion track (2A:42-88(b)). Multifamily Housing Preservation and Receivership Act, 2A:42-114 to 2A:42-142 (L.2003,c.295). Judge-made rent abatement/withholding doctrine and the implied warranty of habitability are case law, NOT read this pass.",
+  },
+  {
+    id: "edu-heat-and-pest-duties-nj",
+    title: "Heat, Pests and Other Owner Duties (Buildings of 3+ Units)",
+    group: "Landlord Responsibilities",
+    states: ["NJ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "habitability",
+    bodyText:
+      "In a New Jersey building of three or more units, the owner must keep each unit at least 68 degrees from 6 a.m. to 11 p.m. and at least 65 degrees overnight, from October 1 to May 15. The owner cannot shift the cost of heating fuel to a tenant unless the unit has its own separately billed heating equipment and the tenant agrees in writing. The owner must get rid of insects and rodents when an infestation is in two or more units or in common areas, and must arrange professional pest-prevention service at least once a year. Tenants are responsible for conditions within their own unit that they cause or control. Owners must install carbon monoxide alarms near the sleeping area of every unit in buildings with a fuel-burning appliance or an attached garage, and a visual alarm for a deaf or hard-of-hearing tenant on request. A lease cannot relieve the owner of these duties.",
+    notes: "NJ: Primary text read section-open 2026-09-26 from the official N.J.S.A. text supplied by Taylor (lis.njleg.state.nj.us), with per-section chapter-law history lines. N.J.A.C. 5:10-14.4 (heat, May 15 since R.2023 d.089); 5:10-10.2 (owner extermination for 2+ units or common areas; annual preventive service); 5:10-5.4(e) (occupant responsible for conditions within own exclusive control); 5:10-28.1 (CO alarms; UL 2034/NFPA 720; visual alarm on request, R.2006 d.74); 5:10-4.1(a) (owner duties not relieved by lease). Scope: multiple dwellings (5:10-2.2). 1-2 family rentals are governed by local codes and other DCA rules NOT read (flag). No bed-bug-specific rule located in 5:10 (bounded to 5:10; not a statewide absence claim). NJ: N.J.A.C. 5:10 read section-open 2026-09-26 from the nj.gov OAL compilation supplied by Taylor, stamped 'adopted and published through 55 N.J.R. (Aug. 7, 2023)'. Currency beyond that stamp asserted only by spot-check against the Cornell LII copy (updated quarterly; last amendment shown R.2023 d.089, eff. 2023-08-07) and one web search finding no later 5:10 adoption touching this section (instruction 16). | NJ: research pass 2026-09-26 (advanced research, report in conversation): No N.J.A.C. 5:10 amendment after R.2023 d.103 (eff. 2023-09-05, hotel sanitization/water-test posting) found; adopt_DCA_5_10_tier = R.2023 d.089. No enacted NJ bed-bug statute (bills 2010-2018 not enacted).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-screening-rules-nj",
+    title: "Tenant Screening Limits",
+    group: "Rent & Payment",
+    states: ["NJ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-screening",
+    bodyText:
+      "New Jersey limits how landlords screen applicants. Landlords covered by the Fair Chance in Housing Act (all rentals except owner-occupied buildings of four or fewer units) may not ask about criminal history until after a conditional offer, must disclose in writing before taking an application fee whether they consider criminal history, may consider only certain convictions within set look-back periods, and must follow an individualized-assessment and written-notice process to withdraw an offer. Applicants may not be required to take drug or alcohol tests. Military and veteran housing allowances must be counted as income. Eviction records for nonpayment during the COVID-19 emergency period may not be considered. Since May 1, 2026, landlords of buildings with three or more units may not charge more than $50, adjusted each year for inflation, in application and similar screening fees combined. Landlords may not refuse Section 8 vouchers or other lawful sources of income, and any minimum-income requirement must be based only on the tenant's share of the rent. Refusing to rent because a household includes children, or leasing terms that end a tenancy on the birth of a child, are unlawful except in qualifying housing for older persons.",
+    notes: "NJ: Primary text read section-open 2026-09-26 from the official N.J.S.A. text supplied by Taylor (lis.njleg.state.nj.us), with per-section chapter-law history lines. Fair Chance in Housing Act, N.J.S.A. 46:8-52 to 46:8-64 (L.2021,c.110): definitions (owner-occupied <=4 units excluded) 46:8-54; pre-offer ban and pre-fee disclosure 46:8-55; excluded records and look-backs (lifetime list; 1st degree 6 yrs; 2nd/3rd 4 yrs; 4th 1 yr) and withdrawal procedure 46:8-56; advertising ban 46:8-58; civil immunity 46:8-59; drug/alcohol test ban 46:8-60; DCR enforcement only, penalties $1,000/$5,000/$10,000 (46:8-63). Military/veteran BAH as income: 46:8-51 (L.2019,c.206). COVID-period nonpayment records: 2A:42-144 to 2A:42-148 (L.2021,c.189; penalty $1,000/$5,000). Application fee: 46:8-18.1 (L.2025,c.405) - $50 cap, CPI-adjusted each Jan 1 after enactment; excludes 1-2 family dwellings and real-estate licensees who are not the landlord; penalties $500/$750/$1,000. NEEDS_REVIEW: enactment/effective date of P.L.2025, c.405 and the current adjusted cap not verified. DCR model disclosure/notice forms (46:8-57) not read. Law Against Discrimination (N.J.S.A. 10:5) not read. | NJ: research pass 2026-09-26 (advanced research, report in conversation): P.L.2025, c.405 approved 2026-01-20, effective 2026-05-01 (NJ AG press release); covers 'application fee or other similar fee'; no published CPI-adjusted amount found. P.L.2025, c.251 (signed 2026-01-12, per LegiScan; First Reprint text): 'source of lawful income' incl. Section 8 vouchers (N.J.S.A. 10:5-5(yy)); minimum-income tests only on tenant share (10:5-12). FAIR Act, P.L.2026, c.43 (signed 2026-07-20; effective 2027-07-01 per law-firm alerts - secondary): bars algorithmic rent-setting coordination. Remaining NEEDS_REVIEW: c.251 and c.405 chaptered text not read section-open; LAD pending. | NJ: LAD read section-open 2026-09-26: N.J.S.A. 10:5-5(yy) 'source of lawful income' (incl. Section 8 vouchers, rental assistance, benefits, child support, any lawful currency) and 10:5-12(g)(4), (h)(4) (refusing a lawful source as payment, or applying any minimum income requirement not based exclusively on the tenant's portion of rent, is unlawful) - history lines show 2025, c.251 and 2025, c.307. Familial-status refusal and lease clauses voiding tenancy on birth of a child unlawful (10:5-12(g)(5)). Small-owner exemption 10:5-5(n) except publicly assisted housing. Cannabis-offense housing discrimination: private action, $1,000-$2,000 first violation, up to $5,000 after, 1-year limitation (10:5-50, L.2021, c.19). Application-fee effective date 2026-05-01 per NJ Attorney General release (research pass). Status raised to VERIFIED: all lease-relevant rules now read section-open except the CPI-adjusted fee figure, which the row does not state.",
+  },
+  // Default & Termination
+  {
+    id: "edu-foreclosure-tenant-rights-nj",
+    title: "Tenants in Foreclosed Properties",
+    group: "Default & Termination",
+    states: ["NJ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "foreclosure",
+    bodyText:
+      "A person who takes title to a New Jersey rental through a sheriff's sale or a deed in lieu of foreclosure must give every tenant a prescribed notice, in English and Spanish, within 10 business days after taking title. The notice must be in at least 14-point bold type on paper at least 8½ by 11 inches. Foreclosure is not a ground to evict a tenant. A foreclosing party or new owner may try to get a tenant to leave only by a bona fide cash offer, which the tenant has five business days to consider, and may not pressure the tenant. Violations expose the owner to treble damages or $2,000 per violation, plus fees.",
+    notes: "NJ: Primary text read section-open 2026-09-26 from the official N.J.S.A. text supplied by Taylor (lis.njleg.state.nj.us), with per-section chapter-law history lines. N.J.S.A. 2A:50-69 to 2A:50-72 (New Jersey Foreclosure Fairness Act, L.2009,c.296): notice text and service (post on door and certified + regular mail for 10 or fewer units; common-area posting for more than 10) 2A:50-70; offers and anti-pressure list 2A:50-71; remedies via 2A:18-61.6(a) or $2,000 per violation plus fees. LAYOUT: prescribed text, bilingual, 14-point bold, 8.5x11 (instruction 28). Successor owners are bound by Anti-Eviction good cause (2A:18-61.3(b)).",
+  },
+  // Notices & General
+  {
+    id: "edu-truth-in-renting-lease-provisions-nj",
+    title: "Unlawful Lease Terms Carry Penalties",
+    group: "Notices & General",
+    states: ["NJ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lease-provisions",
+    bodyText:
+      "New Jersey prohibits a landlord from offering or signing a lease containing a provision that violates clearly established tenant rights or landlord responsibilities under New Jersey law at the time of signing. A tenant may ask a court to terminate a lease containing such a provision, and the landlord faces a penalty. This does not apply if the tenant proposed the provision. Several New Jersey laws also make specific lease waivers void, including waivers of security deposit rights, landlord registration rights, eviction protections, repair-escrow rights and domestic-violence termination rights.",
+    notes: "NJ: Primary text read section-open 2026-09-26 from the official N.J.S.A. text supplied by Taylor (lis.njleg.state.nj.us), with per-section chapter-law history lines. N.J.S.A. 46:8-48 (L.1975,c.310,s.6); penalty up to $100 per offense (46:8-47); an eviction notice relying on an unlawful lease clause can support treble damages (2A:18-61.6(d)). Specific anti-waiver sections: 46:8-24 (deposits), 46:8-36 (registration), 2A:18-61.4 (Anti-Eviction), 2A:42-96 (rent into court), 46:8-9.9 (DV termination); owner maintenance duties cannot be shifted by lease (N.J.A.C. 5:10-4.1(a)). Scope follows the 46:8-44 landlord definition.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-municipal-rent-control-nj",
+    title: "Local Rent Control and Registration",
+    group: "Rent & Payment",
+    states: ["NJ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-control",
+    bodyText:
+      "Many New Jersey municipalities have rent control or rent leveling ordinances, and many require rental registration, licensing or inspections. State law does not set a general cap on rent increases, but an increase must comply with any local ordinance and must not be unconscionable, or it cannot support an eviction. New construction of four or more units may be exempt from local rent control for up to 30 years, and the lease must say so. Check the municipality's ordinances before setting or raising rent.",
+    notes: "NJ: State layer only (instruction 20). Statutory hooks read: 2A:18-61.1(f) (increase must not be unconscionable and must comply with municipal ordinances); 2A:42-84.1 to 2A:42-84.6 (new-construction exemption; lease notice = rent-control-exemption-notice-nj); 2A:42-74 to 2A:42-78 (substandard multiple dwelling rent control); 2A:18-61.1f (local ordinances may be more protective on retirement/demolition notices); 2A:18-61.1g (municipal relocation assistance for illegal occupancies: 6x monthly rent); 46:8-49.3(c) (fee awards in rent-controlled units). The 'more than 100 municipalities' figure is NOT sourced to text read - NEEDS confirmation before publishing; flagged in log. Municipal ordinances: flagged, not resolved. | NJ: research pass 2026-09-26 (advanced research, report in conversation): Count: DCA 2026 Rent Control Survey (rev. 2026-05-20) reported as 120 of 564 by a secondary source (Listingprobe); DCA file not read. Fromet Properties v. Buel, 294 N.J. Super. 601 (App. Div. 1996): landlord bears burden to show an increase is not unconscionable; factors include size, costs/profitability, comparables, bargaining position. Stays NEEDS_REVIEW (count secondary). | NJ: CLOSED 2026-09-26 - the unsourced municipality count was REMOVED from the body (now 'Many'), so the row states only what the statutes read support. The DCA survey count (reported as ~120 of 564, secondary) stays in these notes for reference only.",
+  },
+  // Disclosures
+  {
+    id: "edu-no-radon-disclosure-nj",
+    title: "No Radon Rule for Landlords",
+    group: "Disclosures",
+    states: ["NJ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "radon",
+    bodyText:
+      "New Jersey statutes do not require a residential landlord to test for radon or to disclose radon information to a tenant. Radon rules in the statutes cover home sales, schools, child care centers, new construction in high-radon areas, and certification of radon testers and mitigators. If you do test a rental you own, you may do it yourself without certification.",
+    notes: "NJ: CONFIRMED ABSENCE, BOUNDED (L.7). Evidentiary basis: full-text search of all N.J.S.A. titles on the official New Jersey Legislature statutes site, run by Taylor 2026-09-26, every hit pasted and read. Boundary: statutes only - N.J.A.C. regulations, local codes and case law (implied warranty of habitability) not searched; no claim is made about them. Hits read: N.J.S.A. 13:1K-14 (DEP certification after testing); 18A:20-40 (schools); 18A:36C-3, 34:1B-21.39 (school facilities); 26:2D-59 to -62 (study, registry, monitoring, public information); 26:2D-70 to -72 (tester/mitigator certification; owner testing or mitigating own building exempt, 26:2D-72); 26:2D-73 (confidentiality; SELLER must give buyer test results at contract - sale only, a false positive for tenant duties, same shape as TX Prop. Code 5.008); 26:2D-78 (records not public); 26:2D-80 (new-house testing); 26:3A2-23 (definition); 30:5B-5.2 (child care centers: owner of building housing a licensed center must test every 5 years and post results - applies to landlords of child care tenants, not residential tenancies); 45:16A-2, -27 (HVACR licensing); 52:27D-123a to -123d (radon hazard construction code for tier one areas; builder immunity); 52:14-17.29 (health benefits). Single-word term, so no variant-form risk.",
+  },
+  {
+    id: "edu-no-mold-disclosure-nj",
+    title: "No Mold Rule for Landlords",
+    group: "Disclosures",
+    states: ["NJ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "mold",
+    bodyText:
+      "New Jersey statutes do not require a residential landlord to disclose or remediate mold as a separate duty. The only housing-related mold provision concerns real-estate agents in home sales. Mold in a rental is handled under general habitability law and local housing codes.",
+    notes: "NJ: CONFIRMED ABSENCE, BOUNDED (L.7). Evidentiary basis: full-text search of all N.J.S.A. titles on the official New Jersey Legislature statutes site, run by Taylor 2026-09-26, every hit pasted and read. Boundary: statutes only - N.J.A.C. regulations, local codes and case law (implied warranty of habitability) not searched; no claim is made about them. Search terms per the requested variants (mold, molds, mould). Hits read are all molding/manufacture senses (2A:15-5.2 and 59:9-4 'mold the judgment'; 2C:21-18; 5:13-12; 13:1D-150; 13:1E-99.12, -99.40, -99.127, -99.135, -99.149; 54:32B-8.64; 56:3-55; 56:4A-1 to -9; 56:5-2; 58:10A-70) except N.J.S.A. 56:8-19.1 (as amended 2021, c.264, c.268, c.442): a real-estate licensee's consumer-fraud safe harbor requires referring a BUYER to the DOH 'Mold Guidelines for New Jersey Residents' when a seller's disclosure statement shows water or mold - sale only, a false positive for tenant duties. Habitability case law (Marini, Berzito) and N.J.A.C. 5:10 may reach mold conditions as a fact question; not a mold-specific rule.",
+  },
+  // Building & Safety
+  {
+    id: "edu-smoke-alarm-nj",
+    title: "Smoke Alarms",
+    group: "Building & Safety",
+    states: ["NJ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "smoke-detector",
+    bodyText:
+      "Every New Jersey hotel and multiple dwelling (a building with three or more units) must have smoke detectors or smoke alarms installed as the Department of Community Affairs requires by rule. Those rules set the number, location, specifications, maintenance and testing. The state statutes do not set a separate smoke-alarm duty for one- and two-family rentals; check the state fire code rules and your municipality.",
+    notes: "NJ: Official New Jersey Legislature statutes site full-text search (compilation 'updated through P.L.2026, c.30'), run by Taylor 2026-09-26 with alternate-word-form stemming ON and narrowing terms; every hit pasted and read. Controlling text: N.J.S.A. 55:13A-7.1 (L.1979, c.419): every hotel and multiple dwelling 'shall be equipped with smoke detectors or smoke alarms or both' per DCA rules on number, location, specifications, maintenance and testing. Other hits: 55:13A-13.1 (retirement communities exempt from 'multiple dwelling' if fire-safety self-inspection filed; common-area detectors, unit owners jointly responsible for batteries); 45:5A-2 (alarm-business licensing). NOT READ: the DCA rules themselves - N.J.A.C. 5:10 has no smoke-detector subchapter; the Uniform Fire Code N.J.A.C. 5:70 (which, by recall only, includes a certificate of smoke and CO alarm compliance on change of occupancy of 1-2 family dwellings) was not searched or read. That certificate is therefore NOT asserted. CONFIRMED ABSENT at statute level (L.7, bounded): a statutory smoke-alarm duty specific to 1-2 family rentals.",
+  },
+  // Parking & Storage
+  {
+    id: "edu-no-ev-charging-right-nj",
+    title: "No Tenant EV-Charging Right",
+    group: "Parking & Storage",
+    states: ["NJ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "ev-charging",
+    bodyText:
+      "New Jersey statutes do not give a residential tenant a right to install an electric vehicle charger, and do not require a landlord to allow one. Separate state law requires certain newly built multifamily projects to provide charger-ready parking spaces as part of site plan approval; that is a construction requirement, not a tenant right.",
+    notes: "NJ: Official New Jersey Legislature statutes site full-text search (compilation 'updated through P.L.2026, c.30'), run by Taylor 2026-09-26 with alternate-word-form stemming ON and narrowing terms; every hit pasted and read. CONFIRMED ABSENCE, BOUNDED (L.7). Searches: exact phrase 'electric vehicle' with tenant / lease / landlord / multifamily / renter. Hits read (listing and excerpts): 40:55D-66.20 (Make-Ready parking for certain multiple dwellings at preliminary site plan approval: 15% Make-Ready, EVSE installed in thirds within 3 and 6 years of CO - a land-use duty on the developer/owner, not a tenant right); 40A:12A-3, 40A:12A-65, 40A:20-3, 52:27D-489c (redevelopment finance definitions); 48:3-60, 48:25-1 to -6 (utility programs, incentives, state goals); 39:1-1 (definitions); 26:2C-8.58 (school buses); 34:1B-375 (C-PACE); 56:10-26. Boundary: statutes only; condominium/common-interest-community statutes returned nothing tenant-facing in these searches; local ordinances not searched.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-immigration-inquiry-rule-nj",
+    title: "No Immigration-Status Rule for Landlords",
+    group: "Rent & Payment",
+    states: ["NJ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "immigration-status",
+    bodyText:
+      "New Jersey statutes do not contain a rule specifically addressing whether a landlord may ask about or act on a tenant's immigration status. Discrimination based on national origin, nationality or ancestry is prohibited under the Law Against Discrimination, and threatening someone based on immigration status can be evidence of coercive control in a domestic violence case.",
+    notes: "NJ: Official New Jersey Legislature statutes site full-text search (compilation 'updated through P.L.2026, c.30'), run by Taylor 2026-09-26 with alternate-word-form stemming ON and narrowing terms; every hit pasted and read. CONFIRMED ABSENCE, BOUNDED (L.7). Search: exact phrase 'immigration status' with tenant / landlord / housing / lease / rental. Hits read: 24:6I-32 (cannabis findings - arrest consequences); 2C:25-29 (DV hearing - coercive control includes threats based on immigration status, (a)(7)(d)); 39:3-13 (MVC permit confidentiality); 56:8-166.4 (Data Privacy Act 'sensitive data' includes citizenship or immigration status - applies to controllers meeting that act's thresholds; applicability to landlords not assessed, act's scope sections not read). No landlord-inquiry rule. Related protected classes read: national origin, ancestry, nationality (N.J.S.A. 10:5-12(g)). Boundary: statutes only; DCR regulations and guidance not searched.",
   },
 ];
 

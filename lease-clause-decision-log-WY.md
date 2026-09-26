@@ -1,5 +1,7 @@
 ## Decision Log: Clause Library Verification Workflow — Wyoming (State #2)
 
+> **STANDING RULE — NO RE-AUDITS (Taylor, 2026-09-26).** Every completed state (CO, WY, KS, NE, MN, ND, SD, OH, CA, NV, TX, NJ) is closed. **No re-audit of any completed state is planned, now or later.** The only thing that reopens a completed state is an egregious defect found in the course of other work, and then only the affected rows are fixed; the state is not re-audited. The word "re-audit" throughout these files refers to the one-time settings re-run of Aug–Sep 2026, which is finished. Older phrases such as "flag for the X re-audit", "live item for the X re-audit", "when X is next revisited" or "screen the completed states on their next revisit" are historical and dead: they are not a queue. Do not propose, plan or mention a re-audit, and do not park anything "for the re-audit". If something in a completed state looks wrong, say what and why, and let Taylor decide whether it is egregious.
+
 **Date started:** 2026-08-21
 **Status:** ✅ Closed out 2026-08-21 — see §13 for final status and handoff to state #3 (Kansas)
 **Companion document:** `decision-log-clause-library-verification.md` (Colorado, state #1) — same schema, same methodology, same standing rules. This file only records what's specific to Wyoming: statute findings, clause decisions, open items, and any process learnings that came out of applying the CO-built methodology to a second state.

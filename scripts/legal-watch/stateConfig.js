@@ -21,6 +21,7 @@ const STATE_NAMES = {
   CA: "California",
   NV: "Nevada",
   TX: "Texas",
+  NJ: "New Jersey",
 };
 
 const STATE_CONFIG = {
@@ -509,6 +510,59 @@ const STATE_CONFIG = {
         label:
           "Open NV questions with no authority yet: NRS 118A.190(2)/40.280 notice-server scope; 40.253(5)(b)/118A.480 lockout interplay; 118A.303(1)(a) issuer-fee reading; 597.960 reach to rent -- check for a Nevada appellate decision or AG opinion",
         clauseIds: ["notices", "edu-notice-service-nv", "edu-self-help-eviction-ban-nv", "payment-methods-nv", "returned-payments-nv"],
+      },
+    ],
+  },
+  NJ: {
+    // N.J.S.A. sections are title:chapter-section ("46:8-21.1", "2A:18-61.1",
+    // "52:27D-437.16", "2A:18-61.1f") -- the colon and hyphen make a bare
+    // number unambiguous, but a search engine may split it into tokens, so the
+    // query is the quoted phrase. NJ bills cite sections as "C.46:8-21.1" or
+    // "R.S.46:8-10", which contain the phrase.
+    //
+    // N.J.A.C. (DCA rules, 5:10; LAD rules, 13:13) is agency rulemaking
+    // LegiScan can't see -- stripped here and given a manual-recheck reminder
+    // (same reasoning as KS's K.A.R., OH's OAC, TX's TAC).
+    stripPatterns: [/N\.J\.A\.C\.[^;]*/g],
+    sectionPattern: /\b(\d{1,2}[A-Z]?:\d{1,3}[A-Z]?-\d{1,3}(?:\.\d{1,3})?[a-z]?)\b/g,
+    buildQuery: (section) => `"${section}"`,
+    cfrChecks: [
+      // NJ's assistance-animal row rests partly on the reasonable-accommodation
+      // duty, which tracks the federal regulation KS, CA, NV and TX watch.
+      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-nj"] },
+    ],
+    federalStatuteChecks: [],
+    manualRecheckItems: [
+      {
+        id: "reg-nj-dca-5-10",
+        label:
+          "N.J.A.C. 5:10 (Regulations for Maintenance of Hotels and Multiple Dwellings) -- DCA rulemaking, not visible to LegiScan; currency last asserted as of the OAL compilation stamped 55 N.J.R. (2023-08-07), last amendment seen R.2023 d.103 (eff. 2023-09-05)",
+        clauseIds: [
+          "utilities-responsibility", "utility-service-continuity", "tenant-maintenance", "services-utilities-provided",
+          "landlord-maintenance", "landlords-access", "inspection-rights", "storage-space-ks-oh-ca",
+          "window-guard-notice-nj", "tenant-supplied-heat-nj", "edu-heat-and-pest-duties-nj",
+        ],
+      },
+      {
+        id: "reg-nj-lad-13-13",
+        label:
+          "N.J.A.C. 13:13-3.4 (LAD reasonable accommodation, the basis for emotional support animals) -- Division on Civil Rights rulemaking; not read section-open",
+        clauseIds: ["assistance-animal-accommodation-nj"],
+      },
+      {
+        id: "case-nj-fees-as-rent",
+        label:
+          "Community Realty Mgmt. v. Harris, 155 N.J. 212 (1998); Hodges v. Sasil Corp., 189 N.J. 210 (2007) -- late/legal fees are not rent unless the lease says so, never for Section 8/public housing",
+        clauseIds: ["late-fee-nj", "application-of-payments-nj", "default-by-tenant-nj"],
+      },
+      {
+        id: "case-nj-landlord-tenant-doctrines",
+        label:
+          "Sommer v. Kridel, 74 N.J. 446 (1977) (mitigation); Marini v. Ireland, 56 N.J. 130 (1970) and Berzito v. Gambino, 63 N.J. 460 (1973) (habitability); Lorril Co. v. La Corte, 352 N.J. Super. 433 (2002) (holdover double rent); Reilly v. Weiss, 406 N.J. Super. 71 (App. Div. 2009) (pet deposit counts toward the cap); Fromet Properties v. Buel, 294 N.J. Super. 601 (App. Div. 1996) (unconscionable increases)",
+        clauseIds: [
+          "early-termination", "default-by-tenant-nj", "landlord-maintenance", "edu-rent-receivership-withholding-nj",
+          "holdover-nj", "security-deposit-return-nj", "pet-policy-nj", "edu-municipal-rent-control-nj",
+        ],
       },
     ],
   },

@@ -1,5 +1,7 @@
 ## Decision Log: Clause Library Verification Workflow (Nationwide Coverage Strategy)
 
+> **STANDING RULE — NO RE-AUDITS (Taylor, 2026-09-26).** Every completed state (CO, WY, KS, NE, MN, ND, SD, OH, CA, NV, TX, NJ) is closed. **No re-audit of any completed state is planned, now or later.** The only thing that reopens a completed state is an egregious defect found in the course of other work, and then only the affected rows are fixed; the state is not re-audited. The word "re-audit" throughout these files refers to the one-time settings re-run of Aug–Sep 2026, which is finished. Older phrases such as "flag for the X re-audit", "live item for the X re-audit", "when X is next revisited" or "screen the completed states on their next revisit" are historical and dead: they are not a queue. Do not propose, plan or mention a re-audit, and do not park anything "for the re-audit". If something in a completed state looks wrong, say what and why, and let Taylor decide whether it is egregious.
+
 **Date:** 2026-08-18
 **Status:** Approved — Colorado is the proof-of-concept state
 **Context:** Steinoak's clause library (112 starter clauses across 11 groups) needs to expand toward genuine nationwide coverage without creating false confidence or product liability. This entry captures the verification workflow, data model, and screening rules agreed on before implementation begins.
@@ -1317,3 +1319,9 @@ Three shared rows tagged to this state were edited by the Texas pass (§5a.1 / i
 3. `assigned-parking-space` — reassignment is now "subject to any limits applicable law places on changing parking rules or policies during the Term." Driven by Tex. Prop. Code §92.0131(e) (TX). Classification: UNIFORM — self-limiting, adds no obligation where no such law exists. Inherit without override.
 
 `last_checked` on all three rows reset to 2026-09-25. No other field changed. Detail: lease-clause-decision-log-TX.md §§3.1, 16. (Appended at sync, 2026-09-26.)
+
+---
+
+### Bookkeeping fix — 2026-09-26
+
+`security-deposit-installments-co` (inactive since 2026-09-13; no Colorado deposit-installment right exists) had a blank `verification_status` in `lease-clauses.csv`, because the 2026-09-25 restore copied status back only for active rows. The row now carries `VERIFIED`, dates 2026-08-18 / 2026-09-13, and a do-not-reactivate note, matching `lease-clause-citations-CO.csv`. This is a data-entry fix only; no Colorado research was reopened.

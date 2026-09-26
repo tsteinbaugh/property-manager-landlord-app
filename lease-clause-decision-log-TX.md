@@ -1,5 +1,7 @@
 # Texas — lease-clause decision log (state #11)
 
+> **STANDING RULE — NO RE-AUDITS (Taylor, 2026-09-26).** Every completed state (CO, WY, KS, NE, MN, ND, SD, OH, CA, NV, TX, NJ) is closed. **No re-audit of any completed state is planned, now or later.** The only thing that reopens a completed state is an egregious defect found in the course of other work, and then only the affected rows are fixed; the state is not re-audited. The word "re-audit" throughout these files refers to the one-time settings re-run of Aug–Sep 2026, which is finished. Older phrases such as "flag for the X re-audit", "live item for the X re-audit", "when X is next revisited" or "screen the completed states on their next revisit" are historical and dead: they are not a queue. Do not propose, plan or mention a re-audit, and do not park anything "for the re-audit". If something in a completed state looks wrong, say what and why, and let Taylor decide whether it is egregious.
+
 **Date:** 2026-09-25 · **Settings:** Opus, high effort, ordinary search/fetch (one search, §1). Research mode not yet needed. The points where it will be are in §9.
 **Scope:** Texas, state law only. City and county layers are flagged where met, not resolved (instruction 20).
 **Input CSV:** `lease-clauses.csv`, **726 rows**, confirmed at session start: 681 active / 45 inactive; active CO 114, WY 98, KS 114, NE 111, MN 119, ND 110, SD 90, OH 73, CA 150, NV 102, TX 0. No duplicate ids; zero blank `verification_status`. Instructions 13 and 27 satisfied.
