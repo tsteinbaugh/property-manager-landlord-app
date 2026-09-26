@@ -2020,3 +2020,13 @@ row), and CCP §1179.
 The blank-`states` filter fix remains deferred to the CSV sync, and the `supersedes`-suppression question is
 still open. Six CA rows now carry `supersedes` links, four of them set by this screen, so that question is
 now load-bearing for CA display.
+
+
+## Propagated from the Texas pass, 2026-09-25
+
+Two shared rows tagged to this state were edited by the Texas pass (§5a.1 / instruction 9):
+
+1. `no-alterations` — appended: "This Section does not limit any repair, installation, or rekeying that applicable law entitles Tenant to perform." Driven by Tex. Prop. Code §§92.0561, 92.164(a)(1), 92.165(1) (TX). Classification: UNIFORM — self-limiting, adds no obligation where no such law exists. Inherit without override.
+2. `assigned-parking-space` — reassignment is now "subject to any limits applicable law places on changing parking rules or policies during the Term." Driven by Tex. Prop. Code §92.0131(e) (TX). Classification: UNIFORM — self-limiting, adds no obligation where no such law exists. Inherit without override.
+
+`last_checked` on both rows reset to 2026-09-25. No other field changed. Detail: lease-clause-decision-log-TX.md §§3.1, 16. (Appended at sync, 2026-09-26.)

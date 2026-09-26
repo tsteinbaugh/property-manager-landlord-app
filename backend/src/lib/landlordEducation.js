@@ -32,6 +32,8 @@
 // wholesale from the CSV (2026-09-18 refresh, Ohio added: 309 -> 324
 // entries across the now-8-state pass).
 //
+// **2026-09-26 (Texas sync):** regenerated from the 11-state CSV (TX added).
+//
 // **2026-09-24 (California):** each entry also carries `topicKey`, from the
 // CSV's new `topic_key` column -- one key per topic cluster across states
 // (normalizing id drift like `landlords-access` vs `landlord-entry-ca`), so a
@@ -5338,6 +5340,679 @@ const LANDLORD_EDUCATION = [
     bodyText:
       "If a former tenant's deposit refund goes unclaimed - for example, the refund check is never cashed and the tenant cannot be found - the amount is presumed abandoned 3 years after the tenant's right to demand it arose, unless the tenant has communicated with you about it in the meantime. Your record of issuing the refund check is itself evidence that you owe the money. You then hold it as unclaimed property and must report it and pay it to the State rather than keep it: the report is due before November 1 each year, covers the 12 months before July 1, and is filed and paid electronically through the State's portal unless you obtain a waiver. If you have a usable mailing address and the amount is $50 or more, you must first send the former tenant written notice, 60 to 120 days before filing (also by email if they agreed to email delivery), and file an affidavit that you did. You may deduct a dormancy charge only if a written contract with the tenant allows it and you regularly impose the charge, and never more than $5 a month. You remain responsible for the report even if someone else prepares it.",
     notes: "NV: NRS 120A.500(1)(q) (\"All other property, 3 years after the owner's right to demand the property or after the obligation to pay or distribute the property arises, whichever first occurs\") - text seen on the revisor's ch. 120A page via search excerpt, consistent with the Justia 2025 copy; 120A.500(3) defines \"unclaimed\" as no communication with the holder. Duty to deliver: NRS 120A.570(1) (Justia 2013 text: holder \"shall pay, deliver or cause to be paid or delivered to the Administrator\"). NOT READ: NRS 120A.560 (report timing and contents), 120A.540 (dormancy charge - the body says only that the Act regulates it), 120A.580-.590. Body therefore states no deadline and no dormancy limit. Parity with edu-unclaimed-deposit-holder-duties-nd and edu-deposit-escheat-ca. TOPIC-KEY INCONSISTENCY FLAGGED: ND uses \"unclaimed-deposit-holder-duties\", CA uses \"deposit-escheat\" for the same topic; NV follows CA. | NV (revisor text supplied by Taylor 2026-09-24): NRS 120A.540 (Added 2007, 759 - never amended), 120A.550 (Added 2007, 759), 120A.560 (Added 2007, 759; A 2019, 3016; 2023, 1056) now READ - the earlier \"NOT READ\" limits are lifted and the body now states the deadline, notice, filing and dormancy rules. 120A.560(7): report before Nov 1, covering the 12 months preceding July 1 (insurers differ, (8)). (9)-(11): owner notice 60-120 days before filing if a valid mailing address and value >= $50; also by email where the owner consented to email delivery. (13): affidavit of compliance. (14)-(15): electronic filing and payment via the Administrator's portal unless waived for good cause. (12): extensions for good cause. (3): holder stays responsible even if it contracts out the report. (3)(c): penalties, interest and fees under NRS 120A.730 - NOT read, so the body states no penalty amount. 120A.540: dormancy charge only under a valid written contract AND a regularly imposed, not regularly reversed charge; max $5/month. DRAFTING HOOK (candidate row 427.3): a lease clause could supply the \"written contract\" limb - noted, not built; a landlord that does not regularly impose the charge could not use it anyway. 120A.550: a record of issuing a check is prima facie evidence of the obligation; payment is the holder's affirmative defense.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-late-fee-rules-tx",
+    title: "Texas Late Fee Rules",
+    group: "Rent & Payment",
+    states: ["TX"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "late-fee",
+    bodyText:
+      "You may collect a late fee only if (1) notice of the fee is in a written lease, (2) the fee is reasonable, and (3) any portion of the rent has remained unpaid two full days after the date it was originally due. A fee is reasonable if it is not more than 12% of the rent for the rental period in a structure with four or fewer units, or 10% in a structure with more than four units. A higher fee is still reasonable if it is not more than your uncertain damages from late payment (direct or indirect expenses, costs, or collection overhead) - but you would have to prove that. An initial fee plus daily fees count together as one late fee. Charging a fee that breaks these rules costs you $100 plus three times the fee collected plus the tenant's attorney's fees, and a lease term waiving these rules is void. On request, you must tell a tenant in writing whether a late fee is owed and how much, using the communication method you normally use.",
+    notes: "TX: Tex. Prop. Code ch. 92 read in full, section-open, 2026-09-25 (Justia '2025 Texas Statutes' host copy supplied by Taylor; per-section history lines checked - latest amendments 89th Leg., R.S. (2025); CONFIRMED 2026-09-25 against the official statutes.capitol.texas.gov ch. 92 page supplied by Taylor: no 1st or 2nd called-session amendment; text matches section for section - TX log s14). ss92.019, 92.0191 (S.B. 1414, 2019). Companion to late-fee-safe-harbor-tx.",
+  },
+  // Security Deposit
+  {
+    id: "edu-security-deposit-rules-tx",
+    title: "Texas Security Deposit Rules",
+    group: "Security Deposit",
+    states: ["TX"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-rules",
+    bodyText:
+      "A security deposit is any advance of money, other than a rental application deposit or advance rent, intended primarily to secure performance under the lease. Refund it within 30 days after the tenant surrenders the unit, with a written itemized list of deductions (not needed if the tenant owes rent and the amount is undisputed). You may deduct damages and charges the tenant is legally liable for, never normal wear and tear. Your duty waits for the tenant's written forwarding address, but the tenant never forfeits the deposit for failing to give one. A refund or accounting postmarked by the deadline counts as on time. Missing the 30-day deadline creates a presumption of bad faith; bad-faith retention costs $100 plus three times the amount wrongfully withheld plus attorney's fees, and bad-faith failure to itemize forfeits your right to keep any of the deposit and to sue for damage. Keep accurate deposit records. A requirement that the tenant give advance notice of move-out as a condition of refund works only if it is underlined or in conspicuous bold in the lease. A tenant may not withhold the last month's rent against the deposit (treble rent if in bad faith). If a tenant fails to move in and a satisfactory replacement tenant occupies by the start date, you may keep only an agreed lease cancellation fee or your actual re-letting expenses. A new owner is liable for deposits from the date of acquiring title and must give each tenant a signed statement acknowledging responsibility and stating the exact deposit amount; the seller stays liable until the buyer receives or assumes the deposits (a foreclosing mortgage lender is excepted). If you took no deposit, you must notify the tenant in writing of any damage claim before reporting it to a credit bureau or debt collector, or you forfeit the claim. Deposit notices may go by e-mail if you have previously e-mailed with the tenant. None of these duties can be waived.",
+    notes: "TX: Tex. Prop. Code ch. 92 read in full, section-open, 2026-09-25 (Justia '2025 Texas Statutes' host copy supplied by Taylor; per-section history lines checked - latest amendments 89th Leg., R.S. (2025); CONFIRMED 2026-09-25 against the official statutes.capitol.texas.gov ch. 92 page supplied by Taylor: no 1st or 2nd called-session amendment; text matches section for section - TX log s14). ss92.101-.113, 92.001(4), 92.006(a). s92.105(b)-(b-1) (S.B. 1367, eff. Jan. 1, 2016); s92.110 (same Act); ss92.112-.113 (H.B. 2037, eff. Sept. 1, 2025). Deceased tenant's deposit: s92.014 (edu-deceased-tenant-tx). | Unclaimed refunds: edu-unclaimed-deposit-escheat-tx (three-year presumption, July 1 report and delivery).",
+  },
+  {
+    id: "edu-no-deposit-cap-or-interest-tx",
+    title: "No Deposit Cap or Interest Requirement in Chapter 92",
+    group: "Security Deposit",
+    states: ["TX"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-cap",
+    bodyText:
+      "Chapter 92 of the Texas Property Code, which contains Texas's security deposit law, sets no maximum amount for a security deposit and does not require you to pay interest on it or hold it in a separate or interest-bearing account. This finding is limited to Chapter 92; local rules and other state codes have not been checked.",
+    notes: "TX: Tex. Prop. Code ch. 92 read in full, section-open, 2026-09-25 (Justia '2025 Texas Statutes' host copy supplied by Taylor; per-section history lines checked - latest amendments 89th Leg., R.S. (2025); CONFIRMED 2026-09-25 against the official statutes.capitol.texas.gov ch. 92 page supplied by Taylor: no 1st or 2nd called-session amendment; text matches section for section - TX log s14). CONFIRMED ABSENCE, BOUNDED (L.7): Subch. C (ss92.101-.113) read in full - no cap, no interest, no segregation. Evidentiary basis: full primary-text read of the governing subchapter and the whole chapter. Boundary: ch. 92 only; other codes and municipal ordinances not searched; the claim is about ch. 92 and nothing beyond it.",
+  },
+  // Access & Entry
+  {
+    id: "edu-no-entry-notice-statute-tx",
+    title: "No Entry-Notice Statute in Chapter 92",
+    group: "Access & Entry",
+    states: ["TX"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-entry",
+    bodyText:
+      "Chapter 92 of the Texas Property Code contains no rule on when or with how much notice a landlord may enter a rented dwelling. Your right of entry comes from the lease, so state it there. This finding is limited to Chapter 92; other state codes and local rules have not been checked.",
+    notes: "TX: Tex. Prop. Code ch. 92 read in full, section-open, 2026-09-25 (Justia '2025 Texas Statutes' host copy supplied by Taylor; per-section history lines checked - latest amendments 89th Leg., R.S. (2025); CONFIRMED 2026-09-25 against the official statutes.capitol.texas.gov ch. 92 page supplied by Taylor: no 1st or 2nd called-session amendment; text matches section for section - TX log s14). CONFIRMED ABSENCE, BOUNDED (L.7): ch. 92 read in full - no entry-notice or access provision (s92.0081 governs lockouts, not entry). Boundary: ch. 92 only. Common law and other codes not searched; no claim is made about them.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-repair-duty-tx",
+    title: "Texas Repair Duty and Tenant Remedies",
+    group: "Landlord Responsibilities",
+    states: ["TX"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-maintenance",
+    bodyText:
+      "You must make a diligent effort to repair a condition that materially affects the physical health or safety of an ordinary tenant (or a failure to keep hot water at 120 degrees Fahrenheit) once the tenant gives notice to the person or place where rent is normally paid and is not behind on rent. You have no duty during the lease to repair conditions caused by the tenant, an occupant, family, or guests, other than normal wear and tear. Seven days is presumed reasonable. If you do not give a written explanation for delay within five days of the tenant's written demand, you bear the burden of proving diligence. Repair-and-deduct is limited to the greater of one month's rent or $500 per month and has condition-specific waiting periods: none for sewage backup or flooding inside the unit, three days for a total loss of water you agreed to furnish, or for inadequate heating or cooling that a local official has certified in writing affects health or safety; seven days for other conditions a local official has certified in writing. You can delay a tenant's repair with a sworn affidavit for 15 days (parts delay) or 30 days (post-disaster labor or material shortage), up to six months total. Court remedies include repair orders, rent reduction, one month's rent plus $500, actual damages, and fees; knowingly contracting to waive the repair duty costs one month's rent plus $2,000. The duty cannot be waived except by the specific bold or underlined agreements the statute allows (tenant repairs at your expense; a tenant paying for drain stoppages from foreign objects, door/window/screen damage and windows left open; or a full shift only if you own a single rental dwelling that is defect-free at lease start). The lease must tell the tenant of these remedies in bold or underlined print. After an insured casualty the repair period starts when you receive insurance proceeds. If a natural disaster makes the unit unusable and you move the tenant to another of your units, you cannot require a longer term than was left on the old lease. If a city revokes the certificate of occupancy because you failed to maintain the property, you owe a non-defaulting tenant the full deposit, prepaid rent, moving and other actual damages, and fees. You may close a unit by certified-mail notice to the tenant and local officials, but after a repair notice you must pay moving expenses and refund rent pro rata.",
+    notes: "TX: Tex. Prop. Code ch. 92 read in full, section-open, 2026-09-25 (Justia '2025 Texas Statutes' host copy supplied by Taylor; per-section history lines checked - latest amendments 89th Leg., R.S. (2025); CONFIRMED 2026-09-25 against the official statutes.capitol.texas.gov ch. 92 page supplied by Taylor: no 1st or 2nd called-session amendment; text matches section for section - TX log s14). ss92.051-.062, 92.006(c)-(f), 92.023, 92.0563(b). s92.0563 justice-court cap $20,000 (Acts 2023, 88th Leg., S.B. 1259 / H.B. 3474, eff. Sept. 1, 2023). s92.061: Subch. B is in lieu of common-law habitability and nonretaliation warranties. Landlord remedy for bad-faith tenant repair/withholding after written warning: s92.058.",
+  },
+  // Default & Termination
+  {
+    id: "edu-lockout-utility-rules-tx",
+    title: "Lockouts, Utility Cutoffs, and Removal of Fixtures",
+    group: "Default & Termination",
+    states: ["TX"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "self-help-eviction",
+    bodyText:
+      "You may not cut off a utility the tenant pays for directly, or one you furnish, except for bona fide repairs, construction, or an emergency (the only exception is interrupting submetered or allocated electricity for nonpayment, under strict notice, weather, medical, and reconnection rules and only if the lease allows it). Violations let the tenant recover possession or terminate, plus actual damages, one month's rent plus $1,000, and fees, and the tenant can get an ex parte writ restoring service. You may not remove doors, windows, locks, or furnished appliances except for prompt bona fide repair. You may lock a tenant out of the unit (never common areas) only by judicial process, for repairs or emergencies, to remove an abandoned tenant's contents, or by changing the locks for delinquent rent if the lease allows it. A rent lockout needs advance written notice (mailed at least 5 days, or hand-delivered or posted inside the main door at least 3 days, before) stating the earliest date, the amount to pay, where to pay, and, underlined or in bold, the tenant's right to a new key at any hour. On the day of the change you must post a notice on the front door with a 24-hour key location or phone number (key delivered within two hours) and the amount owed. You must give the key whether or not the tenant pays; cannot change locks while anyone lawful is inside, more than once per rental period, or when no one is available to take payment. Violations: possession or termination plus one month's rent plus $1,000, actual damages, costs and fees; refusing the key adds another month's rent. The tenant can get an ex parte writ of reentry. A lease term waiving any of this is void.",
+    notes: "TX: Tex. Prop. Code ch. 92 read in full, section-open, 2026-09-25 (Justia '2025 Texas Statutes' host copy supplied by Taylor; per-section history lines checked - latest amendments 89th Leg., R.S. (2025); CONFIRMED 2026-09-25 against the official statutes.capitol.texas.gov ch. 92 page supplied by Taylor: no 1st or 2nd called-session amendment; text matches section for section - TX log s14). ss92.008, 92.0081, 92.009, 92.0091 (K.1 eviction-adjacent screen). Contempt enforcement via Gov't Code s21.002 (not read). Bad-faith tenant reentry/restoration complaint: landlord recovers the greater of one month's rent or $500 plus damages and fees (ss92.009(k), 92.0091(j)).",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-security-device-duties-tx",
+    title: "Texas Security Device Duties",
+    group: "Landlord Responsibilities",
+    states: ["TX"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-devices",
+    bodyText:
+      "Without being asked, you must equip each unit with window latches on exterior windows; a doorknob lock or keyed dead bolt on each exterior door; a pin lock and a handle latch or security bar on each exterior sliding glass door; and a keyless bolting device and a door viewer on each exterior door, at your expense, operable throughout the tenancy. French doors and certain dead bolt configurations have their own rules, and bolt heights, strike plates, and throws are specified. You must rekey key, card, or combination devices within seven days after each new tenant moves in, at your expense. Tenant requests to rekey or add devices are at the tenant's expense and must be completed within a reasonable time, presumed seven days, or 72 hours if the tenant reports a recent break-in or violent crime at the complex. You may charge tenants only for misuse (and only with an underlined lease provision), never for normal wear and tear, and never more than third-party cost. If you fail to comply, the tenant may install and deduct, terminate, and sue for actual and punitive damages, one month's rent plus $500, and fees. The keyless bolting device may be omitted in some senior or disability housing, or at a qualifying tenant's separate written request. These duties replace local ordinances (except certain pre-1993 ones) and cannot be waived.",
+    notes: "TX: Tex. Prop. Code ch. 92 read in full, section-open, 2026-09-25 (Justia '2025 Texas Statutes' host copy supplied by Taylor; per-section history lines checked - latest amendments 89th Leg., R.S. (2025); CONFIRMED 2026-09-25 against the official statutes.capitol.texas.gov ch. 92 page supplied by Taylor: no 1st or 2nd called-session amendment; text matches section for section - TX log s14). ss92.151-.170. Lease-side rows: security-devices-tx, keys-tx. s92.153(f) request not to install must be a separate document, not part of the lease - a LAYOUT prohibition (TX log s5). Defenses for rent delinquency: ss92.1641, 92.167.",
+  },
+  {
+    id: "edu-smoke-alarm-duties-tx",
+    title: "Texas Smoke Alarm Duties",
+    group: "Landlord Responsibilities",
+    states: ["TX"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "alarm-duties",
+    bodyText:
+      "You must install at least one smoke alarm in each bedroom, one in the corridor serving multiple bedrooms, one on each level, and one inside a studio's single room. Alarms must detect visible and invisible combustion products, be audible in the bedrooms served, and be listed by UL or a named testing lab; on request as a disability accommodation, they must also alert a hearing-impaired person. Units first occupied or certified before September 1, 2011 may use battery power and need not be interconnected, but a replacement must meet the code that applied when the unit was first occupied. Mount on the ceiling at least six inches from a wall, or on a wall six to twelve inches below the ceiling, unless local officials approve otherwise. Test at move-in. During the lease you must inspect and repair only when the tenant reports a problem or asks, within a reasonable time; you become liable if you have not done so by the seventh day after the tenant's written notice that remedies may be pursued. You need not supply batteries after move-in if the alarm worked when the tenant moved in. Failure exposes you to a court order, damages, one month's rent plus $100, fees, and lease termination; a tenant who is behind on rent cannot use these remedies. If you have installed a residential fire extinguisher, inspect it at move-in and within a reasonable time after a written request, and repair or replace it at your expense if it is faulty or was used legitimately. Owner-occupied units, units in buildings five or more stories where local ordinance regulates alarms, and licensed nursing homes are exempt.",
+    notes: "TX: Tex. Prop. Code ch. 92 read in full, section-open, 2026-09-25 (Justia '2025 Texas Statutes' host copy supplied by Taylor; per-section history lines checked - latest amendments 89th Leg., R.S. (2025); CONFIRMED 2026-09-25 against the official statutes.capitol.texas.gov ch. 92 page supplied by Taylor: no 1st or 2nd called-session amendment; text matches section for section - TX log s14). ss92.251-.264. Alternative compliance through Ins. Code ch. 6002 or H&S Code ch. 766 (s92.2571) - unread dependencies. Local ordinances may add fire-code requirements (s92.252(a)(2)); battery-to-AC retrofit limits (s92.252(b)). Guest/invitee damages both ways (s92.2611(f)). Lease-side row: smoke-alarm-tx.",
+  },
+  // Default & Termination
+  {
+    id: "edu-early-termination-rights-tx",
+    title: "Tenant's Statutory Early Termination Rights",
+    group: "Default & Termination",
+    states: ["TX"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "early-termination-statutory-rights",
+    bodyText:
+      "Tenants may end a lease early and avoid future rent in four situations. Family violence: the tenant provides a protective order (or documentation from a licensed health care or mental health provider or a family violence advocate) and gives 30 days' written notice, then moves out; where the abuser is a cotenant or occupant, no 30-day notice is needed. Certain sexual offenses or stalking in the prior six months: the tenant provides specified documentation (for stalking on the premises, a protective order or provider documentation plus a police report), gives 30 days' written notice, and moves out; a parent or guardian must live with the victim; you may not disclose the information except for a legitimate business purpose or as the law requires. Military service: a tenant entering service, or receiving permanent-change-of-station or 90-day-plus deployment orders, may terminate by written notice with orders; termination takes effect 30 days after the next rent due date (monthly leases) and you must refund prepaid rent within 30 days; a waiver is allowed only in a separate signed document for moves to base housing within 30 miles. Sole-occupant tenant's death: the estate's representative may terminate on 30 days' written notice after removing the property. Violations cost actual damages, one month's rent plus $500, and fees. If your lease lacks the required statement about these rights, a tenant using the family-violence, sexual-offense/stalking, or military right is released from all delinquent rent.",
+    notes: "TX: Tex. Prop. Code ch. 92 read in full, section-open, 2026-09-25 (Justia '2025 Texas Statutes' host copy supplied by Taylor; per-section history lines checked - latest amendments 89th Leg., R.S. (2025); CONFIRMED 2026-09-25 against the official statutes.capitol.texas.gov ch. 92 page supplied by Taylor: no 1st or 2nd called-session amendment; text matches section for section - TX log s14). ss92.016, 92.0161, 92.017, 92.0162, 92.006(g). L.5 DEPENDENCIES NOT READ: Fam. Code s71.004 (family violence), s93.001 (advocate), ch. 6 Subch. F, chs. 83, 85; Code Crim. Proc. art. 17.292, ch. 7B, arts. 58.001/58.152; Penal Code ss21.02, 21.11, 22.011, 22.021, 42.072, 43.25, 15.01; Gov't Code ch. 420. s92.017(a) incorporates '50 App. U.S.C. Section 511' - the pre-2015 SCRA codification (now 50 U.S.C. s3911) - a stale federal cross-reference in the Texas text, recorded not resolved. s92.0161 last amended by H.B. 47 (2025). Lease-side row: early-termination-rights-statement-tx.",
+  },
+  // Notices & General
+  {
+    id: "edu-deceased-tenant-tx",
+    title: "When a Tenant Dies",
+    group: "Notices & General",
+    states: ["TX"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-death-of-tenant",
+    bodyText:
+      "You may ask a tenant in writing for an emergency contact and a signed authorization to let that person in, remove property, and receive the deposit refund if the tenant dies. If a sole-occupant tenant dies, you may remove and store the property, must release it and refund the deposit (less lawful deductions, including removal and storage costs) to the designated or legally entitled person, and may discard it only after mailing a certified-mail request and waiting 30 days with no claim. The lease can set a different procedure. The estate's representative may terminate the lease on 30 days' written notice once the property is removed, and on written request you must give that person a copy of the lease; the estate remains liable for rent and damages before termination.",
+    notes: "TX: Tex. Prop. Code ch. 92 read in full, section-open, 2026-09-25 (Justia '2025 Texas Statutes' host copy supplied by Taylor; per-section history lines checked - latest amendments 89th Leg., R.S. (2025); CONFIRMED 2026-09-25 against the official statutes.capitol.texas.gov ch. 92 page supplied by Taylor: no 1st or 2nd called-session amendment; text matches section for section - TX log s14). ss92.014, 92.0162 (H.B. 69, eff. Jan. 1, 2020). Entry-facilitation immunity s92.0162(e).",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-summon-police-tx",
+    title: "Tenant's Right to Summon Police",
+    group: "Compliance & Prohibited Terms",
+    states: ["TX"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "emergency-assistance-right",
+    bodyText:
+      "You may not prohibit or limit a tenant's right to call police or emergency assistance based on a reasonable belief that someone needs help, or penalize the tenant for doing so. A lease provision waiving this right is void. Violations cost a civil penalty of one month's rent (fair market rent if subsidized), actual damages, costs, injunctive relief, and attorney's fees.",
+    notes: "TX: Tex. Prop. Code ch. 92 read in full, section-open, 2026-09-25 (Justia '2025 Texas Statutes' host copy supplied by Taylor; per-section history lines checked - latest amendments 89th Leg., R.S. (2025); CONFIRMED 2026-09-25 against the official statutes.capitol.texas.gov ch. 92 page supplied by Taylor: no 1st or 2nd called-session amendment; text matches section for section - TX log s14). s92.015 (Amended by Acts 2017, 85th Leg., R.S., Ch. 337 (H.B. 1099), eff. Sept. 1, 2017). CA's emergency-assistance-right-ca not tagged TX: it is REQUIRED and CA-scoped; Texas voids waivers but mandates no lease clause.",
+  },
+  {
+    id: "edu-retaliation-tx",
+    title: "Texas Retaliation Rules",
+    group: "Compliance & Prohibited Terms",
+    states: ["TX"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "retaliation",
+    bodyText:
+      "For six months after a tenant in good faith exercises a legal right, gives a repair notice, complains to a code agency or utility, or organizes or joins a tenant organization, you may not file an eviction, deprive the tenant of the premises, cut services, raise rent, terminate the lease, or harass the tenant because of it. You are protected if you prove a non-retaliatory reason, for rent increases under a written escalation clause for utilities, taxes, or insurance, and for project-wide increases. Delinquent rent, intentional damage or threats, material breach such as serious misconduct or criminal acts, and certain holdovers are always valid grounds. Retaliation costs one month's rent plus $500, actual damages, costs, and fees, and is a defense to eviction. A tenant who sues in bad faith owes you one month's rent plus $500, costs, and fees.",
+    notes: "TX: Tex. Prop. Code ch. 92 read in full, section-open, 2026-09-25 (Justia '2025 Texas Statutes' host copy supplied by Taylor; per-section history lines checked - latest amendments 89th Leg., R.S. (2025); CONFIRMED 2026-09-25 against the official statutes.capitol.texas.gov ch. 92 page supplied by Taylor: no 1st or 2nd called-session amendment; text matches section for section - TX log s14). ss92.331-.335 (redesignated 1995; s92.331 amended S.B. 630, eff. Jan. 1, 2014).",
+  },
+  {
+    id: "edu-rental-application-tx",
+    title: "Rental Applications and Screening Notice",
+    group: "Compliance & Prohibited Terms",
+    states: ["TX"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "application-fees",
+    bodyText:
+      "When you give an applicant an application, you must make available printed notice of your tenant selection criteria and grounds for denial (criminal, rental, and credit history, current income, and inaccurate or incomplete information), and have the applicant sign an acknowledgment containing the statutory statement; it may be part of the application only if the notice is underlined or bold. If you reject an applicant without having made the notice available, you must refund the application fee and any deposit. An applicant not accepted within seven days after submitting a completed application (or after you accept an application deposit without a form) is deemed rejected, and rejecting one co-applicant rejects all. Notice of acceptance or rejection is presumed given by phone or by postmarked mail by the deadline. Bad-faith failure to refund costs $100 plus three times the amount retained plus fees, and any application term waiving these rules is void.",
+    notes: "TX: Tex. Prop. Code ch. 92 read in full, section-open, 2026-09-25 (Justia '2025 Texas Statutes' host copy supplied by Taylor; per-section history lines checked - latest amendments 89th Leg., R.S. (2025); CONFIRMED 2026-09-25 against the official statutes.capitol.texas.gov ch. 92 page supplied by Taylor: no 1st or 2nd called-session amendment; text matches section for section - TX log s14). ss92.351-.355 (s92.3515 added by H.B. 3101, eff. Jan. 1, 2008). LAYOUT requirement on the APPLICATION, not the lease: s92.3515(d). Fair-housing screening limits await ch. 301.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-occupancy-limit-tx",
+    title: "Texas Occupancy Limit",
+    group: "Rules & Regulations",
+    states: ["TX"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "occupancy-limit",
+    bodyText:
+      "You may not allow more than three adults (18 or older) per bedroom to occupy a dwelling, unless a fair housing law requires more or an adult is seeking temporary sanctuary from family violence for up to one month. Kitchens, dining and living rooms, bathrooms, utility rooms, closets, and storage areas are not bedrooms. Neighbors within 3,000 feet, or a government entity or civic association on their behalf, can sue to stop a violation and recover $500 per violation plus costs and fees.",
+    notes: "TX: Tex. Prop. Code ch. 92 read in full, section-open, 2026-09-25 (Justia '2025 Texas Statutes' host copy supplied by Taylor; per-section history lines checked - latest amendments 89th Leg., R.S. (2025); CONFIRMED 2026-09-25 against the official statutes.capitol.texas.gov ch. 92 page supplied by Taylor: no 1st or 2nd called-session amendment; text matches section for section - TX log s14). s92.010 (Added by Acts 1993; amended 2003). References Fam. Code s71.004 (unread).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-cash-payments-tx",
+    title: "Cash Rent Payments",
+    group: "Rent & Payment",
+    states: ["TX"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "cash-rent-receipt",
+    bodyText:
+      "You must accept a tenant's timely cash rent unless a written lease requires payment by check, money order, or another traceable or negotiable instrument. When you accept cash you must give a written receipt and record the date and amount in a record book. A tenant, or a government entity or civic association, can sue to stop violations; the tenant recovers the greater of one month's rent or $500 per violation, plus costs and fees.",
+    notes: "TX: Tex. Prop. Code ch. 92 read in full, section-open, 2026-09-25 (Justia '2025 Texas Statutes' host copy supplied by Taylor; per-section history lines checked - latest amendments 89th Leg., R.S. (2025); CONFIRMED 2026-09-25 against the official statutes.capitol.texas.gov ch. 92 page supplied by Taylor: no 1st or 2nd called-session amendment; text matches section for section - TX log s14). s92.011. Whether an electronic-only method list satisfies 'traceable or negotiable instrument' is unresolved - drafted around in acceptable-payment-methods-tx.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-firearms-tx",
+    title: "Firearms on Leased Premises",
+    group: "Rules & Regulations",
+    states: ["TX"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "firearms",
+    bodyText:
+      "Unless state or federal law prohibits it on your property, you may not prohibit a tenant or guest from lawfully possessing, carrying, transporting, or storing a firearm, firearm part, or ammunition in the unit, in a vehicle in tenant or guest parking, or in other areas you control as needed to get into or out of the unit, the property, or a vehicle.",
+    notes: "TX: Tex. Prop. Code ch. 92 read in full, section-open, 2026-09-25 (Justia '2025 Texas Statutes' host copy supplied by Taylor; per-section history lines checked - latest amendments 89th Leg., R.S. (2025); CONFIRMED 2026-09-25 against the official statutes.capitol.texas.gov ch. 92 page supplied by Taylor: no 1st or 2nd called-session amendment; text matches section for section - TX log s14). s92.026 (H.B. 302, eff. Sept. 1, 2019). No TX-tagged row restricts firearms (checked 2026-09-25). The statute states no remedy; not researched further.",
+  },
+  // Notices & General
+  {
+    id: "edu-lease-copy-tx",
+    title: "Giving the Tenant a Copy of the Lease",
+    group: "Notices & General",
+    states: ["TX"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lease-copy-duty",
+    bodyText:
+      "Within three business days after every party signs, you must give at least one tenant a complete copy of the lease; any other tenant on the lease who asks in writing must get one within three business days. Paper, electronic (if the tenant asks), or e-mail (if you have e-mailed about the lease) all work. Failing to do so does not invalidate the lease, but a court must pause your non-rent enforcement action until you provide the copy.",
+    notes: "TX: Tex. Prop. Code ch. 92 read in full, section-open, 2026-09-25 (Justia '2025 Texas Statutes' host copy supplied by Taylor; per-section history lines checked - latest amendments 89th Leg., R.S. (2025); CONFIRMED 2026-09-25 against the official statutes.capitol.texas.gov ch. 92 page supplied by Taylor: no 1st or 2nd called-session amendment; text matches section for section - TX log s14). s92.024 (S.B. 630, eff. Jan. 1, 2014). MN's lease-copy-receipt-mn not tagged: an at-signing receipt acknowledgment is not the Texas duty.",
+  },
+  // Disclosures
+  {
+    id: "edu-owner-disclosure-tx",
+    title: "Disclosure of Ownership and Management",
+    group: "Disclosures",
+    states: ["TX"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "owner-identity-disclosure",
+    bodyText:
+      "On a tenant's or government official's request you must disclose the record owner's name and a street or P.O. box address, and, if an off-site company primarily manages the dwelling, its name and street address, within seven days (in writing or by continuous posting), and keep the information current. Putting it in the lease or written rules before any request satisfies the duty. Liability arises only after a further written notice giving you seven days; willful misstatement is bad faith. Remedies include a court order, the tenant's discovery costs, one month's rent plus $100, fees, and lease termination. A tenant behind on rent cannot use the request remedies. A management company named in writing to the tenant becomes your sole agent for service of process; otherwise your manager or rent collector is, unless your own name and business street address were given to the tenant.",
+    notes: "TX: Tex. Prop. Code ch. 92 read in full, section-open, 2026-09-25 (Justia '2025 Texas Statutes' host copy supplied by Taylor; per-section history lines checked - latest amendments 89th Leg., R.S. (2025); CONFIRMED 2026-09-25 against the official statutes.capitol.texas.gov ch. 92 page supplied by Taylor: no 1st or 2nd called-session amendment; text matches section for section - TX log s14). ss92.201-.208, 92.003. Lease-side row: owner-management-disclosure-tx.",
+  },
+  // Parking & Storage
+  {
+    id: "edu-parking-towing-rules-tx",
+    title: "Parking and Towing Rules in Multiunit Properties",
+    group: "Parking & Storage",
+    states: ["TX"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "parking-rules-notice",
+    bodyText:
+      "In a multiunit complex, if you have towing or parking rules at lease signing, give the tenant a copy before signing, signed by the tenant or included in the signed lease or a signed attachment the lease refers to; in the lease the paragraph title must read \"Parking\" or \"Parking Rules\" and be capitalized, underlined, or bold. Mid-lease changes need written notice (you bear the burden of proving receipt), must be based on necessity, safety, construction, or other tenants' parking rights (or the tenant's written consent), and cannot take effect for 14 days except in a construction or utility emergency. You may require only a vehicle's make, model, color, year, license number, and state of registration. Parking permits must run for the full lease term. You are liable for damage caused by an uninsured towing company you contracted with. Violations cost $100 plus towing and storage costs, with fees to the prevailing party. Other rule changes affecting a tenant's property outside the unit also need prior written notice.",
+    notes: "TX: Tex. Prop. Code ch. 92 read in full, section-open, 2026-09-25 (Justia '2025 Texas Statutes' host copy supplied by Taylor; per-section history lines checked - latest amendments 89th Leg., R.S. (2025); CONFIRMED 2026-09-25 against the official statutes.capitol.texas.gov ch. 92 page supplied by Taylor: no 1st or 2nd called-session amendment; text matches section for section - TX log s14). ss92.0131, 92.0132, 92.013. Towing lawfulness: Occ. Code ch. 2308 (read 2026-09-25) - edu-private-property-towing-tx.",
+  },
+  // Default & Termination
+  {
+    id: "edu-guarantor-renewal-tx",
+    title: "Guarantors Are Bound Only for the Original Term",
+    group: "Default & Termination",
+    states: ["TX"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "guarantor-renewal",
+    bodyText:
+      "A guarantor who is not a tenant is liable only for the original lease term unless the original lease states the last date on which a renewal will renew the guarantor's obligation, that the guarantor is liable for a renewal on or before that date, and that the guarantor is liable only if the renewal involves the same parties and does not increase the guarantor's potential rent obligation. A guarantor may separately agree in writing at renewal to guarantee a higher rent.",
+    notes: "TX: Tex. Prop. Code ch. 92 read in full, section-open, 2026-09-25 (Justia '2025 Texas Statutes' host copy supplied by Taylor; per-section history lines checked - latest amendments 89th Leg., R.S. (2025); CONFIRMED 2026-09-25 against the official statutes.capitol.texas.gov ch. 92 page supplied by Taylor: no 1st or 2nd called-session amendment; text matches section for section - TX log s14). s92.021 (H.B. 534, eff. Jan. 1, 2010). No guaranty clause exists in the library; a guaranty-renewal clause is a candidate if Taylor wants one (TX log s4).",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-landlord-paid-utility-cutoff-tx",
+    title: "If You Pay the Utilities and Fall Behind",
+    group: "Landlord Responsibilities",
+    states: ["TX"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utility-shutoff-statute",
+    bodyText:
+      "If the lease says you furnish and pay for water, gas, or electricity and the utility cuts or threatens to cut service for your nonpayment, the tenant may pay the utility and deduct it from rent, terminate on 30 days' written notice, apply the deposit to rent, recover prepaid rent, actual damages (moving, reconnection, storage, lost wages), costs, and fees. The remedies end if you show written proof of full payment before the tenant terminates or sues. For a master-metered, non-submetered property of 10 or more units, you must notify each tenant in English and Spanish within five days of receiving a disconnection notice, and notify the city by certified mail.",
+    notes: "TX: Tex. Prop. Code ch. 92 read in full, section-open, 2026-09-25 (Justia '2025 Texas Statutes' host copy supplied by Taylor; per-section history lines checked - latest amendments 89th Leg., R.S. (2025); CONFIRMED 2026-09-25 against the official statutes.capitol.texas.gov ch. 92 page supplied by Taylor: no 1st or 2nd called-session amendment; text matches section for section - TX log s14). ss92.301-.302 (Subch. G; non-waivable, s92.006(a)).",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-governmental-fines-tx",
+    title: "Passing Government Fines to Tenants",
+    group: "Compliance & Prohibited Terms",
+    states: ["TX"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "governmental-fines",
+    bodyText:
+      "You may not charge a tenant for a fine a government entity imposed on you unless the tenant or another occupant actually caused the damage or condition the fine is based on.",
+    notes: "TX: Tex. Prop. Code ch. 92 read in full, section-open, 2026-09-25 (Justia '2025 Texas Statutes' host copy supplied by Taylor; per-section history lines checked - latest amendments 89th Leg., R.S. (2025); CONFIRMED 2026-09-25 against the official statutes.capitol.texas.gov ch. 92 page supplied by Taylor: no 1st or 2nd called-session amendment; text matches section for section - TX log s14). s92.018 (S.B. 399, 2005; renumbered 2007). Association fines are not governmental (hoa-compliance tagged TX).",
+  },
+  {
+    id: "edu-non-waivable-terms-tx",
+    title: "Lease Terms Texas Voids",
+    group: "Compliance & Prohibited Terms",
+    states: ["TX"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "prohibited-lease-terms",
+    bodyText:
+      "These cannot be waived in a Texas lease: security deposit, security device, ownership-disclosure, and utility-cutoff duties and remedies; the duty to install smoke alarms (the duty to inspect and repair them may be waived only in writing); the repair duty (except the specific bold or underlined tenant-repair agreements the statute allows); the family violence and military termination rights; and the tenant's right to a jury trial in an action under Chapter 92. The landlord's duty to mitigate damages when a tenant abandons, and the residential landlord's lien protections and exemptions, also cannot be waived. Terms waiving the utility-interruption, lockout, late-fee, summon-police, and rental-application rules are void. A lease term diverting an unclaimed deposit to you to avoid the state's unclaimed-property process is prohibited. In an apartment complex, lease terms that conflict with the state towing rules for apartment parking are void. Enlarging your security-device, disclosure, or smoke-alarm duties requires a specific written agreement.",
+    notes: "TX: Tex. Prop. Code ch. 92 read in full, section-open, 2026-09-25 (Justia '2025 Texas Statutes' host copy supplied by Taylor; per-section history lines checked - latest amendments 89th Leg., R.S. (2025); CONFIRMED 2026-09-25 against the official statutes.capitol.texas.gov ch. 92 page supplied by Taylor: no 1st or 2nd called-session amendment; text matches section for section - TX log s14). s92.006(a)-(h) (jury-trial bar (h) added by S.B. 1367, eff. Jan. 1, 2016); per-section voids ss92.008(g), 92.0081(j), 92.015(b), 92.019(d), 92.355; ss92.016(g), 92.0161(h), 92.017(i). Mitigation-waiver bar: s91.006(b). Lien-protection waiver bar: s54.043(b). Water submetering/allocation waiver bar: 16 TAC s24.279(e). | Towing: Tex. Occ. Code §2308.253(g) (leases entered into or renewed on or after Jan. 1, 2004). | Unclaimed property: Tex. Prop. Code §74.309 (private escheat agreements prohibited).",
+  },
+  // Disclosures
+  {
+    id: "edu-flood-disclosure-remedy-tx",
+    title: "Consequence of Skipping the Flood Notice",
+    group: "Disclosures",
+    states: ["TX"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "flood-disclosure",
+    bodyText:
+      "If you fail to give the required flood notices and the tenant then suffers a substantial flood loss to personal property (repair or replacement cost of at least half its market value), the tenant may terminate the lease by written notice within 30 days after the loss, effective on surrender, and you must refund prepaid rent for the period after termination within 30 days. The tenant still owes rent and other sums due before termination. Leases under 30 days and short sale-related occupancies are exempt from the notice.",
+    notes: "TX: Tex. Prop. Code ch. 92 read in full, section-open, 2026-09-25 (Justia '2025 Texas Statutes' host copy supplied by Taylor; per-section history lines checked - latest amendments 89th Leg., R.S. (2025); CONFIRMED 2026-09-25 against the official statutes.capitol.texas.gov ch. 92 page supplied by Taylor: no 1st or 2nd called-session amendment; text matches section for section - TX log s14). s92.0135(a-1), (f)-(h). Lease-side row: flood-disclosure-tx.",
+  },
+  // Security Deposit
+  {
+    id: "edu-fee-in-lieu-of-deposit-tx",
+    title: "Fees in Lieu of a Security Deposit",
+    group: "Security Deposit",
+    states: ["TX"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fee-in-lieu-of-deposit",
+    bodyText:
+      "If you offer a fee instead of a deposit, you must also offer the deposit option, cannot use the tenant's choice in approving the application, and must disclose in writing the right to pay a deposit instead, the right to switch to a deposit at any time, and the charges for each option. The fee must be a recurring equal amount due with rent, set out in a written agreement signed by both sides. It may fund insurance for tenant-caused damage and unpaid rent at no more than its reasonable cost; if it does, the agreement must state that the fee only secures occupancy, is non-refundable, does not limit the tenant's liability for rent and damage beyond normal wear and tear, and is not insurance for the tenant. Otherwise the fee is treated as a security deposit. You must give the tenant an itemized notice within 30 days after move-out before making an insurance claim, withdraw a claim found incorrect, and may not collect from the tenant what the insurer paid you.",
+    notes: "TX: Tex. Prop. Code ch. 92 read in full, section-open, 2026-09-25 (Justia '2025 Texas Statutes' host copy supplied by Taylor; per-section history lines checked - latest amendments 89th Leg., R.S. (2025); CONFIRMED 2026-09-25 against the official statutes.capitol.texas.gov ch. 92 page supplied by Taylor: no 1st or 2nd called-session amendment; text matches section for section - TX log s14). s92.111 (S.B. 1783, eff. Sept. 1, 2021). A fee-in-lieu agreement clause is a candidate row, not written (TX log s4).",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-criminal-record-leasing-tx",
+    title: "Liability for Renting to Someone With a Criminal Record",
+    group: "Compliance & Prohibited Terms",
+    states: ["TX"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "criminal-history-screening",
+    bodyText:
+      "You cannot be sued solely for renting to a tenant with a conviction, arrest, or deferred adjudication. You can still face a negligence claim if the tenant was convicted of certain serious offenses or has a reportable sex-offense conviction or adjudication and you knew or should have known.",
+    notes: "TX: Tex. Prop. Code ch. 92 read in full, section-open, 2026-09-25 (Justia '2025 Texas Statutes' host copy supplied by Taylor; per-section history lines checked - latest amendments 89th Leg., R.S. (2025); CONFIRMED 2026-09-25 against the official statutes.capitol.texas.gov ch. 92 page supplied by Taylor: no 1st or 2nd called-session amendment; text matches section for section - TX log s14). s92.025 (H.B. 1510, 2015; amended 2017). Incorporates Code Crim. Proc. art. 42A.054 and art. 62.001 (unread).",
+  },
+  // Default & Termination
+  {
+    id: "edu-termination-notice-tx",
+    title: "Ending a Month-to-Month Tenancy",
+    group: "Default & Termination",
+    states: ["TX"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-notice",
+    bodyText:
+      "Either party may end a month-to-month tenancy by giving notice. For a rent period of a month or longer, the tenancy ends on the later of the date stated in the notice or one month after the notice is given; for a shorter rent period, on the later of the stated date or the day after a period equal to the rent period. If it ends mid-period, rent is owed only to the termination date. A different notice period, or no notice, applies if both parties signed an instrument agreeing to it, and none of this applies where there is a breach of contract recognized by law. A fixed-term lease simply ends at its expiration. If you file an eviction for holding over, you must have complied with this termination rule as well as the notice to vacate.",
+    notes: "TX: Primary text supplied by Taylor 2026-09-25 from the official Texas Constitution and Statutes site (statutes.capitol.texas.gov), with per-section history lines; read section-open. Tex. Prop. Code s91.001 (Amended by Acts 1985); s24.005(a) cross-reference. No Texas rent-increase-notice statute located in chs. 24, 91 or 92 (full reads) - a mid-tenancy increase in a month-to-month tenancy therefore rides on this termination-notice rule. Bounded claim (L.7).",
+  },
+  {
+    id: "edu-eviction-notice-tx",
+    title: "Texas Pre-Eviction Notice Rules (from 2026)",
+    group: "Default & Termination",
+    states: ["TX"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "pre-eviction-notice-nonpayment",
+    bodyText:
+      "Before filing an eviction you must give written notice: at least three days' notice to vacate unless the lease sets a shorter or longer period. For nonpayment by a tenant who was not late before the month you give notice, the notice must be a notice to pay rent or vacate; for a tenant with earlier late payments, either form works. The statute does not say how far back 'earlier' reaches, so the safe practice is to always use a notice to pay rent or vacate when evicting only for nonpayment. Deliver it by mail, by leaving it inside the unit in a conspicuous place, by handing it to a tenant 16 or older, or by e-mail or other electronic means only if the tenant agreed in writing; actual receipt satisfies the rule regardless. Days are calendar days, excluding the day of delivery; a deadline landing on a weekend or holiday moves to the next business day. A federal notice requirement does not delay your filing, but the writ cannot be served until the federal period has run. If a lease or law requires a chance to respond to a proposed eviction, that period may run at the same time as the notice. After a foreclosure sale, a purchaser who will not continue the lease must give a tenant who is current at least 30 days' notice. To recover attorney's fees without a lease fee clause, send a certified or registered-mail demand at least 10 days before filing warning that fees may be sought if the tenant does not leave before the 11th day.",
+    notes: "TX: Primary text supplied by Taylor 2026-09-25 from the official Texas Constitution and Statutes site (statutes.capitol.texas.gov), with per-section history lines; read section-open. Tex. Prop. Code ss24.005, 24.0042, 24.006 (S.B. 38, 89th Leg., R.S., eff. Jan. 1, 2026). Lease-side rows: notice-to-vacate-period-tx, electronic-notice-consent-tx. Note s24.006(c): if the lease gives the landlord fees, a prevailing tenant also recovers fees. | TX 2026-09-25 research pass: no statute, rule or case defines the look-back in 'was not late or delinquent ... before the month in which the notice is given'. The Supreme Court's S.B. 38 implementing order (Misc. Docket No. 25-9105, Amended Order Dec. 31, 2025) added TRCP 510.6(a)(13), requiring the eviction petition to state whether the tenant was late before the notice month - repeating, not defining, the test. Comment period closed Feb. 1, 2026; a later final order not checked. Hence the always-pay-or-vacate advice.",
+  },
+  {
+    id: "edu-eviction-process-tx",
+    title: "How a Texas Eviction Runs (from 2026)",
+    group: "Default & Termination",
+    states: ["TX"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-procedure",
+    bodyText:
+      "Eviction suits are filed in the justice court of the precinct where the property is, on a sworn petition; courts may not add petition requirements, require mediation or pretrial proceedings, or dismiss a curable petition. Only the Legislature may modify or suspend eviction procedure (the Supreme Court may do so in a disaster only on uniform, public terms). Officers must try to serve within five business days, after which you may use another trained officer. Trial is set 10 to 21 days after filing, not before the fourth day after service, and cannot be postponed more than seven days without written agreement. You may file a sworn motion for summary disposition; the court may rule without trial unless the tenant files a response within four days showing a genuine factual dispute. Either side may appeal within five days by bond, cash, or statement of inability to pay; a tenant who appeals must pay rent into the court registry within five days and each rental period, or a writ issues without a hearing. The writ of possession cannot issue before the sixth day after judgment unless a possession bond is approved. You may be represented by a non-lawyer agent in justice court, and multifamily owners may use one on appeal of a nonpayment case.",
+    notes: "TX: Primary text supplied by Taylor 2026-09-25 from the official Texas Constitution and Statutes site (statutes.capitol.texas.gov), with per-section history lines; read section-open. Tex. Prop. Code ss24.004, 24.0041, 24.0043 (amended by H.B. 16, 89th Leg., 2nd C.S., eff. Jan. 1, 2026 - a SPECIAL-SESSION amendment, which confirms 2025 special sessions did touch the Property Code; see TX log s11.1), 24.00505-.00506, 24.0051-.0054, 24.0061(b)-(b-1), 24.007, 24.011. Procedure is out of scope for lease text (K.1); recorded for the landlord's awareness. Citation language in s24.0051(d) cites '50 U.S.C. APP. SECTION 501' - pre-2015 SCRA cite, same stale reference as s92.017(a).",
+  },
+  {
+    id: "edu-post-writ-property-tx",
+    title: "Tenant Property After a Writ of Possession",
+    group: "Default & Termination",
+    states: ["TX"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "post-writ-property",
+    bodyText:
+      "When the officer executes a writ, the officer posts a 24-hour warning, delivers possession to you, removes the occupants, and has the tenant's property placed outside the unit at a nearby location that does not block a public way and not while it is raining, sleeting, or snowing. The officer may use a bonded or insured warehouseman at no cost to you, and may not require you to store the property. A city may provide a free container and later dispose of unclaimed contents. You are not liable to the tenant for damages from lawful enforcement of the judgment, including execution of the writ. A warehouseman who stores the property has a lien for reasonable charges and must release listed necessities (clothing, tools of trade, beds, kitchen items, medicine, one car and one truck, and others) within 30 days on payment of the charges attributable to them.",
+    notes: "TX: Primary text supplied by Taylor 2026-09-25 from the official Texas Constitution and Statutes site (statutes.capitol.texas.gov), with per-section history lines; read section-open. Tex. Prop. Code ss24.0061(d)-(i), 24.0062 (warehouseman notice statement (b)(2) must be underlined or bold - s24.0062(c), an officer's notice, not a lease term). K.1 post-writ screen for Texas: ARCHITECTURE = officer-executed placement outside the unit + landlord immunity + no landlord storage duty (closest to CO's negated-duty model, without CO's pet-animal duty set - no animal duty located in ch. 24).",
+  },
+  {
+    id: "edu-landlord-lien-tx",
+    title: "Texas Residential Landlord's Lien",
+    group: "Default & Termination",
+    states: ["TX"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-lien",
+    bodyText:
+      "A residential landlord has a statutory lien for unpaid rent that is due on the tenant's nonexempt property in the unit or a storage room, but may seize property only if a written lease authorizes it and it can be done without a breach of the peace. A contractual lien is unenforceable unless underlined or in conspicuous bold print in the lease. Exempt property (clothing, tools of a trade, schoolbooks, family library and pictures, basic furniture, beds, kitchen items, food, medicine, one car and one truck, farm implements, children's toys, and goods you know belong to others or are financed) can never be taken. After seizure leave a notice and itemized list in the unit. You may charge packing and storage only if the lease allows, and sell only if the lease allows, after 30 days' notice by both first-class and certified mail; the tenant may redeem before sale. Willful violation costs actual damages, return of property or proceeds, one month's rent plus $1,000, and attorney's fees. Lease terms waiving these protections are void.",
+    notes: "TX: Primary text supplied by Taylor 2026-09-25 from the official Texas Constitution and Statutes site (statutes.capitol.texas.gov), with per-section history lines; read section-open. Tex. Prop. Code ss54.041-.048, 54.901 (vehicle disposal via Transp. Code ch. 683 Subch. D - unread). Lease-side row: landlord-lien-tx.",
+  },
+  {
+    id: "edu-mitigation-duty-tx",
+    title: "Duty to Re-Let After Abandonment",
+    group: "Default & Termination",
+    states: ["TX"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-mitigation-duty",
+    bodyText:
+      "If a tenant abandons the unit in violation of the lease, you must mitigate your damages, generally by making reasonable efforts to re-let. A lease term waiving that duty or exempting you from it is void.",
+    notes: "TX: Primary text supplied by Taylor 2026-09-25 from the official Texas Constitution and Statutes site (statutes.capitol.texas.gov), with per-section history lines; read section-open. Tex. Prop. Code s91.006 (Added by Acts 1997, 75th Leg., ch. 1205, eff. Sept. 1, 1997). The statute states the duty but not its content; 'reasonable efforts to re-let' is the ordinary meaning, not a statutory definition - case law not researched.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-landlord-breach-tenant-lien-tx",
+    title: "Your Liability for Breaching the Lease",
+    group: "Landlord Responsibilities",
+    states: ["TX"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-breach-remedy",
+    bodyText:
+      "If you fail to comply with the lease while the tenant is not in default, you are liable for the tenant's resulting damages, and the tenant has a lien on your nonexempt property in the tenant's possession and on the rent due to you to secure payment.",
+    notes: "TX: Primary text supplied by Taylor 2026-09-25 from the official Texas Constitution and Statutes site (statutes.capitol.texas.gov), with per-section history lines; read section-open. Tex. Prop. Code s91.004 (Acts 1983, unamended).",
+  },
+  // Default & Termination
+  {
+    id: "edu-public-indecency-termination-tx",
+    title: "Termination After a Public Indecency Conviction",
+    group: "Default & Termination",
+    states: ["TX"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-outside-eviction",
+    bodyText:
+      "You may terminate a lease if the tenant or an occupant, or their agent or employee, is convicted under the public indecency chapter of the Penal Code for an activity on the property and has exhausted or abandoned direct appeals. Give written notice within six months after the right arises; possession reverts to you on the 10th day after notice. This right applies regardless of any lease term to the contrary.",
+    notes: "TX: Primary text supplied by Taylor 2026-09-25 from the official Texas Constitution and Statutes site (statutes.capitol.texas.gov), with per-section history lines; read section-open. Tex. Prop. Code s91.003 (leases executed or renewed after June 15, 1981). Incorporates Penal Code ch. 43 (unread; L.5).",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-fair-housing-tx",
+    title: "Texas Fair Housing Act",
+    group: "Compliance & Prohibited Terms",
+    states: ["TX"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fair-housing-protected-classes",
+    bodyText:
+      "Texas prohibits housing discrimination because of race, color, religion, sex, familial status, national origin, or disability - the same classes as federal law. Race discrimination includes discrimination based on hair texture or protective hairstyles such as braids, locks, and twists. Familial status covers pregnancy, children under 18, and people obtaining custody. You must permit reasonable modifications at the tenant's expense and make reasonable accommodations in rules and policies when needed for a person with a disability, but need not rent to someone whose tenancy would be a direct threat to others' health or safety or would cause substantial physical damage to others' property. Advertising that indicates a discriminatory preference is prohibited even where you are otherwise exempt. Exemptions: an owner of no more than three single-family houses renting without a licensed broker or discriminatory advertising, and an owner-occupant of a building with four or fewer units; but anyone who owns a dwelling for five or more families, or has been a landlord in three or more transactions in the past year, is 'in the business' and not exempt. Senior housing is exempt from the familial-status rules. Complaints go to the Texas Workforce Commission within one year; private suits within two years may recover actual and punitive damages and attorney's fees, and state enforcement can add civil penalties up to $50,000, or $100,000 for a repeat violation in a pattern case. Intimidation by force or threat is a Class A misdemeanor.",
+    notes: "TX: Primary text supplied by Taylor 2026-09-25 from the official Texas Constitution and Statutes site (statutes.capitol.texas.gov), with per-section history lines; read section-open. Tex. Prop. Code ch. 301 read in full (s301.0045 Added by Acts 2023, 88th Leg., R.S., Ch. 223 (H.B. 567), eff. Sept. 1, 2023; s301.041 Amended by Acts 2021 (H.B. 1153); s301.042 Amended by Acts 2025, 89th Leg., R.S., Ch. 1096 (H.B. 4211), eff. June 20, 2025). CONFIRMED ABSENT in ch. 301 (full read): source of income, sexual orientation, gender identity, marital status, age, military status. Statutory 'disability' definition still contains outdated exclusionary language (s301.003(6)) - recorded, not paraphrased into the row. Occupancy limits unaffected (s301.044; see edu-occupancy-limit-tx).",
+  },
+  {
+    id: "edu-voucher-preemption-tx",
+    title: "Housing Vouchers and Local Source-of-Income Rules",
+    group: "Compliance & Prohibited Terms",
+    states: ["TX"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "voucher-mandate",
+    bodyText:
+      "Texas does not require landlords to accept housing choice vouchers or other federal housing assistance, and cities and counties may not adopt or enforce ordinances that would prohibit a landlord from refusing to rent because a person's income includes federal housing assistance. Two exceptions: local rules protecting military veterans' source of income are allowed, and cities and counties may run voluntary incentive programs to encourage voucher acceptance.",
+    notes: "TX: Primary text supplied by Taylor 2026-09-25 from the official Texas Constitution and Statutes site (statutes.capitol.texas.gov), with per-section history lines; read section-open. Tex. Loc. Gov't Code s250.007 (Added by Acts 2015, 84th Leg., R.S. (S.B. 267); amended 2017). CONFIRMED ABSENT statewide: no source-of-income class in Tex. Prop. Code ch. 301 (full read). Municipal layer: the veteran carve-out means a city veteran-SOI ordinance may exist; not resolved (instruction 20). Federal program rules (HAP contract, inspections) govern once a landlord participates voluntarily.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-rent-control-preemption-tx",
+    title: "Rent Control in Texas",
+    group: "Rent & Payment",
+    states: ["TX"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-control-preemption",
+    bodyText:
+      "A Texas city may adopt rent control only by ordinance, only after finding that a housing emergency exists because of a declared disaster, and only with the governor's approval. It continues or ends the same way the governor continues or ends the state of disaster.",
+    notes: "TX: Primary text supplied by Taylor 2026-09-25 from the official Texas Constitution and Statutes site (statutes.capitol.texas.gov), with per-section history lines; read section-open. Tex. Loc. Gov't Code s214.902 (Acts 1987; amended 2001). Incorporates Gov't Code ss418.004, 418.014 (unread). No state rent-increase cap or notice statute located in Prop. Code chs. 24, 91, 92 (bounded). HB 2127 (2023) 'field preemption' statute NOT read - its reach over other local landlord rules is open (TX log s9).",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-water-submetering-tx",
+    title: "Billing Tenants for Water",
+    group: "Landlord Responsibilities",
+    states: ["TX"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utility-submetering-disclosure",
+    bodyText:
+      "If you own an apartment house of five or more units, a condominium, or a manufactured home rental community, you may bill tenants for water and wastewater only by submetering or by an allocation method under Public Utility Commission rules, after registering with the PUC and meeting water-efficiency fixture and leak-audit requirements. You may not mark up the water: submetered bills are limited to the utility's cost per gallon plus taxes and surcharges, and allocated bills to actual charges, plus any permitted service charge (at most 9% for submetering, and none for residents of tax-credit units or tenants with Section 8 vouchers). Late fees on water bills are capped at 5%. The lease must contain the PUC-required disclosures, you must give the tenant a copy of the PUC rules when the lease is discussed, and you must keep records open for tenant inspection. Changing billing methods requires the tenant's signed agreement and 35 days' notice. Raising rent in the 90 days before installing meters, because of utility costs, must be reversed and refunded. The PUC has exclusive jurisdiction and can order refunds of overcharges and assess penalties.",
+    notes: "TX: Primary text supplied by Taylor 2026-09-25 from the official Texas Constitution and Statutes site (statutes.capitol.texas.gov), with per-section history lines; read section-open. Tex. Water Code ss13.501-.506 (s13.5051 S.B. 790, eff. Sept. 1, 2025); 16 Tex. Admin. Code s24.279 (PUC posting, eff. 10/17/18; administrative rule - instruction 16). Registration requirement is recorded from a PUC reference sheet (secondary to s24.275, which is unread) - stated generally, not with its mechanics. Lease-side row: utility-submetering-disclosure-tx.",
+  },
+  // Parking & Storage
+  {
+    id: "edu-private-property-towing-tx",
+    title: "Towing From Your Parking Areas",
+    group: "Parking & Storage",
+    states: ["TX"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "private-property-towing",
+    bodyText:
+      "You may have an unauthorized vehicle towed from a parking facility you own or operate, including apartment-complex parking, only if: compliant signs have been posted for the preceding 24 hours; the vehicle owner or operator received actual notice; you attached a windshield notice and then mailed a certified notice warning of towing if the vehicle is not moved before the 15th day after the postmark; or the vehicle blocks a fire lane, traffic aisle, entry, exit, gate, refuse area, or driveway and you identify the towing company and storage facility on request. Signs must be at every vehicle entrance, facing entering drivers, permanently mounted with the bottom edge 5 to 8 feet above ground, weather-resistant, at least 18 by 24 inches, with the red-and-white towing symbol and wording, a statement of who may park, the days and hours of enforcement, and a 24-hour phone number. At an apartment complex you may not tow a vehicle merely for an expired registration unless the lease provides for 10 days' written notice first, and any apartment lease term that conflicts with these rules is void. You may not accept anything of value from, or hold an interest in, the towing company. If you tow in compliance with the law using an insured tow company and storage facility, you are not liable for damage from the removal or storage; if you violate the law you are liable for damages and fees, and an intentional or reckless violation costs $1,000 plus three times the fees. The vehicle owner may request a justice-court hearing within 14 days.",
+    notes: "TX: Primary text supplied by Taylor 2026-09-25 (official statutes.capitol.texas.gov text for Occ. Code ch. 2308; PUC-published rule text for 16 TAC §§24.281, 25.142), read section-open. Tex. Occ. Code §§2308.002(7)-(8), 2308.251-.255, 2308.301-.305, 2308.401-.405, 2308.451-.460. Local ordinances may add stricter requirements (§2308.208) - municipal layer, flagged. Minor sign/lettering height variation is not a violation (§2308.407). Booting rules (§§2308.257-.258) not summarised; local authorities may regulate booting (§2308.2085).",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-service-animal-tx",
+    title: "Service Animals Under Texas Law",
+    group: "Compliance & Prohibited Terms",
+    states: ["TX"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "assistance-animal-misrepresentation",
+    bodyText:
+      "A person with a disability who uses a service animal is entitled to full and equal access to housing offered for rent, and a landlord may not charge extra compensation or a deposit for the animal, though the tenant remains liable for damage the animal does beyond reasonable wear and tear. Refusing that access is a misdemeanor (a fine of up to $300 plus 30 hours of community service), and the tenant may also sue, with damages conclusively presumed to be at least $300. It is a separate misdemeanor, punishable by a fine of up to $1,000 and 30 hours of community service, to knowingly represent that an animal is an assistance or service animal when it is not specially trained or equipped to help a person with a disability. Under these Texas definitions a service animal is a specially trained dog; the housing rule does not apply to a single-family home whose occupants rent out only one room. Emotional support animals are not covered by this statute; their treatment in housing turns on fair-housing accommodation law.",
+    notes: "TX: Research pass 2026-09-25 (advanced research; sources as noted). Tex. Hum. Res. Code §§121.002, 121.003(g)-(h), 121.006; §121.006 amended by Acts 2023, 88th Leg., R.S., Ch. 757 (H.B. 4164), eff. Sept. 1, 2023 (engrossed bill text read; history line via secondary mirrors). NEEDS_REVIEW, deliberately: the official PDF of HR ch. 121 on statutes.capitol.texas.gov still shows the PRE-2023 text ($300 fine, harness/leash element), while the official HTML (snippet only) shows the 2023 version - the official site contradicts itself. Close by pasting the current official HTML of HR ch. 121. Also confirm whether H.B. 4164 changed the §121.002 definition. Relationship: the ESA path is Tex. Prop. Code §301.025(c)(2) (assistance-animal-accommodation). | TX 2026-09-25 (later same day): NEEDS_REVIEW CLEARED. Official HTML of Tex. Hum. Res. Code ch. 121 supplied by Taylor (statutes.capitol.texas.gov) and read: §121.006 last Amended by Acts 2023, 88th Leg., R.S., Ch. 757 (H.B. 4164), eff. Sept. 1, 2023 ($1,000 fine + 30 hours community service; no harness/leash element) - the official PDF's pre-2023 text is confirmed stale. §121.002(1) (canine, specially trained or equipped) last amended 2013 (H.B. 489) - H.B. 4164 did NOT change the definition. §121.002(3) 'housing accommodations' excludes a single-family residence renting only one room. §121.003(g)-(h) housing access and no deposit/extra compensation (last amended 2015). NEW: §121.004 - violating §121.003 is a misdemeanor (fine up to $300 + 30 hours community service) and supports a civil action with damages conclusively presumed at no less than $300 (§121.0041's pre-suit cure procedure applies only to design/construction-standard claims). §121.003(k)-(l) inquiry limits apply to PUBLIC FACILITIES, not housing - not carried into the row.",
+  },
+  {
+    id: "edu-local-preemption-tx",
+    title: "State Preemption of City and County Rules",
+    group: "Compliance & Prohibited Terms",
+    states: ["TX"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "local-preemption",
+    bodyText:
+      "Texas law voids city and county ordinances that regulate conduct in a field occupied by the Property Code unless another statute expressly authorizes them, and the occupied field expressly includes local rules that regulate evictions or restrict or delay notices to vacate or eviction filings. Anyone injured, or threatened with injury, by a preempted ordinance may sue the city or county. A 2023 challenge by several cities was dismissed in 2025 for lack of standing, and the law is in force. Do not assume a local tenant-protection ordinance in your area is enforceable, and do not ignore one either: whether a particular ordinance survives is a local, case-by-case question.",
+    notes: "TX: Research pass 2026-09-25 (advanced research; sources as noted). Tex. Prop. Code §1.004 (Added by Acts 2023, 88th Leg., R.S., Ch. 899 (H.B. 2127), Sec. 15, eff. Sept. 1, 2023); §1.004(b) eviction-field language - its enacting history is UNCONFIRMED (Justia 2025 host + official-site snippet only). Tex. Civ. Prac. & Rem. Code ch. 102A (standing, remedies). Litigation: State v. City of Houston, No. 03-23-00531-CV (Tex. App.-Austin July 18, 2025) (reversed and rendered dismissal; cities lacked standing), en banc reconsideration denied May 14, 2026 (court opinion via CourtListener; TML report). No Supreme Court petition found (unconfirmed). A private enforcement suit against Dallas ordinances is reported pending in the Fifteenth Court of Appeals (secondary). NEEDS_REVIEW: paste the official PR.1 page (history of §1.004(b)). Pairs with §24.0043 (only the Legislature may modify eviction procedure) and Loc. Gov't Code §§214.902, 250.007. | TX 2026-09-25 (later same day): NEEDS_REVIEW CLEARED. Official Tex. Prop. Code ch. 1 (statutes.capitol.texas.gov) supplied by Taylor: §1.004(a) AND (b) carry a single history line - Added by Acts 2023, 88th Leg., R.S., Ch. 899 (H.B. 2127), Sec. 15, eff. Sept. 1, 2023 - so the eviction/notice-to-vacate field language was enacted in H.B. 2127 itself, not added later. Litigation status remains as sourced above (court opinion via CourtListener; no Supreme Court petition found - unconfirmed).",
+  },
+  // Disclosures
+  {
+    id: "edu-no-radon-disclosure-tx",
+    title: "No Radon Disclosure Required for Rentals",
+    group: "Disclosures",
+    states: ["TX"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "radon-disclosure",
+    bodyText:
+      "No Texas statute requires a landlord to test for radon or to disclose radon to a tenant. The only residential radon disclosure in Texas law is on the seller's disclosure notice for the SALE of a single-dwelling property; it does not apply to leases. Local codes were not checked.",
+    notes: "TX: CONFIRMED ABSENT (statutes). Full-text search of all Texas codes on statutes.capitol.texas.gov for the term, run by Taylor 2026-09-25; every hit returned was read. Hits: Tex. Health & Safety Code §401.233 (low-level radioactive waste disposal-site licensing criteria - not a landlord duty) and Tex. Prop. Code §5.008 (seller's disclosure notice listing 'Radon Gas' - sale of residential real property of not more than one dwelling unit; not a lease). Boundary: Texas STATUTES only. The Texas Administrative Code and municipal building, fire and housing codes were not searched (instructions 16, 20). The claim is that no Texas statute imposes the duty, nothing broader.",
+  },
+  {
+    id: "edu-no-bed-bug-statute-tx",
+    title: "No Bed Bug Statute for Rentals",
+    group: "Disclosures",
+    states: ["TX"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "bed-bug-disclosure",
+    bodyText:
+      "No Texas statute requires a landlord to disclose bed bug history or sets a bed bug treatment timeline. An infestation that materially affects the physical health or safety of an ordinary tenant falls under the general repair duty once the tenant gives notice. Separately, state health law treats disease-carrying bedbugs in a place offering sleeping accommodations to the public as a public health nuisance; whether that reaches an ordinary rental dwelling is unsettled. Local codes were not checked.",
+    notes: "TX: ABSENCE NOT YET PROVEN (downgraded 2026-09-25, same day). Full-text search of all Texas codes on statutes.capitol.texas.gov for the term, run by Taylor 2026-09-25; every hit returned was read. The search for 'bed bug' returned NO hits in any code. Repair-duty route: Tex. Prop. Code §92.052 (edu-repair-duty-tx). Boundary: Texas STATUTES only. The Texas Administrative Code and municipal building, fire and housing codes were not searched (instructions 16, 20). The claim is that no Texas statute imposes the duty, nothing broader. | SEARCH-TOOL CAVEAT: the official search's phrase matching appears not to catch plural forms - 'rental increase' did not return Tex. Prop. Code §92.012, which reads 'notices of rental increases' (single-word searches such as 'mold' did return plurals such as 'molds'). A zero-hit multi-word phrase search is therefore not proof until the plural form is also searched. 'bed bug' is a two-word phrase; re-run 'bed bugs' and 'bedbug' before restoring CONFIRMED ABSENT. | TX 2026-09-25 (later): RESTORED TO CONFIRMED ABSENT (statutes). Control search 'rental increases' returned §92.012, confirming the official search matches exact word forms only. Code-wide searches now run for 'bed bug', 'bed bugs', 'bedbug' (all zero hits) and 'bedbugs' (one hit: Tex. Health & Safety Code §341.011(10) - public health nuisance: 'ectoparasites, including bedbugs, lice, and mites, suspected to be disease carriers in a place in which sleeping accommodations are offered to the public'; last amended 2015). §341.011 is a nuisance classification enforced by health authorities, not a landlord disclosure or treatment duty; whether an apartment is a place where sleeping accommodations are 'offered to the public' is unresolved (hotel/lodging reading more natural) - flagged, not resolved. H&S ch. 341 abatement sections not read.",
+  },
+  {
+    id: "edu-no-mold-disclosure-tx",
+    title: "No Mold Disclosure Required for Rentals",
+    group: "Disclosures",
+    states: ["TX"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "mold-disclosure",
+    bodyText:
+      "No Texas statute requires a landlord to disclose mold to a tenant. Texas regulates mold assessors and remediators, and a property owner who sells must hand the buyer any mold remediation certificates from the past five years, but neither rule reaches leases. Mold that materially affects the physical health or safety of an ordinary tenant falls under the general repair duty. Local codes were not checked.",
+    notes: "TX: CONFIRMED ABSENT (statutes). Full-text search of all Texas codes on statutes.capitol.texas.gov for the term, run by Taylor 2026-09-25; every hit returned was read. Hits read: Tex. Occ. Code ch. 1958 (mold assessor/remediator licensing; §1958.154(b) certificate hand-over applies on SALE); Tex. Ins. Code ch. 542 subch. F and §§544.301-.303 (insurer claims/underwriting); Tex. Ins. Code §1367.253 (ear molds); Tex. Bus. & Com. Code ch. 51 and ch. 2001 and Tex. Prop. Code §70.009 (manufacturing dies and molds); Tex. Agric. Code §76.001 (pesticide 'fungus' definition). None imposes a landlord-to-tenant duty. Licensing implications for landlords doing their own remediation: edu-mold-remediation-licensing-tx. Boundary: Texas STATUTES only. The Texas Administrative Code and municipal building, fire and housing codes were not searched (instructions 16, 20). The claim is that no Texas statute imposes the duty, nothing broader.",
+  },
+  {
+    id: "edu-no-co-alarm-statute-tx",
+    title: "No Carbon Monoxide Alarm Statute for Rentals",
+    group: "Disclosures",
+    states: ["TX"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "co-alarm-requirement",
+    bodyText:
+      "No Texas statute requires a landlord to install carbon monoxide alarms in a rental dwelling. Texas's rental alarm law covers smoke alarms only. Carbon monoxide alarms may still be required for new or remodeled homes by the building code your city has adopted, so check local codes.",
+    notes: "TX: CONFIRMED ABSENT (statutes). Full-text search of all Texas codes on statutes.capitol.texas.gov for the term, run by Taylor 2026-09-25; every hit returned was read. Hits read: Tex. Health & Safety Code §§766.001, 766.003 (defines 'carbon monoxide alarm'; Texas Department of Insurance must publish CO-danger information - no installation duty); Tex. Hum. Res. Code §42.060 (CO detectors in day-care centers and homes only); Tex. Prop. Code §5.008 (seller's notice checkbox); plus emissions, tax, grant and animal-euthanasia provisions (Gov't Code §447.011; H&S Code chs. 390, 394, §821.054; Transp. Code §548.306; Transp. §457.201; Tax Code §§11.31, 26.045, 151.334, 151.3565; Civ. Prac. & Rem. Code §90.003). Research pass: H.B. 3209 (89R), which would have added an H&S Code CO-detector chapter, died in committee. Local building-code CO requirements (e.g. an adopted residential code) are the municipal layer - flagged, not resolved. Boundary: Texas STATUTES only. The Texas Administrative Code and municipal building, fire and housing codes were not searched (instructions 16, 20). The claim is that no Texas statute imposes the duty, nothing broader.",
+  },
+  {
+    id: "edu-no-meth-disclosure-tx",
+    title: "No Methamphetamine Disclosure Required for Rentals",
+    group: "Disclosures",
+    states: ["TX"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "meth-disclosure",
+    bodyText:
+      "No Texas statute requires a landlord to disclose past methamphetamine manufacture to a tenant. The only such disclosure in Texas law is on the seller's disclosure notice for the SALE of a single-dwelling property. Separately, a person who manufactures methamphetamine is strictly liable for resulting property damage, which a landlord may use against a tenant who did so.",
+    notes: "TX: CONFIRMED ABSENT (statutes). Full-text search of all Texas codes on statutes.capitol.texas.gov for the term, run by Taylor 2026-09-25; every hit returned was read. Hits read: Tex. Prop. Code §5.008 (seller's notice: 'Previous Use of Premises for Manufacture of Methamphetamine' - sale only); Tex. Civ. Prac. & Rem. Code ch. 99 and §§33.002, 41.008 (manufacturer liability); Tex. Fam. Code §§262.104-.107, Tex. Hum. Res. Code §40.071, Tex. Health & Safety Code ch. 468 and §§481.102-.103, Tex. Penal Code §22.041 (child protection, drug programs, penalty groups, endangerment). None imposes a landlord disclosure duty. Landlord remedy: edu-meth-manufacture-liability-tx. Boundary: Texas STATUTES only. The Texas Administrative Code and municipal building, fire and housing codes were not searched (instructions 16, 20). The claim is that no Texas statute imposes the duty, nothing broader.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-mold-remediation-licensing-tx",
+    title: "Doing Your Own Mold Work",
+    group: "Landlord Responsibilities",
+    states: ["TX"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "mold-remediation-licensing",
+    bodyText:
+      "Texas licenses mold assessors and remediators. A property owner, or the owner's managing agent or employee, does not need a license to assess or remediate mold at a residential property the owner owns with fewer than 10 dwelling units, as long as the agent or employee is not in the mold business for the public. Anyone may remediate an area of less than 25 contiguous square feet without a license. For larger properties or larger areas, use licensed professionals; one license holder may not do both the assessment and the remediation on the same project. Once a certificate of mold remediation is issued, the owner is not liable for damages related to the remediation that accrued on or before the certificate date, and an owner who sells must give the buyer copies of certificates from the previous five years.",
+    notes: "TX: Tex. Occ. Code §§1958.102, 1958.154, 1958.155, 1958.303 (§1958.102 Amended by Acts 2025, 89th Leg., R.S., Ch. 493 (S.B. 1255), eff. Sept. 1, 2025 - (b) repealed, (e) under-10-unit owner exemption). Official text supplied by Taylor 2026-09-25 as a search hit and read in full. Conduct regulation, not lease content.",
+  },
+  // Default & Termination
+  {
+    id: "edu-meth-manufacture-liability-tx",
+    title: "Recovering Damage From a Tenant Who Made Methamphetamine",
+    group: "Default & Termination",
+    states: ["TX"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "meth-disclosure",
+    bodyText:
+      "A person who manufactures methamphetamine is strictly liable for personal injury, death, or property damage arising from the manufacture, whether or not convicted, and is jointly liable with any other defendant for the entire amount. The usual caps on exemplary damages and the proportionate-responsibility rules do not apply. Anyone exposed to the manufacturing process may recover the greater of actual damages or $20,000 per incident of exposure.",
+    notes: "TX: Tex. Civ. Prac. & Rem. Code §§99.001-.006 (Added 2001; §99.003 amended by Acts 2005 (H.B. 164)); official text supplied by Taylor 2026-09-25 as a search hit and read in full. The landlord's route is §99.002 (property damage); the $20,000 floor in §99.003 is for an individual's exposure. Not lease content.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-no-immigration-inquiry-rule-tx",
+    title: "Immigration or Citizenship Questions",
+    group: "Compliance & Prohibited Terms",
+    states: ["TX"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "immigration-status-inquiry",
+    bodyText:
+      "The Texas Property Code neither prohibits nor requires asking a rental applicant or tenant about immigration or citizenship status. Federal fair-housing law still bars national-origin discrimination. A separate 2025 Texas law limits certain foreign governments, companies, and individuals from acquiring interests in Texas real property; it covers leases of one year or more, and a lease acquired in violation is void (see Foreign-Acquisition Law and Leases of One Year or More).",
+    notes: "TX: CONFIRMED ABSENT (Property Code). Full-text search of the Texas PROPERTY CODE on statutes.capitol.texas.gov, run by Taylor 2026-09-25; every hit read. 'immigration': no hits. 'citizenship': Tex. Prop. Code §5.005 (aliens have the same property rights as citizens, except Subch. H); §§5.251-5.253 (Subch. H, S.B. 17, 89th Leg., R.S., eff. Sept. 1, 2025 - prohibition on purchase or acquisition of real property by certain foreign governments, companies and individuals); §163.002 (charitable funds); §201.002 (racial covenants). None regulates a landlord's inquiry. OPEN FLAG: §5.252(3) exempts 'a leasehold interest in land or improvements constructed on a leasehold if the duration of the interest is less than one year'. A standard 12-month lease is NOT less than one year. Whether a residential lease of one year or more is an 'interest in real property' a prohibited person may not 'acquire' under §5.253, and whether any landlord duty or consequence follows, depends on §5.254 onward (governor designation, enforcement), which is not read. No lease clause written; TX log §17. Boundary: Property Code only; Penal Code, Government Code and other codes not searched for tenant-status rules. Fair-housing context: Tex. Prop. Code ch. 301 (national origin). | TX 2026-09-25 (later): Subch. H read in full (§§5.254-5.259); see edu-foreign-acquisition-leases-tx.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-no-ev-charging-right-tx",
+    title: "No Tenant EV Charging Statute",
+    group: "Rules & Regulations",
+    states: ["TX"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "ev-charging-right",
+    bodyText:
+      "The Texas Property Code gives tenants no statutory right to install or use electric vehicle charging. Any charging arrangement is a matter for the lease.",
+    notes: "TX: ABSENCE NOT YET PROVEN. Full-text search of the Texas PROPERTY CODE on statutes.capitol.texas.gov, run by Taylor 2026-09-25; every hit read. 'electric vehicle': no hits. 'charging': too many hits to review (mostly 'charging' in the sense of fees and accusations) - not reviewed. SEARCH-TOOL CAVEAT: the official search's phrase matching appears not to catch plural forms - 'rental increase' did not return Tex. Prop. Code §92.012, which reads 'notices of rental increases' (single-word searches such as 'mold' did return plurals such as 'molds'). A zero-hit multi-word phrase search is therefore not proof until the plural form is also searched. STATUS NEEDS_REVIEW until 'electric vehicles' (plural) is also searched in the Property Code. Boundary: Property Code only; Utilities Code and local codes not searched. | TX 2026-09-25 (later): CONFIRMED ABSENT (Property Code). 'electric vehicle' and 'electric vehicles' both return no hits in the Property Code; exact-form matching confirmed by the 'rental increases' control. Boundary unchanged: Property Code only.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-rent-increase-notice-tx",
+    title: "No Rent-Increase Notice Statute",
+    group: "Rent & Payment",
+    states: ["TX"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-increase-notice",
+    bodyText:
+      "Texas has no statute setting how much notice a landlord must give before raising rent on an ordinary residential tenancy. During a fixed term, rent can change only as the lease allows. For a month-to-month tenancy, an increase works in practice through the termination-notice rule: at least one month's notice for monthly tenancies, unless a signed agreement sets a different period. You may not raise rent to retaliate against a tenant within six months after the tenant exercises a protected right, and a city may impose rent control only during a declared disaster with the governor's approval.",
+    notes: "TX: CONFIRMED ABSENT (Property Code, for ch. 92 tenancies). Full-text search of the Texas PROPERTY CODE on statutes.capitol.texas.gov, run by Taylor 2026-09-25; every hit read. 'rent increase': no hits. 'rental increase': no hits (see search caveat below - §92.012's 'rental increases' was not returned). 'increase in rent': Tex. Prop. Code §94.053(d) only - in a MANUFACTURED HOME COMMUNITY lot lease, a provision requiring a rent increase during the term must be initialed by the tenant or is void (ch. 94; out of scope). Ch. 92 read in full: §92.012(a)(3) (notices of rental increases at end of term go to a non-occupant tenant's primary residence - delivery only); §92.331(b)(4) (no retaliatory increase within six months); §92.332(a) (escalation clauses and project-wide increases are not retaliation). Month-to-month termination §91.001; rent control Loc. Gov't Code §214.902. SEARCH-TOOL CAVEAT: the official search's phrase matching appears not to catch plural forms - 'rental increase' did not return Tex. Prop. Code §92.012, which reads 'notices of rental increases' (single-word searches such as 'mold' did return plurals such as 'molds'). A zero-hit multi-word phrase search is therefore not proof until the plural form is also searched. The absence stands on the full ch. 91/92 reads, not the search alone. Boundary: Property Code; other codes not searched.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-foreign-acquisition-leases-tx",
+    title: "Foreign-Acquisition Law and Leases of One Year or More",
+    group: "Compliance & Prohibited Terms",
+    states: ["TX"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "foreign-acquisition-leasehold",
+    bodyText:
+      "A 2025 Texas law bars certain foreign governments, companies, and individuals from purchasing or otherwise acquiring an interest in Texas real property, and it covers leasehold interests unless the lease runs less than one year. A standard 12-month lease is not less than one year. The restricted individuals are defined by ties to countries designated by federal threat assessments or by the governor: for example, individuals domiciled in a designated country (with a narrow exception for a lawfully present resident buying a residence homestead), citizens of a designated country who are unlawfully present in the United States, agents of a designated country, and members of its ruling party. The law does not apply to U.S. citizens, lawful permanent residents, or companies they own or control. A leasehold acquired in violation is void. The attorney general may bring an action against the real property itself and record notice of it in the county records, and a court-appointed receiver may terminate the leasehold. A restricted individual who knowingly acquires an interest commits a state jail felony, and a violating company faces a civil penalty of the greater of $250,000 or half the interest's market value. The law places the penalties on the person acquiring the interest and states no duty for a landlord to verify anyone's status. Screening applicants by national origin is prohibited by fair-housing law, so any policy on this should be set with legal counsel.",
+    notes: "TX: Official statutes.capitol.texas.gov text supplied by Taylor 2026-09-25, read section-open. Tex. Prop. Code ch. 5, Subch. H, §§5.251-5.259 read in full (all Added by Acts 2025, 89th Leg., R.S., Ch. 956 (S.B. 17), Sec. 4, eff. Sept. 1, 2025); §5.005 amended by the same Act. Key holdings of the text: (1) §5.252(3) exempts only a leasehold 'if the duration of the interest is less than one year' - a 12-month lease is inside the subchapter. (2) §5.255(e): 'Except for an acquisition of a leasehold interest', a violating acquisition is not void - so a violating LEASEHOLD is void. (3) §5.255(c)-(d): in rem action against the real property plus a recorded notice - the LANDLORD's property and title carry the exposure even though no landlord offense exists. (4) §5.257(a)(1)(C)(i): the receiver may divest 'through ... termination of a leasehold' and may 'manage and control the real property pending ... disposition'. (5) §5.258 state jail felony (individuals in §5.253(4)); §5.259 civil penalty (companies). (6) No provision imposes a verification duty on a landlord or seller. NOT VERIFIED HERE: which countries are currently 'designated' (§5.251(3): Annual Threat Assessments of the U.S. Intelligence Community, or governor designation under §5.254) - the row deliberately names none; whether any court has enjoined or construed S.B. 17 (litigation not checked); and how 'domiciled' (§5.251(4)) applies to, e.g., foreign students or visa holders renting for a year or more - an interpretive question with real exposure, flagged not resolved. JUDGMENT CALL FOR TAYLOR (TX log §18): no lease clause written. Options include (a) nothing; (b) a tenant representation that the tenant is not a person restricted by Subch. H; (c) steering such leases under one year. (b) and (c) sit next to national-origin fair-housing liability (42 U.S.C. §3604; Tex. Prop. Code §301.021) and need counsel. The row states the fair-housing constraint without advising a screening practice. | DECISION 2026-09-26 (Taylor): EDUCATION ONLY - no lease clause and no builder warning for now. FLAG FOR ANY FUTURE REVISIT: (1) a trigger must be a lease, renewal or extension with a term of ONE YEAR OR MORE (the only exemption, §5.252(3), is for less than one year, so a 12-month lease is covered; renewals may count as new acquisitions - unsettled); (2) any tenant representation must track the statute ('not a person prohibited by Tex. Prop. Code §5.253 from acquiring a leasehold interest'), never nationality ('not from a country of concern'), because coverage turns on domicile, unlawful presence, agency or party membership, and a nationality question invites national-origin fair-housing liability; (3) a representation cannot cure a void lease - it only documents misrepresentation and gives notice; (4) it would have to appear in every qualifying lease, not selectively; (5) Texas counsel review before shipping. CASE LAW CONTEXT (not statute; recorded for the revisit): Wang v. Paxton, No. 25-20354 (5th Cir. Dec. 11, 2025) affirmed dismissal for lack of standing - an F-1 student with long Texas residence and intent to remain was not 'domiciled' in China, visa expiry being irrelevant to domicile, and the AG disavowed enforcement against him in court. A separate class action (Huang v. Paxton, W.D. Tex.) had two plaintiffs dismissed for standing and was stayed pending the Fifth Circuit (status after Dec. 2025 not checked). Neither court reached the merits; the law is in force. Designated countries per commentary: China, Iran, North Korea, Russia (secondary; not verified against the threat assessments).",
+  },
+  // Security Deposit
+  {
+    id: "edu-unclaimed-deposit-escheat-tx",
+    title: "Unclaimed Security Deposits",
+    group: "Security Deposit",
+    states: ["TX"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "deposit-escheat",
+    bodyText:
+      "If you owe a former tenant a security deposit refund (or any other money) and for more than three years you cannot locate the tenant and the tenant has not claimed it, the money is presumed abandoned. You are the holder: if you hold it on March 1, you must report and deliver it to the Texas Comptroller by the following July 1, and if it is worth more than $250 you must first notify the tenant by mail or e-mail at the last known address at least 60 days before delivery. Once you have filed a report, you must file one every year after that, certifying if you hold nothing. You may not reduce the amount with service or dormancy charges, other than the postage for the required notice, and a lease term or other private arrangement that diverts unclaimed money to you to avoid this process is prohibited. Keep the records for 10 years. Delivering in good faith relieves you of liability to the tenant. Late delivery carries 10 percent annual interest, penalties of 5 percent plus another 5 percent after 30 days, a civil penalty of up to $100 a day, and willful violations are a misdemeanor.",
+    notes: "TX: Official statutes.capitol.texas.gov text supplied by Taylor 2026-09-25, read section-open. Tex. Prop. Code §§72.001, 72.101, 72.103; §§74.101, 74.1011, 74.103, 74.106, 74.301, 74.304, 74.309, 74.502, 74.705-74.710 (ch. 74 last amended by Acts 2021, 87th Leg., R.S., Ch. 52 (H.B. 1514), eff. May 18, 2021; §74.106 Added 2019 (H.B. 3598)). A landlord owing a refund is a 'holder' as a person 'indebted to another on an obligation' (§72.001(e)(3)). The three-year presumption (§72.101(a)) applies; no residential-deposit exception exists (§72.1017 covers UTILITY deposits only, one year). Interaction with Tex. Prop. Code §92.107: the landlord owes no refund until the tenant gives a written forwarding address, but the tenant does not forfeit the deposit by failing to - so an unclaimed balance can ripen into reportable property. LEASE-CONTENT RESTRICTION: §74.309 prohibits taking unclaimed funds 'by private agreement' to circumvent the process - a clause declaring an unclaimed deposit forfeited to the landlord would be prohibited (added to edu-non-waivable-terms-tx notes). Dormancy charges: §72.103 bars reducing abandoned property by 'service, maintenance, or other charge'; the only allowance is postage for the §74.1011 notice (§74.1011(c)). Holder may pay a claimant directly and seek reimbursement (§74.502). Comptroller rules (34 TAC) not read.",
   },
 ];
 

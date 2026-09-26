@@ -19,6 +19,15 @@
 // the architecture-review log's Addendum L §L.3: "a log entry is not a
 // library change" -- the CSV is the fact).
 //
+// **2026-09-26 refresh (Texas, state #11):** regenerated wholesale from
+// the TX pass's CSV -- 265 -> 291 shipped LEASE_CLAUSE rows (75 tagged TX:
+// 26 TX-specific plus 49 existing clauses that earned a TX tag). Three
+// shared rows got uniform, self-limiting text edits now shipping in every
+// tagged state: `tenant-maintenance`, `no-alterations`, and
+// `assigned-parking-space` (lease-clause-decision-log-TX.md §3.1). Several
+// TX rows carry bracketed layout directives (bold/underline/heading) that
+// the builder cannot enforce yet -- see the TX log §5 and Addendum M.12.
+//
 // **2026-09-25 refresh (Nevada, state #10):** regenerated wholesale from
 // the NV pass's CSV -- 242 -> 265 shipped LEASE_CLAUSE rows (70 tagged NV,
 // most of them existing clauses that earned an NV tag). Two shared rows got
@@ -150,7 +159,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-payment",
     title: "Rent Payment",
     group: "Rent & Payment",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX"],
     bodyText:
       "Tenant shall pay Landlord monthly rent of {{monthly_rent}} (Monthly Rent) in advance on the due date specified in this Lease, without demand, deduction, or setoff, except as permitted by applicable law. If the due date falls on a weekend or legal holiday, rent is due on the next business day.",
   },
@@ -174,7 +183,7 @@ const CLAUSE_TEMPLATES = [
     id: "due-at-signing",
     title: "Amounts Due Upfront",
     group: "Rent & Payment",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX"],
     bodyText:
       "Tenant will pay Landlord the following amounts, at the time specified for each: [specify what is due and when here, e.g. first month's Monthly Rent ({{monthly_rent}}) due at signing; Security Deposit ({{security_deposit}}) due at signing; Pet Deposit ({{pet_deposit}}) due at signing; last month's Monthly Rent due on the Start Date]. These amounts are due in addition to, and are not credited against, Rent due for any other month of the Term.",
   },
@@ -182,7 +191,7 @@ const CLAUSE_TEMPLATES = [
     id: "application-of-payments",
     title: "Application of Payments",
     group: "Rent & Payment",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX"],
     bodyText:
       "All payments received shall be applied first to outstanding fees, charges, costs, utilities, or other amounts due under this Lease, and then to base rent, unless otherwise required by applicable law. Nothing in this provision limits any statutory right Tenant may have to cure nonpayment of base rent.",
   },
@@ -203,6 +212,15 @@ const CLAUSE_TEMPLATES = [
       "If any payment under this Lease is dishonored or returned unpaid, Tenant will be responsible for a reasonable returned-payment charge, consistent with Colorado's dishonored-instrument statute (C.R.S. 13-21-109), plus any actual bank charges Landlord incurs. This charge is not Rent, is not subject to any late fee applicable to Rent, and will not be characterized as Rent for purposes of any remedy available for nonpayment of Rent.",
   },
   {
+    id: "late-fee-safe-harbor-tx",
+    title: "Late Fee",
+    group: "Rent & Payment",
+    states: ["TX"],
+    supersedes: "late-fee",
+    bodyText:
+      "If any portion of the Rent for a rental period remains unpaid after the later of (a) two full days after the date the Rent was originally due or (b) {{late_fee_grace_days}} days after that date, Tenant will pay a late fee consisting of an initial fee of {{late_fee_amount}}[, plus a daily fee of {{late_fee_daily_amount}} for each additional day any portion of that Rent remains unpaid]. The initial fee and any daily fees for a rental period are a single late fee and together will not exceed 12 percent of the Rent for that rental period if the dwelling is located in a structure that contains not more than four dwelling units, or 10 percent of the Rent for that rental period if the structure contains more than four dwelling units. Landlord and Tenant agree the late fee is a reasonable estimate of uncertain damages to Landlord related to the late payment of rent. On Tenant's request, Landlord will provide a written statement of whether Tenant owes a late fee and, if so, its amount. Acceptance of a late payment does not waive Landlord's right to require full payment of Rent on the date it is due or to pursue any other remedy available under this Lease.",
+  },
+  {
     id: "late-fee-safe-harbor-ca",
     title: "Late Fee Guidance",
     group: "Rent & Payment",
@@ -220,12 +238,21 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "If Tenant pays rent or any other amount due under this Lease by check, draft or order for payment and it is not honored for lack of funds, because Tenant has no account with the drawee, or because Tenant stops payment, Tenant shall be liable to Landlord for the amount of the payment and a service charge of {{nsf_fee}}, not to exceed $25 for the first such instrument and $35 for each subsequent one. No service charge is owed if Tenant stopped payment to resolve a good faith dispute with Landlord, if Tenant provides written confirmation from Tenant's financial institution that the instrument was returned due to an error by that institution, or if Tenant provides written confirmation that the account had insufficient funds because of a delay in a regularly scheduled direct deposit of a social security or government benefit assistance payment.",
   },
+  {
+    id: "nsf-fee-limit-tx",
+    title: "Returned Payments",
+    group: "Rent & Payment",
+    states: ["TX"],
+    supersedes: "returned-payments",
+    bodyText:
+      "If any payment of Rent or other amount due under this Lease is dishonored and returned unpaid, Tenant will pay Landlord a processing fee of {{nsf_fee}}, which will not exceed $30 for each dishonored payment. Landlord may require that the payment be replaced by a cashier's check, certified check, or money order. If more than two of Tenant's payments during the Term are returned unpaid, Landlord may require all future payments of Rent to be made by cashier's check, certified check, or money order.",
+  },
   // Security Deposit
   {
     id: "security-deposit-use",
     title: "Use of Security Deposit",
     group: "Security Deposit",
-    states: ["CO", "NE", "MN", "ND", "SD", "WY", "OH", "NV"],
+    states: ["CO", "NE", "MN", "ND", "SD", "WY", "OH", "NV", "TX"],
     bodyText:
       "Tenant shall pay Landlord a security deposit of {{security_deposit}} (Security Deposit) prior to occupancy. Landlord may apply the Security Deposit to remedy a Tenant default under this Lease, including past due Rent, and to repair damage to the property caused by Tenant or Tenant's guests beyond ordinary wear and tear. Landlord will not apply the Security Deposit to normal wear and tear or to any damage or defective condition that preexisted the tenancy. Landlord may apply the Security Deposit to cleaning costs only if the property is substantially less clean at the end of the Term than it was at the start of the Term. The Security Deposit will not relieve Tenant of any obligation to pay Rent due under this Lease prior to its termination.",
   },
@@ -250,7 +277,7 @@ const CLAUSE_TEMPLATES = [
     id: "residential-use-only",
     title: "Residential Use Only",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX"],
     bodyText:
       "Tenant will use and occupy the property for residential purposes only and will not use or permit the use of the property for any non-residential, illegal, or otherwise inappropriate purpose, including any commercial purpose.",
   },
@@ -258,7 +285,7 @@ const CLAUSE_TEMPLATES = [
     id: "existing-condition",
     title: "Existing Condition of Property",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX"],
     bodyText:
       "Tenant has examined the property and, by signing this Lease, acknowledges that the property is in good order and repair and satisfactory condition (Existing Condition), except as otherwise noted in this Lease. Landlord will deliver possession of the property to Tenant on the Start Date in the same or better condition as the Existing Condition, except for ordinary wear and tear.",
   },
@@ -266,7 +293,7 @@ const CLAUSE_TEMPLATES = [
     id: "permitted-occupants",
     title: "Permitted Occupants",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX"],
     bodyText:
       "The property will be occupied only by {{tenant_names}}, together with {{occupant_names}}. Tenant will notify Landlord promptly if any additional occupant takes up residence at the property.",
   },
@@ -274,7 +301,7 @@ const CLAUSE_TEMPLATES = [
     id: "no-disturbance",
     title: "No Disturbance or Nuisance",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX"],
     bodyText:
       "Tenant will not, and will not permit any occupant or guest to: make any unreasonably loud or otherwise unreasonable use of the property; allow any condition on the property that poses a threat of injury to persons or property; or otherwise interfere with the rights, comfort, safety, or enjoyment of neighboring properties or other tenants.",
   },
@@ -282,7 +309,7 @@ const CLAUSE_TEMPLATES = [
     id: "smoking-policy",
     title: "Smoking Policy",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX"],
     bodyText:
       "Smoking of any kind, including tobacco, marijuana, and vaping, is not permitted anywhere on the property, including inside the dwelling, on porches, balconies, or in any common area. Tenant will be responsible for any cost Landlord incurs to remediate odor, staining, or damage caused by smoking in violation of this Section, and a violation may be treated as a default under this Lease.",
   },
@@ -290,7 +317,7 @@ const CLAUSE_TEMPLATES = [
     id: "utilities-responsibility",
     title: "Utilities Paid by Tenant",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX"],
     bodyText:
       "Except for any utility Landlord agrees in this Lease to provide, Tenant is responsible for arranging and paying directly to the service provider for all other utilities and services to the property, including electricity, gas, telephone, cable, and internet, as applicable.",
   },
@@ -298,7 +325,7 @@ const CLAUSE_TEMPLATES = [
     id: "utility-service-continuity",
     title: "Utility Service Continuity",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX"],
     bodyText:
       "Tenant will not cause water, gas, electricity, sewer, or trash service to the property to be interrupted during the Term. This requirement does not apply to telephone, cable, or internet service.",
   },
@@ -306,7 +333,7 @@ const CLAUSE_TEMPLATES = [
     id: "utility-payment-evidence",
     title: "Evidence of Utility Payment",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX"],
     bodyText:
       "Upon Landlord's reasonable request, Tenant will provide Landlord with reasonable evidence that any utility specified as Tenant's responsibility under this Lease has been paid.",
   },
@@ -322,15 +349,15 @@ const CLAUSE_TEMPLATES = [
     id: "tenant-maintenance",
     title: "Tenant Maintenance & Cleanliness",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "MN", "SD", "OH"],
+    states: ["CO", "WY", "MN", "SD", "OH", "TX"],
     bodyText:
-      "Tenant will keep and maintain the property in a clean, safe, and sanitary condition, and will regularly dispose of garbage and waste in a clean and safe manner. Tenant will use all appliances, fixtures, and equipment in a safe and reasonable manner consistent with their intended purpose, will not obstruct access to doors and windows, and will maintain the property in the same condition as it was delivered to Tenant, except for ordinary wear and tear.",
+      "Tenant will keep and maintain the property in a clean, safe, and sanitary condition, and will regularly dispose of garbage and waste in a clean and safe manner. Tenant will use all appliances, fixtures, and equipment in a safe and reasonable manner consistent with their intended purpose, will not obstruct access to doors and windows, and will maintain the property in the same condition as it was delivered to Tenant, except for ordinary wear and tear and any condition that applicable law requires Landlord to repair or remedy.",
   },
   {
     id: "no-sublet-assign",
     title: "No Subletting or Assignment",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX"],
     bodyText:
       "Tenant will not sublease or assign all or any portion of the property or this Lease without the prior written consent of Landlord, in Landlord's sole discretion. Tenant will not rent the property, or any portion of the property, through any short-term rental program such as Airbnb, VRBO, or similar service, and doing so will be cause for termination of this Lease by Landlord. Any attempted sublease or assignment without such consent will be void and cause for termination of this Lease. No sublease will release Tenant from any obligation under this Lease.",
   },
@@ -338,15 +365,15 @@ const CLAUSE_TEMPLATES = [
     id: "no-alterations",
     title: "No Alterations",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX"],
     bodyText:
-      "Tenant will not perform any alterations or improvements to the property, including adding, changing, or removing appliances, fixtures, shelving, wallpaper, or paint, without the prior written consent of Landlord. If Landlord approves an alteration, Tenant understands it will remain part of the property at the end of the Term unless Landlord requires its removal.",
+      "Tenant will not perform any alterations or improvements to the property, including adding, changing, or removing appliances, fixtures, shelving, wallpaper, or paint, without the prior written consent of Landlord. If Landlord approves an alteration, Tenant understands it will remain part of the property at the end of the Term unless Landlord requires its removal. This Section does not limit any repair, installation, or rekeying that applicable law entitles Tenant to perform.",
   },
   {
     id: "joint-liability",
     title: "Joint & Several Liability",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX"],
     bodyText:
       "If more than one individual signs this Lease as Tenant, all such individuals are jointly and severally liable for the performance of all agreements, covenants, and obligations of Tenant under this Lease. Rent is due in full regardless of how Tenant chooses to divide payment among themselves.",
   },
@@ -355,7 +382,7 @@ const CLAUSE_TEMPLATES = [
     id: "services-utilities-provided",
     title: "Services & Utilities Provided by Landlord",
     group: "Landlord Responsibilities",
-    states: ["CO", "WY", "NE", "ND", "SD"],
+    states: ["CO", "WY", "NE", "ND", "SD", "TX"],
     bodyText:
       "Landlord will provide only the services and utilities expressly specified in this Lease, and as otherwise required by applicable law. Landlord is not liable for any interruption or insufficiency of a service or utility resulting from causes beyond Landlord's reasonable control.",
   },
@@ -363,7 +390,7 @@ const CLAUSE_TEMPLATES = [
     id: "utilities-paid-by-landlord",
     title: "Utilities Paid by Landlord",
     group: "Landlord Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX"],
     bodyText:
       "Landlord will arrange and pay for the following utilities and services to the property, which are included in Monthly Rent unless this Lease states otherwise: [list utilities Landlord provides here, e.g. water, sewer, and trash removal].",
   },
@@ -371,7 +398,7 @@ const CLAUSE_TEMPLATES = [
     id: "appliances-included",
     title: "Appliances & Equipment Included",
     group: "Landlord Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX"],
     bodyText:
       "The property includes the following appliances and equipment as of the Start Date, which Landlord will maintain as described in this Lease's Maintenance & Repairs Section: {{appliance_list}}.",
   },
@@ -379,7 +406,7 @@ const CLAUSE_TEMPLATES = [
     id: "landlord-maintenance",
     title: "Maintenance & Repairs",
     group: "Landlord Responsibilities",
-    states: ["CO", "NV"],
+    states: ["CO", "NV", "TX"],
     bodyText:
       "Subject to Tenant's own maintenance obligations under this Lease, Landlord will maintain the property, including its structural elements, roof, and systems, in good order and repair, and will be responsible for repairing the appliances, fixtures, and equipment located at the property, except where repair is necessary due to improper use by Tenant or a guest of Tenant. Tenant will notify Landlord promptly in writing of any condition requiring repair or maintenance, and Landlord will undertake required repairs within a reasonable time, consistent with applicable law.",
   },
@@ -391,12 +418,20 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "For a condition that materially interferes with Tenant's life, health, or safety, Landlord will commence remedial action within 24 hours of having notice, as required by Colorado law. For a condition rendering the property uninhabitable or otherwise requiring repair, Landlord will commence remedial action within 72 hours. Landlord will contact Tenant within 24 hours of having notice of the condition to describe Landlord's intended remedial action and an estimate of when it will commence and be completed, and will inform Tenant of Landlord's obligation to provide a comparable dwelling unit or hotel room at no cost to Tenant upon Tenant's request. Except where the condition imminently threatens life, health, or safety or poses an active and ongoing threat of substantial damage to the property, Landlord will give Tenant at least 24 hours' written notice before entering to commence or maintain remedial action.",
   },
+  {
+    id: "habitability-timeline-tx",
+    title: "Repairs — Tenant's Statutory Remedies",
+    group: "Landlord Responsibilities",
+    states: ["TX"],
+    bodyText:
+      "[This entire Section must be printed in bold or underlined type. Tex. Prop. Code §92.056(g).]\nREPAIRS AND TENANT'S STATUTORY REMEDIES. If Landlord fails to repair or remedy a condition that materially affects the physical health or safety of an ordinary tenant, Tenant may have remedies under Sections 92.056 and 92.0561 of the Texas Property Code. In general, Tenant must give notice of the condition to the person to whom, or at the place where, Rent is normally paid, and must not be delinquent in Rent when any required notice is given. Unless Tenant sends the first notice by certified mail, return receipt requested, by registered mail, or by another form of mail that allows tracking of delivery by the United States Postal Service or a private delivery service, Tenant must give Landlord a subsequent written notice after Landlord has had a reasonable time to repair. Seven days is presumed to be a reasonable time to repair; that presumption may be rebutted based on the date Landlord received the notice, the severity and nature of the condition, and the reasonable availability of materials, labor, and utilities. If Landlord is liable under Section 92.056, Tenant may: (1) terminate this Lease; (2) have the condition repaired or remedied and deduct the cost from Rent as provided by Section 92.0561; and (3) obtain judicial remedies under Section 92.0563. Repair and deduct is available only under the conditions in Section 92.0561, which include limits on the amount that may be deducted (in any one month, not more than one month's Rent or $500, whichever is greater), a requirement that the repair be made by an independent contractor or repairman who is licensed where the city requires it and in compliance with building codes, and a requirement that Tenant give Landlord a copy of the repair bill and receipt with the balance of the Rent.",
+  },
   // Access & Entry
   {
     id: "landlords-access",
     title: "Landlord's Right of Entry",
     group: "Access & Entry",
-    states: ["WY", "KS", "NE", "OH", "NV"],
+    states: ["WY", "KS", "NE", "OH", "NV", "TX"],
     bodyText:
       "Landlord, its agents, and contractors will have the right of reasonable access to the property during normal business hours to perform maintenance and repair obligations and to show the property to prospective tenants or purchasers. Except in the case of an emergency, Landlord will provide Tenant at least 24 hours' notice, or the notice period required by applicable law if longer, prior to entry.",
   },
@@ -414,7 +449,7 @@ const CLAUSE_TEMPLATES = [
     id: "possession-delay",
     title: "Possession Delay",
     group: "Default & Termination",
-    states: ["CO", "WY", "MN", "ND", "SD", "OH"],
+    states: ["CO", "WY", "MN", "ND", "SD", "OH", "TX"],
     bodyText:
       "If Landlord is unable to deliver possession of the property to Tenant by the Start Date, through no fault of Landlord, this Lease will remain in full force, but Tenant will not be obligated to pay Monthly Rent for the period Tenant is unable to take possession. If Landlord has not delivered possession within 30 days after the Start Date, Tenant may terminate this Lease by written notice to Landlord, in which case all amounts paid to Landlord by Tenant will be returned and both parties will be released from further obligation under this Lease.",
   },
@@ -422,7 +457,7 @@ const CLAUSE_TEMPLATES = [
     id: "default-by-tenant",
     title: "Default by Tenant",
     group: "Default & Termination",
-    states: ["CO", "WY", "MN", "ND", "CA", "NV"],
+    states: ["CO", "WY", "MN", "ND", "CA", "NV", "TX"],
     bodyText:
       "Tenant will be in default under this Lease if Tenant fails to pay Rent when due and does not cure the failure within the time period specified by applicable law after receiving written notice from Landlord. Tenant will also be in default if Tenant fails to comply with any other obligation under this Lease and does not cure the failure after receiving written notice. Except as required by applicable law, Tenant's failure to pay an assessed late fee, apart from the underlying Rent itself, will not by itself entitle Landlord to terminate this Lease or pursue eviction. If Tenant is in default, Landlord may exercise all rights and remedies available under applicable law, including terminating this Lease, regaining possession of the property, and recovering unpaid Rent, late fees, and reasonable costs and expenses, less amounts obtained from the Security Deposit. Landlord will use reasonable efforts to mitigate damages resulting from Tenant's default to the extent required by applicable law. To the extent permitted under applicable law, the prevailing party may recover from the other party court costs and reasonable attorneys' fees and expenses incurred in connection with any legal proceedings related to this Lease.",
   },
@@ -430,7 +465,7 @@ const CLAUSE_TEMPLATES = [
     id: "surrender-end-of-term",
     title: "Surrender at End of Term",
     group: "Default & Termination",
-    states: ["CO", "WY", "SD", "OH", "CA", "NV"],
+    states: ["CO", "WY", "SD", "OH", "CA", "NV", "TX"],
     bodyText:
       "Upon the expiration or earlier termination of this Lease, Tenant will surrender possession of the property and return all keys to Landlord immediately. The property will be left in the same condition as at the start of the Term, except for ordinary wear and tear, and free of all personal property of Tenant and any occupants. Personal property left at the property after Tenant vacates may, to the extent permitted by applicable law, be treated as abandoned and disposed of at Tenant's cost.",
   },
@@ -438,7 +473,7 @@ const CLAUSE_TEMPLATES = [
     id: "early-termination",
     title: "Early Termination",
     group: "Default & Termination",
-    states: ["CO", "WY", "MN", "ND", "SD", "OH", "NV"],
+    states: ["CO", "WY", "MN", "ND", "SD", "OH", "NV", "TX"],
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay an early termination fee equal to one month's Rent ({{monthly_rent}}) or 30% of the remaining Rent due under the Term, whichever is greater, and remains responsible for Rent and other obligations up to the termination date. Landlord may terminate this Lease early by providing Tenant at least 30 days' written notice if Tenant breaches a material term of this Lease and fails to cure the breach within 10 days of receiving written notice, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law. This includes a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or — except as prohibited by law in the case of a Tenant's death — any other termination right or limitation provided by applicable law.",
   },
@@ -463,7 +498,7 @@ const CLAUSE_TEMPLATES = [
     id: "notices",
     title: "Notices",
     group: "Notices & General",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX"],
     bodyText:
       "Any notice of termination, notice of default, or other notice required to be given in writing under this Lease or applicable law will be delivered to the addresses specified in this Lease, or to any updated address either party provides in writing to the other. Where applicable law requires a particular method, form, timing, or content for a notice, that requirement will control over this Section, and nothing in this Lease designates an alternative method of delivery for any notice governed by law.",
   },
@@ -471,7 +506,7 @@ const CLAUSE_TEMPLATES = [
     id: "governing-law",
     title: "Governing Law",
     group: "Notices & General",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX"],
     bodyText:
       "This Lease will be governed by the laws of the State of {{state}}, and any additional applicable laws of the city or county in which the property is located.",
   },
@@ -479,7 +514,7 @@ const CLAUSE_TEMPLATES = [
     id: "severability",
     title: "Severability",
     group: "Notices & General",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX"],
     bodyText:
       "If any provision of this Agreement shall be held or made invalid by a court decision, statute or rule, or shall be otherwise rendered invalid, the remainder of this Agreement shall not be affected thereby.",
   },
@@ -495,7 +530,7 @@ const CLAUSE_TEMPLATES = [
     id: "entire-agreement",
     title: "Entire Agreement",
     group: "Notices & General",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX"],
     bodyText:
       "This Lease, along with any attached addenda and legal disclosures, contains the entire agreement between Landlord and Tenant and may not be changed except in writing signed by all parties. This Lease is binding on and inures to the benefit of the permitted heirs, legal representatives, and assigns of the parties.",
   },
@@ -503,7 +538,7 @@ const CLAUSE_TEMPLATES = [
     id: "addendum-precedence",
     title: "Addendum Precedence",
     group: "Notices & General",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX"],
     bodyText:
       "Tenant acknowledges that the legal disclosures and addenda attached to this Lease are part of this legal agreement. The terms of this Lease will control in the event of any conflict between the terms of an Addendum and the terms of this Lease, except that any disclosure, notice, or addendum required by law will control over any conflicting term of this Lease.",
   },
@@ -511,7 +546,7 @@ const CLAUSE_TEMPLATES = [
     id: "electronic-signatures",
     title: "Electronic Signatures",
     group: "Notices & General",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX"],
     bodyText:
       "All individuals indicated in the Basic Terms as comprising Tenant will sign this Lease and related attached Addenda where indicated. Each of Landlord and Tenant consents to the other party's execution of this Lease by electronic signature. Delivery of this Lease containing the electronic signature of a party or otherwise by facsimile through electronic means or as a digital copy will have the same full force and effect as a manually executed original version.",
   },
@@ -520,7 +555,7 @@ const CLAUSE_TEMPLATES = [
     id: "pet-policy",
     title: "Pets",
     group: "Pets",
-    states: ["CO", "WY", "ND", "OH"],
+    states: ["CO", "WY", "ND", "OH", "TX"],
     bodyText:
       "Tenant may keep only pets identified in writing to and approved by Landlord. Tenant will pay Landlord a pet deposit, if applicable, and pet rent of {{pet_rent_amount}} per month. Tenant is responsible for all damage, waste removal, odor, and disturbance caused by a pet, and will indemnify Landlord from claims arising from Tenant's pet(s). Landlord may revoke approval of a pet that becomes a nuisance or safety concern, and may enter the property and remove a pet, without liability to Tenant, if the pet becomes vicious or displays symptoms of severe illness, or if Tenant dies, becomes incapacitated, or is otherwise unable to care for the pet and Landlord believes in good faith that the pet is being abused or neglected.",
   },
@@ -528,7 +563,7 @@ const CLAUSE_TEMPLATES = [
     id: "pet-insurance-requirement",
     title: "Pet Insurance Requirement",
     group: "Pets",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX"],
     bodyText:
       "If Tenant keeps an approved pet at the property, Tenant will maintain renter's insurance that includes coverage for pet-related liability, and will name Landlord as an interested party on the policy upon Landlord's request. This requirement does not apply to an assistance animal, and Tenant will not be required to carry liability insurance in connection with an assistance animal.",
   },
@@ -545,9 +580,9 @@ const CLAUSE_TEMPLATES = [
     id: "assigned-parking-space",
     title: "Assigned Parking Space(s)",
     group: "Parking & Storage",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX"],
     bodyText:
-      "Tenant is assigned the following parking space(s) for Tenant's exclusive use during the Term: [identify assigned space number(s)/location here]. Landlord may reassign a different space of comparable convenience on reasonable notice to Tenant.",
+      "Tenant is assigned the following parking space(s) for Tenant's exclusive use during the Term: [identify assigned space number(s)/location here]. Landlord may reassign a different space of comparable convenience on reasonable notice to Tenant, subject to any limits applicable law places on changing parking rules or policies during the Term.",
   },
   {
     id: "parking-vehicle-rules",
@@ -578,7 +613,7 @@ const CLAUSE_TEMPLATES = [
     id: "guest-policy",
     title: "Guest Policy",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX"],
     bodyText:
       "Guests are welcome for reasonable, non-continuous stays. A guest who stays beyond the period specified by Landlord within a given time frame will be considered an unauthorized occupant and subject to Landlord's prior written consent under this Lease's occupancy terms.",
   },
@@ -586,7 +621,7 @@ const CLAUSE_TEMPLATES = [
     id: "guest-policy-day-limit",
     title: "Guest Policy (14-Day Limit)",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX"],
     bodyText:
       "Tenant will not permit a guest to stay at the property for more than 14 consecutive days, or more than 14 total days within any rolling 6-month period, without Landlord's prior written consent to add that person to this Lease as an occupant or Tenant.",
   },
@@ -594,7 +629,7 @@ const CLAUSE_TEMPLATES = [
     id: "common-area-use",
     title: "Use of Property & Common Areas",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX"],
     bodyText:
       "Tenant will not, without Landlord's written consent, drill holes, use nails, hooks, or screws on the property, or fasten anything to its fixtures, appliances, or interior or exterior surfaces. Tenant will comply with any weight restrictions on balconies or porches and will not use them to store personal belongings without Landlord's consent. Tenant will not keep a waterbed or other water-filled furniture at the property, or any item (such as a piano or safe) whose weight Landlord has not agreed is reasonable for the floor, without Landlord's prior written consent. Tenant will not burn wax candles at the property. Tenant will not post or display any sign, banner, or advertisement visible from outside the property without Landlord's consent. Nothing in this Section restricts any display that applicable law entitles Tenant to make, such as the display of the flag of the United States or of religious or cultural items, subject to any lawful limits on its size, placement, and manner.",
   },
@@ -602,7 +637,7 @@ const CLAUSE_TEMPLATES = [
     id: "fire-safety-grilling",
     title: "Fire Safety & Grilling",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX"],
     bodyText:
       "Tenant will not cook or use a barbecue, grill, or other open-flame device on a porch, balcony, or within 15 feet of any building, and will not keep or use any flammable chemical or other material at the property that increases the risk of fire, except in quantities and manner consistent with normal household use.",
   },
@@ -610,7 +645,7 @@ const CLAUSE_TEMPLATES = [
     id: "landscaping-irrigation",
     title: "Landscaping & Irrigation",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX"],
     bodyText:
       "Unless Landlord provides landscaping service, Tenant is responsible for reasonable upkeep of the property's landscaping, including lawn mowing and leaf raking. If Landlord has set an irrigation schedule, Tenant will not modify it, and will promptly inform Landlord of any irrigation or landscaping issue, such as a leak or watering deficiency.",
   },
@@ -618,7 +653,7 @@ const CLAUSE_TEMPLATES = [
     id: "snow-removal",
     title: "Snow Removal",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX"],
     bodyText:
       "Unless Landlord provides snow removal service, Tenant is responsible for prompt, reasonable removal of snow and ice from any walkway, driveway, porch, or entrance at the property that Tenant uses, to help keep those areas safe and passable.",
   },
@@ -626,7 +661,7 @@ const CLAUSE_TEMPLATES = [
     id: "inspection-rights",
     title: "Inspection Rights",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX"],
     bodyText:
       "Tenant will allow Landlord to perform periodic inspections of the property during the Term, and at move-out, upon reasonable notice consistent with this Lease's Access & Entry terms.",
   },
@@ -635,7 +670,7 @@ const CLAUSE_TEMPLATES = [
     id: "lead-based-paint",
     title: "Lead-Based Paint Disclosure",
     group: "Disclosures",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX"],
     bodyText:
       "LEAD WARNING STATEMENT. Housing built before 1978 may contain lead-based paint. Lead from paint, paint chips, and dust can pose health hazards if not managed properly. Lead exposure is especially harmful to young children and pregnant women. Before renting pre-1978 housing, lessors must disclose the presence of known lead-based paint and/or lead-based paint hazards in the dwelling. Lessees must also receive a federally approved pamphlet on lead poisoning prevention. Landlord's disclosure: [state either that Landlord has no knowledge of lead-based paint or lead-based paint hazards in the dwelling, or describe all known lead-based paint and lead-based paint hazards]. Records and reports: [state either that Landlord has no reports or records pertaining to lead-based paint or lead-based paint hazards in the dwelling, or list all available records and reports and confirm they have been provided to Tenant]. Tenant acknowledges receipt of the information above and of the federally approved pamphlet Protect Your Family from Lead in Your Home. Landlord and Tenant each certify, to the best of their knowledge, that the information they have provided is true and accurate.",
   },
@@ -643,7 +678,7 @@ const CLAUSE_TEMPLATES = [
     id: "hoa-compliance",
     title: "Homeowner / Condominium Association Compliance",
     group: "Disclosures",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX"],
     bodyText:
       "If the property is located within a homeowner or condominium association, Tenant will comply with the association's rules and regulations applicable to the property. Any fines incurred due to Tenant's violation of association rules will be Tenant's responsibility.",
   },
@@ -686,6 +721,22 @@ const CLAUSE_TEMPLATES = [
     states: ["CA"],
     bodyText:
       "Flood Hazard Disclosure. [If Landlord has actual knowledge that the property is located in a special flood hazard area or an area of potential flooding, state that fact here; otherwise state 'Landlord has no actual knowledge that the property is located in a special flood hazard area or an area of potential flooding.'] Tenant may obtain information about hazards, including flood hazards, that may affect the property from the Internet Web site of the Office of Emergency Services, including the MyHazards tool at {{myhazards_url}}. Landlord's insurance does not cover the loss of Tenant's personal possessions, and it is recommended that Tenant consider purchasing renter's insurance and flood insurance to insure Tenant's possessions from loss due to fire, flood, or other risk of loss. Landlord is not required to provide additional information concerning the flood hazards to the property, and the information provided pursuant to Government Code section 8589.45 is deemed adequate to inform Tenant.",
+  },
+  {
+    id: "flood-disclosure-tx",
+    title: "Flood Disclosure Notice",
+    group: "Disclosures",
+    states: ["TX"],
+    bodyText:
+      "[Required for a lease with a term of 30 days or more. Landlord checks one box in each statement. Landlord and Tenant must both sign the document containing this notice; if it appears in this Lease, their signatures on this Lease satisfy that requirement. Tex. Prop. Code §92.0135.]\nFLOOD DISCLOSURE NOTICE\n{{landlord_name}} ( ) is or ( ) is not aware that the dwelling you are renting is located in a 100-year floodplain. If neither box is checked, you should assume the dwelling is in a 100-year floodplain. Even if the dwelling is not in a 100-year floodplain, the dwelling may still be susceptible to flooding. The Federal Emergency Management Agency (FEMA) maintains a flood map on its Internet website that is searchable by address, at no cost, to determine if a dwelling is located in a flood hazard area. Most tenant insurance policies do not cover damages or loss incurred in a flood. You should seek insurance coverage that would cover losses caused by a flood.\n{{landlord_name}} ( ) is or ( ) is not aware that the dwelling you are renting has flooded at least once within the last five years.",
+  },
+  {
+    id: "utility-submetering-disclosure-tx",
+    title: "Submetered or Allocated Water Billing",
+    group: "Disclosures",
+    states: ["TX"],
+    bodyText:
+      "[Include only if the property is an apartment house (five or more interconnected dwelling units rented monthly or longer), a condominium, or a manufactured home rental community, and Landlord bills Tenant for water or wastewater service that is submetered or allocated from a master meter. At the time this Lease is discussed, Landlord must give Tenant a copy of the Public Utility Commission's submetering and allocation rules (16 Tex. Admin. Code ch. 24, subch. I). 16 Tex. Admin. Code §24.279.]\nWATER AND WASTEWATER BILLING. Tenant will be billed by Landlord for [submetered / allocated] utility service. The following utility services will be included in the bill issued by Landlord: [list, e.g., water and wastewater]. Any dispute relating to the computation of Tenant's bill or the accuracy of any submetering device will be between Tenant and Landlord. For all dwelling units in the previous calendar year, the average monthly bill was ${{utility_avg_bill}}, the highest month's bill was ${{utility_high_bill}}, and the lowest month's bill was ${{utility_low_bill}}. [If allocated rather than submetered:] Landlord allocates the cost of master-metered service among tenants using the following formula: [clear description of the formula, which must be one of the methods approved by 16 Tex. Admin. Code §24.281(e)]. Meter reading dates, billing dates, and due dates are: [describe]. Landlord will repair leaks in Tenant's unit [and in common areas, if common areas are not submetered] within [state period]. Tenant has the right to receive information from Landlord to verify the utility bill. [Submetered service in an apartment house or manufactured home rental community only: state the service charge percentage, if any, which may not exceed 9 percent of Tenant's submetered water and wastewater charge and may not be charged to a resident of a unit that received low income housing tax credits or a resident receiving Section 8 tenant-based voucher assistance. No service charge may be added to allocated billing.] Landlord will not charge Tenant more than the charges the law permits for this service, will not pass through any deposit, disconnect, reconnect, late payment, or similar fee the utility bills to Landlord, and any late fee on a water bill will not exceed five percent of the bill paid late.",
   },
   {
     id: "foreclosure-disclosure-nv",
@@ -803,7 +854,7 @@ const CLAUSE_TEMPLATES = [
     id: "assistance-animal-accommodation",
     title: "Service and Assistance Animals",
     group: "Pets",
-    states: ["KS", "NV"],
+    states: ["KS", "NV", "TX"],
     bodyText:
       "A service animal or other assistance animal that Tenant or an Occupant needs as a reasonable accommodation for a disability is not considered a pet under this Lease, regardless of any pet policy, breed, weight, or size restriction stated elsewhere in this Lease. Landlord will not charge a pet deposit, pet rent, or other pet-related fee for an assistance animal. If the disability and the disability-related need for the animal are not readily apparent, Landlord may request reliable documentation confirming the need for the accommodation, to the extent permitted by applicable law; if the disability and need are readily apparent, Landlord will not require such documentation. Tenant remains responsible for any damage to the property caused by an assistance animal. Landlord may deny or withdraw this accommodation if the specific animal poses a direct threat to the health or safety of others, or would cause substantial physical damage to the property, that cannot be reduced or eliminated by another reasonable accommodation.",
   },
@@ -1975,7 +2026,7 @@ const CLAUSE_TEMPLATES = [
     id: "holdover-ca",
     title: "Holdover",
     group: "Default & Termination",
-    states: ["CA", "NV"],
+    states: ["CA", "NV", "TX"],
     supersedes: "holdover",
     bodyText:
       "If Tenant does not vacate the property by the end of the Term, Landlord may pursue any remedy allowed by law to recover possession and may recover the actual damages caused by Tenant's continued possession, including the reasonable rental value of the property for the period Tenant remains. Alternatively, Landlord may accept Tenant's continued payment of Rent, in which case this Lease will continue on a month-to-month basis on the same terms, terminable only as provided by law.",
@@ -2216,7 +2267,7 @@ const CLAUSE_TEMPLATES = [
     id: "tenant-forward-proceedings-ca",
     title: "Notice of Proceedings Against the Property",
     group: "Tenant Responsibilities",
-    states: ["CA"],
+    states: ["CA", "TX"],
     bodyText:
       "If Tenant receives notice of any proceeding to recover the property or its possession, Tenant shall immediately inform Landlord of the proceeding and deliver the notice to Landlord if it is in writing.",
   },
@@ -2266,7 +2317,7 @@ const CLAUSE_TEMPLATES = [
     id: "storage-space-ks-oh-ca",
     title: "Storage Space",
     group: "Parking & Storage",
-    states: ["KS", "OH", "CA", "NV"],
+    states: ["KS", "OH", "CA", "NV", "TX"],
     supersedes: "storage-space",
     bodyText:
       "Tenant is assigned the following storage space for Tenant's exclusive use during the Term: [identify storage space/location here]. Tenant will not store any hazardous, flammable, or perishable materials in the storage space.",
@@ -2275,7 +2326,7 @@ const CLAUSE_TEMPLATES = [
     id: "parking-ks-oh-ca",
     title: "Parking",
     group: "Parking & Storage",
-    states: ["KS", "OH", "CA", "NV"],
+    states: ["KS", "OH", "CA", "NV", "TX"],
     supersedes: "parking",
     bodyText:
       "Tenant may park only in the area(s) designated by Landlord, subject to any parking rules or addendum attached to this Lease. Landlord does not provide security for the parking area.",
@@ -2285,7 +2336,7 @@ const CLAUSE_TEMPLATES = [
     id: "tenants-property-insurance-ks-oh-ca",
     title: "Tenant's Property & Renter's Insurance",
     group: "Notices & General",
-    states: ["KS", "OH", "CA", "NV"],
+    states: ["KS", "OH", "CA", "NV", "TX"],
     supersedes: "tenants-property-insurance",
     bodyText:
       "Landlord's insurance does not cover loss or damage to Tenant's personal property. Tenant will obtain and maintain renter's insurance covering Tenant's personal property and liability throughout the Term, with liability coverage of at least {{tenant_insurance_minimum}}, and will provide Landlord with evidence of coverage upon request.",
@@ -2513,6 +2564,195 @@ const CLAUSE_TEMPLATES = [
     states: ["NV"],
     bodyText:
       "Landlord has equipped the property with one or more smoke detectors and will ensure they are in working order when Tenant takes possession. [If the property is a dwelling unit in an apartment building with at least three dwelling units, state law requires a smoke detector in the unit, placed as approved by the fire authority.] Tenant will test the smoke detectors periodically as the manufacturer recommends, replace batteries as needed during the Term, and promptly notify Landlord in writing of any detector that does not work after a battery change. Tenant will not remove, disconnect or disable any smoke detector. Landlord will repair or replace a detector that does not work within a reasonable time after notice.",
+  },
+  // Rules & Regulations
+  {
+    id: "keys-tx",
+    title: "Keys and Rekeying",
+    group: "Rules & Regulations",
+    states: ["TX"],
+    supersedes: "keys",
+    bodyText:
+      "At the start of the Term, Tenant will receive the keys specified by Landlord and will sign a receipt acknowledging the number and type of keys provided. Tenant will return all keys to Landlord at the end of the Term. Landlord will rekey, at Landlord's expense, each security device operated by a key, card, or combination not later than the seventh day after each tenant turnover date. At Tenant's request, Landlord will perform additional rekeying or change a security device at Tenant's expense. Tenant may not duplicate keys without Landlord's consent, and may not remove, change, rekey, replace, or alter a security device without Landlord's permission, except as the Texas Property Code allows Tenant to do if Landlord fails to comply with its security device requirements.\n[Optional. Effective only if this sentence is printed in bold or underlined type. Tex. Prop. Code §92.156(e).] If Tenant vacates the property in breach of this Lease, Landlord may deduct from the Security Deposit the reasonable cost Landlord incurs to rekey the security devices as required by law.\n[Optional. Effective only if this sentence is UNDERLINED; bold alone is not named by the statute. Tex. Prop. Code §92.162(b).] Tenant will pay for the repair or replacement of a security device necessitated by misuse or damage by Tenant, a member of Tenant's family, an occupant, or a guest, and not by normal wear and tear.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "acceptable-payment-methods-tx",
+    title: "Acceptable Payment Methods",
+    group: "Tenant Responsibilities",
+    states: ["TX"],
+    supersedes: "acceptable-payment-methods",
+    bodyText:
+      "Rent and other amounts due under this Lease must be paid by one of the following methods: [list accepted payment methods here. If Landlord will not accept cash, the list must require payment by check, money order, or another traceable or negotiable instrument]. If Landlord accepts a cash payment, Landlord will give Tenant a written receipt and record the payment date and amount in a record book maintained by Landlord.",
+  },
+  // Security Deposit
+  {
+    id: "security-deposit-return-tx",
+    title: "Security Deposit Refund",
+    group: "Security Deposit",
+    states: ["TX"],
+    supersedes: "security-deposit-return",
+    bodyText:
+      "Landlord will refund the Security Deposit to Tenant on or before the 30th day after the date Tenant surrenders the property. Before refunding it, Landlord may deduct damages and charges for which Tenant is legally liable under this Lease or as a result of breaching this Lease, but will not retain any portion of the Security Deposit to cover normal wear and tear. If Landlord retains all or part of the Security Deposit, Landlord will give Tenant the balance, if any, together with a written description and itemized list of all deductions; no description and itemized list is required if Tenant owes Rent when Tenant surrenders possession and there is no controversy about the amount of Rent owed. Landlord is not obligated to refund the Security Deposit or to give Tenant a written description of damages and charges until Tenant gives Landlord a written statement of Tenant's forwarding address for the purpose of refunding the Security Deposit, but Tenant does not forfeit the right to a refund or to the description merely by failing to give a forwarding address. Notices and other communications about the Security Deposit may be sent by e-mail if Tenant and Landlord or Landlord's agent have previously communicated by e-mail, and Landlord may designate a specific e-mail address for Tenant to use for that purpose.",
+  },
+  {
+    id: "deposit-surrender-notice-tx",
+    title: "Advance Notice of Surrender",
+    group: "Security Deposit",
+    states: ["TX"],
+    bodyText:
+      "[Optional. Effective only if this entire provision is underlined or printed in conspicuous bold print. Tex. Prop. Code §92.103(b).] Tenant must give Landlord at least {{surrender_notice_days}} days' advance written notice of surrender as a condition for refunding the Security Deposit.",
+  },
+  {
+    id: "deposit-last-month-rent-tx",
+    title: "Security Deposit Is Not Last Month's Rent",
+    group: "Security Deposit",
+    states: ["TX"],
+    bodyText:
+      "Tenant may not withhold payment of any portion of the last month's Rent on the grounds that the Security Deposit is security for unpaid Rent. A Tenant who does so is presumed to have acted in bad faith, and a Tenant who in bad faith withholds Rent on that ground is liable to Landlord for three times the Rent wrongfully withheld and Landlord's reasonable attorney's fees in a suit to recover the Rent.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "tenant-repair-agreement-tx",
+    title: "Tenant Payment for Certain Repairs",
+    group: "Tenant Responsibilities",
+    states: ["TX"],
+    bodyText:
+      "[Optional. To be effective this entire Section must be underlined or printed in bold, must be specific and clear, and must be agreed knowingly, voluntarily, and for consideration. It may appear in this Lease or in a separate signed addendum. Tex. Prop. Code §92.006(e)(4), (f).] Except for conditions caused by the negligence of Landlord, Tenant will pay for the repair of the following conditions that occur during the Term or any renewal or extension: (1) damage from wastewater stoppages caused by foreign or improper objects in lines that exclusively serve Tenant's dwelling; (2) damage to doors, windows, or screens; and (3) damage from windows or doors left open. This Section does not affect Landlord's duty to repair or remedy, at Landlord's expense, wastewater stoppages or backups caused by deterioration, breakage, roots, ground conditions, faulty construction, or malfunctioning equipment.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "security-devices-tx",
+    title: "Security Devices",
+    group: "Landlord Responsibilities",
+    states: ["TX"],
+    bodyText:
+      "[Print this entire Section in bold or underlined type. If it is, Landlord has seven days, rather than three, to comply with Tenant's written request before Tenant may terminate or sue under Section 92.164(a)(2) or (4) of the Texas Property Code (the extra time does not apply where the request reports a recent unauthorized entry or crime of personal violence). Tex. Prop. Code §92.164(b)-(c).]\nSECURITY DEVICES. Landlord, at Landlord's expense, is required to equip the dwelling, when Tenant takes possession, with the security devices required by Subchapter D of Chapter 92 of the Texas Property Code: a window latch on each exterior window; a doorknob lock or keyed dead bolt on each exterior door; a sliding door pin lock and a sliding door handle latch or sliding door security bar on each exterior sliding glass door; and a keyless bolting device and a door viewer on each exterior door. Landlord is not required to install a doorknob lock or keyed dead bolt at Landlord's expense if, when Tenant agrees to lease the dwelling, at least one exterior door usable for normal entry has both a keyed dead bolt and a keyless bolting device and all other exterior doors have a keyless bolting device, each installed as the law requires. Landlord is not required to install a keyless bolting device at Landlord's expense on an exterior door if Landlord is expressly required or permitted to periodically check on the well-being or health of Tenant under this Lease or another written agreement and the other conditions of Section 92.153(e) are met. Tenant has the right to install or rekey a security device required by Subchapter D and deduct the reasonable cost from Tenant's next Rent payment, as provided by Section 92.164(a)(1).\n[Optional; effective only if bold or underlined. Tex. Prop. Code §92.159.] Tenant's requests and notices about security devices must be in writing.",
+  },
+  {
+    id: "smoke-alarm-tx",
+    title: "Smoke Alarms",
+    group: "Landlord Responsibilities",
+    states: ["TX"],
+    bodyText:
+      "Landlord has installed smoke alarms in the dwelling as required by Subchapter F of Chapter 92 of the Texas Property Code and has determined that each is in good working order at the beginning of Tenant's possession. During the Term, Landlord will inspect and repair a smoke alarm if Tenant gives Landlord notice of a malfunction or requests an inspection or repair, within a reasonable time considering the availability of material, labor, and utilities. Landlord has no duty to repair damage to or a malfunction of a smoke alarm caused by Tenant, Tenant's family, or Tenant's guests or invitees, unless Tenant pays in advance the reasonable repair or replacement cost. Landlord is not obligated to provide batteries for a battery-operated smoke alarm after Tenant takes possession. If requested by Tenant as an accommodation for a person with a hearing-impairment disability, a smoke alarm must also be capable of alerting a hearing-impaired person in the bedrooms it serves.\n[The following notice must be underlined or in bold print for Landlord to have the remedies of Section 92.2611(e). Tex. Prop. Code §92.2611(d)(1).] Tenant must not disconnect or intentionally damage a smoke alarm or remove the battery without immediately replacing it with a working battery. Tenant may be subject to damages, civil penalties, and attorney's fees under Section 92.2611 of the Texas Property Code for not complying with this notice.\n[Optional. Tex. Prop. Code §92.259(b).] Tenant's initial request for installation, inspection, or repair of a smoke alarm must be in writing.",
+  },
+  // Default & Termination
+  {
+    id: "early-termination-rights-statement-tx",
+    title: "Statutory Early Termination Rights",
+    group: "Default & Termination",
+    states: ["TX"],
+    bodyText:
+      "Tenants may have special statutory rights to terminate the lease early in certain situations involving family violence or a military deployment or transfer.\nTenants may have special statutory rights to terminate the lease early in certain situations involving certain sexual offenses or stalking.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "emergency-phone-tx",
+    title: "Emergency Contact Number",
+    group: "Landlord Responsibilities",
+    states: ["TX"],
+    bodyText:
+      "To report an emergency related to a condition of the property that materially affects the physical health or safety of an ordinary tenant, Tenant may call {{emergency_phone}}. [If Landlord has an on-site management or superintendent's office for the property, this number must be answered 24 hours a day and must also be posted prominently outside that office. Tex. Prop. Code §92.020.]",
+  },
+  // Disclosures
+  {
+    id: "owner-management-disclosure-tx",
+    title: "Ownership and Management",
+    group: "Disclosures",
+    states: ["TX"],
+    bodyText:
+      "The holder of record title to the dwelling, according to the deed records in the county clerk's office, is {{owner_name}}, {{owner_address}}. [If an entity located off-site from the dwelling is primarily responsible for managing the dwelling:] The management company is {{management_company_name}}, {{management_company_street_address}}. Landlord will correct this information if a name or address changes.",
+  },
+  // Default & Termination
+  {
+    id: "casualty-loss-tx",
+    title: "Casualty Loss",
+    group: "Default & Termination",
+    states: ["TX"],
+    bodyText:
+      "If, after a casualty loss not caused by the negligence or fault of Tenant, a member of Tenant's family, or a guest or invitee of Tenant, the property is as a practical matter totally unusable for residential purposes, either Landlord or Tenant may terminate this Lease by giving written notice to the other at any time before repairs are completed. If this Lease is terminated, Tenant is entitled only to a pro rata refund of Rent from the date Tenant moves out and to a refund of any Security Deposit otherwise required by law. If after such a casualty loss the property is partially unusable for residential purposes, Rent will be reduced in proportion to the extent the property is unusable because of the casualty. If a condition results from an insured casualty loss, such as fire, smoke, hail, explosion, or a similar cause, the period for repair does not begin until Landlord receives the insurance proceeds.",
+  },
+  {
+    id: "lockout-rent-delinquency-tx",
+    title: "Lock Change for Delinquent Rent",
+    group: "Default & Termination",
+    states: ["TX"],
+    bodyText:
+      "[Optional. Landlord has this right only if it is placed in the lease. Tex. Prop. Code §92.0081(d)(1).] If Tenant is delinquent in paying all or part of the Rent, Landlord may change the door locks on the door to Tenant's individual unit. Landlord will do so only in compliance with Section 92.0081 of the Texas Property Code, including by giving Tenant the advance written notice it requires, and will not change the locks while Tenant or any other lawful occupant is in the dwelling, more than once during a rental payment period, or on a day, or the day before a day, on which Landlord or its designated representative is not available, or any on-site management office is not open, for Tenant to tender the delinquent Rent. Landlord will provide Tenant a key to the new lock at any hour, regardless of whether Tenant pays the delinquent Rent, and will not prevent Tenant from entering any common area.",
+  },
+  // Parking & Storage
+  {
+    id: "parking-rules-tx",
+    title: "Parking Rules",
+    group: "Parking & Storage",
+    states: ["TX"],
+    bodyText:
+      "[Include if the property is in a multiunit complex (two or more dwellings under common ownership or management on the same or adjacent lots) and Landlord has vehicle towing or parking rules. The heading of this paragraph must read \"Parking\" or \"Parking Rules\" and be capitalized, underlined, or printed in bold. Tex. Prop. Code §92.0131(c).]\nPARKING RULES. Landlord's vehicle towing and parking rules [are stated in this paragraph / are attached to this Lease as the Parking Rules Addendum, which is part of this Lease and signed by Tenant]. As a condition of parking, Landlord may require only the make, model, color, year, license number, and state of registration of each vehicle to be parked. If Landlord changes the towing or parking rules during the Term, Landlord will give Tenant written notice of the change, and the change will not take effect before the 14th day after the notice is delivered, unless it results from a construction or utility emergency. A change made during the Term will apply to all of Landlord's tenants in the same complex and will be based on necessity, safety or security of tenants, reasonable requirements for construction on the premises, or respect for other tenants' parking rights, unless Tenant consents to it in writing. Any parking permit issued to Tenant will be for a term coterminous with this Lease and will not be terminated or suspended before Tenant's right of possession ends.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "electric-submeter-interruption-tx",
+    title: "Submetered Electricity: Interruption for Nonpayment",
+    group: "Tenant Responsibilities",
+    states: ["TX"],
+    bodyText:
+      "[Include only if Landlord submeters electricity or allocates or prorates nonsubmetered master-metered electricity, and wants the right to interrupt electric service for nonpayment. Tex. Prop. Code §92.008(h).] If Tenant does not pay an electric bill issued by Landlord on or before the 12th day after the date it is issued, Landlord may interrupt electric service to the dwelling, but only as permitted by and in compliance with Section 92.008 of the Texas Property Code, including its advance-notice requirements, the days and weather conditions on which interruption is prohibited, and Tenant's right to avoid interruption where it would cause a resident to become seriously ill. A payment Tenant makes to avoid interruption or to restore service will not be applied to Rent or any other amount owed under this Lease.\n[Include only if a reconnection fee will be charged; state the exact dollar amount, which may not exceed $10 and must reflect Landlord's average reconnection cost. Tex. Prop. Code §92.008(r).] If electric service is interrupted for nonpayment, Tenant will pay a reconnection fee of ${{reconnection_fee}}. No reconnection fee applies to a deferred payment plan.",
+  },
+  // Notices & General
+  {
+    id: "deceased-tenant-contact-tx",
+    title: "Contact in the Event of Tenant's Death",
+    group: "Notices & General",
+    states: ["TX"],
+    bodyText:
+      "Upon Landlord's written request, Tenant will provide Landlord with the name, address, and telephone number of a person to contact in the event of Tenant's death, and will sign a statement authorizing Landlord, in the event of Tenant's death, to: (a) grant that person access to the property at a reasonable time and in the presence of Landlord or Landlord's agent; (b) allow that person to remove any of Tenant's property found at the property; and (c) refund Tenant's Security Deposit, less lawful deductions, to that person. Tenant may provide this information without Landlord's request.",
+  },
+  // Default & Termination
+  {
+    id: "landlord-lien-tx",
+    title: "Landlord's Lien",
+    group: "Default & Termination",
+    states: ["TX"],
+    bodyText:
+      "[Optional. A contractual landlord's lien is not enforceable unless this entire Section is underlined or printed in conspicuous bold print. Tex. Prop. Code §54.043(a).]\nLANDLORD'S LIEN. Landlord has a lien for unpaid Rent that is due on Tenant's nonexempt personal property in the dwelling or stored by Tenant in a storage room. The lien does not attach to property exempt under Section 54.042 of the Texas Property Code, including wearing apparel; tools, apparatus, and books of a trade or profession; schoolbooks; a family library; family portraits and pictures; one couch, two living room chairs, and a dining table and chairs; beds and bedding; kitchen furniture and utensils; food and foodstuffs; medicine and medical supplies; one automobile and one truck; agricultural implements; children's toys not commonly used by adults; goods Landlord knows are owned by someone other than Tenant or an occupant; and goods Landlord knows are subject to a recorded chattel mortgage or financing agreement. Landlord may seize nonexempt property only if seizure can be accomplished without a breach of the peace, and will immediately leave in a conspicuous place in the dwelling a written notice of entry and an itemized list of the items removed, stating the amount of delinquent Rent, the name, address, and telephone number of the person Tenant may contact about the amount owed, and that the property will be promptly returned on full payment of the delinquent Rent. Tenant will pay reasonable charges for packing, removing, and storing seized property. Landlord may sell seized property after giving Tenant written notice by both first class mail and certified mail, return receipt requested, at Tenant's last known address, not later than the 30th day before the sale, as required by Section 54.045. Tenant may redeem the property at any time before sale by paying all delinquent Rent and reasonable packing, moving, storage, and sale costs.",
+  },
+  // Notices & General
+  {
+    id: "electronic-notice-consent-tx",
+    title: "Electronic Delivery of Eviction Notices",
+    group: "Notices & General",
+    states: ["TX"],
+    bodyText:
+      "[Optional. Tex. Prop. Code §24.005(f-3)(4).] Tenant agrees that a notice to vacate or a notice to pay rent or vacate may be delivered to Tenant by e-mail at {{tenant_email}}, in addition to any other method permitted by law.",
+  },
+  // Default & Termination
+  {
+    id: "notice-to-vacate-period-tx",
+    title: "Notice to Vacate Period",
+    group: "Default & Termination",
+    states: ["TX"],
+    bodyText:
+      "[Optional. Without this Section, Texas law requires at least three days' written notice. Tex. Prop. Code §24.005(a).] Before filing an eviction suit because Tenant has defaulted or is holding over beyond the end of the Term, Landlord will give Tenant at least {{notice_to_vacate_days}} day(s) written notice to vacate, or notice to pay Rent or vacate where the law requires that form. A notice to vacate for holding over will also comply with any notice required to terminate the tenancy.",
+  },
+  // Parking & Storage
+  {
+    id: "parking-vehicle-rules-tx",
+    title: "Vehicle Rules and Towing",
+    group: "Parking & Storage",
+    states: ["TX"],
+    supersedes: "parking-vehicle-rules",
+    bodyText:
+      "[In a multiunit complex, this text is part of the Parking Rules paragraph and must appear under its required heading. Tex. Prop. Code §92.0131(c); see parking-rules-tx.]\nOnly operable, currently registered passenger vehicles may be parked at the property. Commercial vehicles, recreational vehicles, oversized vehicles, and semitrailers, trailers, and truck-tractors are not permitted without Landlord's prior written consent. As a condition of parking, Landlord may require Tenant to provide the make, model, color, year, license number, and state of registration of each vehicle, and may issue parking tags, decals, or access cards, the cost of which may be charged to Tenant. Landlord may have an unauthorized vehicle towed at the vehicle owner's or operator's expense only as permitted by Chapter 2308 of the Texas Occupations Code, including its sign and notice requirements.\n[Apartment complex:] Landlord will not have a vehicle towed merely because it does not display an unexpired license plate or registration insignia unless Landlord first gives the vehicle's owner or operator at least 10 days' written notice stating that the vehicle does not display an unexpired license plate or registration insignia, that the vehicle will be towed at the owner's or operator's expense if it does not display one, and a telephone number answered 24 hours a day to locate the vehicle. The notice will be delivered in person, sent by certified mail, return receipt requested, or attached to the vehicle's front windshield or driver's side window (or, if the vehicle has neither, to a conspicuous part of the vehicle).\nVehicle repairs are not permitted at the property except minor emergency repairs necessary to move the vehicle, and vehicles may be washed only in areas Landlord designates, if any.",
+  },
+  // Disclosures
+  {
+    id: "electric-submeter-disclosure-tx",
+    title: "Submetered Electricity",
+    group: "Disclosures",
+    states: ["TX"],
+    bodyText:
+      "[Include only if Landlord submeters electricity to the dwelling in an apartment house of more than five units, a condominium, or a mobile home park. At the time this Lease is signed, Landlord must give Tenant a copy of 16 Tex. Admin. Code §25.142 or a narrative summary approved by the Public Utility Commission. 16 Tex. Admin. Code §25.142(d).]\nSUBMETERED ELECTRICITY. The dwelling is submetered for electricity, and Landlord will issue bills to Tenant for electricity measured by the submeter. Electrical consumption charges for all common areas and common facilities are the responsibility of Landlord and not of Tenant. Any dispute relating to the computation of Tenant's bill or the accuracy of the submetering device will be between Tenant and Landlord.\n[Optional. No late penalty may be charged unless this sentence states the exact dollar or percentage amount, not more than 5 percent. 16 Tex. Admin. Code §25.142(d)(1)(F)(i).] If a submetered electric bill is delinquent, Tenant will pay a one-time late penalty of {{electric_late_penalty}}.",
   },
 ];
 

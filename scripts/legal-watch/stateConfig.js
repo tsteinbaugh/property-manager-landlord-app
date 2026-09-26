@@ -20,6 +20,7 @@ const STATE_NAMES = {
   OH: "Ohio",
   CA: "California",
   NV: "Nevada",
+  TX: "Texas",
 };
 
 const STATE_CONFIG = {
@@ -387,6 +388,86 @@ const STATE_CONFIG = {
         id: "case-ca-auburn-woods",
         label: "Auburn Woods I Homeowners Assn. v. Fair Employment & Housing Com. (2004) 121 Cal.App.4th 1578",
         clauseIds: ["assistance-animal-accommodation-ca"],
+      },
+    ],
+  },
+  TX: {
+    // Texas, like California, spreads landlord-tenant law across several
+    // codes (Property, Business & Commerce, Water, Occupations, Local
+    // Government, Human Resources, Civil Practice & Remedies), and the same
+    // section number can exist in more than one of them. So TX section keys
+    // carry their code ("Prop. 92.0131"), and the query pairs the section
+    // with the code name the way Texas bills write it ("Section 92.0131,
+    // Property Code, is amended"). A bare "3.506" or "1.004" would also match
+    // dollar amounts and decimals.
+    //
+    // 16 TAC (Public Utility Commission rules) is agency rulemaking LegiScan
+    // can't see -- stripped here and given a manual-recheck reminder instead
+    // (same reasoning as KS's K.A.R., OH's OAC, CA's CCR).
+    stripPatterns: [/16 TAC[^;]*/g],
+    extractSections(text) {
+      const CODES = [
+        [/^Tex\. Prop\. Code/, "Prop."],
+        [/^Tex\. Bus\. & Com\. Code/, "Bus. & Com."],
+        [/^Tex\. Water Code/, "Water"],
+        [/^Tex\. Occ\. Code/, "Occ."],
+        [/^Tex\. Loc\. Gov't Code/, "Loc. Gov't"],
+        [/^Tex\. Hum\. Res\. Code/, "Hum. Res."],
+        [/^Tex\. Civ\. Prac\. & Rem\. Code/, "Civ. Prac. & Rem."],
+      ];
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        const code = CODES.find(([re]) => re.test(part));
+        if (!code) continue;
+        const body = part.replace(code[0], "").replace(/\([^)]*\)/g, "");
+        for (const m of body.matchAll(/\b(\d{1,4}[A-Z]?\.\d{3,5})\b/g)) out.push(`${code[1]} ${m[1]}`);
+      }
+      return out;
+    },
+    buildQuery(sectionKey) {
+      const NAMES = {
+        "Prop.": "Property Code",
+        "Bus. & Com.": "Business & Commerce Code",
+        Water: "Water Code",
+        "Occ.": "Occupations Code",
+        "Loc. Gov't": "Local Government Code",
+        "Hum. Res.": "Human Resources Code",
+        "Civ. Prac. & Rem.": "Civil Practice and Remedies Code",
+      };
+      const i = sectionKey.lastIndexOf(" ");
+      return `"Section ${sectionKey.slice(i + 1)}" AND "${NAMES[sectionKey.slice(0, i)]}"`;
+    },
+    cfrChecks: [
+      // The assistance-animal family rests on Texas's generic accommodation
+      // duty, which must mirror federal regulations (Prop. Code §301.062) --
+      // same regulation KS, CA and NV watch.
+      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation", "pet-insurance-requirement"] },
+    ],
+    federalStatuteChecks: [],
+    manualRecheckItems: [
+      {
+        id: "reg-tx-puc-submetering",
+        label:
+          "PUC submetering/allocation rules, 16 TAC §§24.279, 24.281 (water) and §25.142 (electric) -- agency rulemaking, not visible to LegiScan; currency last asserted as of the PUC postings (eff. 10/17/18 and 6/10/13)",
+        clauseIds: ["utility-submetering-disclosure-tx", "edu-water-submetering-tx", "electric-submeter-disclosure-tx", "edu-non-waivable-terms-tx"],
+      },
+      {
+        id: "tx-sb38-lookback",
+        label:
+          "S.B. 38 eviction-notice look-back ('not late or delinquent ... before the month in which the notice is given', Prop. Code §24.005(a)) -- undefined; watch TRCP 510.6(a)(13) and any appellate decision",
+        clauseIds: ["edu-eviction-notice-tx", "notice-to-vacate-period-tx"],
+      },
+      {
+        id: "tx-local-preemption-litigation",
+        label:
+          "Prop. Code §1.004 (H.B. 2127) litigation: State v. City of Houston (3d COA 2025; en banc denied 2026-05-14) and the reported Dallas case in the Fifteenth Court of Appeals",
+        clauseIds: ["edu-local-preemption-tx"],
+      },
+      {
+        id: "tx-sb17-designations",
+        label:
+          "S.B. 17 (Prop. Code Subch. H): the designated-country list, Wang v. Paxton (5th Cir. 2025) / Huang v. Paxton (W.D. Tex.)",
+        clauseIds: ["edu-foreign-acquisition-leases-tx"],
       },
     ],
   },
