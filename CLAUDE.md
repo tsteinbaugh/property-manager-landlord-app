@@ -101,6 +101,15 @@ Research not yet started.
 - **Open from the TX log, Taylor's call:** the product defaults in TX log §4.2/§11.5 (late fee capped at the safe harbor, casualty rent reduction by agreement, lien and notice-period offered as opt-in, holdover at actual damages), plus six candidate clauses not built. **Addendum M.12 (a lease `formatting` field)** is now the most consequential product gap: Texas has 17 rules where a clause only works if it is bold, underlined, under a set heading, or in a separate document, and today these are bracketed instructions in the text. Two cross-state questions are in TX log §16 (per-state `rule_type`; whether other states' leases already rely on typography).
 - **Generator rebuilt:** the one-off CSV→backend generator was lost with the old scratchpad, so it was rewritten (Python) and first proven to reproduce the three shipped files byte for byte from the pre-TX CSV. Not committed, per practice.
 
+**State #12 chosen 2026-09-26: New Jersey, state-level only.** Taylor's pick. Research ownership stays the established pattern: Taylor + Claude Desktop externally, then a Claude Code sync against the 4-item completion list. The kickoff is staged at `~/Desktop/new-jersey-kickoff/`: a ready-to-paste prompt (`00-new-jersey-kickoff-prompt.md`) plus current copies of `lease-clauses.csv` (800 rows), the named-topic checklist, the architecture-review log, and the TX and CA logs as reference examples. The prompt:
+- requires instructions 1–30;
+- requires `N.J.S.A. title:chapter-section` / `N.J.A.C.` citations, because NJ legal watch will need a colon-aware extractor and a regulation-recheck path;
+- asks for enactment to be confirmed from the `P.L.` chapter law;
+- lists NJ topics as leads to verify, not facts: Anti-Eviction Act, Truth in Renting, Rent Security Deposit Act, lead-safe certification, flood disclosure, Fair Chance in Housing;
+- flags the one dormant `security-deposit-interest-nj` row as a research question;
+- keeps municipal rent control flagged, not resolved.
+Research not yet started.
+
 **Standing backlog, no active priority order right now — ask Taylor what's next:** Move-in/Move-out Inspections, Legal Tracker (Colorado-only first, per "Nationwide jurisdictional coverage plan" below), a maintenance-supplies inventory idea (memory `project_maintenance_supplies_inventory_idea`), the Addendum M product-backlog items surfaced by the legal research (see Known Issues) — most notably ND's `lease-notice-initial-requirement-nd` clause, which per Addendum M.1 "currently ships broken" without a lease-builder mechanism for an adjacent initialing field and the freshly-surfaced **CO/WY "accretion debt"** in the named-topic checklist (22 and 15 unresolved cells respectively) that Ohio's own handoff flagged as the best thing to close out before state #9. Also newly open, both from Ohio's research: whether Wyoming and Nebraska's total absence of a fire/casualty clause is a **verified absence or an unbuilt row** (can't be told from the CSV alone — determine before either state is next revisited), and a real design gap in the legal-watch tripwire (Ohio moves landlord-tenant/fair-housing law through **budget/appropriations bills** across three separate general assemblies, which a watch filtering on bill title/subject/committee would miss — untested against the other seven states, not confirmed Ohio-specific).
 
 ---
@@ -822,7 +831,7 @@ Claude Code should:
 
 ---
 
-*Last updated: 2026-09-26 — Texas (state #11) synced: 291 lease clauses, 469 education rows, `lease-clause-citations-TX.csv`, TX legal watch live and validated (seed-baseline on `main`, follow-up dry-run 0 findings). 4 TX PARTIALs accepted by Taylor; the TX product defaults stay as drafted unless Taylor revisits them. State #12 not yet chosen.*
+*Last updated: 2026-09-26 — Texas (state #11) synced: 291 lease clauses, 469 education rows, `lease-clause-citations-TX.csv`, TX legal watch live and validated (seed-baseline on `main`, follow-up dry-run 0 findings). 4 TX PARTIALs accepted by Taylor; the TX product defaults stay as drafted unless Taylor revisits them. State #12 picked: New Jersey, state-level only; kickoff staged at `~/Desktop/new-jersey-kickoff/`, research not yet started.*
 
 *Prior update, 2026-09-25 — Nevada (state #10) synced, all 4 completion items done: 265 lease clauses, 416 education rows, `lease-clause-citations-NV.csv` (8 PARTIALs accepted by Taylor), NV legal watch live and validated (seed-baseline on `main`, follow-up dry-run 0 findings). Verified the NV log's sync tasks before running them; T1/T2 were correct and applied, while T3/T4 were superseded by Taylor's call to copy Colorado's verification metadata back into `lease-clauses.csv` (all 63 rows VERIFIED; the CSV is canonical from now on). State #11 picked: Texas, state-level only; kickoff staged at `~/Desktop/texas-kickoff/`, research not yet started.*
 
