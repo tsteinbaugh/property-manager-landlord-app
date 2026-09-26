@@ -1575,7 +1575,11 @@
     }
   },
   "federalSections": {},
-  "cfr": {},
+  "cfr": {
+    "24-100.204": {
+      "lastSeenAmendment": "2017-01-03"
+    }
+  },
   "manualRecheck": {
     "reg-nj-dca-5-10": {
       "lastReminded": "2026-09-26"
