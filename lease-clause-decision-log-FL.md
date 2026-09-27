@@ -325,3 +325,5 @@ Both Claude CLI flags from §12 are closed.
 **2. The `security-deposit-installments-co` column repair.** Confirmed correct. The bad row came from the NJ sync's own status fix (Claude Code's error, not the NJ pass). The citations file already records the row as REMOVED, so nothing else needed checking. The CSV generator now refuses to run on any row with the wrong field count.
 
 **Integrity after the sync:** 883 rows; 331 shipped lease clauses and 515 education rows. FL shows 67 clauses. Every other state's visible count is unchanged, and each shows the one rent-first `application-of-payments`.
+
+**PARTIALs closed at the sync (Taylor agreed they were closable):** `edu-apartment-employee-screening-fl` (§509.242(1)(d)-(e) read: the classifications are 75%+ nontransient units, or more than 25% held out as transient) and `edu-veterans-pilot-fl` (all of §83.684 read; effective 2026-07-01 per ch. 2026-125's own effective-date clause, approved 2026-06-11). Both bodies were already correct. The one open item left is `edu-local-preemption-fl`, which research can't close (§11).
