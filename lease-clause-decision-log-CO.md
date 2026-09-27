@@ -1344,3 +1344,14 @@ Not a re-audit; nothing else in this state was reviewed. Detail: lease-clause-de
 1. **Shared-row edit received from Arizona (2026-09-27, Taylor's decision) — `entire-agreement`.** The sentence "may not be changed except in writing signed by all parties" now continues ", or as applicable law permits Landlord to change it by written notice to Tenant." Driver: A.R.S. §33-1342(C), which lets an Arizona landlord amend existing leases by written notice to comply with new laws; the old wording could be read to waive such a right. Recorded as **uniform** under §5a.1: the words are self-limiting and change nothing where this state's law gives no unilateral amendment right, while preserving any right it does give (for example, rules adopted on notice or changes to a periodic tenancy on the notice the law requires). No state-specific override is needed. `last_checked` was reset to 2026-09-27.
 
 2. **2026-09-27, AZ session — new shared row `rental-application-accuracy` tagged CO** (§5a.1; uniform text, no CO override). The tenant represents that the application information was true, correct and complete; a materially false or misleading statement is a material breach, with the remedies the lease and law provide; information the landlord may not request or consider is excluded. Colorado's Rental Application Fairness Act (C.R.S. 38-12-901 to 905, `edu-rental-application-fairness-co`) bars considering rental or credit history over 7 years and most criminal history over 5 years. The last sentence keeps the clause off that information. Remedies run through `default-by-tenant`. **Open (effectiveness):** whether a false application is a for-cause ground under the HB24-1098 overlay for tenancies of 12 months or more. Not researched.
+
+## Gap-discovery status (checklist instruction 36), recorded 2026-09-27
+
+Documentation only: this records work already in this log, and nothing was re-reviewed.
+
+| Source | Status |
+|---|---|
+| Gap-discovery source 1 — statute walk | Done (§8, §8a: C.R.S. Title 38 Article 12) |
+| Gap-discovery source 2 — real-lease comparison | Done (§10: Taylor's actual Zillow-drafted Colorado lease) |
+| Gap-discovery source 3 — landlord-scenario screen | Done (§11: Taylor's own Colorado landlord experience, the one state where that applies) |
+| Gap-discovery source 4 — outside-title search | Done (§8a, Part 15: law outside Title 38, e.g. fair housing in Title 24) |

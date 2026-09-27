@@ -742,3 +742,12 @@ The full-text search ran on 2026-09-27; every hit's section and title was review
 - **`lease-clause-citations-AZ.csv` built:** 109 rows (85 CITED, 12 GENERIC, 11 CONFIRMED_ABSENT, 1 PARTIAL: `edu-foreign-adversary-land-ban-az`).
 - **Flag (B) done:** §§33-1318 and 33-1318.01 are cited on `dv-lease-termination-az`, so the AZ legal watch monitors them. **Flag (A)**, the per-state applicability condition, is recorded as a product gap in CLAUDE.md. It is not built.
 - **Gap-discovery sources (Taylor, 2026-09-27):** §18's screen is kept as source 3, renamed the "landlord-scenario screen". Claude generates the scenarios itself and never asks Taylor for experience; Taylor's is Colorado-only and already in the CO research. The checklist's instruction 36 now requires four sources: the statute walk, a real-lease comparison, the scenario screen and an outside-title search. §18.1 is the model scenario list.
+
+### 19.1 Gap-discovery status (checklist instruction 36)
+
+| Source | Status |
+|---|---|
+| Gap-discovery source 1 — statute walk | Done (§0, §1: A.R.S. Title 33 ch. 10 read whole) |
+| Gap-discovery source 2 — real-lease comparison | Done (§16: AAR Residential Lease Agreement, Feb 2026) |
+| Gap-discovery source 3 — landlord-scenario screen | Done (§18: 59 scenarios, Claude-generated) |
+| Gap-discovery source 4 — outside-title search | Done (§15: official ARS full-text search; §12 research pass) |
