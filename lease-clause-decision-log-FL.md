@@ -1,6 +1,6 @@
 # Florida — lease-clause decision log (state #13)
 
-> **STANDING RULE — NO RE-AUDITS (Taylor, 2026-09-26).** Every completed state (CO, WY, KS, NE, MN, ND, SD, OH, CA, NV, TX, NJ, FL) is closed. **No re-audit of any completed state is planned, now or later.** The only thing that reopens a completed state is an egregious defect found in the course of other work, and then only the affected rows are fixed; the state is not re-audited. Older phrases such as "flag for the X re-audit" or "when X is next revisited" are historical and dead: they are not a queue.
+> **STANDING RULE — NO RE-AUDITS (Taylor, 2026-09-26).** Every completed state (CO, WY, KS, NE, MN, ND, SD, OH, CA, NV, TX, NJ, FL) is closed. **No re-audit of any completed state is planned, now or later.** "Re-audit" means re-scrubbing everything for a state, and that won't happen. Targeted work is welcome: going back to re-verify or fix a specific row or topic in a completed state (a scalpel, not a hammer) needs no special justification; just say what and why. Older phrases such as "flag for the X re-audit" or "when X is next revisited" are historical and dead: they are not a queue.
 
 **Date:** 2026-09-26 · **Settings:** Opus, high effort, ordinary search and fetch. Research mode not used.
 **Scope:** Florida state law only. Municipal and county ordinances are flagged where met, not resolved (instruction 20).
