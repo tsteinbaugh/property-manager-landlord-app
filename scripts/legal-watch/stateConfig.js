@@ -23,6 +23,7 @@ const STATE_NAMES = {
   TX: "Texas",
   NJ: "New Jersey",
   FL: "Florida",
+  AZ: "Arizona",
 };
 
 const STATE_CONFIG = {
@@ -604,6 +605,39 @@ const STATE_CONFIG = {
         label:
           "Fla. Stat. §83.425 (2023) vs local fair-housing ordinances adding classes (e.g. Miami-Dade source of income): no court or AG opinion yet -- check for one",
         clauseIds: ["edu-local-preemption-fl", "edu-fair-housing-fl"],
+      },
+    ],
+  },
+
+  AZ: {
+    // A.R.S. sections are title-section, hyphenated like KS/NE ("33-1321",
+    // "9-1303", "41-1491.19", "33-1314.01"). Only citation text that starts
+    // with "A.R.S." is read, so the federal lead-paint row (42 U.S.C. /
+    // CFR) contributes no state sections. Subsection parentheses become
+    // spaces so "44-301(17)(b)(ii)" stays 44-301. Every AZ row cites
+    // statutes only: no A.A.C. rule and no case law is relied on (AZ log §8).
+    extractSections(text) {
+      if (!/^A\.R\.S\./.test(text.trim())) return [];
+      const body = text.replace(/\([^)]*\)/g, " ");
+      return [...body.matchAll(/\b(\d{1,2}-\d{3,4}(?:\.\d{1,2})?)\b/g)].map((m) => m[1]);
+    },
+    cfrChecks: [
+      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation"] },
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+    ],
+    federalStatuteChecks: [],
+    manualRecheckItems: [
+      {
+        id: "az-rental-tax-sunset",
+        label:
+          "A.R.S. §33-1332 (Laws 2023, ch. 204) is repealed after 2026-12-31 and is missing from the azleg compilation: revise edu-rental-tax-az on or after 2027-01-01",
+        clauseIds: ["edu-rental-tax-az"],
+      },
+      {
+        id: "az-foreign-adversary-reach",
+        label:
+          "A.R.S. §33-443 (as amended by Laws 2026, ch. 240): check for AG guidance or a ruling on whether it reaches an individual residential tenant",
+        clauseIds: ["edu-foreign-adversary-land-ban-az"],
       },
     ],
   },

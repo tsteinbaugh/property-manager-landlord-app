@@ -32,6 +32,9 @@
 // wholesale from the CSV (2026-09-18 refresh, Ohio added: 309 -> 324
 // entries across the now-8-state pass).
 //
+// **2026-09-27 (Arizona sync):** regenerated from the 14-state CSV (AZ
+// added: 515 -> 554 entries).
+//
 // **2026-09-26 (New Jersey sync):** regenerated from the 12-state CSV (NJ
 // added: 469 -> 484 entries).
 //
@@ -75,6 +78,18 @@ const LANDLORD_EDUCATION = [
     bodyText:
       "Florida does not set a deadline for starting repairs. Instead, a tenant's remedies start with a written notice. If Landlord materially fails to comply with the building, housing and health codes (or, where there are none, the structural and plumbing duties in Fla. Stat. §83.51(1)) or with material lease provisions, the tenant may deliver written notice specifying the problem and stating that the tenant intends to terminate. If Landlord has not complied within 7 days after delivery, the tenant may terminate the lease. A tenant may instead give written notice specifying the problem and stating that the tenant intends to withhold rent; 7 days after delivery, the tenant may raise the material noncompliance as a complete defense to an eviction for nonpayment, and the court decides how much the rent is reduced for the lost value. This notice may go to Landlord, the person designated to receive notices, a resident manager, or whoever collects the rent. If the failure is due to causes beyond Landlord's control and Landlord keeps making every reasonable effort to fix it, the lease may be ended or altered: a tenant who vacates an untenantable unit owes no rent while it stays uninhabitable, and a tenant who stays in a unit that is not untenantable gets a proportional rent reduction. Failures of the additional duties for apartment buildings and similar units (pest extermination, locks and keys, common areas, garbage removal, heat, running water and hot water, Fla. Stat. §83.51(2)) cannot be raised as a defense to an eviction for possession.",
     notes: "FL: DORMANT ROW REWRITTEN AND ACTIVATED 2026-09-26 (instruction 21), converted to LANDLORD_EDUCATION. Primary text read section-open 2026-09-26 from the official 2026 Florida Statutes (flsenate.gov / leg.state.fl.us), with per-section history lines. What the pre-rigor row got right: the 7-day written-notice period. What it got wrong: Florida imposes no duty to 'begin remedial action within 7 days'; the 7 days is the cure window after which TENANT remedies open, and it covers only §83.51(1) (codes or, absent codes, structural components and plumbing) and material lease provisions, not a health-or-safety test. Controlling text: Fla. Stat. §83.56(1)(a)-(b) (termination; beyond-control rules; last amended s. 2, ch. 2026-143, which amended (2)(a)); §83.60(1)(a)-(b) (withholding defense; notice recipients; s. 12, ch. 2013-136); §83.51(2)(c) (noncompliance with (2) is not a defense to possession); §83.60(2) (tenant raising any defense other than payment must deposit accrued rent into the court registry). Florida has no repair-and-deduct statute in Part II (full read). No lease-content duty, so education rather than a clause; landlord-maintenance (tagged FL) carries the duty. Retaliation for code complaints: §83.64(1)(a), (c).",
+  },
+  {
+    id: "habitability-timeline-az",
+    title: "Repair Notices: Tenant's Remedies and Deadlines",
+    group: "Landlord Responsibilities",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "habitability",
+    bodyText:
+      "Arizona law does not set a deadline for a landlord to begin repairs. The day counts come from the tenant's remedies. If the landlord materially fails to comply with the lease, the tenant may give written notice that the lease will end on a date at least 10 days after the landlord receives it unless the breach is remedied within 10 days. If the landlord's failure to maintain the property materially affects health and safety, the period is 5 days. If the landlord remedies the breach in time, the lease does not end, and the tenant cannot terminate over a condition the tenant, a family member or a guest caused. For a repair costing less than $300 or half the monthly rent, whichever is greater, the tenant may give written notice and, if the landlord does not comply within 10 days (or as promptly as an emergency requires), have a licensed contractor do the work and deduct the actual and reasonable cost from rent after giving the landlord an itemized statement and a lien waiver. If the landlord deliberately or negligently fails to supply running water, gas or electric service, hot water, heat, air-conditioning or cooling where installed, or other essential services, the tenant may give reasonable notice and then buy the service and deduct its cost from rent, recover damages for the reduced rental value, or move to substitute housing and stop paying rent for that period (with limited recovery of any extra cost). The tenant may also recover damages and obtain a court order for the landlord's noncompliance, and in an eviction for nonpayment may counterclaim, in which case the court may order rent paid into court.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). DORMANT ROW RESOLVED (instruction 21). The pre-rigor text said 'Landlord will begin remedial action within 5 days ... [and] within 10 days, as required by Arizona law'. RIGHT: the numbers 5 and 10. WRONG: Arizona imposes no duty to BEGIN remedial action by any deadline; 5 and 10 days are the tenant's termination-notice cure windows (A.R.S. §33-1361(A)), and 10 days is also the repair-and-deduct window (§33-1363(A)). 'As required by Arizona law' was false. Pattern holds (one real fact, operative rule missed). Converted from a CONSTRAINED lease clause to education and activated; topic_key normalised from 'habitability-timeline-az' to 'habitability'. Controlling text: A.R.S. §33-1361(A)-(D); §33-1363(A)-(B) (cap: less than $300 or half the monthly rent, whichever is greater; licensed contractor; itemized statement and lien waiver; not for tenant-caused conditions or conditions that are not a breach of fitness); §33-1364(A), (F)-(H) (essential services: procure and deduct, including paying the landlord's delinquent utility bill; diminution damages; substitute housing up to 25% of excused rent, or full periodic rent if the noncompliance is deliberate; election bars §§33-1361 and 33-1363 for that breach; no right to repair); §33-1365 (counterclaim and rent into court); §12-1179(D) (rent paid into justice court retained pending judgment when habitability is raised on appeal). PRIOR TEXT (dormant, UNVERIFIED, CONSTRAINED lease clause, topic habitability-timeline-az): \"For a condition that materially affects Tenant's health or safety, Landlord will begin remedial action within 5 days of receiving notice from Tenant. For any other essential-service repair Landlord is responsible for under this Lease, Landlord will begin remedial action within 10 days, as required by Arizona law.\"",
   },
   // Security Deposit
   {
@@ -6598,6 +6613,490 @@ const LANDLORD_EDUCATION = [
     bodyText:
       "A Florida property owner or other person entitled to possession can have a transient occupant removed without a Chapter 83 eviction. A transient occupant is someone staying briefly, not under a lease, with no ownership or leasehold interest; signs include no utility accounts, no government mail at the address in the past 12 months, little or no rent, no room of their own, few belongings and a home elsewhere. After the occupant is told to leave and refuses, a law enforcement officer may, on the owner's sworn affidavit setting out those facts, direct the occupant to leave; refusing is trespass. The owner can also sue for unlawful detainer without prior notice. The owner must let the former occupant retrieve belongings at reasonable times, generally within 10 days, and may impose conditions such as a police presence where there has been misconduct. A person wrongly removed can sue the person who asked for the removal. This procedure is not for a tenant: if a court finds the person is a tenant, the owner must give the Chapter 83 notice and proceed by eviction.",
     notes: "FL: Primary text pasted by Taylor 2026-09-26 from flsenate.gov/Laws/Statutes/2026 (official 2026 Florida Statutes), read section-open with history lines. Controlling text: Fla. Stat. §82.035 (s. 1, ch. 2015-89; s. 1, ch. 2018-83; s. 5, ch. 2018-94). Trespass: §810.08 (not read). Unlawful detainer: §82.03 (not read). Relevant to guest-policy and guest-policy-day-limit (tagged FL): a guest who overstays those limits may fit the transient-occupant factors, but a guest paying rent or with a room of their own may be a tenant, and wrongful removal carries damages (§82.035(3)(b)). Belongings: 10-day guideline and abandonment presumption (§82.035(5)); prevailing-party fees if access is unreasonably withheld ((5)(d)). The 2024 unauthorized-occupant law (§82.036) was not read.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-landlord-maintenance-az",
+    title: "Landlord's Maintenance Duties",
+    group: "Landlord Responsibilities",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "habitability",
+    bodyText:
+      "An Arizona landlord must comply with applicable building codes materially affecting health and safety; make all repairs and do whatever is necessary to put and keep the premises fit and habitable; keep common areas clean and safe; maintain in good and safe working order the electrical, plumbing, sanitary, heating, ventilating and air-conditioning facilities and appliances (including elevators) that the landlord supplies or must supply; provide and maintain waste receptacles and arrange for removal; and supply running water and reasonable amounts of hot water at all times, and reasonable heat and air-conditioning or cooling where installed and offered, when seasonal weather requires. These duties cannot be separated from the right to collect rent. For a single family residence, the parties may agree in writing, for adequate consideration and in good faith, that the tenant will handle waste removal, the supply of water, heat and cooling, and specified repairs or maintenance tasks. For any other unit, such an agreement must be a separate writing signed by both parties and supported by adequate consideration. Neither kind of agreement can shift work needed to meet code or keep the unit habitable. The tenant must promptly tell the landlord in writing about anything that needs repair. If the tenant's own failure to keep the unit clean and safe materially affects health and safety and the tenant does not fix it within 14 days after written notice (or sooner in an emergency), the landlord may enter, do the work, and bill its reasonable cost as rent on the next rent due date. Cities that run rental inspection programs treat lack of adequate heating and cooling, insect or rodent infestation, and hazardous wiring, plumbing or structures as conditions that materially affect health and safety. Some cities also set their own cooling standards; check local law.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). Controlling text: A.R.S. §33-1324(A)-(D); §33-1316; §33-1341(8); §33-1369 (landlord's repair-and-bill remedy, OPT-IN-free: statutory); §33-1324(A)(1) incorporates 'building codes ... as prescribed in section 9-1303' - §9-1303 NOT READ (fetch returned 404 on the path tried; L.5 dependency). Instruction 30: the §33-1324(C)/(D) agreement is offered as maintenance-allocation-az. | AZ experience screen 2026-09-27: body sentence added from A.R.S. §9-1303(1)(d), (1)(i), (2)-(5) (read section-open; the chapter 9-1301 to 9-1305 governs city rental inspection programs, see `edu-local-preemption-az`). City cooling ordinances (e.g. Phoenix) flagged, not resolved (instruction 20). Source: landlord-experience screen (gap-discovery source 3), AZ log §18. ",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-prohibited-lease-terms-az",
+    title: "Lease Terms Arizona Law Prohibits",
+    group: "Compliance & Prohibited Terms",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lease-provisions",
+    bodyText:
+      "An Arizona lease may not require the tenant to waive rights or remedies under the Residential Landlord and Tenant Act; to pay the landlord's attorney fees (although a written lease may award fees to the prevailing party in a court action, and the winner of a contested eviction may get fees under general law even without such a clause); to accept any exculpation or limit on the landlord's liability arising under law, or to indemnify the landlord for that liability; to waive or limit anyone's right to call the police or other emergency assistance in an emergency; or to pay penalties for doing so. A prohibited term is unenforceable, and a landlord who deliberately uses a lease containing terms the landlord knows are prohibited owes the tenant actual damages plus up to two months' periodic rent. A lease also may not contain terms contrary to the utility-service rules, may not let rent be collected free of the landlord's duty to keep the unit fit, and may be refused enforcement by a court as unconscionable. Every duty under the Act carries an obligation of good faith. A written lease must have all blanks filled in, and each side must give the other a signed copy.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). Controlling text: A.R.S. §33-1315(A)-(C) (list; unenforceable; deliberate knowing use: actual damages and not more than two months' periodic rent; landlord's eviction rights under §33-1368 unaffected); §33-1364(E); §33-1316; §33-1312; §33-1311; §33-1322(E); §12-341.01 (fees in contested contract actions). Instruction 32: no statute located requiring specific wording inside a fee clause; the only rule is prevailing-party form. Checklist 294.2: the prohibited list is NOT complete in §33-1315 (scattered: §§33-1364(E), 33-1316, 33-1322(E), 33-1321(A), 33-1318).",
+  },
+  // Default & Termination
+  {
+    id: "edu-prohibited-practices-az",
+    title: "Self-Help Eviction and Other Prohibited Practices",
+    group: "Default & Termination",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction",
+    bodyText:
+      "An Arizona landlord may not recover possession except through the courts, abandonment, surrender or as the Act permits: no lockouts, removal of the tenant's belongings, or willful interruption of electric, gas, water or other essential services. If the landlord unlawfully removes or excludes the tenant or willfully cuts services, the tenant may recover possession or terminate the lease and recover the greater of two months' periodic rent or twice actual damages, plus return of the deposit. A landlord may not cut off utilities it provides under the lease except to make repairs, and may not shift a utility it provides to the tenant after signing without the tenant's written consent; a violation allows damages, costs, attorney fees and an injunction. After a writ of restitution is executed, the landlord may disconnect landlord-provided utilities only the following day and only through a person the utility authorizes. A landlord who enters unlawfully, enters lawfully in an unreasonable manner, or makes repeated harassing demands for entry owes actual damages of at least one month's rent and may be enjoined, and the tenant may terminate. A landlord lien or security interest in the tenant's household goods is not enforceable, and distraint for rent is abolished.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). Controlling text: A.R.S. §§33-1374, 33-1367, 33-1364(C)-(D), 33-1368(D), 33-1376(B), 33-1372. The general-landlord lien in §§33-361(D) and 33-362 does not apply to dwelling units (§33-381; §33-1304 resolves conflicts in ch. 10's favour). Checklist 294.4: statutory-floor remedies exist for ouster (greater of two months' rent or 2x damages) and for abusive entry (not less than one month's rent).",
+  },
+  {
+    id: "edu-retaliation-az",
+    title: "Retaliation",
+    group: "Default & Termination",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "retaliation",
+    bodyText:
+      "An Arizona landlord may not retaliate by raising rent, decreasing services, or bringing or threatening an eviction because the tenant complained to a government agency about a building or housing code violation materially affecting health and safety, complained to the landlord about a failure to maintain the premises, organized or joined a tenants' union, or complained to an agency enforcing the wage-price stabilization act. A complaint within six months before the landlord's action creates a presumption of retaliation, unless the complaint came after notice of termination. The tenant's remedy is the ouster remedy (greater of two months' rent or twice actual damages) and a defense to eviction. The landlord may still evict if the code violation was caused primarily by the tenant's or household's lack of reasonable care, or if the tenant is behind on rent.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). Controlling text: A.R.S. §33-1381(A)-(C).",
+  },
+  {
+    id: "edu-eviction-process-az",
+    title: "Eviction Notices and Process",
+    group: "Default & Termination",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction",
+    bodyText:
+      "For unpaid rent, the landlord gives written notice of nonpayment and of the intent to terminate if rent is not paid within five days; if it is not paid, the landlord files a special detainer action. Before filing, the lease is reinstated if the tenant pays all past-due rent and a reasonable late fee stated in a written lease; after filing, only if the tenant also pays attorney fees and court costs; after judgment, reinstatement is the landlord's choice. For other material breaches (including material falsification of the rental application), the landlord gives a written notice that the lease will end at least 10 days after the tenant receives it unless the breach is remedied in 10 days; for a breach of the tenant's maintenance duties that materially affects health and safety, 5 days. If a remedied breach of the same or similar nature happens again during the term, the landlord may file 10 days after a written notice of the second breach, with no further cure. False statements about criminal records, eviction history or current criminal activity cannot be cured. For a material and irreparable breach on the premises (such as illegal discharge of a weapon, homicide, prostitution, gang activity, drug manufacturing or sales, threats, assault, or acts that jeopardize the health, safety and welfare of the landlord, staff or other tenants or cause serious property damage), the landlord may give notice of immediate termination; trial is set within three days of filing and restitution ordered 12 to 24 hours after a finding for the landlord. Days in these notices are calendar days. The summons in a special detainer is returnable in three to six days. After judgment, a writ of restitution issues no sooner than five calendar days later; a tenant who stays or returns after being served with the writ commits criminal trespass. The Act's notices are received when hand-delivered or sent by registered or certified mail (deemed received on actual receipt or five days after mailing, whichever comes first).",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). Controlling text: A.R.S. §33-1368(A), (B), (G); §33-1377(A)-(F); §12-1178(A)-(E); §33-1313(B); §12-1175 and §33-1305(C) (no mandatory court form for notices or pleadings). Instruction 33 screen: the no-cure grounds are the material-and-irreparable breach, the repeat breach, and falsified criminal or eviction records; default-by-tenant's carve-out covers all three. §12-1179 appeal bond and rent-into-court rules summarised only in habitability-timeline-az.",
+  },
+  {
+    id: "edu-periodic-tenancy-termination-az",
+    title: "Ending a Month-to-Month or Week-to-Week Tenancy",
+    group: "Default & Termination",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-notice",
+    bodyText:
+      "If an Arizona lease does not fix a definite term, the tenancy is week-to-week for a roomer who pays weekly and month-to-month in every other case. Either party may end a week-to-week tenancy by written notice at least 10 days before the termination date in the notice, and a month-to-month tenancy by written notice at least 30 days before the periodic rental date specified in the notice. No reason is required, and Arizona has no statewide just-cause or rent-increase notice rule; a landlord who wants to change the rent on a month-to-month tenancy generally does so by giving the same 30-day notice. A fixed-term lease ends on its expiration date. If a landlord consents in writing to a tenant staying after the lease ends, the tenancy becomes month-to-month.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). Controlling text: A.R.S. §33-1314(D); §33-1375(A)-(C). The 10-day month-to-month notice in A.R.S. §33-341(B)-(C) applies only to non-dwelling tenancies (§33-381). 'Rent-increase notice' absence is bounded to ch. 10 (full read); see edu-rent-increases-az. Instruction 31: no just-cause rule in ch. 10.",
+  },
+  {
+    id: "edu-abandoned-property-az",
+    title: "Abandonment and Property Left Behind",
+    group: "Default & Termination",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "abandoned-property",
+    bodyText:
+      "A unit is abandoned in Arizona if the tenant has been absent without notice for at least seven days with rent unpaid for ten days and no reasonable evidence, other than the tenant's belongings, that the tenant is living there; or absent for at least five days with rent unpaid for five days and none of the tenant's belongings in the unit. The landlord then sends a notice of abandonment by certified mail, return receipt requested, to the tenant's last known and any alternate addresses, and posts it on the door or another conspicuous place for five days. Five days after it is both posted and mailed, the landlord may retake and rerent the unit if no belongings remain; the deposit is then forfeited and applied to accrued rent and reasonable costs. If belongings remain, the landlord inventories them, gives the same kind of notice of their location and storage cost, and holds them for 14 calendar days with reasonable care; perishables, contaminated items and plants may be disposed of, and animals handled as the statute provides. After 14 days the landlord may donate the property to a qualifying charity or sell it, applying proceeds to rent and costs and mailing any excess to the tenant, and must keep records and hold undeliverable excess for 12 months. Before disposal, a tenant who notifies the landlord in writing has five days to reclaim the property by paying removal and storage costs; clothing, work tools, and identification, financial, immigration, employment, public assistance and medical documents may be retrieved without paying. If the tenant returns the keys and leaves property behind, the landlord may remove and dispose of it immediately unless the parties agreed otherwise in writing. The landlord must use reasonable efforts to rerent an abandoned unit; the lease ends when a new tenancy begins or, if the landlord does not try to rerent, when the landlord learns of the abandonment. After an eviction writ is executed, the landlord must follow the same storage and disposal rules starting the next day.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). Controlling text: A.R.S. §33-1370(A)-(J); §33-1368(E) (post-writ property: comply with §33-1370(D)-(I) the day after the writ). Checklist 367.3: post-writ property duties are prescriptive (storage, 14 days, sale or donation), not immunity-based. 367.4: post-writ animal duties exist via §33-1370(E) (release to shelter; reasonable care; notify county enforcement or animal control if unable).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-partial-payments-az",
+    title: "Partial Payments and Waiver",
+    group: "Rent & Payment",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "late-fee",
+    bodyText:
+      "An Arizona landlord does not have to accept a partial payment of rent or other charges. A landlord who accepts one keeps the right to proceed against the tenant only if the tenant agrees, in a writing made at the time of the payment, to the terms of the partial payment, including the date the balance is due. If the landlord already served a five-day nonpayment notice before the partial-payment agreement, no new notice is needed if the tenant breaks the agreement. Accepting a housing assistance payment is not accepting a partial payment and does not waive the landlord's rights. Otherwise, accepting rent or any part of it with knowledge of a default, or accepting performance that differs from the lease or rules, waives the right to terminate the lease for that breach.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). Controlling text: A.R.S. §33-1371(A)-(C); 'housing assistance payment' defined in §33-1310(6) (excludes payments by faith-based, community action or nonprofit entities). PRODUCT (Addendum M candidate, AZ log s7): the contemporaneous partial-payment agreement is an after-the-fact document no standing lease clause can supply - same category as NE §76-1433 (M.8); the builder could offer it as a separate form at the time of payment.",
+  },
+  // Security Deposit
+  {
+    id: "edu-security-deposit-az",
+    title: "Security Deposit Rules",
+    group: "Security Deposit",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-return",
+    bodyText:
+      "Arizona caps all security, including prepaid rent, at one and one-half months' rent, though a tenant may voluntarily pay more rent in advance. The purpose of every nonrefundable fee or deposit must be stated in writing, and any fee not designated nonrefundable is refundable. At move-in the landlord must give the tenant a signed copy of the lease, a move-in form for noting existing damage, and written notice that the tenant may attend the move-out inspection. At the end of the tenancy the landlord may apply the deposit and prepaid rent to rent and, subject to the duty to mitigate, to charges stated in the lease and damages from the tenant's failure to maintain the unit. Within 14 days (not counting weekends and legal holidays) after the tenancy ends, the tenant returns the keys and vacates, and the tenant asks for the deposit, the landlord must send an itemized list of deductions and any refund, by first class mail to the last known residence unless the tenant arranged otherwise in writing. If the tenant does not dispute the list within 60 days after mailing, it becomes final. A landlord who does not comply owes the money due plus twice the amount wrongfully withheld. Whoever holds the landlord's interest when the tenancy ends is bound. After a lawful abandonment retake, the deposit is forfeited and applied to accrued rent and costs. The Act has no interest requirement for deposits.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). Controlling text: A.R.S. §33-1321(A)-(H); §33-1310(3), (15); §33-1370(B); §33-1325(A) (a selling landlord remains liable for deposit money); §33-1330 (deposit records transfer on sale of an apartment community). No deposit-interest rule in ch. 10 (full read) - also recorded as edu-no-deposit-interest-az.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-fair-housing-az",
+    title: "Fair Housing",
+    group: "Compliance & Prohibited Terms",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fair-housing",
+    bodyText:
+      "Arizona's Fair Housing Act protects race, color, religion, sex, familial status, national origin and disability, the same classes as federal law. Familial status covers a person who is pregnant, lives with a child under 18 as parent or legal custodian (or with the custodian's written permission), or is obtaining custody. It is unlawful to refuse to rent, set different terms, publish discriminatory advertising, or intimidate a person exercising fair housing rights; for disability, it also covers refusing reasonable accommodations in rules and policies, refusing reasonable modifications at the tenant's expense (the landlord may require restoration where reasonable), and failing to meet accessibility design rules for covered multifamily buildings. The Act does not require renting to someone whose tenancy would be a direct threat to others' health or safety or cause substantial physical damage to others' property, and does not bar refusing a person convicted of illegally manufacturing or distributing a controlled substance. It does not apply to a single-family house rented by an owner of no more than three houses without a real estate licensee or discriminatory advertising (one such rental in 24 months if the owner did not live there), or to rooms or units in an owner-occupied building of four or fewer units. Housing for older persons may exclude children. Separately, refusing to rent to a person because of children, or advertising a no-children restriction, is a petty offense and allows actual damages, a civil penalty of three times the monthly rent if intentional, and attorney fees; an occupancy limit of two persons per bedroom is presumed reasonable. Victims may sue within two years for actual and punitive damages and attorney fees. Some Arizona cities have their own fair housing ordinances that may add protections; check local law.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). Controlling text: A.R.S. §§41-1491 (definitions), 41-1491.01, .02, .06, .14, .15, .18, .19, .31, .33, .36, .37; §33-1317 (children; also §33-303 for non-dwelling rentals). NO state source-of-income, sexual-orientation, gender-identity, age (other than familial status) or military class in the text read. Local layer FLAGGED, NOT RESOLVED (instruction 20): §41-1491.06(C) and .13 contemplate substantially equivalent ordinances in cities of 350,000+ (1990 census) - Phoenix and Tucson (RECALL, not verified against census figures); Tucson, Tempe, Flagstaff and others are reported to add classes (e.g. source of income, sexual orientation) - not researched. §§41-1491.16, .17, .21 (inspection, entry into neighbourhood, brokerage) NOT read.",
+  },
+  // Pets
+  {
+    id: "edu-assistance-animals-az",
+    title: "Assistance Animals in Arizona Rentals",
+    group: "Pets",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "assistance-animal-accommodation",
+    bodyText:
+      "Arizona's Fair Housing Act requires reasonable accommodations for tenants with disabilities, including allowing an assistance animal. Arizona defines an assistance animal as a trained or untrained animal that works, provides assistance, performs tasks, or provides therapeutic or emotional support for a person with a disability, so emotional support animals are covered by state law. A service animal is a dog or miniature horse individually trained for a person with a disability. A landlord is not liable for injuries or damage caused by a purported assistance animal or purported service animal that the landlord allows as a reasonable accommodation or modification on property the landlord controls; this does not reduce the tenant's disability rights. Arizona's service-animal rules on permitted questions, fees and a $250 civil penalty for misrepresenting an animal apply to public places, not to rental housing. A landlord may deny an animal whose presence would be a direct threat to others' health or safety or would cause substantial physical damage to others' property.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). Controlling text: A.R.S. §41-1491(2), (12) and §41-1491.38, both added or amended by Laws 2025, ch. 191 (HB 2068), approved and filed 2025-05-13, no emergency clause, effective 2025-09-26, the 2025 general effective date (official General Effective Dates page, research pass 2026-09-27) (session-law page read via the fetch tool, which reported the new section as '41-1497.38' - the compilation prints §41-1491.38; the compilation is authoritative on numbering; 2025 general effective date not read from the official page). §41-1491.19(C), (E)(2). A.R.S. §11-1024(K), (M)(2)(c)-(e), (M)(4) (public places only). Checklist 134.4/248.1: Arizona's misrepresentation penalty does NOT reach housing. 248.3: no landlord criminal penalty for denying an assistance animal in housing located (§11-1024(J) class 2 misdemeanor is public places only). Instruction 24 family: base assistance-animal-accommodation tagged AZ.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-rental-registration-az",
+    title: "Rental Registration with the County Assessor",
+    group: "Compliance & Prohibited Terms",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-registration",
+    bodyText:
+      "Every Arizona owner of residential rental property must keep on file with the county assessor the owner's name, address and telephone number (and, for an entity, a named officer, partner, member or trustee), the property's street address and parcel number, and the year it was built, and must update the information within 10 days after a change. An owner who lives outside Arizona must designate a statutory agent in Arizona to accept legal service. The property may not be occupied unless this information is on file. If it is not, a tenant may give the landlord a written 10-day notice to comply, by certified mail or hand delivery; if the owner does not comply, the tenant may terminate the lease and must get back all prepaid rent within 10 days, and the deposit under the deposit statute. Cities and towns may impose civil penalties for failing to register ($1,000 plus $100 a month for newly acquired property, or $150 a day otherwise), dismissed if the owner complies within 10 days of the complaint or notice, and may inspect unregistered property or property designated a slum. The assessor may charge up to $10 per registration or change.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). Controlling text: A.R.S. §33-1902(A)-(J); §33-1904(A)-(D); §33-1906 (a city may require the owner of slum-designated or code-violating property to hire a licensed property manager, join a crime-free multihousing program and attend training). OMISSION SANCTION (instruction 28/TX1.2): an unregistered owner's tenant may terminate and recover prepaid rent (§33-1902(C)). Checklist NJ1.2 (registration as a possession precondition): PARTIAL - occupancy is barred and the tenant gets a termination right, but no statute read makes registration a precondition to eviction. Assessor procedure and forms NOT read.",
+  },
+  {
+    id: "edu-local-preemption-az",
+    title: "State Limits on Local Rent Regulation",
+    group: "Compliance & Prohibited Terms",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-control",
+    bodyText:
+      "Arizona preempts rent control: cities and towns, including charter cities, have no power to control rents on private residential property, except property owned, financed, insured or subsidized by a state agency or a city or town. Cities, towns and counties may not adopt a residential rental licensing requirement or a residential rental registration requirement; a city may obtain rental registration information only from the county assessor. A city or county may adopt a citywide or countywide residential rental inspection program only after notice to registered owners, a public hearing and a supermajority council vote (majority of a county board), and may inspect the interior of an individual rental only in specified situations such as conditions materially affecting health and safety, a history of violations, a complaint or consent. Counties may not charge for initial inspections. Since January 1, 2025, no city, town or other taxing jurisdiction may levy a transaction privilege or similar tax on renting residential property. Cities and counties may still inspect property whose owner has not registered with the county assessor, and slum-designated property, and local building, housing and health codes continue to bind landlords. Other local rules, such as fair housing and pool ordinances, vary by city and should be checked locally.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). Controlling text: A.R.S. §33-1329(A)-(B); §33-1904; §33-1324(A)(1). | AZ Research pass 2026-09-27 (advanced research, once; report in the conversation). Read by the research tool from azleg.gov (not re-read section-open by me): A.R.S. §9-1304(A) (citywide inspection program only after 30-day hearing gap, three-fourths vote of the entire council, first-class mail notice to assessor-registered owners 20 days before, published and posted notice), (B) ('shall not adopt a residential rental licensing requirement'), (C) ('shall not adopt a residential rental registration requirement ... shall obtain rental registration information only from the county assessor's office'); §9-1301(11) (licensing definition, 'with or without an associated fee'); §9-1302 (interior inspection triggers); §11-1704 (county analogue, majority of the entire board; same licensing and registration bars); §11-1705 (no county fee for initial inspections; reasonable fee for later follow-ups after at least 15 calendar days); §42-6004(H) ('From and after December 31, 2024, a city, town or other taxing jurisdiction may not levy a transaction privilege ... tax or fee, however denominated, on the business of renting or leasing real property for residential purposes'; excludes health care, long-term care and transient lodging). Session law: Laws 2023, ch. 204 (SB 1131), approved 2023-08-01; Sec. 12 makes the §§9-1304, 11-1704, 33-1314, 42-6004 amendments effective after 2024-12-31 (deleted the TPT-license carve-out from the licensing bars). Original licensing/registration limits appear to date from 2006 (HB 2221, chapter NOT confirmed). CLOSE-OUT 2026-09-27: §9-1305 READ section-open (city may not charge for initial exterior inspections, owner- or tenant-requested initial interior inspections, warrant inspections, the initial annual program inspection, or an initial follow-up where violations are corrected; may charge a reasonable fee for later follow-ups or after an owner fails to correct within at least 15 calendar days; immediately threatening violations cited and repaired immediately). COUNTIES: §33-1416 (read) expressly preempts 'counties, cities, including charter cities, or towns' from controlling rents on MOBILE HOME SPACES, while §33-1329 names only 'cities, including charter cities, and towns' for dwellings - the Legislature named counties where it meant to. The full-text search ('rent control', 'control rents') returns only §§33-1329 and 33-1416. So no statute preempts county rent control of dwelling units; whether a county has any power to adopt it is a separate question of county enabling authority (Title 11, not researched) - FLAGGED, unresolved; no statewide preemption of local deposit, application-fee, source-of-income, screening or notice rules was located (boundary: research pass, no full-text search). Municipal layer flagged, not resolved (instruction 20). See edu-rental-tax-az.",
+  },
+  // Default & Termination
+  {
+    id: "edu-eviction-record-sealing-az",
+    title: "Sealed Eviction Records",
+    group: "Default & Termination",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-record-sealing",
+    bodyText:
+      "An Arizona court must seal all records of an eviction case if it dismisses the case before judgment or enters judgment for the tenant, and must also seal a case when the landlord and tenant file a written stipulation to set aside the eviction order and seal the file. Sealed records are available only to the parties and their attorneys, the court and the clerk, and may not be sold or released in bulk or individual record transfers to third parties. This covers summary eviction, forcible entry and detainer and special detainer records, including pleadings, findings, orders and exhibits.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). Controlling text: A.R.S. §33-1379(A)-(D). Checklist 248.7: sealing PRESENT (mandatory on dismissal or tenant judgment; by stipulation); no landlord right to object is stated - the sealing is automatic. Screening implication: a sealed case should not appear in a tenant-screening report (not a statutory duty on landlords; no statute read regulates screening companies).",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-guest-removal-az",
+    title: "Removing a Guest or Unauthorized Occupant",
+    group: "Rules & Regulations",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "guest-policy",
+    bodyText:
+      "In Arizona, a guest of a tenant who is not named on a written lease and who stays without the tenant's or landlord's permission is not a lawful tenant, and a law enforcement officer may remove a person who knowingly remains, at the request of the tenant or the landlord entitled to possession. Separately, an owner of residential property may bring a forcible detainer action against an unauthorized person who entered while the property was not open to the public, is not a current or former tenant, had no agreement to live there with the owner, is not an immediate family member, and has refused the owner's request to leave, when no other litigation is pending between them; the writ issues immediately after judgment. This route does not apply to landlords and tenants.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). Controlling text: A.R.S. §33-1378; A.R.S. §12-1173(A)(3)(b), (B), (C), as amended by Laws 2026, ch. 69 (SB 1426), approved and filed 2026-05-29, no emergency clause (session-law page read via the fetch tool: amends §§12-1171 and 12-1173 only; no delayed-effective-date section). EFFECTIVE DATE: 2026-09-12, the 2026 general effective date (azleg.gov General Effective Dates page, read by the research pass 2026-09-27; confirmed by the Session Laws page: 'The General Effective Date for the current session is 09/12/2026'). In force. Which parts of the unauthorized-occupant route predate 2026 was not established. Moved NEEDS_REVIEW -> VERIFIED 2026-09-27.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-dishonored-payment-remedies-az",
+    title: "Bounced Checks and Returned Payments",
+    group: "Rent & Payment",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "returned-payments",
+    bodyText:
+      "In Arizona, the holder of a dishonored check, draft, order or note may charge the maker a service fee of not more than $25 plus any actual charges the holder's financial institution assessed because of the dishonor. Separately, a person who writes a check with intent to defraud, knowing there is no account or insufficient funds, is liable in a civil action for twice the amount of the check or $50, whichever is greater, plus costs and reasonable attorney fees. Failure to pay within 12 days after notice of nonpayment (given in person, or in writing by certified mail, return receipt requested, to the address on the check) is prima facie evidence of intent to defraud.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). Controlling text: A.R.S. §44-6852 (fee; 'except as provided in section 32-507' - consumer lenders, NOT read); A.R.S. §12-671(A)-(F). returned-payments tagged AZ ('maximum permitted by applicable law' = $25 plus actual bank charges). Checklist 427.4/427.5 (postdated checks, ACH): not addressed in the text read; §44-6852 covers 'check, draft, order or note' - electronic debits not named. | AZ close-out 2026-09-27: Laws 2024, ch. 250 (HB 2168, approved 2024-06-21, eff. 2024-09-14) amended §44-6852 only to remove the cross-reference to repealed §32-328 (barber board); fee measure unchanged (full-text scan of the chaptered law).",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-hoa-rental-rules-az",
+    title: "Renting in a Condominium or HOA Community",
+    group: "Compliance & Prohibited Terms",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "hoa",
+    bodyText:
+      "An Arizona condominium or planned-community association may not require a renting owner to disclose anything about a tenant beyond the names and contact information of adult occupants, the lease period with start and end dates, and a description and license plate numbers of the tenants' vehicles (plus photo ID showing age in an age-restricted community). The association or its manager may charge up to $25 per new tenancy (not for renewals) for that information, payable within 15 days, and no more than $15 for incomplete or late information; otherwise it may not treat rental units differently from owner-occupied units in fees, fines or requirements. It may not demand the tenant's application, credit report or lease, or require the tenant to sign a waiver of due process rights. An owner may use a crime-free lease addendum, the association may enforce a restriction on registered level two and three sex offenders, and the owner of rental property must abate criminal activity.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). Controlling text: A.R.S. §33-1260.01(A)-(I) (condominiums); A.R.S. §33-1806.01(A)-(I) (planned communities); §12-991 (abatement). hoa-compliance tagged AZ. The 2026 HOA bills reported in secondary sources (flag display, lien thresholds, resale disclosures) were not checked against these sections.",
+  },
+  {
+    id: "edu-crime-nuisance-abatement-az",
+    title: "Criminal Activity on Rental Property",
+    group: "Compliance & Prohibited Terms",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nuisance",
+    bodyText:
+      "Arizona treats residential property regularly used to commit crimes as a nuisance. The attorney general, county or city attorney, a homeowners' or condominium association, or an affected resident may sue the owner or manager to abate it. An owner or manager who receives a government notice of documented criminal reports is deemed to know of the activity and must begin within five business days to take legally available action to abate it. If the owner fails to act, a government authority may abate the nuisance and the cost becomes a priority lien on the property. The Residential Landlord and Tenant Act supports this: a landlord may give notice of immediate termination for a material and irreparable breach such as drug dealing, gang activity, prostitution, threats or assault on the premises. A city may require the owner of slum-designated or seriously substandard property to hire a licensed property manager and join the city's crime-free multihousing program.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). Controlling text: A.R.S. §12-991(A)-(J) (the government notice is printed in at least 12-point type in the statutory form - a government form, not a landlord document); §33-1368(A); §33-1906; §§33-1260.01(G), 33-1806.01(G) (crime-free addendum permitted). No statute read REQUIRES a crime-free addendum; not offered as a clause (AZ log s6).",
+  },
+  // Disclosures
+  {
+    id: "edu-disclosure-immunity-az",
+    title: "What a Landlord Need Not Disclose",
+    group: "Disclosures",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "stigmatized-property",
+    bodyText:
+      "Arizona bars any criminal, civil or administrative action against a lessor for failing to disclose that the property is or was the site of a natural death, suicide, homicide or other felony; was owned or occupied by a person with HIV, AIDS or another disease not known to spread through common occupancy; or is near a sex offender. Failing to disclose these facts is not grounds to terminate or rescind a lease.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). Controlling text: A.R.S. §32-2156(A)-(B). Checklist 572.6 / sex-offender rows: no landlord duty to disclose sex-offender proximity; §§33-1260.01(H), 33-1806.01(H) let associations restrict level two and three registered offenders.",
+  },
+  // Default & Termination
+  {
+    id: "edu-landlord-remedies-after-breach-az",
+    title: "Landlord's Remedies After a Tenant's Breach",
+    group: "Default & Termination",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "mitigation",
+    bodyText:
+      "An Arizona landlord may recover all reasonable damages from the tenant's breach of the lease or of the tenant's statutory duties, court costs, reasonable attorney fees and all quantifiable damage the tenant caused to the property, and after termination may claim possession, rent and separate actual damages. The landlord must mitigate damages. If a tenant abandons, the landlord must make reasonable efforts to rerent at a fair rental; the lease ends when a new tenancy begins, or, if the landlord does not try to rerent or accepts the abandonment as a surrender, when the landlord learns of the abandonment. A tenant who willfully holds over in bad faith owes up to the greater of two months' periodic rent or twice actual damages. A tenant who ends a lease by falsely claiming domestic violence and is convicted owes treble damages, and the person named in the order or report who provoked the termination is liable to the landlord for the resulting economic losses.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). Controlling text: A.R.S. §§33-1368(C), 33-1373, 33-1305(A), 33-1370(C), 33-1375(C), 33-1318(H)-(I). Checklist 335.6: a statutory duty to mitigate exists (§33-1305(A)) and applies to abandonment (§33-1370(C)).",
+  },
+  {
+    id: "edu-foreclosure-notice-duty-az",
+    title: "Foreclosure Notices to Tenants",
+    group: "Default & Termination",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "foreclosure",
+    bodyText:
+      "If an Arizona owner receives a notice of trustee's sale or other foreclosure notice after a tenant has signed a lease, the owner must give the tenant written notice of the possible foreclosure, in the statutory form, within five business days. This applies only to the first such notice received after the lease was signed, and does not apply to multifamily units of four or more connected units. If the owner fails to give the notice (or the move-in notice required for a lease signed after foreclosure began), the tenant may give a notice of landlord noncompliance and recover damages and injunctive relief, and the deposit must be returned.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). Controlling text: A.R.S. §33-1331(B)-(D). Move-in notice: foreclosure-notice-az. Post-sale tenant protections (federal Protecting Tenants at Foreclosure Act; A.R.S. §12-1173.01(B) preserves superior possessory rights) - federal law NOT read.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-lease-rules-az",
+    title: "Rules, Regulations and Lease Amendments",
+    group: "Rules & Regulations",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rules",
+    bodyText:
+      "An Arizona landlord's rules bind a tenant only if they promote tenants' convenience, safety or welfare, protect the property from abuse or fairly distribute services; are reasonably related to that purpose; apply to all tenants fairly; are explicit enough to tell the tenant what to do; do not evade the landlord's obligations; and the tenant had notice of them when signing. A rule adopted later binds the tenant on 30 days' notice if it does not substantially modify the lease. When a government adopts a new law affecting existing leases, the landlord may amend leases immediately to comply, with written notice describing the amendment and its effective date.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). Controlling text: A.R.S. §33-1342(A)-(C). entire-agreement tagged AZ with a note on (C).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-fee-caps-az",
+    title: "No Late-Fee or Application-Fee Cap",
+    group: "Rent & Payment",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "late-fee",
+    bodyText:
+      "Arizona's Residential Landlord and Tenant Act sets no dollar cap on late fees or rental application fees. A late fee must be reasonable and stated in a written lease: only a reasonable late fee set forth in a written lease can be required to reinstate a lease before an eviction is filed, and the eviction judgment includes late charges stated in the lease.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). CONFIRMED ABSENCE, BOUNDED (L.7). Evidentiary basis: full section-open read of A.R.S. Title 33, ch. 10 (§§33-1301 to 33-1381, every section in the official index). Boundary: ch. 10 only; no code-wide search was run (fetch approvals unavailable; instruction 15: record as a ch. 10 full-text read, not a statute-wide absence). Controlling text for what does exist: §§33-1368(B), 33-1377(F). Application fees: not mentioned anywhere in ch. 10; 2026 HB 2243 (application-fee cap) did not become law per secondary sources - not verified from the bill page. | AZ Research pass 2026-09-27 (advanced research, once; report in the conversation). BOUNDARY CAVEAT (instruction 35): the azleg compilation prints the law as of 2027-01-01, so a ch. 10 section in force now but repealed before then is missing from it - §33-1332 (edu-rental-tax-az) was found only in Laws 2023, ch. 204. No such section bears on this absence. | AZ close-out 2026-09-27: UPGRADED from a ch. 10 boundary to a CODE-WIDE absence. Evidentiary basis (instruction 15): official full-text search of the Arizona Revised Statutes on azleg.gov (site-search, Scope=ARS), run 2026-09-27 in Taylor's browser. The search matches EXACT PHRASES and word forms only (control: 'smoke detector' and 'smoke detectors' return different lists; 'smoke alarm' returns none), so every term was run in its variants; every hit's section number and title was reviewed and any landlord-relevant hit read. Terms: late fee (27 hits), late fees (15), late charge (2), late charges (11), application fee (103), application fees (39), screening fee (0), rental application (6). Residential-landlord hits are only §§33-1368, 33-1377 (no cap), §§33-1260.01, 33-1806.01 (association fees); caps exist only for self-storage (§33-1703), mobile homes (§33-1414, §33-1432) and RV spaces (§33-2105). No residential dwelling late-fee or application-fee cap.",
+  },
+  // Security Deposit
+  {
+    id: "edu-no-deposit-interest-az",
+    title: "No Interest on Security Deposits",
+    group: "Security Deposit",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-interest",
+    bodyText:
+      "Arizona's Residential Landlord and Tenant Act does not require a landlord to hold security deposits in a separate or interest-bearing account or to pay interest on them. During the tenancy a landlord may use refundable deposits as any applicable property management agreement allows, but all refundable deposits must be refunded under the deposit statute at the end of the tenancy.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). CONFIRMED ABSENCE, BOUNDED (L.7). Evidentiary basis: full section-open read of A.R.S. Title 33, ch. 10. Boundary: ch. 10 only (no code-wide search). Controlling text for what exists: A.R.S. §33-1321(G). | AZ Research pass 2026-09-27 (advanced research, once; report in the conversation). BOUNDARY CAVEAT (instruction 35): the azleg compilation prints the law as of 2027-01-01, so a ch. 10 section in force now but repealed before then is missing from it - §33-1332 (edu-rental-tax-az) was found only in Laws 2023, ch. 204. No such section bears on this absence. | AZ close-out 2026-09-27: UPGRADED from a ch. 10 boundary to a CODE-WIDE absence. Evidentiary basis (instruction 15): official full-text search of the Arizona Revised Statutes on azleg.gov (site-search, Scope=ARS), run 2026-09-27 in Taylor's browser. The search matches EXACT PHRASES and word forms only (control: 'smoke detector' and 'smoke detectors' return different lists; 'smoke alarm' returns none), so every term was run in its variants; every hit's section number and title was reviewed and any landlord-relevant hit read. Terms: security deposit (19 hits), security deposits (12), interest on security (0). Landlord-relevant hits: §§33-1321, 33-1318, 33-1330, 33-1331, 33-1370, 33-1902 (all read; no interest rule), §§44-301 (unclaimed property - see edu-unclaimed-deposits-az), mobile-home and RV sections.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-rent-increases-az",
+    title: "Rent Increases",
+    group: "Rent & Payment",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-increase-notice",
+    bodyText:
+      "Arizona's Residential Landlord and Tenant Act has no rent-increase notice statute and no cap on increases, and local rent control is preempted. Rent is set by the lease; during a fixed term it cannot be changed without the tenant's agreement. For a month-to-month tenancy, a landlord generally changes the rent by giving the 30-day written notice that would end the tenancy. A rent increase in retaliation for a code complaint, a repair complaint to the landlord, or tenant organizing is prohibited, and a complaint within six months before the increase creates a presumption of retaliation.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). CONFIRMED ABSENCE, BOUNDED (L.7). Evidentiary basis: full section-open read of A.R.S. Title 33, ch. 10. Boundary: ch. 10 only. Controlling text for what exists: §§33-1375(B), 33-1329, 33-1381. 2026 HB 4122 (nine-month increase notice) did not become law per secondary sources - not verified from the bill page. Checklist 114.10: the written-month-to-month gap exists (no statutory notice beyond termination). | AZ Research pass 2026-09-27 (advanced research, once; report in the conversation). BOUNDARY CAVEAT (instruction 35): the azleg compilation prints the law as of 2027-01-01, so a ch. 10 section in force now but repealed before then is missing from it - §33-1332 (edu-rental-tax-az) was found only in Laws 2023, ch. 204. No such section bears on this absence. | AZ close-out 2026-09-27: UPGRADED from a ch. 10 boundary to a CODE-WIDE absence. Evidentiary basis (instruction 15): official full-text search of the Arizona Revised Statutes on azleg.gov (site-search, Scope=ARS), run 2026-09-27 in Taylor's browser. The search matches EXACT PHRASES and word forms only (control: 'smoke detector' and 'smoke detectors' return different lists; 'smoke alarm' returns none), so every term was run in its variants; every hit's section number and title was reviewed and any landlord-relevant hit read. Terms: rent increase (3 hits: §§33-1476.04, 33-2122, 33-1432 - mobile home and RV only), rent increases (2, same), increase in rent (0), increase the rent (0). No rent-increase notice rule for dwelling units.",
+  },
+  {
+    id: "edu-rental-tax-az",
+    title: "City Rental Tax Repealed: No Pass-Through",
+    group: "Rent & Payment",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-tax",
+    bodyText:
+      "Since January 1, 2025, no Arizona city, town or other taxing jurisdiction may levy a transaction privilege or similar tax on renting residential property. The law that repealed the tax also removed the landlord's former statutory right to adjust rent on 30 days' notice when a city changed its rental tax rate, so a lease clause invoking that right no longer has a legal basis. Through December 31, 2026, a landlord may not charge a tenant the amount of the repealed tax, and in any lawsuit the landlord must prove by a preponderance of the evidence that a challenged charge, assessment or other amount does not represent all or part of the repealed tax. Do not add a 'tax', 'fee' or other line item that replaces the old city rental tax.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). Controlling text (Laws 2023, ch. 204 (SB 1131), approved and filed 2023-08-01; read by the research tool from azleg.gov/legtext/56leg/1R/laws/0204.htm, not re-read section-open by me): Sec. 4 adds A.R.S. §33-1332 ('Rent reduction; burden of proof') - (A) on or before 2025-01-01 the landlord of residential property in a jurisdiction that levied residential rental TPT 'shall no longer charge the tenant the amount of the repealed transaction privilege tax'; (B) landlord's burden by a preponderance in any civil action. Sec. 5: '§33-1332 ... is repealed from and after December 31, 2026.' Sec. 3 deletes former §33-1314(E) (rent adjustment on 30 days' notice for a TPT rate change, if disclosed in the lease). Sec. 12: §§33-1314 and 42-6004 amendments effective after 2024-12-31; §33-1332 took the 2023 general effective date (2023-10-30). §42-6004(H) (see edu-local-preemption-az). CURRENCY FINDING (instruction 35): §33-1332 is IN FORCE until 2026-12-31 but is ABSENT from the azleg.gov compilation, which prints the law as of 2027-01-01 - the section-by-section 'full read' of ch. 10 could not have found it. SUNSET: this row describes §33-1332 and must be revised on or after 2027-01-01 (keep the §42-6004(H) and §33-1314(E) content; drop the burden-of-proof paragraph). Instruction 30 / lease check: no Steinoak clause charges or passes through a rental tax (checked by grep of AZ-tagged bodyText for 'tax').",
+  },
+  // Disclosures
+  {
+    id: "edu-no-drug-lab-disclosure-az",
+    title: "No Drug-Lab Disclosure Rule",
+    group: "Disclosures",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "meth-disclosure",
+    bodyText:
+      "Arizona no longer has a statute requiring a residential landlord to disclose, post notice of, or refrain from renting a property that was used as a clandestine drug laboratory; the former law was repealed in 2016. A landlord's general duty to keep the property fit and habitable and to comply with building, housing and health codes still applies to any contamination.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). CONFIRMED ABSENCE, BOUNDED (L.7). Former A.R.S. §12-1000 (drug-lab notice, cleanup, 'lease or rent real property before remediation is complete' a class 5 felony) was repealed by Laws 2016, ch. 352 (SB 1256), Sec. 1 ('Sections 12-116.08, 12-990 and 12-1000 ... are repealed'), approved 2016-05-19, effective 2016-08-06 (2016 general effective date). Read by the research tool from azleg.gov/legtext/52leg/2r/laws/0352.htm; historical §12-1000 text from Justia's 2014 compilation (secondary, context only). Evidentiary basis: the repeal itself plus the research tool's search of Titles 12, 32 and 49 for a replacement owner duty; the act adds only an ADEQ fund-payment authority (§49-927(B)(8), current text NOT re-read). Boundary: Titles 12, 32 and 49; no whole-code full-text search. Habitability route: §33-1324(A)(1)-(2). Checklist 551: meth disclosure 'Confirmed absent (repealed 2016)'.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-foreign-adversary-land-ban-az",
+    title: "Foreign Adversary Land Ownership and Lease Ban",
+    group: "Compliance & Prohibited Terms",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "foreign-ownership",
+    bodyText:
+      "Since September 12, 2026, Arizona bars a foreign adversary nation or its agent from buying, leasing or otherwise obtaining a substantial interest in Arizona real property, directly or through an entity. The law targets foreign governments, state-owned or state-controlled companies, and entities tied to countries identified on federal national-security lists. It is enforced by the Attorney General, not by landlords. Whether it reaches an ordinary residential lease to an individual tenant is unsettled, and no official guidance exists. Do not screen applicants by citizenship or national origin: that exposes a landlord to fair-housing claims, and the statute itself says enforcement may not be based on race or national origin. If an applicant is a foreign government or a company it controls, get legal advice before signing.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). Controlling text: A.R.S. §33-443(A) (may not 'purchase, own, lease ... or otherwise obtain a current or future substantial interest'; includes 'A purchase, lease or concession of real property by or to'), (C) (anti-evasion), (F) ('The enforcement of this section may not be based on a person's race or national origin'; AG enforces), (K) (divest within 120 days after acquisition by devise, security enforcement or debt collection), (N)(7) ('foreign adversary agent' incl. '(f) A foreign person as defined in 31 Code of Federal Regulations section 802.221 when applied to a foreign adversary nation'), (N)(8) (foreign adversary nation: named in each of the three most recent DNI annual threat assessments, or determined by Commerce under 15 CFR 791.4), (N)(9) ('Lease' = any written or oral contract for possession and use for a specified period), (N)(11) (substantial interest: 15% or more; passive non-controlling interests excluded). Read section-open from the azleg compilation. Session laws: added by Laws 2025, ch. 253 (SB 1082), approved 2025-07-01; amended by Laws 2026, ch. 240 (SB 1683), signed 2026-06-22 (Governor's Legislative Action Update, per the research pass), House engrossed text marked 'ENACTED WITHOUT THE EMERGENCY', so effective on the 2026 general effective date, 2026-09-12 (inference from the engrossed text; the chaptered PDF's approval line was not read). Sec. 2: applies to transactions entered on or after the effective date and to renewals, extensions, modifications or exercises of rights on or after it. §33-443(D) (notice duty from 2027-01-01) binds only utilities, telecoms, critical-infrastructure owners and government agencies. UNRESOLVED: whether an individual national of a listed country is a 'foreign adversary agent' via (N)(7)(f) and whether a residential leasehold is a 'substantial interest' - no AG opinion or guidance located. Federal citations (label, instruction 16): 31 CFR §802.221 (read by the research tool via eCFR), 15 CFR §791.4 and 50 U.S.C. §3043b NOT read. Fair housing: A.R.S. §41-1491.14; 42 U.S.C. §3604 (federal, not read). Taylor approved the row 2026-09-27.",
+  },
+  // Security Deposit
+  {
+    id: "edu-unclaimed-deposits-az",
+    title: "Unclaimed Deposit Refunds",
+    group: "Security Deposit",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "escheat",
+    bodyText:
+      "A security deposit refund that a tenant never claims or cashes does not become the landlord's money. Under Arizona's unclaimed property law, a security deposit, refund or credit balance is property that is presumed abandoned three years after the owner's right to demand it or the landlord's obligation to pay it arises, and is then handled under the unclaimed property law administered by the Arizona Department of Revenue.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). Controlling text: A.R.S. §44-301(17)(b)(ii) ('Property' includes 'Any credit balance, customer's overpayment, security deposit, refund ...'), §44-301(5), (10) (Department of Revenue; 'holder'); §44-302(A)(16) ('All other property is presumed abandoned three years after the owner's rights to demand the property or after the obligation to pay or distribute the property arises, whichever occurs first'). NOT READ: the holder's notice, report and remittance duties and deadlines (later sections of Title 44, ch. 3) - the row states only what was read. Checklist 427.2: landlord as statutory holder PRESENT. Found by the full-text search for 'security deposit'. Compare ND ch. 47-30.2 (Addendum M.6). | AZ close-out 2026-09-27: Laws 2026, ch. 224 (SB 1336, approved 2026-06-22, eff. 2026-09-12) amended §44-301; the amended text keeps 'security deposit' in (17)(b)(ii) unchanged (checked in the chaptered law).",
+  },
+  // Disclosures
+  {
+    id: "edu-no-mold-disclosure-az",
+    title: "No Mold Rule for Landlords",
+    group: "Disclosures",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "mold",
+    bodyText:
+      "Arizona statutes do not require a residential landlord to disclose mold or to remediate it as a separate duty. Mold in a rental is handled through the landlord's general duty to comply with building codes materially affecting health and safety and to keep the premises fit and habitable.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). CONFIRMED ABSENCE (statutes). Evidentiary basis (instruction 15): official full-text search of the Arizona Revised Statutes on azleg.gov (site-search, Scope=ARS), run 2026-09-27 in Taylor's browser. The search matches EXACT PHRASES and word forms only (control: 'smoke detector' and 'smoke detectors' return different lists; 'smoke alarm' returns none), so every term was run in its variants; every hit's section number and title was reviewed and any landlord-relevant hit read. Terms: mold (3 hits: §§36-2411 orthotics, 36-1924 licensing exam, 3-703 eggs), molds (4: §§36-1901, 33-1022.01 fabrication lien, 32-853, 3-341), mildew (0), fungus (3: §§13-2308.03, 3-341, 3-201). None imposes a landlord duty. Boundary: statutes only; A.A.C., local codes and case law not searched. Habitability route: A.R.S. §33-1324(A)(1)-(2).",
+  },
+  {
+    id: "edu-no-radon-disclosure-az",
+    title: "No Radon Disclosure Rule for Landlords",
+    group: "Disclosures",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "radon",
+    bodyText:
+      "Arizona statutes do not require a residential landlord to test for or disclose radon. The only statutory reference to radon zones in a real estate context is an optional third-party disclosure report a buyer or seller may order in a sale.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). CONFIRMED ABSENCE (statutes). Evidentiary basis (instruction 15): official full-text search of the Arizona Revised Statutes on azleg.gov (site-search, Scope=ARS), run 2026-09-27 in Taylor's browser. The search matches EXACT PHRASES and word forms only (control: 'smoke detector' and 'smoke detectors' return different lists; 'smoke alarm' returns none), so every term was run in its variants; every hit's section number and title was reviewed and any landlord-relevant hit read. Term: radon (3 hits: §§27-371, 27-372 uranium-operations radon control; §33-423(A)(8) radon gas potential zones in an OPTIONAL third-party disclosure report for buyers and sellers of real property - read; §33-423(F) 'does not obligate any person to provide or purchase a disclosure report'). No landlord or lease duty. Compare radon-disclosure-co, radon-disclosure-fl.",
+  },
+  // Parking & Storage
+  {
+    id: "edu-no-ev-charging-right-az",
+    title: "No Tenant EV Charging Right",
+    group: "Parking & Storage",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "ev-charging",
+    bodyText:
+      "Arizona statutes do not give a residential tenant a right to install an electric vehicle charger at a rental and do not require a landlord to allow one.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). CONFIRMED ABSENCE (statutes). Evidentiary basis (instruction 15): official full-text search of the Arizona Revised Statutes on azleg.gov (site-search, Scope=ARS), run 2026-09-27 in Taylor's browser. The search matches EXACT PHRASES and word forms only (control: 'smoke detector' and 'smoke detectors' return different lists; 'smoke alarm' returns none), so every term was run in its variants; every hit's section number and title was reviewed and any landlord-relevant hit read. Terms: electric vehicle charging (2 hits: §28-4458 motor-vehicle manufacturer coercion of dealers - read, irrelevant; §28-3053), vehicle charging (same 2), charging station (§28-4458), charging stations (§28-8602 vertiport planning). Association solar and shade rules (§§33-1816, 33-1816.01) not relevant. Compare the CO and CA EV rows.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-no-immigration-inquiry-rule-az",
+    title: "No Immigration-Status Rule for Landlords",
+    group: "Compliance & Prohibited Terms",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "immigration-status",
+    bodyText:
+      "Arizona statutes do not require or forbid a residential landlord to ask about or verify a tenant's immigration or citizenship status. Federal and Arizona fair housing laws still bar discrimination based on national origin, so screening questions should be applied the same way to every applicant. A tenant whose belongings are held after an abandonment may retrieve identification and immigration documents without paying storage costs.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). CONFIRMED ABSENCE (statutes) as to a landlord inquiry rule. Evidentiary basis (instruction 15): official full-text search of the Arizona Revised Statutes on azleg.gov (site-search, Scope=ARS), run 2026-09-27 in Taylor's browser. The search matches EXACT PHRASES and word forms only (control: 'smoke detector' and 'smoke detectors' return different lists; 'smoke alarm' returns none), so every term was run in its variants; every hit's section number and title was reviewed and any landlord-relevant hit read. Terms: immigration status (11 hits: §§11-1051, 13-1509, 46-140.01, 13-2929, 13-2928, 36-2903.03, 33-1370, 25-403.03, 23-212.01, 23-212, 15-1803), citizenship status (5 hits: election and definitions sections). Landlord-relevant: §33-1370(F) (retrieval of immigration documents - read). §13-2929 (read): a person 'in violation of a criminal offense' may not 'conceal, harbor or shield' an unlawfully present alien 'in any place ... including any building' - not a landlord inquiry rule; whether ordinary renting can be 'harboring' was not researched, and the federal litigation over this section (RECALL: enjoined as preempted) was NOT checked - flagged, not relied on. National origin: A.R.S. §41-1491.14.",
+  },
+  {
+    id: "edu-no-source-of-income-rule-az",
+    title: "No Statewide Source-of-Income Rule",
+    group: "Compliance & Prohibited Terms",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "source-of-income",
+    bodyText:
+      "Arizona state law does not prohibit a landlord from refusing a housing voucher or other lawful source of income. Some Arizona cities have adopted local ordinances that do; check local law before declining a voucher. Accepting a government housing assistance payment is not accepting a partial payment and does not waive the landlord's rights.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). CONFIRMED ABSENCE (statutes). Evidentiary basis (instruction 15): official full-text search of the Arizona Revised Statutes on azleg.gov (site-search, Scope=ARS), run 2026-09-27 in Taylor's browser. The search matches EXACT PHRASES and word forms only (control: 'smoke detector' and 'smoke detectors' return different lists; 'smoke alarm' returns none), so every term was run in its variants; every hit's section number and title was reviewed and any landlord-relevant hit read. Terms: source of income (4 hits: §§13-3410, 25-1302, 3-1202, 3-104 - unrelated), lawful source of income (0), housing voucher (0), housing choice voucher (0); 'section 8' (307 hits, reviewed by title, none a housing rule). Fair Housing Act classes: A.R.S. §41-1491.14 (no source of income). §33-1371(B) (housing assistance payments). Local ordinances (e.g. Tucson, Phoenix) FLAGGED, not resolved (instruction 20).",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-servicemember-lease-rule-az",
+    title: "Servicemembers: Lease Protections",
+    group: "Default & Termination",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "military-termination",
+    bodyText:
+      "Arizona's landlord-tenant act has no rule letting a servicemember end a lease of an apartment or house early; the federal Servicemembers Civil Relief Act governs that. Separately, Arizona law gives members of the National Guard and the armed forces reserves who are ordered to active duty or training by Arizona, another state or the United States the protections that federal servicemember civil-relief law gives people on federal active duty. That can reach Guard members serving on state orders, whom federal law alone may not cover. When a tenant presents military orders with a request to end the lease or pause an eviction, get legal advice before refusing it. Arizona's only military rule inside the landlord-tenant statutes is for mobile home park spaces.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). CONFIRMED ABSENCE (statutes) for dwelling units. Evidentiary basis (instruction 15): official full-text search of the Arizona Revised Statutes on azleg.gov (site-search, Scope=ARS), run 2026-09-27 in Taylor's browser. The search matches EXACT PHRASES and word forms only (control: 'smoke detector' and 'smoke detectors' return different lists; 'smoke alarm' returns none), so every term was run in its variants; every hit's section number and title was reviewed and any landlord-relevant hit read. Terms: reassignment orders (1 hit: §33-1413, mobile home parks - read by the research pass, not by me: a landlord may not bar a servicemember with reassignment orders from terminating on less than two weeks' notice), permanent change of station (2: licensure), military orders (14: employment, licensing, tuition, consumer-credit sections; §26-168 employment). Federal: 50 U.S.C. §3955 (SCRA lease termination; federal, not read). early-termination preserves SCRA rights. | AZ AAR comparison 2026-09-27 (gap-discovery source 2): lead from the Arizona Association of REALTORS Residential Lease Agreement (updated February 2026), used as a lead only (instruction 6); primary text read section-open on azleg.gov in Taylor's browser. CORRECTION: the research pass and the close-out search labelled §26-168 'employment'. Read in full now: its heading and (A)-(C) are about employment, but (D) is not limited to employment by its words: 'When ordered to perform active duty or training by the competent orders of any state or the United States, members of the national guard or United States armed forces reserves have the protections afforded to persons under federal active duty by the soldiers and sailors civil relief act of 1940 (54 Stat. 1178; 50 United States Code app. sections 501 through 548 and 560 through 591) and by the uniformed services employment and reemployment rights act of 1994'. NOT DETERMINED: (1) whether that 1940-Act reference reaches the current SCRA's lease-termination section (the 1940 Act was restated in 2003; the current termination grounds are federal and were not read); (2) whether any Arizona court has applied (D) to a residential lease (case law not searched). The body therefore states the extension and routes the tenant's request to legal advice rather than stating termination terms. Absence for dwellings still holds for a landlord-tenant-act rule (248.5). Currency of §26-168: compilation only; §15.6 scanned session laws for landlord-tenant terms, not Title 26. Title changed from 'Servicemembers: Federal Law Governs Apartments and Houses' (id kept).",
+  },
+  // Security Deposit
+  {
+    id: "edu-holding-deposit-az",
+    title: "Holding Deposits and Earnest Money",
+    group: "Security Deposit",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "holding-deposit",
+    bodyText:
+      "Arizona statutes have no rule written for holding deposits, earnest money or other money taken from an applicant before a lease is signed. Two rules in the Arizona Residential Landlord and Tenant Act bear on it. First, once the lease is signed, money applied to deposits or prepaid rent counts toward the limit on all security, however named, of one and one-half months' rent (a tenant may still choose to prepay more rent). Second, the landlord must state in writing the purpose of every nonrefundable fee or deposit, and any fee or deposit not designated nonrefundable is refundable. The statutes do not say whether that rule reaches money taken before a lease exists, so a landlord who means to keep a holding deposit if the applicant backs out should say so in writing, with the amount and purpose, before taking it. A real estate broker who takes earnest money on a lease must state in the lease or receipt what form it took (cash, check, promissory note or other item of value) and place it in the designated broker's care.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). CONFIRMED ABSENCE (statutes) as a holding-deposit rule. Evidentiary basis (instruction 15): official full-text search of the Arizona Revised Statutes on azleg.gov (site-search, Scope=ARS), run 2026-09-27 in Taylor's browser. The search matches EXACT PHRASES and word forms only (control: 'smoke detector' and 'smoke detectors' return different lists; 'smoke alarm' returns none), so every term was run in its variants; every hit's section number and title was reviewed and any landlord-relevant hit read. Terms: holding deposit (0), holding deposits (0), earnest money (5 hits: §32-2151.01 broker records - read; §32-2181.02 subdivision exemptions and §44-5101 wholesale buyers - read, sales only; §§6-811, 6-252 financial institutions - by title), application deposit (2: §§46-906, 15-1878 - unrelated), reservation deposit (2: §§32-2197.10, 32-2181.03 - timeshare and subdivision). Controlling text: A.R.S. §33-1321(A) ('security, however denominated, including, but not limited to, prepaid rent' capped at one and one-half month's rent; voluntary advance rent allowed) and (B) (purpose of nonrefundable fees or deposits stated in writing; not designated = refundable), read in the ch. 10 full read; §32-2151.01(C)-(D) (broker states the type of earnest money in the lease agreement or receipt; licensees place payments with the designated broker), read 2026-09-27. NOT DETERMINED: whether §33-1321(B) applies before a rental agreement exists (no case law searched); the body says so. Source of the topic: AAR form lines on earnest money (applied to deposits and initial rent on acceptance). Broker trust-account rules (A.A.C. Title 4, ch. 28) not read - broker-only.",
+  },
+  // Parking & Storage
+  {
+    id: "edu-towing-az",
+    title: "Towing Vehicles from Rental Property",
+    group: "Parking & Storage",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "towing",
+    bodyText:
+      "Before a private towing company may remove a vehicle from an Arizona rental property without the vehicle owner's permission, the property owner or the owner's agent must authorize the tow in writing, either by signing each towing order or by a written towing contract that runs for a specific period. The towing company cannot act as the owner's agent, and a tow without that authorization (or a law enforcement request) is a crime for the towing company. Inside a city or town, the owner is treated as allowing unrestricted public parking in any parking area unless signs, clearly visible and readable from anywhere in the parking area and at each entrance, state the parking restrictions, what happens to vehicles that violate them, the maximum cost to the vehicle's owner including storage and other charges, and the phone number and address where the vehicle can be found. Cities and counties may cap private towing rates. Abandoned and junk vehicles follow separate motor-vehicle procedures. Check your city's towing rules before relying on the lease's towing clause.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). CONTROLLING TEXT: A.R.S. §9-499.05(A)-(D), (F) (cities and towns: rate regulation; deemed consent to unrestricted public parking unless posted with the four-item signs; tow only on a law enforcement request or the owner's or agent's express written permission after complying with (B), by signing each order or a written contract valid for a specific length of time; carrier may not act as owner's agent; carrier violation class 2 misdemeanor; abandoned/junk vehicles under Title 28, ch. 11 excluded) and §11-251.04 (counties: same written-authorization rule, no sign requirement, city regulation displaces county rates), both read section-open 2026-09-27. §28-4847(A) (release of a towed vehicle on written request and payment) read in part. NOT READ: Title 28, ch. 11 (abandoned vehicles); city towing ordinances (flagged, instruction 20). `parking-vehicle-rules` (tagged) says towing happens 'in accordance with applicable law', so no clause conflict. Found by full-text search: towing (50 hits), towed (28) - landlord-relevant hits read. Source: landlord-experience screen (gap-discovery source 3), AZ log §18. ",
+  },
+  // Default & Termination
+  {
+    id: "edu-selling-rented-property-az",
+    title: "Selling a Rented Property",
+    group: "Default & Termination",
+    states: ["AZ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "sale-of-property",
+    bodyText:
+      "When an Arizona landlord sells a rented dwelling in a good-faith sale to a bona fide purchaser, the seller is released from liability under the lease and the landlord-tenant act only for events after the seller gives the tenant written notice of the sale, unless the parties agreed otherwise. The seller stays liable to the tenant for the security deposit and prepaid rent the tenant is entitled to get back, and whoever holds the landlord's interest when the tenancy ends is also bound by the deposit-return rules. A property manager whose management ends is likewise released only after written notice to the tenant. The owner and manager disclosure given to the tenant must be kept current, and the new owner's information must be on file with the county assessor. Showing the unit to buyers requires at least two days' notice to the tenant unless it is impracticable.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). CONTROLLING TEXT: A.R.S. §33-1325(A)-(B) read section-open 2026-09-27 ('He remains liable to the tenant for any property and money to which the tenant is entitled under section 33-1321'); §33-1321 successor clause (see `security-deposit-return-az`); §33-1322(C) disclosure kept current (`landlord-disclosure-az`); §33-1902 (`edu-rental-registration-az`); §33-1343(A), (D) exhibiting to purchasers on two days' notice (`landlords-access-az`). The ch. 10 full read supports the rest. NOT STATED: whether the lease binds the buyer (common law, not researched - the body does not say). Source: landlord-experience screen (gap-discovery source 3), AZ log §18. ",
   },
 ];
 
