@@ -7,7 +7,7 @@
 // domains can be combined into one card without one page's color scale
 // silently drifting from another's.
 
-const RENT_SEVERITY = { OVERDUE: 3, PARTIAL: 2, DUE: 1, PAID: 0, NONE: 0 };
+const RENT_SEVERITY = { OVERDUE: 3, PARTIAL: 2, FEE_DUE: 1, DUE: 1, PAID: 0, NONE: 0 };
 const MAINTENANCE_SEVERITY = { OVERDUE: 3, OPEN: 2, OK: 0 };
 
 const SEVERITY_STYLE = {
@@ -40,10 +40,15 @@ export function buildFlags({ rent, maintenance }) {
   const flags = [];
 
   if (rent) {
+    // Rent and fees are reported separately: a fee is not rent, so it must
+    // never be folded into a "rent owed" figure (see rentTracker.js).
+    const fees = rent.feesOwed > 0 ? ` + ${money(rent.feesOwed)} in fees` : "";
     if (rent.status === "OVERDUE") {
-      flags.push({ text: `Rent overdue — ${money(rent.totalOwed)}${rent.maxDaysLate > 0 ? ` · ${rent.maxDaysLate}d late` : ""}`, severity: 3 });
+      flags.push({ text: `Rent overdue — ${money(rent.rentOwed)}${fees}${rent.maxDaysLate > 0 ? ` · ${rent.maxDaysLate}d late` : ""}`, severity: 3 });
     } else if (rent.status === "PARTIAL") {
-      flags.push({ text: `Partial rent payment — ${money(rent.totalOwed)} owed`, severity: 2 });
+      flags.push({ text: `Partial rent payment — ${money(rent.rentOwed)} rent owed${fees}`, severity: 2 });
+    } else if (rent.status === "FEE_DUE") {
+      flags.push({ text: `Rent paid — ${money(rent.feesOwed)} in fees outstanding`, severity: 1 });
     } else if (rent.status === "NONE") {
       flags.push({ text: "No active lease", severity: 0 });
     }

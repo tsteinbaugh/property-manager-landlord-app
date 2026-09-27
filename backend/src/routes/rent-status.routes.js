@@ -30,6 +30,8 @@ router.get("/", async (req, res) => {
       ]);
       const rows = buildRentTracker({ lease, incomes, waivers, today: new Date() });
       const totalOwed = Math.round(rows.reduce((sum, r) => sum + Math.max(0, r.balance), 0) * 100) / 100;
+      const rentOwed = Math.round(rows.reduce((sum, r) => sum + r.rentBalance, 0) * 100) / 100;
+      const feesOwed = Math.round(rows.reduce((sum, r) => sum + r.feeBalance, 0) * 100) / 100;
       const maxDaysLate = rows.reduce((max, r) => Math.max(max, r.daysLate || 0), 0);
 
       return {
@@ -37,6 +39,8 @@ router.get("/", async (req, res) => {
         leaseId: lease.id,
         status: summarizeRentStatus(rows),
         totalOwed,
+        rentOwed,
+        feesOwed,
         maxDaysLate,
       };
     }),

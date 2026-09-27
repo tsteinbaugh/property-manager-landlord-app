@@ -1329,28 +1329,28 @@ describe("leases routes", () => {
       const res = await request(app).post(`/api/leases/${lease.id}/rent-payments/preview`).send({ amount: 2000 });
 
       expect(res.status).toBe(200);
-      expect(res.body.allocations[0]).toMatchObject({ category: "LATE_FEE", amount: 150 });
+      expect(res.body.allocations[0]).toMatchObject({ category: "RENT", amount: 2000 });
       expect(res.body.unapplied).toBe(0);
       expect(await prisma.income.count()).toBe(0);
     });
 
     it("logs a payment spanning multiple categories/periods as ONE Income row with allocation line items underneath", async () => {
       // All three months of this fixed-past lease are overdue by the time this
-      // test runs, so $150/month in late fees ($450 total) is satisfied first,
-      // then the remainder applies to the oldest month's rent. It's still one
-      // real $2,000 payment, so it must be one Ledger row, not four.
-      const res = await request(app).post(`/api/leases/${lease.id}/rent-payments`).send({ amount: 2000, date: "2020-01-10" });
+      // test runs. Rent comes first, oldest month first ($9,000), and only
+      // then late fees ($150 Jan, $50 of Feb's). It's still one real $9,200
+      // payment, so it must be one Ledger row, not five.
+      const res = await request(app).post(`/api/leases/${lease.id}/rent-payments`).send({ amount: 9200, date: "2020-01-10" });
 
       expect(res.status).toBe(201);
       expect(await prisma.income.count()).toBe(1);
-      expect(res.body.income.amount).toBe("2000");
-      expect(res.body.income.category).toBe("RENT"); // dominant by dollar amount: $1,550 rent beats $450 in late fees
+      expect(res.body.income.amount).toBe("9200");
+      expect(res.body.income.category).toBe("RENT"); // dominant by dollar amount
       expect(res.body.income.appliesToPeriod).toBe(null);
       expect(res.body.income.leaseId).toBe(lease.id);
 
       const allocations = res.body.income.allocations;
-      expect(allocations.map((a) => a.category)).toEqual(["LATE_FEE", "LATE_FEE", "LATE_FEE", "RENT"]);
-      expect(allocations.map((a) => a.amount)).toEqual(["150", "150", "150", "1550"]);
+      expect(allocations.map((a) => a.category)).toEqual(["RENT", "RENT", "RENT", "LATE_FEE", "LATE_FEE"]);
+      expect(allocations.map((a) => a.amount)).toEqual(["3000", "3000", "3000", "150", "50"]);
     });
 
     it("rejects a payment that overshoots everything currently owed without explicit allocations", async () => {
@@ -1373,14 +1373,14 @@ describe("leases routes", () => {
     });
 
     it("appears as one row in the property's income list, even when split across categories", async () => {
-      await request(app).post(`/api/leases/${lease.id}/rent-payments`).send({ amount: 2000, date: "2020-01-10" });
+      await request(app).post(`/api/leases/${lease.id}/rent-payments`).send({ amount: 9200, date: "2020-01-10" });
 
       const res = await request(app).get(`/api/income?propertyId=${property.id}`);
 
       expect(res.status).toBe(200);
       expect(res.body).toHaveLength(1);
-      expect(res.body[0].amount).toBe("2000");
-      expect(res.body[0].allocations).toHaveLength(4);
+      expect(res.body[0].amount).toBe("9200");
+      expect(res.body[0].allocations).toHaveLength(5);
     });
 
     it("lists waivers for a lease", async () => {

@@ -87,7 +87,7 @@ export default function RentTrackerSection({ leases, onJumpToPayment, onChange }
     setPayOpen(true);
   }
 
-  // The fees-first/oldest-first split is a deterministic function of the
+  // The rent-first/oldest-first split is a deterministic function of the
   // amount and what's currently owed — there's nothing for the landlord to
   // decide by clicking a "preview" button, so it just (re)computes itself,
   // debounced, whenever the amount changes. The result is still fully
@@ -221,8 +221,8 @@ export default function RentTrackerSection({ leases, onJumpToPayment, onChange }
           {preview && (
             <div className="space-y-3 border-t border-stone-200 pt-4">
               <p className="text-xs text-stone-500">
-                Suggested split (fees first, then rent, oldest month first — matches your lease's Application of
-                Payments clause). This will log as one payment; adjust amounts or remove a row before confirming.
+                Suggested split (rent first, oldest month first, then fees). This will log as one payment; adjust
+                amounts or remove a row before confirming.
               </p>
               {preview.unapplied > 0 && (
                 <p className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-800">
@@ -330,6 +330,12 @@ export default function RentTrackerSection({ leases, onJumpToPayment, onChange }
                   </td>
                   <td className={`px-4 py-2 text-right font-medium ${row.balance > 0 ? "text-red-700" : "text-stone-700"}`}>
                     {money(row.balance)}
+                    {row.rentBalance > 0 && row.feeBalance > 0 && (
+                      <div className="text-xs font-normal text-stone-400">
+                        <div>Rent {money(row.rentBalance)}</div>
+                        <div>Fees {money(row.feeBalance)}</div>
+                      </div>
+                    )}
                   </td>
                   <td className="px-4 py-2">
                     <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${className}`}>{label}</span>

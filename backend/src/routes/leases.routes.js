@@ -785,8 +785,8 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
   });
 
   // Suggests how a lump payment would split across what's outstanding, per
-  // the lease's own Application of Payments clause (fees first, then rent,
-  // oldest period first) — a preview only, nothing is written. Bookkeeping
+  // the library's Application of Payments default (rent first, oldest
+  // period first, then fees) — a preview only, nothing is written. Bookkeeping
   // only; never a legal eviction-eligibility determination (see memory
   // `project_late_fees_not_eviction_basis`).
   router.post("/:id/rent-payments/preview", async (req, res) => {
@@ -817,7 +817,7 @@ function createLeasesRoutes({ r2 = defaultR2 } = {}) {
   // created when the payment actually spans more than one category/period —
   // most payments don't). Pass `allocations` directly (from a possibly-
   // edited preview) to use an exact split; otherwise the suggested
-  // fees-first/oldest-first split is used, and a payment larger than
+  // rent-first/oldest-first split is used, and a payment larger than
   // everything currently owed is rejected rather than silently dropping the
   // extra — the landlord has to say explicitly where an overpayment/
   // prepayment goes.

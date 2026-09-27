@@ -24,6 +24,13 @@
 // balance sums every Income row ever applied to that period regardless of
 // date, so a later payment does pay the balance down (including paying off
 // the fee itself) — it just doesn't erase the fact that a fee was incurred.
+//
+// Rent first, always: whatever a period's collected dollars were recorded
+// as, status reads them as paying that period's rent (+ pet rent) before any
+// late fee. So "$3,000 rent + $50 fee, $3,000 paid" is rent paid with a $50
+// fee outstanding (FEE_DUE), never "$50 rent short". A fee is not rent, and
+// the number this table shows is the one a landlord would carry onto a
+// demand notice — see memory `project_late_fees_not_eviction_basis`.
 
 const RENT_TRACKER_CATEGORIES = ["RENT", "LATE_FEE", "PET_RENT"];
 
@@ -95,7 +102,7 @@ function buildRentTracker({ lease, incomes, waivers = [], today = new Date() }) 
     const deadline = new Date(dueDate.getTime() + graceDays * 24 * 60 * 60 * 1000);
     const isWaived = waivedPeriods.has(periodKey);
 
-    const earlyCollected = sum([...rentRows, ...petRentRows].filter((r) => new Date(r.date) <= deadline));
+    const earlyCollected = sum([...rentRows, ...petRentRows, ...lateFeeRows].filter((r) => new Date(r.date) <= deadline));
     const deadlinePassed = deadline.getTime() < today.getTime();
     const lateFeeTriggered = !isWaived && deadlinePassed && earlyCollected < expectedRent + expectedPetRent && lateFeeAmount > 0;
 
@@ -103,6 +110,9 @@ function buildRentTracker({ lease, incomes, waivers = [], today = new Date() }) 
     const totalExpected = expectedRent + expectedPetRent + expectedLateFee;
     const totalCollected = collectedRent + collectedPetRent + collectedLateFeePaid;
     const balance = Math.round((totalExpected - totalCollected) * 100) / 100;
+    const expectedRentTotal = expectedRent + expectedPetRent;
+    const rentBalance = Math.round(Math.max(0, expectedRentTotal - totalCollected) * 100) / 100;
+    const feeBalance = Math.round(Math.max(0, expectedLateFee - Math.max(0, totalCollected - expectedRentTotal)) * 100) / 100;
 
     const hasStarted = period.getTime() <= monthStart(today).getTime();
     let status;
@@ -110,6 +120,8 @@ function buildRentTracker({ lease, incomes, waivers = [], today = new Date() }) 
 
     if (!hasStarted) {
       status = "UPCOMING";
+    } else if (rentBalance <= 0 && feeBalance > 0) {
+      status = "FEE_DUE";
     } else if (balance <= 0) {
       const allRows = [...rentRows, ...petRentRows, ...lateFeeRows];
       const completedDate = allRows.length > 0 ? new Date(Math.max(...allRows.map((r) => new Date(r.date).getTime()))) : null;
@@ -141,6 +153,8 @@ function buildRentTracker({ lease, incomes, waivers = [], today = new Date() }) 
       collectedLateFee: collectedLateFeePaid,
       totalCollected: Math.round(totalCollected * 100) / 100,
       balance,
+      rentBalance,
+      feeBalance,
       isLateFeeWaived: isWaived,
       status,
       daysLate,
@@ -149,9 +163,10 @@ function buildRentTracker({ lease, incomes, waivers = [], today = new Date() }) 
   });
 }
 
-// Suggests how to split a lump payment across what's outstanding, per the
-// lease's own "Application of Payments" clause: fees before rent, oldest
-// period first within each. This is bookkeeping categorization only — see
+// Suggests how to split a lump payment across what's outstanding: rent (and
+// pet rent) before fees, oldest period first within each — the library's
+// "Application of Payments" default, and the order that never turns an
+// unpaid fee into apparent unpaid rent. This is bookkeeping categorization only — see
 // memory `project_late_fees_not_eviction_basis` for why this must never be
 // used to decide legal eviction eligibility. Any leftover after every
 // period in the table is satisfied (an overpayment) is applied forward as a
@@ -175,11 +190,11 @@ function suggestPaymentAllocation({ rows, amount }) {
     petRentOwed: Math.max(0, r.expectedPetRent - r.collectedPetRent),
   }));
 
-  for (const b of balances) take(b.period, "LATE_FEE", b.feeOwed);
   for (const b of balances) {
     take(b.period, "RENT", b.rentOwed);
     take(b.period, "PET_RENT", b.petRentOwed);
   }
+  for (const b of balances) take(b.period, "LATE_FEE", b.feeOwed);
 
   return { allocations, unapplied: remaining };
 }
@@ -187,12 +202,14 @@ function suggestPaymentAllocation({ rows, amount }) {
 // Rolls a lease's per-period rows up into one status, for places that need
 // "is this lease okay at a glance" (the property list, the Dashboard) without
 // showing the full table. Worst-case wins: one overdue period anywhere in
-// the lease's history outranks a since-caught-up PARTIAL, which outranks the
+// the lease's history outranks a since-caught-up PARTIAL, which outranks a
+// fee left unpaid on a rent-paid month (FEE_DUE), which outranks the
 // current period merely being DUE.
 function summarizeRentStatus(rows) {
   if (!rows || rows.length === 0) return "NONE";
   if (rows.some((r) => r.status === "OVERDUE")) return "OVERDUE";
   if (rows.some((r) => r.status === "PARTIAL")) return "PARTIAL";
+  if (rows.some((r) => r.status === "FEE_DUE")) return "FEE_DUE";
   if (rows.some((r) => r.status === "DUE")) return "DUE";
   return "PAID";
 }

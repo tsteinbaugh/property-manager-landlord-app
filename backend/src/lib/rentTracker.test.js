@@ -152,11 +152,45 @@ describe("buildRentTracker", () => {
   });
 });
 
+describe("buildRentTracker — rent first, a fee is never rent", () => {
+  // Taylor's scenario: $3000 rent + $150 late fee owed, $3000 paid. However
+  // the ledger recorded it, rent is paid and only the fee is outstanding.
+  const today = new Date("2026-01-20T00:00:00.000Z");
+  const late = "2026-01-15T00:00:00.000Z";
+  const jan = (incomes) => buildRentTracker({ lease: baseLease(), incomes, waivers: [], today }).find((r) => r.period.startsWith("2026-01"));
+
+  it("shows FEE_DUE, not a rent shortfall, when the rent amount is paid", () => {
+    const row = jan([income({ category: "RENT", amount: "3000.00", date: late, appliesToPeriod: "2026-01-01T00:00:00.000Z" })]);
+    expect(row.status).toBe("FEE_DUE");
+    expect(row.rentBalance).toBe(0);
+    expect(row.feeBalance).toBe(150);
+    expect(row.balance).toBe(150);
+    expect(row.daysLate).toBe(0);
+  });
+
+  it("reads a payment recorded fees-first as rent paid, fee outstanding", () => {
+    const row = jan([
+      income({ category: "LATE_FEE", amount: "150.00", date: late, appliesToPeriod: "2026-01-01T00:00:00.000Z" }),
+      income({ category: "RENT", amount: "2850.00", date: late, appliesToPeriod: "2026-01-01T00:00:00.000Z" }),
+    ]);
+    expect(row.status).toBe("FEE_DUE");
+    expect(row.rentBalance).toBe(0);
+    expect(row.feeBalance).toBe(150);
+  });
+
+  it("reports rent and fees separately while rent is still short", () => {
+    const row = jan([income({ category: "RENT", amount: "1000.00", date: late, appliesToPeriod: "2026-01-01T00:00:00.000Z" })]);
+    expect(row.status).toBe("PARTIAL");
+    expect(row.rentBalance).toBe(2000);
+    expect(row.feeBalance).toBe(150);
+  });
+});
+
 describe("suggestPaymentAllocation — Taylor's real scenario", () => {
   // Month 1 rent $3000 unpaid -> $150 late fee. Month 2 rent $3000 unpaid ->
   // $150 late fee. Total owed: $6300. Payments arrive as $2500, $1500,
   // $1000, $1300 (in that order) and should exactly zero out the balance,
-  // fees paid off first, then rent oldest period first.
+  // rent paid off first (oldest period first), then fees.
   const lease = baseLease({ startDate: "2026-01-01T00:00:00.000Z", endDate: "2026-02-28T00:00:00.000Z" });
   const today = new Date("2026-03-01T00:00:00.000Z"); // both periods well past their deadlines, unpaid
 
@@ -164,14 +198,20 @@ describe("suggestPaymentAllocation — Taylor's real scenario", () => {
     return buildRentTracker({ lease, incomes, waivers: [], today });
   }
 
-  it("applies the first $2500 to both late fees, then as much of Jan rent as it covers", () => {
+  it("applies the first $2500 to Jan rent, not to the late fees", () => {
     const rows = rowsAfter([]);
     const { allocations, unapplied } = suggestPaymentAllocation({ rows, amount: 2500 });
     expect(unapplied).toBe(0);
+    expect(allocations).toEqual([{ period: rows[0].period, category: "RENT", amount: 2500 }]);
+  });
+
+  it("reaches the late fees only after every period's rent is covered", () => {
+    const rows = rowsAfter([]);
+    const { allocations } = suggestPaymentAllocation({ rows, amount: 6100 });
     expect(allocations).toEqual([
-      { period: rows[0].period, category: "LATE_FEE", amount: 150 },
-      { period: rows[1].period, category: "LATE_FEE", amount: 150 },
-      { period: rows[0].period, category: "RENT", amount: 2200 },
+      { period: rows[0].period, category: "RENT", amount: 3000 },
+      { period: rows[1].period, category: "RENT", amount: 3000 },
+      { period: rows[0].period, category: "LATE_FEE", amount: 100 },
     ]);
   });
 
@@ -211,6 +251,11 @@ describe("summarizeRentStatus", () => {
   it("OVERDUE outranks a since-caught-up PARTIAL elsewhere in the history", () => {
     const rows = [{ status: "PARTIAL" }, { status: "OVERDUE" }, { status: "PAID" }];
     expect(summarizeRentStatus(rows)).toBe("OVERDUE");
+  });
+
+  it("FEE_DUE ranks below PARTIAL but above DUE", () => {
+    expect(summarizeRentStatus([{ status: "FEE_DUE" }, { status: "PARTIAL" }])).toBe("PARTIAL");
+    expect(summarizeRentStatus([{ status: "DUE" }, { status: "FEE_DUE" }])).toBe("FEE_DUE");
   });
 
   it("PARTIAL outranks DUE", () => {

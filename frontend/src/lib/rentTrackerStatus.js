@@ -6,6 +6,7 @@
 export const PORTFOLIO_STATUS = {
   OVERDUE: { label: "Overdue", className: "bg-red-100 text-red-800" },
   PARTIAL: { label: "Partial payment", className: "bg-amber-100 text-amber-800" },
+  FEE_DUE: { label: "Rent paid — fee due", className: "bg-sky-100 text-sky-700" },
   DUE: { label: "Due", className: "bg-sky-100 text-sky-700" },
   PAID: { label: "Paid up", className: "bg-emerald-100 text-emerald-800" },
   NONE: { label: "No active lease", className: "bg-stone-100 text-stone-500" },
@@ -16,6 +17,7 @@ export const PERIOD_STATUS = {
   DUE: { label: "Due", className: "bg-sky-100 text-sky-700" },
   PARTIAL: { label: "Partial", className: "bg-amber-100 text-amber-800" },
   OVERDUE: { label: "Overdue", className: "bg-red-100 text-red-800" },
+  FEE_DUE: { label: "Rent paid — fee due", className: "bg-sky-100 text-sky-700" },
   PAID: { label: "Paid", className: "bg-emerald-100 text-emerald-800" },
   PAID_LATE: { label: "Paid (late)", className: "bg-amber-100 text-amber-800" },
 };
