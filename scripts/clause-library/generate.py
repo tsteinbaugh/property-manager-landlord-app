@@ -17,6 +17,10 @@ csvp,outdir,libdir=sys.argv[1],sys.argv[2],sys.argv[3]
 GROUPS=["Rent & Payment","Security Deposit","Tenant Responsibilities","Landlord Responsibilities","Access & Entry","Default & Termination","Notices & General","Pets","Parking & Storage","Rules & Regulations","Disclosures","Other / Miscellaneous"]
 REMAP={"Compliance & Prohibited Terms":"Notices & General","Insurance & Liability":"Notices & General","Parking":"Parking & Storage","Storage":"Parking & Storage","Rent & Fees":"Rent & Payment"}
 rows=list(csv.DictReader(open(csvp,newline='',encoding='utf-8')))
+# A row with the wrong field count means a value slid into the wrong column
+# (DictReader would silently drop the overflow); refuse to generate.
+_bad=[r['id'] for r in rows if None in r or None in r.values()]
+if _bad: sys.exit(f"Malformed rows (wrong field count): {', '.join(_bad)}")
 def q(s): return json.dumps(s,ensure_ascii=False)
 def states(r): return [s.strip() for s in re.split(r'[;,]',r['states']) if s.strip()]
 def rt(r): return [x.strip() for x in re.split(r'[/;]',r['rule_type']) if x.strip()]

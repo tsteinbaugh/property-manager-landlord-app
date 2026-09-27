@@ -22,6 +22,7 @@ const STATE_NAMES = {
   NV: "Nevada",
   TX: "Texas",
   NJ: "New Jersey",
+  FL: "Florida",
 };
 
 const STATE_CONFIG = {
@@ -563,6 +564,46 @@ const STATE_CONFIG = {
           "early-termination", "default-by-tenant-nj", "landlord-maintenance", "edu-rent-receivership-withholding-nj",
           "holdover-nj", "security-deposit-return-nj", "pet-policy-nj", "edu-municipal-rent-control-nj",
         ],
+      },
+    ],
+  },
+  FL: {
+    // Florida Statutes sections are chapter + "." + section ("83.49",
+    // "715.10", "125.0103", "250.5202"), so a bare number looks like a
+    // decimal or dollar amount. Florida bills cite them as "Section 83.49,
+    // Florida Statutes, is amended", so the query pairs the number with
+    // "Florida Statutes". Citations are split on ";" and only the
+    // "Fla. Stat." parts are read, because FL rows also cite federal law
+    // (40 C.F.R. §745.113, 50 U.S.C. §3955) whose numbers share the same
+    // dotted shape. Subsection parentheses become spaces, not nothing:
+    // "83.56(5)(a)1" must stay 83.56, not collapse into "83.561" (and
+    // "83.51(2)(a)2" into the real, different section 83.512).
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        if (!/^Fla\. Stat\./.test(part)) continue;
+        const body = part.replace(/\([^)]*\)/g, " ");
+        for (const m of body.matchAll(/\b(\d{1,4}\.\d{2,5})\b/g)) out.push(m[1]);
+      }
+      return out;
+    },
+    buildQuery: (section) => `"${section}" AND "Florida Statutes"`,
+    extraSectionAliases: {
+      // "715.10-715.111" range citations: the extractor catches only the
+      // two ends. The act's sections in between are the ones rows rely on.
+      "surrender-end-of-term": ["715.101", "715.104", "715.105", "715.106", "715.107", "715.108", "715.109", "715.11"],
+      "abandoned-property-release-fl": ["715.104"],
+      "edu-abandoned-property-fl": ["715.101", "715.103", "715.104", "715.105", "715.106", "715.107", "715.108", "715.109", "715.11"],
+      "edu-deceased-tenant-fl": ["715.104"],
+    },
+    cfrChecks: [],
+    federalStatuteChecks: [],
+    manualRecheckItems: [
+      {
+        id: "fl-local-fair-housing-preemption",
+        label:
+          "Fla. Stat. §83.425 (2023) vs local fair-housing ordinances adding classes (e.g. Miami-Dade source of income): no court or AG opinion yet -- check for one",
+        clauseIds: ["edu-local-preemption-fl", "edu-fair-housing-fl"],
       },
     ],
   },

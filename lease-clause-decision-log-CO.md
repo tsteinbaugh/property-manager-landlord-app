@@ -1,6 +1,6 @@
 ## Decision Log: Clause Library Verification Workflow (Nationwide Coverage Strategy)
 
-> **STANDING RULE — NO RE-AUDITS (Taylor, 2026-09-26).** Every completed state (CO, WY, KS, NE, MN, ND, SD, OH, CA, NV, TX, NJ) is closed. **No re-audit of any completed state is planned, now or later.** The only thing that reopens a completed state is an egregious defect found in the course of other work, and then only the affected rows are fixed; the state is not re-audited. The word "re-audit" throughout these files refers to the one-time settings re-run of Aug–Sep 2026, which is finished. Older phrases such as "flag for the X re-audit", "live item for the X re-audit", "when X is next revisited" or "screen the completed states on their next revisit" are historical and dead: they are not a queue. Do not propose, plan or mention a re-audit, and do not park anything "for the re-audit". If something in a completed state looks wrong, say what and why, and let Taylor decide whether it is egregious.
+> **STANDING RULE — NO RE-AUDITS (Taylor, 2026-09-26).** Every completed state (CO, WY, KS, NE, MN, ND, SD, OH, CA, NV, TX, NJ, FL) is closed. **No re-audit of any completed state is planned, now or later.** The only thing that reopens a completed state is an egregious defect found in the course of other work, and then only the affected rows are fixed; the state is not re-audited. The word "re-audit" throughout these files refers to the one-time settings re-run of Aug–Sep 2026, which is finished. Older phrases such as "flag for the X re-audit", "live item for the X re-audit", "when X is next revisited" or "screen the completed states on their next revisit" are historical and dead: they are not a queue. Do not propose, plan or mention a re-audit, and do not park anything "for the re-audit". If something in a completed state looks wrong, say what and why, and let Taylor decide whether it is egregious.
 
 **Date:** 2026-08-18
 **Status:** Approved — Colorado is the proof-of-concept state
@@ -1325,3 +1325,12 @@ Three shared rows tagged to this state were edited by the Texas pass (§5a.1 / i
 ### Bookkeeping fix — 2026-09-26
 
 `security-deposit-installments-co` (inactive since 2026-09-13; no Colorado deposit-installment right exists) had a blank `verification_status` in `lease-clauses.csv`, because the 2026-09-25 restore copied status back only for active rows. The row now carries `VERIFIED`, dates 2026-08-18 / 2026-09-13, and a do-not-reactivate note, matching `lease-clause-citations-CO.csv`. This is a data-entry fix only; no Colorado research was reopened.
+
+
+## Propagated at the Florida sync, 2026-09-26
+
+A shared row tagged to this state was edited (§5a.1 / instruction 9), by Taylor's decision at the Florida sync, not by a state pass.
+
+1. `application-of-payments`: payments are now applied **rent first**, oldest unpaid period first, and only then to fees and other charges ("unless Tenant directs otherwise in writing for a particular payment or applicable law requires otherwise"). It was fees first. The cure-preserving sentence is kept. NJ and FL are folded back into this row and `application-of-payments-nj` is retired. Reason: fees first turns an unpaid fee into an apparent rent shortfall. No tagged state's research found a statute requiring fees first, and rent first is lawful on any reading. Classification: UNIFORM. It removes a landlord-favorable ordering and adds no obligation. Inherit without override.
+
+`last_checked` reset to 2026-09-26. No other field changed. This is not a re-audit; nothing else in this state was reviewed. Detail: lease-clause-decision-log-FL.md §16. (Appended at sync, 2026-09-26.)

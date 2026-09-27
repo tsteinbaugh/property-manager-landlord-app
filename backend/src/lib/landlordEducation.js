@@ -63,6 +63,19 @@
 // `clauseResearchMetadata.js`.
 
 const LANDLORD_EDUCATION = [
+  // Landlord Responsibilities
+  {
+    id: "habitability-timeline-fl",
+    title: "Repair Notices: Tenant's 7-Day Remedies",
+    group: "Landlord Responsibilities",
+    states: ["FL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "habitability",
+    bodyText:
+      "Florida does not set a deadline for starting repairs. Instead, a tenant's remedies start with a written notice. If Landlord materially fails to comply with the building, housing and health codes (or, where there are none, the structural and plumbing duties in Fla. Stat. §83.51(1)) or with material lease provisions, the tenant may deliver written notice specifying the problem and stating that the tenant intends to terminate. If Landlord has not complied within 7 days after delivery, the tenant may terminate the lease. A tenant may instead give written notice specifying the problem and stating that the tenant intends to withhold rent; 7 days after delivery, the tenant may raise the material noncompliance as a complete defense to an eviction for nonpayment, and the court decides how much the rent is reduced for the lost value. This notice may go to Landlord, the person designated to receive notices, a resident manager, or whoever collects the rent. If the failure is due to causes beyond Landlord's control and Landlord keeps making every reasonable effort to fix it, the lease may be ended or altered: a tenant who vacates an untenantable unit owes no rent while it stays uninhabitable, and a tenant who stays in a unit that is not untenantable gets a proportional rent reduction. Failures of the additional duties for apartment buildings and similar units (pest extermination, locks and keys, common areas, garbage removal, heat, running water and hot water, Fla. Stat. §83.51(2)) cannot be raised as a defense to an eviction for possession.",
+    notes: "FL: DORMANT ROW REWRITTEN AND ACTIVATED 2026-09-26 (instruction 21), converted to LANDLORD_EDUCATION. Primary text read section-open 2026-09-26 from the official 2026 Florida Statutes (flsenate.gov / leg.state.fl.us), with per-section history lines. What the pre-rigor row got right: the 7-day written-notice period. What it got wrong: Florida imposes no duty to 'begin remedial action within 7 days'; the 7 days is the cure window after which TENANT remedies open, and it covers only §83.51(1) (codes or, absent codes, structural components and plumbing) and material lease provisions, not a health-or-safety test. Controlling text: Fla. Stat. §83.56(1)(a)-(b) (termination; beyond-control rules; last amended s. 2, ch. 2026-143, which amended (2)(a)); §83.60(1)(a)-(b) (withholding defense; notice recipients; s. 12, ch. 2013-136); §83.51(2)(c) (noncompliance with (2) is not a defense to possession); §83.60(2) (tenant raising any defense other than payment must deposit accrued rent into the court registry). Florida has no repair-and-deduct statute in Part II (full read). No lease-content duty, so education rather than a clause; landlord-maintenance (tagged FL) carries the duty. Retaliation for code complaints: §83.64(1)(a), (c).",
+  },
   // Security Deposit
   {
     id: "edu-security-deposit-cap-co",
@@ -6206,6 +6219,385 @@ const LANDLORD_EDUCATION = [
     bodyText:
       "New Jersey statutes do not contain a rule specifically addressing whether a landlord may ask about or act on a tenant's immigration status. Discrimination based on national origin, nationality or ancestry is prohibited under the Law Against Discrimination, and threatening someone based on immigration status can be evidence of coercive control in a domestic violence case.",
     notes: "NJ: Official New Jersey Legislature statutes site full-text search (compilation 'updated through P.L.2026, c.30'), run by Taylor 2026-09-26 with alternate-word-form stemming ON and narrowing terms; every hit pasted and read. CONFIRMED ABSENCE, BOUNDED (L.7). Search: exact phrase 'immigration status' with tenant / landlord / housing / lease / rental. Hits read: 24:6I-32 (cannabis findings - arrest consequences); 2C:25-29 (DV hearing - coercive control includes threats based on immigration status, (a)(7)(d)); 39:3-13 (MVC permit confidentiality); 56:8-166.4 (Data Privacy Act 'sensitive data' includes citizenship or immigration status - applies to controllers meeting that act's thresholds; applicability to landlords not assessed, act's scope sections not read). No landlord-inquiry rule. Related protected classes read: national origin, ancestry, nationality (N.J.S.A. 10:5-12(g)). Boundary: statutes only; DCR regulations and guidance not searched.",
+  },
+  // Default & Termination
+  {
+    id: "edu-prohibited-practices-fl",
+    title: "Self-Help Eviction and Other Prohibited Practices",
+    group: "Default & Termination",
+    states: ["FL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction",
+    bodyText:
+      "A Florida landlord may not cut off or interrupt any utility service to a tenant (including water, heat, light, electricity, gas, elevator, garbage collection or refrigeration), whether or not the landlord controls or pays for it. A landlord may not keep a tenant out by changing the locks or using a bootlock or similar device, and may not remove outside doors, locks, roof, walls or windows except for maintenance, repair or replacement. A landlord may not remove a tenant's belongings except after surrender, abandonment, the death of the last remaining tenant as the statute provides, or a lawful eviction. A landlord may not discriminate against a servicemember in renting or in lease terms, and may not stop a tenant from respectfully displaying one portable, removable cloth or plastic United States flag up to 4.5 by 6 feet, whatever the lease says. A violation makes the landlord liable for the tenant's actual and consequential damages or 3 months' rent, whichever is greater, plus costs and attorney's fees; repeated violations that are not part of the same incident are separate awards. The only lawful way to remove a tenant is a court action for possession, followed by a writ executed by the sheriff.",
+    notes: "FL: Primary text read section-open 2026-09-26 from the official 2026 Florida Statutes (flsenate.gov / leg.state.fl.us), with per-section history lines. Controlling text: Fla. Stat. §83.67(1)-(8) (s. 2, ch. 2007-136 latest). Remedy §83.67(6); irreparable harm for injunction §83.67(7); remedies cumulative §83.67(8). Possession only by court action, surrender, abandonment, or death of the last tenant (§83.59(3)); writ and 24-hour posted notice (§83.62(1)). K.1 eviction-scope screen: self-help ban and utility shut-off ban both present, same remedy. The §83.67(5) opt-out legend for stored property is abandoned-property-release-fl.",
+  },
+  {
+    id: "edu-retaliation-fl",
+    title: "Retaliation",
+    group: "Default & Termination",
+    states: ["FL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "retaliation",
+    bodyText:
+      "A Florida landlord may not discriminatorily raise a tenant's rent, reduce services, or bring or threaten an eviction or other lawsuit primarily in retaliation against a tenant who acted in good faith. Protected conduct includes complaining to a code-enforcement agency, organizing or joining a tenant organization, giving the landlord a 7-day notice of noncompliance, a servicemember's lawful early termination, paying rent to a condominium, cooperative or homeowners' association on its demand, and exercising fair housing rights. The tenant must show different treatment as to rent, services or the action taken. Retaliation is a defense to eviction, but not if the landlord proves the eviction is for good cause, such as good-faith nonpayment actions or violations of the lease, reasonable rules or the statute.",
+    notes: "FL: Primary text read section-open 2026-09-26 from the official 2026 Florida Statutes (flsenate.gov / leg.state.fl.us), with per-section history lines. Controlling text: Fla. Stat. §83.64 (s. 15, ch. 2013-136 latest). No presumption period or fixed damages in the section; defense raised under §83.60(1)(a) and §83.64(2). 'Discrimination' definition §83.64(4).",
+  },
+  {
+    id: "edu-periodic-tenancy-termination-fl",
+    title: "Ending a Month-to-Month or Other Periodic Tenancy",
+    group: "Default & Termination",
+    states: ["FL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-notice",
+    bodyText:
+      "Where a Florida lease has no fixed end date, either party may end it by written notice, delivered as the statute requires, given at least 7 days before the end of a weekly period, at least 30 days before the end of a monthly or quarterly period, or at least 60 days before the end of an annual period. The length of the tenancy is set by how often rent is payable. A tenant who stays after a fixed-term lease ends, with the landlord's permission, without giving the 30-day month-to-month notice owes the landlord one additional month's rent. A tenant who stays without permission can be sued for possession and for double rent for the time the tenant refuses to leave. Florida has no rule requiring a landlord to have a reason to end a tenancy at the end of its term or period, and local just-cause or notice ordinances on these matters are preempted.",
+    notes: "FL: Primary text read section-open 2026-09-26 from the official 2026 Florida Statutes (flsenate.gov / leg.state.fl.us), with per-section history lines. Controlling text: Fla. Stat. §83.57(1)-(4) (last amended s. 2, ch. 2023-314; current text reads 30 days for monthly); §83.46(2)-(3) (duration by rent period; employer-furnished housing); §83.575(3) (additional month's rent); §83.58 (double rent). Delivery per §83.56(4). Preemption: §83.425 (s. 1, ch. 2023-314) covers 'notice requirements' and 'terms and conditions of rental agreements'. 'No just-cause rule' is bounded to Part II (full read). Tenancy-type sensitivity screen: the notice depends on the rent period, not on how long the tenant has occupied. | FL research pass 2026-09-26 (advanced research, once; report in the conversation). Laws of Fla. ch. 2023-314 ss. 2-3 raised the month-to-month notice in §83.57(3) from 15 to 30 days and set the 30-60 day bounds in §83.575(1), eff. 2023-07-01 (session law read by the research tool).",
+  },
+  {
+    id: "edu-servicemember-rights-fl",
+    title: "Servicemember Rights",
+    group: "Default & Termination",
+    states: ["FL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "military-termination",
+    bodyText:
+      "A servicemember may end a Florida lease with written notice effective at least 30 days after the landlord receives it, if the servicemember receives permanent change of station orders to move 35 miles or more away; is prematurely or involuntarily discharged or released from active duty or state active duty; is released from active duty after leasing while on active duty and the unit is 35 miles or more from the home of record; receives orders to move into government quarters or becomes eligible for and opts into them; receives temporary duty, temporary change of station or state active duty orders to an area 35 miles or more away for more than 60 days; or receives a change of orders before moving in. The notice must include a copy of the orders or a commanding officer's written verification. If a servicemember dies on active duty, an adult immediate family member may terminate the same way, adding a death certificate. The tenant owes rent prorated to the termination date and no other rent or damages for the early termination; if the tenant terminates 14 or more days before moving in, no damages or penalties may be charged. These rights cannot be waived. A landlord who requires a rental application must process a servicemember's application within 7 days and notify the servicemember in writing of approval or denial and the reason for any denial; without a timely denial, the landlord must lease to the servicemember if all other terms are met. A landlord may not discriminate against a servicemember or retaliate against one who terminates under this law.",
+    notes: "FL: Primary text read section-open 2026-09-26 from the official 2026 Florida Statutes (flsenate.gov / leg.state.fl.us), with per-section history lines. Controlling text: Fla. Stat. §83.682 (s. 1, ch. 2023-159 latest); §83.683 (s. 1, ch. 2016-242; also binds condominium, cooperative and HOA associations); §83.67(3), (6), (8); §83.64(1)(d). Definitions of servicemember, active duty and state active duty incorporate Fla. Stat. §250.01 (not read; L.5 dependency recorded). Federal SCRA (50 U.S.C. §3955) also applies; non-state citation (instruction 16). | FL: See also Fla. Stat. §250.5202 (state active duty eviction stay; read from Taylor's paste 2026-09-26): edu-state-active-duty-eviction-stay-fl.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-landlord-maintenance-fl",
+    title: "Landlord's Maintenance Duties",
+    group: "Landlord Responsibilities",
+    states: ["FL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "habitability",
+    bodyText:
+      "A Florida landlord must comply with applicable building, housing and health codes throughout the tenancy. Where there are no such codes, the landlord must keep the roof, windows, doors, floors, steps, porches, exterior walls, foundation and other structural components in good repair and able to resist normal forces and loads, keep the plumbing in reasonable working condition, install screens in reasonable condition at the start of the tenancy, and repair screen damage once a year when necessary. For a single-family home or duplex, these duties can be changed in writing. Unless otherwise agreed in writing, the landlord of any other kind of unit must also make reasonable provision for extermination of rats, mice, roaches, ants, wood-destroying organisms and bedbugs; locks and keys; clean and safe common areas; garbage removal and outside receptacles; and functioning heat in winter, running water and hot water. If a tenant must leave for extermination, the landlord must give 7 days' written notice, abate the rent, and cannot require the tenant to stay out more than 4 days; the landlord is not liable for damages for the move-out. Unless otherwise agreed in writing, the landlord of a single-family home or duplex must install working smoke detection devices at the start of the tenancy. The lease may make the tenant pay for garbage removal, water, fuel or utilities. The landlord is not responsible for conditions the tenant, the tenant's family or the tenant's guests caused.",
+    notes: "FL: Primary text read section-open 2026-09-26 from the official 2026 Florida Statutes (flsenate.gov / leg.state.fl.us), with per-section history lines. Controlling text: Fla. Stat. §83.51(1)-(4) (s. 4, ch. 2025-16 latest; 7-day extermination notice may go by §83.505 e-mail). Mobile homes owned by the tenant excluded (§83.51(1), (2)(d)). Smoke detection device defined in §83.51(2)(b) (UL, FM or other nationally recognized lab). §83.51(3): where (1)'s duty is the same or greater, (1) controls. OPT-IN LANDLORD RIGHT NOT BUILT (instruction 30): §83.51(1) lets the (1) duties be 'altered or modified in writing' for a single-family home or duplex, and (2)'s extra duties apply 'unless otherwise agreed in writing'; no clause shifts them, pending Taylor's decision (FL log). Tenant remedies: habitability-timeline-fl. Alarm statutes §§553.883, 553.885 read from Taylor's paste 2026-09-26: edu-smoke-co-alarms-fl.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-prohibited-lease-terms-fl",
+    title: "Lease Terms Florida Law Voids",
+    group: "Compliance & Prohibited Terms",
+    states: ["FL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lease-provisions",
+    bodyText:
+      "A Florida lease provision is void to the extent it waives or limits the tenant's or landlord's rights, remedies or requirements under the Residential Landlord and Tenant Act, or limits either party's liability to the other that arises under law. If such a provision is included and the other party suffers actual damages because of it, that party can recover them. A court may refuse to enforce an unconscionable lease or provision, enforce the rest without it, or limit it. Every lease and every duty under the Act carries an obligation of good faith. In a lawsuit to enforce the lease or the Act, the winning party may recover reasonable attorney's fees and court costs, and a lease cannot waive that right. Specific rights that cannot be waived include the notice requirements for terminating a tenancy, a servicemember's termination and application rights, and the tenant's right to use a flotation bed that meets code.",
+    notes: "FL: Primary text read section-open 2026-09-26 from the official 2026 Florida Statutes (flsenate.gov / leg.state.fl.us), with per-section history lines. Controlling text: Fla. Stat. §83.47(1)-(2) (s. 2, ch. 73-330); §83.45 (unconscionability); §83.44 (good faith); §83.48 (attorney fees; not waivable; not for personal-injury claims based on §83.51; s. 2, ch. 2013-136); §83.56(4) (notice requirements not waivable); §§83.682(5), 83.683(3); §83.535. Instruction 32 screen: §83.48 makes fees reciprocal by statute but requires no lease text, so fee clauses need no Florida-specific sentence. §83.47(2)'s damages-for-inclusion rule is why the library uses the no-disclaimer parking, storage and renter's-insurance variants in FL.",
+  },
+  // Default & Termination
+  {
+    id: "edu-landlord-remedies-after-breach-fl",
+    title: "Landlord's Remedies When a Tenant Leaves Early",
+    group: "Default & Termination",
+    states: ["FL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "mitigation",
+    bodyText:
+      "When a Florida tenant breaches the lease and the landlord has a writ of possession, or the tenant surrenders or abandons the unit, the landlord may choose one of four remedies: (1) treat the lease as ended and retake possession for the landlord's own account, ending the tenant's further liability; (2) retake possession for the tenant's account, holding the tenant liable for the difference between the lease rent and what the landlord recovers by reletting, in which case the landlord must make good-faith efforts to relet, meaning at least the same efforts used for the initial rental or for similar units, though without preferring this unit over other vacancies; (3) stand by and do nothing, holding the tenant liable for rent as it comes due; or (4) charge liquidated damages or an early termination fee of up to 2 months' rent, but only if the tenant agreed to it in a separate signed addendum at the time the lease was made. A tenant is presumed to have abandoned the unit after being absent for half a rent period, unless the rent is current or the tenant gave written notice of the absence.",
+    notes: "FL: Primary text read section-open 2026-09-26 from the official 2026 Florida Statutes (flsenate.gov / leg.state.fl.us), with per-section history lines. Controlling text: Fla. Stat. §83.595(1)-(4) (s. 2, ch. 2008-131); abandonment presumption §83.59(3)(c). Option (3) means Florida imposes no general duty to mitigate when the landlord elects it; a duty to relet in good faith arises only under option (2). Case law on how courts apply the options not read (recall-free; none relied on). Early-termination addendum: early-termination-addendum-fl.",
+  },
+  {
+    id: "edu-foreclosure-tenant-rights-fl",
+    title: "Tenants After Foreclosure",
+    group: "Default & Termination",
+    states: ["FL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "foreclosure",
+    bodyText:
+      "A person who acquires a Florida rental through foreclosure takes it subject to the rights of any bona fide tenant. The new owner must give a bona fide tenant at least 90 days' notice to vacate. A tenant with a bona fide lease made before the notice of foreclosure may stay until the lease ends, unless the new owner sells to a buyer who will live in the unit, and even then the tenant gets the 90-day notice. A tenant without a lease or with an at-will lease also gets the 90-day notice. A tenancy is bona fide only if the tenant is not the former owner or the former owner's child, spouse or parent, the lease was an arm's-length transaction, and the rent is not substantially below market (unless reduced by a subsidy).",
+    notes: "FL: Primary text read section-open 2026-09-26 from the official 2026 Florida Statutes (flsenate.gov / leg.state.fl.us), with per-section history lines. Controlling text: Fla. Stat. §83.5615 (s. 2, ch. 2020-99), mirroring the federal PTFA. Longer state or local protections and subsidized-tenancy rules are preserved (§83.5615(2)). Notice-of-foreclosure date defined in (3)(c). No Florida pre-lease foreclosure disclosure to tenants located in Part II (contrast MN, NV).",
+  },
+  {
+    id: "edu-deceased-tenant-fl",
+    title: "When the Last Tenant Dies",
+    group: "Default & Termination",
+    states: ["FL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "deceased-tenant",
+    bodyText:
+      "A Florida landlord may recover possession without a court order when the last remaining tenant has died, personal property remains in the unit, the rent is unpaid, at least 60 days have passed since the death, and the landlord has not been notified in writing of a probate estate or of the name and address of a personal representative. This does not apply to units in federally administered or regulated housing programs. After recovering possession this way, the landlord may remove the tenant's property; if the lease carries the statutory legend, the landlord is not liable for storing or disposing of it.",
+    notes: "FL: Primary text read section-open 2026-09-26 from the official 2026 Florida Statutes (flsenate.gov / leg.state.fl.us), with per-section history lines. Controlling text: Fla. Stat. §83.59(3)(d) (s. 1, ch. 2007-136); §83.67(5). Legend row: abandoned-property-release-fl. Without the legend, the optional ch. 715 procedure is available (§§715.10-715.111, read from Taylor's paste 2026-09-26; edu-abandoned-property-fl).",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-apartment-employee-screening-fl",
+    title: "Background Screening of Apartment Employees",
+    group: "Compliance & Prohibited Terms",
+    states: ["FL"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "employee-screening",
+    bodyText:
+      "A landlord of a Florida public lodging establishment licensed as a nontransient or transient apartment must require every employee to pass a background screening as a condition of employment. The screening must be done by a consumer reporting agency under the Fair Credit Reporting Act and must cover criminal history and the sexual predator and offender registries of all 50 states and the District of Columbia. The landlord may disqualify a person convicted of, or who pleaded guilty or no contest to, a felony or first-degree misdemeanor involving disregard for others' safety, or a violent offense such as murder, sexual battery, robbery, carjacking, home-invasion robbery or stalking.",
+    notes: "FL: Primary text read section-open 2026-09-26 from the official 2026 Florida Statutes (flsenate.gov / leg.state.fl.us), with per-section history lines. Controlling text: Fla. Stat. §83.515 (s. 2, ch. 2022-222). Scope turns on classification under Fla. Stat. §509.242(1)(d)-(e) (not read; L.5 dependency). Not lease content.",
+  },
+  // Default & Termination
+  {
+    id: "edu-fraudulent-entry-termination-fl",
+    title: "Fraudulent Entry: Termination Without Cure",
+    group: "Default & Termination",
+    states: ["FL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction",
+    bodyText:
+      "Starting October 1, 2026, a Florida landlord may terminate a rental agreement on 7 days' written notice, without giving the tenant a chance to cure, for an act of fraudulent entry of a residential dwelling unit that violates Fla. Stat. §817.537(2), whether or not criminal proceedings have begun.",
+    notes: "FL: Session law read 2026-09-26 from laws.flrules.org: Laws of Fla. ch. 2026-143 (CS/HB 1293, 'fraudulent entry of residential dwellings'), s. 2 amends Fla. Stat. §83.56(2)(a); s. 3: 'This act shall take effect October 1, 2026.' The 2026 Florida Statutes history line for §83.56 already lists s. 2, ch. 2026-143. Wording verified 2026-09-26 against the 2026 Fla. Stat. §83.56(2)(a) text Taylor pasted: 'an act of fraudulent entry of a residential dwelling unit which violates s. 817.537(2), regardless of whether criminal proceedings have commenced'. §817.537 not read (L.5 dependency).",
+  },
+  {
+    id: "edu-eviction-process-fl",
+    title: "Eviction Notices and Process",
+    group: "Default & Termination",
+    states: ["FL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction",
+    bodyText:
+      "Florida uses three pre-suit notices, each in a form set by statute and delivered by mail, by hand delivery of a true copy, by e-mail under a signed e-mail addendum, or, if the tenant is absent, by leaving a copy at the residence. A lease cannot waive these notice requirements. For unpaid rent, the landlord delivers a written demand for payment or possession; the tenant has 3 days, not counting Saturdays, Sundays or court-observed holidays, to pay. For breaches the tenant can cure (such as unauthorized pets, guests or vehicles, improper parking, or failing to keep the unit clean), the landlord gives 7 days to cure; if the same or similar conduct recurs within 12 months, the landlord can file without a new notice. For breaches that allow no cure (intentional destruction, damage or misuse of property, fraudulent entry of a dwelling from October 1, 2026, or continued unreasonable disturbance, or a repeat within 12 months of a written warning), the landlord gives a 7-day notice terminating the lease. A landlord who accepts rent knowing of a breach waives that breach, but accepting partial rent does not, provided that after posting a nonpayment notice the landlord gives a receipt, deposits the partial payment into the court registry, or posts a new 3-day notice. For subsidized rent, waiver occurs if the landlord does not sue within 45 days of learning of the breach. The eviction is filed in county court using a summary procedure. A tenant who raises any defense other than payment must deposit the rent alleged into the court registry within 5 business days, or the landlord gets a default and a writ. After judgment, the sheriff posts 24 hours' notice (weekends and holidays do not stop it) and puts the landlord in possession; the landlord may then move the tenant's belongings to or near the property line and is not liable for them afterward.",
+    notes: "FL: Primary text pasted by Taylor 2026-09-26 from flsenate.gov/Laws/Statutes/2026 (official 2026 Florida Statutes), read section-open with history lines. Controlling text: Fla. Stat. §83.56(2)-(5) (s. 2, ch. 2026-143 latest); §83.59 (county court, summary procedure under §51.011 (not read), agent may only file the complaint unless an attorney); §83.60(2) (registry deposit within 5 days excluding weekends and legal holidays; motion to determine rent); §83.61 (disbursement); §83.62 (writ, 24-hour posted notice, property to property line, no liability, sheriff standby fee); §83.625 (money judgment with personal or authorized service). K.1 eviction-scope screen: self-help ban (§83.67, edu-prohibited-practices-fl); utility shut-off ban (§83.67(1)); pre-filing notice duty (§83.56(2)-(3)); post-writ property: landlord MAY remove to the property line with statutory immunity (§83.62(2)), no storage duty; no pet-animal duty located (boundary: Part II and ch. 715 read). Tenancy-type sensitivity: notices are the same for all tenancy types.",
+  },
+  {
+    id: "edu-abandoned-property-fl",
+    title: "Property Left Behind After a Tenancy",
+    group: "Default & Termination",
+    states: ["FL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "abandoned-property",
+    bodyText:
+      "Florida gives landlords an optional procedure for belongings left after a tenancy ends, whether by eviction, surrender or abandonment. The landlord sends written notice to the former tenant, and to anyone else the landlord reasonably believes owns the property, describing it, saying where to claim it and by what date (at least 10 days after hand delivery or 15 days after mailing), and warning that reasonable storage costs may be charged. The notice must say either that unclaimed property will be sold at a public sale after published notice, or that property believed to be worth less than $500 may be kept, sold or destroyed. The landlord leaves the property in the unit or stores it with reasonable care. If it is unclaimed, the landlord sells it at a public sale advertised once a week for 2 weeks (or, if under $500, keeps or disposes of it) and pays any surplus after costs to the county within 30 days. A landlord who follows the procedure is not liable to those notified; a landlord who skips it is judged under other law. Two shortcuts exist: after a sheriff's writ, the landlord may move belongings to the property line with no liability; and if the lease carries the statutory legend, the landlord need not follow this procedure after surrender or abandonment and is not responsible for storing or disposing of the tenant's property.",
+    notes: "FL: Primary text pasted by Taylor 2026-09-26 from flsenate.gov/Laws/Statutes/2026 (official 2026 Florida Statutes), read section-open with history lines. Controlling text: Fla. Stat. §§715.10-715.111 ('Disposition of Personal Property Landlord and Tenant Act'): optional (§715.101(2)); no effect on rights if not followed (§715.101(4)); notice §715.104; forms §§715.105-.106 (s. 79, ch. 2025-6 latest on .105); storage §715.107 (liable only for deliberate or negligent acts); release §715.108; sale §715.109 ($500 threshold; 2-week publication; surplus to county within 30 days, claimable for 1 year); nonliability §715.11; storage costs §715.111 (fair rental value if stored on premises; one charge per cost). Lost property: §715.103 (ch. 705 first). Post-writ: §83.62(2). Legend: §83.67(5) (abandoned-property-release-fl). Checklist ref 335.4: single track, not keyed to storage location.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-local-preemption-fl",
+    title: "State Preemption of Local Landlord-Tenant Rules",
+    group: "Compliance & Prohibited Terms",
+    states: ["FL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-control",
+    bodyText:
+      "Florida law preempts local regulation of residential tenancies. Since 2023, the state has preempted the landlord-tenant relationship and all matters covered by the Residential Landlord and Tenant Act, and that preemption supersedes local rules on tenant screening, security deposits, rental applications and application fees, lease terms and conditions, landlord and tenant rights and responsibilities, disclosures, fees charged by landlords, and notice requirements. Separately, no county, city or other local government may adopt or keep any measure that has the effect of imposing controls on rents, although local governments may use land-use tools such as inclusionary housing ordinances to increase affordable housing. Counties and cities may, however, set maximum towing rates for vehicles towed from private property. The preemption reaches ordinances already on the books, not only new ones. Local building, housing and health codes still bind landlords, because Florida law requires landlords to comply with them. Whether local fair-housing ordinances that add protected classes (such as source of income, sexual orientation or gender identity) survive is unsettled: no court or Attorney General opinion has decided it, and some counties still list those classes. A landlord in such a county should treat those ordinances as enforceable until a court rules otherwise. Rental registration and inspection programs likely survive where they do not dictate lease terms, disclosures or notices.",
+    notes: "FL: Primary text pasted by Taylor 2026-09-26 from flsenate.gov/Laws/Statutes/2026 (official 2026 Florida Statutes), read section-open with history lines. Controlling text: Fla. Stat. §83.425 (s. 1, ch. 2023-314; read section-open from leg.state.fl.us earlier this session); Fla. Stat. §125.0103(2)-(3) and §166.043(2)-(3) (rent-control ban; inclusionary-housing carve-out; last amended s. 2 and s. 6, ch. 2023-17 and ss. 1-2, ch. 2024-27); towing rates §§125.0103(1)(b)-(d), 166.043(1)(b)-(d). The earlier emergency-referendum route to local rent control is not in the current text (subsection (2) is now absolute); its prior wording was not read and is not relied on. OPEN RESEARCH QUESTION (kickoff; research-mode trigger 3, not run): which local rules survive §83.425, e.g. county human-rights ordinances adding source of income (Fla. Stat. §760.22 and local-commission provisions not read), rental registration or inspection programs, and whether §83.425 reaches rules adopted before 2023. Municipal layer flagged, not resolved (instruction 20). Checklist 248.8/294.9: preempted statewide. | FL research pass 2026-09-26 (advanced research, once; report in the conversation). Laws of Fla. ch. 2023-314 (CS/HB 1417) approved 2023-06-29, eff. 2023-07-01 (session law, Broward-hosted PDF, read by the research tool). The rent-control ban came from ch. 2023-17 (CS/SB 102, Live Local Act), which deleted the former 'grave housing emergency' route (1-year sunset, luxury and seasonal exclusions, public hearing, voter approval); effective 2023-07-01 per the City of Pembroke Pines and Lowndes (secondary; Holland & Knight says 2023-03-28), not confirmed from the session law's effective-date page. ch. 2024-27 (CS/CS/HB 179) is a TOWING-rates act only (eff. 2024-07-01) and did not touch rent control. Pre-existing ordinances: reached ('supersedes any local government regulations'); Palm Beach County repealed its rent-increase notice ordinance on the County Attorney's recommendation citing HB 1417 (BCC agenda 4A-1, 2023-09-19, primary); St. Petersburg repealed its Tenant Bill of Rights, Hillsborough stopped enforcing (secondary, news). No Florida appellate opinion or AG opinion interpreting §83.425 found (Westlaw/Lexis not searched). Earlier AGO 94-91 (local extension of §83.57 notice periods allowed) is displaced by §83.425 for Part II matters. Fair-housing ordinances: UNSETTLED. For survival: Fla. Stat. §760.34(3), (8) contemplate 'substantially equivalent' local fair housing laws enforced by local agencies (research-sourced, NOT read by me); an AG opinion recognizes local anti-discrimination ordinances; Broward County v. La Rosa, 505 So. 2d 422 (Fla. 1987) and Metro. Dade Cnty. Fair Hous. & Emp. Appeals Bd. v. Sunrise Village Mobile Home Park, 511 So. 2d 962 (Fla. 1987) uphold county authority (case law, via secondary, not read). Against: §83.425 names 'the screening process'. Miami-Dade Ch. 11A still lists source of income (county website, primary). No 2024-2026 enacted source-of-income preemption found (not a verified absence). Rental registration and code enforcement: likely survive (§83.51(1)(a) incorporates local codes); no litigation found. Vacation rentals: §509.032(7), not read. Failed 2026 bills (not law): SB 716/HB 811 (5-day pay-or-vacate), HB 107 (DV early termination).",
+  },
+  {
+    id: "edu-fair-housing-fl",
+    title: "Fair Housing",
+    group: "Compliance & Prohibited Terms",
+    states: ["FL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fair-housing",
+    bodyText:
+      "Florida's Fair Housing Act protects the same classes as federal law: race, color, national origin, sex, disability, familial status and religion. Familial status covers anyone who is pregnant or in the process of getting legal custody of a child. It is unlawful to refuse to rent, set different terms, publish discriminatory advertising, misrepresent availability, or refuse reasonable modifications (at the tenant's expense) or reasonable accommodations for a person with a disability. The Act does not apply to a single-family house rented by an owner who owns no more than three and rents without a real estate licensee or discriminatory advertising, or to units in an owner-occupied building of four or fewer units; the advertising ban still binds the single-family exemption. Housing for older persons (62+, or 55+ meeting the 80 percent and policy tests) may exclude families with children. The Act does not require renting to someone whose tenancy would be a direct threat to others' health or safety or cause substantial physical damage to others' property, and allows action against a person convicted of illegally manufacturing or distributing a controlled substance. Separately, discriminating against a person with a disability in housing is a second-degree misdemeanor under Florida's service-animal statute.",
+    notes: "FL: Primary text pasted by Taylor 2026-09-26 from flsenate.gov/Laws/Statutes/2026 (official 2026 Florida Statutes), read section-open with history lines. Controlling text: Fla. Stat. §760.23(1)-(10) (s. 6, ch. 2020-76 latest); §760.29(1)-(5) (s. 4, ch. 2020-153 latest); §413.08(6)-(7). No state source-of-income, marital-status, sexual-orientation or gender-identity class in §760.23 (bounded to §§760.23, 760.27, 760.29 read; §§760.20-.22, .24-.26, .28, .30-.37 not read). Local ordinances adding classes: municipal layer, flagged; see edu-local-preemption-fl for the §83.425 question. Ref 294.6: the single-family exemption is lost if a §760.23(3) advertisement is used (§760.29(1)(a)1.b); the owner-occupied exemption text does not carry that condition. | FL research pass 2026-09-26 (advanced research, once; report in the conversation). Local ordinances adding classes (Miami-Dade Ch. 11A: source of income, sexual orientation, gender identity, victim status) may survive §83.425; Fla. Stat. §760.34 recognizes substantially equivalent local fair-housing laws (research-sourced; not read). Treat as enforceable locally (edu-local-preemption-fl). Builder: never offer a clause excluding voucher holders or housing-assistance payments.",
+  },
+  // Pets
+  {
+    id: "edu-service-animal-penalties-fl",
+    title: "Service Animal Penalties",
+    group: "Pets",
+    states: ["FL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "assistance-animal-accommodation",
+    bodyText:
+      "In Florida, a landlord who discriminates against a person with a disability in renting housing commits a second-degree misdemeanor. A person who knowingly and willfully misrepresents himself or herself, by conduct or by verbal or written notice, as using and being qualified to use a service animal, or as a service-animal trainer, also commits a second-degree misdemeanor and must perform 30 hours of community service. An emotional support animal registration, certificate, ID card or patch bought online does not by itself establish a disability or the need for the animal.",
+    notes: "FL: Primary text pasted by Taylor 2026-09-26 from flsenate.gov/Laws/Statutes/2026 (official 2026 Florida Statutes), read section-open with history lines. Controlling text: Fla. Stat. §413.08(7) (housing discrimination under (6)), §413.08(9) (misrepresentation; not limited to public accommodations, ref 134.4/248.1: reaches housing), §760.27(3)(c). Penalty statutes §§775.082-.083 not read (L.5). History s. 2, ch. 2020-76 latest on §413.08.",
+  },
+  // Building & Safety
+  {
+    id: "edu-smoke-co-alarms-fl",
+    title: "Smoke and Carbon Monoxide Alarms",
+    group: "Building & Safety",
+    states: ["FL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "smoke-detector",
+    bodyText:
+      "Unless otherwise agreed in writing, the landlord of a Florida single-family home or duplex must install working smoke detection devices at the start of the tenancy. For other rentals, alarm duties come from the building, housing and fire codes the landlord must follow. When a one- or two-family dwelling or townhome undergoes a repair or a level 1 alteration, newly installed or replacement battery-powered smoke alarms must use a 10-year sealed battery, unless they are part of a monitored, wireless or combination system. Every building or addition built on or after July 1, 2008 that has a fuel-burning heater or appliance, a fireplace, an attached garage, or another source of carbon monoxide must have an approved carbon monoxide alarm within 10 feet of each sleeping room; older buildings need not be retrofitted unless an addition is built.",
+    notes: "FL: Primary text pasted by Taylor 2026-09-26 from flsenate.gov/Laws/Statutes/2026 (official 2026 Florida Statutes), read section-open with history lines. Controlling text: Fla. Stat. §83.51(2)(b) (read earlier this session); §553.883 (s. 24, ch. 2016-129); §553.885 (s. 41, ch. 2010-176). Florida Building Code and Florida Fire Prevention Code not read (privately published model-code incorporations, L.5; rules under §553.885(2)). No statutory landlord CO-alarm duty for pre-2008 buildings located (boundary: statutes read).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-dishonored-payment-remedies-fl",
+    title: "Bounced Checks and Returned Payments",
+    group: "Rent & Payment",
+    states: ["FL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "returned-payments",
+    bodyText:
+      "When a tenant's check, draft, debit card order or electronic funds transfer is refused for lack of funds, credit or an account (or payment is stopped with intent to defraud), a Florida payee may collect the bank fees actually incurred plus a service charge of $25 if the payment was $50 or less, $30 if it was over $50 up to $300, or $40 if it was over $300, or 5 percent of the face value if that is greater, without going to court. If the maker does not pay the amount owed in cash within 30 days after a written demand in the statutory form (sent by certified or registered mail, or first-class mail with an affidavit of service), the payee can sue for three times the amount owed (at least $50), plus the amount of the instrument, court costs, reasonable attorney's fees and bank fees. A court may waive the statutory damages for economic hardship.",
+    notes: "FL: Primary text pasted by Taylor 2026-09-26 from flsenate.gov/Laws/Statutes/2026 (official 2026 Florida Statutes), read section-open with history lines. Controlling text: Fla. Stat. §68.065(1)-(7) (s. 1, ch. 2013-113 latest). Demand-letter form in §68.065(4) belongs in the builder's collections workflow. §832.08(5) is the state attorney's bad-check diversion fee schedule, referenced by §68.065(3)(b); it is not a landlord fee cap. Criminal provisions §§832.05-.07 not read. The lease clause is nsf-fee-limit-fl.",
+  },
+  {
+    id: "edu-veterans-pilot-fl",
+    title: "Homes for Veterans Landlord Incentive Pilot",
+    group: "Rent & Payment",
+    states: ["FL"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "veterans-incentive",
+    bodyText:
+      "In Broward, Escambia, Hillsborough and Santa Rosa Counties, a landlord who rents to a veteran in the HUD-Veterans Affairs Supportive Housing (HUD-VASH) program may apply for two kinds of funding, while money is appropriated. First, vacancy relief: proportional rent for holding the unit for up to 45 days after it becomes available, or until the veteran moves in if sooner, applied for within 60 days after move-in. Second, if the veteran moves out during the first 12 months of a year-to-year lease or after any lease expires, up to $2,000 for property loss caused by the veteran beyond the deposit, applied for within 60 days after move-out. The second is available only to a landlord who applied for vacancy relief. After move-out the landlord must give the program administrator the move-out checklist with current photos and a copy of the landlord's written deposit-claim notice to the veteran.",
+    notes: "FL: Primary text read section-open 2026-09-26 (Fla. Stat. §83.684(3)-(5), leg.state.fl.us, history s. 1, ch. 2026-125); subsections (1)-(2), (6)-(7) seen only in summary (short title, definitions, first-come funding and suspension, rulemaking). Effective 2026-07-01 per the enrolled CS/CS/SB 1602 (research pass; approved 2026-06-11). Administered by the Florida Housing Finance Corporation through contracted program administrators; subject to annual appropriation (§83.684(3)). The deposit-claim notice referenced is the Fla. Stat. §83.49(3)(a) notice (security-deposit-return-fl). Not lease content; CONDITIONAL on county and HUD-VASH tenant.",
+  },
+  // Disclosures
+  {
+    id: "edu-no-mold-disclosure-fl",
+    title: "No Mold Rule for Landlords",
+    group: "Disclosures",
+    states: ["FL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "mold",
+    bodyText:
+      "Florida statutes do not require a residential landlord to disclose mold or to remediate it as a separate duty. The statutes on mold regulate mold assessors and remediators, who must be licensed; a residential property owner may assess mold on his or her own property without a license. Mold in a rental is handled through the landlord's general duty to comply with building, housing and health codes and to maintain the premises.",
+    notes: "FL: CONFIRMED ABSENCE, BOUNDED (L.7). Evidentiary basis: full-text search of the 2026 Florida Statutes on the official Legislature site, run by Taylor 2026-09-26; every hit's section number, title and abstract was pasted and reviewed. The search matches word variants (control: 'bedbug' returned §83.51, whose text says 'bedbugs'; 'mold' and 'molds' returned identical lists). Boundary: statutes only. Florida Administrative Code, local codes and case law not searched. Terms: mold, molds (identical 31 hits), fungus (no hits), fungal (2 hits: §§384.23, 796.08, disease definitions). Hits reviewed: Fla. Stat. ch. 468 Part XVI mold-related services licensing (§§468.84-468.8424: licensing, exams, insurance, contracts, discipline; §468.841(1)(a) exempts a residential property owner assessing his or her own property - abstract only, not read in full); §713.596 molder's liens; §627.4143 insurance outline of coverage; §§718.1265, 719.128, 720.316 association emergency powers; §§1004.57, 161.54, 817.5615, 468.80, 468.1245, 468.8324, 20.165, 403.708, 893.147, 310.151, 487.021, 440.02, 381.986, 718.111, 212.08 (unrelated senses). None imposes a disclosure or remediation duty on a residential landlord. Habitability route: Fla. Stat. §83.51(1) (edu-landlord-maintenance-fl).",
+  },
+  {
+    id: "edu-no-bed-bug-disclosure-fl",
+    title: "No Bed Bug Disclosure Rule",
+    group: "Disclosures",
+    states: ["FL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "bed-bugs",
+    bodyText:
+      "Florida statutes do not require a residential landlord to disclose bed bug history or follow a bed bug treatment timeline. The only bed bug rule for landlords is the general extermination duty: unless otherwise agreed in writing, the landlord of a unit other than a single-family home or duplex must make reasonable provision for exterminating bedbugs and other pests, giving 7 days' written notice if the tenant must leave, abating rent, and limiting the move-out to 4 days.",
+    notes: "FL: CONFIRMED ABSENCE, BOUNDED (L.7). Evidentiary basis: full-text search of the 2026 Florida Statutes on the official Legislature site, run by Taylor 2026-09-26; every hit's section number, title and abstract was pasted and reviewed. The search matches word variants (control: 'bedbug' returned §83.51, whose text says 'bedbugs'; 'mold' and 'molds' returned identical lists). Boundary: statutes only. Florida Administrative Code, local codes and case law not searched. Terms: 'bed bug' and 'bed bugs' (1 hit: §487.021, pesticide definitions - false positive); 'bedbug' (1 hit: §83.51, read section-open earlier). Only landlord rule: Fla. Stat. §83.51(2)(a)1 (edu-landlord-maintenance-fl).",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-eviction-record-sealing-fl",
+    title: "No Eviction Record Sealing",
+    group: "Default & Termination",
+    states: ["FL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-record-sealing",
+    bodyText:
+      "Florida statutes do not provide for sealing or expunging eviction court records. Eviction filings remain public records that tenant-screening companies may report, subject to federal credit-reporting law.",
+    notes: "FL: CONFIRMED ABSENCE, BOUNDED (L.7). Evidentiary basis: full-text search of the 2026 Florida Statutes on the official Legislature site, run by Taylor 2026-09-26; every hit's section number, title and abstract was pasted and reviewed. The search matches word variants (control: 'bedbug' returned §83.51, whose text says 'bedbugs'; 'mold' and 'molds' returned identical lists). Boundary: statutes only. Florida Administrative Code, local codes and case law not searched. Term: eviction (40 hits, all reviewed by section title and abstract). No hit concerns sealing, expunging or confidentiality of eviction records. Hits include mobile-home eviction (ch. 723), betterment actions (ch. 66), §83.202 (Part I, nonresidential waiver), §§83.56, 83.64, 83.67, 715.101, 715.104 (read), §82.035 (transient occupants), §381.00895 (migrant labor housing retaliation), §893.138 (nuisance abatement), §§718.116, 719.108, 720.3085 (association collections), §250.5202 and §180.135 (NEW, requested - see FL log §13), and unrelated retirement and licensing sections. Federal FCRA is a non-state citation (instruction 16).",
+  },
+  {
+    id: "edu-no-dv-lease-termination-fl",
+    title: "No Domestic Violence Lease Termination Right",
+    group: "Default & Termination",
+    states: ["FL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "domestic-violence",
+    bodyText:
+      "Florida statutes do not give a residential tenant who is a victim of domestic violence, dating violence, sexual violence or stalking a right to end a lease early or to have the locks changed. Unless the lease provides otherwise, such a tenant's early departure is handled like any other early termination. Some local ordinances have addressed this; state law now preempts local rules on rental agreement terms.",
+    notes: "FL: CONFIRMED ABSENCE, BOUNDED (L.7). Evidentiary basis: narrowed full-text searches of the 2026 Florida Statutes on the official Legislature site, run by Taylor 2026-09-26 with a quoted phrase plus a second word (quotes narrow the results); every hit, including subject-index pages, was pasted and reviewed. Boundary: statutes only; Florida Administrative Code, local ordinances and case law not searched. Search: \"domestic violence\" tenant (20 hits): §44.102 (court-ordered mediation), §420.9071 (SHIP definitions) and subject-index pages (DOMESTIC VIOLENCE entries point to ch. 741 injunctions, arrests, confidentiality program §741.405, insurance discrimination §627.3515 - none a tenancy rule). Fla. Stat. ch. 83 Part II read in full contains no DV provision. Research pass (secondary): HB 107 (2026, DV early termination) died 2026-03-13. Not searched: the broad 'change the locks' list (81 hits, unreviewed); a lock-change statute using other wording cannot be fully excluded. Preemption: §83.425. Contrast NJ, NV, CA, CO, MN rows.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-immigration-inquiry-rule-fl",
+    title: "No Immigration-Status Rule for Landlords",
+    group: "Rent & Payment",
+    states: ["FL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "immigration-status",
+    bodyText:
+      "Florida statutes do not require or forbid a residential landlord to ask about or verify a tenant's immigration or citizenship status. Florida's immigration laws impose duties on employers, transporters and local governments, not on landlords. Federal fair housing law still bars discrimination based on national origin.",
+    notes: "FL: CONFIRMED ABSENCE, BOUNDED (L.7). Evidentiary basis: narrowed full-text searches of the 2026 Florida Statutes on the official Legislature site, run by Taylor 2026-09-26 with a quoted phrase plus a second word (quotes narrow the results); every hit, including subject-index pages, was pasted and reviewed. Boundary: statutes only; Florida Administrative Code, local ordinances and case law not searched. Searches: immigration landlord (2 hits) and immigration tenant (5 hits), all subject-index pages (INJUNCTIONS, LOCAL GOVERNMENTS, COUNTIES, FINES AND PENALTIES, MUNICIPALITIES) pointing to local-government immigration enforcement (§§908.104-.107), immigration services advertising (§501.1391) and detainer compliance; none imposes a landlord duty. Research pass (secondary): SB 1718 (2023) does not criminalize renting to undocumented persons. National origin: Fla. Stat. §760.23 (read). Federal FHA: non-state citation (instruction 16).",
+  },
+  // Parking & Storage
+  {
+    id: "edu-no-ev-charging-right-fl",
+    title: "No Tenant EV Charging Right",
+    group: "Parking & Storage",
+    states: ["FL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "ev-charging",
+    bodyText:
+      "Florida statutes do not give a residential tenant a right to install an electric vehicle charger at a rental, and do not require a landlord to allow one. Florida's condominium law has its own electric vehicle charging rules for unit owners, which were not reviewed for how they apply to a unit owner's tenant.",
+    notes: "FL: CONFIRMED ABSENCE, BOUNDED (L.7). Evidentiary basis: narrowed full-text searches of the 2026 Florida Statutes on the official Legislature site, run by Taylor 2026-09-26 with a quoted phrase plus a second word (quotes narrow the results); every hit, including subject-index pages, was pasted and reviewed. Boundary: statutes only; Florida Administrative Code, local ordinances and case law not searched. Searches: \"electric vehicle\" tenant (8 hits) and \"electric vehicle\" lessee (2 hits), all subject-index pages pointing to condominium EV duties (§718.113), charging-station regulation and penalties (§366.94), vehicle registration (§320.08001) and golf carts (§316.212). None is a tenant right. §718.113 (condominium unit owners) not read; whether it reaches a unit owner's tenant is unverified (research pass could not verify either). Contrast CO, CA rows.",
+  },
+  // Security Deposit
+  {
+    id: "edu-no-deposit-cap-fl",
+    title: "No Security Deposit Cap",
+    group: "Security Deposit",
+    states: ["FL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-cap",
+    bodyText:
+      "Florida law does not limit the amount of a residential security deposit a landlord may charge. Local limits are preempted. Separately, a condominium or cooperative association may require its own deposit from a unit owner's tenant, capped at one month's rent, and must handle it like a landlord's deposit.",
+    notes: "FL: CONFIRMED ABSENCE, BOUNDED (L.7). Evidentiary basis: narrowed full-text searches of the 2026 Florida Statutes on the official Legislature site, run by Taylor 2026-09-26 with a quoted phrase plus a second word (quotes narrow the results); every hit, including subject-index pages, was pasted and reviewed. Boundary: statutes only; Florida Administrative Code, local ordinances and case law not searched. Search: \"security deposit\" tenant (12 hits): §§83.425, 83.43, 83.49, 83.491 (read in full); §180.135 (municipal utility deposits, requested); §719.106 (cooperative association rental deposit, 'not to exceed ... 1 month's rent', refund or claim within 15 days, disputes handled as under §83.49 - abstract only); subject-index pages (condominium association rental security deposit §718.112 - not read). Neither association rule caps a landlord's deposit. Fla. Stat. ch. 83 Part II (full read) has no amount limit. Local caps preempted (§83.425: 'security deposits').",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-fee-caps-fl",
+    title: "No Late-Fee or Application-Fee Cap",
+    group: "Rent & Payment",
+    states: ["FL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "late-fee",
+    bodyText:
+      "Florida law sets no maximum late fee and no maximum rental application fee for residential tenancies, and local caps are preempted. A late fee is still subject to the court's power to refuse to enforce an unconscionable lease term. Condominium and homeowners' association late fees, and self-storage late fees, have their own rules that do not apply to landlords.",
+    notes: "FL: CONFIRMED ABSENCE, BOUNDED (L.7). Evidentiary basis: narrowed full-text searches of the 2026 Florida Statutes on the official Legislature site, run by Taylor 2026-09-26 with a quoted phrase plus a second word (quotes narrow the results); every hit, including subject-index pages, was pasted and reviewed. Boundary: statutes only; Florida Administrative Code, local ordinances and case law not searched. Searches: \"late fee\" tenant (9 hits): §83.808 (self-storage, Part III, $20 or 20% safe harbor - not residential), §§718.111, 718.116, 718.117, 719.108, 720.3085 (association administrative late fees), subject-index pages; \"application fee\" tenant (4 hits): §397.487 (recovery-residence certification fee), §713.785 (mobile home liens), subject-index pages. No residential landlord cap. Unconscionability: Fla. Stat. §83.45. Preemption: §83.425 ('fees charged by the landlord'; 'rental agreement applications and fees').",
+  },
+  // Default & Termination
+  {
+    id: "edu-state-active-duty-eviction-stay-fl",
+    title: "Eviction Stay for State Active Duty",
+    group: "Default & Termination",
+    states: ["FL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "military-termination",
+    bodyText:
+      "In Florida, an eviction, distress action or requirement to deposit rent into the court registry may not proceed against a service member called into state active duty (or active duty), for as long as that duty lasts, if the service member has given the landlord written notice. This protection applies only where the agreed rent is $1,200 a month or less and the unit is occupied mainly as a home by the service member, the service member's spouse or a dependent. The court may on its own, and must on request, stay the case for up to 3 months unless it finds that the duty has not materially affected the tenant's ability to pay the rent.",
+    notes: "FL: Primary text pasted by Taylor 2026-09-26 from flsenate.gov/Laws/Statutes/2026 (official 2026 Florida Statutes), read section-open with history lines. Controlling text: Fla. Stat. §250.5202 (s. 3, ch. 96-342; s. 51, ch. 2003-68). Found through Taylor's official full-text search for 'eviction'. A second state-military protection beyond §83.682 (termination) and §83.683 (applications); edu-servicemember-rights-fl. Definitions of state active duty and servicemember: §250.01 (not read; L.5). Federal SCRA eviction stay (50 U.S.C. §3951) is a non-state citation (instruction 16). Builder: eviction workflows should ask whether the tenant has given notice of state or federal active duty.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-utility-former-occupant-fl",
+    title: "Utilities: Former Occupant's Unpaid Bills",
+    group: "Tenant Responsibilities",
+    states: ["FL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utilities-responsibility",
+    bodyText:
+      "A Florida city or county utility may not refuse or cut off water, sewer or utility service to a rental's owner, tenant or prospective tenant because a former occupant left unpaid charges, and those charges cannot become a lien on the rental property unless the current owner or tenant directly benefited from the service. The rule applies when the former occupant contracted for the service (or, for city utilities, when the city knew the occupant's name and service period), and a landlord's agreement with a city to guarantee tenants' bills cannot waive it. A city may still cut off a tenant who is 30 days or more in arrears. If a tenant does not pay a city for utility, water or sewer service, the landlord may start eviction proceedings.",
+    notes: "FL: Primary text pasted by Taylor 2026-09-26 from flsenate.gov/Laws/Statutes/2026 (official 2026 Florida Statutes), read section-open with history lines. Controlling text: Fla. Stat. §180.135(1)-(4) (municipal; s. 1, ch. 89-272 latest) and §125.485 (county; s. 10, ch. 97-95 latest; adds wastewater reuse; applies only when the former occupant contracted with the county; no anti-waiver, deposit or eviction provisions). §180.135(3): a city may by ordinance apply a utility deposit it holds from the occupant to the occupant's unpaid charges. §180.135(4) gives the landlord an eviction route when a Part II tenant fails to pay city utility charges; the statute does not say which Chapter 83 notice applies, so the §83.56(2) noncompliance notice is the likely vehicle (inference, not stated). Pairs with utility-service-continuity (tagged FL). Private utilities are not covered by either section.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-transient-occupant-removal-fl",
+    title: "Removing a Transient Occupant (Overstaying Guest)",
+    group: "Rules & Regulations",
+    states: ["FL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "guest-policy",
+    bodyText:
+      "A Florida property owner or other person entitled to possession can have a transient occupant removed without a Chapter 83 eviction. A transient occupant is someone staying briefly, not under a lease, with no ownership or leasehold interest; signs include no utility accounts, no government mail at the address in the past 12 months, little or no rent, no room of their own, few belongings and a home elsewhere. After the occupant is told to leave and refuses, a law enforcement officer may, on the owner's sworn affidavit setting out those facts, direct the occupant to leave; refusing is trespass. The owner can also sue for unlawful detainer without prior notice. The owner must let the former occupant retrieve belongings at reasonable times, generally within 10 days, and may impose conditions such as a police presence where there has been misconduct. A person wrongly removed can sue the person who asked for the removal. This procedure is not for a tenant: if a court finds the person is a tenant, the owner must give the Chapter 83 notice and proceed by eviction.",
+    notes: "FL: Primary text pasted by Taylor 2026-09-26 from flsenate.gov/Laws/Statutes/2026 (official 2026 Florida Statutes), read section-open with history lines. Controlling text: Fla. Stat. §82.035 (s. 1, ch. 2015-89; s. 1, ch. 2018-83; s. 5, ch. 2018-94). Trespass: §810.08 (not read). Unlawful detainer: §82.03 (not read). Relevant to guest-policy and guest-policy-day-limit (tagged FL): a guest who overstays those limits may fit the transient-occupant factors, but a guest paying rent or with a room of their own may be a tenant, and wrongful removal carries damages (§82.035(3)(b)). Belongings: 10-day guideline and abandonment presumption (§82.035(5)); prevailing-party fees if access is unreasonably withheld ((5)(d)). The 2024 unauthorized-occupant law (§82.036) was not read.",
   },
 ];
 
