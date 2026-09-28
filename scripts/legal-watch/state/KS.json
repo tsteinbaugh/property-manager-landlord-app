@@ -623,6 +623,9 @@
   "manualRecheck": {
     "case-schutt-foster": {
       "lastReminded": "2026-09-18"
+    },
+    "case-asbury-mauk": {
+      "lastReminded": "2026-09-28"
     }
   }
 }
