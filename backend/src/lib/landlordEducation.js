@@ -32,6 +32,9 @@
 // wholesale from the CSV (2026-09-18 refresh, Ohio added: 309 -> 324
 // entries across the now-8-state pass).
 //
+// **2026-09-28 (North Carolina sync):** regenerated from the 16-state CSV
+// (705 -> 748 entries).
+//
 // **2026-09-28 (Georgia sync):** regenerated from the 15-state CSV
 // (667 -> 704 entries).
 //
@@ -9034,6 +9037,555 @@ const LANDLORD_EDUCATION = [
     bodyText:
       "Colorado has no fire-or-casualty statute; after a fire the warranty of habitability (C.R.S. 38-12-501 to 38-12-511) decides what happens, and no lease term can change it (38-12-503(5), (10)). IF THE TENANT DIDN'T CAUSE IT: damage that makes the home uninhabitable or threatens life, health or safety is a condition you must fix at your own expense. You must start remedial action within 72 hours of notice (24 hours where it threatens life, health or safety), keep at it, and finish within a reasonable time (38-12-503(2)(b), (4), (7)). If the tenant asks, you must provide a comparable unit or a hotel room within 24 hours, at no cost to them; after 48 hours it must have a fridge with freezer and a stove, or you pay a daily meal allowance at the state employee rate (38-12-503(4)(a)-(b)). The tenant still owes rent. If repairs can't be finished within 60 consecutive days for reasons outside your control, you can end the hotel duty after 60 days by written notice and by returning the full security deposit; the tenant may then end the lease without penalty (38-12-503(4)(c)). THE TENANT CAN'T SIMPLY LEAVE: the tenant's termination right arises only once you are in breach (you didn't start, stopped, or didn't finish in a reasonable time), and then on 10 to 60 days' written notice (38-12-507(1)(a)). While you are repairing promptly, the lease continues. YOU CAN'T SIMPLY LEAVE EITHER: a lease term giving you a right to end the lease after an ordinary fire would modify your Part 5 duties and is likely void. Your one statutory exit is for a sudden environmental public health event (a disaster or environmental event such as a wildfire or flood affecting nearby homes) or government action, and only if the lease includes it (38-12-503(11); the optional clause environmental-event-termination-co). Whether a single-house fire counts as such an event is unsettled. IF THE TENANT CAUSED IT: a condition substantially caused by the misconduct of the tenant, their household, guests or invitees is not a breach of the warranty (38-12-503(9)), so none of the above applies and your ordinary lease remedies do; the victim of domestic violence, abuse, unlawful sexual behavior or stalking is excepted. ENDING THE LEASE BY AGREEMENT: after a major fire, you and the tenant can agree in writing to end the lease. Prorate rent to move-out, refund rent paid for later periods, and return the deposit on Colorado's normal schedule. Don't include a release of the tenant's habitability claims (a hotel you owed, rent for uninhabitable days, the deposit): an agreement waiving Part 5 rights is void as to that waiver (38-12-503(5), (10)). The statute doesn't address mutual termination directly; for a large loss, have an attorney review the agreement.",
     notes: "CO: Added 2026-09-28 as a targeted fix (not a re-audit), from the GA log §9.1 flag: Colorado was the only one of 15 states with no casualty row. CITED: C.R.S. §§ 38-12-503(2)(b), (4)(a)-(c), (5), (7), (9), (10), (11); 38-12-502(4.5); 38-12-507(1)(a). Read section-open 2026-09-28 from the official C.R.S. 2024 Title 38 PDF (leg.colorado.gov, OLLS); Part 5 history lines end at SB 24-094 (2024), matching the CO log §18 read of 38-12-503 (2026-08-27, text supplied by Taylor), and the CO legal watch (monitors 38-12-503/505/507 weekly) has reported no later enacted bill. CONFIRMED ABSENT: a Colorado casualty or destruction-of-premises statute; Article 12 searched for casualty, fire, destroy, destruction, untenantable, abate (only hits: gas-hazard notices, the 38-12-502(4.5) definition, a 505 code-compliance item, the 504 tenant duty and the mobile-home lease-purchase rule). Rent while relocated: per CO log §18 (tenant still owes rent). Mutual termination: not addressed by statute; stated as a caution, not relied on. Decision (Taylor, 2026-09-28): NO casualty lease clause for CO. A WY/GA-style mutual termination clause would likely be void on the landlord side (38-12-503(10)); a tenant-only version was drafted and declined, since it would let the tenant leave without the landlord's agreement.",
+  },
+  // Security Deposit
+  {
+    id: "edu-security-deposit-rules-nc",
+    title: "Security Deposit Rules",
+    group: "Security Deposit",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-return",
+    bodyText:
+      "North Carolina's Tenant Security Deposit Act applies to anyone in the business of renting or managing residential units, other than single rooms. The deposit must be kept in a trust account at a licensed, federally insured bank or authorized trust institution (an out-of-state account needs a bond), or the landlord may instead buy a bond from a licensed insurer, and the tenant must be told in writing, within 30 days after the lease term begins, where the money is (or who issued the bond). The deposit may not exceed two weeks' rent for a week-to-week tenancy, one and one-half months' rent for month-to-month, or two months' rent for longer terms; a reasonable nonrefundable pet fee is allowed on top. The deposit may be used only for unpaid rent and landlord-billed water, sewer or electric charges, damage (including to smoke and CO alarms), damages for not finishing the term (not after a military or domestic-violence termination, an unlawful lockout or a constructive eviction), liens caused by the tenant, re-renting costs including a broker's fee, removal and storage costs after an eviction, court costs, and fees the law allows. Within 30 days after the tenancy ends and the tenant gives back possession, the landlord must mail or deliver an itemized list with the balance; if the damage cannot be figured in time, an interim accounting within 30 days and a final one within 60. No deductions for normal wear and tear or above actual damages. If the tenant's address is unknown, the landlord may apply the deposit after 30 days and must hold the balance for at least six months. On a sale or other end of the landlord's interest, the deposit must be transferred to the new owner (with notice to the tenant) or returned within 30 days. A landlord who willfully fails to follow the deposit, bond or notice rules loses the right to keep any of the deposit and can be ordered to pay the tenant's attorney's fees. The Act says nothing about interest (none is owed) or about prepaid last-month rent.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). Controlling text: N.C. Gen. Stat. §N.C. Gen. Stat. § 42-50 (trust account or bond; 30-day notice), 42-51 (permitted uses; caps by tenancy), 42-52 (30/60-day accounting; wear and tear; actual damages; unknown address six months), 42-53 (nonrefundable pet fee), 42-54 (transfer on termination of the landlord's interest), 42-55 (remedies: willful noncompliance voids retention; attorney's fees), 42-56 (application: 'engaged in the business of renting or managing residential dwelling units, excluding single rooms'). Interest: confirmed absent (edu-no-deposit-interest-nc). Unclaimed balances after the six-month hold: the Unclaimed Property Act default dormancy for 'all other property' is five years (N.C. Gen. Stat. § 116B-53(c)(16), read); how it interacts with N.C. Gen. Stat. § 42-52's six-month hold is not settled by text. The NC REALTORS lease (Form 410-T ¶4) lets a broker give an unclaimed deposit under $100 to charity after a year; no statute located for that (search: charit* near deposit/trust, 2026-09-28), so it rests on Real Estate Commission rules (21 NCAC 58A, not read; instruction 16). Vacation rentals (under 90 days) have separate deposit provisions in Chapter 42A (search hits N.C. Gen. Stat. §§ 42A-15 to 42A-19, not read; out of scope).",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-landlord-repair-duties-nc",
+    title: "Landlord's Repair and Fitness Duties",
+    group: "Landlord Responsibilities",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "habitability",
+    bodyText:
+      "A North Carolina landlord must comply with applicable building and housing codes (and elevator safety rules), make all repairs and do whatever is needed to keep the premises fit and habitable, keep common areas safe, and maintain and promptly repair electrical, plumbing, sanitary, heating, ventilating, air-conditioning and other facilities and appliances the landlord supplies once the tenant gives written notice (no written notice is needed in an emergency). The landlord must also repair any 'imminently dangerous condition' within a reasonable time after learning of it: unsafe wiring, flooring, steps, ceilings, roofs, chimneys or flues; no potable water; no operable locks on exterior doors or ground-floor windows, or broken windows; no heat able to keep living areas at 65 degrees when it is 20 degrees outside (November 1 to March 31); no operable toilet or bathtub or shower; rat infestation from structural defects; and standing water, sewage or flooding from leaks or poor drainage that contributes to mosquitoes or mold. The landlord may recover the reasonable cost of repairs the tenant caused. These duties cannot be waived: a tenant's acceptance of a defective unit does not release the landlord, except that the parties may make a separate written contract, supported by consideration other than the rent, for the tenant to do specified work. The tenant's rent obligation and the landlord's fitness duty depend on each other, but the tenant may not withhold rent on their own before a court decides they may. A violation is not negligence per se. The tenant must keep the unit clean and safe, dispose of waste, not damage the property or disable alarms, and pay for damage in the tenant's control beyond wear and tear; the landlord must tell the tenant in writing of breaches of those duties except in emergencies. Large cities (200,000 or more people) must also require a heat source able to keep one room at 68 degrees.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). Controlling text: N.C. Gen. Stat. § 42-38 (Article 5 governs rights, obligations and remedies under a rental agreement for a dwelling unit); N.C. Gen. Stat. § 42-42(a)(1)-(8) and (b) (history ends 2022-56); N.C. Gen. Stat. § 42-41 (mutuality); N.C. Gen. Stat. § 42-43 (tenant duties; landlord's written breach notice (b)); N.C. Gen. Stat. § 42-44(a), (c) (no unilateral withholding before a judicial determination), (d) (not negligence per se); N.C. Gen. Stat. § 42-42(a)(1a) cross-refers to N.C. Gen. Stat. § 143-143.7 (elevator safety in certain residential rental accommodations, not read beyond title). Local heat ordinances: N.C. Gen. Stat. § 160D-1204 (read; applies to local governments of 200,000 or more; 68 degrees at 3 feet with 20 degrees outside; kerosene heaters not a permanent source). No statutory repair deadline beyond the 15-day alarm rule and 'reasonable period' for imminently dangerous conditions; no repair-and-deduct statute located (Chapter 42 read whole). Contaminant notice: N.C. Gen. Stat. § 42-42(a)(6) (utility-billing-nc).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-late-and-eviction-fees-nc",
+    title: "Late Fees and Eviction Fees",
+    group: "Rent & Payment",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "late-fee",
+    bodyText:
+      "North Carolina tightly limits what a landlord can charge. A late fee is allowed only if rent is five or more calendar days late (counting from the day after it was due), is capped at the greater of $15 or 5% of the monthly rent ($4 or 5% for weekly rent), may be charged only once per late payment, cannot be deducted from a later payment to make it late, cannot be charged for unpaid landlord-billed water or sewer, and is figured on the tenant's share only if rent is subsidized. When a landlord files an eviction or money-owed case, a written lease may provide for ONE administrative fee: a complaint-filing fee (up to $15 or 5% of monthly rent, if the tenant cures and the case is dismissed before judgment), a court-appearance fee (10% of monthly rent, if the landlord wins in small claims) or a second-trial fee (up to 12%, if the landlord wins after an appeal). The landlord may also recover court filing fees, service costs and, under a written lease, attorneys' fees up to 15% of what the tenant owes (15% of monthly rent for a non-rent eviction), plus all actual reasonable attorneys' fees if the tenant's appeal to district court is found frivolous and the landlord prevails. These amounts can be included in the cure amount but an administrative fee cannot be deducted from later rent or used as the ground for a later eviction. Any other administrative fee or litigation cost for filing an eviction is against public policy, and a lease term contrary to these rules is void. Separately, a lease that requires renter's insurance cannot require a particular insurer or agent.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). Controlling text: N.C. Gen. Stat. § 42-46(a)-(l) (history: 1987, c. 530; 2001-502; 2003-370; 2004-143; 2009-279; 2016-98; 2018-50; 2021-71; 2024-47, s. 8; 2025-45, s. 10; 2025-52, s. 3(a); 2025-54, s. 12.4(a)). Current (i)(3)-(4) text from S.L. 2025-52 and 2025-54 (both retroactive to 2024-09-09); the compilation's (i)(4)-(5) is garbled (eviction-fees-nc notes; instruction 46). Lease clauses: late-fee-limit-nc, eviction-fees-nc, renters-insurance-nc. No application-fee or screening-fee cap (edu-no-application-fee-cap-nc). Returned checks: edu-dishonored-payment-remedies-nc.",
+  },
+  // Default & Termination
+  {
+    id: "edu-eviction-process-nc",
+    title: "Summary Ejectment (Eviction) Process",
+    group: "Default & Termination",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction",
+    bodyText:
+      "North Carolina evictions are 'summary ejectment' cases heard by a magistrate in small claims court. The landlord may sue when the term has ended and the tenant holds over, when the tenant breaches a lease term that the lease says ends the tenancy, or (for nonpayment where the lease has no forfeiture clause) when rent stays unpaid 10 days after the landlord demands it. The clerk issues a summons setting a hearing within seven days (excluding weekends and holidays); the officer mails the papers and must try to serve them in person or at the home, or posts them on the premises. If the tenant pays or tenders the rent due plus court costs before judgment in a nonpayment case, the case ends. The tenant may appeal within 10 days; to stay the eviction during an appeal the tenant pays undisputed back rent to the clerk (indigent tenants excepted) and signs an undertaking to pay rent into court as it comes due, and missing a payment by five business days dissolves the stay. The sheriff must execute a writ of possession within five days of receiving it and gives the tenant notice of when; if the judgment is more than 30 days old, the landlord must first sign an affidavit that it has not made a new lease with or accepted rent from the tenant since judgment. Eviction and default notices under a lease for a primary residence are outside North Carolina's electronic-records law, so they should be given on paper. A separate expedited procedure (Article 7) lets a landlord evict for drug and other criminal activity, including partial eviction of household members and guests; collecting rent with knowledge of the activity is not a waiver. Unpaid landlord-billed water, sewer or electric charges are never a ground for eviction.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). Controlling text: N.C. Gen. Stat. § 42-3 (10 days after demand for past-due rent); N.C. Gen. Stat. § 42-26(a)(1)-(3), (b), (c); N.C. Gen. Stat. § 42-28 (summons within 7 days excluding weekends and holidays; rent and damages up to the small-claims limit); N.C. Gen. Stat. § 42-29 (service); N.C. Gen. Stat. § 42-30 (judgment; default on rent pleadings); N.C. Gen. Stat. § 42-31 (2024-54 amendment: order to the clerk to pay the landlord bond money within five business days); N.C. Gen. Stat. § 42-33 (tender before judgment); N.C. Gen. Stat. § 42-34 (appeal, stay bond, undisputed arrears, indigent exception, disbursement) (history ends 2024-54, s. 3(c)); N.C. Gen. Stat. § 42-34.1 (rent pending execution; post-judgment bond); N.C. Gen. Stat. § 42-35 and N.C. Gen. Stat. § 42-36 (restitution and damages if proceedings quashed); N.C. Gen. Stat. § 42-36.1A (affidavit for judgments over 30 days old); N.C. Gen. Stat. § 42-36.2 (writ within five days; notice methods; storage); N.C. Gen. Stat. § 42-32 (on appeal the jury assesses damages for detention to the time of trial, plus rent to trial if the appeal was without merit and for delay); N.C. Gen. Stat. § 42-36.1 (Article 3 applies to manufactured homes); N.C. Gen. Stat. § 42-27 (local, listed counties: willful refusal to perform a contract for the rental of land forfeits possession; agricultural in substance, deprioritized); Article 7, N.C. Gen. Stat. §§ 42-59 to 42-76 (expedited eviction for criminal activity; N.C. Gen. Stat. § 42-73 rent collection not a waiver). Appeal period: N.C. Gen. Stat. § 7A-228(a)-(b) (10 days; costs within 10 days in summary ejectment or automatic dismissal). Electronic notices: N.C. Gen. Stat. § 66-313(e)(2). No statutory pre-filing notice form or cure period for non-rent breaches located; eviction record sealing confirmed absent (edu-no-eviction-record-sealing-nc). NO-CURE GROUNDS (instruction 33): Article 7 only.",
+  },
+  {
+    id: "edu-self-help-eviction-nc",
+    title: "No Lockouts, Utility Cutoffs or Seizing Belongings",
+    group: "Default & Termination",
+    states: ["NC"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "self-help-eviction",
+    bodyText:
+      "North Carolina public policy allows a residential tenant to be evicted, dispossessed or 'otherwise constructively or actually removed' only through a court eviction (summary ejectment or the Article 7 criminal-activity procedure). Changing the locks, removing doors, cutting off utilities to force a tenant out, or removing the tenant's belongings is unlawful self-help. Distress and distraint (seizing a tenant's property for rent) are prohibited, and a landlord may deal with a tenant's personal property only under the specific abandonment, post-eviction and tenant-death procedures in the statutes. Any lease term to the contrary is void. A tenant removed or threatened with removal unlawfully may recover possession or end the lease and recover actual damages (not punitive, treble or emotional-distress damages); the same applies to seizing or blocking access to belongings. A landlord that bills tenants for water, sewer, electricity or gas may not disconnect those services for nonpayment.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). Controlling text: N.C. Gen. Stat. §N.C. Gen. Stat. § 42-25.6 (removal only under Article 3 or Article 7), 42-25.7 (distress and distraint prohibited; property rights only under N.C. Gen. Stat. §§ 42-25.9(d), (g), (h), 42-36.2, 28A-25-2, 28A-25-7), 42-25.8 (contrary lease provisions void), 42-25.9(a)-(c) (remedies: recover possession or terminate; actual damages as in trespass or conversion; no punitive, treble or emotional-distress damages; supplementary to other remedies) (history ends 2013-334); N.C. Gen. Stat. § 42-42.1(b) (no disconnection of landlord-billed utilities); N.C. Gen. Stat. § 42-51(a)(3) (no deposit deduction for nonfulfillment where the tenant was forced out by an Article 2A violation). No criminal lockout statute located. Compare the 2025 squatter procedure, which is for people who were never tenants (edu-unauthorized-occupant-removal-nc).",
+  },
+  {
+    id: "edu-retaliation-nc",
+    title: "Retaliatory Eviction",
+    group: "Default & Termination",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "retaliation",
+    bodyText:
+      "A tenant (or a household member the landlord knows of) may defend an eviction as retaliatory if it is substantially in response to, within the 12 months before the filing: a good-faith complaint or repair request to the landlord about conditions the landlord must repair; a good-faith complaint to a government agency about a health or safety law or housing code; a government's formal complaint to the landlord; a good-faith attempt to enforce rights under the lease or law; or involvement with a tenants' rights organization. The landlord still wins if the tenant breached the rent covenant or another substantial covenant and that breach is the reason; if a fixed-term tenant with no renewal option is holding over; if the tenant's household or guests caused the condition; if code compliance requires demolition or major work that displaces the household; if the notice to quit was given before the protected activity; or if the landlord in good faith wants possession at the end of the term to live there, to demolish or remodel, or to stop renting the unit for at least six months. If the court finds retaliation it denies possession, but the landlord may still recover rent due. The tenant's rights cannot be waived.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). Controlling text: N.C. Gen. Stat. §N.C. Gen. Stat. § 42-37.1(a)-(c), 42-37.2, 42-37.3 (1979, c. 807; unamended). Separately, a landlord may not terminate, refuse to renew or retaliate based substantially on domestic violence, sexual assault or stalking victim status (N.C. Gen. Stat. § 42-42.2). No money penalty for retaliation located (remedy is denial of possession).",
+  },
+  {
+    id: "edu-abandoned-property-nc",
+    title: "Property Left Behind",
+    group: "Default & Termination",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "abandoned-property",
+    bodyText:
+      "North Carolina allows only a few ways to deal with a tenant's belongings. After a voluntary move-out: property is abandoned only if clear evidence shows the tenant voluntarily left after the paid rental period ended and the landlord has no notice of a disability causing the absence; a presumption arises 10 or more days after the landlord posts a notice of suspected abandonment inside and outside the unit without response. If the abandoned property is worth $750 or less, the landlord may give it to a nonprofit that provides free or low-cost clothing and furnishings, which must store it separately for 30 days and release it free to the tenant; the landlord must post and mail a notice naming the recipient. After an eviction: the sheriff notifies the tenant of the writ; for seven days after being put in possession the landlord may move the property for storage but may not throw it away or sell it, and must release it to the tenant on request during business hours; after seven days the landlord may dispose of it or sell it (with seven days' written notice of any sale by first-class mail, applying proceeds to rent, damages, storage and sale costs, and paying any surplus to the tenant on request within seven days or then to the county). If everything left is worth less than $500, it is abandoned five days after the writ is executed. Special rules: if the landlord knows the tenant is an attorney, the landlord must notify the North Carolina State Bar at least 15 days before destroying client files or trust account records left behind; and when a sole occupant dies, the landlord may use the clerk's affidavit procedure instead of an eviction.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). Controlling text: N.C. Gen. Stat. § 42-25.9(d)-(h) (nonprofit option for $750 or less; abandonment evidence and 10-day posted-notice presumption; nonprofit immunity; seven-day post-writ rule and sale notice; under $500 five days); N.C. Gen. Stat. § 42-36.2(a)-(d) (sheriff's notice, five-day execution, storage, seven-day release, notice methods); N.C. Gen. Stat. § 42-14.4 (State Bar notice for 'potentially confidential materials' of an attorney tenant; 15 days; good-faith immunity; not an unfair trade practice) (2012-76); N.C. Gen. Stat. § 42-36.3 and N.C. Gen. Stat. § 28A-25-7 (death of a sole occupant; edu-tenant-death-nc). Manufactured-home disposal under N.C. Gen. Stat. § 44A-2(e2) is a deprioritized layer. Distress prohibited (N.C. Gen. Stat. § 42-25.7; edu-self-help-eviction-nc).",
+  },
+  {
+    id: "edu-tenant-death-nc",
+    title: "When a Tenant Dies",
+    group: "Default & Termination",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-death-of-tenant",
+    bodyText:
+      "North Carolina has no statute that ends a residential lease when the tenant dies (the only statutory termination tied to death is for military technicians who die on active duty). If a lease ends because of a death partway through a rent period, rent is apportioned to the date of death. When the tenant was the sole occupant and left belongings, the landlord may, instead of filing an eviction, file an affidavit with the clerk of court once at least 10 days have passed since the paid rental period expired and no estate representative or small-estate affidavit exists in the county; the affidavit must attach the death certificate and an inventory, name the authorized emergency contact from the application or lease, and describe the landlord's attempts to reach that person. The landlord may then remove and store the belongings and re-rent the unit, and after 90 days (with no estate opened) sell them under notice or give them to a charity; belongings worth $500 or less may go straight to a charity that holds them for 30 days. A landlord acting at the direction of a proper small-estate affiant is discharged.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). CONFIRMED ABSENT (termination of the lease on a tenant's death): CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 396 chapters of the official General Statutes (chapter pages on ncleg.gov loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 46 hits, so the engine reports true empties and matches exact strings, every word form entered explicitly; NC log §17). Searched: (death|dies|died|deceased|decedent) within 120 characters of (tenant|lessee|occupant): 57 hits in 30 sections, none a lease-termination rule except military (N.C. Gen. Stat. § 42-45(a3)). Present: N.C. Gen. Stat. § 42-5 (rent apportioned where a lease 'is determined by the death of any person'); N.C. Gen. Stat. § 42-36.3; N.C. Gen. Stat. § 28A-25-7(a)-(h) (read); N.C. Gen. Stat. § 28A-25-2 (discharge). Lease clause for the contact person: emergency-contact-nc.",
+  },
+  {
+    id: "edu-periodic-tenancy-notice-nc",
+    title: "Ending a Periodic Tenancy",
+    group: "Default & Termination",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-notice",
+    bodyText:
+      "North Carolina's notice periods are short. A month-to-month tenancy ends on seven days' notice, a week-to-week tenancy on two days' notice, and a year-to-year tenancy on one month's notice before the end of the year; a space rented for a manufactured home needs at least 60 days' notice before the end of the rental period. The statute does not require the notice to be in writing, but a written notice is the only practical proof. A tenant who stays after proper notice (or after a fixed term ends) can be removed by summary ejectment. The lease may set a longer period by agreement (periodic-tenancy-notice-nc). There is no statewide just-cause or renewal requirement.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). Controlling text: N.C. Gen. Stat. § 42-14 (history ends 2005-291); N.C. Gen. Stat. § 42-26(a)(1) (holdover); N.C. Gen. Stat. § 42-37.1(c)(2) (fixed-term holdover outside the retaliation defense). Agricultural year tenancies in listed counties (N.C. Gen. Stat. § 42-23) deprioritized. No just-cause or good-cause renewal statute located (Chapter 42 read whole).",
+  },
+  {
+    id: "edu-servicemember-rights-nc",
+    title: "Servicemember Rights",
+    group: "Default & Termination",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "military-termination",
+    bodyText:
+      "Two layers of North Carolina law protect servicemember tenants, alongside the federal Servicemembers Civil Relief Act. First, the North Carolina Servicemembers Civil Relief Act applies the federal Act's rights (to the extent military service materially affects the servicemember's ability to meet obligations), including the federal right to terminate a residential lease on entering military service or receiving qualifying orders, to servicemembers who live in North Carolina and to members of the North Carolina National Guard, and extends them to Guard members on State active duty for more than 30 consecutive days (who must give the landlord a copy of the orders within 30 days after the duty ends). A Guard member whose lease expires during State active duty and who is current on rent may extend the lease until 10 days after the duty ends, on the same terms, by written or electronic notice. These rights cannot be waived; a knowing violation is an unfair or deceptive trade practice, and the Attorney General or the servicemember may sue. Second, a military technician (10 U.S.C. § 10216) may end a lease on 30 days' written notice with orders or a commanding officer's verification after permanent change-of-station orders to move 50 miles or more or an early discharge, or on deployment of 90 days or more (effective the earlier of 30 days after the next rent due date or 45 days after notice); family or the estate may terminate if the technician dies on active duty. The technician owes prorated rent plus, if fewer than nine months have been completed and the landlord has actual damages, liquidated damages of no more than one month's rent (under six months) or half a month's rent (six to nine months), and nothing if notice comes 14 or more days before occupancy. The deposit cannot be applied to the early termination.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). Controlling text: N.C. Gen. Stat. §N.C. Gen. Stat. § 127B-25 to 127B-36 (N.C. Servicemembers Civil Relief Act, S.L. 2019-161, s. 1(a); N.C. Gen. Stat. § 127B-27 definitions; N.C. Gen. Stat. § 127B-28 incorporation; N.C. Gen. Stat. § 127B-29 dependents; N.C. Gen. Stat. § 127B-32 Guard lease extension; N.C. Gen. Stat. § 127B-33 no waiver; N.C. Gen. Stat. § 127B-34 unfair trade practice; N.C. Gen. Stat. §§ 127B-35, 127B-36 enforcement); N.C. Gen. Stat. § 42-45(a)-(c) (read with S.L. 2019-161, s. 1(d), which struck members of the Armed Forces and the Active Guard and Reserve from N.C. Gen. Stat. § 42-45, leaving military technicians; members now rely on Chapter 127B and federal law); N.C. Gen. Stat. § 42-51(a)(3). Federal SCRA lease termination (50 U.S.C. § 3955) not read (instruction 16). Library decision: no SCRA lease clause (AZ session); this is education only.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-fair-housing-nc",
+    title: "Fair Housing",
+    group: "Compliance & Prohibited Terms",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fair-housing",
+    bodyText:
+      "North Carolina's State Fair Housing Act protects the same classes as federal law: race, color, religion, sex, national origin, handicapping condition (disability) and familial status (including pregnancy). It bars refusing to rent, discriminating in terms or services, discriminatory statements, ads, forms or inquiries, misrepresenting availability, and interference or retaliation; it requires reasonable accommodations in rules and policies and allowing reasonable modifications at the tenant's expense (with a possible restoration agreement). Exemptions (which do not cover discriminatory advertising): renting in an owner-occupied building of up to four units, renting rooms in an owner-occupied house, certain religious organizations and private clubs, and single-sex dormitories. A landlord need not rent to someone whose tenancy would be a direct threat to others' health or safety or cause substantial physical damage, reasonable occupancy limits still apply, and housing for older persons is exempt from the familial-status rules. Complaints go to the North Carolina Human Relations Commission within one year; penalties reach $10,000, $25,000 or $50,000 for repeat violations, plus damages. It is also a crime for a residential landlord or agent to demand sexual acts as a condition of a lease or of lease rights, and a landlord may not discriminate against a tenant or applicant because they are a victim of domestic violence, sexual assault or stalking. North Carolina has no statewide source-of-income, immigration-status, or firearms rule for private rentals. A landlord may use criminal background checks and has no duty to screen.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). Controlling text: N.C. Gen. Stat. §N.C. Gen. Stat. § 41A-3 (definitions; familial status incl. pregnancy; handicapping condition), 41A-4(a), (e), (f) (practices; accommodations; modifications; accessible design), 41A-5, 41A-6 (exemptions; (b) direct threat; (c) occupancy; (e) older persons), 41A-7 (enforcement; one-year filing; civil penalties (l)(3)) (all read); N.C. Gen. Stat. § 14-395.1 (sexual harassment by a residential lessor or agent, Class 2 misdemeanor); N.C. Gen. Stat. § 42-42.2 (victim nondiscrimination); N.C. Gen. Stat. § 42-14.5 (no duty to screen; criminal record does not make injury foreseeable; background checks allowed). Source of income, immigration and firearms: confirmed absent (edu-no-source-of-income-rule-nc, edu-no-immigration-inquiry-rule-nc; firearms: search firearms? within 200 characters of lease/tenant/lessee/landlord/rental returned only N.C. Gen. Stat. § 15A-533, 50B-3.1, 74C-13, 77-35, 77-75, 113-291.9, none a rental rule). Tracks federal only (no added class). Federal FHA not re-read.",
+  },
+  // Pets
+  {
+    id: "edu-service-animal-law-nc",
+    title: "Service Animals: North Carolina Rules and Penalties",
+    group: "Pets",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "service-animal-denial-penalty",
+    bodyText:
+      "Under North Carolina law a person with a disability has the right to keep a service animal on any premises the person leases or rents, on showing either the animal's Department of Health and Human Services registration tag ('North Carolina Service Animal Permanent Registration') or that the animal is being trained or has been trained as a service animal. The law does not limit service animals to dogs. No extra compensation (deposit, fee or pet rent) may be charged for a service animal, but the person is liable for any damage the animal does. Depriving a person of these rights, or charging a fee for the service animal, is a Class 3 misdemeanor; so is disguising an animal as a service animal or service animal in training. Emotional support and other assistance animals are handled as reasonable accommodations under fair housing law, which allows denial for a direct threat or substantial damage.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (section pages with history lines). Controlling text: N.C. Gen. Stat. §N.C. Gen. Stat. § 168-1 (definition by reference to N.C. Gen. Stat. § 168A-3(7a), read), 168-4.2 (right to keep on leased premises; tag or training showing), 168-4.3 (DHHS registration; no fee), 168-4.4 (no extra compensation; liability for damage), 168-4.5 (Class 3 misdemeanor: disguising an animal; depriving rights; charging a fee) (Chapter 168 read whole). Assaults on assistance animals: N.C. Gen. Stat. § 14-163.1 (search hit, not read). DHHS registration rules (10A NCAC) not read (instruction 16). Lease clause: assistance-animal-accommodation-nc.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-local-preemption-nc",
+    title: "State Limits on Local Rental Rules",
+    group: "Compliance & Prohibited Terms",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-control",
+    bodyText:
+      "North Carolina counties and cities may not regulate the amount of rent for private residential or commercial rental property, and since 2024 may not require landlords to accept tenants who pay with federal housing assistance (such as Housing Choice Vouchers). Local governments may still regulate their own property, make rent agreements for subsidized properties, restrict rents on properties assisted with Community Development Block Grant funds, and regulate owners that take local funding or incentives. State law also sharply limits local rental registration and inspection programs: a local government generally may not require a permit or registration to rent, may inspect only with reasonable cause (or in a small designated blight area), and may require registration or a permit only for individual properties with repeated verified code violations or in the worst 10% for crime or disorder. Local housing codes, heat ordinances and inspections otherwise still apply.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). Controlling text: N.C. Gen. Stat. § 42-14.1(a)-(c) as rewritten by S.L. 2024-47, s. 7 (effective 2024-09-09, veto overridden; read with strike-through): (a) rent amount, counties and cities as defined in N.C. Gen. Stat. § 160A-1; (b) no local ban on refusing a tenant because the tenant's lawful source of income includes a federal housing assistance program; (c)(1)-(4) exceptions. Local registration and inspection limits: N.C. Gen. Stat. § 160D-1207(a)-(e) (read). Local heat: N.C. Gen. Stat. § 160D-1204. Kickoff lead ('record exactly what it preempts') answered. Municipal layer (Charlotte, Raleigh, Durham and others) flagged, not resolved (instruction 20).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-dishonored-payment-remedies-nc",
+    title: "Bounced Checks",
+    group: "Rent & Payment",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "returned-payments",
+    bodyText:
+      "A landlord who accepts a check may charge a processing fee of up to $35 if the bank refuses it for insufficient funds or because the account does not exist. If the tenant knowingly wrote the bad check and does not pay the check amount, any bank service charges and the processing fee in cash within 30 days after a written demand sent by certified mail in the statutory form, the landlord may sue for those amounts plus damages of three times the check amount (at least $100, at most $500), after a second statutory-form demand if the landlord chooses to send one; a court may reduce the extra damages for economic hardship. No statute sets a fee for a failed electronic payment.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (section pages with history lines). Controlling text: N.C. Gen. Stat. § 25-3-506 (processing fee up to $35; S.L. 2019-77) and N.C. Gen. Stat. § 6-21.3(a)-(a2) (civil remedy, certified-mail demand letters in the statutory forms, treble damages $100 to $500, hardship waiver) (read). Criminal worthless-check statutes (N.C. Gen. Stat. § 14-106 to 14-107.1) not read. Lease clause: `returned-payments` (tagged NC).",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-utility-billing-nc",
+    title: "Billing Tenants for Utilities",
+    group: "Landlord Responsibilities",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utility-submetering-disclosure",
+    bodyText:
+      "A North Carolina landlord may bill tenants for water and sewer, electricity, natural gas or a central heating or cooling system only under a written rental agreement and with authority from the North Carolina Utilities Commission, following the Commission's rules on how charges are calculated and billed (for water, generally metered use at no more than the supplier's rate, plus a Commission-capped administrative fee). The landlord may not disconnect these services for nonpayment, may not charge a statutory late fee for unpaid water or sewer, may not end the lease because of unpaid water, sewer or electric charges, and must apply payments to rent first unless the tenant says otherwise; the security deposit may be used for unpaid water, sewer and electric charges. A landlord that bills for water and learns the water exceeds a contaminant limit must tell tenants. Multi-unit buildings permitted since September 1, 1977 must have individual electric and gas meters in tenants' names unless the Commission approves otherwise or the lease includes the utility in the rent with the account in the landlord's name.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). Controlling text: N.C. Gen. Stat. §N.C. Gen. Stat. § 42-42.1, 42-26(b), 42-46(d), 42-51(a)(1), 42-42(a)(6); N.C. Gen. Stat. § 62-110(g)(1)-(4a) (read; (h)-(j) by reference); N.C. Gen. Stat. § 143-151.42 (read). NCUC rules not read (instruction 16). Lease clause: utility-billing-nc.",
+  },
+  // Disclosures
+  {
+    id: "edu-stigmatized-property-nc",
+    title: "What a Landlord Need Not Disclose",
+    group: "Disclosures",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "stigmatized-property",
+    bodyText:
+      "When offering property for rent, it is not a material fact that a previous occupant died or had a serious illness in the property, or that a registered sex offender lives or lived there or nearby. A landlord need not volunteer these facts, but may not knowingly make a false statement about them if asked.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). Controlling text: N.C. Gen. Stat. § 42-14.2 (1989, c. 592; 1998-212). Sales-side counterpart for 'death or serious illness' and offenders: N.C. Gen. Stat. § 39-50 (search hit, title read). Sex offender residence restrictions: N.C. Gen. Stat. § 14-208.16 (search hit; creates no private cause of action against a landlord).",
+  },
+  // Default & Termination
+  {
+    id: "edu-unauthorized-occupant-removal-nc",
+    title: "Removing Squatters",
+    group: "Default & Termination",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "squatter-removal",
+    bodyText:
+      "Since December 1, 2025, a North Carolina property owner (or a broker or other person with written authority) can use an expedited court procedure to remove an 'unauthorized person' from residential property: someone with no legal claim, no valid rental agreement or contract for deed, who has never paid rent or any other payment to the owner, and who is not otherwise authorized. It does not apply to a tenant, to a tenant holding over after the lease ends, or to anyone who ever paid rent; those cases go through summary ejectment. The owner files a complaint (with a magistrate if the clerk's office is closed) alleging the statutory facts; the sheriff serves it within 24 hours, a magistrate hears it within 48 hours of service, and if the owner wins the order requires the occupant to leave within four hours of service. The occupant must post at least a $10,000 bond to appeal. Staying after the order is second-degree trespass, and the owner may move belongings left behind to the property line. The owner is liable only for actual damages if the removal was wrongful.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (section pages with history lines). Controlling text: N.C. Gen. Stat. §N.C. Gen. Stat. § 14-159.50 to 14-159.56 (Article 22D, enacted by S.L. 2025-88 (SB 55), s. 1, approved 2025-08-06, 'effective December 1, 2025'; session law and codified sections read). Definitions: 'residential property' by reference to N.C. Gen. Stat. § 42A-4 (read), 'tenant' by reference to N.C. Gen. Stat. § 42-59 (read). Criminal trespass: N.C. Gen. Stat. § 14-159.13(a)(1) (read). Kickoff lead ('any 2025 or 2026 session law on squatters') answered: S.L. 2025-88 enacted; no 2026 act located (all 2026 session laws screened).",
+  },
+  // Disclosures
+  {
+    id: "edu-lead-hazards-nc",
+    title: "Lead Poisoning Hazards: North Carolina Duties",
+    group: "Disclosures",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lead-hazards",
+    bodyText:
+      "Besides the federal lead disclosure, North Carolina's health law gives the state duties that reach rental owners. When a child under six or a pregnant woman has confirmed lead poisoning, the Department of Health and Human Services investigates the home and notifies the owner or managing agent of any lead poisoning hazards; the owner must submit a written remediation plan within 14 days, give occupants three days' notice before work starts, finish within 60 days of approval, and may not use prohibited methods such as dry scraping, torch burning or uncontrolled sanding. Owners and tenants must give the Department information about children in the unit within 10 days of a request. An owner of pre-1978 housing who follows the state lead maintenance standard (and, where young children live, repeats it yearly and obtains a $10 annual certificate of compliance) is shielded from liability to occupants for lead injuries. Tenants of leased units are advised to report deteriorated paint to the owner within 72 hours of discovery.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (section pages with history lines). Controlling text: N.C. Gen. Stat. §N.C. Gen. Stat. § 130A-131.7 (definitions, incl. 'confirmed lead poisoning' 10 µg/dL and maintenance standard), 130A-131.9 (information within 10 days), 130A-131.9A (investigation), 130A-131.9B (notification), 130A-131.9C (remediation plan 14 days; notice three days; completion 60 days; prohibited methods), 130A-131.9D (maintenance-standard shield), 130A-131.9E (certificate), 130A-131.9G (resident responsibilities), 130A-131.9H ($10 fee) (read). Lead rules of the Commission for Public Health not read (instruction 16). Federal disclosure: `lead-based-paint`.",
+  },
+  {
+    id: "edu-meth-decontamination-nc",
+    title: "Former Meth Labs: Cleanup, Not Disclosure",
+    group: "Disclosures",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "meth-disclosure",
+    bodyText:
+      "An owner or lessee of a residence who knows it was used to manufacture methamphetamine must comply with the state's decontamination rules before it is lived in. North Carolina has no statute requiring a landlord to disclose a former drug lab to a tenant.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (section pages with history lines). Controlling text: N.C. Gen. Stat. § 130A-284 (read; 'An owner, lessee, operator or other person in control of a residence ... who has knowledge that the property has been used for the manufacture of methamphetamine, shall comply with these rules'). Decontamination rules (15A NCAC) not read (instruction 16). DISCLOSURE CONFIRMED ABSENT: CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 396 chapters of the official General Statutes (chapter pages on ncleg.gov loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 46 hits, so the engine reports true empties and matches exact strings, every word form entered explicitly; NC log §17). Searched 'clandestine|methamphetamine': 74 hits in 21 sections, all criminal, sentencing or law-enforcement provisions except N.C. Gen. Stat. §§ 130A-283 and 130A-284; no disclosure rule.",
+  },
+  // Parking & Storage
+  {
+    id: "edu-towing-nc",
+    title: "Towing Vehicles from Rental Property",
+    group: "Parking & Storage",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "towing",
+    bodyText:
+      "North Carolina's statewide private-lot towing statute applies only in listed counties and cities (Craven, Cumberland, Dare, Forsyth, Gaston, Guilford, Mecklenburg, New Hanover, Orange, Richmond, Robeson, Wake and Wilson counties and the municipalities in them, and Durham, Jacksonville, Charlotte and Fayetteville). There, an owner or lessee may have an unauthorized vehicle towed on written request only if signs at least 24 by 24 inches at every entrance name the towing company and its phone number (and individually assigned spaces are marked), and only 72 hours after the signs go up; the vehicle may not be taken more than 15 miles (25 if no storage within 15) and the owner may contest the towing lien. Elsewhere, and in addition, city and county towing ordinances apply.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (section pages with history lines). Controlling text: N.C. Gen. Stat. § 20-219.2(a)-(d) (read; (d) does not preempt local towing ordinances). Towing liens: N.C. Gen. Stat. § 44A-4 (not read). Local ordinances flagged, not resolved (instruction 20). Lease clause: `parking-vehicle-rules` (tagged NC).",
+  },
+  // Default & Termination
+  {
+    id: "edu-foreclosure-tenant-rights-nc",
+    title: "When the Landlord's Property Is Foreclosed",
+    group: "Default & Termination",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "foreclosure",
+    bodyText:
+      "If a residential property with fewer than 15 rental units is being sold in a North Carolina power-of-sale foreclosure, the notice of sale must also be mailed to the tenants (by name or to 'occupant'), and must tell them that a tenant whose lease was made or renewed on or after October 1, 2007 may end the lease by written notice effective 10 to 90 days after the sale date, owing only prorated rent, unless the owner cures the default first. After the sale, the buyer can get an order for possession only after giving occupants 10 days' notice (30 days in buildings with 15 or more rental units), and the order is carried out like an eviction writ. Federal law (the Protecting Tenants at Foreclosure Act) can give bona fide tenants more time.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). Controlling text: N.C. Gen. Stat. § 42-45.2 (tenant termination after notice of sale; fewer than 15 units; 10 to 90 days after the sale date); N.C. Gen. Stat. § 45-21.16A(b) (contents of the notice for residential property with fewer than 15 rental units), 45-21.17(4) (mailing to occupants), 45-21.29(k)(5), (l) (10 or 30 days' notice; execution under N.C. Gen. Stat. § 42-36.2) (read). Federal PTFA (12 U.S.C. § 5220 note) not read (instruction 16). Deposit on transfer: N.C. Gen. Stat. § 42-54.",
+  },
+  // Notices & General
+  {
+    id: "edu-electronic-notices-nc",
+    title: "Electronic Notices: Not for Default or Eviction",
+    group: "Notices & General",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "electronic-notice-regime",
+    bodyText:
+      "North Carolina's electronic transactions law, which lets parties sign and send records electronically, expressly does not apply to any notice of default or eviction, or of the right to cure, under a rental agreement for an individual's primary residence. A lease can be signed electronically, but default, cure and eviction notices to a residential tenant should be delivered on paper by hand or mail as the lease and law provide, even if the lease or the parties otherwise use e-mail or text.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (section pages with history lines). Controlling text: N.C. Gen. Stat. § 66-313(e)(2) (read; S.L. 2000-152, 2001-295). The NC REALTORS lease allows written notices by e-mail, text or fax (Form 410-T ¶31; NC log §15); that works for ordinary notices but not for the notices N.C. Gen. Stat. § 66-313(e)(2) excludes. Instruction 47 (new). `notices` and `electronic-signatures` are tagged NC as written.",
+  },
+  // Default & Termination
+  {
+    id: "edu-condo-conversion-notice-nc",
+    title: "Converting a Rental Building to Condominiums",
+    group: "Default & Termination",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "conversion-notice",
+    bodyText:
+      "A developer converting a building to condominiums must give each residential tenant and subtenant notice of the conversion and an offering statement at least 90 days before they must leave, by hand delivery or first-class mail. No tenant may be required to vacate on less than 90 days' notice (except for nonpayment, waste, disturbing other tenants or another breach giving a right of repossession), and the tenancy terms cannot change during that period. For 30 days after the notice the tenant has the first right to buy the unit. Failure to give the notice is a defense to an eviction.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (section pages with history lines). Controlling text: N.C. Gen. Stat. § 47A-36 (read), made applicable to condominiums under the Condominium Act by N.C. Gen. Stat. § 47C-4-106 (read). Found by the outside-title search (NC log §17). Offering statement: N.C. Gen. Stat. § 47A-35 (not read).",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-vacation-rental-scope-nc",
+    title: "Vacation Rentals and Hotel-Type Stays Are Different",
+    group: "Compliance & Prohibited Terms",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenancy-scope",
+    bodyText:
+      "Rentals of a residence for vacation, leisure or recreation for fewer than 90 days, to someone with a permanent home elsewhere, are 'vacation rentals' governed by North Carolina's Vacation Rental Act (Chapter 42A), with its own rules on written agreements, advance payments, deposits, habitability and expedited eviction; the Residential Rental Agreements Act does not apply to them. Rentals by hotels, motels, campgrounds and similar lodging to the same guest for fewer than 90 consecutive days are 'transient occupancies' outside Chapter 42 entirely and create no tenancy unless the agreement says so. Steinoak's lease library is for longer-term residential tenancies and does not cover either.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). Controlling text: N.C. Gen. Stat. § 42-39(a1) (Article 5 does not apply to vacation rentals under Chapter 42A); N.C. Gen. Stat. § 42-14.6 (transient occupancies excluded; S.L. 2023-5, s. 1, became law 2023-03-19); N.C. Gen. Stat. § 72-1(c) (transient occupancy: fewer than 90 consecutive days; read); N.C. Gen. Stat. § 42A-2, 42A-3, 42A-4 (purpose, application and exemptions, definitions incl. 'vacation rental' under 90 days; read). Other deprioritized Chapter 42 layers (instruction 37 inventory): N.C. Gen. Stat. § 42-1 (a lessor paid a share of profits is not a partner; commercial), N.C. Gen. Stat. § 42-7 and Article 2 (N.C. Gen. Stat. §§ 42-15 to 42-25: agricultural tenancies, crop liens, turpentine, mining and timber leases), N.C. Gen. Stat. § 42-14.3 (manufactured home community conversion notice, 180 days), N.C. Gen. Stat. § 42-14 proviso and N.C. Gen. Stat. § 42-36.1 (manufactured home spaces). Kickoff instruction: Chapter 42A scope recorded and carved out, not researched; no Chapter 42 rule was found to depend on it except N.C. Gen. Stat. § 42-39(a1).",
+  },
+  // Default & Termination
+  {
+    id: "edu-expedited-criminal-eviction-nc",
+    title: "Expedited Eviction for Drug and Other Criminal Activity",
+    group: "Default & Termination",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "expedited-criminal-eviction",
+    bodyText:
+      "Article 7 of North Carolina's landlord-tenant chapter applies to every residential rental agreement and gives landlords a faster court action against criminal activity: any violation of the controlled substances law other than simple possession, or other criminal activity that threatens the health, safety or peaceful enjoyment of other residents or the landlord's employees. The court must order complete eviction of the tenant and household if the activity occurred in the unit, the unit was used to further it, or the tenant, a household member or a guest engaged in it on or near the premises, unless the tenant proves they were not involved and did not know or could not reasonably prevent it; the court can instead order partial eviction of the person involved and bar them from the property, with a conditional order against the tenant. A criminal conviction is not required, an isolated incident is no defense, cases are heard on an expedited basis, witnesses can be protected, and police may share reports with the landlord. Collecting rent with knowledge of the activity is not a waiver, and a person who in good faith brings or helps with such a case is immune from civil liability.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). Controlling text: N.C. Gen. Stat. §N.C. Gen. Stat. § 42-59 to 42-76 (1995, c. 419; unamended): N.C. Gen. Stat. § 42-59 definitions; N.C. Gen. Stat. § 42-59.1 applies to all residential rental agreements; N.C. Gen. Stat. § 42-63 grounds and orders; N.C. Gen. Stat. § 42-64 defenses and exemption; N.C. Gen. Stat. § 42-67 impermissible defenses; N.C. Gen. Stat. § 42-68 expedited procedure; N.C. Gen. Stat. § 42-69 no conviction needed; N.C. Gen. Stat. § 42-71 witness protection; N.C. Gen. Stat. § 42-72 law enforcement records; N.C. Gen. Stat. § 42-73 rent collection not a waiver; N.C. Gen. Stat. § 42-76 immunity. Lease clause: criminal-activity-nc.",
+  },
+  // Security Deposit
+  {
+    id: "edu-no-deposit-interest-nc",
+    title: "No Interest on Security Deposits",
+    group: "Security Deposit",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-interest",
+    bodyText:
+      "North Carolina does not require a landlord to pay interest on a security deposit or to hold it in an interest-bearing account.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 396 chapters of the official General Statutes (chapter pages on ncleg.gov loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 46 hits, so the engine reports true empties and matches exact strings, every word form entered explicitly; NC log §17). Chapter 42 Article 6 (N.C. Gen. Stat. §§ 42-50 to 42-56) read whole: no interest rule. Searched '(security )?deposits? ... interest ... (tenant|lessee)': 2 hits (N.C. Gen. Stat. § 42-54 'landlord's interest', N.C. Gen. Stat. § 42A-15), neither an interest duty. The NC REALTORS lease says interest on a deposit held in an interest-bearing account belongs to the landlord (Form 410-T ¶4).",
+  },
+  // Access & Entry
+  {
+    id: "edu-no-entry-notice-statute-nc",
+    title: "No Statutory Entry-Notice Rule",
+    group: "Access & Entry",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-entry",
+    bodyText:
+      "North Carolina has no statute setting when or with how much notice a landlord may enter a rented home. The lease controls (this library's Access & Entry terms give 24 hours' notice except in emergencies); a court may still treat unreasonable entry as a breach of the tenant's right to possession.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 396 chapters of the official General Statutes (chapter pages on ncleg.gov loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 46 hits, so the engine reports true empties and matches exact strings, every word form entered explicitly; NC log §17). Searched '(landlord|lessor) ... (enter|entry|access) ... notice' (0 hits) and '(right of entry|may enter|to enter|entry) ... (tenant|lessee|dwelling unit|leased premises|rental unit)' (9 hits: N.C. Gen. Stat. § 20-106.2, 41-80, 41-83, 41-89, 42-42.2, 42-59, 104E-6.1, 130A-292, 157-9; none a landlord entry rule; N.C. Gen. Stat. § 42-42.2 hit is 'refuse to enter into a rental agreement').",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-rent-increase-notice-nc",
+    title: "No Statutory Rent-Increase Notice",
+    group: "Rent & Payment",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-increase-notice",
+    bodyText:
+      "North Carolina has no statute requiring advance notice of a rent increase or limiting how much rent may rise. During a fixed term rent can change only as the lease allows; a month-to-month tenancy can be ended on seven days' notice and re-let at a new rent. Local governments cannot regulate rent amounts.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 396 chapters of the official General Statutes (chapter pages on ncleg.gov loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 46 hits, so the engine reports true empties and matches exact strings, every word form entered explicitly; NC log §17). Searched '(increase|raise|raising) ... rent|rent increase': 1 hit (N.C. Gen. Stat. § 131F-2, unrelated). Local rent regulation preempted (N.C. Gen. Stat. § 42-14.1(a)).",
+  },
+  {
+    id: "edu-no-application-fee-cap-nc",
+    title: "No Application-Fee Cap",
+    group: "Rent & Payment",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "application-fees",
+    bodyText:
+      "North Carolina has no statute capping or regulating rental application or screening fees charged by landlords. (Late fees and eviction fees are strictly capped; see the late-fee and eviction-fee rules.) A separate statute regulates rental referral agencies that charge prospective tenants a fee to find housing.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 396 chapters of the official General Statutes (chapter pages on ncleg.gov loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 46 hits, so the engine reports true empties and matches exact strings, every word form entered explicitly; NC log §17). Searched '(application|screening) fees? ... (rent|tenant|lessee|landlord|housing)': 1 hit (N.C. Gen. Stat. § 53-364, banking). Rental referral agencies: N.C. Gen. Stat. § 66-142 to 66-146 (search hits; fees and deposits for locating housing; not a landlord rule; out of scope).",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-no-immigration-inquiry-rule-nc",
+    title: "No Immigration-Status Rule for Landlords",
+    group: "Compliance & Prohibited Terms",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "immigration-status",
+    bodyText:
+      "North Carolina has no statute that requires, or forbids, a landlord asking about a tenant's immigration or citizenship status. Fair housing law's national-origin protection still applies.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 396 chapters of the official General Statutes (chapter pages on ncleg.gov loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 46 hits, so the engine reports true empties and matches exact strings, every word form entered explicitly; NC log §17). Searched '(immigration|citizenship) ... (tenant|landlord|lessee|lessor|rent|dwelling|housing)': 1 hit (N.C. Gen. Stat. § 115D-11.5, community colleges).",
+  },
+  // Disclosures
+  {
+    id: "edu-no-radon-disclosure-nc",
+    title: "No Radon Disclosure Rule",
+    group: "Disclosures",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "radon",
+    bodyText:
+      "North Carolina has no statute requiring a landlord to test for or disclose radon.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 396 chapters of the official General Statutes (chapter pages on ncleg.gov loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 46 hits, so the engine reports true empties and matches exact strings, every word form entered explicitly; NC log §17). Searched '\\bradon\\b': 1 hit in the whole code (N.C. Gen. Stat. § 47E-4, the residential property disclosure statement for sales, which does not apply to leases).",
+  },
+  {
+    id: "edu-no-mold-bedbug-disclosure-nc",
+    title: "No Mold or Bed Bug Disclosure Rule",
+    group: "Disclosures",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "mold",
+    bodyText:
+      "North Carolina has no statute requiring a landlord to disclose mold or bed bugs or setting a treatment timeline. The general repair duty still applies, and plumbing leaks or drainage problems that cause standing water contributing to mold are an 'imminently dangerous condition' the landlord must fix within a reasonable time.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 396 chapters of the official General Statutes (chapter pages on ncleg.gov loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 46 hits, so the engine reports true empties and matches exact strings, every word form entered explicitly; NC log §17). Searched 'mold|molds|mildew|bed ?bugs?|fungus|fungal': 47 hits in 14 sections; the only landlord-tenant hit is N.C. Gen. Stat. § 42-42(a)(8)l. ('flooding problems ... that contribute to mosquito infestation or mold'); 'bed ?bug' returned 0.",
+  },
+  {
+    id: "edu-no-flood-disclosure-nc",
+    title: "No Flood Disclosure Rule for Leases",
+    group: "Disclosures",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "flood-disclosure",
+    bodyText:
+      "North Carolina has no statute requiring a landlord to disclose past flooding or flood-zone status to a tenant. (The residential property disclosure form for sales does not apply to leases.)",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 396 chapters of the official General Statutes (chapter pages on ncleg.gov loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 46 hits, so the engine reports true empties and matches exact strings, every word form entered explicitly; NC log §17). Searched 'flood ... (lease|tenant|lessee|rental|landlord)' both directions: 1 hit (N.C. Gen. Stat. § 146-32, state lands).",
+  },
+  // Parking & Storage
+  {
+    id: "edu-no-ev-charging-right-nc",
+    title: "No Tenant EV Charging Right",
+    group: "Parking & Storage",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "ev-charging",
+    bodyText:
+      "North Carolina gives tenants no statutory right to install an electric vehicle charger.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 396 chapters of the official General Statutes (chapter pages on ncleg.gov loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 46 hits, so the engine reports true empties and matches exact strings, every word form entered explicitly; NC log §17). Searched 'electric vehicle|charging station': 65 hits in 14 sections (motor vehicle, utility, transportation and planning provisions); none a tenant right.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-cash-receipt-duty-nc",
+    title: "No Receipt Duty for Rent",
+    group: "Rent & Payment",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "cash-rent-receipt",
+    bodyText:
+      "North Carolina has no statute requiring a landlord to give a receipt for rent, including cash rent, or regulating how rent may be paid.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 396 chapters of the official General Statutes (chapter pages on ncleg.gov loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 46 hits, so the engine reports true empties and matches exact strings, every word form entered explicitly; NC log §17). Searched 'receipts? (for|of) (rent|payment)|rent receipt': 22 hits in 19 sections, none landlord-tenant; '\\bcash\\b ... \\brent\\b': 0.",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-holdover-multiplier-nc",
+    title: "No Statutory Holdover Damages",
+    group: "Default & Termination",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "holdover",
+    bodyText:
+      "North Carolina sets no double-rent or other multiplier for a tenant who stays after the lease ends. The landlord may bring summary ejectment and claim rent and damages for the tenant's occupation since the lease ended.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 396 chapters of the official General Statutes (chapter pages on ncleg.gov loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 46 hits, so the engine reports true empties and matches exact strings, every word form entered explicitly; NC log §17). Searched 'hold(s|ing)? ?over|holdover|double (the )?rent|at sufferance': 56 hits in 36 sections; landlord-tenant hits N.C. Gen. Stat. §§ 42-26, 42-37.1, 42A-23 and 14-159.50 set no multiplier. Present: N.C. Gen. Stat. § 42-28 ('damages for the occupation of the premises since the cessation of the estate'); N.C. Gen. Stat. § 42-4 (reasonable compensation).",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-no-police-call-protection-nc",
+    title: "No Statutory Right-to-Call-Police Protection",
+    group: "Compliance & Prohibited Terms",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "right-to-call-police-statute",
+    bodyText:
+      "North Carolina has no statute protecting a tenant's right to call police or emergency services or barring lease penalties for such calls. (State law does limit local crime-and-disorder rental programs and requires local governments to help landlords evict tenants charged with crimes if a property is targeted.)",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 396 chapters of the official General Statutes (chapter pages on ncleg.gov loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 46 hits, so the engine reports true empties and matches exact strings, every word form entered explicitly; NC log §17). Searched '(law enforcement|police|911|emergency assistance) ... (tenant|lessee)': 4 hits (N.C. Gen. Stat. § 19-6.1, 42-63, 42A-24, 160D-1207), none a call protection.",
+  },
+  // Disclosures
+  {
+    id: "edu-no-owner-disclosure-rule-nc",
+    title: "No Owner or Manager Disclosure Rule",
+    group: "Disclosures",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "owner-identity-disclosure",
+    bodyText:
+      "North Carolina has no statute requiring a landlord to disclose the owner's or manager's name and address to the tenant. A licensed broker managing a property is not personally liable in a landlord-tenant suit merely because the lease does not identify the landlord.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 396 chapters of the official General Statutes (chapter pages on ncleg.gov loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 46 hits, so the engine reports true empties and matches exact strings, every word form entered explicitly; NC log §17). Searched '(disclose|disclosure|identify) ... (owner|landlord) ... (tenant|lessee|rental agreement)': 4 hits (N.C. Gen. Stat. § 42-44, N.C. Gen. Stat. § 42A-33, N.C. Gen. Stat. § 58-31-2, 93A-83). N.C. Gen. Stat. § 42-44(c1) (history line includes S.L. 2016-98) assumes no duty: a broker 'shall not be personally liable ... solely because the real estate broker or firm fails to identify the landlord of the property in the rental agreement'.",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-eviction-record-sealing-nc",
+    title: "No Eviction Record Sealing",
+    group: "Default & Termination",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-record-sealing",
+    bodyText:
+      "North Carolina has no statute allowing summary ejectment records to be sealed or expunged.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 396 chapters of the official General Statutes (chapter pages on ncleg.gov loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 46 hits, so the engine reports true empties and matches exact strings, every word form entered explicitly; NC log §17). Searched '(expunge|expunction|seal*) ... (ejectment|eviction)' both directions: 0 hits.",
+  },
+  // Security Deposit
+  {
+    id: "edu-no-move-in-inspection-rule-nc",
+    title: "No Statutory Move-In Inspection",
+    group: "Security Deposit",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "move-in-inventory",
+    bodyText:
+      "North Carolina does not require a move-in or move-out inspection, checklist or condition report. A written, signed condition report is still the best evidence for deposit deductions.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 396 chapters of the official General Statutes (chapter pages on ncleg.gov loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 46 hits, so the engine reports true empties and matches exact strings, every word form entered explicitly; NC log §17). Chapter 42 Article 6 read whole: no inspection rule. Searched '(move-in|move in|inventory|condition report|checklist) ... (tenant|lessee)': 0 hits. The NC REALTORS lease lets the tenant give a written assessment within a set number of days (Form 410-T ¶26).",
+  },
+  // Default & Termination
+  {
+    id: "edu-sale-of-rented-property-nc",
+    title: "Selling a Rented Property",
+    group: "Default & Termination",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "sale-of-property",
+    bodyText:
+      "When a North Carolina landlord sells or otherwise transfers a rented property, the lease goes with it: the transfer is complete without the tenant's consent or 'attornment', the new owner has the same rights and remedies against the tenant (for rent and for breach of other lease terms) that the old landlord had, and the tenant has the same rights and remedies against the new owner. A tenant who, without notice of the transfer, keeps paying the old landlord is protected. Within 30 days after the landlord's interest ends, the old landlord must either transfer the remaining security deposit to the new owner and notify the tenant by mail of the transfer and the new owner's name and address, or return the deposit to the tenant. Rent that is growing due when ownership changes because of a death or other uncertain event is apportioned between the successive owners. Converting a rental building to condominiums has its own 90-day notice and purchase-option rules.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). Controlling text: N.C. Gen. Stat. § 42-2 (conveyance of a reversion complete without attornment; 'no holder of a particular estate shall be prejudiced by any act done by him as holding under his grantor, without notice of such conveyance'); N.C. Gen. Stat. § 42-8 (grantee of the reversion and assigns of the lease have reciprocal rights and remedies under the lease covenants); N.C. Gen. Stat. § 42-6 (apportionment of rents between successive owners where the right ends by death or another uncertain event); N.C. Gen. Stat. § 42-54 (deposit transfer or return within 30 days). Condominium conversion: edu-condo-conversion-notice-nc. Foreclosure: edu-foreclosure-tenant-rights-nc. Added by the instruction 37 citation inventory (NC log §8) and the scenario screen (NC log §16).",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-tenant-misconduct-crimes-nc",
+    title: "Tenant Crimes Against the Landlord's Property",
+    group: "Tenant Responsibilities",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "prohibited-acts-renter",
+    bodyText:
+      "Two North Carolina statutes make tenant misconduct a crime. A tenant who, during or after the term, willfully and unlawfully demolishes, destroys, defaces, burns or otherwise damages the landlord's house, outbuildings, fences or trees commits a Class 1 misdemeanor. A tenant who, willfully and with intent to defraud the landlord, gives up possession of the rented premises to someone other than the landlord also commits a Class 1 misdemeanor. These are in addition to the tenant's civil liability for damage beyond wear and tear. A tenant is not liable for damage that happens accidentally despite reasonable diligence, unless the tenant agreed otherwise.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). Controlling text: N.C. Gen. Stat. § 42-11 (willful destruction by tenant, Class 1 misdemeanor); N.C. Gen. Stat. § 42-13 (wrongful surrender to other than landlord with intent to defraud, Class 1 misdemeanor); N.C. Gen. Stat. § 42-10 (tenant not liable for accidental damage 'unless he so contract'); N.C. Gen. Stat. § 42-43(a)(4), (6) (civil duties). Added by the instruction 37 citation inventory (NC log §8).",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-no-source-of-income-rule-nc",
+    title: "No Statewide Source-of-Income Rule",
+    group: "Compliance & Prohibited Terms",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "source-of-income",
+    bodyText:
+      "North Carolina has no statute requiring landlords to accept Housing Choice Vouchers or other rent assistance, or barring refusal based on source of income. Since September 9, 2024, counties and cities may not adopt or enforce such a rule where the income includes a federal housing assistance program, except for property they own, properties they subsidize, and owners that take local funding or incentives.",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 396 chapters of the official General Statutes (chapter pages on ncleg.gov loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 46 hits, so the engine reports true empties and matches exact strings, every word form entered explicitly; NC log §17). Searched 'source of income|lawful source|housing choice voucher|section 8|housing assistance program': 37 hits in 28 sections; the only rental rule is the local preemption in N.C. Gen. Stat. § 42-14.1(b)-(c) (S.L. 2024-47, s. 7) and public-housing authority rules (N.C. Gen. Stat. § 157-29). See edu-local-preemption-nc.",
   },
 ];
 

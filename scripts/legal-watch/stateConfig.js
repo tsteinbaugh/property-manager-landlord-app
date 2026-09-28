@@ -25,6 +25,7 @@ const STATE_NAMES = {
   FL: "Florida",
   AZ: "Arizona",
   GA: "Georgia",
+  NC: "North Carolina",
 };
 
 const STATE_CONFIG = {
@@ -697,6 +698,54 @@ const STATE_CONFIG = {
         label:
           "Georgia agency rules LegiScan can't see: Department of Public Safety towing rules, Department of Public Health lead rules, PSC utility rules (GA log §7)",
         clauseIds: ["edu-towing-ga", "edu-lead-poisoning-abatement-ga", "utility-service-continuity"],
+      },
+    ],
+  },
+
+  NC: {
+    // N.C. Gen. Stat. sections are chapter-section ("42-46", "42-25.6"),
+    // with lettered chapters ("160D-1207", "127B-25", "168A-3") and a few
+    // three-part ones ("28A-25-7", "25-3-506"). A bare two-part number is
+    // too loose for a full-text search, and NC bills cite sections as
+    // "G.S. 42-46", so the query uses that phrase. Citations are split on
+    // ";" and only the "N.C. Gen. Stat." parts are read (the lead-paint and
+    // foreclosure rows also cite U.S.C./CFR). Subsection parentheses become
+    // spaces. No N.C. Admin. Code rule and no case law is relied on (NC log §8).
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        if (!/^N\.C\. Gen\. Stat\./.test(part)) continue;
+        const body = part.replace(/\([^)]*\)/g, " ");
+        for (const m of body.matchAll(/\b(\d{1,3}[A-Z]?-\d{1,4}(?:\.\d{1,2})?(?:-\d{1,3})?)\b/g)) out.push(m[1]);
+      }
+      return out;
+    },
+    buildQuery: (section) => `"G.S. ${section}"`,
+    extraSectionAliases: {
+      // Small "X to Y" ranges: the extractor catches only the two ends.
+      // Larger ranges (42-59 to 42-76 expedited eviction, 127B-25 to 127B-36
+      // servicemembers, 66-311 to 66-330 UETA) stay endpoint-only.
+      "security-deposit-use-nc": ["42-25.7", "42-25.8"],
+      "edu-unauthorized-occupant-removal-nc": ["14-159.51", "14-159.52", "14-159.53", "14-159.54", "14-159.55"],
+      "lead-based-paint": ["130A-131.8"],
+    },
+    cfrChecks: [
+      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-nc"] },
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+    ],
+    federalStatuteChecks: [],
+    manualRecheckItems: [
+      {
+        id: "nc-42-46-compilation-misprint",
+        label:
+          "N.C. Gen. Stat. §42-46(i)(4)-(5): the official compilation misprints these after S.L. 2025-52 and 2025-54 (checklist instruction 46); check whether ncleg.gov has corrected it",
+        clauseIds: ["eviction-fees-nc", "edu-late-and-eviction-fees-nc"],
+      },
+      {
+        id: "nc-agency-rules",
+        label:
+          "North Carolina agency rules LegiScan can't see: NCUC utility-billing rules (incl. Rule 18-6), Real Estate Commission trust-account rules (21 NCAC 58A), DHHS service-animal and meth-decontamination rules (NC log §7)",
+        clauseIds: ["utility-billing-nc", "security-deposit-holding-nc", "edu-meth-decontamination-nc"],
       },
     ],
   },
