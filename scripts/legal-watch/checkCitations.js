@@ -203,12 +203,17 @@ const CFR_CHECKS = CONFIG.cfrChecks || [];
 const FEDERAL_STATUTE_CHECKS = CONFIG.federalStatuteChecks || [];
 const MANUAL_RECHECK_ITEMS = CONFIG.manualRecheckItems || [];
 const MANUAL_RECHECK_INTERVAL_DAYS = 180;
+// Every request gets a timeout (added 2026-09-28). Without one, a single hung
+// LegiScan request left North Carolina's first dry-run stalled indefinitely.
+// A timed-out request throws like any other failed check, so it's counted as
+// an errored check (and an all-errored run still fails loudly).
+const FETCH_TIMEOUT_MS = 30000;
 
 // ---------- eCFR ----------
 
 async function ecfrLastAmended(title, section) {
   const url = `https://www.ecfr.gov/api/versioner/v1/versions/title-${title}.json?section=${section}`;
-  const res = await fetch(url);
+  const res = await fetch(url, { signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) });
   if (!res.ok) throw new Error(`eCFR versions lookup failed for ${title} CFR ${section}: HTTP ${res.status}`);
   const data = await res.json();
   if (VERBOSE) {
@@ -233,7 +238,7 @@ async function legiscanSearch(section, jurisdiction = STATE_CODE) {
   // `buildQuery` (CA) turns its section key into a narrower boolean query.
   const query = jurisdiction === STATE_CODE && CONFIG.buildQuery ? CONFIG.buildQuery(section) : section;
   const url = `https://api.legiscan.com/?key=${LEGISCAN_API_KEY}&op=getSearch&state=${jurisdiction}&year=1&query=${encodeURIComponent(query)}`;
-  const res = await fetch(url);
+  const res = await fetch(url, { signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) });
   if (!res.ok) throw new Error(`LegiScan search failed for ${section}: HTTP ${res.status}`);
   const data = await res.json();
   if (VERBOSE) {
@@ -251,7 +256,7 @@ async function legiscanSearch(section, jurisdiction = STATE_CODE) {
 
 async function legiscanGetBill(billId) {
   const url = `https://api.legiscan.com/?key=${LEGISCAN_API_KEY}&op=getBill&id=${billId}`;
-  const res = await fetch(url);
+  const res = await fetch(url, { signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) });
   if (!res.ok) throw new Error(`LegiScan getBill failed for ${billId}: HTTP ${res.status}`);
   const data = await res.json();
   if (VERBOSE) {
@@ -322,6 +327,7 @@ async function sendAlertEmail({ billFindings = [], cfrFindings = [], reminders =
   const html = `<p>${STATE_NAME} lease-clause legal watch -- verify anything below against primary text before touching a clause; nothing here is a verified finding.</p>${sections.join("")}<p><i>See lease-clause-citations-${STATE_CODE}.csv for what each clause currently asserts.</i></p>`;
 
   const res = await fetch("https://api.resend.com/emails", {
+    signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
     method: "POST",
     headers: {
       Authorization: `Bearer ${RESEND_API_KEY}`,
