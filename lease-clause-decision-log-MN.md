@@ -1858,3 +1858,10 @@ Because this pass touched a completed state and produced a landlord-facing risk 
 Two smaller refinements from the same pass: §299F.48's definition reaches "the public housing authorities **and agencies** formed by cities and counties", now quoted rather than paraphrased; and the §504B.161 special-session citation above.
 
 **One thing the checker corroborated that is worth keeping.** The revisor's **codified section pages have not absorbed Laws 2026 ch. 81** even though it is in force: `/statutes/cite/504B.118` still shows "RECEIPT FOR RENT PAID IN CASH" with history ending 2010, `/statutes/cite/504B.2136` returns **404**, and `/statutes/cite/504B.321` still prints **$500**. Anything relying on ch. 81 must cite the session law, and **any tooling that scrapes the cite pages will silently read pre-amendment law for these three sections.** That is a direct warning for the Claude Code sync and for the legal-watch monitor.
+
+## Propagated shared-row edits, 2026-09-28 (Taylor's decisions after the gap-discovery backfill)
+
+Uniform under §5a.1: each edit is self-limiting, so this state needs no override. Not a re-audit; nothing else in this state was reviewed.
+
+1. **`no-alterations`** — the carve-out now reads "any repair, installation, rekeying, or reasonable modification that applicable law entitles Tenant to perform". It keeps disability modifications that fair-housing law requires the landlord to permit (at the tenant's expense) from reading as subject to unfettered landlord consent. Raised by the NE backfill (NE log §D.1).
+2. **`holdover`** — a continued month-to-month tenancy is now "terminable by either party upon the written notice required by applicable law or, where applicable law sets no notice period, by this Lease". Wyoming has no statutory period (`periodic-tenancy-notice-wy` supplies one). Raised by the WY backfill (WY log §20.4).

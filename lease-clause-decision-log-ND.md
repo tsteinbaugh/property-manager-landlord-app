@@ -1736,3 +1736,11 @@ Three routes. **My recommendation is (1) for the first row and (2) for the other
 Delta of 15 rows: **11 new, 4 changed, every one `states=ND` only.** Merged against the trunk and asserted: **952 rows, 916 active. ND 122 active rows — 62 lease clauses (all 62 displayable, none superseded) and 60 education rows, all `VERIFIED`.** Every other state's tag count is byte-identical before and after. No duplicate ids, no dangling `supersedes`, no display collisions, no blank `verification_status` on an active row, no blank `states` except the `security-deposit-return` parent, no blank `topic_key`. Every row id named in a new or changed `notes` field exists in the CSV. No shared row's `bodyText`, `rule_type`, `content_type` or `states` changed, so **no §5a.1 propagation obligation arises from this pass** — the propagation items are all in §43.7 awaiting a decision.
 
 ---
+
+## Propagated shared-row edits, 2026-09-28 (Taylor's decisions after the gap-discovery backfill)
+
+Uniform under §5a.1: each edit is self-limiting, so this state needs no override. Not a re-audit; nothing else in this state was reviewed.
+
+1. **`no-alterations`** — the carve-out now reads "any repair, installation, rekeying, or reasonable modification that applicable law entitles Tenant to perform". It keeps disability modifications that fair-housing law requires the landlord to permit (at the tenant's expense) from reading as subject to unfettered landlord consent. Raised by the NE backfill (NE log §D.1).
+2. **`pet-policy`** — "without liability to Tenant" now reads "without liability to Tenant to the extent applicable law permits". A flat disclaimer of the landlord's own entry-and-removal act is void where exculpation is barred (ND §9-08-02). Raised by the ND backfill (ND log §43.7).
+3. **ND tags moved (states-only, no propagation owed):** `tenants-property-insurance`, `parking` and `storage-space` → their `-ks-oh-ca` versions, which drop the flat "not liable" sentence that N.D.C.C. §9-08-02 would void as to the landlord's own violation of law (§43.7 route 1). The LIABILITY-LANGUAGE CHECK note on 38 ND rows now carries the §43.7(B) qualification, and `late-fee` has the §43.7(C) note.

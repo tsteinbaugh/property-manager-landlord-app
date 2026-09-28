@@ -8497,6 +8497,57 @@ const LANDLORD_EDUCATION = [
       "Wyoming gives you a court route to recover possession: a notice to quit under W.S. 1-21-1003, a forcible entry and detainer action under W.S. 1-21-1001 through 1-21-1017, and a writ of restitution the sheriff executes. W.S. 1-21-1211(a) is explicit that it is the sheriff, acting on a court order, who removes a renter's possessions and prevents reentry. What Wyoming does not have is the express statutory ban on landlord self-help that thirteen other states in this library carry: no located statute prohibits changing the locks, removing a door, or cutting off utilities to force a tenant out, and none sets a penalty for it. Do not read that silence as permission. The FED process is the route the statutes actually provide, and a landlord who locks a tenant out instead is exposed to ordinary civil claims -- wrongful eviction, trespass, and conversion of the tenant's belongings -- none of which carries a statutory cap on what a court may award. The cheap, fast-looking option is the one with the open-ended downside.",
     notes: "WY added 2026-09-27, gap-discovery source 3 (WY log section 20.2). GAP FOUND: 13 of 14 states carry a self-help/lockout/utility-shutoff row (CO, KS, NE, MN, ND, SD, CA, NV, TX x3, NJ, FL, AZ) -- WY was the only one without, on what is among the most consequential questions a landlord asks. AFFIRMATIVE CONTENT VERIFIED: Title 1 ch. 21 art. 10 section index read 2026-09-27 (1-21-1001 through 1-21-1017); W.S. 1-21-1211(a) read in full during the original WY statute walk and already quoted in edu-post-writ-possessions-wy. ABSENCE CLAIM, evidentiary basis stated per instruction 15: FED article index (titles only), Article 12 full read, Title 34 ch. 2 index, plus consistent secondary-source agreement -- NOT an official full-text search of the Wyoming code, and 1-21-1016 ('Ejectment Not Barred') was not read section-open. This is the weaker-evidence tier, same caveat as edu-no-right-to-call-police-statute-wy. FLAGGED FOR TAYLOR: an official wyoleg.gov full-text search on lockout/utility-shutoff terms is the one step that would move this to the strong tier.",
   },
+  // Landlord Responsibilities
+  {
+    id: "edu-habitability-escrow-oh",
+    title: "How An Ohio Tenant Forces Repairs: Rent Escrow",
+    group: "Landlord Responsibilities",
+    states: ["OH"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "habitability",
+    bodyText:
+      "Ohio does not give tenants a repair-and-deduct right. It gives them the courthouse. If you fail an obligation under R.C. 5321.04 or under the lease, the tenant may give you written notice specifying the acts, omissions or code violations, sent to the person or place where rent is normally paid. If you then fail to remedy within a reasonable time considering the severity, or within thirty days, whichever is sooner - and the tenant is current on rent - the tenant may do one of three things: deposit all rent due and thereafter becoming due with the clerk of the municipal or county court; apply to the court for an order that you remedy the condition, which can include an order reducing the rent until you do or an order spending the deposited rent on the repair; or terminate the rental agreement. Two carve-outs work in your favour. The remedy does not reach a landlord who is party to rental agreements covering three or fewer dwelling units and who gives written notice of that fact, and it does not apply to a dwelling occupied by a student tenant.",
+    notes: "OH: R.C. 5321.07(A)-(D), re-read section-open 2026-09-27. FOUND BY THE LANDLORD-SCENARIO SCREEN (source 3) - Ohio had no row stating the escrow mechanism, only repair-escrow-exemption-notice-oh, which is the EXEMPTION NOTICE and presupposes the reader already knows the remedy it escapes. Pairs with landlord-maintenance-oh in the same delta. 5321.09 and 5321.10 (landlord application for release of rent, partial release) were NOT read section-open in this pass - flagged, and they are what a landlord actually needs to get the money out. Note the 5321.07(C) exemption is conditioned on giving the notice, so it fails silently if the lease omits it: that is why repair-escrow-exemption-notice-oh exists as a CONDITIONAL clause.",
+  },
+  // Default & Termination
+  {
+    id: "edu-retaliation-oh",
+    title: "Ohio Retaliation: The Three Triggers And What It Costs",
+    group: "Default & Termination",
+    states: ["OH"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "retaliation",
+    bodyText:
+      "An Ohio landlord may not retaliate against a tenant by raising the rent, decreasing services, or bringing or threatening to bring an action for possession, because the tenant did any of three things: complained to an appropriate governmental agency about a violation of a building, housing, health or safety code that materially affects health and safety; complained to you about a violation of R.C. 5321.04; or joined with other tenants to negotiate or deal collectively with you about the terms and conditions of the tenancy. If you retaliate, the tenant may use it as a defence to your possession action, recover possession, or terminate the rental agreement - and may recover actual damages together with reasonable attorney's fees. What you may still do: R.C. 5321.02(C) expressly preserves a rent increase that reflects the cost of improvements you installed or an increase in your other costs of operating the property. Document that basis before you raise the rent of a tenant who has just complained.",
+    notes: "OH: R.C. 5321.02(A),(B),(C), re-read section-open 2026-09-27; effective 1974-11-04, S.B. 103 (110th G.A.), unamended. FOUND BY THE LANDLORD-SCENARIO SCREEN (source 3): 'tenant called the city inspector, now I want to raise the rent' had no Ohio row. COVERAGE GAP - 10 states carry a retaliation row and Ohio did not. The attorney-fee award here is STATUTORY, so 5321.13(C)'s ban on fee agreements does not shield a landlord from it (edu-bilateral-fee-ban-oh). Note the trigger list is CLOSED and narrower than it looks: a tenant summoning police or emergency services is not on it, and Ohio has no separate right-to-call-emergency-services statute (edu-no-emergency-assistance-right-oh, same delta). R.C. 5321.03 lets a landlord still bring a possession action on the grounds listed there notwithstanding 5321.02 - NOT read section-open in this pass, flagged.",
+  },
+  {
+    id: "edu-self-help-eviction-ban-oh",
+    title: "Never Shut Off Utilities Or Change The Locks In Ohio",
+    group: "Default & Termination",
+    states: ["OH"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "self-help-eviction",
+    bodyText:
+      "Ohio bans self-help recovery of possession outright, and the ban is written broadly. Under R.C. 5321.15(A) no landlord may initiate ANY act - the statute names terminating utilities or services, excluding the tenant from the premises, and threatening any unlawful act - for the purpose of recovering possession, other than through the procedures in R.C. Chapters 1923, 5303 and 5321. Under division (B) you may not seize a tenant's furnishings or possessions to recover rent except under a court order. This applies to a tenant whose right to possession has already ended, not just a current tenant. Division (C) makes you liable in a civil action for ALL damages caused, together with reasonable attorney's fees. There is no de minimis version of this: turning off the water on a holdover tenant is the conduct the section was written to stop.",
+    notes: "OH: R.C. 5321.15(A),(B),(C), re-read section-open 2026-09-27; effective 1974-11-04, S.B. 103 (110th G.A.). FOUND BY THE LANDLORD-SCENARIO SCREEN (source 3): 'tenant stopped paying and I want them out fast' and 'tenant changed the locks' had no Ohio row for the ban itself. COVERAGE GAP - 7 states carry a self-help row; Ohio's only mention of 5321.15(B) was inside edu-no-abandoned-property-safe-harbor-oh, which is about belongings, not about exclusion or utility shutoff. The statutory fee award again defeats 5321.13(C). Note the express reach to 'a tenant whose right to possession has terminated' - the period after a judgment but before the writ executes is exactly when landlords self-help, and it is covered.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-rent-control-preemption-oh",
+    title: "Ohio Preempts Local Rent Control, With Findings Attached",
+    group: "Rent & Payment",
+    states: ["OH"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-control-preemption",
+    bodyText:
+      "Ohio forecloses local rent control about as firmly as any state in this library. R.C. 5321.19 bars a political subdivision from enacting, adopting, renewing, maintaining, enforcing or continuing any charter provision, ordinance, resolution, rule or other measure that conflicts with Chapter 5321, or that regulates the rights and obligations of parties to a rental agreement that the chapter regulates, including by imposing or requiring rent control or rent stabilization. R.C. 5321.20 then adds a legislative-findings section devoted to the subject, declaring rent control a matter of overriding statewide interest requiring uniform statewide regulation. What survives preemption matters as much as what does not: 5321.19(B) expressly preserves local housing, building, health and safety codes, any ordinance of the kind described in 5321.04(A)(9), local regulation of rent for premises the subdivision itself owns or operates, and voluntary-incentive programs such as tax abatements or bond financing.",
+    notes: "OH: R.C. 5321.19 and 5321.20, from the full-chapter read 2026-09-18 (definitions of 'rent control', 'rent stabilization' and 'political subdivision' at 5321.01(O),(P),(Q)); H.B. 430 (134th G.A.), effective 2022-09-23. FOUND BY THE LANDLORD-SCENARIO SCREEN (source 3): 'my city is talking about rent control' had no Ohio row, though 4 states carry a preemption row and Ohio's is the strongest in the library. The 5321.19(B)(1) carve-out for local housing, building, health and safety codes is the same carve-out that makes Ohio's smoke and carbon monoxide alarm duty local rather than statutory - see edu-alarm-duty-fire-code-oh. OUT OF SCOPE BY DECISION 2026-09-18: Ohio's municipal layer is flagged, not resolved, and it is wider than the four largest cities (Newburgh Heights, population c. 2,000, has a full DV lease-termination ordinance).",
+  },
 ];
 
 module.exports = { LANDLORD_EDUCATION };

@@ -15,7 +15,7 @@ utility-payment-evidence,LEASE_CLAUSE,AZ,,GENERIC,VERIFIED,2026-08-21,2026-09-27
 acceptable-payment-methods,LEASE_CLAUSE,AZ,,GENERIC,VERIFIED,2026-08-21,2026-09-27,,Generic mechanics; AZ note: Applies as written. No Arizona payment-method statute located in ch. 10 (full read). [Full trail in lease-clauses.csv notes and lease-clause-decision-log-AZ.md.]
 tenant-maintenance,LEASE_CLAUSE,AZ,A.R.S. §33-1341(1); §33-1324,CITED,VERIFIED,2026-08-21,2026-09-27,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-AZ.md.]
 no-sublet-assign,LEASE_CLAUSE,AZ,,GENERIC,VERIFIED,2026-08-21,2026-09-27,,Generic mechanics; AZ note: Applies as written. No subletting statute in ch. 10 (full read). [Full trail in lease-clauses.csv notes and lease-clause-decision-log-AZ.md.]
-no-alterations,LEASE_CLAUSE,AZ,A.R.S. §33-1363; §33-1318(E); §41-1491.19(E)(1),CITED,VERIFIED,2026-08-21,2026-09-27,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-AZ.md.]
+no-alterations,LEASE_CLAUSE,AZ,A.R.S. §33-1363; §33-1318(E); §41-1491.19(E)(1),CITED,VERIFIED,2026-08-21,2026-09-28,,"[Full trail in lease-clauses.csv notes and lease-clause-decision-log-AZ.md.] | 2026-09-28: shared text edit, uniform (see this state's decision log)."
 joint-liability,LEASE_CLAUSE,AZ,A.R.S. §33-1318(J),CITED,VERIFIED,2026-08-21,2026-09-27,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-AZ.md.]
 utilities-paid-by-landlord,LEASE_CLAUSE,AZ,A.R.S. §33-1364(B); §33-1368,CITED,VERIFIED,2026-08-21,2026-09-27,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-AZ.md.]
 appliances-included,LEASE_CLAUSE,AZ,A.R.S. §33-1324(A)(4),CITED,VERIFIED,2026-08-21,2026-09-27,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-AZ.md.]
@@ -24,7 +24,7 @@ habitability-timeline-az,LANDLORD_EDUCATION,AZ,A.R.S. §33-1361(A); §33-1363(A)
 default-by-tenant,LEASE_CLAUSE,AZ,A.R.S. §33-1368(B); §33-1341; §33-1377(E); §33-1315(A)(2); §33-1305(A); §33-1370(C),CITED,VERIFIED,2026-08-20,2026-09-27,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-AZ.md.]
 surrender-end-of-term,LEASE_CLAUSE,AZ,A.R.S. §33-1370(I),CITED,VERIFIED,2026-08-21,2026-09-27,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-AZ.md.]
 early-termination,LEASE_CLAUSE,AZ,A.R.S. §33-1318; §33-1318.01; §33-1368(A),CITED,VERIFIED,2026-08-21,2026-09-27,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-AZ.md.]
-holdover,LEASE_CLAUSE,AZ,A.R.S. §33-1375(C); §33-1314(D),CITED,VERIFIED,2026-08-21,2026-09-27,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-AZ.md.]
+holdover,LEASE_CLAUSE,AZ,A.R.S. §33-1375(C); §33-1314(D),CITED,VERIFIED,2026-08-21,2026-09-28,,"[Full trail in lease-clauses.csv notes and lease-clause-decision-log-AZ.md.] | 2026-09-28: shared text edit, uniform (see this state's decision log)."
 notices,LEASE_CLAUSE,AZ,A.R.S. §33-1313(B),CITED,VERIFIED,2026-08-21,2026-09-27,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-AZ.md.]
 governing-law,LEASE_CLAUSE,AZ,,GENERIC,VERIFIED,2026-08-21,2026-09-27,,Generic mechanics; AZ note: Applies as written. [Full trail in lease-clauses.csv notes and lease-clause-decision-log-AZ.md.]
 severability,LEASE_CLAUSE,AZ,A.R.S. §33-1312(A)(1),CITED,VERIFIED,2026-08-21,2026-09-27,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-AZ.md.]

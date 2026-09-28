@@ -2423,3 +2423,9 @@ That distinction is the whole answer and it matters: rescission is not the unlaw
 #### GD.4.6 Integrity
 
 947 rows, 911 active. CA 157 active (93 lease clauses, 64 education), all `VERIFIED`. No duplicate ids, no dangling `supersedes`, no CA title or `topic_key` collisions, no blank status or blank `states` on an active row except the parent `security-deposit-return`. 12 canonical groups. Per-state active counts: only CA changed, 151 → 157. No shared multi-state row modified. No exact-duplicate active `bodyText` groups introduced. Every row id named in this section exists in the delta or the base CSV.
+
+## Propagated shared-row edits, 2026-09-28 (Taylor's decisions after the gap-discovery backfill)
+
+Uniform under §5a.1: each edit is self-limiting, so this state needs no override. Not a re-audit; nothing else in this state was reviewed.
+
+1. **`no-alterations`** — the carve-out now reads "any repair, installation, rekeying, or reasonable modification that applicable law entitles Tenant to perform". It keeps disability modifications that fair-housing law requires the landlord to permit (at the tenant's expense) from reading as subject to unfettered landlord consent. Raised by the NE backfill (NE log §D.1).

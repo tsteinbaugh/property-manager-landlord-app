@@ -1256,3 +1256,9 @@ Assertions run **against the delta file as written**, not against this narrative
 - **Tag counts:** SD **91 → 99** (60 lease clauses unchanged, education 31 → 39). **Every other state's count is unchanged** — asserted state by state, not eyeballed.
 - **L.9 morphological stale-value sweep** across all SD rows for the superseded 14-day deposit deadline (`two weeks | two-week | 2-week | 2 week | fourteen days | 14 days | 14-day | fourteen-day`): every hit is either historical correction text inside a `notes` field, the `guest-policy-day-limit` title, or another state's figure. **No live stale value.** `security-deposit-return-sd`'s body reads twenty-one days.
 - **One assertion of mine was the wrong shape, and it fired.** The whole-library display-collision check as run in earlier sessions ignores `is_active`, and it now reports `application-of-payments-nj` → `application-of-payments` colliding on FL and NJ. That row was **retired 2026-09-26** (`is_active: FALSE`) when it was merged into the generic, so the collision is benign — but it will fire on every future run until the assertion filters on `is_active`. Seven inactive rows currently carry a `supersedes` value. **Not my finding to fix in an SD delta; flagged for Claude Code.**
+
+## Propagated shared-row edits, 2026-09-28 (Taylor's decisions after the gap-discovery backfill)
+
+Uniform under §5a.1: each edit is self-limiting, so this state needs no override. Not a re-audit; nothing else in this state was reviewed.
+
+1. **`no-alterations`** — the carve-out now reads "any repair, installation, rekeying, or reasonable modification that applicable law entitles Tenant to perform". It keeps disability modifications that fair-housing law requires the landlord to permit (at the tenant's expense) from reading as subject to unfettered landlord consent. Raised by the NE backfill (NE log §D.1).

@@ -400,7 +400,7 @@ const CLAUSE_TEMPLATES = [
     group: "Tenant Responsibilities",
     states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ"],
     bodyText:
-      "Tenant will not perform any alterations or improvements to the property, including adding, changing, or removing appliances, fixtures, shelving, wallpaper, or paint, without the prior written consent of Landlord. If Landlord approves an alteration, Tenant understands it will remain part of the property at the end of the Term unless Landlord requires its removal. This Section does not limit any repair, installation, or rekeying that applicable law entitles Tenant to perform.",
+      "Tenant will not perform any alterations or improvements to the property, including adding, changing, or removing appliances, fixtures, shelving, wallpaper, or paint, without the prior written consent of Landlord. If Landlord approves an alteration, Tenant understands it will remain part of the property at the end of the Term unless Landlord requires its removal. This Section does not limit any repair, installation, rekeying, or reasonable modification that applicable law entitles Tenant to perform.",
   },
   {
     id: "joint-liability",
@@ -516,7 +516,7 @@ const CLAUSE_TEMPLATES = [
     group: "Default & Termination",
     states: ["CO", "WY", "KS", "NE", "MN", "FL", "AZ"],
     bodyText:
-      "If Tenant does not vacate the property by the end of the Term, Landlord may pursue any remedy allowed by applicable law to recover possession. Landlord will also be entitled to recover from Tenant holdover damages in the maximum amount permitted by applicable law for each day Tenant remains in possession after the end of the Term. Alternatively, Landlord may accept Tenant's continued payment of Rent, in which case this Lease will be deemed to continue on a month-to-month basis on the same terms and conditions, terminable by either party upon written notice as required by applicable law.",
+      "If Tenant does not vacate the property by the end of the Term, Landlord may pursue any remedy allowed by applicable law to recover possession. Landlord will also be entitled to recover from Tenant holdover damages in the maximum amount permitted by applicable law for each day Tenant remains in possession after the end of the Term. Alternatively, Landlord may accept Tenant's continued payment of Rent, in which case this Lease will be deemed to continue on a month-to-month basis on the same terms and conditions, terminable by either party upon the written notice required by applicable law or, where applicable law sets no notice period, by this Lease.",
   },
   {
     id: "month-to-month-notice-ca",
@@ -555,7 +555,7 @@ const CLAUSE_TEMPLATES = [
     id: "tenants-property-insurance",
     title: "Tenant's Property & Renter's Insurance",
     group: "Notices & General",
-    states: ["CO", "WY", "ND", "SD"],
+    states: ["CO", "WY", "SD"],
     bodyText:
       "Landlord's insurance does not cover loss or damage to Tenant's personal property, and Landlord is not liable for any such loss or damage. Tenant will obtain and maintain renter's insurance covering Tenant's personal property and liability throughout the Term, with liability coverage of at least {{tenant_insurance_minimum}}, and will provide Landlord with evidence of coverage upon request.",
   },
@@ -590,7 +590,7 @@ const CLAUSE_TEMPLATES = [
     group: "Pets",
     states: ["CO", "WY", "ND", "OH", "TX"],
     bodyText:
-      "Tenant may keep only pets identified in writing to and approved by Landlord. Tenant will pay Landlord a pet deposit, if applicable, and pet rent of {{pet_rent_amount}} per month. Tenant is responsible for all damage, waste removal, odor, and disturbance caused by a pet, and will indemnify Landlord from claims arising from Tenant's pet(s). Landlord may revoke approval of a pet that becomes a nuisance or safety concern, and may enter the property and remove a pet, without liability to Tenant, if the pet becomes vicious or displays symptoms of severe illness, or if Tenant dies, becomes incapacitated, or is otherwise unable to care for the pet and Landlord believes in good faith that the pet is being abused or neglected.",
+      "Tenant may keep only pets identified in writing to and approved by Landlord. Tenant will pay Landlord a pet deposit, if applicable, and pet rent of {{pet_rent_amount}} per month. Tenant is responsible for all damage, waste removal, odor, and disturbance caused by a pet, and will indemnify Landlord from claims arising from Tenant's pet(s). Landlord may revoke approval of a pet that becomes a nuisance or safety concern, and may enter the property and remove a pet, without liability to Tenant to the extent applicable law permits, if the pet becomes vicious or displays symptoms of severe illness, or if Tenant dies, becomes incapacitated, or is otherwise unable to care for the pet and Landlord believes in good faith that the pet is being abused or neglected.",
   },
   {
     id: "pet-insurance-requirement",
@@ -605,7 +605,7 @@ const CLAUSE_TEMPLATES = [
     id: "parking",
     title: "Parking",
     group: "Parking & Storage",
-    states: ["CO", "WY", "ND", "SD"],
+    states: ["CO", "WY", "SD"],
     bodyText:
       "Tenant may park only in the area(s) designated by Landlord, subject to any parking rules or addendum attached to this Lease. Landlord does not provide security for the parking area and is not liable for damage to or theft of a vehicle or its contents.",
   },
@@ -629,7 +629,7 @@ const CLAUSE_TEMPLATES = [
     id: "storage-space",
     title: "Storage Space",
     group: "Parking & Storage",
-    states: ["CO", "WY", "ND", "SD"],
+    states: ["CO", "WY", "SD"],
     bodyText:
       "Tenant is assigned the following storage space for Tenant's exclusive use during the Term: [identify storage space/location here]. Tenant will not store any hazardous, flammable, or perishable materials in the storage space, and Landlord is not liable for damage to or theft of items stored there.",
   },
@@ -2358,7 +2358,7 @@ const CLAUSE_TEMPLATES = [
     id: "storage-space-ks-oh-ca",
     title: "Storage Space",
     group: "Parking & Storage",
-    states: ["KS", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ"],
+    states: ["KS", "ND", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ"],
     supersedes: "storage-space",
     bodyText:
       "Tenant is assigned the following storage space for Tenant's exclusive use during the Term: [identify storage space/location here]. Tenant will not store any hazardous, flammable, or perishable materials in the storage space.",
@@ -2367,7 +2367,7 @@ const CLAUSE_TEMPLATES = [
     id: "parking-ks-oh-ca",
     title: "Parking",
     group: "Parking & Storage",
-    states: ["KS", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ"],
+    states: ["KS", "ND", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ"],
     supersedes: "parking",
     bodyText:
       "Tenant may park only in the area(s) designated by Landlord, subject to any parking rules or addendum attached to this Lease. Landlord does not provide security for the parking area.",
@@ -2377,7 +2377,7 @@ const CLAUSE_TEMPLATES = [
     id: "tenants-property-insurance-ks-oh-ca",
     title: "Tenant's Property & Renter's Insurance",
     group: "Notices & General",
-    states: ["KS", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ"],
+    states: ["KS", "ND", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ"],
     supersedes: "tenants-property-insurance",
     bodyText:
       "Landlord's insurance does not cover loss or damage to Tenant's personal property. Tenant will obtain and maintain renter's insurance covering Tenant's personal property and liability throughout the Term, with liability coverage of at least {{tenant_insurance_minimum}}, and will provide Landlord with evidence of coverage upon request.",
@@ -3484,6 +3484,32 @@ const CLAUSE_TEMPLATES = [
     states: ["WY"],
     bodyText:
       "If the property is damaged or destroyed by fire or other casualty through no fault of Tenant, and the damage makes the property uninhabitable or substantially impairs Tenant's use of it, either Landlord or Tenant may terminate this Lease by written notice to the other, effective on the date Tenant vacates. Rent will be prorated to that date, any prepaid Rent refunded, and the Security Deposit returned as this Lease and Wyoming law provide. If the casualty makes only part of the property unusable and Tenant stays in possession, Rent will be reduced in proportion to the part of the property Tenant cannot use until Landlord completes repairs.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "landlord-maintenance-oh",
+    title: "Landlord's Maintenance Obligations",
+    group: "Landlord Responsibilities",
+    states: ["OH"],
+    bodyText:
+      "Landlord will: comply with all applicable building, housing, health and safety codes that materially affect health and safety; make all repairs and do whatever is reasonably necessary to put and keep the property in a fit and habitable condition; keep all common areas of the property in a safe and sanitary condition; maintain in good and safe working order and condition all electrical, plumbing, sanitary, heating, ventilating and air conditioning fixtures and appliances, and elevators, supplied or required to be supplied by Landlord; and supply running water, reasonable amounts of hot water and reasonable heat at all times, except where the building is not required by law to be equipped for that purpose or where the dwelling unit is so constructed that heat or hot water is generated by an installation within Tenant's exclusive control and supplied by a direct public utility connection. Where Landlord is a party to rental agreements covering four or more dwelling units in the same structure, Landlord will also provide and maintain appropriate receptacles for ashes, garbage, rubbish and other waste and arrange for their removal.",
+  },
+  // Default & Termination
+  {
+    id: "fire-casualty-termination-oh",
+    title: "Damage or Destruction by Fire or Casualty",
+    group: "Default & Termination",
+    states: ["OH"],
+    bodyText:
+      "If the property is destroyed or so injured by fire or other casualty as to be unfit for occupancy, and the destruction or injury was not caused by Tenant's fault or neglect, Tenant is not liable to pay Rent accruing after that destruction or injury, and Tenant will thereupon surrender possession of the property to Landlord. Rent already accrued and unpaid before the destruction or injury remains payable. To be relieved of Rent under this Section, Tenant must surrender possession of all of the property that remains; Tenant may not stop paying Rent while leaving personal property at the property or otherwise retaining possession.",
+  },
+  {
+    id: "termination-notice-oh",
+    title: "Notice to Terminate a Periodic Tenancy",
+    group: "Default & Termination",
+    states: ["OH"],
+    bodyText:
+      "Either Landlord or Tenant may terminate or decline to renew a week-to-week tenancy by giving the other notice at least seven days before the termination date stated in the notice. Either Landlord or Tenant may terminate or decline to renew a month-to-month tenancy by giving the other notice at least thirty days before the periodic rental date. This Section does not apply to a termination based on a breach of this Lease or of a duty imposed by law, and it does not limit Landlord's obligation to give any shorter notice Ohio law requires where a tenant has violated R.C. 5321.05(A)(9).",
   },
 ];
 

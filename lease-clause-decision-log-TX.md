@@ -961,3 +961,10 @@ All six are TX only and VERIFIED.
 - **Checks passed:** no duplicate ids, no dangling `supersedes`, no display collisions, no blank status on an active row, and no blank `states` on a delta row.
 - **Delta file:** 8 rows (6 new, 2 changed), each with the full 16 columns; the header matches the attached CSV.
 - **References:** every row id named in the delta's notes and bodies exists in the merged CSV.
+
+## Propagated shared-row edits, 2026-09-28 (Taylor's decisions after the gap-discovery backfill)
+
+Uniform under §5a.1: each edit is self-limiting, so this state needs no override. Not a re-audit; nothing else in this state was reviewed.
+
+1. **`no-alterations`** — the carve-out now reads "any repair, installation, rekeying, or reasonable modification that applicable law entitles Tenant to perform". It keeps disability modifications that fair-housing law requires the landlord to permit (at the tenant's expense) from reading as subject to unfettered landlord consent. Raised by the NE backfill (NE log §D.1).
+2. **`pet-policy`** — "without liability to Tenant" now reads "without liability to Tenant to the extent applicable law permits". A flat disclaimer of the landlord's own entry-and-removal act is void where exculpation is barred (ND §9-08-02). Raised by the ND backfill (ND log §43.7).

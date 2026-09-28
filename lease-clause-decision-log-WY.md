@@ -971,3 +971,11 @@ The prompt allows research mode where a statutory question needs it, with notice
 - No enacted-bill claims made, so instruction 33 is not engaged.
 - Every statutory figure in the new rows was verified section-open **except** where the row's own notes say otherwise: the PTFA text (federal, summarized) and W.S. 31-13-112(e) (not read). Those limits are in the rows, not only here.
 - **Zero existing WY rows were re-scrubbed, re-verified, or edited.** Scalpel, not hammer.
+
+## Propagated shared-row edits, 2026-09-28 (Taylor's decisions after the gap-discovery backfill)
+
+Uniform under §5a.1: each edit is self-limiting, so this state needs no override. Not a re-audit; nothing else in this state was reviewed.
+
+1. **`no-alterations`** — the carve-out now reads "any repair, installation, rekeying, or reasonable modification that applicable law entitles Tenant to perform". It keeps disability modifications that fair-housing law requires the landlord to permit (at the tenant's expense) from reading as subject to unfettered landlord consent. Raised by the NE backfill (NE log §D.1).
+2. **`pet-policy`** — "without liability to Tenant" now reads "without liability to Tenant to the extent applicable law permits". A flat disclaimer of the landlord's own entry-and-removal act is void where exculpation is barred (ND §9-08-02). Raised by the ND backfill (ND log §43.7).
+3. **`holdover`** — a continued month-to-month tenancy is now "terminable by either party upon the written notice required by applicable law or, where applicable law sets no notice period, by this Lease". Wyoming has no statutory period (`periodic-tenancy-notice-wy` supplies one). Raised by the WY backfill (WY log §20.4).

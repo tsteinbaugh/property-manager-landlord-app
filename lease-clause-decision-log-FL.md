@@ -558,3 +558,10 @@ Taylor ran the official full-text searches on flsenate.gov on 2026-09-27, using 
   - No shared row's text changed. All 4 changed rows are FL-only.
   - No duplicate ids, dangling `supersedes`, display collisions, blank status, or blank `states` except the parent.
 - **Instruction 19:** every row id named in this section and in the checklist cells exists as an active FL-tagged row.
+
+## Propagated shared-row edits, 2026-09-28 (Taylor's decisions after the gap-discovery backfill)
+
+Uniform under §5a.1: each edit is self-limiting, so this state needs no override. Not a re-audit; nothing else in this state was reviewed.
+
+1. **`no-alterations`** — the carve-out now reads "any repair, installation, rekeying, or reasonable modification that applicable law entitles Tenant to perform". It keeps disability modifications that fair-housing law requires the landlord to permit (at the tenant's expense) from reading as subject to unfettered landlord consent. Raised by the NE backfill (NE log §D.1).
+2. **`holdover`** — a continued month-to-month tenancy is now "terminable by either party upon the written notice required by applicable law or, where applicable law sets no notice period, by this Lease". Wyoming has no statutory period (`periodic-tenancy-notice-wy` supplies one). Raised by the WY backfill (WY log §20.4).

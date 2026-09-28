@@ -751,3 +751,10 @@ The full-text search ran on 2026-09-27; every hit's section and title was review
 | Gap-discovery source 2 — real-lease comparison | Done (§16: AAR Residential Lease Agreement, Feb 2026) |
 | Gap-discovery source 3 — landlord-scenario screen | Done (§18: 59 scenarios, Claude-generated) |
 | Gap-discovery source 4 — outside-title search | Done (§15: official ARS full-text search; §12 research pass) |
+
+## Propagated shared-row edits, 2026-09-28 (Taylor's decisions after the gap-discovery backfill)
+
+Uniform under §5a.1: each edit is self-limiting, so this state needs no override. Not a re-audit; nothing else in this state was reviewed.
+
+1. **`no-alterations`** — the carve-out now reads "any repair, installation, rekeying, or reasonable modification that applicable law entitles Tenant to perform". It keeps disability modifications that fair-housing law requires the landlord to permit (at the tenant's expense) from reading as subject to unfettered landlord consent. Raised by the NE backfill (NE log §D.1).
+2. **`holdover`** — a continued month-to-month tenancy is now "terminable by either party upon the written notice required by applicable law or, where applicable law sets no notice period, by this Lease". Wyoming has no statutory period (`periodic-tenancy-notice-wy` supplies one). Raised by the WY backfill (WY log §20.4).

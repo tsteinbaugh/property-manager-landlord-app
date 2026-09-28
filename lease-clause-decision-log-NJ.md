@@ -511,3 +511,9 @@ The delta file `lease-clauses-NJ-delta.csv` has six rows, each complete, with th
 - Other states' active counts are unchanged: AZ 109, CA 151, CO 115, FL 99, KS 115, MN 120, ND 111, NE 112, NV 103, OH 74, SD 91, TX 129, WY 99.
 - No duplicate ids, dangling `supersedes` or display collisions.
 - No blank status or blank `states` on any delta row.
+
+## Propagated shared-row edits, 2026-09-28 (Taylor's decisions after the gap-discovery backfill)
+
+Uniform under §5a.1: each edit is self-limiting, so this state needs no override. Not a re-audit; nothing else in this state was reviewed.
+
+1. **`no-alterations`** — the carve-out now reads "any repair, installation, rekeying, or reasonable modification that applicable law entitles Tenant to perform". It keeps disability modifications that fair-housing law requires the landlord to permit (at the tenant's expense) from reading as subject to unfettered landlord consent. Raised by the NE backfill (NE log §D.1).
