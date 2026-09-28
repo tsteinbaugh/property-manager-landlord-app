@@ -32,6 +32,9 @@
 // wholesale from the CSV (2026-09-18 refresh, Ohio added: 309 -> 324
 // entries across the now-8-state pass).
 //
+// **2026-09-28 (South Carolina sync):** regenerated from the 17-state CSV
+// (748 -> 789 entries).
+//
 // **2026-09-28 (North Carolina sync):** regenerated from the 16-state CSV
 // (705 -> 748 entries).
 //
@@ -9586,6 +9589,525 @@ const LANDLORD_EDUCATION = [
     bodyText:
       "North Carolina has no statute requiring landlords to accept Housing Choice Vouchers or other rent assistance, or barring refusal based on source of income. Since September 9, 2024, counties and cities may not adopt or enforce such a rule where the income includes a federal housing assistance program, except for property they own, properties they subsidize, and owners that take local funding or incentives.",
     notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 396 chapters of the official General Statutes (chapter pages on ncleg.gov loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 46 hits, so the engine reports true empties and matches exact strings, every word form entered explicitly; NC log §17). Searched 'source of income|lawful source|housing choice voucher|section 8|housing assistance program': 37 hits in 28 sections; the only rental rule is the local preemption in N.C. Gen. Stat. § 42-14.1(b)-(c) (S.L. 2024-47, s. 7) and public-housing authority rules (N.C. Gen. Stat. § 157-29). See edu-local-preemption-nc.",
+  },
+  // Security Deposit
+  {
+    id: "edu-security-deposit-rules-sc",
+    title: "South Carolina Security Deposit Rules",
+    group: "Security Deposit",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-return",
+    bodyText:
+      "South Carolina sets no limit on the size of a security deposit and does not require interest, a separate or escrow account, or a notice of where the deposit is held. A security deposit is money the landlord holds in trust to secure the tenant's performance. When the tenancy ends, the landlord may keep only accrued rent and damages caused by the tenant's failure to meet the tenant's statutory and lease duties, and must send an itemized written notice of deductions with any refund within 30 days after the tenancy ends and the tenant delivers possession, or after the tenant demands the deposit, whichever is later. The tenant must give a forwarding address in writing; a landlord with no notice of the tenant's whereabouts may mail to the last known address. A landlord who fails to return prepaid rent or the deposit with the required notice can owe three times the amount wrongfully withheld plus attorney's fees. A landlord renting more than four adjoining units who uses different deposit standards must post or hand out those standards before the lease is signed. On a sale, the seller stays liable for the deposit unless it is transferred to the buyer and the tenant is told in writing. Real estate brokers and property managers must keep tenant deposits in a trust or escrow account.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). Controlling text: S.C. Code Ann. § 27-40-210(18) (1995 Act No. 112: deposit 'held in trust by the landlord'); S.C. Code Ann. § 27-40-410(a)-(e); S.C. Code Ann. § 27-40-450(a); S.C. Code Ann. § 27-40-650(b); S.C. Code Ann. § 27-40-330(b) (prohibited-provision penalty measured by the deposit); S.C. Code Ann. § 40-57-136(A) (broker-in-charge or property manager-in-charge trust account for rental trust funds including security, pet and damage deposits and advance rents; section opened, first part read). No cap (`edu-no-deposit-cap-sc`) and no interest (`edu-no-deposit-interest-sc`), both confirmed absent code-wide. Manufactured home park deposits have their own rule (S.C. Code Ann. § 27-47-520, deprioritized, not read). Unclaimed deposit refunds: Uniform Unclaimed Property Act, Title 27 Chapter 18 (general holder rules; not read beyond search hits).",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-landlord-repair-duties-sc",
+    title: "Repair Duties and Tenant Remedies",
+    group: "Landlord Responsibilities",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-maintenance",
+    bodyText:
+      "A South Carolina landlord must comply with building and housing codes materially affecting health and safety, make all repairs needed to keep the property fit and habitable, keep common areas reasonably safe (and reasonably clean in buildings of more than four units), supply running water, reasonable hot water and heat, and maintain supplied electrical, gas, plumbing, heating, air-conditioning and other facilities and appliances, including elevators. A tenant may not waive these duties, except that a single-family tenant may agree in writing to take on appliance and facility maintenance and specified tasks. If the landlord materially fails, the tenant may give written notice that the lease will end in at least 14 days unless the breach is fixed. If the landlord negligently or wilfully fails to supply essential services, the tenant may, after written notice, buy reasonable amounts of the service and deduct the cost from rent, or recover the drop in rental value. South Carolina does not allow a tenant to repair and deduct, and a mechanic's lien from repairs the tenant orders without consent is unenforceable. A tenant who wants to raise a repair problem as a defense to nonpayment generally must have given notice at least 14 days before rent was due (or, for essential services, in time for emergency repairs). If a fire or casualty substantially impairs the unit, the tenant may leave and end the lease on 7 days' written notice, or stay in the usable part at reduced rent. Landlord interruption of essential services or ouster costs three months' rent or twice actual damages, whichever is greater, plus fees.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). Controlling text: S.C. Code Ann. § 27-40-440(a)-(d); S.C. Code Ann. § 27-40-340 (no rent without the S.C. Code Ann. § 27-40-440(a) duty); S.C. Code Ann. § 27-40-330(a)(1); S.C. Code Ann. § 27-40-610 (14-day notice and termination; damages and injunction; fees if wilful); S.C. Code Ann. § 27-40-620 (failure to deliver possession); S.C. Code Ann. § 27-40-630 (essential services: procure and deduct, or diminution damages and fees; (c) 'Under no circumstances should this section be interpreted to authorize the tenant to make repairs on the rental property and deduct the cost of the repairs from rent'); S.C. Code Ann. § 27-40-640 (defenses; 14-day notice waiver rule, 1986); S.C. Code Ann. § 27-40-650; S.C. Code Ann. § 27-40-660; S.C. Code Ann. § 27-40-790 (rent into court when the tenant raises defenses); S.C. Code Ann. § 27-40-210(17) (essential services). No statutory repair deadline and no heat temperature standard located (Chapter 40 read whole). Lease rows: `landlord-maintenance`, `tenant-repair-agreement-sc`, `appliances-excluded-sc`, `casualty-termination-sc`.",
+  },
+  // Default & Termination
+  {
+    id: "edu-eviction-process-sc",
+    title: "Eviction (Ejectment) Process",
+    group: "Default & Termination",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction",
+    bodyText:
+      "South Carolina evictions are 'ejectment' cases in magistrate court. For nonpayment, the landlord may end the lease if rent is not paid within five days of the due date after a written notice of nonpayment and intent to terminate; a notice in bold, conspicuous type in the written lease satisfies this for the whole tenancy, including any month-to-month continuation. For other breaches that can be fixed, the landlord gives written notice allowing 14 days to cure. The magistrate issues a rule requiring the tenant to vacate or show cause within 10 days after service; service may be made by posting and mailing after two failed attempts. If the tenant does not appear, or loses, the magistrate issues a writ, and the officer gives the occupants 24 hours to leave before removing them. A tenant who raises defenses must pay rent into court as it comes due. Accepting rent after the rule is issued does not waive the eviction. From 2026-06-30, an appeal stays the eviction only if the tenant files an affidavit promising to pay rent as it comes due. The landlord recovers attorney's fees only if represented by an attorney and the tenant's nonpayment was not in good faith or other breach was wilful. The eviction notice must tell the tenant that belongings put on the street will be removed after 48 hours. Eviction and default notices under a lease for a primary residence are outside South Carolina's electronic-transactions law, so they should be delivered on paper. From 2027, eviction records are removed from public indexes after seven years.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). Controlling text: S.C. Code Ann. § 27-40-710(A)-(D) (1999 Act No. 59; broker-in-charge or licensed property manager may complete a form writ and present facts for no separate charge); S.C. Code Ann. § 27-40-750; S.C. Code Ann. § 27-40-790; S.C. Code Ann. § 27-40-800 as rewritten by 2026 Act No. 252, § 4 (signed 2026-06-30, effective on approval: 'No court shall stay an execution of a judgment for ejectment' except on the tenant's rent affidavit; the online Code still prints the 1999 text); S.C. Code Ann. § 27-37-10(A)-(B) (2000 Act No. 409); S.C. Code Ann. § 27-37-20 (rule to vacate or show cause within ten days); S.C. Code Ann. § 27-37-30 (service, posting and mailing; clerk verification); S.C. Code Ann. § 27-37-40; S.C. Code Ann. § 27-37-60; S.C. Code Ann. § 27-37-100; S.C. Code Ann. § 27-37-150 (rent accrues; acceptance of rent after the rule is not a waiver); S.C. Code Ann. § 27-37-160 (writ execution, 24 hours; forced entry by a deputy sheriff only; delay for ill or elderly tenants); S.C. Code Ann. § 27-40-920 (Chapter 37 applies to residential leases only insofar as consistent with the Act). Chapter 37 retitled 'Ejectment Proceedings' with existing sections as Article 1 by 2026 Act No. 252, § 2.B. Record removal: new S.C. Code Ann. § 30-2-60 (2026 Act No. 214, effective 2027-01-01; `edu-eviction-record-removal-sc`). Magistrate fee for landlord proceedings raised from $20 to $40 by 2026 Act No. 155 (S.C. Code Ann. § 8-21-1010(9), effective 2027-01-01). Housing authorities may designate non-lawyer representatives in magistrate court (2026 Act No. 233, S.C. Code Ann. § 33-1-103; not read beyond the title). UETA: S.C. Code Ann. § 26-6-30(B)(2)(c)(ii). Distress for rent: Chapter 39 Article 3 (S.C. Code Ann. § 27-40-740(b)).",
+  },
+  {
+    id: "edu-self-help-eviction-sc",
+    title: "No Self-Help Eviction",
+    group: "Default & Termination",
+    states: ["SC"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "self-help-eviction",
+    bodyText:
+      "A South Carolina landlord may not recover possession by changing the locks, removing the tenant or the tenant's belongings, or wilfully interrupting essential services such as water, heat, electricity or gas, except after abandonment, surrender or a court eviction. A tenant who is unlawfully removed or excluded, or whose essential services are wilfully interrupted, may recover possession or end the lease and recover three months' rent or twice actual damages, whichever is greater, plus attorney's fees, and the deposit must be returned. A lease clause giving the landlord a lien on the tenant's household goods is unenforceable; rent can be collected by distress only through the magistrate's statutory procedure.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). Controlling text: S.C. Code Ann. § 27-40-760 (no recovery of possession 'by action or otherwise, including wilful diminution of required essential services ... except in case of abandonment, surrender, termination, or as permitted in this chapter'); S.C. Code Ann. § 27-40-660 (ouster or wilful interruption: recover possession or terminate, greater of three months' periodic rent or twice actual damages, reasonable attorney's fees, return of security); S.C. Code Ann. § 27-40-740 (contractual lien on household goods unenforceable; distress only under Chapter 39, Title 27, with property exemptions of S.C. Code Ann. § 15-41-30); S.C. Code Ann. § 27-37-140 (wrongfully dispossessed tenant's damages action); S.C. Code Ann. § 27-39-210 to S.C. Code Ann. § 27-39-360 (distress procedure with a predistress hearing; exemptions in S.C. Code Ann. § 27-39-230). Retaliatory utility cuts: `edu-retaliation-sc`.",
+  },
+  {
+    id: "edu-retaliation-sc",
+    title: "Retaliation",
+    group: "Default & Termination",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "retaliation",
+    bodyText:
+      "A South Carolina landlord may not retaliate against a tenant who complained to a code-enforcement agency about a health-and-safety violation, or to the landlord about a violation of the Residential Landlord and Tenant Act, by raising rent above fair-market value, cutting essential services, or suing for possession. Exceptions include a violation the tenant caused, the tenant's own material noncompliance, and code work that would require vacating the unit. A landlord renting more than four adjoining units may raise rent uniformly for all tenants without a presumption of retaliation. A retaliatory non-renewal of a tenant who is current on rent can delay recovery of possession for 75 days. Retaliation exposes the landlord to up to three months' rent or treble damages, whichever is greater, plus attorney's fees; a tenant who raises the defense in bad faith can owe the landlord the same. A tenant must notify the landlord in writing within 10 days after service of the rule to vacate if the tenant will raise retaliation as a defense. A protected domestic-violence tenant who ends the lease under South Carolina law is also protected from retaliation.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). Controlling text: S.C. Code Ann. § 27-40-910(a)-(h) (1986 Act No. 336; unchanged); S.C. Code Ann. § 27-40-350(E) (2026 Act No. 184). No written-lease safe harbour (contrast GA). Remedies cross-reference S.C. Code Ann. § 27-40-660.",
+  },
+  {
+    id: "edu-periodic-tenancy-notice-sc",
+    title: "Ending a Periodic Tenancy",
+    group: "Default & Termination",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-notice",
+    bodyText:
+      "Unless the lease sets a definite term, a South Carolina tenancy is month-to-month (week-to-week for a roomer paying weekly). Either party may end a month-to-month tenancy by written notice given at least 30 days before the termination date in the notice, and a week-to-week tenancy by written notice at least 7 days before. A tenancy for a fixed term ends at the end of the term without notice. A month-to-month tenancy does not become year-to-year. A lease cannot shorten the tenant's statutory notice.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). Controlling text: S.C. Code Ann. § 27-40-770(a)-(b); S.C. Code Ann. § 27-40-310(d) (default periodic tenancy); S.C. Code Ann. § 27-35-110 (fixed term ends without notice); S.C. Code Ann. § 27-35-120 (month-to-month, 30 days' written notice; 'No such tenancy shall ripen into a tenancy from year to year'); S.C. Code Ann. § 27-35-130 (tenants at will: 20 days' written notice; residential tenancies under the Act are periodic, S.C. Code Ann. § 27-40-920); S.C. Code Ann. § 27-40-330(a)(1) (no waiver). No opt-in periodic-notice clause is needed (statute sets the periods; compare `periodic-tenancy-notice-nc`).",
+  },
+  {
+    id: "edu-holdover-remedies-sc",
+    title: "Holdover Remedies",
+    group: "Default & Termination",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "holdover",
+    bodyText:
+      "If a South Carolina tenant stays after the lease ends without the landlord's consent, the landlord may bring an action for possession. If the holdover is not in good faith, the landlord may also recover attorney's fees, and if it is a wilful violation of the Act or the lease, up to three months' periodic rent or twice actual damages, whichever is greater, plus fees. If the landlord consents to the tenant staying, the tenancy becomes month-to-month. Older general statutes also provide double the value of the premises for a tenant who holds over three months after a written demand for possession, and double rent for a tenant who gives written notice to quit and then does not leave; they apply to residential leases only where consistent with the Residential Landlord and Tenant Act.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). Controlling text: S.C. Code Ann. § 27-40-770(c); S.C. Code Ann. § 27-40-310(d); S.C. Code Ann. § 27-35-170 (holdover after written demand, 'for the space of three months after such demand shall forfeit double the value of the use of the premises'); S.C. Code Ann. § 27-35-180 (double rent after the tenant's own notice to quit); S.C. Code Ann. § 27-40-920 (Chapter 35 not applicable insofar as inconsistent). How the older sections interact with the Act is case law, not read (instruction 16). Holdover by a purchaser's former tenant excuses the landlord's delivery damages if reasonable efforts were made (S.C. Code Ann. § 27-40-620(a)(2)). K.3: the base `holdover` ('maximum amount permitted by applicable law for each day') is not tagged; `holdover-ca` and opt-in `holdover-rate-sc` are.",
+  },
+  {
+    id: "edu-servicemember-rights-sc",
+    title: "Servicemember Rights",
+    group: "Default & Termination",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "military-lease-termination",
+    bodyText:
+      "Servicemembers renting in South Carolina have the lease-termination and eviction protections of the federal Servicemembers Civil Relief Act. South Carolina's own Servicemembers Civil Relief Act makes any violation of the federal Act a violation of state law, extends coverage to South Carolina National Guard members called to state active duty for more than 30 consecutive days and to other states' Guard members on similar duty, gives dependents the same rights, and lets a servicemember, a dependent or the Attorney General sue for an injunction, restitution and a civil penalty of up to $5,000 per intentional violation. South Carolina's separate military contract-termination right covers telecommunications, internet, television, gym and satellite radio contracts, not leases.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). Controlling text: S.C. Code Ann. § 25-1-4010 to S.C. Code Ann. § 25-1-4080 (2019 Act No. 23, effective 2019-04-26; applies to contracts entered into, extended or amended on or after 2019-07-01 per S.C. Code Ann. § 25-1-4020): S.C. Code Ann. § 25-1-4020 (a violation of the federal SCRA 'constitutes a violation of this article'); S.C. Code Ann. § 25-1-4030(2) (military service includes SC Guard state duty over thirty consecutive days, and other states' Guard duty); S.C. Code Ann. § 25-1-4050 (dependents); S.C. Code Ann. § 25-1-4060(B) (contract list, no leases); S.C. Code Ann. § 25-1-4070 (civil action; $5,000 civil penalty per intentional violation); S.C. Code Ann. § 25-1-4080 (rights posted by the Adjutant General). Federal SCRA lease termination 50 U.S.C. § 3955 and eviction stay § 3951 (cited, not read; instruction 16). The tagged `early-termination-ks` preserves SCRA rights.",
+  },
+  // Disclosures
+  {
+    id: "edu-fair-housing-sc",
+    title: "South Carolina Fair Housing Law",
+    group: "Disclosures",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fair-housing",
+    bodyText:
+      "The South Carolina Fair Housing Law bars housing discrimination because of race, color, religion, sex, familial status, national origin or handicap, including discriminatory advertising, and requires reasonable accommodations and, at the tenant's expense, reasonable modifications for a disability. It exempts an owner-occupied building of four or fewer units and, in limited cases, an individual owner renting a single-family house without a broker or discriminatory advertising, though the advertising ban still applies. A landlord may refuse someone who poses a real and present threat of substantial harm, may act on a conviction for illegal manufacture or distribution of a controlled substance, and may ask on the application about the number, ages, sex and relationships of intended occupants and about such convictions. A separate statute bars discrimination against a handicapped person in housing without reasonable justification. South Carolina law adds no protected class beyond the federal ones, does not protect source of income, and has no statute limiting a landlord's inquiry into immigration status or restricting firearms in private rentals.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). Controlling text: S.C. Code Ann. § 31-21-40 (1989 Act No. 72); S.C. Code Ann. § 31-21-70(A)-(N) (exemptions (A)-(D); real and present threat (E); drug conviction (F); modifications and accommodations (G); direct threat (K); occupancy standards and application questions (L); ESA questions (N), 2019 Act No. 44); S.C. Code Ann. § 43-33-530 and S.C. Code Ann. § 43-33-570 (handicap discrimination without 'reasonable justification', judged by safety, efficiency and cost; 'handicap' for that article is defined narrowly in S.C. Code Ann. § 43-33-560, excluding mental illness). Enforcement by the Human Affairs Commission (Chapter 21 of Title 31, not read beyond these sections). Absences: `edu-no-source-of-income-rule-sc`, `edu-no-immigration-inquiry-rule-sc` (both confirmed absent code-wide); firearms: search 'firearms?' near lease/tenant/landlord/rental found only forfeiture and bail provisions (SC log §17). Federal FHA 42 U.S.C. § 3604 (instruction 16). Local ordinances not researched (instruction 20).",
+  },
+  // Pets
+  {
+    id: "edu-service-animal-law-sc",
+    title: "Service Animal and Assistance Dog Law",
+    group: "Pets",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "assistance-animal-accommodation",
+    bodyText:
+      "In South Carolina a person with a disability who has an assistance dog is entitled to full and equal access to rental housing with the dog, and may not be charged extra for it, though the person is liable for any damage the dog causes. For other assistance animals, including emotional support animals, a landlord may ask two questions (whether the person has a disability that substantially limits a major life activity, and whether the person has a disability-related need for the animal) and may request documentation, which is sufficient if it shows a disability and that the animal provides disability-related assistance or emotional support. State law defines a service animal as a dog or miniature horse trained to do disability-related work, and says emotional support is not such work. Knowingly misrepresenting an animal as a service animal to obtain a disabled person's rights is punishable by a civil fine of up to $250 for a first offense, $500 for a second and $1,000 after that; it is not a crime.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). Controlling text: S.C. Code Ann. § 43-33-70 (housing accommodations; assistance dog; no extra compensation; damage liability); S.C. Code Ann. § 31-21-70(N) (2019 Act No. 44); S.C. Code Ann. § 47-3-920(4) and S.C. Code Ann. § 47-3-920(6) (service animal; emotional support animal 'intended to provide companionship and reassurance'); S.C. Code Ann. § 47-3-980 (2019 Act No. 44: misrepresentation 'for the purpose of obtaining any right or privilege provided to a disabled person'; civil fines; 'does not constitute a criminal offense'; inquiries limited to 28 C.F.R. § 36.302, a public-accommodation rule, instruction 16). Whether S.C. Code Ann. § 47-3-980 reaches housing is not settled by its text: subsection (A) is not limited to public accommodations, but (C) ties enforcement inquiries to the federal public-accommodation rule (candidate ref 134.4). No landlord criminal penalty for refusing an assistance animal located in housing (the Guide Dog article's interference offenses, S.C. Code Ann. § 47-3-930, concern public accommodations; read by title and search hit). Lease row: `assistance-animal-accommodation-sc`.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-local-preemption-sc",
+    title: "Local Rent Control Preemption",
+    group: "Rent & Payment",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-control",
+    bodyText:
+      "South Carolina counties and cities may not regulate in any way the amount of rent charged for privately owned single-family, multi-unit residential or commercial rental property. They may regulate rent on their own property and by agreement with private owners. State law does not otherwise preempt local housing, registration, inspection or source-of-income ordinances, so landlords should check local rules in cities such as Charleston, Columbia, Greenville and Myrtle Beach, which are outside this library's scope.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). Controlling text: S.C. Code Ann. § 27-39-60 (1985 Act No. 184: 'No county or municipal corporation may enact, maintain, or enforce any ordinance or resolution which would regulate in any way the amount of rent to be charged for privately owned, single family, or multiple unit residential, or commercial rental property'; exceptions for public property and agreements). Only the amount of rent is preempted (kickoff lead confirmed, and nothing more assumed). No state limit on local rental registration or inspection located (search 'rental (dwelling|property|unit)s? ... (inspect|registr|licens|permit)': 3 hits, none a limit, SC log §17). 2026 Act No. 241 bars local governments from preventing replacement of a lawful nonconforming manufactured home (S.C. Code Ann. § 6-29-735, not read beyond the title). Municipal ordinances flagged, not resolved (instruction 20).",
+  },
+  // Notices & General
+  {
+    id: "edu-electronic-notices-sc",
+    title: "Electronic Notices",
+    group: "Notices & General",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "notice-delivery-methods",
+    bodyText:
+      "South Carolina's electronic-transactions law does not apply to a notice required by law about default, eviction or the right to cure under a rental agreement for a person's primary residence. Notices of nonpayment, breach and eviction should therefore be delivered on paper, in hand or by registered or certified mail as the Residential Landlord and Tenant Act describes, even if the lease allows e-mail for other communications.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). Instruction 47. Controlling text: S.C. Code Ann. § 26-6-30(B)(2)(c)(ii) (2004 Act No. 279: the chapter 'does not apply to a notice required by law regarding ... default, acceleration, repossession, foreclosure, eviction, or the right to cure under a credit agreement secured by a primary residence of an individual or a rental agreement for a primary residence of an individual'); S.C. Code Ann. § 26-6-30(C) (applies where another law governs); S.C. Code Ann. § 27-40-240(B)(3) (tenant receives notice in hand or by registered or certified mail; proof of mailing is notice). The SC REALTORS Form 410 deems fax and electronic communications valid (SC log §15), a divergence recorded here. The tagged `notices` designates no electronic method. 2025 Act No. 59 ('Electronic Records') screened: no change to this section's history line.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-dishonored-payment-remedies-sc",
+    title: "Bounced Checks",
+    group: "Rent & Payment",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "returned-payments",
+    bodyText:
+      "A South Carolina landlord may charge a service charge of up to $30 when a check, draft or other written order given for rent is dishonored. If the writer does not pay the amount plus the $30 charge within 10 days after a written notice in the statutory form is sent by certified mail to the address on the check, that failure is prima facie evidence of fraudulent intent for a criminal bad-check case. No South Carolina statute sets a fee for a failed electronic or card payment.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). Outside Title 27. Controlling text: S.C. Code Ann. § 34-11-70(a) (service charge of thirty dollars; ten-day notice by certified mail; statutory notice form in (a)(1)); S.C. Code Ann. § 34-11-70(a)(3) ('A service charge of not more thirty dollars is payable by the drawer ... when the draft, check, or other written order is presented for payment in whole or in part of a then existing debt ... and is dishonored'; no notice needed for the service charge itself) (history ends 2002 Act No. 291). 2026 Act No. 248 added an expungement route for check-fraud convictions (S.C. Code Ann. § 34-11-90, S.C. Code Ann. § 17-22-910; not read beyond the title). Supports the tagged `returned-payments`.",
+  },
+  // Disclosures
+  {
+    id: "edu-lead-hazards-sc",
+    title: "Lead Hazards",
+    group: "Disclosures",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lead-based-paint",
+    bodyText:
+      "Federal lead-based paint disclosure rules apply to rentals built before 1978. In addition, when a child lives in a dwelling where South Carolina's public health department identifies a lead-based hazard, the department posts a notice at the dwelling, notifies the occupant and orders the owner to remediate the hazard within a reasonable time; the owner may appeal the order as a contested case.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). Outside Title 27. Controlling text: S.C. Code Ann. § 44-53-1430 (2005 Act No. 142: posted notice, notice to the householder, remediation order to the property owner, appeal); S.C. Code Ann. § 44-53-1390 (investigation and right of entry; read by title and search hit); Childhood Lead Poisoning Prevention and Control Act, S.C. Code Ann. § 44-53-1310 et seq. 2026 Act No. 146 (DHEC restructuring) amends many Title 44 references to the department; its effect on this article's agency name was not traced (L.5). Federal: 42 U.S.C. § 4852d; 24 CFR Part 35; 40 CFR Part 745 (instruction 16). Lease row: `lead-based-paint`.",
+  },
+  // Default & Termination
+  {
+    id: "edu-unauthorized-occupant-removal-sc",
+    title: "Squatters and Unlawful Occupants",
+    group: "Default & Termination",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "unauthorized-occupant-removal",
+    bodyText:
+      "Since 2026-06-30, a South Carolina property owner can remove unlawful occupants of a residential dwelling quickly by filing a verified petition with the clerk of court or chief magistrate; the court issues an ex parte removal order, holds a hearing within 24 hours, and the sheriff or constable enforces it. The procedure is only for people who were never tenants: the petition must state that the property was not leased to anyone and the occupants are not current or former tenants, guests or immediate family. Anyone who was a tenant must be evicted through the ordinary ejectment process. The same law made it a crime to rent out property one does not own or lease, to present a fake lease or deed to stay on property, and, as a felony, for an unlawful occupant to cause $1,000 or more in damage.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). NEW LAW: 2026 Act No. 252 (H.3387), ratified 2026-06-29, signed 2026-06-30, effective on approval; not yet in the online Code. Read from the ratified act: new Chapter 37 Article 3, S.C. Code Ann. § 27-37-200 to S.C. Code Ann. § 27-37-350 (definitions; verified petition; filing fees as in common pleas; ex parte order on good cause with nine required allegations incl. 'the property has not been leased to any person and the unlawful occupant or occupants are not current or former tenants'; hearing within twenty-four hours; enforcement; stand-by at an hourly rate while locks are changed and property moved to the property line; owner not liable for loss unless removal wrongful; wrongful removal action with $1,000 statutory damages; violation of the ex parte order a felony); new S.C. Code Ann. § 16-11-790 (felony damage of $1,000 or more; misdemeanor to list, rent or lease property without title or authority; misdemeanor to present a false lease or deed). Older routes: summary ejectment of trespassers after five days' notice (S.C. Code Ann. § 15-67-610 to S.C. Code Ann. § 15-67-630); owner may treat a trespasser as a tenant at will (S.C. Code Ann. § 27-35-40). Guests who overstay a tenant's invitation are not squatters under the new article if the occupant has a tenant's protections (S.C. Code Ann. § 27-37-200(5)).",
+  },
+  {
+    id: "edu-sale-of-rented-property-sc",
+    title: "Selling a Rented Property",
+    group: "Default & Termination",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "sale-of-rented-property",
+    bodyText:
+      "When South Carolina rental property is sold, the buyer becomes the tenant's landlord under the existing lease by operation of law. A seller who sells in good faith to a bona fide purchaser is relieved of liability for events after written notice of the sale to the tenant, but stays liable for the security deposit unless it is transferred to the buyer and the tenant is notified in writing within a reasonable time. A tenant who pays rent to the former owner before receiving notice of the sale is protected. The owner and agent disclosure must be kept current after a sale or a change of manager, and an outgoing manager is released only after written notice to the tenant.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). Controlling text: S.C. Code Ann. § 27-35-50 (purchaser becomes landlord 'ipso facto'); S.C. Code Ann. § 27-40-450(a)-(b); S.C. Code Ann. § 27-40-410(e); S.C. Code Ann. § 27-39-30 (payment to grantor before notice protected); S.C. Code Ann. § 27-40-420(b); S.C. Code Ann. § 27-35-80 (attornment to strangers void, except to a purchaser under S.C. Code Ann. § 27-35-50). Foreclosure: no state tenant-protection statute located (search 'foreclos' near tenant or lessee: 0 hits, SC log §17); federal PTFA (instruction 16) not read. Condominium conversion: `edu-condo-conversion-notice-sc`.",
+  },
+  {
+    id: "edu-condo-conversion-notice-sc",
+    title: "Condominium Conversion",
+    group: "Default & Termination",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "conversion-notice",
+    bodyText:
+      "If a South Carolina owner records a master deed to convert rental units to condominiums, within 30 days the owner must give each tenant in possession a written notice of the conversion and tenants' rights, the building-condition disclosure, and an offer to sell the tenant's unit on terms at least as favorable as those offered to others. The tenant has 60 days to accept and may stay until the lease expires or for 120 days after the notice (90 days if under age 60), whichever is longer, on unchanged terms. A lease may still be terminated for the tenant's violation of its terms.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). Outside Chapter 40, found by the outside-title search. Controlling text: S.C. Code Ann. § 27-31-420(A)-(F) (1983 Act No. 37); S.C. Code Ann. § 27-31-430 (architect or engineer condition report; failure is a violation of the Unfair Trade Practices Act); S.C. Code Ann. § 27-31-440 (conversion may be abandoned).",
+  },
+  // Parking & Storage
+  {
+    id: "edu-towing-sc",
+    title: "Towing from Rental Property",
+    group: "Parking & Storage",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "towing",
+    bodyText:
+      "No South Carolina statute located sets rules for a landlord towing vehicles from a private rental lot. A towing company that tows and stores a vehicle without the owner's knowledge must notify the local police or sheriff within one hour, or it is not entitled to any compensation for the tow and storage. Local ordinances may add rules.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). Outside Title 27. Controlling text: S.C. Code Ann. § 56-5-2525 (notice to authorities within one hour; no compensation otherwise). Searched 'tow|towed|towing|wrecker' near private property, parking lot or property owner, and 'towing' alone (131 hits in 49 sections; landlord-relevant hits S.C. Code Ann. § 56-5-2525, S.C. Code Ann. § 56-5-5630 to S.C. Code Ann. § 56-5-5640 (storage liens, read by title), S.C. Code Ann. § 29-15-10 (towing and storage lien, read by title)); no private-lot signage or authorization statute (SC log §17). Not 'confirmed absent' as a local question (instruction 20). Lease row: `parking-vehicle-rules`.",
+  },
+  // Notices & General
+  {
+    id: "edu-scope-exclusions-sc",
+    title: "What the South Carolina Act Covers",
+    group: "Notices & General",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "scope",
+    bodyText:
+      "The South Carolina Residential Landlord and Tenant Act governs rental agreements for dwelling units in South Carolina, including landlord-owned mobile homes. It does not cover residence in an institution incidental to medical, educational or similar services; occupancy under a contract of sale; fraternal or social organization housing; transient stays in hotels, motels or other accommodations subject to the accommodations sales tax; employee housing conditioned on employment; condominium owners and cooperative proprietary lessees; agricultural premises; timeshares; or charitable or emergency shelters. Property leased solely so the lessee can renovate it is not a dwelling unit. Vacation rentals of fewer than 90 days are governed by the separate Vacation Rental Act, and manufactured home park lots by the Manufactured Home Park Tenancy Act; both are outside this library.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). Controlling text: S.C. Code Ann. § 27-40-120(1)-(9) (1998 Act No. 382 added (9)); S.C. Code Ann. § 27-40-210(3) (dwelling unit incl. landlord-owned mobile homes; renovation leases excluded); S.C. Code Ann. § 12-36-920 (accommodations tax, by reference); S.C. Code Ann. § 27-50-230(3) (vacation rental: fewer than ninety days, excluding weekly or monthly rentals under Chapter 40); Chapter 47 of Title 27 (Manufactured Home Park Tenancy Act, deprioritized, not read); S.C. Code Ann. § 27-40-940 (pre-1986 transactions); general provisions S.C. Code Ann. § 27-40-10 (short title), S.C. Code Ann. § 27-40-20 (liberal construction), S.C. Code Ann. § 27-40-30 (principles of law and equity supplement the Act), S.C. Code Ann. § 27-40-40 (no implied repeal). Scope carve-outs per the kickoff: short-term and vacation rentals recorded, not researched; municipal ordinances (Charleston, Columbia, Greenville, Myrtle Beach and others) out of scope (instruction 20).",
+  },
+  {
+    id: "edu-prohibited-lease-terms-sc",
+    title: "Lease Terms South Carolina Voids",
+    group: "Notices & General",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "prohibited-lease-terms",
+    bodyText:
+      "A South Carolina lease may not make the tenant waive rights or remedies under the Residential Landlord and Tenant Act, authorize a confession of judgment, or require the tenant to agree to excuse or limit the landlord's legal liability or to indemnify the landlord for it. Such terms are unenforceable, and a landlord who deliberately uses a lease containing terms known to be prohibited and tries to enforce them can owe the tenant actual damages plus up to the amount of the security deposit and attorney's fees, or up to three months' rent and fees if the use was malicious. Bona fide liquidated damages for lost rent on early termination are allowed. No agreement may let anyone collect rent without the landlord's duty to maintain the property. A lease may not bar a tenant from displaying one portable, removable United States flag in a respectful manner. A contractual lien on a tenant's household goods is unenforceable. A court may refuse to enforce an unconscionable lease or term.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). Controlling text: S.C. Code Ann. § 27-40-330(a)-(c); S.C. Code Ann. § 27-40-340; S.C. Code Ann. § 27-40-740(a); S.C. Code Ann. § 27-40-230 (unconscionability, statutory); S.C. Code Ann. § 27-40-60 (good-faith settlement); S.C. Code Ann. § 27-40-220 (every duty and every condition to a remedy carries an obligation of good faith); S.C. Code Ann. § 27-1-60 (2002 Act No. 344, flag); S.C. Code Ann. § 43-33-70(d) (no extra compensation for an assistance dog); S.C. Code Ann. § 27-40-350(A)(2) (no early-termination fees for a protected DV tenant). Instruction 42: S.C. Code Ann. § 27-40-330 is not the complete list; these other sections also restrict lease content. Library consequences: the shared `pet-policy`, `parking`, `storage-space` and `tenants-property-insurance` are not tagged (exculpation or indemnity), and `early-termination` is not tagged (10-day cure below the 14-day statutory right). Confession of judgment in consumer credit also barred elsewhere (S.C. Code Ann. § 37-2-415, S.C. Code Ann. § 37-3-407, read by search hit).",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-rules-and-regulations-sc",
+    title: "Rules and Regulations",
+    group: "Rules & Regulations",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rules-regulations",
+    bodyText:
+      "A South Carolina landlord may adopt rules on the tenant's use and occupancy, but they bind the tenant only if they promote tenants' convenience, safety or welfare, protect the property from abuse, or fairly distribute services; are reasonably related to that purpose; apply fairly to all tenants; are explicit enough to tell the tenant what to do; do not evade the landlord's duties; and the tenant had notice of them at signing or when adopted. A rule adopted after the lease is signed that substantially modifies the tenant's bargain is not valid against a tenant who objects in writing within 30 days after it is announced, if the tenant was told of the right to object.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). Controlling text: S.C. Code Ann. § 27-40-520(a)-(b); S.C. Code Ann. § 27-40-510(8) (tenant must comply with enforceable rules); S.C. Code Ann. § 27-40-210(12) (valid rules are part of the rental agreement). Supports the tagged `entire-agreement` ('as applicable law permits Landlord to change it by written notice').",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-utilities-sc",
+    title: "Utility Accounts",
+    group: "Tenant Responsibilities",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utilities-responsibility",
+    bodyText:
+      "Unless otherwise agreed in writing, a South Carolina tenant has sole financial responsibility for gas, electric, water, sewer and garbage service to the rented premises, and the landlord is not liable for the tenant's account. A utility may not require a landlord to guarantee a tenant's charges, or refuse service because the landlord will not, except for buildings of four or more units served by a master meter. If an energy-efficiency meter conservation charge is attached to the account, the landlord must give each new tenant written notice of it.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). Outside Chapter 40. Controlling text: S.C. Code Ann. § 27-33-50(A)-(C) (2002 Act No. 336; 2003 Act No. 63); S.C. Code Ann. § 58-37-50(H)(3) (`meter-conservation-charge-notice-sc`). No landlord utility-resale or submetering statute located for residential rentals (search 'master[- ]meter': 1 hit, S.C. Code Ann. § 27-33-50). Lease rows: `utilities-responsibility`, `utilities-paid-by-landlord`.",
+  },
+  // Default & Termination
+  {
+    id: "edu-eviction-record-removal-sc",
+    title: "Eviction Record Removal",
+    group: "Default & Termination",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-record-sealing",
+    bodyText:
+      "Beginning 2027-01-01, South Carolina eviction filings and records, including cases ended by an eviction order or writ, a settlement, or later payment of the judgment, must be removed from the public index and publicly accessible files seven years after final disposition or filing if no additional filing is recorded.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). NEW LAW: 2026 Act No. 214 (H.4270), signed 2026-05-19, effective 2027-01-01 (instruction 34); adds S.C. Code Ann. § 30-2-60 (read from the ratified act). No landlord right to object is provided. No other sealing or expungement rule for eviction records located (search '(expunge|expunction|seal|remov)' near ejectment or eviction: 2 hits, neither a sealing rule, SC log §17).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-nonresident-landlord-withholding-sc",
+    title: "Rent Paid to Nonresident Owners",
+    group: "Rent & Payment",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nonresident-landlord",
+    bodyText:
+      "South Carolina requires a person who pays $1,200 or more a year in rent to a nonresident owner for the use of South Carolina property to withhold state income tax from each payment. A tenant who pays rent for the tenant's own home is not required to withhold, and the rule does not apply to residential units when the nonresident owns four or fewer of them, or to a nonresident registered with the Secretary of State or the Department of Revenue. A property manager collecting rent for a nonresident owner of more than four units should check whether withholding applies.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). Outside Title 27, found by the outside-title search (compare GA's nonresident-owner broker rule, GA1.1). Controlling text: S.C. Code Ann. § 12-8-540(A)-(B) (withholding at the maximum individual rate, or 5% for entities; exemptions for residential housing units including short-term rentals when four or fewer are owned by the nonresident, for an individual paying rent for the unit that is the individual's legal residence, and for registered nonresidents with an affidavit). Whether a property manager remitting to an owner is a 'person making rent ... payments' is a Department of Revenue question, not researched; the last sentence says only 'check'. No in-state broker requirement for nonresident owners located.",
+  },
+  // Security Deposit
+  {
+    id: "edu-no-deposit-cap-sc",
+    title: "No Limit on Security Deposit Amount",
+    group: "Security Deposit",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-cap",
+    bodyText:
+      "South Carolina does not limit the amount of a security deposit, pet deposit or prepaid rent a landlord may require.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 1,304 chapter pages of the official South Carolina Code of Laws (scstatehouse.gov chapter pages loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0 and 'security deposit' 34 hits, so the engine reports true empties; every word form entered explicitly; SC log §17). Chapter 40 read whole: S.C. Code Ann. § 27-40-410 has no amount rule. Searched 'security deposits?' (34 hits in 26 sections; residential hits only in Chapter 40, S.C. Code Ann. § 27-40-210, -330, -410, -450, -650; S.C. Code Ann. § 27-47-520 manufactured home parks; S.C. Code Ann. § 40-57-136 broker trust accounts) and '(deposits?) ... (exceed|not more than|maximum|in excess of) ... (rent|month)' (2 hits, public funds). The kickoff's 'reportedly none' is confirmed.",
+  },
+  {
+    id: "edu-no-deposit-interest-sc",
+    title: "No Interest on Security Deposits",
+    group: "Security Deposit",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-interest",
+    bodyText:
+      "South Carolina does not require a landlord to pay interest on a security deposit or to hold it in an interest-bearing, separate or escrow account. Brokers and property managers must, however, keep tenant deposits in a trust account.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 1,304 chapter pages of the official South Carolina Code of Laws (scstatehouse.gov chapter pages loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0 and 'security deposit' 34 hits, so the engine reports true empties; every word form entered explicitly; SC log §17). Searched 'interest ... security deposit|security deposit ... interest': 0 hits. S.C. Code Ann. § 27-40-210(18) says the deposit is 'held in trust'; S.C. Code Ann. § 40-57-136(A) requires licensees' trust accounts. The SC REALTORS Form 410 gives any interest to the broker (¶34).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-late-fee-cap-sc",
+    title: "No Late Fee Limit",
+    group: "Rent & Payment",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "late-fee-limit",
+    bodyText:
+      "South Carolina sets no cap or grace period for late fees. Late charges are treated as part of the rent. A late fee should be stated in the lease and should be a reasonable estimate of the landlord's loss.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 1,304 chapter pages of the official South Carolina Code of Laws (scstatehouse.gov chapter pages loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0 and 'security deposit' 34 hits, so the engine reports true empties; every word form entered explicitly; SC log §17). Searched 'late (fee|fees|charge|charges) ... (rent|tenant|lease|landlord|dwelling)': 1 hit, S.C. Code Ann. § 27-40-210(11) ('rent' includes late charges). The reasonableness sentence reflects penalty doctrine, case law not read (instruction 16).",
+  },
+  {
+    id: "edu-no-application-fee-cap-sc",
+    title: "No Application Fee Limit",
+    group: "Rent & Payment",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "application-fee",
+    bodyText:
+      "South Carolina does not limit rental application or screening fees or require refunds of unused fees.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 1,304 chapter pages of the official South Carolina Code of Laws (scstatehouse.gov chapter pages loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0 and 'security deposit' 34 hits, so the engine reports true empties; every word form entered explicitly; SC log §17). Searched '(application|screening) fees? ... (rent|tenant|landlord|housing|lease)': 0 hits.",
+  },
+  {
+    id: "edu-no-rent-increase-notice-sc",
+    title: "No Rent Increase Notice Rule",
+    group: "Rent & Payment",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-increase-notice",
+    bodyText:
+      "South Carolina has no statute setting a notice period for raising rent. During a fixed term, rent can change only as the lease allows; a month-to-month rent increase in practice follows the 30-day notice for ending the tenancy. A rent increase after a tenant's protected complaint can be retaliation, except that a landlord of more than four adjoining units may raise rent uniformly.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 1,304 chapter pages of the official South Carolina Code of Laws (scstatehouse.gov chapter pages loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0 and 'security deposit' 34 hits, so the engine reports true empties; every word form entered explicitly; SC log §17). Searched '(increase|raise|raising) ... rent|rent increase': 2 hits, both S.C. Code Ann. § 27-40-910 (retaliation; uniform increases). Month-to-month mechanics: S.C. Code Ann. § 27-40-770(b) (the 'in practice' sentence is an inference, not a rule). SC REALTORS Form 410 uses 15 days' notice after the initial term (¶33), a contract term.",
+  },
+  // Disclosures
+  {
+    id: "edu-no-source-of-income-rule-sc",
+    title: "No Source-of-Income Protection",
+    group: "Disclosures",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "source-of-income",
+    bodyText:
+      "South Carolina law does not require landlords to accept housing choice vouchers or other rental assistance and does not protect source of income; it also does not preempt local ordinances on the subject.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 1,304 chapter pages of the official South Carolina Code of Laws (scstatehouse.gov chapter pages loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0 and 'security deposit' 34 hits, so the engine reports true empties; every word form entered explicitly; SC log §17). Searched 'section 8 (housing|voucher|program|tenant)|housing choice voucher|source of income|lawful source': 21 hits in 17 sections, none a housing protection (S.C. Code Ann. § 4-9-195 tax certification; income-withholding and funding provisions). S.C. Code Ann. § 31-21-40 lists no such class. S.C. Code Ann. § 27-39-60 preempts only rent amount.",
+  },
+  {
+    id: "edu-no-immigration-inquiry-rule-sc",
+    title: "No Immigration-Status Inquiry Rule",
+    group: "Disclosures",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "immigration-status-inquiry",
+    bodyText:
+      "South Carolina has no statute requiring or forbidding a landlord to ask about an applicant's immigration or citizenship status. A state crime of harboring or sheltering unlawfully present people requires intent to further unlawful entry or avoid detection and is not a screening duty. Federal fair housing law still bars national-origin discrimination.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 1,304 chapter pages of the official South Carolina Code of Laws (scstatehouse.gov chapter pages loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0 and 'security deposit' 34 hits, so the engine reports true empties; every word form entered explicitly; SC log §17). Searched '(immigration|citizenship|alien) ... (tenant|landlord|rent|lease|dwelling|housing|shelter)': 10 hits, none a landlord rule. S.C. Code Ann. § 16-9-460(C)-(D) read (felony harboring requires intent 'to further that person's unlawful entry ... or avoiding apprehension or detection'); its enforcement history is case law, not read.",
+  },
+  {
+    id: "edu-no-radon-disclosure-sc",
+    title: "No Radon Disclosure Rule",
+    group: "Disclosures",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "radon-disclosure",
+    bodyText:
+      "South Carolina does not require a landlord to test for or disclose radon to tenants.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 1,304 chapter pages of the official South Carolina Code of Laws (scstatehouse.gov chapter pages loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0 and 'security deposit' 34 hits, so the engine reports true empties; every word form entered explicitly; SC log §17). Searched '\\bradon\\b': 1 hit, S.C. Code Ann. § 27-50-40 (Residential Property Condition Disclosure Act, sales only).",
+  },
+  {
+    id: "edu-no-mold-bedbug-disclosure-sc",
+    title: "No Mold or Bed Bug Disclosure Rule",
+    group: "Disclosures",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "bed-bug-disclosure",
+    bodyText:
+      "South Carolina has no statute requiring a landlord to disclose mold or bed bugs or setting a treatment timeline. Both fall under the landlord's general duty to keep the property fit and habitable and the tenant's duty to keep the unit clean.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 1,304 chapter pages of the official South Carolina Code of Laws (scstatehouse.gov chapter pages loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0 and 'security deposit' 34 hits, so the engine reports true empties; every word form entered explicitly; SC log §17). Searched 'bed ?bugs?|bedbugs?': 0 hits; 'mold|molds|mildew|fungal': 38 hits in 13 sections (fossils, tax, dies and molds, insurance disclosure, agriculture), none landlord-tenant. General duties: S.C. Code Ann. § 27-40-440(a)(1)-(2), S.C. Code Ann. § 27-40-510(2).",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-no-co-alarm-duty-sc",
+    title: "No Carbon Monoxide Alarm Duty",
+    group: "Rules & Regulations",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "carbon-monoxide-alarm",
+    bodyText:
+      "South Carolina has no statute requiring carbon monoxide alarms in rental dwellings. Local building codes may require them in new construction.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 1,304 chapter pages of the official South Carolina Code of Laws (scstatehouse.gov chapter pages loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0 and 'security deposit' 34 hits, so the engine reports true empties; every word form entered explicitly; SC log §17). Searched 'carbon monoxide': 6 hits in 4 sections (S.C. Code Ann. § 47-3-420 euthanasia; S.C. Code Ann. § 40-15-172, S.C. Code Ann. § 40-37-320 mobile dental and optometry units; S.C. Code Ann. § 44-135-60 lung testing). The local-code sentence is general, not researched (instruction 20).",
+  },
+  // Disclosures
+  {
+    id: "edu-no-flood-disclosure-sc",
+    title: "No Flood Disclosure Rule",
+    group: "Disclosures",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "flood-disclosure",
+    bodyText:
+      "South Carolina does not require a landlord to tell a tenant about past flooding or flood risk.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 1,304 chapter pages of the official South Carolina Code of Laws (scstatehouse.gov chapter pages loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0 and 'security deposit' 34 hits, so the engine reports true empties; every word form entered explicitly; SC log §17). Searched 'flood ... (lease|tenant|lessee|rental|landlord)' both directions: 2 hits (soil-conservation leases, dam definitions).",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-no-ev-charging-right-sc",
+    title: "No Tenant EV Charging Right",
+    group: "Rules & Regulations",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "ev-charging",
+    bodyText:
+      "South Carolina gives tenants no statutory right to install electric-vehicle charging.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 1,304 chapter pages of the official South Carolina Code of Laws (scstatehouse.gov chapter pages loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0 and 'security deposit' 34 hits, so the engine reports true empties; every word form entered explicitly; SC log §17). Searched 'electric vehicle ... (tenant|lease|rental|landlord|condominium|association)': 0 hits.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-cash-receipt-duty-sc",
+    title: "No General Rent Receipt Duty",
+    group: "Rent & Payment",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "cash-rent-receipt",
+    bodyText:
+      "South Carolina has no general duty to give receipts for rent. The one exception: when a tenant raises defenses in an eviction and pays rent as it comes due under the court's rule, the landlord must give a written receipt for each payment, except payments by check.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 1,304 chapter pages of the official South Carolina Code of Laws (scstatehouse.gov chapter pages loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0 and 'security deposit' 34 hits, so the engine reports true empties; every word form entered explicitly; SC log §17). Searched 'receipts? (for|of) (rent|payment)|rent receipt': 9 hits, landlord-tenant hits only S.C. Code Ann. § 27-40-340 ('receipt of rent'); the during-proceedings receipt duty is S.C. Code Ann. § 27-40-790(a) (found in the Chapter 40 read). Commercial analog S.C. Code Ann. § 27-37-155.",
+  },
+  // Notices & General
+  {
+    id: "edu-no-police-call-protection-sc",
+    title: "No Right-to-Call-Police Statute",
+    group: "Notices & General",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "emergency-assistance-right",
+    bodyText:
+      "South Carolina has no statute protecting a tenant's right to call police or emergency services or limiting nuisance-based penalties for such calls.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 1,304 chapter pages of the official South Carolina Code of Laws (scstatehouse.gov chapter pages loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0 and 'security deposit' 34 hits, so the engine reports true empties; every word form entered explicitly; SC log §17). Searched '(law enforcement|police|911|emergency assistance) ... (tenant|lessee|lease) ... (evict|terminat|penal|waive)': 0 hits.",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-tenant-death-termination-sc",
+    title: "No Lease Termination on a Tenant's Death",
+    group: "Default & Termination",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-death-of-tenant",
+    bodyText:
+      "South Carolina has no statute ending a lease or setting a special procedure when a tenant dies. The lease continues as a contract with the tenant's estate, and the landlord should deal with the estate's representative; property left behind is handled under the abandonment and ejectment rules.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 1,304 chapter pages of the official South Carolina Code of Laws (scstatehouse.gov chapter pages loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0 and 'security deposit' 34 hits, so the engine reports true empties; every word form entered explicitly; SC log §17). Searched '(death|dies|died|deceased|decedent) ... (tenant|lessee) ... (lease|rental agreement|terminat)': 0 hits. The estate sentence is general contract law, not a statute (instruction 16). S.C. Code Ann. § 27-35-180 mentions a tenant's executors for holdover after notice to quit.",
+  },
+  // Security Deposit
+  {
+    id: "edu-no-move-in-inspection-rule-sc",
+    title: "No Move-In Inspection Rule",
+    group: "Security Deposit",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "move-in-inventory",
+    bodyText:
+      "South Carolina does not require a move-in or move-out inspection, inventory or condition report. A written, signed condition record is still the best evidence in a deposit dispute.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 1,304 chapter pages of the official South Carolina Code of Laws (scstatehouse.gov chapter pages loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0 and 'security deposit' 34 hits, so the engine reports true empties; every word form entered explicitly; SC log §17). Searched '(move-in|move in|inventory|condition report|checklist) ... (tenant|lessee|rental)': 0 hits. SC REALTORS Form 410 ¶27 uses an inventory for furnished items (contract).",
+  },
+  // Disclosures
+  {
+    id: "edu-no-drug-lab-disclosure-sc",
+    title: "No Drug Lab Disclosure Rule",
+    group: "Disclosures",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "meth-disclosure",
+    bodyText:
+      "South Carolina has no statute requiring a landlord to disclose or decontaminate a former methamphetamine lab before renting.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 1,304 chapter pages of the official South Carolina Code of Laws (scstatehouse.gov chapter pages loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0 and 'security deposit' 34 hits, so the engine reports true empties; every word form entered explicitly; SC log §17). Searched 'clandestine|methamphetamine (lab|laborator)': 0 hits; 'methamphetamine ... (property|dwelling|residen|decontamin|disclos|remediat)': 1 hit (S.C. Code Ann. § 44-53-520 forfeiture).",
   },
 ];
 

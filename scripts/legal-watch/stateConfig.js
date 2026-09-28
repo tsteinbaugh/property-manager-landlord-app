@@ -26,6 +26,7 @@ const STATE_NAMES = {
   AZ: "Arizona",
   GA: "Georgia",
   NC: "North Carolina",
+  SC: "South Carolina",
 };
 
 const STATE_CONFIG = {
@@ -746,6 +747,49 @@ const STATE_CONFIG = {
         label:
           "North Carolina agency rules LegiScan can't see: NCUC utility-billing rules (incl. Rule 18-6), Real Estate Commission trust-account rules (21 NCAC 58A), DHHS service-animal and meth-decontamination rules (NC log §7)",
         clauseIds: ["utility-billing-nc", "security-deposit-holding-nc", "edu-meth-decontamination-nc"],
+      },
+    ],
+  },
+
+  SC: {
+    // S.C. Code Ann. sections are title-chapter-section, hyphenated like CO
+    // ("27-40-410", "58-37-50"), so a bare quoted number is specific enough
+    // and needs no buildQuery. Citations are split on ";" and only the
+    // "S.C. Code Ann." parts are read, since the lead-paint row also cites
+    // U.S.C./CFR. Subsection parentheses become spaces. No S.C. Code Ann.
+    // Regs. rule and no case law is relied on (SC log §8).
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        if (!/^S\.C\. Code Ann\./.test(part)) continue;
+        const body = part.replace(/\([^)]*\)/g, " ");
+        for (const m of body.matchAll(/\b(\d{1,2}-\d{1,3}-\d{1,4}(?:\.\d{1,2})?)\b/g)) out.push(m[1]);
+      }
+      return out;
+    },
+    cfrChecks: [
+      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-sc"] },
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+    ],
+    federalStatuteChecks: [],
+    manualRecheckItems: [
+      {
+        id: "sc-2026-acts-codification",
+        label:
+          "South Carolina's online Code was a session behind at the SC pass: 2026 Acts No. 184 (S.C. Code Ann. §27-40-350 DV termination), 214 and 252 (squatter removal, appeal stay) were read from the acts. Check the codified text once scstatehouse.gov updates",
+        clauseIds: ["dv-lease-termination-sc", "edu-unauthorized-occupant-removal-sc", "edu-eviction-process-sc"],
+      },
+      {
+        id: "sc-eviction-record-removal-effective",
+        label:
+          "S.C. Code Ann. §30-2-60 eviction-record removal starts in 2027: confirm the codified text matches edu-eviction-record-removal-sc once it takes effect",
+        clauseIds: ["edu-eviction-record-removal-sc"],
+      },
+      {
+        id: "sc-agency-rules",
+        label:
+          "South Carolina agency rules LegiScan can't see: State Fire Marshal detector regulations, lead rules, PSC utility disconnection rules, Real Estate Commission trust-account rules (SC log §7)",
+        clauseIds: ["edu-lead-hazards-sc"],
       },
     ],
   },
