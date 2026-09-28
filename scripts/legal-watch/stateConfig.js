@@ -24,6 +24,7 @@ const STATE_NAMES = {
   NJ: "New Jersey",
   FL: "Florida",
   AZ: "Arizona",
+  GA: "Georgia",
 };
 
 const STATE_CONFIG = {
@@ -648,6 +649,54 @@ const STATE_CONFIG = {
         label:
           "A.R.S. §33-443 (as amended by Laws 2026, ch. 240): check for AG guidance or a ruling on whether it reaches an individual residential tenant",
         clauseIds: ["edu-foreign-adversary-land-ban-az"],
+      },
+    ],
+  },
+
+  GA: {
+    // O.C.G.A. sections are title-chapter-section, hyphenated like CO
+    // ("44-7-30", "44-7-30.1", "44-12-239.2"), so a bare quoted number is
+    // specific enough and needs no buildQuery. Citations are split on ";"
+    // and only the "O.C.G.A." parts are read, since the lead-paint row also
+    // cites 42 U.S.C. / CFR. Subsection parentheses become spaces so
+    // "44-7-24(d)(1)(A)" stays 44-7-24. No Ga. Comp. R. & Regs. rule and no
+    // case law is relied on (GA log §8).
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        if (!/^O\.C\.G\.A\./.test(part)) continue;
+        const body = part.replace(/\([^)]*\)/g, " ");
+        for (const m of body.matchAll(/\b(\d{1,2}-\d{1,2}-\d{1,3}(?:\.\d{1,2})?)\b/g)) out.push(m[1]);
+      }
+      return out;
+    },
+    extraSectionAliases: {
+      // Small "X to Y" ranges: the extractor catches only the two ends.
+      // Larger ranges (44-7-70 to 44-7-81 distress warrants, read by summary;
+      // 44-12-190 to 44-12-239.2 unclaimed property) stay endpoint-only.
+      "guest-policy": ["44-11-31", "44-11-32"],
+      "edu-unauthorized-occupant-removal-ga": ["44-11-31"],
+      "lead-based-paint": ["31-41-13", "31-41-14", "31-41-15", "31-41-16", "31-41-17"],
+      "edu-lead-poisoning-abatement-ga": ["31-41-13", "31-41-14", "31-41-16"],
+      "dv-lease-termination-ga": ["16-5-91", "16-5-92", "16-5-93"],
+    },
+    cfrChecks: [
+      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-ga"] },
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+    ],
+    federalStatuteChecks: [],
+    manualRecheckItems: [
+      {
+        id: "ga-eviction-sealing-effective",
+        label:
+          "O.C.G.A. §44-7-50(e) (eviction record sealing) takes effect 2027-01-01: on or after that date, confirm the codified text matches edu-eviction-record-sealing-ga",
+        clauseIds: ["edu-eviction-record-sealing-ga"],
+      },
+      {
+        id: "ga-agency-rules",
+        label:
+          "Georgia agency rules LegiScan can't see: Department of Public Safety towing rules, Department of Public Health lead rules, PSC utility rules (GA log §7)",
+        clauseIds: ["edu-towing-ga", "edu-lead-poisoning-abatement-ga", "utility-service-continuity"],
       },
     ],
   },

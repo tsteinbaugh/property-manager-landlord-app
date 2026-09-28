@@ -32,6 +32,9 @@
 // wholesale from the CSV (2026-09-18 refresh, Ohio added: 309 -> 324
 // entries across the now-8-state pass).
 //
+// **2026-09-28 (Georgia sync):** regenerated from the 15-state CSV
+// (667 -> 704 entries).
+//
 // **2026-09-28 (gap-discovery backfill):** regenerated from the merged CSV
 // (554 -> 663 entries).
 //
@@ -8547,6 +8550,477 @@ const LANDLORD_EDUCATION = [
     bodyText:
       "Ohio forecloses local rent control about as firmly as any state in this library. R.C. 5321.19 bars a political subdivision from enacting, adopting, renewing, maintaining, enforcing or continuing any charter provision, ordinance, resolution, rule or other measure that conflicts with Chapter 5321, or that regulates the rights and obligations of parties to a rental agreement that the chapter regulates, including by imposing or requiring rent control or rent stabilization. R.C. 5321.20 then adds a legislative-findings section devoted to the subject, declaring rent control a matter of overriding statewide interest requiring uniform statewide regulation. What survives preemption matters as much as what does not: 5321.19(B) expressly preserves local housing, building, health and safety codes, any ordinance of the kind described in 5321.04(A)(9), local regulation of rent for premises the subdivision itself owns or operates, and voluntary-incentive programs such as tax abatements or bond financing.",
     notes: "OH: R.C. 5321.19 and 5321.20, from the full-chapter read 2026-09-18 (definitions of 'rent control', 'rent stabilization' and 'political subdivision' at 5321.01(O),(P),(Q)); H.B. 430 (134th G.A.), effective 2022-09-23. FOUND BY THE LANDLORD-SCENARIO SCREEN (source 3): 'my city is talking about rent control' had no Ohio row, though 4 states carry a preemption row and Ohio's is the strongest in the library. The 5321.19(B)(1) carve-out for local housing, building, health and safety codes is the same carve-out that makes Ohio's smoke and carbon monoxide alarm duty local rather than statutory - see edu-alarm-duty-fire-code-oh. OUT OF SCOPE BY DECISION 2026-09-18: Ohio's municipal layer is flagged, not resolved, and it is wider than the four largest cities (Newburgh Heights, population c. 2,000, has a full DV lease-termination ordinance).",
+  },
+  // Security Deposit
+  {
+    id: "edu-security-deposit-rules-ga",
+    title: "Security Deposit Rules",
+    group: "Security Deposit",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-return",
+    bodyText:
+      "Georgia caps refundable deposits (security, damage, pet and advance-rent deposits, but not nonrefundable fees or money to be applied to rent) at two months' rent for leases entered into or renewed on or after July 1, 2024. The statute does not say where an advance-rent deposit ends and prepaid rent begins, so treat last month's rent collected up front as a deposit, inside the cap and the escrow and return rules, unless the lease expressly makes it rent for a named calendar month. A landlord must hold deposits in trust in an escrow account used only for deposits at a regulated bank or lending institution, and tell the tenant in writing where it is, or post a surety bond with the superior court clerk instead. Before taking the deposit, the landlord must give the tenant a comprehensive list of existing damage to sign; within 3 business days after the lease ends and the tenant vacates (or surrenders and the landlord accepts), the landlord inspects and lists any damage charged against the deposit, with estimated costs, and the tenant may inspect within 5 business days. Both lists must tell the tenant of the duty to sign or dissent in writing. Within 30 days after getting possession, the landlord returns the deposit or a written statement of the exact reasons for keeping any part, with the damage list and the balance, by first-class mail to the tenant's last known address; a returned, undeliverable refund becomes the landlord's 90 days after mailing if the tenant cannot be found. Ordinary wear and tear cannot be charged. A landlord who misses the lists or the 30-day statement loses the right to withhold any part of the deposit and to sue for damage to the premises, and one who wrongfully keeps deposit money owes three times the amount plus attorney fees unless the error was a documented, unintentional bona fide mistake. The escrow, bond, list and penalty sections do not apply to a natural person who, with spouse and minor children, owns ten or fewer rental units and does not pay a third party to manage them; the cap and the 30-day return still do. These rights cannot be waived in the lease.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. Controlling text: O.C.G.A. §§ 44-7-30 (definitions; Ga. L. 2007, p. 498/SB 94), 44-7-30.1 (cap; HB 404, applicability 2024-07-01 per HB 404 § 6), 44-7-31 (escrow; Ga. L. 2006, p. 656/HB 1273), 44-7-32 (bond), 44-7-33 (lists; Ga. L. 2018, p. 969/HB 834), 44-7-34 (return), 44-7-35 (remedies), 44-7-36 (exemption), 44-7-2(b)(6) (non-waivable). READ LITERALLY, O.C.G.A. § 44-7-35(a) bars retention only when (1) no escrow or bond, (2) no initial list AND (3) no final list ('and'); the 2018 rewrite kept the conjunctive. Courts' reading is case law, not relied on (instruction 16); the row does not rest on (a) and states the (b) forfeiture, which applies on its own. Military: O.C.G.A. § 44-7-37 limits rent liability on PCS or 90+ day TDY orders (`edu-servicemember-rights-ga`). Last-month rent: Taylor decision 2026-09-28 (GA log §6.1; `security-deposit-cap-ga`).",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-landlord-maintenance-ga",
+    title: "Landlord's Repair and Fitness Duties",
+    group: "Landlord Responsibilities",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "habitability",
+    bodyText:
+      "A Georgia landlord must keep the premises in repair and is liable for substantial improvements placed on the premises with the landlord's consent. Every residential lease entered into or renewed on or after July 1, 2024 is deemed to include a promise that the premises is fit for human habitation. Neither duty can be waived, assigned or avoided by the lease. Georgia sets no statutory deadline for repairs and no statutory repair-and-deduct or rent-withholding procedure; the tenant's remedies come from the lease, contract law and the courts, and a tenant's good-faith repair request or code complaint is protected by the retaliation statute. Once a landlord has parted with possession, it is not liable to third persons for the tenant's negligence or illegal use of the premises, but it is liable for damages from defective construction or from failing to keep the premises in repair. Cities and counties may set minimum security standards to prevent unauthorized entry, and ordinances on unfit dwellings also apply and cannot be waived. A landlord may not knowingly and willfully cut off cooling, heat, light or water to a tenant before a dispossessory action is finally resolved. Air conditioning is not listed as a statutory repair item, but 'cooling' is a protected utility.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. Controlling text: O.C.G.A. § 44-7-13(a)-(b) (Ga. L. 2024, p. 91, § 2/HB 404; applicability 2024-07-01, HB 404 § 6); O.C.G.A. § 44-7-14 (third-party liability); O.C.G.A. § 44-7-2(b)(1)-(3) (non-waivable; (3) is ordinances under O.C.G.A. § 36-61-11, 'Repair, closing, and demolition of dwellings unfit for human habitation', read by TITLE only via the Justia index, text not read, L.5); O.C.G.A. § 44-7-4 (local security standards); O.C.G.A. § 44-7-14.1 ('cooling' added by HB 404 § 3); O.C.G.A. § 44-7-24(b)(2)-(3) (retaliation). ABSENCES: no repair deadline, repair-and-deduct or rent-escrow statute in ch. 7 (read whole); an official full-text search is not claimed for these (bounded to ch. 7). Kickoff lead 'implied habitability duty' confirmed: enacted as O.C.G.A. § 44-7-13(b) by HB 404, codified with its history line.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-prohibited-lease-terms-ga",
+    title: "Lease Terms Georgia Law Voids",
+    group: "Compliance & Prohibited Terms",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lease-provisions",
+    bodyText:
+      "In a Georgia residential lease, neither side may waive, assign, transfer or otherwise avoid the landlord's duty to keep the premises in repair and fit for habitation, the landlord's liability for failing to repair, local unfit-dwelling ordinances, the dispossessory (eviction) procedure, the distress-warrant procedure, the security-deposit rules, or applicable parts of the Civil Practice Act. A clause making the tenant pay the landlord's attorney fees when the tenant breaches is void unless the lease also makes the landlord pay the tenant's attorney fees when the landlord breaches. The servicemember termination right and the family-violence termination right cannot be waived or modified. A lease made for the purpose of prostitution is void. A blanket clause saying the landlord is not liable for the tenant's property or injuries cannot excuse the landlord's own failure to repair.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. Controlling text: O.C.G.A. § 44-7-2(b)(1)-(7) and (c); O.C.G.A. § 44-7-22(f); O.C.G.A. § 44-7-23(e); O.C.G.A. § 44-7-18(b). INDEMNITY: O.C.G.A. § 13-8-2(b) voids indemnity and hold-harmless covenants for the indemnitee's SOLE negligence in contracts 'relative to the construction, alteration, repair, or maintenance of a building structure, appurtenances, and appliances'; read section-open (subsection (b) verbatim). Its application to residential leases rests on case law, NOT relied on (instruction 16); kickoff lead 'indemnity' therefore stands on O.C.G.A. § 44-7-2(b) only. L.5: Chapter 11 of Title 9 (Civil Practice Act) and O.C.G.A. § 36-61-11 read by title only. Not an exhaustive list (instruction 42 / checklist 294.2): other limits are scattered (O.C.G.A. § 44-7-30.1 cap; O.C.G.A. § 44-7-33(c) list notice; O.C.G.A. § 44-7-20 flood notice). Georgia's Fair Business Practices Act (O.C.G.A. § 10-1-393) was searched and read for rental-housing examples; none found (its reach to residential leases is case law, not relied on).",
+  },
+  // Default & Termination
+  {
+    id: "edu-eviction-process-ga",
+    title: "Dispossessory (Eviction) Notices and Process",
+    group: "Default & Termination",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction",
+    bodyText:
+      "Georgia evictions are 'dispossessory' actions. For unpaid rent, late fees, utilities or other charges, the landlord first gives a written notice to vacate or pay all past-due amounts within three business days (for leases entered into or renewed on or after July 1, 2024); if the tenant neither pays nor leaves, the landlord files an affidavit with the magistrate or other court. For a holdover or a tenancy at will or at sufferance, the landlord first demands possession. Both the demand and the 3-day notice must be posted in a sealed envelope conspicuously on the door AND delivered by any additional method the lease specifies. The tenant is served and must answer within seven days; with no answer, the court issues a writ of possession immediately, but if service was made only by posting and mailing, no default money judgment can be entered unless the tenant answers or appears. In a nonpayment case the tenant can stop the case by tendering all rent claimed plus the warrant costs within seven days of service, but the landlord must accept that tender only once in any 12 months. If the case is not decided within two weeks, the tenant must pay rent into the court registry as it comes due. After judgment for the landlord, the writ takes effect seven days later unless the tenant appeals within seven days and pays rent into court. The officer removes the tenant and belongings, the landlord is not a bailee of them, and they are treated as abandoned once the writ is executed. The landlord must apply to execute the writ within 30 days, and may hire a certified off-duty officer if the sheriff cannot act within 14 days. A false statement in the affidavit or answer is a misdemeanor. From January 1, 2027 a court may seal dispossessory records in the circumstances the statute lists.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. Controlling text: O.C.G.A. § 44-7-50(a)-(d) (verbatim, both versions; Ga. L. 2024, p. 91, § 5/HB 404, effective 2024-07-01; HB 404 § 6 applicability) and (e) (Ga. L. 2026, p. 988, § 8/SB 406, Act 715, signed 2026-05-12, effective 2027-01-01); O.C.G.A. § 44-7-49 (writ 'shall not contain restrictions, responsibilities, or conditions upon the landlord'); O.C.G.A. § 44-7-51(a)-(c) (Ga. L. 2025, p. 626, § 2/HB 270, effective 2025-07-01, adds approved process servers); O.C.G.A. § 44-7-52 (tender); O.C.G.A. § 44-7-53 (default writ instanter; possession pending trial with rent into court); O.C.G.A. § 44-7-54 (registry); O.C.G.A. § 44-7-55(a)-(e) (writ 7 days; landlord liable for foreseeable damages from wrongful conduct if the tenant wins; property; 30-day application; off-duty officer after 14 days, 5 days' notice to the sheriff; Ga. L. 2024, p. 403/HB 1203; Ga. L. 2025, p. 1029/SB 153); O.C.G.A. § 44-7-56 (appeal; Ga. L. 2024, p. 201/SB 450); O.C.G.A. § 44-7-58 (false affidavit misdemeanor); O.C.G.A. § 44-7-59 (transportable housing, 10 days, $4/day storage; deprioritized layer). Kickoff lead 'required notice before an eviction filing' confirmed: O.C.G.A. § 44-7-50(c). Kickoff lead 'O.C.G.A. § 44-11-50' does NOT exist (Title 44 ch. 11 ends at O.C.G.A. § 44-11-33); dispossessory is O.C.G.A. § 44-7-50. NO-CURE GROUNDS (instruction 33): none enumerated; no statutory cure for non-rent breaches.",
+  },
+  {
+    id: "edu-eviction-record-sealing-ga",
+    title: "Sealing Dispossessory Records (from 2027)",
+    group: "Default & Termination",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-record-sealing",
+    bodyText:
+      "From January 1, 2027, a Georgia court may, on motion and after a hearing, order the records of a dispossessory case made unavailable to the public when the tenant won the case; when the tenant has paid the judgment in full with interest and costs; or when seven years have passed since a dismissal or judgment, provided the judgment has been paid in full with interest and costs. Sealing does not stop the landlord from pursuing amounts owed in a separate action or through collections.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. Controlling text: O.C.G.A. § 44-7-50(e) [Effective January 1, 2027] (verbatim), added by Ga. L. 2026, p. 988, § 8/SB 406 ('Georgia Property Owners' Bill of Rights Act'; Act 715; passed Senate 2026-03-04, House 2026-03-31, Senate agreed 2026-03-31, signed 2026-05-12; effective-date section: 'this Act shall become effective on January 1, 2027' except § 7 (HOA fee rules) on 2026-07-01). Instruction 34: the official compilation already prints the 2027 version beside the one in force; this row states the date. Currently NOT in force (2026-09-28): before 2027-01-01 there is no Georgia eviction-sealing statute (official full-text search: 'dispossessory' near seal or restrict returned only O.C.G.A. § 44-7-50). Discretionary (court 'may'), unlike Arizona's mandatory sealing.",
+  },
+  {
+    id: "edu-retaliation-ga",
+    title: "Retaliation",
+    group: "Default & Termination",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "retaliation",
+    bodyText:
+      "A Georgia tenant makes a prima-facie case of retaliation by showing that, after the tenant in good faith exercised a legal or lease right, gave a notice to repair, complained to a code-enforcement agency or utility about a problem the landlord must fix, or organized or joined a tenant organization about habitability, the landlord within three months filed a dispossessory action, deprived the tenant of the premises without legal reason, cut services, raised the rent or ended the lease, or materially interfered with the tenant's lease rights. Retaliation is a defense to eviction, and the tenant may recover one month's rent plus $500, court costs, attorney fees if the conduct was willful, wanton or malicious, and declaratory relief, less any rent owed. It is not retaliation to raise rent or reduce services under a written escalation clause for utilities, taxes or insurance, as part of a building-wide pattern, or under a government program; or to evict or end a lease because rent was delinquent, because the tenant, family or a guest intentionally damaged property or threatened someone's safety, because the tenant breached written lease rules against serious misconduct or criminal acts, or because the tenant held over after either side's notice. A code inspection certifying compliance within the prior 12 months is a rebuttable defense.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. Controlling text: O.C.G.A. § 44-7-24(a)-(f) (Ga. L. 2019, p. 1026, § 1/HB 346, effective 2019-07-01), read section-open. Opt-in safe harbours built from (d)(1)(A) and (d)(2)(C): `rent-escalation-ga`, `serious-misconduct-prohibition-ga`. Kickoff lead confirmed.",
+  },
+  {
+    id: "edu-prohibited-practices-ga",
+    title: "Self-Help Eviction and Utility Shutoffs",
+    group: "Default & Termination",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction",
+    bodyText:
+      "Georgia's route to possession is the dispossessory action. It is a crime (fine up to $500) for a landlord knowingly and willfully to suspend cooling, heat, light or water service to a tenant until a dispossessory action against that tenant is finally resolved. If the tenant wins the dispossessory case, the landlord is liable for all foreseeable damages caused by its wrongful conduct. Georgia has no separate statute listing lockouts or removing doors as prohibited practices, and none sets a fixed money penalty for them; a landlord who takes possession outside the court process is exposed to tort claims under general law.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. Controlling text: O.C.G.A. § 44-7-14.1 (utilities = cooling, heat, light, water; 'cooling' added by HB 404, 2024); O.C.G.A. § 44-7-55(b); O.C.G.A. § 44-7-10 (summary remedy under Article 3); O.C.G.A. § 44-7-2(b)(4) (Article 3 non-waivable). CONFIRMED ABSENT (statutes): an express lockout or self-help statute; official full-text search 2026-09-28 (lock, locks, lockout, 'locked out', padlock, rekey, 're-key', deadbolt, 'self-help' within 25 words of tenant or landlord): 10 hits, all read by title (O.C.G.A. §§ 44-7-13, 44-7-14, 44-7-15, 44-7-50 and procedural or annotation hits). Exclusivity of the dispossessory remedy and tort measures are case law, not relied on (instruction 16).",
+  },
+  {
+    id: "edu-tenancy-at-will-ga",
+    title: "Ending a Tenancy With No Fixed Term",
+    group: "Default & Termination",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-notice",
+    bodyText:
+      "Where no time is set for a Georgia tenancy to end, the law treats it as a tenancy at will. Ending a tenancy at will takes 60 days' notice from the landlord or 30 days' notice from the tenant. A tenant who stays after the term or after a proper notice is a tenant holding over, and the landlord demands possession and then files a dispossessory action. Georgia sets no separate week-to-week notice period and no rent-increase notice period.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. Controlling text: O.C.G.A. §§ 44-7-6, 44-7-7 (Ga. L. 1962, p. 463), 44-7-10, 44-7-50(a). The statute does not say the notice must be written; O.C.G.A. § 44-7-50(d) governs only the demand for possession and the 3-day notice (posting plus lease-agreed methods). Holdover measure: no statute (`holdover-ca` tagged GA). Rent increases: `edu-no-rent-increase-notice-ga`.",
+  },
+  {
+    id: "edu-servicemember-rights-ga",
+    title: "Servicemember Rights",
+    group: "Default & Termination",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "military-termination",
+    bodyText:
+      "A Georgia servicemember (active duty in the regular or reserve armed forces or the Coast Guard, or Georgia National Guard on ordered federal duty of 90 days or more) may end a residential lease with written notice effective at least 30 days after the landlord receives it, with a copy of the orders or a commanding officer's verification, when the member gets permanent change of station orders to move 35 miles or more, is released from active duty and the unit is 35 miles or more from the home of record, is ordered into or becomes eligible for government quarters (on pain of losing housing allowance), gets temporary duty, change-of-station or state active duty orders over 60 days to an area 35 miles or more away, or gets a change of orders before moving in. The member owes only prorated rent to the termination date, and nothing at all if the notice comes 14 or more days before occupancy. An adult family member may terminate the same way if the member dies on active duty, with the orders or verification and the death certificate. These rights apply to leases entered on or after July 1, 2005 and cannot be waived. Separately, for a person on active duty who gets permanent change of station orders or temporary duty orders over three months, rent liability cannot exceed 30 days' rent after written notice and proof, plus repair of damage the tenant caused. Federal law (the Servicemembers Civil Relief Act) applies as well.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. Controlling text: O.C.G.A. § 44-7-22(a)-(f) (Ga. L. 2005, p. 213/SB 258; Ga. L. 2006, p. 72/SB 465); O.C.G.A. § 44-7-37 (Ga. L. 1990, p. 1829; leases entered on or after 1990-04-16). Official full-text search 2026-09-28 ('service member', servicemember, 'military service', 'active duty' within 50 words of lease, tenant, lessee, dispossessory, eviction or 'rental agreement'): 4 hits, O.C.G.A. §§ 44-7-22, 44-7-37, 10-4-214 (self-service storage) and 43-28-21 (compact); no state eviction stay for dwellings located (contrast Fla. Stat. § 250.5202). Library decision: no SCRA lease clause (AZ session); `early-termination` preserves these rights.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-local-preemption-ga",
+    title: "State Limits on Local Rent Regulation",
+    group: "Compliance & Prohibited Terms",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-control",
+    bodyText:
+      "No Georgia county or city may enact, keep or enforce any ordinance or resolution that regulates in any way the amount of rent charged for privately owned single-family or multi-unit residential rental property. Local governments and their housing authorities may still regulate rents on property they own, and may enter agreements with private owners that regulate rent (for example, in exchange for public funding). Georgia law does not preempt other local landlord rules generally: cities and counties may set minimum security standards for rental dwellings, and local unfit-dwelling ordinances apply and cannot be waived. Local ordinances are outside this library's scope.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. Controlling text: O.C.G.A. § 44-7-19 (Ga. L. 1984, p. 1079), read verbatim: it preempts ONLY regulation of 'the amount of rent', for 'privately owned, single-family or multiple-unit residential rental property'; it names both counties and municipal corporations; the exception covers government-owned property and agreements with private persons. It does NOT preempt rental registration, licensing, inspection, fees, screening or notice rules (contrast Fla. Stat. § 83.425). O.C.G.A. § 44-7-4 (local security standards, cumulative); O.C.G.A. § 44-7-2(b)(3) (unfit-dwelling ordinances non-waivable). Kickoff lead ('record exactly what it preempts') answered. Municipal layer (Atlanta, Savannah, etc.) flagged, not resolved (instruction 20).",
+  },
+  {
+    id: "edu-fair-housing-ga",
+    title: "Fair Housing",
+    group: "Compliance & Prohibited Terms",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fair-housing",
+    bodyText:
+      "The Georgia Fair Housing Act bars discrimination in renting because of race, color, religion, sex, disability, familial status or national origin, the same classes as federal law; it adds no source-of-income, age or other class. It covers refusals to rent, different terms, discriminatory ads and statements, false unavailability, blockbusting, refusing reasonable modifications at the tenant's expense (the landlord may require restoration where reasonable), refusing reasonable accommodations in rules and policies, and accessible design for multifamily buildings first occupied after March 13, 1991. A tenant whose tenancy would be a direct threat to others' health or safety, or cause substantial physical damage to others' property, need not be accepted. Public housing may not restrict lawful firearm possession in a dwelling unless federal law requires it. Exempt, except for the advertising ban: a private owner of no more than three single-family houses renting without a broker or discriminatory ads, and rooms or units in an owner-occupied building of four or fewer units. A court may impose civil penalties of up to $10,000, $25,000 or $50,000 for repeat violations, plus damages, punitive damages and fees; a private suit must be filed within two years.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. Controlling text: O.C.G.A. § 8-3-202(a)(1)-(8), (b), (c), (d) (Ga. L. 2020, p. 603/HB 969 latest); O.C.G.A. § 8-3-201 (definitions; 'disability' used, not 'handicap'); O.C.G.A. § 8-3-213(c); O.C.G.A. § 8-3-217(a)-(b). Source of income: CONFIRMED ABSENT (statutes) (`edu-no-source-of-income-rule-ga`). No protected-class INQUIRY ban beyond statements and ads ((a)(3)). O.C.G.A. § 8-3-205 (religious organizations, private clubs, housing for older persons) and O.C.G.A. §§ 8-3-203, -204, -222 read by title only. Local fair-housing ordinances flagged, not resolved (instruction 20).",
+  },
+  // Pets
+  {
+    id: "edu-service-dog-law-ga",
+    title: "Service Dogs: Georgia Penalties and Definitions",
+    group: "Pets",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "service-animal-denial-penalty",
+    bodyText:
+      "Since July 1, 2026, Georgia's service-dog law covers any person with a physical or mental impairment who is substantially limited in one or more activities of daily living over an extended period, and defines a service dog as a dog individually trained to do work or perform tasks that directly assist that person and relate to the disability, or a dog in training under a trainer. A dog that only provides comfort, companionship or emotional support is not a service dog under Georgia law. Such a person, or a trainer, has full and equal access to rental housing with a service dog and cannot be charged extra for it, but is liable for any damage the dog does; a landlord need not modify the property or give a higher degree of care. Denying or interfering with these rights is a misdemeanor of a high and aggravated nature, punishable by a fine of up to $2,000, up to 30 days in jail, or both. Deliberately misrepresenting oneself as qualified to use a service dog to get housing or other accommodations is the same grade of crime. The rule does not reach a single-family home where no more than one room is rented. Emotional support animals are handled as reasonable accommodations under fair-housing law.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. Controlling text: O.C.G.A. §§ 30-4-1(2)-(6), 30-4-3(a)-(c), 30-4-4(a)-(b), all as amended by Ga. L. 2026, p. 278, §§ 4, 6, 7/HB 668 (the 'Mara Jade Act'), effective 2026-07-01 (Justia history lines; signed version on gov.georgia.gov 2026 signed legislation). The same act amended O.C.G.A. § 16-11-107.1 (harming service dogs), O.C.G.A. § 16-12-120, O.C.G.A. § 40-6-94 and O.C.G.A. § 30-4-2 (public accommodations) - not landlord duties. Before 2026-07-01 the housing section named blind, visually disabled, physically disabled and deaf persons and 'guide dogs'. Rows: `assistance-animal-accommodation-ga`.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-nonresident-landlord-broker-ga",
+    title: "Out-of-State Owners Must Use a Georgia Broker",
+    group: "Compliance & Prohibited Terms",
+    states: ["GA"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-registration",
+    bodyText:
+      "Since July 1, 2025, a landlord who does not live in Georgia and owns or operates single-family or duplex rental property in Georgia must employ a real estate broker licensed in Georgia. If the broker lives outside Georgia, the broker must employ at least one person located in Georgia who is responsible for receiving, coordinating, managing and responding to tenants' communications about maintenance and other issues. The usual license exemptions for owners managing their own property and for full-time community-association employees do not apply to these non-resident landlords.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. Controlling text: O.C.G.A. § 44-7-25(a)-(b) (Ga. L. 2025, p. 882, § 2/HB 399, effective 2025-07-01), read section-open; L.5 dependency O.C.G.A. § 43-40-29(a)(7)-(8) read (as amended by the same act, § 3: (7) an owner providing property management for property owned by that person; (8) a full-time community-association employee). NEW FINDING, not in the kickoff leads. The statute states no tenant remedy and no disclosure duty; enforcement runs through the license law (Title 43 ch. 40, not read beyond O.C.G.A. § 43-40-29). CONDITIONAL: shown for single-family or duplex property whose owner is not a Georgia resident (builder: owner-residence and property-type fields). PRODUCT (Taylor decision 2026-09-28, GA log §6.6): no onboarding prompt while this topic is education-only; if it ever becomes a lease clause, onboarding should ask whether a Georgia single-family or duplex owner lives out of state and prompt for the broker.",
+  },
+  // Disclosures
+  {
+    id: "edu-lead-poisoning-abatement-ga",
+    title: "Lead Poisoning Hazards: Georgia Abatement Duties",
+    group: "Disclosures",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lead-hazards",
+    bodyText:
+      "Beyond the federal lead disclosure, Georgia's Lead Poisoning Prevention Act applies to owners and landlords who accept payment for residential rental property. When the Department of Public Health finds a lead poisoning hazard, it notifies the owner, the managing agent and the occupants. When a child under six has a confirmed lead poisoning (3.5 micrograms per deciliter or more) and lives in or regularly visits the dwelling, the Department requires lead hazard abatement: the owner or managing agent must submit a written abatement plan within 30 days, give the Department and occupants three days' notice before work starts, and finish within 60 days of approval (extendable by 30 days); removing the children is not abatement if the unit stays in residential use. The Department can seek a court order. An owner of pre-1978 housing who follows the statutory maintenance standard (repairing deteriorated paint, cleaning to the local customary standard at lease start, adjusting friction surfaces, cleaning carpets with the occupant's approval, keeping surfaces cleanable, and giving the federal lead information) every year and obtains an annual compliance certificate is shielded from liability for later injuries.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. Located by the official O.C.G.A. full-text search 2026-09-28 ('lead poisoning', 'lead-based paint', 'lead hazard', 'elevated blood lead' within 50 words of owner, landlord, tenant, rental, dwelling or residence: 11 hits, Title 31 ch. 41). Read section-open: O.C.G.A. §§ 31-41-11 to 31-41-19 (Ga. L. 2000, p. 1260; Ga. L. 2008, p. 822/HB 1043; Ga. L. 2022, p. 320/HB 1355; O.C.G.A. § 31-41-12 last amended Ga. L. 2025, p. 1029/SB 153, stylistic). O.C.G.A. § 31-41-18 limits Article 2 to owners and landlords that accept compensation for residential use, day-care facilities and schools. O.C.G.A. § 31-41-15's final sentence: the Article creates no liability or cause of action against owners. O.C.G.A. § 31-41-17(3): the Department advises tenants to report deteriorated paint to the owner within 72 hours. Department of Public Health rules (O.C.G.A. § 31-41-19) not read (instruction 16). Article 1 (O.C.G.A. §§ 31-41-1 to -4, contractor licensing) not read.",
+  },
+  // Building & Safety
+  {
+    id: "edu-smoke-detectors-ga",
+    title: "Smoke Detectors",
+    group: "Building & Safety",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "smoke-detector",
+    bodyText:
+      "Georgia requires a listed smoke detector in every dwelling unit built on or after July 1, 1987, and at least a battery-operated smoke detector in good working order in every dwelling unit built before then. Detectors go on the ceiling or wall centrally in the corridor or area outside each group of sleeping rooms, and on every story including basements (split-level exception). The statute fines an OCCUPANT who fails to maintain a smoke detector in good working order up to $25, after a warning for the first violation; local building and fire officials may enforce it. A failure to maintain a detector is not evidence of negligence and cannot be used against anyone on liability or insurance. Georgia has no statute requiring carbon monoxide alarms in existing rental dwellings.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. Controlling text: O.C.G.A. § 25-2-40(a)(1)-(2), (b)-(d), (f)(1)-(2), (g) (Ga. L. 2015, p. 5/HB 90 latest), read section-open. Unlike Arizona, Georgia places the $25 maintenance sanction on the 'occupant' and requires no notice of that duty. Detectors must meet NFPA 72 (privately published standard incorporated by reference, not read; L.5 / instruction 16). O.C.G.A. § 25-2-13 (buildings requiring detector systems) not read. CO: `edu-no-co-alarm-duty-ga`.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-dishonored-payment-remedies-ga",
+    title: "Bounced Checks",
+    group: "Rent & Payment",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "returned-payments",
+    bodyText:
+      "When a Georgia tenant's check, draft or order is dishonored for lack of funds or because there is no account, the landlord may charge a service charge of up to $30 or 5% of the face amount, whichever is greater, plus the bank's fees, when making written demand for payment. If the tenant does not pay within 10 days after a written demand in the statutory form (sent by certified mail, statutory overnight delivery, or first-class mail supported by an affidavit of service), the landlord may sue in the county where the tenant lives for the check amount, the service charge and fees, plus damages of double the amount owed, capped at $500, and court costs. The court may waive the double damages for economic hardship. Paying in full before suit is a defense.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. Controlling text: O.C.G.A. § 13-6-15(a)-(h) (Ga. L. 2003, p. 197 latest), read section-open (the (c) demand form is statutory wording, for the builder's notice workflows; GA log §4). Criminal bad-check statute O.C.G.A. § 16-9-20 not read. Electronic payments: not clearly within 'check, draft, or order' (see the GA note on `returned-payments`).",
+  },
+  // Parking & Storage
+  {
+    id: "edu-towing-ga",
+    title: "Towing Vehicles from Rental Property",
+    group: "Parking & Storage",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "towing",
+    bodyText:
+      "A person entitled to possession of private property in Georgia may have a trespassing vehicle towed or booted only if a conspicuous notice is posted on the property saying unauthorized vehicles may be immobilized or removed at the owner's expense, with the full legal names of the company and the property owner, the boot-removal fee and contact, where the vehicle can be recovered, the cost and the forms of payment. Residential property with four or fewer units is exempt from the posting requirement. Only towing and storage firms permitted by the local government or the Department of Public Safety may tow, and only Department-permitted operators in jurisdictions that authorize booting may boot. No storage fee may be charged for the first 24 hours. A person injured by a violation may recover actual damages (presumed at least $100) and court costs, and three times actual damages for an intentional violation. A tow company may not pay a property owner for towing rights or patrol the lot for tows without a call for each case.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. Located by the landlord-scenario screen (GA log §16). Controlling text: O.C.G.A. § 44-1-13(a), (a.1), (b), (d)-(f) (Ga. L. 2025, p. 672, § 9/HB 551, effective 2026-01-01, rewrote (a.1) and (b) and added booting; Ga. L. 2026, p. 1069, § 44(1)/HB 1268, effective 2026-07-01, stylistic). Department of Public Safety tow rules and rates not read (instruction 16). The statute reaches vehicles 'not authorized to be at the place where it is found'; whether a tenant's authorized vehicle in breach of lease parking rules is 'trespassing' is not answered by the text.",
+  },
+  // Disclosures
+  {
+    id: "edu-stigmatized-property-ga",
+    title: "What a Landlord Need Not Disclose",
+    group: "Disclosures",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "stigmatized-property",
+    bodyText:
+      "A Georgia owner or broker is not liable for failing to disclose that the property was occupied by someone with a disease medically shown to be highly unlikely to spread through occupancy, or that it was the site of a homicide, other felony, suicide, or accidental or natural death. But if asked, the owner or broker must answer truthfully to the best of their knowledge, unless answering would violate federal or state fair-housing or other law.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. Controlling text: O.C.G.A. § 44-1-16(a)(1)-(2), (b), as amended by Ga. L. 2026, p. 1069, § 44(3)/HB 1268, effective 2026-07-01 (deleted the obsolete sex-offender-registry sentence in (b), which cited O.C.G.A. § 42-9-44.1, repealed 2006), read verbatim in the built-in browser. 'Real estate transaction' covers leasing on its face (not further defined in the section). Note: the WebFetch tool served the pre-2026 text of this section first; the browser read superseded it (instruction 40).",
+  },
+  // Default & Termination
+  {
+    id: "edu-unauthorized-occupant-removal-ga",
+    title: "Removing Squatters and Intruders",
+    group: "Default & Termination",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "squatter-removal",
+    bodyText:
+      "Georgia gives owners two routes against people who move in without permission. A person who enters and lives on another's property without the owner's knowledge or consent commits unlawful squatting, a misdemeanor; law enforcement issues a citation requiring the person to produce a lease, rental payment proof or other authorization within three business days, and if they cannot, they are subject to arrest. If they produce documents, a hearing is set within seven days, and invalid documents lead to removal, arrest and a fine based on market rent. Separately, an owner can swear an affidavit that a named person is in possession without a good-faith claim of right; an officer shows it to the occupant, who is removed after three days unless they file a counter-affidavit, which sends the matter to magistrate court for a non-jury trial, where the court may award fair market rent for the occupancy. These procedures are for intruders, not for tenants, who are removed only through a dispossessory action.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. Controlling text: O.C.G.A. § 16-7-21.1 (Ga. L. 2024, p. 400, § 3/HB 1017, the 'Georgia Squatter Reform Act', effective 2024-04-24; Ga. L. 2025, p. 1029/SB 153 stylistic); O.C.G.A. §§ 44-11-30 to 44-11-33 (same act §§ 4-7; O.C.G.A. § 44-11-32 read verbatim). Signed act read on gov.georgia.gov (effective on approval). L.5 dependencies not read: O.C.G.A. §§ 16-9-1, 16-9-2 (forgery), 17-10-3 (misdemeanor sentencing), 15-10-2 (magistrate jurisdiction). Scenario screen item (GA log §16).",
+  },
+  // Security Deposit
+  {
+    id: "edu-unclaimed-deposit-refunds-ga",
+    title: "Undelivered and Uncashed Deposit Refunds",
+    group: "Security Deposit",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "escheat",
+    bodyText:
+      "If a Georgia landlord mails a deposit refund to the tenant's last known address by first-class mail and the letter comes back undelivered, and the landlord cannot find the tenant after reasonable effort, the refund becomes the landlord's property 90 days after it was mailed. A refund check that was delivered but never cashed is different: property held or owed in the ordinary course of business and unclaimed for more than five years is presumed abandoned under the unclaimed property act, with reporting and remittance duties to the state.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. Controlling text: O.C.G.A. § 44-7-34(a) (sixth sentence); O.C.G.A. § 44-12-193 (five years; Ga. L. 2006, p. 720/SB 195 latest), read section-open. No landlord-specific section in the Disposition of Unclaimed Property Act (article 5 index, O.C.G.A. §§ 44-12-190 to 44-12-239.2, read by title). Report and remittance: O.C.G.A. § 44-12-214 (NOT READ; timing and thresholds not stated here). Interaction not settled by text: whether the O.C.G.A. § 44-7-34 90-day rule displaces the unclaimed-property act for UNDELIVERED refunds (it says the payment 'shall become the property of the landlord').",
+  },
+  // Default & Termination
+  {
+    id: "edu-landlord-remedies-ga",
+    title: "Rent Interest, Distress Warrants and the Landlord's Lien",
+    group: "Default & Termination",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-lien",
+    bodyText:
+      "Unpaid rent in Georgia bears interest from the day it is due. When rent is due, or the tenant is trying to move property off the premises, a landlord may apply to a court for a distress warrant against the tenant's property; the tenant can answer, and tendering all rent plus costs within seven days of service is a complete defense. If the warrant is granted, the sheriff or marshal can levy on and sell the tenant's property. The landlord's general lien on the tenant's property dates only from the levy of a distress warrant, and it ranks behind tax liens and laborers' liens. A landlord may not seize the tenant's belongings without this court process. Destruction of the premises by fire or other casualty not caused by the landlord does not, by statute, reduce the rent; the lease can say otherwise, and Steinoak offers an optional clause that does.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. Controlling text: O.C.G.A. § 44-7-16; O.C.G.A. §§ 44-7-70 to 44-7-81 (Article 4, distress warrants; O.C.G.A. § 44-7-82 mobile homes, deprioritized), non-waivable (O.C.G.A. § 44-7-2(b)(5)); O.C.G.A. §§ 44-14-341, 44-14-342 (landlord's general lien dates from the levy; special crop lien is agricultural); O.C.G.A. § 44-7-15 (casualty does not abate rent). Articles read: 44-7-70, -71, -73, -77, -79, -80 verbatim; -72, -74 to -76, -78, -81 by fetch-tool summary (instruction 16: summaries flagged). Casualty clause: opt-in `casualty-termination-ga` displaces O.C.G.A. § 44-7-15 when chosen (Taylor decision 2026-09-28, GA log §6.4).",
+  },
+  {
+    id: "edu-abandoned-property-ga",
+    title: "Property Left Behind",
+    group: "Default & Termination",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "abandoned-property",
+    bodyText:
+      "When a Georgia writ of possession is executed, the officer may remove the tenant and the tenant's belongings and place them on the landlord's property or another place the landlord designates and the officer approves; the landlord is not a bailee of the belongings, owes the tenant no duty for them, and after the writ is executed they are regarded as abandoned. A tenant's trade fixtures left after the term and possession end become the landlord's property. Georgia has no statute setting a notice, storage or sale procedure for belongings left after a tenant moves out voluntarily; the lease and general law govern.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. Controlling text: O.C.G.A. § 44-7-55(c); O.C.G.A. § 44-7-12. CONFIRMED ABSENT (statutes): a procedure for property left after a voluntary move-out. Official full-text search 2026-09-28 ((abandoned OR abandon OR abandonment) within 25 words of 'personal property', belongings or possessions, within 50 of tenant, landlord, lessee or premises): 7 hits, O.C.G.A. §§ 44-7-12, 44-7-5, 44-7-55, 43-21-5, 43-21-6 (innkeepers), 44-2-61, 46-8-100; none a landlord procedure. Post-writ PET duties: none located.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-fee-caps-ga",
+    title: "No Late-Fee or Application-Fee Cap",
+    group: "Rent & Payment",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "late-fee",
+    bodyText:
+      "Georgia has no statute capping late fees or rental application fees for residential leases and no statutory grace period. Late fees are set by the lease. A lease late fee is liquidated damages, which binds the parties unless it violates some principle of law, so it should be a reasonable estimate of the landlord's loss. Unpaid late fees may be demanded in the 3-day notice to vacate or pay and kept from the security deposit.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. CONFIRMED ABSENT (statutes). Official full-text search 2026-09-28: (1) 'late fee' AND (tenant OR landlord OR lessee): 4 hits (O.C.G.A. §§ 9-11-56, 13-6-7, 13-1-13, 9-11-60: annotations); (2) ('late fees' OR 'late charge' OR 'late charges' OR 'late payment') AND (tenant OR landlord OR lessee OR lessor): 20 hits, all reviewed by title (e.g. O.C.G.A. § 10-1-685 rent-to-own GOODS, O.C.G.A. § 44-3-109 condominium assessments, O.C.G.A. § 7-4-2 interest, O.C.G.A. § 36-60-17 water suppliers); none a dwelling late-fee cap. (3) application or screening fee(s) AND (tenant OR landlord OR lessee OR 'rental agreement'): 2 hits (O.C.G.A. § 12-5-105, groundwater). Liquidated damages: O.C.G.A. § 13-6-7 read verbatim. O.C.G.A. § 44-7-50(c); O.C.G.A. § 44-7-34(a).",
+  },
+  // Security Deposit
+  {
+    id: "edu-no-deposit-interest-ga",
+    title: "No Interest on Security Deposits",
+    group: "Security Deposit",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-interest",
+    bodyText:
+      "Georgia does not require a landlord to pay interest on a security deposit or to hold it in an interest-bearing account. The deposit must be held in trust in an escrow account (or covered by a surety bond) unless the small-landlord exemption applies.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. Bounded absence: O.C.G.A. §§ 44-7-30 to 44-7-37 read whole (no interest provision); official full-text search 2026-09-28: 'security deposit' returned 38 hits, of which only O.C.G.A. §§ 44-7-33 and 44-7-34 concern residential deposits, and neither mentions interest. O.C.G.A. § 44-7-31 escrow is silent on interest (the Georgia REALTORS lease says interest belongs to the holder, GA log §15; contract).",
+  },
+  // Access & Entry
+  {
+    id: "edu-no-entry-notice-statute-ga",
+    title: "No Statutory Entry-Notice Rule",
+    group: "Access & Entry",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-entry",
+    bodyText:
+      "Georgia has no statute setting how much notice a landlord must give before entering a rented dwelling, the hours of entry, or the purposes for which a landlord may enter. Entry rights and notice come from the lease. A tenant's right to possession is otherwise protected by general law, and unreasonable interference within three months after protected tenant action can support a retaliation claim.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. CONFIRMED ABSENT (statutes). Official full-text search 2026-09-28: landlord within 15 words of (enter OR entry OR access) within 30 of (notice OR consent) AND (tenant OR premises OR dwelling): 7 hits (O.C.G.A. §§ 44-7-11, 44-7-13, 44-7-1, 44-7-3, 10-7-21, 9-11-15, 44-7-21), none an entry rule. Ch. 7 read whole. O.C.G.A. § 44-7-24(c)(5) (material interference). `landlords-access` tagged GA (24 hours contractual).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-rent-increase-notice-ga",
+    title: "No Statutory Rent-Increase Notice",
+    group: "Rent & Payment",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-increase-notice",
+    bodyText:
+      "Georgia sets no notice period for raising rent. During a fixed term the lease controls; a tenancy at will can be ended on 60 days' notice from the landlord, and a new rent is effectively offered through that process. Local rent control is preempted. A rent increase within three months after protected tenant action can support a retaliation claim unless it comes under a written escalation clause for utilities, taxes or insurance, is part of a building-wide pattern, or follows a government program's terms.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. CONFIRMED ABSENT (statutes). Official full-text search 2026-09-28: ('rent increase' OR 'increase in rent' OR 'increase the rent' OR 'rental increase') AND (tenant OR landlord OR lessee OR dwelling): 4 hits (O.C.G.A. §§ 13-2-3, 44-7-24, 8-2-137 (manufactured-home dispute resolution), Title 8 ch. 3 heading); none a notice rule. O.C.G.A. §§ 44-7-7, 44-7-19, 44-7-24(c)(4), (d)(1).",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-no-source-of-income-rule-ga",
+    title: "No Statewide Source-of-Income Rule",
+    group: "Compliance & Prohibited Terms",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "source-of-income",
+    bodyText:
+      "Georgia's fair housing law does not protect source of income, and no Georgia statute requires a landlord to accept housing choice vouchers or other rental assistance. Some local ordinances may; they are outside this library's scope. Federal rules apply to landlords who choose to participate in the voucher program.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. CONFIRMED ABSENT (statutes). O.C.G.A. § 8-3-202 lists the classes (read verbatim). Official full-text search 2026-09-28: ('source of income' OR 'lawful source' OR 'housing choice voucher' OR 'Section 8' OR immigration OR citizenship) within 50 words of (landlord OR tenant OR lessee OR rent OR rental OR dwelling): 21 hits, all reviewed by title (housing authorities O.C.G.A. §§ 8-3-2, -12, -50, -132, -135; elevators O.C.G.A. §§ 8-2-101 to -103; O.C.G.A. § 2-1-7 foreign ownership; O.C.G.A. § 44-14-349 mobile-home liens; others); none a source-of-income or voucher rule. Local ordinances flagged (instruction 20).",
+  },
+  {
+    id: "edu-no-immigration-inquiry-rule-ga",
+    title: "No Immigration-Status Rule for Landlords",
+    group: "Compliance & Prohibited Terms",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "immigration-status",
+    bodyText:
+      "Georgia has no statute requiring or forbidding a landlord to ask about an applicant's or tenant's immigration status. National origin is a protected class under state and federal fair housing law, so status inquiries must not become a proxy for it.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. CONFIRMED ABSENT (statutes): same official full-text search as `edu-no-source-of-income-rule-ga` (immigration and citizenship within 50 words of landlord, tenant, lessee, rent, rental or dwelling): no landlord inquiry rule. O.C.G.A. § 2-1-7 (foreign-adversary land acquisition) read: subsection (b)(2) says it 'shall not apply to residential property'. O.C.G.A. § 8-3-202(a) (national origin).",
+  },
+  // Disclosures
+  {
+    id: "edu-no-radon-disclosure-ga",
+    title: "No Radon Disclosure Rule",
+    group: "Disclosures",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "radon",
+    bodyText:
+      "Georgia has no statute requiring landlords to test for or disclose radon.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. CONFIRMED ABSENT, code-wide. Official full-text search 2026-09-28: 'radon' returned 0 documents in the whole Official Code of Georgia Annotated (a true empty: the control term also returned 0, and ordinary terms return hits). The Georgia REALTORS lease has no radon provision (GA log §15).",
+  },
+  {
+    id: "edu-no-mold-bedbug-disclosure-ga",
+    title: "No Mold or Bed Bug Disclosure Rule",
+    group: "Disclosures",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "mold",
+    bodyText:
+      "Georgia has no statute requiring landlords to disclose mold or bed bugs, set a treatment timeline, or allocate treatment costs. These conditions fall under the landlord's general duty to keep the premises in repair and fit for human habitation, and the lease.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. CONFIRMED ABSENT (statutes). Official full-text search 2026-09-28: (mold OR molds OR mildew OR fungus OR fungal OR 'bed bug' OR 'bed bugs' OR bedbug OR bedbugs) AND (tenant OR landlord OR lessee OR 'rental agreement'): 30 hits, all reviewed by title (O.C.G.A. §§ 44-7-2, 44-7-13, 44-7-14 case annotations; O.C.G.A. § 44-6-141 'molding of decree'; tax, evidence and procedure sections); none a disclosure or treatment duty. O.C.G.A. §§ 44-7-13(a)-(b).",
+  },
+  // Building & Safety
+  {
+    id: "edu-no-co-alarm-duty-ga",
+    title: "No Carbon Monoxide Alarm Statute",
+    group: "Building & Safety",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "co-alarm-requirement",
+    bodyText:
+      "Georgia has no statute requiring carbon monoxide alarms in existing rental dwellings. Building codes adopted for new construction or renovation may require them.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. CONFIRMED ABSENT (statutes). Official full-text search 2026-09-28: 'carbon monoxide' within 25 words of (detector OR detectors OR alarm OR alarms): 0; 'carbon monoxide' alone: 21 hits, all reviewed by title (vehicle emissions ch. 12-9, animal euthanasia, taxes, O.C.G.A. § 44-7-13/-14 case annotations); none an alarm duty. State minimum standard codes (Title 8 ch. 2) not read (instruction 16).",
+  },
+  // Disclosures
+  {
+    id: "edu-no-drug-lab-disclosure-ga",
+    title: "No Drug-Lab Disclosure Rule",
+    group: "Disclosures",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "meth-disclosure",
+    bodyText:
+      "Georgia has no statute requiring a landlord to disclose that a rental was used as a methamphetamine or other drug lab, or setting a cleanup standard before re-renting.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. CONFIRMED ABSENT (statutes). Official full-text search 2026-09-28: (clandestine OR methamphetamine OR 'drug laboratory' OR 'drug lab') within 50 words of (property OR dwelling OR residence OR premises OR landlord OR tenant OR disclose OR disclosure): 22 hits, all criminal-law sections (O.C.G.A. §§ 16-13-30 to -32.5, 16-5-73, etc.); none a disclosure, remediation or habitation rule.",
+  },
+  // Parking & Storage
+  {
+    id: "edu-no-ev-charging-right-ga",
+    title: "No Tenant EV Charging Right",
+    group: "Parking & Storage",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "ev-charging",
+    bodyText:
+      "Georgia has no statute giving tenants a right to install electric-vehicle charging. The lease and the landlord's consent govern.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. CONFIRMED ABSENT (statutes). Official full-text search 2026-09-28: ('electric vehicle' OR 'charging station') within 50 words of (tenant OR lessee OR landlord OR lessor OR rental): 2 hits (O.C.G.A. §§ 10-1-220, 10-1-224, weights-and-measures rules for charging stations effective 2028-01-01).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-cash-receipt-duty-ga",
+    title: "No Receipt Duty for Rent",
+    group: "Rent & Payment",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "cash-rent-receipt",
+    bodyText:
+      "Georgia has no statute requiring a landlord to give a receipt for rent, including cash rent. In a dispossessory case a tenant may show a receipt instead of paying disputed back rent into court, so receipts protect both sides.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. CONFIRMED ABSENT (statutes). Official full-text search 2026-09-28: (receipt OR receipts) within 15 words of (rent OR rental) AND (landlord OR tenant): 7 hits (O.C.G.A. §§ 44-7-54, 44-7-50 both versions, 53-12-261, 48-13-5, 9-11-56, 9-8-2); none a receipt duty. O.C.G.A. § 44-7-54(a)(2) (receipt in lieu of registry payment).",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-tenant-death-termination-ga",
+    title: "When a Tenant Dies",
+    group: "Default & Termination",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-death-of-tenant",
+    bodyText:
+      "Georgia has no general statute ending a residential lease when the tenant dies or setting a procedure for the tenant's belongings; the lease and estate law govern. The one exception is a servicemember who dies on active duty: an adult member of the immediate family may end the lease on 30 days' written notice with the orders or a commanding officer's verification and the death certificate.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. CONFIRMED ABSENT (statutes). Official full-text search 2026-09-28: (death OR dies OR deceased) within 15 words of (tenant OR lessee) within 50 of (lease OR 'rental agreement' OR terminate OR termination): 25 hits, all reviewed by title (life estates ch. 44-6, O.C.G.A. § 44-7-8 emblements, insurance, torts); none a lease-termination rule. O.C.G.A. § 44-7-22(d) read.",
+  },
+  {
+    id: "edu-no-holdover-multiplier-ga",
+    title: "No Statutory Holdover Damages",
+    group: "Default & Termination",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "holdover",
+    bodyText:
+      "Georgia sets no statutory measure of damages, such as double rent, for a tenant who holds over. The landlord recovers rent and other claims relating to the dispute in the dispossessory action, and any stipulated holdover rate in the lease is liquidated damages.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. CONFIRMED ABSENT (statutes). Official full-text search 2026-09-28: ('holding over' OR holdover OR 'holds over' OR 'hold over' OR 'at sufferance') within 50 words of (rent OR damages OR 'double' OR 'mesne profits'): 23 hits, all reviewed by title (Article 3 sections, O.C.G.A. §§ 44-7-7, 44-7-10, 44-6-100 to -103 estates for years, O.C.G.A. § 51-9-3, procedural); none a holdover measure. O.C.G.A. §§ 44-7-55(a), 13-6-7. Row exists because a confirmed absence logged only in prose is invisible to later canvasses (learnings). Opt-in stipulated rate: `holdover-rate-ga` (Taylor decision 2026-09-28, GA log §6.2).",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-no-police-call-protection-ga",
+    title: "No Statutory Right-to-Call-Police Protection",
+    group: "Compliance & Prohibited Terms",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "right-to-call-police-statute",
+    bodyText:
+      "Georgia has no statute forbidding a lease from limiting a tenant's right to call the police or emergency services, or penalizing a tenant for doing so. Federal fair-housing law and local ordinances may still apply, and a lease term that penalizes calls for help by a domestic-violence victim carries fair-housing risk.",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. CONFIRMED ABSENT (statutes). Official full-text search 2026-09-28: ('law enforcement' OR police OR 'emergency assistance' OR 'emergency services') within 30 words of (tenant OR tenants OR lessee OR landlord OR 'rental agreement') within 30 of (waive OR waiver OR penalty OR penalize OR evict OR eviction OR terminate): 3 hits (O.C.G.A. §§ 43-21-3.1 innkeepers, 16-13-32.5, 44-7-23); none a protection. Federal VAWA (34 U.S.C. § 12491) applies to covered federally assisted housing only (instruction 16; not read).",
   },
 ];
 
