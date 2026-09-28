@@ -395,15 +395,20 @@ async function main() {
   console.log(`Checking ${sectionMap.size} distinct ${STATE_NAME} statute sections cited by ${STATE_CODE} clauses...`);
   const billFindings = [];
 
+  let legiscanAttempted = 0;
+  let legiscanErrored = 0;
+
   async function checkLegiscanSection(section, clauseIds, jurisdiction, stateBucket) {
     checksAttempted++;
     const seen = stateBucket[section] || { billIds: [] };
     let candidates;
+    legiscanAttempted++;
     try {
       candidates = await legiscanSearch(section, jurisdiction);
     } catch (err) {
       console.error(`  [${jurisdiction}] ${section}: search error - ${err.message}`);
       checksErrored++;
+      legiscanErrored++;
       return;
     }
 
@@ -488,6 +493,13 @@ async function main() {
   // writing state, which would look identical to a real clean check and give
   // false confidence (e.g. an expired/revoked LegiScan key, or an outage
   // affecting both LegiScan and eCFR).
+  // Same for LegiScan on its own (added 2026-09-28): when the monthly query
+  // limit ran out, every LegiScan search failed but the eCFR checks still
+  // worked, so the run reported "success" having checked no statutes at all.
+  if (legiscanAttempted > 0 && legiscanErrored === legiscanAttempted) {
+    console.error(`\nAll ${legiscanAttempted} LegiScan search(es) failed -- treating this as a failed run, not a clean result. Not sending an email, not updating state.`);
+    process.exit(1);
+  }
   if (checksAttempted > 0 && checksErrored === checksAttempted) {
     console.error(`\nAll ${checksAttempted} check(s) failed -- treating this as a failed run, not a clean result. Not sending an email, not updating state.`);
     process.exit(1);
