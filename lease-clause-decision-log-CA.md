@@ -2051,3 +2051,375 @@ Not a re-audit; nothing else in this state was reviewed. Detail: lease-clause-de
 1. **Shared-row edit received from Arizona (2026-09-27, Taylor's decision) — `entire-agreement`.** The sentence "may not be changed except in writing signed by all parties" now continues ", or as applicable law permits Landlord to change it by written notice to Tenant." Driver: A.R.S. §33-1342(C), which lets an Arizona landlord amend existing leases by written notice to comply with new laws; the old wording could be read to waive such a right. Recorded as **uniform** under §5a.1: the words are self-limiting and change nothing where this state's law gives no unilateral amendment right, while preserving any right it does give (for example, rules adopted on notice or changes to a periodic tenancy on the notice the law requires). No state-specific override is needed. `last_checked` was reset to 2026-09-27.
 
 2. **2026-09-27, AZ session — new shared row `rental-application-accuracy` tagged CA** (§5a.1; uniform text, no CA override). The tenant represents that the application information was true, correct and complete; a materially false or misleading statement is a material breach, with the remedies the lease and law provide; information the landlord may not request or consider is excluded. No landlord termination right for application misrepresentation was located. For a tenancy covered by Civ. Code §1946.2, the clause's route is the at-fault just cause for breach of a material lease term; how courts treat a past misrepresentation under that ground is untested. Criminal-history screening limits (`edu-criminal-history-screening-ca`) and local ordinances are covered by the last sentence. Remedies run through `default-by-tenant`.
+
+---
+
+## Gap-discovery backfill (instruction 36) — 2026-09-28
+
+| Source | Status |
+|---|---|
+| Gap-discovery source 1 — statute walk | Done (§0, §1, §5.18: Civ. Code Title 5 Chapters 1–2, §§1925–1954.071, swept end to end) |
+| Gap-discovery source 2 — real-lease comparison | Done (§GD.2: C.A.R. *Residential Lease or Month-to-Month Rental Agreement*, RLMM Revised 12/24, and California Apartment Association *Lease Agreement*, Form CA-041 Revised 12/24) |
+| Gap-discovery source 3 — landlord-scenario screen | Done (§GD.3: 64 scenarios, Claude-generated) |
+| Gap-discovery source 4 — outside-title search | Done (§GD.4: official leginfo code full-text search, all codes, run 2026-09-28) |
+
+**Scope of this pass.** A targeted backfill of sources 2, 3 and 4 only, not a re-audit of California. Screened against the current library (`lease-clauses.csv`, 941 rows, 14 states), not against the CSV this state's original pass produced.
+
+**What it produced.** Six new rows, seven changed rows, one substantive **correction to a shipped row**, one **previously stated open item closed**, and fourteen confirmed absences. Output: `lease-clauses-CA-delta.csv`, 13 rows. Library 941 → 947 rows; CA 151 → 157 active rows, all `VERIFIED`. No other state's count changed and no shared row's text was touched.
+
+The three findings that matter most:
+
+1. **`edu-mold-disclosure-contingency-ca` was wrong.** California has had a live mold **disclosure** duty since 2022-01-01 under H&S §26148, a section the original pass never read. The row asserted the opposite.
+2. **A REQUIRED prescribed lease disclosure was missing entirely** — Civ. Code §1954.204, water submeter billing, ten mandatory items in at least 10-point type. `landlord-entry-ca`'s own notes had flagged that chapter as unread.
+3. **Towing** (Veh. Code §22658) and **selling a tenanted property** (Civ. Code §1954(d)(2), §1950.5(i)–(k)) were both gaps — the same two the Arizona scenario screen found, which is evidence the screen generalises rather than being Arizona-specific.
+
+---
+
+### GD.1 Source 1 — statute walk (already complete)
+
+Recorded at §0 and §1: Civ. Code Title 5 Chapters 1 and 2 (§§1925–1954.071) read end to end, plus roughly fifty further provisions across the Civil Code, CCP, Government, Health & Safety, Revenue & Taxation and Penal Codes and 2 CCR / 17 CCR, and five case-law authorities (§5.22). The chapter sweep itself is §5.18. Nothing was re-run.
+
+One limit of that walk is now visible and worth recording, because it caused finding 2 above: **Chapter 2.5 commencing with §1954.201 sits immediately past §1954.071 and was outside the swept range.** §1954(a)(5) pointed at it, the pass identified it as the water submetering chapter, and then never read it. The range chosen for a sweep is itself a source of gaps.
+
+---
+
+### GD.2 Source 2 — real-lease comparison
+
+#### Provenance
+
+Two leases, both current, both real, neither a template.
+
+**Primary — California Association of REALTORS® *Residential Lease or Month-to-Month Rental Agreement*.**
+- Form code and edition printed on the form: **RLMM REVISED 12/24**. Copyright line: © 2024, California Association of REALTORS®, Inc. 9 pages plus 6 pages of attached addenda and disclosures; 48 numbered paragraphs plus signature and property-management blocks.
+- Copy used: posted by **Collins Property Management**, a California property-management company, at `https://www.collinspropertymanagement.net/files/Res__Lease_Month_to_Month_Rental_Agmt___12_24.pdf`.
+- **Why it qualifies:** it is the state Realtors association's own residential lease, in the copy a real property manager posts — expressly the first route in instruction 36. C.A.R.'s own hosting of Form LR on car.org is **member-restricted** (the association's PDF returns a "restricted to C.A.R. members" page to a non-member fetch), which is why a property manager's posted copy was used.
+
+**Secondary — California Apartment Association *Lease Agreement*.**
+- **Form CA-041, Revised 12/24**, "California Apartment Association Approved Form, www.caanet.org", © 2024. 17 pages, 54 numbered sections.
+- Copy used: posted by the **County of Santa Clara**, a public body, at `https://files.santaclaracounty.gov/exjcpb1426/2025-02/sample-ca_041_lease_agreement.pdf`.
+- **Why it qualifies:** CAA is California's apartment-industry association and CA-041 is the dominant professional apartment lease in the state; the copy is published by a public body. It was added because the C.A.R. form is drafted for single-family and small-landlord use and is markedly thinner on statutory detail — CA-041 is 17 pages to C.A.R.'s 9 and cites twenty California code sections by number. **Every finding of substance in this section came from the CAA form.**
+
+Both are copyrighted. This section maps provisions **by topic** and reproduces no lease text. Both were used as a **lead only** (instruction 6): every statutory claim below rests on primary text read section-open on **leginfo.legislature.ca.gov** on 2026-09-28 — H&S §§26147, 26148; Civ. Code §§1689, 1954.202, 1954.204, 1954.205, 1954.206, 1954.213, 1954.214, 1954.218; Veh. Code §22658 subdivisions (a), (e)(1) and (l)(1)(A); B&P §10084.1; H&S §106750 — together with the sections already read in the original pass.
+
+#### GD.2.1 Provision map — C.A.R. RLMM 12/24
+
+| C.A.R. provision (by topic) | Library coverage for CA | Result |
+|---|---|---|
+| 1 Property; 2 Term; 24 Possession | `possession-delay-ca`, `surrender-end-of-term`, `month-to-month-notice-ca` | Covered |
+| 3 Rent; 5 Move-in costs received/due | `rent-payment-ca`, `due-at-signing-ca` | Covered. Money taken **before** signing is a gap → `edu-holding-deposit-ca` (§GD.2.3) |
+| 4 Security deposit | `security-deposit-cap-ca`, `security-deposit-return-ca`, `edu-deposit-photo-duty-ca` | Covered, and ours is fuller: the form cross-refers, ours states the 21 days, the $125 documentation threshold and the photo duties |
+| 6 Late charge; returned checks | `late-fee-safe-harbor-ca`, `nsf-fee-limit-ca`, `edu-nsf-treble-damages-ca` | Covered. The form fixes a percentage; §1671(d) makes the *presumed-damage* framing the safer one, which ours uses |
+| 7 Parking; 8 Storage | `parking-ks-oh-ca`, `storage-space-ks-oh-ca`, `assigned-parking-space`, `unbundled-parking-ca` | Covered. **Towing is a gap** → `edu-towing-ca` (§GD.3) |
+| 9 Utilities | `utilities-responsibility`, `utilities-paid-by-landlord`, `services-utilities-provided-ca`, `ordnance-demolition-meter-disclosures-ca` | Covered for shared meters. **Water submetering is a gap** → `water-submeter-disclosure-ca` (§GD.2.2) |
+| 10 Condition of premises; 11 Maintenance use and reporting | `existing-condition-ca`, `landlord-maintenance-ca`, `tenant-maintenance-obligations-ca`, `repair-and-deduct-ca` | Covered |
+| 12 Neighborhood conditions | — | Advisory disclaimer, no statute. No row (§GD.2.4) |
+| 13 Animals | `pet-policy-ca`, `pet-insurance-requirement`, `assistance-animal-accommodation-ca`, `edu-assistance-animal-documentation-ca` | Covered, and ours is stricter: 2 CCR §12185(d)(2) bars any pet fee, extra rent, deposit **or liability-insurance requirement** for an assistance animal |
+| 14 Smoking | `smoking-policy` | Covered |
+| 15 Rules/regulations; 45 City, county or other local requirements | `common-area-use-ca`, `edu-municipal-layer-ca` | Covered. The form's local-requirements paragraph is the same boundary this log draws at §7 |
+| 16 Condominium; planned unit development | `hoa-compliance` | Covered |
+| 17 Alterations; repairs | `no-alterations`, `reasonable-modification-ca` | Covered |
+| 18 Keys; locks | `keys`, `security-devices-ca`, `lock-change-non-cotenant-ca` | Covered, and ours carries the §1941.3 dead-bolt and window-device duties the form does not state |
+| 19 Entry | `landlord-entry-ca` | Covered |
+| 20 Photographs and internet advertising | — | **No statute located.** Contract term. No row (§GD.2.4) |
+| 21 Signs (landlord may post for sale/lease) | — | Absent as a statute; folded into `edu-selling-rented-property-ca` |
+| 22 Assignment; subletting | `no-sublet-assign-ca`, `no-sublet-assign-discretion-ca`, `edu-sublet-consent-choice-ca` | Covered |
+| 23 Joint and individual obligations | `joint-liability` | Covered |
+| 25 Tenant's obligations upon vacating | `surrender-end-of-term`, `security-deposit-return-ca` | Covered |
+| 26 Breach of contract; early termination | `default-by-tenant`, `early-termination-ca`, `continue-lease-remedy-ca`, `edu-abandonment-damages-ca` | Covered (§§1951.2, 1951.4 at §5.10–§5.11) |
+| 27 Temporary relocation for fumigation or repairs | `pest-control-notice-ca`, `edu-relocation-benefits-ca` | Covered on notice and on enforcement-driven relocation. A contractual vacate-with-rent-credit term has no statute; no row |
+| 28 Damage to premises | `casualty-termination-ca` | Covered (§§1932, 1933) |
+| 29 Insurance | `tenants-property-insurance-ks-oh-ca` | Covered. Requiring renter's insurance: **confirmed absent** as a regulated matter (§GD.4) |
+| 30 Waterbeds/portable washers | `waterbed-ca` | Covered (§1940.5) |
+| 31 Waiver (non-waiver clause) | **deliberately none** | Correct as designed. A general non-waiver clause collides with California's two acceptance-waiver rules (`edu-waiver-by-acceptance-ca`, §1945 and the forfeiture-waiver rule) |
+| 32 Notice | `notices` | Covered |
+| 33 Tenant estoppel certificate (Form TEC, 3 days) | — | **Confirmed absent statute-wide** (§GD.4). Folded into `edu-selling-rented-property-ca` |
+| 34 Representation; 47 Legally authorized signer | — | Contract mechanics. Probate Code §18100.5 certification-of-trust route not read; no row |
+| 35 Mediation | — | **Confirmed absent** (§GD.4). No row; see the cross-state question at §GD.2.4 |
+| 36 Attorney fees (capped at a stated amount) | `edu-fee-shifting-ca`, `default-by-tenant` | Covered, and ours is the more important point: §1717 makes any fee clause reciprocal whatever it says. The form's **cap** is a real drafting device that also limits the landlord — noted, not adopted |
+| 37 C.A.R. form; 42 Broker compensation; 41 Agency | — | Broker mechanics, out of scope for a self-managing landlord |
+| 38A Mold and dampness booklet | `edu-mold-disclosure-contingency-ca` | **CORRECTED → new row `mold-booklet-disclosure-ca`** (§GD.2.2) |
+| 38B Bed bugs | `bed-bug-disclosure-ca`, `bed-bug-cooperation-ca`, `edu-bed-bug-landlord-duties-ca` | Covered, and ours carries the §1954.603 10-point-type floor |
+| 38C Megan's Law | `sex-offender-registry-notice-ca`, `edu-megans-law-housing-use-ca` | Covered, and ours adds the limit the form omits: the data **may not be used** in housing decisions |
+| 38D Residential Environmental Hazards Booklet | — | **No statute requires or safe-harbours it.** B&P §10084.1 only directs the Department of Real Estate to *develop* it; "environmental hazards booklet" returns 0 sections (§GD.4). Contract practice, not law. Recorded in `edu-no-radon-disclosure-ca` |
+| 38E Flood hazard (Form TFHD) | `flood-disclosure-ca` | Covered, and ours is materially fuller — the form treats it as conditional on a flood zone; Gov. Code §8589.45 requires it in **every** residential lease |
+| 38G RPOD: lead paint, meth, periodic pest control, water submeters, mold, asbestos, HOA, military ordnance, deaths on premises | `lead-based-paint`, `edu-lead-hazards-ca`, `meth-disclosure-ca`, `edu-meth-fentanyl-disclosure-duties-ca`, `pest-control-notice-ca`, `ordnance-demolition-meter-disclosures-ca`, `edu-death-on-premises-ca` | Covered except **water submeters** (gap, §GD.2.2) and **asbestos** (confirmed absent as a tenant duty, §GD.4) |
+| 39 Servicemembers Civil Relief Act | `military-lease-termination-ca`, `edu-military-tenant-protections-ca`, `edu-military-default-judgment-ca` | Covered, and ours is much stronger: the form invokes only the federal Act, while California has **its own** termination right in Mil. & Vet. Code §409 with a **misdemeanour** for holding the deposit against post-termination rent (§5.29) |
+| 40 Time of essence; entire contract; changes | `entire-agreement`, `addendum-precedence` | Covered. Time-of-essence skipped by the standing decision (AZ §16.4) |
+| 43 Notice of right to receive foreign language translation | `edu-translation-duty-ca` | **Present but education-only** — see the cross-state question at §GD.2.4 |
+| 44 Receipt; 48 Interpreter/translator | `edu-translation-duty-ca` | Covered as a duty; the interpreter attachment is form mechanics |
+| 46 Other terms and conditions | — | Free text |
+
+#### GD.2.2 Provision map — CAA Form CA-041 12/24 (the sections that produced findings)
+
+| CAA provision | Library coverage for CA | Result |
+|---|---|---|
+| 2 AB 1482 disclosures | `tpa-notice-ca`, `tpa-exemption-notice-ca`, `rent-increase-cap-ca`, `edu-tpa-sunset-ca` | Covered |
+| 7 Late fees and insufficient funds | `late-fee-safe-harbor-ca`, `nsf-fee-limit-ca` | Covered; **and the cap question is now closed** (§GD.4) |
+| 8 Guarantee (guarantor liable for rent, damages, fees) | — | **No landlord-tenant guaranty statute** (§GD.4). Cross-state question at §GD.2.4 |
+| 13 Disclosure of person authorised to manage; service of process | `owner-identity-disclosure-ca` | Covered (§1962) |
+| 14 Renters insurance | `tenants-property-insurance-ks-oh-ca` | Covered; requirement unregulated (§GD.4) |
+| 18 **Personal micromobility devices**, citing Civ. Code §1940.41 | `tenant-use-rights-ca` | Covered, **and ours is the more accurate of the two** — the form omits §1940.41(a)(2)'s condition that a landlord may ban in-unit storage only by *providing* free secure long-term storage meeting five requirements. Row notes updated |
+| 22 Security devices (tenant cameras, video doorbells) | — | **Confirmed absent** (§GD.4). No row |
+| 26 Spare the Air alerts | — | Regional air-district rules; same boundary as the municipal layer. No row |
+| 27 Political signs | `political-signs-ca` | Covered |
+| 28 Satellite dishes | — | **Confirmed absent from the California codes**; the governing rule is the federal FCC OTARD rule, **not read**. No row (§GD.4) |
+| 29 Water conservation | — | State Water Resources Control Board restrictions; regulatory, not statutory. No row |
+| 31 Bed bug information, reporting, prevention | `bed-bug-*` rows | Covered |
+| 33 **Mold prevention**, citing H&S §26148 | `edu-mold-disclosure-contingency-ca` | **THE CORRECTION.** See below |
+| 37 Smoke detection; 38 Carbon monoxide detection | `alarm-duties-ca` | Covered (H&S §§13113.7, 17926) |
+| 39 Liability for packages | — | **Would be void in California.** An agreement that the landlord bears no responsibility for loss of a tenant's packages limits liability arising under law — Civ. Code §1953(a)(5), with *Henrioulle* and *Whitehead* (`edu-exculpation-case-law-ca`). The library correctly has no such clause; this is a term in a current professional form that our exculpation screen would reject |
+| 42 Sale of property (Form CA-160 certification of terms, 10 days) | — | **Gap** → `edu-selling-rented-property-ca` |
+| 44 Sex offender database; 45 Hazard notice (Gov. Code §8589.45) | `sex-offender-registry-notice-ca`, `flood-disclosure-ca` | Covered |
+| 46 Asbestos (pre-1981 units) | — | **Confirmed absent as a tenant-facing duty**: H&S §25915 runs to **employees** of the owner in a pre-1979 building, not to tenants (§GD.4) |
+| 48 Credit reports (negative reporting; authorisation) | `edu-rent-reporting-offer-ca` | Covered on the *positive* rent-reporting offer California mandates (§1954.06), which the form does not mention |
+| 50 Waiver of breach | **deliberately none** | As above |
+| Cites Civ. Code **§1353.6** for governing documents | `hoa-compliance` | **Cross-reference rot in the form**: §1353.6 was repealed and replaced by Civ. Code §4705. Recorded at `tenant-use-rights-ca` — the same error shape this project tracks in its own rows, found in a current professional form |
+
+#### GD.2.3 Rows changed
+
+**`edu-mold-disclosure-contingency-ca` — corrected; body and title revised, id kept.**
+
+The row said California treats mold "as a habitability matter rather than a disclosure matter," and that "the mold disclosure statute at Health and Safety Code section 26147 does not operate on its own terms." The second half is right about §26147 and wrong about California.
+
+H&S Chapter 18, **Article 4 (Disclosures), contains two sections with two different contingencies**:
+
+- **§26147(e)** suspends the general mold disclosure until six months after the department adopts §26103/§26105 permissible exposure limits and §26130 remediation guidelines. It never has. That limb stands.
+- **§26148(a)** separately requires residential landlords to "provide written disclosure to prospective tenants of the potential health risks and the health impact that may result from exposure to mold by distributing a consumer-oriented booklet developed and disseminated by the department," (b) before entering the agreement, and **§26148(c)** makes it operative on the first January 1 or July 1 at least six months after the department **approves the booklet** — not after any standards are adopted.
+
+CDPH approved and published *Information on Dampness and Mold for Renters in California* (dated 2021-05-12), and **CDPH's own Indoor Air Quality mold page states: "As of Jan. 1, 2022, California rental housing providers are required to provide this mold booklet to prospective tenants."** That is consistent with §26148(c) on those dates.
+
+- **New row `mold-booklet-disclosure-ca`** (REQUIRED lease clause, Disclosures, effective 2022-01-01) carries the acknowledgment and the delivery duty. The duty is **delivery of the booklet**, so a lease recital without the booklet is not compliance; the booklet's URL and edition belong on the legal watch as maintained app config, like the MyHazards address in `flood-disclosure-ca`.
+- **Evidentiary limit, stated not glossed:** both statutes were read on the official revisor site, but the operative date rests on **CDPH's own statement**, not on a located approval instrument — the formal approval date was not found, and the CDPH page does not cite §26148. A different approval date would move the operative date, not the existence of the duty. This is the same class of administrative fact the row already relies on for the §26103 non-adoption.
+- **How it was found:** not by any statute search, but because a landlord form cited a section we had never read. **The lease comparison caught what the statute sweep missed.**
+- **Error shape, now recorded for the fourth time in California:** concluding an absence from the provision in hand rather than the one that governs — the same cause as the §1932 and §1934 corrections (§5.15) and the lead-paint canvass miss (§5.20). The specific trap: treating "the mold disclosure statute" as one section when the article has two, one live and one dead. **Lesson: where a section's operation is contingent, read the whole article before asserting the topic is absent, because a sibling may carry the same duty on a different condition.**
+
+**`water-submeter-disclosure-ca` (new, CONDITIONAL lease clause, Disclosures, operative 2018-01-01).**
+
+Civ. Code **§1954.204** requires a landlord who intends to charge separately from rent for water service in a property with submeters to disclose ten items, **in writing, in at least 10-point type, before executing the rental agreement**, and the statute expressly permits them to be "incorporated into the rental agreement" — which is why this ships as a clause. That is the fifth prescribed type-size floor in the California set (§4.3). All ten are mandatory, and two are easy to miss: the estimate must be computed on one of **two defined bases** (average or median of comparative units over any three of the past six months, or 200 gallons per day for a family of four plus all other monthly charges), and **contact details are required twice** — once for billing questions, once for reporting leaks — and may differ.
+
+Scope, §1954.202: a submeter measures an individual unit in a multiunit residential or mixed-use structure and is owned and operated by the landlord or the landlord's agent; "property" means two or more dwelling units served by a single master meter; "landlord" **excludes** a tenant subletting to subtenants and **excludes** a common interest development. Operative 2018-01-01 (§1954.218). Distinct from the §1940.9 shared-meter disclosure already in `ordnance-demolition-meter-disclosures-ca`.
+
+**`edu-water-submeter-billing-ca` (new, CONSTRAINED education, Rent & Payment).** §1954.205 is a closed list of billable items with three alternative volumetric calculations; §1954.206 sets read timing, due-date timing, an eleven-item bill-content list, and a rule that a tenant **cannot be required to pay electronically**; §1954.213 is the one that will catch landlords out — **no late fee until 25 days** after the bill is sent, **$7** first and **$10** each subsequent, all late fees in any 12-month period capped at **10 percent** of the unpaid amount, partial payments to the **oldest** bill, termination only at **180 days overdue or $200 unpaid** and then by a **three-day notice to perform covenants or quit**, **water charges are not rent**, and **no shutoff for any reason including nonpayment**. §1954.214 preserves pre-2013 local ordinances, so the municipal layer is live here too.
+
+Three consequences for existing rows, all recorded: this is the only residential late-fee **cap** in California and it is not about rent (see `late-fee-safe-harbor-ca`); the §1954.213(c) route is **not** a pay-or-quit, because (d) takes water out of rent; and §1954.213(e) is **absolute with no intent element**, unlike Civ. Code §789.3 in `edu-self-help-eviction-ban-ca`, so a submetered-water shutoff is unlawful even where §789.3 would not reach it. The shared `application-of-payments` row is **not** in conflict: it orders payments of rent and lease charges, while §1954.213(b)(3) orders water bills among themselves.
+
+**`edu-holding-deposit-ca` (new, CONSTRAINED education, Security Deposit).** Confirmed absent code-wide (§GD.4), with the substance drawn from sections already read: §1950.5(b) security "however denominated", §1950.5(c)(1) the one-month cap, §1950.5(n) no "non-refundable" characterisation, and §1950.6(k) the screening fee being neither security nor an advance fee. **Open, and the row says so:** whether §1950.5(b) reaches money taken *before* a tenancy begins at all, since its words are "at the beginning of the tenancy." No case read.
+
+**`landlord-entry-ca` and `tenant-use-rights-ca` — notes only, no text change.** The first records that Chapter 2.5 is now partly read and that the §1954(d)(2) showings right now has its own row; the second records the §1940.41 completeness check, the CAA form's narrower micromobility clause, the flag-display absence and the form's stale §1353.6 citation.
+
+#### GD.2.4 Absences recorded (no row)
+
+Each was run on the official leginfo search (§GD.4); scope is statutes only.
+
+- **Tenant estoppel certificates** — "estoppel certificate" and "tenant estoppel" return **0** sections. A tenant may refuse. Both forms use a deemed-acknowledgment device whose enforceability was not researched; a certificate purporting to waive §1950.5 or §1954 rights would meet Civ. Code §1953(a). Folded into `edu-selling-rented-property-ca`.
+- **Mediation / ADR requirement** — "mediation of a dispute between landlord and tenant" returns **0**. No row. Note the library's existing position: jury waivers are unenforceable (`edu-no-jury-waiver-ca`, *Grafton*), which is why an ADR clause is a product decision rather than a drafting convenience.
+- **Guarantor / cosigner** — no landlord-tenant guaranty statute; "guarantor" in the Civil Code returns 15 sections, the relevant family being the general suretyship law at §§2787 *et seq.* Two California specifics do bear on it and are already in the library: §1950.6(j) includes guarantors and cosigners in "applicant" for the screening fee, and 2 CCR §12180(c)(3) treats allowing a co-signer as a reasonable accommodation where disability-limited income would otherwise disqualify the applicant.
+- **Renter's insurance requirement** — "renters insurance" returns 3 sections and "renter's insurance" 2; the only landlord-tenant hit is Gov. Code §8589.45, the flood disclosure's own recommendation. Unregulated either way.
+- **Tenant-installed security cameras and video doorbells** — "security camera" returns 3 sections, none landlord-tenant; "video doorbell" **0**. Scope limit worth stating: Penal Code §§632 and 647(j) regulate *recording*, not installation, and were not searched under those terms.
+- **Satellite dishes and antennas** — "satellite dish" returns 2 sections, both common interest development (Civ. Code §§4725, 6708). **No landlord-tenant statute**; the governing rule is the federal FCC OTARD rule, 47 C.F.R. §1.4000, **not read**.
+- **Asbestos disclosure to tenants** — H&S Chapter 10.4 (§§25915–25919.7) is "Asbestos Notification," and **§25915 requires notice to "all employees of that owner working within the building"** in a building constructed before 1979, not to tenants. So a landlord with on-site staff in a pre-1979 building has a real duty, but it is an **employment** duty and out of scope, the same treatment broker mechanics got in Arizona. No tenant-facing asbestos statute located.
+- **Residential Environmental Hazards Booklet** — B&P §10084.1, read section-open, only directs the Department of Real Estate to develop the booklet; "environmental hazards booklet" returns **0**. No delivery duty, no safe harbour. Recorded at `edu-no-radon-disclosure-ca`.
+- **Photographing the interior of an occupied unit for marketing** — no statute located. Not asserted as confirmed absent: no dedicated phrase search was run, and California's constitutional privacy right (art. I, §1) was not researched.
+- **Flag display by a tenant** — "flag of the United States" returns 20 sections; the housing ones are Civ. Code §§4705 and 6702, both common interest developments. **No landlord-tenant right**, unlike Ohio's ORC §5321.131.
+
+#### GD.2.5 Cross-state question for Taylor (not blocking)
+
+**`edu-translation-duty-ca` is `LANDLORD_EDUCATION` only, and the C.A.R. form puts the translation notice *in the lease*.** Civ. Code §1632(d) requires that, at the time and place a covered lease is executed, **notice in the negotiating language be provided to the tenant** — that is a delivery duty, not merely background, and §1632(k) lets the tenant **rescind** on non-compliance. Gov. Code §8589.45(b) and Civ. Code §1946.2(f)(3) each separately subject their own disclosures to §1632.
+
+The question is a product one: **should California carry a lease-side translation clause** (a short notice of the right to a translation, in the five languages §1632(b) names — Spanish, Chinese, Tagalog, Vietnamese, Korean), or is education plus a builder workflow step the right shape? My recommendation is a **builder workflow step plus a lease-side notice**, because the rescission remedy attaches to the delivery failure and the education row cannot prevent it. This is CA-only, so it is not a shared-row change — but it is a clause decision, so it is yours.
+
+Two smaller ones, both library-wide rather than California problems, and both I would **skip**: a mediation clause, and a guarantor/cosigner clause. Neither is required anywhere, and a guaranty raises suretyship questions this project has not researched in any state.
+
+#### GD.2.6 Integrity
+
+947 rows, 911 active. CA 157 active: 93 lease clauses and 64 education rows, all `VERIFIED`. No duplicate ids, no dangling `supersedes`, no CA title or `topic_key` collisions, no blank status or blank `states` on an active row except the known parent `security-deposit-return`. Still 12 canonical groups. Every other state's active count is unchanged, and **no shared multi-state row's text was modified**. No exact-duplicate active `bodyText` groups introduced.
+
+---
+
+### GD.3 Source 3 — landlord-scenario screen
+
+**Method.** The everyday situations a California landlord meets, application through move-out, sale and foreclosure. Scenarios were **generated by Claude**, starting from the Arizona log's 59-scenario map (§18.1) and adding California-specific ones; Taylor was not asked about his experience, per instruction 36. Each was run against the 151 CA-active rows as they stood. Where no row answered, the official leginfo search was run and any hit read section-open.
+
+**Result. 64 scenarios: 60 covered, 4 gaps.** The gaps are towing, selling a tenanted property, water submeter billing and the mold booklet — the last two already at §GD.2. **Four confirmed absences** (cash receipts, extended absence, holding deposits, lease termination on the tenant's death by statute — the last already answered by §1934 at §5.15).
+
+Notably, **two of the four gaps are the same two Arizona's screen found** (towing; selling a rented property), which is the clearest evidence yet that this screen is a general instrument rather than an Arizona artefact. Instruction 36's backfill of it across the remaining states is worth the cost.
+
+#### GD.3.1 Scenario map
+
+| Scenario | CA coverage | Result |
+|---|---|---|
+| **Before the lease** | | |
+| Applicant pays a holding deposit, then backs out | — | **Gap → `edu-holding-deposit-ca`** |
+| Screening fee: how much, refunds, receipts | `edu-screening-fee-ca` (§1950.6, AB 1170 eff. 2026-01-01) | Covered |
+| Applicant brings their own screening report | `edu-reusable-screening-report-ca` | Covered |
+| Criminal history in screening | `edu-criminal-history-screening-ca`, `edu-megans-law-housing-use-ca` | Covered |
+| Applicant lied on the application | `rental-application-accuracy` (shared) | Covered. Statutory **termination** right: not located; **rescission** is located (§GD.4) |
+| Voucher holder applies; income standard | `edu-fair-housing-classes-ca` (Gov. Code §12955(n), (o), (p)) | Covered |
+| Applicant asks for a co-signer because of disability income | `accommodation-request-rights-ca`, `edu-accommodation-process-ca` | Covered (2 CCR §12180(c)(3)) |
+| Immigration or citizenship status | `immigration-status-inquiry-ca`, `edu-tenant-harassment-ca` | Covered |
+| Applicant is a service member | `security-deposit-cap-ca` (§1950.5(c)(4), (c)(5)(B)) | Covered |
+| Unit not ready on move-in day | `possession-delay-ca` (§1932(1)) | Covered |
+| Required disclosures at signing | `tpa-notice-ca`, `owner-identity-disclosure-ca`, `flood-disclosure-ca`, `bed-bug-disclosure-ca`, `lead-based-paint`, `pest-control-notice-ca`, `sex-offender-registry-notice-ca`, `ordnance-demolition-meter-disclosures-ca`, `meth-disclosure-ca` | Covered **except the mold booklet** → **gap** (§GD.2.3) |
+| Lease negotiated in Spanish, Chinese, Tagalog, Vietnamese or Korean | `edu-translation-duty-ca` | Covered as education; clause question at §GD.2.5 |
+| Deposit plus first month over the cap | `due-at-signing-ca`, `security-deposit-cap-ca` | Covered |
+| Property is in an HOA | `hoa-compliance` | Covered |
+| **Rent and money** | | |
+| Rent is late | `late-fee-safe-harbor-ca`, `default-by-tenant`, `edu-three-day-notice-ca` | Covered |
+| Tenant pays part of the rent | `application-of-payments`, `edu-waiver-by-acceptance-ca` | Covered |
+| Check bounces | `nsf-fee-limit-ca`, `edu-nsf-treble-damages-ca`, `payment-methods-ca` | Covered |
+| Tenant offers a postdated check | `edu-no-postdated-check-rule-ca` | Covered |
+| Tenant pays in cash and wants a receipt | `payment-methods-ca` | **No statute** — confirmed absent (§GD.4) |
+| Landlord wants to require electronic payment only | `payment-methods-ca` (§1947.3) | Covered |
+| A third party offers to pay the rent | `payment-methods-ca` (§1947.3(a)(3)) | Covered |
+| Raising the rent | `rent-increase-cap-ca`, `rent-increase-notice-ca`, `edu-tpa-sunset-ca` | Covered |
+| Landlord bills water through a submeter | — | **Gap → `water-submeter-disclosure-ca` + `edu-water-submeter-billing-ca`** |
+| Tenant asks the landlord to report rent to credit bureaus | `edu-rent-reporting-offer-ca` (§1954.06) | Covered |
+| Landlord bulk-bills internet | `internet-billing-optout-ca` | Covered |
+| Landlord charges for parking | `unbundled-parking-ca` (§1947.1) | Covered |
+| **During the tenancy** | | |
+| Heater fails in January | `landlord-maintenance-ca`, `repair-and-deduct-ca`, `edu-habitability-presumption-ca` | Covered |
+| Tenant withholds rent or repairs and deducts | `repair-and-deduct-ca`, `edu-rent-demand-bar-ca` (§1942.4) | Covered |
+| Mold complaint | `edu-mold-disclosure-contingency-ca` (revised), `mold-booklet-disclosure-ca` | Covered, after the correction |
+| Bed bugs | `edu-bed-bug-landlord-duties-ca`, `bed-bug-cooperation-ca` | Covered |
+| Roaches, rodents; pesticide application | `pest-control-notice-ca` (§§1940.8, 1940.8.5) | Covered |
+| Lead paint in a pre-1978 building | `edu-lead-hazards-ca` (H&S §17920.10) | Covered |
+| Balconies and stairs need inspection | `edu-balcony-inspection-ca` (H&S §17973) | Covered |
+| Stove or refrigerator breaks | `stove-refrigerator-ca` (§1941.1(a)(10)–(11), eff. 2026-01-01) | Covered |
+| Tenant causes damage or won't keep the unit clean | `tenant-maintenance-obligations-ca`, `default-by-tenant` | Covered |
+| Landlord needs to enter; tenant refuses | `landlord-entry-ca` (§1954) | Covered |
+| Tenant changes the locks | `keys`, `security-devices-ca` | Covered |
+| Tenant is a victim of abuse and wants the locks changed | `lock-change-non-cotenant-ca`, `edu-abuse-violence-protections-ca` (§1941.5) | Covered |
+| Tenant calls the police repeatedly | `emergency-assistance-right-ca` (§1946.8) | Covered |
+| Tenant away for a month | `edu-abandonment-belief-notice-ca` | **No statute** — confirmed absent (§GD.4) |
+| Guest won't leave; unauthorised occupant | `guest-policy`, `guest-policy-day-limit`, `permitted-occupants`, `edu-tenancy-scope-ca` | Covered |
+| Roommate moves out | `joint-liability` | Covered |
+| Tenant sublets or lists on a short-stay site | `no-sublet-assign-ca` / `no-sublet-assign-discretion-ca`, `residential-use-only`, `edu-sublet-consent-choice-ca` | Covered (choice group, §5.32) |
+| Landlord rents the same room twice | `edu-double-letting-ca` (§1950) | Covered |
+| Noise and neighbour complaints | `no-disturbance` | Covered |
+| Drugs, violence or other crime | `edu-nuisance-eviction-assignment-ca`, `edu-three-day-notice-ca` | Covered (§1161(4): one statewide ground, one city-only, one dead pointer — §5.9) |
+| Cannabis smoking or growing | `smoking-policy` | Covered |
+| Unapproved pet | `pet-policy-ca` | Covered |
+| Assistance or support animal request | `assistance-animal-accommodation-ca`, `edu-assistance-animal-documentation-ca`, `edu-service-animal-misrepresentation-ca` | Covered (2 CCR §12185) |
+| Disability modification request | `reasonable-modification-ca`, `edu-accommodation-process-ca` | Covered (2 CCR §§12176–12181) |
+| Tenant wants an EV charger | `ev-charging-ca` (§1947.6) | Covered |
+| Tenant stores an e-bike and charges it indoors | `tenant-use-rights-ca` (§1940.41) | Covered |
+| Tenant installs a camera or video doorbell | — | **No statute** — confirmed absent (§GD.4). No row |
+| Tenant puts up a political sign, religious item, clothesline or planters | `political-signs-ca`, `tenant-use-rights-ca` | Covered |
+| Tenant brings a waterbed | `waterbed-ca` | Covered |
+| Car towed from the lot | `parking-ks-oh-ca` (defers to law) | **Gap → `edu-towing-ca`** |
+| Tenant's utility is shut off; landlord's master meter is shut off | `utility-service-continuity`, `utility-payment-evidence`, `edu-self-help-eviction-ban-ca` (§789.3) | Covered; submetered water adds an **absolute** bar (§1954.213(e)) |
+| Adding a rule mid-lease, or the law changes | `entire-agreement` carve-out, `rent-increase-notice-ca` (§827) | Covered |
+| Wildfire, flood or earthquake; evacuation order | `disaster-duties-ca`, `edu-disaster-displaced-guests-ca` | Covered — a California-specific pair with no analogue in prior states |
+| Habitability repairs force the tenant out | `edu-relocation-benefits-ca` (H&S §17980.7(d)(3)) | Covered |
+| **Ending the tenancy** | | |
+| Tenant wants out early | `early-termination-ca`, `continue-lease-remedy-ca`, `edu-abandonment-damages-ca` | Covered |
+| Abuse or violence victim wants out | `dv-lease-termination-ca` (§1946.7) | Covered |
+| Tenant is deployed or called up | `military-lease-termination-ca` (Mil. & Vet. Code §409) | Covered |
+| Month-to-month notice either way | `month-to-month-notice-ca` (§1946.1: owner 60 days, tenant one period) | Covered |
+| Landlord needs just cause; owner move-in; substantial remodel | `tpa-notice-ca`, `owner-move-in-reservation-ca` (§1946.2) | Covered |
+| Tenant stays after the term | `holdover-ca` | Covered (no statutory formula — §GD.4 unchanged) |
+| Tenant disappears | `edu-abandonment-belief-notice-ca`, `edu-abandoned-property-ca` (§§1980–1991) | Covered |
+| Tenant dies | `casualty-termination-ca`; §1934 (checklist) | Covered by statute; no dedicated row, and none needed |
+| Fire or casualty | `casualty-termination-ca` (§§1932, 1933) | Covered |
+| Eviction process; forfeiture and redemption | `edu-three-day-notice-ca`, `edu-forfeiture-redemption-ca`, `edu-writ-execution-ca` | Covered |
+| Tenant is a service member facing eviction | `edu-military-default-judgment-ca` (Mil. & Vet. Code §402) | Covered |
+| Tenant raises a habitability or retaliation defence | `edu-habitability-presumption-ca`, `edu-retaliation-ca` (§1942.5) | Covered |
+| Tenant claims a Social Security hardship | `edu-social-security-defense-ca` | Covered |
+| Belongings left after move-out or eviction | `edu-abandoned-property-ca` | Covered |
+| Deposit dispute; itemisation and photographs | `security-deposit-return-ca`, `edu-deposit-photo-duty-ca` | Covered |
+| Deposit refund never cashed | `edu-deposit-escheat-ca` | Covered |
+| Tenant asks about the eviction record | `edu-eviction-record-access-ca` (CCP §1161.2 masking) | Covered |
+| **Owner changes** | | |
+| Owner sells the property with a tenant in place | `security-deposit-return-ca` in part | **Gap → `edu-selling-rented-property-ca`** |
+| Lender forecloses | `edu-no-foreclosure-disclosure-ca`, `tenant-forward-proceedings-ca` | Covered (§2924.8 is a trustee duty, not the landlord's — §5.24) |
+| Owner switches property managers | `owner-identity-disclosure-ca` (§1962(c)) | Covered; now also in `edu-selling-rented-property-ca` |
+| City ordinance imposes rent or just-cause rules | `edu-municipal-layer-ca` | Flagged, out of scope by decision (§7) |
+
+#### GD.3.2 Rows changed
+
+`edu-towing-ca`, `edu-selling-rented-property-ca` and `edu-holding-deposit-ca` are new; the towing row's substance is at §GD.3.3. The water and mold rows are at §GD.2.3. No existing row's text changed in this section.
+
+#### GD.3.3 `edu-towing-ca` — the towing gap
+
+Veh. Code **§22658** read section-open on leginfo 2026-09-28, subdivisions (a), (e)(1) and (l)(1)(A) quoted. **The section runs about 23,000 characters and was not read in full** — the storage-facility, notice, lien, release and enforcement limbs in (b)–(d), (f)–(k) and (m)–(n) were not read.
+
+- **§22658(a)** gives four routes: (a)(1) a sign **not less than 17 by 22 inches** with lettering **not less than one inch**, in plain view **at all entrances**, prohibiting public parking, stating vehicles will be removed at the owner's expense, and giving the local traffic law enforcement agency's telephone number **and the name and telephone number of each towing company party to a written general towing authorization agreement** — so changing tow companies means changing every sign; (a)(2) 96 hours after a parking-violation notice; (a)(3) 24 hours after notifying local traffic law enforcement about a vehicle lacking a major part needed to operate safely; (a)(4) **a parcel improved with a single-family dwelling, which needs no sign at all**.
+- **§22658(e)(1)** — the owner or person in lawful possession is liable for **double the storage or towing charges** for failing to comply with (a)(1), (2) or (3), or for failing to state the grounds for removal when the vehicle's legal or registered owner asks.
+- **§22658(l)(1)(A)** — a towing company may not begin a removal without the property owner's or lessee's **written authorization**, and the authorising person must **be present at the time of removal and verify the violation** — except for a **residential rental property of 15 or fewer units with no onsite owner, agent or employee**, where the **tenant** may verify and request the tow **from that tenant's own assigned space** by signed request or email (within 24 hours if requested by phone), which the owner or agent passes to the towing company within 48 hours. (l)(1)(E)(i) bars a standing authorisation to tow at the towing company's discretion, except for fire hydrant and fire lane violations.
+
+No clause conflict: `parking-ks-oh-ca` and `assigned-parking-space` defer to law and promise no towing right. **Not read:** Veh. Code §§22651 and 22853, and local towing ordinances.
+
+#### GD.3.4 Confirmed absences (no row)
+
+- **Cash-rent receipt** — "receipt for rent paid in cash" and "cash rent receipt" both return **0** sections. No duty. Same result as Arizona.
+- **Extended-absence notice by the tenant** (URLTA-style) — "extended absence" returns 2 sections, Civ. Code §4041 (common interest development address) and §1923.2 (reverse mortgage). No duty; abandonment runs through §§1951.3 and 1980 *et seq.*
+- **Holding deposits** — see `edu-holding-deposit-ca`.
+- **Lease termination on the tenant's death** — already answered in the original pass: Civ. Code **§1934** terminates a hiring terminable at one party's pleasure on the death of that party (§5.15). No new row.
+
+#### GD.3.5 Integrity
+
+Unchanged from §GD.2.6: 947 rows, 911 active, CA 157 active, all `VERIFIED`; no duplicate ids, dangling `supersedes`, CA title or `topic_key` collisions; no shared row's text modified; other states' counts unchanged.
+
+---
+
+### GD.4 Source 4 — outside-title search, completed
+
+#### GD.4.1 How the search works
+
+- **Official source:** `leginfo.legislature.ca.gov`, California Law → **Code Search**, Code = **All** unless noted. This is the revisor's own site and the same site whose section pages were used for every section-open read in this pass. It is normally robots-blocked to automated fetching (§1), which is why the original pass could not run it; it was run here in the browser pane with Taylor's site approval.
+- **It matches exact phrases and word forms.** "renters insurance" and "renter's insurance" return different lists, so every term was run in its variants.
+- Every hit's code and section number was reviewed; every landlord-plausible hit was read section-open.
+- **Boundary, stated:** **statutes only.** The California Code of Regulations, local ordinances and case law were not searched. Where a results list ran past the first page of ten, that is noted and no absence is claimed from an unreviewed list.
+
+#### GD.4.2 Found — three things the original pass did not have
+
+**1. Civ. Code §§1954.201–1954.219, the water submetering chapter.** Found by "submeter" (31 sections). This is the single largest find of the backfill: a **REQUIRED prescribed lease disclosure** plus a billing, late-fee, non-rent, no-shutoff and termination regime. Two new rows; see §GD.2.3.
+
+**2. H&S §26148, the mold booklet.** Found by the lease comparison rather than by search, and confirmed here. One corrected row plus one new row; see §GD.2.3.
+
+**3. Veh. Code §22658, towing.** One new row; see §GD.3.3.
+
+Also located and **not** landlord duties, each read section-open: **H&S §§106750–106795** (Article 2, Radon Certification — §106750 reads in full "This article establishes requirements for radon certification"; it certifies radon professionals, and none of the six mentions a lessor, landlord, tenant, rental or lease) and **B&P §10084.1** (directs the Department of Real Estate to *develop* the environmental hazards booklet, and nothing more).
+
+#### GD.4.3 Confirmed absent — statute-wide, with the terms run
+
+| Topic | Terms run | Result | Row |
+|---|---|---|---|
+| Landlord lien / security interest in tenant property | landlord's lien (1: Com. Code §9109, which excludes landlord's liens from UCC Article 9); lessor's lien (0); lien for rent (0) | **Confirmed absent** | Checklist cell upgraded; the §§1980–1991 procedure is what exists instead |
+| Deposit interest | interest on security deposit (0); interest on the security deposit (3: Ins. Code §10458, Civ. Code §800.49 floating home marinas, Civ. Code §798.39 mobilehome parks) | **Confirmed absent for dwellings**, and the two carve-outs named — the likely source of a contrary belief | `edu-no-deposit-interest-ca` upgraded |
+| Move-in inventory | move-in inventory (0); condition of the premises checklist (0) | **Confirmed absent code-wide.** California substitutes the landlord's own §1950.5(g) photographs for the joint checklist other states use | `edu-no-move-in-inventory-ca` upgraded |
+| Radon | radon (12; the 10 shown reviewed, incl. Art. 2 certification and B&P §10084.1 read section-open); environmental hazards booklet (0) | **Confirmed absent statute-wide** (previously bounded to Title 5) | `edu-no-radon-disclosure-ca` upgraded |
+| Late-fee cap on rent | late fee (CIV, 13); late charge (CIV, 23) — hits are CID assessments, mortgages, retail instalment, debt collection, and the water submeter sections | **No general cap. STATED OPEN ITEM CLOSED**, with one real exception: §1954.213 caps **submetered water** late fees | `late-fee-safe-harbor-ca` notes revised |
+| Holding deposits | holding deposit (4, none landlord-tenant); application deposit (0); reservation deposit (1, Fin. Code §17312) | **Confirmed absent code-wide** | `edu-holding-deposit-ca` (new) |
+| Estoppel certificates | estoppel certificate (0); tenant estoppel (0) | **Confirmed absent** | `edu-selling-rented-property-ca` |
+| Renter's insurance requirement | renters insurance (3); renter's insurance (2, only Gov. Code §8589.45 is landlord-tenant) | **Confirmed absent as a regulated requirement** | `tenants-property-insurance-ks-oh-ca` (shared — notes not edited) |
+| Tenant security cameras | security camera (3, none landlord-tenant); video doorbell (0) | **Confirmed absent.** Scope: Pen. Code §§632, 647(j) regulate recording and were not searched | no row |
+| Satellite dishes | satellite dish (2, both CID: Civ. Code §§4725, 6708) | **Confirmed absent from the codes**; federal FCC OTARD rule not read | no row |
+| Extended-absence notice | extended absence (2, neither landlord-tenant) | **Confirmed absent** | no row |
+| Cash-rent receipt | receipt for rent paid in cash (0); cash rent receipt (0) | **Confirmed absent** | no row |
+| Tenant flag display | flag of the United States (20; housing hits are CID only) | **Confirmed absent for rentals** | `tenant-use-rights-ca` notes |
+| Asbestos disclosure to tenants | asbestos, via H&S ch. 10.4 §25915 read section-open | **Absent as a tenant duty**; §25915 runs to the owner's **employees** in pre-1979 buildings | `edu-no-radon-disclosure-ca` notes; out of scope as an employment duty |
+| Mediation / ADR requirement | mediation of a dispute between landlord and tenant (0) | **Confirmed absent** | no row |
+
+#### GD.4.4 Located, and it changes a "Not located" cell
+
+**Fraudulent misrepresentation by the tenant.** The checklist recorded this as "Not located as a landlord termination right… No provision in Title 5 Chapters 1 and 2" — bounded to the core chapters. Searching the whole Civil Code, **Civ. Code §1689(b)(1)** (read section-open) lets a party rescind a contract where consent "was… obtained through duress, menace, **fraud**, or undue influence." So the right exists, but as **rescission, not termination**, and it is in the general contract law rather than the landlord-tenant chapters.
+
+That distinction is the whole answer and it matters: rescission is not the unlawful-detainer route, and for a tenancy covered by §1946.2 the landlord still needs a just cause to recover possession. The lease-side route stays `rental-application-accuracy` (breach of a material term). "misrepresentation" returns 48 Civil Code sections and was **not** exhaustively reviewed; §1689 is asserted as **located**, not as the only provision. §1691's rescission procedure was not read.
+
+#### GD.4.5 Still open after the backfill
+
+| Item | Status |
+|---|---|
+| Civ. Code §§1954.203, 1954.207–1954.212, 1954.215–1954.217, 1954.219 | Not read. The two new rows state only what §§1954.202, 1954.204, 1954.205, 1954.206, 1954.213, 1954.214 and 1954.218 say |
+| Water Code §§537–537.5, multiunit-structure submeter install mandate; PUC §739.5 master-meter rates | Located by the same search, **not read**. Flagged on `edu-water-submeter-billing-ca` |
+| Veh. Code §22658 subdivisions (b)–(d), (f)–(k), (m)–(n) | Not read; the row says so |
+| Whether CDPH has issued a mold booklet edition later than 2021-05-12, and the formal approval instrument and date | Not located. `mold-booklet-disclosure-ca` states this limit |
+| Federal FCC OTARD rule, 47 C.F.R. §1.4000 | Not read. The satellite-dish absence is a **California-statutes** absence only |
+| California Code of Regulations, local ordinances, case law | **Outside this search's boundary throughout.** The municipal layer remains out of scope by decision (§7), and §1954.214 shows it is live for submetering too |
+| `edu-translation-duty-ca`: lease-side clause or education only | **Decision for Taylor** (§GD.2.5) |
+| Currency sweep of the 2025 and 2026 California sessions against every section this state relies on | **Not run.** Arizona has one (§15.6); California does not. This is the largest remaining structural gap for CA and is not something this backfill was scoped to do |
+
+#### GD.4.6 Integrity
+
+947 rows, 911 active. CA 157 active (93 lease clauses, 64 education), all `VERIFIED`. No duplicate ids, no dangling `supersedes`, no CA title or `topic_key` collisions, no blank status or blank `states` on an active row except the parent `security-deposit-return`. 12 canonical groups. Per-state active counts: only CA changed, 151 → 157. No shared multi-state row modified. No exact-duplicate active `bodyText` groups introduced. Every row id named in this section exists in the delta or the base CSV.

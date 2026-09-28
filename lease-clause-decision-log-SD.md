@@ -1073,3 +1073,186 @@ Not a re-audit; nothing else in this state was reviewed. Detail: lease-clause-de
 1. **Shared-row edit received from Arizona (2026-09-27, Taylor's decision) — `entire-agreement`.** The sentence "may not be changed except in writing signed by all parties" now continues ", or as applicable law permits Landlord to change it by written notice to Tenant." Driver: A.R.S. §33-1342(C), which lets an Arizona landlord amend existing leases by written notice to comply with new laws; the old wording could be read to waive such a right. Recorded as **uniform** under §5a.1: the words are self-limiting and change nothing where this state's law gives no unilateral amendment right, while preserving any right it does give (for example, rules adopted on notice or changes to a periodic tenancy on the notice the law requires). No state-specific override is needed. `last_checked` was reset to 2026-09-27.
 
 2. **2026-09-27, AZ session — new shared row `rental-application-accuracy` tagged SD** (§5a.1; uniform text, no SD override). The tenant represents that the application information was true, correct and complete; a materially false or misleading statement is a material breach, with the remedies the lease and law provide; information the landlord may not request or consider is excluded. Confirmed absent as a statute. Remedies run through `default-by-tenant-sd`.
+
+---
+
+## Gap-discovery backfill (instruction 36) — 2026-09-28
+
+*(Cited elsewhere as §R38. Continues the R-series; the previous section is §R37.)*
+
+| Source | Status |
+|---|---|
+| Gap-discovery source 1 — statute walk | Done (§2: SDCL ch. 43-32 read whole; §9: Title 21-16 read whole; §R36: ch. 15-17) |
+| Gap-discovery source 2 — real-lease comparison | Done (§30: South Dakota Achieve residential lease agreement, published by the SD Dept. of Human Services in its HCBS-settings-rule toolkit; the document carries no edition line, read 2026-08-24) |
+| Gap-discovery source 3 — landlord-scenario screen | Done (§R38 — this section: 68 scenarios, Claude-generated) |
+| Gap-discovery source 4 — outside-title search | Done (§R3: SDCL 53-9-3; §R16: K.2 boundary rejected, seven operative provisions located outside ch. 43-32; §R20: § 20-13-20 read end-to-end; §R29–R31: §§ 20-13-23.4, 20-13-23.7; §R36: ch. 15-17) |
+
+**Scope:** the landlord-scenario screen only, per the backfill prompt. No re-audit, no re-scrub of settled findings. Screened against the current 941-row, 16-column library, not any earlier copy in the chat.
+
+**Trunk verified before any work:** 941 rows, 905 active, 118 `supersedes`, no duplicate ids, no dangling `supersedes`, no active-row display collisions, one blank-`states` row (the known parent). SD stood at 91 active rows: 60 lease clauses, 31 education rows.
+
+**Result: 68 scenarios — 50 covered, 9 gaps, 8 unresolved, 1 out of scope.** (Counts taken from the table below by script, not from memory — my first draft of this line said 49/8/11 and was wrong on all three.) Eight of the nine gaps produced **a new education row**; the ninth, the disability-modification scenario, produced a **body addition** to an existing row. Two existing SD rows changed in total. No lease clause was added, removed or reworded, so **no SD lease output changes** as a result of this screen. No shared row was touched.
+
+---
+
+### R38.1 Scenario map
+
+| Scenario | SD coverage | Result |
+|---|---|---|
+| **Before the lease** | | |
+| Applicant pays a holding deposit, then backs out | `due-at-signing`, `edu-advance-rent-vs-deposit-sd`, `edu-security-deposit-cap-sd` | **Unresolved** — no holding-deposit or application-fee statute located in two searches; not primary-confirmed, so not recorded as an absence (§R38.4) |
+| Screening: fees, criminal history, source of income | `edu-fair-housing-additions-sd` (classes + small-landlord exemption) | Covered. Immigration-status inquiry remains the carried-forward item from §13 |
+| Applicant lied on the application | `rental-application-accuracy` | Covered |
+| Voucher holder applies | `edu-fair-housing-additions-sd` — source of income is not among SD's enumerated classes | Covered |
+| Unit not ready on move-in day | `possession-delay`, `edu-tenant-termination-causes-sd` (§ 43-32-19(1)) | Covered |
+| Required disclosures at signing | `lead-based-paint`, `meth-disclosure-sd`, `edu-detector-duty-scope-sd` | Covered |
+| Blank left in the lease | Product rule, not a clause | Covered (builder rule) |
+| No state rental registration or licence | No state-level duty; municipal registration is out of project scope | Covered by scope |
+| Property is in an HOA | `hoa-compliance` | Covered |
+| Deposit plus prepaid rent over the cap | `edu-security-deposit-cap-sd`, `edu-advance-rent-vs-deposit-sd` | Covered |
+| Documenting move-in condition | `existing-condition`; SD has no statutory joint inventory (confirmed absent, §20) | Covered |
+| **Rent and money** | | |
+| Rent is late | `late-fee`, `default-by-tenant-sd`, `edu-eviction-grounds-sd` (§ 21-16-1(4), 3 days) | Covered |
+| Tenant pays part of the rent | `application-of-payments` (rent first), `edu-late-rent-waiver-absence-sd` | Covered |
+| Cheque bounces | `returned-payments`, `edu-returned-check-fee-cap-sd`, § 57A-3-421 (§R8) | Covered |
+| Tenant pays cash and wants a receipt | `acceptable-payment-methods` | **Unresolved** — no search run this pass |
+| Raising the rent at renewal | `edu-month-to-month-modification-notice-sd`, `edu-rent-control-preemption-sd` | Covered |
+| Grace period and cure before enforcement | `late-fee`, `notice-and-cure-sd`, `default-by-tenant-sd` | Covered |
+| Does the landlord owe sales tax on the rent | Nothing | **Gap → `edu-no-rental-sales-tax-sd`** (PARTIAL) |
+| **During the tenancy** | | |
+| Heat fails in January | `edu-habitability-duty-sd` (§ 43-32-8 names heating), `landlord-maintenance-sd` | Covered |
+| Tenant withholds rent, repairs and deducts, or escrows | `edu-habitability-duty-sd` (§ 43-32-9: all three remedies, incl. the escrow account) | Covered |
+| Snow and ice on walks and the lot | `snow-removal`, `common-area-use` | Covered (allocation); municipal sidewalk ordinances out of scope |
+| Frozen or burst pipes | `edu-habitability-duty-sd`, `tenant-maintenance`, `utility-service-continuity` | Covered |
+| Bedbugs, roaches, mice | `tenant-maintenance`, `landlord-maintenance-sd`; no SD statute (confirmed absent, §40) | Covered |
+| Mould complaint | No SD statute (confirmed absent, §40; the seller-disclosure false positive was caught there) | Covered |
+| Tenant damages the unit or won't keep it clean | `tenant-maintenance`, `default-by-tenant-sd`, `security-deposit-use` | Covered |
+| Landlord needs to enter; tenant refuses | `landlords-access-sd`, `edu-entry-notice-content-sd` (24 h), `inspection-rights` | Covered |
+| Tenant changes the locks | `keys` | Covered for the lease term. A DV-victim lock-change right was not located — **unresolved** |
+| Tenant away for a month | `abandoned-property-sd` (abandonment only) | **Unresolved** — no extended-absence-notice search run |
+| A guest won't leave, or a squatter is in the unit | `guest-policy`, `guest-policy-day-limit` govern the tenant only | **Gap → `edu-guest-removal-sd`** |
+| Roommate moves out | `joint-liability`, `no-sublet-assign`, `permitted-occupants` | Covered |
+| Tenant sublets or lists on Airbnb | `no-sublet-assign`, `residential-use-only` | Covered |
+| Noise and neighbour complaints | `no-disturbance`, `default-by-tenant-sd` | Covered |
+| Drugs, violence or other crime | `default-by-tenant-sd` (no-cure carve-out), `edu-eviction-grounds-sd` (§ 21-16-1(7) lease-defined ground), `edu-right-to-call-police-sd` | Covered. Nuisance-abatement exposure to the owner not searched — flagged |
+| Tenant is a registered medical-cannabis cardholder; smoking or growing | `smoking-policy` only | **Gap → `edu-medical-cannabis-cardholder-sd`** |
+| Unapproved pet | `pet-policy-sd`, `pet-insurance-requirement` | Covered |
+| Assistance or support animal request | `assistance-animal-accommodation-sd`, `edu-reasonable-accommodation-duty-sd`, `edu-service-animal-prohibition-criminal-penalty-sd` | Covered |
+| Tenant claims a pet is a service animal | `assistance-animal-accommodation-sd` ($1,000 civil fee) | **Gap → `edu-service-animal-misrepresentation-scope-sd`**; correction to `edu-service-animal-prohibition-criminal-penalty-sd` |
+| Disability modification request | `edu-reasonable-accommodation-duty-sd`, `no-alterations` | **Gap → body addition** to `edu-reasonable-accommodation-duty-sd` (§ 20-13-21.1) |
+| Tenant paints or alters the unit | `no-alterations` | Covered |
+| HOA fines the owner because of the tenant | `hoa-compliance` | Covered |
+| Car towed from the lot | `parking-vehicle-rules` defers to law | **Gap → `edu-private-property-towing-sd`** |
+| A boat, camper, snowmobile or trailer in the lot | `parking-vehicle-rules`, `assigned-parking-space`, `storage-space`; § 32-36-2(4) reaches all of them | Covered (now also in the towing row) |
+| Grilling and fire safety | `fire-safety-grilling` | Covered |
+| Yard work by the tenant | `landscaping-irrigation` | Covered |
+| Tenant's utility is shut off | `utility-service-continuity`, `utility-payment-evidence` | **Gap → `edu-winter-utility-disconnection-sd`** (PARTIAL) — the Nov 1–Mar 31 extension was nowhere in the library |
+| Landlord cuts service, or the master meter is shut off | `edu-self-help-eviction-ban-sd` (§ 43-32-6: 2 months' rent + advance rent and deposit) | Covered; winter row added above for the utility's own process |
+| Adding a rule mid-lease, or the law changes | `edu-month-to-month-modification-notice-sd` (§ 43-32-13), `entire-agreement` carve-out, `addendum-precedence` | Covered |
+| Meth contamination found mid-tenancy | `meth-disclosure-sd` covers disclosure at signing only | **Unresolved** — no mid-tenancy remediation duty located; not searched to primary |
+| Property is on or within a reservation, or on trust land | Nothing | **Unresolved and flagged** — jurisdiction over leases on trust land not researched. Materially SD-specific: nine reservations |
+| **Ending the tenancy** | | |
+| Tenant wants out early | `early-termination`, `edu-tenant-termination-causes-sd` | Covered. A landlord's duty to mitigate is **not in ch. 43-32** (read whole); SD common law not read — flagged |
+| DV or stalking victim wants out | `dv-lease-release-sd`, `edu-dv-confidentiality-sd` | Covered |
+| Tenant is deployed or called up | `early-termination` names the SCRA | Covered federally. No SD tenant-side military termination statute located — **unresolved** |
+| Landlord ends a tenancy at will and the tenant is a servicemember | `edu-tenancy-at-will-termination-sd`; § 43-8-8 gives two months | Covered |
+| Month-to-month or week-to-week notice either way | `edu-tenancy-at-will-termination-sd`, `edu-termination-notice-scaling-sd` (§ 43-32-15) | Covered |
+| Tenant stays after the lease ends | `holdover-sd`, `edu-holdover-mechanics-sd` | Covered |
+| Tenant disappears | `abandoned-property-sd` | Covered |
+| Tenant dies | `edu-death-incapacity-lease-survival-sd` | Covered |
+| Fire or casualty | `fire-casualty-rent-abatement-sd`, `edu-tenant-termination-causes-sd` (§ 43-32-19(2)) | Covered |
+| Eviction process | `edu-eviction-grounds-sd`, `edu-eviction-procedure-sd`, `edu-self-help-eviction-ban-sd`, `notice-and-cure-sd` | Covered |
+| Retaliation claim | `edu-retaliation-prohibition-sd` | Covered |
+| Belongings left after move-out or eviction | `abandoned-property-sd`, `edu-post-writ-property-duties-sd`, `edu-no-post-writ-animal-duty-sd` | Covered |
+| Deposit dispute | `security-deposit-return-sd` (21 days), `edu-security-deposit-itemized-accounting-sd` (45 days, forfeiture, $200 cap) | Covered |
+| Deposit refund never cashed | Nothing | **Gap → `edu-unclaimed-deposit-escheat-sd`** |
+| Tenant asks to seal an eviction record | Confirmed absent (§15, §20) — SD's only mechanism is general criminal expungement | Covered as an absence; still log-only, no row (§R38.4) |
+| **Owner changes** | | |
+| Owner sells the property with a tenant in place | Log-only absence (§29) | **Gap → `edu-deposit-on-sale-sd`** |
+| Lender forecloses | Nothing SD-specific | **Unresolved and flagged** — federal PTFA applies nationwide; SD tenant protections and the redemption-period interaction not researched |
+| Owner switches property managers | `notices`; identity disclosure and identity-change notice both confirmed absent (§40) | Covered |
+| Buyer is a foreign entity | SD's foreign-ownership restriction is agricultural-land scoped, not residential leasing | Out of scope, noted |
+
+---
+
+### R38.2 Rows changed
+
+**Eight new rows, all `LANDLORD_EDUCATION`, all tagged `SD` only, all `supersedes` empty. No lease clause touched.**
+
+- **`edu-private-property-towing-sd`** (Parking & Storage, CONSTRAINED, VERIFIED). A vehicle is "abandoned" on private property only if left **without the permission of the landowner or tenant** (§ 32-36-2(1)); no removal agency may take one from private property **without the written permission of the landowner or tenant**, a Class 2 misdemeanour (§ 32-36-4.1); the agency may then enter the land (§ 32-36-4). Notice to the registered owner and lienholders by certified mail within **45 days** on a DOR form, and **no storage charge beyond ten days** until notice is mailed (§ 32-36-8). Possessory lien for reasonable costs, **capped at $500 against contents**, none against trade tools, clothing or food (§ 32-30-18). "Motor vehicle" reaches boats, campers, house trailers, trailers, snowmobiles and off-road vehicles (§ 32-36-2(4)).
+  - **Two limits stated in the body.** A tenant's own car parked *with* permission is not an abandoned vehicle, so this chapter gives no authority to tow it for a parking-rule breach — that is a lease matter. And SD has **no signage requirement**, unlike AZ.
+  - **L.12 adjacency:** § 32-30-3.1 was read and is scoped to "a public street or highway" — it does **not** reach private lots and must not be cited for landlord towing.
+- **`edu-guest-removal-sd`** (Rules & Regulations, RECOMMENDED, VERIFIED). § 22-35-6: remaining after notice against trespass is a Class 2 misdemeanour; **defying a personally communicated order to leave** from the owner or another authorised person is criminal trespass, a **Class 1** misdemeanour. Two limits: a tenant is privileged under the lease, so trespass is never the route against a tenant; and § 22-35-7(2)'s affirmative defence (reasonable belief that a person permitted to license access would have allowed it) covers **a guest the tenant still welcomes** — that is a lease problem, not a trespass problem. § 21-16-1(1)–(3) is independently available for entry by force, intimidation, fraud or stealth.
+- **`edu-medical-cannabis-cardholder-sd`** (Compliance & Prohibited Terms, PROHIBITED, VERIFIED). § 34-20G-19: a cardholder **may not be refused a lease, or otherwise penalised, solely for cardholder status**, subject to a federal-law/federal-benefit carve-out; the same section permits **"reasonable restrictions on the medical use of cannabis by a cardholder who resides at the landlord's property."** § 34-20G-27(3): no landlord need allow **cultivation**. § 34-20G-27(2): no one in lawful possession need let a **guest, client, customer or other visitor** smoke or vape — written about visitors, **not** resident tenants, so it is not the authority for restricting a tenant's own use.
+- **`edu-deposit-on-sale-sd`** (Security Deposit, CONSTRAINED, VERIFIED). Converts a **log-only absence** (§29) into a row. No SD statute transfers deposit liability to a buyer, none releases the seller, and ch. 43-32 (read whole) imposes no notice-of-sale duty. Ten states in the library have such a provision; SD and OH do not, and OH's answer rests on case law that **was not searched for SD**. Body gives the contractual remedy — transfer at closing against a written assumption, tell the tenant in writing who holds the deposit and where to send the address that starts the 21-day clock.
+- **`edu-unclaimed-deposit-escheat-sd`** (Security Deposit, REQUIRED, VERIFIED). § 43-41B-2(a): intangible property is presumed abandoned after **three years** unclaimed; the owner's failure to demand or present the instrument does not stop the clock, nor does a limitation period (§ 43-41B-18). Due-diligence duty, **mailed notice at $50 or more**, verified annual report to the administrator **before November 1 as of the preceding June 30**, itemised at **$10 or more**, aggregate below $10, every previous holder listed.
+- **`edu-winter-utility-disconnection-sd`** (Landlord Responsibilities, RECOMMENDED, **PARTIAL**). ARSD 20:10:20:10: **Nov 1 – Mar 31**, a utility may not disconnect residential service without adding **30 days** to the ARSD 20:10:20:03(2) periods, and must notify the customer of the extra 30 days. Those periods are **≥20 days** billing-to-due plus **≥10 days'** further notice — so ~30 days' runway outside the window, ~60 inside it. **Not a moratorium.** PUC rules under SDCL 49-34A reaching gas and electric; municipal utilities, rural electric co-ops and water/sewer not established.
+- **`edu-service-animal-misrepresentation-scope-sd`** (Pets, RECOMMENDED, VERIFIED). **§ 22-35-9, added by SL 2026, ch 110, § 1** — a Class 2 misdemeanour, scoped to **"any place of public accommodation,"** defining "service animal" as a **dog** performing trained tasks per 28 C.F.R. § 36.104 (Jan 1, 2026) and **expressly excluding** emotional support, comfort, companionship and crime-deterrent effect. Does **not** reach a leased dwelling. Housing remedy stays civil (§ 43-32-36, $1,000).
+- **`edu-no-rental-sales-tax-sd`** (Rent & Payment, RECOMMENDED, **PARTIAL**). SD DOR *Lease and Rental* guidance (April 2025): "[t]he lease or rental of real property is exempt from sales tax." Two boundaries flagged in the body and unresolved: short-term lodging/tourism/municipal gross receipts, and separately stated charges for furnishings or services.
+
+**Two changed rows:**
+
+- **`edu-service-animal-prohibition-criminal-penalty-sd`** — notes only, body unchanged. The row's recorded absence ("no SD analog was found" for a tenant's fraudulent claim) **is now superseded** by § 22-35-9 and says so, pointing to the new row. Also records the positive currency check below.
+- **`edu-reasonable-accommodation-duty-sd`** — **body addition**. § 20-13-23.7's good-faith accommodation duty was stated with **none of its statutory qualifications**. § 20-13-21.1 provides that nothing in ch. 20-13 requires a landlord to **modify the property, incur any additional expense, or exercise a higher degree of care** for a person with a disability, and does not relieve anyone of the lease's ordinary obligations **including its financial obligations**, or forbid distinctions based on inability to meet them. The body now carries that limit, plus a sentence keeping it from being over-read: the FHA's reasonable-modification (at tenant expense) and reasonable-accommodation duties are separate and unaffected, since § 20-13-21.1 limits only what **ch. 20-13** requires.
+
+---
+
+### R38.3 Currency check run on the adjacent housing provisions
+
+Prompted by the 2026 service-animal enactment, and because §§ 20-13-23.4 and 20-13-23.7 are the two provisions this log got wrong once already (§R19, §R29).
+
+- **§ 20-13-23.4 — unamended.** Source line: *SDCL §§ 20-13-23.2 as added by SL 1980, ch 172, § 1; SL 1994, ch 160, § 4; SL 1995, ch 118, § 2.* The library's text is current.
+- **§ 20-13-23.7 — unamended.** Source line: *SL 1986, ch 170, § 4.* Current.
+- **The only 2026 amendments anywhere in ch. 20-13** are **§§ 20-13-59 and 20-13-61 (SL 2026, ch 94, §§ 1 and 2)**. Both were read: multi-occupancy changing rooms, restrooms and sleeping quarters in buildings **owned or leased by the state and its political subdivisions**. Neither reaches residential leasing. Checked, not material.
+- **Not read, flagged:** the remainder of SL 2026 ch 110 beyond § 1 (press coverage referred to more than one 2026 service-animal bill; the two housing sections above were confirmed unamended, but the session laws were not read through), and § 20-13-21.2 (design and construction of multifamily dwellings — access for disabled persons), which is adjacent and is therefore **not characterised anywhere** in the accommodation row.
+
+---
+
+### R38.4 Absences and unresolved items
+
+**Confirmed absences already recorded, still log-only (no CSV row).** The standing instruction is that a log-only absence is invisible to every future canvass. This screen converted the highest-value one (deposit on sale). These remain:
+- **Eviction-record sealing** — confirmed absent (§15, §20); has a checklist cell, no row.
+- **Day-one landlord-identity disclosure** and **landlord-identity-change notice** — confirmed absent (§40); checklist cells, no rows.
+- Recommendation: convert all three in a single pass rather than one at a time. Not done here, because this screen's remit is the scenario list.
+
+**Unresolved, named rather than assumed absent — eleven open items.** Eight are scenarios marked Unresolved in the map; three more (2, 6 and 9 below) are flagged inside scenarios marked Covered, because the scenario is otherwise answered and only that element is open. Each is an honest "not established," not a confirmed absence:
+1. **Holding deposit / application fee** — no statute located in two searches; per §5a.2 this is escalation territory, not a third search. Secondary sources uniformly report no SD cap, which is not sufficient here.
+2. **Immigration-status inquiry prohibition** — the carried-forward item from §13, untouched.
+3. **Cash-rent receipt duty** — no search run.
+4. **DV-victim lock-change right** — not located.
+5. **Extended-absence notice duty** — no search run.
+6. **Nuisance-abatement exposure to the owner** for tenant drug or criminal activity — not searched.
+7. **Mid-tenancy meth contamination** — no remediation duty located; `meth-disclosure-sd` covers signing only.
+8. **Leases on reservation or trust land** — jurisdiction not researched. The most SD-specific item on this list and the one I would put first.
+9. **Landlord's duty to mitigate after abandonment** — **not in ch. 43-32**, which was read whole; SD common law not read. Bears directly on `early-termination`'s fee.
+10. **SD tenant-side military lease termination** — none located; § 43-8-8 runs the other way (landlord → servicemember tenant at will).
+11. **Foreclosure and sitting tenants** — federal PTFA applies nationwide; SD-specific protections and the redemption-period interaction not researched.
+
+---
+
+### R38.5 One product question, not acted on
+
+**`smoking-policy` × SD — no defect found; one optional addition for Taylor to decide.**
+
+I checked this before raising it, per L.14. The clause bans **smoking and vaping** of any kind including marijuana, applies to every tenant, and says nothing about possession or non-combusted use. Against § 34-20G-19 that is the defensible shape: it is not a refusal or penalty imposed **for cardholder status**, and it leaves other methods of medical use available, which is what a "reasonable restriction" on *the medical use of cannabis* most plausibly means. MN reached the same place from a different statute (`edu-cannabis-possession-mn`: a broad "no cannabis" clause would violate § 504B.171(c); a smoking/vaping-specific one does not). **So this is not the MN `pet-policy-mn` situation, and I am not raising it as one.** Two caveats are in the new row: "reasonable" is undefined and no SD decision applying it was located, so the margin is argued rather than settled.
+
+The one real omission is narrower: **`smoking-policy` says nothing about cultivation**, and § 34-20G-27(3) expressly lets an SD landlord prohibit growing. An SD lease therefore has no clause barring cultivation even though SD plainly permits one.
+
+- **Option A (my recommendation): do nothing in the CSV.** Record the permission in the education row, which is done. Growing in a rental is already reachable through `residential-use-only`, `no-alterations` and `default-by-tenant-sd`.
+- **Option B: add a cultivation sentence to the shared `smoking-policy`.** Needs your OK — it is a shared row across fourteen states, and cannabis cultivation law differs sharply among them, so it would need a per-state screen before propagating. §5a.1 would treat it as a **uniform** content edit with propagation notes owed to every tagged state's log.
+- **Option C: create `smoking-policy-sd` as an SD override.** Cleanest legally, but it requires removing `SD` from the shared row's `states` to avoid a display collision — which is a change to a shared row, so it also needs your OK, and it forks a clause that currently has no SD-specific problem.
+
+Nothing was written for any of these.
+
+---
+
+### R38.6 Integrity
+
+Assertions run **against the delta file as written**, not against this narrative (L.3).
+
+- **Delta:** 10 rows, 16-column header **byte-identical** to the trunk's. 8 new ids (none colliding with the 941), 2 existing ids. All `states` = `SD`, all `is_active` = TRUE, all `supersedes` empty, no blank `verification_status` (instruction 27), no blank `topic_key`, no blank `states`. Statuses: 8 VERIFIED, 2 PARTIAL. All seven `group` values already in use. **All eight `topic_key` values are pre-existing cross-state keys, none invented** — `private-property-towing` (TX), `guest-policy` (AZ, FL), `cannabis-possession` (MN), `deposit-on-sale` (OH), `deposit-escheat` (ND, CA, NV, TX), `utility-shutoff-statute` (ND, TX), `service-animal-misrepresentation-scope` (MN), `rent-tax` (AZ) — so each finding lands in an existing cross-state comparison rather than starting a new one.
+- **Changed rows differ only in the intended fields**, asserted field-by-field: the service-animal row in `notes` + `last_checked` only; the accommodation row in `bodyText` + `notes` + `last_checked` only. Prior notes preserved as a prefix in both — appended, never rewritten.
+- **Merge simulation (941 + 8 = 949):** no duplicate ids, no dangling `supersedes`, **no active-row display collisions**, no serialization artifacts in `title`/`bodyText`/`notes`. Every backticked row id appearing in the new text resolves to a real row in the merged file.
+- **Tag counts:** SD **91 → 99** (60 lease clauses unchanged, education 31 → 39). **Every other state's count is unchanged** — asserted state by state, not eyeballed.
+- **L.9 morphological stale-value sweep** across all SD rows for the superseded 14-day deposit deadline (`two weeks | two-week | 2-week | 2 week | fourteen days | 14 days | 14-day | fourteen-day`): every hit is either historical correction text inside a `notes` field, the `guest-policy-day-limit` title, or another state's figure. **No live stale value.** `security-deposit-return-sd`'s body reads twenty-one days.
+- **One assertion of mine was the wrong shape, and it fired.** The whole-library display-collision check as run in earlier sessions ignores `is_active`, and it now reports `application-of-payments-nj` → `application-of-payments` colliding on FL and NJ. That row was **retired 2026-09-26** (`is_active: FALSE`) when it was merged into the generic, so the collision is benign — but it will fire on every future run until the assertion filters on `is_active`. Seven inactive rows currently carry a `supersedes` value. **Not my finding to fix in an SD delta; flagged for Claude Code.**

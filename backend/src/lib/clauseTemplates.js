@@ -19,6 +19,10 @@
 // the architecture-review log's Addendum L §L.3: "a log entry is not a
 // library change" -- the CSV is the fact).
 //
+// **2026-09-28 refresh (gap-discovery backfill, 12 states):** regenerated
+// from the merged CSV -- 351 -> 371 shipped LEASE_CLAUSE rows. No shared
+// clause text changed.
+//
 // **2026-09-27 refresh (Arizona, state #14):** regenerated wholesale from
 // the AZ pass's CSV -- 331 -> 351 shipped LEASE_CLAUSE rows (70 visible for
 // AZ), plus the new shared `rental-application-accuracy` row for all 14
@@ -1359,7 +1363,7 @@ const CLAUSE_TEMPLATES = [
     group: "Landlord Responsibilities",
     states: ["MN"],
     bodyText:
-      "If the property is part of a shared-metered residential building, Landlord will remain the bill payer and customer of record for utility service to the building. Landlord will not apportion or bill Tenant for electricity usage; electricity may only be submetered in accordance with applicable law. If Landlord apportions natural gas or water and sewer service to Tenant, Landlord will do so only using the method required by Minnesota law, will bill Tenant no less frequently than Landlord is billed by the utility, and will provide Tenant, upon request, copies of the underlying utility bills being apportioned. Any administrative billing charge will not exceed $8 per billing period, and any late payment charge for utilities billed separately from rent will not exceed $5 per month and will not compound. Landlord will not disconnect or cause the disconnection of Tenant's utility service for nonpayment of utility charges.",
+      "If the property is part of a shared-metered residential building, Landlord will remain the bill payer and customer of record for utility service to the building. Landlord will not apportion or bill Tenant for electricity usage; electricity may only be submetered in accordance with applicable law. If Landlord apportions natural gas or water and sewer service to Tenant, Landlord will do so only using the method required by Minnesota law, will bill Tenant no less frequently than Landlord is billed by the utility, and will provide Tenant, upon request, copies of the underlying utility bills being apportioned. Any administrative billing charge will not exceed $8 per billing period, and any late payment charge for utilities billed separately from rent will not exceed $5 per month and will not compound. If Tenant vacates before Landlord receives the actual utility bill for the final period, Landlord may issue an estimated final utility bill calculated as permitted by applicable law, based on the immediately preceding billing period and prorated to the date Tenant vacates, without additional fees or charges beyond those applicable law allows. Landlord will not disconnect or cause the disconnection of Tenant's utility service for nonpayment of utility charges.",
   },
   // Notices & General
   {
@@ -1398,7 +1402,7 @@ const CLAUSE_TEMPLATES = [
     states: ["MN"],
     supersedes: "storage-space",
     bodyText:
-      "Tenant is assigned the following storage space for Tenant's exclusive use during the Term: [identify storage space/location here]. Tenant will not store any hazardous, flammable, or perishable materials in the storage space. Except for loss or damage caused by Landlord's own gross negligence or willful misconduct, Landlord is not liable, including for ordinary negligence, for damage to or theft of items stored there.",
+      "Tenant is assigned the following storage space for Tenant's exclusive use during the Term: [identify storage space/location here]. Tenant will not store any hazardous, flammable, or perishable materials in the storage space. Except to the extent applicable law does not allow Landlord's liability to be limited, and except for loss or damage caused by Landlord's own gross negligence or willful misconduct, Landlord is not liable, including for ordinary negligence, for damage to or theft of items stored there.",
   },
   // Landlord Responsibilities
   {
@@ -1417,7 +1421,7 @@ const CLAUSE_TEMPLATES = [
     states: ["MN"],
     supersedes: "landlord-maintenance",
     bodyText:
-      "Landlord will keep the property and all common areas fit for the use intended by the parties and in reasonable repair, including maintaining heat at a minimum of 68 degrees Fahrenheit from October 1 through April 30, and extermination of insects, rodents, vermin, or other pests, except where the disrepair is caused by Tenant's own willful, malicious, or irresponsible conduct or that of a person under Tenant's direction or control. Landlord will keep the property and common areas in compliance with applicable health and safety laws, and will make the property and common areas reasonably energy efficient where doing so is cost-effective under applicable law. Tenant will notify Landlord promptly in writing of any condition requiring repair, and Landlord will undertake required repairs within a reasonable time, consistent with applicable law.",
+      "Landlord will keep the property and all common areas fit for the use intended by the parties and in reasonable repair. This includes maintaining heat at a minimum of 68 degrees Fahrenheit in all places intended for habitation, including kitchens and bathrooms, from October 1 through April 30, unless a utility company requires and instructs that the heat be reduced. It also includes extermination of insects, rodents, vermin, or other pests. These duties do not apply where the disrepair is caused by Tenant's own willful, malicious, or irresponsible conduct or that of a person under Tenant's direction or control. Landlord will keep the property and common areas in compliance with applicable health and safety laws, including any applicable local rental-licensing ordinance. Landlord will make the property and common areas reasonably energy efficient where doing so is cost-effective under applicable law. Tenant will notify Landlord promptly in writing of any condition requiring repair, and Landlord will undertake required repairs within a reasonable time, consistent with applicable law.",
   },
   // Pets
   {
@@ -1501,7 +1505,7 @@ const CLAUSE_TEMPLATES = [
     states: ["ND"],
     supersedes: "tenant-maintenance",
     bodyText:
-      "Tenant will comply with all applicable building and housing codes materially affecting health and safety, and will keep the part of the property Tenant occupies as clean and safe as its condition permits. Tenant will periodically remove ashes, garbage, rubbish, and other waste in a clean and safe manner, and will keep all plumbing fixtures used by Tenant as clean as their condition permits. Tenant will use all electrical, plumbing, sanitary, heating, ventilating, air-conditioning, and other facilities and appliances in a reasonable manner, and will not deliberately or negligently destroy, deface, damage, or impair any part of the property or knowingly permit any other person to do so. Tenant will conduct themselves, and require any guests to conduct themselves, in a manner that does not disturb neighboring tenants' peaceful enjoyment of the property.",
+      "Tenant will comply with all applicable building and housing codes materially affecting health and safety, and will keep the part of the property Tenant occupies as clean and safe as its condition permits. Tenant will periodically remove ashes, garbage, rubbish, and other waste in a clean and safe manner, and will keep all plumbing fixtures used by Tenant as clean as their condition permits. Tenant will use all electrical, plumbing, sanitary, heating, ventilating, air-conditioning, and other facilities and appliances in a reasonable manner, and will not deliberately or negligently destroy, deface, damage, or impair any part of the property or knowingly permit any other person to do so. Tenant will conduct themselves, and require any guests to conduct themselves, in a manner that does not disturb neighboring tenants' peaceful enjoyment of the property. Tenant will use ordinary care to preserve the property in safety and keep it in good condition, and will repair all deteriorations or injuries to the property caused by Tenant's ordinary negligence.",
   },
   // Landlord Responsibilities
   {
@@ -2664,7 +2668,7 @@ const CLAUSE_TEMPLATES = [
     group: "Landlord Responsibilities",
     states: ["TX"],
     bodyText:
-      "[Print this entire Section in bold or underlined type. If it is, Landlord has seven days, rather than three, to comply with Tenant's written request before Tenant may terminate or sue under Section 92.164(a)(2) or (4) of the Texas Property Code (the extra time does not apply where the request reports a recent unauthorized entry or crime of personal violence). Tex. Prop. Code §92.164(b)-(c).]\nSECURITY DEVICES. Landlord, at Landlord's expense, is required to equip the dwelling, when Tenant takes possession, with the security devices required by Subchapter D of Chapter 92 of the Texas Property Code: a window latch on each exterior window; a doorknob lock or keyed dead bolt on each exterior door; a sliding door pin lock and a sliding door handle latch or sliding door security bar on each exterior sliding glass door; and a keyless bolting device and a door viewer on each exterior door. Landlord is not required to install a doorknob lock or keyed dead bolt at Landlord's expense if, when Tenant agrees to lease the dwelling, at least one exterior door usable for normal entry has both a keyed dead bolt and a keyless bolting device and all other exterior doors have a keyless bolting device, each installed as the law requires. Landlord is not required to install a keyless bolting device at Landlord's expense on an exterior door if Landlord is expressly required or permitted to periodically check on the well-being or health of Tenant under this Lease or another written agreement and the other conditions of Section 92.153(e) are met. Tenant has the right to install or rekey a security device required by Subchapter D and deduct the reasonable cost from Tenant's next Rent payment, as provided by Section 92.164(a)(1).\n[Optional; effective only if bold or underlined. Tex. Prop. Code §92.159.] Tenant's requests and notices about security devices must be in writing.",
+      "[Print this entire Section in bold or underlined type. If it is, Landlord has seven days, rather than three, to comply with Tenant's written request before Tenant may terminate or sue under Section 92.164(a)(2) or (4) of the Texas Property Code (the extra time does not apply where the request reports a recent unauthorized entry or crime of personal violence). Tex. Prop. Code §92.164(b)-(c).]\nSECURITY DEVICES. Landlord, at Landlord's expense, is required to equip the dwelling, when Tenant takes possession, with the security devices required by Subchapter D of Chapter 92 of the Texas Property Code: a window latch on each exterior window; a doorknob lock or keyed dead bolt on each exterior door; a sliding door pin lock and a sliding door handle latch or sliding door security bar on each exterior sliding glass door; and a keyless bolting device and a door viewer on each exterior door. Landlord is not required to install a doorknob lock or keyed dead bolt at Landlord's expense if, when Tenant agrees to lease the dwelling, at least one exterior door usable for normal entry has both a keyed dead bolt and a keyless bolting device and all other exterior doors have a keyless bolting device, each installed as the law requires. Landlord is not required to install a keyless bolting device at Landlord's expense on an exterior door if Landlord is expressly required or permitted to periodically check on the well-being or health of Tenant under this Lease or another written agreement and the other conditions of Section 92.153(e) are met. Tenant has the right to install or rekey a security device required by Subchapter D and deduct the reasonable cost from Tenant's next Rent payment, as provided by Section 92.164(a)(1).\n[Optional; effective only if bold or underlined. Tex. Prop. Code §92.159. If the dwelling is in a multiunit rental complex with a pool, or opens into a pool yard, print this sentence in capital letters and underlined, or in at least 10-point bold type, so that it also covers pool-yard door and window latches. Tex. Health & Safety Code §§757.009(b), 757.013.] Tenant's requests and notices about security devices must be in writing.",
   },
   {
     id: "smoke-alarm-tx",
@@ -3303,6 +3307,183 @@ const CLAUSE_TEMPLATES = [
     states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ"],
     bodyText:
       "Tenant represents that the information Tenant gave Landlord in Tenant's rental application and during screening was true, correct and complete when given, and Tenant acknowledges that Landlord relied on that information in entering into this Lease. If any of that information was materially false or misleading, Tenant is in material breach of this Lease, and Landlord may exercise the remedies this Lease and applicable law provide for a material breach. This Section does not apply to information that Landlord was not permitted by law to request or consider.",
+  },
+  // Disclosures
+  {
+    id: "water-submeter-disclosure-ca",
+    title: "Water Submeter Billing Disclosure",
+    group: "Disclosures",
+    states: ["CA"],
+    bodyText:
+      "Water Submeter Billing. [Include this section only if Landlord will bill Tenant for water service separately from Rent through a submeter. It must be given in at least 10-point type before this Lease is executed.] Tenant will be billed for water service separately from Rent. Landlord estimates the monthly bill for water service for dwelling units at the property at {{water_bill_estimate}}, based on {{water_bill_estimate_basis}}. Bills are due {{water_bill_due_dates}} and are paid as follows: {{water_bill_payment_procedure}}. Tenant may contact Landlord or Landlord's billing agent with questions about water service billing at {{water_billing_address}}, {{water_billing_email}} and {{water_billing_phone}}. The monthly bill for water service may include only the following charges: the amount due for the usage measured by the submeter, charged at allowable rates; a portion of the fixed fee charged by the water purveyors for water service; a fee for Landlord's or the billing agent's costs; and any late fee, with the amounts and times assessed. Tenant shall notify Landlord of any leaks, drips, water fixtures that do not shut off properly, including a toilet, or other problems with the water system, including problems with water-saving devices, and Landlord is required to investigate and, if necessary, repair these problems within 21 days. Tenant may report any leaks, drips or water fixtures that do not shut off properly to Landlord or Landlord's agent at {{water_repair_address}}, {{water_repair_email}} and {{water_repair_phone}}. Landlord will provide any of the following if Tenant asks: the location of the submeter, the calculations used to determine a monthly bill, and the date the submeter was last certified for use together with the date it is next scheduled for certification. If Tenant believes that the submeter reading is inaccurate or the submeter is malfunctioning, Tenant shall first notify Landlord in writing and request an investigation. This disclosure is only a general overview of the laws regarding submeters, and those laws can be found at Chapter 2.5 (commencing with Section 1954.201) of Title 5 of Part 4 of Division 3 of the Civil Code.",
+  },
+  {
+    id: "mold-booklet-disclosure-ca",
+    title: "Mold Booklet Delivery",
+    group: "Disclosures",
+    states: ["CA"],
+    bodyText:
+      "Dampness and Mold. Before signing this Lease, Landlord gave Tenant the consumer-oriented booklet on dampness and mold for renters published by the California Department of Public Health, which describes the potential health risks and the health impact that may result from exposure to mold, and Tenant acknowledges receiving it. Landlord is not required to conduct air or surface testing of the unit or the building for mold. Tenant will promptly notify Landlord of any dampness, water intrusion, leak or visible mold in the unit.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "no-liens-fl",
+    title: "No Liens for Tenant Improvements",
+    group: "Tenant Responsibilities",
+    states: ["FL"],
+    bodyText:
+      "The interest of Landlord in the property will not be subject to liens for improvements made by Tenant, whether or not Landlord has consented to the improvements. Before any work begins, Tenant will notify every contractor, subcontractor and supplier that makes or furnishes any improvement to the property for Tenant of this provision.",
+  },
+  // Disclosures
+  {
+    id: "association-approval-fl",
+    title: "Association Approval of This Lease",
+    group: "Disclosures",
+    states: ["FL"],
+    bodyText:
+      "[Use only if the property is in a condominium, cooperative or homeowners' association whose governing documents require the association to approve a lease or a tenant.] This Lease is contingent on the association's approval. Tenant will apply promptly, give the association the information it reasonably requires, and cooperate in the approval process. The association's application fee will be paid by {{association_fee_payer}}. If approval has not been given by {{association_approval_deadline}}, either party may end this Lease by written notice to the other before approval is given, and Landlord will then return all amounts Tenant has paid under this Lease. Tenant will not owe Rent for any period before approval during which Tenant is not permitted to take possession. Any security deposit the association requires of Tenant is separate from the Security Deposit under this Lease.",
+  },
+  // Security Deposit
+  {
+    id: "prelease-deposit-application-mn",
+    title: "Prelease Deposit Applied to Deposit or Rent",
+    group: "Security Deposit",
+    states: ["MN"],
+    bodyText:
+      "If Tenant paid Landlord any money to hold the property before this Lease was signed, Landlord will apply that money to Tenant's security deposit or to Rent. Landlord will not keep it as a separate charge and will not treat it as a nonrefundable fee.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "utility-billing-schedule-mn",
+    title: "When Utility Bills Will Be Issued",
+    group: "Landlord Responsibilities",
+    states: ["MN"],
+    bodyText:
+      "If Landlord bills Tenant separately from Rent for electricity or natural gas in a shared-metered residential building, Landlord will issue those bills on the following schedule: [state when utility bills will be issued]. Landlord will not bill Tenant less frequently than Landlord is billed by the utility provider.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "cold-weather-vacate-notice-mn",
+    title: "Cold Weather Notice Before Vacating",
+    group: "Tenant Responsibilities",
+    states: ["MN"],
+    bodyText:
+      "Between November 15 and April 15, if Tenant removes from, abandons, or vacates the property or any part of it while the Term is still running, Tenant will first give Landlord at least three days' written notice of Tenant's intention to do so. This Section does not apply where the tenancy is ending. Tenant understands that the property contains plumbing and other pipes that can be damaged by freezing, and that Minnesota law makes failure to give this notice a criminal offense.",
+  },
+  // Notices & General
+  {
+    id: "tenant-notice-of-adverse-proceeding-nd",
+    title: "Notice of Claims Against the Property",
+    group: "Notices & General",
+    states: ["ND"],
+    bodyText:
+      "If Tenant receives notice of any proceeding to recover the property or its possession -- including a foreclosure action, a tax proceeding, or a claim by any person other than Landlord -- Tenant will inform Landlord immediately and deliver the notice to Landlord. Tenant is responsible to Landlord for all damages Landlord sustains because Tenant failed to inform Landlord of a written notice or failed to deliver it. Tenant will not recognize or attorn to any person other than Landlord as the owner or landlord of the property without Landlord's consent or a judgment of a court of competent jurisdiction.",
+  },
+  // Default & Termination
+  {
+    id: "casualty-termination-ne",
+    title: "Fire or Casualty Damage",
+    group: "Default & Termination",
+    states: ["NE"],
+    bodyText:
+      "If the property is damaged or destroyed by fire or other casualty to an extent that enjoyment of the property is substantially impaired, Tenant may either (a) immediately vacate the property and notify Landlord in writing within fourteen days afterward of Tenant's intention to terminate this Lease, in which case this Lease terminates as of the date Tenant vacated, or (b) if continued occupancy is lawful, vacate only the part of the property made unusable by the casualty, in which case Tenant's Rent obligation is reduced in proportion to the loss in fair rental value of the property. If this Lease terminates under this Section, Landlord will return all prepaid Rent and the Security Deposit that Tenant is entitled to recover, accounting for Rent as of the date of the casualty. Tenant remains responsible for damage caused by Tenant's own negligence. Nothing in this Section limits any right Tenant has under applicable law.",
+  },
+  // Disclosures
+  {
+    id: "steam-radiator-cover-notice-nj",
+    title: "Steam Radiator Cover Notice",
+    group: "Disclosures",
+    states: ["NJ"],
+    bodyText:
+      "[BUILDER: attach as a rider to the lease wherever the unit has steam radiators; Landlord must also give this notice in writing at least once a year and post it in the common area where tenant notices are posted.] Steam Radiator Covers. Tenant may ask Landlord in writing to cover each steam radiator in Tenant's unit with an insulating material or cover that protects tenants, occupants and others from burns caused by contact with the radiator. Landlord will install the covers within 90 days after receiving Tenant's written request.",
+  },
+  {
+    id: "private-well-test-results-nj",
+    title: "Private Well Water Test Results",
+    group: "Disclosures",
+    states: ["NJ"],
+    bodyText:
+      "The property's drinking water comes from a private well. Tenant acknowledges receiving a written copy of the most recent water test results for the property under the New Jersey Private Well Testing Act. Landlord will have the water tested at least once every five years as the Act requires, and will give Tenant a written copy of each new test result within 30 days after Landlord receives it.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "casualty-nj",
+    title: "Fire and Other Casualty",
+    group: "Landlord Responsibilities",
+    states: ["NJ"],
+    bodyText:
+      "If the property is damaged by fire without the fault of Tenant, Landlord will repair it as quickly as possible, and Rent will stop until the property has been fully repaired. If the building is totally destroyed by fire or otherwise without the fault of Tenant, Rent will be paid up to the date of destruction, and this Lease will then end.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "children-occupancy-nv",
+    title: "Occupancy by Children",
+    group: "Tenant Responsibilities",
+    states: ["NV"],
+    bodyText:
+      "Children who are members of Tenant's household may live at the property. Each child who will live at the property is to be listed with the other occupants under this Lease's occupancy terms. Landlord places no restriction on occupancy by children other than those occupancy terms, which apply to every occupant regardless of age. [If the property is housing for older persons that qualifies for the fair-housing exemption for such housing, replace this Section with a statement of the property's age requirements for occupancy.]",
+  },
+  // Rent & Payment
+  {
+    id: "required-fees-nv",
+    title: "Required Fees",
+    group: "Rent & Payment",
+    states: ["NV"],
+    bodyText:
+      "In addition to the Monthly Rent and any deposit stated in this Lease, Tenant is required to pay the following fees, for the purposes stated: [list each required fee - its amount, when it is due and the purpose for which it is required, e.g. \"a nonrefundable cleaning charge of $___, due at signing, to pay for cleaning the premises after Tenant vacates\" - or state \"None\"]. Any required fee that is payable every rental period is included in the Monthly Rent and is not charged in addition to it, except a utility fee that this Lease identifies with the Monthly Rent as the law allows. No charge applies to a late or partial payment of Rent, or to a dishonored check or other returned payment, except a late fee or returned-payment charge stated in this Lease.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "tenant-repair-agreement-nv",
+    title: "Tenant-Performed Repairs and Maintenance",
+    group: "Tenant Responsibilities",
+    states: ["NV"],
+    bodyText:
+      "[Optional. Include only if Landlord and Tenant agree that Tenant will perform specified tasks.] Tenant agrees to perform the following specified repairs, maintenance tasks or minor remodeling: [list each task specifically, e.g. replace heating and air-conditioning filters every [number] months with filters Landlord provides; replace light bulbs; keep the pool clean and its water balanced]. Landlord and Tenant make this agreement in good faith. Tenant is not entering into it because Landlord or Landlord's agent refused to perform any repair, maintenance task or remodeling that Landlord is required by law to perform, and it does not reduce Landlord's obligations to any other tenant. Landlord remains responsible for keeping the property habitable as applicable law requires, and nothing in this Section requires Tenant to pay any fee or charge for work that is Landlord's duty, except work needed because of a condition caused by the deliberate or negligent act or omission of Tenant, a member of Tenant's household, or another person on the premises with Tenant's consent.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "designated-repairer-nv",
+    title: "Designated Repairer for Tenant Repairs",
+    group: "Landlord Responsibilities",
+    states: ["NV"],
+    bodyText:
+      "[Optional. Include only if Landlord wants to designate who performs this work.] If applicable law permits Tenant to have work done at Landlord's expense because Landlord failed to make a repair or to supply an essential service after notice, that work must be performed by [name the person or firm, or describe a class of persons or firms qualified to do the work, e.g. \"a contractor holding a Nevada license for that type of work\"], and Tenant will comply with this specification. This Section does not otherwise limit any remedy applicable law gives Tenant.",
+  },
+  // Default & Termination
+  {
+    id: "abandoned-property-tx",
+    title: "Abandonment and Property Left Behind",
+    group: "Default & Termination",
+    states: ["TX"],
+    bodyText:
+      "[Optional. Texas law does not define when a residential tenant has abandoned the dwelling; this Section supplies the definition. Tex. Prop. Code §§92.0081(b)(2), 54.044(d).]\nABANDONMENT. The dwelling is abandoned only when all of the following have occurred: (a) Landlord reasonably believes that all occupants have moved out, based on facts such as the removal of substantially all of Tenant's belongings or the disconnection of utility service in Tenant's name; (b) Rent is delinquent; and (c) Landlord has posted a written notice on the inside of the main entry door, and mailed a copy to Tenant at the dwelling and to any other address Tenant has given Landlord (and e-mailed a copy if Tenant has given Landlord an e-mail address), stating that Landlord considers the dwelling abandoned, and Tenant has not responded in writing or in person within 5 days after the notice was posted. Once the dwelling is abandoned, Landlord may enter, take possession, change the locks, and remove any personal property left in the dwelling. Landlord will store that property for at least 30 days after the dwelling is abandoned and will release it to Tenant, or to a person Tenant designates in writing, on request during that period. Landlord may charge Tenant the reasonable cost of removing and storing the property but will not refuse to release the property because that cost is unpaid. After the 30-day period, Landlord may donate the property to a charitable organization or discard it. Landlord may discard trash, perishable food, and items that pose a health or safety hazard at any time. Nothing in this Section allows Landlord to exclude Tenant from the dwelling except as Section 92.0081 of the Texas Property Code permits. If Tenant is the sole occupant and dies, Section 92.014 of the Texas Property Code and the provisions of this Lease on the death of Tenant apply instead of this Section.",
+  },
+  {
+    id: "periodic-tenancy-notice-wy",
+    title: "Notice to End a Month-to-Month Tenancy",
+    group: "Default & Termination",
+    states: ["WY"],
+    bodyText:
+      "If this Lease continues as a month-to-month or other periodic tenancy, either Landlord or Tenant may end it by giving the other at least 30 days' written notice, with the termination taking effect on the last day of a rental period. If notice is given fewer than 30 days before the end of a rental period, the tenancy ends at the close of the following rental period instead. Rent remains payable through the termination date. This Section does not limit either party's right to end this Lease earlier where this Lease or applicable law allows it.",
+  },
+  // Notices & General
+  {
+    id: "agent-capacity-designation-wy",
+    title: "Agent Not Authorized to Receive Notices",
+    group: "Notices & General",
+    states: ["WY"],
+    bodyText:
+      "Any managing agent, leasing agent, or resident manager identified in this Lease is not authorized to receive notices or other communications on Landlord's behalf. All notices and demands under this Lease, or under Wyoming's Residential Rental Property Act, must be directed to Landlord at the address stated in this Lease.",
+  },
+  // Default & Termination
+  {
+    id: "casualty-termination-wy",
+    title: "Fire or Other Casualty",
+    group: "Default & Termination",
+    states: ["WY"],
+    bodyText:
+      "If the property is damaged or destroyed by fire or other casualty through no fault of Tenant, and the damage makes the property uninhabitable or substantially impairs Tenant's use of it, either Landlord or Tenant may terminate this Lease by written notice to the other, effective on the date Tenant vacates. Rent will be prorated to that date, any prepaid Rent refunded, and the Security Deposit returned as this Lease and Wyoming law provide. If the casualty makes only part of the property unusable and Tenant stays in possession, Rent will be reduced in proportion to the part of the property Tenant cannot use until Landlord completes repairs.",
   },
 ];
 

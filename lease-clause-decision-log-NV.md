@@ -525,3 +525,380 @@ Not a re-audit; nothing else in this state was reviewed. Detail: lease-clause-de
 1. **Shared-row edit received from Arizona (2026-09-27, Taylor's decision) — `entire-agreement`.** The sentence "may not be changed except in writing signed by all parties" now continues ", or as applicable law permits Landlord to change it by written notice to Tenant." Driver: A.R.S. §33-1342(C), which lets an Arizona landlord amend existing leases by written notice to comply with new laws; the old wording could be read to waive such a right. Recorded as **uniform** under §5a.1: the words are self-limiting and change nothing where this state's law gives no unilateral amendment right, while preserving any right it does give (for example, rules adopted on notice or changes to a periodic tenancy on the notice the law requires). No state-specific override is needed. `last_checked` was reset to 2026-09-27.
 
 2. **2026-09-27, AZ session — new shared row `rental-application-accuracy` tagged NV** (§5a.1; uniform text, no NV override). The tenant represents that the application information was true, correct and complete; a materially false or misleading statement is a material breach, with the remedies the lease and law provide; information the landlord may not request or consider is excluded. Not located in NRS 118A (full read). Remedies run through `default-by-tenant`.
+
+---
+
+## Gap-discovery backfill (instruction 36) — 2026-09-27
+
+| Source | Status |
+|---|---|
+| Gap-discovery source 1 — statute walk | Done (§§0–2 and §11: NRS 118A read whole, section-open from the revisor, with NRS ch. 40, ch. 118, 202.450–.480 and 487.038–.039; the one residual section, 118A.525, is closed in §17.2) |
+| Gap-discovery source 2 — real-lease comparison | Done (§17.1: GLVAR Residential Lease Agreement, Rev. 11.19) |
+| Gap-discovery source 3 — landlord-scenario screen | Done (§17.2: 73 scenarios, Claude-generated) |
+| Gap-discovery source 4 — outside-title search | Done (§17.3: official NRS full-text search of all 835 chapter pages, run in Taylor's browser) |
+
+*(Section 17 of this log; subsections are numbered 17.x.)*
+
+**Scope.** This section runs three targeted checks. It is not a re-audit. Base file: `lease-clauses.csv`, 941 rows, 905 active, 14 states, NV 103 active. Output: `lease-clauses-NV-delta.csv`, with 25 rows: 18 new NV rows and 7 changed NV-only rows. After the delta is applied there are 959 rows, 923 active, and NV has 121 active rows (75 lease clauses and 46 education rows, all VERIFIED). No shared row was added or edited. Other states' counts are unchanged.
+
+**Research mode:** not used. Every statutory point was settled from primary text on leg.state.nv.us.
+
+**Primary-text basis.** All sections read in this backfill come from the revisor's compilation, header `[Rev. 4/15/2026 — 2025]`, and were read section-open. The browser pages load whole chapters, so the truncation that limited the NV pass (§1) did not recur. **Currency (instruction 29):** the compilation's history lines print amendments made at the 2025 36th Special Session (e.g. NRS 268.425 and 617.455), so that special session is incorporated. §17.3.6 records which relied-on sections it touched.
+
+---
+
+### 17.1 Source 2 — real-lease comparison
+
+**The lease.** Greater Las Vegas Association of REALTORS® (GLVAR), *Residential Lease Agreement*, Rev. 11.19 (form no. 1515214v.1, © 2019 GLVAR). The copy used was posted by a brokerage: Kenneth C. Ravago, RE/MAX Advantage, Las Vegas, at `https://www.kenravago.com/files/Lease.pdf`. For cross-reference, Rev. 05/12 is posted by First Serve Realty at `https://u.realgeeks.media/firstserverealty/documents/RLA.pdf`.
+
+**Why it qualifies.** It is a Realtors-association residential lease, posted by a brokerage: route (a). Nevada REALTORS® (the state association) does not post its form publicly. GLVAR is the Realtors association for Southern Nevada, where most of the state's rentals are, so its form is the working professional lease there. No generic multi-state form site was used.
+
+**Edition caveat.** Rev. 11.19 predates the 2025 session. It lacks:
+- the single all-in rent figure (118A.200(6)–(8));
+- the fee-free payment method (118A.303);
+- the (3)(l)–(o) disclosures;
+- the single-family top-of-page disclosure (118A.200(4));
+- DV and 60+/disability termination (118A.345, .340);
+- shutdown-worker protection.
+
+The library already covers every one of these. No newer edition is publicly posted. The form was used as a **lead only** (instruction 6), and every statutory point below rests on revisor text. The lease is copyrighted, so it is mapped by topic, not quoted.
+
+**Result.**
+- **Two missing required clauses** found: 118A.200(3)(c) and (3)(e)/(g). New rows `children-occupancy-nv` and `required-fees-nv`.
+- **One opt-in landlord right**, unbuilt until now: 118A.290(2). New row `tenant-repair-agreement-nv`.
+- **One new education row** from an outside-title citation in the form: `edu-political-signs-cic-nv` (NRS 116.325).
+- **No corrections** to existing rows from this part.
+- **No cross-state question.**
+
+#### 17.1.1 Provision map
+
+| GLVAR provision (by topic) | Library coverage for NV | Result |
+|---|---|---|
+| Parties; premises; mailbox, parking and storage included | `appliances-included`, `assigned-parking-space`, `parking-ks-oh-ca`, `storage-space-ks-oh-ca` | Covered |
+| Term; month-to-month holdover with 30-day notice | `edu-termination-notice-nv` (40.251), `surrender-end-of-term`; duration (118A.200(3)(a)) is a lease core field | Covered |
+| Rent amount, due date, place of payment | `rent-payment`, `rent-single-figure-nv`, `payment-methods-nv` | Covered, and more current than the form (the form predates 118A.200(6) and 118A.303) |
+| Summary of monies: named fees (key, administrative/application, pet, cleaning), some labelled nonrefundable | No NV row listed required fees with their purposes | **Gap → `required-fees-nv`** (118A.200(3)(e)). Nonrefundable labels are limited by 118A.240 and 118A.242(8), already in `security-deposit-return-nv` and `edu-security-deposit-rules-nv` |
+| Late fee (fixed or %); dishonored-check charge; certified funds after a return | `late-fee-nv`, `returned-payments-nv`, `edu-returned-check-remedies-nv` | Covered. **Partial-payment charges: gap** (118A.200(3)(g)), closed in `required-fees-nv` |
+| Notice fees, eviction costs, attorney fees, utility and landscaping bills and HOA fines treated as "additional rent" | No NV row does this | Not needed. The library correctly avoids it: rent is the periodic payment for occupancy plus reasonable late fees in the agreement (118A.150); periodic rent may not exceed the single figure (118A.200(6)–(7)); the tenant may not be made to pay the landlord's attorney fees except under a prevailing-party clause (118A.220(1)(c)) |
+| Security deposit: statute cited; 30-day accounting; not usable as last month's rent; professional cleaning with receipts | `security-deposit-return-nv`, `security-deposit-use`, `security-deposit-cap-nv` | Covered. No statute on applying the deposit to last month's rent (contract choice) |
+| Deposit forfeited on default | `security-deposit-return-nv` (118A.242(4): only amounts reasonably necessary) | Covered. A forfeiture term would be void (118A.242(8)) |
+| Tenant accepts condition; addendum: report defects within 5 days or accept "as is" | `existing-condition`, `move-in-inventory-nv` (118A.200(3)(k): signed inventory is lease content at signing) | Covered. Ours applies the statute, and the form's 5-day window does not meet (3)(k) |
+| Trust account; broker keeps deposit interest | `edu-no-deposit-interest-nv` | Covered |
+| Administrative fee per eviction attempt, plus service costs | — | Not needed. It collides with 118A.220(1)(c), and the library has no such fee |
+| Keys and cards; key deposit | `keys`; a key deposit is security under 118A.240 (`security-deposit-cap-nv`) | Covered |
+| No sublet; residential use; comply with health laws | `no-sublet-assign`, `residential-use-only`, `tenant-maintenance-nv` | Covered |
+| Occupants (number and names) | `permitted-occupants` (118A.200(3)(i)) | Covered. **Children: gap → `children-occupancy-nv`** (118A.200(3)(c)); the form is silent on children too |
+| Guests: daily charge after X days; maximum stay | `guest-policy`, `guest-policy-day-limit` | Covered. Guest charges: no statute; no row |
+| Utilities (who pays each) | `utilities-responsibility`, `utilities-paid-by-landlord`, `services-utilities-provided-ks-oh` | Covered |
+| Pest control: initial treatment on request, tenant pays monthly; Division of Agriculture notice | `edu-habitability-duty-nv` (vermin-free at move-in, 118A.290(1)) | Covered. No landlord pest-control or pesticide-notice statute (confirmed absent, §17.3.3). A required monthly pest charge is a mandatory fee: it goes in the single figure and is listed in `required-fees-nv` |
+| Pets: permission, deposit or fee, liability insurance naming landlord, fine for unauthorized pet | `pet-policy-nv`, `pet-insurance-requirement` | Covered. A pet fee meant to cover damage is security (118A.240), noted in `required-fees-nv` |
+| Restrictions: waterbeds, boats, RVs, commercial vehicles, vehicle repair | `common-area-use`, `parking-vehicle-rules` | Covered. Waterbeds: no statute (0 hits, §17.3.3) |
+| Alterations | `no-alterations` | Covered |
+| Default; 5-day cure; release of tenant information to collectors | `default-by-tenant`, `edu-no-cure-eviction-grounds-nv` (40.2516) | Covered. Release to collectors is a contract term; no row |
+| Non-waiver, including accepting late rent | `late-fee-nv` (acceptance sentence); library decision: no general non-waiver clause | Covered. No NV acceptance-waiver statute (§17.3.3) |
+| Abandonment (118A.450) and disposal of property | `edu-abandonment-notice-nv`, `abandoned-property-nv` | Covered |
+| Notice to vacate; holdover rent raised by a percentage | `edu-termination-notice-nv`; `holdover-ca` (118A.470); `rent-increase-notice-nv` (118A.300, 60 days) | Covered. The form's automatic percentage increase would still need 60 days' written notice |
+| Surrender | `surrender-end-of-term` | Covered |
+| Emergency contact | `owner-identity-disclosure-nv` (118A.260 emergency telephone number) | Covered |
+| Maintenance split: tenant minor repairs up to $X, HVAC filters, all broken glass "regardless of cause", landscaping, pool; landlord major systems | `landlord-maintenance`, `tenant-maintenance-nv`, `landscaping-irrigation`, `smoking-policy` | **Gap (opt-in right) → `tenant-repair-agreement-nv`** (118A.290(2)–(3)). The form's glass-regardless-of-cause term collides with 118A.290(4)–(5); ours charges only for tenant-caused conditions |
+| Smoke-detector agreement (tenant tests and replaces batteries) | `smoke-detector-duty-nv` | Covered |
+| Access with 24 hours' notice; tenant pays for missed vendor visits; signs and lockbox in the last 30 days | `landlords-access`, `edu-access-remedies-nv` (118A.330) | Covered. Missed-visit charges: not needed |
+| HOA: fines passed through; landlord may adopt rules on 30 days' notice | `hoa-compliance`, `edu-rules-regulations-nv` (118A.320(2)) | Covered |
+| Appliances as-is; landlord not liable for appliance failure | `appliances-included` (landlord maintains), `edu-prohibited-lease-terms-nv` (118A.220(1)(d)) | Covered. Ours has no disclaimer |
+| Insurance: renter's may be required, landlord as additional insured; landlord not liable; tenant indemnity; rent abatement after casualty | `tenants-property-insurance-ks-oh-ca`, `edu-prohibited-lease-terms-nv`, `casualty-termination-nv` (118A.400) | Covered. The form's exculpation and indemnity would be void to the extent of 118A.220(1)(d) |
+| Drug-free housing; one violation is a material breach | `edu-no-cure-eviction-grounds-nv` (40.2514), `residential-use-only`, `default-by-tenant` carve-out | Covered |
+| Screens, grill distances, painting, tenant rekeying at own cost, lead-paint risk-assessment option, U.S. flag, political signs "per NRS 116" | `fire-safety-grilling`, `no-alterations`, `keys`, `lead-based-paint`, `flag-display-nv`, `religious-display-nv` | Covered, except **political signs → new `edu-political-signs-cic-nv`** (NRS 116.325, read). Rekey: no general statute (§17.3.3). The risk-assessment option is a federal purchaser right, not a lessor duty (federal text not re-read this session); no row |
+| Changes in writing on 30 days' notice; entire agreement | `entire-agreement`, `edu-rules-regulations-nv` | Covered |
+| Addendum governs | `addendum-precedence` | Covered |
+| Prevailing-party attorney fees | `default-by-tenant` (118A.220(1)(c)) | Covered |
+| Nevada law; no waiver of statutory rights; partial invalidity | `governing-law`, `severability`, `edu-prohibited-lease-terms-nv` (118A.220(1)(a)) | Covered |
+| E-signatures (NRS 719) and counterparts | `electronic-signatures` | Covered |
+| Licensee disclosure (NAC 645.640); confirmation of representation | — | Not needed. These are broker duties, and a self-managing landlord is not a licensee |
+| Notice addresses | `notices`, `edu-notice-service-nv` | Covered |
+| Military: termination on orders with 30 days' notice | `early-termination` (SCRA preserved); new `edu-no-servicemember-lease-rule-nv` (§17.3.3) | Covered. Taylor's AZ decision (AZ log §16.4) stands: no SCRA clause |
+| Foreclosure: tenant keeps paying; deposits returned | `foreclosure-disclosure-nv` (118A.275), `edu-foreclosure-sale-tenants-nv` (40.255) | Covered |
+| Addendum: lease renewal fee; automatic percentage increase at renewal; repair response times; carpet cleaning | `required-fees-nv` (renewal fee is a required fee to list), `rent-increase-notice-nv`, `edu-tenant-repair-remedies-nv` (14 days / 48 hours by statute), `security-deposit-return-nv` | Covered |
+| Addendum: no-show fines; per-infraction penalties | — | Not needed. Enforceability of lease penalties was not researched; if one were a recurring mandatory charge, the single-figure rule would reach it |
+| Addendum: flat early-termination fee "regardless of reason" | `early-termination`, `dv-lease-termination-nv`, `infirmity-death-termination-nv` | Covered. A flat fee regardless of reason would override 118A.340 and 118A.345; ours preserves them |
+| Assistance-animal addendum | `assistance-animal-accommodation`, `edu-assistance-animal-nv` | Covered |
+
+#### 17.1.2 Rows changed (Part 1)
+
+- **`children-occupancy-nv`** (new; REQUIRED lease clause; Tenant Responsibilities)
+  - **Why:** 118A.200(3)(c) makes "occupancy by children or pets" a required lease subject. `pet-policy-nv` covered pets, and nothing covered children. Using a nonconforming lease is unlawful (118A.200(9)).
+  - **Drafting:** the clause states no child-specific limit, because familial status is protected (NRS 118.100). A bracket covers qualifying housing for older persons.
+- **`required-fees-nv`** (new; REQUIRED lease clause; Rent & Payment)
+  - **118A.200(3)(e):** the lease must list required fees and their purposes.
+  - **118A.200(3)(g):** the lease must address charges for late *or partial* payment and dishonored checks. `late-fee-nv` and `returned-payments-nv` are optional, and no NV row mentioned partial payment. The last sentence closes (3)(g) in every lease.
+  - **Also:** it gives `security-deposit-return-nv`'s reference to a "nonrefundable cleaning charge ... stated in this Lease" a place in the lease. It carries a builder guard: a fee for rent default, damage or cleaning is security (118A.240).
+- **`tenant-repair-agreement-nv`** (new; CONDITIONAL lease clause; Tenant Responsibilities)
+  - **Basis:** 118A.290(2)–(5), an opt-in landlord right under instruction 30.
+  - **Drafting:** conservative. Specified tasks only, good-faith recitals matching (2)–(3), habitability stays with the landlord, and there is no charge for landlord-duty work (118A.290(4)).
+- **`edu-political-signs-cic-nv`** (new; CONDITIONAL education; Rules & Regulations)
+  - **Basis:** NRS 116.325, read section-open (2005, A. 2009).
+  - **Content:** the HOA may not bar an owner's or occupant's political signs (24×36 in., one per candidate, party or question). The owner may not post a political sign in a tenant-occupied unit without the tenant's written consent.
+  - **Result for NV:** no landlord-tenant political-sign rule exists (§17.3.3), so `common-area-use` applies as written.
+
+#### 17.1.3 Confirmed absences and cross-state questions (Part 1)
+
+- **Absences** raised by the form's topics (pest control, waterbeds, rekeying, renter's insurance, deposit applied to last month's rent, late-rent acceptance waiver, servicemember termination) were run in the full-text search. Results are in §17.3.3.
+- **Cross-state questions:** none. Every gap was Nevada-specific (118A.200(3), 118A.290(2), NRS 116.325).
+
+---
+
+### 17.2 Source 3 — landlord-scenario screen
+
+**Method.** The scenarios were written by Claude, not taken from Taylor's experience. The model is AZ log §18.1's 59-scenario map, with its Arizona-only items dropped (city rental tax, assessor registration, foreign-adversary buyers) and Nevada-specific scenarios added. Each scenario was run against the NV-active library. Where no row answered it, the scenario went to the §17.3 full-text search, and any statute found was read section-open.
+
+**Result.**
+- **73 scenarios.** 52 were answered by rows that existed before this backfill, and 4 more by Part 1's new rows.
+- **17 gaps** or unconfirmed boundaries, now resolved:
+  - 11 by new rows (this section and §17.3);
+  - 2 by changed rows;
+  - 4 as confirmed absences with no row: holding deposits, criminal-history screening, extended absence and pools.
+- **One opt-in right built:** `designated-repairer-nv`.
+- **One source-1 residual found:** NRS 118A.525 (2025), the rent-reporting program, which had no row.
+
+#### 17.2.1 Scenario map
+
+| Scenario | NV coverage | Result |
+|---|---|---|
+| **Before the lease** | | |
+| Applicant pays a holding deposit, then backs out | — | Confirmed absent: no holding-deposit rule (§17.3.3). A holding deposit credited to rent or damage is subject to 118A.240's definition of security. Noted on `edu-no-deposit-interest-nv`. No new row |
+| Application fee; minor household members; refund if never processed | `edu-application-fees-nv` | Covered. **Changed:** "no cap" confirmed code-wide and added to the body |
+| Screening: criminal history | `edu-fair-housing-nv` | Confirmed absent as a state rule (§17.3.3); noted on the row |
+| Screening: source of income or voucher | `edu-fair-housing-nv` (not a protected class) | **Gap → `edu-no-source-of-income-rule-nv`** |
+| Screening: immigration status | — | **Gap → `edu-no-immigration-inquiry-rule-nv`** |
+| Applicant lied on the application | `rental-application-accuracy` | Covered |
+| Landlord advertised and negotiated in Spanish | — | **Gap → `edu-translation-duty-nv`** (NRS 598.9733) |
+| Unit not ready on move-in day | `possession-delay-nv` (118A.370) | Covered |
+| Required disclosures and lease contents at signing | `edu-lease-content-requirements-nv`, `owner-identity-disclosure-nv`, `foreclosure-disclosure-nv`, `sfr-occupancy-disclosure-nv`, `nuisance-reporting-nv`, `flag-display-nv`, `religious-display-nv`, `move-in-inventory-nv`, `rent-single-figure-nv`, `lead-based-paint` | Covered after Part 1 adds `children-occupancy-nv` and `required-fees-nv` |
+| Property-tax share of rent statement | `property-tax-rent-disclosure-nv` (118.165) | Covered |
+| Property is in an HOA | `hoa-compliance`, `edu-political-signs-cic-nv` | Covered |
+| Deposit plus prepaid rent over the cap | `security-deposit-cap-nv` | Covered |
+| Former drug lab being rented out | — | **Gap → `edu-meth-lab-rental-nv`** (202.450(4), 439.4797) |
+| **Rent and money** | | |
+| Rent is late | `late-fee-nv`, `default-by-tenant`, `edu-nonpayment-eviction-nv` | Covered |
+| Tenant pays part of the rent | `required-fees-nv` (no partial-payment charge unless stated); `edu-nonpayment-eviction-nv` (rent may not be refused after notice over non-rent charges) | Covered after Part 1 |
+| Check bounces | `returned-payments-nv`, `edu-returned-check-remedies-nv` | Covered |
+| Tenant pays cash and wants a receipt | `edu-security-deposit-rules-nv` (118A.250) | Covered |
+| Online-portal fee; tenant wants a fee-free method | `payment-methods-nv` | Covered |
+| Mandatory fees on top of rent | `rent-single-figure-nv`, `required-fees-nv` | Covered |
+| Raising the rent | `rent-increase-notice-nv` | Covered. Rent control: confirmed absent statewide (§17.3.3) |
+| Landlord wants to report rent to credit bureaus | — | **Gap (source-1 residual) → `edu-rent-reporting-program-nv`** (118A.525, AB 540 (2025) sec. 19, effective 2025-07-01) |
+| Tenant is a furloughed government worker | `edu-shutdown-worker-protection-nv` | Covered |
+| **During the tenancy** | | |
+| AC fails in July | `edu-habitability-duty-nv` (AC in good repair if supplied), `edu-tenant-repair-remedies-nv` (air-conditioning is an essential service, 118A.380) | Covered. No duty to supply AC in the first place (§17.3.3) |
+| Tenant withholds rent or repairs and deducts | `edu-tenant-repair-remedies-nv` | Covered. **Opt-in right built:** `designated-repairer-nv` (118A.360(2)) |
+| Tenant complains to the health district | — | **Gap → `edu-health-district-rental-rules-nv`** (NRS 439.479) |
+| County or city orders repairs at a multi-unit building | — | **Gap → `edu-substandard-multifamily-nv`** (AB 211 (2025)) |
+| Roaches, scorpions, bed bugs | `edu-habitability-duty-nv` | Covered. **Gap closed:** `edu-no-bed-bug-disclosure-nv` |
+| Mold complaint | `tenant-maintenance-nv`, `landlord-maintenance` | **Gap closed:** `edu-no-mold-disclosure-nv` |
+| Tenant causes damage | `tenant-maintenance-nv`, `default-by-tenant`, `edu-no-cure-eviction-grounds-nv` (waste) | Covered |
+| Landlord needs to enter; tenant refuses | `landlords-access`, `edu-access-remedies-nv` | Covered |
+| Tenant changes the locks | `keys`, `dv-lease-termination-nv` (118A.345 lock change) | Covered |
+| Tenant away for a month | `edu-abandonment-notice-nv` (118A.450 presumption) | Confirmed absent: no extended-absence notice rule (§17.3.3) |
+| Guest won't leave | `guest-policy`, `guest-policy-day-limit` | Covered as a lease matter. The statutory route is limited, as stated in the new row below |
+| Squatter in a vacant rental | `sfr-occupancy-disclosure-nv` (presumption notice only) | **Gap → `edu-unauthorized-occupant-removal-nv`** (40.230, 40.240, 40.412, 40.414) |
+| Roommate moves out | `joint-liability`, `no-sublet-assign` | Covered |
+| Tenant lists the unit on Airbnb | `no-sublet-assign`, `residential-use-only` | Covered. Transient-lodging authorizations (244.35356, 268.09797) are recorded in §17.3.4; no row |
+| Noise and neighbor complaints | `no-disturbance`, `tenant-maintenance-nv` | Covered |
+| Drugs or other crime on the premises | `edu-no-cure-eviction-grounds-nv`, `nuisance-reporting-nv` | Covered |
+| Tenant calls police or 911 repeatedly | `edu-emergency-assistance-nv` (118A.515) | Covered |
+| Marijuana smoking | `smoking-policy` (NV note: 202.2483) | Covered |
+| Unapproved pet | `pet-policy-nv`, `pet-insurance-requirement` | Covered |
+| Assistance-animal request; fake service animal | `assistance-animal-accommodation`, `edu-assistance-animal-nv`, `edu-service-animal-misrepresentation-nv` | Covered |
+| Disability modification request | `edu-fair-housing-nv` (118.101) | Covered |
+| Tenant paints or alters the unit | `no-alterations` | Covered |
+| Tenant wants to do yard or pool work, or minor repairs, instead | `landscaping-irrigation`, new `tenant-repair-agreement-nv` | Covered after Part 1 |
+| Tenant flies a flag or displays a religious item | `flag-display-nv`, `religious-display-nv`, `common-area-use` carve-out | Covered |
+| Tenant puts up a political sign in an HOA | `edu-political-signs-cic-nv` | Covered after Part 1 |
+| Car towed from the lot | `edu-towing-nv`, `parking-vehicle-rules` | Covered |
+| Pool at the property | — | Confirmed absent in NRS (§17.3.3; NAC not searched). No row |
+| Smoke alarm or CO alarm | `smoke-detector-duty-nv`, `edu-smoke-detector-scope-nv` | Covered. **Changed:** CO confirmed absent for long-term rentals; condominium correction |
+| Tenant's utility is shut off | `utility-service-continuity`, `utility-payment-evidence` | Covered |
+| Landlord's master-metered utility is shut off for nonpayment | `edu-tenant-repair-remedies-nv` (118A.380, .390) | Covered for tenant remedies. The utility's posting duty (704.1835(2), PUC regulations) is recorded in §17.3.4; no landlord duty, no row |
+| Adding a new rule mid-lease | `edu-rules-regulations-nv`, `entire-agreement` | Covered |
+| Large complex: key control and staff background checks | `edu-key-control-policy-nv` | Covered |
+| 55+ community staff work cards | `edu-senior-housing-work-card-nv` | Covered |
+| **Ending the tenancy** | | |
+| Tenant wants out early | `early-termination`, `default-by-tenant` | Covered |
+| Domestic-violence victim wants out | `dv-lease-termination-nv`, `edu-dv-termination-documentation-nv` | Covered |
+| Tenant aged 60+ or disabled moves to care; spouse dies | `infirmity-death-termination-nv` | Covered |
+| Tenant is deployed | `early-termination` | **Gap closed:** `edu-no-servicemember-lease-rule-nv` |
+| Tenant dies | `infirmity-death-termination-nv` (a tenant's death gives the landlord no right to terminate) | Covered. Confirmed absent otherwise (§17.3.3) |
+| Month-to-month notice either way | `edu-termination-notice-nv` | Covered |
+| Weekly tenant under 45 days, fast pay-or-quit | `edu-nonpayment-eviction-nv` | Covered as education. Opt-in acknowledgment not built; **reason now recorded on the row** (instruction 30) |
+| Tenant stays after the lease ends | `holdover-ca` (118A.470) | Covered |
+| Tenant disappears | `edu-abandonment-notice-nv`, `abandoned-property-nv` | Covered |
+| Fire or casualty | `casualty-termination-nv` | Covered |
+| Eviction process; lockout | `edu-nonpayment-eviction-nv`, `edu-no-cure-eviction-grounds-nv`, `edu-self-help-eviction-ban-nv`, `edu-termination-notice-nv` | Covered |
+| Retaliation claim | `edu-retaliation-nv` | Covered |
+| Deposit dispute | `security-deposit-return-nv`, `edu-security-deposit-rules-nv` | Covered |
+| Deposit refund never cashed | `edu-deposit-escheat-nv` | Covered |
+| Tenant asks to seal an eviction record | `edu-eviction-record-sealing-nv` | Covered |
+| **Owner changes** | | |
+| Owner sells with a tenant in place | `edu-sale-new-owner-notice-nv` (118A.349), `edu-security-deposit-rules-nv` (118A.244) | Covered |
+| Lender forecloses | `foreclosure-disclosure-nv`, `edu-foreclosure-sale-tenants-nv` | Covered |
+| Owner changes managers | `owner-identity-disclosure-nv` (118A.260, .410) | Covered |
+
+#### 17.2.2 Opt-in landlord rights (instruction 30), as they stand
+
+| Right | Statute | Row |
+|---|---|---|
+| Late fee (only if in the agreement) | 118A.210(4) | `late-fee-nv` |
+| Dishonored-check charge | 118A.200(3)(g) | `returned-payments-nv` |
+| Prevailing-party attorney fees | 118A.220(1)(c) | `default-by-tenant` |
+| Nonrefundable cleaning charge | 118A.242(8) | `required-fees-nv` (new) |
+| Tenant-performed repairs and maintenance | 118A.290(2) | `tenant-repair-agreement-nv` (new) |
+| Named repairer for repair-and-deduct and essential-services work | 118A.360(2) | `designated-repairer-nv` (new) |
+| Rules and regulations | 118A.320 | `edu-rules-regulations-nv` (education); rules come in by notice |
+| Online-portal fee (must be stated in the lease) | 118A.303(2) | `payment-methods-nv` |
+| Short-term 4-day pay-or-quit acknowledgment | 40.253(1)(b), (2)(b) | **Not built.** Reason on `edu-nonpayment-eviction-nv`: weekly-rent tenancies of 45 days or less only; Steinoak leases are monthly |
+| Unclaimed-property dormancy charge by written contract | 120A.540 | **Not built** (§15): usable only by a landlord who regularly imposes the charge |
+
+#### 17.2.3 Rows changed (Part 2)
+
+- **`designated-repairer-nv`** (new; CONDITIONAL lease clause; Landlord Responsibilities)
+  - **Basis:** 118A.360(2), read section-open.
+  - **History:** the NV pass recorded this as "noted, not built" (§13). Instruction 30 now calls for the row.
+- **`edu-unauthorized-occupant-removal-nv`** (new; CONSTRAINED education; Rules & Regulations; topic `guest-policy`, following `edu-guest-removal-az`)
+  - **Basis:** 40.230, 40.240, 40.412 and 40.414, read section-open.
+  - **History:** 40.414 was supplied in text batch 2, but no row cited it.
+  - **Statutory inconsistency:** 40.414(3)(b)(3) tells the occupant 14 days, while 40.414(7) requires 21 days' storage. The row says wait 21 days.
+  - **Guests:** 40.240(1)(b) reaches only a person who entered *without* authority, so the row does not promise the process against an ordinary overstaying guest.
+- **`edu-rent-reporting-program-nv`** (new; PROHIBITED education; Rent & Payment; effective 2025-07-01)
+  - **Rule:** NRS 118A.525. The landlord may not require a tenant to join the Housing Division's rent-reporting program, or penalize a tenant for not joining.
+  - **Session law:** AB 540 (2025), ch. 432, sec. 19. Sec. 53(2), read on the official Statutes page, gives July 1, 2025.
+  - **Source-1 residual:** §0 recorded 118A.490(4)–.530 as "known by title only". The revisor's section index was re-listed against every NV row and this log. Every other 118A section is cited by a row or answered here; 118A.420 (landlord damages and injunction) is generic and covered by `default-by-tenant`.
+- **`edu-nonpayment-eviction-nv`** (changed, notes only): the instruction-30 reason for not building the short-term acknowledgment.
+- **`edu-tenant-repair-remedies-nv`** (changed, notes only): points to the two new opt-in rows.
+
+---
+
+### 17.3 Source 4 — outside-title search
+
+#### 17.3.1 How the search works
+
+**Why a script.** leg.state.nv.us has no NRS full-text search a tool can call, and it refuses the workspace's network. With Taylor's permission, the search ran in the built-in browser, read-only.
+- **Pages:** a script loaded **every chapter page in the NRS table of titles and chapters (835 pages)** from the revisor.
+- **Matching:** it split each page at the section anchors and matched each section against the terms, case-insensitive, with the variants listed.
+- **Filter:** for each term, it recorded whether the section also uses tenant, landlord, lessee, lessor, "rental agreement" or "dwelling unit" wording.
+
+**Review.**
+- Every hit's section number and heading was reviewed.
+- Every hit in a housing section was read.
+- Every landlord-relevant hit was read section-open.
+
+**Boundary.** Statutes only. NAC, local ordinances and case law were not searched.
+
+**Proof-of-absence standard (L.12/L.13).** "Confirmed absent" below means the listed terms, run code-wide, returned no rule for residential landlords. The first matching term per section was recorded, and a second pass re-ran topics where a single match could hide another. The search does not see statutes that use none of the terms. That is why each topic ran several variants.
+
+#### 17.3.2 Present — with rows
+
+| Topic | Found | Row |
+|---|---|---|
+| Lease translation when advertising and negotiating in another language | NRS 598.9731–.9739, 598.09227 (AB 359, 2021): full translation before signing for residential tenancies of 1 month or more; rescission; a knowing violation is a deceptive trade practice | **New `edu-translation-duty-nv`**. **Corrects** checklist 659.1 ("translation not located") |
+| Local repair orders and receivership for 2+-unit rentals | NRS 244.36901–.36909 (counties) and 268.428–.4288 (cities), AB 211 (2025), ch. 237, no effective-date section → October 1, 2025 | **New `edu-substandard-multifamily-nv`** |
+| Health-district regulation of rental units; landlord must provide the regulations on request | NRS 439.479 (2009) | **New `edu-health-district-rental-rules-nv`** |
+| Former drug lab: owner's public-nuisance duty | NRS 202.450(4), 439.4797 | **New `edu-meth-lab-rental-nv`** (no disclosure duty; the nuisance duty is real) |
+| Political signs in common-interest communities | NRS 116.325 | **New `edu-political-signs-cic-nv`** (§17.1) |
+| Squatter removal; lock change after arrest | NRS 40.230, 40.240, 40.412, 40.414 | **New `edu-unauthorized-occupant-removal-nv`** (§17.2) |
+| Rent-reporting program participation | NRS 118A.525 | **New `edu-rent-reporting-program-nv`** (§17.2) |
+| CO alarm in short-term rentals | NRS 244.35356, 268.09797 (2021): a transient-lodging authorization holder must equip the unit with a fire extinguisher, a smoke alarm and a CO alarm | **Changed `edu-smoke-detector-scope-nv`** (with the condominium correction to 477.140(2)) |
+
+#### 17.3.3 Confirmed absent (statutes)
+
+Each topic below had been "Not located", "Not yet checked" or bounded to the core chapter.
+
+| Topic | Terms run (all variants) | Housing hits reviewed | Row |
+|---|---|---|---|
+| Radon | radon | none (459.300 mill tailings; 617.453 firefighters) | **New `edu-no-radon-disclosure-nv`** |
+| Mold | mold, molds, mildew, fungus, fungi | none (23 sections: agriculture, food, pesticide, HOA) | **New `edu-no-mold-disclosure-nv`** |
+| Bed bugs | bed bug(s), bedbug(s) | 447.030 (hotel rooms only; "hotel" per 447.010) | **New `edu-no-bed-bug-disclosure-nv`** |
+| Carbon-monoxide alarms (long-term rentals) | carbon monoxide; smoke detector(s), smoke alarm(s) | 244.35356, 268.09797 (transient lodging only); 477.140 | **Changed `edu-smoke-detector-scope-nv`** |
+| EV charging right | electric vehicle, vehicle charging, charging station(s) | none (utility, energy and parking sections) | **New `edu-no-ev-charging-right-nv`** |
+| Immigration or citizenship status | immigration status, citizenship status, immigration or citizenship status | none (courts, jails, schools, agencies) | **New `edu-no-immigration-inquiry-rule-nv`** |
+| Source of income or vouchers | source of income, housing voucher, housing choice voucher, section 8, rental assistance | 315.007 (public housing authorities); false positives | **New `edu-no-source-of-income-rule-nv`**; `edu-fair-housing-nv` notes |
+| Servicemember lease termination | servicemember(s), service member(s), military orders, permanent change of station, reassignment orders, Servicemembers Civil Relief; active duty, military service, national guard, armed forces | 107.500 (foreclosure notice), 482.308 (vehicle leases) | **New `edu-no-servicemember-lease-rule-nv`** |
+| Application-fee cap | late fee(s), late charge(s), application fee(s), screening fee(s) | 118A.150, .210, .306, .355, .380; other fee rules cover storage, mobile-home parks, commercial premises and vehicles only | **Changed `edu-application-fees-nv`** (body) |
+| Deposit interest (ordinary deposits) | interest on (the/any) (security) deposit(s), interest-bearing, security deposit(s) | 118.101(4) (already stated), 118B.150 (mobile-home parks) | **Changed `edu-no-deposit-interest-nv`** (notes) |
+| Deposit installments | installment(s), co-occurring with deposit wording | none: installment hits are HOA assessments, UCC and consumer credit | Recorded on `edu-no-deposit-interest-nv`; no new row |
+| Holding deposit / earnest money | holding deposit(s), earnest money, application deposit(s), reservation deposit(s) | 645.310, 645.630 (broker trust duties), 489.401, 489.724 (manufactured-home dealers) | Recorded on `edu-no-deposit-interest-nv`; no new row |
+| Criminal-history screening | criminal history, criminal record, arrest record, conviction record, convict* | 118A.335 (work cards), 205.0813/.0817, 315.* (public housing), 319.600 | Recorded on `edu-fair-housing-nv` |
+| Protected-class inquiry | inquire/inquiry about/into/regarding | none | Recorded on `edu-fair-housing-nv` |
+| Meth-lab disclosure to tenants | methamphetamine, clandestine laborator* | 40.770 only (sale) | No disclosure duty; the nuisance duty is on `edu-meth-lab-rental-nv` |
+| Rent control / state preemption of local rent control | rent control, rent stabilization, control of/over rent, regulate (the amount of) rent, cap/limit on rent; preempt* | 319.410 (tax-credit affordability restrictions), 118B.* (mobile-home parks); preempt* hits are UCC and HOA only | No row. Checklist 248.8/294.9 updated |
+| Tenant death (beyond 118A.340) | death of the/a tenant, tenant dies, deceased tenant, estate of the tenant | none (598.9811 solar leases) | No row. `infirmity-death-termination-nv` already states the 118A.340 rule |
+| Extended-absence notice | extended absence, absence of the tenant | none (284.355 state employees) | No row; 118A.450's abandonment presumption only |
+| Double-letting | double-let*, more than one tenant | 0 hits | No row |
+| Fraud-based lease termination | fraudulent(ly) misrepresent*, fraudulent inducement | none (426.805 service animals; licensing) | No row. `rental-application-accuracy` covers the landlord side |
+| Long-term (5+ yr) lease exclusion | five years or more, term of 5 years, more than 5 years | 118B.060 (mobile-home parks), 205.380 | No row. 118A.180 read earlier |
+| Waterbeds | water bed(s), waterbed(s), water-filled | 0 hits | No row; `common-area-use` stands |
+| Pest control / pesticide notice to tenants | pesticide(s), pest control, structural pest | 719.250 (UETA) only | No row |
+| Swimming pools at rentals | swimming pool(s), spa(s) | 118B.150 (mobile-home parks) | No row (NAC 444 not searched) |
+| Renter's insurance | renter's/renters insurance, tenant's insurance, liability insurance | none for dwellings | No row; `tenants-property-insurance-ks-oh-ca` stands |
+| Rekey at turnover | rekey(ed/ing), re-key, change the lock(s), deadbolt(s), dead bolt | 118A.345 (DV), 40.412 (after arrest) | No row; `keys` stands |
+| Duty to supply air conditioning or cooling | air-condition*, cooling, extreme heat, cooling center, maximum temperature | 118A.290, .310, .380 (AC if supplied; essential service) | No row |
+| Late-rent acceptance waiver | accept* rent, acceptance of (partial) rent, waive* | 118A.220, .310, .345, .390, 40.253, 40.2542: none is a waiver-by-acceptance rule | Checklist row 50 updated |
+| Electronic notice regime | electronic mail, e-mail, email, electronic means/transmission/delivery/notice | none for 118A notices (UETA 719.250 general only) | Checklist 294.3 updated |
+| Notice-service fee ban | fee for serving/service of/preparing a notice, charge(s) for notice | 118A.355, .380 (no notice charges while rent is lawfully withheld) only | Checklist 659.3 updated |
+| Typography (instruction 28), code-wide | underlined, boldface, bold type/print, conspicuous(ly), separate document/writing, substantially equivalent / the following form, point type, capital letters, font size, same page, top of the first page, one-half | Dwelling leases: only 118A.200(4) (2× font, top of page one) and 118A.200(8) (asterisk at least half the font size, same page), both already rows, and 118A.347 (affidavit "in substantially the following form", already on `edu-dv-termination-documentation-nv`). "Conspicuous place" hits are notice-posting rules (40.253, 40.2542, 40.280, 118A.270) | **No bold, underline or capitals rule for NV residential leases.** Omission sanctions that forfeit money: none found beyond 118A.405 ($250 statutory damages, on `rent-single-figure-nv`) |
+
+#### 17.3.4 Other results (no row)
+
+- **NRS 10.195:** a settlement of a claim of sex discrimination by a landlord, or retaliation for reporting it, may not bar disclosure of the facts. Litigation-level, not a lease matter.
+- **NRS 704.1835(2):** the PUC must require a utility to try to post notice before cutting service because a landlord hasn't paid for resold service. The duty is the utility's.
+- **NRS 244.35356 and 268.09797:** a county or city transient-lodging authorization (short-term rentals) carries fees, insurance, a local representative and safety equipment. This matters to a tenant subletting on Airbnb, which `no-sublet-assign` already controls.
+- **NRS 118.175–118.205** (abandonment of real property): already read in text batch 2.
+- **NRS 319.530 (2019):** tenants of housing acquired, built or rehabilitated with money from the state Account for Affordable Housing must be allowed to keep pets, subject to ordinary pet policies. Found through the "pet(s)" term. No row: it reaches only state-funded affordable housing, and a landlord with that funding learns the terms from the Housing Division. If Steinoak ever serves such properties, the pet builder would need a flag.
+- **NRS 118A.420:** the landlord may recover damages and get an injunction for tenant noncompliance. Generic; covered by `default-by-tenant`.
+
+#### 17.3.5 Rows changed (Part 3)
+
+- **New (11):**
+  - `edu-translation-duty-nv`
+  - `edu-substandard-multifamily-nv`
+  - `edu-health-district-rental-rules-nv`
+  - `edu-meth-lab-rental-nv`
+  - `edu-no-mold-disclosure-nv`
+  - `edu-no-radon-disclosure-nv`
+  - `edu-no-bed-bug-disclosure-nv`
+  - `edu-no-ev-charging-right-nv`
+  - `edu-no-immigration-inquiry-rule-nv`
+  - `edu-no-source-of-income-rule-nv`
+  - `edu-no-servicemember-lease-rule-nv`
+- **Changed (5):**
+  - `edu-smoke-detector-scope-nv` (body and notes). **Correction:** 477.140(2)'s corridor rule also covers condominiums with 3+ units. The body now also states the CO position.
+  - `edu-application-fees-nv` (body and notes)
+  - `edu-no-deposit-interest-nv` (notes)
+  - `edu-fair-housing-nv` (notes)
+  - `edu-lease-content-requirements-nv` (notes: pointers to the new (3)(c)/(e)/(g) rows, and the core-field note for (3)(a)–(b))
+
+#### 17.3.6 Currency
+
+Every section relied on in this backfill was read in the revisor compilation dated 4/15/2026.
+- **2025 regular session:** incorporated. The history lines cite 2025 Statutes pages.
+- **2025 36th Special Session:** incorporated. A second pass over all 835 chapter pages listed every section whose history line cites the 36th Special Session: 189 sections. **None is a section an NV row relies on,** except two definitions that rows incorporate by reference:
+  - NRS 33.018 (domestic violence) and 200.575 (stalking), both cited by 118A.345;
+  - `dv-lease-termination-nv` and `edu-dv-termination-documentation-nv` defer to them ("as defined by applicable law") and don't paraphrase them, so no row text changes;
+  - flagged for the CLI statute watch.
+- **Session-law dates read:**
+  - AB 540 sec. 53: July 1, 2025.
+  - AB 211: no effective-date section, so October 1, 2025.
+  - AB 359 (2021): no effective-date section, so October 1, 2021 (inferred).
+- **Instruction 34:** no relied-on section prints an amendment with a future effective date.
+
+---
+
+### 17.4 Integrity checks
+
+- **Rows:** 941 + 18 new = **959**, 923 active. Delta: 25 rows (18 new, 7 changed), same 16-column header, Python `csv` only.
+- **Clean:** no duplicate ids, no dangling `supersedes`, no blank `verification_status` on an active row.
+- **No collisions:** no NV display collision (state + group + title), and no NV lease-clause `topic_key` duplicate.
+- **NV active:** 103 → **121** (75 lease clauses, 46 education), all VERIFIED.
+- **Other states:** active counts unchanged (CO 115, WY 99, KS 115, NE 112, MN 120, ND 111, SD 91, OH 74, CA 151, TX 129, NJ 80, FL 99, AZ 109).
+- **Shared rows:** none added and none edited. All 7 changed rows are tagged NV only.
+- **Notes and titles:** every new row's notes start with "NV:". No state name appears in any title.
+- **References:** every row id named in the delta's notes and bodies exists in the merged CSV.
+- **Cross-state questions for Taylor:** none.

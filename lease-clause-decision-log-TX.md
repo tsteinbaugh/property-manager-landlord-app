@@ -664,3 +664,300 @@ Not a re-audit; nothing else in this state was reviewed. Detail: lease-clause-de
 1. **Shared-row edit received from Arizona (2026-09-27, Taylor's decision) — `entire-agreement`.** The sentence "may not be changed except in writing signed by all parties" now continues ", or as applicable law permits Landlord to change it by written notice to Tenant." Driver: A.R.S. §33-1342(C), which lets an Arizona landlord amend existing leases by written notice to comply with new laws; the old wording could be read to waive such a right. Recorded as **uniform** under §5a.1: the words are self-limiting and change nothing where this state's law gives no unilateral amendment right, while preserving any right it does give (for example, rules adopted on notice or changes to a periodic tenancy on the notice the law requires). No state-specific override is needed. `last_checked` was reset to 2026-09-27.
 
 2. **2026-09-27, AZ session — new shared row `rental-application-accuracy` tagged TX** (§5a.1; uniform text, no TX override). The tenant represents that the application information was true, correct and complete; a materially false or misleading statement is a material breach, with the remedies the lease and law provide; information the landlord may not request or consider is excluded. Tex. Prop. Code §92.3515 lists inaccurate or incomplete information as a denial ground in the selection criteria (`edu-rental-application-tx`), so the clause is consistent. Criminal-record rules are in `edu-criminal-record-leasing-tx`. Remedies run through `default-by-tenant`.
+
+---
+
+## Gap-discovery backfill (instruction 36) — 2026-09-27
+
+| Source | Status |
+|---|---|
+| Gap-discovery source 1 — statute walk | Done (§0, §1, §14: Tex. Prop. Code ch. 92, §§92.001–92.355, read whole section-open and checked against the official chapter page; chs. 24, 54, 91 and 301 also read whole, §11) |
+| Gap-discovery source 2 — real-lease comparison | Done (§20.1: TAA Residential Lease Contract, Official Statewide Form 25, Oct 2025, with the TAA Apartment Lease Contract 25-A/B-1/B-2 and Master Lease Addendum 25-FF, Oct 2025) |
+| Gap-discovery source 3 — landlord-scenario screen | Done (§20.2: 77 scenarios, Claude-generated) |
+| Gap-discovery source 4 — outside-title search | Done (§15.2, §17, §18: official full-text searches across all codes, every hit read; outside-title reads of the Bus. & Com., Occ., Hum. Res., Water and Loc. Gov't Codes and 16 TAC; §20.2.3 adds H&S ch. 757, CPRC ch. 125 and Prop. Code ch. 24B) |
+
+This backfill is numbered §20; it follows §19, the last section of the Texas log.
+
+**Scope.** This is two targeted checks, not a re-audit: the real-lease comparison (source 2) and the landlord-scenario screen (source 3). No other Texas row was re-screened.
+- **Input CSV confirmed (instruction 13):** 941 rows, 905 active, TX 129 active, all VERIFIED.
+- **Why TX went from 128 to 129:** the Arizona session added `rental-application-accuracy`.
+- **Current shared rows:** screening was run against the rows as they read now, including rent-first `application-of-payments`, the no-cure carve-out in `default-by-tenant`, the notice carve-out in `entire-agreement`, and `rental-application-accuracy`. None of them conflicts with anything found here.
+
+**Result:**
+- **No missing required clause.** Every statement Texas makes a lease carry is already a TX row.
+- **Six new TX rows:**
+  - five education rows: `edu-abandoned-property-tx`, `edu-pool-yard-enclosures-tx`, `edu-unauthorized-occupant-removal-tx`, `edu-common-nuisance-tx`, `edu-no-eviction-record-sealing-tx`;
+  - one optional lease clause, `abandoned-property-tx`, added at Taylor's direction (Decision A).
+- **Two TX rows changed:** `edu-eviction-process-tx` (one body sentence) and `security-devices-tx` (one builder note).
+- **One new typography rule:** H&S §§757.009(b) and 757.013. It is the first Texas lease-format rule with a type-size alternative.
+- **Shared rows:** no text changed.
+- **Propagation notes:** none needed.
+- **Resulting counts:** TX 135 active, all VERIFIED.
+
+### 20.1 Real-lease comparison (gap-discovery source 2)
+
+**The lease.** The Texas Apartment Association's **Residential Lease Contract**, TAA Official Statewide Form 25, revised October 2025, valid for leases completed before January 1, 2028. It covers houses, duplexes and other units with grounds or garages.
+- **Read alongside it:**
+  - the TAA **Apartment Lease Contract**, Form 25-A/B-1/B-2, Oct 2025, which has the same 32 paragraphs plus apartment specifics;
+  - the TAA **Master Lease Addendum**, Form 25-FF, Oct 2025.
+- **Source:** TAA posts these sample copies itself: https://www.taa.org/resources/understanding-the-lease-agreement/ (Residential: `/wp-content/uploads/2026/01/2025-Residential-Lease-Contract-SAMPLE.pdf`). They were retrieved and read on 2026-09-27.
+- **Why it qualifies:**
+  - It is the statewide residential-rental trade association's own attorney-drafted form, the standard lease for Texas rental housing. Members only may use it (par. 28).
+  - It is the Texas analogue of the Realtors association lease the prompt names first (category (a)), and the association publishes it directly.
+  - It is Texas-specific, not a multi-state template.
+  - It is the current edition, written after S.B. 38.
+- **Why not the Texas REALTORS form:** the only copies of the TXR-2001 Residential Lease that turned up were a brokerage listing supplement whose PDF had no machine-readable text and a download page behind a cookie wall. Neither could be read.
+
+**Method.** Each provision was mapped by topic against the TX-active rows. The lease was used as a lead only (instruction 6), and every statutory point was checked against primary text. The lease text is not reproduced.
+
+#### 20.1.1 Provision map
+
+| TAA provision (by topic) | TX library coverage | Result |
+|---|---|---|
+| Parties, occupants, definitions | `permitted-occupants`, `joint-liability`, `edu-occupancy-limit-tx` | Covered |
+| Access devices and keys | `keys-tx` (§92.156 turnover rekey; bold rekey-deduction option) | Covered |
+| Rent due; no withholding except as law allows | `rent-payment`; `habitability-timeline-tx` | Covered |
+| Payment method; cash only with written permission | `acceptable-payment-methods-tx`, `edu-cash-payments-tx` (§92.011) | Covered |
+| Payments applied to non-rent charges first (water and wastewater excepted) | `application-of-payments` (rent first by design; "applicable law requires otherwise" covers §92.008(p) and PUC utility rules) | Covered. The difference is a product choice; no Texas statute sets the order |
+| Initial and daily late fees after the 2nd day | `late-fee-safe-harbor-tx`, `edu-late-fee-rules-tx` (§§92.019, 92.0191) | Covered |
+| Returned-payment fee | `nsf-fee-limit-tx` | Covered |
+| Utilities; $50 connection or transfer fee; retail electric provider changes | `utilities-responsibility`, `utility-service-continuity`; submetering rows | Covered. The fee is a contract term; no statute located |
+| Rent increase at renewal on notice | `edu-no-rent-increase-notice-tx`, `edu-termination-notice-tx` | Covered |
+| Automatic month-to-month renewal; move-out notice (default 30 days) | `surrender-end-of-term`, `edu-termination-notice-tx` (§91.001) | Covered |
+| Written reminder required if the lease demands more than 30 days' notice | — | **No statute.** Not in chs. 91 or 92, both read whole. A TAA contract term; no row |
+| Deposit; forwarding address; 30-day refund; joint refund | `security-deposit-return-tx`, `edu-security-deposit-rules-tx`, `deposit-surrender-notice-tx` | Covered |
+| Deposit not usable as rent | `deposit-last-month-rent-tx` (§92.108) | Covered |
+| Rekey charge on early or breach move-out | `keys-tx` (§92.156(e), bold or underline) | Covered |
+| Required liability insurance; waiver of subrogation; renter's insurance urged | `tenants-property-insurance-ks-oh-ca` | Covered. No Texas statute located in chs. 24, 54, 91 or 92 |
+| Reletting charge, capped at 85% | `early-termination`, `edu-mitigation-duty-tx` (§91.006) | Covered. The cap is a TAA term |
+| Early-termination option | `early-termination` | Covered |
+| Statutory early-termination rights statement | `early-termination-rights-statement-tx` (REQUIRED) | Covered. The TAA version adds death of a sole resident (§92.0162, which requires no statement; `edu-deceased-tenant-tx`) |
+| Delay of occupancy; 3-day and 7-day termination windows | `possession-delay`; §92.1031 in `edu-security-deposit-rules-tx` | Covered. No delay statute in chs. 91 or 92; TAA contract terms |
+| Tenant pays for drain stoppages, doors, windows and screens, and windows left open | `tenant-repair-agreement-tx` (§92.006(f), bold or underline) | Covered |
+| Community policies change on distribution | `entire-agreement` carve-out; §92.013 in `edu-parking-towing-rules-tx` | Covered |
+| Guests limited to 2 days a week and 4 a month | `guest-policy`, `guest-policy-day-limit` | Covered. No statute |
+| Notice of convictions; default on a criminal charge | `default-by-tenant`; `edu-criminal-record-leasing-tx` | No statute. Contract terms; product choice, no row |
+| Prohibited conduct; home business | `no-disturbance`, `residential-use-only`, `smoking-policy` | Covered |
+| Animals; removal of an unauthorized animal after 24 hours' notice; violation charges | `pet-policy`, `pet-insurance-requirement` | Covered. The removal and the charges are TAA terms; no statute located |
+| Assistance-animal statements are true | `assistance-animal-accommodation`, `edu-service-animal-tx` (Hum. Res. Code §121.006) | Covered |
+| Parking; towing and booting | `parking-rules-tx` ("Parking" heading, §92.0131(c)), `parking-vehicle-rules-tx`, `edu-private-property-towing-tx` | Covered |
+| Entry, including forced entry, with a notice left after | `landlords-access`, `edu-no-entry-notice-statute-tx` | Covered |
+| Written repair requests; duty to report | `landlord-maintenance` (§92.052(d)); `security-devices-tx` (§92.159) | Covered. **Pool-yard devices follow a stricter format rule** (§20.2.3) |
+| Repair remedies statement (§§92.056, 92.0561, 92.0563) | `habitability-timeline-tx` (REQUIRED, bold or underline) | Covered |
+| No rent abatement except by statute | `casualty-loss-tx` (§92.054, lease-agreed proportional reduction) | Covered. The difference is a product choice, recorded in §4.2 |
+| Owner terminates for damage (7 days) or closure (30 days) | `casualty-loss-tx`; §92.055 in `edu-repair-duty-tx` | Covered |
+| No assignment, sublet or short-term listing | `no-sublet-assign` (§91.005) | Covered |
+| Security devices and statutory list | `security-devices-tx`, `edu-security-device-duties-tx` | Covered |
+| Smoke alarms; §92.2611 liability for disabling one | `smoke-alarm-tx` (bold or underline notice) | Covered |
+| Landlord nonliability; no security warranty | — | Not needed. No library row for any state; §92.006 bars waiving statutory duties (`edu-non-waivable-terms-tx`) |
+| As-is; condition form within 48 hours | `existing-condition` | Covered. No move-in form statute in ch. 92 |
+| Alterations; satellite dishes | `no-alterations` | Covered. Satellite dishes are governed by federal OTARD rules, not state law |
+| Notices, including e-mailed notices to vacate | `notices`, `electronic-notice-consent-tx` (§24.005(f-3)(4)) | Covered |
+| Joint and several liability; indemnity | `joint-liability` | Covered. Indemnity is not needed |
+| Default events, including a false application | `default-by-tenant`, `rental-application-accuracy` | Covered |
+| 24-hour notice to vacate; e-mailed notices; shortened weekend deadlines | `notice-to-vacate-period-tx`, `edu-eviction-notice-tx` | Covered. See the note below the table |
+| Rent acceleration | `edu-mitigation-duty-tx` | Covered (mitigation limits it) |
+| Holdover rent up by 25% | `holdover-ca` | Covered |
+| Credit reporting; collection fees; interest under Fin. Code §304.003(c) | §92.110 in `edu-security-deposit-rules-tx` | Not needed. Contract terms; the interest-rate statute was not read |
+| **Consent to electronic court appearances (par. 23.6)** | `edu-eviction-process-tx` | **Added** (§20.3); no clause (Decision B) |
+| Non-waiver; subordination; cumulative remedies | — | Skipped library-wide (AZ §16.4 decision) |
+| Move-out cleaning and inspection | `surrender-end-of-term`, `tenant-maintenance` | Covered. No statute |
+| **Surrender and abandonment defined; disposal of property left behind (par. 27)** | none before this pass | **Gap → `edu-abandoned-property-tx` and `abandoned-property-tx`** (§20.3) |
+| TAA membership; class-action waiver; force majeure | — | Not needed (association and product terms) |
+| Controlling law and venue | `governing-law` | Covered |
+| Pools and yard (Residential par. 3.6) | `landscaping-irrigation` | Yard covered. **Pool → gap** (§20.2.3) |
+| Interior pest control by the owner | `landlord-maintenance`; `edu-no-bed-bug-statute-tx` | Covered |
+| Master addendum: freeze precautions; bed bugs; mold; firearms; package acceptance | `edu-no-bed-bug-statute-tx`, `edu-no-mold-disclosure-tx`, `edu-firearms-tx` (§92.026) | Covered. Freeze and package terms are contract terms |
+| Required separate documents (flood, owner disclosure, submetering, parking rules) | `flood-disclosure-tx`, `owner-management-disclosure-tx`, submetering rows, `parking-rules-tx` | Covered |
+
+**Note on the notice-period row.** The TAA form makes a notice period that ends on a weekend or holiday end on that day. §24.0042 instead rolls forward "a period of time prescribed by this chapter". Whether a lease-contracted period (§24.005(a)) is a period "prescribed by this chapter" is not settled. `notice-to-vacate-period-tx` and `edu-eviction-notice-tx` already take the rolling-forward reading, which is the safer one, so no row changes.
+
+#### 20.1.2 What the comparison produced
+- **(a) Missing required clause:** none.
+- **(b) Corrections to existing TX rows:** none of substance. One addition to `edu-eviction-process-tx` (§24.005105).
+- **(c) New TX rows:** `edu-abandoned-property-tx`, `abandoned-property-tx`, and `edu-pool-yard-enclosures-tx` (the pool lead came from par. 3.6; its gap was confirmed in §20.2).
+- **(d) Confirmed absences:**
+  - **Residential definition of abandonment:** statute-wide (§20.2.4).
+  - **Reminder notice for move-out notice longer than 30 days; statutory rule on occupancy delay:** bounded to chs. 91 and 92, both read whole.
+- **(e) Cross-state questions:** none. The abandonment clause is Texas-only because Texas has no statute. Other states with an abandonment statute already have their own rows.
+
+### 20.2 Landlord-scenario screen (gap-discovery source 3)
+
+**Method.**
+- **Scenarios:** Arizona's 59-scenario map (AZ log §18.1) plus Texas-specific situations: lockout, landlord's lien, landlord-paid utility cutoff, submetered electricity, freeze or hurricane, cash receipts, late-fee statements, occupancy limits, guarantors, and the foreign-acquisition law.
+- **Run:** each scenario against the 129 TX-active rows.
+- **Where no row answered:** Taylor ran the official statutes.capitol.texas.gov full-text search, and each hit's chapter was read section-open where it mattered.
+- **Search rule (instruction 15):** exact phrases, with variants.
+
+**Result.** 77 scenarios:
+- **71 covered.**
+- **Five gaps**, each now an education row: abandonment, pools, squatter removal, crime nuisance suits, and eviction-record sealing (an absence row).
+- **One confirmed absence with no row:** extended-absence notice.
+- **Bounded, not searched statute-wide:** a statutory partial-payment rule. Not in chs. 24, 91 or 92; marked covered by the lease rows.
+- **One lead reclassified as covered:** closing or demolishing a unit (§92.055 is already in `edu-repair-duty-tx`).
+
+#### 20.2.1 Scenario map
+
+| Scenario | TX coverage | Result |
+|---|---|---|
+| **Before the lease** | | |
+| Applicant pays an application deposit, then is rejected or backs out | `edu-rental-application-tx` (§§92.351–.355); §92.1031 in `edu-security-deposit-rules-tx` | Covered |
+| Screening: fees, criminal history, income source, immigration | `edu-rental-application-tx`, `edu-criminal-record-leasing-tx`, `edu-voucher-preemption-tx`, `edu-no-immigration-inquiry-rule-tx`, `edu-fair-housing-tx` | Covered |
+| Applicant lied on the application | `rental-application-accuracy` (§92.3515 lists inaccurate information as a denial ground) | Covered |
+| Voucher holder applies | `edu-voucher-preemption-tx` (Loc. Gov't §250.007) | Covered |
+| Unit not ready on move-in day | `possession-delay` | Covered (contract term; no statute) |
+| Required disclosures at signing | `owner-management-disclosure-tx`, `flood-disclosure-tx`, `lead-based-paint`, `parking-rules-tx`, `emergency-phone-tx`, `utility-submetering-disclosure-tx`, `electric-submeter-disclosure-tx`, `early-termination-rights-statement-tx`, `habitability-timeline-tx`, `edu-lease-copy-tx` | Covered |
+| Blank left in the lease | Product rule | Covered (builder rule) |
+| Too many occupants | `edu-occupancy-limit-tx` (§92.010) | Covered |
+| Guarantor or co-signer | `edu-guarantor-renewal-tx` (§92.021) | Covered |
+| Property is in an HOA | `hoa-compliance` | Covered. Prop. Code ch. 209 (HOA leasing rules) not read; flagged |
+| Tenant wants to pay a fee instead of a deposit | `edu-fee-in-lieu-of-deposit-tx` (§92.111) | Covered |
+| How large a deposit | `edu-no-deposit-cap-or-interest-tx` | Covered |
+| Lease of one year or more to a person from a designated country | `edu-foreign-acquisition-leases-tx` | Covered |
+| **Rent and money** | | |
+| Rent is late | `late-fee-safe-harbor-tx`, `edu-late-fee-rules-tx`, `edu-eviction-notice-tx` | Covered |
+| Tenant asks what late fees they owe | `late-fee-safe-harbor-tx` (§92.0191) | Covered |
+| Tenant pays part of the rent | `application-of-payments`, `late-fee-safe-harbor-tx` | Covered. No partial-payment statute in chs. 24, 91 or 92 (read whole; bounded) |
+| Check bounces | `nsf-fee-limit-tx` | Covered |
+| Tenant pays cash and wants a receipt | `edu-cash-payments-tx` (§92.011) | Covered |
+| Raising the rent at renewal | `edu-no-rent-increase-notice-tx`, `edu-termination-notice-tx`, `edu-rent-control-preemption-tx` | Covered |
+| City fines the owner for a tenant-caused violation | `edu-governmental-fines-tx` (§92.018) | Covered |
+| Tenant withholds the last month's rent against the deposit | `deposit-last-month-rent-tx` (§92.108) | Covered |
+| **During the tenancy** | | |
+| AC fails in August | `edu-repair-duty-tx` (§92.0561(d)(3)(C)), `habitability-timeline-tx` | Covered. City cooling ordinances flagged (§7) |
+| Tenant repairs and deducts | `habitability-timeline-tx`, `edu-repair-duty-tx` | Covered |
+| Tenant withholds rent without following the statute | `edu-repair-duty-tx` (§92.058) | Covered |
+| Pests or bed bugs | `edu-no-bed-bug-statute-tx` | Covered |
+| Mold complaint | `edu-no-mold-disclosure-tx`, `edu-mold-remediation-licensing-tx` | Covered |
+| Tenant causes damage | `default-by-tenant`, `tenant-repair-agreement-tx`, `security-deposit-use` | Covered |
+| Landlord needs to enter; tenant refuses | `landlords-access`, `edu-no-entry-notice-statute-tx` | Covered |
+| Tenant changes the locks or asks for a rekey | `keys-tx`, `security-devices-tx`, `edu-security-device-duties-tx` | Covered |
+| Smoke alarm disabled; battery dead | `smoke-alarm-tx` | Covered |
+| Fire extinguisher | `edu-smoke-alarm-duties-tx` (§§92.263–.264) | Covered |
+| Tenant away for a month | — | **Confirmed absent** (§20.2.4). No row |
+| Guest won't leave | `guest-policy`, `edu-eviction-notice-tx` | Covered (a guest who becomes an occupant is evicted) |
+| **Stranger moves into a vacant unit** | none before this pass | **Gap → `edu-unauthorized-occupant-removal-tx`** (Prop. Code ch. 24B) |
+| Roommate moves out | `joint-liability` | Covered |
+| Tenant sublets or lists on Airbnb | `no-sublet-assign` (§91.005) | Covered. City short-term-rental rules flagged |
+| Noise and neighbor complaints | `no-disturbance` | Covered |
+| **Drugs, violence or other crime at the unit** | `default-by-tenant`, `edu-criminal-record-leasing-tx` | **Gap (owner's exposure) → `edu-common-nuisance-tx`** (CPRC ch. 125) |
+| Tenant keeps calling the police | `edu-summon-police-tx` (§92.015) | Covered |
+| Firearms | `edu-firearms-tx` (§92.026) | Covered |
+| Unapproved pet | `pet-policy`, `pet-insurance-requirement` | Covered |
+| Assistance animal, or a fake service dog | `assistance-animal-accommodation`, `edu-service-animal-tx` | Covered |
+| Disability modification request | `edu-fair-housing-tx` (§301.025(c)) | Covered |
+| Tenant paints or alters the unit | `no-alterations` | Covered |
+| HOA fines the owner because of the tenant | `hoa-compliance` (§92.018 covers government fines only) | Covered |
+| Car towed from the lot | `parking-rules-tx`, `parking-vehicle-rules-tx`, `edu-private-property-towing-tx` | Covered |
+| Parking rule changed mid-lease | `edu-parking-towing-rules-tx` (§92.0131(d)–(e)) | Covered |
+| Rule change affecting belongings outside the unit | `edu-parking-towing-rules-tx` (§92.013) | Covered |
+| **Pool at the property** | none before this pass | **Gap → `edu-pool-yard-enclosures-tx`** (H&S ch. 757) and a format note on `security-devices-tx` |
+| Yard work by the tenant | `landscaping-irrigation` | Covered |
+| Tenant's utility is shut off | `utility-service-continuity`, `utility-payment-evidence` | Covered |
+| Landlord falls behind on a landlord-paid utility | `edu-landlord-paid-utility-cutoff-tx` (§§92.301–.302) | Covered |
+| Tenant doesn't pay the submetered electric bill | `electric-submeter-interruption-tx` (§92.008(h)–(r)) | Covered |
+| Landlord wants to change the locks for unpaid rent | `lockout-rent-delinquency-tx`, `edu-lockout-utility-rules-tx` | Covered |
+| Landlord wants to seize property for unpaid rent | `landlord-lien-tx`, `edu-landlord-lien-tx` | Covered |
+| Freeze, hurricane or flood damage | `casualty-loss-tx` (§§92.054, 92.062), `flood-disclosure-tx`, `edu-flood-disclosure-remedy-tx` | Covered |
+| Tenant asks who owns the property | `owner-management-disclosure-tx`, `edu-owner-disclosure-tx` | Covered |
+| Tenant asks for a copy of the lease | `edu-lease-copy-tx` (§92.024) | Covered |
+| **Ending the tenancy** | | |
+| Tenant wants out early | `early-termination`, `edu-mitigation-duty-tx` | Covered |
+| Family-violence, sexual-assault or stalking victim wants out | `early-termination-rights-statement-tx`, `edu-early-termination-rights-tx` | Covered |
+| Tenant is deployed or transferred | same rows (§92.017) | Covered |
+| Month-to-month notice either way | `edu-termination-notice-tx` (§91.001) | Covered |
+| Tenant stays after the lease ends | `holdover-ca`, `notice-to-vacate-period-tx` | Covered |
+| **Tenant disappears and leaves belongings** | `surrender-end-of-term` (hedged), `edu-mitigation-duty-tx` | **Gap → `edu-abandoned-property-tx` + `abandoned-property-tx`** |
+| Tenant dies | `edu-deceased-tenant-tx`, `deceased-tenant-contact-tx` (§§92.014, 92.0162) | Covered |
+| Eviction process | `edu-eviction-notice-tx`, `edu-eviction-process-tx` | Covered (plus the §24.005105 sentence) |
+| Retaliation claim | `edu-retaliation-tx` | Covered |
+| Belongings left after the writ | `edu-post-writ-property-tx` | Covered |
+| Deposit dispute | `security-deposit-return-tx`, `edu-security-deposit-rules-tx` | Covered |
+| Deposit refund never cashed | `edu-unclaimed-deposit-escheat-tx` | Covered |
+| **Tenant asks to seal an eviction record** | none before this pass | **Confirmed absent → `edu-no-eviction-record-sealing-tx`** |
+| Tenant convicted of public indecency | `edu-public-indecency-termination-tx` (§91.003) | Covered |
+| Owner wants to demolish or stop renting the unit | `edu-repair-duty-tx` (§92.055) | Covered |
+| **Owner changes** | | |
+| Owner sells with a tenant in place | `edu-security-deposit-rules-tx` (§92.105), `owner-management-disclosure-tx`, `landlords-access` | Covered |
+| Lender forecloses | `edu-eviction-notice-tx` (§24.005(b), 30 days), `tenant-forward-proceedings-ca` | Covered |
+| Owner switches property managers | `owner-management-disclosure-tx` | Covered |
+| City passes a tenant ordinance | `edu-local-preemption-tx` (§1.004) | Covered |
+
+**Count:** 77 scenarios: 71 covered, 5 gaps (four new education rows, plus the eviction-record absence row), and 1 absence with no row.
+
+#### 20.2.2 Why these were gaps
+- **The first four sit outside Property Code ch. 92.** The statute walk read ch. 92 whole, and the outside-title searches (§§15, 17, 18) ran topic-by-topic proof-of-absence terms. None of them surfaced a pool, squatter or nuisance statute, because no search term pointed there.
+- **This is the pattern instruction 36 was written to catch.** In Arizona the same kind of screen found towing and sale-of-property rows.
+
+#### 20.2.3 Rows written from new primary text (all read section-open, official text supplied by Taylor 2026-09-27)
+- **`edu-pool-yard-enclosures-tx`** (H&S ch. 757, 1993; §§757.010–.011 amended 2015).
+  - **Coverage:** multiunit rental complexes of 2+ units, including condominium projects but not stand-alone homes, and rental units in condominium, co-op or town-home projects with a pool.
+  - **Duties:** 48-inch enclosure; self-closing, self-latching gates; 31-day inspection; repairs on tenant notice. The duties are non-waivable. Penalty up to $5,000 after the tenant's written notice.
+  - **New typography rule (instruction 28):** a lease requirement that repair requests for pool-yard latches and bolts be in writing works only if it is "in capital letters and underlined or in 10-point boldfaced print" (§§757.009(b), 757.013). This makes **18** Texas lease-format rules, and the first with a type-size option. `security-devices-tx` now carries the builder note, because caps-plus-underline or 10-point bold satisfies both this rule and §92.159.
+  - **Addendum M.12:** the proposed formatting field needs a type-size attribute as well as bold, underline and heading.
+- **`edu-unauthorized-occupant-removal-tx`** (Prop. Code ch. 24B, S.B. 1333, eff. 2025-09-01).
+  - **Procedure:** sheriff or constable removal on a sworn complaint in the statutory form.
+  - **Exclusions:** current or former tenants and immediate family.
+  - **Wrongful removal:** actual damages, three times fair market rent, costs and fees.
+  - **Not determined:** whether a guest left behind by a departed tenant "unlawfully entered". The row routes every tenancy situation to eviction.
+- **`edu-common-nuisance-tx`** (CPRC ch. 125, Subchs. A, C, D).
+  - **Liability test:** knowingly tolerating listed crimes and failing to make reasonable attempts to abate. There is a multiunit rule for 3+ units.
+  - **Remedies:** closure for one year, a $5,000–$10,000 bond, a receiver, and an order to terminate a lease.
+  - **Defense-side evidence rules:** calls for police are inadmissible to show toleration; refusing to cooperate is admissible.
+- **`edu-abandoned-property-tx`** and the optional clause **`abandoned-property-tx`** (Decision A). Design notes are on the clause:
+  - three cumulative conditions, including posted and mailed notice with 5 days to respond;
+  - a 30-day hold;
+  - donation or discard only, so it is never a lien sale (§54.045);
+  - release is never conditioned on paying costs (§54.042 exemptions);
+  - the deceased-tenant case is carved out to §92.014;
+  - an explicit statement that it enlarges no lockout right (§92.0081(j)).
+
+#### 20.2.4 Confirmed absences
+Searches were run by Taylor on 2026-09-27 on the official site.
+- **Tenant notice of an extended absence:** confirmed absent (statutes). The exact phrase "extended absence" returned 0 hits. Unquoted, the words matched 239 unrelated chapters, which is why the phrase search was run. No row, following AZ precedent.
+- **Eviction-record sealing:** confirmed absent (statutes).
+  - "eviction record" (run as separate words, a broader query) returned 8 chapters.
+  - Prop. Code chs. 24 (as amended by S.B. 38) and 92 were read whole and contain no sealing provision.
+  - Gov't Code chs. 25 and 26 (county courts), Loc. Gov't chs. 86 (constables) and 154 (officer pay), and Prop. Code chs. 93 (commercial) and 94 (manufactured homes) were reviewed by title only; none is a records chapter.
+  - Row: `edu-no-eviction-record-sealing-tx`.
+- **Statutory definition of residential abandonment, or an abandoned-property procedure for a living tenant:** confirmed absent (statutes).
+  - "abandoned the premises" hit Gov't Code ch. 2306 (TDHCA, housing finance; title only), Prop. Code ch. 54 (§54.044(d), read) and ch. 93 (commercial).
+  - "premises abandoned" hit Prop. Code ch. 92 (§92.0081(b)(2), read) and ch. 93.
+- **Statutory partial-payment rule:** not in chs. 24, 91 or 92, all read whole. Bounded; not searched statute-wide. No row.
+
+### 20.3 Rows changed
+
+**New (6):**
+
+| Id | Type | Rule | Topic key |
+|---|---|---|---|
+| `edu-abandoned-property-tx` | Education | CONSTRAINED | abandoned-property |
+| `abandoned-property-tx` | Lease clause, optional | CONDITIONAL | abandoned-property |
+| `edu-pool-yard-enclosures-tx` | Education | CONSTRAINED | pool-safety |
+| `edu-unauthorized-occupant-removal-tx` | Education | CONSTRAINED | unauthorized-occupant-removal (new key) |
+| `edu-common-nuisance-tx` | Education | RECOMMENDED | nuisance |
+| `edu-no-eviction-record-sealing-tx` | Education | RECOMMENDED | eviction-record-sealing |
+
+All six are TX only and VERIFIED.
+
+**Changed (2), both TX-only, both with `last_checked` reset to 2026-09-27:**
+- **`edu-eviction-process-tx`:** one body sentence added. It covers §24.005105 video or phone appearance "if the parties agree", and notes that whether a consent signed in the lease counts is untested.
+- **`security-devices-tx`:** a bracketed builder note added to the optional written-request sentence (H&S §§757.009(b), 757.013). The operative text is unchanged.
+
+**Decisions (Taylor, 2026-09-27):**
+- **A — build a TX abandonment clause:** **yes.** Built as `abandoned-property-tx`.
+- **B — a lease clause consenting to electronic court appearances:** **no.** The education sentence stays.
+
+**Shared rows:** no text changed, so there are no propagation notes. Nothing in this pass bears on another state's rows; the new statutes are all Texas-only.
+
+**Builder notes for the Claude Code sync:**
+- `abandoned-property-tx` uses fixed numbers (5 days, 30 days). It introduces no new placeholder.
+- `unauthorized-occupant-removal` is a new topic key, used by one row.
+
+### 20.4 Integrity (merged view: attached CSV plus this delta)
+- **Totals:** 947 rows, 911 active.
+- **TX:** 135 active (77 lease clauses, 58 education), all VERIFIED.
+- **Other states:** active counts unchanged (AZ 109, CA 151, CO 115, FL 99, KS 115, MN 120, ND 111, NE 112, NJ 80, NV 103, OH 74, SD 91, WY 99).
+- **Checks passed:** no duplicate ids, no dangling `supersedes`, no display collisions, no blank status on an active row, and no blank `states` on a delta row.
+- **Delta file:** 8 rows (6 new, 2 changed), each with the full 16 columns; the header matches the attached CSV.
+- **References:** every row id named in the delta's notes and bodies exists in the merged CSV.

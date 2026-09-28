@@ -337,3 +337,224 @@ Not a re-audit; nothing else in this state was reviewed. Detail: lease-clause-de
 1. **Shared-row edit received from Arizona (2026-09-27, Taylor's decision) — `entire-agreement`.** The sentence "may not be changed except in writing signed by all parties" now continues ", or as applicable law permits Landlord to change it by written notice to Tenant." Driver: A.R.S. §33-1342(C), which lets an Arizona landlord amend existing leases by written notice to comply with new laws; the old wording could be read to waive such a right. Recorded as **uniform** under §5a.1: the words are self-limiting and change nothing where this state's law gives no unilateral amendment right, while preserving any right it does give (for example, rules adopted on notice or changes to a periodic tenancy on the notice the law requires). No state-specific override is needed. `last_checked` was reset to 2026-09-27.
 
 2. **2026-09-27, AZ session — new shared row `rental-application-accuracy` tagged FL** (§5a.1; uniform text, no FL override). The tenant represents that the application information was true, correct and complete; a materially false or misleading statement is a material breach, with the remedies the lease and law provide; information the landlord may not request or consider is excluded. Fla. Stat. §83.56(2) (material-provision noncompliance: 7-day cure notice, or no-cure notice for the listed kinds) applies through `default-by-tenant-fl`. The clause adds no cure promise and no waiver.
+
+---
+
+## Gap-discovery backfill (instruction 36) — 2026-09-27
+
+| Source | Status |
+|---|---|
+| Gap-discovery source 1 — statute walk | Done (§0, §1: Fla. Stat. ch. 83 Part II, §§83.40-83.684, read whole from the official 2026 text) |
+| Gap-discovery source 2 — real-lease comparison | Done (§GB.1: Florida Realtors Residential Lease for Single Family Home or Duplex, RLHD-3x Rev 7/16, ©2022, Supreme Court of Florida-approved 2010-04-15) |
+| Gap-discovery source 3 — landlord-scenario screen | Done (§GB.2: 69 scenarios, Claude-generated; 6 confirmed absences from Taylor's official full-text searches, 2026-09-27) |
+| Gap-discovery source 4 — outside-title search | Done (§§11, 13, 14, 15: research pass and official full-text searches; adjacent reads of §§404.056, 715.07, 715.10-.111, 68.065, 760.23/.27/.29, 413.08, 553.883/.885, 250.5202, 180.135, 125.485, 82.035) |
+
+Scope: two targeted checks, not a re-audit (standing rule). Screened against the current library (941 rows; FL 99 active before this section). Handoff is a delta: `lease-clauses-FL-delta.csv`.
+
+### GB.1 Real-lease comparison (gap-discovery source 2)
+
+**Lease used:** Florida Realtors® *Residential Lease for Single Family Home or Duplex (For a Term Not to Exceed One Year)*, form **RLHD-3x Rev 7/16**, ©2022 Florida Realtors®, footer "Approved on April 15, 2010, by the Supreme Court of Florida"; 20 pages including an attached copy of Part II of ch. 83. **Where from:** posted publicly by Coyle Realty, a Florida brokerage (coylerealty.com/linked/residential_lease_for_single_family_home_and_duplex.pdf). **Why it qualifies:** it is the Florida Realtors association's lease (option (a)), and the form itself is the Supreme Court-approved Florida lease. **Cross-check:** the Supreme Court-approved *multi-family* lease hosted by The Florida Bar (floridabar.org/public/consumer/consumer004; no edition date printed) was screened for provisions the single-family form lacks.
+
+**Method:** mapped by topic, no text reproduced (copyrighted). The lease was a lead only (instruction 6). Every statutory point below rests on primary text read section-open (§§713.10, 718.112(2)(k), 718.116(11), 720.306(1)(h), read 2026-09-27 on flsenate.gov), or on text already read in the FL pass. **Currency caveat:** the lease form is a 2016 revision; it predates §83.505 (2025 e-mail addendum), §83.512 (2025 flood disclosure) and the 2023 notice changes. Where it is older than the library, the library governs.
+
+#### GB.1.1 Provision map
+
+| Lease provision (by topic) | FL library coverage | Result |
+|---|---|---|
+| §1 Parties, contact details | `landlord-address-disclosure-fl` (§83.50) | Covered |
+| §2 Property, furnishings, appliances, named occupants | `appliances-included`, `permitted-occupants` | Covered |
+| §3 Term (form limited to 12 months) | Form scope limit, not law | Not needed |
+| §4 Rent, installments, where paid, proration, payment methods (cash allowed) | `rent-payment`, `due-at-signing`, `acceptable-payment-methods` | Covered |
+| §4 Taxes on rent | **None** | **Gap → `edu-transient-rental-tax-fl`** (§212.03; lead confirmed through the scenario screen) |
+| §4 Worthless-check charge per §68.065 | `nsf-fee-limit-fl`, `edu-dishonored-payment-remedies-fl` | Covered |
+| §5 Money due before occupancy (advance and last rent, deposits, HOA deposit) | `due-at-signing`, `security-deposit-return-fl`, `edu-no-deposit-cap-fl` | Covered; association deposit now verified (§718.112(2)(k)) |
+| §5 No keys until paid | Contract term | Not needed |
+| §6 Late fee (form default 4% after 5 days) | `late-fee`, `edu-no-fee-caps-fl` | Covered (no statutory cap; form default is contractual) |
+| §7 Pets and smoking | `pet-policy-fl`, `smoking-policy`, `assistance-animal-accommodation-fl` | Covered |
+| §8 Notices (mail or hand delivery; e-mail fields) | `notices`, `electronic-notice-addendum-fl` | Covered. The form's e-mail fields alone do not meet §83.505's signed-addendum rule; the library's addendum does |
+| §9 Utilities | `utilities-responsibility`, `utilities-paid-by-landlord` | Covered |
+| §10 Maintenance checklist (every item assignable, incl. roof and structure) | `landlord-maintenance`, `maintenance-allocation-fl` | Covered. The form lets structure and code items move to the tenant; the library keeps them with the landlord by Taylor's design (§13) |
+| §11 Assignment and subletting | `no-sublet-assign` | Covered |
+| §12 Keys, openers, HOA access devices | `keys` | Covered |
+| §13 Lead-based paint | `lead-based-paint` | Covered |
+| §14 Servicemember termination (§83.682) | `early-termination-fl`, `edu-servicemember-rights-fl`, `edu-state-active-duty-eviction-stay-fl` | Covered (library-wide decision: no SCRA clause; AZ §16.4) |
+| §15 Landlord's access (24 hours for repairs, 7:30 a.m.-8 p.m.; consent for other purposes; absence rule) | `landlords-access-fl` | Covered; same structure |
+| §16 Association approval contingency; HOA application fee; HOA deposit | `hoa-compliance` (rules and fines only) | **Gap → `association-approval-fl`, `edu-association-leasing-rules-fl`** |
+| §17 Residential use; alterations need consent; pictures and window treatments allowed; no hazardous materials | `residential-use-only`, `no-alterations`, `common-area-use-fl`, `fire-safety-grilling` | Covered (pictures: contract choice) |
+| §18 Risk of loss by negligence; renter's insurance recommended | `tenants-property-insurance-ks-oh-ca`, `edu-prohibited-lease-terms-fl` (§83.47) | Covered |
+| §19 Prohibited acts by landlord (§83.67) | `edu-prohibited-practices-fl` | Covered |
+| §20 Casualty (form: tenant may terminate within 30 days) | `casualty-damage-fl` (§83.63) | Covered. §83.63 as read sets no 30-day window; the library follows the statute |
+| §21 Defaults and remedies (refers to Part II) | `default-by-tenant-fl`, `edu-eviction-process-fl`, `edu-landlord-remedies-after-breach-fl` | Covered |
+| §22 Subordination to mortgages | — | Not needed (library-wide decision: skipped, AZ §16.4) |
+| §23 **Liens: landlord's interest not subject to liens for tenant improvements (§713.10)** | **None** | **Gap → `no-liens-fl`, `edu-construction-liens-fl`** |
+| §24 Renewal only in writing; combined term ≤ 1 year | `entire-agreement`; form scope limit | Covered / not needed |
+| §25 Tenant reports phone number within 5 business days | Contract term, no statute | Not needed |
+| §26 Prevailing-party fees | §83.48; `default-by-tenant-fl` | Covered |
+| §27 Time of essence; binding effect; no oral changes or surrender; Florida law; fax signatures; **radon** | `entire-agreement`, `governing-law`, `electronic-signatures`, `radon-disclosure-fl` | Covered (time of essence skipped library-wide) |
+| §28 Brokers' commission | Broker mechanics | Not needed |
+| §29 Tenant's personal property legend (tenant initials to activate) | `abandoned-property-release-fl` (§83.67(5)) | Covered. The statute requires the legend to be "printed or clearly stamped"; initials are the form's design choice, not a statutory element |
+| Early termination fee / liquidated damages addendum | `early-termination-addendum-fl` (§83.595(4)) | Covered; same statutory form |
+| §83.49(2) deposit disclosure | `security-deposit-notice-fl` | Covered. **The form omits it**; the library carries it for landlords with 5+ units |
+| Flood disclosure (§83.512), e-mail addendum (§83.505) | `flood-disclosure-fl`, `electronic-notice-addendum-fl` | Covered. The 2016 form predates both |
+| Multi-family form only: common areas; landlord may adopt rules; overnight-guest default (7 nights a month) | `common-area-use-fl`, `entire-agreement` (changes by notice where law permits), `guest-policy`, `guest-policy-day-limit` | Covered |
+
+#### GB.1.2 What it produced
+
+- **(a) Missing required clause:** none. Every Florida requirement the form carries (radon, lead, early-termination addendum, access rules, §83.67(5) legend) is already in the library, and the library carries three the form lacks: the §83.49(2) deposit notice, the §83.512 flood disclosure and the §83.505 e-mail addendum.
+- **(b) Corrections to existing FL rows:** none.
+- **(c) New FL rows:**
+  - `no-liens-fl` (lease clause, RECOMMENDED; opt-in landlord right, instruction 30)
+  - `edu-construction-liens-fl`
+  - `association-approval-fl` (lease clause, CONDITIONAL)
+  - `edu-association-leasing-rules-fl`
+  - `edu-transient-rental-tax-fl` (lead from §4's tax line, confirmed through the scenario screen)
+- **(d) Confirmed absences:** none new from the lease.
+- **(e) Cross-state question (for Taylor, not acted on):** a tenant-improvement lien clause. Florida's §713.10 makes the lease language the trigger; other states' mechanic's-lien statutes were not read. Adding a shared row would be a product decision.
+
+**Why §713.10 matters:** under §713.10(1), a lien for an improvement a tenant makes "in accordance with an agreement" with the landlord extends to the landlord's interest. `no-alterations` has the landlord consenting to alterations, which can supply that agreement. The lease prohibition works fully only with a recording: the lease, a memorandum, or a parcel notice, recorded before the contractor's notice of commencement (§713.10(2)(b)). A landlord who ignores a contractor's written demand for a verified copy for 30 days loses the protection (§713.10(3)).
+
+### GB.2 Landlord-scenario screen (gap-discovery source 3)
+
+**Method:** Arizona's 59-scenario map (AZ log §18.1), re-run against the FL-active library, plus Florida-specific scenarios (hurricanes, condo associations, squatters, short-term leases, flotation beds, fee-in-lieu programs, e-mail notices, servicemembers on state duty). For each gap, the Florida statutes were searched with the official full-text search in Taylor's browser (quoted phrase plus a word; variants match), and every hit bearing on landlords was read section-open.
+
+#### GB.2.1 Scenario map
+
+**Result:**
+- **69 scenarios:** 59 covered, 7 gaps, 1 confirmed absence with no row (the holding deposit), 1 out of scope (condominium conversion) and 1 flagged (a foreign-principal buyer).
+- **The 7 gaps produced 8 new rows.** Two were found by source 2 and confirmed here: contractor liens, and association approval and rent demands. Five are new here: squatters, sales tax on short leases, uncashed deposit refunds, towing, and the HOA rent demand (read into `edu-association-leasing-rules-fl`).
+- **Three body additions:**
+  - cooling;
+  - rent-increase notice;
+  - a squatter cross-reference.
+- **Six confirmed absences (§GB.2.3).**
+
+| Scenario | FL coverage | Result |
+|---|---|---|
+| **Before the lease** | | |
+| Applicant pays a holding deposit, then backs out | none | **No statute** (confirmed absent, §GB.2.3) |
+| Screening: fees, criminal history, income source, immigration status | `edu-no-fee-caps-fl`, `edu-fair-housing-fl`, `edu-no-immigration-inquiry-rule-fl`, `edu-local-preemption-fl` | Covered |
+| Applicant lied on the application | `rental-application-accuracy`, `edu-fraudulent-entry-termination-fl` | Covered |
+| Voucher holder applies | `edu-fair-housing-fl` (no state source-of-income class), `edu-local-preemption-fl` (local ordinances' survival unsettled) | Covered |
+| Servicemember applies | `edu-servicemember-rights-fl` (§83.683, 7-day decision) | Covered |
+| Unit not ready on move-in day | `possession-delay` | Covered |
+| Required disclosures at signing | `landlord-address-disclosure-fl`, `security-deposit-notice-fl`, `radon-disclosure-fl`, `flood-disclosure-fl`, `lead-based-paint`, `electronic-notice-addendum-fl` (if e-mail notices) | Covered |
+| Blank left in the lease | Product rule (AZ log §7); Part II has no blank-space rule | Covered (builder rule) |
+| City requires rental registration or inspection | `edu-local-preemption-fl` | Covered at state level; local layer flagged (instruction 20) |
+| Property is a condominium or in an HOA | `hoa-compliance` | **Gap → `association-approval-fl`, `edu-association-leasing-rules-fl`** (source 2; §§718.112(2)(k), 720.306(1)(h)) |
+| How big a deposit may be | `edu-no-deposit-cap-fl` | Covered |
+| Tenant wants to pay a fee instead of a deposit | `fee-in-lieu-of-deposit-fl` (§83.491) | Covered |
+| Seasonal lease of 6 months or less | none | **Gap → `edu-transient-rental-tax-fl`** (§212.03) |
+| **Rent and money** | | |
+| Rent is late | `late-fee`, `edu-no-fee-caps-fl`, `default-by-tenant-fl`, `edu-eviction-process-fl` (3-day notice) | Covered |
+| Tenant pays part of the rent | `default-by-tenant-fl`, `acceptable-payment-methods` (§83.56(5) waiver and receipt) | Covered |
+| Check bounces | `nsf-fee-limit-fl`, `edu-dishonored-payment-remedies-fl` | Covered |
+| Tenant pays in cash and wants a receipt | `acceptable-payment-methods` | Covered for partial rent after a notice (§83.56(5)(a)1). **No general receipt statute** (confirmed absent, §GB.2.3) |
+| Which debt a payment pays first | `application-of-payments` | Covered |
+| Raising the rent at renewal or on a month-to-month | `edu-periodic-tenancy-termination-fl`, `edu-local-preemption-fl` | Covered; **body addition** (no notice statute, confirmed absent) |
+| **During the tenancy** | | |
+| AC fails in July | `habitability-timeline-fl`, `edu-landlord-maintenance-fl`, `maintenance-allocation-fl` | Covered; **body addition** (cooling not on the §83.51(2)(a) list; local codes flagged) |
+| Tenant withholds rent over repairs | `habitability-timeline-fl` (7-day notice; §83.60(2) registry deposit) | Covered |
+| Termites, roaches, bedbugs | `edu-landlord-maintenance-fl` (§83.51(2)(a)1 extermination), `edu-no-bed-bug-disclosure-fl` | Covered |
+| Mold complaint | `edu-no-mold-disclosure-fl`, `tenant-maintenance`, `landlord-maintenance` | Covered |
+| Tenant causes damage, or won't keep the unit clean | `default-by-tenant-fl` (§83.52, §83.56(2)(b)), `tenant-maintenance` | Covered |
+| Landlord needs to enter; tenant refuses | `landlords-access-fl` (§83.53) | Covered |
+| Tenant changes the locks | `keys`; landlord lockout barred (`edu-prohibited-practices-fl`, §83.67(2)) | Covered |
+| Tenant away for a month | `landlords-access-fl` (§83.53(3) absence entry), `edu-abandoned-property-fl` | Covered |
+| Guest won't leave | `guest-policy`, `guest-policy-day-limit`, `edu-transient-occupant-removal-fl` (§82.035) | Covered; cross-reference added |
+| Squatters in a vacant unit | `edu-transient-occupant-removal-fl` (guests only) | **Gap → `edu-unauthorized-occupant-removal-fl`** (§82.036) |
+| Roommate moves out | `joint-liability`, `no-sublet-assign` | Covered |
+| Tenant sublets or lists on Airbnb | `no-sublet-assign`, `residential-use-only`, `edu-association-leasing-rules-fl` (association short-term limits) | Covered |
+| Noise and neighbor complaints | `no-disturbance`, `default-by-tenant-fl` (§83.56(2)(a) no-cure) | Covered |
+| Drugs, violence or other crime | `default-by-tenant-fl` (§83.56(2)(a)), `edu-eviction-process-fl` | Covered |
+| Marijuana smoking | `smoking-policy` (tagged FL; bans all smoking) | Covered. The medical-marijuana statute is not read; the flag is already in `smoking-policy`'s FL note |
+| Unapproved pet | `pet-policy-fl`, `pet-insurance-requirement` | Covered |
+| Assistance or emotional-support animal request | `assistance-animal-accommodation-fl`, `edu-service-animal-penalties-fl` | Covered |
+| Disability modification request | `edu-fair-housing-fl`, `no-alterations` | Covered |
+| Tenant paints, or hires a contractor for an approved alteration | `no-alterations` | **Gap → `no-liens-fl`, `edu-construction-liens-fl`** (source 2; §713.10) |
+| Waterbed request | `flotation-bedding-fl`, `common-area-use-fl` (§83.535) | Covered |
+| Association fines the owner because of the tenant | `hoa-compliance` | Covered |
+| Owner is behind on dues; association demands the rent from the tenant | none | **Gap → `edu-association-leasing-rules-fl`** (§§718.116(11), 720.3085(8)) |
+| Car towed from the lot | `parking-vehicle-rules` (defers to law) | **Gap → `edu-towing-fl`** (§715.07) |
+| Pool at the property | `maintenance-allocation-fl` (pool care) | Covered. **No pool-safety notice to tenants** (confirmed absent, §GB.2.3) |
+| Yard and pool work by the tenant | `maintenance-allocation-fl`, `landscaping-irrigation` | Covered |
+| Tenant's utility is shut off | `utility-service-continuity`, `utility-payment-evidence`, `edu-utility-former-occupant-fl` | Covered |
+| Landlord's master-metered utility is shut off for nonpayment | `edu-prohibited-practices-fl` (§83.67(1)), `habitability-timeline-fl` | Covered for tenant remedies. **No utility-to-tenant shutoff notice statute** (confirmed absent, §GB.2.3) |
+| Hurricane: shutters, evacuation, storm damage | `casualty-damage-fl` (§83.63, belongings retrieval), `edu-landlord-maintenance-fl` | Covered for damage. Part II, read whole, has no storm-preparation duty |
+| Flooding | `flood-disclosure-fl`, `casualty-damage-fl` | Covered |
+| Adding a new rule mid-lease, or a law changes | `entire-agreement`, `common-area-use-fl` | Covered |
+| **Ending the tenancy** | | |
+| Tenant wants out early | `early-termination-fl`, `early-termination-addendum-fl`, `edu-landlord-remedies-after-breach-fl` | Covered |
+| Domestic violence victim wants out | `edu-no-dv-lease-termination-fl` | Covered (confirmed absent, 2026-09-26) |
+| Tenant is deployed or called up | `early-termination-fl`, `edu-servicemember-rights-fl`, `edu-state-active-duty-eviction-stay-fl` | Covered |
+| Month-to-month notice either way | `edu-periodic-tenancy-termination-fl` | Covered |
+| Lease requires the tenant's end-of-term notice | `end-of-term-notice-fl` (§83.575) | Covered |
+| Tenant stays after the lease ends | `holdover` (§83.58) | Covered |
+| Tenant disappears | `edu-abandoned-property-fl`, `abandoned-property-release-fl` | Covered |
+| Tenant dies | `edu-deceased-tenant-fl` (§83.59(3)(d)) | Covered. **No lease-termination-on-death statute** (confirmed absent, §GB.2.3) |
+| Fire or casualty | `casualty-damage-fl` | Covered |
+| Eviction process | `edu-eviction-process-fl`, `edu-prohibited-practices-fl` | Covered |
+| Retaliation claim | `edu-retaliation-fl` | Covered |
+| Belongings left after move-out or eviction | `edu-abandoned-property-fl`, `abandoned-property-release-fl` | Covered |
+| Deposit dispute | `security-deposit-return-fl`, `security-deposit-use` | Covered |
+| Deposit refund never cashed | none | **Gap → `edu-unclaimed-deposit-refunds-fl`** (§717.102(1)) |
+| Tenant asks to seal an eviction record | `edu-no-eviction-record-sealing-fl` | Covered (confirmed absent, 2026-09-26) |
+| **Owner changes** | | |
+| Owner sells the property with a tenant in place | `security-deposit-return-fl` (§83.49(7) successor), `landlord-address-disclosure-fl` (§83.50), `landlords-access-fl` (showings) | Covered. Part II has no seller-release section like A.R.S. §33-1325 |
+| Lender forecloses | `edu-foreclosure-tenant-rights-fl` | Covered |
+| Owner switches property managers | `landlord-address-disclosure-fl` (§83.50), `edu-apartment-employee-screening-fl` | Covered |
+| Buyer is a foreign principal | none | Flagged, not resolved (TX1.19: §§692.201-.205; whether a lease is covered was not verified) |
+| Building is converted to condominiums | none | **Out of scope, no row.** §718.606 was read section-open on 2026-09-27 and sets duties for a developer converting existing improvements: tenant extensions to 180 or 270 days, tenant termination on 30 days' notice, and no lease clause may shorten the extension. It governs a regulated conversion, not an ordinary lease |
+
+#### GB.2.2 Rows changed
+
+- **New:**
+  - `edu-unauthorized-occupant-removal-fl` (§82.036, squatters)
+  - `edu-transient-rental-tax-fl` (§212.03)
+  - `edu-unclaimed-deposit-refunds-fl` (§717.102(1))
+  - `edu-towing-fl` (§715.07)
+  - with the four source-2 rows above.
+- **Body additions:**
+  - `edu-landlord-maintenance-fl`: air conditioning is not a statutory duty (§83.51(2)(a)5); codes and the lease govern.
+  - `edu-periodic-tenancy-termination-fl`: no rent-increase notice statute; increases via §83.57 notice; local notice ordinances preempted.
+  - `edu-transient-occupant-removal-fl`: cross-reference to the squatter procedure.
+- **Notes only:** `edu-no-deposit-cap-fl` (§718.112(2)(k) now read).
+- **Also read after the searches:** §720.3085(8)(a) and its prescribed tenant notice (verbatim), now in `edu-association-leasing-rules-fl` (HOA rent demand); §718.606 (condominium conversion; out of scope); §515.27(1) (pool construction features).
+
+#### GB.2.3 Confirmed absences (no row)
+
+Taylor ran the official full-text searches on flsenate.gov on 2026-09-27, using a quoted phrase plus a word (variants match). Every hit's section and title was reviewed, and any hit that bears on landlords was read.
+
+- **Holding deposit or earnest money before the lease:**
+  - "holding deposit": 0 hits.
+  - "earnest money" tenant: only ch. 2023-17 and ch. 2022-194, session laws on affordable-housing development deposits (non-housing-tenancy).
+  - Not settled by text: §83.49(1) reaches money "deposited or advanced by a tenant on a rental agreement". Whether pre-lease money falls under it is not answered by any statute found. No row.
+- **Rent-increase notice (dwellings):**
+  - "rent increase" tenant and "increase in rent" tenant: the only 2026 hits are the mobile-home-park index entries (ch. 723, §723.037, lot rentals). Ch. 723 is outside Part II and was not read.
+  - Older hits are session laws only: ch. 90-198 (mobile homes) and ch. 91-103 (condominiums).
+  - This answers checklist row 294.10: Florida's statutory rent-increase notice is the mobile-home rule.
+  - Recorded in `edu-periodic-tenancy-termination-fl`.
+- **Landlord receipt for cash rent:**
+  - "written receipt" tenant: the hits are §§718.116, 719.108 and 720.3085, where an association gives receipts to a tenant paying it rent on demand, plus §83.49, which has no receipt duty (read whole in the FL pass).
+  - The only landlord receipt rule remains §83.56(5)(a)1: a receipt for partial rent accepted after a 3-day notice.
+- **Pool-safety notice to tenants:**
+  - "swimming pool" tenant: §212.08 (tax), §481.203 (architecture definitions), §489.103 (contracting exemptions) and index pages pointing to §514.0115 (public pools) and the Residential Swimming Pool Safety Act (ch. 515).
+  - §515.27(1), read section-open, ties the safety features to a pool's final inspection and certificate of completion. It is a construction-permit rule with no notice or duty to a tenant.
+  - Pool care stays in `maintenance-allocation-fl`. No row (contrast `pool-safety-notice-az`).
+- **Utility shutoff notice to tenants in master-metered buildings:**
+  - "master meter" tenant: only §367.072, where 65% of customers, tenants or unit owners served by a master meter may petition to revoke a water or wastewater utility's certificate, and ch. 2008-240 (condominium).
+  - No notice-to-tenants duty. Public Service Commission rules are not read (flagged, as in AZ).
+  - A landlord's own interruption of utilities is barred by §83.67(1) (`edu-prohibited-practices-fl`).
+- **Lease ends on the tenant's death:**
+  - "death of the tenant": only ch. 2007-136, the act that authorized recovery of possession on the tenant's death (now §83.59(3)(d), `edu-deceased-tenant-fl`).
+  - "tenant dies": 0 hits.
+  - The lease's own terms and estate law govern. No row.
+
+### GB.3 Integrity
+
+- **Delta:** 12 rows (8 new, 4 changed), all 16 columns.
+- **Base plus delta:** 949 rows, 913 active. FL has 107 active rows (70 lease clauses, 37 education), all VERIFIED.
+- **Checks:**
+  - Every other state's active count is unchanged.
+  - No shared row's text changed. All 4 changed rows are FL-only.
+  - No duplicate ids, dangling `supersedes`, display collisions, blank status, or blank `states` except the parent.
+- **Instruction 19:** every row id named in this section and in the checklist cells exists as an active FL-tagged row.

@@ -1578,3 +1578,283 @@ Not a re-audit; nothing else in this state was reviewed. Detail: lease-clause-de
 1. **Shared-row edit received from Arizona (2026-09-27, Taylor's decision) — `entire-agreement`.** The sentence "may not be changed except in writing signed by all parties" now continues ", or as applicable law permits Landlord to change it by written notice to Tenant." Driver: A.R.S. §33-1342(C), which lets an Arizona landlord amend existing leases by written notice to comply with new laws; the old wording could be read to waive such a right. Recorded as **uniform** under §5a.1: the words are self-limiting and change nothing where this state's law gives no unilateral amendment right, while preserving any right it does give (for example, rules adopted on notice or changes to a periodic tenancy on the notice the law requires). No state-specific override is needed. `last_checked` was reset to 2026-09-27.
 
 2. **2026-09-27, AZ session — new shared row `rental-application-accuracy` tagged MN** (§5a.1; uniform text, no MN override). The tenant represents that the application information was true, correct and complete; a materially false or misleading statement is a material breach, with the remedies the lease and law provide; information the landlord may not request or consider is excluded. §504B.173 subd. 4(b) (applicant liability for materially false information) runs independently; the clause neither restates nor limits it. Remedies run through `default-by-tenant`.
+
+---
+
+## Gap-discovery backfill (instruction 36) — 2026-09-27
+
+**Scope:** sources 2, 3 and 4 only, run once for Minnesota. Not a re-audit — nothing already verified was re-scrubbed except where a specific finding required it. 19 new MN rows, 14 changed rows (13 MN-only plus one notes-only edit to a shared row). MN 121 → 140 active rows.
+
+| Source | Status |
+|---|---|
+| Gap-discovery source 1 — statute walk | Done (§7: Minn. Stat. ch. 504B read whole in the original MN pass, with the adjacent-chapter sweep added by the 2026-09-03 re-audit; §GB.5 below completes it statute-wide) |
+| Gap-discovery source 2 — real-lease comparison | Done (§GB.3: M.S.B.A. Real Property Form No. 41, Residential Lease Agreement, 2000, Revised 2011) |
+| Gap-discovery source 3 — landlord-scenario screen | Done (§GB.4: 71 scenarios, Claude-generated) |
+| Gap-discovery source 4 — outside-title search | Done (§GB.5: official Minnesota Revisor full-text search of the 2025 Minnesota Statutes, 60 exact-phrase terms with word variants) |
+
+---
+
+### GB.1 Trunk confirmation (done before any work)
+
+`lease-clauses.csv` as attached: **941 rows, 905 active, 16 columns**, 33 distinct state tags. Core states: **CO 116, WY 100, KS 115, NE 112, MN 121, SD 91, ND 111, AZ 109.** 118 rows carry `supersedes`. Zero duplicate ids, zero blank ids, zero dangling `supersedes`, zero override/target display collisions, zero active rows with blank `verification_status`. One active row has blank `states` — `security-deposit-return`, the fully-superseded parent, which is the documented expected state (instruction 24). Matches the prompt's stated 941 rows across 14 states. **Proceeded.**
+
+MN's 121 rows break down as 71 `LEASE_CLAUSE` / 50 `LANDLORD_EDUCATION`, 75 MN-only / 46 shared, all `VERIFIED`.
+
+### GB.2 Method and boundary
+
+- **Search instrument:** the official Revisor search at `revisor.mn.gov`, driven through its own search service (`api.revisor.mn.gov/search-services/api/search`), collection `statute`, edition **2025 Minnesota Statutes (current)**. The engine matches **exact phrases and word forms only** — `"smoke alarm"` and `"smoke detector"` return different lists, and `"renters insurance"` returns nothing where `"renter's insurance"` returns six. Every term was therefore run in its variants. The term `"section 8"` is rejected by the engine as an invalid search term; the voucher question was run on `"housing voucher"`, `"housing choice voucher"` and `"source of income"` instead.
+- **Every landlord-relevant hit was read section-open** on `revisor.mn.gov`, not from the search snippet and not from a summary. Where a summarising fetch was available it was discarded in favour of the verbatim page text, because a paraphrase is not primary text.
+- **Currency** was taken from each section's own *Recent History* block plus, where that block showed an amendment the compilation did not print, the **session law read directly**. See §GB.6.
+- **Boundary, stated plainly:** statutes only. **Minnesota Rules, municipal ordinances and case law were not searched.** Every "confirmed absent" below therefore means *absent from the Minnesota Statutes*, with the terms run recorded so a later pass need not repeat them.
+
+### GB.3 Source 2 — real-lease comparison
+
+**Lease used:** **M.S.B.A. Real Property Form No. 41 — Residential Lease Agreement (2000, Revised 2011)**, "© Copyright 2011 by Minnesota State Bar Association, Minneapolis, Minnesota", published as an accessible PDF by the **City of Rochester, Minnesota** at `rochestermn.gov/media/q2jdtwm0/residential-lease-agreement-ada.pdf`.
+
+**Why it qualifies.** It satisfies the instruction on two independent grounds: the publisher of the copy is a **public body** (a Minnesota home rule charter city), and the document itself is an **attorney-drafted, Minnesota-specific professional form** issued by the state bar's real property section — the structural equivalent of the Arizona Association of REALTORS® form used for AZ. It is not a multi-state template. Generic form mills were rejected: searches surfaced ezLandlordForms, eForms, Rocket Lawyer, LegalTemplates, FormSwift, TurboTenant, iPropertyManagement, OpenDocs and freeforms, all disqualified, and several of them re-host this same MSBA form and a "Minnesota Association of Realtors" form without authoritative provenance. Minnesota Housing was checked directly and publishes only an **HTC Good Cause Rider** and a **HOME/NHTF Form #22 Lease Addendum**, not a complete lease. The Minnesota Multi Housing Association's forms are member-restricted.
+
+**Edition limitation, and it matters.** The form is revised **2011**. It therefore cannot be evidence of absence for anything enacted since — and Minnesota's landlord-tenant law changed substantially in 2023, 2024, 2025 and 2026. Used strictly as a **lead** (instruction 6); no statutory claim below rests on it. Its text is copyrighted and is **not reproduced** — the map below is by topic.
+
+#### GB.3.1 Provision map (36 provisions)
+
+| MSBA provision (by topic) | MN library coverage | Result |
+|---|---|---|
+| 1 Occupancy and Use | `permitted-occupants`, `residential-use-only`, `guest-policy`, `guest-policy-day-limit` | Covered |
+| 2 Rent | `rent-payment`, `due-at-signing`, `application-of-payments` | Covered |
+| 3 Late Fee and Returned Check Fee | `late-fee`, `late-fee-limit-mn` (8% cap), `returned-payments`, `edu-returned-check-fee-cap-mn` | Covered |
+| 4 Security Deposit (use, return, interest) | `security-deposit-use`, `security-deposit-return-mn`, `deposit-last-month-rent-mn`, `edu-no-deposit-cap-statewide-mn`, `edu-deposit-successor-transfer-mn` | Covered; ours carries the 1%/yr interest and the doubling penalty the 2011 form predates |
+| 5 Each Tenant Responsible | `joint-liability` | Covered |
+| 6 Tenant Pays for Damage | `default-by-tenant`, `tenant-maintenance`, `existing-condition` | Covered |
+| 7 Landlord's Non-Waiver | `late-fee` non-waiver sentence; `edu-late-rent-reservation-fix-mn` | Covered, and ours is the more careful of the two — see §GB.3.3 |
+| 8 Attorney's Fees | `default-by-tenant`; `edu-attorney-fee-mutuality-mn` (§504B.172) | Covered |
+| 9 Premises Inspection (joint, both ends) | `initial-final-inspection-mn`, `edu-inspection-notice-penalty-mn` | Covered |
+| 10 Landlord's Promises | `habitability-baseline-mn` | Covered; refined this pass (§GB.6) |
+| 11 Tenant's Promises | `tenant-maintenance`, `no-disturbance`, `no-alterations` | Covered |
+| 12 Tenant's Telephone (supply number in 2 days) | — | **Not needed.** No statute; a contract term with a privacy cost and no landlord benefit the emergency-contact fields do not already give |
+| 13 Restrictions (waterbeds, pets, lock changes, vehicles) | `pet-policy-mn`, `keys`, `parking-mn`, `parking-vehicle-rules`, `common-area-use` (waterbeds) | Covered |
+| 14 Landlord's Right to Enter | `landlords-access-mn`, `edu-entry-notice-content-mn` | Covered |
+| 15 Damage or Injury to Tenant or Tenant's Property | `tenants-property-insurance-mn`, `edu-renters-insurance-limits-mn` | Covered |
+| 16 Notice of Dangerous Conditions | `habitability-baseline-mn` (tenant's written-notice sentence), `tenant-maintenance` | Covered |
+| 17 Subletting | `no-sublet-assign` | Covered |
+| 18 Moving Out or Holding Over | `surrender-end-of-term-mn-nd`, `holdover`, `edu-no-holdover-damages-multiplier-mn` | Covered |
+| 19 Notice if Lease Becomes Month-to-Month | `edu-tenancy-at-will-notice-mn`, `edu-tenancy-at-will-termination-notice-mn`; `holdover`'s self-limiting notice sentence | Covered |
+| 20 Vacating | `surrender-end-of-term-mn-nd` | Covered — **and this is where the §504B.155 gap surfaced.** See §GB.4.2 |
+| 21 Premises Destroyed, Uninhabitable or Unfit | `fire-casualty-termination-mn` | Covered. **A government condemnation or vacate order is a different trigger** and was NOT covered → §GB.5.2 |
+| 22 Breach of Lease [Re-entry Clause] | `default-by-tenant` | Covered |
+| 23 Duty to Pay Rent After Eviction or Surrender; mitigation | `default-by-tenant`, `edu-landlord-mitigation-duty-mn` | Covered |
+| 24 Subordination | — | **Not needed.** Taylor's AZ §16.4 decision (skip subordination library-wide) applies unchanged |
+| 25 Exercise of Rights and Remedies (non-election) | `default-by-tenant` | Covered |
+| 26 Subrogation waiver | — | **Absent library-wide, for all 14 states.** Not an MN gap → cross-state question, §GB.8 |
+| 27 Terms (singular/plural) | `governing-law`, `severability` family | Not needed (boilerplate) |
+| 28 Misrepresentations | `rental-application-accuracy` | Covered — and this independently validates Taylor's post-AZ decision to add that shared row |
+| 29 Attachments Are Part of Lease; NO ORAL AGREEMENTS | `addendum-precedence`, `entire-agreement` | Covered |
+| 30 Notices — notice to one tenant is notice to all | `notices`, `joint-liability` | **Partly.** `notices` is well drafted and self-limiting but carries no notice-to-one rule → cross-state question, §GB.8 |
+| 31 Notice of Prohibition Against Unlawful Activities | §504B.171 — covenant applies by operation of law | **Gap in the library's record, not in the lease** → `edu-unlawful-activities-covenant-mn` (§GB.5.4) |
+| 32 Lead Paint Warning and Disclosure | `lead-based-paint` | Covered |
+| 33 Changes to Lease | `entire-agreement` carve-out | Covered |
+| 34 Smoking | `smoking-policy`; `edu-cannabis-possession-mn` | Covered |
+| 35 Utilities Service Notice (rebilled and apportioned) | `utility-apportionment-mn`, `edu-utility-disclosure-attachment-mn` | Covered for §504B.216 — **but the whole Ch. 216B half was missing** → §GB.5.1 |
+| 36 Additional Terms | builder feature | Not needed |
+
+#### GB.3.2 What the comparison produced
+
+- **Missing required clause: none.** Same result as Arizona. Every provision the MSBA form carries is either covered, deliberately excluded by a prior product decision, or a non-statutory contract nicety.
+- **Corrections to existing MN rows: none traceable to the lease.** The corrections in this delta came from sources 3 and 4.
+- **New MN rows attributable to this source: none alone**, but it independently confirmed two gaps that source 3 and source 4 found (the unlawful-activities covenant record, and the Ch. 216B utility regime).
+- **Confirmed absences:** subrogation waiver and the notice-to-one-tenant rule are absent library-wide, not MN-specific.
+- **Cross-state questions: two** (§GB.8).
+
+#### GB.3.3 The most interesting thing the comparison showed
+
+The MSBA form's **omissions** are the finding. A 2011 attorney-drafted Minnesota lease has no Total Monthly Payment line, no landlord-identity disclosure, no inspection-or-condemnation-order disclosure, no carbon monoxide alarm clause, no domestic-violence termination, no infirmity termination, no tenant-right-to-organize acknowledgment, no prelease-deposit term and nothing on digital rent payment — because none of those obligations existed in their current form when it was last revised. The library carries all but two of them. **That is the clearest evidence so far that the library is ahead of the professional form market in Minnesota, and also the clearest warning about currency**: a lease that was professionally correct in 2011 would today breach several non-waivable duties carrying treble damages. It is a good argument for the re-verification cadence that has been on the backlog since Colorado.
+
+### GB.4 Source 3 — landlord-scenario screen
+
+**Method.** Arizona's 59-scenario map (AZ log §18.1) was taken as the base, reviewed scenario by scenario against Minnesota, and extended with 12 Minnesota-specific situations — giving **71 scenarios**. Each was run against the 121 MN-active rows. Where no row answered it, the statutes were searched and every landlord-relevant hit read section-open. **Scenarios were generated here; Taylor's own landlord experience is Colorado-only and was not used, per instruction 36.**
+
+**Result: 71 scenarios — 58 covered, 13 gaps.** Every gap became a row in this delta.
+
+#### GB.4.1 Gaps found (13)
+
+| Scenario | Gap | Row |
+|---|---|---|
+| Applicant pays money to hold the unit, then backs out | §504B.175 prelease deposit | `edu-prelease-deposit-mn`, `prelease-deposit-application-mn` |
+| Landlord submeters electricity or gas and bills tenants | §§216B.022–.024 | `edu-submetering-billing-duties-mn`, `utility-billing-schedule-mn` |
+| Tenant moves out before the final utility bill arrives | §504B.216 subd. 7a, §216B.023 subd. 3a (2026) | `utility-apportionment-mn` (body) |
+| Tenant pays through the landlord's online portal and it is down | §504B.118 subd. 3–4 (2026) | `edu-digital-payment-platform-mn` |
+| City issues a citation on an inspection order, or condemns the unit | §504B.195 | `edu-inspection-condemnation-disclosure-mn` |
+| Landlord keeps collecting rent after a vacate or condemnation order | §504B.204 (treble) | `edu-condemned-premises-rent-bar-mn` |
+| **Tenant leaves mid-winter without notice and the pipes freeze** | §504B.155 | `cold-weather-vacate-notice-mn` |
+| Prosecutor serves a nuisance notice about a tenant's conduct | §§617.81, 617.85 | `edu-nuisance-abatement-exposure-mn` |
+| Landlord wants the fast eviction track after an assault | §504B.321 subd. 2 (2026) | `edu-expedited-eviction-mn` |
+| Landlord names every occupant on the eviction complaint | §504B.2136 (2026) | `edu-minors-not-defendants-mn` |
+| Unauthorized car in the parking lot | Ch. 168B | `edu-towing-mn` |
+| Unit turns out to have been a meth lab | §152.0275 subd. 2 | `edu-meth-lab-property-orders-mn` |
+| Deposit refund cheque never cashed | §345.39 | `edu-unclaimed-deposit-refunds-mn` |
+
+Plus one flagged risk rather than a gap: **landlord rents storage lockers for a separate fee** → the self-service storage act, §§514.970–.979 → `edu-self-storage-act-scope-mn` and the `storage-space-mn` narrowing (§GB.8).
+
+#### GB.4.2 The scenario that mattered most
+
+*"A tenant moves out in January without telling me and the pipes freeze."* No row answered it. **Minn. Stat. §504B.155** requires a tenant who removes from, abandons or vacates a building between **November 15 and April 15** — where the building has plumbing or other pipes liable to injury from freezing, and where the tenancy is not ending — to give the landlord **three days' notice** first, and makes failure a **misdemeanour**.
+
+**This is a proof-of-absence violation, and the third of this exact shape for Minnesota.** Before this pass §504B.155 appeared in the library in precisely one place: the notes of the shared `tenant-maintenance` row, asserting that the "cold-weather-notice-before-vacating duty (§504B.155)" was **"already reflected elsewhere in the library."** It was not. No row existed. That is instruction 19's scenario exactly, and it follows §504B.206 (domestic violence) and §504B.212 subd. 2 (retaliation), both found the same way in the re-audit. A false "already covered" note is worse than an honest gap because it stops every later canvass from re-flagging the topic — and note that this one survived a full higher-effort re-audit, because the re-audit read rows and statutes, not the *claims made in other rows' notes*.
+
+**Method lesson worth adding to the checklist:** a note asserting that something is covered elsewhere is a claim to be verified, not a record of work done. Grep the library for every "already covered / already reflected / covered elsewhere" assertion and confirm a row exists for each. The `tenant-maintenance` note is corrected in this delta.
+
+#### GB.4.3 Scenarios confirmed covered, worth naming
+
+Minnesota answered these out of existing rows with no gap: unit not ready (`possession-delay-mn-new-construction`), required disclosures at signing, deposit over a cap (none statewide), rent late, partial payment, bounced cheque, **cash rent receipt** (`cash-rent-receipt-mn` — Minnesota requires it; Arizona confirmed no such duty), rent increase at renewal (§504B.147), heat fails in January (68°F minimum), pests, mould complaint, tenant damage, entry refused, tenant changes locks, guest overstays, roommate leaves, sublet or short-let, noise, drugs or crime, cannabis possession, unapproved pet, assistance-animal request, disability modification, alterations, HOA fines, snow and ice, utility shutoff, adding a rule mid-lease, tenant wants out early, **domestic violence**, **deployment** (no state right; SCRA preserved), month-to-month notice, holdover, tenant disappears, **tenant dies** (§504B.265 — Minnesota has a statute; Arizona does not), fire or casualty, eviction process, retaliation claim, belongings left behind, belongings after a writ, deposit dispute, **eviction record expunged**, foreclosure, owner switches managers, **tenant organizes an association**, and **tenant needs a nursing home** (§504B.266).
+
+### GB.5 Source 4 — outside-title search
+
+**60 terms run** with word variants, every hit's section number and title reviewed, every landlord-relevant hit read section-open. This is what closes Minnesota's "Not located" items into statute-wide confirmed absences, and it produced the pass's largest finding.
+
+#### GB.5.1 Found: the shared-metered utility regime outside Ch. 504B
+
+**§§216B.022, 216B.023 and 216B.024 — Public Utilities.** Laws 2024, ch. 107 **repealed §504B.215** (the revisor page now reads "MS 2022 [Repealed, 2024 c 107 s 9]") and split the shared-metered regime between §504B.216 and three **new** sections in a different chapter. Minnesota's pass captured the §504B.216 half and never reached the other half of the same act.
+
+What was missing: PUC jurisdiction over a submetering landlord; ANSI standards for submeters installed on or after 2025-01-01 and an accuracy duty for all submeters whenever installed; **an express lease-content requirement** — "Landlords must include in the lease, or provide a written statement at the outset of the lease term, notice of when utility bills will be issued" (§216B.023 subd. 1(b)); a bar on billing less frequently than the utility bills the landlord; **eight mandatory bill-content items** (subd. 1(c)); the electricity-apportionment ban and the charging methodology (no common areas, non-usage charges divided equally among units, credits passed through pro rata); a prompt-refund duty on overcharges and a **six-month cap** on billing back undercharges; **mandatory payment plans** for overdue bills and for undercharges, the latter with no interest or delinquency fee; and a duty to tell the tenant they may go to the PUC consumer affairs office, **with its current phone number and email** (§216B.024).
+
+**What was checked before changing anything (Addendum K.3):** `utility-apportionment-mn` already states the electricity-apportionment ban, the $8 administrative charge cap and the $5 non-compounding late-fee cap **correctly**, and §216B.023 subd. 2(a)(1) independently confirms the electricity ban. No error there. The gap was additive, not corrective.
+
+#### GB.5.2 Found: two non-waivable duties skipped by the statute walk
+
+**§504B.195** (disclosure of outstanding inspection and condemnation orders) and **§504B.204** (bar on accepting rent or a deposit after condemnation, **actual damages plus three times everything collected**, plus costs and fees, and a violation also breaches §504B.161). Both non-waivable.
+
+**Why they were missed:** MN's statute walk read §§504B.181, .182 and .185, then moved to §§504B.205 and .206. Both sections sit in that gap. This is the "read part of a multi-section run and generalise" pattern the re-audit named as its dominant failure mode — and it survived the re-audit because the gap was in the **section sequence**, not in any section anyone read. §504B.204 was even amended by Laws 2024, ch. 118, the same act the MN pass relied on for §§504B.212 and 504B.161.
+
+§504B.195's remedy runs through §8.31 subd. 3a, which MN's plain-language rows already cite — the remedy chain was in the library; only the duty was absent.
+
+#### GB.5.3 Found: §504B.175, the prelease deposit
+
+Money taken to hold a unit may be accepted **only** under a **conspicuous written agreement** stating the circumstances of return and the **seven-day** return duty; if a lease is signed the money **must** be applied to the deposit or rent; the remedy is the deposit **plus one-half as a penalty**. MN's pass read §504B.173 (screening fee) and stopped at the next section. Note the definitional split: a reasonable screening fee is expressly **not** a prelease deposit, so a landlord at the application stage may be holding two separately regulated sums. Arizona recorded this whole topic as a confirmed statutory absence; **Minnesota regulates it.**
+
+#### GB.5.4 Found: the unlawful-activities covenant and the nuisance exposure behind it
+
+**§504B.171** writes a covenant into every Minnesota residential lease, oral or written — controlled substances, prostitution-related activity, unlawful firearms, stolen property — reaching **the common area and curtilage**, qualified by a knowledge standard for third-party conduct, extended by subd. 1(b) to domestic-abuse-type acts against other residents, and voiding the tenant's right to possession on breach. Subd. 1(c) protects legal cannabis and hemp possession from prohibition and from waiver, excluding combustion and vaporisation. **The covenant binds the landlord too.**
+
+Before this pass §504B.171 was cited six times but only ever in the *notes* of shared rows or inside rows about something else; `edu-cannabis-possession-mn` covers one subdivision of a five-part covenant. No row stated the covenant. Deliberately **not** drafted as a lease clause — it applies by operation of law, so restating it adds nothing and invites drift; Arizona needed `crime-free-addendum-az` precisely because A.R.S. §33-1368 gives no automatic covenant.
+
+Behind it sits **Ch. 617**, never reached by any MN pass. **§617.81 subd. 4:** a prosecuting attorney intending to seek abatement **must** serve written notice on all owners, and failure to abate or resolve within **30 days** may lead to a complaint that can **enjoin the use of the building for any purpose for one year**. **§617.85** is the way out, and it is strongly landlord-protective: the owner may move in the abatement proceeding to cancel the tenant's lease; nuisance is an **additional** eviction ground beyond §§504B.281–.371; *"It is no defense … that the lease … does not provide for eviction or cancellation of the lease upon the ground provided in this section"*; on a finding the court **shall** cancel and grant restitution; and the court **must not** order abatement where it cancels that tenant's lease, grants restitution, **and** finds both that the acts were that tenant's **and that the tenant was not acting in conjunction with or under the control of the owner**. So acting against the tenant saves the building only where the owner was not party to the conduct — a landlord who knew and did nothing cannot evict his way out of an abatement order. That second condition was missing from my first draft; see §GB.11. The library was one cross-reference away from this chapter the whole time — §504B.171 subd. 1(a)(1)(ii) already borrows §617.80 subd. 4's prostitution definition.
+
+#### GB.5.5 Found: three more, outside the landlord-tenant title
+
+- **Towing, Ch. 168B.** §168B.04 subd. 2(b)(2) sets the private-property timeframes, and the asymmetry is in the statute: immediate for single-family or duplex residential; immediate for **any** residential property **properly posted**; immediate for posted non-residential; **24 hours for non-residential *not* posted** — with **no clause at all** for unposted multi-unit residential. If you manage anything larger than a duplex, post the lot. §168B.035 governs government towing authorities on public property and expressly preserves the private owner's authority, so its rules are not the landlord's. §168B.045's towing-and-storage lien arises only on a **law-enforcement-requested** tow. **"Properly posted" is used but never defined in §168B.011** — confirmed by reading the definitions section.
+- **Methamphetamine, §152.0275 subd. 2.** No landlord disclosure duty. Instead: a health department or sheriff **shall** prohibit occupancy or use until assessed and remediated; a contractor verifies within five days and is liable to the owner for a bad certification; and the **authority** records an affidavit that "discloses to any potential transferee" the lab history, which the recorder must record so it appears in an ordinary title search. Check title and the local administrator before buying. **Term trap:** `"clandestine drug lab"` and `"drug laboratory"` both return **zero** — the statute's phrase is "clandestine lab site", and only `"methamphetamine"` found it.
+- **Unclaimed deposit refunds, §345.39 subd. 1.** Intangible property unclaimed for more than **three years** is presumed abandoned, with "customer overpayments", "credit balances" and "miscellaneous outstanding checks" enumerated. No Minnesota section names residential security deposits — §345.34 covers **utility** deposits only — so the three-year residual applies by category.
+
+#### GB.5.6 Confirmed absent, statute-wide (terms recorded)
+
+Each of these upgrades an existing MN row from a chapter-bounded finding to a statute-wide absence. **Statutes only; Rules, local codes and case law not searched.**
+
+| Topic | Terms run | Result | Row |
+|---|---|---|---|
+| Bed bugs | bed bug, bed bugs, bedbug, bedbugs | 0/0/0/1 — sole hit §18B.09 (pesticide application in cities) | `edu-no-bedbug-mold-disclosure-mn` (upgraded) |
+| Mould | mold, molds, mildew | 15/6/0 — all unrelated senses; §144.9513 is a grant programme | same row (upgraded) |
+| Radon | radon | 12, all reviewed; §§144.4961, 326B.106, 308C.612 newly reviewed, none a rental duty | `edu-no-radon-rental-disclosure-mn` (upgraded) |
+| EV charging | electric vehicle charging, charging station | 13/11 — all utility, tax, bonding, state-facility or building-code | `edu-no-ev-charging-right-mn` (upgraded) |
+| Immigration status | immigration status, citizenship status | 26/4 — **the only landlord-facing provision in the entire statutes is §504B.212 subd. 2** | `edu-retaliation-protections-mn` (confirmed) |
+| Source of income / vouchers | source of income, housing voucher, housing choice voucher | 10/0/0 — no class; MN protects "status with regard to public assistance" instead | `edu-fair-housing-protected-classes-mn` (unchanged, confirmed) |
+| Servicemember lease termination | permanent change of station, military orders | 1/7 — none creates a state right | `edu-no-state-servicemember-termination-mn` (upgraded) |
+| Smoke and carbon monoxide alarms | smoke alarm, smoke detector, carbon monoxide | 2/**0**/16 — §§299F.362 and 299F.51 are the only landlord provisions | `edu-alarm-duty-split-mn` (confirmed) |
+| Rekey / locks / deadbolts | rekey, deadbolt, door lock, change the locks | 0/0/1/1 — no duty; §582.031 is a mortgagee's right | `edu-no-rekey-or-lock-duty-mn` (**new**) |
+| Fire sprinklers | fire sprinkler, sprinkler system | 0/4 — §299F.48 is federally financed public housing ≥75 ft only | `edu-no-sprinkler-duty-mn` (**new**) |
+| Sale with a tenant in place | sells the property, successor in interest, right of first refusal | 1/45/17 — only the §504B.178 deposit transfer; no AZ §33-1325 analog | `edu-no-sale-or-successor-duty-mn` (**new**) |
+| Extended-absence notice | extended absence | 0 | Recorded here; no row needed |
+| Squatters | squatter | 0 | Recorded here; trespass and ejectment govern |
+| Renter's insurance | renter's insurance, renters insurance | 6/**0** — §65A.45 is insurer-facing and *helpful* | `edu-renters-insurance-limits-mn` (updated) |
+| Holding deposit | holding deposit, earnest money, application deposit | 0/20/4 — but §504B.175 exists under its own name | see §GB.5.3 |
+
+**Two engine lessons for every future state.** `"smoke detector"` returns **zero** in Minnesota because the statute says "smoke alarm" — a search run only on the colloquial term would have reported no smoke-alarm duty in Minnesota at all, and Arizona hits the identical trap in the opposite direction. And `"renters insurance"` without the apostrophe returns zero where `"renter's insurance"` returns six. Run both forms of every term; keyword probes are screens, never verdicts (Addendum K.4).
+
+### GB.6 Currency — and this is the part that reaches past this backfill's scope
+
+Every Minnesota section MN's rows rely on was checked against its own *Recent History* block. Four carried post-pass activity; one is a substantial new act.
+
+**Laws 2026, ch. 81 (S.F. 4171).** Presented to the governor 2026-05-11, **signed 2026-05-12**, and **in force** — the operative sections carry express effective dates of **August 1, 2026**. The 2025 compilation does not print most of it, so the **session law was read directly** (instructions 34 and 35). It amends four sections MN's rows depend on and adds a fifth:
+
+| Section | Change | Effective | Library effect |
+|---|---|---|---|
+| §504B.118 | **Retitled** "RECEIPT FOR RENT PAID IN CASH" → **"PAYMENT OF RENT"**; restructured into 4 subdivisions. Cash receipt is now subd. 2 (wording carried forward verbatim). New subd. 3: digital payment platforms — fee-free alternative when the platform is down, restore-or-offer duty, and **no adverse action, naming eviction and late fees**, when both fail. New subd. 4: **affirmative defence — the eviction "must be dismissed"**, plus attorney fees | 2026-08-01; subd. 4 to actions filed on or after | `cash-rent-receipt-mn` citation corrected; new `edu-digital-payment-platform-mn` |
+| **§504B.2136** (new) | Landlord **shall not** name a tenant's minor child as an eviction defendant (unless a minor is the sole renter). **Non-waivable**; actual damages or **$300** | 2026-08-01, actions filed on or after | New `edu-minors-not-defendants-mn` |
+| §504B.321 subd. 2 | Expedited eviction extended to **assault on the landlord, employees or contractors** (assault per §609.02 subd. 10); abuse penalty **$500 → $750**. **These two changes only** — see §GB.11 | 2026-08-01, actions filed on or after | New `edu-expedited-eviction-mn` |
+| §504B.216 subd. 7a (new) | Estimated final **apportioned** utility bill for a vacating tenant | default 2026-08-01 | `utility-apportionment-mn` body |
+| §216B.023 subd. 3a (new) | Same for **submetered** service | default 2026-08-01 | `edu-submetering-billing-duties-mn` |
+
+**How it was caught.** §216B.023's compilation History line ends "2024 c 107 s 2; 2025 c 20 s 182" and the printed text contains **no subd. 3a** — but the revisor's *Recent History* sidebar shows "2026 Subd. 3a New 2026 c 81 s 1". Reading the sidebar rather than trusting the printed section is what exposed the whole act. **This is instruction 35 running in both directions at once:** an official current compilation that omits law in force, and a brand-new section (§504B.2136) that is absent from the chapter index altogether.
+
+Also found, and all pre-dating MN's last pass but not fully reflected:
+
+- **§504B.161 subd. 1 amended twice in 2025** — Laws 2025 c 32 art 4 s 4 **and Laws 1Sp2025 c 11 s 1, a SPECIAL SESSION chapter.** The revisor's *Recent History* sidebar renders the second as plain "2025 c 11 s 1", hiding the special session; only the full History line at the foot of the section shows "1Sp2025". **Instruction 29 answered for Minnesota: yes, a 2025 special session met, and it amended the habitability covenant.** Read the History line, not the sidebar, when provenance matters. Current subd. 1(a)(5) requires 68°F **"in all places intended for habitation including kitchens and bathrooms"** and **"unless a utility company requires and instructs the heat to be reduced"**; subd. 1(a)(4) now reads "including ordinances regulating rental licensing". `habitability-baseline-mn` had the figure and the date range right and omitted the carve-out — i.e. it **under-claimed a landlord protection**, the safe direction, but the same shape as the holdover-figure problem in reverse. Body refined.
+- **§504B.204 amended 2024 c 118 s 14** — see §GB.5.2.
+- **§363A.02 subd. 1 amended by Laws 2026, ch. 99, s 1.** Not resolved this pass; flagged in §GB.9.
+- **§504B.215 repealed** by 2024 c 107 s 9 — see §GB.5.1.
+- **§§504B.385, 504B.395, 609A.055 and 8.31** each show 2025 amendments to subdivisions MN's rows touch only at the remedy level. Not resolved; flagged in §GB.9.
+
+### GB.7 Layout and placement requirements (instruction 28) — Minnesota's table
+
+Minnesota had no layout table. The typography sweep ran `conspicuous` (221 hits), `boldface` (45), `bold type` (19), `underlined` (6), `capital letters` (25), `point type` (4) and `separate written` (9), and every landlord-relevant hit was reviewed.
+
+| Requirement | Source | Attaches to | Status |
+|---|---|---|---|
+| "Total Monthly Payment" summed on the **first page** | §504B.120 | The lease | Known; `edu-prohibited-fees-disclosure-mn` — product/layout item |
+| Close-to-verbatim utility disclosure **attachment** | §504B.216 subd. 10 | Lease attachment | Known; `edu-utility-disclosure-attachment-mn` — product item |
+| **Conspicuous** written agreement for a prelease deposit | §504B.175 subd. 2(a) | A **pre-lease** document, not the lease | **New this pass** |
+| **Conspicuous** writing (plus adequate consideration) for any tenant-performs-maintenance agreement | §504B.161 subd. 2 | The lease or an addendum | Known in notes; now tabled |
+| **Conspicuous place** posting of a non-health/safety inspection order summary | §504B.195 subd. 1(b) | Building posting | **New this pass** |
+| **Conspicuous** posting of landlord identity | §504B.181 | Building posting | Known |
+| Stored-property value limit effective only if **bold type or underlined**, and not below $1,000 | §514.975 subd. 2 | A self-service storage rental agreement | **New this pass** |
+| Foreclosure advice notice to tenant: **14-point boldface**, **20-point boldface** title, own page, **coloured paper** differing from the other notices | §580.042 subd. 2 | The foreclosure notice packet — **not the landlord's to produce** | **New this pass**; see `foreclosure-disclosure-mn` notes |
+
+**No bold, underline, type-size or capitals rule applies to the body of a Minnesota residential lease itself.** The constrained items are the page-1 placement, the verbatim attachment, and "conspicuous" for three specific agreements or postings.
+
+### GB.8 Decisions for Taylor
+
+1. **`storage-space-mn` — body narrowed; please confirm or revert.** §514.975 subd. 1 provides that a self-service storage rental agreement "may not exempt an owner from liability for damages to an occupant's personal property caused by the owner's negligence", and §514.971 subd. 2(a)'s definition has **no exclusion for lockers in an apartment building** while subd. 3 defines "owner" to include a lessor. Whether a locker supplied with a dwelling is inside the act is genuinely unresolved — the better reading is that it is not, because such property is not "designed and used for the purpose of renting or leasing individual storage space", but a landlord renting lockers **for a separate fee** is squarely at risk, and there the old sentence was **void**, not merely weak. No case law searched. I made the clause self-limiting so it is correct either way and put both readings in `edu-self-storage-act-scope-mn`. **Revert if you would rather keep the original sentence and rely on the education row** — it was not wrong for the ordinary apartment-locker case.
+2. **Two shared rows are affected by §504B.118 subd. 3 and I did not touch them.** `acceptable-payment-methods` (10 states) lets the landlord name and change accepted methods; `late-fee` (7 states) assesses a late fee automatically after the grace period. Neither conflicts on its face, because the statute operates on the landlord's **conduct during an outage** and binds whatever the lease says. Options: (a) leave both and rely on `edu-digital-payment-platform-mn` — my recommendation, since the duty is not lease-text-shaped; (b) add a self-limiting sentence to `acceptable-payment-methods` about an alternative method being available at no charge where law requires, classified **UNIFORM** (true everywhere, and NJ and TX have their own payment-method rows already); (c) write an MN override. A shared edit needs your OK and paste-ready §5a.1 notes, which I will produce on request.
+3. **Subrogation waiver — absent library-wide, all 14 states.** The MSBA form carries a mutual waiver of subrogation for insured losses. Not required by any state's law found so far. Same class as the AZ §16.4 boilerplate set. My recommendation: **skip**, consistent with your subordination and time-of-essence decisions; a subrogation waiver mainly reallocates risk between two insurers and is the kind of term that silently defeats a landlord's own insurer's recovery.
+4. **"Notice to one tenant is notice to all"** — the MSBA form has it; `notices` does not, for any state. Genuinely useful in a joint-tenancy lease and not statutory anywhere found. A shared-row question, not an MN fix. Recommendation: **worth adding**, but as a considered shared edit rather than folded into this backfill.
+5. **Named-topic checklist is missing a topic two states now have.** `edu-minor-tenant-filing-oh` (Ohio) and the new `edu-minors-not-defendants-mn` both restrict who may be named as an eviction defendant, with different rules and different remedies. No checklist row asks about it. Added to §GB.10.
+
+### GB.9 Open items (not resolved this pass, none blocking)
+
+- **§363A.02 subd. 1 amended by Laws 2026, ch. 99, s 1** — the Human Rights Act's scope and public-policy section. `edu-fair-housing-protected-classes-mn` rests on §§363A.09, .03, .21 and .40, none of which shows a 2026 amendment, so the protected classes themselves appear unchanged. The amendment was **not read**. Worth a targeted check before anyone relies on MN's fair-housing row again.
+- **2025 amendments to §§504B.385, 504B.395, 609A.055 and 8.31** — all in the remedies and expungement machinery MN's rows cite at the remedy level. Not read.
+- **Ch. 617 not read whole** — §§617.80, 617.82, 617.83, 617.84, 617.86, 617.87 and the full qualifying-offence list in §617.81 subd. 2(a) were not read. `edu-nuisance-abatement-exposure-mn` states the notice, the 30-day clock, the one-year remedy and the §617.85 safe harbour, and does not enumerate the offences.
+- **Ch. 168B not read whole** — §§168B.06, .07, .08, .087 and .14 (notice, reclaim, disposition, tower regulation) not read; "properly posted" confirmed undefined in §168B.011; municipal towing ordinances not searched.
+- **Unclaimed-property mechanics** — §§345.41–345.43 (reporting and remittance) and §345.55 (penalties) not read.
+- **§216B.422** (electricity sales for charging electric vehicles) read by **title only** — the provision to check before a landlord resells charging electricity. Flagged, not characterised.
+- **§144.1222 (public pools)** — surfaced on "swimming pool" and **not read**; whether an apartment pool is a "public pool" is unresolved.
+- **§580.042** — the section does not name who must serve the notice; "served by the foreclosing party, not the landlord" is the reading the text supports, not something it states.
+- **Self-service storage act applicability** — no Minnesota case law searched (§GB.8 item 1).
+- **Which of the two 2025 chapters made which change to §504B.161 subd. 1** — not traced to the session laws; the current consolidated text was read and is what the row reflects.
+- **Boundary carried forward:** Minnesota Rules, municipal ordinances and case law remain unsearched for every "confirmed absent" in §GB.5.6. Minneapolis and St. Paul remain noted-not-resolved, as before.
+
+### GB.10 Integrity
+
+**Delta:** 33 rows — 19 new, 14 changed. Same 16-column header as the trunk. No duplicate ids; no dangling `supersedes`; no override/target display collisions introduced; no blank `verification_status`; no blank `states`; no embedded newlines; every state token well-formed; all new rows MN-only and all `VERIFIED`.
+
+**No drift on changed rows:** `id`, `states`, `rule_type`, `content_type`, `group`, `is_active`, `supersedes` and `topic_key` are byte-identical to the trunk for all 14. Only `bodyText` (4 rows), `notes` (14) and `last_checked` (14) changed.
+
+**`topic_key` aligned to the library's cross-state convention** — 13 of the 19 new rows reuse an existing key so instruction 26's group-by pairs them with their counterparts in other states (`towing`, `escheat`, `holding-deposit`, `meth-disclosure`, `minor-tenant-filing`, `nuisance`, `crime-free-addendum`, `expedited-criminal-eviction`, `security-devices`, `successor-owner-bound`, `storage-space`, `acceptable-payment-methods`, `utility-submetering-disclosure`). Four genuinely new keys: `cold-weather-vacate-notice`, `condemned-premises-rent-bar`, `inspection-condemnation-disclosure`, `fire-sprinkler-duty`.
+
+**Projected post-merge:** 941 → **960 rows**; **MN 121 → 140** (74 `LEASE_CLAUSE`, 66 `LANDLORD_EDUCATION`, all `VERIFIED`). **Every other state's tag count is unchanged** — CO 116, WY 100, KS 115, NE 112, SD 91, ND 111, AZ 109, OH 74, CA 154, NV 103, TX 129, NJ 81, FL 100. The one shared row touched (`tenant-maintenance`) changed **notes only**, so no §5a.1 propagation is owed to CO, WY, SD, OH, TX, NJ, FL or AZ.
+
+**One self-caught error, recorded rather than quietly fixed.** My first draft of `edu-minors-not-defendants-mn` asserted that no state in the library had a row on who may be named as an eviction defendant. Ohio already does (`edu-minor-tenant-filing-oh`). The `topic_key` alignment check caught it. The row now shares Ohio's key and states both rules and their differences. The claim I would have shipped was an overclaim of novelty in exactly the direction that does not get questioned.
+
+### GB.11 Independent verification — two errors of my own, found and fixed
+
+Because this pass touched a completed state and produced a landlord-facing risk row, the output was checked by a **separate verification pass that had not seen the work**, against `revisor.mn.gov` only, on sixteen of the load-bearing claims. Fourteen confirmed. **Two did not, and both were mine.** Each was then re-read section-open here before correcting, rather than taken on the checker's word.
+
+**1. `edu-expedited-eviction-mn` — I attributed a pre-existing rule to the 2026 act.** I stated that §504B.321 subd. 2 paragraph (e), the no-consolidation rule, was **new** in Laws 2026 ch. 81. It is not. The codified pre-2026 text already contains (e) verbatim, from Laws 2023 c 52 art 19 s 105. Ch. 81 s 5 changed exactly two things: paragraph (a) gains the assault ground with the §609.02 subd. 10 definition, and paragraph (d)'s penalty goes $500 → $750.
+
+> **Root cause, and it belongs in the standing rules.** When I re-fetched the session law to get a clean read, I **stripped the revisor's `new text begin / new text end` and `deleted text begin / deleted text end` markers** to make the output readable — then asserted novelty from text whose novelty markers I had just deleted. **Never strip the amendment markers from a session law.** They are the only thing distinguishing new language from restated existing language, and a session law reprints whole subdivisions including the parts that did not change. This is the project's recurring failure shape — a correct citation described wrongly — in a new costume.
+
+**2. `edu-nuisance-abatement-exposure-mn` — I dropped a condition, in the landlord-favourable direction.** I stated the §617.85 safe harbour as: no abatement if the court cancels the lease, grants restitution, and finds the acts were that tenant's. The verbatim text adds **"and the tenant or lessee was not committing the act or acts in conjunction with or under the control of the owner."** My version told a landlord the building was protected in circumstances where it is not.
+
+> This is the same shape as the WY holdover row and the CO post-writ finding: **a screen that stops at the general rule records the opposite of the truth** (Addendum K.3/K.4). It is also the direction in which an error does not get questioned, because the reader wants it to be true. The condition is now the row's operative caution.
+
+Two smaller refinements from the same pass: §299F.48's definition reaches "the public housing authorities **and agencies** formed by cities and counties", now quoted rather than paraphrased; and the §504B.161 special-session citation above.
+
+**One thing the checker corroborated that is worth keeping.** The revisor's **codified section pages have not absorbed Laws 2026 ch. 81** even though it is in force: `/statutes/cite/504B.118` still shows "RECEIPT FOR RENT PAID IN CASH" with history ending 2010, `/statutes/cite/504B.2136` returns **404**, and `/statutes/cite/504B.321` still prints **$500**. Anything relying on ch. 81 must cite the session law, and **any tooling that scrapes the cite pages will silently read pre-amendment law for these three sections.** That is a direct warning for the Claude Code sync and for the legal-watch monitor.

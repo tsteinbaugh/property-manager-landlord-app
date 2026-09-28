@@ -493,3 +493,329 @@ Not a re-audit; nothing else in this state was reviewed. Detail: lease-clause-de
 1. **Shared-row edit received from Arizona (2026-09-27, Taylor's decision) — `entire-agreement`.** The sentence "may not be changed except in writing signed by all parties" now continues ", or as applicable law permits Landlord to change it by written notice to Tenant." Driver: A.R.S. §33-1342(C), which lets an Arizona landlord amend existing leases by written notice to comply with new laws; the old wording could be read to waive such a right. Recorded as **uniform** under §5a.1: the words are self-limiting and change nothing where this state's law gives no unilateral amendment right, while preserving any right it does give (for example, rules adopted on notice or changes to a periodic tenancy on the notice the law requires). No state-specific override is needed. `last_checked` was reset to 2026-09-27.
 
 2. **2026-09-27, AZ session — new shared row `rental-application-accuracy` tagged OH** (§5a.1; uniform text, no OH override). The tenant represents that the application information was true, correct and complete; a materially false or misleading statement is a material breach, with the remedies the lease and law provide; information the landlord may not request or consider is excluded. Confirmed absent as a statute. Remedies run through `default-by-tenant-ks-ne`.
+
+---
+
+## Gap-discovery backfill (instruction 36) — 2026-09-27
+
+| Source | Status |
+|---|---|
+| Gap-discovery source 1 — statute walk | Done (§20.1: R.C. ch. 5321, ch. 1923 and ch. 4112 read whole, 2026-09-18) |
+| Gap-discovery source 2 — real-lease comparison | Done (§20.2: OHFA *Ohio Residential Lease Agreement*, 2016 edition, supplied by Taylor) |
+| Gap-discovery source 3 — landlord-scenario screen | Done (§20.3: 68 scenarios, Claude-generated) |
+| Gap-discovery source 4 — outside-title search | Done (§20.4: official Ohio Revised Code full-text search) |
+
+All four sources are done. Ohio passes instruction 36.
+
+**One caveat to carry, stated here rather than buried in §20.2:** the OHFA lease qualifies on provenance — it is published by a state housing finance agency, which is category (b) — but on content it is a relabelled generic multi-state template, and it is legally defective under Ohio law in at least four places. It therefore did the *opposite* of what source 2 is normally for. It found almost no Ohio requirement the library misses. What it found instead was **two rows the library was missing about what a lease may not say**, and independent confirmation of the worst gap in §20.3. That is a real result, and §20.2 records exactly how far it can be trusted.
+
+---
+
+### 20.1 Source 1 — statute walk: where it is recorded, and what it failed to deliver
+
+The statute walk itself was done on 2026-09-18 and is not redone here. R.C. Chapter 5321 (landlord-tenant), Chapter 1923 (forcible entry and detainer) and Chapter 4112 (civil rights) were each read whole. That work is in the Ohio log under "CORE OBLIGATIONS", "Disclosures & habitability", "Termination, default, possession" and "Tiering caveats — what is *not* full-primary".
+
+**But the walk did not reach the CSV.** The scenario screen in §20.3 exposed seven topics where Ohio has a statute, the statute was read on 2026-09-18, and **no row was ever written**. The worst is landlord maintenance: thirteen states carry a `landlord-maintenance` row, R.C. 5321.04(A)(1)-(6) is the most-cited statute in the whole Ohio log, and an Ohio lease generated from the library **had no landlord repair clause at all**. That is the same failure mode as California's, which is what instruction 26 was written for.
+
+So source 1's status is honestly *done as research, under-delivered as product*. The seven rows that fix it are section B of the delta (§20.3.2). **They are not gap-discovery findings and I am not claiming them as such** — they are statute-walk output arriving nine days late, and writing them edges toward the re-audit this prompt forbade. They are separable: reject section B wholesale and the rest of this backfill stands.
+
+**One of the seven no longer rests on my judgement alone.** The real-lease comparison reached `landlord-maintenance-oh` independently, from the opposite direction: the OHFA lease puts maintenance entirely on the tenant across eleven sub-items and never states a landlord duty, which under R.C. 5321.13(E) is a legal defect rather than an omission (§20.2.1, §20.2.2). Two sources converging on the same missing clause is the strongest evidence in this backfill. The other six rows stand on the statute walk alone.
+
+---
+
+### 20.2 Source 2 — real-lease comparison
+
+**Source.** *Ohio Residential Lease Agreement*, **Ohio Housing Finance Agency** — 5 pages, 2,776 words, 28 numbered sections, supplied by Taylor 2026-09-27.
+
+**Why it qualifies, and how far.** Provenance is established from the file's own OOXML metadata rather than from a claim on a web page: `docProps/app.xml` carries `<Company>Ohio Housing Finance Agency</Company>`, and `docProps/core.xml` gives the author, a revision count of 3, and created/modified/last-printed stamps of **2016-11-21**. OHFA is an Ohio state agency, so this is category (b), a lease published by a state agency or public body.
+
+**Two limits that bound everything below.**
+1. **It is ten years old.** The 2016 edition predates H.B. 33 (2023), which amended both R.C. 5321.01 and R.C. 1923.02, and H.B. 96 (2025), which created R.C. 4112.055. It cannot reflect current Ohio law and was not treated as if it could.
+2. **Its content is a relabelled multi-state template, not Ohio drafting.** The tells are unambiguous: the phrase "Ohio Lease Agreement" is find-and-replaced into 30-odd sentences where "this Lease" would read naturally; the security-deposit deduction list includes **"keybox"** and **"brokerage fees"**, which are Texas REALTORS / TREC lease vocabulary with no Ohio analogue, plus "insufficient light bulbs"; and section 16's **seven-day** cure period is the Fla. Stat. §83.56 figure, not an Ohio one. So although the *publisher* is exactly what instruction 36 asks for, the *document* is drawn from the class instruction 36 disqualifies. **Used as a lead only, per instruction 6.** Every statutory claim below rests on primary text read section-open on codes.ohio.gov on 2026-09-27: R.C. 5321.11, 5321.13, 5321.16, 5321.18 and 1923.02(A).
+
+Provisions are mapped by topic. The lease text is not reproduced.
+
+#### 20.2.1 Provision map
+
+| OHFA provision (by topic) | Library coverage for OH | Result |
+|---|---|---|
+| §1 Property; §3 rent amount and due date | `rent-payment`, `due-at-signing` | Covered |
+| §2 Term; holdover into month-to-month on acceptance of new rent; 30-day periodic notice | `surrender-end-of-term`, `holdover-oh`; **+ `termination-notice-oh`** (R.C. 5321.17(B)) | Covered after §20.3's new clause; **figures agree** |
+| §3 Delinquent rent; NSF charge; landlord may demand certified funds | `late-fee`, `returned-payments`, `acceptable-payment-methods`, `edu-bad-check-cure-windows-oh` | Covered |
+| §3 Order in which funds are applied — non-rent first, then rent | `application-of-payments` | **Covered, and the library is now the opposite way round.** The library moved to rent-first since Ohio's pass. Ohio has no statute either way, so this is a product decision, not a legal one — noted, not acted on |
+| §3 Rent increases on renewal by written notice | `edu-rent-increase-notice-gap-oh` | Covered (Ohio sets no period) |
+| §4 Deposit "not in excess of two months periodic rent" | `edu-no-statutory-caps-oh` | Covered — and the parenthetical is **not** an Ohio cap. Ohio has none. A self-imposed contractual limit dressed as a statutory one |
+| §4 Landlord may hold the deposit in an interest-bearing account; **interest paid to Landlord** | `security-deposit-interest-oh` | **Library correct, lease wrong — see §20.2.2(1)** |
+| §4(A)-(B) Deposit applied to accrued rent and damages; 14-item deduction list | `security-deposit-use`, `security-deposit-return-oh` | Covered. Two list items are unenforceable: **"accelerated rent"** is not past-due rent under R.C. 5321.16(B), and **"attorney fees"** is barred by R.C. 5321.13(C) |
+| §4 Excess over deposit payable within 10 days of written demand | `security-deposit-use` | Covered |
+| §5 Use; occupancy limited to tenant and immediate family; guests; no business use | `residential-use-only`, `permitted-occupants`, `guest-policy` | Covered. **"Immediate family" as an occupancy limit is a familial-status exposure** under R.C. 4112.02(H) — flagged, not researched |
+| §6 Condition of premises; tenant warrants it is tenantable | `existing-condition` | Covered — but a tenant warranty of habitability sits uneasily with R.C. 5321.13(A); flagged |
+| §7 No assignment or sub-letting without consent | `no-sublet-assign` | Covered |
+| §8 No alterations; improvements become landlord's | `no-alterations` | Covered |
+| §9 Non-delivery of possession; rent abates; 30 days then termination | `possession-delay` | Covered; "no liability" limb is void under R.C. 5321.13(D) |
+| §10 Hazardous materials | `fire-safety-grilling`, `tenant-maintenance` | Covered |
+| §11 Utilities — all on tenant | `utilities-responsibility`, `utility-service-continuity` | Covered |
+| §12 Maintenance and repair — **entirely on the tenant, 11 sub-items, landlord duties nowhere** | **none existed** | **Gap → confirms `landlord-maintenance-oh` (§20.3.2) independently.** And under R.C. 5321.13(E) a lease may not permit receipt of rent free of the R.C. 5321.04 obligation, so this is a legal defect, not just an omission |
+| §12 Trash in designated locations; HOA rules | `edu-portfolio-thresholds-oh` (R.C. 5321.04(A)(5)), `hoa-compliance` | Covered |
+| §13 **No animals at all**, per-day violation fee, landlord may remove the animal on 24-hour notice | `pet-policy`, `pet-insurance-requirement`, `assistance-animal-accommodation-oh` | **Library correct, lease wrong.** No assistance-animal carve-out anywhere in the lease — a blanket ban conflicts with OAC 4112-5-07. Self-help removal of the animal is also unresearched |
+| §14 Quiet enjoyment | `no-disturbance` (reciprocal) | Covered |
+| §15 **Indemnification and exculpation** | **none existed** | **Gap → new row `edu-exculpation-indemnity-ban-oh`** (§20.2.2(2)) |
+| §16 Default: **7 days** for material noncompliance; 7 days for rent; rent acceleration | `default-by-tenant-ks-ne` | **Gap → new row `edu-tenant-cure-period-oh`** (§20.2.2(3)). Acceleration is unresearched — flagged |
+| §17 Abandonment; relet and hold tenant for the difference; belongings deemed abandoned and disposable; landlord "relieved of all liability" | `edu-no-abandoned-property-safe-harbor-oh`, `edu-casualty-and-mitigation-waivable-oh` | Covered as to the absent safe harbour and the mitigation position. The liability release is void under R.C. 5321.13(D) |
+| §18 **Attorneys' fees to landlord** | `edu-bilateral-fee-ban-oh` | **Library correct, lease wrong** — R.C. 5321.13(C) voids it both ways |
+| §19 No recording of the lease | none | No Ohio issue; not worth a row |
+| §20 Governing law; §21 severability; §22 binding effect; §23 headings; §24 construction | `governing-law`, `severability`, `entire-agreement` | Covered |
+| §25 Non-waiver | `edu-waiver-by-acceptance-oh` | **Covered, and the library is sharper than the lease.** A no-waiver clause does not save a three-day notice, because it is jurisdictional |
+| §26 Modification; entire agreement | `entire-agreement` | Covered. The library's row now carries a carve-out for changes applicable law permits by notice, which the lease lacks |
+| §27 Notice — a blank for the landlord's address only | `notices`, `landlord-identity-oh` | **Library correct, lease wrong — see §20.2.2(4)** |
+| §28 Lead-based paint for pre-1978 | `lead-based-paint` | Covered |
+| Missing entirely: three-day notice language, drug-activity duty, rent escrow, retaliation, self-help ban, casualty, owner/agent identity, assistance animals, sex-offender occupancy, flag display, snow removal, minor tenants | — | The library covers all twelve for Ohio. **No Ohio requirement in this lease is absent from the library** |
+
+#### 20.2.2 What the comparison actually produced
+
+**Four defects in the lease, each of which validates an existing library row rather than changing it.** Worth recording because a landlord will make these same four mistakes, and because a state agency's own form making them is the evidence:
+
+1. **Deposit interest assigned to the landlord.** R.C. 5321.16(A) (read section-open; effective 1974-11-04, never amended) requires the landlord to compute and pay the tenant **5% per annum on the excess over the greater of $50 or one month's periodic rent**, annually, once the tenant has been in possession six months or more. The lease says any interest earned goes to the landlord and never mentions the statutory duty. Strictly, it does not *expressly* waive R.C. 5321.16(A) — it is silent on it — but it leaves a tenant with the plain impression that no interest is owed, and any reading of it as displacing R.C. 5321.16(A) is void under R.C. 5321.13(A), which makes the whole chapter non-waivable but for division (F). `security-deposit-interest-oh` states the rule correctly, including that **nothing is owed where the deposit equals one month's rent** — which is why Taylor's 2026-09-18 decision to rewrite that row rather than repair it was the right call.
+
+2. **Section 15 is void.** R.C. 5321.13(D): no agreement by a tenant to the exculpation or limitation of *any* liability of the landlord arising under law, or to indemnify the landlord, is recognised in any rental agreement or other agreement. Section 15 is exactly that, and sections 9 and 17 add further liability releases. **→ new row.**
+
+3. **Section 16's seven-day cure is unenforceable for one whole class of breach.** R.C. 5321.11 requires **not less than thirty days** where the tenant has broken an R.C. 5321.05 duty that materially affects health and safety, other than (A)(9); and R.C. 1923.02(A)(8) (effective 2023-10-03, H.B. 33) makes compliance with R.C. 5321.11 a **condition precedent to filing**. Seven days is operative under R.C. 1923.02(A)(9) for a written-lease breach and fatal under (A)(8). **→ new row.**
+
+4. **The one disclosure Ohio actually mandates inside the lease document is missing.** R.C. 5321.18(A): every written rental agreement **shall contain** the name and address of the owner and of the owner's agent, if any. The OHFA lease has a single blank for a landlord notice address and no owner or agent identification at all. Under R.C. 5321.18(C) the consequence is that the landlord **waives** the tenant-notice requirements of R.C. 5321.07(A) and 5321.08(A) — so the tenant may go straight to rent escrow without giving the landlord a cure window. `landlord-identity-oh` already carries both the rule and that consequence.
+
+**Two new rows — section E of the delta.** Both are genuine source-2 findings: neither the statute walk nor the scenario screen nor the outside-title search produced them, because both are about *what a lease may not say*, which only reading a real lease surfaces.
+
+| id | rule_type | Authority | Why it was missing |
+|---|---|---|---|
+| `edu-exculpation-indemnity-ban-oh` | PROHIBITED | R.C. 5321.13(B), (D) | On 2026-09-18 I decided `edu-bilateral-fee-ban-oh` + `edu-one-way-delegation-oh` + `edu-no-statutory-caps-oh` covered R.C. 5321.13 and a general prohibited-terms row would duplicate them. **Right for (A), (C), (E), (F); wrong for (B) and (D).** Nothing mentioned confession of judgment; nothing told a landlord exculpation and indemnity clauses are void. R.C. 5321.13(D) was applied as a *screen* over the library's own clause text — five Ohio rows cite it — but screening our text is not telling the landlord the rule |
+| `edu-tenant-cure-period-oh` | REQUIRED | R.C. 5321.11; 1923.02(A)(8), (A)(9) | `default-by-tenant-ks-ne` defers to "the time period specified by applicable law" and points at `edu-tenant-noncompliance-notice-ks` — a **Kansas** row, not tagged OH — so an Ohio landlord got no figure from anywhere in the library |
+
+`topic_key` reuse: `prohibited-lease-terms` (KS, NE, NV, TX already have it; Ohio had no row in the family) and `notice-and-cure` (previously SD-only).
+
+**Ohio's R.C. 5321.13(D) is broader than Kansas's.** K.S.A. 58-2547(a)(4) carves out a landlord's liability for fire, theft or breakage in common areas. Ohio has **no such carve-out**. Do not import the Kansas clause (instruction 19).
+
+#### 20.2.3 Confirmed absences from the comparison (no row)
+
+- **No Ohio requirement in the OHFA lease is missing from the library.** The comparison found no missing *required* clause, which given the lease's quality is weak evidence — a defective form cannot prove completeness. The statute walk remains the authority for that.
+- **Recording of the lease** — no Ohio rule; not worth a row.
+- **Rent acceleration** — the lease has it and the library does not. Whether an Ohio court will enforce acceleration against the common-law mitigation duty, and whether R.C. 5321.14 unconscionability bites, was **not researched**. Open item, not an absence.
+- **Self-help removal of an unauthorised animal** on 24-hour notice — not researched against R.C. 5321.15. Open item.
+- **"Immediate family" as an occupancy restriction** — familial-status exposure under R.C. 4112.02(H) not researched. Open item.
+- **Tenant warranty that the premises are tenantable** (lease §6) against R.C. 5321.13(A) non-waivability — not researched. Open item.
+
+#### 20.2.4 The paid Ohio products, recorded for later
+
+Not needed now, but worth keeping since the OHFA form should not be the project's only reference lease:
+
+- **NAA Click & Lease, Ohio edition** — attorney-edited with a named Ohio State Editor, maintained edition to edition. **Small Owner package: $100/yr license covering the first 20 units, $5/unit above**, plus mandatory NAA affiliate dues (unpublished; Columbus Apartment Association, 614-488-2115). The 50+ unit package is $350 plus $3.49/unit.
+- **Columbus Apartment Association's own Lease Agreement** — price unpublished, same number. Its form set includes a **Concealed Carry Lease Addendum**, which independently corroborates `edu-firearms-lease-restriction-oh` (§20.4.2) from the market side.
+- For the record, what does **not** exist: Ohio REALTORS® forms are behind a member login, and **Columbus REALTORS® publishes its residential forms publicly but has no residential lease form at all** — only an Exclusive Right to Lease Listing Contract and a Rental Application. Public-housing authority leases (AMHA, CMHA) are shaped by 24 CFR 966.4 rather than R.C. 5321. Public-university leases are useless here: R.C. 5321.01(C) excludes educational institutions from "residential premises" entirely.
+
+### 20.3 Source 3 — landlord-scenario screen
+
+**Method.** Arizona's 59-scenario map (AZ §18.1) as the base, plus five Ohio-specific scenarios, each run against Ohio's 74 active rows. Where nothing answered the scenario, the Ohio statutes were searched and every landlord-relevant hit read section-open. I wrote the scenarios; no question was put to Taylor.
+
+**Result: 68 scenarios — 38 answered by Ohio's existing rows, 30 not.** The 30 break down as:
+
+| What the scenario turned out to be | Scenarios | Where it went |
+|---|---|---|
+| Ohio has the statute, no row existed | 9 | section B of the delta (7 rows) — §20.3.2 |
+| Ohio has no statute, and no row said so | 10 | section C of the delta (10 absence rows) — §20.4.3 |
+| Law found outside the landlord-tenant title | 5 | section A (4 rows) + 1 changed row — §20.4.2, §20.4.4 |
+| Confirmed no Ohio statute, not worth a row | 4 | §20.3.3 |
+| Not searched — open item, not an absence | 2 | §20.3.3 |
+
+#### 20.3.1 Scenario map
+
+| Scenario | OH coverage | Result |
+|---|---|---|
+| **Before the lease** | | |
+| Applicant pays a holding deposit, then backs out | none | **No statute** (no Ohio holding-deposit rule; `edu-no-statutory-caps-oh` covers the absence of caps) |
+| Screening: fees, criminal history, income source, immigration status | `edu-no-statutory-caps-oh`, `edu-fair-housing-election-oh`; **+ `edu-no-source-of-income-rule-oh`, `edu-no-immigration-inquiry-rule-oh`** | **Gap → 2 absence rows** (§20.4.3) |
+| Applicant lied on the application | `rental-application-accuracy` | Covered |
+| Voucher holder applies | **+ `edu-no-source-of-income-rule-oh`** (incl. the OAC 4112-5-07(A)(1)(c) disability trap) | **Gap → absence row** |
+| Unit not ready on move-in day | `possession-delay` | Covered |
+| Required disclosures at signing | `landlord-identity-oh` (§5321.18), `lead-based-paint`, `repair-escrow-exemption-notice-oh` | Covered — and Ohio's list really is that short |
+| Owner never registered anywhere | none | **No statute** (no state rental registry; county auditor filing is a tax duty, not researched) |
+| Property is in an HOA | `hoa-compliance` | Covered |
+| Deposit over a cap | `edu-no-statutory-caps-oh` | Covered (no Ohio cap) |
+| **Rent and money** | | |
+| Rent is late | `late-fee`, `default-by-tenant-ks-ne`, `edu-three-day-notice-language-oh` | Covered |
+| Tenant pays part of the rent | `application-of-payments`, `edu-waiver-by-acceptance-oh` | Covered — and the waiver row is the Ohio-specific trap |
+| Check bounces | `returned-payments`, `edu-bad-check-cure-windows-oh` | Covered |
+| Tenant pays in cash and wants a receipt | `acceptable-payment-methods` | **No statute** (no cash-receipt duty) |
+| Raising the rent at renewal | `edu-rent-increase-notice-gap-oh`; **+ `edu-rent-control-preemption-oh`** | **Gap → section B row** |
+| A city tries to cap the rent | **+ `edu-rent-control-preemption-oh`** (§§5321.19, 5321.20) | **Gap → section B row** |
+| **During the tenancy** | | |
+| Furnace fails in January | **none — no landlord-maintenance row existed** | **Gap → `landlord-maintenance-oh`, `edu-habitability-escrow-oh`** |
+| Tenant withholds rent, or deposits it with the clerk | **+ `edu-habitability-escrow-oh`** (§5321.07 escrow, the Ohio mechanism) | **Gap → section B row** |
+| Bed bugs, roaches | `tenant-maintenance`; **+ `edu-no-bed-bug-disclosure-oh`** | **Gap → absence row** (§3731.13 is hotels only) |
+| Mold complaint | **+ `edu-no-mold-disclosure-oh`**, `edu-habitability-escrow-oh` | **Gap → absence row** |
+| Radon | **+ `edu-no-radon-disclosure-oh`** | **Gap → absence row** (ch. 3723 licenses professionals only) |
+| Tenant causes damage, or won't keep the unit clean | `tenant-maintenance`, `existing-condition`, `default-by-tenant-ks-ne` | Covered |
+| Landlord needs to enter; tenant refuses | `landlords-access`, `inspection-rights` (§5321.04(A)(8), §5321.05(B)) | Covered |
+| Tenant changes the locks | `keys` | Covered |
+| Landlord changes the locks on the tenant | **+ `edu-self-help-eviction-ban-oh`** (§5321.15) | **Gap → section B row** |
+| Tenant away for a month | `edu-no-abandoned-property-safe-harbor-oh` | Covered (Ohio has no extended-absence rule and no safe harbour — the row says so) |
+| Guest won't leave; squatter | `guest-policy`, `guest-policy-day-limit` | Covered |
+| Roommate moves out | `joint-liability`, `no-sublet-assign` | Covered |
+| Tenant sublets or lists on Airbnb | `no-sublet-assign`, `residential-use-only` | Covered |
+| Noise and neighbour complaints | `no-disturbance` | Covered |
+| Drugs, violence or other crime | `edu-mandatory-drug-termination-oh` **(changed: + R.C. 2925.13 criminal exposure)**; **+ `edu-nuisance-receivership-oh`** | **Gap → outside-title row + changed row** |
+| Neighbours sue over the property | **+ `edu-nuisance-receivership-oh`** (§3767.41 — receiver takes the rents, first lien ahead of the mortgage) | **Gap → §20.4.2 row** |
+| Marijuana smoking or growing | `smoking-policy` | Covered (no Ohio adult-use statute as of the pass; medical only) |
+| Unapproved pet | `pet-policy`, `pet-insurance-requirement` | Covered |
+| Assistance or emotional-support animal request | `assistance-animal-accommodation-oh` (OAC 4112-5-07) | Covered |
+| Disability modification request | `edu-fair-housing-election-oh`, `no-alterations` | Covered |
+| Tenant paints or alters the unit | `no-alterations` | Covered |
+| Tenant wants to fly a flag | `flag-display-oh` | Covered |
+| Tenant carries a concealed handgun; lease says no guns | **+ `edu-firearms-lease-restriction-oh`** (R.C. 2923.126(C)(3)(b) — the clause does not bind a licensee) | **Gap → §20.4.2 row** |
+| HOA fines the owner because of the tenant | `hoa-compliance` | Covered |
+| Car towed from the lot | `parking-vehicle-rules`, `assigned-parking-space`, `parking-ks-oh-ca`; **+ `edu-towing-oh`** (R.C. 4513.601) | **Gap → §20.4.2 row** |
+| Yard work and snow | `landscaping-irrigation`, `snow-removal` | Covered |
+| Trash and waste receptacles | `edu-portfolio-thresholds-oh` (§5321.04(A)(5), four-or-more-in-one-structure); **+ `landlord-maintenance-oh`** | **Gap → section B row** |
+| Smoke and CO alarms | `edu-alarm-duty-fire-code-oh` | Covered (Ohio has no alarm statute; the duty is fire code) |
+| Tenant's utility is shut off | `utility-service-continuity`, `utility-payment-evidence`, `utilities-responsibility` | Covered |
+| Landlord's own utility account is shut off for nonpayment | **+ `edu-landlord-utility-account-oh`** (R.C. 4933.121 + OAC 4901:1-18-08) | **Gap → §20.4.2 row** |
+| Tenant asks the landlord to keep water on | `services-utilities-provided-ks-oh`, `utilities-paid-by-landlord` | Covered |
+| Adding a new rule mid-lease, or a law changes | `entire-agreement` carve-out, `addendum-precedence` | Covered |
+| Tenant complains to the city, then gets a notice | **+ `edu-retaliation-oh`** (§5321.02, closed trigger list) | **Gap → section B row** |
+| Tenant calls 911 repeatedly | **+ `edu-no-emergency-assistance-right-oh`** | **Gap → absence row** (§5321.02's list does not reach 911) |
+| Tenant asks to install an EV charger | `parking-vehicle-rules`; **+ `edu-no-ev-charging-right-oh`** | **Gap → absence row** |
+| Registered offender moves in | `sex-offender-occupancy-oh` | Covered |
+| A minor is on the lease | `edu-minor-tenant-filing-oh` | Covered |
+| **Ending the tenancy** | | |
+| Tenant wants out early | `early-termination`, `edu-casualty-and-mitigation-waivable-oh` | Covered |
+| Domestic violence victim wants out | **+ `edu-no-dv-lease-termination-oh`** | **Gap → absence row.** Ohio gives the survivor nothing. Watch the invented citation — see the row's notes |
+| Tenant is deployed or called up | **+ `edu-no-servicemember-lease-rule-oh`** | **Gap → absence row** (§1349.02 is motor vehicles only; §1923.062 is a stay, not a termination) |
+| Month-to-month notice either way | **+ `termination-notice-oh`** (§5321.17 — 30 days monthly, 7 days weekly) | **Gap → section B row** |
+| Tenant stays after the lease ends | `holdover-oh` | Covered |
+| Tenant disappears; belongings left | `edu-no-abandoned-property-safe-harbor-oh` | Covered |
+| Tenant dies | none | **No statute** (no Ohio dwelling provision for death of the tenant) |
+| Fire or casualty | `edu-casualty-and-mitigation-waivable-oh`; **+ `fire-casualty-termination-oh`** (§5301.11) | **Gap → section B row** (the education row existed; the clause did not) |
+| Eviction process and the three-day notice | `edu-three-day-notice-language-oh`, `edu-waiver-by-acceptance-oh`, `edu-minor-tenant-filing-oh`, `edu-bilateral-fee-ban-oh` | Covered |
+| Deposit dispute | `security-deposit-return-oh`, `security-deposit-use`, `security-deposit-interest-oh` | Covered |
+| Deposit refund never cashed | none | **No statute read** (Ohio unclaimed-funds act, R.C. ch. 169, not searched — flagged) |
+| Meth lab in the unit | **+ `edu-no-meth-disclosure-oh`** (no disclosure duty, but R.C. 2925.13 is a crime) | **Gap → absence row + changed row** |
+| **Owner changes** | | |
+| Owner sells with a tenant in place | `edu-deposit-on-sale-oh` | Covered |
+| Lender forecloses | none | **No statute read** (no Ohio tenant-foreclosure-notice provision located; not separately searched — flagged) |
+| Owner switches property managers | `landlord-identity-oh` (§5321.18 currency) | Covered |
+| Which small-landlord exemption applies | `edu-portfolio-thresholds-oh` **(changed: fourth → fifth threshold, §3767.41)** | Covered after the change |
+
+#### 20.3.2 Rows the screen produced
+
+**Section B of the delta — seven coverage-gap rows.** Ohio has the statute, the statute was read on 2026-09-18, and no row existed. Each row's notes says so in terms: *"FOUND BY THE LANDLORD-SCENARIO SCREEN (source 3) … COVERAGE GAP, not newly found law."* All seven were re-read section-open on 2026-09-27 before drafting, per instruction 22.
+
+| id | rule_type | type | Authority |
+|---|---|---|---|
+| `landlord-maintenance-oh` | REQUIRED | clause | §5321.04(A)(1)-(6) |
+| `edu-habitability-escrow-oh` | RECOMMENDED | education | §5321.07(A)-(D) |
+| `edu-retaliation-oh` | RECOMMENDED | education | §5321.02(A)-(C) |
+| `edu-self-help-eviction-ban-oh` | PROHIBITED | education | §5321.15(A)-(C) |
+| `fire-casualty-termination-oh` | REQUIRED | clause | §5301.11 |
+| `termination-notice-oh` | REQUIRED | clause | §5321.17(A),(B),(D) |
+| `edu-rent-control-preemption-oh` | RECOMMENDED | education | §§5321.19, 5321.20 |
+
+**Four scenarios found law outside the landlord-tenant title.** Those are section A and are recorded in §20.4.2, not here, so the sources stay separable.
+
+#### 20.3.3 Confirmed absences the screen found, with no row
+
+**Four confirmed absences**, recorded here only — each a genuine "no Ohio statute" for a scenario a landlord will meet, but none carrying enough for a row of its own:
+- **Holding deposit / earnest money on an application** — no Ohio rule either way. (Arizona needed a row here; Ohio has nothing to state.)
+- **Cash-rent receipt** — no duty to give one.
+- **Lease termination on the tenant's death** — no dwelling provision. The ch. 1923 deceased-resident regime is manufactured-home-park only.
+- **State rental registration** — no state registry. The county auditor filing is a tax duty and was not researched.
+
+**Two open items, which are *not* absences and must not be recorded as such:**
+- **Unclaimed deposit refunds.** R.C. ch. 169 (unclaimed funds) **was not searched.** Arizona has a row (`edu-unclaimed-deposits-az`); Ohio's equivalent is unknown.
+- **Tenant notice on foreclosure.** No Ohio provision located, but no dedicated search was run for it.
+
+Also still out of scope by the 2026-09-18 decision: **appellate-district variation** (Franklin Cty 10th Dist. 30-day rule), to revisit at the municipal pass.
+
+A separate absence already covered by an existing row, so not relisted: **tenant notice of an extended absence** — no URLTA-style provision, and `edu-no-abandoned-property-safe-harbor-oh` already tells the landlord Ohio gives them nothing here.
+
+---
+
+### 20.4 Source 4 — outside-title search
+
+#### 20.4.1 Method, and the instrument limitation
+
+Every Ohio topic still marked "Not located", "Not yet checked" or bounded to Chapter 5321 was listed and searched against the Ohio Revised Code full text, with word variants (singular/plural, hyphenated/unhyphenated, alarm/detector, bed bug/bedbug). Every hit's section number and title was reviewed; every landlord-relevant hit was read section-open.
+
+**The instrument is weaker than Arizona's, and this matters.** `codes.ohio.gov/ohio-revised-code/search?keywords=…` is **JavaScript-rendered**: fetching it returns the same cached result set (54 "landlord" hits) whatever the `keywords` parameter says. I caught this because the results did not change when the term did. So the searches were run as **site-restricted full-text queries against `codes.ohio.gov`** instead, which does work and did find real sections — but it is a search engine's index of the code, not the code's own search. Arizona's §15 ran the official azleg.gov search directly. **Recorded honestly per instruction 15; not claimed as the official search.** No browser permission was needed, so none was requested.
+
+**Boundary:** statutes only, plus the two administrative rules already flagged. Case law was not searched. Municipal ordinances stay out of scope by the 2026-09-18 decision, and several searches turned up municipal law that is squarely on point — flagged in the relevant rows, not resolved.
+
+#### 20.4.2 Found: four statutes outside Title 53, each now a row (section A of the delta)
+
+- **`edu-towing-oh` — R.C. 4513.601** (Title 45, motor vehicles). To tow from private residential property you need **18×24-inch signs at each entrance** with prescribed content; only the owner, agent or an employee may order the tow; a written contract with the carrier is required; the owner must release the vehicle for half the fee before it leaves; §4513.611 gives a civil action. Division (K) extends it to **lessees, managers and agents**. `parking-vehicle-rules` defers to law, so the landlord had no way to learn any of this from the library.
+- **`edu-landlord-utility-account-oh` — R.C. 4933.121 + OAC 4901:1-18-08.** Where the landlord holds the account, the utility must give **14 days' notice to the landlord** and then **10 days' notice to each affected unit**; the tenant may pay the current month's bill or use the §5321.07 escrow to spend rent on the utility; a landlord who *requests* disconnection is liable for the 10 days' consumption. **Instruction 16 flag: half of this is administrative code.** Only the electric chapter was read — gas and water were not. Flagged.
+- **`edu-firearms-lease-restriction-oh` — R.C. 2923.126(C)(3)(b)** (Title 29, crimes). For rental agreements entered on or after **2008-09-09**, a no-handgun clause **does not bind** a concealed-handgun licensee tenant, or that tenant's guest while present. Corroborated from the market side: CAA sells a Concealed Carry Lease Addendum (§20.2.1). **Not researched: the interaction with Ohio's permissionless carry.** Flagged.
+- **`edu-nuisance-receivership-oh` — R.C. 3767.41** (Title 37, health/safety/morals). A tenant, a neighbour, a township or a nonprofit may sue over a building nuisance; the court can appoint a **receiver who takes possession and collects the rents**, whose expenditures become a **first lien superior even to tax liens**, and who can be authorised to sell. Excludes owner-occupied buildings of three or fewer units — **which is Ohio's fifth portfolio threshold**, hence the change to `edu-portfolio-thresholds-oh`.
+
+#### 20.4.3 Confirmed absent (statutes only) — each with its own row
+
+Ten. Every one previously lived only in the checklist grid or in log prose, which makes it invisible to the next canvass; each now has a CSV row stating the terms run. Section C of the delta.
+
+| Topic | Terms run | Row |
+|---|---|---|
+| Radon | radon, radon mitigation, radon testing | `edu-no-radon-disclosure-oh` — ch. 3723 index read in full: licensing only |
+| Bed bugs | bed bug, bedbug, infestation | `edu-no-bed-bug-disclosure-oh` — hits are §3731.13 (**hotels**) + 2 university rules |
+| Mold | mold, mildew, remediation | `edu-no-mold-disclosure-oh` — no mold chapter exists |
+| EV charging | electric vehicle, electric vehicle charging, charging station | `edu-no-ev-charging-right-oh` — corroborated: Ohio is on neither of Plug In America's right-to-charge lists |
+| DV lease termination | domestic violence, victim, stalking, sexual assault, protection order | `edu-no-dv-lease-termination-oh` |
+| Emergency assistance | emergency assistance, law enforcement, police, 911, retaliation | `edu-no-emergency-assistance-right-oh` — §5321.02's trigger list is closed |
+| Source of income | source of income, lawful source of income, housing voucher, housing choice voucher, section 8 | `edu-no-source-of-income-rule-oh` — **one exception: OAC 4112-5-07(A)(1)(c)** |
+| Servicemember | servicemember, military, active duty, orders, deployment | `edu-no-servicemember-lease-rule-oh` — **§1349.02 is motor vehicles only** |
+| Immigration status | immigration status, citizenship status, immigrant, alien | `edu-no-immigration-inquiry-rule-oh` — but §4112.02(H)(8) already bars national-origin inquiries |
+| Meth contamination | methamphetamine, contaminated, clandestine laboratory, drug contamination, disclosure | `edu-no-meth-disclosure-oh` — **R.C. 2925.13 runs the other way** |
+
+Three traps worth carrying forward, because each would have produced a wrong row:
+- **R.C. 5302.30** is the **sales** residential property disclosure form. It surfaces on searches for radon and for mold and does not apply to a lease.
+- **R.C. 1349.02** sits in a consumer-protection chapter, is titled for servicemember lease termination, and reads on its face like the statute you want. **Its definition confines it to motor vehicle leases.** This is the inverse of Arizona's §26-168(D) lesson: there, a section whose heading named another subject carried a general rule; here, a section that looks general is confined.
+- **"R.C. 5321.04(A)(11)"** is cited by a widely published Ohio landlord guide for a DV anti-termination rule. **That subsection does not exist** — 5321.04(A) ends at (10), confirmed section-open twice. The same page states the correct bottom line while citing invented authority. Instruction 6 and instruction 11 both apply.
+
+**Pending, not enacted (instruction 17):** H.B. 841 (introduced 2026-04-30, referred to House Health) would create a mold/lead/radon/CO **awareness program** — not a disclosure duty even if passed. H.B. 134, the "Safe Homes Act", is a bill and was not enacted; the LSC analysis in circulation is dated 2020-02-10. Neither is cited as authority anywhere in the delta.
+
+#### 20.4.4 Rows changed (section D of the delta)
+
+- **`edu-mandatory-drug-termination-oh`** — added **R.C. 2925.13** (permitting drug abuse: 1st-degree misdemeanour, 5th-degree felony for trafficking/manufacturing or actual knowledge of Schedule I/II manufacturing chemicals) and the **knowledge-standard asymmetry**: Chapter 5321 fires on *"reasonable cause to believe"*, §2925.13 needs *"knowingly permits"*, so there is a window where the landlord must act civilly but is not yet criminally exposed — and acting in it is what keeps them out of §2925.13. Retitled. **The asymmetry sentence is my reading of the two standards side by side, not a case holding**; no case applying §2925.13 to a landlord who ignored the §5321.04(A)(9) duty was searched. Flagged in the row.
+- **`edu-portfolio-thresholds-oh`** — **four → five thresholds**, adding §3767.41's owner-occupied-three-or-fewer carve-out; retitled off "Four". Also added a sentence naming what each test counts (dwelling units / premises / units in one structure / units plus a written-notice condition you can fail / whether you live there), because the four original tests count four different things and the body did not say so. That distinction is the row's entire point.
+
+---
+
+### 20.5 Integrity
+
+- **Delta: 25 rows — 23 new, 2 changed.** 16-column header byte-identical to the 941-row CSV. Five sections: A outside-title finds (4), B coverage gaps (7), C confirmed absences (10), D changed rows (2), E real-lease comparison (2).
+- Ohio active rows **74 → 97**. No other state's count moves.
+- **No shared row added, and no shared row's text edited.** Cross-state questions are Taylor's; §20.6 raises two and changes neither.
+- No duplicate ids within the delta or against the 941 rows. No dangling `supersedes` (no row in the delta uses it). No blank `verification_status` — all 25 VERIFIED (instruction 27).
+- All 25 tagged `OH` only. Every `group` value already exists in the library; no new group was invented.
+- Citation format: `R.C. 5321.xx` and `OAC 4112-x-xx` throughout. Scanned for `ORC §`, `Ohio Rev. Code §` and bare `§ 5321.x` / `§ 1923.x` — none.
+- Every row's notes leads with `OH:` (instruction 20).
+- **22 of the 25 rows reuse an existing `topic_key`**, so the instruction-24 family check will see them. Three new keys: `firearms-lease-restriction`, `nuisance-receivership`, `utility-landlord-account`.
+- No architecture imported from another state (instruction 19). Arizona's §18.1 supplied the *scenarios*; every Ohio row rests on Ohio primary text.
+
+---
+
+### 20.6 Decisions for Taylor
+
+1. **Whether to buy a second reference lease.** Source 2 is satisfied and Ohio passes, so this is optional — but the OHFA form is ten years old and is a relabelled multi-state template, so it should not stay the project's only Ohio reference. **NAA Click & Lease, Ohio edition, Small Owner: $100/yr plus unpublished affiliate dues** (Columbus Apartment Association, 614-488-2115) is the one worth having; CAA's own single form is the cheaper fallback. Your call, and nothing is blocked either way.
+2. **Section B — accept or reject wholesale.** Seven rows that are statute-walk output, not gap-discovery findings. Rejecting them leaves Ohio with no landlord repair clause, which is why I wrote them; accepting them means this pass did more than the prompt asked. **One consideration that changed since I first framed this:** `landlord-maintenance-oh` is now backed by two independent sources, because the OHFA lease makes the identical omission and R.C. 5321.13(E) makes it a legal defect (§20.1, §20.2.2). If you reject section B, that one is still worth keeping on its own.
+3. **Section E is the genuine source-2 yield — two rows, and I got the earlier call wrong.** On 2026-09-18 I decided not to write a prohibited-terms row for Ohio because three existing rows covered R.C. 5321.13. That was right for divisions (A), (C), (E) and (F) and wrong for **(B) and (D)**: nothing in the library told an Ohio landlord that exculpation, indemnity and confession-of-judgment clauses are unenforceable. The OHFA lease is the proof, since a state agency's own form carries a void indemnity clause. Worth deciding whether the same (B)/(D)-shaped hole exists in the four states that *do* have a `prohibited-lease-terms` row (KS, NE, NV, TX) — I have not looked.
+4. **Cross-state, not acted on.** I counted the seven section-B families across the fourteen canvassed states:
+
+   | topic_key | states with a row | missing |
+   |---|---|---|
+   | `landlord-maintenance` | **13 of 14** | **OH only** |
+   | `retaliation` | 10 of 14 | WY, MN, ND, OH |
+   | `casualty-termination` | 9 of 14 | CO, WY, NE, OH, NJ |
+   | `self-help-eviction` | 7 of 14 | WY, NE, MN, OH, NJ, FL, AZ |
+   | `termination-notice` | 5 of 14 | CO, WY, KS, NE, MN, SD, OH, CA, NJ |
+   | `rent-control-preemption` | 4 of 14 | CO, WY, NE, ND, OH, CA, NV, NJ, FL, AZ |
+   | `habitability` | 3 of 14 | everyone but AZ, FL, NJ |
+
+   **Only `landlord-maintenance` is a clear defect** — 13 of 14 states have it and Ohio was the hole. The other six are patchy enough that the pattern is probably product design or drift, not a per-state miss: `rent-control-preemption` at 4 of 14 while §5321.19/.20 is material in Ohio is the one I would look at next, and `retaliation` at 10 of 14 is worth a glance for WY, MN and ND. I have not touched any of them. Separately, these absence rows follow Arizona's `edu-no-*-<state>` naming; if you want that normalised library-wide, say so — I won't do it unasked.
+5. **Open, not resolved:** Ohio unclaimed-funds act (ch. 169) for stale deposit refunds; gas and water utility chapters (only electric was read); permissionless-carry interaction with §2923.126(C)(3)(b); tenant notice on foreclosure; whether OCRC or any court has applied OAC 4112-5-07(A)(1)(c) to voucher screening. New from source 2: enforceability of rent acceleration against the mitigation duty; self-help removal of an unauthorised animal under R.C. 5321.15; "immediate family" occupancy limits as familial-status exposure under R.C. 4112.02(H); a tenant warranty of tenantability against R.C. 5321.13(A); whether R.C. 5321.13(D) reaches a waiver of subrogation.
+6. **Municipal findings, flagged not resolved,** and wider than the big four: Newburgh Heights CO 726.01 (DV early termination, anti-termination, damages of one month's rent plus deposit plus fees); Painesville 1507.05, Commercial Point 1181.09 and Tallmadge (EV charging); municipal source-of-income and bed-bug ordinances; criminal-activity nuisance ordinances that penalise a landlord for police calls — which cut against `edu-no-emergency-assistance-right-oh` from the opposite direction.

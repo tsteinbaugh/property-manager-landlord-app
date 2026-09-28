@@ -844,3 +844,241 @@ Not a re-audit; nothing else in this state was reviewed. Detail: lease-clause-de
 1. **Shared-row edit received from Arizona (2026-09-27, Taylor's decision) — `entire-agreement`.** The sentence "may not be changed except in writing signed by all parties" now continues ", or as applicable law permits Landlord to change it by written notice to Tenant." Driver: A.R.S. §33-1342(C), which lets an Arizona landlord amend existing leases by written notice to comply with new laws; the old wording could be read to waive such a right. Recorded as **uniform** under §5a.1: the words are self-limiting and change nothing where this state's law gives no unilateral amendment right, while preserving any right it does give (for example, rules adopted on notice or changes to a periodic tenancy on the notice the law requires). No state-specific override is needed. `last_checked` was reset to 2026-09-27.
 
 2. **2026-09-27, AZ session — new shared row `rental-application-accuracy` tagged NE** (§5a.1; uniform text, no NE override). The tenant represents that the application information was true, correct and complete; a materially false or misleading statement is a material breach, with the remedies the lease and law provide; information the landlord may not request or consider is excluded. No statute logged. Remedies run through `default-by-tenant-ks-ne`.
+
+---
+
+## Gap-discovery backfill (instruction 36) — 2026-09-27
+
+| Source | Status |
+|---|---|
+| Gap-discovery source 1 — statute walk | Done (§1, §§2–6: Neb. Rev. Stat. ch. 76 art. 14 (URLTA) read whole in session 1; re-audit §6 extended it to six adjacent chapters) |
+| Gap-discovery source 2 — real-lease comparison | Done (§13: ILRG/PublicLegal *Nebraska Residential Lease Agreement*, paid attorney-reviewed 33-section product, publiclegal.com/forms, fetched and read in full 2026-08-27; the Nebraska Realtors Association and Omaha Area Board of Realtors forms are member-gated and were rejected as inaccessible, and template-mill sites were rejected as not qualifying) |
+| Gap-discovery source 3 — landlord-scenario screen | Done (§B below: 67 scenarios, Claude-generated) |
+| Gap-discovery source 4 — outside-title search | Done (§C below: official nebraskalegislature.gov keyword search, every hit reviewed across all result pages; re-audit §6's six-chapter read is the predecessor) |
+
+**Scope.** Two targeted checks only, per the backfill instruction. No re-audit; no completed finding was re-scrubbed except where a search hit contradicted it. Screened against `lease-clauses.csv` as supplied (941 rows, 14 states), **not** against v63 — the library had moved on, and `rental-application-accuracy`, the rent-first `application-of-payments`, the `default-by-tenant` no-cure carve-out and the `entire-agreement` law-change carve-out were all treated as current.
+
+**Result in one line.** Nebraska had **112** active rows and now has **123**. Eleven new rows, nine changed. The two checks found **one act, two chapters and six individual sections** that the library had never cited, **one error in a row that shipped VERIFIED**, one **landlord-favourable statutory fee award** omitted from the row whose job was to list them, and they **closed the last open item and the last `NEEDS_REVIEW` row** in the Nebraska set.
+
+---
+
+### A. Method and a tooling hazard worth recording
+
+**Why the browser.** `WebFetch` proved unusable for nebraskalegislature.gov: it caches on the URL **path** and ignores the query string, so a request for `browse-chapters.php?chapter=76` returned **Chapter 45's** contents, and `statutes.php?statute=<anything>` returned a stale error from a previous session's malformed URL. Both were verified deliberately — a cache-busting parameter changed nothing, and the Chapter 45 body came back under a `chapter=76` request twice. **This is a silent-wrong-source hazard of exactly the class this project keeps being bitten by**, and worse than a failure, because the page renders as a normal statute page for the wrong chapter. Every fetch in this session was therefore required to identify its own section number back, and any response whose section number did not match the request was discarded. Taylor approved the built-in browser for the rest of the work; the two failed `WebFetch` parameter guesses were the stopping point under instruction 10 rather than a third guess.
+
+**The search engine is not Arizona's, and this changes what a zero means.** The official search at `/laws/search_keyword.php` is a **POST** form on a field named `keyword`, paginated by a `start` parameter, 25 hits per page. It is a **loose keyword** engine, not an exact-phrase engine:
+
+- Quoting does **not** force a phrase. `"convenience fee"` returned **more** results (29) than the bare words.
+- Multi-word input matches loosely across the words: `holding deposit` returned 58 banking-deposit sections; `application fee` returned 648.
+- A nonsense control term, `zzzqqqxyzzy`, returned **0**. So the engine reports true empties, and **a zero result is meaningful** — which is the only reason the bed-bug and voucher absences can be certified.
+
+Arizona's §15.1 method — run every phrase in its variants — is therefore **wrong for Nebraska** and would have manufactured false absences. The method used instead: **the most distinctive single word per topic, every hit reviewed across every page.** This is not a refinement; it is the difference between a finding and a miss. `methamphetamine laboratory` returned **0 hits**. `clandestine` returned the four-section scheme in §C.1. A phrase-first pass would have recorded "no meth-lab statute in Nebraska" and been confidently wrong.
+
+**The single most productive query was `landlord`.** Run statute-wide it returned **153 sections**, all 153 reviewed across seven pages. That gave a complete inventory of every Nebraska section containing the word, which was then diffed against every section the Nebraska library cites. That diff is what found §§76-1420, 76-1422, 76-1428 and 76-1429 — **all four inside the URLTA**, the chapter recorded as "read whole" under source 1. Worth stating plainly: **an outside-title search found four gaps inside the title.** A full-chapter read and a full-chapter *citation inventory* are different artifacts, and only the second is checkable.
+
+---
+
+### B. Part 1 — the landlord-scenario screen (gap-discovery source 3)
+
+**Method.** Scenarios written by Claude, not elicited from Taylor (instruction 36: his experience is Colorado-only and already in the CO research). Started from the AZ log §18.1 59-scenario map and added Nebraska-specific situations — a furnace failing in January rather than an AC failing in July, snow and ice, the five-year lease exclusion, a mid-tenancy house rule, medical cannabis, a meth lab, radon, and a tenant counterclaim in the nonpayment case. Arizona-only scenarios with no Nebraska analog were dropped (county assessor registration, the city rental tax and its sunset, pools, the foreign-adversary land ban). Each scenario was run against the **NE-active rows in the supplied CSV**; where no row answered it, the statutes were searched and every hit read section-open.
+
+**Result: 67 scenarios — 51 covered, 16 gaps.** Twelve gaps produced new rows; four were genuine absences with no Nebraska statute and are recorded in one row so a later canvass can see them.
+
+#### B.1 Scenario map
+
+| Scenario | NE coverage | Result |
+|---|---|---|
+| **Before the lease** | | |
+| Applicant pays a holding deposit, then backs out | none | **Gap → confirmed absent** (no holding-deposit statute) |
+| Screening: fees, criminal history, income source, immigration status | `edu-no-tenant-screening-fairness-act-ne`, `edu-fair-housing-classes-ne`, `edu-no-voucher-mandate-ne`, `edu-no-immigrant-tenant-protection-ne`, `edu-protected-class-inquiry-ban-ne` | Covered |
+| Applicant lied on the application | `rental-application-accuracy`; `edu-confirmed-absences-misc-ne` (no statutory fraud-termination; route is breach under §76-1431) | Covered |
+| Voucher holder applies | `edu-no-voucher-mandate-ne` | Covered |
+| Unit not ready on move-in day | `possession-delay-ne` (§76-1426) | Covered |
+| Required disclosures at signing | `landlord-disclosure-ne` (§76-1417), `lead-based-paint`, `edu-disclosure-noncompliance-ne`, `smoke-detector-duty-ne`, `carbon-monoxide-alarm-duty-ne` | Covered |
+| Blank left in the lease | product/builder rule | Covered (builder rule) |
+| Owner never registered the rental with the state | none | **Gap → confirmed absent** (no state registry or licence) |
+| House rules handed to the tenant after signing | `addendum-precedence`, `entire-agreement` | **Gap → `edu-rules-regulations-enforceability-ne`** (§76-1422(6) requires notice *at* signing) |
+| Property is in an HOA | `hoa-compliance` | Covered |
+| Deposit plus pet deposit over the cap | `edu-security-deposit-cap-ne`, `due-at-signing`, `security-deposit-use` | Covered |
+| **Rent and money** | | |
+| Rent is late | `late-fee-ne`, `default-by-tenant-ks-ne`, `edu-late-rent-reservation-fix-ne` | Covered |
+| Tenant pays part of the rent | `edu-late-rent-reservation-fix-ne` (§76-1433 waiver), `application-of-payments` | Covered |
+| Cheque bounces | `returned-payments`, `edu-bad-check-restitution-vs-nsf-fee-ne` (§28-611) | Covered |
+| Tenant pays cash and wants a receipt | `acceptable-payment-methods` | **Gap → confirmed absent** (no cash-receipt duty) |
+| Landlord adds a convenience fee for a payment method | `edu-confirmed-absences-misc-ne` | Covered (**and the row's open item is now closed**, §C.7) |
+| Raising the rent at renewal | `edu-rent-increase-and-rent-control-ne` | Covered |
+| Tenant asks for interest on the deposit | none | **Gap → `edu-no-deposit-interest-ne`** |
+| **During the tenancy** | | |
+| Furnace fails in January | `habitability-baseline-ne`, `edu-alt-housing-self-help-ne` (§76-1427) | Covered |
+| Tenant withholds rent, or repairs and deducts | `edu-alt-housing-self-help-ne`, `edu-confirmed-absences-habitability-ne` | Covered |
+| Tenant counterclaims in the nonpayment case | none | **Gap → `edu-eviction-process-ne`** (§76-1428) |
+| Bedbugs, roaches, mice | `edu-no-bed-bug-disclosure-ne`, `tenant-duties-ne`, `habitability-baseline-ne` | Covered |
+| Mould complaint | `edu-no-mold-disclosure-ne`, `habitability-baseline-ne` | Covered |
+| Radon, in a rental the owner built after 2019 | `edu-no-radon-tenant-disclosure-ne` (disclosure only) | **Gap → `edu-radon-new-construction-ne`** |
+| A meth lab is found in the unit | none | **Gap → `edu-clandestine-drug-lab-ne`** |
+| Tenant causes damage, or won't keep the unit clean | `tenant-duties-ne`, `default-by-tenant-ks-ne` | Covered |
+| Landlord needs to enter; tenant refuses | `landlords-access`, `edu-entry-notice-content-ne`, `edu-ouster-and-entry-remedies-ne` (§§76-1423, 76-1438) | Covered |
+| Tenant changes the locks | `keys`, `dv-lockchange-ne` | Covered |
+| Tenant away for a month | `extended-absence-notice-ne` (§76-1432) | Covered |
+| Guest won't leave; squatter | `guest-policy`, `guest-policy-day-limit` | Covered, **plus confirmed absence** (no squatter-specific remedy) |
+| Roommate moves out | `joint-liability`, `no-sublet-assign` | Covered |
+| Tenant sublets or lists on Airbnb | `no-sublet-assign`, `residential-use-only` | Covered |
+| Noise and neighbour complaints | `no-disturbance` | Covered |
+| Drugs, violence or other crime | `edu-violent-crime-eviction-ne` (§76-1431) | Covered |
+| Registered medical-cannabis patient uses cannabis in the unit | `smoking-policy` (contractual ban only) | **Gap → `edu-medical-cannabis-ne`** |
+| Unapproved pet | `pet-policy-ne`, `pet-insurance-requirement` | Covered |
+| Assistance or emotional-support animal request | `assistance-animal-accommodation-ne`, `edu-esa-federal-only-ne`, `edu-service-animal-denial-penalty-ne`, `edu-assistance-animal-carveout-mismatch-ne`, `edu-no-service-animal-fraud-broad-statute-ne` | Covered |
+| Disability modification request | `edu-no-modification-duty-ne` (§20-319(2)(a)) | Covered — **but see the cross-state flag at §D.1** |
+| Tenant paints or alters the unit | `no-alterations` | Covered |
+| Landlord adds a new rule mid-lease | `entire-agreement` | **Gap → `edu-rules-regulations-enforceability-ne`** ("substantial modification of his bargain") |
+| A law changes mid-lease | `entire-agreement` carve-out, `edu-electronic-notice-regime-ne` | Covered |
+| Car towed from the lot | `parking-vehicle-rules` (defers to law) | **Gap → `edu-towing-ne`** |
+| Snow and ice on the walks | `snow-removal` | Covered |
+| Lawn and yard work by the tenant | `landscaping-irrigation` | Covered |
+| Tenant's utility is shut off | `utility-service-continuity`, `utility-payment-evidence` | Covered |
+| Landlord fails to supply heat, water or essential services | `edu-alt-housing-self-help-ne` (§76-1427) | Covered |
+| Smoking in the unit | `smoking-policy` | Covered |
+| Grilling on a balcony | `fire-safety-grilling` | Covered |
+| Storage space and assigned parking | `storage-space-ne`, `assigned-parking-space`, `parking-ne` | Covered |
+| Tenant's own property damaged; renter's insurance | `tenants-property-insurance-ne`, `edu-negligence-carveout-flag-ne` | Covered |
+| **Ending the tenancy** | | |
+| Tenant wants out early | `early-termination-ne` | Covered |
+| Domestic-violence victim wants out | `dv-lease-release-ne`, `dv-perpetrator-removal-ne`, `dv-lockchange-ne`, `edu-dv-protections-procedure-ne` | Covered |
+| Tenant is deployed or called up | `edu-servicemember-termination-ne` (§55-702), SCRA carve-out in `early-termination-ne` | Covered |
+| Month-to-month notice either way | `edu-periodic-termination-notice-ne` | Covered |
+| Tenant stays after the lease ends | `holdover`, `edu-holdover-ne`, `surrender-end-of-term-ks-ne` | Covered |
+| Tenant disappears | `abandoned-property-ne`, `extended-absence-notice-ne` | Covered |
+| Tenant dies | `edu-no-tenant-death-statute-ne` (§76-1414) | Covered |
+| Fire or casualty | `early-termination-ne` (generic uninhabitability carve-out only) | **Gap → `casualty-termination-ne` + `edu-casualty-damage-ne`** (§76-1429) |
+| Eviction process | `edu-tenant-noncompliance-notice-ne`, `edu-violent-crime-eviction-ne`, `edu-ouster-and-entry-remedies-ne` | **Gap → `edu-eviction-process-ne`** (no procedure row existed) |
+| Retaliation claim | `edu-retaliation-prohibition-ne` (§76-1439) | Covered |
+| Belongings left after move-out or eviction | `abandoned-property-ne` (ch. 69) | Covered |
+| Deposit dispute | `security-deposit-return-ne`, `edu-security-deposit-noncompliance-penalty-ne` | Covered |
+| Deposit refund never cashed | `security-deposit-return-ne` | Covered (thin — see §E) |
+| Long lease (5+ years) | `edu-five-year-lease-exclusion-ne` (§76-1408) | Covered |
+| **Owner changes** | | |
+| Owner sells the property with a tenant in place | none | **Gap → `edu-selling-rented-property-ne`** (§76-1420(1)) |
+| Lender forecloses | none | **Gap → confirmed absent** (no NE tenant-protection statute; federal PTFA governs) |
+| Owner switches property managers | `landlord-disclosure-ne`, `edu-disclosure-noncompliance-ne` | **Gap → `edu-selling-rented-property-ne`** (§76-1420(2) release) |
+
+---
+
+### C. Part 2 — finishing the outside-title search (gap-discovery source 4)
+
+Every item below was searched statute-wide and every landlord-relevant hit read section-open. **Boundary: statutes only** — the Nebraska Administrative Code, municipal codes and case law were not searched, so each absence is "no Nebraska *statute*" and nothing more.
+
+#### C.1 Found: a four-section meth-lab scheme, with duties and a fast termination right
+
+**§§71-2432 to 71-2435**, Chapter 71, cited nowhere in the library. Found by `clandestine` after `methamphetamine laboratory` returned zero. All four read verbatim.
+
+- **§71-2433 — you must report.** "A property owner with knowledge of a clandestine drug lab on his or her property shall report such knowledge and location as soon as practicable to the local law enforcement agency or to the Nebraska State Patrol." The Patrol then forwards its report to the owner among others, so an owner may also *learn* of a lab this way.
+- **§71-2434(3) — you must not re-rent, and it has teeth.** The owner "shall not permit the human habitation or use of such property until the rehabilitation ... has been completed and the property has been released." Knowing violation: **civil penalty up to $1,000**, enforced by DHHS.
+- **§71-2434(2) — you pay for the oversight.** The local public health department "may charge and collect fees from the owner or owners of contaminated property to cover the costs directly associated with monitoring the rehabilitation."
+- **§71-2435 — three days, no cure, overrides everything.** "Notwithstanding any other provision of law, if leased property contains a clandestine drug lab, an owner may terminate the lease agreement upon three days' written notice for the purpose of rehabilitating the contaminated property."
+
+New row **`edu-clandestine-drug-lab-ne`** (REQUIRED, education). **No new lease clause** and **no clause edit owed**: §71-2435 operates notwithstanding any other law so the right does not depend on lease text, and the **instruction 33 check came back clean** — `default-by-tenant-ks-ne` already reads "except where applicable law permits Landlord to proceed without giving Tenant an opportunity to cure," so the no-cure right is not contractually surrendered. Currency (instruction 34): §71-2433 was amended by **Laws 2025, LB317, §375**, which only substituted the renamed Department of Water, Energy, and Environment among the report's recipients; the owner's duty is unchanged. **Not read:** the DHHS rehabilitation rules under §71-2434(1) — administrative code, flagged under instruction 16 as needing rulemaking rather than bill-tracking monitoring.
+
+#### C.2 Found: an entire radon act, in Chapter 76 itself
+
+**Radon Resistant New Construction Act, §§76-3501 to 76-3507**, cited nowhere in the library. `radon` returned 20 sections.
+
+- **§76-3504** — new construction built **after 1 September 2019** "intended to be regularly occupied by people" **shall** be built using radon-resistant new construction, with specified minimum standards: gasketed or sealed sump lids; a passive subslab depressurisation system with a ≥3-inch vent pipe terminating ≥12 inches above the roof and ≥10 feet from any opening; separate vent pipes where interior footings divide the subslab material; interior pipes labelled "Radon Reduction System" on each floor and in accessible attics; and an electrical circuit in an approved box near the anticipated fan location so an active system can be added later.
+- **§76-3505** — three exemptions, but **only two reach a rental**: a licensed architect's or professional engineer's design, or a county whose average radon concentration is below **2.7 pCi/L** as determined by the department. The third, a local building official's determination, is expressly unavailable "other than for any residential dwelling unit."
+
+New row **`edu-radon-new-construction-ne`** (CONDITIONAL, education). `edu-no-radon-tenant-disclosure-ne` amended to point to it: its conclusion was right but its framing left the impression that Nebraska does not legislate on radon at all. **This is the sharpest illustration of instruction 7's limit**: the act sits in **Chapter 76, the URLTA's own chapter**, so "check adjacent chapters" has to mean adjacent *articles* too. The 2.7 pCi/L county list is a departmental determination and **no county is named as exempt**.
+
+#### C.3 Found: four uncited sections inside the URLTA, from the `landlord` diff
+
+- **§76-1429 Fire or casualty damage** — tenant may vacate immediately and give written notice within **fourteen days** thereafter, terminating **as of the date of vacating**; or, if continued occupancy is lawful, vacate the unusable part with rent reduced in proportion to the loss in **fair rental value**. On termination the landlord returns all prepaid rent and deposit recoverable under §76-1416, accounting **as of the date of the casualty**; the tenant stays liable for damage from their own negligence. → new `casualty-termination-ne` and `edu-casualty-damage-ne`. **Instruction 18 mattered here**: Kansas runs on a 5-day notice, Nebraska on 14 days after vacating. Nebraska was the **only one of the 14 states with no fire/casualty clause** — KS, ND, SD, MN, CA, NV, TX, FL and AZ all have one.
+- **§76-1420 Limitation of liability** — the release on sale, and the Nebraska analog of A.R.S. §33-1325 (the gap Arizona's own screen found). Release runs only to events **after written notice to the tenant** of the conveyance, on a good-faith sale to a bona fide purchaser, and **does not cover the deposit** unless deposits and prepaid rents are **assigned to the purchaser with written notice**. Subsection (2) is the manager analog. Opens "Unless otherwise agreed." → new `edu-selling-rented-property-ne`.
+- **§76-1422 Rules and regulations** — six conditions for a house rule to be enforceable, plus the mid-tenancy test: reasonable notice **and** no "substantial modification of his bargain." Enforcement runs through §76-1431. → new `edu-rules-regulations-enforceability-ne`. The NE-active set carries at least six clauses that *are* house rules within this section and none cited it; KS, NV and AZ already had the analog row.
+- **§76-1428 Landlord's noncompliance as defense** — the counterclaim, pay-into-court and netting mechanics, and **"If the defense or counterclaim by the tenant is without merit and is not raised in good faith, the landlord may recover reasonable attorney's fees."** → new `edu-eviction-process-ne`; `edu-statutory-attorney-fee-actions-ne` amended to add the award. **An omission in the landlord's favour**: a row whose job was to list statutory fee awards listed the ones running against them and left this one out.
+
+Also newly cited: **§76-1405** — "The aggrieved party has a duty to mitigate damages." `default-by-tenant-ks-ne` already promised mitigation "to the extent required by applicable law," so the clause was correct by deference; this supplies the basis rather than fixing an error.
+
+#### C.4 Found: a Chapter 60 towing scheme, including a prohibition aimed at the landlord
+
+`towing` returned 61 sections. Read: §§60-2401, 60-2401.01, 60-2402, 60-2403, 60-2409, 60-2410, 60-2411.
+
+**Nebraska conditions a lawful private tow on posted signs** — the same shape as Arizona's finding, but split by class of city. Outside Omaha and Lincoln, parking in a **properly posted** restricted lot without the owner's or authorised tenant's consent is an **infraction** and the vehicle may be towed at their request (§60-2401.01). In Omaha (metropolitan class) and Lincoln (primary class), absent a conforming local ordinance, towing is available "if the lot is properly posted" (§60-2401). **§60-2402** sets the sign contents: readily visible, stating the purpose(s) of parking, the **hours** of restriction, and **who to contact** about a towed vehicle. And **§60-2411** points straight at the landlord: an owner or tenant causing a tow "shall not solicit or accept therefor a commission, gift, gratuity, or any form of compensation or wealth" from the tower.
+
+New row **`edu-towing-ne`**. No clause conflict — `parking-vehicle-rules` and `parking-ne` already defer to law, so the exposure is operational, not textual. **No penalty section was located for a §60-2411 violation** and the row asserts none. The Omaha/Lincoln class identifications are general knowledge, not read from the classification statute; the metropolitan/primary split itself is in the statutory text, which is what the row turns on.
+
+#### C.5 Found: medical cannabis is now lawful in Nebraska
+
+**§71-24,105** (Initiative Law 2024, No. 437, §3 — enacted, in the official compilation with an initiative-law source line, satisfying instruction 17). Qualified-patient and caregiver conduct is "not an offense under state or local law" and is removed from the Uniform Controlled Substances Act.
+
+New row **`edu-medical-cannabis-ne`**. **`smoking-policy` is fine and no edit is proposed** — it is a contractual ban and the act imposes no landlord duty. The real exposure is different and is **instruction 33 in reverse**: not a shared clause giving away a state right, but a state law quietly narrowing what an existing clause's *enforcement theory* can reach. A registered patient's use is no longer illegal, so it cannot support §76-1431's drug-related-criminal-activity fast track; enforce it as a smoking or house-rules breach instead. The no-landlord-duty negative is **strong but not exhaustive**: §71-24,105 imposes none on its face and the statute-wide `landlord` sweep returned no section in the 71-24,1xx range, but §71-24,104's definitions and the rest of the Patient Protection Act were not read, and that is stated in the row.
+
+#### C.6 Confirmed absent, statute-wide — upgraded from "not located"
+
+Five existing rows had absences resting on "not located within the chapters read." Each is now a searched, statute-wide absence with its terms recorded in the row's notes so a later pass can reproduce or falsify it. Per instruction 15 these should now carry **CITED** rather than **CONFIRMED_ABSENT** in `lease-clause-citations-NE.csv`. No bodyText changed; only provenance strengthened.
+
+| Topic | Terms run → result | Row |
+|---|---|---|
+| Mould | `mold` (6 hits: school levies, manufacturing equipment, health insurance, dairy packaging), `mildew` (1), `fungus` (6, all pesticide/plant-pest) | `edu-no-mold-disclosure-ne` |
+| Bed bugs | `bed bug`, `bed bugs`, `bedbug` — **0 hits each** | `edu-no-bed-bug-disclosure-ne` |
+| EV charging | `electric vehicle charging` (10 hits: electric suppliers, commercial charging operators, state-agency purchases, fuel tax, vehicle definitions) | `edu-no-ev-charging-right-ne` |
+| Immigration status | `immigration status` (18 hits: CDLs, public-employer verification, public benefits, crime-victim visas, residency, guardianship) — none housing | `edu-no-immigrant-tenant-protection-ne` |
+| Source of income / vouchers | `housing choice voucher` (**0**), `source of income` (92, all tax/retirement/support; only §71-15,113 housing-adjacent, and it empowers agencies) | `edu-no-voucher-mandate-ne` |
+
+#### C.7 The last open item and the last NEEDS_REVIEW row, both closed
+
+**§81-5,146 — resolved.** "Any person violating the provisions of sections 81-5,132 to 81-5,146 shall be guilty of a **Class V misdemeanor**." The re-audit logged this as unresolved because the Legislature's comma-formatted URL mis-resolved to §81-146 (repealed); percent-encoding the comma in the browser resolved it first try.
+
+**`edu-confirmed-absences-misc-ne`: NEEDS_REVIEW → VERIFIED.** The payment-method-fee-ban absence rested on a Chapter 45 review no session had actually performed. Both halves now closed: (a) Chapter 45's **full section index** was read — it is interest and usury, mortgage escrow, judgment interest, loan brokers, consumer-credit default and cure, installment sales, the Installment Loan Act and collection agencies, and regulates lenders, credit sellers, brokers and collectors, not what a private landlord may charge for a payment method; (b) better than a single-chapter read, `convenience fee` run **statute-wide** returned 29 results whose only convenience-fee provisions are the two the row already names, **§81-118.01** (state agencies) and **§13-609** (political subdivisions), both governing government payees. **The Nebraska library now has no `NEEDS_REVIEW` row and no open item.**
+
+#### C.8 Typography and placement (instruction 28) — nothing applies
+
+`underlined` (3 hits: co-operative definitions, an arbitration-contract statement, a consumer contract), `boldface` (25, all reviewed — the Chapter 76 hits are condominium and time-share disclosure §76-2110, equity-purchase contracts §§76-2719/2720/2722, foreclosure consulting §76-2713 and private transfer fees §76-3112, none reaching a residential lease), `conspicuous` (143) and `separate writing` (123) produced **no §76-14xx hit**. **No bold, underline, capitalisation, type-size or separate-document rule conditions any Nebraska residential lease term** — the sharpest contrast in the library with Texas, where 17 terms are void or ineffective without specific formatting. Recorded in `edu-confirmed-absences-outside-title-ne`.
+
+#### C.9 Also confirmed absent, and now carrying a row
+
+Recorded in the new `edu-confirmed-absences-outside-title-ne` so they are visible to the next canvass rather than living in prose: **no tenant protection on foreclosure** (`foreclosure tenant`, 11 hits, none a tenant protection; federal PTFA governs, and NV, CA, MN, NJ, FL and AZ all have a row where Nebraska has no statute), **no cash-rent-receipt duty** (`written receipt`, 508 hits — the weakest of the set, recorded honestly as too large to review exhaustively), **no holding-deposit rules**, **no state rental registration or licence** (Omaha and Lincoln programmes flagged, not resolved, per instruction 20), **no squatter-specific remedy** (`unauthorized occupant`, 1 hit, utility diversion), mould, and the typography finding.
+
+---
+
+### D. The error found in a shipped VERIFIED row — and it was a correction to a self-correction
+
+**`edu-smoke-detector-scope-ne` was wrong, and the wrong part was the re-audit's own fix.**
+
+The history matters more than the error. The original NE pass stated the smoke-detector duty unconditionally. The re-audit created this row at `NEEDS_REVIEW` carrying a caveat that a pre-1982, never-remodelled building might fall outside the mandate — then, in the same session, **self-corrected that caveat away**, asserting that §81-5,142(3) swept in pre-1982 dwellings with "compliance deadlines now decades expired" and that coverage was "effectively universal" *because of subsection (3)*. That note was written up as a methodology win: the over-include-and-flag discipline catching an error before it shipped.
+
+Reading §81-5,142 verbatim today shows **the second step was also wrong**. Subsection (3) contains **no deadline of any kind**. Its trigger is "at the time of their **remodeling or sale**." A pre-1982 dwelling unit never remodelled and never sold has no §81-5,142(3) installation trigger at all, so "all the deadlines are decades past" was fiction, and the note's "residual gap: subsection (3)'s exact compliance deadline was truncated" was chasing a deadline that does not exist. Only subsection (2), for lodging-house guest rooms and dormitories, ever carried the 1984 date.
+
+**The row's bottom line survives, for a different reason.** §81-5,144(1) puts the supply-install-maintain-test duty on the owner of **every** apartment house, dwelling, hotel, lodging house, dormitory or mobile home, and §81-5,144(3) says "This section shall apply **solely to rental property**" — with no construction-date qualifier anywhere. **That**, not §81-5,142(3), is the real source of universal rental coverage. So a Nebraska landlord should still assume the duty applies regardless of build date, and `smoke-detector-duty-ne` — which tracks §81-5,144 and was re-read against primary text today — **needs no change**.
+
+**The methodology datum, which is the actual finding.** This is the same failure mode the project has now named repeatedly — reading part of a multi-section statute and generalising — committed **three times on one statute**: in the original pass, again by the re-audit's correction of it, and caught only on a third reading, by a session whose remit was not smoke detectors at all. Two things follow. **An over-correction is as wrong as the error it replaced**, and it is more dangerous, because it arrives wearing the credibility of a fix. And **"self-corrected" in a note is not evidence the second answer was checked** — the re-audit's note is detailed, confident, explicitly reasoned, and wrong. Nothing in its tone distinguishes it from a correct correction.
+
+**New material added to the row, all read verbatim:** §81-5,143 (mounting per State Fire Marshal rules; the alarm must sound inside the unit) — previously uncited; **§81-5,145** (a political subdivision may not set less stringent standards, **must** require hardwiring to a centralised power source in post-1982 buildings, and **may not** require hardwiring in a pre-1982 building) — previously uncited and directly useful, since it tells an owner of an older building what a city cannot demand; §81-5,142(3)'s **seller-only, non-assignable** duty on sale; and §81-5,146's Class V misdemeanor.
+
+#### D.1 Cross-state question for Taylor — not acted on
+
+**`no-alterations` (tagged all 14 states) has no reasonable-modification carve-out.** Its self-limiting sentence defers to law for "any repair, installation, or rekeying that applicable law entitles Tenant to perform" — but a disability **modification** (grab bars, a ramp, a widened doorway) is none of those three things. Nebraska makes it discrimination to refuse "to permit, at the expense of the person with a disability, reasonable modifications of existing premises" where necessary for full enjoyment, subject to a restoration condition (§20-319(2)(a), already on `edu-no-modification-duty-ne`).
+
+The clause does not **waive** the tenant's right, so it is not a prohibited provision, and Nebraska's education row covers the duty — which is why the scenario is scored Covered. But the lease text reads as unfettered landlord discretion where state and federal fair-housing law constrains it. **This is a shared row across 14 states and is a product decision, so no edit was made.** If Taylor wants it, the fix is one clause: extend the existing carve-out to "any repair, installation, rekeying, or **reasonable modification** that applicable law entitles Tenant to perform," which is true in every state and would be a **uniform** edit under §5a.1 — but it needs paste-ready propagation notes for all 14 logs, which are not written here.
+
+---
+
+### E. Open, flagged not hidden
+
+| Item | Status |
+|---|---|
+| DHHS rehabilitation rules under §71-2434(1) | Not read — administrative code, outside the statutes-only boundary. Instruction 16 flag: needs rulemaking monitoring, invisible to bill tracking |
+| Which Nebraska counties fall below 2.7 pCi/L (§76-3505(2)) | Departmental determination, not statute. **No county named as exempt** in the row |
+| Penalty or enforcement route for non-compliant radon construction | Not located. §71-3517 sits in the separate radon-**professionals** licensing article and must **not** be assumed to enforce §76-3504 |
+| Consequence of violating §60-2411 (towing kickback ban) | No penalty section located. The row asserts none |
+| Chapter 25 forcible-entry timetables and bond figures (§§25-21,219 to 25-21,235) | Identified by section number and title only; not read. `edu-eviction-process-ne` states no Chapter 25 period or figure |
+| Omaha / Lincoln conforming towing ordinances (§60-2401) and rental-registration programmes | Municipal — flagged, not resolved (instruction 20) |
+| Unclaimed deposit refunds | Thin. `security-deposit-return-ne` references ch. 69; the Uniform Disposition of Unclaimed Property Act (§§69-1301 et seq.) is the route, but holder reporting mechanics were not read. AZ has a dedicated row (`edu-unclaimed-deposits-az`); Nebraska does not. **Candidate for a later pass, not closed here** |
+| Cash-rent-receipt absence | Weakest absence in the set — `written receipt` returned 508 loosely-matched hits, reviewed only across the leading pages. Stated as such in the row |
+| `no-alterations` reasonable-modification carve-out | Cross-state product decision for Taylor (§D.1). Not edited |
+| Nebraska case law on "diminution in fair rental value" (§76-1429) and "substantial modification of his bargain" (§76-1422) | Not researched. The two soft edges in today's new rows |
+
+---
+
+### F. Integrity
+
+Merged the delta against the supplied CSV and re-ran every check. **941 → 952 rows.** **NE 112 → 123 active** (64 lease clauses, 59 education rows), **all VERIFIED — no `NEEDS_REVIEW` row remains in the Nebraska set.** Every other state's active count is **unchanged** (AZ 109, CA 151, CO 115, FL 99, KS 115, MN 120, ND 111, NJ 80, NV 103, OH 74, SD 91, TX 129, WY 99), verified programmatically rather than asserted. **No shared row's `states`, `bodyText`, `rule_type` or `content_type` was changed**, so **no §5a.1 propagation is owed to any other log** — the one candidate shared edit is parked as a question at §D.1. No duplicate ids, no dangling `supersedes`, no blank `verification_status` on an active row, no blank `topic_key`. Every row id named in this section and in the checklist cells exists in the delta or the CSV. Delta header is the same 16 columns in the same order; `last_checked` is 2026-09-27 on all 20 rows.
+
+**One pre-existing defect found and NOT introduced by this session, reported because it is live:** `application-of-payments-nj` **supersedes** `application-of-payments` while overlapping it on **FL and NJ**, so both render for tenants in those two states. This is the display-collision bug class the project audited in NE log §19. It was present in the supplied CSV before this session's delta and is **outside Nebraska's scope**, so it was left untouched — it needs the NJ or FL owner, or Claude Code, to fix.

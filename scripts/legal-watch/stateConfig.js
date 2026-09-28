@@ -81,7 +81,8 @@ const STATE_CONFIG = {
     // K.S.A. citations are 2-part (chapter-section), with an occasional
     // comma-continuation form for a subchapter ("58-25,137"). Confirmed
     // against all 64 monitorable KS rows before shipping.
-    sectionPattern: /\b(\d{1,3}-\d{1,4}(?:,\d{1,4})?)\b/g,
+    // Letter suffix allowed ("12-808c", added 2026-09-28 for the backfill).
+    sectionPattern: /\b(\d{1,3}-\d{1,4}(?:,\d{1,4})?[a-z]?)\b/g,
     extraSectionAliases: {
       // "K.S.A. 39-1102/1107/1108" -- a slash-separated list sharing the
       // "39-" prefix. One occurrence in the whole file; hand-curated rather
@@ -194,7 +195,8 @@ const STATE_CONFIG = {
     // ("53-9-3") -- Colorado's own \d{2,4} floor on the last group would
     // silently miss these. Confirmed against all 44 monitorable SD rows
     // before shipping.
-    sectionPattern: /\b(\d{1,2}[A-Z]?-\d{1,2}-\d{1,3}(?:\.\d+)?)\b/g,
+    // Letter allowed in the chapter too ("34-20G-19", added 2026-09-28).
+    sectionPattern: /\b(\d{1,2}[A-Z]?-\d{1,2}[A-Z]?-\d{1,3}(?:\.\d+)?)\b/g,
     cfrChecks: [],
     federalStatuteChecks: [],
     manualRecheckItems: [
@@ -417,6 +419,8 @@ const STATE_CONFIG = {
         [/^Tex\. Loc\. Gov't Code/, "Loc. Gov't"],
         [/^Tex\. Hum\. Res\. Code/, "Hum. Res."],
         [/^Tex\. Civ\. Prac\. & Rem\. Code/, "Civ. Prac. & Rem."],
+        // Added 2026-09-28: the pool-yard enclosure rules (ch. 757) found by the gap-discovery backfill.
+        [/^Tex\. Health & Safety Code/, "Health & Safety"],
       ];
       const out = [];
       for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
@@ -436,6 +440,7 @@ const STATE_CONFIG = {
         "Loc. Gov't": "Local Government Code",
         "Hum. Res.": "Human Resources Code",
         "Civ. Prac. & Rem.": "Civil Practice and Remedies Code",
+        "Health & Safety": "Health and Safety Code",
       };
       const i = sectionKey.lastIndexOf(" ");
       return `"Section ${sectionKey.slice(i + 1)}" AND "${NAMES[sectionKey.slice(0, i)]}"`;

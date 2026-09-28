@@ -1426,3 +1426,313 @@ Not a re-audit; nothing else in this state was reviewed. Detail: lease-clause-de
 1. **Shared-row edit received from Arizona (2026-09-27, Taylor's decision) — `entire-agreement`.** The sentence "may not be changed except in writing signed by all parties" now continues ", or as applicable law permits Landlord to change it by written notice to Tenant." Driver: A.R.S. §33-1342(C), which lets an Arizona landlord amend existing leases by written notice to comply with new laws; the old wording could be read to waive such a right. Recorded as **uniform** under §5a.1: the words are self-limiting and change nothing where this state's law gives no unilateral amendment right, while preserving any right it does give (for example, rules adopted on notice or changes to a periodic tenancy on the notice the law requires). No state-specific override is needed. `last_checked` was reset to 2026-09-27.
 
 2. **2026-09-27, AZ session — new shared row `rental-application-accuracy` tagged ND** (§5a.1; uniform text, no ND override). The tenant represents that the application information was true, correct and complete; a materially false or misleading statement is a material breach, with the remedies the lease and law provide; information the landlord may not request or consider is excluded. §47-16-07.4 lets the induced party terminate a lease entered into on fraudulent misrepresentation, so the clause is consistent. `edu-fraudulent-misrepresentation-nd` already covers the tenant's side. Remedies run through `default-by-tenant`.
+
+---
+
+## Gap-discovery backfill (instruction 36) — 2026-09-27
+
+| Source | Status |
+|---|---|
+| Gap-discovery source 1 — statute walk | Done (§3, §20, §27: N.D.C.C. ch. 47-16 read whole from primary text supplied directly by Taylor; independently re-verified against the official compilation `ndlegis.gov/cencode/t47c16.pdf` on 2026-09-27, §43.6) |
+| Gap-discovery source 2 — real-lease comparison | Done (§43.2: University of North Dakota *Apartment Lease*, edition HRL-APT-26, 2026; corroborated by NDSU *2026-2027 Apartment License Agreement* and the ND HHS *Basic Lease Agreement*) |
+| Gap-discovery source 3 — landlord-scenario screen | Done (§43.3: 62 scenarios, Claude-generated) |
+| Gap-discovery source 4 — outside-title search | Done (§20 Title 23, §29 Title 32, §33 Title 6; extended 2026-09-27 to Title 9 ch. 9-08 and Title 47 ch. 47-10, plus the official ndlegis.gov full-text search, §43.6) |
+
+### 43.1 Scope, and what this was not
+
+Two targeted checks, run at Taylor's instruction, on a state that is otherwise closed. Not a re-audit: no completed finding was re-scrubbed, and nothing was re-opened except where one of the two screens put a specific question in front of it. The standing rule (instruction 22) holds.
+
+The CSV was confirmed before any work: `lease-clauses.csv`, 941 rows / 905 active / 16 columns, 14 states, **ND 111 active rows — 61 lease clauses, 50 education, all `VERIFIED`**. No duplicate ids, no dangling `supersedes`, no display collisions among the 118 supersedes relationships, no blank `verification_status` on an active row; the only blank `states` is the `security-deposit-return` parent, which is expected (instruction 24).
+
+**Headline result.** The two screens produced **11 new rows and 4 corrections**, and between them they overturned one shipped `Confirmed Absent` finding that 43 ND-tagged rows rest on, and fixed two Addendum L.1 failures where the consolidated checklist already recorded a finding and no CSV row for it existed.
+
+The single most consequential finding is §43.4. It is not a new statute and not a subtle one: **North Dakota does have an enumerated statutory ban on exculpatory lease terms, and on contractual penalties, and on liquidated damages, and on clauses restricting access to the courts. All four are in Title 9, and this project never looked outside Title 47.** The checklist's own topic row for this — "Lease-content restrictions (state-wide, not just the LT chapter)" — recorded ND as *"Outside the chapter: NOT CANVASSED"*. The row anticipated the gap by name and the gap sat there anyway.
+
+---
+
+### 43.2 Part 1 — the real-lease comparison (gap-discovery source 2)
+
+#### 43.2a Why it was re-run, and what was used
+
+§38 recorded source 2 as complete against a free template, and called the result shallow itself. Redone properly.
+
+**Search order followed (instruction 36).**
+
+- **(a) The state Realtors association — unavailable.** The North Dakota Association of REALTORS® publishes its statewide forms behind a member login (`ndrealtors.com/membership/services/statewide-forms/` returns *"This content is restricted to site members"*). Individual NDAR forms do leak into the public path — its Purchase Agreement and Exclusive Right to Represent Buyer Agreement are both publicly served out of `/wp-content/uploads/` — but no residential lease was findable there, and I could not confirm from outside the login whether NDAR publishes one at all. **No standalone paid attorney-drafted North Dakota residential lease was located at any price.** The only route to NDAR's forms is REALTOR® membership, which is not a per-form purchase. If you want this closed, one email to NDAR asking whether a residential lease form exists and on what terms would settle it; I am not naming a price I could not verify.
+- **(b) A lease published by a state agency or public body — three found, and used.**
+- **(c) A private property-management company's own lease — none found publicly.** Goldmark (the largest Fargo/Grand Forks manager) and the other managers checked publish resident portals, not lease documents.
+
+**Primary lease used, and why it qualifies.**
+
+> **University of North Dakota, *Apartment Lease*, edition marker `HRL-APT-26` (2026).** Published by UND Housing & Residence Life at `und.edu/student-life/housing/_files/docs/apartments/hrl-apt-26-apartment-lease.pdf`. It is the operative lease for UND's on-campus apartments — a real, currently-executed North Dakota residential tenancy document, issued by a state institution, not a multi-state template. 31 numbered sections. It cites N.D.C.C. ch. 32-12.2 and the Century Code on abandoned property, so it was drafted against North Dakota law rather than adapted from a national form.
+
+**Corroborating leases** (used only to test whether a provision pattern was idiosyncratic to UND):
+
+> **North Dakota State University, *2026-2027 Apartment License Agreement*** (final), NDSU Residence Life, `ndsu.edu/sites/default/files/documents/2026-2027%20Apartment%20License%20Agreement%20-%20Final.pdf`. 13 numbered sections. Styled a licence rather than a lease.
+>
+> **North Dakota Health and Human Services, *Basic Lease Agreement***, `hhs.nd.gov/sites/www/files/documents/dd-provider-sample-lease-agreement.pdf` — a state agency's sample residential lease for DD providers. Five sections; thin, and treated as thin. Useful for one thing only: it points its users to N.D.C.C. §47-16-15 for termination notice and §47-16-07.2 for the check-in sheet, which is independent state-agency confirmation of which sections a North Dakota lease is expected to engage.
+
+Each was used as **a lead only** (instruction 6). Every statutory claim below rests on primary text: the complete ch. 47-16, re-verified against the official compilation on 2026-09-27, plus ch. 9-08 and ch. 47-10 read section-open the same day. No lease text is reproduced; the mapping is by topic. All three documents are copyrighted or agency-published and are mapped, not quoted.
+
+**Result: the comparison found no North Dakota statutory requirement that the library misses.** What it produced instead was sharper: **two clauses in a real North Dakota lease that appear not to comply with North Dakota law**, one of which points straight at the §43.4 finding, and **two precision corrections** to existing ND rows.
+
+#### 43.2b Provision map
+
+| UND provision (by topic) | ND library coverage | Result |
+|---|---|---|
+| Basic terms; unit; dates; rent; utilities | `rent-payment`, `due-at-signing`, `utilities-responsibility`, `services-utilities-provided` | Covered |
+| Lease formation and termination conditions | `termination-notice-nd`, `surrender-end-of-term-mn-nd` | Covered |
+| Occupancy eligibility; named occupants | `permitted-occupants`, `residential-use-only` | Covered |
+| Guests; overnight limits | `guest-policy`, `guest-policy-day-limit` | Covered |
+| Occupancy standards (max per unit type) | `permitted-occupants` | Covered (contract term; no ND statute) |
+| Multiple leaseholders; joint and several for all debts | `joint-liability` | Covered |
+| Nondiscrimination; Title IX | `edu-fair-housing-additions-nd`, `edu-fair-housing-enforcement-nd`, `edu-housing-voucher-protection-nd` | Covered. ND adds protected classes beyond federal law; the UND clause is narrower than ND law, not broader |
+| Assignment; early cancellation fees | `no-sublet-assign`; §§47-16-29, 47-16-30 | **Gap → `edu-selling-rented-property-nd`** (assignee remedies had no row); cancellation fee → §43.4 |
+| Delay of occupancy; university liability limited | `possession-delay` | Covered. Liability limitation → §43.4 |
+| Conditions of premises; acceptance; inventory form | `edu-condition-statement-nd` (§47-16-07.2), `existing-condition` | **Corrected** (§43.2d) — the row overstated the statute in two places |
+| **Notice to vacate: 60 days, with liquidated fees of $200–$1,000 for short notice** | `lease-notice-initial-requirement-nd` (§47-16-15(4)), `termination-notice-nd` | **Covered — and the lease appears non-compliant.** See §43.2c(1). Fees → §43.4 |
+| Check-out appointment; inspection; damage assessment | `security-deposit-return-nd`, `security-deposit-use`, `edu-condition-statement-nd` | Covered |
+| **Abandoned personal property; removal at university cost** | `abandoned-property-nd` (§47-16-30.1) | **Covered — and NDSU's version appears non-compliant.** See §43.2c(2). Notes corrected (§43.2d) |
+| Payments; due date; methods; collection | `rent-payment`, `acceptable-payment-methods`, `application-of-payments`, `edu-payment-method-fee-ban-nd` | Covered. ND bars a fee for accepting cash, cheque or money order (§47-16-20.1); neither lease charges one |
+| No alterations | `no-alterations` | Covered |
+| Trash and pests; cleanliness | `tenant-maintenance-nd`, `landlord-maintenance-nd` | Covered. Bed bugs: **confirmed absent** (§43.3c) |
+| Keys; lock-change charges | `keys` | Covered. Rekey/security-device duty and DV lock change: **confirmed absent** (§43.3c) |
+| **Right of entry: 24 hours' notice where possible; emergency entry** | `landlords-access-nd`, `edu-entry-notice-content-nd` | **Covered; education row corrected** (§43.2d). ND sets no notice-hours figure, so UND's 24 hours is stricter by contract. ND's *consent* requirement (§47-16-07.3) is stricter than UND's notice-only approach |
+| Repairs and maintenance; university obligations; resident duties | `landlord-maintenance-nd` (§47-16-13.1), `tenant-maintenance-nd` | **Corrected** — `tenant-maintenance-nd` was missing §§47-16-09 and 47-16-10 (§43.2d). **Gap → `edu-tenant-repair-and-deduct-nd`** (§47-16-13, §43.3b) |
+| **Safety and security; liability disclaimer** | `tenants-property-insurance` (base, with disclaimer) | **Gap → `edu-prohibited-lease-terms-nd`** (§43.4) |
+| Detection devices; resident maintains batteries | `smoke-detector-duty-nd`, `edu-carbon-monoxide-alarm-requirement-nd`, `edu-alarm-requirements-by-building-type-nd`, `edu-fire-code-standard-nd` | Covered, and the library is more precise than the lease |
+| **Moisture accumulation; prevention and notification** | — | **No ND mold statute → `edu-no-mold-disclosure-nd`** (§43.3c) |
+| **Indemnification; university liability waiver** | `pet-policy` ("without liability to Tenant"), `parking`, `storage-space` | **Gap → `edu-prohibited-lease-terms-nd`**, plus a shared-clause decision for Taylor (§43.7) |
+| Non-liability; no coverage for resident belongings; renter's insurance | `tenants-property-insurance` | Same as above |
+| Disturbances; noise; harassment | `no-disturbance`; §47-16-13.2(7) | Covered |
+| Community standards; compliance with policy and law | `edu-lease-rules-*` has no ND analog; `entire-agreement`, `edu-term-change-notice-nd` | Covered. ND's mid-tenancy change rule is §47-16-07 (30 days) with the tenant's 25-day counter-right at §47-16-15(3) — **which neither lease mentions**, and our row does |
+| Pets: none except aquarium fish; service/ESA via accessibility office | `pet-policy`, `assistance-animal-accommodation-nd`, `edu-service-animal-fraud-penalty-nd`, `edu-exemption-does-not-reach-animal-rules-nd` | Covered, and the library is substantially richer |
+| Tobacco-free; e-cigarettes | `smoking-policy` | Covered |
+| Subleasing; lease assumption; transfers | `no-sublet-assign` | Covered |
+| Motorised vehicles; parking permits | `parking`, `assigned-parking-space`, `parking-vehicle-rules` | Covered. Towing: not searched for ND (§43.8) |
+| **Terms and conditions revised on 60 days' notice** | `edu-term-change-notice-nd` (§47-16-07), `entire-agreement` | Covered. UND's 60 days is stricter than §47-16-07's 30; the tenant's §47-16-15(3) termination right applies regardless of what the lease says |
+| Security deposit | — | **Not applicable.** Neither university agreement takes a deposit, so the comparison tested nothing against ND's deposit regime (§47-16-07.1). This is the one real weakness of an institutional lease as source 2, and it is stated rather than papered over |
+| Late fee ($35 after the 10th, NDSU) | `late-fee` | **Gap → `edu-no-late-fee-cap-nd`** (§43.3c) |
+
+#### 43.2c Two provisions in real North Dakota leases that appear not to comply
+
+Neither is a library defect. Both are recorded because they are the errors our rows exist to prevent, found in the wild, at two of the state's largest institutional landlords.
+
+**(1) A 60-day tenant notice-to-vacate with no initialling space — both UND and NDSU.** §47-16-15(4): *"Any agreement that requires a lessee to give notice that exceeds one month from the end of a month to terminate a lease of real property for residential purposes must state the notice requirement and provide space for the lessee to initial next to the notice requirement. If the notice is not initialed by the lessee at the time of executing the lease, the lessee may terminate the lease on the last day of a month with at least one calendar month's notice."* Both agreements require 60 days. Neither provides an initialling space anywhere. On the statute's own terms the 60-day requirement is unenforceable against the tenant, who may leave on one calendar month's notice — and the liquidated fees both attach to short notice ($200–$1,000 at UND; rent-through-60-days, $250 or $500 at NDSU) have nothing to stand on.
+
+`lease-notice-initial-requirement-nd` and `termination-notice-nd` cover this correctly. **But the product does not.** This is a live confirmation of the initialling-field build item: the clause consists of the words *"Tenant's initials: \_\_\_\_\_\_"* and the builder has no mechanism to render or capture an initial, so a Steinoak lease with a long notice period currently ships the same defect these two do. Two independent institutional landlords making the identical mistake is evidence it is the default failure, not an outlier.
+
+**(2) NDSU disposes of unclaimed property after 30 days, with no value ceiling.** §47-16-30.1 authorises self-help disposal only for property *"with a total estimated value of not more than two thousand five hundred dollars"*, 28 or more days after actual notice of vacating or after it reasonably appears the lessee has vacated. The 30-day wait clears the timing test. The missing ceiling does not: above $2,500 North Dakota supplies **no** self-help disposal route — not a longer wait, not a notice-and-sale procedure, nothing. `abandoned-property-nd` carries the ceiling correctly; its notes now carry the over-ceiling consequence explicitly, because a landlord reading the clause as the general rule will apply a 28-day disposal to a vehicle (§43.2d).
+
+#### 43.2d Rows corrected by the comparison
+
+- **`edu-condition-statement-nd` — body and notes.** Two overstatements of §47-16-07.2 removed from a `REQUIRED` row. It said the statement must describe the condition of the facilities *"and of any furnishings or appliances you supply"* — the statute says *"the condition of the facilities in and about the premises to be rented"* and nothing about furnishings or appliances. And it said *"each of you keeps a copy"* — the statute imposes no copy-keeping or copy-delivery duty at all. Both are reasonable practice; neither is the statute, and in a `REQUIRED` row the difference matters. Added in their place: what the statute genuinely does not supply (no form, no itemisation standard, no penalty for omission) and where the consequence of omission actually lands, which is evidentiary and falls on the landlord. **This is the instruction 11(b) failure mode** — a correct citation, described wrongly, invisible to the citation screen by construction. Independently corroborated the same day by a research pass: *"a document-delivery/signature duty tied to lease inception … no penalty for omission is specified (its consequence is evidentiary)."*
+- **`edu-entry-notice-content-nd` — body and notes; open flag closed.** The row's own notes carried *"exact statutory emergency-entry language not yet independently confirmed from primary text — flagged for follow-up."* Closed against §47-16-07.3(1): *"At any time in case of emergency or if the landlord reasonably believes the tenant has abandoned the premises, or the landlord reasonably believes the tenant is in substantial violation of the provisions of the lease or rental agreement."* The third ground is considerably broader than the secondary sources' "emergency exception" framing implied. The body previously opened on the absence of a notice-hours rule and omitted §47-16-07.3(1) entirely, so it described the constrained route and not the unconstrained one. **Row-presence asymmetry worth noting:** `landlords-access-nd`, the lease clause, already stated all three grounds correctly from primary text. The education row was the weaker half of the pair, which is the reverse of the usual direction and is exactly what a paired screen is for. No change to `landlords-access-nd`.
+- **`tenant-maintenance-nd` — body and notes.** One sentence added carrying §§47-16-09 and 47-16-10. See §43.5; this is an Addendum L.1 failure, not something the lease comparison found on its own.
+- **`abandoned-property-nd` — notes only** (body, `rule_type`, `content_type`, `states` unchanged). Sourcing upgraded from *"full primary text confirmed via FindLaw"* to the official compilation — instruction 29 calls for the official legislative site, and FindLaw is a secondary host. The clause matches the official text on every operative element and needed no correction; the evidentiary tier rises. The over-$2,500 consequence from §43.2c(2) added.
+
+---
+
+### 43.3 Part 2 — the landlord-scenario screen (gap-discovery source 3)
+
+#### 43.3a Method
+
+Arizona's 59-scenario map (AZ log §18.1) taken as the base and extended with North Dakota specifics — winter habitability, room-level and weekly tenancies, the oil-patch short-term market, the sale and foreclosure paths, and the statutory levers that only exist in ND. **62 scenarios.** Scenarios written by Claude; Taylor was not asked about his experience, which is Colorado-only and already in the CO research (instruction 36).
+
+Each scenario was run against the 111 ND-active rows. Where no row answered it, the official ndlegis.gov full-text search was run (exact phrases, with variants) and every hit's section read section-open, plus — for the core chapter — a section-by-section walk of all 64 sections of ch. 47-16 against the ND row set, which is what surfaced §§47-16-08 through 47-16-30. The section walk found things no keyword probe would have: **"keyword probes do not substitute for adjudication" (K.4) cuts both ways, and a probe would not have returned §47-16-11 for "short-term rental" or §47-16-25 for "foreclosure."**
+
+**Result: 62 scenarios — 51 covered, 11 gaps.** Every gap produced a row. Seven core-chapter sections that had **zero rows anywhere in the library** now have one: §§47-16-11, 47-16-13, 47-16-13.4, 47-16-21, 47-16-25, 47-16-28, 47-16-29, 47-16-30.
+
+#### 43.3b Scenario map
+
+| Scenario | ND coverage | Result |
+|---|---|---|
+| **Before the lease** | | |
+| Applicant lied on the application | `rental-application-accuracy`, `default-by-tenant` | Covered |
+| Screening fees, criminal history, income source | `edu-fair-housing-additions-nd`, `edu-housing-voucher-protection-nd`, `edu-no-protected-class-inquiry-ban-nd` | Covered. Screening-fairness act confirmed absent (§33) |
+| Voucher holder applies | `edu-housing-voucher-protection-nd` | Covered — ND mandates acceptance (§14-02.5-02) |
+| Immigration-status inquiry | `edu-no-protected-class-inquiry-ban-nd` | Covered |
+| Unit not ready on move-in day | `possession-delay`; §47-16-17 | Covered |
+| Required disclosures at signing | `edu-condition-statement-nd`, `lead-based-paint` | Covered. **Radon, mold, bed bugs → three absence rows** (§43.3c) |
+| Deposit over one month's rent | `edu-security-deposit-cap-nd`, `edu-security-deposit-pet-cap-nd` | Covered, incl. the felony-conviction and prior-judgment exceptions |
+| Deposit must earn interest | `edu-security-deposit-interest-required-nd` | Covered |
+| Property is in an HOA | `hoa-compliance` | Covered for the tenancy. **Sale-side HOA disclosure → `edu-selling-rented-property-nd`** |
+| Long notice period in the lease | `lease-notice-initial-requirement-nd` | Covered (§43.2c(1)) |
+| Automatic renewal clause | `edu-automatic-renewal-notice-nd` (§47-16-06.1, 30 days) | Covered |
+| **Rent and money** | | |
+| Rent is late | `late-fee`, `default-by-tenant`, `edu-nonpayment-notice-nd` | Covered |
+| **How much can the late fee be** | `late-fee` (no figure), `late-fee` ND note | **Gap → `edu-no-late-fee-cap-nd`** |
+| **Does a payment go to rent or to fees first** | `application-of-payments` | **Gap → covered in `edu-no-late-fee-cap-nd`:** no ND statute either way, so rent-first is a contract choice here |
+| Cheque bounces | `returned-payments`, `edu-returned-check-fee-cap-nd` | Covered. **Standing flag resolved — see §43.6** |
+| Tenant hands over a postdated cheque | `edu-postdated-check-forfeits-remedies-nd` | Covered |
+| Tenant pays cash and wants a receipt | `edu-no-cash-receipt-duty-nd` | Covered (confirmed absent) |
+| Charging a fee to accept cash or a cheque | `edu-payment-method-fee-ban-nd` (§47-16-20.1) | Covered |
+| Raising the rent | `edu-term-change-notice-nd` (§47-16-07) | Covered |
+| A city tries to cap rents | `edu-term-change-notice-nd` notes (§47-16-02.1) | Covered, thinly — recorded in a note, not a row (§43.8) |
+| **A flat lease-break or short-notice fee** | — | **Gap → `edu-prohibited-lease-terms-nd`** (§§9-08-03, 9-08-04) |
+| **During the tenancy** | | |
+| **Furnace fails at −25°F** | `landlord-maintenance-nd` (§47-16-13.1(1)(f)) | Covered for the duty. **Tenant's remedy → `edu-tenant-repair-and-deduct-nd`** |
+| **Tenant repairs and deducts from rent** | `rent-payment` ("except as permitted by applicable law") | **Gap → `edu-tenant-repair-and-deduct-nd`** (§47-16-13) |
+| **Tenant vacates over an unrepaired defect and stops paying** | — | **Same gap; §47-16-13 discharges further rent** |
+| Mould complaint | `landlord-maintenance-nd`, `tenant-maintenance-nd` | **Gap → `edu-no-mold-disclosure-nd`** |
+| Bed bugs | `tenant-maintenance-nd` | **Gap → `edu-no-bed-bug-disclosure-nd`** |
+| Tenant damages the unit | `default-by-tenant`, `tenant-maintenance-nd` | **Corrected** — §§47-16-09, 47-16-10 added (§43.5) |
+| Snow and ice on the walks | `snow-removal` | Covered as a contract term; no ND statute located. Municipal ordinances flagged, not resolved (instruction 20) |
+| Landlord needs to enter; tenant refuses | `landlords-access-nd`, `edu-entry-notice-content-nd` | **Education row corrected** (§43.2d) |
+| Tenant changes the locks | `keys`, `no-alterations` | Covered |
+| **DV victim asks you to change the locks** | `dv-lease-release-nd`, `edu-dv-confidentiality-nd` | **Gap → `edu-no-dv-lock-change-duty-nd`** (confirmed absent) |
+| DV victim wants out of the lease | `dv-lease-release-nd`, `edu-dv-deposit-timing-nd`, `dv-state-housing-program-protection-nd` | Covered |
+| Guest won't leave | `guest-policy`, `guest-policy-day-limit` | Covered |
+| Roommate moves out | `joint-liability` | Covered |
+| Tenant sublets or lists on Airbnb | `no-sublet-assign`, `residential-use-only` | **Gap → `edu-purpose-limitation-remedy-nd`** (§47-16-11) |
+| **Tenant runs a business from the unit** | `residential-use-only` | **Same gap; §47-16-11 gives two remedies the clause doesn't mention** |
+| **Tenant re-rents a room to a third person** | `permitted-occupants`, `edu-double-letting-prohibited-nd` | Covered — and §47-16-26's remedy is building-wide rent abatement, which is severe and already recorded |
+| Noise and neighbour complaints | `no-disturbance`; §47-16-13.2(7), §47-32-01(7) | Covered |
+| Crime or drug activity | `edu-no-cure-eviction-grounds-nd` | Covered |
+| Unapproved pet | `pet-policy` | Covered |
+| Assistance or ESA request | `assistance-animal-accommodation-nd`, `edu-disability-modification-nd` | Covered |
+| Tenant claims a fake service animal | `edu-service-animal-fraud-penalty-nd` (§47-16-07.6) | Covered — conviction-gated, $1,000 damage fee |
+| Small-landlord exemption and animal rules | `edu-exemption-does-not-reach-animal-rules-nd`, `edu-fair-housing-exemptions-nd` | Covered |
+| Tenant's utility is shut off | `utility-service-continuity`, `utility-payment-evidence` | Covered |
+| You shut off a utility to force them out | `edu-no-utility-shutoff-statute-nd`, `edu-self-help-eviction-ban-nd` | Covered — §32-03-29 treble damages |
+| Smoke or CO alarm duties | `smoke-detector-duty-nd`, `edu-carbon-monoxide-alarm-requirement-nd`, `edu-alarm-requirements-by-building-type-nd`, `edu-smoke-alarm-portfolio-exemption-nd`, `edu-fire-code-standard-nd`, `edu-frozen-standard-incorporation-nd` | Covered, and unusually well |
+| Adding a rule mid-lease | `edu-term-change-notice-nd`, `entire-agreement` | Covered — 30 days out, 25 days back |
+| **Broad "Landlord is not liable" clause** | `tenants-property-insurance`, `parking`, `storage-space`, `pet-policy` | **Gap → `edu-prohibited-lease-terms-nd`** (§9-08-02) + a decision for Taylor (§43.7) |
+| **Arbitration clause, jury waiver, or a shortened claim deadline** | — none in the library for any state | **Gap → `edu-prohibited-lease-terms-nd`** (§9-08-05). FAA preemption not researched (§43.8) |
+| **Ending the tenancy** | | |
+| Month-to-month notice either way | `termination-notice-nd` (§47-16-15) | Covered |
+| **Weekly tenancy in an oil-patch town** | `edu-tenancy-type-notice-nd` | Covered — §§47-16-19, 47-16-15(1) scale notice to the term; the flat one-month rule does **not** apply below monthly |
+| Fixed term simply ends | `surrender-end-of-term-mn-nd`; §47-16-06, §47-16-06.1 | Covered |
+| Tenant stays after the term | `edu-holdover-damages-nd` (§§32-03-27, 32-03-28) | Covered |
+| **Tenant abandons mid-term — must you re-rent** | `default-by-tenant` (contractual mitigation) | **Gap → `edu-early-departure-mitigation-nd`** (§§47-16-13.4, 13.5, 13.7, 21) |
+| Tenant wants out early for a job transfer | `early-termination`, `edu-early-termination-grounds-nd`, `edu-no-state-military-termination-nd` | Covered |
+| Fire or casualty | `fire-casualty-termination-nd` | Covered |
+| Tenant dies | `termination-by-death-nd` (§47-16-18) | Covered |
+| Lease induced by fraud | `edu-fraudulent-misrepresentation-nd` (§47-16-07.4) | Covered |
+| Eviction process and notice | `edu-nonpayment-notice-nd`, `edu-no-cure-eviction-grounds-nd`, `edu-eviction-hardship-stay-nd` | Covered |
+| Retaliation claim | `edu-limited-retaliation-protection-nd` | Covered |
+| A disclosure failure is raised as an eviction defence | `edu-no-disclosure-bar-to-eviction-nd` | Covered |
+| Belongings left behind | `abandoned-property-nd`, `edu-post-writ-property-duties-nd` | Covered. **Over $2,500: no statutory route** (§43.2c(2)) |
+| **Tenant leaves a car worth more than $2,500** | `abandoned-property-nd` | **Same limit; notes corrected** |
+| Animals left after an eviction | `edu-no-post-writ-animal-duty-nd` | Covered (confirmed absent) |
+| Deposit dispute | `security-deposit-return-nd`, `security-deposit-use`, `edu-security-deposit-noncompliance-penalty-nd` | Covered — treble damages for withholding without reasonable justification |
+| Deposit refund never claimed | `edu-unclaimed-deposit-holder-duties-nd` | Covered |
+| Tenant asks to seal the eviction record | `edu-eviction-record-sealing-nd` (§47-32-05) | Covered — and independently re-confirmed enacted (§43.6) |
+| Mobile home park eviction | `edu-mobile-home-park-eviction-defence-nd` | Covered (deprioritized layer) |
+| **Owner changes** | | |
+| **You sell with a tenant in place** | `edu-security-deposit-successor-owner-nd` (deposit leg only) | **Gap → `edu-selling-rented-property-nd`** (ch. 47-10 + §§47-16-28, 29, 30) |
+| **Lender forecloses; tenant is served** | — | **Gap → `tenant-notice-of-adverse-proceeding-nd`** (§47-16-25) |
+| **A third party claims the property** | — | **Same gap; §47-16-25's attornment sentence is the protection** |
+| You switch property managers | `edu-security-deposit-successor-owner-nd` | Covered. Proactive tenant notice on sale or management change: **confirmed absent**, and that finding stands |
+
+#### 43.3c Confirmed absences recorded as rows
+
+Per the standing rule that a log-only absence is invisible to every future canvass. Each is a row, not a log line.
+
+- **Radon — absent for leases, PRESENT for sellers.** `edu-no-radon-disclosure-nd`. No landlord disclosure, testing or warning duty; ch. 47-16 read whole, and an official full-text search for "radon" returned **no Century Code hit at all** — every hit was a bill, committee minute or testimony. The legislative history is the interesting part: **2017 HB 1186 proposed to "amend and reenact section 47-16-07.2"** — that is, to put radon into the landlord-tenant condition statement — alongside a new seller-disclosure chapter. HB 1188 covered the same ground. Only the seller half ever became law. **Previous evidentiary basis was a Nolo quotation**, and the section it cited (§47-16-07.2) is the condition statement, not a radon rule.
+- **Mould.** `edu-no-mold-disclosure-nd`. No disclosure duty, no standard, no remediation timeline. Previous basis was "a dedicated mold-law reference site." **Search caveat stated honestly:** "mold" is a poor term in this corpus — 471 hits, dominated by manufacturing moulds and the verb — so the absence here rests primarily on the full-chapter read, not the search. **Near miss recorded against the next reader:** 2023 SB 2303 amendments would have required a *developer* to disclose toxic black mould risk in a below-water-table basement to a *purchaser*. Not law, not a landlord duty, and a later canvass searching "mold" will hit it (K.4).
+- **Bed bugs.** `edu-no-bed-bug-disclosure-nd`. Previous basis was an **admitted inference** — *"inferred from the same 'only one disclosure' statement; not a dedicated search."* The dedicated search is now run: "bed bugs" and "bed bug" each returned 2 hits, **no Century Code hit**. **The one substantive hit is a trap this project has already fallen into once in ND:** N.D. Admin. Code Title 33, Article 39, Chapter 01 defines "Infestation" to include bed bugs — and it is a Department of Health rule for **lodging establishments**, hotels and motels, not residential tenancies. The ND re-audit misattributed N.D. Admin. Code ch. 33-33-05 on precisely this lodgings confusion. Naming the trap conferred no immunity then; it is recorded on the row now. Note also that **"lodgings" is separately its own statutory category inside ch. 47-16** (§§47-16-05, 47-16-19, 47-16-20), meaning something different again — three distinct senses of the same word in ND law. Administrative-code flag raised (instruction 16): invisible to legislative bill tracking.
+- **No late-fee cap.** `edu-no-late-fee-cap-nd`. Confirmed statewide, not just in ch. 47-16 — which closes a real hole in how the absence had been supported. `late-fee`'s ND note said *"confirmed: full read of ch. 47-16 contains no late-fee provision,"* which does not exclude a cap living outside the chapter; that is instruction 7's failure mode stated as a proof. **Three failed bills:** HB 1440 and HB 1442 (2021), and **SB 2236 (2025), which would have amended §47-16-20 to cap a late fee at 8% of the overdue rent.** Also **SB 2235 (2025)**, on "rents and the priority of payments under a rental agreement." Both confirmed not enacted the only way that settles it — §47-16-20 in the current official compilation is the unchanged "Rents — When payable" section, and no payment-priority rule exists anywhere in the chapter (K.4: a later session searching "late fee" will surface SB 2236's 8% figure in engrossed bill text).
+- **No DV lock-change duty.** `edu-no-dv-lock-change-duty-nd`. §47-16-17.1 read in full, all eleven subsections: termination right only. Official search for "change the locks" — 21 hits, **no Century Code hit**. **2013 SB 2194** would have given a victim the right to *"require a landlord to change the outside locks … without penalty or liability,"* on the same advance-written-notice structure §47-16-17.1 now uses for termination; committee minutes record senators questioning the 48-hour turnaround and the cost. The enacted section has the notice structure and no locks. **NE has `dv-lockchange-ne` as a REQUIRED lease clause; it must not be extended to ND.**
+
+---
+
+### 43.4 The finding that matters: North Dakota does have an enumerated ban on exculpatory lease terms
+
+**New row: `edu-prohibited-lease-terms-nd`** (PROHIBITED, education, Notices & General, `topic_key: prohibited-lease-terms` — deliberately the same key as `edu-prohibited-lease-terms-ks` and `-ne`, so ND now sits in that family for every future canvass).
+
+**What was shipped.** 43 ND-tagged rows carry this sentence verbatim, written during the re-audit's bulk generic-clause extension:
+
+> *"LIABILITY-LANGUAGE CHECK: North Dakota has NO enumerated prohibited-lease-provisions statute (confirmed this session — §47-16-02 is a maximum-term cap, and §47-16-13.3 supplies only case-by-case unconscionability). The exculpation exposure that forced fixes to this clause family in KS and NE therefore does not arise for ND, same reasoning as the WY addendum."*
+
+And the checklist's ND cell for "Broad exculpation/liability-limitation/indemnification prohibition" reads *"Confirmed absent as an enumerated statutory ban — same as WY's finding, only unconscionability doctrine applies."*
+
+**What N.D.C.C. ch. 9-08 actually says**, read verbatim from the official compilation on 2026-09-27:
+
+- **§9-08-01.** *"Any provision of a contract is unlawful if it is: 1. Contrary to an express provision of law; 2. Contrary to the policy of express law, though not expressly prohibited; or 3. Otherwise contrary to good morals."*
+- **§9-08-02.** *"All contracts which have for their object, directly or indirectly, the exempting of anyone from responsibility for that person's own fraud or willful injury to the person or property of another, or violation of law, whether willful or negligent, are against the policy of the law."*
+- **§9-08-03.** *"Penalties imposed by contract for any nonperformance thereof are void."*
+- **§9-08-04.** *"Every contract by which the amount of damages to be paid, or other compensation to be made, for a breach of an obligation is determined in anticipation thereof is to that extent void, except that the parties may agree therein upon an amount presumed to be the damage sustained by a breach in cases in which it would be impracticable or extremely difficult to fix the actual damage."*
+- **§9-08-05.** *"Every stipulation or condition in a contract by which any party thereto is restricted from enforcing that party's rights under the contract by the usual legal proceedings in the ordinary tribunals or which limits the time within which that party thus may enforce that party's rights is void, except as otherwise specifically permitted by the laws of this state."*
+
+**So the shipped finding is wrong in its conclusion and right only in its premise.** It is true that ND's landlord-tenant title has no enumerated prohibited-provisions section. It does not follow that ND has no enumerated statutory ban — and the inference was drawn *"same reasoning as the WY addendum"*, importing a conclusion Wyoming reached about its own Article 12 into a state whose relevant law is in a different title. Instruction 18 warns against importing another state's architecture as a hypothesis. This was worse: it imported another state's *negative* finding as a conclusion.
+
+**How it was missed, precisely.** The re-audit read ch. 47-16 in full, correctly, and answered a chapter-scoped question. The checklist's own topic row — L642, *"Lease-content restrictions (state-wide, not just the LT chapter)"* — records ND's answer as ending with the words **"Outside the chapter: NOT CANVASSED."** The gap was labelled, in the checklist, in a row written to prevent exactly this, and 43 rows were then extended on the strength of the un-canvassed half.
+
+**Scope discipline — what §9-08-02 does not say.** It does not void an exemption from ordinary negligence as such. Its three targets are fraud, **willful** injury, and violation of law (willful or negligent). The exposure is therefore specific: a disclaimer fails where the loss traces to the landlord's **breach of a statute or code** — §47-16-13.1's habitability duties, §23-13-15's alarm duties, fair housing — not merely to carelessness. The row states it at that level and no broader. §9-08-02 is the Field Code provision Cal. Civ. Code §1668 and SDCL ch. 53-9 descend from, so California and South Dakota authority is likely relevant; **no ND case law was read**, and no Tunkl-style public-interest test was applied. That limit is on the row.
+
+**What it reaches beyond exculpation.** §9-08-03 makes contractual penalties void flatly, and §9-08-04 voids advance-fixed damages unless actual damage would be impracticable or extremely difficult to fix. That is a materially better answer to "how big can a late fee be in North Dakota" than "there is no cap" — and it reaches flat lease-break fees, short-notice fees and administrative fees generally. §9-08-05 reaches arbitration clauses, jury waivers and contractually shortened claim deadlines, for which the library has no clause in any state (FAA preemption not researched, §43.8).
+
+---
+
+### 43.5 Two Addendum L.1 failures — the checklist had the finding, the CSV had no row
+
+Both found by reconciling the ND column of the consolidated checklist against the ND row set, which is the L.1 screen. Both are the self-sealing shape: the checklist asserts coverage, so no later canvass re-flags it.
+
+- **§47-16-13, the tenant's three remedies for failure to repair.** Checklist row L635 already read *"Three options, no escrow — §47-16-13: repair and deduct from rent; recover in any other lawful manner; or vacate and be discharged from further rent … Plus §47-16-13.6: court may award reasonable attorney's fees to the prevailing party."* **No CSV row existed.** `landlord-maintenance-nd` carried §47-16-13.1 (the duties) and nothing carried §47-16-13 (the remedies for breaching them); the two halves were never connected in the library. → **`edu-tenant-repair-and-deduct-nd`.** No conflict with `rent-payment`, which already says rent is due *"without demand, deduction, or setoff, except as permitted by applicable law"* and yields by its own terms — but an ND landlord reading that clause would have no idea the right exists.
+- **§§47-16-09 and 47-16-10, the general tenant care and repair duties.** Checklist row L634 already read *"Two layers … ordinary care to preserve the property and keep it in good condition (§47-16-09); repair all deteriorations or injuries from the tenant's **ordinary negligence** (§47-16-10) — note *ordinary* … Residential-specific: seven duties at §47-16-13.2."* `tenant-maintenance-nd` carried **layer two only**. §47-16-10 is materially broader than §47-16-13.2(6), which reaches only deliberate or negligent destruction, defacement, damage, impairment or removal — §47-16-10 is an affirmative duty to **repair** whatever ordinary negligence caused. → one sentence added to `tenant-maintenance-nd`, using the statutory phrase "ordinary negligence" rather than paraphrasing to "negligence" (the NE re-audit's wording-discipline lesson).
+
+**Method point worth carrying forward.** The L.1 screen was run at the ND re-audit and passed. It does not stay passed: the checklist has grown substantially since — its CORE OBLIGATIONS block (L628–L642) postdates ND's re-audit — and every new topic row is a fresh opportunity for a checklist-only finding. **L.1 needs re-running against a state whenever the checklist gains rows for that state, not once per state.** Both failures above are in the block added 2026-09-07.
+
+---
+
+### 43.6 Currency, and a standing flag resolved
+
+- **Chapter 47-16 re-verified independently.** The chapter text this project has relied on since §27 was supplied directly by Taylor. §§47-16-19, 47-16-20 and 47-16-20.1 were transcribed from the official compilation (`ndlegis.gov/cencode/t47c16.pdf`) on 2026-09-27 and match word for word. The supplied text is good.
+- **ndlegis.gov cencode PDFs carry no history, source or currency line** — the same limitation Arizona hit (instruction 35). A "full read" of the compilation is therefore not a full read of current law: a section can print an amendment whose effective date has not arrived, and a section in force now that self-repeals can be missing. **For North Dakota, currency has to come from the session laws, and the compilation-only basis is stated on every row this session wrote.** This is worth adding to ND's method notes permanently.
+- **The enactment test that worked twice.** For both 2025 bills that mattered, the decisive check was not the bill history but **whether the section is present in the current official compilation**: §47-10-02.2 is there (SB 2204 enacted), and §47-16-20 is unchanged (SB 2236 failed). SB 2204's enrolled PDF has blank governor and Secretary of State date lines, so the enrolled document alone would not have supported a `VERIFIED` (instruction 17).
+- **`edu-returned-check-fee-cap-nd` — the standing flag is already resolved; no action needed.** The ND log's closing flag asked whether §6-08-16 imposes any notice, disclosure or demand precondition on the $40. The row already answers it correctly: *"That $40 carries no advance-notice or disclosure precondition. A larger civil penalty is available but only if you first mail the statutory notice of dishonor and the tenant fails to pay … within ten days."* A research pass on 2026-09-27 independently confirmed this from §6-08-16(2)(a), (2)(c) and (4), and adds that the notice of dishonor is itself permissive (*"may be mailed"*), confirmed by *State v. Ohnstad*, 392 N.W.2d 389, 390 (N.D. 1986). **The flag in ND's log and the matching flag in SD's log can both be struck for ND. SD's row remains the weaker-sourced of the two and that is SD's question, not ours.**
+- **Disagreement recorded rather than reconciled.** The same research pass characterised §47-16-13.5's mitigation duty as *"Present — general."* The primary text does not read that way: *"Any party aggrieved **under sections 47-16-13.1 through 47-16-13.6** may recover appropriate damages. However, the aggrieved party has a duty to mitigate damages."* On its face the mitigation sentence attaches to the aggrieved party the first sentence defines, which is scoped to the habitability group. `edu-early-departure-mitigation-nd` states the narrower, text-bound reading, flags the difference, and does **not** rely on the narrower reading to tell a landlord it is safe not to mitigate. Resolving it needs ND case law, which was not read. Both figures recorded; neither adopted silently.
+
+---
+
+### 43.7 Decisions for Taylor — shared rows, not touched
+
+None of the following is in the delta. Each needs your OK because it edits a shared row or sets a cross-state product direction.
+
+**(A) Four ND-tagged shared clauses carry flat, unqualified landlord-liability disclaimers.** These are the same clause family KS and NE needed fixed, and ND holds the un-fixed versions:
+
+| Row | The language | ND exposure under §9-08-02 |
+|---|---|---|
+| `tenants-property-insurance` (CO;WY;ND;SD) | "Landlord is not liable for any such loss or damage" | Flat and unqualified |
+| `parking` (CO;WY;ND;SD) | "not liable for damage to or theft of a vehicle or its contents" | Flat and unqualified |
+| `storage-space` (CO;WY;ND;SD) | "not liable for damage to or theft of items stored there" | Flat and unqualified |
+| `pet-policy` (CO;WY;ND;OH;TX) | "may enter the property and remove a pet, without liability to Tenant" | Flat, and it covers the landlord's own affirmative act |
+| `services-utilities-provided` (CO;WY;NE;ND;SD;TX;NJ;FL) | "not liable for any interruption … resulting from causes beyond Landlord's reasonable control" | **Already safe** — self-limiting, so no fix needed |
+
+Three routes. **My recommendation is (1) for the first row and (2) for the other three:**
+
+1. **Tag ND onto the existing no-disclaimer variant.** `tenants-property-insurance-ks-oh-ca` already exists and already drops the liability sentence — it is tagged KS;OH;CA;NV;TX;NJ;FL;AZ and supersedes the base. Adding ND is a `states` change on one row, zero new drafting, and no new text to verify. Cheapest correct fix available.
+2. **Self-limit the shared text**, the way `services-utilities-provided` already does — e.g. "except to the extent applicable law does not permit Landlord to limit that liability." One edit, all tagged states inherit it safely, no per-state fork. This would be a **UNIFORM** §5a.1 judgment (it states a limit that exists in every state's law rather than importing ND's), so it needs a note in each tagged state's log but no override anywhere.
+3. **Leave the clauses and rely on `edu-prohibited-lease-terms-nd`.** Defensible — an unenforceable sentence is unenforceable whether or not the lease says so — but it ships tenant-facing text that ND law will not back, which is the thing KS and NE were fixed for.
+
+**(B) The 43-row note sentence needs qualifying.** Paste-ready replacement for the `LIABILITY-LANGUAGE CHECK` sentence wherever it appears in an ND-tagged row:
+
+> LIABILITY-LANGUAGE CHECK (revised 2026-09-27): North Dakota has no enumerated prohibited-lease-provisions statute **inside its landlord-tenant title** — § 47-16-02 is a maximum-term cap and § 47-16-13.3 supplies case-by-case unconscionability. It does, however, have enumerated bans in Title 9: § 9-08-02 voids a term exempting anyone from responsibility for their own fraud, willful injury, or violation of law whether willful or negligent; § 9-08-03 voids contractual penalties; § 9-08-04 voids advance-fixed damages absent impracticability; § 9-08-05 voids terms restricting enforcement of rights or shortening the time to enforce them. See edu-prohibited-lease-terms-nd. The earlier conclusion that "the exculpation exposure that forced fixes to this clause family in KS and NE does not arise for ND" is withdrawn as to any clause disclaiming liability for the landlord's own violation of law.
+
+**(C) `late-fee`'s ND note.** Paste-ready addition (the existing sentence is accurate, just incomplete):
+
+> ND (added 2026-09-27): the absence of a cap is confirmed statewide, not only in ch. 47-16 — see edu-no-late-fee-cap-nd. But ND's operative limit is not a cap: § 9-08-03 voids contractual penalties outright and § 9-08-04 voids advance-fixed damages unless actual damage would be impracticable or extremely difficult to fix, so a late fee must be defensible as an estimate of actual loss rather than merely under some ceiling. Three cap bills have failed (2021 HB 1440, HB 1442; 2025 SB 2236, 8% of overdue rent, would have amended § 47-16-20).
+
+**(D) No state has a quiet-enjoyment clause.** §47-16-08 gives ND a statutory covenant — *"An agreement to lease real property binds the lessor to secure to the lessee the quiet possession of such property during the term of the lease against all persons lawfully claiming the same"* — and a search of all 941 rows found **no quiet-enjoyment or quiet-possession lease clause for any of the 14 states**. Most states supply the covenant by statute or common law, so nothing is broken; but it is standard lease content the library lacks everywhere, and it is the clause a tenant invokes when a landlord's own conduct makes the unit unusable. A shared row across 14 states is a product decision, not an ND fix. I did not write it.
+
+**(E) ch. 9-08 is a cross-state candidate, never an inheritance.** ND and SD share the Dakota Territory Civil Code of 1877, and the CSV already cites SDCL 53-9-3 for liquidated damages; CA already carries Civ. Code §1671(d), and §1668 is its §9-08-02 analog. Whether the ND finding transfers is a question for those states' own sessions. Flagged, not acted on. The library already carries a note reading *"Needs a per-state read of liquidated [damages]"* — ND's half of that is now done.
+
+---
+
+### 43.8 Open after this pass — none blocking
+
+- **§47-16-02.1 rent-control preemption** is recorded only inside `edu-term-change-notice-nd`'s notes, not as a row. A one-line absence-of-local-rules row would make it canvass-visible; low value, not written.
+- **Extended-absence notice.** AZ confirmed absent. **Not searched for ND** — stated rather than assumed, because a frozen-pipe scenario in a North Dakota winter makes it a live question.
+- **Towing.** AZ's screen found a real gap (`edu-towing-az`). **Not searched for ND.** `parking-vehicle-rules` defers to law, so nothing is wrong; nothing is confirmed either.
+- **FAA preemption of §9-08-05** as applied to an arbitration clause — not researched, and the row does not assert §9-08-05 defeats one.
+- **ND case law on §§9-08-02 and 9-08-04** — not read. This is the largest single limit on the §43.4 row.
+- **§47-10-28** (mobile home park ownership transfer, tenant rights, penalty) — heading only. Deprioritized layer.
+- **§11-15-11** remains the one ND citation never read from primary text; it supports a note, not a holding. Unchanged by this pass. (A research pass on 2026-09-27 reports it caps a keeper fee at five dollars per day and imposes no eviction-specific duty, which is consistent with the note; still not primary-read here.)
+- **Municipal ordinances** — snow and ice removal, rental registration. Flagged, not resolved (instruction 20).
+
+### 43.9 Integrity
+
+Delta of 15 rows: **11 new, 4 changed, every one `states=ND` only.** Merged against the trunk and asserted: **952 rows, 916 active. ND 122 active rows — 62 lease clauses (all 62 displayable, none superseded) and 60 education rows, all `VERIFIED`.** Every other state's tag count is byte-identical before and after. No duplicate ids, no dangling `supersedes`, no display collisions, no blank `verification_status` on an active row, no blank `states` except the `security-deposit-return` parent, no blank `topic_key`. Every row id named in a new or changed `notes` field exists in the CSV. No shared row's `bodyText`, `rule_type`, `content_type` or `states` changed, so **no §5a.1 propagation obligation arises from this pass** — the propagation items are all in §43.7 awaiting a decision.
+
+---

@@ -309,3 +309,205 @@ Not a re-audit; nothing else in this state was reviewed. Detail: lease-clause-de
 1. **Shared-row edit received from Arizona (2026-09-27, Taylor's decision) — `entire-agreement`.** The sentence "may not be changed except in writing signed by all parties" now continues ", or as applicable law permits Landlord to change it by written notice to Tenant." Driver: A.R.S. §33-1342(C), which lets an Arizona landlord amend existing leases by written notice to comply with new laws; the old wording could be read to waive such a right. Recorded as **uniform** under §5a.1: the words are self-limiting and change nothing where this state's law gives no unilateral amendment right, while preserving any right it does give (for example, rules adopted on notice or changes to a periodic tenancy on the notice the law requires). No state-specific override is needed. `last_checked` was reset to 2026-09-27.
 
 2. **2026-09-27, AZ session — new shared row `rental-application-accuracy` tagged NJ** (§5a.1; uniform text, no NJ override). The tenant represents that the application information was true, correct and complete; a materially false or misleading statement is a material breach, with the remedies the lease and law provide; information the landlord may not request or consider is excluded. The Fair Chance in Housing Act (N.J.S.A. 46:8-52 to 64, `edu-screening-rules-nj`) limits criminal-history inquiry; the last sentence keeps the clause off that information. The clause avoids "to the extent permitted by law" wording. The N.J.S.A. 56:12-16 savings-clause rule was not read. Remedies run through `default-by-tenant-nj`. **Open (effectiveness):** the Anti-Eviction Act's grounds (2A:18-61.1) are exclusive, and whether one reaches a false application was not researched.
+
+---
+
+## 15. Gap-discovery backfill (instruction 36) — 2026-09-27
+
+| Source | Status |
+|---|---|
+| Gap-discovery source 1 — statute walk | Done (§§1–3, 10: N.J.S.A. 46:8, 2A:18, 2A:39, 2A:42, 10:5 and N.J.A.C. 5:10, read section-open) |
+| Gap-discovery source 2 — real-lease comparison | Done (§15.1: NJ Realtors Standard Form of Residential Lease, Form 125-10/2022) |
+| Gap-discovery source 3 — landlord-scenario screen | Done (§15.2) |
+| Gap-discovery source 4 — outside-title search | Done (§§10, 13, 14, and §15.1 findings in Titles 40A, 52, 55, 56 and 58) |
+
+**Scope:** two targeted checks, not a re-audit. Everything was screened against the current `lease-clauses.csv` (941 rows, 14 states). That copy already reflects the library changes since the NJ pass: `application-of-payments` is rent-first (and `application-of-payments-nj` is retired), `default-by-tenant-nj` carries the no-cure carve-out, `entire-agreement` has its notice carve-out, and `rental-application-accuracy` is tagged NJ.
+
+**Result:**
+- **One missing required lease rider found:** steam radiator covers. It's required wherever a unit has steam radiators.
+- **One correction:** `edu-smoke-alarm-nj` recorded a false confirmed absence.
+- **Four other new rows:** well-test results, casualty, landlord liability insurance, towing.
+- **No shared row changed.**
+
+### 15.1 Real-lease comparison (source 2)
+
+**Lease used:** NEW JERSEY REALTORS® Standard Form of Residential Lease, **Form 125-10/2022** (©2001 New Jersey Realtors®, Inc.), 47 numbered sections plus a steam-radiator rider.
+- **Where it came from:** a completed-header copy posted by **Halo Realty**, a Bridgewater, NJ brokerage, at `https://d1e1jt2fj4r8r.cloudfront.net/004783a8-0082-479f-be5f-5071f36c16e4/geT-7fDtN/Residential%20Lease%20Agreement.pdf`.
+- **Why it qualifies:** it's the state Realtors association's own residential form, category (a), posted publicly by a New Jersey brokerage. It isn't a multi-state template.
+- **How it was used:** as a lead only (instruction 6). The map below is by topic, and none of the lease's text is reproduced.
+
+| Form 125 topic | NJ library coverage | Result |
+|---|---|---|
+| Condo/co-op conversion termination notice (first clause) | `conversion-statement-nj` | Covered |
+| Property, term, rent, initial deposit | `rent-payment`, `due-at-signing` | Covered |
+| Security deposit (Rent Security Deposit Act, interest, 30-day return) | `security-deposit-interest-nj`, `security-deposit-return-nj` | Covered |
+| Late charge and returned-check fee | `late-fee-nj`, `returned-payments-nj` | Covered |
+| "Additional rent" for landlord-performed obligations | Taylor's decision (§11): no fee is labeled rent | Not needed (deliberately declined) |
+| Possession and use; hazardous materials; vacancy | `residential-use-only`, `permitted-occupants`, `fire-safety-grilling` | Covered |
+| Utilities allocation | `utilities-responsibility`, `utilities-paid-by-landlord`, `tenant-supplied-heat-nj` | Covered |
+| No assignment or sublet | `no-sublet-assign` | Covered |
+| Violation, eviction and re-entry | `right-of-reentry-nj`, `default-by-tenant-nj`, `edu-anti-eviction-act-nj` | Covered |
+| Damages (lost rent, re-letting costs) | `default-by-tenant-nj` (mitigation), `early-termination` | Covered |
+| Quiet enjoyment | `landlord-maintenance`, `edu-self-help-eviction-ban-nj` | Covered |
+| Tenant repairs; landlord repairs | `tenant-maintenance`, `landlord-maintenance`, `edu-heat-and-pest-duties-nj` | Covered |
+| Access | `landlords-access`, `inspection-rights` | Covered |
+| No alterations; painting | `no-alterations` | Covered |
+| Municipal inspections and certificates | `landlord-registration-disclosure-nj`; municipal layer flagged | Covered (state layer); local layer flagged |
+| Tenant insurance | `tenants-property-insurance-ks-oh-ca` | Covered |
+| Fire and other casualty | none | **Gap → `casualty-nj`** (N.J.S.A. 46:8-6, 46:8-7) |
+| Landlord liability; insurance minimums | none | **Gap → `edu-rental-liability-insurance-nj`** (N.J.S.A. 40A:10A-1, -2) |
+| Pets; per-day unauthorized-pet charge | `pet-policy-nj`, `assistance-animal-accommodation-nj` | Covered (per-day charge not adopted) |
+| Notices (personal delivery or certified mail) | `notices` | Covered |
+| No waiver | none | Not needed (Taylor's decision on AZ §16.4: no general non-waiver clause) |
+| Severability; binding effect; entire agreement | `severability`, `entire-agreement` | Covered |
+| Renewal of lease (good cause) | `holdover-nj`, `edu-anti-eviction-act-nj` | Covered |
+| Furniture | `appliances-included` | Covered |
+| End of term (clean, repaired, vacated) | `surrender-end-of-term-nj` | Covered |
+| Association bylaws and rules | `hoa-compliance` | Covered |
+| Attorney review; broker's commission; Consumer Information Statement; licensee business relationship | none | Not needed (real-estate licensee duties, not landlord lease content) |
+| Megan's Law statement and registry | none | Not needed (licensee disclosure) |
+| Lead-based paint; lead-safe certification attached | `lead-based-paint`, `lead-safe-certification-nj` | Covered |
+| Window guard notice | `window-guard-notice-nj` | Covered |
+| Truth in Renting acknowledgment | `truth-in-renting-statement-nj` | Covered |
+| Smoke, CO alarm and fire extinguisher certificate | `edu-smoke-alarm-nj` (said no 1–2 family statute) | **Correction** (see below) |
+| Private well testing | none | **Gap → `private-well-test-results-nj`** (N.J.S.A. 58:12A-32) |
+| Security cameras inside the unit | none | **Not located:** no landlord-specific statute found; the form relies on general invasion-of-privacy law. No row |
+| New multiple dwelling rent-control exemption | `rent-control-exemption-notice-nj` | Covered |
+| Steam radiator rider | none | **Missing required rider → `steam-radiator-cover-notice-nj`** (N.J.S.A. 52:27D-198.20) |
+| Addenda; other provisions | `addendum-precedence` | Covered |
+
+**What the comparison produced:**
+- **(a) Missing required clause, one:** `steam-radiator-cover-notice-nj`.
+  - P.L.2021, c.259, codified N.J.S.A. 52:27D-198.20, requires the owner of residential rental property to notify tenants of their right to request radiator covers. The notice must go "as a rider to any written residential lease agreement", in writing at least annually, and be posted in common areas.
+  - Covers must be installed within 90 days of a written request. Fine up to $500, plus a private action for an injured person.
+  - The act doesn't define "residential rental property", so the rider is CONDITIONAL on the unit having steam radiators, with no unit-count threshold.
+  - Read from the chapter law on the Legislature's site.
+- **(b) Correction, one:** `edu-smoke-alarm-nj`.
+  - §14 recorded "confirmed absent" for a 1–2 family statutory smoke-alarm duty. **That was wrong.**
+  - N.J.S.A. 52:27D-198.1 requires a smoke alarm on each level and outside each sleeping area, plus an ABC fire extinguisher, in any residence of no more than two households.
+  - N.J.S.A. 52:27D-198.2 bars an owner from leasing, or allowing a change of occupancy, without first getting a compliance certificate. N.J.A.C. 5:70-2.3 adds CO alarms to the certificate.
+  - **Why the search missed it:** the sections say "smoke-sensitive alarm device" and "alarm device", not "smoke detector". Same L.13 shape as SD §20-13-23.4: the absence row was wrong about the world, not just its footnote.
+- **(c) New rows, four:**
+  - `casualty-nj`: restates the N.J.S.A. 46:8-6 and 46:8-7 defaults rather than varying them.
+  - `private-well-test-results-nj`: CONDITIONAL.
+  - `edu-rental-liability-insurance-nj`: outside the landlord-tenant title.
+  - `edu-towing-nj`: from §15.2.
+- **(d) Confirmed absences / not located:**
+  - security cameras: no landlord-specific statute located (bounded; not searched on the official site);
+  - Megan's Law and attorney review: licensee duties, not landlord duties.
+- **(e) Cross-state questions:**
+  - **Lease riders required by statute for a physical feature (radiators, wells):** worth a quick "rider" / "private well" statute search in other states. Informational; no shared-row change proposed.
+  - **The L.13 search-term failure:** a proof-of-absence search should include the statute's own terms of art ("alarm device") as well as common terms. This is a method note for the checklist.
+
+### 15.2 Landlord-scenario screen (source 3)
+
+**Method:** Arizona's 59-scenario map (AZ log §18.1), adapted to New Jersey with NJ-specific scenarios added, run against the 80 NJ-active rows. Where a scenario had no NJ answer, primary text was checked: sections already read section-open (§§1–14), chapter laws on the Legislature's site, or host copies, each noted.
+
+**Result:** 59 scenarios. 53 were covered by existing rows. The other 6 were closed by this pass:
+- **Two scenario gaps:** car towed (now `edu-towing-nj`) and fire or casualty (now `casualty-nj`).
+- **Four scenarios answered by rows new or corrected in §15.1:** steam radiators, well test at signing, smoke/CO certificate at turnover, landlord insurance.
+
+Four bounded absences are listed after the table.
+
+| Scenario | NJ coverage | Result |
+|---|---|---|
+| **Before the lease** | | |
+| Holding deposit, then the applicant backs out | `security-deposit-return-nj` (money held "as security" is trust money, N.J.S.A. 46:8-19); fee cap in `edu-screening-rules-nj` | Covered as to deposits; no holding-deposit statute located (bounded) |
+| Screening: fees, criminal history, income source, immigration | `edu-screening-rules-nj`, `edu-no-immigration-inquiry-rule-nj` | Covered |
+| Applicant lied on the application | `rental-application-accuracy` | Covered (its carve-out also fits the Fair Chance Act's inquiry limits) |
+| Voucher holder applies | `edu-screening-rules-nj` (N.J.S.A. 10:5-12(g)(4)) | Covered |
+| Unit not ready on move-in day | `possession-delay` | Covered |
+| Disclosures at signing | Truth in Renting, registration, flood (2 rows), window guards, lead (2 rows), conversion, rent-control exemption, **steam radiator (new)**, **well test (new)** | Covered |
+| Owner never registered | `landlord-registration-disclosure-nj` (no possession judgment, N.J.S.A. 46:8-33) | Covered |
+| Property is in an HOA | `hoa-compliance` | Covered |
+| Deposit over the 1.5-month cap, pet deposit included | `security-deposit-return-nj` | Covered |
+| Smoke/CO certificate before a 1–2 family turnover | `edu-smoke-alarm-nj` (corrected) | Covered (§15.1) |
+| Landlord's own insurance | `edu-rental-liability-insurance-nj` | Covered (new) |
+| **Rent and money** | | |
+| Rent is late | `late-fee-nj`, `default-by-tenant-nj`, `edu-anti-eviction-act-nj` (no pre-suit notice for nonpayment) | Covered |
+| Senior or benefits recipient pays on day 4 | `late-fee-nj` (5-business-day grace, N.J.S.A. 2A:42-6.1) | Covered |
+| Tenant pays part of the rent | `application-of-payments` (rent first) | Covered as to allocation; no partial-payment-acceptance waiver statute located (bounded) |
+| Check bounces | `returned-payments-nj` (N.J.S.A. 2A:32A-1) | Covered |
+| Tenant pays cash and wants a receipt | `acceptable-payment-methods-nj` (receipt mandatory, N.J.S.A. 46:8-49.2) | Covered |
+| Tenant insists on paying by check, not the portal | `acceptable-payment-methods-nj` (EFT can't be required) | Covered |
+| Raising rent at renewal | `edu-municipal-rent-control-nj`, `edu-anti-eviction-act-nj` (unconscionability) | Covered |
+| Paying deposit interest each year | `security-deposit-interest-nj` | Covered |
+| **During the tenancy** | | |
+| No heat in January | `edu-heat-and-pest-duties-nj`, `tenant-supplied-heat-nj` | Covered |
+| Tenant withholds rent or repairs and deducts | `edu-rent-receivership-withholding-nj` (Marini, Berzito) | Covered |
+| Child could be burned on a steam radiator | **`steam-radiator-cover-notice-nj`** | Covered (new) |
+| Window guards requested | `window-guard-notice-nj` | Covered |
+| Pests, bedbugs, mold | `edu-heat-and-pest-duties-nj`, `edu-no-mold-disclosure-nj` | Covered |
+| Tenant damages the unit | `tenant-maintenance`, `default-by-tenant-nj`, `right-of-reentry-nj` | Covered |
+| Landlord needs to enter; tenant refuses | `landlords-access` (one day, N.J.A.C. 5:10-5.1(c)) | Covered |
+| Tenant changes the locks; DV lock change | `keys`, `edu-statutory-early-termination-nj` (N.J.S.A. 46:8-9.14) | Covered |
+| Tenant away for a month | none | No statute located (bounded) |
+| Guest won't leave; squatter | `guest-policy`, `edu-self-help-eviction-ban-nj` (court process only) | Covered. The 2025 squatter bill (S725) was not confirmed enacted; not relied on |
+| Roommate moves out | `joint-liability` | Covered |
+| Sublet or Airbnb | `no-sublet-assign`, `residential-use-only` | Covered |
+| Noise | `no-disturbance` (notice to cease, N.J.S.A. 2A:18-61.1(b)) | Covered |
+| Drugs, assault, theft, trafficking | `edu-anti-eviction-act-nj` (grounds n–r, 3 days' notice) | Covered |
+| Cannabis smoking | `smoking-policy` | Covered as lease text; the NJ statutory basis for a landlord prohibition is not read (flagged) |
+| Unapproved pet; senior-housing pet | `pet-policy-nj` | Covered |
+| Service or support animal | `assistance-animal-accommodation-nj` | Covered |
+| Tenant alters or paints | `no-alterations` | Covered |
+| Car towed from the lot | `parking-vehicle-rules` (defers to law) | **Gap → `edu-towing-nj`** |
+| Snow and ice | `snow-removal` | Covered (municipal sidewalk ordinances flagged) |
+| Tenant's utility shut off | `utility-service-continuity` | Covered |
+| Landlord's utility shut off for nonpayment | N.J.S.A. 2A:18-61.1(a) (tenant-paid utility not unpaid rent); `edu-rent-receivership-withholding-nj` | Covered. BPU tenant-notice rule N.J.A.C. 14:3-3A.6 exists; utility-side, not read, no row |
+| Adding a rule mid-lease | `common-area-use` note (N.J.S.A. 2A:18-61.1(d)), `entire-agreement` carve-out | Covered |
+| Fire or other casualty | none | **Gap → `casualty-nj`** |
+| **Ending the tenancy** | | |
+| Tenant wants out early | `early-termination`, `default-by-tenant-nj` (Sommer v. Kridel) | Covered |
+| DV, death, disability | `edu-statutory-early-termination-nj` | Covered |
+| Servicemember deployed | `early-termination` (SCRA preserved) | Covered |
+| Month-to-month notice | `holdover-nj`, `edu-anti-eviction-act-nj` | Covered |
+| Lease ends and tenant stays | `holdover-nj`, `surrender-end-of-term-nj` | Covered |
+| Landlord wants the unit back for own use | `edu-anti-eviction-act-nj` (ground (l)(3), 3 or fewer units) | Covered |
+| Tenant disappears; belongings left | `surrender-end-of-term-nj` (N.J.S.A. 2A:18-72 to 84) | Covered |
+| Eviction process; lockout | `edu-anti-eviction-act-nj`, `edu-self-help-eviction-ban-nj` | Covered |
+| Retaliation | `edu-retaliation-nj` | Covered |
+| Deposit dispute | `security-deposit-return-nj` | Covered |
+| Deposit refund never cashed | none | Not located: the Uniform Unclaimed Property Act (N.J.S.A. 46:30B) is not read (bounded) |
+| Tenant asks to seal an eviction record | `edu-screening-rules-nj` (COVID-period records only) | Covered as to COVID records; general sealing bills (2024 A1703/S279) not confirmed enacted |
+| **Owner changes** | | |
+| Owner sells with a tenant in place | `security-deposit-return-nj` (deposit transfer, N.J.S.A. 46:8-20, -21); `landlord-registration-disclosure-nj` (amended certificate); good cause binds the successor (N.J.S.A. 2A:18-61.3(b)) | Covered |
+| Lender forecloses | `edu-foreclosure-tenant-rights-nj` | Covered |
+| Building converts to condo | `conversion-statement-nj`, `edu-anti-eviction-act-nj` | Covered |
+| Manager changes | `landlord-registration-disclosure-nj` (amended certificate within 20 days; copy to tenants within 7) | Covered |
+
+**Absences recorded (no row).** All are bounded to text read. None was run as an official full-text search in this pass.
+- **Holding deposit:** no rental holding-deposit statute located.
+- **Partial-payment acceptance waiver:** none located.
+- **Extended-absence notice:** none located.
+- **Unclaimed deposit escheat:** N.J.S.A. 46:30B not read.
+
+### 15.3 Rows changed
+
+The delta file `lease-clauses-NJ-delta.csv` has six rows, each complete, with the change and reason in its notes:
+
+| Row | Change | Status |
+|---|---|---|
+| `steam-radiator-cover-notice-nj` | New, CONDITIONAL lease rider (N.J.S.A. 52:27D-198.20) | VERIFIED |
+| `private-well-test-results-nj` | New, CONDITIONAL (N.J.S.A. 58:12A-32, FindLaw host copy) | VERIFIED |
+| `casualty-nj` | New, RECOMMENDED (N.J.S.A. 46:8-6, -7) | VERIFIED |
+| `edu-rental-liability-insurance-nj` | New education row (N.J.S.A. 40A:10A-1, -2) | VERIFIED |
+| `edu-towing-nj` | New education row (N.J.S.A. 56:13-13, -16) | VERIFIED |
+| `edu-smoke-alarm-nj` | **Corrected**: body rewritten; false confirmed absence withdrawn (N.J.S.A. 52:27D-198.1, -198.2; N.J.A.C. 5:70-2.3) | VERIFIED |
+
+**No shared row's text changed**, so no propagation is owed.
+
+**New layout item for the §4 table:** N.J.S.A. 52:27D-198.20 requires the steam-radiator notice as a lease **rider**, plus an annual written notice and common-area posting.
+
+**Source-quality note (instruction 29):**
+- Read from the official Legislature site (chapter laws): P.L.2021, c.259 and P.L.2022, c.92.
+- Read from FindLaw or Justia host copies with history lines, not compared with the official site: N.J.S.A. 52:27D-198.1, -198.2, 58:12A-32 and 56:13-13, -16. Each row says so.
+- N.J.A.C. 5:70-2.3 is from the Cornell LII copy.
+
+### 15.4 Integrity (merged view: attached CSV plus delta)
+
+- 946 rows, 910 active.
+- NJ has **85 active rows, all VERIFIED**: 80 before, plus 5 new; the smoke row is changed in place.
+- Other states' active counts are unchanged: AZ 109, CA 151, CO 115, FL 99, KS 115, MN 120, ND 111, NE 112, NV 103, OH 74, SD 91, TX 129, WY 99.
+- No duplicate ids, dangling `supersedes` or display collisions.
+- No blank status or blank `states` on any delta row.

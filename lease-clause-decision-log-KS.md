@@ -716,3 +716,192 @@ Not a re-audit; nothing else in this state was reviewed. Detail: lease-clause-de
 1. **Shared-row edit received from Arizona (2026-09-27, Taylor's decision) — `entire-agreement`.** The sentence "may not be changed except in writing signed by all parties" now continues ", or as applicable law permits Landlord to change it by written notice to Tenant." Driver: A.R.S. §33-1342(C), which lets an Arizona landlord amend existing leases by written notice to comply with new laws; the old wording could be read to waive such a right. Recorded as **uniform** under §5a.1: the words are self-limiting and change nothing where this state's law gives no unilateral amendment right, while preserving any right it does give (for example, rules adopted on notice or changes to a periodic tenancy on the notice the law requires). No state-specific override is needed. `last_checked` was reset to 2026-09-27.
 
 2. **2026-09-27, AZ session — new shared row `rental-application-accuracy` tagged KS** (§5a.1; uniform text, no KS override). The tenant represents that the application information was true, correct and complete; a materially false or misleading statement is a material breach, with the remedies the lease and law provide; information the landlord may not request or consider is excluded. Kansas does not regulate applications (`edu-no-rental-application-regulation-ks`). A statutory fraudulent-misrepresentation termination right was confirmed absent, so the clause gives the landlord a lease-breach route it would otherwise lack. Remedies run through `default-by-tenant-ks-ne` (K.S.A. 58-2564(a) notice and cure).
+
+---
+
+## Gap-discovery backfill (instruction 36) — 2026-09-27
+
+| Source | Status |
+|---|---|
+| Gap-discovery source 1 — statute walk | Done (§1 statute structure and three-layer map; §3 core sections read section by section; §7 two missed sections closed; §20 Kansas Smoke Detector Act, ch. 31) |
+| Gap-discovery source 2 — real-lease comparison | Done (§8: Kansas City Regional Association of Realtors dual-state KS/MO residential lease form; edition/date not recorded in §8 — see "Record gap" below) |
+| Gap-discovery source 3 — landlord-scenario screen | Done (§24 below: 68 scenarios, Claude-generated) |
+| Gap-discovery source 4 — outside-title search | Done (§5 confirmed absences, highest-value topics; §20 K.S.A. ch. 31; §21 Sub. H.B. 2357) |
+
+**Scope of this pass:** the landlord-scenario screen only. Kansas was not re-audited and no completed finding was re-scrubbed (instruction 22). Sources 1, 2 and 4 are cited above to the sections where earlier passes recorded them; instruction 36's backfill list names Kansas for the scenario screen only, and not for the real-lease or outside-title backfills.
+
+**Record gap, not a work gap (source 2).** §8 names the lease used — the Kansas City Regional Association of Realtors' dual-state KS/MO residential lease form — and lists five points of comparison, but records no URL, publisher edition or date. Instruction 36 now requires all three. The comparison itself qualifies (a state Realtors association product, not a template mill), so the row says Done; what is missing is the citation metadata. **Ask:** should the KS chat re-locate that form and backfill the URL and edition into §8, or is the name enough? Flagged rather than silently left, because the check script reads the table, not §8.
+
+**Research mode:** on, for this pass only. Every gap below is a statutory question and none of them could be answered from the CSV. Primary reads went to ksrevisor.gov where it was reachable; see the evidentiary note in §24.4.
+
+---
+
+### §24. Landlord-scenario screen (gap-discovery source 3) — 2026-09-27
+
+**Method:** Arizona's 59-scenario map (AZ log §18.1) was taken as the base. One Arizona-only scenario was dropped (the city rental tax, which has no Kansas analog), four were **split** where Kansas divides the question differently from Arizona — rent withholding from repair-and-deduct, tenant damage from the landlord's right to cure and bill, the tenant's own utility shutoff from a municipal bill landing on the owner, and mid-lease rule changes from rent assigned to a lender — and **six Kansas-specific scenarios were added**. Each of the resulting 68 was run against the 115 KS-active rows in the attached `lease-clauses.csv` and marked Covered or Gap. Scenarios were generated here; Taylor was not asked about his experience (instruction 36).
+
+**Result:**
+- **68 scenarios: 49 covered, 15 gaps, 3 confirmed absences, 1 flagged unsearched.** The 15 gaps resolve to 14 rows — two scenarios (partial payment, and withholding over a repair) land on the same new row.
+- **14 new rows** — 10 substantive findings, 4 confirmed absences rowed rather than logged only.
+- **2 changed rows**, both KS-only: `edu-self-help-eviction-ban-ks` (added the prohibition it was missing) and `edu-entry-standard-ks` (topic_key alignment only).
+- **No shared row was added or edited.** Nothing in this pass needs instruction 9 / §5a.1 propagation.
+- **3 confirmed absences recorded without a row.**
+- **2 new rows ship NEEDS_REVIEW** because their controlling sections were never read verbatim (instruction 10's corollary).
+
+#### §24.0 The finding that matters more than any single row
+
+**Five sections of the Kansas Residential Landlord and Tenant Act were cited by no KS-active row before this pass:** K.S.A. 58-2549, 58-2561, 58-2568, 58-2569 and 58-2571. A sixth gap sat *inside* a section the library already cited — 58-2565(c), the re-letting duty, absent from `abandoned-property-ks`, which renders (a), (b) and (d)–(f) of the same section.
+
+These are not obscure provisions. 58-2568 is the Act's landlord-remedies section. 58-2569 is the prohibition that `edu-self-help-eviction-ban-ks` was asserting while citing only the damages section. 58-2571 is the remedy for a tenant who refuses lawful access, the analog of the Arizona section Arizona's own screen leaned on.
+
+**What this says about source 1 for Kansas.** The statute walk recorded in §§1, 3 and 7 was run at default settings (Sonnet, medium effort, research off) and was less complete than the log implies. This is not a re-audit finding — every one of these came out of the scenario screen, which is exactly what the screen is for — but it is a **method finding with consequences for the other eleven states now getting this same backfill.** A cheap, mechanical check surfaced all five in one step: extract every section number in the state's core act from the official section index, then list which ones appear in no row's `bodyText` or `notes`. That took one index read and one pass over the CSV. Recommend it be made part of the scenario screen for every remaining state, and of the statute walk going forward. See the proposed checklist cells.
+
+#### §24.1 Scenario map
+
+| Scenario | KS coverage | Result |
+|---|---|---|
+| **Before the lease** | | |
+| Applicant pays a holding deposit, then backs out | `due-at-signing`, `edu-no-rental-application-regulation-ks` (fees only) | **Gap → `edu-holding-deposit-ks`** (K.S.A. 58-2543(m)) |
+| Screening: fees, criminal history, income source, immigration status | `edu-no-rental-application-regulation-ks`, `edu-fair-housing-ks`, `edu-no-voucher-protection-ks`, `edu-no-immigrant-tenant-protection-ks` | Covered |
+| Applicant lied on the application | `rental-application-accuracy`; `edu-no-fraud-termination-statute-ks` | Covered (no KS statutory fraud-termination right; the clause supplies it) |
+| Voucher holder applies | `edu-no-voucher-protection-ks` | Covered |
+| Unit not ready on move-in day | `possession-delay-ks` (§§58-2552, 58-2560) | Covered |
+| Required disclosures at signing | `landlord-disclosure-ks`, `move-in-inventory-ks`, `lead-based-paint`, `smoke-detectors-ks`, `edu-disclosure-noncompliance-ks` | Covered |
+| Blank left in the lease | `edu-prohibited-lease-terms-ks`; no KS blank-spaces statute located | Covered (no statutory rule; product/builder rule governs) |
+| Owner never registered the rental with a state or county office | — | **Flagged** (no state rental-registration statute located, but not searched to the standard of the in-act absences; municipal registration flagged, instruction 20) |
+| Property is in an HOA | `hoa-compliance` | Covered |
+| Deposit plus prepaid rent over the cap | `edu-security-deposit-cap-ks`; K.S.A. 58-2543(j) puts prepaid rent outside the deposit | Covered; sharpened by the new holding-deposit row |
+| **Rent and money** | | |
+| Rent is late | `late-fee-ks`, `default-by-tenant-ks-ne`, `edu-tenant-noncompliance-notice-ks` (3-day pay-or-quit) | Covered |
+| Tenant pays part of the rent | `application-of-payments` (rent first), `edu-late-rent-acceptance-waiver-ks`, `edu-late-rent-reservation-fix-ks` | Covered for waiver; **Gap on the litigation side → `edu-rent-into-court-counterclaim-ks`** (§58-2561) |
+| Tenant withholds rent over a repair | `habitability-baseline-ks`, `edu-habitability-notice-written-ks` | Covered on duty; **Gap on the mandatory-counterclaim and rent-into-court mechanics → `edu-rent-into-court-counterclaim-ks`** |
+| Check bounces | `returned-payments`, `edu-nsf-fee-cap-ks` | Covered |
+| Tenant pays in cash and wants a receipt | `acceptable-payment-methods` | **Confirmed absent** (no cash-receipt duty; §58-2549 is an anti-waiver rule, not a receipt rule) |
+| Raising the rent at renewal | `edu-rent-control-preemption-ks` (no KS rent-increase notice statute; 30-day route via §58-2570(b)) | Covered |
+| **During the tenancy** | | |
+| Heat or AC fails | `habitability-baseline-ks` (§58-2553(a)) | Covered — the clause already carries supplied-HVAC maintenance and reasonable heat |
+| Repair and deduct | `habitability-baseline-ks`, `edu-habitability-notice-written-ks` (§58-2559 track) | Covered |
+| Landlord wants to fix the tenant's breach and bill it | `default-by-tenant-ks-ne`, `tenant-duties-ks` | **Confirmed absent** (no URLTA §4.105-style repair-and-bill-as-rent section in the Article 25 index) |
+| Bedbugs, roaches, pests | `edu-no-bed-bug-disclosure-ks`, `tenant-duties-ks`, `habitability-baseline-ks` | Covered |
+| Mold complaint | `edu-no-mold-disclosure-ks`, `habitability-baseline-ks` | Covered |
+| Tenant causes damage or won't keep the unit clean | `default-by-tenant-ks-ne`, `tenant-duties-ks`, `edu-tenant-noncompliance-notice-ks` | Covered |
+| Landlord needs to enter; tenant refuses | `landlords-access`, `edu-entry-standard-ks` (§58-2557 standard only) | **Gap → `edu-entry-refusal-remedies-ks`** (§58-2571, both directions) |
+| Tenant changes the locks | `keys` | Covered; DV/stalking lock-change right **confirmed absent** (§58-25,137 read in full, nine subsections, no lock provision) |
+| Tenant away for a month | `extended-absence-notice-ks` (§58-2558) | Covered — **the opposite of Arizona**, which has no extended-absence duty |
+| Guest won't leave; squatter | `guest-policy`, `guest-policy-day-limit`, `permitted-occupants` | **Gap → `edu-squatter-removal-ks`** (new 2026 Act) |
+| Roommate moves out | `joint-liability`, `no-sublet-assign` | Covered |
+| Tenant sublets or lists on a short-term rental site | `no-sublet-assign`, `residential-use-only` | Covered |
+| Noise and neighbour complaints | `no-disturbance`, `default-by-tenant-ks-ne` | Covered |
+| Drugs, violence or other crime | `edu-no-expedited-criminal-eviction-ks`, `default-by-tenant-ks-ne`, `edu-tenant-noncompliance-notice-ks` | Covered for the lease route. Kansas's common-nuisance statutes (ch. 22 art. 39) **flagged, not read** |
+| Marijuana | `smoking-policy`, `no-disturbance` | Covered (no Kansas legalization; nothing to carve out) |
+| Unapproved pet | `pet-policy-ks`, `pet-insurance-requirement` | Covered |
+| Assistance or emotional-support animal request | `assistance-animal-accommodation` (NEEDS_REVIEW, blocked on NE), `edu-kaad-accommodation-duty-ks`, `edu-kaad-housing-exemptions-ks`, `edu-service-animal-denial-penalty-ks`, `edu-service-animal-fraud-ks` | Covered |
+| Disability modification request | `edu-kaad-accommodation-duty-ks` (§44-1016(h)(3)(A)), `no-alterations` | Covered |
+| Tenant paints or alters the unit | `no-alterations` | Covered |
+| HOA fines the owner because of the tenant | `hoa-compliance` | Covered |
+| Car towed from the lot | `parking-vehicle-rules`, `assigned-parking-space` | **Gap → `edu-no-private-towing-regulation-ks`** (§§8-1102, 8-1103; no signage or authorization statute) |
+| Pool at the property | — | **Gap → `edu-no-pool-barrier-requirement-ks`** (K.A.R. 28-4 is child care, not rentals) |
+| Yard, snow and outdoor work by the tenant | `landscaping-irrigation`, `snow-removal`, `edu-habitability-duty-delegation-ks` (§58-2553(b) limits) | Covered |
+| Tenant's utility is shut off | `utility-service-continuity`, `utility-payment-evidence`, `utilities-responsibility` | Covered |
+| A tenant's unpaid city utility bill lands on the owner | `utilities-paid-by-landlord`, `services-utilities-provided-ks-oh` | **Gap → `edu-municipal-utility-lien-ks`** (§12-808c(b)) |
+| Landlord shuts off a utility, or a master-metered service is cut | `edu-self-help-eviction-ban-ks` (§58-2563) | Covered; **row changed** to add §58-2569, the prohibition itself |
+| Adding a new rule mid-lease, or a law changes | `edu-rules-regulations-enforceability-ks` (§58-2556), `entire-agreement` carve-out, `addendum-precedence` | Covered |
+| Rent is assigned to a lender, or a receiver collects it | `identity-change-liability-ks`, `edu-security-deposit-successor-owner-ks` | **Gap → `edu-rent-receipt-anti-waiver-ks`** (§58-2549) |
+| **Ending the tenancy** | | |
+| Tenant wants out early | `early-termination-ks`, `default-by-tenant-ks-ne` | Covered on the clause; **Gap on what you can actually sue for → `edu-landlord-remedies-on-termination-ks`** (§58-2568) |
+| Domestic violence, sexual assault, trafficking or stalking victim wants out | `dv-housing-protections-ks`, `edu-dv-housing-protections-violation-ks` (§58-25,137) | Covered — see the fee note in §24.5 |
+| Tenant is deployed or called up | `early-termination-ks` (SCRA), `edu-military-termination-notice-ks` (15-day KS military notice) | Covered |
+| Month-to-month or week-to-week notice either way | `edu-military-termination-notice-ks` (§58-2570(a), (b)) | Covered |
+| Tenant stays after the lease ends | `holdover`, `surrender-end-of-term-ks-ne`, `edu-holdover-ks` (§58-2570(c) 1.5× cap) | Covered |
+| Tenant disappears | `abandoned-property-ks` (§58-2565(a), (b), (d)–(f)) | **Gap → `edu-abandonment-mitigation-duty-ks`** (§58-2565(c), the missing subsection) |
+| Tenant dies | `edu-no-tenant-death-statute-ks` | Covered (absence already rowed) |
+| Fire or casualty | `fire-casualty-termination-ks`, `edu-no-alt-housing-requirement-ks`, `edu-no-environmental-event-termination-ks` | Covered |
+| Eviction process | `edu-tenant-noncompliance-notice-ks`, `edu-termination-outside-eviction-ks` (names ch. 61 only) | **Gap → `edu-eviction-procedure-ks`** (ch. 61 art. 38) |
+| Retaliation claim | `edu-retaliation-prohibition-ks` (§58-2572) | Covered |
+| Belongings left after move-out or eviction | `abandoned-property-ks`, `edu-landlord-lien-abolished-ks` | Covered |
+| Deposit dispute | `security-deposit-return-ks`, `security-deposit-use-ks`, `edu-security-deposit-noncompliance-penalty-ks` | Covered |
+| Deposit refund never cashed | — | **Gap → `edu-unclaimed-deposit-refund-ks`** (§§58-3935(a)(16), 58-3950) |
+| Tenant asks to seal an eviction record | `edu-eviction-record-sealing-ks` (Sub. H.B. 2357) | Covered |
+| **Owner changes** | | |
+| Owner sells the property with a tenant in place | `identity-change-liability-ks` (§58-2554), `edu-security-deposit-successor-owner-ks` | Covered — **the opposite of Arizona**, where this was a real gap |
+| Lender forecloses | — | **Gap → `edu-no-foreclosure-tenant-protection-ks`** |
+| Owner switches property managers | `identity-change-liability-ks`, `landlord-disclosure-ks` (§58-2551) | Covered |
+| Buyer is a foreign-adversary entity | — | **Gap → `edu-no-foreign-adversary-land-ban-ks`** (Sub. S.B. 172 vetoed) |
+| **Kansas-specific additions** | | |
+| Tornado or severe-storm shelter duty | `habitability-baseline-ks` | Covered — no storm-shelter duty located; nothing to add |
+| Tenant runs a licensed child care out of the home | `residential-use-only`, `common-area-use` | Covered; the K.A.R. 28-4 pool/fencing overlap is noted in `edu-no-pool-barrier-requirement-ks` |
+| Property straddles the Kansas City metro and a Missouri rule is cited at you | `edu-no-bed-bug-disclosure-ks` (already carries the KCMO warning) | Covered |
+| Farm, pasture or ag ground in the same transaction | `edu-termination-outside-eviction-ks` (§§58-2501–58-2533 named, unaudited) | Covered as a deprioritized product decision, not a gap |
+| Radon | `edu-no-radon-disclosure-ks` | Covered |
+| Meth-contaminated property disclosure | — | **Flagged, not searched** — see §24.5 |
+
+#### §24.2 Rows changed
+
+**New rows (14).** Ten substantive, four confirmed absences rowed rather than logged only, per the standing direction that a logged-only absence is invisible in the library and forces the next state's canvass to re-derive it.
+
+*From the Act itself:*
+- **`edu-abandonment-mitigation-duty-ks`** (REQUIRED, VERIFIED). K.S.A. 58-2565(c), quoted verbatim in the row's notes. On abandonment the landlord *must* make reasonable efforts to re-rent at a fair rental, and the consequence is not just a damages offset: if the landlord fails to try, or accepts the abandonment as a surrender, **the rental agreement is deemed terminated by the landlord as of the date the landlord had notice of the abandonment.** Rent stops there. The highest-value finding in the pass — a landlord following the library as it stood would have sat on an abandoned unit and sued for the balance of the term. Deliberately *not* added to `abandoned-property-ks`: it is a landlord duty with a landlord-adverse consequence, so it stays out of tenant-facing text per the standing sub-rule.
+- **`edu-landlord-remedies-on-termination-ks`** (RECOMMENDED, VERIFIED). K.S.A. 58-2568, quoted verbatim. Possession, rent, or both, plus a separate actual-damages claim that may be filed *before* the termination date. K.S.A. 61-3802 ("Judgment not bar to other actions") looks directly on point and was deliberately kept out of the body — title read, text not.
+- **`edu-rent-into-court-counterclaim-ks`** (RECOMMENDED, **NEEDS_REVIEW**). K.S.A. 58-2561. The tenant must raise any counterclaim in the possession or rent action or forfeit it; the court may order rent paid into court and determine each side's net obligation. Ships NEEDS_REVIEW because both hosts returned a paraphrase, not statutory text, and one said so explicitly.
+- **`edu-entry-refusal-remedies-ks`** (CONDITIONAL, **NEEDS_REVIEW**). K.S.A. 58-2571. Refused access gets the landlord injunctive relief or termination plus actual damages; unlawful entry, unreasonable entry or harassing entry demands get the tenant the same. Written as a separate row rather than folded into `edu-entry-standard-ks` precisely so paraphrase-sourced content does not silently downgrade a verbatim-sourced VERIFIED row. Merge the two once 58-2571 is read.
+- **`edu-rent-receipt-anti-waiver-ks`** (PROHIBITED, VERIFIED). K.S.A. 58-2549, one sentence, quoted in full: no rental agreement, assignment, conveyance, trust deed or security instrument may permit the receipt of rent free of the §58-2553(a) habitability duty. The duty travels with the rent — relevant to rent assignments in loan documents, a receiver collecting during default, and a sale directing rent elsewhere.
+
+*From outside the Act:*
+- **`edu-squatter-removal-ks`** (CONDITIONAL, VERIFIED). **New law: Kansas's Removal of Squatters Act, L. 2026, ch. 56 (H.B. 2378), approved April 6, 2026.** Notarized six-element affidavit to law enforcement, 24-hour floor, notice to vacate immediately, and §7(c) puts squatter occupancy outside the KRLTA so no eviction action is needed. Read from the **enrolled bill and the Secretary of State's session laws**, not from any of the three bill drafts (instruction 17). Three traps recorded in the row: holdover tenants are excluded, immediate family are excluded, and a wrongful removal costs actual damages plus **treble fair market rent** plus costs and attorney fees. Effective-date clause is "publication in the statute book" and that date was not established — flagged in the row (instruction 34). K.S.A. numbers not yet assigned, same position as Sub. H.B. 2357; cite the session law until the Revisor publishes 2026.
+- **`edu-eviction-procedure-ks`** (REQUIRED, VERIFIED). Chapter 61 Article 38. Pre-suit notice to leave at least three days out, counted as three consecutive 24-hour periods with weekends and holidays included and two extra days if mailed (§61-3803), and it may be combined with the Act's own notice — one notice can serve both. Appearance date set by the court, not less than three nor more than 14 days after the summons issues (§61-3805). Writ of restitution executed within 14 days of receipt (§61-3808). Article 38's full section list is in the row's notes; §§61-3802, 61-3804, 61-3806 and 61-3807 were not read.
+- **`edu-municipal-utility-lien-ks`** (RECOMMENDED, VERIFIED). K.S.A. 12-808c(b), quoted verbatim: no lien attaches to the property for unpaid municipal utility fees "when the utility service has been contracted for by a tenant and not by the landlord or owner of the property." Whose name is on the account decides whether the city can certify the tenant's unpaid water to the tax roll. Subsections (c)–(e) came back paraphrased and are held in notes, not asserted in the body. **Currency not established:** History available is L. 2006, ch. 95, §1 from a 2020 edition; whether it has been amended since was not confirmed after two attempts.
+- **`edu-unclaimed-deposit-refund-ks`** (REQUIRED, VERIFIED). K.S.A. 58-3935(a)(16) catch-all, five years, quoted verbatim, plus §58-3950's November 1 reporting deadline, July 1 as-of date and the $100/$250 small-holder exemption. An uncashed deposit refund is not the landlord's money.
+- **`edu-holding-deposit-ks`** (RECOMMENDED, VERIFIED). K.S.A. 58-2543(m), quoted verbatim. The definition is denomination-blind but **agreement-scoped**: pre-lease holding money is not "specified in a rental agreement," so it sits outside the §58-2550 cap and return rules — until the signed lease recites it or credits it, at which point the cap and the clock attach. The agreement-scoped reading is an inference from the definition's own words; no Kansas case or AG opinion was located either way, and the row is written as a drafting rule rather than a prediction.
+
+*Confirmed absences, rowed:*
+- **`edu-no-foreclosure-tenant-protection-ks`** — no state disclosure or lease-survival statute. Secondary-source-only basis; should be `CONFIRMED_ABSENT`, not `CITED`. The federal PTFA sentence is recalled, not read, and is flagged as the weakest claim in the row.
+- **`edu-no-foreign-adversary-land-ban-ks`** — **proof by legislative refusal**, the strongest form this project recognises. House Sub. for S.B. 172 passed, and the Governor vetoed it on 2024-05-10; the veto message appears in the 2024 session laws with no chapter number, and no 2025–2026 Kansas enactment was located. Recorded in the row: search results led with "Legislature adopts ban on foreign adversary property ownership" from nine days *before* the veto, and a pass that stopped at the first confident headline would have shipped the opposite finding.
+- **`edu-no-private-towing-regulation-ks`** — §8-1102 read; a private tow needs only a "request of the owner or occupant," with no written authorization and no entrance-signage requirement, and "nonconsensual tow"/"nonconsensual towing" returned zero Kansas results. **The direct inverse of Arizona's finding**, so A.R.S. 9-499.05 must not be imported (instruction 18). Municipal ordinances and KCC motor-carrier rules flagged, not resolved.
+- **`edu-no-pool-barrier-requirement-ks`** — the only Kansas pool rules located are KDHE child care regulations (K.A.R. 28-4-129, 28-4-594), which bite because of the licence, not the tenancy. Arizona's `pool-safety-notice-az` must not be imported. Neither regulation was read section-open.
+
+**Changed rows (2), both KS-only — no propagation owed.**
+- **`edu-self-help-eviction-ban-ks`** — added K.S.A. 58-2569, quoted verbatim, the prohibition this row was asserting while citing only §58-2563's damages. The "by action or otherwise ... except in case of abandonment, surrender or as otherwise permitted in this act" wording also explains why the 2026 squatter act works: §7(c) removes squatter occupancy from the Act entirely. Against anyone who *is* a tenant, §58-2569 still governs. `rule_type` stays PROHIBITED; the 1.5-month figure and punitive-damages points are unchanged.
+- **`edu-entry-standard-ks`** — **`topic_key` only**, `entry-standard` → `landlord-entry`. No text, status or rule_type change. Every other state's entry education row and every `landlords-access` clause in all 14 states uses `landlord-entry`; `entry-standard` was carried by this one KS row and would have split Kansas's entry guidance from the new remedies row. A LEASE_CLAUSE + LANDLORD_EDUCATION pair sharing one key is the established convention (NV, AZ, TX). **Judgment call for Taylor:** this is a display-grouping change to a closed state — drop this row from the merge if you would rather leave the keys alone. Nothing else depends on it.
+
+#### §24.3 Confirmed absences (no row)
+
+- **Cash-rent receipt duty.** No section in the Article 25 index imposes one; §58-2549's title ("Receipt of rent subject to certain obligations") is an anti-waiver rule about habitability duties, not a receipt requirement — the title is a genuine trap for a keyword search. Basis: full official section-index read. *Same result as Arizona.*
+- **Lock change or rekey right for a DV, sexual assault, trafficking or stalking victim.** K.S.A. 58-25,137 read in full, all nine subsections: it covers denial, eviction, lease-violation findings, documentation, termination, the fee, co-tenants and anti-waiver, and contains no lock provision. Basis: full section read.
+- **Landlord's right to cure a tenant's breach and bill it as rent** (URLTA §4.105 / A.R.S. 33-1369 analog). No such section in the Article 25 index; §58-2564 gives notice and termination, not self-cure. Basis: full official section-index read.
+
+#### §24.4 Evidentiary basis and what limited it
+
+**ksrevisor.gov was the intended primary source and was only partly reachable.** The Chapter 58 section-number-and-title index was read from it successfully, and that index is what every in-act absence above rests on — a complete enumeration, not a search. Individual section pages returned repeated `robots.txt` fetch failures, so section text came from Justia's 2025 Kansas Statutes and FindLaw, both of which reproduce the Revisor's text with History lines. Where a host returned a paraphrase rather than text, the affected row says so and ships NEEDS_REVIEW (instruction 10's corollary). Per-row basis is recorded in each row's `notes` (instruction 15).
+
+**Verbatim text obtained:** §§58-2549, 58-2565(c), 58-2568, 58-2569, 58-2543(j)(k)(m), 58-3935(a)(16) and (a)(17), 12-808c(b), 61-3805, and the operative fragments of 58-25,137, 61-3803, 61-3808, 58-3950, 8-1102 and H.B. 2378.
+**Paraphrase only:** §§58-2561, 58-2571 (fragments), 12-808c(c)–(e).
+
+**One mid-pass correction, recorded because it is the recurring shape.** A first read of K.S.A. 58-3935 reported a category "Landlord sale proceeds: 1 year." Re-reading the subsection showed (a)(17) is proceeds of a sale under K.S.A. 58-817 remaining after the §58-816 lien — the **self-service storage** lien sale, not residential landlord abandonment. Valid citation, false characterization; the 1-year period was one step from being written into a row. Proceeds left over from a §58-2565(d)–(e) sale fall under the 5-year catch-all instead. This is the fourth or fifth time this project has caught the same class, and it was caught by re-reading the subsection rather than by any screen.
+
+#### §24.5 Flagged, not resolved
+
+- **Meth-contamination disclosure** — not searched this pass. Several states require it; Kansas unknown.
+- **Kansas common-nuisance statutes, ch. 22 art. 39** — not read. The lease side (`no-disturbance`, `default-by-tenant-ks-ne`) is covered; a crime/nuisance-abatement education row of the kind Arizona has may still be owed.
+- **State rental registration** — no state statute located, but not searched to the standard of the in-act absences. Municipal registration flagged, not resolved (instruction 20).
+- **Municipal ordinances** on towing, pool barriers, utility accounts, rental registration and bed bugs — flagged throughout, resolved nowhere (instruction 20). The Kansas side of the Kansas City metro plus Wichita, Topeka, Lawrence, Overland Park and Olathe is where a state-level-only library will be thinnest.
+- **Kansas Corporation Commission motor-carrier rules** and **K.A.R. 28-4** — administrative code, needing agency-rulemaking monitoring rather than bill tracking (instruction 16), the same treatment already flagged for K.A.R. 4-27 and K.A.R. 21-60-16.
+- **`dv-housing-protections-ks`, no change but worth knowing:** §58-25,137 allows the early-termination fee "only if it is contained in the terms of the rental or lease agreement." The clause itself is what satisfies that condition, so the fee is load-bearing on the clause's presence — strip the DV clause from a Kansas lease and the one-month fee goes with it.
+- **`topic_key` fragmentation across states, a library-hygiene finding, not a Kansas one.** The same topic carries different keys in different states: unclaimed deposits are `deposit-escheat` in ND/NV/TX but `escheat` in AZ; the re-let duty is `landlord-mitigation-duty` in MN/TX but `mitigation` in FL/AZ; towing is `towing` in NV/AZ but `private-property-towing` in TX. This pass adopted the majority key each time rather than minting new ones, but instruction 26.2 treats `topic_key` as the group-by for finding near-duplicates, and a split key defeats it. Normalizing is a cross-state product decision for Taylor, not something to fix from a Kansas chat.
+
+#### §24.6 Integrity
+
+Delta built against the attached `lease-clauses.csv`: **941 rows, 16 columns, 905 active, KS 115 active** — matches the figure stated in the prompt, checked before any work (instruction 13).
+
+`lease-clauses-KS-delta.csv`: **16 rows, 14 new and 2 changed**, same 16-column header, unchanged rows omitted. Checks run programmatically: no duplicate ids within the delta; no new id collides with any of the 941 existing ids; every row carries all 16 fields; every row has a non-blank `verification_status` (instruction 27); every `rule_type`, `content_type` and `verification_status` is a valid enum value; every row is `states = KS` with empty `supersedes`; no blank `topic_key`. The one `topic_key` overlap inside Kansas — `edu-entry-refusal-remedies-ks` sharing `landlord-entry` with `landlords-access` — is the established clause-plus-education convention, confirmed against NV, AZ and TX, not a display collision. Eight of the new rows reuse a key another state already carries, which is the intended grouping.
+
+On merge: **941 → 955 rows; KS 115 → 129 active** (63 lease clauses unchanged, education 52 → 66). No other state's count changes. Library totals after merge: VERIFIED 923, UNVERIFIED 29, NEEDS_REVIEW 3 (`assistance-animal-accommodation`, still blocked on Nebraska, plus the two new KS rows above).
+
+#### §24.7 Open items from this pass
+
+1. **Primary text requested (instruction 10, two attempts each, stopped rather than searching a third time).** K.S.A. **58-2561** and **58-2571** — needed to move the two NEEDS_REVIEW rows to VERIFIED. K.S.A. **12-808c** with its History line — needed for currency and for subsections (c)–(e).
+2. **Confirm the 2026 statute-book publication date** to fix the effective date of the Removal of Squatters Act, and re-cite both it and Sub. H.B. 2357 by K.S.A. section once the Revisor publishes the 2026 amendments.
+3. **Confirm from the House or Senate journal** that no override vote succeeded on House Sub. for S.B. 172.
+4. **Read K.S.A. 61-3802** before relying on the possession-plus-money point in anything customer-facing.
+5. **Read the federal PTFA** before `edu-no-foreclosure-tenant-protection-ks` goes in front of a customer.
+6. **Source 2 metadata** — decide whether to backfill the KCRAR form's URL and edition into §8.
+7. Carried, unchanged by this pass: `assistance-animal-accommodation` stays NEEDS_REVIEW, blocked on Nebraska, and still carries the unresolved HUD date conflict.

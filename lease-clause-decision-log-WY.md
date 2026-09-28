@@ -802,3 +802,172 @@ Not a re-audit; nothing else in this state was reviewed. Detail: lease-clause-de
 1. **Shared-row edit received from Arizona (2026-09-27, Taylor's decision) — `entire-agreement`.** The sentence "may not be changed except in writing signed by all parties" now continues ", or as applicable law permits Landlord to change it by written notice to Tenant." Driver: A.R.S. §33-1342(C), which lets an Arizona landlord amend existing leases by written notice to comply with new laws; the old wording could be read to waive such a right. Recorded as **uniform** under §5a.1: the words are self-limiting and change nothing where this state's law gives no unilateral amendment right, while preserving any right it does give (for example, rules adopted on notice or changes to a periodic tenancy on the notice the law requires). No state-specific override is needed. `last_checked` was reset to 2026-09-27.
 
 2. **2026-09-27, AZ session — new shared row `rental-application-accuracy` tagged WY** (§5a.1; uniform text, no WY override). The tenant represents that the application information was true, correct and complete; a materially false or misleading statement is a material breach, with the remedies the lease and law provide; information the landlord may not request or consider is excluded. No application statute logged. Remedies run through `default-by-tenant`.
+
+---
+
+## Gap-discovery backfill (instruction 36) — 2026-09-27
+
+*Numbered §20 deliberately: the WY log has two numbering runs (main log §§1–13, later session §§1–5). §20 collides with neither. Subsections below are §20.1 and §20.2.*
+
+| Source | Status |
+|---|---|
+| Gap-discovery source 1 — statute walk | Done (§1 structure walk; §3 Article 12 section-by-section table; §4 Article 13 Safe Homes Act) |
+| Gap-discovery source 2 — real-lease comparison | Done (§20.1: ASUW Approved Lease, Associated Students of the University of Wyoming / UW Student Attorney office, undated — host page last updated 2026-08-25) |
+| Gap-discovery source 3 — landlord-scenario screen | Done (§20.2) |
+| Gap-discovery source 4 — outside-title search | Done (§6 "law outside Title 1"; extended in §20.2 with the Title 31 abandoned-vehicle finding) |
+
+### §20.0 — Why this backfill exists: a numbering mismatch, not new work for its own sake
+
+The old WY log used a different source numbering than instruction 36 now does, and the mismatch is what left two rows short:
+
+- WY log §6 is headed **"Gap-discovery source #3 — law outside Title 1."** Under instruction 36's numbering that work is **source 4**, the outside-title search. The work was done; only the label was wrong.
+- WY log §8 recorded **source #3 as "personal landlord experience"** and closed it **"Not applicable, confirmed 2026-08-21"** on the reasoning that Taylor has no landlord experience outside Colorado. Instruction 36 recast this source as a **landlord-scenario screen written by the model**, which removes the dependency on Taylor's experience entirely. So the "permanently N/A" finding was correct about the old source and is simply inapplicable to the new one. §20.2 runs it. **Taylor was not asked about his experience in this pass, per the prompt's explicit instruction.**
+- Source 2 was genuinely incomplete. WY log §7 compared against free template mills (ezLandlordForms, Steadily, PandaDoc, ILRG, AAOA, PropMgmtForms); the later session's §4 recorded a redo attempt abandoned because the Wyoming Association of Realtors form is member-restricted and the ILRG Wyoming preview was thin. Both of those judgments were reasonable at the time and both stand — §20.1 succeeds by a route neither attempt tried: a lease published by a **public body**.
+
+Scope: two targeted checks. **No re-audit of completed Wyoming work, no re-scrub of existing rows.** Instructions 1–36 in force. Result: **7 new rows, 0 changed rows, 6 confirmed absences, 3 cross-state questions for Taylor.**
+
+---
+
+### §20.1 — Part 1: real-lease comparison (gap-discovery source 2)
+
+**Lease used.** *ASUW Approved Lease* — `https://www.uwyo.edu/studentatty/legal-documents/asuw-approved-lease.pdf`
+**Publisher:** Associated Students of the University of Wyoming, distributed by the **University of Wyoming Student Attorney office**.
+**Edition/date:** none printed on the document. The hosting page was last updated **2026-08-25**; that is the only date available and is recorded as such rather than passed off as an edition date.
+
+**Why it qualifies (route (b) — a lease published by a state agency or public body).** The University of Wyoming is a state institution and the Student Attorney office is a public legal-services office. Critically, this is **not** a university-housing lease: it is the form the office puts in front of students renting from **private Laramie landlords**, described on its face as drafted collaboratively by local landlords, students, and ASUW representatives and intended to be fair to both parties. That makes it a real instrument used in the private Wyoming rental market, negotiated by actual Wyoming landlords — which is what source 2 is for. Two university-owned-housing leases were also located (`traditional-apt-lease.pdf`, `bison-run-lease.pdf` rev. 12.2022) and **deliberately not used**: institutional housing terms are atypical and would generate false gaps.
+
+**Route (a) was tried first and failed**, consistent with the earlier session's finding: the Wyoming Association of Realtors form is member-restricted and no Wyoming brokerage or property-management company was found publishing a full lease. Generic multi-state form sites were excluded by the prompt and were not used.
+
+**Instruction 6 applied throughout: the lease is a lead only.** Every statutory claim below was verified against primary text; nothing was adopted because the lease said it. **No text from the lease is reproduced here — it is copyrighted.** The map is by topic.
+
+#### §20.1.1 — Provision map, by topic (20 provisions)
+
+| # | Lease provision (topic) | WY library | Verdict |
+|---|---|---|---|
+| 1 | Parties | `notices`, `joint-several-liability` | Covered |
+| 2 | Leased premises / description | `premises-description` family | Covered |
+| 3 | Term — Option A month-to-month, 30-day termination notice | — | **GAP A** |
+| 4 | Term — Option B fixed term | `lease-term`, `surrender-end-of-term` | Covered |
+| 5 | Rent, due date, place of payment | `rent-payment`, `acceptable-payment-methods` | Covered |
+| 6 | Late fee (capped, after grace period) | `late-fee` | Covered — no WY statutory cap; lease's own cap is its drafting choice, not law |
+| 7 | Returned check charge | `returned-payments` + `edu-returned-check-fee-cap-wy` (W.S. 1-1-115(b), $30) | Covered |
+| 8 | Security deposit — 30-day return, written statement | `security-deposit-return-wy` (W.S. 1-21-1208) | Covered |
+| 9 | Security deposit — normal wear and tear defined to exclude dirt/soil | `security-deposit-return-wy` | Covered — WY does not define the term by statute; both documents define it contractually |
+| 10 | Occupancy limits | `permitted-occupants` | Covered |
+| 11 | Pets | `pet-policy`, `pet-deposit-fee`, `pet-insurance-requirement` | Covered |
+| 12 | Use and conditions — check-in/check-out inventory within 10 days | `existing-condition` (extended CO;WY in §7) | Covered |
+| 13 | Utilities | `utilities-responsibility`, `services-utilities-provided`, `utility-service-continuity` | Covered |
+| 14 | Maintenance and repair, incl. lawn mowing and snow removal | `tenant-maintenance`, `snow-removal`, `edu-repair-notice-process-wy` (W.S. 1-21-1202/1203) | Covered |
+| 15 | Liability of lessor (exculpatory, carve-out for lessor's own negligence) | `tenants-property-insurance` + `edu-no-prohibited-lease-provisions-statute-wy` | Covered — WY has no prohibited-provisions statute, confirmed in the later session's §1 |
+| 16 | Right of privacy and access | `landlords-access` + `edu-no-entry-notice-statute-wy` | Covered |
+| 17 | Default by lessee and remedies — liquidated damages, re-renting, removal/storage of belongings | `default-by-tenant`, `early-termination`, `abandoned-property-wy`, `edu-post-writ-possessions-wy` | Covered |
+| 18 | Constructive eviction | — | Not needed — see §20.1.3 |
+| 19 | Delayed possession | `possession-delay` | Covered |
+| 20 | Assignment and subleasing (consent not unreasonably withheld) | `no-sublet-assign` | Covered |
+| 21 | Notices | `notices`, `edu-abandoned-property-notice-methods-wy` | Covered |
+| 22 | Waiver | `entire-agreement` family | Covered |
+| 23 | Joint and several liability | `joint-several-liability` | Covered |
+| 24 | Other provisions / addenda | `additional-provisions` family | Covered |
+| 25 | Signature block — **lessor identifies capacity: owner, agent, or holder of a leasehold** | — | **GAP B** |
+
+*(Numbered to 25 because several of the lease's 20 headed provisions carry two distinct topics; each was mapped separately rather than collapsed.)*
+
+#### §20.1.2 — Gaps found, and the rows written
+
+**GAP A — no clause states a periodic-tenancy termination notice period.** → new row **`periodic-tenancy-notice-wy`** (LEASE_CLAUSE, CONDITIONAL, `topic_key=termination-notice`, group Default & Termination).
+
+This is **instruction 19's failure shape in its purest form.** `edu-no-statutory-termination-notice-wy` already tells the landlord, in terms: *"Because there is no statute, the lease itself is doing the work — state the notice period in writing rather than relying on a default that does not exist."* And `holdover` (CO;WY;KS;NE;MN;FL;AZ) says a continued tenancy is *"terminable by either party upon written notice as required by applicable law."* For Wyoming that phrase points at **nothing**: W.S. Title 1 ch. 21 art. 12 sets no notice period for month-to-month, week-to-week, or a periodic tenancy of a year or more. So the library correctly diagnosed the problem in prose and then shipped no clause that solved it. The ASUW lease's Option A is exactly the missing instrument, which is how it surfaced.
+
+The drafted clause supplies 30 days with the termination effective at the end of a rental period, and a roll-forward if notice lands late in a period. **The 30 days is a contract term, not a statutory figure** — that is stated in the row's notes so nobody later mistakes it for a WY requirement. No display collision: `holdover` is `topic_key=holdover`, this is `termination-notice`.
+
+**GAP B — the agent-capacity default under W.S. 1-21-1201(a)(i).** → two new rows: **`agent-capacity-designation-wy`** (LEASE_CLAUSE, CONDITIONAL) and **`edu-agent-capacity-notice-wy`** (LANDLORD_EDUCATION, RECOMMENDED), both `topic_key=landlord-disclosure`.
+
+Verified section-open. The definition reads, in relevant part: *"'Owner' means the owner, lessor or sublessor of a residential rental unit and for purposes of notice and other communication required or allowed under this article, 'owner' includes a managing agent, leasing agent or resident manager **unless the agent or manager specifies otherwise in writing in the rental agreement**."*
+
+That is an **instruction 30 opt-out** — a right that exists only if the lease claims it, and is forfeited by silence. The default runs against the landlord: with a silent lease, a tenant's habitability notice, deposit demand, or forwarding address is effective on delivery to the property manager, and the landlord's statutory clocks start then. And the statute is specific that the carve-out must live **in the rental agreement**, so a management agreement cannot accomplish it. The two existing rows citing 1-21-1201 (`edu-no-entry-notice-statute-wy`, `edu-no-prohibited-lease-provisions-statute-wy`) cite it for unrelated absences; neither touches this. Surfaced by the ASUW lease's signature block, which asks the lessor to state capacity — owner, agent, or holder of a leasehold.
+
+#### §20.1.3 — Confirmed absences and deliberate non-adoptions
+
+- **Constructive eviction (lease provision 18) — not drafted, and that is a considered call.** Wyoming has no constructive-eviction statute; it is a common-law doctrine. A lease clause on it would in practice be a limitation or waiver of a tenant remedy, and the substance is already handled by the habitability and repair rows (`edu-repair-notice-process-wy`, `edu-repair-cost-termination-wy`, W.S. 1-21-1202/1203). Drafting a waiver here would import risk for no gain. Recorded as a non-adoption with reasoning rather than a silent omission.
+- **No missing *required* clause.** Consistent with the AZ result (§16), the comparison surfaced no clause Wyoming law *requires* that the library lacked — unsurprising, since Article 12 imposes almost no mandatory lease content. Both gaps are gaps of **practical necessity** (A) and **forfeited-by-silence opportunity** (B), which is the more valuable category for a thin-statute state.
+- **Late-fee and wear-and-tear definitions:** the ASUW lease caps late fees and defines normal wear and tear. Checked — **neither figure comes from Wyoming law.** No WY statute caps residential late fees or defines wear and tear. Both are the drafters' choices. Not adopted as legal content; noted so a future session does not mistake them for statutory figures read off a "real lease."
+- **Corrections to existing WY rows: none.** No provision in the lease contradicted an existing WY row's text or classification.
+
+---
+
+### §20.2 — Part 2: landlord-scenario screen (gap-discovery source 3)
+
+Scenarios written by the model, adapted from Arizona's 59-scenario map (AZ log §18.1) and extended with Wyoming-specific ones. **Taylor was not asked about his experience.** Each scenario was run against the 99 WY-active rows.
+
+**Result: 64 scenarios, 60 covered, 4 gaps.**
+
+#### §20.2.1 — Scenario map
+
+**A. Before the lease (11)** — 1 applicant screening `edu-no-tenant-screening-fairness-act-wy` ✓ · 2 application fee ✓ · 3 adverse-action denial ✓ · 4 assistance animal `assistance-animal-accommodation` + W.S. 35-13-201/205 ✓ · 5 immigration-status question `edu-no-immigrant-tenant-protection-wy` ✓ · 6 holding deposit ✓ · 7 lead paint, pre-1978 `lead-based-paint` ✓ · 8 **who signs, and in what capacity — GAP B (§20.1.2)** · 9 co-signer/guarantor ✓ · 10 several adult tenants `joint-several-liability` ✓ · 11 unit not ready on the start date `possession-delay` ✓
+
+**B. Rent and money (12)** — 12 rent due/grace ✓ · 13 late fee ✓ · 14 bounced check `edu-returned-check-fee-cap-wy` ✓ · 15 partial payment accepted ✓ · 16 raising rent mid-tenancy `edu-no-rent-increase-statute-wy` ✓ · 17 deposit amount (no WY cap) ✓ · 18 deposit applied at move-out `security-deposit-return-wy` ✓ · 19 deposit return deadline and itemization (W.S. 1-21-1208) ✓ · 20 tenant disputes deductions ✓ · 21 last month's rent vs deposit ✓ · 22 pet deposit/fee ✓ · 23 **tenant pays cash and wants a receipt — absence, §20.2.3**
+
+**C. During the tenancy (18)** — 24 repair request and response `edu-repair-notice-process-wy` ✓ · 25 repair costs more than the unit is worth `edu-repair-cost-termination-wy` (W.S. 1-21-1203(d)) ✓ · 26 tenant withholds rent over repairs ✓ · 27 entry for repairs `edu-no-entry-notice-statute-wy` ✓ · 28 entry to show the unit `prohibited-acts-renter-wy` ✓ · 29 emergency entry ✓ · 30 utilities in tenant's name, shut off ✓ · 31 smoke/CO detectors `edu-carbon-monoxide-detector-building-code-wy` ✓ · 32 mold / bed bugs `edu-no-bed-bug-disclosure-wy` ✓ · 33 unauthorized occupant `permitted-occupants` ✓ · 34 unauthorized pet ✓ · 35 noise / neighbor complaints `no-disturbance` ✓ · 36 smoking / cannabis `smoking-policy` ✓ · 37 tenant runs a business from the unit ✓ · 38 tenant sublets or lists on Airbnb `no-sublet-assign` ✓ · 39 domestic-violence early termination `dv-safe-homes-*` (Art. 13) ✓ · 40 tenant complains, landlord wants them out `edu-no-anti-retaliation-statute-wy` ✓ · 41 **fire or other casualty makes the unit uninhabitable — GAP C**
+
+**D. Ending the tenancy (13)** — 42 fixed term expires `surrender-end-of-term` ✓ · 43 tenant stays past the term `holdover`, `edu-holdover-wy` ✓ · 44 **either party ends a month-to-month — GAP A (§20.1.2)** · 45 tenant breaks the lease early `early-termination` ✓ · 46 tenant abandons the unit `abandoned-property-wy` ✓ · 47 notice to quit / FED filing `edu-no-for-cause-eviction-wy` ✓ · 48 **landlord changes the locks instead of filing — GAP F** · 49 sheriff executes the writ `edu-post-writ-possessions-wy` (W.S. 1-21-1211(a)) ✓ · 50 belongings left behind `abandoned-property-wy`, `edu-abandoned-property-notice-methods-wy` ✓ · 51 move-out inspection `existing-condition` ✓ · 52 tenant dies mid-lease `edu-no-tenant-death-statute-wy` ✓ · 53 military transfer (SCRA) ✓ · 54 duty to mitigate after a breach ✓
+
+**E. Owner changes (5)** — 55 landlord sells with a tenant in place `edu-successor-owner-bound-wy` (W.S. 1-21-1207/1208) ✓ · 56 tenant must be told about a management change `edu-no-broad-identity-change-notice-wy` ✓ · 57 **lender forecloses on the rental — GAP E** · 58 deposit follows the property on transfer ✓ · 59 buyer wants the unit vacant ✓
+
+**F. Wyoming-specific additions (5)** — 60 **vehicle abandoned in the tenant's parking space — GAP D** · 61 frozen pipes and winterization duties `snow-removal`, `tenant-maintenance` ✓ (allocation is contractual; no WY statute located) · 62 well or septic on a rural rental ✓ (no WY landlord-tenant statute located; handled as a maintenance allocation — see §20.2.3) · 63 wildlife intrusion ✓ (no statute; ordinary repair/pest allocation) · 64 firearms in the unit ✓ (no statute compels or forbids a lease restriction — see §20.2.3)
+
+#### §20.2.2 — Gaps found, and the rows written
+
+**GAP C — fire or other casualty.** → new row **`casualty-termination-wy`** (LEASE_CLAUSE, CONDITIONAL, `topic_key=casualty-termination`).
+Ten of fourteen states carry a casualty row (KS, ND, SD, MN, OH, CA, NV, TX, FL, AZ); Wyoming carried none, so a WY lease had no answer at all to "the unit burned." **Confirmed absent from Wyoming law**: Article 12's 11 sections were read in full in the original statute walk and contain no casualty or untenantability provision; the Title 34 ch. 2 section index was read 2026-09-27 and contains only 34-2-128 through 34-2-130 (implied tenancy, renewal, mineral leases) — no destruction, untenantability, or rent-abatement section. The nearest statutory neighbour runs the other way: W.S. 1-21-1203(d) lets the **owner** refuse an unreasonably costly repair and terminate. Because no statute supplies a default, the contract term is doing all the work — CONDITIONAL per the AZ classification rule. None of the ten existing rows could be extended to WY: each is statute-driven on its own state's provision.
+
+**GAP D — abandoned vehicle.** → new row **`edu-abandoned-vehicle-disposal-wy`** (LANDLORD_EDUCATION, CONSTRAINED, `topic_key=towing`). *Also a source-4 finding by nature — both sections sit outside the landlord-tenant title.*
+`parking-vehicle-rules` (tagged WY among twelve states) says Landlord may have a vehicle towed *"in accordance with applicable law"* and no WY row said what that law is. Four other states carry a towing row (NV, TX ×2, AZ); WY did not. Verified section-open: **W.S. 31-13-104** — removal requires the property owner's written request on a department-prescribed form; a notice of intent to impound must be posted on the vehicle and remain **5 days** on private property; the towing service must give certified-mail notice to owner and lienholders within **3 business days** of identifying their latest known addresses. **W.S. 31-13-109** — to sell: wait **30 days**, notify the **sheriff** of the county plus owner and lienholders by certified mail with return receipt, publish **once a week for two consecutive weeks**, hold the auction no sooner than **10 days** after notice, with total recoverable removal/towing/storage/sale expenses **capped at $1,000**. No clause conflict: `parking-vehicle-rules` already defers to law. Not read: 31-13-112(e) (the court route) and the remainder of ch. 13; municipal towing ordinances flagged, not resolved, consistent with WY's state-level-only scope.
+
+**GAP E — foreclosure.** → new row **`edu-foreclosure-tenant-rights-wy`** (LANDLORD_EDUCATION, RECOMMENDED, `topic_key=foreclosure`).
+Seven states carry a foreclosure row (MN, NV ×2, CA ×2, NJ, FL, AZ ×2); WY carried none. **Confirmed absent from state law:** the Title 34 ch. 4 section index (Foreclosure of Mortgages and Power of Sale, 34-4-101 through 34-4-113) was read 2026-09-27 — no section mentions tenants, leases, occupants, or possession by a non-mortgagor. The protection is federal, and the row **flags it as federal per instruction 16** so the Claude CLI statute watch does not expect it in a Wyoming bill feed. Two honest limits recorded in the row's notes: the absence rests on an **index** read plus Article 12's full read, not an official full-text search; and the PTFA's own text was **not** read section-open in this pass — its 90-day and bona-fide-lease terms are stated as commonly summarized.
+
+**GAP F — self-help eviction.** → new row **`edu-no-self-help-eviction-statute-wy`** (LANDLORD_EDUCATION, RECOMMENDED, `topic_key=self-help-eviction`). **The highest-consequence finding in this pass.**
+Thirteen of fourteen states carry a self-help/lockout/utility-shutoff row (CO, KS, NE, MN, ND, SD, CA, NV, TX ×3, NJ, FL, AZ). **Wyoming was the only one without** — on one of the questions landlords most often get wrong, in the state whose statutes are most silent about it.
+
+The row is written **conservatively and affirmatively**: it states what Wyoming law *does* provide (notice to quit under W.S. 1-21-1003; the FED action under 1-21-1001 through 1-21-1017; and W.S. 1-21-1211(a), which is explicit that the **sheriff, on a court order**, removes possessions and prevents reentry), then states that no statute prohibiting lockouts or utility shutoffs was **located**, then warns that this silence is not authorization and leaves the landlord exposed to uncapped common-law claims — wrongful eviction, trespass, conversion.
+
+**Evidentiary basis, stated plainly per instruction 15:** Title 1 ch. 21 art. 10 section index (titles only); Article 12 read in full; Title 34 ch. 2 index; consistent secondary-source agreement. **Not** an official full-text search of the Wyoming code, and **1-21-1016 ("Ejectment Not Barred") was not read section-open.** This is the weaker-evidence tier, the same caveat carried by `edu-no-right-to-call-police-statute-wy`. Two search rounds were run, which is the §5a.2 escalation point — see §20.3.
+
+#### §20.2.3 — Confirmed absences (no row written)
+
+- **Cash-rent receipt (scenario 23)** — no WY statute located requiring a receipt for cash rent. Weaker evidence: absence of mention across general overviews, not an affirmative "no such law" statement.
+- **Extended-absence notice (Arizona analogue)** — Arizona requires a tenant to notify the landlord of an absence over a set length; **Wyoming has no equivalent**, confirmed against the full Article 12 read. No row: there is nothing to teach beyond "the AZ rule is not portable," and the lease can require it contractually if a landlord wants it.
+- **Well and septic (scenario 62)** — no Wyoming landlord-tenant statute located allocating responsibility or imposing testing/disclosure duties on a residential landlord. Genuinely relevant to rural Wyoming rentals but it is a **maintenance-allocation** question the existing `tenant-maintenance` / repair rows already handle contractually, not a legal gap. Flagged to Taylor in §20.4 as a possible product addition, not drafted as law.
+- **Firearms (scenario 64)** — no statute located that compels or forbids a private landlord's lease restriction on firearms. Wyoming's firearm-preemption statute governs **governmental** regulation, not private lease terms; **it was not read section-open and is deliberately not cited in any row.** A firearms clause is a product decision, not a legal requirement — flagged in §20.4, not drafted.
+- **Meth-contamination disclosure and landlord's lien** — already confirmed absent in WY log §6; re-confirmed as still absent, not re-researched.
+- **Smoke detectors — NOT a gap. Near-miss recorded.** A keyword screen for "smoke detector"/"smoke alarm" across WY rows returned nothing, which looked like a clean gap. Reading `edu-carbon-monoxide-detector-building-code-wy` in full before logging it showed the row explicitly covers "smoke **or** carbon monoxide detectors" — the screen missed it on phrasing. **A grep miss is not an absence.** Logging this because it is the exact mechanism by which a careful process invents a false gap, and it nearly did here.
+
+---
+
+### §20.3 — Research mode: reached the trigger, did not request a toggle
+
+The prompt allows research mode where a statutory question needs it, with notice to Taylor. **GAP F hit that trigger**: two search rounds are done (the §5a.2 escalation point), and an official wyoleg.gov full-text search on lockout and utility-shutoff terms is the one step that would move the absence claim from the weaker to the strong tier.
+
+**I did not stop the pass for it.** The conservative row is publishable as written — it is affirmatively correct about what Wyoming *does* provide, it names its own evidentiary limit, and its practical advice ("silence is not permission") does not change on the outcome of that search. Blocking the whole backfill on a toggle only Taylor can flip would have been the worse trade. **Flagged for Taylor in §20.4 as the single highest-value follow-up**, with the row shipping in the meantime.
+
+---
+
+### §20.4 — For Taylor: cross-state questions and open items
+
+**Per instruction 9 / §5a.1, no shared row was added or edited in this pass.** All seven new rows are WY-only. These are product decisions, not research findings:
+
+1. **Casualty is ten single-state rows with no shared base.** KS, ND, SD, MN, OH, CA, NV, TX, FL, AZ each carry their own, and WY now makes eleven. Several are statute-driven and genuinely have to be state-specific, but the underlying contract skeleton is close to identical. **Consolidation candidate — a shared base row plus state overrides via `supersedes`.** Not actioned. If approved, it needs paste-ready propagation notes across eleven state logs.
+2. **`holdover` points at law that does not exist for Wyoming.** Its text says a continued tenancy is "terminable by either party upon written notice as required by applicable law." For WY there is no such law — `periodic-tenancy-notice-wy` now fills it, but the shared row's phrasing may mislead in any other state with the same silence. **A shared-row edit would touch CO;WY;KS;NE;MN;FL;AZ — your call, not mine.**
+3. **An official wyoleg.gov full-text search on self-help/lockout terms** (§20.3). Highest-value single follow-up in this pass.
+4. **Optional, not drafted:** a well/septic allocation clause and a firearms-policy clause for rural Wyoming rentals. Both are product features with no statutory driver. Say the word and I will draft them as CONDITIONAL with the "no statute" basis stated.
+
+---
+
+### §20.5 — Integrity
+
+- 941-row library verified at 16 columns with no duplicate IDs before any work (instruction 13). WY inventory at start: 100 tagged, 99 active, all VERIFIED.
+- All 7 new IDs checked against the full library — **no collisions**. All 7 `topic_key` values checked against the 99 WY-active rows — **no display collisions**.
+- No blank `status`/`rule_type`/`content_type` fields (instruction 27). No other state's architecture imported (instruction 25) — the ten existing casualty rows were checked for extendability and rejected on statute-driven grounds rather than copied.
+- No enacted-bill claims made, so instruction 33 is not engaged.
+- Every statutory figure in the new rows was verified section-open **except** where the row's own notes say otherwise: the PTFA text (federal, summarized) and W.S. 31-13-112(e) (not read). Those limits are in the rows, not only here.
+- **Zero existing WY rows were re-scrubbed, re-verified, or edited.** Scalpel, not hammer.
