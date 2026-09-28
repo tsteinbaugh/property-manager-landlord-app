@@ -401,7 +401,7 @@ Research not yet started.
   - **Ohio:** no Click & Lease purchase.
 
   Still open:
-  - **Kansas statute text:** Taylor pastes K.S.A. 58-2561, 58-2571 and 12-808c (with its History line) to Claude Code, which checks the two NEEDS_REVIEW rows against the wording.
+  - ~~Kansas statute text~~ **Done 2026-09-28:** Taylor supplied the text. 58-2571 and 12-808c were confirmed, with one word added and one quote completed. 58-2561 needed a real correction: per *Asbury v. Mauk*, a deposit claim is not a compulsory counterclaim. Both NEEDS_REVIEW rows are now VERIFIED.
   - **South Dakota:** two NEEDS_REVIEW rows remain.
   - **Wyoming:** the self-help absence needs an official full-text search.
   - **California:** no currency sweep yet.
