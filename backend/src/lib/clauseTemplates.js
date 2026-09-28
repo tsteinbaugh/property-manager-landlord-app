@@ -20,7 +20,7 @@
 // library change" -- the CSV is the fact).
 //
 // **2026-09-28 refresh (North Carolina, state #16):** regenerated from the
-// 16-state CSV -- 386 -> 403 shipped LEASE_CLAUSE rows. No shared clause
+// 16-state CSV -- 386 -> 404 shipped LEASE_CLAUSE rows (incl. holdover-rate-nc). No shared clause
 // text changed; 51 shared rows only gained an NC tag.
 //
 // **2026-09-28 refresh (Georgia, state #15):** regenerated from the
@@ -3650,7 +3650,7 @@ const CLAUSE_TEMPLATES = [
     group: "Security Deposit",
     states: ["NC"],
     bodyText:
-      "The Security Deposit, together with any other refundable deposit Landlord holds as security under this Lease (including any refundable pet deposit), will not exceed two weeks' Rent if this is a week-to-week tenancy, one and one-half months' Rent if this is a month-to-month tenancy, or two months' Rent if the Term is longer than month to month. A reasonable nonrefundable pet fee is not a security deposit and does not count toward this limit.",
+      "The Security Deposit, together with any other refundable deposit Landlord holds as security under this Lease (including any refundable pet deposit), will not exceed two weeks' Rent if this is a week-to-week tenancy, one and one-half months' Rent if this is a month-to-month tenancy, or two months' Rent if the Term is longer than month to month. A reasonable nonrefundable pet fee is not a security deposit and does not count toward this limit. Any amount Tenant pays in advance toward Rent for the last month of the Term counts toward this limit and is held, applied and returned as part of the Security Deposit, unless this Lease states that the amount is Rent for a specific calendar month.",
   },
   {
     id: "security-deposit-holding-nc",
@@ -3774,6 +3774,14 @@ const CLAUSE_TEMPLATES = [
     states: ["NC"],
     bodyText:
       "If this Lease continues as a month-to-month tenancy, either Landlord or Tenant may end it by giving the other written notice at least {{notice_to_vacate_days}} days before the end of a monthly rental period, and never less than the seven days North Carolina law requires. For a week-to-week tenancy, notice must be given at least two days before the end of a weekly period, and for a year-to-year tenancy at least one month before the end of the year. Rent remains payable through the termination date.",
+  },
+  {
+    id: "holdover-rate-nc",
+    title: "Holdover Charge",
+    group: "Default & Termination",
+    states: ["NC"],
+    bodyText:
+      "If Tenant remains in possession after the end of the Term, and Landlord has not agreed in writing to a continued tenancy or accepted Rent for one under the Holdover section of this Lease, then, in place of the actual damages and reasonable rental value described in that section, Tenant will pay Landlord a holdover charge of {{holdover_daily_rate}} for each day Tenant remains in possession. Landlord and Tenant agree that Landlord's loss from a holdover, including delay in making the property available to a new tenant, is difficult to estimate accurately in advance, that this charge is a reasonable estimate of that loss, and that it is not a penalty. Landlord's acceptance of a holdover charge is not acceptance of Rent for a continued tenancy. This Section does not limit Landlord's right to recover possession, unpaid Rent and other amounts due for the period before the Term ended, or damages for harm to the property.",
   },
 ];
 
