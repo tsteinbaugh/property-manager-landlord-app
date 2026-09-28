@@ -896,7 +896,7 @@ Claude Code should:
 
 ---
 
-*Last updated: 2026-09-28 — Gap-discovery backfill merged for 12 states (371 lease clauses, 663 education rows; all 14 logs pass the gap check; legal watch re-seeded). Ohio's 7 section-B rows and a list of method and shared-row decisions are waiting on Taylor.*
+*Last updated: 2026-09-28 — Gap-discovery backfill merged for 12 states, and Taylor's decisions applied: Ohio's 7 held rows merged (374 lease clauses, 667 education rows), three uniform shared-text edits, ND moved to the no-disclaimer clauses, checklist instructions 37–42 plus `check-checklist-reconciliation.py`, and the three Kansas rows verified against statute text. All 14 logs pass both checks; legal watch is re-seeded. Next session: nothing is blocked. Pick from the optional product questions in Known Issues ("Backfill decisions"), choose state #15, or return to the standing backlog.*
 
 *Prior update, 2026-09-27 — Arizona (state #14) synced: 351 lease clauses, 554 education rows, `lease-clause-citations-AZ.csv`, AZ legal watch live and validated. The one AZ PARTIAL was accepted as-is. Checklist instruction 36: four required gap-discovery sources; an audit of every log found gaps in 12 states, and targeted backfill prompts are on the Desktop. State #15 not yet chosen.*
 
