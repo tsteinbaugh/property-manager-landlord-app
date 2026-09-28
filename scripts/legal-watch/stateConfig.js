@@ -97,6 +97,11 @@ const STATE_CONFIG = {
         label: "Schutt v. Foster (Kan. Sup. Ct., 2025)",
         clauseIds: ["edu-unconscionability-ks", "late-fee-ks"],
       },
+      {
+        id: "case-asbury-mauk",
+        label: "Asbury v. Mauk, 9 Kan. App. 2d 699 (1984): a deposit claim is not a compulsory counterclaim under K.S.A. 58-2561",
+        clauseIds: ["edu-rent-into-court-counterclaim-ks"],
+      },
     ],
   },
 
