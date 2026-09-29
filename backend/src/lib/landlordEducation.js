@@ -32,6 +32,9 @@
 // wholesale from the CSV (2026-09-18 refresh, Ohio added: 309 -> 324
 // entries across the now-8-state pass).
 //
+// **2026-09-28 (Virginia sync):** regenerated from the 19-state CSV
+// (842 -> 889 entries).
+//
 // **2026-09-28 (Tennessee sync):** regenerated from the 18-state CSV
 // (789 -> 842 entries).
 //
@@ -10769,6 +10772,595 @@ const LANDLORD_EDUCATION = [
     bodyText:
       "No cause of action arises against a property owner for failing to disclose that an occupant had HIV or another disease medically determined to be highly unlikely to be transmitted by occupying a dwelling, or that the property was the site of a homicide, felony or suicide, or of an event that did not affect the physical property. Fair housing law separately bars treating an applicant differently because of a disability such as HIV.",
     notes: "TN: TN-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. § 66-5-207 (Acts 1994, ch. 828, § 7), read in full: it sits in the residential property disclosure part but applies 'whether or not such real property is subject to this part' and to 'an owner', so it is read here as reaching landlords; no case law researched (instruction 16). Found by the code-wide search '(stigmatiz! or \"psychologically impacted\" or homicide or suicide) w/25 (disclos!) w/25 (property or dwelling or lease)': 1 hit (LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17)).",
+  },
+  // Notices & General
+  {
+    id: "edu-vrlta-scope-va",
+    title: "Who the Virginia Residential Landlord and Tenant Act Covers",
+    group: "Notices & General",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "scope",
+    bodyText:
+      "The Virginia Residential Landlord and Tenant Act applies to every residential rental of a single-family or multifamily dwelling unit in Virginia, including a rented manufactured home, and it cannot be waived by a lease or changed by a city or county. There is no longer any exemption or opt-out for small landlords: the old rule that let an individual owning two or fewer single-family rentals opt out in the lease ended with the 2019 recodification, and Title 55.1 Chapter 14 now covers only nonresidential rentals. The Act does not cover: residence in an institution incidental to detention or medical, geriatric, educational, counseling or religious services; fraternity or similar organization housing for members; a condominium owner or cooperative proprietary lessee; campgrounds; a tenant who pays no rent; an employee whose multifamily unit is conditioned on employment on the premises (or a former employee for under 60 days); a buyer occupying under a contract of sale; recovery residences; and hotel, motel, extended-stay or similar transient lodging unless the person has lived there as a primary residence for more than 90 consecutive days or has a written lease for more than 90 days (a lodging owner may use self-help after a five-day written nonpayment notice for residents of 90 days or less). Public housing is covered, but federal HUD rules control where they conflict. Several rules depend on how many Virginia rental units a landlord owns (see Landlord Portfolio Size Rules).",
+    notes: "VA: VA-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Va. Code Ann. § 55.1-1201 (history ends 2022, cc. 732, 755): (A) applies in all jurisdictions, may not be waived or modified by any locality or court; HUD regulations control on conflict; (B) all single-family and multifamily dwelling units; (C)(1)-(8) exclusions; (D)(1)-(5) transient lodging and the 90-day line; (E) local mediation commissions and property-maintenance ordinances allowed; the chapter 'shall supersede all other local ordinances or regulations concerning landlord and tenant relations and the leasing of residential property'. Va. Code Ann. § 55.1-1200 ('Dwelling unit' includes a manufactured home; 'Landlord' excludes a community land trust, 2025 Acts ch. 28). Va. Code Ann. § 55.1-1208(A)(1) (lease may not waive Act rights). SCOPE HISTORY (kickoff lead corrected): the 2-or-fewer single-family opt-out 'by so stating in a rental agreement' existed in §§ 55-248.3:1(B) and 55-225.01(B)(1) and was still in the text reenacted by 2019 Acts ch. 180 (SB 1448) and ch. 700 (HB 2007), read in enrolled text on legacylis.virginia.gov; it is absent from § 55.1-1201 as recodified (2019, c. 712, effective 2019-10-01) and from the full text of § 55.1-1201 reprinted in 2022 Acts ch. 732 (SB 622) and ch. 755 (HB 277); the exact act that dropped it was not traced (VA log §12). Va. Code Ann. § 55.1-1400 (Chapter 14 'Nonresidential Tenancies', read section-open) - no residential landlord can elect it. Manufactured home LOT rentals are the Manufactured Home Lot Rental Act (Title 55.1 Chapter 13), deprioritized (not researched). Short-term rentals out of scope. SIZE-TIER PILOT (Taylor, 2026-09-28, VA decision 1): Virginia's Act covers every residential landlord (the old two-single-family-home opt-out was dropped in the 2019 recodification), but several rules turn on how many Virginia rental units the landlord owns: 'more than four rental dwelling units or more than a 10 percent interest in more than four rental dwelling units, whether individually or through a business entity, in the Commonwealth'. Four pairs (choice groups va-size-*) carry the lease wording that differs; the more-than-four variant is the default because it is lawful for every landlord. Product flag: a per-state 'Virginia rental units owned' landlord attribute (VA log §14).",
+  },
+  {
+    id: "edu-portfolio-size-rules-va",
+    title: "Landlord Portfolio Size Rules",
+    group: "Notices & General",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-portfolio-size",
+    bodyText:
+      "Virginia applies some rules only to landlords who own more than four rental dwelling units in Virginia, or more than a 10 percent interest in more than four, counting units held individually or through a business entity: 60 days' written notice of a rent increase for a renewal term and of nonrenewal (90 days for rent increases, with a tenant response deadline, from July 1, 2027); no denial of an applicant based solely on payment history or an eviction for nonpayment during the COVID-19 emergency period (with a written denial notice and a $1,000 penalty); from January 1, 2027, no ban on a tenant's plug-in solar device on the exterior of the tenant's premises; from July 1, 2027, a one-time payment-plan offer before terminating for small arrearages; and, under fair housing law, no refusal of an applicant because of the source of funds used to pay rent, such as a housing voucher. A landlord with four or fewer units may refuse debit and credit card payments, may limit the tenant to one redemption of a nonpayment eviction per lease period with written notice, and may decline to rent based on source of funds. A landlord who owns fewer than four units and receives no rental or utility assistance on the tenant's behalf is exempt from the 2027 tenant-ledger rule. Landlords with more than 200 units on one property need key-control and employee background-check policies. Any locality may require landlords with five or more units in one multifamily building to install deadbolts, peepholes and window and sliding-door locks.",
+    notes: "VA: VA-SCOPE: STATEWIDE; SIZE-TIERED DUTIES EXPLAINED. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Outside-title sections read section-open 2026-09-28 from the official Code of Virginia Law Library compilation (law.lis.virginia.gov/law-library, per-title CSV) overlaid with every section on the official 2026 Updates pages (VA log §17). More than four: Va. Code Ann. §§ 55.1-1204(K) (and 2026 Acts ch. 1066, effective 2027-07-01), 55.1-1245(J) (current; the J subsection drops out of the version effective the later of 2028-07-01 or seven years after the COVID-19 emergency ends), 55.1-1245(G) (2026 Acts ch. 1105, effective 2027-07-01), 55.1-1212.1(B) (2026 Acts ch. 998 and ch. 1052, effective 2027-01-01), 36-96.2(I) (source-of-funds exemption for owners of four or fewer, lost if more than a 10 percent interest in more than four). Four or fewer: Va. Code Ann. §§ 55.1-1204(J)(2), 55.1-1250(A). 'Fewer than four' (note the different wording, and the second clause 'less than a 10 percent interest in more than four'): Va. Code Ann. § 55.1-1209(F) (2026 Acts ch. 640, effective 2027-07-01) - the statute's thresholds are not identical, so a landlord with exactly four units is inside the ledger rule but outside the other small-landlord exemptions (recorded as enacted, VA log §7). More than 200 units attached to the same real property: Va. Code Ann. § 55.1-1209.1 (2023 c. 432; excludes financial institutions and real estate licensees). Five or more units in one multifamily building, by local ordinance: Va. Code Ann. § 55.1-1221. Mass nonrenewal of month-to-month tenancies (20 or 50%) in a multifamily building: Va. Code Ann. § 55.1-1253(B). Lease wording pairs: acceptable-payment-methods-va(-small), redemption-rights-va / redemption-limit-va-small, renewal-notice-va(-small), portable-solar-va(-small). SIZE-TIER PILOT (Taylor, 2026-09-28, VA decision 1): Virginia's Act covers every residential landlord (the old two-single-family-home opt-out was dropped in the 2019 recodification), but several rules turn on how many Virginia rental units the landlord owns: 'more than four rental dwelling units or more than a 10 percent interest in more than four rental dwelling units, whether individually or through a business entity, in the Commonwealth'. Four pairs (choice groups va-size-*) carry the lease wording that differs; the more-than-four variant is the default because it is lawful for every landlord. Product flag: a per-state 'Virginia rental units owned' landlord attribute (VA log §14).",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-prohibited-lease-terms-va",
+    title: "Lease Terms Virginia Prohibits",
+    group: "Compliance & Prohibited Terms",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "prohibited-lease-terms",
+    bodyText:
+      "A Virginia lease may not make the tenant: waive rights or remedies under the Act; waive the 120-day notice for condominium or cooperative conversion or rehabilitation; authorize a confession of judgment; agree to pay the landlord's attorney fees except as the Act provides; agree to exculpate or limit the landlord's liability to the tenant arising under law, or indemnify the landlord for that liability; accept a firearm ban as a condition of public housing unless federal law requires it; prepay a security deposit plus damage and renter's insurance premiums above two months' rent; or waive Servicemembers Civil Relief Act rights before a dispute arises. Any such provision is unenforceable, and if the landlord sues to enforce it the tenant may recover actual damages and reasonable attorney fees. No landlord may charge a tenant any fee for maintenance or repair unless the tenant's violation of the Act made it necessary. A lease may allow a tenant to operate child care in an apartment building in compliance with state and local law. Releases of the landlord from negligence, casualty or pest claims, which appear in some Virginia forms, are exactly the kind of exculpatory terms the Act prohibits.",
+    notes: "VA: VA-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Va. Code Ann. § 55.1-1208 (history ends 2026, cc. 722, 723): (A)(1)-(8), (B) unenforceable plus actual damages and fees if the landlord brings an action to enforce (instruction 49: a URLTA § 1.403-style penalty, triggered by an enforcement action; shared rows with exculpatory sentences - parking, storage-space, tenants-property-insurance, services-utilities-provided - were not tagged, their -ks-oh-ca / -ks-oh variants were), (C) maintenance and repair fees (2025 Acts ch. 684 and ch. 688 limited it to public housing authorities; 2026 Acts ch. 722 and ch. 723, effective 2026-07-01, extended it to every landlord, read in enrolled text). Va. Code Ann. § 55.1-1208.1 (2022 c. 267, child care). Va. Code Ann. § 55.1-1201(A) (Act not waivable). Instruction 32 checked: no Virginia statute forces specific text into a lease attorney-fee clause; landlord fees are recoverable 'as contracted for in the rental agreement or as provided by law' (Va. Code Ann. § 55.1-1245(H)-(I)) except where the tenant proves the failure to pay or vacate was reasonable - the shared default-by-tenant prevailing-party sentence ('to the extent permitted under applicable law') was tagged. The Virginia REALTORS Form 200 (Rev. 07/23) §§ 6(i), 6(k), 11, 13 and 16 contain releases, indemnities and a liability limit to the landlord's interest in the property; not copied (VA log §15).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-application-fees-va",
+    title: "Rental Applications, Application Fees and Deposits",
+    group: "Rent & Payment",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "application-fee",
+    bodyText:
+      "A Virginia application fee may not exceed $50 ($32 for public housing or other HUD-regulated units), plus the actual out-of-pocket cost a third party charges for background, credit or other screening. A landlord may also take a refundable application deposit; if the applicant does not rent, the landlord must refund everything above the landlord's actual expenses and damages, with an itemized list, within 20 days (10 days where the landlord rejects an applicant who paid by cash, certified check, cashier's check or money order), or owe the wrongfully withheld amount and attorney fees. Money paid as a security deposit is treated as an application deposit until the lease commencement date. A landlord may copy a driver's license or similar photo ID (not a U.S. government ID where that would violate federal law) and may require a Social Security number or an ITIN. A landlord must consider evidence that an applicant is a victim of family abuse to mitigate a low credit score. A rental application may require disclosure of criminal convictions and consent to a criminal record check, charging only its exact cost. From July 1, 2027, before collecting any payment or information, the landlord must tell applicants in writing or by posting the fees and deposit and whether refundable, the selection criteria, automatic-denial criteria, other criteria that may lead to denial, the consumer reporting agency used, and the applicant's right to a free copy of the report and to dispute it. Information received with an application is a confidential tenant record.",
+    notes: "VA: VA-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Outside-title sections read section-open 2026-09-28 from the official Code of Virginia Law Library compilation (law.lis.virginia.gov/law-library, per-title CSV) overlaid with every section on the official 2026 Updates pages (VA log §17). Va. Code Ann. § 55.1-1203 (current version, history ends 2020, c. 388): (A) application deposit refunds 20 / 10 days, itemized, damages and fees; (B) identification, SSN or ITIN (18 U.S.C. § 701, FEDERAL, cited by the statute, not read); (C) $50 / $32 plus actual third-party costs; (D) family-abuse evidence (letter from a program, HUD-certified counselor or attorney; police report; court order), actual damages including all fees and deposits, plus attorney fees. 2026 Acts ch. 1050 (HB 379), effective 2027-07-01, adds the pre-application written or posted disclosure (new subsection A; renumbers B-E), read in the delayed-effective version. Va. Code Ann. § 55.1-1200 ('Application deposit', 'Application fee', 'Security deposit' deemed an application deposit until commencement). Va. Code Ann. § 55.1-1209(B) (application information confidential except by subpoena). Va. Code Ann. § 36-96.2(F) (criminal conviction disclosure and exact-cost record check), (H) (family abuse). COVID-era rule for landlords with more than four units: Va. Code Ann. § 55.1-1245(J) (edu-portfolio-size-rules-va).",
+  },
+  // Security Deposit
+  {
+    id: "edu-security-deposit-rules-va",
+    title: "Virginia Security Deposit Rules",
+    group: "Security Deposit",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-return",
+    bodyText:
+      "Virginia caps the security deposit, including any pet deposit, at two months' periodic rent, and the deposit plus any damage and renter's insurance premiums paid before the lease begins may not together exceed two months' rent. At the end of the tenancy the deposit may be applied only to accrued rent (including reasonable late charges in the lease), damages from the tenant's failure to meet statutory maintenance duties less reasonable wear and tear, other damages or charges provided in the lease, and actual damages for breach. Within 45 days after the tenancy ends or the tenant vacates, whichever is later, the landlord must give an itemized written disposition with any refund; where damages exceed the deposit and need a contractor, written notice within the 45 days buys 15 more days to itemize. The landlord must tell the tenant of the right to attend the move-out inspection, which must occur within 72 hours after possession is delivered if the tenant asks. Refunds go by one check to all tenants unless each agrees otherwise in writing; without a forwarding address the landlord holds the money and may send it to the State Treasurer as unclaimed property after a year. Deductions during the tenancy must be noticed within 30 days. A willful violation means return of the whole deposit plus actual damages and attorney fees. Landlords must keep two years of deduction records for tenant inspection, transfer deposits to a buyer on sale, and remain bound as successors. No interest is owed. Damage insurance may replace the deposit if it meets five statutory criteria, and the tenant may switch to paying the full deposit at any time.",
+    notes: "VA: VA-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Va. Code Ann. §§ 55.1-1226 (A)-(J), 55.1-1213 (transfer of deposits and 'any accrued interest' to a buyer; managing agent notice to tenants), 55.1-1206 (insurance premiums are rent; cap), 55.1-1208(A)(7), 55.1-1200 (definitions), 55.1-1205 (prepaid rent, meaning rent paid more than one month in advance, held in a federally insured escrow account by the fifth business day and not removed without the tenant's written consent until due), 55.1-1240 (casualty return), 55.1-1234 (return on landlord-caused termination), 55.1-1251 (deposit credited after the tenant vacates; simultaneous judgment without credit). Va. Code Ann. § 55.1-2500 (unclaimed property includes security deposits) - read by definition only. Clause: security-deposit-return-va; optional expedited-deposit-disposition-va, damage-insurance-va.",
+  },
+  {
+    id: "edu-no-deposit-interest-va",
+    title: "No Interest on Security Deposits",
+    group: "Security Deposit",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-interest",
+    bodyText:
+      "Virginia law does not require a landlord to pay interest on a security deposit or to hold it in an interest-bearing or separate account. If a deposit happens to earn interest, a seller must transfer the deposit and any accrued interest to a buyer.",
+    notes: "VA: VA-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes), code-wide: exact regular-expression search of the whole Code of Virginia (Law Library title CSVs overlaid with every 2026-updated section; 34,086 sections; control term 'zqxvbnmwt' 0 at start and end; VA log §17) for 'security deposit' within a sentence of 'interest' returned only Va. Code Ann. §§ 55.1-1213, 55.1-1317, 55.1-1405 (transfer of deposits 'and any accrued interest' on sale), 54.1-2108.1 (broker escrow on foreclosure), 55.1-1204 ('10 percent interest' in units), 55.1-1226 ('landlord's interest in the premises') and 55.1-2500 (unclaimed property definition); Va. Code Ann. § 55.1-1226 read whole contains no interest duty. The Virginia REALTORS Form 200 (Rev. 07/23) § 3(a) states that no interest is due on deposits received after January 1, 2009 - a lead only; the repealing act was not traced (VA log §7). Separate-account rule: none for landlords (brokers are regulated separately under Va. Code Ann. § 54.1-2108 et seq., not read).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-late-fee-rules-va",
+    title: "Late Fees in Virginia",
+    group: "Rent & Payment",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "late-fee-limit",
+    bodyText:
+      "A Virginia landlord may charge a late fee only if the written lease provides for it, and the fee can never exceed the lesser of 10 percent of the periodic rent or 10 percent of the remaining balance due and owed by the tenant. There is no statutory grace period for a written lease (without a written lease, rent is due on the first and late after the fifth). Late fees on landlord-billed utilities under submetering or ratio billing are separately capped at $5 and cannot be due sooner than 15 days after the bill. After a foreclosure, a tenant cannot be charged a late fee until the new owner says where to pay. From July 1, 2027, a landlord with more than four units that offers a statutory payment plan may not add late fees on the covered arrearage while the tenant keeps to the plan. A late fee is part of 'rent' under the Act and can be claimed in an eviction as a contracted-for late charge.",
+    notes: "VA: VA-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Va. Code Ann. §§ 55.1-1204(C)(4)-(5), (E); 55.1-1212(C)-(D); 55.1-1237(C); 55.1-1245(G) (2026 Acts ch. 1105, effective 2027-07-01), (H)-(I); 55.1-1250(C); 55.1-1200 ('Rent'). Clause: late-fee-limit-va. The shared default-by-tenant row's library policy (a late fee alone is not a ground to terminate) is narrower than Virginia law allows and was kept (VA log §2.1).",
+  },
+  {
+    id: "edu-rent-payment-rules-va",
+    title: "Rent Payments, Receipts and Statements",
+    group: "Rent & Payment",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "payment-methods",
+    bodyText:
+      "Every Virginia landlord must accept rent and security deposits by check and money order and must give a written receipt whenever rent is paid in cash or by money order. A landlord may not charge a payment-processing fee unless it also offers a fee-free way to pay, and a fee for card or electronic payment may not exceed the actual third-party cost. A landlord with four or fewer units need not accept debit or credit cards. On a tenant's written request, the landlord must provide within 10 business days a written statement of all charges and payments over the tenancy or the past 12 months, whichever is shorter; from July 1, 2027, the same statement must be provided within 10 business days of a written request for tenant records (in writing or by a free portal), and a termination notice for nonpayment must include it. Rent paid more than one month in advance must go into a federally insured escrow account by the fifth business day after receipt. Unless the lease says otherwise, rent is payable without demand at the place the landlord designates, at the beginning of each month. Rent paid under a housing payment plan or a court-ordered plan may have to be paid by cashier's check, certified check, money order or electronic transfer.",
+    notes: "VA: VA-SCOPE: STATEWIDE; CARD RULE SIZE-TIERED. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Va. Code Ann. §§ 55.1-1204(D), (J) (2025 Acts ch. 627 and ch. 655; 2026 Acts ch. 722 and ch. 723), 55.1-1205, 55.1-1209(F) (2026 Acts ch. 640, effective 2027-07-01; DHCD template under Va. Code Ann. § 36-139(33)), 55.1-1202(E) (2026 Acts ch. 783 and ch. 784, effective 2027-07-01), 55.1-1262(C)(1), 55.1-1250(E). Clauses: acceptable-payment-methods-va / -va-small (pair), returned-payments-va; shared rent-payment and application-of-payments tagged (no Virginia payment-application statute; 'Rent' means all money other than a deposit owed under the lease, Va. Code Ann. § 55.1-1200).",
+  },
+  {
+    id: "edu-dishonored-payment-remedies-va",
+    title: "Bounced Checks and Rejected Electronic Payments",
+    group: "Rent & Payment",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "returned-payments",
+    bodyText:
+      "For rent paid by a check refused for no account or insufficient funds, a Virginia lease may set a processing fee of up to $50. When a rent check bounces, an electronic transfer is rejected for insufficient funds, or a stop-payment order is placed in bad faith, the landlord may serve a 14-day written notice requiring payment by cash, cashier's check, certified check or completed electronic transfer and, if not paid, terminate and seek possession. The landlord may also recover, as part of the eviction case, the face amount, legal interest, the bank's return fee, a $50 processing charge and attorney fees if awarded, and, if the payment remains unpaid 30 days after proper notice, a civil recovery of the lesser of $250 or three times the check. A holder who charges more than the law allows is liable for the lesser of $50 plus the excess or twice the excess.",
+    notes: "VA: VA-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Outside-title sections read section-open 2026-09-28 from the official Code of Virginia Law Library compilation (law.lis.virginia.gov/law-library, per-title CSV) overlaid with every section on the official 2026 Updates pages (VA log §17). Va. Code Ann. §§ 55.1-1200 (processing fee definition), 55.1-1245(F) (14 days since 2026 Acts ch. 353 and ch. 354, effective 2026-07-01; notice may include the § 8.01-27.1 and § 8.01-27.2 claims), 8.01-27.1, 8.01-27.2. Criminal bad-check statutes (§§ 18.2-181, 18.2-182) not read. Clause: returned-payments-va.",
+  },
+  // Disclosures
+  {
+    id: "edu-required-disclosures-va",
+    title: "Virginia Required Lease Disclosures and Their Timing",
+    group: "Disclosures",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "required-disclosures",
+    bodyText:
+      "Before or at signing, a Virginia landlord must: offer a written lease with the state Statement of Tenant Rights and Responsibilities and have the parties sign the state acknowledgment form (the landlord cannot sue on a lease violation until the statement is provided); put the itemized fee disclosure, with the required sentence, on the first page of the lease; give the renter's insurance and flood notice if the lease does not require renter's insurance; disclose in writing the name and address of the manager and of an owner or owner's agent; name a Virginia agent in the lease if the owner is a nonresident individual; give the federal lead-based paint disclosure and pamphlet for pre-1978 housing; and, where they apply, disclose a noise or accident potential zone near a military air installation, known unremediated defective drywall, or known uncleaned prior methamphetamine manufacture. Within five days after move-in the landlord must give a written move-in inspection report with a statement about visible mold. During the tenancy the landlord must give notice of a sale, of a lender's default or foreclosure notice on a single-family rental within five business days, 48 hours' notice before pesticide use in the unit, and a smoke alarm certificate. A termination notice to a tenant using a housing voucher must show the statewide legal aid phone number and website on its first page.",
+    notes: "VA: VA-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Outside-title sections read section-open 2026-09-28 from the official Code of Virginia Law Library compilation (law.lis.virginia.gov/law-library, per-title CSV) overlaid with every section on the official 2026 Updates pages (VA log §17). Va. Code Ann. §§ 55.1-1204(B), (H) (tenant-rights-statement-va); 55.1-1204.1 (fee-disclosure-statement-va); 55.1-1206(D) (renters-insurance-notice-va); 55.1-1216 (landlord-disclosure-va); 55.1-1211 (nonresident-owner-agent-va); 55.1-1217, 55.1-1218, 55.1-1219 (military-air-zone-disclosure-va, defective-drywall-disclosure-va, meth-disclosure-va); 55.1-1214, 55.1-1215 (move-in-inspection-va, mold-disclosure-va); 55.1-1237 (foreclosure-notice-va); 55.1-1223 (landlords-access-va); 55.1-1220(A)(8) (smoke-co-alarms-va); 55.1-1202(D) (voucher-holder termination notices, 'in type no smaller or less legible than that otherwise used'; public housing authority notices name the local legal aid program). Lead: FEDERAL 42 U.S.C. § 4852d (not read), shared lead-based-paint row tagged; Va. Code Ann. § 8.01-226.7 (an agent who gave the federal pamphlet and disclosure and got a signed acknowledgment before an initial-term lease is immune from lead-poisoning personal injury damages if maintenance duties are met; continuing written disclosure of new information during the tenancy) - edu-lead-paint-rules-va.",
+  },
+  {
+    id: "edu-no-radon-disclosure-va",
+    title: "No Radon Disclosure Rule for Leases",
+    group: "Disclosures",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "radon-disclosure",
+    bodyText:
+      "Virginia has no radon testing or disclosure requirement for residential leases. The only radon disclosure in the Code is a buyer-beware statement for home sales.",
+    notes: "VA: VA-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes), code-wide exact regex 'radon' (6 hits): public school standards (§ 22.1-138), radiation-control and radon-screening company provisions (§§ 32.1-228.1, 32.1-229, 32.1-229.01, 32.1-229.01:1), and Va. Code Ann. § 55.1-703 (buyer-beware disclosures in SALES, which mentions EPA radon zones; 2026-updated). None applies to leases. Control 0 (VA log §17). Search engine: exact regular expressions over the whole Code of Virginia (Law Library title CSVs overlaid with every 2026-updated section, 34,086 sections; control 'zqxvbnmwt' 0 at start and end; VA log §17).",
+  },
+  {
+    id: "edu-no-sex-offender-disclosure-va",
+    title: "No Sex Offender Registry Notice Required in Leases",
+    group: "Disclosures",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "sex-offender-disclosure",
+    bodyText:
+      "Virginia does not require a residential lease to contain a sex offender registry notice or require a landlord to disclose registered offenders. The registry notice some Virginia lease forms include comes from the buyer-beware rules for home sales, not from landlord-tenant law.",
+    notes: "VA: VA-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes): exact regex 'sex offender|sexual offender|Sex Offender and Crimes Against Minors Registry' within 200 characters of tenant/landlord/lessee/lessor/rental agreement/residential lease/dwelling unit returned 0; the only Title 55.1 reference to the registry chapter (Chapter 23 of Title 19.2) is Va. Code Ann. § 55.1-703(6), a SALES buyer-beware item. The Virginia REALTORS Form 200 (Rev. 07/23) § 30 'Statutory Notice to Tenant' is modeled on it (VA log §15). Control 0. Search engine: exact regular expressions over the whole Code of Virginia (Law Library title CSVs overlaid with every 2026-updated section, 34,086 sections; control 'zqxvbnmwt' 0 at start and end; VA log §17).",
+  },
+  {
+    id: "edu-no-bedbug-disclosure-va",
+    title: "No Bed Bug Disclosure Rule",
+    group: "Disclosures",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "bed-bug-disclosure",
+    bodyText:
+      "Virginia has no bed bug disclosure or treatment statute for rentals. General pest rules apply: the tenant must keep the unit free of insects and pests and report them promptly and pays for treatment made necessary by the tenant's delay or fault, and the landlord must give 48 hours' notice before applying pesticide in the unit.",
+    notes: "VA: VA-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes): exact regex 'bed ?bugs?|cimex' code-wide returned 0. Va. Code Ann. §§ 55.1-1227(A)(3), (14), 55.1-1223, 55.1-1244.1(C) (tenant may hire a licensed pesticide business for a rodent infestation after 14 days' notice). Control 0. Search engine: exact regular expressions over the whole Code of Virginia (Law Library title CSVs overlaid with every 2026-updated section, 34,086 sections; control 'zqxvbnmwt' 0 at start and end; VA log §17).",
+  },
+  {
+    id: "edu-no-flood-disclosure-va",
+    title: "No Separate Flood Disclosure for Leases",
+    group: "Disclosures",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "flood-disclosure",
+    bodyText:
+      "Virginia has no stand-alone flood-zone or flood-history disclosure for residential leases. The only lease flood notice is inside the renter's insurance notice a landlord must give when the lease does not require renter's insurance: renter's insurance does not cover flood, and the tenant is pointed to FEMA's National Flood Insurance Program and the state Flood Risk Information System.",
+    notes: "VA: VA-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes, for a stand-alone lease flood disclosure): exact regex 'flood' within 200 characters of tenant/lessee/landlord/lessor/rental returned only Va. Code Ann. § 55.1-1206 (renter's insurance notice) plus unrelated §§ 46.2-1600 and 54.1-2105.01. Clause: renters-insurance-notice-va. Sales flood disclosure (§ 55.1-703 and nearby) not applicable to leases. Control 0. Search engine: exact regular expressions over the whole Code of Virginia (Law Library title CSVs overlaid with every 2026-updated section, 34,086 sections; control 'zqxvbnmwt' 0 at start and end; VA log §17).",
+  },
+  {
+    id: "edu-no-stigmatized-property-rule-va",
+    title: "No Lease Rule on Deaths or Crimes in the Unit",
+    group: "Disclosures",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "stigmatized-property",
+    bodyText:
+      "Virginia has no statute requiring or excusing disclosure to a prospective tenant of a death, homicide, suicide or other crime in a rental unit.",
+    notes: "VA: VA-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes): exact regex 'psychologically impacted|stigmatiz|homicide|suicide|died on the property|death on the property' within 200 characters of landlord-tenant terms returned 0. Control 0. Whether common-law fraud or the Virginia Consumer Protection Act reaches a misstatement was not researched (L.7: the absence is bounded to statutes). Search engine: exact regular expressions over the whole Code of Virginia (Law Library title CSVs overlaid with every 2026-updated section, 34,086 sections; control 'zqxvbnmwt' 0 at start and end; VA log §17).",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-no-ev-charging-right-va",
+    title: "No Tenant Electric Vehicle Charging Right",
+    group: "Rules & Regulations",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "ev-charging",
+    bodyText:
+      "Virginia gives condominium unit owners and cooperative proprietary lessees a right to install electric vehicle charging stations, but gives residential tenants no statutory right to install one. Charging equipment in a rental is a matter for the lease.",
+    notes: "VA: VA-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes, for tenants): exact regex 'electric vehicle|charging station' within 200 characters of landlord-tenant terms returned only Va. Code Ann. § 55.1-1962.1 (condominium unit owners) and § 55.1-2139.1 (cooperative proprietary lessees). Control 0. Contrast portable solar devices from 2027 (portable-solar-va). Search engine: exact regular expressions over the whole Code of Virginia (Law Library title CSVs overlaid with every 2026-updated section, 34,086 sections; control 'zqxvbnmwt' 0 at start and end; VA log §17).",
+  },
+  {
+    id: "edu-no-flag-display-rule-va",
+    title: "No Tenant Flag Display Statute",
+    group: "Rules & Regulations",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "flag-display",
+    bodyText:
+      "Virginia has no statute protecting a residential tenant's right to display a flag. A lease rule on signs and displays governs, subject to fair housing law's protection of religious expression.",
+    notes: "VA: VA-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes): exact regex 'flags?' within 120 characters of tenant/lessee/landlord/rental/lease returned 0. Va. Code Ann. § 36-96.1:1 ('Religion' includes the carrying or display of religious items or symbols). The shared common-area-use row's savings sentence is harmless (tagged). Control 0. Search engine: exact regular expressions over the whole Code of Virginia (Law Library title CSVs overlaid with every 2026-updated section, 34,086 sections; control 'zqxvbnmwt' 0 at start and end; VA log §17).",
+  },
+  // Notices & General
+  {
+    id: "edu-no-police-call-protection-va",
+    title: "No Right-to-Call-Police Statute",
+    group: "Notices & General",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "emergency-assistance-right",
+    bodyText:
+      "Virginia has no statute that bars eviction or penalties because a tenant calls the police or emergency services. Retaliation protection covers code complaints and other listed acts, and from January 1, 2027 also complaints to the media and fair housing complaints, but not emergency calls as such.",
+    notes: "VA: VA-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes): exact regex '(call|summon|contact) … (police|law enforcement|emergency assistance) … (tenant|lessee|evict)' returned 0. Va. Code Ann. § 55.1-1258 (both versions) lists the protected acts. Control 0. Search engine: exact regular expressions over the whole Code of Virginia (Law Library title CSVs overlaid with every 2026-updated section, 34,086 sections; control 'zqxvbnmwt' 0 at start and end; VA log §17).",
+  },
+  // Pets
+  {
+    id: "edu-no-pet-fee-limit-va",
+    title: "Pet Deposits and Pet Rent",
+    group: "Pets",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "pet-fee",
+    bodyText:
+      "A pet deposit is part of the security deposit and counts toward Virginia's two-month cap. Virginia sets no separate limit on pet rent or nonrefundable pet fees, but pet rent is 'rent' and every recurring or one-time charge must appear in the first-page fee disclosure. No pet fee, deposit or additional rent may be charged for an assistance animal or a guide, hearing or service dog.",
+    notes: "VA: VA-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes, for a pet-rent or pet-fee cap): exact regex 'pet (deposit|fee|rent)s?' returned only Va. Code Ann. § 55.1-1200 (security deposit includes a pet deposit), § 36-96.3:1 (no pet fee for assistance animals) and an unrelated § 3.2-4816. Va. Code Ann. §§ 55.1-1226(A), 55.1-1204.1, 51.5-45(B). Control 0. Search engine: exact regular expressions over the whole Code of Virginia (Law Library title CSVs overlaid with every 2026-updated section, 34,086 sections; control 'zqxvbnmwt' 0 at start and end; VA log §17).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-local-preemption-va",
+    title: "Local Landlord-Tenant Rules and Rent Control",
+    group: "Rent & Payment",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-control",
+    bodyText:
+      "The Virginia Residential Landlord and Tenant Act supersedes all local ordinances and regulations concerning landlord and tenant relations and the leasing of residential property, so Virginia cities and counties cannot adopt their own landlord-tenant codes or rent control; no statute authorizes local rent control. Localities may still: set up voluntary mediation commissions; enforce property maintenance codes; create rental inspection districts; require deadbolts, peepholes and window and sliding-door locks in buildings with five or more units; require smoke alarms and owner certificates; regulate towing from private lots; bring habitability lawsuits on tenants' behalf (from July 1, 2026); and require notice and a right of first refusal before affordability restrictions on publicly supported housing end (from July 1, 2026).",
+    notes: "VA: VA-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes, for rent control or local rent regulation): exact regex 'rent control|rent stabiliz|rent regulation|control of rents' returned 6 unrelated hits (inspection and permit sections); a broader regex for localities regulating or capping rents returned only bond and tax provisions and the 2026 'affordability restriction' definition (§ 36-176). Va. Code Ann. § 55.1-1201(E) (supersession; mediation; property maintenance codes); §§ 55.1-1221, 15.2-922, 36-105.1:1 (rental inspection districts; opening read), 46.2-1232 (title only), 55.1-1259(B) (2026 Acts ch. 542 and ch. 543), 36-176 to 36-180 (2026 Acts ch. 352, HB 4, effective 2026-07-01, local ordinance option; read by opening text). No constitutional or Dillon-rule research (L.7: absence bounded to statutes). Municipal ordinances themselves out of scope (instruction 20). Control 0. Search engine: exact regular expressions over the whole Code of Virginia (Law Library title CSVs overlaid with every 2026-updated section, 34,086 sections; control 'zqxvbnmwt' 0 at start and end; VA log §17).",
+  },
+  // Disclosures
+  {
+    id: "edu-fair-housing-va",
+    title: "Virginia Fair Housing Law",
+    group: "Disclosures",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fair-housing",
+    bodyText:
+      "Virginia's Fair Housing Law protects race, color, religion (including religious dress and displays), national origin, sex, elderliness (age 55 and over), familial status (including pregnancy), source of funds (any lawful source of rent money, including housing vouchers and other assistance), sexual orientation, gender identity, military status (service members, veterans and certain dependents) and disability. It covers refusals to rent, terms and services, advertising, false unavailability, and refusals of reasonable modifications and accommodations. Exemptions: an individual owner of no more than three single-family houses renting without a broker and without discriminatory advertising; an owner-occupied building of up to four families; religious organizations and private clubs in limited cases. An owner of four or fewer Virginia rental units may decline a tenant based on source of funds, and any owner may decline if the assistance program has not approved the tenancy within 15 days of the request. Landlords may ask about criminal convictions and charge the exact cost of a record check, deny a clear and present threat, apply reasonable occupancy standards, and consider evidence of family abuse. An owner or managing agent may set occupancy standards, and a limit of two persons per bedroom is presumed reasonable, subject to fair housing law. Advertising may never indicate a preference based on a protected class, including disability.",
+    notes: "VA: VA-SCOPE: STATEWIDE; SOURCE-OF-FUNDS RULE SIZE-TIERED. Outside-title sections read section-open 2026-09-28 from the official Code of Virginia Law Library compilation (law.lis.virginia.gov/law-library, per-title CSV) overlaid with every section on the official 2026 Updates pages (VA log §17). Va. Code Ann. §§ 36-96.1:1 (definitions; history ends 2023, cc. 148, 149), 36-96.2 (exemptions; 2026 Acts ch. 1050 conforming only, effective 2027-07-01), 36-96.3 (unlawful practices; reasonable modifications with restoration; history ends 2021, Sp. Sess. I, cc. 267, 477, 478), 36-96.3:1, 36-96.3:2, 36-96.6 (restrictive covenants), 36-96.18 (private civil action; title and opening read), 51.5-45 (disability housing access), 36-105.4 (occupancy standards: two persons per bedroom presumed reasonable, subject to state and federal law; read whole; found by the scenario screen, VA log §16). Enforcement procedure (§§ 36-96.8 to 36-96.21) read by title only. FEDERAL Fair Housing Act not relied on. The 2027 retaliation amendment also protects fair housing complaints (Va. Code Ann. § 55.1-1258 as amended by 2026 Acts ch. 1111).",
+  },
+  // Pets
+  {
+    id: "edu-assistance-animals-va",
+    title: "Assistance Animals, Service Dogs and Accommodations",
+    group: "Pets",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "assistance-animal-accommodation",
+    bodyText:
+      "In Virginia an assistance animal, including an emotional support animal, is not a pet and need not be trained or certified. The tenant must follow rules that apply to all residents so long as they do not interfere with equal use of the home. No pet fee, pet deposit or extra rent may be charged, and a person with a guide, hearing or service dog has full and equal access to housing without extra compensation, but is liable for damage the animal causes. If the disability and need are obvious or known, the landlord may not ask for verification; otherwise it may ask for reliable documentation, including from someone with a therapeutic relationship with the person (a mental health provider, a licensed or certified professional, a free peer support group member, or a caregiver or reliable third party with actual knowledge). Requests are decided case by case; if a request may impose an undue burden or fundamental alteration, the landlord must offer an interactive process to find an alternative. A specific animal may be refused only if it poses a clear and present threat of substantial harm that is not based solely on breed, size or type and cannot be reduced by another accommodation. A request for accessible parking is an accommodation request. Providers who give fraudulent documentation violate the Virginia Consumer Protection Act; fraudulently passing off a service dog to gain public access is a misdemeanor, but there is no Virginia crime for misrepresenting an assistance animal in housing.",
+    notes: "VA: VA-SCOPE: STATEWIDE. Outside-title sections read section-open 2026-09-28 from the official Code of Virginia Law Library compilation (law.lis.virginia.gov/law-library, per-title CSV) overlaid with every section on the official 2026 Updates pages (VA log §17). Va. Code Ann. §§ 36-96.1:1, 36-96.3:1, 36-96.3:2, 51.5-45, 51.5-46, 51.5-44.1, 36-99.5 (deaf or hard-of-hearing smoke alarms). Clause: assistance-animal-accommodation-va.",
+  },
+  // Access & Entry
+  {
+    id: "edu-entry-and-access-va",
+    title: "Entry, Access and Temporary Relocation",
+    group: "Access & Entry",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-entry",
+    bodyText:
+      "A Virginia tenant may not unreasonably refuse entry for inspections, repairs, services or showings. Except in an emergency or where impractical, the landlord gives notice of intent to enter and enters at reasonable times; unrequested routine maintenance needs at least 72 hours' notice, must be done within 14 days, and the notice must state the last possible date. Pesticide application in the unit needs 48 hours' written notice. The landlord may enter during a tenant's absence of more than seven days to protect the property. If the lease says so, a tenant who unjustifiably refuses a showing for sale or lease owes damages, costs and attorney fees. A tenant who refuses lawful access can be enjoined or have the lease terminated, with damages and fees; a landlord who enters unlawfully or harasses faces the same remedies. For a nonemergency repair that needs the unit empty, the landlord may, on 30 days' written notice, move the tenant for up to 30 days to a comparable unit or hotel at the landlord's cost (rent continues); the same is true for mold remediation. A tenant with a non-ex parte court order excluding a co-tenant may have the locks changed at the landlord's actual cost or change them, and the landlord may not give keys to the excluded person. Tenants may install security devices that cause no permanent damage, giving the landlord keys.",
+    notes: "VA: VA-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Va. Code Ann. §§ 55.1-1229 (A)-(E), 55.1-1210, 55.1-1223, 55.1-1230, 55.1-1231, 55.1-1249. Clause: landlords-access-va.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-landlord-repair-duties-va",
+    title: "Repair Duties and Tenant Remedies",
+    group: "Landlord Responsibilities",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-maintenance",
+    bodyText:
+      "A Virginia landlord must comply with building and housing codes affecting health and safety, keep the premises fit and habitable, keep common areas clean and safe, maintain supplied facilities and appliances (including elevators), prevent moisture and mold, provide trash receptacles and removal, and supply running water, reasonable hot water, heat in season and reasonable air conditioning if provided. Liability for failing these duties is limited to actual damages from a failure to use ordinary care. Tenant remedies: a 21-day cure notice that terminates the lease 30 days after receipt; termination within seven days if the unit is uninhabitable at the start (full refund within 15 business days); damages or substitute housing for willful or negligent loss of an essential service, which since July 1, 2026 includes central air conditioning supplied and operating when the lease took effect; a rent escrow case in general district court (from January 1, 2027 the tenant need not first pay arrears to file); a defense to a nonpayment eviction (since July 1, 2026 no longer conditioned on paying rent into court); repair-and-deduct by a licensed contractor after 14 days' written notice, up to the greater of one month's rent or $1,500; and damages, prepaid rent and deposit if the unit is condemned after the tenant reported the code violation. Since July 1, 2026, a locality may sue on tenants' behalf to enforce habitability after notice to the landlord. No landlord may charge a repair or maintenance fee unless the tenant's violation caused the need.",
+    notes: "VA: VA-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Va. Code Ann. §§ 55.1-1220, 55.1-1234, 55.1-1234.1 (2023 c. 435), 55.1-1239 with 55.1-1200 ('Essential service', 2026 Acts ch. 624), 55.1-1241 (2026 Acts ch. 959 and ch. 1041), 55.1-1242, 55.1-1244 (both versions; 2026 Acts ch. 1118, effective 2027-01-01), 55.1-1244.1 (2020 c. 1020), 55.1-1243.2 (2024 c. 825), 55.1-1259(B) (2026 Acts ch. 542 and ch. 543), 55.1-1208(C). Shared landlord-maintenance (tagged) and tenant-repair-agreement-va.",
+  },
+  {
+    id: "edu-mold-rules-va",
+    title: "Mold",
+    group: "Landlord Responsibilities",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "mold-disclosure",
+    bodyText:
+      "Virginia requires a written statement about visible mold in the move-in inspection report; if mold is present the tenant may walk away, or the landlord must remediate within five business days and reinspect. During the tenancy the landlord must keep the premises free of moisture accumulation and mold growth, respond promptly to tenant reports, remediate visible mold to professional standards and reinspect, and give the tenant a summary of remediation information (and the full package on request). Once mold has been remediated to professional standards, it need not be disclosed to later tenants. The tenant must use reasonable efforts to prevent moisture and mold and report it promptly. Where mold materially affects health or safety, the landlord may relocate the tenant for up to 30 days to a comparable unit or hotel at the landlord's expense (rent continues, and the tenant cannot terminate once remediation is done); the landlord pays for relocation and remediation unless the tenant's breach caused the mold.",
+    notes: "VA: VA-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Outside-title sections read section-open 2026-09-28 from the official Code of Virginia Law Library compilation (law.lis.virginia.gov/law-library, per-title CSV) overlaid with every section on the official 2026 Updates pages (VA log §17). Va. Code Ann. §§ 55.1-1215, 55.1-1220(A)(5), 55.1-1227(A)(10), 55.1-1231, 55.1-1200 (mold definitions); Va. Code Ann. § 8.01-226.12 (definitions read; the operative remediation subsections, including (E), not re-read beyond the definitions - labelled, VA log §7). Clause: mold-disclosure-va. Kickoff lead ('mold rules') confirmed.",
+  },
+  // Default & Termination
+  {
+    id: "edu-termination-notices-va",
+    title: "Termination Notices for Tenant Default",
+    group: "Default & Termination",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-notice",
+    bodyText:
+      "Virginia notices for tenant breach: nonpayment, 14 days to pay (five days before July 1, 2026); a remediable breach, 21 days to cure with termination at least 30 days after receipt; a non-remediable breach or a repeat of a cured breach of like nature, termination at least 30 days after receipt; a criminal or willful act that is not remediable and threatens health or safety, including illegal drug activity by the tenant, an authorized occupant or a guest, immediate termination without waiting for a conviction (the tenant is presumed to know of occupants' and guests' activity). From July 1, 2027, a nonpayment notice must include a statement of charges and payments for the tenancy or the past 12 months, and a landlord with more than four units must first offer a one-time payment plan (up to six months) if the arrearage is no more than one month's rent plus late charges. A termination notice to a tenant using a housing voucher must show the statewide legal aid number and website on page one. A lease may not terminate solely because of family abuse against the tenant where the perpetrator is barred by the landlord or a court. A landlord may bar a tenant's guest for conduct violating the lease or law by written notice served personally, with a copy to the tenant, and then seek a trespass warrant. The sheriff may serve these notices for a fee of up to $12. The court will not grant possession without a proper termination notice in evidence.",
+    notes: "VA: VA-SCOPE: STATEWIDE; 2027 PAYMENT-PLAN RULE SIZE-TIERED. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Outside-title sections read section-open 2026-09-28 from the official Code of Virginia Law Library compilation (law.lis.virginia.gov/law-library, per-title CSV) overlaid with every section on the official 2026 Updates pages (VA log §17). Va. Code Ann. § 55.1-1245, all three versions read (current; effective 2027-07-01 until the later of 2028-07-01 or seven years after the COVID-19 emergency; thereafter): (A)-(F), (D) as amended by 2026 Acts ch. 844, (F) by 2026 Acts ch. 353 and ch. 354, (G) payment plan by 2026 Acts ch. 1105 (effective 2027-07-01; DHCD sample plan in at least 14-point type); Va. Code Ann. §§ 55.1-1202(D)-(E), 55.1-1246, 55.1-1247, 55.1-1248 (repair-and-bill as rent), 8.01-126(D). INSTRUCTION 33 checked: the shared default-by-tenant cure sentence carves out 'where applicable law permits Landlord to proceed without giving Tenant an opportunity to cure', preserving the non-remediable, repeat and immediate routes; tagged. INSTRUCTION 48 checked: no Virginia statute lets the lease itself serve as a required notice (regex over Chapter 12, Va. Code Ann. §§ 8.01-124 to 8.01-139 and § 16.1-107 for 'if the rental agreement (so) provides | as provided in | in accordance with the terms of | agreed upon in | contained in | included in | unless the rental agreement provides | stated in | specified in | clearly stated in the rental agreement | rental agreement contains': 34 hits, none letting the lease serve as a statutory notice and none making a lease-named delivery method mandatory (instruction 44); the § 55.1-1250 reservation notice may be in a termination notice, not the lease; VA log §17). Kickoff lead ('pay-or-quit period reportedly changed recently') CONFIRMED: five to 14 days by 2026 Acts ch. 353 (HB 15) and ch. 354 (SB 48), approved 2026-04-08, no delayed-effective clause, so effective 2026-07-01 under Va. Const. art. IV, § 13 (constitutional default, not read - the '2026 Updates' page states the listed sections 'took effect on July 1, 2026, unless otherwise noted').",
+  },
+  {
+    id: "edu-acceptance-of-rent-with-reservation-va",
+    title: "Accepting Rent With Reservation, and the Right of Redemption",
+    group: "Default & Termination",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "acceptance-of-rent",
+    bodyText:
+      "In Virginia, a landlord that accepts full payment of rent, damages, judgment, attorney fees and costs cannot proceed with an eviction based only on nonpayment. To accept partial payments and still evict, the landlord must give the tenant written notice that payments will be accepted with reservation, using the exact statutory language (which may be included in the termination notice), and must give the court a copy for service with the unlawful detainer summons. A new written lease before the eviction makes an earlier order of possession unenforceable. The tenant may redeem by paying all amounts due at or before the first return date (or by presenting a written payment commitment from a local government or nonprofit, which triggers a 10-day continuance), and may cancel a scheduled eviction by paying everything claimed at least 48 hours before it; the landlord must then promptly tell the sheriff to cancel, and willfully failing to do so can be treated as an unlawful lockout. On written request the landlord must state the exact amount owed; redemption payments are by cashier's check, certified check or money order. A landlord with four or fewer units may limit redemption to once per lease period by written notice.",
+    notes: "VA: VA-SCOPE: STATEWIDE; REDEMPTION LIMIT SIZE-TIERED. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Outside-title sections read section-open 2026-09-28 from the official Code of Virginia Law Library compilation (law.lis.virginia.gov/law-library, per-title CSV) overlaid with every section on the official 2026 Updates pages (VA log §17). Va. Code Ann. § 55.1-1250 (A)-(E), including the verbatim notice language beginning 'Any partial payment of rent made before or after a judgment of possession is ordered will not prevent your landlord from taking action to evict you.' (LAYOUT, Addendum M.12: mandated wording in a landlord NOTICE, not the lease; product need: a notice template, VA log §4); Va. Code Ann. § 36-139(28) (DHCD sample termination notice with reservation language); Va. Code Ann. § 8.01-454 (satisfaction of judgment, title only). Clauses: redemption-rights-va / redemption-limit-va-small (choice group va-size-redemption). Instruction 44 checked: no Virginia statute makes a lease-designated delivery method mandatory for the landlord's notices.",
+  },
+  {
+    id: "edu-eviction-process-va",
+    title: "Eviction (Unlawful Detainer) Process",
+    group: "Default & Termination",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction",
+    bodyText:
+      "Virginia evictions are unlawful detainer cases in general district court. The initial hearing must be held within 21 days of filing (30 at most), and the summons must be served at least 10 days before the return date. The court cannot grant possession unless a proper termination notice is in evidence (and from July 1, 2027 no unlawful detainer may be filed until a proper and effective termination notice has been given). The landlord may amend the amount owed up to the hearing, may ask for a full month's rent where rent is due in advance, and may split possession and money issues (not if the tenant contests the amount at the first hearing). A tenant asking for a continuance without a good-faith defense may have to pay rent into court. Appeals must be noted within 10 days; since July 1, 2026 an indigent tenant need not post an appeal bond, and other appellants must pay rent and charges into court. The sheriff serves notice at least 72 hours before executing the writ and may not evict within the 10-day appeal period. Belongings go to the public way or the landlord's storage for 24 hours. Tenants who are federal employees or contractors unpaid in a federal shutdown get a 60-day continuance on proof. Where a general district court runs the Eviction Diversion Program, an eligible tenant who pays at least 10 percent can enter a three-month court payment plan. An owner-occupant of a single-family home with an occupant who never had a lease can get an emergency hearing within 14 days after a 72-hour written notice to vacate.",
+    notes: "VA: VA-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Outside-title sections read section-open 2026-09-28 from the official Code of Virginia Law Library compilation (law.lis.virginia.gov/law-library, per-title CSV) overlaid with every section on the official 2026 Updates pages (VA log §17). Va. Code Ann. §§ 8.01-126 (both versions; 2026 Acts ch. 635; 2027 version adds 2026 Acts ch. 783 and ch. 784), 8.01-128 (2026 Acts ch. 432), 8.01-129 and 16.1-107 (2025 Acts ch. 684 and ch. 688; 2026 Acts ch. 579, HB 221, effective 2026-07-01), 8.01-470 (title and summary only), 55.1-1242, 55.1-1255, 55.1-1257, 55.1-1260, 55.1-1261 (Executive Secretary of the Supreme Court administers the program and trains judges), 55.1-1262 (2025 Acts ch. 476 and ch. 490 made the program available to any general district court and repealed its expiration; 2026 Acts ch. 230 and ch. 818 loosened eligibility), 44-209 (federal shutdown continuance). Record expungement: edu-eviction-record-expungement-va. Self-help: edu-self-help-eviction-va.",
+  },
+  {
+    id: "edu-eviction-record-expungement-va",
+    title: "Eviction Record Expungement",
+    group: "Default & Termination",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-record-sealing",
+    bodyText:
+      "Virginia courts automatically expunge the records of an unlawful detainer case that was dismissed (after 30 days) or voluntarily nonsuited (after six months) where no order of possession was entered. A tenant who won the case, or whose qualifying case began before July 1, 2024, may petition, and the court must expunge without a hearing.",
+    notes: "VA: VA-SCOPE: STATEWIDE. Outside-title sections read section-open 2026-09-28 from the official Code of Virginia Law Library compilation (law.lis.virginia.gov/law-library, per-title CSV) overlaid with every section on the official 2026 Updates pages (VA log §17). Va. Code Ann. § 8.01-130.01 (2020 c. 1013; 2024 c. 372), read section-open. Eviction-record sealing is present in Virginia (contrast Tennessee's confirmed absence).",
+  },
+  {
+    id: "edu-self-help-eviction-va",
+    title: "No Self-Help Eviction",
+    group: "Default & Termination",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "self-help-eviction",
+    bodyText:
+      "A Virginia landlord may not take possession by cutting off an essential service or locking the tenant out without a court order. A tenant who is willfully removed or excluded, has an essential service interrupted, or has the premises made unsafe can petition the general district court, which must hear the case within five days and may order the tenant restored, services resumed or the condition fixed; at a full hearing the tenant recovers actual damages, statutory damages of the greater of $5,000 or four months' rent, and attorney fees, and may end the lease with a full deposit refund. A landlord who knows the tenant has redeemed and willfully fails to cancel the eviction can be treated the same way.",
+    notes: "VA: VA-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Va. Code Ann. §§ 55.1-1252, 55.1-1243.1 (2021, Sp. Sess. I, cc. 403, 404; replaced repealed § 55.1-1243), 55.1-1250(D). Transient lodging of 90 days or less may use self-help after a five-day written nonpayment notice (Va. Code Ann. § 55.1-1201(D)(3)); nonresidential tenancies may use self-help without a breach of the peace (Va. Code Ann. § 55.1-1400(B)) - neither applies to Act tenancies.",
+  },
+  {
+    id: "edu-retaliation-va",
+    title: "Retaliation",
+    group: "Default & Termination",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "retaliation",
+    bodyText:
+      "Until January 1, 2027, a Virginia landlord may not raise rent, cut services, sue or threaten to sue for possession, or terminate after knowing the tenant complained to a code agency about a health or safety violation, complained to or sued the landlord under the Act, joined or organized a tenants' organization, or testified against the landlord; market-rate increases and across-the-board service cuts are allowed, and the tenant must prove retaliatory intent. From January 1, 2027, protected acts also include complaints to the media, written complaints and fair housing complaints, tenants' organization activities and administrative testimony; prohibited retaliation also includes fee increases, selective enforcement or new rules for the tenant, threats and harassment, and refusing to renew a voucher holder; the statement placing the burden of proof on the tenant is removed. Safe harbors include tenant-caused code violations, rent default when the case is filed, repairs that require vacating, health and safety lease defaults, notices given before the protected act, rent or fee increases under the lease, and changes that apply to all tenants.",
+    notes: "VA: VA-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Va. Code Ann. § 55.1-1258, both versions; 2026 Acts ch. 1111 (HB 329), 'effective on January 1, 2027' by its second enactment clause, read in enrolled text (it also rewrote the Manufactured Home Lot Rental Act's § 55.1-1314). Remedies: actual damages and a defense to possession.",
+  },
+  {
+    id: "edu-holdover-remedies-va",
+    title: "Holdover Remedies",
+    group: "Default & Termination",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "holdover",
+    bodyText:
+      "If a Virginia tenant stays after the lease ends or is terminated without the landlord's consent, the landlord may sue for possession and recover actual damages, attorney fees and court costs unless the tenant proves the failure to leave was reasonable. The lease may add liquidated damages of up to 150 percent of the daily rent (100 percent for HUD-regulated housing) for each day after the termination date in the landlord's notice. If the landlord consents to the tenant staying and no new lease is signed, the old terms continue and rent can change only by written notice taking effect on the next rent due date at least 30 days later.",
+    notes: "VA: VA-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Va. Code Ann. §§ 55.1-1253(C)-(D), 55.1-1233 (surrender; action for possession and damages including attorney fees). Clauses: holdover-ca (tagged), holdover-rate-va (opt-in).",
+  },
+  {
+    id: "edu-periodic-tenancies-va",
+    title: "Periodic Tenancies and Mass Nonrenewals",
+    group: "Default & Termination",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-notice",
+    bodyText:
+      "Unless the lease sets a different period, a Virginia month-to-month tenancy ends on written notice served at least 30 days before the next rent due date, and a week-to-week tenancy on seven days' notice. Without a written lease, the law creates a 12-month tenancy. If a written lease is not signed and delivered by one side, accepting rent (or possession) without reservation gives it the same effect as if signed, but a term longer than one year is then effective for only one year. In a tenancy at will, a notice changing the terms is a notice to vacate. An owner of a multifamily property who declines to renew the greater of 20 or 50 percent of the month-to-month tenancies within 30 days must give each affected tenant 60 days' written notice (not needed for a tenant who is behind on rent). A landlord changing a multifamily building's use (conversion or rehabilitation of a building with four or more units) must give 120 days' notice, which a lease cannot waive except for month-to-month tenancies.",
+    notes: "VA: VA-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Va. Code Ann. §§ 55.1-1253(A)-(B), 55.1-1204(C), (F), 55.1-1207 (unsigned or undelivered lease; history 1974 c. 680, 2019 c. 712), 55.1-1225, 55.1-1410(B) (Chapter 14 section on change of use of a multifamily residential building with at least four units, 120 days, separate writing; read section-open), 55.1-1208(A)(2). LAYOUT: the § 55.1-1410(B) notice 'shall not be contained in the rental agreement or lease, but shall be a separate writing' (VA log §4). Clause: periodic-tenancy-notice-va.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-renewal-and-rent-increase-va",
+    title: "Renewals and Rent Increases",
+    group: "Rent & Payment",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-increase-notice",
+    bodyText:
+      "Virginia has no rent control. A landlord with more than four Virginia units must give written notice of a rent increase for a renewal term, and of nonrenewal, at least 60 days before the lease ends where the lease can renew or renews automatically; from July 1, 2027 the rent-increase notice must be given 90 days ahead with a response deadline at least 30 days out. A landlord with four or fewer units has no statutory renewal-notice deadline. For a month-to-month or holdover tenancy with the landlord's consent, a new rent takes effect only on the next rent due date at least 30 days after written notice. No unilateral change to lease terms is valid without notice and both parties' written consent, and new or changed rules that substantially modify the bargain need the tenant's written consent. From January 1, 2027, a rent or fee increase made because of a tenant's protected activity is retaliation unless made under the lease terms or at market rate.",
+    notes: "VA: VA-SCOPE: STATEWIDE; RENEWAL NOTICE SIZE-TIERED. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Va. Code Ann. §§ 55.1-1204(I), (K) (2026 Acts ch. 1066, effective 2027-07-01), 55.1-1253(D), 55.1-1228(B), 55.1-1258 (2027 version). Clauses: renewal-notice-va / renewal-notice-va-small (choice group va-size-renewal); edu-local-preemption-va.",
+  },
+  // Default & Termination
+  {
+    id: "edu-dv-tenancy-protections-va",
+    title: "Domestic and Sexual Violence Protections",
+    group: "Default & Termination",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-lease-termination",
+    bodyText:
+      "Virginia lets a tenant who is a victim of family abuse, sexual abuse or criminal sexual assault, stalking or human trafficking end the lease on 28 days' written notice with a copy of a protective order or of a conviction, warrant, summons, information or indictment; rent is owed through the effective date, no liquidated damages may be charged, co-tenants remain liable, and if the perpetrator is the only remaining tenant the landlord may terminate and pursue the perpetrator for damages. A lease may not terminate solely because of family abuse against the tenant where the perpetrator is barred by the landlord or by a court order. A tenant or occupant with a non-ex parte court order excluding a co-tenant may have the locks changed; an excluded person gets no keys; a non-tenant granted possession by such an order may apply to become a tenant within 10 days or must leave within 30. Landlords must consider evidence of family abuse to offset a low credit score in screening.",
+    notes: "VA: VA-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Outside-title sections read section-open 2026-09-28 from the official Code of Virginia Law Library compilation (law.lis.virginia.gov/law-library, per-title CSV) overlaid with every section on the official 2026 Updates pages (VA log §17). Va. Code Ann. §§ 55.1-1236 (2025 Acts ch. 593), 55.1-1245(D) (2026 Acts ch. 844), 55.1-1230, 55.1-1203(D), 36-96.2(H). Clause: dv-lease-termination-va.",
+  },
+  {
+    id: "edu-servicemember-rights-va",
+    title: "Servicemember Rights",
+    group: "Default & Termination",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "military-lease-termination",
+    bodyText:
+      "Virginia gives members of the Armed Forces and full-time National Guard members (and Guard civil service technicians) a statutory right to end a lease on permanent change of station orders, temporary duty over three months, discharge or release, orders to government quarters, or a qualifying stop movement order, effective at least 30 days after the next rent due date following written notice, with a copy of the orders; no liquidated damages may be charged. Since July 1, 2026 there is no rule that the termination date be within 60 days of departure. A lease may not require a waiver of Servicemembers Civil Relief Act rights before a dispute, and military status is a protected class under Virginia fair housing law. Virginia also extends the federal Servicemembers Civil Relief Act's protections to Virginia National Guard members called to Title 32 or state active duty for 30 or more consecutive days. The federal SCRA provides additional protections.",
+    notes: "VA: VA-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Outside-title sections read section-open 2026-09-28 from the official Code of Virginia Law Library compilation (law.lis.virginia.gov/law-library, per-title CSV) overlaid with every section on the official 2026 Updates pages (VA log §17). Va. Code Ann. §§ 55.1-1235 (2026 Acts ch. 82 and ch. 83), 55.1-1208(A)(8), 36-96.1:1, 36-96.3, 55.1-1209(A)(10) (tenant information may be released to the commanding officer, military housing officer or military attorney). Va. Code Ann. § 44-102.1(A) (SCRA rights extended to Virginia National Guard on Title 32 or state active duty orders of 30+ consecutive days; found by the checklist candidate-topic searches, VA log §17). FEDERAL SCRA (50 U.S.C. § 3955) not read. Clause: military-lease-termination-va.",
+  },
+  {
+    id: "edu-deceased-tenant-va",
+    title: "When a Sole Tenant Dies",
+    group: "Default & Termination",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-death-of-tenant",
+    bodyText:
+      "If the sole tenant under a written lease who still lives in the unit dies and no one has court authority over the estate, the Virginia lease ends on the date of death without a court order, occupants and guests must leave within 10 days, and the landlord may dispose of the belongings after at least 10 days' written notice to the emergency contact named in the application or lease (or to the tenant at the unit if none), stating that unclaimed property will be treated as abandoned. The named contact may, with proof of identity, enter, see the records and claim the property. The estate remains liable for actual damages, which the landlord must mitigate.",
+    notes: "VA: VA-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Va. Code Ann. §§ 55.1-1256, 55.1-1254. Clause: emergency-contact-va. Tenant death is PRESENT in Virginia (contrast Tennessee's absence).",
+  },
+  {
+    id: "edu-sale-and-foreclosure-va",
+    title: "Selling or Losing a Rented Property",
+    group: "Default & Termination",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "sale-of-rented-property",
+    bodyText:
+      "When a Virginia rental is sold, the landlord must tell the tenant and give the buyer's name, address and phone number, and must transfer security deposits and any accrued interest to the buyer; a seller who sells in good faith is released from later liability after notice to the tenant, and the new owner is bound to return deposits owed. A landlord of a single-family rental must tell the tenant within five business days of receiving a lender's default, acceleration or foreclosure-sale notice, or the tenant may end the lease on five business days' notice. After a foreclosure sale, a buyer who will live in the home gives the tenant at least 90 days' notice to vacate; any other buyer takes subject to the lease. A former owner who stays after a foreclosure sale becomes a tenant at sufferance who can be removed on three days' notice. When a rental building is converted to condominiums, the developer must give each tenant formal notice of the offering price of the tenant's unit, projected assessments and any relocation help, and the tenant then has 60 days' exclusive right to buy the unit; a lease cannot waive the conversion notice.",
+    notes: "VA: VA-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Outside-title sections read section-open 2026-09-28 from the official Code of Virginia Law Library compilation (law.lis.virginia.gov/law-library, per-title CSV) overlaid with every section on the official 2026 Updates pages (VA log §17). Va. Code Ann. §§ 55.1-1216(B), 55.1-1213, 55.1-1224, 55.1-1226(E), 55.1-1237, 8.01-126(F)(4), 54.1-2108.1(A)(3), 55.1-1982(C)-(D) (conversion condominium tenant notice and 60-day exclusive purchase right; read to (F); found by the scenario screen, VA log §16), 55.1-1208(A)(2). Clauses: landlord-disclosure-va, foreclosure-notice-va. FEDERAL PTFA not relied on.",
+  },
+  {
+    id: "edu-distress-for-rent-va",
+    title: "Landlord's Lien and Distress for Rent",
+    group: "Default & Termination",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-lien",
+    bodyText:
+      "Virginia keeps the old remedy of distress for rent: within five years after rent becomes due, a landlord may petition a judge or magistrate for a distress warrant, post bond, and have the sheriff levy on the tenant's goods on the premises (or removed within the past 30 days), subject to the tenant's exemption claims and a hearing. For residential premises the landlord's priority over other liens is limited to six months' rent. It is a court process; a lease cannot authorize the landlord to seize property itself.",
+    notes: "VA: VA-SCOPE: STATEWIDE. Outside-title sections read section-open 2026-09-28 from the official Code of Virginia Law Library compilation (law.lis.virginia.gov/law-library, per-title CSV) overlaid with every section on the official 2026 Updates pages (VA log §17). Va. Code Ann. §§ 8.01-130.4, 8.01-130.6 read section-open; 8.01-130.5, 8.01-130.7 to 8.01-130.13 by title; Va. Code Ann. § 55.1-1254 (last paragraph: nothing affects the landlord's lien and right to distress 'as otherwise provided by law'). No lease clause: the remedy is statutory and procedural (instruction 30 considered: nothing to opt into).",
+  },
+  // Notices & General
+  {
+    id: "edu-tenant-records-va",
+    title: "Tenant Records and Confidentiality",
+    group: "Notices & General",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-records",
+    bodyText:
+      "A Virginia landlord may not release a tenant's or applicant's information to third parties except with written consent or in listed cases (public records, rent payment summaries, unremedied noncompliance or termination notices where the tenant left, law enforcement, subpoenas, the commissioner of revenue, a buyer or lender who agrees to keep it confidential, the tenant's commanding officer, the landlord's attorney or collection agency, emergencies, a new managing agent, and the census). Application information is confidential except by subpoena. A tenant may designate a third party to receive duplicate copies of notices and eviction summonses. Tenants may request copies of their records; from July 1, 2027, a written request must be answered within 10 business days with a statement of all charges and payments (landlords with fewer than four units receiving no rental or utility assistance for the tenant are exempt). A landlord with more than 200 units on one property must have key-control policies and background checks for employees with key access.",
+    notes: "VA: VA-SCOPE: STATEWIDE; LEDGER AND KEY RULES SIZE-TIERED. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Va. Code Ann. §§ 55.1-1209 (both versions; 2026 Acts ch. 640), 55.1-1209.1 (2023 c. 432). OPT-IN recorded, not offered as a clause (instruction 30): 'If the rental agreement so provides, a landlord may charge a tenant requesting more than one copy of his records the actual costs of preparing copies of such records', but not for access to an electronic portal (Va. Code Ann. § 55.1-1209(E)) - trivial value.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-rules-and-regulations-va",
+    title: "Rules and Regulations",
+    group: "Rules & Regulations",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rules-regulations",
+    bodyText:
+      "Virginia enforces a landlord's rules only if they serve tenants' convenience, safety or welfare, protect the property or fairly distribute services; are reasonably related to that purpose; apply fairly to all tenants; are explicit; do not evade the landlord's duties; and were given to the tenant at signing or when adopted. A rule adopted or changed later binds the tenant on reasonable notice if it is not a substantial modification of the bargain; a substantial modification needs the tenant's written consent. Courts treat violations of reasonable rules as lease breaches.",
+    notes: "VA: VA-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Va. Code Ann. §§ 55.1-1228, 55.1-1227(A)(13), 55.1-1200 ('Rental agreement' includes valid rules). The shared entire-agreement row ('or as applicable law permits Landlord to change it by written notice') is consistent and tagged.",
+  },
+  // Parking & Storage
+  {
+    id: "edu-towing-va",
+    title: "Towing From Rental Property",
+    group: "Parking & Storage",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "towing",
+    bodyText:
+      "A Virginia owner, operator or lessee of a parking area may have a trespassing vehicle towed if signs at every entrance clearly disclose that unauthorized vehicles will be towed and give the phone number of the local police nonemergency line or the tow operator (unless the locality regulates towing by ordinance instead); the tow operator must report the tow to the police. Localities may regulate private towing by ordinance.",
+    notes: "VA: VA-SCOPE: STATEWIDE; LOCAL ORDINANCES MAY DISPLACE THE SIGN RULE. Outside-title sections read section-open 2026-09-28 from the official Code of Virginia Law Library compilation (law.lis.virginia.gov/law-library, per-title CSV) overlaid with every section on the official 2026 Updates pages (VA log §17). Va. Code Ann. § 46.2-1231 (read to subsection C), § 46.2-1232 (title only). The shared parking-vehicle-rules row ('in accordance with applicable law') is tagged. No Virginia landlord-tenant towing procedure in Title 55.1 Chapter 12 (search 'tow' near landlord-tenant terms, VA log §17).",
+  },
+  // Disclosures
+  {
+    id: "edu-lead-paint-rules-va",
+    title: "Lead-Based Paint",
+    group: "Disclosures",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lead-based-paint",
+    bodyText:
+      "Federal law requires the lead disclosure, records and pamphlet for pre-1978 housing. Virginia adds that an agent who complied with the federal disclosure law, gave the pamphlet and disclosure and got a signed acknowledgment before an initial lease is protected from personal injury damages for lead poisoning, if the property is maintained under the property maintenance code and new information is disclosed in writing during the tenancy. In pre-1978 housing where the disclosures were given and the lease says so, the tenant may not paint, disturb painted surfaces or make alterations without the landlord's prior written approval. The landlord must keep painted surfaces in line with the property maintenance code; if it does not, the tenant may end the lease. Terminating the lease or taking any other action to retaliate after the tenant reports in writing a lead hazard, or that the tenant's child living in the unit has an elevated blood lead level, is unlawful retaliation, and violating lead hazard control rules that endanger pregnant women or children under six is a misdemeanor with a fine of up to $2,500. Lead paint the landlord knows about is also a ground for a tenant's rent escrow case.",
+    notes: "VA: VA-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Outside-title sections read section-open 2026-09-28 from the official Code of Virginia Law Library compilation (law.lis.virginia.gov/law-library, per-title CSV) overlaid with every section on the official 2026 Updates pages (VA log §17). Va. Code Ann. §§ 8.01-226.7 (read to (B)(5)), 55.1-1227(A)(11) (OPT-IN lease term, carried by the shared no-alterations row's prior-written-consent sentence), 55.1-1244(A)(iv); 36-106(E) (painted surfaces maintained under the International Property Maintenance Code, failure lets the tenant terminate; retaliation after written notice of a lead hazard or a child's elevated blood lead level violates § 55.1-1258; misdemeanor up to $2,500; found by the checklist candidate-topic searches, VA log §17). FEDERAL 42 U.S.C. § 4852d, 40 C.F.R. Part 745 not read; shared lead-based-paint row tagged.",
+  },
+  // Notices & General
+  {
+    id: "edu-insurance-requirements-va",
+    title: "Renter's Insurance and Damage Insurance Rules",
+    group: "Notices & General",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "renters-insurance-advisory",
+    bodyText:
+      "A Virginia landlord may require renter's insurance or damage insurance as a condition of the tenancy and may provide it through its own program, recovering the actual cost plus administrative and opt-out fees; premiums paid to the landlord are rent, not a deposit. The landlord must tell the tenant in writing of the right to buy a separate policy, give a policy summary or certificate before signing (for renter's insurance, stating whether it waives subrogation), and make the policy available on request. If a tenant lets required renter's insurance lapse, the landlord may place coverage and charge the premiums until the tenant shows reinstated coverage. The security deposit plus any premiums paid before the tenancy begins may not exceed two months' rent, though the landlord may add monthly rent to recover later renter's insurance premiums. If the lease does not require renter's insurance, the landlord must give a written notice before signing that it is not responsible for the tenant's property, that its insurance does not cover it, and that renter's insurance does not cover floods.",
+    notes: "VA: VA-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Va. Code Ann. §§ 55.1-1206 (A)-(E), 55.1-1226(I)-(J), 55.1-1208(A)(7). Clauses: renters-insurance-notice-va, damage-insurance-va; shared tenants-property-insurance-ks-oh-ca tagged (Virginia allows requiring renter's insurance 'as specified in the rental agreement').",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-cable-and-satellite-va",
+    title: "Cable, Satellite and Internet Providers",
+    group: "Rules & Regulations",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "cable-access",
+    bodyText:
+      "A Virginia landlord of a multifamily building may not take payment from a television or cable provider merely for access to its tenants, and may not charge tenants for such service unless the landlord is the provider, nor vary rent between tenants who do and do not take it. The landlord may require the provider and tenant to pay installation and removal costs and to give reasonable indemnity or security, and may be paid for real marketing services and the use of its property.",
+    notes: "VA: VA-SCOPE: STATEWIDE (multifamily). Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Va. Code Ann. § 55.1-1222. FEDERAL over-the-air reception devices rule (47 C.F.R. § 1.4000) not read; the shared common-area-use row is tagged.",
+  },
+  // Default & Termination
+  {
+    id: "edu-unauthorized-occupant-removal-va",
+    title: "Squatters and Unauthorized Occupants",
+    group: "Default & Termination",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "unauthorized-occupant-removal",
+    bodyText:
+      "Virginia has no sheriff-only squatter removal. The owner of a single-family home may get an emergency unlawful detainer hearing within 14 days of filing if the court finds there was never a lease with the occupant, the occupant is there without permission, and the owner gave written notice to vacate at least 72 hours before filing. A guest who stays beyond permission is not a tenant; the landlord may bar a tenant's guest by written notice and then use a trespass warrant. The writ of eviction binds the named tenants and their authorized occupants, guests and any trespassers.",
+    notes: "VA: VA-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Outside-title sections read section-open 2026-09-28 from the official Code of Virginia Law Library compilation (law.lis.virginia.gov/law-library, per-title CSV) overlaid with every section on the official 2026 Updates pages (VA log §17). Va. Code Ann. §§ 8.01-126(B) (emergency hearing), 55.1-1246, 55.1-1200 ('Guest or invitee', 'Authorized occupant'); Va. Code Ann. § 8.01-470 (writ binds tenants, authorized occupants, guests and trespassers; read in the 2019 Acts ch. 180 enrolled text, not in the current code - labelled). Criminal trespass (§ 18.2-119) not read.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-firearms-va",
+    title: "Firearms in Rental Housing",
+    group: "Rules & Regulations",
+    states: ["VA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "firearms",
+    bodyText:
+      "Virginia bars a public housing lease from prohibiting or restricting lawful firearm possession inside individual units unless federal law or regulation requires it. No Virginia statute limits a private landlord's lease rules on firearms.",
+    notes: "VA: VA-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Va. Code Ann. § 55.1-1208(A)(6). CONFIRMED ABSENT (statutes, for private housing): exact regex 'firearm|weapon|handgun' within 200 characters of tenant/landlord/lessee/lessor/rental agreement/residential lease/dwelling unit returned only § 55.1-1208 and an unrelated § 29.1-529 (search engine: whole Code of Virginia, Law Library title CSVs overlaid with every 2026-updated section; control 'zqxvbnmwt' 0; VA log §17). Contrast Tennessee from 2027 (firearm-carry-rules-tn).",
   },
 ];
 

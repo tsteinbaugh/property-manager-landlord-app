@@ -19,6 +19,11 @@
 // the architecture-review log's Addendum L §L.3: "a log entry is not a
 // library change" -- the CSV is the fact).
 //
+// **2026-09-28 refresh (Virginia, state #19):** regenerated from the
+// 19-state CSV -- 445 -> 486 shipped LEASE_CLAUSE rows. No shared clause
+// text changed; 52 shared rows only gained a VA tag. Four VA unit-count
+// pairs are choice groups (the more-than-4-units variant is the default).
+//
 // **2026-09-28 refresh (Tennessee, state #18):** regenerated from the
 // 18-state CSV -- 421 -> 445 shipped LEASE_CLAUSE rows. No shared clause
 // text changed; 52 shared rows only gained a TN tag. Three TN county pairs
@@ -192,7 +197,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-payment",
     title: "Rent Payment",
     group: "Rent & Payment",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "Tenant shall pay Landlord monthly rent of {{monthly_rent}} (Monthly Rent) in advance on the due date specified in this Lease, without demand, deduction, or setoff, except as permitted by applicable law. If the due date falls on a weekend or legal holiday, rent is due on the next business day.",
   },
@@ -216,7 +221,7 @@ const CLAUSE_TEMPLATES = [
     id: "due-at-signing",
     title: "Amounts Due Upfront",
     group: "Rent & Payment",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "Tenant will pay Landlord the following amounts, at the time specified for each: [specify what is due and when here, e.g. first month's Monthly Rent ({{monthly_rent}}) due at signing; Security Deposit ({{security_deposit}}) due at signing; Pet Deposit ({{pet_deposit}}) due at signing; last month's Monthly Rent due on the Start Date]. These amounts are due in addition to, and are not credited against, Rent due for any other month of the Term.",
   },
@@ -224,7 +229,7 @@ const CLAUSE_TEMPLATES = [
     id: "application-of-payments",
     title: "Application of Payments",
     group: "Rent & Payment",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "Each payment Tenant makes will be applied first to the Monthly Rent due for the current or oldest unpaid rental period, and only then to any other fees, charges, or amounts due under this Lease, unless Tenant directs otherwise in writing for a particular payment or applicable law requires otherwise. Nothing in this provision limits any statutory right Tenant may have to cure nonpayment of Rent.",
   },
@@ -254,6 +259,15 @@ const CLAUSE_TEMPLATES = [
     choiceGroupDefault: true,
     bodyText:
       "If any Rent is not paid in full by the end of the grace period, Tenant will owe a late fee of {{late_fee_amount}}. The grace period is five days, beginning on and counting the day the Rent is due. If the last day of the grace period falls on a Sunday or on a legal holiday under Tenn. Code Ann. § 15-1-101 (which includes days set apart for county, state or national elections), no late fee will be charged if the Rent is paid on the next business day. A late fee, however described, will never exceed ten percent (10%) of the amount of Rent past due. Landlord's acceptance of a late payment does not change the due date of any later payment.",
+  },
+  {
+    id: "late-fee-limit-va",
+    title: "Late Fee",
+    group: "Rent & Payment",
+    states: ["VA"],
+    supersedes: "late-fee",
+    bodyText:
+      "If Tenant does not pay Monthly Rent in full within {{late_fee_grace_days}} days after it is due, Tenant will owe a late charge of {{late_fee_amount}}. As Virginia law requires, a late charge will never exceed the lesser of ten percent (10%) of the periodic Rent or ten percent (10%) of the remaining balance due and owed by Tenant, and Landlord will not charge any late charge that this written Lease does not provide for. Landlord's acceptance of a late payment does not change the due date of any later payment.",
   },
   {
     id: "late-fee-limit-nc",
@@ -314,7 +328,7 @@ const CLAUSE_TEMPLATES = [
     id: "security-deposit-use",
     title: "Use of Security Deposit",
     group: "Security Deposit",
-    states: ["CO", "NE", "MN", "ND", "SD", "WY", "OH", "NV", "TX", "FL", "AZ", "GA", "SC", "TN"],
+    states: ["CO", "NE", "MN", "ND", "SD", "WY", "OH", "NV", "TX", "FL", "AZ", "GA", "SC", "TN", "VA"],
     bodyText:
       "Tenant shall pay Landlord a security deposit of {{security_deposit}} (Security Deposit) prior to occupancy. Landlord may apply the Security Deposit to remedy a Tenant default under this Lease, including past due Rent, and to repair damage to the property caused by Tenant or Tenant's guests beyond ordinary wear and tear. Landlord will not apply the Security Deposit to normal wear and tear or to any damage or defective condition that preexisted the tenancy. Landlord may apply the Security Deposit to cleaning costs only if the property is substantially less clean at the end of the Term than it was at the start of the Term. The Security Deposit will not relieve Tenant of any obligation to pay Rent due under this Lease prior to its termination.",
   },
@@ -355,7 +369,7 @@ const CLAUSE_TEMPLATES = [
     id: "residential-use-only",
     title: "Residential Use Only",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "Tenant will use and occupy the property for residential purposes only and will not use or permit the use of the property for any non-residential, illegal, or otherwise inappropriate purpose, including any commercial purpose.",
   },
@@ -363,7 +377,7 @@ const CLAUSE_TEMPLATES = [
     id: "existing-condition",
     title: "Existing Condition of Property",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "Tenant has examined the property and, by signing this Lease, acknowledges that the property is in good order and repair and satisfactory condition (Existing Condition), except as otherwise noted in this Lease. Landlord will deliver possession of the property to Tenant on the Start Date in the same or better condition as the Existing Condition, except for ordinary wear and tear.",
   },
@@ -371,7 +385,7 @@ const CLAUSE_TEMPLATES = [
     id: "permitted-occupants",
     title: "Permitted Occupants",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "The property will be occupied only by {{tenant_names}}, together with {{occupant_names}}. Tenant will notify Landlord promptly if any additional occupant takes up residence at the property.",
   },
@@ -379,7 +393,7 @@ const CLAUSE_TEMPLATES = [
     id: "no-disturbance",
     title: "No Disturbance or Nuisance",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "Tenant will not, and will not permit any occupant or guest to: make any unreasonably loud or otherwise unreasonable use of the property; allow any condition on the property that poses a threat of injury to persons or property; or otherwise interfere with the rights, comfort, safety, or enjoyment of neighboring properties or other tenants.",
   },
@@ -387,7 +401,7 @@ const CLAUSE_TEMPLATES = [
     id: "smoking-policy",
     title: "Smoking Policy",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "Smoking of any kind, including tobacco, marijuana, and vaping, is not permitted anywhere on the property, including inside the dwelling, on porches, balconies, or in any common area. Tenant will be responsible for any cost Landlord incurs to remediate odor, staining, or damage caused by smoking in violation of this Section, and a violation may be treated as a default under this Lease.",
   },
@@ -395,7 +409,7 @@ const CLAUSE_TEMPLATES = [
     id: "utilities-responsibility",
     title: "Utilities Paid by Tenant",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "Except for any utility Landlord agrees in this Lease to provide, Tenant is responsible for arranging and paying directly to the service provider for all other utilities and services to the property, including electricity, gas, telephone, cable, and internet, as applicable.",
   },
@@ -403,7 +417,7 @@ const CLAUSE_TEMPLATES = [
     id: "utility-service-continuity",
     title: "Utility Service Continuity",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "Tenant will not cause water, gas, electricity, sewer, or trash service to the property to be interrupted during the Term. This requirement does not apply to telephone, cable, or internet service.",
   },
@@ -411,7 +425,7 @@ const CLAUSE_TEMPLATES = [
     id: "utility-payment-evidence",
     title: "Evidence of Utility Payment",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "Upon Landlord's reasonable request, Tenant will provide Landlord with reasonable evidence that any utility specified as Tenant's responsibility under this Lease has been paid.",
   },
@@ -427,7 +441,7 @@ const CLAUSE_TEMPLATES = [
     id: "tenant-maintenance",
     title: "Tenant Maintenance & Cleanliness",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "MN", "SD", "OH", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "MN", "SD", "OH", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "Tenant will keep and maintain the property in a clean, safe, and sanitary condition, and will regularly dispose of garbage and waste in a clean and safe manner. Tenant will use all appliances, fixtures, and equipment in a safe and reasonable manner consistent with their intended purpose, will not obstruct access to doors and windows, and will maintain the property in the same condition as it was delivered to Tenant, except for ordinary wear and tear and any condition that applicable law requires Landlord to repair or remedy.",
   },
@@ -443,7 +457,7 @@ const CLAUSE_TEMPLATES = [
     id: "no-alterations",
     title: "No Alterations",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "Tenant will not perform any alterations or improvements to the property, including adding, changing, or removing appliances, fixtures, shelving, wallpaper, or paint, without the prior written consent of Landlord. If Landlord approves an alteration, Tenant understands it will remain part of the property at the end of the Term unless Landlord requires its removal. This Section does not limit any repair, installation, rekeying, or reasonable modification that applicable law entitles Tenant to perform.",
   },
@@ -451,7 +465,7 @@ const CLAUSE_TEMPLATES = [
     id: "joint-liability",
     title: "Joint & Several Liability",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "If more than one individual signs this Lease as Tenant, all such individuals are jointly and severally liable for the performance of all agreements, covenants, and obligations of Tenant under this Lease. Rent is due in full regardless of how Tenant chooses to divide payment among themselves.",
   },
@@ -468,7 +482,7 @@ const CLAUSE_TEMPLATES = [
     id: "utilities-paid-by-landlord",
     title: "Utilities Paid by Landlord",
     group: "Landlord Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "Landlord will arrange and pay for the following utilities and services to the property, which are included in Monthly Rent unless this Lease states otherwise: [list utilities Landlord provides here, e.g. water, sewer, and trash removal].",
   },
@@ -476,7 +490,7 @@ const CLAUSE_TEMPLATES = [
     id: "appliances-included",
     title: "Appliances & Equipment Included",
     group: "Landlord Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "The property includes the following appliances and equipment as of the Start Date, which Landlord will maintain as described in this Lease's Maintenance & Repairs Section: {{appliance_list}}.",
   },
@@ -484,7 +498,7 @@ const CLAUSE_TEMPLATES = [
     id: "landlord-maintenance",
     title: "Maintenance & Repairs",
     group: "Landlord Responsibilities",
-    states: ["CO", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "Subject to Tenant's own maintenance obligations under this Lease, Landlord will maintain the property, including its structural elements, roof, and systems, in good order and repair, and will be responsible for repairing the appliances, fixtures, and equipment located at the property, except where repair is necessary due to improper use by Tenant or a guest of Tenant. Tenant will notify Landlord promptly in writing of any condition requiring repair or maintenance, and Landlord will undertake required repairs within a reasonable time, consistent with applicable law.",
   },
@@ -527,7 +541,7 @@ const CLAUSE_TEMPLATES = [
     id: "possession-delay",
     title: "Possession Delay",
     group: "Default & Termination",
-    states: ["CO", "WY", "MN", "ND", "SD", "OH", "TX", "NJ", "FL", "GA", "NC", "TN"],
+    states: ["CO", "WY", "MN", "ND", "SD", "OH", "TX", "NJ", "FL", "GA", "NC", "TN", "VA"],
     bodyText:
       "If Landlord is unable to deliver possession of the property to Tenant by the Start Date, through no fault of Landlord, this Lease will remain in full force, but Tenant will not be obligated to pay Monthly Rent for the period Tenant is unable to take possession. If Landlord has not delivered possession within 30 days after the Start Date, Tenant may terminate this Lease by written notice to Landlord, in which case all amounts paid to Landlord by Tenant will be returned and both parties will be released from further obligation under this Lease.",
   },
@@ -535,7 +549,7 @@ const CLAUSE_TEMPLATES = [
     id: "default-by-tenant",
     title: "Default by Tenant",
     group: "Default & Termination",
-    states: ["CO", "WY", "MN", "ND", "CA", "NV", "TX", "AZ", "GA", "SC", "TN"],
+    states: ["CO", "WY", "MN", "ND", "CA", "NV", "TX", "AZ", "GA", "SC", "TN", "VA"],
     bodyText:
       "Tenant will be in default under this Lease if Tenant fails to pay Rent when due and does not cure the failure within the time period specified by applicable law after receiving written notice from Landlord. Tenant will also be in default if Tenant fails to comply with any other obligation under this Lease and does not cure the failure after receiving written notice, except where applicable law permits Landlord to proceed without giving Tenant an opportunity to cure. Except as required by applicable law, Tenant's failure to pay an assessed late fee, apart from the underlying Rent itself, will not by itself entitle Landlord to terminate this Lease or pursue eviction. If Tenant is in default, Landlord may exercise all rights and remedies available under applicable law, including terminating this Lease, regaining possession of the property, and recovering unpaid Rent, late fees, and reasonable costs and expenses, less amounts obtained from the Security Deposit. Landlord will use reasonable efforts to mitigate damages resulting from Tenant's default to the extent required by applicable law. To the extent permitted under applicable law, the prevailing party may recover from the other party court costs and reasonable attorneys' fees and expenses incurred in connection with any legal proceedings related to this Lease.",
   },
@@ -543,7 +557,7 @@ const CLAUSE_TEMPLATES = [
     id: "surrender-end-of-term",
     title: "Surrender at End of Term",
     group: "Default & Termination",
-    states: ["CO", "WY", "SD", "OH", "CA", "NV", "TX", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "SD", "OH", "CA", "NV", "TX", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "Upon the expiration or earlier termination of this Lease, Tenant will surrender possession of the property and return all keys to Landlord immediately. The property will be left in the same condition as at the start of the Term, except for ordinary wear and tear, and free of all personal property of Tenant and any occupants. Personal property left at the property after Tenant vacates may, to the extent permitted by applicable law, be treated as abandoned and disposed of at Tenant's cost.",
   },
@@ -576,7 +590,7 @@ const CLAUSE_TEMPLATES = [
     id: "notices",
     title: "Notices",
     group: "Notices & General",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "Any notice of termination, notice of default, or other notice required to be given in writing under this Lease or applicable law will be delivered to the addresses specified in this Lease, or to any updated address either party provides in writing to the other. Where applicable law requires a particular method, form, timing, or content for a notice, that requirement will control over this Section, and nothing in this Lease designates an alternative method of delivery for any notice governed by law.",
   },
@@ -584,7 +598,7 @@ const CLAUSE_TEMPLATES = [
     id: "governing-law",
     title: "Governing Law",
     group: "Notices & General",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "This Lease will be governed by the laws of the State of {{state}}, and any additional applicable laws of the city or county in which the property is located.",
   },
@@ -592,7 +606,7 @@ const CLAUSE_TEMPLATES = [
     id: "severability",
     title: "Severability",
     group: "Notices & General",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "If any provision of this Agreement shall be held or made invalid by a court decision, statute or rule, or shall be otherwise rendered invalid, the remainder of this Agreement shall not be affected thereby.",
   },
@@ -608,7 +622,7 @@ const CLAUSE_TEMPLATES = [
     id: "entire-agreement",
     title: "Entire Agreement",
     group: "Notices & General",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "This Lease, along with any attached addenda and legal disclosures, contains the entire agreement between Landlord and Tenant and may not be changed except in writing signed by all parties, or as applicable law permits Landlord to change it by written notice to Tenant. This Lease is binding on and inures to the benefit of the permitted heirs, legal representatives, and assigns of the parties.",
   },
@@ -616,7 +630,7 @@ const CLAUSE_TEMPLATES = [
     id: "addendum-precedence",
     title: "Addendum Precedence",
     group: "Notices & General",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "Tenant acknowledges that the legal disclosures and addenda attached to this Lease are part of this legal agreement. The terms of this Lease will control in the event of any conflict between the terms of an Addendum and the terms of this Lease, except that any disclosure, notice, or addendum required by law will control over any conflicting term of this Lease.",
   },
@@ -624,7 +638,7 @@ const CLAUSE_TEMPLATES = [
     id: "electronic-signatures",
     title: "Electronic Signatures",
     group: "Notices & General",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "All individuals indicated in the Basic Terms as comprising Tenant will sign this Lease and related attached Addenda where indicated. Each of Landlord and Tenant consents to the other party's execution of this Lease by electronic signature. Delivery of this Lease containing the electronic signature of a party or otherwise by facsimile through electronic means or as a digital copy will have the same full force and effect as a manually executed original version.",
   },
@@ -641,7 +655,7 @@ const CLAUSE_TEMPLATES = [
     id: "pet-insurance-requirement",
     title: "Pet Insurance Requirement",
     group: "Pets",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "If Tenant keeps an approved pet at the property, Tenant will maintain renter's insurance that includes coverage for pet-related liability, and will name Landlord as an interested party on the policy upon Landlord's request. This requirement does not apply to an assistance animal, and Tenant will not be required to carry liability insurance in connection with an assistance animal.",
   },
@@ -658,7 +672,7 @@ const CLAUSE_TEMPLATES = [
     id: "assigned-parking-space",
     title: "Assigned Parking Space(s)",
     group: "Parking & Storage",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "Tenant is assigned the following parking space(s) for Tenant's exclusive use during the Term: [identify assigned space number(s)/location here]. Landlord may reassign a different space of comparable convenience on reasonable notice to Tenant, subject to any limits applicable law places on changing parking rules or policies during the Term.",
   },
@@ -666,7 +680,7 @@ const CLAUSE_TEMPLATES = [
     id: "parking-vehicle-rules",
     title: "Parking & Vehicle Requirements",
     group: "Parking & Storage",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "Only operable, currently registered passenger vehicles may be parked at the property; commercial vehicles, recreational vehicles, trailers, and oversized vehicles are not permitted without Landlord's prior written consent. Landlord may require Tenant to provide vehicle registration information and may issue parking tags, decals, or access cards, the cost of which may be charged to Tenant. Landlord may, in accordance with applicable law, have a vehicle towed at the vehicle owner's expense if it is illegally parked, abandoned, inoperable, or has expired registration. Vehicle repairs are not permitted at the property except minor emergency repairs necessary to move the vehicle, and vehicles may be washed only in areas Landlord designates, if any.",
   },
@@ -683,7 +697,7 @@ const CLAUSE_TEMPLATES = [
     id: "keys",
     title: "Keys",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "At the start of the Term, Tenant will receive the keys specified by Landlord and will sign a receipt acknowledging the number and type of keys provided. Tenant will return all keys to Landlord at the end of the Term. If Tenant fails to return all keys or requires a replacement, Landlord may re-key the applicable locks and charge the cost to Tenant. Tenant may not duplicate keys without Landlord's consent.",
   },
@@ -691,7 +705,7 @@ const CLAUSE_TEMPLATES = [
     id: "guest-policy",
     title: "Guest Policy",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "Guests are welcome for reasonable, non-continuous stays. A guest who stays beyond the period specified by Landlord within a given time frame will be considered an unauthorized occupant and subject to Landlord's prior written consent under this Lease's occupancy terms.",
   },
@@ -699,7 +713,7 @@ const CLAUSE_TEMPLATES = [
     id: "guest-policy-day-limit",
     title: "Guest Policy (14-Day Limit)",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "Tenant will not permit a guest to stay at the property for more than 14 consecutive days, or more than 14 total days within any rolling 6-month period, without Landlord's prior written consent to add that person to this Lease as an occupant or Tenant.",
   },
@@ -707,7 +721,7 @@ const CLAUSE_TEMPLATES = [
     id: "common-area-use",
     title: "Use of Property & Common Areas",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX", "NJ", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX", "NJ", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "Tenant will not, without Landlord's written consent, drill holes, use nails, hooks, or screws on the property, or fasten anything to its fixtures, appliances, or interior or exterior surfaces. Tenant will comply with any weight restrictions on balconies or porches and will not use them to store personal belongings without Landlord's consent. Tenant will not keep a waterbed or other water-filled furniture at the property, or any item (such as a piano or safe) whose weight Landlord has not agreed is reasonable for the floor, without Landlord's prior written consent. Tenant will not burn wax candles at the property. Tenant will not post or display any sign, banner, or advertisement visible from outside the property without Landlord's consent. Nothing in this Section restricts any display that applicable law entitles Tenant to make, such as the display of the flag of the United States or of religious or cultural items, subject to any lawful limits on its size, placement, and manner.",
   },
@@ -715,7 +729,7 @@ const CLAUSE_TEMPLATES = [
     id: "fire-safety-grilling",
     title: "Fire Safety & Grilling",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "Tenant will not cook or use a barbecue, grill, or other open-flame device on a porch, balcony, or within 15 feet of any building, and will not keep or use any flammable chemical or other material at the property that increases the risk of fire, except in quantities and manner consistent with normal household use.",
   },
@@ -723,7 +737,7 @@ const CLAUSE_TEMPLATES = [
     id: "landscaping-irrigation",
     title: "Landscaping & Irrigation",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "Unless Landlord provides landscaping service, Tenant is responsible for reasonable upkeep of the property's landscaping, including lawn mowing and leaf raking. If Landlord has set an irrigation schedule, Tenant will not modify it, and will promptly inform Landlord of any irrigation or landscaping issue, such as a leak or watering deficiency.",
   },
@@ -731,7 +745,7 @@ const CLAUSE_TEMPLATES = [
     id: "snow-removal",
     title: "Snow Removal",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "Unless Landlord provides snow removal service, Tenant is responsible for prompt, reasonable removal of snow and ice from any walkway, driveway, porch, or entrance at the property that Tenant uses, to help keep those areas safe and passable.",
   },
@@ -739,7 +753,7 @@ const CLAUSE_TEMPLATES = [
     id: "inspection-rights",
     title: "Inspection Rights",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "Tenant will allow Landlord to perform periodic inspections of the property during the Term, and at move-out, upon reasonable notice consistent with this Lease's Access & Entry terms.",
   },
@@ -748,7 +762,7 @@ const CLAUSE_TEMPLATES = [
     id: "lead-based-paint",
     title: "Lead-Based Paint Disclosure",
     group: "Disclosures",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "LEAD WARNING STATEMENT. Housing built before 1978 may contain lead-based paint. Lead from paint, paint chips, and dust can pose health hazards if not managed properly. Lead exposure is especially harmful to young children and pregnant women. Before renting pre-1978 housing, lessors must disclose the presence of known lead-based paint and/or lead-based paint hazards in the dwelling. Lessees must also receive a federally approved pamphlet on lead poisoning prevention. Landlord's disclosure: [state either that Landlord has no knowledge of lead-based paint or lead-based paint hazards in the dwelling, or describe all known lead-based paint and lead-based paint hazards]. Records and reports: [state either that Landlord has no reports or records pertaining to lead-based paint or lead-based paint hazards in the dwelling, or list all available records and reports and confirm they have been provided to Tenant]. Tenant acknowledges receipt of the information above and of the federally approved pamphlet Protect Your Family from Lead in Your Home. Landlord and Tenant each certify, to the best of their knowledge, that the information they have provided is true and accurate.",
   },
@@ -756,7 +770,7 @@ const CLAUSE_TEMPLATES = [
     id: "hoa-compliance",
     title: "Homeowner / Condominium Association Compliance",
     group: "Disclosures",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "If the property is located within a homeowner or condominium association, Tenant will comply with the association's rules and regulations applicable to the property. Any fines incurred due to Tenant's violation of association rules will be Tenant's responsibility.",
   },
@@ -785,12 +799,28 @@ const CLAUSE_TEMPLATES = [
       "Information about Bed Bugs. Bed bug Appearance: Bed bugs have six legs. Adult bed bugs have flat bodies about 1/4 of an inch in length. Their color can vary from red and brown to copper colored. Young bed bugs are very small. Their bodies are about 1/16 of an inch in length. They have almost no color. When a bed bug feeds, its body swells, may lengthen, and becomes bright red, sometimes making it appear to be a different insect. Bed bugs do not fly. They can either crawl or be carried from place to place on objects, people, or animals. Bed bugs can be hard to find and identify because they are tiny and try to stay hidden. Life Cycle and Reproduction: An average bed bug lives for about 10 months. Female bed bugs lay one to five eggs per day. Bed bugs grow to full adulthood in about 21 days. Bed bugs can survive for months without feeding. Bed bug Bites: Because bed bugs usually feed at night, most people are bitten in their sleep and do not realize they were bitten. A person's reaction to insect bites is an immune response and so varies from person to person. Sometimes the red welts caused by the bites will not be noticed until many days after a person was bitten, if at all. Common signs and symptoms of a possible bed bug infestation: • Small red to reddish brown fecal spots on mattresses, box springs, bed frames, mattresses, linens, upholstery, or walls. • Molted bed bug skins, white, sticky eggs, or empty eggshells. • Very heavily infested areas may have a characteristically sweet odor. • Red, itchy bite marks, especially on the legs, arms, and other body parts exposed while sleeping. However, some people do not show bed bug lesions on their bodies even though bed bugs may have fed on them. For more information, see the Internet Web sites of the United States Environmental Protection Agency and the National Pest Management Association. Tenant shall report any suspected bed bug infestation to Landlord promptly and in writing, using the following procedure: {{bed_bug_reporting_procedure}}.",
   },
   {
+    id: "meth-disclosure-va",
+    title: "Prior Methamphetamine Manufacture Disclosure",
+    group: "Disclosures",
+    states: ["VA"],
+    bodyText:
+      "[Use only if Landlord has actual knowledge that the property was previously used to manufacture methamphetamine and has not been cleaned up in accordance with the guidelines established under Virginia law.] Before Tenant signs this Lease, Landlord discloses in writing that the property was previously used to manufacture methamphetamine and has not been cleaned up in accordance with the Virginia Department of Health guidelines: [describe what Landlord knows].",
+  },
+  {
     id: "meth-disclosure-ca",
     title: "Methamphetamine or Fentanyl Contamination Disclosure",
     group: "Disclosures",
     states: ["CA"],
     bodyText:
       "Methamphetamine or Fentanyl Contamination Disclosure. [If a local health officer has issued a remediation order affecting this property and no notice requiring no further action has since been received, state that fact here and attach a copy of the order to this Lease; otherwise state 'Landlord has received no remediation order affecting this property under Health and Safety Code section 25400.22 or 25400.25.'] Tenant acknowledges in writing receipt of this notice and of a copy of any pending order. Tenant signature: ____________________ Date: __________",
+  },
+  {
+    id: "mold-disclosure-va",
+    title: "Mold Disclosure in the Move-In Report",
+    group: "Disclosures",
+    states: ["VA"],
+    bodyText:
+      "As part of the move-in inspection report, Landlord will state in writing whether there is any visible evidence of mold in areas readily accessible within the interior of the property. A statement that there is no visible evidence of mold will be considered correct unless Tenant objects in writing within five days after receiving the report. If the report states that there is visible evidence of mold, Tenant may choose to terminate this Lease and not take possession or not remain in possession. If Tenant chooses to take or remain in possession, Landlord will promptly remediate the mold condition, no later than five business days after Tenant's choice, reinspect the property, and give Tenant a new report stating that there is no visible evidence of mold.",
   },
   {
     id: "flood-disclosure-ca",
@@ -1130,7 +1160,7 @@ const CLAUSE_TEMPLATES = [
     id: "extended-absence-notice-ks",
     title: "Notice of Extended Absence",
     group: "Tenant Responsibilities",
-    states: ["KS", "TN"],
+    states: ["KS", "TN", "VA"],
     bodyText:
       "Tenant will occupy the property only as a dwelling unit unless otherwise agreed. If Tenant anticipates being away from the property for more than 7 consecutive days, Tenant will notify Landlord no later than the first day of the absence. If Tenant willfully fails to give this notice, Landlord may recover actual damages resulting from the failure.",
   },
@@ -1176,7 +1206,7 @@ const CLAUSE_TEMPLATES = [
     id: "early-termination-ks",
     title: "Early Termination",
     group: "Default & Termination",
-    states: ["KS", "SC", "TN"],
+    states: ["KS", "SC", "TN", "VA"],
     supersedes: "early-termination",
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay an early termination fee equal to one month's Rent ({{monthly_rent}}) or 30% of the remaining Rent due under the Term, whichever is greater, and remains responsible for Rent and other obligations up to the termination date. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or, except as prohibited by law in the case of a Tenant's death, any other termination right or limitation provided by applicable law.",
@@ -2112,7 +2142,7 @@ const CLAUSE_TEMPLATES = [
     id: "holdover-ca",
     title: "Holdover",
     group: "Default & Termination",
-    states: ["CA", "NV", "TX", "GA", "NC", "SC", "TN"],
+    states: ["CA", "NV", "TX", "GA", "NC", "SC", "TN", "VA"],
     supersedes: "holdover",
     bodyText:
       "If Tenant does not vacate the property by the end of the Term, Landlord may pursue any remedy allowed by law to recover possession and may recover the actual damages caused by Tenant's continued possession, including the reasonable rental value of the property for the period Tenant remains. Alternatively, Landlord may accept Tenant's continued payment of Rent, in which case this Lease will continue on a month-to-month basis on the same terms, terminable only as provided by law.",
@@ -2353,7 +2383,7 @@ const CLAUSE_TEMPLATES = [
     id: "tenant-forward-proceedings-ca",
     title: "Notice of Proceedings Against the Property",
     group: "Tenant Responsibilities",
-    states: ["CA", "TX", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CA", "TX", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "If Tenant receives notice of any proceeding to recover the property or its possession, Tenant shall immediately inform Landlord of the proceeding and deliver the notice to Landlord if it is in writing.",
   },
@@ -2403,7 +2433,7 @@ const CLAUSE_TEMPLATES = [
     id: "storage-space-ks-oh-ca",
     title: "Storage Space",
     group: "Parking & Storage",
-    states: ["KS", "ND", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["KS", "ND", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     supersedes: "storage-space",
     bodyText:
       "Tenant is assigned the following storage space for Tenant's exclusive use during the Term: [identify storage space/location here]. Tenant will not store any hazardous, flammable, or perishable materials in the storage space.",
@@ -2412,7 +2442,7 @@ const CLAUSE_TEMPLATES = [
     id: "parking-ks-oh-ca",
     title: "Parking",
     group: "Parking & Storage",
-    states: ["KS", "ND", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["KS", "ND", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     supersedes: "parking",
     bodyText:
       "Tenant may park only in the area(s) designated by Landlord, subject to any parking rules or addendum attached to this Lease. Landlord does not provide security for the parking area.",
@@ -2422,7 +2452,7 @@ const CLAUSE_TEMPLATES = [
     id: "tenants-property-insurance-ks-oh-ca",
     title: "Tenant's Property & Renter's Insurance",
     group: "Notices & General",
-    states: ["KS", "ND", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["KS", "ND", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     supersedes: "tenants-property-insurance",
     bodyText:
       "Landlord's insurance does not cover loss or damage to Tenant's personal property. Tenant will obtain and maintain renter's insurance covering Tenant's personal property and liability throughout the Term, with liability coverage of at least {{tenant_insurance_minimum}}, and will provide Landlord with evidence of coverage upon request.",
@@ -2432,7 +2462,7 @@ const CLAUSE_TEMPLATES = [
     id: "services-utilities-provided-ks-oh",
     title: "Services & Utilities Provided by Landlord",
     group: "Landlord Responsibilities",
-    states: ["KS", "OH", "NV", "AZ", "TN"],
+    states: ["KS", "OH", "NV", "AZ", "TN", "VA"],
     supersedes: "services-utilities-provided",
     bodyText:
       "Landlord will provide only the services and utilities expressly specified in this Lease, and as otherwise required by applicable law.",
@@ -3349,7 +3379,7 @@ const CLAUSE_TEMPLATES = [
     id: "rental-application-accuracy",
     title: "Accuracy of Rental Application",
     group: "Default & Termination",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "Tenant represents that the information Tenant gave Landlord in Tenant's rental application and during screening was true, correct and complete when given, and Tenant acknowledges that Landlord relied on that information in entering into this Lease. If any of that information was materially false or misleading, Tenant is in material breach of this Lease, and Landlord may exercise the remedies this Lease and applicable law provide for a material breach. This Section does not apply to information that Landlord was not permitted by law to request or consider.",
   },
@@ -4167,6 +4197,358 @@ const CLAUSE_TEMPLATES = [
     states: ["TN"],
     bodyText:
       "Security interest in household goods. To secure payment of Rent and every other amount Tenant owes under this Lease, Tenant grants Landlord a security interest in the following household goods of Tenant kept at the property: [list each item specifically, with a description and any serial number]. This security interest is enforceable only if Landlord perfects it by filing a Uniform Commercial Code financing statement with the Tennessee Secretary of State, and Tenant authorizes Landlord to file one. Landlord will not take, remove or hold any of Tenant's property to enforce this security interest except through court process. Landlord will release the security interest, including by filing a termination statement, at the expiration or termination of this Lease. This Lease creates no other lien on Tenant's property.",
+  },
+  // Rent & Payment
+  {
+    id: "returned-payments-va",
+    title: "Returned Checks and Failed Electronic Payments",
+    group: "Rent & Payment",
+    states: ["VA"],
+    supersedes: "returned-payments",
+    bodyText:
+      "If a check or electronic funds transfer Tenant gives Landlord is refused or rejected because of insufficient funds or because there is no account, or because a stop-payment order was placed in bad faith, Tenant will pay Landlord a processing fee of {{nsf_fee}}, which will not exceed $50, together with any other amounts Virginia law allows Landlord to recover for a dishonored payment. If the dishonored payment was for Rent, Landlord may give Tenant written notice requiring payment within 14 days by cash, cashier's check, certified check or a completed electronic funds transfer, and may terminate this Lease as Virginia law provides if Tenant does not pay within that period.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "acceptable-payment-methods-va",
+    title: "Acceptable Forms of Payment",
+    group: "Tenant Responsibilities",
+    states: ["VA"],
+    supersedes: "acceptable-payment-methods",
+    choiceGroup: "va-size-payment-methods",
+    choiceGroupDefault: true,
+    bodyText:
+      "Landlord accepts payment of Rent and the Security Deposit by personal check and by money order, and also by the following methods: [list any other accepted methods, e.g. online payment portal, ACH transfer, debit or credit card]. Landlord will give Tenant a written receipt whenever Tenant pays Rent in cash or by money order. Landlord will not charge Tenant a fee for collecting or processing any payment of Rent, the Security Deposit or any other amount unless Landlord also offers a payment method that has no added fee, and any fee Landlord charges for a payment by credit card, debit card or other electronic payment will not exceed the actual out-of-pocket cost a third party charges Landlord to process that payment. The accepted payment methods may be changed only by a written agreement signed by Landlord and Tenant.",
+  },
+  {
+    id: "acceptable-payment-methods-va-small",
+    title: "Acceptable Forms of Payment (Landlord With Four or Fewer Virginia Units)",
+    group: "Tenant Responsibilities",
+    states: ["VA"],
+    supersedes: "acceptable-payment-methods",
+    choiceGroup: "va-size-payment-methods",
+    choiceGroupDefault: false,
+    bodyText:
+      "Landlord owns four or fewer rental dwelling units in Virginia (or up to a 10 percent interest in four or fewer). Landlord accepts payment of Rent and the Security Deposit by personal check and by money order, and also by the following methods: [list any other accepted methods, e.g. online payment portal or ACH transfer]. Landlord does not accept payment of Rent or the Security Deposit by debit or credit card. Landlord will give Tenant a written receipt whenever Tenant pays Rent in cash or by money order. Landlord will not charge Tenant a fee for collecting or processing any payment of Rent, the Security Deposit or any other amount unless Landlord also offers a payment method that has no added fee, and any fee Landlord charges for a payment by credit card, debit card or other electronic payment will not exceed the actual out-of-pocket cost a third party charges Landlord to process that payment. The accepted payment methods may be changed only by a written agreement signed by Landlord and Tenant.",
+  },
+  // Security Deposit
+  {
+    id: "security-deposit-return-va",
+    title: "Security Deposit: Limit, Use, Inspection and Return",
+    group: "Security Deposit",
+    states: ["VA"],
+    supersedes: "security-deposit-return",
+    bodyText:
+      "The Security Deposit, including any pet deposit, will not exceed two months' periodic Rent, and if any damage insurance or renter's insurance premiums are paid to Landlord before this Lease begins, the Security Deposit and those premiums together will not exceed two months' periodic Rent. When the tenancy ends or Tenant vacates, whichever is later, Landlord may apply the Security Deposit only to accrued Rent (including reasonable late charges stated in this Lease), damages caused by Tenant's failure to meet Tenant's maintenance obligations under Virginia law less reasonable wear and tear, other damages or charges provided for in this Lease, and actual damages for breach of this Lease. Tenant may not use the Security Deposit as a credit against Rent owed. Within 45 days after the tenancy terminates or Tenant vacates, whichever occurs last, Landlord will give Tenant a written notice itemizing the Security Deposit and any deductions, damages and charges, together with any amount due to Tenant. If damages exceed the Security Deposit and require a third-party contractor, Landlord will give Tenant written notice of that within the 45 days and will then have 15 more days to itemize the damages and the cost of repair. When Landlord asks Tenant to vacate, or within five days after Landlord receives Tenant's notice of intent to vacate, Landlord will notify Tenant in writing of Tenant's right to be present at the move-out inspection; if Tenant tells Landlord in writing that Tenant wants to be present, Landlord will tell Tenant the date and time, and the inspection will be made within 72 hours after Tenant delivers possession. Tenant will give Landlord a forwarding address in writing. Unless every Tenant agrees otherwise in writing, any refund will be made by one check payable to all Tenants and sent to a forwarding address one of them provides; if no forwarding address is given, Landlord may continue to hold the deposit and, one year after the 45-day period ends, may remit it to the State Treasurer as unclaimed property. If Tenant owes a third-party provider for water, sewer or another utility that is Tenant's obligation under this Lease, Landlord may withhold a reasonable portion of the deposit to cover it only after giving Tenant the advance written notice Virginia law requires, and will refund any balance within 10 days after the bill is paid. Landlord will notify Tenant in writing, within 30 days, of any deduction from the Security Deposit made during the tenancy.",
+  },
+  {
+    id: "expedited-deposit-disposition-va",
+    title: "Expedited Security Deposit Disposition (Optional)",
+    group: "Security Deposit",
+    states: ["VA"],
+    bodyText:
+      "If Tenant asks, in a written document separate from this Lease, that Landlord make the disposition of the Security Deposit before the end of the 45-day period Virginia law allows, Landlord may do so and may charge Tenant an administrative fee of {{expedited_deposit_fee}} for the expedited processing.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "move-in-inspection-va",
+    title: "Move-In Inspection Report",
+    group: "Landlord Responsibilities",
+    states: ["VA"],
+    bodyText:
+      "Within five days after Tenant takes occupancy, Landlord will give Tenant a written report itemizing any damages to the property existing at move-in. The report will be considered correct unless Tenant objects to it in writing within five days after receiving it. [Use only if Landlord has adopted a written policy allowing it: Tenant may instead prepare the move-in report and give Landlord a copy, in which case it will be considered correct unless Landlord objects in writing within five days after receiving it; or Landlord and Tenant may prepare the report together, and it will be considered correct once both have signed it and received a copy.] Landlord is not required to repair damages listed in the report except as Virginia law requires.",
+  },
+  // Disclosures
+  {
+    id: "defective-drywall-disclosure-va",
+    title: "Defective Drywall Disclosure",
+    group: "Disclosures",
+    states: ["VA"],
+    bodyText:
+      "[Use only if Landlord has actual knowledge that the property contains defective drywall that has not been remediated.] Before Tenant signs this Lease, Landlord discloses in writing that the property contains defective drywall, as defined in Virginia law, that has not been remediated: [describe what Landlord knows].",
+  },
+  {
+    id: "military-air-zone-disclosure-va",
+    title: "Military Air Installation Noise or Accident Potential Zone Disclosure",
+    group: "Disclosures",
+    states: ["VA"],
+    bodyText:
+      "[Use only if the property is in a locality in which a military air installation is located and the property is in a noise zone or accident potential zone shown on the locality's official zoning map.] Before Tenant signs this Lease, Landlord discloses in writing that, according to the official zoning map of {{locality}}, the property is located in the following zone or zones: [state the noise zone and/or accident potential zone, as designated on the map].",
+  },
+  {
+    id: "tenant-rights-statement-va",
+    title: "Statement of Tenant Rights and Responsibilities",
+    group: "Disclosures",
+    states: ["VA"],
+    bodyText:
+      "With this Lease, Landlord has given Tenant the Statement of Tenant Rights and Responsibilities developed by the Virginia Department of Housing and Community Development, and Landlord and Tenant will sign the Department's form acknowledging that Tenant received it. Landlord will give Tenant a copy of this signed Lease and of the Statement within 10 business days after this Lease takes effect. Once a year, on Tenant's request, Landlord will give Tenant an additional copy of this Lease, or will keep this Lease available to Tenant electronically at no charge.",
+  },
+  // Rent & Payment
+  {
+    id: "fee-disclosure-statement-va",
+    title: "Fee Disclosure Statement (First Page)",
+    group: "Rent & Payment",
+    states: ["VA"],
+    bodyText:
+      "No additional security deposits or rent shall be charged unless they are listed below or incorporated into this agreement by way of a separate addendum after execution of this rental agreement.\n(i) Security deposit: {{security_deposit}} [itemize each component, e.g. security deposit, pet deposit]\n(ii) Rent due per payment period for the lease period: {{monthly_rent}} [itemize each charge that makes up the periodic Rent, e.g. base rent, pet rent, utility or insurance charges billed as rent]\n(iii) One-time charges due before the commencement date, or included in the first rental payment: [itemize each charge and amount]",
+  },
+  // Disclosures
+  {
+    id: "landlord-disclosure-va",
+    title: "Owner and Manager Disclosure",
+    group: "Disclosures",
+    states: ["VA"],
+    bodyText:
+      "As Virginia law requires, Landlord discloses, for purposes of service of process and receiving and issuing receipts for notices and demands: (a) the name and address of the person authorized to manage the property: [name and address]; and (b) the name and address of an owner of the property, or of a person authorized to act for and on behalf of the owner: [name and address]. Landlord will keep this information current. If the property is sold, Landlord will notify Tenant of the sale and give Tenant the name and address of the purchaser and a telephone number at which the purchaser can be reached. [If the property is a multifamily dwelling unit and an application to register it as a condominium or cooperative has been filed with the Real Estate Board, or there is an existing plan, to take effect within six months, to displace tenants because of demolition, substantial rehabilitation, or conversion to office, hotel or motel use or a planned unit development, Landlord discloses: (describe).]",
+  },
+  {
+    id: "nonresident-owner-agent-va",
+    title: "Virginia Agent of Nonresident Owner",
+    group: "Disclosures",
+    states: ["VA"],
+    bodyText:
+      "[Use if an owner of the property is an individual who does not reside in Virginia.] The owner designates the following agent, who is a Virginia resident (or an entity authorized to transact business in Virginia) and maintains a business office in Virginia, to receive service of any process, notice, order or demand required or permitted by law to be served on the owner: {{va_resident_agent_name}}, {{va_resident_agent_office_address}}.",
+  },
+  // Notices & General
+  {
+    id: "renters-insurance-notice-va",
+    title: "Renter's Insurance and Flood Notice",
+    group: "Notices & General",
+    states: ["VA"],
+    bodyText:
+      "Landlord is not responsible for Tenant's personal property. Landlord's insurance coverage does not cover Tenant's personal property. If Tenant wishes to protect Tenant's personal property, Tenant should obtain renter's insurance. Any renter's insurance Tenant obtains does not cover flood damage. For information on whether the property is located in a special flood hazard area, Tenant should contact the Federal Emergency Management Agency (FEMA) or visit the websites for FEMA's National Flood Insurance Program or the Virginia Department of Conservation and Recreation's Flood Risk Information System. If Tenant asks for a translation of this notice from English into another language, Landlord may help Tenant obtain a translator or refer Tenant to an electronic translation service, at no charge.",
+  },
+  // Security Deposit
+  {
+    id: "damage-insurance-va",
+    title: "Damage Insurance in Place of a Security Deposit (Optional)",
+    group: "Security Deposit",
+    states: ["VA"],
+    bodyText:
+      "Landlord will permit Tenant to provide damage insurance in place of all or part of the Security Deposit, if the coverage (a) is issued by a provider licensed or approved by the Virginia State Corporation Commission, (b) takes effect when the first premium is paid and remains in effect for the entire Lease term, (c) provides coverage per claim of not less than the Security Deposit Landlord requires, (d) obligates the provider to approve or deny payment of a claim, and (e) obligates the provider to notify Landlord within 10 days if the policy lapses or is canceled. Tenant may at any time, without Landlord's consent, pay the full Security Deposit instead of maintaining the damage insurance, and Landlord will not change the terms of this Lease if Tenant does so. Damage insurance premiums are Rent, not a security deposit. [If Landlord obtains damage insurance for Tenant: Tenant has the right to obtain a separate policy instead; Landlord will give Tenant a summary of the policy or a certificate of coverage before this Lease is signed and a copy of the policy on request; the policy will cover Tenant as an insured; and Landlord will recover from Tenant the actual cost of the coverage and an administrative fee of {{damage_insurance_admin_fee}}.]",
+  },
+  // Access & Entry
+  {
+    id: "landlords-access-va",
+    title: "Landlord's Access",
+    group: "Access & Entry",
+    states: ["VA"],
+    supersedes: "landlords-access",
+    bodyText:
+      "Tenant will not unreasonably withhold consent for Landlord, its agents and contractors to enter the property to inspect it; make necessary or agreed repairs, decorations, alterations or improvements; supply necessary or agreed services; or show it to prospective or actual purchasers, mortgagees, tenants, workmen or contractors. Except in an emergency or where it is impractical, Landlord will give Tenant notice of Landlord's intent to enter and will enter only at reasonable times. For routine maintenance that Tenant has not requested, Landlord will give Tenant at least 72 hours' notice unless that is impractical, the work will be performed within 14 days after the notice is delivered, and the notice will state the last date on which the work may be performed; no notice is needed for maintenance Tenant requests. Landlord may enter without Tenant's consent in an emergency, and during any absence of Tenant of more than seven days at times reasonably necessary to protect Landlord's property. Landlord will give Tenant at least 48 hours' written notice before applying an insecticide or pesticide in the property, unless Tenant requested the application or agrees to a shorter period; Tenant will prepare the property as Landlord's written instructions direct and will tell Landlord in writing, at least 24 hours before a scheduled application, of any concern about a specific product. If Tenant, without reasonable justification, declines to permit Landlord or Landlord's agent to show the property for sale or lease, Landlord may recover damages, costs and reasonable attorney fees. Landlord will not abuse the right of access or use it to harass Tenant.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "no-sublet-assign-va",
+    title: "No Subletting or Assignment Without Approval",
+    group: "Tenant Responsibilities",
+    states: ["VA"],
+    supersedes: "no-sublet-assign",
+    bodyText:
+      "Tenant will not sublease or assign all or any portion of the property or this Lease without the prior written approval of Landlord. To ask for approval, the proposed subtenant or assignee must submit a written application on Landlord's form; Landlord will approve or disapprove the proposed subtenant or assignee within 10 business days after receiving it, and if Landlord does not act within that time the request will be treated as approved. Tenant will not rent the property, or any portion of it, through any short-term rental program such as Airbnb, VRBO or a similar service, and doing so will be cause for termination of this Lease by Landlord. Any attempted sublease or assignment without approval will be void and cause for termination of this Lease. No sublease will release Tenant from any obligation under this Lease.",
+  },
+  // Default & Termination
+  {
+    id: "holdover-rate-va",
+    title: "Holdover Liquidated Damages (Optional)",
+    group: "Default & Termination",
+    states: ["VA"],
+    bodyText:
+      "If Tenant remains in the property without Landlord's consent after the termination date specified in Landlord's notice (or after this Lease otherwise ends), Tenant will pay Landlord, as liquidated damages in place of Landlord's actual damages for those days, {{holdover_daily_rate}} for each day Tenant remains after that date. This daily amount will not exceed 150 percent of the per diem of the monthly Rent, or, if the property is a public housing unit or other housing subject to regulation by the U.S. Department of Housing and Urban Development, the per diem of the monthly Rent. This Section does not limit Landlord's right to recover possession, reasonable attorney fees and court costs as Virginia law allows, unpaid Rent and other amounts due for the period before the termination date, or damages for harm to the property.",
+  },
+  {
+    id: "redemption-rights-va",
+    title: "Right of Redemption",
+    group: "Default & Termination",
+    states: ["VA"],
+    choiceGroup: "va-size-redemption",
+    choiceGroupDefault: true,
+    bodyText:
+      "Under Virginia law, if Landlord files an eviction case for nonpayment of Rent, Tenant (or someone paying on Tenant's behalf) may have the case dismissed by paying Landlord, Landlord's attorney or the court all Rent due as of the court date, other charges and fees, late charges, reasonable attorney fees and court costs at or before the first return date, or may present a written commitment from a local government or nonprofit entity to pay those amounts within 10 days. After the first return date, Tenant may still have a scheduled eviction canceled by paying all amounts claimed, including sheriff fees, at least 48 hours before the scheduled eviction. These rights do not apply if the case is also based on grounds other than nonpayment of Rent. On Tenant's written request, Landlord will give Tenant a written statement of all amounts owed. Payments to redeem must be made by cashier's check, certified check or money order.",
+  },
+  {
+    id: "redemption-limit-va-small",
+    title: "Right of Redemption Limited to Once per Lease Period (Landlord With Four or Fewer Virginia Units)",
+    group: "Default & Termination",
+    states: ["VA"],
+    choiceGroup: "va-size-redemption",
+    choiceGroupDefault: false,
+    bodyText:
+      "Landlord owns four or fewer rental dwelling units in Virginia (or up to a 10 percent interest in four or fewer). As Virginia law allows such a landlord, this Section is Landlord's written notice that Tenant may use the right of redemption described below only once during each lease period. Under Virginia law, if Landlord files an eviction case for nonpayment of Rent, Tenant (or someone paying on Tenant's behalf) may have the case dismissed by paying Landlord, Landlord's attorney or the court all Rent due as of the court date, other charges and fees, late charges, reasonable attorney fees and court costs at or before the first return date, or may present a written commitment from a local government or nonprofit entity to pay those amounts within 10 days. After the first return date, Tenant may still have a scheduled eviction canceled by paying all amounts claimed, including sheriff fees, at least 48 hours before the scheduled eviction. These rights do not apply if the case is also based on grounds other than nonpayment of Rent. On Tenant's written request, Landlord will give Tenant a written statement of all amounts owed. Payments to redeem must be made by cashier's check, certified check or money order.",
+  },
+  // Rent & Payment
+  {
+    id: "renewal-notice-va",
+    title: "Notice of Rent Increase or Nonrenewal",
+    group: "Rent & Payment",
+    states: ["VA"],
+    choiceGroup: "va-size-renewal",
+    choiceGroupDefault: true,
+    bodyText:
+      "If this Lease gives Tenant an option to renew or renews automatically, Landlord will give Tenant written notice of any increase in Rent for the next term at least 60 days before the end of the current term; beginning July 1, 2027, that notice will be given at least 90 days before the end of the current term and will state a deadline, not sooner than 30 days after Tenant receives the notice, by which Tenant must tell Landlord whether Tenant will renew. If Landlord does not intend to renew this Lease, Landlord will give Tenant written notice of nonrenewal at least 60 days before the end of the term.",
+  },
+  {
+    id: "renewal-notice-va-small",
+    title: "Notice of Rent Increase or Nonrenewal (Landlord With Four or Fewer Virginia Units)",
+    group: "Rent & Payment",
+    states: ["VA"],
+    choiceGroup: "va-size-renewal",
+    choiceGroupDefault: false,
+    bodyText:
+      "Landlord owns four or fewer rental dwelling units in Virginia (or up to a 10 percent interest in four or fewer). If this Lease gives Tenant an option to renew or renews automatically, Landlord will give Tenant written notice of any change in Rent or other terms for the next term, or of Landlord's decision not to renew, at least {{renewal_notice_days}} days before the end of the current term.",
+  },
+  // Rules & Regulations
+  {
+    id: "portable-solar-va",
+    title: "Plug-In Solar Devices",
+    group: "Rules & Regulations",
+    states: ["VA"],
+    choiceGroup: "va-size-solar",
+    choiceGroupDefault: true,
+    bodyText:
+      "Beginning January 1, 2027, Tenant may install a small portable solar generation device (a movable photovoltaic device with a maximum output of not more than 1,200 watts per dwelling unit that plugs into an electrical outlet and meets the safety and certification requirements of Virginia law) on the exterior of Tenant's premises, subject to Landlord's reasonable restrictions on its size, place and manner of placement. Tenant will give Landlord written notice at least seven days before installing it, with documentation that the device meets those requirements and the proposed location. Landlord may prohibit or restrict installation elsewhere on the property. Tenant is responsible for any damage the device causes. Tenant may not install a device if the property's utilities are billed under a ratio utility billing system, and may not install any device that would require alterations to the building's premises, wiring or electrical panels without Landlord's express written approval.",
+  },
+  {
+    id: "portable-solar-va-small",
+    title: "Plug-In Solar Devices (Landlord With Four or Fewer Virginia Units)",
+    group: "Rules & Regulations",
+    states: ["VA"],
+    choiceGroup: "va-size-solar",
+    choiceGroupDefault: false,
+    bodyText:
+      "Landlord owns four or fewer rental dwelling units in Virginia (or up to a 10 percent interest in four or fewer). Tenant will not install any solar generation device, including a plug-in or portable device, anywhere on the property without Landlord's prior written consent.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "tenant-duties-va",
+    title: "Tenant's Statutory Duties",
+    group: "Tenant Responsibilities",
+    states: ["VA"],
+    bodyText:
+      "In addition to Tenant's other obligations under this Lease, Tenant will: keep the part of the property Tenant occupies free from insects and pests and promptly notify Landlord of any; pay the added cost of treatment or extermination caused by Tenant's unreasonable delay in reporting insects or pests, and the cost of treatment caused by Tenant's fault in failing to prevent an infestation; keep on at all times any utility service Tenant pays for; not remove or tamper with a properly functioning smoke alarm or carbon monoxide alarm installed by Landlord, including by removing working batteries, and maintain those alarms as the Statewide Fire Prevention Code and the Uniform Statewide Building Code require, including interim testing; use reasonable efforts to prevent the accumulation of moisture and the growth of mold, and promptly notify Landlord of any moisture accumulation or visible evidence of mold; use reasonable care to prevent any dog or other animal kept by Tenant, an occupant or a guest from injuring anyone or damaging the property; be responsible for the conduct of persons on the premises with Tenant's consent so that neighbors' peaceful enjoyment is not disturbed; and abide by all reasonable rules and regulations Landlord adopts.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "smoke-co-alarms-va",
+    title: "Smoke and Carbon Monoxide Alarms",
+    group: "Landlord Responsibilities",
+    states: ["VA"],
+    bodyText:
+      "Landlord will give Tenant a certificate stating that all smoke alarms are present, have been inspected and are in good working order, no more than once every 12 months. Except for alarms in public or common areas, Tenant is responsible for interim testing, repair and maintenance of the smoke alarms in the property and will notify Landlord in writing when an alarm needs repair or replacement. On Tenant's written request, Landlord will install a carbon monoxide alarm in the property within 90 days and may charge Tenant a reasonable fee to recover the cost of the equipment and installation. If Tenant or a person living with Tenant is deaf or hard of hearing, Landlord will provide on request a smoke alarm appropriate for persons who are deaf or hard of hearing; Landlord may require a refundable deposit not exceeding the original or replacement cost of that alarm, whichever is greater, and will not increase the Rent because of it.",
+  },
+  // Default & Termination
+  {
+    id: "dv-lease-termination-va",
+    title: "Early Termination by a Victim of Family Abuse, Sexual Abuse, Stalking or Trafficking",
+    group: "Default & Termination",
+    states: ["VA"],
+    bodyText:
+      "Tenant may terminate Tenant's obligations under this Lease if Tenant is a victim of family abuse, sexual abuse or other criminal sexual assault, stalking, or human trafficking, as those terms are used in Virginia law, and (a) Tenant has obtained a protective order during the term of this Lease and gives the notice below during the period of the order or any extension, or (b) during the term of this Lease a court has convicted the perpetrator of, or a magistrate, law-enforcement agency, grand jury or court has issued a warrant, summons, information or indictment charging a person with, such a crime against Tenant. To terminate, Tenant will give Landlord written notice of termination, which will be effective 28 days after Tenant gives it, together with a copy of the protective order or of the conviction order, warrant, summons, information or indictment. Tenant will pay Rent as it comes due through the effective date and will continue to meet Tenant's maintenance obligations until then. Landlord will not charge any liquidated damages. Any co-tenant on this Lease remains responsible for the Rent for the rest of the term. If the perpetrator is the only remaining tenant obligated on this Lease, Landlord may terminate this Lease and recover actual damages from the perpetrator.",
+  },
+  {
+    id: "military-lease-termination-va",
+    title: "Early Termination by Military Personnel",
+    group: "Default & Termination",
+    states: ["VA"],
+    bodyText:
+      "A Tenant who is a member of the Armed Forces of the United States, or a member of the National Guard serving on full-time duty or as a civil service technician with the National Guard, may terminate this Lease if Tenant (a) receives permanent change of station orders, (b) receives temporary duty orders of more than three months, (c) is discharged or released from active duty or from full-time National Guard duty or technician status, (d) is ordered to report to government-supplied quarters resulting in forfeiture of the basic allowance for quarters, or (e) receives a stop movement order in response to a local, national or global emergency, effective for an indefinite period or for at least 30 days, that prevents Tenant from occupying the property as a residence. Tenant will give Landlord written notice of termination stating an effective date not less than 30 days after the first date on which the next rental payment is due after the notice is given, and before that date will give Landlord a copy of the official orders or a signed letter confirming them from Tenant's commanding officer. Landlord will not charge any liquidated damages. Tenant's maintenance obligations continue until the termination date. This Section does not limit any right Tenant has under the federal Servicemembers Civil Relief Act.",
+  },
+  {
+    id: "abandoned-property-va",
+    title: "Abandonment and Property Left Behind",
+    group: "Default & Termination",
+    states: ["VA"],
+    bodyText:
+      "If Landlord cannot determine whether Tenant has abandoned the property, Landlord may give Tenant written notice requiring Tenant to tell Landlord in writing within seven days that Tenant intends to remain in occupancy; if Tenant does not do so and Landlord does not otherwise determine that Tenant remains in occupancy, the property will be presumed abandoned and this Lease will terminate at the end of the seven days, and Landlord will mitigate its damages. After this Lease has terminated and possession has been delivered to Landlord, Landlord may treat personal property left in the property, on the premises or in any storage area Landlord provided as abandoned and dispose of it as Landlord sees fit, but only after Landlord has given Tenant (a) a termination notice stating that personal property left behind will be disposed of within 24 hours after termination, (b) the seven-day notice described above, stating that personal property left behind will be disposed of within 24 hours after the seven days end, or (c) a separate written notice stating that personal property left behind will be disposed of within 24 hours after a 10-day period from the date of the notice. Tenant may remove Tenant's property at reasonable times during the 24-hour period after termination, or until Landlord disposes of it. Any proceeds from a sale of the property will be applied to amounts Tenant owes Landlord, including reasonable costs of selling, storing or safekeeping it, and any remainder will be treated as part of the Security Deposit. This Section does not apply to property removed when a writ of eviction is executed, which is governed by Virginia law.",
+  },
+  {
+    id: "casualty-termination-va",
+    title: "Fire or Casualty Damage",
+    group: "Default & Termination",
+    states: ["VA"],
+    bodyText:
+      "If the property or premises is damaged or destroyed by fire or casualty to an extent that Tenant's use and enjoyment of the property is substantially impaired, or the required repairs can be made only if Tenant vacates, either Tenant or Landlord may terminate this Lease. Tenant may terminate by vacating and, within 14 days afterward (21 days if Tenant vacates on or after January 1, 2027), giving Landlord written notice of intent to terminate, and this Lease will end on the date Tenant vacated. Landlord may terminate by giving Tenant 14 days' notice (21 days' notice on or after January 1, 2027) based on Landlord's determination that the damage requires Tenant's removal and that use of the property is substantially impaired. On and after January 1, 2027, before giving that notice Landlord will meet or make a reasonable effort to meet with Tenant about the extent of the damage and any reasonable alternatives to termination, and will offer Tenant any substantially similar unit in the same complex that is available within a reasonable time on the terms of this Lease, unless Landlord has determined that Tenant's violation of Tenant's maintenance obligations caused the damage; within seven days after receiving Landlord's notice, Tenant may ask in writing that Landlord reevaluate the damage and habitability with Tenant's involvement. If this Lease is terminated, Landlord will return the Security Deposit as Virginia law requires and any prepaid Rent, with any accrued interest recoverable by law, unless Landlord reasonably believes Tenant, an occupant or a guest caused the damage, in which case Landlord will give Tenant a written statement for them based on the damage. Rent will be prorated as of the date of the casualty. If continued occupancy is lawful, Rent will be reasonably reduced for the period of impairment as Virginia law provides.",
+  },
+  {
+    id: "periodic-tenancy-notice-va",
+    title: "Ending a Month-to-Month or Week-to-Week Tenancy",
+    group: "Default & Termination",
+    states: ["VA"],
+    bodyText:
+      "If Tenant rents month to month, either Landlord or Tenant may end the tenancy by written notice served on the other at least 30 days before the next Rent due date [or state a different notice period here, which will then apply to both parties]. If Tenant rents week to week, either may end the tenancy by written notice served at least seven days before the next Rent due date. Landlord and Tenant may also agree in writing to end this Lease early. If Tenant stays on with Landlord's agreement after this Lease ends and no new lease is signed, the terms of this Lease continue to govern, except that the Rent will be either the Rent under this Lease or the amount stated in a written notice from Landlord, which will not take effect until the next Rent due date that comes at least 30 days after the notice.",
+  },
+  // Notices & General
+  {
+    id: "emergency-contact-va",
+    title: "Authorized Contact on Tenant's Death or Emergency",
+    group: "Notices & General",
+    states: ["VA"],
+    bodyText:
+      "Tenant names the following person as the person authorized for Landlord to contact if Tenant dies or has an emergency: {{authorized_person_name_address_phone}}. Tenant will tell Landlord in writing if this changes. If Tenant is the sole tenant under this Lease, still living in the property, and dies, and no one has been authorized by a circuit court order to handle probate matters for Tenant, Landlord may dispose of Tenant's personal property left in the property after giving at least 10 days' written notice to this authorized person (or, if none is named, to Tenant at the property) stating that personal property not claimed within 10 days will be treated as abandoned. The authorized person may, on reasonable proof of identity, have access to the property and to Tenant's records and claim Tenant's personal property. This Lease will be treated as terminated on the date of the sole Tenant's death, authorized occupants and guests must leave before the 10-day period ends, and Tenant's estate remains liable for actual damages, which Landlord will mitigate.",
+  },
+  // Disclosures
+  {
+    id: "foreclosure-notice-va",
+    title: "Notice of Mortgage Default or Foreclosure",
+    group: "Disclosures",
+    states: ["VA"],
+    bodyText:
+      "If the property is a single-family residence, Landlord will give Tenant written notice within five business days after Landlord receives written notice from a lender of a mortgage default, mortgage acceleration or foreclosure sale relating to the loan on the property. If Landlord fails to give that notice, Tenant may terminate this Lease by giving Landlord written notice at least five business days before the termination date, and Landlord will then handle the Security Deposit as Virginia law and this Lease provide.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "utility-billing-va",
+    title: "Utilities Billed by Landlord (Submetering, Allocation or Ratio Billing)",
+    group: "Landlord Responsibilities",
+    states: ["VA"],
+    bodyText:
+      "[Use only if Landlord bills Tenant separately for utilities through submetering, energy allocation equipment or a ratio utility billing system, or allocates local government fees.] Landlord will bill Tenant for the following utilities: {{separately_charged_utilities}}, using this method: {{utility_billing_method}}. Landlord will bill Tenant for the same billing period as the utility serving the building unless this Lease states otherwise. Tenant will pay these additional service charges, which cover Landlord's actual administrative and billing costs charged by a third-party provider: {{utility_admin_fees}}. If Tenant does not pay a utility bill when due, which will be at least 15 days after the bill is mailed or delivered, Tenant will pay a late charge of up to $5. [If Landlord allocates local government fees such as stormwater, recycling, trash collection, elevator or fire safety testing or rental inspection fees: those fees will be allocated among the tenants of the building using this method: (describe).] Amounts billed under a ratio utility billing system, and allocated local government fees and their administrative charges, are Rent. On request, Landlord will test energy allocation equipment without charge no more than once in 24 months, and Tenant may inspect and copy Landlord's billing records for the property during reasonable business hours.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "tenant-repair-agreement-va",
+    title: "Tenant-Performed Duties and Repairs by Written Agreement",
+    group: "Tenant Responsibilities",
+    states: ["VA"],
+    bodyText:
+      "[Use only if Landlord and Tenant agree that Tenant will perform some of Landlord's duties.] Tenant agrees to perform the following, in place of Landlord: [list each specifically, choosing only from: keeping common areas shared by two or more units clean and safe; providing and maintaining waste receptacles and arranging waste removal; supplying running water, hot water, heat or air conditioning; and specified repairs, maintenance tasks, alterations or remodeling]. Landlord and Tenant make this agreement in good faith and not for the purpose of evading Landlord's obligations, and it does not diminish or affect Landlord's obligations to other tenants on the premises. Landlord remains responsible for Landlord's other duties under Virginia law, including complying with building and housing codes materially affecting health and safety and keeping the property fit and habitable.",
+  },
+  // Pets
+  {
+    id: "assistance-animal-accommodation-va",
+    title: "Service and Assistance Animals",
+    group: "Pets",
+    states: ["VA"],
+    supersedes: "assistance-animal-accommodation",
+    bodyText:
+      "A service animal or other assistance animal that Tenant or an Occupant with a disability needs is not a pet under this Lease, whether it works, provides assistance or performs tasks, or provides emotional support that alleviates one or more identified symptoms or effects of the disability; it need not be individually trained or certified. Tenant may ask for a reasonable accommodation to keep an assistance animal. Landlord will not charge a pet fee, pet deposit or additional rent for an assistance animal. If the disability or the need for the animal is obvious or already known to Landlord, Landlord will not ask for more verification of it; if the disability is known but the need is not, Landlord may ask for verification of the need; otherwise Landlord may ask for reliable documentation of the disability and the disability-related need, which may come from anyone with whom the person has or had a therapeutic relationship, such as a mental health service provider, a licensed or certified professional serving people with disabilities, a free peer support group member with actual knowledge, or a caregiver, reliable third party or government entity with actual knowledge. Landlord will evaluate each request and its documentation case by case. Tenant will comply with the rules of this Lease that apply to all residents and do not interfere with Tenant's equal opportunity to use and enjoy the property, and is responsible for physical damage the animal causes to the same extent residents with pets are. Landlord may deny a request if there is no disability or disability-related need, if the accommodation would impose an undue financial and administrative burden or fundamentally alter Landlord's operations, or if the specific animal poses a clear and present threat of substantial harm to others or to the property that is not based solely on its breed, size or type and cannot be reduced or eliminated by another reasonable accommodation; where a request may impose an undue burden or fundamental alteration, Landlord will first offer to discuss an effective alternative accommodation.",
+  },
+  {
+    id: "pet-policy-va",
+    title: "Pets",
+    group: "Pets",
+    states: ["VA"],
+    supersedes: "pet-policy",
+    bodyText:
+      "Tenant may keep only pets identified in writing to and approved by Landlord: [list approved pets, or state that no pets are permitted]. Any refundable pet deposit ({{pet_deposit}}, if applicable) is part of the Security Deposit, counts toward the Virginia limit of two months' periodic Rent, and will be held, applied and returned with it. Tenant will pay pet rent of {{pet_rent_amount}} per month, if applicable. Tenant is responsible for all damage, waste removal, odor and disturbance caused by a pet, will use reasonable care to prevent a pet from injuring anyone or damaging the property, and will reimburse Landlord for claims caused by Tenant's pet, except to the extent a claim arises from Landlord's own negligence or other liability Landlord has under law. Landlord may revoke approval of a pet that becomes a nuisance or safety concern. Landlord may enter the property in connection with a pet only as this Lease's Access terms and Virginia law permit, including without consent in an emergency, and will not seize or remove a pet except through a court process or with the help of animal control or law enforcement. This Section does not apply to a service animal or assistance animal allowed under this Lease's terms for those animals.",
+  },
+  // Notices & General
+  {
+    id: "electronic-notices-va",
+    title: "Electronic Notices (Optional)",
+    group: "Notices & General",
+    states: ["VA"],
+    bodyText:
+      "Landlord and Tenant agree that either may send notices under this Lease in electronic form to the e-mail address the other provides for that purpose: Tenant: [e-mail address]; Landlord: [e-mail address]. Tenant may at any time, by notice to Landlord, elect to send and receive notices in paper form instead. A party sending a notice electronically will keep sufficient proof of the electronic delivery, such as an electronic delivery receipt or a certificate of service confirming the electronic delivery.",
+  },
+  // Default & Termination
+  {
+    id: "homestead-waiver-va",
+    title: "Waiver of Homestead Exemption (Optional)",
+    group: "Default & Termination",
+    states: ["VA"],
+    bodyText:
+      "I (or we) waive the benefit of my (or our) exemption as to this obligation. Tenant understands that, by this waiver, Tenant gives up, for amounts owed under this Lease, the homestead exemption that Virginia law otherwise allows a householder to claim against creditors, except the exemptions that Virginia law does not allow to be waived.",
   },
 ];
 

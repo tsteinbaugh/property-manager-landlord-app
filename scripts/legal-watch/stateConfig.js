@@ -28,6 +28,7 @@ const STATE_NAMES = {
   NC: "North Carolina",
   SC: "South Carolina",
   TN: "Tennessee",
+  VA: "Virginia",
 };
 
 const STATE_CONFIG = {
@@ -828,6 +829,46 @@ const STATE_CONFIG = {
         label:
           "Tennessee agency rules LegiScan can't see: TPUC utility disconnection rules and any Tenn. Comp. R. & Regs. touching deposits or lead (TN log §7)",
         clauseIds: ["edu-urlta-county-scope-tn"],
+      },
+    ],
+  },
+
+  VA: {
+    // Code of Virginia sections are title-section, and titles can carry a
+    // decimal ("55.1-1226", "8.01-126", "36-96.3", "34-22"). Short ones like
+    // "34-22" are too loose on their own, and Virginia bills cite sections as
+    // "§ 55.1-1226 of the Code of Virginia", so the query pairs the number
+    // with "Code of Virginia". Citations are split on ";" and only the
+    // "Va. Code Ann." parts are read (several rows also cite U.S.C./CFR).
+    // Subsection parentheses become spaces. No Virginia Administrative Code
+    // rule and no case law is relied on (VA log §7).
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        if (!/^Va\. Code Ann\./.test(part)) continue;
+        const body = part.replace(/\([^)]*\)/g, " ");
+        for (const m of body.matchAll(/\b(\d{1,2}(?:\.\d{1,2})?-\d{1,4}(?:\.\d{1,2})?)\b/g)) out.push(m[1]);
+      }
+      return out;
+    },
+    buildQuery: (section) => `"${section}" AND "Code of Virginia"`,
+    cfrChecks: [
+      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-va"] },
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+    ],
+    federalStatuteChecks: [{ section: "3955", clauseIds: ["edu-servicemember-rights-va"] }],
+    manualRecheckItems: [
+      {
+        id: "va-2027-effective-dates",
+        label:
+          "Virginia provisions with 2027 effective dates (plug-in solar 2027-01-01; 90-day renewal notice and the payment-plan-before-eviction version of Va. Code Ann. §55.1-1245, 2027-07-01): confirm the codified text matches the rows once each takes effect",
+        clauseIds: ["portable-solar-va", "renewal-notice-va", "edu-termination-notices-va"],
+      },
+      {
+        id: "va-dhcd-forms",
+        label:
+          "DHCD's Statement of Tenant Rights and Responsibilities and related forms are agency documents LegiScan can't see: check for a revised edition (VA log §7)",
+        clauseIds: ["tenant-rights-statement-va"],
       },
     ],
   },
