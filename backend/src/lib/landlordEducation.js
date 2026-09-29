@@ -32,6 +32,9 @@
 // wholesale from the CSV (2026-09-18 refresh, Ohio added: 309 -> 324
 // entries across the now-8-state pass).
 //
+// **2026-09-28 (Tennessee sync):** regenerated from the 18-state CSV
+// (789 -> 842 entries).
+//
 // **2026-09-28 (South Carolina sync):** regenerated from the 17-state CSV
 // (748 -> 789 entries).
 //
@@ -10108,6 +10111,664 @@ const LANDLORD_EDUCATION = [
     bodyText:
       "South Carolina has no statute requiring a landlord to disclose or decontaminate a former methamphetamine lab before renting.",
     notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 1,304 chapter pages of the official South Carolina Code of Laws (scstatehouse.gov chapter pages loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0 and 'security deposit' 34 hits, so the engine reports true empties; every word form entered explicitly; SC log §17). Searched 'clandestine|methamphetamine (lab|laborator)': 0 hits; 'methamphetamine ... (property|dwelling|residen|decontamin|disclos|remediat)': 1 hit (S.C. Code Ann. § 44-53-520 forfeiture).",
+  },
+  // Notices & General
+  {
+    id: "edu-urlta-county-scope-tn",
+    title: "Which Tennessee Landlord-Tenant Law Applies Where",
+    group: "Notices & General",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "scope",
+    bodyText:
+      "Tennessee's Uniform Residential Landlord and Tenant Act applies only in counties that had more than 75,000 people in the 2010 federal census, and in 2021 the legislature froze that list so later censuses do not change it. The Act counties are Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson. In the other 78 counties the Act does not apply: there is no statutory security-deposit procedure, late-fee cap, entry rule, retaliation ban, abandonment procedure or periodic-notice rule, and termination for a tenant's default follows a separate statute (14 days' notice for unpaid rent or damage, which the tenant can cure; 30 days for any other default; 3 days for violence, drug-related criminal activity or a threat to safety by a tenant who is not disabled; 3 days for an unauthorized occupant who refuses to leave). Some rules apply in every county: domestic-violence lease termination, service and support animal rules, guide dog protections, the detainer (eviction) court process, squatter removal, the smoke alarm law, the $30 bounced-check charge, fair housing, the ban on local rent control and, from January 1, 2027, tenants' firearm rights. In an Act county the Act also bars the county government from adding its own landlord-tenant regulations. Even in an Act county the Act does not cover institutional residence, occupancy under a contract to buy, transient lodging, condominium or co-op owners, agricultural leases, or public housing where federal rules conflict. Choose the Act-county or other-county version of the paired lease clauses to match the county the property is in.",
+    notes: "TN: TN-SCOPE: STATEWIDE - this row explains the split. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. § 66-28-102 (history: Acts 1975, ch. 245 ... 2012, ch. 847, § 1; 2021, ch. 182, §§ 1, 2): (a) 'applies only in counties having a population of more than seventy-five thousand (75,000), according to the 2010 federal census'; (c) exclusions; (d) HUD-regulated public housing to the extent of conflict; (e) in Act counties the chapter 'occupies and preempts the entire field' and 'the governing body of a county' may not add regulations (the text names county governing bodies only, not cities - not resolved). 2021 Pub. Ch. 182 read in the enrolled act (publications.tnsosfiles.com/acts/112/pub/pc0182.pdf): § 1 added (e); § 2 deleted 'or any subsequent federal census' - the FREEZE, effective 2021-07-01. COUNTY LIST derived from U.S. Census Bureau primary data (file co-est2019-alldata.csv, column CENSUS2010POP, www2.census.gov, read 2026-09-28; FEDERAL DATA SOURCE, instruction 16): Shelby 927,644; Davidson 626,681; Knox 432,226; Hamilton 336,463; Rutherford 262,604; Williamson 183,182; Montgomery 172,331; Sumner 160,645; Sullivan 156,823; Blount 123,010; Washington 122,979; Wilson 113,993; Bradley 98,963; Madison 98,294; Sevier 89,889; Maury 80,956; Anderson 75,129 (129 over). Nearest below: Putnam 72,321, Greene 68,831, Robertson 66,283. The statute names no counties; the list is this pass's derivation and should be re-derived only if § 66-28-102(a) is amended (the legal-watch tripwire watches § 66-28-102). NON-ACT RULES: Tenn. Code Ann. § 66-7-109 (a)-(d), (f), and (g) 'Nothing in this section shall apply to rental property located in any county governed by the Uniform Residential Landlord and Tenant Act'. STATEWIDE sections: §§ 66-7-102, 66-7-104, 66-7-106, 66-7-107, 66-7-110, 66-7-111, 66-7-112, 66-7-113 (2027), 66-35-102, Title 29 Chapter 18, §§ 68-102-151, 68-120-112, 47-29-102, 4-21-601. OTHER CHAPTER 28 GENERAL SECTIONS (instruction 37): Tenn. Code Ann. § 66-28-101 (short title), § 66-28-103 (liberal construction; (c) law and equity supplement the Act), § 66-28-105 (general sessions and circuit court jurisdiction; a nonresident landlord may file a designation of a Tennessee agent for service with the Secretary of State for a $10 fee, failing which process may be served on the Secretary of State), § 66-28-516 (good faith in every duty and remedy), § 66-28-522 (a manager may testify against a tenant, notwithstanding the lease; same rule statewide in § 66-7-109(h)). OTHER CHAPTER 7 SECTIONS: Tenn. Code Ann. § 66-7-101 (a lease for more than three years must be in writing, and proved and registered to bind third parties without notice - relevant to long residential terms), § 66-7-103 (oil and gas leases), § 66-7-105 (adult bookstore leases), § 66-7-108 (commercial lease disclosure) - the last three not residential. COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson. PRODUCT FLAG (Addendum M, TN log §10): the pairs share choice groups prefixed 'tn-urlta-' so a future county attribute on the property can pick every pair at once; every TN row's notes carry a 'TN-SCOPE:' marker (ACT COUNTIES ONLY / NON-ACT COUNTIES ONLY / STATEWIDE) for the same purpose. Other county- or city-specific Tennessee rules found this pass: Davidson landlord registration (edu-landlord-registration-davidson-tn), rental inspection districts (edu-rental-inspection-districts-tn), Hamilton water-authority tenant form (edu-water-authority-tenant-form-hamilton-tn), condominium-conversion notice in Class 1 and 2 counties (edu-condo-conversion-notice-tn).",
+  },
+  // Security Deposit
+  {
+    id: "edu-security-deposit-rules-tn",
+    title: "Tennessee Security Deposit Rules",
+    group: "Security Deposit",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-return",
+    bodyText:
+      "In the 17 Act counties a landlord who takes a security deposit before occupancy must keep it in an account used only for deposits at a regulated bank or lending institution and must tell the tenant, when the lease is signed and the deposit paid, where the account is (not the account number). At move-out the tenant has a right to be present at an inspection; if the landlord gives written notice of that right and the lease warns that a tenant who schedules and then misses the inspection waives any dispute, a no-show tenant cannot contest the damage found. The landlord must list the damage and estimated repair costs. A landlord who did not use a separate account AND did not provide the damage list may not keep any of the deposit. Damage found later can be charged only if discovered within 30 days after the tenant left or 7 days after a new tenant moved in, whichever is earlier. If a refund is due, the landlord sends notice of the amount to the tenant's last known address; if the tenant does not respond within 60 days the landlord may keep it. Tennessee sets no deadline for returning a deposit, no cap on its size and no interest requirement. Outside the Act counties there is no deposit statute at all; the lease governs. On a good-faith sale, the seller is released once the deposit is transferred to the buyer and the tenant is notified in writing.",
+    notes: "TN: TN-SCOPE: ACT COUNTIES for the procedure; STATEWIDE for the absence of cap and interest. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. §§ 66-28-301 (a)-(h), 66-28-305, 66-28-104(14) (deposit covers damage beyond ordinary wear and tear and monetary damage from breach; 'shall in no way infer' a safety service). Lease clauses: security-deposit-return-tn-act / -tn-other (choice group tn-urlta-deposit-return), security-deposit-use (tagged). OMISSION SANCTION (instruction 28): § 66-28-301(c) forfeiture. Unclaimed property overlap not resolved: Tenn. Code Ann. § 66-29-102(24)(B)(ii) lists 'security deposit' as property under the Uniform Unclaimed Property Act (TN log §7). COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson.",
+  },
+  {
+    id: "edu-no-deposit-cap-tn",
+    title: "No Limit on Security Deposit Amount",
+    group: "Security Deposit",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-cap",
+    bodyText:
+      "Tennessee does not limit the amount of a security deposit, pet deposit or prepaid rent a landlord may require, in any county.",
+    notes: "TN: TN-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). '\"security deposit\"' returned 12 sections; the residential ones (Tenn. Code Ann. §§ 66-28-104, 66-28-301, 66-28-305) contain no amount rule; Title 66 Chapter 7 read whole (no deposit section); '(pet w/10 deposit) or \"pet fee\" or \"pet rent\"' returned 0. Only a legally blind tenant's guide dog is deposit-free (Tenn. Code Ann. § 66-7-106(b)). Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1).",
+  },
+  {
+    id: "edu-no-deposit-interest-tn",
+    title: "No Interest on Security Deposits",
+    group: "Security Deposit",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-interest",
+    bodyText:
+      "Tennessee does not require a landlord to pay interest on a security deposit. In the 17 Act counties the deposit must be in a separate account used only for deposits, but the law says nothing about interest.",
+    notes: "TN: TN-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). Chapter 28 read whole (Tenn. Code Ann. § 66-28-301 has no interest term); '\"security deposit\"' 12 hits, none an interest rule. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-late-fee-rules-tn",
+    title: "Late Fees in Tennessee",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "late-fee-limit",
+    bodyText:
+      "In the 17 Act counties a late fee cannot be charged until a five-day grace period has run, counting the day rent was due; if the last grace day is a Sunday or a legal holiday (including an election day), rent paid the next business day is on time; and any late charge, however it is labeled, is capped at 10% of the rent past due. Outside the Act counties Tennessee has no late-fee statute: there is no grace period and no cap, and the fee is a lease term that a court can refuse to enforce if it is a penalty rather than a reasonable estimate of the landlord's loss. Many landlords in non-Act counties follow the 10% and five-day limits anyway.",
+    notes: "TN: TN-SCOPE: ACT COUNTIES for the cap; STATEWIDE for the explanation. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. § 66-28-201(d); § 15-1-101 (legal holidays incl. election days). CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). '\"late fee\" or \"late charge\" or \"late payment of rent\"' 13 hits; residential only § 66-28-201. KICKOFF LEAD CORRECTED: Tenn. Code Ann. § 47-50-112 (read section-open; history Acts 1983, ch. 457) is a general rule that signed contracts are enforced as written - no late-fee content (TN log §12). Penalty doctrine is case law, not relied on (instruction 16). Lease clauses: late-fee-limit-tn / late-fee-tn-other. COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson.",
+  },
+  {
+    id: "edu-no-application-fee-cap-tn",
+    title: "No Application Fee Limit",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "application-fee",
+    bodyText:
+      "Tennessee does not limit rental application or screening fees, and no statute requires a refund of an unused fee.",
+    notes: "TN: TN-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). '\"application fee\" or \"rental application\" or \"screening fee\"' returned 122 sections, every one a licensing, permit or agency fee; none concerns residential rental applications. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1).",
+  },
+  {
+    id: "edu-dishonored-payment-remedies-tn",
+    title: "Bounced Checks",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "returned-payments",
+    bodyText:
+      "When a check, draft or order is returned for no account, insufficient funds or a bad signature, the payee may charge a handling fee of up to $30. Separately, a person who writes a bad check with fraudulent intent can be liable in a civil action for the check, 10% interest, reasonable service charges, court costs and attorney's fees, unless they pay in full within 10 days after notice of dishonor; if they still do not pay within 30 days after a certified-mail notice that treble damages will be sought, the court awards treble the check amount, with the extra capped at $500. No statute sets a fee for a failed electronic or card payment.",
+    notes: "TN: TN-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. § 47-29-102 ($30 handling charge; Acts 2005, ch. 349); § 47-29-101 (a)-(f) (civil liability, 10-day cure, certified-mail treble-damages notice, $500 cap on the addition, reasonable-belief exception; Acts 2007, ch. 241); § 47-29-103 (cumulative with UCC). Criminal route under Title 39 Chapter 14 Part 1 not read. returned-payments (tagged TN) uses 'maximum amount permitted by applicable law', which § 47-29-102 fills for checks.",
+  },
+  {
+    id: "edu-local-preemption-tn",
+    title: "Local Rent Control and Housing Mandates Preempted",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-control",
+    bodyText:
+      "No city or county in Tennessee may control the amount of rent for private residential or commercial property, or require private rental units to be rented or sold below market rate (including as a condition of a zoning change, variance, permit or development approval); only voluntary incentive programs are allowed, and a person who loses money because of a prohibited local rule may sue for actual damages. In the 17 Act counties the Act also occupies the whole field of landlord-tenant regulation and bars the county government from adding to it. Other local rules still exist and are outside this library's state-level scope: Metro Nashville landlord registration, rental inspection districts, short-term rental ordinances, towing and code enforcement.",
+    notes: "TN: TN-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. § 66-35-102 (a) rent control; (b)(1) inclusionary/below-market mandates; (b)(2) voluntary incentives and §§ 13-3-601, 13-4-401 attainable-housing programs; (b)(3) damages (history 1996 ... 2024, ch. 1051, § 3); § 66-35-101 definition; § 66-35-103 government-owned property. Tenn. Code Ann. § 66-28-102(e) (2021): field preemption in Act counties, but the second sentence binds only 'the governing body of a county'; whether a city inside an Act county is also barred is not resolved. Tenn. Code Ann. §§ 13-7-601 to 13-7-606 (Short-Term Rental Unit Act, grandfathering) - short-term rentals are out of scope for this library. Municipal ordinances flagged, not resolved (instruction 20). COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson.",
+  },
+  {
+    id: "edu-no-rent-increase-notice-tn",
+    title: "No Rent Increase Notice Rule",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-increase-notice",
+    bodyText:
+      "Tennessee sets no notice period or limit for rent increases. A month-to-month rent change takes effect by ending the tenancy with the required notice and offering new terms. In the 17 Act counties a landlord may not raise rent in retaliation for a tenant's complaint or use of the Act's remedies, and a landlord converting a rental unit to a condominium in certain counties must let the tenant keep renting at the same rate for two months.",
+    notes: "TN: TN-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). '\"rent increase\" or \"increase the rent\" or \"increase in rent\" or \"increasing rent\" or \"rental rate\"' returned 7 sections: Tenn. Code Ann. § 66-28-514 (retaliation), § 66-27-123 (conversion), the rest tax apportionment and state leases. Local caps are preempted (Tenn. Code Ann. § 66-35-102). Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1).",
+  },
+  {
+    id: "edu-no-cash-receipt-duty-tn",
+    title: "No Rent Receipt Duty",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "cash-rent-receipt",
+    bodyText:
+      "Tennessee has no statute requiring a landlord to give a receipt for rent paid in cash or otherwise.",
+    notes: "TN: TN-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). '(receipt w/10 rent) or (cash w/10 rent)' returned 7 sections, none landlord-tenant; Chapters 7 and 28 read whole. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1).",
+  },
+  // Default & Termination
+  {
+    id: "edu-termination-notices-tn",
+    title: "Termination Notices for Tenant Default",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-notice",
+    bodyText:
+      "ACT COUNTIES: for a material breach, or a breach of the tenant's health-and-safety duties, the landlord gives written notice describing the breach; if it can be fixed by paying rent, repairs, damages or another amount, the tenant has 14 days after receiving the notice to fix it (tenant repairs need the landlord's prior written approval, and the notice must say so); if substantially the same breach recurs within six months the landlord may terminate on 7 days' written notice; if the breach cannot be fixed, the lease ends on a date at least 14 days after the notice. A tenant can waive the nonpayment notice in 12-point bold lease text. For violence, a real and present danger to health or safety, a hazardous or unsanitary condition, or an unauthorized occupant who refuses to leave, the landlord may terminate 3 days after the tenant receives written notice, and the tenant may go straight to court to challenge it. A week-to-week tenancy ends on 10 days' written notice and a month-to-month tenancy on 30 days' notice before a rent date. OTHER COUNTIES: 14 days' notice for unpaid rent due and in arrears after demand, or for damage beyond normal wear and tear, and the lease does not end if the tenant cures before the date in the notice (a repeat within six months allows termination on 14 days' notice); 30 days' notice for any other default; 3 days' notice for violence, drug-related criminal activity or a threat to safety by a tenant who is not mentally or physically disabled; 3 days for an unauthorized subtenant or occupant who refuses to leave. These rules do not apply to rental periods under 14 days, and no statute sets a periodic-tenancy notice outside the Act. EVERY COUNTY: public housing authority tenants can be terminated on 3 days' notice for the same serious conduct; a 55-and-over federally assisted elderly facility must give 60 days' notice to a paid-up tenant before evicting for redevelopment; and a district attorney may bring an eviction where premises are knowingly used for drug or prostitution offenses.",
+    notes: "TN: TN-SCOPE: BOTH REGIMES, labeled. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). ACT: Tenn. Code Ann. § 66-28-505(a)-(c) (history to 2019, ch. 236), § 66-28-517 (a)-(f) (3 days; injunction; willful bad faith -> damages and fees), § 66-28-512(a)-(b), § 66-28-523 (2023, ch. 400). NON-ACT: Tenn. Code Ann. § 66-7-109 (a)-(d), (f), (g), (i) (history to 2023, ch. 400, § 2); (d) housing-authority tenants (Title 13 Chapter 20 Parts 4-5) statewide. § 66-7-107 (DA-initiated eviction for §§ 39-13-513, 39-13-515, 39-17-417 offenses; landlord pays removal costs up to $200). Tenn. Code Ann. § 66-28-515(a) (Act counties): the aggrieved party must mitigate damages; (b) rights enforceable by action; § 66-28-510: after termination the landlord has a claim for possession and rent and a separate claim for actual damages and reasonable attorney's fees; § 66-28-501(b) return of prepaid rent and deposit when the tenant terminates for landlord noncompliance. Instruction 33 check: default-by-tenant's carve-out 'except where applicable law permits Landlord to proceed without giving Tenant an opportunity to cure' preserves the Act's non-remediable 14-day route and both regimes' 3-day routes. Instruction 18: no architecture imported - each element read in Tennessee text. Lease clauses: default-by-tenant, early-termination-ks, periodic-tenancy-notice-tn, nonpayment-notice-waiver-tn (Act only). COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson.",
+  },
+  {
+    id: "edu-eviction-process-tn",
+    title: "Eviction (Detainer) Process",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction",
+    bodyText:
+      "After the required termination notice, the landlord files a detainer warrant in general sessions court (or circuit court). The summons may be served on any adult in possession, by certified mail through the sheriff or constable, on a party the lease names for service, or, after three documented failed personal-service attempts, by posting on the door and first-class mail at least six days before the hearing. Trial is at least six days after service, and may be postponed only up to seven days on request. The judge decides possession and rent, interest and damages. No writ of possession issues until 10 days after judgment, and a tenant who appeals must post a bond or cash deposit of one year's rent. When the officer removes the tenant, the landlord places the tenant's belongings on the premises clear of the entrance and away from the road and must leave them undisturbed for 48 hours, after which they may be discarded; the landlord is not liable for damage to them unless malicious. Since 2026, a private party serving or executing eviction papers may not live-stream or broadcast video of it to the public without the person's written consent, with statutory damages of at least $25,000 per intentional violation; sharing it with the landlord, owner, their lawyer, the manager, the court or police is allowed.",
+    notes: "TN: TN-SCOPE: STATEWIDE - Title 29 Chapter 18 applies in every county. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. §§ 29-18-104 (unlawful detainer), 29-18-107, 29-18-108, 29-18-111 (plaintiff's bond), 29-18-113 (no notice to quit beyond the warrant; does not displace Tenn. Code Ann. §§ 66-7-109, 66-28-505), 29-18-115 (service including subdivision (a)(3) 'contractually named party' and subsection (e) posting after 3 attempts; 2019, ch. 160), 29-18-117 (6 days), 29-18-118 (postponement; 2024, ch. 755), 29-18-119, 29-18-125, 29-18-126 (10 days), 29-18-127 subsections (b)-(d) (48-hour rule; 2014, ch. 534), 29-18-128, 29-18-129 and 29-18-130 (appeal; bond of one year's rent; 2024, ch. 755), 29-18-133 (re-entry after dispossession a Class C misdemeanor), and NEW § 29-18-136 (2026 Pub. Ch. 657, SB 1993, effective on becoming law, approved 2026-04; read in the enrolled act and confirmed codified on the LexisNexis site). Also read, procedural only: Tenn. Code Ann. §§ 29-18-103, 29-18-105, 29-18-106, 29-18-109 (three years' quiet possession bars the action), 29-18-110, 29-18-112, 29-18-114, 29-18-116, 29-18-120, 29-18-121, 29-18-122, 29-18-124, 29-18-131, 29-18-134. § 29-18-123 possession-confession bond: see edu-prohibited-lease-terms-tn. OFFERED as an opt-in clause (TN log §6 decision 4, Taylor 2026-09-28): eviction-service-party-tn names a 'contractually named party' to accept detainer service (§ 29-18-115(a)(3)). Eviction-record sealing: none (edu-no-eviction-record-sealing-tn).",
+  },
+  {
+    id: "edu-self-help-eviction-tn",
+    title: "No Self-Help Eviction",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "self-help-eviction",
+    bodyText:
+      "A landlord may not take possession by changing locks, removing the tenant's belongings, or shutting off utilities or other essential services; possession comes only through the court process, or after abandonment or surrender. In the 17 Act counties a tenant who is unlawfully removed or excluded, or whose essential services are willfully cut, may recover possession or end the lease, and recover actual damages, punitive damages where appropriate, and attorney's fees, plus prepaid rent and the deposit. In every county, entering and holding property by force, threats or putting a person's goods out of doors is a forcible entry and detainer the occupant can sue over, and property may be entered only where the law allows and then only peaceably.",
+    notes: "TN: TN-SCOPE: BOTH REGIMES, labeled. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). ACT: Tenn. Code Ann. §§ 66-28-504, 66-28-511, 66-28-517(d) (no diminution of services even on a 3-day termination), 66-28-521 (only exception: utility transfer clause). STATEWIDE: §§ 29-18-101, 29-18-102(a) (forcible entry and detainer includes 'putting out of doors or carrying away the goods of the party in possession'), 29-18-103. Unlike CO, KS or MN no fixed statutory damages figure. COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson.",
+  },
+  {
+    id: "edu-retaliation-tn",
+    title: "Retaliation",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "retaliation",
+    bodyText:
+      "In the 17 Act counties a landlord may not raise rent, reduce services, or bring or threaten an eviction because the tenant complained to the landlord of a violation or used a remedy under the Act. The landlord may still evict if the code problem was caused mainly by the tenant's household or guests, if the tenant is behind on rent, or if code compliance requires work that would deprive the tenant of the unit. Outside the Act counties no statute prohibits retaliation.",
+    notes: "TN: TN-SCOPE: ACT COUNTIES ONLY. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. § 66-28-514(a)-(b). Note the statute's text: (a)(1) protects a complaint to the landlord 'of a violation under § 66-28-301' (the deposit section), not complaints to a government agency, which the uniform act covers - reproduced as enacted, not corrected. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). 'retaliat! w/25 (tenant or landlord)' returned only § 66-28-514. COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson.",
+  },
+  {
+    id: "edu-holdover-remedies-tn",
+    title: "Holdover Remedies",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "holdover",
+    bodyText:
+      "In the 17 Act counties, if a tenant stays without consent after the lease ends, the landlord may sue for possession, back rent, reasonable attorney's fees and any other damages the lease provides for, and, if the holdover is willful and not in good faith, actual damages and fees as well. If the landlord consents to the tenant staying, the tenant pays the reasonable value of use and occupancy. Outside the Act counties no statute sets a holdover measure; the landlord uses the detainer process and the lease.",
+    notes: "TN: TN-SCOPE: BOTH REGIMES. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. § 66-28-512(c), § 66-28-201(b)-(c). CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). holdover terms returned 3 sections (§§ 66-28-512, 29-18-104, 29-18-123). Lease clauses: holdover-ca (tagged), holdover-rate-tn (decision 3). K.3: the shared holdover row's 'maximum amount permitted by applicable law' has no Tennessee figure, so it is not tagged.",
+  },
+  {
+    id: "edu-dv-tenancy-protections-tn",
+    title: "Domestic Abuse: Evicting Only the Perpetrator",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-lease-termination",
+    bodyText:
+      "If domestic abuse is the reason a tenancy is being terminated, only the perpetrator may be evicted; the landlord may not evict the victims, children under 18 or innocent occupants solely because of the abuse, and the perpetrator stays liable for all amounts due under the lease. The landlord may remove the perpetrator from the lease and require the remaining adults to qualify for a new lease for the rest of the term, and is not liable to the perpetrator for doing so. The victim and all adult tenants must agree in writing not to let the perpetrator return and to report any return, and breaking that agreement is cause to terminate. These protections apply only after the victim obtains an order of protection for the specific incident that orders the perpetrator out or away, or finds a danger, and gives the landlord a copy; they do not apply where the perpetrator is a child or dependent of a tenant, and they do not stop an eviction of a victim for nonpayment or other lease violations. Separately, a tenant who is a victim of domestic abuse, sexual assault or stalking may end the lease early with documentation.",
+    notes: "TN: TN-SCOPE: STATEWIDE - enacted twice: Tenn. Code Ann. § 66-28-517(g) (Act counties) and § 66-7-109(e) (other counties). Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). (g)(1)-(7) / (e)(1)-(7) (2016, ch. 895; 2020, ch. 528); 'domestic abuse' per § 36-3-601 (read). Termination right: dv-lease-termination-tn (§§ 66-28-205, 66-7-112). Federal VAWA (34 U.S.C. § 12491) for covered housing - FEDERAL, not read (instruction 16). COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson.",
+  },
+  {
+    id: "edu-servicemember-rights-tn",
+    title: "Servicemember Rights",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "military-lease-termination",
+    bodyText:
+      "Tennessee has no state statute letting a servicemember end a residential lease; the federal Servicemembers Civil Relief Act governs, and the lease's early-termination terms preserve it.",
+    notes: "TN: TN-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). '(military or servicemember or \"service member\" or \"armed forces\") w/25 (lease or \"rental agreement\")' returned 7 sections (leases to the United States, state property, licensing, tax), none a tenant termination right. Federal: 50 U.S.C. § 3955 - FEDERAL, not read (instruction 16). Library decision (Taylor, AZ): no SCRA lease clause; early-termination-ks (tagged) preserves the right. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1).",
+  },
+  {
+    id: "edu-disability-lease-termination-tn",
+    title: "Lease Termination for Public Housing Acceptance (Physical Disability)",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "disability-termination",
+    bodyText:
+      "A tenant who is permanently and totally disabled with a physical disability may end a lease of their primary residence, without penalty or rent after moving out, when accepted into a public housing facility, by giving the landlord written proof of the acceptance; the landlord must acknowledge the termination in writing. The right does not apply if the landlord has made significant accessibility modifications to the unit for a person with a physical disability.",
+    notes: "TN: TN-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. § 66-7-110 (Acts 2001, ch. 169; 2011, ch. 47); definition by reference to § 71-4-1102 ('permanently and totally disabled') - not read (L.5 dependency, TN log §7).",
+  },
+  {
+    id: "edu-drug-nuisance-eviction-tn",
+    title: "Drug and Prostitution Activity at Rental Property",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "drug-activity",
+    bodyText:
+      "A tenancy may be terminated where the premises or the area immediately around them is knowingly used for prostitution-related or drug-sale offenses. The district attorney can demand in writing that the owner or landlord commit, within five days, to diligently seek the eviction; if the landlord does not, or does not follow through, the district attorney may bring the eviction as if they were the landlord, can recover fees and costs from the respondents, and the landlord pays the cost of removing the tenant's belongings (up to $200). Real property used repeatedly for serious drug offenses can also be forfeited to the state.",
+    notes: "TN: TN-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. § 66-7-107 (history to 2003, ch. 133); § 53-11-452 (real-property forfeiture; innocent-owner provisions not read - TN log §7). Related: § 66-7-109(d) 3-day notice for drug-related criminal activity in non-Act counties.",
+  },
+  {
+    id: "edu-unauthorized-occupant-removal-tn",
+    title: "Squatters and Unauthorized Occupants",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "unauthorized-occupant-removal",
+    bodyText:
+      "Since 2024 a property owner or authorized agent can ask the county sheriff to remove a person unlawfully occupying a residential dwelling without going to court, using a sworn complaint in the statutory form, if the person entered unlawfully, the property was not open to the public, the owner told them to leave, they are not a current or former tenant under any written or oral lease the owner authorized, they are not the owner's immediate family, and no related lawsuit is pending. The sheriff serves a notice to vacate immediately and puts the owner in possession. False or wrongful use exposes the owner to actual damages, statutory damages of three times fair market rent, costs and fees. It cannot be used against a tenant or former tenant; they must be evicted through the court. For an unauthorized subtenant or occupant who came in through a tenant, the landlord may terminate on 3 days' notice (both regimes). A 2025 law gives a similar remedy for commercial property.",
+    notes: "TN: TN-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. § 29-18-135 (Acts 2024, ch. 1009; controls over Title 66 Chapters 7 and 28 on conflict); § 29-18-132 (Acts 2025, ch. 90, commercial); § 66-28-517(a)(4); § 66-7-109(f); § 66-28-202(b) (Act counties: persons who take possession without paying rent or signing a lease are trespassers). COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson.",
+  },
+  {
+    id: "edu-no-tenant-death-termination-tn",
+    title: "No Lease Termination on a Tenant's Death",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-death-of-tenant",
+    bodyText:
+      "Tennessee has no statute ending a lease when a tenant dies or setting a procedure for a deceased tenant's belongings. In the 17 Act counties the landlord may enter the unit if the tenant is deceased, incapacitated or incarcerated.",
+    notes: "TN: TN-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). '(death or deceased or dies or decedent) w/15 (tenant or lessee) w/30 (lease or rent! or dwelling)' returned 4 sections: Tenn. Code Ann. § 30-2-304 (life tenant), § 67-5-601, § 66-28-403(e)(4), § 45-2-905 (safe deposit). Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1).",
+  },
+  {
+    id: "edu-no-eviction-record-sealing-tn",
+    title: "No Eviction Record Sealing",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-record-sealing",
+    bodyText:
+      "Tennessee has no statute sealing, expunging or limiting public access to eviction (detainer) case records.",
+    notes: "TN: TN-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). '(expunge! or expunction or seal!) w/25 (detainer or eviction)' returned 0. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1).",
+  },
+  {
+    id: "edu-sale-of-rented-property-tn",
+    title: "Selling a Rented Property",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "sale-of-rented-property",
+    bodyText:
+      "A lease binds a buyer of rented property. In the 17 Act counties a landlord who sells in good faith to a bona fide buyer is released from liability under the lease for events after the tenant receives written notice of the sale and the deposit is transferred to the buyer, and the owner-disclosure information must be kept current by the successor. Tennessee has no statute protecting tenants when the landlord's lender forecloses; the federal Protecting Tenants at Foreclosure Act applies.",
+    notes: "TN: TN-SCOPE: BOTH REGIMES. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. § 66-28-305 (2005, ch. 156, § 3), § 66-28-302(b). Foreclosure: edu-no-foreclosure-tenant-statute-tn.",
+  },
+  {
+    id: "edu-no-foreclosure-tenant-statute-tn",
+    title: "No State Foreclosure Protection for Tenants",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "foreclosure",
+    bodyText:
+      "Tennessee has no statute giving tenants notice or other rights when the landlord's lender forecloses. The federal Protecting Tenants at Foreclosure Act generally lets a bona fide tenant stay to the end of the lease, or at least 90 days after notice.",
+    notes: "TN: TN-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). 'foreclos! w/30 (tenant or lessee or \"rental agreement\")' returned 1 section (Tenn. Code Ann. § 68-215-204, environmental lender liability). Federal PTFA (12 U.S.C. § 5220 note) - FEDERAL, not read (instruction 16). Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1).",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-landlord-repair-duties-tn",
+    title: "Repair Duties and Tenant Remedies",
+    group: "Landlord Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-maintenance",
+    bodyText:
+      "In the 17 Act counties the landlord must comply with building and housing codes materially affecting health and safety, make all repairs needed to keep the premises fit and habitable, keep common areas clean and safe, and in complexes of four or more units provide trash receptacles. A tenant may recover damages, get an injunction and recover attorney's fees after giving 14 days' written notice of the landlord's noncompliance. If the landlord deliberately or negligently fails to supply essential services (utilities such as gas, heat and electricity, and other duties materially affecting health and safety), the tenant, after written notice, may buy the service and deduct the cost from rent, recover the reduced rental value, or move to substitute housing and pay no rent meanwhile, plus fees. Tenants must keep their part of the premises clean and safe, dispose of waste, not damage the property or engage in illegal conduct, and not disturb neighbors; if a tenant fails a health-and-safety duty that can be fixed, the landlord may do the work after 14 days' written notice and bill it as rent. Outside the Act counties there is no statutory repair duty or repair remedy; the lease and local housing codes govern.",
+    notes: "TN: TN-SCOPE: ACT COUNTIES for the duties; STATEWIDE for the explanation. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. §§ 66-28-304, 66-28-401, 66-28-501, 66-28-502, 66-28-506, 66-28-104(2), (15). CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). 'habitab! or untenantable or \"unfit for human habitation\"' returned 9 sections; residential-landlord ones §§ 66-28-104, 66-28-304, 66-7-102 (casualty surrender). Common-law habitability outside the Act is case law, not relied on (instruction 16). Lease clauses: landlord-maintenance, tenant-maintenance (tagged), tenant-repair-agreement-tn. COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson.",
+  },
+  // Notices & General
+  {
+    id: "edu-prohibited-lease-terms-tn",
+    title: "Lease Terms Tennessee Voids",
+    group: "Notices & General",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "prohibited-lease-terms",
+    bodyText:
+      "In the 17 Act counties a lease may not have the tenant confess judgment, exculpate or limit the landlord's liability arising under law, or indemnify the landlord for it; such terms are unenforceable, and a landlord who willfully uses a lease containing terms known to be prohibited is liable to the tenant for actual damages. A lease also cannot make the tenant waive rights or remedies under the Act, and a court may refuse to enforce an unconscionable term. A contractual lien on a tenant's household goods is unenforceable unless perfected by a UCC filing with the Secretary of State, and every other landlord lien is prohibited. Outside the Act counties these rules do not apply, and an old statute still allows a lease bond in which the tenant authorizes a confessed judgment for possession at the end of the term; the library offers it only as an optional clause for those counties (possession-bond-tn), and offers an optional perfected household-goods security interest for the Act counties (household-goods-lien-tn). The library's parking, storage, insurance and pet clauses avoid exculpatory and indemnity language in every county.",
+    notes: "TN: TN-SCOPE: BOTH REGIMES. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. §§ 66-28-201(a), 66-28-203 subsections (a)-(b) (penalty: actual damages; instruction 49), 66-28-204 (unconscionability; subsection (c): a Tenn. Code Ann. § 66-28-505(f) clause is enforceable), 66-28-509 (liens). Tenn. Code Ann. § 29-18-123 (bond to confess judgment for possession; statewide text, but void as a lease term in Act counties under § 66-28-203(a)(1)); OFFERED as an opt-in clause for non-Act counties only: possession-bond-tn; the § 66-28-509 lien as an opt-in for Act counties: household-goods-lien-tn (TN log §6 decision 4, Taylor 2026-09-28). CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). '(jury w/5 waive!) or \"confession of judgment\" or \"confess judgment\" or \"confess a judgment\"' 47 hits; residential only §§ 29-18-123, 66-28-203; no jury-waiver rule for leases. Instruction 49: shared parking, storage-space, tenants-property-insurance and pet-policy not tagged; the variants parking-ks-oh-ca, storage-space-ks-oh-ca and tenants-property-insurance-ks-oh-ca and pet-policy-tn used instead. COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-rules-and-regulations-tn",
+    title: "Rules and Regulations",
+    group: "Rules & Regulations",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rules-regulations",
+    bodyText:
+      "In the 17 Act counties a landlord's rule is enforceable only if it promotes tenants' convenience, safety or welfare, protects the property from abusive use or fairly distributes services; is reasonably related to that purpose; applies to all tenants; is explicit enough to tell tenants what to do; is not meant to evade the landlord's duties; and the tenant had notice of it when signing. A rule adopted later binds the tenant if reasonable notice is given and it does not substantially modify the lease. From January 1, 2027, a rule is also unenforceable if it violates tenants' firearm rights.",
+    notes: "TN: TN-SCOPE: ACT COUNTIES ONLY. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. § 66-28-402(a)(1)-(6), (b); (a)(7) added by 2026 Pub. Ch. 606 § 3, effective 2027-01-01. RF421 § 10(M) makes added rules effective 'upon delivery' - the statute adds the no-substantial-modification limit (TN log §15). COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson.",
+  },
+  {
+    id: "edu-tenant-firearms-tn",
+    title: "Tenant Firearm Rights (from 2027)",
+    group: "Rules & Regulations",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "firearms",
+    bodyText:
+      "For leases entered into, amended, extended or renewed on or after January 1, 2027, a Tennessee landlord may not prohibit a tenant's lawful possession, carrying, transport or storage of firearms, firearm parts or ammunition in the unit, in a vehicle in tenant parking, or in other areas the landlord controls on the way between them. The landlord may require firearms to be concealed, holstered or in a carrying container when moved between vehicle and unit and in common areas, and for noncompliance may ask the tenant to comply and use any other remedy the lease expressly states, so long as it does not bar lawful possession in the unit. A tenant can sue for an injunction, actual and punitive damages and attorney's fees. Some facilities are excluded (state-agency leases, licensed mental health, children's services, hospital, nursing and assisted-care facilities, certain independent living, and school property). Remove any firearm ban from leases and rules signed or renewed from 2027. Separately, handgun permit holders may keep a firearm locked in their vehicle in a parking area under existing law.",
+    notes: "TN: TN-SCOPE: STATEWIDE - Tenn. Code Ann. § 66-7-113 and § 66-28-206. 2026 Pub. Ch. 606 (SB 350), enrolled act read in full; codified sections confirmed on the LexisNexis site; effective 2027-01-01 (instruction 34). § 39-17-1313 (vehicle storage by permit holders) read by title and opening text only. Lease clause: firearm-carry-rules-tn. No shared row bans firearms (screened).",
+  },
+  // Notices & General
+  {
+    id: "edu-electronic-notices-tn",
+    title: "Electronic Notices",
+    group: "Notices & General",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "notice-delivery-methods",
+    bodyText:
+      "In the 17 Act counties, if the tenant provides an e-mail address in the lease, the landlord may send notices required by the Act to it unless a section requires another form (for example posting and mailing for abandonment, or a certificate of mailing for a deposit damage list); a landlord may not require an e-mail address as a condition of renting. Tennessee's electronic transactions law has no exclusion for eviction or default notices, so in any county parties who agree to transact electronically can use e-mail for written notices, though court papers are served under the detainer statute.",
+    notes: "TN: TN-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. § 66-28-108; Title 47 Chapter 10 Part 1 read (§§ 47-10-103 scope - excludes only wills/testamentary trusts and most UCC articles; 47-10-105; 47-10-107; 47-10-108). INSTRUCTION 47: no hit - contrast NC § 66-313(e)(2), SC § 26-6-30(B)(2)(c)(ii). Lease clause: electronic-notice-tn. COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson.",
+  },
+  {
+    id: "edu-landlord-registration-davidson-tn",
+    title: "Landlord Registration (Metro Nashville / Davidson County)",
+    group: "Notices & General",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rental-registration",
+    bodyText:
+      "In a county with a metropolitan government and more than 500,000 people (Davidson County, Metro Nashville), every landlord of one or more dwelling units must file with the local building-codes agency the landlord's or agent's name, phone and street address (not a P.O. box) and the address of each unit, on the agency's form, with a fee of up to $10 a year, and must report changes of ownership within 30 days. Failure is fined $50 per week after a hearing on at least 15 days' mailed notice.",
+    notes: "TN: TN-SCOPE: COUNTY-SPECIFIC - Davidson County only. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. § 66-28-107 (Acts 2006, ch. 800; 2014, ch. 845): (c) 'any county having a metropolitan form of government and a population in excess of five hundred thousand (500,000), according to the 2000 federal census or any subsequent federal census' - Davidson (Metro Nashville) is the only metropolitan-government county of that size (identification is this pass's inference from census counts; the statute names no county). Although placed in Chapter 28, the section is its own scope rule. Metro ordinances not read (instruction 20). COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson.",
+  },
+  {
+    id: "edu-rental-inspection-districts-tn",
+    title: "Rental Inspection Districts and Code-Violation Inspections",
+    group: "Notices & General",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rental-inspection",
+    bodyText:
+      "State law lets Metro Nashville and certain cities (identified by population bracket) create residential rental inspection districts in deteriorating areas, with owner notification, initial and periodic inspections, fees and penalties; the Act's landlord-tenant rights are unchanged. Separately, any Tennessee city may inspect inside a rental unit that has had three code violations cited on three different dates within six months, with the tenant's consent, a warrant or in an emergency.",
+    notes: "TN: TN-SCOPE: COUNTY/CITY-SPECIFIC. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. §§ 13-21-301 to 13-21-314 (read: 13-21-301, 13-21-302, 13-21-311, 13-21-314; others by title from search results); § 13-21-314 applies the part to a metropolitan-government county over 500,000 (2000 census) and to cities in three narrow population brackets (not identified - TN log §7); § 6-54-511 (municipal in-home inspection after 3 violations in 6 months). COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-water-authority-tenant-form-hamilton-tn",
+    title: "Water and Wastewater Tenant Form (Hamilton County)",
+    group: "Tenant Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utilities-responsibility",
+    bodyText:
+      "In Hamilton County, a water and wastewater authority must provide a written acknowledgment form that a tenant completes when entering into or renewing a residential lease (where the unit is not submetered or billed by allocation). The landlord must send the completed form to the authority within one business day; once it does, the authority cannot collect the tenant's delinquent charges from the landlord or a later tenant. A landlord may refuse to rent to an applicant who will not complete it, but a landlord who rents to one who did not complete it is liable for that tenant's unpaid charges. The authority may require a deposit of up to three months' average charges on the tenant's first bill.",
+    notes: "TN: TN-SCOPE: COUNTY-SPECIFIC - Hamilton County only. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. § 68-221-620 (Acts 2016, ch. 1082): (e) applies in counties with a population 'not less than 336,400 nor more than 336,500, according to the 2010 federal census or any subsequent federal census' - Hamilton County (2010 count 336,463; U.S. Census Bureau data read for edu-urlta-county-scope-tn). Because the bracket is 'or any subsequent census', a later census could move Hamilton out - the opposite of the URLTA freeze. (a) former-tenant payment restriction applied only 2016-09-01 to 2016-12-31. Found by the code-wide 'master meter or submeter!' search (TN log §17). COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson.",
+  },
+  // Notices & General
+  {
+    id: "edu-child-abuse-investigation-cooperation-tn",
+    title: "Cooperating with Child Abuse Investigations",
+    group: "Notices & General",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "law-enforcement-cooperation",
+    bodyText:
+      "A landlord or person in control of residential rental property must give a Department of Children's Services case manager or child protective investigation team information, if known, about the address or location of a child alleged to be abused or neglected who lives or is located on the property, and is not liable for cooperating.",
+    notes: "TN: TN-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. § 37-1-415 (found by the code-wide 'tenant' and 'landlord' searches, TN log §17).",
+  },
+  // Disclosures
+  {
+    id: "edu-fair-housing-tn",
+    title: "Tennessee Fair Housing Law",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fair-housing",
+    bodyText:
+      "Tennessee's Human Rights Act bars housing discrimination because of race, color, creed, religion, sex, disability, familial status or national origin - the federal classes plus creed. It covers refusing to rent or negotiate, discriminatory terms, false statements of unavailability, and discriminatory ads, application forms and records of inquiry; for disability it requires reasonable accommodations and, at the tenant's expense, reasonable modifications (a landlord may require restoration of the interior at move-out), and accessible design for covered multifamily buildings first occupied after March 13, 1991. Exemptions include an owner-occupied building of two units, renting a single room in one's own residence, certain religious organizations, and single-sex dormitories; housing for older persons is exempt from familial status. Tennessee has no source-of-income, sexual orientation, gender identity, marital status or military status class. Separately, a physically disabled person must be given priority for first- and second-floor units in rental buildings of three or more stories where the disability would prevent reasonable access to higher floors (a Class C misdemeanor, $50 fine).",
+    notes: "TN: TN-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. § 4-21-601 (history to 2025, ch. 471, § 6 - the 2025 Human Rights Commission restructuring; the host copy prints the section as amended by that act, and Pub. Ch. 471 was found in the public-chapter scan); § 4-21-602 (exemptions; (d)(3) drug manufacture/distribution convictions); § 66-7-104(a)-(c) (full and equal access; (c)(2) floor-priority duty in buildings of three or more stories). NOTE: the 2-unit owner-occupied exemption is NARROWER than the federal 4-unit Mrs. Murphy exemption (42 U.S.C. § 3603(b)(2); FEDERAL). Enforcement procedures in Title 4 Chapter 21 Parts 3-5 not read (TN log §7). Creed is the only added class. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). '\"source of income\" or \"housing choice voucher\" or \"section 8\" or \"rental assistance\"' 40 hits, none landlord-tenant.",
+  },
+  {
+    id: "edu-no-source-of-income-rule-tn",
+    title: "No Source-of-Income Protection",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "source-of-income",
+    bodyText:
+      "Tennessee law does not require landlords to accept housing choice vouchers or protect source of income, and local governments cannot impose below-market rental mandates.",
+    notes: "TN: TN-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). '\"source of income\" or \"housing choice voucher\" or \"section 8\" or \"rental assistance\"' returned 40 sections (retirement, child support, licensing compacts, housing-authority commissioners), none a landlord duty; Tenn. Code Ann. § 4-21-601 has no such class. Tenn. Code Ann. § 66-35-102(b) (below-market mandates preempted). Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1).",
+  },
+  // Pets
+  {
+    id: "edu-service-animal-law-tn",
+    title: "Service and Support Animal Law",
+    group: "Pets",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "assistance-animal-accommodation",
+    bodyText:
+      "Tennessee's statute on service and support animals in rentals applies in every county. A landlord may ask for reliable documentation only when the disability or the need is not apparent, may verify it without seeking medical records, and may deny a request if documentation is not provided; website certificates sold for a fee are not reliable documentation. A tenant who misrepresents a disability or need, or supplies false documentation, commits a material lease default, and knowingly doing so is also a crime. A landlord is not liable for injuries caused by an animal allowed as a reasonable accommodation. A legally blind tenant's guide dog cannot carry a deposit, and refusing to rent to a blind person because of a guide dog is a misdemeanor. Federal fair housing law still applies.",
+    notes: "TN: TN-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. §§ 66-7-111, 66-28-406, 66-28-505(f), 66-28-204(c), 66-7-104(d), 66-7-106 (read section-open); § 39-16-304 (misrepresentation offense; subsections beyond (b)(2) and the penalty grade read only in part - TN log §7). Lease clause: assistance-animal-accommodation-tn. Federal FHA (42 U.S.C. § 3604(f)) - FEDERAL.",
+  },
+  // Disclosures
+  {
+    id: "edu-criminal-record-negligence-shield-tn",
+    title: "Renting to Applicants with Criminal Records",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-screening",
+    bodyText:
+      "Since 2021 a landlord cannot be held liable for negligence solely because it rented to a person with a prior criminal conviction, and evidence of that conviction is not admissible in such a suit, unless the landlord actually knew of a conviction for a violent offense or violent sexual offense, or learned of one committed during the tenancy and willfully let the person stay. Tennessee has no statute limiting the use of criminal history or credit reports in screening; federal fair housing and consumer-reporting laws apply.",
+    notes: "TN: TN-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. § 40-29-108 (Acts 2021, ch. 298) read in full; definitions by reference to §§ 40-35-120(b), 40-39-202 not read (L.5, TN log §7). CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). '(\"credit report\" or \"consumer report\" or \"criminal history\" or \"background check\") w/30 (tenant or rental or landlord or housing)' 2 hits, both unrelated.",
+  },
+  {
+    id: "edu-immigration-harboring-tn",
+    title: "Immigration Status and the 2025 Harboring Law",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "immigration-status-inquiry",
+    bodyText:
+      "Tennessee has no statute requiring or forbidding a landlord to ask about immigration status. In 2025 Tennessee made human smuggling a felony, including intentionally concealing, harboring or shielding from detection, for commercial advantage or private gain, a person the defendant knows has illegally entered or remained in the United States; 'harbor' is defined as providing shelter to or concealing the whereabouts of such a person. The law imposes no duty to check status, and this library has not researched whether an ordinary lease could fall within it; ask counsel before relying on either reading. Screening by national origin or apparent citizenship risks a fair housing violation.",
+    notes: "TN: TN-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. § 39-17-118 (Acts 2025, ch. 424, § 5) read in full. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). '(immigra! or alien) w/25 (rent! or lease or landlord or tenant or harbor!)' returned only § 39-17-118. No case law researched (instruction 16).",
+  },
+  {
+    id: "edu-meth-lab-quarantine-tn",
+    title: "Methamphetamine Lab Quarantine and Reporting",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "meth-disclosure",
+    bodyText:
+      "Local law enforcement may quarantine property where methamphetamine was made, post it, record a notice with the register of deeds and notify owners and lienholders. It is a Class B misdemeanor to offer quarantined property for habitation or to live in it, and the quarantine stays until a certified industrial hygienist certifies the property safe (a certificate of fitness can be recorded). A landlord, manager or agent of property they do not live in who knows or reasonably should know meth is or was manufactured there must notify law enforcement within 24 hours (Class B misdemeanor). There is no statute requiring a landlord to disclose a past meth lab to a new tenant.",
+    notes: "TN: TN-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. §§ 68-212-501 to 68-212-508 read (503 (d), (e) duties; 505; 507, 508). Administrative rules under § 68-212-504 not read (instruction 16). CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). 'clandestine or methamphetamine w/15 (landlord or tenant or rent! or lease)' returned 0; the part was read whole instead. Seller disclosure rules in Title 66 Chapter 5 not researched (sales out of scope).",
+  },
+  {
+    id: "edu-no-radon-disclosure-tn",
+    title: "No Radon Disclosure Rule",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "radon-disclosure",
+    bodyText:
+      "Tennessee has no statute requiring a landlord to test for or disclose radon.",
+    notes: "TN: TN-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). 'radon or mold or mildew or \"bed bug\" or \"bed bugs\" or bedbug or bedbugs' returned 16 sections, none landlord-tenant (school indoor air § 49-2-121; molders' liens; die molds). Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1).",
+  },
+  {
+    id: "edu-no-mold-bedbug-disclosure-tn",
+    title: "No Mold or Bed Bug Disclosure Rule",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "bed-bug-disclosure",
+    bodyText:
+      "Tennessee has no statute requiring a landlord to disclose mold or bed bugs or setting a treatment timeline. In the 17 Act counties the general duty to keep the premises fit and habitable applies.",
+    notes: "TN: TN-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). same combined search as edu-no-radon-disclosure-tn (16 hits, none landlord-tenant). Tenn. Code Ann. § 66-28-304(a)(2). Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1).",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-no-co-alarm-duty-tn",
+    title: "No Carbon Monoxide Alarm Duty for Rentals",
+    group: "Rules & Regulations",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "carbon-monoxide-alarm",
+    bodyText:
+      "Tennessee's carbon monoxide alarm statute covers hotels and similar lodging with fuel-burning appliances, not apartments or rental houses; newer buildings follow the building code the state adopts. Smoke alarms are required.",
+    notes: "TN: TN-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). '\"carbon monoxide\"' returned 11 sections: Tenn. Code Ann. § 68-120-112 (CO alarms only in hotels, which include boarding and rooming houses; smoke alarms in apartment buildings), § 68-120-122 (child care), § 68-120-101 (building standards), vehicles and unrelated. Building code editions incorporated by rule not read (instruction 16). Smoke alarm clause: smoke-alarms-tn. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1).",
+  },
+  // Disclosures
+  {
+    id: "edu-lead-abatement-certification-tn",
+    title: "Lead Paint: State Abatement Certification",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lead-based-paint",
+    bodyText:
+      "The federal lead-based paint disclosure applies to pre-1978 housing. Tennessee adds a certification program: after its rules took effect, lead-based paint inspection, risk assessment and abatement may be done only by certified persons, except an owner abating their own residential property, or routine cleaning and repainting by an owner or a property management company's employee where existing lead paint is not significantly damaged. Renovators of target housing must follow the state rules.",
+    notes: "TN: TN-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. §§ 68-131-401 to 68-131-406 (404 read in full; others by title from search). State rules not read (instruction 16). CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). '\"lead-based paint\" or \"lead poisoning\" or \"lead hazard\" or \"lead-based\"' 9 hits; no landlord remediation-order statute like GA, NC or SC. Federal disclosure: lead-based-paint (tagged; 42 U.S.C. § 4852d, 24 CFR Part 35, 40 CFR Part 745 - FEDERAL).",
+  },
+  {
+    id: "edu-no-flood-disclosure-tn",
+    title: "No Flood Disclosure Rule",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "flood-disclosure",
+    bodyText:
+      "Tennessee has no statute requiring a landlord to disclose flood risk, flood zone status or past flooding to a tenant.",
+    notes: "TN: TN-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). 'flood w/25 (tenant or lessee or lease or landlord or rental)' returned 10 sections, all tax, authority definitions or vehicle titling. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1).",
+  },
+  {
+    id: "edu-no-sex-offender-disclosure-tn",
+    title: "No Sex Offender Disclosure Rule",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "sex-offender-disclosure",
+    bodyText:
+      "Tennessee has no statute requiring a landlord to notify tenants about registered sex offenders nearby or in the building.",
+    notes: "TN: TN-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). '\"sex offender\" w/25 (landlord or tenant or rent! or lease)' returned 0. Registry and residency restrictions (Title 40 Chapter 39) not researched as landlord duties. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1).",
+  },
+  // Default & Termination
+  {
+    id: "edu-condo-conversion-notice-tn",
+    title: "Condominium Conversion",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "conversion-notice",
+    bodyText:
+      "In Class 1 and Class 2 counties (a population classification in the county-salary statute), an owner converting an occupied rental unit to a condominium or other unit for sale must give each tenant at least two months' actual notice and let the tenant keep renting at the same rate for those two months, even past the lease end; a sale to anyone else is invalid without that notice, a tenant who did not get it may stay two months at the same rent or leave immediately with reasonable moving expenses paid, and a tenant who must sue recovers costs and attorney's fees. Statewide, a condominium declarant must give residential tenants of a conversion building notice at least 60 days before they must vacate.",
+    notes: "TN: TN-SCOPE: COUNTY-SPECIFIC (Class 1 and 2 counties) plus STATEWIDE. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. § 66-27-123 (a)-(e) (Acts 1979, ch. 293); the Class 1/Class 2 definition is in § 8-24-101 - NOT READ, so which counties qualify is open (L.5, TN log §7); § 66-27-507 (declarant notice, 60 days; rest of section not read). COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson.",
+  },
+  // Parking & Storage
+  {
+    id: "edu-towing-tn",
+    title: "Towing from Rental Property",
+    group: "Parking & Storage",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "towing",
+    bodyText:
+      "In the 17 Act counties a landlord may tow a vehicle not registered to a tenant, occupant or known guest that has been on the property more than seven consecutive days after posting 10 days' written notice on it; may tow immediately, without notice, a vehicle violating posted permit-parking or traffic and parking signs (fire lanes, hydrants, accessible spaces, trash receptacles); may tow flat-tired, inoperable, badly damaged or unregistered vehicles after 10 days' posted notice (the tow operator notifies police first if the owner is absent); and may tow a nuisance vehicle after 24 hours' posted notice. Outside the Act counties no statute gives landlords a towing procedure; cities may regulate towing, and moving a vehicle whose owner holds a lease interest in the property without consent is unlawful except on the owner's or tenant's request or by court order.",
+    notes: "TN: TN-SCOPE: ACT COUNTIES for the procedure; STATEWIDE for § 55-5-122. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. §§ 66-28-518, 66-28-519, 66-28-520, 66-28-104(7), (17), (19); § 55-5-122 (read). CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). '(tow! or wrecker) w/25 (landlord or tenant or apartment or residential)' 16 hits; landlord procedure only §§ 66-28-518 to 66-28-520. Abandoned-vehicle law in Title 55 Chapter 16 not read. parking-vehicle-rules (tagged) defers to 'applicable law'. RF421 § 10(C) uses a 10-day posted notice for non-operative vehicles (TN log §15). COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson.",
+  },
+  // Security Deposit
+  {
+    id: "edu-no-move-in-inspection-rule-tn",
+    title: "No Move-In Inspection Rule",
+    group: "Security Deposit",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "move-in-inventory",
+    bodyText:
+      "Tennessee has no statute requiring a move-in inspection, condition checklist or inventory. The Act's inspection right is at move-out, in the 17 Act counties only.",
+    notes: "TN: TN-SCOPE: STATEWIDE. Chapter 28 and Title 66 Chapter 7 read whole; Tenn. Code Ann. § 66-28-301(b) is move-out only. CONFIRMED ABSENT on the chapter reads and the code-wide 'security deposit' and 'abandon!' searches (LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17)). existing-condition (tagged) records condition by contract. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1).",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-no-ev-charging-right-tn",
+    title: "No Tenant EV Charging Right",
+    group: "Rules & Regulations",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "ev-charging",
+    bodyText:
+      "Tennessee gives tenants no statutory right to install electric vehicle charging, satellite dishes or antennas.",
+    notes: "TN: TN-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). '\"electric vehicle\" or \"charging station\" or satellite or antenna w/25 (tenant or lessee or landlord)' returned 1 section (§ 65-25-102, unrelated). 2026 Pub. Ch. 914 (EV charging stations, Titles 48 and 66) was screened in the public-chapter scan and contains no tenant or lease term. Federal OTARD rule (47 CFR § 1.4000) for antennas - FEDERAL, not read. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1).",
+  },
+  {
+    id: "edu-no-flag-display-rule-tn",
+    title: "No Tenant Flag Display Statute",
+    group: "Rules & Regulations",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "flag-display",
+    bodyText:
+      "Tennessee has no statute protecting a tenant's display of the United States flag or other flags at a rental property.",
+    notes: "TN: TN-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). 'flag w/15 (tenant or landlord or lease or lessee)' returned 0. common-area-use (tagged) keeps its savings sentence, which is harmless here. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1).",
+  },
+  // Pets
+  {
+    id: "edu-no-pet-fee-limit-tn",
+    title: "No Limit on Pet Deposits or Pet Fees",
+    group: "Pets",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "pet-fee",
+    bodyText:
+      "Tennessee does not limit pet deposits, pet rent or pet fees, except that no deposit or extra charge may be taken for a legally blind tenant's guide dog, and no pet payment for a service or support animal allowed as an accommodation.",
+    notes: "TN: TN-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). '(pet w/10 deposit) or \"pet fee\" or \"pet rent\"' returned 0. Tenn. Code Ann. §§ 66-7-106(b), 66-7-104(d), 66-7-111(b), 66-28-406(b). Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1).",
+  },
+  // Notices & General
+  {
+    id: "edu-no-police-call-protection-tn",
+    title: "No Right-to-Call-Police Statute",
+    group: "Notices & General",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "emergency-assistance-right",
+    bodyText:
+      "Tennessee has no statute protecting a tenant from eviction or penalty for calling police or emergency services, and no statute limiting nuisance ordinances that count such calls. In the 17 Act counties, general retaliation protection covers only complaints to the landlord and use of the Act's remedies.",
+    notes: "TN: TN-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). '(police or \"law enforcement\" or 911 or \"emergency assistance\") w/25 (tenant or lessee) w/25 (evict! or terminat! or penal!)' returned 0; Tenn. Code Ann. § 66-28-514. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1).",
+  },
+  // Disclosures
+  {
+    id: "edu-stigmatized-property-tn",
+    title: "No Duty to Disclose a Death, Crime or Non-Transmissible Illness",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "stigmatized-property",
+    bodyText:
+      "No cause of action arises against a property owner for failing to disclose that an occupant had HIV or another disease medically determined to be highly unlikely to be transmitted by occupying a dwelling, or that the property was the site of a homicide, felony or suicide, or of an event that did not affect the physical property. Fair housing law separately bars treating an applicant differently because of a disability such as HIV.",
+    notes: "TN: TN-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1). Tenn. Code Ann. § 66-5-207 (Acts 1994, ch. 828, § 7), read in full: it sits in the residential property disclosure part but applies 'whether or not such real property is subject to this part' and to 'an owner', so it is read here as reaching landlords; no case law researched (instruction 16). Found by the code-wide search '(stigmatiz! or \"psychologically impacted\" or homicide or suicide) w/25 (disclos!) w/25 (property or dwelling or lease)': 1 hit (LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17)).",
   },
 ];
 

@@ -27,6 +27,7 @@ const STATE_NAMES = {
   GA: "Georgia",
   NC: "North Carolina",
   SC: "South Carolina",
+  TN: "Tennessee",
 };
 
 const STATE_CONFIG = {
@@ -790,6 +791,43 @@ const STATE_CONFIG = {
         label:
           "South Carolina agency rules LegiScan can't see: State Fire Marshal detector regulations, lead rules, PSC utility disconnection rules, Real Estate Commission trust-account rules (SC log §7)",
         clauseIds: ["edu-lead-hazards-sc"],
+      },
+    ],
+  },
+
+  TN: {
+    // Tenn. Code Ann. sections are title-chapter-section, hyphenated like CO
+    // ("66-28-301", "29-18-115"), so a bare quoted number is specific enough
+    // and needs no buildQuery. Citations are split on ";" and only the
+    // "Tenn. Code Ann." parts are read (the lead-paint and lien rows also
+    // cite U.S.C./CFR). Subsection parentheses become spaces. No Tenn. Comp.
+    // R. & Regs. rule and no case law is relied on (TN log §7).
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        if (!/^Tenn\. Code Ann\./.test(part)) continue;
+        const body = part.replace(/\([^)]*\)/g, " ");
+        for (const m of body.matchAll(/\b(\d{1,2}-\d{1,3}-\d{1,4}(?:\.\d{1,2})?)\b/g)) out.push(m[1]);
+      }
+      return out;
+    },
+    cfrChecks: [
+      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-tn"] },
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+    ],
+    federalStatuteChecks: [{ section: "3955", clauseIds: ["edu-servicemember-rights-tn"] }],
+    manualRecheckItems: [
+      {
+        id: "tn-firearm-rule-effective",
+        label:
+          "2026 Pub. Ch. 606 (no lease or rule may ban a tenant's lawful firearms) applies to leases signed, amended or renewed from 2027-01-01: confirm the codified text once it takes effect",
+        clauseIds: ["edu-tenant-firearms-tn", "firearm-carry-rules-tn"],
+      },
+      {
+        id: "tn-agency-rules",
+        label:
+          "Tennessee agency rules LegiScan can't see: TPUC utility disconnection rules and any Tenn. Comp. R. & Regs. touching deposits or lead (TN log §7)",
+        clauseIds: ["edu-urlta-county-scope-tn"],
       },
     ],
   },
