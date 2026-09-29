@@ -543,3 +543,13 @@ M.1, M.2 and M.4 are the same underlying gap: **the builder treats clauses as in
 **Needed, in order of cost:** (1) an onboarding assertion — for each `REQUIRED` parent, every tagged state in the library must resolve to either the parent or exactly one override; (2) a decision on whether fully-overridden parents should remain `REQUIRED`/active or be marked as templates with a distinct status, so "blank because superseded everywhere" is distinguishable in the data from "blank by mistake."
 
 **Note on why this took until now to surface:** the standing blank-`states` assertion is written to catch *newly written* rows (the L.3 lesson, after five ND rows were written with blank tags). A pre-existing blank parent passes that check by construction. **Urgency: medium — latent, but it fires the moment state #8 is onboarded.**
+
+### M.13 Statutory limit validation in the builder — needed before the three-bucket scrub's cap removals are safe (2026-09-29)
+
+**Found:** the three-bucket scrub (checklist instruction 66) moves clauses that state a statutory limit to the tenant (deposit caps in CA, NV, AZ, GA, NC and AL; `late-fee-limit-co`; similar fee and notice limits) into education rows. Those clauses quietly worked as a safety net: if a landlord typed an amount over the limit, the lease's own "will not exceed" sentence arguably capped it. Without the clause, nothing stops the builder from generating a lease with an unlawful figure.
+
+**Needed:** when a landlord enters a figure a state limits, the builder checks it against that state's limit and warns before the lease is generated. First set: security deposit amount (including pet deposits where the state counts them toward the cap), late fee amount and grace period, returned-payment fee, and notice periods the landlord chooses where the statute sets a floor. The limits already live in the education rows (`edu-security-deposit-cap-*` and the rows the scrub creates), so they need structured values the builder can read, not new research.
+
+**Related flag:** Colorado's source-of-income statement (C.R.S. § 38-12-801(2.5)) is required unless the landlord owns five or fewer single-family homes and five or fewer total units. Once the app stores units owned (the attribute Tennessee and Virginia also need), warn a non-exempt Colorado landlord whose lease leaves `source-of-income-statement-co` off.
+
+**Urgency:** required before the lease feature goes live, and before the scrub's cap removals ship to real users.
