@@ -26,7 +26,7 @@ default-by-tenant,LEASE_CLAUSE,TN,"Tenn. Code Ann. § 66-28-505(a), 66-28-517",C
 surrender-end-of-term,LEASE_CLAUSE,TN,Tenn. Code Ann. § 66-28-405,CITED,VERIFIED,2026-08-21,2026-09-28,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-TN.md.]
 notices,LEASE_CLAUSE,TN,Tenn. Code Ann. § 66-28-106(b),CITED,VERIFIED,2026-08-21,2026-09-28,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-TN.md.]
 governing-law,LEASE_CLAUSE,TN,Tenn. Code Ann. § 66-28-102(e),CITED,VERIFIED,2026-08-21,2026-09-28,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-TN.md.]
-severability,LEASE_CLAUSE,TN,,GENERIC,VERIFIED,2026-08-21,2026-09-28,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-TN.md.]
+severability,LEASE_CLAUSE,TN,,GENERIC,VERIFIED,2026-08-21,2026-09-29,,"[Full trail in lease-clauses.csv notes and lease-clause-decision-log-TN.md.] | 2026-09-29: bodyText rewritten in plain language for every state (Pennsylvania pass, uniform; see lease-clause-decision-log-PA.md §3.1, §9)."
 entire-agreement,LEASE_CLAUSE,TN,Tenn. Code Ann. § 66-28-402(b),CITED,VERIFIED,2026-08-21,2026-09-28,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-TN.md.]
 addendum-precedence,LEASE_CLAUSE,TN,,GENERIC,VERIFIED,2026-08-21,2026-09-28,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-TN.md.]
 electronic-signatures,LEASE_CLAUSE,TN,"Tenn. Code Ann. § 47-10-103, 47-10-105, 47-10-107",CITED,VERIFIED,2026-08-21,2026-09-28,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-TN.md.]

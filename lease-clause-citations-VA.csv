@@ -23,7 +23,7 @@ default-by-tenant,LEASE_CLAUSE,VA,Va. Code Ann. § 55.1-1245(F); Va. Code Ann. �
 surrender-end-of-term,LEASE_CLAUSE,VA,Va. Code Ann. § 55.1-1233; Va. Code Ann. § 55.1-1254,CITED,VERIFIED,2026-08-21,2026-09-28,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-VA.md.]
 notices,LEASE_CLAUSE,VA,Va. Code Ann. § 55.1-1200; Va. Code Ann. § 59.1-481,CITED,VERIFIED,2026-08-21,2026-09-28,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-VA.md.]
 governing-law,LEASE_CLAUSE,VA,Va. Code Ann. § 55.1-1201(E),CITED,VERIFIED,2026-08-21,2026-09-28,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-VA.md.]
-severability,LEASE_CLAUSE,VA,,GENERIC,VERIFIED,2026-08-21,2026-09-28,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-VA.md.]
+severability,LEASE_CLAUSE,VA,,GENERIC,VERIFIED,2026-08-21,2026-09-29,,"[Full trail in lease-clauses.csv notes and lease-clause-decision-log-VA.md.] | 2026-09-29: bodyText rewritten in plain language for every state (Pennsylvania pass, uniform; see lease-clause-decision-log-PA.md §3.1, §9)."
 entire-agreement,LEASE_CLAUSE,VA,Va. Code Ann. § 55.1-1204(I); Va. Code Ann. § 55.1-1228(B),CITED,VERIFIED,2026-08-21,2026-09-28,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-VA.md.]
 addendum-precedence,LEASE_CLAUSE,VA,,GENERIC,VERIFIED,2026-08-21,2026-09-28,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-VA.md.]
 electronic-signatures,LEASE_CLAUSE,VA,"Va. Code Ann. § 59.1-479; Va. Code Ann. § 55.1-1200, 55.1-1202(E)",CITED,VERIFIED,2026-08-21,2026-09-28,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-VA.md.]

@@ -30,6 +30,7 @@ const STATE_NAMES = {
   TN: "Tennessee",
   VA: "Virginia",
   AL: "Alabama",
+  PA: "Pennsylvania",
 };
 
 const STATE_CONFIG = {
@@ -902,6 +903,89 @@ const STATE_CONFIG = {
         label:
           "Alabama agency rules LegiScan can't see: State Fire Marshal and building-code alarm rules, Real Estate Commission trust-account rules, PSC disconnection rules, State Board of Health lead rules (AL log §7)",
         clauseIds: ["lead-based-paint"],
+      },
+    ],
+  },
+  PA: {
+    // Pennsylvania cites three kinds of statute, and its bills name each one
+    // differently, so the key carries the kind and buildQuery builds a query
+    // in the bill's own wording (PA log §9.1):
+    // - The Landlord and Tenant Act of 1951 is cited by Purdon's number
+    //   ("68 P.S. § 250.511a"), but bills amend it by the Act's own section
+    //   ("Section 511.1 of the act of April 6, 1951 (P.L.69, No.20)"). Purdon's
+    //   letter suffix maps to the Act's decimal (a -> .1, b -> .2, c -> .3);
+    //   "-A"/"-B" article sections keep their letter ("505-A").
+    // - Consolidated Statutes ("66 Pa.C.S. § 1529") are amended as
+    //   "Section 1529 of Title 66".
+    // - Other unconsolidated acts are amended by name, so their P.S. or
+    //   "Act N of YYYY" cites map to the act's short title.
+    // Citations are split on ";". Court rules (Pa.R.Civ.P.M.D.J., Pa.R.C.P.)
+    // and Pa. Code rules are manual-recheck items; LegiScan can't see them.
+    extractSections(text) {
+      const out = [];
+      const ACT_BY_PS = [
+        [/^73 P\.S\. §§? 22(0\d|1[0-2])\b/, "Plain Language Consumer Contract Act"],
+        [/^73 P\.S\. §§? 2260\./, "Electronic Transactions Act"],
+        [/^43 P\.S\. §§? 95\d/, "Pennsylvania Human Relations Act"],
+      ];
+      const ACT_BY_NUMBER = {
+        "Act 118 of 2018": "Assistance and Service Animal Integrity Act",
+        "Act 121 of 2013": "Carbon Monoxide Alarm Standards Act",
+      };
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        let m;
+        if (/^68 P\.S\. §§? 250\./.test(part)) {
+          const body = part.replace(/\([^)]*\)/g, " ");
+          for (const n of body.matchAll(/250\.(\d{3})([a-c])?(-[A-B])?\b/g)) {
+            const dec = n[2] ? "." + ("abc".indexOf(n[2]) + 1) : "";
+            out.push(`1951 Act ${n[1]}${dec}${n[3] || ""}`);
+          }
+        } else if ((m = part.match(/^(\d{1,2}) Pa\.C\.S\. §§? /))) {
+          const body = part.slice(m[0].length).replace(/\([^)]*\)/g, " ");
+          for (const n of body.matchAll(/\b(\d{1,4}[A-Z]?\d{0,2}(?:\.\d{1,2})?)\b/g)) out.push(`Title ${m[1]} ${n[1]}`);
+        } else if ((m = part.match(/^72 P\.S\. §§? (1301\.\d+[a-z]?)/))) {
+          out.push(`Fiscal Code ${m[1]}`);
+        } else {
+          for (const [re, name] of ACT_BY_PS) if (re.test(part)) out.push(`act: ${name}`);
+          if (ACT_BY_NUMBER[part]) out.push(`act: ${ACT_BY_NUMBER[part]}`);
+        }
+      }
+      return out;
+    },
+    buildQuery(key) {
+      let m;
+      if ((m = key.match(/^1951 Act (.+)$/))) return `"Landlord and Tenant Act of 1951" AND "${m[1]}"`;
+      if ((m = key.match(/^Title (\d+) (.+)$/))) return `"Title ${m[1]}" AND "Section ${m[2]}"`;
+      if ((m = key.match(/^Fiscal Code (.+)$/))) return `"Fiscal Code" AND "${m[1]}"`;
+      if ((m = key.match(/^act: (.+)$/))) return `"${m[1]}"`;
+      return `"${key}"`;
+    },
+    cfrChecks: [
+      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-pa"] },
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+    ],
+    federalStatuteChecks: [
+      { section: "4852d", clauseIds: ["lead-based-paint"] },
+      { section: "3955", clauseIds: ["edu-servicemember-rights-pa"] },
+    ],
+    manualRecheckItems: [
+      {
+        id: "pa-court-rules",
+        label:
+          "Pennsylvania court rules LegiScan can't see: Pa.R.Civ.P.M.D.J. Chapters 500 and 1000 (eviction timing) and Pa.R.C.P. 2950/2970 (confessed judgment), published in the Pennsylvania Bulletin (PA log §9.1)",
+        clauseIds: ["edu-eviction-process-pa", "edu-confession-of-judgment-pa", "holdover-rate-pa"],
+      },
+      {
+        id: "pa-unconsolidated-acts",
+        label:
+          "Pennsylvania acts the watch can't search by section: City Rent Withholding Act (35 P.S. § 1700-1) and the Expedited Eviction of Drug Traffickers Act; also 37 Pa. Code Chapter 307 (Attorney General plain-language policy) (PA log §7)",
+        clauseIds: ["edu-rent-withholding-pa", "edu-drug-activity-eviction-pa", "edu-plain-language-lease-pa"],
+      },
+      {
+        id: "pa-case-law",
+        label:
+          "Pennsylvania case law the rows flag but don't rely on: implied warranty of habitability (Pugh v. Holmes), penalty doctrine for late/holdover/early-termination charges, waiver of a notice to quit by accepting rent (PA log §7)",
+        clauseIds: ["edu-habitability-pa", "late-fee", "holdover-rate-pa"],
       },
     ],
   },

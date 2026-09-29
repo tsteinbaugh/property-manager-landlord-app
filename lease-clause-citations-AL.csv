@@ -23,7 +23,7 @@ landlord-maintenance,LEASE_CLAUSE,AL,Ala. Code § 35-9A-204(a)(1); Ala. Code § 
 surrender-end-of-term,LEASE_CLAUSE,AL,Ala. Code § 35-9A-423(d); Ala. Code § 35-9A-163(a)(3),CITED,VERIFIED,2026-08-21,2026-09-28,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-AL.md.]
 notices,LEASE_CLAUSE,AL,Ala. Code § 35-9A-144; Ala. Code § 35-9A-144(e); Ala. Code § 8-1A-3(c)(2),CITED,VERIFIED,2026-08-21,2026-09-28,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-AL.md.]
 governing-law,LEASE_CLAUSE,AL,Ala. Code § 35-9A-121,CITED,VERIFIED,2026-08-21,2026-09-28,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-AL.md.]
-severability,LEASE_CLAUSE,AL,Ala. Code § 35-9A-143(a); Ala. Code § 35-9A-603,CITED,VERIFIED,2026-08-21,2026-09-28,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-AL.md.]
+severability,LEASE_CLAUSE,AL,Ala. Code § 35-9A-143(a); Ala. Code § 35-9A-603,CITED,VERIFIED,2026-08-21,2026-09-29,,"[Full trail in lease-clauses.csv notes and lease-clause-decision-log-AL.md.] | 2026-09-29: bodyText rewritten in plain language for every state (Pennsylvania pass, uniform; see lease-clause-decision-log-PA.md §3.1, §9)."
 entire-agreement,LEASE_CLAUSE,AL,Ala. Code § 35-9A-302(c); Ala. Code § 35-9A-162,CITED,VERIFIED,2026-08-21,2026-09-28,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-AL.md.]
 addendum-precedence,LEASE_CLAUSE,AL,Ala. Code § 35-9A-302(c),CITED,VERIFIED,2026-08-21,2026-09-28,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-AL.md.]
 electronic-signatures,LEASE_CLAUSE,AL,Ala. Code § 8-1A-3; Ala. Code § 8-1A-3(c)(2),CITED,VERIFIED,2026-08-21,2026-09-28,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-AL.md.]
