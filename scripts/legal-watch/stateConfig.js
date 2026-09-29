@@ -29,6 +29,7 @@ const STATE_NAMES = {
   SC: "South Carolina",
   TN: "Tennessee",
   VA: "Virginia",
+  AL: "Alabama",
 };
 
 const STATE_CONFIG = {
@@ -869,6 +870,38 @@ const STATE_CONFIG = {
         label:
           "DHCD's Statement of Tenant Rights and Responsibilities and related forms are agency documents LegiScan can't see: check for a revised edition (VA log §7)",
         clauseIds: ["tenant-rights-statement-va"],
+      },
+    ],
+  },
+
+  AL: {
+    // Code of Alabama sections are title-chapter-section, and both the
+    // title and the chapter can carry a letter ("35-9A-201", "13A-11-204",
+    // "6-10-120", "11-80-8.1"). A three-part number is specific enough for
+    // a bare quoted query. Citations are split on ";" and only the
+    // "Ala. Code" parts are read (the lead-paint and servicemember rows also
+    // cite U.S.C./CFR). Subsection parentheses become spaces. No Alabama
+    // Administrative Code rule and no case law is relied on (AL log §8).
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        if (!/^Ala\. Code/.test(part)) continue;
+        const body = part.replace(/\([^)]*\)/g, " ");
+        for (const m of body.matchAll(/\b(\d{1,2}[A-Z]?-\d{1,3}[A-Z]?-\d{1,4}(?:\.\d{1,2})?)\b/g)) out.push(m[1]);
+      }
+      return out;
+    },
+    cfrChecks: [
+      { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-al"] },
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+    ],
+    federalStatuteChecks: [{ section: "3955", clauseIds: ["edu-servicemember-rights-al"] }],
+    manualRecheckItems: [
+      {
+        id: "al-agency-rules",
+        label:
+          "Alabama agency rules LegiScan can't see: State Fire Marshal and building-code alarm rules, Real Estate Commission trust-account rules, PSC disconnection rules, State Board of Health lead rules (AL log §7)",
+        clauseIds: ["lead-based-paint"],
       },
     ],
   },

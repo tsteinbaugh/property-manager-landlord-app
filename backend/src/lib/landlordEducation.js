@@ -32,6 +32,9 @@
 // wholesale from the CSV (2026-09-18 refresh, Ohio added: 309 -> 324
 // entries across the now-8-state pass).
 //
+// **2026-09-28 (Alabama sync):** regenerated from the 20-state CSV
+// (889 -> 935 entries).
+//
 // **2026-09-28 (Virginia sync):** regenerated from the 19-state CSV
 // (842 -> 889 entries).
 //
@@ -11361,6 +11364,588 @@ const LANDLORD_EDUCATION = [
     bodyText:
       "Virginia bars a public housing lease from prohibiting or restricting lawful firearm possession inside individual units unless federal law or regulation requires it. No Virginia statute limits a private landlord's lease rules on firearms.",
     notes: "VA: VA-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Va. Code Ann. § 55.1-1208(A)(6). CONFIRMED ABSENT (statutes, for private housing): exact regex 'firearm|weapon|handgun' within 200 characters of tenant/landlord/lessee/lessor/rental agreement/residential lease/dwelling unit returned only § 55.1-1208 and an unrelated § 29.1-529 (search engine: whole Code of Virginia, Law Library title CSVs overlaid with every 2026-updated section; control 'zqxvbnmwt' 0; VA log §17). Contrast Tennessee from 2027 (firearm-carry-rules-tn).",
+  },
+  // Notices & General
+  {
+    id: "edu-scope-exclusions-al",
+    title: "What the Alabama Act Covers",
+    group: "Notices & General",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "scope",
+    bodyText:
+      "Alabama's Uniform Residential Landlord and Tenant Act applies statewide to every rental agreement for a dwelling unit in Alabama, including a rented manufactured home, with no county, city or unit-count exception, and it is the exclusive remedy for rights under the rental agreement. It does not cover: residence in an institution incidental to detention or medical, geriatric, educational, counseling or religious services; occupancy under a contract to buy the home; fraternity or similar organization housing; transient occupancy in a hotel, motel or lodgings; an employee whose housing depends on employment on the premises; a condominium or cooperative owner; agricultural rentals; and a seller (or the seller's family) staying up to 36 months after selling. It also does not cover squatters. The Act applies to agreements made, extended or renewed on or after January 1, 2007. It is liberally construed, creates no new tort duties, and every duty and remedy carries an obligation of good faith. Days are calendar days, but a statutory period that ends on a weekend or official holiday runs to the next business day the court is open.",
+    notes: "AL: Read section-open 2026-09-28 in the built-in browser from the official Code of Alabama 1975 on ALISON (alison.legislature.state.al.us, the Legislature's own code service; Title 35 Chapter 9A read whole, all 48 section numbers, with every history line; newest Chapter 9A amendment Act 2018-473; whole Code loaded, 49,638 section versions including versions effective 2026-10-01 and later; every 2024, 2025 and 2026 act touching landlord-tenant terms screened; AL log §1). Controlling text: Ala. Code § 35-9A-101 (short title); Ala. Code § 35-9A-102 (liberal construction; purposes; no tort duties created or taken away); Ala. Code § 35-9A-103 (supplementary principles of law and equity); Ala. Code § 35-9A-104 (no implied repeal); Ala. Code § 35-9A-105 (remedies administered so the aggrieved party recovers appropriate damages; duty to mitigate; rights enforceable by action); Ala. Code § 35-9A-106; Ala. Code § 35-9A-107 (the Ala. Code § 34-27-31(j) notice requirement does not apply); Ala. Code § 35-9A-121 (territorial application; exclusive remedy; local ordinances superseded; Act 2009-633); Ala. Code § 35-9A-122(1)-(8) (exclusions 'Unless created to avoid the application of this chapter'); Ala. Code § 35-9A-123 (district and circuit court jurisdiction; nonresident landlords served under ARCP 4); Ala. Code § 35-9A-141 (definitions: 'dwelling unit' includes a manufactured home, 'day' rolls to the next business day, 'rent' is all payments, 'landlord' includes a manager; Act 2009-633; Act 2011-700); Ala. Code § 35-9A-142 (good faith); Ala. Code § 35-9A-144 (notice and receipt rules; mailed notice to a tenant is received three days after mailing; not applicable to termination or eviction notices); Ala. Code § 35-9A-161 (terms; fair rental value absent agreement; rent due without demand; periodic tenancy default); Ala. Code § 35-9A-162 (unsigned or undelivered agreements given effect by accepting rent, capped at one year); Ala. Code § 35-9A-601 (effective 2007-01-01; Ala. Code § 35-9A-163(b) effective 2008-01-01); Ala. Code § 35-9A-602 (savings clause); Ala. Code § 35-9A-603 (severability). Squatters: Ala. Code § 35-9B-9(b) (Act 2024-237). KICKOFF LEAD CONFIRMED: statewide, no county, city or unit-count split (Chapter 9A read whole; 'county', 'municipality', 'population' and 'units' searched within it); the Tennessee/Virginia two-version approach is not needed. Older general provisions still in Title 35 Chapter 9 (e.g. Ala. Code § 35-9-3, Ala. Code § 35-9-5, Ala. Code § 35-9-6, Ala. Code § 35-9-7, Ala. Code § 35-9-8) apply outside the Act (e.g. excluded arrangements); their reach inside it is a case-law question (Ala. Code § 35-9A-121; Ala. Code § 35-9A-104), not relied on. Ala. Code § 35-9A-403 is 'Reserved' (no text, no history line). Short-term and vacation rentals are out of scope (kickoff); accommodations-intermediary tax rules: Ala. Code § 40-26-1.1 (not read beyond title). Manufactured-home lots and abandoned manufactured homes: Ala. Code Title 35 Chapter 12A (deprioritized).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-local-preemption-al",
+    title: "Local Ordinances and Rent Control",
+    group: "Rent & Payment",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-control",
+    bodyText:
+      "Alabama counties and cities may not enact or enforce any resolution or ordinance about residential landlords, rental housing codes, or landlord-tenant rights and obligations; the state Act supersedes them, including ones passed before 2007. Local governments may still enforce building codes, health codes and other general laws that affect rental property, but only if those codes apply equally to similar owner-occupied homes. Separately, no local government may enact, keep or enforce any rule that controls the amount of rent charged for private property. Local building, health and code-enforcement rules (for example in Birmingham, Huntsville, Mobile and Montgomery) are outside this library's scope, and a 2026 law lets Class 1 cities adopt vacant-property registration.",
+    notes: "AL: Read section-open 2026-09-28 in the built-in browser from the official Code of Alabama 1975 on ALISON (alison.legislature.state.al.us, the Legislature's own code service; Title 35 Chapter 9A read whole, all 48 section numbers, with every history line; newest Chapter 9A amendment Act 2018-473; whole Code loaded, 49,638 section versions including versions effective 2026-10-01 and later; every 2024, 2025 and 2026 act touching landlord-tenant terms screened; AL log §1). Controlling text: Ala. Code § 35-9A-121 ('No resolution or ordinance relative to residential landlords, rental housing codes, or the rights and obligations governing residential landlord and tenant relationships shall be enacted or enforced by any county or municipality ... is superseded by this chapter. Notwithstanding these provisions, a county or municipality may enact and enforce building codes, health codes, and other general laws that affect rental property provided that such codes equally affect similarly situated owner-occupied residential property'; Act 2009-633); Ala. Code § 11-80-8.1(a)-(b) (rent control ban for any 'local governmental unit'; Acts 1993, No. 93-421). KICKOFF LEAD CONFIRMED: Alabama bars local rent control expressly and preempts local landlord-tenant regulation broadly (a field preemption, stronger than SC's rent-amount-only rule). 2026: Act 2026-511 (HB315) authorizes Class 1 municipalities to adopt vacant property registration ordinances (new Ala. Code § 11-67C-1 to Ala. Code § 11-67C-6, effective 2026-10-01; read by search snippet; local layer, instruction 20). Class 1 community land trusts: Act 2026-545 (Ala. Code § 24-1B-3 to § 24-1B-8, effective 2026-10-01; public affordable-housing entity, no private-landlord duty). Title 45 local laws screened by term: no landlord-tenant rule found (fire-protection and solid-waste fees on dwellings only). Local ordinances flagged, not resolved (instruction 20).",
+  },
+  // Notices & General
+  {
+    id: "edu-prohibited-lease-terms-al",
+    title: "Lease Terms Alabama Prohibits",
+    group: "Notices & General",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "prohibited-lease-terms",
+    bodyText:
+      "An Alabama lease may not make the tenant: waive rights under the landlord's maintenance duty, the tenant's remedies for the landlord's noncompliance or for loss of essential services, the security deposit rules, or the law of unlawful detainer; confess judgment; pay the landlord's attorney's fees or costs of collection; or release, limit or indemnify the landlord's liability arising under law. These terms are unenforceable, and a landlord who tries to enforce a term it knows is prohibited owes the tenant actual damages plus up to one month's rent and reasonable attorney's fees. A court may also refuse to enforce an unconscionable term. A lease lien on the tenant's household goods is unenforceable (unless perfected before 2007), and distress for rent is abolished. A tenant in possession may not withhold rent to enforce the tenant's rights.",
+    notes: "AL: Read section-open 2026-09-28 in the built-in browser from the official Code of Alabama 1975 on ALISON (alison.legislature.state.al.us, the Legislature's own code service; Title 35 Chapter 9A read whole, all 48 section numbers, with every history line; newest Chapter 9A amendment Act 2018-473; whole Code loaded, 49,638 section versions including versions effective 2026-10-01 and later; every 2024, 2025 and 2026 act touching landlord-tenant terms screened; AL log §1). Controlling text: Ala. Code § 35-9A-163(a)(1)-(4) (prohibited provisions; Act 2011-700); Ala. Code § 35-9A-163(b) (unenforceable; knowing enforcement: actual damages plus up to one month's periodic rent and reasonable attorney's fees; effective 2008-01-01, Ala. Code § 35-9A-601); Ala. Code § 35-9A-143 (unconscionability of agreements and settlements; hearing on setting, purpose and effect); Ala. Code § 35-9A-425 (landlord liens; distraint abolished); Ala. Code § 35-9A-164 (no rent withholding while in possession). Also: Ala. Code § 35-9A-204(e) (tenant repair agreement not a condition of the lease); Ala. Code § 35-9A-302 (rule enforceability); UETA exclusion for default and eviction notices (Ala. Code § 8-1A-3(c)(2)b.); Ala. Code § 31-13-33 (rental agreements with persons unlawfully present; `edu-immigration-rental-restriction-al`). Library consequences (instruction 49): `default-by-tenant-al` (no fee or collection-cost sentence), `pet-policy-al`, the `-ks-oh-ca` parking, storage and insurance variants, `services-utilities-provided-ks-oh`, `early-termination-ks`. Outside Title 35: contract penalties and liquidated damages are case law in Alabama (not read; instruction 16). Confession of judgment is also regulated in consumer credit (not read).",
+  },
+  // Security Deposit
+  {
+    id: "edu-security-deposit-rules-al",
+    title: "Alabama Security Deposit Rules",
+    group: "Security Deposit",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-return",
+    bodyText:
+      "Alabama limits security to one month's periodic rent, except for additional security for pets, changes to the property, or increased liability risk. There is no interest, separate-account or escrow requirement. At the end of the tenancy the landlord may keep only accrued rent and damages caused by the tenant's failure to meet the tenant's statutory duties, and must mail the refund or an itemized list of deductions with any balance within 60 days after the tenancy ends and the tenant gives up possession. The tenant must give a forwarding address in writing; without one, the landlord mails to the last known address or the rental address. A landlord who misses the 60-day deadline owes the tenant double the original deposit. A refund the tenant does not claim within 90 days is forfeited under the Act. Whoever owns the property when the tenancy ends is bound, and a seller stays liable for the deposit and prepaid rent.",
+    notes: "AL: Read section-open 2026-09-28 in the built-in browser from the official Code of Alabama 1975 on ALISON (alison.legislature.state.al.us, the Legislature's own code service; Title 35 Chapter 9A read whole, all 48 section numbers, with every history line; newest Chapter 9A amendment Act 2018-473; whole Code loaded, 49,638 section versions including versions effective 2026-10-01 and later; every 2024, 2025 and 2026 act touching landlord-tenant terms screened; AL log §1). Controlling text: Ala. Code § 35-9A-201(a)-(h) (Act 2014-279); Ala. Code § 35-9A-205(a); Ala. Code § 35-9A-163(a)(1). No interest (`edu-no-deposit-interest-al`, confirmed absent). No escrow or bank-disclosure rule located in statute; Alabama Real Estate Commission trust-account rules for licensees are administrative (not searched; instruction 16). Double-deposit penalty is measured by the ORIGINAL deposit, not the amount withheld (Ala. Code § 35-9A-201(f)). 90-DAY FORFEITURE vs UNCLAIMED PROPERTY: Ala. Code § 35-9A-201(d) forfeits an unclaimed deposit or outstanding refund check 'after a period of 90 days'; the Uniform Unclaimed Property Act (Ala. Code § 35-12-72(a)(19), three-year catch-all; Act 2026-285 amended the section) has no landlord-deposit provision; which controls for an uncashed refund check is not settled by either text (search 'unclaimed' near deposit or rent: 5 hits in 5 sections, none on rental deposits). Recorded, not resolved.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-landlord-repair-duties-al",
+    title: "Repair Duties and Tenant Remedies",
+    group: "Landlord Responsibilities",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-maintenance",
+    bodyText:
+      "An Alabama landlord must comply with building and housing codes materially affecting health and safety, make repairs to keep the premises habitable, keep common areas clean and safe, maintain supplied electrical, plumbing, sanitary, heating, ventilating, air-conditioning and other facilities and appliances (including elevators), provide garbage receptacles and removal, and supply running water, reasonable hot water and reasonable heat (unless the tenant controls a separately metered installation). These duties do not arise for a condition the tenant or the tenant's household or guests caused. If the landlord materially fails, the tenant may give written notice ending the lease in not less than 14 days unless the landlord fixes the problem, and may recover actual damages, attorney's fees and an injunction. If the landlord willfully or negligently fails to supply heat, water, hot water, electricity, gas or another essential service after notice, the tenant may end the lease on 14 days' written notice or recover the lost rental value. There is no repair-and-deduct remedy, and the tenant may not withhold rent while in possession.",
+    notes: "AL: Read section-open 2026-09-28 in the built-in browser from the official Code of Alabama 1975 on ALISON (alison.legislature.state.al.us, the Legislature's own code service; Title 35 Chapter 9A read whole, all 48 section numbers, with every history line; newest Chapter 9A amendment Act 2018-473; whole Code loaded, 49,638 section versions including versions effective 2026-10-01 and later; every 2024, 2025 and 2026 act touching landlord-tenant terms screened; AL log §1). Controlling text: Ala. Code § 35-9A-204(a)-(f) (duties; code duty controls where greater; single-family and separate-writing agreements; tenant-caused conditions excluded); Ala. Code § 35-9A-401(a)-(d) (14-day notice and termination; actual damages, reasonable attorney fees, injunction; Act 2011-700); Ala. Code § 35-9A-404(a)-(d) (utilities only if agreed; essential services; 14-day termination or diminution damages; election of remedies); Ala. Code § 35-9A-405 (counterclaim with rent paid into court); Ala. Code § 35-9A-164 (no withholding); Ala. Code § 35-9A-163(a)(1) (no waiver). No repair-and-deduct or substitute-housing remedy in Chapter 9A (read whole; contrast TN § 66-28-502). Tort duties neither created nor removed (Ala. Code § 35-9A-102(c)). No temperature standard located. Tenant maintenance and landlord self-help repair: Ala. Code § 35-9A-301, Ala. Code § 35-9A-422.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-rules-and-regulations-al",
+    title: "Rules and Regulations",
+    group: "Rules & Regulations",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rules-regulations",
+    bodyText:
+      "In Alabama, a landlord's rules about common areas or tenant conduct bind a tenant only if they promote tenants' convenience, safety or welfare, protect the property from abuse or fairly distribute services; are reasonably related to that purpose; apply to all tenants fairly; are explicit enough to tell the tenant what to do; are not meant to evade the landlord's duties; and the tenant had notice of them at signing or when adopted. A rule adopted after signing that substantially changes the tenant's use is not valid unless the tenant consents in writing, and where a rule and the lease differ, the lease wins.",
+    notes: "AL: Read section-open 2026-09-28 in the built-in browser from the official Code of Alabama 1975 on ALISON (alison.legislature.state.al.us, the Legislature's own code service; Title 35 Chapter 9A read whole, all 48 section numbers, with every history line; newest Chapter 9A amendment Act 2018-473; whole Code loaded, 49,638 section versions including versions effective 2026-10-01 and later; every 2024, 2025 and 2026 act touching landlord-tenant terms screened; AL log §1). Controlling text: Ala. Code § 35-9A-302(a)-(c); valid rules are part of the 'rental agreement' (Ala. Code § 35-9A-141(13)).",
+  },
+  // Access & Entry
+  {
+    id: "edu-entry-and-access-al",
+    title: "Entry and Access",
+    group: "Access & Entry",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-entry",
+    bodyText:
+      "Alabama requires at least two days' notice before a landlord enters to show or service the unit, at reasonable times; a note posted on the main entry door is enough. A tenant may not unreasonably refuse entry to inspect, repair, provide services or show the unit, and a repair request is consent to enter to do that repair. A general notice or schedule of more than two days for repairs, maintenance, pest control or health and safety services, given separately from the lease, covers those entries. The landlord may enter without consent only in an emergency, by court order, to do maintenance the tenant failed to do after notice, during an absence over 14 days, on reasonable belief of abandonment, or to show the unit in the last four months of the lease if the tenant signed a separate general notice. If the tenant refuses lawful access the landlord may seek an injunction or end the lease; if the landlord enters unlawfully or harasses the tenant, the tenant may seek an injunction or end the lease, and either side may recover actual damages.",
+    notes: "AL: Read section-open 2026-09-28 in the built-in browser from the official Code of Alabama 1975 on ALISON (alison.legislature.state.al.us, the Legislature's own code service; Title 35 Chapter 9A read whole, all 48 section numbers, with every history line; newest Chapter 9A amendment Act 2018-473; whole Code loaded, 49,638 section versions including versions effective 2026-10-01 and later; every 2024, 2025 and 2026 act touching landlord-tenant terms screened; AL log §1). Controlling text: Ala. Code § 35-9A-303(a)-(e); Ala. Code § 35-9A-442(a)-(b); Ala. Code § 35-9A-422; Ala. Code § 35-9A-423(b). KICKOFF LEAD ('reportedly two days') CONFIRMED, with the separate-notice mechanics for showings and scheduled services. LAYOUT (M.12): the (b)(4) showing notice and the (d) scheduled-service notice must be separate from the lease. Lease clause: `landlords-access-al`.",
+  },
+  // Default & Termination
+  {
+    id: "edu-eviction-process-al",
+    title: "Eviction (Unlawful Detainer) Process",
+    group: "Default & Termination",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction",
+    bodyText:
+      "For unpaid rent, an Alabama landlord gives a written notice stating the rent and any late fees owed and that the lease will end on a date at least seven business days after the tenant receives it; if the tenant does not pay within that time, the lease ends. For other material breaches, or an intentional material misrepresentation in the lease or application, the notice gives at least seven business days, and a curable breach that is fixed in time does not end the lease. Some breaches cannot be cured (illegal drugs, illegal firearm use or criminal assault on the premises, a repeat of the same breach within six months, and intentional misrepresentation), and no breach may be cured more than twice in 12 months without the landlord's written consent. Eviction is a civil action in district or circuit court, heard ahead of other civil cases; if personal service fails, papers may be left with a resident or posted on the door and mailed. Either side may appeal within seven days, but a tenant's appeal does not stop the writ unless the tenant pays all rent since filing into court and keeps paying. The writ of possession is automatically stayed for seven days after judgment. The landlord may recover rent, actual damages and reasonable attorney's fees by statute. Default and eviction notices are outside Alabama's electronic-transactions law, so give them on paper.",
+    notes: "AL: Read section-open 2026-09-28 in the built-in browser from the official Code of Alabama 1975 on ALISON (alison.legislature.state.al.us, the Legislature's own code service; Title 35 Chapter 9A read whole, all 48 section numbers, with every history line; newest Chapter 9A amendment Act 2018-473; whole Code loaded, 49,638 section versions including versions effective 2026-10-01 and later; every 2024, 2025 and 2026 act touching landlord-tenant terms screened; AL log §1). Controlling text: Ala. Code § 35-9A-421(a)-(d) ('seven business days'; noncurable defaults; two-cures-in-12-months limit; Act 2009-633; Act 2011-700; Act 2014-279; Act 2018-473); Ala. Code § 35-9A-426 (possession, rent, separate damages claim and reasonable attorney's fees after termination; Act 2011-700); Ala. Code § 35-9A-461(a)-(f) (ARCP and ARAP govern; precedence; service by posting and first-class mailing complete on mailing; seven-day appeal; trial within 60 days; rent paid to the circuit clerk on appeal; seven-day automatic stay of the writ; contempt for re-entry; Act 2009-633); Ala. Code § 35-9A-405 (tenant counterclaim; rent into court; bad-faith defense fees); unlawful detainer article: Ala. Code § 6-6-310(2) (definition), Ala. Code § 6-6-332 (six days' service before the return day; posting and mailing), Ala. Code § 6-6-350 (seven-day appeal), Ala. Code § 6-6-351 (rent into the district clerk on appeal); Ala. Code § 35-9A-107 (no notice under Ala. Code § 34-27-31(j)); 'day' rule Ala. Code § 35-9A-141(3). KICKOFF LEADS: nonpayment notice is 7 BUSINESS days (not 'reportedly short' 7 calendar days); rent-into-court on appeal CONFIRMED (Ala. Code § 35-9A-461(d); Ala. Code § 6-6-351). No 2024-2026 act amended Chapter 9A or the unlawful detainer article (hist search; act list). Older Chapter 9 notice sections (10-day notice to quit, Ala. Code § 35-9-6; service, Ala. Code § 35-9-7; no notice at end of a fixed term, Ala. Code § 35-9-8) apply outside the Act; not relied on for Act tenancies. UETA: Ala. Code § 8-1A-3(c)(2)b. Eviction records: no sealing statute (`edu-no-eviction-record-sealing-al`). Filing fees and court rules not researched.",
+  },
+  {
+    id: "edu-self-help-eviction-al",
+    title: "No Self-Help Eviction",
+    group: "Default & Termination",
+    states: ["AL"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "self-help-eviction",
+    bodyText:
+      "An Alabama landlord may not take back a rental by lockout, removing the tenant, or willfully cutting off heat, water, hot water, electricity, gas or another essential service, except where the tenant has abandoned or surrendered the unit or the Act permits. A tenant who is unlawfully removed, locked out or has services willfully interrupted may recover possession or end the lease and, either way, recover the greater of three months' rent or actual damages, plus reasonable attorney's fees, and the return of the deposit and unearned prepaid rent. Liens on a tenant's household goods are unenforceable and distress for rent is abolished.",
+    notes: "AL: Read section-open 2026-09-28 in the built-in browser from the official Code of Alabama 1975 on ALISON (alison.legislature.state.al.us, the Legislature's own code service; Title 35 Chapter 9A read whole, all 48 section numbers, with every history line; newest Chapter 9A amendment Act 2018-473; whole Code loaded, 49,638 section versions including versions effective 2026-10-01 and later; every 2024, 2025 and 2026 act touching landlord-tenant terms screened; AL log §1). Controlling text: Ala. Code § 35-9A-427 (recovery of possession limited); Ala. Code § 35-9A-407 (ouster, exclusion, diminution of service: recover possession or terminate; 'not more than three months' periodic rent or the actual damages sustained by the tenant, whichever is greater, and reasonable attorney's fees'); Ala. Code § 35-9A-425 (liens; distraint abolished). Squatters are handled separately (Ala. Code § 35-9B-1 to Ala. Code § 35-9B-9; `edu-unauthorized-occupant-removal-al`). Utilities may rely on a writ of possession when discontinuing service (Ala. Code § 35-9B-7). Criminal forcible entry and detainer (Ala. Code § 6-6-310(1)) not relied on. KICKOFF LEAD ('ban on self-help') CONFIRMED.",
+  },
+  {
+    id: "edu-retaliation-al",
+    title: "Retaliation",
+    group: "Default & Termination",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "retaliation",
+    bodyText:
+      "An Alabama landlord may not retaliate by discriminatorily raising rent, reducing services, or bringing or threatening an eviction because the tenant complained to a government agency about a code violation materially affecting health and safety, complained to the landlord about the landlord's maintenance duties, or organized or joined a tenants' union. A tenant who is retaliated against has the same remedies as for an unlawful ouster (the greater of three months' rent or actual damages, plus attorney's fees) and a defense to eviction. The landlord may still evict where the tenant or household caused the violation, the tenant is behind on rent, compliance requires work that would deprive the tenant of the unit, or for other material lease violations. Alabama sets no presumption period.",
+    notes: "AL: Read section-open 2026-09-28 in the built-in browser from the official Code of Alabama 1975 on ALISON (alison.legislature.state.al.us, the Legislature's own code service; Title 35 Chapter 9A read whole, all 48 section numbers, with every history line; newest Chapter 9A amendment Act 2018-473; whole Code loaded, 49,638 section versions including versions effective 2026-10-01 and later; every 2024, 2025 and 2026 act touching landlord-tenant terms screened; AL log §1). Controlling text: Ala. Code § 35-9A-501(a)-(d); remedies via Ala. Code § 35-9A-407. No time-based presumption in the section (contrast SC's 75-day bar). KICKOFF LEAD CONFIRMED.",
+  },
+  {
+    id: "edu-periodic-tenancy-notice-al",
+    title: "Ending a Periodic Tenancy",
+    group: "Default & Termination",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-notice",
+    bodyText:
+      "Unless the lease sets a definite term, an Alabama tenancy is week-to-week for weekly rent and otherwise month-to-month. Either side may end a week-to-week tenancy by written notice at least seven days before the termination date, and a month-to-month tenancy by written notice at least 30 days before the periodic rental date named in the notice. A fixed-term lease ends on its own terms. If the landlord consents to the tenant staying after the term, the tenancy becomes periodic.",
+    notes: "AL: Read section-open 2026-09-28 in the built-in browser from the official Code of Alabama 1975 on ALISON (alison.legislature.state.al.us, the Legislature's own code service; Title 35 Chapter 9A read whole, all 48 section numbers, with every history line; newest Chapter 9A amendment Act 2018-473; whole Code loaded, 49,638 section versions including versions effective 2026-10-01 and later; every 2024, 2025 and 2026 act touching landlord-tenant terms screened; AL log §1). Controlling text: Ala. Code § 35-9A-161(d); Ala. Code § 35-9A-441(a)-(b) (notice must be written; month-to-month notice runs to 'the periodic rental date specified in the notice'); Ala. Code § 35-9A-441(c) (consented holdover becomes periodic). KICKOFF LEAD CONFIRMED. Older Chapter 9 rules (tenancy at will 10 days, Ala. Code § 35-9-3; 10 days for tenancies under a year held over without special agreement, Ala. Code § 35-9-5) predate the Act; whether they survive for Act tenancies is a case-law question (Ala. Code § 35-9A-121), not relied on. No rent-increase notice statute (`edu-no-rent-increase-notice-al`); rent may change only by agreement or at a new periodic term.",
+  },
+  {
+    id: "edu-holdover-remedies-al",
+    title: "Holdover Remedies",
+    group: "Default & Termination",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "holdover",
+    bodyText:
+      "If an Alabama tenant stays after the lease ends without the landlord's consent, the landlord may sue for possession and, if the holdover is willful and not in good faith, recover the greater of three months' rent or actual damages, plus reasonable attorney's fees. If the landlord consents, the tenancy becomes week-to-week or month-to-month. Two older Alabama statutes also speak of double rent for tenants who hold over after written demand or notice; whether they still apply to tenancies under the Act has not been settled by statute.",
+    notes: "AL: Read section-open 2026-09-28 in the built-in browser from the official Code of Alabama 1975 on ALISON (alison.legislature.state.al.us, the Legislature's own code service; Title 35 Chapter 9A read whole, all 48 section numbers, with every history line; newest Chapter 9A amendment Act 2018-473; whole Code loaded, 49,638 section versions including versions effective 2026-10-01 and later; every 2024, 2025 and 2026 act touching landlord-tenant terms screened; AL log §1). Controlling text: Ala. Code § 35-9A-441(c); Ala. Code § 35-9A-203 (landlord may sue a person wrongfully in possession for these damages); Ala. Code § 35-9A-161(d). Older sections, NOT relied on: Ala. Code § 6-6-314 (lessee who unlawfully retains possession after the term or refuses to surrender on written demand is liable for 'double the amount of the annual rent' plus special damages); Ala. Code § 35-9-100(3) (after 30 days' notice, double the value of the customary rent). The Act is 'the exclusive remedy' for rights under a rental agreement (Ala. Code § 35-9A-121) and is not to be read as impliedly repealed (Ala. Code § 35-9A-104); how the older sections apply to Act tenancies is case law (instruction 16), not read. Lease rows: `holdover-ca`; opt-in `holdover-rate-al`.",
+  },
+  {
+    id: "edu-unauthorized-occupant-removal-al",
+    title: "Squatters and Unauthorized Occupants",
+    group: "Default & Termination",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "unauthorized-occupant-removal",
+    bodyText:
+      "Since 2024, an Alabama property owner or agent can have a squatter removed without an eviction case. The owner gives notice at the dwelling that the person has no right to be there and must leave immediately, then files a sworn affidavit in the statutory form with local law enforcement, which verifies ownership and, after at least 24 hours, serves a notice to vacate immediately; the agency may charge up to $50. The procedure does not apply to a tenant, a holdover tenant, an immediate family member of the owner, or where litigation over the dwelling is pending. A false affidavit is a crime, and a person wrongfully removed may recover possession, actual damages, punitive damages of three times the fair market rent, costs and attorney's fees. Entering or staying unlawfully in a dwelling and causing $1,000 or more in damage is third-degree burglary, and renting out property one has no authority to lease is a crime (a felony from October 1, 2026).",
+    notes: "AL: Read section-open 2026-09-28 in the built-in browser from the official Code of Alabama 1975 on ALISON (alison.legislature.state.al.us, the Legislature's own code service; Title 35 Chapter 9A read whole, all 48 section numbers, with every history line; newest Chapter 9A amendment Act 2018-473; whole Code loaded, 49,638 section versions including versions effective 2026-10-01 and later; every 2024, 2025 and 2026 act touching landlord-tenant terms screened; AL log §1). Controlling text: Ala. Code § 35-9B-1 to Ala. Code § 35-9B-9 (Act 2024-237, effective 2024-06-01; statutory affidavit form in Ala. Code § 35-9B-2(b); notice at the dwelling, Ala. Code § 35-9B-2(c); law enforcement verification, 24-hour wait, $50 fee, Ala. Code § 35-9B-3; false affidavit, Ala. Code § 35-9B-4 and Ala. Code § 13A-10-9; officer immunity, Ala. Code § 35-9B-5; wrongful removal remedies, Ala. Code § 35-9B-6; utilities may rely on a writ, Ala. Code § 35-9B-7; 'squatter' excluded from Chapters 9 and 9A, Ala. Code § 35-9B-9). STATUTE TYPO: Ala. Code § 35-9B-2(a)(4) cites 'Section 34-9A-441' for holdover tenants; the intended section is Ala. Code § 35-9A-441 (as printed on ALISON; recorded, not corrected). Burglary: Ala. Code § 13A-7-7(a)(4) (Act 2024-237). Fraudulent lease: Ala. Code § 13A-9-22 (Class A misdemeanor to 2026-09-30; from 2026-10-01 'with intent to defraud' and a Class D felony, Act 2026-536) and new Ala. Code § 13A-9-23 (aggravated, Class C felony, from 2026-10-01). Kickoff lead ('squatters') CONFIRMED as enacted.",
+  },
+  {
+    id: "edu-sale-of-rented-property-al",
+    title: "Selling or Changing Management of a Rented Property",
+    group: "Default & Termination",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "sale-of-rented-property",
+    bodyText:
+      "Unless the parties agree otherwise, an Alabama landlord who sells a rented property in a good-faith sale is relieved of liability for events after written notice of the sale to the tenant, but stays liable for the tenant's security deposit and prepaid rent. A manager is relieved for events after written notice to the tenant that its management ended. The owner and manager disclosure must be kept current by any successor. The new owner holds the landlord's interest and is bound by the deposit rules when the tenancy ends. In a court receivership started after 2024, a receiver generally may not reject a lease of a tenant's primary residence. There is no state rule on tenants' rights in foreclosure; federal law applies.",
+    notes: "AL: Read section-open 2026-09-28 in the built-in browser from the official Code of Alabama 1975 on ALISON (alison.legislature.state.al.us, the Legislature's own code service; Title 35 Chapter 9A read whole, all 48 section numbers, with every history line; newest Chapter 9A amendment Act 2018-473; whole Code loaded, 49,638 section versions including versions effective 2026-10-01 and later; every 2024, 2025 and 2026 act touching landlord-tenant terms screened; AL log §1). Controlling text: Ala. Code § 35-9A-205(a)-(b); Ala. Code § 35-9A-202(b); Ala. Code § 35-9A-201(h); Ala. Code § 35-9-9 and Ala. Code § 35-9-10 (remedies run to grantees and assignees); Ala. Code § 35-4-32 (attornment of tenant unnecessary; title only); Ala. Code § 35-9-1 (tenant estopped to deny the landlord's title). Receivership: Ala. Code § 6-6-796(h) (Alabama Uniform Commercial Real Estate Receivership Act, Act 2024-380, effective 2025-01-01: no rejection of an unexpired lease where the tenant occupies as a primary residence, among other cases; scope exclusions in Ala. Code § 6-6-783 not read in full). Foreclosure: no state tenant-protection statute located (search 'foreclos' near tenant or lessee: 6 hits in 2 sections, a local authority and tax-sale redemption); federal PTFA (12 U.S.C. § 5220 note, cited, not read). Title-fraud protections for owners from 2026-10-01 (Ala. Code § 35-21-1 to Ala. Code § 35-21-12, Act 2026-536; listing verification on online real estate platforms, Ala. Code § 8-19J-2) noted by title and text read for Ala. Code § 8-19J-1 to Ala. Code § 8-19J-3.",
+  },
+  {
+    id: "edu-condo-conversion-notice-al",
+    title: "Condominium Conversion",
+    group: "Default & Termination",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "conversion-notice",
+    bodyText:
+      "A declarant converting an Alabama building to condominiums must give each residential tenant and subtenant in possession at least 60 days' notice before they must vacate, by hand delivery to the unit or prepaid mail, describing their rights. No tenant may be required to vacate on less than 60 days' notice, except for nonpayment of rent, waste or conduct disturbing other tenants, and the tenancy terms may not change during that period. Missing notice is a defense to eviction. The conversion notice can also serve as the Act's termination notice, but it does not let the declarant end a lease early.",
+    notes: "AL: Read section-open 2026-09-28 in the built-in browser from the official Code of Alabama 1975 on ALISON (alison.legislature.state.al.us, the Legislature's own code service; Title 35 Chapter 9A read whole, all 48 section numbers, with every history line; newest Chapter 9A amendment Act 2018-473; whole Code loaded, 49,638 section versions including versions effective 2026-10-01 and later; every 2024, 2025 and 2026 act touching landlord-tenant terms screened; AL log §1). Controlling text: Ala. Code § 35-8A-412(a)-(c) (Acts 1990, No. 90-551; Act 2018-403). Found by the outside-title search (AL log §17).",
+  },
+  {
+    id: "edu-servicemember-rights-al",
+    title: "Servicemember Rights",
+    group: "Default & Termination",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "military-lease-termination",
+    bodyText:
+      "Alabama has no separate state statute letting servicemembers end residential leases; the federal Servicemembers Civil Relief Act governs. Alabama extends the federal SCRA to members of the Alabama National Guard (and guard members of other states employed in Alabama) called to state active duty or federally funded duty other than training in a proclaimed emergency, for the same periods the federal law requires.",
+    notes: "AL: Read section-open 2026-09-28 in the built-in browser from the official Code of Alabama 1975 on ALISON (alison.legislature.state.al.us, the Legislature's own code service; Title 35 Chapter 9A read whole, all 48 section numbers, with every history line; newest Chapter 9A amendment Act 2018-473; whole Code loaded, 49,638 section versions including versions effective 2026-10-01 and later; every 2024, 2025 and 2026 act touching landlord-tenant terms screened; AL log §1). Controlling text: Ala. Code § 31-12-1 (definitions; Act 2021-84); Ala. Code § 31-12-2(a) (SCRA applies to state active duty; Act 2017-258; Act 2021-84); Ala. Code § 31-12-4 (not weekend drill or annual training). Federal: 50 U.S.C. § 3955 (cited, not read). Preventive law program identifies landlords who take unfair advantage of soldiers (Ala. Code § 31-2C-11, Act 2025-104; no landlord duty). Search: servicemember, service member, military orders, active duty near lease, rental or tenant = 3 hits, none a lease-termination rule. Library decision: no SCRA lease clause (AZ session, 2026-09-27). The Form 401 military clause (AL log §15) is contractual.",
+  },
+  // Disclosures
+  {
+    id: "edu-fair-housing-al",
+    title: "Alabama Fair Housing Law",
+    group: "Disclosures",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fair-housing",
+    bodyText:
+      "Alabama's Fair Housing Law bars housing discrimination because of race, color, religion, sex, familial status, national origin or handicap, including refusing reasonable accommodations or reasonable modifications for a disability. It tracks the federal classes and adds none. Exemptions: owner-occupied buildings of up to four units, and single-family houses rented by a private owner of no more than three houses without a broker or discriminatory advertising (the advertising ban still applies). A landlord may refuse an applicant convicted of illegal manufacture or distribution of a controlled substance, may ask about it on the application, and may set reasonable occupancy standards. Housing need not be provided to someone whose occupancy is a direct threat or would cause substantial physical damage.",
+    notes: "AL: Read section-open 2026-09-28 in the built-in browser from the official Code of Alabama 1975 on ALISON (alison.legislature.state.al.us, the Legislature's own code service; Title 35 Chapter 9A read whole, all 48 section numbers, with every history line; newest Chapter 9A amendment Act 2018-473; whole Code loaded, 49,638 section versions including versions effective 2026-10-01 and later; every 2024, 2025 and 2026 act touching landlord-tenant terms screened; AL log §1). Controlling text: Ala. Code § 24-8-3 (definitions: handicap, familial status, 'to rent'); Ala. Code § 24-8-4(1)-(7); Ala. Code § 24-8-7(a)-(m) (exemptions; drug-conviction screening; modifications with restoration; accommodations; direct threat; occupancy standards; single-sex dormitories). Enforcement sections of Chapter 8 not read in full (instruction 16: federal FHA 42 U.S.C. § 3604 cited, not read). No source-of-income class (`edu-no-source-of-income-rule-al`). Assistance-animal documentation: Ala. Code § 24-8A-3.",
+  },
+  // Pets
+  {
+    id: "edu-service-animal-law-al",
+    title: "Service Animal and Assistance Animal Law",
+    group: "Pets",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "assistance-animal-accommodation",
+    bodyText:
+      "Alabama gives a person with a disability who uses a service animal full and equal access to rental housing, with no extra charge; the tenant is liable for damage the animal causes, and the landlord may ask for proof of vaccinations. For other assistance animals, including qualifying emotional support animals, a landlord may require reliable documentation from the person's medical provider of the disability and the disability-related need only when they are not readily apparent or known, and must keep it confidential. Misrepresenting a disability or need, or creating or providing a false document or vest for an animal in housing, carries a $500 civil penalty or a Class C misdemeanor, and a Class B misdemeanor for a repeat. Knowingly misrepresenting oneself as using a service animal is also a Class C misdemeanor with 100 hours of community service.",
+    notes: "AL: Read section-open 2026-09-28 in the built-in browser from the official Code of Alabama 1975 on ALISON (alison.legislature.state.al.us, the Legislature's own code service; Title 35 Chapter 9A read whole, all 48 section numbers, with every history line; newest Chapter 9A amendment Act 2018-473; whole Code loaded, 49,638 section versions including versions effective 2026-10-01 and later; every 2024, 2025 and 2026 act touching landlord-tenant terms screened; AL log §1). Controlling text: Ala. Code § 21-7-9 (housing; Act 2019-478); Ala. Code § 21-7-1(b)(2) (housing accommodation excludes renting one room in a single-family home); Ala. Code § 21-7-4(h)-(i); Alabama Assistance and Service Animal Integrity in Housing Act, Ala. Code § 24-8A-1 to Ala. Code § 24-8A-5 (Act 2018-235). Lease row: `assistance-animal-accommodation-al`. 'Service animal' in Ala. Code § 24-8A-2(5) follows the ADA (28 C.F.R. § 36.104, cited, not read).",
+  },
+  // Notices & General
+  {
+    id: "edu-electronic-notices-al",
+    title: "Electronic Notices",
+    group: "Notices & General",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "notice-delivery-methods",
+    bodyText:
+      "Alabama's electronic-transactions law does not apply to notices of default, eviction or the right to cure under a rental agreement for a person's primary residence, or to utility cutoff notices. Deliver those notices on paper (in hand, by mail, or by posting on the primary entry door where the Act allows). Electronic signatures on the lease itself are valid.",
+    notes: "AL: Read section-open 2026-09-28 in the built-in browser from the official Code of Alabama 1975 on ALISON (alison.legislature.state.al.us, the Legislature's own code service; Title 35 Chapter 9A read whole, all 48 section numbers, with every history line; newest Chapter 9A amendment Act 2018-473; whole Code loaded, 49,638 section versions including versions effective 2026-10-01 and later; every 2024, 2025 and 2026 act touching landlord-tenant terms screened; AL log §1). Controlling text: Ala. Code § 8-1A-3(c)(2)a.-b. (Act 2001-458); Ala. Code § 35-9A-144(c)(3) (tenant receives a mailed notice three days after mailing), (e) (not for termination or eviction notices); posting permitted for entry notices (Ala. Code § 35-9A-303(c)) and service of eviction process (Ala. Code § 35-9A-461(c)). Instruction 47 HIT. `notices` designates no electronic method; no electronic-notice addendum offered for Alabama.",
+  },
+  // Parking & Storage
+  {
+    id: "edu-towing-al",
+    title: "Towing from Rental Property",
+    group: "Parking & Storage",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "towing",
+    bodyText:
+      "An Alabama property owner or lessee (or its agent) may have a vehicle that has become unclaimed on the property under the state's unclaimed-vehicle procedure removed to a secure place; the tow company gets a lien for reasonable removal and storage fees, and the owner, lessee and tower are liable to the vehicle's owner only for gross negligence. Law enforcement may remove vehicles left 48 hours or more. Alabama has no statute requiring tow-away signs on private residential lots. Class 1 and Class 5 cities may set up procedures to remove inoperable vehicles from private property as nuisances.",
+    notes: "AL: Read section-open 2026-09-28 in the built-in browser from the official Code of Alabama 1975 on ALISON (alison.legislature.state.al.us, the Legislature's own code service; Title 35 Chapter 9A read whole, all 48 section numbers, with every history line; newest Chapter 9A amendment Act 2018-473; whole Code loaded, 49,638 section versions including versions effective 2026-10-01 and later; every 2024, 2025 and 2026 act touching landlord-tenant terms screened; AL log §1). Controlling text: Ala. Code § 32-13-1 (abandoned motor vehicle: unclaimed at least 30 days under Ala. Code § 32-8-84); Ala. Code § 32-13-2(a)-(e) (Act 2019-245; Act 2020-130); Ala. Code § 32-8-84 (unclaimed vehicle reporting; amended by Act 2026-263 effective 2026-10-01, portal reporting; read by snippet); Ala. Code § 11-67A-3 and Ala. Code § 11-67B-3 (municipal inoperable-vehicle procedures). No private-lot signage or rate statute located (search: tow near private property, parking lot or apartment = 1 hit, a waterworks board). `parking-vehicle-rules` tagged.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-dishonored-payment-remedies-al",
+    title: "Bounced Checks",
+    group: "Rent & Payment",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "returned-payments",
+    bodyText:
+      "Alabama's bad-check charge statute lets lenders, creditors and merchants charge the greater of $30 or the bank's actual return charge for a dishonored check; whether it covers a residential landlord collecting rent is not settled by the text, so keep any returned-payment fee at or below $30 unless the lease and a court say otherwise. Writing a check knowing it will not be honored is a Class A misdemeanor; to use the statutory presumption, the holder sends the statutory notice by certified or registered mail and the drawer has 10 days to pay the amount plus the service charge.",
+    notes: "AL: Read section-open 2026-09-28 in the built-in browser from the official Code of Alabama 1975 on ALISON (alison.legislature.state.al.us, the Legislature's own code service; Title 35 Chapter 9A read whole, all 48 section numbers, with every history line; newest Chapter 9A amendment Act 2018-473; whole Code loaded, 49,638 section versions including versions effective 2026-10-01 and later; every 2024, 2025 and 2026 act touching landlord-tenant terms screened; AL log §1). Controlling text: Ala. Code § 8-8-15 ($25 rising $1 a year to $30 by 2003, or the bank's actual charge if greater); Ala. Code § 13A-9-13.1 (Act 2014-444: includes electronic drafts); Ala. Code § 13A-9-13.2 (notice form; immunity). The '$30 or less' advice is conservative, not a statutory rule for landlords. District attorney worthless check units charge their own fee (Ala. Code § 12-17-224, $30 on withdrawal of a complaint). `returned-payments` tagged.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-utilities-al",
+    title: "Utility Accounts",
+    group: "Tenant Responsibilities",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utilities-responsibility",
+    bodyText:
+      "An Alabama landlord is not responsible for paying utilities unless the lease says so. A sewer bill in a tenant's name is the tenant's sole responsibility and is not a lien on the property, and a provider of goods or services may not make a landlord pay a tenant's delinquent bill for an account in the tenant's name or claim a lien on the property for it. Tampering with a meter to divert gas, electricity or water is a crime. A utility may rely on a writ of possession when deciding whether to disconnect service.",
+    notes: "AL: Read section-open 2026-09-28 in the built-in browser from the official Code of Alabama 1975 on ALISON (alison.legislature.state.al.us, the Legislature's own code service; Title 35 Chapter 9A read whole, all 48 section numbers, with every history line; newest Chapter 9A amendment Act 2018-473; whole Code loaded, 49,638 section versions including versions effective 2026-10-01 and later; every 2024, 2025 and 2026 act touching landlord-tenant terms screened; AL log §1). Controlling text: Ala. Code § 35-9A-404(a); Ala. Code § 35-9-14 (Act 2004-522); Ala. Code § 35-9-15 (Act 2009-570); Ala. Code § 13A-8-23; Ala. Code § 35-9B-7. Submetering: no residential submetering statute located (search: submeter, master meter = 2 hits in one public-utility section). PSC disconnection rules not searched (instruction 16).",
+  },
+  // Disclosures
+  {
+    id: "edu-lead-hazards-al",
+    title: "Lead Hazards",
+    group: "Disclosures",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lead-based-paint",
+    bodyText:
+      "Federal lead-based paint disclosure applies to Alabama rentals built before 1978. Alabama adds its Lead Reduction Act: people doing lead-based paint inspections, risk assessments, abatement and similar activities must be accredited, and anyone paid to renovate target housing must give the owner and occupants a lead hazard information pamphlet before starting work. Alabama has no separate state lead disclosure form for leases.",
+    notes: "AL: Read section-open 2026-09-28 in the built-in browser from the official Code of Alabama 1975 on ALISON (alison.legislature.state.al.us, the Legislature's own code service; Title 35 Chapter 9A read whole, all 48 section numbers, with every history line; newest Chapter 9A amendment Act 2018-473; whole Code loaded, 49,638 section versions including versions effective 2026-10-01 and later; every 2024, 2025 and 2026 act touching landlord-tenant terms screened; AL log §1). Controlling text: Ala. Code § 22-37A-1 to Ala. Code § 22-37A-6 (Acts 1997, No. 97-553; Act 2022-426; 'target housing' per 40 CFR § 745.103, cited, not read); Ala. Code § 22-37A-3(a)(6) (pre-renovation pamphlet). Search 'lead-based paint|lead poisoning|lead hazard' = 30 hits in 5 sections, all Chapter 37A. State Board of Health rules not searched (instruction 16). `lead-based-paint` tagged.",
+  },
+  // Default & Termination
+  {
+    id: "edu-drug-nuisance-al",
+    title: "Drug-Related Nuisance Actions",
+    group: "Default & Termination",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nuisance",
+    bodyText:
+      "In Alabama, the attorney general, a district attorney, a county or city attorney, a county resident (including a tenant) or a community group may sue in circuit court to abate a drug-related nuisance at a property. If a nuisance is found, the court may award damages of $300 to $40,000 per plaintiff, fines when a government sues, and attorney's fees, and may order the owner to clean up and repair, add locks, lighting, security or cameras, pay rent into court for up to 90 days, turn rents over to a trustee, suspend housing subsidies to the owner, or seal the property. A non-resident owner's criminal culpability must be shown by clear and convincing evidence. Illegal drug activity by a tenant is also a noncurable lease default.",
+    notes: "AL: Read section-open 2026-09-28 in the built-in browser from the official Code of Alabama 1975 on ALISON (alison.legislature.state.al.us, the Legislature's own code service; Title 35 Chapter 9A read whole, all 48 section numbers, with every history line; newest Chapter 9A amendment Act 2018-473; whole Code loaded, 49,638 section versions including versions effective 2026-10-01 and later; every 2024, 2025 and 2026 act touching landlord-tenant terms screened; AL log §1). Controlling text: Ala. Code § 6-5-155.1 (definitions; 'tenant'); Ala. Code § 6-5-155.2 (who may sue); Ala. Code § 6-5-156.3(a)-(e) (standard of proof; remedies; factors, including how often the owner was notified and the owner's efforts). Other sections of the division (Ala. Code § 6-5-155 to Ala. Code § 6-5-156.5) not read in full. Lease-side: Ala. Code § 35-9A-421(d)(1). Found by the outside-title search ('tenant' across the Code; AL log §17).",
+  },
+  // Disclosures
+  {
+    id: "edu-immigration-rental-restriction-al",
+    title: "Rental Agreements and Immigration Status",
+    group: "Disclosures",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "immigration-status-inquiry",
+    bodyText:
+      "Alabama's Code still contains a 2012 provision making it unlawful to harbor a person unlawfully present in the United States by entering into a rental agreement with that person, if the landlord knows or recklessly disregards that the person is unlawfully present. Parts of Alabama's 2011-2012 immigration laws were challenged in federal court and the separate harboring section was repealed in 2025, so whether this rental provision can be enforced should be checked with a lawyer before relying on it either way. Alabama law does not require or forbid asking applicants about immigration status. Fair-housing law still bars national-origin discrimination.",
+    notes: "AL: Read section-open 2026-09-28 in the built-in browser from the official Code of Alabama 1975 on ALISON (alison.legislature.state.al.us, the Legislature's own code service; Title 35 Chapter 9A read whole, all 48 section numbers, with every history line; newest Chapter 9A amendment Act 2018-473; whole Code loaded, 49,638 section versions including versions effective 2026-10-01 and later; every 2024, 2025 and 2026 act touching landlord-tenant terms screened; AL log §1). Controlling text: Ala. Code § 31-13-33 (Act 2012-491, § 6; printed in the current compilation with no repeal note); Ala. Code § 31-13-13 (harboring, repealed by Act 2025-453 effective 2025-10-01; Act 2025-453 also added Ala. Code § 31-13-13.1, human smuggling, transport only); 'lawfully present' presumption and the bar on independent state determinations of status (Ala. Code § 31-13-3(11), Act 2025-453). ENFORCEABILITY NOT VERIFIED: federal litigation over the 2011 act (HB 56) and its 2012 amendments is case law (instruction 16), not read; the row states the statute exists and does not tell landlords to screen. No immigration-inquiry ban located (search: immigration, citizenship or alien near tenant, landlord, rent, lease or dwelling; conceal or harbor near alien = 1 hit, this section). Checklist: immigration-status inquiry row answered 'No prohibition; restriction on renting to unlawfully present persons on the books'.",
+  },
+  {
+    id: "edu-birmingham-sex-offender-residence-al",
+    title: "Registered Offenders in Birmingham Rentals",
+    group: "Disclosures",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "sex-offender-occupancy",
+    bodyText:
+      "In a Class 1 Alabama city (Birmingham), a registered sex offender may not live in a residence where another registered sex offender on the Jefferson County Sheriff's list lives, and an owner or lessee who knowingly permits it is fined $5,000 per violation. The owner is protected if the rental application or the lease contains the tenant's signed statement that the tenant is not a convicted sex offender. A spouse or child living with the owner or lessee is excepted. Statewide, registrants may not live within 2,000 feet of a school, childcare facility or resident camp, but that duty is on the registrant, not the landlord.",
+    notes: "AL: Read section-open 2026-09-28 in the built-in browser from the official Code of Alabama 1975 on ALISON (alison.legislature.state.al.us, the Legislature's own code service; Title 35 Chapter 9A read whole, all 48 section numbers, with every history line; newest Chapter 9A amendment Act 2018-473; whole Code loaded, 49,638 section versions including versions effective 2026-10-01 and later; every 2024, 2025 and 2026 act touching landlord-tenant terms screened; AL log §1). Controlling text: Ala. Code § 13A-11-204(a)-(e) (Act 2007-450); Ala. Code § 11-40-12(a) (Class 1 = 300,000 or more, 1970 census); Ala. Code § 15-20A-11(a)-(b) (registrant residence restrictions; not read beyond (a)-(b)). Optional clause: `sex-offender-statement-al` (Taylor decision 3). Builder gap: no municipality attribute (AL log §14).",
+  },
+  // Default & Termination
+  {
+    id: "edu-rent-into-court-counterclaim-al",
+    title: "Tenant Counterclaims and Rent Paid into Court",
+    group: "Default & Termination",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-into-court-counterclaim",
+    bodyText:
+      "In an Alabama eviction or rent action while the tenant is still in possession, the tenant may counterclaim for anything recoverable under the lease or the Act, but must pay accrued rent into court and keep paying as it comes due; the court decides whether the tenant stays and pays the net amount to whichever side is owed. If no rent remains due, judgment for possession goes to the tenant. A landlord may recover attorney's fees if the tenant's defense or counterclaim is without merit and not in good faith. A tenant not in possession may counterclaim without paying rent into court.",
+    notes: "AL: Read section-open 2026-09-28 in the built-in browser from the official Code of Alabama 1975 on ALISON (alison.legislature.state.al.us, the Legislature's own code service; Title 35 Chapter 9A read whole, all 48 section numbers, with every history line; newest Chapter 9A amendment Act 2018-473; whole Code loaded, 49,638 section versions including versions effective 2026-10-01 and later; every 2024, 2025 and 2026 act touching landlord-tenant terms screened; AL log §1). Controlling text: Ala. Code § 35-9A-405(a)-(b). Appeal-stage rent deposits: Ala. Code § 35-9A-461(d); Ala. Code § 6-6-351.",
+  },
+  // Security Deposit
+  {
+    id: "edu-no-deposit-interest-al",
+    title: "No Interest on Security Deposits",
+    group: "Security Deposit",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-interest",
+    bodyText:
+      "Alabama does not require a landlord to pay interest on a security deposit or to hold it in a separate or interest-bearing account.",
+    notes: "CONFIRMED ABSENT, code-wide: regular-expression search over the full text of the official Code of Alabama (ALISON, 49,638 section versions loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 24 hits and 'carbon monoxide' 2, so the engine reports true empties; word forms written into each pattern; hits read in context; AL log §17). Chapter 9A read whole. Ala. Code § 35-9A-201 has no interest or account rule. Searched 'interest ... (security deposit|deposit)' (200 hits in 169 sections, none on rental deposits; hits are banking, bonds and public funds) and 'money as security|security deposit|damage deposit|pet deposit' (26 hits in 25 sections; residential only Ala. Code § 35-9A-163 and Ala. Code § 35-9A-201).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-late-fee-cap-al",
+    title: "No Late Fee Limit",
+    group: "Rent & Payment",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "late-fee-limit",
+    bodyText:
+      "Alabama does not cap residential late fees or require a grace period. Late fees may be included in the seven-business-day nonpayment notice. Courts may still refuse to enforce a fee that operates as a penalty.",
+    notes: "CONFIRMED ABSENT, code-wide: regular-expression search over the full text of the official Code of Alabama (ALISON, 49,638 section versions loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 24 hits and 'carbon monoxide' 2, so the engine reports true empties; word forms written into each pattern; hits read in context; AL log §17). Chapter 9A read whole. Searched 'late (fee|fees|charge|charges)' near rent, tenant, lease, landlord or dwelling: 10 hits in 7 sections; only Ala. Code § 35-9A-421(b) is residential (it allows late fees in the nonpayment notice and sets no amount). Penalty doctrine is case law, not read. KICKOFF LEAD ('whether any statute limits them'): NO STATUTE.",
+  },
+  {
+    id: "edu-no-application-fee-cap-al",
+    title: "No Application Fee Limit",
+    group: "Rent & Payment",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "application-fee",
+    bodyText:
+      "Alabama does not limit rental application or screening fees or require them to be refunded.",
+    notes: "CONFIRMED ABSENT, code-wide: regular-expression search over the full text of the official Code of Alabama (ALISON, 49,638 section versions loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 24 hits and 'carbon monoxide' 2, so the engine reports true empties; word forms written into each pattern; hits read in context; AL log §17). Chapter 9A read whole. Searched '(application|screening) fees?' near rent, tenant, landlord, lease, housing or dwelling (both orders): 2 hits, professional licensing only.",
+  },
+  {
+    id: "edu-no-rent-increase-notice-al",
+    title: "No Rent Increase Notice Rule",
+    group: "Rent & Payment",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-increase-notice",
+    bodyText:
+      "Alabama sets no advance-notice period or limit for rent increases. Rent may change by agreement, at renewal, or on a new periodic term after proper termination notice, but not as retaliation.",
+    notes: "CONFIRMED ABSENT, code-wide: regular-expression search over the full text of the official Code of Alabama (ALISON, 49,638 section versions loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 24 hits and 'carbon monoxide' 2, so the engine reports true empties; word forms written into each pattern; hits read in context; AL log §17). Chapter 9A read whole. Searched '(increase|raise|raising) ... rent|rent increase': 1 hit (Ala. Code § 35-11-96, crop liens). Retaliatory increases barred (Ala. Code § 35-9A-501(a)); local rent control barred (Ala. Code § 11-80-8.1).",
+  },
+  // Disclosures
+  {
+    id: "edu-no-source-of-income-rule-al",
+    title: "No Source-of-Income Protection",
+    group: "Disclosures",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "source-of-income",
+    bodyText:
+      "Alabama law does not require landlords to accept housing vouchers or other lawful sources of income and does not make source of income a protected class. Local governments cannot add landlord-tenant rules of their own.",
+    notes: "CONFIRMED ABSENT, code-wide: regular-expression search over the full text of the official Code of Alabama (ALISON, 49,638 section versions loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 24 hits and 'carbon monoxide' 2, so the engine reports true empties; word forms written into each pattern; hits read in context; AL log §17). Chapter 9A read whole. Protected classes: Ala. Code § 24-8-4 (no source of income). Searched 'source of income|housing choice voucher|section 8 (housing|voucher|program)': 125 hits in 117 sections (104 in Title 45 local tax acts; the rest tax, child support and sheriff funds; Ala. Code § 24-1B-3 (2026-10-01) defines voucher-assisted housing for Class 1 community land trusts, no landlord duty). Local preemption: Ala. Code § 35-9A-121.",
+  },
+  {
+    id: "edu-no-radon-disclosure-al",
+    title: "No Radon Disclosure Rule",
+    group: "Disclosures",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "radon-disclosure",
+    bodyText:
+      "Alabama has no radon disclosure or testing requirement for rentals.",
+    notes: "CONFIRMED ABSENT, code-wide: regular-expression search over the full text of the official Code of Alabama (ALISON, 49,638 section versions loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 24 hits and 'carbon monoxide' 2, so the engine reports true empties; word forms written into each pattern; hits read in context; AL log §17). Chapter 9A read whole. Searched '\\bradon\\b': 0 hits (one false match, 'radonic', chiropractic).",
+  },
+  {
+    id: "edu-no-mold-bedbug-disclosure-al",
+    title: "No Mold or Bed Bug Disclosure Rule",
+    group: "Disclosures",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "bed-bug-disclosure",
+    bodyText:
+      "Alabama has no mold or bed bug disclosure, inspection or treatment statute for rentals. The general duty to keep the premises habitable and meet housing codes still applies.",
+    notes: "CONFIRMED ABSENT, code-wide: regular-expression search over the full text of the official Code of Alabama (ALISON, 49,638 section versions loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 24 hits and 'carbon monoxide' 2, so the engine reports true empties; word forms written into each pattern; hits read in context; AL log §17). Chapter 9A read whole. Searched mold, molds, mildew: 12 hits in 8 sections, none landlord-tenant; bed bugs, bedbugs: 0 hits. General duty: Ala. Code § 35-9A-204(a)(1)-(2).",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-no-co-alarm-duty-al",
+    title: "No Carbon Monoxide Alarm Duty",
+    group: "Rules & Regulations",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "carbon-monoxide-alarm",
+    bodyText:
+      "Alabama statutes do not require carbon monoxide alarms in rental housing.",
+    notes: "CONFIRMED ABSENT, code-wide: regular-expression search over the full text of the official Code of Alabama (ALISON, 49,638 section versions loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 24 hits and 'carbon monoxide' 2, so the engine reports true empties; word forms written into each pattern; hits read in context; AL log §17). Chapter 9A read whole. Searched 'carbon monoxide': 2 hits (Ala. Code § 34-29-131, veterinary exemption; Ala. Code § 40-23-230, sales-tax holiday list). State Fire Marshal and building-code rules adopted by regulation not searched (instruction 16).",
+  },
+  {
+    id: "edu-no-smoke-alarm-duty-al",
+    title: "No Statutory Smoke Alarm Duty for Rentals",
+    group: "Rules & Regulations",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "alarm-duties",
+    bodyText:
+      "Alabama statutes do not require landlords to install or maintain smoke alarms in rental homes or apartments; the only statutory smoke detector duty is for hotel guest rooms. Building and fire codes adopted locally or by rule may still require them.",
+    notes: "CONFIRMED ABSENT, code-wide: regular-expression search over the full text of the official Code of Alabama (ALISON, 49,638 section versions loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 24 hits and 'carbon monoxide' 2, so the engine reports true empties; word forms written into each pattern; hits read in context; AL log §17). Chapter 9A read whole. Searched 'smoke (alarm|detector)s?': 7 hits in 5 sections (Ala. Code § 34-15-4, hotel guest rooms; Ala. Code § 31-9-140, safer place facilities; Ala. Code § 34-33-14, fire data; Ala. Code § 34-33A-3, alarm licensing exemption for a detector in a residential dwelling; Ala. Code § 40-23-230, tax holiday). State Fire Marshal rules and locally adopted building codes not searched (instruction 16); the Act's code-compliance duty (Ala. Code § 35-9A-204(a)(1)) imports any that apply. Form 401 ¶12-13 allocates battery changes to the tenant by contract (AL log §15).",
+  },
+  // Disclosures
+  {
+    id: "edu-no-flood-disclosure-al",
+    title: "No Flood Disclosure Rule",
+    group: "Disclosures",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "flood-disclosure",
+    bodyText:
+      "Alabama has no flood-history or flood-zone disclosure requirement for rentals.",
+    notes: "CONFIRMED ABSENT, code-wide: regular-expression search over the full text of the official Code of Alabama (ALISON, 49,638 section versions loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 24 hits and 'carbon monoxide' 2, so the engine reports true empties; word forms written into each pattern; hits read in context; AL log §17). Chapter 9A read whole. Searched 'flood' near lease, tenant, lessee, rental or landlord (both orders): 4 hits (water authorities and dam safety).",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-no-ev-charging-right-al",
+    title: "No Tenant EV Charging Right",
+    group: "Rules & Regulations",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "ev-charging",
+    bodyText:
+      "Alabama gives tenants no statutory right to install electric vehicle charging equipment.",
+    notes: "CONFIRMED ABSENT, code-wide: regular-expression search over the full text of the official Code of Alabama (ALISON, 49,638 section versions loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 24 hits and 'carbon monoxide' 2, so the engine reports true empties; word forms written into each pattern; hits read in context; AL log §17). Chapter 9A read whole. Searched 'electric vehicle' near tenant, lease, rental, landlord, condominium or association (both orders): 0 hits ('electric vehicle' alone: 23 hits in 4 sections, fees and taxes).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-cash-receipt-duty-al",
+    title: "No Rent Receipt Duty",
+    group: "Rent & Payment",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "cash-rent-receipt",
+    bodyText:
+      "Alabama does not require landlords to give receipts for rent, including cash rent.",
+    notes: "CONFIRMED ABSENT, code-wide: regular-expression search over the full text of the official Code of Alabama (ALISON, 49,638 section versions loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 24 hits and 'carbon monoxide' 2, so the engine reports true empties; word forms written into each pattern; hits read in context; AL log §17). Chapter 9A read whole. Searched 'receipts? (for|of) (rent|payment)|rent receipt' (22 hits in 19 sections, none landlord-tenant) and receipt near cash near rent (5 hits, municipal budgets). The Act's 'receiving and receipting for notices' (Ala. Code § 35-9A-202) concerns notices, not rent.",
+  },
+  // Notices & General
+  {
+    id: "edu-no-police-call-protection-al",
+    title: "No Right-to-Call-Police Statute",
+    group: "Notices & General",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "emergency-assistance-right",
+    bodyText:
+      "Alabama has no statute protecting a tenant from eviction or penalties for calling police or emergency services.",
+    notes: "CONFIRMED ABSENT, code-wide: regular-expression search over the full text of the official Code of Alabama (ALISON, 49,638 section versions loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 24 hits and 'carbon monoxide' 2, so the engine reports true empties; word forms written into each pattern; hits read in context; AL log §17). Chapter 9A read whole. Searched '(law enforcement|police|911|emergency assistance) ... (tenant|lessee|lease) ... (evict|terminat|penal|waive)': 0 hits.",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-tenant-death-termination-al",
+    title: "No Lease Termination on a Tenant's Death",
+    group: "Default & Termination",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-death-of-tenant",
+    bodyText:
+      "Alabama has no statute ending a residential lease or setting a special procedure when a tenant dies; the lease and general estate law govern.",
+    notes: "CONFIRMED ABSENT, code-wide: regular-expression search over the full text of the official Code of Alabama (ALISON, 49,638 section versions loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 24 hits and 'carbon monoxide' 2, so the engine reports true empties; word forms written into each pattern; hits read in context; AL log §17). Chapter 9A read whole. Searched '(death|dies|died|deceased|decedent) ... (tenant|lessee) ... (lease|rental agreement|terminat)': 1 hit (Ala. Code § 7-2A-503, UCC personal-property leases). Emblements on a tenant at will's death: Ala. Code § 35-9-2 (crops only). Manufactured home abandoned by death: Ala. Code § 35-12A-14 (deprioritized).",
+  },
+  // Security Deposit
+  {
+    id: "edu-no-move-in-inspection-rule-al",
+    title: "No Move-In Inspection Rule",
+    group: "Security Deposit",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "move-in-inventory",
+    bodyText:
+      "Alabama does not require a move-in inspection, condition checklist or inventory. A signed move-in report is still good evidence in a deposit dispute.",
+    notes: "CONFIRMED ABSENT, code-wide: regular-expression search over the full text of the official Code of Alabama (ALISON, 49,638 section versions loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 24 hits and 'carbon monoxide' 2, so the engine reports true empties; word forms written into each pattern; hits read in context; AL log §17). Chapter 9A read whole. Searched '(move-in|inventory|condition report|checklist) ... (tenant|lessee|rental)': 0 hits. Chapter 9A read whole.",
+  },
+  // Disclosures
+  {
+    id: "edu-no-drug-lab-disclosure-al",
+    title: "No Drug Lab Disclosure Rule",
+    group: "Disclosures",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "meth-disclosure",
+    bodyText:
+      "Alabama has no statute requiring a landlord to disclose that a rental was used as a methamphetamine or other drug lab.",
+    notes: "CONFIRMED ABSENT, code-wide: regular-expression search over the full text of the official Code of Alabama (ALISON, 49,638 section versions loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 24 hits and 'carbon monoxide' 2, so the engine reports true empties; word forms written into each pattern; hits read in context; AL log §17). Chapter 9A read whole. Searched 'clandestine|methamphetamine (lab|laborator)' (14 hits in 6 sections: crimes, precursor sales, drug task force) and '(methamphetamine|clandestine) ... (disclos|lease|rent|tenant|landlord|real property|dwelling)' (0 hits).",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-dv-termination-al",
+    title: "No Domestic Violence Lease Termination Right",
+    group: "Default & Termination",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-lease-termination",
+    bodyText:
+      "Alabama has no statute letting a victim of domestic violence, sexual assault or stalking end a residential lease early, change locks, or have an abuser removed from the lease. Federal VAWA protections apply in covered federally assisted housing.",
+    notes: "CONFIRMED ABSENT, code-wide: regular-expression search over the full text of the official Code of Alabama (ALISON, 49,638 section versions loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 24 hits and 'carbon monoxide' 2, so the engine reports true empties; word forms written into each pattern; hits read in context; AL log §17). Chapter 9A read whole. Searched '(lease|rental|tenan|landlord) ... (domestic violence|victim|abuse|stalking)' and the reverse (28 hits in 24 sections: criminal procedure, bail, victim notification; none landlord-tenant); 'domestic violence|family violence|protection order|protective order' (704 hits in 208 sections; landlord-relevant none). KICKOFF LEAD ('domestic-violence ... lease termination'): NO STATE STATUTE. VAWA (34 U.S.C. § 12491) cited, not read.",
+  },
+  {
+    id: "edu-no-eviction-record-sealing-al",
+    title: "No Eviction Record Sealing",
+    group: "Default & Termination",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-record-sealing",
+    bodyText:
+      "Alabama has no statute sealing, expunging or limiting public access to eviction (unlawful detainer) case records.",
+    notes: "CONFIRMED ABSENT, code-wide: regular-expression search over the full text of the official Code of Alabama (ALISON, 49,638 section versions loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 24 hits and 'carbon monoxide' 2, so the engine reports true empties; word forms written into each pattern; hits read in context; AL log §17). Chapter 9A read whole. Searched '(expunge|expunction|seal) ... (eviction|unlawful detainer)': 0 hits.",
+  },
+  {
+    id: "edu-exemption-waiver-al",
+    title: "Waiver of Collection Exemptions",
+    group: "Default & Termination",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "homestead-waiver",
+    bodyText:
+      "Alabama lets a person waive, in a written contract such as a lease, the exemption that protects up to $7,500 of personal property (adjusted every three years) from collection of a judgment. The waiver can never reach cooking utensils and stoves, table, tableware, chairs, beds and bedding in use by the family, clothing, the family library, or a vehicle or tools personally essential to the debtor's business, and it works only if it is pleaded in the lawsuit and declared in the judgment. A homestead waiver needs a separate signed and witnessed document. The library offers an optional waiver clause (`exemption-waiver-al`), off by default. It is a collection term aimed at the tenant that many residential leases leave out, so use it only as a deliberate choice.",
+    notes: "AL: Read section-open 2026-09-28 in the built-in browser from the official Code of Alabama 1975 on ALISON (alison.legislature.state.al.us, the Legislature's own code service; Title 35 Chapter 9A read whole, all 48 section numbers, with every history line; newest Chapter 9A amendment Act 2018-473; whole Code loaded, 49,638 section versions including versions effective 2026-10-01 and later; every 2024, 2025 and 2026 act touching landlord-tenant terms screened; AL log §1). Controlling text: Ala. Code § 6-10-6 ($7,500 personal property exemption; Act 2015-484); Ala. Code § 6-10-12 (CPI adjustment every three years by the State Treasurer); Ala. Code § 6-10-120 (right to waive by written instrument); Ala. Code § 6-10-121 (personalty: separate instrument or included in 'any ... written contract'); Ala. Code § 6-10-122 (homestead: separate instrument attested by one witness, spousal formalities); Ala. Code § 6-10-123 (waiver must be averred in the complaint and declared in the judgment); Ala. Code § 6-10-126 (items no waiver reaches); homestead amounts Ala. Code § 6-10-2 (amended by Act 2026-203). Not in the Act's prohibited list (Ala. Code § 35-9A-163(a)). FEDERAL CHECK (instruction 16): the FTC Credit Practices Rule (16 CFR § 444.2(a)(2); definitions in 16 CFR § 444.1, text read 2026-09-28 on eCFR) bars exemption waivers only in an 'obligation' with a 'lender' or 'retail installment seller' (goods or services on deferred payment or lease-purchase); it does not mention landlords or leases of real property, so on its face it does not reach a residential lease (no case law read). Unconscionability (Ala. Code § 35-9A-143) and the Alabama Constitution's exemption provisions not researched. Decision 4 (Taylor, 2026-09-28): 'I personally don't like this clause, but I think we should add it, give others the option and keeps things consistent' (instruction 30; AZ-session optional-clause rule) - optional `exemption-waiver-al`. Found by the outside-title search (homestead or exemption near waive, AL log §17).",
   },
 ];
 
