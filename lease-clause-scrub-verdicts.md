@@ -19,9 +19,11 @@ Checklist instruction 66 applied to every active lease clause (513): does it bel
 
 The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is `REQUIRED_DISCLOSURE: 40 CFR 745.113`).
 
-**Totals (446 single-state rows):** Keep 285, Education 86, Split 51, Optional + education 17, Notice-period rewrite 6, Needs Taylor 1.
+**Totals (446 single-state rows):** Keep 285, Education 87, Split 51, Optional + education 17, Notice-period rewrite 6, Needs Taylor 0.
 
 ## CO
+
+**Applied 2026-09-29.**
 
 | Row | Verdict | Basis | Note |
 |---|---|---|---|
@@ -51,6 +53,8 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 
 ## WY
 
+**Not applied yet.**
+
 | Row | Verdict | Basis | Note |
 |---|---|---|---|
 | `dv-safe-homes-wy` | Education | — | tenant defense |
@@ -68,6 +72,8 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 | `casualty-termination-wy` | Keep | SERVES_LANDLORD | contract choice, no WY statute |
 
 ## KS
+
+**Not applied yet.**
 
 | Row | Verdict | Basis | Note |
 |---|---|---|---|
@@ -87,6 +93,8 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 | `smoke-detectors-ks` | Keep | SERVES_LANDLORD | tenant maintenance duty |
 
 ## NE
+
+**Not applied yet.**
 
 | Row | Verdict | Basis | Note |
 |---|---|---|---|
@@ -111,6 +119,8 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 | `carbon-monoxide-alarm-duty-ne` | Keep | SERVES_LANDLORD | tenant maintenance allocation |
 
 ## MN
+
+**Not applied yet.**
 
 | Row | Verdict | Basis | Note |
 |---|---|---|---|
@@ -144,6 +154,8 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 
 ## ND
 
+**Not applied yet.**
+
 | Row | Verdict | Basis | Note |
 |---|---|---|---|
 | `security-deposit-return-nd` | Education | — | landlord duty |
@@ -162,6 +174,8 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 
 ## SD
 
+**Not applied yet.**
+
 | Row | Verdict | Basis | Note |
 |---|---|---|---|
 | `security-deposit-return-sd` | Education | — | landlord duty + forfeiture |
@@ -179,6 +193,8 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 
 ## OH
 
+**Not applied yet.**
+
 | Row | Verdict | Basis | Note |
 |---|---|---|---|
 | `security-deposit-interest-oh` | Education | — | landlord interest duty |
@@ -195,9 +211,11 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 
 ## CA
 
+**Not applied yet.**
+
 | Row | Verdict | Basis | Note |
 |---|---|---|---|
-| `security-deposit-cap-ca` | Needs Taylor | — | cap to edu, keep amount; supersedes security-deposit-use so CA needs a use clause back |
+| `security-deposit-cap-ca` | Education | — | cap to edu; Taylor 2026-09-29: tag the shared security-deposit-use for CA after checking it against Civ. Code § 1950.5(b), so CA keeps a deposit amount and use clause |
 | `notice-service-fee-ban-ca` | Education | — | landlord prohibition |
 | `accommodation-request-rights-ca` | Education | — | tenant right |
 | `reasonable-modification-ca` | Education | — | tenant right |
@@ -257,6 +275,8 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 
 ## NV
 
+**Not applied yet.**
+
 | Row | Verdict | Basis | Note |
 |---|---|---|---|
 | `possession-delay-nv` | Education | — | tenant remedies |
@@ -288,6 +308,8 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 | `designated-repairer-nv` | Keep | SERVES_LANDLORD | opt-in |
 
 ## TX
+
+**Not applied yet.**
 
 | Row | Verdict | Basis | Note |
 |---|---|---|---|
@@ -321,6 +343,8 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 
 ## NJ
 
+**Not applied yet.**
+
 | Row | Verdict | Basis | Note |
 |---|---|---|---|
 | `security-deposit-interest-nj` | Education | — | landlord duties |
@@ -349,6 +373,8 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 
 ## FL
 
+**Not applied yet.**
+
 | Row | Verdict | Basis | Note |
 |---|---|---|---|
 | `casualty-damage-fl` | Education | — | tenant right |
@@ -376,6 +402,8 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 
 ## AZ
 
+**Not applied yet.**
+
 | Row | Verdict | Basis | Note |
 |---|---|---|---|
 | `security-deposit-cap-az` | Education | — | cap |
@@ -400,6 +428,8 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 
 ## GA
 
+**Not applied yet.**
+
 | Row | Verdict | Basis | Note |
 |---|---|---|---|
 | `security-deposit-cap-ga` | Education | — | cap |
@@ -416,6 +446,8 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 | `casualty-termination-ga` | Keep | SERVES_LANDLORD | contract choice |
 
 ## NC
+
+**Not applied yet.**
 
 | Row | Verdict | Basis | Note |
 |---|---|---|---|
@@ -440,6 +472,8 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 
 ## SC
 
+**Not applied yet.**
+
 | Row | Verdict | Basis | Note |
 |---|---|---|---|
 | `possession-delay-sc` | Education | — | tenant remedies |
@@ -461,6 +495,8 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 | `abandoned-property-sc` | Keep | SERVES_LANDLORD |  |
 
 ## TN
+
+**Not applied yet.**
 
 | Row | Verdict | Basis | Note |
 |---|---|---|---|
@@ -490,6 +526,8 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 | `household-goods-lien-tn` | Keep | SERVES_LANDLORD | opt-in |
 
 ## VA
+
+**Not applied yet.**
 
 | Row | Verdict | Basis | Note |
 |---|---|---|---|
@@ -537,6 +575,8 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 
 ## AL
 
+**Not applied yet.**
+
 | Row | Verdict | Basis | Note |
 |---|---|---|---|
 | `possession-delay-al` | Education | — | tenant remedies |
@@ -557,6 +597,8 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 | `exemption-waiver-al` | Keep | SERVES_LANDLORD | opt-in |
 
 ## PA
+
+**Not applied yet.**
 
 | Row | Verdict | Basis | Note |
 |---|---|---|---|

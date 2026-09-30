@@ -32,6 +32,8 @@
 // wholesale from the CSV (2026-09-18 refresh, Ohio added: 309 -> 324
 // entries across the now-8-state pass).
 //
+// **2026-09-29 (three-bucket scrub, Colorado):** 978 -> 986 entries.
+//
 // **2026-09-29 (Pennsylvania sync):** regenerated from the 21-state CSV
 // (935 -> 978 entries).
 //
@@ -2390,8 +2392,8 @@ const LANDLORD_EDUCATION = [
     verificationStatus: "VERIFIED",
     topicKey: "habitability-operational-duties",
     bodyText:
-      "C.R.S. 38-12-503 imposes several duties that have nothing to do with the repair work itself, and missing them can independently establish a breach. Communication: contact the tenant within 24 hours of having notice (72 hours if the premises are inaccessible due to an environmental public health event), stating what you intend to do and when it will start and finish - and you must affirmatively tell the tenant about your obligation to provide a comparable unit or hotel room at no cost. Records: keep all written notices, correspondence, and documentation about the condition and your remedial action for the entire tenancy plus 3 years, and produce any of it to the tenant within 10 calendar days of a request. Mold and dampness: within 72 hours of notice you must install containment, stop active water sources, and install HEPA filtration, then maintain containment through remediation, dry and decontaminate affected materials, test after remediation, and reassemble to prevent recurrence. Gas: you must hire a professional (as defined in C.R.S. 38-12-104(3)) for any hazardous condition involving gas piping, facilities, appliances, or equipment. Timelines to watch: a rebuttable presumption that you failed to act on time attaches at 7 days for life/health/safety conditions and 14 days for uninhabitable conditions.",
-    notes: "CO: CITED — C.R.S. § 38-12-503(5)(a)-(c), (6)(a)(I)-(II), (12)(b), (14), (3)(a)(II); § 38-12-104(3) (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.)",
+      "Repair clock (C.R.S. 38-12-503(6)(a)): begin remedial action within 24 hours of having notice of a condition that materially interferes with the tenant's life, health or safety, and within 72 hours for a condition that makes the property uninhabitable or otherwise requires repair. Before entering to start or continue that work, give the tenant at least 24 hours' written notice, unless the condition imminently threatens life, health or safety or is an active and ongoing threat of substantial damage to the property. C.R.S. 38-12-503 imposes several duties that have nothing to do with the repair work itself, and missing them can independently establish a breach. Communication: contact the tenant within 24 hours of having notice (72 hours if the premises are inaccessible due to an environmental public health event), stating what you intend to do and when it will start and finish - and you must affirmatively tell the tenant about your obligation to provide a comparable unit or hotel room at no cost. Records: keep all written notices, correspondence, and documentation about the condition and your remedial action for the entire tenancy plus 3 years, and produce any of it to the tenant within 10 calendar days of a request. Mold and dampness: within 72 hours of notice you must install containment, stop active water sources, and install HEPA filtration, then maintain containment through remediation, dry and decontaminate affected materials, test after remediation, and reassemble to prevent recurrence. Gas: you must hire a professional (as defined in C.R.S. 38-12-104(3)) for any hazardous condition involving gas piping, facilities, appliances, or equipment. Timelines to watch: a rebuttable presumption that you failed to act on time attaches at 7 days for life/health/safety conditions and 14 days for uninhabitable conditions.",
+    notes: "CO: CITED — C.R.S. § 38-12-503(5)(a)-(c), (6)(a)(I)-(II), (12)(b), (14), (3)(a)(II); § 38-12-104(3) (Restored 2026-09-25 from lease-clause-citations-CO.csv, which still holds the same data.) | CO: Repair-clock paragraph added 2026-09-29 from habitability-timeline-co, switched off by the three-bucket scrub; content and citations unchanged: C.R.S. § 38-12-503(6)(a)(I)-(III), (3)(a)(II), (4)(c).",
   },
   {
     id: "edu-part5-nonwaivable-co",
@@ -12495,6 +12497,109 @@ const LANDLORD_EDUCATION = [
     bodyText:
       "Pennsylvania's abandoned-property statute sets a default procedure: a written notice by first class mail, 10 days from the postmark for the tenant to collect the property or ask for storage, and storage for up to 30 days, at the tenant's cost, if asked. The statute also says that where a written lease conflicts with it, the lease controls. So a landlord may write its own terms for property left behind into the lease, for example a shorter collection period or no storage. The limits: (1) The protection-from-abuse hold cannot be changed: after an order for possession is carried out, a landlord who knows of a protection-from-abuse order protecting the tenant or a member of the tenant's immediate family may not dispose of or take control of the property for 30 days from the notice, and must store it for up to 30 days if asked. (2) The statute says that under no circumstances may a landlord dispose of or take control of property in a unit someone still lives in without the tenant's express permission; whether a lease term could change that is not settled, so a lease term should not try. (3) Only a written lease can change the procedure. (4) A term that takes away the tenant's statutory rights is a waiver the lease's statement of consumer restrictions must list, and it must be written in plain language. (5) The statute does not reach a deceased tenant's property, which goes through estate law, and manufactured-home communities have their own rules. (6) A landlord that violates the statute owes triple damages, attorney fees and court costs, so have a Pennsylvania lawyer review any custom term. This library's lease clause follows the statute.",
     notes: "PA: Read section-open 2026-09-29 in the built-in browser on the General Assembly's official site (palegis.us) and, for court rules and regulations, the official Pennsylvania Code site (pacodeandbulletin.gov): The Landlord and Tenant Act of 1951 (1951 P.L. 69, No. 20) read whole from the official unconsolidated-statute text with every amendment note (newest: Act 88 of 2024, 2024 P.L. 944); the Pennsylvania Constitution and all 74 titles of the Pennsylvania Consolidated Statutes (75 files) loaded from the official title files (29.28 million characters; revision stamps 2022-03-07 to 2026-09-16) and searched whole; all 262 acts of 2024, 2025 and 2026 screened in full text for landlord-tenant terms; no special-session act in 2024-2026 (PA log §1). P.S. numbers are Purdon's, which the official site does not print; each 1951-Act cite gives the Act section in parentheses (kickoff rule). Controlling text: 68 P.S. § 250.505a (Act § 505.1, as amended 2014 P.L. 2620, No. 167) read whole: (c) deceased tenant: the act does not apply, 20 Pa.C.S. §§ 711(1), 3392 govern; (d)-(e) notice, 10 days from postmark, storage up to 30 days at tenant cost, statutory notice form; (f) 'Under no circumstances may a landlord dispose of or otherwise exercise control over personal property remaining upon inhabited premises without the express permission of the tenant'; (g) 'Except with respect to the provisions of subsection (h), in the event of a conflict between the provisions of this section and the terms of a written lease, the terms of the lease shall control'; (h) protection-from-abuse hold where (b)(3) applies; (i) treble damages, reasonable attorney fees and court costs. The text excepts only (h) from lease override; whether (f) can be displaced is an interpretive question, case law not read. Waiver listing: 73 P.S. § 2205(d)(1)(ii). Manufactured homes: Manufactured Home Community Rights Act (1976 P.L. 1176, No. 261), sections 10.1-10.3, deprioritized. TAYLOR (2026-09-29): `abandoned-property-pa` mirrors the statute and no shorter lease option is offered; this row explains the room the statute leaves (Open for Taylor item 2, PA log §6).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-late-fee-limit-co",
+    title: "Late Fee Limits",
+    group: "Rent & Payment",
+    states: ["CO"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "late-fee-limit",
+    bodyText:
+      "Colorado limits residential late fees (C.R.S. 38-12-105). You can't charge one until rent is at least 7 days late, and it can't be more than the greater of $50 or 5% of the past-due rent. The fee has to be in the rental agreement, which your lease's Late Fee clause does by stating your amount. You must give the tenant written notice of a late fee within 180 days after the rent it relates to was due. A late fee is not rent, so an unpaid late fee on its own can't support an eviction (38-12-105(7)). Use these limits as a guardrail when you enter the amount for a Colorado lease.",
+    notes: "CO: Moved from late-fee-limit-co by the three-bucket scrub (2026-09-29); content and citations unchanged: C.R.S. § 38-12-105(1)(a), (1)(b), (1)(c), (1)(j), (7). § 38-12-105(1)(c)'s in-agreement disclosure is met by the late-fee clause stating the amount.",
+  },
+  {
+    id: "edu-returned-payment-fee-co",
+    title: "Returned Payment Fees",
+    group: "Rent & Payment",
+    states: ["CO"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nsf-fee-limit",
+    bodyText:
+      "Colorado sets no dollar cap on a landlord's returned-payment fee, but the charge should be reasonable under the dishonored-instrument statute (C.R.S. 13-21-109), and you may add the actual bank charges you incur. Don't call it rent or treat it as rent: it isn't subject to a rent late fee and can't be the basis of a remedy for nonpayment of rent. Your lease's Returned Payments clause states your fee.",
+    notes: "CO: Moved from nsf-fee-limit-co by the three-bucket scrub (2026-09-29); content unchanged: C.R.S. § 13-21-109 (no statutory $20 cap exists; that figure was fabricated and corrected 2026-08-27). The not-rent point rests on the CO log's standing rule against labelling a fee as rent (C.R.S. § 38-12-801(3)(a), CO log §9).",
+  },
+  // Default & Termination
+  {
+    id: "edu-dv-lease-termination-co",
+    title: "Domestic Violence and Stalking: Tenant's Right to End the Lease",
+    group: "Default & Termination",
+    states: ["CO"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-stalking-termination",
+    bodyText:
+      "A Colorado tenant who is a victim of unlawful sexual behavior, stalking, domestic violence or domestic abuse may end the lease and move out without further obligation by giving you written notice with one of these: a police report written within the preceding 60 days, a valid protective or restraining order, or a qualifying advocate's written statement (C.R.S. 38-12-402(2)(a.5)). Your compensation for actual damages from that termination is limited to one month's rent, whatever the lease's early termination terms say, and you must give the tenant a written statement of those damages within 30 days of the termination date. You also owe the tenant confidentiality (see the separate confidentiality note).",
+    notes: "CO: Moved from dv-stalking-termination-co by the three-bucket scrub (2026-09-29); content unchanged: C.R.S. § 38-12-402(2)(a.5) (police-report window 60 days, corrected from 120 on 2026-08-27).",
+  },
+  // Parking & Storage
+  {
+    id: "edu-ev-charging-rights-co",
+    title: "Tenants' Right to Install EV Charging",
+    group: "Parking & Storage",
+    states: ["CO"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "ev-charging-rights",
+    bodyText:
+      "Colorado gives tenants the right to install a Level 1 or Level 2 electric vehicle charging system at their own expense for their own use (C.R.S. 38-12-601). You can't charge a fee for placing or using it, other than reimbursement for the electricity actually used or a reasonable access fee in place of metering (plus a reasonable fee to reserve a space in a shared parking area). You also can't restrict a tenant's parking because the vehicle is a plug-in hybrid or electric vehicle. What you may require (registration within 30 days, safety and appearance requirements, insurance naming you, reimbursement if you install it) is in the lease's EV charging clauses.",
+    notes: "CO: Moved from ev-charging-rights-co by the three-bucket scrub (2026-09-29); content unchanged: C.R.S. § 38-12-601 (subsections not isolated). The landlord-side EV clauses (ev-charging-requirements-co, -shared-area-co, -end-of-tenancy-co) stay in the lease.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-subsidy-late-fee-co",
+    title: "No Late Fee on the Subsidy Portion of Rent",
+    group: "Rent & Payment",
+    states: ["CO"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "subsidy-late-fee",
+    bodyText:
+      "If a housing subsidy pays part of the rent, you can't charge the tenant a late fee for late payment or nonpayment of any portion the subsidy provider is responsible for paying (C.R.S. 38-12-105(1)(f)). A late fee can apply only to the tenant's own share.",
+    notes: "CO: Moved from subsidy-late-fee-co by the three-bucket scrub (2026-09-29); content unchanged: C.R.S. § 38-12-105(1)(f) (a total ban, not a $20 cap; corrected 2026-09-13).",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-subsidy-habitability-proration-co",
+    title: "Subsidized Tenancies: Rent Proration When Part of the Unit Is Uninhabitable",
+    group: "Landlord Responsibilities",
+    states: ["CO"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "subsidy-habitability-proration",
+    bodyText:
+      "If a housing subsidy pays part of the rent and the property becomes partly uninhabitable, rent is reduced in proportion to the part affected, calculated on the total rent including the subsidy-paid portion. Rent already paid for that period is refunded pro rata (C.R.S. 38-12-507, as amended by HB25-1240). Whether the proration covers the subsidy-paid portion rests on the Division of Real Estate's summary of the bill, not the enrolled text.",
+    notes: "CO: Moved from subsidy-habitability-proration-co by the three-bucket scrub (2026-09-29); content and caveat unchanged: C.R.S. § 38-12-507; HB25-1240.",
+  },
+  // Disclosures
+  {
+    id: "edu-bed-bugs-co",
+    title: "Bed Bugs: Disclosure on Request and Entry Notice",
+    group: "Disclosures",
+    states: ["CO"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "bed-bug-disclosure",
+    bodyText:
+      "Two Colorado bed-bug rules. Disclosure (C.R.S. 38-12-1005): when a prospective tenant asks, you must disclose whether the unit has had a known bed-bug infestation in the previous eight months and the date of the most recent bed-bug inspection, if any. The duty is owed on request and before the lease is signed, so putting it only in the lease can come too late; the lease's optional Bed Bug Disclosure clause records what you disclosed. Entry (38-12-1004(1)(a)): before you, an inspector or a pest-control agent enters for a bed-bug inspection or treatment, give the tenant at least 48 hours' written or electronic notice, unless the rental agreement sets a different minimum; your lease's Access clause states your period.",
+    notes: "CO: Created 2026-09-29 by the three-bucket scrub. Disclosure: C.R.S. § 38-12-1005, from bed-bug-disclosure-co (verified 2026-09-13). Entry: C.R.S. § 38-12-1004(1)(a), read 2026-09-29 through a fetch-tool summary of colorado.public.law (host copy of the official C.R.S., current through Fall 2025): 48 hours' written or electronic notice, and 'a rental agreement may provide for a different minimum time for the notice'. Not a direct official-text read; due one before relying on the exact wording.",
+  },
+  // Default & Termination
+  {
+    id: "edu-termination-notice-periods-co",
+    title: "Termination Notice Periods and Contents",
+    group: "Default & Termination",
+    states: ["CO"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-notice-periods",
+    bodyText:
+      "Colorado sets minimum notice to end a periodic tenancy, or to decline to renew a fixed term, scaled to how long the tenancy has run (C.R.S. 13-40-107): at least 91 days for a tenancy of one year or longer; 28 days for six months to a year; 21 days for one to six months; 3 days for one week to one month, or a tenancy at will; and 1 day for less than a week. These are minimums, so a lease period can be longer but never shorter. The notice must be in writing, expire at the end of the period or term, describe the property and the date the tenancy ends, and be signed by the party giving it or their agent or attorney. Once a tenancy has run 12 months, a covered landlord also needs a legal reason to end it (see the for-cause eviction note). Your lease states your chosen notice period; use these minimums as the guardrail.",
+    notes: "CO: Created 2026-09-29 by the three-bucket scrub from month-to-month-notice-co-exempt/-covered; content and citations unchanged: C.R.S. § 13-40-107(1), (2), (3), as amended by HB24-1098 (five-tier scheme corrected 2026-09-06).",
   },
 ];
 

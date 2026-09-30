@@ -19,6 +19,11 @@
 // the architecture-review log's Addendum L §L.3: "a log entry is not a
 // library change" -- the CSV is the fact).
 //
+// **2026-09-29 three-bucket scrub, Colorado:** 513 -> 506 shipped LEASE_CLAUSE
+// rows. Seven CO clauses that restated tenant rights or landlord duties were
+// switched off and moved to education; several others trimmed. See
+// lease-clause-scrub-verdicts.md.
+//
 // **2026-09-29 refresh (Pennsylvania, state #21):** regenerated from the
 // 21-state CSV -- 502 -> 513 shipped LEASE_CLAUSE rows. One shared clause
 // text changed (`severability`, plain language, all states); 52 shared rows
@@ -241,22 +246,6 @@ const CLAUSE_TEMPLATES = [
     states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA"],
     bodyText:
       "Each payment Tenant makes will be applied first to the Monthly Rent due for the current or oldest unpaid rental period, and only then to any other fees, charges, or amounts due under this Lease, unless Tenant directs otherwise in writing for a particular payment or applicable law requires otherwise. Nothing in this provision limits any statutory right Tenant may have to cure nonpayment of Rent.",
-  },
-  {
-    id: "late-fee-limit-co",
-    title: "Late Fee Limit",
-    group: "Rent & Payment",
-    states: ["CO"],
-    bodyText:
-      "Any late fee assessed under this Lease will not exceed the greater of $50.00 or 5% of the amount of Rent past due, and no late fee will be assessed until at least 7 days after Rent is due, as required by Colorado law. Landlord will provide Tenant written notice of any late fee within 180 days after the date the related Rent payment was due.",
-  },
-  {
-    id: "nsf-fee-limit-co",
-    title: "NSF Fee Limit",
-    group: "Rent & Payment",
-    states: ["CO"],
-    bodyText:
-      "If any payment under this Lease is dishonored or returned unpaid, Tenant will be responsible for a reasonable returned-payment charge, consistent with Colorado's dishonored-instrument statute (C.R.S. 13-21-109), plus any actual bank charges Landlord incurs. This charge is not Rent, is not subject to any late fee applicable to Rent, and will not be characterized as Rent for purposes of any remedy available for nonpayment of Rent.",
   },
   {
     id: "late-fee-limit-tn",
@@ -512,14 +501,6 @@ const CLAUSE_TEMPLATES = [
       "Subject to Tenant's own maintenance obligations under this Lease, Landlord will maintain the property, including its structural elements, roof, and systems, in good order and repair, and will be responsible for repairing the appliances, fixtures, and equipment located at the property, except where repair is necessary due to improper use by Tenant or a guest of Tenant. Tenant will notify Landlord promptly in writing of any condition requiring repair or maintenance, and Landlord will undertake required repairs within a reasonable time, consistent with applicable law.",
   },
   {
-    id: "habitability-timeline-co",
-    title: "Repair Timeline",
-    group: "Landlord Responsibilities",
-    states: ["CO"],
-    bodyText:
-      "For a condition that materially interferes with Tenant's life, health, or safety, Landlord will commence remedial action within 24 hours of having notice, as required by Colorado law. For a condition rendering the property uninhabitable or otherwise requiring repair, Landlord will commence remedial action within 72 hours. Landlord will contact Tenant within 24 hours of having notice of the condition to describe Landlord's intended remedial action and an estimate of when it will commence and be completed, and will inform Tenant of Landlord's obligation to provide a comparable dwelling unit or hotel room at no cost to Tenant upon Tenant's request. Except where the condition imminently threatens life, health, or safety or poses an active and ongoing threat of substantial damage to the property, Landlord will give Tenant at least 24 hours' written notice before entering to commence or maintain remedial action.",
-  },
-  {
     id: "habitability-timeline-tx",
     title: "Repairs — Tenant's Statutory Remedies",
     group: "Landlord Responsibilities",
@@ -543,7 +524,7 @@ const CLAUSE_TEMPLATES = [
     states: ["CO"],
     supersedes: "landlords-access",
     bodyText:
-      "Landlord, its agents, and contractors will have the right of reasonable access to the property during normal business hours to perform maintenance and repair obligations and to show the property to prospective tenants or purchasers. Except in the case of an emergency, Landlord will provide Tenant at least 24 hours' written notice prior to entry, consistent with Tenant's right to quiet enjoyment of the property, or at least 48 hours' notice prior to an inspection or treatment related to bed bugs, as required by Colorado law.",
+      "Landlord, its agents, and contractors will have the right of reasonable access to the property during normal business hours to perform maintenance and repair obligations and to show the property to prospective tenants or purchasers. Except in the case of an emergency, Landlord will provide Tenant at least 24 hours' written notice prior to entry, consistent with Tenant's right to quiet enjoyment of the property. Before entering to inspect for or treat bed bugs, Landlord will give Tenant at least [state the notice period, e.g. 48] hours' written or electronic notice.",
   },
   // Default & Termination
   {
@@ -789,7 +770,7 @@ const CLAUSE_TEMPLATES = [
     group: "Disclosures",
     states: ["CO"],
     bodyText:
-      "Upon request, Colorado law entitles Tenant to disclosure of the property's bed bug history within the past 8 months and the most recent date, if any, the property was inspected for bed bugs. Landlord discloses the following: [describe any known infestation and treatment, and the most recent inspection date, or state 'none known']. Tenant acknowledges receipt of this disclosure.",
+      "Bed bug disclosure. Landlord discloses whether the property has had a known bed bug infestation within the past 8 months, and the most recent date, if any, the property was inspected for bed bugs: [describe any known infestation and treatment, and the most recent inspection date, or state 'none known']. Tenant acknowledges receipt of this disclosure.",
   },
   {
     id: "utility-submetering-disclosure-co",
@@ -797,7 +778,7 @@ const CLAUSE_TEMPLATES = [
     group: "Disclosures",
     states: ["CO"],
     bodyText:
-      "If utilities at the property are not individually metered and Tenant's utility charges are calculated using a ratio or formula rather than a dedicated meter, Landlord will clearly disclose the calculation method in this Lease, as required by Colorado law: [describe the utility allocation method used]. Landlord may charge an administrative fee for this billing method, not to exceed either 2% of the utility charge or a flat $10.00 per month — Landlord may use only one of these two methods, not both. Landlord will not add any markup to the utility cost itself.",
+      "If utilities at the property are not individually metered and Tenant's utility charges are calculated using a ratio or formula rather than a dedicated meter, the calculation method is: [describe the utility allocation method used]. Landlord's administrative fee for this billing method is [state one: 2% of the utility charge / a flat amount of no more than $10.00 per month / none].",
   },
   {
     id: "bed-bug-disclosure-ca",
@@ -887,7 +868,7 @@ const CLAUSE_TEMPLATES = [
     states: ["CO"],
     supersedes: "security-deposit-return",
     bodyText:
-      "The Security Deposit will be returned to Tenant, together with a written statement listing the exact reasons for retaining any portion, within 30 days after the later of the termination of this Lease or Tenant's surrender of the property, or within 60 days after that date if this Lease so provides. Landlord will not retain any portion of the Security Deposit for normal wear and tear or for any damage or defective condition that existed before the start of the Term.",
+      "Landlord will return the Security Deposit to Tenant, together with a written statement listing the exact reasons for retaining any portion, within [choose: 30 days / a longer period, not more than 60 days] after the later of the termination of this Lease or Tenant's surrender of the property.",
   },
   // Default & Termination
   {
@@ -896,7 +877,7 @@ const CLAUSE_TEMPLATES = [
     group: "Default & Termination",
     states: ["CO"],
     bodyText:
-      "Either Landlord or Tenant may terminate a periodic tenancy under this Lease at the end of a tenancy period, or elect not to renew a fixed-term tenancy at the end of the term, by serving written notice that expires at the end of that period or term. The required notice depends on how long the tenancy has run: at least 91 days for a tenancy of one year or longer; at least 28 days for a tenancy of six months or longer but less than a year; at least 21 days for a tenancy of one month or longer but less than six months; at least 3 days for a tenancy of one week or longer but less than one month, or a tenancy at will; and at least 1 day for a tenancy of less than one week. The notice must describe the property and the particular date the tenancy will terminate, and must be signed by the party giving it or their agent or attorney. Because [describe the applicable exemption here - see C.R.S. section 38-12-1302(1)(a), (1)(b), (1)(d), (1)(e), or (1)(f)], this tenancy is not subject to Colorado's for-cause eviction requirements under C.R.S. section 38-12-1301 et seq.",
+      "Either Landlord or Tenant may terminate a periodic tenancy under this Lease at the end of a tenancy period, or elect not to renew a fixed-term tenancy at the end of the term, by giving the other written notice at least [state the notice period in days] days before that date, or any longer notice Colorado law requires for the length of the tenancy. Because [describe the applicable exemption here - see C.R.S. section 38-12-1302(1)(a), (1)(b), (1)(d), (1)(e), or (1)(f)], this tenancy is not subject to Colorado's for-cause eviction requirements under C.R.S. section 38-12-1301 et seq.",
   },
   {
     id: "month-to-month-notice-co-covered",
@@ -904,25 +885,9 @@ const CLAUSE_TEMPLATES = [
     group: "Default & Termination",
     states: ["CO"],
     bodyText:
-      "Tenant may terminate a periodic tenancy under this Lease at the end of a tenancy period, or elect not to renew a fixed-term tenancy at the end of the term, by serving written notice that expires at the end of that period or term. The required notice depends on how long the tenancy has run: at least 91 days for a tenancy of one year or longer; at least 28 days for a tenancy of six months or longer but less than a year; at least 21 days for a tenancy of one month or longer but less than six months; at least 3 days for a tenancy of one week or longer but less than one month, or a tenancy at will; and at least 1 day for a tenancy of less than one week. Landlord's ability to end this tenancy is separately restricted: once Tenant has occupied the property for 12 months or more, Landlord may terminate or decline to renew only for cause, or for a qualifying no-fault reason, as defined under C.R.S. section 38-12-1301 et seq., and will provide the notice and the statement of legal and factual basis that law requires.",
-  },
-  {
-    id: "dv-stalking-termination-co",
-    title: "Early Termination - Victim of Unlawful Sexual Behavior, Stalking, or Domestic Violence",
-    group: "Default & Termination",
-    states: ["CO"],
-    bodyText:
-      "A Tenant who is a victim of unlawful sexual behavior, stalking, domestic violence, or domestic abuse may terminate this Lease and vacate the property without further obligation, upon providing Landlord written notice and the documentation required under Colorado law (a police report written within the preceding 60 days, a valid protective or restraining order, or a qualifying advocate's written statement). Notwithstanding this Lease's Early Termination Section, Landlord's compensation for actual damages resulting from a termination under this Section is limited to no more than one month's Rent ({{monthly_rent}}), and Landlord must provide Tenant a written statement of those damages within 30 days of the termination date.",
+      "Tenant may terminate a periodic tenancy under this Lease at the end of a tenancy period, or elect not to renew a fixed-term tenancy at the end of the term, by giving Landlord written notice at least [state the notice period in days] days before that date, or any longer notice Colorado law requires for the length of the tenancy.",
   },
   // Parking & Storage
-  {
-    id: "ev-charging-rights-co",
-    title: "Electric Vehicle Charging Systems",
-    group: "Parking & Storage",
-    states: ["CO"],
-    bodyText:
-      "Notwithstanding any other provision of this Lease, Tenant may install a Level 1 or Level 2 electric vehicle charging system at the property, at Tenant's own expense, for Tenant's own use, subject to the registration and safety requirements below. Landlord will not charge Tenant a fee for the placement or use of the charging system, other than reimbursement for the actual cost of electricity used or a reasonable access fee in place of metering, except as provided below for shared-area installations. Landlord will not restrict Tenant's parking based on Tenant's vehicle being a plug-in hybrid or electric vehicle, as required by Colorado law.",
-  },
   {
     id: "ev-charging-requirements-co",
     title: "Electric Vehicle Charging System Requirements",
@@ -946,24 +911,6 @@ const CLAUSE_TEMPLATES = [
     states: ["CO"],
     bodyText:
       "A charging system installed at Tenant's expense remains Tenant's property. Upon termination of this Lease, if the charging system is removable, Tenant may remove it, or sell it to Landlord or another tenant at an agreed price - Landlord is under no obligation to purchase it. Tenant is responsible for any damage to the property or the charging system resulting from its removal, consistent with this Lease's Surrender at End of Term Section.",
-  },
-  // Rent & Payment
-  {
-    id: "subsidy-late-fee-co",
-    title: "Late Fee - Tenant Receiving a Housing Subsidy",
-    group: "Rent & Payment",
-    states: ["CO"],
-    bodyText:
-      "If Tenant's Rent is paid in whole or in part by a housing subsidy program, Landlord will not impose a late fee against Tenant for the late payment or nonpayment of any portion of Rent that the subsidy provider, rather than Tenant, is responsible for paying, as required by Colorado law.",
-  },
-  // Landlord Responsibilities
-  {
-    id: "subsidy-habitability-proration-co",
-    title: "Habitability Proration - Tenant Receiving a Housing Subsidy",
-    group: "Landlord Responsibilities",
-    states: ["CO"],
-    bodyText:
-      "If Tenant's Rent is paid in whole or in part by a housing subsidy program and the property becomes partially uninhabitable, Rent will be proportionally reduced based on the portion of the property affected, calculated on the total Rent for the property including both the tenant-paid and subsidy-paid portions. If Rent has already been paid for the affected period, Tenant will receive a prorated refund, as required by Colorado law.",
   },
   // Disclosures
   {
@@ -999,7 +946,7 @@ const CLAUSE_TEMPLATES = [
     group: "Landlord Responsibilities",
     states: ["CO"],
     bodyText:
-      "Every tenant is entitled to safe and habitable housing under Colorado's warranty of habitability, as described in this Lease's Maintenance & Repairs Section. Colorado law prohibits Landlord from retaliating against Tenant in any manner for reporting an unsafe or uninhabitable condition, exercising any right under this Lease, or participating in a tenant organization. To report a condition that may affect the habitability of the property, Tenant should provide written notice to Landlord at: [insert landlord's designated WRITTEN habitability-notice address, e.g. email address or mailing address - do not designate a phone number or any verbal method].",
+      "To report a condition that may affect the habitability of the property, Tenant will give written notice to Landlord at: [insert landlord's designated WRITTEN habitability-notice address, e.g. email address or mailing address - do not designate a phone number or any verbal method].",
   },
   {
     id: "utility-allowance-cap-co",
@@ -1691,7 +1638,7 @@ const CLAUSE_TEMPLATES = [
     group: "Rent & Payment",
     states: ["CO"],
     bodyText:
-      "If this Lease continues on a month-to-month basis, Landlord will provide Tenant at least [specify notice period, e.g. 60] days' written notice before any increase in Monthly Rent takes effect. Rent will not be increased more than once in any twelve-month period, as required by Colorado law.",
+      "If this Lease continues on a month-to-month basis, Landlord will provide Tenant at least [specify notice period, e.g. 60] days' written notice before any increase in Monthly Rent takes effect.",
   },
   // Disclosures
   {
@@ -1700,7 +1647,7 @@ const CLAUSE_TEMPLATES = [
     group: "Disclosures",
     states: ["CO"],
     bodyText:
-      "As required by Colorado law, Landlord provides the following statement: section 24-34-502 (1) of the Colorado Revised Statutes prohibits discrimination against a prospective tenant based on the tenant's source of income, and requires a landlord to accept any lawful and verifiable source of income used to pay rent, including a housing subsidy or voucher.",
+      "Section 24-34-502 (1) of the Colorado Revised Statutes prohibits source of income discrimination and requires a non-exempt landlord to accept any lawful and verifiable source of money paid directly, indirectly, or on behalf of a person, including income derived from any lawful profession or occupation and income or rental payments derived from any government or private assistance, grant, or loan program.",
   },
   // Landlord Responsibilities
   {
