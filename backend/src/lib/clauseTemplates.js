@@ -19,6 +19,10 @@
 // the architecture-review log's Addendum L §L.3: "a log entry is not a
 // library change" -- the CSV is the fact).
 //
+// **2026-09-29 three-bucket scrub, Wyoming/Kansas/Nebraska:** 506 -> 491
+// shipped LEASE_CLAUSE rows (WY 3, KS 5, NE 7 switched off; content moved
+// to education).
+//
 // **2026-09-29 three-bucket scrub, Colorado:** 513 -> 506 shipped LEASE_CLAUSE
 // rows. Seven CO clauses that restated tenant rights or landlord duties were
 // switched off and moved to education; several others trimmed. See
@@ -956,25 +960,6 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "Landlord's obligation to pay for [specify utility, e.g. water and sewer] under this Lease's Utilities Paid by Landlord Section is limited to [insert monthly utility allowance amount] per month. If the actual utility cost for a given month exceeds this amount, Tenant will reimburse Landlord for the excess within [insert number of days, e.g. 15] days of receiving a copy of the utility provider's bill showing the actual charges for that month. This reimbursement is a separate obligation from Rent: it is not subject to any late fee applicable to Rent under this Lease, will not be characterized as Rent for purposes of any remedy available for nonpayment of Rent, and Landlord's remedies for Tenant's failure to pay it are limited to those otherwise available under this Lease for breach of an obligation other than Rent.",
   },
-  // Default & Termination
-  {
-    id: "dv-safe-homes-wy",
-    title: "Domestic Abuse / Sexual Violence — Rent Liability After Vacating",
-    group: "Default & Termination",
-    states: ["WY"],
-    bodyText:
-      "Wyoming's Safe Homes Act provides Tenant a defense against a claim for unpaid rent under certain circumstances. If Tenant or a member of Tenant's household vacates the property because of a credible imminent threat of domestic abuse or sexual violence at the property, or because Tenant or a household member was a victim of domestic abuse or sexual violence occurring at the property within the preceding 60 days, Tenant will not be liable for rent accruing after the date Tenant vacates. If hospitalization, or seeking shelter or counseling related to the abuse or violence, prevented Tenant from giving notice within that 60-day window, Tenant may still give notice as soon as practicable afterward. To use this protection, Tenant must provide Landlord written notice at least 7 days before vacating, stating the reason for vacating and, where applicable, the date of the incident along with supporting medical, court, or police evidence. This Section does not excuse rent owed for any period before Tenant vacated and gave the required notice, and does not limit Landlord's other lawful remedies for nonpayment of rent accruing before that date.",
-  },
-  // Landlord Responsibilities
-  {
-    id: "habitability-baseline-wy",
-    title: "Habitability Baseline",
-    group: "Landlord Responsibilities",
-    states: ["WY"],
-    supersedes: "landlord-maintenance",
-    bodyText:
-      "Landlord will maintain the property in a safe and sanitary condition fit for human habitation, including operational electrical, heating, and plumbing systems, with hot and cold running water, unless otherwise agreed in writing by both parties. Tenant will cooperate in maintaining the property consistent with this Section.",
-  },
   // Tenant Responsibilities
   {
     id: "renter-duties-wy",
@@ -1008,15 +993,7 @@ const CLAUSE_TEMPLATES = [
     states: ["WY"],
     supersedes: "security-deposit-return",
     bodyText:
-      "Within 30 days after termination of this Lease, or within 15 days after receiving Tenant's forwarding address, whichever is later, Landlord will deliver or mail to Tenant the balance of Tenant's deposit and any prepaid rent, along with a written itemization of any deductions and the reasons for them. If the property is damaged, this period is extended by an additional 30 days. Tenant will notify Landlord in writing, within 30 days after termination, of the address where payment and notice should be sent.",
-  },
-  {
-    id: "utility-deposit-return-wy",
-    title: "Return of Separate Utility Deposit",
-    group: "Security Deposit",
-    states: ["WY"],
-    bodyText:
-      "If Landlord holds a deposit identified separately as a utility deposit, Landlord will refund it within 10 days after Tenant provides a satisfactory showing that all utility charges Tenant incurred have been paid. If Tenant has not made that showing within 45 days after termination of this Lease, Landlord will apply the utility deposit toward Tenant's outstanding utility debt within 15 days after that period ends, and will refund any remaining balance within 7 days after applying it, or within 15 days after receiving Tenant's forwarding address, whichever is later.",
+      "Tenant will notify Landlord in writing, within 30 days after termination of this Lease, of the address where the balance of the Security Deposit and any notice about it should be sent.",
   },
   {
     id: "unpaid-damages-interest-wy",
@@ -1047,15 +1024,6 @@ const CLAUSE_TEMPLATES = [
   },
   // Security Deposit
   {
-    id: "security-deposit-return-ks",
-    title: "Return of Security Deposit",
-    group: "Security Deposit",
-    states: ["KS"],
-    supersedes: "security-deposit-return",
-    bodyText:
-      "If Landlord proposes to retain any portion of the Security Deposit for damages or other legally allowable charges other than rent, Landlord will return the balance of the Security Deposit to Tenant within 14 days after determining the amount to be retained, but in no event later than 30 days after termination of this Lease, delivery of possession, and Tenant's demand for return of the deposit. If Tenant does not demand return of the deposit within 30 days after termination of this Lease, Landlord will mail the balance due to Tenant's last known address. Any amount retained will be itemized in a written notice delivered to Tenant.",
-  },
-  {
     id: "security-deposit-use-ks",
     title: "Use of Security Deposit",
     group: "Security Deposit",
@@ -1073,25 +1041,7 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "Landlord discloses to Tenant the following, as required by Kansas law: the name and address of the person authorized to manage the property is [manager name and address], and the name and address of the owner, or person authorized to act for the owner for service of process and for receiving notices and demands, is [owner/agent name and address]. Landlord will keep this information current throughout the Term.",
   },
-  // Landlord Responsibilities
-  {
-    id: "habitability-baseline-ks",
-    title: "Landlord's Habitability Duties",
-    group: "Landlord Responsibilities",
-    states: ["KS"],
-    supersedes: "landlord-maintenance",
-    bodyText:
-      "Except when prevented by an act of God, failure of public utility services, or other conditions beyond Landlord's control, Landlord will: comply with applicable building and housing codes materially affecting health and safety; exercise reasonable care in maintaining common areas; and keep all electrical, plumbing, sanitary, heating, ventilating, and air-conditioning systems supplied by Landlord in good and safe working order. Landlord will also provide and maintain appropriate trash and waste receptacles for common use and arrange for their removal, except where a government entity provides this, and will supply running water and reasonable hot water and heat at all times, except where the building isn't required by law to be so equipped or the unit's heat or hot water is generated by a tenant-controlled installation on a direct utility connection. Landlord will not interfere with or refuse Tenant access to a municipally franchised cable or communication service.",
-  },
   // Tenant Responsibilities
-  {
-    id: "dv-housing-protections-ks",
-    title: "Housing Protections for Domestic Violence, Sexual Assault, Human Trafficking, and Stalking Survivors",
-    group: "Tenant Responsibilities",
-    states: ["KS"],
-    bodyText:
-      "Kansas law protects a tenant or applicant who has been, is, or is in imminent danger of becoming a victim of domestic violence, sexual assault, human trafficking, or stalking within the preceding 12 months. Landlord will not deny tenancy to, evict, or find a lease violation against a tenant or applicant based on that status, provided the person otherwise qualifies for the tenancy. A tenant who requests early lease termination under this protection is not liable for rent after vacating the property, though Landlord may charge a reasonable early-termination fee of up to one month's rent. Landlord may request supporting documentation as allowed by law. If a tenant's lease terminates under this provision, the lease continues for any remaining co-tenants. Neither party may waive a tenant's rights under this provision.",
-  },
   {
     id: "tenant-duties-ks",
     title: "Tenant's Duties",
@@ -1150,15 +1100,6 @@ const CLAUSE_TEMPLATES = [
   },
   // Default & Termination
   {
-    id: "possession-delay-ks",
-    title: "Delay in Delivering Possession",
-    group: "Default & Termination",
-    states: ["KS"],
-    supersedes: "possession-delay",
-    bodyText:
-      "If Landlord fails to deliver possession of the property to Tenant as required by this Lease, Rent abates until possession is delivered, and Tenant may: (a) upon at least 5 days' written notice to Landlord, terminate this Lease, in which case Landlord will return the full Security Deposit; or (b) demand that Landlord perform this Lease and, if Tenant elects, pursue an action for possession against Landlord or any person wrongfully in possession, and recover damages sustained. If Landlord's failure to deliver possession is willful and not in good faith, Tenant may recover an amount up to 1.5 times the periodic Rent or 1.5 times actual damages, whichever is greater.",
-  },
-  {
     id: "early-termination-ks",
     title: "Early Termination",
     group: "Default & Termination",
@@ -1176,26 +1117,6 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "If Landlord conveys the property in a good-faith sale to a bona fide purchaser, or a manager's management of the property is terminated, Landlord or the outgoing manager is relieved of liability under this Lease and Kansas law for events occurring after Landlord gives Tenant written notice of the conveyance or termination of management — except that Landlord remains liable to Tenant for any portion of the Security Deposit Tenant is entitled to under this Lease.",
   },
-  // Default & Termination
-  {
-    id: "fire-casualty-termination-ks",
-    title: "Damage or Destruction by Fire or Casualty",
-    group: "Default & Termination",
-    states: ["KS"],
-    bodyText:
-      "If the property is damaged or destroyed by fire or casualty to an extent that substantially impairs its use and habitability, Tenant may: (a) vacate the property immediately and notify Landlord in writing within 5 days of Tenant's intention to terminate this Lease, in which case this Lease terminates as of the date Tenant vacates; or (b) if continued occupancy is lawful, vacate only the unusable part of the property, in which case Tenant's Rent is reduced in proportion to the resulting reduction in the property's fair rental value. If this Lease terminates under this Section, Landlord will return the portion of the Security Deposit Tenant is entitled to, and rent will be accounted for as of the date Tenant vacates.",
-  },
-  // Security Deposit
-  {
-    id: "security-deposit-return-ne",
-    title: "Return of Security Deposit",
-    group: "Security Deposit",
-    states: ["NE"],
-    supersedes: "security-deposit-return",
-    bodyText:
-      "If Landlord proposes to retain any portion of the Security Deposit, Landlord will deliver or mail to Tenant, within 14 days after the date of termination of this Lease, the balance of the Security Deposit, if any, along with a written itemization of amounts withheld. If Tenant does not provide Landlord a forwarding address or delivery instructions, Landlord will mail the balance due and the written itemization to Tenant's last known address by first-class mail. If that mailing is returned as undeliverable, or if the returned balance remains unclaimed for one year, Landlord will report and remit it to the State Treasurer as unclaimed property, as required by Nebraska law.",
-  },
-  // Notices & General
   {
     id: "landlord-disclosure-ne",
     title: "Landlord and Manager Disclosure",
@@ -1205,30 +1126,6 @@ const CLAUSE_TEMPLATES = [
       "Landlord discloses to Tenant the following, as required by Nebraska law: the name and address of the person authorized to manage the property is [manager name and address], and the name and address of the owner, or person authorized to act for the owner for service of process and for receiving notices and demands, is [owner/agent name and address]. Landlord will keep this information current throughout the Term.",
   },
   // Tenant Responsibilities
-  {
-    id: "dv-lease-release-ne",
-    title: "Lease Release for Domestic Violence Victims",
-    group: "Tenant Responsibilities",
-    states: ["NE"],
-    bodyText:
-      "A tenant, or a tenant whose household member, is a victim of an act of domestic violence may obtain a release from this Lease by providing Landlord a copy of a qualifying protective order or third-party domestic-violence certification, along with written notice stating the desired release date (at least 14 days, and no more than 30 days, after the notice is given) and identifying any household members to also be released. The releasing tenant remains liable for rent for the month in which the Lease is terminated, but is not liable for rent or damages after the release date, and is not subject to any fee solely because of the release. This release does not extend to any other tenant on the Lease who is not a household member of the releasing tenant.",
-  },
-  {
-    id: "dv-perpetrator-removal-ne",
-    title: "Removal of a Domestic Violence Perpetrator Who Is a Co-Tenant",
-    group: "Tenant Responsibilities",
-    states: ["NE"],
-    bodyText:
-      "If a tenant or household member is the victim of an act of domestic violence committed by a cotenant or other occupant of the same dwelling unit, the victim may have the perpetrator removed from this Lease, and excluded from the property, by providing Landlord a copy of a qualifying protective order or third-party domestic-violence certification, along with written notice identifying the perpetrator and the requested notice date. Landlord will then proceed against the perpetrator only under Nebraska's expedited removal procedure. Landlord is not liable for actions taken in good faith under this clause.",
-  },
-  {
-    id: "dv-lockchange-ne",
-    title: "Lock Change for Domestic Violence Victims",
-    group: "Tenant Responsibilities",
-    states: ["NE"],
-    bodyText:
-      "If a tenant or household member is the victim of an act of domestic violence committed by someone who is not a cotenant or occupant of the dwelling unit, the tenant may require Landlord to change the locks to the dwelling unit by providing Landlord a copy of a qualifying protective order or third-party domestic-violence certification, along with a written request. Landlord will change the locks within 24 hours after receiving the request. If Landlord fails to do so, Tenant may change the locks in a workmanlike manner with locks of similar or better quality, must promptly notify Landlord of the change, and must provide Landlord a new key or entry code by a mutually agreed method.",
-  },
   {
     id: "extended-absence-notice-ne",
     title: "Notice of Extended Absence",
@@ -1246,16 +1143,6 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "If Tenant leaves personal property on the premises after this Lease terminates or expires and the premises have been vacated, Landlord will give Tenant (and anyone else Landlord reasonably believes may own the property) written notice describing the property, personally delivered or sent by first-class mail to Tenant's last known address. Unless Tenant claims the property and pays Landlord's reasonable storage costs within 7 days after personal delivery of the notice, or 14 days after the notice is mailed, Landlord may dispose of the property as allowed under Nebraska's Disposition of Personal Property Landlord and Tenant Act, including public sale after published notice.",
   },
-  // Landlord Responsibilities
-  {
-    id: "habitability-baseline-ne",
-    title: "Maintenance & Repairs",
-    group: "Landlord Responsibilities",
-    states: ["NE"],
-    supersedes: "landlord-maintenance",
-    bodyText:
-      "Except when prevented by an act of God, failure of public utility services, or other conditions beyond Landlord's control, Landlord will: substantially comply, after written or actual notice, with applicable minimum housing codes materially affecting health and safety; make all repairs and do whatever is necessary, after written or actual notice, to keep the property in a fit and habitable condition; keep all common areas clean and safe; and maintain all electrical, plumbing, sanitary, heating, ventilating, and air-conditioning systems and appliances supplied by Landlord in good and safe working order. Landlord will also provide and maintain appropriate waste receptacles and arrange for their removal, and will supply running water and reasonable hot water and heat at all times, except where the building isn't required by law to be so equipped or the unit's heat or hot water is generated by a tenant-controlled installation on a direct utility connection.",
-  },
   // Tenant Responsibilities
   {
     id: "tenant-duties-ne",
@@ -1267,15 +1154,6 @@ const CLAUSE_TEMPLATES = [
       "Tenant will: comply with all obligations building and housing codes impose primarily on tenants that materially affect health and safety; keep the portion of the property Tenant occupies and uses as clean and safe as its condition permits, and upon termination of the tenancy leave the property as clean as when the tenancy commenced, except for ordinary wear and tear; dispose of ashes, rubbish, garbage, and other waste in a clean and safe manner; keep all plumbing fixtures Tenant uses as clean as their condition permits; and use all electrical, plumbing, sanitary, heating, ventilating, air-conditioning, and other facilities and appliances in a reasonable manner. Tenant is also responsible for any deliberate or negligent destruction, defacement, damage, or impairment of any part of the property caused by Tenant or by any person Tenant permits on the property. Tenant will not, and will not permit any such person to, disturb the peaceful enjoyment of the property by other tenants.",
   },
   // Default & Termination
-  {
-    id: "possession-delay-ne",
-    title: "Failure to Deliver Possession",
-    group: "Default & Termination",
-    states: ["NE"],
-    supersedes: "possession-delay",
-    bodyText:
-      "If Landlord fails to deliver possession of the property to Tenant as required by this Lease, Rent abates until possession is delivered, and Tenant may: (a) upon at least 5 days' written notice to Landlord, terminate this Lease, in which case Landlord will return all prepaid Rent and the full Security Deposit; or (b) demand that Landlord perform this Lease and, if Tenant elects, pursue an action for possession against Landlord or any person wrongfully in possession, and recover damages sustained. If Landlord's failure to deliver possession is willful and not in good faith, Tenant may recover an amount up to three months' periodic Rent or threefold the actual damages, whichever is greater.",
-  },
   {
     id: "early-termination-ne",
     title: "Early Termination",
@@ -3409,15 +3287,6 @@ const CLAUSE_TEMPLATES = [
     states: ["ND"],
     bodyText:
       "If Tenant receives notice of any proceeding to recover the property or its possession -- including a foreclosure action, a tax proceeding, or a claim by any person other than Landlord -- Tenant will inform Landlord immediately and deliver the notice to Landlord. Tenant is responsible to Landlord for all damages Landlord sustains because Tenant failed to inform Landlord of a written notice or failed to deliver it. Tenant will not recognize or attorn to any person other than Landlord as the owner or landlord of the property without Landlord's consent or a judgment of a court of competent jurisdiction.",
-  },
-  // Default & Termination
-  {
-    id: "casualty-termination-ne",
-    title: "Fire or Casualty Damage",
-    group: "Default & Termination",
-    states: ["NE"],
-    bodyText:
-      "If the property is damaged or destroyed by fire or other casualty to an extent that enjoyment of the property is substantially impaired, Tenant may either (a) immediately vacate the property and notify Landlord in writing within fourteen days afterward of Tenant's intention to terminate this Lease, in which case this Lease terminates as of the date Tenant vacated, or (b) if continued occupancy is lawful, vacate only the part of the property made unusable by the casualty, in which case Tenant's Rent obligation is reduced in proportion to the loss in fair rental value of the property. If this Lease terminates under this Section, Landlord will return all prepaid Rent and the Security Deposit that Tenant is entitled to recover, accounting for Rent as of the date of the casualty. Tenant remains responsible for damage caused by Tenant's own negligence. Nothing in this Section limits any right Tenant has under applicable law.",
   },
   // Disclosures
   {

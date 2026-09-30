@@ -6,7 +6,7 @@ sys.path.insert(0,'scripts/clause-library/scrub')
 V={}
 for m in ['verdicts1','verdicts2','verdicts3']: V.update(__import__(m).V)
 rows=[r for r in csv.DictReader(open('lease-clauses.csv',newline='',encoding='utf-8')) if r['id'] in V]
-APPLIED={'CO':'2026-09-29'}
+APPLIED={'CO':'2026-09-29','WY':'2026-09-29','KS':'2026-09-29','NE':'2026-09-29'}
 order="CO WY KS NE MN ND SD OH CA NV TX NJ FL AZ GA NC SC TN VA AL PA".split()
 NAME={'KEEP':'Keep','EDU':'Education','SPLIT':'Split','P3':'Optional + education','P2':'Notice-period rewrite','FLAG':'Needs Taylor'}
 c=collections.Counter(v[0] for v in V.values())

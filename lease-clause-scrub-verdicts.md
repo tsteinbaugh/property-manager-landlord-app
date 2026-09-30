@@ -53,7 +53,7 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 
 ## WY
 
-**Not applied yet.**
+**Applied 2026-09-29.**
 
 | Row | Verdict | Basis | Note |
 |---|---|---|---|
@@ -73,7 +73,7 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 
 ## KS
 
-**Not applied yet.**
+**Applied 2026-09-29.**
 
 | Row | Verdict | Basis | Note |
 |---|---|---|---|
@@ -94,7 +94,7 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 
 ## NE
 
-**Not applied yet.**
+**Applied 2026-09-29.**
 
 | Row | Verdict | Basis | Note |
 |---|---|---|---|

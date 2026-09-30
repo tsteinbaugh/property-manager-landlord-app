@@ -32,6 +32,8 @@
 // wholesale from the CSV (2026-09-18 refresh, Ohio added: 309 -> 324
 // entries across the now-8-state pass).
 //
+// **2026-09-29 (three-bucket scrub, WY/KS/NE):** 986 -> 999 entries.
+//
 // **2026-09-29 (three-bucket scrub, Colorado):** 978 -> 986 entries.
 //
 // **2026-09-29 (Pennsylvania sync):** regenerated from the 21-state CSV
@@ -7788,8 +7790,8 @@ const LANDLORD_EDUCATION = [
     verificationStatus: "VERIFIED",
     topicKey: "casualty-termination",
     bodyText:
-      "Three details of Nebraska's fire-and-casualty rule catch landlords out. FIRST, the termination date is the date the tenant VACATED, not the date you received their notice: the tenant vacates first and then has fourteen days to notify you in writing, so a notice that arrives two weeks later still ends the tenancy as of the earlier move-out date, and rent is accounted for as of the date of the casualty itself (§76-1429). SECOND, you owe back all prepaid rent plus the security deposit the tenant can recover under §76-1416 - the casualty does not convert the deposit into damages, and the §76-1416 return deadline and penalty still apply. THIRD, a tenant who stays but loses part of the unit owes proportionally less rent, measured by the drop in FAIR RENTAL VALUE, not by floor area. The one thing that stays with the tenant is damage caused by their own negligence. You cannot contract around any of this: §76-1415(1)(a) voids a lease term waiving the tenant's rights under the Act. And if the tenancy ends, §76-1405 puts a duty to mitigate damages on the aggrieved party, so re-letting effort is expected rather than optional.",
-    notes: "NE: Read section-open 2026-09-27 from nebraskalegislature.gov (official legislative compilation) in the built-in browser, via the official keyword search at /laws/search_keyword.php. Gap-discovery backfill, instruction 36 sources 3 and 4. CONTROLLING TEXT: §76-1429 read verbatim (see casualty-termination-ne for the full quotation), plus §76-1405 read verbatim: '(1) The remedies provided by the Uniform Residential Landlord and Tenant Act shall be so administered that the aggrieved party may recover appropriate damages. The aggrieved party has a duty to mitigate damages.' §76-1416 (deposits) was already read in the original NE pass and is unchanged. WHY SEPARATE FROM THE CLAUSE: the three traps here are landlord-facing operational consequences (which date controls, that the deposit is NOT convertible to damages, that the abatement measure is fair rental value rather than square footage) and do not belong in tenant-facing lease text. §76-1405 IS ALSO A NEW CITATION for Nebraska: the duty to mitigate was cited nowhere in the library, though default-by-tenant-ks-ne already promises mitigation 'to the extent required by applicable law', so the clause was already correct by deference -- this row supplies the statutory basis rather than fixing an error. NOT RESEARCHED: whether Nebraska case law measures 'diminution in fair rental value' by any particular method, and whether a casualty caused by the tenant's negligence forfeits the (1)(a) termination right (the statute makes the tenant liable for the damage but does not say the right is lost). Both flagged, not resolved.",
+      "If fire or casualty damages the property enough to substantially impair the tenant's enjoyment of it, the tenant may move out immediately and notify you in writing within 14 days that they are ending the lease, or, if continued occupancy is lawful, vacate only the unusable part and pay rent reduced in proportion to the loss in fair rental value (Neb. Rev. Stat. 76-1429). Three details of Nebraska's fire-and-casualty rule catch landlords out. FIRST, the termination date is the date the tenant VACATED, not the date you received their notice: the tenant vacates first and then has fourteen days to notify you in writing, so a notice that arrives two weeks later still ends the tenancy as of the earlier move-out date, and rent is accounted for as of the date of the casualty itself (§76-1429). SECOND, you owe back all prepaid rent plus the security deposit the tenant can recover under §76-1416 - the casualty does not convert the deposit into damages, and the §76-1416 return deadline and penalty still apply. THIRD, a tenant who stays but loses part of the unit owes proportionally less rent, measured by the drop in FAIR RENTAL VALUE, not by floor area. The one thing that stays with the tenant is damage caused by their own negligence. You cannot contract around any of this: §76-1415(1)(a) voids a lease term waiving the tenant's rights under the Act. And if the tenancy ends, §76-1405 puts a duty to mitigate damages on the aggrieved party, so re-letting effort is expected rather than optional.",
+    notes: "NE: Read section-open 2026-09-27 from nebraskalegislature.gov (official legislative compilation) in the built-in browser, via the official keyword search at /laws/search_keyword.php. Gap-discovery backfill, instruction 36 sources 3 and 4. CONTROLLING TEXT: §76-1429 read verbatim (see casualty-termination-ne for the full quotation), plus §76-1405 read verbatim: '(1) The remedies provided by the Uniform Residential Landlord and Tenant Act shall be so administered that the aggrieved party may recover appropriate damages. The aggrieved party has a duty to mitigate damages.' §76-1416 (deposits) was already read in the original NE pass and is unchanged. WHY SEPARATE FROM THE CLAUSE: the three traps here are landlord-facing operational consequences (which date controls, that the deposit is NOT convertible to damages, that the abatement measure is fair rental value rather than square footage) and do not belong in tenant-facing lease text. §76-1405 IS ALSO A NEW CITATION for Nebraska: the duty to mitigate was cited nowhere in the library, though default-by-tenant-ks-ne already promises mitigation 'to the extent required by applicable law', so the clause was already correct by deference -- this row supplies the statutory basis rather than fixing an error. NOT RESEARCHED: whether Nebraska case law measures 'diminution in fair rental value' by any particular method, and whether a casualty caused by the tenant's negligence forfeits the (1)(a) termination right (the statute makes the tenant liable for the damage but does not say the right is lost). Both flagged, not resolved. | NE: Opening sentence added by the three-bucket scrub (2026-09-29) from casualty-termination-ne (switched off); content unchanged: Neb. Rev. Stat. § 76-1429; § 76-1415.",
   },
   // Landlord Responsibilities
   {
@@ -12600,6 +12602,171 @@ const LANDLORD_EDUCATION = [
     bodyText:
       "Colorado sets minimum notice to end a periodic tenancy, or to decline to renew a fixed term, scaled to how long the tenancy has run (C.R.S. 13-40-107): at least 91 days for a tenancy of one year or longer; 28 days for six months to a year; 21 days for one to six months; 3 days for one week to one month, or a tenancy at will; and 1 day for less than a week. These are minimums, so a lease period can be longer but never shorter. The notice must be in writing, expire at the end of the period or term, describe the property and the date the tenancy ends, and be signed by the party giving it or their agent or attorney. Once a tenancy has run 12 months, a covered landlord also needs a legal reason to end it (see the for-cause eviction note). Your lease states your chosen notice period; use these minimums as the guardrail.",
     notes: "CO: Created 2026-09-29 by the three-bucket scrub from month-to-month-notice-co-exempt/-covered; content and citations unchanged: C.R.S. § 13-40-107(1), (2), (3), as amended by HB24-1098 (five-tier scheme corrected 2026-09-06).",
+  },
+  {
+    id: "edu-safe-homes-rent-defense-wy",
+    title: "Safe Homes Act: A Tenant Who Leaves Because of Abuse Owes No Later Rent",
+    group: "Default & Termination",
+    states: ["WY"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-safe-homes",
+    bodyText:
+      "Under Wyoming's Safe Homes Act (Wyo. Stat. 1-21-1303), a tenant who moves out because of a credible imminent threat of domestic abuse or sexual violence at the property, or because the tenant or a household member was a victim of domestic abuse or sexual violence at the property within the preceding 60 days, is not liable for rent accruing after moving out. The tenant must give you written notice at least 7 days before moving out, stating the reason and, where applicable, the date of the incident with supporting medical, court or police evidence. If hospitalization, or seeking shelter or counseling, prevented notice within the 60 days, notice given as soon as practicable afterward still counts. Rent owed for the period before the tenant moved out and gave the notice is still owed, and your remedies for it are unaffected. These rights can't be waived (see the Safe Homes nonwaiver note).",
+    notes: "WY: Moved from dv-safe-homes-wy by the three-bucket scrub (2026-09-29); content and citation unchanged: Wyo. Stat. § 1-21-1303(a), (b), (d).",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-habitability-baseline-wy",
+    title: "Your Basic Habitability Duties",
+    group: "Landlord Responsibilities",
+    states: ["WY"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-maintenance",
+    bodyText:
+      "Wyoming requires you to keep the property safe and sanitary and fit for human habitation, including operational electrical, heating and plumbing systems with hot and cold running water, unless you and the tenant agree otherwise in writing (Wyo. Stat. 1-21-1202). The tenant must cooperate in maintaining the property. See the related notes on responding to a habitability notice and on reassigning duties by written agreement.",
+    notes: "WY: Moved from habitability-baseline-wy by the three-bucket scrub (2026-09-29); content and citation unchanged: Wyo. Stat. § 1-21-1202(a), (b).",
+  },
+  // Security Deposit
+  {
+    id: "edu-utility-deposit-return-wy",
+    title: "Returning a Separate Utility Deposit",
+    group: "Security Deposit",
+    states: ["WY"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utility-deposit-return",
+    bodyText:
+      "If you hold a deposit identified separately as a utility deposit, refund it within 10 days after the tenant shows that all utility charges they incurred are paid. If the tenant hasn't shown that within 45 days after the lease ends, apply the deposit to the tenant's outstanding utility debt within 15 days after that period ends, then refund any remaining balance within 7 days after applying it, or within 15 days after receiving the tenant's forwarding address, whichever is later (Wyo. Stat. 1-21-1208(b)).",
+    notes: "WY: Moved from utility-deposit-return-wy by the three-bucket scrub (2026-09-29); content and citation unchanged: Wyo. Stat. § 1-21-1208(b).",
+  },
+  {
+    id: "edu-security-deposit-return-wy",
+    title: "Deposit Return Deadline and Itemization",
+    group: "Security Deposit",
+    states: ["WY"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-return",
+    bodyText:
+      "Within 30 days after the lease ends, or within 15 days after receiving the tenant's forwarding address, whichever is later, deliver or mail the balance of the deposit and any prepaid rent with a written itemization of any deductions and the reasons for them. If the property is damaged, the period is extended by another 30 days (Wyo. Stat. 1-21-1208(a)). See the penalty note for what happens if you miss it.",
+    notes: "WY: Created by the three-bucket scrub (2026-09-29) from security-deposit-return-wy, which keeps only the tenant's forwarding-address duty; content unchanged: Wyo. Stat. § 1-21-1208(a).",
+  },
+  {
+    id: "edu-security-deposit-return-ks",
+    title: "Deposit Return Deadline and Itemization",
+    group: "Security Deposit",
+    states: ["KS"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-return",
+    bodyText:
+      "If you keep any part of the deposit for damages or other allowable charges besides rent, return the balance within 14 days after determining the amount kept, and no later than 30 days after the lease ends, possession is delivered and the tenant demands the deposit. If the tenant doesn't demand it within 30 days after the lease ends, mail the balance to the tenant's last known address. Itemize anything you keep in a written notice to the tenant (K.S.A. 58-2550(b)). See the penalty note for what happens if you don't.",
+    notes: "KS: Moved from security-deposit-return-ks by the three-bucket scrub (2026-09-29); content and citation unchanged: K.S.A. 58-2550(b).",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-habitability-baseline-ks",
+    title: "Your Basic Habitability Duties",
+    group: "Landlord Responsibilities",
+    states: ["KS"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-maintenance",
+    bodyText:
+      "Except when prevented by an act of God, a failure of public utility services or other conditions beyond your control, Kansas requires you to: comply with building and housing codes materially affecting health and safety; take reasonable care of common areas; keep the electrical, plumbing, sanitary, heating, ventilating and air-conditioning systems you supply in good and safe working order; provide trash receptacles and arrange removal, unless a government entity does; and supply running water and reasonable hot water and heat, unless the building isn't required by law to have them or the unit's heat or hot water comes from a tenant-controlled installation on a direct utility connection. You also can't interfere with or refuse a tenant access to a municipally franchised cable or communication service (K.S.A. 58-2553(a)). See the note on when you can shift some of these duties to the tenant.",
+    notes: "KS: Moved from habitability-baseline-ks by the three-bucket scrub (2026-09-29); content and citation unchanged: K.S.A. 58-2553(a).",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-dv-housing-protections-ks",
+    title: "Domestic Violence, Sexual Assault, Trafficking and Stalking: Housing Protections",
+    group: "Tenant Responsibilities",
+    states: ["KS"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-housing-protections",
+    bodyText:
+      "Kansas protects a tenant or applicant who has been, is, or is in imminent danger of becoming a victim of domestic violence, sexual assault, human trafficking or stalking within the preceding 12 months (K.S.A. 58-25,137). You can't deny tenancy to, evict, or find a lease violation against that person based on that status if they otherwise qualify. A tenant who asks to end the lease early under this protection owes no rent after moving out, though you may charge a reasonable early-termination fee of up to one month's rent, and you may ask for supporting documentation as the law allows. The lease continues for any remaining co-tenants. Neither side can waive these rights. See the note on the consequences of violating this protection.",
+    notes: "KS: Moved from dv-housing-protections-ks by the three-bucket scrub (2026-09-29); content and citation unchanged: K.S.A. 58-25,137.",
+  },
+  // Default & Termination
+  {
+    id: "edu-possession-delay-ks",
+    title: "If You Can't Deliver Possession on Time",
+    group: "Default & Termination",
+    states: ["KS"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "possession-delay",
+    bodyText:
+      "If you fail to deliver possession as the lease requires, rent abates until you do, and the tenant may either end the lease on at least 5 days' written notice, in which case you return the full deposit, or demand that you perform, sue for possession against you or anyone wrongfully in possession, and recover damages. If your failure is willful and not in good faith, the tenant can recover up to 1.5 times the periodic rent or 1.5 times actual damages, whichever is greater (K.S.A. 58-2560).",
+    notes: "KS: Moved from possession-delay-ks by the three-bucket scrub (2026-09-29); content and citation unchanged: K.S.A. 58-2560.",
+  },
+  {
+    id: "edu-casualty-termination-ks",
+    title: "Fire or Casualty: The Tenant's Options",
+    group: "Default & Termination",
+    states: ["KS"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "casualty-termination",
+    bodyText:
+      "If fire or casualty damages the property enough to substantially impair its use and habitability, the tenant may move out immediately and notify you in writing within 5 days that they are ending the lease, which then ends on the date they moved out; or, if continued occupancy is lawful, vacate only the unusable part and pay rent reduced in proportion to the drop in the property's fair rental value (K.S.A. 58-2562). If the lease ends this way, return the part of the deposit the tenant is entitled to and account for rent as of the date they moved out.",
+    notes: "KS: Moved from fire-casualty-termination-ks by the three-bucket scrub (2026-09-29); content and citation unchanged: K.S.A. 58-2562.",
+  },
+  // Security Deposit
+  {
+    id: "edu-security-deposit-return-ne",
+    title: "Deposit Return Deadline, Itemization and Unclaimed Deposits",
+    group: "Security Deposit",
+    states: ["NE"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-return",
+    bodyText:
+      "If you keep any part of the deposit, deliver or mail the balance and a written itemization of what you kept within 14 days after the lease ends (Neb. Rev. Stat. 76-1416(2)). If the tenant gave no forwarding address or delivery instructions, mail it by first-class mail to the tenant's last known address. If that mailing comes back undeliverable, or the balance stays unclaimed for a year, report and send it to the State Treasurer as unclaimed property (69-1329). See the penalty note for what happens if you miss the deadline.",
+    notes: "NE: Moved from security-deposit-return-ne by the three-bucket scrub (2026-09-29); content and citation unchanged: Neb. Rev. Stat. § 76-1416(2); § 69-1329.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-dv-tenant-rights-ne",
+    title: "Domestic Violence: Lease Release, Removing the Abuser, and Lock Changes",
+    group: "Tenant Responsibilities",
+    states: ["NE"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-lease-release",
+    bodyText:
+      "Nebraska gives a tenant who, or whose household member, is a victim of domestic violence three rights, each triggered by a qualifying protective order or third-party domestic-violence certification plus written notice (see the documentation note). Lease release (Neb. Rev. Stat. 76-1431.01): the tenant names a release date at least 14 and no more than 30 days after the notice and any household members also released; they owe rent for the month the lease ends but nothing after the release date, and no fee solely because of the release. The release doesn't extend to another tenant on the lease who isn't a household member. Removing the abuser (76-1431.02): if the abuser is a co-tenant or other occupant of the unit, the victim can have them removed from the lease and excluded, and you then proceed against the abuser only under Nebraska's expedited removal procedure; you aren't liable for actions taken in good faith. Lock change (76-1431.03, 76-1431.04): if the abuser isn't a co-tenant or occupant, change the locks within 24 hours of a written request; if you don't, the tenant may change them in a workmanlike manner with locks of similar or better quality, must tell you promptly, and must give you a new key or code.",
+    notes: "NE: Created by the three-bucket scrub (2026-09-29) from dv-lease-release-ne, dv-perpetrator-removal-ne and dv-lockchange-ne (all switched off); content and citations unchanged: Neb. Rev. Stat. §§ 76-1431.01, 76-1431.02, 76-1431.03, 76-1431.04.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-habitability-baseline-ne",
+    title: "Your Basic Habitability Duties",
+    group: "Landlord Responsibilities",
+    states: ["NE"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-maintenance",
+    bodyText:
+      "Except when prevented by an act of God, a failure of public utility services or other conditions beyond your control, Nebraska requires you to: substantially comply, after written or actual notice, with minimum housing codes materially affecting health and safety; make all repairs and do whatever is necessary, after written or actual notice, to keep the property fit and habitable; keep common areas clean and safe; maintain the electrical, plumbing, sanitary, heating, ventilating and air-conditioning systems and appliances you supply in good and safe working order; provide waste receptacles and arrange removal; and supply running water and reasonable hot water and heat, unless the building isn't required by law to have them or the unit's heat or hot water comes from a tenant-controlled installation on a direct utility connection (Neb. Rev. Stat. 76-1419(1)). See the note on delegating some duties to the tenant.",
+    notes: "NE: Moved from habitability-baseline-ne by the three-bucket scrub (2026-09-29); content and citation unchanged: Neb. Rev. Stat. § 76-1419(1).",
+  },
+  // Default & Termination
+  {
+    id: "edu-possession-delay-ne",
+    title: "If You Can't Deliver Possession on Time",
+    group: "Default & Termination",
+    states: ["NE"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "possession-delay",
+    bodyText:
+      "If you fail to deliver possession as the lease requires, rent abates until you do, and the tenant may either end the lease on at least 5 days' written notice, in which case you return all prepaid rent and the full deposit, or demand that you perform, sue for possession against you or anyone wrongfully in possession, and recover damages. If your failure is willful and not in good faith, the tenant can recover up to three months' periodic rent or three times actual damages, whichever is greater (Neb. Rev. Stat. 76-1426).",
+    notes: "NE: Moved from possession-delay-ne by the three-bucket scrub (2026-09-29); content and citation unchanged: Neb. Rev. Stat. § 76-1426.",
   },
 ];
 
