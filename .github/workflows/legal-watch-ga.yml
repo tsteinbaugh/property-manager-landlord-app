@@ -10,9 +10,9 @@ name: Legal watch (Georgia)
 
 on:
   schedule:
-    # Every Monday, staggered after Arizona's 16:15 UTC run so none of
-    # the fifteen states hit LegiScan at the exact same moment.
-    - cron: "30 16 * * 1"
+    # Monthly, day 15 at 13:00 UTC (rule and order: SCHEDULE_ORDER in
+    # scripts/legal-watch/stateConfig.js).
+    - cron: "0 13 15 * *"
   workflow_dispatch:
     inputs:
       mode:
@@ -105,3 +105,13 @@ jobs:
           else
             echo "No state changes to commit."
           fi
+
+      # GitHub's own failure emails are off; this sends the notice to the alert
+      # address instead (2026-09-29). Manual dry-runs don't send one.
+      - name: Email a failure notice
+        if: ${{ failure() && (github.event_name == 'schedule' || inputs.mode == 'check' || inputs.mode == 'seed-baseline') }}
+        working-directory: scripts/legal-watch
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          ALERT_EMAIL_TO: ${{ vars.ALERT_EMAIL_TO }}
+        run: node checkCitations.js --state=GA --notify-failure

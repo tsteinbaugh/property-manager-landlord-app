@@ -2,9 +2,19 @@
 //
 // Reads lease-clause-citations-<STATE>.csv, pulls out every distinct statute
 // section number that a shipped clause/education row actually depends on,
-// asks LegiScan (https://legiscan.com/legiscan, free tier, 30k queries/month)
-// whether any bill has been enacted that touches that section since we last
-// checked, and emails a summary if anything looks worth a human review.
+// asks LegiScan (https://legiscan.com/legiscan, free tier: 10,000 queries a
+// month and about 2 requests a second from 2026-10-01) whether any bill has
+// been enacted that touches that section since we last checked, and emails a
+// summary if anything looks worth a human review. Each state runs once a
+// month (see SCHEDULE_ORDER in stateConfig.js).
+//
+// A bill is re-checked until it is final: every bill seen still pending is
+// kept with LegiScan's change marker, and fetched again only when that marker
+// changes (added 2026-09-29; before that, a bill first seen while pending was
+// never looked at again, so its later enactment was never flagged).
+//
+// A state or section with no history seeds itself: its first run records
+// what it finds without emailing, so no manual seed-baseline is needed.
 //
 // This is a TRIPWIRE, not a source of truth: it never edits clause content
 // itself, and a hit here means "go verify against primary text," not "the
@@ -34,6 +44,8 @@
 //   node checkCitations.js --state=CO --test-email    -- send one canned test email via Resend, no LegiScan call at all
 //                                               (for validating the email path independently, e.g. while a
 //                                               LegiScan API key application is still pending)
+//   node checkCitations.js --state=CO --notify-failure -- email a "this run failed" notice via Resend (the
+//                                               workflow calls it when a step fails)
 //   node checkCitations.js --state=CO --seed-baseline -- real LegiScan/eCFR queries, writes state, but never emails.
 //                                               Run this once before ever running a real (unqualified) check
 //                                               for the first time: every bill/regulation LegiScan and eCFR
@@ -208,6 +220,20 @@ const MANUAL_RECHECK_INTERVAL_DAYS = 180;
 // A timed-out request throws like any other failed check, so it's counted as
 // an errored check (and an all-errored run still fails loudly).
 const FETCH_TIMEOUT_MS = 30000;
+// LegiScan's rate limit from 2026-10-01 is about 2 requests a second; keep a
+// little under it.
+const LEGISCAN_MIN_INTERVAL_MS = 600;
+let lastLegiscanCall = 0;
+async function legiscanFetch(url) {
+  const wait = lastLegiscanCall + LEGISCAN_MIN_INTERVAL_MS - Date.now();
+  if (wait > 0) await new Promise((r) => setTimeout(r, wait));
+  lastLegiscanCall = Date.now();
+  return fetch(url, { signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) });
+}
+// Bills recorded before 2026-09-29 carry no change marker. On the first run
+// after the upgrade, one whose last action is on or after this date is
+// fetched once, in case it was enacted after it was first seen.
+const LEGACY_RECHECK_FROM = "2026-09-01";
 
 // ---------- eCFR ----------
 
@@ -238,7 +264,7 @@ async function legiscanSearch(section, jurisdiction = STATE_CODE) {
   // `buildQuery` (CA) turns its section key into a narrower boolean query.
   const query = jurisdiction === STATE_CODE && CONFIG.buildQuery ? CONFIG.buildQuery(section) : section;
   const url = `https://api.legiscan.com/?key=${LEGISCAN_API_KEY}&op=getSearch&state=${jurisdiction}&year=1&query=${encodeURIComponent(query)}`;
-  const res = await fetch(url, { signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) });
+  const res = await legiscanFetch(url);
   if (!res.ok) throw new Error(`LegiScan search failed for ${section}: HTTP ${res.status}`);
   const data = await res.json();
   if (VERBOSE) {
@@ -256,7 +282,7 @@ async function legiscanSearch(section, jurisdiction = STATE_CODE) {
 
 async function legiscanGetBill(billId) {
   const url = `https://api.legiscan.com/?key=${LEGISCAN_API_KEY}&op=getBill&id=${billId}`;
-  const res = await fetch(url, { signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) });
+  const res = await legiscanFetch(url);
   if (!res.ok) throw new Error(`LegiScan getBill failed for ${billId}: HTTP ${res.status}`);
   const data = await res.json();
   if (VERBOSE) {
@@ -273,10 +299,18 @@ async function legiscanGetBill(billId) {
 // Treat Enrolled or Passed as "real enough to flag" -- matches this project's own
 // "a bill is not evidence of enactment, check enrolled/enacted text" rule.
 const ENACTED_STATUSES = new Set([3, 4]);
+// Final: nothing more to watch. Enrolled counts as final because it has
+// already been flagged; Vetoed and Failed end the bill.
+const FINAL_STATUSES = new Set([3, 4, 5, 6]);
+// What tells us a bill changed since we last looked: LegiScan's change_hash,
+// or the last-action date if a result has no hash.
+const changeMarker = (c) => c.change_hash || c.last_action_date || "";
 
 // ---------- state (what we've already flagged, so we don't re-flag forever) ----------
 
+let STATE_IS_NEW = false;
 function loadState() {
+  if (!fs.existsSync(STATE_FILE)) STATE_IS_NEW = true;
   try {
     const state = JSON.parse(fs.readFileSync(STATE_FILE, "utf8"));
     state.sections ||= {};
@@ -295,6 +329,29 @@ function saveState(state) {
 }
 
 // ---------- email ----------
+
+// LegiScan data is licensed CC BY 4.0; every email credits it.
+const ATTRIBUTION = `<p style="color:#666;font-size:12px">Legislative data from <a href="https://legiscan.com">LegiScan</a>, licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Federal regulation data from eCFR.gov.</p>`;
+
+async function sendEmail(subject, html) {
+  const res = await fetch("https://api.resend.com/emails", {
+    signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+    method: "POST",
+    headers: { Authorization: `Bearer ${RESEND_API_KEY}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ from: "Steinoak Legal Watch <onboarding@resend.dev>", to: [ALERT_EMAIL_TO], subject, html }),
+  });
+  if (!res.ok) throw new Error(`Resend send failed: HTTP ${res.status} - ${await res.text()}`);
+}
+
+// Sent by the workflow when a run fails, in place of GitHub's own failure
+// emails (turned off 2026-09-29 so everything arrives at the alert address).
+async function sendFailureNotice() {
+  const runUrl = process.env.GITHUB_RUN_ID
+    ? `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`
+    : null;
+  const html = `<p>The ${STATE_NAME} legal-watch run failed, so this month's check for ${STATE_NAME} did not complete and nothing was recorded.</p>${runUrl ? `<p>Run log: <a href="${runUrl}">${runUrl}</a></p>` : ""}<p>Common causes: the LegiScan monthly allowance is used up, LegiScan or eCFR is down, or the API key changed. Ask Claude Code to look at the run log.</p>`;
+  await sendEmail(`[Steinoak] Legal watch failed: ${STATE_NAME}`, html);
+}
 
 async function sendAlertEmail({ billFindings = [], cfrFindings = [], reminders = [] }) {
   const sections = [];
@@ -324,34 +381,28 @@ async function sendAlertEmail({ billFindings = [], cfrFindings = [], reminders =
   }
 
   const totalRealFindings = billFindings.length + cfrFindings.length;
-  const html = `<p>${STATE_NAME} lease-clause legal watch -- verify anything below against primary text before touching a clause; nothing here is a verified finding.</p>${sections.join("")}<p><i>See lease-clause-citations-${STATE_CODE}.csv for what each clause currently asserts.</i></p>`;
+  const html = `<p>${STATE_NAME} lease-clause legal watch -- verify anything below against primary text before touching a clause; nothing here is a verified finding.</p>${sections.join("")}<p><i>See lease-clause-citations-${STATE_CODE}.csv for what each clause currently asserts.</i></p>${ATTRIBUTION}`;
 
-  const res = await fetch("https://api.resend.com/emails", {
-    signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${RESEND_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from: "Steinoak Legal Watch <onboarding@resend.dev>",
-      to: [ALERT_EMAIL_TO],
-      subject:
-        totalRealFindings > 0
-          ? `[Steinoak] ${totalRealFindings} possible ${STATE_NAME} law change${totalRealFindings === 1 ? "" : "s"} to review`
-          : `[Steinoak] ${reminders.length} ${STATE_NAME} citation${reminders.length === 1 ? "" : "s"} due for manual recheck`,
-      html,
-    }),
-  });
-  if (!res.ok) {
-    const body = await res.text();
-    throw new Error(`Resend send failed: HTTP ${res.status} - ${body}`);
-  }
+  await sendEmail(
+    totalRealFindings > 0
+      ? `[Steinoak] ${totalRealFindings} possible ${STATE_NAME} law change${totalRealFindings === 1 ? "" : "s"} to review`
+      : `[Steinoak] ${reminders.length} ${STATE_NAME} citation${reminders.length === 1 ? "" : "s"} due for manual recheck`,
+    html,
+  );
 }
 
 // ---------- main ----------
 
 async function main() {
+  if (process.argv.includes("--notify-failure")) {
+    if (!RESEND_API_KEY || !ALERT_EMAIL_TO) {
+      console.error("Missing RESEND_API_KEY or ALERT_EMAIL_TO");
+      process.exit(1);
+    }
+    await sendFailureNotice();
+    console.log(`Failure notice sent to ${ALERT_EMAIL_TO}.`);
+    return;
+  }
   if (process.argv.includes("--test-email")) {
     if (!RESEND_API_KEY || !ALERT_EMAIL_TO) {
       console.error("Missing RESEND_API_KEY or ALERT_EMAIL_TO");
@@ -400,7 +451,13 @@ async function main() {
 
   async function checkLegiscanSection(section, clauseIds, jurisdiction, stateBucket) {
     checksAttempted++;
+    // A section never checked before seeds itself: record, don't flag.
+    const seeding = !stateBucket[section];
     const seen = stateBucket[section] || { billIds: [] };
+    // `pending` (added 2026-09-29): bill id -> change marker, for bills not yet final.
+    // Its absence means this section was recorded by the older script.
+    const legacy = !seeding && !seen.pending;
+    seen.pending ||= {};
     let candidates;
     legiscanAttempted++;
     try {
@@ -419,18 +476,34 @@ async function main() {
     if (VERBOSE) console.log(`  [${jurisdiction}] ${section}: ${candidates.length} raw hits, ${relevant.length} relevant`);
 
     for (const candidate of relevant) {
-      if (seen.billIds.includes(candidate.bill_id)) continue; // already flagged before
+      const id = candidate.bill_id;
+      const marker = changeMarker(candidate);
+      const known = seen.billIds.includes(id);
+      if (known) {
+        if (legacy) {
+          // Recorded by the older script, which kept no status. Fetch once only
+          // if it has moved recently; otherwise just start tracking its marker.
+          if (!(candidate.last_action_date && candidate.last_action_date >= LEGACY_RECHECK_FROM)) {
+            seen.pending[id] = marker;
+            continue;
+          }
+        } else if (!(id in seen.pending)) {
+          continue; // final: already flagged, vetoed or failed
+        } else if (seen.pending[id] === marker) {
+          continue; // pending and unchanged since last look
+        }
+      }
 
       let bill;
       try {
-        bill = await legiscanGetBill(candidate.bill_id);
+        bill = await legiscanGetBill(id);
       } catch (err) {
-        console.error(`  [${jurisdiction}] ${section}: getBill error for ${candidate.bill_id} - ${err.message}`);
+        console.error(`  [${jurisdiction}] ${section}: getBill error for ${id} - ${err.message}`);
         continue;
       }
       if (!bill) continue;
 
-      if (ENACTED_STATUSES.has(Number(bill.status))) {
+      if (!seeding && ENACTED_STATUSES.has(Number(bill.status))) {
         billFindings.push({
           section,
           jurisdiction,
@@ -447,9 +520,9 @@ async function main() {
         });
       }
 
-      // Record every bill we've actually looked at (enacted or not), so we
-      // don't re-fetch and re-judge it on every future run.
-      seen.billIds.push(candidate.bill_id);
+      if (!known) seen.billIds.push(id);
+      if (FINAL_STATUSES.has(Number(bill.status))) delete seen.pending[id];
+      else seen.pending[id] = marker;
     }
 
     stateBucket[section] = seen;
@@ -530,7 +603,8 @@ async function main() {
     return;
   }
 
-  if (SEED_BASELINE) {
+  if (SEED_BASELINE || STATE_IS_NEW) {
+    if (STATE_IS_NEW && !SEED_BASELINE) console.log("\nFirst run for this state: seeding itself (recording, not emailing).");
     console.log(
       `\n--seed-baseline: recording ${billFindings.length} bill(s), ${cfrFindings.length} regulation amendment date(s), and ${reminders.length} manual-recheck item(s) as an already-known baseline. NOT emailing -- everything above predates this tool and is already reflected in the current clause library. Future runs will only alert on genuinely new activity from here.`,
     );

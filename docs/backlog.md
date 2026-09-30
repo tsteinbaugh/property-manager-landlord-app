@@ -2,14 +2,13 @@
 
 All open work in one place, moved here on 2026-09-29: the standing product backlog, the known issues, and Addendum M (the builder gaps the legal research found, formerly in `lease-clause-decision-log-architecture-review.md`; its section numbers M.1–M.14 are kept so references elsewhere still resolve). Add new items here. When an item is done, strike it through with the date, or delete it and note it in `docs/history.md`.
 
-## Legal-watch catch-up, October 1–4, 2026 (time-critical)
+## Legal watch: first monthly runs, October 2026
 
-LegiScan's September allowance is used up (30,019 of 30,000) by one-off seeding and test runs; it resets October 1. Normal weekly runs for all states cost about 6,600 queries a month. This week's checks failed or found nothing for NE, MN, ND, SD, OH, CA, NV, TX and NJ, and FL, AZ and GA will too. No state data was damaged.
+~~Manual catch-up for October 1–4~~ **Superseded 2026-09-29:** the watch now runs monthly and seeds itself (see CLAUDE.md, Legal watch). NC, SC, TN, VA, AL and PA have no state file yet, so their first runs (days 16–21) record everything without emailing. Colorado's new § 38-12-1004 section seeds itself the same way. No make-up check is needed.
 
-Do this on or after October 1 and before the Monday October 5 scheduled runs, or their first check will email every historical bill:
-1. **Colorado:** run `seed-baseline` before its 13:00 UTC run. The scrub added a citation to C.R.S. § 38-12-1004, a section its watch has never monitored.
-2. **NC, SC, TN, VA, AL and PA** (never seeded; first runs 16:45, 17:00, 17:15, 17:30, 17:45 and 18:00 UTC): for each, one state at a time, run `dry-run`, then `seed-baseline`, then `dry-run` again, and confirm the state file reached `main` with `git pull`. Spread over more than one day if the allowance looks tight.
-3. **Make-up check:** run `check` once for NE, MN, ND, SD, OH, CA, NV, TX, NJ, FL, AZ and GA.
+To confirm in October:
+1. After Colorado's run on the 1st, read the run log and the committed `state/CO.json`: the search results should carry `change_hash`, and each section's `pending` map should hold hashes, not dates. If they hold dates, LegiScan's search results lack the hash and the last-action date is being used instead; that still works, but say so.
+2. Check the month's query total on the LegiScan dashboard once the six new states have run; expect roughly 6,000–7,000 for October, because of their first runs.
 
 ## Standing backlog
 

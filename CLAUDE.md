@@ -6,7 +6,7 @@
 
 - **Done 2026-09-29:** the state-research SOP (`lease-clause-sop.md`, 1.1), the generated topic reference (`lease-clause-topics.md`), `topic_key` normalization, and this CLAUDE.md split.
 - **Next:** the targeted checks in the SOP's conformance table. Some I can do from the repo; the rest go to each state's Claude Desktop chat as short, scoped prompts.
-- **Time-critical, October 1–4, 2026** (LegiScan's September allowance is used up; it resets October 1): see "Legal-watch catch-up" in `docs/backlog.md`. It must finish before the Monday October 5 scheduled runs (CO 13:00 UTC; NC 16:45, SC 17:00, TN 17:15, VA 17:30, AL 17:45, PA 18:00), or those runs will email every historical bill.
+- **Legal watch moved to monthly (2026-09-29):** each state runs on its own day of the month and seeds itself on its first run, so the October 1–5 manual catch-up is no longer needed. Taylor is turning off GitHub's Actions failure emails; failures now email the alert address. Watch the first October runs (CO on the 1st) to confirm the change marker works; see `docs/backlog.md`.
 - **Standing backlog** (no fixed order; ask Taylor what's next): `docs/backlog.md`.
 - Deploying is still deliberately on hold.
 
@@ -88,8 +88,10 @@ React + Vite + Tailwind v4 + React Router (`frontend/`); Node + Express + Prisma
 ### Legal watch
 - One workflow per state (`.github/workflows/legal-watch-<st>.yml`) run by `scripts/legal-watch/checkCitations.js`, configured in `stateConfig.js`. The `extractSections`/`buildQuery` hooks cover multi-code or year-like numbering. [2026-09-18, 2026-09-24]
 - LegiScan searches always pass `year=1`. [2026-09-14]
-- Run `seed-baseline` before a state's first `check`, and right after adding a citation for a section an already-seeded state has never watched; otherwise its history emails as new. [2026-09-14, 2026-09-28]
-- The free tier is 30,000 queries a month; seeding is what uses it. Seed in small batches, early in a month. Don't trigger several state-writing runs at once. [2026-09-18, 2026-09-28]
+- **Monthly, one state per day:** the Nth state in `SCHEDULE_ORDER` (`stateConfig.js`) runs on day ((N-1) % 28) + 1 at 13:00 UTC, an hour later for each wrap past 28. A new state goes at the end of the list, and its workflow uses `cronFor()`; `checkConfigIds.js` checks every cron. [2026-09-29]
+- **Self-seeding:** a state or section with no history records its first run without emailing, so no manual seed is needed; a new section in a seeded state seeds itself too. Pending bills are re-fetched only when LegiScan's change marker moves, until they're enacted, vetoed or dead. [2026-09-29]
+- **Budget:** from 2026-10-01 the free tier is 10,000 queries a month and about 2 requests a second (the script spaces calls 600 ms apart). Monthly runs for 21 states cost about 2,500–3,500; a new state's first run costs roughly 300–2,000 more, so add one or two states a month. Don't trigger several state-writing runs at once. [2026-09-28, 2026-09-29]
+- Failure notices go by Resend to the alert address (a workflow step calls `--notify-failure`); GitHub's own Actions emails are off. Every alert email credits LegiScan (CC BY 4.0). [2026-09-29]
 - A section created by a bill can't be found by its own number until a later bill amends it. [2026-09-25]
 - Alerts go to steinoakllc@gmail.com through a Resend account on that address; change the recipient and the account together. [2026-09-24]
 
@@ -109,7 +111,7 @@ Do not add to this list without Taylor's input.
 ## Where things live
 | File | What's in it |
 |---|---|
-| `docs/backlog.md` | All open work: standing backlog, known issues, the October 1 legal-watch catch-up, Addendum M builder gaps (M.1–M.14) |
+| `docs/backlog.md` | All open work: standing backlog, known issues, the October legal-watch checks, Addendum M builder gaps (M.1–M.14) |
 | `docs/history.md` | The full build log and decisions log with reasoning (read it before changing something whose reason you don't know) |
 | `docs/product-spec.md` | Product design: v2 feature specs, data-model notes, UI principles, AI plan, nationwide coverage plan, Manora research |
 | `lease-clause-sop.md` | The state-research procedure (Desktop follows it; Part 5 is Claude Code's sync) |

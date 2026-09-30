@@ -989,4 +989,21 @@ const STATE_CONFIG = {
   },
 };
 
-module.exports = { STATE_NAMES, STATE_CONFIG };
+// Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
+// a month on 2026-10-01). States run in the order they were added: the Nth
+// state runs on day ((N-1) % 28) + 1 of the month, so no day past the 28th is
+// used and every month has every day. When states share a day (the 29th state
+// onward), each later cycle runs an hour later: hour 13 + floor((N-1) / 28)
+// UTC. Add a new state to the END of this list and give its workflow the cron
+// that cronFor() returns; checkConfigIds.js fails if a workflow doesn't match.
+const SCHEDULE_ORDER = [
+  "CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ",
+  "GA", "NC", "SC", "TN", "VA", "AL", "PA",
+];
+function cronFor(code) {
+  const n = SCHEDULE_ORDER.indexOf(code);
+  if (n < 0) throw new Error(`${code} is not in SCHEDULE_ORDER`);
+  return `0 ${13 + Math.floor(n / 28)} ${(n % 28) + 1} * *`;
+}
+
+module.exports = { STATE_NAMES, STATE_CONFIG, SCHEDULE_ORDER, cronFor };

@@ -3,11 +3,13 @@
 // Added 2026-09-29 after the three-bucket scrub renamed citation rows: an
 // extraSectionAliases key that names a renamed row silently drops those
 // sections from monitoring, and a stale clauseIds entry mislabels alerts.
+// Also checks (added 2026-09-29) that every state is in SCHEDULE_ORDER and its
+// workflow's cron matches cronFor(), so the monthly schedule never drifts.
 // Run at every sync, from the repo root:
 //   node scripts/legal-watch/checkConfigIds.js
 const fs = require("fs");
 const path = require("path");
-const { STATE_CONFIG } = require("./stateConfig.js");
+const { STATE_CONFIG, SCHEDULE_ORDER, cronFor } = require("./stateConfig.js");
 
 function clauseIds(file) {
   const ids = new Set();
@@ -41,8 +43,26 @@ for (const [st, cfg] of Object.entries(STATE_CONFIG)) {
     }
   }
 }
+for (const st of Object.keys(STATE_CONFIG)) {
+  if (!SCHEDULE_ORDER.includes(st)) {
+    problems++;
+    console.log(`${st}: not in SCHEDULE_ORDER in stateConfig.js`);
+    continue;
+  }
+  const wf = path.join(root, ".github", "workflows", `legal-watch-${st.toLowerCase()}.yml`);
+  if (!fs.existsSync(wf)) {
+    problems++;
+    console.log(`${st}: no workflow file ${path.relative(root, wf)}`);
+    continue;
+  }
+  const m = fs.readFileSync(wf, "utf8").match(/cron:\s*"([^"]+)"/);
+  if (!m || m[1] !== cronFor(st)) {
+    problems++;
+    console.log(`${st}: workflow cron is "${m ? m[1] : "missing"}", expected "${cronFor(st)}"`);
+  }
+}
 if (problems) {
-  console.log(`FAIL - ${problems} stale clause id(s) in stateConfig.js`);
+  console.log(`FAIL - ${problems} problem(s) in stateConfig.js or the workflows`);
   process.exit(1);
 }
-console.log("ok - every clause id in stateConfig.js exists in its state's citations file");
+console.log("ok - every clause id in stateConfig.js exists in its state's citations file, and every workflow runs on its monthly day");
