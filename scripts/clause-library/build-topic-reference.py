@@ -31,7 +31,12 @@ for r in rows:
 
 questions = collections.defaultdict(list)
 for q in csv.DictReader(open(QUESTIONS, newline="", encoding="utf-8")):
-    questions[q["topic_key"]].append(q["question"])
+    key = q["topic_key"]
+    # A "NEW:" topic stops being new once any state writes a row for it: its
+    # questions move under the real topic automatically.
+    if key.startswith("NEW:") and key[4:] in by_key:
+        key = key[4:]
+    questions[key].append(q["question"])
 
 unknown = [k for k in questions if not k.startswith("NEW:") and k not in by_key]
 if unknown:

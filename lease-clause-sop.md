@@ -1,6 +1,6 @@
 # Steinoak State Research SOP
 
-**Version 1.2, 2026-09-30 (1.0 approved by Taylor).** This is the one procedure every state pass follows. It replaces the "Instructions for the next state" list (instructions 1–66) in `lease-clause-decision-log-named-topic-checklist.md`, the method lessons scattered through the state logs, and Addenda K and L of `lease-clause-decision-log-architecture-review.md`. Each rule gives its source in brackets so the history can be traced; the reasoning lives there, not here.
+**Version 1.3, 2026-09-30 (1.0 approved by Taylor).** This is the one procedure every state pass follows. It replaces the "Instructions for the next state" list (instructions 1–66) in `lease-clause-decision-log-named-topic-checklist.md`, the method lessons scattered through the state logs, and Addenda K and L of `lease-clause-decision-log-architecture-review.md`. Each rule gives its source in brackets so the history can be traced; the reasoning lives there, not here.
 
 **How this document is kept current**
 - Rule numbers never change. A retired rule stays listed as "Retired, see rule N".
@@ -30,12 +30,12 @@
 11. **Primary official text only.** A statute is read from the state's official site or a host copy that prints history lines. A landlord-content site, a vendor lease or a law-firm summary is a lead, however many agree; several sites agreeing usually means copied content. A source's reliability in one state earns it nothing in the next. [checklist 6; CLAUDE.md Aug 2026] [Fwd]
 12. **Never mark a row VERIFIED on a summary.** If the controlling section was identified but not read, the row is NEEDS_REVIEW. A hit read in context during a full-text search is not a section read: open the whole section before marking the row VERIFIED. A fetch-tool summary is a lead, never currency evidence; read the page itself where a browser is available. [checklist 10, 45] [Fwd]
 13. **Ask Taylor for text after two failed searches**, not a third. If you know the exact section, ask for it; if you only know the neighborhood, ask for the whole article or chapter. Take text Taylor supplies seriously and re-check against it immediately. [checklist 8, 10, 25] [Fwd]
-14. **Save every primary text to disk as it's read** (one file per section or act under the state's source folder). Copy every count in the log from saved output. A draft without saved sources is recall and must be re-checked. Save each search battery (terms, hit counts, sections hit) as soon as it runs, before reading any hit. [checklist 64; UT §13] [Fwd]
+14. **Save every primary text to disk as it's read** (one file per section or act under the state's source folder). Copy every count in the log from saved output. A draft without saved sources is recall and must be re-checked. Save each search battery (terms, hit counts, sections hit) as soon as it runs, before reading any hit. Where text comes through a browser the shell can't reach, prove each saved file matches what was read (for example, compare the browser's SHA-256 of the text with the saved file's). [checklist 64; UT §13; IL §1.1] [Fwd]
 15. **Track which rows were written with the section open and which from recall.** Re-check only the recall rows, with the section open. [checklist 22] [Fwd]
-16. **Currency comes from the history line, never from the section index or a heading.** Read the full history line and the revisor's recent-history block. Read the effective-date clause of every recent session law, even when the compilation already prints it (it may print law not yet in force). Read the compilation's own currency statement and screen every later act in full text. Ask whether a special session met. Check whether bulk data lags and overlay the update pages. A government publication is not currency evidence on its own, and neither is majority agreement among reproductions. Where the official site gives each section version an effective date (version ids or metadata), take effective dates from it; it shows future-dated versions the history line alone doesn't. A real lease's citations (rule 33) are a cheap second probe: a stale one can confirm a renumbering. [checklist 29, 34, 35, 40, 46, 50, 55; L.6, L.8; UT §1.2, §15] [Fwd]
+16. **Currency comes from the history line, never from the section index or a heading.** Read the full history line and the revisor's recent-history block. Read the effective-date clause of every recent session law, even when the compilation already prints it (it may print law not yet in force), and compare it with the official act page and bill status; if they disagree, record both, ask Taylor (rule 76), state both dates in the education rows and flag it for the legal watch. Screen the state's latest general revisory (technical corrections) act for uncompiled changes to the sections relied on. Read the compilation's own currency statement and screen every later act in full text. Ask whether a special session met. Check whether bulk data lags and overlay the update pages. A government publication is not currency evidence on its own, and neither is majority agreement among reproductions. Where the official site gives each section version an effective date (version ids or metadata), take effective dates from it; it shows future-dated versions the history line alone doesn't. A real lease's citations (rule 33) are a cheap second probe: a stale one can confirm a renumbering. [checklist 29, 34, 35, 40, 46, 50, 55; L.6, L.8; UT §1.2, §15; IL §1.2, §6.1] [Fwd]
 17. **Dated revisor URLs are historical.** A URL with a year in it may serve a past edition; confirm the page is the current one. [K.4] [Fwd]
 18. **A bill is authority only once enacted.** Confirm it passed both chambers and was signed; an introduced draft, a failed bill or a pending overlap is not law. When a statute was amended by two acts in one session, read both and cite the session law. [checklist 17, 46; KS lesson 3] [Fwd]
-19. **Proof of absence has a method, and a boundary.** Search the statute's own words and every word form (the term of art as well as the everyday term), run a nonsense control term to prove the engine reports true empties, and record how the engine matches. A keyword probe is a screen, not a verdict. Where the code has a data service or is served as whole-title files (XML or HTML), load the whole code and prove the load complete against the site's own title index. State what was searched and what wasn't (rules, case law, local codes) and claim nothing beyond it. Record the basis of every absence: a whole-text search, a chapter read, or secondary agreement only. [checklist 15, 39, 59; L.7; OH §20.4.1] [Fwd]
+19. **Proof of absence has a method, and a boundary.** Search the statute's own words and every word form (the term of art as well as the everyday term), run a nonsense control term to prove the engine reports true empties, and test every absence pattern against a known positive first (a saved section containing the term, in singular and plural, apostrophe forms and the statute's own phrasing), since a pattern that can't match the statute's wording also returns zero, and record how the engine matches. A keyword probe is a screen, not a verdict. Where the code has a data service or is served as whole-title files (XML or HTML), load the whole code and prove the load complete against the site's own title index. State what was searched and what wasn't (rules, case law, local codes) and claim nothing beyond it. Record the basis of every absence: a whole-text search, a chapter read, or secondary agreement only. [checklist 15, 39, 59; L.7; OH §20.4.1; IL §13] [Fwd]
 20. **Disproving a citation doesn't disprove the claim.** Before writing an absence, search the substance: the rule may sit in a different section. [L.13; SD R5] [Fwd]
 21. **Flag every citation that isn't a plain state-code section** (administrative rule, court rule, case law, federal CFR or statute) when you find it. These need different monitoring. Where the official site doesn't print the compiler's numbers, confirm each number against an official mapping or cite by the act's own section. [checklist 16, 62] [Fwd]
 22. **Screen citations in `notes` as well as `bodyText`.** Confirm each cited section exists, and match spelled-out and continuation forms, not only the § glyph. The screen can't catch a real section described wrongly, so it supplements reading, never replaces it. [checklist 11, 12] [Fwd]
@@ -68,7 +68,7 @@
 
 ### Step D. Screen the shared clauses against this state's law
 Each screen asks whether a shared clause the state is about to be tagged on is wrong, void or risky in this state. Tag a shared clause only if its text is lawful as written; otherwise use a variant or an override.
-40. **Formatting and placement:** search for "underlined", "boldface", "conspicuous", "separate document", "substantially equivalent" and type-size rules, and record every hit in the log's layout table. Also look for omission sanctions that forfeit money. [checklist 28] [Retro]
+40. **Formatting and placement:** search for "underlined", "boldface", "conspicuous", "separate document", "substantially equivalent" and type-size rules, and record every hit in the log's layout table. Also look for omission sanctions that forfeit money. Where two rules claim the same place (the first page, the first clause, next to the signatures), settle the order with Taylor before drafting. [checklist 28; IL §6.2] [Retro]
 41. **Just-cause and good-cause states:** find wording that says the end of the term ends possession. [checklist 31] [Retro]
 42. **Required text inside a shared clause:** a statute can force a sentence into a fee, deposit or other clause. [checklist 32] [Retro]
 43. **Cure promises:** a clause promising a cure period for "any other" breach can give away a no-cure termination right. [checklist 33] [Retro]
@@ -153,44 +153,46 @@ A state counts as fully done only when these are finished. Desktop's pass ends a
 
 **How it was filled:** from the instruction numbers each log cites and from the rows in the CSV. It needs confirming state by state as the targeted checks run; a state may have covered a point without citing the number.
 
-| Rule | CO | WY | KS | NE | MN | ND | SD | OH | CA | NV | TX | NJ | FL | AZ | GA | NC | SC | TN | VA | AL | PA | UT |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 37 tenancy type | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ |
-| 39 eviction duties | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ |
-| 40 formatting | · | · | · | ✓ | ✓ | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| 41 just-cause | · | · | · | · | · | · | · | · | · | · | · | ✓ | · | ✓ | · | · | · | ✓ | ✓ | · | · | ✓ |
-| 42 required text in shared clause | · | · | · | · | · | · | · | · | · | · | · | ✓ | · | ✓ | ✓ | · | ✓ | ✓ | ✓ | · | · | ✓ |
-| 43 cure promises | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | · | · | · | · | · | · | · | · | ✓ |
-| 44 terms turned into duties | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| 45 electronic notices | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| 46 lease as the notice | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| 47 knowing-use penalties | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| 48 separate documents | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ |
-| 49 collection costs | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ |
-| 50 "lease controls" | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ |
-| 51 plain language | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ |
-| 52 exculpation | · | · | ✓ | ✓ | ✓ | ✓ | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| 53 figure vs shared clause | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ |
-| 54 optional clauses (general screen) | · | ✓ | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| 27 seven topics with no row | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ |
-| 55 three-bucket test | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| 57 one subject per row | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| 54 e.g. holdover charge | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | n |
-| 54 e.g. casualty termination | n | ✓ | · | · | · | · | ✓ | · | · | ✓ | ✓ | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| 54 e.g. statutory waivers | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | n |
-| 54 e.g. crime-free clause | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | · | · | · | · | · | n |
-| 54 e.g. eviction-fee clause | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | · | · | · | · | · | ✓ |
+| Rule | CO | WY | KS | NE | MN | ND | SD | OH | CA | NV | TX | NJ | FL | AZ | GA | NC | SC | TN | VA | AL | PA | UT | IL |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 37 tenancy type | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ |
+| 39 eviction duties | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ |
+| 40 formatting | · | · | · | ✓ | ✓ | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 41 just-cause | · | · | · | · | · | · | · | · | · | · | · | ✓ | · | ✓ | · | · | · | ✓ | ✓ | · | · | ✓ | ✓ |
+| 42 required text in shared clause | · | · | · | · | · | · | · | · | · | · | · | ✓ | · | ✓ | ✓ | · | ✓ | ✓ | ✓ | · | · | ✓ | ✓ |
+| 43 cure promises | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | · | · | · | · | · | · | · | · | ✓ | ✓ |
+| 44 terms turned into duties | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 45 electronic notices | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 46 lease as the notice | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 47 knowing-use penalties | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 48 separate documents | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ |
+| 49 collection costs | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ |
+| 50 "lease controls" | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ |
+| 51 plain language | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ |
+| 52 exculpation | · | · | ✓ | ✓ | ✓ | ✓ | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 53 figure vs shared clause | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ |
+| 54 optional clauses (general screen) | · | ✓ | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 27 seven topics with no row | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ |
+| 55 three-bucket test | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 57 one subject per row | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 54 e.g. holdover charge | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | n | n |
+| 54 e.g. casualty termination | n | ✓ | · | · | · | · | ✓ | · | · | ✓ | ✓ | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 54 e.g. statutory waivers | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | n | n |
+| 54 e.g. crime-free clause | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | · | · | · | · | · | n | n |
+| 54 e.g. eviction-fee clause | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | · | · | · | · | · | ✓ | n |
 
 Notes on the table:
 - Rules 37, 39 and 53 ran for the first seven states only, as one-time cross-state screens (the eviction-duty screen covered CO, WY, KS, NE and MN; ND and SD in their own second passes).
 - Rule 52: CO, WY and SD still use the base insurance, parking and storage clauses with the "Landlord is not liable" wording. Whether each state voids it is the targeted check.
 - UT (2026-09-30) is the first state run under the SOP; its column comes from its log §6 and §19. Its "n" marks: a holdover rate (Utah trebles detainer damages, so the standing GA rule offers no stipulated rate), an exemption waiver (void, § 78B-5-509) and a crime-free clause (Utah's statutory no-cure grounds already cover it). Its eviction-fee analogue is `notice-service-fee-ut`.
+- IL (2026-09-30), from its log §6.3 and §19. Its "n" marks: a holdover rate (Illinois sets statutory holdover measures), statutory waivers (a jury waiver is ineffective and no exemption waiver serves a landlord), a crime-free clause (`criminal-activity-notice-il` already carries the statutory voiding right) and an eviction-fee clause (banned, 765 ILCS 705/35(c)(4)).
 - The "54 e.g." rows show where past states offered those particular clauses. They aren't a separate checklist; they show which earlier states the general screen hasn't reached. For casualty, "✓" means a clause exists and "n" means the law would likely void one.
 
 ---
 
 ## Change log
 
+- **1.3 (2026-09-30), Illinois sync.** From IL's "Proposed SOP changes": rule 19 tests every absence pattern against a known positive (IL 1); rule 14 proves browser-saved text by hash (IL 2); rule 16 compares an act's own effective-date clause with the official records, and screens the latest general revisory act (IL 3, 4); rule 40 settles competing placement rules with Taylor (IL 5). Rules 14, 16 and 19 are [Fwd]. Rule 40 is [Retro], so Claude Code checked the finished states' layout tables from the repo: MN, NV, NJ and VA also have first-page or first-clause rules, and only VA has two (its fee disclosure and its legal-aid notice), which both fit on page 1 rather than competing to be it; so no targeted checks were added. IL column added to the table.
 - **1.2 (2026-09-30), Utah sync.** From UT's "Proposed SOP changes": rule 14 now saves each search battery as it runs (UT 1); rule 19 counts whole-title XML or HTML files as a loadable code and proves the load against the site's title index, and rule 16 takes effective dates from version metadata (UT 2); new rule 77 checks cross-references inside the statutes relied on (UT 3); rule 76 opens each question with a plain sentence and labels unread doctrine as unread (UT 4); rule 16 treats a real lease's stale citations as a second currency probe (UT 5). From the sync itself: rule 12 says a search hit read in context is not a section read (six UT education rows rested on in-context reads; Claude Code read the sections at sync and all six held), and rule 60 now lets Desktop create new variables freely (Taylor, 2026-09-30), reusing an existing name first (the kickoff lists them) and listing each new one in §10 so Claude Code can add it to the builder. All [Fwd]; none adds a conformance-table row. UT column added to the table.
 - **1.1 (2026-09-29).** Topic reference added: `lease-clause-topics.md`, generated from the library's topic keys plus the questions carried over from the retired checklist (`scripts/clause-library/topic-questions.csv`). Rules 27, 36, 72 and 75 point at it; Part 5 regenerates it at sync. The checklist is retired as history. Seven topics found by earlier states have no row in any state; they're listed at the top of the reference and added to the conformance table.
 - **1.0 (2026-09-29).** Built from checklist instructions 1–66, Addenda K and L, the method lessons in the KS, NE, MN, ND and SD sections of the checklist, and the process notes in all 21 state logs. Instruction 3 (superseded by 22) and instruction 5 (update per-state columns, which will be dropped) were not carried over. Instructions 1, 2 and 4 are folded into rules 36 and 72. New in this version: rules 57, 58, 73, 75 and 76, the general optional-clause rule (54, Step F), and the conformance table. During review, the five standing questions (draft rules 65–69) were folded into rule 54; those numbers are unused.

@@ -32,6 +32,7 @@ const STATE_NAMES = {
   AL: "Alabama",
   PA: "Pennsylvania",
   UT: "Utah",
+  IL: "Illinois",
 };
 
 const STATE_CONFIG = {
@@ -1032,6 +1033,53 @@ const STATE_CONFIG = {
       },
     ],
   },
+  IL: {
+    // Illinois Compiled Statutes are cited chapter, act and section
+    // ("765 ILCS 705/35", "735 ILCS 5/9-209", "765 ILCS 710/1"), and Illinois
+    // bills print that same form in each amended section's header, so the
+    // quoted citation itself is the query. Citations are split on ";" and only
+    // the ILCS parts are read; subsection parentheses are dropped. The absence
+    // text, CFR/U.S.C. parts and court rules are skipped (IL log §1.1).
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        const m = part.match(/^(\d{1,3}) ILCS (\d+)\/([0-9A-Za-z.-]+)/);
+        if (m) out.push(`${m[1]} ILCS ${m[2]}/${m[3]}`);
+      }
+      return out;
+    },
+    buildQuery(key) {
+      return `"${key}"`;
+    },
+    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
+    manualRecheckItems: [
+      {
+        id: "il-pa-104-479-effective-date",
+        label:
+          "P.A. 104-479 (765 ILCS 705/35, rental fee transparency): the Act's Section 99 says July 1, 2026, but the Public Act page and ILCS source note say January 1, 2027. Rows apply it now on Taylor's decision; confirm which date governs (IL log §6.1)",
+        clauseIds: ["fee-disclosure-first-page-il", "edu-rental-fee-law-il", "edu-application-fees-il", "edu-late-fee-il"],
+      },
+      {
+        id: "il-future-dates",
+        label:
+          "Illinois changes with future dates: Illinois Human Rights Act definitions (P.A. 104-793 eff. 2027-01-01; P.A. 104-744 eff. 2027-06-01) and 765 ILCS 160/1-35 (P.A. 104-734): confirm the rows once each takes effect (IL log §1.2)",
+        clauseIds: ["edu-fair-housing-il", "edu-no-lease-copy-rule-il"],
+      },
+      {
+        id: "il-court-rules-agency-forms",
+        label:
+          "Illinois material LegiScan can't see: Ill. S. Ct. R. 139 and R. 99.2 (eviction), and the IDHR Summary of Rights for Safer Homes (a new version must be attached as issued; V.2025-12.3 seen) (IL log §7)",
+        clauseIds: ["edu-eviction-process-il", "summary-of-rights-il"],
+      },
+      {
+        id: "il-case-law",
+        label:
+          "Illinois case law the rows flag but don't rely on: implied warranty of habitability and its waiver, penalty doctrine for late and returned-payment fees, waiver by accepting rent, constructive eviction and casualty (IL log §7)",
+        clauseIds: ["edu-habitability-il", "late-fee", "returned-payments-il", "casualty-termination-il"],
+      },
+    ],
+  },
 };
 
 // Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
@@ -1043,7 +1091,7 @@ const STATE_CONFIG = {
 // that cronFor() returns; checkConfigIds.js fails if a workflow doesn't match.
 const SCHEDULE_ORDER = [
   "CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ",
-  "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT",
+  "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL",
 ];
 function cronFor(code) {
   const n = SCHEDULE_ORDER.indexOf(code);
