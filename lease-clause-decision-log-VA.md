@@ -241,7 +241,7 @@ A right that exists only if the lease invokes it is lost by a lease that is sile
 | **First page, verbatim sentence:** fee disclosure beginning on the first page, itemizing deposit, rent and one-time charges, with the statutory sentence immediately above the list | Va. Code Ann. § 55.1-1204.1 (2025 Acts ch. 567, for leases entered, extended or renewed from 2025-07-01) | **Addendum M.12**: `fee-disclosure-statement-va` must render on page 1 of the lease, not in an addendum; the sentence is fixed text |
 | **Separate signed form, 14-point type:** DHCD statement of tenant rights and responsibilities with a signed acknowledgment, offered with the lease; copies within 10 business days; no suit until provided | §§ 55.1-1204(B), (H), 36-139 | Builder must attach the current DHCD form and the acknowledgment page; `tenant-rights-statement-va` records it |
 | **Separate writing:** tenant's request for expedited deposit disposition | § 55.1-1226(D) | `expedited-deposit-disposition-va`: the request cannot be a lease clause |
-| **Mandated wording:** acceptance of partial rent with reservation; 24-hour abandoned-property statement in the termination notice | §§ 55.1-1250, 55.1-1254 | Notice templates, not the lease; recorded in `redemption-rights-va` and `abandoned-property-va` |
+| **Mandated wording:** acceptance of partial rent with reservation; 24-hour abandoned-property statement in the termination notice | §§ 55.1-1250, 55.1-1254 | Notice templates, not the lease; recorded in `edu-redemption-rights-va` (pointer corrected at the 2026-09-30 retro sync; `redemption-rights-va` was switched off 2026-09-29) and `abandoned-property-va` |
 | **Timing:** renter's-insurance and flood notice before signing when the lease does not require renter's insurance; air-zone, drywall and meth disclosures before signing | §§ 55.1-1206(D), 55.1-1217 to 55.1-1219 | Pre-signing delivery, not only lease text |
 | **Timing:** owner and manager identity at or before the start; move-in report within 5 days | §§ 55.1-1216, 55.1-1214 | `landlord-disclosure-va` blanks; `move-in-inspection-va` |
 | **Type rule (voucher tenants):** termination notice legal-aid information 'in type no smaller or less legible than that otherwise used' on the first page | § 55.1-1202(D) | Notice template |
@@ -663,3 +663,213 @@ All 41 lease clauses written for this state alone. Shared clauses tagged with th
 | `tenant-repair-agreement-va` | Keep | SERVES_LANDLORD | opt-in |
 | `tenant-rights-statement-va` | Keep | SERVES_LANDLORD | acknowledgment of required statement |
 | `utility-billing-va` | Keep | SERVES_LANDLORD | REQUIRED_DISCLOSURE: Va. Code Ann. § 55.1-1212 | opt-in |
+
+---
+
+## Retro checks (SOP 1.6), 2026-09-30
+
+**Date:** 2026-09-30. **Scope:** the 11 [Retro] rules and 1 targeted fix named in the task prompt, nothing else (rule 1). **Delta:** `lease-clauses-VA-retro-delta.csv`: 23 rows (14 new, 9 changed), all VA-only rows. **No shared row was touched**, and no shared text edit is proposed.
+
+**Housekeeping (rule 8).** At the start I deleted the old output files from this chat's first pass: `lease-clause-decision-log-VA.md`, `lease-clause-decision-log-named-topic-checklist.md` and `lease-clauses-VA-sync.csv`. The files uploaded for this task are the only source of truth. Where they conflict with earlier material in this chat or in the VA log, they win:
+- The master now has 1,813 rows and 135 active VA rows. The log's "137" figures (§0, §8) predate the 2026-09-29 scrub.
+- Log §4 says the § 55.1-1250 wording is recorded in `redemption-rights-va`. That row was switched off on 2026-09-29, and the wording now lives in `edu-redemption-rights-va`. The log's pointer should be corrected at sync (rule 63).
+- My earlier suggestion in this chat to change `periodic-tenancy-notice-va` was withdrawn after Taylor's answer (see Decisions below).
+
+**How the statutes were read (rules 11, 12, 14, 15).**
+- Every section relied on was read section-open on 2026-09-30 in the built-in browser, on the official Code of Virginia (law.lis.virginia.gov), and saved under `src/`.
+- Each saved file's SHA-256 matches the browser's SHA-256 of the same text:
+
+| File | Contents | SHA-256 |
+|---|---|---|
+| `batch1.txt` | Title 8.01, Chapter 3, Articles 13, 13.1 and 14 (unlawful detainer, distress, ejectment); Title 55.1 Chapter 16; §§ 8.01-470, 8.01-471, 16.1-94.01, 16.1-106, 16.1-107 | `79a0a735…ff159b9` |
+| `batch2a.txt` | §§ 59.1-198, 59.1-199, 59.1-200 (all versions), 59.1-204, 8.01-156, 8.01-454, 8.01-296, 18.2-59.1, 16.1-88.03, 36-7.2 | `5f630b96…a85` |
+| `batch2b.txt` | §§ 55.1-1255, 55.1-1256, 55.1-1254, 55.1-1229, 55.1-1230, 55.1-1248, 55.1-1240, 55.1-1411, 55.1-1227, 55.1-1226, 8.01-226.12, 59.1-207.45, 59.1-501.2 | `ec68dd8b…e39` |
+| `batch3.txt` | §§ 36-99.5, 36-139, 55.1-1410, 55.1-1604, 55.1-1600, 36-96.2, 36-96.3, 36-96.3:1, 8.01-130.8, 8.01-130.9, 8.01-130.12, 55.1-1248, 55.1-1200, 44-209 | `7b619479…a2a` |
+| `rules-part7B.txt` | Rules of the Supreme Court of Virginia, Part Seven B (pdf pages 569–580 of the Court's rules PDF) | `28135289…724` |
+
+- Chapter 12 (81 section versions): the saved copy was re-verified against the live vacodefull chapter page. Per-section hash chain `a436a614d6fd9801889aea117495c92f0a9af584b640eb757194508294c31c57`.
+- Search battery: `src/battery-2026-09-30.txt`. It records each pattern, hit count, the sections hit, the positive tests and the control, and was saved before any hit was read.
+  - Engine: in-browser regex over the whole Code of Virginia. That is 34,086 sections: the official Law Library title files overlaid with every section on the official 2026 Updates pages (VA log §17).
+  - Control 'zqxvbnmwt' returned 0 hits at the start and at the end.
+- Research mode was not used (rule 9). The whole code was loaded and searched directly, and no statute read as ambiguous in a way that research would settle.
+- No row in the delta rests on recall. Sections read only in part, or not at all, are labelled that way in the notes.
+
+### One line per rule
+
+| Rule | Verdict | What was read | Rows changed |
+|---|---|---|---|
+| **37** Tenancy type | **Fixed.** Five rows were checked for how they work in fixed-term vs periodic tenancies (details after this table). | §§ 55.1-1204(C), (F), (K) (both versions); 55.1-1250(A); 55.1-1253(A)–(D); 8.01-130.9; plus the scrub-created rows | `redemption-limit-va-small`, `edu-renewal-and-rent-increase-va`, `edu-periodic-tenancies-va`, `edu-distress-for-rent-va` |
+| **39** Eviction duties | **Fixed.** Part 7B read whole: no rule suspends a statute, and the pending-amendments page lists no Part 7B change. Findings after this table. | Title 8.01, Chapter 3, Articles 13, 13.1, 14; §§ 8.01-156, 8.01-296, 8.01-454, 8.01-470, 8.01-471, 16.1-88.03, 16.1-94.01, 16.1-106, 16.1-107, 18.2-59.1, 36-7.2, 44-209, 55.1-1250, 55.1-1255 (whole); every `unlawful detainer` / `evict` hit outside Chapter 12 screened in context (battery, 42 + 42 hits); Rules Part 7B whole; whole rules PDF searched (6 hits) | New `edu-post-eviction-property-va`, `edu-eviction-landlord-duties-va`; changed `edu-eviction-process-va`, `edu-distress-for-rent-va`, `edu-fair-housing-va` |
+| **41b** `for-cause-eviction` | **Fixed** (new row). No just-cause or good-cause rule. Log §0 (instruction 31) had already found no just-cause renewal law, but VA had no row with this key. | Whole-code battery (just-cause pattern: 2 unrelated hits; refuse-to-renew pattern: 6 hits); § 55.1-1258 (both versions; (D) "for any other reason not prohibited by law"), §§ 55.1-1245(D), 55.1-1253(B), 55.1-1410(B), 55.1-1208(A)(2), 55.1-1204(H), 36-7.2 | New `edu-no-for-cause-eviction-va` |
+| **43** Cure promises | **Already covered in §0** (instruction 33 row). Neither starting row gives away a no-cure right (details after this table). | `default-by-tenant`, `application-of-payments` re-read against § 55.1-1245 | None |
+| **48** Separate documents | **Fixed.** Log §4 already covered most of this; one rule was missing (details after this table). | §§ 55.1-1226(D), 55.1-1204(B), (H), 55.1-1250, 55.1-1254, 55.1-1410(B) | `edu-periodic-tenancies-va` |
+| **49** Collection costs | **Fixed** (education sentence added). Virginia has no outright ban on collection costs, but it limits them (details after this table). | § 55.1-1208(A)(4); § 55.1-1245(H)–(I), which become (J)–(K) from 2027-07-01; §§ 55.1-1247, 55.1-1251, 55.1-1212, 55.1-1229(A)(3), 55.1-1250; the five starting rows | `edu-prohibited-lease-terms-va` |
+| **50** "Lease controls" wording | **Fixed.** Log §3.4 had already made most of these choices on purpose. One right had been recorded but not offered, and is now offered (details after this table). | Chapter 12 regex for "if the rental agreement so provides", "unless otherwise agreed", "as specified in the rental agreement" and similar (42 hits in 19 sections), each read in its section; § 8.01-126(F)(3) | New `tenant-records-copy-charge-va` |
+| **51** Plain language / consumer statutes | **Fixed** (two new rows). | Battery (plain-language pattern: 72 hits, 11 in a contract context, none reaching leases; consumer-contract pattern: 4 hits); §§ 59.1-198, 59.1-199, 59.1-200 (all four versions), 59.1-204 whole; § 36-139(26) | New `edu-consumer-protection-act-va`, `edu-no-plain-language-rule-va` |
+| **53** Figure vs shared clause | **Fixed** one own row; the other six starting rows checked, no issue (details after this table). | § 55.1-1253(C)–(D); §§ 55.1-1204(D), (J), 55.1-1233, 55.1-1244, 55.1-1244.1, 55.1-1245(F); §§ 36-99.5, 55.1-1220(A)(8), 55.1-1229(E) | `holdover-rate-va` |
+| **54t** Tenant-caused damage | **Fixed** (education row). The law already covers it, so no clause is offered. `tenant-caused-damage-tn` was read but not tagged (details after this table). | §§ 55.1-1227(A)(7), (A)(12); 55.1-1245(H); 55.1-1248; 55.1-1226(A)(ii); 55.1-1240 (both versions); 55.1-1251; 55.1-1411; 55.1-1208(A)(1); `casualty-termination-va` and `edu-casualty-termination-va` first | New `edu-tenant-caused-damage-va` |
+| **27** Seven topics | **Fixed.** All seven now have a row; each outcome is listed after this table. | Battery (patterns for algorithm, blank, camera / security, fees as rent, quiet enjoyment, forms); sections as listed | Seven new rows (listed after this table) |
+| **Fix 12** `edu-casualty-termination-va` | **Scope confirmed statewide; row fixed.** Details after this table. | § 55.1-1240 (both versions; 2026 Acts ch. 1117); § 55.1-1201; §§ 55.1-1251, 55.1-1411 | `edu-casualty-termination-va` |
+
+#### Details
+
+**Rule 37 (tenancy type).**
+- **Redemption limit.** § 55.1-1250(A) lets a small landlord limit redemption to "once per lease period", but a periodic tenancy may start a new "lease period" every week or month. The clause now carries a hand-filled prompt: use only in a fixed-term lease.
+- **Renewal notice.** The § 55.1-1204(K) notice runs from "the end of the rental agreement term". It excludes § 55.1-1253(C) holdovers and is silent on leases written as periodic. That open question went to education, on Taylor's answer (see Decisions).
+- **Distress.** Under § 8.01-130.9, a periodic tenancy counts as one continuing lease for the six-month priority limit.
+- **Checked, no issue:**
+  - Deposit cap: "two months' periodic rent" (§ 55.1-1226(A)), not counted per lease year.
+  - Late fee: per periodic rent.
+  - Holdover liquidated damages: per diem of the monthly rent.
+  - `periodic-tenancy-notice-va`: states a floor.
+  - Scrub-created rows: `edu-casualty-termination-va` is covered under fix 12. `edu-pre-signing-disclosures-va`, `edu-redemption-rights-va`, `edu-portable-solar-va` and `edu-military-lease-termination-va` state no tenancy-type figure.
+
+**Rule 39 (eviction duties).** Screening found these landlord duties, prohibitions and immunities:
+- § 8.01-126(E): disclose payments to the court.
+- § 8.01-126(F)(1)–(3): separate written notice to amend the amount; no later suits for amounts that could have been included; mark the judgment satisfied if the unit is re-rented.
+- § 8.01-128(B): 15-day mailed notice before a continuance date.
+- §§ 8.01-454 and 16.1-94.01: mark a paid judgment satisfied within 30 days ($100 fine; costs and attorney fees).
+- § 55.1-1250(D): tell the sheriff when the tenant redeems.
+- § 8.01-471: writ within 180 days, void if not executed within 30 days; no writ after a new written lease.
+- § 8.01-470: 72-hour notice; forcible entry; the writ binds occupants, guests and trespassers.
+- § 8.01-296(2)(b): posted service must also be mailed.
+- § 16.1-88.03: entities may file without a lawyer.
+- § 16.1-107(C): appeal bond; rent to the landlord by the 5th.
+- § 55.1-1255: post-writ property (24 hours; no liability for risk of loss; sale proceeds).
+- Animals: **confirmed absent** (word-bounded patterns, 0 hits).
+- § 18.2-59.1(B): sexual extortion by threatening eviction.
+- § 44-209(B), (D): shutdown continuance exception; owner's foreclosure stay.
+- § 36-7.2: public housing authorities only.
+- Lockouts and record sealing were already covered by `edu-self-help-eviction-va` and `edu-eviction-record-expungement-va`.
+- `edu-eviction-process-va` fixes:
+  - Its "full month's rent where rent is due in advance" hid the § 8.01-126(F)(3) condition that the lease make rent "due and payable on the first of the month in advance for the entire month".
+  - Its shutdown sentence lacked the § 44-209(B) exception.
+  - Its § 8.01-470 citation had been read "title and summary only"; it is now read whole.
+
+**Rule 43 (cure promises).** Already covered in log §0 (instruction 33 row).
+- `default-by-tenant` carves out "where applicable law permits Landlord to proceed without giving Tenant an opportunity to cure", which preserves § 55.1-1245(C), (E).
+- `application-of-payments` preserves only a *statutory* cure for nonpayment and promises no cure for other breaches.
+
+**Rule 48 (separate documents).** Log §4 already recorded § 55.1-1226(D) (expedited disposition request), §§ 55.1-1204(B), (H) (DHCD statement and signed form) and §§ 55.1-1250 / 55.1-1254 (notice wording).
+- Missing: the § 55.1-1410(B) change-of-use notice "shall not be contained in the rental agreement or lease, but shall be a separate writing". It is recorded here.
+- `edu-periodic-tenancies-va` now says it in its text. Its note had claimed "(VA log §4)"; that pointer is corrected.
+- No clause tries to supply any of these notices.
+
+**Rule 49 (collection costs).** Virginia has no outright ban, but it limits collection costs:
+- Costs only "if court action has been filed" (§ 55.1-1245(H)(v)).
+- No attorney fees if the tenant's failure was reasonable (§ 55.1-1245(I)(iv)).
+- Notice-service cost capped at $12 (§§ 55.1-1247, 55.1-1251).
+- No attorney-fee term "except as provided in this chapter" (§ 55.1-1208(A)(4)).
+
+All five starting rows stay within these limits: `default-by-tenant` ("to the extent permitted"), `landlords-access-va` (§ 55.1-1229(A)(3)), `holdover-rate-va`, `redemption-limit-va-small` and `utility-billing-va` (§ 55.1-1212).
+
+**Rule 50 ("lease controls" wording).** Each lease-choice spot and its row:
+
+| Statute | Row |
+|---|---|
+| Damage insurance (§§ 55.1-1200, 55.1-1206(A)) | `damage-insurance-va` |
+| Submetering and billing period (§§ 55.1-1200, 55.1-1212) | `utility-billing-va` |
+| Electronic notices (§ 55.1-1202(A)) | `electronic-notices-va` |
+| Rent time and place (§ 55.1-1204(D)) | `rent-payment` |
+| Tenancy period and notice (§§ 55.1-1204(F), 55.1-1253(A)) | `periodic-tenancy-notice-va` |
+| Sublet approval (§ 55.1-1204(G)) | `no-sublet-assign-va` |
+| Change notice (§ 55.1-1204(I)) | `edu-renewal-and-rent-increase-va` |
+| Renter's insurance (§ 55.1-1206(B)) | `tenants-property-insurance-ks-oh-ca`, `renters-insurance-notice-va` |
+| **Copy charge (§ 55.1-1209(E))** | **new `tenant-records-copy-charge-va`** |
+| Utilities in rent (§ 55.1-1212) | `services-utilities-provided-ks-oh` |
+| Expedited deposit disposition (§ 55.1-1226(D)) | `expedited-deposit-disposition-va` |
+| Showing damages (§ 55.1-1229(A)(3)) | `landlords-access-va` |
+| Residence use (§ 55.1-1232) | `residential-use-only` |
+| Absence notice (§ 55.1-1249) | `extended-absence-notice-ks` |
+| Holdover liquidated damages (§ 55.1-1253(C)) | `holdover-rate-va` |
+| Emergency contact (§ 55.1-1256) | `emergency-contact-va` |
+| Tenant duties agreement (§ 55.1-1220(D)) | `tenant-repair-agreement-va` |
+| Homestead waiver (§ 34-22) | `homestead-waiver-va` |
+
+- The copy charge had been recorded but not offered ("trivial value"). SOP rule 54 now says to offer every lawful optional clause, so it is offered, never as a default.
+- Deliberately not offered:
+  - § 55.1-1226(B): each co-tenant's written agreement to split the deposit refund. This is the tenants' choice and needs no lease term.
+  - § 55.1-1224: "unless otherwise agreed", a seller or managing agent is released from liability. A silent lease keeps the release, which serves the landlord.
+  - § 55.1-1242: escrow disbursement by agreement. This is court procedure.
+  - § 8.01-126(F)(3): the whole-month rule. Education only; it depends on the landlord's own due date.
+
+**Rule 51 (plain language and consumer statutes).**
+- No plain-language statute reaches leases.
+- The Virginia Consumer Protection Act excludes Residential Landlord and Tenant Act transactions unless the landlord commits a § 59.1-200 misrepresentation or fraudulent practice (§ 59.1-199(5)).
+- Section 59.1-200(A)(13) reaches "using in any contract or lease" a void liquidated-damages or penalty clause or a waiver of defense.
+- Remedies (§ 59.1-204): actual damages or $500; up to 3× or $1,000 if willful; fees.
+
+**Rule 53 (figure vs shared clause).**
+- `holdover-rate-va` applied the liquidated amount "after this Lease otherwise ends". Section 55.1-1253(C) allows it only after "the termination date specified in the landlord's notice".
+  - A void liquidated-damages trigger is exactly what § 59.1-200(A)(13) reaches.
+  - The trigger is now the landlord's written notice, which may name the last day of the Term.
+  - This closes log §7 item 3 and the §18 sync wording note.
+- Checked, no issue:
+  - `rent-payment`: "except as permitted by applicable law" preserves the tenant's statutory deductions (§§ 55.1-1244, 55.1-1244.1) and hides no Virginia figure.
+  - `default-by-tenant`: no figure; the cure period follows the 14-day § 55.1-1245(F).
+  - `surrender-end-of-term`: no figure.
+  - `holdover-ca`: actual damages; its K.3 note already stands.
+  - `acceptable-payment-methods-va-small`: fee at actual third-party cost, as § 55.1-1204(J) says.
+  - `smoke-co-alarms-va`: the § 36-99.5 deposit cap ("original or replacement cost, whichever is greater") and no rent increase match; §§ 55.1-1220(A)(8) and 55.1-1229(E) match.
+
+**Rule 54t (tenant-caused damage).**
+- What the law already gives the landlord:
+  - Repair-and-bill as rent (§ 55.1-1248).
+  - Damages (§ 55.1-1245(H)).
+  - Deposit deductions (§ 55.1-1226(A)(ii)).
+  - After a casualty the tenant caused, actual damages including rent to the end of the term or re-rental, with mitigation and no acceleration (§§ 55.1-1240, 55.1-1251).
+  - No rent reduction where the tenant was at fault (§ 55.1-1411).
+  - From 2027, landlord termination without the meeting-and-offer steps (§ 55.1-1240(C)(2)).
+- The tenant may still terminate under § 55.1-1240, which has no fault exception, and § 55.1-1208(A)(1) bars a waiver. So no state version of `tenant-caused-damage-tn` is offered: both of its parts are already Virginia law, and anything more would be void.
+
+**Rule 27 (seven topics).**
+
+| Topic | Outcome | Row |
+|---|---|---|
+| algorithmic-rent-setting | Confirmed absent | `edu-no-algorithmic-rent-rule-va` |
+| fees-as-rent | Present (§§ 55.1-1200, 55.1-1206, 55.1-1212, 55.1-1248, 55.1-1204.1) | `edu-fees-as-rent-va` |
+| landlord-self-cure | Present (§ 55.1-1248; statutory, so education) | `edu-landlord-self-cure-va` |
+| lease-completeness | Confirmed absent | `edu-no-lease-completeness-rule-va` |
+| quiet-possession | Present as the § 55.1-1604 short-form covenant only | `edu-quiet-possession-va` |
+| statutory-forms | Present (§§ 55.1-1600, 36-139(26), (28), 55.1-1250, 55.1-1204.1, 34-22, 8.01-130.4) | `edu-statutory-forms-va` |
+| tenant-security-cameras | Present as § 55.1-1229(D) security systems; cameras not named | `edu-tenant-security-systems-va` |
+
+**Fix 12 (`edu-casualty-termination-va`).**
+- Scope: § 55.1-1240 has no size, owner-occupant or single-family limit, and the Act has none (§ 55.1-1201; log §12–§13). The scope is statewide.
+- The scrub text had dropped two statutory conditions. Both are restored:
+  - The landlord's § 55.1-1251 actual damages where the tenant's side caused the damage.
+  - The § 55.1-1411 condition that rent is reduced only for destruction "without fault or negligence".
+- The 14/21-day rule is now tied to the version of the law in force, not to the date the tenant moves out.
+
+### Decisions (rule 76)
+1. **Does the 60-day notice change `periodic-tenancy-notice-va`?** I raised whether larger landlords' month-to-month leases need a 60-day default because of § 55.1-1204(K). Taylor, 2026-09-30: "hmmm, this sounds to me like an education row, not a clause. Help me understand. What is your justification for it being a clause?" I agreed: the clause says "at least 30 days", which is a floor, so it is not wrong for any landlord. Applied: the clause is unchanged. The open question is in `edu-renewal-and-rent-increase-va`, with a pointer from `edu-periodic-tenancies-va`.
+
+No other question needed Taylor. These calls rest on plain statutory text:
+- The holdover trigger.
+- The redemption prompt.
+- Offering the copy-charge clause (rule 54).
+- The tenant-caused-damage verdict.
+
+Risks that rest on case law I did not read are labelled "unread" in the notes of `redemption-limit-va-small`, `edu-renewal-and-rent-increase-va`, `edu-tenant-caused-damage-va`, `edu-quiet-possession-va` and `edu-tenant-security-systems-va`.
+
+### Integrity checks on the delta
+- The header line is byte-identical to the master. Every row has 17 fields. Line endings are CRLF, with no bare LF.
+- No duplicate ids. None of the 14 new ids exists in the master. All 9 changed ids exist, and each is a VA-only row.
+- On changed rows, only `bodyText`, `notes`, `verification_status` and `last_checked` differ from the master. The prior notes are kept, and the retro notes are appended as a `| VA:` segment.
+- Every `group`, `topic_key`, `content_type`, `rule_type` and `lease_clause_basis` value already exists in the master. No new `topic_key`.
+- Every delta row is `is_active` TRUE, VERIFIED, `last_checked` 2026-09-30, and marked `VA-SCOPE`.
+- The one new clause carries `SERVES_LANDLORD`; the education rows carry no basis.
+- No `choice_group` or `supersedes` is used, so there are no display collisions.
+- No bracket sits next to a `{{variable}}`. No new `{{variable}}`.
+- `Va. Code Ann.` appears only in VA rows.
+- Every section cited in new text is in a saved source, or is labelled as a screened search hit or "not read" (§§ 8.01-546.1, 8.01-546.2, Title 19.2).
+- After sync: master 1,827 rows; VA active 149 (135 + 14). Other states unchanged.
+- Delta SHA-256: `29fb9e98ec76da83ddaf5ae70a7a9e7684b79ceb616ea15c92f1724efd20f9d9`.
+
+### Proposed SOP changes
+1. **When a library-wide pass turns a clause into an education row, re-read the statute's conditions and cross-references before rewording.** Reason: the 2026-09-29 scrub dropped § 55.1-1251 damages and § 55.1-1411's no-fault condition from `edu-casualty-termination-va`.
+2. **Rule 53 should check when a figure applies, not only its size.** Reason: `holdover-rate-va` had the right 150 percent cap but a trigger ("after this Lease otherwise ends") the statute does not allow. In Virginia, collecting under such a trigger is a Consumer Protection Act practice.
+3. **Rule 37 should name "per lease period" and "per term" limits alongside "lease year" and "renewal".** Reason: Virginia's small-landlord redemption limit is counted "once per lease period", which a periodic tenancy may reset every month.
+4. **A lease figure stated as a floor ("at least 30 days") is not a figure conflict when a stricter rule may apply to some landlords. Put the open question in education, not in the clause.** Reason: Taylor's answer on `periodic-tenancy-notice-va`, 2026-09-30.
+5. **At retro time, check every "log §N" pointer in `notes` against that log section.** Reason: `edu-periodic-tenancies-va` cited VA log §4 for a separate-writing rule the §4 table did not list.
+6. **In absence patterns, put word boundaries on short words (cat, dog, pet).** Reason: an unbounded animal pattern returned 5 false hits (words containing 'cat' or 'dog') before the bounded re-run returned 0.

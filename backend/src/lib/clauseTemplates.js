@@ -3683,7 +3683,7 @@ const CLAUSE_TEMPLATES = [
     group: "Default & Termination",
     states: ["VA"],
     bodyText:
-      "If Tenant remains in the property without Landlord's consent after the termination date specified in Landlord's notice (or after this Lease otherwise ends), Tenant will pay Landlord, as liquidated damages in place of Landlord's actual damages for those days, {{holdover_daily_rate}} for each day Tenant remains after that date. This daily amount will not exceed 150 percent of the per diem of the monthly Rent, or, if the property is a public housing unit or other housing subject to regulation by the U.S. Department of Housing and Urban Development, the per diem of the monthly Rent. This Section does not limit Landlord's right to recover possession, reasonable attorney fees and court costs as Virginia law allows, unpaid Rent and other amounts due for the period before the termination date, or damages for harm to the property.",
+      "If Tenant remains in the property without Landlord's consent after the termination date specified in Landlord's written notice, Tenant will pay Landlord, as liquidated damages in place of Landlord's actual damages for those days, {{holdover_daily_rate}} for each day Tenant remains after that date. Landlord may give that notice before the Term ends, stating the last day of the Term as the termination date. This daily amount will not exceed 150 percent of the per diem of the monthly Rent, or, if the property is a public housing unit or other housing subject to regulation by the U.S. Department of Housing and Urban Development, the per diem of the monthly Rent. This Section does not limit Landlord's right to recover possession, reasonable attorney fees and court costs as Virginia law allows, unpaid Rent and other amounts due for the period before the termination date, or damages for harm to the property.",
   },
   {
     id: "redemption-limit-va-small",
@@ -3691,7 +3691,7 @@ const CLAUSE_TEMPLATES = [
     group: "Default & Termination",
     states: ["VA"],
     bodyText:
-      "Landlord owns four or fewer rental dwelling units in Virginia (or up to a 10 percent interest in four or fewer). As Virginia law allows such a landlord, this Section is Landlord's written notice that Tenant may use the right of redemption described below only once during each lease period. Under Virginia law, if Landlord files an eviction case for nonpayment of Rent, Tenant (or someone paying on Tenant's behalf) may have the case dismissed by paying Landlord, Landlord's attorney or the court all Rent due as of the court date, other charges and fees, late charges, reasonable attorney fees and court costs at or before the first return date, or may present a written commitment from a local government or nonprofit entity to pay those amounts within 10 days. After the first return date, Tenant may still have a scheduled eviction canceled by paying all amounts claimed, including sheriff fees, at least 48 hours before the scheduled eviction. These rights do not apply if the case is also based on grounds other than nonpayment of Rent. On Tenant's written request, Landlord will give Tenant a written statement of all amounts owed. Payments to redeem must be made by cashier's check, certified check or money order.",
+      "[Use only in a lease with a fixed Term. Virginia law does not say whether each month of a month-to-month or week-to-week tenancy (including one that continues after the Term ends) is a separate 'lease period', so in those tenancies this limit may not stop a redemption in each period.] Landlord owns four or fewer rental dwelling units in Virginia (or up to a 10 percent interest in four or fewer). As Virginia law allows such a landlord, this Section is Landlord's written notice that Tenant may use the right of redemption described below only once during each lease period. Under Virginia law, if Landlord files an eviction case for nonpayment of Rent, Tenant (or someone paying on Tenant's behalf) may have the case dismissed by paying Landlord, Landlord's attorney or the court all Rent due as of the court date, other charges and fees, late charges, reasonable attorney fees and court costs at or before the first return date, or may present a written commitment from a local government or nonprofit entity to pay those amounts within 10 days. After the first return date, Tenant may still have a scheduled eviction canceled by paying all amounts claimed, including sheriff fees, at least 48 hours before the scheduled eviction. These rights do not apply if the case is also based on grounds other than nonpayment of Rent. On Tenant's written request, Landlord will give Tenant a written statement of all amounts owed. Payments to redeem must be made by cashier's check, certified check or money order.",
   },
   // Rent & Payment
   {
@@ -4478,6 +4478,15 @@ const CLAUSE_TEMPLATES = [
     states: ["ID"],
     bodyText:
       "Any amount Tenant owes under this Lease that is not paid within [number] days after it is due will bear simple interest at [rate, not more than 12]% per year from the due date until paid.",
+  },
+  // Notices & General
+  {
+    id: "tenant-records-copy-charge-va",
+    title: "Charge for Extra Copies of Tenant Records (Optional)",
+    group: "Notices & General",
+    states: ["VA"],
+    bodyText:
+      "If Tenant asks for more than one copy of Tenant's records, Landlord may charge Tenant the actual cost of preparing the additional copies. Tenant will not be charged for access to any electronic portal Landlord uses to make tenant records available.",
   },
 ];
 
