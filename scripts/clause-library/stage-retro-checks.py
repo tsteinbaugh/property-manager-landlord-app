@@ -42,6 +42,7 @@ ASK = {
     "52": "Exculpation. Does the state void 'Landlord is not liable' terms? If so, use the variants without the disclaimer (tenants-property-insurance-ks-oh-ca, parking-ks-oh-ca, storage-space-ks-oh-ca, services-utilities-provided-ks-oh).",
     "53": "A figure that contradicts a shared clause. Where the state's number differs from a number in a shared clause, or the clause states only a ceiling or self-limiting wording ('as permitted by law') that could hide a real conflict, fix it with an override.",
     "54": "Optional clauses (general screen). Find every optional clause the state's law allows, for the landlord's benefit, and offer each one; record every candidate with its verdict.",
+    "54t": "Tenant-caused damage (rule 54). If a tenant, occupant or guest causes damage that makes the home uninhabitable (a fire, frozen pipes), what does this state's law give the landlord: repair costs, rent during repairs, and lost rent if the lease ends? Can the tenant end the lease under a casualty statute anyway? Check your casualty rows first. Then: if the law covers it, add or extend an education row saying so; if there's a gap the lease can lawfully fill, offer a state version of `tenant-caused-damage-tn` (read it; don't tag the TN row); if the law bars it, record why.",
     "27": "The seven topics no state had a row for when the SOP was written (each now has its own entry in lease-clause-topics.md; PA's rows are examples): algorithmic-rent-setting, fees-as-rent, landlord-self-cure, lease-completeness, quiet-possession, statutory-forms, tenant-security-cameras. Each ends Present (with a row), Confirmed absent (with a row) or Not located (search boundary stated).",
 }
 # Wording in a clause's bodyText worth a look for that rule.
@@ -82,6 +83,12 @@ unknown = {r for rs in due.values() for r in rs} - set(ASK)
 if unknown:
     sys.exit(f"conformance table has rules with no prompt text: {sorted(unknown)}")
 
+# Targeted items outside the conformance table (for example a row a later
+# scrub rewrote), one per line in retro-extras.csv; remove a line once synced.
+extras = collections.defaultdict(list)
+for e in csv.DictReader(open("scripts/clause-library/retro-extras.csv", newline="", encoding="utf-8")):
+    extras[e["state"]].append(e["item"])
+
 rows = list(csv.DictReader(open("lease-clauses.csv", newline="", encoding="utf-8")))
 clauses = [r for r in rows if r["is_active"] == "TRUE" and r["content_type"] == "LEASE_CLAUSE"]
 
@@ -95,7 +102,7 @@ def pointers(st, rule):
             hits.append(f"`{r['id']}`" + (" (shared)" if len(sts) > 1 else ""))
     return (" Start with: " + ", ".join(hits) + ".") if hits else " No clause matched the wording screen; check anyway."
 
-states = [s for s in hdr[1:] if due[s] and (not only or s in only)]
+states = [s for s in hdr[1:] if (due[s] or extras[s]) and (not only or s in only)]
 os.makedirs(out, exist_ok=True)
 index = []
 for st in states:
@@ -106,11 +113,14 @@ for st in states:
     for f in files:
         shutil.copy(f, d)
     checks = "\n".join(f"{n}. **Rule {r}.** {ASK[r]}{pointers(st, r)}" for n, r in enumerate(due[st], 1))
+    if extras[st]:
+        checks += "\n\n**Targeted fixes (not tied to one rule):**\n" + "\n".join(
+            f"{n}. {item}" for n, item in enumerate(extras[st], len(due[st]) + 1))
     prompt = f"""# Targeted retro checks: {st} (SOP {version})
 
 This is a circle-back in {st}'s existing chat (SOP rule 8). Delete any old output files first and say what you deleted. The files attached now are the only source of truth; say so wherever something earlier in this chat conflicts with them.
 
-The SOP has [Retro] rules that were written after {st} was finished. Check {st} against **these {len(due[st])} rules only**. This is a scalpel, not a re-audit (rule 1): don't reopen anything else. Settings as usual: Opus, high effort, research mode only for the rule 9 triggers.
+The SOP has [Retro] rules that were written after {st} was finished. Check {st} against **these {len(due[st])} rules only**{f" and the {len(extras[st])} targeted fix" + ("es" if len(extras[st]) > 1 else "") + " listed after them" if extras[st] else ""}. This is a scalpel, not a re-audit (rule 1): don't reopen anything else. Settings as usual: Opus, high effort, research mode only for the rule 9 triggers.
 
 ## Attached
 - `lease-clause-sop.md` (version {version}): the full text of each rule below.
@@ -134,7 +144,7 @@ For each one, **first look in {st}'s log**: if it already records this screen un
 Your part is done when both are delivered and checked. Claude Code does the sync.
 """
     open(os.path.join(d, "PROMPT.md"), "w", encoding="utf-8").write(prompt)
-    index.append(f"| {st} | {len(due[st])} | {', '.join(due[st])} |")
+    index.append(f"| {st} | {len(due[st]) + len(extras[st])} | {', '.join(due[st] + ['fix'] * len(extras[st]))} |")
 
 open(os.path.join(out, "INDEX.md"), "w", encoding="utf-8").write(
     f"# Retro checks (SOP {version})\n\nOne folder per state. In that state's existing Claude Desktop chat, upload the folder's files and paste `PROMPT.md`. Drop the two outputs back in the folder.\n\n| State | Checks | Rules |\n|---|---|---|\n" + "\n".join(index) + "\n")

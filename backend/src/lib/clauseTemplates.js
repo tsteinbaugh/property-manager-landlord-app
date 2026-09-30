@@ -243,7 +243,7 @@ const CLAUSE_TEMPLATES = [
     id: "returned-payments",
     title: "Returned Checks / Dishonored Payments",
     group: "Rent & Payment",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "AZ", "GA", "NC", "SC", "TN", "AL", "PA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "AZ", "GA", "NC", "SC", "AL", "PA"],
     bodyText:
       "If any payment of Rent is returned for insufficient funds or otherwise fails, Landlord may require that the payment be replaced by a cashier's check, certified check, or money order, and may charge Tenant a fee associated with the failed payment, not to exceed the maximum amount permitted by applicable law. If more than two of Tenant's payments during the Term are returned for insufficient funds, Landlord may require all future payments of Rent be made by cashier's check, certified check, or money order.",
   },
@@ -3465,7 +3465,7 @@ const CLAUSE_TEMPLATES = [
     group: "Tenant Responsibilities",
     states: ["TN"],
     bodyText:
-      "Tenant agrees to perform the following specified repairs, maintenance tasks, alterations or remodeling: [list each task specifically]. Landlord and Tenant make this agreement in good faith and not for the purpose of evading Landlord's obligations. This agreement is separate from the rest of this Lease, and Landlord will not treat Tenant's performance of it as a condition of any obligation or performance under this Lease. Landlord remains responsible for Landlord's other duties under Tennessee law, including complying with building and housing codes materially affecting health and safety and keeping the property fit and habitable.",
+      "[Optional. This agreement must be a separate writing signed by Landlord and Tenant, not a section of the Lease (Tenn. Code Ann. § 66-28-304(c)-(d)).] Landlord and Tenant agree that Tenant will perform the following specified repairs, maintenance tasks, alterations or remodeling at the property: [list each task specifically]. Landlord and Tenant make this agreement in good faith and not for the purpose of evading Landlord's obligations. This agreement is separate from the Lease, and Landlord will not treat Tenant's performance of it as a condition of any obligation or performance under the Lease. Landlord remains responsible for Landlord's other duties under Tennessee law, including complying with building and housing codes materially affecting health and safety and keeping the property fit and habitable.",
   },
   {
     id: "utility-transfer-tn",
@@ -4354,6 +4354,33 @@ const CLAUSE_TEMPLATES = [
     states: ["IL"],
     bodyText:
       "Tenant will not cultivate cannabis anywhere on the property, and will not permit any occupant or guest to do so.",
+  },
+  // Rent & Payment
+  {
+    id: "returned-payments-tn",
+    title: "Returned Payments (Tennessee)",
+    group: "Rent & Payment",
+    states: ["TN"],
+    supersedes: "returned-payments",
+    bodyText:
+      "If any payment Tenant makes is returned or fails because of insufficient funds, because Tenant has no account, because of an incorrect or insufficient signature, or for any other reason, Tenant will pay Landlord a returned-payment fee of [amount; for a dishonored check, draft or order, Tennessee law caps the handling charge at $30], and Landlord may require that the payment be replaced by a cashier's check, certified check or money order. If more than two of Tenant's payments during the Term are returned or fail, Landlord may require all future payments of Rent to be made by cashier's check, certified check or money order.",
+  },
+  // Default & Termination
+  {
+    id: "landlord-self-cure-tn",
+    title: "Landlord May Fix Tenant-Caused Conditions (Non-URLTA Counties, Optional)",
+    group: "Default & Termination",
+    states: ["TN"],
+    bodyText:
+      "If Tenant fails to comply with Tenant's maintenance obligations under this Lease in a way that materially affects health and safety and can be remedied by repair, replacement of a damaged item or cleaning, and Tenant does not remedy it as promptly as conditions require in an emergency, or within 14 days after Landlord gives Tenant written notice specifying the breach and requesting that Tenant remedy it within that time, Landlord may enter the property and have the work done in a workmanlike manner. Tenant will pay the actual and reasonable cost, or the fair and reasonable value, of the work, as shown on an itemized bill, as Rent on the next date Rent is due, or immediately if this Lease has ended.",
+  },
+  {
+    id: "tenant-caused-damage-tn",
+    title: "Damage Caused by Tenant",
+    group: "Default & Termination",
+    states: ["TN"],
+    bodyText:
+      "If the property is damaged by fire, water, a vehicle or any other cause, and the damage results from the deliberate or negligent act or omission of Tenant, an Occupant, or a guest or invitee of Tenant, then: (1) Rent will not abate or be reduced while the property is repaired, for as long as this Lease continues; and (2) if this Lease ends because of the damage, Tenant will be liable for Landlord's actual damages, including the Rent Landlord loses while the property is repaired, up to the end of the Term, less any Rent Landlord receives from re-renting the property. Landlord will use reasonable efforts to repair and re-rent the property. This Section is in addition to Tenant's liability for the cost of repairing the damage.",
   },
 ];
 

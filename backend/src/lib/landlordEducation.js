@@ -13468,8 +13468,8 @@ const LANDLORD_EDUCATION = [
     verificationStatus: "VERIFIED",
     topicKey: "emergency-contact",
     bodyText:
-      "You must give tenants a 24-hour telephone number for reporting emergencies that materially affect a tenant's physical health or safety; if you have an on-site management or superintendent's office, post the number prominently outside it (Tex. Prop. Code 92.020). The lease's optional clause is a convenient place to give it.",
-    notes: "TX: Created by the three-bucket scrub (2026-09-29) from emergency-phone-tx; content unchanged: Tex. Prop. Code §92.020.",
+      "Give tenants a telephone number for reporting emergencies that materially affect the physical health or safety of an ordinary tenant. If you have an on-site management or superintendent's office for the property, that number must be answered 24 hours a day and must be posted prominently outside the office (Tex. Prop. Code 92.020). The lease's optional clause is a convenient place to give it.",
+    notes: "TX: Created by the three-bucket scrub (2026-09-29) from emergency-phone-tx; content unchanged: Tex. Prop. Code §92.020. | Claude Code sync 2026-09-30: condition restored. The three-bucket scrub (2026-09-29) created this row from emergency-phone-tx but dropped the on-site-office condition on the 24-hour requirement, which the verified source clause carried. Rewritten from that clause only; no new research. Tex. Prop. Code § 92.020 not re-read (the official site now serves a script-only page); confirm in the TX retro.",
   },
   // Security Deposit
   {
@@ -13706,8 +13706,8 @@ const LANDLORD_EDUCATION = [
     verificationStatus: "VERIFIED",
     topicKey: "casualty-termination",
     bodyText:
-      "If fire or casualty substantially impairs use of the property, or leaves it untenantable or unfit (including by a government finding), the tenant may move out immediately and tell you in writing within 14 days that they are ending the lease, which then ends on the date they moved out (Tenn. Code Ann. 66-28-503). If the lease ends, return all prepaid rent and the recoverable deposit, accounting for rent as of the date the tenant returned the keys or moved out, whichever is earlier.",
-    notes: "TN: Created by the three-bucket scrub (2026-09-29) from casualty-termination-tn; content unchanged: Tenn. Code Ann. § 66-28-503; Tenn. Code Ann. § 66-7-102(a); Tenn. Code Ann. § 66-28-102(a).",
+      "Tennessee has two casualty rules, depending on the county. In the 17 counties where Tennessee's Uniform Residential Landlord and Tenant Act applies (Tenn. Code Ann. 66-28-102(a)), if fire or casualty substantially impairs use of the property, or leaves it untenantable or unfit (including by a government finding), the tenant may move out immediately and tell you in writing within 14 days that they are ending the lease, which then ends on the date they moved out (Tenn. Code Ann. 66-28-503). If the lease ends, return all prepaid rent and the recoverable deposit, accounting for rent as of the date the tenant returned the keys or moved out, whichever is earlier. That termination right does not exclude damage the tenant caused; the lease's tenant-caused damage clause preserves your claim for lost rent. In the other 78 counties, Tenn. Code Ann. 66-7-102 lets a tenant surrender the property after a casualty unless a written agreement provides otherwise. The lease's casualty clause is written to satisfy both rules.",
+    notes: "TN: Created by the three-bucket scrub (2026-09-29) from casualty-termination-tn; content unchanged: Tenn. Code Ann. § 66-28-503; Tenn. Code Ann. § 66-7-102(a); Tenn. Code Ann. § 66-28-102(a). | Claude Code sync 2026-09-30: scope fix. The three-bucket scrub (2026-09-29) created this row from casualty-termination-tn but stated the Act-county rule (Tenn. Code Ann. § 66-28-503) as statewide law; the 78 other counties follow Tenn. Code Ann. § 66-7-102 (TN log §13.2, §14). Rewritten from the verified source row and the TN log only; no new research. The no-fault-exception sentence follows the TN retro (rule 50).",
   },
   {
     id: "edu-termination-notice-periods-tn",
@@ -13718,8 +13718,8 @@ const LANDLORD_EDUCATION = [
     verificationStatus: "VERIFIED",
     topicKey: "termination-notice",
     bodyText:
-      "Tennessee sets minimum notice to end a periodic tenancy: at least 30 days before the periodic rental date for month-to-month, and at least 10 days for week-to-week (Tenn. Code Ann. 66-28-512(a), 66-7-109). Your lease states your chosen periods; use these minimums as the guardrail.",
-    notes: "TN: Created by the three-bucket scrub (2026-09-29) from periodic-tenancy-notice-tn; content unchanged: Tenn. Code Ann. § 66-28-512(a); Tenn. Code Ann. § 66-7-109; Tenn. Code Ann. § 66-28-102(a).",
+      "In the 17 Act counties, a month-to-month tenancy ends on written notice given at least 30 days before the periodic rental date named as the end date, and a week-to-week tenancy on at least 10 days' written notice before the end date (Tenn. Code Ann. § 66-28-512(a)-(b)). Outside the Act counties no statute sets a notice period for ending a periodic tenancy: Tenn. Code Ann. § 66-7-109 sets notices only for ending a tenancy because of the tenant's default, and does not apply at all to rental periods under 14 days. Your lease states your chosen periods; the Act-county periods are a safe floor in every county.",
+    notes: "TN: Created by the three-bucket scrub (2026-09-29) from periodic-tenancy-notice-tn; content unchanged: Tenn. Code Ann. § 66-28-512(a); Tenn. Code Ann. § 66-7-109; Tenn. Code Ann. § 66-28-102(a). | Retro check 2026-09-30 (SOP 1.4), rule 37 (tenancy type): the scrub text said 'Tennessee sets' 30/10-day minimums statewide and cited § 66-28-512(a) and § 66-7-109 for both; the periods are the Act's only (§ 66-28-512(a) week-to-week 10 days; (b) month-to-month 30 days, text visible in the LexisNexis result list 2026-09-30 and read section-open 2026-09-28 (Justia host copy with history line; TN log §1)), and § 66-7-109 governs default terminations and excludes rental periods under 14 days (edu-termination-notices-tn, spot-checked at sync from pasted text). Rewritten to split the counties and the tenancy types; citation format fixed to 'Tenn. Code Ann. § ...'. TN-SCOPE: BOTH REGIMES, labeled.",
   },
   {
     id: "edu-redemption-rights-va",
@@ -15502,6 +15502,133 @@ const LANDLORD_EDUCATION = [
     bodyText:
       "No Pennsylvania statute addresses whether a tenant may install security cameras or video doorbells; the lease controls, including its rules on alterations. A device that records sound is different: Pennsylvania's wiretap law generally makes it a crime to record a conversation without consent where the speakers expect privacy, so a camera or doorbell that captures audio in shared hallways or neighbors' spaces can raise that issue.",
     notes: "PA: CONFIRMED ABSENT (statutes), SOP 1.2 rule 27 retro 2026-09-30. Pennsylvania Consolidated Statutes (all 74 titles and the Constitution, 75 official title files reloaded 2026-09-30 in the built-in browser from palegis.us, 29,516,464 characters) searched by regular expression, control term 'zqxvbnmwt' 0 hits; the General Assembly's unconsolidated-statute keyword search, control term 'zqxvbnmwt' 0 results; The Landlord and Tenant Act of 1951 read whole (PA log §1). Boundary: administrative rules (Pa. Code), local ordinances and case law not searched unless stated (instruction 16). Battery saved as battery_rule27_2026-09-30.json. Pa.C.S.: '(camera|video)[^.]{0,200}(tenant|lessee|landlord)|(tenant|lessee|landlord)[^.]{0,200}(camera|video)' 0; 'doorbell' 0. Unconsolidated: 'camera AND tenant' 6 results (capital-budget itemization acts); '\"video doorbell\"' 0; '\"security camera\" AND tenant' 0; 'surveillance AND tenant AND landlord' 3 results, a Judicial Code omnibus act (drug-nuisance remedies, not tenant devices). Read section-open: 18 Pa.C.S. § 5703 (interception of wire, electronic or oral communications, felony of the third degree) and 18 Pa.C.S. § 5702 ('Oral communication': uttered with an expectation it is not subject to interception, under circumstances justifying it); the consent exceptions in 18 Pa.C.S. § 5704 were not read. 18 Pa.C.S. § 7507.1 (invasion of privacy) read: limited to sexual-purpose recording; not rowed. `no-alterations` governs installation by contract.",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-for-cause-eviction-tn",
+    title: "No Just-Cause Eviction Rule",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "for-cause-eviction",
+    bodyText:
+      "Tennessee has no just-cause or good-cause eviction rule in either the 17 Act counties or the other 78: a landlord may decline to renew a fixed-term lease, or end a periodic tenancy with the required notice, without giving a reason. Limits that apply only in particular situations: in the Act counties a landlord may not retaliate against a tenant for a complaint about a violation of the deposit section or for using the Act's remedies; in every county a tenant may not be evicted solely because they are a victim of domestic abuse, sexual assault or stalking, and a federally assisted 55-and-over elderly facility must give a paid-up tenant 60 days' notice before evicting for redevelopment; in Class 1 and Class 2 counties an owner converting an occupied unit to a condominium must give two months' notice at the same rent; and fair housing law applies everywhere. Tennessee has no rent-escrow bar on eviction and no statute protecting tenants' associations.",
+    notes: "TN: TN-SCOPE: STATEWIDE. Retro check 2026-09-30 (SOP 1.4), rule 41b: records the verdict under for-cause-eviction; the situational limits live in their own rows and are only pointed to here. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code 2026-09-30, control term 'zqxvbnmwt' 0 hits at start and end (TN retro battery): '(\"good cause\" or \"just cause\") w/25 (evict! or terminat! or tenant or lessee)' 21 hits, none residential landlord-tenant (dealer, franchise, liquor, lottery, trusts, TANF, parental rights, § 53-11-452 drug forfeiture); '(organiz! or association or union) w/15 (tenant or tenants)' 10 hits, no tenant-organizing protection; pay-into-court and escrow search 2026-09-28, none (TN log §17). Situational limits: Tenn. Code Ann. § 66-28-514 (retaliation, Act counties; edu-retaliation-tn); Tenn. Code Ann. §§ 66-28-205, 66-7-112, 66-28-517(g), 66-7-109(e) (DV; edu-dv-lease-termination-tn, edu-dv-tenancy-protections-tn); Tenn. Code Ann. §§ 66-28-523, 66-7-109 (elderly facility redevelopment, 60 days; edu-termination-notices-tn); Tenn. Code Ann. § 66-27-123 (condominium conversion; edu-condo-conversion-notice-tn); Tenn. Code Ann. § 4-21-601 (edu-fair-housing-tn). All read section-open 2026-09-28 (Justia host copy with history line; TN log §1). Rule 41 end-of-term wording: surrender-end-of-term and holdover-ca treat expiration as ending possession, which is right for Tennessee. COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson.",
+  },
+  {
+    id: "edu-post-eviction-property-tn",
+    title: "Tenant's Belongings and Animals After an Eviction",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "post-eviction-property",
+    bodyText:
+      "When the officer removes the tenant under a detainer judgment, you or your representative must place the tenant's personal property on the premises, in an area clear of the entrance and a reasonable distance from any road, and must not disturb it for 48 hours; after that you may discard what remains. Local government action on the property is suspended during those 48 hours. If you follow this procedure you are not liable for damage to the property unless it is shown by clear and convincing evidence that the damage came from your malicious act or omission. Tennessee has no separate rule for animals left behind after an eviction. A person removed by a detainer who again illegally takes possession commits a Class C misdemeanor. In the 17 Act counties, belongings left after an abandonment (not an eviction) follow the separate abandonment procedure instead.",
+    notes: "TN: TN-SCOPE: STATEWIDE (Title 29 Chapter 18 applies in every county). Retro check 2026-09-30 (SOP 1.4), rule 39 (eviction duties): the duties were in edu-eviction-process-tn (topic eviction-process); this row gives them their own topic. Tenn. Code Ann. § 29-18-127(b)-(d): Justia host copy of the 2025 Tennessee Code with history line (to Acts 2014, ch. 534, § 1), pasted by Taylor in chat 2026-09-30 because Justia and the LexisNexis document view now block automated reads (saved to the TN source folder). Tenn. Code Ann. § 29-18-133(a) (Class C misdemeanor; read section-open 2026-09-28 (Justia host copy with history line; TN log §1); (a) re-seen in the result list 2026-09-30); Tenn. Code Ann. § 29-18-126 (no writ until 10 days after judgment). ANIMALS: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code 2026-09-30, control term 'zqxvbnmwt' 0 hits at start and end (TN retro battery): '(\"writ of possession\" or dispossess! or \"detainer action\" or \"detainer warrant\") w/40 (property or possessions or belongings or animal or pet or pets or livestock)' 43 hits, no animal duty. Lockout ban: edu-self-help-eviction-tn. Record sealing: edu-no-eviction-record-sealing-tn. Abandonment: abandoned-property-tn (§ 66-28-405). BOUNDARY: Tenn. Code Ann. § 29-15-124 (warehouse storage option on execution in an EJECTMENT action, Title 29 Chapter 15) seen by title and opening only, not read; landlords normally use detainer. COURT RULES: Tenn. R. Civ. P. 1 (tncourts.gov, read 2026-09-30) says the Rules do not apply to general sessions courts except when exercising circuit or chancery jurisdiction, after appeal or transfer, and Rule 69 execution; no statewide general sessions court rule on detainer located; local rules out of scope (SOP rule 3); tncourts.gov proposed rules page 2026-09-30 lists no eviction item (court rules are not a plain state-code citation, rule 21). COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-no-plain-language-rule-tn",
+    title: "No Plain-Language Lease Rule",
+    group: "Compliance & Prohibited Terms",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "plain-language",
+    bodyText:
+      "Tennessee has no plain-language or readability statute for residential leases or consumer contracts generally; its readability tests are for insurance policies.",
+    notes: "TN: TN-SCOPE: STATEWIDE. Retro check 2026-09-30 (SOP 1.4), rule 51. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code 2026-09-30, control term 'zqxvbnmwt' 0 hits at start and end (TN retro battery): '\"plain language\" or readab! or \"plain English\" or \"clear and understandable\" or \"easily readable\"' 46 hits, none a lease or general consumer-contract rule (life and health insurance readability, Tenn. Code Ann. §§ 56-7-1605, 56-7-1607; auto-repair notice, § 66-19-104; others unrelated). COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson.",
+  },
+  {
+    id: "edu-consumer-protection-act-tn",
+    title: "Tennessee Consumer Protection Act and Rentals",
+    group: "Compliance & Prohibited Terms",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "NEEDS_REVIEW",
+    topicKey: "consumer-protection-act",
+    bodyText:
+      "The Tennessee Consumer Protection Act of 1977 defines trade, commerce and consumer transaction to include the lease or rental of property, real, personal or mixed, so its prohibitions can reach how a landlord advertises, offers and rents a home. It prescribes no lease wording, no statement of waivers and no readability standard.",
+    notes: "TN: TN-SCOPE: STATEWIDE. Retro check 2026-09-30 (SOP 1.4), rule 51. NEEDS_REVIEW (rule 12): Tenn. Code Ann. § 47-18-103(24) was seen only in the LexisNexis result-list context 2026-09-30 ('\"Trade,\" \"commerce,\" or \"consumer transaction\" means the advertising, offering for sale, ... lease or rental, or distribution of any goods, services, or property, tangible or intangible, real, personal, or mixed'); Justia and the LexisNexis document view blocked reads, and the text pasted in chat was § 47-18-1003 (credit services), not § 47-18-103. The prohibitions (§ 47-18-104), exemptions (§ 47-18-111) and private-action rules (§ 47-18-109) were not read. To verify: read § 47-18-103(24) and § 47-18-111 section-open. Plain-language absence: edu-no-plain-language-rule-tn. COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-algorithmic-rent-rule-tn",
+    title: "No Rule on Algorithmic Rent-Setting",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "algorithmic-rent-setting",
+    bodyText:
+      "Tennessee has no statute on setting rents with algorithmic pricing software or on landlords sharing rent data. Federal and state antitrust and consumer-protection law still apply.",
+    notes: "TN: TN-SCOPE: STATEWIDE. Retro check 2026-09-30 (SOP 1.4), rule 27. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code 2026-09-30, control term 'zqxvbnmwt' 0 hits at start and end (TN retro battery): '(algorithm! or \"pricing software\" or \"revenue management\" or \"coordinating function\" or \"rental pricing\") w/40 (rent! or lease or landlord or housing or residential)' 0 hits; known positive 'algorithm!' 8 hits (insurance, license plates, UETA and others), none rental. Boundary: rules, case law and local codes not searched. COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson.",
+  },
+  {
+    id: "edu-fees-as-rent-tn",
+    title: "Fees Count as Rent in the Act Counties",
+    group: "Rent & Payment",
+    states: ["TN"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fees-as-rent",
+    bodyText:
+      "In the 17 Act counties, 'rent' means all payments the tenant must make to the landlord under the rental agreement, so a fee the lease requires is rent under the Act. That matters for any rule that turns on rent, such as the nonpayment notice and the late-fee cap measured on the rent past due. Outside the Act counties no statute defines rent, so the lease's own terms decide.",
+    notes: "TN: TN-SCOPE: ACT COUNTIES for the definition; STATEWIDE for the explanation. Retro check 2026-09-30 (SOP 1.4), rule 27. Tenn. Code Ann. § 66-28-104(13): '\"Rents\" means all payments to be made to the landlord under the rental agreement' (whole subdivision visible in the LexisNexis result list 2026-09-30; read section-open 2026-09-28 (Justia host copy with history line; TN log §1)). Related: Tenn. Code Ann. §§ 66-28-201(d), 66-28-505. LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code 2026-09-30, control term 'zqxvbnmwt' 0 hits at start and end (TN retro battery): '(rent or rents) w/10 (\"all payments\" or \"additional rent\" or \"deemed rent\" or \"considered rent\")' 3 hits, residential only § 66-28-104. Library: application-of-payments applies payments to rent first; default-by-tenant does not treat an unpaid late fee alone as grounds to terminate 'except as required by applicable law'. COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson.",
+  },
+  // Notices & General
+  {
+    id: "edu-no-lease-completeness-rule-tn",
+    title: "No Statutory Rule on Blank Spaces in a Lease",
+    group: "Notices & General",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lease-completeness",
+    bodyText:
+      "Tennessee has no statute requiring every blank in a written lease to be completed or making an incomplete lease a breach. Completing every blank is still good practice.",
+    notes: "TN: TN-SCOPE: STATEWIDE. Retro check 2026-09-30 (SOP 1.4), rule 27. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code 2026-09-30, control term 'zqxvbnmwt' 0 hits at start and end (TN retro battery): '(blank or blanks or \"unfilled\" or \"filled in\" or \"completed in full\") w/25 (lease or \"rental agreement\" or tenant or lessee)' 0 hits; known positive 'blank w/15 (form or space or spaces)' 33 hits, none a lease rule. COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-no-quiet-possession-statute-tn",
+    title: "No Statutory Covenant of Quiet Possession",
+    group: "Landlord Responsibilities",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "quiet-possession",
+    bodyText:
+      "Tennessee has no statute stating a covenant of quiet possession or quiet enjoyment for residential leases. In the 17 Act counties the tenant's possession is protected by the remedies for unlawful ouster and interrupted essential services and by the limits on landlord entry; elsewhere case law governs.",
+    notes: "TN: TN-SCOPE: STATEWIDE. Retro check 2026-09-30 (SOP 1.4), rule 27. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code 2026-09-30, control term 'zqxvbnmwt' 0 hits at start and end (TN retro battery): '\"quiet enjoyment\" or \"quiet possession\" or \"peaceful possession\" or \"peaceable possession\"' 5 hits: § 47-9-610 (collateral), § 68-110-107 (campgrounds), § 29-18-127 (writ form: 'peaceable possession'), § 68-11-901 (care facilities), § 29-18-109 (three years' peaceable possession bars a detainer); same result 2026-09-28 (TN log §17). Tenn. Code Ann. §§ 66-28-504, 66-28-403 (read section-open 2026-09-28 (Justia host copy with history line; TN log §1)). Case law not read. COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson.",
+  },
+  // Notices & General
+  {
+    id: "edu-statutory-forms-tn",
+    title: "Forms Tennessee Law Supplies",
+    group: "Notices & General",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "statutory-forms",
+    bodyText:
+      "Tennessee statutes supply several forms: the detainer warrant, the judgment for possession and the writ of possession used in an eviction; the sworn complaint an owner files with the sheriff to remove an unlawful occupant, which must be substantially in the statutory form; and, in the 17 Act counties, the required contents of the abandonment notice a landlord posts and mails. In Hamilton County the water and wastewater authority supplies a tenant acknowledgment form. No statute prescribes a lease form.",
+    notes: "TN: TN-SCOPE: STATEWIDE (abandonment notice: Act counties; water form: Hamilton County). Retro check 2026-09-30 (SOP 1.4), rule 27. Tenn. Code Ann. § 29-18-112 (warrant form), § 29-18-124 (judgment form), § 29-18-127(a) (writ form; pasted text 2026-09-30), § 29-18-135 (complaint 'substantially in the following form'), § 66-28-405(b)(2) (notice contents), § 68-221-620 (Hamilton form); all others read section-open 2026-09-28 (Justia host copy with history line; TN log §1). LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code 2026-09-30, control term 'zqxvbnmwt' 0 hits at start and end (TN retro battery): form-wording search 4 hits (29-18-112, 29-18-135, 29-18-132 commercial, 40-31-101 detainers compact). COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-no-tenant-camera-rule-tn",
+    title: "No Rule on Tenant Security Cameras or Video Doorbells",
+    group: "Rules & Regulations",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-security-cameras",
+    bodyText:
+      "Tennessee has no landlord-tenant statute on tenant-installed security cameras or video doorbells; the lease's alterations and rules terms govern. The general criminal wiretapping and surveillance law still applies to any recording.",
+    notes: "TN: TN-SCOPE: STATEWIDE. Retro check 2026-09-30 (SOP 1.4), rule 27. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code 2026-09-30, control term 'zqxvbnmwt' 0 hits at start and end (TN retro battery): '(camera or doorbell or \"video recording\" or \"security device\" or surveillance) w/30 (tenant or lessee or landlord or \"rental agreement\" or \"dwelling unit\" or apartment)' 3 hits: § 68-202-409, § 39-13-601 (wiretapping and electronic surveillance, general; not read), § 39-13-908 (drones). COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson.",
   },
 ];
 
