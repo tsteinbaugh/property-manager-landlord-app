@@ -33,6 +33,7 @@ const STATE_NAMES = {
   PA: "Pennsylvania",
   UT: "Utah",
   IL: "Illinois",
+  ID: "Idaho",
 };
 
 const STATE_CONFIG = {
@@ -1080,6 +1081,47 @@ const STATE_CONFIG = {
       },
     ],
   },
+  ID: {
+    // Idaho Code sections are title-chapter-section, sometimes with a letter
+    // ("6-321", "55-304", "67-5909", "6-310A", "18-5812A"). Idaho bills amend
+    // "Section 6-321, Idaho Code" and cross-reference "section 6-321, Idaho
+    // Code", so '"6-321, Idaho Code"' is the query. Citations are split on
+    // ";" and only the "Idaho Code" parts are read; absence text and
+    // U.S.C./CFR parts are skipped. The site's chapter PDFs lag its section
+    // pages (ID log §1.2), which doesn't affect LegiScan. IDAPA rules are not
+    // relied on (ID log §1.1).
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        if (!/^Idaho Code/.test(part)) continue;
+        const body = part.replace(/\([^)]*\)/g, " ");
+        for (const m of body.matchAll(/\b(\d{1,2}[A-Z]?-\d{1,4}[A-Z]?(?:\.\d{1,2})?)\b/g)) out.push(m[1]);
+      }
+      return out;
+    },
+    buildQuery(key) {
+      return `"${key}, Idaho Code"`;
+    },
+    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    federalStatuteChecks: [
+      { section: "4852d", clauseIds: ["lead-based-paint"] },
+      { section: "3955", clauseIds: ["edu-no-servicemember-statute-id"] },
+    ],
+    manualRecheckItems: [
+      {
+        id: "id-court-rules",
+        label:
+          "Idaho court rules LegiScan can't see: I.C.A.R. 32(j) (eviction record shielding) and the Idaho R. Civ. P., plus the court's self-help eviction forms (ID log §1.1, §7)",
+        clauseIds: ["edu-eviction-record-shielding-id", "edu-eviction-process-id"],
+      },
+      {
+        id: "id-case-law",
+        label:
+          "Idaho case law the rows flag but don't rely on: what fee is 'reasonable' under Idaho Code § 55-305(1), whether 'actual cost' is an agreed amount, the penalty doctrine for notice-service and collection fees, waiver by accepting rent, and what counts as waste (ID log §7)",
+        clauseIds: ["edu-late-fee-reasonable-id", "notice-service-fee-id", "collection-fee-id", "edu-tenant-waste-id", "late-fee"],
+      },
+    ],
+  },
 };
 
 // Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
@@ -1091,7 +1133,7 @@ const STATE_CONFIG = {
 // that cronFor() returns; checkConfigIds.js fails if a workflow doesn't match.
 const SCHEDULE_ORDER = [
   "CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ",
-  "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL",
+  "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID",
 ];
 function cronFor(code) {
   const n = SCHEDULE_ORDER.indexOf(code);

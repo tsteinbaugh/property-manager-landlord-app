@@ -28,7 +28,13 @@ def check(path):
     problems = []
     for n, name in SOURCES.items():
         hits = [r for r in rows if re.search(rf"gap-discovery source\s*#?{n}\b", r, re.I)]
-        ok = [r for r in hits if re.search(r"\bdone\b", r, re.I) and "§" in r and not BAD.search(r)]
+        # Judge the status cell only up to its first "(": the parenthetical
+        # describes the work and may use words like "partial" innocently
+        # ("a partial second lead"), which must not fail the row.
+        def status(r):
+            cells = [c.strip() for c in r.strip().strip("|").split("|")]
+            return cells[1].split("(")[0] if len(cells) > 1 else ""
+        ok = [r for r in hits if re.search(r"\bdone\b", status(r), re.I) and "§" in r and not BAD.search(status(r))]
         if not ok:
             problems.append(f"source {n} ({name}): " + ("no table row" if not hits else "row not marked Done with a § reference"))
     return problems

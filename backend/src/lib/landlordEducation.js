@@ -15630,6 +15630,716 @@ const LANDLORD_EDUCATION = [
       "Tennessee has no landlord-tenant statute on tenant-installed security cameras or video doorbells; the lease's alterations and rules terms govern. The general criminal wiretapping and surveillance law still applies to any recording.",
     notes: "TN: TN-SCOPE: STATEWIDE. Retro check 2026-09-30 (SOP 1.4), rule 27. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code 2026-09-30, control term 'zqxvbnmwt' 0 hits at start and end (TN retro battery): '(camera or doorbell or \"video recording\" or \"security device\" or surveillance) w/30 (tenant or lessee or landlord or \"rental agreement\" or \"dwelling unit\" or apartment)' 3 hits: § 68-202-409, § 39-13-601 (wiretapping and electronic surveillance, general; not read), § 39-13-908 (drones). COUNTY-LAYER PILOT (Taylor, 2026-09-28): Tennessee is the test case for the future county/local layer. The URLTA (Tenn. Code Ann. Title 66, Chapter 28) applies only in the 17 counties over 75,000 people in the 2010 census, a list frozen by 2021 Pub. Ch. 182 § 2 (Tenn. Code Ann. § 66-28-102(a)): Anderson, Blount, Bradley, Davidson, Hamilton, Knox, Madison, Maury, Montgomery, Rutherford, Sevier, Shelby, Sullivan, Sumner, Washington, Williamson and Wilson.",
   },
+  // Security Deposit
+  {
+    id: "edu-security-deposit-rules-id",
+    title: "Idaho Security Deposit Rules",
+    group: "Security Deposit",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-penalty",
+    bodyText:
+      "Idaho treats any money a tenant deposits for a purpose other than rent as a security deposit. At the end of the tenancy it must be refunded, except amounts needed for the contingencies the deposit arrangement specifies; nothing may be kept for normal wear and tear. The refund is due within 21 days, or within the time the lease fixes, never later than 30 days after the tenant surrenders the property, with a signed, itemized statement and a detailed list of expenditures for anything kept. After first giving the landlord three days' written notice demanding its return, a tenant may sue over a deposit not returned as required; the court may award three times the actual damages, and the winning party recovers attorney fees unless treble damages are awarded.",
+    notes: "ID: Idaho Code § 6-321(1)-(2); Idaho Code § 6-320(a)(4) (tenant's action for failure to return a security deposit 'as and when required by law'); Idaho Code § 6-320(d) (3 days' written notice to the landlord first, served under Idaho Code § 6-323); Idaho Code § 6-317 ('may be entered for three (3) times the amount at which the actual damages are assessed' in a Idaho Code § 6-320 action); Idaho Code § 6-324 (prevailing-party attorney fees in any Chapter 3 action 'except in those cases where treble damages are awarded'). Section 6-321 (read whole) states no forfeiture of the landlord's claim for a late or missing statement; consequences beyond Idaho Code §§ 6-317 and 6-324 are case law, not read. Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  {
+    id: "edu-no-deposit-cap-id",
+    title: "No Security Deposit Cap",
+    group: "Security Deposit",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-cap",
+    bodyText:
+      "Idaho sets no limit on the amount of a residential security deposit.",
+    notes: "ID: CONFIRMED ABSENT: Idaho Code § 6-321 (read whole) sets no amount; whole-code search for a deposit limit (deposit within 150 characters of exceed, not more than or in excess of, followed by month or rent): 3 hits, Idaho Code §§ 41-1016, 56-1105, 57-601, none residential. Idaho Code § 55-306 bars local governments from regulating deposits (edu-rent-control-preemption-id). Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  {
+    id: "edu-no-deposit-interest-id",
+    title: "No Interest on Security Deposits",
+    group: "Security Deposit",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-interest",
+    bodyText:
+      "Idaho does not require a landlord to pay interest on a security deposit or to hold it in an interest-bearing account.",
+    notes: "ID: CONFIRMED ABSENT: Idaho Code § 6-321 (read whole) says nothing of interest; whole-code search 'interest' within 100 characters of 'deposit': 161 hits in 123 sections, none in Title 6, Chapter 3 (the only landlord-tenant hit is the mobile home act, Idaho Code § 55-2013, not relied on). Separate-account duty for third-party managers: edu-deposit-manager-account-id. Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  {
+    id: "edu-deposit-successor-id",
+    title: "Deposits When the Property Is Sold",
+    group: "Security Deposit",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-on-sale",
+    bodyText:
+      "If a rental property changes ownership during a tenancy, the new owner becomes liable for refunding the security deposits made for that property. A seller should transfer the deposits, and a buyer should account for them at closing. A buyer also takes over the seller's remedies against the tenant for rent and lease breaches.",
+    notes: "ID: Idaho Code § 6-321(3); Idaho Code § 55-301 (transferee of rented property has the grantor's remedies for rent, nonperformance, waste or forfeiture); Idaho Code § 55-303 (lessee's remedies against the lessor's assigns). Whether the seller stays liable after transferring the deposit is not addressed by statute (case law not read). Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  {
+    id: "edu-deposit-manager-account-id",
+    title: "Separate Deposit Account for Third-Party Managers",
+    group: "Security Deposit",
+    states: ["ID"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-holding",
+    bodyText:
+      "When a residential rental is managed by a third-party manager for the landlord, the security deposits must be kept in a separate account at a federally insured financial institution, apart from the manager's operating account. The rule does not apply to the property owner itself, managers with common members or principals with the owning entity, real estate licensees, or nonprofit business organizations established under Idaho Code Title 30, Chapter 30.",
+    notes: "ID: Idaho Code § 6-321(4) (added by 2021 Idaho Sess. Laws ch. 197). Real estate licensees are excluded here; their trust-account rules under Idaho Code Title 54, Chapter 20 were not read. Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  {
+    id: "edu-nonrefundable-fees-id",
+    title: "Nonrefundable Fees and Deposits",
+    group: "Security Deposit",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nonrefundable-deposit-notice",
+    bodyText:
+      "Idaho has no statute allowing a 'nonrefundable deposit'. Any amount a tenant deposits for a purpose other than rent is a security deposit and must be refunded except for the contingencies the deposit arrangement specifies. A separately stated fee, such as a cleaning or lease-initiation fee, is a fee rather than a deposit only if it is not a deposit in substance; it must be stated in the rental agreement and be reasonable. Calling a deposit 'nonrefundable' does not make it so.",
+    notes: "ID: Idaho Code § 6-321(1) ('Amounts deposited by a tenant with a landlord for any purpose other than the payment of rent shall be deemed security deposits'); Idaho Code § 55-305(1)-(2) (fees reasonable and stated in the rental agreement). Whole-code search 'non-?refundable' within 150 characters of rent, lease, tenant, dwelling or landlord: 0 hits (pattern tested against a synthetic positive; battery 4). Where the line between a fee and a deposit falls is case law, not read. The real-lease comparison showed an Idaho lease taking a lease initiation fee, described as not a deposit, out of the deposit, and charging a nonrefundable pet fee (ID log s15); those shapes are what this row warns about. Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  // Pets
+  {
+    id: "edu-pet-deposit-id",
+    title: "Pet Deposits Are Security Deposits",
+    group: "Pets",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "pet-fees",
+    bodyText:
+      "In Idaho a pet deposit is a security deposit. It is refundable at the end of the tenancy except for the contingencies the deposit arrangement specifies, on the same deadline and with the same itemized statement as any other deposit. Monthly pet rent should be stated in the lease; whether Idaho treats it as rent (which the fee statute does not limit) or as a fee that must be reasonable is unsettled. A landlord may not charge a pet deposit, pet rent or any extra charge for a service dog.",
+    notes: "ID: Idaho Code § 6-321(1)-(2); Idaho Code § 55-305(1)-(4) (subsection (4): nothing in the section limits rent); Idaho Code § 18-5812A(1) (no additional charges for a service dog in housing for rent; the person is liable for damage the dog causes). Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  // Security Deposit
+  {
+    id: "edu-deposit-refund-unclaimed-id",
+    title: "Unclaimed Deposit Refunds",
+    group: "Security Deposit",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "deposit-escheat",
+    bodyText:
+      "Idaho's unclaimed property act has no specific rule for tenant security deposits. A refund a landlord owes but cannot deliver appears to fall under the act's catch-all: it is presumed abandoned five years after the tenant first had the right to demand it. What the landlord must then do as a holder under the act was not researched. A lease term letting the landlord keep an unclaimed refund has no support in Idaho law.",
+    notes: "ID: Idaho Code § 14-5-201(1)(n) ('Property not specified in this section ... the earlier of five (5) years after the owner first has a right to demand the property or the obligation to pay or distribute the property arises'); Idaho Code § 14-5-201(1)(k) covers utility deposits only; the catch-all excludes property covered by Idaho Code §§ 14-5-202 to 14-5-208, which by their headings cover tax-deferred and custodial accounts, safe deposit boxes, stored value cards, securities and related property (headings read in the corpus). Whole-code search for rent, utility or security deposits near unclaimed or abandoned: 0 hits (pattern tested against a synthetic positive). Reporting and holder duties elsewhere in Idaho Code Title 14, Chapter 5 were not read beyond Idaho Code § 14-5-201 and the definitions in context. Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-late-fee-reasonable-id",
+    title: "Late Fees Must Be Reasonable",
+    group: "Rent & Payment",
+    states: ["ID"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "late-fee",
+    bodyText:
+      "Idaho sets no fixed cap or grace period for late fees, but any fee charged to a residential tenant, including a late fee, must be reasonable. For rental agreements entered into or renewed on or after July 1, 2023, the landlord may not charge a late fee larger than the amount the rental agreement states. Under a written lease, a late fee the lease does not include may be charged only after the landlord gives the tenant 30 days' written notice of the change.",
+    notes: "ID: Idaho Code § 55-305(1)-(3) (formerly Idaho Code § 55-314; renumbered by 2025 Idaho Sess. Laws ch. 65, effective July 1, 2025). No statutory definition of 'reasonable'; the penalty doctrine for late fees is case law, not read. Whole-code search 'late fee' (46 hits in 35 sections): the only residential-lease rule is Idaho Code § 55-305. Builder note: no cap to enforce; the builder could warn on unusually large fees. Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  {
+    id: "edu-fees-in-lease-id",
+    title: "Fees Must Be in the Lease",
+    group: "Rent & Payment",
+    states: ["ID"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "required-fees",
+    bodyText:
+      "For rental agreements entered into or renewed on or after July 1, 2023, an owner may not charge a tenant a fee, fine, assessment, interest or other cost larger than the amount the rental agreement states. Under a written rental agreement, a charge the agreement does not include may be imposed only after the owner gives the tenant 30 days' written notice of the change. Every fee must also be reasonable. The rule does not limit the amount of rent.",
+    notes: "ID: Idaho Code § 55-305(1)-(4). For oral agreements the not-in-the-agreement bar does not apply (Idaho Code § 55-305(2)(b)(i)). Rule 42/53 screen: shared clauses that charge 'the cost' rather than a stated figure (keys, parking-vehicle-rules tags, smoking-policy remediation) raise the question whether a cost formula is an amount 'agreed upon' (ID log s10); damages for breach are not fees. Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  {
+    id: "edu-rent-increase-notice-id",
+    title: "Rent Increase Notice",
+    group: "Rent & Payment",
+    states: ["ID"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-increase-notice",
+    bodyText:
+      "For any residential lease, an Idaho landlord must give the tenant written notice at least 30 days before a rent increase takes effect.",
+    notes: "ID: Idaho Code § 55-304(2)(b) ('the landlord shall provide the tenant written notice of any increase in the amount of rent charged ... at least thirty (30) days before ... Such increase in the amount of rent charged is intended to take effect'); the subsection applies 'Notwithstanding subsection (1)', so the 15-day rule for month-to-month term changes does not apply to rent. Renumbered from Idaho Code § 55-307 by 2025 Idaho Sess. Laws ch. 65 (effective July 1, 2025); leases and guides printed earlier may cite Idaho Code § 55-307. Whether rent may rise during a fixed term depends on the lease (contract law, not read). Local rent regulation is barred (Idaho Code § 55-306; edu-rent-control-preemption-id). Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-nonrenewal-notice-id",
+    title: "Nonrenewal Notice",
+    group: "Default & Termination",
+    states: ["ID"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-notice",
+    bodyText:
+      "An Idaho landlord who does not intend to renew a residential lease must give the tenant written notice of that intention at least 30 days before the nonrenewal.",
+    notes: "ID: Idaho Code § 55-304(2)(a) (renumbered from Idaho Code § 55-307 by 2025 Idaho Sess. Laws ch. 65). The statute states no consequence for a missed notice (case law not read). Rule 41 screen: the surrender clause (surrender-end-of-term-ks-ne) does not replace this notice. Product flag (ID log s10): the builder should remind an Idaho landlord to send it before a fixed term ends. Ending a month-to-month tenancy: periodic-tenancy-notice-id (Idaho Code § 55-208, one month). Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-term-change-notice-id",
+    title: "Changing Month-to-Month Terms",
+    group: "Rent & Payment",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "term-change-notice",
+    bodyText:
+      "For a month-to-month lease, an Idaho landlord may change the lease terms by written notice given at least 15 days before the end of a month. The change takes effect at the end of the month, and becomes part of the lease if the tenant stays on. Rent increases need 30 days' written notice instead, and a fee change under a written lease needs 30 days' written notice.",
+    notes: "ID: Idaho Code § 55-304(1) ('shall of itself operate and be effectual to create and establish, as a part of the lease, the terms, rent and conditions specified in the notice if the tenant shall continue to hold the premises'); Idaho Code § 55-304(2) (rent: 30 days, 'Notwithstanding subsection (1)'); Idaho Code § 55-305(2)(b)(ii) (fees: 30 days). Rule 44/50 check: entire-agreement preserves changes 'as applicable law permits Landlord to change it by written notice'. Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-nonpayment-notice-id",
+    title: "Three-Day Notice to Pay Rent",
+    group: "Default & Termination",
+    states: ["ID"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nonpayment-notice",
+    bodyText:
+      "To evict for unpaid rent, an Idaho landlord must first serve a written three-day notice requiring payment of the amount due, stated in the notice, or possession of the property. The notice must also tell the tenant that if a court enters judgment against the tenant, a residential tenant will have 72 hours to remove belongings before the landlord may remove and dispose of them. It may be served any time within one year after the rent became due. For the landlord to recover attorney fees, the notice must also tell the tenant that attorney fees will be awarded to the prevailing party. Notices are served by personal delivery; or, if the tenant is away from home and work, by leaving a copy with a person of suitable age and discretion there and mailing a copy; or, failing that, by posting a copy on the property, delivering a copy to a resident if one can be found, and mailing a copy. A subtenant in actual occupation must be served too.",
+    notes: "ID: Idaho Code § 6-303(2); Idaho Code § 6-324 (for fees in cases requiring the Idaho Code § 6-303(2) notice, 'it shall be necessary that the three (3) days' notice advise the tenant that attorney fees shall be awarded to the prevailing party'); Idaho Code § 6-304 (service); Idaho Code § 6-316(2) (72 hours residential; 7 days commercial or 5+ acres). Rule 37: the 3-day period is the same for every tenancy type; agricultural tenants holding over 60 days without demand are held to renew for a year (Idaho Code § 6-303(2)). No statutory form of notice (Title 6, Chapter 3 read whole); the Idaho courts' self-help forms were not read. No Idaho statute lets the lease waive or shorten this notice (not offered, ID log s6). Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  {
+    id: "edu-cure-notice-id",
+    title: "Notice for Other Lease Breaches",
+    group: "Default & Termination",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "cure-and-eviction-grounds",
+    bodyText:
+      "For a breach other than unpaid rent, an Idaho landlord must serve a written three-day notice requiring the tenant to perform the lease term or give up possession; the tenant, a subtenant, a mortgagee of the lease or another interested person can save the lease by performing within the three days. No notice is needed if the breached term cannot afterward be performed. A tenant who assigns, sublets or commits waste contrary to the lease ends the lease by doing so, and the landlord may recover possession after a three-day notice to quit. Because the statute also lists covenants not to assign or sublet among those enforced by the three-day notice to perform, which notice fits an unapproved sublet is unsettled.",
+    notes: "ID: Idaho Code § 6-303(3) (including 'any covenant not to assign or sublet'; proviso: 'if the covenants and conditions of the lease, violated by the lessee, cannot afterward be performed, then no notice ... need be given'); Idaho Code § 6-303(4); Idaho Code § 6-304 (service). Which breaches 'cannot afterward be performed' is case law, not read. Idaho Code § 55-210: a lease's right of reentry may be exercised on three days' notice. Idaho Code § 55-212: an ordinary action for possession in the district court, of property leased with a right of reentry, may be brought after the right to reenter has accrued, without notice. The library's default-by-tenant makes default depend on written notice and a chance to cure where the law requires one, so under the Idaho lease the right accrues only after that notice; how Idaho Code § 55-212 fits with the Idaho Code § 6-303 notices for the summary unlawful-detainer track is case law, not read (ID log s6.1). Rule 43 check: default-by-tenant's cure promise carries the carve-out for grounds where law permits proceeding without cure. Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  {
+    id: "edu-expedited-drug-eviction-id",
+    title: "Drug Activity Evictions",
+    group: "Default & Termination",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "expedited-criminal-eviction",
+    bodyText:
+      "A tenant is in unlawful detainer if anyone is or has been engaged in the unlawful delivery, production or use of a controlled substance on the leased premises during the lease term; the statute states no notice or cure period for this ground. In an action only for possession of a tract of five acres or less, a landlord with reasonable grounds to believe that someone is or has been engaged in that activity may use the fast possession track: the court sets trial within 12 days of filing, continuances are limited to two days without a rent bond, and the case is tried to the judge without a jury. Joining a damages claim gives up the early trial.",
+    notes: "ID: Idaho Code § 6-303(5) (terms defined by Idaho Code § 37-2701, not read); Idaho Code § 6-310(1)-(2); Idaho Code § 6-311; Idaho Code § 6-311A; Idaho Code § 6-316(1) (judgment declares the lease forfeited); Idaho Code § 6-311E (damages claims for drug production). Whether a notice is nonetheless required is not stated in the statute (case law not read); the 2024 bill to change this ground (H0641) died in committee. Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  {
+    id: "edu-eviction-process-id",
+    title: "Idaho Eviction Process",
+    group: "Default & Termination",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-process",
+    bodyText:
+      "Idaho evictions are unlawful detainer actions in the district court of the county where the property is. In an action only for possession, for nonpayment of rent or drug activity, on a tract of five acres or less, the court sets trial within 12 days of filing (not if a damages claim is joined), the summons must be served at least five days before trial, continuances beyond two days need a rent bond, and the judge decides without a jury. Other evictions follow ordinary timing, and factual issues are tried to a jury unless waived. Complaints and answers must be verified. A judgment for the landlord after a breach, nonpayment or drug activity declares the lease forfeited, and the court assesses damages and any rent due; an appeal does not stop enforcement unless the court orders it, and a tenant who appeals must post an extra bond for the rental value.",
+    notes: "ID: Idaho Code § 6-305; Idaho Code § 6-310(1)-(2); Idaho Code § 6-311; Idaho Code § 6-311A; Idaho Code § 6-312; Idaho Code § 6-313; Idaho Code § 6-316(1); Idaho Code § 6-318; Idaho Code § 6-319; Idaho Code § 6-311D; Idaho Code § 6-322 (general civil rules apply); all Idaho Code, read whole. Tracts larger than five acres: five-day post-judgment redemption for nonpayment where the lease has not expired (Idaho Code § 6-316(1)). Court rules: the Idaho Rules of Civil Procedure index (isc.idaho.gov/rules-procedure/ircp, read 2026-09-30; record in sources/court-rules.md) has no rule titled for unlawful detainer; individual rules (for example I.R.C.P. 54 on fees and costs) not read (rule 21 flag). Local ordinances not resolved (rule 3). Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  {
+    id: "edu-post-eviction-property-id",
+    title: "Belongings After an Eviction Judgment",
+    group: "Default & Termination",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "post-eviction-property",
+    bodyText:
+      "After a court rules for the landlord, a residential tenant has 72 hours to remove belongings (commercial tenants and tenants of five acres or more have seven days). The landlord may deliver the writ of restitution or ask the sheriff to deliver it. After that time, and three days after the court's finding, the sheriff removes the tenant, and the landlord may remove and dispose of the tenant's remaining property, including a vehicle removable under Idaho towing law, without compensating the tenant, subject to any security interests under Idaho's secured-transactions law. The court may award the landlord reasonable costs of removal and restoration for good cause.",
+    notes: "ID: Idaho Code § 6-316(2); Idaho Code § 6-311C (writ form authorizing removal under Idaho Code § 6-316(2)); Idaho Code § 49-1806 (vehicles); security interests under Idaho Code Title 28, Chapter 9 (not read). No statutory duty to store or inventory property after the writ, and no animal-specific rule (Title 6, Chapter 3 read whole; rule 39). Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  {
+    id: "edu-eviction-record-shielding-id",
+    title: "Eviction Record Shielding",
+    group: "Default & Termination",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-record-sealing",
+    bodyText:
+      "For unlawful detainer cases filed on or after January 1, 2025, all court records are automatically shielded from public view if the whole case was dismissed, no appeal is pending, and either three years have passed since filing or the parties have filed a stipulation to shield. The parties can still see the records, and any party may petition to seal eviction records under the Idaho Supreme Court's administrative rules. Shielded cases are removed from public court records, so landlords searching those records will not see them.",
+    notes: "ID: Idaho Code § 6-303A (added by 2024 Idaho Sess. Laws ch. 269); Idaho Court Administrative Rule 32(j) as amended effective January 1, 2025 (the Idaho Supreme Court's order, read 2026-09-30 from the copy posted on the Idaho State Bar's site; record in sources/court-rules.md; the Court's current rule text not compared; court rule, flagged under rule 21). Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  {
+    id: "edu-self-help-eviction-id",
+    title: "No Self-Help Eviction",
+    group: "Default & Termination",
+    states: ["ID"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "self-help-eviction",
+    bodyText:
+      "An Idaho landlord may not remove a tenant by force, threats or intimidation, or by breaking in; that is a forcible entry or detainer, and the court may enter judgment for three times the tenant's actual damages. The landlord must use the court's unlawful detainer process. Idaho has no statute specifically addressing lockouts or utility shutoffs by a landlord; both carry the same risk.",
+    notes: "ID: Idaho Code § 6-301 (forcible entry: breaking open doors or windows, or turning out the party in possession by force, threats or menacing conduct); Idaho Code § 6-302; Idaho Code § 6-317 (treble damages for forcible or unlawful entry or detention). Whole-code search for a landlord interrupting or shutting off utilities: 2 hits (Idaho Code §§ 42-248, 50-1810), neither a landlord rule. Whether a lockout without force is actionable is case law, not read. Narrow statutory exceptions: Idaho Code § 52-414 (lewd use; edu-lewd-use-lease-void-id) and Idaho Code § 6-310A (non-tenant squatters; edu-unauthorized-occupant-removal-id). Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  {
+    id: "edu-unauthorized-occupant-removal-id",
+    title: "Removing Squatters",
+    group: "Default & Termination",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "unauthorized-occupant-removal",
+    bodyText:
+      "An owner may ask the county sheriff to remove people unlawfully occupying a residential dwelling who are not current or former tenants under a rental agreement the owner authorized, are not immediate family, entered property not open to the public, refused to leave when told, and are not in pending litigation with the owner. The owner submits a verified complaint in the statutory form; the sheriff serves a notice to vacate immediately and restores possession, and may stand by while the owner changes locks. A wrongful use of this remedy exposes the owner to actual damages, statutory damages of three times the fair market rent, costs and attorney fees. This remedy cannot be used against a current or former tenant; for those the landlord must use an eviction. A separate court track for forcible detainer by people who never had a lease with the owner sets trial within 72 hours, excluding weekends and holidays.",
+    notes: "ID: Idaho Code § 6-310A (added by 2025 Idaho Sess. Laws ch. 222; amended by 2026 Idaho Sess. Laws ch. 82, effective July 1, 2026, 'writ of possession' changed to 'writ of restitution' in subsection (5)); Idaho Code § 6-302(2); Idaho Code § 6-310(3)-(5) (72-hour trial excluding weekends and official holidays; treble damages if filed where a landlord-tenant relationship existed or in bad faith); Idaho Code § 6-311A. Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  {
+    id: "edu-lewd-use-lease-void-id",
+    title: "Lease Void for Lewd Use",
+    group: "Default & Termination",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nuisance",
+    bodyText:
+      "If a tenant or occupant uses the premises for lewdness, assignation or prostitution, Idaho law makes the lease void at the owner's option; possession reverts to the owner, who may re-enter without court process. Because re-entry without process carries forcible-entry risk if the facts are disputed, landlords should get legal advice before relying on it. The state, a prosecutor or a county resident can also sue to abate a moral nuisance, which can close the building for a year.",
+    notes: "ID: Idaho Code § 52-414; Idaho Code §§ 52-401, 52-402, 52-406, 52-412 (read in context). Drug nuisance is an eviction ground under Idaho Code § 6-303(5). No general nuisance-eviction or crime-free statute (whole-code search 'nuisance' near lease, tenant, landlord or lessee: 13 sections; only Idaho Code Title 52, Chapter 4 addresses ordinary leases; Idaho Code § 55-2710 is in the floating homes act). Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  {
+    id: "edu-holdover-damages-id",
+    title: "Holdover Damages",
+    group: "Default & Termination",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "holdover",
+    bodyText:
+      "A tenant who stays after the lease ends without the landlord's permission is in unlawful detainer. In the eviction case the court assesses the landlord's damages and may enter judgment for three times the actual damages. Idaho has no statute fixing holdover rent or a double-rent penalty, so the library does not offer a stipulated daily holdover charge for Idaho. For agricultural land, a tenant who holds over for more than 60 days without a demand for possession is treated as renewing for another year.",
+    notes: "ID: Idaho Code § 6-303(1)-(2); Idaho Code § 6-316(1); Idaho Code § 6-317 ('judgment may be entered for three (3) times the amount at which the actual damages are assessed'). Whole-code search 'double rent|holding over': 6 sections, none a residential holdover measure (Idaho Code § 6-303 is the agricultural rule). Rule 54 decision (ID log s6): no holdover-rate clause, because a statutory damages measure exists and a contract rate would sit inside the trebled damages. Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  {
+    id: "edu-attorney-fees-id",
+    title: "Attorney Fees in Landlord-Tenant Cases",
+    group: "Default & Termination",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "attorney-fees",
+    bodyText:
+      "In any eviction or other action under Idaho's landlord-tenant chapter, the prevailing party, landlord or tenant, is entitled to attorney fees, except where treble damages are awarded. For a nonpayment eviction, the landlord gets fees only if the three-day notice told the tenant that fees would be awarded to the prevailing party. Outside that chapter, Idaho awards fees to the prevailing party where the amount pleaded is $35,000 or less; a plaintiff must have made a written demand at least 10 days before suit and gets no fees if the defendant tendered at least 95% of the award before suit. Fees may also be awarded against a party who sues or defends frivolously.",
+    notes: "ID: Idaho Code § 6-324; Idaho Code § 12-120(1), (3) (a 'commercial transaction' excludes transactions for personal or household purposes); Idaho Code § 12-121. The default-by-tenant fee sentence is mutual and consistent. Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-tenant-remedies-id",
+    title: "Tenant Remedies for Repairs",
+    group: "Landlord Responsibilities",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-repair-remedies",
+    bodyText:
+      "An Idaho tenant's remedy for a landlord's failure to maintain the property is a lawsuit for damages and specific performance, not rent withholding or repair-and-deduct. Before suing, the tenant must give the landlord three days' written notice listing each failure and demanding cure, delivered personally, to an employee at the landlord's place of business, or by certified mail. If the landlord does not cure within three days, the tenant may sue; a suit only for specific performance gets a trial within 12 days, and the court may award three times the actual damages. The one statutory repair-and-deduct right is for missing smoke detectors.",
+    notes: "ID: Idaho Code § 6-320(a)-(d); Idaho Code § 6-323; Idaho Code § 6-317; Idaho Code § 6-320(a)(6) (smoke detectors: certified-mail notice, 72 hours, install and deduct from the next month's rent). Not applicable to tracts of five acres or more used for agriculture (Idaho Code § 6-320(e)). No rent-escrow or rent-withholding statute (whole-code search; 'habitab' 4 sections, none a rental rule). Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  {
+    id: "edu-landlord-duties-id",
+    title: "Landlord Maintenance Duties",
+    group: "Landlord Responsibilities",
+    states: ["ID"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-maintenance",
+    bodyText:
+      "Idaho has no general habitability code for rentals, but a tenant may sue a landlord who fails to provide reasonable waterproofing and weather protection; fails to keep in good working order the electrical, plumbing, heating, ventilating, cooling or sanitary facilities the landlord supplies; maintains the premises in a way hazardous to the tenant's health or safety; fails to return a security deposit as required; breaches a lease term materially affecting health and safety; or fails to install approved smoke detectors. The landlord must verify at the start of each rental agreement that the smoke detectors work; the tenant maintains them after that.",
+    notes: "ID: Idaho Code § 6-320(a)(1)-(6), (e). Rule 44: Idaho Code § 6-320(a)(5) turns lease promises materially affecting health and safety into enforceable duties (landlord-maintenance tag note). Whole-code search 'habitab': 4 sections (Idaho Code §§ 18-3313A, 18-4009, 39-4105, 55-2003), none a rental habitability standard. Building codes (Idaho Code Title 39, Chapter 41) and local housing codes not read as rental duties. Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-retaliation-statute-id",
+    title: "No General Retaliation Statute",
+    group: "Default & Termination",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "retaliation",
+    bodyText:
+      "Idaho has no statute barring a landlord from retaliating against a residential tenant for complaints or for exercising legal rights. Federal fair housing law separately prohibits retaliation for fair housing complaints.",
+    notes: "ID: CONFIRMED ABSENT: whole-code search 'retaliat': 38 hits in 26 sections; the only landlord-tenant hits are the mobile home and floating home acts (Idaho Code §§ 55-2015, 55-2715), which do not reach ordinary rentals. Pattern tested against a known positive (Idaho Code § 55-2015). Retaliatory-eviction case law not read; federal Fair Housing Act (42 U.S.C. § 3617) not read (rule 21). Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  // Access & Entry
+  {
+    id: "edu-no-entry-statute-id",
+    title: "No Landlord Entry Statute",
+    group: "Access & Entry",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-entry",
+    bodyText:
+      "Idaho has no statute setting how much notice a landlord must give before entering a rental or limiting when a landlord may enter. Entry rights come from the lease, which is why the Idaho lease sets a 24-hour notice with an emergency exception.",
+    notes: "ID: CONFIRMED ABSENT: Title 6, Chapter 3 and Title 55, Chapters 2-3 read whole; whole-code search for landlord, lessor or owner near enter or entry near dwelling, premises, unit or residence: 4 sections (Idaho Code § 28-36-106 rental-purchase goods, Idaho Code § 37-2741 drug inspections, Idaho Code § 52-414 lewd-use re-entry, Idaho Code § 55-2007 mobile home parks), none a general rental rule. Pattern tested against Idaho Code § 55-2007. Trespass and privacy case law not read. Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-rent-control-preemption-id",
+    title: "No Local Rent Control",
+    group: "Rent & Payment",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-control",
+    bodyText:
+      "Idaho cities and counties may not enact, keep or enforce ordinances that regulate the rent, fees or deposits charged for leasing private residential property, or that force owners to participate in an optional federal housing assistance program. Local governments keep control of housing they own. Other local rules, such as rental registration or short-term rental rules, are not preempted by this section.",
+    notes: "ID: Idaho Code § 55-306 (added by 2025 Idaho Sess. Laws ch. 65, effective July 1, 2025; formerly Idaho Code § 55-307(2), added by 2024 Idaho Sess. Laws ch. 257). Short-term rental limits on local regulation: Idaho Code § 67-6539 (read in context). Local ordinances (Boise and others) flagged, not resolved (rule 3). Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  // Disclosures
+  {
+    id: "edu-source-of-income-id",
+    title: "Housing Vouchers and Source of Income",
+    group: "Disclosures",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "source-of-income",
+    bodyText:
+      "Idaho law does not protect source of income, and a city or county may not require owners to participate in an optional federal housing assistance program such as Housing Choice Vouchers. An Idaho landlord may decline vouchers unless federal law or a program agreement the landlord signed requires otherwise.",
+    notes: "ID: CONFIRMED ABSENT (state protection): Idaho Code § 67-5909 protects race, color, religion, sex, national origin and disability in housing; whole-code search 'source of income': 7 sections, none housing. Local mandate barred: Idaho Code § 55-306. Federal program rules not read (rule 21). Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  {
+    id: "edu-fair-housing-id",
+    title: "Idaho Fair Housing Law",
+    group: "Disclosures",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fair-housing",
+    bodyText:
+      "Idaho's Human Rights Act makes it unlawful, in renting or leasing, to discriminate because of race, color, religion, sex, national origin or disability; to refuse to rent or negotiate; to set different terms; to misrepresent availability; or to advertise, use application forms or ask questions indicating a discriminatory preference. It also requires allowing reasonable disability modifications at the tenant's expense. The rental of a unit in an owner-occupied building for no more than two families, and of rooms in the lessor's own home, are exempt from these housing rules. Federal fair housing law adds familial status and has its own exemptions.",
+    notes: "ID: Idaho Code § 67-5909(8)(a)-(h), (10); Idaho Code § 67-5902(12) ('real estate transaction' includes rental or lease, read in context); Idaho Code § 67-5910(7). Age is protected only in employment (Idaho Code § 67-5909). Federal Fair Housing Act (42 U.S.C. § 3601 et seq.) not read (rule 21). Commission rules (IDAPA 45) not read. Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  // Pets
+  {
+    id: "edu-service-dog-housing-id",
+    title: "Service Dogs in Rental Housing",
+    group: "Pets",
+    states: ["ID"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "service-animal-denial-penalty",
+    bodyText:
+      "In Idaho a person with a disability may not be denied housing for rent because they are accompanied by a service dog, and may not be charged anything extra for it, though the person is liable for damage the dog causes. Intentionally violating this is a misdemeanor, and the person harmed can sue for damages plus punitive damages equal to the other damages, at least $500. Idaho's definition of a service dog covers only dogs individually trained to do work or perform tasks for the disability; emotional support animals are not service dogs under Idaho law, but federal fair housing law may still require accommodating them.",
+    notes: "ID: Idaho Code § 18-5812A ('housing for sale or rent'); Idaho Code § 56-705; Idaho Code § 56-701A(5). Idaho's documentation-limit rule (Idaho Code § 56-704A: two permitted questions, no certification) applies to places of public accommodation, not to private rental housing (read in context from the corpus; not saved as a file). Federal Fair Housing Act assistance-animal rules (HUD guidance) not read (rule 21). Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  {
+    id: "edu-service-animal-misrepresentation-id",
+    title: "Misrepresenting a Service Animal",
+    group: "Pets",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "service-animal-misrepresentation",
+    bodyText:
+      "It is a misdemeanor in Idaho for a person who does not have a disability, and is not being trained to assist people with disabilities, to use an assistance animal or service dog in an attempt to gain treatment or benefits as a person with a disability. The statute is not limited to public accommodations, so it can reach a false claim made to get housing benefits such as waived pet fees.",
+    notes: "ID: Idaho Code § 18-5811A; civil action and punitive damages for intentional violations: Idaho Code § 56-705. 'Assistance animal' is not defined in Idaho Code § 56-701A; how Idaho Code § 18-5811A applies to a housing request is untested (case law not read). Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-servicemember-statute-id",
+    title: "Servicemember Lease Rights",
+    group: "Default & Termination",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "servicemember-rights",
+    bodyText:
+      "Idaho has no state statute letting servicemembers end an ordinary residential lease early. The federal Servicemembers Civil Relief Act gives qualifying servicemembers a termination right and other protections regardless of the lease.",
+    notes: "ID: CONFIRMED ABSENT: whole-code search for military, armed forces, servicemember, national guard or active duty near lease, rental agreement, tenant, landlord or dwelling: 11 hits in 9 sections; the only tenancy rule is the mobile home act (Idaho Code § 55-2010(4)), which does not reach ordinary rentals. Federal SCRA (50 U.S.C. § 3955) not read (rule 21). No servicemember lease clause, per the standing AZ decision. Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  {
+    id: "edu-no-dv-termination-id",
+    title: "No Domestic Violence Lease Termination Statute",
+    group: "Default & Termination",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-lease-termination",
+    bodyText:
+      "Idaho has no statute letting a victim of domestic violence, sexual assault or stalking end a lease early, change the locks, or be protected from eviction for calling for help. Federal law (the Violence Against Women Act) protects tenants in covered federally assisted housing.",
+    notes: "ID: CONFIRMED ABSENT: whole-code search for domestic violence, protection order or stalking near lease, tenant, rental or landlord: 6 hits in 5 sections (Idaho Code §§ 31-836, 32-11-102, 32-11-209, 32-11-308, 74-101), none a tenancy rule; victim near lease or tenancy: 8 sections, none a tenancy rule. Patterns tested against a synthetic positive. VAWA (34 U.S.C. § 12491) not read (rule 21). Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  // Disclosures
+  {
+    id: "edu-no-owner-disclosure-id",
+    title: "No Owner or Manager Disclosure Rule",
+    group: "Disclosures",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "owner-identity-disclosure",
+    bodyText:
+      "Idaho does not require a landlord to disclose in the lease the name and address of the owner or manager. It is still good practice, and the tenant needs an address for the three-day notice the tenant must serve before suing over repairs or a deposit.",
+    notes: "ID: CONFIRMED ABSENT: whole-code search for 'name and address' near tenant, lessee or renter: 2 sections (Idaho Code § 22-3417 and the floating homes act Idaho Code § 55-2707), neither an ordinary rental rule. Tenant notices to the landlord: Idaho Code § 6-323. The lease's notices clause carries the addresses. Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  {
+    id: "edu-no-radon-disclosure-id",
+    title: "No Radon Disclosure Rule",
+    group: "Disclosures",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "radon-disclosure",
+    bodyText:
+      "Idaho requires no radon testing or disclosure for rentals.",
+    notes: "ID: CONFIRMED ABSENT: whole-code search '\\bradon\\b': 0 hits (pattern tested against a synthetic positive). Building codes and administrative rules not searched. Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  {
+    id: "edu-no-mold-disclosure-id",
+    title: "No Mold Disclosure Rule",
+    group: "Disclosures",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "mold-disclosure",
+    bodyText:
+      "Idaho has no statute requiring mold disclosure or remediation in rentals. A mold condition hazardous to the tenant's health can support a tenant's lawsuit under Idaho's repair statute.",
+    notes: "ID: CONFIRMED ABSENT: whole-code search 'mold|mould': 2 hits (Idaho Code §§ 18-7032, 22-5102), neither a rental rule. Idaho Code § 6-320(a)(3) (premises hazardous to health or safety). Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  {
+    id: "edu-no-bed-bug-rule-id",
+    title: "No Bed Bug Rule",
+    group: "Disclosures",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "bed-bug-disclosure",
+    bodyText:
+      "Idaho has no statute on bed bug disclosure or treatment in rentals.",
+    notes: "ID: CONFIRMED ABSENT: whole-code search 'bed ?bugs?': 0 hits (pattern tested against a synthetic positive). Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  {
+    id: "edu-no-flood-disclosure-id",
+    title: "No Flood Disclosure Rule",
+    group: "Disclosures",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "flood-disclosure",
+    bodyText:
+      "Idaho requires no flood-zone or flood-history disclosure to tenants.",
+    notes: "ID: CONFIRMED ABSENT: whole-code search for flood within 80 characters of disclos-: 0 hits (pattern tested against a synthetic positive). The Property Condition Disclosure Act (Idaho Code Title 55, Chapter 25) applies to sellers of residential real property, not landlords (Idaho Code § 55-2503 read in context). Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  {
+    id: "edu-meth-cleanup-id",
+    title: "Former Drug Labs",
+    group: "Disclosures",
+    states: ["ID"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "meth-disclosure",
+    bodyText:
+      "Idaho has no statute requiring a landlord to disclose to tenants that a property was used as a clandestine drug lab. But once law enforcement notifies the owner that a drug lab was found, the owner must meet the state's cleanup standards (or demolish the building), and the property must stay vacant until the Department of Health and Welfare certifies the cleanup. An owner who completes the cleanup, even voluntarily, is immune from later tenants' and neighbors' health claims based on the drug lab.",
+    notes: "ID: CONFIRMED ABSENT (disclosure): whole-code search for methamphetamine or drug laboratory near disclos-: 0 hits (pattern tested against a synthetic positive). Idaho Code § 6-2603(5)-(6) ('residential property' includes buildings leased or rented for any length of time); Idaho Code § 6-2605; Idaho Code § 6-2606 (vacancy until certificate); Idaho Code §§ 6-2607, 6-2608 (immunity); chapter amended by 2025 Idaho Sess. Laws ch. 84 (effective July 1, 2025; the act's emergency clause and the bill status page agree, ID log s1.2). Department cleanup rules not read (rule 21). Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  {
+    id: "edu-psychologically-impacted-id",
+    title: "Deaths, Crimes and Sex Offenders Nearby",
+    group: "Disclosures",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "stigmatized-property",
+    bodyText:
+      "Idaho law says no cause of action arises against an owner for failing to disclose to a transferee that property is 'psychologically impacted': for example, that a prior occupant had a disease very unlikely to be transmitted through occupancy, that the property was the site of a suicide, homicide or felony that did not affect its physical condition, or that a registered sex offender lived there or lives nearby. The statute is written for sales; whether it protects a landlord's nondisclosure to a tenant is not settled.",
+    notes: "ID: Idaho Code §§ 55-2801, 55-2802, 55-2803 (the request-for-disclosure rule speaks of a purchaser making an offer). Whether a lessee is a 'transferee' is case law, not read. Misrepresentation, as opposed to silence, is not covered. Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-hoa-rental-restrictions-id",
+    title: "HOA Rental Restrictions",
+    group: "Other / Miscellaneous",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "hoa",
+    bodyText:
+      "An Idaho homeowner's association may not add, amend or enforce a restriction that limits or prohibits renting property in its jurisdiction, for any length of time, unless the affected owner expressly agreed in writing when the restriction was added or amended. A restriction on transfers that already applied when the owner acquired the property can still be enforced. Landlords renting in an HOA should check when any rental restriction was adopted.",
+    notes: "ID: Idaho Code § 55-3211 (added by 2022 Idaho Sess. Laws ch. 323). Condominium Property Act (Idaho Code Title 55, Chapter 15) not read for rental rules. HOA flag and sign rules (Idaho Code §§ 55-3209, 55-3210, read in context) bind associations, not landlords. Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  {
+    id: "edu-landlord-tenant-scope-id",
+    title: "Where Idaho Landlord-Tenant Law Lives",
+    group: "Other / Miscellaneous",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "scope",
+    bodyText:
+      "Idaho has no comprehensive landlord-tenant act. Its residential rules are spread across the forcible entry and unlawful detainer chapter (eviction, tenant repair suits, security deposits, attorney fees), the chapters on estates and owners' rights (ending tenancies at will, rent-increase and nonrenewal notice, fees, the local rent-control ban), and scattered statutes elsewhere. Manufactured home parks and floating home moorages have their own residency acts, and some repair rules do not apply to agricultural tracts of five acres or more. Short-term and vacation rentals are governed separately.",
+    notes: "ID: Idaho Code Title 6, Chapter 3; Title 55, Chapters 2 and 3 (Chapter 3 renumbered by 2025 Idaho Sess. Laws ch. 65); Manufactured Home Residency Act (Idaho Code Title 55, Chapter 20) and Floating Homes Residency Act (Idaho Code Title 55, Chapter 27), not researched; Idaho Code § 6-320(e); Short-Term Rental and Vacation Rental Act (Idaho Code Title 63, Chapter 18) and Idaho Code § 67-6539 (read in context). Out of scope for this library: mobile home lots, floating homes, short-term rentals. Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  // Notices & General
+  {
+    id: "edu-lease-in-writing-id",
+    title: "Leases Over One Year Must Be in Writing",
+    group: "Notices & General",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "statute-of-frauds-lease-term",
+    bodyText:
+      "In Idaho, an agreement to lease real property for longer than one year is invalid unless it, or a note or memorandum of it, is in writing and signed by the party being held to it. If an agent signs, the agent's authority must also be in writing.",
+    notes: "ID: Idaho Code § 9-505(4). Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  {
+    id: "edu-notice-service-id",
+    title: "How Statutory Notices Are Served",
+    group: "Notices & General",
+    states: ["ID"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "notice-delivery-methods",
+    bodyText:
+      "Idaho eviction notices to a tenant must be served in person; or, if the tenant is away from home and work, by leaving a copy with a person of suitable age and discretion at either place and mailing a copy to the residence; or, if those fail, by posting a copy in a conspicuous place on the property, delivering a copy to a person living there if one can be found, and mailing a copy to the property. A tenant's three-day notice before suing over repairs or a deposit goes to the landlord or agent in person, to an employee at the usual place of business, or by certified mail. No statute authorizes email service of these notices; Idaho's electronic transactions act does not exclude leases but does not change these service rules.",
+    notes: "ID: Idaho Code § 6-304; Idaho Code § 6-323; Idaho Code § 55-208(1) (notice to end a tenancy at will served 'in the manner prescribed by the code of civil procedure'); Idaho Code § 28-50-103. Rule 45 screen: no electronic-transactions exclusion for eviction or default notices, and no statutory electronic method either (battery 4: email near tenant, lessee, landlord or rental: 0 hits); the library designates none (notices clause). Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-rent-sales-tax-id",
+    title: "No Sales Tax on Long-Term Rent",
+    group: "Rent & Payment",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-tax",
+    bodyText:
+      "Idaho sales tax applies to hotel, motel and similar lodging, but not where a residence is kept continuously under a lease or similar agreement for more than 30 days. Ordinary residential leases are not taxed; short-term rentals are.",
+    notes: "ID: Idaho Code § 63-3612(2)(g) (read in context). Short-term rental tax and registration: Idaho Code Title 63, Chapter 18 (read in context). Local option taxes not read. Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  {
+    id: "edu-legal-interest-id",
+    title: "Interest on Unpaid Amounts",
+    group: "Rent & Payment",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "unpaid-damages-interest",
+    bodyText:
+      "Unless a written contract fixes a different rate, Idaho allows interest of 12% a year on money due under a contract and on money after it becomes due. Judgments bear interest at 5% plus a base rate set each July 1 by the state treasurer. For written rental agreements entered into or renewed on or after July 1, 2023, an owner may not charge interest the agreement does not include (unless added on 30 days' written notice), so a landlord who wants to charge interest on late amounts should state it in the lease.",
+    notes: "ID: Idaho Code § 28-22-104(1)-(2); Idaho Code § 55-305(2) ('fee, fine, assessment, interest, or other cost'). Rule 54 decision (ID log s6): an optional interest clause is offered (unpaid-amounts-interest-id) because Idaho Code § 55-305(2)(b) bars charging interest a written agreement does not include; whether statutory prejudgment interest a court awards is a charge the owner 'charges' is unsettled (case law not read). Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-foreign-adversary-rental-id",
+    title: "Foreign Adversary Rentals in a Restricted Area",
+    group: "Other / Miscellaneous",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "foreign-ownership",
+    bodyText:
+      "Idaho bars a foreign principal from a foreign adversary country from buying, holding, renting or otherwise controlling property inside a defined area of southwestern Idaho (the coordinates in the statute). A landlord or other private person is not required to determine or ask whether someone is subject to the ban and bears no civil or criminal liability under it; enforcement is by the Attorney General.",
+    notes: "ID: Idaho Code § 55-115 (added by 2025 Idaho Sess. Laws ch. 326); Idaho Code § 55-115(11) (no duty to inquire; no liability). Definitions of 'foreign principal' and 'foreign adversary country' are in Idaho Code § 55-103 (not read; amended 2026 by the codifier's corrections act). The area's coordinates are in Idaho Code § 55-115(1). Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-tenant-waste-id",
+    title: "Tenant Waste and Damage",
+    group: "Tenant Responsibilities",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-statutory-duties",
+    bodyText:
+      "An Idaho tenant who commits waste on the property can be sued for it, and the court may award three times the damages. Waste contrary to the lease also ends the lease, and the landlord can recover possession after a three-day notice to quit. The tenant must also keep the smoke detectors in good working order.",
+    notes: "ID: Idaho Code § 6-201; Idaho Code § 6-303(4); Idaho Code § 6-320(a)(6). What counts as waste is case law, not read. Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-consumer-protection-act-id",
+    title: "Consumer Protection Act Reaches Leasing",
+    group: "Compliance & Prohibited Terms",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "consumer-protection-act",
+    bodyText:
+      "Idaho's Consumer Protection Act covers leasing and renting real property, so the Act's rules against unfair, deceptive and unconscionable practices apply to advertising rentals, renting and collecting rent. In judging unconscionability, a court considers whether the landlord took advantage of a tenant unable to protect their interests, charged a price grossly above similar rentals, or induced an excessively one-sided transaction. The Act's list of unlawful practices also includes getting a signature on a contract that has blank spaces to be filled in after signing, and failing to give the consumer a legible copy of the contract when they sign. Those two items are worded for buyers and sellers, and whether they reach a residential lease is unsettled, so the safe practice is to fill in every blank before the tenant signs and hand the tenant a legible copy at signing.",
+    notes: "ID: Idaho Code § 48-602(2) ('Trade' and 'commerce' include 'leasing, renting ... goods'), (6) ('Goods' mean any property ... real, personal or mixed); Idaho Code § 48-603C. Idaho Code § 48-603 (read whole, saved): the listed unlawful practices include Idaho Code § 48-603(12) ('Obtaining the signature of the buyer to a contract when it contains blank spaces to be filled in after it has been signed') and Idaho Code § 48-603(13) (failing to deliver 'to the consumer at the time of the consumer's signature a legible copy of the contract'); both are worded for buyers, sellers and lenders, and their reach to a residential lease is unsettled (case law not read). Idaho Code § 48-603G (read whole, saved) governs automatic renewals of agreements 'entered into via the internet to provide goods or services'; whether an online-signed lease that renews automatically is covered is unsettled, and no Idaho row has an automatic-renewal term. The Act's remedies and the Attorney General's rules were not read (rule 21 for the rules). Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-foreclosure-tenants-id",
+    title: "Tenants When the Landlord Is Foreclosed",
+    group: "Default & Termination",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "foreclosure",
+    bodyText:
+      "Under Idaho's trust deed law, the buyer at a trustee's sale is entitled to possession on the tenth day after the sale, and anyone still in possession under an interest that came after the deed of trust becomes a tenant at sufferance, who can be removed on the fast eviction track without a notice. Federal law (the Protecting Tenants at Foreclosure Act) gives bona fide tenants at least 90 days' notice and lets many finish their lease.",
+    notes: "ID: Idaho Code § 45-1506(11) (read in context); Idaho Code § 6-310(1)(d), Idaho Code § 6-311, Idaho Code § 6-311A (tenant at sufferance track). Federal PTFA (12 U.S.C. § 5220 note) not read (rule 21). No Idaho statute requires a landlord to disclose a pending foreclosure (whole-code search foreclos- near tenant, lease or occupant: 4 sections, none a disclosure duty). Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-application-fee-rule-id",
+    title: "No Rental Application Fee Rule",
+    group: "Rent & Payment",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "application-fees",
+    bodyText:
+      "Idaho has no statute limiting rental application or screening fees or requiring a refund of unused fees. Bills to limit application fees failed in 2025 and 2026.",
+    notes: "ID: CONFIRMED ABSENT: whole-code search 'application fees?|rental application': 152 hits in 101 sections, none a rental-housing rule (the mobile home act, Idaho Code § 55-2007, not relied on). Dead bills: 2025 S1042a ('Rental applications, fees, limit', last action House Business) and 2026 H0701 ('Limitations on fees for rental applications', referred to House Business 02/17/2026, no further action) (rule 18). A fee charged to a tenant after signing is subject to Idaho Code § 55-305. Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-tenant-death-rule-id",
+    title: "No Tenant-Death Statute",
+    group: "Default & Termination",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-death",
+    bodyText:
+      "Idaho has no landlord-tenant statute on the death of a tenant: the lease does not end automatically by statute, and there is no special procedure for the tenant's belongings. What happens to the lease and the tenant's belongings is left to the lease, general contract law and Idaho's probate code, which were not researched here.",
+    notes: "ID: CONFIRMED ABSENT: whole-code search for death, dies or deceased near tenant, lessee or renter: 17 hits in 14 sections, none a residential-tenancy rule (the floating homes act, Idaho Code § 55-2705, does not reach ordinary rentals). Estate succession to a lease is case law and probate law (Idaho Code Title 15), not read. Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  // Parking & Storage
+  {
+    id: "edu-towing-id",
+    title: "Towing From Rental Property",
+    group: "Parking & Storage",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "towing",
+    bodyText:
+      "A person in possession or control of property is permitted to have an unauthorized vehicle towed or booted if a clearly conspicuous, large-print sign on or near the property says unauthorized vehicles will be removed or booted at the owner's expense and names the towing company. An abandoned vehicle on non-commercial property may be towed without a sign if the person signs the tow company's release. No vehicle may be treated as unauthorized and towed or booted solely because its registration is expired or improper.",
+    notes: "ID: Idaho Code § 49-1806 (added by 2025 Idaho Sess. Laws ch. 218, effective January 1, 2026); Idaho Code § 49-122(1) (read in context). The rest of Idaho Code Title 49, Chapter 18 (tow company duties, storage, liens) not read. Drives parking-vehicle-rules-id. Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-just-cause-id",
+    title: "No Just-Cause Eviction Requirement",
+    group: "Default & Termination",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "for-cause-eviction",
+    bodyText:
+      "Idaho does not require a landlord to have cause to end a tenancy at the end of a lease term or to end a month-to-month tenancy, as long as the required notice is given: one month's written notice for a month-to-month or other tenancy at will, and 30 days' written notice of nonrenewal of a residential lease.",
+    notes: "ID: CONFIRMED ABSENT: Title 6, Chapter 3 and Title 55, Chapters 2-3 read whole; no good-cause requirement. Idaho Code § 55-208; Idaho Code § 55-304(2). Rule 41 screen: shared clauses saying the end of the term ends possession are consistent with Idaho law, subject to the Idaho Code § 55-304(2) nonrenewal notice. Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
+  {
+    id: "edu-no-landlord-lien-id",
+    title: "No Statutory Residential Landlord Lien",
+    group: "Default & Termination",
+    states: ["ID"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-lien",
+    bodyText:
+      "Idaho gives residential landlords no statutory lien on a tenant's belongings for unpaid rent. A landlord who takes or holds a tenant's property to force payment risks liability; unpaid rent is collected through a court judgment.",
+    notes: "ID: CONFIRMED ABSENT: whole-code search for lien near landlord or lessor: 9 sections; the residential landlord liens found are in the mobile home act (Idaho Code §§ 55-2009A, 55-2009B, 55-2009E), which does not reach ordinary rentals; Idaho Code § 28-9-109(d)(1) (read in context) only excludes a landlord's lien from Article 9. No contractual lien clause offered (ID log s6). Read section-open 2026-09-30 in the built-in browser from legislature.idaho.gov section pages, which print each section's history line and are current through the 2026 session (the site's currency page; its chapter PDFs lag and omit 2026 changes, so every section the 2026 session touched was reloaded from its current page): Idaho Code Title 6, Chapter 3 (all 28 sections in the official chapter index, Idaho Code §§ 6-301 to 6-324; no 6-306, 6-307 or 6-311B is listed) and Title 55, Chapters 2 and 3 read whole; the whole Idaho Code (1,470 chapter PDFs plus 1,166 current 2026-affected sections, 22,935 sections) loaded for full-text search, control term 0 hits (ID log s1, s17).",
+  },
 ];
 
 module.exports = { LANDLORD_EDUCATION };

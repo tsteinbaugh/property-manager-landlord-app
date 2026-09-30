@@ -38,7 +38,7 @@ ASK = {
     "48": "Separate-document requirements. No lease clause can supply a notice or agreement the statute requires to be separate.",
     "49": "Collection-cost bans. Read 'costs and expenses' language as well as fee sentences.",
     "50": "'The lease controls' wording. Find every place the statute lets the lease choose ('if the lease so provides', 'unless otherwise agreed in writing') and make each choice on purpose.",
-    "51": "Plain-language and consumer-contract statutes. Does one reach residential leases, and what does it require?",
+    "51": "Plain-language and consumer-contract statutes. Does one reach residential leases, and what does it require? Include the consumer protection act's list of unfair practices (for example blank spaces filled after signing, or no copy at signing).",
     "52": "Exculpation. Does the state void 'Landlord is not liable' terms? If so, use the variants without the disclaimer (tenants-property-insurance-ks-oh-ca, parking-ks-oh-ca, storage-space-ks-oh-ca, services-utilities-provided-ks-oh).",
     "53": "A figure that contradicts a shared clause. Where the state's number differs from a number in a shared clause, or the clause states only a ceiling or self-limiting wording ('as permitted by law') that could hide a real conflict, fix it with an override.",
     "54": "Optional clauses (general screen). Find every optional clause the state's law allows, for the landlord's benefit, and offer each one; record every candidate with its verdict.",
