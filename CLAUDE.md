@@ -6,7 +6,7 @@
 
 - **Done 2026-09-29:** the state-research SOP (`lease-clause-sop.md`, 1.1), the generated topic reference (`lease-clause-topics.md`), `topic_key` normalization, and this CLAUDE.md split.
 - **Next:** the targeted checks in the SOP's conformance table. Some I can do from the repo; the rest go to each state's Claude Desktop chat as short, scoped prompts.
-- **Legal watch moved to monthly (2026-09-29):** each state runs on its own day of the month and seeds itself on its first run, so the October 1–5 manual catch-up is no longer needed. Taylor is turning off GitHub's Actions failure emails; failures now email the alert address. Watch the first October runs (CO on the 1st) to confirm the change marker works; see `docs/backlog.md`.
+- **Legal watch moved to monthly (2026-09-29):** each state runs on its own day of the month and seeds itself on its first run, so the October 1–5 manual catch-up is no longer needed. GitHub's Actions emails are off (Taylor, 2026-09-29); failures now email the alert address. Watch the first October runs (CO on the 1st) to confirm the change marker works; see `docs/backlog.md`.
 - **Standing backlog** (no fixed order; ask Taylor what's next): `docs/backlog.md`.
 - Deploying is still deliberately on hold.
 
