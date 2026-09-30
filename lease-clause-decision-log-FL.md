@@ -571,3 +571,5 @@ Uniform under §5a.1: each edit is self-limiting, so this state needs no overrid
 Not a re-audit; nothing else in this state was reviewed.
 
 **Propagation note (from the Pennsylvania pass, 2026-09-29): `severability` rewritten.** Old: 'If any provision of this Agreement shall be held or made invalid by a court decision, statute or rule, or shall be otherwise rendered invalid, the remainder of this Agreement shall not be affected thereby.' New: 'If a court decision, statute or rule makes any part of this Lease invalid or unenforceable, the rest of this Lease still applies.' §5a.1 judgment: UNIFORM. Generic mechanics with the same legal effect; plain-language wording prompted by Pennsylvania's Plain Language Consumer Contract Act, and lawful in this state; 'this Agreement' aligned with the library's 'this Lease'. No state-specific review owed. `last_checked` reset to 2026-09-29 (PA log §3.1, §9).
+
+- **2026-09-29, Addendum M.14 fix:** `electronic-notice-addendum-fl` used a variable name the builder never resolves, so it printed raw; renamed to the resolved name (`{{tenant_names}}`). Not a scrub change; no propagation owed.

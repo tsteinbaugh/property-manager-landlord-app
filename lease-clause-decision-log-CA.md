@@ -2449,3 +2449,5 @@ Not a re-audit: each row was asked one question from its own text and notes (doe
 - **Cross-references fixed:** `possession-delay-ca` and `common-area-use-ca` referred to clauses now in education.
 - **§5a.1:** only CA-only rows changed; the shared `security-deposit-use` is untouched. No propagation owed.
 
+
+- **2026-09-29, Addendum M.14 fix:** `late-fee-safe-harbor-ca` used a variable name the builder never resolves, so it printed raw; renamed to the resolved name (`{{late_fee_amount}}`). Not a scrub change; no propagation owed.

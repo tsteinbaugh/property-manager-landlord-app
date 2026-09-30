@@ -567,8 +567,8 @@ M.1, M.2 and M.4 are the same underlying gap: **the builder treats clauses as in
 
 | Variable | States | Note |
 |---|---|---|
-| `{{late_fee}}` | CA | use `late_fee_amount` |
-| `{{tenant_name}}` | FL | use `tenant_names` |
+| `{{late_fee}}` | CA | use `late_fee_amount` — **fixed 2026-09-29** |
+| `{{tenant_name}}` | FL | use `tenant_names` — **fixed 2026-09-29** (with co-tenants it lists every name) |
 
 **Duplicate names for the same value — pick one** (8):
 
