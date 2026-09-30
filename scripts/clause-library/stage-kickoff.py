@@ -37,6 +37,11 @@ if existing:
 else:
     ex = "None."
 
+# Variable names the builder fills in (SOP rule 60), read from the resolver so
+# the list can't drift. A name used by some other row but missing here prints raw.
+resolver = open("backend/src/lib/clauseVariables.js", encoding="utf-8").read()
+variables = ", ".join(f"`{{{{{v}}}}}`" for v in sorted(set(re.findall(r"^\s{4}([a-z_]+): ", resolver, re.M))))
+
 counts = "\n".join(f"- {s}: {per_state[s]}" for s in sorted(per_state))
 fill = {
     "STATE_NAME": name, "ST": st, "STATE_NUMBER": str(len(done) + 1),
@@ -44,7 +49,7 @@ fill = {
     "ROW_COUNT": f"{len(rows):,}", "ACTIVE_COUNT": f"{len(active):,}",
     "CLAUSE_COUNT": f"{sum(r['content_type'] == 'LEASE_CLAUSE' for r in active):,}",
     "EDU_COUNT": f"{sum(r['content_type'] == 'LANDLORD_EDUCATION' for r in active):,}",
-    "STATE_COUNTS": counts, "EXISTING_ROWS": ex,
+    "STATE_COUNTS": counts, "VARIABLES": variables, "EXISTING_ROWS": ex,
     "CITATION_FORMAT": "[FILL IN: how this state's code is cited, e.g. the code names and section format]",
     "LEADS": "[FILL IN: state-specific research questions, or 'None']",
 }

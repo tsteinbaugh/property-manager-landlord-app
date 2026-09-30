@@ -13809,6 +13809,705 @@ const LANDLORD_EDUCATION = [
       "If fire or casualty not caused by the tenant substantially impairs their enjoyment of the property, the tenant may move out immediately and tell you in writing within 14 days that they are ending the lease, which then ends on the date they moved out; or, if continued occupancy is lawful, vacate the unusable part and pay rent reduced in proportion to the drop in fair rental value (Ala. Code 35-9A-406). If the lease ends, return the recoverable deposit and all unearned prepaid rent, accounting for rent as of the date of the casualty.",
     notes: "AL: Moved from casualty-termination-al by the three-bucket scrub (2026-09-29); content and citations unchanged: Ala. Code § 35-9A-406(a)(1); Ala. Code § 35-9A-406(b); Ala. Code § 35-9A-163(a)(1).",
   },
+  // Landlord Responsibilities
+  {
+    id: "edu-fit-premises-duties-ut",
+    title: "Utah Fit Premises Act: Owner and Renter Duties",
+    group: "Landlord Responsibilities",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-maintenance",
+    bodyText:
+      "The Utah Fit Premises Act requires an owner to keep a rental fit for human habitation and in line with local ordinances and board-of-health rules, with working electrical, heating, plumbing and hot and cold water. An owner may not rent premises that are not safe, sanitary and fit, and must keep common areas sanitary and safe, maintain electrical, plumbing, heating and hot and cold water, keep any air conditioning operable, maintain other appliances and facilities the lease covers, and, in buildings of more than two units, provide garbage receptacles and removal unless otherwise agreed. The Act covers a renter's principal residence, not boarding or rooming houses, mobile home lots or occasional recreational rentals, and does not reach breakage or malfunctions that do not materially affect the ordinary renter's health or safety. Any duty in the Act may be shifted to the other party by an explicit written agreement signed by both. Renters must follow health rules, keep the unit clean and safe, dispose of garbage properly, use fixtures reasonably, not add occupants without written permission, stay current on payments, follow the lease (including any smoking rule), not damage the unit or disturb others, and not unreasonably refuse entry for repairs. Cities and counties may not adopt rules inconsistent with the Act.",
+    notes: "UT: Utah Code Ann. §§ 57-22-2(5) (scope), 57-22-3 (general duties; (3) minor conditions; (4) allocation by explicit signed agreement; last amended by Laws of Utah 2025, ch. 302), 57-22-4(1) (owner duties), 57-22-5 (renter duties), 57-22-7 (local limits). Whether a court would enforce an allocation of a core habitability duty against a renter under Utah Code Ann. § 57-22-3(4) is case law, not read (tenant-repair-agreement-ut). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  {
+    id: "edu-renter-remedies-ut",
+    title: "Renter Remedies for Deficient Conditions",
+    group: "Landlord Responsibilities",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-repair-remedies",
+    bodyText:
+      "A Utah renter who believes the unit has a deficient condition may give the owner a written notice describing it, stating the corrective period (3 calendar days for a habitability standard, 10 calendar days for a lease requirement), naming the remedy the renter chooses, permitting entry, and served under the eviction-notice methods or as the lease provides. If the owner does not take substantial action within the period, the renter's chosen remedy applies: rent abatement, under which rent is abated from the date of the notice, the lease ends, the owner must immediately return the whole deposit and a prorated refund of prepaid rent, and the renter must leave within 10 calendar days after the corrective period expires; or repair and deduct, up to two months' rent, with receipts given to the owner within 5 calendar days after the next rental period begins. A dangerous condition (substantial risk of imminent loss of life or significant physical harm) may be reported by any reasonable means, and the owner must begin remedial action within 24 hours and pursue it diligently. A renter who is not in compliance with all the renter duties is not entitled to either remedy. If the unit is not fit for occupancy, the owner may instead end the lease by written notice by the end of the corrective period, refund prorated prepaid rent and any deposit due within 10 calendar days, and give at least 10 calendar days to vacate. The renter may sue after the period; the owner must answer within 3 business days; damages are available if the owner unjustifiably refused or failed to use due diligence; no damages for mental suffering; the court may award costs and attorney fees to the prevailing party.",
+    notes: "UT: Utah Code Ann. § 57-22-6 (last amended by Laws of Utah 2023, ch. 401; version effective 2024-07-01). Local enforcement may not change the corrective periods or the renter's remedies (Utah Code Ann. § 57-22-7(2)(b)). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-late-fee-cap-ut",
+    title: "Late Fee Limit",
+    group: "Rent & Payment",
+    states: ["UT"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "late-fee",
+    bodyText:
+      "Utah caps residential late fees. An owner may not charge a late fee that exceeds the greater of 10% of the rent in the rental agreement or $75. For example, on $1,200 rent the cap is $120; on $600 rent it is $75. The cap applies whether or not the lease mentions it. A late fee must also be included in the lease to be charged, except that on a month-to-month agreement a new charge may be added after 15 days' notice.",
+    notes: "UT: Utah Code Ann. § 57-22-4(5)(a) and (5)(b) (version effective 2021-05-05). Utah Code Ann. § 57-22-4(9): a renter may not use the owner's failure to comply as a basis to excuse compliance or to bring a cause of action, but the limit still binds the owner. Builder: validate {{late_fee_amount}} against max(10% of {{monthly_rent}}, $75) (UT log s14). Education, not a lease clause (Taylor's PA rule). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  {
+    id: "edu-fees-in-lease-ut",
+    title: "Fees Must Be in the Lease",
+    group: "Rent & Payment",
+    states: ["UT"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "required-fees",
+    bodyText:
+      "A Utah owner may not charge a renter a fee, fine, assessment, interest or other cost that is not included in the rental agreement, or in an amount greater than the agreement states. On a month-to-month agreement, a new charge may be added only after 15 days' notice to the renter. Fees allowed by law or stated in the agreement are not otherwise restricted by this rule.",
+    notes: "UT: Utah Code Ann. § 57-22-4(5)(b), (8), (9). Screened against the UT clauses that charge money: late-fee, returned-payments-ut, notice-service-fee-ut, collection-fee-ut, early-termination-ks, pet-policy, smoking-policy (remediation cost), keys and parking-vehicle-rules (actual cost), hoa-compliance (fines): each names the charge in the lease. Keys, parking and smoking charge actual cost rather than a stated figure; whether actual cost is an 'amount agreed' under (5)(b)(i) is unsettled (case law not read); UT log s10. Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  {
+    id: "edu-pre-application-disclosure-ut",
+    title: "Written Disclosures Before Taking an Application Fee",
+    group: "Rent & Payment",
+    states: ["UT"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "application-fees",
+    bodyText:
+      "Before accepting an application fee or any other payment from a prospective renter, a Utah owner must disclose in writing: a good-faith estimate of the rent and of each fixed non-rent expense in the rental agreement; the type of each use-based non-rent expense; the date the unit is scheduled to be available; the screening criteria (see the screening row); and how the prospective renter can recover money paid. The estimate may be given in a rental application, deposit agreement or written summary. If an amount in the rental agreement differs from the estimate, or the agreement adds an undisclosed type of use-based expense, a prospective renter who has not signed or moved in may demand a refund in writing within 5 business days after receiving the agreement, and the owner must return all money paid within 5 business days after receiving the demand. Utah sets no cap on application fees.",
+    notes: "UT: Utah Code Ann. § 57-22-4(3)(a)(i)-(iii), (v), (3)(b), (4). No application-fee cap located (whole-code search 'application fee': 136 hits in 98 sections, none a rental cap). Answers the holding-deposit topic too: money paid before the lease is recoverable only in the Utah Code Ann. § 57-22-4(4) circumstances (amount differs from the estimate, or an undisclosed use-based expense; written demand within 5 business days; before signing or possession). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  {
+    id: "edu-screening-criteria-ut",
+    title: "Screening Criteria Disclosure",
+    group: "Rent & Payment",
+    states: ["UT"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-screening",
+    bodyText:
+      "Before taking an application fee or other payment, a Utah owner must disclose in writing the criteria it will use to decide eligibility, including criteria about criminal history, credit, income, employment and rental history. Utah fair housing law bars application forms that express a preference based on a protected class, including source of income, but allows decisions based on an applicant's inability to meet the lease's terms, including financial obligations. An eviction record expunged by a court may not be reported or used by a tenant screening agency, and the renter may answer as though the eviction never happened.",
+    notes: "UT: Utah Code Ann. §§ 57-22-4(3)(a)(iv), 57-21-5(2), 57-21-3(6), 78B-6-854(2)-(3). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-move-in-condition-ut",
+    title: "Move-In Condition Record",
+    group: "Landlord Responsibilities",
+    states: ["UT"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "condition-inspection",
+    bodyText:
+      "Before signing a rental agreement, a Utah owner must do one of three things: give the prospective renter a written inventory of the unit's condition (excluding ordinary wear and tear); give the renter a form to document the condition and allow a reasonable time after move-in to complete and return it; or give the prospective renter an opportunity for a walkthrough inspection. Keeping the completed inventory or form helps the owner support deposit deductions later.",
+    notes: "UT: Utah Code Ann. § 57-22-4(6), (9). Education, not a lease clause: the statute requires the owner's action, not lease text. Builder: offer a condition-form attachment (UT log s14). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  {
+    id: "edu-lease-copy-rules-ut",
+    title: "Copy of Lease and Rules",
+    group: "Landlord Responsibilities",
+    states: ["UT"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lease-copy",
+    bodyText:
+      "At or before the start of the rental term, a Utah owner must give the renter an executed copy of a written rental agreement and a copy of any rules and regulations that apply to the unit.",
+    notes: "UT: Utah Code Ann. § 57-22-4(7)(b), (9) (no renter cause of action or excuse from performance for a failure). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  // Security Deposit
+  {
+    id: "edu-security-deposit-rules-ut",
+    title: "Deposit Return Penalty Process",
+    group: "Security Deposit",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-penalty",
+    bodyText:
+      "Utah deposit rules cover any deposit however it is named. An owner may apply a deposit to rent, damage beyond reasonable wear and tear, other costs and fees the lease provides for, and cleaning, and must return the balance of the deposit and prepaid rent with an itemized notice of deductions within 30 days after the renter vacates and returns possession. If the owner misses that deadline, the renter may serve a statutory Tenant's Notice to Provide Deposit Disposition at the address in the lease: in person, or, if the owner is absent, by leaving it with a person of suitable age and discretion, or, if no such person is found, by posting it in a conspicuous place; or by registered or certified mail. The owner then has 5 business days to comply. If the owner still fails, the renter may recover the full deposit, the full prepaid rent and a $100 civil penalty, and the court must award costs and attorney fees to the prevailing party if the other side acted in bad faith. A renter who does not serve the notice gets none of this relief, but either side may still recover other damages.",
+    notes: "UT: Utah Code Ann. §§ 57-17-1, 57-17-3(1)-(5) (Laws of Utah 2025, ch. 275), 57-17-5 (Laws of Utah 2023, ch. 401; version effective 2024-07-01). The penalty applies to a failure to comply after the tenant's notice (Utah Code Ann. § 57-17-5(1) refers to Utah Code Ann. § 57-17-3(5)). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  {
+    id: "edu-no-security-deposit-cap-ut",
+    title: "No Security Deposit Limit",
+    group: "Security Deposit",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-cap",
+    bodyText:
+      "Utah sets no limit on the amount of a residential security deposit. The only extra deposit limit is for service and support animals, for which no extra deposit or fee may be charged.",
+    notes: "UT: CONFIRMED ABSENT: Title 57 Chapter 17 read whole; whole-code search 'security deposit' 44 hits in 22 sections, none a residential cap. Utah Code Ann. § 26B-6-803(1)(b)(i). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  {
+    id: "edu-no-deposit-interest-ut",
+    title: "No Interest on Deposits",
+    group: "Security Deposit",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-interest",
+    bodyText:
+      "Utah does not require a landlord to pay interest on security deposits or to hold them in a separate or interest-bearing account.",
+    notes: "UT: CONFIRMED ABSENT: Title 57 Chapter 17 read whole (no interest or separate-account rule); whole-code search 2 'security deposit' (44 hits, 22 sections): no residential interest rule. No separate interest search was run. Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  {
+    id: "edu-sale-deposit-successor-ut",
+    title: "Deposits When the Property Is Sold",
+    group: "Security Deposit",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-on-sale",
+    bodyText:
+      "Whoever holds the owner's or agent's interest in the property when a tenancy ends is bound by Utah's deposit-return rules. A buyer of a rented property therefore takes on the deposit obligations, and the seller should transfer the deposits or account for them in the sale.",
+    notes: "UT: Utah Code Ann. § 57-17-4. No Utah statute releases a selling landlord on notice (whole-code search 63: 1 unrelated section). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-notices-to-quit-ut",
+    title: "Utah Eviction Notices by Tenancy Type",
+    group: "Default & Termination",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-notice",
+    bodyText:
+      "Utah's notices before an unlawful detainer depend on the tenancy and the ground. A fixed-term tenancy ends at the end of its term with no notice. A month-to-month or other periodic tenancy ends at the end of a period if the owner serves notice at least 15 calendar days before that period ends. A tenancy at will ends after a notice of at least 5 calendar days. For unpaid rent or other amounts due, the notice gives 3 business days to pay or leave. For breach of another lease term, it gives 3 calendar days to comply or leave. For assigning or subletting against the lease, waste, an unlawful business, a nuisance, or a criminal act on the premises, a 3-calendar-day notice to quit applies with no chance to cure. For the curable grounds, the tenant, a subtenant, a mortgagee of the lease or another person interested in it may pay or perform as the notice requires and save the lease from forfeiture; if a breach cannot afterwards be cured, the landlord may use a no-cure notice. Notices are served in person; by registered or certified mail or an equivalent means; if the tenant is absent, by leaving a copy with a person of suitable age and discretion at the residence; or, if no such person is found there, by posting a copy in a conspicuous place on the property. Tenants after a foreclosure sale have the federal Protecting Tenants at Foreclosure Act notice, and tenants in properties covered by the federal CARES Act may have its notice to vacate before removal (Utah limits its reach). Agricultural tenants who hold over for 60 days without a demand get another year.",
+    notes: "UT: Utah Code Ann. §§ 78B-6-802(1)-(2), (5) (Laws of Utah 2026, ch. 401, effective 2026-05-06), 78B-6-803, 78B-6-805 (same act). Rule 37: every period stated by tenancy type. Email is not a Utah Code Ann. § 78B-6-805 method (edu-electronic-notices-ut). Federal PTFA and 15 U.S.C. § 9058(c) cited, not read. Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  {
+    id: "edu-eviction-process-ut",
+    title: "Utah Eviction Process",
+    group: "Default & Termination",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-process",
+    bodyText:
+      "A Utah eviction is an unlawful detainer action. The summons gives the tenant 3 business days to respond, and the landlord must serve with it any written lease, the notice served, an itemized calculation of rent, damages, costs and fees, and the factual basis. On either party's request, the court holds an evidentiary hearing within 10 business days after the tenant answers, where it decides who may occupy during the case; a nuisance claim alleging criminal conduct gets a hearing within 10 days of filing on request. If the tenant stays in possession, trial must begin within 60 days of service unless the parties agree otherwise. A landlord may post a possession bond, after which a tenant may pay all rent and costs within 3 calendar days (nonpayment cases), post a counter-bond, or demand a hearing. A judgment for the landlord in a nonpayment or lease-breach case declares the lease forfeited without ending the tenant's liability for rent for the rest of the term (subject to mitigation), awards the rent plus three times the damages assessed, and requires the court to award reasonable attorney fees and costs to the prevailing party. The order of restitution generally gives the tenant 3 calendar days to leave (less if the court orders immediate restitution in a criminal-nuisance or default case, or the parties agree otherwise), after which a sheriff or constable may remove the tenant. Either party may appeal within 10 days (3 days in a private nuisance action). Apart from retaking abandoned premises under the statutory procedure, only a court may remove a tenant.",
+    notes: "UT: Utah Code Ann. §§ 78B-6-807, -808, -810 (Laws of Utah 2025, ch. 275), -811 (Laws of Utah 2026, ch. 401), -812 (Laws of Utah 2026, ch. 44, effective 2026-09-01), -813; Utah R. Civ. P. 26.3 (court rule, effective 2018-05-01; all 152 civil rules screened, the only eviction rule). Reciprocal contract fees: Utah Code Ann. § 78B-5-826. State-military stay: Utah Code Ann. § 39A-6-113 (edu-servicemember-rights-ut). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  {
+    id: "edu-post-eviction-property-ut",
+    title: "Tenant Property and Animals After an Eviction",
+    group: "Default & Termination",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "post-eviction-property",
+    bodyText:
+      "When a sheriff or constable carries out an eviction order, the officer may remove the tenant's remaining property to safe storage or delegate inventory, moving and storage to the landlord, who must store it in a suitable place and reasonable manner. The tenant may not take the property back until paying removal and storage costs, except that within 5 business days the landlord, sheriff or constable must give reasonable access to retrieve clothing, identification, financial and immigration or employment documents, public-benefits documents, and medical information, medications and equipment. The stored property is then handled as abandoned property. Since September 1, 2026, a pet found at the eviction goes to the tenant if present; otherwise animal control must be notified, must respond within one business day, and the landlord must give animal control the tenant's name and last known contact information.",
+    notes: "UT: Utah Code Ann. § 78B-6-812(4) (Laws of Utah 2026, ch. 44, version effective 2026-09-01), Utah Code Ann. § 78B-6-816 (abandoned-property-ut). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  {
+    id: "edu-self-help-eviction-ut",
+    title: "No Lockouts Without a Court Order",
+    group: "Default & Termination",
+    states: ["UT"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "self-help-eviction",
+    bodyText:
+      "It is unlawful for a Utah owner to willfully exclude a tenant from the premises in any way except by judicial process. The only exception is removing contents and retaking the premises after the tenant has abandoned them, following the statutory abandonment procedure. Forcible entry or detainer can also expose the owner to treble damages.",
+    notes: "UT: Utah Code Ann. §§ 78B-6-814, 78B-6-801(4), (11), 78B-6-811(2)-(3). Whether cutting a tenant's utilities is 'willful exclusion' is case law, not read (whole-code search 16: no residential utility-shutoff rule for landlords). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  {
+    id: "edu-abandonment-rent-liability-ut",
+    title: "Rent Owed After Abandonment",
+    group: "Default & Termination",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "abandonment-and-mitigation",
+    bodyText:
+      "If a Utah tenant abandons the premises, the owner may retake and try to re-rent at a fair rental value. The tenant owes the rent for the rest of the term or, if it is less, the rent accrued while re-renting plus any shortfall between the new fair rental value and the old rent, a reasonable leasing commission and the cost to restore the unit (less normal wear and tear), even if the owner has not re-rented. After an eviction, the lease forfeiture does not end the tenant's liability for rent for the rest of the term, but neither side's duty to mitigate changes.",
+    notes: "UT: Utah Code Ann. §§ 78B-6-816(1), 78B-6-811(1)(d). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  {
+    id: "edu-eviction-expungement-ut",
+    title: "Eviction Record Expungement",
+    group: "Default & Termination",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-record-sealing",
+    bodyText:
+      "Utah courts automatically expunge an eviction filed on or after July 1, 2022 if the whole case was dismissed, no appeal is pending and three years have passed, or if the parties file a stipulation to expunge. Any party may petition to expunge an eviction for holding over after the lease ended or for nonpayment once the judgment is satisfied and a satisfaction of judgment is filed; any party's written objection blocks it, and otherwise the court must expunge after 60 days. An expunged eviction is treated as never having happened and may not be reported or used by tenant screening agencies. A landlord who wants to keep an eviction on record may object.",
+    notes: "UT: Utah Code Ann. §§ 78B-6-850 to -854 (Part 8a; Utah Code Ann. § 78B-6-853 amended by Laws of Utah 2024, ch. 194). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  {
+    id: "edu-unauthorized-occupant-removal-ut",
+    title: "Removing Trespassers and Long-Term Guests",
+    group: "Default & Termination",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "unauthorized-occupant-removal",
+    bodyText:
+      "Since May 2025, a Utah owner can ask local law enforcement to remove a trespasser immediately by presenting a verified statutory complaint attesting that the person entered unlawfully, the property was not open to the public, the owner told the person to leave, the person is not a current or former tenant under a written lease or an immediate family member, and no litigation is pending. Law enforcement serves a notice to vacate and puts the owner in possession. Wrongful use exposes the owner to actual damages, triple the fair market rent, costs and attorney fees. Separately, a long-term guest (someone who is not a tenant or an immediate family member of the owner or a tenant, and who stays more than 48 hours without paying or working in exchange) commits criminal trespass by staying after an owner or tenant tells them to leave, unless a separate owner or tenant has expressly let them stay and that permission has not been revoked or voided by drug use, crime or dangerous behavior. Neither route is for removing a tenant: the trespasser procedure is unavailable against a current or former tenant under a written rental agreement, and tenants are removed by eviction.",
+    notes: "UT: Utah Code Ann. §§ 78B-6-817 (Laws of Utah 2025, ch. 295, effective 2025-05-07), 76-6-206.4 (Laws of Utah 2024, ch. 223), 78B-6-801(9). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  {
+    id: "edu-nuisance-eviction-ut",
+    title: "Nuisance Abatement by Eviction",
+    group: "Default & Termination",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nuisance",
+    bodyText:
+      "Utah's 2026 nuisance law lets a county attorney, city attorney, county, residents of the county or businesses there sue to abate an 'unsafe building or place' (drug dealing or use, gambling, gang or group crime, frequent disruptive parties, prostitution, weapons offenses, unlawful discharge of firearms, human trafficking) by evicting the tenant. When the conduct is a third party's on the landlord's property, the landlord is a necessary defendant, and a court may issue the eviction order immediately. Costs and attorney fees can be awarded against a landlord only if the landlord had actual notice of the action and willfully failed to act within a reasonable time. A renter bothered by drug fumes drifting from another unit may sue the landlord only after giving written notice and the landlord knowingly letting it continue. Tobacco-smoke claims are covered by the smoking rows.",
+    notes: "UT: Utah Code Ann. §§ 78B-6a-101(10), (16), 78B-6a-103, 78B-6a-302 to -304, 78B-6a-405(3) (HB 591, Laws of Utah 2026, ch. 401, effective 2026-05-06; common-law nuisance actions abrogated for new claims, Utah Code Ann. § 78B-6a-102). Stale cross-reference: Utah Code Ann. § 78B-6-802(1)(f) still refers to 'Section 78B-6-1107', which no longer exists (UT log s10). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  {
+    id: "edu-expedited-criminal-eviction-ut",
+    title: "Expedited Hearing for Criminal Conduct",
+    group: "Default & Termination",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "expedited-criminal-eviction",
+    bodyText:
+      "When a Utah unlawful detainer claim is for nuisance and alleges criminal conduct (a felony; a crime affecting the health or safety of tenants, the landlord or others on the property; a crime damaging property; drug or gang crime; violence or threats; or other crime directly affecting safety or peaceful enjoyment), the court must hold an evidentiary hearing within 10 days of filing on request. If it finds the act more likely than not occurred, it must issue an order of restitution, and the sheriff or constable returns possession immediately (the court may allow up to 72 hours).",
+    notes: "UT: Utah Code Ann. § 78B-6-810(3). The 3-calendar-day no-cure notice for a criminal act on the premises: Utah Code Ann. § 78B-6-802(1)(g). No criminal-activity lease clause offered (UT log s6, rule 54 list). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  {
+    id: "edu-dv-termination-ut",
+    title: "Domestic Violence Lease Termination",
+    group: "Default & Termination",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-lease-termination",
+    bodyText:
+      "A Utah renter who is a victim of domestic violence may end all future obligations under the lease by giving the owner a court order protecting the renter, or a police report showing the renter is a victim and not the predominant aggressor; a written notice with the move-out date; and a termination fee of one month's rent, paid when notice is given or at move-out, whichever is later. The renter must move out within 15 days and pay rent for that time, and remains liable for amounts owed before the notice. The renter must otherwise be in compliance with the lease, except that a failure to stay current on payments, or a violation of the renter's duties not to damage the unit, disturb other renters or refuse repair access, that occurred in the 30 days before the notice and is due to the domestic violence does not bar termination if the renter gives evidence of it with the notice; the renter stays liable for that noncompliance. The right is not available after an eviction notice is served. Other people on the lease stay bound.",
+    notes: "UT: Utah Code Ann. § 57-22-5.1(1), (4)-(9) (current version, Laws of Utah 2025, ch. 173). Future version effective 2027-01-01 (HB 90, Laws of Utah 2026, ch. 445) changes only the 'crime victim' definition used for locks and a drafting point; the termination right is unchanged (UT log s1). An ex parte civil protective order, and an ex parte civil stalking injunction for which a hearing is requested, are not a qualifying 'court order' ((1)(a)(ii)). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  {
+    id: "edu-crime-victim-locks-ut",
+    title: "New Locks for Crime Victims",
+    group: "Default & Termination",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-lockchange",
+    bodyText:
+      "A Utah renter who is a victim of domestic violence, stalking, a sexual offense (until January 1, 2027, not including enticing a minor, sexual battery, lewdness or lewdness involving a child), burglary or dating violence may require the owner to install a new lock by providing a cohabitant abuse protective order issued after a hearing of which both sides had notice, or a police report, and paying for the lock. The owner may rekey a working lock or replace the whole mechanism with one of equal or better quality, may keep a key, and, regardless of the lease, must refuse a key to the perpetrator. A perpetrator who is on the lease and not barred by a protective order may petition a court within 30 days.",
+    notes: "UT: Utah Code Ann. § 57-22-5.1(1)(b), (2), (3). From 2027-01-01 (Laws of Utah 2026, ch. 445) the list of qualifying crime victims no longer excludes victims of enticing a minor, sexual battery, lewdness and lewdness involving a child; the row states the exclusion and its end date. Documentation: Utah Code Ann. § 57-22-5.1(2) (protective order under Title 78B, Chapter 7, Part 6, after a hearing with notice to both parties, or a police report). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  // Notices & General
+  {
+    id: "edu-police-emergency-calls-ut",
+    title: "Calling Police or Emergency Services",
+    group: "Notices & General",
+    states: ["UT"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "emergency-assistance-right",
+    bodyText:
+      "A Utah owner may not restrict a renter's ability to ask for help from police, fire, ambulance or similar public safety agencies, and may not penalize or evict a renter for making reasonable requests for help. A city's good landlord program may not penalize an owner for renter or crime-victim calls the owner may not restrict.",
+    notes: "UT: Utah Code Ann. §§ 57-22-5.1(10), 57-22-7(3). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-retaliation-statute-ut",
+    title: "No General Retaliation Statute",
+    group: "Default & Termination",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "retaliation",
+    bodyText:
+      "Utah has no general statute barring retaliation against residential tenants for complaints or code reports. Two specific protections exist: a landlord may not coerce, threaten or take reprisal against a person for exercising fair housing rights or filing a fair housing complaint, and may not penalize or evict a renter for reasonable calls for police or emergency help.",
+    notes: "UT: CONFIRMED ABSENT (general rule): whole-code search 'retaliat' near tenant/renter/lessee: 0 hits; 'retaliat' in Titles 10, 17, 57 and 78B-6: only Utah Code Ann. § 57-16-16 (mobile home parks) and unrelated sections. Utah Code Ann. §§ 57-21-7(1)(f), 57-22-5.1(10). Retaliatory-eviction case law not read. Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  // Disclosures
+  {
+    id: "edu-fair-housing-ut",
+    title: "Utah Fair Housing Act",
+    group: "Disclosures",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fair-housing",
+    bodyText:
+      "The Utah Fair Housing Act bars housing discrimination because of race, color, religion, sex, national origin, familial status, source of income, disability, sexual orientation or gender identity, including in ads and application forms, and requires reasonable accommodations and reasonable modifications. It does not apply to a single-family home rented by its owner if the owner holds fewer than four single-family homes for sale or lease, has not sold two or more non-residence homes in 24 months, uses no broker, and makes no discriminatory statement, notice, ad or application form, or to renting a room in an owner-occupied building of four or fewer units (ads still covered). Since May 2026 a private landlord may designate a dormitory, boarding house, shared rental property or other group-living accommodation where residents share a bedroom or bathroom as single-sex by biological sex at birth, unless that would violate federal law or a condition of federal funding. Distinctions based on an applicant's inability to meet the lease's financial terms are allowed. Remedies include actual damages, attorney fees and civil penalties of up to $10,000, $25,000 or $50,000; a private suit may add punitive damages. The Act preempts local fair housing ordinances.",
+    notes: "UT: Utah Code Ann. §§ 57-21-2, -2.5, -3 (Laws of Utah 2025 Special Session 1, ch. 9), -4, -5 (HB 404, Laws of Utah 2026, ch. 315, effective 2026-05-06), -7, -11, -12. Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  {
+    id: "edu-source-of-income-ut",
+    title: "Source of Income Protection",
+    group: "Disclosures",
+    states: ["UT"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "source-of-income",
+    bodyText:
+      "Utah bars housing discrimination because of source of income, meaning the verifiable condition of receiving federal, state or local assistance, including medical assistance, or of being a tenant receiving government subsidies such as rental assistance. A landlord covered by the Utah Fair Housing Act may not refuse a renter, set different terms, or advertise a preference because the renter uses a voucher or other assistance. The Act's small-owner and owner-occupied exemptions apply.",
+    notes: "UT: Utah Code Ann. §§ 57-21-2(25), 57-21-5(1)-(3), 57-21-3(1), (3). Whether a covered landlord must accept a Housing Choice Voucher's program terms (HAP contract, inspections) is not addressed by the statute; case law and agency rules (Utah Admin. Code R608, non-statute) not read. Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  // Pets
+  {
+    id: "edu-service-animal-law-ut",
+    title: "Service and Support Animals Under Utah Law",
+    group: "Pets",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "service-animal-misrepresentation",
+    bodyText:
+      "Utah law gives people with disabilities equal access to rental housing and bars an owner or lessor from discriminating over a service animal or support animal, including by charging an extra fee or deposit, though the owner may recover a reasonable repair cost for damage. A 'service animal' is a dog trained, or in training, to do disability-related work; a 'support animal' is any other animal that qualifies as a reasonable accommodation under federal law. It is a class C misdemeanor to knowingly and falsely represent that an animal is a service or support animal, or to misrepresent facts to a health care provider to get documentation. The misrepresentation offense reaches housing because it covers false representation 'to another person'.",
+    notes: "UT: Utah Code Ann. §§ 26B-6-801(4), (6) (Laws of Utah 2025 Special Session 1, ch. 16), 26B-6-802(4), 26B-6-803, 26B-6-805(2) (Laws of Utah 2023, ch. 308). Kickoff lead 4 answered. Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  {
+    id: "edu-service-animal-denial-penalty-ut",
+    title: "Penalty for Denying Service Animal Rights",
+    group: "Pets",
+    states: ["UT"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "service-animal-denial-penalty",
+    bodyText:
+      "Under Utah law, any person, or agent of a person, who denies or interferes with the rights Utah's disability statute gives a person with a disability commits a class C misdemeanor. In rental housing those rights include equal access to housing, being accompanied by a service animal, and freedom from discrimination, extra fees or deposits because of a service animal or support animal.",
+    notes: "UT: Utah Code Ann. § 26B-6-805(1), read with Utah Code Ann. §§ 26B-6-802(4) and 26B-6-803. Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-servicemember-rights-ut",
+    title: "Servicemember Tenant Protections",
+    group: "Default & Termination",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "servicemember-rights",
+    bodyText:
+      "During state military service, a Utah landlord may not evict a servicemember or dependents, or take and hold their property, for unpaid rent on premises renting for less than $2,400 a month without a court order; the court may stay the case for up to three months. Knowingly evicting otherwise is a class B misdemeanor. Federal servicemembers also have the federal Servicemembers Civil Relief Act, including lease termination on qualifying orders.",
+    notes: "UT: Utah Code Ann. §§ 39A-6-112, 39A-6-113 (Laws of Utah 2022, ch. 373). No Utah lease-termination right beyond federal law located (whole-code search 18). 50 U.S.C. § 3955 cited, not read. Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-rent-control-preemption-ut",
+    title: "State Preemption of Rent Control and Local Landlord Rules",
+    group: "Other / Miscellaneous",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-control",
+    bodyText:
+      "Utah counties, cities and towns may not control rents or fees on private residential property without the Legislature's approval. They may not adopt rules inconsistent with the Utah Fit Premises Act, or use local enforcement to change its repair deadlines or renter remedies. The Utah Fair Housing Act preempts local fair housing ordinances. Cities may license rental dwellings (see the licensing row) but may not interfere with an owner's contract with a tenant about paying utilities or municipal services. Local rules on building, health, zoning and short-term rentals still apply and are not covered here.",
+    notes: "UT: Utah Code Ann. §§ 57-20-1, 57-22-7, 57-21-2.5, 10-8-85.5(3). Kickoff lead 6: statewide limits recorded; city ordinances flagged, not resolved (rule 3). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  {
+    id: "edu-rental-licensing-ut",
+    title: "Local Rental Licensing and Good Landlord Programs",
+    group: "Other / Miscellaneous",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-registration",
+    bodyText:
+      "A Utah city may require the owner of a rental dwelling (rented a month or longer) to hold a business license or a regulatory business license with an inspection, but no more than one regulatory license for all of an owner's rentals, and it may not charge for the inspection. An owner who receives no compensation can opt out by affidavit. Cities may charge a higher 'disproportionate rental fee' but must reduce it for owners who complete a good landlord training program; an owner-occupied building of four or fewer units is exempt. Counties have parallel powers. Check the city's rules for the property.",
+    notes: "UT: Utah Code Ann. §§ 10-8-85.5 (Laws of Utah 2024, ch. 432), 10-1-203.5 (read in context). County analog Utah Code Ann. § 17-79-611 and the county licensing sections not read in full. Specific city programs flagged, not resolved (rule 3). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-rent-increase-notice-ut",
+    title: "No Rent-Increase Notice Rule",
+    group: "Rent & Payment",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-increase-notice",
+    bodyText:
+      "Utah has no statute setting notice for a residential rent increase, except for mobile home parks. During a fixed term, rent changes only as the lease allows. On a month-to-month tenancy, the practical route is to end the tenancy with at least 15 calendar days' notice before the end of a period and offer new terms; a new fee (not rent) may be added on 15 days' notice.",
+    notes: "UT: CONFIRMED ABSENT: whole-code search 'rent increase' (43 hits in 21 sections): only Utah Code Ann. §§ 57-16-4 and 57-16-18 (Mobile Home Park Residency Act) are landlord-tenant. Utah Code Ann. §§ 78B-6-802(1)(b)(i), 57-22-4(5)(b)(ii). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-landlord-lien-ut",
+    title: "Landlord's Lien for Rent",
+    group: "Default & Termination",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-lien",
+    bodyText:
+      "Utah gives a lessor a lien for rent due on the tenant's nonexempt property brought or kept on the premises while the tenant occupies and for 30 days after. The lien is enforced only through a court: the landlord files a complaint, a sworn affidavit and a bond, and an officer attaches the property. It ranks behind taxes, construction liens, perfected security interests and preferred wage claims. The statute gives the landlord no right to seize property without a court writ. The library offers no lease clause creating a separate contractual lien.",
+    notes: "UT: Utah Code Ann. §§ 38-3-1 to -8 (Utah Code Ann. § 38-3-3 amended by Laws of Utah 2024, ch. 365; Utah Code Ann. § 38-3-5 by Laws of Utah 2025, ch. 302); enforcement by attachment, Utah Code Ann. §§ 38-3-3 to -6. The Utah lease used for source 2 adds a contractual security interest with private sale; not copied (UT log s15). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  {
+    id: "edu-exemption-waiver-void-ut",
+    title: "Exemption Waivers Are Unenforceable",
+    group: "Default & Termination",
+    states: ["UT"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "homestead-waiver",
+    bodyText:
+      "In Utah, a waiver of exemptions signed in favor of an unsecured creditor before a levy on an individual's property is unenforceable. A lease clause waiving a tenant's exemptions from collection would not work, so the library offers none.",
+    notes: "UT: Utah Code Ann. § 78B-5-509. Rule 54 verdict: barred; no clause (compare exemption-waiver-al). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  // Disclosures
+  {
+    id: "edu-stigmatized-property-ut",
+    title: "Stigmatized Property",
+    group: "Disclosures",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "stigmatized-property",
+    bodyText:
+      "Utah law says an owner is not liable for failing to disclose that property is 'stigmatized': the site or suspected site of a homicide, other felony or suicide; the home of someone infected or suspected of being infected with HIV or another disease that the Department of Health and Human Services determines cannot be transferred by occupying a dwelling; or property found contaminated by an illegal drug operation that the local health department has since found decontaminated. A property that is currently contaminated by methamphetamine must still be disclosed in the lease.",
+    notes: "UT: Utah Code Ann. §§ 57-1-1(8), 57-1-37 (Laws of Utah 2025, ch. 302), 57-27-201(1) (meth-disclosure-ut). Utah Code Ann. § 57-1-37(1) speaks of property offered for sale; (2)'s no-liability rule is not so limited. Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  {
+    id: "edu-no-radon-disclosure-ut",
+    title: "No Radon Disclosure Rule for Rentals",
+    group: "Disclosures",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "radon-disclosure",
+    bodyText:
+      "Utah requires no radon testing or disclosure for rentals.",
+    notes: "UT: CONFIRMED ABSENT: whole-code search 'radon' 17 hits in 7 sections: building code (Utah Code Ann. § 15A-3-206), a state awareness campaign (Utah Code Ann. § 26B-7-116), association rules that may not bar radon mitigation (Utah Code Ann. §§ 57-8-8.1, 57-8-10, 57-8a-212, 57-8a-218) and a contractor licensing rule. None a landlord duty. Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  {
+    id: "edu-no-mold-disclosure-ut",
+    title: "No Mold Disclosure Rule",
+    group: "Disclosures",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "mold-disclosure",
+    bodyText:
+      "Utah has no statute requiring landlords to disclose or remediate mold as such. Mold that makes a unit unfit falls under the Utah Fit Premises Act's habitability duty.",
+    notes: "UT: CONFIRMED ABSENT: whole-code search '\\bmold\\b' 38 hits in 10 sections: agriculture, Title 13 Chapter 31 (unrelated) and mold-remediation liens (Utah Code Ann. § 38-2-6). Utah Code Ann. § 57-22-4(1). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  {
+    id: "edu-no-bed-bug-rule-ut",
+    title: "No Bed Bug Rule",
+    group: "Disclosures",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "bed-bug-disclosure",
+    bodyText:
+      "Utah has no statute on bed bug disclosure, inspection or treatment in rentals. Infestations are handled under the habitability duty and the lease.",
+    notes: "UT: CONFIRMED ABSENT: whole-code battery search 21 'bed ?bugs?' 0 hits; battery 2 search B2-31 'infestation|vermin|cockroach|rodent' near owner/landlord/rental/dwelling: 1 unrelated section (53C-5-103); search 84 'pest control|extermin': no landlord duty. Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  {
+    id: "edu-no-flood-disclosure-ut",
+    title: "No Flood Disclosure Rule",
+    group: "Disclosures",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "flood-disclosure",
+    bodyText:
+      "Utah has no flood-risk or flood-history disclosure requirement for rentals.",
+    notes: "UT: CONFIRMED ABSENT: whole-code search 'flood' near 'disclos' (both orders, 150 characters): 0 hits. Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-alarms-ut",
+    title: "Smoke and Carbon Monoxide Alarms",
+    group: "Landlord Responsibilities",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "alarm-duties",
+    bodyText:
+      "Utah's landlord-tenant statutes set no smoke or carbon monoxide alarm duty for rentals. Alarm requirements come from the State Construction and Fire Codes adopted under Title 15A and local ordinances. A city may require a plug-in or battery smoke detector in a legal nonconforming rental dwelling even though it may not otherwise require physical changes to it.",
+    notes: "UT: CONFIRMED ABSENT in landlord-tenant law: whole-code searches 'smoke (detector|alarm)' (14 hits in 6 sections) and 'carbon monoxide' (67 in 9): building and fire codes (Utah Code Ann. §§ 15A-3-103, -104, -501, -901, 15A-5-204, -205.5), local land-use and building sections (Utah Code Ann. §§ 10-8-53.5, 10-20-304, 10-20-606, 17-78-1103, 17-79-305, 17-79-611) and local health departments (Utah Code Ann. § 26A-1-114), none a landlord-tenant duty (catchlines and hit contexts read). The Title 15A code amendments were not read (open item). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  // Parking & Storage
+  {
+    id: "edu-towing-ut",
+    title: "Towing from Rental Property",
+    group: "Parking & Storage",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "towing",
+    bodyText:
+      "A Utah tow company may tow from private property at the owner's request only with the vehicle owner's consent or with signage meeting state requirements. The signage rules do not apply to towing from a detached single-family home or duplex, from places where parking is prohibited by law, from disabled spaces without a placard, from gated or attended lots, or where the vehicle blocks access.",
+    notes: "UT: Utah Code Ann. § 72-9-603 (read in context; not read whole). Parking-vehicle-rules tagged. Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  {
+    id: "edu-firearm-vehicle-storage-ut",
+    title: "Firearms Stored in Vehicles",
+    group: "Parking & Storage",
+    states: ["UT"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "firearms",
+    bodyText:
+      "A Utah landlord may not have a rule prohibiting a person from keeping a lawfully possessed firearm locked in a vehicle, out of plain view, in a parking area, unless the landlord provides free alternative parking nearby or a secured, monitored storage location. Single-family detached homes, owner-occupied or tenant-occupied, are exempt. Utah law also does not change a tenant's lease duties about discharging a firearm.",
+    notes: "UT: Utah Code Ann. §§ 34-45-102, -103, -107 (read in context), 53-5a-103 (read in context). No Utah statute located on lease limits on firearm possession inside the unit (whole-code search 34). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-flag-display-ut",
+    title: "Flag Display",
+    group: "Rules & Regulations",
+    states: ["UT"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-display-rights",
+    bodyText:
+      "A Utah landlord may not prohibit a renter from displaying a United States or Utah flag made of fabric, up to 3 by 5 feet, consistent with federal flag rules, within an area the renter exclusively controls, from a staff, pole or window. The winner of a suit to enforce this right gets costs and attorney fees.",
+    notes: "UT: Utah Code Ann. §§ 57-24-101, -102. No Utah religious-display or political-sign rule for rentals located (whole-code search 36: 0 hits; search 37: election-code and association sections only). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-hoa-rental-rules-ut",
+    title: "HOA and Condominium Rental Rules",
+    group: "Other / Miscellaneous",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "hoa",
+    bodyText:
+      "A Utah homeowners association may restrict or prohibit rentals only through its recorded declaration (it may set a minimum lease term of six months or less by rule), with exemptions such as military deployment, renting to a close relative, and job relocation. It may not require approval of the renter or the lease, demand the renter's application, credit report or background check (with limited exceptions), charge extra because a lot is rented, or require its own lease form. It may require the owner and renter to sign a lease addendum. If an owner falls behind on assessments, the association may demand that the tenant pay rent to the association instead.",
+    notes: "UT: Utah Code Ann. §§ 57-8a-209 (Laws of Utah 2026, ch. 62), 57-8a-310. Condominium analogs Utah Code Ann. §§ 57-8-10.1, 57-8-53 not read in full. Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-foreclosure-tenants-ut",
+    title: "Tenants When the Property Is Foreclosed",
+    group: "Default & Termination",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "foreclosure",
+    bodyText:
+      "When a trust deed on residential rental property is foreclosed by trustee's sale, the trustee must post the notice of sale on each unit door (fewer than nine units) or in at least three conspicuous places on the property (nine or more units), or mail it to each occupant, with a notice to tenants in at least 14-point type explaining that federal law may let them stay until the lease ends or 90 days after a notice to vacate. A bona fide tenant under the federal Protecting Tenants at Foreclosure Act may be evicted only after that notice's effective date. A former owner who stays after the sale may be evicted on a notice to quit.",
+    notes: "UT: Utah Code Ann. §§ 57-1-25(1)(c), (3)(b), 78B-6-802(1)(i), 78B-6-802.5. PTFA (Pub. L. 111-22, § 702) cited, not read. Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  {
+    id: "edu-no-tenant-death-rule-ut",
+    title: "No Statute on a Tenant's Death",
+    group: "Default & Termination",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-death",
+    bodyText:
+      "Utah has no statute ending a lease when a tenant dies or setting a process for the tenant's belongings. The only tenant-death rule is in the abandoned-property procedure, which extends the time to reclaim property by up to 15 days when an immediate family member provides a death certificate or obituary.",
+    notes: "UT: CONFIRMED ABSENT: whole-code search on death near tenant/renter/lessee (38 hits in 31 sections): none a residential-lease termination or property rule. Utah Code Ann. § 78B-6-816(7)(c). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  // Parking & Storage
+  {
+    id: "edu-no-ev-charging-right-ut",
+    title: "No Tenant EV Charging Right",
+    group: "Parking & Storage",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "ev-charging",
+    bodyText:
+      "Utah has no statute giving tenants a right to install electric vehicle charging.",
+    notes: "UT: CONFIRMED ABSENT: whole-code search on electric vehicle or charging near tenant/renter/lease: 7 hits in 4 sections, none a tenant right. Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-no-cannabis-housing-protection-ut",
+    title: "Medical Cannabis and Rentals",
+    group: "Other / Miscellaneous",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "cannabis",
+    bodyText:
+      "Utah's medical cannabis law gives cardholders no protection against lease terms or landlord decisions in rental housing. A lease smoking or drug policy may restrict cannabis use on the property.",
+    notes: "UT: CONFIRMED ABSENT: whole-code searches 12, 12b and 12c (medical cannabis or cardholder near landlord/lessor/lease/rental/housing): 26B-4-201, -213, -214, -216, 58-37-402, 58-31b-502, 58-70a-503, 78A-2-231, none a housing protection. Utah Code Ann. § 57-22-5(1)(h). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-municipal-water-owner-liability-ut",
+    title: "City Water and Sewer Bills",
+    group: "Tenant Responsibilities",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "municipal-utility-lien",
+    bodyText:
+      "A Utah city may require the property owner to sign the application for water or sewer service and agree to pay for all service to the property, whether the owner or a tenant occupies it, and may shut off service if the owner does not pay. A lease can make the tenant responsible to the landlord, but the landlord may remain liable to the city.",
+    notes: "UT: Utah Code Ann. § 10-7-10.5 (read in context). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-rent-sales-tax-ut",
+    title: "No Sales Tax on Residential Rent",
+    group: "Rent & Payment",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-tax",
+    bodyText:
+      "Utah sales tax applies to short-term rentals of tourist home, hotel, motel or trailer-court accommodations for less than 30 consecutive days. A residential lease of 30 days or more is not a taxable short-term rental.",
+    notes: "UT: Utah Code Ann. §§ 59-12-102 (definition of 'short-term rental'), 59-12-103(1) (read in context). Short-term rentals are out of scope. Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  {
+    id: "edu-interest-on-unpaid-amounts-ut",
+    title: "Interest on Unpaid Amounts",
+    group: "Rent & Payment",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "unpaid-damages-interest",
+    bodyText:
+      "Under Utah law the parties to a contract may agree on any interest rate. If the lease states no rate, the legal rate of 10% a year applies to amounts owed under it.",
+    notes: "UT: Utah Code Ann. § 15-1-1 (Laws of Utah 2019, ch. 437). No interest clause offered: the 10% legal rate applies without lease text, and a higher agreed rate is a landlord choice outside the library's defaults (UT log s6). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-attorney-fees-ut",
+    title: "Attorney Fees in Utah Landlord-Tenant Cases",
+    group: "Default & Termination",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "attorney-fees",
+    bodyText:
+      "In a Utah eviction the court must award reasonable attorney fees and costs to the prevailing party. When a written contract lets one party recover attorney fees, a Utah court may award them to either party that prevails. Other statutes add fee awards: to the prevailing party in Fit Premises Act cases (discretionary), in deposit cases when the other side acted in bad faith, and in flag-display cases.",
+    notes: "UT: Utah Code Ann. §§ 78B-6-811(5)(a), 78B-5-826, 57-22-6(7), 57-17-5(2), 57-24-102(2). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  // Notices & General
+  {
+    id: "edu-electronic-notices-ut",
+    title: "Electronic Notices",
+    group: "Notices & General",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "notice-delivery-methods",
+    bodyText:
+      "Utah's eviction notices must be served by the statutory methods: in person; by registered or certified mail or an equivalent means; if the tenant is absent, by leaving a copy with a person of suitable age and discretion at the residence; or, if no such person is found, by posting. Email and text are not named, and whether either is an 'equivalent means' to registered or certified mail is unsettled, so the library does not rely on them. A deposit refund and itemized deductions may be sent electronically by a means the renter provided. Utah's electronic-transactions law does not exclude residential notices, so electronic delivery works where a statute or the parties allow it.",
+    notes: "UT: Utah Code Ann. §§ 78B-6-805 (Laws of Utah 2026, ch. 401), 57-17-3(2), 46-4-103. No electronic-notice clause offered (rule 45; UT log s6). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-just-cause-ut",
+    title: "No Just-Cause Eviction Rule",
+    group: "Default & Termination",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "for-cause-eviction",
+    bodyText:
+      "Utah does not require cause to end or refuse to renew a residential tenancy. A fixed term ends on its end date without notice, and a periodic tenancy may be ended with the statutory notice. Fair housing and public-safety-call protections still bar ending a tenancy for a prohibited reason.",
+    notes: "UT: CONFIRMED ABSENT: whole-code battery 2 search B2-2, '(just|good) cause' near evict/terminat/tenan/renew: 33 hits in 27 sections, none residential tenancy. Utah Code Ann. § 78B-6-802(1)(a)-(b). Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-landlord-tenant-scope-ut",
+    title: "What Utah Landlord-Tenant Law Covers",
+    group: "Other / Miscellaneous",
+    states: ["UT"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "scope",
+    bodyText:
+      "The Utah Fit Premises Act covers a renter's principal residence and does not cover boarding or rooming houses, mobile home lots or occasional recreational rentals. Mobile home park residents are governed by the Mobile Home Park Residency Act, and short-term rentals by local ordinances; neither is covered here. The deposit statute covers residential dwelling units. The eviction statute covers all tenants, with special rules for agricultural land and for former owners after a foreclosure sale.",
+    notes: "UT: Utah Code Ann. §§ 57-22-2(5), 57-17-1, 78B-6-802(3), 78B-6-803, 78B-6-802.5. Title 57 Chapter 16 (mobile homes) deprioritized, not read beyond its references. Read section-open 2026-09-29 in the built-in browser from the Legislature's official Utah Code XML on le.utah.gov ('Current Version' files, which print each section's history line; effective dates taken from each section's version id): Title 57 Chapters 17, 20, 21, 22, 24 and 27 and Title 78B Chapter 6 Parts 8 and 8a read whole; Chapter 78B-6a (Laws of Utah 2026, ch. 401) read in the parts cited; the whole Utah Code (96 titles, 28,551 section versions) and the Utah Constitution (23 articles) loaded for full-text search, control term 0 hits (UT log s1, s17).",
+  },
 ];
 
 module.exports = { LANDLORD_EDUCATION };

@@ -31,6 +31,7 @@ const STATE_NAMES = {
   VA: "Virginia",
   AL: "Alabama",
   PA: "Pennsylvania",
+  UT: "Utah",
 };
 
 const STATE_CONFIG = {
@@ -987,6 +988,50 @@ const STATE_CONFIG = {
       },
     ],
   },
+
+  UT: {
+    // Utah Code sections are title-chapter-section, and the title or chapter
+    // can carry a letter ("78B-6a-405", "26B-6-803", "57-8a-209", "57-22-5.1").
+    // Utah bills amend by the bare number ("Section 57-22-4"), so a quoted
+    // three-part number is the query, as for Alabama. Citations are split on
+    // ";" and only the "Utah Code Ann." parts are read (absence text and the
+    // U.S.C./CFR and court-rule parts are skipped). Subsection parentheses
+    // become spaces. Utah Admin. Code rules are not relied on (UT log §1.1).
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        if (!/^Utah Code Ann\./.test(part)) continue;
+        const body = part.replace(/\([^)]*\)/g, " ");
+        for (const m of body.matchAll(/\b(\d{1,2}[A-Z]?-\d{1,2}[a-z]?-\d{1,4}(?:\.\d{1,2})?)\b/g)) out.push(m[1]);
+      }
+      return out;
+    },
+    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    federalStatuteChecks: [
+      { section: "4852d", clauseIds: ["lead-based-paint"] },
+      { section: "3955", clauseIds: ["edu-servicemember-rights-ut"] },
+    ],
+    manualRecheckItems: [
+      {
+        id: "ut-2027-effective-dates",
+        label:
+          "Utah Code Ann. § 57-22-5.1 changes on 2027-01-01 (Laws of Utah 2026, ch. 445 removes the crime-victim exclusions used for new locks): confirm the row matches the new text once it takes effect (UT log §1.2)",
+        clauseIds: ["edu-crime-victim-locks-ut", "edu-dv-termination-ut"],
+      },
+      {
+        id: "ut-court-rules-forms",
+        label:
+          "Utah court rules and forms LegiScan can't see: Utah R. Civ. P. 26.3 (eviction disclosures and timing) and the Judicial Council eviction forms under Utah Code Ann. § 78B-6-812(6) (UT log §7)",
+        clauseIds: ["edu-eviction-process-ut"],
+      },
+      {
+        id: "ut-case-law",
+        label:
+          "Utah case law the rows flag but don't rely on: penalty doctrine for fees (notice-service, returned-payment, early termination), waiver by accepting rent, exculpatory clauses, utility shutoff as 'willful exclusion', enforceability of a § 57-22-3(4) duty allocation (UT log §7)",
+        clauseIds: ["notice-service-fee-ut", "late-fee", "tenant-repair-agreement-ut", "edu-self-help-eviction-ut"],
+      },
+    ],
+  },
 };
 
 // Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
@@ -998,7 +1043,7 @@ const STATE_CONFIG = {
 // that cronFor() returns; checkConfigIds.js fails if a workflow doesn't match.
 const SCHEDULE_ORDER = [
   "CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ",
-  "GA", "NC", "SC", "TN", "VA", "AL", "PA",
+  "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT",
 ];
 function cronFor(code) {
   const n = SCHEDULE_ORDER.indexOf(code);

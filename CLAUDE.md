@@ -5,7 +5,7 @@
 ## 🎯 Current focus
 
 - **Done 2026-09-29:** the state-research SOP (`lease-clause-sop.md`, 1.1), the generated topic reference (`lease-clause-topics.md`), `topic_key` normalization, and this CLAUDE.md split.
-- **Utah (state #22) kickoff staged 2026-09-29** in `~/Desktop/utah-kickoff/`: the first state run entirely under the SOP, chosen as a quick test of the new process. Research is with Taylor and Claude Desktop; when the handoff returns, sync it per SOP Part 5 and note anything the new process got wrong.
+- **Utah (state #22) synced 2026-09-30**, the first state run entirely under the SOP. All Part 5 steps done except a live legal-watch run (after Taylor pushes and the October 1 reset; see `docs/backlog.md`). What the process got wrong: rows resting on in-context reads shipped VERIFIED, and Desktop had no list of existing variable names; SOP 1.2 and the kickoff fix both (new variables stay allowed; Taylor, 2026-09-30).
 - **Next (Taylor: start 2026-09-30):** the targeted checks in the SOP's conformance table. Some I can do from the repo; the rest go to each state's Claude Desktop chat as short, scoped prompts.
 - **Legal watch moved to monthly (2026-09-29):** each state runs on its own day of the month and seeds itself on its first run, so the October 1–5 manual catch-up is no longer needed. GitHub's Actions emails are off (Taylor, 2026-09-29); failures now email the alert address. Watch the first October runs (CO on the 1st) to confirm the change marker works; see `docs/backlog.md`.
 - **Standing backlog** (no fixed order; ask Taylor what's next): `docs/backlog.md`.
@@ -15,7 +15,7 @@
 
 A SaaS web app for landlords to manage rental properties end to end, built from Taylor's real landlord experience. Working name **Steinoak** (placeholder). Owner: Taylor (Steinbaugh Estates LLC), solo; he drives product decisions but doesn't write code. Goal: use it personally, then sell it to other landlords. Logos in `logos/`; font Poppins.
 
-**State:** v1 MVP complete (tagged `v1.0.0`: Entities, Properties, Tenants + Leases, Finances, Maintenance, Clerk auth). Also built: Property Specs, Lease Builder (clause library, PDF generation), Rent Tracker, property archiving and soft delete, Dashboard, global search. The lease clause library is verified for 21 states (CO, WY, KS, NE, MN, ND, SD, OH, CA, NV, TX, NJ, FL, AZ, GA, NC, SC, TN, VA, AL, PA), each with a decision log, a citations file and a weekly legal-watch workflow.
+**State:** v1 MVP complete (tagged `v1.0.0`: Entities, Properties, Tenants + Leases, Finances, Maintenance, Clerk auth). Also built: Property Specs, Lease Builder (clause library, PDF generation), Rent Tracker, property archiving and soft delete, Dashboard, global search. The lease clause library is verified for 22 states (CO, WY, KS, NE, MN, ND, SD, OH, CA, NV, TX, NJ, FL, AZ, GA, NC, SC, TN, VA, AL, PA, UT), each with a decision log, a citations file and a monthly legal-watch workflow.
 
 ## Stack and commands
 

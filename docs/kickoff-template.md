@@ -26,6 +26,9 @@ Confirm these before starting. If they don't match, stop and tell Taylor.
 ## Leads (questions to research, not findings)
 {LEADS}
 
+## Fill-in variables (SOP rule 60)
+The builder already fills in these `{{variable}}` names: {VARIABLES}. Reuse one of them when it fits, rather than inventing a near-duplicate. You're free to create a new `{{variable}}` when a clause needs a value the landlord supplies. List each new one in the log's §10 so Claude Code can add it to the builder.
+
 ## Reminders
 - **Scope:** state law only. Flag municipal ordinances without resolving them (rule 3).
 - **Asking Taylor:** work it out yourself first. If you're unsure, ask Taylor in the chat right then, with a recommendation; never park a question in the log (rule 76). Never ask him for landlord experience outside Colorado, or to buy a lease (rules 2, 33).

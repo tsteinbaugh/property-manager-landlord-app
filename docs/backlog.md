@@ -9,12 +9,15 @@ All open work in one place, moved here on 2026-09-29: the standing product backl
 To confirm in October:
 1. After Colorado's run on the 1st, read the run log and the committed `state/CO.json`: the search results should carry `change_hash`, and each section's `pending` map should hold hashes, not dates. If they hold dates, LegiScan's search results lack the hash and the last-action date is being used instead; that still works, but say so.
 2. Check the month's query total on the LegiScan dashboard once the six new states have run; expect roughly 6,000–7,000 for October, because of their first runs.
+3. **Utah (added 2026-09-30):** `legal-watch-ut.yml` runs on the 22nd and seeds itself (87 sections, about 300–2,000 queries on top of the estimate above). It hasn't had a live run: after Taylor pushes, and after the October 1 reset, do one `workflow_dispatch` dry-run (UT log §8; config validated offline only), or let the 22nd's run be the first and read its log. Also watch for a fix to Utah's stale cross-reference: § 78B-6-802(1)(f) still points at repealed § 78B-6-1107 (the definition is now § 78B-6a-101(10)); § 78B-6-802 is watched, so a fix will surface as a finding.
 
 ## Standing backlog
 
 **Standing backlog, no active priority order right now — ask Taylor what's next:** Move-in/Move-out Inspections, Legal Tracker (Colorado-only first, per "Nationwide jurisdictional coverage plan" below), a maintenance-supplies inventory idea (memory `project_maintenance_supplies_inventory_idea`), the Addendum M product-backlog items surfaced by the legal research (see Known Issues) — most notably ND's `lease-notice-initial-requirement-nd` clause, which per Addendum M.1 "currently ships broken" without a lease-builder mechanism for an adjacent initialing field, plus the lease `formatting` field (Addendum M.12), and a county/local layer plus a units-owned attribute (property facts that pick the right Tennessee county variant and Virginia unit-count variant automatically; Taylor named Tennessee the pilot, TN log §13–14, and noted that in Colorado how many units a landlord owns also changes court procedure, so this is needed across states, VA log §14). Also open from Ohio's research: a real design gap in the legal-watch tripwire (Ohio moves landlord-tenant/fair-housing law through **budget/appropriations bills** across three separate general assemblies, which a watch filtering on bill title/subject/committee would miss — untested against the other seven states, not confirmed Ohio-specific).
 
 ## 🐛 Known issues / blockers
+
+- **From the Utah sync (2026-09-30), flagged, not fixed** (UT log §10, §14): (1) `agent-capacity-designation-wy` and the bracketed agent sentences in `landlord-disclosure-ut` rest on the same statutory text (W.S. 1-21-1201(a)(i); Utah Code Ann. § 57-22-2(1)); a state-neutral shared row could serve both, but only as a rule-62 shared edit checked against WY. (2) `nonrefundable-deposit-notice-wy` fits Utah as written, but its `lease_clause_basis` names only the Wyoming statute, so UT wrote its own row. A shared row's basis would have to name each state's statute; decide whether bases may be multi-state before the next state hits this. (3) Utah bars a fee above "the amount agreed" (§ 57-22-4(5)(b)(i)); `keys`, `parking-vehicle-rules` and `smoking-policy` charge "actual cost", and whether that counts as an agreed amount is unsettled case law (NV's `required-fees-nv` may raise the same question). (4) Builder ideas from Utah: a pre-application disclosure packet (§ 57-22-4(3)), a move-in condition form (§ 57-22-4(6)), Utah notice generation by tenancy type and ground (§ 78B-6-802) plus the declaration of abandonment (§ 78B-6-815(2)(a)) and dishonored-check notice (§ 7-15-2), and property attributes for Utah's size- and type-based rules (more than two units, single-family detached, owner-occupied four-or-fewer, HOA). (5) `extended-absence-notice-ks` is deliberately untagged in UT, AL and PA; a future generic-coverage check should list it as an allowed exception.
 
 > Things that are broken, stuck, or need a decision before moving forward.
 > Clear these out as they're resolved.
@@ -141,6 +144,8 @@ M.1, M.2 and M.4 are the same underlying gap: **the builder treats clauses as in
 
 **Related flag:** Colorado's source-of-income statement (C.R.S. § 38-12-801(2.5)) is required unless the landlord owns five or fewer single-family homes and five or fewer total units. Once the app stores units owned (the attribute Tennessee and Virginia also need), warn a non-exempt Colorado landlord whose lease leaves `source-of-income-statement-co` off.
 
+**Utah (2026-09-30):** Utah's late-fee cap is the greater of 10% of rent or $75 (Utah Code Ann. § 57-22-4(5)(a)), the first "greater of" cap in the library, so the validator needs that shape, not only a flat or percentage ceiling. Utah also bars charging any fee not stated in the lease with an amount (§ 57-22-4(5)(b)); a fees-in-lease check belongs in the same pass (UT log §14).
+
 **Urgency:** required before the lease feature goes live, and before the scrub's cap removals ship to real users.
 
 
@@ -237,7 +242,7 @@ M.1, M.2 and M.4 are the same underlying gap: **the builder treats clauses as in
 | `{{holdover_daily_rate}}` | AL, GA, NC, OH, PA, SC, TN, VA |  |
 | `{{judgment_interest_rate}}` | CA |  |
 | `{{late_fee_daily_amount}}` | TX |  |
-| `{{m2m_notice_days}}` | PA |  |
+| `{{m2m_notice_days}}` | PA, UT |  |
 | `{{maintenance_consideration}}` | AZ |  |
 | `{{meter_conservation_charge_details}}` | SC |  |
 | `{{nonrefundable_deposit_amount}}` | WY |  |
