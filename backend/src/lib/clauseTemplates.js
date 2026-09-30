@@ -296,7 +296,7 @@ const CLAUSE_TEMPLATES = [
     states: ["TX"],
     supersedes: "late-fee",
     bodyText:
-      "If any portion of the Rent for a rental period remains unpaid {{late_fee_grace_days}} days [not fewer than two full days] after the date it was originally due, Tenant will pay a late fee consisting of an initial fee of {{late_fee_amount}}[, plus a daily fee of {{late_fee_daily_amount}} for each additional day any portion of that Rent remains unpaid]. Landlord and Tenant agree the late fee is a reasonable estimate of uncertain damages to Landlord related to the late payment of rent. Acceptance of a late payment does not waive Landlord's right to require full payment of Rent on the date it is due or to pursue any other remedy available under this Lease.",
+      "If any portion of the Rent for a rental period remains unpaid {{late_fee_grace_days}} days after the date it was originally due, Tenant will pay a late fee consisting of an initial fee of {{late_fee_amount}}[, plus a daily fee of {{late_fee_daily_amount}} for each additional day any portion of that Rent remains unpaid]. Landlord and Tenant agree the late fee is a reasonable estimate of uncertain damages to Landlord related to the late payment of rent. Acceptance of a late payment does not waive Landlord's right to require full payment of Rent on the date it is due or to pursue any other remedy available under this Lease.",
   },
   {
     id: "late-fee-safe-harbor-ca",
@@ -2044,7 +2044,7 @@ const CLAUSE_TEMPLATES = [
     states: ["NV"],
     supersedes: "late-fee",
     bodyText:
-      "If Tenant fails to pay Monthly Rent in full within {{late_fee_grace_days}} days [not fewer than 3 calendar days] after it is due, a late fee of {{late_fee_amount}} [not more than 5% of the Monthly Rent] will be assessed. Acceptance of a late payment does not waive Landlord's right to require full payment of Rent on the date it is due or to pursue any other remedy available under this Lease.",
+      "If Tenant fails to pay Monthly Rent in full within {{late_fee_grace_days}} days after it is due, a late fee of {{late_fee_amount}} will be assessed. Acceptance of a late payment does not waive Landlord's right to require full payment of Rent on the date it is due or to pursue any other remedy available under this Lease.",
   },
   // Security Deposit
   {
