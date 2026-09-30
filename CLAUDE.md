@@ -23,7 +23,7 @@ React + Vite + Tailwind v4 + React Router (`frontend/`); Node + Express + Prisma
 - Backend tests: `cd backend && npm test` (Vitest against the real `property_hq_test` Postgres database, never SQLite). 446 tests at last count.
 - Frontend build: `cd frontend && npm run build`.
 - Schema change: `npx prisma migrate dev`, then `npx prisma generate` (not automatic here), then apply to the test DB with `DATABASE_URL=<test db url> npx prisma migrate deploy`. Rename an enum value with a hand-written `ALTER TYPE ... RENAME VALUE` migration. [Aug 2026]
-- Clause library: `python3 scripts/clause-library/generate.py lease-clauses.csv backend/src/lib backend/src/lib` rebuilds `clauseTemplates.js`, `clauseResearchMetadata.js` and `landlordEducation.js`; `python3 scripts/clause-library/build-topic-reference.py` rebuilds `lease-clause-topics.md`. Never hand-edit those four files.
+- Clause library: `python3 scripts/clause-library/generate.py lease-clauses.csv backend/src/lib backend/src/lib` rebuilds `clauseTemplates.js`, `clauseResearchMetadata.js` and `landlordEducation.js`; `python3 scripts/clause-library/build-topic-reference.py` rebuilds `lease-clause-topics.md`. Never hand-edit those four files. New state: `python3 scripts/clause-library/stage-kickoff.py <ST> "<State Name>"` stages `~/Desktop/<state>-kickoff/` from `docs/kickoff-template.md`; fill in the citation format and leads by hand before handing it to Taylor.
 - Tailwind v4 preflight strips heading sizes and paragraph margins; compensate explicitly, safelist dynamic classes, and flag before ejecting Tailwind.
 
 ## Rules still in force
