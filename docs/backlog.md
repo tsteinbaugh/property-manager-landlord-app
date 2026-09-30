@@ -10,6 +10,7 @@ To confirm in October:
 1. After Colorado's run on the 1st, read the run log and the committed `state/CO.json`: the search results should carry `change_hash`, and each section's `pending` map should hold hashes, not dates. If they hold dates, LegiScan's search results lack the hash and the last-action date is being used instead; that still works, but say so.
 2. Check the month's query total on the LegiScan dashboard once the six new states have run; expect roughly 6,000–7,000 for October, because of their first runs.
 3. **Utah (added 2026-09-30):** `legal-watch-ut.yml` runs on the 22nd and seeds itself (87 sections, about 300–2,000 queries on top of the estimate above). It hasn't had a live run: after Taylor pushes, and after the October 1 reset, do one `workflow_dispatch` dry-run (UT log §8; config validated offline only), or let the 22nd's run be the first and read its log. Also watch for a fix to Utah's stale cross-reference: § 78B-6-802(1)(f) still points at repealed § 78B-6-1107 (the definition is now § 78B-6a-101(10)); § 78B-6-802 is watched, so a fix will surface as a finding.
+4. **Illinois (state #23, kickoff staged 2026-09-30):** its slot is day 23. October already carries six first runs plus Utah's, so don't let Illinois's first run land on October 23. At sync, commit the workflow with its schedule commented out and re-enable it after October 23, so the first run is November 23.
 
 ## Standing backlog
 
