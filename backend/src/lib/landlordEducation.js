@@ -32,6 +32,8 @@
 // wholesale from the CSV (2026-09-18 refresh, Ohio added: 309 -> 324
 // entries across the now-8-state pass).
 //
+// **2026-09-29 (three-bucket scrub, NV/TX/NJ):** 1038 -> 1053 entries.
+//
 // **2026-09-29 (three-bucket scrub, CA):** 1021 -> 1038 entries.
 //
 // **2026-09-29 (three-bucket scrub, MN/ND/SD/OH):** 999 -> 1021 entries.
@@ -5197,8 +5199,8 @@ const LANDLORD_EDUCATION = [
     verificationStatus: "VERIFIED",
     topicKey: "dv-lease-termination",
     bodyText:
-      "For a domestic-violence termination the tenant may use a protection order, a police report, or an affidavit in the statutory form signed by a qualified third party: a state-licensed physician, board-certified psychiatrist, psychologist, social worker, psychiatric-nursing RN with a master's degree, or licensed marriage and family therapist or clinical professional counselor; a trained, state-resident staff member, director or board member of a domestic-violence agency; or state-resident clergy of a tax-exempt religious organization. For harassment, sexual assault or stalking only a police report or a temporary or extended protective order qualifies. You may not tell a prospective landlord the tenant broke the lease early, and the tenant need not disclose it either. The person named as the adverse party can be sued for your economic losses from the early termination.",
-    notes: "NV: Section-open read of revisor text (leg.state.nv.us, Rev. 4/15/2026). NRS 118A.345(2)-(3), (6), (11)-(12)(f), 118A.347. Incorporated definitions (NRS 33.018, 200.366, 200.571, 200.575) not read.",
+      "If a tenant, co-tenant or household member (someone related by blood or marriage and living with the tenant) is the victim of domestic violence, harassment, sexual assault or stalking, the tenant or any co-tenant may end the lease by written notice, effective at the end of the current rental period or 30 days after notice, whichever is sooner, describing the reason and attaching the required documentation, if the events happened within the 90 days before the notice (NRS 118A.345). The terminating tenant owes only rent through termination and other outstanding obligations; you may keep prepaid rent for the final period (refunding any excess), and you may not withhold the deposit because of the early termination. Don't give the adverse party any information about the tenant's whereabouts. After notice, the tenant may require a new lock at their cost (you may rekey a working lock or replace the mechanism with one of equal or better quality); don't give the adverse party a key, or access to reclaim property unless a law enforcement officer is present. For a domestic-violence termination the tenant may use a protection order, a police report, or an affidavit in the statutory form signed by a qualified third party: a state-licensed physician, board-certified psychiatrist, psychologist, social worker, psychiatric-nursing RN with a master's degree, or licensed marriage and family therapist or clinical professional counselor; a trained, state-resident staff member, director or board member of a domestic-violence agency; or state-resident clergy of a tax-exempt religious organization. For harassment, sexual assault or stalking only a police report or a temporary or extended protective order qualifies. You may not tell a prospective landlord the tenant broke the lease early, and the tenant need not disclose it either. The person named as the adverse party can be sued for your economic losses from the early termination.",
+    notes: "NV: Section-open read of revisor text (leg.state.nv.us, Rev. 4/15/2026). NRS 118A.345(2)-(3), (6), (11)-(12)(f), 118A.347. Incorporated definitions (NRS 33.018, 200.366, 200.571, 200.575) not read. | NV: Content from dv-lease-termination-nv (switched off) added by the three-bucket scrub (2026-09-29); unchanged: NRS 118A.345; NRS 118A.347.",
   },
   // Compliance & Prohibited Terms
   {
@@ -6112,8 +6114,8 @@ const LANDLORD_EDUCATION = [
     verificationStatus: "VERIFIED",
     topicKey: "eviction",
     bodyText:
-      "In most New Jersey residential rentals a landlord can remove a tenant, or refuse to renew a lease, only for one of the good causes listed in N.J.S.A. 2A:18-61.1, proven in court. The causes include nonpayment of rent, disorderly conduct or rule violations after a written notice to cease, willful damage, habitual late payment, refusal of reasonable lease changes at renewal, certain criminal convictions, and owner occupancy in buildings of three or fewer units. Most causes need an advance written notice of a set length: three days, one month, two or three months, or longer. The Act does not cover owner-occupied buildings with no more than two rental units or transient and seasonal rentals. A lease term that waives these protections is unenforceable.",
-    notes: "NJ: Primary text read section-open 2026-09-26 from the official N.J.S.A. text supplied by Taylor (lis.njleg.state.nj.us), with per-section chapter-law history lines. N.J.S.A. 2A:18-61.1 (last amended 2013, c.51, s.7) grounds a.-r.; exemptions (1)-(3); 2A:18-61.2 notice periods: 3 days (b, c, m-r), one month (d, e, habitual nonpayment, i), 3 months (g), 18 months (h), 2 months (l), 3 years (k), service by personal delivery, abode (14+) or certified mail then regular; nonpayment (a, f) needs no notice; 2A:18-61.3 no eviction or non-renewal without good cause, and successor owners bound; 2A:18-61.4 waiver unenforceable; 2A:18-61.6(d) treble damages for eviction notices using a cause not provided by law; rules must be reasonable and accepted in writing or in the lease at the start of the term (61.1(d)); covenants must be reasonable and in the lease at the start of the term with a reserved right of reentry (61.1(e)(1)). Rent increases must not be unconscionable (61.1(f)); unconscionability standard is case law (not read). Case law generally not read this pass.",
+      "In most New Jersey residential rentals a landlord can remove a tenant, or refuse to renew a lease, only for one of the good causes listed in N.J.S.A. 2A:18-61.1, proven in court. The causes include nonpayment of rent, disorderly conduct or rule violations after a written notice to cease, willful damage, habitual late payment, refusal of reasonable lease changes at renewal, certain criminal convictions, and owner occupancy in buildings of three or fewer units. Most causes need an advance written notice of a set length: three days, one month, two or three months, or longer. The Act does not cover owner-occupied buildings with no more than two rental units or transient and seasonal rentals. A lease term that waives these protections is unenforceable. Where the Act applies, the end of the lease term does not by itself end the tenant's right to stay; a holdover tenant can be removed only for good cause under the Act.",
+    notes: "NJ: Primary text read section-open 2026-09-26 from the official N.J.S.A. text supplied by Taylor (lis.njleg.state.nj.us), with per-section chapter-law history lines. N.J.S.A. 2A:18-61.1 (last amended 2013, c.51, s.7) grounds a.-r.; exemptions (1)-(3); 2A:18-61.2 notice periods: 3 days (b, c, m-r), one month (d, e, habitual nonpayment, i), 3 months (g), 18 months (h), 2 months (l), 3 years (k), service by personal delivery, abode (14+) or certified mail then regular; nonpayment (a, f) needs no notice; 2A:18-61.3 no eviction or non-renewal without good cause, and successor owners bound; 2A:18-61.4 waiver unenforceable; 2A:18-61.6(d) treble damages for eviction notices using a cause not provided by law; rules must be reasonable and accepted in writing or in the lease at the start of the term (61.1(d)); covenants must be reasonable and in the lease at the start of the term with a reserved right of reentry (61.1(e)(1)). Rent increases must not be unconscionable (61.1(f)); unconscionability standard is case law (not read). Case law generally not read this pass. | NJ: Holdover sentence added by the three-bucket scrub (2026-09-29) from holdover-nj; content unchanged: N.J.S.A. 2A:18-61.1 et seq.",
   },
   {
     id: "edu-self-help-eviction-ban-nj",
@@ -13267,6 +13269,199 @@ const LANDLORD_EDUCATION = [
     bodyText:
       "Before a lease is signed, California requires written disclosure of any former federal or state ordnance location within one mile that you actually know of (Civ. Code 1940.7); if you have applied for a permit to demolish the unit, the earliest approximate demolition date and when you expect to end the tenancy; and if gas or electric service through the tenant's meter also serves areas outside the unit, that fact, with a separate written agreement for paying for it. The lease's optional clause records these disclosures.",
     notes: "CA: Created by the three-bucket scrub (2026-09-29) from ordnance-demolition-meter-disclosures-ca; content unchanged: Civ. Code §1940.7.",
+  },
+  // Default & Termination
+  {
+    id: "edu-possession-delay-nv",
+    title: "If You Can't Deliver Possession on Time",
+    group: "Default & Termination",
+    states: ["NV"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "possession-delay",
+    bodyText:
+      "If you fail to deliver possession as the lease requires, rent abates until you do, and the tenant may end the lease on at least 5 days' written notice (you return all prepaid rent, the recoverable deposit and any payment made to secure the lease), demand performance and sue for possession against you or anyone wrongfully in possession and recover actual damages, or pursue any other remedy (NRS 118A.370). You aren't liable for damages if you used due diligence to evict a holdover tenant or fix the condition keeping the tenant out.",
+    notes: "NV: Moved from possession-delay-nv by the three-bucket scrub (2026-09-29); content and citations unchanged: NRS 118A.370; NRS 118A.280; NRS 118A.220(1)(a).",
+  },
+  {
+    id: "edu-infirmity-death-termination-nv",
+    title: "Older or Disabled Tenants: Relocation and Death of a Co-Tenant",
+    group: "Default & Termination",
+    states: ["NV"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-infirmity",
+    bodyText:
+      "A tenant who is 60 or older or has a physical or mental disability may end the lease on 30 days' written notice, given within 60 days after relocating, if their condition requires a move for care or treatment that can't be provided in the dwelling; a co-tenant may do the same if also 60 or older or disabled, or if they became a tenant on or after the date the relocating tenant signed (NRS 118A.340). Such a tenant may also end the lease on 60 days' written notice, within three months after the death of their spouse or co-tenant. The notice must set out the facts and, for a relocation, include reasonable verification of the condition and the need to move. A tenant's death does not by itself give you a right to end the lease.",
+    notes: "NV: Moved from infirmity-death-termination-nv by the three-bucket scrub (2026-09-29); content and citations unchanged: NRS 118A.340.",
+  },
+  // Disclosures
+  {
+    id: "edu-property-tax-rent-disclosure-nv",
+    title: "Annual Property Tax Statement to Tenants",
+    group: "Disclosures",
+    states: ["NV"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "property-tax-rent-disclosure",
+    bodyText:
+      "Each July, and whenever the rent changes, give the tenant a written statement showing, for each periodic rent payment, the amount that represents property taxes you paid and the remainder. If you pay taxes on several properties together, apportion the tax among the rented properties by area and reduce it to the rent period (NRS 118.165).",
+    notes: "NV: Moved from property-tax-rent-disclosure-nv by the three-bucket scrub (2026-09-29); content and citations unchanged: NRS 118.165.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-late-fee-rules-nv",
+    title: "Nevada Late Fee Rules",
+    group: "Rent & Payment",
+    states: ["NV"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "late-fee",
+    bodyText:
+      "A Nevada late fee must be stated in the lease, can't be charged until rent is at least 3 calendar days late, and can't exceed 5% of the periodic rent; the maximum can't be increased because of a late fee charged earlier (NRS 118A.210(4)). Use these limits as a guardrail when you enter the fee.",
+    notes: "NV: Created by the three-bucket scrub (2026-09-29) from late-fee-nv; content unchanged: NRS 118A.210(4); NRS 118A.150; NRS 118A.355(1)(d); NRS 118A.380(1)(c).",
+  },
+  {
+    id: "edu-rent-increase-notice-nv",
+    title: "Notice Before Raising Rent",
+    group: "Rent & Payment",
+    states: ["NV"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-increase-notice",
+    bodyText:
+      "You may not raise rent without serving the tenant written notice at least 60 days before the first increased payment, or at least 30 days before for a periodic tenancy of less than a month (NRS 118A.300).",
+    notes: "NV: Created by the three-bucket scrub (2026-09-29) from rent-increase-notice-nv; content unchanged: NRS 118A.300; NRS 118A.510(3)(d).",
+  },
+  // Default & Termination
+  {
+    id: "edu-casualty-termination-nv",
+    title: "Fire or Casualty: The Tenant's Options",
+    group: "Default & Termination",
+    states: ["NV"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "casualty-termination",
+    bodyText:
+      "If fire or casualty substantially impairs the tenant's enjoyment of the property, the tenant may move out immediately and tell you within 7 days that they are ending the lease, which then ends on the date they moved out; or, if continued occupancy is lawful, vacate the unusable part and pay rent reduced in proportion to the drop in fair rental value or lack of use (NRS 118A.400). If the lease ends, return all prepaid rent and the recoverable deposit, accounting for rent as of the date they moved out. None of this applies if the tenant, a household member or someone there with the tenant's consent caused the fire or casualty deliberately or negligently.",
+    notes: "NV: Created by the three-bucket scrub (2026-09-29) from casualty-termination-nv; content unchanged: NRS 118A.400.",
+  },
+  // Disclosures
+  {
+    id: "edu-foreclosure-disclosure-nv",
+    title: "Disclose Foreclosure Proceedings Before Signing",
+    group: "Disclosures",
+    states: ["NV"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "foreclosure-disclosure",
+    bodyText:
+      "Before a tenant enters into a lease, disclose in writing whether the property is the subject of any foreclosure proceedings (NRS 118A.275). The lease's optional clause records the disclosure.",
+    notes: "NV: Created by the three-bucket scrub (2026-09-29) from foreclosure-disclosure-nv; content unchanged: NRS 118A.275; NRS 40.255.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-returned-payment-fee-tx",
+    title: "Returned Payment Fee Limit",
+    group: "Rent & Payment",
+    states: ["TX"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nsf-fee-limit",
+    bodyText:
+      "Texas caps the processing fee for a dishonored payment at $30 (Tex. Bus. & Com. Code 3.506). Use it as a guardrail when you enter the fee.",
+    notes: "TX: Created by the three-bucket scrub (2026-09-29) from nsf-fee-limit-tx; content unchanged: Tex. Bus. & Com. Code §3.506.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-emergency-phone-tx",
+    title: "Provide an Emergency Repair Phone Number",
+    group: "Landlord Responsibilities",
+    states: ["TX"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "emergency-contact",
+    bodyText:
+      "You must give tenants a 24-hour telephone number for reporting emergencies that materially affect a tenant's physical health or safety; if you have an on-site management or superintendent's office, post the number prominently outside it (Tex. Prop. Code 92.020). The lease's optional clause is a convenient place to give it.",
+    notes: "TX: Created by the three-bucket scrub (2026-09-29) from emergency-phone-tx; content unchanged: Tex. Prop. Code §92.020.",
+  },
+  // Security Deposit
+  {
+    id: "edu-security-deposit-rules-nj",
+    title: "Security Deposit Rules",
+    group: "Security Deposit",
+    states: ["NJ"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-interest",
+    bodyText:
+      "New Jersey's Rent Security Deposit Act controls deposits, and a tenant can't waive it (N.J.S.A. 46:8-19 et seq.). Amount: no more than one and a half months' rent, and any added security in a year may not exceed 10% of the current deposit. Holding: keep it in trust, unmixed with your own money, in a New Jersey interest-bearing account or fund of the required kind. Notice: within 30 days of receiving it, tell the tenant in writing the institution's name and address, the type of account, the current rate and the amount; give the same notice within 30 days after moving it, after any transfer of ownership or control, and with each annual interest payment. Interest belongs to the tenant: pay it in cash each year, or credit it toward rent on the renewal or anniversary date, or on January 31 if you've told the tenant in writing. If you fail to hold it, give a notice or pay interest, the tenant may give written notice to apply the deposit plus 7% interest to rent, after which you can't demand another deposit (for a missed annual payment or notice alone, the tenant must first give notice and allow 30 days). Use: make no deduction while the tenant is in possession. Return: within 30 days after the lease ends, return the deposit plus interest, less lawful charges, by personal delivery or registered or certified mail, with an itemized statement of the interest and each deduction; a shorter timetable applies if the tenant is displaced by fire, flood, condemnation or evacuation (46:8-21.1) or ends the lease as a domestic violence victim (46:8-9.6).",
+    notes: "NJ: Moved from security-deposit-interest-nj by the three-bucket scrub (2026-09-29); content and citations unchanged: N.J.S.A. 46:8-19, 46:8-26. | NJ: Amount, use and return rules added by the three-bucket scrub (2026-09-29) from security-deposit-return-nj; content unchanged: N.J.S.A. 46:8-21.1, 46:8-21.2, 46:8-24.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-late-fee-rules-nj",
+    title: "Senior and Benefit-Recipient Grace Period",
+    group: "Rent & Payment",
+    states: ["NJ"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "late-fee",
+    bodyText:
+      "If rent is due on the first of the month and a tenant is a senior citizen receiving Social Security Old Age benefits, Railroad Retirement or another government pension in lieu of Social Security, or receives Social Security Disability, Supplemental Security Income or Work First New Jersey benefits, you may not charge a late fee until after a five-business-day grace period (excluding weekends and state or federal holidays) (N.J.S.A. 2A:42-6.1). Use it as a guardrail when you set the grace period.",
+    notes: "NJ: Created by the three-bucket scrub (2026-09-29) from late-fee-nj; content unchanged: N.J.S.A. 2A:42-6.1, 2A:42-6.2, 2A:42-6.3, 2A:42-10.16a.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-payment-rules-nj",
+    title: "Rent Payment Rules",
+    group: "Tenant Responsibilities",
+    states: ["NJ"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "acceptable-payment-methods",
+    bodyText:
+      "You may not require a tenant to pay by electronic funds transfer, including automatic recurring transfers, so accept at least one other method (N.J.S.A. 46:8-49.1 et seq.). For each cash payment, give a printed or emailed receipt stating the amount, purpose, date received, the printed names of landlord and tenant, and who accepted it. If a warrant for removal has been posted or a lockout executed for nonpayment, accept payment of all rent due within the next three business days by cash, certified check or money order, or from a government rental assistance program or bona fide charity, and give a dated receipt (2A:42-10.16a).",
+    notes: "NJ: Created by the three-bucket scrub (2026-09-29) from acceptable-payment-methods-nj; content unchanged: N.J.S.A. 46:8-49.1, 46:8-49.2, 46:8-49.3, 2A:42-10.16a.",
+  },
+  // Default & Termination
+  {
+    id: "edu-property-left-behind-nj",
+    title: "Property a Tenant Leaves Behind",
+    group: "Default & Termination",
+    states: ["NJ"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "surrender-end-of-term",
+    bodyText:
+      "If a tenant leaves belongings after a warrant for removal is executed or after giving written notice of voluntarily giving up possession, you may deal with them only as N.J.S.A. 2A:18-72 through 2A:18-84 allow: send the tenant written notice first, store the property with reasonable care, and don't sell or dispose of it until at least 30 days after the notice is delivered (75 days for a manufactured or mobile home). The tenant may reclaim it in that time without paying unpaid rent, but must reimburse your reasonable storage and removal costs.",
+    notes: "NJ: Created by the three-bucket scrub (2026-09-29) from surrender-end-of-term-nj; content unchanged: N.J.S.A. 2A:18-61.3, 2A:18-72, 2A:18-73, 2A:18-74, 2A:18-75, 2A:18-76, 2A:18-77, 2A:18-78, 2A:18-79, 2A:18-80, 2A:18-81, 2A:18-82, 2A:18-83, 2A:18-84.",
+  },
+  // Disclosures
+  {
+    id: "edu-private-well-testing-nj",
+    title: "Private Well Testing",
+    group: "Disclosures",
+    states: ["NJ"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "private-well-testing",
+    bodyText:
+      "If the property's drinking water comes from a private well, give each tenant a written copy of the most recent test results, have the water tested at least once every five years as the Private Well Testing Act requires, and give tenants a written copy of each new result within 30 days of receiving it (N.J.S.A. 58:12A-32).",
+    notes: "NJ: Created by the three-bucket scrub (2026-09-29) from private-well-test-results-nj; content unchanged: N.J.S.A. 58:12A-32; N.J.S.A. 58:12A-26.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-casualty-nj",
+    title: "Fire and Other Casualty",
+    group: "Landlord Responsibilities",
+    states: ["NJ"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "casualty",
+    bodyText:
+      "In New Jersey, if the property is damaged by fire without the tenant's fault, rent stops until it's fully repaired, and you should repair it as quickly as possible; if the building is totally destroyed without the tenant's fault, rent is owed only to the date of destruction and the lease ends (N.J.S.A. 46:8-6, 46:8-7).",
+    notes: "NJ: Moved from casualty-nj by the three-bucket scrub (2026-09-29); content and citations unchanged: N.J.S.A. 46:8-6; N.J.S.A. 46:8-7; N.J.S.A. 46:8-48.",
   },
 ];
 

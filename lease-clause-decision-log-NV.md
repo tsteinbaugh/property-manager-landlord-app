@@ -914,3 +914,12 @@ Uniform under §5a.1: each edit is self-limiting, so this state needs no overrid
 Not a re-audit; nothing else in this state was reviewed.
 
 **Propagation note (from the Pennsylvania pass, 2026-09-29): `severability` rewritten.** Old: 'If any provision of this Agreement shall be held or made invalid by a court decision, statute or rule, or shall be otherwise rendered invalid, the remainder of this Agreement shall not be affected thereby.' New: 'If a court decision, statute or rule makes any part of this Lease invalid or unenforceable, the rest of this Lease still applies.' §5a.1 judgment: UNIFORM. Generic mechanics with the same legal effect; plain-language wording prompted by Pennsylvania's Plain Language Consumer Contract Act, and lawful in this state; 'this Agreement' aligned with the library's 'this Lease'. No state-specific review owed. `last_checked` reset to 2026-09-29 (PA log §3.1, §9).
+
+## Three-bucket scrub, 2026-09-29 (checklist instruction 66)
+
+Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Full verdict list: `lease-clause-scrub-verdicts.md`. Clauses moved to education are switched off, not deleted; their content is unchanged in the education rows, and checklist mentions of them now point to those rows. Statutory limits that stay useful when filling in a clause are now bracket prompts for the landlord, not lease text.
+
+- **Moved to education:** `possession-delay-nv` → `edu-possession-delay-nv`; `infirmity-death-termination-nv` → `edu-infirmity-death-termination-nv`; `property-tax-rent-disclosure-nv` → `edu-property-tax-rent-disclosure-nv`; `dv-lease-termination-nv` → opening of `edu-dv-termination-documentation-nv`.
+- **Trimmed:** `late-fee-nv` (fee and grace period kept; rules → `edu-late-fee-rules-nv`), `security-deposit-cap-nv` (now only the surety-bond option), `security-deposit-return-nv` (nonrefundable cleaning charge and forwarding-address request), `rent-increase-notice-nv` (no mid-term increase; notice rule → `edu-rent-increase-notice-nv`), `casualty-termination-nv` (landlord's termination right; tenant options → `edu-casualty-termination-nv`). Deposit rules were already in `edu-security-deposit-rules-nv`.
+- **Optional (pattern 3):** `foreclosure-disclosure-nv`, with `edu-foreclosure-disclosure-nv`.
+- **§5a.1:** only NV-only rows changed; no propagation owed.

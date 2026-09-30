@@ -19,6 +19,9 @@
 // the architecture-review log's Addendum L §L.3: "a log entry is not a
 // library change" -- the CSV is the fact).
 //
+// **2026-09-29 three-bucket scrub, NV/TX/NJ:** 456 -> 450 shipped
+// LEASE_CLAUSE rows; several more trimmed.
+//
 // **2026-09-29 three-bucket scrub, California:** 473 -> 456 shipped
 // LEASE_CLAUSE rows (18 switched off, one new security-deposit-use-ca).
 //
@@ -293,7 +296,7 @@ const CLAUSE_TEMPLATES = [
     states: ["TX"],
     supersedes: "late-fee",
     bodyText:
-      "If any portion of the Rent for a rental period remains unpaid after the later of (a) two full days after the date the Rent was originally due or (b) {{late_fee_grace_days}} days after that date, Tenant will pay a late fee consisting of an initial fee of {{late_fee_amount}}[, plus a daily fee of {{late_fee_daily_amount}} for each additional day any portion of that Rent remains unpaid]. The initial fee and any daily fees for a rental period are a single late fee and together will not exceed 12 percent of the Rent for that rental period if the dwelling is located in a structure that contains not more than four dwelling units, or 10 percent of the Rent for that rental period if the structure contains more than four dwelling units. Landlord and Tenant agree the late fee is a reasonable estimate of uncertain damages to Landlord related to the late payment of rent. On Tenant's request, Landlord will provide a written statement of whether Tenant owes a late fee and, if so, its amount. Acceptance of a late payment does not waive Landlord's right to require full payment of Rent on the date it is due or to pursue any other remedy available under this Lease.",
+      "If any portion of the Rent for a rental period remains unpaid {{late_fee_grace_days}} days [not fewer than two full days] after the date it was originally due, Tenant will pay a late fee consisting of an initial fee of {{late_fee_amount}}[, plus a daily fee of {{late_fee_daily_amount}} for each additional day any portion of that Rent remains unpaid]. Landlord and Tenant agree the late fee is a reasonable estimate of uncertain damages to Landlord related to the late payment of rent. Acceptance of a late payment does not waive Landlord's right to require full payment of Rent on the date it is due or to pursue any other remedy available under this Lease.",
   },
   {
     id: "late-fee-safe-harbor-ca",
@@ -329,7 +332,7 @@ const CLAUSE_TEMPLATES = [
     states: ["TX"],
     supersedes: "returned-payments",
     bodyText:
-      "If any payment of Rent or other amount due under this Lease is dishonored and returned unpaid, Tenant will pay Landlord a processing fee of {{nsf_fee}}, which will not exceed $30 for each dishonored payment. Landlord may require that the payment be replaced by a cashier's check, certified check, or money order. If more than two of Tenant's payments during the Term are returned unpaid, Landlord may require all future payments of Rent to be made by cashier's check, certified check, or money order.",
+      "If any payment of Rent or other amount due under this Lease is dishonored and returned unpaid, Tenant will pay Landlord a processing fee of {{nsf_fee}}. Landlord may require that the payment be replaced by a cashier's check, certified check, or money order. If more than two of Tenant's payments during the Term are returned unpaid, Landlord may require all future payments of Rent to be made by cashier's check, certified check, or money order.",
   },
   // Security Deposit
   {
@@ -355,14 +358,6 @@ const CLAUSE_TEMPLATES = [
     states: ["GA"],
     bodyText:
       "The total of all refundable deposits Landlord demands or receives under this Lease, including the Security Deposit and any damage deposit, pet deposit or advance rent deposit, will not exceed two months' Monthly Rent. Nonrefundable fees, and money that is to be applied toward the payment of Rent or to reimburse services or utilities provided to Tenant, are not deposits for this purpose. However, any amount Tenant pays in advance toward Rent for the last month of the Term is an advance rent deposit: it counts toward this limit and is held, applied and returned as part of the Security Deposit, unless this Lease states that the amount is Rent for a specific calendar month.",
-  },
-  {
-    id: "security-deposit-interest-nj",
-    title: "Security Deposit: Holding, Notice and Interest",
-    group: "Security Deposit",
-    states: ["NJ"],
-    bodyText:
-      "Landlord will hold the Security Deposit in trust for Tenant and will not mingle it with Landlord's own property. Landlord will deposit or invest it in an interest-bearing account or fund of the kind New Jersey law requires, located in New Jersey. Within 30 days after receiving the Security Deposit, Landlord will notify Tenant in writing of the name and address of the institution or fund holding it, the type of account, the current interest rate, and the amount deposited. Landlord will give the same notice within 30 days after moving the deposit to another institution, fund or account, within 30 days after any transfer of ownership or control of the property, and with each annual interest payment. The interest earned belongs to Tenant and will be paid to Tenant in cash each year, or credited toward Rent due on the renewal or anniversary of this Lease or, if Landlord has given Tenant written notice, on January 31 of each year. If Landlord fails to hold the deposit, give a required notice, or pay interest as described here, Tenant may give Landlord written notice to apply the Security Deposit, plus interest at 7 percent per year, toward Rent due, after which Landlord may not demand a further security deposit; for a missed annual payment or annual notice alone, Tenant must first give written notice and allow Landlord 30 days to comply.",
   },
   // Tenant Responsibilities
   {
@@ -844,7 +839,7 @@ const CLAUSE_TEMPLATES = [
     group: "Disclosures",
     states: ["TX"],
     bodyText:
-      "[Include only if the property is an apartment house (five or more interconnected dwelling units rented monthly or longer), a condominium, or a manufactured home rental community, and Landlord bills Tenant for water or wastewater service that is submetered or allocated from a master meter. At the time this Lease is discussed, Landlord must give Tenant a copy of the Public Utility Commission's submetering and allocation rules (16 Tex. Admin. Code ch. 24, subch. I). 16 Tex. Admin. Code §24.279.]\nWATER AND WASTEWATER BILLING. Tenant will be billed by Landlord for [submetered / allocated] utility service. The following utility services will be included in the bill issued by Landlord: [list, e.g., water and wastewater]. Any dispute relating to the computation of Tenant's bill or the accuracy of any submetering device will be between Tenant and Landlord. For all dwelling units in the previous calendar year, the average monthly bill was ${{utility_avg_bill}}, the highest month's bill was ${{utility_high_bill}}, and the lowest month's bill was ${{utility_low_bill}}. [If allocated rather than submetered:] Landlord allocates the cost of master-metered service among tenants using the following formula: [clear description of the formula, which must be one of the methods approved by 16 Tex. Admin. Code §24.281(e)]. Meter reading dates, billing dates, and due dates are: [describe]. Landlord will repair leaks in Tenant's unit [and in common areas, if common areas are not submetered] within [state period]. Tenant has the right to receive information from Landlord to verify the utility bill. [Submetered service in an apartment house or manufactured home rental community only: state the service charge percentage, if any, which may not exceed 9 percent of Tenant's submetered water and wastewater charge and may not be charged to a resident of a unit that received low income housing tax credits or a resident receiving Section 8 tenant-based voucher assistance. No service charge may be added to allocated billing.] Landlord will not charge Tenant more than the charges the law permits for this service, will not pass through any deposit, disconnect, reconnect, late payment, or similar fee the utility bills to Landlord, and any late fee on a water bill will not exceed five percent of the bill paid late.",
+      "[Include only if the property is an apartment house (five or more interconnected dwelling units rented monthly or longer), a condominium, or a manufactured home rental community, and Landlord bills Tenant for water or wastewater service that is submetered or allocated from a master meter. At the time this Lease is discussed, Landlord must give Tenant a copy of the Public Utility Commission's submetering and allocation rules (16 Tex. Admin. Code ch. 24, subch. I). 16 Tex. Admin. Code §24.279.]\nWATER AND WASTEWATER BILLING. Tenant will be billed by Landlord for [submetered / allocated] utility service. The following utility services will be included in the bill issued by Landlord: [list, e.g., water and wastewater]. Any dispute relating to the computation of Tenant's bill or the accuracy of any submetering device will be between Tenant and Landlord. For all dwelling units in the previous calendar year, the average monthly bill was ${{utility_avg_bill}}, the highest month's bill was ${{utility_high_bill}}, and the lowest month's bill was ${{utility_low_bill}}. [If allocated rather than submetered:] Landlord allocates the cost of master-metered service among tenants using the following formula: [clear description of the formula, which must be one of the methods approved by 16 Tex. Admin. Code §24.281(e)]. Meter reading dates, billing dates, and due dates are: [describe]. Landlord will repair leaks in Tenant's unit [and in common areas, if common areas are not submetered] within [state period]. Tenant has the right to receive information from Landlord to verify the utility bill. [Submetered service in an apartment house or manufactured home rental community only: state the service charge percentage, if any, which may not exceed 9 percent of Tenant's submetered water and wastewater charge and may not be charged to a resident of a unit that received low income housing tax credits or a resident receiving Section 8 tenant-based voucher assistance. No service charge may be added to allocated billing.]",
   },
   {
     id: "foreclosure-disclosure-nv",
@@ -2049,16 +2044,16 @@ const CLAUSE_TEMPLATES = [
     states: ["NV"],
     supersedes: "late-fee",
     bodyText:
-      "If Tenant fails to pay Monthly Rent in full within {{late_fee_grace_days}} days after it is due, a late fee of {{late_fee_amount}} will be assessed. No late fee will be charged until at least 3 calendar days after the date rent is due. The late fee for any late payment will not exceed 5 percent of the Monthly Rent, and the maximum late fee will not be increased based on any late fee previously imposed. Acceptance of a late payment does not waive Landlord's right to require full payment of Rent on the date it is due or to pursue any other remedy available under this Lease.",
+      "If Tenant fails to pay Monthly Rent in full within {{late_fee_grace_days}} days [not fewer than 3 calendar days] after it is due, a late fee of {{late_fee_amount}} [not more than 5% of the Monthly Rent] will be assessed. Acceptance of a late payment does not waive Landlord's right to require full payment of Rent on the date it is due or to pursue any other remedy available under this Lease.",
   },
   // Security Deposit
   {
     id: "security-deposit-cap-nv",
-    title: "Limit on Total Security",
+    title: "Surety Bond Option",
     group: "Security Deposit",
     states: ["NV"],
     bodyText:
-      "The total amount or value of all security deposits and any surety bond under this Lease, including any Monthly Rent paid in advance for the last month of the Term and any pet or cleaning deposit, will not exceed three months' Monthly Rent. Tenant may, if Landlord consents, purchase a surety bond in place of all or part of the Security Deposit; Landlord is not required to accept one and will not require Tenant to purchase one.",
+      "Tenant may, if Landlord consents, purchase a surety bond in place of all or part of the Security Deposit.",
   },
   {
     id: "security-deposit-return-nv",
@@ -2067,7 +2062,7 @@ const CLAUSE_TEMPLATES = [
     states: ["NV"],
     supersedes: "security-deposit-return",
     bodyText:
-      "Upon termination of the tenancy by either party for any reason, Landlord may claim from the Security Deposit, or any surety bond, only amounts reasonably necessary to remedy Tenant's default in paying Rent, to repair damage to the property caused by Tenant other than normal wear, and to pay the reasonable costs of cleaning. No later than 30 days after the termination of the tenancy, Landlord will provide Tenant an itemized, written accounting of the disposition of the Security Deposit and any surety bond, and will return any remaining portion of the Security Deposit by handing it to Tenant personally at the place where Rent is paid or by mailing it to Tenant's present address or, if that address is unknown, Tenant's last known address. Except for any nonrefundable cleaning charge in a reasonable amount stated in this Lease, no part of the Security Deposit is nonrefundable. Tenant is asked to give Landlord a forwarding address in writing.",
+      "Except for a nonrefundable cleaning charge of [state a reasonable amount, or 'none'], no part of the Security Deposit is nonrefundable. Tenant is asked to give Landlord a forwarding address in writing.",
   },
   // Landlord Responsibilities
   {
@@ -2086,16 +2081,6 @@ const CLAUSE_TEMPLATES = [
     states: ["NV"],
     bodyText:
       "Persons authorized to manage the premises: {{manager_name}}, {{manager_address}}. Person within the state authorized to act for Landlord for service of process and for receiving notices and demands: {{owner_agent_name}}, {{owner_agent_address}}. Principal or corporate owner: {{owner_name}}, {{owner_address}}. Emergency telephone number of a responsible person who resides in the county, or within 60 miles, where the premises are located: {{emergency_phone}}. Landlord will keep this information current.",
-  },
-  // Default & Termination
-  {
-    id: "possession-delay-nv",
-    title: "Delay in Delivering Possession",
-    group: "Default & Termination",
-    states: ["NV"],
-    supersedes: "possession-delay",
-    bodyText:
-      "If Landlord fails to deliver possession of the property to Tenant as required by this Lease, Rent abates until possession is delivered, and Tenant may: (a) terminate this Lease on at least 5 days' written notice to Landlord, in which case Landlord will return all prepaid Rent, the Security Deposit to the extent recoverable by Tenant, and any payment, deposit, fee or charge made to secure the execution of this Lease; (b) demand performance of this Lease and, if Tenant elects, bring an action for possession against Landlord or any person wrongfully in possession and recover actual damages, except that Landlord is not liable for damages if Landlord exercised due diligence to evict a holdover tenant or remedy the condition keeping Tenant from taking possession; or (c) pursue any other remedy available to Tenant, including recovery of actual damages.",
   },
   // Tenant Responsibilities
   {
@@ -2138,20 +2123,20 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "rent-increase-notice-nv",
-    title: "Rent Increase Notice",
+    title: "Rent During the Term",
     group: "Rent & Payment",
     states: ["NV"],
     bodyText:
-      "Landlord will not increase the Monthly Rent unless Landlord serves Tenant with written notice at least 60 days in advance of the first rental payment to be increased or, for any periodic tenancy of less than one month, at least 30 days in advance. During the Term, the Monthly Rent will not be increased except as this Lease expressly provides.",
+      "During the Term, the Monthly Rent will not be increased except as this Lease expressly provides.",
   },
   // Default & Termination
   {
     id: "casualty-termination-nv",
-    title: "Fire or Casualty Damage",
+    title: "Fire or Casualty: Landlord's Right to End the Lease",
     group: "Default & Termination",
     states: ["NV"],
     bodyText:
-      "If the property is damaged or destroyed by fire or casualty to an extent that Tenant's enjoyment of it is substantially impaired, Landlord may terminate this Lease, and Tenant may, in addition to any other remedy: (a) immediately vacate and notify Landlord within 7 days afterward of Tenant's intention to terminate, in which case this Lease terminates as of the date Tenant vacated; or (b) if continued occupancy is lawful, vacate any part rendered unusable, in which case Rent is reduced in proportion to the reduction in fair rental value or lack of use. If this Lease terminates, Landlord will return all prepaid Rent and any recoverable Security Deposit, with Rent accounted for as of the date the property was vacated. This Section does not apply if the fire or casualty was caused by the deliberate or negligent act of Tenant, a member of Tenant's household, or another person on the property with Tenant's consent.",
+      "If the property is damaged or destroyed by fire or casualty to an extent that Tenant's enjoyment of it is substantially impaired, Landlord may terminate this Lease.",
   },
   {
     id: "abandoned-property-nv",
@@ -2160,22 +2145,6 @@ const CLAUSE_TEMPLATES = [
     states: ["NV"],
     bodyText:
       "If Tenant abandons the property or leaves personal property on it after an eviction or the end of the rental period, Landlord will reasonably provide for the safe storage of that property for 30 days and may charge the reasonable and actual costs of inventory, moving and storage before releasing it to Tenant or Tenant's authorized representative within that period. After the 30-day period, Landlord may dispose of the property and recover reasonable costs out of the property or its value, but only after making reasonable efforts to locate Tenant, mailing Tenant written notice of the intention to dispose of it (to Tenant's present address or, if unknown, last known address), and waiting 14 days after that notice. Vehicles will be handled as the law provides for abandoned vehicles. For 5 days after any eviction or lockout, Landlord will give Tenant a reasonable opportunity to retrieve essential personal effects, including medication, baby formula, basic clothing and personal care items. In the absence of notice of abandonment, Tenant is presumed to have abandoned the property if absent for one-half of a rental period, unless Rent is current or Tenant has notified Landlord in writing of an intended absence.",
-  },
-  {
-    id: "dv-lease-termination-nv",
-    title: "Termination for Domestic Violence, Harassment, Sexual Assault or Stalking",
-    group: "Default & Termination",
-    states: ["NV"],
-    bodyText:
-      "If Tenant, a cotenant, or a household member (a person related by blood or marriage and actually residing with Tenant or a cotenant) is the victim of domestic violence, harassment, sexual assault or stalking, as those terms are defined by applicable law, Tenant or any cotenant may terminate this Lease by giving Landlord written notice, effective at the end of the current rental period or 30 days after the notice is provided, whichever occurs sooner. The notice must describe the reason for termination and be accompanied by: for domestic violence, a copy of an order for protection, a written law enforcement report showing the victim notified the agency of the domestic violence, or an affidavit in the form the law prescribes signed by a qualified third party; for harassment, sexual assault or stalking, a written law enforcement report or a copy of a temporary or extended protective order. This right applies only if the events occurred within the 90 days immediately before the notice. A terminating Tenant or cotenant is liable only for Rent owed through the date of termination and any other outstanding obligations; Landlord may keep prepaid Rent for the rental period in which this Lease terminates, refunding any amount exceeding what is owed for that period; and the Security Deposit will not be withheld because of the early termination. Landlord will not give the adverse party any information about the whereabouts of Tenant, a cotenant or a household member. After giving notice, Tenant, a cotenant or a household member may require Landlord to install a new lock at their cost, which Landlord may do by rekeying a lock in good working condition or replacing the locking mechanism with one of equal or superior quality; Landlord will not give the adverse party a key to the new lock, or access to the dwelling to reclaim property unless a law enforcement officer is present. Landlord will not disclose, describe or characterize a termination under this Section as an early termination to a prospective landlord.",
-  },
-  {
-    id: "infirmity-death-termination-nv",
-    title: "Termination for Relocation for Care or Death of a Cotenant",
-    group: "Default & Termination",
-    states: ["NV"],
-    bodyText:
-      "Notwithstanding anything else in this Lease: (a) if a physical or mental condition of a Tenant who is 60 years of age or older or has a physical or mental disability requires that Tenant to relocate because of a need for care or treatment that cannot be provided in the dwelling, that Tenant may terminate this Lease by giving Landlord 30 days' written notice within 60 days after relocating, and a cotenant may do the same if the cotenant is 60 years of age or older or has a physical or mental disability, or became a tenant on or after the date the relocating Tenant signed; and (b) upon the death of the spouse or cotenant of a Tenant who is 60 years of age or older or has a physical or mental disability, that Tenant may terminate this Lease by giving Landlord 60 days' written notice within 3 months after the death. The notice must set forth the facts showing the right to terminate and, for a relocation, include reasonable verification of the condition and of the need to relocate for care or treatment. The death of a Tenant does not by itself give Landlord a right to terminate this Lease.",
   },
   // Rules & Regulations
   {
@@ -2210,14 +2179,6 @@ const CLAUSE_TEMPLATES = [
     states: ["NV"],
     bodyText:
       "[Place at the top of the first page of the Lease, in a font size at least two times larger than any other font size in the Lease. Include only if the property is a single-family residence (a structure of not more than four units, other than a manufactured home) and this Lease is not signed by an authorized agent of Landlord who holds a permit to engage in property management:] NOTICE: State law contains rebuttable presumptions that a tenant does not have lawful occupancy of the dwelling unless the rental agreement (1) is notarized or is signed by an authorized agent of the landlord who holds a property management permit, and (2) includes the current address and telephone number of the landlord or the landlord's authorized representative. This agreement is valid and enforceable against the landlord and the tenant regardless of whether it is notarized or signed by such an agent, and regardless of whether it includes that address and telephone number.",
-  },
-  {
-    id: "property-tax-rent-disclosure-nv",
-    title: "Property Tax Portion of Rent",
-    group: "Disclosures",
-    states: ["NV"],
-    bodyText:
-      "Landlord will deliver to Tenant, in July of each year and whenever the Monthly Rent changes, a written statement showing separately, for each periodic payment of Rent, the amount that represents property taxes paid by Landlord and the remainder of that payment. If the property is one of several on which Landlord pays property taxes together, the property-tax amount will be apportioned among the rented properties according to their areas and reduced to the rent period.",
   },
   // Landlord Responsibilities
   {
@@ -2256,7 +2217,7 @@ const CLAUSE_TEMPLATES = [
     states: ["TX"],
     supersedes: "security-deposit-return",
     bodyText:
-      "Landlord will refund the Security Deposit to Tenant on or before the 30th day after the date Tenant surrenders the property. Before refunding it, Landlord may deduct damages and charges for which Tenant is legally liable under this Lease or as a result of breaching this Lease, but will not retain any portion of the Security Deposit to cover normal wear and tear. If Landlord retains all or part of the Security Deposit, Landlord will give Tenant the balance, if any, together with a written description and itemized list of all deductions; no description and itemized list is required if Tenant owes Rent when Tenant surrenders possession and there is no controversy about the amount of Rent owed. Landlord is not obligated to refund the Security Deposit or to give Tenant a written description of damages and charges until Tenant gives Landlord a written statement of Tenant's forwarding address for the purpose of refunding the Security Deposit, but Tenant does not forfeit the right to a refund or to the description merely by failing to give a forwarding address. Notices and other communications about the Security Deposit may be sent by e-mail if Tenant and Landlord or Landlord's agent have previously communicated by e-mail, and Landlord may designate a specific e-mail address for Tenant to use for that purpose.",
+      "Tenant will give Landlord a written statement of Tenant's forwarding address for the purpose of refunding the Security Deposit. Notices and other communications about the Security Deposit may be sent by e-mail if Tenant and Landlord or Landlord's agent have previously communicated by e-mail, and Landlord may designate a specific e-mail address for Tenant to use for that purpose.",
   },
   {
     id: "deposit-surrender-notice-tx",
@@ -2420,12 +2381,12 @@ const CLAUSE_TEMPLATES = [
   // Security Deposit
   {
     id: "security-deposit-return-nj",
-    title: "Security Deposit: Amount, Use and Return",
+    title: "Security Deposit: Amount and Use",
     group: "Security Deposit",
     states: ["NJ"],
     supersedes: "security-deposit-return",
     bodyText:
-      "Tenant will pay a Security Deposit of {{security_deposit}}, which will not exceed one and one-half times one month's Rent. If Landlord later requires additional security, the additional amount collected in any year will not exceed 10 percent of the then-current Security Deposit. Landlord may use the Security Deposit only for charges permitted by this Lease, including unpaid Rent and damage beyond ordinary wear and tear, and will make no deduction from it while Tenant remains in possession of the property. Within 30 days after this Lease terminates, Landlord will return the Security Deposit plus the interest earned on it, less any lawful charges, by personal delivery or by registered or certified mail, with an itemized statement of the interest and of each deduction. If Tenant is displaced by fire, flood, condemnation or evacuation as described in N.J.S.A. 46:8-21.1, or ends this Lease as a victim of domestic violence under N.J.S.A. 46:8-9.6, Landlord will make the net Security Deposit available on the shorter timetable that statute requires. Any Lease provision waiving Tenant's rights under the New Jersey Rent Security Deposit Act is void.",
+      "Tenant will pay a Security Deposit of {{security_deposit}}. Landlord may use the Security Deposit only for charges permitted by this Lease, including unpaid Rent and damage beyond ordinary wear and tear.",
   },
   // Rent & Payment
   {
@@ -2435,7 +2396,7 @@ const CLAUSE_TEMPLATES = [
     states: ["NJ"],
     supersedes: "late-fee",
     bodyText:
-      "If Tenant fails to pay Monthly Rent in full within {{late_fee_grace_days}} days after it is due, a late fee of {{late_fee_amount}} will be assessed. If Rent is due on the first day of the month and any Tenant is a senior citizen receiving Social Security Old Age benefits, Railroad Retirement or another governmental pension in lieu of Social Security Old Age benefits, or receives Social Security Disability Benefits, Supplemental Security Income or Work First New Jersey benefits, no late charge will be made until after a grace period of five business days (excluding Saturdays, Sundays and State or federal holidays). Acceptance of a late payment does not waive Landlord's right to require full payment of Rent on the date it is due or to pursue any other remedy available under this Lease.",
+      "If Tenant fails to pay Monthly Rent in full within {{late_fee_grace_days}} days after it is due, a late fee of {{late_fee_amount}} will be assessed. Acceptance of a late payment does not waive Landlord's right to require full payment of Rent on the date it is due or to pursue any other remedy available under this Lease.",
   },
   // Tenant Responsibilities
   {
@@ -2445,7 +2406,7 @@ const CLAUSE_TEMPLATES = [
     states: ["NJ"],
     supersedes: "acceptable-payment-methods",
     bodyText:
-      "Rent and other amounts due under this Lease may be paid by any of the following methods: [list accepted payment methods here, which must include at least one method that is not an electronic funds transfer, e.g. check or money order]. Landlord will not require Tenant to pay by electronic funds transfer, including automatic recurring transfers. For each cash payment, Landlord will give Tenant a printed or emailed receipt stating the amount, the purpose, the date received, the printed or typed names of Landlord and Tenant, and who accepted the payment. If a warrant for removal has been posted or a lockout executed for nonpayment, Landlord will accept payment of all Rent due within the following three business days by cash, certified check or money order, or from a government rental assistance program or bona fide charitable organization, and will give Tenant a dated receipt. Landlord may change the accepted methods on reasonable written notice, consistent with this Section.",
+      "Rent and other amounts due under this Lease may be paid by any of the following methods: [list accepted payment methods, including at least one that is not an electronic funds transfer, e.g. check or money order]. Landlord may change the accepted methods on reasonable written notice.",
   },
   // Default & Termination
   {
@@ -2455,7 +2416,7 @@ const CLAUSE_TEMPLATES = [
     states: ["NJ"],
     supersedes: "holdover",
     bodyText:
-      "If Tenant remains in possession after the end of the Term and Landlord accepts Rent, the tenancy will continue from month to month on the terms of this Lease unless the parties agree otherwise. Where the New Jersey Anti-Eviction Act (N.J.S.A. 2A:18-61.1 et seq.) applies to the property, the end of the Term does not by itself end Tenant's right to remain, and Tenant may be removed only for good cause established under that Act. If Tenant gives Landlord written notice of Tenant's intention to vacate on a stated date and does not vacate on that date, Tenant will pay double the Rent from that date for as long as Tenant remains, to the extent N.J.S.A. 2A:42-5 applies. Where the Anti-Eviction Act does not apply and Tenant willfully remains after the Term has ended and after Landlord's written demand for possession, Tenant will be liable for double the yearly value of the property for the period Tenant remains, as provided in N.J.S.A. 2A:42-6.",
+      "If Tenant remains in possession after the end of the Term and Landlord accepts Rent, the tenancy will continue from month to month on the terms of this Lease unless the parties agree otherwise. If Tenant gives Landlord written notice of Tenant's intention to vacate on a stated date and does not vacate on that date, Tenant will pay double the Rent from that date for as long as Tenant remains, to the extent N.J.S.A. 2A:42-5 applies. Where the New Jersey Anti-Eviction Act does not apply and Tenant willfully remains after the Term has ended and after Landlord's written demand for possession, Tenant will be liable for double the yearly value of the property for the period Tenant remains, as provided in N.J.S.A. 2A:42-6.",
   },
   {
     id: "surrender-end-of-term-nj",
@@ -2464,7 +2425,7 @@ const CLAUSE_TEMPLATES = [
     states: ["NJ"],
     supersedes: "surrender-end-of-term",
     bodyText:
-      "When Tenant's tenancy ends, whether because Tenant gives notice and vacates, Landlord and Tenant agree to end it, or a court enters a judgment for possession that is lawfully executed, Tenant will surrender possession of the property and return all keys to Landlord. The property will be left in the same condition as at the start of the Term, except for ordinary wear and tear, and free of Tenant's personal property. If Tenant leaves personal property behind after a warrant for removal has been executed or after Tenant has given written notice of voluntarily giving up possession, Landlord will handle it only as N.J.S.A. 2A:18-72 through 2A:18-84 allow: Landlord will first send Tenant written notice, will store the property with reasonable care, and will not sell or dispose of it until at least 30 days after the notice is delivered (75 days for a manufactured or mobile home). Tenant may reclaim the property within that time without paying any unpaid Rent, but must reimburse Landlord's reasonable storage and removal costs.",
+      "When Tenant's tenancy ends, whether because Tenant gives notice and vacates, Landlord and Tenant agree to end it, or a court enters a judgment for possession that is lawfully executed, Tenant will surrender possession of the property and return all keys to Landlord. The property will be left in the same condition as at the start of the Term, except for ordinary wear and tear, and free of Tenant's personal property.",
   },
   // Pets
   {
@@ -3007,16 +2968,7 @@ const CLAUSE_TEMPLATES = [
     group: "Disclosures",
     states: ["NJ"],
     bodyText:
-      "The property's drinking water comes from a private well. Tenant acknowledges receiving a written copy of the most recent water test results for the property under the New Jersey Private Well Testing Act. Landlord will have the water tested at least once every five years as the Act requires, and will give Tenant a written copy of each new test result within 30 days after Landlord receives it.",
-  },
-  // Landlord Responsibilities
-  {
-    id: "casualty-nj",
-    title: "Fire and Other Casualty",
-    group: "Landlord Responsibilities",
-    states: ["NJ"],
-    bodyText:
-      "If the property is damaged by fire without the fault of Tenant, Landlord will repair it as quickly as possible, and Rent will stop until the property has been fully repaired. If the building is totally destroyed by fire or otherwise without the fault of Tenant, Rent will be paid up to the date of destruction, and this Lease will then end.",
+      "The property's drinking water comes from a private well. Tenant acknowledges receiving a written copy of the most recent water test results for the property under the New Jersey Private Well Testing Act.",
   },
   // Tenant Responsibilities
   {
