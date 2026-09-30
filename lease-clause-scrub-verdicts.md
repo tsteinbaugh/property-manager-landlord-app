@@ -211,7 +211,7 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 
 ## CA
 
-**Not applied yet.**
+**Applied 2026-09-29.**
 
 | Row | Verdict | Basis | Note |
 |---|---|---|---|

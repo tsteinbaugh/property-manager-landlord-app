@@ -19,6 +19,9 @@
 // the architecture-review log's Addendum L §L.3: "a log entry is not a
 // library change" -- the CSV is the fact).
 //
+// **2026-09-29 three-bucket scrub, California:** 473 -> 456 shipped
+// LEASE_CLAUSE rows (18 switched off, one new security-deposit-use-ca).
+//
 // **2026-09-29 three-bucket scrub, MN/ND/SD/OH:** 491 -> 473 shipped
 // LEASE_CLAUSE rows; see lease-clause-scrub-verdicts.md.
 //
@@ -308,7 +311,7 @@ const CLAUSE_TEMPLATES = [
     states: ["CA"],
     supersedes: "returned-payments",
     bodyText:
-      "If Tenant pays rent or any other amount due under this Lease by check, draft or order for payment and it is not honored for lack of funds, because Tenant has no account with the drawee, or because Tenant stops payment, Tenant shall be liable to Landlord for the amount of the payment and a service charge of {{nsf_fee}}, not to exceed $25 for the first such instrument and $35 for each subsequent one. No service charge is owed if Tenant stopped payment to resolve a good faith dispute with Landlord, if Tenant provides written confirmation from Tenant's financial institution that the instrument was returned due to an error by that institution, or if Tenant provides written confirmation that the account had insufficient funds because of a delay in a regularly scheduled direct deposit of a social security or government benefit assistance payment.",
+      "If Tenant pays Rent or any other amount due under this Lease by check, draft or order for payment and it is not honored for lack of funds, because Tenant has no account with the drawee, or because Tenant stops payment, Tenant shall be liable to Landlord for the amount of the payment and a service charge of {{nsf_fee}}.",
   },
   {
     id: "nsf-fee-limit-fl",
@@ -572,7 +575,7 @@ const CLAUSE_TEMPLATES = [
     group: "Default & Termination",
     states: ["CA"],
     bodyText:
-      "Either party may terminate a month-to-month tenancy by written notice served as provided in Code of Civil Procedure section 1162 or by certified or registered mail. Tenant must give notice at least as long as the period of the tenancy (30 days for a month-to-month tenancy), regardless of how long Tenant has resided at the property. Landlord must give at least 60 days' written notice, except that 30 days' notice is sufficient if Tenant has resided at the property for less than one year, or if the conditions in Civil Code section 1946.1(d) are met (unit separately alienable, sold to a natural-person bona fide purchaser in escrow, notice given within 120 days of escrow, no prior notice given, and purchaser intends to reside there at least one year). Landlord's notice must include the statutory abandoned-property statement required by Civil Code section 1946.1(h). Where this property is subject to Civil Code section 1946.2, notice alone is not sufficient: after the qualifying occupancy period Landlord must also state a just cause for termination.",
+      "Either party may end a month-to-month tenancy by written notice served as provided in Code of Civil Procedure section 1162 or by certified or registered mail. Tenant will give at least [state the notice period: at least 30] days' notice. Landlord will give at least [state the notice period] days' notice, or any longer notice California law requires, together with any statement California law requires in the notice.",
   },
   // Notices & General
   {
@@ -1693,42 +1696,14 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "Landlord reserves the right to terminate this Lease, in accordance with Civil Code section 1946.2, if Landlord or Landlord's spouse, domestic partner, child, grandchild, parent or grandparent unilaterally decides to occupy the property as that person's primary residence for at least 12 continuous months. Any such termination is subject to all requirements of Civil Code section 1946.2, including the notice contents, the relocation assistance or final-month rent waiver, and Landlord's obligation to re-offer the unit and reimburse moving expenses if the intended occupant does not take occupancy within 90 days or does not occupy for 12 consecutive months.",
   },
-  // Security Deposit
-  {
-    id: "security-deposit-cap-ca",
-    title: "Security Deposit Amount",
-    group: "Security Deposit",
-    states: ["CA"],
-    supersedes: "security-deposit-use",
-    bodyText:
-      "The security deposit for this Lease is {{security_deposit}}. Under Civil Code section 1950.5(c), Landlord may not demand or receive a security deposit, however denominated, greater than one month's rent, in addition to the first month's rent paid on or before initial occupancy. No portion of the security deposit is non-refundable.",
-  },
-  {
-    id: "security-deposit-return-ca",
-    title: "Security Deposit Return",
-    group: "Security Deposit",
-    states: ["CA"],
-    supersedes: "security-deposit-return",
-    bodyText:
-      "Within 21 calendar days after Tenant vacates, Landlord shall furnish Tenant an itemized statement of any amounts deducted from the security deposit and return the balance. Landlord may deduct only for unpaid rent, repair of damage beyond ordinary wear and tear, cleaning necessary to return the unit to the level of cleanliness at the inception of the tenancy, and, if this Lease so provides, replacement of personal property or appurtenances. Landlord may not charge for ordinary wear and tear or for preexisting conditions, and may not require Tenant to pay for professional carpet or other professional cleaning unless reasonably necessary. Where deductions for repairs and cleaning exceed $125, Landlord shall include copies of bills, invoices or receipts, and photographs of the unit, with the itemized statement. Tenant may request an initial inspection during the final two weeks of the tenancy and be present for it, and Landlord shall notify Tenant in writing of that right and give at least 48 hours' written notice of the inspection.",
-  },
   // Rent & Payment
   {
     id: "rent-increase-cap-ca",
-    title: "Rent Increase Limit",
+    title: "Rent Discounts and Concessions",
     group: "Rent & Payment",
     states: ["CA"],
     bodyText:
-      "Where this property is subject to Civil Code section 1947.12, Landlord may not increase the rent over any 12-month period by more than 5 percent plus the percentage change in the cost of living, or 10 percent, whichever is lower, measured against the lowest rent charged for the unit in the 12 months before the increase takes effect, and may not impose more than two increases in any 12-month period. Any rent discount, incentive, concession or credit is excluded from that calculation and shall be listed separately in this Lease. Landlord shall give notice of any increase as required by Civil Code section 827.",
-  },
-  // Notices & General
-  {
-    id: "notice-service-fee-ban-ca",
-    title: "No Fee for Serving Notices",
-    group: "Notices & General",
-    states: ["CA"],
-    bodyText:
-      "Landlord shall not charge Tenant any fee for serving, posting or otherwise delivering any notice relating to this tenancy, including any notice terminating a periodic tenancy and any three-day notice to pay rent, perform covenants or quit.",
+      "Any rent discount, incentive, concession or credit that applies to this tenancy is listed separately here: [list each, or state 'none'].",
   },
   // Tenant Responsibilities
   {
@@ -1759,32 +1734,6 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "Landlord may enter the dwelling unit only in an emergency; to make necessary or agreed repairs, decorations, alterations or improvements, supply necessary or agreed services, exhibit the unit to prospective or actual purchasers, mortgagees, tenants, workers or contractors, or make an initial inspection under Civil Code section 1950.5(f); when Tenant has abandoned or surrendered the premises; or pursuant to court order. Except in an emergency or after abandonment or surrender, Landlord will give Tenant reasonable written notice stating the date, approximate time and purpose of entry, and will enter only during normal business hours unless Tenant consents at the time of entry to a different time. Twenty-four hours is presumed reasonable notice; notice mailed at least six days before entry is presumed reasonable. No notice is required to respond to an emergency, where Tenant is present and consents at the time of entry, or after Tenant has abandoned or surrendered the unit. Landlord will not abuse the right of access or use it to harass Tenant.",
   },
-  // Notices & General
-  {
-    id: "accommodation-request-rights-ca",
-    title: "Disability Accommodation Requests",
-    group: "Notices & General",
-    states: ["CA"],
-    bodyText:
-      "Tenant, a family member, or anyone Tenant authorizes to act on Tenant's behalf may request a reasonable accommodation or reasonable modification because of a disability at any time, orally or in writing, and need not use any particular words, form or procedure. Landlord will not charge any fee, deposit or other financial contribution as a condition of receiving, processing or granting such a request. Nothing in this Lease requires Tenant to give up the right to request a reasonable accommodation or modification in the future.",
-  },
-  {
-    id: "reasonable-modification-ca",
-    title: "Reasonable Modifications",
-    group: "Notices & General",
-    states: ["CA"],
-    bodyText:
-      "Tenant may make reasonable modifications to the premises at Tenant's expense where necessary because of a disability. Landlord may ask Tenant for a reasonable description of the proposed work and reasonable assurances that it will be done competently and that any required building permits will be obtained, but will not require that the work be done by any particular contractor. Landlord will not increase any customarily required security deposit, require a liability waiver or insurance, or require Tenant to move to a different unit, as a condition of a modification. Where it is reasonable to do so, Landlord may require Tenant to restore the interior of the premises to its prior condition at the end of the tenancy, reasonable wear and tear excepted; Landlord will not require restoration of exterior modifications or modifications to common or public use areas.",
-  },
-  // Landlord Responsibilities
-  {
-    id: "repair-and-deduct-ca",
-    title: "Repair and Deduct",
-    group: "Landlord Responsibilities",
-    states: ["CA"],
-    bodyText:
-      "If Tenant gives Landlord or Landlord's agent written or oral notice of dilapidations rendering the premises untenantable that Landlord ought to repair, and Landlord neglects to repair them within a reasonable time, Tenant may either repair them and deduct the cost from rent when due, so long as the cost does not exceed one month's rent, or vacate the premises, in which case Tenant is discharged from further rent and other conditions as of the date of vacating. Tenant may use this remedy no more than twice in any 12-month period. This remedy is not available where the condition was caused by Tenant's own violation of Civil Code section 1929 or 1941.2. Nothing in this Lease limits any other remedy available to Tenant.",
-  },
   // Disclosures
   {
     id: "owner-identity-disclosure-ca",
@@ -1793,15 +1742,6 @@ const CLAUSE_TEMPLATES = [
     states: ["CA"],
     bodyText:
       "Person authorized to manage the premises: {{manager_name}}, {{manager_phone}}, {{manager_street_address}}. Owner, or person authorized to act for the owner for service of process and for receiving and receipting all notices and demands: {{owner_agent_name}}, {{owner_agent_phone}}, {{owner_agent_street_address}}. Rent is payable to {{rent_payee_name}} at {{rent_payee_address}}, {{rent_payee_phone}}, in the following form or forms: {{rent_payment_forms}}. If rent may be paid personally, it may be paid on {{rent_payment_days_hours}}. Landlord will give Tenant a copy of this Lease within 15 days after Tenant signs it, and, once each calendar year on Tenant's request, an additional copy within 15 days.",
-  },
-  // Rent & Payment
-  {
-    id: "rent-increase-notice-ca",
-    title: "Rent Increase Notice",
-    group: "Rent & Payment",
-    states: ["CA"],
-    bodyText:
-      "For a tenancy from week to week, month to month, or any period less than a month, Landlord may increase the rent only on written notice delivered to Tenant personally or served by mail under Code of Civil Procedure section 1013. If the increase, by itself or combined with any other increases in the 12 months before its effective date, is 10 percent or less of the rent charged at any time during those 12 months, the notice will be delivered at least 30 days before the increase takes effect. If it is greater than 10 percent, the notice will be delivered at least 90 days before the increase takes effect. Where any other statute, regulation, recorded regulatory agreement or contract requires a longer notice period, that longer period applies.",
   },
   // Tenant Responsibilities
   {
@@ -1821,17 +1761,9 @@ const CLAUSE_TEMPLATES = [
     states: ["CA"],
     supersedes: "acceptable-payment-methods",
     bodyText:
-      "Landlord will allow Tenant to pay rent and the security deposit by at least one form of payment that is neither cash nor electronic funds transfer, and will allow Tenant to pay rent through a third party who provides a signed acknowledgment that they are not a tenant of the premises and that acceptance of the payment does not create a new tenancy. Landlord will not charge Tenant any fee for paying rent or the security deposit by check. If Tenant attempts to pay with a check drawn on insufficient funds or instructs the drawee to stop payment, Landlord may require cash as the exclusive form of payment for a period of up to three months, but only after giving Tenant written notice that the instrument was dishonored, stating the length of the cash-only period, and attaching a copy of the dishonored instrument.",
+      "Tenant may pay Rent and the Security Deposit by the following methods: [list the accepted methods, including at least one that is neither cash nor electronic funds transfer]. If Tenant attempts to pay with a check drawn on insufficient funds or instructs the drawee to stop payment, Landlord may require cash as the only form of payment for up to three months, after giving Tenant written notice that the instrument was dishonored, stating the length of the cash-only period, and attaching a copy of the dishonored instrument.",
   },
   // Tenant Responsibilities
-  {
-    id: "political-signs-ca",
-    title: "Political Signs",
-    group: "Tenant Responsibilities",
-    states: ["CA"],
-    bodyText:
-      "Tenant may post or display political signs relating to an election or legislative vote, the initiative, referendum or recall process, or issues before a public commission, board or elected local body. In a multifamily dwelling such signs may be posted in the window or on the door of the premises; in a single-family dwelling they may also be posted from the yard, window, door, balcony or outside wall. Landlord may prohibit a political sign only if it is more than six square feet in size, if posting it would violate a local, state or federal law, or if it would violate a lawful provision of a common interest development governing document. Tenant will post and remove political signs within the time limits set by any local ordinance, or otherwise within the period Landlord reasonably establishes, which will begin at least 90 days before the election or vote and end at least 15 days after it.",
-  },
   {
     id: "waterbed-ca",
     title: "Waterbeds and Liquid-Filled Bedding",
@@ -1888,7 +1820,7 @@ const CLAUSE_TEMPLATES = [
     states: ["CA"],
     supersedes: "common-area-use",
     bodyText:
-      "Tenant will not, without Landlord's written consent, drill holes, use nails, hooks, or screws on the property, or fasten anything to its fixtures, appliances, or interior or exterior surfaces. Tenant will comply with any weight restrictions on balconies or porches and will not use them to store personal belongings without Landlord's consent. Tenant will not keep any item (such as a piano or safe) whose weight Landlord has not agreed is reasonable for the floor without Landlord's prior written consent. Tenant will not burn wax candles at the property. Except for political signs displayed as permitted by this Lease and by Civil Code section 1940.4, Tenant will not post or display any sign, banner, or advertisement visible from outside the property without Landlord's consent.",
+      "Tenant will not, without Landlord's written consent, drill holes, use nails, hooks, or screws on the property, or fasten anything to its fixtures, appliances, or interior or exterior surfaces. Tenant will comply with any weight restrictions on balconies or porches and will not use them to store personal belongings without Landlord's consent. Tenant will not keep any item (such as a piano or safe) whose weight Landlord has not agreed is reasonable for the floor without Landlord's prior written consent. Tenant will not burn wax candles at the property. Except for political signs Tenant may display under Civil Code section 1940.4, Tenant will not post or display any sign, banner, or advertisement visible from outside the property without Landlord's consent.",
   },
   // Pets
   {
@@ -1908,7 +1840,7 @@ const CLAUSE_TEMPLATES = [
     states: ["CA"],
     supersedes: "due-at-signing",
     bodyText:
-      "Tenant will pay Landlord the following amounts, at the time specified for each: first month's Monthly Rent ({{monthly_rent}}) due at signing, and the Security Deposit ({{security_deposit}}) due at signing. The Security Deposit, together with any pet deposit or other amount taken to secure Tenant's performance, may not exceed the limit set by Civil Code section 1950.5(c). These amounts are due in addition to, and are not credited against, Rent due for any other month of the Term.",
+      "Tenant will pay Landlord the following amounts, at the time specified for each: first month's Monthly Rent ({{monthly_rent}}) due at signing, and the Security Deposit ({{security_deposit}}) due at signing. These amounts are due in addition to, and are not credited against, Rent due for any other month of the Term.",
   },
   // Default & Termination
   {
@@ -1940,24 +1872,6 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "Tenant will not sublease or assign all or any portion of the property or this Lease without Landlord's prior written consent, which Landlord will not unreasonably withhold. Tenant will not rent the property, or any portion of it, on any short-term rental or home-sharing platform.",
   },
-  // Default & Termination
-  {
-    id: "dv-lease-termination-ca",
-    title: "Termination by a Victim of Abuse or Violence",
-    group: "Default & Termination",
-    states: ["CA"],
-    bodyText:
-      "Tenant may terminate this Lease if Tenant, a household member, or an immediate family member was the victim of domestic violence, sexual assault, stalking, human trafficking, abuse of an elder or dependent adult, a crime that caused bodily injury or death, a crime involving a firearm or other deadly weapon, or a crime involving the use or threat of force. Tenant must give Landlord written notice with one of the following attached: a copy of a qualifying restraining or protective order; a copy of a written report by a peace officer stating that a report has been filed; documentation from a qualified third party in the form set out in Civil Code section 1946.7; or any other documentation that reasonably verifies the act or crime occurred. Notice must be given within 180 days of the order, the report, or the act or crime. Tenant is responsible for rent for no more than 14 calendar days after giving notice, prorated if the property is re-rented sooner, and is released without penalty from any further obligation. Tenant will not forfeit any security deposit or advance rent because of the termination, and the termination is not a breach of this Lease. Any other tenant remains bound by this Lease.",
-  },
-  // Notices & General
-  {
-    id: "emergency-assistance-right-ca",
-    title: "Right to Summon Emergency Assistance",
-    group: "Notices & General",
-    states: ["CA"],
-    bodyText:
-      "Nothing in this Lease prohibits or limits Tenant, any resident, or any other person from summoning law enforcement assistance or emergency assistance on behalf of a victim of abuse, a victim of crime, or an individual in an emergency. Landlord will not impose or threaten any fee, fine, penalty, termination, non-renewal, or inferior terms of tenancy because such assistance was summoned.",
-  },
   // Landlord Responsibilities
   {
     id: "alarm-duties-ca",
@@ -1976,32 +1890,14 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "If Tenant has an allotted parking space, Landlord will approve Tenant's written request to install an electric vehicle charging station at that space where the request meets the requirements of Civil Code section 1947.6 and complies with Landlord's procedural approval process for modifications to the property. Tenant's request must include Tenant's consent to a written agreement covering Landlord's requirements for installation, use, maintenance and removal, a complete financial analysis and scope of work, a written description of the proposed modifications, Tenant's obligation to pay all costs associated with the installation and its infrastructure before any work is done, and Tenant's obligation to pay as part of rent the cost of electricity used and of any damage, maintenance, repair, removal and replacement. Tenant and any successor must maintain personal liability coverage in an amount not exceeding ten times the annual rent, covering property damage and personal injury caused by the installation or operation of the station, unless the station is certified by an OSHA-approved Nationally Recognized Testing Laboratory and the work is performed by a licensed electrician. Landlord is not required to provide an additional parking space, and may charge monthly rent for a space that becomes reserved as a result.",
   },
-  // Default & Termination
-  {
-    id: "casualty-termination-ca",
-    title: "Damage, Destruction and Failure to Deliver",
-    group: "Default & Termination",
-    states: ["CA"],
-    bodyText:
-      "Tenant may terminate this Lease before the end of the Term if Landlord does not, within a reasonable time after Tenant's request, fulfill Landlord's obligations to place and secure Tenant in quiet possession of the property, to put it into good condition, or to repair it. Tenant may also terminate if the greater part of the property, or the part that was the material inducement to Tenant entering this Lease, is destroyed by any cause other than Tenant's want of ordinary care. If the property is destroyed, this Lease terminates.",
-  },
   // Landlord Responsibilities
   {
     id: "stove-refrigerator-ca",
-    title: "Stove and Refrigerator",
+    title: "Tenant-Supplied Refrigerator",
     group: "Landlord Responsibilities",
     states: ["CA"],
     bodyText:
-      "Landlord will provide and maintain in good working order a stove capable of safely generating heat for cooking and a refrigerator capable of safely storing food. A stove or refrigerator subject to a recall by the manufacturer or a public entity is not considered capable of safe operation, and Landlord will repair or replace it within 30 days of receiving notice of the recall. [If Tenant has asked to supply their own refrigerator, include the following acknowledgment:] \"Under state law, the landlord is required to provide a refrigerator in good working order in your unit. By checking this box, you acknowledge that you have asked to bring your own refrigerator and that you are responsible for keeping that refrigerator in working order.\" If Tenant supplies their own refrigerator, Tenant may on 30 days' written notice inform Landlord that Tenant no longer wishes to keep it, and at the end of that 30-day period Landlord will install a refrigerator in good working order. Landlord will not condition this tenancy on Tenant providing a refrigerator and is not responsible for maintaining a refrigerator Tenant supplies.",
-  },
-  // Notices & General
-  {
-    id: "immigration-status-inquiry-ca",
-    title: "No Immigration or Citizenship Status Inquiry",
-    group: "Notices & General",
-    states: ["CA"],
-    bodyText:
-      "Landlord will not inquire about the immigration or citizenship status of Tenant, any prospective tenant, or any occupant or prospective occupant, will not require any of them to disclose or certify that status, and will not disclose information about that status to any person or entity for the purpose of harassing or intimidating them, retaliating against them for exercising their rights, influencing them to vacate, or recovering possession. Landlord may request information or documentation necessary to determine or verify financial qualifications or identity, and may comply with any obligation under federal law or a subpoena, warrant or court order.",
+      "[Include only if Tenant has asked to supply their own refrigerator.] \"Under state law, the landlord is required to provide a refrigerator in good working order in your unit. By checking this box, you acknowledge that you have asked to bring your own refrigerator and that you are responsible for keeping that refrigerator in working order.\" Tenant may, on 30 days' written notice, tell Landlord that Tenant no longer wishes to keep their own refrigerator, and at the end of that period Landlord will install a refrigerator in good working order. Landlord is not responsible for maintaining a refrigerator Tenant supplies.",
   },
   // Default & Termination
   {
@@ -2015,30 +1911,13 @@ const CLAUSE_TEMPLATES = [
   // Landlord Responsibilities
   {
     id: "security-devices-ca",
-    title: "Locks and Security Devices",
+    title: "Reporting Inoperable Locks",
     group: "Landlord Responsibilities",
     states: ["CA"],
     bodyText:
-      "Landlord has installed and will maintain an operable dead bolt lock on each main swinging entry door, operable window security or locking devices on windows designed to be opened, and locking mechanisms complying with fire and safety codes on exterior doors providing access to common areas in multifamily buildings. Tenant shall notify Landlord when Tenant becomes aware that any dead bolt lock or window security device in the unit is inoperable, and Landlord will correct it within a reasonable time.",
-  },
-  // Rules & Regulations
-  {
-    id: "tenant-use-rights-ca",
-    title: "Tenant Use Rights Landlord Cannot Prohibit",
-    group: "Rules & Regulations",
-    states: ["CA"],
-    bodyText:
-      "Nothing in this Lease prohibits Tenant from displaying a religious item on the entry door or door frame of the dwelling, subject to the limits in Civil Code section 1940.45; from owning a personal micromobility device, or storing and recharging up to one such device per occupant in the unit where it meets the applicable safety standard or is insured, unless Landlord provides secure long-term storage; from using a clothesline or drying rack in Tenant's private area on the conditions in Civil Code section 1940.20; or, where the property contains no more than two units and Tenant has a ground-level private outdoor area, from personal agriculture in portable containers on the conditions in Civil Code section 1940.10.",
+      "Tenant will notify Landlord when Tenant becomes aware that any dead bolt lock or window security or locking device in the unit is inoperable.",
   },
   // Disclosures
-  {
-    id: "pest-control-notice-ca",
-    title: "Pest Control and Pesticide Notices",
-    group: "Disclosures",
-    states: ["CA"],
-    bodyText:
-      "If a contract for periodic pest control service is in place, Landlord will give Tenant a copy of the notice provided by the registered structural pest control company. If Landlord or Landlord's agent applies any pesticide without a licensed pest control operator, Landlord will give Tenant written notice at least 24 hours in advance identifying the pest to be controlled, the name and brand of the pesticide, the approximate date, time and frequency of application, the statutory caution statement, and notice that the date, time and frequency may change. Where Landlord makes a broadcast application or uses a total release fogger or aerosol spray, Landlord will give the same notice to tenants of adjacent units that could reasonably be affected.",
-  },
   {
     id: "ordnance-demolition-meter-disclosures-ca",
     title: "Ordnance, Demolition and Shared Utility Disclosures",
@@ -2047,31 +1926,6 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "Former ordnance location: [If Landlord has actual knowledge of a former federal or state ordnance location within one mile of the property, disclose it here; otherwise state that Landlord has no such knowledge.] Demolition: [If Landlord has applied for a permit to demolish the unit, state the earliest approximate demolition date and the approximate date Landlord will terminate the tenancy.] Shared utility service: [If gas or electric service through Tenant's meter also serves areas outside the unit, disclose that here; a separate written agreement governs payment for it.]",
   },
-  // Landlord Responsibilities
-  {
-    id: "disaster-duties-ca",
-    title: "Disaster Damage, Evacuation and Rent",
-    group: "Landlord Responsibilities",
-    states: ["CA"],
-    bodyText:
-      "If a declared disaster damages the property, Landlord will remove debris caused by the disaster and mitigate hazards arising from it, including mold, smoke, smoke residue, smoke odor, ash, asbestos and water damage, within a reasonable time and following any government cleaning protocols. Landlord will notify Tenant in writing that this has been done and that Tenant may view and request copies of any environmental studies, testing or reports. Unless this Lease is lawfully terminated, the tenancy remains in effect and Tenant may return at the same rent as soon as it is safe and practicable. Tenant's obligation to pay rent is discharged for any period Tenant cannot occupy the unit under a mandatory evacuation order, and Landlord will return any rent already paid for that period within 10 calendar days after the order is lifted, or Tenant may deduct it from the next month's rent. If this Lease terminates because the property was destroyed or because Tenant terminated under Civil Code section 1932(2), Landlord will return any advance rent covering a period after termination within 21 days.",
-  },
-  {
-    id: "lock-change-non-cotenant-ca",
-    title: "Lock Change After Abuse or Violence",
-    group: "Landlord Responsibilities",
-    states: ["CA"],
-    bodyText:
-      "If a person who has committed or is alleged to have committed abuse or violence against Tenant, or against Tenant's immediate family or household member, is not a tenant of the same unit, Landlord will change the locks of the unit at Landlord's own expense within 24 hours of Tenant's written request accompanied by any one of the forms of documentation listed in Civil Code section 1941.5(d), and will give Tenant a key. If Landlord does not, Tenant may change the locks without Landlord's permission, and Landlord will reimburse Tenant within 21 days, provided Tenant uses locks of similar or better quality, notifies Landlord within 24 hours and provides a key.",
-  },
-  {
-    id: "internet-billing-optout-ca",
-    title: "Bulk-Billed Internet Opt-Out",
-    group: "Landlord Responsibilities",
-    states: ["CA"],
-    bodyText:
-      "If this tenancy is on a month-to-month or other periodic basis and Landlord offers internet service through a bulk-billing arrangement or other subscription with a third-party internet service provider in connection with the tenancy, Tenant may opt out of paying for that subscription. Landlord will not retaliate against Tenant for doing so. If Landlord does not honour Tenant's opt-out, Tenant may deduct the cost of the subscription from rent.",
-  },
   // Parking & Storage
   {
     id: "unbundled-parking-ca",
@@ -2079,7 +1933,7 @@ const CLAUSE_TEMPLATES = [
     group: "Parking & Storage",
     states: ["CA"],
     bodyText:
-      "Off-street parking is not included in the rent for this unit and is not part of this Lease. Any parking space is leased under a separate parking agreement or addendum. Tenant has a right of first refusal to parking spaces built for this property. Tenant's failure to pay a fee under a separate parking agreement will not be the basis of any unlawful detainer action; if the fee remains unpaid 45 days after it is owed, Landlord may revoke Tenant's right to lease that space.",
+      "Off-street parking is not included in the rent for this unit and is not part of this Lease. Any parking space is leased under a separate parking agreement or addendum. If a fee under that agreement remains unpaid 45 days after it is owed, Landlord may revoke Tenant's right to lease that space.",
   },
   // Tenant Responsibilities
   {
@@ -2090,16 +1944,6 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "If Tenant receives notice of any proceeding to recover the property or its possession, Tenant shall immediately inform Landlord of the proceeding and deliver the notice to Landlord if it is in writing.",
   },
-  // Default & Termination
-  {
-    id: "military-lease-termination-ca",
-    title: "Military Lease Termination",
-    group: "Default & Termination",
-    states: ["CA"],
-    bodyText:
-      "Tenant may terminate this Lease at any time after Tenant enters military service during the Term, or, if Tenant signed this Lease while already in military service, after Tenant receives military orders for a permanent change of station or to deploy with a military unit or in support of a military operation for at least 90 days. Tenant must deliver written notice of termination and a copy of the military orders to Landlord or Landlord's agent by hand delivery, private business carrier, or mail with return receipt requested. Where rent is payable monthly, termination takes effect 30 days after the first date on which the next rent payment is due following delivery of the notice. Rent for the period before termination is prorated. Landlord will not impose any early termination charge, although Tenant remains responsible for other amounts due under this Lease at termination, including reasonable charges for excess wear. Landlord will refund any rent paid in advance for a period after termination within 30 days. Termination also ends the obligations of Tenant's dependents under this Lease. Landlord will not hold Tenant's belongings or security deposit to satisfy a claim for rent accruing after termination. If Landlord believes a request under this section is incomplete, Landlord will respond in writing within 30 days identifying what is missing.",
-  },
-  // Tenant Responsibilities
   {
     id: "no-sublet-assign-discretion-ca",
     title: "Subletting and Assignment (Landlord's Sole Discretion)",
@@ -2119,7 +1963,7 @@ const CLAUSE_TEMPLATES = [
     states: ["CA"],
     supersedes: "possession-delay",
     bodyText:
-      "If Landlord is unable to deliver possession of the property to Tenant on the Start Date, Tenant will not owe Monthly Rent for any period before possession is delivered. If Tenant terminates this Lease because Landlord did not deliver possession, as permitted by the Damage, Destruction and Failure to Deliver section of this Lease, Landlord will return all amounts Tenant paid to Landlord.",
+      "If Landlord is unable to deliver possession of the property to Tenant on the Start Date, Tenant will not owe Monthly Rent for any period before possession is delivered. If Tenant terminates this Lease because Landlord did not deliver possession, as the law permits, Landlord will return all amounts Tenant paid to Landlord.",
   },
   // Landlord Responsibilities
   {
@@ -4458,6 +4302,16 @@ const CLAUSE_TEMPLATES = [
     states: ["PA"],
     bodyText:
       "If this Lease continues as a month-to-month tenancy, Tenant may end it by giving Landlord written notice at least {{m2m_notice_days}} days before the last day of a rental month, and the tenancy will end on that last day. Landlord may end it by giving Tenant the written notice to quit that Pennsylvania law requires, unless this Lease's Waiver of Notice to Quit section applies. Rent remains payable through the date the tenancy ends. This Section does not limit either party's right to end this Lease earlier where this Lease or Pennsylvania law allows it.",
+  },
+  // Security Deposit
+  {
+    id: "security-deposit-use-ca",
+    title: "Security Deposit",
+    group: "Security Deposit",
+    states: ["CA"],
+    supersedes: "security-deposit-use",
+    bodyText:
+      "Tenant shall pay Landlord a security deposit of {{security_deposit}} (Security Deposit) prior to occupancy. Landlord may apply the Security Deposit only to: unpaid Rent; repair of damage to the property, beyond ordinary wear and tear, caused by Tenant or by a guest or licensee of Tenant; cleaning needed when the tenancy ends to return the property to the level of cleanliness it was in when the tenancy began; and Tenant's failure to restore, replace or return personal property or appurtenances, beyond ordinary wear and tear. The Security Deposit will not relieve Tenant of any obligation to pay Rent.",
   },
 ];
 
