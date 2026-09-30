@@ -1,6 +1,6 @@
 # Steinoak State Research SOP
 
-**Version 1.0, 2026-09-29 (approved by Taylor).** This is the one procedure every state pass follows. It replaces the "Instructions for the next state" list (instructions 1–66) in `lease-clause-decision-log-named-topic-checklist.md`, the method lessons scattered through the state logs, and Addenda K and L of `lease-clause-decision-log-architecture-review.md`. Each rule gives its source in brackets so the history can be traced; the reasoning lives there, not here.
+**Version 1.1, 2026-09-29 (1.0 approved by Taylor).** This is the one procedure every state pass follows. It replaces the "Instructions for the next state" list (instructions 1–66) in `lease-clause-decision-log-named-topic-checklist.md`, the method lessons scattered through the state logs, and Addenda K and L of `lease-clause-decision-log-architecture-review.md`. Each rule gives its source in brackets so the history can be traced; the reasoning lives there, not here.
 
 **How this document is kept current**
 - Rule numbers never change. A retired rule stays listed as "Retired, see rule N".
@@ -49,7 +49,7 @@
 
 ### Step B. Reuse the library first
 26. **Tag first.** Screen every active clause in the library, not only the ones shared by two or more states. Read the full text of each (never tag on a title) and tag the new state where it applies as written. [checklist 26.1] [Fwd]
-27. **Answer every topic the library covers.** Group the whole library (clauses and education rows) by `topic_key`. For each topic any state has, the new state needs a row, as a clause or as education (including a confirmed absence), or a recorded reason why the topic doesn't apply. This catches topics that a screen of shared clauses misses, such as a clause every other state has overridden with its own version. [checklist 24, 26.2] [Fwd]
+27. **Answer every topic the library covers.** Work through `lease-clause-topics.md`, which lists every `topic_key` in the library (clauses and education rows). For each topic any state has, the new state needs a row, as a clause or as education (including a confirmed absence), or a recorded reason why the topic doesn't apply. This catches topics that a screen of shared clauses misses, such as a clause every other state has overridden with its own version. [checklist 24, 26.2] [Fwd]
 28. **Before writing a new row, check it against the library.** If an existing clause almost fits, prefer adjusting it so it's true for every tagged state over writing a near-duplicate. But never blur a real state difference: a separate row that's right beats a shared row that's approximately right. [checklist 26.2] [Fwd]
 
 ### Step C. Gap discovery (all four sources are required)
@@ -60,7 +60,7 @@
 33. **Source 2, real-lease comparison:** find a real, professional lease for the state yourself: the Realtors association or apartment-association form, a state agency's lease, or a property manager's. Generic multi-state form sites don't count. Never suggest buying a lease; Taylor won't. If no free lease fully qualifies, use the best free one that exists (a housing authority's lease counts, as a lead only), say in the log why it's weaker, and still complete the comparison. Check the lease isn't a relabelled template. Record its URL, publisher and edition, map it by topic against the library as a lead, and don't reproduce copyrighted text. A lease is a lead about wording, not law: any change it suggests to a row shared with other states is flagged for review under rule 62. [checklist 36, 41] [Fwd]
 34. **Source 3, landlord-scenario screen:** generate the everyday situations a landlord meets, from application to move-out, sale and foreclosure (the AZ log §18.1 map is the model; add anything state-specific). Run each against the library; where no row answers it, search the statutes and read any hit with the section open. [checklist 36] [Fwd]
 35. **Source 4, outside-title search:** search for law outside the landlord-tenant title (health and safety, banking, criminal, civil rights, consumer protection, court rules). Real findings reliably live there. [checklist 7, 36] [Fwd]
-36. **Derive topics top-down from the statute, not only from surprises.** Walk the act's table of contents and the standard topic list (the checklist's topic tables, to be replaced by a topic reference); each topic ends Present, Confirmed absent or Not located (with the boundary stated), never blank. [checklist 2; L.10] [Fwd]
+36. **Derive topics top-down from the statute, not only from surprises.** Walk the act's table of contents and the topic reference, `lease-clause-topics.md`; each topic ends Present, Confirmed absent or Not located (with the boundary stated), never blank. Check the reference's "Topics no state has a row for yet" too. [checklist 2; L.10] [Fwd]
 37. **Tenancy type changes answers.** Wherever a notice period, damages measure or right differs for week-to-week, month-to-month, fixed-term or at-will tenancies, say so; a flat figure hides an assumption. [tenancy-type screen 2026-09-06] [Retro]
 38. **Don't import another state's structure** (eviction grounds, cure structures, damages formulas) as a starting assumption; verify every element in the new state's own text. [checklist 18] [Fwd]
 39. **Eviction procedure is out of scope for lease clauses, but screen it for landlord duties, prohibitions and immunities** (post-writ property and animal duties, lockout bans, record sealing). Court rules govern eviction timing; read them whole, including rules that suspend statutes and pending amendments. [K.1; checklist 63] [Retro]
@@ -123,10 +123,10 @@ Each screen asks whether a shared clause the state is about to be tagged on is w
     - §10 Findings for other states or the product (flagged, not fixed).
     - Then the gap-discovery sections the completion table cites, and the SOP screens of Step D with a one-line result each.
     [de facto template since NJ] [Fwd]
-72. **Update the topic reference** with any new topic the state surfaced, so the next state sees it. [checklist 4] [Fwd]
+72. **New topics and questions:** a new subject gets a row with a new `topic_key`, which puts it in the topic reference automatically. A new question worth asking under an existing topic goes under "Proposed topic questions" at the end of the log; Claude Code adds it at sync. Don't edit `lease-clause-topics.md`; it's generated. [checklist 4] [Fwd]
 73. **List new lessons at the end of the log** under "Proposed SOP changes", each as a one-line rule with the reason, or write "None". Don't tag them [Retro] or [Fwd]; Claude Code does that. That list is the end of Desktop's job on this point; Claude Code decides at sync whether each becomes a rule. [new 2026-09-29] [Fwd]
 74. **Deliver, verify, then delete.** Confirm the output files are complete before deleting working copies. [L.11] [Fwd]
-75. **Desktop's pass is complete when the delta CSV, the decision log and any topic-reference updates are delivered and checked (rules 70–74).** Don't hold a state open waiting on the sync steps in Part 5. [new 2026-09-29] [Fwd]
+75. **Desktop's pass is complete when the delta CSV and the decision log are delivered and checked (rules 70–74).** Don't hold a state open waiting on the sync steps in Part 5. [new 2026-09-29] [Fwd]
 
 ## Part 5. What Claude Code does at sync (for reference; not Desktop's work)
 
@@ -140,6 +140,7 @@ A state counts as fully done only when these are finished. Desktop's pass ends a
 - The statute spot-check: about five of the state's highest-stakes rules read against official text.
 - The citations file, the PARTIAL review with Taylor, and a live-validated legal-watch workflow.
 - The consistency check: group every state's rows by `topic_key` and ask about any topic most states have and the new state lacks; compare the optional clauses found (rule 54) with other states.
+- The topic reference: add the log's "Proposed topic questions" to `scripts/clause-library/topic-questions.csv` and regenerate `lease-clause-topics.md`.
 - The SOP update: every item in the log's "Proposed SOP changes" list is added as a rule or rejected in the change log, and any new [Retro] rule gets a column of targeted checks in the conformance table.
 
 ---
@@ -169,6 +170,7 @@ A state counts as fully done only when these are finished. Desktop's pass ends a
 | 52 exculpation | · | · | ✓ | ✓ | ✓ | ✓ | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | 53 figure vs shared clause | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | · | · | · | · | · | · | · | · | · | · | · | · | · | · |
 | 54 optional clauses (general screen) | · | ✓ | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 27 seven topics with no row | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · |
 | 55 three-bucket test | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | 57 one subject per row | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | 54 e.g. holdover charge | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
@@ -186,4 +188,5 @@ Notes on the table:
 
 ## Change log
 
+- **1.1 (2026-09-29).** Topic reference added: `lease-clause-topics.md`, generated from the library's topic keys plus the questions carried over from the retired checklist (`scripts/clause-library/topic-questions.csv`). Rules 27, 36, 72 and 75 point at it; Part 5 regenerates it at sync. The checklist is retired as history. Seven topics found by earlier states have no row in any state; they're listed at the top of the reference and added to the conformance table.
 - **1.0 (2026-09-29).** Built from checklist instructions 1–66, Addenda K and L, the method lessons in the KS, NE, MN, ND and SD sections of the checklist, and the process notes in all 21 state logs. Instruction 3 (superseded by 22) and instruction 5 (update per-state columns, which will be dropped) were not carried over. Instructions 1, 2 and 4 are folded into rules 36 and 72. New in this version: rules 57, 58, 73, 75 and 76, the general optional-clause rule (54, Step F), and the conformance table. During review, the five standing questions (draft rules 65–69) were folded into rule 54; those numbers are unused.
