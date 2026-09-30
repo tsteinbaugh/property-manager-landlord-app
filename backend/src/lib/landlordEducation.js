@@ -32,6 +32,8 @@
 // wholesale from the CSV (2026-09-18 refresh, Ohio added: 309 -> 324
 // entries across the now-8-state pass).
 //
+// **2026-09-29 (three-bucket scrub, last nine states):** 1053 -> 1074 entries.
+//
 // **2026-09-29 (three-bucket scrub, NV/TX/NJ):** 1038 -> 1053 entries.
 //
 // **2026-09-29 (three-bucket scrub, CA):** 1021 -> 1038 entries.
@@ -6783,8 +6785,8 @@ const LANDLORD_EDUCATION = [
     verificationStatus: "VERIFIED",
     topicKey: "security-deposit-return",
     bodyText:
-      "Arizona caps all security, including prepaid rent, at one and one-half months' rent, though a tenant may voluntarily pay more rent in advance. The purpose of every nonrefundable fee or deposit must be stated in writing, and any fee not designated nonrefundable is refundable. At move-in the landlord must give the tenant a signed copy of the lease, a move-in form for noting existing damage, and written notice that the tenant may attend the move-out inspection. At the end of the tenancy the landlord may apply the deposit and prepaid rent to rent and, subject to the duty to mitigate, to charges stated in the lease and damages from the tenant's failure to maintain the unit. Within 14 days (not counting weekends and legal holidays) after the tenancy ends, the tenant returns the keys and vacates, and the tenant asks for the deposit, the landlord must send an itemized list of deductions and any refund, by first class mail to the last known residence unless the tenant arranged otherwise in writing. If the tenant does not dispute the list within 60 days after mailing, it becomes final. A landlord who does not comply owes the money due plus twice the amount wrongfully withheld. Whoever holds the landlord's interest when the tenancy ends is bound. After a lawful abandonment retake, the deposit is forfeited and applied to accrued rent and costs. The Act has no interest requirement for deposits.",
-    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). Controlling text: A.R.S. §33-1321(A)-(H); §33-1310(3), (15); §33-1370(B); §33-1325(A) (a selling landlord remains liable for deposit money); §33-1330 (deposit records transfer on sale of an apartment community). No deposit-interest rule in ch. 10 (full read) - also recorded as edu-no-deposit-interest-az.",
+      "Arizona caps all security, including prepaid rent, at one and one-half months' rent, though a tenant may voluntarily pay more rent in advance. The purpose of every nonrefundable fee or deposit must be stated in writing, and any fee not designated nonrefundable is refundable. At move-in the landlord must give the tenant a signed copy of the lease, a move-in form for noting existing damage, and written notice that the tenant may attend the move-out inspection. At the end of the tenancy the landlord may apply the deposit and prepaid rent to rent and, subject to the duty to mitigate, to charges stated in the lease and damages from the tenant's failure to maintain the unit. Within 14 days (not counting weekends and legal holidays) after the tenancy ends, the tenant returns the keys and vacates, and the tenant asks for the deposit, the landlord must send an itemized list of deductions and any refund, by first class mail to the last known residence unless the tenant arranged otherwise in writing. If the tenant does not dispute the list within 60 days after mailing, it becomes final. A landlord who does not comply owes the money due plus twice the amount wrongfully withheld. Whoever holds the landlord's interest when the tenancy ends is bound. After a lawful abandonment retake, the deposit is forfeited and applied to accrued rent and costs. The Act has no interest requirement for deposits. You don't have to hold a joint move-out inspection with a tenant being evicted for a material and irreparable breach if you have reasonable cause to fear violence or intimidation.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). Controlling text: A.R.S. §33-1321(A)-(H); §33-1310(3), (15); §33-1370(B); §33-1325(A) (a selling landlord remains liable for deposit money); §33-1330 (deposit records transfer on sale of an apartment community). No deposit-interest rule in ch. 10 (full read) - also recorded as edu-no-deposit-interest-az. | AZ: Three-bucket scrub (2026-09-29): security-deposit-cap-az switched off; this row already states its rules (A.R.S. §33-1321(A); §33-1310(15); §33-1305). | AZ: Three-bucket scrub (2026-09-29): move-in-inspection-az switched off; this row already states its rules, with the added sentence (A.R.S. §33-1321(C); §33-1322(E)).",
   },
   // Compliance & Prohibited Terms
   {
@@ -6936,8 +6938,8 @@ const LANDLORD_EDUCATION = [
     verificationStatus: "VERIFIED",
     topicKey: "foreclosure",
     bodyText:
-      "If an Arizona owner receives a notice of trustee's sale or other foreclosure notice after a tenant has signed a lease, the owner must give the tenant written notice of the possible foreclosure, in the statutory form, within five business days. This applies only to the first such notice received after the lease was signed, and does not apply to multifamily units of four or more connected units. If the owner fails to give the notice (or the move-in notice required for a lease signed after foreclosure began), the tenant may give a notice of landlord noncompliance and recover damages and injunctive relief, and the deposit must be returned.",
-    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). Controlling text: A.R.S. §33-1331(B)-(D). Move-in notice: foreclosure-notice-az. Post-sale tenant protections (federal Protecting Tenants at Foreclosure Act; A.R.S. §12-1173.01(B) preserves superior possessory rights) - federal law NOT read.",
+      "If an Arizona owner receives a notice of trustee's sale or other foreclosure notice after a tenant has signed a lease, the owner must give the tenant written notice of the possible foreclosure, in the statutory form, within five business days. This applies only to the first such notice received after the lease was signed, and does not apply to multifamily units of four or more connected units. If the owner fails to give the notice (or the move-in notice required for a lease signed after foreclosure began), the tenant may give a notice of landlord noncompliance and recover damages and injunctive relief, and the deposit must be returned. If a foreclosure action began before the lease is signed, give the tenant the statutory move-in notice first; the lease's optional Notice of Possible Foreclosure clause carries its text.",
+    notes: "AZ: Read section-open 2026-09-26/27 in the browser from azleg.gov (official legislative compilation, stated as updated through the 57th Legislature, 2nd Regular Session, 2026). azleg ARS pages print no history lines, so currency rests on the compilation date and the session-law check in the AZ log (s1.1). Controlling text: A.R.S. §33-1331(B)-(D). Move-in notice: foreclosure-notice-az. Post-sale tenant protections (federal Protecting Tenants at Foreclosure Act; A.R.S. §12-1173.01(B) preserves superior possessory rights) - federal law NOT read. | AZ: Pattern-3 sentence added by the three-bucket scrub (2026-09-29) for foreclosure-notice-az (A.R.S. § 33-1331(A)).",
   },
   // Rules & Regulations
   {
@@ -8615,7 +8617,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "security-deposit-return",
     bodyText:
       "Georgia caps refundable deposits (security, damage, pet and advance-rent deposits, but not nonrefundable fees or money to be applied to rent) at two months' rent for leases entered into or renewed on or after July 1, 2024. The statute does not say where an advance-rent deposit ends and prepaid rent begins, so treat last month's rent collected up front as a deposit, inside the cap and the escrow and return rules, unless the lease expressly makes it rent for a named calendar month. A landlord must hold deposits in trust in an escrow account used only for deposits at a regulated bank or lending institution, and tell the tenant in writing where it is, or post a surety bond with the superior court clerk instead. Before taking the deposit, the landlord must give the tenant a comprehensive list of existing damage to sign; within 3 business days after the lease ends and the tenant vacates (or surrenders and the landlord accepts), the landlord inspects and lists any damage charged against the deposit, with estimated costs, and the tenant may inspect within 5 business days. Both lists must tell the tenant of the duty to sign or dissent in writing. Within 30 days after getting possession, the landlord returns the deposit or a written statement of the exact reasons for keeping any part, with the damage list and the balance, by first-class mail to the tenant's last known address; a returned, undeliverable refund becomes the landlord's 90 days after mailing if the tenant cannot be found. Ordinary wear and tear cannot be charged. A landlord who misses the lists or the 30-day statement loses the right to withhold any part of the deposit and to sue for damage to the premises, and one who wrongfully keeps deposit money owes three times the amount plus attorney fees unless the error was a documented, unintentional bona fide mistake. The escrow, bond, list and penalty sections do not apply to a natural person who, with spouse and minor children, owns ten or fewer rental units and does not pay a third party to manage them; the cap and the 30-day return still do. These rights cannot be waived in the lease.",
-    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. Controlling text: O.C.G.A. §§ 44-7-30 (definitions; Ga. L. 2007, p. 498/SB 94), 44-7-30.1 (cap; HB 404, applicability 2024-07-01 per HB 404 § 6), 44-7-31 (escrow; Ga. L. 2006, p. 656/HB 1273), 44-7-32 (bond), 44-7-33 (lists; Ga. L. 2018, p. 969/HB 834), 44-7-34 (return), 44-7-35 (remedies), 44-7-36 (exemption), 44-7-2(b)(6) (non-waivable). READ LITERALLY, O.C.G.A. § 44-7-35(a) bars retention only when (1) no escrow or bond, (2) no initial list AND (3) no final list ('and'); the 2018 rewrite kept the conjunctive. Courts' reading is case law, not relied on (instruction 16); the row does not rest on (a) and states the (b) forfeiture, which applies on its own. Military: O.C.G.A. § 44-7-37 limits rent liability on PCS or 90+ day TDY orders (`edu-servicemember-rights-ga`). Last-month rent: Taylor decision 2026-09-28 (GA log §6.1; `security-deposit-cap-ga`).",
+    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. Controlling text: O.C.G.A. §§ 44-7-30 (definitions; Ga. L. 2007, p. 498/SB 94), 44-7-30.1 (cap; HB 404, applicability 2024-07-01 per HB 404 § 6), 44-7-31 (escrow; Ga. L. 2006, p. 656/HB 1273), 44-7-32 (bond), 44-7-33 (lists; Ga. L. 2018, p. 969/HB 834), 44-7-34 (return), 44-7-35 (remedies), 44-7-36 (exemption), 44-7-2(b)(6) (non-waivable). READ LITERALLY, O.C.G.A. § 44-7-35(a) bars retention only when (1) no escrow or bond, (2) no initial list AND (3) no final list ('and'); the 2018 rewrite kept the conjunctive. Courts' reading is case law, not relied on (instruction 16); the row does not rest on (a) and states the (b) forfeiture, which applies on its own. Military: O.C.G.A. § 44-7-37 limits rent liability on PCS or 90+ day TDY orders (`edu-servicemember-rights-ga`). Last-month rent: Taylor decision 2026-09-28 (GA log §6.1; `security-deposit-cap-ga`). | GA: Three-bucket scrub (2026-09-29): security-deposit-cap-ga switched off; this row already states its rules (O.C.G.A. § 44-7-30.1; O.C.G.A. § 44-7-30(3); O.C.G.A. § 44-7-30(1); O.C.G.A. § 44-7-36; O.C.G.A. § 44-7-33(b)).",
   },
   // Landlord Responsibilities
   {
@@ -9099,7 +9101,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "security-deposit-return",
     bodyText:
       "North Carolina's Tenant Security Deposit Act applies to anyone in the business of renting or managing residential units, other than single rooms. The deposit must be kept in a trust account at a licensed, federally insured bank or authorized trust institution (an out-of-state account needs a bond), or the landlord may instead buy a bond from a licensed insurer, and the tenant must be told in writing, within 30 days after the lease term begins, where the money is (or who issued the bond). The deposit may not exceed two weeks' rent for a week-to-week tenancy, one and one-half months' rent for month-to-month, or two months' rent for longer terms; a reasonable nonrefundable pet fee is allowed on top. The deposit may be used only for unpaid rent and landlord-billed water, sewer or electric charges, damage (including to smoke and CO alarms), damages for not finishing the term (not after a military or domestic-violence termination, an unlawful lockout or a constructive eviction), liens caused by the tenant, re-renting costs including a broker's fee, removal and storage costs after an eviction, court costs, and fees the law allows. Within 30 days after the tenancy ends and the tenant gives back possession, the landlord must mail or deliver an itemized list with the balance; if the damage cannot be figured in time, an interim accounting within 30 days and a final one within 60. No deductions for normal wear and tear or above actual damages. If the tenant's address is unknown, the landlord may apply the deposit after 30 days and must hold the balance for at least six months. On a sale or other end of the landlord's interest, the deposit must be transferred to the new owner (with notice to the tenant) or returned within 30 days. A landlord who willfully fails to follow the deposit, bond or notice rules loses the right to keep any of the deposit and can be ordered to pay the tenant's attorney's fees. The Act says nothing about interest (none is owed) or about prepaid last-month rent; the library treats prepaid last-month rent as part of the deposit, counted toward the cap, unless the lease makes it Rent for a named calendar month, because a court could treat it as security.",
-    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). Controlling text: N.C. Gen. Stat. §N.C. Gen. Stat. § 42-50 (trust account or bond; 30-day notice), 42-51 (permitted uses; caps by tenancy), 42-52 (30/60-day accounting; wear and tear; actual damages; unknown address six months), 42-53 (nonrefundable pet fee), 42-54 (transfer on termination of the landlord's interest), 42-55 (remedies: willful noncompliance voids retention; attorney's fees), 42-56 (application: 'engaged in the business of renting or managing residential dwelling units, excluding single rooms'). Interest: confirmed absent (edu-no-deposit-interest-nc). Unclaimed balances after the six-month hold: the Unclaimed Property Act default dormancy for 'all other property' is five years (N.C. Gen. Stat. § 116B-53(c)(16), read); how it interacts with N.C. Gen. Stat. § 42-52's six-month hold is not settled by text. The NC REALTORS lease (Form 410-T ¶4) lets a broker give an unclaimed deposit under $100 to charity after a year; no statute located for that (search: charit* near deposit/trust, 2026-09-28), so it rests on Real Estate Commission rules (21 NCAC 58A, not read; instruction 16). Vacation rentals (under 90 days) have separate deposit provisions in Chapter 42A (search hits N.C. Gen. Stat. §§ 42A-15 to 42A-19, not read; out of scope).",
+    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). Controlling text: N.C. Gen. Stat. §N.C. Gen. Stat. § 42-50 (trust account or bond; 30-day notice), 42-51 (permitted uses; caps by tenancy), 42-52 (30/60-day accounting; wear and tear; actual damages; unknown address six months), 42-53 (nonrefundable pet fee), 42-54 (transfer on termination of the landlord's interest), 42-55 (remedies: willful noncompliance voids retention; attorney's fees), 42-56 (application: 'engaged in the business of renting or managing residential dwelling units, excluding single rooms'). Interest: confirmed absent (edu-no-deposit-interest-nc). Unclaimed balances after the six-month hold: the Unclaimed Property Act default dormancy for 'all other property' is five years (N.C. Gen. Stat. § 116B-53(c)(16), read); how it interacts with N.C. Gen. Stat. § 42-52's six-month hold is not settled by text. The NC REALTORS lease (Form 410-T ¶4) lets a broker give an unclaimed deposit under $100 to charity after a year; no statute located for that (search: charit* near deposit/trust, 2026-09-28), so it rests on Real Estate Commission rules (21 NCAC 58A, not read; instruction 16). Vacation rentals (under 90 days) have separate deposit provisions in Chapter 42A (search hits N.C. Gen. Stat. §§ 42A-15 to 42A-19, not read; out of scope). | NC: Three-bucket scrub (2026-09-29): security-deposit-cap-nc switched off; this row already states its rules (N.C. Gen. Stat. § 42-51(b); N.C. Gen. Stat. § 42-53; N.C. Gen. Stat. § 42-56). | NC: Three-bucket scrub (2026-09-29): security-deposit-return-nc switched off; this row already states its rules (N.C. Gen. Stat. § 42-52; N.C. Gen. Stat. § 42-54; N.C. Gen. Stat. § 42-55; N.C. Gen. Stat. § 116B-53).",
   },
   // Landlord Responsibilities
   {
@@ -9647,8 +9649,8 @@ const LANDLORD_EDUCATION = [
     verificationStatus: "VERIFIED",
     topicKey: "security-deposit-return",
     bodyText:
-      "South Carolina sets no limit on the size of a security deposit and does not require interest, a separate or escrow account, or a notice of where the deposit is held. A security deposit is money the landlord holds in trust to secure the tenant's performance. When the tenancy ends, the landlord may keep only accrued rent and damages caused by the tenant's failure to meet the tenant's statutory and lease duties, and must send an itemized written notice of deductions with any refund within 30 days after the tenancy ends and the tenant delivers possession, or after the tenant demands the deposit, whichever is later. The tenant must give a forwarding address in writing; a landlord with no notice of the tenant's whereabouts may mail to the last known address. A landlord who fails to return prepaid rent or the deposit with the required notice can owe three times the amount wrongfully withheld plus attorney's fees. A landlord renting more than four adjoining units who uses different deposit standards must post or hand out those standards before the lease is signed. On a sale, the seller stays liable for the deposit unless it is transferred to the buyer and the tenant is told in writing. Real estate brokers and property managers must keep tenant deposits in a trust or escrow account.",
-    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). Controlling text: S.C. Code Ann. § 27-40-210(18) (1995 Act No. 112: deposit 'held in trust by the landlord'); S.C. Code Ann. § 27-40-410(a)-(e); S.C. Code Ann. § 27-40-450(a); S.C. Code Ann. § 27-40-650(b); S.C. Code Ann. § 27-40-330(b) (prohibited-provision penalty measured by the deposit); S.C. Code Ann. § 40-57-136(A) (broker-in-charge or property manager-in-charge trust account for rental trust funds including security, pet and damage deposits and advance rents; section opened, first part read). No cap (`edu-no-deposit-cap-sc`) and no interest (`edu-no-deposit-interest-sc`), both confirmed absent code-wide. Manufactured home park deposits have their own rule (S.C. Code Ann. § 27-47-520, deprioritized, not read). Unclaimed deposit refunds: Uniform Unclaimed Property Act, Title 27 Chapter 18 (general holder rules; not read beyond search hits).",
+      "South Carolina sets no limit on the size of a security deposit and does not require interest, a separate or escrow account, or a notice of where the deposit is held. A security deposit is money the landlord holds in trust to secure the tenant's performance. When the tenancy ends, the landlord may keep only accrued rent and damages caused by the tenant's failure to meet the tenant's statutory and lease duties, and must send an itemized written notice of deductions with any refund within 30 days after the tenancy ends and the tenant delivers possession, or after the tenant demands the deposit, whichever is later. The tenant must give a forwarding address in writing; a landlord with no notice of the tenant's whereabouts may mail to the last known address. A landlord who fails to return prepaid rent or the deposit with the required notice can owe three times the amount wrongfully withheld plus attorney's fees. A landlord renting more than four adjoining units who uses different deposit standards must post or hand out those standards before the lease is signed. On a sale, the seller stays liable for the deposit unless it is transferred to the buyer and the tenant is told in writing. Real estate brokers and property managers must keep tenant deposits in a trust or escrow account. A landlord renting more than four adjoining units who uses different standards to set deposits must give each tenant a written statement of those standards before the lease is signed (S.C. Code Ann. 27-40-410(c)); the lease's optional clause records it.",
+    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). Controlling text: S.C. Code Ann. § 27-40-210(18) (1995 Act No. 112: deposit 'held in trust by the landlord'); S.C. Code Ann. § 27-40-410(a)-(e); S.C. Code Ann. § 27-40-450(a); S.C. Code Ann. § 27-40-650(b); S.C. Code Ann. § 27-40-330(b) (prohibited-provision penalty measured by the deposit); S.C. Code Ann. § 40-57-136(A) (broker-in-charge or property manager-in-charge trust account for rental trust funds including security, pet and damage deposits and advance rents; section opened, first part read). No cap (`edu-no-deposit-cap-sc`) and no interest (`edu-no-deposit-interest-sc`), both confirmed absent code-wide. Manufactured home park deposits have their own rule (S.C. Code Ann. § 27-47-520, deprioritized, not read). Unclaimed deposit refunds: Uniform Unclaimed Property Act, Title 27 Chapter 18 (general holder rules; not read beyond search hits). | SC: Pattern-3 sentence added by the three-bucket scrub (2026-09-29) for security-deposit-standards-sc.",
   },
   // Landlord Responsibilities
   {
@@ -10876,7 +10878,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "security-deposit-return",
     bodyText:
       "Virginia caps the security deposit, including any pet deposit, at two months' periodic rent, and the deposit plus any damage and renter's insurance premiums paid before the lease begins may not together exceed two months' rent. At the end of the tenancy the deposit may be applied only to accrued rent (including reasonable late charges in the lease), damages from the tenant's failure to meet statutory maintenance duties less reasonable wear and tear, other damages or charges provided in the lease, and actual damages for breach. Within 45 days after the tenancy ends or the tenant vacates, whichever is later, the landlord must give an itemized written disposition with any refund; where damages exceed the deposit and need a contractor, written notice within the 45 days buys 15 more days to itemize. The landlord must tell the tenant of the right to attend the move-out inspection, which must occur within 72 hours after possession is delivered if the tenant asks. Refunds go by one check to all tenants unless each agrees otherwise in writing; without a forwarding address the landlord holds the money and may send it to the State Treasurer as unclaimed property after a year. Deductions during the tenancy must be noticed within 30 days. A willful violation means return of the whole deposit plus actual damages and attorney fees. Landlords must keep two years of deduction records for tenant inspection, transfer deposits to a buyer on sale, and remain bound as successors. No interest is owed. Damage insurance may replace the deposit if it meets five statutory criteria, and the tenant may switch to paying the full deposit at any time.",
-    notes: "VA: VA-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Va. Code Ann. §§ 55.1-1226 (A)-(J), 55.1-1213 (transfer of deposits and 'any accrued interest' to a buyer; managing agent notice to tenants), 55.1-1206 (insurance premiums are rent; cap), 55.1-1208(A)(7), 55.1-1200 (definitions), 55.1-1205 (prepaid rent, meaning rent paid more than one month in advance, held in a federally insured escrow account by the fifth business day and not removed without the tenant's written consent until due), 55.1-1240 (casualty return), 55.1-1234 (return on landlord-caused termination), 55.1-1251 (deposit credited after the tenant vacates; simultaneous judgment without credit). Va. Code Ann. § 55.1-2500 (unclaimed property includes security deposits) - read by definition only. Clause: security-deposit-return-va; optional expedited-deposit-disposition-va, damage-insurance-va.",
+    notes: "VA: VA-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Va. Code Ann. §§ 55.1-1226 (A)-(J), 55.1-1213 (transfer of deposits and 'any accrued interest' to a buyer; managing agent notice to tenants), 55.1-1206 (insurance premiums are rent; cap), 55.1-1208(A)(7), 55.1-1200 (definitions), 55.1-1205 (prepaid rent, meaning rent paid more than one month in advance, held in a federally insured escrow account by the fifth business day and not removed without the tenant's written consent until due), 55.1-1240 (casualty return), 55.1-1234 (return on landlord-caused termination), 55.1-1251 (deposit credited after the tenant vacates; simultaneous judgment without credit). Va. Code Ann. § 55.1-2500 (unclaimed property includes security deposits) - read by definition only. Clause: security-deposit-return-va; optional expedited-deposit-disposition-va, damage-insurance-va. | VA: Three-bucket scrub (2026-09-29): security-deposit-return-va switched off; this row already states its rules (Va. Code Ann. § 55.1-1226; Va. Code Ann. § 55.1-1200; Va. Code Ann. § 55.1-1206(C), 55.1-1208(A)(7)).",
   },
   {
     id: "edu-no-deposit-interest-va",
@@ -11236,7 +11238,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "rent-increase-notice",
     bodyText:
       "Virginia has no rent control. A landlord with more than four Virginia units must give written notice of a rent increase for a renewal term, and of nonrenewal, at least 60 days before the lease ends where the lease can renew or renews automatically; from July 1, 2027 the rent-increase notice must be given 90 days ahead with a response deadline at least 30 days out. A landlord with four or fewer units has no statutory renewal-notice deadline. For a month-to-month or holdover tenancy with the landlord's consent, a new rent takes effect only on the next rent due date at least 30 days after written notice. No unilateral change to lease terms is valid without notice and both parties' written consent, and new or changed rules that substantially modify the bargain need the tenant's written consent. From January 1, 2027, a rent or fee increase made because of a tenant's protected activity is retaliation unless made under the lease terms or at market rate.",
-    notes: "VA: VA-SCOPE: STATEWIDE; RENEWAL NOTICE SIZE-TIERED. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Va. Code Ann. §§ 55.1-1204(I), (K) (2026 Acts ch. 1066, effective 2027-07-01), 55.1-1253(D), 55.1-1228(B), 55.1-1258 (2027 version). Clauses: renewal-notice-va / renewal-notice-va-small (choice group va-size-renewal); edu-local-preemption-va.",
+    notes: "VA: VA-SCOPE: STATEWIDE; RENEWAL NOTICE SIZE-TIERED. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Va. Code Ann. §§ 55.1-1204(I), (K) (2026 Acts ch. 1066, effective 2027-07-01), 55.1-1253(D), 55.1-1228(B), 55.1-1258 (2027 version). Clauses: renewal-notice-va / renewal-notice-va-small (choice group va-size-renewal); edu-local-preemption-va. | VA: Three-bucket scrub (2026-09-29): renewal-notice-va switched off; this row already states its rules (Va. Code Ann. § 55.1-1204(K)).",
   },
   // Default & Termination
   {
@@ -11249,7 +11251,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "dv-lease-termination",
     bodyText:
       "Virginia lets a tenant who is a victim of family abuse, sexual abuse or criminal sexual assault, stalking or human trafficking end the lease on 28 days' written notice with a copy of a protective order or of a conviction, warrant, summons, information or indictment; rent is owed through the effective date, no liquidated damages may be charged, co-tenants remain liable, and if the perpetrator is the only remaining tenant the landlord may terminate and pursue the perpetrator for damages. A lease may not terminate solely because of family abuse against the tenant where the perpetrator is barred by the landlord or by a court order. A tenant or occupant with a non-ex parte court order excluding a co-tenant may have the locks changed; an excluded person gets no keys; a non-tenant granted possession by such an order may apply to become a tenant within 10 days or must leave within 30. Landlords must consider evidence of family abuse to offset a low credit score in screening.",
-    notes: "VA: VA-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Outside-title sections read section-open 2026-09-28 from the official Code of Virginia Law Library compilation (law.lis.virginia.gov/law-library, per-title CSV) overlaid with every section on the official 2026 Updates pages (VA log §17). Va. Code Ann. §§ 55.1-1236 (2025 Acts ch. 593), 55.1-1245(D) (2026 Acts ch. 844), 55.1-1230, 55.1-1203(D), 36-96.2(H). Clause: dv-lease-termination-va.",
+    notes: "VA: VA-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Outside-title sections read section-open 2026-09-28 from the official Code of Virginia Law Library compilation (law.lis.virginia.gov/law-library, per-title CSV) overlaid with every section on the official 2026 Updates pages (VA log §17). Va. Code Ann. §§ 55.1-1236 (2025 Acts ch. 593), 55.1-1245(D) (2026 Acts ch. 844), 55.1-1230, 55.1-1203(D), 36-96.2(H). Clause: dv-lease-termination-va. | VA: Three-bucket scrub (2026-09-29): dv-lease-termination-va switched off; this row already states its rules (Va. Code Ann. § 55.1-1236; Va. Code Ann. § 55.1-1245(D); Va. Code Ann. § 55.1-1230; Va. Code Ann. § 55.1-1203(D)).",
   },
   {
     id: "edu-servicemember-rights-va",
@@ -11285,7 +11287,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "sale-of-rented-property",
     bodyText:
       "When a Virginia rental is sold, the landlord must tell the tenant and give the buyer's name, address and phone number, and must transfer security deposits and any accrued interest to the buyer; a seller who sells in good faith is released from later liability after notice to the tenant, and the new owner is bound to return deposits owed. A landlord of a single-family rental must tell the tenant within five business days of receiving a lender's default, acceleration or foreclosure-sale notice, or the tenant may end the lease on five business days' notice. After a foreclosure sale, a buyer who will live in the home gives the tenant at least 90 days' notice to vacate; any other buyer takes subject to the lease. A former owner who stays after a foreclosure sale becomes a tenant at sufferance who can be removed on three days' notice. When a rental building is converted to condominiums, the developer must give each tenant formal notice of the offering price of the tenant's unit, projected assessments and any relocation help, and the tenant then has 60 days' exclusive right to buy the unit; a lease cannot waive the conversion notice.",
-    notes: "VA: VA-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Outside-title sections read section-open 2026-09-28 from the official Code of Virginia Law Library compilation (law.lis.virginia.gov/law-library, per-title CSV) overlaid with every section on the official 2026 Updates pages (VA log §17). Va. Code Ann. §§ 55.1-1216(B), 55.1-1213, 55.1-1224, 55.1-1226(E), 55.1-1237, 8.01-126(F)(4), 54.1-2108.1(A)(3), 55.1-1982(C)-(D) (conversion condominium tenant notice and 60-day exclusive purchase right; read to (F); found by the scenario screen, VA log §16), 55.1-1208(A)(2). Clauses: landlord-disclosure-va, foreclosure-notice-va. FEDERAL PTFA not relied on.",
+    notes: "VA: VA-SCOPE: STATEWIDE. Read section-open 2026-09-28 in the built-in browser on the official Code of Virginia (law.lis.virginia.gov; Title 55.1 Chapter 12 read whole from the vacodefull page, which prints the 2026-session amendments and every delayed-effective version with its history line); 2024-2026 amending chapters read in enrolled text on lis.virginia.gov with their effective-date clauses (VA log §1). Outside-title sections read section-open 2026-09-28 from the official Code of Virginia Law Library compilation (law.lis.virginia.gov/law-library, per-title CSV) overlaid with every section on the official 2026 Updates pages (VA log §17). Va. Code Ann. §§ 55.1-1216(B), 55.1-1213, 55.1-1224, 55.1-1226(E), 55.1-1237, 8.01-126(F)(4), 54.1-2108.1(A)(3), 55.1-1982(C)-(D) (conversion condominium tenant notice and 60-day exclusive purchase right; read to (F); found by the scenario screen, VA log §16), 55.1-1208(A)(2). Clauses: landlord-disclosure-va, foreclosure-notice-va. FEDERAL PTFA not relied on. | VA: Three-bucket scrub (2026-09-29): foreclosure-notice-va switched off; this row already states its rules (Va. Code Ann. § 55.1-1237; 12 U.S.C. § 5220).",
   },
   {
     id: "edu-distress-for-rent-va",
@@ -13462,6 +13464,266 @@ const LANDLORD_EDUCATION = [
     bodyText:
       "In New Jersey, if the property is damaged by fire without the tenant's fault, rent stops until it's fully repaired, and you should repair it as quickly as possible; if the building is totally destroyed without the tenant's fault, rent is owed only to the date of destruction and the lease ends (N.J.S.A. 46:8-6, 46:8-7).",
     notes: "NJ: Moved from casualty-nj by the three-bucket scrub (2026-09-29); content and citations unchanged: N.J.S.A. 46:8-6; N.J.S.A. 46:8-7; N.J.S.A. 46:8-48.",
+  },
+  // Security Deposit
+  {
+    id: "edu-security-deposit-rules-fl",
+    title: "Florida Security Deposit Rules",
+    group: "Security Deposit",
+    states: ["FL"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-return",
+    bodyText:
+      "Florida controls how a deposit and advance rent are held and returned (Fla. Stat. 83.49). Don't commingle the funds with your own, or pledge or use them, until they're actually due to you. Where interest is owed, pay it or credit it against the current month's rent at least once a year; a tenant who wrongfully ends the tenancy early gets no interest. If you won't claim against the deposit, return it with any interest within 15 days after the lease ends and the tenant vacates. If you will, give written notice of the claim and the reason within 30 days, by certified mail to the tenant's last known address (or by e-mail under an electronic-notice addendum), in the form 83.49(3)(a) prescribes; miss that and you lose the right to claim against the deposit (you may still sue for damages after returning it). The tenant has 15 days to object in writing; without an objection you may deduct the claim and must send the balance within 30 days of the notice, and the tenant can still sue. The prevailing party in a deposit lawsuit recovers costs and a reasonable attorney's fee. A renewal is a new rental agreement, and a deposit carried forward is a new deposit. On a sale or change of agent, transfer the deposit, advance rent and earned interest with an accounting.",
+    notes: "FL: Created by the three-bucket scrub (2026-09-29) from security-deposit-return-fl; content unchanged: Fla. Stat. §§83.49, 83.48, 83.505.",
+  },
+  // Default & Termination
+  {
+    id: "edu-casualty-damage-fl",
+    title: "Fire or Casualty: The Tenant's Options",
+    group: "Default & Termination",
+    states: ["FL"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "casualty-termination",
+    bodyText:
+      "If the property is damaged or destroyed, other than by the tenant's wrongful or negligent act, so that the tenant's enjoyment of it is substantially impaired, the tenant may end the lease and move out immediately, or vacate the unusable part and pay rent reduced by that part's fair rental value (Fla. Stat. 83.63). If the lease ends, handle the deposit under 83.49, and give the tenant either the chance to collect belongings when it is safe, or notice of the date by which they can, within a reasonable time.",
+    notes: "FL: Moved from casualty-damage-fl by the three-bucket scrub (2026-09-29); content and citations unchanged: Fla. Stat. §§83.63, 83.49(3).",
+  },
+  {
+    id: "edu-possession-delay-az",
+    title: "If You Can't Deliver Possession on Time",
+    group: "Default & Termination",
+    states: ["AZ"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "possession-delay",
+    bodyText:
+      "If you fail to deliver possession as the lease requires, rent abates until you do, and the tenant may either end the lease by at least 5 days' written notice, in which case you return all prepaid rent and security, or demand that you perform, sue for possession against you or anyone wrongfully in possession, and recover damages. If a person's failure to deliver possession is willful and not in good faith, the tenant can recover from that person up to the greater of two months' periodic rent or twice actual damages. If possession is delivered but the property isn't in the condition Arizona law requires, rent doesn't abate on that account; the tenant has the remedies for landlord noncompliance instead (A.R.S. 33-1362).",
+    notes: "AZ: Moved from possession-delay-az by the three-bucket scrub (2026-09-29); content and citations unchanged: A.R.S. §33-1362(A)(1); §33-1315(A)(1); §33-1324; §33-1361; §33-1323; §33-1375(C).",
+  },
+  {
+    id: "edu-dv-lease-termination-az",
+    title: "Domestic Violence or Sexual Assault: Tenant's Right to End the Lease",
+    group: "Default & Termination",
+    states: ["AZ"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-lease-termination",
+    bodyText:
+      "A tenant who is a victim of domestic violence, or of sexual assault in the property, may end the lease with written notice requesting release, a mutually agreed release date within 30 days, and either a copy of a protective order issued to the tenant or a written law enforcement report that the tenant reported being a victim, if the events happened within the 30 days before the notice (you may waive that limit) (A.R.S. 33-1318). You may ask in writing for the name and address of the person named in the order or report, if the tenant knows it. The tenant owes only rent through the termination date and earlier obligations, payable by move-out, and no future rent, penalty or fee; you may keep prepaid rent for the final month and may not withhold the deposit because of the early termination (only for damage from failure to maintain). If there are several tenants, all tenancies end, and non-victim tenants other than the named person may be released and allowed a new lease if they qualify. The victim may require a new lock at their cost; you may rekey or replace it, keep a key, and refuse a key to the named person, and may not let that person in to reclaim property after they've been served with an order of protection you've received, unless a law enforcement officer escorts them. A law enforcement officer protected by a recent harassment injunction may end the lease the same way after repaying lease concessions received. None of this limits your right to terminate for unrelated reasons.",
+    notes: "AZ: Moved from dv-lease-termination-az by the three-bucket scrub (2026-09-29); content and citations unchanged: A.R.S. §33-1318(A); §33-1318.01; §13-3601; §13-1202.",
+  },
+  {
+    id: "edu-casualty-termination-az",
+    title: "Fire or Casualty: The Tenant's Options",
+    group: "Default & Termination",
+    states: ["AZ"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "casualty-termination",
+    bodyText:
+      "If fire or casualty substantially impairs the tenant's enjoyment of the property, the tenant may move out immediately and tell you in writing within 14 days that they are ending the lease, which then ends on the date they moved out; or, if continued occupancy is lawful, vacate the unusable part and pay rent reduced in proportion to the drop in fair rental value (A.R.S. 33-1366). If the lease ends, return all recoverable security and account for rent as of the date the tenant vacated all or part of the property.",
+    notes: "AZ: Moved from casualty-termination-az by the three-bucket scrub (2026-09-29); content and citations unchanged: A.R.S. §33-1366(A); §33-343; §33-381; §33-1368(C).",
+  },
+  {
+    id: "edu-dv-lease-termination-ga",
+    title: "Family Violence or Stalking Order: Tenant's Right to End the Lease",
+    group: "Default & Termination",
+    states: ["GA"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-lease-termination",
+    bodyText:
+      "A tenant protected, with their minor child, by a civil or criminal family violence or stalking order may end the lease effective 30 days after giving you written notice with a copy of the order (and, for an ex parte temporary protective order, the police report), even as a joint tenant with no rent obligation (O.C.G.A. 44-7-23). The tenant may stay until the termination takes effect and owes rent prorated to that date, payable when it would have been due, plus sums owed before termination, but no other fees, rent or damages for the early termination; if they end it 14 or more days before occupancy, nothing is owed. This right can't be waived or modified.",
+    notes: "GA: Moved from dv-lease-termination-ga by the three-bucket scrub (2026-09-29); content and citations unchanged: O.C.G.A. § 44-7-23(a); O.C.G.A. § 16-5-94; O.C.G.A. § 19-13-1; O.C.G.A. § 16-5-90 to 16-5-94.",
+  },
+  // Disclosures
+  {
+    id: "edu-flood-disclosure-ga",
+    title: "Flooding Notice Before Signing",
+    group: "Disclosures",
+    states: ["GA"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "flood-disclosure",
+    bodyText:
+      "If flooding has damaged any part of the living space at least three times in the five years before the lease, give the prospective tenant a separate written flooding notice before the lease is signed (O.C.G.A. 44-7-20). The lease's optional Flooding Notice clause carries the text and the tenant's acknowledgment.",
+    notes: "GA: Created by the three-bucket scrub (2026-09-29) from flood-disclosure-ga; content unchanged: O.C.G.A. § 44-7-20.",
+  },
+  // Default & Termination
+  {
+    id: "edu-dv-lease-termination-nc",
+    title: "Domestic Violence, Sexual Assault or Stalking: Termination and Lock Changes",
+    group: "Default & Termination",
+    states: ["NC"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-lease-termination",
+    bodyText:
+      "A protected tenant (a tenant or household member who is a victim of domestic violence, sexual assault or stalking) may end the lease by written notice effective at least 30 days after you receive it, with a copy of a non-ex-parte Chapter 50B or 50C protective order, a criminal no-contact order, or an Address Confidentiality Program card; a domestic violence or sexual assault victim must also include a safety plan from a qualifying program, dated during the tenancy, recommending relocation (N.C. Gen. Stat. 42-45.1). The tenant owes rent prorated to the termination date and nothing else for the early termination (nothing at all if they end it 14 or more days before occupancy), and you may not apply the deposit to early-termination damages. Remaining tenants stay bound, and a perpetrator excluded by court order stays liable. Any tenant may ask, orally or in writing, for the locks to be changed: within 48 hours with no documentation if the perpetrator isn't a tenant, or within 72 hours of receiving a stay-away order if they are (42-42.3); the protected tenant pays, and if you don't act in time may change them and must give you a key within 48 hours. You may not terminate, refuse to renew or retaliate because of victim status or use of these rights, which can't be waived.",
+    notes: "NC: Moved from dv-lease-termination-nc by the three-bucket scrub (2026-09-29); content and citations unchanged: N.C. Gen. Stat. § 42-40(4); N.C. Gen. Stat. § 42-45.1(a); N.C. Gen. Stat. § 42-42.3; N.C. Gen. Stat. § 42-42.2; N.C. Gen. Stat. § 42-45.1; N.C. Gen. Stat. § 42-51(a)(3); N.C. Gen. Stat. § 50B-1; N.C. Gen. Stat. § 15C-4; N.C. Gen. Stat. § 50B-9.",
+  },
+  {
+    id: "edu-possession-delay-sc",
+    title: "If You Can't Deliver Possession on Time",
+    group: "Default & Termination",
+    states: ["SC"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "possession-delay",
+    bodyText:
+      "If you fail to deliver possession as the lease requires, rent abates until you do, and the tenant may either end the lease by at least 5 days' written notice, in which case you return all prepaid rent and security, or demand that you perform, sue for possession against you or anyone wrongfully in possession, and recover damages. If a person's failure to deliver possession is willful and not in good faith, the tenant can recover from that person up to the greater of three months' periodic rent or twice actual damages, plus reasonable attorney's fees. You aren't liable for damages if a previous tenant held over without your consent and you made reasonable efforts to get possession (S.C. Code Ann. 27-40-620).",
+    notes: "SC: Moved from possession-delay-sc by the three-bucket scrub (2026-09-29); content and citations unchanged: S.C. Code Ann. § 27-40-620(a); S.C. Code Ann. § 27-40-620(b); S.C. Code Ann. § 27-40-430.",
+  },
+  {
+    id: "edu-dv-lease-termination-sc",
+    title: "Domestic Violence by a Co-Tenant: Tenant's Right to End the Lease",
+    group: "Default & Termination",
+    states: ["SC"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-lease-termination",
+    bodyText:
+      "A protected tenant (a victim of domestic abuse or violence by another tenant on the same lease, documented by a restraining order, order of protection or conviction) may end their future obligations by written notice within 60 days after the incident, with the documentation, effective at least 30 days after you receive it unless you agree to an earlier date (S.C. Code Ann. 27-40-350). The tenant gives up possession and owes rent and other amounts through that date and any damage they caused, but no early-termination fee; any deposit due is returned at the end of the term. Other tenants stay liable for the full rent; if the perpetrator is the only remaining tenant, you may end the lease on 5 days' written notice and recover actual damages from them. You may not require the protected tenant to leave before the 60 days end, except by agreement, or retaliate.",
+    notes: "SC: Moved from dv-lease-termination-sc by the three-bucket scrub (2026-09-29); content and citations unchanged: S.C. Code Ann. § 27-40-350(A); S.C. Code Ann. § 27-40-210(20); S.C. Code Ann. § 20-4-20(b); S.C. Code Ann. § 16-25-10(3).",
+  },
+  {
+    id: "edu-casualty-termination-sc",
+    title: "Fire or Casualty: The Tenant's Options",
+    group: "Default & Termination",
+    states: ["SC"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "casualty-termination",
+    bodyText:
+      "If fire or casualty substantially impairs normal use and occupancy, the tenant may move out immediately and tell you in writing within 7 days that they are ending the lease, which then ends on the date they moved out; or, if continued occupancy is lawful, vacate the unusable part and pay rent reduced in proportion to the drop in fair-market rental value (S.C. Code Ann. 27-40-650). Account for rent as of the date of the casualty. If the lease ends, return the recoverable deposit and prepaid rent, unless the tenant caused the fire or casualty, in which case you may withhold them but must still give the itemized written notice.",
+    notes: "SC: Moved from casualty-termination-sc by the three-bucket scrub (2026-09-29); content and citations unchanged: S.C. Code Ann. § 27-40-650(a); S.C. Code Ann. § 27-40-650(b); S.C. Code Ann. § 27-40-410; S.C. Code Ann. § 27-40-410(a).",
+  },
+  {
+    id: "edu-dv-lease-termination-tn",
+    title: "Domestic Abuse, Sexual Assault or Stalking: Tenant's Right to End the Lease",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-lease-termination",
+    bodyText:
+      "For a lease entered into or renewed on or after July 1, 2021, a tenant who, or whose household family member, is a domestic abuse, sexual assault or stalking victim may end the lease with written notice requesting release, a mutually agreed release date within 30 days, and either an order of protection issued or extended after a hearing finding them a victim, or documentation of a criminal charge based on a police report, dated no more than 60 days before the notice (Tenn. Code Ann. 66-28-205). The tenant moves out within 30 days of notice or as agreed and owes rent for the full month in which the tenancy ends and outstanding obligations, but no future rent, penalty or fee; other parties aren't released. Don't reveal information that could locate the tenant without written consent unless law or a court requires it, and don't terminate or evict solely because of victim status. See also the note on evicting only the perpetrator.",
+    notes: "TN: Moved from dv-lease-termination-tn by the three-bucket scrub (2026-09-29); content and citations unchanged: Tenn. Code Ann. § 66-28-205; Tenn. Code Ann. § 36-3-601; Tenn. Code Ann. § 66-28-102(a).",
+  },
+  {
+    id: "edu-casualty-termination-tn",
+    title: "Fire or Casualty: The Tenant's Options",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "casualty-termination",
+    bodyText:
+      "If fire or casualty substantially impairs use of the property, or leaves it untenantable or unfit (including by a government finding), the tenant may move out immediately and tell you in writing within 14 days that they are ending the lease, which then ends on the date they moved out (Tenn. Code Ann. 66-28-503). If the lease ends, return all prepaid rent and the recoverable deposit, accounting for rent as of the date the tenant returned the keys or moved out, whichever is earlier.",
+    notes: "TN: Created by the three-bucket scrub (2026-09-29) from casualty-termination-tn; content unchanged: Tenn. Code Ann. § 66-28-503; Tenn. Code Ann. § 66-7-102(a); Tenn. Code Ann. § 66-28-102(a).",
+  },
+  {
+    id: "edu-termination-notice-periods-tn",
+    title: "Ending a Month-to-Month or Week-to-Week Tenancy",
+    group: "Default & Termination",
+    states: ["TN"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-notice-periods",
+    bodyText:
+      "Tennessee sets minimum notice to end a periodic tenancy: at least 30 days before the periodic rental date for month-to-month, and at least 10 days for week-to-week (Tenn. Code Ann. 66-28-512(a), 66-7-109). Your lease states your chosen periods; use these minimums as the guardrail.",
+    notes: "TN: Created by the three-bucket scrub (2026-09-29) from periodic-tenancy-notice-tn; content unchanged: Tenn. Code Ann. § 66-28-512(a); Tenn. Code Ann. § 66-7-109; Tenn. Code Ann. § 66-28-102(a).",
+  },
+  {
+    id: "edu-redemption-rights-va",
+    title: "The Tenant's Right of Redemption",
+    group: "Default & Termination",
+    states: ["VA"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "redemption",
+    bodyText:
+      "If you file an eviction case only for nonpayment of rent, the tenant (or someone for them) can have it dismissed by paying you, your attorney or the court all rent due as of the court date, other charges and fees, late charges, reasonable attorney fees and court costs at or before the first return date, or by presenting a written commitment from a local government or nonprofit to pay within 10 days (Va. Code Ann. 55.1-1250). After the first return date, the tenant can still cancel a scheduled eviction by paying everything claimed, including sheriff fees, at least 48 hours before it. On written request, give the tenant a written statement of all amounts owed; redemption payments come by cashier's check, certified check or money order. A landlord with four or fewer units may limit redemption to once per lease period with written notice (the lease's optional clause).",
+    notes: "VA: Moved from redemption-rights-va by the three-bucket scrub (2026-09-29); content and citations unchanged: Va. Code Ann. § 55.1-1250.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-portable-solar-va",
+    title: "Tenants' Right to Plug-In Solar (From 2027)",
+    group: "Rules & Regulations",
+    states: ["VA"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "portable-solar",
+    bodyText:
+      "From January 1, 2027, a tenant may install a small portable solar device (up to 1,200 watts per unit, plugged into an outlet, meeting Virginia's safety and certification requirements) on the exterior of their premises, subject to your reasonable restrictions on size, place and manner (Va. Code Ann. 55.1-1212.1). The tenant gives you written notice at least seven days before, with documentation and the proposed location, and is responsible for any damage. You may prohibit or restrict installation elsewhere on the property; the right doesn't apply where utilities are billed by ratio billing, or to devices needing alterations to the building, wiring or panels without your written approval. A landlord with four or fewer units isn't bound and may require consent (the lease's optional clause).",
+    notes: "VA: Moved from portable-solar-va by the three-bucket scrub (2026-09-29); content and citations unchanged: Va. Code Ann. § 55.1-1212.1; 29 C.F.R. § 1910.7.",
+  },
+  // Default & Termination
+  {
+    id: "edu-military-lease-termination-va",
+    title: "Military Tenants: Right to End the Lease",
+    group: "Default & Termination",
+    states: ["VA"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "military-lease-termination",
+    bodyText:
+      "A member of the U.S. Armed Forces, or a National Guard member on full-time duty or serving as a civil service technician, may end the lease on receiving permanent change of station orders, temporary duty orders of more than three months, discharge or release, orders to government quarters forfeiting the housing allowance, or a stop-movement order of at least 30 days that prevents occupancy (Va. Code Ann. 55.1-1235). The tenant gives written notice effective at least 30 days after the next rent due date, and before then a copy of the orders or a commanding officer's letter. You may not charge liquidated damages; the tenant's maintenance duties continue to the termination date, and federal Servicemembers Civil Relief Act rights still apply.",
+    notes: "VA: Moved from military-lease-termination-va by the three-bucket scrub (2026-09-29); content and citations unchanged: Va. Code Ann. § 55.1-1235; Va. Code Ann. § 55.1-1208(A)(8); Va. Code Ann. § 36-96.1; 50 U.S.C. § 3901.",
+  },
+  {
+    id: "edu-casualty-termination-va",
+    title: "Fire or Casualty: The Tenant's Options",
+    group: "Default & Termination",
+    states: ["VA"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "casualty-termination",
+    bodyText:
+      "If fire or casualty substantially impairs the tenant's use and enjoyment of the property, or repairs can be made only if the tenant leaves, the tenant may move out and, within 14 days (21 days if they vacate on or after January 1, 2027), give written notice that they are ending the lease, which then ends on the date they moved out (Va. Code Ann. 55.1-1240). From 2027, a tenant who receives your termination notice may ask in writing within seven days that you reevaluate the damage with them. If the lease ends, return the deposit as the law requires and any prepaid rent, with interest recoverable by law, unless you reasonably believe the tenant, an occupant or a guest caused the damage, in which case give a written statement based on the damage. Rent is prorated as of the casualty date, and if continued occupancy is lawful, rent is reasonably reduced for the period of impairment.",
+    notes: "VA: Created by the three-bucket scrub (2026-09-29) from casualty-termination-va; content unchanged: Va. Code Ann. § 55.1-1240; Va. Code Ann. § 55.1-1243.2; Va. Code Ann. § 55.1-1208(A)(5).",
+  },
+  // Disclosures
+  {
+    id: "edu-pre-signing-disclosures-va",
+    title: "Disclosures Owed Before Signing: Meth, Drywall, Military Air Zones",
+    group: "Disclosures",
+    states: ["VA"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "military-air-zone-disclosure",
+    bodyText:
+      "Before a lease is signed, Virginia requires written disclosure if you actually know the property was used to manufacture methamphetamine and hasn't been cleaned up under Department of Health guidelines (Va. Code Ann. 55.1-1219), or contains defective drywall that hasn't been remediated (55.1-1218), and if the property is in a noise zone or accident potential zone on the official zoning map of a locality with a military air installation (55.1-1217). The lease's optional clauses record these disclosures.",
+    notes: "VA: Created by the three-bucket scrub (2026-09-29) from military-air-zone-disclosure-va; content unchanged: Va. Code Ann. §§ 55.1-1217, 55.1-1218, 55.1-1219.",
+  },
+  // Default & Termination
+  {
+    id: "edu-possession-delay-al",
+    title: "If You Can't Deliver Possession on Time",
+    group: "Default & Termination",
+    states: ["AL"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "possession-delay",
+    bodyText:
+      "If you fail to deliver possession as the lease requires, rent abates until you do, and the tenant may either end the lease by written notice, in which case you return all prepaid rent and security within five days, or demand that you perform, sue for possession against anyone wrongfully in possession, and recover damages. If a person's failure to deliver possession is willful and not in good faith, the tenant can recover from that person up to the greater of three months' periodic rent or actual damages, plus reasonable attorney's fees. (Ala. Code 35-9A-402)",
+    notes: "AL: Moved from possession-delay-al by the three-bucket scrub (2026-09-29); content and citations unchanged: Ala. Code § 35-9A-203; Ala. Code § 35-9A-204; Ala. Code § 35-9A-441(c); Ala. Code § 35-9A-402(a)(1); Ala. Code § 35-9A-402(b); Ala. Code § 35-9A-402.",
+  },
+  {
+    id: "edu-casualty-termination-al",
+    title: "Fire or Casualty: The Tenant's Options",
+    group: "Default & Termination",
+    states: ["AL"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "casualty-termination",
+    bodyText:
+      "If fire or casualty not caused by the tenant substantially impairs their enjoyment of the property, the tenant may move out immediately and tell you in writing within 14 days that they are ending the lease, which then ends on the date they moved out; or, if continued occupancy is lawful, vacate the unusable part and pay rent reduced in proportion to the drop in fair rental value (Ala. Code 35-9A-406). If the lease ends, return the recoverable deposit and all unearned prepaid rent, accounting for rent as of the date of the casualty.",
+    notes: "AL: Moved from casualty-termination-al by the three-bucket scrub (2026-09-29); content and citations unchanged: Ala. Code § 35-9A-406(a)(1); Ala. Code § 35-9A-406(b); Ala. Code § 35-9A-163(a)(1).",
   },
 ];
 

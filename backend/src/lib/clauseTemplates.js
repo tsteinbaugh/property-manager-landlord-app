@@ -19,6 +19,9 @@
 // the architecture-review log's Addendum L §L.3: "a log entry is not a
 // library change" -- the CSV is the fact).
 //
+// **2026-09-29 three-bucket scrub, last nine states (FL, AZ, GA, NC, SC,
+// TN, VA, AL, PA):** 450 -> 426 shipped LEASE_CLAUSE rows. Scrub complete.
+//
 // **2026-09-29 three-bucket scrub, NV/TX/NJ:** 456 -> 450 shipped
 // LEASE_CLAUSE rows; several more trimmed.
 //
@@ -269,7 +272,7 @@ const CLAUSE_TEMPLATES = [
     choiceGroup: "tn-urlta-late-fee",
     choiceGroupDefault: true,
     bodyText:
-      "If any Rent is not paid in full by the end of the grace period, Tenant will owe a late fee of {{late_fee_amount}}. The grace period is five days, beginning on and counting the day the Rent is due. If the last day of the grace period falls on a Sunday or on a legal holiday under Tenn. Code Ann. § 15-1-101 (which includes days set apart for county, state or national elections), no late fee will be charged if the Rent is paid on the next business day. A late fee, however described, will never exceed ten percent (10%) of the amount of Rent past due. Landlord's acceptance of a late payment does not change the due date of any later payment.",
+      "If any Rent is not paid in full by the end of the grace period, Tenant will owe a late fee of {{late_fee_amount}}. The grace period is five days, beginning on and counting the day the Rent is due. Landlord's acceptance of a late payment does not change the due date of any later payment.",
   },
   {
     id: "late-fee-limit-va",
@@ -278,7 +281,7 @@ const CLAUSE_TEMPLATES = [
     states: ["VA"],
     supersedes: "late-fee",
     bodyText:
-      "If Tenant does not pay Monthly Rent in full within {{late_fee_grace_days}} days after it is due, Tenant will owe a late charge of {{late_fee_amount}}. As Virginia law requires, a late charge will never exceed the lesser of ten percent (10%) of the periodic Rent or ten percent (10%) of the remaining balance due and owed by Tenant, and Landlord will not charge any late charge that this written Lease does not provide for. Landlord's acceptance of a late payment does not change the due date of any later payment.",
+      "If Tenant does not pay Monthly Rent in full within {{late_fee_grace_days}} days after it is due, Tenant will owe a late charge of {{late_fee_amount}}. Landlord's acceptance of a late payment does not change the due date of any later payment.",
   },
   {
     id: "late-fee-limit-nc",
@@ -287,7 +290,7 @@ const CLAUSE_TEMPLATES = [
     states: ["NC"],
     supersedes: "late-fee",
     bodyText:
-      "If any payment of Monthly Rent is five or more calendar days late, counting from the day after it was due, Tenant will owe a late fee of {{late_fee_amount}}. The late fee will not exceed $15.00 or five percent (5%) of the monthly Rent, whichever is greater (for Rent due weekly, $4.00 or five percent (5%) of the weekly Rent, whichever is greater); if Tenant's Rent is subsidized by a federal, State or local government housing program, the late fee will be calculated on Tenant's share of the Rent only. A late fee may be charged only once for each late payment, will not be deducted from a later Rent payment so as to make that payment late, and will not be charged because Tenant has not paid for water or sewer service Landlord provides. Acceptance of a late payment does not waive Landlord's right to require full payment of Rent on the date it is due or to pursue any other remedy available under this Lease.",
+      "If any payment of Monthly Rent is five or more calendar days late, counting from the day after it was due, Tenant will owe a late fee of {{late_fee_amount}}. Acceptance of a late payment does not waive Landlord's right to require full payment of Rent on the date it is due or to pursue any other remedy available under this Lease.",
   },
   {
     id: "late-fee-safe-harbor-tx",
@@ -350,14 +353,6 @@ const CLAUSE_TEMPLATES = [
     states: [],
     bodyText:
       "The Security Deposit, less any lawful deductions, will be returned to Tenant within the time period required by applicable law after Tenant vacates the property upon expiration or earlier termination of this Lease. Any deductions will be described in an itemized statement provided with the returned portion of the deposit. Tenant will provide Landlord a forwarding address to which the Security Deposit and itemized statement should be sent.",
-  },
-  {
-    id: "security-deposit-cap-ga",
-    title: "Security Deposit Limit",
-    group: "Security Deposit",
-    states: ["GA"],
-    bodyText:
-      "The total of all refundable deposits Landlord demands or receives under this Lease, including the Security Deposit and any damage deposit, pet deposit or advance rent deposit, will not exceed two months' Monthly Rent. Nonrefundable fees, and money that is to be applied toward the payment of Rent or to reimburse services or utilities provided to Tenant, are not deposits for this purpose. However, any amount Tenant pays in advance toward Rent for the last month of the Term is an advance rent deposit: it counts toward this limit and is held, applied and returned as part of the Security Deposit, unless this Lease states that the amount is Rent for a specific calendar month.",
   },
   // Tenant Responsibilities
   {
@@ -2552,12 +2547,12 @@ const CLAUSE_TEMPLATES = [
   // Security Deposit
   {
     id: "security-deposit-return-fl",
-    title: "Security Deposit: Holding and Return",
+    title: "Security Deposit: Holding Method and Vacating Notice",
     group: "Security Deposit",
     states: ["FL"],
     supersedes: "security-deposit-return",
     bodyText:
-      "Landlord will hold the Security Deposit and any advance rent as Florida law requires, by the following method: {{deposit_holding_method}} [choose one: (a) in a separate non-interest-bearing account in a Florida financial institution; (b) in a separate interest-bearing account in a Florida financial institution, in which case Tenant will receive interest of at least 75 percent of the annualized average interest rate paid on the account, or 5 percent per year simple interest, as Landlord elects; or (c) by posting the surety bond Fla. Stat. §83.49(1)(c) describes, in which case Landlord will pay Tenant interest of 5 percent per year simple interest]. Landlord will not commingle these funds with Landlord's other funds, or pledge or otherwise use them, until they are actually due to Landlord. Where interest is owed, Landlord will pay it to Tenant, or credit it against the current month's Rent, at least once a year; no interest is owed to a Tenant who wrongfully terminates the tenancy before the end of the Term. If Landlord does not intend to impose a claim on the Security Deposit, Landlord will return it, with any interest owed, within 15 days after this Lease terminates and Tenant vacates. If Landlord intends to impose a claim, Landlord will, within 30 days after this Lease terminates, give Tenant written notice of the claim and the reason for it, by certified mail to Tenant's last known mailing address or by e-mail if the parties have signed an electronic-notice addendum under Fla. Stat. §83.505, in the form Fla. Stat. §83.49(3)(a) prescribes. If Landlord does not give that notice within 30 days, Landlord forfeits the right to impose a claim on the Security Deposit and may not set off against it, but may sue for damages after returning it. Tenant may object to the claim in writing, at the address stated in the notice, within 15 days after receiving it. If Tenant does not object in time, Landlord may deduct the claim and will send Tenant the balance within 30 days after the date of the notice; Tenant's failure to object does not waive Tenant's right to sue for damages. In any lawsuit over the Security Deposit, the prevailing party may recover court costs and a reasonable attorney's fee. If Tenant vacates before the end of the Term, or vacates a periodic tenancy, Tenant will give Landlord at least 7 days' written notice by certified mail or personal delivery before vacating, including an address where Tenant can be reached. If Tenant does not, Landlord is relieved of the notice requirement above, but Tenant keeps any right Tenant has to the Security Deposit. A renewal of this Lease is a new rental agreement, and any Security Deposit carried forward is a new security deposit. If the property is sold or the rental agent changes, the Security Deposit, any advance rent and any earned interest will be transferred to the new owner or agent with an accounting of the amounts credited to Tenant.",
+      "Landlord will hold the Security Deposit and any advance rent as Florida law requires, by the following method: {{deposit_holding_method}} [choose one: (a) in a separate non-interest-bearing account in a Florida financial institution; (b) in a separate interest-bearing account in a Florida financial institution, in which case Tenant will receive interest of at least 75 percent of the annualized average interest rate paid on the account, or 5 percent per year simple interest, as Landlord elects; or (c) by posting the surety bond Fla. Stat. §83.49(1)(c) describes, in which case Landlord will pay Tenant interest of 5 percent per year simple interest]. If Tenant vacates before the end of the Term, or vacates a periodic tenancy, Tenant will give Landlord at least 7 days' written notice by certified mail or personal delivery before vacating, including an address where Tenant can be reached. If Tenant does not, Landlord is relieved of the statutory notice requirement for claims against the Security Deposit, but Tenant keeps any right Tenant has to the Security Deposit.",
   },
   {
     id: "security-deposit-notice-fl",
@@ -2649,14 +2644,6 @@ const CLAUSE_TEMPLATES = [
   },
   // Default & Termination
   {
-    id: "casualty-damage-fl",
-    title: "Casualty Damage",
-    group: "Default & Termination",
-    states: ["FL"],
-    bodyText:
-      "If the property is damaged or destroyed, other than by the wrongful or negligent act of Tenant, so that Tenant's enjoyment of it is substantially impaired, Tenant may terminate this Lease and immediately vacate the property. Tenant may instead vacate the part of the property made unusable by the casualty, in which case Tenant's Rent is reduced by the fair rental value of that part. If this Lease is terminated, Landlord will handle the Security Deposit as this Lease's Security Deposit terms require. Landlord will give Tenant either the opportunity to collect Tenant's belongings from the property when it is safe to do so, or notice of the date by which Tenant will be able to collect them, which will be within a reasonable time.",
-  },
-  {
     id: "abandoned-property-release-fl",
     title: "Tenant Property After Surrender or Abandonment",
     group: "Default & Termination",
@@ -2714,20 +2701,12 @@ const CLAUSE_TEMPLATES = [
   // Security Deposit
   {
     id: "security-deposit-return-az",
-    title: "Security Deposit: Application and Return",
+    title: "Security Deposit: Application and Final Accounting",
     group: "Security Deposit",
     states: ["AZ"],
     supersedes: "security-deposit-return",
     bodyText:
-      "When the tenancy ends, Landlord may apply property or money held as prepaid Rent and security to all Rent due and, subject to Landlord's duty to mitigate, to all charges specified in this Lease or provided by the Arizona Residential Landlord and Tenant Act, including damages Landlord has suffered because Tenant did not meet Tenant's maintenance obligations. Within 14 days, excluding Saturdays, Sundays and other legal holidays, after the tenancy ends, Tenant delivers possession (returns the keys and vacates) and Tenant demands return of the deposit, Landlord will provide Tenant an itemized list of all deductions together with the amount due to Tenant, if any. Unless Tenant makes other arrangements in writing, Landlord will mail the itemized list and any amount due by first class mail to Tenant's last known place of residence. Tenant is asked to give Landlord a forwarding address in writing, and may include Tenant's demand for return of the deposit with it. If Tenant does not dispute the deductions or the amount due within 60 days after the itemized list and amount due are mailed, the amount stated is final and any further claims by Tenant are waived. At the end of the tenancy all refundable deposits will be refunded as provided in this Section. Whoever holds Landlord's interest in the property when the tenancy ends is bound by this Section.",
-  },
-  {
-    id: "security-deposit-cap-az",
-    title: "Limit on Total Security",
-    group: "Security Deposit",
-    states: ["AZ"],
-    bodyText:
-      "The total of all security, however named, that Landlord demands or receives under this Lease, including the Security Deposit, any refundable pet or other deposit, and any prepaid Rent (other than Rent for the first rental period), will not exceed one and one-half months' Monthly Rent. This limit does not prevent Tenant from voluntarily paying more than one and one-half months' Rent in advance. A reasonable charge for cleaning or redecorating is not security.",
+      "When the tenancy ends, Landlord may apply property or money held as prepaid Rent and security to all Rent due and, subject to Landlord's duty to mitigate, to all charges specified in this Lease or provided by the Arizona Residential Landlord and Tenant Act, including damages Landlord has suffered because Tenant did not meet Tenant's maintenance obligations. Tenant is asked to give Landlord a forwarding address in writing, and may include Tenant's demand for return of the deposit with it. If Tenant does not dispute the deductions or the amount due within 60 days after the itemized list and amount due are mailed, the amount stated is final and any further claims by Tenant are waived.",
   },
   {
     id: "nonrefundable-fees-az",
@@ -2736,15 +2715,6 @@ const CLAUSE_TEMPLATES = [
     states: ["AZ"],
     bodyText:
       "The following fees or deposits are nonrefundable, and the purpose of each is stated here: {{nonrefundable_fees_and_purposes}} [list each nonrefundable fee or deposit, its amount and its purpose, e.g. a cleaning fee of $__ to clean the property after Tenant moves out; or state 'None']. Any fee or deposit not designated as nonrefundable in this Section is refundable.",
-  },
-  // Landlord Responsibilities
-  {
-    id: "move-in-inspection-az",
-    title: "Move-In Form and Move-Out Inspection",
-    group: "Landlord Responsibilities",
-    states: ["AZ"],
-    bodyText:
-      "At move-in, Landlord will give Tenant a signed copy of this Lease and a move-in form on which Tenant may specify any existing damage to the property. Tenant may be present at Landlord's move-out inspection, and if Tenant asks, Landlord will tell Tenant when the move-out inspection will occur. Landlord is not required to conduct a joint move-out inspection with Tenant if Tenant is being evicted for a material and irreparable breach and Landlord has reasonable cause to fear violence or intimidation by Tenant.",
   },
   // Access & Entry
   {
@@ -2755,16 +2725,6 @@ const CLAUSE_TEMPLATES = [
     supersedes: "landlords-access",
     bodyText:
       "Tenant will not unreasonably withhold consent to Landlord's entry into the property to inspect it; to make necessary or agreed repairs, decorations, alterations or improvements; to supply necessary or agreed services; or to show it to prospective or actual purchasers, mortgagees, tenants, workers or contractors. Except in an emergency or where it is impracticable to do so, Landlord will give Tenant at least two days' notice of Landlord's intent to enter and will enter only at reasonable times. Landlord may enter without Tenant's consent in an emergency. When Tenant asks Landlord in writing for maintenance or a repair, that request is Tenant's permission for Landlord to enter the property for the sole purpose of acting on the request, and Tenant waives any separate notice of that entry. Landlord has no other right of access except by court order, to do work Tenant has failed to do after notice as Arizona law permits, under Arizona's abandonment procedure, or if Tenant has abandoned or surrendered the property. Landlord will not abuse this right of access or use it to harass Tenant.",
-  },
-  // Default & Termination
-  {
-    id: "possession-delay-az",
-    title: "Failure to Deliver Possession",
-    group: "Default & Termination",
-    states: ["AZ"],
-    supersedes: "possession-delay",
-    bodyText:
-      "If Landlord fails to deliver physical possession of the property to Tenant at the start of the Term, Rent abates until possession is delivered, and Tenant may either: (a) terminate this Lease on at least 5 days' written notice to Landlord, in which case Landlord will return all prepaid Rent and security; or (b) demand that Landlord perform this Lease and, if Tenant chooses, bring an action for possession against Landlord or any person wrongfully in possession and recover the damages Tenant sustains. If a person's failure to deliver possession is willful and not in good faith, Tenant may recover from that person an amount up to the greater of two months' periodic Rent or twice Tenant's actual damages. If possession is delivered but the property is not in the condition Arizona law requires, Rent does not abate on that account, and Tenant has the remedies Arizona law provides for Landlord's noncompliance.",
   },
   // Rent & Payment
   {
@@ -2803,15 +2763,6 @@ const CLAUSE_TEMPLATES = [
     states: ["AZ"],
     bodyText:
       "Landlord discloses to Tenant, as Arizona law requires: the name and address of the person authorized to manage the property is [manager name and address]; and the name and address of an owner of the property, or a person authorized to act for and on behalf of the owner for service of process and for receiving and receipting for notices and demands, is [owner or agent name and address]. The Arizona Residential Landlord and Tenant Act is available on the Arizona Department of Housing's website. Landlord will keep this information current and will give it to Tenant again on request.",
-  },
-  // Default & Termination
-  {
-    id: "dv-lease-termination-az",
-    title: "Early Termination: Domestic Violence or Sexual Assault",
-    group: "Default & Termination",
-    states: ["AZ"],
-    bodyText:
-      "A Tenant who is a victim of domestic violence, as Arizona law defines it, or who was the victim of sexual assault in the property, may terminate this Lease by giving Landlord a written notice requesting release from this Lease, with a mutually agreed release date within the next 30 days, accompanied by either (a) a copy of a protective order issued to Tenant (Landlord may also ask for a receipt or signed statement that the order has been submitted to an authorized officer of a court for service), or (b) a copy of a written law enforcement report stating that Tenant notified the agency that Tenant was a victim. This right applies only if the events occurred within the 30 days immediately before the notice, unless Landlord waives that limit. Landlord may ask Tenant in writing for the name and address of the person named in the order or report, if Tenant knows it. A terminating Tenant is liable only for Rent owed or paid through the termination date and any earlier obligations outstanding on that date, payable on or before the date Tenant vacates, and will not owe future Rent or any early termination penalty or fee. Landlord may keep prepaid Rent for the month in which this Lease terminates. Landlord will not withhold the Security Deposit because of the early termination, but may withhold it for damages caused by Tenant's failure to maintain the property. If this Lease has more than one tenant, the tenancy of all tenants ends; tenants who are not victims, other than the person named in the order or report, may be released from their financial obligations under this Lease and may be allowed to enter a new lease if they meet Landlord's current application requirements. A Tenant who is a victim may require Landlord to install a new lock at Tenant's cost; Landlord may rekey a lock in good working condition or replace the locking mechanism with one of equal or better quality, may keep a key, and may refuse to give a key to the person named in the order or report. Landlord will not give that person access to the property to reclaim property if that person has been served with an order of protection naming them and Landlord has received a copy, unless a law enforcement officer escorts them. A law enforcement officer protected by an injunction against harassment issued within the 30 days before notice to Landlord may terminate this Lease in the same manner, but must first repay any lease concession or benefit actually received or used. This Section does not limit Landlord's right to terminate this Lease for reasons unrelated to the domestic violence or sexual assault.",
   },
   // Disclosures
   {
@@ -2854,15 +2805,6 @@ const CLAUSE_TEMPLATES = [
     states: ["AZ"],
     bodyText:
       "[Optional. Use for a property that is NOT a single family residence; this agreement must be a separate writing signed by Landlord and Tenant, not a section of the Lease. For a single family residence, landscaping and snow removal are covered by the Lease's Landscaping & Irrigation and Snow Removal sections, and this agreement may be used for other tasks.] Landlord and Tenant agree, in good faith and not to evade Landlord's obligations, that Tenant will perform the following tasks: {{tenant_maintained_items}} [check each that applies: ☐ lawn and landscaping care, keeping to any irrigation schedule Landlord sets, and promptly reporting irrigation leaks or watering problems; ☐ prompt, reasonable removal of snow and ice from walkways, driveways, porches and entrances Tenant uses; ☐ pool or spa care; ☐ replacing heating and air-conditioning filters; ☐ replacing light bulbs; ☐ taking garbage to the collection point; ☐ other specified task: ____]. In exchange for these tasks, {{maintenance_consideration}} [state the consideration Tenant receives, e.g. a Monthly Rent reduction of $__]. This agreement does not make Tenant responsible for any work needed to comply with building codes materially affecting health and safety or to put and keep the property in a fit and habitable condition, which remains Landlord's responsibility, and it does not reduce Landlord's obligations to any other tenant.",
-  },
-  // Default & Termination
-  {
-    id: "casualty-termination-az",
-    title: "Fire or Casualty Damage",
-    group: "Default & Termination",
-    states: ["AZ"],
-    bodyText:
-      "If the property is damaged or destroyed by fire or casualty to an extent that Tenant's enjoyment of it is substantially impaired, Tenant may either: (a) immediately vacate the property and notify Landlord in writing within 14 days afterward of Tenant's intention to terminate this Lease, in which case this Lease terminates as of the date Tenant vacated; or (b) if continued occupancy is lawful, vacate any part of the property made unusable by the fire or casualty, in which case Tenant's Rent is reduced in proportion to the reduction in the fair rental value of the property. If this Lease is terminated, Landlord will return all security recoverable by Tenant, and Rent will be accounted for as of the date Tenant vacates all or part of the property.",
   },
   // Rules & Regulations
   {
@@ -3052,12 +2994,12 @@ const CLAUSE_TEMPLATES = [
   // Security Deposit
   {
     id: "security-deposit-return-ga",
-    title: "Security Deposit Inspection and Return",
+    title: "Security Deposit: Move-Out List and Deductions",
     group: "Security Deposit",
     states: ["GA"],
     supersedes: "security-deposit-return",
     bodyText:
-      "Within 3 business days after this Lease ends and Tenant vacates the property, or after Landlord accepts Tenant's surrender of the property, whichever happens first, Landlord or Landlord's agent will inspect the property and prepare a written list of any damage that is the basis for a charge against the Security Deposit, with the estimated dollar value of each item. On request, Tenant may inspect the property and the list within 5 business days after the end of the Lease and vacancy (or surrender and acceptance) and that inspection. If Tenant is present at the inspection, Landlord and Tenant will both sign the list, and the signed list is conclusive evidence of its accuracy; if Tenant disagrees with any item, Tenant must state in writing the specific items Tenant disputes and sign that statement. The list will include written notice of Tenant's duty to sign it or to dissent from it. If Tenant vacates or surrenders the property without notifying Landlord, Landlord will inspect, prepare and sign the list within a reasonable time after discovering the vacancy. Within 30 days after Landlord obtains possession, Landlord will return the full Security Deposit or, if Landlord keeps any part of it, give Tenant a written statement identifying the exact reasons, including the damage list where any amount is kept for damage, together with payment of the difference. Landlord will not keep any part of the Security Deposit for ordinary wear and tear from the intended use of the property, provided there was no negligence, carelessness, accident or abuse by Tenant, members of Tenant's household or their invitees or guests. Landlord may keep amounts for unpaid Rent or late fees, abandonment of the property, unpaid utility charges, repair work or cleaning Tenant contracted for with third parties, unpaid pet fees, and actual damages caused by Tenant's breach, which Landlord will attempt to mitigate. Landlord will mail the statement and any payment by first-class mail to Tenant's last known address, so Tenant should give Landlord a forwarding address in writing. If the letter containing the payment is returned undelivered and Landlord cannot locate Tenant after reasonable effort, the payment becomes Landlord's property 90 days after it was mailed.",
+      "If Tenant is present at the move-out inspection, Landlord and Tenant will both sign the damage list, and the signed list is conclusive evidence of its accuracy; if Tenant disagrees with any item, Tenant must state in writing the specific items Tenant disputes and sign that statement. Landlord may keep from the Security Deposit amounts for unpaid Rent or late fees, abandonment of the property, unpaid utility charges, repair work or cleaning Tenant contracted for with third parties, unpaid pet fees, and actual damages caused by Tenant's breach, which Landlord will attempt to mitigate. Tenant should give Landlord a forwarding address in writing.",
   },
   {
     id: "security-deposit-escrow-ga",
@@ -3102,15 +3044,6 @@ const CLAUSE_TEMPLATES = [
     supersedes: "assistance-animal-accommodation",
     bodyText:
       "A service dog or other assistance animal that Tenant or an Occupant with a disability needs is not a pet under this Lease, regardless of any pet policy, breed, weight or size restriction stated elsewhere in this Lease, and Landlord will not charge a pet deposit, pet rent, pet fee or any other extra compensation for it. Tenant remains liable for any damage the animal does to the property. A service dog, meaning a dog individually trained to do work or perform tasks that directly assist a person with a physical or mental impairment and directly relate to that person's disability (or a dog still in training that is operating under a trainer's guidance), is entitled to full and equal access to the property; Landlord is not required to modify the property or to provide a higher degree of care because of it. Any other assistance animal, including an emotional support animal, may be kept at Tenant's request as a reasonable accommodation for a disability. If the disability or the disability-related need for that animal is not readily apparent, Landlord may request reliable documentation of the disability and of the need, to the extent permitted by applicable law. Landlord may deny or withdraw that accommodation if the specific animal poses a direct threat to the health or safety of others, or would cause substantial physical damage to the property of others, that cannot be reduced or eliminated by another reasonable accommodation.",
-  },
-  // Default & Termination
-  {
-    id: "dv-lease-termination-ga",
-    title: "Early Termination: Family Violence or Stalking Order",
-    group: "Default & Termination",
-    states: ["GA"],
-    bodyText:
-      "Tenant may terminate this Lease effective 30 days after giving Landlord written notice of termination if a civil family violence order, civil stalking order, criminal family violence order or criminal stalking order, as Georgia law defines those terms, has been issued protecting Tenant or Tenant's minor child, including where Tenant is a joint tenant, even if the protected Tenant had no obligation to pay rent to Landlord. The notice must be accompanied by a copy of the order and, if the order is an ex parte temporary protective order, a copy of the police report. Tenant may occupy the property until the termination is effective. Tenant will be liable for the Rent due under this Lease prorated to the effective date of termination, payable when it would otherwise have been due, and for any delinquent or unpaid Rent or other sums owed to Landlord before termination, but not for any other fees, Rent or damages because of the early termination. If Tenant terminates under this Section 14 or more days before occupancy, no damages or penalties of any kind will be assessed. This Section may not be waived or modified by agreement.",
   },
   // Rent & Payment
   {
@@ -3158,29 +3091,12 @@ const CLAUSE_TEMPLATES = [
       "Tenant shall pay Landlord a security deposit of {{security_deposit}} (Security Deposit) prior to occupancy. Landlord may apply the Security Deposit only to: (1) unpaid Rent, and unpaid charges for water, sewer or electric service that Landlord provides to Tenant as North Carolina law permits; (2) damage to the property, including damage to or destruction of smoke alarms or carbon monoxide alarms; (3) damages resulting from Tenant's failure to complete the rental period, except where Tenant ended this Lease under a North Carolina military or domestic-violence termination right, was forced to leave because Landlord unlawfully removed or tried to remove Tenant, or was constructively evicted by Landlord's failure to meet its repair and fitness duties; (4) unpaid bills that become a lien against the property because of Tenant's occupancy; (5) the costs of re-renting the property after Tenant's breach, including reasonable fees or commissions paid to a licensed real estate broker to re-rent it; (6) the costs of removing and storing Tenant's property after a summary ejectment proceeding; (7) court costs; and (8) any fee North Carolina law permits Landlord to charge under this Lease. Landlord will not apply the Security Deposit to normal wear and tear and will not keep more than Landlord's actual damages. The Security Deposit will not relieve Tenant of any obligation to pay Rent due under this Lease prior to its termination.",
   },
   {
-    id: "security-deposit-cap-nc",
-    title: "Security Deposit Limit",
-    group: "Security Deposit",
-    states: ["NC"],
-    bodyText:
-      "The Security Deposit, together with any other refundable deposit Landlord holds as security under this Lease (including any refundable pet deposit), will not exceed two weeks' Rent if this is a week-to-week tenancy, one and one-half months' Rent if this is a month-to-month tenancy, or two months' Rent if the Term is longer than month to month. A reasonable nonrefundable pet fee is not a security deposit and does not count toward this limit. Any amount Tenant pays in advance toward Rent for the last month of the Term counts toward this limit and is held, applied and returned as part of the Security Deposit, unless this Lease states that the amount is Rent for a specific calendar month.",
-  },
-  {
     id: "security-deposit-holding-nc",
     title: "Where the Security Deposit Is Held",
     group: "Security Deposit",
     states: ["NC"],
     bodyText:
       "Landlord will [choose one: deposit the Security Deposit in a trust account with {{deposit_bank_name}}, {{deposit_bank_address}}, a licensed and federally insured depository institution or trust institution authorized to do business in North Carolina / furnish a bond for the Security Deposit from {{deposit_bond_insurer}}, an insurance company licensed to do business in North Carolina]. If the Security Deposit is held in a trust account outside North Carolina, Landlord will also furnish an adequate bond in the amount of the deposit. If this information is not completed when this Lease is signed, Landlord will give Tenant the name and address of the institution where the Security Deposit is located, or the name of the insurance company providing the bond, in writing within 30 days after the beginning of the Term.",
-  },
-  {
-    id: "security-deposit-return-nc",
-    title: "Security Deposit Accounting and Return",
-    group: "Security Deposit",
-    states: ["NC"],
-    supersedes: "security-deposit-return",
-    bodyText:
-      "When the tenancy ends and Tenant delivers possession of the property to Landlord, Landlord may apply the Security Deposit as this Lease permits and will refund the balance to Tenant. No later than 30 days after the tenancy ends and Tenant delivers possession, Landlord will mail or deliver to Tenant a written itemization of any damage and any other amounts deducted, together with the balance of the Security Deposit. If the extent of Landlord's claim against the Security Deposit cannot be determined within those 30 days, Landlord will provide an interim accounting within the 30 days and a final accounting within 60 days after the tenancy ends and Tenant delivers possession. Landlord will not withhold any part of the Security Deposit for normal wear and tear or keep more than Landlord's actual damages. Tenant should give Landlord a forwarding address in writing. If Tenant's address is unknown, Landlord may apply the Security Deposit as this Lease permits after 30 days and will hold any balance for Tenant to collect for at least six months. If Landlord's interest in the property ends, for example by sale, Landlord will within 30 days either transfer the remaining Security Deposit to Landlord's successor and notify Tenant by mail of the transfer and of the successor's name and address, or return it to Tenant.",
   },
   // Default & Termination
   {
@@ -3229,14 +3145,6 @@ const CLAUSE_TEMPLATES = [
       "Tenant may keep only pets identified in writing to and approved by Landlord: [list approved pets, or state that no pets are permitted]. Tenant will pay Landlord a nonrefundable pet fee of {{nonrefundable_pet_fee}}, if applicable, which will be reasonable. Any refundable pet deposit is part of the Security Deposit, counts toward the limit on security deposits, and will be held, applied and returned with it. Tenant will pay pet rent of {{pet_rent_amount}} per month, if applicable. Tenant is responsible for all damage, waste removal, odor and disturbance caused by a pet, and will indemnify Landlord from claims arising from Tenant's pet(s). Landlord may revoke approval of a pet that becomes a nuisance or safety concern. Landlord may enter the property in connection with a pet only as this Lease's Access & Entry terms and applicable law permit, and will not seize or remove a pet except through a court process or with the help of animal control or law enforcement. This Section does not apply to a service animal or other assistance animal.",
   },
   // Default & Termination
-  {
-    id: "dv-lease-termination-nc",
-    title: "Domestic Violence, Sexual Assault or Stalking: Early Termination and Lock Changes",
-    group: "Default & Termination",
-    states: ["NC"],
-    bodyText:
-      "A protected tenant, meaning a tenant or household member who is a victim of domestic violence, sexual assault or stalking as North Carolina law defines those terms, may terminate this Lease by giving Landlord written notice of termination effective on a date stated in the notice that is at least 30 days after Landlord receives it. The notice must be accompanied by a copy of (a) a valid order of protection issued by a court under Chapter 50B or 50C of the North Carolina General Statutes, other than an ex parte order, (b) a criminal order that restrains a person from contact with the protected tenant, or (c) a valid Address Confidentiality Program card issued to the victim or to a minor member of Tenant's household. A victim of domestic violence or sexual assault must also include a copy of a safety plan, dated during this tenancy, from a qualifying domestic violence or sexual assault program, that recommends relocation. The released Tenant owes Rent prorated to the termination date, payable when it would otherwise be due, and no other rent or fees because of the early termination; if Tenant terminates 14 or more days before occupancy, Tenant owes no damages or penalties. Landlord will not apply the Security Deposit to damages from the early termination. If other tenants remain in the property, the tenancy continues for them, and a perpetrator excluded by court order remains liable under this Lease with any other tenant for Rent and damage to the property. Any tenant may also give Landlord oral or written notice that a protected tenant is a victim and ask for the locks to be changed. If the perpetrator is not a tenant of the property, no documentation is required and Landlord will change the locks or allow the protected tenant to change them within 48 hours. If the perpetrator is a tenant of the property, Tenant must first give Landlord a copy of a court order directing the perpetrator to stay away from the property, and Landlord will change the locks or allow them to be changed within 72 hours; unless a court order allows the perpetrator to return for belongings, Landlord then has no duty to give the perpetrator access or keys. The protected tenant pays for the lock change; if Landlord does not act in time, the protected tenant may change the locks without Landlord's permission and must give Landlord a key within 48 hours. Landlord will not terminate, refuse to renew or otherwise retaliate against Tenant because of Tenant's or a household member's status as a victim or because Tenant used this termination right. The termination rights in this Section cannot be waived or modified by agreement.",
-  },
   {
     id: "casualty-termination-nc",
     title: "Fire or Other Casualty",
@@ -3299,12 +3207,12 @@ const CLAUSE_TEMPLATES = [
   // Security Deposit
   {
     id: "security-deposit-return-sc",
-    title: "Security Deposit Accounting and Return",
+    title: "Security Deposit: Withholding and Forwarding Address",
     group: "Security Deposit",
     states: ["SC"],
     supersedes: "security-deposit-return",
     bodyText:
-      "When the tenancy ends, Landlord may withhold from the Security Deposit and any prepaid Rent only accrued Rent and the damages Landlord has suffered because Tenant did not comply with Tenant's obligations under this Lease and the South Carolina Residential Landlord and Tenant Act, and will return the balance to Tenant. Landlord will not withhold any amount for ordinary wear and tear. Tenant will give Landlord in writing a forwarding or new address to which the written notice and any amount due may be sent. Within 30 days after the later of (a) the end of the tenancy and Tenant's delivery of possession, or (b) Tenant's demand for the return of the Security Deposit, Landlord will send Tenant a written notice itemizing each deduction, together with the amount due to Tenant, if any. If Tenant has not given Landlord a forwarding address and Landlord has no notice of Tenant's whereabouts, Landlord will mail the notice and any amount due to Tenant's last known address. If Landlord sells the property, Landlord remains responsible for the Security Deposit unless it is transferred to the buyer and Tenant is notified in writing within a reasonable time, in which case the buyer is responsible; whoever holds Landlord's interest in the property when the tenancy ends is bound by this Section.",
+      "When the tenancy ends, Landlord may withhold from the Security Deposit and any prepaid Rent accrued Rent and the damages Landlord has suffered because Tenant did not comply with Tenant's obligations under this Lease and the South Carolina Residential Landlord and Tenant Act. Tenant will give Landlord in writing a forwarding or new address to which the written notice and any amount due may be sent.",
   },
   {
     id: "security-deposit-standards-sc",
@@ -3332,15 +3240,6 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "IF YOU DO NOT PAY YOUR RENT ON TIME\n\nThis is your notice. If you do not pay your rent within five days of the due date, the landlord can start to have you evicted. You will get no other notice as long as you live in this rental unit.\n\nThis Section is the written notice of nonpayment and of Landlord's intention to terminate this Lease if Rent is not paid within that period, and it is the written notice for nonpayment of Rent referred to in this Lease's Default by Tenant Section. It continues to apply if Tenant remains in the property on a month-to-month basis after the Term ends.",
   },
-  {
-    id: "possession-delay-sc",
-    title: "Possession Delay",
-    group: "Default & Termination",
-    states: ["SC"],
-    supersedes: "possession-delay",
-    bodyText:
-      "If Landlord does not deliver possession of the property to Tenant at the start of the Term as this Lease requires, Rent abates until possession is delivered, and Tenant may either: (a) terminate this Lease on at least 5 days' written notice to Landlord, in which case Landlord will return all prepaid Rent and the Security Deposit; or (b) demand that Landlord perform this Lease and, if Tenant chooses, bring an action for possession against Landlord or any person wrongfully in possession and recover Tenant's actual damages. If Landlord cannot deliver possession because a previous tenant has stayed in possession without Landlord's consent after that tenant's rental agreement ended or was terminated, Landlord is not liable for those damages if Landlord made reasonable efforts to obtain possession. If a person's failure to deliver possession is wilful and not in good faith, Tenant may recover from that person up to the greater of three months' periodic Rent or twice Tenant's actual damages, plus reasonable attorney's fees.",
-  },
   // Pets
   {
     id: "pet-policy-sc",
@@ -3361,22 +3260,6 @@ const CLAUSE_TEMPLATES = [
       "A service animal or other assistance animal that Tenant or an Occupant with a disability needs is not a pet under this Lease, regardless of any pet policy, breed, weight or size restriction stated elsewhere in this Lease, and Landlord will not charge a pet deposit, pet rent, pet fee or any other extra compensation for it. Tenant remains liable for any damage the animal does to the property. A person with a disability who has an assistance dog is entitled to full and equal access to the property with the dog. Any other assistance animal, including an emotional support animal, may be kept at Tenant's request as a reasonable accommodation for a disability. For such an animal, Landlord may ask whether the person seeking to live with the animal has a disability that is a physical or mental impairment that substantially limits one or more major life activities, and whether that person has a disability-related need for the animal, and may request documentation verifying the answers; documentation is sufficient if it establishes that the person has a disability and that the animal will provide some type of disability-related assistance or emotional support. Landlord may deny or withdraw that accommodation if the specific animal poses a direct threat to the health or safety of others, or would cause substantial physical damage to the property of others, that cannot be reduced or eliminated by another reasonable accommodation.",
   },
   // Default & Termination
-  {
-    id: "dv-lease-termination-sc",
-    title: "Domestic Violence Lease Termination",
-    group: "Default & Termination",
-    states: ["SC"],
-    bodyText:
-      "If Tenant is a protected tenant under South Carolina law, meaning a tenant who is the victim of domestic abuse or violence committed by another person who is also a tenant on this Lease for this property, documented by a restraining order or an order of protection or by the perpetrator's conviction, Tenant may terminate Tenant's future obligations under this Lease by written notice to Landlord given within 60 days after the documented incident. The notice must be accompanied by documentation of the incident, such as the restraining order, the order of protection or evidence of the conviction. The termination takes effect on the date stated in the notice, which must be at least 30 days after Landlord receives it unless Landlord agrees in writing to an earlier date. Tenant must give up possession and remains responsible for Rent and other amounts owed through the termination date and for any damage Tenant caused to the property, but owes no fee or penalty for the early termination. Any Security Deposit due to be returned will be returned at the end of the Term. Any other Tenant on this Lease remains responsible for the full Rent for the rest of the Term; if the perpetrator is the only remaining Tenant, Landlord may terminate this Lease on 5 days' written notice and recover its actual damages from the perpetrator. Landlord will not require the protected tenant to leave before the 60-day period ends, except by agreement, and will not retaliate against Tenant for terminating under this Section.",
-  },
-  {
-    id: "casualty-termination-sc",
-    title: "Fire or Casualty Damage",
-    group: "Default & Termination",
-    states: ["SC"],
-    bodyText:
-      "If the property is damaged or destroyed by fire or casualty to the extent that normal use and occupancy of the property is substantially impaired, Tenant may either: (a) immediately vacate the property and notify Landlord in writing within 7 days afterward of Tenant's intention to terminate this Lease, in which case this Lease terminates as of the date Tenant vacated; or (b) if continued occupancy is lawful, vacate any part of the property made unusable by the fire or casualty, in which case Tenant's Rent is reduced in proportion to the reduction in the property's fair-market rental value. Rent will be accounted for as of the date of the fire or casualty. If this Lease terminates, Landlord will return the Security Deposit recoverable by Tenant and all prepaid Rent, unless the fire or casualty was due to Tenant's negligence or was otherwise caused by Tenant, in which case Landlord may withhold the Security Deposit and prepaid Rent but will still give Tenant the itemized written notice this Lease's Security Deposit terms require.",
-  },
   {
     id: "casualty-landlord-termination-sc",
     title: "Landlord's Option to End the Lease After a Fire or Casualty",
@@ -3469,7 +3352,7 @@ const CLAUSE_TEMPLATES = [
     choiceGroup: "tn-urlta-deposit-return",
     choiceGroupDefault: true,
     bodyText:
-      "Landlord will keep the Security Deposit in an account used only for security deposits, at a bank or other lending institution regulated by the State of Tennessee or an agency of the United States. The account is located at: [name and address of the bank or institution; the account number need not be given]. When Landlord asks Tenant to vacate, or within five days after Landlord receives Tenant's written notice of intent to vacate, Landlord will notify Tenant of Tenant's right to be present at an inspection of the property to determine any damage that is the basis for a charge against the Security Deposit, and Tenant may request an inspection time during normal working hours. The inspection will take place on the day Tenant completely vacates or within four calendar days afterward, once Tenant is ready to surrender possession and has returned all means of access. At a joint inspection Landlord and Tenant will list any presently ascertainable damage and the estimated cost of repair, and both will sign the list; if Tenant refuses to sign, Tenant will state specifically in writing each item Tenant disputes. NOTICE OF WAIVER: if Tenant schedules an inspection after receiving Landlord's written notice of the right to be present, and then fails to attend it, Tenant waives the right to contest any damages Landlord finds at that inspection. If Tenant has vacated without written notice, abandoned the property, been judicially removed, not contacted Landlord after the notice, failed to appear at the arranged inspection, not requested an inspection, or is otherwise inaccessible, Landlord will inspect and list the damage and estimated repair costs without Tenant, and will send Tenant a copy by certificate of mailing if Tenant asks for one in writing. If Tenant vacates owing Rent or other amounts, Landlord may apply the Security Deposit to them. If Tenant owes nothing and a refund is due, Landlord will send notice of the amount of the refund to Tenant's last known or reasonably determinable address and will pay the refund promptly when Tenant responds; if Tenant does not respond within 60 days after the notice is sent, Landlord may retain the deposit. Landlord may also recover contractual damages, and the cost of physical damage discovered after the inspection if Landlord discovers it before the earlier of 30 days after Tenant vacated or seven days after a new tenant takes possession. If Landlord sells the property in good faith and transfers the Security Deposit to the buyer with written notice to Tenant, the buyer becomes responsible for it.",
+      "Landlord will keep the Security Deposit in an account used only for security deposits, at a bank or other lending institution regulated by the State of Tennessee or an agency of the United States. The account is located at: [name and address of the bank or institution; the account number need not be given]. When Landlord asks Tenant to vacate, or within five days after Landlord receives Tenant's written notice of intent to vacate, Landlord will notify Tenant of Tenant's right to be present at an inspection of the property to determine any damage that is the basis for a charge against the Security Deposit, and Tenant may request an inspection time during normal working hours. The inspection will take place on the day Tenant completely vacates or within four calendar days afterward, once Tenant is ready to surrender possession and has returned all means of access. At a joint inspection Landlord and Tenant will list any presently ascertainable damage and the estimated cost of repair, and both will sign the list; if Tenant refuses to sign, Tenant will state specifically in writing each item Tenant disputes. NOTICE OF WAIVER: if Tenant schedules an inspection after receiving Landlord's written notice of the right to be present, and then fails to attend it, Tenant waives the right to contest any damages Landlord finds at that inspection. If Tenant vacates owing Rent or other amounts, Landlord may apply the Security Deposit to them. If Tenant owes nothing and a refund is due, Landlord will send notice of the amount of the refund to Tenant's last known or reasonably determinable address and will pay the refund promptly when Tenant responds; if Tenant does not respond within 60 days after the notice is sent, Landlord may retain the deposit. Landlord may also recover contractual damages, and the cost of physical damage discovered after the inspection if Landlord discovers it before the earlier of 30 days after Tenant vacated or seven days after a new tenant takes possession. If Landlord sells the property in good faith and transfers the Security Deposit to the buyer with written notice to Tenant, the buyer becomes responsible for it.",
   },
   {
     id: "security-deposit-return-tn-other",
@@ -3544,20 +3427,12 @@ const CLAUSE_TEMPLATES = [
   },
   // Default & Termination
   {
-    id: "dv-lease-termination-tn",
-    title: "Early Termination by a Victim of Domestic Abuse, Sexual Assault or Stalking",
-    group: "Default & Termination",
-    states: ["TN"],
-    bodyText:
-      "If Tenant or a member of Tenant's family who lives in the same household is a domestic abuse victim, sexual assault victim or stalking victim, whether an adult or a child, Tenant may terminate this Lease (if it was entered into or renewed on or after July 1, 2021) by giving Landlord: (a) written notice requesting release from this Lease; (b) a mutually agreed release date within 30 days after the date of the notice; and (c) either a copy of a valid order of protection issued or extended after a hearing at which the court found by a preponderance of the evidence that the tenant or household member is such a victim, or documentation of a criminal charge of domestic abuse, sexual assault or stalking, based on a police report reflecting that the tenant or household member was subjected to it. The documentation must be dated no more than 60 days before Tenant's notice. Tenant will vacate within 30 days after giving notice, or at another time Landlord and Tenant agree. Tenant remains responsible for the Rent for the full month in which the tenancy ends and for obligations outstanding on the termination date, but not for future Rent or for early termination penalties or fees. Termination under this Section does not release any other party to this Lease. Unless required by law or a court, Landlord will not reveal information that could reasonably be used to locate the former tenant or household member without that tenant's written consent. Landlord will not terminate the tenancy or evict a tenant solely because the tenant or a household member is a victim of domestic abuse, sexual assault or stalking.",
-  },
-  {
     id: "casualty-termination-tn",
-    title: "Fire or Casualty Damage",
+    title: "Fire or Casualty: Landlord's Right to End the Lease",
     group: "Default & Termination",
     states: ["TN"],
     bodyText:
-      "If the property is damaged or destroyed by fire or casualty so that its use is substantially impaired, including where a governmental authority has deemed it unfit for human habitation, or so that it is untenantable and unfit for occupancy, Tenant may immediately vacate the property and notify Landlord in writing within 14 days afterward of Tenant's intention to terminate this Lease, in which case this Lease terminates as of the date Tenant vacated. If restoring the property to its undamaged condition requires Tenant to vacate, Landlord may terminate this Lease within 14 days after giving Tenant written notice. If this Lease terminates under this Section, Landlord will return all prepaid Rent and the Security Deposit recoverable by Tenant, and Rent will be accounted for as of the date Tenant returns the keys or actually vacates, whichever is earlier. This Section does not relieve Tenant of liability for damage caused by the fault or neglect of Tenant or anyone at the property with Tenant's consent.",
+      "If restoring the property to its undamaged condition after fire or casualty requires Tenant to vacate, Landlord may terminate this Lease within 14 days after giving Tenant written notice. This Section does not relieve Tenant of liability for damage caused by the fault or neglect of Tenant or anyone at the property with Tenant's consent.",
   },
   {
     id: "holdover-rate-tn",
@@ -3573,7 +3448,7 @@ const CLAUSE_TEMPLATES = [
     group: "Default & Termination",
     states: ["TN"],
     bodyText:
-      "If this Lease continues as a month-to-month tenancy, either Landlord or Tenant may end it by written notice given to the other at least 30 days before the periodic rental date specified in the notice as the termination date. If this Lease continues as a week-to-week tenancy, either party may end it by written notice given to the other at least 10 days before the termination date specified in the notice. Rent remains payable through the termination date. This Section does not limit either party's right to end this Lease earlier where this Lease or applicable law allows it.",
+      "If this Lease continues as a month-to-month tenancy, either Landlord or Tenant may end it by written notice given to the other at least [state the notice period: at least 30] days before the periodic rental date specified in the notice as the termination date. If this Lease continues as a week-to-week tenancy, either party may end it by written notice given at least [state the notice period: at least 10] days before the termination date. Rent remains payable through the termination date. This Section does not limit either party's right to end this Lease earlier where this Lease or applicable law allows it.",
   },
   {
     id: "abandoned-property-tn",
@@ -3669,7 +3544,7 @@ const CLAUSE_TEMPLATES = [
     states: ["VA"],
     supersedes: "returned-payments",
     bodyText:
-      "If a check or electronic funds transfer Tenant gives Landlord is refused or rejected because of insufficient funds or because there is no account, or because a stop-payment order was placed in bad faith, Tenant will pay Landlord a processing fee of {{nsf_fee}}, which will not exceed $50, together with any other amounts Virginia law allows Landlord to recover for a dishonored payment. If the dishonored payment was for Rent, Landlord may give Tenant written notice requiring payment within 14 days by cash, cashier's check, certified check or a completed electronic funds transfer, and may terminate this Lease as Virginia law provides if Tenant does not pay within that period.",
+      "If a check or electronic funds transfer Tenant gives Landlord is refused or rejected because of insufficient funds or because there is no account, or because a stop-payment order was placed in bad faith, Tenant will pay Landlord a processing fee of {{nsf_fee}}, together with any other amounts Virginia law allows Landlord to recover for a dishonored payment. If the dishonored payment was for Rent, Landlord may give Tenant written notice requiring payment within 14 days by cash, cashier's check, certified check or a completed electronic funds transfer, and may terminate this Lease as Virginia law provides if Tenant does not pay within that period.",
   },
   // Tenant Responsibilities
   {
@@ -3681,7 +3556,7 @@ const CLAUSE_TEMPLATES = [
     choiceGroup: "va-size-payment-methods",
     choiceGroupDefault: true,
     bodyText:
-      "Landlord accepts payment of Rent and the Security Deposit by personal check and by money order, and also by the following methods: [list any other accepted methods, e.g. online payment portal, ACH transfer, debit or credit card]. Landlord will give Tenant a written receipt whenever Tenant pays Rent in cash or by money order. Landlord will not charge Tenant a fee for collecting or processing any payment of Rent, the Security Deposit or any other amount unless Landlord also offers a payment method that has no added fee, and any fee Landlord charges for a payment by credit card, debit card or other electronic payment will not exceed the actual out-of-pocket cost a third party charges Landlord to process that payment. The accepted payment methods may be changed only by a written agreement signed by Landlord and Tenant.",
+      "Landlord accepts payment of Rent and the Security Deposit by personal check and by money order, and also by the following methods: [list any other accepted methods, e.g. online payment portal, ACH transfer, debit or credit card]. The accepted payment methods may be changed only by a written agreement signed by Landlord and Tenant.",
   },
   {
     id: "acceptable-payment-methods-va-small",
@@ -3695,15 +3570,6 @@ const CLAUSE_TEMPLATES = [
       "Landlord owns four or fewer rental dwelling units in Virginia (or up to a 10 percent interest in four or fewer). Landlord accepts payment of Rent and the Security Deposit by personal check and by money order, and also by the following methods: [list any other accepted methods, e.g. online payment portal or ACH transfer]. Landlord does not accept payment of Rent or the Security Deposit by debit or credit card. Landlord will give Tenant a written receipt whenever Tenant pays Rent in cash or by money order. Landlord will not charge Tenant a fee for collecting or processing any payment of Rent, the Security Deposit or any other amount unless Landlord also offers a payment method that has no added fee, and any fee Landlord charges for a payment by credit card, debit card or other electronic payment will not exceed the actual out-of-pocket cost a third party charges Landlord to process that payment. The accepted payment methods may be changed only by a written agreement signed by Landlord and Tenant.",
   },
   // Security Deposit
-  {
-    id: "security-deposit-return-va",
-    title: "Security Deposit: Limit, Use, Inspection and Return",
-    group: "Security Deposit",
-    states: ["VA"],
-    supersedes: "security-deposit-return",
-    bodyText:
-      "The Security Deposit, including any pet deposit, will not exceed two months' periodic Rent, and if any damage insurance or renter's insurance premiums are paid to Landlord before this Lease begins, the Security Deposit and those premiums together will not exceed two months' periodic Rent. When the tenancy ends or Tenant vacates, whichever is later, Landlord may apply the Security Deposit only to accrued Rent (including reasonable late charges stated in this Lease), damages caused by Tenant's failure to meet Tenant's maintenance obligations under Virginia law less reasonable wear and tear, other damages or charges provided for in this Lease, and actual damages for breach of this Lease. Tenant may not use the Security Deposit as a credit against Rent owed. Within 45 days after the tenancy terminates or Tenant vacates, whichever occurs last, Landlord will give Tenant a written notice itemizing the Security Deposit and any deductions, damages and charges, together with any amount due to Tenant. If damages exceed the Security Deposit and require a third-party contractor, Landlord will give Tenant written notice of that within the 45 days and will then have 15 more days to itemize the damages and the cost of repair. When Landlord asks Tenant to vacate, or within five days after Landlord receives Tenant's notice of intent to vacate, Landlord will notify Tenant in writing of Tenant's right to be present at the move-out inspection; if Tenant tells Landlord in writing that Tenant wants to be present, Landlord will tell Tenant the date and time, and the inspection will be made within 72 hours after Tenant delivers possession. Tenant will give Landlord a forwarding address in writing. Unless every Tenant agrees otherwise in writing, any refund will be made by one check payable to all Tenants and sent to a forwarding address one of them provides; if no forwarding address is given, Landlord may continue to hold the deposit and, one year after the 45-day period ends, may remit it to the State Treasurer as unclaimed property. If Tenant owes a third-party provider for water, sewer or another utility that is Tenant's obligation under this Lease, Landlord may withhold a reasonable portion of the deposit to cover it only after giving Tenant the advance written notice Virginia law requires, and will refund any balance within 10 days after the bill is paid. Landlord will notify Tenant in writing, within 30 days, of any deduction from the Security Deposit made during the tenancy.",
-  },
   {
     id: "expedited-deposit-disposition-va",
     title: "Expedited Security Deposit Disposition (Optional)",
@@ -3820,64 +3686,28 @@ const CLAUSE_TEMPLATES = [
       "If Tenant remains in the property without Landlord's consent after the termination date specified in Landlord's notice (or after this Lease otherwise ends), Tenant will pay Landlord, as liquidated damages in place of Landlord's actual damages for those days, {{holdover_daily_rate}} for each day Tenant remains after that date. This daily amount will not exceed 150 percent of the per diem of the monthly Rent, or, if the property is a public housing unit or other housing subject to regulation by the U.S. Department of Housing and Urban Development, the per diem of the monthly Rent. This Section does not limit Landlord's right to recover possession, reasonable attorney fees and court costs as Virginia law allows, unpaid Rent and other amounts due for the period before the termination date, or damages for harm to the property.",
   },
   {
-    id: "redemption-rights-va",
-    title: "Right of Redemption",
-    group: "Default & Termination",
-    states: ["VA"],
-    choiceGroup: "va-size-redemption",
-    choiceGroupDefault: true,
-    bodyText:
-      "Under Virginia law, if Landlord files an eviction case for nonpayment of Rent, Tenant (or someone paying on Tenant's behalf) may have the case dismissed by paying Landlord, Landlord's attorney or the court all Rent due as of the court date, other charges and fees, late charges, reasonable attorney fees and court costs at or before the first return date, or may present a written commitment from a local government or nonprofit entity to pay those amounts within 10 days. After the first return date, Tenant may still have a scheduled eviction canceled by paying all amounts claimed, including sheriff fees, at least 48 hours before the scheduled eviction. These rights do not apply if the case is also based on grounds other than nonpayment of Rent. On Tenant's written request, Landlord will give Tenant a written statement of all amounts owed. Payments to redeem must be made by cashier's check, certified check or money order.",
-  },
-  {
     id: "redemption-limit-va-small",
     title: "Right of Redemption Limited to Once per Lease Period (Landlord With Four or Fewer Virginia Units)",
     group: "Default & Termination",
     states: ["VA"],
-    choiceGroup: "va-size-redemption",
-    choiceGroupDefault: false,
     bodyText:
       "Landlord owns four or fewer rental dwelling units in Virginia (or up to a 10 percent interest in four or fewer). As Virginia law allows such a landlord, this Section is Landlord's written notice that Tenant may use the right of redemption described below only once during each lease period. Under Virginia law, if Landlord files an eviction case for nonpayment of Rent, Tenant (or someone paying on Tenant's behalf) may have the case dismissed by paying Landlord, Landlord's attorney or the court all Rent due as of the court date, other charges and fees, late charges, reasonable attorney fees and court costs at or before the first return date, or may present a written commitment from a local government or nonprofit entity to pay those amounts within 10 days. After the first return date, Tenant may still have a scheduled eviction canceled by paying all amounts claimed, including sheriff fees, at least 48 hours before the scheduled eviction. These rights do not apply if the case is also based on grounds other than nonpayment of Rent. On Tenant's written request, Landlord will give Tenant a written statement of all amounts owed. Payments to redeem must be made by cashier's check, certified check or money order.",
   },
   // Rent & Payment
   {
-    id: "renewal-notice-va",
-    title: "Notice of Rent Increase or Nonrenewal",
-    group: "Rent & Payment",
-    states: ["VA"],
-    choiceGroup: "va-size-renewal",
-    choiceGroupDefault: true,
-    bodyText:
-      "If this Lease gives Tenant an option to renew or renews automatically, Landlord will give Tenant written notice of any increase in Rent for the next term at least 60 days before the end of the current term; beginning July 1, 2027, that notice will be given at least 90 days before the end of the current term and will state a deadline, not sooner than 30 days after Tenant receives the notice, by which Tenant must tell Landlord whether Tenant will renew. If Landlord does not intend to renew this Lease, Landlord will give Tenant written notice of nonrenewal at least 60 days before the end of the term.",
-  },
-  {
     id: "renewal-notice-va-small",
     title: "Notice of Rent Increase or Nonrenewal (Landlord With Four or Fewer Virginia Units)",
     group: "Rent & Payment",
     states: ["VA"],
-    choiceGroup: "va-size-renewal",
-    choiceGroupDefault: false,
     bodyText:
       "Landlord owns four or fewer rental dwelling units in Virginia (or up to a 10 percent interest in four or fewer). If this Lease gives Tenant an option to renew or renews automatically, Landlord will give Tenant written notice of any change in Rent or other terms for the next term, or of Landlord's decision not to renew, at least {{renewal_notice_days}} days before the end of the current term.",
   },
   // Rules & Regulations
   {
-    id: "portable-solar-va",
-    title: "Plug-In Solar Devices",
-    group: "Rules & Regulations",
-    states: ["VA"],
-    choiceGroup: "va-size-solar",
-    choiceGroupDefault: true,
-    bodyText:
-      "Beginning January 1, 2027, Tenant may install a small portable solar generation device (a movable photovoltaic device with a maximum output of not more than 1,200 watts per dwelling unit that plugs into an electrical outlet and meets the safety and certification requirements of Virginia law) on the exterior of Tenant's premises, subject to Landlord's reasonable restrictions on its size, place and manner of placement. Tenant will give Landlord written notice at least seven days before installing it, with documentation that the device meets those requirements and the proposed location. Landlord may prohibit or restrict installation elsewhere on the property. Tenant is responsible for any damage the device causes. Tenant may not install a device if the property's utilities are billed under a ratio utility billing system, and may not install any device that would require alterations to the building's premises, wiring or electrical panels without Landlord's express written approval.",
-  },
-  {
     id: "portable-solar-va-small",
     title: "Plug-In Solar Devices (Landlord With Four or Fewer Virginia Units)",
     group: "Rules & Regulations",
     states: ["VA"],
-    choiceGroup: "va-size-solar",
-    choiceGroupDefault: false,
     bodyText:
       "Landlord owns four or fewer rental dwelling units in Virginia (or up to a 10 percent interest in four or fewer). Tenant will not install any solar generation device, including a plug-in or portable device, anywhere on the property without Landlord's prior written consent.",
   },
@@ -3901,22 +3731,6 @@ const CLAUSE_TEMPLATES = [
   },
   // Default & Termination
   {
-    id: "dv-lease-termination-va",
-    title: "Early Termination by a Victim of Family Abuse, Sexual Abuse, Stalking or Trafficking",
-    group: "Default & Termination",
-    states: ["VA"],
-    bodyText:
-      "Tenant may terminate Tenant's obligations under this Lease if Tenant is a victim of family abuse, sexual abuse or other criminal sexual assault, stalking, or human trafficking, as those terms are used in Virginia law, and (a) Tenant has obtained a protective order during the term of this Lease and gives the notice below during the period of the order or any extension, or (b) during the term of this Lease a court has convicted the perpetrator of, or a magistrate, law-enforcement agency, grand jury or court has issued a warrant, summons, information or indictment charging a person with, such a crime against Tenant. To terminate, Tenant will give Landlord written notice of termination, which will be effective 28 days after Tenant gives it, together with a copy of the protective order or of the conviction order, warrant, summons, information or indictment. Tenant will pay Rent as it comes due through the effective date and will continue to meet Tenant's maintenance obligations until then. Landlord will not charge any liquidated damages. Any co-tenant on this Lease remains responsible for the Rent for the rest of the term. If the perpetrator is the only remaining tenant obligated on this Lease, Landlord may terminate this Lease and recover actual damages from the perpetrator.",
-  },
-  {
-    id: "military-lease-termination-va",
-    title: "Early Termination by Military Personnel",
-    group: "Default & Termination",
-    states: ["VA"],
-    bodyText:
-      "A Tenant who is a member of the Armed Forces of the United States, or a member of the National Guard serving on full-time duty or as a civil service technician with the National Guard, may terminate this Lease if Tenant (a) receives permanent change of station orders, (b) receives temporary duty orders of more than three months, (c) is discharged or released from active duty or from full-time National Guard duty or technician status, (d) is ordered to report to government-supplied quarters resulting in forfeiture of the basic allowance for quarters, or (e) receives a stop movement order in response to a local, national or global emergency, effective for an indefinite period or for at least 30 days, that prevents Tenant from occupying the property as a residence. Tenant will give Landlord written notice of termination stating an effective date not less than 30 days after the first date on which the next rental payment is due after the notice is given, and before that date will give Landlord a copy of the official orders or a signed letter confirming them from Tenant's commanding officer. Landlord will not charge any liquidated damages. Tenant's maintenance obligations continue until the termination date. This Section does not limit any right Tenant has under the federal Servicemembers Civil Relief Act.",
-  },
-  {
     id: "abandoned-property-va",
     title: "Abandonment and Property Left Behind",
     group: "Default & Termination",
@@ -3926,11 +3740,11 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "casualty-termination-va",
-    title: "Fire or Casualty Damage",
+    title: "Fire or Casualty: Landlord's Right to End the Lease",
     group: "Default & Termination",
     states: ["VA"],
     bodyText:
-      "If the property or premises is damaged or destroyed by fire or casualty to an extent that Tenant's use and enjoyment of the property is substantially impaired, or the required repairs can be made only if Tenant vacates, either Tenant or Landlord may terminate this Lease. Tenant may terminate by vacating and, within 14 days afterward (21 days if Tenant vacates on or after January 1, 2027), giving Landlord written notice of intent to terminate, and this Lease will end on the date Tenant vacated. Landlord may terminate by giving Tenant 14 days' notice (21 days' notice on or after January 1, 2027) based on Landlord's determination that the damage requires Tenant's removal and that use of the property is substantially impaired. On and after January 1, 2027, before giving that notice Landlord will meet or make a reasonable effort to meet with Tenant about the extent of the damage and any reasonable alternatives to termination, and will offer Tenant any substantially similar unit in the same complex that is available within a reasonable time on the terms of this Lease, unless Landlord has determined that Tenant's violation of Tenant's maintenance obligations caused the damage; within seven days after receiving Landlord's notice, Tenant may ask in writing that Landlord reevaluate the damage and habitability with Tenant's involvement. If this Lease is terminated, Landlord will return the Security Deposit as Virginia law requires and any prepaid Rent, with any accrued interest recoverable by law, unless Landlord reasonably believes Tenant, an occupant or a guest caused the damage, in which case Landlord will give Tenant a written statement for them based on the damage. Rent will be prorated as of the date of the casualty. If continued occupancy is lawful, Rent will be reasonably reduced for the period of impairment as Virginia law provides.",
+      "If fire or casualty damage to the property or premises requires Tenant's removal and substantially impairs Tenant's use and enjoyment of the property, Landlord may terminate this Lease by giving Tenant 14 days' notice (21 days' notice on or after January 1, 2027). On and after January 1, 2027, before giving that notice Landlord will meet or make a reasonable effort to meet with Tenant about the extent of the damage and any reasonable alternatives to termination, and will offer Tenant any substantially similar unit in the same complex that is available within a reasonable time on the terms of this Lease, unless Landlord has determined that Tenant's violation of Tenant's maintenance obligations caused the damage.",
   },
   {
     id: "periodic-tenancy-notice-va",
@@ -3948,15 +3762,6 @@ const CLAUSE_TEMPLATES = [
     states: ["VA"],
     bodyText:
       "Tenant names the following person as the person authorized for Landlord to contact if Tenant dies or has an emergency: {{authorized_person_name_address_phone}}. Tenant will tell Landlord in writing if this changes. If Tenant is the sole tenant under this Lease, still living in the property, and dies, and no one has been authorized by a circuit court order to handle probate matters for Tenant, Landlord may dispose of Tenant's personal property left in the property after giving at least 10 days' written notice to this authorized person (or, if none is named, to Tenant at the property) stating that personal property not claimed within 10 days will be treated as abandoned. The authorized person may, on reasonable proof of identity, have access to the property and to Tenant's records and claim Tenant's personal property. This Lease will be treated as terminated on the date of the sole Tenant's death, authorized occupants and guests must leave before the 10-day period ends, and Tenant's estate remains liable for actual damages, which Landlord will mitigate.",
-  },
-  // Disclosures
-  {
-    id: "foreclosure-notice-va",
-    title: "Notice of Mortgage Default or Foreclosure",
-    group: "Disclosures",
-    states: ["VA"],
-    bodyText:
-      "If the property is a single-family residence, Landlord will give Tenant written notice within five business days after Landlord receives written notice from a lender of a mortgage default, mortgage acceleration or foreclosure sale relating to the loan on the property. If Landlord fails to give that notice, Tenant may terminate this Lease by giving Landlord written notice at least five business days before the termination date, and Landlord will then handle the Security Deposit as Virginia law and this Lease provide.",
   },
   // Landlord Responsibilities
   {
@@ -4016,20 +3821,20 @@ const CLAUSE_TEMPLATES = [
   // Security Deposit
   {
     id: "security-deposit-return-al",
-    title: "Security Deposit Accounting and Return",
+    title: "Security Deposit: Application and Forwarding Address",
     group: "Security Deposit",
     states: ["AL"],
     supersedes: "security-deposit-return",
     bodyText:
-      "When the tenancy ends and Tenant delivers possession, Landlord may apply the Security Deposit only to accrued Rent and to damages Landlord has suffered because Tenant did not meet Tenant's statutory duties to keep and use the property properly, and will refund the balance. Landlord will not withhold any amount for ordinary wear and tear. When Tenant vacates, Tenant will give Landlord a valid forwarding address in writing. Within 60 days after the tenancy ends and Tenant delivers possession, Landlord will mail to that address by first-class mail the refund of the Security Deposit or, if Landlord does not refund all of it, an itemized list of the amounts withheld together with any balance due. If Tenant does not give a valid forwarding address, Landlord will mail them by first-class mail to Tenant's last known address or, if there is none, to Tenant at the property address. Under Alabama law, a deposit refund or refund check that Tenant does not claim within 90 days is forfeited. Whoever holds Landlord's interest in the property when the tenancy ends is bound by this Section, and a Landlord who sells the property remains liable to Tenant for the Security Deposit and any prepaid Rent.",
+      "When the tenancy ends and Tenant delivers possession, Landlord may apply the Security Deposit to accrued Rent and to damages Landlord has suffered because Tenant did not meet Tenant's statutory duties to keep and use the property properly. When Tenant vacates, Tenant will give Landlord a valid forwarding address in writing. Under Alabama law, a deposit refund or refund check that Tenant does not claim within 90 days is forfeited.",
   },
   {
     id: "security-deposit-cap-al",
-    title: "Security Deposit Limit",
+    title: "Additional Security",
     group: "Security Deposit",
     states: ["AL"],
     bodyText:
-      "The Security Deposit will not exceed one month's periodic Rent. Landlord may require additional security only for pets, for changes to the property, or for increased liability risks to Landlord or the property, and any such additional security and its purpose are stated in this Lease: [state any additional security, its amount and its purpose, or state 'None']. Rent that Tenant pays in advance for a specific rental period is prepaid Rent, not security.",
+      "Additional security Landlord requires for pets, for changes to the property, or for increased liability risks, and its purpose: [state any additional security, its amount and its purpose, or state 'None']. Rent that Tenant pays in advance for a specific rental period is prepaid Rent, not security.",
   },
   // Disclosures
   {
@@ -4060,16 +3865,6 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "Tenant will not unreasonably withhold consent to Landlord, its agents and contractors entering the property to inspect it, make necessary or agreed repairs, decorations, alterations or improvements, supply necessary or agreed services, or show it to prospective or actual purchasers, mortgagees, tenants, workers or contractors. Except in an emergency, or where it is impracticable, Landlord will give Tenant at least two days' notice of the intended time and purpose of an entry and will enter only at reasonable times. Landlord may give this notice by posting a note on the primary entry door of the property. If Landlord gives Tenant, separately from this Lease, a general notice or advance schedule of more than two days for repairs, maintenance, pest control or services relating to health or safety, no additional notice is needed for those entries. When Tenant asks for a repair, maintenance or improvement, Tenant consents to Landlord entering to do the requested work. Landlord may enter without Tenant's consent only in an emergency, under a court order, to do maintenance work Tenant has failed to do after written notice as Alabama law permits, at times reasonably necessary during any absence of Tenant of more than 14 days, when Landlord reasonably believes Tenant has abandoned or surrendered the property, and, if Tenant has signed a separate general notice permitting it, to show the property within the last four months of this Lease to a prospective tenant or purchaser, in that person's company and after the notice described above. Landlord will not abuse the right of access or use it to harass Tenant.",
   },
-  // Default & Termination
-  {
-    id: "possession-delay-al",
-    title: "Failure to Deliver Possession",
-    group: "Default & Termination",
-    states: ["AL"],
-    supersedes: "possession-delay",
-    bodyText:
-      "If Landlord does not deliver possession of the property to Tenant at the start of the Term as this Lease requires, Rent abates until possession is delivered, and Tenant may either: (a) terminate this Lease by written notice to Landlord, in which case Landlord will return all prepaid Rent and the Security Deposit within five days after the notice; or (b) demand that Landlord perform this Lease and, if Tenant chooses, bring an action for possession against any person wrongfully in possession and recover Tenant's actual damages. If a person's failure to deliver possession is willful and not in good faith, Tenant may recover from that person up to the greater of three months' periodic Rent or Tenant's actual damages, plus reasonable attorney's fees.",
-  },
   // Pets
   {
     id: "pet-policy-al",
@@ -4090,14 +3885,6 @@ const CLAUSE_TEMPLATES = [
       "A service animal or other assistance animal that Tenant or an Occupant needs because of a disability is not a pet under this Lease, and no pet policy, breed, weight or size restriction applies to it. Landlord will not charge a pet deposit, pet rent or any other extra payment for it. For a service animal, Landlord may ask for proof that its vaccinations are current. For any other assistance animal, if the disability or the disability-related need for the animal is not readily apparent or known to Landlord, Landlord may ask for reliable documentation from the medical provider of the person who needs the animal, and will keep that documentation confidential. Tenant is responsible for any damage the animal causes to the property or to another person on the property. Landlord may deny or withdraw approval of a specific assistance animal that is not a service animal only as the federal Fair Housing Act allows, such as where that animal poses a direct threat to the health or safety of others, or would cause substantial physical damage to the property of others, that cannot be reduced or eliminated by another reasonable accommodation.",
   },
   // Default & Termination
-  {
-    id: "casualty-termination-al",
-    title: "Fire or Casualty Damage",
-    group: "Default & Termination",
-    states: ["AL"],
-    bodyText:
-      "If the property is damaged or destroyed by fire or casualty not caused by Tenant, to an extent that Tenant's enjoyment of it is substantially impaired, Tenant may either: (a) immediately vacate the property and notify Landlord in writing within 14 days afterward of Tenant's intention to terminate this Lease, in which case this Lease terminates as of the date Tenant vacated; or (b) if continued occupancy is lawful, vacate any part of the property made unusable by the fire or casualty, in which case Tenant's Rent is reduced in proportion to the reduction in the fair rental value of the property. If this Lease is terminated under this Section, Landlord will return all of the Security Deposit recoverable by Tenant and all unearned prepaid Rent. Rent will be accounted for as of the date of the fire or casualty.",
-  },
   {
     id: "casualty-landlord-termination-al",
     title: "Landlord's Option to End the Lease After a Fire or Casualty",
@@ -4161,20 +3948,20 @@ const CLAUSE_TEMPLATES = [
   // Security Deposit
   {
     id: "security-deposit-return-pa",
-    title: "Security Deposit Accounting and Return",
+    title: "Security Deposit: Withholding and New Address",
     group: "Security Deposit",
     states: ["PA"],
     supersedes: "security-deposit-return",
     bodyText:
-      "Within 30 days after this Lease ends, or after Landlord accepts Tenant's surrender of the property if that happens first, Landlord will give Tenant a written list of any damage to the property that Landlord says Tenant must pay for. With the list, Landlord will pay Tenant the Security Deposit, plus any unpaid interest on it, minus the actual cost of the damage Tenant caused. Landlord may also keep all or part of the Security Deposit, including unpaid interest, for Rent Tenant has not paid or for Tenant's breach of another term of this Lease. If Landlord does not give Tenant the list within those 30 days, Landlord loses all rights to keep any part of the Security Deposit, including unpaid interest, and the right to sue Tenant for damage to the property. If Landlord does not pay Tenant the amount owed within those 30 days, Landlord may have to pay Tenant double the amount by which the Security Deposit, with unpaid interest, is more than the actual damage Tenant caused. Landlord must prove the damage. When this Lease ends or Tenant surrenders the property, Tenant will give Landlord Tenant's new address in writing. If Tenant does not, Pennsylvania law relieves Landlord of liability under the statute that sets these deadlines and penalties.",
+      "Landlord may keep all or part of the Security Deposit, including unpaid interest, for Rent Tenant has not paid or for Tenant's breach of another term of this Lease. When this Lease ends or Tenant surrenders the property, Tenant will give Landlord Tenant's new address in writing. If Tenant does not, Pennsylvania law relieves Landlord of liability under the statute that sets the deposit-return deadlines and penalties.",
   },
   {
     id: "security-deposit-holding-pa",
-    title: "Where the Security Deposit Is Held, and Interest",
+    title: "Where the Security Deposit Is Held",
     group: "Security Deposit",
     states: ["PA"],
     bodyText:
-      "Landlord will [choose one: hold the Security Deposit in an escrow account at {{deposit_bank_name}}, {{deposit_bank_address}}, a bank or savings institution regulated by a federal or Pennsylvania banking regulator as Pennsylvania law requires. The amount deposited is {{security_deposit}} / secure the return of the Security Deposit, with any interest owed, by a guarantee bond from a bonding company authorized to do business in Pennsylvania, in place of an escrow account]. If Landlord moves the Security Deposit to another institution, Landlord will tell Tenant in writing the new institution's name and address and the amount deposited. Beginning with the second anniversary of the deposit, Landlord will hold any Security Deposit of more than $100 in an interest-bearing account. Tenant will receive the interest it earns, less an administrative fee equal to 1% per year of the deposit that Landlord may keep, paid to Tenant each year on the anniversary of the start of this Lease.",
+      "Landlord will [choose one: hold the Security Deposit in an escrow account at {{deposit_bank_name}}, {{deposit_bank_address}}, a bank or savings institution regulated by a federal or Pennsylvania banking regulator as Pennsylvania law requires. The amount deposited is {{security_deposit}} / secure the return of the Security Deposit, with any interest owed, by a guarantee bond from a bonding company authorized to do business in Pennsylvania, in place of an escrow account].",
   },
   // Default & Termination
   {

@@ -178,7 +178,7 @@ V={
 'late-fee-limit-tn':('SPLIT',CT,'keep fee; grace and cap to edu'),
 'late-fee-tn-other':K(CT),
 'security-deposit-return-tn-act':('SPLIT',SL,'keep account-location statement; rest edu'),
-'security-deposit-return-tn-other':('SPLIT',SL,'keep forwarding-address duty; rest edu'),
+'security-deposit-return-tn-other':('KEEP',SL,'kept whole: no deposit statute outside the URLTA counties, so the return terms are the lease\'s own (revised from split 2026-09-29)'),
 'landlords-access-tn-act':K(SL),
 'landlords-access-tn-other':K(SL),
 'nonpayment-notice-waiver-tn':K(SL,'opt-in'),

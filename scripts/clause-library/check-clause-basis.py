@@ -12,10 +12,8 @@
 #   SERVES_LANDLORD                  a term the landlord benefits from having agreed
 # Every other row (education, inactive) must leave the column blank.
 #
-# PENDING_SCRUB: <verdict> marks a row the 2026-09-29 scrub has classified but
-# not yet applied (see lease-clause-scrub-verdicts.md). It passes with a
-# warning so the scrub can land in batches. Remove the allowance once the
-# scrub is finished.
+# The 2026-09-29 scrub's temporary PENDING_SCRUB value was retired when the
+# scrub finished the same day; it now fails like any other invalid basis.
 import csv, sys
 
 path = sys.argv[1] if len(sys.argv) > 1 else "lease-clauses.csv"
@@ -24,16 +22,13 @@ if rows and "lease_clause_basis" not in rows[0]:
     sys.exit("FAIL - lease-clauses.csv has no lease_clause_basis column")
 
 KINDS = {"REQUIRED_DISCLOSURE", "CONSTRAINED_TERM", "SERVES_LANDLORD"}
-bad, stray, pending = [], [], []
+bad, stray = [], []
 for r in rows:
     basis = (r["lease_clause_basis"] or "").strip()
     is_clause = r["is_active"] == "TRUE" and r["content_type"] == "LEASE_CLAUSE"
     if not is_clause:
         if basis:
             stray.append(r["id"])
-        continue
-    if basis.startswith("PENDING_SCRUB:"):
-        pending.append(r["id"])
         continue
     parts = [p.strip() for p in basis.split(" | ")] if basis else []
     ok = bool(parts)
@@ -48,8 +43,6 @@ for r in rows:
     if not ok:
         bad.append(f"{r['id']} [{basis or 'blank'}]")
 
-if pending:
-    print(f"warn - {len(pending)} rows still PENDING_SCRUB (see lease-clause-scrub-verdicts.md)")
 if stray:
     print("FAIL - basis set on a row that is not an active lease clause:", ", ".join(stray))
 if bad:

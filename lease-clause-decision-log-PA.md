@@ -692,3 +692,9 @@ Run on the same corpus for checklist backfill rows the battery did not cover (th
 - **A:** lead 14 closed.
 
 **Integrity:** 1,520 rows (1,467 + 53 new; `nsf-fee-limit-pa` rewritten in place); 1,491 active; PA 107 active (107 VERIFIED); one shared-text edit (`severability`, §3.1); every other state's count unchanged (AL 112, AZ 109, CA 157, CO 116, FL 107, GA 103, KS 129, MN 139, NC 112, ND 122, NE 123, NJ 85, NV 121, OH 97, SC 110, SD 99, TN 129, TX 135, VA 137, WY 106); no duplicate ids; no dangling `supersedes`; no display collisions; 16 fields on every row; CRLF.
+
+## Three-bucket scrub, 2026-09-29 (checklist instruction 66)
+
+Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Full verdict list: `lease-clause-scrub-verdicts.md`. Clauses moved to education are switched off, not deleted; their content is unchanged in the education rows (most were already covered by this state's own education rows), and checklist mentions of them now point to those rows. §5a.1: only this state's own rows changed; no propagation owed.
+
+- **Trimmed:** `security-deposit-return-pa` (withholding right and new-address duty; the forfeiture and double-damages sentences moved out, as Taylor's PA decision anticipated) and `security-deposit-holding-pa` (the required notice of where the deposit is held). Both rules sets are in the existing `edu-security-deposit-rules-pa`.

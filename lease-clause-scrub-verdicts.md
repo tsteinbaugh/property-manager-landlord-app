@@ -1,6 +1,6 @@
 # Three-bucket scrub — verdicts (2026-09-29)
 
-Checklist instruction 66 applied to every active lease clause (513): does it belong in the lease at all? Classification only, from each row's own text, notes and log. No new legal research, so not a re-audit. **Verdicts are recorded here and in `lease-clauses.csv`'s `lease_clause_basis` column; the row changes are applied state by state in later commits.**
+Checklist instruction 66 applied to every active lease clause (513): does it belong in the lease at all? Classification only, from each row's own text, notes and log. No new legal research, so not a re-audit. **All verdicts were applied on 2026-09-29, one commit per batch; each row's basis is in `lease-clauses.csv`'s `lease_clause_basis` column.**
 
 ## How to read this
 
@@ -13,13 +13,13 @@ Checklist instruction 66 applied to every active lease clause (513): does it bel
 
 **Rule for restatements (Taylor, 2026-09-29):** restating a tenant duty or a landlord right serves the landlord and stays; restating a tenant right or a landlord duty is education unless a statute requires it in the lease or it carries a lease choice. Pattern 1: tenant-right restatements go to education only.
 
-**Basis values:** `REQUIRED_DISCLOSURE: <statute>`, `CONSTRAINED_TERM`, `SERVES_LANDLORD`, or `PENDING_SCRUB: …` until a row's change is applied. `check-clause-basis.py` enforces them.
+**Basis values:** `REQUIRED_DISCLOSURE: <statute>`, `CONSTRAINED_TERM`, `SERVES_LANDLORD`. `check-clause-basis.py` enforces them at every sync.
 
-**Not applied yet:** cap removals depend on builder limit checks (Addendum M.13), which are on the pre-launch builder list.
+**Before real users:** the removed caps rely on builder limit checks (Addendum M.13), which are on the pre-launch builder list.
 
 The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is `REQUIRED_DISCLOSURE: 40 CFR 745.113`).
 
-**Totals (446 single-state rows):** Keep 285, Education 87, Split 51, Optional + education 17, Notice-period rewrite 6, Needs Taylor 0.
+**Totals (446 single-state rows):** Keep 286, Education 87, Split 50, Optional + education 17, Notice-period rewrite 6, Needs Taylor 0.
 
 ## CO
 
@@ -373,7 +373,7 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 
 ## FL
 
-**Not applied yet.**
+**Applied 2026-09-29.**
 
 | Row | Verdict | Basis | Note |
 |---|---|---|---|
@@ -402,7 +402,7 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 
 ## AZ
 
-**Not applied yet.**
+**Applied 2026-09-29.**
 
 | Row | Verdict | Basis | Note |
 |---|---|---|---|
@@ -428,7 +428,7 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 
 ## GA
 
-**Not applied yet.**
+**Applied 2026-09-29.**
 
 | Row | Verdict | Basis | Note |
 |---|---|---|---|
@@ -447,7 +447,7 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 
 ## NC
 
-**Not applied yet.**
+**Applied 2026-09-29.**
 
 | Row | Verdict | Basis | Note |
 |---|---|---|---|
@@ -472,7 +472,7 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 
 ## SC
 
-**Not applied yet.**
+**Applied 2026-09-29.**
 
 | Row | Verdict | Basis | Note |
 |---|---|---|---|
@@ -496,17 +496,17 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 
 ## TN
 
-**Not applied yet.**
+**Applied 2026-09-29.**
 
 | Row | Verdict | Basis | Note |
 |---|---|---|---|
 | `dv-lease-termination-tn` | Education | — | tenant right |
 | `late-fee-limit-tn` | Split | CONSTRAINED_TERM | keep fee; grace and cap to edu |
 | `security-deposit-return-tn-act` | Split | SERVES_LANDLORD | keep account-location statement; rest edu |
-| `security-deposit-return-tn-other` | Split | SERVES_LANDLORD | keep forwarding-address duty; rest edu |
 | `casualty-termination-tn` | Split | SERVES_LANDLORD | keep landlord termination right; tenant rights to edu |
 | `periodic-tenancy-notice-tn` | Notice-period rewrite | CONSTRAINED_TERM | statutory periods restated |
 | `late-fee-tn-other` | Keep | CONSTRAINED_TERM |  |
+| `security-deposit-return-tn-other` | Keep | SERVES_LANDLORD | kept whole: no deposit statute outside the URLTA counties, so the return terms are the lease's own (revised from split 2026-09-29) |
 | `landlords-access-tn-act` | Keep | SERVES_LANDLORD |  |
 | `landlords-access-tn-other` | Keep | SERVES_LANDLORD |  |
 | `nonpayment-notice-waiver-tn` | Keep | SERVES_LANDLORD | opt-in |
@@ -527,7 +527,7 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 
 ## VA
 
-**Not applied yet.**
+**Applied 2026-09-29.**
 
 | Row | Verdict | Basis | Note |
 |---|---|---|---|
@@ -575,7 +575,7 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 
 ## AL
 
-**Not applied yet.**
+**Applied 2026-09-29.**
 
 | Row | Verdict | Basis | Note |
 |---|---|---|---|
@@ -598,7 +598,7 @@ The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is 
 
 ## PA
 
-**Not applied yet.**
+**Applied 2026-09-29.**
 
 | Row | Verdict | Basis | Note |
 |---|---|---|---|

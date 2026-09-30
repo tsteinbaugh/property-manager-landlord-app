@@ -6,12 +6,12 @@ sys.path.insert(0,'scripts/clause-library/scrub')
 V={}
 for m in ['verdicts1','verdicts2','verdicts3']: V.update(__import__(m).V)
 rows=[r for r in csv.DictReader(open('lease-clauses.csv',newline='',encoding='utf-8')) if r['id'] in V]
-APPLIED={'CO':'2026-09-29','WY':'2026-09-29','KS':'2026-09-29','NE':'2026-09-29','MN':'2026-09-29','ND':'2026-09-29','SD':'2026-09-29','OH':'2026-09-29','CA':'2026-09-29','NV':'2026-09-29','TX':'2026-09-29','NJ':'2026-09-29'}
+APPLIED={'CO':'2026-09-29','WY':'2026-09-29','KS':'2026-09-29','NE':'2026-09-29','MN':'2026-09-29','ND':'2026-09-29','SD':'2026-09-29','OH':'2026-09-29','CA':'2026-09-29','NV':'2026-09-29','TX':'2026-09-29','NJ':'2026-09-29','FL':'2026-09-29','AZ':'2026-09-29','GA':'2026-09-29','NC':'2026-09-29','SC':'2026-09-29','TN':'2026-09-29','VA':'2026-09-29','AL':'2026-09-29','PA':'2026-09-29'}
 order="CO WY KS NE MN ND SD OH CA NV TX NJ FL AZ GA NC SC TN VA AL PA".split()
 NAME={'KEEP':'Keep','EDU':'Education','SPLIT':'Split','P3':'Optional + education','P2':'Notice-period rewrite','FLAG':'Needs Taylor'}
 c=collections.Counter(v[0] for v in V.values())
 out=["# Three-bucket scrub — verdicts (2026-09-29)","",
-"Checklist instruction 66 applied to every active lease clause (513): does it belong in the lease at all? Classification only, from each row's own text, notes and log. No new legal research, so not a re-audit. **Verdicts are recorded here and in `lease-clauses.csv`'s `lease_clause_basis` column; the row changes are applied state by state in later commits.**","",
+"Checklist instruction 66 applied to every active lease clause (513): does it belong in the lease at all? Classification only, from each row's own text, notes and log. No new legal research, so not a re-audit. **All verdicts were applied on 2026-09-29, one commit per batch; each row's basis is in `lease-clauses.csv`'s `lease_clause_basis` column.**","",
 "## How to read this","",
 "- **Keep:** passes; the basis is recorded.",
 "- **Education:** moves to a landlord education row. The lease clause is switched off (`is_active: FALSE`), not deleted, so a future \"comprehensive lease\" option could restore it.",
@@ -20,8 +20,8 @@ out=["# Three-bucket scrub — verdicts (2026-09-29)","",
 "- **Notice-period rewrite** (pattern 2): the statute sets a notice floor, so the clause states the landlord's chosen period and the builder checks it (Addendum M.13).",
 "- **Needs Taylor:** a decision only Taylor can make.","",
 "**Rule for restatements (Taylor, 2026-09-29):** restating a tenant duty or a landlord right serves the landlord and stays; restating a tenant right or a landlord duty is education unless a statute requires it in the lease or it carries a lease choice. Pattern 1: tenant-right restatements go to education only.","",
-"**Basis values:** `REQUIRED_DISCLOSURE: <statute>`, `CONSTRAINED_TERM`, `SERVES_LANDLORD`, or `PENDING_SCRUB: …` until a row's change is applied. `check-clause-basis.py` enforces them.","",
-"**Not applied yet:** cap removals depend on builder limit checks (Addendum M.13), which are on the pre-launch builder list.","",
+"**Basis values:** `REQUIRED_DISCLOSURE: <statute>`, `CONSTRAINED_TERM`, `SERVES_LANDLORD`. `check-clause-basis.py` enforces them at every sync.","",
+"**Before real users:** the removed caps rely on builder limit checks (Addendum M.13), which are on the pre-launch builder list.","",
 "The 67 multi-state rows all stay (generic contract terms; `lead-based-paint` is `REQUIRED_DISCLOSURE: 40 CFR 745.113`).","",
 "**Totals (446 single-state rows):** "+", ".join(f"{NAME[k]} {c[k]}" for k in ['KEEP','EDU','SPLIT','P3','P2','FLAG'])+".",""]
 for s in order:

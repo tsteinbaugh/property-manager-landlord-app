@@ -432,3 +432,11 @@ A statute spot-check, now a standard sync step (CLAUDE.md decisions log, 2026-09
 Not a re-audit; nothing else in this state was reviewed.
 
 **Propagation note (from the Pennsylvania pass, 2026-09-29): `severability` rewritten.** Old: 'If any provision of this Agreement shall be held or made invalid by a court decision, statute or rule, or shall be otherwise rendered invalid, the remainder of this Agreement shall not be affected thereby.' New: 'If a court decision, statute or rule makes any part of this Lease invalid or unenforceable, the rest of this Lease still applies.' §5a.1 judgment: UNIFORM. Generic mechanics with the same legal effect; plain-language wording prompted by Pennsylvania's Plain Language Consumer Contract Act, and lawful in this state; 'this Agreement' aligned with the library's 'this Lease'. No state-specific review owed. `last_checked` reset to 2026-09-29 (PA log §3.1, §9).
+
+## Three-bucket scrub, 2026-09-29 (checklist instruction 66)
+
+Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Full verdict list: `lease-clause-scrub-verdicts.md`. Clauses moved to education are switched off, not deleted; their content is unchanged in the education rows (most were already covered by this state's own education rows), and checklist mentions of them now point to those rows. §5a.1: only this state's own rows changed; no propagation owed.
+
+- **Moved to education:** `dv-lease-termination-ga` → `edu-dv-lease-termination-ga`; `security-deposit-cap-ga` → the existing `edu-security-deposit-rules-ga`.
+- **Trimmed:** `security-deposit-return-ga` keeps the sign-or-dissent duty, the permitted deductions and the forwarding-address request.
+- **Optional (pattern 3):** `flood-disclosure-ga`, with `edu-flood-disclosure-ga`.
