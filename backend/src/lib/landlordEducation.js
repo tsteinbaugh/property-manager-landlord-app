@@ -32,6 +32,8 @@
 // wholesale from the CSV (2026-09-18 refresh, Ohio added: 309 -> 324
 // entries across the now-8-state pass).
 //
+// **2026-09-29 (three-bucket scrub, MN/ND/SD/OH):** 999 -> 1021 entries.
+//
 // **2026-09-29 (three-bucket scrub, WY/KS/NE):** 986 -> 999 entries.
 //
 // **2026-09-29 (three-bucket scrub, Colorado):** 978 -> 986 entries.
@@ -2072,8 +2074,8 @@ const LANDLORD_EDUCATION = [
     verificationStatus: "VERIFIED",
     topicKey: "security-deposit-itemized-accounting",
     bodyText:
-      "If a South Dakota tenant requests an itemized accounting of any withheld security deposit, the landlord must provide it within 45 days after termination of the tenancy - a separate, longer deadline than the 21-day return/withholding-notice window. A landlord who fails to comply with the deposit-return requirements forfeits all rights to withhold any portion of the deposit. Bad-faith retention of a deposit (including failure to provide the required written statement or itemized accounting) exposes the landlord to punitive damages up to $200, in addition to the forfeited deposit.",
-    notes: "SD session 1. SDCL 43-32-24. The $200 punitive-damages cap is notably low compared to other states in this project (e.g., ND's treble-damages approach under a different statute) - flagged as a genuine cross-state architecture difference for the named-topic checklist, not an error. | CORRECTION 2026-09-07: '2-week' -> '21-day' per SDCL 43-32-24 as amended by SL 2026 ch 179 S1. Same defect as security-deposit-return-sd. 45-day accounting, forfeiture and $200 cap re-confirmed correct. TITLE NORMALISED 2026-09-19: 'Security Deposit Itemized Accounting & Bad-Faith Penalty (South Dakota)' -> 'Security Deposit Itemized Accounting & Bad-Faith Penalty' (state name in the title was a per-session convention used only by SD, OH, ND and CO).",
+      "Within 21 days after the tenancy ends and you receive the tenant's mailing address or delivery instructions, return the deposit or give the tenant a written statement of the specific reasons for withholding any of it. You may withhold only what is reasonably necessary to remedy the tenant's default in rent or other amounts due under the lease, or to restore the property to its condition at the start of the term, ordinary wear and tear excepted (SDCL 43-32-24). If a South Dakota tenant requests an itemized accounting of any withheld security deposit, the landlord must provide it within 45 days after termination of the tenancy - a separate, longer deadline than the 21-day return/withholding-notice window. A landlord who fails to comply with the deposit-return requirements forfeits all rights to withhold any portion of the deposit. Bad-faith retention of a deposit (including failure to provide the required written statement or itemized accounting) exposes the landlord to punitive damages up to $200, in addition to the forfeited deposit.",
+    notes: "SD session 1. SDCL 43-32-24. The $200 punitive-damages cap is notably low compared to other states in this project (e.g., ND's treble-damages approach under a different statute) - flagged as a genuine cross-state architecture difference for the named-topic checklist, not an error. | CORRECTION 2026-09-07: '2-week' -> '21-day' per SDCL 43-32-24 as amended by SL 2026 ch 179 S1. Same defect as security-deposit-return-sd. 45-day accounting, forfeiture and $200 cap re-confirmed correct. TITLE NORMALISED 2026-09-19: 'Security Deposit Itemized Accounting & Bad-Faith Penalty (South Dakota)' -> 'Security Deposit Itemized Accounting & Bad-Faith Penalty' (state name in the title was a per-session convention used only by SD, OH, ND and CO). | SD: Opening paragraph added by the three-bucket scrub (2026-09-29) from security-deposit-return-sd (switched off); content unchanged: SDCL 43-32-24, as amended by SL 2026 ch 179 § 1.",
   },
   // Default & Termination
   {
@@ -2242,6 +2244,18 @@ const LANDLORD_EDUCATION = [
     notes: "SD session 1 (continuation). SDCL 43-32-18.1, already identified in this project's original statute walk (§2) but not previously committed as its own row or cross-checked against the broader 'right to call police' checklist topic the way MN/KS defined it. Now resolved: South Dakota's protection is scoped specifically to domestic abuse/unlawful sexual behavior/stalking-related emergency calls - narrower than Minnesota's 504B.205, which extends to 'any other conduct, including but not limited to mental health or health crises' (not DV-limited). Flagged for the checklist as a genuine scope difference, not an oversight: SD has no general, non-DV-specific right-to-call-police protection. Landlord lien/security-interest over tenant property was also searched this round - no dedicated statute found in Title 44 (SD's general lien-law title) or Chapter 43-32 specifically abolishing or granting a residential landlord's lien; treated as confirmed absent (not committed as its own row per convention - SD's abandoned-property provisions, already captured as abandoned-property-sd, are the only property-retention mechanism found). Last-month's-rent deposit-application restriction and a dedicated Compliance/Prohibited-Terms/unconscionability statute were also searched without a hit - SD appears to rely on general common-law unconscionability doctrine rather than a dedicated consumer-protection statute for leases, consistent with its overall minimal-statute, lease-terms-control pattern; not committed as rows. TITLE NORMALISED 2026-09-19: 'Right to Call Police / Emergency Assistance (South Dakota)' -> 'Right to Call Police / Emergency Assistance' (state name in the title was a per-session convention used only by SD, OH, ND and CO).",
   },
   // Default & Termination
+  {
+    id: "edu-tenant-termination-causes-sd",
+    title: "Tenant Early-Termination Causes",
+    group: "Default & Termination",
+    states: ["SD"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-termination-causes",
+    bodyText:
+      "Besides the domestic abuse and stalking right, a South Dakota tenant may end the lease if you don't, within a reasonable time after the tenant's written request, put and keep them in quiet possession or put the property into good condition or repair it; or if the greater part of the property, or the part that was a material inducement to the lease as you had reason to know, is destroyed by any cause other than the tenant's ordinary negligence (SDCL 43-32-19(1), (2)).",
+    notes: "SD session 1 (final continuation). SDCL 43-32-19(1) (failure-to-deliver-possession/repair) and 43-32-19(2) (material destruction of the premises, casualty-style), both read in the original statute walk (§2) but not previously committed as their own row - `possession-delay` was extended generically to SD (§9) to cover the delayed-possession scenario mechanically, but this row captures the statute's own broader and slightly differently-worded termination rights directly, including the destruction-of-premises ground which the generic library doesn't otherwise cover for SD. The domestic-abuse/stalking ground (43-32-19(3)) is handled separately by dv-lease-release-sd and cross-referenced here rather than repeated. TITLE NORMALISED 2026-09-19: 'Tenant Early-Termination Causes (South Dakota)' -> 'Tenant Early-Termination Causes' (state name in the title was a per-session convention used only by SD, OH, ND and CO). | SD: Three-bucket scrub (2026-09-29): converted in place from a lease clause to education (it restated the tenant's statutory termination rights); content unchanged.",
+  },
   {
     id: "edu-holdover-mechanics-sd",
     title: "Holdover Tenancy Mechanics",
@@ -3028,8 +3042,8 @@ const LANDLORD_EDUCATION = [
     verificationStatus: "VERIFIED",
     topicKey: "infirmity-termination-accessible-unit",
     bodyText:
-      "Minnesota lets a tenant end a lease early on two months' notice when a medical professional finds they need to move into certain licensed care facilities (Minn. Stat. § 504B.266). What most landlords miss is the exception: if the tenant's need is for an ACCESSIBLE unit, and you can offer one in the same complex that becomes available within two months of their request, the statute does not apply and the tenant may not terminate. This is worth knowing before you accept a termination notice — if you have an accessible unit coming open, offering it keeps the tenancy. Note this only works for the accessible-unit situation; it does not help where the tenant is genuinely moving into a nursing home, assisted living, or another enumerated facility.",
-    notes: "MN added (MN re-audit 2026-09-03): companion to the termination-infirmity-mn correction. Found only by reading §504B.266 in full rather than the subdivision stating the notice period — the original session captured subd. 3's two-month mechanics and never reached subd. 2(b)'s defeasance. Same partial-read failure mode as the §504B.271 subd. 2 miss logged at RA-12. 'Accessible unit' is defined at §363A.40 subd. 1.",
+      "Minnesota lets a tenant end a lease early on two months' notice when a medical professional finds they need to move into certain licensed care facilities (Minn. Stat. § 504B.266). What most landlords miss is the exception: if the tenant's need is for an ACCESSIBLE unit, and you can offer one in the same complex that becomes available within two months of their request, the statute does not apply and the tenant may not terminate. This is worth knowing before you accept a termination notice — if you have an accessible unit coming open, offering it keeps the tenancy. Note this only works for the accessible-unit situation; it does not help where the tenant is genuinely moving into a nursing home, assisted living, or another enumerated facility. To use the right, the tenant (or, if there are several, all tenants) needs a medical professional's written finding of the need to move into a nursing home, boarding care home, supervised living facility, assisted living facility or other qualifying facility or accessible unit, and must give you at least two months' written notice, effective on the last day of a calendar month, delivered by hand or first-class mail, with that documentation and proof of acceptance or a pending application at the facility. The tenant still owes rent and other sums for the period before and during the notice, and the cost of restoring the property beyond ordinary wear and tear.",
+    notes: "MN added (MN re-audit 2026-09-03): companion to the termination-infirmity-mn correction. Found only by reading §504B.266 in full rather than the subdivision stating the notice period — the original session captured subd. 3's two-month mechanics and never reached subd. 2(b)'s defeasance. Same partial-read failure mode as the §504B.271 subd. 2 miss logged at RA-12. 'Accessible unit' is defined at §363A.40 subd. 1. | MN: Notice and documentation paragraph added by the three-bucket scrub (2026-09-29) from termination-infirmity-mn (switched off); content unchanged: Minn. Stat. § 504B.266.",
   },
   {
     id: "edu-writ-execution-property-duties-mn",
@@ -3268,8 +3282,8 @@ const LANDLORD_EDUCATION = [
     verificationStatus: "VERIFIED",
     topicKey: "inspection-notice-penalty",
     bodyText:
-      "Minnesota ties a hard penalty to the inspection-notice duty, and it is easy to trip because the trigger is the NOTICE, not the inspection. Under Minn. Stat. § 504B.178 subd. 4, a landlord who fails to give the tenant notice of the initial and move-out inspection options required by § 504B.182 — or who fails to actually complete an inspection the tenant requested — is liable for damages equal to the portion of the deposit withheld plus interest, AS A PENALTY, on top of returning the wrongfully withheld portion itself. In practice that means the same withheld amount can come out of your pocket twice. The tenant does not have to request anything for you to be exposed: your duty to NOTIFY them of the option is what triggers it, at the start of the tenancy and again before it ends. If the tenant declines to request an inspection, your duties are discharged — but only if you offered.",
-    notes: "MN added (MN re-audit 2026-09-03, canvass pass 2): companion to initial-final-inspection-mn. §504B.178 subd. 4(4) read from revisor.mn.gov — the penalty is listed alongside the other deposit-withholding failures and carries the same 'in addition to the portion wrongfully withheld' doubling structure. PRODUCT IMPLICATION, FLAGGED FOR TAYLOR: this is a DATED, EVENT-DRIVEN landlord obligation (notify within 14 days of occupancy; notify again before termination) that a lease clause alone cannot discharge — the lease can state the option, but someone has to actually send the second notice months or years later. This is the clearest candidate yet for the legal tracker feature already on the roadmap, alongside the reservation-of-rights notice from the NE work.",
+      "Minnesota ties a hard penalty to the inspection-notice duty, and it is easy to trip because the trigger is the NOTICE, not the inspection. Under Minn. Stat. § 504B.178 subd. 4, a landlord who fails to give the tenant notice of the initial and move-out inspection options required by § 504B.182 — or who fails to actually complete an inspection the tenant requested — is liable for damages equal to the portion of the deposit withheld plus interest, AS A PENALTY, on top of returning the wrongfully withheld portion itself. In practice that means the same withheld amount can come out of your pocket twice. The tenant does not have to request anything for you to be exposed: your duty to NOTIFY them of the option is what triggers it, at the start of the tenancy and again before it ends. If the tenant declines to request an inspection, your duties are discharged — but only if you offered. You can give the start-of-tenancy notice in the lease itself (the optional Initial and Move-Out Inspections clause does this) or separately in writing within 14 days of the tenant moving in; the move-out notice still has to be given near the end of the tenancy.",
+    notes: "MN added (MN re-audit 2026-09-03, canvass pass 2): companion to initial-final-inspection-mn. §504B.178 subd. 4(4) read from revisor.mn.gov — the penalty is listed alongside the other deposit-withholding failures and carries the same 'in addition to the portion wrongfully withheld' doubling structure. PRODUCT IMPLICATION, FLAGGED FOR TAYLOR: this is a DATED, EVENT-DRIVEN landlord obligation (notify within 14 days of occupancy; notify again before termination) that a lease clause alone cannot discharge — the lease can state the option, but someone has to actually send the second notice months or years later. This is the clearest candidate yet for the legal tracker feature already on the roadmap, alongside the reservation-of-rights notice from the NE work. | MN: Sentence on where the notice can be given added by the three-bucket scrub (2026-09-29), pattern-3 companion to initial-final-inspection-mn; from that row's content (Minn. Stat. § 504B.182).",
   },
   {
     id: "edu-deposit-successor-transfer-mn",
@@ -4234,8 +4248,8 @@ const LANDLORD_EDUCATION = [
     verificationStatus: "VERIFIED",
     topicKey: "casualty-and-mitigation-waivable",
     bodyText:
-      "Most of Ohio's landlord-tenant rules cannot be waived - R.C. 5321.13(A) makes the whole of Chapter 5321 non-waivable except in one narrow direction. But two rules that matter to you sit OUTSIDE Chapter 5321, and both are default rules you may contract around. R.C. 5301.11 says a tenant whose building is destroyed or made unfit for occupancy through no fault of their own stops owing rent - 'unless otherwise expressly provided by written agreement or covenant' - and the tenant must surrender possession to get the benefit. And Ohio's duty to re-rent after a tenant abandons comes from case law that applies 'barring contrary contract provisions'. Because neither lives in Chapter 5321, 5321.13(A) does not protect them. R.C. 5321.14 unconscionability still does.",
-    notes: "OH: R.C. 5301.11 (Title 53 ch. 5301 Conveyances - an ADJACENT-TITLE find, invisible to a ch. 5321 read; effective 1953-10-01, sole version, unamended); Frenchtown Square Partnership v. Lemstone, 99 Ohio St.3d 254, 2003-Ohio-3648. IMPORTANT: Lemstone's holding is expressly limited to a COMMERCIAL lease - the Court said so in framing the issue - and every decision upholding a mitigation waiver is commercial. Whether a RESIDENTIAL mitigation waiver survives 5321.14 is untested. DECISION 2026-09-18 (Taylor): no mitigation waiver in the default Ohio lease; surface it here as available-but-untested. Failure to mitigate is an affirmative defence, burden on the tenant. Surrender under 5301.11 means yielding all that remains - a tenant cannot stop paying and leave belongings in place.",
+      "Most of Ohio's landlord-tenant rules cannot be waived - R.C. 5321.13(A) makes the whole of Chapter 5321 non-waivable except in one narrow direction. But two rules that matter to you sit OUTSIDE Chapter 5321, and both are default rules you may contract around. R.C. 5301.11 says a tenant whose building is destroyed or made unfit for occupancy through no fault of their own stops owing rent - 'unless otherwise expressly provided by written agreement or covenant' - and the tenant must surrender possession to get the benefit. And Ohio's duty to re-rent after a tenant abandons comes from case law that applies 'barring contrary contract provisions'. Because neither lives in Chapter 5321, 5321.13(A) does not protect them. R.C. 5321.14 unconscionability still does. Under the default, rent already owed before the damage stays due, and the tenant stops owing rent only by surrendering possession of all of what remains; they can't stop paying while leaving belongings there or otherwise keeping possession.",
+    notes: "OH: R.C. 5301.11 (Title 53 ch. 5301 Conveyances - an ADJACENT-TITLE find, invisible to a ch. 5321 read; effective 1953-10-01, sole version, unamended); Frenchtown Square Partnership v. Lemstone, 99 Ohio St.3d 254, 2003-Ohio-3648. IMPORTANT: Lemstone's holding is expressly limited to a COMMERCIAL lease - the Court said so in framing the issue - and every decision upholding a mitigation waiver is commercial. Whether a RESIDENTIAL mitigation waiver survives 5321.14 is untested. DECISION 2026-09-18 (Taylor): no mitigation waiver in the default Ohio lease; surface it here as available-but-untested. Failure to mitigate is an affirmative defence, burden on the tenant. Surrender under 5301.11 means yielding all that remains - a tenant cannot stop paying and leave belongings in place. | OH: Sentence added by the three-bucket scrub (2026-09-29) from fire-casualty-termination-oh (switched off); content unchanged: R.C. 5301.11.",
   },
   // Notices & General
   {
@@ -7458,7 +7472,7 @@ const LANDLORD_EDUCATION = [
     topicKey: "holding-deposit",
     bodyText:
       "If you take money from a prospective tenant before a lease is signed, Minnesota law (Minn. Stat. Sec. 504B.175) lets you accept it only under a conspicuous WRITTEN agreement that states the circumstances in which you will return it, and states that you must return it within seven days of one of those circumstances occurring. 'Return' means postmarked within seven days, though the applicant may instead ask you to destroy the payment or hold it for pickup. If the applicant does sign a lease, you must apply the money to their security deposit or rent -- you cannot keep it as a fee. Get the return conditions in writing before you take the money: the penalty is the full amount of the deposit plus another one-half of it, and there is no cure once you have taken money with no written agreement. A reasonable applicant screening fee is NOT a prelease deposit and is governed separately.",
-    notes: "MN added (gap-discovery backfill 2026-09-27, checklist instruction 36 -- sources 2, 3 and 4 only; not a re-audit). Official Minnesota Revisor full-text search of the 2025 Minnesota Statutes (api.revisor.mn.gov search service, exact-phrase with word variants), every landlord-relevant hit read section-open on revisor.mn.gov. Minn. Stat. Sec. 504B.175, read section-open, all four subdivisions. Subd. 2(a): conspicuous written agreement stating (1) the circumstances of return and (2) the seven-day return duty. Subd. 2(b) defines 'return' as postmarked within seven days, with an applicant-requested alternative of destruction or retrieval. Subd. 4: liability is the deposit plus one-half as a penalty, 'in addition to any other remedies'. History: 1999 c 97 s 1; 1999 c 199 art 1 s 174 -- no recent amendment (Recent History block empty). LAYOUT ITEM (instruction 28): 'a conspicuous written agreement' is a typography-conditioned requirement, and it attaches to a PRE-LEASE document, not the lease -- recorded in the MN layout table in this pass's log section. Companion: prelease-deposit-application-mn carries the lease-side application term. CROSS-STATE: Arizona confirmed this topic absent code-wide (edu-holding-deposit-az); Minnesota regulates it. Worth asking every future state.",
+    notes: "MN added (gap-discovery backfill 2026-09-27, checklist instruction 36 -- sources 2, 3 and 4 only; not a re-audit). Official Minnesota Revisor full-text search of the 2025 Minnesota Statutes (api.revisor.mn.gov search service, exact-phrase with word variants), every landlord-relevant hit read section-open on revisor.mn.gov. Minn. Stat. Sec. 504B.175, read section-open, all four subdivisions. Subd. 2(a): conspicuous written agreement stating (1) the circumstances of return and (2) the seven-day return duty. Subd. 2(b) defines 'return' as postmarked within seven days, with an applicant-requested alternative of destruction or retrieval. Subd. 4: liability is the deposit plus one-half as a penalty, 'in addition to any other remedies'. History: 1999 c 97 s 1; 1999 c 199 art 1 s 174 -- no recent amendment (Recent History block empty). LAYOUT ITEM (instruction 28): 'a conspicuous written agreement' is a typography-conditioned requirement, and it attaches to a PRE-LEASE document, not the lease -- recorded in the MN layout table in this pass's log section. Companion: prelease-deposit-application-mn carries the lease-side application term. CROSS-STATE: Arizona confirmed this topic absent code-wide (edu-holding-deposit-az); Minnesota regulates it. Worth asking every future state. | MN: Three-bucket scrub (2026-09-29): prelease-deposit-application-mn switched off; this row already states its rule (money taken to hold a unit is applied to the deposit or rent, never kept as a fee).",
   },
   // Landlord Responsibilities
   {
@@ -12767,6 +12781,273 @@ const LANDLORD_EDUCATION = [
     bodyText:
       "If you fail to deliver possession as the lease requires, rent abates until you do, and the tenant may either end the lease on at least 5 days' written notice, in which case you return all prepaid rent and the full deposit, or demand that you perform, sue for possession against you or anyone wrongfully in possession, and recover damages. If your failure is willful and not in good faith, the tenant can recover up to three months' periodic rent or three times actual damages, whichever is greater (Neb. Rev. Stat. 76-1426).",
     notes: "NE: Moved from possession-delay-ne by the three-bucket scrub (2026-09-29); content and citation unchanged: Neb. Rev. Stat. § 76-1426.",
+  },
+  // Security Deposit
+  {
+    id: "edu-security-deposit-return-mn",
+    title: "Deposit Return Deadline, Interest and Withholding",
+    group: "Security Deposit",
+    states: ["MN"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-return",
+    bodyText:
+      "Within three weeks after the lease ends, and after receiving the tenant's mailing address or delivery instructions, return the deposit with the simple interest Minnesota law requires, or give the tenant a written statement of the specific reasons for withholding any of it. You may withhold only what is reasonably necessary to remedy a default in paying rent or other money due under the lease, or to restore the property to its condition at the start of the tenancy, ordinary wear and tear excepted (Minn. Stat. 504B.178). If the tenant leaves because the building is legally condemned for reasons the tenant didn't cause, the return window is five days. See the inspection-notice penalty note.",
+    notes: "MN: Moved from security-deposit-return-mn by the three-bucket scrub (2026-09-29); content and citation unchanged: Minn. Stat. § 504B.178.",
+  },
+  // Default & Termination
+  {
+    id: "edu-new-construction-delay-mn",
+    title: "New Construction Not Ready by the Start Date",
+    group: "Default & Termination",
+    states: ["MN"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "possession-delay-mn-new-construction",
+    bodyText:
+      "If the property is new construction (a new building, rehabilitation, reconstruction or addition) and you know it won't be ready by the start date, notify the tenant in writing at least seven days before the start date and offer a choice of: alternative housing you provide, reasonably equivalent in size, amenities and location, until the property is ready; a payment equal to the rent to help cover alternative housing the tenant arranges; or ending the lease. If the tenant takes one of the first two options and the property still isn't ready within 90 days of the original start date, the tenant may then end the lease (Minn. Stat. 504B.153).",
+    notes: "MN: Moved from possession-delay-mn-new-construction by the three-bucket scrub (2026-09-29); content and citation unchanged: Minn. Stat. § 504B.153.",
+  },
+  {
+    id: "edu-dv-lease-termination-mn",
+    title: "Victims of Violence: Tenant's Right to End the Lease",
+    group: "Default & Termination",
+    states: ["MN"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-lease-termination",
+    bodyText:
+      "A Minnesota tenant may end the lease without penalty or liability if the tenant or another authorized occupant fears imminent violence after being subjected to domestic abuse, criminal sexual conduct, sexual extortion or harassment (Minn. Stat. 504B.206). The tenant must give you signed and dated advance written notice, before the tenancy ends, by mail, in person or by a form of written communication the tenant regularly uses with you, stating that they fear imminent violence from a person named in a qualifying document, that they need to end the tenancy, the termination date, and instructions for any remaining belongings; a qualifying document must come with it. Moving out before that date doesn't by itself end the tenancy. You may ask for the perpetrator's name to protect other residents, but the tenant may decline for safety reasons. A sole tenant owes rent for the full month in which the tenancy ends, gives up the claim to the deposit, and owes nothing for the rest of the term; if there are several tenants, the lease ends for all of them (see the qualifying-documents note). Debts owed before termination are unaffected, and the tenant's notice, documents, new address and status are confidential.",
+    notes: "MN: Moved from dv-lease-termination-mn by the three-bucket scrub (2026-09-29); content and citation unchanged: Minn. Stat. § 504B.206.",
+  },
+  {
+    id: "edu-casualty-termination-mn",
+    title: "Fire or Casualty: The Tenant May Leave",
+    group: "Default & Termination",
+    states: ["MN"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "casualty-termination",
+    bodyText:
+      "If the property is destroyed, or becomes uninhabitable or unfit for occupancy, through no fault or neglect of the tenant or any occupant, the tenant may move out and surrender it; rent is prorated to the date they leave and they owe no rent after that (Minn. Stat. 504B.131). Your duty to keep the property fit and in reasonable repair continues and can't be waived.",
+    notes: "MN: Moved from fire-casualty-termination-mn by the three-bucket scrub (2026-09-29); content and citation unchanged: Minn. Stat. § 504B.131.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-cash-rent-receipt-mn",
+    title: "Receipts for Cash Rent",
+    group: "Rent & Payment",
+    states: ["MN"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "cash-rent-receipt",
+    bodyText:
+      "If a tenant pays rent or any other payment in cash, give a written receipt immediately if they pay in person, or within three business days if they don't (Minn. Stat. 504B.118).",
+    notes: "MN: Moved from cash-rent-receipt-mn by the three-bucket scrub (2026-09-29); content and citation unchanged: Minn. Stat. § 504B.118.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-utility-apportionment-limits-mn",
+    title: "Limits on Apportioning Shared-Meter Utilities",
+    group: "Landlord Responsibilities",
+    states: ["MN"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utility-apportionment",
+    bodyText:
+      "If you apportion utilities in a shared-metered building, Minnesota requires that you stay the bill payer and customer of record for the building; you may not apportion or bill tenants for electricity (it may only be submetered as the law allows); any administrative billing charge may not exceed $8 per billing period; a late charge on utilities billed separately from rent may not exceed $5 a month and may not compound; you must give tenants copies of the underlying bills on request; and you may not disconnect or cause disconnection of a tenant's service for nonpayment of utility charges (Minn. Stat. 504B.216). The required disclosure attachment is covered in its own note.",
+    notes: "MN: Created by the three-bucket scrub (2026-09-29) from utility-apportionment-mn; content and citations unchanged: Minn. Stat. § 504B.216; § 216B.023.",
+  },
+  {
+    id: "edu-habitability-baseline-mn",
+    title: "Your Basic Habitability Duties",
+    group: "Landlord Responsibilities",
+    states: ["MN"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-maintenance",
+    bodyText:
+      "Minnesota requires you to keep the property and common areas fit for the use the parties intended and in reasonable repair, including heat of at least 68 degrees Fahrenheit in all places meant for habitation, kitchens and bathrooms included, from October 1 through April 30 (unless a utility company requires it lowered), and extermination of insects, rodents, vermin and other pests (Minn. Stat. 504B.161). These duties don't apply to disrepair caused by the tenant's own willful, malicious or irresponsible conduct, or that of someone under the tenant's direction. You must also keep the property in compliance with health and safety laws, including any local rental-licensing ordinance, and make it reasonably energy efficient where that is cost-effective.",
+    notes: "MN: Created by the three-bucket scrub (2026-09-29) from habitability-baseline-mn, which keeps only the tenant's repair-notice duty; content and citations unchanged: Minn. Stat. § 504B.161.",
+  },
+  // Disclosures
+  {
+    id: "edu-foreclosure-disclosure-mn",
+    title: "Tell Prospective Tenants About a Pending Foreclosure",
+    group: "Disclosures",
+    states: ["MN"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "foreclosure-disclosure",
+    bodyText:
+      "If you've received notice of a contract-for-deed cancellation or a mortgage foreclosure sale affecting the property, you must tell a prospective tenant in writing, before signing the lease and before accepting rent or a deposit, including the date the cancellation period or redemption period ends (Minn. Stat. 504B.151). The lease's optional clause records that you did; the duty itself is owed before signing.",
+    notes: "MN: Created by the three-bucket scrub (2026-09-29) as the pattern-3 companion to foreclosure-disclosure-mn; content from that row: Minn. Stat. § 504B.151.",
+  },
+  // Security Deposit
+  {
+    id: "edu-security-deposit-return-nd",
+    title: "Deposit Return Deadline and Unclaimed Deposits",
+    group: "Security Deposit",
+    states: ["ND"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-return",
+    bodyText:
+      "Within 30 days after the lease ends and the tenant delivers possession, or after a different starting point North Dakota law sets (such as a domestic-violence termination), return the deposit with any interest the law requires, less lawful deductions, and a written itemization of anything you kept (N.D.C.C. 47-16-07.1). If the deposit goes unclaimed for a year after the lease ends, report and remit it under North Dakota's unclaimed property law (47-30.2-04). See the notes on interest, penalties and domestic-violence timing.",
+    notes: "ND: Moved from security-deposit-return-nd by the three-bucket scrub (2026-09-29); content and citation unchanged: N.D.C.C. § 47-16-07.1(1), (3), (4); § 47-16-17.1(8); § 47-30.2-04.",
+  },
+  // Default & Termination
+  {
+    id: "edu-tenant-death-termination-nd",
+    title: "If a Tenant Dies",
+    group: "Default & Termination",
+    states: ["ND"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-by-death",
+    bodyText:
+      "If a tenant dies, a surviving co-tenant or the tenant's estate may choose to end the lease. It then ends on the last day of the month after the month of death, unless the term would have ended sooner, and the estate owes rent through that date (N.D.C.C. 47-16-18).",
+    notes: "ND: Moved from termination-by-death-nd by the three-bucket scrub (2026-09-29); content and citation unchanged: N.D.C.C. § 47-16-18.",
+  },
+  {
+    id: "edu-casualty-termination-nd",
+    title: "Fire or Casualty: When the Lease Ends",
+    group: "Default & Termination",
+    states: ["ND"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "casualty-termination",
+    bodyText:
+      "If the greater part of the property, or the part that was the tenant's material reason for leasing it, is destroyed or damaged through no fault of the tenant, the tenant may end the lease. If the property is destroyed, the lease ends automatically (N.D.C.C. 47-16-14(4), 47-16-17(2)).",
+    notes: "ND: Moved from fire-casualty-termination-nd by the three-bucket scrub (2026-09-29); content and citation unchanged: N.D.C.C. §§ 47-16-14(4), 47-16-17(2).",
+  },
+  {
+    id: "edu-dv-lease-release-nd",
+    title: "Domestic Violence: Tenant's Right to End the Lease",
+    group: "Default & Termination",
+    states: ["ND"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-lease-termination",
+    bodyText:
+      "A North Dakota tenant who is a victim of domestic violence by a family or household member, or who fears imminent domestic violence against themselves or their minor children by such a person if they stay, may end the lease without penalty or liability (N.D.C.C. 47-16-17.1). The tenant must give you advance written notice, by mail, fax or in person before the tenancy ends, stating that they fear imminent domestic violence from a person named in a court order, an order prohibiting contact, a civil protection order or another record filed with a court; that they need to end the tenancy; and the date it will end. The tenant owes rent for the full month in which the tenancy ends plus one more month's rent, subject to your duty to mitigate, and must pay that on or before termination to be released from the rest of the term; rent and other amounts already owed remain due. The tenancy, including the right of possession, ends on the date in the notice, and it continues for any other tenants. See the notes on confidentiality and deposit timing.",
+    notes: "ND: Moved from dv-lease-release-nd by the three-bucket scrub (2026-09-29); content and citation unchanged: N.D.C.C. § 47-16-17.1(1)-(3), (5)-(7), (9).",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-habitability-baseline-nd",
+    title: "Your Basic Habitability Duties",
+    group: "Landlord Responsibilities",
+    states: ["ND"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-maintenance",
+    bodyText:
+      "North Dakota requires you to comply with building and housing codes materially affecting health and safety; make all repairs needed to keep the property fit and habitable; keep common areas clean and safe; maintain the electrical, plumbing, sanitary, heating, ventilating, air-conditioning and other facilities and appliances you supply or are required to supply in good and safe working order; provide waste receptacles and arrange removal; and supply running water and reasonable hot water and heat, unless the building isn't required by law to have them or the heat or hot water is under the tenant's exclusive control through a direct utility connection (N.D.C.C. 47-16-13.1). See the note on the tenant's repair-and-deduct remedy.",
+    notes: "ND: Created by the three-bucket scrub (2026-09-29) from landlord-maintenance-nd, which keeps only the tenant's repair-notice duty; content unchanged: N.D.C.C. § 47-16-13.1.",
+  },
+  // Default & Termination
+  {
+    id: "edu-termination-notice-periods-nd",
+    title: "Termination Notice Periods",
+    group: "Default & Termination",
+    states: ["ND"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-notice-periods",
+    bodyText:
+      "In North Dakota, either party may end a month-to-month tenancy by giving at least one calendar month's written notice, unless the parties agreed in writing to a longer period or a different notice time; rent is due through the termination date. If a lease doesn't specify its term, notice must be at least as long as the term itself, up to one calendar month. A lease that converts to month-to-month ends on the last day of a month with at least one calendar month's notice (N.D.C.C. 47-16-15). A lease notice requirement longer than one month only binds the tenant if they initial it (see the initialing clause).",
+    notes: "ND: Created by the three-bucket scrub (2026-09-29) from termination-notice-nd; content and citations unchanged: N.D.C.C. § 47-16-15(1), (2), (5).",
+  },
+  {
+    id: "edu-dv-lease-release-sd",
+    title: "Domestic Abuse or Stalking: Tenant's Right to End the Lease",
+    group: "Default & Termination",
+    states: ["SD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-lease-termination",
+    bodyText:
+      "If a South Dakota tenant or a household member is the victim of alleged domestic abuse, unlawful sexual behavior or stalking, the tenant may end the lease without an early-termination penalty, effective on a specified date, by giving you written notice that the termination is due to fear of imminent danger or injury, with one of these dated within the 30 days before the notice: a signed police report on the incident, a protection order issued in response to it, or documentation from a licensed health care provider who examined the person and has reasonable cause to believe they were a victim (SDCL 43-32-19(3), 43-32-19.1). The tenant owes no otherwise-applicable early-termination fee and no rent for the month after the month they move out.",
+    notes: "SD: Moved from dv-lease-release-sd by the three-bucket scrub (2026-09-29); content and citation unchanged: SDCL 43-32-19(3); SDCL 43-32-19.1.",
+  },
+  // Disclosures
+  {
+    id: "edu-meth-disclosure-sd",
+    title: "Disclose Known Prior Meth Manufacturing",
+    group: "Disclosures",
+    states: ["SD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "meth-disclosure",
+    bodyText:
+      "If you actually know methamphetamine was previously manufactured on the property, you must tell the tenant before they become obligated under the lease. For a building of two or more units, the duty covers only the unit you know about (SDCL 43-32-30). The lease's optional clause records the disclosure.",
+    notes: "SD: Created by the three-bucket scrub (2026-09-29) as the pattern-3 companion to meth-disclosure-sd; content from that row: SDCL 43-32-30.",
+  },
+  // Security Deposit
+  {
+    id: "edu-security-deposit-interest-oh",
+    title: "Interest on Larger Deposits",
+    group: "Security Deposit",
+    states: ["OH"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-interest",
+    bodyText:
+      "If a deposit is more than $50 or one month's rent, whichever is greater, the excess earns interest at 5% a year for any period the tenant stays in possession six months or more. Compute and pay it to the tenant every year. No interest is owed on the part at or below that threshold (R.C. 5321.16(A)).",
+    notes: "OH: Moved from security-deposit-interest-oh by the three-bucket scrub (2026-09-29); content and citation unchanged: R.C. 5321.16(A).",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-flag-display-oh",
+    title: "Tenants' Right to Display Certain Flags",
+    group: "Rules & Regulations",
+    states: ["OH"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "flag-display",
+    bodyText:
+      "Ohio doesn't let a lease restrict a tenant from displaying the U.S. flag, the POW/MIA flag, the Ohio flag, or a Defense-approved service flag, displayed according to federal, state and local law and patriotic custom (R.C. 5321.131). Before installing a flag pole or a permanently affixed bracket for the U.S. or POW/MIA flag, the tenant must contact you with reasonable notice to discuss placement and size, and the tenant still has to return the property in the same condition at the end of the term.",
+    notes: "OH: Moved from flag-display-oh by the three-bucket scrub (2026-09-29); content and citation unchanged: R.C. 5321.131.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-landlord-duties-oh",
+    title: "Your Basic Duties as an Ohio Landlord",
+    group: "Landlord Responsibilities",
+    states: ["OH"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-maintenance",
+    bodyText:
+      "Ohio requires you to comply with building, housing, health and safety codes that materially affect health and safety; make all repairs and do whatever is reasonably necessary to keep the property fit and habitable; keep common areas safe and sanitary; keep the electrical, plumbing, sanitary, heating, ventilating and air-conditioning fixtures and appliances, and elevators, you supply or must supply in good and safe working order; and supply running water, reasonable hot water and reasonable heat at all times, unless the building isn't required by law to have them or the unit's heat or hot water comes from an installation under the tenant's exclusive control on a direct utility connection. If you rent four or more units in the same structure, you must also provide waste receptacles and arrange removal (R.C. 5321.04). These duties can't be waived; see the rent-escrow note for the tenant's remedy.",
+    notes: "OH: Moved from landlord-maintenance-oh by the three-bucket scrub (2026-09-29); content and citation unchanged: R.C. 5321.04.",
+  },
+  // Security Deposit
+  {
+    id: "edu-security-deposit-return-oh",
+    title: "Deposit Return Deadline and Itemization",
+    group: "Security Deposit",
+    states: ["OH"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-return",
+    bodyText:
+      "Within 30 days after the lease ends and the tenant delivers possession, deliver or mail the deposit, less amounts properly applied, with a written itemization of the deductions and the reasons for them (R.C. 5321.16(B)). A tenant who didn't give a forwarding address in writing still gets the balance but can't recover damages or attorney's fees (5321.16(C)).",
+    notes: "OH: Created by the three-bucket scrub (2026-09-29) from security-deposit-return-oh; content unchanged: R.C. 5321.16(B), (C).",
+  },
+  // Default & Termination
+  {
+    id: "edu-termination-notice-periods-oh",
+    title: "Termination Notice Periods",
+    group: "Default & Termination",
+    states: ["OH"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-notice-periods",
+    bodyText:
+      "In Ohio, either party may end a week-to-week tenancy with notice at least 7 days before the termination date, and a month-to-month tenancy with notice at least 30 days before the periodic rental date (R.C. 5321.17). These minimums don't apply to a termination for breach of the lease or of a duty imposed by law, and they don't limit a shorter notice Ohio law requires where a tenant has violated R.C. 5321.05(A)(9).",
+    notes: "OH: Created by the three-bucket scrub (2026-09-29) from termination-notice-oh; content unchanged: R.C. 5321.17.",
   },
 ];
 

@@ -19,6 +19,9 @@
 // the architecture-review log's Addendum L §L.3: "a log entry is not a
 // library change" -- the CSV is the fact).
 //
+// **2026-09-29 three-bucket scrub, MN/ND/SD/OH:** 491 -> 473 shipped
+// LEASE_CLAUSE rows; see lease-clause-scrub-verdicts.md.
+//
 // **2026-09-29 three-bucket scrub, Wyoming/Kansas/Nebraska:** 506 -> 491
 // shipped LEASE_CLAUSE rows (WY 3, KS 5, NE 7 switched off; content moved
 // to education).
@@ -357,14 +360,6 @@ const CLAUSE_TEMPLATES = [
     states: ["NJ"],
     bodyText:
       "Landlord will hold the Security Deposit in trust for Tenant and will not mingle it with Landlord's own property. Landlord will deposit or invest it in an interest-bearing account or fund of the kind New Jersey law requires, located in New Jersey. Within 30 days after receiving the Security Deposit, Landlord will notify Tenant in writing of the name and address of the institution or fund holding it, the type of account, the current interest rate, and the amount deposited. Landlord will give the same notice within 30 days after moving the deposit to another institution, fund or account, within 30 days after any transfer of ownership or control of the property, and with each annual interest payment. The interest earned belongs to Tenant and will be paid to Tenant in cash each year, or credited toward Rent due on the renewal or anniversary of this Lease or, if Landlord has given Tenant written notice, on January 31 of each year. If Landlord fails to hold the deposit, give a required notice, or pay interest as described here, Tenant may give Landlord written notice to apply the Security Deposit, plus interest at 7 percent per year, toward Rent due, after which Landlord may not demand a further security deposit; for a missed annual payment or annual notice alone, Tenant must first give written notice and allow Landlord 30 days to comply.",
-  },
-  {
-    id: "security-deposit-interest-oh",
-    title: "Security Deposit Interest",
-    group: "Security Deposit",
-    states: ["OH"],
-    bodyText:
-      "If the Security Deposit exceeds fifty dollars or one month's Rent, whichever is greater, the portion of the Security Deposit in excess of that amount will bear interest at the rate of five per cent per annum for any period during which Tenant remains in possession of the property for six months or more. Landlord will compute and pay that interest to Tenant annually. No interest is owed on the portion of the Security Deposit at or below fifty dollars or one month's Rent, whichever is greater.",
   },
   // Tenant Responsibilities
   {
@@ -1230,16 +1225,6 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "Landlord may enter the property only for a reasonable business purpose, and will make a good faith effort to give Tenant notice of the intent to enter of not less than 24 hours in advance, unless Tenant permits entry with less notice. Any notice will specify a time or window of entry, and Landlord will enter only between 8:00 a.m. and 8:00 p.m., unless Landlord and Tenant agree to a different time. However, Landlord may enter without prior notice if Landlord reasonably believes immediate entry is necessary to prevent injury to persons or property, to determine Tenant's safety, or to comply with local ordinances regarding unlawful activity on the property. If Landlord enters while Tenant is not present and prior notice was not given, Landlord will leave written disclosure of the entry in a conspicuous place on the property.",
   },
-  // Security Deposit
-  {
-    id: "security-deposit-return-mn",
-    title: "Return of Security Deposit",
-    group: "Security Deposit",
-    states: ["MN"],
-    supersedes: "security-deposit-return",
-    bodyText:
-      "Within three weeks after termination of this Lease, and after receiving Tenant's mailing address or delivery instructions, Landlord will return the Security Deposit, together with simple interest as required by Minnesota law, or will provide Tenant a written statement showing the specific reason for withholding the deposit or any portion of it. Landlord may withhold only amounts reasonably necessary to remedy a Tenant default in the payment of rent or other funds due under this Lease, or to restore the property to its condition at the commencement of the tenancy, ordinary wear and tear excepted.",
-  },
   // Default & Termination
   {
     id: "termination-death-of-tenant-mn",
@@ -1248,14 +1233,6 @@ const CLAUSE_TEMPLATES = [
     states: ["MN"],
     bodyText:
       "If Tenant dies during the term of this Lease (or, if there is more than one Tenant, upon the death of all Tenants), either Landlord or the personal representative of Tenant's estate may terminate this Lease upon at least two months' written notice, effective on the last day of a calendar month, delivered by hand or by first-class prepaid mail to the address of the other party. Termination under this section does not relieve Tenant's estate of liability for rent or other sums owed before or during the notice period, or for amounts necessary to restore the property to its condition at the commencement of the tenancy, ordinary wear and tear excepted.",
-  },
-  {
-    id: "termination-infirmity-mn",
-    title: "Termination of Lease Upon Infirmity of Tenant",
-    group: "Default & Termination",
-    states: ["MN"],
-    bodyText:
-      "If Tenant (or, if there is more than one Tenant, all Tenants) has been found by a medical professional to need to move into a nursing home, a boarding care home, a supervised living facility, an assisted living facility, or any other facility or accessible unit qualifying under Minnesota law, Tenant or Tenant's authorized representative may terminate this Lease before it expires. This Section does not apply, and Tenant may not terminate under it, where Tenant requires an accessible unit and Landlord can provide an accessible unit in the same complex in which Tenant currently resides that is available within two months of Tenant's request. Tenant must give at least two months' written notice, effective on the last day of a calendar month, delivered by hand or by first-class prepaid mail. The notice must include a copy of the medical professional's written documentation of the need to relocate, along with documentation that Tenant has been accepted as a resident, or has a pending application, at the facility. Termination under this section does not relieve Tenant of liability for rent or other sums owed before or during the notice period, or for amounts necessary to restore the property to its condition at the commencement of the tenancy, ordinary wear and tear excepted.",
   },
   {
     id: "abandoned-property-mn",
@@ -1272,7 +1249,7 @@ const CLAUSE_TEMPLATES = [
     group: "Landlord Responsibilities",
     states: ["MN"],
     bodyText:
-      "If the property is part of a shared-metered residential building, Landlord will remain the bill payer and customer of record for utility service to the building. Landlord will not apportion or bill Tenant for electricity usage; electricity may only be submetered in accordance with applicable law. If Landlord apportions natural gas or water and sewer service to Tenant, Landlord will do so only using the method required by Minnesota law, will bill Tenant no less frequently than Landlord is billed by the utility, and will provide Tenant, upon request, copies of the underlying utility bills being apportioned. Any administrative billing charge will not exceed $8 per billing period, and any late payment charge for utilities billed separately from rent will not exceed $5 per month and will not compound. If Tenant vacates before Landlord receives the actual utility bill for the final period, Landlord may issue an estimated final utility bill calculated as permitted by applicable law, based on the immediately preceding billing period and prorated to the date Tenant vacates, without additional fees or charges beyond those applicable law allows. Landlord will not disconnect or cause the disconnection of Tenant's utility service for nonpayment of utility charges.",
+      "If the property is part of a shared-metered residential building and Landlord apportions natural gas or water and sewer service to Tenant, Landlord will use the apportionment method Minnesota law requires and will bill Tenant no less often than Landlord is billed by the utility. If Tenant vacates before Landlord receives the actual utility bill for the final period, Landlord may issue an estimated final utility bill, calculated as applicable law permits from the immediately preceding billing period and prorated to the date Tenant vacates.",
   },
   // Notices & General
   {
@@ -1325,12 +1302,12 @@ const CLAUSE_TEMPLATES = [
   },
   {
     id: "habitability-baseline-mn",
-    title: "Habitability Baseline",
+    title: "Repair Requests",
     group: "Landlord Responsibilities",
     states: ["MN"],
     supersedes: "landlord-maintenance",
     bodyText:
-      "Landlord will keep the property and all common areas fit for the use intended by the parties and in reasonable repair. This includes maintaining heat at a minimum of 68 degrees Fahrenheit in all places intended for habitation, including kitchens and bathrooms, from October 1 through April 30, unless a utility company requires and instructs that the heat be reduced. It also includes extermination of insects, rodents, vermin, or other pests. These duties do not apply where the disrepair is caused by Tenant's own willful, malicious, or irresponsible conduct or that of a person under Tenant's direction or control. Landlord will keep the property and common areas in compliance with applicable health and safety laws, including any applicable local rental-licensing ordinance. Landlord will make the property and common areas reasonably energy efficient where doing so is cost-effective under applicable law. Tenant will notify Landlord promptly in writing of any condition requiring repair, and Landlord will undertake required repairs within a reasonable time, consistent with applicable law.",
+      "Tenant will notify Landlord promptly in writing of any condition requiring repair or maintenance.",
   },
   // Pets
   {
@@ -1342,26 +1319,6 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "A service animal or other assistance animal that Tenant or an Occupant needs as a reasonable accommodation for a disability is not considered a pet under this Lease, regardless of any pet policy, breed, weight, or size restriction stated elsewhere in this Lease. Landlord will not charge a pet deposit, pet rent, or other pet-related fee for a qualifying assistance animal. If the disability or the disability-related need for the animal is not readily apparent, Landlord may request documentation from a licensed professional confirming the disability and the need for the animal, as permitted under Minnesota law. Tenant remains responsible for any damage to the property caused by the animal beyond ordinary wear and tear. Misrepresenting a disability or an animal's status as a service or support animal may result in denial of Tenant's application or request.",
   },
-  // Default & Termination
-  {
-    id: "possession-delay-mn-new-construction",
-    title: "Delayed Occupancy Due to New Construction",
-    group: "Default & Termination",
-    states: ["MN"],
-    bodyText:
-      "If the property is new construction, including a new building, rehabilitation, reconstruction, or an addition, and Landlord knows the property will not be ready for occupancy by the Start Date, Landlord will notify Tenant in writing at least seven days before the Start Date. The notice will offer Tenant a choice of: (1) alternative housing provided by Landlord, reasonably equivalent in size, amenities, and location, until the property is ready; (2) a payment from Landlord equal to the Rent, to help cover the cost of alternative housing Tenant arranges; or (3) the right to terminate this Lease. If Tenant chooses option (1) or (2) and the property is still not ready within 90 days of the original Start Date, Tenant may then terminate this Lease.",
-  },
-  // Security Deposit
-  {
-    id: "security-deposit-return-nd",
-    title: "Return of Security Deposit",
-    group: "Security Deposit",
-    states: ["ND"],
-    supersedes: "security-deposit-return",
-    bodyText:
-      "Within thirty days after termination of this Lease and delivery of possession of the property -- or, where North Dakota law sets a different trigger for the start of that period, within thirty days after that trigger -- Landlord will deliver or mail to Tenant the Security Deposit, together with any interest required by North Dakota law, less any lawful deductions, along with a written itemization of any amounts withheld. If the Security Deposit remains unclaimed by Tenant for one year after termination of this Lease, Landlord will report and remit it as required by North Dakota's unclaimed property law.",
-  },
-  // Pets
   {
     id: "assistance-animal-accommodation-nd",
     title: "Service and Assistance Animals",
@@ -1380,14 +1337,6 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "If Tenant abandons property with a total estimated value of $2,500 or less on the premises after termination of this Lease, Landlord may retain and dispose of it without legal process 28 or more days after Landlord received actual notice, or it reasonably appears to Landlord, that Tenant has vacated the premises. Landlord is entitled to the proceeds from any sale of the property and may recover from the Security Deposit any storage and moving expenses in excess of those proceeds.",
   },
-  {
-    id: "termination-by-death-nd",
-    title: "Termination Upon Death of Tenant",
-    group: "Default & Termination",
-    states: ["ND"],
-    bodyText:
-      "If Tenant dies, either a surviving co-tenant or Tenant's estate may elect to terminate this Lease. If terminated under this option, the Lease ends on the last day of the month following the month in which Tenant died, unless the Lease term would have expired sooner. Tenant's estate remains responsible for rent through that termination date.",
-  },
   // Landlord Responsibilities
   {
     id: "smoke-detector-duty-nd",
@@ -1396,15 +1345,6 @@ const CLAUSE_TEMPLATES = [
     states: ["ND"],
     bodyText:
       "The property will be equipped with a smoke detection system or other approved alarm system, installed and maintained in compliance with applicable national fire protection standards as adopted by the State Fire Marshal. If the property is a single-family rental dwelling, Tenant is responsible for maintaining and inspecting the system. In any other dwelling, Landlord is responsible for installation and for ensuring the system operates properly upon Tenant's occupancy, and Tenant is responsible for maintaining it during the tenancy. If Tenant is deaf and requests one in writing, Landlord will provide an approved visual smoke detection system or other visual fire alarm system.",
-  },
-  // Default & Termination
-  {
-    id: "fire-casualty-termination-nd",
-    title: "Termination Due to Fire or Casualty Damage",
-    group: "Default & Termination",
-    states: ["ND"],
-    bodyText:
-      "If the greater part of the property, or the part that was Tenant's material reason for entering into this Lease, is destroyed or damaged through no fault of Tenant, Tenant may terminate this Lease. This Lease also terminates automatically if the property is destroyed.",
   },
   // Tenant Responsibilities
   {
@@ -1419,22 +1359,12 @@ const CLAUSE_TEMPLATES = [
   // Landlord Responsibilities
   {
     id: "landlord-maintenance-nd",
-    title: "Landlord Maintenance Obligations",
+    title: "Repair Requests",
     group: "Landlord Responsibilities",
     states: ["ND"],
     supersedes: "landlord-maintenance",
     bodyText:
-      "Landlord will comply with applicable building and housing codes materially affecting health and safety, will make all repairs necessary to keep the property in a fit and habitable condition, and will keep all common areas clean and safe. Landlord will maintain in good and safe working order all electrical, plumbing, sanitary, heating, ventilating, air-conditioning, and other facilities and appliances Landlord supplies or is required to supply, and will provide and maintain appropriate waste receptacles and arrange for waste removal. Landlord will supply running water and reasonable hot water and heat at all times, except where the building isn't required by law to be so equipped or where heat or hot water is within Tenant's exclusive control via a direct utility connection. Tenant will notify Landlord promptly in writing of any condition requiring repair, and Landlord will undertake required repairs within a reasonable time.",
-  },
-  // Security Deposit
-  {
-    id: "security-deposit-return-sd",
-    title: "Security Deposit Return",
-    group: "Security Deposit",
-    states: ["SD"],
-    supersedes: "security-deposit-return",
-    bodyText:
-      "Within twenty-one days after the termination of the tenancy and Landlord's receipt of Tenant's mailing address or delivery instructions, Landlord will return the Security Deposit to Tenant or provide Tenant a written statement showing the specific reason for withholding the deposit or any portion of it. Landlord may withhold only amounts reasonably necessary to remedy Tenant's default in payment of rent or other amounts due under this Lease, or to restore the property to its condition at the start of the Term, ordinary wear and tear excepted. If Tenant requests an itemized accounting of any amount withheld, Landlord will provide it within forty-five days after termination of the tenancy. Landlord's failure to comply with this section forfeits Landlord's right to withhold any portion of the deposit.",
+      "Tenant will notify Landlord promptly in writing of any condition requiring repair or maintenance.",
   },
   // Pets
   {
@@ -1455,15 +1385,6 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "Property left on the premises by Tenant after Tenant has vacated is handled as follows: property with a total reasonable value of $500 or less, left for ten days after Tenant has quit the premises, is presumed abandoned and Landlord may dispose of it. Property with a total reasonable value exceeding $500 will instead be stored by Landlord, who has a lien on the property for the reasonable costs of handling and storage; after storing the property for thirty days or more, Landlord may treat it as abandoned and dispose of it.",
   },
-  // Default & Termination
-  {
-    id: "dv-lease-release-sd",
-    title: "Domestic Abuse / Stalking Early Termination",
-    group: "Default & Termination",
-    states: ["SD"],
-    bodyText:
-      "If Tenant or a member of Tenant's household is the victim of alleged domestic abuse, unlawful sexual behavior, or stalking, Tenant may terminate this Lease and vacate the property without penalty for early termination, effective on a specified date, by providing Landlord written notice stating that the termination is due to fear of imminent danger or injury to Tenant or a household member, together with one of the following, each dated within the thirty days before the notice: a signed police report regarding the incident; a protection order issued in response to the incident; or documentation signed by a licensed health care provider stating that the provider examined Tenant or the household member within their scope of practice and has reasonable cause to believe the person was a victim of the alleged conduct. A tenant who terminates under this provision is not liable for any otherwise-applicable early termination fee or for rent for the month following the month in which Tenant vacates.",
-  },
   // Disclosures
   {
     id: "meth-disclosure-sd",
@@ -1471,7 +1392,7 @@ const CLAUSE_TEMPLATES = [
     group: "Disclosures",
     states: ["SD"],
     bodyText:
-      "If Landlord has actual knowledge that methamphetamine was previously manufactured on the property, Landlord will disclose that fact to Tenant before Tenant becomes obligated under this Lease. If the property consists of two or more housing units, this disclosure applies only to the specific unit as to which Landlord has such knowledge.",
+      "Methamphetamine disclosure. [State one: Landlord has actual knowledge that methamphetamine was previously manufactured on the property (for a building of two or more units, in this unit), and discloses that fact / Landlord has no actual knowledge that methamphetamine was previously manufactured on the property.] Tenant acknowledges receiving this disclosure before becoming obligated under this Lease.",
   },
   // Default & Termination
   {
@@ -1482,14 +1403,6 @@ const CLAUSE_TEMPLATES = [
     supersedes: "default-by-tenant",
     bodyText:
       "Tenant will be in default under this Lease if Tenant fails to pay Rent when due, fails to make a repair required by this Lease within a reasonable time after Landlord's request, or fails to comply with any other obligation under this Lease - including obligations concerning Tenant's use of the property and Tenant's conduct on the property (such as any quiet-enjoyment, no-disturbance, or lawful-use provisions stated elsewhere in this Lease). South Dakota does not impose a statutory notice-and-cure period before a nonpayment or lease-violation default may be pursued through eviction; whether and how much opportunity to cure Tenant receives, if any, is a decision Landlord makes at the time of enforcement under South Dakota's forcible entry and detainer procedure, not a term fixed by this Lease.",
-  },
-  {
-    id: "edu-tenant-termination-causes-sd",
-    title: "Tenant Early-Termination Causes",
-    group: "Default & Termination",
-    states: ["SD"],
-    bodyText:
-      "In addition to the domestic abuse/stalking termination right, a South Dakota tenant may terminate this Lease if: Landlord does not, within a reasonable time after Tenant's written request, fulfill Landlord's obligations to place and secure Tenant in quiet possession of the premises or to put the premises into good condition or repair them; or the greater part of the leased premises - or the part that was a material inducement to Tenant entering into this Lease, as Landlord had reason to know at the time of leasing - is destroyed by any cause other than Tenant's ordinary negligence.",
   },
   // Landlord Responsibilities
   {
@@ -1581,15 +1494,6 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "Landlord will provide the property with an approved and operational carbon monoxide alarm installed within ten feet of each room lawfully used for sleeping, in working order at the commencement of the tenancy. Tenant is responsible for maintaining the carbon monoxide alarm during Tenant's occupancy, including replacing batteries as needed and replacing any alarm that is stolen, removed, found missing, or rendered inoperable during Tenant's occupancy. Tenant will not disable or remove any carbon monoxide alarm, and will notify Landlord promptly if an alarm cannot be restored to working order.",
   },
-  // Default & Termination
-  {
-    id: "dv-lease-termination-mn",
-    title: "Right of Victims of Violence to Terminate Lease",
-    group: "Default & Termination",
-    states: ["MN"],
-    bodyText:
-      "Tenant may terminate this Lease without penalty or liability if Tenant or another authorized occupant fears imminent violence after being subjected to domestic abuse, criminal sexual conduct, sexual extortion, or harassment, as those terms are defined under Minnesota law. To do so, Tenant must give Landlord signed and dated advance written notice stating that Tenant fears imminent violence from a person indicated in a qualifying document, stating that Tenant needs to terminate the tenancy, providing the date on which this Lease will terminate, and providing written instructions for the disposition of any remaining personal property. The notice must be delivered before termination of the tenancy by mail, in person, or by a form of written communication Tenant regularly uses to communicate with Landlord, and must be accompanied by a qualifying document. Vacating the property before the date stated in the notice does not by itself terminate the tenancy. Landlord may ask Tenant to disclose the name of the perpetrator in order to protect other residents, but Tenant may decline for safety reasons, and disclosure is not a condition of terminating this Lease.\n\nIf Tenant is the sole tenant, Tenant is responsible for rent for the full month in which the tenancy terminates, relinquishes all claims for return of the Security Deposit, and is relieved of any other obligation for rent or other charges for the remaining term. If there is more than one tenant and one of them terminates under this Section, this Lease terminates as to all tenants at the later of the end of the month or the end of the rent interval in which that termination takes effect; all tenants are responsible for rent for that full month, all tenants relinquish all claims for return of the Security Deposit, and all tenants are relieved of any other obligation for the remaining term. A tenant whose tenancy ends in this way may reapply to enter into a new lease with Landlord. Termination under this Section does not affect liability for delinquent or unpaid rent or other amounts owed to Landlord before termination.\n\nLandlord will not disclose Tenant's written notice, the contents of any qualifying document, the address or location to which Tenant has relocated, or Tenant's status as a victim of violence, except as permitted by Minnesota law.",
-  },
   // Disclosures
   {
     id: "foreclosure-disclosure-mn",
@@ -1626,24 +1530,6 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "Tenant may not withhold payment of all or any part of the rent for the last payment period of this Lease on the grounds that the Security Deposit should serve as payment for that rent. Withholding all or part of the rent for the last payment period creates a rebuttable presumption that Tenant did so on that basis. This Section does not apply to a month-to-month tenancy for which neither party has served a notice to quit, or to the last month of a contract for deed cancellation period or a mortgage foreclosure redemption period. If Tenant remains in violation after Landlord's written demand and notice of this restriction, Tenant is liable to Landlord for a penalty equal to the portion of the Security Deposit Landlord would be entitled to withhold for reasons other than Tenant's default in the payment of rent, plus interest on the whole deposit, in addition to the rent withheld.",
   },
-  // Default & Termination
-  {
-    id: "fire-casualty-termination-mn",
-    title: "Destroyed or Uninhabitable Property",
-    group: "Default & Termination",
-    states: ["MN"],
-    bodyText:
-      "If the property is destroyed, or becomes uninhabitable or unfit for occupancy, through no fault or neglect of Tenant or any occupant, Tenant may vacate and surrender the property. Rent will be prorated to the date Tenant vacates, and Tenant will not be liable for rent accruing after that date. Nothing in this Section limits Landlord's obligations under Minnesota law to keep the property fit for its intended use and in reasonable repair, which cannot be waived.",
-  },
-  // Rent & Payment
-  {
-    id: "cash-rent-receipt-mn",
-    title: "Receipt for Rent Paid in Cash",
-    group: "Rent & Payment",
-    states: ["MN"],
-    bodyText:
-      "If Tenant pays rent or any other payment under this Lease in cash, Landlord will provide Tenant a written receipt for the payment immediately upon receipt if the payment is made in person, or within three business days if the cash payment is not made in person.",
-  },
   // Disclosures
   {
     id: "lease-copy-receipt-mn",
@@ -1655,20 +1541,12 @@ const CLAUSE_TEMPLATES = [
   },
   // Default & Termination
   {
-    id: "dv-lease-release-nd",
-    title: "Domestic Violence Early Termination",
-    group: "Default & Termination",
-    states: ["ND"],
-    bodyText:
-      "If Tenant is a victim of domestic violence by a family or household member, or fears imminent domestic violence against Tenant or Tenant's minor children by such a person should they remain on the premises, Tenant may terminate this Lease without penalty or liability by giving Landlord advance written notice stating that Tenant fears imminent domestic violence from a person named in a court order, an order prohibiting contact, a civil protection order, or other record filed with a court; that Tenant needs to terminate the tenancy; and the specific date the tenancy will terminate. Notice must be delivered by mail, facsimile, or in person before the tenancy terminates. Tenant remains responsible for rent for the full month in which the tenancy terminates plus an additional amount equal to one month's rent, subject to Landlord's duty to mitigate, and that additional amount must be paid on or before termination for Tenant to be relieved of the remaining term. Tenant remains liable for rent and other amounts already owed before termination. The tenancy, including the right of possession, ends on the date stated in Tenant's notice. If other tenants are bound by this Lease, the tenancy continues for them.",
-  },
-  {
     id: "termination-notice-nd",
     title: "Notice to Terminate the Tenancy",
     group: "Default & Termination",
     states: ["ND"],
     bodyText:
-      "For a month-to-month tenancy, either party may terminate at any time by giving at least one calendar month's written notice, unless the parties have agreed in writing to a longer notice period or a different notice time. Rent is due and payable to and including the date of termination. If the term of this Lease is not specified, either party may terminate by giving notice as long before the end of the term as the term of the hiring itself, up to a maximum of one calendar month. If this Lease converts to a month-to-month tenancy, either party may terminate on the last day of a month with at least one calendar month's notice.",
+      "Either Landlord or Tenant may end a month-to-month tenancy under this Lease, including one that continues after the Term, by giving the other written notice at least [state the notice period: at least one calendar month] before the end of a month. Rent is due through the termination date.",
   },
   // Notices & General
   {
@@ -1711,12 +1589,12 @@ const CLAUSE_TEMPLATES = [
   // Landlord Responsibilities
   {
     id: "landlord-maintenance-sd",
-    title: "Landlord Maintenance and Repair",
+    title: "Repair Requests",
     group: "Landlord Responsibilities",
     states: ["SD"],
     supersedes: "landlord-maintenance",
     bodyText:
-      "Landlord will keep the property and all common areas in reasonable repair, fit for human habitation, and in good and safe working order throughout the Term, and will maintain in good and safe working order and condition all electrical, plumbing, and heating systems, except where the disrepair has been caused by the negligent, willful, or malicious conduct of Tenant or a person under Tenant's direction or control. Tenant will notify Landlord promptly of any condition requiring repair, and Landlord will undertake required repairs within a reasonable time. Landlord and Tenant may not waive or modify Landlord's obligations under this section, except that Landlord and Tenant may agree that Tenant will perform specified repairs or maintenance in lieu of rent. Nothing in this Lease limits Tenant's remedies if Landlord fails to make required repairs within a reasonable time after notice.",
+      "Tenant will notify Landlord promptly in writing of any condition requiring repair or maintenance.",
   },
   // Pets
   {
@@ -1736,7 +1614,7 @@ const CLAUSE_TEMPLATES = [
     states: ["OH"],
     supersedes: "security-deposit-return",
     bodyText:
-      "Within thirty days after the termination of this Lease and delivery of possession of the property, Landlord will deliver or mail to Tenant the Security Deposit, less any amounts properly applied under this Lease, together with a written itemization of any deductions and the reasons for them. Tenant will provide Landlord with Tenant's forwarding address in writing. If Tenant does not provide a forwarding address in writing, Tenant remains entitled to the return of any balance due, but is not entitled to damages or attorneys' fees for Landlord's failure to comply with this Section.",
+      "Tenant will provide Landlord with Tenant's forwarding address in writing. If Tenant does not, Tenant remains entitled to the return of any balance due, but is not entitled to damages or attorneys' fees for Landlord's failure to comply with the rules for returning the Security Deposit.",
   },
   // Default & Termination
   {
@@ -1756,15 +1634,6 @@ const CLAUSE_TEMPLATES = [
     states: ["OH"],
     bodyText:
       "The name and address of the owner of the property, and of any person authorized to manage the property or to act as the owner's agent, are stated in this Lease. Landlord will notify Tenant in writing of any change to that information.",
-  },
-  // Rules & Regulations
-  {
-    id: "flag-display-oh",
-    title: "Flag Display",
-    group: "Rules & Regulations",
-    states: ["OH"],
-    bodyText:
-      "Nothing in this Lease restricts Tenant's right to display the flag of the United States, the National League of Families POW/MIA flag, the flag of the State of Ohio, or a service flag approved by the United States Secretary of Defense, where the flag is displayed in accordance with applicable federal, state, or local law and the applicable patriotic customs. Before installing a flag pole, or a bracket to be permanently affixed to the unit, for display of the flag of the United States or the POW/MIA flag, Tenant will contact Landlord with reasonable notice to discuss placement and size. Tenant remains obligated to return the property at the end of the Term in the same condition as when Tenant took possession.",
   },
   // Landlord Responsibilities
   {
@@ -3252,15 +3121,6 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "[Use only if the property is in a condominium, cooperative or homeowners' association whose governing documents require the association to approve a lease or a tenant.] This Lease is contingent on the association's approval. Tenant will apply promptly, give the association the information it reasonably requires, and cooperate in the approval process. The association's application fee will be paid by {{association_fee_payer}}. If approval has not been given by {{association_approval_deadline}}, either party may end this Lease by written notice to the other before approval is given, and Landlord will then return all amounts Tenant has paid under this Lease. Tenant will not owe Rent for any period before approval during which Tenant is not permitted to take possession. Any security deposit the association requires of Tenant is separate from the Security Deposit under this Lease.",
   },
-  // Security Deposit
-  {
-    id: "prelease-deposit-application-mn",
-    title: "Prelease Deposit Applied to Deposit or Rent",
-    group: "Security Deposit",
-    states: ["MN"],
-    bodyText:
-      "If Tenant paid Landlord any money to hold the property before this Lease was signed, Landlord will apply that money to Tenant's security deposit or to Rent. Landlord will not keep it as a separate charge and will not treat it as a nonrefundable fee.",
-  },
   // Landlord Responsibilities
   {
     id: "utility-billing-schedule-mn",
@@ -3385,31 +3245,13 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "If the property is damaged or destroyed by fire or other casualty through no fault of Tenant, and the damage makes the property uninhabitable or substantially impairs Tenant's use of it, either Landlord or Tenant may terminate this Lease by written notice to the other, effective on the date Tenant vacates. Rent will be prorated to that date, any prepaid Rent refunded, and the Security Deposit returned as this Lease and Wyoming law provide. If the casualty makes only part of the property unusable and Tenant stays in possession, Rent will be reduced in proportion to the part of the property Tenant cannot use until Landlord completes repairs.",
   },
-  // Landlord Responsibilities
-  {
-    id: "landlord-maintenance-oh",
-    title: "Landlord's Maintenance Obligations",
-    group: "Landlord Responsibilities",
-    states: ["OH"],
-    bodyText:
-      "Landlord will: comply with all applicable building, housing, health and safety codes that materially affect health and safety; make all repairs and do whatever is reasonably necessary to put and keep the property in a fit and habitable condition; keep all common areas of the property in a safe and sanitary condition; maintain in good and safe working order and condition all electrical, plumbing, sanitary, heating, ventilating and air conditioning fixtures and appliances, and elevators, supplied or required to be supplied by Landlord; and supply running water, reasonable amounts of hot water and reasonable heat at all times, except where the building is not required by law to be equipped for that purpose or where the dwelling unit is so constructed that heat or hot water is generated by an installation within Tenant's exclusive control and supplied by a direct public utility connection. Where Landlord is a party to rental agreements covering four or more dwelling units in the same structure, Landlord will also provide and maintain appropriate receptacles for ashes, garbage, rubbish and other waste and arrange for their removal.",
-  },
-  // Default & Termination
-  {
-    id: "fire-casualty-termination-oh",
-    title: "Damage or Destruction by Fire or Casualty",
-    group: "Default & Termination",
-    states: ["OH"],
-    bodyText:
-      "If the property is destroyed or so injured by fire or other casualty as to be unfit for occupancy, and the destruction or injury was not caused by Tenant's fault or neglect, Tenant is not liable to pay Rent accruing after that destruction or injury, and Tenant will thereupon surrender possession of the property to Landlord. Rent already accrued and unpaid before the destruction or injury remains payable. To be relieved of Rent under this Section, Tenant must surrender possession of all of the property that remains; Tenant may not stop paying Rent while leaving personal property at the property or otherwise retaining possession.",
-  },
   {
     id: "termination-notice-oh",
     title: "Notice to Terminate a Periodic Tenancy",
     group: "Default & Termination",
     states: ["OH"],
     bodyText:
-      "Either Landlord or Tenant may terminate or decline to renew a week-to-week tenancy by giving the other notice at least seven days before the termination date stated in the notice. Either Landlord or Tenant may terminate or decline to renew a month-to-month tenancy by giving the other notice at least thirty days before the periodic rental date. This Section does not apply to a termination based on a breach of this Lease or of a duty imposed by law, and it does not limit Landlord's obligation to give any shorter notice Ohio law requires where a tenant has violated R.C. 5321.05(A)(9).",
+      "Either Landlord or Tenant may end a month-to-month tenancy by giving the other notice at least [state the notice period: at least 30] days before the periodic rental date, or a week-to-week tenancy by notice at least [state the notice period: at least 7] days before the termination date stated in the notice. This Section does not apply to a termination based on a breach of this Lease or of a duty imposed by law.",
   },
   // Security Deposit
   {

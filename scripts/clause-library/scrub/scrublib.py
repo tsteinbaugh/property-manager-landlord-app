@@ -59,11 +59,13 @@ class Library:
         self.rows.append(r)
         self.R[eid] = r
 
-    def merge(self, st, cid, eid, prepend, why):
+    def merge(self, st, cid, eid, prepend, why, append=""):
         self.off(st, cid, eid)
         e = self.R[eid]
         if prepend:
             self.s(e, "bodyText", prepend + " " + self.g(e, "bodyText"))
+        if append:
+            self.s(e, "bodyText", self.g(e, "bodyText") + " " + append)
         self.s(e, "last_checked", D)
         self.note(e, f"{st}: {why}")
 
@@ -131,3 +133,24 @@ class Citations:
                   and self.st in lib.g(r, "states").split(";")}
         have = {r[0] for r in self.rows[1:]}
         return sorted(active - have), sorted(have - active)
+
+
+def annotate_checklist(moves, path="lease-clause-decision-log-named-topic-checklist.md"):
+    """Instruction 38: a checklist cell naming a switched-off clause must stay
+    true, so each mention gains a pointer to the education row that now holds
+    the content. Idempotent."""
+    text = open(path, encoding="utf-8").read()
+    n = 0
+    for cid, eid in moves.items():
+        tag = f"`{cid}`"
+        note = f" (moved to `{eid}` by the {D} scrub)"
+        parts = text.split(tag)
+        if len(parts) == 1:
+            continue
+        out = parts[0]
+        for p in parts[1:]:
+            out += tag + ("" if p.startswith(note) else note) + p
+            n += 0 if p.startswith(note) else 1
+        text = out
+    open(path, "w", encoding="utf-8").write(text)
+    return n
