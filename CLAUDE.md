@@ -132,4 +132,4 @@ Do not add to this list without Taylor's input.
 
 Keep this file short: if a section grows past a few lines of rules, move the detail to `docs/` and leave a pointer.
 
-*Last updated: 2026-09-29.*
+*Last updated: 2026-09-29 (end of session: SOP 1.1, topic reference, CLAUDE.md split, legal-watch rework, Utah kickoff staged).*
