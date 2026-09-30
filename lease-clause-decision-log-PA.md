@@ -720,3 +720,113 @@ All 11 lease clauses written for this state alone. Shared clauses tagged with th
 ## Targeted fix, 2026-09-29: bed-bug and mold rows split
 
 `edu-no-mold-bedbug-disclosure-pa` covered two subjects in one row. It is switched off, and its content moved unchanged into `edu-no-bed-bug-disclosure-pa` and `edu-no-mold-disclosure-pa`, matching the separate rows most states have. The research and citation are copied to both rows (the same search covered both subjects); no new research. Reason: each row carries one `topic_key`, so a combined row hid one of the two subjects from the cross-state coverage check.
+
+---
+
+## Retro checks (SOP 1.2), 2026-09-30
+
+Circle-back run 2026-09-30 in PA's chat against the seven [Retro] checks in the kickoff prompt only (rule 1: scalpel, not a re-audit). Sources were the attached `lease-clauses.csv`, `lease-clause-decision-log-PA.md`, `lease-clause-citations-PA.csv`, `lease-clause-sop.md` (1.2) and `lease-clause-topics.md`. Where they differ from earlier in this chat, the attached files govern. The known difference is that the master carries 108 active PA-tagged rows, not the 107 delivered on 2026-09-29, because the sync split the bed-bug/mold row and trimmed the deposit clauses. The retro used the master's rows as they stand. No old output files were present to delete: the outputs folder was empty when the retro began.
+
+Statutes were read from the General Assembly's official site (palegis.us) in the built-in browser. All 75 Pa.C.S. title files were reloaded 2026-09-30 (29,516,464 characters after whitespace normalization, versus 29.28 million in §1; the difference was not diffed, and no verdict below depends on it). Control terms returned 0 in both the Pa.C.S. and unconsolidated searches. Batteries are saved as `battery_rules42_37_39_2026-09-30.json` and `battery_rule27_2026-09-30.json`.
+
+- **Rule 37 (tenancy type): fixed.** Read section-open:
+  - 68 P.S. § 250.202 (Act § 202).
+  - 68 P.S. § 250.501(b) (Act § 501(b)).
+  - 68 P.S. § 250.511a (Act § 511.1) whole.
+  - 68 P.S. § 250.514 (Act § 514).
+  - 51 Pa.C.S. § 7315.1(b).
+  - Pa.C.S. searches for month-to-month, week-to-week, tenancy at will, year-to-year and periodic tenancy found no landlord-tenant section. The hits were 48 Pa.C.S. § 1301 plus year-to-year uses in corporations, county, municipal, mining and vehicle titles.
+
+  Three rows hid a tenancy-type assumption:
+  - `edu-landlord-tenant-act-scope-pa`: now states Act § 202's consequence. An unwritten lease over three years is at will only, and becomes year-to-year once rent has been claimed and admitted for more than a year.
+  - `edu-notice-to-quit-pa`: now maps each tenancy type to its notice period. By the text, week-to-week, month-to-month, year-to-year and at-will tenancies all get 15 days, a fixed term over one year gets 30, and the 10-day rent notice is the same for every type. Case law on periodic tenancies was not read.
+  - `edu-security-deposit-cap-pa`: Act § 511.1 counts by "first year of any lease" and "any renewal of the original lease". The row now says the statute does not settle how this works for a periodic tenancy, and gives both options.
+  - Correction to earlier in this chat: I had said the deposit cap carried no tenancy-type assumption. It does.
+
+  Servicemember termination, death of tenant, holdover and other PA figures do not vary by tenancy type.
+- **Rule 39 (eviction duties): fixed (one sentence added).**
+  - Chapter 500 of the magisterial district court rules was already read whole (§0, §3.3), including the suspension rules (§13.1, Rule 581).
+  - Re-read whole this pass: Chapter 500 and Chapter 1000 of the magisterial district court rules.
+  - Duties and limits found were all procedural: Rule 503 complaint contents, Rule 512 appearance, the Rule 514.1 domestic-violence affidavit that stays removal for up to 30 days, and the arbitration-window bar on orders for possession. The first three were already in `edu-eviction-process-pa` (§3.3). The arbitration-window bar was not: the Official Notes to Rules 515 and 1007 (commentary, not rule text) bar an order for possession between the entry of an arbitration award for the tenant and the landlord's appeal. No animal duty, landlord immunity or record-sealing rule was found.
+  - Pa.C.S. searches: "order for possession" returned 8 hits, none a landlord duty (26 Pa.C.S. § 307, 42 Pa.C.S. §§ 1725, 3571, 44 Pa.C.S. § 7161, 68 Pa.C.S. § 2306). Eviction-duty, animal-eviction and eviction-record patterns returned 0.
+  - Existing rows already cover the duties found: post-writ property and the protection-from-abuse hold (`abandoned-property-pa`, 68 P.S. § 250.505a(b)(3), (h) (Act § 505.1(b)(3), (h))), the lockout ban (`edu-self-help-eviction-pa`) and record sealing (`edu-no-eviction-record-sealing-pa`).
+  - Rows changed: `edu-eviction-process-pa` (arbitration-window sentence; Pa.R.C.P. 1301-1314 not read).
+- **Rule 41 (just cause): checked, no issue; one PA row sharpened and one confirmed-absence row added.**
+  - The 1951 Act was read whole (§0). Pennsylvania has no general just-cause or good-cause rule: Act § 501 lets a landlord end a tenancy at the end of the term by notice, without cause.
+  - Situational limits read section-open:
+    - Act § 205 (tenants' association).
+    - 35 P.S. § 1700-1 (no eviction while rent is in escrow; `edu-rent-withholding-pa`).
+    - 68 Pa.C.S. §§ 3410(a), (e), (f), 4412(a), (e), (f) and 5410(a), (e), (f) whole. During the conversion notice year the tenant can be removed only for nonpayment, waste or disturbing conduct, and a senior or disabled tenant who qualifies gets a two-year extension on the same grounds.
+    - Mobile-home-park good cause (Act § 501(c.1)-(c.2); Manufactured Home Community Rights Act) remains deprioritized.
+    - Philadelphia good cause remains flagged as local.
+  - Because Pennsylvania is not a just-cause state, the end-of-term wording in the nine listed clauses is consistent with PA law. `security-deposit-use`, `no-alterations`, `keys`, `early-termination-ks` and `holdover-ca` are shared and unchanged; `security-deposit-return-pa`, `abandoned-property-pa`, `notice-to-quit-waiver-pa` and `holdover-rate-pa` are unchanged.
+  - The conversion-year limit binds only a declarant converting a building, so it is stated in education rather than overriding shared clauses.
+  - Rows changed:
+    - `edu-condo-conversion-notice-pa`: now states the three grounds, and fixes "elderly or disabled long-term tenants" to the actual test. The two years' occupancy applies in condominiums and planned communities, not cooperatives.
+    - New `edu-no-for-cause-eviction-pa` (topic `for-cause-eviction`): records this verdict. PA had no row on that topic.
+- **Rule 42 (required text inside a shared clause): checked, no issue.**
+  - Pa.C.S. searches: "lease shall contain" matched only 12 Pa.C.S. §§ 5605 and 5616 (self-storage). The "shall be stated in lease", "clause void unless" and "in writing near deposit/fee" patterns returned 0.
+  - Unconsolidated searches:
+    - "lease shall contain": 14 results.
+    - "lease shall include": 6.
+    - "lease shall provide": 15.
+    - "rental agreement shall": 11.
+    - "shall be included in the lease": 3.
+    - '"in the lease" AND tenant AND "shall disclose"': 8.
+    - All were oil and gas, county, compact, conveyance, self-storage, cooperative-offering or manufactured-home acts; none reached a residential fee, deposit or other shared clause.
+  - The existing REQUIRED_DISCLOSURE rows already cover every sentence PA law forces into a lease: `consumer-restrictions-statement-pa` (73 P.S. § 2205(d)), the deposit escrow notice in `security-deposit-holding-pa` (68 P.S. § 250.511b (Act § 511.2)) and federal lead.
+  - Rows changed: none.
+- **Rule 43 (cure promises): already covered in §0 (the "Instruction 33" row).**
+  - Rechecked against the current text of the three listed clauses:
+    - `application-of-payments` only preserves the statutory rent cure.
+    - `notice-to-quit-waiver-pa` keeps the lease's own notices and cure.
+    - `default-by-tenant` carves out "except where applicable law" allows no cure, which preserves the drug-activity no-cure ground (68 P.S. § 250.505-A (Act § 505-A); 68 P.S. § 250.501(d) (Act § 501(d))).
+  - Rows changed: none.
+- **Rule 53 (figure vs shared clause): checked, no issue.**
+  - `rent-payment` has no PA figure, and "without demand" matches Pennsylvania REALTORS® Form RL ¶7(A) practice. Act § 501(a)(3) still requires a demand before the 10-day notice.
+  - `returned-payments`: PA has no civil returned-check cap. The only statutory figure is criminal restitution, already covered by `nsf-fee-limit-pa`.
+  - `default-by-tenant` contains no figures.
+  - `holdover-ca` "maximum amount permitted by applicable law" is already covered in §2.2 (K.3: no PA statutory multiplier; Act § 503(a)).
+  - Rows changed: none.
+- **Rule 27 (seven topics): fixed; seven new PA education rows.**
+  - Pa.C.S. battery re-run with its patterns recorded in the JSON (see Proposed SOP changes), plus unconsolidated keyword searches.
+  - Algorithmic rent-setting: **confirmed absent**.
+    - Pa.C.S.: 0 hits. The three "algorithm" hits are unrelated: 4 Pa.C.S. § 13B32, 13 Pa.C.S. § 4A201, 18 Pa.C.S. § 3131.
+    - Unconsolidated: 0 results.
+    - Row: `edu-no-algorithmic-rent-rule-pa`.
+  - Fees as rent: **confirmed absent**, with one statutory limit.
+    - The only "additional rent" in PA statutes is Act § 504-A's ban on charging it for guest and supplier rights.
+    - Row: `edu-no-fees-as-rent-rule-pa`.
+  - Landlord self-cure: **confirmed absent**.
+    - Pa.C.S.: 0 hits. The only unconsolidated results were planned-community acts.
+    - Row: `edu-no-landlord-self-cure-rule-pa`.
+  - Lease completeness: **confirmed absent**.
+    - The "blank spaces" hits were installment-sales and credit sections (12 Pa.C.S. §§ 6221-6332) and 40 Pa.C.S. § 3703.
+    - Row: `edu-no-lease-completeness-rule-pa`.
+  - Quiet possession: **confirmed absent** as a statute.
+    - Hits were only 13 Pa.C.S. § 9610 and 68 Pa.C.S. § 5302. The implied covenant is case law, not read.
+    - Row: `edu-no-quiet-possession-statute-pa`.
+  - Statutory forms: **present**.
+    - The 68 P.S. § 250.505a(e) (Act § 505.1(e)) abandoned-property notice is quoted verbatim in the row. Magisterial district court complaints use prescribed court forms (Rule 503A).
+    - Row: `edu-statutory-forms-pa`.
+  - Tenant security cameras: **confirmed absent**.
+    - Pa.C.S. and "doorbell" searches: 0. The unconsolidated results were capital-budget acts and a Judicial Code omnibus act.
+    - Read section-open: 18 Pa.C.S. §§ 5702 ("oral communication") and 5703. The row notes the audio-recording issue; the § 5704 consent exceptions were not read.
+    - Row: `edu-no-tenant-camera-rule-pa`.
+  - Search boundary for all seven topics: Pa. Code regulations, local ordinances and case law were not searched.
+
+**Rows changed (13, all PA-only, all in `lease-clauses-PA-retro-delta.csv`):**
+- Edited: `edu-notice-to-quit-pa`, `edu-landlord-tenant-act-scope-pa`, `edu-security-deposit-cap-pa`, `edu-eviction-process-pa`, `edu-condo-conversion-notice-pa`.
+- New: `edu-no-for-cause-eviction-pa`, `edu-no-algorithmic-rent-rule-pa`, `edu-no-fees-as-rent-rule-pa`, `edu-no-landlord-self-cure-rule-pa`, `edu-no-lease-completeness-rule-pa`, `edu-no-quiet-possession-statute-pa`, `edu-statutory-forms-pa`, `edu-no-tenant-camera-rule-pa`.
+- Details for every row:
+  - All are LANDLORD_EDUCATION with a blank basis, VERIFIED, and `last_checked` 2026-09-30. New rows have `effective_from` 2026-09-30.
+  - Edited rows keep their notes and add a "PA retro (SOP 1.2 rule N)" segment.
+- No shared row was touched and no shared-text edit is proposed (rule 62).
+
+**Rule 77 finding for §10:** the statutory abandoned-property notice form (Act § 505.1(e)) says storage runs "thirty days from the postmark date of this notice", while subsection (d) says "thirty days from the date of the notice". `abandoned-property-pa` follows (d), and `edu-statutory-forms-pa` explains the gap and how to avoid it.
+
+### Proposed SOP changes
+
+1. **Rule 14:** a saved battery records each search's pattern as well as its counts. The first rule 27 battery saved only labels and had to be re-run to state the search boundary.
+2. **Rule 37:** add caps that count by "lease year" or "renewal" (for example, deposit caps) to the examples. A periodic tenancy renews every period, so a per-year or per-renewal figure hides an assumption just as a notice period does.
+3. **Rule 41:** in a state without a general just-cause rule, record the verdict and any situational for-cause limits in a `for-cause-eviction` row (such as the conversion notice year, rent-escrow bars and tenants' association protection), so rule 27 and rule 41 give the same answer.
