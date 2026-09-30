@@ -249,6 +249,8 @@ Found by the one-time gap-discovery backfill (checklist instruction 36) across 1
 
 ## Instructions for the next state
 
+> **RETIRED 2026-09-29: superseded by `lease-clause-sop.md`.** Follow the SOP, not this list. These instructions are kept only as history, because the SOP and the state logs cite them by number. Nothing new is added here.
+
 1. Copy this table (or work directly from it).
 2. For every row, produce Present / Confirmed Absent with a primary-source citation, or explicitly write "Not Yet Checked" if a first pass doesn't get to it — never leave a row silently blank.
 3. **Superseded by instruction 22.** One pass at the correct settings is the right number. The only second look is at rows written from recall rather than with the section open.
