@@ -482,3 +482,7 @@ All 16 lease clauses written for this state alone. Shared clauses tagged with th
 | `pet-policy-al` | Keep | SERVES_LANDLORD |  |
 | `sex-offender-statement-al` | Keep | REQUIRED_DISCLOSURE: Ala. Code § 13A-11-204(a) |  |
 | `tenant-repair-agreement-al` | Keep | SERVES_LANDLORD | opt-in |
+
+## Targeted fix, 2026-09-29: bed-bug and mold rows split
+
+`edu-no-mold-bedbug-disclosure-al` covered two subjects in one row. It is switched off, and its content moved unchanged into `edu-no-bed-bug-disclosure-al` and `edu-no-mold-disclosure-al`, matching the separate rows most states have. The research and citation are copied to both rows (the same search covered both subjects); no new research. Reason: each row carries one `topic_key`, so a combined row hid one of the two subjects from the cross-state coverage check.

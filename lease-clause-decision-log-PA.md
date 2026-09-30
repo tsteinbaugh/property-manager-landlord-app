@@ -716,3 +716,7 @@ All 11 lease clauses written for this state alone. Shared clauses tagged with th
 | `notice-to-quit-waiver-pa` | Keep | SERVES_LANDLORD | opt-in |
 | `periodic-tenancy-notice-pa` | Keep | CONSTRAINED_TERM |  |
 | `pet-policy-pa` | Keep | SERVES_LANDLORD |  |
+
+## Targeted fix, 2026-09-29: bed-bug and mold rows split
+
+`edu-no-mold-bedbug-disclosure-pa` covered two subjects in one row. It is switched off, and its content moved unchanged into `edu-no-bed-bug-disclosure-pa` and `edu-no-mold-disclosure-pa`, matching the separate rows most states have. The research and citation are copied to both rows (the same search covered both subjects); no new research. Reason: each row carries one `topic_key`, so a combined row hid one of the two subjects from the cross-state coverage check.

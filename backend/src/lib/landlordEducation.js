@@ -3178,16 +3178,28 @@ const LANDLORD_EDUCATION = [
     notes: "MN added (MN re-audit 2026-09-03, canvass pass 1) — PROOF-OF-ABSENCE ROW. This topic was adjudicated in MN's decision log but never given a CSV row, making it invisible to every future canvass. MN log §16 recorded radon as CONFIRMED ABSENT for rentals and specifically flagged an overconfident secondary source claiming the opposite. Confirmed again this session against §513.61/§144.496. Rental-specific bills failed 2019, 2021, 2024; none enacted 2025-2026. | GAP-DISCOVERY BACKFILL 2026-09-27 (instruction 36, sources 2-4; not a re-audit): UPGRADED FROM CHAPTER-BOUNDED TO STATUTE-WIDE CONFIRMED ABSENCE, and two previously uncited radon sections reviewed. Term run: 'radon', 12 hits, every one reviewed. Already in this row: Sec. 513.61 (RADON DISCLOSURE REQUIREMENTS -- sales and transfers, excluding transfer to a tenant in possession) and Sec. 144.496 (MINNESOTA RADON AWARENESS ACT). Newly reviewed and confirmed NOT to create a rental disclosure duty: Sec. 144.4961 (MINNESOTA RADON LICENSING ACT -- licenses radon professionals), Sec. 326B.106 (general powers of the commissioner of labor and industry; radon appears in the construction-code context, a building-code matter for new construction, not a lease duty), Sec. 308C.612 (senior housing cooperative OFFERING DOCUMENTS -- a cooperative-share offering disclosure, not a residential tenancy), Sec. 144.9513 (healthy housing grants), and the remaining hits (Sec. Sec. 13.3805, 93.516, 116C.76, 123B.57, 123B.571) which are data practices, mineral leasing, nuclear waste and school testing. CONCLUSION UNCHANGED AND NOW PROVEN CODE-WIDE: Minnesota imposes no radon disclosure duty on a residential landlord. The warning in this row that a widely-circulated secondary source claims the opposite stands, and is now backed by a full-text search rather than a chapter read. Boundary: statutes only; Minnesota Rules, municipal codes and case law not searched.",
   },
   {
-    id: "edu-no-bedbug-mold-disclosure-mn",
-    title: "No Bed Bug or Mold Disclosure Statute in Minnesota",
+    id: "edu-no-bed-bug-disclosure-mn",
+    title: "No Bed Bug Disclosure Statute in Minnesota",
     group: "Disclosures",
     states: ["MN"],
     ruleTypes: ["RECOMMENDED"],
     verificationStatus: "VERIFIED",
     topicKey: "bed-bug-disclosure",
     bodyText:
-      "Minnesota has no dedicated bed bug disclosure or treatment-timeline law and no dedicated mold disclosure law. Both are handled under the general habitability covenant in Minn. Stat. § 504B.161, which requires you to keep the premises in reasonable repair — and which since 2023 expressly includes extermination of insects, rodents, vermin, and other pests. So there is no disclosure form to hand over, but an infestation or a moisture problem is still your repair obligation, and the habitability covenant cannot be waived.",
-    notes: "MN added (MN re-audit 2026-09-03, canvass pass 1) — PROOF-OF-ABSENCE ROW. This topic was adjudicated in MN's decision log but never given a CSV row, making it invisible to every future canvass. MN log §18 recorded both as confirmed absent as dedicated statutes. Note CO, CA, and ME carry bed-bug-disclosure rows, so MN's absence is a real cross-state difference rather than an unexamined gap. The 2023 amendment adding pest extermination to §504B.161 subd. 1(2) is the operative hook. | GAP-DISCOVERY BACKFILL 2026-09-27 (instruction 36, sources 2-4; not a re-audit): UPGRADED FROM CHAPTER-BOUNDED TO STATUTE-WIDE CONFIRMED ABSENCE. This row previously recorded bed bugs and mold as 'absent as a dedicated statute', resting on the Ch. 504B read plus the habitability covenant. The official revisor full-text search of all 2025 Minnesota Statutes now confirms the absence code-wide. BED BUGS -- terms run, every hit reviewed: 'bed bug' (0 hits), 'bed bugs' (0 hits), 'bedbug' (0 hits), 'bedbugs' (1 hit, Sec. 18B.09 PESTICIDE APPLICATION IN CITIES, which is not a landlord duty). MOLD -- 'mold' (15 hits), 'molds' (6 hits), 'mildew' (0 hits); every hit reviewed and all are unrelated senses (orthotics and prosthetics, waste management, silica dust, dies and molds under the unclaimed property act, property valuation, cannabinoid products) except Sec. 144.9513 HEALTHY HOUSING GRANTS, which is a grant programme and imposes no landlord duty. So: no landlord disclosure, inspection, treatment or timeline duty for either, anywhere in the Minnesota Statutes. The 2023 amendment adding pest extermination to Sec. 504B.161 subd. 1(2) remains the operative duty and is carried in habitability-baseline-mn. Evidentiary basis is now a statute-wide full-text search, not a chapter read -- upgrade from CONFIRMED_ABSENT-by-inference to CITED-quality absence (instruction 15). Boundary stated: Minnesota Rules, municipal codes and case law were not searched.",
+      "Minnesota has no dedicated bed bug disclosure or treatment-timeline law. Bed bugs are handled under the general habitability covenant in Minn. Stat. § 504B.161, which requires you to keep the premises in reasonable repair — and which since 2023 expressly includes extermination of insects, rodents, vermin, and other pests. So there is no disclosure form to hand over, but an infestation is still your repair obligation, and the habitability covenant cannot be waived.",
+    notes: "MN: Split 2026-09-29 from `edu-no-bedbug-mold-disclosure-mn` (one subject per row); research unchanged, copied from that row: MN added (MN re-audit 2026-09-03, canvass pass 1) — PROOF-OF-ABSENCE ROW. This topic was adjudicated in MN's decision log but never given a CSV row, making it invisible to every future canvass. MN log §18 recorded both as confirmed absent as dedicated statutes. Note CO, CA, and ME carry bed-bug-disclosure rows, so MN's absence is a real cross-state difference rather than an unexamined gap. The 2023 amendment adding pest extermination to §504B.161 subd. 1(2) is the operative hook. | GAP-DISCOVERY BACKFILL 2026-09-27 (instruction 36, sources 2-4; not a re-audit): UPGRADED FROM CHAPTER-BOUNDED TO STATUTE-WIDE CONFIRMED ABSENCE. This row previously recorded bed bugs and mold as 'absent as a dedicated statute', resting on the Ch. 504B read plus the habitability covenant. The official revisor full-text search of all 2025 Minnesota Statutes now confirms the absence code-wide. BED BUGS -- terms run, every hit reviewed: 'bed bug' (0 hits), 'bed bugs' (0 hits), 'bedbug' (0 hits), 'bedbugs' (1 hit, Sec. 18B.09 PESTICIDE APPLICATION IN CITIES, which is not a landlord duty). MOLD -- 'mold' (15 hits), 'molds' (6 hits), 'mildew' (0 hits); every hit reviewed and all are unrelated senses (orthotics and prosthetics, waste management, silica dust, dies and molds under the unclaimed property act, property valuation, cannabinoid products) except Sec. 144.9513 HEALTHY HOUSING GRANTS, which is a grant programme and imposes no landlord duty. So: no landlord disclosure, inspection, treatment or timeline duty for either, anywhere in the Minnesota Statutes. The 2023 amendment adding pest extermination to Sec. 504B.161 subd. 1(2) remains the operative duty and is carried in habitability-baseline-mn. Evidentiary basis is now a statute-wide full-text search, not a chapter read -- upgrade from CONFIRMED_ABSENT-by-inference to CITED-quality absence (instruction 15). Boundary stated: Minnesota Rules, municipal codes and case law were not searched.",
+  },
+  {
+    id: "edu-no-mold-disclosure-mn",
+    title: "No Mold Disclosure Statute in Minnesota",
+    group: "Disclosures",
+    states: ["MN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "mold-disclosure",
+    bodyText:
+      "Minnesota has no dedicated mold disclosure law. Mold is handled under the general habitability covenant in Minn. Stat. § 504B.161, which requires you to keep the premises in reasonable repair. So there is no disclosure form to hand over, but a moisture problem is still your repair obligation, and the habitability covenant cannot be waived.",
+    notes: "MN: Split 2026-09-29 from `edu-no-bedbug-mold-disclosure-mn` (one subject per row); research unchanged, copied from that row: MN added (MN re-audit 2026-09-03, canvass pass 1) — PROOF-OF-ABSENCE ROW. This topic was adjudicated in MN's decision log but never given a CSV row, making it invisible to every future canvass. MN log §18 recorded both as confirmed absent as dedicated statutes. Note CO, CA, and ME carry bed-bug-disclosure rows, so MN's absence is a real cross-state difference rather than an unexamined gap. The 2023 amendment adding pest extermination to §504B.161 subd. 1(2) is the operative hook. | GAP-DISCOVERY BACKFILL 2026-09-27 (instruction 36, sources 2-4; not a re-audit): UPGRADED FROM CHAPTER-BOUNDED TO STATUTE-WIDE CONFIRMED ABSENCE. This row previously recorded bed bugs and mold as 'absent as a dedicated statute', resting on the Ch. 504B read plus the habitability covenant. The official revisor full-text search of all 2025 Minnesota Statutes now confirms the absence code-wide. BED BUGS -- terms run, every hit reviewed: 'bed bug' (0 hits), 'bed bugs' (0 hits), 'bedbug' (0 hits), 'bedbugs' (1 hit, Sec. 18B.09 PESTICIDE APPLICATION IN CITIES, which is not a landlord duty). MOLD -- 'mold' (15 hits), 'molds' (6 hits), 'mildew' (0 hits); every hit reviewed and all are unrelated senses (orthotics and prosthetics, waste management, silica dust, dies and molds under the unclaimed property act, property valuation, cannabinoid products) except Sec. 144.9513 HEALTHY HOUSING GRANTS, which is a grant programme and imposes no landlord duty. So: no landlord disclosure, inspection, treatment or timeline duty for either, anywhere in the Minnesota Statutes. The 2023 amendment adding pest extermination to Sec. 504B.161 subd. 1(2) remains the operative duty and is carried in habitability-baseline-mn. Evidentiary basis is now a statute-wide full-text search, not a chapter read -- upgrade from CONFIRMED_ABSENT-by-inference to CITED-quality absence (instruction 15). Boundary stated: Minnesota Rules, municipal codes and case law were not searched.",
   },
   // Landlord Responsibilities
   {
@@ -8976,16 +8988,28 @@ const LANDLORD_EDUCATION = [
     notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. CONFIRMED ABSENT, code-wide. Official full-text search 2026-09-28: 'radon' returned 0 documents in the whole Official Code of Georgia Annotated (a true empty: the control term also returned 0, and ordinary terms return hits). The Georgia REALTORS lease has no radon provision (GA log §15).",
   },
   {
-    id: "edu-no-mold-bedbug-disclosure-ga",
-    title: "No Mold or Bed Bug Disclosure Rule",
+    id: "edu-no-bed-bug-disclosure-ga",
+    title: "No Bed Bug Disclosure Rule",
+    group: "Disclosures",
+    states: ["GA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "bed-bug-disclosure",
+    bodyText:
+      "Georgia has no statute requiring landlords to disclose bed bugs, set a treatment timeline, or allocate treatment costs. Bed bugs fall under the landlord's general duty to keep the premises in repair and fit for human habitation, and the lease.",
+    notes: "GA: Split 2026-09-29 from `edu-no-mold-bedbug-disclosure-ga` (one subject per row); research unchanged, copied from that row: GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. CONFIRMED ABSENT (statutes). Official full-text search 2026-09-28: (mold OR molds OR mildew OR fungus OR fungal OR 'bed bug' OR 'bed bugs' OR bedbug OR bedbugs) AND (tenant OR landlord OR lessee OR 'rental agreement'): 30 hits, all reviewed by title (O.C.G.A. §§ 44-7-2, 44-7-13, 44-7-14 case annotations; O.C.G.A. § 44-6-141 'molding of decree'; tax, evidence and procedure sections); none a disclosure or treatment duty. O.C.G.A. §§ 44-7-13(a)-(b).",
+  },
+  {
+    id: "edu-no-mold-disclosure-ga",
+    title: "No Mold Disclosure Rule",
     group: "Disclosures",
     states: ["GA"],
     ruleTypes: ["RECOMMENDED"],
     verificationStatus: "VERIFIED",
     topicKey: "mold-disclosure",
     bodyText:
-      "Georgia has no statute requiring landlords to disclose mold or bed bugs, set a treatment timeline, or allocate treatment costs. These conditions fall under the landlord's general duty to keep the premises in repair and fit for human habitation, and the lease.",
-    notes: "GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. CONFIRMED ABSENT (statutes). Official full-text search 2026-09-28: (mold OR molds OR mildew OR fungus OR fungal OR 'bed bug' OR 'bed bugs' OR bedbug OR bedbugs) AND (tenant OR landlord OR lessee OR 'rental agreement'): 30 hits, all reviewed by title (O.C.G.A. §§ 44-7-2, 44-7-13, 44-7-14 case annotations; O.C.G.A. § 44-6-141 'molding of decree'; tax, evidence and procedure sections); none a disclosure or treatment duty. O.C.G.A. §§ 44-7-13(a)-(b).",
+      "Georgia has no statute requiring landlords to disclose mold, set a treatment timeline, or allocate treatment costs. Mold falls under the landlord's general duty to keep the premises in repair and fit for human habitation, and the lease.",
+    notes: "GA: Split 2026-09-29 from `edu-no-mold-bedbug-disclosure-ga` (one subject per row); research unchanged, copied from that row: GA: Read section-open 2026-09-28 in the built-in browser from Justia's '2025 Code of Georgia', a host copy of the official O.C.G.A. that already prints the 2026 session (history lines cite Ga. L. 2026, pp. 278, 988 and 1069), with each section's history line and editor's notes. CONFIRMED ABSENT (statutes). Official full-text search 2026-09-28: (mold OR molds OR mildew OR fungus OR fungal OR 'bed bug' OR 'bed bugs' OR bedbug OR bedbugs) AND (tenant OR landlord OR lessee OR 'rental agreement'): 30 hits, all reviewed by title (O.C.G.A. §§ 44-7-2, 44-7-13, 44-7-14 case annotations; O.C.G.A. § 44-6-141 'molding of decree'; tax, evidence and procedure sections); none a disclosure or treatment duty. O.C.G.A. §§ 44-7-13(a)-(b).",
   },
   // Building & Safety
   {
@@ -9486,16 +9510,28 @@ const LANDLORD_EDUCATION = [
     notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 396 chapters of the official General Statutes (chapter pages on ncleg.gov loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 46 hits, so the engine reports true empties and matches exact strings, every word form entered explicitly; NC log §17). Searched '\\bradon\\b': 1 hit in the whole code (N.C. Gen. Stat. § 47E-4, the residential property disclosure statement for sales, which does not apply to leases).",
   },
   {
-    id: "edu-no-mold-bedbug-disclosure-nc",
-    title: "No Mold or Bed Bug Disclosure Rule",
+    id: "edu-no-bed-bug-disclosure-nc",
+    title: "No Bed Bug Disclosure Rule",
+    group: "Disclosures",
+    states: ["NC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "bed-bug-disclosure",
+    bodyText:
+      "North Carolina has no statute requiring a landlord to disclose bed bugs or setting a treatment timeline. The general repair duty still applies.",
+    notes: "NC: Split 2026-09-29 from `edu-no-mold-bedbug-disclosure-nc` (one subject per row); research unchanged, copied from that row: NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 396 chapters of the official General Statutes (chapter pages on ncleg.gov loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 46 hits, so the engine reports true empties and matches exact strings, every word form entered explicitly; NC log §17). Searched 'mold|molds|mildew|bed ?bugs?|fungus|fungal': 47 hits in 14 sections; the only landlord-tenant hit is N.C. Gen. Stat. § 42-42(a)(8)l. ('flooding problems ... that contribute to mosquito infestation or mold'); 'bed ?bug' returned 0.",
+  },
+  {
+    id: "edu-no-mold-disclosure-nc",
+    title: "No Mold Disclosure Rule",
     group: "Disclosures",
     states: ["NC"],
     ruleTypes: ["RECOMMENDED"],
     verificationStatus: "VERIFIED",
     topicKey: "mold-disclosure",
     bodyText:
-      "North Carolina has no statute requiring a landlord to disclose mold or bed bugs or setting a treatment timeline. The general repair duty still applies, and plumbing leaks or drainage problems that cause standing water contributing to mold are an 'imminently dangerous condition' the landlord must fix within a reasonable time.",
-    notes: "NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 396 chapters of the official General Statutes (chapter pages on ncleg.gov loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 46 hits, so the engine reports true empties and matches exact strings, every word form entered explicitly; NC log §17). Searched 'mold|molds|mildew|bed ?bugs?|fungus|fungal': 47 hits in 14 sections; the only landlord-tenant hit is N.C. Gen. Stat. § 42-42(a)(8)l. ('flooding problems ... that contribute to mosquito infestation or mold'); 'bed ?bug' returned 0.",
+      "North Carolina has no statute requiring a landlord to disclose mold or setting a treatment timeline. The general repair duty still applies, and plumbing leaks or drainage problems that cause standing water contributing to mold are an 'imminently dangerous condition' the landlord must fix within a reasonable time.",
+    notes: "NC: Split 2026-09-29 from `edu-no-mold-bedbug-disclosure-nc` (one subject per row); research unchanged, copied from that row: NC: Read section-open 2026-09-28 in the built-in browser from the official General Statutes on ncleg.gov (Chapter 42 read whole on the chapter page, which prints each section's history line; the latest amendments in those history lines are S.L. 2025-45, 2025-52 and 2025-54; all 61 session laws of 2026 (S.L. 2026-1 to 2026-61) screened for Chapter 42 amendments, none found). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 396 chapters of the official General Statutes (chapter pages on ncleg.gov loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 46 hits, so the engine reports true empties and matches exact strings, every word form entered explicitly; NC log §17). Searched 'mold|molds|mildew|bed ?bugs?|fungus|fungal': 47 hits in 14 sections; the only landlord-tenant hit is N.C. Gen. Stat. § 42-42(a)(8)l. ('flooding problems ... that contribute to mosquito infestation or mold'); 'bed ?bug' returned 0.",
   },
   {
     id: "edu-no-flood-disclosure-nc",
@@ -10043,16 +10079,28 @@ const LANDLORD_EDUCATION = [
     notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 1,304 chapter pages of the official South Carolina Code of Laws (scstatehouse.gov chapter pages loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0 and 'security deposit' 34 hits, so the engine reports true empties; every word form entered explicitly; SC log §17). Searched '\\bradon\\b': 1 hit, S.C. Code Ann. § 27-50-40 (Residential Property Condition Disclosure Act, sales only).",
   },
   {
-    id: "edu-no-mold-bedbug-disclosure-sc",
-    title: "No Mold or Bed Bug Disclosure Rule",
+    id: "edu-no-bed-bug-disclosure-sc",
+    title: "No Bed Bug Disclosure Rule",
     group: "Disclosures",
     states: ["SC"],
     ruleTypes: ["RECOMMENDED"],
     verificationStatus: "VERIFIED",
     topicKey: "bed-bug-disclosure",
     bodyText:
-      "South Carolina has no statute requiring a landlord to disclose mold or bed bugs or setting a treatment timeline. Both fall under the landlord's general duty to keep the property fit and habitable and the tenant's duty to keep the unit clean.",
-    notes: "SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 1,304 chapter pages of the official South Carolina Code of Laws (scstatehouse.gov chapter pages loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0 and 'security deposit' 34 hits, so the engine reports true empties; every word form entered explicitly; SC log §17). Searched 'bed ?bugs?|bedbugs?': 0 hits; 'mold|molds|mildew|fungal': 38 hits in 13 sections (fossils, tax, dies and molds, insurance disclosure, agriculture), none landlord-tenant. General duties: S.C. Code Ann. § 27-40-440(a)(1)-(2), S.C. Code Ann. § 27-40-510(2).",
+      "South Carolina has no statute requiring a landlord to disclose bed bugs or setting a treatment timeline. Bed bugs fall under the landlord's general duty to keep the property fit and habitable and the tenant's duty to keep the unit clean.",
+    notes: "SC: Split 2026-09-29 from `edu-no-mold-bedbug-disclosure-sc` (one subject per row); research unchanged, copied from that row: SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 1,304 chapter pages of the official South Carolina Code of Laws (scstatehouse.gov chapter pages loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0 and 'security deposit' 34 hits, so the engine reports true empties; every word form entered explicitly; SC log §17). Searched 'bed ?bugs?|bedbugs?': 0 hits; 'mold|molds|mildew|fungal': 38 hits in 13 sections (fossils, tax, dies and molds, insurance disclosure, agriculture), none landlord-tenant. General duties: S.C. Code Ann. § 27-40-440(a)(1)-(2), S.C. Code Ann. § 27-40-510(2).",
+  },
+  {
+    id: "edu-no-mold-disclosure-sc",
+    title: "No Mold Disclosure Rule",
+    group: "Disclosures",
+    states: ["SC"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "mold-disclosure",
+    bodyText:
+      "South Carolina has no statute requiring a landlord to disclose mold or setting a treatment timeline. Mold falls under the landlord's general duty to keep the property fit and habitable and the tenant's duty to keep the unit clean.",
+    notes: "SC: Split 2026-09-29 from `edu-no-mold-bedbug-disclosure-sc` (one subject per row); research unchanged, copied from that row: SC: Read section-open 2026-09-28 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (Title 27, Chapter 40 read whole on its chapter page with every history line; the site states the Code is current through the 2025 session; the full text of every 2025 act (Act Nos. 1 to 94) and every 2026 act (Act Nos. 95 to 274) was screened for Chapter 40, Chapter 37 and landlord-tenant terms; SC log §1). CONFIRMED ABSENT, code-wide: exact-match regular-expression search of the full text of all 1,304 chapter pages of the official South Carolina Code of Laws (scstatehouse.gov chapter pages loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0 and 'security deposit' 34 hits, so the engine reports true empties; every word form entered explicitly; SC log §17). Searched 'bed ?bugs?|bedbugs?': 0 hits; 'mold|molds|mildew|fungal': 38 hits in 13 sections (fossils, tax, dies and molds, insurance disclosure, agriculture), none landlord-tenant. General duties: S.C. Code Ann. § 27-40-440(a)(1)-(2), S.C. Code Ann. § 27-40-510(2).",
   },
   // Rules & Regulations
   {
@@ -10652,16 +10700,28 @@ const LANDLORD_EDUCATION = [
     notes: "TN: TN-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). 'radon or mold or mildew or \"bed bug\" or \"bed bugs\" or bedbug or bedbugs' returned 16 sections, none landlord-tenant (school indoor air § 49-2-121; molders' liens; die molds). Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1).",
   },
   {
-    id: "edu-no-mold-bedbug-disclosure-tn",
-    title: "No Mold or Bed Bug Disclosure Rule",
+    id: "edu-no-bed-bug-disclosure-tn",
+    title: "No Bed Bug Disclosure Rule",
     group: "Disclosures",
     states: ["TN"],
     ruleTypes: ["RECOMMENDED"],
     verificationStatus: "VERIFIED",
     topicKey: "bed-bug-disclosure",
     bodyText:
-      "Tennessee has no statute requiring a landlord to disclose mold or bed bugs or setting a treatment timeline. In the 17 Act counties the general duty to keep the premises fit and habitable applies.",
-    notes: "TN: TN-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). same combined search as edu-no-radon-disclosure-tn (16 hits, none landlord-tenant). Tenn. Code Ann. § 66-28-304(a)(2). Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1).",
+      "Tennessee has no statute requiring a landlord to disclose bed bugs or setting a treatment timeline. In the 17 Act counties the general duty to keep the premises fit and habitable applies.",
+    notes: "TN: Split 2026-09-29 from `edu-no-mold-bedbug-disclosure-tn` (one subject per row); research unchanged, copied from that row: TN: TN-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). same combined search as edu-no-radon-disclosure-tn (16 hits, none landlord-tenant). Tenn. Code Ann. § 66-28-304(a)(2). Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1).",
+  },
+  {
+    id: "edu-no-mold-disclosure-tn",
+    title: "No Mold Disclosure Rule",
+    group: "Disclosures",
+    states: ["TN"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "mold-disclosure",
+    bodyText:
+      "Tennessee has no statute requiring a landlord to disclose mold or setting a treatment timeline. In the 17 Act counties the general duty to keep the premises fit and habitable applies.",
+    notes: "TN: Split 2026-09-29 from `edu-no-mold-bedbug-disclosure-tn` (one subject per row); research unchanged, copied from that row: TN: TN-SCOPE: STATEWIDE. CONFIRMED ABSENT (statutes), code-wide: LexisNexis Tennessee Code Unannotated free public access, terms-and-connectors search of the whole code (phrases in quotes, ! root expander, plurals matched automatically, control term 'zqxvbnmwt' 0 at start and end; TN log §17). same combined search as edu-no-radon-disclosure-tn (16 hits, none landlord-tenant). Tenn. Code Ann. § 66-28-304(a)(2). Read section-open 2026-09-28 in the built-in browser from Justia's host copy of the 2025 Tennessee Code (the official code is published by LexisNexis), with each section's history line; currency checked against the full text of every public chapter of the 114th General Assembly (2025 and 2026 Pub. Ch. 1 to 1142 and the seven 2025 First Extraordinary Session acts, publications.tnsosfiles.com) and against the LexisNexis Tennessee Code Unannotated free public access site, which already prints the 2026 Pub. Ch. 606 sections (TN log §1).",
   },
   // Rules & Regulations
   {
@@ -11823,16 +11883,28 @@ const LANDLORD_EDUCATION = [
     notes: "CONFIRMED ABSENT, code-wide: regular-expression search over the full text of the official Code of Alabama (ALISON, 49,638 section versions loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 24 hits and 'carbon monoxide' 2, so the engine reports true empties; word forms written into each pattern; hits read in context; AL log §17). Chapter 9A read whole. Searched '\\bradon\\b': 0 hits (one false match, 'radonic', chiropractic).",
   },
   {
-    id: "edu-no-mold-bedbug-disclosure-al",
-    title: "No Mold or Bed Bug Disclosure Rule",
+    id: "edu-no-bed-bug-disclosure-al",
+    title: "No Bed Bug Disclosure Rule",
     group: "Disclosures",
     states: ["AL"],
     ruleTypes: ["RECOMMENDED"],
     verificationStatus: "VERIFIED",
     topicKey: "bed-bug-disclosure",
     bodyText:
-      "Alabama has no mold or bed bug disclosure, inspection or treatment statute for rentals. The general duty to keep the premises habitable and meet housing codes still applies.",
-    notes: "CONFIRMED ABSENT, code-wide: regular-expression search over the full text of the official Code of Alabama (ALISON, 49,638 section versions loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 24 hits and 'carbon monoxide' 2, so the engine reports true empties; word forms written into each pattern; hits read in context; AL log §17). Chapter 9A read whole. Searched mold, molds, mildew: 12 hits in 8 sections, none landlord-tenant; bed bugs, bedbugs: 0 hits. General duty: Ala. Code § 35-9A-204(a)(1)-(2).",
+      "Alabama has no bed bug disclosure, inspection or treatment statute for rentals. The general duty to keep the premises habitable and meet housing codes still applies.",
+    notes: "AL: Split 2026-09-29 from `edu-no-mold-bedbug-disclosure-al` (one subject per row); research unchanged, copied from that row: CONFIRMED ABSENT, code-wide: regular-expression search over the full text of the official Code of Alabama (ALISON, 49,638 section versions loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 24 hits and 'carbon monoxide' 2, so the engine reports true empties; word forms written into each pattern; hits read in context; AL log §17). Chapter 9A read whole. Searched mold, molds, mildew: 12 hits in 8 sections, none landlord-tenant; bed bugs, bedbugs: 0 hits. General duty: Ala. Code § 35-9A-204(a)(1)-(2).",
+  },
+  {
+    id: "edu-no-mold-disclosure-al",
+    title: "No Mold Disclosure Rule",
+    group: "Disclosures",
+    states: ["AL"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "mold-disclosure",
+    bodyText:
+      "Alabama has no mold disclosure, inspection or treatment statute for rentals. The general duty to keep the premises habitable and meet housing codes still applies.",
+    notes: "AL: Split 2026-09-29 from `edu-no-mold-bedbug-disclosure-al` (one subject per row); research unchanged, copied from that row: CONFIRMED ABSENT, code-wide: regular-expression search over the full text of the official Code of Alabama (ALISON, 49,638 section versions loaded in the built-in browser 2026-09-28; control term 'zqxvbnmwt' returned 0, 'security deposit' 24 hits and 'carbon monoxide' 2, so the engine reports true empties; word forms written into each pattern; hits read in context; AL log §17). Chapter 9A read whole. Searched mold, molds, mildew: 12 hits in 8 sections, none landlord-tenant; bed bugs, bedbugs: 0 hits. General duty: Ala. Code § 35-9A-204(a)(1)-(2).",
   },
   // Rules & Regulations
   {
@@ -12395,16 +12467,28 @@ const LANDLORD_EDUCATION = [
     notes: "CONFIRMED ABSENT (statutes), searched two ways on 2026-09-29 (PA log §17): (1) regular-expression search over the full text of the Pennsylvania Constitution and all 74 titles of the Pennsylvania Consolidated Statutes (75 files) loaded in the built-in browser from the official title files (29.28 million characters; control term 'zqxvbnmwt' 0 hits, 'security deposit' 8 hits in 6 sections, 'carbon monoxide' 1 hit, so the engine reports true empties); (2) the General Assembly's unconsolidated-statute keyword search (quoted phrases, AND/OR; control term 0 results; '\"security deposit\" AND residential' 15). The Landlord and Tenant Act of 1951 was read whole. Administrative rules (Pa. Code), court rules and local ordinances were not searched unless stated; case law not read (instruction 16). Searched '\\bradon\\b' (Pa.C.S. 2 hits: 68 Pa.C.S. § 7503, 68 Pa.C.S. § 7505, home inspection) and radon AND (lease OR tenant OR rental) (unconsolidated 3, all 68 Pa.C.S. amendments). Radon Certification Act not read.",
   },
   {
-    id: "edu-no-mold-bedbug-disclosure-pa",
-    title: "No Mold or Bed Bug Disclosure Rule",
+    id: "edu-no-bed-bug-disclosure-pa",
+    title: "No Bed Bug Disclosure Rule",
     group: "Disclosures",
     states: ["PA"],
     ruleTypes: ["RECOMMENDED"],
     verificationStatus: "VERIFIED",
     topicKey: "bed-bug-disclosure",
     bodyText:
-      "Pennsylvania has no statute requiring landlords to disclose mold or bed bugs or setting treatment timelines. The implied warranty of habitability and local codes still apply.",
-    notes: "CONFIRMED ABSENT (statutes), searched two ways on 2026-09-29 (PA log §17): (1) regular-expression search over the full text of the Pennsylvania Constitution and all 74 titles of the Pennsylvania Consolidated Statutes (75 files) loaded in the built-in browser from the official title files (29.28 million characters; control term 'zqxvbnmwt' 0 hits, 'security deposit' 8 hits in 6 sections, 'carbon monoxide' 1 hit, so the engine reports true empties); (2) the General Assembly's unconsolidated-statute keyword search (quoted phrases, AND/OR; control term 0 results; '\"security deposit\" AND residential' 15). The Landlord and Tenant Act of 1951 was read whole. Administrative rules (Pa. Code), court rules and local ordinances were not searched unless stated; case law not read (instruction 16). Searched 'mold|mildew' (Pa.C.S. 2 hits: eminent domain, agriculture) and 'bed ?bugs?' (0); unconsolidated mold AND tenant (7: eminent domain and fiscal acts), \"bed bugs\" OR bedbugs (0).",
+      "Pennsylvania has no statute requiring landlords to disclose bed bugs or setting treatment timelines. The implied warranty of habitability and local codes still apply.",
+    notes: "PA: Split 2026-09-29 from `edu-no-mold-bedbug-disclosure-pa` (one subject per row); research unchanged, copied from that row: CONFIRMED ABSENT (statutes), searched two ways on 2026-09-29 (PA log §17): (1) regular-expression search over the full text of the Pennsylvania Constitution and all 74 titles of the Pennsylvania Consolidated Statutes (75 files) loaded in the built-in browser from the official title files (29.28 million characters; control term 'zqxvbnmwt' 0 hits, 'security deposit' 8 hits in 6 sections, 'carbon monoxide' 1 hit, so the engine reports true empties); (2) the General Assembly's unconsolidated-statute keyword search (quoted phrases, AND/OR; control term 0 results; '\"security deposit\" AND residential' 15). The Landlord and Tenant Act of 1951 was read whole. Administrative rules (Pa. Code), court rules and local ordinances were not searched unless stated; case law not read (instruction 16). Searched 'mold|mildew' (Pa.C.S. 2 hits: eminent domain, agriculture) and 'bed ?bugs?' (0); unconsolidated mold AND tenant (7: eminent domain and fiscal acts), \"bed bugs\" OR bedbugs (0).",
+  },
+  {
+    id: "edu-no-mold-disclosure-pa",
+    title: "No Mold Disclosure Rule",
+    group: "Disclosures",
+    states: ["PA"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "mold-disclosure",
+    bodyText:
+      "Pennsylvania has no statute requiring landlords to disclose mold or setting treatment timelines. The implied warranty of habitability and local codes still apply.",
+    notes: "PA: Split 2026-09-29 from `edu-no-mold-bedbug-disclosure-pa` (one subject per row); research unchanged, copied from that row: CONFIRMED ABSENT (statutes), searched two ways on 2026-09-29 (PA log §17): (1) regular-expression search over the full text of the Pennsylvania Constitution and all 74 titles of the Pennsylvania Consolidated Statutes (75 files) loaded in the built-in browser from the official title files (29.28 million characters; control term 'zqxvbnmwt' 0 hits, 'security deposit' 8 hits in 6 sections, 'carbon monoxide' 1 hit, so the engine reports true empties); (2) the General Assembly's unconsolidated-statute keyword search (quoted phrases, AND/OR; control term 0 results; '\"security deposit\" AND residential' 15). The Landlord and Tenant Act of 1951 was read whole. Administrative rules (Pa. Code), court rules and local ordinances were not searched unless stated; case law not read (instruction 16). Searched 'mold|mildew' (Pa.C.S. 2 hits: eminent domain, agriculture) and 'bed ?bugs?' (0); unconsolidated mold AND tenant (7: eminent domain and fiscal acts), \"bed bugs\" OR bedbugs (0).",
   },
   {
     id: "edu-no-flood-disclosure-pa",

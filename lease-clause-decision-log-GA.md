@@ -459,3 +459,7 @@ All 12 lease clauses written for this state alone. Shared clauses tagged with th
 | `rent-escalation-ga` | Keep | SERVES_LANDLORD | opt-in |
 | `security-deposit-escrow-ga` | Keep | REQUIRED_DISCLOSURE: O.C.G.A. § 44-7-31 |  |
 | `serious-misconduct-prohibition-ga` | Keep | SERVES_LANDLORD |  |
+
+## Targeted fix, 2026-09-29: bed-bug and mold rows split
+
+`edu-no-mold-bedbug-disclosure-ga` covered two subjects in one row. It is switched off, and its content moved unchanged into `edu-no-bed-bug-disclosure-ga` and `edu-no-mold-disclosure-ga`, matching the separate rows most states have. The research and citation are copied to both rows (the same search covered both subjects); no new research. Reason: each row carries one `topic_key`, so a combined row hid one of the two subjects from the cross-state coverage check.

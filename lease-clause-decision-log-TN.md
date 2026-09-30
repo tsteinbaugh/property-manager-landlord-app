@@ -636,3 +636,7 @@ All 24 lease clauses written for this state alone. Shared clauses tagged with th
 | `smoke-alarms-tn` | Keep | SERVES_LANDLORD |  |
 | `tenant-repair-agreement-tn` | Keep | SERVES_LANDLORD | opt-in |
 | `utility-transfer-tn` | Keep | SERVES_LANDLORD | opt-in |
+
+## Targeted fix, 2026-09-29: bed-bug and mold rows split
+
+`edu-no-mold-bedbug-disclosure-tn` covered two subjects in one row. It is switched off, and its content moved unchanged into `edu-no-bed-bug-disclosure-tn` and `edu-no-mold-disclosure-tn`, matching the separate rows most states have. The research and citation are copied to both rows (the same search covered both subjects); no new research. Reason: each row carries one `topic_key`, so a combined row hid one of the two subjects from the cross-state coverage check.
