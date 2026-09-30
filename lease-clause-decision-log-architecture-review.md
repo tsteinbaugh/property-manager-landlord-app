@@ -553,3 +553,142 @@ M.1, M.2 and M.4 are the same underlying gap: **the builder treats clauses as in
 **Related flag:** Colorado's source-of-income statement (C.R.S. § 38-12-801(2.5)) is required unless the landlord owns five or fewer single-family homes and five or fewer total units. Once the app stores units owned (the attribute Tennessee and Virginia also need), warn a non-exempt Colorado landlord whose lease leaves `source-of-income-statement-co` off.
 
 **Urgency:** required before the lease feature goes live, and before the scrub's cap removals ship to real users.
+
+
+### M.14 Unresolved `{{variables}}` — 98 in shipped lease clauses (2026-09-29)
+
+**Found:** 98 `{{variable}}` placeholders in active lease clauses have no resolver in `backend/src/lib/clauseVariables.js`, which resolves only 16 (rent, deposit, pet deposit and rent, late fee and grace days, renewal cap, insurance minimum, start and end dates, tenant and occupant names, appliance list, property address, landlord name, state). An unresolved placeholder prints as raw `{{...}}` text in a generated lease. This matters more in Arizona, where a written lease with a blank left in it is the landlord's material noncompliance (A.R.S. § 33-1322(E)). The list is generated from `lease-clauses.csv`; regenerate it rather than editing by hand.
+
+**Needed, per variable:** a resolver backed by real data (an Entity, Property or Lease field), or a switch to the `[bracketed prompt]` convention for true one-off fill-ins. Before building, rename the near-miss and duplicate names below; that alone connects two to existing data.
+
+**Related trap:** 14 FL, AZ, VA and TX clauses put a `[bracket]` instruction right after one of these variables (e.g. `{{deposit_holding_method}} [choose one: ...]`). That works only because the landlord must edit the clause anyway. When a variable gets a resolver, remove its adjacent bracket in the same change, or the bracket will print.
+
+**Near-miss names — probably bugs: data already exists under the resolver's name** (2):
+
+| Variable | States | Note |
+|---|---|---|
+| `{{late_fee}}` | CA | use `late_fee_amount` |
+| `{{tenant_name}}` | FL | use `tenant_names` |
+
+**Duplicate names for the same value — pick one** (8):
+
+| Variable | States | Note |
+|---|---|---|
+| `{{manager_address}}` | NV | same as `manager_street_address` |
+| `{{manager_street_address}}` | CA | same as `manager_address` |
+| `{{nsf_fee}}` | CA, TX, VA | same as `returned_payment_fee` |
+| `{{owner_agent_address}}` | NV | same as `owner_agent_street_address` |
+| `{{owner_agent_street_address}}` | CA | same as `owner_agent_address` |
+| `{{returned_payment_fee}}` | NJ | same as `nsf_fee` |
+| `{{utility_admin_fee}}` | AZ, NC | same as `utility_admin_fees` |
+| `{{utility_admin_fees}}` | VA | same as `utility_admin_fee` |
+
+**Owner, manager, agent and payee identity — candidates for Entity (or a manager/agent record)** (26):
+
+| Variable | States | Note |
+|---|---|---|
+| `{{authorized_person_name_address_phone}}` | AZ, NC, VA |  |
+| `{{deposit_bank_address}}` | GA, NC, PA |  |
+| `{{deposit_bank_name}}` | GA, NC, PA |  |
+| `{{deposit_bond_insurer}}` | NC |  |
+| `{{deposit_holding_method}}` | FL |  |
+| `{{deposit_interest_statement}}` | FL |  |
+| `{{deposit_location_statement}}` | FL |  |
+| `{{emergency_phone}}` | NV, TX |  |
+| `{{landlord_email}}` | FL |  |
+| `{{landlord_notice_address}}` | FL |  |
+| `{{landlord_notice_name}}` | FL |  |
+| `{{management_company_name}}` | TX |  |
+| `{{management_company_street_address}}` | TX |  |
+| `{{manager_name}}` | CA, NV |  |
+| `{{manager_phone}}` | CA |  |
+| `{{owner_address}}` | NV, TX |  |
+| `{{owner_agent_name}}` | CA, NV |  |
+| `{{owner_agent_phone}}` | CA |  |
+| `{{owner_name}}` | NV, TX |  |
+| `{{rent_payee_address}}` | CA |  |
+| `{{rent_payee_name}}` | CA |  |
+| `{{rent_payee_phone}}` | CA |  |
+| `{{rent_payment_days_hours}}` | CA |  |
+| `{{rent_payment_forms}}` | CA |  |
+| `{{va_resident_agent_name}}` | VA |  |
+| `{{va_resident_agent_office_address}}` | VA |  |
+
+**Property facts — candidates for Property** (9):
+
+| Variable | States | Note |
+|---|---|---|
+| `{{block}}` | NJ |  |
+| `{{county}}` | GA, NJ |  |
+| `{{locality}}` | VA |  |
+| `{{lot}}` | NJ |  |
+| `{{municipality}}` | NJ |  |
+| `{{myhazards_url}}` | CA |  |
+| `{{rent_control_exemption_end_date}}` | NJ |  |
+| `{{utility_provider_name}}` | NV |  |
+| `{{utility_provider_phone}}` | NV |  |
+
+**Lease terms the landlord chooses — candidates for Lease fields (several recur across states)** (31):
+
+| Variable | States | Note |
+|---|---|---|
+| `{{advance_rent}}` | FL |  |
+| `{{association_approval_deadline}}` | FL |  |
+| `{{association_fee_payer}}` | FL |  |
+| `{{bed_bug_reporting_procedure}}` | CA |  |
+| `{{damage_insurance_admin_fee}}` | VA |  |
+| `{{early_termination_fee}}` | FL |  |
+| `{{early_termination_notice_days}}` | FL |  |
+| `{{electric_late_penalty}}` | TX |  |
+| `{{end_of_term_liquidated_damages}}` | FL |  |
+| `{{end_of_term_notice_days}}` | FL |  |
+| `{{escalation_notice_days}}` | GA |  |
+| `{{expedited_deposit_fee}}` | VA |  |
+| `{{flotation_insurance_amount}}` | FL |  |
+| `{{holdover_daily_rate}}` | AL, GA, NC, OH, PA, SC, TN, VA |  |
+| `{{judgment_interest_rate}}` | CA |  |
+| `{{late_fee_daily_amount}}` | TX |  |
+| `{{m2m_notice_days}}` | PA |  |
+| `{{maintenance_consideration}}` | AZ |  |
+| `{{meter_conservation_charge_details}}` | SC |  |
+| `{{nonrefundable_deposit_amount}}` | WY |  |
+| `{{nonrefundable_fees_and_purposes}}` | AZ |  |
+| `{{nonrefundable_pet_fee}}` | NC |  |
+| `{{notice_to_quit_days}}` | PA |  |
+| `{{notice_to_vacate_days}}` | NC, TX |  |
+| `{{reconnection_fee}}` | TX |  |
+| `{{renewal_notice_days}}` | VA |  |
+| `{{separately_charged_utilities}}` | AZ, NC, VA |  |
+| `{{surrender_notice_days}}` | TX |  |
+| `{{tenant_email}}` | FL, TX |  |
+| `{{tenant_maintained_items}}` | AZ, FL |  |
+| `{{utility_billing_method}}` | AZ, NC, VA |  |
+
+**One-off form fields — fee in lieu of deposit (FL), water submetering (CA, TX), foreclosure notice (AZ): candidates for the [bracket] convention or a form step** (22):
+
+| Variable | States | Note |
+|---|---|---|
+| `{{deposit_installment_amount}}` | FL |  |
+| `{{fee_in_lieu_amount}}` | FL |  |
+| `{{fee_in_lieu_default_days}}` | FL |  |
+| `{{fee_in_lieu_method}}` | FL |  |
+| `{{fee_in_lieu_option_charges}}` | FL |  |
+| `{{fee_in_lieu_refundable}}` | FL |  |
+| `{{fee_in_lieu_schedule}}` | FL |  |
+| `{{foreclosure_contact}}` | AZ |  |
+| `{{foreclosure_sale_time_date_place}}` | AZ |  |
+| `{{utility_avg_bill}}` | TX |  |
+| `{{utility_high_bill}}` | TX |  |
+| `{{utility_low_bill}}` | TX |  |
+| `{{water_bill_due_dates}}` | CA |  |
+| `{{water_bill_estimate}}` | CA |  |
+| `{{water_bill_estimate_basis}}` | CA |  |
+| `{{water_bill_payment_procedure}}` | CA |  |
+| `{{water_billing_address}}` | CA |  |
+| `{{water_billing_email}}` | CA |  |
+| `{{water_billing_phone}}` | CA |  |
+| `{{water_repair_address}}` | CA |  |
+| `{{water_repair_email}}` | CA |  |
+| `{{water_repair_phone}}` | CA |  |
+
+**Urgency:** required before the lease feature goes live.
