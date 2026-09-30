@@ -1753,9 +1753,29 @@ Not a re-audit; nothing else in this state was reviewed.
 
 ## Three-bucket scrub, 2026-09-29 (checklist instruction 66)
 
-Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Full verdict list: `lease-clause-scrub-verdicts.md`. Clauses moved to education are switched off, not deleted; their text and citations are unchanged in the education rows. Checklist mentions of switched-off rows now point to the education row.
+Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Every row's verdict is in the table at the end of this section. Clauses moved to education are switched off, not deleted; their text and citations are unchanged in the education rows. Checklist mentions of switched-off rows now point to the education row.
 
 - **Moved to education:** `security-deposit-return-nd` → `edu-security-deposit-return-nd`; `termination-by-death-nd` → `edu-tenant-death-termination-nd`; `fire-casualty-termination-nd` → `edu-casualty-termination-nd`; `dv-lease-release-nd` → `edu-dv-lease-release-nd`.
 - **Trimmed:** `landlord-maintenance-nd` keeps only the tenant's written repair notice (duties → `edu-habitability-baseline-nd`).
 - **Notice period (pattern 2):** `termination-notice-nd` states the landlord's chosen period, at least one calendar month; statutory rules → `edu-termination-notice-periods-nd`. A period over one month still needs `lease-notice-initial-requirement-nd`.
 - **§5a.1:** only ND-only rows changed; no propagation owed.
+
+### Verdict for every lease clause
+
+All 13 lease clauses written for this state alone. Shared clauses tagged with this state all stayed (generic contract terms); each row's basis is in `lease-clauses.csv`'s `lease_clause_basis` column. Basis values: `REQUIRED_DISCLOSURE: <statute>`, `CONSTRAINED_TERM`, `SERVES_LANDLORD`.
+
+| Row | Verdict | Basis | Note |
+|---|---|---|---|
+| `dv-lease-release-nd` | Education | — | tenant right |
+| `fire-casualty-termination-nd` | Education | — | tenant right |
+| `security-deposit-return-nd` | Education | — | landlord duty |
+| `termination-by-death-nd` | Education | — | estate right |
+| `landlord-maintenance-nd` | Split | SERVES_LANDLORD | keep tenant written repair notice; rest edu |
+| `termination-notice-nd` | Notice-period rewrite | CONSTRAINED_TERM | statutory one-month period restated |
+| `abandoned-property-nd` | Keep | SERVES_LANDLORD |  |
+| `assistance-animal-accommodation-nd` | Keep | SERVES_LANDLORD |  |
+| `landlords-access-nd` | Keep | CONSTRAINED_TERM | SERVES_LANDLORD |  |
+| `lease-notice-initial-requirement-nd` | Keep | REQUIRED_DISCLOSURE: N.D.C.C. § 47-16-15(4) |  |
+| `smoke-detector-duty-nd` | Keep | SERVES_LANDLORD |  |
+| `tenant-maintenance-nd` | Keep | SERVES_LANDLORD |  |
+| `tenant-notice-of-adverse-proceeding-nd` | Keep | SERVES_LANDLORD |  |

@@ -576,7 +576,36 @@ Not a re-audit; nothing else in this state was reviewed.
 
 ## Three-bucket scrub, 2026-09-29 (checklist instruction 66)
 
-Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Full verdict list: `lease-clause-scrub-verdicts.md`. Clauses moved to education are switched off, not deleted; their content is unchanged in the education rows (most were already covered by this state's own education rows), and checklist mentions of them now point to those rows. §5a.1: only this state's own rows changed; no propagation owed.
+Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Every row's verdict is in the table at the end of this section. Clauses moved to education are switched off, not deleted; their content is unchanged in the education rows (most were already covered by this state's own education rows), and checklist mentions of them now point to those rows. §5a.1: only this state's own rows changed; no propagation owed.
 
 - **Moved to education:** `casualty-damage-fl` → `edu-casualty-damage-fl`.
 - **Trimmed:** `security-deposit-return-fl` keeps the landlord's holding-method choice and the tenant's 7-day vacating notice; the restated handling, claim, objection and return rules → new `edu-security-deposit-rules-fl`.
+
+### Verdict for every lease clause
+
+All 22 lease clauses written for this state alone. Shared clauses tagged with this state all stayed (generic contract terms); each row's basis is in `lease-clauses.csv`'s `lease_clause_basis` column. Basis values: `REQUIRED_DISCLOSURE: <statute>`, `CONSTRAINED_TERM`, `SERVES_LANDLORD`.
+
+| Row | Verdict | Basis | Note |
+|---|---|---|---|
+| `casualty-damage-fl` | Education | — | tenant right |
+| `security-deposit-return-fl` | Split | CONSTRAINED_TERM | keep holding-method choice; restated duties to edu |
+| `abandoned-property-release-fl` | Keep | SERVES_LANDLORD | opt-in |
+| `assistance-animal-accommodation-fl` | Keep | SERVES_LANDLORD |  |
+| `association-approval-fl` | Keep | SERVES_LANDLORD |  |
+| `common-area-use-fl` | Keep | SERVES_LANDLORD |  |
+| `default-by-tenant-fl` | Keep | SERVES_LANDLORD |  |
+| `early-termination-addendum-fl` | Keep | SERVES_LANDLORD | opt-in |
+| `early-termination-fl` | Keep | SERVES_LANDLORD |  |
+| `electronic-notice-addendum-fl` | Keep | SERVES_LANDLORD | opt-in |
+| `end-of-term-notice-fl` | Keep | SERVES_LANDLORD | opt-in |
+| `fee-in-lieu-of-deposit-fl` | Keep | SERVES_LANDLORD | opt-in |
+| `flood-disclosure-fl` | Keep | REQUIRED_DISCLOSURE: Fla. Stat. § 83.50(2) |  |
+| `flotation-bedding-fl` | Keep | SERVES_LANDLORD |  |
+| `landlord-address-disclosure-fl` | Keep | REQUIRED_DISCLOSURE: Fla. Stat. § 83.50(1) |  |
+| `landlords-access-fl` | Keep | SERVES_LANDLORD |  |
+| `maintenance-allocation-fl` | Keep | SERVES_LANDLORD | opt-in |
+| `no-liens-fl` | Keep | SERVES_LANDLORD | opt-in |
+| `nsf-fee-limit-fl` | Keep | CONSTRAINED_TERM | fee stated as the term |
+| `pet-policy-fl` | Keep | SERVES_LANDLORD |  |
+| `radon-disclosure-fl` | Keep | REQUIRED_DISCLOSURE: Fla. Stat. § 404.056(5) |  |
+| `security-deposit-notice-fl` | Keep | REQUIRED_DISCLOSURE: Fla. Stat. § 83.49(2) |  |

@@ -450,8 +450,32 @@ Not a re-audit; nothing else in this state was reviewed.
 
 ## Three-bucket scrub, 2026-09-29 (checklist instruction 66)
 
-Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Full verdict list: `lease-clause-scrub-verdicts.md`. Clauses moved to education are switched off, not deleted; their content is unchanged in the education rows (most were already covered by this state's own education rows), and checklist mentions of them now point to those rows. §5a.1: only this state's own rows changed; no propagation owed.
+Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Every row's verdict is in the table at the end of this section. Clauses moved to education are switched off, not deleted; their content is unchanged in the education rows (most were already covered by this state's own education rows), and checklist mentions of them now point to those rows. §5a.1: only this state's own rows changed; no propagation owed.
 
 - **Moved to education:** `possession-delay-sc`, `dv-lease-termination-sc`, `casualty-termination-sc` (new rows).
 - **Trimmed:** `security-deposit-return-sc` keeps the withholding right and forwarding-address duty.
 - **Optional (pattern 3):** `security-deposit-standards-sc`, with `edu-security-deposit-rules-sc`.
+
+### Verdict for every lease clause
+
+All 17 lease clauses written for this state alone. Shared clauses tagged with this state all stayed (generic contract terms); each row's basis is in `lease-clauses.csv`'s `lease_clause_basis` column. Basis values: `REQUIRED_DISCLOSURE: <statute>`, `CONSTRAINED_TERM`, `SERVES_LANDLORD`.
+
+| Row | Verdict | Basis | Note |
+|---|---|---|---|
+| `casualty-termination-sc` | Education | — | tenant right |
+| `dv-lease-termination-sc` | Education | — | tenant right |
+| `possession-delay-sc` | Education | — | tenant remedies |
+| `security-deposit-return-sc` | Split | SERVES_LANDLORD | keep forwarding-address duty; rest edu |
+| `security-deposit-standards-sc` | Optional + education | SERVES_LANDLORD | statement before signing |
+| `abandoned-property-sc` | Keep | SERVES_LANDLORD |  |
+| `appliances-excluded-sc` | Keep | SERVES_LANDLORD | opt-in |
+| `assistance-animal-accommodation-sc` | Keep | SERVES_LANDLORD |  |
+| `casualty-landlord-termination-sc` | Keep | SERVES_LANDLORD | opt-in |
+| `holdover-rate-sc` | Keep | CONSTRAINED_TERM |  |
+| `landlord-disclosure-sc` | Keep | REQUIRED_DISCLOSURE: S.C. Code Ann. § 27-40-420 |  |
+| `meter-conservation-charge-notice-sc` | Keep | REQUIRED_DISCLOSURE: S.C. Code Ann. § 58-37-50(H)(3) |  |
+| `nonpayment-notice-sc` | Keep | SERVES_LANDLORD | opt-in |
+| `periodic-services-entry-sc` | Keep | SERVES_LANDLORD | opt-in |
+| `pet-policy-sc` | Keep | SERVES_LANDLORD |  |
+| `smoke-detectors-sc` | Keep | SERVES_LANDLORD |  |
+| `tenant-repair-agreement-sc` | Keep | SERVES_LANDLORD | opt-in |

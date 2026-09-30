@@ -599,9 +599,40 @@ Not a re-audit; nothing else in this state was reviewed.
 
 ## Three-bucket scrub, 2026-09-29 (checklist instruction 66)
 
-Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Full verdict list: `lease-clause-scrub-verdicts.md`. Clauses moved to education are switched off, not deleted; their content is unchanged in the education rows (most were already covered by this state's own education rows), and checklist mentions of them now point to those rows. §5a.1: only this state's own rows changed; no propagation owed.
+Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Every row's verdict is in the table at the end of this section. Clauses moved to education are switched off, not deleted; their content is unchanged in the education rows (most were already covered by this state's own education rows), and checklist mentions of them now point to those rows. §5a.1: only this state's own rows changed; no propagation owed.
 
 - **Moved to education:** `dv-lease-termination-tn` → `edu-dv-lease-termination-tn`.
 - **Trimmed:** `late-fee-limit-tn` (fee and grace period), `security-deposit-return-tn-act` (only the restated no-show inspection duty removed), `casualty-termination-tn` (landlord's termination right; tenant options → `edu-casualty-termination-tn`).
 - **Kept whole:** `security-deposit-return-tn-other` — outside the URLTA counties no deposit statute applies, so its return terms are the lease's own (verdict revised from split).
 - **Notice periods (pattern 2):** `periodic-tenancy-notice-tn` states the chosen periods; minimums → `edu-termination-notice-periods-tn`.
+
+### Verdict for every lease clause
+
+All 24 lease clauses written for this state alone. Shared clauses tagged with this state all stayed (generic contract terms); each row's basis is in `lease-clauses.csv`'s `lease_clause_basis` column. Basis values: `REQUIRED_DISCLOSURE: <statute>`, `CONSTRAINED_TERM`, `SERVES_LANDLORD`.
+
+| Row | Verdict | Basis | Note |
+|---|---|---|---|
+| `dv-lease-termination-tn` | Education | — | tenant right |
+| `casualty-termination-tn` | Split | SERVES_LANDLORD | keep landlord termination right; tenant rights to edu |
+| `late-fee-limit-tn` | Split | CONSTRAINED_TERM | keep fee; grace and cap to edu |
+| `security-deposit-return-tn-act` | Split | SERVES_LANDLORD | keep account-location statement; rest edu |
+| `periodic-tenancy-notice-tn` | Notice-period rewrite | CONSTRAINED_TERM | statutory periods restated |
+| `abandoned-property-tn` | Keep | SERVES_LANDLORD |  |
+| `assistance-animal-accommodation-tn` | Keep | SERVES_LANDLORD |  |
+| `electronic-notice-tn` | Keep | SERVES_LANDLORD | opt-in |
+| `eviction-service-party-tn` | Keep | SERVES_LANDLORD | opt-in |
+| `firearm-carry-rules-tn` | Keep | SERVES_LANDLORD |  |
+| `holdover-rate-tn` | Keep | CONSTRAINED_TERM |  |
+| `household-goods-lien-tn` | Keep | SERVES_LANDLORD | opt-in |
+| `landlord-disclosure-tn` | Keep | REQUIRED_DISCLOSURE: Tenn. Code Ann. § 66-28-302 |  |
+| `landlords-access-tn-act` | Keep | SERVES_LANDLORD |  |
+| `landlords-access-tn-other` | Keep | SERVES_LANDLORD |  |
+| `late-fee-tn-other` | Keep | CONSTRAINED_TERM |  |
+| `nonpayment-notice-waiver-tn` | Keep | SERVES_LANDLORD | opt-in |
+| `pet-policy-tn` | Keep | SERVES_LANDLORD |  |
+| `possession-bond-tn` | Keep | SERVES_LANDLORD | opt-in |
+| `renters-insurance-advisory-tn` | Keep | REQUIRED_DISCLOSURE: prescribed advisory (Tenn. Code Ann. § 66-28-201(a)) |  |
+| `security-deposit-return-tn-other` | Keep | SERVES_LANDLORD | kept whole: no deposit statute outside the URLTA counties, so the return terms are the lease's own (revised from split 2026-09-29) |
+| `smoke-alarms-tn` | Keep | SERVES_LANDLORD |  |
+| `tenant-repair-agreement-tn` | Keep | SERVES_LANDLORD | opt-in |
+| `utility-transfer-tn` | Keep | SERVES_LANDLORD | opt-in |

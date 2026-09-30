@@ -767,8 +767,34 @@ Not a re-audit; nothing else in this state was reviewed.
 
 ## Three-bucket scrub, 2026-09-29 (checklist instruction 66)
 
-Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Full verdict list: `lease-clause-scrub-verdicts.md`. Clauses moved to education are switched off, not deleted; their content is unchanged in the education rows (most were already covered by this state's own education rows), and checklist mentions of them now point to those rows. §5a.1: only this state's own rows changed; no propagation owed.
+Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Every row's verdict is in the table at the end of this section. Clauses moved to education are switched off, not deleted; their content is unchanged in the education rows (most were already covered by this state's own education rows), and checklist mentions of them now point to those rows. §5a.1: only this state's own rows changed; no propagation owed.
 
 - **Moved to education:** `possession-delay-az`, `dv-lease-termination-az`, `casualty-termination-az` (new rows); `security-deposit-cap-az` and `move-in-inspection-az` → the existing `edu-security-deposit-az`.
 - **Trimmed:** `security-deposit-return-az` keeps the landlord's application right, forwarding-address request and 60-day finality rule.
 - **Optional (pattern 3):** `foreclosure-notice-az`, with `edu-foreclosure-notice-duty-az`.
+
+### Verdict for every lease clause
+
+All 19 lease clauses written for this state alone. Shared clauses tagged with this state all stayed (generic contract terms); each row's basis is in `lease-clauses.csv`'s `lease_clause_basis` column. Basis values: `REQUIRED_DISCLOSURE: <statute>`, `CONSTRAINED_TERM`, `SERVES_LANDLORD`.
+
+| Row | Verdict | Basis | Note |
+|---|---|---|---|
+| `casualty-termination-az` | Education | — | tenant right |
+| `dv-lease-termination-az` | Education | — | tenant right |
+| `move-in-inspection-az` | Education | — | landlord duty |
+| `possession-delay-az` | Education | — | tenant remedies |
+| `security-deposit-cap-az` | Education | — | cap |
+| `security-deposit-return-az` | Split | SERVES_LANDLORD | keep application right and tenant demand; timeline to edu |
+| `foreclosure-notice-az` | Optional + education | SERVES_LANDLORD | notice owed before lease |
+| `authorized-person-contact-az` | Keep | SERVES_LANDLORD | opt-in |
+| `bedbug-obligations-az` | Keep | SERVES_LANDLORD |  |
+| `crime-free-addendum-az` | Keep | SERVES_LANDLORD |  |
+| `landlord-disclosure-az` | Keep | REQUIRED_DISCLOSURE: A.R.S. § 33-1322 |  |
+| `landlords-access-az` | Keep | SERVES_LANDLORD |  |
+| `late-fee-az` | Keep | CONSTRAINED_TERM | SERVES_LANDLORD |  |
+| `maintenance-allocation-az` | Keep | SERVES_LANDLORD | opt-in |
+| `nonrefundable-fees-az` | Keep | REQUIRED_DISCLOSURE: A.R.S. § 33-1321(B) |  |
+| `pet-policy-az` | Keep | SERVES_LANDLORD |  |
+| `pool-safety-notice-az` | Keep | SERVES_LANDLORD | acknowledgment of required notice |
+| `smoke-detector-duty-az` | Keep | SERVES_LANDLORD | written notice shifts duty to tenant |
+| `utility-billing-disclosure-az` | Keep | REQUIRED_DISCLOSURE: A.R.S. § 33-1314.01 |  |

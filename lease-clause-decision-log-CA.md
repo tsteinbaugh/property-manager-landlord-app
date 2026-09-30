@@ -2438,7 +2438,7 @@ Not a re-audit; nothing else in this state was reviewed.
 
 ## Three-bucket scrub, 2026-09-29 (checklist instruction 66)
 
-Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research beyond the two statute reads noted below. Full verdict list: `lease-clause-scrub-verdicts.md`. Clauses moved to education are switched off, not deleted; their content is unchanged in the education rows, and checklist mentions of them now point to those rows.
+Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research beyond the two statute reads noted below. Every row's verdict is in the table at the end of this section. Clauses moved to education are switched off, not deleted; their content is unchanged in the education rows, and checklist mentions of them now point to those rows.
 
 - **Moved to education (new rows):** `repair-and-deduct-ca`, `rent-increase-notice-ca`, `emergency-assistance-right-ca`, `casualty-termination-ca`, `pest-control-notice-ca`, `disaster-duties-ca`, `internet-billing-optout-ca`, `security-deposit-cap-ca`, `security-deposit-return-ca`; `political-signs-ca` and `tenant-use-rights-ca` → one row, `edu-tenant-display-and-use-rights-ca`.
 - **Folded into existing education rows:** `notice-service-fee-ban-ca` (three-day notice), `accommodation-request-rights-ca` and `reasonable-modification-ca` (accommodation process), `dv-lease-termination-ca` and `lock-change-non-cotenant-ca` (abuse and violence protections), `immigration-status-inquiry-ca` (tenant harassment), `military-lease-termination-ca` (military protections).
@@ -2449,5 +2449,68 @@ Not a re-audit: each row was asked one question from its own text and notes (doe
 - **Cross-references fixed:** `possession-delay-ca` and `common-area-use-ca` referred to clauses now in education.
 - **§5a.1:** only CA-only rows changed; the shared `security-deposit-use` is untouched. No propagation owed.
 
+### Verdict for every lease clause
+
+All 57 lease clauses written for this state alone. Shared clauses tagged with this state all stayed (generic contract terms); each row's basis is in `lease-clauses.csv`'s `lease_clause_basis` column. Basis values: `REQUIRED_DISCLOSURE: <statute>`, `CONSTRAINED_TERM`, `SERVES_LANDLORD`.
+
+| Row | Verdict | Basis | Note |
+|---|---|---|---|
+| `accommodation-request-rights-ca` | Education | — | tenant right |
+| `casualty-termination-ca` | Education | — | tenant right |
+| `disaster-duties-ca` | Education | — | landlord duties |
+| `dv-lease-termination-ca` | Education | — | tenant right |
+| `emergency-assistance-right-ca` | Education | — | tenant right |
+| `immigration-status-inquiry-ca` | Education | — | landlord prohibition |
+| `internet-billing-optout-ca` | Education | — | tenant right |
+| `lock-change-non-cotenant-ca` | Education | — | tenant right |
+| `military-lease-termination-ca` | Education | — | tenant right |
+| `notice-service-fee-ban-ca` | Education | — | landlord prohibition |
+| `pest-control-notice-ca` | Education | — | landlord notice duties |
+| `political-signs-ca` | Education | — | tenant right |
+| `reasonable-modification-ca` | Education | — | tenant right |
+| `rent-increase-notice-ca` | Education | — | landlord duty, statute sets periods |
+| `repair-and-deduct-ca` | Education | — | tenant remedy |
+| `security-deposit-cap-ca` | Education | — | cap to edu; Taylor 2026-09-29: tag the shared security-deposit-use for CA after checking it against Civ. Code § 1950.5(b), so CA keeps a deposit amount and use clause |
+| `tenant-use-rights-ca` | Education | — | tenant rights |
+| `due-at-signing-ca` | Split | SERVES_LANDLORD | trim cap sentence to edu |
+| `nsf-fee-limit-ca` | Split | CONSTRAINED_TERM | keep fee placeholder; cap and tenant defenses to edu |
+| `payment-methods-ca` | Split | SERVES_LANDLORD | keep accepted methods and cash-only right; restated duties to edu |
+| `rent-increase-cap-ca` | Split | REQUIRED_DISCLOSURE: Civ. Code § 1947.12 | keep concession listing; cap to edu |
+| `security-deposit-return-ca` | Split | SERVES_LANDLORD | keep lease-choice deduction for personal property; rest edu |
+| `security-devices-ca` | Split | SERVES_LANDLORD | keep tenant notice duty; landlord duty to edu |
+| `stove-refrigerator-ca` | Split | REQUIRED_DISCLOSURE: Civ. Code § 1941.1(a)(11)(B) | keep tenant-supplied fridge acknowledgment; duty to edu |
+| `unbundled-parking-ca` | Split | REQUIRED_DISCLOSURE: Civ. Code § 1947.1 | keep parking-not-included statement and revocation right; rest edu |
+| `month-to-month-notice-ca` | Notice-period rewrite | CONSTRAINED_TERM | notice periods restated |
+| `bed-bug-disclosure-ca` | Optional + education | SERVES_LANDLORD | Civ. Code 1954.603 written notice to prospective tenants; keep reporting procedure |
+| `meth-disclosure-ca` | Optional + education | SERVES_LANDLORD | written notice before signing |
+| `mold-booklet-disclosure-ca` | Optional + education | SERVES_LANDLORD | booklet before signing; keep tenant notice duty |
+| `ordnance-demolition-meter-disclosures-ca` | Optional + education | SERVES_LANDLORD | written disclosure before execution |
+| `water-submeter-disclosure-ca` | Optional + education | SERVES_LANDLORD | disclosure before execution |
+| `alarm-duties-ca` | Keep | SERVES_LANDLORD | tenant duties + entry right |
+| `assistance-animal-accommodation-ca` | Keep | SERVES_LANDLORD |  |
+| `auto-renewal-formatting-ca` | Keep | REQUIRED_DISCLOSURE: Civ. Code § 1945.5 |  |
+| `bed-bug-cooperation-ca` | Keep | SERVES_LANDLORD | tenant duty |
+| `common-area-use-ca` | Keep | SERVES_LANDLORD |  |
+| `continue-lease-remedy-ca` | Keep | SERVES_LANDLORD | opt-in 1951.4 form |
+| `early-termination-ca` | Keep | SERVES_LANDLORD | opt-in 1951.2 measure |
+| `ev-charging-ca` | Keep | SERVES_LANDLORD | tenant request conditions and costs |
+| `existing-condition-ca` | Keep | SERVES_LANDLORD |  |
+| `flood-disclosure-ca` | Keep | REQUIRED_DISCLOSURE: Gov. Code § 8589.45 |  |
+| `landlord-entry-ca` | Keep | CONSTRAINED_TERM | SERVES_LANDLORD |  |
+| `landlord-maintenance-ca` | Keep | SERVES_LANDLORD | allocation, same as generic |
+| `late-fee-safe-harbor-ca` | Keep | CONSTRAINED_TERM | SERVES_LANDLORD | liquidated damages must be agreed |
+| `no-sublet-assign-ca` | Keep | SERVES_LANDLORD |  |
+| `no-sublet-assign-discretion-ca` | Keep | SERVES_LANDLORD |  |
+| `owner-identity-disclosure-ca` | Keep | REQUIRED_DISCLOSURE: Civ. Code § 1962 |  |
+| `owner-move-in-reservation-ca` | Keep | SERVES_LANDLORD | opt-in right |
+| `pet-policy-ca` | Keep | SERVES_LANDLORD |  |
+| `possession-delay-ca` | Keep | SERVES_LANDLORD |  |
+| `rent-payment-ca` | Keep | SERVES_LANDLORD |  |
+| `services-utilities-provided-ca` | Keep | SERVES_LANDLORD |  |
+| `sex-offender-registry-notice-ca` | Keep | REQUIRED_DISCLOSURE: Civ. Code § 2079.10a |  |
+| `tenant-maintenance-obligations-ca` | Keep | SERVES_LANDLORD |  |
+| `tpa-exemption-notice-ca` | Keep | REQUIRED_DISCLOSURE: Civ. Code § 1946.2(e)(8)(B)(iii) |  |
+| `tpa-notice-ca` | Keep | REQUIRED_DISCLOSURE: Civ. Code §§ 1946.2(f), 1947.12(g) |  |
+| `waterbed-ca` | Keep | SERVES_LANDLORD | weak: landlord insurance/deposit/inspection rights |
 
 - **2026-09-29, Addendum M.14 fix:** `late-fee-safe-harbor-ca` used a variable name the builder never resolves, so it printed raw; renamed to the resolved name (`{{late_fee_amount}}`). Not a scrub change; no propagation owed.

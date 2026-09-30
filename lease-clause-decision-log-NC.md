@@ -423,7 +423,32 @@ Not a re-audit; nothing else in this state was reviewed.
 
 ## Three-bucket scrub, 2026-09-29 (checklist instruction 66)
 
-Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Full verdict list: `lease-clause-scrub-verdicts.md`. Clauses moved to education are switched off, not deleted; their content is unchanged in the education rows (most were already covered by this state's own education rows), and checklist mentions of them now point to those rows. §5a.1: only this state's own rows changed; no propagation owed.
+Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Every row's verdict is in the table at the end of this section. Clauses moved to education are switched off, not deleted; their content is unchanged in the education rows (most were already covered by this state's own education rows), and checklist mentions of them now point to those rows. §5a.1: only this state's own rows changed; no propagation owed.
 
 - **Moved to education:** `dv-lease-termination-nc` → `edu-dv-lease-termination-nc`; `security-deposit-cap-nc` and `security-deposit-return-nc` → the existing `edu-security-deposit-rules-nc`.
 - **Trimmed:** `late-fee-limit-nc` keeps the fee and its five-day trigger (rules in `edu-late-and-eviction-fees-nc`).
+
+### Verdict for every lease clause
+
+All 18 lease clauses written for this state alone. Shared clauses tagged with this state all stayed (generic contract terms); each row's basis is in `lease-clauses.csv`'s `lease_clause_basis` column. Basis values: `REQUIRED_DISCLOSURE: <statute>`, `CONSTRAINED_TERM`, `SERVES_LANDLORD`.
+
+| Row | Verdict | Basis | Note |
+|---|---|---|---|
+| `dv-lease-termination-nc` | Education | — | tenant right |
+| `security-deposit-cap-nc` | Education | — | cap |
+| `security-deposit-return-nc` | Education | — | landlord duty |
+| `late-fee-limit-nc` | Split | CONSTRAINED_TERM | keep fee; cap and rules to edu |
+| `assistance-animal-accommodation-nc` | Keep | SERVES_LANDLORD |  |
+| `casualty-termination-nc` | Keep | SERVES_LANDLORD | contract choice |
+| `criminal-activity-nc` | Keep | SERVES_LANDLORD |  |
+| `emergency-contact-nc` | Keep | SERVES_LANDLORD |  |
+| `eviction-fees-nc` | Keep | SERVES_LANDLORD | opt-in |
+| `holdover-rate-nc` | Keep | CONSTRAINED_TERM |  |
+| `partial-payment-nonwaiver-nc` | Keep | SERVES_LANDLORD | opt-in |
+| `periodic-tenancy-notice-nc` | Keep | CONSTRAINED_TERM |  |
+| `pet-policy-nc` | Keep | SERVES_LANDLORD |  |
+| `renters-insurance-nc` | Keep | SERVES_LANDLORD |  |
+| `security-deposit-holding-nc` | Keep | REQUIRED_DISCLOSURE: N.C. Gen. Stat. § 42-50 |  |
+| `security-deposit-use-nc` | Keep | SERVES_LANDLORD |  |
+| `smoke-co-alarms-nc` | Keep | SERVES_LANDLORD |  |
+| `utility-billing-nc` | Keep | SERVES_LANDLORD | opt-in |

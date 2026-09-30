@@ -917,9 +917,43 @@ Not a re-audit; nothing else in this state was reviewed.
 
 ## Three-bucket scrub, 2026-09-29 (checklist instruction 66)
 
-Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Full verdict list: `lease-clause-scrub-verdicts.md`. Clauses moved to education are switched off, not deleted; their content is unchanged in the education rows, and checklist mentions of them now point to those rows. Statutory limits that stay useful when filling in a clause are now bracket prompts for the landlord, not lease text.
+Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Every row's verdict is in the table at the end of this section. Clauses moved to education are switched off, not deleted; their content is unchanged in the education rows, and checklist mentions of them now point to those rows. Statutory limits that stay useful when filling in a clause are now bracket prompts for the landlord, not lease text.
 
 - **Moved to education:** `possession-delay-nv` → `edu-possession-delay-nv`; `infirmity-death-termination-nv` → `edu-infirmity-death-termination-nv`; `property-tax-rent-disclosure-nv` → `edu-property-tax-rent-disclosure-nv`; `dv-lease-termination-nv` → opening of `edu-dv-termination-documentation-nv`.
 - **Trimmed:** `late-fee-nv` (fee and grace period kept; rules → `edu-late-fee-rules-nv`), `security-deposit-cap-nv` (now only the surety-bond option), `security-deposit-return-nv` (nonrefundable cleaning charge and forwarding-address request), `rent-increase-notice-nv` (no mid-term increase; notice rule → `edu-rent-increase-notice-nv`), `casualty-termination-nv` (landlord's termination right; tenant options → `edu-casualty-termination-nv`). Deposit rules were already in `edu-security-deposit-rules-nv`.
 - **Optional (pattern 3):** `foreclosure-disclosure-nv`, with `edu-foreclosure-disclosure-nv`.
 - **§5a.1:** only NV-only rows changed; no propagation owed.
+
+### Verdict for every lease clause
+
+All 27 lease clauses written for this state alone. Shared clauses tagged with this state all stayed (generic contract terms); each row's basis is in `lease-clauses.csv`'s `lease_clause_basis` column. Basis values: `REQUIRED_DISCLOSURE: <statute>`, `CONSTRAINED_TERM`, `SERVES_LANDLORD`.
+
+| Row | Verdict | Basis | Note |
+|---|---|---|---|
+| `dv-lease-termination-nv` | Education | — | tenant right |
+| `infirmity-death-termination-nv` | Education | — | tenant right |
+| `possession-delay-nv` | Education | — | tenant remedies |
+| `property-tax-rent-disclosure-nv` | Education | — | annual landlord statement duty |
+| `casualty-termination-nv` | Split | SERVES_LANDLORD | keep landlord termination right; tenant rights to edu |
+| `late-fee-nv` | Split | CONSTRAINED_TERM | REQUIRED_DISCLOSURE: NRS 118A.200(3) | keep fee; 3-day floor and 5% cap to edu |
+| `rent-increase-notice-nv` | Split | SERVES_LANDLORD | keep no-increase-during-term; notice period to edu |
+| `security-deposit-cap-nv` | Split | SERVES_LANDLORD | keep surety-bond option; cap to edu |
+| `security-deposit-return-nv` | Split | SERVES_LANDLORD | keep nonrefundable cleaning charge statement and forwarding address; rest edu |
+| `foreclosure-disclosure-nv` | Optional + education | SERVES_LANDLORD | written disclosure before entering lease |
+| `abandoned-property-nv` | Keep | SERVES_LANDLORD |  |
+| `children-occupancy-nv` | Keep | REQUIRED_DISCLOSURE: NRS 118A.200(3)(c) |  |
+| `designated-repairer-nv` | Keep | SERVES_LANDLORD | opt-in |
+| `flag-display-nv` | Keep | REQUIRED_DISCLOSURE: NRS 118A.200(3)(n) |  |
+| `move-in-inventory-nv` | Keep | REQUIRED_DISCLOSURE: NRS 118A.200(3)(k) |  |
+| `nuisance-reporting-nv` | Keep | REQUIRED_DISCLOSURE: NRS 118A.200(3)(l)-(m) |  |
+| `owner-identity-disclosure-nv` | Keep | REQUIRED_DISCLOSURE: NRS 118A.260 |  |
+| `payment-methods-nv` | Keep | CONSTRAINED_TERM | REQUIRED_DISCLOSURE: NRS 118A.200 |  |
+| `pet-policy-nv` | Keep | SERVES_LANDLORD | REQUIRED_DISCLOSURE: NRS 118A.200(3)(c) |  |
+| `religious-display-nv` | Keep | REQUIRED_DISCLOSURE: NRS 118A.200(3)(o) |  |
+| `rent-single-figure-nv` | Keep | REQUIRED_DISCLOSURE: NRS 118A.200 |  |
+| `required-fees-nv` | Keep | REQUIRED_DISCLOSURE: NRS 118A.200(3) |  |
+| `returned-payments-nv` | Keep | CONSTRAINED_TERM | REQUIRED_DISCLOSURE: NRS 118A.200(3)(g) |  |
+| `sfr-occupancy-disclosure-nv` | Keep | REQUIRED_DISCLOSURE: NRS 118A.200(4) |  |
+| `smoke-detector-duty-nv` | Keep | SERVES_LANDLORD |  |
+| `tenant-maintenance-nv` | Keep | SERVES_LANDLORD |  |
+| `tenant-repair-agreement-nv` | Keep | SERVES_LANDLORD | opt-in |

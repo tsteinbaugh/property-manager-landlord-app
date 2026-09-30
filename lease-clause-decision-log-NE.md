@@ -1098,8 +1098,34 @@ Not a re-audit; nothing else in this state was reviewed.
 
 ## Three-bucket scrub, 2026-09-29 (checklist instruction 66)
 
-Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Full verdict list: `lease-clause-scrub-verdicts.md`. Clauses moved to education are switched off, not deleted; their text and citations are unchanged in the new rows.
+Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Every row's verdict is in the table at the end of this section. Clauses moved to education are switched off, not deleted; their text and citations are unchanged in the new rows.
 
 - **Moved to education:** `security-deposit-return-ne` → `edu-security-deposit-return-ne`; `dv-lease-release-ne`, `dv-perpetrator-removal-ne` and `dv-lockchange-ne` → one row, `edu-dv-tenant-rights-ne`; `habitability-baseline-ne` → `edu-habitability-baseline-ne`; `possession-delay-ne` → `edu-possession-delay-ne`; `casualty-termination-ne` → opening sentence of the existing `edu-casualty-damage-ne`.
 - The switched-off habitability and possession-delay rows superseded shared clauses; those are not brought back.
 - **§5a.1:** only NE-only rows changed; no propagation owed.
+
+### Verdict for every lease clause
+
+All 19 lease clauses written for this state alone. Shared clauses tagged with this state all stayed (generic contract terms); each row's basis is in `lease-clauses.csv`'s `lease_clause_basis` column. Basis values: `REQUIRED_DISCLOSURE: <statute>`, `CONSTRAINED_TERM`, `SERVES_LANDLORD`.
+
+| Row | Verdict | Basis | Note |
+|---|---|---|---|
+| `casualty-termination-ne` | Education | — | tenant right |
+| `dv-lease-release-ne` | Education | — | tenant right |
+| `dv-lockchange-ne` | Education | — | tenant right |
+| `dv-perpetrator-removal-ne` | Education | — | tenant right |
+| `habitability-baseline-ne` | Education | — | landlord duty |
+| `possession-delay-ne` | Education | — | tenant remedies incl 3x |
+| `security-deposit-return-ne` | Education | — | landlord duty |
+| `abandoned-property-ne` | Keep | SERVES_LANDLORD |  |
+| `assistance-animal-accommodation-ne` | Keep | SERVES_LANDLORD |  |
+| `carbon-monoxide-alarm-duty-ne` | Keep | SERVES_LANDLORD | tenant maintenance allocation |
+| `early-termination-ne` | Keep | SERVES_LANDLORD |  |
+| `extended-absence-notice-ne` | Keep | SERVES_LANDLORD |  |
+| `landlord-disclosure-ne` | Keep | REQUIRED_DISCLOSURE: Neb. Rev. Stat. § 76-1417 |  |
+| `parking-ne` | Keep | SERVES_LANDLORD |  |
+| `pet-policy-ne` | Keep | SERVES_LANDLORD |  |
+| `smoke-detector-duty-ne` | Keep | SERVES_LANDLORD |  |
+| `storage-space-ne` | Keep | SERVES_LANDLORD |  |
+| `tenant-duties-ne` | Keep | SERVES_LANDLORD |  |
+| `tenants-property-insurance-ne` | Keep | SERVES_LANDLORD |  |

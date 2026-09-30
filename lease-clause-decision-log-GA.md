@@ -435,8 +435,27 @@ Not a re-audit; nothing else in this state was reviewed.
 
 ## Three-bucket scrub, 2026-09-29 (checklist instruction 66)
 
-Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Full verdict list: `lease-clause-scrub-verdicts.md`. Clauses moved to education are switched off, not deleted; their content is unchanged in the education rows (most were already covered by this state's own education rows), and checklist mentions of them now point to those rows. §5a.1: only this state's own rows changed; no propagation owed.
+Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Every row's verdict is in the table at the end of this section. Clauses moved to education are switched off, not deleted; their content is unchanged in the education rows (most were already covered by this state's own education rows), and checklist mentions of them now point to those rows. §5a.1: only this state's own rows changed; no propagation owed.
 
 - **Moved to education:** `dv-lease-termination-ga` → `edu-dv-lease-termination-ga`; `security-deposit-cap-ga` → the existing `edu-security-deposit-rules-ga`.
 - **Trimmed:** `security-deposit-return-ga` keeps the sign-or-dissent duty, the permitted deductions and the forwarding-address request.
 - **Optional (pattern 3):** `flood-disclosure-ga`, with `edu-flood-disclosure-ga`.
+
+### Verdict for every lease clause
+
+All 12 lease clauses written for this state alone. Shared clauses tagged with this state all stayed (generic contract terms); each row's basis is in `lease-clauses.csv`'s `lease_clause_basis` column. Basis values: `REQUIRED_DISCLOSURE: <statute>`, `CONSTRAINED_TERM`, `SERVES_LANDLORD`.
+
+| Row | Verdict | Basis | Note |
+|---|---|---|---|
+| `dv-lease-termination-ga` | Education | — | tenant right |
+| `security-deposit-cap-ga` | Education | — | cap |
+| `security-deposit-return-ga` | Split | SERVES_LANDLORD | keep sign-or-dissent duty; rest edu |
+| `flood-disclosure-ga` | Optional + education | SERVES_LANDLORD | separate notice before signing |
+| `assistance-animal-accommodation-ga` | Keep | SERVES_LANDLORD |  |
+| `casualty-termination-ga` | Keep | SERVES_LANDLORD | contract choice |
+| `holdover-rate-ga` | Keep | CONSTRAINED_TERM |  |
+| `landlord-disclosure-ga` | Keep | REQUIRED_DISCLOSURE: O.C.G.A. § 44-7-3 |  |
+| `move-in-damage-list-ga` | Keep | SERVES_LANDLORD | signed list is conclusive |
+| `rent-escalation-ga` | Keep | SERVES_LANDLORD | opt-in |
+| `security-deposit-escrow-ga` | Keep | REQUIRED_DISCLOSURE: O.C.G.A. § 44-7-31 |  |
+| `serious-misconduct-prohibition-ga` | Keep | SERVES_LANDLORD |  |

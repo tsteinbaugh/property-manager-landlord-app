@@ -1384,7 +1384,7 @@ Not a re-audit; nothing else in this state was reviewed.
 
 ## Three-bucket scrub, 2026-09-29 (checklist instruction 66)
 
-Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Full verdict list: `lease-clause-scrub-verdicts.md`. Colorado changed most of any state, because this log's own §7 test was never applied back to the rows it produced.
+Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Every row's verdict is in the table at the end of this section. Colorado changed most of any state, because this log's own §7 test was never applied back to the rows it produced.
 
 - **Switched off, content moved to education (text and citations unchanged):** `late-fee-limit-co` → `edu-late-fee-limit-co`; `nsf-fee-limit-co` → `edu-returned-payment-fee-co`; `dv-stalking-termination-co` → `edu-dv-lease-termination-co`; `ev-charging-rights-co` → `edu-ev-charging-rights-co`; `subsidy-late-fee-co` → `edu-subsidy-late-fee-co`; `subsidy-habitability-proration-co` → `edu-subsidy-habitability-proration-co`; `habitability-timeline-co` → merged into `edu-habitability-operational-duties-co`. Switched off, not deleted, for a possible comprehensive-lease option.
 - **Trimmed to what the lease needs:** `utility-submetering-disclosure-co` (method disclosure kept; fee is the landlord's stated choice), `security-deposit-return-co` (30-to-60-day return-period choice kept), `habitability-notice-co` (written-notice channel kept), `rent-increase-notice-co` (notice period kept; the once-a-year cap is in `edu-rent-increase-frequency-co`).
@@ -1393,3 +1393,33 @@ Not a re-audit: each row was asked one question from its own text and notes (doe
 - **Source of income:** `source-of-income-statement-co` now tracks the statement § 38-12-801(2.5)(a) prescribes (the paraphrase had dropped "non-exempt"). Read from a host copy of the official 2024 C.R.S. It stays optional because of the (2.5)(b) small-landlord exemption.
 - **§5a.1:** only CO-only rows changed; no propagation owed.
 - **Legal watch:** `edu-bed-bugs-co` cites § 38-12-1004, which Colorado's watch has never monitored. Run Colorado's `seed-baseline` after the October 1 LegiScan reset and before its October 5 run.
+
+### Verdict for every lease clause
+
+All 23 lease clauses written for this state alone. Shared clauses tagged with this state all stayed (generic contract terms); each row's basis is in `lease-clauses.csv`'s `lease_clause_basis` column. Basis values: `REQUIRED_DISCLOSURE: <statute>`, `CONSTRAINED_TERM`, `SERVES_LANDLORD`.
+
+| Row | Verdict | Basis | Note |
+|---|---|---|---|
+| `dv-stalking-termination-co` | Education | — | tenant right §38-12-402 |
+| `ev-charging-rights-co` | Education | — | tenant right §38-12-601 |
+| `habitability-timeline-co` | Education | — | restates §38-12-503 duties |
+| `late-fee-limit-co` | Education | — | cap + 7-day floor restated; 180-day notice is a landlord duty; §38-12-105(1)(c) in-lease disclosure met by late-fee |
+| `nsf-fee-limit-co` | Education | — | returned-payments sets the fee; not-Rent sentence restates law |
+| `subsidy-habitability-proration-co` | Education | — | subsidy protection |
+| `subsidy-late-fee-co` | Education | — | subsidy protection |
+| `habitability-notice-co` | Split | SERVES_LANDLORD | keep written-notice channel; restated warranty/retaliation to edu |
+| `landlords-access-co` | Split | SERVES_LANDLORD | keep access right + 24h written notice; 48h bed-bug rule to edu |
+| `rent-increase-notice-co` | Split | CONSTRAINED_TERM | keep notice period; 12-month cap to edu |
+| `security-deposit-return-co` | Split | SERVES_LANDLORD | keep 30/60-day lease choice; itemization & wear-tear to edu |
+| `utility-submetering-disclosure-co` | Split | REQUIRED_DISCLOSURE: C.R.S. § 6-1-737(4.5)(d) | method must be in lease; fee cap -> landlord chosen fee |
+| `month-to-month-notice-co-covered` | Notice-period rewrite | CONSTRAINED_TERM | tiers restated; for-cause restriction to edu |
+| `month-to-month-notice-co-exempt` | Notice-period rewrite | SERVES_LANDLORD | tiers are statutory floors; keep exemption statement |
+| `bed-bug-disclosure-co` | Optional + education | SERVES_LANDLORD | owed on request to prospective tenant |
+| `assistance-animal-accommodation-co` | Keep | SERVES_LANDLORD | documentation procedure, damage duty, required warning |
+| `environmental-event-termination-co` | Keep | SERVES_LANDLORD | opt-in right only if lease permits |
+| `ev-charging-end-of-tenancy-co` | Keep | SERVES_LANDLORD | weak: adds tenant damage duty |
+| `ev-charging-requirements-co` | Keep | SERVES_LANDLORD |  |
+| `ev-charging-shared-area-co` | Keep | SERVES_LANDLORD |  |
+| `radon-disclosure-co` | Keep | REQUIRED_DISCLOSURE: C.R.S. § 38-12-803 |  |
+| `source-of-income-statement-co` | Keep | REQUIRED_DISCLOSURE: C.R.S. § 38-12-801(2.5) | optional (small-landlord exemption); track statutory wording |
+| `utility-allowance-cap-co` | Keep | CONSTRAINED_TERM |  |

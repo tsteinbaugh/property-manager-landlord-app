@@ -1271,9 +1271,28 @@ Not a re-audit; nothing else in this state was reviewed.
 
 ## Three-bucket scrub, 2026-09-29 (checklist instruction 66)
 
-Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Full verdict list: `lease-clause-scrub-verdicts.md`. Clauses moved to education are switched off, not deleted; their text and citations are unchanged in the education rows. Checklist mentions of switched-off rows now point to the education row.
+Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Every row's verdict is in the table at the end of this section. Clauses moved to education are switched off, not deleted; their text and citations are unchanged in the education rows. Checklist mentions of switched-off rows now point to the education row.
 
 - **Moved to education:** `security-deposit-return-sd` → opening paragraph of `edu-security-deposit-itemized-accounting-sd`; `dv-lease-release-sd` → `edu-dv-lease-release-sd`; `edu-tenant-termination-causes-sd` converted in place from a lease clause to education.
 - **Trimmed:** `landlord-maintenance-sd` keeps only the tenant's written repair notice (duties are in the existing `edu-habitability-duty-sd`).
 - **Optional (pattern 3):** `meth-disclosure-sd` now records the disclosure, with `edu-meth-disclosure-sd`.
 - **§5a.1:** only SD-only rows changed; no propagation owed.
+
+### Verdict for every lease clause
+
+All 12 lease clauses written for this state alone. Shared clauses tagged with this state all stayed (generic contract terms); each row's basis is in `lease-clauses.csv`'s `lease_clause_basis` column. Basis values: `REQUIRED_DISCLOSURE: <statute>`, `CONSTRAINED_TERM`, `SERVES_LANDLORD`.
+
+| Row | Verdict | Basis | Note |
+|---|---|---|---|
+| `dv-lease-release-sd` | Education | — | tenant right |
+| `edu-tenant-termination-causes-sd` | Education | — | tenant right (already edu- id) |
+| `security-deposit-return-sd` | Education | — | landlord duty + forfeiture |
+| `landlord-maintenance-sd` | Split | SERVES_LANDLORD | keep tenant repair-notice duty; rest edu |
+| `meth-disclosure-sd` | Optional + education | SERVES_LANDLORD | disclosure owed before tenant is obligated |
+| `abandoned-property-sd` | Keep | SERVES_LANDLORD |  |
+| `assistance-animal-accommodation-sd` | Keep | SERVES_LANDLORD | $1,000 false-claim fee |
+| `default-by-tenant-sd` | Keep | SERVES_LANDLORD | SDCL 21-16-1(7): lease must specify violation terminates |
+| `fire-casualty-rent-abatement-sd` | Keep | SERVES_LANDLORD | contract choice |
+| `holdover-sd` | Keep | SERVES_LANDLORD | weak: restates renewal presumption |
+| `landlords-access-sd` | Keep | CONSTRAINED_TERM |  |
+| `pet-policy-sd` | Keep | SERVES_LANDLORD |  |

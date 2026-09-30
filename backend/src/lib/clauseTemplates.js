@@ -29,7 +29,7 @@
 // LEASE_CLAUSE rows (18 switched off, one new security-deposit-use-ca).
 //
 // **2026-09-29 three-bucket scrub, MN/ND/SD/OH:** 491 -> 473 shipped
-// LEASE_CLAUSE rows; see lease-clause-scrub-verdicts.md.
+// LEASE_CLAUSE rows; verdicts in each state's decision log.
 //
 // **2026-09-29 three-bucket scrub, Wyoming/Kansas/Nebraska:** 506 -> 491
 // shipped LEASE_CLAUSE rows (WY 3, KS 5, NE 7 switched off; content moved
@@ -37,8 +37,8 @@
 //
 // **2026-09-29 three-bucket scrub, Colorado:** 513 -> 506 shipped LEASE_CLAUSE
 // rows. Seven CO clauses that restated tenant rights or landlord duties were
-// switched off and moved to education; several others trimmed. See
-// lease-clause-scrub-verdicts.md.
+// switched off and moved to education; several others trimmed. Verdicts are in each
+// state's decision log.
 //
 // **2026-09-29 refresh (Pennsylvania, state #21):** regenerated from the
 // 21-state CSV -- 502 -> 513 shipped LEASE_CLAUSE rows. One shared clause

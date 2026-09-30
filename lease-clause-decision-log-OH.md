@@ -835,9 +835,27 @@ Not a re-audit; nothing else in this state was reviewed.
 
 ## Three-bucket scrub, 2026-09-29 (checklist instruction 66)
 
-Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Full verdict list: `lease-clause-scrub-verdicts.md`. Clauses moved to education are switched off, not deleted; their text and citations are unchanged in the education rows. Checklist mentions of switched-off rows now point to the education row.
+Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Every row's verdict is in the table at the end of this section. Clauses moved to education are switched off, not deleted; their text and citations are unchanged in the education rows. Checklist mentions of switched-off rows now point to the education row.
 
 - **Moved to education:** `security-deposit-interest-oh` → `edu-security-deposit-interest-oh`; `flag-display-oh` → `edu-flag-display-oh`; `landlord-maintenance-oh` → `edu-landlord-duties-oh` (Taylor, 2026-09-29: apply the rule, reversing the 2026-09-28 add); `fire-casualty-termination-oh` → folded into `edu-casualty-and-mitigation-waivable-oh`.
 - **Trimmed:** `security-deposit-return-oh` keeps the tenant's forwarding-address duty and its consequence (return rules → `edu-security-deposit-return-oh`).
 - **Notice period (pattern 2):** `termination-notice-oh` states the landlord's chosen periods (at least 30 and 7 days); statutory rules → `edu-termination-notice-periods-oh`.
 - **§5a.1:** only OH-only rows changed; no propagation owed.
+
+### Verdict for every lease clause
+
+All 11 lease clauses written for this state alone. Shared clauses tagged with this state all stayed (generic contract terms); each row's basis is in `lease-clauses.csv`'s `lease_clause_basis` column. Basis values: `REQUIRED_DISCLOSURE: <statute>`, `CONSTRAINED_TERM`, `SERVES_LANDLORD`.
+
+| Row | Verdict | Basis | Note |
+|---|---|---|---|
+| `fire-casualty-termination-oh` | Education | — | tenant right |
+| `flag-display-oh` | Education | — | tenant right |
+| `landlord-maintenance-oh` | Education | — | landlord-duty restatement; Taylor 2026-09-29: apply the rule (reverses the 2026-09-28 add) |
+| `security-deposit-interest-oh` | Education | — | landlord interest duty |
+| `security-deposit-return-oh` | Split | SERVES_LANDLORD | keep forwarding-address duty and its consequence; timeline to edu |
+| `termination-notice-oh` | Notice-period rewrite | CONSTRAINED_TERM | statutory periods restated |
+| `assistance-animal-accommodation-oh` | Keep | SERVES_LANDLORD |  |
+| `holdover-oh` | Keep | CONSTRAINED_TERM | stipulated rate |
+| `landlord-identity-oh` | Keep | REQUIRED_DISCLOSURE: R.C. 5321.18 |  |
+| `repair-escrow-exemption-notice-oh` | Keep | REQUIRED_DISCLOSURE: R.C. 5321.07(C) | exemption applies only if landlord gives notice |
+| `sex-offender-occupancy-oh` | Keep | SERVES_LANDLORD |  |

@@ -921,8 +921,29 @@ Not a re-audit; nothing else in this state was reviewed.
 
 ## Three-bucket scrub, 2026-09-29 (checklist instruction 66)
 
-Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Full verdict list: `lease-clause-scrub-verdicts.md`. Clauses moved to education are switched off, not deleted; their text and citations are unchanged in the new rows.
+Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Every row's verdict is in the table at the end of this section. Clauses moved to education are switched off, not deleted; their text and citations are unchanged in the new rows.
 
 - **Moved to education:** `security-deposit-return-ks` → `edu-security-deposit-return-ks`; `habitability-baseline-ks` → `edu-habitability-baseline-ks`; `dv-housing-protections-ks` → `edu-dv-housing-protections-ks`; `possession-delay-ks` → `edu-possession-delay-ks`; `fire-casualty-termination-ks` → `edu-casualty-termination-ks`.
 - The switched-off habitability and possession-delay rows superseded shared clauses (`landlord-maintenance`, `possession-delay`); those are not brought back.
 - **§5a.1:** only KS-only rows changed; no propagation owed.
+
+### Verdict for every lease clause
+
+All 14 lease clauses written for this state alone. Shared clauses tagged with this state all stayed (generic contract terms); each row's basis is in `lease-clauses.csv`'s `lease_clause_basis` column. Basis values: `REQUIRED_DISCLOSURE: <statute>`, `CONSTRAINED_TERM`, `SERVES_LANDLORD`.
+
+| Row | Verdict | Basis | Note |
+|---|---|---|---|
+| `dv-housing-protections-ks` | Education | — | tenant right |
+| `fire-casualty-termination-ks` | Education | — | tenant right |
+| `habitability-baseline-ks` | Education | — | landlord duty |
+| `possession-delay-ks` | Education | — | tenant remedies incl 1.5x |
+| `security-deposit-return-ks` | Education | — | landlord duty |
+| `abandoned-property-ks` | Keep | SERVES_LANDLORD |  |
+| `identity-change-liability-ks` | Keep | SERVES_LANDLORD |  |
+| `landlord-disclosure-ks` | Keep | REQUIRED_DISCLOSURE: K.S.A. 58-2551 |  |
+| `late-fee-ks` | Keep | CONSTRAINED_TERM | SERVES_LANDLORD |  |
+| `move-in-inventory-ks` | Keep | SERVES_LANDLORD | joint inventory documents condition for deductions |
+| `pet-policy-ks` | Keep | SERVES_LANDLORD |  |
+| `security-deposit-use-ks` | Keep | SERVES_LANDLORD | bars applying deposit to last month |
+| `smoke-detectors-ks` | Keep | SERVES_LANDLORD | tenant maintenance duty |
+| `tenant-duties-ks` | Keep | SERVES_LANDLORD |  |

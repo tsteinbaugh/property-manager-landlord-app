@@ -1874,9 +1874,43 @@ Not a re-audit; nothing else in this state was reviewed.
 
 ## Three-bucket scrub, 2026-09-29 (checklist instruction 66)
 
-Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Full verdict list: `lease-clause-scrub-verdicts.md`. Clauses moved to education are switched off, not deleted; their text and citations are unchanged in the education rows. Checklist mentions of switched-off rows now point to the education row.
+Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Every row's verdict is in the table at the end of this section. Clauses moved to education are switched off, not deleted; their text and citations are unchanged in the education rows. Checklist mentions of switched-off rows now point to the education row.
 
 - **Moved to education:** `security-deposit-return-mn` → `edu-security-deposit-return-mn`; `possession-delay-mn-new-construction` → `edu-new-construction-delay-mn`; `dv-lease-termination-mn` → `edu-dv-lease-termination-mn`; `fire-casualty-termination-mn` → `edu-casualty-termination-mn`; `cash-rent-receipt-mn` → `edu-cash-rent-receipt-mn`; `termination-infirmity-mn` → folded into `edu-infirmity-termination-accessible-unit-mn`; `prelease-deposit-application-mn` → already covered by `edu-prelease-deposit-mn`.
 - **Trimmed:** `utility-apportionment-mn` keeps the billing terms and the estimated-final-bill right (limits → `edu-utility-apportionment-limits-mn`); `habitability-baseline-mn` keeps only the tenant's written repair notice (duties → `edu-habitability-baseline-mn`).
 - **Optional (pattern 3):** `foreclosure-disclosure-mn` (with `edu-foreclosure-disclosure-mn`) and `initial-final-inspection-mn` (with `edu-inspection-notice-penalty-mn`).
 - **§5a.1:** only MN-only rows changed; no propagation owed.
+
+### Verdict for every lease clause
+
+All 27 lease clauses written for this state alone. Shared clauses tagged with this state all stayed (generic contract terms); each row's basis is in `lease-clauses.csv`'s `lease_clause_basis` column. Basis values: `REQUIRED_DISCLOSURE: <statute>`, `CONSTRAINED_TERM`, `SERVES_LANDLORD`.
+
+| Row | Verdict | Basis | Note |
+|---|---|---|---|
+| `cash-rent-receipt-mn` | Education | — | landlord duty |
+| `dv-lease-termination-mn` | Education | — | tenant right |
+| `fire-casualty-termination-mn` | Education | — | tenant right |
+| `possession-delay-mn-new-construction` | Education | — | landlord duty / tenant options |
+| `prelease-deposit-application-mn` | Education | — | landlord duty |
+| `security-deposit-return-mn` | Education | — | landlord duty |
+| `termination-infirmity-mn` | Education | — | tenant right |
+| `habitability-baseline-mn` | Split | SERVES_LANDLORD | keep tenant written repair notice; rest edu |
+| `utility-apportionment-mn` | Split | SERVES_LANDLORD | keep estimated-final-bill right and method; caps/no-disconnect to edu |
+| `foreclosure-disclosure-mn` | Optional + education | SERVES_LANDLORD | written notice owed before entering lease |
+| `initial-final-inspection-mn` | Optional + education | SERVES_LANDLORD | inspection-option notice owed at commencement |
+| `abandoned-property-mn` | Keep | SERVES_LANDLORD |  |
+| `assistance-animal-accommodation-mn` | Keep | SERVES_LANDLORD |  |
+| `carbon-monoxide-alarm-duty-mn` | Keep | SERVES_LANDLORD |  |
+| `cold-weather-vacate-notice-mn` | Keep | SERVES_LANDLORD |  |
+| `deposit-last-month-rent-mn` | Keep | SERVES_LANDLORD |  |
+| `landlord-disclosure-mn` | Keep | REQUIRED_DISCLOSURE: Minn. Stat. § 504B.181 |  |
+| `landlords-access-mn` | Keep | CONSTRAINED_TERM | SERVES_LANDLORD |  |
+| `lease-copy-receipt-mn` | Keep | SERVES_LANDLORD | statute blesses in-lease acknowledgment |
+| `parking-mn` | Keep | SERVES_LANDLORD |  |
+| `pet-policy-mn` | Keep | SERVES_LANDLORD | REQUIRED_DISCLOSURE: Minn. Stat. § 504B.113 subd. 3(b) |  |
+| `services-utilities-provided-mn` | Keep | SERVES_LANDLORD |  |
+| `smoke-detector-duty-mn` | Keep | SERVES_LANDLORD |  |
+| `storage-space-mn` | Keep | SERVES_LANDLORD |  |
+| `tenants-property-insurance-mn` | Keep | SERVES_LANDLORD |  |
+| `termination-death-of-tenant-mn` | Keep | SERVES_LANDLORD | weak: includes landlord termination right |
+| `utility-billing-schedule-mn` | Keep | REQUIRED_DISCLOSURE: Minn. Stat. § 504B.215 |  |

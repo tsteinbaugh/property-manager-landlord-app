@@ -695,6 +695,24 @@ Run on the same corpus for checklist backfill rows the battery did not cover (th
 
 ## Three-bucket scrub, 2026-09-29 (checklist instruction 66)
 
-Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Full verdict list: `lease-clause-scrub-verdicts.md`. Clauses moved to education are switched off, not deleted; their content is unchanged in the education rows (most were already covered by this state's own education rows), and checklist mentions of them now point to those rows. §5a.1: only this state's own rows changed; no propagation owed.
+Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Every row's verdict is in the table at the end of this section. Clauses moved to education are switched off, not deleted; their content is unchanged in the education rows (most were already covered by this state's own education rows), and checklist mentions of them now point to those rows. §5a.1: only this state's own rows changed; no propagation owed.
 
 - **Trimmed:** `security-deposit-return-pa` (withholding right and new-address duty; the forfeiture and double-damages sentences moved out, as Taylor's PA decision anticipated) and `security-deposit-holding-pa` (the required notice of where the deposit is held). Both rules sets are in the existing `edu-security-deposit-rules-pa`.
+
+### Verdict for every lease clause
+
+All 11 lease clauses written for this state alone. Shared clauses tagged with this state all stayed (generic contract terms); each row's basis is in `lease-clauses.csv`'s `lease_clause_basis` column. Basis values: `REQUIRED_DISCLOSURE: <statute>`, `CONSTRAINED_TERM`, `SERVES_LANDLORD`.
+
+| Row | Verdict | Basis | Note |
+|---|---|---|---|
+| `security-deposit-holding-pa` | Split | REQUIRED_DISCLOSURE: 68 P.S. § 250.511b(a) | keep institution notice; interest duty to edu |
+| `security-deposit-return-pa` | Split | SERVES_LANDLORD | keep forwarding-address duty; forfeiture and double damages to edu |
+| `abandoned-property-pa` | Keep | SERVES_LANDLORD | lease controls over statute |
+| `assistance-animal-accommodation-pa` | Keep | SERVES_LANDLORD |  |
+| `carbon-monoxide-alarm-duty-pa` | Keep | SERVES_LANDLORD | weak: tenant replacement allocation |
+| `casualty-termination-pa` | Keep | SERVES_LANDLORD | contract choice |
+| `consumer-restrictions-statement-pa` | Keep | REQUIRED_DISCLOSURE: 73 P.S. § 2205(d) |  |
+| `holdover-rate-pa` | Keep | CONSTRAINED_TERM |  |
+| `notice-to-quit-waiver-pa` | Keep | SERVES_LANDLORD | opt-in |
+| `periodic-tenancy-notice-pa` | Keep | CONSTRAINED_TERM |  |
+| `pet-policy-pa` | Keep | SERVES_LANDLORD |  |

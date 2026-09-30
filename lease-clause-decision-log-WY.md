@@ -988,9 +988,29 @@ Not a re-audit; nothing else in this state was reviewed.
 
 ## Three-bucket scrub, 2026-09-29 (checklist instruction 66)
 
-Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Full verdict list: `lease-clause-scrub-verdicts.md`. Clauses moved to education are switched off, not deleted; their text and citations are unchanged in the new rows.
+Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Every row's verdict is in the table at the end of this section. Clauses moved to education are switched off, not deleted; their text and citations are unchanged in the new rows.
 
 - **Moved to education:** `dv-safe-homes-wy` → `edu-safe-homes-rent-defense-wy`; `habitability-baseline-wy` → `edu-habitability-baseline-wy`; `utility-deposit-return-wy` → `edu-utility-deposit-return-wy`.
 - **Trimmed:** `security-deposit-return-wy` keeps only the tenant's forwarding-address duty; the return deadline and itemization moved to `edu-security-deposit-return-wy`.
 - `habitability-baseline-wy` superseded the shared `landlord-maintenance`; that shared clause is not brought back, so a Wyoming lease has no landlord-repair clause and the duty lives in education.
 - **§5a.1:** only WY-only rows changed; no propagation owed.
+
+### Verdict for every lease clause
+
+All 13 lease clauses written for this state alone. Shared clauses tagged with this state all stayed (generic contract terms); each row's basis is in `lease-clauses.csv`'s `lease_clause_basis` column. Basis values: `REQUIRED_DISCLOSURE: <statute>`, `CONSTRAINED_TERM`, `SERVES_LANDLORD`.
+
+| Row | Verdict | Basis | Note |
+|---|---|---|---|
+| `dv-safe-homes-wy` | Education | — | tenant defense |
+| `habitability-baseline-wy` | Education | — | landlord duty |
+| `utility-deposit-return-wy` | Education | — | landlord duty |
+| `security-deposit-return-wy` | Split | SERVES_LANDLORD | keep tenant forwarding-address duty; timeline to edu |
+| `abandoned-property-wy` | Keep | SERVES_LANDLORD | landlord disposal right |
+| `agent-capacity-designation-wy` | Keep | SERVES_LANDLORD | opt-out only works in the rental agreement |
+| `assistance-animal-accommodation-wy` | Keep | SERVES_LANDLORD |  |
+| `casualty-termination-wy` | Keep | SERVES_LANDLORD | contract choice, no WY statute |
+| `nonrefundable-deposit-notice-wy` | Keep | REQUIRED_DISCLOSURE: Wyo. Stat. § 1-21-1207 |  |
+| `periodic-tenancy-notice-wy` | Keep | CONSTRAINED_TERM | no WY statutory period; lease supplies it |
+| `prohibited-acts-renter-wy` | Keep | SERVES_LANDLORD |  |
+| `renter-duties-wy` | Keep | SERVES_LANDLORD |  |
+| `unpaid-damages-interest-wy` | Keep | SERVES_LANDLORD | landlord right |

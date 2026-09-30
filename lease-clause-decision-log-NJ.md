@@ -526,8 +526,38 @@ Not a re-audit; nothing else in this state was reviewed.
 
 ## Three-bucket scrub, 2026-09-29 (checklist instruction 66)
 
-Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Full verdict list: `lease-clause-scrub-verdicts.md`. Clauses moved to education are switched off, not deleted; their content is unchanged in the education rows, and checklist mentions of them now point to those rows. Statutory limits that stay useful when filling in a clause are now bracket prompts for the landlord, not lease text.
+Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Every row's verdict is in the table at the end of this section. Clauses moved to education are switched off, not deleted; their content is unchanged in the education rows, and checklist mentions of them now point to those rows. Statutory limits that stay useful when filling in a clause are now bracket prompts for the landlord, not lease text.
 
 - **Moved to education:** `security-deposit-interest-nj` → `edu-security-deposit-rules-nj` (which also takes the restated rules from `security-deposit-return-nj`); `casualty-nj` → `edu-casualty-nj`.
 - **Trimmed:** `security-deposit-return-nj` (amount and permitted uses), `late-fee-nj` (senior grace rule → `edu-late-fee-rules-nj`), `acceptable-payment-methods-nj` (duties → `edu-payment-rules-nj`), `holdover-nj` (Anti-Eviction sentence → `edu-anti-eviction-act-nj`), `surrender-end-of-term-nj` (property procedure → `edu-property-left-behind-nj`), `private-well-test-results-nj` (testing duty → `edu-private-well-testing-nj`).
 - **§5a.1:** only NJ-only rows changed; no propagation owed.
+
+### Verdict for every lease clause
+
+All 23 lease clauses written for this state alone. Shared clauses tagged with this state all stayed (generic contract terms); each row's basis is in `lease-clauses.csv`'s `lease_clause_basis` column. Basis values: `REQUIRED_DISCLOSURE: <statute>`, `CONSTRAINED_TERM`, `SERVES_LANDLORD`.
+
+| Row | Verdict | Basis | Note |
+|---|---|---|---|
+| `casualty-nj` | Education | — | restates statutory abatement |
+| `security-deposit-interest-nj` | Education | — | landlord duties |
+| `acceptable-payment-methods-nj` | Split | CONSTRAINED_TERM | keep methods; receipt and post-warrant duties to edu |
+| `holdover-nj` | Split | SERVES_LANDLORD | keep double-rent remedies; Anti-Eviction restatement to edu |
+| `late-fee-nj` | Split | CONSTRAINED_TERM | keep fee; senior grace rule to edu |
+| `private-well-test-results-nj` | Split | SERVES_LANDLORD | keep acknowledgment; testing duty to edu |
+| `security-deposit-return-nj` | Split | SERVES_LANDLORD | keep deposit amount; cap and return duties to edu |
+| `surrender-end-of-term-nj` | Split | SERVES_LANDLORD | keep surrender duties; property procedure to edu |
+| `assistance-animal-accommodation-nj` | Keep | SERVES_LANDLORD |  |
+| `conversion-statement-nj` | Keep | REQUIRED_DISCLOSURE: N.J.S.A. 2A:18-61.9 |  |
+| `default-by-tenant-nj` | Keep | SERVES_LANDLORD |  |
+| `flood-insurance-lease-notice-nj` | Keep | REQUIRED_DISCLOSURE: N.J.S.A. 46:8-50(c) |  |
+| `flood-risk-disclosure-nj` | Keep | REQUIRED_DISCLOSURE: N.J.S.A. 46:8-50 |  |
+| `landlord-registration-disclosure-nj` | Keep | SERVES_LANDLORD | acknowledgment of required delivery |
+| `lead-safe-certification-nj` | Keep | REQUIRED_DISCLOSURE: N.J.S.A. 52:27D-437.16 |  |
+| `pet-policy-nj` | Keep | SERVES_LANDLORD |  |
+| `rent-control-exemption-notice-nj` | Keep | REQUIRED_DISCLOSURE: N.J.S.A. 2A:42-84.1 et seq. |  |
+| `returned-payments-nj` | Keep | CONSTRAINED_TERM |  |
+| `right-of-reentry-nj` | Keep | SERVES_LANDLORD | opt-in |
+| `steam-radiator-cover-notice-nj` | Keep | REQUIRED_DISCLOSURE: N.J.S.A. 52:27D-198.20 |  |
+| `tenant-supplied-heat-nj` | Keep | SERVES_LANDLORD | written agreement shifts heat |
+| `truth-in-renting-statement-nj` | Keep | SERVES_LANDLORD | acknowledgment of required delivery |
+| `window-guard-notice-nj` | Keep | REQUIRED_DISCLOSURE: N.J.A.C. 5:10-27.1 |  |

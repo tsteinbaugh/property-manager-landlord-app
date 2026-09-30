@@ -610,8 +610,56 @@ None open. Decided 2026-09-28 and applied: 1 (two versions only where wording di
 
 ## Three-bucket scrub, 2026-09-29 (checklist instruction 66)
 
-Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Full verdict list: `lease-clause-scrub-verdicts.md`. Clauses moved to education are switched off, not deleted; their content is unchanged in the education rows (most were already covered by this state's own education rows), and checklist mentions of them now point to those rows. §5a.1: only this state's own rows changed; no propagation owed.
+Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Every row's verdict is in the table at the end of this section. Clauses moved to education are switched off, not deleted; their content is unchanged in the education rows (most were already covered by this state's own education rows), and checklist mentions of them now point to those rows. §5a.1: only this state's own rows changed; no propagation owed.
 
 - **Moved to education:** `redemption-rights-va`, `portable-solar-va`, `military-lease-termination-va` (new rows); `security-deposit-return-va`, `renewal-notice-va`, `dv-lease-termination-va`, `foreclosure-notice-va` → existing rows that already state them. In three unit-count choice groups (redemption, renewal notice, plug-in solar), the more-than-4-units member moved to education; the four-or-fewer rows left the groups and are now plain optional clauses (the payment-methods pair is unchanged).
 - **Trimmed:** `late-fee-limit-va`, `returned-payments-va`, `acceptable-payment-methods-va`, `casualty-termination-va` (landlord's termination right with its 2027 conditions; tenant options → `edu-casualty-termination-va`).
 - **Optional (pattern 3):** `meth-disclosure-va`, `defective-drywall-disclosure-va`, `military-air-zone-disclosure-va`, with `edu-pre-signing-disclosures-va`.
+
+### Verdict for every lease clause
+
+All 41 lease clauses written for this state alone. Shared clauses tagged with this state all stayed (generic contract terms); each row's basis is in `lease-clauses.csv`'s `lease_clause_basis` column. Basis values: `REQUIRED_DISCLOSURE: <statute>`, `CONSTRAINED_TERM`, `SERVES_LANDLORD`.
+
+| Row | Verdict | Basis | Note |
+|---|---|---|---|
+| `dv-lease-termination-va` | Education | — | tenant right |
+| `foreclosure-notice-va` | Education | — | landlord duty, tenant remedy |
+| `military-lease-termination-va` | Education | — | tenant right |
+| `portable-solar-va` | Education | — | tenant right |
+| `redemption-rights-va` | Education | — | tenant right |
+| `renewal-notice-va` | Education | — | landlord duty |
+| `security-deposit-return-va` | Education | — | cap and landlord duties |
+| `acceptable-payment-methods-va` | Split | CONSTRAINED_TERM | keep methods; receipt and fee rules to edu |
+| `casualty-termination-va` | Split | SERVES_LANDLORD | keep landlord termination right; tenant rights to edu |
+| `late-fee-limit-va` | Split | CONSTRAINED_TERM | keep fee (must be in lease to be charged); cap to edu |
+| `returned-payments-va` | Split | CONSTRAINED_TERM | keep fee; $50 cap to edu |
+| `defective-drywall-disclosure-va` | Optional + education | SERVES_LANDLORD | disclosure before signing |
+| `meth-disclosure-va` | Optional + education | SERVES_LANDLORD | disclosure before signing |
+| `military-air-zone-disclosure-va` | Optional + education | SERVES_LANDLORD | disclosure before signing |
+| `abandoned-property-va` | Keep | SERVES_LANDLORD |  |
+| `acceptable-payment-methods-va-small` | Keep | SERVES_LANDLORD | opt-in |
+| `assistance-animal-accommodation-va` | Keep | SERVES_LANDLORD |  |
+| `damage-insurance-va` | Keep | SERVES_LANDLORD |  |
+| `electronic-notices-va` | Keep | SERVES_LANDLORD | opt-in |
+| `emergency-contact-va` | Keep | SERVES_LANDLORD |  |
+| `expedited-deposit-disposition-va` | Keep | SERVES_LANDLORD | opt-in |
+| `fee-disclosure-statement-va` | Keep | REQUIRED_DISCLOSURE: Va. Code Ann. § 55.1-1204 |  |
+| `holdover-rate-va` | Keep | CONSTRAINED_TERM | opt-in |
+| `homestead-waiver-va` | Keep | SERVES_LANDLORD | opt-in |
+| `landlord-disclosure-va` | Keep | REQUIRED_DISCLOSURE: Va. Code Ann. § 55.1-1216 |  |
+| `landlords-access-va` | Keep | SERVES_LANDLORD |  |
+| `mold-disclosure-va` | Keep | SERVES_LANDLORD | report deemed correct unless tenant objects |
+| `move-in-inspection-va` | Keep | SERVES_LANDLORD | report deemed correct unless tenant objects |
+| `no-sublet-assign-va` | Keep | SERVES_LANDLORD |  |
+| `nonresident-owner-agent-va` | Keep | REQUIRED_DISCLOSURE: Va. Code Ann. § 55.1-1211 |  |
+| `periodic-tenancy-notice-va` | Keep | CONSTRAINED_TERM | lease may set the period |
+| `pet-policy-va` | Keep | SERVES_LANDLORD |  |
+| `portable-solar-va-small` | Keep | SERVES_LANDLORD | opt-in |
+| `redemption-limit-va-small` | Keep | SERVES_LANDLORD | opt-in |
+| `renewal-notice-va-small` | Keep | CONSTRAINED_TERM |  |
+| `renters-insurance-notice-va` | Keep | REQUIRED_DISCLOSURE: Va. Code Ann. § 55.1-1206(D) |  |
+| `smoke-co-alarms-va` | Keep | SERVES_LANDLORD |  |
+| `tenant-duties-va` | Keep | SERVES_LANDLORD |  |
+| `tenant-repair-agreement-va` | Keep | SERVES_LANDLORD | opt-in |
+| `tenant-rights-statement-va` | Keep | SERVES_LANDLORD | acknowledgment of required statement |
+| `utility-billing-va` | Keep | SERVES_LANDLORD | REQUIRED_DISCLOSURE: Va. Code Ann. § 55.1-1212 | opt-in |

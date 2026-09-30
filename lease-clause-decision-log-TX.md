@@ -977,8 +977,42 @@ Not a re-audit; nothing else in this state was reviewed.
 
 ## Three-bucket scrub, 2026-09-29 (checklist instruction 66)
 
-Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Full verdict list: `lease-clause-scrub-verdicts.md`. Clauses moved to education are switched off, not deleted; their content is unchanged in the education rows, and checklist mentions of them now point to those rows. Statutory limits that stay useful when filling in a clause are now bracket prompts for the landlord, not lease text.
+Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Every row's verdict is in the table at the end of this section. Clauses moved to education are switched off, not deleted; their content is unchanged in the education rows, and checklist mentions of them now point to those rows. Statutory limits that stay useful when filling in a clause are now bracket prompts for the landlord, not lease text.
 
 - **Trimmed:** `late-fee-safe-harbor-tx` (fee and agreed-damages sentence kept), `nsf-fee-limit-tx` (fee kept; $30 cap → `edu-returned-payment-fee-tx`), `utility-submetering-disclosure-tx` (required disclosures kept), `security-deposit-return-tx` (forwarding address and e-mail designation kept). The restated rules were already in `edu-late-fee-rules-tx`, `edu-water-submetering-tx` and `edu-security-deposit-rules-tx`.
 - **Optional (pattern 3):** `emergency-phone-tx`, with `edu-emergency-phone-tx`.
 - **§5a.1:** only TX-only rows changed; no propagation owed.
+
+### Verdict for every lease clause
+
+All 27 lease clauses written for this state alone. Shared clauses tagged with this state all stayed (generic contract terms); each row's basis is in `lease-clauses.csv`'s `lease_clause_basis` column. Basis values: `REQUIRED_DISCLOSURE: <statute>`, `CONSTRAINED_TERM`, `SERVES_LANDLORD`.
+
+| Row | Verdict | Basis | Note |
+|---|---|---|---|
+| `late-fee-safe-harbor-tx` | Split | CONSTRAINED_TERM | keep fee and liquidated-damages agreement; floor, cap and statement duty to edu |
+| `nsf-fee-limit-tx` | Split | CONSTRAINED_TERM | keep fee; $30 cap to edu |
+| `security-deposit-return-tx` | Split | SERVES_LANDLORD | keep forwarding-address and e-mail designation; rest edu |
+| `utility-submetering-disclosure-tx` | Split | REQUIRED_DISCLOSURE: 16 Tex. Admin. Code § 24.279 | keep disclosures; charge limits to edu |
+| `emergency-phone-tx` | Optional + education | SERVES_LANDLORD | statute requires the number, not in the lease |
+| `abandoned-property-tx` | Keep | SERVES_LANDLORD | opt-in definition |
+| `acceptable-payment-methods-tx` | Keep | CONSTRAINED_TERM |  |
+| `casualty-loss-tx` | Keep | SERVES_LANDLORD | weak: mutual termination; insurance-proceeds timing |
+| `deceased-tenant-contact-tx` | Keep | SERVES_LANDLORD |  |
+| `deposit-last-month-rent-tx` | Keep | SERVES_LANDLORD |  |
+| `deposit-surrender-notice-tx` | Keep | SERVES_LANDLORD | opt-in |
+| `early-termination-rights-statement-tx` | Keep | REQUIRED_DISCLOSURE: Tex. Prop. Code §§ 92.016(f), 92.0161(g) |  |
+| `electric-submeter-disclosure-tx` | Keep | SERVES_LANDLORD |  |
+| `electric-submeter-interruption-tx` | Keep | SERVES_LANDLORD | opt-in |
+| `electronic-notice-consent-tx` | Keep | SERVES_LANDLORD | opt-in |
+| `flood-disclosure-tx` | Keep | REQUIRED_DISCLOSURE: Tex. Prop. Code § 92.0135 |  |
+| `habitability-timeline-tx` | Keep | REQUIRED_DISCLOSURE: Tex. Prop. Code § 92.056(g) |  |
+| `keys-tx` | Keep | SERVES_LANDLORD |  |
+| `landlord-lien-tx` | Keep | SERVES_LANDLORD | opt-in |
+| `lockout-rent-delinquency-tx` | Keep | SERVES_LANDLORD | opt-in |
+| `notice-to-vacate-period-tx` | Keep | CONSTRAINED_TERM |  |
+| `owner-management-disclosure-tx` | Keep | SERVES_LANDLORD | inclusion in lease is full compliance |
+| `parking-rules-tx` | Keep | REQUIRED_DISCLOSURE: Tex. Prop. Code § 92.0131 |  |
+| `parking-vehicle-rules-tx` | Keep | SERVES_LANDLORD |  |
+| `security-devices-tx` | Keep | SERVES_LANDLORD | bold statement extends cure time; written-request rule |
+| `smoke-alarm-tx` | Keep | SERVES_LANDLORD | remedies need the bold notice |
+| `tenant-repair-agreement-tx` | Keep | SERVES_LANDLORD | opt-in |

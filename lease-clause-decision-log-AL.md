@@ -455,7 +455,30 @@ None open. Decided 2026-09-28 and applied: 1 (keep the late-fee sentence in `def
 
 ## Three-bucket scrub, 2026-09-29 (checklist instruction 66)
 
-Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Full verdict list: `lease-clause-scrub-verdicts.md`. Clauses moved to education are switched off, not deleted; their content is unchanged in the education rows (most were already covered by this state's own education rows), and checklist mentions of them now point to those rows. §5a.1: only this state's own rows changed; no propagation owed.
+Not a re-audit: each row was asked one question from its own text and notes (does it belong in the lease?), with no new legal research. Every row's verdict is in the table at the end of this section. Clauses moved to education are switched off, not deleted; their content is unchanged in the education rows (most were already covered by this state's own education rows), and checklist mentions of them now point to those rows. §5a.1: only this state's own rows changed; no propagation owed.
 
 - **Moved to education:** `possession-delay-al`, `casualty-termination-al` (new rows).
 - **Trimmed:** `security-deposit-return-al` (application right, forwarding address, 90-day forfeiture); `security-deposit-cap-al` now states only the additional security (basis: the landlord's own term, since the lease-text requirement in § 35-9A-201(a) was never confirmed).
+
+### Verdict for every lease clause
+
+All 16 lease clauses written for this state alone. Shared clauses tagged with this state all stayed (generic contract terms); each row's basis is in `lease-clauses.csv`'s `lease_clause_basis` column. Basis values: `REQUIRED_DISCLOSURE: <statute>`, `CONSTRAINED_TERM`, `SERVES_LANDLORD`.
+
+| Row | Verdict | Basis | Note |
+|---|---|---|---|
+| `casualty-termination-al` | Education | — | tenant right |
+| `possession-delay-al` | Education | — | tenant remedies |
+| `security-deposit-cap-al` | Split | REQUIRED_DISCLOSURE: Ala. Code § 35-9A-201(a) | keep additional-security statement; cap to edu (confirm the statute requires the statement in the lease) |
+| `security-deposit-return-al` | Split | SERVES_LANDLORD | keep forwarding-address duty; rest edu |
+| `abandoned-property-al` | Keep | SERVES_LANDLORD |  |
+| `assistance-animal-accommodation-al` | Keep | SERVES_LANDLORD |  |
+| `casualty-landlord-termination-al` | Keep | SERVES_LANDLORD | opt-in |
+| `default-by-tenant-al` | Keep | SERVES_LANDLORD |  |
+| `exemption-waiver-al` | Keep | SERVES_LANDLORD | opt-in |
+| `extended-absence-notice-al` | Keep | SERVES_LANDLORD | opt-in |
+| `holdover-rate-al` | Keep | CONSTRAINED_TERM |  |
+| `landlord-disclosure-al` | Keep | REQUIRED_DISCLOSURE: Ala. Code § 35-9A-202 |  |
+| `landlords-access-al` | Keep | SERVES_LANDLORD |  |
+| `pet-policy-al` | Keep | SERVES_LANDLORD |  |
+| `sex-offender-statement-al` | Keep | REQUIRED_DISCLOSURE: Ala. Code § 13A-11-204(a) |  |
+| `tenant-repair-agreement-al` | Keep | SERVES_LANDLORD | opt-in |
