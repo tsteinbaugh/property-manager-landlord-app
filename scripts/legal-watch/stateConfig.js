@@ -358,9 +358,7 @@ const STATE_CONFIG = {
         clauseIds: [
           "assistance-animal-accommodation-ca",
           "edu-assistance-animal-documentation-ca",
-          "accommodation-request-rights-ca",
           "edu-accommodation-process-ca",
-          "reasonable-modification-ca",
           "edu-criminal-history-screening-ca",
         ],
       },
@@ -572,7 +570,7 @@ const STATE_CONFIG = {
         id: "case-nj-fees-as-rent",
         label:
           "Community Realty Mgmt. v. Harris, 155 N.J. 212 (1998); Hodges v. Sasil Corp., 189 N.J. 210 (2007) -- late/legal fees are not rent unless the lease says so, never for Section 8/public housing",
-        clauseIds: ["late-fee-nj", "application-of-payments-nj", "default-by-tenant-nj"],
+        clauseIds: ["late-fee-nj", "application-of-payments", "default-by-tenant-nj"],
       },
       {
         id: "case-nj-landlord-tenant-doctrines",
@@ -684,7 +682,7 @@ const STATE_CONFIG = {
       "edu-unauthorized-occupant-removal-ga": ["44-11-31"],
       "lead-based-paint": ["31-41-13", "31-41-14", "31-41-15", "31-41-16", "31-41-17"],
       "edu-lead-poisoning-abatement-ga": ["31-41-13", "31-41-14", "31-41-16"],
-      "dv-lease-termination-ga": ["16-5-91", "16-5-92", "16-5-93"],
+      "edu-dv-lease-termination-ga": ["16-5-91", "16-5-92", "16-5-93"],
     },
     cfrChecks: [
       { title: "24", section: "100.204", clauseIds: ["assistance-animal-accommodation-ga"] },
@@ -781,7 +779,7 @@ const STATE_CONFIG = {
         id: "sc-2026-acts-codification",
         label:
           "South Carolina's online Code was a session behind at the SC pass: 2026 Acts No. 184 (S.C. Code Ann. §27-40-350 DV termination), 214 and 252 (squatter removal, appeal stay) were read from the acts. Check the codified text once scstatehouse.gov updates",
-        clauseIds: ["dv-lease-termination-sc", "edu-unauthorized-occupant-removal-sc", "edu-eviction-process-sc"],
+        clauseIds: ["edu-dv-lease-termination-sc", "edu-unauthorized-occupant-removal-sc", "edu-eviction-process-sc"],
       },
       {
         id: "sc-eviction-record-removal-effective",
@@ -864,7 +862,7 @@ const STATE_CONFIG = {
         id: "va-2027-effective-dates",
         label:
           "Virginia provisions with 2027 effective dates (plug-in solar 2027-01-01; 90-day renewal notice and the payment-plan-before-eviction version of Va. Code Ann. §55.1-1245, 2027-07-01): confirm the codified text matches the rows once each takes effect",
-        clauseIds: ["portable-solar-va", "renewal-notice-va", "edu-termination-notices-va"],
+        clauseIds: ["edu-portable-solar-va", "edu-renewal-and-rent-increase-va", "portable-solar-va-small", "renewal-notice-va-small", "edu-termination-notices-va"],
       },
       {
         id: "va-dhcd-forms",
