@@ -18,7 +18,7 @@ no-sublet-assign,LEASE_CLAUSE,TN,Tenn. Code Ann. § 66-28-517(a)(4),CITED,VERIFI
 no-alterations,LEASE_CLAUSE,TN,Tenn. Code Ann. § 4-21-601(b)(2)(A),CITED,VERIFIED,2026-08-21,2026-09-28,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-TN.md.]
 joint-liability,LEASE_CLAUSE,TN,,GENERIC,VERIFIED,2026-08-21,2026-09-28,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-TN.md.]
 utilities-paid-by-landlord,LEASE_CLAUSE,TN,Tenn. Code Ann. § 66-28-502,CITED,VERIFIED,2026-08-21,2026-09-28,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-TN.md.]
-appliances-included,LEASE_CLAUSE,TN,,GENERIC,VERIFIED,2026-08-21,2026-09-28,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-TN.md.]
+appliances-included,LEASE_CLAUSE,TN,,GENERIC,VERIFIED,2026-08-21,2026-10-01,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-TN.md.] 2026-10-01: shared wording now 'as provided in this Lease and applicable law' (was a pointer to the Maintenance & Repairs Section; WY retro). Uniform; see this state's log.
 landlord-maintenance,LEASE_CLAUSE,TN,Tenn. Code Ann. § 66-28-304,CITED,VERIFIED,2026-08-21,2026-09-28,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-TN.md.]
 possession-delay,LEASE_CLAUSE,TN,Tenn. Code Ann. § 66-28-303,CITED,VERIFIED,2026-08-21,2026-09-28,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-TN.md.]
 default-by-tenant,LEASE_CLAUSE,TN,"Tenn. Code Ann. § 66-28-505(a), 66-28-517",CITED,VERIFIED,2026-08-20,2026-09-28,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-TN.md.]

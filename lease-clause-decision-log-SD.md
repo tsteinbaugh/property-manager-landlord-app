@@ -1296,3 +1296,7 @@ All 12 lease clauses written for this state alone. Shared clauses tagged with th
 | `holdover-sd` | Keep | SERVES_LANDLORD | weak: restates renewal presumption |
 | `landlords-access-sd` | Keep | CONSTRAINED_TERM |  |
 | `pet-policy-sd` | Keep | SERVES_LANDLORD |  |
+
+## Propagated from the Wyoming retro, 2026-10-01
+
+1. **Shared-row edit (Claude Code, Taylor's approval) — `appliances-included`.** "which Landlord will maintain as described in this Lease's Maintenance & Repairs Section" now reads "which Landlord will maintain as provided in this Lease and applicable law". Driver: the WY retro (WY log §9 item 2) found the pointer named a section that seven states (WY, KS, NE, MN, ND, SD, OH) no longer have. Recorded as **uniform** (rule 62): the promise to maintain the listed items is unchanged, and the new wording names no section, so it can't dangle again. This state's lease had no section of that title after the 2026-09-29 scrub, so the pointer resolved to nothing here; the edit fixes it. `last_checked` reset to 2026-10-01.

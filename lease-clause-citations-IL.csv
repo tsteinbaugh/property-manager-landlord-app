@@ -17,7 +17,7 @@ no-sublet-assign,LEASE_CLAUSE,IL,,GENERIC,VERIFIED,2026-08-21,2026-09-30,,[Full 
 no-alterations,LEASE_CLAUSE,IL,775 ILCS 5/3-102.1(C)(1); 765 ILCS 1085/35; 765 ILCS 750/20; 420 ILCS 46/30(b),CITED,VERIFIED,2026-08-21,2026-09-30,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-IL.md.]
 joint-liability,LEASE_CLAUSE,IL,,GENERIC,VERIFIED,2026-08-21,2026-09-30,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-IL.md.]
 utilities-paid-by-landlord,LEASE_CLAUSE,IL,765 ILCS 735/1; 765 ILCS 735/1.2(b); 765 ILCS 705/35(b)(2),CITED,VERIFIED,2026-08-21,2026-09-30,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-IL.md.]
-appliances-included,LEASE_CLAUSE,IL,,GENERIC,VERIFIED,2026-08-21,2026-09-30,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-IL.md.]
+appliances-included,LEASE_CLAUSE,IL,,GENERIC,VERIFIED,2026-08-21,2026-10-01,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-IL.md.] 2026-10-01: shared wording now 'as provided in this Lease and applicable law' (was a pointer to the Maintenance & Repairs Section; WY retro). Uniform; see this state's log.
 landlord-maintenance,LEASE_CLAUSE,IL,765 ILCS 742/5,CITED,VERIFIED,2026-08-21,2026-09-30,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-IL.md.]
 landlords-access,LEASE_CLAUSE,IL,,GENERIC,VERIFIED,2026-08-21,2026-09-30,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-IL.md.]
 possession-delay,LEASE_CLAUSE,IL,,GENERIC,VERIFIED,2026-08-21,2026-09-30,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-IL.md.]

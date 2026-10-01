@@ -20,7 +20,7 @@ no-sublet-assign,LEASE_CLAUSE,PA,68 P.S. § 250.105; 68 P.S. § 250.203,CITED,VE
 no-alterations,LEASE_CLAUSE,PA,43 P.S. § 955(h)(3.1),CITED,VERIFIED,2026-08-21,2026-09-29,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-PA.md.]
 joint-liability,LEASE_CLAUSE,PA,,GENERIC,VERIFIED,2026-08-21,2026-09-29,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-PA.md.]
 utilities-paid-by-landlord,LEASE_CLAUSE,PA,66 Pa.C.S. §§ 1521-1533,CITED,VERIFIED,2026-08-21,2026-09-29,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-PA.md.]
-appliances-included,LEASE_CLAUSE,PA,,GENERIC,VERIFIED,2026-08-21,2026-09-29,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-PA.md.]
+appliances-included,LEASE_CLAUSE,PA,,GENERIC,VERIFIED,2026-08-21,2026-10-01,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-PA.md.] 2026-10-01: shared wording now 'as provided in this Lease and applicable law' (was a pointer to the Maintenance & Repairs Section; WY retro). Uniform; see this state's log.
 landlord-maintenance,LEASE_CLAUSE,PA,68 P.S. § 250.502-A,CITED,VERIFIED,2026-08-21,2026-09-29,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-PA.md.]
 landlords-access,LEASE_CLAUSE,PA,,GENERIC,VERIFIED,2026-08-21,2026-09-29,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-PA.md.]
 possession-delay,LEASE_CLAUSE,PA,,GENERIC,VERIFIED,2026-08-21,2026-09-29,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-PA.md.]

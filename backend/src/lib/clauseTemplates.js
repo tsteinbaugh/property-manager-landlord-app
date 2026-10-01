@@ -482,7 +482,7 @@ const CLAUSE_TEMPLATES = [
     group: "Landlord Responsibilities",
     states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN"],
     bodyText:
-      "The property includes the following appliances and equipment as of the Start Date, which Landlord will maintain as described in this Lease's Maintenance & Repairs Section: {{appliance_list}}.",
+      "The property includes the following appliances and equipment as of the Start Date, which Landlord will maintain as provided in this Lease and applicable law: {{appliance_list}}.",
   },
   {
     id: "landlord-maintenance",
@@ -972,7 +972,7 @@ const CLAUSE_TEMPLATES = [
     group: "Security Deposit",
     states: ["WY"],
     bodyText:
-      "Of Tenant's total security deposit of {{security_deposit}}, {{nonrefundable_deposit_amount}} is nonrefundable and will not be returned to Tenant regardless of the condition of the property at the end of this Lease. (If no portion of the deposit is nonrefundable, this amount is $0.)",
+      "Of Tenant's total security deposit of {{security_deposit}}, the nonrefundable portion is {{nonrefundable_deposit_amount}}. Any nonrefundable portion will not be returned to Tenant at the end of this Lease regardless of the condition of the property. If the nonrefundable portion is $0, no part of the Security Deposit is nonrefundable.",
   },
   {
     id: "security-deposit-return-wy",
@@ -981,7 +981,7 @@ const CLAUSE_TEMPLATES = [
     states: ["WY"],
     supersedes: "security-deposit-return",
     bodyText:
-      "Tenant will notify Landlord in writing, within 30 days after termination of this Lease, of the address where the balance of the Security Deposit and any notice about it should be sent.",
+      "Tenant will notify Landlord in writing, within 30 days after termination of this Lease, of the address where the balance of the Security Deposit and any notice about it should be sent. The address Tenant gives under this Section, or the address stated for Tenant in this Lease if Tenant gives no other, is also furnished to Landlord in writing specifically for the purpose of any notice about personal property Tenant leaves behind, and Landlord may send that notice to it by certified mail.",
   },
   {
     id: "unpaid-damages-interest-wy",
@@ -4890,6 +4890,33 @@ const CLAUSE_TEMPLATES = [
     states: ["AZ"],
     bodyText:
       "[Use only if Landlord gives Tenant a rent concession.] Landlord gives Tenant the following rent concession: [describe the free or reduced rent, move-in allowance or other concession and its dollar value]. If Tenant defaults under this Lease, the amount of this concession becomes due and payable to Landlord.",
+  },
+  // Default & Termination
+  {
+    id: "tenant-caused-damage-wy",
+    title: "Damage Caused by Tenant",
+    group: "Default & Termination",
+    states: ["WY"],
+    bodyText:
+      "If the property is damaged by fire, water, a vehicle or any other cause, and the damage results from the deliberate or negligent act or omission of Tenant, an occupant, or a guest or invitee of Tenant, then: (1) Rent will not abate or be reduced while the property is repaired, for as long as this Lease continues; and (2) if this Lease ends because of the damage, Tenant will be liable for Landlord's actual damages, including the Rent Landlord loses while the property is repaired, up to the end of the Term, less any Rent Landlord receives from re-renting the property. Landlord will use reasonable efforts to repair and re-rent the property. This Section is in addition to Tenant's liability for the cost of repairing the damage.",
+  },
+  // Security Deposit
+  {
+    id: "utility-deposit-identification-wy",
+    title: "Utility Deposit Identified Separately",
+    group: "Security Deposit",
+    states: ["WY"],
+    bodyText:
+      "Of the amounts Tenant pays Landlord before occupancy, {{utility_deposit}} is held separately as a utility deposit, identified apart from the Security Deposit, and is held to cover utility charges Tenant incurs during this Lease. Landlord will refund it as Wyoming law provides once Tenant shows that all utility charges Tenant incurred have been paid.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "duty-reassignment-wy",
+    title: "Specific Maintenance Duties Assigned to Tenant",
+    group: "Landlord Responsibilities",
+    states: ["WY"],
+    bodyText:
+      "Landlord and Tenant expressly agree, as an explicit written agreement under Wyoming Statutes section 1-21-1202(d), that responsibility for the following specific items is assigned to Tenant rather than Landlord: {{reassigned_duties}}. For each item listed, Tenant will keep it in good working order, arrange and pay for its routine servicing and its repair, and promptly tell Landlord in writing of any condition affecting it that Tenant cannot correct. This assignment is limited to the items listed. It does not reach, and Landlord remains responsible for, the property's electrical, heating and plumbing systems and its hot and cold running water; the safe and sanitary condition of the property as a whole and its fitness for human habitation; and the common areas. Nothing in this Section assigns to Tenant any duty that applicable law does not permit to be assigned. If Tenant does not maintain an item assigned under this Section, Landlord may, after written notice to Tenant and a reasonable opportunity to correct it, have the work done and recover the reasonable cost from Tenant as a debt under this Lease, which is not Rent.",
   },
 ];
 

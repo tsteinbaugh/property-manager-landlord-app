@@ -785,3 +785,7 @@ The reference (1,895 active rows, 305 topics) no longer carries that list; every
 6. `security-deposit-return`: Do two sections count the return deadline from different events (end of occupancy vs termination plus delivery of possession)?
 7. `pet-fees`: Is a refundable pet deposit inside the statutory definition of a security deposit?
 8. `hoa`: Does a statute protect a renter's home child care against the association but not against the landlord?
+
+## Propagated from the Wyoming retro, 2026-10-01
+
+1. **Shared-row edit (Claude Code, Taylor's approval) — `appliances-included`.** "which Landlord will maintain as described in this Lease's Maintenance & Repairs Section" now reads "which Landlord will maintain as provided in this Lease and applicable law". Driver: the WY retro (WY log §9 item 2) found the pointer named a section that seven states (WY, KS, NE, MN, ND, SD, OH) no longer have. Recorded as **uniform** (rule 62): the promise to maintain the listed items is unchanged, and the new wording names no section, so it can't dangle again. This state's lease keeps a Maintenance & Repairs section, which is still part of 'this Lease', so nothing changes in substance here. `last_checked` reset to 2026-10-01.

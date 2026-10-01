@@ -16,7 +16,7 @@ no-sublet-assign,LEASE_CLAUSE,MO,Mo. Rev. Stat. § 441.030; Mo. Rev. Stat. § 53
 no-alterations,LEASE_CLAUSE,MO,Mo. Rev. Stat. § 213.040(2)(1); Mo. Rev. Stat. § 441.234,CITED,VERIFIED,2026-08-21,2026-09-30,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-MO.md.]
 joint-liability,LEASE_CLAUSE,MO,,GENERIC,VERIFIED,2026-08-21,2026-09-30,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-MO.md.]
 utilities-paid-by-landlord,LEASE_CLAUSE,MO,,GENERIC,VERIFIED,2026-08-21,2026-09-30,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-MO.md.]
-appliances-included,LEASE_CLAUSE,MO,,GENERIC,VERIFIED,2026-08-21,2026-09-30,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-MO.md.]
+appliances-included,LEASE_CLAUSE,MO,,GENERIC,VERIFIED,2026-08-21,2026-10-01,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-MO.md.] 2026-10-01: shared wording now 'as provided in this Lease and applicable law' (was a pointer to the Maintenance & Repairs Section; WY retro). Uniform; see this state's log.
 landlord-maintenance,LEASE_CLAUSE,MO,Mo. Rev. Stat. § 441.234,CITED,VERIFIED,2026-08-21,2026-09-30,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-MO.md.]
 landlords-access,LEASE_CLAUSE,MO,,GENERIC,VERIFIED,2026-08-21,2026-09-30,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-MO.md.]
 possession-delay,LEASE_CLAUSE,MO,,GENERIC,VERIFIED,2026-08-21,2026-09-30,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-MO.md.]

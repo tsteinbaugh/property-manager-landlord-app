@@ -44,6 +44,7 @@ ASK = {
     "54": "Optional clauses (general screen). Find every optional clause the state's law allows, for the landlord's benefit, and offer each one; record every candidate with its verdict.",
     "54t": "Tenant-caused damage (rule 54). If a tenant, occupant or guest causes damage that makes the home uninhabitable (a fire, frozen pipes), what does this state's law give the landlord: repair costs, rent during repairs, and lost rent if the lease ends? Can the tenant end the lease under a casualty statute anyway? Check each abatement or exit provision separately for its own tenant-fault exception (casualty, essential services, landlord-breach termination, rent into court). Check your casualty rows first. Then: if the law covers it, add or extend an education row saying so; if there's a gap the lease can lawfully fill, offer a state version of `tenant-caused-damage-tn` (read it; don't tag the TN row); if the law bars it, record why.",
     "35c": "Constitution screen (rule 35). Load the state constitution into your full-text search and look for anything that reaches residential leases or protects conduct a shared clause restricts: cannabis use (Missouri's Article XIV voided the shared smoking-policy's ban on vaping marijuana), firearms, signs and speech, privacy. Record what you searched; fix or override any clause the constitution reaches.",
+    "79": "Re-read the section before trusting a summary of it (rule 79). From your citations file, take every CITED, PARTIAL or CONFIRMED_ABSENT row whose basis is secondary sources agreeing (Nolo, law-firm or property-management sites, 'N sources agree') rather than a section-open read. For each, read the cited section on the official site and confirm (a) the subdivision cited is the one that says it (WY's bad-check row cited (b) for a rule in (a)), and (b) every qualifier in the row ('unless otherwise agreed', 'except as provided') is attached to the sentence the statute attaches it to (WY's habitability row told landlords habitability itself was waivable, because a three-sentence subsection was summarised as one). Fix the citation or text, upgrade the basis in the citations file, and list each row with its verdict. A row you can't reach the official text for stays as it is, marked so.",
     "27": "The seven topics no state had a row for when the SOP was written (each now has its own entry in lease-clause-topics.md; PA's rows are examples): algorithmic-rent-setting, fees-as-rent, landlord-self-cure, lease-completeness, quiet-possession, statutory-forms, tenant-security-cameras. Each ends Present (with a row), Confirmed absent (with a row) or Not located (search boundary stated).",
 }
 # Wording in a clause's bodyText worth a look for that rule.
@@ -95,7 +96,31 @@ import datetime
 staged_at = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 clauses = [r for r in rows if r["is_active"] == "TRUE" and r["content_type"] == "LEASE_CLAUSE"]
 
+SECONDARY = re.compile(r"secondary|nolo|ipropertymanagement|legalclarity|doorloop|findlaw|justia|independent sources|sources (all )?(agree|consistent)|law firm", re.I)
+PRIMARY = re.compile(r"section-open|read (in full|verbatim)|verbatim|official (text|site|statute)|primary|confirmed against", re.I)
+notes_by_id = {r["id"]: r["notes"] for r in rows if r["is_active"] == "TRUE"}
+
+def secondary_rows(st):
+    # Rule 79's starting list: the state's own rows whose citation or CSV notes
+    # mention a secondary basis and no primary read. Keyword-based, so it misses
+    # rows and flags some that are fine.
+    hits = []
+    path = f"lease-clause-citations-{st}.csv"
+    if not os.path.exists(path):
+        return hits
+    for c in csv.DictReader(open(path, newline="", encoding="utf-8")):
+        cid = c["clause_id"]
+        if cid not in notes_by_id or not cid.endswith("-" + st.lower()):
+            continue
+        text = c["notes"] + " " + notes_by_id[cid]
+        if c["citation_status"] in ("CITED", "PARTIAL", "CONFIRMED_ABSENT") and SECONDARY.search(text) and not PRIMARY.search(text):
+            hits.append(f"`{cid}`")
+    return hits
+
 def pointers(st, rule):
+    if rule == "79":
+        hits = secondary_rows(st)
+        return (" Start with: " + ", ".join(hits) + ". Then check the rest of your citations file; this list comes from a keyword screen.") if hits else " No row matched the keyword screen; check your citations file anyway."
     if rule not in LOOK:
         return ""
     hits = []

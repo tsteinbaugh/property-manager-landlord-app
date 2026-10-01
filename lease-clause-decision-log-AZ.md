@@ -911,3 +911,7 @@ All 19 lease clauses written for this state alone. Shared clauses tagged with th
 4. Rule 51: read the consumer-protection act's definitions of "sale" and "merchandise", not only its unlawful-practice section. Arizona's reaches leases only of deed-restricted real estate on its face.
 
 **Sync note (Claude Code, 2026-09-30):** this pass started from the 2,039-row library (before the Indiana merge). It was merged with `scripts/clause-library/merge-delta.py` against that base: shared rows got only AZ's tag and AZ note segment on top of the current rows, so Indiana's tags on `early-termination-ks`, `due-at-signing` and `existing-condition` were kept.
+
+## Propagated from the Wyoming retro, 2026-10-01
+
+1. **Shared-row edit (Claude Code, Taylor's approval) — `appliances-included`.** "which Landlord will maintain as described in this Lease's Maintenance & Repairs Section" now reads "which Landlord will maintain as provided in this Lease and applicable law". Driver: the WY retro (WY log §9 item 2) found the pointer named a section that seven states (WY, KS, NE, MN, ND, SD, OH) no longer have. Recorded as **uniform** (rule 62): the promise to maintain the listed items is unchanged, and the new wording names no section, so it can't dangle again. This state's lease keeps a Maintenance & Repairs section, which is still part of 'this Lease', so nothing changes in substance here. `last_checked` reset to 2026-10-01.

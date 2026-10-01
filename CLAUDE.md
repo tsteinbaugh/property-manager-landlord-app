@@ -5,9 +5,10 @@
 ## 🎯 Current focus
 
 - **Done 2026-09-30:** five new states synced (UT, IL, ID, MO, IN; 26 verified), the SOP taken from 1.1 to 1.15, and the first 8 retro-check passes synced (PA, TN, VA, AL, SC, NE, NJ, AZ). Several retros found damage from the 2026-09-29 three-bucket scrub; it is being repaired state by state through targeted fixes (SOP rule 78, `docs/history.md`).
-- **In progress (Taylor, Claude Desktop):** the **Wyoming retro** and **Oklahoma (state #27) research**. At the Oklahoma sync, hold `legal-watch-ok.yml` (schedule commented out) until after December 27.
-- **Retro run:** after WY, 12 states remain (KS, MN, ND, SD, OH, CA, NV, TX, FL, GA, NC, CO), staged in `~/Desktop/retro-checks/` (`INDEX.md`). Then one **end-of-run circle-back** for PA, UT, IL, ID, TN, AL, VA, SC, NE, MO and NJ: `stage-retro-checks.py PA UT IL ID TN AL VA SC NE MO NJ` (their items are in the conformance table and `retro-extras.csv`; details in `docs/backlog.md`). Merge every delta with `merge-delta.py` against the commit the pass was staged from.
-- **Pending shared edits, merge only after every tagged state has vetted them (rule 62):** `returned-payments` "during any 12-month period" (AZ's proposal) and NE's no-cure sentence for `default-by-tenant-ks-ne`.
+- **Done 2026-10-01:** WY retro synced (SOP 1.16, new rule 79), `appliances-included` pointer fixed in 7 states, five declined-option education rows backfilled, and the 12 pending retro folders restaged.
+- **In progress (Taylor, Claude Desktop):** **Oklahoma (state #27) research**. At the Oklahoma sync, hold `legal-watch-ok.yml` (schedule commented out) until after December 27.
+- **Retro run:** 12 states remain (KS, MN, ND, SD, OH, CA, NV, TX, FL, GA, NC, CO), staged under SOP 1.16 in `~/Desktop/retro-checks/` (`INDEX.md`). Then one **end-of-run circle-back** for PA, UT, IL, ID, TN, AL, VA, SC, NE, MO, NJ, WY and AZ (WY and AZ for rule 79): `stage-retro-checks.py PA UT IL ID TN AL VA SC NE MO NJ WY AZ` (their items are in the conformance table and `retro-extras.csv`; details in `docs/backlog.md`). Merge every delta with `merge-delta.py` against the commit the pass was staged from.
+- **Pending shared edits, merge only after every tagged state has vetted them (rule 62):** `returned-payments` "during any 12-month period" (AZ's proposal), NE's no-cure sentence for `default-by-tenant-ks-ne`, and WY's "or such shorter notice and cure period as applicable law permits" for `early-termination`.
 - **Legal-watch calendar:** after CO's October 1 run, confirm the change marker (backlog); **after October 23, uncomment IL's schedule; after November 25, MO's; after November 26, IN's; after December 27, OK's.** Check the LegiScan totals after November's (IL, ID) and December's (MO, IN) first runs.
 - **Standing backlog** (no fixed order; ask Taylor what's next): `docs/backlog.md`. Lease PDF first-page layout is parked in M.12 (Taylor). Deploying is still deliberately on hold.
 
@@ -76,6 +77,8 @@ React + Vite + Tailwind v4 + React Router (`frontend/`); Node + Express + Prisma
 - Merge a Desktop delta with `scripts/clause-library/merge-delta.py` against the base it was staged from, never by whole-row replacement; it applies only that state's tag and note segment to shared rows and refuses the rest. [2026-09-30]
 - Never restage a Desktop folder Taylor may already be using; restage only unstarted states, and ask if unsure. Staged prompts carry a staged-at time and row count. [2026-09-30]
 - A library-wide rewrite (scrub, split, consolidation) is diffed against its sources and must not change what the text claims or drop a condition (SOP rule 78). [2026-09-30]
+- A lawful option the library declines still gets an education row saying it exists, why it isn't offered, and that the landlord can add their own clause (SOP rule 54). [2026-10-01]
+- Re-read a section before trusting a summary of it, and attach each qualifier to its own sentence (SOP rule 79). [2026-10-01]
 - Desktop may create new `{{variables}}`; the kickoff lists existing ones for reuse, and new ones go to backlog M.14 at sync. [2026-09-30]
 - `CLAUSE_GROUPS` is a closed list; remap an outside group at generation rather than growing it. [2026-09-13]
 - Every lease clause passes the three-bucket test and records `lease_clause_basis`. [2026-09-29]
@@ -87,6 +90,7 @@ React + Vite + Tailwind v4 + React Router (`frontend/`); Node + Express + Prisma
   - `python3 scripts/clause-library/check-gap-discovery.py --all`
   - `python3 scripts/clause-library/check-checklist-reconciliation.py`
   - `python3 scripts/clause-library/check-clause-basis.py`
+  - `python3 scripts/clause-library/check-section-pointers.py` [2026-10-01]
   - `node scripts/legal-watch/checkConfigIds.js`
   - Plus the statute spot-check: about 5 high-stakes rules read against official text. [2026-09-27 to 2026-09-29]
 
