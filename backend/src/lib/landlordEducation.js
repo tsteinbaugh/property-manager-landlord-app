@@ -16774,6 +16774,1029 @@ const LANDLORD_EDUCATION = [
       "If a South Carolina tenant, a member of the tenant's family, or someone on the property with the tenant's permission deliberately or negligently causes a condition, the tenant cannot end the lease over it as a landlord breach or use the essential-services remedies for it, and rent paid into court during an eviction case is not reduced for it. Fire or casualty is different: if a fire or casualty substantially impairs use of the home, the tenant may still move out and end the lease by written notice within 7 days, or stay in the usable part at reduced rent, even if the tenant caused it. The tenant's fault there only lets you keep the security deposit and prepaid rent, and you must still send the itemized written notice. The tenant must not deliberately or negligently damage the property or knowingly let others do so. You may deduct the damage from the deposit and recover actual damages for the breach. For a health or safety problem that repair, replacement or cleaning can fix, you may do the work after 14 days' written notice (sooner in an emergency) and have the tenant reimburse the cost. If the lease ends, you have a claim for actual damages, with a duty to mitigate. No statute says whether those damages include rent lost until the term would have ended; the library offers an optional clause (`tenant-caused-damage-sc`) that sets that measure. A lease cannot keep the full rent running while a tenant-caused casualty is repaired, because that would waive the tenant's statutory right to reduced rent.",
     notes: "SC: SC retro 2026-09-30 (SOP 1.9, rule 54t). Casualty rows checked first: `edu-casualty-termination-sc` (tenant rights; the fault rule reaches only the deposit and prepaid rent) and `casualty-landlord-termination-sc` (landlord option; covers ending the lease, not lost rent). Controlling text: S.C. Code Ann. § 27-40-650(a) (tenant may vacate and terminate, or reduce rent, with no fault exception); S.C. Code Ann. § 27-40-650(b) (withholding of deposit and prepaid rent if the casualty was 'due to the tenant's negligence or otherwise caused by the tenant'; notice under S.C. Code Ann. § 27-40-410(a)); S.C. Code Ann. § 27-40-610(a)(2) and S.C. Code Ann. § 27-40-630(d) (no termination or essential-services remedy for a condition caused by the tenant, family or a permitted person); S.C. Code Ann. § 27-40-790(a) (rent paid into court 'must not be abated' for such a condition); S.C. Code Ann. § 27-40-510(6); S.C. Code Ann. § 27-40-410(a); S.C. Code Ann. § 27-40-710(C); S.C. Code Ann. § 27-40-720(a); S.C. Code Ann. § 27-40-750; S.C. Code Ann. § 27-40-50(a) (duty to mitigate); S.C. Code Ann. § 27-40-330(a)(1) (no waiver of rights under the chapter) and (b) (penalty for knowingly using a prohibited term), which is why TN's part (1) (no abatement) is not offered. How South Carolina courts measure lost future rent is case law not read. Taylor's decision 2026-09-30: offer the clause and this row. Read section-open 2026-09-30 in the built-in browser from the official South Carolina Code of Laws on scstatehouse.gov (the site states the Code is current through the 2025 session; whole Code reloaded, 1,304 chapter pages, control term 0; 2026 Act Nos. 184 and 252 read from the ratified acts; section text saved and SHA-256 matched to the browser, SC retro sources).",
   },
+  // Security Deposit
+  {
+    id: "edu-security-deposit-rules-mo",
+    title: "Missouri Security Deposit Rules",
+    group: "Security Deposit",
+    states: ["MO"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-penalty",
+    bodyText:
+      "Missouri limits a security deposit to two months' rent and requires you to keep it in a federally insured bank, credit union or depository institution (any interest is yours). Within 30 days after the tenancy ends you must return the full deposit or give the tenant a written itemized list of damages with the balance; mailing to the tenant's last known address is enough. You may withhold only for unpaid rent, restoring the unit to its move-in condition beyond ordinary wear and tear, and actual damages from the tenant's failure to give proper notice to end the tenancy (after trying to reduce them). Before the move-out inspection, give the tenant reasonable written notice of its date and time; the tenant may attend. If you wrongfully withhold any part, the tenant recovers twice the amount wrongfully withheld. A pet deposit is not a security deposit under this law.",
+    notes: "MO: Mo. Rev. Stat. § 535.300(1)-(8) (2018 S.B. 581 is the latest amendment; version date 8/28/2018). Government landlords, including housing authorities, are exempt only from the holding rule in Mo. Rev. Stat. § 535.300(2). The revisor prints an annotation that the double-damages provision does not apply to commercial tenants (PDQ Tower Services, Inc. v. Adams, 213 S.W.3d 697 (Mo. App. W.D. 2007)); case not read. No deposit anti-waiver section (MO battery 91). Local deposit caps are preempted (Mo. Rev. Stat. § 441.043(2)(3)). Clauses: security-deposit-use-mo, security-deposit-return-mo. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-deposit-cap-mo",
+    title: "Security Deposit Cap",
+    group: "Security Deposit",
+    states: ["MO"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-cap",
+    bodyText:
+      "You may not demand or receive a security deposit of more than two months' rent. The limit covers any deposit of money or property, however you label it, that secures the tenant's performance of the lease, so be careful about extra 'deposits' that push the total over two months' rent. A deposit labelled as a pet deposit does not count. Cities and counties may not impose a lower cap.",
+    notes: "MO: Mo. Rev. Stat. § 535.300(1), (8); Mo. Rev. Stat. § 441.043(2)(3) (2025 H.B. 595 & 343, effective 8/28/2025: no county or city may enact, maintain or enforce an ordinance that limits the security deposit a landlord may require). The cap is measured in months of rent, not per lease year or renewal (rule 37). Whether prepaid last month's rent or a pre-lease holding deposit counts as a 'security deposit' is case law, not read (edu-deposit-last-month-mo, edu-no-holding-deposit-rule-mo). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-deposit-interest-mo",
+    title: "No Interest Owed on Deposits",
+    group: "Security Deposit",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-interest",
+    bodyText:
+      "Missouri does not require you to pay the tenant interest on a security deposit. Any interest the deposit earns belongs to you.",
+    notes: "MO: Mo. Rev. Stat. § 535.300(2): 'Any interest earned on a security deposit shall be the property of the landlord.' No other deposit-interest rule (MO battery 98: the residential hit is Mo. Rev. Stat. § 535.300 only). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-deposit-holding-mo",
+    title: "Where to Hold the Deposit",
+    group: "Security Deposit",
+    states: ["MO"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-holding",
+    bodyText:
+      "Hold every security deposit for the tenant in a bank, credit union or depository institution insured by an agency of the federal government. Missouri does not require a separate account for each tenant, a particular in-state bank, or notice to the tenant of where the deposit is held. Housing authorities and other government landlords are exempt from this holding rule.",
+    notes: "MO: Mo. Rev. Stat. § 535.300(2): 'All security deposits shall be held by the landlord for the tenant, who is a party to the rental agreement, in a bank, credit union, or depository institution which is insured by an agency of the federal government.' No separate-account, location or notice requirement in the text (read whole); the Missouri REALTORS form's 'separate account' wording goes beyond the statute (MO log §15). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-deposit-inspection-mo",
+    title: "Move-Out Inspection Notice",
+    group: "Security Deposit",
+    states: ["MO"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "condition-inspection",
+    bodyText:
+      "Before you inspect the unit after the lease ends to decide what to withhold from the deposit, give the tenant reasonable written notice of the date and time, delivered to the tenant's last known address or in person. Hold the inspection at a reasonable time; the tenant may be present. Missouri has no move-in inspection or checklist requirement, but a signed move-in condition record helps prove the unit's condition at the start of the tenancy, which is the baseline for any deduction.",
+    notes: "MO: Mo. Rev. Stat. § 535.300(5); baseline 'condition at the commencement of the tenancy' in Mo. Rev. Stat. § 535.300(4)(2). CONFIRMED ABSENT: move-in inventory or checklist statute (MO battery 84: 5 hits, none residential). No separate penalty for skipping the inspection notice; whether skipping it makes a withholding wrongful under Mo. Rev. Stat. § 535.300(6) is case law, not read. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Pets
+  {
+    id: "edu-pet-deposit-mo",
+    title: "Pet Deposits",
+    group: "Pets",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "pet-fees",
+    bodyText:
+      "A deposit labelled as a pet deposit is not a 'security deposit' under Missouri's deposit law, so it does not count toward the two-month cap and is not covered by the 30-day return and double-damages rules. Your lease should say how a pet deposit is used and returned. A servicemember who ends a lease under Missouri's military termination law gets the full security deposit and pet deposit back if the lease was otherwise followed. No Missouri statute limits pet rent or pet fees for ordinary pets; you may not charge pet fees for an assistance animal.",
+    notes: "MO: Mo. Rev. Stat. § 535.300(8) ('This term does not include any money or property denominated as a deposit for a pet on the premises'); Mo. Rev. Stat. § 41.944(3). Assistance animals: Mo. Rev. Stat. § 213.040(2)(2) and the federal Fair Housing Act (not read, rule 21). Clause: pet-policy-mo. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Security Deposit
+  {
+    id: "edu-no-holding-deposit-rule-mo",
+    title: "No Holding Deposit Rule",
+    group: "Security Deposit",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "holding-deposit",
+    bodyText:
+      "Missouri has no statute on holding deposits or other money taken before a lease is signed. Because Missouri's deposit law covers any deposit, however labelled, that secures performance of the rental agreement, a holding deposit that is kept and applied once the lease starts may be treated as part of the security deposit, so count it toward the two-month cap and handle it under the deposit rules.",
+    notes: "MO: CONFIRMED ABSENT: whole-code search for 'holding deposit', 'earnest money' and 'reservation fee/deposit' near rent, lease or tenant: 1 hit (MO battery 65), a false positive ('withholding deposit' in the heading of Mo. Rev. Stat. § 535.300). Mo. Rev. Stat. § 535.300(8) defines 'security deposit'. Whether a pre-lease holding deposit is a 'security deposit' is case law, not read. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-no-deposit-installments-mo",
+    title: "No Deposit Installment Rule",
+    group: "Security Deposit",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "deposit-installments",
+    bodyText:
+      "Missouri does not require you to let a tenant pay the security deposit in installments, and does not prohibit it.",
+    notes: "MO: CONFIRMED ABSENT: whole-code search for deposit NEAR installment(s): 2 hits (MO battery 66), neither residential (Mo. Rev. Stat. §§ 377.030, 408.512). Pattern tested against a synthetic positive. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-deposit-last-month-mo",
+    title: "Last Month's Rent and the Deposit",
+    group: "Security Deposit",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "deposit-last-month-rent",
+    bodyText:
+      "A tenant may not use the security deposit to pay rent, including the last month's rent. Missouri has no specific rule on collecting the last month's rent in advance, but because the deposit cap reaches any deposit 'however denominated', prepaid last month's rent that functions as security may be counted toward the two-month cap.",
+    notes: "MO: Mo. Rev. Stat. § 535.300(7) (nothing permits a tenant to apply or deduct the deposit in lieu of rent); Mo. Rev. Stat. § 535.300(1), (8). CONFIRMED ABSENT: last-month's-rent rule (MO battery 67: 2 hits, neither residential). How the cap treats prepaid rent is case law, not read. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-no-deposit-transfer-rule-mo",
+    title: "Deposits When the Property Is Sold",
+    group: "Security Deposit",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-on-sale",
+    bodyText:
+      "Missouri has no statute requiring a seller to transfer security deposits to a buyer or releasing the seller once it does. The 30-day return duty applies to 'the landlord' at the end of the tenancy, so settle deposit transfers in the sale contract and tell tenants who now holds their deposit. Before a new owner can sue tenants for rent, it must give them adequate written notice of the transfer, with a copy of the recorded deed (or, in first-class counties, a notarized affidavit signed by the old and new owners).",
+    notes: "MO: CONFIRMED ABSENT: whole-code search 'security deposits?': 22 sections (MO battery 3); the residential ones are Mo. Rev. Stat. § 535.300, Mo. Rev. Stat. § 441.043 and Mo. Rev. Stat. § 41.944 (servicemember deposit return), none a transfer rule. Successor's notice: Mo. Rev. Stat. § 535.081 (in first-class counties an affidavit by prior owner and successor may replace the deed copy); Mo. Rev. Stat. § 535.070 (purchaser may sue for rent and possession accruing after the transfer); Mo. Rev. Stat. § 441.140 (tenant who pays the grantor before notice is not harmed). See edu-successor-owner-mo. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-late-fee-cap-mo",
+    title: "No Late Fee Cap",
+    group: "Rent & Payment",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "late-fee",
+    bodyText:
+      "Missouri has no statute capping late fees or requiring a grace period for residential rent. Set a fee that is a reasonable estimate of your cost of late payment; a court may refuse to enforce a fee it sees as a penalty. A late fee is not 'rent' for a rent-and-possession action, so an unpaid late fee alone will not support an order for possession in that action.",
+    notes: "MO: CONFIRMED ABSENT: whole-code search for late fee / late charge / late payment: 36 sections (MO battery 10), none a residential-lease rule. Mo. Rev. Stat. § 535.020 (sums other than rent may be joined but are not rent, and a judgment for them does not by itself entitle the landlord to possession). The penalty doctrine is case law, not read. Local late-fee ordinances not searched (rule 3); Mo. Rev. Stat. § 441.043 does not mention fees. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-fees-not-rent-mo",
+    title: "Fees Are Not Rent in a Possession Case",
+    group: "Rent & Payment",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fees-as-rent",
+    bodyText:
+      "In a Missouri rent-and-possession case you may join a claim for other unpaid sums the lease requires (such as fees), however the lease labels them, but those sums are not rent for purposes of that action, and a judgment for them does not by itself entitle you to possession. Labelling a fee as 'additional rent' in the lease does not change this.",
+    notes: "MO: Mo. Rev. Stat. § 535.020: the landlord may join a claim 'for any other unpaid sums, other than property damages, regardless of how denominated or defined in the lease ... provided that such other sums shall not be considered rent for purposes of this chapter, and judgment for the landlord for recovery of such other sums shall not by itself entitle the landlord to an order for recovery of possession of the premises'. 'Rent' is defined in Mo. Rev. Stat. § 441.005(5). Property damages are excluded from joinder. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-no-application-fee-rule-mo",
+    title: "No Application Fee Rule",
+    group: "Rent & Payment",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "application-fees",
+    bodyText:
+      "Missouri has no statute limiting rental application or screening fees or requiring refunds.",
+    notes: "MO: CONFIRMED ABSENT: whole-code searches for application, screening and processing fees: 100 sections for 'application fees?' alone (MO battery 28), none residential; 0 hits near landlord, tenant or rental terms (MO battery 100, tested against a synthetic positive). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-rent-control-preemption-mo",
+    title: "No Local Rent Control",
+    group: "Rent & Payment",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-control",
+    bodyText:
+      "No Missouri county or city may enact, maintain or enforce an ordinance regulating the amount of rent for privately owned residential rental property. Local governments may still regulate their own property, make voluntary rent agreements for subsidized properties, and restrict rent on properties assisted with community development block grant funds.",
+    notes: "MO: Mo. Rev. Stat. § 441.043(1), (3) (1989 H.B. 602; amended 2025 H.B. 595 & 343, effective 8/28/2025 per the revisor's version date; the act's text and bill status were compared in the browser on 2026-09-30 (no emergency clause; same text) but not saved, so that comparison is a lead only). Mo. Rev. Stat. § 535.012 (2024): no political subdivision may impose or enforce an eviction moratorium unless state law specifically authorizes it. Local ordinances on other subjects (registration, inspection, nuisance) are not preempted by these sections and are flagged, not resolved (rule 3). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-no-rent-increase-notice-mo",
+    title: "Rent Increases",
+    group: "Rent & Payment",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-increase-notice",
+    bodyText:
+      "Missouri has no statute setting a notice period for raising rent on a house or apartment, and local rent control is preempted. During a fixed term, rent changes only as the lease allows. For a month-to-month tenancy, the practical route is to give written notice ending the tenancy on a rent-paying date at least one month after the tenant receives it, and offer a new tenancy at the new rent. Mobile home land lease communities have their own rule.",
+    notes: "MO: CONFIRMED ABSENT: whole-code search for rent increase NEAR notice: battery 64: 3 sections (Mo. Rev. Stat. § 70.851 and Mo. Rev. Stat. § 70.856, public-building leases and trust funds, and Mo. Rev. Stat. § 700.600); battery 96: 1 section (Mo. Rev. Stat. § 700.600, manufactured or mobile home land lease communities; read in context only). Headings saved in sources/hit-headings.txt. Mo. Rev. Stat. § 441.060(4)(1); Mo. Rev. Stat. § 441.043(1). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-no-rent-receipt-rule-mo",
+    title: "No Rent Receipt Rule",
+    group: "Rent & Payment",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-receipts",
+    bodyText:
+      "Missouri does not require a landlord to give receipts for rent, including cash rent. Giving receipts is good practice.",
+    notes: "MO: CONFIRMED ABSENT: whole-code search for rent receipt / receipt for the rent or payment: 6 sections (MO battery 27), none residential; pattern tested against a synthetic positive. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-rent-tax-mo",
+    title: "Sales Tax and Residential Rent",
+    group: "Rent & Payment",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-tax",
+    bodyText:
+      "Missouri's state sales tax on rooms applies to rooms furnished at hotels, motels, inns, tourist cabins and other places that regularly serve rooms to the public; ordinary residential rent is not in that list. Short-term rentals and local lodging taxes are outside this library.",
+    notes: "MO: Mo. Rev. Stat. § 144.020(1)(6) (read as an excerpt; subsection number confirmed in sources/hit-headings.txt; the rest of the section and the Department of Revenue's rules were not read). Local taxes not searched (rule 3). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-legal-interest-mo",
+    title: "Interest on Unpaid Amounts",
+    group: "Rent & Payment",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "unpaid-damages-interest",
+    bodyText:
+      "When a written lease sets no interest rate, Missouri law allows interest at 9% a year on money due under it from the date it becomes due and payable. A higher contract rate raises usury questions this library has not reviewed, so the library offers no interest clause.",
+    notes: "MO: Mo. Rev. Stat. § 408.020: creditors may receive interest at nine percent per annum, 'when no other rate is agreed upon, for all moneys after they become due and payable, on written contracts, and on accounts after they become due and demand of payment is made'. Usury limits (Mo. Rev. Stat. §§ 408.030 and following) not read. No optional interest clause offered (MO log §6). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-no-acceptance-waiver-statute-mo",
+    title: "Accepting Late or Partial Rent",
+    group: "Rent & Payment",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "waiver-by-acceptance",
+    bodyText:
+      "No Missouri statute says that accepting late or partial rent waives a landlord's rights. Courts can still find a waiver from a pattern of conduct, such as repeatedly accepting late payments, so if you accept rent after giving a notice or demand, say in writing that you are reserving your rights.",
+    notes: "MO: CONFIRMED ABSENT: no acceptance-waiver statute (MO batteries 10, 91). The revisor's annotation to Mo. Rev. Stat. § 534.330 reports Fritts v. Cloud Oak Flooring Co., 478 S.W.2d 8 (Mo. App. 1972): a landlord who accepted ten consecutive late payments raised a fact issue of waiver of strict compliance. Case law, not read; the annotation is a lead only. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-landlord-duties-mo",
+    title: "Repairs and Habitability",
+    group: "Landlord Responsibilities",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-maintenance",
+    bodyText:
+      "Missouri's landlord-tenant statutes do not impose a general duty to keep a rental in repair. Your duties come from the lease, local housing and building codes, and court decisions. Missouri does give tenants a limited repair-and-deduct remedy for local code violations, a receivership remedy that local governments and neighborhood groups can use against code-violating buildings, and a defense to rent when a residence is destroyed by a disaster the tenant did not cause.",
+    notes: "MO: Chapters 441, 534 and 535 read whole: no general repair duty. Mo. Rev. Stat. § 441.234 (edu-repair-and-deduct-mo); Mo. Rev. Stat. §§ 441.500 to 441.643 (edu-housing-code-receivership-mo); Mo. Rev. Stat. § 441.645 (edu-casualty-mo); Mo. Rev. Stat. § 64.207 (county habitability rules, one county; edu-county-habitability-rules-mo). An implied warranty of habitability is case law, not read. Local codes not read (rule 3). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-repair-and-deduct-mo",
+    title: "Tenant Repair and Deduct",
+    group: "Landlord Responsibilities",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-repair-remedies",
+    bodyText:
+      "A Missouri tenant may repair and deduct only if all of these apply: the tenant has lawfully lived there six consecutive months, paid all rent and charges, and had no uncured written lease or rule violation notice in that time; the condition violates a local housing or building code and harms habitability, sanitation or security; it costs less than $300 or half the periodic rent, whichever is greater, and no more than one month's rent; and you fail to fix it within 14 days of the tenant's written notice (or sooner in an emergency). If you dispute the need in writing within that period, the tenant must first get written certification from the local government that the condition violates the code. The tenant must use workmanlike repairs and give you an itemized statement with receipts. The remedy is unavailable for conditions the tenant's household or guests caused, and is limited to one month's rent in any 12 months. No lease may waive it.",
+    notes: "MO: Mo. Rev. Stat. § 441.234(1)-(3) (1997 H.B. 361): 'No lease agreement shall contain a waiver of the rights described in this section.' The remedy is not exclusive of other remedies. Listed in edu-prohibited-lease-terms-mo. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-housing-code-receivership-mo",
+    title: "Housing Code Receivership",
+    group: "Landlord Responsibilities",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "substandard-property-receivership",
+    bodyText:
+      "If a building violates building or housing codes in a way that threatens health or safety, a county, city, local housing corporation or neighborhood association may, after 60 days' written notice to interested parties, ask a court to appoint a receiver who collects the rents and fixes the property. Rent a tenant pays to the receiver under the court's order is a defense to an eviction for nonpayment. A lease term waiving a tenant's protections under these sections is void. Occupants have their own duties under this law (paying rent, keeping the unit sanitary, not damaging it, and not taking in extra occupants without the owner's consent).",
+    notes: "MO: Mo. Rev. Stat. §§ 441.500 to 441.643: Mo. Rev. Stat. § 441.510 (60-day notice; who may apply), Mo. Rev. Stat. § 441.540 (no jury), Mo. Rev. Stat. § 441.560 (denial of entry or occupant violations are a defense), Mo. Rev. Stat. § 441.570, Mo. Rev. Stat. § 441.580 (rent paid to receiver is a defense), Mo. Rev. Stat. § 441.590 (receiver's powers and lien), Mo. Rev. Stat. § 441.610 (waiver void), Mo. Rev. Stat. § 441.630 (occupant duties), Mo. Rev. Stat. § 441.641 (judicial deed after two years), Mo. Rev. Stat. § 441.643 (frivolous petitions). Listed in edu-prohibited-lease-terms-mo. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-utility-heat-receivership-mo",
+    title: "Unpaid Heat Utilities in Master-Metered Buildings",
+    group: "Landlord Responsibilities",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utility-landlord-account",
+    bodyText:
+      "In a building of two or more units where the owner pays for gas or electric heat service, if the owner falls behind and the utility gives notice of termination, the utility must tell tenants at least five days before shutoff, and any tenant or the utility may ask the associate circuit court to appoint a receiver to collect rents and pay for heat. The utility may not cut off heat while a receivership exists, or while a petition is pending (if a tenant filed it, once the utility has had at least 24 hours' prior written notice of the filing). An owner who collects rent while a receiver is appointed is in contempt of court.",
+    notes: "MO: Mo. Rev. Stat. § 441.650 (1985 S.B. 294). Stale cross-reference: subsection 3(3) appoints receivers 'in accordance with sections 515.240 to 515.260', which the revisor notes were repealed by S.B. 578 (2016) (MO log §10, rule 77). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-water-sewer-owner-liability-mo",
+    title: "Water and Sewer Bills",
+    group: "Tenant Responsibilities",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utilities-responsibility",
+    bodyText:
+      "Municipal and district water and sewer service is treated as furnished to both the occupant and the owner, so the provider may sue either or both for unpaid bills. Once the occupant is 30 days behind, the provider must try in good faith to tell the owner; the owner is not liable for more than 90 days of service, and any termination notice must go to both. Where several residences share a water or sewer line, the property owner is liable. Services billed directly to the owner under an owner's account are the owner's responsibility.",
+    notes: "MO: Mo. Rev. Stat. § 250.140(1)-(5) (2005). Applies to cities, towns, villages and sewer or water districts organized under Chapter 247; private utilities not covered by this section. The 120-day rule for some large cities expired after January 1, 2007 by its own terms. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-self-help-eviction-mo",
+    title: "No Lockouts or Utility Shutoffs",
+    group: "Default & Termination",
+    states: ["MO"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "self-help-eviction",
+    bodyText:
+      "You may not remove or exclude a tenant or the tenant's belongings, or remove or change the locks, without judicial process and a court order, except under Missouri's abandonment procedure. You may not willfully interrupt essential services such as electricity, gas, water or sewer to force a tenant out, unless you do so for health or safety reasons. A landlord who does either is guilty of forcible entry and detainer, and the tenant may sue to get back in, with double the damages found.",
+    notes: "MO: Mo. Rev. Stat. § 441.233(1)-(2) (1997 H.B. 361); forcible entry and detainer defined in Mo. Rev. Stat. § 534.020; judgment for the complainant awards restitution and double the damages found, and double the monthly rents and profits found, until restitution (Mo. Rev. Stat. § 534.330(1)). Abandonment exception: Mo. Rev. Stat. § 441.065 (abandoned-property-mo). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Access & Entry
+  {
+    id: "edu-no-entry-statute-mo",
+    title: "No Entry Notice Statute",
+    group: "Access & Entry",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-entry",
+    bodyText:
+      "Missouri has no statute setting when or with how much notice a landlord may enter a rental. Entry rights come from the lease; the library's lease gives 24 hours' notice except in emergencies.",
+    notes: "MO: CONFIRMED ABSENT: whole-code searches for right of entry / enter the dwelling or premises / access to the premises (27 sections, MO battery 22) and enter or entry NEAR landlord (14 sections, MO battery 68): no residential entry-notice rule. Hits read in context include Mo. Rev. Stat. § 441.040 (re-entry after notice to vacate), Mo. Rev. Stat. § 441.233 and Mo. Rev. Stat. § 535.185, none an entry-notice rule. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-retaliation-statute-mo",
+    title: "No Retaliation Statute",
+    group: "Default & Termination",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "retaliation",
+    bodyText:
+      "Missouri has no general statute barring a landlord from retaliating against a tenant for complaining about conditions or using legal rights. Specific protections still apply: you may not evict because a resident has an elevated blood lead level or because of lead enforcement, or deny or evict a tenant because the tenant is a victim of domestic violence, sexual assault or stalking. Federal fair housing law bars retaliation for exercising fair housing rights.",
+    notes: "MO: CONFIRMED ABSENT: whole-code search 'retaliat': 35 sections (MO battery 21), none a residential-landlord rule; Mo. Rev. Stat. § 213.070 (Missouri Human Rights Act retaliation) reaches employers, employment agencies, labor organizations and places of public accommodation, not housing providers (read whole, saved in sources/RSMo-extra-sections.txt). Mo. Rev. Stat. § 701.308(2); Mo. Rev. Stat. § 441.920(2). Federal Fair Housing Act (42 U.S.C. § 3617) not read (rule 21). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-alarm-duties-mo",
+    title: "Smoke and Carbon Monoxide Alarms",
+    group: "Landlord Responsibilities",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "alarm-duties",
+    bodyText:
+      "No Missouri statute requires a residential landlord to install or maintain smoke or carbon monoxide alarms. Local building, fire and housing codes often do, so check the code where the property is located.",
+    notes: "MO: CONFIRMED ABSENT: whole-code searches for smoke detector / smoke alarm (5 sections, MO battery 12: a commemorative day, a disability-access tax credit, licensed care facilities and child care, none residential rentals) and carbon monoxide (1 section, Mo. Rev. Stat. § 293.120, mine air safety). Local codes not read (rule 3). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-notice-to-quit-mo",
+    title: "Notice to End a Tenancy",
+    group: "Default & Termination",
+    states: ["MO"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-notice",
+    bodyText:
+      "How much notice Missouri requires depends on the kind of tenancy. A fixed-term lease ends on its end date with no notice to quit. A month-to-month tenancy ends by written notice from either party ending it on a rent-paying date at least one month after the other party receives it. A tenancy at will, by sufferance or for less than a year (such as week-to-week) may be ended by the landlord on one month's written notice. A year-to-year tenancy needs written notice at least 60 days before the end of the year. A lease that is not in writing and signed is treated as month-to-month. These notices are not needed before a rent-and-possession case for unpaid rent. A mobile-home lot tenancy has a longer 60-day rule.",
+    notes: "MO: Mo. Rev. Stat. § 441.070 (no notice to quit for a term ending at a certain time, or when 'by special agreement, notice is dispensed with'); Mo. Rev. Stat. § 441.060(1), (3), (4)(1), (4)(2); Mo. Rev. Stat. § 441.050; Mo. Rev. Stat. § 535.020 (giving the notice provided in Mo. Rev. Stat. § 441.060 is not required before a rent-and-possession case). Rule 37 by tenancy type. Mo. Rev. Stat. § 441.120(2): oral testimony may not vary a notice given under Mo. Rev. Stat. §§ 441.050 and 441.060; only a later dated writing can. The Mo. Rev. Stat. § 441.070 'special agreement' route is recorded here as education only; the library offers no clause dispensing with notice (Taylor, 2026-09-30, MO log §6). Clause: periodic-tenancy-notice-mo. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-nonpayment-demand-mo",
+    title: "Demand for Rent Before Filing",
+    group: "Default & Termination",
+    states: ["MO"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nonpayment-notice",
+    bodyText:
+      "Missouri has no pay-or-quit notice period for unpaid rent. Before filing a rent-and-possession case, you must demand the rent that is due from the tenant or the person occupying the property; the demand is valid any time after the rent is due, and in a suit for possession when one month's rent or more is in arrears and you have a right by law to re-enter for the nonpayment, serving the complaint and summons counts as the demand. If your written lease declares the lease forfeited for nonpayment 'for a specified time', you cannot start the case until that time has passed, so avoid building a grace period into a forfeiture clause unless you mean it.",
+    notes: "MO: Mo. Rev. Stat. § 535.020 (statement verified by affidavit that rent has been demanded and not paid); Mo. Rev. Stat. § 535.060 (demand good when made any time after the rent becomes due); Mo. Rev. Stat. § 535.120, Mo. Rev. Stat. § 535.140 (action when one month's rent or more is in arrears and the landlord has a subsisting right to re-enter; service of complaint and summons is a sufficient demand); Mo. Rev. Stat. § 535.050 (forfeiture clause with a specified time delays process). The revisor's annotation to Mo. Rev. Stat. § 534.330 reports New Brentwood Realty v. Strad, Inc. (Mo. App. 1974) on demanding the exact amount due on the due day; case law, not read. No prescribed demand form (MO batteries 86-87). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-eviction-process-mo",
+    title: "Missouri Eviction Process",
+    group: "Default & Termination",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-process",
+    bodyText:
+      "Missouri has two main eviction tracks. A rent-and-possession case (for unpaid rent) is filed with an associate circuit judge after a demand for rent; the court date must be within 21 business days of the summons unless you agree to later, the tenant may stop the case by paying all rent and costs on the judgment date, and the officer must deliver possession within 5 days of receiving the execution. An unlawful detainer case covers a tenant who holds over after the lease ends and refuses to leave after a written demand for possession; execution for possession may issue no sooner than 10 days after judgment, and the judgment awards double damages and double monthly rent until possession is restored. In a rent-and-possession case the tenant has 10 days from the judgment to move to set it aside or apply for a trial de novo, and in either track an appeal stays execution only with a sufficient bond (in rent cases, one covering rent). If service is only by posting and mailing and the tenant defaults, no money judgment is entered. Self-help eviction is prohibited, and local governments may not impose eviction moratoriums.",
+    notes: "MO: Rent and possession: Mo. Rev. Stat. §§ 535.010 to 535.180 (Mo. Rev. Stat. § 535.020, Mo. Rev. Stat. § 535.030 (21 business days; posting at least 10 days before court date; 10 days to set aside), Mo. Rev. Stat. § 535.040 (possession within five days; no money judgment on posting default), Mo. Rev. Stat. § 535.110 (appeal bond with rent), Mo. Rev. Stat. § 535.160 (tender stays proceedings), Mo. Rev. Stat. § 535.170). Unlawful detainer: Mo. Rev. Stat. § 534.030, Mo. Rev. Stat. § 534.050, Mo. Rev. Stat. § 534.060, Mo. Rev. Stat. § 534.090, Mo. Rev. Stat. § 534.330 (double damages and double monthly rents), Mo. Rev. Stat. § 534.345, Mo. Rev. Stat. § 534.350 (execution for possession no sooner than 10 days), Mo. Rev. Stat. § 534.355 (order to sheriff within 15 days). Landlord-tenant courts may be set up in St. Louis City and Jackson County (Mo. Rev. Stat. § 535.200, Mo. Rev. Stat. § 535.210). Moratorium ban: Mo. Rev. Stat. § 535.012 (2024; version date 8/28/2024; the S.B. 895 bill page not read). Court rules: no Missouri Supreme Court rule specific to landlord-tenant cases found by title (1,647 rule titles screened in the browser on courts.mo.gov; the title list was not saved; Mo. Sup. Ct. R. 41.01 and 44.01 not read; rule 21 flag). Jury trial in rent-and-possession cases: Brainchild Holdings v. Cameron (Mo. 2017), case law, not read. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-cure-grounds-mo",
+    title: "Lease Violations and Illegal Use",
+    group: "Default & Termination",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "cure-and-eviction-grounds",
+    bodyText:
+      "Missouri gives no cure period for lease violations. If a tenant violates a condition of a written lease, assigns or sublets without your written consent (for terms of two years or less, at will or by sufferance), or commits waste, you may give 10 days' notice to vacate (in writing, to be safe) and then recover possession through the courts. If a tenant allows illegal gaming, a bawdyhouse or the illegal possession, sale or distribution of controlled substances on the premises, the lease becomes void and you have the same remedies as against a tenant holding over. You are not liable for relying on a written notice from law enforcement that the premises are being used for illegal drug activity.",
+    notes: "MO: Mo. Rev. Stat. § 441.030, Mo. Rev. Stat. § 441.040 (re-entry 'after giving ten days' notice to vacate the premises ... by the procedure specified by law'; landlord's burden to prove drug use; reliance on written law enforcement notification), Mo. Rev. Stat. § 441.020. Whether a particular lease term is a 'condition' and whether accepting rent after notice waives the violation are case law, not read. The library's default-by-tenant cure promise carries an exception for breaches the law lets the landlord act on without a cure (rule 43). Clause: criminal-activity-mo. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-expedited-drug-eviction-mo",
+    title: "Expedited Eviction for Drug Activity and Emergencies",
+    group: "Default & Termination",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "expedited-criminal-eviction",
+    bodyText:
+      "A landlord or prosecutor may bring an expedited eviction in the associate circuit court, heard within 15 days of service, where drug-related criminal activity occurred on or near the property or the tenant's household or guests engaged in it, or where an emergency makes ordinary eviction too slow to prevent physical injury or major property damage (only after first trying to abate it through police or mental health services). No notice to vacate is needed first, except that if someone other than the tenant committed the activity, you must give the tenant 5 days' written notice and a chance to seek a protective order or report it to police. An innocent tenant who did not know of the activity can defend, and the court may then remove only the person responsible. On eviction the tenant has 24 hours to vacate. Rent continues to accrue during the case.",
+    notes: "MO: Mo. Rev. Stat. §§ 441.710 to 441.880: Mo. Rev. Stat. § 441.710 (standing), Mo. Rev. Stat. § 441.720 (15-day hearing; Mo. Rev. Stat. §§ 535.030 and 535.110 apply), Mo. Rev. Stat. § 441.740 (grounds; emergency ground amended 2023 S.B. 106, version date 8/28/2023: physical damage costing more than twelve months of rent), Mo. Rev. Stat. § 441.750 (innocent-tenant defense; five days' written notice where a non-tenant is accused), Mo. Rev. Stat. § 441.760, Mo. Rev. Stat. § 441.770 (24 hours to vacate), Mo. Rev. Stat. § 441.780 (no notice to vacate needed), Mo. Rev. Stat. § 441.840 (rent accrues), Mo. Rev. Stat. § 441.850, Mo. Rev. Stat. § 441.880 (stay and probationary tenancy). Remedies are cumulative (Mo. Rev. Stat. § 441.860). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-post-eviction-property-mo",
+    title: "Property Left After an Eviction",
+    group: "Default & Termination",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "post-eviction-property",
+    bodyText:
+      "When a judgment for possession is carried out, you are not liable for loss of or damage to the tenant's belongings you remove or dispose of under the court-ordered execution, except for willful, wanton or malicious acts. But if property left behind is conspicuously and permanently labelled as belonging to a third party, you must notify that person by certified mail, return receipt requested, and give them five business days after receiving the notice to recover it. If the officer has not delivered possession within seven days after receiving the writ, you may, within 60 days of the judgment and with a local law enforcement officer present, remove the locks, take possession and remove belongings, after showing the officer the judgment and execution and filing the officer's written acknowledgment with the court within five days.",
+    notes: "MO: Mo. Rev. Stat. § 535.040(2)-(3) (2009 S.B. 231); Mo. Rev. Stat. § 441.060(5)-(6) (landlord liable only for negligent, willful or wanton acts or for failing to obtain and file the acknowledgment); Mo. Rev. Stat. § 534.355. No statutory storage, inventory or animal-care duty (Chapters 441, 534 and 535 read whole). Clause: abandoned-property-mo. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-unauthorized-occupant-removal-mo",
+    title: "Removing Squatters",
+    group: "Default & Termination",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "unauthorized-occupant-removal",
+    bodyText:
+      "Since August 28, 2024, a property owner may file a verified petition to remove people unlawfully occupying a residential property who were never tenants. The court issues an ex parte removal order immediately on good cause, with a hearing within 48 hours, and the sheriff enforces it. This fast track is available only if, among other things, the property had not been leased to anyone for three consecutive months, the occupants are not current or former tenants or immediate family, and there is no pending litigation with them. A person wrongly removed may recover $1,000 in statutory damages plus actual damages. For current or former tenants, use the ordinary eviction process.",
+    notes: "MO: Mo. Rev. Stat. § 534.602, Mo. Rev. Stat. § 534.604 (2024 H.B. 2062; effective 8/28/2024 per the revisor's version date; the House bill record was read in the browser on 2026-09-30 (same date, no emergency clause found) but not saved). Related: Mo. Rev. Stat. § 441.760(2) (in an expedited action the court orders removal of a person not lawfully occupying as tenant or lessee). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-holdover-damages-mo",
+    title: "Holdover Damages",
+    group: "Default & Termination",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "holdover",
+    bodyText:
+      "Missouri sets several double measures for tenants who stay too long. A tenant for life or years who willfully holds over after the term ends, and after you make a demand and give written notice requiring possession, owes double the yearly value of the property for the time you are kept out. A tenant who gives written notice of intent to leave on a date and does not leave owes double the rent for as long as the tenant stays. In an unlawful detainer judgment, the court awards double the damages found and double the monthly rent found until possession is restored. After a written lease ends, oral evidence that it was renewed or extended is not admissible in a possession suit.",
+    notes: "MO: Mo. Rev. Stat. § 441.080; Mo. Rev. Stat. § 441.100, Mo. Rev. Stat. § 441.110 (double rent recoverable like single rent); Mo. Rev. Stat. § 534.330(1); Mo. Rev. Stat. § 441.120(1). Rule 53 trigger check: Mo. Rev. Stat. § 441.080 starts at the landlord's demand and written notice, Mo. Rev. Stat. § 441.100 at the date in the tenant's notice, and Mo. Rev. Stat. § 534.330 at judgment; the library uses holdover-ca (actual damages), not a stipulated rate (no optional holdover-rate clause: statutory measures exist; standing GA rule; MO log §6). Accepting rent may create a new periodic tenancy; case law, not read. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-no-just-cause-mo",
+    title: "No Just-Cause Eviction Rule",
+    group: "Default & Termination",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "for-cause-eviction",
+    bodyText:
+      "Missouri does not require a reason to end a tenancy at the end of a fixed term or on proper notice for a periodic tenancy. Specific limits still apply: you may not end or refuse a tenancy for a discriminatory reason, because the tenant is a victim of domestic violence, sexual assault or stalking, or because a resident has an elevated blood lead level or because of lead enforcement, and a condominium conversion requires 120 days' notice with added rights for some elderly and disabled tenants. The expedited drug-eviction law expressly preserves a landlord's right to refuse to renew.",
+    notes: "MO: CONFIRMED ABSENT: whole-code search for just cause / good cause NEAR eviction, termination of tenancy or renewal: 27 sections (MO battery 78), none a residential just-cause rule. Mo. Rev. Stat. § 441.070; Mo. Rev. Stat. § 441.880(5); situational limits: Mo. Rev. Stat. § 213.040, Mo. Rev. Stat. § 441.920(2), Mo. Rev. Stat. § 701.308(2), Mo. Rev. Stat. § 448.4-112. Local ordinances not searched (rule 3). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-dv-protections-mo",
+    title: "Domestic Violence, Sexual Assault and Stalking Protections",
+    group: "Default & Termination",
+    states: ["MO"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-lease-termination",
+    bodyText:
+      "You may not deny tenancy to, evict, or find a lease violation against an applicant or tenant because the person is, has been, or is in imminent danger of becoming a victim of domestic violence, sexual assault or stalking, if the person otherwise qualifies. The protection does not apply if the person let the named abuser into the premises, or if you reasonably believe the named abuser threatens other occupants or the property. A tenant who vacates has a defense to rent for the period after leaving if a court finds the tenant was a victim or in imminent danger and the tenant notified you and gave any documentation you asked for (a signed statement from a victim-service provider or health professional, or a police, court or agency record). You may charge a reasonable termination fee when a tenant ends a lease early under this law. False information may be grounds to deny or evict. Missouri has no domestic-violence lock-change statute.",
+    notes: "MO: Mo. Rev. Stat. § 441.920(1)-(7) (2019 H.B. 243 & 544); definitions incorporated from Mo. Rev. Stat. § 455.010 (not read; rule 77 check: the pointer is current). Residential properties only (Mo. Rev. Stat. § 441.920(7)). CONFIRMED ABSENT: lock-change rule (MO battery 40: lock hits only in Mo. Rev. Stat. § 64.207 and Mo. Rev. Stat. § 441.233). Protective orders may restrain a respondent from entering a dwelling unit jointly or individually leased (Mo. Rev. Stat. § 455.045, read as an excerpt). Federal VAWA (34 U.S.C. § 12491) not read (rule 21). Clause: dv-termination-fee-mo. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-servicemember-termination-mo",
+    title: "Military Lease Termination",
+    group: "Default & Termination",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "servicemember-rights",
+    bodyText:
+      "A member of the U.S. Armed Forces on active duty, or a Missouri Army or Air National Guard member on full-time duty or serving as a civil service technician, may end a residential lease after receiving permanent change of station orders, temporary duty orders of more than 90 days at least 25 miles away, discharge or release from that duty, or orders to live in government quarters. The member gives written notice of termination effective on a stated date at least 15 days after service, and gives you a copy of the orders or a signed letter from the commanding officer before that date. The final payment is due by the termination date, and the member is entitled to the full return of the security deposit and any pet deposit if the lease and the deposit law were otherwise followed. The federal Servicemembers Civil Relief Act gives additional rights.",
+    notes: "MO: Mo. Rev. Stat. § 41.944 (1991 S.B. 358, effective 6/12/1991). Federal SCRA (50 U.S.C. § 3955) not read (rule 21). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-occupancy-limit-mo",
+    title: "Occupancy Limits",
+    group: "Tenant Responsibilities",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "permitted-occupants",
+    bodyText:
+      "Missouri presumes an occupancy limit of two persons per bedroom to be reasonable. Children born to the tenants during the lease do not count against that limit. Fair housing law protects families with children, so any stricter limit should rest on a lawful local or state occupancy standard.",
+    notes: "MO: Mo. Rev. Stat. § 441.060(2); Mo. Rev. Stat. § 213.040(8) (reasonable local or state occupancy restrictions are not limited by the housing provisions); familial status, Mo. Rev. Stat. § 213.010(11), Mo. Rev. Stat. § 213.040(1). Local codes not read (rule 3). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-tenant-forward-summons-mo",
+    title: "Tenant Must Report Lawsuits for the Property",
+    group: "Tenant Responsibilities",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-forward-proceedings",
+    bodyText:
+      "A tenant served with a summons in an action to recover the property must promptly notify the landlord (or the landlord's agent). A tenant who fails to do so forfeits to the landlord the value of three years' rent.",
+    notes: "MO: Mo. Rev. Stat. § 441.090. Clause: tenant-forward-proceedings-ca (tagged MO). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-unauthorized-sublet-mo",
+    title: "Assignment and Unauthorized Occupants",
+    group: "Tenant Responsibilities",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "sublet-assign",
+    bodyText:
+      "A tenant for a term of two years or less, at will or by sufferance, may not assign or transfer the lease without the landlord's written consent. In a rent or possession case, if the tenant let another person come into sole possession without the landlord's permission, the court may award damages of up to twice the rent due, in addition to the rent. Assignments of leases must be in writing.",
+    notes: "MO: Mo. Rev. Stat. § 441.030; Mo. Rev. Stat. § 534.347 (does not limit attorney's fees or other lease remedies); cross-reference printed under Mo. Rev. Stat. § 441.030 to Mo. Rev. Stat. § 432.060 (assignments in writing; not read). Clause: no-sublet-assign (tagged MO). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-tenant-waste-mo",
+    title: "Tenant Waste",
+    group: "Tenant Responsibilities",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-statutory-duties",
+    bodyText:
+      "A tenant may not commit waste on the leased property. A tenant for life or years who commits waste without written permission may be sued, loses the thing wasted and must pay three times the assessed damage. Committing waste is also a ground for 10 days' notice to vacate.",
+    notes: "MO: Mo. Rev. Stat. § 441.030, Mo. Rev. Stat. § 441.040; Mo. Rev. Stat. § 537.420 (treble damages for waste by a tenant for life or years; read whole). Whether a periodic tenant is a 'tenant for years' under Mo. Rev. Stat. § 537.420 is case law, not read (rule 37). Occupant duties in Mo. Rev. Stat. § 441.630 apply within the receivership sections. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-tenant-caused-damage-mo",
+    title: "When the Tenant Causes Damage",
+    group: "Default & Termination",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-caused-damage",
+    bodyText:
+      "If a tenant causes damage, Missouri law gives you these points. The rule that a tenant owes no rent after a disaster destroys the residence does not apply if the tenant caused the disaster. A tenant who commits waste owes treble damages, and waste is a ground for 10 days' notice to vacate. But no action may be brought against a tenant in whose home a fire accidentally begins, and a repair promise in a lease does not require a tenant to rebuild after a fire the tenant did not cause through procurement, connivance or neglect unless the tenant specially agreed to rebuild. Whether a careless fire counts as 'accidental' under that rule is unsettled.",
+    notes: "MO: Mo. Rev. Stat. § 441.645; Mo. Rev. Stat. § 537.420; Mo. Rev. Stat. § 441.030, Mo. Rev. Stat. § 441.040; Mo. Rev. Stat. § 441.010. How Mo. Rev. Stat. § 441.010's 'accidentally' applies to negligence is case law, not read. Optional clause: tenant-caused-damage-mo (rule 54). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-casualty-mo",
+    title: "Fire, Storm and Other Disasters",
+    group: "Default & Termination",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "casualty-termination",
+    bodyText:
+      "If a residence is destroyed by an act of God, such as a fire, tornado or other natural or man-made disaster, and the tenant did not cause it, the tenant owes no rent for the rest of the lease term. Missouri has no statute giving either party a right to end the lease after a fire or other casualty, or governing partial damage, so the lease should cover those cases.",
+    notes: "MO: Mo. Rev. Stat. § 441.645 (2010 H.B. 1692). CONFIRMED ABSENT: landlord or tenant casualty-termination statute (Chapters 441, 534 and 535 read whole; whole-code search battery 70 found 5 sections, none a termination right, but did not reach Mo. Rev. Stat. § 441.645's 'destroyed by an act of God' wording, so this row rests on the whole read). Optional clause: casualty-termination-mo. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-attorney-fees-mo",
+    title: "Attorney Fees",
+    group: "Default & Termination",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "attorney-fees",
+    bodyText:
+      "No Missouri statute awards attorney fees in ordinary landlord-tenant cases or bars a lease attorney-fee clause. Whether and how courts enforce a lease fee clause is a matter of court decisions this library has not reviewed; the library's lease uses a mutual prevailing-party fee term.",
+    notes: "MO: CONFIRMED ABSENT: whole-code search for attorney fees NEAR landlord, tenant or lease terms: 5 sections (MO battery 89), none a residential fee rule (Mo. Rev. Stat. § 441.850 covers only expedited drug cases against landlords; Mo. Rev. Stat. § 534.347 preserves lease fee remedies). Enforceability of lease fee clauses is case law, not read. Clause: default-by-tenant (tagged MO). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Disclosures
+  {
+    id: "edu-fair-housing-mo",
+    title: "Missouri Fair Housing Law",
+    group: "Disclosures",
+    states: ["MO"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fair-housing",
+    bodyText:
+      "The Missouri Human Rights Act bars refusing to rent, setting different terms, misrepresenting availability, or advertising a preference because of race, color, religion, national origin, ancestry, sex, disability or familial status. You must allow reasonable disability modifications at the tenant's expense (and may, where reasonable, require restoration of the interior) and make reasonable accommodations in rules and policies. Exempt, except from the advertising ban: a private owner renting a single-family house without a broker or advertising who owns no more than three such houses, and rooms or units in an owner-occupied building for four or fewer families. Missouri does not protect source of income or age in housing; federal law adds its own rules and exemptions.",
+    notes: "MO: Mo. Rev. Stat. § 213.040(1), (2), (7)-(13); definitions Mo. Rev. Stat. § 213.010 (disability excludes current illegal use of a controlled substance; 'rent' includes lease and sublease). Mo. Rev. Stat. § 213.040(11): conduct based on a conviction for illegal manufacture or distribution of a controlled substance is not barred. Housing for older persons: Mo. Rev. Stat. § 213.040(9)-(10). Commission rules not read; Federal Fair Housing Act (42 U.S.C. § 3601 et seq.) not read (rule 21). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-disability-modification-mo",
+    title: "Disability Modifications",
+    group: "Landlord Responsibilities",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "disability-accommodation",
+    bodyText:
+      "A tenant with a disability may make reasonable modifications to the unit at the tenant's own expense when needed for full enjoyment of the premises. For a rental, you may, where reasonable, condition permission on the tenant agreeing to restore the interior to its prior condition, reasonable wear and tear excepted. Missouri does not require that restoration condition to appear in the lease.",
+    notes: "MO: Mo. Rev. Stat. § 213.040(2)(1). Unlike Idaho Code § 67-5909(8)(h), the Missouri section has no 'shall be included in any lease' sentence (read whole), so no required lease clause. Clause no-alterations (tagged MO) preserves the right. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Disclosures
+  {
+    id: "edu-source-of-income-mo",
+    title: "Source of Income",
+    group: "Disclosures",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "source-of-income",
+    bodyText:
+      "Missouri law does not protect a renter's source of income, and since August 28, 2025 no county or city may enact, maintain or enforce an ordinance that bars a landlord from refusing to rent because the renter's income includes federal or other housing assistance. A city or county may still bar discrimination against recipients of veterans' benefits. Note that a landlord receiving public funds from a housing authority may not ban firearms in the lease.",
+    notes: "MO: Mo. Rev. Stat. § 441.043(2)(1), (4) (2025 H.B. 595 & 343, effective 8/28/2025). Mo. Rev. Stat. § 213.040 lists no source-of-income class (whole-code search 'source of income': 8 sections, MO battery 24). Existing local source-of-income ordinances (Kansas City, St. Louis and others) are flagged, not resolved (rule 3). Firearms: Mo. Rev. Stat. § 571.510 (edu-firearms-mo). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-tenant-screening-mo",
+    title: "Tenant Screening Criteria",
+    group: "Disclosures",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-screening",
+    bodyText:
+      "No county or city may restrict your use of income-qualifying methods, credit scores, credit reports, eviction or property damage history, or criminal history under your own customarily applied criteria, or bar you from asking for that information. Fair housing law still applies, and federal consumer reporting rules govern screening reports.",
+    notes: "MO: Mo. Rev. Stat. § 441.043(2)(2) (2025 H.B. 595 & 343, effective 8/28/2025). Mo. Rev. Stat. § 213.040. Federal Fair Credit Reporting Act not read (rule 21). CONFIRMED ABSENT: state tenant-screening statute (MO battery 54: the residential hit is Mo. Rev. Stat. § 441.043 only). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Pets
+  {
+    id: "edu-service-animal-misrepresentation-mo",
+    title: "Assistance Animal Misrepresentation",
+    group: "Pets",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "service-animal-misrepresentation",
+    bodyText:
+      "Knowingly misrepresenting an animal as an assistance animal to get a housing accommodation under the federal Fair Housing Act is a class C misdemeanor (class B for a repeat), and the person is civilly liable for actual damages. That includes falsely documenting an animal, fitting it with a vest or sign, or misleading a health care provider to get documentation. Missouri law says documentation for an assistance animal must come from a qualified professional as the federal Fair Housing Act permits.",
+    notes: "MO: Mo. Rev. Stat. § 209.204(3) (2020 S.B. 644 merged with S.B. 656; the revisor notes S.B. 656 used 'must' where S.B. 644 used 'shall'); service-dog misrepresentation, Mo. Rev. Stat. § 209.204(2). The Governor's Council on Disability must publish a landlord-tenant brochure (Mo. Rev. Stat. § 209.204(5)); not read. Clause: assistance-animal-accommodation (tagged MO). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Disclosures
+  {
+    id: "edu-lead-hazard-mo",
+    title: "Lead Hazards",
+    group: "Disclosures",
+    states: ["MO"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lead-based-paint",
+    bodyText:
+      "Besides the federal lead disclosure, Missouri requires an owner who receives written notification of a lead hazard to abate it or establish interim controls in a way the state health department allows, within the applicable time; an owner of a rental may instead take it off the rental market. You may not evict a tenant because someone with an elevated blood lead level or suspected lead poisoning lives there, or because of action required of you under the lead law; other lawful reasons for eviction are not affected.",
+    notes: "MO: Mo. Rev. Stat. § 701.308(1)-(2) (2005 S.B. 95); notification under Mo. Rev. Stat. § 701.306 (not read). Federal disclosure: clause lead-based-paint (tagged MO). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-owner-disclosure-mo",
+    title: "Manager and Owner Disclosure",
+    group: "Disclosures",
+    states: ["MO"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "owner-identity-disclosure",
+    bodyText:
+      "At or before the start of every tenancy, give the tenant in writing the name and address of the person authorized to manage the property and of an owner or agent authorized to accept service of process and receive notices and demands. Keep it current; the duty passes to later landlords, owners and managers. Anyone who fails to make the disclosure becomes the landlord's agent for service and notices and for performing the landlord's obligations, including collecting rent. If the owner's address is a post office box, papers may be served by first-class mail.",
+    notes: "MO: Mo. Rev. Stat. § 535.185(1)-(3) (1989 H.B. 602). The section does not bar an eviction for nondisclosure (read whole). Clause: landlord-disclosure-mo (REQUIRED). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-nonresident-landlord-agent-mo",
+    title: "Agents for Nonresident and Corporate Landlords",
+    group: "Rent & Payment",
+    states: ["MO"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nonresident-owner-agent",
+    bodyText:
+      "If you are not a Missouri resident or are a corporation, Missouri requires you to designate, in writing filed with the Secretary of State, an agent in Missouri (a resident or a corporation authorized to do business here) on whom legal papers can be served; if you do not, service may be made on the Secretary of State. In St. Louis City, an owner who lives outside the city must also register with the city assessor an agent to accept service for building, occupancy and other city code violations.",
+    notes: "MO: Mo. Rev. Stat. § 441.520(4)(2) (in the housing-code receivership sections; the duty is stated for any landlord of residential property who is not a resident or is a corporation); Mo. Rev. Stat. § 82.817 (St. Louis City; class B misdemeanor; the revisor prints a case annotation on this section that was not read, so confirm the provision's status before relying on it). Not a lease clause: the designation is filed with the state or city, not given to the tenant. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-condo-conversion-mo",
+    title: "Condominium Conversion",
+    group: "Default & Termination",
+    states: ["MO"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "conversion-notice",
+    bodyText:
+      "A declarant converting a building to condominiums must give each residential tenant at least 120 days' notice before requiring them to leave, plus the original sale certificate at least 60 days before they must vacate, may not require a tenant to leave on shorter notice except for nonpayment of rent, waste or conduct that disturbs other tenants, and may not change the terms of the tenancy during that period. Tenants get a 60-day right to buy their unit. In buildings of six or more units, some low- or moderate-income elderly and disabled tenants may keep their units for extended periods.",
+    notes: "MO: Mo. Rev. Stat. § 448.4-112 (1983 H.B. 177): notice hand-delivered or mailed; failure to give notice is a defense to possession; Mo. Rev. Stat. § 448.4-112(6) lets a conforming conversion notice serve as the Mo. Rev. Stat. § 441.050 and Mo. Rev. Stat. § 441.060 notice; Mo. Rev. Stat. § 448.4-112(7) permits no termination in violation of the lease. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-successor-owner-mo",
+    title: "Buying a Rented Property",
+    group: "Default & Termination",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "sale-or-management-change",
+    bodyText:
+      "A buyer of a rented property may sue for rent and possession for rent that falls due after the transfer, under the prior owner's lease, once it gives tenants adequate written notice of the transfer, its method and its date, attached to a copy of the recorded deed (or, in first-class counties, a notarized affidavit signed by the old and new owners). A tenant who paid the old owner before getting notice is protected. The new owner must also give the manager and owner disclosure. Since August 28, 2024, transfers of rental properties with outstanding collectible judgments must be filed in the circuit court within 30 days after the transfer.",
+    notes: "MO: Mo. Rev. Stat. § 535.070, Mo. Rev. Stat. § 535.081, Mo. Rev. Stat. § 535.090; Mo. Rev. Stat. § 441.130, Mo. Rev. Stat. § 441.140 (grants of rents effective without the tenant's consent unless the lease says otherwise); Mo. Rev. Stat. § 535.185(2); Mo. Rev. Stat. § 534.157 (2024 S.B. 895; version date 8/28/2024). Deposit transfer: edu-no-deposit-transfer-rule-mo. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-foreclosure-tenants-mo",
+    title: "Tenants After Foreclosure",
+    group: "Default & Termination",
+    states: ["MO"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "foreclosure",
+    bodyText:
+      "After a trustee's foreclosure sale, the new owner must give a residential tenant written notice that the sale occurred, who the new owner is, and that the tenant has at least 10 business days from the notice before any action for possession, by certified or registered mail (or regular mail addressed to 'Occupant' if the name is unknown, in an envelope marked 'Notice to Occupant Following Foreclosure') and posted on the door, in substantially the statutory text. Remaining after the notice does not make the occupant the new owner's tenant. Federal law may give tenants more time.",
+    notes: "MO: Mo. Rev. Stat. § 534.030(1)-(3) (2009 H.B. 836 & 753). Applies to an occupant who was a residential tenant before the foreclosure and not in violation of Mo. Rev. Stat. § 441.020. Federal Protecting Tenants at Foreclosure Act (12 U.S.C. § 5220 note) not read (rule 21). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Notices & General
+  {
+    id: "edu-notice-service-mo",
+    title: "Delivering Notices",
+    group: "Notices & General",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "notice-delivery-methods",
+    bodyText:
+      "Missouri sets delivery rules for particular notices rather than one general method. Notices ending a tenancy must be in writing. An unlawful detainer demand for possession may be delivered to the person in possession, left with someone over 15 who lives on or is in charge of the premises, or posted if no one is there. The abandonment notice must be both posted and mailed by first-class and certified mail. Deposit statements may be mailed to the tenant's last known address. Missouri's electronic transactions act does not exclude leases or notices, but the statutes that require posting or mail still control.",
+    notes: "MO: Mo. Rev. Stat. § 441.050, Mo. Rev. Stat. § 441.060; Mo. Rev. Stat. § 534.050; Mo. Rev. Stat. § 441.065(3); Mo. Rev. Stat. § 535.300(3), (5); Mo. Rev. Stat. § 432.210 (UETA scope; only wills and parts of the UCC excluded; MO battery 85). No statutory e-mail notice regime. Clause: notices (tagged MO). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-lease-in-writing-mo",
+    title: "When a Lease Must Be in Writing",
+    group: "Notices & General",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "statute-of-frauds-lease-term",
+    bodyText:
+      "A lease for longer than one year is unenforceable unless it, or a memorandum of it, is in writing and signed by the party to be charged. A lease that is not in writing and signed creates only a tenancy at will, and an unwritten rental of a house or other building is treated as month-to-month.",
+    notes: "MO: Mo. Rev. Stat. § 432.010; Mo. Rev. Stat. § 432.050; Mo. Rev. Stat. § 441.060(3); Mo. Rev. Stat. § 441.120 (oral evidence of renewal of a written lease inadmissible). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-consumer-protection-mo",
+    title: "Merchandising Practices Act",
+    group: "Other / Miscellaneous",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "consumer-protection-act",
+    bodyText:
+      "Missouri's Merchandising Practices Act prohibits deception, fraud, false promises, misrepresentation, unfair practices and concealing material facts in connection with the sale or advertisement of merchandise, and it defines merchandise to include real estate and sale to include a lease. A person who leases for personal, family or household purposes and suffers an ascertainable loss may sue for actual damages. Be accurate in listings, applications and the lease.",
+    notes: "MO: Mo. Rev. Stat. § 407.010(4), (6), (7); Mo. Rev. Stat. § 407.020(1), (3); Mo. Rev. Stat. § 407.025(1) (read as an excerpt). The Attorney General's unfair-practice rules (15 Mo. Code Regs. 60) not read (rule 21), so whether they list blank spaces or a missing copy at signing is unknown; no statute requires giving the tenant a copy of the lease (MO battery 105: 0 hits). How the Act applies to residential leases is case law, not read. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-prohibited-lease-terms-mo",
+    title: "Lease Terms Missouri Law Voids",
+    group: "Compliance & Prohibited Terms",
+    states: ["MO"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "prohibited-lease-terms",
+    bodyText:
+      "Missouri has no general list of banned lease terms, but specific provisions void particular terms: a waiver of the tenant's repair-and-deduct right; a waiver of an occupant's protections under the housing-code receivership law; a ban on firearms by a housing authority or a landlord receiving public funds from one; and, in leases signed after December 8, 2022, a ban on lawfully possessing marijuana or consuming it other than by smoking. Other limits on lease terms, such as penalties and exculpatory clauses, come from court decisions.",
+    notes: "MO: Mo. Rev. Stat. § 441.234(2); Mo. Rev. Stat. § 441.610; Mo. Rev. Stat. § 571.510(2); Mo. Const. art. XIV, § 2.3(4). CONFIRMED ABSENT: general prohibited-terms statute and knowing-use penalty (MO batteries 90-91; 90: 0 hits, tested against a synthetic positive). No residential unconscionability statute (MO battery 106: UCC and other non-lease hits). Exculpation and the penalty doctrine are case law, not read (rule 52). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-firearms-mo",
+    title: "Firearms",
+    group: "Rules & Regulations",
+    states: ["MO"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "firearms",
+    bodyText:
+      "A housing authority, or a landlord receiving public funds from a housing authority, may not prohibit a tenant, household member or guest from possessing firearms in the residence or common areas or carrying them to and from the residence as the law allows; such a lease term is void. Such a landlord is generally not liable for damages caused by a tenant's possession or use of a firearm. No Missouri statute addresses firearm rules in other private leases.",
+    notes: "MO: Mo. Rev. Stat. § 571.510 (2014 S.B. 656, effective 10/10/2014 after a veto override, per the revisor's note). 'Authority' means a housing authority created under Mo. Rev. Stat. § 99.040 and entities administering HUD funds for public rental housing assistance. Whether a voucher landlord receiving housing assistance payments from a housing authority is a 'lessor receiving public funds from a housing authority' is not settled by the text alone; case law not read. Mo. Const. art. I, § 23 (right to bear arms) noted from the corpus search, not relied on. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Parking & Storage
+  {
+    id: "edu-towing-mo",
+    title: "Towing From Rental Property",
+    group: "Parking & Storage",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "towing",
+    bodyText:
+      "To have a vehicle towed from your property without a police officer's authorization, you (or a full-time property or security manager) must be present, and either post a sign in plain view at every entrance at least 17 by 22 inches with letters at least 1 inch high that prohibits public parking, states that unauthorized vehicles will be removed at the owner's expense, discloses the maximum towing and storage fee, and gives the phone number of the local traffic law enforcement agency or a 24-hour staffed emergency information line, or notify police and wait 10 hours (owner-occupied property of four units or fewer) or 96 hours (other private property). You must complete the state's abandoned property report. Knowingly authorizing a tow that breaks these rules is a class C misdemeanor.",
+    notes: "MO: Mo. Rev. Stat. § 304.157(4)-(9) (2008 H.B. 1715); 'abandoned property' defined by Mo. Rev. Stat. § 304.001(1) (excerpt saved). Stale cross-reference: Mo. Rev. Stat. § 304.157(8) refers to section 301.155, which the revisor notes does not exist (MO log §10, rule 77). Local towing ordinances not searched (rule 3). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-cannabis-mo",
+    title: "Marijuana in Rentals",
+    group: "Other / Miscellaneous",
+    states: ["MO"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "cannabis",
+    bodyText:
+      "Under the Missouri Constitution, a lease signed after December 8, 2022 may not prohibit a tenant from lawfully possessing marijuana or consuming it by means other than smoking. You may ban smoking marijuana, and you may prohibit or limit cultivation, distribution, processing, sale and display of marijuana on your property. Whether vaping marijuana counts as 'smoking' is unsettled; the library's lease does not ban it.",
+    notes: "MO: Mo. Const. art. XIV, § 2.3(4) (effective 12/8/2022; subsection number confirmed in sources/hit-headings.txt); the medical-marijuana definition of 'administer' lists 'Vaporization or smoking' as one method beside ingestion (Mo. Const. art. XIV, § 1.2(1)(b), read as an excerpt). No statute addresses marijuana in leases (MO battery 35: hits only Mo. Const. art. XIV, §§ 1-2 on re-run). Clauses: smoking-policy-mo, cannabis-cultivation-mo, criminal-activity-mo. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-nuisance-actions-mo",
+    title: "Nuisance Actions Against Rental Owners",
+    group: "Other / Miscellaneous",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nuisance",
+    bodyText:
+      "A building used for possessing, keeping, distributing or manufacturing controlled substances is a public nuisance; if the owner knew or had reason to know, a court may close it for up to a year. In the cities described by the statute's population tests (St. Louis City, Kansas City, Springfield and St. Charles, per the section heading), property owners within 1,200 feet and neighborhood organizations may sue an owner over a nuisance property after 60 days' mailed notice, which must also go to the tenant (or 'occupant').",
+    notes: "MO: Mo. Rev. Stat. § 195.253; Mo. Rev. Stat. § 82.1025 (2025 H.B. 199; the city names are in the revisor's heading; the statute uses population brackets, not derived from census data here, rule 32). Mo. Rev. Stat. § 67.452 (nuisances in any county with more than one million inhabitants and cities within it) was read only as to its applicability subsection (Mo. Rev. Stat. § 67.452(2), saved as an excerpt) and is not relied on. Local nuisance ordinances flagged, not resolved (rule 3). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-county-habitability-rules-mo",
+    title: "County Habitability Rules (Boone County)",
+    group: "Landlord Responsibilities",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rental-inspection",
+    bodyText:
+      "One county in the population bracket set by statute (Boone County, per the section heading) may adopt habitability rules for rented homes covering protection from the elements, water including hot water, sewer, electricity, heat and basic security. Enforcement is by written complaint from a current lawful tenant, notice to the owner, and a county hearing; the county may not charge fees, inspect except on a complaint, or require rental licensing, registration or certification.",
+    notes: "MO: Mo. Rev. Stat. § 64.207 (2021 H.B. 271). The county name is in the revisor's heading; the statute uses a population bracket (first-classification county with more than 150,000 and fewer than 200,000 inhabitants), not derived from census data here (rule 32). Whether the county has adopted rules was not checked (rule 3). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Disclosures
+  {
+    id: "edu-psychologically-impacted-mo",
+    title: "Deaths, Crimes and Illness at the Property",
+    group: "Disclosures",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "stigmatized-property",
+    bodyText:
+      "Missouri law says that a property's being the site of a homicide, other felony or suicide, or that an occupant had HIV, AIDS or another disease highly unlikely to spread through occupancy, is not a material fact that must be disclosed in a 'sale, exchange or other transfer of real estate', and no claim lies against a real estate agent or broker for not disclosing it. Whether this covers leases is not settled; answer a tenant's direct question truthfully.",
+    notes: "MO: Mo. Rev. Stat. § 442.600 (1991 S.B. 138). Whether a lease is a 'transfer' under the section is case law, not read; the Merchandising Practices Act bars misrepresentation (edu-consumer-protection-mo). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-landlord-attachment-mo",
+    title: "No Landlord Lien on Household Goods",
+    group: "Default & Termination",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-lien",
+    bodyText:
+      "Missouri gives landlords liens only on crops grown on the leased land. For unpaid rent, a court may issue an attachment against a tenant's personal property in listed situations (such as when the tenant is removing property or rent is unpaid after demand), only after you post a bond for double the amount claimed, and property exempt from execution is also exempt from attachment for rent. Seizing a tenant's belongings yourself is forcible entry and detainer.",
+    notes: "MO: Mo. Rev. Stat. § 441.240 (grounds and double bond), Mo. Rev. Stat. § 441.250, Mo. Rev. Stat. § 441.260, Mo. Rev. Stat. § 441.270 (exempt property, except crops), Mo. Rev. Stat. § 441.280, Mo. Rev. Stat. § 441.290, Mo. Rev. Stat. § 441.300 (crop liens); Mo. Rev. Stat. § 441.233(1). Exemptions in Chapter 513 (not read; a new version of Mo. Rev. Stat. § 513.430 takes effect 1/1/2027). No optional lien clause offered (MO log §6). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Notices & General
+  {
+    id: "edu-scope-mo",
+    title: "Where Missouri Landlord-Tenant Law Lives",
+    group: "Notices & General",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "scope",
+    bodyText:
+      "Missouri has no single landlord-tenant code. The main rules are in Chapter 441 (tenancies, notices, repair-and-deduct, abandonment, receivership, expedited drug evictions and domestic violence protections), Chapter 535 (rent-and-possession actions, manager disclosure and security deposits) and Chapter 534 (forcible entry, unlawful detainer and squatter removal), with other rules elsewhere. The chapters' definitions reach manufactured and mobile homes. Cities such as Kansas City and St. Louis have their own tenant ordinances, which this library does not cover.",
+    notes: "MO: Mo. Rev. Stat. § 441.005 (definitions for Chapters 441, 534 and 535; 'premises' includes manufactured and mobile homes); Mo. Rev. Stat. § 441.060(4)(2) and Mo. Rev. Stat. § 700.600 (mobile-home lot tenancies, the latter read in context); crop rents and liens (Mo. Rev. Stat. §§ 441.240 to 441.300) mainly agricultural. Out of scope and flagged: local ordinances (rule 3); manufactured-home land lease communities (Chapter 700); agricultural tenancies. Mo. Rev. Stat. § 535.300's double damages do not apply to commercial tenants per the revisor's annotation (case not read). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Disclosures
+  {
+    id: "edu-no-radon-disclosure-mo",
+    title: "No Radon Disclosure Rule",
+    group: "Disclosures",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "radon-disclosure",
+    bodyText:
+      "Missouri requires no radon testing or disclosure for rentals.",
+    notes: "MO: CONFIRMED ABSENT: whole-code search '\\bradon\\b': 0 hits (MO battery 14; pattern tested against a synthetic positive). Building codes and administrative rules not searched. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-no-mold-disclosure-mo",
+    title: "No Mold Disclosure Rule",
+    group: "Disclosures",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "mold-disclosure",
+    bodyText:
+      "Missouri has no statute requiring a landlord to disclose or remediate mold in a rental.",
+    notes: "MO: CONFIRMED ABSENT: whole-code searches 'molds?|mildew' (12 sections, MO battery 15, none residential) and mold NEAR lessee, tenant, lease, landlord or dwelling (0 hits, MO battery 63; tested against a synthetic positive). Local codes not searched (rule 3). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-no-bed-bug-rule-mo",
+    title: "No Bed Bug Rule",
+    group: "Disclosures",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "bed-bug-disclosure",
+    bodyText:
+      "Missouri has no statute on bed bug disclosure, inspection or treatment in rentals.",
+    notes: "MO: CONFIRMED ABSENT: whole-code search 'bed ?bugs?': 0 hits (MO battery 16; tested against a synthetic positive). Local codes not searched (rule 3). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-no-flood-disclosure-mo",
+    title: "No Flood Disclosure Rule",
+    group: "Disclosures",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "flood-disclosure",
+    bodyText:
+      "Missouri does not require a landlord to disclose flood risk or flood history to a tenant.",
+    notes: "MO: CONFIRMED ABSENT: whole-code search flood NEAR lessee, tenant, lease, landlord or rental: 7 sections (MO battery 62), none a disclosure duty (federal flood-control land revenue, county zoning exemptions for flood irrigation, boat-slip definitions, insurance powers and mine reclamation). Federal flood-insurance rules not read (rule 21). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-tenant-death-rule-mo",
+    title: "No Tenant Death Rule",
+    group: "Default & Termination",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-death",
+    bodyText:
+      "Missouri has no statute ending a residential lease when a tenant dies or setting how a landlord handles a deceased tenant's belongings. The lease continues as a contract with the tenant's estate under general law. Use the estate's personal representative or a court process before disposing of property.",
+    notes: "MO: CONFIRMED ABSENT: whole-code searches for death of a tenant or lessee (3 sections, MO battery 23) and death NEAR tenant, lessee or lease (23 sections, MO battery 69): none a residential tenant-death rule (Mo. Rev. Stat. § 441.160 to Mo. Rev. Stat. § 441.190 concern rents owed to deceased lessors and life tenants; Mo. Rev. Stat. § 448.4-112 succession to a conversion right). Probate law not read. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Parking & Storage
+  {
+    id: "edu-no-ev-charging-rule-mo",
+    title: "No EV Charging Rule",
+    group: "Parking & Storage",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "ev-charging",
+    bodyText:
+      "Missouri gives tenants no statutory right to install electric vehicle charging, and sets no rule for landlords on it.",
+    notes: "MO: CONFIRMED ABSENT: whole-code search for electric vehicle charging / charging station / EV charging: 11 sections (MO battery 44), none a tenant or landlord rule (utility, tax and public-property provisions). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Disclosures
+  {
+    id: "edu-no-immigration-status-rule-mo",
+    title: "No Immigration Status Rule",
+    group: "Disclosures",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "immigration-status",
+    bodyText:
+      "Missouri has no statute on asking about or acting on a renter's immigration status. National origin and ancestry are protected under Missouri fair housing law.",
+    notes: "MO: CONFIRMED ABSENT: whole-code search unlawfully present / immigration status / alien NEAR rent, lease, housing, dwelling or landlord: 10 sections (MO battery 55), none residential (hits on 'alienate' in property sections and agricultural land rules). Mo. Rev. Stat. § 213.040(1). Restrictions on alien ownership of agricultural land (Mo. Rev. Stat. §§ 442.560 to 442.592) do not reach residential leases (read in context, MO battery 107). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Notices & General
+  {
+    id: "edu-no-emergency-assistance-rule-mo",
+    title: "No Right-to-Call-Police Statute",
+    group: "Notices & General",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "emergency-assistance-right",
+    bodyText:
+      "Missouri has no statute protecting a tenant's right to call police or emergency services or barring lease penalties for doing so. Missouri does bar evicting or finding a lease violation against a tenant because the tenant is a victim of domestic violence, sexual assault or stalking.",
+    notes: "MO: CONFIRMED ABSENT: whole-code search for summoning police, law enforcement or emergency assistance NEAR tenant or landlord terms: 0 hits (MO battery 104; tested against a synthetic positive). Mo. Rev. Stat. § 441.920(2). Local ordinances not searched (rule 3). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-no-security-device-rule-mo",
+    title: "No Lock or Security Device Rule",
+    group: "Landlord Responsibilities",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-devices",
+    bodyText:
+      "Missouri has no statute requiring deadbolts, door viewers or rekeying between tenants. A landlord may not change or remove locks to exclude a tenant without a court order. Where a county adopts habitability rules under Missouri's county authority, they must require basic security including locking doors and windows.",
+    notes: "MO: CONFIRMED ABSENT: whole-code searches for peephole / door viewer / deadbolt (0 hits, MO battery 80; tested against a synthetic positive) and locks NEAR tenant, landlord or dwelling unit (2 sections, MO battery 40: Mo. Rev. Stat. § 64.207(2)(6) and Mo. Rev. Stat. § 441.233(1)). Local codes not searched (rule 3). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-eviction-sealing-mo",
+    title: "No Eviction Record Sealing",
+    group: "Default & Termination",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-record-sealing",
+    bodyText:
+      "Missouri has no statute sealing or expunging eviction case records.",
+    notes: "MO: CONFIRMED ABSENT: whole-code search seal / expunge / closed or confidential records NEAR eviction, unlawful detainer, rent and possession or landlord-tenant case: 0 hits (MO battery 101; tested against a synthetic positive). Court operating rules (Missouri CaseNet record practices) not read (rule 21). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  {
+    id: "edu-no-mitigation-statute-mo",
+    title: "Re-Renting After a Tenant Leaves Early",
+    group: "Default & Termination",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "abandonment-and-mitigation",
+    bodyText:
+      "Missouri has no general statute requiring a landlord to re-rent or reduce damages when a tenant leaves early, or saying whether the lease survives for rent. The only statutory mitigation rule is in the deposit law: you may withhold from the deposit for a tenant's failure to give proper notice to end the tenancy only if you make reasonable efforts to mitigate. Whether a broader duty to mitigate applies is a matter of court decisions, so the library's lease commits to reasonable efforts where the law requires them.",
+    notes: "MO: CONFIRMED ABSENT: whole-code search for mitigat* / relet* NEAR landlord-tenant terms: 1 hit, Mo. Rev. Stat. § 535.300(4)(3) (MO battery 109; tested against a synthetic positive). Case law on mitigation not read. Clauses: default-by-tenant, tenant-caused-damage-mo. Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-no-submetering-rule-mo",
+    title: "No Utility Submetering Rule",
+    group: "Tenant Responsibilities",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utility-submetering-disclosure",
+    bodyText:
+      "Missouri has no statute on landlords billing tenants for utilities through submeters or allocation formulas, or on disclosures for that billing. Utility regulators' rules and local ordinances were not reviewed.",
+    notes: "MO: CONFIRMED ABSENT: whole-code search for submeter / ratio utility billing / allocating utilities / billing tenants for water or utilities near landlord-tenant terms: 0 hits (MO battery 95; tested against a synthetic positive). Public Service Commission rules not read (rule 21). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
+  // Notices & General
+  {
+    id: "edu-no-lease-copy-rule-mo",
+    title: "No Lease Copy Rule",
+    group: "Notices & General",
+    states: ["MO"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lease-copy",
+    bodyText:
+      "No Missouri statute requires a landlord to give the tenant a copy of the signed lease. Giving each tenant a signed copy is still good practice.",
+    notes: "MO: CONFIRMED ABSENT: whole-code search for copy of the lease or rental agreement near landlord or tenant terms: 0 hits (MO battery 105; tested against a synthetic positive). The Attorney General's Merchandising Practices Act rules were not read (rule 21; edu-consumer-protection-mo). Read section-open 2026-09-30 in the built-in browser from revisor.mo.gov (Missouri Revisor of Statutes, which prints each section with its history line and version date and describes its text as unofficial and uncertified): Chapters 441, 534 and 535 read whole (72, 45 and 23 sections as indexed); the whole Revised Statutes of Missouri and the Missouri Constitution (30,836 entries) loaded for full-text search, control term 0 hits (MO log §1, MO log §17).",
+  },
 ];
 
 module.exports = { LANDLORD_EDUCATION };

@@ -34,6 +34,7 @@ const STATE_NAMES = {
   UT: "Utah",
   IL: "Illinois",
   ID: "Idaho",
+  MO: "Missouri",
 };
 
 const STATE_CONFIG = {
@@ -1122,6 +1123,42 @@ const STATE_CONFIG = {
       },
     ],
   },
+  MO: {
+    // Revised Statutes of Missouri sections are chapter.section ("535.300",
+    // "441.043", "441.060"). Missouri bills amend "Section 441.043, RSMo", so
+    // '"441.043, RSMo"' is the query. Citations are split on ";" and only the
+    // "Mo. Rev. Stat." parts are read; absence text, constitutional and
+    // U.S.C./CFR parts are skipped (the Constitution is a manual recheck item:
+    // it changes by ballot measure, not by bill alone).
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        if (!/^Mo\. Rev\. Stat\./.test(part)) continue;
+        const body = part.replace(/\([^)]*\)/g, " ");
+        for (const m of body.matchAll(/\b(\d{1,3}\.\d{3,4})\b/g)) out.push(m[1]);
+      }
+      return out;
+    },
+    buildQuery(key) {
+      return `"${key}, RSMo"`;
+    },
+    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
+    manualRecheckItems: [
+      {
+        id: "mo-constitution-art-xiv",
+        label:
+          "Mo. Const. art. XIV (marijuana): its protection of non-smoking use in leases made after 2022-12-08 shapes smoking-policy-mo and cannabis-cultivation-mo; amended by ballot measure or legislative referral, which the bill watch may not catch (MO log §6.2)",
+        clauseIds: ["smoking-policy-mo", "cannabis-cultivation-mo", "edu-cannabis-mo"],
+      },
+      {
+        id: "mo-case-law",
+        label:
+          "Missouri case law the rows flag but don't rely on: waiver by accepting rent, exact-amount demand, jury trial in rent-and-possession cases (Brainchild Holdings v. Cameron), exculpatory clauses, the penalty doctrine, what 'accidentally' covers in Mo. Rev. Stat. § 441.010, and whether vaping is 'smoking' under art. XIV (MO log §7)",
+        clauseIds: ["late-fee", "tenant-caused-damage-mo", "smoking-policy-mo", "default-by-tenant"],
+      },
+    ],
+  },
 };
 
 // Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
@@ -1133,7 +1170,7 @@ const STATE_CONFIG = {
 // that cronFor() returns; checkConfigIds.js fails if a workflow doesn't match.
 const SCHEDULE_ORDER = [
   "CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ",
-  "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID",
+  "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO",
 ];
 function cronFor(code) {
   const n = SCHEDULE_ORDER.indexOf(code);
