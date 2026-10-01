@@ -36,6 +36,7 @@ const STATE_NAMES = {
   ID: "Idaho",
   MO: "Missouri",
   IN: "Indiana",
+  OK: "Oklahoma",
 };
 
 const STATE_CONFIG = {
@@ -1214,6 +1215,55 @@ const STATE_CONFIG = {
       },
     ],
   },
+  OK: {
+    // Oklahoma Statutes sections are cited by title and section, and some
+    // sections carry an article prefix or a letter ("tit. 41, § 115",
+    // "tit. 11, § 14-101.1", "tit. 10A, § 1-9-125", "tit. 12, § 1148.10A").
+    // Bills amend "41 O.S. 2021, Section 115" with the compilation year in
+    // between, so the query pairs the title's "O.S." with the section
+    // ('"41 O.S." AND "Section 115"'), as PA does. Citations are split on ";"
+    // and only "Okla. Stat." parts are read; a range ("§ 1148.1-1148.16") is
+    // skipped, since its end sections are cited on their own. The
+    // Constitution and court rules are manual recheck items.
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        const m = part.match(/^Okla\. Stat\. tit\. (\d+[A-Z]?), §§? ([\d.\-]+[A-Za-z]?)/);
+        if (!m) continue;
+        const sec = m[2];
+        const range = sec.match(/^(\d+)\.[\dA-Za-z]+-(\d+)\./);
+        if (range && range[1] === range[2]) continue;
+        out.push(`${m[1]}:${sec}`);
+      }
+      return out;
+    },
+    buildQuery(key) {
+      const [title, sec] = key.split(":");
+      return `"${title} O.S." AND "Section ${sec}"`;
+    },
+    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
+    manualRecheckItems: [
+      {
+        id: "ok-future-dated-acts",
+        label:
+          "Oklahoma acts enacted but not yet compiled: HB 3127 (2026) and HB 3431 (2026) take effect 2026-11-01, SB 893 (2026) on 2027-07-01; re-read the rows once the compilation prints them (OK log §1.2, §7)",
+        clauseIds: ["edu-foreign-ownership-ok", "edu-medical-marijuana-ok"],
+      },
+      {
+        id: "ok-court-rules-constitution",
+        label:
+          "Oklahoma sources LegiScan can't see: the Rules for District Courts and Rules for the Administration of Courts (eviction rows), and the Constitution (art. II, § 26; art. XXII, § 1), which changes by ballot measure (OK log §1.1, §7)",
+        clauseIds: ["edu-firearms-ok", "edu-foreign-ownership-ok"],
+      },
+      {
+        id: "ok-case-law",
+        label:
+          "Oklahoma case law the rows flag but don't rely on: penalty doctrine (late, returned-payment and early-termination fees), waiver by accepting rent, the reach of Okla. Stat. tit. 41, § 113(A)(3)-(4), how 'immediate termination' under § 132(D) works, whether a residential lease is a lease of 'land' under tit. 60, § 121, and whether the Consumer Protection Act reaches leases (OK log §1.4, §7)",
+        clauseIds: ["late-fee", "early-termination-ks", "default-by-tenant-ks-ne", "edu-consumer-protection-ok"],
+      },
+    ],
+  },
 };
 
 // Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
@@ -1225,7 +1275,7 @@ const STATE_CONFIG = {
 // that cronFor() returns; checkConfigIds.js fails if a workflow doesn't match.
 const SCHEDULE_ORDER = [
   "CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ",
-  "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN",
+  "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK",
 ];
 function cronFor(code) {
   const n = SCHEDULE_ORDER.indexOf(code);

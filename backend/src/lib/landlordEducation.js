@@ -19335,6 +19335,954 @@ const LANDLORD_EDUCATION = [
       "Wyoming lets a lease do something almost no other state allows. The sentence in W.S. 1-21-1202(a) requiring operational electrical, heating and plumbing with hot and cold running water ends with 'unless otherwise agreed upon in writing by both parties'. Read plainly, a signed lease can remove the requirement itself -- not shift who maintains the water heater, but agree there need not be hot water. Keep that separate from the other flexibility in the same section. W.S. 1-21-1202(d) lets you assign a specific duty to the tenant: the unit still has to have a working well pump, the tenant just looks after it. That one is in the lease library as an optional clause. The (a) waiver removes the amenity from the deal altogether, and it is not offered as a clause -- deliberately. Three reasons to leave it alone. The habitability duty in the first sentence of 1-21-1202(a) -- safe, sanitary, fit for human habitation -- carries no such escape, so a unit with no heat in a Wyoming winter may well fail that duty whatever the lease says, and you would be arguing the point in front of a judge. No Wyoming case law on this sentence was reviewed for this library, so how far a court would let it stretch is unknown. And a tenant's agreement to go without heat is exactly the kind of term that invites an unconscionability argument and reads badly to everyone who later looks at it. If what you actually have is a cabin, you may not need the waiver at all: the same subsection says it 'shall not prevent the rental of seasonal rental units such as summer cabins which are not intended to have such amenities'. A genuinely seasonal property sits outside the utilities requirement by statute. If after all that you still want the term, it is lawful and you can add it as your own custom clause. Put the specific amenity and the reason in writing, keep it off anything that touches safety, and get advice first.",
     notes: "WY added 2026-10-01, RETRO follow-up (SOP 1.15, rules 50 and 54). TAYLOR'S DECISION, 2026-10-01: having declined the clause, he asked whether an education row covered the point, reasoning that a landlord who wants the term after reading it can write their own. It did not -- W.S. 1-21-1202(a)'s waiver appeared only as nine unexplained words inside edu-habitability-baseline-wy (and that row attached them to the wrong sentence; fixed in the same delta). This row is the result and is the better design: the library explains the lawful option without shipping it. W.S. 1-21-1202(a) read section-open. Three sentences, and the distinction matters: (1) safe and sanitary, fit for human habitation -- NO waiver language; (2) operational electrical, heating and plumbing with hot and cold running water -- 'unless otherwise agreed upon in writing by both parties'; (3) 'Provided, however, this section shall not prevent the rental of seasonal rental units such as summer cabins which are not intended to have such amenities'. The waiver reaches sentence (2) only. NEW topic_key habitability-waiver, no other state has one. Rule 58 weighed: this could have shared habitability-modifiable with edu-habitability-modifiable-wy and duty-reassignment-wy, but waiving a requirement and reassigning a duty are different mechanisms with opposite risk profiles, and conflating them is precisely what went wrong in the baseline row. A separate key also makes the cross-state check ask every other state whether its habitability duty is waivable -- in most the answer is 'no, void', which is worth recording per state. Collapse it at sync if Taylor prefers one key. UNREAD RISK, LABELLED (rule 76): no Wyoming case law construes 1-21-1202(a), and the unconscionability point is doctrinal, not read from a Wyoming decision. Stated in the body as untested rather than as a prediction. Overlaps in passing with edu-contracted-appliances-duty-wy, which mentions the same waiver accurately while explaining a different subject (1-21-1203(a)(iv)); that row is left unchanged. W.S. 1-21-1202 read section-open from the official Wyoming Legislature NXT gateway, 2026 Wyoming Statutes; text confirmed identical in the 2024 and 2026 editions.",
   },
+  // Tenant Responsibilities
+  {
+    id: "edu-tenant-maintenance-agreement-ok",
+    title: "Chores and Repairs by the Tenant Need a Separate Writing",
+    group: "Tenant Responsibilities",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landscaping-irrigation",
+    bodyText:
+      "In Oklahoma, if you want the tenant to take on specified repairs, maintenance tasks, alterations or remodeling (yard work, snow removal, filter changes and the like), put it in a conspicuous writing independent of the lease, signed separately; a chore clause inside the lease or an attached addendum risks being unenforceable. The tenant's own statutory duties (keeping the unit clean and safe, not damaging it) need no separate writing. Your duty to keep the unit fit and habitable cannot be shifted to the tenant by lease. Use the optional Tenant Maintenance Agreement, printed as its own document.",
+    notes: "OK: Okla. Stat. tit. 41, § 118(A)-(B); Okla. Stat. tit. 41, § 127 (tenant duties); Okla. Stat. tit. 41, §§ 103(B), 113(A)(1). Taylor, 2026-09-30: separate agreement instead of tagging landscaping-irrigation and snow-removal (OK log §6.2). Whether a court would void an in-lease chore clause is case law, unread. Clause: tenant-repair-agreement-ok. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Security Deposit
+  {
+    id: "edu-security-deposit-rules-ok",
+    title: "Oklahoma Security Deposit Rules",
+    group: "Security Deposit",
+    states: ["OK"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-penalty",
+    bodyText:
+      "Any damage or security deposit you require must be kept in an escrow account for the tenant at a federally insured financial institution in Oklahoma; misappropriating it is a crime punishable by up to six months in county jail and a fine of up to twice the amount taken. When the tenancy ends you may apply the deposit to accrued rent and to damages caused by the tenant's noncompliance with the lease or the Landlord and Tenant Act, itemized in a written statement delivered by mail, return receipt requested, or in person. You must return the balance, without interest, within 45 days after the tenancy ends, the tenant delivers possession and the tenant makes a written demand. If the tenant makes no written demand within six months after the tenancy ends, the deposit becomes yours. If you do not follow these rules, or do not return prepaid rent the Act requires you to return, the tenant may recover the deposit and the prepaid rent. Unless the lease allows it, the tenant may not use the deposit as the last month's rent. When you sell or otherwise lose your interest in the property, you must within a reasonable time either transfer the deposits to your successor and tell the tenants in writing who holds them, or return them.",
+    notes: "OK: Okla. Stat. tit. 41, § 115(A)-(G); 'Deposit' defined, Okla. Stat. tit. 41, § 102(2). The act sets no cap (edu-no-deposit-cap-ok) and no interest (Okla. Stat. tit. 41, § 115(B) 'without interest'). Okla. Stat. tit. 41, § 115 read whole. Clauses: security-deposit-use (tagged), security-deposit-return-ok. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-no-deposit-cap-ok",
+    title: "No Deposit Cap",
+    group: "Security Deposit",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-cap",
+    bodyText:
+      "Oklahoma sets no limit on the amount of a security deposit.",
+    notes: "OK: CONFIRMED ABSENT: Title 41 read whole; OK battery 32 (deposit cap wording in landlord-tenant context: 0 hits; known positives passed). Rule 37: with no cap there is no lease-year or renewal question. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-no-deposit-interest-ok",
+    title: "No Interest on Deposits",
+    group: "Security Deposit",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-interest",
+    bodyText:
+      "Oklahoma does not require you to pay interest on a security deposit; the balance is returned 'without interest'. The deposit must still be kept in an escrow account at a federally insured institution in Oklahoma.",
+    notes: "OK: Okla. Stat. tit. 41, § 115(A), (B). OK battery 33 (deposit interest: 5 sections, only Okla. Stat. tit. 41, § 115 residential; known positives passed). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-deposit-holding-ok",
+    title: "Where the Deposit Must Be Held",
+    group: "Security Deposit",
+    states: ["OK"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-holding",
+    bodyText:
+      "Keep every damage or security deposit, including a refundable pet deposit, in an escrow account for the tenant maintained in Oklahoma with a federally insured financial institution. Misappropriating a deposit is a crime. Oklahoma does not require you to tell the tenant where the deposit is held.",
+    notes: "OK: Okla. Stat. tit. 41, § 115(A) (escrow; misappropriation: county jail up to six months and a fine up to twice the amount misappropriated). No notice-of-location duty in Title 41 (read whole). A refundable pet deposit is a 'deposit' (Okla. Stat. tit. 41, § 102(2)). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-deposit-last-month-ok",
+    title: "Deposit Is Not the Last Month's Rent",
+    group: "Security Deposit",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "deposit-last-month-rent",
+    bodyText:
+      "Unless the lease says otherwise, a tenant may not deduct any part of the security deposit from the last month's rent or use it in place of rent at any time. Rent the tenant pays in advance is not a deposit, but you must return prepaid rent when the Landlord and Tenant Act requires it (for example, if you fail to deliver possession or the unit is destroyed).",
+    notes: "OK: Okla. Stat. tit. 41, § 115(F) ('Except as otherwise provided by the rental agreement'); prepaid rent: Okla. Stat. tit. 41, §§ 115(E), 120(A), 122(B), 123. 'Deposit' means money required as security and returnable at termination (Okla. Stat. tit. 41, § 102(2)); prepaid rent is 'rent' (Okla. Stat. tit. 41, § 102(11)). The library's security-deposit-use keeps the Okla. Stat. tit. 41, § 115(F) default (no application). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-deposit-on-sale-ok",
+    title: "Deposits When You Sell",
+    group: "Security Deposit",
+    states: ["OK"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-on-sale",
+    bodyText:
+      "When your interest in the property ends (by sale, assignment, death, bankruptcy, receivership or otherwise), whoever holds the tenants' deposits must, within a reasonable time, either transfer them to your successor and notify the tenants in writing of the transfer and the new holder's name and address, or return them to the tenants. The successor then has all the rights and duties of a landlord holding deposits. You are relieved of liability under the lease and the Act for events after you give the tenant written notice that your interest has ended, and the tenant then pays rent to your successor.",
+    notes: "OK: Okla. Stat. tit. 41, § 115(C)-(D); Okla. Stat. tit. 41, § 119(C) ('Unless otherwise agreed'), (A) (rent paid to the grantor before written notice of the conveyance is good against the grantee). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Pets
+  {
+    id: "edu-pet-deposit-ok",
+    title: "Pet Deposits and Pet Fees",
+    group: "Pets",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "pet-fees",
+    bodyText:
+      "A refundable pet deposit is a 'deposit' under the Landlord and Tenant Act: keep it in the escrow account and return it under the same rules as the security deposit. A nonrefundable pet fee or monthly pet rent is not a deposit; under the Act every payment due under the lease other than deposits and damages is 'rent'.",
+    notes: "OK: Okla. Stat. tit. 41, § 102(2), (11); Okla. Stat. tit. 41, § 115. OK battery 36 (nonrefundable: 0 hits in landlord-tenant context). Pending 2026 bill HB 3389 (pet deposits and fees) was not enacted (OK log §1). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Security Deposit
+  {
+    id: "edu-deposit-unclaimed-ok",
+    title: "Unclaimed Deposits Revert to You",
+    group: "Security Deposit",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "deposit-escheat",
+    bodyText:
+      "If a tenant does not make a written demand for the security deposit within six months after the tenancy ends, the deposit reverts to you, in consideration of the cost and burden of keeping the escrow account, and the tenant's interest in it ends. A refund the tenant demanded but never cashed is a different question that the Landlord and Tenant Act does not answer; the Uniform Unclaimed Property Act may treat it as unclaimed property.",
+    notes: "OK: Okla. Stat. tit. 41, § 115(B). OK battery 35 (unclaimed property and deposits in Title 60: Uniform Unclaimed Property Act sections, none specific to residential deposits). The Uniform Unclaimed Property Act (Okla. Stat. tit. 60, § 651 et seq.) was not read beyond the battery snippets; how it treats an uncashed refund check is not resolved here. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-no-move-in-inspection-rule-ok",
+    title: "No Move-In Inspection Rule",
+    group: "Security Deposit",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "condition-inspection",
+    bodyText:
+      "Oklahoma does not require a move-in inspection, inventory or condition report. Documenting the unit's condition at move-in still helps you prove damage later.",
+    notes: "OK: CONFIRMED ABSENT: Title 41 read whole; OK battery 34 (inventory, move-in, condition report, walk-through, inspection at commencement: 8 sections, none residential move-in; known positives passed). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-fees-as-rent-ok",
+    title: "Fees Count as Rent",
+    group: "Rent & Payment",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fees-as-rent",
+    bodyText:
+      "Under the Landlord and Tenant Act, 'rent' means all payments, except deposits and damages, that the tenant must make to you under the lease. Fees the lease requires (for example pet rent or utility reimbursements) are therefore rent by definition. Whether a court will treat a particular charge, such as a late fee, as rent for a five-day nonpayment notice and eviction is a question of case law not researched here.",
+    notes: "OK: Okla. Stat. tit. 41, § 102(11); nonpayment notice: Okla. Stat. tit. 41, § 131(B). Case law on late fees as rent unread. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-rent-payment-default-ok",
+    title: "When and Where Rent Is Due if the Lease Is Silent",
+    group: "Rent & Payment",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-payment",
+    bodyText:
+      "Rent is payable at the time and place you and the tenant agree. If the lease is silent, the whole rent for a term of one month or less is due at the unit at the start of the term, and for a longer term one month's rent is due at the start of each month. If there is no agreement on the amount, the occupants owe the fair rental value.",
+    notes: "OK: Okla. Stat. tit. 41, § 109(A)-(B). The older Okla. Stat. tit. 41, § 37 (rents payable at the end of the period absent contract) is displaced for dwelling units by the act (Okla. Stat. tit. 41, § 103(A)). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-retaliation-ok",
+    title: "No General Retaliation Statute",
+    group: "Rent & Payment",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "retaliation",
+    bodyText:
+      "Oklahoma's Landlord and Tenant Act has no general anti-retaliation section like the uniform act's. Two specific protections exist: you may not deny a tenancy to, or retaliate against, an applicant or tenant because the person previously ended a rental agreement as a victim of domestic violence, sexual violence or stalking; and you may not deny, refuse to renew or terminate a tenancy because the applicant, tenant or a household member is a victim or alleged victim of those acts. Federal fair housing law separately bars retaliation for exercising fair housing rights.",
+    notes: "OK: Okla. Stat. tit. 41, § 113.3 (read whole); Title 41 read whole: no section corresponding to URLTA § 5.101. A 2025 bill creating retaliation remedies (HB 1083) was not enacted (OK log §1). Oklahoma Discrimination in Housing Act retaliation: see edu-fair-housing-ok. Case law on retaliatory eviction unread. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-rent-control-ok",
+    title: "Rent Control and Local Registration Are Barred",
+    group: "Rent & Payment",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-control",
+    bodyText:
+      "No city or town may enact, keep or enforce an ordinance that regulates the amount of rent charged for privately owned residential rental property, except for property the municipality owns, subsidized properties under agreements, and properties assisted with federal Community Development Block Grant funds. Cities may not require registration of real property, but may keep a list of owners or designees and, to address nuisances and dilapidated property, may require contact information for the person responsible for emergencies and maintenance and a person to receive notices, without charging a fee. Other local rules (inspections, occupancy and nuisance codes) are not preempted generally and are not covered here.",
+    notes: "OK: Okla. Stat. tit. 11, § 14-101.1 (rent control: 'No municipal governing body may enact, maintain, or enforce any ordinance or resolution which regulates the amount of rent to be charged for privately owned, single-family or multiple unit residential or commercial rental property', with the three exceptions); Okla. Stat. tit. 11, § 22-110.1 (registration of real property prohibited; contact lists and abatement contacts allowed; no fee; information confidential). The rent-control section names municipalities, not counties. OK batteries 9/11 failed to find Okla. Stat. tit. 11, § 14-101.1 (its text says 'regulates the amount of rent'; 'Rent control' appears only in the heading) and battery 18 found it (OK log §1.3). No general statewide preemption of local landlord-tenant regulation found (OK battery 16). Local ordinances (Oklahoma City, Tulsa) flagged, not resolved (rule 3). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-landlord-duties-ok",
+    title: "Landlord Duties",
+    group: "Landlord Responsibilities",
+    states: ["OK"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-maintenance",
+    bodyText:
+      "During the tenancy you must: keep common areas clean, safe and sanitary (except in a single-family residence); make all repairs and do whatever is necessary to keep the unit and premises fit and habitable; keep electrical, plumbing, sanitary, heating, ventilating and air-conditioning facilities and appliances you supply (or must supply) in good and safe working order; provide trash receptacles and arrange frequent removal (except in one- or two-family residences or where a government provides it); and supply running water, reasonable hot water at all times and reasonable heat (except in a single-family residence or where the unit is independently metered). These duties cannot be waived in the lease. A tenant can be made responsible for specified repairs, maintenance tasks, alterations or remodeling only by a conspicuous writing independent of the lease. A manager or other person acting as landlord does not relieve the beneficial owner of these duties.",
+    notes: "OK: Okla. Stat. tit. 41, § 118(A)-(B); no waiver: Okla. Stat. tit. 41, §§ 103(B), 113(A)(1); beneficial owner: Okla. Stat. tit. 41, § 108; 'single-family residence' defined, Okla. Stat. tit. 41, § 102(14). Okla. Stat. tit. 41, § 118 read whole. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-tenant-repair-remedies-ok",
+    title: "Tenant Remedies for Repairs",
+    group: "Landlord Responsibilities",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-repair-remedies",
+    bodyText:
+      "If you materially fail to comply with the lease or with your repair duties in a way that materially affects health or safety, the tenant may give written notice that the lease will end on a date at least 30 days after you receive it unless you fix the problem within 14 days. If the problem materially affects health and can be fixed for no more than one month's rent, the tenant may give written notice and, if you do not fix it within 14 days (or as promptly as an emergency requires), have the work done in a workmanlike manner and deduct the actual, reasonable cost from rent after giving you an itemized statement. If you willfully or negligently fail to supply heat, running water, hot water, electricity, gas or another essential service, the tenant may, after written notice, end the lease immediately, buy the service and deduct the cost, recover damages for the reduced rental value, or move to substitute housing and pay no rent for the period. If the unit becomes uninhabitable or poses an imminent threat to health and safety and you do not fix it promptly, the tenant may end the lease immediately by written notice. None of these rights arises until the tenant gives you written notice, or if the tenant, a family member, a pet or a person or animal there with the tenant's consent caused the problem. A tenant evicted for rent withheld over a good-faith essential-services claim, who gave you written notice within 10 days after the rent was due, may cure within 72 hours of judgment by paying the judgment, costs and fees.",
+    notes: "OK: Okla. Stat. tit. 41, § 121(A)-(E) (amended 2022, 2022 Okla. Sess. Laws ch. 230); Okla. Stat. tit. 12, § 1148.10B. Tenant must report unknown defects as soon as practicable: Okla. Stat. tit. 41, § 125. Okla. Stat. tit. 41, §§ 121, 125 and Okla. Stat. tit. 12, § 1148.10B read whole. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Access & Entry
+  {
+    id: "edu-entry-ok",
+    title: "Landlord Entry",
+    group: "Access & Entry",
+    states: ["OK"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-entry",
+    bodyText:
+      "A tenant may not unreasonably refuse you entry to inspect, make necessary or agreed repairs or improvements, supply services, or show the unit to buyers, lenders, tenants, workers or contractors. You may enter without consent in an emergency. Otherwise you must give at least one day's notice (unless that is impracticable) and enter only at reasonable times, and you may not abuse access or use it to harass the tenant. You have no other right of access during the tenancy unless the tenant has abandoned or surrendered the unit or a court orders it. If the tenant refuses lawful access, you may get a court order or end the lease. If you enter unlawfully, enter unreasonably or harass the tenant with repeated demands, the tenant may get an injunction or end the lease on written notice and recover actual damages, except where you were executing a writ of possession as the law allows.",
+    notes: "OK: Okla. Stat. tit. 41, § 128(A)-(E); Okla. Stat. tit. 41, § 124(A)-(B) (writ execution under Okla. Stat. tit. 12, § 1148.10A). Okla. Stat. tit. 41, §§ 124, 128 read whole. Clause: landlords-access (tagged). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-possession-delivery-ok",
+    title: "Delivering Possession",
+    group: "Default & Termination",
+    states: ["OK"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "possession-delay",
+    bodyText:
+      "At the start of the term you must deliver full possession to the tenant. If you do not, rent abates until you do, and the tenant may end the lease by written notice (you then return all prepaid rent and the deposit) or demand performance and sue anyone wrongfully in possession for actual damages. Anyone who willfully and in bad faith keeps the tenant out by staying in possession can be liable for up to twice the monthly rent, prorated daily, for each month or part of a month the person wrongfully stays in possession.",
+    notes: "OK: Okla. Stat. tit. 41, §§ 117(A), 120(A)-(B). Clause: possession-delay-ca (tagged). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-nonpayment-notice-ok",
+    title: "Nonpayment of Rent",
+    group: "Default & Termination",
+    states: ["OK"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nonpayment-notice",
+    bodyText:
+      "If rent is unpaid when due you may sue for it at any time, or wait out the cure period first. To end the lease for nonpayment, give the tenant written notice demanding payment; if the tenant does not pay within five days after the notice, you may terminate. The notice may be given before or after you file suit, and a demand for past-due rent counts as a demand for possession, so no separate notice to quit is needed. The notice must be served as the Landlord and Tenant Act requires: personally; if the tenant cannot be located, by delivery to a family member over 12 living with the tenant; otherwise by posting it conspicuously on the unit and mailing a copy by certified mail.",
+    notes: "OK: Okla. Stat. tit. 41, § 131(A)-(B) (amended 1995); service: Okla. Stat. tit. 41, § 111(E). The older general notices to quit (Okla. Stat. tit. 41, §§ 6, 7: ten days for tenancies of three months or longer, five days for shorter, with payment curing) sit outside the act; for dwelling units the act's five-day rule governs (Okla. Stat. tit. 41, § 103(A)). Time is counted excluding the first day and including the last, skipping a last-day legal holiday (Okla. Stat. tit. 41, § 61). Whether a nonpayment notice can be waived or shortened in the lease: no (Okla. Stat. tit. 41, § 113(A)(1)). Rule 37: the five days apply to every tenancy type. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-noncompliance-notice-ok",
+    title: "Other Lease Violations",
+    group: "Default & Termination",
+    states: ["OK"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "cure-and-eviction-grounds",
+    bodyText:
+      "For a breach other than nonpayment, your remedy depends on the breach. If it can be fixed by repair, replacement or cleaning and the tenant does not fix it within 10 days after written notice (or as promptly as an emergency requires), you may enter, have the work done and bill the reasonable cost as rent due on the next rent date (you may not then terminate for that breach). For a material breach, you may serve written notice that the lease will end on a date at least 15 days after the tenant receives it unless the tenant remedies the breach within 10 days; if the tenant remedies it, the lease continues, but any later breach allows immediate termination on written notice. If the breach causes or threatens imminent and irremediable harm to the premises or any person and is not remedied promptly, you may terminate by immediately filing an eviction. Criminal activity that threatens other tenants' health, safety or peaceful enjoyment or endangers the premises, and drug-related criminal activity on or near the premises, by the tenant, a household member, a guest or another person under the tenant's control, are grounds for immediate termination. Notices are served as the Act requires (personally, to a family member over 12, or by posting plus certified mail).",
+    notes: "OK: Okla. Stat. tit. 41, § 132(A)-(D); service, Okla. Stat. tit. 41, § 111(E); tenant duties, Okla. Stat. tit. 41, § 127. Okla. Stat. tit. 41, § 132 read whole. Victim protection: Okla. Stat. tit. 41, § 113.3. Clause models: default-by-tenant-ks-ne (tagged), criminal-activity-ok, landlord self-cure covered here (Okla. Stat. tit. 41, § 132(A)). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-landlord-self-cure-ok",
+    title: "Fixing a Tenant's Breach Yourself",
+    group: "Default & Termination",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-self-cure",
+    bodyText:
+      "If the tenant's breach can be remedied by repair, replacement of a damaged item or cleaning, and the tenant does not remedy it within 10 days after your written notice (served as the Act requires) or as promptly as an emergency requires, you may enter, have the work done in a workmanlike manner, and submit an itemized bill for the actual and reasonable cost as rent due on the next rent date, or for immediate payment if the lease has ended. If you do this, you may not terminate the lease for that breach.",
+    notes: "OK: Okla. Stat. tit. 41, § 132(A). The bill is collectable as rent (and 'rent' includes all non-deposit payments, Okla. Stat. tit. 41, § 102(11)). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-self-help-eviction-ok",
+    title: "No Lockouts",
+    group: "Default & Termination",
+    states: ["OK"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "self-help-eviction",
+    bodyText:
+      "You may not remove or exclude a tenant from the unit except through the court eviction process. If you wrongfully remove or exclude a tenant, the tenant may recover possession in court or end the lease, and in either case recover up to twice the average monthly rent or twice the tenant's actual damages, whichever is greater; if the lease ends you must return the deposit and all prepaid and unearned rent. Using force or violence to enter or keep possession of another's property, except as the law allows, is a misdemeanor.",
+    notes: "OK: Okla. Stat. tit. 41, § 123; Okla. Stat. tit. 21, § 1351. Willful failure to supply essential services also triggers tenant remedies (Okla. Stat. tit. 41, § 121(C)). No separate Oklahoma statute on utility shutoffs by landlords found (OK battery 45). Writ execution is the lawful route (Okla. Stat. tit. 12, §§ 1148.10, 1148.10A). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-eviction-process-ok",
+    title: "The Eviction Case",
+    group: "Default & Termination",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-process",
+    bodyText:
+      "An eviction (forcible entry and detainer) is filed in district court by an affidavit on a form the Oklahoma Bar Association develops, and for cases on the small claims docket the court clerk prepares the affidavit and summons and assists unrepresented plaintiffs. Claims for rent, damage to the premises and Landlord and Tenant Act claims may be joined, but no others. Cases within the small claims limit go on the small claims docket, and a court may assign any eviction there to decide possession. The summons sets trial not less than five nor more than ten days after it issues and must be served at least three days before trial; if the tenant cannot be served personally or through a resident over 15, it may be served by certified mail, or (for possession only) posted and mailed at least five days before trial. Possession is tried without a jury; a jury may be requested only on the money claims, which are then severed. A reasonable attorney fee goes to the prevailing party. After judgment the writ of execution issues; you, your agent or an officer must give notice that you will return in 48 hours to restore possession, and may ask the sheriff or city police for help. A motion for new trial must be filed within three days and does not stay the writ. The tenant may post a supersedeas bond within two days after judgment (a judge may extend this to seven days); while an appeal is pending the tenant must keep paying current rent into the court clerk's office, and failing to pay is treated as abandoning the appeal.",
+    notes: "OK: Okla. Stat. tit. 12, §§ 1148.1-1148.16 read whole (Okla. Stat. tit. 12, § 1148.4 summons timing; Okla. Stat. tit. 12, § 1148.5 service; Okla. Stat. tit. 12, § 1148.5A constructive service, possession only unless the defendant appears; Okla. Stat. tit. 12, § 1148.7 jury only for money claims, amended 2024 Okla. Sess. Laws ch. 110; Okla. Stat. tit. 12, § 1148.8 repealed 2024; Okla. Stat. tit. 12, § 1148.9 attorney fee; Okla. Stat. tit. 12, § 1148.10 writ form and three-day new-trial motion; Okla. Stat. tit. 12, § 1148.10A 48-hour notice, law enforcement, supersedeas within two days (seven by order) and rent into court; Okla. Stat. tit. 12, § 1148.14 small claims docket; Okla. Stat. tit. 12, §§ 1148.15, 1148.16 OBA affidavit and summons forms). Rights under the act may be prosecuted in the FED (Okla. Stat. tit. 41, § 105(B)). District court rules (Okla. Dist. Ct. R.) and the OBA forms were not read (rule 39; rule 21 flag). The 2026 bill on eviction mediation (HB 3386) died in the Senate (OK log §1). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-post-eviction-property-ok",
+    title: "Property Left After an Eviction",
+    group: "Default & Termination",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "post-eviction-property",
+    bodyText:
+      "After a tenant is lawfully removed through an eviction, the Landlord and Tenant Act's abandoned-property procedure applies to belongings left in or around the unit: property with no apparent value may be disposed of; property of apparent value requires written notice by certified mail, and property left 30 days or longer is conclusively abandoned. Store it with reasonable care in the meantime. Executing a writ in the lawful manner does not expose you to an unlawful-entry claim. A person who returns to live on the property without authority after being removed by court process commits a misdemeanor, as does anyone who wrongfully refuses to surrender possession when the writ is served.",
+    notes: "OK: Okla. Stat. tit. 41, § 130(A)-(E) (expressly covers a tenant 'lawfully removed from the premises through eviction proceedings'); Okla. Stat. tit. 41, § 124(B); Okla. Stat. tit. 21, § 1352; Okla. Stat. tit. 12, § 1148.10A(D). No Oklahoma statute on animals left after a writ found (Title 41 and Title 12 FED read whole). Clause: abandoned-property-ok. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-holdover-ok",
+    title: "Tenant Who Stays After the Lease Ends",
+    group: "Default & Termination",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "holdover",
+    bodyText:
+      "If a tenant stays without your consent after the lease ends or is terminated, you may sue at once for possession and damages. If the holdover is willful and not in good faith, you may also recover up to twice the average monthly rent, prorated daily, for each month or part of a month the tenant stays. If you consent to the tenant staying, a month-to-month tenancy is created unless you agree otherwise. Separately, an older statute makes double rent the measure of damages when a tenant who gave notice of intent to leave fails to give up the premises. If you accept rent after the term ends without any agreement, an older presumption of renewal on the same terms (for up to a year) may be argued; say in the lease what happens instead.",
+    notes: "OK: Okla. Stat. tit. 41, § 111(D); Okla. Stat. tit. 23, § 69 ('For the failure of a tenant to give up the premises held by him, when he has given notice of his intention to do so, the measure of damages is double the rent which he ought otherwise to pay', R.L. 1910); Okla. Stat. tit. 41, § 35 (renewal presumed when the lessor accepts rent after expiration, not exceeding one year). How Okla. Stat. tit. 23, § 69 and Okla. Stat. tit. 41, § 35 interact with the act (Okla. Stat. tit. 41, § 103(A), (B)) is case law, unread. Clause: holdover-ca (tagged); a stipulated holdover rate is addressed in OK log §6. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-dv-protections-ok",
+    title: "Domestic Violence, Sexual Violence and Stalking",
+    group: "Default & Termination",
+    states: ["OK"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-lease-termination",
+    bodyText:
+      "You may not deny, refuse to renew or terminate a tenancy because an applicant, tenant or household member is a victim or alleged victim of domestic violence, sexual violence or stalking, whether or not there is a current protective order, and you may not deny a tenancy to or retaliate against someone because they previously ended a rental agreement as a victim. A victim may end the lease without penalty by giving you written notice and a protective order within 30 days of the incident, unless you waive that time limit. The lease cannot waive a tenant's right to call the police or other emergency help.",
+    notes: "OK: Okla. Stat. tit. 41, § 113.3 (2021 Okla. Sess. Laws ch. 410); Okla. Stat. tit. 41, § 111(F) (termination 'by providing written notice and a protective order of an incident of such violence within thirty (30) days of such incident, unless the landlord waives such time period'); Okla. Stat. tit. 41, § 113(A)(6). The act does not say whether termination by one victim ends the lease for co-tenants, and sets no lock-change right (Title 41 read whole; OK battery 42). 'Without penalty' bars an early-termination fee in that case. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-unauthorized-occupant-ok",
+    title: "Removing Unauthorized Occupants and Squatters",
+    group: "Default & Termination",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "unauthorized-occupant-removal",
+    bodyText:
+      "Someone who never had a rental agreement with you and whom you never accepted as a tenant is not protected by the Landlord and Tenant Act's termination rules: you may demand that the person leave without filing an eviction, and refusing within a reasonable time is a trespass (fine up to $500). An occupant living with a tenant who breaches the lease must leave on your written request (trespass, fine up to $500 or 30 days in jail). For squatters, an owner or authorized agent may file a verified complaint on the statutory form asking the sheriff for immediate removal, if the property was not open to the public, the occupants were told to leave, they are not current or former tenants, cannot show a lease signed by the owner or government mail at the address in the last 12 months, are not the owner's immediate family, and no litigation is pending. The sheriff serves a notice to vacate and puts the owner in possession. A person wrongfully removed this way can recover actual damages, three times the fair market rent, costs and fees. The squatter law does not override the Landlord and Tenant Act.",
+    notes: "OK: Okla. Stat. tit. 41, § 111(G) (2021 Okla. Sess. Laws ch. 410), Okla. Stat. tit. 41, § 117(B); Okla. Stat. tit. 21, §§ 1354 (complaint form and conditions; sheriff's fee as for a writ; wrongful removal remedies), 1355 (felony for intentional damage of $1,000 or more by a removed occupant), 1356 (presenting a false lease, misdemeanor), 1357 (the act 'shall not be used to circumvent any rights or laws governing the landlord tenant relationship as provided in Title 41'), all added by 2024 Okla. Sess. Laws ch. 378, emerg. eff. June 5, 2024; Okla. Stat. tit. 21, § 1353 (squatting in a city or town, misdemeanor). Okla. Stat. tit. 21, §§ 1351 to 1357 read whole. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-abandonment-mitigation-ok",
+    title: "Tenant Who Abandons During the Lease",
+    group: "Default & Termination",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "abandonment-and-mitigation",
+    bodyText:
+      "Every party to a lease must mitigate damages. If a tenant wrongfully abandons during the term, you must make reasonable efforts to re-rent. If you re-rent for a term starting before the old lease ends, the old lease ends when the new tenancy starts. If you do not make reasonable efforts, or accept the abandonment as a surrender, the lease is treated as ended by you on the date you learned of the abandonment. If you make reasonable efforts but cannot re-rent at a fair rent, the tenant owes the rent (or the shortfall) for the rest of the term; for a month-to-month or week-to-week tenancy the 'term' is one month or one week.",
+    notes: "OK: Okla. Stat. tit. 41, §§ 105(A), 129(B). Belongings left behind: abandoned-property-ok. Rule 37: periodic term measured as one period (Okla. Stat. tit. 41, § 129(B)). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-casualty-ok",
+    title: "Fire or Casualty",
+    group: "Default & Termination",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "casualty-termination",
+    bodyText:
+      "If fire or another casualty substantially impairs the tenant's use of the unit, the tenant may move out and notify you in writing within one week of an intent to end the lease (the lease ends on the date of moving out), or, if the unit can still be partly used, vacate the unusable part and pay rent reduced in proportion. These rights do not apply if the tenant, a family member, a pet or a person or animal there with the tenant's consent caused the damage deliberately or negligently. If the lease ends, return the deposit and all prepaid and unearned rent, accounting as of the date of the casualty. The statute gives you no termination right of your own; the lease can add one.",
+    notes: "OK: Okla. Stat. tit. 41, § 122(A)-(B). Clauses: casualty-termination-ok, tenant-caused-damage-ok. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-tenant-caused-damage-ok",
+    title: "Damage the Tenant Causes",
+    group: "Default & Termination",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-caused-damage",
+    bodyText:
+      "The tenant must not deliberately or negligently damage the premises or let anyone, or any animal, do so. Oklahoma's casualty, repair-and-deduct, essential-service and habitability remedies are each unavailable when the tenant, a family member, a pet or a person or animal there with the tenant's consent caused the condition, so a tenant who causes a fire cannot use the casualty statute to walk away rent-free or reduce the rent. You can recover the repair cost and your other damages, subject to your duty to mitigate. The optional Damage Caused by Tenant clause states in the lease that rent does not abate and that the tenant owes lost rent if the lease ends because of the damage.",
+    notes: "OK: Okla. Stat. tit. 41, §§ 127(5), 122(A), 121(E), 105(A); Okla. Stat. tit. 12, § 1148.10B (rests on Okla. Stat. tit. 41, § 121(C)). Clause: tenant-caused-damage-ok. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-tenant-duties-ok",
+    title: "Tenant Duties",
+    group: "Tenant Responsibilities",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-statutory-duties",
+    bodyText:
+      "Oklahoma law requires the tenant to: keep the part of the premises the tenant uses as safe, clean and sanitary as its condition permits; dispose of garbage and waste safely; keep plumbing fixtures as clean as their condition permits; use electrical, plumbing, heating, air-conditioning and other facilities and appliances safely; not deliberately or negligently damage the premises or let any person or pet do so; not disturb other tenants' quiet enjoyment or let others do so; follow valid rules; and not engage in threatening criminal activity or drug-related criminal activity on or near the premises, personally or through household members or guests. The tenant must also report defects the tenant has reason to believe you do not know about as soon as practicable, and must promptly tell you about any legal proceeding to recover the property.",
+    notes: "OK: Okla. Stat. tit. 41, §§ 127, 125, 38. Clauses: tenant-maintenance, no-disturbance, tenant-forward-proceedings-ca (tagged). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-tenant-death-ok",
+    title: "When a Tenant Dies",
+    group: "Default & Termination",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-death",
+    bodyText:
+      "You may ask each tenant in writing for the name, address and phone number of a person to contact if the tenant dies, and for a signed statement authorizing you to let that person in (with you present), let them remove the tenant's belongings and refund the deposit to them. If a sole occupant dies, you may remove and store the belongings; you must hand them over to the designated person, or anyone else lawfully entitled, who asks before they are discarded; refund the deposit less lawful deductions (including removal and storage costs); and have anyone who removes property sign an inventory. You may discard the property if you mailed the designee a certified-mail request, return receipt requested, the property was not removed by the 30th day after the postmark, and no one has claimed it. A lease may set a different procedure. A tenant who knowingly refuses to provide the information after your request relieves you of responsibility for the belongings; a landlord who knowingly violates the procedure after receiving a copy of the statute is liable to the estate for actual damages.",
+    notes: "OK: Okla. Stat. tit. 41, § 130.1 (2006 Okla. Sess. Laws ch. 23) read whole. The act does not say whether the lease itself ends at the tenant's death (case law and probate law unread). Clause: tenant-death-contact-ok. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-landlord-lien-ok",
+    title: "Landlord's Lien on Tenant Property",
+    group: "Default & Termination",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-lien",
+    bodyText:
+      "Oklahoma gives a residential landlord a lien on the tenant's property in the unit, in an amount reasonably related to the debt, for proper charges owed and the cost of enforcing the lien, with a right to possession until paid. The lien is secondary to a prior chattel mortgage or conditional seller, and does not reach tools, instruments and books used in a trade, family portraits, clothing, medical and health aids and appliances, bedding, washers, refrigerators, food, cooking and eating utensils, baby beds and baby-care items, among others. It is enforced like any other general lien under the lien statutes. A lease may not create any other lien on the tenant's property.",
+    notes: "OK: Okla. Stat. tit. 41, §§ 133, 134 (enforcement under Okla. Stat. tit. 42, § 91), 113(A)(5). Okla. Stat. tit. 42, § 91 not read (enforcement procedure; the general lien statutes boundary). Whether the lien may be enforced without court process is not resolved here; self-help removal risks Okla. Stat. tit. 41, § 123. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-prohibited-lease-terms-ok",
+    title: "Prohibited Lease Terms",
+    group: "Other / Miscellaneous",
+    states: ["OK"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "prohibited-lease-terms",
+    bodyText:
+      "A lease may not make either party waive rights or remedies under the Landlord and Tenant Act; authorize anyone to confess judgment; make either party pay the other's attorney's fees; exculpate, limit or indemnify liability for injuries or damage caused by either party's acts or omissions in operating or maintaining the unit or premises; create a lien on the other's property beyond the statutory landlord's lien; or limit the right to call police or emergency help. Such a term is unenforceable, and any agreement that conflicts with the Act is unenforceable to that extent. The Act does not add a money penalty for using a prohibited term.",
+    notes: "OK: Okla. Stat. tit. 41, §§ 113(A)-(B) (amended 2021 Okla. Sess. Laws ch. 410, adding (A)(6)), 103(B). No knowing-use penalty in Title 41 (read whole; rule 47). General contract limits outside Title 41 (Okla. Stat. tit. 15 penalties and liquidated damages): see edu-penalties-liquidated-damages-ok. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-attorney-fees-ok",
+    title: "Attorney Fees",
+    group: "Default & Termination",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "attorney-fees",
+    bodyText:
+      "By statute, the prevailing party in any action for breach of a lease or to enforce a right under the Landlord and Tenant Act is entitled to reasonable attorney fees, and the court awards a reasonable fee to the prevailing party in an eviction. But the lease itself may not contain a promise by either party to pay the other's attorney's fees. Do not add a fee clause; rely on the statutes.",
+    notes: "OK: Okla. Stat. tit. 41, §§ 105(B), 113(A)(3); Okla. Stat. tit. 12, § 1148.9. Suits on bounced checks: Okla. Stat. tit. 12, § 937 (edu-dishonored-check-remedies-ok). Why default-by-tenant-ks-ne is used: OK log §2. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Notices & General
+  {
+    id: "edu-scope-ok",
+    title: "Who the Landlord and Tenant Act Covers",
+    group: "Notices & General",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "scope",
+    bodyText:
+      "The Oklahoma Residential Landlord and Tenant Act governs rental agreements for dwelling units in Oklahoma, including lots leased for manufactured or mobile homes. It does not govern (unless the arrangement was created to avoid the Act): residence in an institution incidental to detention or medical, geriatric, educational, counseling or religious services; occupancy under a contract for deed by the buyer; fraternal or social organization housing for members; transient occupancy in a hotel, motel or similar lodging, however long the stay; occupancy by a condominium owner or cooperative proprietary lessee; and occupancy of premises used primarily for agricultural purposes. Nonresidential property left behind is governed by a separate procedure.",
+    notes: "OK: Okla. Stat. tit. 41, §§ 103, 104 (amended 2023 Okla. Sess. Laws ch. 159, adding paragraph 6), 102(3), 51-52 (nonresidential). Mobile home park and agricultural tenancies are deprioritized for the library (product scope), not researched beyond Okla. Stat. tit. 41, § 104. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-occupancy-ok",
+    title: "Occupancy Limits",
+    group: "Tenant Responsibilities",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "permitted-occupants",
+    bodyText:
+      "A lease may set reasonable limits on use of the unit by tenants and occupants. Two persons per bedroom is presumed reasonable in Oklahoma, but that limit does not count children born to the tenants during the lease. An occupant who breaches a lease condition must leave on your written request; refusing is a trespass. Fair housing law still applies to occupancy rules affecting families with children.",
+    notes: "OK: Okla. Stat. tit. 41, § 117(B)-(C) (amended 1995 Okla. Sess. Laws ch. 149). Familial status: edu-fair-housing-ok. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Notices & General
+  {
+    id: "edu-sale-or-management-change-ok",
+    title: "Selling the Property or Changing Managers",
+    group: "Notices & General",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "sale-or-management-change",
+    bodyText:
+      "A sale is valid without the tenant's agreement, but rent the tenant pays to you before written notice of the sale is good against the buyer. Unless otherwise agreed, you are relieved of liability under the lease and the Act for events after you give the tenant written notice that your interest has ended; the buyer takes on your obligations, and the tenant then pays rent to the buyer. A manager is likewise relieved for events after written notice to the tenant that the management has ended. Deposits must be transferred (with written notice to tenants) or returned. The owner, manager and service-of-notice disclosure must be kept current and binds successors.",
+    notes: "OK: Okla. Stat. tit. 41, §§ 119(A)-(D), 115(C)-(D), 116(A), 114. The older Okla. Stat. tit. 41, § 12 restates the attornment rule for all leases. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-emergency-assistance-ok",
+    title: "Right to Call Police or Emergency Help",
+    group: "Notices & General",
+    states: ["OK"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "emergency-assistance-right",
+    bodyText:
+      "A lease may not waive or limit a tenant's (or a landlord's) right to summon a peace officer or other emergency assistance in an emergency; such a term is unenforceable.",
+    notes: "OK: Okla. Stat. tit. 41, § 113(A)(6), (B) (2021 Okla. Sess. Laws ch. 410). No separate crime-free or nuisance ordinance preemption found (OK log §17, battery list). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-notice-service-ok",
+    title: "How to Serve Notices",
+    group: "Notices & General",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "notice-delivery-methods",
+    bodyText:
+      "A written notice to end a tenancy under the Landlord and Tenant Act must be served on the tenant personally unless the law says otherwise. If the tenant cannot be located, deliver it to a family member over 12 living with the tenant. If neither can be served, post it in a conspicuous place on the unit and mail a copy by certified mail (or through the Postal Service's Firm Mailing Book for Accountable Mail). A tenant serves you personally or, if you cannot be served personally, by certified mail to the person named to accept service. Times are counted by excluding the first day and including the last, and a last day that is a legal holiday is skipped.",
+    notes: "OK: Okla. Stat. tit. 41, §§ 111(E), 61, 116. Electronic notice: edu-electronic-records-ok (Uniform Electronic Transactions Act; to be completed). Clause: notices (tagged). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-fair-housing-ok",
+    title: "Oklahoma Fair Housing Law",
+    group: "Compliance & Prohibited Terms",
+    states: ["OK"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fair-housing",
+    bodyText:
+      "Oklahoma's Discrimination in Housing Act makes it unlawful to refuse to rent, to set different terms, to advertise a preference, or to falsely say a unit is unavailable because of race, color, religion, gender, national origin, age, familial status or disability. 'Familial status' covers a person who is pregnant, lives with a child under 18 as parent, legal custodian or with the parent's written permission, or is getting custody of a child; 'age' protects adults 18 and older. You may not refuse to consider a verified source of income such as public assistance, alimony or court-awarded child support where the refusal is because of one of those protected classes. You must allow reasonable modifications for a person with a disability at that person's expense (the person may be required to provide a surety bond guaranteeing restoration), and make reasonable accommodations in rules and policies. The Act does not protect any other class, and it does not prohibit refusing a person convicted of illegally manufacturing or distributing a controlled substance. It does not apply to a single-family house rented by an owner of no more than three such houses without a broker or discriminatory advertising (if the owner was not the most recent resident, only one such sale or rental every 24 months), to rooms or units in a building of up to four families where the owner lives in one of them, to certain religious and private-club housing, or (for familial status) to qualifying housing for older persons. A complaint to the Attorney General may be filed within one year; a court may award actual and punitive damages and attorney fees. Federal fair housing law applies separately and its exemptions differ.",
+    notes: "OK: Okla. Stat. tit. 25, § 1451(A)(6)-(7), (B) (definitions); Okla. Stat. tit. 25, § 1452(A)(1)-(4), (8), (15)-(16), (B), (C); Okla. Stat. tit. 25, § 1453(A)-(C) (including (C)(2), one exempt sale or rental in 24 months), (E); Okla. Stat. tit. 25, § 1502.2(C)-(D) (one-year complaint period); Okla. Stat. tit. 25, § 1506.3 (remedies). Okla. Stat. tit. 25, §§ 1451-1453, 1502.2 and 1506.3 read whole and saved (sources/okla-stat-outside-4.txt, -5.txt). Federal Fair Housing Act, 42 U.S.C. § 3601 et seq. (federal, rule 21; not researched here). Disability modifications: clause no-alterations (tagged) preserves them. No Oklahoma source-of-income protection as such (edu-source-of-income-ok). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-source-of-income-ok",
+    title: "No Source-of-Income Protection",
+    group: "Compliance & Prohibited Terms",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "source-of-income",
+    bodyText:
+      "Oklahoma does not make source of income, including a housing voucher, a protected class. The only related rule is that you may not refuse to consider verified public assistance, alimony or court-awarded child support as income because of the applicant's race, color, religion, gender, national origin, age, familial status or disability. Local ordinances are not covered here.",
+    notes: "OK: CONFIRMED ABSENT: Okla. Stat. tit. 25, § 1452(A)(8), (C) ('No other categories or classes of persons are protected'); OK batteries 48 and 51 (source of income, housing voucher, Section 8 programs, rental assistance: 3 sections, none a source-of-income protection; known positives passed). Local ordinances not researched (rule 3). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Pets
+  {
+    id: "edu-assistance-animals-ok",
+    title: "Assistance Animals and Service Dogs",
+    group: "Pets",
+    states: ["OK"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "service-animal-misrepresentation",
+    bodyText:
+      "A person with a disability may ask for a reasonable accommodation to keep an assistance animal (a service animal or an emotional support animal). Unless the disability or the need is readily apparent, you may ask for reliable supporting documentation that verifies the disability under the Fair Housing Act, describes the accommodation needed and shows how it relates to the disability, and you may independently verify it. Documentation that was bought is presumed fraudulent. You are not liable for injuries caused by an assistance animal you allowed as an accommodation. If a tenant got the accommodation by knowingly making a false claim or giving fraudulent documentation, you may use the ordinary lease-breach notice procedure, and in an eviction you may be awarded court costs, fees and up to $1,000 in damages. You may not refuse to rent to a blind, deaf or disabled person because of a properly trained guide, signal or service dog, or charge an extra nonrefundable fee or an unreasonable deposit for one, but the tenant may be liable for damage the dog does.",
+    notes: "OK: Okla. Stat. tit. 41, § 113.2(A)-(D) (read whole); Okla. Stat. tit. 41, § 113.1 (guide, signal or service dog; read whole); Okla. Stat. tit. 25, § 1452(A)(13)-(14) (read whole). Clause: assistance-animal-accommodation (tagged). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-immigration-status-ok",
+    title: "Immigration Status",
+    group: "Compliance & Prohibited Terms",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "immigration-status",
+    bodyText:
+      "Oklahoma has no statute that requires or forbids asking about an applicant's immigration status. It is a felony to conceal, harbor or shelter from detection a person you know, or recklessly disregard, is in the United States unlawfully; whether simply renting a home to such a person is 'harboring' is a question of case law not researched here. National origin is a protected class under Oklahoma and federal fair housing law, so screening on citizenship carries fair housing risk. See also edu-foreign-ownership-ok.",
+    notes: "OK: Okla. Stat. tit. 21, § 446(B), (E) (read whole; amended by 2025 Okla. Sess. Laws ch. 486, eff. Jan. 1, 2026, per the history line; current text read); national origin: Okla. Stat. tit. 25, § 1452(A). OK batteries 49 and 52 (alien, unlawfully present, harbor, shelter, conceal: Okla. Stat. tit. 21, § 446 the only landlord-relevant hit). No statute on immigration-status inquiries (battery 49). Case law on Okla. Stat. tit. 21, § 446 and leasing unread. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-foreign-ownership-ok",
+    title: "Foreign Ownership and Leasing of Land",
+    group: "Compliance & Prohibited Terms",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "foreign-ownership",
+    bodyText:
+      "Oklahoma's Constitution and statutes bar an alien who is not a bona fide resident of Oklahoma from acquiring title to or owning land, and require an affidavit with each recorded deed. Starting November 1, 2026, the statute also says that such a person, a designated foreign terrorist organization, a Specially Designated National, or a foreign government adversary may not lease land in Oklahoma. The ban does not apply to an alien who is or becomes a bona fide resident of Oklahoma. Whether an ordinary residential lease of a home is 'leasing land' under this statute has not been decided in anything read here. Starting July 1, 2027, a foreign principal from a foreign adversary country (including an individual domiciled there who is not a U.S. citizen or lawful permanent resident) may not rent or otherwise control real property within ten miles of a military base or installation, a military operating area or other critical infrastructure, and conflicting rental agreements are invalid; a landlord who is not such a foreign principal is not required to inquire and has no civil or criminal liability under that section. Asking applicants about citizenship carries fair housing risk (national origin).",
+    notes: "OK: Okla. Const. art. XXII, § 1; Okla. Stat. tit. 60, §§ 121(B)-(C), 122, 6 (read whole and saved, sources/okla-stat-outside-3.txt, -7.txt). HB 3431 (2026), effective November 1, 2026 (act section 2) (enrolled act read and saved; added ', own, or lease' and FTO/SDN text to Okla. Stat. tit. 60, § 121(B); underlining and strike-through read from the enrolled PDF, OK log §1.2). SB 893 (2026) (act section 4 creates Okla. Stat. tit. 60, § 128.3; act section 9 makes the act effective July 1, 2027) (enrolled act read and saved). The compilation (current through the 2025 session) does not yet show either act. Whether a residential lease is a lease of 'land' (defined in Okla. Stat. tit. 60, § 6) is unresolved; no case law or Attorney General opinion read. Legal watch: SB 893 effective date. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-sex-offender-residency-ok",
+    title: "Registered Sex Offenders",
+    group: "Compliance & Prohibited Terms",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "sex-offender-occupancy",
+    bodyText:
+      "Two or more people required to register as sex offenders may not live together in the same individual dwelling (a house, an apartment, a room in a boarding house, or a unit in a multi-unit building), unless they are married to each other or are blood relatives; separate units in a properly zoned apartment building are allowed. A person or entity that knowingly leases or owns a structure where registrants are allowed to live together in violation of this rule commits a crime (a misdemeanor, rising to a felony on a third conviction). Renting rooms to registrants as a boarding house or group home is unlawful unless treatment services are provided. A registrant also may not live within 2,000 feet of a school, child care facility, qualifying park or playground or the victim's home, and a registrant whose victim was a minor may not live with a minor child except his or her own child, stepchild or grandchild who was not the victim; those duties fall on the registrant. Oklahoma's fair housing law does not protect people because of a criminal record.",
+    notes: "OK: Okla. Stat. tit. 57, § 590.1(A)(1)-(4), (D)-(F) (read whole, amended by 2025 Okla. Sess. Laws ch. 486, eff. Jan. 1, 2026, per the history line; current text read); Okla. Stat. tit. 57, § 590(A)-(B), (D) (read whole); Okla. Stat. tit. 25, § 1452(C). OK battery 50. Optional clause: sex-offender-cohabitation-ok. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-tenant-screening-ok",
+    title: "Tenant Screening",
+    group: "Compliance & Prohibited Terms",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-screening",
+    bodyText:
+      "Oklahoma has no general statute on tenant screening, application fees or criminal-history policies for private landlords. For a property financed with federal low-income housing tax credits or Oklahoma affordable housing tax credits, the owner may put conditions in the lease that let it decline a lease, or end one, on discovering incomplete or false information about a tenant's or occupant's prior felony conviction for drug possession, possession with intent to manufacture or distribute, a felony sex offense, felony assault or battery, any felony involving violence, or other felonies the lease names. Oklahoma's fair housing law does not prohibit refusing a person convicted of illegally manufacturing or distributing a controlled substance. Federal law (the Fair Credit Reporting Act and federal fair housing law) applies separately and is not covered here.",
+    notes: "OK: Okla. Stat. tit. 41, § 201(A)-(D) (read whole); Okla. Stat. tit. 25, § 1452(B). No application-fee or screening statute (edu-no-application-fee-rule-ok; Title 41 read whole). Optional clause: lihtc-felony-screening-ok. Federal: 15 U.S.C. § 1681 et seq.; 42 U.S.C. § 3601 et seq. (rule 21; not researched). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-application-fee-rule-ok",
+    title: "No Application Fee Rule",
+    group: "Rent & Payment",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "application-fees",
+    bodyText:
+      "Oklahoma does not limit or regulate rental application fees or holding deposits, and does not require a receipt or refund of an unused application fee. A holding deposit that is returnable when the tenancy ends would be a 'deposit' held under the security deposit rules.",
+    notes: "OK: CONFIRMED ABSENT: Title 41 read whole; OK battery 37 (holding deposit, earnest money, payment before lease signing: 1 section, not residential); 'deposit' defined, Okla. Stat. tit. 41, § 102(2). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-medical-marijuana-ok",
+    title: "Medical Marijuana Patients",
+    group: "Rules & Regulations",
+    states: ["OK"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "cannabis",
+    bodyText:
+      "Oklahoma allows medical marijuana for licensed patients; recreational marijuana is not legal. You may not refuse to lease to, or otherwise penalize, a person solely because he or she is a licensed medical marijuana patient, unless leasing to that person would put you at risk of losing a monetary or licensing-related benefit under federal law. You may prohibit smoking or vaporizing marijuana on the premises, inside its structures and within ten feet of the entry, but a patient may not be denied other lawful, non-smoked products. A patient or caregiver may grow marijuana only on property he or she owns or with the property owner's written permission, and the plants must not be accessible to the public or visible from the street. Extraction using butane, propane, carbon dioxide or another hazardous material is prohibited in a residential property.",
+    notes: "OK: Okla. Stat. tit. 63, § 425(A); Okla. Stat. tit. 63, § 427.8(C) (as re-enacted by HB 3127 (2026), effective November 1, 2026 (act section 2), which changes only internal references in subsection C; enrolled act read and saved); Okla. Stat. tit. 63, § 427.12(A)-(C). All read whole and saved (sources/okla-stat-outside-1.txt). The Constitution has no cannabis provision (OK log §17). Clauses: smoking-policy (tagged), cannabis-cultivation-ok. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-firearms-ok",
+    title: "Firearms",
+    group: "Rules & Regulations",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "firearms",
+    bodyText:
+      "No rule or policy of yours may prohibit anyone other than a convicted felon from transporting and storing firearms or ammunition in a locked motor vehicle, or locked to a vehicle, on property set aside for vehicles, and you are not liable for occurrences resulting from that storage unless you commit a crime with the firearm. Otherwise Oklahoma's Self-Defense Act preserves a property owner's existing right to control the possession of weapons on property the owner owns or controls, and a property owner may prohibit carrying firearms on the property (posting signs if the property is open to the public); an owner who does or does not prohibit weapons is immune from liability for that decision. Whether those provisions let a landlord bar a tenant from keeping a firearm inside the tenant's own home is not answered by the statutes read here.",
+    notes: "OK: Okla. Stat. tit. 21, § 1289.7a(A)-(C); Okla. Stat. tit. 21, § 1290.22(A)-(C), (F) (both read whole and saved, sources/okla-stat-outside-3.txt). OK battery 63. Okla. Const. art. II, § 26 (read whole and saved, sources/okla-const-art2-sec26.txt: the right to keep and bear arms in defense of home 'shall never be prohibited', but the Legislature may regulate carrying) limits government; nothing read applies it to private leases. No firearms clause offered (OK log §6). Case law and Attorney General opinions on residential tenants unread. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Parking & Storage
+  {
+    id: "edu-towing-ok",
+    title: "Towing From Your Property",
+    group: "Parking & Storage",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "towing",
+    bodyText:
+      "If you have reasonable cause to believe a vehicle has been abandoned on your property for at least 48 hours, or a vehicle is left there without express or implied permission, you may have it removed by a licensed Class AA wrecker service. You or your agent must sign the Department of Public Safety's Tow Request and Authorization Form, and you and the wrecker driver must inventory the property in the vehicle together. The wrecker service then notifies the owner and lienholder, and towing and storage rates are set by the Corporation Commission. Local ordinances may add procedures.",
+    notes: "OK: Okla. Stat. tit. 47, § 954A(A)-(H); Okla. Stat. tit. 47, § 966 (both read whole and saved). Clause: parking-vehicle-rules (tagged). Local towing ordinances flagged, not researched (rule 3). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-servicemember-rights-ok",
+    title: "Servicemember Rights",
+    group: "Default & Termination",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "servicemember-rights",
+    bodyText:
+      "The federal Servicemembers Civil Relief Act lets a servicemember end a residential lease after entering active duty or on receiving qualifying permanent change of station or deployment orders, and protects servicemembers in eviction cases. Oklahoma adopts those federal civil protections for members of the state military forces ordered to state active duty or Title 32 active duty, except where state law gives more. Oklahoma has no separate statutory lease-termination right for servicemembers.",
+    notes: "OK: Okla. Stat. tit. 44, § 208.1 (read whole and saved); OK batteries 70 and 71 (servicemember lease termination: only Okla. Stat. tit. 44, § 208.1 and an unrelated section). Federal: 50 U.S.C. §§ 3955 (lease termination), 3951 (evictions) (rule 21; not researched here). The OREC 2026 Residential Lease includes a military termination clause (OK log §15). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Disclosures
+  {
+    id: "edu-stigmatized-property-ok",
+    title: "Deaths and Crimes on the Property",
+    group: "Disclosures",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "stigmatized-property",
+    bodyText:
+      "That a property is, or is suspected to be, the site of a suicide, homicide or other felony, or that an occupant had HIV, AIDS or another disease highly unlikely to be transmitted by living in a home, is not a material fact that must be disclosed in a real estate transaction, and no cause of action arises against the owner for not disclosing it to a lessee. If a prospective tenant making a bona fide offer tells your real estate licensee in writing that this information matters, the licensee must ask you and, with your consent, report what you say, or tell the tenant you declined to disclose.",
+    notes: "OK: Okla. Stat. tit. 59, § 858-513(A)-(C) (read whole and saved). OK battery 65. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-no-mold-disclosure-ok",
+    title: "No Mold Disclosure Rule",
+    group: "Disclosures",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "mold-disclosure",
+    bodyText:
+      "Oklahoma has no statute requiring a landlord to disclose mold or to follow a mold standard. Mold that makes the unit unfit can fall under your general duty to keep the unit fit and habitable.",
+    notes: "OK: CONFIRMED ABSENT: OK battery 55 (mold, mould, fungi, fungus in a landlord, tenant, dwelling or residential context: 2 sections, neither a rental disclosure; known positive passed); habitability duty: Okla. Stat. tit. 41, § 118(A)(2). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-no-radon-disclosure-ok",
+    title: "No Radon Disclosure Rule",
+    group: "Disclosures",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "radon-disclosure",
+    bodyText:
+      "Oklahoma has no statute requiring a landlord to test for or disclose radon.",
+    notes: "OK: CONFIRMED ABSENT: OK battery 54 (radon, word-bounded: 0 hits in the whole code and Constitution; known positive passed). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-no-bed-bug-rule-ok",
+    title: "No Bed Bug Rule",
+    group: "Disclosures",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "bed-bug-disclosure",
+    bodyText:
+      "Oklahoma has no statute on bed bug disclosure, inspection or treatment in rentals. Infestation can fall under your general duty to keep the unit fit and habitable, and the tenant's general duty to keep the unit clean and sanitary.",
+    notes: "OK: CONFIRMED ABSENT: OK battery 56 (bed bug, infestation, vermin, rodent in a landlord, tenant, dwelling or residential context: 5 sections, none a rental rule; known positive passed); Okla. Stat. tit. 41, §§ 118(A)(2), 127(1). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-rent-receipt-rule-ok",
+    title: "No Rent Receipt Rule",
+    group: "Rent & Payment",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-receipts",
+    bodyText:
+      "Oklahoma does not require a landlord to give receipts for rent, including cash rent. Keeping a record of every payment still helps if rent is disputed.",
+    notes: "OK: CONFIRMED ABSENT: Title 41 read whole (no receipt section); OK batteries 8 and 15 (receipts for rent, cash or payment; then 'receipt' in a landlord-tenant context: 26 sections, the Title 41 hits (Okla. Stat. tit. 41, §§ 115, 116, 119, 121, 130.1, 132, 136) read whole and none a rent-receipt duty; the other hits' snippets are not landlord rules). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-eviction-sealing-ok",
+    title: "No Eviction Record Sealing",
+    group: "Default & Termination",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-record-sealing",
+    bodyText:
+      "Oklahoma has no statute or court rule that seals or expunges eviction (forcible entry and detainer) case records or limits public access to them.",
+    notes: "OK: CONFIRMED ABSENT: OK battery 73 (seal or expunge near forcible entry, eviction, detainer or landlord: 1 section, a juvenile provision); Okla. Stat. tit. 12, §§ 1148.1-1148.16 read whole; Rules for District Courts of Oklahoma (40 documents) and Rules for the Administration of Courts (15 documents) fetched from oscn.net and full-text searched (seal, forcible, eviction, confidential, public access, redact): no sealing rule (court rules, rule 21). Supreme Court administrative directives not searched (index did not load; OK log §7). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-for-cause-eviction-ok",
+    title: "No Just-Cause Requirement",
+    group: "Default & Termination",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "for-cause-eviction",
+    bodyText:
+      "Oklahoma does not require a reason to end a tenancy. A fixed-term lease ends on its end date, and a periodic tenancy can be ended by the required written notice (30 days for month-to-month or at will, 7 days for a tenancy shorter than month-to-month). Situational limits still apply: you may not end or refuse to renew a tenancy because a tenant or household member is a victim of domestic violence, sexual violence or stalking, and you may not discriminate on a protected basis. There is no general anti-retaliation statute.",
+    notes: "OK: CONFIRMED ABSENT (just cause): Title 41 read whole; Okla. Stat. tit. 41, § 111(A)-(B) (notice to end periodic tenancies); Okla. Stat. tit. 41, § 113.3 (domestic violence protections); Okla. Stat. tit. 25, § 1452. Rule 41 verdict. edu-retaliation-ok, edu-dv-protections-ok. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-waiver-by-acceptance-ok",
+    title: "Accepting Rent After a Breach",
+    group: "Default & Termination",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "waiver-by-acceptance",
+    bodyText:
+      "Oklahoma's Landlord and Tenant Act has no section saying that accepting rent with knowledge of a default waives your right to end the lease. An older general statute presumes that, if a tenant stays after the lease expires and you accept rent, the lease is renewed on the same terms and for the same period, not exceeding one year; a lease term saying what happens on holdover can show a different agreement. Whether a court will find a waiver from accepting rent after a breach is a question of case law not researched here.",
+    notes: "OK: Title 41 read whole: no waiver-by-acceptance section corresponding to URLTA § 4.204; Okla. Stat. tit. 41, § 35 (renewal presumed on acceptance of rent after the term). OK battery 22 (acceptance of rent in a landlord-tenant context: 5 sections). Clauses late-fee and holdover-ca address acceptance by contract. Case law unread. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-no-foreclosure-tenant-rule-ok",
+    title: "Foreclosure and Tenants",
+    group: "Default & Termination",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "foreclosure",
+    bodyText:
+      "Oklahoma has no statute requiring a landlord to disclose a pending foreclosure to a tenant or giving tenants a special notice period after a foreclosure sale. A tenant who receives notice of a proceeding to recover the property must tell you promptly. Federal law on tenants in foreclosed properties is not covered here.",
+    notes: "OK: CONFIRMED ABSENT: OK battery 74 (foreclosure near tenant, lessee, lease or occupant: 9 sections, none a residential tenant protection or disclosure duty; known positive passed); Okla. Stat. tit. 41, § 38 (tenant's duty to report proceedings). Federal Protecting Tenants at Foreclosure Act, 12 U.S.C. § 5220 note (rule 21; not researched). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-no-nuisance-eviction-rule-ok",
+    title: "Nuisance and Criminal Activity",
+    group: "Default & Termination",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nuisance",
+    bodyText:
+      "Beyond the Landlord and Tenant Act's own rule allowing immediate termination for criminal or drug-related activity that threatens health or safety, no Oklahoma statute was found requiring landlords to join crime-free programs, making a residential lease void for nuisance activity, or giving a landlord a special nuisance-eviction procedure. Oklahoma's general nuisance statutes were not read for owner liability.",
+    notes: "OK: Okla. Stat. tit. 41, § 132(D) (read whole). OK battery 90 (nuisance near landlord, lessor, tenant or lease in Titles 21, 22, 50 and 63: 2 sections in Title 50, snippets read in context, neither a landlord duty or eviction procedure; Title 50 not read whole); OK battery 91 (lease void or forfeit for illegal use: 12 sections, none a residential lease forfeiture rule after reading snippets). Local crime-free ordinances flagged, not researched (rule 3). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-penalties-liquidated-damages-ok",
+    title: "Penalties and Fixed Damages in a Lease",
+    group: "Default & Termination",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "liquidated-damages",
+    bodyText:
+      "Oklahoma voids contract penalties for non-performance. A lease term fixing in advance the amount owed for a breach is valid only when, from the nature of the case, it would be impracticable or extremely difficult to fix the actual damage; otherwise it is void to that extent. Damages must always be reasonable, and no more than reasonable damages can be recovered under an obligation that would otherwise give unconscionable and grossly oppressive damages. These rules apply to late fees, early-termination fees and other fixed charges. How Oklahoma courts apply them to particular lease charges is a question of case law not researched here.",
+    notes: "OK: Okla. Stat. tit. 15, §§ 213, 214, 215(A) (the 5% safe harbor in Okla. Stat. tit. 15, § 215(B) covers real estate sales contracts only); Okla. Stat. tit. 23, § 97 (all read whole and saved, sources/okla-stat-outside-5.txt). OK battery 78. New topic_key: no existing key covers contract-penalty doctrine (rule 58). Case law unread. Clauses affected: late-fee (tagged, fixed fee), early-termination-ks (tagged); no holdover-rate clause offered (OK log §6). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-consumer-protection-ok",
+    title: "Consumer Protection Act",
+    group: "Compliance & Prohibited Terms",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "consumer-protection-act",
+    bodyText:
+      "Oklahoma's Consumer Protection Act prohibits deceptive and unfair trade practices in 'consumer transactions', defined as advertising, offering, selling, purchasing or distributing services or property, including real property, for personal, household or business purposes. Its list of unlawful practices includes false statements about the subject of a transaction, bait-and-switch advertising, and charges a consumer did not authorize; it does not list leaving blanks in a contract or failing to give a copy. A consumer can recover actual damages and attorney fees, plus a civil penalty of up to $2,000 per violation if the practice is also unconscionable. Transactions regulated by another regulatory body are exempt. Whether the Act reaches residential leases is not stated in the Act; case law on that question was not researched.",
+    notes: "OK: Okla. Stat. tit. 15, § 752(2), (13)-(14); Okla. Stat. tit. 15, § 753 (list read whole); Okla. Stat. tit. 15, § 754(2); Okla. Stat. tit. 15, § 761.1(A)-(B) (all read whole and saved, sources/okla-stat-outside-5.txt, -6.txt). No plain-language statute for leases (OK log §17, battery list). Case law on leases unread. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Notices & General
+  {
+    id: "edu-electronic-records-ok",
+    title: "Electronic Leases, Signatures and Notices",
+    group: "Notices & General",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "electronic-signatures",
+    bodyText:
+      "Oklahoma's Uniform Electronic Transactions Act lets a lease, a signature or a written record be electronic, but only between parties who have agreed to do business electronically, and a party who agreed may refuse to do later transactions electronically (that right cannot be waived). An electronic record does not satisfy a writing requirement if the sender prevents the recipient from printing or storing it. Where another law requires a notice to be sent by a specified method, it must still be sent that way: termination notices under the Landlord and Tenant Act must be served as that Act prescribes (personal delivery, delivery to a family member over 12, or posting plus certified mail). The Act has no exclusion for eviction notices, but it gives no electronic substitute for the statutory delivery methods.",
+    notes: "OK: Okla. Stat. tit. 12A, §§ 15-103, 15-105(b)-(c), 15-107, 15-108(a)-(c) (read whole and saved, sources/okla-stat-outside-6.txt); Okla. Stat. tit. 41, § 111(E). OK battery 80. Rule 45 screen. Clauses: electronic-signatures and notices (tagged). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-dishonored-check-remedies-ok",
+    title: "Bad Checks",
+    group: "Rent & Payment",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "returned-payments",
+    bodyText:
+      "No Oklahoma statute sets a returned-payment fee for rent. The fee limit in the Consumer Credit Code applies only to consumer credit sales. If you sue to collect on a check refused for insufficient funds or no account, the court awards the winning party a reasonable attorney fee, but only if you sent a written demand for payment by registered or certified mail at least 10 days before filing. A lease still may not make the tenant promise to pay your attorney fees.",
+    notes: "OK: Okla. Stat. tit. 12, § 937; Okla. Stat. tit. 14A, § 2-202.1 (consumer credit sale only); Okla. Stat. tit. 41, § 113(A)(3) (all read whole). OK batteries 19, 27, 29 (dishonored check service charges: 6 sections in the whole code, none for rent). Clause: returned-payments-ok. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Notices & General
+  {
+    id: "edu-statute-of-frauds-ok",
+    title: "Leases Longer Than One Year",
+    group: "Notices & General",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "statute-of-frauds-lease-term",
+    bodyText:
+      "A lease for longer than one year is invalid unless it, or a note or memorandum of it, is in writing and signed by the party to be charged (or by that party's agent or broker with written authority). A lease for one year or less accompanied by actual possession is valid against third persons without being acknowledged and recorded; a longer lease must be acknowledged and recorded to be valid against third persons such as a later buyer or lender.",
+    notes: "OK: Okla. Stat. tit. 15, § 136(4); Okla. Stat. tit. 16, § 15 (both read whole and saved). OK battery 88 (both word orders, Oklahoma number style 'one (1) year'; battery 84 failed to match that style). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-minor-tenants-ok",
+    title: "Minors Renting Housing",
+    group: "Notices & General",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "minor-tenant-filing",
+    bodyText:
+      "A person 16 or older may enter into contracts to obtain housing if he or she has a certification of unaccompanied status from a youth services provider licensed, accredited, monitored or contracted by the Department of Human Services or the Department of Mental Health and Substance Abuse Services, showing the minor is homeless or a victim of domestic violence or abuse. The certification issues 14 days after the provider notifies the parent or guardian by certified mail, unless the parent cannot be found.",
+    notes: "OK: Okla. Stat. tit. 10A, § 1-9-125(A)-(C) (read whole and saved). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-rent-tax-ok",
+    title: "Sales Tax on Rent",
+    group: "Rent & Payment",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-tax",
+    bodyText:
+      "Oklahoma sales tax applies to the service of furnishing rooms by a hotel, apartment hotel, public rooming house, motel, public lodging house or tourist camp; an ordinary lease of an apartment or house is not on that list. Counties with fewer than 200,000 people may levy a voter-approved lodging tax on rooms furnished by hotels, apartment hotels, motels and other public lodging. Municipal lodging taxes are not covered here.",
+    notes: "OK: Okla. Stat. tit. 68, § 1354(A)(7); Okla. Stat. tit. 68, § 1370.9(A) (both read whole and saved, sources/okla-stat-outside-7.txt). OK batteries 21, 28, 30 (no 30-day exemption located). Tax Commission rules and municipal ordinances not researched. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  {
+    id: "edu-rent-increases-ok",
+    title: "Raising the Rent",
+    group: "Rent & Payment",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-increase-notice",
+    bodyText:
+      "Oklahoma has no rent-increase notice period, frequency limit or cap for ordinary times, and cities may not regulate rent. During a fixed-term lease the rent stays as the lease sets it unless the lease provides otherwise; a periodic tenancy can be ended on the statutory written notice (30 days for month-to-month or at will, 7 days for a tenancy shorter than month-to-month). During a declaration of emergency by the Governor or the President, and for 30 days after it, you may not rent, lease or offer a dwelling unit in the emergency area for more than 10% above the price you charged just before the declaration, and the same 10% limit on dwelling units continues for another 180 days, unless the increase is attributable to petroleum and natural gas price increases or to factors unrelated to the emergency that do not increase your profit.",
+    notes: "OK: CONFIRMED ABSENT (notice, frequency, cap): Title 41 read whole; Okla. Stat. tit. 11, § 14-101.1. Emergency limit: Okla. Stat. tit. 15, § 777.4(A)-(C) (read whole and saved, sources/okla-stat-outside-6.txt; found by OK battery 26). Periodic notice: Okla. Stat. tit. 41, § 111(A)-(B). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-utility-resale-ok",
+    title: "Reselling Electricity or Gas to Tenants",
+    group: "Tenant Responsibilities",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utility-submetering-disclosure",
+    bodyText:
+      "If you buy electricity or natural gas from a municipality and resell it to a residential tenant for heat, light or power, you may not charge more than 10% above your cost for each billing cycle, and your bills must separately show the per-unit cost of the power you bought and each fee or charge in dollars and cents. A willful violation is a misdemeanor and makes you liable for treble damages based on each overcharged bill. The limit does not apply to commercial leases or to utilities regulated by the Corporation Commission.",
+    notes: "OK: Okla. Stat. tit. 17, § 161.1(A)-(D) (read whole and saved, sources/okla-stat-outside-3.txt). OK battery 45. Corporation Commission rules on submetering not researched (agency rules, rule 21). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Parking & Storage
+  {
+    id: "edu-no-ev-charging-rule-ok",
+    title: "No Electric Vehicle Charging Rule",
+    group: "Parking & Storage",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "ev-charging",
+    bodyText:
+      "Oklahoma has no statute giving tenants a right to install electric vehicle charging equipment or regulating landlord charging policies. Any charging arrangement is a matter for the lease.",
+    notes: "OK: CONFIRMED ABSENT: OK battery 68 (electric vehicle or EV charging near tenant, landlord, lessee, dwelling, residential, association or multifamily, both word orders: 2 sections, neither a tenant right; known positive passed). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Notices & General
+  {
+    id: "edu-no-lease-copy-rule-ok",
+    title: "No Lease Copy Rule",
+    group: "Notices & General",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lease-copy",
+    bodyText:
+      "Oklahoma does not require a landlord to give the tenant a copy of the signed lease within a set time. Giving each tenant a signed copy at signing is still good practice and makes the lease easier to enforce.",
+    notes: "OK: CONFIRMED ABSENT: Title 41 read whole; OK battery 92 (copy of the lease or rental agreement, both word orders: 16 sections, none a residential landlord duty; known positive passed). The Consumer Protection Act's list of unlawful practices has no copy requirement (Okla. Stat. tit. 15, § 753; edu-consumer-protection-ok). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-condo-conversion-rule-ok",
+    title: "No Condominium Conversion Notice Rule",
+    group: "Default & Termination",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "conversion-notice",
+    bodyText:
+      "Oklahoma has no statute requiring notice to tenants, or giving tenants rights, when rental property is converted to condominiums or cooperatives.",
+    notes: "OK: CONFIRMED ABSENT: OK battery 75 (conversion near condominium or cooperative, both word orders: 15 sections, all business-entity conversions in Title 18; known positive passed); battery 95's hits in the Unit Ownership Estate Act (Okla. Stat. tit. 60, §§ 503, 520, 524; definitions, bylaws and liens, read in context, not whole) are not conversion rules. Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-no-display-rights-rule-ok",
+    title: "No Tenant Display Rights Statute",
+    group: "Rules & Regulations",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-display-rights",
+    bodyText:
+      "Oklahoma has no statute protecting a residential tenant's right to display a flag, sign or religious item against a landlord's rules. The flag-display statute protects members of owners', condominium, cooperative and residential real estate management associations, not tenants against landlords. Federal rules on satellite dishes and antennas are not covered here.",
+    notes: "OK: CONFIRMED ABSENT: OK battery 67 (flag, political sign or religious display near prohibit or restrict, both word orders: 4 sections, three on public flag display and Okla. Stat. tit. 60, § 858 on associations; known positive passed). Clause: common-area-use (tagged). Federal OTARD rule, 47 C.F.R. § 1.4000 (rule 21; not researched). Rule 15: written section-open. Read section-open 2026-09-30 to 2026-10-01 in the built-in browser from oklegislature.gov (Oklahoma Legislative Service Bureau whole-title files, statutes last updated Nov. 18, 2025, which print each section with its history line; checked against OSCN's history notes where cited): Okla. Stat. tit. 41, §§ 1-201, read whole and Okla. Stat. tit. 12, §§ 1148.1-1148.16, read whole; the whole Oklahoma Statutes (88 title files, 47,809 sections, checked against each file's own index) and the Oklahoma Constitution loaded for full-text search, control terms 0 hits (OK log §1, OK log §17).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-legal-interest-ok",
+    title: "Interest on Unpaid Amounts",
+    group: "Rent & Payment",
+    states: ["OK"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "unpaid-damages-interest",
+    bodyText:
+      "When a lease sets no interest rate, Oklahoma's legal rate of interest is 6% a year (Okla. Stat. tit. 15, § 266). The same section lets the parties agree by contract to 'any rate as may be authorized by law', so a lease could set a higher rate, but the laws that limit an agreed rate were not reviewed for this library, so it offers no interest clause. It is lawful within those limits, so a landlord who wants a contract rate can add a custom clause, after checking the limits or taking advice.",
+    notes: "OK: Okla. Stat. tit. 15, § 266, read section-open 2026-10-01 by Claude Code from the oklegislature.gov whole-title file (os15.rtf). Added at sync under SOP rule 54 (a lawful option the library declines gets an education row): the OK log §6.1 declined a contract-rate clause because the Consumer Credit Code limits that § 266 incorporates were not read, but no row said so. Model: edu-legal-interest-mo / -in.",
+  },
 ];
 
 module.exports = { LANDLORD_EDUCATION };
