@@ -25,12 +25,12 @@ only = {a.upper() for a in args}
 # the scoped question.
 ASK = {
     "37": "Tenancy type. Wherever a notice period, damages measure, right or cap in your rows differs for week-to-week, month-to-month, fixed-term or at-will tenancies, the row says so. That includes a cap or limit counted by 'lease year', 'renewal', 'lease period' or 'term' (a periodic tenancy renews every period). Where a statute counts a window from 'the expiration of the rental agreement', say how it works for a periodic tenancy. Check shared clauses whose figures only make sense in a fixed Term. A flat figure that hides an assumption gets fixed.",
-    "39": "Eviction duties. Screen the eviction procedure, including court rules read whole, for landlord duties, prohibitions and immunities (post-writ property and animal duties, lockout bans, record sealing). Each one found has a row.",
+    "39": "Eviction duties. Screen the eviction procedure, including court rules read whole, for landlord duties, prohibitions and immunities (post-writ property and animal duties, lockout bans, record sealing). Each one found has a row. Read the courts' public-access rules too (record sealing can live there).",
     "40": "Formatting and placement. Search for 'underlined', 'boldface', 'conspicuous', 'separate document', 'substantially equivalent' and type-size rules, and for omission sanctions that forfeit money. Record every hit in a layout table.",
     "41": "Just cause. If the state has a just-cause or good-cause rule, find any wording in your clauses that says the end of the term ends possession. Record the verdict in a row keyed `for-cause-eviction` (rule 41b).",
     "41b": "A `for-cause-eviction` row. Your state has no row with this topic_key. Add one that records the verdict: the just-cause rule if there is one (if an existing row already states it under another key, such as `eviction-process` or `termination-notice`, write a short `for-cause-eviction` row pointing to it rather than moving it), or a confirmed absence naming any situational for-cause limits (conversion notice year, rent-escrow bars, tenants' association protection).",
     "42": "Required text inside a shared clause. Does a statute force a sentence into a fee, deposit or other clause your state is tagged on?",
-    "43": "Cure promises. Does a clause promise a cure period for 'any other' breach, giving away a no-cure termination right the statute provides? A no-cure carve-out should be its own sentence covering every limb (rent and non-rent).",
+    "43": "Cure promises. Does a clause promise a cure period for 'any other' breach, giving away a no-cure termination right the statute provides? A no-cure carve-out should be its own sentence covering every limb (rent and non-rent). If the rent limb ties its cure to 'written notice from Landlord', check whether the state requires any pre-suit notice for nonpayment.",
     "44": "Terms the statute turns into landlord duties. Does 'as agreed in the rental agreement' wording make a generous lease term mandatory (for example extra notice methods)?",
     "45": "Electronic notices. Read the state's electronic-transactions act itself, not only the landlord-tenant section that refers to it, for exclusions (eviction, default, cure notices) and unwaivable conditions (a record the recipient can't print or store), and check whether any clause relies on electronic delivery of those.",
     "46": "The lease as the required notice. Where the statute lets a lease paragraph serve as a notice, offer that clause and reconcile shared clauses that promise a separate notice.",
@@ -91,6 +91,8 @@ for e in csv.DictReader(open("scripts/clause-library/retro-extras.csv", newline=
     extras[e["state"]].append(e["item"])
 
 rows = list(csv.DictReader(open("lease-clauses.csv", newline="", encoding="utf-8")))
+import datetime
+staged_at = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 clauses = [r for r in rows if r["is_active"] == "TRUE" and r["content_type"] == "LEASE_CLAUSE"]
 
 def pointers(st, rule):
@@ -118,6 +120,8 @@ for st in states:
         checks += "\n\n**Targeted fixes (not tied to one rule):**\n" + "\n".join(
             f"{n}. {item}" for n, item in enumerate(extras[st], len(due[st]) + 1))
     prompt = f"""# Targeted retro checks: {st} (SOP {version})
+
+**Staged {staged_at}; the attached `lease-clauses.csv` has {len(rows):,} rows.** Check that row count first. If it differs, stop and tell Taylor: these files were restaged after he uploaded them, and he should upload this folder's files again.
 
 This is a circle-back in {st}'s existing chat (SOP rule 8). Delete any old output files first and say what you deleted. The files attached now are the only source of truth; say so wherever something earlier in this chat conflicts with them.
 

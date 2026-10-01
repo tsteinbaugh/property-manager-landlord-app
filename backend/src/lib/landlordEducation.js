@@ -6128,8 +6128,8 @@ const LANDLORD_EDUCATION = [
     verificationStatus: "VERIFIED",
     topicKey: "eviction-process",
     bodyText:
-      "In most New Jersey residential rentals a landlord can remove a tenant, or refuse to renew a lease, only for one of the good causes listed in N.J.S.A. 2A:18-61.1, proven in court. The causes include nonpayment of rent, disorderly conduct or rule violations after a written notice to cease, willful damage, habitual late payment, refusal of reasonable lease changes at renewal, certain criminal convictions, and owner occupancy in buildings of three or fewer units. Most causes need an advance written notice of a set length: three days, one month, two or three months, or longer. The Act does not cover owner-occupied buildings with no more than two rental units or transient and seasonal rentals. A lease term that waives these protections is unenforceable. Where the Act applies, the end of the lease term does not by itself end the tenant's right to stay; a holdover tenant can be removed only for good cause under the Act.",
-    notes: "NJ: Primary text read section-open 2026-09-26 from the official N.J.S.A. text supplied by Taylor (lis.njleg.state.nj.us), with per-section chapter-law history lines. N.J.S.A. 2A:18-61.1 (last amended 2013, c.51, s.7) grounds a.-r.; exemptions (1)-(3); 2A:18-61.2 notice periods: 3 days (b, c, m-r), one month (d, e, habitual nonpayment, i), 3 months (g), 18 months (h), 2 months (l), 3 years (k), service by personal delivery, abode (14+) or certified mail then regular; nonpayment (a, f) needs no notice; 2A:18-61.3 no eviction or non-renewal without good cause, and successor owners bound; 2A:18-61.4 waiver unenforceable; 2A:18-61.6(d) treble damages for eviction notices using a cause not provided by law; rules must be reasonable and accepted in writing or in the lease at the start of the term (61.1(d)); covenants must be reasonable and in the lease at the start of the term with a reserved right of reentry (61.1(e)(1)). Rent increases must not be unconscionable (61.1(f)); unconscionability standard is case law (not read). Case law generally not read this pass. | NJ: Holdover sentence added by the three-bucket scrub (2026-09-29) from holdover-nj; content unchanged: N.J.S.A. 2A:18-61.1 et seq.",
+      "In most New Jersey residential rentals a landlord can remove a tenant, or refuse to renew a lease, only for one of the good causes listed in N.J.S.A. 2A:18-61.1, proven in court. The causes include nonpayment of rent, disorderly conduct or rule violations after a written notice to cease, willful damage, habitual late payment, refusal of reasonable lease changes at renewal, certain criminal convictions, and owner occupancy in buildings of three or fewer units. Most causes need an advance written notice of a set length: three days, one month, two or three months, or longer. The Act does not cover owner-occupied buildings with no more than two rental units or transient and seasonal rentals. A lease term that waives these protections is unenforceable. Where the Act applies, the end of the lease term does not by itself end the tenant's right to stay; a holdover tenant can be removed only for good cause under the Act. Where the Act does not apply, a holdover tenant can be removed after the tenancy is ended by a notice to quit whose length depends on the tenancy: three months for a tenancy at will or from year to year, one month for a tenancy from month to month, and one full term for any other periodic tenancy, such as week to week (N.J.S.A. 2A:18-56).",
+    notes: "NJ: Primary text read section-open 2026-09-26 from the official N.J.S.A. text supplied by Taylor (lis.njleg.state.nj.us), with per-section chapter-law history lines. N.J.S.A. 2A:18-61.1 (last amended 2013, c.51, s.7) grounds a.-r.; exemptions (1)-(3); 2A:18-61.2 notice periods: 3 days (b, c, m-r), one month (d, e, habitual nonpayment, i), 3 months (g), 18 months (h), 2 months (l), 3 years (k), service by personal delivery, abode (14+) or certified mail then regular; nonpayment (a, f) needs no notice; 2A:18-61.3 no eviction or non-renewal without good cause, and successor owners bound; 2A:18-61.4 waiver unenforceable; 2A:18-61.6(d) treble damages for eviction notices using a cause not provided by law; rules must be reasonable and accepted in writing or in the lease at the start of the term (61.1(d)); covenants must be reasonable and in the lease at the start of the term with a reserved right of reentry (61.1(e)(1)). Rent increases must not be unconscionable (61.1(f)); unconscionability standard is case law (not read). Case law generally not read this pass. | NJ: Holdover sentence added by the three-bucket scrub (2026-09-29) from holdover-nj; content unchanged: N.J.S.A. 2A:18-61.1 et seq. | NJ: Retro check 2026-09-30 (SOP 1.12), rule 37 (tenancy type). Added the excluded-premises notice to quit by tenancy type, N.J.S.A. 2A:18-56(a)-(c). Read section-open 2026-09-30 in the built-in browser from the official NJ Legislature statutes (lis.njleg.state.nj.us, compilation through P.L.2026, c.30); text hashed, NJ retro sources.",
   },
   {
     id: "edu-self-help-eviction-ban-nj",
@@ -6228,8 +6228,8 @@ const LANDLORD_EDUCATION = [
     verificationStatus: "VERIFIED",
     topicKey: "prohibited-lease-terms",
     bodyText:
-      "New Jersey prohibits a landlord from offering or signing a lease containing a provision that violates clearly established tenant rights or landlord responsibilities under New Jersey law at the time of signing. A tenant may ask a court to terminate a lease containing such a provision, and the landlord faces a penalty. This does not apply if the tenant proposed the provision. Several New Jersey laws also make specific lease waivers void, including waivers of security deposit rights, landlord registration rights, eviction protections, repair-escrow rights and domestic-violence termination rights.",
-    notes: "NJ: Primary text read section-open 2026-09-26 from the official N.J.S.A. text supplied by Taylor (lis.njleg.state.nj.us), with per-section chapter-law history lines. N.J.S.A. 46:8-48 (L.1975,c.310,s.6); penalty up to $100 per offense (46:8-47); an eviction notice relying on an unlawful lease clause can support treble damages (2A:18-61.6(d)). Specific anti-waiver sections: 46:8-24 (deposits), 46:8-36 (registration), 2A:18-61.4 (Anti-Eviction), 2A:42-96 (rent into court), 46:8-9.9 (DV termination); owner maintenance duties cannot be shifted by lease (N.J.A.C. 5:10-4.1(a)). Scope follows the 46:8-44 landlord definition.",
+      "New Jersey prohibits a landlord from offering or signing a lease containing a provision that violates clearly established tenant rights or landlord responsibilities under New Jersey law at the time of signing. A tenant may ask a court to terminate a lease containing such a provision, and the landlord faces a penalty of up to $100 for each offense. A general sentence elsewhere in the lease saying that nothing in it limits the tenant's rights does not make an unlawful term safe. This does not apply if the tenant proposed the provision. Several New Jersey laws also make specific lease waivers void, including waivers of security deposit rights, landlord registration rights, eviction protections, repair-escrow rights and domestic-violence termination rights.",
+    notes: "NJ: Primary text read section-open 2026-09-26 from the official N.J.S.A. text supplied by Taylor (lis.njleg.state.nj.us), with per-section chapter-law history lines. N.J.S.A. 46:8-48 (L.1975,c.310,s.6); penalty up to $100 per offense (46:8-47); an eviction notice relying on an unlawful lease clause can support treble damages (2A:18-61.6(d)). Specific anti-waiver sections: 46:8-24 (deposits), 46:8-36 (registration), 2A:18-61.4 (Anti-Eviction), 2A:42-96 (rent into court), 46:8-9.9 (DV termination); owner maintenance duties cannot be shifted by lease (N.J.A.C. 5:10-4.1(a)). Scope follows the 46:8-44 landlord definition. | NJ: Retro check 2026-09-30 (SOP 1.12), rule 47. Penalty amount added from N.J.S.A. 46:8-47 (not more than $100 for each offense, summary proceedings on the complaint of the commissioner, the Attorney General or any other person); 46:8-48 re-read. Read section-open 2026-09-30 in the built-in browser from the official NJ Legislature statutes (lis.njleg.state.nj.us, compilation through P.L.2026, c.30); text hashed, NJ retro sources.",
   },
   // Rent & Payment
   {
@@ -13546,8 +13546,8 @@ const LANDLORD_EDUCATION = [
     verificationStatus: "VERIFIED",
     topicKey: "casualty-termination",
     bodyText:
-      "In New Jersey, if the property is damaged by fire without the tenant's fault, rent stops until it's fully repaired, and you should repair it as quickly as possible; if the building is totally destroyed without the tenant's fault, rent is owed only to the date of destruction and the lease ends (N.J.S.A. 46:8-6, 46:8-7).",
-    notes: "NJ: Moved from casualty-nj by the three-bucket scrub (2026-09-29); content and citations unchanged: N.J.S.A. 46:8-6; N.J.S.A. 46:8-7; N.J.S.A. 46:8-48.",
+      "In New Jersey, if the property is damaged by fire without the tenant's fault, rent stops until it's fully repaired, and you should repair it as quickly as possible; if the building is totally destroyed without the tenant's fault, rent is owed only to the date of destruction and the lease ends (N.J.S.A. 46:8-6, 46:8-7). Neither rule applies where the tenant caused the damage, and both give way to a lease that provides otherwise; this library's lease does not vary them, except the optional tenant-caused-damage clause, which addresses only damage the tenant's side caused.",
+    notes: "NJ: Moved from casualty-nj by the three-bucket scrub (2026-09-29); content and citations unchanged: N.J.S.A. 46:8-6; N.J.S.A. 46:8-7; N.J.S.A. 46:8-48. | NJ: Retro check 2026-09-30 (SOP 1.12), rules 50 and 54t. Both sections end \"This section shall not extend or apply to cases wherein the parties have otherwise stipulated in their agreement of lease\" (N.J.S.A. 46:8-6, 46:8-7, read section-open); recorded as a deliberate choice to keep the statutory default. No landlord casualty-termination clause offered: the lease ends by statute on total destruction, and otherwise removal needs an Anti-Eviction ground (2A:18-61.1). Read section-open 2026-09-30 in the built-in browser from the official NJ Legislature statutes (lis.njleg.state.nj.us, compilation through P.L.2026, c.30); text hashed, NJ retro sources.",
   },
   // Security Deposit
   {
@@ -17911,6 +17911,145 @@ const LANDLORD_EDUCATION = [
     bodyText:
       "Nebraska has no statute giving a tenant the right to install a security camera or video doorbell, and none restricting one. So it is governed by your lease: the No Alterations clause already requires your written consent before the tenant attaches anything to the property, and the Use of Property & Common Areas clause covers fixing things to exterior surfaces. Two cautions that are not lease questions. A camera that records audio can raise wiretapping issues, and one that overlooks another tenant's unit can raise privacy ones; neither is answered by the landlord-tenant act. Treat a request from a tenant with a disability as a reasonable-accommodation question instead.",
     notes: "NE: Read section-open 2026-09-30 from nebraskalegislature.gov in the built-in browser. The whole URLTA (§§76-1401 to 76-1449, 54 sections, 78,605 chars, SHA-256 73533d60a357f1a7f89f4dd8da75b8f2) was loaded via display_html.php and pattern-screened in page; named sections were then read individually. Retro checks, SOP 1.10. RULE 27 (SOP 1.10) — CONFIRMED ABSENT. Patterns 'camera|surveillance|recording device' against the full URLTA text: NO HIT. Statute-wide searches: 'camera' returned 25 results, all criminal procedure and remote-computing provisions (§§29-1926 child-witness in camera testimony, 86-2,107, 29-1917) — note the term of art 'in camera' is the dominant false positive, which is why every hit was reviewed; 'surveillance' returned 36, the nearest being §§54-2949, 25-21,284 and 86-293, none landlord-tenant. No tenant installation right and no landlord restriction exists. The clauses the row points at (`no-alterations`, `common-area-use`) were read and do cover attachment to the property. NOT RESEARCHED and flagged as unread doctrine (rule 76): Nebraska's wiretapping and eavesdropping provisions, and any privacy tort — the row raises both as cautions without stating a rule.",
+  },
+  // Default & Termination
+  {
+    id: "edu-for-cause-eviction-nj",
+    title: "Good-Cause Eviction Rule",
+    group: "Default & Termination",
+    states: ["NJ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "for-cause-eviction",
+    bodyText:
+      "New Jersey is a good-cause state. In most residential rentals a landlord may remove a tenant, or refuse to renew a lease, only for one of the causes the Anti-Eviction Act lists, proven in court; the end of a lease term is not a cause. The Act does not cover owner-occupied buildings with no more than two rental units or transient and seasonal rentals. The full rules are in the Anti-Eviction Act entry.",
+    notes: "NJ: Retro check 2026-09-30 (SOP 1.12), rule 41b. PRESENT. Pointer row: the rule itself is stated in edu-anti-eviction-act-nj (topic eviction-process), not moved. N.J.S.A. 2A:18-61.1 (grounds a-r; exclusions (1)-(3)), 2A:18-61.3 (no removal or non-renewal except for good cause). Read section-open 2026-09-30 in the built-in browser from the official NJ Legislature statutes (lis.njleg.state.nj.us, compilation through P.L.2026, c.30); text hashed, NJ retro sources.",
+  },
+  {
+    id: "edu-eviction-court-rules-nj",
+    title: "Eviction Court Rules: Landlord Duties",
+    group: "Default & Termination",
+    states: ["NJ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-process",
+    bodyText:
+      "New Jersey court rules add duties to an eviction case. A default judgment for possession needs the landlord's affidavit stating the facts that give good cause and that every charge claimed as rent, other than base rent, is allowed to be charged as rent by the lease and by law; a landlord's attorney must certify the same, and any required notice to quit must be attached with a statement that it was served and is true. A business entity other than a sole proprietor, or a partner in a general partnership, must appear through an attorney. A consent judgment for possession against an unrepresented tenant must be reviewed and signed by a judge that day. When the landlord believes service at the rental may fail, the landlord must also ask for service by mail at another address. A warrant of removal cannot issue until three business days after judgment (two days for a seasonal tenancy) and cannot be executed before the third business day after it is served; if the landlord does not apply for it within 30 days of judgment, or it is not executed within 30 days of issuance, the landlord must apply to the court with seven days' written notice to the tenant. A court may stay a warrant for up to seven days for an orderly move. A levy on belongings inside a home may be made only between 6:00 a.m. and 10:00 p.m.",
+    notes: "NJ: Retro check 2026-09-30 (SOP 1.12), rule 39. Rules Governing the Courts of the State of New Jersey, read whole for Part VI (6:1 to 6:7, 6:10, 6:12; 36 rules) from njcourts.gov, amendments effective on or before 2026-09-01: R. 6:6-3(b) (default judgment for possession affidavit and attorney certification), R. 6:10 with R. 1:21-1(c) (entity landlords), R. 6:6-4 (consent judgments), R. 6:2-3 (alternate-address service), R. 6:7-1(d) (warrant timing, 30-day lapse), R. 6:6-6(b) (orderly removal stay), R. 6:7-4(a) (levy hours). Court rules, not statutes (monitor separately, rule 21). Not located in Part VI or the statutes read: any post-writ animal duty (pattern animal|pet 0 hits in Part VI) or landlord immunity for writ execution. Post-writ property is edu-property-left-behind-nj; lockout ban is edu-self-help-eviction-ban-nj.",
+  },
+  {
+    id: "edu-eviction-record-sealing-nj",
+    title: "Eviction Records Kept From Public Access",
+    group: "Default & Termination",
+    states: ["NJ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-record-sealing",
+    bodyText:
+      "New Jersey court records of a landlord-tenant case are not public if the case ended without a judgment for possession, or if the judgment for possession was entered seven or more years ago. Eviction records for nonpayment during the COVID-19 emergency period are also shielded and may not be used in screening. No statute gives a landlord a right to object.",
+    notes: "NJ: Retro check 2026-09-30 (SOP 1.12), rule 39. PRESENT by court rule: R. 1:38-3 (court records excluded from public access: records of landlord tenant cases in which no judgment for possession was ever entered, and cases in which a judgment for possession was entered seven years ago or longer), read from njcourts.gov, amendments effective on or before 2026-09-01. COVID-period records: N.J.S.A. 46:8-51 (edu-screening-rules-nj). General statutory sealing bills (S402, A2589, 2026-2027 session) are introduced only, not law (rule 18). Court rule, not statute (rule 21).",
+  },
+  // Notices & General
+  {
+    id: "edu-electronic-notices-nj",
+    title: "Electronic Notices",
+    group: "Notices & General",
+    states: ["NJ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "notice-delivery-methods",
+    bodyText:
+      "New Jersey's electronic-transactions law applies only when both sides have agreed to do business electronically, and either side may later refuse further electronic dealings. It does not cover notices of default, eviction or the right to cure under a lease of someone's home, so those must go by the methods the eviction statutes require (personal delivery, leaving a copy at the home with a family member over 14, or certified mail, with regular mail if certified mail is not claimed). An electronic record the sender stops the tenant from printing or saving cannot be enforced against the tenant.",
+    notes: "NJ: Retro check 2026-09-30 (SOP 1.12), rule 45. N.J.S.A. 12A:12-3(c)(1)-(2) (exclusions, including (2)(b) notices of default, eviction or the right to cure under a rental agreement for a primary residence), 12A:12-5(b)-(c) (agreement required; right to refuse not waivable), 12A:12-8(a), (c), (d) (retention; unenforceable if printing or storing is inhibited; not variable by agreement); 2A:18-61.2 (service methods). No NJ clause relies on electronic delivery of an excluded notice (notices, electronic-signatures checked). Federal E-SIGN not read. Read section-open 2026-09-30 in the built-in browser from the official NJ Legislature statutes (lis.njleg.state.nj.us, compilation through P.L.2026, c.30); text hashed, NJ retro sources.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-plain-language-act-nj",
+    title: "Plain Language Rules for New Jersey Leases",
+    group: "Compliance & Prohibited Terms",
+    states: ["NJ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "plain-language",
+    bodyText:
+      "New Jersey's plain-language law applies to residential leases: a lease must be written in a simple, clear, understandable and easily readable way, judged as a whole. Courts and the Attorney General look at guidelines such as confusing cross-references, needlessly long sentences, double negatives and exceptions to exceptions, and illogical order, and whether sections are logically divided and captioned, a lease over 3,000 words has a table of contents or index, and conditions and exceptions get the same prominence as the main promise in at least 10-point type. Technical terms alone are not a violation, and wording a law or agency requires or approves is protected. A landlord who violates the law owes the tenant actual damages if the tenant was substantially confused, plus up to $50 and attorney's fees up to $2,500, but not if both sides performed, the landlord tried in good faith to comply, the contract follows an Attorney General opinion, or the tenant supplied the wording. The Attorney General will certify a form on request for a fee of up to $50.",
+    notes: "NJ: Retro check 2026-09-30 (SOP 1.12), rule 51. PRESENT. N.J.S.A. 56:12-1 (\"consumer contract\" includes a written agreement in which an individual \"Leases or licenses real or personal property\" for personal, family or household purposes), 56:12-2, 56:12-3, 56:12-4 (class-action caps, host copy only), 56:12-5, 56:12-6, 56:12-8 (AG certification, host copy only), 56:12-10 (guidelines). No dollar exclusion found in the sections read. Builder backlog (flag, not fixed): section captions, a table of contents above 3,000 words, and a 10-point floor for conditions and exceptions. The separate Truth-in-Consumer Contract, Warranty and Notice Act does not apply to residential leases (56:12-15). Case law applying the Act to leases not read. Read section-open 2026-09-30 in the built-in browser from the official NJ Legislature statutes (lis.njleg.state.nj.us, compilation through P.L.2026, c.30); text hashed, NJ retro sources.",
+  },
+  {
+    id: "edu-consumer-fraud-act-nj",
+    title: "Consumer Fraud Act and Leases",
+    group: "Compliance & Prohibited Terms",
+    states: ["NJ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "consumer-protection-act",
+    bodyText:
+      "New Jersey's Consumer Fraud Act makes it unlawful to use any unconscionable commercial practice, deception, fraud, misrepresentation, or knowing omission of a material fact in connection with the sale or advertisement of merchandise or real estate, and the Act defines a sale to include a rental. It is also unlawful to ask a consumer to sign a document evidencing a transaction without giving a full and accurate copy at the same time, so give each tenant a complete copy of the signed lease when they sign. A person who loses money or property because of an unlawful practice recovers three times the damages plus attorney's fees and costs. The Act lists no rule about blank spaces in a lease.",
+    notes: "NJ: Retro check 2026-09-30 (SOP 1.12), rule 51. N.J.S.A. 56:8-1(c), (e) (\"Sale\" includes \"rentals\"), 56:8-2, 56:8-2.22 (copy at signing, stated for a \"sale of merchandise\"), 56:8-19 (treble damages, mandatory fees). Whether 56:8-2.22 reaches a lease of real property, and how far courts apply the Act to residential landlords, is case law, not read (labelled unread doctrine). Blank spaces: Folio search \"blank spaces\" 9 hits, none on residential leases. Read section-open 2026-09-30 in the built-in browser from the official NJ Legislature statutes (lis.njleg.state.nj.us, compilation through P.L.2026, c.30); text hashed, NJ retro sources.",
+  },
+  // Default & Termination
+  {
+    id: "edu-tenant-caused-damage-nj",
+    title: "Damage Caused by the Tenant",
+    group: "Default & Termination",
+    states: ["NJ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-caused-damage",
+    bodyText:
+      "If a New Jersey tenant, occupant or guest causes damage, the statutory protections tied to damage do not help the tenant: rent stops after a fire only if the damage happened without the tenant's fault, the lease ends on total destruction only if it happened without the tenant's fault, and a rent-into-court case fails if the condition was caused maliciously or by abnormal or unusual use by the petitioning tenant or family. Willful or grossly negligent damage is a cause for removal on three days' notice, with no notice to cease first. You may apply the security deposit to damage after the tenancy ends, never while the tenant stays, and you may sue for the cost of repair. Lost rent after the tenancy ends is recoverable as damages, subject to your duty to try to re-rent.",
+    notes: "NJ: Retro check 2026-09-30 (SOP 1.12), rule 54t. Each provision checked separately for its own fault exception: casualty abatement N.J.S.A. 46:8-6 (\"without the fault of the lessee\"), total destruction 46:8-7 (same), rent into court 2A:42-91(b) (narrower: \"maliciously or by abnormal or unusual use\"; mere negligence is not a defense), removal ground 2A:18-61.1(c) with 2A:18-61.2(a) notice. Deposit: 46:8-21.1 (no deduction in possession; edu-security-deposit-rules-nj). Essential-services withholding and constructive eviction rest on case law (Marini v. Ireland), not read; damages and mitigation (Sommer v. Kridel) also case law, not read. Optional clause offered: tenant-caused-damage-nj. Read section-open 2026-09-30 in the built-in browser from the official NJ Legislature statutes (lis.njleg.state.nj.us, compilation through P.L.2026, c.30); text hashed, NJ retro sources.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-fees-as-rent-nj",
+    title: "Fees Treated as Rent",
+    group: "Rent & Payment",
+    states: ["NJ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fees-as-rent",
+    bodyText:
+      "In New Jersey, late fees, attorney's fees and other charges count as rent in an eviction for nonpayment only if the lease expressly says so, and never for Section 8 or public-housing tenants. This library's lease does not call any fee rent, so an unpaid fee cannot support an eviction for nonpayment; collect it another way. In a default judgment for possession, the landlord must swear, and a landlord's attorney must certify, that every charge claimed as rent other than base rent may be charged as rent under the lease and the law.",
+    notes: "NJ: Retro check 2026-09-30 (SOP 1.12), rule 27. PRESENT. Court rule R. 6:6-3(b) read (njcourts.gov, through 2026-09-01). Case law: Community Realty Mgmt. v. Harris, 155 N.J. 212 (1998); Hodges v. Sasil Corp., 189 N.J. 210 (2007), from the 2026-09-26 research pass, not read section-open. Library decision: Taylor, 2026-09-26 (NJ log §11), no fee labeled rent; default-by-tenant-nj and application-of-payments (rent first) carry it.",
+  },
+  {
+    id: "edu-algorithmic-rent-setting-nj",
+    title: "Algorithmic Rent-Setting Ban",
+    group: "Rent & Payment",
+    states: ["NJ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "NEEDS_REVIEW",
+    topicKey: "algorithmic-rent-setting",
+    bodyText:
+      "From July 1, 2027, New Jersey's FAIR Act makes it a violation of the state antitrust law for a rental property owner, or its agent, to pay for or use the services of a \"coordinator\": software or a device that sets or recommends rents, material lease terms or occupancy levels using competitively sensitive, nonpublic information from two or more owners, or that recommends the same pricing to competing owners. Tacit or express price coordination between owners is also barred. Publicly available free rent estimates, research that is not used to set rents, equal-access brokerage listing databases and government affordability controls are excluded, as are spreadsheets without artificial intelligence that need human analysis.",
+    notes: "NJ: Retro check 2026-09-30 (SOP 1.12), rule 27. PRESENT (future effective). Text read from S451, Second Reprint (as amended by the Senate 2026-06-18), pub.njleg.gov/bills/2026/S0500/451_R2.HTM, supplementing N.J.S.A. 56:9-1 et seq.: s.3 definitions, s.4 unlawful acts, s.6(b) municipal preemption, s.9 effective \"the first day of the twelfth month next following the date of enactment\". Signed 2026-07-20 as P.L.2026, c.43 per secondary sources (NJ Monitor, Day Pitney, GT); effective date 2027-07-01 derived from s.9. NEEDS_REVIEW: the chapter law is not yet posted (PL26 folder ends at c.30), so the enacted text and any Assembly amendment after the Second Reprint are unconfirmed (rules 16, 18). Not in the compiled statutes through c.30 (Folio \"coordinating function\" 0 hits). Legal watch: confirm chapter law and codification.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-statutory-forms-nj",
+    title: "Forms and Wording New Jersey Supplies",
+    group: "Compliance & Prohibited Terms",
+    states: ["NJ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "statutory-forms",
+    bodyText:
+      "New Jersey prescribes the exact wording or form of several lease items: the Department of Community Affairs Flood Risk Notice, the renter's flood-insurance sentence every lease must contain, the window-guard notice for buildings of three or more units, the Truth in Renting statement, the condominium or cooperative conversion statement, the bold tenant attorney-fee sentence, and the foreclosure notice to tenants. The library's entries for each carry the required text. Eviction complaints must use the court's form.",
+    notes: "NJ: Retro check 2026-09-30 (SOP 1.12), rule 27. PRESENT; pointer row. flood-risk-disclosure-nj (N.J.S.A. 46:8-50, DCA model form), flood-insurance-lease-notice-nj (46:8-50(c)), window-guard-notice-nj (N.J.A.C. 5:10-27.1(c), App. 27A), truth-in-renting-statement-nj (46:8-45, -46), conversion-statement-nj (2A:18-61.9), default-by-tenant-nj (2A:18-61.67), edu-foreclosure-tenant-rights-nj (2A:50-70); R. 6:3-4(c) (Appendix XI-X complaint form, read from njcourts.gov).",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-cannabis-nj",
+    title: "Cannabis in Rentals",
+    group: "Rules & Regulations",
+    states: ["NJ"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "cannabis",
+    bodyText:
+      "Adult cannabis use is legal in New Jersey, but a landlord may still limit it. The owner of a building with three or more units may prohibit or regulate smoking, vaping or aerosolizing cannabis there; the owner of other property may prohibit or regulate eating or otherwise consuming cannabis on the property, but that power is not given for multi-unit buildings. A landlord may not refuse to rent to someone, or penalize a tenant, because cannabis metabolites are found in the person's body from lawful use, unless that would break a federal contract or cost federal funding. The cannabis law does not change landlord-tenant law otherwise.",
+    notes: "NJ: Retro check 2026-09-30 (SOP 1.12), rule 35c. Constitution Art. IV, s. VII, para. 13 (lawful and \"subject to regulation\"); N.J.S.A. 2C:35-10a(c) (L.2021, c.16, s.46; amended 2021, c.25, s.11), 24:6I-51(b)(1), 24:6I-55(b). Not located: whether a 1-2 family landlord may ban smoking cannabis is not addressed expressly; the library treats it as permitted (see smoking-policy NJ note). Medical cannabis (24:6I-1 et seq.) not read. Read section-open 2026-09-30 in the built-in browser from the official NJ Legislature statutes (lis.njleg.state.nj.us, compilation through P.L.2026, c.30); text hashed, NJ retro sources.",
   },
 ];
 

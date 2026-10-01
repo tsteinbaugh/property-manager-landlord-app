@@ -547,7 +547,7 @@ const CLAUSE_TEMPLATES = [
     id: "early-termination",
     title: "Early Termination",
     group: "Default & Termination",
-    states: ["CO", "WY", "MN", "ND", "SD", "OH", "NV", "TX", "NJ", "AZ", "GA", "NC"],
+    states: ["CO", "WY", "MN", "ND", "SD", "OH", "NV", "TX", "AZ", "GA", "NC"],
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay an early termination fee equal to one month's Rent ({{monthly_rent}}) or 30% of the remaining Rent due under the Term, whichever is greater, and remains responsible for Rent and other obligations up to the termination date. Landlord may terminate this Lease early by providing Tenant at least 30 days' written notice if Tenant breaches a material term of this Lease and fails to cure the breach within 10 days of receiving written notice, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law. This includes a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or — except as prohibited by law in the case of a Tenant's death — any other termination right or limitation provided by applicable law.",
   },
@@ -1091,7 +1091,7 @@ const CLAUSE_TEMPLATES = [
     id: "early-termination-ks",
     title: "Early Termination",
     group: "Default & Termination",
-    states: ["KS", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO"],
+    states: ["KS", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "NJ"],
     supersedes: "early-termination",
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay an early termination fee equal to one month's Rent ({{monthly_rent}}) or 30% of the remaining Rent due under the Term, whichever is greater, and remains responsible for Rent and other obligations up to the termination date. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or, except as prohibited by law in the case of a Tenant's death, any other termination right or limitation provided by applicable law.",
@@ -2391,7 +2391,7 @@ const CLAUSE_TEMPLATES = [
     states: ["NJ"],
     supersedes: "late-fee",
     bodyText:
-      "If Tenant fails to pay Monthly Rent in full within {{late_fee_grace_days}} days after it is due, a late fee of {{late_fee_amount}} will be assessed. Acceptance of a late payment does not waive Landlord's right to require full payment of Rent on the date it is due or to pursue any other remedy available under this Lease.",
+      "If Tenant fails to pay Monthly Rent in full within {{late_fee_grace_days}} days after it is due, a late fee of {{late_fee_amount}} will be assessed. Acceptance of a late payment does not waive Landlord's right to require full payment of Rent on the date it is due or to pursue any other remedy available under this Lease. If Monthly Rent is due on the first day of the month and Tenant is a senior citizen receiving Social Security Old Age benefits, Railroad Retirement benefits or another government pension in lieu of Social Security, or receives Social Security Disability, Supplemental Security Income or Work First New Jersey benefits, no late fee will be assessed until Rent remains unpaid after a grace period of five business days (not counting Saturdays, Sundays or State or federal holidays).",
   },
   // Tenant Responsibilities
   {
@@ -2522,7 +2522,7 @@ const CLAUSE_TEMPLATES = [
     states: ["NJ"],
     supersedes: "default-by-tenant",
     bodyText:
-      "Tenant will be in default under this Lease if Tenant fails to pay Rent when due and does not cure the failure within the time period specified by applicable law after receiving written notice from Landlord. Tenant will also be in default if Tenant fails to comply with any other obligation under this Lease and does not cure the failure after receiving written notice, except where applicable law permits Landlord to proceed without giving Tenant an opportunity to cure. Except as required by applicable law, Tenant's failure to pay an assessed late fee, apart from the underlying Rent itself, will not by itself entitle Landlord to terminate this Lease or pursue eviction. If Tenant is in default, Landlord may exercise all rights and remedies available under applicable law, including terminating this Lease, regaining possession of the property, and recovering unpaid Rent, late fees, and reasonable costs and expenses, less amounts obtained from the Security Deposit. Landlord will use reasonable efforts to mitigate damages resulting from Tenant's default to the extent required by applicable law. To the extent permitted under applicable law, the prevailing party may recover from the other party court costs and reasonable attorneys' fees and expenses incurred in connection with any legal proceedings related to this Lease. [BUILDER: print the next sentence in bold type at least one point larger than the rest of this Section, and never smaller than 11 point.] IF THE TENANT IS SUCCESSFUL IN ANY ACTION OR SUMMARY PROCEEDING ARISING OUT OF THIS LEASE, THE TENANT SHALL RECOVER ATTORNEY'S FEES OR EXPENSES, OR BOTH FROM THE LANDLORD TO THE SAME EXTENT THE LANDLORD IS ENTITLED TO RECOVER ATTORNEY'S FEES OR EXPENSES, OR BOTH AS PROVIDED IN THIS LEASE.",
+      "Tenant will be in default under this Lease if Tenant fails to pay Rent when due. Tenant will also be in default if Tenant fails to comply with any other obligation under this Lease and does not cure the failure after receiving written notice. Neither sentence requires Landlord to give a notice or an opportunity to cure that applicable law does not require, including for nonpayment of Rent and for the grounds New Jersey law lets Landlord act on without a notice to cease; any right New Jersey law gives Tenant to pay Rent owed before judgment or before removal still applies. Except as required by applicable law, Tenant's failure to pay an assessed late fee, apart from the underlying Rent itself, will not by itself entitle Landlord to terminate this Lease or pursue eviction. If Tenant is in default, Landlord may exercise all rights and remedies available under applicable law, including terminating this Lease, regaining possession of the property, and recovering unpaid Rent, late fees, and reasonable costs and expenses, less amounts obtained from the Security Deposit. Landlord will use reasonable efforts to mitigate damages resulting from Tenant's default to the extent required by applicable law. To the extent permitted under applicable law, the prevailing party may recover from the other party court costs and reasonable attorneys' fees and expenses incurred in connection with any legal proceedings related to this Lease. [BUILDER: print the next sentence in bold type at least one point larger than the rest of this Section, and never smaller than 11 point.] IF THE TENANT IS SUCCESSFUL IN ANY ACTION OR SUMMARY PROCEEDING ARISING OUT OF THIS LEASE, THE TENANT SHALL RECOVER ATTORNEY'S FEES OR EXPENSES, OR BOTH FROM THE LANDLORD TO THE SAME EXTENT THE LANDLORD IS ENTITLED TO RECOVER ATTORNEY'S FEES OR EXPENSES, OR BOTH AS PROVIDED IN THIS LEASE.",
   },
   // Pets
   {
@@ -4668,6 +4668,15 @@ const CLAUSE_TEMPLATES = [
     states: ["MO"],
     bodyText:
       "Tenant will not cultivate marijuana anywhere on the property, and will not permit any occupant or guest to do so.",
+  },
+  // Default & Termination
+  {
+    id: "tenant-caused-damage-nj",
+    title: "Damage Caused by Tenant",
+    group: "Default & Termination",
+    states: ["NJ"],
+    bodyText:
+      "If the property is damaged by fire, water, a vehicle or any other cause, the damage results from the deliberate or negligent act or omission of Tenant, an Occupant, or a guest or invitee of Tenant, and Tenant's tenancy ends because of the damage, then Tenant will be liable for Landlord's actual damages, including the Rent Landlord loses while the property is repaired, up to the end of the Term (for a month-to-month or other periodic tenancy, up to the earliest date Tenant could have ended the tenancy by notice), less any Rent Landlord receives from re-renting the property. Landlord will use reasonable efforts to repair and re-rent the property. This Section is in addition to Tenant's liability for the cost of repairing the damage, and it does not limit any proceeding New Jersey law allows Tenant to bring to deposit Rent with a court.",
   },
 ];
 

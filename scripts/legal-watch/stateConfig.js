@@ -544,7 +544,7 @@ const STATE_CONFIG = {
     // N.J.A.C. (DCA rules, 5:10; LAD rules, 13:13) is agency rulemaking
     // LegiScan can't see -- stripped here and given a manual-recheck reminder
     // (same reasoning as KS's K.A.R., OH's OAC, TX's TAC).
-    stripPatterns: [/N\.J\.A\.C\.[^;]*/g],
+    stripPatterns: [/N\.J\.A\.C\.[^;]*/g, /\bR\. \d:[^;]*/g],
     sectionPattern: /\b(\d{1,2}[A-Z]?:\d{1,3}[A-Z]?-\d{1,3}(?:\.\d{1,3})?[a-z]?)\b/g,
     buildQuery: (section) => `"${section}"`,
     cfrChecks: [
@@ -554,6 +554,18 @@ const STATE_CONFIG = {
     ],
     federalStatuteChecks: [],
     manualRecheckItems: [
+      {
+        id: "nj-court-rules-retro",
+        label:
+          "New Jersey court rules LegiScan can't see: R. 6:6-3 (default-judgment affidavit on non-base charges), R. 6:7-1 (warrant timing), R. 6:10 (entity landlords need an attorney) and R. 1:38-3 (public access to eviction records) (NJ retro, 2026-09-30)",
+        clauseIds: ["edu-eviction-court-rules-nj", "edu-eviction-record-sealing-nj", "edu-fees-as-rent-nj"],
+      },
+      {
+        id: "nj-fair-act-chapter-law",
+        label:
+          "S451 (2R), the FAIR Act on algorithmic rent-setting, effective 2027-07-01: confirm the enacted text as P.L.2026, c.43 and its codification, then move edu-algorithmic-rent-setting-nj from NEEDS_REVIEW (NJ retro)",
+        clauseIds: ["edu-algorithmic-rent-setting-nj"],
+      },
       {
         id: "reg-nj-dca-5-10",
         label:
@@ -581,7 +593,7 @@ const STATE_CONFIG = {
         label:
           "Sommer v. Kridel, 74 N.J. 446 (1977) (mitigation); Marini v. Ireland, 56 N.J. 130 (1970) and Berzito v. Gambino, 63 N.J. 460 (1973) (habitability); Lorril Co. v. La Corte, 352 N.J. Super. 433 (2002) (holdover double rent); Reilly v. Weiss, 406 N.J. Super. 71 (App. Div. 2009) (pet deposit counts toward the cap); Fromet Properties v. Buel, 294 N.J. Super. 601 (App. Div. 1996) (unconscionable increases)",
         clauseIds: [
-          "early-termination", "default-by-tenant-nj", "landlord-maintenance", "edu-rent-receivership-withholding-nj",
+          "early-termination-ks", "tenant-caused-damage-nj", "default-by-tenant-nj", "landlord-maintenance", "edu-rent-receivership-withholding-nj",
           "holdover-nj", "security-deposit-return-nj", "pet-policy-nj", "edu-municipal-rent-control-nj",
         ],
       },
