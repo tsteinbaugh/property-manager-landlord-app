@@ -752,3 +752,5 @@ All 289 topic keys in `lease-clause-topics.md`, plus the 7 with no row in any st
 - `firearms`: Does a statute bar landlord rules against firearms locked in vehicles in the parking area?
 - `statutory-forms`: Statutory forms or prescribed wording a landlord must use (deposit demand, abandonment declaration, trespasser complaint, bad-check notice).
 - `returned-payments`: Does a dishonored-check statute fix the service charge, and can a non-bank holder contract for more?
+
+**Propagation note, 2026-09-30 (rule 62):** `early-termination-ks`, which this state is tagged on, gained one sentence: the early-termination option and fee apply only if the lease has a fixed Term; a periodic tenancy ends on the notice that law and the lease provide, without a fee. Uniform edit by Claude Code, proposed by SC's retro (AL retro finding 4). Nothing the landlord has under law is removed.

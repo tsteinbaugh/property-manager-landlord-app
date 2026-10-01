@@ -947,3 +947,5 @@ All 14 lease clauses written for this state alone. Shared clauses tagged with th
 | `security-deposit-use-ks` | Keep | SERVES_LANDLORD | bars applying deposit to last month |
 | `smoke-detectors-ks` | Keep | SERVES_LANDLORD | tenant maintenance duty |
 | `tenant-duties-ks` | Keep | SERVES_LANDLORD |  |
+
+**Propagation note, 2026-09-30 (rule 62):** `early-termination-ks`, which this state is tagged on, gained one sentence: the early-termination option and fee apply only if the lease has a fixed Term; a periodic tenancy ends on the notice that law and the lease provide, without a fee. Uniform edit by Claude Code, proposed by SC's retro (AL retro finding 4). Nothing the landlord has under law is removed.

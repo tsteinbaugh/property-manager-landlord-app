@@ -243,7 +243,7 @@ const CLAUSE_TEMPLATES = [
     id: "returned-payments",
     title: "Returned Checks / Dishonored Payments",
     group: "Rent & Payment",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "AZ", "GA", "NC", "SC", "PA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "AZ", "GA", "NC", "PA"],
     bodyText:
       "If any payment of Rent is returned for insufficient funds or otherwise fails, Landlord may require that the payment be replaced by a cashier's check, certified check, or money order, and may charge Tenant a fee associated with the failed payment, not to exceed the maximum amount permitted by applicable law. If more than two of Tenant's payments during the Term are returned for insufficient funds, Landlord may require all future payments of Rent be made by cashier's check, certified check, or money order.",
   },
@@ -539,7 +539,7 @@ const CLAUSE_TEMPLATES = [
     id: "surrender-end-of-term",
     title: "Surrender at End of Term",
     group: "Default & Termination",
-    states: ["CO", "WY", "SD", "OH", "CA", "NV", "TX", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
+    states: ["CO", "WY", "SD", "OH", "CA", "NV", "TX", "FL", "AZ", "GA", "NC", "TN", "VA"],
     bodyText:
       "Upon the expiration or earlier termination of this Lease, Tenant will surrender possession of the property and return all keys to Landlord immediately. The property will be left in the same condition as at the start of the Term, except for ordinary wear and tear, and free of all personal property of Tenant and any occupants. Personal property left at the property after Tenant vacates may, to the extent permitted by applicable law, be treated as abandoned and disposed of at Tenant's cost.",
   },
@@ -1094,7 +1094,7 @@ const CLAUSE_TEMPLATES = [
     states: ["KS", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID"],
     supersedes: "early-termination",
     bodyText:
-      "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay an early termination fee equal to one month's Rent ({{monthly_rent}}) or 30% of the remaining Rent due under the Term, whichever is greater, and remains responsible for Rent and other obligations up to the termination date. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or, except as prohibited by law in the case of a Tenant's death, any other termination right or limitation provided by applicable law.",
+      "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay an early termination fee equal to one month's Rent ({{monthly_rent}}) or 30% of the remaining Rent due under the Term, whichever is greater, and remains responsible for Rent and other obligations up to the termination date. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or, except as prohibited by law in the case of a Tenant's death, any other termination right or limitation provided by applicable law.",
   },
   // Notices & General
   {
@@ -2009,7 +2009,7 @@ const CLAUSE_TEMPLATES = [
     id: "surrender-end-of-term-mn-nd",
     title: "Surrender at End of Term",
     group: "Default & Termination",
-    states: ["MN", "ND", "AL"],
+    states: ["MN", "ND", "AL", "SC"],
     supersedes: "surrender-end-of-term",
     bodyText:
       "Upon the expiration or earlier termination of this Lease, Tenant will surrender possession of the property and return all keys to Landlord immediately. The property will be left in the same condition as at the start of the Term, except for ordinary wear and tear, and free of all personal property of Tenant and any occupants. Personal property left at the property after Tenant vacates will be handled as described in this Lease's provision governing property abandoned after termination.",
@@ -3266,7 +3266,7 @@ const CLAUSE_TEMPLATES = [
     group: "Default & Termination",
     states: ["SC"],
     bodyText:
-      "If the property is damaged or destroyed by fire or other casualty to the extent that normal use and occupancy of the property is substantially impaired, and the fire or casualty was not caused by Landlord's deliberate or negligent act, Landlord may terminate this Lease by written notice to Tenant, effective on the date stated in the notice or, if Tenant has already vacated, on the date Tenant vacated. Rent will be accounted for as of the date of the fire or casualty, and prepaid Rent and the Security Deposit will be returned as this Lease's Fire or Casualty Damage and Security Deposit terms provide. This Section is in addition to Tenant's rights under this Lease's Fire or Casualty Damage terms and South Carolina law and does not reduce them.",
+      "If the property is damaged or destroyed by fire or other casualty to the extent that normal use and occupancy of the property is substantially impaired, and the fire or casualty was not caused by Landlord's deliberate or negligent act, Landlord may terminate this Lease by written notice to Tenant, effective on the date stated in the notice or, if Tenant has already vacated, on the date Tenant vacated. Rent will be accounted for as of the date of the fire or casualty, and Landlord will return all unearned prepaid Rent and the Security Deposit, with the itemized written notice of any deductions, as South Carolina law and this Lease's Security Deposit terms provide. This Section is in addition to any right South Carolina law gives Tenant after a fire or casualty and does not reduce it.",
   },
   {
     id: "holdover-rate-sc",
@@ -3274,7 +3274,7 @@ const CLAUSE_TEMPLATES = [
     group: "Default & Termination",
     states: ["SC"],
     bodyText:
-      "If Tenant remains in possession after the end of the Term, and Landlord has not agreed in writing to a continued tenancy or accepted Rent for one under the Holdover section of this Lease, then, in place of the actual damages and reasonable rental value described in that section, Tenant will pay Landlord a holdover charge of {{holdover_daily_rate}} for each day Tenant remains in possession. Landlord and Tenant agree that Landlord's loss from a holdover, including delay in making the property available to a new tenant, is difficult to estimate accurately in advance, that this charge is a reasonable estimate of that loss, and that it is not a penalty. Landlord's acceptance of a holdover charge is not acceptance of Rent for a continued tenancy. This Section does not limit Landlord's right to recover possession, unpaid Rent and other amounts due for the period before the Term ended, or damages for harm to the property.",
+      "If Tenant remains in possession after the end of the Term or after this Lease is otherwise terminated, and Landlord has not agreed in writing to a continued tenancy or accepted Rent for one under the Holdover section of this Lease, then, in place of the actual damages and reasonable rental value described in that section, Tenant will pay Landlord a holdover charge of {{holdover_daily_rate}} for each day Tenant remains in possession. Landlord and Tenant agree that Landlord's loss from a holdover, including delay in making the property available to a new tenant, is difficult to estimate accurately in advance, that this charge is a reasonable estimate of that loss, and that it is not a penalty. Landlord's acceptance of a holdover charge is not acceptance of Rent for a continued tenancy. This Section does not limit Landlord's right to recover possession, unpaid Rent and other amounts due for the period before the Term ended or this Lease was terminated, or damages for harm to the property.",
   },
   // Access & Entry
   {
@@ -3328,7 +3328,7 @@ const CLAUSE_TEMPLATES = [
     group: "Default & Termination",
     states: ["SC"],
     bodyText:
-      "If Rent is unpaid and Tenant is absent from the property without explanation for 15 days, Tenant will be considered to have abandoned the property; if Tenant has voluntarily terminated the utilities and is absent without explanation after failing to pay Rent, the abandonment is immediate. If Tenant abandons the property, Landlord will make reasonable efforts to rent it at a fair rental, and if Landlord rents it for a term beginning before this Lease would have ended, this Lease ends when the new tenancy begins, subject to Landlord's remedies for Tenant's breach. When the property has been abandoned, or this Lease has ended, and Tenant has removed a substantial portion of Tenant's belongings or has voluntarily and permanently terminated the utilities, Landlord may enter the property and dispose of personal property left there with a fair-market value of $500 or less. Other personal property left behind will be removed only through the court procedure South Carolina law provides.",
+      "If Rent is unpaid and Tenant is absent from the property without explanation for 15 days, Tenant will be considered to have abandoned the property; if Tenant has voluntarily terminated the utilities and is absent without explanation after failing to pay Rent, the abandonment is immediate. If Tenant abandons the property, Landlord will make reasonable efforts to rent it at a fair rental, and if Landlord rents it for a term beginning before this Lease would have ended, this Lease ends when the new tenancy begins, subject to Landlord's remedies for Tenant's breach. If this Lease is month-to-month or week-to-week, its term for this purpose is one month or one week. When the property has been abandoned, or this Lease has ended, and Tenant has removed a substantial portion of Tenant's belongings or has voluntarily and permanently terminated the utilities, Landlord may enter the property and dispose of personal property left there with a fair-market value of $500 or less. Other personal property left behind will be removed only through the court procedure South Carolina law provides.",
   },
   // Rent & Payment
   {
@@ -4506,6 +4506,25 @@ const CLAUSE_TEMPLATES = [
     states: ["AL"],
     bodyText:
       "If the property is damaged by fire, water, a vehicle or any other cause, and the damage results from the deliberate or negligent act or omission of Tenant, an Occupant, or a guest or invitee of Tenant, then: (1) Rent will not abate or be reduced while the property is repaired, for as long as this Lease continues; and (2) if this Lease ends because of the damage, Tenant will be liable for Landlord's actual damages, including the Rent Landlord loses while the property is repaired, up to the end of the Term (for a month-to-month or week-to-week tenancy, up to the earliest date the tenancy could have been ended by notice), less any Rent Landlord receives from re-renting the property. Landlord will use reasonable efforts to repair and re-rent the property, although Landlord may first rent other vacant units it has. This Section is in addition to Tenant's liability for the cost of repairing the damage. Part (1) does not apply, and Tenant keeps any right Alabama law gives Tenant to end this Lease or pay reduced Rent, after a fire or casualty that Tenant did not personally cause, such as one caused by a guest.",
+  },
+  // Rent & Payment
+  {
+    id: "returned-payments-sc",
+    title: "Returned Payments (South Carolina)",
+    group: "Rent & Payment",
+    states: ["SC"],
+    supersedes: "returned-payments",
+    bodyText:
+      "If any payment Tenant makes is returned or fails because of insufficient funds, because Tenant has no account, because of an incorrect or insufficient signature, or for any other reason, Tenant will pay Landlord a returned-payment fee of [amount; for a dishonored check, draft or other written order, South Carolina law caps the service charge at $30], and Landlord may require that the payment be replaced by a cashier's check, certified check or money order. If more than two of Tenant's payments during the Term are returned or fail, Landlord may require all future payments of Rent to be made by cashier's check, certified check or money order.",
+  },
+  // Default & Termination
+  {
+    id: "tenant-caused-damage-sc",
+    title: "Damage Caused by Tenant",
+    group: "Default & Termination",
+    states: ["SC"],
+    bodyText:
+      "If the property is damaged by fire, water, a vehicle or any other cause, the damage results from the deliberate or negligent act or omission of Tenant, an Occupant, or a guest or invitee of Tenant, and this Lease ends because of the damage, including because Tenant ends it under South Carolina's fire or casualty law, then Tenant will be liable for Landlord's actual damages, including the Rent Landlord loses while the property is repaired, up to the end of the Term (for a month-to-month or week-to-week tenancy, up to the earliest date the tenancy could have been ended by notice), less any Rent Landlord receives from re-renting the property. Landlord will use reasonable efforts to repair and re-rent the property. This Section is in addition to Tenant's liability for the cost of repairing the damage. It does not limit Tenant's right under South Carolina law to end this Lease or pay reduced Rent after a fire or casualty, or any other right South Carolina law gives Tenant.",
   },
 ];
 

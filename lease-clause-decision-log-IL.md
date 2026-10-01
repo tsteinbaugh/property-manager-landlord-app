@@ -721,3 +721,5 @@ All seven answered in 18.2: `algorithmic-rent-setting` (Confirmed absent), `fees
 - `criminal-activity`: Must the lease itself state the landlord's statutory right to void it for criminal use?
 - `utility-landlord-account`: Can tenants petition for a rent receiver when the landlord does not pay the utility?
 - `security-deposit-use`: May the lease pre-set cleaning and repair charges that the landlord can withhold from the deposit?
+
+**Propagation note, 2026-09-30 (rule 62):** `early-termination-ks`, which this state is tagged on, gained one sentence: the early-termination option and fee apply only if the lease has a fixed Term; a periodic tenancy ends on the notice that law and the lease provide, without a fee. Uniform edit by Claude Code, proposed by SC's retro (AL retro finding 4). Nothing the landlord has under law is removed.

@@ -734,3 +734,5 @@ All 303 topic keys in `lease-clause-topics.md`, including the 6 with no row in a
 - `unpaid-damages-interest`: Does a fee statute require interest on late amounts to be stated in the lease before it can be charged, even where a legal rate applies without a contract?
 - `unauthorized-occupant-removal`: Is there a sheriff-run removal for squatters with a statutory complaint form, and what liability attaches to misuse?
 - `security-deposit-return`: Does the statute let the lease fix the refund time within a range ('if no time is fixed by agreement')?
+
+**Propagation note, 2026-09-30 (rule 62):** `early-termination-ks`, which this state is tagged on, gained one sentence: the early-termination option and fee apply only if the lease has a fixed Term; a periodic tenancy ends on the notice that law and the lease provide, without a fee. Uniform edit by Claude Code, proposed by SC's retro (AL retro finding 4). Nothing the landlord has under law is removed.

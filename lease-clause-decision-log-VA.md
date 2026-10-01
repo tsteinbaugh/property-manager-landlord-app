@@ -873,3 +873,5 @@ Risks that rest on case law I did not read are labelled "unread" in the notes of
 4. **A lease figure stated as a floor ("at least 30 days") is not a figure conflict when a stricter rule may apply to some landlords. Put the open question in education, not in the clause.** Reason: Taylor's answer on `periodic-tenancy-notice-va`, 2026-09-30.
 5. **At retro time, check every "log §N" pointer in `notes` against that log section.** Reason: `edu-periodic-tenancies-va` cited VA log §4 for a separate-writing rule the §4 table did not list.
 6. **In absence patterns, put word boundaries on short words (cat, dog, pet).** Reason: an unbounded animal pattern returned 5 false hits (words containing 'cat' or 'dog') before the bounded re-run returned 0.
+
+**Propagation note, 2026-09-30 (rule 62):** `early-termination-ks`, which this state is tagged on, gained one sentence: the early-termination option and fee apply only if the lease has a fixed Term; a periodic tenancy ends on the notice that law and the lease provide, without a fee. Uniform edit by Claude Code, proposed by SC's retro (AL retro finding 4). Nothing the landlord has under law is removed.
