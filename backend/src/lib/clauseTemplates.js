@@ -243,7 +243,7 @@ const CLAUSE_TEMPLATES = [
     id: "returned-payments",
     title: "Returned Checks / Dishonored Payments",
     group: "Rent & Payment",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "AZ", "GA", "NC", "SC", "AL", "PA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "AZ", "GA", "NC", "SC", "PA"],
     bodyText:
       "If any payment of Rent is returned for insufficient funds or otherwise fails, Landlord may require that the payment be replaced by a cashier's check, certified check, or money order, and may charge Tenant a fee associated with the failed payment, not to exceed the maximum amount permitted by applicable law. If more than two of Tenant's payments during the Term are returned for insufficient funds, Landlord may require all future payments of Rent be made by cashier's check, certified check, or money order.",
   },
@@ -539,7 +539,7 @@ const CLAUSE_TEMPLATES = [
     id: "surrender-end-of-term",
     title: "Surrender at End of Term",
     group: "Default & Termination",
-    states: ["CO", "WY", "SD", "OH", "CA", "NV", "TX", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL"],
+    states: ["CO", "WY", "SD", "OH", "CA", "NV", "TX", "FL", "AZ", "GA", "NC", "SC", "TN", "VA"],
     bodyText:
       "Upon the expiration or earlier termination of this Lease, Tenant will surrender possession of the property and return all keys to Landlord immediately. The property will be left in the same condition as at the start of the Term, except for ordinary wear and tear, and free of all personal property of Tenant and any occupants. Personal property left at the property after Tenant vacates may, to the extent permitted by applicable law, be treated as abandoned and disposed of at Tenant's cost.",
   },
@@ -2009,7 +2009,7 @@ const CLAUSE_TEMPLATES = [
     id: "surrender-end-of-term-mn-nd",
     title: "Surrender at End of Term",
     group: "Default & Termination",
-    states: ["MN", "ND"],
+    states: ["MN", "ND", "AL"],
     supersedes: "surrender-end-of-term",
     bodyText:
       "Upon the expiration or earlier termination of this Lease, Tenant will surrender possession of the property and return all keys to Landlord immediately. The property will be left in the same condition as at the start of the Term, except for ordinary wear and tear, and free of all personal property of Tenant and any occupants. Personal property left at the property after Tenant vacates will be handled as described in this Lease's provision governing property abandoned after termination.",
@@ -3853,7 +3853,7 @@ const CLAUSE_TEMPLATES = [
     states: ["AL"],
     supersedes: "default-by-tenant",
     bodyText:
-      "Tenant will be in default under this Lease if Tenant fails to pay Rent when due and does not pay it within the time period specified by applicable law after receiving written notice from Landlord, or fails to comply with any other obligation under this Lease and does not cure the failure after receiving written notice, except where applicable law permits Landlord to proceed without giving Tenant an opportunity to cure. Except as required by applicable law, Tenant's failure to pay an assessed late fee, apart from the underlying Rent itself, will not by itself entitle Landlord to terminate this Lease or pursue eviction. If Tenant is in default, Landlord may exercise all rights and remedies available under Alabama law, including terminating this Lease, regaining possession of the property through the courts, and recovering unpaid Rent and actual damages, less amounts obtained from the Security Deposit. Landlord will use reasonable efforts to mitigate damages resulting from Tenant's default to the extent required by applicable law.",
+      "Tenant will be in default under this Lease if Tenant fails to pay Rent when due and does not pay it within the time period specified by applicable law after receiving written notice from Landlord, or fails to comply with any other obligation under this Lease and does not cure the failure after receiving written notice. No opportunity to cure applies, whether the default is nonpayment of Rent or any other breach, where applicable law permits Landlord to proceed without one, including a breach Alabama law makes noncurable and a breach that Alabama law's limit on the number of cures in a 12-month period does not allow Tenant to cure. Except as required by applicable law, Tenant's failure to pay an assessed late fee, apart from the underlying Rent itself, will not by itself entitle Landlord to terminate this Lease or pursue eviction. If Tenant is in default, Landlord may exercise all rights and remedies available under Alabama law, including terminating this Lease, regaining possession of the property through the courts, and recovering unpaid Rent and actual damages, less amounts obtained from the Security Deposit. Landlord will use reasonable efforts to mitigate damages resulting from Tenant's default to the extent required by applicable law.",
   },
   // Access & Entry
   {
@@ -3863,7 +3863,7 @@ const CLAUSE_TEMPLATES = [
     states: ["AL"],
     supersedes: "landlords-access",
     bodyText:
-      "Tenant will not unreasonably withhold consent to Landlord, its agents and contractors entering the property to inspect it, make necessary or agreed repairs, decorations, alterations or improvements, supply necessary or agreed services, or show it to prospective or actual purchasers, mortgagees, tenants, workers or contractors. Except in an emergency, or where it is impracticable, Landlord will give Tenant at least two days' notice of the intended time and purpose of an entry and will enter only at reasonable times. Landlord may give this notice by posting a note on the primary entry door of the property. If Landlord gives Tenant, separately from this Lease, a general notice or advance schedule of more than two days for repairs, maintenance, pest control or services relating to health or safety, no additional notice is needed for those entries. When Tenant asks for a repair, maintenance or improvement, Tenant consents to Landlord entering to do the requested work. Landlord may enter without Tenant's consent only in an emergency, under a court order, to do maintenance work Tenant has failed to do after written notice as Alabama law permits, at times reasonably necessary during any absence of Tenant of more than 14 days, when Landlord reasonably believes Tenant has abandoned or surrendered the property, and, if Tenant has signed a separate general notice permitting it, to show the property within the last four months of this Lease to a prospective tenant or purchaser, in that person's company and after the notice described above. Landlord will not abuse the right of access or use it to harass Tenant.",
+      "Tenant will not unreasonably withhold consent to Landlord, its agents and contractors entering the property to inspect it, make necessary or agreed repairs, decorations, alterations or improvements, supply necessary or agreed services, or show it to prospective or actual purchasers, mortgagees, tenants, workers or contractors. Except in an emergency, or where it is impracticable, Landlord will give Tenant at least two days' notice of the intended time and purpose of an entry and will enter only at reasonable times. Landlord may give this notice by posting a note on the primary entry door of the property. If Landlord gives Tenant, separately from this Lease, a general notice or advance schedule of more than two days for repairs, maintenance, pest control or services relating to health or safety, no additional notice is needed for those entries. When Tenant asks for a repair, maintenance or improvement, Tenant consents to Landlord entering to do the requested work. Landlord may enter without Tenant's consent only in an emergency, under a court order, to do maintenance work Tenant has failed to do after written notice as Alabama law permits, at times reasonably necessary during any absence of Tenant of more than 14 days, when Landlord reasonably believes Tenant has abandoned or surrendered the property, and, if Tenant has signed a separate general notice permitting it, to show the property to a prospective tenant or purchaser within the last four months before this Lease expires (for a month-to-month or week-to-week tenancy, within four months before the termination date stated in a notice of termination), in that person's company and after the notice described above. Landlord will not abuse the right of access or use it to harass Tenant.",
   },
   // Pets
   {
@@ -3891,7 +3891,7 @@ const CLAUSE_TEMPLATES = [
     group: "Default & Termination",
     states: ["AL"],
     bodyText:
-      "If the property is damaged or destroyed by fire or other casualty to the extent that normal use and occupancy of the property is substantially impaired, and the fire or casualty was not caused by Landlord's deliberate or negligent act, Landlord may terminate this Lease by written notice to Tenant, effective on the date stated in the notice or, if Tenant has already vacated, on the date Tenant vacated. Rent will be accounted for as of the date of the fire or casualty, and prepaid Rent and the Security Deposit will be returned as this Lease's Fire or Casualty Damage and Security Deposit terms provide. This Section is in addition to Tenant's rights under this Lease's Fire or Casualty Damage terms and Alabama law and does not reduce them.",
+      "If the property is damaged or destroyed by fire or other casualty to the extent that normal use and occupancy of the property is substantially impaired, and the fire or casualty was not caused by Landlord's deliberate or negligent act, Landlord may terminate this Lease by written notice to Tenant, effective on the date stated in the notice or, if Tenant has already vacated, on the date Tenant vacated. Rent will be accounted for as of the date of the fire or casualty, and Landlord will return all unearned prepaid Rent and the Security Deposit as Alabama law and this Lease's Security Deposit terms provide. This Section is in addition to any right Alabama law gives Tenant after a fire or casualty and does not reduce it.",
   },
   {
     id: "holdover-rate-al",
@@ -3925,7 +3925,7 @@ const CLAUSE_TEMPLATES = [
     group: "Default & Termination",
     states: ["AL"],
     bodyText:
-      "If Tenant abandons the property, Landlord will make reasonable efforts to rent it at a fair rental, although Landlord may first rent other vacant units it has. If Landlord rents the property for a term beginning before this Lease would have ended, this Lease ends when the new tenancy begins, subject to Landlord's remedies for Tenant's breach. In addition to any other way Landlord determines that Tenant has abandoned the property, the property is considered abandoned if electric service to it has been terminated for seven consecutive days. If Tenant leaves personal property in the property more than 14 days after this Lease ends, Landlord has no duty to store or protect it and may dispose of it without obligation to Tenant.",
+      "If Tenant abandons the property, Landlord will make reasonable efforts to rent it at a fair rental, although Landlord may first rent other vacant units it has. If Landlord rents the property for a term beginning before this Lease would have ended, this Lease ends when the new tenancy begins, subject to Landlord's remedies for Tenant's breach; if this Lease is month-to-month or week-to-week, its term for this purpose is one month or one week. In addition to any other way Landlord determines that Tenant has abandoned the property, the property is considered abandoned if electric service to it has been terminated for seven consecutive days. If Tenant leaves personal property in the property more than 14 days after this Lease ends, Landlord has no duty to store or protect it and may dispose of it without obligation to Tenant.",
   },
   // Disclosures
   {
@@ -4487,6 +4487,25 @@ const CLAUSE_TEMPLATES = [
     states: ["VA"],
     bodyText:
       "If Tenant asks for more than one copy of Tenant's records, Landlord may charge Tenant the actual cost of preparing the additional copies. Tenant will not be charged for access to any electronic portal Landlord uses to make tenant records available.",
+  },
+  // Rent & Payment
+  {
+    id: "returned-payments-al",
+    title: "Returned Payments (Alabama)",
+    group: "Rent & Payment",
+    states: ["AL"],
+    supersedes: "returned-payments",
+    bodyText:
+      "If any payment Tenant makes is returned or fails because of insufficient funds, a closed or nonexistent account, a stop-payment order or any other reason, Tenant will pay Landlord a returned-payment fee of [amount; for a dishonored check, Alabama law lets a lender, creditor or merchant charge up to $30 or the bank's actual return charge, whichever is greater; whether that limit reaches a landlord collecting rent is not settled, so stay within it], and Landlord may require that the payment be replaced by a cashier's check, certified check or money order. If more than two of Tenant's payments during the Term are returned or fail, Landlord may require all future payments of Rent to be made by cashier's check, certified check or money order.",
+  },
+  // Default & Termination
+  {
+    id: "tenant-caused-damage-al",
+    title: "Damage Caused by Tenant",
+    group: "Default & Termination",
+    states: ["AL"],
+    bodyText:
+      "If the property is damaged by fire, water, a vehicle or any other cause, and the damage results from the deliberate or negligent act or omission of Tenant, an Occupant, or a guest or invitee of Tenant, then: (1) Rent will not abate or be reduced while the property is repaired, for as long as this Lease continues; and (2) if this Lease ends because of the damage, Tenant will be liable for Landlord's actual damages, including the Rent Landlord loses while the property is repaired, up to the end of the Term (for a month-to-month or week-to-week tenancy, up to the earliest date the tenancy could have been ended by notice), less any Rent Landlord receives from re-renting the property. Landlord will use reasonable efforts to repair and re-rent the property, although Landlord may first rent other vacant units it has. This Section is in addition to Tenant's liability for the cost of repairing the damage. Part (1) does not apply, and Tenant keeps any right Alabama law gives Tenant to end this Lease or pay reduced Rent, after a fire or casualty that Tenant did not personally cause, such as one caused by a guest.",
   },
 ];
 
