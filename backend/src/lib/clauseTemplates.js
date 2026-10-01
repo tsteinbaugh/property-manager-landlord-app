@@ -547,7 +547,7 @@ const CLAUSE_TEMPLATES = [
     id: "early-termination",
     title: "Early Termination",
     group: "Default & Termination",
-    states: ["CO", "WY", "MN", "ND", "SD", "OH", "NV", "TX", "AZ", "GA", "NC"],
+    states: ["CO", "WY", "MN", "ND", "SD", "OH", "NV", "TX", "GA", "NC"],
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay an early termination fee equal to one month's Rent ({{monthly_rent}}) or 30% of the remaining Rent due under the Term, whichever is greater, and remains responsible for Rent and other obligations up to the termination date. Landlord may terminate this Lease early by providing Tenant at least 30 days' written notice if Tenant breaches a material term of this Lease and fails to cure the breach within 10 days of receiving written notice, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law. This includes a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or — except as prohibited by law in the case of a Tenant's death — any other termination right or limitation provided by applicable law.",
   },
@@ -555,7 +555,7 @@ const CLAUSE_TEMPLATES = [
     id: "holdover",
     title: "Holdover Tenancy",
     group: "Default & Termination",
-    states: ["CO", "WY", "KS", "NE", "MN", "FL", "AZ"],
+    states: ["CO", "WY", "KS", "NE", "MN", "FL"],
     bodyText:
       "If Tenant does not vacate the property by the end of the Term, Landlord may pursue any remedy allowed by applicable law to recover possession. Landlord will also be entitled to recover from Tenant holdover damages in the maximum amount permitted by applicable law for each day Tenant remains in possession after the end of the Term. Alternatively, Landlord may accept Tenant's continued payment of Rent, in which case this Lease will be deemed to continue on a month-to-month basis on the same terms and conditions, terminable by either party upon the written notice required by applicable law or, where applicable law sets no notice period, by this Lease.",
   },
@@ -1091,7 +1091,7 @@ const CLAUSE_TEMPLATES = [
     id: "early-termination-ks",
     title: "Early Termination",
     group: "Default & Termination",
-    states: ["KS", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "NJ", "IN"],
+    states: ["KS", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "NJ", "IN", "AZ"],
     supersedes: "early-termination",
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay an early termination fee equal to one month's Rent ({{monthly_rent}}) or 30% of the remaining Rent due under the Term, whichever is greater, and remains responsible for Rent and other obligations up to the termination date. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or, except as prohibited by law in the case of a Tenant's death, any other termination right or limitation provided by applicable law.",
@@ -2706,7 +2706,7 @@ const CLAUSE_TEMPLATES = [
     states: ["AZ"],
     supersedes: "security-deposit-return",
     bodyText:
-      "When the tenancy ends, Landlord may apply property or money held as prepaid Rent and security to all Rent due and, subject to Landlord's duty to mitigate, to all charges specified in this Lease or provided by the Arizona Residential Landlord and Tenant Act, including damages Landlord has suffered because Tenant did not meet Tenant's maintenance obligations. Tenant is asked to give Landlord a forwarding address in writing, and may include Tenant's demand for return of the deposit with it. If Tenant does not dispute the deductions or the amount due within 60 days after the itemized list and amount due are mailed, the amount stated is final and any further claims by Tenant are waived.",
+      "When the tenancy ends, Landlord may apply property or money held as prepaid Rent and security to all Rent due and, subject to Landlord's duty to mitigate, to all charges specified in this Lease or provided by the Arizona Residential Landlord and Tenant Act, including damages Landlord has suffered because Tenant did not meet Tenant's maintenance obligations. Tenant is asked to give Landlord a forwarding address in writing, and may include Tenant's demand for return of the deposit with it. If Landlord mails the itemized list and any amount due within the time and in the manner Arizona law requires, and Tenant does not dispute the deductions or the amount due within 60 days after they are mailed, the amount stated is final and any further claims by Tenant are waived.",
   },
   {
     id: "nonrefundable-fees-az",
@@ -4845,6 +4845,51 @@ const CLAUSE_TEMPLATES = [
     states: ["IN"],
     bodyText:
       "During the Term, Landlord may increase Monthly Rent to the rent charged for comparable market rentals by giving Tenant at least 30 days' written notice stating the new Monthly Rent and the date it takes effect. Tenant may instead end this Lease, effective the day before the increase takes effect, by giving Landlord written notice before that date, and will owe Rent only through that date.",
+  },
+  // Default & Termination
+  {
+    id: "holdover-az",
+    title: "Holdover",
+    group: "Default & Termination",
+    states: ["AZ"],
+    supersedes: "holdover",
+    bodyText:
+      "If Tenant remains in possession without Landlord's consent after this Lease ends, whether at the end of the Term or after a notice ending a month-to-month or other periodic tenancy, Landlord may bring an action for possession. If Tenant's holdover is willful and not in good faith, Landlord may also recover an amount equal to not more than two months' periodic rent or twice the actual damages sustained by Landlord, whichever is greater. If Landlord consents in writing to Tenant's continued occupancy, the tenancy continues from month to month on the terms of this Lease, and either party may end it by written notice given at least 30 days before the periodic rental date specified in the notice.",
+  },
+  // Security Deposit
+  {
+    id: "move-out-inspection-notice-az",
+    title: "Move-Out Inspection",
+    group: "Security Deposit",
+    states: ["AZ"],
+    bodyText:
+      "Tenant may be present at Landlord's move-out inspection. If Tenant asks, Landlord will tell Tenant when the move-out inspection will occur. This Section is Landlord's written notice to Tenant of that right under Arizona law. Landlord is not required to conduct a joint move-out inspection with Tenant if Tenant is being evicted for a material and irreparable breach and Landlord has reasonable cause to fear violence or intimidation by Tenant.",
+  },
+  // Default & Termination
+  {
+    id: "casualty-landlord-termination-az",
+    title: "Landlord Termination After Fire or Casualty",
+    group: "Default & Termination",
+    states: ["AZ"],
+    bodyText:
+      "[Optional.] If the property is damaged or destroyed by fire or other casualty to the extent that enjoyment of the property is substantially impaired, and the fire or casualty was not caused by Landlord's deliberate or negligent act, Landlord may terminate this Lease by written notice to Tenant, effective on the date stated in the notice or, if Tenant has already vacated, on the date Tenant vacated. Rent will be accounted for as of the date Tenant vacates all or part of the property, and Landlord will return all security recoverable under Arizona law. Landlord may recover possession only as Arizona law permits. This Section is in addition to any right Arizona law gives Tenant after a fire or casualty and does not reduce it.",
+  },
+  {
+    id: "holdover-rate-az",
+    title: "Holdover Charge",
+    group: "Default & Termination",
+    states: ["AZ"],
+    bodyText:
+      "[Optional.] If Tenant remains in possession after this Lease ends and Landlord has not consented in writing to a continued tenancy, Tenant will pay Landlord a holdover charge of {{holdover_daily_rate}} for each day Tenant remains in possession, in place of Rent and actual damages for the use of the property during that time. Landlord and Tenant agree that Landlord's loss from a holdover, including delay in making the property available to a new tenant, is difficult to estimate accurately in advance, that this charge is a reasonable estimate of that loss, and that it is not a penalty. Landlord's acceptance of a holdover charge is not consent to a continued tenancy and is not acceptance of Rent. This Section does not limit Landlord's right to recover possession, unpaid Rent and other amounts due for the period before this Lease ended, damages for harm to the property, or any amount Arizona law allows for a holdover that is willful and not in good faith.",
+  },
+  // Rent & Payment
+  {
+    id: "rent-concession-az",
+    title: "Rent Concession",
+    group: "Rent & Payment",
+    states: ["AZ"],
+    bodyText:
+      "[Use only if Landlord gives Tenant a rent concession.] Landlord gives Tenant the following rent concession: [describe the free or reduced rent, move-in allowance or other concession and its dollar value]. If Tenant defaults under this Lease, the amount of this concession becomes due and payable to Landlord.",
   },
 ];
 

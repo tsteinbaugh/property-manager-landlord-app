@@ -798,3 +798,116 @@ All 19 lease clauses written for this state alone. Shared clauses tagged with th
 | `pool-safety-notice-az` | Keep | SERVES_LANDLORD | acknowledgment of required notice |
 | `smoke-detector-duty-az` | Keep | SERVES_LANDLORD | written notice shifts duty to tenant |
 | `utility-billing-disclosure-az` | Keep | REQUIRED_DISCLOSURE: A.R.S. § 33-1314.01 |  |
+
+---
+
+## Retro checks (SOP 1.13) — 2026-09-30
+
+**Scope:** the 16 [Retro] rules and 2 targeted fixes in the SOP 1.13 prompt. This is a scalpel, not a re-audit (rule 1); nothing else was reopened. Settings: Opus, high effort. Research mode was not used; every read was done in Taylor's built-in browser.
+
+**Inputs:** `lease-clauses.csv` with 2,039 rows (1,916 active), which matches the prompt. AZ had 107 active rows before this retro. Earlier figures in this chat (109 active, after §18) predate the 2026-09-29 scrub; **the attached files are the only source of truth** (rule 8). Old output files were deleted at the start.
+
+**Sources (rules 11, 12, 14, 16, 19):**
+- **A.R.S. Title 33, ch. 10.** Re-read whole from azleg.gov, all 52 sections in the official index. Each section was fetched twice, the two copies matched, and each heading number matched the request.
+- **Other sections read section-open:**
+  - §§33-341 to 33-343;
+  - Electronic Transactions Act §§44-7001 to 44-7061 (index loaded; §§44-7003, 44-7005, 44-7007, 44-7008, 44-7015, 44-7051 and 44-7052 read);
+  - §§44-1521, 44-1522;
+  - §§12-1171 to 12-1183 (index loaded; §§12-1178, 12-1179 and 12-1181 read), plus §§12-1567, 22-247 and 12-341.01;
+  - §§9-500.34, 11-269.13.
+- **Arizona Constitution.** All 322 sections in Articles 1–30 loaded and searched.
+- **Court rules (rule 21: not state-code sections).**
+  - Rules of Procedure for Eviction Actions: Rules 1–21 and Appendix A read in full on govt.westlaw.com. Westlaw says it is current with amendments received through May 1, 2026, and most rules carry **emergency amendments effective 2026-09-12**. That is a legal-watch item: a later permanent adoption may change them.
+  - Ariz. R. Sup. Ct. 123 (Westlaw "Effective: December 1, 2025"): screened by term, not read whole.
+- **Saved to the AZ retro source folder:** 30 statute files, each matching the browser's SHA-256; the constitution sections relied on; and the search batteries with their exact patterns and hits.
+  - The RPEA text was saved without a hash check: the Westlaw tab navigated away before the hash was taken, and every Westlaw action needs its own approval.
+  - Search controls: known-positive "material and irreparable" hit §33-1368; nonsense "zzqxv lease" returned 0.
+
+### Results, one line per rule
+
+| # | Rule | Verdict | What was read | Rows changed |
+|---|---|---|---|---|
+| 1 | 37 tenancy type | **Fixed** | §§33-1310(18), 33-1314(C)-(D), 33-1368(A), 33-1370(C), 33-1375; every AZ-active row, including the scrub-created `edu-possession-delay-az`, `edu-dv-lease-termination-az` and `edu-casualty-termination-az` (faithful, no tenancy-type figure) | **(a)** `early-termination` → `early-termination-ks`, the variant with the fee and option for a fixed Term only. The base read as charging a fee to end a month-to-month tenancy that §33-1375(B) lets either party end on 30 days' notice. **(b)** `holdover` → new `holdover-az`: the trigger now includes a periodic tenancy ended by notice (see #12). **(c)** `edu-eviction-process-az`: the repeat-breach window runs "during the term of the lease"; added the §33-1310(18) definition and that its periodic-tenancy application is unsettled. **(d)** `edu-abandoned-property-az` and `edu-landlord-remedies-after-breach-az`: added §33-1370(C), which deems the term one month or one week for periodic tenancies. **(e)** `returned-payments` counts "during the Term": no AZ conflict, shared edit proposed (§9 below) |
+| 2 | 39 eviction duties | **Fixed** | RPEA Rules 1–21 and Appendix A; §§12-1178, 12-1179, 12-1181, 12-1567, 22-247, 33-1368(D)-(E), 33-1370(D)-(I), 33-1374, 33-1379; Sup. Ct. R. 123 (term screen: 0 hits for evict, detainer, landlord, tenant) | New `edu-eviction-court-rules-az`, covering:<br>• complaint contents and attachments;<br>• lease provisions and a six-month accounting served with the complaint;<br>• proof of a signed partial-payment agreement, or dismissal;<br>• late and periodic fees awarded only if in a written lease;<br>• fee award capped at the amount paid;<br>• a property manager may not appear unless a lawyer;<br>• mailing a default judgment;<br>• the 45-day writ window;<br>• the duty to move to set aside an invalid judgment;<br>• **satisfaction of judgment within 30 days by court rule against 40 by statute**, recorded and not resolved (legal watch).<br>`edu-eviction-record-sealing-az`: added discretionary sealing (RPEA 20(b); §§12-1567(E)(4), 22-247(E)(4)) and the exclusion of sealed cases from public remote access (R. 123(g)).<br>`edu-abandoned-property-az`: post-writ animal duties spelled out (§33-1370(E) via §33-1368(E)).<br>Lockout ban, post-writ utilities and criminal trespass were already covered (`edu-prohibited-practices-az`, `edu-eviction-process-az`) |
+| 3 | 41b `for-cause-eviction` | **Fixed** | §§33-1375, 33-1381, 33-1318(L), 33-1365; searches for just cause, good cause, for cause, condominium conversion (6 variants), change in use, relocation assistance, rent escrow, tenants' union | New `edu-no-for-cause-eviction-az`: confirmed absence. Situational limits: retaliation (including tenants'-union membership, with the six-month presumption), fair housing, and §33-1318(L). No conversion notice or rent-escrow bar for dwellings. Mobile-home grounds flagged |
+| 4 | 43 cure promises | **Fixed** (with #1) | §33-1368(A)-(B), §33-1371(A) | `default-by-tenant` passes. Its rent limb ties the cure to "the time period specified by applicable law" after written notice, and Arizona requires a 5-day written notice before suit (§33-1368(B)), so the contract adds no notice. Its separate carve-out sentence covers the three no-cure grounds. `application-of-payments` promises no cure. `early-termination` promised a 10-day cure for any material breach; it is replaced by `early-termination-ks`, which routes landlord termination through the default clause |
+| 5 | 44 terms turned into duties | **Checked, no issue** | §§33-1364(B), 33-1324(A)(4), 33-1361(A), 33-1310(11), 33-1343(A), 33-1314(C) | §33-1364(B) makes every utility and service "specified in the lease" a landlord duty with the §33-1364 remedies. That is intended, and the tag notes on `services-utilities-provided-ks-oh` and `utilities-paid-by-landlord` already cite it. The same holds for listed appliances (§33-1324(A)(4), on `appliances-included`) and promised facilities (§33-1310(11) "premises"). No clause offers an extra notice method or other generous term |
+| 6 | 45 electronic notices | **Fixed** | §§44-7003, 44-7005, 44-7007, 44-7008, 44-7015, 44-7051, 44-7052, 33-1313, 33-1370(A) | New `edu-electronic-transactions-az`, covering: no eviction, default or cure exclusion; the written record must be printable and storable; a method prescribed by another law still applies; and a paper lease needs separate, express electronic assent (§44-7051(C)). `electronic-signatures`: AZ note updated (the old note said "not read"). No AZ clause relies on emailed default, cure or eviction notices. Federal E-SIGN §7003(b) not read |
+| 7 | 46 lease as the notice | **Fixed** | §§33-1321(C), 33-1322(A)-(B), 33-1342, 33-1314.01, 33-1319, 36-1637(C) | New `move-out-inspection-notice-az` (REQUIRED; REQUIRED_DISCLOSURE: A.R.S. § 33-1321(C)). §33-1321(C) requires written notification at move-in that the tenant may attend the move-out inspection. The scrub's switch-off of `move-in-inspection-az` had left no lease text to serve as that notice. The other written notices already have their clause: `landlord-disclosure-az`, `smoke-detector-duty-az`, `utility-billing-disclosure-az` and `bedbug-obligations-az`. No shared clause promises a separate notice the lease could replace |
+| 8 | 48 separate documents | **Checked, no issue** | §§33-1324(D), 33-1371(A), 36-1681(E), 33-1314.01(G), 33-1342(B)-(C) | `maintenance-allocation-az` says it must be a separate signed writing. `late-fee-az` points to a writing signed at the time of a partial payment and does not supply one. `pool-safety-notice-az` acknowledges the separate DHS document. `utility-billing-disclosure-az`'s mid-term option requires the 90-day notice. No clause claims to be a document the statute requires to be separate |
+| 9 | 49 collection costs | **Checked, no issue** | §§33-1315(A)(2)-(3), 33-1368(C), 12-341.01(B); RPEA 13(f) | Arizona has no collection-cost ban. §33-1368(C) itself gives the landlord court costs and reasonable attorney fees, and §33-1315(A)(2) allows the prevailing-party clause `default-by-tenant` uses. "Reasonable costs and expenses" is lawful. `foreclosure-notice-az` and `maintenance-allocation-az` contain no cost terms. The fee cap (no more than paid or agreed) is now in `edu-eviction-court-rules-az` |
+| 10 | 50 "lease controls" | **Checked, choices made on purpose** | ch. 10 searched for "unless otherwise agreed", "if provided in the rental agreement", "set forth in a written rental agreement" and similar (15 hits); §33-343 | Each choice the statute leaves to the lease:<br>• §33-1314(C) place and time of payment: `rent-payment` and `acceptable-payment-methods` set them; day-to-day apportionment left at the statutory default.<br>• §33-1314.01(C) mid-term submetering: offered in `utility-billing-disclosure-az`.<br>• §33-1315(A)(2) prevailing-party fees: in `default-by-tenant`.<br>• §§33-1368(B), 33-1377(F) written-lease late fee: `late-fee-az`.<br>• §33-1324(C)-(D): `maintenance-allocation-az` and the single-family tags.<br>• §33-1325 seller release: left at the default, which favours the landlord.<br>• §33-1344 residential use: `residential-use-only` matches.<br>• §33-1370(I) immediate disposal when the keys are returned: default kept (`surrender-end-of-term`).<br>• §33-1375(C) written consent to stay: `holdover-az`.<br>• §33-1318(C) waiver: left to the landlord.<br>• §33-343 (ch. 3) "unless expressly provided by written agreement": displaced for dwellings by §33-1366 under §33-1304, so no clause.<br>• RPEA 13(d) concession payback: new `rent-concession-az` (#13) |
+| 11 | 51 plain language / consumer contract | **Fixed** | §§44-1521, 44-1522; searches for plain language, plain english, readable, consumer contract | New `edu-consumer-fraud-act-az` (topic `consumer-protection-act`). "Sale" expressly includes leases of real estate subject to a deed restriction from an earlier sale; reach to other leases is case law, not read. There is no unfair-practice list, no express lease exclusion and no plain-language statute. Blank spaces and the signed copy at signing are already governed by §33-1322(E) (`edu-lease-completeness-az`, #16). The rule 40 battery was already run (§15.4) |
+| 12 | 53 figure vs shared clause | **Fixed** | §§33-1375(C), 33-1371(C), 44-6852, 33-1368, 33-1370(I) | `holdover` fails in AZ on shape and trigger. §33-1375(C) is a one-time "not more than two months' periodic rent or twice the actual damages … whichever is greater", only for a willful, bad-faith holdover, triggered after expiration or termination. The shared clause's "maximum amount permitted … for each day … after the end of the Term" hides that. Its acceptance-of-Rent month-to-month sentence also differs from the statute's written-consent rule. **AZ removed; new `holdover-az`** (construction quoted, rule 59). Passed: `rent-payment`, `returned-payments` ($25 plus bank charges, §44-6852), `default-by-tenant`, `surrender-end-of-term` (defers to §33-1370(I)), `assistance-animal-accommodation` (no figure) |
+| 13 | 54 optional clauses | **Fixed** | ch. 10 whole; RPEA 13(d); §§33-1366, 33-1375(C), 33-1126, 33-1131 | Candidates and verdicts:<br>• **Holdover charge for the cases §33-1375(C) leaves out** (non-willful holdovers): offered as `holdover-rate-az` (CONDITIONAL; reuses `{{holdover_daily_rate}}`). Taylor confirmed the rule-54 approach.<br>• **Rent-concession payback** (RPEA 13(d)): offered as `rent-concession-az` (CONDITIONAL). Taylor said yes.<br>• **Landlord casualty termination:** offered as `casualty-landlord-termination-az` (CONDITIONAL); ch. 10 neither grants nor bars it, and the clause preserves §33-1366.<br>• **Crime-free:** already offered (`crime-free-addendum-az`).<br>• **Statutory waivers:** none. §33-1315(A)(1) bars waiving chapter rights; no exemption waiver serves the landlord; jury-waiver case law not read.<br>• **Eviction or notice-service fee:** not offered. No statute supports one, it could not be required for §33-1368(B) reinstatement, and RPEA 13(c)(2)(D) awards only periodic lease charges.<br>• **Opt-ins already offered:** `authorized-person-contact-az`, `utility-billing-disclosure-az` (mid-term option), `maintenance-allocation-az`, `late-fee-az`, `nonrefundable-fees-az`.<br>• **Landlord self-cure (§33-1369):** statutory, so no clause; education row (#16) |
+| 14 | 54t tenant-caused damage | **Fixed (education; no clause)** | §§33-1341(6), 33-1368(C), 33-1369, 33-1361(A)(2), 33-1363(B), 33-1364(H), 33-1365, 33-1366, 33-1315, 33-343 | New `edu-tenant-caused-damage-az`. The law gives repair costs, all reasonable damages and self-cure billed as rent. The tenant's repair remedies each carry a tenant-fault exception, but **§33-1366 (casualty) has none**. So a `tenant-caused-damage-tn`-style no-abatement term would waive the §33-1366(A)(2) rent reduction (§33-1315(A)(1), with the (B) penalty for knowing use), and its lost-rent term adds nothing to §33-1368(C). Therefore no clause. `edu-casualty-termination-az` gained one sentence saying the right has no fault exception |
+| 15 | 35c constitution | **Checked, no issue** | All 322 constitution sections (Articles 1–30) loaded; terms run in the batteries file | No cannabis provision: Arizona's marijuana laws are statutes. Art. 2 §26 (bearing arms), §8 (privacy) and §6 (speech) are written against government action; whether any reaches a private lease is case law, not read. No AZ clause restricts firearms, and `smoking-policy`'s marijuana ban rests on §36-2851(7), already noted. No fix |
+| 16 | 27 seven topics | **Fixed: all seven have a row** | ch. 10 whole; RPEA 13(c), App. A; searches for algorithm (4 variants), quiet enjoyment and quiet possession, security camera (4 variants), the statutory-form patterns | **Present:**<br>• `edu-fees-as-rent-az` (§33-1310(12) excludes fees from "rent"; self-cure billed as rent; RPEA 13(c)(2)(C)-(D));<br>• `edu-landlord-self-cure-az` (§33-1369);<br>• `edu-lease-completeness-az` (§33-1322(E));<br>• `edu-statutory-forms-az` (§33-1331(A) form; RPEA App. A; no mandatory eviction-notice form, §33-1305(C)).<br>**Confirmed absent:**<br>• `edu-no-algorithmic-rent-rule-az`;<br>• `edu-no-quiet-possession-statute-az` (ouster and entry remedies noted);<br>• `edu-no-tenant-camera-rule-az` |
+| 17 | Targeted fix: dangling pointers | **Fixed** (notes only, AZ segments) | — | `due-at-signing` → `edu-security-deposit-az`. `existing-condition` → `edu-security-deposit-az` and the new `move-out-inspection-notice-az`. Also found by a scan of every AZ row (rule 78): `security-deposit-return-az` → `edu-security-deposit-az`. Each is marked "(switched off 2026-09-29)". Provenance notes ("moved from …", in `edu-possession-delay-az`, `edu-dv-lease-termination-az`, `edu-casualty-termination-az` and `edu-security-deposit-az`) were left alone. The "log §18" pointers in AZ notes match §18 |
+| 18 | Targeted fix: scrub-trimmed `security-deposit-return-az` | **Fixed (condition restored)** | §33-1321(D) | §33-1321(D) makes the itemized list final only if it was "mailed as prescribed by this subsection": within 14 business days after termination, delivery of possession and demand, by first-class mail. The trimmed sentence dropped that condition, so a late list would have read as final. That is a waiver barred by §33-1315(A)(1) and penalized under (B), and no number check can catch it. The sentence now reads "If Landlord mails the itemized list and any amount due within the time and in the manner Arizona law requires…". The application right and forwarding-address request needed nothing |
+
+### Questions asked of Taylor (rule 76)
+- **Westlaw access** (rule 39 court rules): Taylor approved each page action.
+- **Holdover charge:**
+  - Asked whether to offer it.
+  - Taylor asked what made Arizona different. The answer: Arizona's statutory measure covers only willful, bad-faith holdovers, which is the rule 54 "for which cases" gap, so the clause is offered as in the seven earlier states.
+  - Added as `holdover-rate-az`.
+- **Rent-concession payback:** Taylor said yes. Added as `rent-concession-az`.
+
+### Rows changed (CSV delta: 29 rows)
+- **New (17).** Lease clauses (5):
+  - `holdover-az` (supersedes `holdover`)
+  - `move-out-inspection-notice-az`
+  - `casualty-landlord-termination-az`
+  - `holdover-rate-az`
+  - `rent-concession-az`
+
+  Education (12):
+  - `edu-eviction-court-rules-az`
+  - `edu-no-for-cause-eviction-az`
+  - `edu-electronic-transactions-az`
+  - `edu-tenant-caused-damage-az`
+  - `edu-no-algorithmic-rent-rule-az`
+  - `edu-fees-as-rent-az`
+  - `edu-landlord-self-cure-az`
+  - `edu-lease-completeness-az`
+  - `edu-no-quiet-possession-statute-az`
+  - `edu-statutory-forms-az`
+  - `edu-no-tenant-camera-rule-az`
+  - `edu-consumer-fraud-act-az`
+- **Changed own rows (6):**
+  - bodies: `security-deposit-return-az`, `edu-eviction-process-az`, `edu-abandoned-property-az`, `edu-landlord-remedies-after-breach-az`, `edu-eviction-record-sealing-az`, `edu-casualty-termination-az`;
+  - plus notes and `last_checked` on each.
+- **Changed shared rows (6), AZ tag, `AZ:` segment and `last_checked` only:**
+  - `early-termination`: AZ removed;
+  - `early-termination-ks`: AZ added;
+  - `holdover`: AZ removed;
+  - `electronic-signatures`, `due-at-signing`, `existing-condition`: notes only.
+- **Integrity on the merged master (2,056 rows, 1,933 active):**
+  - no duplicate ids, dangling `supersedes` or display collisions;
+  - no blank status or blank `states` (except the parent);
+  - 17 columns in every row; delta header identical to the master; CRLF line endings.
+- **Counts:**
+  - AZ: 107 → **123 active** (69 lease clauses, 54 education), all VERIFIED.
+  - **No other state's active count changed.**
+  - No two active AZ lease clauses share a topic_key.
+- **New `{{variables}}`: none.** `holdover-rate-az` reuses `{{holdover_daily_rate}}`; `rent-concession-az` uses a bracket prompt.
+
+### §9 Propagation (rule 62)
+- **No shared `bodyText` was edited.** The changes to shared rows touch only the AZ tag, the `AZ:` notes segment and `last_checked`. No propagation is owed.
+- **Proposed shared edit, not made: `returned-payments`.** "If more than two of Tenant's payments during the Term are returned" assumes a fixed Term (rule 37); in a month-to-month tenancy the count's window is undefined. Proposal: "during any 12-month period".
+  - Lawful in AZ (no statute on the point).
+  - The other 11 tagged states (CO, WY, KS, NE, MN, ND, SD, OH, GA, NC, PA) need checking by Claude Code against their logs before merge.
+
+### §10 Findings for other states or the product (flagged, not fixed)
+1. **Dangling pointers in other states' segments of `due-at-signing`.** The GA segment points to `security-deposit-cap-ga` and the NC segment to `security-deposit-cap-nc`, both switched off. These are targeted fixes for those states (rule 78).
+2. **Court rule vs statute (legal watch).** RPEA Rule 4(d) sets 30 days to file a satisfaction of judgment; A.R.S. §§12-1567(A) and 22-247(A) set 40. Add RPEA Rules 4, 5, 13, 14 and 20 and Appendix A to the AZ legal watch: they are emergency amendments effective 2026-09-12, pending permanent adoption.
+3. **Builder (M.13).** `due-at-signing` can schedule last-month rent at signing. In AZ that is prepaid rent inside the 1.5-month cap (§33-1321(A); `edu-security-deposit-az`). The builder's number check should sum deposit, pet deposit and prepaid rent for AZ.
+
+### Proposed SOP changes
+1. Batch every Westlaw read into one page-script action and hash the text in that same action. On the built-in browser, govt.westlaw.com is high-risk: every load and every script action needs its own approval, and navigating the tab wipes page state. (AZ retro: the RPEA hash was lost to a navigation.)
+2. Rule 39: when a court rule and a statute set different periods for the same landlord duty, record both, have the education row tell landlords to meet the shorter, and flag it for the legal watch. (AZ: satisfaction of judgment, 30 days vs 40.)
+3. Rule 46 with rule 78: when a scrub moves a "landlord duty" clause to education, check whether the statute requires a written notice that the clause was carrying. If so, keep or restore a lease clause as that notice. (AZ: §33-1321(C) move-out-inspection notice.)
+4. Rule 51: read the consumer-protection act's definitions of "sale" and "merchandise", not only its unlawful-practice section. Arizona's reaches leases only of deed-restricted real estate on its face.
+
+**Sync note (Claude Code, 2026-09-30):** this pass started from the 2,039-row library (before the Indiana merge). It was merged with `scripts/clause-library/merge-delta.py` against that base: shared rows got only AZ's tag and AZ note segment on top of the current rows, so Indiana's tags on `early-termination-ks`, `due-at-signing` and `existing-condition` were kept.

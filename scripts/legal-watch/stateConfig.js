@@ -660,6 +660,12 @@ const STATE_CONFIG = {
     federalStatuteChecks: [],
     manualRecheckItems: [
       {
+        id: "az-rpea-emergency-amendments",
+        label:
+          "Arizona Rules of Procedure for Eviction Actions: emergency amendments effective 2026-09-12 (Rules 4, 5, 13, 14, 20 and Appendix A) await permanent adoption. RPEA 4(d) sets 30 days to file a satisfaction of judgment, while A.R.S. §§ 12-1567(A) and 22-247(A) set 40; the row tells landlords to meet the shorter (AZ retro, 2026-09-30)",
+        clauseIds: ["edu-eviction-court-rules-az", "edu-eviction-record-sealing-az"],
+      },
+      {
         id: "az-rental-tax-sunset",
         label:
           "A.R.S. §33-1332 (Laws 2023, ch. 204) is repealed after 2026-12-31 and is missing from the azleg compilation: revise edu-rental-tax-az on or after 2027-01-01",
