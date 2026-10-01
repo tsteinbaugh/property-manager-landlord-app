@@ -35,6 +35,7 @@ const STATE_NAMES = {
   IL: "Illinois",
   ID: "Idaho",
   MO: "Missouri",
+  IN: "Indiana",
 };
 
 const STATE_CONFIG = {
@@ -1171,6 +1172,42 @@ const STATE_CONFIG = {
       },
     ],
   },
+  IN: {
+    // Indiana Code sections are title-article-chapter-section, with decimals
+    // in any part ("32-31-3-12", "32-31-8.5-5", "22-11-18-3.5",
+    // "26-1-3.1-502.5"). Indiana bills print "IC 32-31-3-12 IS AMENDED TO
+    // READ", so '"IC 32-31-3-12"' is the query. Citations are split on ";"
+    // and only the "Ind. Code" parts are read; absence text, court rules and
+    // U.S.C./CFR parts are skipped.
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        if (!/^Ind\. Code/.test(part)) continue;
+        const body = part.replace(/\([^)]*\)/g, " ");
+        for (const m of body.matchAll(/\b(\d{1,2}-\d{1,2}(?:\.\d+)?-\d{1,2}(?:\.\d+)?-\d{1,4}(?:\.\d+)?)\b/g)) out.push(m[1]);
+      }
+      return out;
+    },
+    buildQuery(key) {
+      return `"IC ${key}"`;
+    },
+    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
+    manualRecheckItems: [
+      {
+        id: "in-court-rules",
+        label:
+          "Indiana court rules LegiScan can't see: the Small Claims Rules (eviction filings and service) and Trial Rules cited in the eviction rows (IN log §1.1, §7)",
+        clauseIds: ["edu-eviction-process-in"],
+      },
+      {
+        id: "in-case-law",
+        label:
+          "Indiana case law the rows flag but don't rely on: penalty doctrine (late fees, holdover rate), waiver by accepting rent, exculpatory clauses, 'reasonable' entry notice, whether Ind. Code § 32-31-5-4 permits unilateral changes, and enforceability of unilateral rent and no-cure terms (IN log §7)",
+        clauseIds: ["late-fee", "holdover-rate-in", "midterm-rent-increase-in", "criminal-activity-in"],
+      },
+    ],
+  },
 };
 
 // Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
@@ -1182,7 +1219,7 @@ const STATE_CONFIG = {
 // that cronFor() returns; checkConfigIds.js fails if a workflow doesn't match.
 const SCHEDULE_ORDER = [
   "CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ",
-  "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO",
+  "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN",
 ];
 function cronFor(code) {
   const n = SCHEDULE_ORDER.indexOf(code);
