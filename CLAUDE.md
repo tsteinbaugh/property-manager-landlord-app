@@ -4,17 +4,12 @@
 
 ## 🎯 Current focus
 
-- **Done 2026-09-29:** the state-research SOP (`lease-clause-sop.md`, 1.1), the generated topic reference (`lease-clause-topics.md`), `topic_key` normalization, and this CLAUDE.md split.
-- **Utah (state #22) synced 2026-09-30**, the first state run entirely under the SOP. All Part 5 steps done except a live legal-watch run (after Taylor pushes and the October 1 reset; see `docs/backlog.md`). What the process got wrong: rows resting on in-context reads shipped VERIFIED, and Desktop had no list of existing variable names; SOP 1.2 and the kickoff fix both (new variables stay allowed; Taylor, 2026-09-30).
-- **Illinois (state #23) synced 2026-09-30.** Its legal watch is committed with the schedule commented out; uncomment it after October 23 (see `docs/backlog.md`). The lease PDF's cover page and table of contents break Illinois's first-page fee rule (and MN, VA, NV and NJ placement rules); Taylor parked the layout redesign in backlog M.12 until more states settle the rules.
-- **Idaho (state #24) synced 2026-09-30.** Its legal watch runs on the 24th (first run November 24, not held). No right-of-reentry clause (Taylor, 2026-09-30). Tenant-caused damage (54t) is due in the end-of-run circle-back.
-- **Missouri (state #25) synced 2026-09-30.** Its legal watch is committed with the schedule commented out; uncomment it after November 25 (first run December 25). Missouri's constitution (Article XIV, marijuana) voided part of a shared clause, so a constitution screen (row 35c) was added to the retro checks.
-- **Indiana (state #26) synced 2026-09-30.** Its legal watch is committed with the schedule commented out; uncomment it after November 26 (first run December 26, 199 sections, the largest first run yet).
-- **Oklahoma (state #27) kickoff staged 2026-09-30** in `~/Desktop/oklahoma-kickoff/`; research is with Taylor and Claude Desktop. At sync, hold `legal-watch-ok.yml` (schedule commented out) until after December 27, so its first run is January 27: November (IL, ID) and December (MO, IN) each already have two first runs.
-- **Retro checks (staged 2026-09-30):** PA, TN, VA, AL, SC, NE, NJ and AZ done and synced. 13 states remain, 227 checks (including 35c, the constitution screen) (including rule 54t, tenant-caused damage, and 4 targeted fixes from `scripts/clause-library/retro-extras.csv`), restaged under SOP 1.6 with the current CSV. PA, UT, IL and ID get a short circle-back (54t) at the end of the run (ID's research predates the rule), and PA, TN and AL a holdover-trigger check (rule 53): plus the constitution screen (35c) for TN, VA, AL, SC, IL, ID and NE, and a holdover-shape check for UT, IL, ID and MO: and the scrub-trimmed-clause check (rule 78) for TN, VA, SC, AL, PA and NJ: stage with `stage-retro-checks.py PA UT IL ID TN AL VA SC NE MO NJ`, in `~/Desktop/retro-checks/` (`INDEX.md` lists them; one prompt per state for its existing Desktop chat). Each returns `lease-clauses-<ST>-retro-delta.csv` plus a section to append to the state's log. At sync: merge deltas field by field (each may change only its own state's tag and note on shared rows), append the section, run the guards, and flip that state's cells in the conformance table.
-- **Legal watch moved to monthly (2026-09-29):** each state runs on its own day of the month and seeds itself on its first run, so the October 1–5 manual catch-up is no longer needed. GitHub's Actions emails are off (Taylor, 2026-09-29); failures now email the alert address. Watch the first October runs (CO on the 1st) to confirm the change marker works; see `docs/backlog.md`.
-- **Standing backlog** (no fixed order; ask Taylor what's next): `docs/backlog.md`.
-- Deploying is still deliberately on hold.
+- **Done 2026-09-30:** five new states synced (UT, IL, ID, MO, IN; 26 verified), the SOP taken from 1.1 to 1.15, and the first 8 retro-check passes synced (PA, TN, VA, AL, SC, NE, NJ, AZ). Several retros found damage from the 2026-09-29 three-bucket scrub; it is being repaired state by state through targeted fixes (SOP rule 78, `docs/history.md`).
+- **In progress (Taylor, Claude Desktop):** the **Wyoming retro** and **Oklahoma (state #27) research**. At the Oklahoma sync, hold `legal-watch-ok.yml` (schedule commented out) until after December 27.
+- **Retro run:** after WY, 12 states remain (KS, MN, ND, SD, OH, CA, NV, TX, FL, GA, NC, CO), staged in `~/Desktop/retro-checks/` (`INDEX.md`). Then one **end-of-run circle-back** for PA, UT, IL, ID, TN, AL, VA, SC, NE, MO and NJ: `stage-retro-checks.py PA UT IL ID TN AL VA SC NE MO NJ` (their items are in the conformance table and `retro-extras.csv`; details in `docs/backlog.md`). Merge every delta with `merge-delta.py` against the commit the pass was staged from.
+- **Pending shared edits, merge only after every tagged state has vetted them (rule 62):** `returned-payments` "during any 12-month period" (AZ's proposal) and NE's no-cure sentence for `default-by-tenant-ks-ne`.
+- **Legal-watch calendar:** after CO's October 1 run, confirm the change marker (backlog); **after October 23, uncomment IL's schedule; after November 25, MO's; after November 26, IN's; after December 27, OK's.** Check the LegiScan totals after November's (IL, ID) and December's (MO, IN) first runs.
+- **Standing backlog** (no fixed order; ask Taylor what's next): `docs/backlog.md`. Lease PDF first-page layout is parked in M.12 (Taylor). Deploying is still deliberately on hold.
 
 ## Project
 
@@ -78,6 +73,10 @@ React + Vite + Tailwind v4 + React Router (`frontend/`); Node + Express + Prisma
 - Research is done by Taylor with Claude Desktop, following `lease-clause-sop.md`; Claude Code syncs each handoff. The sync steps are the SOP's Part 5. Report status item by item, never just "synced". [2026-09-19, 2026-09-27, 2026-09-28]
 - `lease-clauses.csv` is canonical, including verification status and dates; the per-state citations files are companions. Every active row has a status. Trust the CSV over a log's prose. [2026-09-13, 2026-09-25]
 - Edit the CSV with a byte-exact round trip (`lease-clauses.csv` is CRLF; citations files vary, so preserve each file's line endings). Parallel state chats hand back delta CSVs with all 17 columns. [2026-09-27, 2026-09-29]
+- Merge a Desktop delta with `scripts/clause-library/merge-delta.py` against the base it was staged from, never by whole-row replacement; it applies only that state's tag and note segment to shared rows and refuses the rest. [2026-09-30]
+- Never restage a Desktop folder Taylor may already be using; restage only unstarted states, and ask if unsure. Staged prompts carry a staged-at time and row count. [2026-09-30]
+- A library-wide rewrite (scrub, split, consolidation) is diffed against its sources and must not change what the text claims or drop a condition (SOP rule 78). [2026-09-30]
+- Desktop may create new `{{variables}}`; the kickoff lists existing ones for reuse, and new ones go to backlog M.14 at sync. [2026-09-30]
 - `CLAUSE_GROUPS` is a closed list; remap an outside group at generation rather than growing it. [2026-09-13]
 - Every lease clause passes the three-bucket test and records `lease_clause_basis`. [2026-09-29]
 - One subject per row, keyed by a normalized `topic_key`; a companion clause keeps its own key. [2026-09-29]
@@ -137,4 +136,4 @@ Do not add to this list without Taylor's input.
 
 Keep this file short: if a section grows past a few lines of rules, move the detail to `docs/` and leave a pointer.
 
-*Last updated: 2026-09-29 (end of session: SOP 1.1, topic reference, CLAUDE.md split, legal-watch rework, Utah kickoff staged).*
+*Last updated: 2026-09-30 (end of session: UT, IL, ID, MO and IN synced; SOP 1.2 to 1.15; 8 retros synced; merge-delta.py; WY retro and OK research in progress).*
