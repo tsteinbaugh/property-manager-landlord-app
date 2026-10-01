@@ -32,7 +32,7 @@ ASK = {
     "42": "Required text inside a shared clause. Does a statute force a sentence into a fee, deposit or other clause your state is tagged on?",
     "43": "Cure promises. Does a clause promise a cure period for 'any other' breach, giving away a no-cure termination right the statute provides? A no-cure carve-out should be its own sentence covering every limb (rent and non-rent).",
     "44": "Terms the statute turns into landlord duties. Does 'as agreed in the rental agreement' wording make a generous lease term mandatory (for example extra notice methods)?",
-    "45": "Electronic notices. Check the state's electronic-transactions act for exclusions (eviction, default, cure notices) and whether any clause relies on electronic delivery of those.",
+    "45": "Electronic notices. Read the state's electronic-transactions act itself, not only the landlord-tenant section that refers to it, for exclusions (eviction, default, cure notices) and unwaivable conditions (a record the recipient can't print or store), and check whether any clause relies on electronic delivery of those.",
     "46": "The lease as the required notice. Where the statute lets a lease paragraph serve as a notice, offer that clause and reconcile shared clauses that promise a separate notice.",
     "47": "Penalties for knowingly using a prohibited term. If they exist, a 'nothing in this lease limits your rights' sentence doesn't make a void term safe.",
     "48": "Separate-document requirements. No lease clause can supply a notice or agreement the statute requires to be separate.",

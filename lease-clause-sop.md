@@ -1,6 +1,6 @@
 # Steinoak State Research SOP
 
-**Version 1.11, 2026-09-30 (1.0 approved by Taylor).** This is the one procedure every state pass follows. It replaces the "Instructions for the next state" list (instructions 1–66) in `lease-clause-decision-log-named-topic-checklist.md`, the method lessons scattered through the state logs, and Addenda K and L of `lease-clause-decision-log-architecture-review.md`. Each rule gives its source in brackets so the history can be traced; the reasoning lives there, not here.
+**Version 1.12, 2026-09-30 (1.0 approved by Taylor).** This is the one procedure every state pass follows. It replaces the "Instructions for the next state" list (instructions 1–66) in `lease-clause-decision-log-named-topic-checklist.md`, the method lessons scattered through the state logs, and Addenda K and L of `lease-clause-decision-log-architecture-review.md`. Each rule gives its source in brackets so the history can be traced; the reasoning lives there, not here.
 
 **How this document is kept current**
 - Rule numbers never change. A retired rule stays listed as "Retired, see rule N".
@@ -40,7 +40,7 @@
 21. **Flag every citation that isn't a plain state-code section** (administrative rule, court rule, case law, federal CFR or statute) when you find it. These need different monitoring. Where the official site doesn't print the compiler's numbers, confirm each number against an official mapping or cite by the act's own section. [checklist 16, 62] [Fwd]
 22. **Screen citations in `notes` as well as `bodyText`.** Confirm each cited section exists, and match spelled-out and continuation forms, not only the § glyph. After any bulk find-and-replace on citations, scan for doubled or misplaced prefixes. The screen can't catch a real section described wrongly, so it supplements reading, never replaces it. [checklist 11, 12] [Fwd]
 77. **Check the cross-references inside every statute you rely on**, not only the library's own citations. An amending act can leave a pointer to a section it repealed or renumbered; a row that paraphrases the provision inherits the dead pointer. Record any stale cross-reference in the log's findings section (§10) for the legal watch. [UT §10.1] [Fwd]
-78. **A library-wide pass that rewrites rows (a scrub, a split, a consolidation) diffs each rewritten row against its source, and re-reads the statute's conditions and cross-references before rewording.** Moving a clause into education must not change what the text claims or drop a condition (a county, an owner size, a fault exception). When such a pass switches off or moves a clause, search every active clause for references to it by section name ("this Lease's … terms") as well as by id, including coverage pointers in `notes` ("covered by `id`", "see `id`"), and fix any that dangle. Rows such a pass creates are screened at each state's next retro (rule 37). [TN, VA and AL retro, 2026-09-30] [Fwd]
+78. **A library-wide pass that rewrites rows (a scrub, a split, a consolidation) diffs each rewritten row against its source, and re-reads the statute's conditions and cross-references before rewording.** Moving a clause into education must not change what the text claims or drop a condition (a county, an owner size, a fault exception). When such a pass switches off or moves a clause, search every active clause for references to it by section name ("this Lease's … terms") as well as by id, including coverage pointers in `notes` ("covered by `id`", "see `id`"), across every row in the state, not only rows a prompt names, and fix any that dangle. A provenance note ("moved from `id` by the scrub") is history, not a pointer: leave it. When a pass rewrites a shared clause, also reset `last_checked` on every row that describes or quotes that clause. Rows such a pass creates are screened at each state's next retro (rule 37). [TN, VA and AL retro, 2026-09-30] [Fwd]
 
 ## Part 3. The research pass, in order
 
@@ -74,7 +74,7 @@ Each screen asks whether a shared clause the state is about to be tagged on is w
 42. **Required text inside a shared clause:** a statute can force a sentence into a fee, deposit or other clause. [checklist 32] [Retro]
 43. **Cure promises:** a clause promising a cure period for "any other" breach can give away a no-cure termination right. [checklist 33] Put a no-cure carve-out in its own sentence that reaches every limb of the default clause (rent and non-rent), not after the last limb only. [AL retro] [Retro]
 44. **Terms the statute turns into landlord duties:** "as agreed in the rental agreement" wording can make a generous lease term mandatory (extra notice methods). [checklist 44] [Retro]
-45. **Electronic notices:** check the state's electronic-transactions act for exclusions (eviction, default, cure notices). [checklist 47] [Retro]
+45. **Electronic notices:** read the state's electronic-transactions act itself, not only the landlord-tenant notice section that refers to it, for exclusions (eviction, default, cure notices) and unwaivable conditions (for example a record the recipient can't print or store is unenforceable). [checklist 47; NE retro] [Retro]
 46. **The lease as the required notice:** where the statute lets a lease paragraph serve as a notice, offer that clause and reconcile shared clauses that promise a separate notice. [checklist 48] [Retro]
 47. **Penalties for knowingly using a prohibited term:** where they exist, a "nothing in this lease limits your rights" sentence doesn't make a void term safe. [checklist 49] [Retro]
 48. **Separate-document requirements:** no lease clause can supply a notice or agreement the statute requires to be separate. [checklist 57] [Retro]
@@ -101,7 +101,7 @@ Each screen asks whether a shared clause the state is about to be tagged on is w
     - rights that exist only if the lease invokes them (a right the lease is silent on is lost);
     - statute wording that lets the lease decide ("if the lease so provides", "unless otherwise agreed in writing"; rule 50);
     - waivers or exemptions the statute lets a tenant give up in the lease;
-    - measures the statute doesn't set, which the lease can set instead (for example, a holdover charge where no statutory holdover measure exists);
+    - measures the statute doesn't set, which the lease can set instead (for example, a holdover charge where no statutory holdover measure exists, or for the cases a conditional measure leaves out: ask not only whether there is a statutory measure but for which cases and in what shape (a measure only for a willful holdover, or a lump sum rather than a daily rate, leaves a gap));
     - landlord rights the statute leaves to contract (for example, ending the lease after a fire or casualty);
     - **tenant-caused damage** (always ask): if a tenant, occupant or guest causes damage that makes the home uninhabitable, what does the state's law give the landlord (repair costs, rent during repairs, lost rent if the lease ends), and can the tenant end the lease under a casualty statute anyway? Check each abatement or exit provision separately for a tenant-fault exception (casualty, essential services, landlord-breach termination, rent into court): a state may have it in some and not others, which decides whether a no-abatement term would waive a statutory right. Where the law covers it, record that in an education row; where the lease can lawfully fill a gap, offer the tenant-caused-damage clause (`tenant-caused-damage-tn` is the model); where the law bars it, record why.
 
@@ -160,24 +160,24 @@ A state counts as fully done only when these are finished. Desktop's pass ends a
 | 37 tenancy type | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | 39 eviction duties | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | 40 formatting | · | · | · | ✓ | ✓ | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| 41 just-cause | · | · | · | · | · | · | · | · | · | · | · | ✓ | · | ✓ | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 41 just-cause | · | · | · | ✓ | · | · | · | · | · | · | · | ✓ | · | ✓ | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | 41b `for-cause-eviction` row | ✓ | ✓ | ✓ | ✓ | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| 42 required text in shared clause | · | · | · | · | · | · | · | · | · | · | · | ✓ | · | ✓ | ✓ | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| 43 cure promises | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| 44 terms turned into duties | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| 45 electronic notices | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| 46 lease as the notice | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| 47 knowing-use penalties | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| 48 separate documents | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| 49 collection costs | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| 50 "lease controls" | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| 51 plain language | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 42 required text in shared clause | · | · | · | ✓ | · | · | · | · | · | · | · | ✓ | · | ✓ | ✓ | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 43 cure promises | · | · | · | ✓ | · | · | · | · | · | · | · | · | ✓ | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 44 terms turned into duties | · | · | · | ✓ | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 45 electronic notices | · | · | · | ✓ | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 46 lease as the notice | · | · | · | ✓ | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 47 knowing-use penalties | · | · | · | ✓ | · | · | · | · | · | · | · | · | · | ✓ | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 48 separate documents | · | · | · | ✓ | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 49 collection costs | · | · | · | ✓ | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 50 "lease controls" | · | · | · | ✓ | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 51 plain language | · | · | · | ✓ | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | 52 exculpation | · | · | ✓ | ✓ | ✓ | ✓ | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | 53 figure vs shared clause | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| 54 optional clauses (general screen) | · | ✓ | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| 54t tenant-caused damage | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | · | · | · | · | ✓ |
+| 54 optional clauses (general screen) | · | ✓ | · | ✓ | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 54t tenant-caused damage | · | · | · | ✓ | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | · | · | · | · | ✓ |
 | 35c constitution screen | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | · | · | ✓ |
-| 27 seven topics with no row | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| 27 seven topics with no row | · | · | · | ✓ | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | 55 three-bucket test | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | 57 one subject per row | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | 54 e.g. holdover charge | · | · | · | · | · | · | · | · | · | · | · | · | · | · | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | n | n | n | n |
@@ -199,6 +199,7 @@ Notes on the table:
 
 ## Change log
 
+- **1.12 (2026-09-30), NE retro checks synced.** From NE's retro "Proposed SOP changes": rule 78 scans every row in the state, tells a coverage pointer from a provenance note, and resets `last_checked` on rows that describe a rewritten shared clause (NE 1 to 3); rule 45 reads the electronic-transactions act itself (NE 4); rule 54 asks for which cases and in what shape a statutory measure applies (NE 5). Rule 45 is [Retro]: pending prompts carry it. Rule 54's holdover-shape question went to UT, IL, ID and MO, the states that declined a holdover rate because a measure exists, as targeted fixes in the end-of-run circle-back. NE's 14 dangling pointers in other states' notes: 5 in shared rows' general notes were marked "(switched off 2026-09-29)" by Claude Code; 9 went to AZ, NC, GA, NV and VA as targeted fixes. NE's proposed `default-by-tenant-ks-ne` sentence goes to KS, OH and NC for vetting before any merge. NE ran on the 1.10 prompt, so 35c (constitution) is due in its circle-back. NE's column is complete otherwise.
 - **1.11 (2026-09-30), Missouri sync.** From MO's "Proposed SOP changes": rule 35 searches the state constitution, loaded before the first battery (MO 1). Missouri's Article XIV voided a shared clause's marijuana-vaping ban, and only PA, UT and MO had searched a constitution, so rule 35 becomes [Retro] with conformance row 35c. The 16 pending prompts carry it; TN, VA, AL, SC, IL and ID get it in the end-of-run circle-back. Rules 14, 19 and 22 gain MO 2 to 6 (hash-failure line compare, double fetch with heading check, sequential loading, heading-only matches, prefix scan after bulk replace), all [Fwd]. MO column added.
 - **1.10 (2026-09-30), SC retro checks synced.** From SC's retro "Proposed SOP changes": rule 14 anchors section extractors on the header line (SC 1); rule 19 adds "substantially as follows" to form searches (SC 2); rule 37 checks shared clauses whose figures assume a fixed Term (SC 3); rule 54's tenant-caused-damage question checks each abatement or exit provision for its own fault exception (SC 4); rule 78 also searches `notes` coverage pointers (SC 5). On SC 3, Claude Code made SC's proposed shared edit to `early-termination-ks` (option and fee only for a fixed-Term lease): uniform across its nine tagged states, noted in each log and citations file. On SC 5, Claude Code ran the notes scan across the library: 11 pointers to switched-off rows, in KS, ND, CA, MN and NE, now targeted fixes in those retros. SC's column is complete.
 - **1.9 (2026-09-30), AL retro checks synced.** From AL's retro "Proposed SOP changes": rule 78 also searches for references to a switched-off clause by section name (AL 1); rule 19 matches straight and curly apostrophes (AL 2); rule 37 says how an "expiration" window works in a periodic tenancy (AL 3); rule 43 puts a no-cure carve-out in its own sentence covering every limb (AL 4). Claude Code ran AL 1 across the library from the repo: two dangling section-name references, both left by the 2026-09-29 scrub (`casualty-landlord-termination-sc` and, in Kansas, `appliances-included`'s pointer to a switched-off maintenance section), now targeted fixes in the SC and KS retros. On AL 4: the shared `default-by-tenant` ties its rent cure to "the time period specified by applicable law", so it promises no cure beyond the statute; no retro check added. AL's holdover-trigger finding became targeted fixes for GA, NC, SC, PA, TN and AL. AL's column is complete.
