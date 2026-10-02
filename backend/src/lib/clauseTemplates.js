@@ -5697,6 +5697,15 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "If the property is damaged by fire, water, a vehicle or any other cause, and the damage results from the deliberate or negligent act or omission of Tenant, an Occupant, or a guest or invitee of Tenant, then: (1) as long as Landlord makes the repairs within a reasonable time, Rent will not abate or be reduced while the property is repaired, for as long as this Lease continues; and (2) if this Lease ends because of the damage, Tenant will be liable for Landlord's actual damages, including the Rent Landlord loses while the property is repaired, up to the end of the Term (for a month-to-month or other periodic tenancy, up to the earliest date Tenant could have ended the tenancy by notice), less any Rent Landlord receives from re-renting the property. Landlord will make repairs as North Carolina law requires and will use reasonable efforts to re-rent the property. This Section is in addition to Tenant's liability for the cost of repairing the damage.",
   },
+  // Rules & Regulations
+  {
+    id: "cannabis-cultivation-oh",
+    title: "No Cannabis Cultivation",
+    group: "Rules & Regulations",
+    states: ["OH"],
+    bodyText:
+      "Tenant will not cultivate, grow or process cannabis or marijuana anywhere on the property, including inside the dwelling, in any enclosed or secured area, and anywhere on the grounds, and will not permit any occupant or guest to do so. This Section is intended to prohibit the activities that would otherwise be authorized at the property by Ohio's home grow provisions. Nothing in this Section restricts any use or possession that applicable law entitles Tenant to, or affects any accommodation Tenant is entitled to for medical use under applicable law.",
+  },
 ];
 
 module.exports = { CLAUSE_TEMPLATES };

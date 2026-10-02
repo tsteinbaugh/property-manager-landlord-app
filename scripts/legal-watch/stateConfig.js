@@ -293,6 +293,12 @@ const STATE_CONFIG = {
         label: "Frenchtown Square Partnership v. Lemstone, 99 Ohio St.3d 254, 2003-Ohio-3648",
         clauseIds: ["edu-casualty-and-mitigation-waivable-oh"],
       },
+      {
+        id: "oh-superintendence-rules",
+        label:
+          "Ohio Rules of Superintendence restructured effective 2026-07-01: former Sup.R. 44-47 (public access to court records, including eviction records) were renumbered and the new numbers weren't resolved at the 2026-10-02 retro. Find them and confirm Ohio still has no eviction-record sealing rule, which the OH log records as absent (OH log, retro checks)",
+        clauseIds: ["edu-three-day-notice-language-oh"],
+      },
     ],
   },
 
