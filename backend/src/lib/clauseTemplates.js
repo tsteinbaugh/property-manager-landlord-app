@@ -1369,7 +1369,7 @@ const CLAUSE_TEMPLATES = [
     states: ["ND"],
     supersedes: "landlord-maintenance",
     bodyText:
-      "Tenant will notify Landlord promptly in writing of any condition requiring repair or maintenance.",
+      "Tenant will notify Landlord promptly in writing of any condition requiring repair or maintenance. This does not limit any right applicable law gives Tenant on notice of a condition Landlord ought to repair, however that notice is given.",
   },
   // Pets
   {
@@ -1551,7 +1551,7 @@ const CLAUSE_TEMPLATES = [
     group: "Default & Termination",
     states: ["ND"],
     bodyText:
-      "Either Landlord or Tenant may end a month-to-month tenancy under this Lease, including one that continues after the Term, by giving the other written notice at least [state the notice period: at least one calendar month] before the end of a month. Rent is due through the termination date.",
+      "Either Landlord or Tenant may end a month-to-month tenancy under this Lease, including one that continues after the Term, by giving the other written notice at least [state the notice period: at least one calendar month] before the end of a month. Rent is due through the termination date. If the notice period stated above is longer than one calendar month, it binds Tenant only if Tenant initials it where this Lease provides; if Tenant does not, Tenant may end this Lease on the last day of a month with at least one calendar month's notice.",
   },
   // Notices & General
   {
@@ -5451,6 +5451,42 @@ const CLAUSE_TEMPLATES = [
     states: ["MN"],
     bodyText:
       "Landlord and Tenant agree that if Landlord accepts a partial payment of Rent in arrears before an order granting Landlord restitution of the property is issued in an eviction action for nonpayment of Rent, the payment will be applied to the balance Tenant owes and will not waive Landlord's action to recover possession of the property for nonpayment of Rent.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "maintenance-allocation-nd",
+    title: "Tenant Maintenance Agreement",
+    group: "Landlord Responsibilities",
+    states: ["ND"],
+    bodyText:
+      "[Optional. Use for a property that is NOT a single-family residence; this agreement must be a separate writing signed by Landlord and Tenant, printed as its own document and not a section of the Lease. For a single-family residence, landscaping and snow removal are covered by the Lease’s Landscaping & Irrigation and Snow Removal sections, and this agreement may be used for other tasks.] Landlord and Tenant agree, in good faith and not to evade Landlord’s obligations, that Tenant will perform the following tasks: {{tenant_maintained_items}} [check each that applies: ☐ lawn and landscaping care, keeping to any irrigation schedule Landlord sets, and promptly reporting irrigation leaks or watering problems; ☐ prompt, reasonable removal of snow and ice from walkways, driveways, porches and entrances Tenant uses; ☐ replacing heating and air-conditioning filters; ☐ replacing light bulbs; ☐ taking garbage and other waste to the collection point; ☐ other: ______]. In consideration of Tenant performing these tasks, Landlord will {{maintenance_agreement_consideration}} [state what Landlord gives in return, for example a stated monthly rent reduction]. Landlord will not treat Tenant’s performance of this agreement as a condition of any obligation under the Lease, and will not withhold any right under the Lease because Tenant has not performed it. This agreement does not reduce any duty Landlord owes to other tenants of the premises, does not cover work needed because Landlord failed to provide receptacles or arrange removal of ashes, garbage, rubbish or other waste, and does not shift Landlord’s duty to comply with applicable building and housing codes materially affecting health and safety.",
+  },
+  // Default & Termination
+  {
+    id: "holdover-nd",
+    title: "Holdover",
+    group: "Default & Termination",
+    states: ["ND"],
+    bodyText:
+      "If Tenant does not vacate the property when this Lease ends, whether at the end of the Term or on an earlier termination, Landlord may pursue any remedy allowed by law to recover possession and may recover the actual damages caused by Tenant's continued possession, including the reasonable rental value of the property for the period Tenant remains. Alternatively, Landlord may accept Tenant's continued payment of Rent, in which case this Lease will continue as a month-to-month tenancy on the same terms, terminable as provided by law. Nothing in this Section limits any statutory damages measure applicable law provides for a holdover.",
+  },
+  // Notices & General
+  {
+    id: "automatic-renewal-nd",
+    title: "Automatic Renewal",
+    group: "Notices & General",
+    states: ["ND"],
+    bodyText:
+      "This Lease will renew automatically for a further term of [state the renewal term] unless either party gives the other written notice of non-renewal at least [state the notice period] before the end of the then-current Term. Landlord will notify Tenant in writing of this automatic renewal provision, delivered personally or by first-class mail, not less than thirty days before the expiration date of the then-current Term. If Landlord does not give that notice, this Lease expires at the end of the Term and its terms convert to a month-to-month tenancy.",
+  },
+  // Default & Termination
+  {
+    id: "tenant-caused-damage-nd",
+    title: "Damage Caused by Tenant",
+    group: "Default & Termination",
+    states: ["ND"],
+    bodyText:
+      "If the property is damaged by fire, water, freezing, a vehicle or any other cause, and the damage results from the deliberate or negligent act or omission of Tenant, an Occupant, or a guest or invitee of Tenant, then: (1) Rent will not abate or be reduced while the property is repaired, for as long as this Lease continues; and (2) if this Lease ends because of the damage, Tenant will be liable for Landlord's actual damages, including the Rent Landlord loses while the property is repaired, up to the end of the Term, less any Rent Landlord receives from re-renting the property. Landlord will use reasonable efforts to repair and re-rent the property. This Section is in addition to Tenant's obligation to repair deteriorations or injuries to the property caused by Tenant's ordinary negligence.",
   },
 ];
 
