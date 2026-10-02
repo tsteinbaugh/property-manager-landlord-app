@@ -35,7 +35,7 @@ jobs:
   check:
     runs-on: ubuntu-latest
     # A stuck run fails after 30 minutes instead of GitHub's 6-hour default.
-    timeout-minutes: 30
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
 

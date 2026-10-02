@@ -220,15 +220,27 @@ const MANUAL_RECHECK_INTERVAL_DAYS = 180;
 // A timed-out request throws like any other failed check, so it's counted as
 // an errored check (and an all-errored run still fails loudly).
 const FETCH_TIMEOUT_MS = 30000;
-// LegiScan's rate limit from 2026-10-01 is about 2 requests a second; keep a
-// little under it.
-const LEGISCAN_MIN_INTERVAL_MS = 600;
+// LegiScan's rate limit from 2026-10-01 was documented as about 2 requests a
+// second, but Colorado's 2026-10-01 run got HTTP 429 on 15 of 37 searches at
+// 600 ms spacing with no other workflow running. So: one call a second, and a
+// 429 or 503 is retried with backoff (honoring Retry-After) before it counts
+// as an errored check.
+const LEGISCAN_MIN_INTERVAL_MS = 1000;
+const LEGISCAN_RETRY_DELAYS_MS = [2000, 5000, 15000, 30000];
 let lastLegiscanCall = 0;
 async function legiscanFetch(url) {
-  const wait = lastLegiscanCall + LEGISCAN_MIN_INTERVAL_MS - Date.now();
-  if (wait > 0) await new Promise((r) => setTimeout(r, wait));
-  lastLegiscanCall = Date.now();
-  return fetch(url, { signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) });
+  for (let attempt = 0; ; attempt++) {
+    const wait = lastLegiscanCall + LEGISCAN_MIN_INTERVAL_MS - Date.now();
+    if (wait > 0) await new Promise((r) => setTimeout(r, wait));
+    lastLegiscanCall = Date.now();
+    const res = await fetch(url, { signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) });
+    if ((res.status !== 429 && res.status !== 503) || attempt >= LEGISCAN_RETRY_DELAYS_MS.length) return res;
+    const retryAfter = Number(res.headers.get("retry-after"));
+    const delay = Number.isFinite(retryAfter) && retryAfter > 0 ? retryAfter * 1000 : LEGISCAN_RETRY_DELAYS_MS[attempt];
+    console.log(`  LegiScan HTTP ${res.status}; retrying in ${Math.round(delay / 1000)}s`);
+    await new Promise((r) => setTimeout(r, delay));
+    lastLegiscanCall = Date.now();
+  }
 }
 // Bills recorded before 2026-09-29 carry no change marker. On the first run
 // after the upgrade, one whose last action is on or after this date is
@@ -353,6 +365,17 @@ async function sendFailureNotice() {
   await sendEmail(`[Steinoak] Legal watch failed: ${STATE_NAME}`, html);
 }
 
+// Sent by the run itself when some checks errored but not all (added
+// 2026-10-01): the run still saves state for the checks that worked, so it
+// doesn't fail, but the unchecked sections must not pass silently.
+async function sendPartialNotice(unchecked) {
+  const runUrl = process.env.GITHUB_RUN_ID
+    ? `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`
+    : null;
+  const html = `<p>The ${STATE_NAME} legal-watch run finished, but ${unchecked.length} check(s) failed and were not done this month: ${unchecked.map((u) => `<b>${u}</b>`).join(", ")}.</p><p>Everything else was checked and recorded. The failed ones keep their previous state and are tried again on the next run; a manual re-run now is safe.</p>${runUrl ? `<p>Run log: <a href="${runUrl}">${runUrl}</a></p>` : ""}<p>Ask Claude Code to look at the run log.</p>`;
+  await sendEmail(`[Steinoak] Legal watch incomplete: ${STATE_NAME} (${unchecked.length} check(s) failed)`, html);
+}
+
 async function sendAlertEmail({ billFindings = [], cfrFindings = [], reminders = [] }) {
   const sections = [];
 
@@ -448,6 +471,7 @@ async function main() {
 
   let legiscanAttempted = 0;
   let legiscanErrored = 0;
+  const unchecked = [];
 
   async function checkLegiscanSection(section, clauseIds, jurisdiction, stateBucket) {
     checksAttempted++;
@@ -466,6 +490,7 @@ async function main() {
       console.error(`  [${jurisdiction}] ${section}: search error - ${err.message}`);
       checksErrored++;
       legiscanErrored++;
+      unchecked.push(`${jurisdiction} ${section}`);
       return;
     }
 
@@ -499,6 +524,7 @@ async function main() {
         bill = await legiscanGetBill(id);
       } catch (err) {
         console.error(`  [${jurisdiction}] ${section}: getBill error for ${id} - ${err.message}`);
+        unchecked.push(`${jurisdiction} ${section} (bill ${id})`);
         continue;
       }
       if (!bill) continue;
@@ -552,6 +578,7 @@ async function main() {
     } catch (err) {
       console.error(`  ${title} CFR ${section}: eCFR error - ${err.message}`);
       checksErrored++;
+      unchecked.push(`${title} CFR ${section}`);
       continue;
     }
     const seenAmendment = state.cfr[key]?.lastSeenAmendment;
@@ -622,6 +649,16 @@ async function main() {
   }
 
   saveState(state);
+
+  if (unchecked.length > 0) {
+    console.error(`\n${unchecked.length} check(s) not done this run: ${unchecked.join(", ")}`);
+    if (!RESEND_API_KEY || !ALERT_EMAIL_TO) {
+      console.error("RESEND_API_KEY/ALERT_EMAIL_TO not set -- skipping the incomplete-run notice.");
+    } else {
+      await sendPartialNotice(unchecked);
+      console.log("Incomplete-run notice sent.");
+    }
+  }
 }
 
 main().catch((err) => {
