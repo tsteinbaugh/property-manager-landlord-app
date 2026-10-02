@@ -64,6 +64,11 @@ const STATE_CONFIG = {
         label: "HUD FHEO-2020-01 guidance withdrawal (2025-09-17) / HUD enforcement-narrowing memo (2026-05-22)",
         clauseIds: ["edu-esa-federal-state-divergence-co"],
       },
+      {
+        id: "co-ai-act-2027-changeover",
+        label: "Colorado AI Act: SB 26-189 replaces C.R.S. § 6-1-1701 et seq. for decisions on or after 2027-01-01; rewrite the row then",
+        clauseIds: ["edu-ai-consequential-decisions-co"],
+      },
     ],
   },
 

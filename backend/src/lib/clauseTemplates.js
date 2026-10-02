@@ -539,7 +539,7 @@ const CLAUSE_TEMPLATES = [
     id: "surrender-end-of-term",
     title: "Surrender at End of Term",
     group: "Default & Termination",
-    states: ["CO", "WY", "SD", "OH", "CA", "NV", "TX", "FL", "AZ", "GA", "NC", "TN", "VA"],
+    states: ["WY", "SD", "OH", "CA", "NV", "TX", "FL", "AZ", "GA", "NC", "TN", "VA"],
     bodyText:
       "Upon the expiration or earlier termination of this Lease, Tenant will surrender possession of the property and return all keys to Landlord immediately. The property will be left in the same condition as at the start of the Term, except for ordinary wear and tear, and free of all personal property of Tenant and any occupants. Personal property left at the property after Tenant vacates may, to the extent permitted by applicable law, be treated as abandoned and disposed of at Tenant's cost.",
   },
@@ -868,14 +868,18 @@ const CLAUSE_TEMPLATES = [
     title: "Termination Notice (Property Exempt from For-Cause Requirements)",
     group: "Default & Termination",
     states: ["CO"],
+    choiceGroup: "co-part13-coverage",
+    choiceGroupDefault: false,
     bodyText:
-      "Either Landlord or Tenant may terminate a periodic tenancy under this Lease at the end of a tenancy period, or elect not to renew a fixed-term tenancy at the end of the term, by giving the other written notice at least [state the notice period in days] days before that date, or any longer notice Colorado law requires for the length of the tenancy. Because [describe the applicable exemption here - see C.R.S. section 38-12-1302(1)(a), (1)(b), (1)(d), (1)(e), or (1)(f)], this tenancy is not subject to Colorado's for-cause eviction requirements under C.R.S. section 38-12-1301 et seq.",
+      "Either Landlord or Tenant may terminate a periodic tenancy under this Lease at the end of a tenancy period, or elect not to renew a fixed-term tenancy at the end of the term, by giving the other written notice at least [state the notice period in days] days before that date, or any longer notice Colorado law requires for the length of the tenancy. This Section applies only for so long as this tenancy is exempt from Colorado's for-cause eviction requirements under C.R.S. section 38-12-1302(1). The exemption Landlord relies on is: [describe the applicable exemption - see C.R.S. section 38-12-1302(1)(a), (1)(b), (1)(d), (1)(e) or (1)(f)]. If that exemption ceases to apply at any time - in particular, the exemption for a tenant who has not been a tenant of the premises for at least twelve months ends once Tenant has been a tenant for twelve months - Landlord may terminate or decline to renew only on a ground and with the notice that C.R.S. section 38-12-1301 et seq. then requires.",
   },
   {
     id: "month-to-month-notice-co-covered",
     title: "Termination Notice (Subject to For-Cause Requirements)",
     group: "Default & Termination",
     states: ["CO"],
+    choiceGroup: "co-part13-coverage",
+    choiceGroupDefault: true,
     bodyText:
       "Tenant may terminate a periodic tenancy under this Lease at the end of a tenancy period, or elect not to renew a fixed-term tenancy at the end of the term, by giving Landlord written notice at least [state the notice period in days] days before that date, or any longer notice Colorado law requires for the length of the tenancy.",
   },
@@ -907,11 +911,11 @@ const CLAUSE_TEMPLATES = [
   // Disclosures
   {
     id: "radon-disclosure-co",
-    title: "Radon Disclosure",
+    title: "Radon Disclosure Acknowledgment",
     group: "Disclosures",
     states: ["CO"],
     bodyText:
-      "Residential real property may present exposure to dangerous levels of indoor radon gas, which may place occupants at risk of developing radon-induced lung cancer. The Colorado Department of Public Health and Environment strongly recommends that all tenants have an indoor radon test performed before leasing residential real property, and recommends having radon levels mitigated if elevated concentrations are found. Elevated radon concentrations can be reduced by a radon mitigation professional. Landlord discloses the following regarding radon testing, concentrations, or mitigation systems at the property, if known: [describe any known radon testing results, concentrations, or mitigation systems, or state 'none known']. Tenant acknowledges receipt of this disclosure and the Colorado Department of Public Health and Environment's radon brochure, attached to this Lease, as required by Colorado law.",
+      "Before signing this Lease, Tenant received from Landlord a separate written radon disclosure document, signed by Tenant to acknowledge receipt, which contained the radon warning statement Colorado law prescribes, all of Landlord's knowledge of radon testing, concentrations, records, reports, mitigation and any radon mitigation system at the property, and a copy of the most recent radon brochure published by the Colorado Department of Public Health and Environment. Tenant acknowledges receipt of that document and of the brochure.",
   },
   // Pets
   {
@@ -934,11 +938,11 @@ const CLAUSE_TEMPLATES = [
   // Landlord Responsibilities
   {
     id: "habitability-notice-co",
-    title: "Notice of Habitability Rights",
+    title: "Notice of Uninhabitable Conditions - Where to Send It",
     group: "Landlord Responsibilities",
     states: ["CO"],
     bodyText:
-      "To report a condition that may affect the habitability of the property, Tenant will give written notice to Landlord at: [insert landlord's designated WRITTEN habitability-notice address, e.g. email address or mailing address - do not designate a phone number or any verbal method].",
+      "NOTICE OF UNINHABITABLE CONDITIONS. Tenant may give Landlord written notice of a condition that makes the property uninhabitable by mail or personal delivery at: [insert the mailing address for habitability notices; never a telephone number or other verbal method]. Tenant may also give Landlord written notice of such a condition by email at: [insert the email address for habitability notices] or through Landlord's online tenant portal at: [insert the online tenant portal address, or write \"not applicable\" if Landlord does not provide one].\n\nAVISO DE CONDICIONES INHABITABLES. El inquilino puede entregar al arrendador un aviso por escrito de una condición que hace la vivienda inhabitable, por correo postal o en persona, en: [insert the same mailing address]. El inquilino también puede entregar dicho aviso por escrito por correo electrónico a: [insert the same email address] o a través del portal de inquilinos en línea del arrendador en: [insert the same online tenant portal address, or write \"no aplica\"].",
   },
   {
     id: "utility-allowance-cap-co",
@@ -1422,7 +1426,7 @@ const CLAUSE_TEMPLATES = [
     group: "Rent & Payment",
     states: ["CO"],
     bodyText:
-      "If this Lease continues on a month-to-month basis, Landlord will provide Tenant at least [specify notice period, e.g. 60] days' written notice before any increase in Monthly Rent takes effect.",
+      "Landlord will provide Tenant at least [specify notice period, e.g. 60] days' written notice before any increase in Rent takes effect. Landlord will not increase Rent more than once in any twelve-month period of Tenant's tenancy, as Colorado law requires, and will not increase Rent during the fixed Term of this Lease.",
   },
   // Disclosures
   {
@@ -5077,6 +5081,52 @@ const CLAUSE_TEMPLATES = [
     states: ["OK"],
     bodyText:
       "Tenant will not allow any person who is required to register under the Oklahoma Sex Offenders Registration Act to live at the property if another person who is required to register also lives at the property, unless Oklahoma law permits them to live together (for example, because they are married to each other or are blood relatives).",
+  },
+  // Landlord Responsibilities
+  {
+    id: "habitability-rights-statement-co",
+    title: "Statement of Tenant's Right to Safe and Healthy Housing",
+    group: "Landlord Responsibilities",
+    states: ["CO"],
+    bodyText:
+      "Every tenant is entitled to safe and healthy housing under Colorado's warranty of habitability. Landlord is prohibited by law from retaliating against Tenant in any manner for reporting unsafe conditions in the residential premises, for requesting repairs, or for seeking to enjoy Tenant's right to safe and healthy housing.",
+  },
+  // Default & Termination
+  {
+    id: "surrender-end-of-term-co",
+    title: "Surrender at End of Term",
+    group: "Default & Termination",
+    states: ["CO"],
+    supersedes: "surrender-end-of-term",
+    bodyText:
+      "When Tenant's right to possess the property ends - because the Term expires and applicable law does not entitle Tenant to remain, because Landlord lawfully terminates this Lease, because Tenant gives notice and vacates, because Landlord and Tenant agree to end the tenancy, or because a court enters and lawfully executes a judgment for possession - Tenant will surrender possession of the property and return all keys to Landlord immediately. The property will be left in the same condition as at the start of the Term, except for ordinary wear and tear, and free of all personal property of Tenant and any occupants. Personal property left at the property after Tenant vacates may, to the extent permitted by applicable law, be treated as abandoned and disposed of at Tenant's cost.",
+  },
+  // Notices & General
+  {
+    id: "owner-identity-disclosure-co",
+    title: "Landlord and Authorized Agent Identity",
+    group: "Notices & General",
+    states: ["CO"],
+    bodyText:
+      "As Colorado law requires, Landlord states that the name and address of the person who is the Landlord, or the Landlord's authorized agent, is: [insert the name and address of the landlord or the landlord's authorized agent].",
+  },
+  // Rent & Payment
+  {
+    id: "rent-definition-fees-not-rent-co",
+    title: "Only the Monthly Occupancy Payment Is Rent",
+    group: "Rent & Payment",
+    states: ["CO"],
+    bodyText:
+      "For the purpose of any remedy to collect Rent, including eviction, \"Rent\" under this Lease means only the set monthly payment for occupancy of the property. No other amount or fee set out in this Lease - including any pet fee, pet rent, late fee, returned-payment charge, utility or service charge, or other charge - is Rent for that purpose, and Landlord will not pursue eviction or any other remedy for the collection of Rent on the basis of Tenant's failure to pay such an amount. Landlord may pursue any other remedy applicable law allows for those amounts. This Section controls over any contrary provision of this Lease.",
+  },
+  // Default & Termination
+  {
+    id: "jury-waiver-possession-co",
+    title: "Jury Waiver for a Possession Hearing",
+    group: "Default & Termination",
+    states: ["CO"],
+    bodyText:
+      "Landlord and Tenant each waive the right to a jury trial in any hearing to determine possession of the property, to the extent Colorado law permits that waiver. This waiver applies only to a hearing to determine possession. It does not waive either party's right to a jury trial on any claim for damages or on any other issue, and it does not waive any other right either party has under applicable law. This Section does not apply to a rental agreement concerning the occupancy of a mobile home in a mobile home park.",
   },
 ];
 

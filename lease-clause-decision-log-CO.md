@@ -1427,3 +1427,684 @@ All 23 lease clauses written for this state alone. Shared clauses tagged with th
 ## Propagated from the Wyoming retro, 2026-10-01
 
 1. **Shared-row edit (Claude Code, Taylor's approval) — `appliances-included`.** "which Landlord will maintain as described in this Lease's Maintenance & Repairs Section" now reads "which Landlord will maintain as provided in this Lease and applicable law". Driver: the WY retro (WY log §9 item 2) found the pointer named a section that seven states (WY, KS, NE, MN, ND, SD, OH) no longer have. Recorded as **uniform** (rule 62): the promise to maintain the listed items is unchanged, and the new wording names no section, so it can't dangle again. This state's lease keeps a Maintenance & Repairs section, which is still part of 'this Lease', so nothing changes in substance here. `last_checked` reset to 2026-10-01.
+
+## Retro checks (SOP 1.16)
+
+**Date:** 2026-10-01. **Settings:** Opus, high effort; research mode not turned on — the rule 9
+triggers were not reached, because the official whole-title corpus answered every proof-of-absence
+and ambiguity question directly (see Sources below).
+
+**Scope.** The 18 [Retro] rules and 4 targeted fixes in the staged prompt only. Nothing else
+reopened (rule 1). Gate check: the attached `lease-clauses.csv` has **2,169 data rows**, matching the
+prompt — proceeded. Old output files in this chat deleted first (rule 8): 5 decision-log/checklist
+`.md` files and 5 `steinoak_clauses_updated_*.csv` files, listed in the chat.
+
+**Sources and corpus (rules 11, 14, 16, 19).** Official 2026 Colorado Revised Statutes, published by
+the Colorado General Assembly's Office of Legislative Legal Services as whole-title HTM downloads
+(`content.leg.colorado.gov` → `olls.info/crs/crs2026-title-NN.htm`). Loaded and proved complete
+against each file's own article index: **Title 38** 3,614,131 chars / 1,209 distinct sections /
+Art. 1–53; **Title 13** 4,470,074 chars / 1,287 sections / Art. 1–100 (Art. 40 complete,
+13-40-101…128); **Title 24** 11,996,772 chars; **Title 6** 1,373,494 chars; **Colorado
+Constitution** (title-00) 4,512,679 chars. Every section relied on was read section-open with an
+extractor anchored on the section's **own header line**, returning each occurrence so the part
+table-of-contents entry is distinguishable from the body. A nonsense control term returned 0 on every
+battery, so the engine reports true empties.
+
+*Channels tried and why each failed (rule 19).* Workspace shell → `olls.info`,
+`content.leg.colorado.gov`, `colorado.public.law`, `law.justia.com` all refused at the egress proxy
+(CONNECT tunnel 403). `colorado.public.law` in the browser served one page then a persistent
+Cloudflare bot challenge; `law.justia.com` challenged on the first page; neither bypassed. WebFetch
+permission prompt went unanswered. Resolved by using the official OLLS whole-title HTM in the browser
+pane. *Method note, weaker than prescribed (rule 14):* because the shell cannot reach the host, the
+browser-to-disk SHA comparison was not available; the saved record
+(`src/CO-2026-CRS-reads.md`) is a transcription of the browser-read text with every relied-on
+sentence quoted and every history line captured.
+
+**Standing caveats.** No attorney review. Municipal/local ordinances out of scope (rule 3).
+Federal deferred except items already live. Case law was not read in the reporters; every
+case-based proposition below is flagged as unread doctrine.
+
+---
+
+### The 18 checks
+
+1. **Rule 40 — formatting and placement. FIXED; the largest finding of this retro.** CO's log had no
+layout table and no record of this screen. Battery over Art. 12 of Title 38 and Art. 40 of Title 13
+(`conspicuous`, `bold/boldface`, `underlined`, type-size forms, `separate document`, `capital
+letters`, `first page`, prescribed-form phrases; control 0). Every "bold-faced type" hit in Title 13
+is on a **court summons** (§ 13-40-111(4)) or an unrelated medical-malpractice section — none on
+lease text. Title 38 produced three real hits, **two of them mandatory lease content that no CO row
+carried**: **§ 38-12-505(3)(c)** and **(3)(d)** (added by SB 24-094, ch. 158, p. 713, § 5, eff.
+2024-05-03; lease duty operative **2025-01-01**) require *every* rental agreement to include, in at
+least **twelve-point bold-faced type**, (c) a statement that every tenant is entitled to safe and
+healthy housing under the warranty of habitability and that the landlord may not retaliate for
+reporting unsafe conditions, requesting repairs or asserting that right; and (d) **in English and
+Spanish**, a statement giving **both** a mailing/personal-delivery address **and** an email address
+or accessible online tenant portal for written notice of an uninhabitable condition. The third hit is
+the radon warning statement (check 9). Rows: **new `habitability-rights-statement-co`** (the (3)(c)
+statement); **`habitability-notice-co` rewritten** for (3)(d) — it had four defects (rule_type
+RECOMMENDED for a REQUIRED statement; no Spanish; one channel where the statute requires two; and the
+2026-09-29 three-bucket scrub had removed exactly the warranty/retaliation sentences (3)(c) requires
+*in* the lease); **new `edu-habitability-lease-statements-co`** for the type-size, dual-language and
+§ 38-12-505(3)(e) portal-posting mechanics. Layout table below.
+
+2. **Rule 41 — just cause. FIXED.** Part 13 read in full. CO **is** a just-cause state and
+§ 38-12-1303(2)(c) gives the hold-over-after-expiration ground (§ 13-40-104(1)(c)) **only** for
+nonresidential premises and for residential premises exempt under § 38-12-1302(1)(a), (b), (d), (e),
+(f) — so for a covered tenancy **expiration of the Term is not cause**, and § 38-12-1305 voids any
+lease provision purporting to waive or modify Part 13 (§ 38-12-1306: the court "shall dismiss the
+eviction proceeding"). Screened the prompt's seven starting points: `holdover` **passes** (fully
+self-limiting — "any remedy allowed by applicable law", "maximum amount permitted by applicable
+law"); `keys`, `security-deposit-use`, `no-alterations`, `early-termination`,
+`month-to-month-notice-co-exempt`, `month-to-month-notice-co-covered` — no end-of-term-possession
+assertion, no change. **`surrender-end-of-term` fails in CO**: its unqualified "Upon the expiration or
+earlier termination of this Lease, Tenant will surrender possession" is the provision § 38-12-1305
+reaches. Shared text untouched (rule 62): **CO removed from its `states`** and **new
+`surrender-end-of-term-co`** written to supersede it, worded to work for both covered and exempt CO
+tenancies. Rule 28 note: `surrender-end-of-term-nj` was read and considered (written for NJ's
+Anti-Eviction Act) but omits expiration entirely, which understates an exempt CO landlord's rights.
+41b is already satisfied — `edu-for-cause-eviction-co` carries `topic_key: for-cause-eviction`.
+
+3. **Rule 42 — required text inside a shared clause. FIXED.** Four statutes force text into a CO
+lease: § 38-12-801(2) (landlord/agent name and address), § 38-12-801(2.5)(a) (source-of-income
+statement — `source-of-income-statement-co`, already correct), § 38-12-505(3)(c)/(3)(d) (check 1),
+and § 38-12-105(1)(c) (the late fee must be disclosed in the rental agreement — met by the shared
+`late-fee` clause stating the landlord's amount). § 38-12-801(3)(a)(II) also *forces* mutual
+prevailing-party fee wording, which `default-by-tenant` has. **Gap found:** CO had **no row** on the
+`owner-identity-disclosure` topic although 24 of the other 25 states do and § 38-12-801(2) plainly
+requires the statement in the agreement — the existing `edu-identity-change-notice-co` covers only
+the separate one-business-day change-notification duty. Row: **new `owner-identity-disclosure-co`**.
+No small-landlord carve-out applies (the § 38-12-801(4) and (8) exemptions reach only subsection (3)).
+
+4. **Rule 43 — cure promises. Checked, no CO issue.** § 13-40-104 read section-open. CO **does**
+require pre-suit notice for nonpayment — 10 days (3 nonresidential/employer-provided, **5 for an
+"exempt residential agreement"**) — and (1)(d) adds "No such agreement shall contain a waiver by the
+tenant of the notice requirement". `default-by-tenant`'s rent limb ties cure to "the time period
+specified by applicable law after receiving written notice from Landlord", which tracks the statute
+and adds nothing by contract in CO. Its non-rent limb already carries the no-cure carve-out added at
+the FL sync, which does reach CO's no-cure routes (§ 13-40-104(1)(d.5) substantial violation per
+§ 13-40-107.5, and (1)(e.5)(II) repeat violation of the same covenant, terminable "at any time",
+effective 10 days after notice, with no cure right). `application-of-payments` and `early-termination`
+screened; no CO cure-promise defect. The structural point AL's retro raised — the carve-out should be
+its own sentence reaching every limb — costs CO nothing and is left as a rule 62 proposal below.
+
+5. **Rule 44 — terms the statute turns into landlord duties. PRESENT, one hit, already covered.**
+Art. 12 battery for "as provided/specified/agreed in the rental agreement" and "required or permitted
+by the rental agreement" returned exactly one: **§ 38-12-503(3)(f)(I)** — a tenant's habitability
+notice "is sufficient if the notice is provided to the landlord in a manner that is required or
+permitted by the rental agreement or by any property rules or regulations", with (3)(f)(II) waiving
+the landlord's right to written notice if the lease designates a verbal method. So every channel the
+lease names becomes a channel that counts. This bites harder now that § 38-12-505(3)(d) *mandates*
+an email/portal channel; recorded in the rewritten `habitability-notice-co` and the new
+`edu-habitability-lease-statements-co`. Existing `edu-written-notice-strictly-required-co` holds.
+
+6. **Rule 45 — electronic notices. FIXED.** Read Colorado's Uniform Electronic Transactions Act
+itself, not only the landlord-tenant sections referring to it. **§ 24-71.3-103(3)(b)(II)** excludes
+from the Act "Any notice of … Default, acceleration, repossession, foreclosure, or eviction, or the
+right to cure, under a credit agreement secured by, or a rental agreement for, a primary residence of
+an individual"; (3)(b)(I) excludes utility cancellation/termination notices. Also § 24-71.3-105(2),
+(3) (applies only between parties who each agreed; the right to refuse a later electronic transaction
+"may not be waived by agreement") and § 24-71.3-108(1), (3), (4) (electronic satisfies a writing
+requirement only if retainable at receipt; unenforceable if the sender inhibits printing or storing;
+"The requirements of this section may not be varied by agreement"). Clause screen: **no CO-tagged
+clause relies on electronic delivery of an excluded notice.** The shared `notices` row is what
+protects the library — its closing sentence ("nothing in this Lease designates an alternative method
+of delivery for any notice governed by law") is load-bearing in CO and must not be trimmed.
+`landlords-access-co`'s "written or electronic" bed-bug notice is **not** an excluded notice and is
+expressly authorised by § 38-12-1004(1)(a). CO had no row on `notice-delivery-methods`; row: **new
+`edu-electronic-notices-co`**.
+
+7. **Rule 46 — the lease as the required notice. PRESENT, resolved in checks 1 and 9.**
+§ 38-12-505(3)(c) and (3)(d) are the clearest instance in the library: the statute names *the rental
+agreement* as the vehicle, so the lease clause is mandatory, not an option — handled in check 1.
+Radon runs the other way (check 9). No shared clause promises a separate notice that conflicts.
+
+8. **Rule 47 — penalties for knowingly using a prohibited term. PRESENT, and stricter than the rule
+assumes.** Three sanction regimes, none conditioned on knowledge: **§ 38-12-801(3)(b)** — any
+provision included in violation of subsection (3) "is void and unenforceable"; **§ 38-12-105(2)–(6)**
+— a non-complying late-fee provision is void, **$50 per violation** under (3), a 7-day cure from
+written notice under (4), then **$150–$1,000 per violation plus costs and reasonable attorney fees**
+under (5), and an affirmative defense in an FED under (6); **§ 38-12-1305/1306** — a Part 13 waiver
+is void and non-compliance means the court "shall dismiss the eviction proceeding". A "nothing in
+this lease limits your rights" sentence saves none of it. Screened the prompt's four starting points:
+`late-fee` is the live exposure point because the scrub left it as landlord-supplied `{{variables}}`
+with the statutory guardrails only in education — the figures are a builder range check (backlog
+M.13) but the surrounding conditions were under-recorded, so **`edu-late-fee-limit-co` extended** with
+§ 38-12-105(1)(g), (1)(h), **(1)(i)** and the whole (2)–(6) enforcement structure. **(1)(i) ("Recoup
+any amount of a late fee from a rent payment") is the Colorado statutory basis for the shared
+`application-of-payments` rent-first ordering, which the citations file had recorded as GENERIC with
+no CO citation** — noted. `early-termination`, `notices`, `common-area-use`: no prohibited term.
+
+9. **Rule 48 — separate-document requirements. FIXED, two instances.** (a) **§ 38-12-803(2)(a)**
+requires the radon disclosure *before signing*, "in a document that the tenant signs to acknowledge
+receipt", comprising (I) a warning statement "in bold-faced type that is clearly legible in
+substantially the same form as is specified", (II) all the landlord's radon knowledge including
+current records and reports and any mitigation-system documentation, and (III) a copy of the CDPHE
+brochure under § 25-11-114(2)(a); (2)(b) requires the tenant to acknowledge by signing it. A lease
+clause cannot be that document. **`radon-disclosure-co` rewritten** from a disclosure into an
+acknowledgment that the separate pre-signing document and brochure were received — which is lawful
+and gives the landlord written proof. This is a **product item**: Steinoak must generate the separate
+signed radon document, or § 38-12-803(2) is not discharged and § 38-12-803(3)(a)(I) lets the tenant
+void the lease. (b) **§ 13-40-110(1)(b)**: a tenant may voluntarily waive mandatory pre-filing
+mediation "but a waiver must not be in any lease agreement or other agreement", reinforced by
+§ 38-12-801(3)(a)(III)(E), with a mediation-cost recoupment ban in § 38-12-801(3)(a)(VII) and
+dismissal without prejudice under § 13-40-110(1)(d). Row: **new `edu-mandatory-mediation-co`**.
+
+10. **Rule 49 — collection-cost bans. Checked, no CO ban; one phrase flagged.** "costs of collection"
+returns 0 across Art. 12; the four "collection" hits are mobile-home utility collection, DV debt
+assignment, the habitability affirmative defense and mobile-home water billing. CO's only limits are
+§ 38-12-801(3)(a)(I) (no penalty stemming from an eviction notice or action) and (3)(a)(II) (no
+one-way award of attorney fees **and court costs**). `default-by-tenant`'s final sentence is mutual
+and satisfies (3)(a)(II). Its remedies sentence, however, lets Landlord recover "reasonable costs and
+expenses" **one-way**; on CO's text that phrase, if it reaches eviction-related costs, is arguable
+under (3)(a)(I)/(3)(a)(II) and would be void under (3)(b) — PLAUSIBLE, not confirmed, and the row is
+shared with 17 other states, so it goes below as a rule 62 proposal rather than an edit.
+
+11. **Rule 50 — "the lease controls" wording. Checked; two hits, both chosen on purpose.** Art. 12
+battery for "if the lease/rental agreement so provides", "if permitted by the rental agreement",
+"unless otherwise agreed" returned exactly one — **§ 38-12-503(11)**, the landlord's
+environmental-public-health-event termination, available only "if permitted by the rental agreement";
+already `environmental-event-termination-co` (silence forfeits it). The second is
+**§ 38-12-1004(1)(a)**'s "except that a rental agreement may provide for a different minimum time for
+the notice", which `landlords-access-co` uses. A third, § 13-40-110(1)(b), runs the other way (the
+lease may *not* carry the mediation waiver — check 9).
+
+12. **Rule 51 — plain-language and consumer-contract statutes. Confirmed absent; CCPA reach
+confirmed.** Title 6 searched in full: "consumer contract" **0 hits**; "plain language"/"readable"
+hits are § 6-1-105(1)(m) (sales receipts), § 6-1-203 (collision damage waiver forms) and case-law
+annotations using the phrase as a canon — **no plain-language act reaching residential leases**.
+"blank space" 1 hit, in the prize-and-sweepstakes provisions, not contracts; the copy-at-signing
+duties found are industry-specific (health clubs, dance studios, dating services, assisted living),
+not leases — so the CCPA's unfair-practice list does **not** carry the blank-space or
+copy-at-signing items. CO's real copy duty is § 38-12-801(1) (`edu-lease-copy-duty-co`). The CCPA
+**does** reach leases: § 6-1-102(20) defines "Property" as real or personal property, both,
+intangible property and services, and § 6-1-737 is titled "…landlords and tenants". Also recorded:
+§ 6-1-105(1)(hhhh) makes a violation of Part 17 (AI Act) a deceptive trade practice. Rows: **new
+`edu-no-lease-completeness-rule-co`** (check 17); § 6-1-737 content already in
+`edu-total-price-disclosure-co`, `edu-fee-unprovided-service-co`, `edu-fee-free-payment-method-co`,
+`edu-rubs-uncertainty-co`.
+
+13. **Rule 52 — exculpation. Checked, no change; CO keeps the base clauses.** Colorado does **not**
+void "Landlord is not liable" terms generally. § 38-12-801(3)(a)(III) voids waivers of the implied
+covenants of good faith and fair dealing (C) and quiet enjoyment (D) — and (D) **expressly permits**
+the opposite of what the rule feared: "a written rental agreement may provide that the landlord is
+not responsible for any violation of the implied covenant of quiet enjoyment that is committed by a
+third party acting beyond the reasonable control of the landlord". So the shared
+`services-utilities-provided` ("…resulting from causes beyond Landlord's reasonable control") sits
+inside an express statutory permission. `tenants-property-insurance`, `parking`, `storage-space`,
+`pet-policy` screened: none waives a Part 5 right (§ 38-12-503(10)) or a Part 1 deposit benefit
+(§ 38-12-103(7)(a)); `pet-policy`'s "without liability to Tenant **to the extent applicable law
+permits**" is already self-limiting from the ND pass. **The `-ks-oh-ca` / `-ks-oh` variants are not
+needed for CO.** Boundary flagged: Colorado's **common-law** limits on exculpatory clauses (the
+*Jones v. Dressel* factors, and *Boles v. Sun Ergoline* on releases of liability for future
+negligence) are **unread doctrine** — a flat "Landlord is not liable for any such loss or damage" for
+the tenant's own property is a statutory pass here but a case-law question I have not answered.
+
+14. **Rule 54 — optional clauses, general screen.** Found, with verdicts: **mutual prevailing-party
+attorney-fee clause** — OFFERED (in `default-by-tenant`); under § 13-40-123 a prevailing residential
+party gets no fees "unless the residential rental agreement … contains a provision for either party
+to obtain attorney fees", so silence forfeits them, and § 38-12-801(3)(a)(II) voids the one-way
+version — the exact "right that exists only if the lease invokes it" shape (`edu-fee-shifting-co`
+extended). **Landlord's environmental-event termination**, § 38-12-503(11) — OFFERED
+(`environmental-event-termination-co`); silence forfeits it. **Shorter bed-bug entry notice**,
+§ 38-12-1004(1)(a) — OFFERED (`landlords-access-co`). **Third-party quiet-enjoyment disclaimer**,
+§ 38-12-801(3)(a)(III)(D) — OFFERED in substance via `services-utilities-provided`; a broader
+stand-alone disclaimer NOT offered because (D) would void it (`edu-quiet-possession-co`).
+**Jury-trial waiver for a possession hearing**, § 38-12-801(3)(a)(III)(A) ("except that the parties
+may agree to a waiver of a jury trial in a hearing to determine possession of a dwelling unit") —
+**lawful, and now OFFERED** as `jury-waiver-possession-co` on Taylor's decision (Q3 below): drafted
+to the carve-out and no further, mutual rather than one-sided, optional per lease and never a
+default, and scoped away from mobile-home-park tenancies because the Mobile Home Park Act was not
+read. **Actual losses for a tenant's failure to give nonrenewal notice**, § 38-12-801(3)(a)(IV) —
+**NOT offered as a clause; the content is education** (Q4 below, resolved on Taylor's call). Two
+reasons the clause failed the rule 55 test: the notice duty the carve-out needs already exists in both
+CO termination-notice clauses, so a clause adds no hook; and the content itself is a restatement of a
+statutory **ceiling** in the tenant's favour, which the restatement check and this project's
+statutory-ceiling rule both send to education. Carried in the new `edu-prohibited-lease-terms-co`. **Full waiver of the bed-bug entry notice**, § 38-12-1004(1)(b) — lawful on the text,
+NOT offered (the shorter-minimum route reaches the same result without asking the tenant to give up a
+right at signing) — recorded in `edu-bed-bugs-co`. **Landlord self-cure / charge-as-rent** — no
+statutory basis, and § 38-12-801(3)(a)(V) would bar the "as rent" part (`edu-no-landlord-self-cure-rule-co`).
+**Homestead/exemption waiver** — **"n" for CO**: § 38-41-202(2) lets a homestead exemption be
+released only by a writing signed by "the party who could convey said property", i.e. the owner, and
+treats a waiver in a lien instrument as mere subordination; a tenant has no homestead in the rented
+home to waive and a lease is not a lien instrument, so the clause would do nothing. (Boundary: the
+personal-property execution exemptions at § 13-54-102 were not screened for waivability.)
+**Holdover rate** — "n": no statutory measure to stipulate against, and the shared `holdover` row is
+already self-limiting (see `edu-holdover-co`). **Casualty termination** — "n" beyond
+§ 38-12-503(11), per the confirmed absence in `edu-casualty-habitability-co`.
+
+15. **Rule 54t — tenant-caused damage. Checked; law covers it, education row added.** Colorado puts
+the tenant-fault exception in **one** place that gates all of Part 5 rather than remedy by remedy:
+**§ 38-12-503(9)** — a condition "substantially caused by the misconduct of the tenant", a household
+member, guest, invitee or person under the tenant's direction or control "does not constitute a basis
+for a breach of the warranty of habitability", with a carve-out where the condition resulted from
+domestic violence, domestic abuse, unlawful sexual behavior or stalking and the landlord has notice.
+Because every § 38-12-507 remedy — (1)(a) 10-to-60-day termination, (1)(b) recurrence termination,
+(1)(c) repair-and-deduct and appliance replace-and-deduct, (1)(d) damages including reduction in fair
+rental value, (1)(e) injunctive relief — is predicated on a breach of that warranty, tenant fault
+switches all of them off at once; and § 38-12-503(7) makes the landlord responsible at the landlord's
+expense "except as described in subsection (9)". So checking each provision separately produced no
+divergence in CO. No casualty escape: "casualty", "damaged by fire", "fire or other" return **0**
+across Art. 12, consistent with `edu-casualty-habitability-co`. **No CO version of
+`tenant-caused-damage-tn` offered** (read, not tagged): the law already allocates repair cost and
+abatement, and a clause reaching further risks § 38-12-503(10) and the § 38-12-801(3)(a)(I)
+eviction-penalty ban. Row: **new `edu-tenant-caused-damage-co`**. Boundary: common-law measures for
+lost rent not researched.
+
+16. **Rule 35c — constitution screen. Checked; the verdict is the opposite of Missouri's.** Loaded
+the Colorado Constitution (title-00, 4.5M chars) and searched cannabis/marijuana, firearms,
+speech/signs and privacy; control 0. The only provision reaching residential leases is
+**art. XVIII, § 16(6)(d)**, which *preserves* the clause rather than voiding it: "Nothing in this
+section shall prohibit a person, employer, school, hospital, detention facility, corporation or any
+other entity who occupies, owns or controls a property from prohibiting or otherwise regulating the
+possession, consumption, use, display, transfer, distribution, sale, transportation, or growing of
+marijuana on or in that property." So **the shared `smoking-policy`'s marijuana and vaping ban is
+constitutionally safe in Colorado** — Missouri's art. XIV problem does not arise. § 16(8) makes the
+section self-executing, severable and superior to conflicting state and local provisions.
+Art. II, § 13 (right to bear arms) binds the state, not a private landlord, and the annotations
+confirm it is not absolute; art. II, § 10 (speech) is likewise state action; the 171 "privacy" hits
+are Fourth-Amendment search annotations. No clause fixed or overridden. Boundary: Title 18 was not
+searched for a statutory firearms-in-rentals rule, and CO has no firearms row.
+
+17. **Rule 27 — the seven topics. All seven now answered; CO had a row for none of them.**
+**`algorithmic-rent-setting` → PRESENT** — not a rent-cartel statute but something broader: the
+Colorado AI Act, § 6-1-1701 et seq., regulates systems making or substantially contributing to a
+"consequential decision", and § 6-1-1701(3)(f) lists **Housing**; deployer duties at §§ 6-1-1702 to
+1705; a Part 17 violation is a deceptive trade practice (§ 6-1-105(1)(hhhh)) with CCPA treble-damages
+exposure. **Dual-version, future-dated (rule 16):** the official 2026 compilation prints both the
+current § 6-1-1701 ("effective until January 1, 2027") and the **SB 26-189** (ch. 131, L. 2026)
+repeal-and-reenactment, whose § 5(3) applies it "to consequential decisions made on or after January
+1, 2027" with a narrower "covered domain" structure — both dates stated in the row, flagged for the
+legal watch. New `edu-ai-consequential-decisions-co`. **`fees-as-rent` → PRESENT** — see below.
+**`landlord-self-cure` → Confirmed absent** (battery: "landlord may cure/perform", "cure the
+tenant/violation and", "charge the cost of/as rent" — 0 across Art. 12; boundary: Art. 12 of Title 38
+and Art. 40 of Title 13, not case law or local codes). New `edu-no-landlord-self-cure-rule-co`.
+**`lease-completeness` → Confirmed absent** as a blank-space rule (see check 12), with CO's real
+copy and content duties pointed at. New `edu-no-lease-completeness-rule-co`. **`quiet-possession` →
+PRESENT** — no express statutory covenant, but § 38-12-801(3)(a)(III)(D) makes a lease waiver of the
+implied covenant void and supplies the one disclaimer CO allows. New `edu-quiet-possession-co`.
+**`statutory-forms` → PRESENT** — § 38-12-803(2)(a)(I) radon warning ("in substantially the same
+form", bold-faced), § 38-12-801(2.5)(a) SOI statement, § 38-12-505(3)(c)/(d), and
+§ 13-40-110(1)(a) the judicial department's standard eviction complaint and affidavit (with (1)(f)
+allowing a conforming alternative); no prescribed *lease* form. New `edu-statutory-forms-co`.
+**`tenant-security-cameras` → Confirmed absent** (0 across Art. 12 and Art. 40; boundary: not Title
+18 wiretap/eavesdropping, not case law). New `edu-no-tenant-camera-rule-co`.
+
+  **`fees-as-rent` deserves its own paragraph, because it corrects a live error.**
+  **§ 38-12-801(3)(a)(V)** forbids "A provision that characterizes any amount or fee set forth in the
+  rental agreement, with the sole exception of the set monthly payment for occupancy of the premises,
+  as 'rent' for which all remedies to collect rent, including eviction, are available. Such amounts
+  and fees include any fees for utilities or services and any other charge that is not rent", and
+  (3)(b) makes a violating provision void and unenforceable; § 38-12-105(7) says the same for late
+  fees. The library uses an **undefined capitalised "Rent"** across `rent-payment`, `due-at-signing`,
+  `application-of-payments` and `default-by-tenant`, while `pet-policy` charges "pet rent" — so on CO's
+  text a tenant can argue the lease characterises fees as Rent with eviction available. Rows: **new
+  `rent-definition-fees-not-rent-co`** (a lease clause narrowing "Rent" for remedy purposes — chosen
+  over forking the 8-state shared `pet-policy`, because one CO clause cures the characterisation for
+  the whole lease) and **new `edu-fees-not-rent-co`**. This resolves the pet-rent question carried
+  open in this project: **§ 38-12-106(2) lets you charge pet rent up to the greater of $35/month or
+  1.5% of monthly rent, and § 38-12-801(3)(a)(V) forbids evicting for it.** The widely-copied
+  guidance that unpaid CO pet rent supports a 10-day demand and an eviction is wrong on the enacted
+  text. Carve-outs recorded (rule 32): § 38-12-801(4) mobile home in a park, § 38-12-801(8)
+  owner-occupied duplex/triplex/ADU.
+
+18. **Rule 79 — summaries re-read. 10 candidates screened; 2 confirmed defects, 2 basis upgrades,
+1 could not be reached.** The citations file has 118 rows; 10 CITED rows carried a weak-basis marker
+("N sources agree", "fetch-tool summary", "not independently re-confirmed", "not isolated",
+"moderate", "Justia"). **`edu-holdover-co` — CONFIRMED DEFECT, the start point.** § 13-40-123 read in
+full: it is headed "Damages" but sets **no holdover measure at all**; its operative residential rule
+is an **attorney-fee precondition** — a prevailing residential landlord or tenant "shall not be
+entitled to recover reasonable attorney fees unless the residential rental agreement between the
+parties contains a provision for either party to obtain attorney fees". The row's "no multiplier"
+finding **holds**, but as a confirmed absence across Art. 40, not on this section's authority. Row
+**re-based**, the Justia confidence caveat retired, and *Behr v. Burge* retained but flagged under
+rule 21 as a case annotation not read in the reporter. **`edu-radon-lease-length-co` — CONFIRMED
+DEFECT** of the exact WY shape (a rule cited to the wrong subdivision): the row cited
+§ 38-12-803(3)(b) for the 180-day/void-the-lease rule; **(3)(b) is the carve-out** ("On or after
+January 1, 2026, this subsection (3) does not apply to a lease agreement that is one year or less in
+duration") and the rule is at **(3)(a)**, with the 180-day limb at **(3)(a)(II)**. Corrected, and the
+consequence sharpened — "one year or less" means an ordinary **12-month lease escapes subsection (3)
+entirely**, which the row had not said. **`landlords-access-co` — HOLDS, basis upgraded**:
+§ 38-12-1004(1)(a) had been read only through a fetch-tool summary; read section-open it confirms a
+48-hour floor for written or electronic notice "except that a rental agreement may provide for a
+different minimum time", which is the choice the clause makes. **`edu-bed-bugs-co` — the outstanding
+"due a direct official read" is discharged**, same section, plus the (1)(b) tenant-waiver verdict.
+**`edu-mobile-home-park-carveout-co` — HOLDS**: § 38-12-103(12) read verbatim, subsections (1.5) and
+(11) do not apply to a mobile home in a mobile home park; the same history line independently
+re-confirms that HB25-1249 added (1.5), (2.5), (3.5), (8)–(12) and **no installment-payment
+subsection**, corroborating the earlier removal of `security-deposit-installments-co`, and shows the
+**ten-year** carpet rule verbatim. **`edu-ev-charging-rights-co` — HOLDS, subsections now isolated**
+(previously "subsections not isolated"): § 38-12-601(1)(b) no fee for placement or use with the three
+reimbursement exceptions, (1)(c) no parking restriction based on a plug-in or electric vehicle, (2)
+the landlord's permitted safety/registration/aesthetic requirements, (3) shared-area conditions
+including the 14-day certificate of insurance, (4) successive-tenant responsibility, (5) the system
+is the tenant's property and removable at termination, (7) applies to residential and commercial.
+**`bed-bug-disclosure-co` — HOLDS** (the unisolated subsection within § 38-12-1005 is cosmetic).
+**`edu-subsidy-habitability-proration-co` — unchanged, caveat stands**: § 38-12-507 was read, but the
+row's open point is whether a Senate floor amendment excluding the subsidy-paid portion carried, which
+rests on the DRE's post-enactment summary rather than the enrolled text; not resolvable from the
+compilation. **`edu-dv-lease-termination-co` — COULD NOT BE REACHED at the pinpoint, left as is and
+marked**: § 38-12-402(2)(a) and (2)(a.5)(I)(A)–(B) were read section-open (self-attestation affidavit;
+qualified-third-party letter), but the subparagraph carrying the **60-day police-report** figure was
+not reached this pass, so the row stands unchanged. **Finding for the file:** 28 of the 118 citation
+rows have **no recorded basis at all** (empty `notes`), so rule 79's screen cannot be completed for
+them from the citations file — several were independently confirmed as a by-product of this retro
+(§ 38-12-106 pet caps, § 38-12-509 retaliation, § 38-12-510 unlawful removal, § 38-12-801(2),
+§ 38-12-103(12)), but the rest remain unscreened.
+
+---
+
+### Layout and placement table (rule 40)
+
+| Requirement | Citation | Applies to | Carried by |
+|---|---|---|---|
+| Statement of right to safe and healthy housing + no-retaliation, **≥12-point bold-faced type**, in every rental agreement, from 2025-01-01 | § 38-12-505(3)(c) | Every residential lease | **`habitability-rights-statement-co`** (new) |
+| Uninhabitable-condition notice addresses — mailing/personal **and** email or online portal — **in English and Spanish**, **≥12-point bold-faced type**, from 2025-01-01 | § 38-12-505(3)(d) | Every residential lease | **`habitability-notice-co`** (rewritten) |
+| Same statement posted **conspicuously inside the online tenant portal**, English and Spanish | § 38-12-505(3)(e) | Landlords offering a portal | `edu-habitability-lease-statements-co` (new) — operational |
+| Radon warning statement, **bold-faced type**, "clearly legible in substantially the same form as is specified", in a **separate pre-signing document the tenant signs**, with the CDPHE brochure | § 38-12-803(2)(a)(I)–(III), (2)(b) | Every residential lease | **`radon-disclosure-co`** (rewritten to an acknowledgment) + product item |
+| Source-of-income statement (prescribed content) | § 38-12-801(2.5)(a) | Non-exempt landlords | `source-of-income-statement-co` |
+| Landlord/agent name and address statement | § 38-12-801(2) | Every written rental agreement | **`owner-identity-disclosure-co`** (new) |
+| Late fee "disclosed in the rental agreement" | § 38-12-105(1)(c) | Any lease charging a late fee | shared `late-fee` |
+| Signed copy to tenant within 7 days | § 38-12-801(1) | Every written rental agreement | `edu-lease-copy-duty-co` |
+| **No** type-size, underlining, first-page, capital-letters or separate-document rule beyond the above | batteries over Art. 12 / Art. 40, control 0 | — | — |
+
+No two requirements compete for the same place (rule 40's tie-break with Taylor is not needed): the
+two § 38-12-505(3) statements are both bold-faced but have no placement rule, and radon is a separate
+document.
+
+---
+
+### The 4 targeted fixes
+
+19. **Scrub-trimmed clauses (rule 78 with rule 47).** Verdict per clause.
+ - **`rent-increase-notice-co` — RESTORED.** The scrub left only a landlord-supplied notice period.
+   § 38-12-702 caps increases at **one per twelve-month period and applies regardless of agreement**
+   (unlike § 38-12-701(2)'s 60-day default, which applies only absent a written agreement). A
+   landlord entering a lawful-looking "30 days" could satisfy the clause and still breach § 38-12-702
+   by raising rent twice in a year — a **frequency** condition no range check on a single
+   notice-period field can catch. Frequency condition and a no-mid-term-increase statement restored;
+   also widened from month-to-month only, since § 38-12-702 is not limited to periodic tenancies.
+ - **`month-to-month-notice-co-exempt` — RESTORED, and a defect the scrub did not cause.**
+   § 38-12-1302(1)(e) exempts "a residential tenant who has not been a tenant of a residential
+   premises for at least twelve months" — an exemption that **expires mid-tenancy**. A landlord who
+   filled the bracket with (1)(e) at signing had a clause true in month one and false from month
+   thirteen, at which point acting on it means a no-cause termination § 38-12-1303(1) forbids and
+   § 38-12-1306 turns into dismissal. The clause now self-limits to the period the exemption actually
+   applies and names the twelve-month trap explicitly.
+ - **`month-to-month-notice-co-covered` — checked, no text change**, and **its UNRESOLVED FLAG is now
+   RESOLVED.** The flag asked "by what route (if any) may a covered residential landlord terminate
+   without cause in months 0–12". Answer: **there is no gap** — months 0–12 *are* exempt under
+   § 38-12-1302(1)(e), so the exempt variant governs them; from month twelve the landlord needs cause
+   under § 38-12-1303(2) or a no-fault ground under § 38-12-1303(3) with 90 days' notice (45 where
+   the landlord is on active military duty or is such a person's spouse). Part 13 was read
+   section-open in full. The two clauses were also both active on `termination-notice` with no
+   `choice_group`, which the integrity check read as a same-topic pair; they are a **coverage pair
+   keyed to a property-and-tenancy fact**, not a legal-strategy choice, so `choice_group:
+   co-part13-coverage` was added (matching `ca-tpa-coverage` and the `tn-urlta-*` pairs) with the
+   **covered** variant as `is_default TRUE` per rule 32, since it claims no landlord right and is
+   safe if the exemption is mis-set.
+ - **`utility-submetering-disclosure-co` — no restore needed.** The condition a number check cannot
+   catch survived: § 38-12-801(3)(a)(VI) permits ≤2% of the billed amount **or** ≤$10/month "but not
+   both", and the bracket reads "[state one: …]". The figures are a builder range check. Boundary
+   recorded: the clause carries § 6-1-737(4.5)(d), one of four RUBS safe-harbour conditions;
+   (4.5)(a)–(c) are billing-practice conditions, not lease content, and were not read this pass.
+ - **`security-deposit-return-co` — no restore needed.** Both uncatchable conditions survived: the
+   clock still runs from "the later of the termination of this Lease or Tenant's surrender", and the
+   written statement of exact reasons is still promised. The 30/60-day choice is the choice
+   § 38-12-103(1) leaves to the lease, and this clause is the instrument providing it.
+
+20. **Scrub-switched-off REQUIRED/CONDITIONAL clauses (rule 78 with rule 46). All three correctly
+left as education; nothing restored.** `dv-stalking-termination-co` — § 38-12-402 contains a
+**prohibition** on a contrary lease provision and a non-waivable right to call for assistance, but
+**no required lease statement**; the clause only restated a right the law gives anyway
+(`edu-dv-lease-termination-co`, `edu-police-call-waiver-co`). `ev-charging-rights-co` —
+§ 38-12-601 operates "Notwithstanding any provision in the lease to the contrary" and requires no
+lease statement; education is correct, and the lease-side pieces the landlord *does* benefit from
+(§ 38-12-601(2) requirements, (3)(b) shared-area written undertakings) are already live in
+`ev-charging-requirements-co`, `ev-charging-shared-area-co`, `ev-charging-end-of-tenancy-co`.
+`subsidy-habitability-proration-co` — § 38-12-507 and § 38-12-503 impose no lease-statement duty;
+education is correct. *Contrast with check 1:* `habitability-notice-co` is the clause the scrub
+**did** damage, because § 38-12-505(3)(c)/(3)(d) names the rental agreement as the vehicle — the
+scrub-switched-off list did not include it, and it was found by the rule 40 battery instead.
+
+21. **Rule 62 vetting — `returned-payments`, "during the Term" → "during any 12-month period".**
+**Lawful in Colorado; CO supports the change.** No Colorado statute speaks to how many dishonored
+payments may trigger a change of payment method; the dishonored-instrument statute § 13-21-109
+governs the charge, not the count, and the clause's fee is already self-limiting to "the maximum
+amount permitted by applicable law". The reasoning behind AZ's proposal is if anything stronger here:
+Colorado tenancies routinely have no stable "Term" — § 38-12-1302(1)(e) makes the first twelve months
+of *every* covered tenancy a distinct regime, and § 13-40-107's notice tiers are keyed to tenancy
+length rather than a term — so a rolling 12-month window is the measure that actually works. One CO
+note for the merge: the returned-payment charge is **not rent** (§ 38-12-801(3)(a)(V)), which the new
+`rent-definition-fees-not-rent-co` states. Shared text not edited.
+
+22. **Rule 62 vetting — `early-termination`, the landlord limb.** **WY's proposed wording is lawful
+in Colorado, and yes — the current promise gives up a shorter statutory route that Colorado
+provides.** The clause promises "at least 30 days' written notice" plus a "10 days" cure before
+terminating for a material breach. Colorado's statutory route for a material lease violation is a
+**10-day** notice requiring compliance **or** possession (§ 13-40-104(1)(e)) — **5 days** for an
+"exempt residential agreement", 3 for nonresidential or employer-provided housing — and for a
+**repeat** violation of the same condition or covenant after such a notice, § 13-40-104(1)(e.5)(II)
+lets a residential tenancy be terminated "at any time", effective **10 days** after service of
+written notice to terminate, **with no cure right at all**. A bargained 30-day notice plus a 10-day
+cure is therefore materially more than Colorado requires and, as a contract promise, binds the
+landlord to it. Adding "…or such shorter notice and cure period as applicable law permits" recovers
+the statutory route and conflicts with nothing in Colorado law. One caveat for the merge: in Colorado
+the shorter route still has to clear Part 13 — a material violation **is** cause
+(§ 38-12-1303(2)(f) → § 13-40-104(1)(e)), so the route is available to covered landlords too, but a
+no-cause early termination is not. Shared text not edited.
+
+---
+
+### Questions for Taylor (rule 76) — asked and answered in chat, 2026-10-01
+
+**Q1. The Spanish text in `habitability-notice-co`.** § 38-12-505(3)(d) requires the statement "in
+English and Spanish" but prescribes no wording, and Colorado publishes no official Spanish form, so I
+wrote the Spanish myself. **Taylor: "flag this as a required before shipment/going live, but I want
+to think on this more broadly"** — and he raised multi-language support as a possible feature across
+the board. **Disposition:** my translation stays in the delta, so no Colorado lease ships without the
+Spanish the statute names, and **professional or attorney review of the Spanish is a GO-LIVE
+BLOCKER**. The broader multi-language question is parked with Taylor and not decided here. Noted for
+that thinking: the library already has a `translation-duty` topic with rows in two states, where the
+shapes are a statute prescribing lease text verbatim *with* a conditional translation duty, and a
+duty triggered by advertising or negotiating in another language — Colorado's § 38-12-505(3)(d) is
+narrower than either, naming Spanish unconditionally for one statement only.
+
+**Q2. The separate radon document.** **Taylor: "Acknowledgment + warning now, builder later".**
+**Disposition:** `radon-disclosure-co` stays as the rewritten acknowledgment; **new
+`edu-radon-separate-document-co`** warns the landlord that § 38-12-803(2)(a) requires them to produce
+the separate document and have the tenant sign it before the lease — with the prescribed bold-faced
+warning, all known radon information including current records, reports and mitigation-system
+documentation, and a copy of the CDPHE brochure — and warns that the lease acknowledgment is evidence
+against them if the document was never given; and the generated document goes to the **builder
+backlog**. Open and unread: whether a link rather than "a copy of" the brochure discharges
+(2)(a)(III) — no authority found either way, recorded as a caution, not a conclusion.
+
+**Q3. Jury-trial waiver for a possession hearing.** **Taylor: offer the clause, not as a default**
+(he corrected a misclick), and he asked for it to be conditional "since it doesn't apply to some
+property types". **I corrected that premise in chat, because I had misled him by mentioning
+§ 38-12-801(8):** that exemption, and § 38-12-801(4), exempt owner-occupied duplex/triplex/ADU and
+mobile-home-park agreements **from** the (3)(a)(III) prohibition — so they would permit a *broader*
+waiver, not a narrower one. The narrow possession-hearing waiver rests on the express carve-out
+inside (3)(a)(III)(A) itself and is lawful for **every** Colorado residential property type, so under
+rule 32 it is one clause and no property-type conditional is needed for lawfulness; a broader
+owner-occupied variant is deliberately not offered because it would go void the moment the property
+stopped being owner-occupied. **Disposition:** **new `jury-waiver-possession-co`**, `CONSTRAINED`,
+mutual, self-limited to a possession hearing with jury rights on damages expressly preserved, and
+scoped away from mobile-home-park tenancies — the one real limit, because those run under the Mobile
+Home Park Act (§ 38-12-801(5) preserves MHPA rights) which was **not read** this pass. Optional by
+design: no `choice_group` and no `is_default`, and since the builder's "add my default clauses"
+feature runs off flags the *user* sets at runtime, no library field change is needed to keep it off
+by default. Still unread: Colorado's jury-demand rules and practice for FED proceedings, so the
+clause's practical value is not established.
+
+**Q4. Nonrenewal-notice actual losses — RESOLVED, and my original call was wrong.** Taylor first
+parked it, then came back on the drafted sentence: *"to me that should not be added to a clause, but
+rather, should be covered by an education row."* **He is right on the rule 55 three-bucket test, and
+I conceded in chat.** The sentence — *"If Tenant fails to give the notice this Section requires,
+Tenant is responsible only for the actual losses Landlord incurs as a result of that failure. No fee,
+liquidated amount, or other penalty applies, and any amount owed under this sentence is not Rent."* —
+is not a required disclosure (§ 38-12-801(3)(a)(IV) requires no lease text), not a constrained term
+(there is no landlord figure to state), and does not serve the landlord: "responsible **only** for
+actual losses" is a ceiling on the tenant's liability and the second sentence is a list of charges
+that do not apply, so both restate a statutory limit in the tenant's favour. That is the restatement
+check's definition of education, and it is the same shape as this project's statutory-ceiling rule
+(stating a legal maximum in tenant-facing text hands the tenant the ceiling for no landlord upside).
+My argument for a clause had rested on creating the carve-out's "notice required pursuant to the
+rental agreement" hook — which I had already killed myself by finding that hook in both CO
+termination-notice clauses — leaving only a deterrence rationale I had asserted without testing: a
+sentence telling the tenant their worst case is capped deters nothing.
+
+  **Where it went, and a bigger finding behind it.** Checking for the right home surfaced that
+  **Colorado had no `prohibited-lease-terms` row at all**, while 20 of the other 25 states do — despite
+  § 38-12-801(3)(a) being one of the longest such statutes in the country, a closed list every item of
+  which is void and unenforceable under (3)(b). Colorado covered it piecemeal across seven rows with
+  nothing stating the list as a list, and **two subsections had no CO row whatsoever**: (3)(a)(IV), the
+  nonrenewal fee, and **(3)(a)(III)(B)**, the waiver of any joint, class or collective claim — which
+  matters practically, because a class-action waiver is boilerplate in form leases from other states
+  and a landlord copying a template into Colorado imports a void term unknowingly. Taylor's decision:
+  **one `edu-prohibited-lease-terms-co`** carrying the whole list, which puts (3)(a)(IV) in place as an
+  item of the list rather than an orphan and closes both gaps. The row also carries two things the
+  piecemeal rows did not: the **two subsections both numbered (VII)** in the official 2026 compilation
+  (voucher-provider utility possession, and mediation-cost recoupment), shown rather than silently
+  renumbered and flagged under rule 21; and the **§ 38-12-801(4) and (8) exemptions**, which switch
+  much of the list off for mobile-home-park agreements and owner-occupied duplexes, triplexes and ADUs
+  while leaving the eviction-penalty and fee-shifting items applicable to everyone.
+
+**Q5. Two rule 62 shared-row proposals.** **Taylor: file (a) only.** **(a) FILED** — see the
+propagation section below. **(b) NOT filed, and I withdrew my own recommendation on reflection and
+said so in chat:** § 38-12-106(2) itself says "additional rent", so "pet rent" tracks the statute
+rather than fighting it; the real risk was the library-wide undefined "Rent" attaching to eviction
+through `default-by-tenant`, which `rent-definition-fees-not-rent-co` now cures; and a rename would
+mean changing `{{pet_rent_amount}}` across eight states for no legal gain while putting the lease's
+vocabulary out of step with the statute a landlord would be reading.
+
+**Q6. The § 13-40-104(4)(e) DV repayment-plan duty — outside the 18 checks.** It surfaced while
+reading § 13-40-104 for the rule 43 cure screen, traces to no rule in this prompt, and was flagged
+rather than acted on under rule 1. **Taylor: "Add it now".** **Disposition: new
+`edu-dv-repayment-plan-co`** covering the three-business-day offer duty, the affirmative defense, the
+$25-a-month / nine-month shape, the bar on any fees, interest or penalties, the non-waivability, and
+the two limbs that run in the landlord's favour — the tenant's seven-day waiver of the defense, and
+the default route after a missed or three late payments. Taylor chose the option that did **not** also
+chase the § 38-12-402(2)(a.5) 60-day police-report pinpoint, so that rule 79 item stands unchanged
+and remains marked as unreached.
+
+---
+
+### §9 Propagation notes for shared-row edits (rule 62)
+
+**1. `surrender-end-of-term` — CO tag removed, no text edit.** Tagged
+`WY;SD;OH;CA;NV;TX;FL;AZ;GA;NC;TN;VA` after this retro. No other state is affected and no state needs
+to vet anything: the shared text is untouched, and Colorado is superseded by
+`surrender-end-of-term-co` for the reasons in check 2.
+
+**2. `default-by-tenant` — PROPOSED EDIT, not made (Taylor's decision, Q5(a)).** Tagged
+`CO;WY;MN;ND;CA;NV;TX;AZ;GA;SC;TN;VA;PA;UT;IL;ID;MO;IN` (18 states). Proposal: delete "and reasonable
+costs and expenses" from the landlord-remedies sentence ("...recovering unpaid Rent, late fees, and
+reasonable costs and expenses, less amounts obtained from the Security Deposit"), leaving the mutual
+closing sentence to carry costs for both parties. Colorado driver: § 38-12-801(3)(a)(II) bans "a
+one-way, fee-shifting clause that awards attorney fees **and court costs** only to one party", and
+§ 38-12-801(3)(b) makes a violating provision void; if "costs and expenses" is read to include court
+costs, that phrase is one-way. Assessed **PLAUSIBLE, not confirmed** — courts commonly read "costs"
+as court costs, which the mutual sentence already handles, so the exposure is the voiding of a phrase
+rather than of the clause. I cannot vouch for the edit in the other 17 states, so under rule 62 it
+goes to them for vetting before any merge, and Colorado takes no override in the meantime. The
+closing sentence of the clause already satisfies (3)(a)(II) as written, so Colorado is compliant
+either way.
+
+---
+
+### Rows changed (delta: 33 rows — 14 edited, 19 new)
+
+**Edited (14).** `habitability-notice-co` (rewritten, check 1) · `surrender-end-of-term` (CO removed
+from `states`, text untouched, check 2) · `radon-disclosure-co` (rewritten, check 9) ·
+`edu-radon-lease-length-co` (citation corrected, check 18) · `edu-holdover-co` (re-based, check 18) ·
+`edu-fee-shifting-co` (extended with § 13-40-123, checks 14/18) · `edu-late-fee-limit-co` (extended,
+check 8) · `landlords-access-co` (basis upgraded, check 18) · `edu-bed-bugs-co` (read discharged,
+check 18) · `rent-increase-notice-co` (condition restored, fix 19) ·
+`month-to-month-notice-co-exempt` (condition restored + choice_group, fix 19) ·
+`month-to-month-notice-co-covered` (flag resolved + choice_group/default, fix 19) ·
+`utility-submetering-disclosure-co` (checked, notes only, fix 19) · `security-deposit-return-co`
+(checked, notes only, fix 19).
+
+**New (19).** Lease clauses: `habitability-rights-statement-co` · `surrender-end-of-term-co` ·
+`owner-identity-disclosure-co` · `rent-definition-fees-not-rent-co` · **`jury-waiver-possession-co`**
+(Q3). Education: `edu-habitability-lease-statements-co` · `edu-fees-not-rent-co` ·
+`edu-electronic-notices-co` · `edu-mandatory-mediation-co` · `edu-tenant-caused-damage-co` ·
+`edu-ai-consequential-decisions-co` · `edu-no-landlord-self-cure-rule-co` ·
+`edu-no-lease-completeness-rule-co` · `edu-quiet-possession-co` · `edu-statutory-forms-co` ·
+`edu-no-tenant-camera-rule-co` · **`edu-radon-separate-document-co`** (Q2) ·
+**`edu-dv-repayment-plan-co`** (Q6) · **`edu-prohibited-lease-terms-co`** (Q4).
+
+**Integrity checks run on the delta (rule 70, SOP §8).** Header byte-identical to the master and CRLF
+line endings throughout (no stray CR, file ends CRLF); 33 rows × 17 columns; 0 duplicate ids; 0
+dangling `supersedes`; every active row has a `verification_status`, `rule_type`, `topic_key` and
+non-empty `notes`; every `LEASE_CLAUSE` row has a `lease_clause_basis` and every
+`LANDLORD_EDUCATION` row has none; all `group` values inside the fixed taxonomy; **no new
+`{{variables}}` introduced** (rule 60) and no bracket adjacent to a variable; no master row removed;
+the only non-CO row touched is `surrender-end-of-term`, and only its CO tag, its own note segment and
+`last_checked`. Merged totals: 2,169 + 19 = **2,188 rows**; CO active rows 125 → **135**;
+`surrender-end-of-term` states now `WY;SD;OH;CA;NV;TX;FL;AZ;GA;NC;TN;VA`. CO same-topic
+`LEASE_CLAUSE` collisions: **none** after the `co-part13-coverage` choice group. All seven rule 27
+topics plus `owner-identity-disclosure`, `notice-delivery-methods`, `tenant-caused-damage`,
+`jury-waiver`, `dv-eviction-protection` and `prohibited-lease-terms` now have a CO row.
+
+**Conformance table rows this closes for CO:** 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52,
+54, 54t, 35c, 27, 79; and the "54 e.g." rows — statutory waivers **n**, holdover rate **n** (already),
+casualty termination **n** (already), crime-free and eviction-fee not reached by this prompt.
+
+---
+
+### Proposed SOP changes
+
+1. **Rule 40 should say that a type-size or bold-face requirement is usually a REQUIRED lease
+statement, not a formatting note, and that the battery must run against the habitability and
+disclosure parts, not only the lease-content section.** Colorado's two mandatory 12-point bold-faced
+statements live in § 38-12-505, a section about *uninhabitable premises*, not in § 38-12-801, the
+prohibited-clauses-and-required-content section where a reader would look. CO had been through a
+full statute walk and a re-audit and still missed both, for about twenty months of operative duty,
+because nothing told the pass to read a formatting rule as a content rule. [CO retro 2026-10-01]
+
+2. **Rule 78 should add: when a pass moves a clause's content into education, check whether a statute
+names the rental agreement as the vehicle for that content — and search the required-content
+provisions, not only the clause's own citation.** The 2026-09-29 scrub stripped
+`habitability-notice-co` of the warranty and retaliation sentences that § 38-12-505(3)(c) requires
+*in the lease*. Rule 78 and fix 20 already catch the case where a switched-off clause was a required
+notice; this is the case where a clause that stayed active was *trimmed* of required content, and the
+clause was not on either targeted-fix list. [CO retro 2026-10-01]
+
+3. **Rule 79 should add: a row whose `notes` record no basis at all cannot be screened, and the
+screen must report the count.** 28 of CO's 118 citation rows have empty `notes`, so there is nothing
+to classify as section-open or secondary — they are invisible to rule 79's keyword screen rather than
+clean. Suggest the citations file require a basis string on every CITED row, and that each state's
+rule 79 check report "N of M rows unscreenable for want of a recorded basis". [CO retro 2026-10-01]
+
+4. **Rule 16 should add: where a topic's governing part has been repealed and reenacted with a future
+application date, the education row states both regimes and both dates, and the row is flagged for
+the legal watch with the changeover date.** Colorado's AI Act is the case: the official 2026
+compilation prints two versions of § 6-1-1701, and SB 26-189 § 5(3) applies the new one to
+consequential decisions made on or after 2027-01-01. A row written from either version alone would be
+wrong for part of its life. [CO retro 2026-10-01]
+
+5. **Rule 32 (or rule 37) should add: an exemption that turns on elapsed tenancy length expires
+mid-tenancy, so a clause that recites it must self-limit.** Colorado's § 38-12-1302(1)(e) exempts a
+tenant of under twelve months, which means a lease is exempt when signed and covered from month
+thirteen. The existing rules catch figures that differ *by* tenancy type; they do not catch a
+scope condition that *changes during* one tenancy. [CO retro 2026-10-01]
+
+6. **Rule 6 should cross-reference `choice_group`.** Rule 6 says ship one version and keep the other
+inactive where two versions reflect a legal-strategy choice — but where they reflect a *fact* about
+the property or tenancy, the house mechanism is two active rows in one `choice_group` with one
+`is_default`, as `ca-tpa-coverage` and the `tn-urlta-*` pairs do. Rule 6 doesn't mention it, and
+CO's exempt/covered pair had sat with no `choice_group` since it was written. [CO retro 2026-10-01]
+
+### Sync notes (Claude Code, 2026-10-01)
+
+- **Merge.** `merge-delta.py --base 5b475f0` (the commit the folder was staged from): 14 rows updated, 19 new; the only shared-row change is CO's tag removed from `surrender-end-of-term`. The library had grown to 2,263 rows since the base (Oklahoma), so the merged total is 2,282, not the 2,188 the log computes. CO: 135 active rows (72 lease clauses, 63 education).
+- **Two groups remapped** (`CLAUSE_GROUPS` is closed): `rent-definition-fees-not-rent-co` to Rent & Payment and `jury-waiver-possession-co` to Default & Termination, from Compliance & Prohibited Terms, which is an education-only group.
+- **One drafting fix.** `habitability-notice-co` ended its English paragraph with "Do not enter a telephone number or any verbal method here.", which would have printed in the lease. It is now part of the bracket prompt: "[insert the mailing address for habitability notices; never a telephone number or other verbal method]".
+- **Choice group in code.** `co-part13-coverage` means the builder now refuses a second CO termination-notice variant on a lease that already has one, including on manual attach; the property-fact filter (`forCauseEvictionVariant.js`) still picks which variant the automated paths suggest.
+- **Statute spot-check, against the official 2026 C.R.S. (olls.info whole-title HTM, read by Claude Code at sync):** § 38-12-505(3)(c)-(e), § 38-12-801(3)(a)(III)(A)-(E) and (V), § 38-12-1303(2)(c), § 38-12-803(2)(b) and (3)(a)-(b), § 38-12-702, § 24-71.3-103(3)(b)(II), § 13-40-123. All match the log.
+- **Not yet supported by the builder:** the 12-point bold type for `habitability-rights-statement-co` and `habitability-notice-co` (backlog M.12), and the separate signed radon document (backlog). The Spanish in `habitability-notice-co` needs professional review before go-live (Taylor).
+- **Rule 62 answers recorded:** `returned-payments` "during any 12-month period": lawful in CO, supported. `early-termination` "or such shorter notice and cure period as applicable law permits": lawful in CO, supported (a covered landlord still needs Part 13 cause). The new `default-by-tenant` proposal (drop "and reasonable costs and expenses") goes to its 17 other tagged states.
+- **Legal watch:** the new sections come in through the citations file and seed themselves; a manual recheck item covers the AI Act changeover on 2027-01-01.

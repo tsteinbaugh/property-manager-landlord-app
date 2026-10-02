@@ -21,7 +21,9 @@ function correctForCauseVariantId(forCauseEvictionExemption) {
 // True if templateId is one of the two for-cause variants AND isn't the one this property
 // actually needs — used to filter it out of an automated/suggested attach list. Deliberately
 // NOT enforced on manual attach (POST /:id/clauses) — a landlord can still explicitly attach
-// either one; this only shapes what gets auto-suggested/auto-attached.
+// either one; this only shapes what gets auto-suggested/auto-attached. Since the CO retro
+// (2026-10-01) the pair is also choice group `co-part13-coverage`, so attaching the second
+// one to a lease that already has the first is refused (clauseChoiceGroups.js).
 function isWrongForCauseVariant(templateId, forCauseEvictionExemption) {
   if (!FOR_CAUSE_VARIANT_TEMPLATE_IDS.includes(templateId)) return false;
   return templateId !== correctForCauseVariantId(forCauseEvictionExemption);

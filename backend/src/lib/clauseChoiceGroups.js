@@ -12,10 +12,11 @@
 //     vs `no-sublet-assign-discretion-ca` (sole discretion).
 // See `lease-clause-decision-log-CA.md` §§5.32–5.33, 5.40.
 //
-// Unlike the for-cause-eviction variants (forCauseEvictionVariant.js), which
-// only filter the automated paths, this IS enforced on manual attach too:
-// that pair is two legitimate options, whereas two members of one choice
-// group on the same lease is always a self-contradictory document.
+// Enforced on manual attach too: two members of one choice group on the same
+// lease is always a self-contradictory document. The CO for-cause-eviction
+// variants joined as `co-part13-coverage` at the CO retro (2026-10-01): the
+// property-fact filter in forCauseEvictionVariant.js still picks which one the
+// automated paths suggest, and the choice group stops both landing on one lease.
 //
 // Only provided templates carry a choice group. A landlord's personal copy of
 // one has no link back to its template, so it isn't policed here.
