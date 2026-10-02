@@ -18,6 +18,7 @@ To confirm in October:
 
 9. **Iowa (state #29, synced 2026-10-02):** `legal-watch-ia.yml` is committed with `schedule:` and the cron commented out. **After February 1, 2027, uncomment both lines**; the first run is then March 1, 2027 at 14:00 UTC (day 1, after Colorado's 13:00 run) and seeds itself (119 sections). Check its LegiScan total afterwards.
 
+11. **New Mexico (state #30, kickoff staged 2026-10-02):** state #30 runs on day 2 at 14:00 UTC (after Wyoming's 13:00 run). At sync, commit `legal-watch-nm.yml` with `schedule:` and the cron commented out, and uncomment after March 2, 2027, so the first (self-seeding) run is April 2, 2027. Confirm the bill citation style for the query at sync (New Mexico bills amend "Section 47-8-18 NMSA 1978").
 10. **Circle back (Taylor, 2026-10-02): legal-watch budget.** The free LegiScan tier (10,000 queries a month) forces new states' first runs to queue a month apart, which is why Iowa's first run is March 1, 2027. Taylor may pay for a larger tier once the state work is done; revisit the hold dates then. Two notes for that conversation: a first run silently records any bill already enacted by then (pending bills still alert later), so Iowa (session from 2027-01-11) and Michigan are best seeded before their 2027 sessions pass anything; and Iowa alone could move to January 1 within the current budget (January only has Oklahoma's first run). Left as is for now.
 
 ## Standing backlog
