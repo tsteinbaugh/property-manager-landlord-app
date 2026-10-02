@@ -601,3 +601,9 @@ All 12 lease clauses written for this state alone. Shared clauses tagged with th
 - **Rule 79 rows not re-read (5):** `no-alterations`, `parking-vehicle-rules`, `guest-policy`, `lead-based-paint`, `edu-dv-lease-termination-ga`. Listed in the backlog for GA's next circle-back; the original GA log (§1.3) says they were drafted section-open.
 - **Builder:** the Georgia deposit cap (deposit + pet deposit + last-month amount ≤ 2 × Rent, decision 1) added to backlog M.13.
 - **SOP 1.19:** all seven proposals adopted (rules 14, 19, 31, 37, 39, 54); see the change log. GA's conformance column is complete except the eviction-fee example.
+
+## Propagated shared-row edit, 2026-10-02 (Taylor, at the Michigan sync)
+
+Not a re-audit; nothing else in this state was reviewed.
+
+**Propagation note (uniform edit, rule 62): `snow-removal` rewritten.** Old: 'Unless Landlord provides snow removal service, Tenant is responsible for prompt, reasonable removal of snow and ice from any walkway, driveway, porch, or entrance at the property that Tenant uses, to help keep those areas safe and passable.' New: 'Unless Landlord provides snow removal, Tenant will promptly remove snow and ice from the areas of the property Tenant uses for walking, parking and access. This does not include areas shared with other residents.' Why: Taylor found the list of areas too specific (properties differ, and a list invites arguments about what it covers), and Michigan's sync showed the clause should say outright that shared areas stay with the landlord. The edit only narrows the tenant's duty; this state's existing note on the row still holds.

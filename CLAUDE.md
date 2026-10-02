@@ -8,18 +8,18 @@
 - **Done 2026-10-01:** WY retro synced (SOP 1.16, new rule 79), `appliances-included` pointer fixed in 7 states, five declined-option education rows backfilled, and the 12 pending retro folders restaged.
 - **Done 2026-10-01:** Oklahoma (state #27) synced; SOP 1.17. `legal-watch-ok.yml` is held (schedule commented out) until after December 27.
 - **Done 2026-10-01:** CO retro synced (SOP 1.18): two required 12-point bold lease statements found (§ 38-12-505(3)(c)-(d)), 14 rows fixed, 19 added. Go-live blockers from it are in the backlog (Spanish review, bold printing, separate radon document).
-- **In progress (Taylor, Claude Desktop):** **Michigan (state #28) research** (kickoff staged 2026-10-01 in `~/Desktop/michigan-kickoff/`, from ce945c2). At the Michigan sync, hold `legal-watch-mi.yml` until after January 28. Also at the sync, check its optional casualty clause carries the three changes given on 2026-10-01 (backlog).
+- **Done 2026-10-02:** **Michigan (state #28) synced** (163 rows, SOP 1.19) and the **GA retro synced** (GA 118 rows). `legal-watch-mi.yml` is held until after January 28. Open with Taylor: the shared `snow-removal` edit and the HUD assistance-animal flag (backlog).
 - **Done 2026-10-01:** legal watch fixed for LegiScan 429s (1-second spacing, retry, incomplete-run email, 60-minute timeouts); CO re-run clean, 0/45 errors.
-- **Retro run:** 11 states remain (KS, MN, ND, SD, OH, CA, NV, TX, FL, GA, NC), restaged 2026-10-01 under SOP 1.18 (2,282 rows, from the CO retro sync commit) in `~/Desktop/retro-checks/` (`INDEX.md`); **Georgia recommended next** (it vets three pending shared edits), then MN or ND, NC and OH, with CA and TX after Michigan. Then one **end-of-run circle-back** for PA, UT, IL, ID, TN, AL, VA, SC, NE, MO, NJ, WY, AZ and IN (WY and AZ for rule 79, IN for the `default-by-tenant` vetting): `stage-retro-checks.py PA UT IL ID TN AL VA SC NE MO NJ WY AZ IN` (their items are in the conformance table and `retro-extras.csv`; details in `docs/backlog.md`). Merge every delta with `merge-delta.py` against the commit the pass was staged from.
-- **Pending shared edits, merge only after every tagged state has vetted them (rule 62):** `returned-payments` "during any 12-month period" (AZ's proposal), NE's no-cure sentence for `default-by-tenant-ks-ne`, WY's "or such shorter notice and cure period as applicable law permits" for `early-termination`, and CO's deletion of "and reasonable costs and expenses" from `default-by-tenant`.
-- **Legal-watch calendar:** **after October 23, uncomment IL's schedule; after November 25, MO's; after November 26, IN's; after December 27, OK's.** Check the LegiScan totals after November's (IL, ID) and December's (MO, IN) first runs.
+- **Retro run:** 10 states remain (KS, MN, ND, SD, OH, CA, NV, TX, FL, NC), staged 2026-10-01 under SOP 1.18 in `~/Desktop/retro-checks/` (`INDEX.md`); SOP 1.19 added [Retro] sentences to rules 37 and 39, which reach them only if restaged (ask Taylor which folders are untouched) or at the circle-back. **Next recommended: MN or ND, then NC and OH**, CA and TX after. Then one **end-of-run circle-back** for PA, UT, IL, ID, TN, AL, VA, SC, NE, MO, NJ, WY, AZ and IN (WY and AZ for rule 79, IN for the `default-by-tenant` vetting), plus GA's five rule 79 rows: `stage-retro-checks.py PA UT IL ID TN AL VA SC NE MO NJ WY AZ IN` (their items are in the conformance table and `retro-extras.csv`; details in `docs/backlog.md`). OK still needs to vet NE's `default-by-tenant-ks-ne` sentence. Merge every delta with `merge-delta.py` against the commit the pass was staged from.
+- **Pending shared edits, merge only after every tagged state has vetted them (rule 62):** `returned-payments` "during any 12-month period" (AZ's proposal; WY, CO, GA vetted), NE's no-cure sentence for `default-by-tenant-ks-ne`, WY's "or such shorter notice and cure period as applicable law permits" for `early-termination`, and CO's deletion of "and reasonable costs and expenses" from `default-by-tenant`.
+- **Legal-watch calendar:** **after October 23, uncomment IL's schedule; after November 25, MO's; after November 26, IN's; after December 27, OK's; after January 28, MI's.** Check the LegiScan totals after November's (IL, ID) and December's (MO, IN) first runs.
 - **Standing backlog** (no fixed order; ask Taylor what's next): `docs/backlog.md`. Lease PDF first-page layout is parked in M.12 (Taylor). Deploying is still deliberately on hold.
 
 ## Project
 
 A SaaS web app for landlords to manage rental properties end to end, built from Taylor's real landlord experience. Working name **Steinoak** (placeholder). Owner: Taylor (Steinbaugh Estates LLC), solo; he drives product decisions but doesn't write code. Goal: use it personally, then sell it to other landlords. Logos in `logos/`; font Poppins.
 
-**State:** v1 MVP complete (tagged `v1.0.0`: Entities, Properties, Tenants + Leases, Finances, Maintenance, Clerk auth). Also built: Property Specs, Lease Builder (clause library, PDF generation), Rent Tracker, property archiving and soft delete, Dashboard, global search. The lease clause library is verified for 27 states (CO, WY, KS, NE, MN, ND, SD, OH, CA, NV, TX, NJ, FL, AZ, GA, NC, SC, TN, VA, AL, PA, UT, IL, ID, MO, IN, OK), each with a decision log, a citations file and a monthly legal-watch workflow.
+**State:** v1 MVP complete (tagged `v1.0.0`: Entities, Properties, Tenants + Leases, Finances, Maintenance, Clerk auth). Also built: Property Specs, Lease Builder (clause library, PDF generation), Rent Tracker, property archiving and soft delete, Dashboard, global search. The lease clause library is verified for 28 states (CO, WY, KS, NE, MN, ND, SD, OH, CA, NV, TX, NJ, FL, AZ, GA, NC, SC, TN, VA, AL, PA, UT, IL, ID, MO, IN, OK, MI), each with a decision log, a citations file and a monthly legal-watch workflow.
 
 ## Stack and commands
 
@@ -86,6 +86,7 @@ React + Vite + Tailwind v4 + React Router (`frontend/`); Node + Express + Prisma
 - Desktop may create new `{{variables}}`; the kickoff lists existing ones for reuse, and new ones go to backlog M.14 at sync. [2026-09-30]
 - `CLAUSE_GROUPS` is a closed list; remap an outside group at generation rather than growing it. [2026-09-13]
 - Every lease clause passes the three-bucket test and records `lease_clause_basis`. [2026-09-29]
+- A topic a state's log answers without a row (rule 27) gets its row at sync, drafted from the log's search record with the controlling section read. [2026-10-02]
 - One subject per row, keyed by a normalized `topic_key`; a companion clause keeps its own key. [2026-09-29]
 - A shared-row edit is either uniform or state-driven, is noted in every tagged state's log, and is checked against each tagged state before merge. [2026-09-24, 2026-09-29]
 - One decision log and one citations file per state. [Aug 2026, 2026-09-13]
@@ -144,4 +145,4 @@ Do not add to this list without Taylor's input.
 
 Keep this file short: if a section grows past a few lines of rules, move the detail to `docs/` and leave a pointer.
 
-*Last updated: 2026-10-01 (end of session: CO retro synced, SOP 1.18; 11 retros restaged from 5321f8c; legal-watch rate-limit fix; Michigan research in progress).*
+*Last updated: 2026-10-02 (Michigan synced, state #28; GA retro synced; SOP 1.19).*

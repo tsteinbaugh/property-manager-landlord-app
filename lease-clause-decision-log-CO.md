@@ -2108,3 +2108,9 @@ CO's exempt/covered pair had sat with no `choice_group` since it was written. [C
 - **Not yet supported by the builder:** the 12-point bold type for `habitability-rights-statement-co` and `habitability-notice-co` (backlog M.12), and the separate signed radon document (backlog). The Spanish in `habitability-notice-co` needs professional review before go-live (Taylor).
 - **Rule 62 answers recorded:** `returned-payments` "during any 12-month period": lawful in CO, supported. `early-termination` "or such shorter notice and cure period as applicable law permits": lawful in CO, supported (a covered landlord still needs Part 13 cause). The new `default-by-tenant` proposal (drop "and reasonable costs and expenses") goes to its 17 other tagged states.
 - **Legal watch:** the new sections come in through the citations file and seed themselves; a manual recheck item covers the AI Act changeover on 2027-01-01.
+
+## Propagated shared-row edit, 2026-10-02 (Taylor, at the Michigan sync)
+
+Not a re-audit; nothing else in this state was reviewed.
+
+**Propagation note (uniform edit, rule 62): `snow-removal` rewritten.** Old: 'Unless Landlord provides snow removal service, Tenant is responsible for prompt, reasonable removal of snow and ice from any walkway, driveway, porch, or entrance at the property that Tenant uses, to help keep those areas safe and passable.' New: 'Unless Landlord provides snow removal, Tenant will promptly remove snow and ice from the areas of the property Tenant uses for walking, parking and access. This does not include areas shared with other residents.' Why: Taylor found the list of areas too specific (properties differ, and a list invites arguments about what it covers), and Michigan's sync showed the clause should say outright that shared areas stay with the landlord. The edit only narrows the tenant's duty; this state's existing note on the row still holds.

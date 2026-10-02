@@ -20603,6 +20603,1111 @@ const LANDLORD_EDUCATION = [
       "Georgia statutes do not address tenant-installed security cameras, video doorbells or similar devices. The lease's alteration terms govern; in this library that is the Alterations section, which requires the landlord's written consent before a tenant adds or changes a fixture. Georgia's eavesdropping and surveillance laws, and any homeowners' association rules, were not reviewed and may limit what a camera records rather than its installation.",
     notes: "GA: NEW 2026-10-01 (SOP 1.18 retro, rule 27). Verdict: CONFIRMED ABSENT in the statutes for installation. Official O.C.G.A. full-text search 2026-10-01 (GA retro battery B14, B14b; nonsense control 0): (camera, cameras, 'video doorbell', doorbell, 'security system', 'surveillance device') within 30 words of (tenant, tenants, lessee, landlord, landlords, 'rental unit', apartment): 0 hits ('No documents found'); (camera or cameras) within 30 words of (property, premises, residence, dwelling): 7 hits (known-positive check that the term is searchable: O.C.G.A. §§ 16-7-24, 24-9-923, 16-11-131, 16-8-41, 50-18-72, 13-6-11 annotation), none landlord-tenant. Recording and surveillance law (Title 16 ch. 11 art. 3) not read. Points at `no-alterations` (active for GA). Model: `edu-no-tenant-camera-rule-wy` (read, not tagged). Read section-open 2026-10-01 in the built-in browser from the official O.C.G.A. on advance.lexis.com (the General Assembly's free LexisNexis public access, 'Current through the 2026 Special Session of the General Assembly'); section text saved and SHA-256 matched to the browser copy (GA retro sources).",
   },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-truth-in-renting-mi",
+    title: "Michigan's Prohibited Lease Terms (Truth in Renting Act)",
+    group: "Compliance & Prohibited Terms",
+    states: ["MI"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "prohibited-lease-terms",
+    bodyText:
+      "Michigan's Truth in Renting Act voids any lease term that: waives or alters a remedy available to either party when the premises violate the covenants of fitness and habitability; waives security deposit rights; discriminates in violation of Michigan's civil rights acts; provides for a confession of judgment; exculpates you for failing to perform, or negligently performing, a duty imposed by law (a mutual release limited to insured fire or casualty losses, with subrogation waived, is allowed); waives a jury trial or any notice or procedure required in court; makes a party pay the other's legal costs or attorney fees beyond what a statute specifically allows; gives you a security interest in the tenant's personal property, except as the law allows; accelerates rent on breach, unless it also states that the tenant may not owe the full accelerated amount because you must minimize damages and that either party may have a court decide the amount; waives rights under the lockout statute or the summary eviction chapter; releases either party from the duty to mitigate damages; lets you change the lease after it starts without the tenant's written consent, except changes on 30 days' written notice that are required by law, rule changes needed for health, safety or peaceful enjoyment, or rent changes to cover increases in property taxes, listed utility charges or insurance premiums; violates the Michigan Consumer Protection Act; requires a power of attorney; or, from September 21, 2026, charges a fee on every allowed method of paying rent (if more than one method is allowed, one must be fee-free). A term that a statute or a published Michigan Supreme Court or U.S. Supreme Court decision on Michigan law declared unenforceable at least 90 days before the lease was signed is also barred. You may cure a void term by written notice to every current tenant. If you do not cure within 20 days after a tenant's written notice, the tenant may sue to void the lease and end the tenancy, for an injunction, and for $250 per action (or $500 for an explicitly prohibited term or a missing required statement) or actual damages if greater, plus costs and statutory attorney fees; no prior notice is needed where you knew the term was unlawful. These rules cannot be waived.",
+    notes: "MI: Mich. Comp. Laws § 554.633(1)(a)-(o), (2), (3) (as amended by 2026 Mich. Pub. Acts 103, eff. Sept. 21, 2026, adding (1)(o)); cure Mich. Comp. Laws § 554.635; remedies Mich. Comp. Laws § 554.636(1)-(7); remedies cumulative Mich. Comp. Laws § 554.637; printed forms Mich. Comp. Laws § 554.638; no waiver Mich. Comp. Laws § 554.639. 'Rental agreement' is a written agreement beyond bare terms (Mich. Comp. Laws § 554.632(a)). Each Michigan clause in the library was screened against every subdivision (MI log §19). The Truth in Renting Act, Mich. Comp. Laws §§ 554.631-554.641, read whole. Rule 47: knowing use removes the tenant's notice step and the cure defense (Mich. Comp. Laws § 554.636(3)), so 'nothing in this lease limits your rights' does not make a void term safe. Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Disclosures
+  {
+    id: "edu-truth-in-renting-statements-mi",
+    title: "Statements Every Michigan Lease Must Contain",
+    group: "Disclosures",
+    states: ["MI"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "truth-in-renting",
+    bodyText:
+      "A Michigan lease must state the name and address at which notices under the Truth in Renting Act are to be given to you, and must print, in a prominent place in type at least 12-point (or legible print with letters at least 1/8 inch), the notice that Michigan law establishes rights and obligations for parties to rental agreements and that the tenant may want to seek legal help with questions. The library includes both. If a lease omits either one, you may cure it by giving every current tenant a written notice containing the statement; if you do not cure within 20 days after a tenant's written notice, the tenant may sue to void the lease and for $500 or actual damages. Other statements Michigan requires: a lease must give a tenant who has lived in the unit more than 13 months a right to end it on 60 days' notice when the tenant qualifies for subsidized senior housing or can no longer live independently; a condominium lease must state that the tenant will comply with the condominium documents; and if you take a security deposit you must give the tenant, within 14 days after move-in, a written notice of where it is held and of the 4-day forwarding-address rule, with a statement in 12-point boldface type at least 4 points larger than the rest of the notice.",
+    notes: "MI: Mich. Comp. Laws § 554.634(1)-(2); cure Mich. Comp. Laws § 554.635(2)-(3); remedy Mich. Comp. Laws § 554.636(2)(d). Other required statements: Mich. Comp. Laws § 554.601a(1) (early-termination-senior-infirmity-mi), Mich. Comp. Laws § 559.212(3) (hoa-compliance-mi), Mich. Comp. Laws § 554.603 (security-deposit-notice-mi). The domestic violence statement is optional in the lease but must otherwise be posted or delivered (Mich. Comp. Laws § 554.601b(1); dv-release-notice-mi). Clauses: truth-in-renting-notice-mi, lessor-notice-address-mi. Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-exculpation-mi",
+    title: "No Exculpation of the Landlord",
+    group: "Compliance & Prohibited Terms",
+    states: ["MI"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "exculpatory-clauses",
+    bodyText:
+      "A Michigan lease may not excuse you from liability for failing to perform, or negligently performing, a duty imposed by law. The one exception is a release from liability for loss, damage or injury caused by fire or other casualty for which the other party carries insurance under a policy that permits waiver of liability and waives the insurer's subrogation rights, and only to the extent the insured party recovers under the policy. For that reason the library's Michigan parking, storage, renter's insurance and services clauses do not say that you are 'not liable', and the pet clause's reimbursement promise excludes losses from your own failure to perform a legal duty.",
+    notes: "MI: Mich. Comp. Laws § 554.633(1)(e), (3). Rule 52: parking-ks-oh-ca, storage-space-ks-oh-ca, tenants-property-insurance-ks-oh-ca and services-utilities-provided-ks-oh tagged instead of the bases; pet-policy-mi carve-out. The insurance-and-subrogation exception is quoted closely because a mutual waiver clause is the one exculpation a Michigan lease may carry; the library does not offer one (MI log §6.1). No published Michigan case deciding whether a broad tenant indemnity (as in the RPOA lease ¶ 26) is an exculpation under Mich. Comp. Laws § 554.633(1)(e) was found (MI log §1.4). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-attorney-fees-mi",
+    title: "Attorney Fees and Court Costs",
+    group: "Default & Termination",
+    states: ["MI"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "attorney-fees",
+    bodyText:
+      "A Michigan lease may not make a party pay the other party's legal costs or attorney fees in a dispute under the lease beyond what a statute specifically allows. In an eviction case the court may award costs as allowed in other civil actions in that court, plus limited extra amounts ($75 for a motion that results in dismissal or judgment or a default or consent judgment, and $150 for a trial), and only those costs. A party who wins a Truth in Renting Act action recovers court costs plus statutory attorney fees, and a tenant who proves discrimination may recover damages including attorney fees under the Elliott-Larsen and Persons with Disabilities civil rights acts. A prevailing-party attorney-fee clause in the lease would be void, so the library's Michigan default clause claims only court costs allowed by statute.",
+    notes: "MI: Mich. Comp. Laws § 554.633(1)(g); summary-proceeding costs Mich. Comp. Laws § 600.5759(1)-(2) and MCR 4.201(L)(4) ('Only those costs permitted by MCL 600.5759 may be awarded'); Truth in Renting Act Mich. Comp. Laws § 554.636(4); civil rights Mich. Comp. Laws §§ 37.2801(3), 37.2802, 37.1606(1), (3); source-of-income actions Mich. Comp. Laws § 554.601d(1). Clause: default-by-tenant-mi. The RPOA lease's ¶ 57 ('taxable court costs and reasonable attorney fees') goes beyond the statute (MI log §15). Court rule: MCR 4.201 read whole from the Michigan Court Rules PDF updated Sept. 2, 2026 (courts.michigan.gov) (MI log §1). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Security Deposit
+  {
+    id: "edu-security-deposit-cap-mi",
+    title: "Security Deposit Limit",
+    group: "Security Deposit",
+    states: ["MI"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-cap",
+    bodyText:
+      "In Michigan the total security deposit for a rental unit may not exceed 1 1/2 months' rent. Anything you collect that is returnable to the tenant when the unit is returned in the required condition counts toward the limit, including a refundable pet deposit, any required prepayment of rent other than the first full rental period, and any rent charged in a period above the average rent for the term. A nonrefundable fee is not a security deposit. The limit is the same for every kind of tenancy because it is measured against the deposit held, not a lease year.",
+    notes: "MI: Mich. Comp. Laws § 554.602 ('shall not exceed 1 1/2 months' rent'); definition Mich. Comp. Laws § 554.601(d) (excludes an option-to-purchase payment unless intended to evade the act, and a cooperative membership). Rule 37: the cap is counted against the deposit held, not by lease year or renewal. Builder: enforce the cap across security deposit, refundable pet deposit and prepaid rent (MI log §10). Clauses: security-deposit-use-mi, pet-policy-mi. Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-prepaid-rent-deposit-mi",
+    title: "Last Month's Rent Is a Security Deposit",
+    group: "Security Deposit",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "deposit-last-month-rent",
+    bodyText:
+      "In Michigan any required prepayment of rent other than the first full rental period is a security deposit. Last month's rent collected at signing therefore counts toward the 1 1/2-month limit and must be held, accounted for and returned under the security deposit rules. The library's Michigan deposit clause also bars the tenant from using the deposit as the last month's rent without your written consent; no Michigan statute addresses that.",
+    notes: "MI: Mich. Comp. Laws § 554.601(d) ('includes any required prepayment of rent other than the first full rental period of the lease agreement'); cap Mich. Comp. Laws § 554.602; permitted uses Mich. Comp. Laws § 554.607(b) (rent in arrearage). The shared due-at-signing clause's example of 'last month's Monthly Rent due on the Start Date' is a security deposit in Michigan (due-at-signing MI note). Clause: security-deposit-use-mi (no application to last month's rent without written consent). A domestic violence release does not refund prepaid amounts, including first and last months' rent (Mich. Comp. Laws § 554.601b(2)). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-deposit-holding-mi",
+    title: "Holding the Security Deposit",
+    group: "Security Deposit",
+    states: ["MI"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-holding",
+    bodyText:
+      "You must deposit a Michigan security deposit in a regulated financial institution. You may use the deposited money for any purpose only if you have deposited with the Michigan Secretary of State a cash bond or surety bond, acceptable to the Attorney General, securing all deposits up to $50,000 and 25% of any amount above $50,000. The deposit is the tenant's property until you establish a right to it. You may not require a deposit unless, within 14 days after the tenant takes possession, you give the tenant a written notice of your name and address, the name and address of the financial institution or surety, and the tenant's duty to give a forwarding address within 4 days after moving out, with the prescribed statement in 12-point boldface type at least 4 points larger than the rest. The library's Security Deposit Notice clause gives that notice in the lease.",
+    notes: "MI: Mich. Comp. Laws § 554.604(1)-(2) (bond for the benefit of depositors; action on the bond in the district court); Mich. Comp. Laws § 554.605; notice Mich. Comp. Laws § 554.603. Clause: security-deposit-notice-mi. Interest: edu-no-deposit-interest-mi. Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-no-deposit-interest-mi",
+    title: "No Interest on Security Deposits",
+    group: "Security Deposit",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-interest",
+    bodyText:
+      "Michigan law does not require you to pay interest on a security deposit.",
+    notes: "MI: CONFIRMED ABSENT: Mich. Comp. Laws §§ 554.601-554.616 read whole (no interest provision); whole-code battery MI 83 (interest within 80 characters of 'deposit', landlord-tenant context: 6 hits, none a deposit-interest rule; known positives passed). MI battery 80 is recorded as failed (its positive, Mich. Comp. Laws § 554.604, does not contain 'interest') and was rerun as 83 (MI log §1.3). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-condition-inspection-mi",
+    title: "Move-In and Move-Out Inventory Checklists",
+    group: "Security Deposit",
+    states: ["MI"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "condition-inspection",
+    bodyText:
+      "If you take a security deposit in Michigan, you must use inventory checklists at the start and end of every tenancy. At the start of the lease, give the tenant 2 blank copies of a commencement inventory checklist, identical to the form you will use at move-out, listing every item you own in the unit (carpeting, draperies, appliances, windows, furniture, walls, closets, shelves, paint, doors, plumbing fixtures and electrical fixtures). The checklist must carry, in 12-point boldface type at the top of the first page, the notice that the tenant should complete it, noting the condition of the property, and return it within 7 days after obtaining possession, and that the tenant may request a copy of the last termination inventory checklist showing what was charged to the previous tenants. Unless you agree on a shorter time, the tenant returns one copy within 7 days after receiving possession. At move-out, complete a termination inventory checklist listing all damages you claim the tenant caused. You may not charge a tenant for damage claimed on a previous tenant's termination checklist.",
+    notes: "MI: Mich. Comp. Laws § 554.608(1)-(5); previous claims Mich. Comp. Laws § 554.609(2). The checklist is a separate form the builder should generate with the statutory heading (MI log §10); no lease clause can be the checklist (rule 48). The RPOA lease ¶ 21 says unreported defects are 'deemed waived', which the statute does not provide (MI log §15). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-security-deposit-penalty-mi",
+    title: "Michigan Security Deposit Return Rules and Penalties",
+    group: "Security Deposit",
+    states: ["MI"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-penalty",
+    bodyText:
+      "Within 30 days after the tenant's occupancy ends, you must mail any notice of damages, itemizing each damaged item with its estimated repair cost and the amounts you intend to charge, with a check or money order for the balance, or, from September 21, 2026, instead transfer the balance electronically to the tenant's bank or payment account within 10 days after mailing the notice. The notice must state, in 12-point boldface type at least 4 points larger than the rest: 'You must respond to this notice by mail within 7 days after receipt of the notice of damages, otherwise you will forfeit the amount claimed for damages.' If you miss the 30 days you are treated as agreeing that no damages are due and must return the full deposit immediately. If the tenant disputes your claim in time, you may keep the disputed amount only if you start a court action for it within 45 days after occupancy ends and obtain a judgment, or the tenant agrees in writing; you need no judgment where the tenant gave no forwarding address, did not respond, agreed in writing, or the claim is entirely unpaid rent. If you do not comply fully, you waive all claimed damages and owe the tenant double the amount you retained. The tenant or the Attorney General may sue to enforce the act.",
+    notes: "MI: Mich. Comp. Laws § 554.609(1)-(4) (as amended by 2026 Mich. Pub. Acts 102, eff. Sept. 21, 2026, adding electronic transfer); Mich. Comp. Laws § 554.610; Mich. Comp. Laws § 554.612; Mich. Comp. Laws § 554.613(1)-(2) ('liable to the tenant for double the amount of the security deposit retained'; the landlord's right to apply funds to a summary-proceeding money judgment is kept); Mich. Comp. Laws § 554.615. The forwarding-address rule: Mich. Comp. Laws § 554.611. 2026 Mich. Pub. Acts 102 was read as enrolled with its immediate-effect clause (MI log §1.2). Clause: security-deposit-return-mi. Builder: the notice of damages template needs the boldface statement (MI log §10). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-deposit-on-sale-mi",
+    title: "Security Deposits When You Sell",
+    group: "Security Deposit",
+    states: ["MI"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-on-sale",
+    bodyText:
+      "When your interest in a rental unit ends by sale, assignment, death, appointment of a receiver or otherwise, you or your agent remain liable for the security deposit until the deposit is transferred to your successor and the tenant is notified by ordinary mail of the transfer and the successor's name and address, or the successor complies with the deposit-holding rules, or the deposit is returned to the tenant.",
+    notes: "MI: Mich. Comp. Laws § 554.614(a)-(c). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-deposit-unclaimed-mi",
+    title: "Unclaimed Security Deposit Refunds",
+    group: "Security Deposit",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "deposit-escheat",
+    bodyText:
+      "A security deposit refund you cannot deliver is 'intangible property' under Michigan's Uniform Unclaimed Property Act. Property held in the ordinary course of business that stays unclaimed for more than 3 years after it becomes payable is presumed abandoned and must be handled under that act: by July 1 each year you report property presumed abandoned in the 12 months ending March 31 and deliver it with the report, after sending the tenant written notice 60 to 365 days before reporting if the amount is $50 or more, you have a good address and the tenant's claim is not time-barred. A lease clause cannot make an unclaimed deposit yours.",
+    notes: "MI: Mich. Comp. Laws § 567.222(k)(ii) (intangible property includes 'security deposits'); Mich. Comp. Laws § 567.223(1) (3 years, presumed abandoned). Reporting, notice and delivery: Mich. Comp. Laws §§ 567.238(1)-(5), 567.240 read whole; penalties Mich. Comp. Laws § 567.255. A forfeiture clause would also waive deposit-act rights (Mich. Comp. Laws §§ 554.606, 554.633(1)(b)). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Pets
+  {
+    id: "edu-pet-deposit-mi",
+    title: "Pet Deposits Are Security Deposits",
+    group: "Pets",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "pet-fees",
+    bodyText:
+      "In Michigan a refundable pet deposit is a security deposit: it counts toward the 1 1/2-month limit together with the regular deposit and must be held, used and returned under the security deposit rules. A nonrefundable pet fee or monthly pet rent is not a security deposit.",
+    notes: "MI: Mich. Comp. Laws § 554.601(d) ('any other amount of money or property returnable to the tenant on condition of return of the rental unit'); cap Mich. Comp. Laws § 554.602. Assistance animals: the shared assistance-animal-accommodation clause (tagged) bars pet fees for them; Michigan's accommodation duty is Mich. Comp. Laws § 37.1506a(1)(b), which does not itself address fees. Clause: pet-policy-mi. Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-habitability-mi",
+    title: "Michigan Covenants of Fitness and Repair",
+    group: "Landlord Responsibilities",
+    states: ["MI"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-maintenance",
+    bodyText:
+      "In every Michigan residential lease you promise that the premises and all common areas are fit for the use intended, that you will keep the premises in reasonable repair during the term, and that you will comply with the state and local health and safety laws, except where disrepair or a violation was caused by the tenant's wilful or irresponsible conduct or lack of conduct. A tenant's chance to inspect before signing does not defeat these promises, and they are liberally construed. The parties may modify them only in a lease with a current term of at least 1 year, and no lease may waive or alter the tenant's remedies when the premises violate them. In cities, villages and townships covered by the Housing Law of Michigan you must also keep every dwelling, including plumbing, heating, ventilating and electrical wiring, in good repair, keep the roof from leaking, and keep the building free from vermin, while tenants keep the parts they occupy and control clean. Common areas such as parking lots, sidewalks and stairways are covered by the fitness promise, which can require you to remove ice from a shared sidewalk; the repair promise does not apply to common areas, and fitness is judged with the tenants the property is meant for in mind. To evict a residential tenant you must allege in the complaint that you have performed these covenants or that the parties modified them.",
+    notes: "MI: Mich. Comp. Laws § 554.139(1)-(3) read whole (rule 79: the 'except when ... caused by the tenants wilful or irresponsible conduct' qualifier attaches to (1)(b) only; (2)'s 1-year condition attaches to any modification; (3) to both covenants). Remedies protected by Mich. Comp. Laws § 554.633(1)(a). Common areas: (1)(b) does not apply to common areas, a parking lot is a common area, and natural snow and ice make it unfit only in much more exigent circumstances than inconvenient access (Allison v AEW Capital Mgt, LLP, 481 Mich 419 (2008)); an interior sidewalk covered with ice is not fit for walking, and open-and-obvious does not bar the statutory claim (Benton v Dart Props, Inc, 270 Mich App 437 (2006)); Allison's principles apply to all common areas, including stairways (Hadden v McDermitt Apts, LLC, 287 Mich App 124 (2010)); Allison not overruled, and fitness is judged in light of the tenants the property holds itself out to (Bowerman v Red Oak Mgt Co, Inc, ___ Mich ___ (2026) (Docket No. 167718)). Housing Law: Mich. Comp. Laws §§ 125.471, 125.474, scope Mich. Comp. Laws § 125.401(2). Complaint: MCR 4.201(B)(3)(c). Rent excused in a possession case: Mich. Comp. Laws § 600.5741. Shared clauses landlord-maintenance and tenant-maintenance tagged; optional modification: tenant-repair-agreement-mi; edu-habitability-modifiable-mi. Court rule: MCR 4.201 read whole from the Michigan Court Rules PDF updated Sept. 2, 2026 (courts.michigan.gov) (MI log §1). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-habitability-modifiable-mi",
+    title: "Modifying the Repair Covenant in a Lease of 1 Year or More",
+    group: "Landlord Responsibilities",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "habitability-modifiable",
+    bodyText:
+      "Michigan lets the parties to a lease with a current term of at least 1 year modify the landlord's covenants of fitness and repair, for example by making the tenant responsible for specified repairs. A month-to-month or other lease without a current term of 1 year cannot do so, and no lease may take away the tenant's remedies when the premises are unfit. The library offers a narrow optional clause for fixed terms of 1 year or more that shifts only named repair or maintenance items and keeps fitness of the premises and common areas and health and safety law compliance with you. How far a court will let a modification reach is not settled by the statute or by a published case, so get advice before shifting more.",
+    notes: "MI: Mich. Comp. Laws § 554.139(2); remedies Mich. Comp. Laws § 554.633(1)(a); liberal construction Mich. Comp. Laws § 554.139(3). No published case on the reach of a modification was found (MI log §1.4); common areas are governed by the fitness covenant, not the repair covenant (Allison v AEW Capital Mgt, LLP, 481 Mich 419 (2008)). Clause: tenant-repair-agreement-mi. Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-tenant-repair-remedies-mi",
+    title: "Tenant Remedies When Repairs Are Not Made",
+    group: "Landlord Responsibilities",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-repair-remedies",
+    bodyText:
+      "Michigan tenants have several statutory remedies when a rental is not kept fit or in repair. In an eviction for nonpayment, the court deducts any rent excused by your breach of the lease or of the covenants of fitness and repair, and no possession judgment enters for nonpayment if your breach excused the rent. Where the Housing Law applies and a certificate of compliance is withheld or suspended, rent is suspended and paid into an escrow account to fund repairs, unless the tenant caused the hazard. An occupant may sue in the occupant's own name to enforce the Housing Law, a court may let the occupant correct a violation the occupant did not cause and deduct the cost from rent, and an occupant may recover actual damages after notice to you and a failure to correct unsafe, unsanitary or unhealthful conditions. A tenant's own repair labor is compensated at a reasonable rate when the court awards repair costs for your breach.",
+    notes: "MI: Mich. Comp. Laws §§ 600.5741, 600.5720(1)(f)-(g); Housing Law Mich. Comp. Laws §§ 125.530(3)-(5), 125.534(2), (5), 125.536(1)-(2); tenant labor Mich. Comp. Laws § 600.5739(3). No general Michigan repair-and-deduct statute outside a court order (MI log §17). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Notices & General
+  {
+    id: "edu-housing-law-mi",
+    title: "The Housing Law of Michigan: Where It Applies",
+    group: "Notices & General",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rental-inspection",
+    bodyText:
+      "The Housing Law of Michigan applies in every city, village and township with a population of 10,000 or more under the last federal census; it reaches private (single-family) and 2-family dwellings only in places with 100,000 or more, unless the local governing body adopts it by resolution. Where it applies, the local enforcing agency may keep an owner registry (owners of multiple dwellings and rooming houses offered for rent more than 6 months a year must register within 60 days), inspect rental dwellings and charge reasonable inspection fees, and issue certificates of compliance. Inspectors need the tenant's consent to enter unless the lease authorizes inspector entry, the tenant complained, the unit is vacant or an administrative warrant issues; you must notify the tenant of a requested inspection and make a good-faith effort to obtain consent. You must request and obtain the tenant's permission before entering yourself, except in an emergency. Units in multiple dwellings and rooming houses may not be occupied until the enforcing agency issues a certificate of compliance, ordinarily after inspection. An owner who does not live in a multiple dwelling of more than 8 families must designate a responsible person. You provide covered garbage receptacles in a multiple dwelling; in single-family and 2-family homes the occupants do. Many Michigan cities, including Detroit, Ann Arbor, Grand Rapids and Lansing, run their own rental registration and inspection ordinances; this library does not cover local ordinances.",
+    notes: "MI: Mich. Comp. Laws § 125.401(2) (population thresholds, frozen to 'the last regular or special federal census'); registry Mich. Comp. Laws § 125.525; inspection, consent and owner entry Mich. Comp. Laws § 125.526(1)-(20); certificates and escrow Mich. Comp. Laws §§ 125.529(1)-(3), 125.530-125.531; responsible person Mich. Comp. Laws § 125.482; receptacles Mich. Comp. Laws § 125.478; the whole Housing Law (73 sections, including receivership, Mich. Comp. Laws § 125.535, and dangerous buildings, Mich. Comp. Laws §§ 125.538-125.541c) read in the closeout round (MI log §1.4); blight notices for registered landlords Mich. Comp. Laws § 117.4q(6)-(7). Rule 32: the library's Michigan entry clause is drafted to the stricter Housing Law rule so it is lawful everywhere; no municipality list was built (MI log §7). Local ordinances flagged, not resolved (rule 3). Optional clause: housing-inspection-entry-mi. Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Access & Entry
+  {
+    id: "edu-entry-mi",
+    title: "Entering the Rental in Michigan",
+    group: "Access & Entry",
+    states: ["MI"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-entry",
+    bodyText:
+      "Where the Housing Law of Michigan applies (cities, villages and townships of 10,000 or more, and for single-family and 2-family homes only places of 100,000 or more unless adopted locally), you must request and obtain the tenant's permission before entering the leased unit, except in an emergency such as fire, flood or another threat of serious injury or death. Outside those places no Michigan statute sets an entry notice period. Anywhere, an entry may not become an unlawful interference with the tenant's possession (force or threats, removing property, changing locks, boarding up, cutting off essential services, or introducing noise, odor or other nuisance); temporary interference only as necessary to make needed repairs or inspection, as provided by law, is allowed. The library's Michigan entry clause asks the tenant's permission with 24 hours' notice everywhere.",
+    notes: "MI: Mich. Comp. Laws § 125.526(11); scope Mich. Comp. Laws § 125.401(2); unlawful interference Mich. Comp. Laws § 600.2918(2), (3)(b). CONFIRMED ABSENT outside the Housing Law: MI batteries 11 and 12 (landlord entry wording in landlord-tenant context, whole code: hits only Mich. Comp. Laws §§ 125.526, 445.956 (consumer goods leases), 570.524 (self-storage), 600.2918, 600.5711; known positives passed). Clause: landlords-access-mi. Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-rent-control-mi",
+    title: "Rent Control Preemption and Local Rules",
+    group: "Rent & Payment",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-control",
+    bodyText:
+      "Michigan bars counties, cities, villages and townships from enacting, maintaining or enforcing any ordinance or resolution that would have the effect of controlling the amount of rent charged for leasing private residential property. Local governments may still manage residential property they have an interest in, use voluntary incentives to increase moderate- or low-cost rentals, and run rental registration, inspection and other ordinances. Detroit, Ann Arbor, Grand Rapids, Lansing and other cities have rental ordinances (for example on registration, inspections, required lease language or fee disclosure) that this library does not cover.",
+    notes: "MI: Mich. Comp. Laws § 123.411(1)-(4) (as amended 2018 Mich. Pub. Acts 585). Local rental ordinances flagged, not resolved (rule 3): Ann Arbor's required lease clauses and a 2026 fee-transparency ordinance were seen only in secondary sources (MI log §10). Housing Law inspections: Mich. Comp. Laws § 125.526. No general state preemption of other local landlord-tenant regulation found: MI battery 126 (one of three positives failed, the preempt-before-subject order) and its rerun 127 (local-government 'shall not' or 'preempt' wording near rent, lease, tenant or landlord, both word orders; 10 hits; all positives passed) hit only Mich. Comp. Laws § 123.411, the condominium-conversion preemption in Mich. Comp. Laws § 559.241(2) (edu-condo-conversion-mi), the registered-landlord blight-notice limit in Mich. Comp. Laws § 117.4q, the Mobile Home Commission Act's limit on local inspections of rented mobile homes (Mich. Comp. Laws § 125.2307; mobile homes, out of scope) and unrelated sections; MI battery 24 is recorded as failed (its positive did not match) and was rerun as 126 and 127 (MI log §1.3). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Disclosures
+  {
+    id: "edu-source-of-income-mi",
+    title: "Source of Income Protection",
+    group: "Disclosures",
+    states: ["MI"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "source-of-income",
+    bodyText:
+      "If you, together with related entities, are a landlord of 5 or more rental units in Michigan, you may not deny, end, or set different terms, fees or privileges for a tenancy based on an otherwise eligible tenant's lawful source of income, including housing choice vouchers and other housing assistance, public assistance, veterans' benefits, Social Security and supplemental security income, or the tenant's use of emergency rental assistance. If you require a minimum income, you must count a rent voucher or subsidy. You may not advertise a preference or limitation based on source of income or discourage applicants. Income that the applicant cannot show comes from lawful, ongoing sources is not protected, nor is housing assistance the agency has not approved within 30 days after you give it everything it requires, including proof of completed pre-occupancy repairs. A tenant may sue for injunctive relief and damages of actual losses or up to 3 times the monthly rent, whichever is less, plus costs and attorney fees.",
+    notes: "MI: Mich. Comp. Laws § 554.601c(1)-(2) and the parallel civil rights section Mich. Comp. Laws § 37.2502(3)-(4), (6) (both added by 2024 Mich. Pub. Acts 178 and 180, eff. Apr. 2, 2025); definition Mich. Comp. Laws § 554.601(f); civil action Mich. Comp. Laws § 554.601d. Rule 32: the protection turns on the number of units the landlord and related entities hold; the builder cannot see it, so this is education only. Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-occupancy-standard-mi",
+    title: "Occupancy Limits",
+    group: "Tenant Responsibilities",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "permitted-occupants",
+    bodyText:
+      "Michigan has no statute setting a number of people per bedroom for rentals. Where the Housing Law of Michigan applies (cities, villages and townships of 10,000 or more; for single-family and 2-family homes, only places of 100,000 or more unless the local governing body adopts it), it sets minimum air space instead: a family dwelling unit in a single-family, 2-family or apartment building must provide at least 800 cubic feet of air space per occupant, and each room used as a bedroom at least 300 cubic feet per occupant (500 in a class b multiple dwelling, such as a hotel, lodging house or boarding house), not counting bathrooms, toilet rooms and closets. Local housing codes may set their own limits. An occupancy limit that excludes families with children can raise a familial-status discrimination claim under Michigan's civil rights act; federal guidance treats two persons per bedroom as a general rule as reasonable but looks at bedroom size, the children's ages and other factors, so set any limit in the lease's occupant list with care.",
+    notes: "MI: Mich. Comp. Laws § 125.483 read whole (unamended since 1939); classes of multiple dwellings Mich. Comp. Laws § 125.402 ('class a' apartments with separate cooking; 'class b' transient lodging such as hotels, lodging houses and boarding houses); scope Mich. Comp. Laws § 125.401(2). CONFIRMED ABSENT persons-per-bedroom standard: MI battery 131 (whole code, tenancy context: 2 hits, livery boats and foster care licensing; known positives passed); in the Housing Law, MI battery 122 (positives passed, 0 hits) and 123 (its 'occupied for sleeping' positive failed) were rerun as 124 (3 hits, Mich. Comp. Laws §§ 125.402, 125.483, 125.489; all positives passed). Familial status: Mich. Comp. Laws § 37.2502(1). Federal: the Fair Housing Act does not limit 'reasonable local, State, or Federal restrictions regarding the maximum number of occupants permitted to occupy a dwelling' (42 U.S.C. § 3607(b)(1)); HUD's Keating memorandum treats two persons per bedroom as a general rule as reasonable, subject to factors such as bedroom size and the age of children (63 Fed. Reg. 70256 (Dec. 18, 1998)); no published Michigan case on an occupancy limit and familial status was found (MI log §1.4). Local codes flagged (rule 3). Shared permitted-occupants tagged. Found by the landlord-scenario screen (MI log §16). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Disclosures
+  {
+    id: "edu-fair-housing-mi",
+    title: "Michigan Fair Housing",
+    group: "Disclosures",
+    states: ["MI"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fair-housing",
+    bodyText:
+      "Michigan's Elliott-Larsen Civil Rights Act bars discrimination in renting because of religion, race, color, national origin, age, sex (including sexual harassment), sexual orientation, gender identity or expression, familial status (including pregnancy) or marital status, and Michigan's Persons with Disabilities Civil Rights Act bars disability discrimination. Both reach refusing to rent, different terms, misrepresenting availability, and discriminatory advertising, applications or inquiries. You must permit reasonable modifications at the tenant's expense (you may require restoration of the interior where reasonable) and make reasonable accommodations in rules, policies and services. Exemptions: renting a unit in a building for 2 families or fewer where the owner or an immediate family member lives in the other, renting rooms in a single-family home where the lessor or immediate family lives, and (civil rights act only) renting your own home for up to 12 months after living there 3 months. Housing for older persons may limit age and familial status. Victims may sue for injunctive relief and damages, including attorney fees.",
+    notes: "MI: Elliott-Larsen: Mich. Comp. Laws §§ 37.2102(1), 37.2103(e)-(l), 37.2501, 37.2502(1)-(2), 37.2503, 37.2505, 37.2801-37.2802 (2023 Mich. Pub. Acts 6 added sexual orientation and gender identity or expression to the housing article; 'parent' includes a pregnant individual, Mich. Comp. Laws § 37.2103(e)). Height and weight are protected in Mich. Comp. Laws § 37.2102(1) but are not listed in the housing section Mich. Comp. Laws § 37.2502(1); the library states only the housing list. Persons with Disabilities Civil Rights Act: Mich. Comp. Laws §§ 37.1501-37.1506a, 37.1606(1), (3). Source of income: edu-source-of-income-mi. A discriminatory lease term is void (Mich. Comp. Laws § 554.633(1)(c)). Const 1963, art. I, § 2 (equal protection; government). Federal Fair Housing Act read for the provisions relied on: reasonable modifications at the tenant's expense with a reasonable interior-restoration condition, and reasonable accommodations (42 U.S.C. § 3604(f)(3)(A)-(B); 24 C.F.R. § 100.204); occupancy restrictions (42 U.S.C. § 3607(b)(1)); federal exemptions not read (MI log §1.4). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Pets
+  {
+    id: "edu-assistance-animals-mi",
+    title: "Assistance Animals in Michigan",
+    group: "Pets",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "service-animal-misrepresentation",
+    bodyText:
+      "Michigan requires reasonable accommodations in rules and policies for a person with a disability, which covers assistance animals in housing. Michigan's crime of falsely claiming to have a service animal applies only in a public place and does not create a housing documentation procedure; housing verification questions follow federal fair housing rules. HUD withdrew its assistance-animal guidance in 2025, and since May 22, 2026 its fair housing office brings Fair Housing Act charges only for animals trained to provide disability-related assistance (the memo does not cover Section 504 or ADA complaints); that is HUD's enforcement policy, not a change to the federal statute or to Michigan's act, so treat requests for untrained support animals with care.",
+    notes: "MI: Mich. Comp. Laws § 37.1506a(1)(b); misrepresentation Mich. Comp. Laws §§ 752.61-752.64 ('in any public place', misdemeanor). MI battery 81 (service, assistance, support animal: 15 hits, no housing documentation statute). No state criminal penalty for denying an assistance animal in housing (topic service-animal-denial-penalty: not located, MI log §18). Federal: 42 U.S.C. § 3604(f)(3)(B); 24 C.F.R. § 100.204 (its example is a seeing eye dog); FHEO-2020-01 and Notice 2013-01 withdrawn effective Sept. 17, 2025 (91 Fed. Reg. 17291 (Apr. 6, 2026)); HUD FHEO memorandum of May 22, 2026: 'FHEO will find reasonable cause and recommend charges only for those cases involving animals trained to provide disability-related assistance'. The memorandum states FHEO's own enforcement priorities for Fair Housing Act complaints and does not address Section 504 or ADA complaints; it does not purport to change the statute or Michigan's act (Claude's reading; MI log §10). Shared clause assistance-animal-accommodation tagged. Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-nonpayment-notice-mi",
+    title: "Nonpayment of Rent: The 7-Day Demand",
+    group: "Default & Termination",
+    states: ["MI"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nonpayment-notice",
+    bodyText:
+      "To evict for nonpayment of rent in Michigan, serve a written demand for possession for nonpayment; the tenant has 7 days after service to pay. The demand must be in writing, addressed to the person in possession, describe the premises, state the reasons and the time to cure, state the amount due at the time of the demand, and be dated and signed by you, your attorney or agent. Serve it by personal delivery, by delivery at the premises to a household member or employee of suitable age and discretion, by first-class mail (service is the next regular delivery day), or by electronic service if the tenant gave the specific written consent that law requires. Rent due does not include accelerated rent. Alternatively, a written 7-day notice to quit ends the tenancy for nonpayment. In court the tenant can be stayed while a rental-assistance application is pending (up to 28 days), and can avoid the writ by paying the judgment amount and costs within the time the judgment allows. A lease cannot shorten these periods or waive these procedures.",
+    notes: "MI: Mich. Comp. Laws § 600.5714(1)(a); form Mich. Comp. Laws § 600.5716; service Mich. Comp. Laws § 600.5718(1)-(3); notice to quit Mich. Comp. Laws § 554.134(2); redemption Mich. Comp. Laws § 600.5744(7); stay MCR 4.201(I)(3), (K)(2)(a)(iv)-(v); no waiver Mich. Comp. Laws § 554.633(1)(f), (j). Clause: default-by-tenant-mi; optional e-service consent electronic-service-consent-mi. SCAO forms read: DC 100a, Demand for Possession, Nonpayment of Rent (Rev. 5/22); DC 100c, Notice to Quit to Recover Possession of Property (Rev. 10/24); DC 102a, Complaint, Nonpayment of Rent (Rev. 11/23); DC 102c, Complaint to Recover Possession of Property (Rev. 11/23) (MI log §1.4). Court rule: MCR 4.201 read whole from the Michigan Court Rules PDF updated Sept. 2, 2026 (courts.michigan.gov) (MI log §1). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-termination-notice-mi",
+    title: "Ending a Michigan Tenancy by Notice",
+    group: "Default & Termination",
+    states: ["MI"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-notice",
+    bodyText:
+      "A Michigan tenancy at will or by sufferance, including a month-to-month tenancy, ends by 1 month's notice from either party; where rent is payable at intervals shorter than 3 months, notice equal to the interval between rent payments is enough, and the tenancy ends at the end of a period equal to that interval. A notice is not void because the date it names does not match the start or end of a rental period. A year-to-year tenancy ends only by a notice to quit, which takes effect 1 year after it is served. A fixed-term lease ends at the end of its term without notice unless the lease requires one. Shorter statutory notices: 7 days for nonpayment, 24 hours after a lease is ended under a controlled-substance clause with a police report, and 7 days where the tenant, a household member or someone under the tenant's control caused or threatened physical injury to someone on your property and the police were notified (not where the person injured or threatened was the tenant or a household member, or where it would violate federal housing regulations). A lease cannot shorten notice periods required in court proceedings.",
+    notes: "MI: Mich. Comp. Laws § 554.134(1)-(4) read whole; fixed term Mich. Comp. Laws § 600.5714(1)(c)(ii); threatened injury Mich. Comp. Laws § 600.5714(1)(e); no waiver Mich. Comp. Laws § 554.633(1)(f), (j). Rule 37: periodic, year-to-year and fixed-term answers differ and are stated separately. Housing operated by a local government and mobile home park tenancies need just cause (Mich. Comp. Laws § 600.5714(2)-(3)); edu-for-cause-eviction-mi. Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-for-cause-eviction-mi",
+    title: "No General Just-Cause Eviction Rule",
+    group: "Default & Termination",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "for-cause-eviction",
+    bodyText:
+      "Michigan has no general just-cause or good-cause eviction law for private rentals: when a fixed term ends, or a periodic tenancy is ended by proper notice, you may recover possession without a reason. Exceptions: a tenant of housing operated by a local government unit or a mobile home park tenant may be evicted only for just cause; a tenant in a building being converted to a condominium may not be removed without cause for 120 days after the conversion notice or until the lease ends, whichever is longer; and a court will not enter possession where the termination was retaliation.",
+    notes: "MI: CONFIRMED ABSENT for private rentals: Mich. Comp. Laws §§ 600.5701-600.5759 and 554.131-554.139 read whole; exceptions Mich. Comp. Laws §§ 600.5714(2)-(3), 600.5775 (mobile home parks, out of scope), Mich. Comp. Laws § 559.204(2), retaliation Mich. Comp. Laws § 600.5720. Rule 41: verdict recorded under `for-cause-eviction`. Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-eviction-process-mi",
+    title: "Michigan Eviction (Summary Proceedings)",
+    group: "Default & Termination",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-process",
+    bodyText:
+      "Evictions in Michigan are summary proceedings in district court. The complaint must attach the lease and any notice or demand, show the rent owed if any, and, for a residential tenancy, allege that you have kept the premises fit and in repair. The summons is served by mail plus personal service, delivery to a household member, or, after diligent attempts, posting; the tenant must appear within 10 days after the summons issues (or as a local rule provides); at that first date the court advises the parties of their rights and generally adjourns the trial for 7 to 14 days, and a party may demand a jury. If trial is adjourned more than 14 days and you show a clear need for protection, the court may order the tenant to pay a reasonable rent to the court clerk until possession is decided, considering the condition of the premises; only the court may release that money, and a tenant who does not pay waives the right to a jury on possession, and you are entitled to a trial within 14 days (a jury only if a party asks and the court's schedule permits). On a nonpayment case the court must stay proceedings while a timely rental-assistance application is pending (up to 28 days). If you win, the judgment states the amount the tenant may pay to stop the eviction, and an order of eviction generally may not issue until 10 days after judgment (immediately in some cases, such as a controlled-substance termination). The order must be issued within 56 days after judgment and executed within 56 days after issue unless a hearing is held. Costs are limited by statute. You may join claims for money damages, including your own repair labor. Only a court officer, bailiff, sheriff or local police officer may carry out the order.",
+    notes: "MI: Mich. Comp. Laws §§ 600.5701-600.5759 read whole (jurisdiction Mich. Comp. Laws § 600.5704; summons Mich. Comp. Laws § 600.5735(2), (4); jury Mich. Comp. Laws § 600.5738; joinder and labor Mich. Comp. Laws § 600.5739; judgment Mich. Comp. Laws § 600.5741; writ timing Mich. Comp. Laws § 600.5744(1)-(7); costs Mich. Comp. Laws § 600.5759); MCR 4.201(B)-(P) read whole (complaint (B); service (D); escrow orders (I)(2); stay (I)(3); adjournment and trial (K)(1)(a), (K)(2)(d); judgment (L); eviction order timing (M)(4)). Rule 39: eviction procedure screened for landlord duties: post-writ property (edu-post-eviction-property-mi); no lockout (edu-self-help-eviction-mi); no record-sealing rule found in statutes or MCR 8.119 (edu-no-eviction-sealing-mi); no court-rule period that conflicts with a statutory landlord duty found (MI log §19). Court rule: MCR 4.201 read whole from the Michigan Court Rules PDF updated Sept. 2, 2026 (courts.michigan.gov) (MI log §1). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-self-help-eviction-mi",
+    title: "No Self-Help Eviction",
+    group: "Default & Termination",
+    states: ["MI"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "self-help-eviction",
+    bodyText:
+      "A Michigan landlord may not remove a tenant by self-help. Using or threatening force, removing, keeping or destroying the tenant's property, changing or adding locks without immediately giving the tenant keys, boarding up the premises, removing doors, windows or locks, cutting off heat, water, hot water, electricity or gas you must furnish or the tenant procured, or introducing noise, odor or another nuisance is unlawful interference with possession. The tenant may recover actual damages or $200, whichever is greater, for each occurrence, and possession; a tenant forcibly put out may recover 3 times actual damages or $200, whichever is greater. These rights cannot be waived. You are protected when you act under a court order, interfere temporarily only as needed for repairs or inspection as provided by law, or act after a good-faith belief, after diligent inquiry, that the tenant abandoned the premises and current rent is unpaid.",
+    notes: "MI: Mich. Comp. Laws § 600.2918(1)-(9) read whole; peaceable entry only Mich. Comp. Laws § 600.5711(1)-(2); a lease may not waive or alter these rights (Mich. Comp. Laws § 554.633(1)(j)). Clause: abandoned-property-mi. Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-retaliation-mi",
+    title: "Retaliation",
+    group: "Default & Termination",
+    states: ["MI"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "retaliation",
+    bodyText:
+      "A Michigan court may not enter a possession judgment where the termination was intended mainly as a penalty for the tenant's attempt to secure or enforce rights under the lease or the law, for a complaint to a government authority about a health or safety code violation, or as retribution for lawful acts arising out of the tenancy, including tenant organization membership and activity; nor where you tried to increase the tenant's obligations as such a penalty. If within 90 days before you file the tenant sought official action that has not been dismissed or denied, retaliation is presumed unless you prove otherwise by a preponderance of the evidence.",
+    notes: "MI: Mich. Comp. Laws § 600.5720(1)(a)-(e), (2). Housing Law: no discrimination over an inspection consent (Mich. Comp. Laws § 125.526(14)). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-expedited-criminal-eviction-mi",
+    title: "Fast Track for Drug Activity and Threatened Injury",
+    group: "Default & Termination",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "expedited-criminal-eviction",
+    bodyText:
+      "If your lease has a clause allowing termination because the tenant, a household member or someone under the tenant's control manufactured, delivered, possessed with intent to deliver, or possessed a controlled substance on the premises, and a formal police report has been filed alleging it, you may end the tenancy with a 24-hour notice to quit or demand for possession; the case is heard at the first appearance and the order of eviction may issue immediately. Without such a clause this route is unavailable. Separately, if the tenant, a household member or a person under the tenant's control caused or threatened physical injury to an individual on property you own or operate and the police were notified, you may end the lease with a 7-day notice to quit, unless the person injured or threatened was the tenant or a household member, or the eviction would violate federal housing regulations.",
+    notes: "MI: Mich. Comp. Laws §§ 554.134(4), 600.5714(1)(b), (e), 600.5735(7), 600.5744(3)(f). Clause: criminal-activity-mi. Nuisance abatement: edu-nuisance-mi. Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-post-eviction-property-mi",
+    title: "Tenant Property After an Eviction",
+    group: "Default & Termination",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "post-eviction-property",
+    bodyText:
+      "When an order of eviction is carried out in Michigan, the court officer, bailiff, sheriff or police officer serving it removes all occupants and personal property and either leaves the property in an area open to the public or the public right-of-way, or delivers it to the sheriff if the sheriff authorizes. The officer, not you, decides whether the premises and property are abandoned. Fees for executing the order may be challenged by motion as unreasonable.",
+    notes: "MI: Mich. Comp. Laws § 600.5744(1)-(2) (as amended 2019 Mich. Pub. Acts 2); MCR 4.201(P); MCR 3.106 (persons who may execute orders of eviction and seize property; court officers) read whole. Court rule: MCR 4.201 read whole from the Michigan Court Rules PDF updated Sept. 2, 2026 (courts.michigan.gov) (MI log §1). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-holdover-mi",
+    title: "When a Tenant Holds Over",
+    group: "Default & Termination",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "holdover",
+    bodyText:
+      "Michigan sets no statutory holdover penalty. A tenant who stays after the term ends, or after a proper notice to quit, may be removed by summary proceedings, and after you win possession you may sue for damages from the date of the notice to quit or demand for possession. If you accept rent for a continued tenancy, the library's holdover clause makes it month-to-month, which ends on 1 month's notice. An optional clause lets you set a daily holdover charge; Michigan courts enforce an agreed charge only if it is reasonable in relation to the loss you could suffer, so set it near your real daily cost.",
+    notes: "MI: Mich. Comp. Laws §§ 600.5714(1)(c), 600.5750, 554.134(1). CONFIRMED ABSENT statutory holdover multiplier: MI battery 63 (holdover with double, twice or 2 times: 1 hit, unrelated; known positives passed). Clauses: holdover-ca (tagged), holdover-rate-mi (optional). Penalty test: Michigan courts enforce an agreed sum that is reasonable with relation to the possible injury suffered and not unconscionable or excessive, and decide enforceability as a question of law (Curran v Williams, 352 Mich 278, 282 (1958); UAW-GM Human Resource Ctr v KSL Recreation Corp, 228 Mich App 486, 508 (1998)); no published Michigan case applying the test to a residential lease fee was found (MI log §1.4). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-casualty-mi",
+    title: "Fire and Casualty",
+    group: "Default & Termination",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "casualty-termination",
+    bodyText:
+      "If a leased building is destroyed or made untenantable or unfit for occupancy by the elements or any other cause without the tenant's fault or neglect, a Michigan tenant may quit and surrender possession and owes no rent after surrender, unless the parties agreed otherwise in writing. Michigan law gives you no termination right of your own; for a lease with a term of at least 1 year the library offers an optional clause that lets you end the lease when the home is destroyed or cannot reasonably be repaired within a period you set, while keeping the tenant's statutory right. Michigan lets a written lease take away the tenant's surrender right, but the library does not offer that term: it would bear hardest on tenants whose homes are unlivable, a court could treat it as altering habitability remedies that cannot be waived, and the covenant of fitness still applies. A landlord who wants it should write its own clause and take advice first.",
+    notes: "MI: Mich. Comp. Laws § 554.201 ('and no express agreement to the contrary has been made in writing'); Mich. Comp. Laws §§ 554.139(1), 554.633(1)(a). Rule 54: lawful option declined, education row (MI log §6.1). Clause: casualty-termination-mi (Term of 1 year or more); shorter tenancies edu-casualty-short-term-mi; tenant-caused damage: tenant-caused-damage-mi. Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-casualty-short-term-mi",
+    title: "No Landlord Casualty Clause for Leases Under 1 Year",
+    group: "Default & Termination",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "casualty-termination",
+    bodyText:
+      "The library offers its optional landlord casualty-termination clause only for a Michigan lease with a term of at least 1 year. Michigan lets the parties modify the landlord's covenant to keep the premises in reasonable repair only where the lease has a current term of at least 1 year, and voids any term that alters the tenant's remedies when the premises are unfit, so a clause letting you end a shorter lease instead of repairing carries a greater risk of being void. For a month-to-month or other periodic tenancy you can end the tenancy by the ordinary notice (1 month, or the rent interval if shorter), and the tenant may quit and surrender possession, and owes no rent after surrender, if the home is made untenantable without the tenant's fault or neglect, unless the parties agreed otherwise in writing. A landlord who wants a casualty clause in a shorter lease should take advice first.",
+    notes: "MI: Rule 54: lawful-but-risky option not offered for terms under 1 year (Taylor, 2026-10-01, MI log §6.2). Mich. Comp. Laws §§ 554.139(1)(b), (2), 554.633(1)(a), 554.134(1), 554.201. No published Michigan case construing Mich. Comp. Laws §§ 554.201 and 554.633(1)(a), or a landlord casualty clause, was found (MI log §1.4). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-tenant-caused-damage-mi",
+    title: "Damage the Tenant Causes",
+    group: "Default & Termination",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-caused-damage",
+    bodyText:
+      "Michigan law does not let a tenant use damage the tenant caused to escape rent: the casualty surrender right applies only to destruction without the tenant's fault or neglect; your repair covenant does not cover disrepair caused by the tenant's wilful or irresponsible conduct; and Housing Law rent escrow does not apply where the hazard was caused by the occupants. A court may let you correct a Housing Law violation the occupant caused and charge the cost to the occupant or the security deposit, may award your own repair labor at a reasonable rate in a possession case, and may order removal on a 7-day demand where the tenant is causing a serious and continuing health hazard or extensive and continuing physical injury to the premises and does not restore or repair them. The security deposit covers actual damages from conduct not reasonably expected in normal habitation. Without an express and unequivocal lease term, a tenant is not liable to you or your fire insurer in negligence for fire damage the tenant caused; a lease term making the tenant liable for damage caused by the acts or omissions of the tenant or the tenant's guests has been enforced as a contract, including for fire damage, and the library's optional Michigan clause has a narrower term limited to deliberate, negligent or irresponsible conduct, excluding ordinary wear and tear.",
+    notes: "MI: Mich. Comp. Laws §§ 554.201, 554.139(1)(b), 125.530(3), 125.534(5), 600.5739(2), 600.5714(1)(d), 600.5744(3)(e), 554.607(a). Rule 54 tenant-caused-damage question answered provision by provision (MI log §6.1). Case law: New Hampshire Ins Group v Labombard, 155 Mich App 369, 377 (1986); Laurel Woods Apts v Roumayah, 274 Mich App 631 (2007). Clause: tenant-caused-damage-mi. Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-dv-release-mi",
+    title: "Domestic Violence, Sexual Assault and Stalking: Release from Rent",
+    group: "Default & Termination",
+    states: ["MI"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-lease-termination",
+    bodyText:
+      "A Michigan tenant who has a reasonable apprehension of present danger to the tenant or the tenant's child from domestic violence, sexual assault or stalking is released from the obligation to pay rent after giving you written notice of intent, by certified mail, with written documentation: a valid personal protection order or similar order, a qualifying probation, conditional release or parole order, a police report that led to charges (with extra proof if the charges were filed more than 14 days earlier), or a report verified by a qualified third party in the statutory form. The release takes effect no later than the first day of the second month that rent is due after notice, but not before the tenant moves out. Prepaid amounts, including first and last months' rent, are not refunded, and you may still withhold from the security deposit for unpaid rent and other lawful charges. Other tenants on the lease remain bound. You may not intentionally reveal the tenant's forwarding address or documents to the person identified as the source of danger. The lease must carry the statutory statement of these rights, or you must post it in your management office or deliver it at signing.",
+    notes: "MI: Mich. Comp. Laws § 554.601b(1)-(8) read whole (verification form at (3)(e) is a statutory form, not reproduced; statutory-forms topic). Applies to leases entered into, renewed or renegotiated after Oct. 5, 2010 (Mich. Comp. Laws § 554.601b(6)). Clause: dv-release-notice-mi. Shared early-termination-ks keeps statutory termination rights. Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-dv-confidentiality-mi",
+    title: "Keeping a Domestic Violence Survivor's Address Confidential",
+    group: "Default & Termination",
+    states: ["MI"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-confidentiality",
+    bodyText:
+      "If a tenant seeks a release under Michigan's domestic violence statute, you may reveal the forwarding address the tenant gives you only as reasonably necessary for your regular business, and you may not intentionally reveal the forwarding address or the documentation to the person the tenant identified as the source of danger.",
+    notes: "MI: Mich. Comp. Laws § 554.601b(4). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-tenant-death-mi",
+    title: "When a Sole Tenant Dies",
+    group: "Default & Termination",
+    states: ["MI"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-death",
+    bodyText:
+      "Michigan lets you retake possession and dispose of the contents after a sole tenant dies, without liability for unlawful interference, only if all of these are met: you informed the tenant in writing of the option to name a contact person for that event; current rent is unpaid; you believe in good faith that the tenant has been dead at least 18 days and no other tenant survives; and at least 10 days before reentry you attempted to reach the named contact and ask that a probate estate be opened within 28 days after death, posted on the door a notice of your intent to reenter and dispose of the contents after 10 days, and notified the county public administrator (or, if none, the state public administrator), giving that administrator access on request. You may not proceed if a probate estate has been opened in the county or you have been notified in writing of one opened elsewhere.",
+    notes: "MI: Mich. Comp. Laws § 600.2918(3)(d)(i)-(v), (4). Clause: tenant-death-contact-mi (the written information about the option). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-unauthorized-occupant-mi",
+    title: "Squatters and Unlawful Occupants",
+    group: "Default & Termination",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "unauthorized-occupant-removal",
+    bodyText:
+      "If a person took possession of your property by forcible entry, holds it by force, or came into possession by trespass without color of title or other possessory interest, you may enter and retake possession without the peaceable-entry limit (but without committing an assault), and doing so is not unlawful interference. You may also bring a summary proceeding for possession. A person who stays on another's premises without lawful authority after being told to leave commits misdemeanor trespass. These remedies do not apply to a tenant or former tenant, who must be evicted through the courts.",
+    notes: "MI: Mich. Comp. Laws §§ 600.5711(3) (as amended 2023 Mich. Pub. Acts 202), 600.2918(5), 600.5714(1)(f), 600.5744(3)(d), 750.552(1)(b). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-mitigation-mi",
+    title: "Duty to Mitigate and Acceleration",
+    group: "Default & Termination",
+    states: ["MI"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "abandonment-and-mitigation",
+    bodyText:
+      "A Michigan lease may not release either party from the duty to mitigate damages. A lease may accelerate rent after a breach only if the same provision states that the tenant may not owe the full accelerated amount because you must minimize damages and that either party may have a court decide the amount actually owed. Accelerated rent is never 'rent due' for a nonpayment eviction.",
+    notes: "MI: Mich. Comp. Laws § 554.633(1)(i), (k); Mich. Comp. Laws § 600.5714(1)(a). Clause: rent-acceleration-mi (optional). Shared default and early-termination clauses keep mitigation. Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-landlord-lien-mi",
+    title: "No Lien on the Tenant's Belongings",
+    group: "Default & Termination",
+    states: ["MI"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-lien",
+    bodyText:
+      "A Michigan lease may not give you a security interest in the tenant's personal property to secure rent or other charges, except as specifically allowed by law, and Michigan has no statutory landlord's lien on a residential tenant's goods. Taking or keeping a tenant's belongings to force payment is unlawful interference with possession. The constitution exempts a homestead and at least $750 of a resident's personal property from forced sale, and statutes exempt household goods, furniture, utensils, books and appliances up to $1,000 in value from execution.",
+    notes: "MI: Mich. Comp. Laws § 554.633(1)(h); Mich. Comp. Laws § 600.2918(2)(b); Const 1963, art. X, § 3; Mich. Comp. Laws § 600.6023(1)(b). CONFIRMED ABSENT residential landlord lien: MI batteries 43 and 96 (lien, distress, security interest near landlord and tenant: hits only UCC goods leases and unrelated liens; known positives passed). Self-storage liens (Mich. Comp. Laws §§ 570.521-570.527) do not reach dwellings. No exemption or homestead waiver offered (MI log §6.1). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-municipal-water-lien-mi",
+    title: "Water and Sewer Liens on Rental Property",
+    group: "Tenant Responsibilities",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "municipal-utility-lien",
+    bodyText:
+      "Unpaid municipal water and sewer charges are a lien on the property they served, ahead of every lien but taxes and special assessments, even if the tenant ran up the bill, and the municipality may shut off service or sue. The lien law does not apply if your lease provides that the lessor is not liable for water or sewage bills accruing after you file an affidavit about the lease with the official in charge of the water or sewer system; the affidavit must note the lease's expiration date, and you must give 20 days' notice of any cancellation, change or termination of the lease. Some municipalities bill under a revenue-bond ordinance instead; there, written notice to the governing body that the tenant is responsible, with a copy of the lease, stops later charges from becoming a lien, and the municipality will give no further service until a cash deposit fixed by its ordinance is made. The library's optional water clause contains the required lease provision.",
+    notes: "MI: Mich. Comp. Laws §§ 123.161-123.167 read whole (Municipal Water Liens act); Mich. Comp. Laws § 141.121(3). Clause: municipal-water-lien-mi. Local ordinance procedures not read (rule 3). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Disclosures
+  {
+    id: "edu-condominium-leasing-mi",
+    title: "Renting a Condominium Unit",
+    group: "Disclosures",
+    states: ["MI"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "hoa",
+    bodyText:
+      "Before renting a Michigan condominium unit, you must tell the association in writing at least 10 days before presenting a lease to a prospective tenant and give it a copy of the exact lease for review, then a copy of the signed lease. Every lease must state that the tenant will comply with the condominium documents. If the association determines the tenant violated them, it must notify you by certified mail and give you 15 days to investigate and correct the breach or say none occurred; if the breach is not cured or may be repeated, it may sue to evict the tenant and for damages. If you fall behind on assessments, the association may notify the tenant, who must then pay the arrearage and future assessments to the association out of rent; that is not a breach of the lease, and a tenant who refuses may be served a notice to quit by the association. Rental restrictions adopted by the association after a lease is signed do not affect that lease.",
+    notes: "MI: Mich. Comp. Laws § 559.212(1)-(5); Mich. Comp. Laws § 559.165. Clause: hoa-compliance-mi. Homeowner associations outside the Condominium Act: no statute on leasing (MI battery 132: 23 hits; the Homeowners' Energy Policy Act, Mich. Comp. Laws §§ 559.301-559.317, covers energy-saving improvements and solar energy systems, not leasing). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-condo-conversion-mi",
+    title: "Condominium Conversion",
+    group: "Default & Termination",
+    states: ["MI"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "conversion-notice",
+    bodyText:
+      "Before offering any unit for sale in a building being converted to condominiums, the developer must notify each tenant of the conversion, of a buyer's right to the disclosure documents, of the tenant's right to stay 120 days after the notice or until the lease ends, whichever is longer, and of the tenant's right to end the tenancy on 60 days' notice to the developer. During that period the lessor may not end a tenancy without cause. Except in a city of more than 1 million people (no Michigan city is that large), local governments may not impose a moratorium on conversions or give conversion tenants rights beyond these. In conversions of 6 or more units, qualified persons with disabilities (and, under a definition frozen at October 10, 1980, certain senior citizens) may have rights to extended lease arrangements.",
+    notes: "MI: Mich. Comp. Laws § 559.204(1)-(4); local preemption of conversion moratoria and added tenant rights, except in a city of more than 1 million, Mich. Comp. Laws § 559.241(2) read whole (found by MI battery 127). No Michigan city exceeds 1 million: Detroit had 639,111 people in the 2020 census (U.S. Census Bureau QuickFacts) and the next-largest, Grand Rapids, about 199,000 (citypopulation.de compilation of census figures; both saved, MI log §1.4), and population is measured by the latest federal decennial census unless a statute says otherwise (Mich. Comp. Laws § 8.3v), so the preemption applies statewide. Extended lease arrangements: Mich. Comp. Laws § 559.204b read whole, for qualified persons with disabilities and, by residence and age on October 10, 1980, qualified senior citizens, in conversions of 6 or more units (Mich. Comp. Laws § 559.204b(1)(a)-(c)). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-nuisance-mi",
+    title: "Drug and Other Nuisance Properties",
+    group: "Default & Termination",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nuisance",
+    bodyText:
+      "A building used for prostitution, gambling, unlawful controlled-substance or liquor sales or manufacture, animal fighting, human trafficking or armed violence is a nuisance under Michigan law. Anyone who owns or leases it is guilty of a nuisance, and a court may order its contents removed and sold and the building closed for up to 1 year. The attorney general, the prosecutor, a resident of the county or a local attorney may sue.",
+    notes: "MI: Mich. Comp. Laws §§ 600.3801(1)-(5), 600.3805, 600.3825(1); chapter 38 of the Revised Judicature Act read in heading and battery context, Mich. Comp. Laws §§ 600.3801 and 600.3825 read whole. Clause: criminal-activity-mi. Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-cannabis-mi",
+    title: "Marihuana in Michigan Rentals",
+    group: "Rules & Regulations",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "cannabis",
+    bodyText:
+      "Under Michigan's recreational marihuana law you may prohibit or regulate the consumption, cultivation, sale and display of marihuana on property you own or manage, but a lease may not prohibit a tenant from lawfully possessing marihuana or consuming it by means other than smoking. You may ban smoking. Under the medical marihuana law you need not rent to a person who smokes or cultivates marihuana on the premises, but only if the prohibition is in the written lease. The law does not define whether vaping is smoking, so the library's Michigan smoking clause bans smoking marihuana but not vaping it.",
+    notes: "MI: Mich. Comp. Laws § 333.27954(1)(e), (4) (Initiated Law 1 of 2018); Mich. Comp. Laws § 333.26427(c)(3) (Initiated Law 1 of 2008). Clauses: smoking-policy-mi, cannabis-cultivation-mi. The RPOA lease's total ban on consumption (¶ 52) conflicts with Mich. Comp. Laws § 333.27954(4) (MI log §15). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-smoke-alarms-mi",
+    title: "Smoke and Carbon Monoxide Alarms",
+    group: "Landlord Responsibilities",
+    states: ["MI"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "alarm-duties",
+    bodyText:
+      "Every unit in a Class A multiple dwelling covered by the Housing Law of Michigan must have a smoke alarm meeting the state construction code; violating that is a misdemeanor. The construction code requires carbon monoxide devices in new transient residential occupancies built from December 1, 2009 and may require them at construction, at permitted renovation of a single-family home, or when a bedroom is added. No Michigan statute assigns alarm testing to tenants, but the state residential code does for smoke alarms in homes built before November 6, 1974: the owner is responsible for proper operation, testing and maintenance, the occupant of a rental unit must periodically test and clean the alarms as the manufacturer's instructions say, and a failed alarm must be repaired and working within 30 days. Some cities add rules by ordinance.",
+    notes: "MI: Mich. Comp. Laws § 125.482a(1)-(6); Mich. Comp. Laws §§ 125.1504d, 125.1504f read whole (installation duties at construction, liability shields); Mich. Comp. Laws § 125.1504c read whole (owner of a pre-November 6, 1974 building installs smoke alarms under the rules). Residential code: Mich. Admin. Code R 408.30546 (R314.3.3(4), testing and maintenance; applies to alarms required by R314.3.2 in pre-1974 dwellings) and R 408.30520 (R315.3, carbon monoxide alarms when permitted work occurs in existing dwellings with an attached garage or fuel-fired appliances), read from the Administrative Rules System; rule set 2022-16 LR (filed May 1, 2025, effective Aug. 29, 2025) adopts the 2021 IRC and neither amends nor rescinds either rule (final rule language read, MI log §1.4). Local ordinances (e.g. Grand Rapids life-safety code cited in the RPOA lease ¶ 40) flagged, not resolved (rule 3). MI battery 15 (17 hits), 16 (7 hits). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Disclosures
+  {
+    id: "edu-lead-hazard-mi",
+    title: "Lead Hazards and Children",
+    group: "Disclosures",
+    states: ["MI"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lead-based-paint",
+    bodyText:
+      "Besides the federal lead disclosure, Michigan makes it a misdemeanor (up to 93 days and $5,000, or $10,000 for a repeat offense) for a property manager, housing commission or owner to rent or continue renting to a family with a minor child found to have 10 micrograms or more of lead per deciliter of venous blood, where the owner had actual knowledge of a lead-based paint hazard in the unit for at least 90 days and did not act in good faith to reduce it. Actual knowledge is presumed only from a signed acknowledgment in a risk assessment or service of notice by first-class mail with a return receipt. Defenses include contracting for the work and the tenant refusing entry.",
+    notes: "MI: Mich. Comp. Laws § 333.5475a(1)-(4) read whole. Federal disclosure: shared lead-based-paint (tagged). Federal: 42 U.S.C. § 4852d and 40 C.F.R. §§ 745.101, 745.103, 745.107, 745.113 read (lease disclosure, lead warning statement, 3-year record; exemptions include leases of 100 days or less with no renewal, housing found lead-based-paint free, and renewals after full disclosure). No Michigan statute on lead service lines found (MI batteries 72, 134 and 135: whole code, none a landlord or service-line rule); the RPOA lease asks for one (¶ 19); the state drinking water supply rules were not read (MI log §7, §15). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-meth-mi",
+    title: "Former Drug Manufacturing Sites",
+    group: "Disclosures",
+    states: ["MI"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "meth-disclosure",
+    bodyText:
+      "When police discover an illegal drug manufacturing site, the state health department decides whether the property is likely contaminated; if so, the local enforcing agency orders it vacated until the owner submits before-and-after assessments and a decontamination certification and the agency concurs. Michigan has no statute requiring you to disclose past drug manufacturing to a tenant, but you may not let a vacated property be occupied, and failing to disclose a known material fact can raise consumer-protection risk. If a prospective tenant asks directly, an untruthful or incomplete answer can be fraud.",
+    notes: "MI: Mich. Comp. Laws § 125.485a(1)-(5) read whole. CONFIRMED ABSENT lease disclosure duty: MI battery 20 (methamphetamine, drug lab: 35 hits, none a landlord disclosure rule; known positives passed). Consumer protection: Mich. Comp. Laws § 445.903(1)(s); no published case applying it to a past drug site was found (MI log §1.4). Silent fraud needs more than nondisclosure: a duty to disclose arises on a direct inquiry or a particularized concern (M&D, Inc v McConkey, 231 Mich App 22 (1998); Hord v Environmental Research Institute of Michigan (After Remand), 463 Mich 399 (2000)); both arose outside leasing (a sale, an employment recruitment), applied here by analogy. Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-stigmatized-property-mi",
+    title: "Deaths and Other Events on the Property",
+    group: "Disclosures",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "stigmatized-property",
+    bodyText:
+      "Michigan bars actions against a real estate licensee for not telling a buyer or tenant that the property was the site of a homicide, suicide or other crime that had no material effect on its condition, that a former occupant had or was suspected of having a disability, or information from the sex offender registry. The statute protects licensees; it does not address landlords who rent directly.",
+    notes: "MI: Mich. Comp. Laws § 339.2518(a)-(c) read whole. Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-no-sex-offender-residency-mi",
+    title: "No Sex-Offender Residency Restriction on Leasing",
+    group: "Disclosures",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "sex-offender-occupancy",
+    bodyText:
+      "Michigan has no statute limiting where registered sex offenders may live or barring you from renting to one; school-zone residency limits appear only as conditions a court may set on probation.",
+    notes: "MI: CONFIRMED ABSENT: MI batteries 37 and 116 (student safety zone, residence near school, within the sex offenders registration act chapter and the whole code: only Mich. Comp. Laws § 771.2a (probation); known positives passed); MI battery 104 recorded as scoped too narrowly to test its positive and rerun as 116 (MI log §1.3). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Notices & General
+  {
+    id: "edu-statute-of-frauds-mi",
+    title: "Leases Longer Than 1 Year Must Be in Writing",
+    group: "Notices & General",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "statute-of-frauds-lease-term",
+    bodyText:
+      "In Michigan a lease for a longer period than 1 year is void unless it, or a note or memorandum of it, is in writing and signed by the party making the lease or an agent authorized in writing; a lease of 1 year or less need not be in writing.",
+    notes: "MI: Mich. Comp. Laws §§ 566.106, 566.108 read whole. MI battery 45 recorded as failed (positive in a different number style) and rerun as 68 (MI log §1.3). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-electronic-records-mi",
+    title: "Electronic Leases and Signatures",
+    group: "Notices & General",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "electronic-signatures",
+    bodyText:
+      "Michigan's Uniform Electronic Transactions Act lets you sign and keep the lease electronically, but only with a party who has agreed to do business electronically, and a party who agreed may refuse to conduct other transactions electronically. Electronic service of a demand for possession needs the tenant's specific written consent and an e-mail confirmation and reply, and you may not refuse to rent to someone who declines.",
+    notes: "MI: Mich. Comp. Laws §§ 450.833, 450.835(1)-(5); Mich. Comp. Laws § 600.5718(1)(d), (2). Rule 45: the act was read itself; it has no exclusion for eviction, default or cure notices (only wills and most of the UCC, Mich. Comp. Laws § 450.833(2)), and the eviction-specific limits are in Mich. Comp. Laws § 600.5718. Shared electronic-signatures and notices tagged; optional electronic-service-consent-mi. Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-consumer-protection-mi",
+    title: "Michigan Consumer Protection Act and Leases",
+    group: "Other / Miscellaneous",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "consumer-protection-act",
+    bodyText:
+      "Michigan's Consumer Protection Act defines trade or commerce to include renting and leasing real property for personal, family or household purposes, and a lease term that violates the act is void under the Truth in Renting Act. Unlawful practices include causing confusion about a party's legal rights or remedies, failing to reveal a material fact that the tenant could not reasonably know, having a consumer waive a legal right unless the waiver is clearly stated and specifically consented to, gross differences between oral promises and the written agreement, and charging a price grossly above what similar property rents for. The act's exemption for transactions or conduct specifically authorized under laws administered by a regulatory board or officer turns on whether the specific conduct at issue is authorized, not the general business, so, in the library's reading, it is unlikely to protect a lease term. You may ask for a Social Security number to run a background check for a rental.",
+    notes: "MI: Mich. Comp. Laws §§ 445.902(g), 445.903(1)(n), (s), (t), (y), (z), (hh)(iv), 445.904(1)(a), (4); Mich. Comp. Laws § 554.633(1)(m). Exemption: Mich. Comp. Laws § 445.904(1)(a); the proper inquiry is 'whether the specific transaction or conduct at issue, rather than the general transaction, is authorized by law' (Attorney General v Eli Lilly & Co, ___ Mich ___ (2026) (Docket No. 165961), decided July 31, 2026, overruling Smith v Globe Life Ins Co, 460 Mich 446 (1999), and Liss v Lewiston-Richards, Inc, 478 Mich 203 (2007)). No regulatory board or officer administers a law that specifically authorizes ordinary residential lease terms, so under that test the exemption is unlikely to reach a lease term (Claude's reading, rule 76; MI log §1.4); decisions applying the overruled general-transaction test no longer control. Rule 51: no blank-space or copy-at-signing practice in Mich. Comp. Laws § 445.903 (MI battery 100). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-tenant-screening-mi",
+    title: "Screening Applicants in Michigan",
+    group: "Landlord Responsibilities",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-screening",
+    bodyText:
+      "Michigan has no statute on criminal-history screening of rental applicants or application-fee limits. You may require a Social Security number to obtain a background check for a rental. If you hold 5 or more units (with related entities), you may not reject an applicant for a lawful source of income and must count a voucher or subsidy toward any minimum-income test. Screening criteria must not discriminate under Michigan's civil rights acts. If you deny an application or change its terms because of a consumer report, federal law requires an adverse action notice naming the reporting agency and telling the applicant of the right to a free copy of the report and to dispute it.",
+    notes: "MI: Mich. Comp. Laws § 445.903(1)(hh)(iv); Mich. Comp. Laws §§ 554.601c(1)(f), 37.2502(3)(f); Mich. Comp. Laws § 37.2502(1)(f). CONFIRMED ABSENT criminal-history screening statute for housing: MI battery 90 (criminal history, background check, consumer report in landlord-tenant context: 15 hits, none a housing screening rule; known positive passed). Federal: 15 U.S.C. § 1681m(a) read (adverse action notice); HUD criminal-records guidance not read (MI log §7). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-dishonored-check-mi",
+    title: "Bounced Checks in Michigan",
+    group: "Rent & Payment",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "returned-payments",
+    bodyText:
+      "Michigan's dishonored-check statute lets the payee send a written demand in the statute's exact words by first-class mail. If the maker pays the check amount plus a $25 processing fee within 7 days (excluding weekends and holidays), or plus $35 within 30 days, no further civil action follows; otherwise the payee may sue for the check amount, civil damages of 2 times the check or $100, whichever is greater, and $250 costs, unless the maker pays the 30-day amount plus agreed costs up to $250 before trial. Writing a bad check with intent to defraud is also a crime. The statute does not cap a returned-payment fee set in the lease, and the library's Michigan clause leaves that fee to you.",
+    notes: "MI: Mich. Comp. Laws § 600.2952(1)-(6) read whole (demand text prescribed, statutory-forms topic); Mich. Comp. Laws § 750.131. Clause: returned-payments-mi. A lease fee does not fall under Mich. Comp. Laws § 554.633(1)(g), which concerns costs of disputes. Penalty test: Michigan courts enforce an agreed sum that is reasonable with relation to the possible injury suffered and not unconscionable or excessive, and decide enforceability as a question of law (Curran v Williams, 352 Mich 278, 282 (1958); UAW-GM Human Resource Ctr v KSL Recreation Corp, 228 Mich App 486, 508 (1998)); no published Michigan case applying the test to a residential lease fee was found (MI log §1.4). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-legal-interest-mi",
+    title: "Interest on Unpaid Amounts",
+    group: "Rent & Payment",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "unpaid-damages-interest",
+    bodyText:
+      "Michigan's legal rate of interest is 5% a year, and parties may agree in writing to any rate up to 7% a year. Judgments carry interest from the filing of the complaint at a rate tied to 5-year U.S. Treasury notes, or at a legal rate the written instrument specifies, up to 13% a year. The library offers no lease interest clause.",
+    notes: "MI: Mich. Comp. Laws § 438.31; Mich. Comp. Laws § 600.6013(7)-(8) (read in part). Judgment interest on a written instrument at its own rate is capped at 13% a year (Mich. Comp. Laws § 600.6013(7)). The higher-rate exceptions in Mich. Comp. Laws § 438.31c read whole: broker margin accounts, first-lien real property loans, land leases where the tenant owns most of the improvements, land contracts, purchase money and second mortgages, credit secured by a lien on a mobile home, and large or trust loans; none reaches rent or charges owed under a residential lease. Rule 54: a contract interest rate is lawful up to 7%; not offered because it adds little to late fees and judgment interest (MI log §6.1). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-foreign-ownership-mi",
+    title: "Ownership Rules for Investors and Aliens",
+    group: "Other / Miscellaneous",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "foreign-ownership",
+    bodyText:
+      "Michigan's constitution gives resident aliens the same property rights as citizens, and Michigan has no law limiting leases to foreign persons. From July 21, 2026, a 'large institutional investor' (a for-profit entity controlling more than 100 single-family homes in Michigan and managing or worth at least $375 million) may not buy a single-family home (2 or fewer units) in Michigan, with exceptions for build-to-rent, qualifying renovate-to-rent and homeownership programs, foreclosure recoveries, restructurings and approved affordable housing; violations carry a civil fine of up to $25,000 per home. The law limits purchases, not leasing.",
+    notes: "MI: Const 1963, art. X, § 6; 2026 Mich. Pub. Acts 32 (eff. July 21, 2026), compiled at Mich. Comp. Laws §§ 125.853, 125.855, 125.857, 125.859 (enrolled act read whole, MI log §1.2). MI battery 25 (immigration, citizenship, alien near tenancy: 9 hits, none a leasing restriction). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Notices & General
+  {
+    id: "edu-scope-mi",
+    title: "What Michigan's Landlord-Tenant Statutes Cover",
+    group: "Notices & General",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "scope",
+    bodyText:
+      "Michigan's Truth in Renting Act covers written rental agreements for residential premises, including apartments, rooming houses, single and multiple family homes and mobile homes, but not a hotel, motel or other tourist accommodation used temporarily, nor an owner's principal residence rented occasionally during a temporary absence; an agreement limited to the parties, the premises, the period and the rent and when it is due is not a 'rental agreement' under that act. The security deposit act covers rental units used as a home by a household, including apartments, boarding and rooming houses and single and 2-family dwellings. The Housing Law applies only above set population thresholds. Mobile home parks have their own just-cause rules and are outside this library.",
+    notes: "MI: Mich. Comp. Laws § 554.632(a)-(b); Mich. Comp. Laws § 554.601(a)-(g); Mich. Comp. Laws § 554.640 (pre-1979 agreements); Mich. Comp. Laws § 125.401(2); mobile home parks Mich. Comp. Laws §§ 600.5771-600.5785 (read in index context; out of scope). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-statutory-forms-mi",
+    title: "Michigan Statutory Forms",
+    group: "Notices & General",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "statutory-forms",
+    bodyText:
+      "Michigan prescribes the wording of several landlord-tenant texts: the Truth in Renting notice in the lease, the security deposit forwarding-address statement and the notice-of-damages statement, the move-in checklist heading, the domestic violence lease statement and third-party verification form, and the dishonored-check demand letter. The library carries the lease texts verbatim; the court's eviction forms are published by the State Court Administrative Office.",
+    notes: "MI: Mich. Comp. Laws §§ 554.634(2), 554.603, 554.609(4), 554.608(4), 554.601b(1), (3)(e), 600.2952(2); MCR 4.201(A) (SCAO-approved forms). SCAO forms DC 100a (Rev. 5/22), DC 100c (Rev. 10/24), DC 102a and DC 102c (Rev. 11/23) read (MI log §1.4). Court rule: MCR 4.201 read whole from the Michigan Court Rules PDF updated Sept. 2, 2026 (courts.michigan.gov) (MI log §1). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-sale-assignment-of-rents-mi",
+    title: "When a Lender Collects the Rent",
+    group: "Default & Termination",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "sale-or-management-change",
+    bodyText:
+      "If your lender holds an assignment of rents and you default, the lender may send the tenant a notification containing the information the statute lists (a sample form in the statute is sufficient, but no particular wording is required) demanding that rent be paid to it; the date of enforcement against the tenant is the date the tenant receives a notification that substantially complies, and the statute's sample form tells the tenant that you cannot then claim rent the tenant pays to the lender. After that notice the rule that paying you does not discharge the tenant does not apply to a tenant who occupies the unit as a primary residence, and a tenant is not in default for rent accruing within 30 days after the notice until the earlier of 10 days after the next rent due date or 30 days after receiving the notice. Your security deposit obligation follows the property as described in the deposit statute.",
+    notes: "MI: Mich. Comp. Laws §§ 554.1059(1)-(2), 554.1060 (form, read in battery context), 554.1061; deposits Mich. Comp. Laws § 554.614 (edu-deposit-on-sale-mi). Mich. Comp. Laws § 554.1059(3)-(4) read whole (primary-residence exception in (3)(b); grace before default in (4)). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-firearms-mi",
+    title: "Firearms",
+    group: "Rules & Regulations",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "firearms",
+    bodyText:
+      "Michigan's constitution protects the right to keep and bear arms, and no Michigan statute addresses whether a private residential lease may restrict firearms; the Michigan Supreme Court has held that the constitution's Declaration of Rights has never been interpreted as reaching purely private conduct, and no Michigan case applying the arms provision to a private landlord was found. The library offers no firearms clause.",
+    notes: "MI: Const 1963, art. I, § 6. CONFIRMED ABSENT lease-related firearms statute: MI battery 34 (firearm, gun, weapon in lease context: 10 hits, none a landlord or lease rule). Woodland v Michigan Citizens Lobby, 423 Mich 188 (1985): 'The Michigan Constitution's Declaration of Rights provisions have never been interpreted as extending to purely private conduct' (art. I, § 6 is in the Declaration of Rights); no case applying art. I, § 6 to a private lease was found (MI log §1.4). Federal law not addressed. Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Parking & Storage
+  {
+    id: "edu-towing-mi",
+    title: "Towing From Rental Property",
+    group: "Parking & Storage",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "towing",
+    bodyText:
+      "If a vehicle remains on private property without the owner's consent, the property owner may have it taken into custody as an abandoned vehicle by contacting a local towing agency (one whose storage lot is within 15 miles of the local unit's border); the towing agency must notify the police before removing it. That route does not cover a tenant's own vehicle parked under the lease: removing a tenant's property without a court order can be unlawful interference with possession. Local ordinances may add signage or other requirements.",
+    notes: "MI: Mich. Comp. Laws § 257.252a(10)-(12) (read in context of the section); MI battery 78. Local ordinances flagged (rule 3). A tenant's or occupant's own vehicle is not on the property 'without the consent of the property owner'; removing it risks Mich. Comp. Laws § 600.2918(2)(b). Clause: parking-vehicle-rules-mi. Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-rent-increases-mi",
+    title: "Rent Increases",
+    group: "Rent & Payment",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-increase-notice",
+    bodyText:
+      "Michigan has no statute on rent-increase notice or amounts. During a lease term you may raise rent only with the tenant's written consent, or on 30 days' written notice to cover increases in property taxes, listed utility charges or insurance premiums if the lease provides for it. For a periodic tenancy, a new rent takes effect by ending the tenancy with proper notice or by agreement. Local governments may not control rent.",
+    notes: "MI: Mich. Comp. Laws § 554.633(1)(l)(iii); Mich. Comp. Laws § 554.134(1); Mich. Comp. Laws § 123.411(2). CONFIRMED ABSENT a rent-increase notice statute: MI battery 6 (rent increase wording, whole code: 9 hits, none a residential notice rule; known positives passed; battery 5 recorded as failed, its positive missed Mich. Comp. Laws § 554.633's wording). Optional clause: rent-cost-adjustment-mi. Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-eviction-sealing-mi",
+    title: "No Eviction Record Sealing",
+    group: "Default & Termination",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-record-sealing",
+    bodyText:
+      "Michigan has no statute or court rule that seals or suppresses landlord-tenant case records.",
+    notes: "MI: CONFIRMED ABSENT: MI batteries 38 and 94 (seal, suppress, nonpublic near summary proceeding or eviction, whole code: 0 hits; known positives passed); Michigan Court Rules searched whole for 'landlord', 'tenant', 'summary proceeding' and 'eviction', and MCR 8.119 (court records and public access) read for them: no landlord-tenant provision (MI log §17). Rule 39. Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Notices & General
+  {
+    id: "edu-no-lease-copy-rule-mi",
+    title: "No Statute Requiring a Lease Copy",
+    group: "Notices & General",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lease-copy",
+    bodyText:
+      "Michigan has no statute requiring you to give the tenant a copy of the signed lease, though the Truth in Renting Act's required statements must appear in it.",
+    notes: "MI: CONFIRMED ABSENT: MI battery 66 (copy of the lease or rental agreement: 5 hits, none a tenant-copy rule; known positive passed); MI battery 100 (blank spaces: none residential). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-application-fee-rule-mi",
+    title: "No Application Fee Rules",
+    group: "Rent & Payment",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "application-fees",
+    bodyText:
+      "Michigan has no statute limiting rental application or screening fees.",
+    notes: "MI: CONFIRMED ABSENT: MI batteries 9 and 14 (application or screening fee near landlord, tenant or rent: none residential; known positives passed). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-no-rent-receipt-rule-mi",
+    title: "No Rent Receipt Statute",
+    group: "Rent & Payment",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-receipts",
+    bodyText:
+      "Michigan has no statute requiring you to give a receipt for rent.",
+    notes: "MI: CONFIRMED ABSENT: MI battery 65 (receipt near rent in landlord-tenant context: 3 hits, none a receipt duty; known positive passed). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Disclosures
+  {
+    id: "edu-no-mold-disclosure-mi",
+    title: "No Mold Disclosure Statute",
+    group: "Disclosures",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "mold-disclosure",
+    bodyText:
+      "Michigan has no statute requiring a mold disclosure to tenants.",
+    notes: "MI: CONFIRMED ABSENT: MI battery 18 (mold in landlord-tenant context: 4 hits, none a disclosure; known positives passed). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-no-radon-disclosure-mi",
+    title: "No Radon Disclosure Statute",
+    group: "Disclosures",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "radon-disclosure",
+    bodyText:
+      "Michigan has no statute requiring a radon disclosure to tenants; the seller disclosure form for home sales mentions radon, but it does not apply to leases.",
+    notes: "MI: CONFIRMED ABSENT: MI battery 17 (radon: 4 hits; Mich. Comp. Laws § 565.957 is the seller disclosure act; known positive passed). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-no-bed-bug-rule-mi",
+    title: "No Bed Bug Statute",
+    group: "Disclosures",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "bed-bug-disclosure",
+    bodyText:
+      "Michigan has no statute on bed bug disclosure or treatment. Where the Housing Law applies, the owner must keep the entire building free from vermin.",
+    notes: "MI: CONFIRMED ABSENT: MI battery 19 (bed bug, cimex: 0 hits; known positives passed); vermin Mich. Comp. Laws § 125.474; MI battery 111. Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-no-flood-disclosure-mi",
+    title: "No Flood Disclosure Statute",
+    group: "Disclosures",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "flood-disclosure",
+    bodyText:
+      "Michigan has no statute requiring a flood disclosure to tenants.",
+    notes: "MI: CONFIRMED ABSENT: MI battery 21 (flood words near tenant or rental agreement: 7 hits, none a disclosure; known positives passed). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Parking & Storage
+  {
+    id: "edu-no-ev-charging-rule-mi",
+    title: "No Tenant EV-Charging Statute",
+    group: "Parking & Storage",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "ev-charging",
+    bodyText:
+      "Michigan has no statute giving tenants a right to install electric vehicle charging.",
+    notes: "MI: CONFIRMED ABSENT: MI battery 33 (EV charging: 3 hits, utility regulation only; known positive passed). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-servicemember-statute-mi",
+    title: "No State Servicemember Lease Statute",
+    group: "Default & Termination",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "servicemember-rights",
+    bodyText:
+      "Michigan has no state statute letting servicemembers end residential leases; the federal Servicemembers Civil Relief Act applies. A tenant who enters military service after signing, or who signs while in service and then receives permanent change of station orders or deployment orders for at least 90 days, may end the lease by written notice with a copy of the orders. For monthly rent, termination takes effect 30 days after the next rent due date after the notice is delivered; rent is prorated, and you may not charge an early termination fee. Federal law also bars evicting a servicemember or dependents during military service, except by court order, from a primary residence whose monthly rent does not exceed an inflation-adjusted cap (base $2,400).",
+    notes: "MI: CONFIRMED ABSENT: MI batteries 28, 47, 71 and 98 (military, active duty, armed forces, SCRA near lease or tenancy, whole code: none a lease-termination right; known positives passed). Federal: 50 U.S.C. § 3955(a)-(e), (h) read (covered leases, written notice and orders, effective date, prorated rent, no early termination charge, misdemeanor for holding property); 50 U.S.C. § 3951(a) read (court-ordered eviction, rent cap as adjusted). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-no-foreclosure-tenant-rule-mi",
+    title: "No State Foreclosure Rule for Tenants",
+    group: "Default & Termination",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "foreclosure",
+    bodyText:
+      "Michigan has no statute giving residential tenants special protections when the landlord's property is foreclosed; federal law does. Under the Protecting Tenants at Foreclosure Act, the successor after a foreclosure takes the property subject to a bona fide tenant's lease entered into before the notice of foreclosure until it ends, except that it may end the lease when it sells the unit to a buyer who will live there, and must give a bona fide tenant at least 90 days' notice to vacate. A lease is bona fide only if the tenant is not the borrower or the borrower's child, spouse or parent, the lease was at arm's length, and the rent is not substantially below market unless subsidized.",
+    notes: "MI: CONFIRMED ABSENT: MI batteries 39 and 95 (foreclosure near tenant or lease, whole code and chapter 32 of the Revised Judicature Act: none a tenant protection; known positive passed). Federal Protecting Tenants at Foreclosure Act, Pub. L. No. 111-22, § 702, 123 Stat. 1660 (2009) (12 U.S.C. § 5220 note), restored by Pub. L. No. 115-174, § 304 (2018), read whole. Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-no-display-rights-rule-mi",
+    title: "No Tenant Display Rights Statute",
+    group: "Rules & Regulations",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-display-rights",
+    bodyText:
+      "Michigan has no statute giving tenants a right against their landlord to display flags or signs; the condominium flag statute binds developers and associations, not landlords.",
+    notes: "MI: CONFIRMED ABSENT: MI battery 35 (flag and sign display: 12 hits; Mich. Comp. Laws § 559.156a is the condominium co-owner rule; known positives passed). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Notices & General
+  {
+    id: "edu-no-emergency-assistance-rule-mi",
+    title: "No Statute on Calling Police",
+    group: "Notices & General",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "emergency-assistance-right",
+    bodyText:
+      "Michigan has no statute protecting a tenant's right to call police or emergency help against lease penalties; the threatened-injury eviction ground excludes cases where the tenant or a household member was the victim.",
+    notes: "MI: CONFIRMED ABSENT: MI battery 99 (summon or call police, law enforcement, emergency assistance near landlord-tenant terms: 1 unrelated hit; known positive passed). Mich. Comp. Laws § 600.5714(1)(e)(i). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-fee-transparency-rule-mi",
+    title: "No State Fee-Transparency Law",
+    group: "Rent & Payment",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fee-transparency",
+    bodyText:
+      "Michigan has no statewide law on all-in rent pricing or fee disclosure in advertising or leases; from September 21, 2026, at least one allowed rent-payment method must be fee-free. Some cities, such as Ann Arbor, have their own fee rules.",
+    notes: "MI: CONFIRMED ABSENT: MI battery 85 (total rent, all-in, mandatory fees, junk fees near landlord-tenant terms: none residential; known positive passed); Mich. Comp. Laws § 554.633(1)(o) (2026 Mich. Pub. Acts 103). Ann Arbor ordinance flagged (rule 3). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  {
+    id: "edu-no-algorithmic-rent-rule-mi",
+    title: "No Algorithmic Rent-Setting Law",
+    group: "Rent & Payment",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "algorithmic-rent-setting",
+    bodyText:
+      "Michigan has no statute regulating algorithmic rent-setting software.",
+    notes: "MI: CONFIRMED ABSENT: MI battery 84 (algorithm, rent-setting or pricing software near landlord-tenant terms: 0 hits; known positive passed). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-no-quiet-possession-statute-mi",
+    title: "No Statutory Covenant of Quiet Enjoyment",
+    group: "Landlord Responsibilities",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "quiet-possession",
+    bodyText:
+      "Michigan has no statute stating a covenant of quiet enjoyment for residential leases; the lockout statute's ban on interference with possession and the covenants of fitness and repair apply.",
+    notes: "MI: CONFIRMED ABSENT: MI battery 93 (quiet enjoyment or possession: 3 hits, deeds, UCC and mobile home parks; known positive passed). Mich. Comp. Laws §§ 600.2918, 554.139. Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Disclosures
+  {
+    id: "edu-no-submetering-rule-mi",
+    title: "No Submetering Statute for Rentals",
+    group: "Disclosures",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utility-submetering-disclosure",
+    bodyText:
+      "Michigan has no statute, and nothing in the Public Service Commission's consumer-standards or electric technical-standards rules, on landlord submetering or reselling utilities to tenants.",
+    notes: "MI: CONFIRMED ABSENT in statutes: MI battery 32 (submeter, master meter, ratio utility billing, resale: 1 unrelated hit; known positives passed). Michigan Public Service Commission rules read: consumer standards and billing practices, Mich. Admin. Code R 460.101-460.169, and technical standards for electric service, R 460.3101-460.3908; neither has a submetering or resale rule; the gas technical standards and other commission rules were not read (MI log §1.4). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-acceptance-of-payment-mi",
+    title: "Accepting Payment During an Eviction",
+    group: "Rent & Payment",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "waiver-by-acceptance",
+    bodyText:
+      "Under Michigan's court rules, payment or acceptance of money before trial does not necessarily prevent or delay an eviction case. After judgment, an order of eviction may not issue if any part of the judgment amount has been paid unless a hearing is held or the judgment says partial payment will not prevent the order. No Michigan statute sets a waiver-by-acceptance rule, but the Court of Appeals has held that accepting rent for a period after the date in a notice to quit, where the tenant had not yet received notice of the eviction case, waives that notice, and that a landlord who has habitually accepted late payments must tell the tenant that strict compliance will be required before ending the lease for lateness. Collecting rent while the tenant's appeal of a possession judgment was pending did not waive the judgment.",
+    notes: "MI: MCR 4.201(K)(4), (L)(3), (M)(5). CONFIRMED ABSENT in statutes: MI battery 120 (acceptance of rent and waiver: 0 hits; known positive passed). Case law: Park Forest of Blackman v Smith, 112 Mich App 421, 425-428 (1982); Detroit Webster Hall Co v Webster Corner Bar, Inc, 294 Mich 147 (1940) (MI log §1.4). Court rule: MCR 4.201 read whole from the Michigan Court Rules PDF updated Sept. 2, 2026 (courts.michigan.gov) (MI log §1). Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-utility-landlord-account-mi",
+    title: "When the Landlord Holds the Utility Account",
+    group: "Landlord Responsibilities",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utility-landlord-account",
+    bodyText:
+      "For electric and gas service from utilities the Public Service Commission regulates, a utility may not shut off service because the customer of record, such as a landlord, has not paid for service a tenant used, unless, after proper notice, the customer gives a notarized statement that the premises are unoccupied, the occupant agrees in writing, or serving the occupant directly is not feasible; where it is feasible, the utility must offer the occupant service in the occupant's own name. At least 30 days before shutting off a single-metered building used by 3 or more households, the utility must notify each unit that the landlord has failed to pay. An occupant must open a utility account within 30 business days of taking occupancy unless service is included in the lease. Causing the interruption of an essential service such as heat, water, electricity or gas, whether you must furnish it or the tenant procured it, is unlawful interference with possession.",
+    notes: "MI: Mich. Admin. Code R 460.101(1) (scope: electric and natural gas utilities under commission jurisdiction), R 460.107(4), R 460.138(1)(e), R 460.139(4), read from the Administrative Rules System (MI log §1.4); Mich. Comp. Laws § 600.2918(2)(f) (edu-self-help-eviction-mi). Municipal utilities outside commission jurisdiction are not covered by these rules; water and sewer liens: municipal-water-lien-mi. Shared clauses utilities-responsibility and utility-service-continuity tagged. Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-no-immigration-rule-mi",
+    title: "No Immigration-Status Leasing Rule",
+    group: "Other / Miscellaneous",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "immigration-status",
+    bodyText:
+      "Michigan has no statute on asking about or acting on a tenant's immigration status. National origin is protected under Michigan's civil rights act, and resident aliens have the same property rights as citizens.",
+    notes: "MI: CONFIRMED ABSENT: MI battery 25 (immigration, citizenship, alien, undocumented near landlord-tenant terms: 9 hits, none a leasing rule; known positive passed). Mich. Comp. Laws § 37.2502(1); Const 1963, art. X, § 6. Rule 15: written section-open. Read section-open 2026-10-01 in the built-in browser from legislature.mi.gov (Michigan Legislative Service Bureau; whole Michigan Compiled Laws and the 1963 Constitution loaded chapter by chapter, 43,930 sections, each chapter's count checked against its own HTML and the site's chapter indexes; compiled text includes 2026 Mich. Pub. Acts 102 and 103, eff. Sept. 21, 2026) (MI log §1, MI log §17).",
+  },
+  // Rent & Payment
+  {
+    id: "edu-fees-as-rent-mi",
+    title: "Fees and the Nonpayment Eviction",
+    group: "Rent & Payment",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fees-as-rent",
+    bodyText:
+      "Michigan's summary-proceedings statute lets you recover possession when a tenant fails to pay the 'rent due under the lease' within 7 days after a written demand for possession for nonpayment, and says that rent due does not include accelerated rent. No Michigan statute says whether a late fee or another charge the lease requires counts as rent due for that demand, and calling a charge 'additional rent' in the lease does not settle it. The library's Michigan Default clause gives up one part of this on purpose: except where the law requires otherwise, an unpaid late fee alone, apart from the Rent itself, does not let you end the lease or evict. The safer course is to put only unpaid Rent in a nonpayment demand. The security deposit can be applied only to actual damages, rent in arrears, rent due because the tenant ended the lease early and unpaid utility bills, so whether a late fee can come out of it turns on the same unsettled question; any other charge can be pursued by a claim for money.",
+    notes: "MI: Added 2026-10-02 at sync (SOP rule 27; the MI log §18.2 recorded this topic NOT LOCATED with no row). Verdict: NOT LOCATED as a statute. Controlling text: Mich. Comp. Laws § 600.5714(1)(a) ('rent due under the lease or agreement'; 'rent due does not include any accelerated indebtedness'), read section-open at sync; demand contents Mich. Comp. Laws § 600.5716 (edu-nonpayment-notice-mi). No 'additional rent' statute; no published Michigan case deciding whether other lease charges are 'rent due' was found (MI log §1.4, §18.2). The RPOA form calls them 'additional rent' (MI log §15). Deposit uses: Mich. Comp. Laws § 554.607(a)-(b), read section-open at sync. Clause: default-by-tenant-mi (late-fee sentence). Read 2026-10-02 by Claude Code at sync from legislature.mi.gov (official Michigan Compiled Laws, compiled through 2026 Mich. Pub. Acts 103).",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-no-landlord-self-cure-mi",
+    title: "No Statutory Right to Fix It and Bill It as Rent",
+    group: "Landlord Responsibilities",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-self-cure",
+    bodyText:
+      "Some states let a landlord give notice, do work the tenant failed to do, and add the cost to the rent. Michigan has no such statute: nothing gives you a self-cure right, sets a notice period for one, or makes the cost rent. What Michigan law does give: you may apply the security deposit to actual damages to the unit that are the direct result of conduct not reasonably expected in the normal course of living there, following the deposit law's notice rules, and you may sue for the rest. Changing the locks, removing the tenant's belongings or cutting off an essential service to press the tenant is unlawful interference with possession; interfering temporarily, only as necessary to make needed repairs and only as the law provides, is not.",
+    notes: "MI: Added 2026-10-02 at sync (SOP rule 27; the MI log §18.2 recorded this topic CONFIRMED ABSENT with no row). CONFIRMED ABSENT: MI battery 119 (landlord self-cure: 0 hits; known positive passed; MI log §17). Routes named: Mich. Comp. Laws § 554.607(a) (deposit uses), read section-open at sync, Mich. Comp. Laws § 554.609 (notice of damages; edu-security-deposit-penalty-mi), Mich. Comp. Laws § 600.2918(2)(b), (c), (f) and (3)(b), read section-open at sync (unlawful interference; edu-self-help-eviction-mi). Rent-as-charges point: edu-fees-as-rent-mi. Drafted from the MI log's battery record and the rows it names. Read 2026-10-02 by Claude Code at sync from legislature.mi.gov (official Michigan Compiled Laws, compiled through 2026 Mich. Pub. Acts 103).",
+  },
+  // Notices & General
+  {
+    id: "edu-no-lease-completeness-rule-mi",
+    title: "No Blank-Space Rule",
+    group: "Notices & General",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lease-completeness",
+    bodyText:
+      "Michigan imposes no statutory requirement that a written residential lease have every blank completed. Its Consumer Protection Act reaches residential leases, but its list of unlawful practices has no blank-space item. Several Michigan rules still turn on what the lease says: the Truth in Renting notice and the name and address for notices to you must appear in it, and any term the Truth in Renting Act voids is unenforceable. A blank left in a required statement is a missing statement. Fill in every blank before signing and give the tenant a copy, as good practice rather than a statutory duty.",
+    notes: "MI: Added 2026-10-02 at sync (SOP rules 27 and 51; the MI log §18.2 recorded this topic CONFIRMED ABSENT with no row). CONFIRMED ABSENT: MI battery 100 (lease completeness / blank spaces: 34 hits, none a lease rule; known positive passed; MI log §17); no blank-space item in Mich. Comp. Laws § 445.903 (edu-consumer-protection-mi); trade or commerce includes residential leasing, Mich. Comp. Laws § 445.902(g). Required statements: Mich. Comp. Laws § 554.634(1)-(2) (truth-in-renting-notice-mi, lessor-notice-address-mi). Copy at signing: edu-no-lease-copy-rule-mi (MI battery 66). Read 2026-10-02 by Claude Code at sync from legislature.mi.gov (official Michigan Compiled Laws, compiled through 2026 Mich. Pub. Acts 103).",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-no-tenant-camera-rule-mi",
+    title: "No Tenant Security-Camera Rule",
+    group: "Rules & Regulations",
+    states: ["MI"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-security-cameras",
+    bodyText:
+      "Michigan statutes do not address tenant-installed security cameras, video doorbells or similar devices. The lease's alteration terms govern; in this library that is the Alterations section, which requires your written consent before a tenant adds or changes a fixture. Michigan's eavesdropping and surveillance laws, and any condominium or association rules, were not reviewed and may limit what a camera records rather than its installation.",
+    notes: "MI: Added 2026-10-02 at sync (SOP rule 27; the MI log §18.2 recorded this topic CONFIRMED ABSENT with no row). CONFIRMED ABSENT for installation: MI battery 115 (tenant security cameras / video doorbells: 5 hits, none residential; known positive passed; MI log §17). Points at the shared no-alterations clause, active for MI. Eavesdropping and surveillance law not read (boundary stated in the body). Drafted from the MI log's battery record.",
+  },
 ];
 
 module.exports = { LANDLORD_EDUCATION };

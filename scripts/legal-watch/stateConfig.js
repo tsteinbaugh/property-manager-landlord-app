@@ -37,6 +37,7 @@ const STATE_NAMES = {
   MO: "Missouri",
   IN: "Indiana",
   OK: "Oklahoma",
+  MI: "Michigan",
 };
 
 const STATE_CONFIG = {
@@ -1281,6 +1282,64 @@ const STATE_CONFIG = {
       },
     ],
   },
+  MI: {
+    // Michigan Compiled Laws sections are chapter.section, with 1-3 digit
+    // chapters and a letter on some sections ("554.633", "554.601b",
+    // "37.2502", "8.3v"). Michigan bills amend "section 33 of 1978 PA 454
+    // (MCL 554.633)", so '"MCL 554.633"' is the query. Citations are split on
+    // ";" and only the "Mich. Comp. Laws" parts are read; a range
+    // ("§§ 554.631-554.641") is skipped, since the sections the rows rely on
+    // are cited on their own. Court rules, the Constitution and
+    // administrative rules are manual recheck items.
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        if (!/^Mich\. Comp\. Laws/.test(part)) continue;
+        const body = part.replace(/\([^)]*\)/g, " ");
+        if (/\d-\d/.test(body)) continue;
+        for (const m of body.matchAll(/\b(\d{1,3}\.\d+[a-z]*)\b/g)) out.push(m[1]);
+      }
+      return out;
+    },
+    buildQuery(key) {
+      return `"MCL ${key}"`;
+    },
+    cfrChecks: [
+      { title: "40", section: "745.113", clauseIds: ["lead-based-paint"] },
+      { title: "24", section: "100.204", clauseIds: ["edu-assistance-animals-mi", "edu-fair-housing-mi"] },
+      { title: "24", section: "5.2005", clauseIds: ["criminal-activity-mi"] },
+    ],
+    federalStatuteChecks: [
+      { section: "4852d", clauseIds: ["lead-based-paint", "edu-lead-hazard-mi"] },
+      { section: "3604", clauseIds: ["edu-assistance-animals-mi", "edu-fair-housing-mi"] },
+    ],
+    manualRecheckItems: [
+      {
+        id: "mi-court-rules",
+        label:
+          "Michigan court rules LegiScan can't see: MCR 4.201 (summary proceedings: demand, answer, escrow orders, adjournment, judgment and writ timing), MCR 3.106 and MCR 8.119, and the SCAO forms DC 100a, 100c, 102a and 102c (MI log §1.1, §7)",
+        clauseIds: ["default-by-tenant-mi", "edu-eviction-process-mi", "edu-nonpayment-notice-mi", "edu-attorney-fees-mi", "edu-post-eviction-property-mi", "edu-statutory-forms-mi"],
+      },
+      {
+        id: "mi-constitution-admin-rules",
+        label:
+          "Michigan sources LegiScan can't see: the 1963 Constitution (art. I, § 6; art. X, §§ 3, 6), which changes by ballot measure, and the administrative rules the rows cite (Public Service Commission shutoff rules, R 460.101-460.169; smoke and carbon monoxide alarm rules, R 408.30546 and R 408.30520) (MI log §1.1, §7)",
+        clauseIds: ["edu-firearms-mi", "edu-landlord-lien-mi", "edu-foreign-ownership-mi", "edu-utility-landlord-account-mi"],
+      },
+      {
+        id: "mi-case-law",
+        label:
+          "Michigan case law the rows rely on or flag: penalty doctrine (Curran v Williams; UAW-GM v KSL), common-area snow and ice under Mich. Comp. Laws § 554.139 (Allison, Benton, Hadden, Bowerman (2026)), Attorney General v Eli Lilly & Co (2026) on the consumer protection act, and Laurel Woods on guest damage; the 2026 Supreme Court cases need their Michigan Reports page once it issues (MI log §1.4, §10)",
+        clauseIds: ["late-fee", "snow-removal", "edu-habitability-mi", "edu-consumer-protection-mi", "tenant-caused-damage-mi", "casualty-termination-mi"],
+      },
+      {
+        id: "mi-hud-assistance-animals",
+        label:
+          "HUD's assistance-animal position: the 2013 and 2020 notices were withdrawn (2025) and FHEO's 2026-05-22 memorandum limits Fair Housing Act charges to trained animals; Michigan's disability law is unchanged. Recheck before relying on either (MI log §1.4, §10)",
+        clauseIds: ["assistance-animal-accommodation", "edu-assistance-animals-mi"],
+      },
+    ],
+  },
 };
 
 // Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
@@ -1292,7 +1351,7 @@ const STATE_CONFIG = {
 // that cronFor() returns; checkConfigIds.js fails if a workflow doesn't match.
 const SCHEDULE_ORDER = [
   "CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ",
-  "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK",
+  "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI",
 ];
 function cronFor(code) {
   const n = SCHEDULE_ORDER.indexOf(code);
