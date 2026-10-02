@@ -38,6 +38,7 @@ const STATE_NAMES = {
   IN: "Indiana",
   OK: "Oklahoma",
   MI: "Michigan",
+  IA: "Iowa",
 };
 
 const STATE_CONFIG = {
@@ -1346,6 +1347,52 @@ const STATE_CONFIG = {
       },
     ],
   },
+  IA: {
+    // Iowa Code sections are chapter.section, with letters on some chapters
+    // and sections ("562A.12", "562A.27A", "216.8A", "10A.518", "554D.110").
+    // Iowa bills amend "Section 562A.12, subsection 3, Code 2026", so the
+    // bare quoted section number is specific enough and needs no buildQuery.
+    // Citations are split on ";" and only the "Iowa Code" parts are read;
+    // court rules, the Constitution and federal parts are skipped (court
+    // rules and the Constitution are manual recheck items).
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        if (!/^Iowa Code/.test(part)) continue;
+        const body = part.replace(/\([^)]*\)/g, " ");
+        for (const m of body.matchAll(/\b(\d{1,3}[A-Z]{0,2}\.\d+[A-Z]?)\b/g)) out.push(m[1]);
+      }
+      return out;
+    },
+    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
+    manualRecheckItems: [
+      {
+        id: "ia-statute-pairs",
+        label:
+          "Iowa statute pairs that disagree (rule 31): Iowa Code § 562.6 (a written term ends without notice) vs § 562A.34(3) (30 days' notice to end a term longer than month-to-month); § 562.2 (double rental value) vs § 562A.34(4) (actual damages and fees for a willful holdover); § 562A.12(4) (an unclaimed deposit reverts to the landlord after one year) vs ch. 556 (unclaimed property lists security deposits). Recheck if any is amended or a court resolves it (IA log §10)",
+        clauseIds: ["edu-end-of-term-ia", "holdover-ia", "edu-holdover-rate-ia", "security-deposit-return-ia"],
+      },
+      {
+        id: "ia-2026-acts-code-2027",
+        label:
+          "Iowa acts effective after the Code 2026 compilation: 2026 Iowa Acts ch. 1002 and ch. 1200, § 40 (local civil rights ordinances), ch. 1182 (abandoned vehicles, July 1, 2026), ch. 1115, § 126 (§ 216.12(1)(e)). Check the rows against the Iowa Code 2027 compilation when it's published (IA log §1.2, §10)",
+        clauseIds: ["edu-fair-housing-ia", "edu-towing-ia"],
+      },
+      {
+        id: "ia-court-rules-admin-rules",
+        label:
+          "Iowa sources LegiScan can't see: the Iowa Court Rules (ch. 3 small claims forms, ch. 16 public access to eviction records), the State Fire Marshal's smoke and carbon monoxide alarm rules (not read), and the Constitution, which changes by ballot measure (IA log §1.1, §7)",
+        clauseIds: ["edu-eviction-process-ia", "edu-no-eviction-sealing-ia", "edu-alarm-duties-ia", "smoke-alarm-battery-ia"],
+      },
+      {
+        id: "ia-cerclis-name",
+        label:
+          "Iowa Code § 562A.13(6) names EPA's 'comprehensive environmental response compensation and liability information system'; whether EPA still keeps a list under that name, and where a landlord checks it, wasn't verified (IA log §7)",
+        clauseIds: ["superfund-disclosure-ia"],
+      },
+    ],
+  },
 };
 
 // Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
@@ -1358,6 +1405,7 @@ const STATE_CONFIG = {
 const SCHEDULE_ORDER = [
   "CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ",
   "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI",
+  "IA",
 ];
 function cronFor(code) {
   const n = SCHEDULE_ORDER.indexOf(code);
