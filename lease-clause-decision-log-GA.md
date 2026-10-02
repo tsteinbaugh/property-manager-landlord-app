@@ -467,3 +467,137 @@ All 12 lease clauses written for this state alone. Shared clauses tagged with th
 ## Propagated from the Wyoming retro, 2026-10-01
 
 1. **Shared-row edit (Claude Code, Taylor's approval) — `appliances-included`.** "which Landlord will maintain as described in this Lease's Maintenance & Repairs Section" now reads "which Landlord will maintain as provided in this Lease and applicable law". Driver: the WY retro (WY log §9 item 2) found the pointer named a section that seven states (WY, KS, NE, MN, ND, SD, OH) no longer have. Recorded as **uniform** (rule 62): the promise to maintain the listed items is unchanged, and the new wording names no section, so it can't dangle again. This state's lease keeps a Maintenance & Repairs section, which is still part of 'this Lease', so nothing changes in substance here. `last_checked` reset to 2026-10-01.
+
+## Retro checks (SOP 1.18), 2026-10-01
+
+**Date:** 2026-10-01 · **Chat:** Georgia's own chat, circle-back (rule 8) · **Settings:** Opus, high effort, built-in browser. **Research mode not used** (no rule 9 trigger: the official code's own full-text search did every absence search). Scalpel, not a re-audit (rule 1): only the rules and fixes in the prompt were checked.
+
+**Setup.**
+- **Input:** `lease-clauses.csv` has **2,282 rows** (17 columns, CRLF), as the prompt says. GA had 104 active rows.
+- **Old outputs deleted:** `lease-clause-decision-log-GA.md`, `lease-clause-decision-log-named-topic-checklist.md` and `lease-clauses-GA-sync.csv`, all from earlier work in this chat.
+- **The attached files are the only source of truth.** Where earlier chat conflicts with them, the files win:
+  - In earlier chat, `security-deposit-cap-ga` and `dv-lease-termination-ga` were active. The 2026-09-29 three-bucket scrub switched both off, and this pass works from that state.
+  - Earlier chat produced a 1,125-row sync file. It is superseded by the 2,282-row master.
+  - The GA log says section text came from Justia. This pass read the **official O.C.G.A.** instead, because Justia now shows a Cloudflare challenge, which I did not solve.
+
+**Sources and method.**
+- **Statutes:** official O.C.G.A. on advance.lexis.com (the General Assembly's free LexisNexis access). Its currency statement reads "Current through the 2026 Special Session of the General Assembly."
+  - Lexis showed a CAPTCHA the first time a document opened. Taylor solved it in the browser; I did not.
+  - Section text was copied out of the browser and checked by SHA-256 against the browser's own copy. Before hashing, en/em/thin/no-break spaces were normalised to plain spaces.
+  - **Hash-matched and saved:**
+    - Title 44 ch. 7: §§ 44-7-2, -6, -7, -13, -15, -16, -24, -33, -34, -50 (version in force), -52, -55, -80.
+    - Other titles: §§ 44-14-341, 44-14-342, 44-13-1, 44-13-40, 44-3-87, 13-6-7, 13-6-11, 13-6-15, 10-12-3, 10-12-5, 10-12-8, 7-4-2.
+  - **Browser hash only, text not saved (a weaker method):**
+    - the rest of ch. 7, arts. 1-4 (every section crawled and hashed);
+    - §§ 10-1-392, 10-1-393, 10-12-6, 10-12-7, 44-13-41 to 44-13-43.
+- **Court rules:** gasupreme.us PDFs, parsed in the browser with pdf.js because the container shell can't reach outside hosts (403).
+  - Uniform Magistrate Court Rules, read whole.
+  - Uniform Superior Court Rule 21 (PDF dated 2026-04-09).
+- **Constitution:** the Georgia Constitution is a separate searchable source on the same site. A known positive (Art. I, § I, Para. VIII) was returned.
+- **Search battery:** every full-text search ran with a nonsense control (0 hits) and, where one exists, a known positive. Patterns and counts: B1-B15, K0-K2 and R1-R2 in the retro search notes.
+- **Not read:** case law, local ordinances, federal law (CARES Act, E-SIGN), and Title 16 recording law.
+
+### One line per rule
+
+| Prompt item | Rule | Verdict | What was read | Rows changed |
+|---|---|---|---|---|
+| 1 | 37 tenancy type | **Fixed** | §§ 44-7-6, 44-7-7 (a tenancy with no end date is at will: 60 days' notice from the landlord, 30 from the tenant); HB 404 § 6 ("entered into or renewed on or after July 1, 2024"; whether an older tenancy at will "renews" each period is unsettled); shared clauses with fixed-Term figures | `early-termination` (GA untagged) → `early-termination-ks` (GA tagged; its fixed-Term limb answers the "remaining Rent due under the Term" fee); renewal sentence ("apply to every tenancy") added to `edu-eviction-process-ga`, `edu-security-deposit-rules-ga`, `edu-landlord-maintenance-ga`; `returned-payments` "during the Term", see fix 22 |
+| 2 | 39 eviction duties, court rules, public access | **Fixed** | §§ 44-7-50 to 44-7-59 re-read; UMCR read whole (6(D), 34.2, 46); USCR 21 | `edu-eviction-process-ga`: § 44-7-55(e) duty (off-duty officer at the landlord's sole cost; written notice to the sheriff at least 5 calendar days ahead) and UMCR 46(C) CARES Act 30-day notice for a "covered property" (federal statute not read, flagged). `edu-eviction-record-sealing-ga`: UMCR 6(D) and USCR 21 limitation of access, in force now (title drops "(from 2027)"). No post-writ animal duty; § 44-7-55(c) no-bailee rule already stated |
+| 3 | 41 just cause | **Checked, no issue** | B1 "good cause" (30 hits), B2 "just/for cause" (3 hits): none for dwellings; start list (`security-deposit-use`, `no-alterations`, `early-termination`, `keys`, `holdover-ca`, `holdover-rate-ga`) screened | None. No just-cause rule, so no clause wording can turn the end of the term into a for-cause event |
+| 4 | 41b `for-cause-eviction` row | **Fixed** | B3 conversion (§ 44-3-87), B4 tenant organization and rent escrow (§§ 44-7-24, 44-7-54 returned; no repair rent-escrow statute) | New `edu-no-for-cause-eviction-ga`: confirmed absence, with retaliation (3 months; tenant organization), the 120-day condominium-conversion window, and no rent-escrow bar |
+| 5 | 43 cure promises | **Already covered in §2.1 and §6 (decision 3)** | `default-by-tenant`'s rent limb defers to "the time period specified by applicable law" (§ 44-7-50(c), 3 business days), so it adds no notice by contract; Georgia has no no-cure grounds to give away; `application-of-payments` against § 44-7-52 tender; `early-termination` landlord limb (see fix 23) | None |
+| 6 | 45 electronic-transactions act | **Fixed** (note) | UETA §§ 10-12-3(b) (excludes only wills, Title 11 except § 11-1-306 and Arts. 2 and 2A, and UCITA), 10-12-5(b)-(c) (refusal right not waivable), 10-12-8 (retention; required delivery method; not waivable); B6 search | `electronic-signatures` GA segment: "UETA not read" replaced. No Georgia clause relies on electronic delivery of a statutory notice |
+| 7 | 46 lease as the required notice | **Already covered in §4** | §§ 44-7-3, 44-7-31 (lease clauses serve), § 44-7-20 (separate notice before signing), § 44-7-33 (lists) | None |
+| 8 | 47 knowing-use penalties | **Checked, no issue** | B5 (13 hits; none a penalty for knowingly using a prohibited lease term; § 44-7-2 attaches none). Screened `late-fee`, `early-termination`, `notices`, `common-area-use` | None |
+| 9 | 48 separate documents | **Already covered in §4** | § 44-7-20 flood notice; § 44-7-33 lists | None |
+| 10 | 49 collection-cost bans | **Checked, no issue** | B12 (71 hits; no residential ban); § 44-7-2(c) (one-way fee clauses void; the mutual sentence satisfies it); § 13-6-11 read; § 13-1-11's reach to leases is case law, not read | None (see fix 24) |
+| 11 | 50 "the lease controls" | **Fixed** | § 44-7-1(b) usufruct "unless the contrary is agreed ... and so stated" (landlord-favourable default kept); § 44-7-50(d) agreed delivery methods (declined, rule 44, no change); § 44-7-15 (casualty clause exists); § 44-7-24(d)(1)(A), (d)(2)(C) (already offered); **§ 44-7-24(d)(2)(E)** (holdover after the landlord's end-of-term notice "as agreed upon in the written lease"); § 44-7-54 "under terms of the lease"; § 44-3-87(a) renewal notice | New optional `end-of-term-notice-ga` (CONDITIONAL) supplies the agreed notice the (d)(2)(E) safe harbour needs |
+| 12 | 51 plain language, consumer protection | **Checked, no issue** | B15 plain-language search (47 hits, known positive § 10-4-107.1 returned, none for leases); FBPA § 10-1-392(a)(10) reaches leases by its text; the § 10-1-393(b) list has no blank-space or copy-at-signing practice for ordinary leases ((b)(20) is foreclosure-rescue only) | None here; the absence row is `edu-no-lease-completeness-rule-ga` (rule 27) |
+| 13 | 53 figures and triggers | **Checked, no issue** | `rent-payment`, `returned-payments` (§ 13-6-15(b): $30 or 5% plus bank fees "when making written demand", already in its GA note), `default-by-tenant` (§ 44-7-50(c)), `surrender-end-of-term`, `holdover-ca`, `assistance-animal-accommodation-ga` | None (holdover trigger: fix 19) |
+| 14 | 54 optional clauses | **Fixed** | B11 (§§ 44-13-1, 44-13-40 to -43); § 7-4-2, § 44-7-16; § 44-7-24; § 44-7-2(b)(4)-(6) | New `exemption-waiver-ga` (CONDITIONAL, off by default) + `edu-exemption-waiver-ga`; new `edu-legal-interest-ga` (contract interest rate lawful but **declined**: see the list below); `end-of-term-notice-ga` (item 11) |
+| 15 | 54t tenant-caused damage | **Fixed** | `tenant-caused-damage-tn` read, not tagged; § 44-7-15 (no abatement for casualty the landlord did not cause; no exit); `casualty-termination-ga` excludes tenant-caused damage; § 44-7-34(a); § 44-7-13(a) (no tenant-fault carve-out; non-waivable, § 44-7-2(b)(1)) | New `tenant-caused-damage-ga` (CONDITIONAL): "Landlord will make repairs as Georgia law requires", not TN's "reasonable efforts to repair", so it can't be read as softening the repair duty; tenancy-at-will limb. New `edu-tenant-caused-damage-ga` |
+| 16 | 35c constitution screen | **Checked, no issue** | K0-K2: no constitutional text reaches a private residential lease (Bill of Rights paragraphs restrain government; Art. III, § VI, Para. V(c) is a legislative power); B13: no tenant cannabis protection (low-THC registry only), so `smoking-policy` stands | None |
+| 17 | 27 seven topics | **Fixed** | **Algorithmic rent:** Confirmed absent (B7 0 hits; terms alone 10). **Fees as rent:** Present (§ 44-7-50(c) names late fees, utilities and other charges; § 44-7-52 tender is "all rents"; § 44-7-54 rent and utility payments). **Landlord self-cure:** Not located (ch. 7 read whole; no known positive to test a code-wide pattern). **Lease completeness:** Confirmed absent (B9). **Quiet possession:** Confirmed absent as a statute (B8; case notes only, not read). **Statutory forms:** Present (§ 13-6-15(c) demand "in substantially the form which follows"; UMCR 46 CARES affidavit; no lease or eviction-notice form). **Tenant cameras:** Confirmed absent (B14 0 hits; B14b 7 hits, none landlord-tenant) | New `edu-no-algorithmic-rent-rule-ga`, `edu-fees-as-rent-ga`, `edu-no-landlord-self-cure-ga`, `edu-no-lease-completeness-rule-ga`, `edu-no-quiet-possession-statute-ga`, `edu-statutory-forms-ga`, `edu-no-tenant-camera-rule-ga` |
+| 18 | 79 secondary-basis rows | **Fixed** | No GA row rests on secondary sources. **29 of 81 rows record no basis** (CITED or CONFIRMED_ABSENT in `lease-clause-citations-GA.csv` whose own GA notes don't say how the section was read): 27 shared-row GA segments plus `edu-dv-lease-termination-ga` and `edu-flood-disclosure-ga`. **Re-read section-open this pass:** 24 of the 29 (every ch. 7 section they cite, plus §§ 13-6-7, 13-6-15, 10-12-x). `electronic-signatures` and `early-termination` now record a basis. **Not re-read, listed for the sync:** `no-alterations` (§ 8-3-202), `parking-vehicle-rules` (§ 44-1-13), `guest-policy` (§§ 16-7-21.1, 44-11-30 to -33), `lead-based-paint` (§§ 31-41-12 to -18; federal), `edu-dv-lease-termination-ga` (§§ 16-5-90 to -94, 19-13-1). The GA log (§1.3) says all were drafted section-open | `edu-landlord-remedies-ga`: **defect fixed.** It said the general lien "dates only from the levy" (§§ 44-14-341/342), but § 44-7-80 says the lien for rent attaches when the § 44-7-71 affidavit is made. It now states both. Art. 4 sections earlier read by summary are now read section-open |
+| 19 | Fix: `holdover-rate-ga` trigger | **Fixed** | (a) Georgia has no statutory holdover measure or start date (`edu-no-holdover-multiplier-ga`; § 44-7-50(a)), so "after the end of the Term" was a lawful contract trigger; liquidated damages under § 13-6-7 (penalty case law not read). (b) Extended | `holdover-rate-ga`: "after this Lease ends, whether at the end of the Term or on an earlier termination under this Lease or applicable law"; "before this Lease ended" |
+| 20 | Fix: dangling pointers | **Fixed** | Own note segments scanned for pointers to switched-off rows | `due-at-signing` GA segment repointed to `edu-security-deposit-rules-ga`; `edu-security-deposit-rules-ga` history pointer marked "(switched off)". Provenance pointers in `edu-no-bed-bug-disclosure-ga`, `edu-no-mold-disclosure-ga`, `edu-dv-lease-termination-ga` ("split from", "moved from") are history and were left alone |
+| 21 | Fix: scrub-trimmed `security-deposit-return-ga` | **Fixed** | § 44-7-33(c): the tenant is bound only "provided that the lists ... contain written notice of the tenant's duty to sign or to dissent". Required-content search: nothing else Georgia requires in the lease beyond `landlord-disclosure-ga` and `security-deposit-escrow-ga` | Restored: "The list will include written notice of Tenant's duty to sign it or to dissent from it." Deposit-cap builder check goes to backlog M.13 (deposit + pet deposit + last-month amount ≤ 2 × Rent, decision 1) |
+| 22 | Fix: rule 62 vetting, `returned-payments` "during any 12-month period" | **Checked, no issue** | § 13-6-15 (fee and demand only; no count rule); ch. 7 has no payment-method rule | None. **Lawful in GA.** It also fixes the rule 37 "during the Term" point for tenancies at will |
+| 23 | Fix: `early-termination` landlord limb, WY "or such shorter notice and cure period as applicable law permits" | **Checked, no issue** | § 44-7-50(a), (c) | None. **Lawful in GA**, and it would stop the limb's 30 + 10 days reading as a route that crowds out the 3-business-day nonpayment notice. Moot for GA: GA now uses `early-termination-ks` (item 1) |
+| 24 | Fix: `default-by-tenant`, CO's proposal to delete "and reasonable costs and expenses" | **Checked, no issue** | § 44-7-2(c); B12; § 13-6-11 | None. **Lawful in GA.** It gives up only one-way contractual recovery of non-litigation collection costs, which no Georgia statute bars, and removes the risk that "expenses" is read as one-way attorney fees under § 44-7-2(c) |
+
+### Calls I made myself (rule 76; Taylor can reverse any of them)
+- **Offered as optional clauses**, never defaults, under rule 54's "offer every lawful one":
+  - `end-of-term-notice-ga`: the § 44-7-24(d)(2)(E) safe harbour. It is the same family as the GA pass's `rent-escalation-ga` and `serious-misconduct-prohibition-ga`.
+  - `exemption-waiver-ga`: § 44-13-40 lets the waiver sit "in the contract of indebtedness". It follows AL's precedent, Taylor's AL decision 4.
+  - `tenant-caused-damage-ga`: rule 54t.
+- **Declined, with an education row:** a contract interest rate. A month's rent is usually $3,000 or less, so § 7-4-2(a)(2)'s 16% ceiling applies. Whether a late fee is "interest" under (a)(3), and whether arrears are a "forbearance", are usury questions I did not read. MO took the same course.
+- **Not offered, log only:**
+  - jury waiver (no statute; enforceability is case law, not read);
+  - shortening the § 44-7-7 at-will notices by lease (the statute is silent on contracting out; unsettled);
+  - waivers of the dispossessory, distress or deposit rules (barred, § 44-7-2(b)(4)-(6)).
+
+### Shared rows and propagation
+- **No shared row's text was edited.** On shared rows, only the GA tag, the GA note segment and `last_checked` changed:
+  - `early-termination`: GA untagged, segment appended, `last_checked` 2026-10-01;
+  - `early-termination-ks`: GA tagged, segment appended;
+  - `due-at-signing` and `electronic-signatures`: GA segment edited.
+- These are states-only and note-only changes (s5a.1), so no propagation is owed. No display collision: `early-termination-ks` supersedes `early-termination`, and only the former is GA-tagged.
+- **Rule 62 verdicts for the sync (fixes 22-24):** GA vouches for all three proposed shared edits:
+  - `returned-payments` "during any 12-month period";
+  - the WY limb on `early-termination`, which GA no longer uses;
+  - deleting "and reasonable costs and expenses" from `default-by-tenant`.
+
+### Findings worth Taylor's attention
+1. **Legal watch:** §§ 44-14-341/342 date the landlord's general lien from the levy, but § 44-7-80 attaches the lien for rent from the § 44-7-71 affidavit. The two statutes conflict on priority; the case law was not read. `edu-landlord-remedies-ga` tells landlords to assume the later date.
+2. **Federal flag:** UMCR 46(C) makes the CARES Act 30-day notice a Georgia filing condition for "covered property". The library has not read the federal definition.
+3. **Citation format, not fixed (out of scope):** `edu-dv-lease-termination-ga` and `edu-flood-disclosure-ga` cite "O.C.G.A. 44-7-23" and "O.C.G.A. 44-7-20" without "§". A one-character sync fix.
+
+### Delta and checks
+`lease-clauses-GA-retro-delta.csv` has **25 rows: 11 changed and 14 new.**
+- **Changed, own rows:** `holdover-rate-ga`, `security-deposit-return-ga`, `edu-landlord-remedies-ga`, `edu-eviction-process-ga`, `edu-eviction-record-sealing-ga`, `edu-security-deposit-rules-ga`, `edu-landlord-maintenance-ga`.
+- **Changed, shared rows:** `due-at-signing`, `electronic-signatures`, `early-termination`, `early-termination-ks`.
+- **New:**
+  - `edu-no-for-cause-eviction-ga`;
+  - `end-of-term-notice-ga`;
+  - `exemption-waiver-ga`, `edu-exemption-waiver-ga`;
+  - `tenant-caused-damage-ga`, `edu-tenant-caused-damage-ga`;
+  - `edu-legal-interest-ga`;
+  - the seven rule 27 rows.
+- **Merged into the master:**
+  - 2,296 rows;
+  - GA active 104 → **118** (67 lease clauses, 51 education);
+  - every other state's active count unchanged.
+- **Integrity checks passed:**
+  - no duplicate ids;
+  - no dangling `supersedes`;
+  - no GA display collision;
+  - all 17 fields on every row;
+  - header byte-identical to the master;
+  - CRLF throughout, no bare LF.
+- **Every delta row:** VERIFIED, `last_checked` 2026-10-01. New rows also have `effective_from` 2026-10-01 and record their basis in `notes`.
+
+### Proposed SOP changes
+1. **Rule 19, form phrases:** add "form which follows" and "substantially the form" to the statutory-form search terms. Georgia's § 13-6-15(c) says "in substantially the form which follows", which none of the listed phrases ("following form", "substantially as follows", "as follows:") matches. Two GA patterns built on them missed the known positive.
+2. **Rule 19, chained proximity on Lexis:** on the LexisNexis public-access codes, a pattern chaining three or more w/n terms dropped true hits. Prefer an AND of two OR-groups, and keep the known-positive test mandatory for each pattern.
+3. **Rule 37, applicability by renewal:** where a statute applies to leases "entered into or renewed on or after" a date (Georgia's HB 404 § 6), say how it reaches a periodic or at-will tenancy that began earlier. If that is unsettled, tell landlords to follow the rule for every tenancy.
+4. **Rule 39, federal notices in court rules:** check the uniform court rules for federal pre-filing conditions, not only timing and public access. Georgia's UMCR 46 makes the CARES Act 30-day notice a filing condition for a "covered property".
+5. **Rule 54, retaliation safe harbours:** a safe harbour that turns on something "as agreed upon in the written lease" is itself an optional clause. Georgia's § 44-7-24(d)(2)(E) is an example: an end-of-term notice.
+6. **Rule 79, or rule 39 widened:** where two statutes give different dates or priorities for the same right, state both, and flag the pair for the legal watch. This is the statute-versus-statute version of rule 39's statute-versus-court-rule rule; Georgia's lien sections are an example.
+7. **Sources (Fwd):**
+   - When a host copy is behind a bot challenge, use the official code's own site rather than solving it.
+   - When a document-access CAPTCHA appears, ask Taylor to solve it.
+   - When the shell's egress is blocked, parse court-rule PDFs in the browser (pdf.js from cdnjs) and save the text with a hash check.
+
+## Retro sync (Claude Code, 2026-10-02)
+
+- **Merged** with `merge-delta.py --base 5321f8c` (the commit the pass was staged from; the attached CSV is byte-identical to it): 11 rows updated, 14 new, no refusals. GA active 104 → 118; GA shows 67 lease clauses with no same-topic pairs; every other state's set unchanged.
+- **Guards:** `check-gap-discovery.py --all`, `check-checklist-reconciliation.py`, `check-clause-basis.py`, `check-section-pointers.py` and `checkConfigIds.js` all pass.
+- **Statute spot-check: not done at sync.** From Claude Code's shell, Justia returns 403 and the official O.C.G.A. on Lexis needs a CAPTCHA, so no Georgia text could be read; the retro's own reads were hash-matched against the official code (see Sources and method above).
+- **Fix 3 (citation format) applied:** `edu-dv-lease-termination-ga` and `edu-flood-disclosure-ga` now cite "O.C.G.A. § 44-7-23" and "O.C.G.A. § 44-7-20".
+- **Citations file:** `early-termination` removed (GA untagged); 15 rows added (`early-termination-ks` and the 14 new rows; 3 confirmed-absence rows); the newly cited sections of the 9 changed rows appended (among them §§ 44-7-55(e), 44-7-71, 44-7-80, the UETA sections and the court rules).
+- **Legal watch:** two manual recheck items added to the GA config: the court rules (UMCR 6(D), 34.2, 46; USCR 21; the CARES Act "covered property" definition unread) and the lien-priority conflict (§§ 44-14-341/342 vs § 44-7-80).
+- **Rule 62 answers recorded:** GA vouches for all three pending shared edits (`returned-payments` "during any 12-month period", WY's `early-termination` limb, CO's `default-by-tenant` deletion). None can merge yet: each still waits on other tagged states (`docs/backlog.md`).
+- **Rule 79 rows not re-read (5):** `no-alterations`, `parking-vehicle-rules`, `guest-policy`, `lead-based-paint`, `edu-dv-lease-termination-ga`. Listed in the backlog for GA's next circle-back; the original GA log (§1.3) says they were drafted section-open.
+- **Builder:** the Georgia deposit cap (deposit + pet deposit + last-month amount ≤ 2 × Rent, decision 1) added to backlog M.13.
+- **SOP 1.19:** all seven proposals adopted (rules 14, 19, 31, 37, 39, 54); see the change log. GA's conformance column is complete except the eviction-fee example.

@@ -731,6 +731,18 @@ const STATE_CONFIG = {
           "Georgia agency rules LegiScan can't see: Department of Public Safety towing rules, Department of Public Health lead rules, PSC utility rules (GA log §7)",
         clauseIds: ["edu-towing-ga", "edu-lead-poisoning-abatement-ga", "utility-service-continuity"],
       },
+      {
+        id: "ga-court-rules",
+        label:
+          "Georgia court rules LegiScan can't see: Uniform Magistrate Court Rules 6(D), 34.2 and 46 (record access; the CARES Act 30-day notice as a filing condition for a 'covered property', whose federal definition the library hasn't read) and Uniform Superior Court Rule 21 (GA log, retro checks)",
+        clauseIds: ["edu-eviction-process-ga", "edu-eviction-record-sealing-ga"],
+      },
+      {
+        id: "ga-lien-priority",
+        label:
+          "Landlord's lien for rent: O.C.G.A. §§ 44-14-341 and 44-14-342 date the general lien from the levy, but § 44-7-80 attaches the lien for rent from the § 44-7-71 affidavit; case law unread, and edu-landlord-remedies-ga tells landlords to assume the later date. Recheck if either is amended or a court resolves it (GA log, retro checks)",
+        clauseIds: ["edu-landlord-remedies-ga"],
+      },
     ],
   },
 

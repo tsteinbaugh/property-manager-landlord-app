@@ -547,7 +547,7 @@ const CLAUSE_TEMPLATES = [
     id: "early-termination",
     title: "Early Termination",
     group: "Default & Termination",
-    states: ["CO", "WY", "MN", "ND", "SD", "OH", "NV", "TX", "GA", "NC"],
+    states: ["CO", "WY", "MN", "ND", "SD", "OH", "NV", "TX", "NC"],
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay an early termination fee equal to one month's Rent ({{monthly_rent}}) or 30% of the remaining Rent due under the Term, whichever is greater, and remains responsible for Rent and other obligations up to the termination date. Landlord may terminate this Lease early by providing Tenant at least 30 days' written notice if Tenant breaches a material term of this Lease and fails to cure the breach within 10 days of receiving written notice, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law. This includes a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or — except as prohibited by law in the case of a Tenant's death — any other termination right or limitation provided by applicable law.",
   },
@@ -1095,7 +1095,7 @@ const CLAUSE_TEMPLATES = [
     id: "early-termination-ks",
     title: "Early Termination",
     group: "Default & Termination",
-    states: ["KS", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "NJ", "IN", "AZ", "OK"],
+    states: ["KS", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "NJ", "IN", "AZ", "OK", "GA"],
     supersedes: "early-termination",
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay an early termination fee equal to one month's Rent ({{monthly_rent}}) or 30% of the remaining Rent due under the Term, whichever is greater, and remains responsible for Rent and other obligations up to the termination date. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or, except as prohibited by law in the case of a Tenant's death, any other termination right or limitation provided by applicable law.",
@@ -3003,7 +3003,7 @@ const CLAUSE_TEMPLATES = [
     states: ["GA"],
     supersedes: "security-deposit-return",
     bodyText:
-      "If Tenant is present at the move-out inspection, Landlord and Tenant will both sign the damage list, and the signed list is conclusive evidence of its accuracy; if Tenant disagrees with any item, Tenant must state in writing the specific items Tenant disputes and sign that statement. Landlord may keep from the Security Deposit amounts for unpaid Rent or late fees, abandonment of the property, unpaid utility charges, repair work or cleaning Tenant contracted for with third parties, unpaid pet fees, and actual damages caused by Tenant's breach, which Landlord will attempt to mitigate. Tenant should give Landlord a forwarding address in writing.",
+      "If Tenant is present at the move-out inspection, Landlord and Tenant will both sign the damage list, and the signed list is conclusive evidence of its accuracy; if Tenant disagrees with any item, Tenant must state in writing the specific items Tenant disputes and sign that statement. The list will include written notice of Tenant's duty to sign it or to dissent from it. Landlord may keep from the Security Deposit amounts for unpaid Rent or late fees, abandonment of the property, unpaid utility charges, repair work or cleaning Tenant contracted for with third parties, unpaid pet fees, and actual damages caused by Tenant's breach, which Landlord will attempt to mitigate. Tenant should give Landlord a forwarding address in writing.",
   },
   {
     id: "security-deposit-escrow-ga",
@@ -3074,7 +3074,7 @@ const CLAUSE_TEMPLATES = [
     group: "Default & Termination",
     states: ["GA"],
     bodyText:
-      "If Tenant remains in possession after the end of the Term, and Landlord has not agreed in writing to a continued tenancy or accepted Rent for one under the Holdover section of this Lease, then, in place of the actual damages and reasonable rental value described in that section, Tenant will pay Landlord a holdover charge of {{holdover_daily_rate}} for each day Tenant remains in possession. Landlord and Tenant agree that Landlord's loss from a holdover, including delay in making the property available to a new tenant, is difficult to estimate accurately in advance, that this charge is a reasonable estimate of that loss, and that it is not a penalty. Landlord's acceptance of a holdover charge is not acceptance of Rent for a continued tenancy. This Section does not limit Landlord's right to recover possession, unpaid Rent and other amounts due for the period before the Term ended, or damages for harm to the property.",
+      "If Tenant remains in possession after this Lease ends, whether at the end of the Term or on an earlier termination under this Lease or applicable law, and Landlord has not agreed in writing to a continued tenancy or accepted Rent for one, then, in place of any actual damages for Tenant's continued possession (including the actual damages and reasonable rental value described in the Holdover section of this Lease), Tenant will pay Landlord a holdover charge of {{holdover_daily_rate}} for each day Tenant remains in possession. Landlord and Tenant agree that Landlord's loss from a holdover, including delay in making the property available to a new tenant, is difficult to estimate accurately in advance, that this charge is a reasonable estimate of that loss, and that it is not a penalty. Landlord's acceptance of a holdover charge is not acceptance of Rent for a continued tenancy. This Section does not limit Landlord's right to recover possession, unpaid Rent and other amounts due for the period before this Lease ended, or damages for harm to the property.",
   },
   {
     id: "casualty-termination-ga",
@@ -5127,6 +5127,30 @@ const CLAUSE_TEMPLATES = [
     states: ["CO"],
     bodyText:
       "Landlord and Tenant each waive the right to a jury trial in any hearing to determine possession of the property, to the extent Colorado law permits that waiver. This waiver applies only to a hearing to determine possession. It does not waive either party's right to a jury trial on any claim for damages or on any other issue, and it does not waive any other right either party has under applicable law. This Section does not apply to a rental agreement concerning the occupancy of a mobile home in a mobile home park.",
+  },
+  {
+    id: "end-of-term-notice-ga",
+    title: "Notice That This Lease Ends at the End of the Term (Optional)",
+    group: "Default & Termination",
+    states: ["GA"],
+    bodyText:
+      "This Lease ends at the end of the Term whether or not Landlord gives notice. Landlord may also give Tenant written notice, at least {{end_of_term_notice_days}} days before the last day of the Term, that this Lease will end at the end of the Term and will not be renewed or extended. If Landlord gives that notice, Tenant will vacate the property by the end of the Term.",
+  },
+  {
+    id: "exemption-waiver-ga",
+    title: "Waiver of Exemptions (Optional)",
+    group: "Default & Termination",
+    states: ["GA"],
+    bodyText:
+      "Tenant waives and renounces Tenant's right to the benefit of the exemption from levy and sale provided by Article 1 of Chapter 13 of Title 44 of the Official Code of Georgia Annotated, as to any amount Tenant owes under this Lease. This waiver does not apply to wearing apparel or to $300.00 worth of household and kitchen furniture and provisions, which Georgia law protects despite any waiver.",
+  },
+  {
+    id: "tenant-caused-damage-ga",
+    title: "Damage Caused by Tenant",
+    group: "Default & Termination",
+    states: ["GA"],
+    bodyText:
+      "If the property is damaged by fire, water, a vehicle or any other cause, and the damage results from the deliberate or negligent act or omission of Tenant, an Occupant, or a guest or invitee of Tenant, then: (1) Rent will not abate or be reduced while the property is repaired, for as long as this Lease continues; and (2) if this Lease ends because of the damage, Tenant will be liable for Landlord's actual damages, including the Rent Landlord loses while the property is repaired, up to the end of the Term (for a tenancy with no fixed Term, up to the earliest date Tenant could have ended the tenancy by notice), less any Rent Landlord receives from re-renting the property. Landlord will make repairs as Georgia law requires and will use reasonable efforts to re-rent the property. This Section is in addition to Tenant's liability for the cost of repairing the damage.",
   },
 ];
 
