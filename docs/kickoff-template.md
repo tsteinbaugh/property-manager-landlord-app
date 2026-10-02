@@ -1,5 +1,7 @@
 # Kickoff: {STATE_NAME} (state #{STATE_NUMBER})
 
+**Staged {STAGED_AT}; the attached `lease-clauses.csv` has {ROW_COUNT} rows.** Check that row count first (Step A below).
+
 You're researching {STATE_NAME} for the Steinoak lease clause library. **Follow `lease-clause-sop.md` (attached) from start to finish. It is the whole procedure.** This prompt only adds what is specific to {STATE_NAME}. Where the two disagree, the SOP wins; say so if you notice a conflict.
 
 ## Settings

@@ -177,6 +177,12 @@ const STATE_CONFIG = {
         label: "Justice v. Marvel, LLC, 979 N.W.2d 384 (Minn. 2022); Dewitt v. London Rd. Rental Ctr., Inc., 910 N.W.2d 412 (Minn. 2018)",
         clauseIds: ["parking-mn", "storage-space-mn", "tenants-property-insurance-mn", "pet-policy-mn"],
       },
+      {
+        id: "mn-court-rules",
+        label:
+          "Minnesota General Rules of Practice LegiScan can't see: Rule 604 (the complaint must plead compliance with Minn. Stat. § 504B.181; notice and lease attached or provided) and Rule 608 (rent deposit), which conflicts with § 504B.285 subd. 4(b)-(c)'s bar on deposits in a shared-metered utility-charge eviction; the later, more specific statute controls there (MN log, retro checks)",
+        clauseIds: ["edu-landlord-disclosure-consequences-mn"],
+      },
     ],
   },
 

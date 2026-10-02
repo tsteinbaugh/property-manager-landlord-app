@@ -46,6 +46,7 @@ counts = "\n".join(f"- {s}: {per_state[s]}" for s in sorted(per_state))
 fill = {
     "STATE_NAME": name, "ST": st, "STATE_NUMBER": str(len(done) + 1),
     "REF1": ref1, "REF2": ref2,
+    "STAGED_AT": __import__("datetime").datetime.now().strftime("%Y-%m-%d %H:%M"),
     "ROW_COUNT": f"{len(rows):,}", "ACTIVE_COUNT": f"{len(active):,}",
     "CLAUSE_COUNT": f"{sum(r['content_type'] == 'LEASE_CLAUSE' for r in active):,}",
     "EDU_COUNT": f"{sum(r['content_type'] == 'LANDLORD_EDUCATION' for r in active):,}",

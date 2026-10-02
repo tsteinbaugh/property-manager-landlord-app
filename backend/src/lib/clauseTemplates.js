@@ -264,6 +264,14 @@ const CLAUSE_TEMPLATES = [
       "Each payment Tenant makes will be applied first to the Monthly Rent due for the current or oldest unpaid rental period, and only then to any other fees, charges, or amounts due under this Lease, unless Tenant directs otherwise in writing for a particular payment or applicable law requires otherwise. Nothing in this provision limits any statutory right Tenant may have to cure nonpayment of Rent.",
   },
   {
+    id: "late-fee-limit-mn",
+    title: "Late Fee Limit",
+    group: "Rent & Payment",
+    states: ["MN"],
+    bodyText:
+      "Any late fee charged under this Lease is agreed to by Landlord and Tenant in writing by this Lease, will be imposed only as stated in this Lease's late fee provision, and will not exceed 8% of the overdue Rent payment. If Landlord receives housing assistance payments for the property under a contract with a federal, state, or local government, any late fee will be calculated and assessed only on the portion of Rent payable by Tenant.",
+  },
+  {
     id: "late-fee-limit-tn",
     title: "Late Fee (Tennessee URLTA Counties)",
     group: "Rent & Payment",
@@ -5425,6 +5433,24 @@ const CLAUSE_TEMPLATES = [
     states: ["MI"],
     bodyText:
       "Landlord and Tenant agree that, during the Term, Tenant will make the following specified repairs or perform the following specified maintenance at the property, and Landlord's obligation to do so is modified to that extent: [list each repair or maintenance item specifically]. Landlord remains responsible for every other obligation Michigan law places on Landlord, including keeping the property and all common areas fit for the use intended, keeping the property in reasonable repair except for the items listed above, and complying with the applicable health and safety laws of the state and of the local unit of government. This Section does not change any remedy Tenant has if the property is in a condition that violates the covenants of fitness and habitability. This Section ends if this Lease continues on a month-to-month or other periodic basis, or if this Lease no longer has a current term of at least 1 year.",
+  },
+  // Default & Termination
+  {
+    id: "tenant-caused-damage-mn",
+    title: "Damage Caused by Tenant",
+    group: "Default & Termination",
+    states: ["MN"],
+    bodyText:
+      "If the property is damaged by fire, water, freezing, a vehicle, or any other cause, and the damage results from the deliberate or negligent act or omission of Tenant, an Occupant, or a guest or invitee of Tenant, then: (1) Rent will not abate or be reduced while the property is repaired, for as long as this Lease continues; and (2) if this Lease ends because of the damage, Tenant will be liable for Landlord's actual damages, including the Rent Landlord loses while the property is repaired, up to the end of the Term, less any Rent Landlord receives from re-renting the property. Landlord will use reasonable efforts to repair and re-rent the property. This Section is in addition to Tenant's liability for the cost of repairing the damage, and does not limit any right Tenant has under applicable law that may not be waived.",
+  },
+  // Rent & Payment
+  {
+    id: "partial-payment-nonwaiver-mn",
+    title: "Partial Payment of Rent in Arrears (Optional)",
+    group: "Rent & Payment",
+    states: ["MN"],
+    bodyText:
+      "Landlord and Tenant agree that if Landlord accepts a partial payment of Rent in arrears before an order granting Landlord restitution of the property is issued in an eviction action for nonpayment of Rent, the payment will be applied to the balance Tenant owes and will not waive Landlord's action to recover possession of the property for nonpayment of Rent.",
   },
 ];
 
