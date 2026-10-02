@@ -243,7 +243,7 @@ const CLAUSE_TEMPLATES = [
     id: "returned-payments",
     title: "Returned Checks / Dishonored Payments",
     group: "Rent & Payment",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "AZ", "GA", "NC", "PA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "AZ", "GA", "PA"],
     bodyText:
       "If any payment of Rent is returned for insufficient funds or otherwise fails, Landlord may require that the payment be replaced by a cashier's check, certified check, or money order, and may charge Tenant a fee associated with the failed payment, not to exceed the maximum amount permitted by applicable law. If more than two of Tenant's payments during the Term are returned for insufficient funds, Landlord may require all future payments of Rent be made by cashier's check, certified check, or money order.",
   },
@@ -298,7 +298,7 @@ const CLAUSE_TEMPLATES = [
     states: ["NC"],
     supersedes: "late-fee",
     bodyText:
-      "If any payment of Monthly Rent is five or more calendar days late, counting from the day after it was due, Tenant will owe a late fee of {{late_fee_amount}}. Acceptance of a late payment does not waive Landlord's right to require full payment of Rent on the date it is due or to pursue any other remedy available under this Lease.",
+      "If any payment of Monthly Rent is five or more calendar days late, counting from the day after it was due, Tenant will owe one late fee of {{late_fee_amount}} for that late payment. If Tenant's Rent is subsidized by a government housing program, the late fee will not exceed the greater of $15.00 or five percent (5%) of Tenant's share of the monthly Rent. Acceptance of a late payment does not waive Landlord's right to require full payment of Rent on the date it is due or to pursue any other remedy available under this Lease.",
   },
   {
     id: "late-fee-safe-harbor-tx",
@@ -555,7 +555,7 @@ const CLAUSE_TEMPLATES = [
     id: "early-termination",
     title: "Early Termination",
     group: "Default & Termination",
-    states: ["CO", "WY", "MN", "ND", "SD", "OH", "NV", "TX", "NC"],
+    states: ["CO", "WY", "MN", "ND", "SD", "OH", "NV", "TX"],
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay an early termination fee equal to one month's Rent ({{monthly_rent}}) or 30% of the remaining Rent due under the Term, whichever is greater, and remains responsible for Rent and other obligations up to the termination date. Landlord may terminate this Lease early by providing Tenant at least 30 days' written notice if Tenant breaches a material term of this Lease and fails to cure the breach within 10 days of receiving written notice, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law. This includes a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or — except as prohibited by law in the case of a Tenant's death — any other termination right or limitation provided by applicable law.",
   },
@@ -1056,7 +1056,7 @@ const CLAUSE_TEMPLATES = [
     id: "default-by-tenant-ks-ne",
     title: "Tenant Default",
     group: "Default & Termination",
-    states: ["KS", "NE", "OH", "NC", "OK"],
+    states: ["KS", "NE", "OH", "OK"],
     supersedes: "default-by-tenant",
     bodyText:
       "Tenant will be in default under this Lease if Tenant fails to pay Rent when due and does not cure the failure within the time period specified by applicable law after receiving written notice from Landlord, or fails to comply with any other obligation under this Lease and does not cure the failure after receiving written notice, except where applicable law permits Landlord to proceed without giving Tenant an opportunity to cure. Except as required by applicable law, Tenant's failure to pay an assessed late fee, apart from the underlying Rent itself, will not by itself entitle Landlord to terminate this Lease or pursue eviction. If Tenant is in default, Landlord may exercise all rights and remedies available under applicable law, including terminating this Lease, regaining possession of the property, and recovering unpaid Rent, late fees, and reasonable costs and expenses, less amounts obtained from the Security Deposit. Landlord will use reasonable efforts to mitigate damages resulting from Tenant's default to the extent required by applicable law.",
@@ -1103,7 +1103,7 @@ const CLAUSE_TEMPLATES = [
     id: "early-termination-ks",
     title: "Early Termination",
     group: "Default & Termination",
-    states: ["KS", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "NJ", "IN", "AZ", "OK", "GA", "MI", "IA"],
+    states: ["KS", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "NJ", "IN", "AZ", "OK", "GA", "MI", "IA", "NC"],
     supersedes: "early-termination",
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay an early termination fee equal to one month's Rent ({{monthly_rent}}) or 30% of the remaining Rent due under the Term, whichever is greater, and remains responsible for Rent and other obligations up to the termination date. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or, except as prohibited by law in the case of a Tenant's death, any other termination right or limitation provided by applicable law.",
@@ -3214,7 +3214,7 @@ const CLAUSE_TEMPLATES = [
     group: "Default & Termination",
     states: ["NC"],
     bodyText:
-      "If Tenant remains in possession after the end of the Term, and Landlord has not agreed in writing to a continued tenancy or accepted Rent for one under the Holdover section of this Lease, then, in place of the actual damages and reasonable rental value described in that section, Tenant will pay Landlord a holdover charge of {{holdover_daily_rate}} for each day Tenant remains in possession. Landlord and Tenant agree that Landlord's loss from a holdover, including delay in making the property available to a new tenant, is difficult to estimate accurately in advance, that this charge is a reasonable estimate of that loss, and that it is not a penalty. Landlord's acceptance of a holdover charge is not acceptance of Rent for a continued tenancy. This Section does not limit Landlord's right to recover possession, unpaid Rent and other amounts due for the period before the Term ended, or damages for harm to the property.",
+      "If Tenant remains in possession after this Lease ends, whether at the end of the Term or on an earlier termination under this Lease or applicable law (other than a termination for nonpayment of Rent), and Landlord has not agreed in writing to a continued tenancy or accepted Rent for one, then, in place of any actual damages for Tenant's continued possession (including the actual damages and reasonable rental value described in the Holdover section of this Lease), Tenant will pay Landlord a holdover charge of {{holdover_daily_rate}} for each day Tenant remains in possession. Landlord and Tenant agree that Landlord's loss from a holdover, including delay in making the property available to a new tenant, is difficult to estimate accurately in advance, that this charge is a reasonable estimate of that loss, and that it is not a penalty. Landlord's acceptance of a holdover charge is not acceptance of Rent for a continued tenancy. This Section does not limit Landlord's right to recover possession, unpaid Rent and other amounts due for the period before this Lease ended, or damages for harm to the property.",
   },
   // Security Deposit
   {
@@ -5667,6 +5667,35 @@ const CLAUSE_TEMPLATES = [
     states: ["IA"],
     bodyText:
       "Tenant, members of Tenant's household, and Tenant's guests and invitees will not engage in criminal activity at the property or in any common area, including physical assault or the threat of physical assault, illegal use or threatened illegal use of a firearm or other weapon, and illegal manufacture or distribution of a controlled substance; illegal possession of a controlled substance by Tenant, or by anyone else on the property with Tenant's consent where Tenant knew of it, is also a violation. A violation of this Section is a material noncompliance with this Lease. Where the activity creates a clear and present danger to the health or safety of others, Landlord may terminate this Lease by a single three days' written notice of termination and notice to quit as Iowa law provides, subject to the exemptions Iowa law gives Tenant; otherwise Landlord may proceed as this Lease's Tenant Default section provides. This Section does not restrict Tenant's lawful possession or storage of a firearm in the dwelling unit, and it does not apply to Tenant or a household member who is the victim of the criminal activity or who summons law enforcement or emergency assistance.",
+  },
+  // Default & Termination
+  {
+    id: "default-by-tenant-nc",
+    title: "Tenant Default",
+    group: "Default & Termination",
+    states: ["NC"],
+    supersedes: "default-by-tenant",
+    bodyText:
+      "Tenant will be in default under this Lease if Tenant fails to pay Rent when due and does not pay all past-due Rent within 10 days after Landlord's written demand for it, or fails to comply with any other obligation under this Lease and does not cure the failure after receiving written notice. Landlord need not give Tenant an opportunity to cure before seeking possession for criminal activity, or in any other case where North Carolina law permits Landlord to proceed without one. Except as required by applicable law, Tenant's failure to pay an assessed late fee, apart from the underlying Rent itself, will not by itself entitle Landlord to terminate this Lease or pursue eviction. If Tenant is in default, Landlord may exercise all rights and remedies available under applicable law, including terminating this Lease, regaining possession of the property, and recovering unpaid Rent, late fees and Landlord's actual damages, less amounts obtained from the Security Deposit. Landlord will not charge Tenant any administrative fee, out-of-pocket expense or litigation cost for filing a complaint for summary ejectment or money owed except those N.C. Gen. Stat. § 42-46 allows. Landlord will use reasonable efforts to mitigate damages resulting from Tenant's default to the extent required by applicable law.",
+  },
+  // Rent & Payment
+  {
+    id: "returned-payments-nc",
+    title: "Returned Payments (North Carolina)",
+    group: "Rent & Payment",
+    states: ["NC"],
+    supersedes: "returned-payments",
+    bodyText:
+      "If any payment Tenant makes is returned or fails because of insufficient funds, because Tenant has no account, or for any other reason, Tenant will pay Landlord a returned-payment fee of [amount; North Carolina caps the processing fee for a check refused for insufficient funds or no account at $35.00 where the statute applies (checks taken in payment for goods or services), and no statute sets a fee for a failed electronic payment, so $35.00 or less is the safe figure for any returned payment], and Landlord may require that the payment be replaced by a cashier's check, certified check or money order. If more than two of Tenant's payments during any 12-month period are returned or fail, Landlord may require all future payments of Rent to be made by cashier's check, certified check or money order.",
+  },
+  // Default & Termination
+  {
+    id: "tenant-caused-damage-nc",
+    title: "Damage Caused by Tenant",
+    group: "Default & Termination",
+    states: ["NC"],
+    bodyText:
+      "If the property is damaged by fire, water, a vehicle or any other cause, and the damage results from the deliberate or negligent act or omission of Tenant, an Occupant, or a guest or invitee of Tenant, then: (1) as long as Landlord makes the repairs within a reasonable time, Rent will not abate or be reduced while the property is repaired, for as long as this Lease continues; and (2) if this Lease ends because of the damage, Tenant will be liable for Landlord's actual damages, including the Rent Landlord loses while the property is repaired, up to the end of the Term (for a month-to-month or other periodic tenancy, up to the earliest date Tenant could have ended the tenancy by notice), less any Rent Landlord receives from re-renting the property. Landlord will make repairs as North Carolina law requires and will use reasonable efforts to re-rent the property. This Section is in addition to Tenant's liability for the cost of repairing the damage.",
   },
 ];
 
