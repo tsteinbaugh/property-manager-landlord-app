@@ -967,3 +967,334 @@ All 27 lease clauses written for this state alone. Shared clauses tagged with th
 Not a re-audit; nothing else in this state was reviewed.
 
 **Propagation note (uniform edit, rule 62): `snow-removal` rewritten.** Old: 'Unless Landlord provides snow removal service, Tenant is responsible for prompt, reasonable removal of snow and ice from any walkway, driveway, porch, or entrance at the property that Tenant uses, to help keep those areas safe and passable.' New: 'Unless Landlord provides snow removal, Tenant will promptly remove snow and ice from the areas of the property Tenant uses for walking, parking and access. This does not include areas shared with other residents.' Why: Taylor found the list of areas too specific (properties differ, and a list invites arguments about what it covers), and Michigan's sync showed the clause should say outright that shared areas stay with the landlord. The edit only narrows the tenant's duty; this state's existing note on the row still holds.
+
+## Retro checks (SOP 1.27), 2026-10-02 to 2026-10-03
+
+2026-10-02. Targeted checks only (rule 1): nothing else in Nevada was reopened. Inputs were the files attached to this task, which are the only source of truth: `lease-clauses.csv` (2,712 rows, checked before starting; 124 active NV rows), `lease-clause-sop.md` 1.27, `lease-clause-decision-log-NV.md`, `lease-clause-citations-NV.csv` and `lease-clause-topics.md`. Where this chat's earlier backfill delta differs from the attached CSV, the attached CSV wins. For example, the sync renamed three backfill topic keys: `edu-political-signs-cic-nv` is now `tenant-display-rights`, `edu-meth-lab-rental-nv` is now `meth-disclosure` and `edu-unauthorized-occupant-removal-nv` is now `unauthorized-occupant-removal`. Research mode was not used: no rule 9 trigger came up that the official text didn't settle.
+
+**Sources and method.**
+- **Statutes.** Read in Taylor's built-in browser from leg.state.nv.us.
+  - The compilation is "Nevada Revised Statutes (2025/2026 R1)". The relied-on chapter pages print Rev. 4/15/2026. Ch. 116 and 218D print Rev. 9/9/2026 (2026R1), and their relied-on sections were not amended by the 36th Special Session (2025).
+  - The whole code was loaded (835 chapter pages, 49,746 sections, every page status 200).
+  - The parser was proved complete against every chapter's table of contents: 0 TOC sections missing. The first run missed 14 sections in 8 non-landlord chapters, because their anchors break across a line. The anchor regex was fixed and the corpus reloaded.
+  - Two-version sections are kept as separate keys.
+- **Constitution and court rules.** Loaded into the same corpus and read whole:
+  - the Constitution;
+  - JCRCP ("Including Amendments Through October 31, 2025");
+  - SRCR and the Policy for Handling Filed, Lodged and Presumptively Confidential Documents;
+  - the electronic filing rules;
+  - the local rules of the Las Vegas, Las Vegas Township, Henderson, North Las Vegas, Pahrump, Reno and rural justice courts.
+- **Saving and hashing (rule 14).**
+  - Every relied-on section and document is saved with a SHA-256 match to the browser text, 280 files.
+  - The ch. 40 eviction sections (40.215–40.425) were fetched twice. The second fetch matched the first byte for byte.
+  - The batteries and the per-chapter currency record are saved as `battery_retro_2026-10-02.json` (sha256 b0f7dbe4d64a39b1…).
+- **Batteries (rule 19).** Every battery ran with:
+  - the control `zxqvbnmq` (0 hits);
+  - the known positive "rental agreement" (112 sections);
+  - a known positive for its own pattern where one exists ("quiet enjoyment" → 104.9610; forms → 118A.347; blank spaces → 97.215, 100.143; self-cure → 118A.440).
+- **Enrolled act.** SB 114 (2025) was read as enrolled in Statutes of Nevada 2025, ch. 322, and saved.
+
+### One line per rule
+
+1. **Rule 37 (tenancy type):** fixed.
+   - **Read:** NRS 118A.210(2), (4); 40.251(1)–(6); 118A.470; 118A.300; SB 201 sec. 2 (from the NV log).
+   - **Fixes:**
+     - NV moved from `early-termination` to `early-termination-ks`. The fee is "30% of the remaining Rent due under the Term", and 118A.210(2) makes an undefined term periodic. The -ks variant limits the option and fee to a fixed Term.
+     - `edu-late-fee-rules-nv`: the 3-day floor now applies only to a tenancy longer than week to week.
+     - `edu-termination-notice-nv`: the 60+/disability extension now excludes week-to-week tenancies.
+   - **Notes:**
+     - `holdover-ca`: 118A.470 makes a weekly-rent holdover week to week. Steinoak rent is monthly, so "month-to-month" is right.
+     - `religious-display-nv`: SB 201's "on or before renewal" is unsettled for periodic tenancies, so it is treated as reaching every tenancy.
+   - **Scrub-created rows screened:** see rules 78/79 below.
+
+2. **Rule 39 (eviction duties):** fixed.
+   - **Read whole:** JCRCP (Rules 4(a)(3), 39(c), 65, 101–111 apply); SRCR; the PCD policy; all seven justice courts' local rules; NRS 40.215–40.425; 118A.460, 118A.480.
+   - **Each duty found has a row:**
+     - Post-writ property and essential effects: `abandoned-property-nv`.
+     - Lockout ban: `edu-self-help-eviction-ban-nv`.
+     - Sealing: `edu-eviction-record-sealing-nv`, with a note on the Las Vegas rule-based sealing.
+     - Court-rule duties: new `edu-eviction-court-rules-nv`. Covered:
+       - notice specificity;
+       - the court named on the notice;
+       - Las Vegas mandatory forms;
+       - complaint timing (30/45 days) and filing contents;
+       - 30-day order expiry;
+       - temporary-writ timing and bond;
+       - withheld-rent escrow (Henderson 44, LV 6.3, NLV 44, Pahrump 42).
+   - **Conflict recorded (legal-watch flag):** NRS 40.2545(2)(c) counts 30 days from the tenant's affidavit. The local rules count 30 or 45 days from the end of the notice period. The row tells landlords to meet the shorter.
+   - **Confirmed absent:**
+     - post-eviction animal duties (ch. 40, 118, 118A);
+     - any CARES Act or federal pre-filing condition in the court rules (CARES, covered property, Coronavirus: 0).
+
+3. **Rule 41 (just cause):** checked, no issue.
+   - **Read:** NRS 40.250, 40.251, 118A.470.
+   - **Shared end-of-term wording:** `surrender-end-of-term` and `holdover-ca` end possession at the term's end and defer recovery to law. That matches 40.250 ("terminates without notice at the expiration").
+   - **40.251(1)(b)(1) "term … and … notice":** its notice limbs name periodic tenancies only.
+   - **Rows:** none changed.
+
+4. **Rule 41b (`for-cause-eviction` row):** fixed.
+   - **New row:** `edu-no-for-cause-eviction-nv`, confirmed absence with situational limits:
+     - retaliation (118A.510);
+     - the 60+/disability and shutdown extensions (40.251(2)–(4));
+     - fair housing as a defense (118.115);
+     - the DV statute's unrelated-termination savings (118A.345(10));
+     - foreclosure-sale notice (40.255);
+     - condominium conversion: 120 days' notice and a right of first purchase (116.4112, found by this battery).
+   - **Battery:** "just cause|good cause|for cause" near tenancy terms gave 5 hits; none is a dwelling eviction limit.
+
+5. **Rule 42 (required text in a shared clause):** checked, no issue.
+   - **Read:** NRS 118A.200(3), (6)–(8); 118A.210(4); 118A.242(8); 118A.303(2)(b).
+   - **Every statute-forced sentence lives in an NV row:** `rent-single-figure-nv`, `payment-methods-nv`, `security-deposit-return-nv`, `required-fees-nv`, `late-fee-nv`. No shared clause needs forced text.
+
+6. **Rule 43 (cure promises):** checked, no issue.
+   - **Read:** NRS 40.2512, 40.253, 40.2514, 40.2516, 118A.430.
+   - **`default-by-tenant`:** the no-cure carve-out sits only in the non-rent sentence. NV has no no-cure rent ground: pay-or-quit always lets the tenant pay. The rent limb's "written notice from Landlord" is the notice 40.2512 and 40.253 already require.
+   - **`application-of-payments`:** preserves the statutory cure.
+   - **`early-termination`:** NV left it (rule 37).
+   - **Rows:** NV note on `default-by-tenant`.
+
+7. **Rule 44 (terms the statute makes landlord duties):** fixed.
+   - **Read:** NRS 118A.380(1), 118A.390, 118A.480, 118A.510(1) ("essential item or service required by the rental agreement"); 118A.290(1)(i) ("if supplied").
+   - **Effect:** a utility or appliance the lease says the landlord supplies becomes an enforceable statutory duty. That is lawful and is now stated.
+   - **Rows:**
+     - `edu-tenant-repair-remedies-nv` (sentence added);
+     - NV notes on `utilities-paid-by-landlord` and `appliances-included`.
+
+8. **Rule 45 (electronic notices):** fixed.
+   - **Read:** NRS ch. 719 whole (41 sections).
+   - **Exclusion:** 719.250(4)(b). A written notice of default, eviction or the right to cure under a rental agreement for a primary residence is not satisfied electronically.
+   - **Unwaivable rules:**
+     - 719.250(6) bars varying the section, including (3) (a record that can't be stored or printed is unenforceable).
+     - 719.220(3) keeps the right to refuse later electronic dealings.
+     - 719.220(4) allows variation only "except as otherwise provided in this chapter". Those exceptions are the two above.
+   - **Rows:**
+     - new `edu-electronic-records-nv` (topic `electronic-signatures`);
+     - `edu-notice-service-nv` (sentence added);
+     - NV notes on `electronic-signatures` and `notices`.
+   - No NV clause offers electronic notice delivery.
+
+9. **Rule 46 (lease as the notice):** checked, no issue.
+   - **Already lease clauses:** 118A.260 (`owner-identity-disclosure-nv`), 118A.275 (`foreclosure-disclosure-nv`), 118A.360(2) (`designated-repairer-nv`).
+   - **Declined, as logged earlier:** 40.253(2)(b) and 120A.540.
+   - **118.165(3)(a):** a lease that "provides for calculation and notice to the tenant of its amount" still has to give the notice. A clause could only restate the annual statement duty, so none is offered (fix 22).
+   - **Shared clauses:** none promises a separate notice that conflicts.
+   - **Rows:** NV note on `notices`.
+
+10. **Rule 47 (penalties for void terms):** fixed.
+    - **Read:**
+      - NRS 118A.220(2): actual damages for including any prohibited provision, with no knowledge element;
+      - 118A.275(2) and 598.09227: DTPA consequences;
+      - 598.092(8): knowing misrepresentation of legal rights "in a transaction";
+      - ch. 649, the debt-collection statute: 649.020(2)(i) excludes a person collecting a claim it originated, and (2)(f) excludes licensed brokers, so it does not reach a landlord collecting its own rent; 649.375(1)(b) limits what a collection agency may add.
+    - **Named rows:** `early-termination` (NV left it), `notices`, `common-area-use`, `tenant-repair-agreement-nv`: no issue.
+    - **`late-fee-nv`:** "will be assessed" would impose a fee the statute forbids on lawfully withheld rent (118A.355(1)(d), 118A.380(1)(c)) and on a shutdown worker's rent (118A.310(2)). The savings sentence doesn't cure a void term that carries damages.
+    - **Rows:** `late-fee-nv` restored (see fix 21).
+
+11. **Rule 48 (separate documents):** checked, no issue.
+    - **Battery:** "separate(ly) writing|instrument|agreement|document|rider|addendum|form|page|sheet|paper|disclosure|notice", "in a separate…", "separately signed|initialed|identified|executed|stated", near landlord/tenant/lease terms: 8 hits.
+    - **Only landlord-tenant hit:** 118A.303(2)(b), "separately identified in any written rental agreement". That is a line within the lease (`payment-methods-nv`), not a separate document.
+    - **Tenant chores:** NRS 118A.290(2)–(3) has no single-family split and no separate-writing rule, so `landscaping-irrigation` and `snow-removal` stay tagged.
+    - **Rows:** none.
+
+12. **Rule 49 (collection costs):** checked; proposal noted (fix 24).
+    - **Read:** NRS 118A.220(1)(c), (2); 118A.325(3); 118A.327(4); 18.020(1); 18.005.
+    - **`flag-display-nv` and `religious-display-nv`:** their fee sentences mirror the statutes' prevailing-party awards. No issue.
+    - **`default-by-tenant`:** "reasonable costs and expenses" is one-way and could be read to reach attorney's fees. See fix 24.
+    - **Rows:** NV note on `default-by-tenant`.
+
+13. **Rule 50 ("the lease controls"):** fixed.
+    - **Inventory, each choice made on purpose:**
+      - 118A.210(1)/(2)/(4) (lease sets time, place and late fee);
+      - 118A.290(1)(f) (garbage removal shifts only "by written agreement");
+      - 118A.330(3) (consent to short-notice entry is per entry only, so no blanket consent; `landlords-access` has none);
+      - 118A.470 ("unless specifically agreed otherwise"; `holdover-ca` keeps the default);
+      - 118A.190(3), 118A.360(2), 118A.242(8), 118.165(3)(a);
+      - 40.253(2)(b) and 120A.540, declined as logged.
+    - **Deposit uplifts:** 118A.242 has no lease-conditioned uplift.
+    - **Garbage removal choice:** stated in NV notes on `utilities-paid-by-landlord` and `utilities-responsibility`. If trash isn't listed, the lease shifts it to the tenant.
+    - **Rows:** the notes named above.
+
+14. **Rule 51 (plain language and consumer protection):** checked, no issue.
+    - **Plain language:** no plain-language or residential-lease formatting statute. Battery: 7 hits, none a dwelling lease. The type-size battery found only self-storage, 108.4755.
+    - **Blank spaces:** the blank-space and completed-copy rules found govern retail installment, vehicle and other consumer contracts, not leases. NV's copy-at-signing rule is 118A.200(2).
+    - **Question 1, enumerated list:** NRS ch. 598 mostly targets "goods or services". Its definitions reach real property only for advertising (598.0905) and sale (598.094). The Legislature designated specific landlord acts as deceptive trade practices (118A.275(2); 598.9733 via 598.09227), so the list reaches leases only in part: 598.092(8) and 598.0923(1)(d)–(e) say "a transaction".
+    - **Question 2, general standard:** 118A.230 unconscionability reaches leases. Whether the DTPA's "unconscionable practice in a transaction" (598.0923(1)(e)) reaches residential leasing is unsettled; no case was read.
+    - **Rows:** none. The library doesn't misstate tenant rights; rule 47's damages exposure is the practical one.
+
+15. **Rule 53 (figures vs shared clauses):** checked, no issue.
+    - **Named rows:**
+      - `rent-payment`, `assistance-animal-accommodation`, `payment-methods-nv`: no conflicting figure.
+      - `returned-payments-nv`: 118A.303 has no figure; the $25 bracket matches 597.960.
+      - `default-by-tenant`: no figure.
+      - `surrender-end-of-term`: "at Tenant's cost" is hedged "to the extent permitted by applicable law", and `abandoned-property-nv` supplies the 118A.460 mechanics.
+      - `holdover-ca`: no daily charge, so no second late charge after a nonpayment termination.
+    - **Fee clauses:** each was checked for a statutory notice or agreement step. The late fee only needs to be in the lease, and it is.
+    - **Rows:** none.
+
+16. **Rule 54t (tenant-caused damage):** fixed.
+    - **Read, provision by provision:** each abatement and exit right has its own fault exception, but the wording differs:
+      - 118A.350(2) (termination only), 118A.355(2)(a) (habitability, including withholding), 118A.360(3) (repair and deduct) and 118A.380(5) (essential services, including full abatement) all say "deliberate or negligent act or omission".
+      - 118A.400(3) (casualty: the whole section) says only "if it is determined that the fire or casualty were caused by deliberate or negligent acts". It has no omissions.
+    - **Landlord side:** 118A.310(1)(f), .420, .430, .440, .290(5); 40.2514(2) (waste); Pahrump JCR 42(g) repeats the bar.
+    - **Result:** a no-abatement, no-exit term limited to deliberate or negligent *acts* waives nothing. The first draft keyed it to "act or omission", which would have waived the casualty right for a negligent omission (118A.220(1)(a)). The independent check caught this before delivery.
+    - **Rows (`tenant-caused-damage-tn` read as the model, not tagged):**
+      - new `tenant-caused-damage-nv` (CONDITIONAL lease clause; household/consent wording; liability for acts and omissions; no abatement and no exit only for acts; lost rent only if the lease ends, capped at the remaining Term, less re-rent; savings sentence);
+      - new `edu-tenant-caused-damage-nv`.
+
+17. **Rule 35c (Constitution):** checked, no issue.
+    - **Read:** the Constitution, loaded whole and searched for cannabis/marijuana, arms, speech, privacy/seizure, and lease terms (landlord, tenant, lessee, lessor, rent(al/s), dwelling, lease: 0 hits).
+    - **Art. 1 §9 (speech), Art. 1 §11 (arms), Art. 1 §18 (search):** guarantees against the State. None reaches a private lease.
+    - **Art. 4 §38 (medical cannabis, initiated 1998/2000):** directs the Legislature only and has no invalidity annotation.
+    - **Smoking ban:** statute expressly lets a private owner restrict cannabis smoking (678D.510(1)(c)). Home grow isn't conditioned on landlord consent (678D.200(3)(e)).
+    - **Rows:** NV note on `smoking-policy`.
+
+18. **Rule 27 (seven topics):** fixed.
+    - **Answers:**
+      - `algorithmic-rent-setting`: Confirmed absent.
+      - `fees-as-rent`: Present (118A.150, 118A.200(6)–(8), 118A.440, 40.253(11)).
+      - `landlord-self-cure`: Present (118A.440, 118A.330(4)(c)).
+      - `lease-completeness`: Confirmed absent (residential leases).
+      - `quiet-possession`: Confirmed absent (separate covenant); protections stated.
+      - `statutory-forms`: Present (118A.347, 118A.200(4), 107A.290, 107.087, 21.130; the Las Vegas court forms).
+      - `tenant-security-cameras`: Confirmed absent.
+    - **Rows (new):**
+      - `edu-no-algorithmic-rent-rule-nv`
+      - `edu-fees-as-rent-nv`
+      - `edu-landlord-self-cure-nv`
+      - `edu-no-lease-completeness-rule-nv`
+      - `edu-no-quiet-possession-statute-nv`
+      - `edu-statutory-forms-nv`
+      - `edu-no-tenant-camera-rule-nv`
+
+19. **Rule 79 (summaries re-read):** fixed.
+    - **Count: 8 of 124 NV-tagged active rows record no basis.**
+      - Rows a research pass wrote: 0.
+      - Rows a library-wide pass created: 7, all from the 2026-09-29 scrub: `edu-possession-delay-nv`, `edu-infirmity-death-termination-nv`, `edu-property-tax-rent-disclosure-nv`, `edu-late-fee-rules-nv`, `edu-rent-increase-notice-nv`, `edu-casualty-termination-nv`, `edu-foreclosure-disclosure-nv`. Fixed by carrying each source row's basis forward and re-reading the section.
+      - Shared rows with no NV segment: 1, `rental-application-accuracy`. Its NV sentence sat inside the creating pass's text; it now has its own segment.
+      - After this retro: 0 of 136.
+    - **Start list:** all 15 re-read against saved revisor text.
+      - **Confirmed, basis upgraded from Justia or host copy:** `edu-retaliation-nv`, `edu-emergency-assistance-nv`, `edu-landlord-lien-abolished-nv`, `edu-no-cure-eviction-grounds-nv`, `edu-eviction-record-sealing-nv`, `edu-assistance-animal-nv`, `edu-abandonment-notice-nv`, `edu-towing-nv`, `edu-foreclosure-sale-tenants-nv`, `edu-access-remedies-nv`, `edu-returned-check-remedies-nv`, `edu-deposit-escheat-nv`.
+      - **Corrected:**
+        - `edu-nonpayment-eviction-nv`: 40.253(1)(b) is "not … more than 45 days", and the move-in acknowledgment conditions sheriff or constable service, not the short notice itself.
+        - `edu-notice-service-nv`: 40.280(1) opens "Except as otherwise provided in NRS 40.253 and 40.2542".
+        - `edu-fair-housing-nv`: 118.060(2)(b)'s owner-occupied exemption also requires no 3+ principal or 2+ agent transactions in 12 months; the condition had been dropped.
+    - **Rest of the citations file:**
+      - `designated-repairer-nv`: 118A.360(2)'s second sentence (unavailable repairer) added.
+      - `edu-tenant-repair-remedies-nv`: 118A.350(2) bars only termination; it said "none of these remedies".
+      - `edu-termination-notice-nv`: week-to-week exclusion added.
+      - `edu-property-tax-rent-disclosure-nv`: 118.165(3) exemptions and (7) enforcement added.
+      - `edu-service-animal-misrepresentation-nv`: 426.097 now read; confirmed.
+      - `nuisance-reporting-nv`: 202.470 now in revisor text; confirmed.
+      - `smoke-detector-duty-nv`: 477.140 history line read. The CO-alarm limit is closed: confirmed absent for leases, since the only hits are short-term-rental permits 244.35356 and 268.09797.
+      - `edu-key-control-policy-nv`: SB 114 was approved June 5, 2025, not August 4 as the note said. It has no effective-date clause, so it took effect 2025-10-01 under 218D.330(1). Now on primary text.
+    - **Citations file:** `lease-clause-citations-NV.csv` was not edited. Its notes are derived (rule 79). For the sync: the basis upgrades above, plus new citations for the 12 new rows, are in each row's `notes`.
+
+### Targeted fixes
+
+20. **Dangling pointers:** fixed (notes only, own NV segment).
+    - `keys`: points to `edu-dv-termination-documentation-nv`.
+    - `common-area-use`: marks `flag-display-oh` as switched off.
+    - **Swept every active NV row's `bodyText` and `notes` for pointers to switched-off rows** (rule 78):
+      - The only other live pointers, in `due-at-signing` and `required-fees-nv` ("cap … security-deposit-cap-nv") and `pet-policy-nv` ("the limit on total security"), are made true again by fix 21.
+      - The other references to inactive rows are provenance history and were left alone.
+
+21. **Scrub-trimmed clauses:** fixed. Rule 78 verdict for each:
+    - **`late-fee-nv`: RESTORED.** No late fee on rent the law lets the tenant withhold or pay late (118A.355(1)(d), 118A.380(1)(c), 118A.310(2)). The 3-day floor (longer than week to week) and the 5% cap stay builder checks.
+    - **`security-deposit-cap-nv`: RESTORED.**
+      - Restored the total-security cap: all security however described, including prepaid last month's rent and any cleaning charge, plus any surety bond, ≤ 3 months' rent (118A.242(1), 118A.240).
+      - Why: prepaid last month's rent and the cleaning charge are free text and a bond has no field, so no number check catches them.
+      - Retitled "Limit on Total Security; Surety Bond". CONDITIONAL → REQUIRED. Basis CONSTRAINED_TERM | SERVES_LANDLORD.
+      - The bond sentence now states only what 118A.242(2)–(3) already allow, so it needs no landlord choice.
+    - **`rent-increase-notice-nv`: RESTORED.** "Except as this Lease expressly provides" let a scheduled increase read as needing no notice. 118A.300 requires 60 days' served written notice for any increase (30 days for a periodic tenancy under a month). Basis CONSTRAINED_TERM | SERVES_LANDLORD.
+    - **`security-deposit-return-nv`: no restore.** It keeps the one term the lease must state (118A.242(8)). 118A.200(3)(f) is met by `security-deposit-use` with this row and `pet-policy-nv`.
+    - **`casualty-termination-nv`: no restore.** The landlord right mirrors 118A.400(1). Noted: 118A.400(3) disapplies the whole section when the tenant caused the casualty.
+    - **Required-content search:** every 118A.200(3)(a)–(o) item still has a carrying row. The scrub removed no text that 118A.200, 118A.242(8), 118A.303(2)(b) or 118A.210(4) requires in the lease.
+
+22. **Scrub-switched-off required clauses:** no restore for either.
+    - **`dv-lease-termination-nv`:** 118A.345 needs no lease text or landlord notice. The right applies "Notwithstanding any provision in a rental agreement to the contrary", and the content is in `edu-dv-termination-documentation-nv`.
+    - **`property-tax-rent-disclosure-nv`:** 118.165(1) requires a separate annual written statement. The clause only promised it, and the (3)(a) route still requires notice of the amount.
+    - **Rows:** `edu-property-tax-rent-disclosure-nv` now states the exemptions.
+
+23. **Rule 62 vetting of WY's `early-termination` wording ("…or such shorter notice and cure period as applicable law permits"):** no edit made.
+    - **Lawful in NV.** NRS 40.252(1) voids only a contract that *shortens* the statutory notice periods, and the proposed wording defers to them.
+    - **What the current promise risks giving up:**
+      - The landlord limb promises 30 days' notice plus a 10-day cure for any material breach. That risks giving up the 5-day perform-or-quit route (40.2516(1); 118A.430(1), immediate where the breach can't be remedied) and the 3-day no-cure route for waste, nuisance, unlawful business, unauthorized assignment or drugs (40.2514).
+      - The savings sentence ("Nothing in this Section limits any right either party has under applicable law") may preserve them. No Nevada case on a landlord contracting into a longer route was read (unread).
+      - WY's wording would cure this.
+    - **NV's position now:** the point is moot for NV, which now uses `early-termination-ks` (rule 37), whose landlord limb runs through the default provisions.
+    - **Answer:** NV supports WY's wording for the states still on the row.
+
+24. **Rule 62 vetting of CO's proposal to delete "and reasonable costs and expenses" from `default-by-tenant`:** no edit made.
+    - **Does NV limit collection or eviction costs?** Yes.
+      - Attorney's fees only under a prevailing-party clause (118A.220(1)(c)). A one-way fee term is void, with actual damages (118A.220(2)).
+      - Court costs go to the prevailing party by statute in an action to recover real property (18.020(1); 18.005 defines costs).
+      - After a pay-or-quit notice the landlord can't refuse rent because collection fees, attorney's fees or other costs are unpaid (40.253(11)).
+    - **What deleting the phrase gives up in NV:** only contractual recovery of pre-suit, non-attorney collection costs. Re-letting losses remain actual damages (118A.420; 118.175), and the last sentence keeps prevailing-party fees and costs.
+    - **Why delete:** the phrase risks being read as one-way attorney's fees, which is the costlier outcome.
+    - **Answer:** NV supports the deletion.
+
+### Rows changed (60)
+
+- **New, 12:**
+  - `edu-no-for-cause-eviction-nv`
+  - `edu-eviction-court-rules-nv`
+  - `edu-electronic-records-nv`
+  - `edu-landlord-self-cure-nv`
+  - `edu-fees-as-rent-nv`
+  - `edu-statutory-forms-nv`
+  - `edu-no-quiet-possession-statute-nv`
+  - `edu-no-algorithmic-rent-rule-nv`
+  - `edu-no-tenant-camera-rule-nv`
+  - `edu-no-lease-completeness-rule-nv`
+  - `tenant-caused-damage-nv`
+  - `edu-tenant-caused-damage-nv`
+- **NV rows edited, 35:**
+  - Text changed: `late-fee-nv`, `security-deposit-cap-nv`, `rent-increase-notice-nv`, `designated-repairer-nv`, `edu-late-fee-rules-nv`, `edu-termination-notice-nv`, `edu-tenant-repair-remedies-nv`, `edu-notice-service-nv`, `edu-property-tax-rent-disclosure-nv`, `edu-nonpayment-eviction-nv`, `edu-fair-housing-nv`.
+  - Notes only: the other 24.
+- **Shared rows, NV tag or NV segment only, 13:**
+  - `early-termination` (NV removed)
+  - `early-termination-ks` (NV added)
+  - `holdover-ca`
+  - `default-by-tenant`
+  - `utilities-paid-by-landlord`
+  - `utilities-responsibility`
+  - `appliances-included`
+  - `electronic-signatures`
+  - `notices`
+  - `keys`
+  - `common-area-use`
+  - `rental-application-accuracy`
+  - `smoking-policy`
+- **Checked on the delta applied to the attached CSV:**
+  - 2,724 rows; NV active 124 → 136 (72 clauses, 64 education); every other state's count unchanged.
+  - No duplicate ids, no dangling `supersedes`, no blank `verification_status`, no NV topic and content-type collisions.
+  - Every id named in new text exists.
+  - On shared rows only `states` (NV), NV note segments and `last_checked` differ.
+  - Header and CRLF line endings are identical to the master.
+- **Independent check (a separate agent that had not seen the drafting):** every new or changed body was compared with the saved statute and court-rule text. It found two real problems and six minor ones, all fixed before delivery:
+  - the tenant-caused-damage clause (above);
+  - "complaint may not be filed before the notice period ends" was attributed to Las Vegas, which has no such rule, and the 30-day order expiry read as statewide (`edu-eviction-court-rules-nv`);
+  - the foreclosure notice period for sub-monthly tenancies (`edu-no-for-cause-eviction-nv`);
+  - 118A.430(2)'s let-the-landlord-fix option (`edu-tenant-caused-damage-nv`);
+  - the 40.253(2)(a) post-and-overnight-mail duty (`edu-nonpayment-eviction-nv`);
+  - the primary-residence scope of 719.250(4)(b) (`edu-notice-service-nv`);
+  - the shutdown right read as limited to non-week-to-week tenancies (`edu-termination-notice-nv`);
+  - the rule 44 sentence overstated which remedies a lease promise triggers (`edu-tenant-repair-remedies-nv`).
+- **Seen, not changed (rule 1):** 43 library titles carry a state name, including NV's scrub-created "Nevada Late Fee Rules". This is a scrub pattern across states, not an NV finding.
+
+### Proposed SOP changes
+
+1. **Rule 19 or rule 14, parser completeness.** Check the parser against each chapter's table of contents by *unique section number*, and treat anchors as whitespace-tolerant. On leg.state.nv.us, the anchor tag sometimes breaks across a line (`<a\r\nname=…>`): 14 sections in 8 chapters vanished silently. A raw count comparison hid them, because TOC duplicates for two-version sections made the counts look like an over-count.
+2. **Rule 39, local rules.** Read every justice court's local rules, not only the statewide civil rules. In Nevada, the landlord duties that matter in practice live there: mandatory forms in Las Vegas; 30- versus 45-day notice expiry; the escrow rules 118A.355(5) delegates. A local rule can also conflict with the statute's own timing (40.2545).
+3. **Rule 79, enacted acts.** Where a row's effective date or signing date rests on secondary sources, read the enrolled act in the session-law volume. Three agreeing sources gave NV's SB 114 the wrong signing date. The default effective-date statute (here NRS 218D.330) supplies the date when the act has none.
+4. **Rule 51, DTPA definitions.** Add to the two questions: check whether the consumer-protection act's general unconscionability or misrepresentation limbs say "in a transaction" rather than "goods or services". Nevada's enumerated list is mostly goods and services, but 598.092(8) and 598.0923(1)(d)–(e) are not.
+
+## Retro sync (Claude Code, 2026-10-03)
+
+- **Merged** with `merge-delta.py --base 378ceed` (the attached CSV is byte-identical to it): 48 rows updated, 12 new, no refusals; nine shared rows had KS or MT notes added since the base and were merged onto the current rows. NV active 124 → 136 (72 lease clauses), no same-topic pairs; every other state's set unchanged. NV moved from `early-termination` to `early-termination-ks`.
+- **Guards:** `check-gap-discovery.py --all`, `check-checklist-reconciliation.py`, `check-clause-basis.py`, `check-section-pointers.py` and `checkConfigIds.js` all pass.
+- **Statute spot-check, 5 of 5, against leg.state.nv.us (read by Claude Code at sync):** NRS 118A.242(1) (all security, including the last month's rent and any surety bond, at most 3 months' periodic rent) matches the restored `security-deposit-cap-nv`; 118A.400(3) (the casualty section is off only for "deliberate or negligent acts", with no omissions) confirms the independent check's fix to `tenant-caused-damage-nv`; 719.250(4)(b) matches `edu-electronic-records-nv` and `edu-notice-service-nv`; 40.252(1) (no contract may shorten the notice periods) supports the rule 62 answer; 118A.220(1)(c) (attorney's fees only as a prevailing-party award) supports the `default-by-tenant` answer.
+- **Citations file:** `early-termination` removed, 13 rows added (`early-termination-ks` and the 12 new; 5 confirmed-absence rows), changed rows dated, and the sections the restored and corrected rows rely on added by hand.
+- **Rule 62 answers recorded:** NV supports WY's `early-termination` wording (moot for NV, which left the row) and CO's deletion of "and reasonable costs and expenses" from `default-by-tenant`.
+- **Noted:** `security-deposit-cap-nv` went from CONDITIONAL to REQUIRED. The cap applies to every Nevada tenancy and the free-text prepaid-rent and cleaning amounts can't be number-checked, so the clause now always attaches; recorded as NV's drafting call. The 43 state-named titles NV saw (a scrub pattern) are for a library-wide tidy, not a fix here.
+- **SOP 1.29:** all four proposals adopted (rules 19, 39, 51, 79). NV's conformance column is complete except the examples.

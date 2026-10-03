@@ -555,7 +555,7 @@ const CLAUSE_TEMPLATES = [
     id: "early-termination",
     title: "Early Termination",
     group: "Default & Termination",
-    states: ["CO", "WY", "MN", "ND", "SD", "OH", "NV", "TX"],
+    states: ["CO", "WY", "MN", "ND", "SD", "OH", "TX"],
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay an early termination fee equal to one month's Rent ({{monthly_rent}}) or 30% of the remaining Rent due under the Term, whichever is greater, and remains responsible for Rent and other obligations up to the termination date. Landlord may terminate this Lease early by providing Tenant at least 30 days' written notice if Tenant breaches a material term of this Lease and fails to cure the breach within 10 days of receiving written notice, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law. This includes a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or — except as prohibited by law in the case of a Tenant's death — any other termination right or limitation provided by applicable law.",
   },
@@ -1103,7 +1103,7 @@ const CLAUSE_TEMPLATES = [
     id: "early-termination-ks",
     title: "Early Termination",
     group: "Default & Termination",
-    states: ["KS", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "NJ", "IN", "AZ", "OK", "GA", "MI", "IA", "NC"],
+    states: ["KS", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "NJ", "IN", "AZ", "OK", "GA", "MI", "IA", "NC", "NV"],
     supersedes: "early-termination",
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay an early termination fee equal to one month's Rent ({{monthly_rent}}) or 30% of the remaining Rent due under the Term, whichever is greater, and remains responsible for Rent and other obligations up to the termination date. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or, except as prohibited by law in the case of a Tenant's death, any other termination right or limitation provided by applicable law.",
@@ -2051,16 +2051,16 @@ const CLAUSE_TEMPLATES = [
     states: ["NV"],
     supersedes: "late-fee",
     bodyText:
-      "If Tenant fails to pay Monthly Rent in full within {{late_fee_grace_days}} days after it is due, a late fee of {{late_fee_amount}} will be assessed. Acceptance of a late payment does not waive Landlord's right to require full payment of Rent on the date it is due or to pursue any other remedy available under this Lease.",
+      "If Tenant fails to pay Monthly Rent in full within {{late_fee_grace_days}} days after it is due, a late fee of {{late_fee_amount}} will be assessed. No late fee will be charged on Rent that applicable law allows Tenant to withhold or to pay after its due date, such as Rent withheld because of a habitability or essential-services failure, or Rent of a qualifying government worker during a shutdown. Acceptance of a late payment does not waive Landlord's right to require full payment of Rent on the date it is due or to pursue any other remedy available under this Lease.",
   },
   // Security Deposit
   {
     id: "security-deposit-cap-nv",
-    title: "Surety Bond Option",
+    title: "Limit on Total Security; Surety Bond",
     group: "Security Deposit",
     states: ["NV"],
     bodyText:
-      "Tenant may, if Landlord consents, purchase a surety bond in place of all or part of the Security Deposit.",
+      "All amounts Tenant pays as security, however described (the Security Deposit, any pet or cleaning deposit or cleaning charge, and any Rent prepaid for the last month), together with any surety bond, will not exceed three months' Monthly Rent. Tenant may, if Landlord consents, purchase a surety bond in place of all or part of the Security Deposit; Landlord does not require one.",
   },
   {
     id: "security-deposit-return-nv",
@@ -2134,7 +2134,7 @@ const CLAUSE_TEMPLATES = [
     group: "Rent & Payment",
     states: ["NV"],
     bodyText:
-      "During the Term, the Monthly Rent will not be increased except as this Lease expressly provides.",
+      "During the Term, the Monthly Rent will not be increased except as this Lease expressly provides. Any increase, including one this Lease provides for, takes effect only if Landlord serves Tenant written notice of it at least 60 days before the first increased Rent payment (30 days for a periodic tenancy with a rental period of less than one month).",
   },
   // Default & Termination
   {
@@ -2958,7 +2958,7 @@ const CLAUSE_TEMPLATES = [
     group: "Landlord Responsibilities",
     states: ["NV"],
     bodyText:
-      "[Optional. Include only if Landlord wants to designate who performs this work.] If applicable law permits Tenant to have work done at Landlord's expense because Landlord failed to make a repair or to supply an essential service after notice, that work must be performed by [name the person or firm, or describe a class of persons or firms qualified to do the work, e.g. \"a contractor holding a Nevada license for that type of work\"], and Tenant will comply with this specification. This Section does not otherwise limit any remedy applicable law gives Tenant.",
+      "[Optional. Include only if Landlord wants to designate who performs this work.] If applicable law permits Tenant to have work done at Landlord's expense because Landlord failed to make a repair or to supply an essential service after notice, that work must be performed by [name the person or firm, or describe a class of persons or firms qualified to do the work, e.g. \"a contractor holding a Nevada license for that type of work\"], and Tenant will comply with this specification. If that person or firm is unavailable or unable to perform the repairs, Tenant will use another qualified person who performs repairs. This Section does not otherwise limit any remedy applicable law gives Tenant.",
   },
   // Default & Termination
   {
@@ -6200,6 +6200,15 @@ const CLAUSE_TEMPLATES = [
     states: ["MT"],
     bodyText:
       "[Optional.] Tenant and Tenant's guests may possess on the premises any firearm it is legal for them to possess. No one may discharge a firearm on the premises except in self-defense.",
+  },
+  // Default & Termination
+  {
+    id: "tenant-caused-damage-nv",
+    title: "Damage Caused by Tenant",
+    group: "Default & Termination",
+    states: ["NV"],
+    bodyText:
+      "[Optional.] If the property is damaged by fire, water, a vehicle or any other cause, and the damage results from the deliberate or negligent act or omission of Tenant, a member of Tenant's household, or another person on the premises with Tenant's consent, Tenant will be liable to Landlord for the reasonable cost of repairing the damage and for Landlord's other actual damages caused by it. If the damage results from a deliberate or negligent act of any of those persons, Rent will not abate while the damage is repaired, and the damage does not give Tenant a right to end this Lease. If this Lease ends because of the damage, Landlord's damages include the Rent Landlord loses for no longer than the remaining Term, less any Rent Landlord receives from re-renting the property, and Landlord will use reasonable efforts to repair and re-rent the property. This Section does not take away any right applicable law gives Tenant.",
   },
 ];
 
