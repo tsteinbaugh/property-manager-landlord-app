@@ -325,7 +325,7 @@ const CLAUSE_TEMPLATES = [
     states: ["CA"],
     supersedes: "returned-payments",
     bodyText:
-      "If Tenant pays Rent or any other amount due under this Lease by check, draft or order for payment and it is not honored for lack of funds, because Tenant has no account with the drawee, or because Tenant stops payment, Tenant shall be liable to Landlord for the amount of the payment and a service charge of {{nsf_fee}}.",
+      "If Tenant pays Rent or any other amount due under this Lease by check, draft or order for payment and it is not honored for lack of funds, because Tenant has no account with the drawee, or because Tenant stops payment, Tenant shall be liable to Landlord for the amount of the payment and a service charge of {{nsf_fee}}. No service charge is owed if Tenant stopped payment in order to resolve a good faith dispute with Landlord, if Tenant gives Landlord written confirmation from Tenant's financial institution that the instrument was returned because of that institution's error, or if Tenant gives Landlord written confirmation that the account had insufficient funds because of a delay in the regularly scheduled transfer or posting of a direct deposit of a social security or government benefit assistance payment.",
   },
   {
     id: "nsf-fee-limit-fl",
@@ -1852,7 +1852,7 @@ const CLAUSE_TEMPLATES = [
     states: ["CA"],
     supersedes: "early-termination",
     bodyText:
-      "Tenant may terminate this Lease before the end of the Term by giving Landlord at least 30 days' written notice. Tenant remains responsible for Rent and other obligations up to the termination date. If this Lease terminates because Tenant breaches it and abandons the property, or because Landlord terminates Tenant's right to possession for breach, Landlord may recover the damages provided by Civil Code section 1951.2. Those damages include the worth at the time of award of the amount by which the unpaid rent for the balance of the Term after the time of award exceeds the amount of the rental loss that Tenant proves could be reasonably avoided. Unpaid rent earned before termination, and rent that would have been earned between termination and the award, shall bear interest at {{judgment_interest_rate}} or, if no rate is stated, at the legal rate. Landlord may terminate this Lease early only as permitted by law, including, where this property is subject to Civil Code section 1946.2, only for a just cause stated in the notice of termination, and only after giving Tenant an opportunity to cure where the law requires one. Nothing in this Section limits any right either party has under applicable law, including Tenant's right to terminate without penalty due to active military service, or due to the property becoming uninhabitable through no fault of Tenant.",
+      "This Section applies to a tenancy for a fixed Term. If the tenancy is month-to-month or another periodic tenancy, the Month-to-Month Termination Notice Section governs ending it instead, and the damages described below do not apply because there is no balance of a Term. Tenant may terminate this Lease before the end of the Term by giving Landlord at least 30 days' written notice. Tenant remains responsible for Rent and other obligations up to the termination date. If this Lease terminates because Tenant breaches it and abandons the property, or because Landlord terminates Tenant's right to possession for breach, Landlord may recover the damages provided by Civil Code section 1951.2. Those damages include the worth at the time of award of the amount by which the unpaid rent for the balance of the Term after the time of award exceeds the amount of the rental loss that Tenant proves could be reasonably avoided. Unpaid rent earned before termination, and rent that would have been earned between termination and the award, shall bear interest at {{judgment_interest_rate}} or, if no rate is stated, at the legal rate. Landlord may terminate this Lease early only as permitted by law, including, where this property is subject to Civil Code section 1946.2, only for a just cause stated in the notice of termination, and only after giving Tenant an opportunity to cure where the law requires one. Nothing in this Section limits any right either party has under applicable law, including Tenant's right to terminate without penalty due to active military service, or due to the property becoming uninhabitable through no fault of Tenant.",
   },
   {
     id: "continue-lease-remedy-ca",
@@ -1920,6 +1920,14 @@ const CLAUSE_TEMPLATES = [
       "Tenant will notify Landlord when Tenant becomes aware that any dead bolt lock or window security or locking device in the unit is inoperable.",
   },
   // Disclosures
+  {
+    id: "pest-control-notice-ca",
+    title: "Pest Control Notices Given Before Signing",
+    group: "Disclosures",
+    states: ["CA"],
+    bodyText:
+      "[Include this section if a periodic pest control contract covers the property, or if Landlord routinely applies pesticide in a common area on a set schedule without a licensed pest control operator.] Pest control notices. If a contract for periodic pest control service is in place for the property, Landlord has given Tenant a copy of the notice provided by the registered structural pest control company, and Tenant acknowledges receiving it. If Landlord or Landlord's agent routinely applies pesticide in a common area on a set schedule without a licensed pest control operator, Landlord has given Tenant, before Tenant entered into this Lease, the written notice that identifies the pest to be controlled, the name and brand of the pesticide product, the statutory caution statement and the schedule on which the pesticide will be applied, and Tenant acknowledges receiving it. Landlord will give Tenant a new notice if the pesticide to be used changes.",
+  },
   {
     id: "ordnance-demolition-meter-disclosures-ca",
     title: "Ordnance, Demolition and Shared Utility Disclosures",
