@@ -13,6 +13,7 @@
 - **Done 2026-10-02:** **New Mexico (state #30) synced** (163 rows, SOP 1.26). `legal-watch-nm.yml` is held until after March 2 (first run April 2, day 2 at 14:00 UTC).
 - **Done 2026-10-03:** **Montana (state #31) synced** (162 rows, SOP 1.28). `legal-watch-mt.yml` is held until after April 3 (first run May 3, day 3 at 14:00 UTC).
 - **Done 2026-10-03:** **New York (state #32) synced** (176 rows, SOP 1.34; scope: market-rate statewide). `legal-watch-ny.yml` is held until after May 4 (first run June 4, day 4 at 14:00 UTC).
+- **In progress (Taylor, Claude Desktop):** **Wisconsin (state #33) research** (kickoff staged 2026-10-03 in `~/Desktop/wisconsin-kickoff/`, from c4d2e47, 3,013 rows). At the sync, hold `legal-watch-wi.yml` until after June 5, 2027 (state #33 runs on day 5 at 14:00 UTC; first run July 5).
 - **Done 2026-10-01:** legal watch fixed for LegiScan 429s (1-second spacing, retry, incomplete-run email, 60-minute timeouts); CO re-run clean, 0/45 errors.
 - **Done 2026-10-02:** MN retro synced (SOP 1.20; MN 155 rows; the scrub had dropped Minnesota's 8% late-fee cap, now restored).
 - **Done 2026-10-02:** ND retro synced (SOP 1.21; ND 141 rows; first ND holdover clause; tenant-chore split now settled in SOP rule 48).
