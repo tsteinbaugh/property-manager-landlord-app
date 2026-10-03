@@ -2266,3 +2266,9 @@ Claude Code can find them mechanically at merge time. Minor, bookkeeping only. [
 - **Flagged finding acted on (targeted fix):** added `edu-cure-until-judgment-co` (topic `redemption`, as Virginia's pay-before-judgment rows), with a citations row. Before drafting, § 13-40-115 was read section-open in the official 2026 C.R.S. (OLLS whole-title HTM): (4) and (5) match the pass's quotes word for word, history SB 21-173 eff. 2021-10-01 and HB 25-1168 eff. 2025-08-06. CO active rows 135 → 136.
 - **Guards:** all pass. **Statute spot-check:** § 13-40-115(4) and (5), as above; § 13-40-104(1)(d)'s non-waiver sentence was already read section-open at the 2026-10-01 retro.
 - **SOP 1.36:** both proposals adopted (rule 43's cure-past-notice question; rule 62's "Vouches given" subheading in §9).
+
+## Shared-edit outcome (Claude Code, 2026-10-03, at the ID circle-back sync)
+
+- CO's proposed deletion of "and reasonable costs and expenses" from `default-by-tenant` (CO retro, SOP 1.18) went in as a CO override, `default-by-tenant-co`, not a shared edit. ID declined to vouch, because lease authority for costs matters under Idaho Code § 55-305(2)(b) and § 26-2229A(4)(c), and ND had flagged lost collection costs. Rule 62 sends an edit that can't be vouched for in every tagged state to an override.
+- CO is untagged from the shared row. The override is identical except for the deleted phrase. C.R.S. § 38-12-801(3)(a)(II) was re-read section-open for it in the official 2026 C.R.S.
+- When MN's no-cure-sentence edit merges, it applies to `default-by-tenant-co` as well; CO vouched for it at its circle-back.

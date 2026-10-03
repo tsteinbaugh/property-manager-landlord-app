@@ -539,9 +539,18 @@ const CLAUSE_TEMPLATES = [
     id: "default-by-tenant",
     title: "Default by Tenant",
     group: "Default & Termination",
-    states: ["CO", "WY", "MN", "ND", "CA", "NV", "AZ", "GA", "SC", "TN", "VA", "PA", "UT", "IL", "ID", "MO", "IN", "NM", "MT", "NY"],
+    states: ["WY", "MN", "ND", "CA", "NV", "AZ", "GA", "SC", "TN", "VA", "PA", "UT", "IL", "ID", "MO", "IN", "NM", "MT", "NY"],
     bodyText:
       "Tenant will be in default under this Lease if Tenant fails to pay Rent when due and does not cure the failure within the time period specified by applicable law after receiving written notice from Landlord. Tenant will also be in default if Tenant fails to comply with any other obligation under this Lease and does not cure the failure after receiving written notice, except where applicable law permits Landlord to proceed without giving Tenant an opportunity to cure. Except as required by applicable law, Tenant's failure to pay an assessed late fee, apart from the underlying Rent itself, will not by itself entitle Landlord to terminate this Lease or pursue eviction. If Tenant is in default, Landlord may exercise all rights and remedies available under applicable law, including terminating this Lease, regaining possession of the property, and recovering unpaid Rent, late fees, and reasonable costs and expenses, less amounts obtained from the Security Deposit. Landlord will use reasonable efforts to mitigate damages resulting from Tenant's default to the extent required by applicable law. To the extent permitted under applicable law, the prevailing party may recover from the other party court costs and reasonable attorneys' fees and expenses incurred in connection with any legal proceedings related to this Lease.",
+  },
+  {
+    id: "default-by-tenant-co",
+    title: "Default by Tenant",
+    group: "Default & Termination",
+    states: ["CO"],
+    supersedes: "default-by-tenant",
+    bodyText:
+      "Tenant will be in default under this Lease if Tenant fails to pay Rent when due and does not cure the failure within the time period specified by applicable law after receiving written notice from Landlord. Tenant will also be in default if Tenant fails to comply with any other obligation under this Lease and does not cure the failure after receiving written notice, except where applicable law permits Landlord to proceed without giving Tenant an opportunity to cure. Except as required by applicable law, Tenant's failure to pay an assessed late fee, apart from the underlying Rent itself, will not by itself entitle Landlord to terminate this Lease or pursue eviction. If Tenant is in default, Landlord may exercise all rights and remedies available under applicable law, including terminating this Lease, regaining possession of the property, and recovering unpaid Rent and late fees, less amounts obtained from the Security Deposit. Landlord will use reasonable efforts to mitigate damages resulting from Tenant's default to the extent required by applicable law. To the extent permitted under applicable law, the prevailing party may recover from the other party court costs and reasonable attorneys' fees and expenses incurred in connection with any legal proceedings related to this Lease.",
   },
   {
     id: "surrender-end-of-term",
@@ -6511,6 +6520,15 @@ const CLAUSE_TEMPLATES = [
     supersedes: "keys",
     bodyText:
       "At the start of the Term, Tenant will receive the keys specified by Landlord and will sign a receipt acknowledging the number and type of keys provided. Tenant will return all keys to Landlord at the end of the Term. If Tenant asks for an additional or replacement copy of a key, Landlord may charge no more than 110% of the actual cost of making the copy, except that this limit does not apply once Tenant has needed copies more than three times in a calendar year. A request for a key copy is always charged under the preceding sentence, even if the key was lost. If Tenant fails to return all keys at the end of the Term, or if a key is lost or stolen and Landlord reasonably decides that security requires re-keying, Landlord may re-key the applicable locks and charge Tenant the reasonable cost, with the new keys themselves charged at no more than 110% of the actual cost of making them. If Landlord re-keys a lock while Tenant or any occupant remains in possession, during or after the Term, Landlord will give Tenant and every lawful occupant then in possession the new keys at the same time; re-keying for unreturned keys at the end of the Term takes place only after Tenant and all lawful occupants have moved out and surrendered possession. Tenant may not duplicate keys without Landlord's consent, except as applicable law allows a tenant to add a lock to the entrance door.",
+  },
+  // Default & Termination
+  {
+    id: "tenant-caused-damage-id",
+    title: "Damage Caused by Tenant",
+    group: "Default & Termination",
+    states: ["ID"],
+    bodyText:
+      "If the property is damaged by fire, water, a vehicle or any other cause, and the damage results from the deliberate or negligent act or omission of Tenant, an Occupant, or a guest or invitee of Tenant, then: (1) Rent will not abate or be reduced while the property is repaired, for as long as this Lease continues; and (2) if this Lease ends because of the damage, Tenant will be liable for Landlord's actual damages, including the Rent Landlord loses while the property is repaired, up to the end of the Term, less any Rent Landlord receives from re-renting the property. Landlord will use reasonable efforts to repair and re-rent the property. This Section is in addition to Tenant's liability for the cost of repairing the damage. It does not limit any right Tenant has under Idaho law to require Landlord to make repairs that Landlord is responsible for.",
   },
 ];
 

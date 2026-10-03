@@ -26,14 +26,13 @@ To confirm in October:
 
 ## Pending shared edits: vetting tally (rule 62)
 
-Merge each edit once every state tagged on the row has answered. Update this table at each sync. (WY's `early-termination` edit merged 2026-10-03.)
+Merge each edit once every state tagged on the row has answered. Update this table at each sync. (WY's `early-termination` edit merged 2026-10-03. CO's deletion of "and reasonable costs and expenses" from `default-by-tenant` was resolved 2026-10-03 as the CO override `default-by-tenant-co`, after ID declined to vouch.)
 
 | Edit | Row (tagged states) | Vetted, supports | Still to answer |
 |---|---|---|---|
 | AZ: "during any 12-month period" | `returned-payments` (CO, WY, KS, NE, MN, ND, SD, OH, AZ, GA, PA) | AZ, WY, CO, GA, MN, ND, OH, SD, KS | NE, PA |
 | NE: separate no-cure sentence | `default-by-tenant-ks-ne` (KS, NE, OH, OK) | NE, KS, OH | OK |
-| CO: delete "and reasonable costs and expenses" | `default-by-tenant` (20 states) | CO, GA, MN, NV, CA, AZ; ND lawful, flags lost collection costs | WY, SC, TN, VA, PA, UT, IL, ID, MO, IN, NM, MT, NY |
-| MN: no-cure carve-out as its own sentence | `default-by-tenant` (20 states) | MN, ND, CA, AZ, CO, GA | WY, NV, SC, TN, VA, PA, UT, IL, ID, MO, IN, NM, MT, NY |
+| MN: no-cure carve-out as its own sentence | `default-by-tenant` (19 states) and CO's override `default-by-tenant-co` | MN, ND, CA, AZ, CO, GA, ID | WY, NV, SC, TN, VA, PA, UT, IL, MO, IN, NM, MT, NY |
 | CA: "unless applicable law entitles Tenant to remain" | `surrender-end-of-term` (WY, SD, OH, CA, NV, TX, FL, AZ, GA, NC, TN, VA) | CA, AZ, FL, GA | WY, SD, OH, NV, TX, NC, TN, VA |
 
 ## Standing backlog

@@ -746,3 +746,90 @@ All 303 topic keys in `lease-clause-topics.md`, including the 6 with no row in a
 Not a re-audit; nothing else in this state was reviewed.
 
 **Propagation note (uniform edit, rule 62): `snow-removal` rewritten.** Old: 'Unless Landlord provides snow removal service, Tenant is responsible for prompt, reasonable removal of snow and ice from any walkway, driveway, porch, or entrance at the property that Tenant uses, to help keep those areas safe and passable.' New: 'Unless Landlord provides snow removal, Tenant will promptly remove snow and ice from the areas of the property Tenant uses for walking, parking and access. This does not include areas shared with other residents.' Why: Taylor found the list of areas too specific (properties differ, and a list invites arguments about what it covers), and Michigan's sync showed the clause should say outright that shared areas stay with the landlord. The edit only narrows the tenant's duty; this state's existing note on the row still holds.
+
+## Circle-back checks (SOP 1.38), 2026-10-03
+
+**Date:** 2026-10-03 · circle-back in ID's chat (rule 8) · Opus, high effort; research mode not used (no rule-9 trigger: the checks ran on the official Idaho Code and Constitution pages in the built-in browser). **Input:** `lease-clauses.csv`, 2,876 rows, as the prompt says; ID 121 active. Old output files deleted first (`lease-clauses-ID-delta.csv`, `lease-clause-decision-log-ID.md`, both from 2026-09-30). The attached files are the only source of truth; they agree with the earlier work in this chat and add the two later shared edits recorded at the end of ID's log (`appliances-included`, `snow-removal`). Scalpel, not a re-audit (rule 1): only the five items below were opened. Search records are saved in `sources/batteries/retro-2026-10-03.md`.
+
+**Rule 79 basis for this pass:** the saved section files from 2026-09-30 for §§ 6-201, 6-301 to 6-304, 6-316, 6-317, 6-320, 6-324, 12-120, 26-2229A and 55-305 were compared with the live section pages before reuse. The content is identical after lowercasing and collapsing whitespace. A byte hash differs only because the pages now render headings in capitals and drop the blank line before 'History:'.
+
+1. **Rule 54t (tenant-caused damage): fixed, with 1 optional clause and 1 education row added.**
+   - **Not previously covered.** ID's log records no 54t screen; the SOP conformance note marked it due. The casualty row was checked first: `casualty-termination-id` already gives no termination or abatement for a casualty 'caused by Tenant, members of Tenant's household, or Tenant's guests'.
+   - **What was read:**
+     - § 6-201: waste; 'there may be judgment for treble damages'.
+     - § 6-303(4): waste contrary to the lease terminates it on a three-day notice to quit.
+     - § 6-320(a), (d): the tenant's action for damages and specific performance. Its text has no tenant-fault exception.
+     - § 6-311: a rent bond for a detainer continuance, not a tenant remedy.
+     - § 55-305(2), (4).
+   - **What was searched:** every chapter of Titles 6, 9, 29, 41 and 55 (143 chapter PDFs) for accidental-fire, destruction or untenantability, rent-abatement, rebuild and tenant-fault wording. There was no residential-tenancy hit.
+   - **Each abatement or exit provision, checked separately:**
+     - Idaho has no casualty statute, no essential-services remedy, no statutory landlord-breach termination and no rent-into-court remedy.
+     - So there is no fault exception to find. A no-abatement term waives no statutory right.
+   - **What Idaho law gives the landlord:**
+     - Repair cost: as damages (`tenant-maintenance`), and waste with possible treble damages.
+     - Rent during repairs: it runs under the lease unless the lease abates it.
+     - Lost rent if the lease ends: contract damages. There is no statutory mitigation rule, and the measure is case law, not read.
+     - The tenant has no statutory walk-away right.
+   - **Rows:**
+     - New `tenant-caused-damage-id` (CONDITIONAL, SERVES_LANDLORD): the TN model, which is not tagged, plus a last sentence preserving the tenant's Idaho repair action.
+     - New `edu-tenant-caused-damage-id`.
+     - `casualty-termination-id`: ID note and `last_checked` only, adding a pointer to the two new rows.
+
+2. **Rule 35c (Constitution screen): checked, no issue; no row changed.**
+   - **Not previously covered.** ID's log §1.3 says the Constitution was not searched.
+   - **Loaded:** all 21 articles from legislature.idaho.gov/statutesrules/idconst/ (234 sections, 155,803 characters, every section link loaded).
+   - **Controls:** 'legislature' 102 sections and 'governor' 33; the nonsense term returned 0. Every pattern matched a synthetic positive first.
+   - **Results:**
+     - Cannabis or marijuana and controlled substances: **0**. Idaho's constitution has no cannabis provision, so the shared `smoking-policy` ban on smoking or vaping marijuana stands. This is the opposite of Missouri.
+     - Arms: Art. I, § 11 restricts what 'law' may do (licensure, registration, confiscation), and no ID-tagged clause restricts firearms.
+     - Speech: Art. I, § 9 ('Every person may freely speak, write and publish'). `common-area-use`'s consent rule for outside signs already yields to any display 'applicable law entitles Tenant to make'. Whether § 9 reaches a private landlord is case law, not read.
+     - Search: Art. I, § 17 reaches unreasonable searches and seizures, which is state action.
+     - Privacy: the only hit is crime victims' rights in the justice process (Art. I, § 22).
+     - Hunting: Art. I, § 23 creates no right to trespass on private property.
+     - Lease, tenant and residence: 24 hits, all on public lands, bonds, transportation, water or office residency. None reaches a residential lease.
+   - **No initiated amendments to check.** Under Art. XX, § 1, amendments come only from the legislature with voter ratification; Art. III, § 1's initiative power is to propose laws.
+
+3. **Targeted fix 3 (holdover rate, rule 54 as amended at the NE sync): checked; verdict unchanged, education row fixed.**
+   - **The statutory measure is neither conditional nor a lump sum.**
+     - § 6-317 lets the court treble 'the actual damages' whenever a landlord 'recovers damages for a ... detention'. It has no willful or bad-faith condition.
+     - § 6-316(1) has the damages assessed for the whole unlawful detainer.
+     - So the ordinary good-faith holdover still gets actual damages, normally the rental value, which `holdover-ca` claims. No gap is left.
+   - **Verdict (log §6.1):** no holdover-rate clause, unchanged.
+   - **Row fixed:** `edu-holdover-damages-id` now says a set rate is lawful as far as statute goes, why the library doesn't offer it, and that a landlord can add their own clause after taking advice. Whether a premium rate is a penalty is case law, not read. Before, the row stated the decision without saying the option was lawful (rule 54).
+
+4. **Targeted fix 4 (rule 62 vetting, `default-by-tenant`, CO proposal to delete 'and reasonable costs and expenses'): checked; NOT vouched as a uniform edit for Idaho.**
+   - **Idaho has no rule that needs the deletion.** No Idaho statute voids a one-way cost or fee provision in a residential lease.
+     - § 6-324 makes attorney fees mandatory and mutual by statute in detainer actions, whatever the lease says. Treble-damages cases are excepted, and in nonpayment cases the fees depend on the three-day notice's advisory.
+     - § 12-120 is mutual by its own terms.
+     - Court-cost rules (Idaho R. Civ. P. 54) were not read.
+   - **Deleting the phrase could give up two things.**
+     - § 55-305(2)(b): for written agreements entered into or renewed from 2023-07-01, an owner may not charge a 'fee, fine, assessment, interest, or other cost ... not included in the rental agreement' without 30 days' written notice.
+     - § 26-2229A(4)(c): a licensed collection agency may collect 'expenses incidental to the principal obligation' only if they are 'expressly authorized by the agreement creating the debt', or under one of the section's other grounds.
+     - The clause's mutual closing sentence covers only court costs and fees 'incurred in connection with any legal proceedings'. Without the phrase, the Idaho lease would no longer mention pre-suit default costs in general (re-letting, cleaning, collection expenses).
+     - Whether those count as an 'other cost' and whether the general wording is specific enough are both unsettled. The optional `collection-fee-id`, `keys` and `tenant-maintenance` cover parts of this.
+   - **Recommendation:** Colorado's driver is Colorado-only, so make the change as a Colorado override, not a shared edit. If it is made shared, ID would need an override that keeps the phrase. Shared text not edited.
+
+5. **Targeted fix 5 (rule 62 vetting, `default-by-tenant`, MN proposal to move the no-cure carve-out into its own sentence reaching both limbs): vouched, no change needed.**
+   - § 6-303(2) always requires a three-day written notice requiring payment of the amount due, or possession, before nonpayment is an unlawful detainer. No Idaho law lets a landlord proceed on nonpayment without it.
+   - So 'except where applicable law permits Landlord to proceed without giving Tenant an opportunity to cure' can't reach the rent limb in Idaho. It still covers the § 6-303(3) proviso (a breach that cannot afterward be performed), § 6-303(4) and § 6-303(5).
+   - The drug-activity ground (§ 6-303(5)) and holdover (§ 6-303(1)) are separate grounds, not nonpayment.
+   - Recorded here as the 'Vouches given' entry for ID's propagation section (rule 62). Shared text not edited.
+
+**Rows changed** (`lease-clauses-ID-retro-delta.csv`, 4 rows, 17 columns, CRLF):
+- **New:** `tenant-caused-damage-id` and `edu-tenant-caused-damage-id`.
+- **Edited ID-only rows:** `edu-holdover-damages-id` (`bodyText`, notes) and `casualty-termination-id` (notes).
+- **Integrity:** each row has `last_checked` 2026-10-03. No shared row changed, no ID lease clauses share a topic, every '§' is prefixed and no `{{variable}}` was added.
+- **Counts:** ID goes from 121 to 123 active (65 lease clauses, 58 education). Every other state's count is unchanged.
+
+### Proposed SOP changes
+1. **Rule 79: compare saved section files with live pages by content, not by byte hash, when the site's rendering can change.** Lowercase both texts and collapse whitespace, or use `textContent`, before hashing. Reason: Idaho's section pages now render headings in capitals and drop a blank line, so every 2026-09-30 byte hash differed although the statute text was unchanged. A byte-only rule would have forced a needless re-read or a false 'changed' finding.
+
+## Circle-back sync (Claude Code, 2026-10-03)
+
+- **Merged** with `merge-delta.py --base 2b10851`: 2 new rows (`tenant-caused-damage-id`, `edu-tenant-caused-damage-id`) and 2 updated (`edu-holdover-damages-id`, `casualty-termination-id`); nothing refused. ID active 121 → 123.
+- **Citations file:** rows added for the two new rows; `last_checked` on the two edited rows set to 2026-10-03.
+- **Rule 62:**
+  - ID vouched for MN's no-cure-sentence edit to `default-by-tenant`.
+  - ID declined CO's deletion of "and reasonable costs and expenses" (Idaho Code § 55-305(2)(b), § 26-2229A(4)(c)). Because one tagged state can't vouch, the deletion went in at this sync as a Colorado override, `default-by-tenant-co`, as ID recommended. CO is untagged from the shared row, and the shared text keeps the phrase for Idaho and every other tagged state. The vetting question was removed from the circle-back folders that still carried it.
+- **Guards:** all pass. **Statute spot-check, 3 of 3, on legislature.idaho.gov:** § 6-317 (treble damages, no willfulness condition); § 6-303(2) (three-day notice requiring payment or possession); § 55-305(2)(b) (no fee or other cost not in a written rental agreement without 30 days' written notice).
+- **SOP 1.39:** ID's rule 79 proposal adopted (compare saved section files with live pages by normalised content, not raw bytes).
