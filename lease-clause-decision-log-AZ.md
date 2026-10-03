@@ -921,3 +921,144 @@ All 19 lease clauses written for this state alone. Shared clauses tagged with th
 Not a re-audit; nothing else in this state was reviewed.
 
 **Propagation note (uniform edit, rule 62): `snow-removal` rewritten.** Old: 'Unless Landlord provides snow removal service, Tenant is responsible for prompt, reasonable removal of snow and ice from any walkway, driveway, porch, or entrance at the property that Tenant uses, to help keep those areas safe and passable.' New: 'Unless Landlord provides snow removal, Tenant will promptly remove snow and ice from the areas of the property Tenant uses for walking, parking and access. This does not include areas shared with other residents.' Why: Taylor found the list of areas too specific (properties differ, and a list invites arguments about what it covers), and Michigan's sync showed the clause should say outright that shared areas stay with the landlord. The edit only narrows the tenant's duty; this state's existing note on the row still holds.
+
+## Circle-back checks (SOP 1.32), 2026-10-03
+
+**Scope:** the one [Retro] rule (79) and the four targeted fixes in the SOP 1.32 prompt. This is a scalpel, not a re-audit (rule 1); nothing else was reopened. Settings: Opus, high effort. Research mode was not used; every read was done in Taylor's built-in browser.
+
+**Inputs:** `lease-clauses.csv` with 2,876 rows (2,755 active), which matches the prompt. AZ had 123 active rows before this retro, the same as the figure after the SOP 1.13 retro. **The attached files are the only source of truth** (rule 8). Old output files were deleted at the start: both files in the outputs folder, plus the 1.13 working copies (`changes.json`, the delta and the log section).
+
+**Sources (rules 11, 12, 14):**
+- **A.R.S. Title 33, ch. 10.** Re-read whole from azleg.gov: all 52 sections in the official index. Each section was fetched twice, the two copies matched, and each heading number matched the request.
+  - 20 sections were unchanged since 2026-09-30: their hashes match the files saved then.
+  - The other 32 are now saved too.
+- **Other sections read section-open the same way:**
+  - §§9-1301 to 9-1305; §§11-1704, 11-1705;
+  - §§12-671, 12-1171, 12-1173, 12-1178, 12-341.01;
+  - §§13-1202, 13-3601; §26-168;
+  - §§33-341, 33-1260.01, 33-1413, 33-1416, 33-1806.01, 33-1904;
+  - §§36-1636, 36-1637, 36-1681, 36-2813, 36-2851;
+  - §§41-1491, 41-1491.14, 41-1491.19, 41-1491.38;
+  - §§44-6852, 49-927.
+
+  All of these are saved. §42-6004 is saved as a subsection (H) excerpt. §§33-443 and 11-1024 were read with their SHA-256 recorded but not saved.
+- **Session laws:** chaptered text on azleg.gov for Laws 2016 ch. 352, 2023 ch. 204, 2024 ch. 250, 2025 ch. 191, 2026 ch. 69 and 2026 ch. 240. Approval lines and the relevant sections are saved as excerpts with SHA-256. Struck and added text were read from the page's markup (struck = class `O`, added = class `UP`), because the plain page text merges the two.
+- **Official General Effective Dates page:** 2016-08-06, 2023-10-30, 2024-09-14, 2025-09-26, 2026-09-12.
+- **31 CFR §802.221:** read on ecfr.gov ("up to date as of 10/01/2026"); (a)-(b) saved with SHA-256.
+- **Official ARS full-text search:** run with controls. "Material and irreparable" hits §33-1368, "smoke detector" hits §36-1637, and the nonsense term "zzqxv lease" returns 0.
+- **Not reached:** the ADHS pool-safety form, because azdhs.gov is not allowed in Taylor's browser.
+
+### Results, one line per check
+
+| # | Check | Verdict | What was read | Rows changed |
+|---|---|---|---|---|
+| 1 | Rule 79: re-read before trusting a summary | **Fixed** | See the sources above. The citations file has no row resting on Nolo, law-firm or "N sources agree" sources, so no row matched the keyword screen. The screen instead covered rows whose notes name the research tool, the fetch tool or secondary sources (13), and rows that record no basis at all. | 57; the full list is in the row-by-row verdicts below. **Count:** before this retro, **46 of 123 AZ-active rows recorded no basis** in `lease-clauses.csv` notes. All 46 were read section-open, and a basis line was added to each:<br>• **43** are shared rows tagged at the original AZ pass (2026-09-26/27). Their AZ segment cited sections without naming what was read; 8 of them are generic and cite no section.<br>• **2** were created by the 2026-09-29 scrub: `edu-possession-delay-az` and `edu-dv-lease-termination-az`. Their basis is carried forward (provenance repair) and re-read.<br>• **1** is a shared row tagged AZ with no `AZ:` segment at all: `rental-application-accuracy`. A segment was added. |
+| 2 | Targeted fix: dangling pointers | **Already covered in Retro checks (SOP 1.13) item 17** | Current `due-at-signing` and `existing-condition` AZ segments | None. Both pointers already name the active rows (`edu-security-deposit-az`; `move-out-inspection-notice-az`) and mark the old ids "(switched off 2026-09-29)". A re-sweep of every AZ-active row's `notes` and `bodyText` found no other pointer to a switched-off row; the only hits were provenance notes, which are history. |
+| 3 | Targeted fix: scrub-trimmed clauses (rules 78 and 47) | **`security-deposit-return-az` already covered in 1.13 item 18; fixed one other row** | §33-1321(B)-(E) re-read; §33-1331; a search of ch. 10, §36-1637 and §36-1681 for lease-content phrases ("rental agreement shall", "with the rental agreement", "in a written rental agreement", "set forth in", "stated in the rental agreement", "shall contain", "shall include", "in writing", "written notice") | **`security-deposit-return-az`:** the restored §33-1321(D) condition ("within the time and in the manner Arizona law requires") is in the current row, and its finality and waiver wording tracks (D). Nothing a number check can't catch is missing.<br>**Required-content search:** each lease-content requirement has its clause: §33-1314.01(B) and (G) `utility-billing-disclosure-az`; §33-1315(A)(2) `default-by-tenant`; §33-1321(B) `nonrefundable-fees-az`; §33-1321(C) `move-out-inspection-notice-az`; §33-1322(A)-(B) `landlord-disclosure-az`; §§33-1368(B) and 33-1377(F) `late-fee-az`; §33-1324(C)-(D) `maintenance-allocation-az`; §36-1637(C) `smoke-detector-duty-az`; §36-1681(E) `pool-safety-notice-az` (separate DHS document); §33-1319(A)(1) `bedbug-obligations-az`.<br>**Fixed: `foreclosure-notice-az`.** The scrub kept the text but made the row optional (RECOMMENDED, SERVES_LANDLORD) on the reasoning that the notice is "owed before the lease". §33-1331(A) says the owner "shall include written notice of possible foreclosure **with the rental agreement**" when the foreclosure began before the lease. So the requirement applies at signing, the lease is its vehicle, and the clause carries the statutory form. As an optional row, a landlord could drop it. Changed to **CONDITIONAL, `REQUIRED_DISCLOSURE: A.R.S. § 33-1331(A)`**; text unchanged.<br>**`edu-foreclosure-notice-duty-az`:** its last sentence said to give the notice "first" and called the clause optional. It now reads "include the statutory notice with the lease".<br>The five switched-off rows carry tenant rights or caps (§§33-1321(A), 33-1362, 33-1318, 33-1366) that require no lease text, apart from `move-in-inspection-az`, whose notice was restored in 1.13 item 7. |
+| 4 | Rule 62 vetting: `default-by-tenant`, CO's deletion of "and reasonable costs and expenses" | **Vouched, no change needed (supports the deletion)** | §§33-1315, 33-1368(C), 33-1377(D)/(F), 12-1178(A), 12-341.01; RPEA 13(f) (1.13 item 9) | **Arizona does not limit a landlord's recovery of collection or eviction costs.**<br>• §33-1368(C) gives the landlord, by statute, "all reasonable damages resulting from noncompliance ..., court costs, reasonable attorney fees and all quantifiable damage".<br>• §§33-1377(D) and (F) and 12-1178(A) put costs and fees in the detainer judgment.<br><br>**Arizona does limit one-way fee terms.** §33-1315(A)(2) bars a lease term that the tenant "agrees to pay the landlord's attorney fees", except a written prevailing-party clause. A prohibited term is unenforceable, and deliberate use of one known to be prohibited costs actual damages plus up to two months' rent (§33-1315(B)).<br>• The one-way phrase "reasonable costs and expenses" names no attorney fees, so 1.13 item 9 found it lawful as written. Read to include fees, it would collide with (A)(2).<br><br>**Deleting the phrase gives up nothing:**<br>• the statute already supplies costs, fees and reasonable damages, including collection expenses;<br>• the clause keeps "all rights and remedies available under applicable law" and the mutual prevailing-party sentence;<br>• a generic phrase is not a "charge stated in the rental agreement" for §12-1178(A), and RPEA 13 awards only periodic lease charges anyway.<br><br>Recorded here, not in the row's notes (rule 62). |
+| 5 | Rule 62 vetting, shared rows | **Both vouched, no change needed** | §§33-341(D), 33-1304, 33-1314(D), 33-1368(A)-(B), 33-1374, 33-1375, 12-1178(C) | **(1) `surrender-end-of-term` (CA):** the qualified wording is lawful and accurate in AZ. The current wording's duty is backed at expiration of a fixed term by §33-341(D): the tenant "shall surrender possession" and no notice to quit is needed. Ch. 10 does not conflict (§33-1304), and §33-1375 covers periodic tenancies and holdover. Arizona has no just-cause rule (`edu-no-for-cause-eviction-az`). One case where "immediately" says more than AZ law backs: after a §33-1368(B) nonpayment termination, the rental agreement is reinstated if the tenant pays before or after filing, until judgment. In any case the landlord recovers possession only through the court (§33-1374), and no writ issues for 5 calendar days after judgment (§12-1178(C)). "Unless applicable law entitles Tenant to remain" fits that and grants nothing Arizona law doesn't.<br>**(2) `default-by-tenant` (MN, ND, CA):** moving the no-cure carve-out into its own sentence reaching both limbs is lawful in AZ. No Arizona provision lets a landlord proceed on nonpayment without the §33-1368(B) five-day written notice and chance to pay, so a self-limiting carve-out has nothing to reach on the rent limb. The no-cure grounds in §33-1368(A) are all non-rent (falsified criminal or eviction record, material and irreparable breach, a repeat of the same or similar noncompliance), and each still requires a written notice. The carve-out speaks only to cure, not notice. The late-fee sentence is unaffected. |
+
+### Rule 79 row-by-row verdicts
+**Rows whose basis named the research tool, the fetch tool or secondary sources (13):**
+- `smoking-policy` (shared): **confirmed**.
+  - §36-2851(7) and §36-2813(A) say what the note says, and the quotes match.
+  - The federal-benefit exception sits on (A).
+  - Both sections carry the compilation's "Caution: 1998 Prop. 105 applies" note.
+  - AZ segment basis upgraded.
+- `edu-local-preemption-az`: **fixed**.
+  - The §11-1705 summary attached the 15-calendar-day floor to every follow-up fee; it belongs only to the (B)(2) failure-to-correct fee. Notes corrected.
+  - The body said only counties may not charge "for initial inspections". It now says cities (§9-1305(A)) and counties (§11-1705(A)) bar fees for the listed initial inspections and may charge for later follow-ups.
+  - Everything else is confirmed, including that Laws 2023 ch. 204 struck the TPT-licence carve-out from §§9-1304(B) and 11-1704(B).
+- `edu-rental-tax-az`: **confirmed**.
+  - Laws 2023 ch. 204: Sec. 3 strikes former §33-1314(E); Sec. 4 adds §33-1332(A)-(B); Sec. 5 is the 2026-12-31 repeal; Sec. 12; approved 2023-08-01.
+  - The 2023 general effective date is 10-30-2023.
+  - §42-6004(H) is confirmed.
+  - Body unchanged.
+- `edu-no-drug-lab-disclosure-az`: **fixed (notes)**.
+  - Laws 2016 ch. 352 Sec. 1 repeal and its approval (2016-05-19) are confirmed; the general effective date is 08-06-2016.
+  - The note said the act's ADEQ authority was at §49-927(B)(8), "current text NOT re-read". Current §49-927(B) lists six purposes, none about drug laboratories, so that authority is gone from the compilation.
+  - The absence now rests on the official full-text search: 0 hits for every drug-lab term.
+- `edu-foreign-adversary-land-ban-az` (PARTIAL): **basis upgraded; PARTIAL stays** (the reach question is still open).
+  - Laws 2026 ch. 240 approval line (2026-06-22) and "(ENACTED WITHOUT THE EMERGENCY)" were read from the chaptered text, so the act is effective 2026-09-12. That is no longer an inference.
+  - 31 CFR §802.221(a)(1) "Any foreign national" was read on eCFR. So §33-443(N)(7)(f) can be read to reach an individual national of a listed country; whether it does stays unresolved.
+- `edu-no-servicemember-lease-rule-az`: **fixed (notes)**. The §33-1413(F) summary dropped "which do not allow such prior notification"; it is restored.
+- `edu-assistance-animals-az`: **confirmed, with a correction**.
+  - The chaptered Laws 2025 ch. 191 adds the section as "41-1497.38". So the fetch tool read the act correctly; the compilation codifies it as §41-1491.38.
+  - The citations file wrongly called "41-1497.38" a misreading; that is corrected.
+  - The 2025 general effective date is confirmed (09-26-2025).
+- `edu-guest-removal-az`: **confirmed**.
+  - Laws 2026 ch. 69 amends only §§12-1171 and 12-1173; approved 2026-05-29; no emergency clause.
+  - Effective 09-12-2026.
+- `pool-safety-notice-az`: **statute confirmed; form not reached**.
+  - §36-1681(D) opens "This section does not apply to", so the exemptions reach the (E) notice.
+  - The ADHS form facts still rest on the research pass, marked so in the notes.
+- `edu-hoa-rental-rules-az`, `edu-no-fee-caps-az`, `edu-rent-increases-az`, `edu-no-deposit-interest-az`: **confirmed, no change**.
+  - Their basis is the section-open read of ch. 10.
+  - "Secondary sources" appears only as context about bills (HB 2243, HB 4122 and the HOA bills) that did not become law. Today's re-read of the compilation, updated through the 2026 session, has no such provision.
+
+**Rows that recorded no basis (46; basis line added to each):**
+- **Shared rows: confirmed (35).** Each cited subdivision says what the note says:
+  - `rent-payment`, `returned-payments` (Laws 2024 ch. 250 Sec. 35 also confirmed);
+  - `due-at-signing`, `application-of-payments`, `security-deposit-use`, `residential-use-only`, `existing-condition`, `permitted-occupants`, `no-disturbance`;
+  - `utilities-responsibility`, `utility-service-continuity`, `tenant-maintenance`, `no-alterations`, `joint-liability`, `utilities-paid-by-landlord`, `appliances-included`;
+  - `default-by-tenant`, `surrender-end-of-term`, `notices`, `severability`, `entire-agreement`, `pet-insurance-requirement`, `keys`, `guest-policy-day-limit`;
+  - `landscaping-irrigation`, `snow-removal`, `inspection-rights`, `hoa-compliance`, `assistance-animal-accommodation`;
+  - `storage-space-ks-oh-ca`, `parking-ks-oh-ca`, `tenants-property-insurance-ks-oh-ca`, `services-utilities-provided-ks-oh`;
+  - `landlord-maintenance` (its "§9-1303, NOT read" is now read: §33-1324(A)(1) incorporates it);
+  - `rental-application-accuracy` (no AZ segment before; one added).
+- **Shared rows: generic, no section cited, no ch. 10 provision bears (8):**
+  - `governing-law`, `addendum-precedence`, `assigned-parking-space`, `tenant-forward-proceedings-ca`;
+  - `utility-payment-evidence`, `fire-safety-grilling`, `parking-vehicle-rules`;
+  - `lead-based-paint` (federal labels not re-read).
+- **`guest-policy` (shared): fixed (notes).**
+  - The note merged §33-1378's two sentences into one.
+  - "Knowingly", and the request by the tenant or the landlord entitled to possession, attach only to removal by an officer.
+- **`edu-dv-lease-termination-az` (scrub-created): fixed (body).** The move dropped two qualifiers, which are restored:
+  - The switched-off clause's "as Arizona law defines it": §13-3601(A) requires a listed relationship, so a stranger's threat is not domestic violence.
+  - §33-1318(A) limits sexual assault to one "in the tenant's dwelling", not anywhere "in the property".
+- **`edu-possession-delay-az` (scrub-created): confirmed** against §33-1362(A)-(C).
+
+### Rows changed (CSV delta: 57 rows)
+- **Own rows (12):**
+  - bodies: `edu-local-preemption-az`, `edu-dv-lease-termination-az`, `edu-foreclosure-notice-duty-az`;
+  - `rule_type` and `lease_clause_basis`: `foreclosure-notice-az`;
+  - notes only: `edu-rental-tax-az`, `edu-no-drug-lab-disclosure-az`, `edu-foreign-adversary-land-ban-az`, `edu-no-servicemember-lease-rule-az`, `edu-assistance-animals-az`, `edu-guest-removal-az`, `pool-safety-notice-az`, `edu-possession-delay-az`;
+  - `last_checked` 2026-10-03 on each.
+- **Shared rows (45):** only the `AZ:` notes segment and `last_checked` changed. These are the 44 no-basis shared rows plus `smoking-policy`. A script check confirms no other state's segment and no other field changed.
+- **Citations file:** `lease-clause-citations-AZ.csv` is updated for the same 57 rows: basis upgraded, `last_checked` 2026-10-03, and the `edu-assistance-animals-az` correction. `edu-foreign-adversary-land-ban-az` stays PARTIAL.
+- **Integrity on the merged master (2,876 rows, 2,755 active):**
+  - no duplicate ids, dangling `supersedes` or display collisions;
+  - no blank status or blank `states` (except the parent);
+  - 17 columns in every row; delta header identical to the master; CRLF line endings.
+- **Counts:**
+  - AZ: 123 active before and after (69 lease clauses, 54 education), all VERIFIED.
+  - No state's active count changed.
+  - No new `{{variables}}`.
+
+### §9 Propagation (rule 62)
+- **No shared `bodyText` was edited.** No propagation is owed.
+- **Vouches (rule 62, recorded here rather than in the rows):**
+  - `default-by-tenant`: CO's deletion of "and reasonable costs and expenses" is vouched for AZ.
+  - `default-by-tenant`: MN's carve-out restructure is vouched for AZ.
+  - `surrender-end-of-term`: CA's "unless applicable law entitles Tenant to remain" is vouched for AZ.
+  - Reasons are in checks 4 and 5 above.
+
+### §10 Findings for other states or the product (flagged, not fixed)
+1. **Foreclosure notices demoted by the scrub.** `foreclosure-disclosure-nv` and `foreclosure-disclosure-mn` are also RECOMMENDED / SERVES_LANDLORD, the same pattern the scrub gave AZ.
+   - Whether each statute requires the notice in or with the lease (AZ: "with the rental agreement") or before it is a question for those states' next retros.
+   - Not checked here: their statutes were not read.
+2. **Struck text in azleg session laws.** On the chaptered-act pages, plain text extraction merges struck and added words. For example, §44-6852 reads "sections 32-328 and section 32-507". Read the class `O` (struck) and `UP` (added) spans before summarising what an act changed.
+
+### Proposed SOP changes
+1. **Rule 78:** a library-wide pass that changes a row's `rule_type` or `lease_clause_basis`, for example from REQUIRED or CONDITIONAL to RECOMMENDED or SERVES_LANDLORD, counts as trimming it. Before demoting, re-read the statute's vehicle words ("with the rental agreement", "in the lease", "in a written rental agreement"); a notice required with the lease stays CONDITIONAL or REQUIRED. (AZ: `foreclosure-notice-az`, §33-1331(A).)
+2. **Rule 79:** a state-level statement in the log ("ch. 10 read whole") does not record a basis on a row. Each state segment on a shared row that cites sections needs its own one-line basis naming what was read; otherwise the screen counts it as no basis. (AZ: 43 of the 46 no-basis rows were shared rows of this kind.)
+3. **Rule 79:** when a move carried a definitional qualifier ("as Arizona law defines it", "in the tenant's dwelling"), the moved row must keep it. Check that along with conditions. (AZ: `edu-dv-lease-termination-az`.)
+4. **Rules 11 and 16 (azleg session laws):** read struck and added text from the page markup (class `O` = struck, `UP` = added), not from the plain page text, which merges the two. Read the chaptered act's own section number before calling a fetch-tool number a misreading: the codifier may renumber. (AZ: Laws 2025 ch. 191 adds "41-1497.38", codified as §41-1491.38.)
+
+## Circle-back sync (Claude Code, 2026-10-03)
+
+- **Merged** with `merge-delta.py --base 2b10851`: 57 rows updated (12 AZ rows, 45 shared rows whose AZ segment gained a basis), no new rows, no refusals. AZ active 123, unchanged; no same-topic pairs; every other state's set unchanged. The outputs arrived in a `results/` subfolder.
+- **Citations file:** the pass's own updated `lease-clause-citations-AZ.csv` was adopted after checking it changes only `last_checked` and `notes` on the same 57 rows; it came with LF line endings and was rewritten with the repo file's CRLF.
+- **Guards:** all pass. **Statute spot-check, 3 of 3, against azleg.gov:** A.R.S. § 33-1331(A) ("with the rental agreement") behind the restored `foreclosure-notice-az`; § 33-1315(A)(2) behind the `default-by-tenant` vouch; § 33-1318(A) ("as defined in section 13-3601"; "in the tenant's dwelling") behind the corrected `edu-dv-lease-termination-az`.
+- **Rule 62:** AZ vouched for all three pending edits (CO's and MN's `default-by-tenant` edits, CA's `surrender-end-of-term` qualifier); recorded in the backlog tally.
+- **SOP 1.35:** all four proposals adopted (rules 16, 78, 79). AZ's conformance column is complete except the examples.
