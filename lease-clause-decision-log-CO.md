@@ -2120,3 +2120,149 @@ Not a re-audit; nothing else in this state was reviewed.
 Not a re-audit; nothing else in this state was reviewed.
 
 **Propagation note (uniform edit, rule 62): `early-termination` landlord limb.** Old: 'Landlord may terminate this Lease early by providing Tenant at least 30 days' written notice if Tenant breaches a material term of this Lease and fails to cure the breach within 10 days of receiving written notice, or if Tenant vacates or abandons the property without notifying Landlord.' New: 'Landlord may terminate this Lease early by providing Tenant at least 30 days' written notice if Tenant breaches a material term of this Lease and fails to cure the breach within 10 days of receiving written notice, or on such shorter notice and cure period as applicable law permits, or if Tenant vacates or abandons the property without notifying Landlord.' Why: the 30-day notice and 10-day cure promised in the lease could give up a shorter route the state's law allows for a material breach. Every state tagged on the row (CO, WY, MN, ND, SD, OH) vetted the wording and supported it; "as applicable law permits" means it never permits less than the law requires. This state's existing note on the row still holds.
+
+## Circle-back checks (SOP 1.35), 2026-10-03
+
+**Date:** 2026-10-03. **Settings:** Opus, high effort; research mode not turned on — the rule 9
+triggers were not reached (one section-open read of the official corpus answered the question).
+
+**Gate check.** The attached `lease-clauses.csv` has **2,876 data rows**, matching the prompt —
+proceeded. Worth recording for the next circle-back: a stale 2,169-row copy of `lease-clauses.csv`
+from the 2026-10-01 round was still sitting in the session's upload directory under the same
+filename, alongside the current attachment. The row count is what disambiguated them (rule 23's
+"derive every count yourself" did its job). All work below is from the files attached today.
+
+**Old output files deleted first (rule 8):** `lease-clause-decision-log-CO-retro.md` and
+`lease-clauses-CO-retro-delta.csv` (the 2026-10-01 SOP 1.16 outputs). The files attached now are the
+only source of truth; nothing earlier in this chat is relied on.
+
+**Sources (rules 11, 12, 14).** Official 2026 Colorado Revised Statutes, Colorado OLLS whole-title
+HTM (`olls.info/crs/crs2026-title-13.htm`, 4,467,670 chars this load), read in the built-in browser
+pane with an extractor anchored on each section's own header line. Control term returned 0 over
+Article 40. Saved to `src/CO-2026-CRS-reads-1.35.md` with the relied-on sentences verbatim and the
+history lines. Method note (weaker than prescribed, rule 14): the workspace shell cannot reach the
+host, so no browser-to-disk hash comparison was available; the saved file is a transcription.
+
+---
+
+### The [Retro] rules
+
+**None.** This prompt lists 0 rules — SOP 1.35 added no [Retro] rule that reaches Colorado. Nothing
+checked under this heading, and nothing else reopened (rule 1).
+
+---
+
+### Targeted fix 1 — rule 62 vetting, `default-by-tenant` (MN's proposal, 2026-10-02; ND and CA support)
+
+**Proposal:** move the no-cure carve-out ("except where applicable law permits Landlord to proceed
+without giving Tenant an opportunity to cure") out of the non-rent limb into its own sentence
+reaching both limbs. **Question asked:** is that lawful and accurate in Colorado — specifically, can
+it be read to drop a cure or pre-suit notice Colorado law requires for nonpayment?
+
+**Verdict: VOUCHED — lawful and accurate in Colorado, no change needed, and no override wanted.**
+Shared text not edited. Recorded here rather than in the row's `notes`, per rule 62 as amended at the
+CA retro.
+
+**Already recorded in part.** CO's log §"Retro checks (SOP 1.16)" item 4 (rule 43 — cure promises,
+2026-10-01) ran this screen and reached the same conclusion, and item 4's closing line left this
+exact structural point as a rule 62 proposal. This answer completes it, and adds a Colorado
+authority that pass did not reach.
+
+**Why it is safe here.** The carve-out is conditional on "where applicable law permits," and for
+nonpayment Colorado law never permits it — in two independent, separately non-waivable places:
+
+1. **§ 13-40-104(1)(d)** requires, before suit, ten days' written notice "requiring in the
+   alternative the payment of the rent or the possession of the premises" (five days for an "exempt
+   residential agreement", three for a nonresidential or employer-provided housing agreement), and
+   closes with: *"No such agreement shall contain a waiver by the tenant of the notice requirement of
+   this subsection (1)(d)."* Colorado's own statute calls that window a cure period —
+   § 38-12-1303(3)(f)(III) refers to "the cure period described in section 13-40-104 (1)(d)" (read
+   section-open 2026-10-01, saved).
+2. **§ 13-40-115(4)** — read section-open this pass, and **new to Colorado's record** — goes
+   further: a landlord who has given proper notice of nonpayment *"shall accept payment of the
+   tenant's full payment of all amounts lawfully due according to the notice, as well as any rent
+   that remains due under the rental agreement or that remains due pursuant to a repayment plan
+   established pursuant to section 13-40-104 (4)(e), **at any time until a judge issues a judgment
+   for possession**"*, paid to the landlord or the court; on confirmation the court *"shall"* vacate
+   any judgment entered and *"dismiss the action with prejudice."* **§ 13-40-115(5):** *"The rights
+   provided in subsection (4) of this section may not be waived by any written agreement."* (Added by
+   SB 21-173, eff. 2021-10-01; IP(4) amended by HB 25-1168, eff. 2025-08-06.)
+
+So the carve-out can never fire on Colorado's rent limb, and if a lease were read as dropping either
+cure right, § 13-40-104(1)(d)'s final sentence and § 13-40-115(5) would void that reading
+independently of how the clause is worded. Moving the carve-out into its own sentence changes nothing
+in Colorado.
+
+**And the carve-out does real work here, so Colorado wants it to exist.** On the non-rent limb
+Colorado has two genuine no-cure routes: § 13-40-104(1)(d.5) (a substantial violation under
+§ 13-40-107.5) and § 13-40-104(1)(e.5)(II) (a repeat violation of the same condition or covenant
+after a (1)(e) notice — terminable "at any time", effective ten days after service of written notice
+to terminate, with no cure right). A clause promising a cure for every breach would contract those
+away. Reaching both limbs preserves them without touching the rent limb.
+
+**One Colorado-specific point for the merge, worth carrying to the other 18 tagged states.** The rent
+limb's current wording — cure "within the time period specified by applicable law" — is doing more
+work than it looks like in Colorado, because Colorado's cure right on nonpayment is not a fixed
+window: it runs past the notice period all the way to judgment (§ 13-40-115(4)). A hardcoded figure
+would have been wrong here, and so would any future shared-text proposal that *defined* or *capped*
+the cure opportunity (for example "the cure period stated in this Lease"), which would collide with
+§ 13-40-115(4)–(5). The proposal as written is safe precisely because it only ever subtracts where
+law allows and never defines the cure itself. Recommend the merge keep that property explicit.
+
+**Rows changed: none.** No delta file is produced for this fix.
+
+---
+
+### Finding, flagged not fixed (rule 1)
+
+**§ 13-40-115(4)–(5) has no Colorado row at all.** Checked against the attached master (2,876 rows;
+CO 143 tagged, 135 active) and `lease-clause-citations-CO.csv`: no CO row cites § 13-40-115, and none
+carries the cure-until-judgment right, the mandatory vacatur, or the dismissal with prejudice. It
+surfaced only because the "cure period" battery for this vetting question hit § 13-40-115's heading.
+
+It is worth a row on its own merits, because the practical consequence runs against the landlord's
+instinct: a Colorado landlord who has served a proper nonpayment notice, filed, and is waiting on
+judgment **must accept** a full tender at any point before judgment, including one paid into court;
+refusing it does not preserve the case, and once the court confirms payment it must vacate any
+judgment and dismiss **with prejudice**. A landlord who turns away a late-but-complete payment to
+get possession loses the action and the filing costs. The right cannot be waived by any written
+agreement, so no lease term addresses it — which is exactly why education is the only vehicle.
+
+Not added, because it traces to neither the 0 rules nor the single targeted fix in this prompt, and
+rule 1 says not to reopen anything else. Recommended: one education row (`topic_key`
+`nonpayment-notice`, which Colorado currently has no row on, or `eviction-process` beside
+`edu-mandatory-mediation-co`). It is a two-line delta on the word.
+
+---
+
+### Proposed SOP changes
+
+1. **Rule 43's nonpayment question should ask about a cure right that runs past the notice period,
+not only about a pre-suit notice.** The rule currently says: "If the rent limb ties its cure to
+'written notice from Landlord', check whether the state requires any pre-suit notice for nonpayment;
+if not, the clause adds one by contract." Colorado satisfies that test twice over and would pass the
+screen on § 13-40-104(1)(d) alone — but the provision that actually constrains how a lease may word a
+cure is § 13-40-115(4)–(5), a **post-notice, pre-judgment** right to cure by full payment, with
+mandatory vacatur and dismissal with prejudice, non-waivable by any written agreement. A state can
+have a short pre-suit notice and a much longer non-waivable cure window behind it, and only the
+second one makes a lease-defined or lease-capped cure period unlawful. Suggest rule 43 add: *also
+check whether the state gives a cure right that continues after the notice period (up to judgment,
+or by payment into court), and whether it is non-waivable; where it does, the lease must leave the
+cure period to applicable law rather than stating or capping it.* Found because the "cure period"
+battery for a rule 62 vetting question hit a section the rule's own wording would not have sent
+anyone to. [CO retro 2026-10-03]
+
+2. **Rule 62's new vouch instruction should say where in the log the vouch goes.** 1.35 added "record
+the verdict ('vouched, no change needed') in your log, not in the shared row's notes" — which is the
+right call and avoids a many-state row collecting a vouch per state. It doesn't say which log section,
+and a vouch is not a propagation note about the state's own edit, so §9 is a slightly awkward home.
+Suggest naming the section (either §9 with a "vouches received" subheading, or §6 decisions), so
+Claude Code can find them mechanically at merge time. Minor, bookkeeping only. [CO retro 2026-10-03]
+
+## Circle-back sync (Claude Code, 2026-10-03)
+
+- **No delta:** the pass changed no rows, as it reported. Its outputs were checked against base `2b10851` and the current master.
+- **Rule 62:** CO vouched for MN's `default-by-tenant` proposal (no-cure carve-out in its own sentence); recorded in the backlog tally. CO's point carries to the merge: the rent limb must keep leaving the cure period to applicable law and never state or cap it, because § 13-40-115(4)-(5) runs the cure to judgment and can't be waived.
+- **Flagged finding acted on (targeted fix):** added `edu-cure-until-judgment-co` (topic `redemption`, as Virginia's pay-before-judgment rows), with a citations row. Before drafting, § 13-40-115 was read section-open in the official 2026 C.R.S. (OLLS whole-title HTM): (4) and (5) match the pass's quotes word for word, history SB 21-173 eff. 2021-10-01 and HB 25-1168 eff. 2025-08-06. CO active rows 135 → 136.
+- **Guards:** all pass. **Statute spot-check:** § 13-40-115(4) and (5), as above; § 13-40-104(1)(d)'s non-waiver sentence was already read section-open at the 2026-10-01 retro.
+- **SOP 1.36:** both proposals adopted (rule 43's cure-past-notice question; rule 62's "Vouches given" subheading in §9).

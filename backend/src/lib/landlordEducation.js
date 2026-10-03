@@ -27725,6 +27725,19 @@ const LANDLORD_EDUCATION = [
       "In a New York eviction case either side may demand a jury trial. A lease term waiving a jury in any claim for personal injury or property damage between landlord and tenant is void. A broader lease jury waiver for other claims is not barred by statute, but the New York rows do not offer one: its enforceability against a residential tenant in a summary proceeding rests on case law these rows have not reviewed, and a waiver drafted too broadly would reach the claims New York protects. If you want one, take advice first and add your own clause.",
     notes: "NY: N.Y. Real Prop. Acts. Law § 745(1): 'Where triable issues of fact are raised, they shall be tried by the court unless, at the time the petition is noticed to be heard, a party demands a trial by jury, in which case trial shall be by jury.' N.Y. Real Prop. Law § 259-c ('Any provision in a lease, executed after the effective date of this act, that a trial by jury is waived in any action, proceeding or counterclaim brought by either of the parties thereto against the other in any action for personal injury or property damage, is null and void.'). Rule 54 statutory-waiver option declined (NY log §6.1; rule 76 label: case law on residential jury waivers unread). NY battery 33 (waiver of notice to quit / jury (lease)): 4 hits, control 0; known positives passed (1 real section, 1 synthetic). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
   },
+  // Default & Termination
+  {
+    id: "edu-cure-until-judgment-co",
+    title: "After You File for Nonpayment, You Must Accept Full Payment Until Judgment",
+    group: "Default & Termination",
+    states: ["CO"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "redemption",
+    bodyText:
+      "If you gave the tenant proper notice of nonpayment, you must accept the tenant's full payment of all amounts lawfully due under that notice, plus any rent that has since come due under the lease or under a repayment plan, at any time until the judge enters judgment for possession (C.R.S. 13-40-115(4)). The tenant can pay you or pay the court. Once the court confirms the full amount was timely paid, it must vacate any judgments already issued and dismiss your case with prejudice, so refusing a full payment to keep the case going does not get you possession. No written agreement can waive this right (13-40-115(5)), which is why the lease leaves the cure period on nonpayment to applicable law rather than stating or limiting it.",
+    notes: "CO: CITED - C.R.S. § 13-40-115(4), (5). NEW row, CO circle-back sync (Claude Code) 2026-10-03: CO's circle-back (SOP 1.35) found while vetting MN's `default-by-tenant` proposal that no CO row covered § 13-40-115(4)-(5) and recommended one education row. Statute read section-open in the official 2026 C.R.S. (OLLS whole-title HTM, olls.info/crs/crs2026-title-13.htm, fetched 2026-10-03); (4) and (5) added by SB 21-173, eff. 2021-10-01, IP(4) amended by HB 25-1168, eff. 2025-08-06. Topic key `redemption` matches Virginia's pay-before-judgment rows.",
+  },
 ];
 
 module.exports = { LANDLORD_EDUCATION };
