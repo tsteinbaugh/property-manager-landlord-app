@@ -173,6 +173,7 @@ All answered or routed on 2026-09-26; see §12.
 ## 8. Propagation notes
 
 **None owed.** No shared row's `bodyText`, `rule_type` or `content_type` changed (the draft `common-area-use` edit was withdrawn, §3.1). Every shared-row change is an added `FL` tag with an `FL:` note, which is a states-only change under §5a.1.
+- **Vouch given, 2026-10-03:** `surrender-end-of-term` (CA's proposal), vouched for FL; reasoning in "Circle-back checks (SOP 1.36)" at the end of this log.
 
 ## 9. Findings worth Taylor's attention
 
@@ -898,3 +899,50 @@ Page text 134,695 chars, SHA-256 c039a5d7fd67ce51ea8905677881c51e7a86312a53e23c4
 - Florida Rules of Civil Procedure, edition 10-01-26 (340 pages; PDF SHA-256 5807c154038c9f851f865325c6cff2496a9cf8888daacca2a7572eb222347ed4): searched whole for landlord, tenant, evict, seal, CARES/covered property. Landlord-relevant: Form 1.923(a) eviction summons; Form 1.947 note: "Paragraph 3 must specify whether the rental agreement is written or oral and if written, a copy must be attached."; Form 1.947(b) answer; Rule 1.580 writ of possession (third-party affidavit). No CARES Act or federal pre-filing condition.
 - Florida Rules of General Practice and Judicial Administration, edition 7-1-2026 (259 pages; SHA-256 a7fba18f1ca3c5d7f313b1a53c744a654ef29ca14bde57b3c22db0d92dbdbba2): 'evict|landlord|tenant' appears only in a judicial-workload rule (p. 66). Rule 2.420(c) lists confidential records with no eviction category; (e) and (h) let a party ask the court to determine specific information confidential.
 - Eleventh Circuit (Miami-Dade) local rules page and Local Rule R-1-11 (County Court civil division: jurisdiction only). The other 19 circuits' local rules were not read.
+
+## Circle-back checks (SOP 1.36), 2026-10-03
+
+**Scope:** the FL retro prompt for SOP 1.36 lists 0 [Retro] rules and 1 targeted fix. Only that fix was checked; nothing else was reopened (rule 1). **Input:** `lease-clauses.csv`, 2,876 rows (count checked first), 17 columns, CRLF; FL 119 active, the same count the SOP 1.30 retro sync left. Earlier output files in this chat were deleted, and only the files attached for this task were used (rule 8). The earlier retro in this chat worked from a 2,856-row master; the 2,876-row file attached now supersedes it, and nothing below relies on the older file. **Settings:** Opus, high effort. Research mode was not used; no rule 9 trigger arose.
+
+**How the text was read (rules 11, 12, 79).** Fla. Stat. ch. 83 was opened whole on Online Sunshine (2026 Florida Statutes, "View Entire Chapter") in the Claude desktop browser pane. The page's SHA-256, `c039a5d7fd67ce51ea8905677881c51e7a86312a53e23c47854215ee1d64a11d` over 134,695 characters, matches the hash recorded at the SOP 1.30 retro earlier today (Appendix B), so the text is unchanged. Sections read section-open, with the first 16 hex characters of each section's SHA-256 from heading through history line:
+- §83.47: `1301c27cb6339253` (matches Appendix B)
+- §83.58: `df9ee0af03754d89` (matches Appendix B)
+- §83.56: `e4f2075017b384a5`
+- §83.59: `61fa329f8a164d61`
+- §83.60: `63646ea7c35e912e`
+- §83.64: `17f6bfb6ce85c660`
+- §83.67: `5df18b3ffee6d386`
+
+### Results
+
+| Check | Verdict | What was read | Rows changed |
+|---|---|---|---|
+| Targeted fix 1: rule 62 vetting of CA's proposed edit to `surrender-end-of-term` ('unless applicable law entitles Tenant to remain') | **Vouched, no change needed.** Part (b), whether the current wording states a duty Florida law doesn't back, was already covered at Retro checks (SOP 1.30), rules 41 and 53. Part (a), whether the qualified wording is lawful and accurate here, was checked now. | §§83.47, 83.56(5)(a), 83.58, 83.59(1) and (3), 83.60(1)-(2), 83.64. Reasoning is in "Vouches given" below. | none |
+
+### Vouches given
+
+- **`surrender-end-of-term`** (CA's proposal, 2026-10-03): **vouched for FL; no FL change is needed either way.**
+  - **(b) Current wording.** The current wording states a duty Florida law backs. Florida has no just-cause rule (Retro checks (SOP 1.30), rule 41; `edu-no-for-cause-eviction-fl`). §83.59(1): 'If the rental agreement is terminated and the tenant does not vacate the premises, the landlord may recover possession'. §83.58 gives double rent 'for the period during which the tenant refuses to surrender possession' after expiration without the landlord's permission.
+  - **(a) The qualified wording is lawful.** §83.47(1) voids only provisions that waive Part II rights or limit liability. A sentence that defers to the law does neither.
+  - **The qualified wording is also accurate, and slightly more so than the current text.** Florida law can let a tenant stay after a landlord-asserted end date in three narrow ways:
+    1. **Retaliation.** §83.64(2) makes retaliation a defense 'in any action brought against him or her for possession'. That includes an action after the Term expires, unless the landlord proves good cause under §83.64(3). Whether the end of the Term alone counts as good cause is case law, not read.
+    2. **A failed termination.** §83.56(5)(a) waiver by accepting rent with knowledge, and §83.60(1)(b) withholding as 'a complete defense', each mean a landlord's earlier termination never took effect.
+    3. **The landlord's permission.** §83.58 applies only 'without the permission of the landlord', and `holdover` offers a month-to-month continuation.
+  - **Drafting risk checked (Claude's call, rule 76).** A tenant could argue that §83.59(3)'s ban on recovering possession outside court 'entitles' them to stay until the writ issues. That reading is weak: §83.59(3) limits how the landlord recovers, and it grants the tenant no right of possession. It would also cost the landlord nothing: §83.58's double rent and `holdover`'s 'maximum amount permitted by applicable law' run from the statute, not from this sentence.
+  - **Other parts of the clause.** The abandoned-property sentence is unaffected; its FL basis is recorded at Retro checks (SOP 1.30), rule 79.
+  - **Placement.** Per rule 62, this vouch belongs in the propagation section. In FL's log that is §8 ("Propagation notes"); §9 is "Findings worth Taylor's attention". Claude Code may add a one-line pointer there; the vouch itself is kept here so that this pass adds one section only.
+
+### Integrity
+
+No row changed, so no delta file was produced. FL active count is 119 before and after.
+
+### Proposed SOP changes
+
+1. **Rule 62:** name the vouch's home by title ("the log's propagation section"), not by number. FL's propagation section is §8, and its §9 is "Findings worth Taylor's attention", so "§9, 'Vouches given'" points at the wrong section in FL's log, and may in other early-pass logs too.
+
+## Circle-back sync (Claude Code, 2026-10-03)
+
+- **No delta:** the pass changed no rows, as it reported; FL active 119, unchanged.
+- **Rule 62:** FL vouched for CA's `surrender-end-of-term` qualifier; recorded in the backlog tally, with a one-line pointer added under §8 (Propagation notes).
+- **Guards:** all pass. **Statute check:** FL's reads matched the chapter hash recorded at the SOP 1.30 retro the same day, so no fresh spot-check was needed for a vouch that changed no text.
+- **SOP 1.37:** FL's proposal adopted (rule 62 names the propagation section by title).

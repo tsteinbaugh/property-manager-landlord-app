@@ -34,7 +34,7 @@ Merge each edit once every state tagged on the row has answered. Update this tab
 | NE: separate no-cure sentence | `default-by-tenant-ks-ne` (KS, NE, OH, OK) | NE, KS, OH | OK |
 | CO: delete "and reasonable costs and expenses" | `default-by-tenant` (20 states) | CO, GA, MN, NV, CA, AZ; ND lawful, flags lost collection costs | WY, SC, TN, VA, PA, UT, IL, ID, MO, IN, NM, MT, NY |
 | MN: no-cure carve-out as its own sentence | `default-by-tenant` (20 states) | MN, ND, CA, AZ, CO | WY, NV, GA, SC, TN, VA, PA, UT, IL, ID, MO, IN, NM, MT, NY |
-| CA: "unless applicable law entitles Tenant to remain" | `surrender-end-of-term` (WY, SD, OH, CA, NV, TX, FL, AZ, GA, NC, TN, VA) | CA, AZ | WY, SD, OH, NV, TX, FL, GA, NC, TN, VA |
+| CA: "unless applicable law entitles Tenant to remain" | `surrender-end-of-term` (WY, SD, OH, CA, NV, TX, FL, AZ, GA, NC, TN, VA) | CA, AZ, FL | WY, SD, OH, NV, TX, GA, NC, TN, VA |
 
 ## Standing backlog
 

@@ -230,6 +230,8 @@ All six v1 MVP modules are built (tagged `v1.0.0`), along with v2 Property Specs
 
 - [2026-10-03] — **CO circle-back synced.** No row changes from the pass; CO vouched for MN's `default-by-tenant` edit and found that no CO row covered C.R.S. § 13-40-115(4)-(5), the non-waivable right to cure nonpayment by full payment until judgment. Added `edu-cure-until-judgment-co` at sync after reading the section. SOP 1.36 (rules 43 and 62).
 
+- [2026-10-03] — **FL circle-back synced.** No row changes; FL vouched for CA's `surrender-end-of-term` qualifier. SOP 1.37 (rule 62 names the propagation section by title).
+
 ## 🗳 Decisions log
 - [2026-09-30] — **Desktop deltas are merged with `merge-delta.py`, never by whole-row replacement.** Passes routinely start from an older library than the one at sync (NE, IN and AZ all did), and three times a whole-row replace would have silently undone another state's merge. The tool makes the safe merge the default and turns any real conflict into a refusal for hand review.
 - [2026-09-30] — **`early-termination-ks` applies only to a fixed-Term lease (Claude Code, uniform shared edit under rule 62).** Its fee is measured on "the remaining Rent due under the Term", which a month-to-month tenancy doesn't have, and every tagged state gives a periodic tenancy its own ending notice. Limiting the option removes nothing the landlord has under law, and the abandonment sentence still covers every lease. The builder-level fix (marking fixed-term-only clauses) stays in the backlog.
