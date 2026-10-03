@@ -1992,3 +1992,9 @@ Not a re-audit; nothing else in this state was reviewed.
 - **MN 1 checked library-wide:** every verified state's switched-off CONSTRAINED row now has a live successor (CO, GA, OH, CA, AZ, NC); only MN's was missing. The rows with none are dormant leads for unverified states.
 - **Rule 79:** 34 of 97 MN rows record no basis; left as listed in the retro, for MN's next circle-back.
 - **SOP 1.20:** all five proposals adopted (rules 22, 45, 51, 78, 79). MN's conformance column is complete except three examples.
+
+## Propagated shared-row edit, 2026-10-03 (Wyoming's proposal, merged after every tagged state vetted it)
+
+Not a re-audit; nothing else in this state was reviewed.
+
+**Propagation note (uniform edit, rule 62): `early-termination` landlord limb.** Old: 'Landlord may terminate this Lease early by providing Tenant at least 30 days' written notice if Tenant breaches a material term of this Lease and fails to cure the breach within 10 days of receiving written notice, or if Tenant vacates or abandons the property without notifying Landlord.' New: 'Landlord may terminate this Lease early by providing Tenant at least 30 days' written notice if Tenant breaches a material term of this Lease and fails to cure the breach within 10 days of receiving written notice, or on such shorter notice and cure period as applicable law permits, or if Tenant vacates or abandons the property without notifying Landlord.' Why: the 30-day notice and 10-day cure promised in the lease could give up a shorter route the state's law allows for a material breach. Every state tagged on the row (CO, WY, MN, ND, SD, OH) vetted the wording and supported it; "as applicable law permits" means it never permits less than the law requires. This state's existing note on the row still holds.

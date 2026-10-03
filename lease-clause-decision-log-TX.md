@@ -1026,3 +1026,170 @@ All 27 lease clauses written for this state alone. Shared clauses tagged with th
 Not a re-audit; nothing else in this state was reviewed.
 
 **Propagation note (uniform edit, rule 62): `snow-removal` rewritten.** Old: 'Unless Landlord provides snow removal service, Tenant is responsible for prompt, reasonable removal of snow and ice from any walkway, driveway, porch, or entrance at the property that Tenant uses, to help keep those areas safe and passable.' New: 'Unless Landlord provides snow removal, Tenant will promptly remove snow and ice from the areas of the property Tenant uses for walking, parking and access. This does not include areas shared with other residents.' Why: Taylor found the list of areas too specific (properties differ, and a list invites arguments about what it covers), and Michigan's sync showed the clause should say outright that shared areas stay with the landlord. The edit only narrows the tenant's duty; this state's existing note on the row still holds.
+
+## Retro checks (SOP 1.29), 2026-10-03
+
+2026-10-03. Targeted checks only (rule 1). Nothing outside the 19 rules and 4 fixes below was reopened.
+
+**Inputs.** The attached files are the only source of truth: `lease-clauses.csv` (2,842 rows, checked before starting), the TX log, `lease-clause-citations-TX.csv`, SOP and topics files. Where earlier chat content conflicts with them, the attached files control. Old output files were deleted before starting.
+
+**Sources read this session**, all saved and identified by SHA-256 (rule 14):
+
+- **Official Texas codes.** The whole Constitution (18 articles), Property Code (97 chapters), Business & Commerce Code (134), Civil Practice & Remedies Code (163) and Finance Code (100). Loaded from tcss.legis.texas.gov, the chapter HTML behind statutes.capitol.texas.gov.
+  - The site states its text is current through the 89th Legislature's 2nd Called Session (2025).
+  - Each load was proved complete against the site's chapter list.
+  - Corpus hashes: CN 1225443…8e13, PR 02f67b79…9de1, BC 5475332c…96ce, CP d493b74b…fac5, FI 642b4ef5…6297.
+- **Water Code ch. 13** from the same site (0e9c2d3f…3372).
+- **Texas Rules of Civil Procedure**, txcourts.gov, "last amended October 1, 2026" (bd9d874a…e178a).
+- **Texas Rules of Judicial Administration**, as of July 1, 2026 (0894acf2…a529b).
+- **S.B. 2349 and H.B. 2037** (89th Leg., R.S.), enrolled text from capitol.texas.gov. Hashes: 5ae7622e…dd0ed and d6e84825…b00.
+
+**How searches were run.** Searches run over the whole loaded codes with Python regex. Each battery was run with:
+
+- a known positive from the same corpus;
+- a nonsense control ("xqzzyplugh", 0 hits);
+- a heading-only screen.
+
+Section parser: 1,781 Property Code sections and 1,857 Business & Commerce sections. Constitution sections don't use the "Sec. N.N." header, so the Constitution was searched article by article.
+
+**Weaker method.** The court rules come from long PDFs, extracted with pdftotext. The sections relied on are quoted in row notes and summarized below.
+
+### One line per rule
+
+| Rule | Verdict | What was read | Rows changed |
+|---|---|---|---|
+| **37** Tenancy type | **Fixed** | Battery in Prop. Code chs. 24, 54, 91–94: "lease term", "renewal", "12-month", "expiration of", "month-to-month", "remaining rent". §91.001; S.B. 2349 §2 and H.B. 2037 §5 (both cover leases "entered into or renewed on or after" Sept. 1, 2025). | `early-termination` (TX removed: the fee on "remaining Rent due under the Term" reaches the month-to-month tenancy `holdover-ca` creates, which §91.001 lets either side end on one month's notice with no fee); `early-termination-ks` (TX tagged); `edu-security-deposit-rules-tx` (§92.113 e-mail applies only to leases entered into or renewed from Sept. 1, 2025; for an earlier periodic tenancy that is unsettled, so the row says use mail); `flood-disclosure-tx` (note). No other date or term trigger in chs. 24, 54, 91, 92. |
+| **39** Eviction duties and court rules | **Fixed** | TRCP Rule 510 read in full: rewritten for 2026, "the only rule that governs eviction cases". TRCP 76a; TRJA Rule 12. §24.0061. No conflicting statute and rule periods for the same duty. | `edu-eviction-process-tx` (new rule-only duties):<br>• 510.6(a)(9), (11) petition contents<br>• 510.6(d) name every lease tenant in residence<br>• 510.16(b) default-judgment address and e-mail service<br>• 510.18(g) writ costs, 60/90-day issue window, 90-day execution bar<br>• 510.24(b) and TRCP 3a(c) local-rule limits<br>`edu-no-eviction-record-sealing-tx`: court rules add no sealing either; 76a never allows sealing a judgment, and 510.1(b) makes its reach to eviction records doubtful. Also corrected: the four-day summary-disposition procedure applies only to forcible entry and detainer (510.10(a), §24.005106), not to an ordinary tenant eviction (510.10(b), Rule 503.2).<br>Boundary: individual justice-court local rules not read. |
+| **41** Just cause | **Checked, no issue** | Battery over the whole Property Code: "good cause\|just cause" 9 hits, none in chs. 24, 54, 91, 92, 94 or 301. Cause-to-terminate pattern: 0. Heading screen: none relevant. | None. In a no-cause state, "end of the Term ends possession" is lawful in the six starting rows. |
+| **41b** `for-cause-eviction` row | **Fixed** | §§91.001, 1.004(b), 92.331–.335, 24.005(b), (c-1). | `edu-no-for-cause-eviction-tx` (new): confirmed absence, plus situational limits: retaliation for 6 months (including tenant organizations), §92.332(b) grounds, foreclosure 30 days, fair housing, federal programs (not read). |
+| **42** Required text inside shared clauses | **Checked, no issue** | Required-content battery ("underlined", "bold", "conspicuous", "must contain", "substantially equivalent", "included in a written lease") across PR, BC, FI, CP. | None. Every hit sits in a TX-only row (late fee, keys, lien, smoke alarm, parking, deposit-surrender, flood, statement). No shared fee or deposit clause needs a forced sentence. |
+| **43** Cure promises | **Fixed** | §24.005(a) (S.B. 38): a tenant who was late before the notice month may get a notice to vacate, with no pay option. §91.003. | `default-by-tenant` (TX removed); `default-by-tenant-tx` (new): the no-cure carve-out is its own sentence reaching both limbs and names its cases (§24.005(a) notice to vacate; §92.332(b)(2) intentional damage or threats; §91.003), because a general 'where Texas law permits' carve-out would cancel the voluntary non-rent cure promise in a state that requires none. The rent limb's "written notice" adds nothing, since §24.005(a) already requires pre-suit written notice. `early-termination` landlord limb: see fix 22. |
+| **44** Terms the statute makes landlord duties | **Fixed** | Battery for "agreed in the lease", "if the lease provides", "authorized in a written lease" in chs. 24, 54, 91, 92. §92.0561(d)(3)(B)–(C): the repair-and-deduct remedy opens where the landlord "expressly or impliedly agreed in the lease to furnish" water or heating or cooling equipment. | `edu-repair-duty-tx` (the agreement element restored); `appliances-included`, `utilities-paid-by-landlord` (TX notes); `electronic-notice-consent-tx` (an agreed e-mail method adds no duty). |
+| **45** Electronic notices | **Fixed** | Tex. Bus. & Com. Code ch. 322 read: §§322.002, .003, .005 in full with its exceptions, .008, .015. No eviction, default or cure exclusion. §322.005(c): the right to refuse later electronic dealings is unwaivable. §322.008(a), (c), (d): a notice the tenant can't print or store is unenforceable, unwaivably. | `edu-electronic-notices-tx` (new); `electronic-notice-consent-tx` (note). `security-deposit-return-tx`, `abandoned-property-tx`: checked, no issue. |
+| **46** Lease as the required notice | **Fixed** | §§24.005(f-3)(4), 92.0131, 92.013, 92.020(d), 92.201. | The shared `notices` sentence "nothing in this Lease designates an alternative method" could cancel the §24.005(f-3)(4) written e-mail agreement. `electronic-notice-consent-tx` now controls over the Notices section (MT model); `notices` TX note. Parking (`parking-rules-tx`, §92.013) is already covered in TX log §20.2.1. |
+| **47** Penalties for prohibited terms | **Fixed** | §92.0563(b): knowing waiver of the repair duty costs one month's rent plus $2,000. §92.019(c). TDCA (Fin. Code ch. 392) §§392.001, .303(a)(2), .304(a)(8), (12), .403, .404. DTPA §17.46(b)(12). | `edu-non-waivable-terms-tx` (penalty paragraph); `edu-consumer-protection-act-tx` (new). Starting rows: `late-fee-safe-harbor-tx` (see fix 21); `early-termination` (TX removed). `notices`, `common-area-use`, `abandoned-property-tx`: checked, no void term. |
+| **48** Separate-document rules | **Already covered in TX log §5** (layout table: §92.153(f), §92.2611(d-1)) **+ checked** | "separate (document\|writing\|instrument\|addendum\|notice)" and "separately from", across PR, BC, FI, CP. New hits: §92.021(c), where a renewal guaranty is a separate document (`edu-guarantor-renewal-tx` already says so); §92.008(h)(3); §92.0135(e). | None. Texas has no single-family/separate-writing chore split, so the tenant-chores settlement doesn't apply. |
+| **49** Collection-cost bans | **Checked, no issue** | "collection cost\|cost(s) of collection\|expenses of collection": 0 hits in chs. 24, 54, 91, 92. Also read: attorney's-fee and court-cost sections in those chapters; §24.006; CPRC §38.001; TDCA §392.303(a)(2) (requires express authorization). | None. `default-by-tenant-tx` keeps "reasonable costs and expenses" (fix 23). `deposit-last-month-rent-tx` and `smoke-alarm-tx` state statutory remedies. |
+| **50** "The lease controls" wording | **Already covered in TX log §12 item 5** (opt-in rights, built and not built) and §§4, 11.5 **+ checked** | Same battery as rule 44. | None. Choices made on purpose and recorded:<br>• §91.001(e)(1): no different month-to-month notice period is set, so the statute's one month applies via `early-termination-ks` and `holdover-ca`.<br>• §92.153(e)(3): well-being-check exemption, not offered; the education row covers it.<br>• §92.166(b): duplicate-key default kept. |
+| **51** Plain-language and consumer protection | **Fixed** | DTPA §§17.42, 17.45, 17.46(b), 17.49, 17.50. First question: the list reaches leases, because "goods" includes leased real property; (b)(12) and (b)(24) apply; there is no blank-space or copy item. Second question: the general unconscionability standard (§17.50(a)(3)) reaches leases. Plain-language battery across PR, BC, FI, CP: none reaches leases. | `edu-consumer-protection-act-tx`, `edu-no-plain-language-rule-tx` (new). |
+| **53** Figure vs shared clause, including triggers | **Fixed** (through rules 37 and 43) | `rent-payment`: weekend roll-forward is fine under §92.019. `surrender-end-of-term`: fine. `utility-submetering-disclosure-tx`: §13.503 (fix 21). `assistance-animal-accommodation`: fine. `holdover-ca`: no daily charge, and its trigger is end of Term only, so no stacked late fee. `electric-submeter-interruption-tx`: 12-day trigger and $10 fee match §92.008(h), (r). | `early-termination` and `default-by-tenant` (TX moved). |
+| **54t** Tenant-caused damage | **Fixed** | Casualty rows first: §92.054(b) and (c) both carry a tenant-fault exception, and `casualty-loss-tx` tracks it. §92.052(b) means no repair remedies for tenant-caused conditions. Also §§92.104, 92.162, 92.006(f), 92.258, 91.006. `tenant-caused-damage-tn` read, not tagged. | `tenant-caused-damage-tx` (new optional clause; fault group limited to tenant, family and guests as in §92.054, without 'Occupant'): no abatement; landlord may end the lease if the home is totally unusable, since §92.054(b) denies both sides termination for a tenant-caused casualty; repair cost and lost rent less re-letting, with a periodic-tenancy end date). `edu-tenant-caused-damage-tx` (new). |
+| **35c** Constitution screen | **Checked, no issue** | Whole Constitution, article by article. Cannabis/marijuana/hemp: 0 hits. Arms: Art. I §23. Speech and petition: Art. I §§8, 27. Searches and seizures: Art. I §9. Art. I §36 (2023): right to agricultural and horticultural practices on land people "own or lease". Lease/tenant/rent words: no residential-lease provision. | None. Each protects against government action, not a private lease term (case law not read). §92.026 firearms is already in `edu-firearms-tx`. |
+| **27** Seven topics | **Fixed** | Batteries with positives, across PR, BC, FI, CP (in the notes of each new row). | Confirmed absent (row): `edu-no-algorithmic-rent-rule-tx`, `edu-fees-as-rent-tx`, `edu-no-landlord-self-cure-statute-tx`, `edu-no-lease-completeness-rule-tx`, `edu-no-quiet-possession-statute-tx`, `edu-no-tenant-camera-rule-tx`. Present (row): `edu-statutory-forms-tx` (§§92.0135, 92.016(f)/.0161(g)/.017(g), 24B.002). |
+| **79** Re-read secondary-basis rows | **Fixed** | **Count.** Before: 2 of 137 active TX rows recorded no basis. Split: research pass 0; rows a library-wide pass created 2 (`edu-returned-payment-fee-tx`, `edu-emergency-phone-tx`, both from the 2026-09-29 scrub); shared rows with no TX segment 0 (`rental-application-accuracy` has its TX segment inside a run-on note). After: 0 of 150.<br>**Re-read section-open:**<br>• `edu-local-preemption-tx`: §1.004 and CPRC ch. 102A in full; the body now adds the 3-month notice and trade-association standing.<br>• `flood-disclosure-tx`: S.B. 2349 enrolled.<br>• `habitability-timeline-tx`: H.B. 2037 enrolled.<br>• `edu-water-submetering-tx`: Water Code §13.503.<br>• `edu-eviction-notice-tx` and `notice-to-vacate-period-tx`: TRCP 510.6. The look-back statement is now (a)(11), not (a)(13).<br>**Still secondary** (listed, not re-read): 16 TAC §24.275 registration (`edu-water-submetering-tx`); the designated-country list in `edu-foreign-acquisition-leases-tx` (not statute). | Rows named, plus the two provenance repairs. |
+
+### Independent check
+
+A separate agent that had not seen the work checked every changed body and new note against the saved official text. It found 3 serious and 11 minor problems, and all were corrected before delivery:
+
+- **Serious:**
+  - `default-by-tenant-tx`'s general carve-out swallowed its own cure promise.
+  - `tenant-caused-damage-tx` named 'an Occupant', which §92.054's fault exception does not.
+  - A pre-existing `edu-eviction-process-tx` sentence applied the four-day summary-disposition route to every eviction.
+- **Minor:** wording in:
+  - `edu-consumer-protection-act-tx`: §17.42(a)(2) bargaining-position condition; TDCA 'neither…nor'.
+  - `edu-eviction-process-tx`: writ timing; local-rule scope.
+  - `edu-no-eviction-record-sealing-tx`: 76a test.
+  - `edu-tenant-caused-damage-tx`: §92.006(f) and §92.162 wording.
+  - `utility-submetering-disclosure-tx`: §13.503(c-1) words; §13.501(1) definition.
+  - `flood-disclosure-tx`: (d) knowledge condition; (a-1)(2) exemption.
+  - `edu-statutory-forms-tx`: flood notice wording.
+  - `edu-electronic-notices-tx`: §24.005(f-4) actual receipt; §322.005(c) scope.
+  - `late-fee-safe-harbor-tx`: note.
+
+### The four targeted fixes
+
+**Fix 20: `edu-emergency-phone-tx`.** Confirmed against §92.020 (official text, saved).
+
+- (a) and (b): a landlord with an on-site office needs a 24-hour number, posted outside the office. The 2026-09-30 restoration is right.
+- (d): every other landlord must still give a number, but not a 24-hour one. Now stated in its own sentence.
+- (c): a conforming local ordinance adopted before 1/1/2008 is unaffected. Added.
+
+**Fix 21: scrub-trimmed clauses.**
+
+- **`late-fee-safe-harbor-tx`: fixed.**
+  - A landlord grace figure of 2 passes a number check but allows a fee on day 3. §92.019(a)(3) requires "two full days". Restored as a second condition: the later of the two controls.
+  - Lawful-looking initial and daily fees can pass the 12%/10% safe harbor within days, because §92.019(b) makes them one fee. Restored the combined cap by structure size.
+  - Required-content search: §92.019(a)(1) is satisfied by the clause itself.
+- **`nsf-fee-limit-tx`: fixed.** §3.506(c) bars the fee, and requires a refund, where a reimbursement fee is collected through the district attorney. A number check can't see that.
+- **`utility-submetering-disclosure-tx`: fixed.**
+  - §13.503(c-1): no service charge for an apartment-house resident in a tax-credit unit or receiving a Section 8 voucher.
+  - 16 TAC §24.281(e): no charge on allocated billing.
+  - Both are now lease text, not a bracket prompt. The kept §24.279 disclosures are intact.
+- **`security-deposit-return-tx`: checked, no issue.**
+  - The clause has no figure.
+  - The only required lease text in Subch. C is §92.103(b), which is a separate row.
+
+**Fix 22: `early-termination` landlord limb (rule 62 vetting, shared text not edited).**
+
+- **Is WY's proposed "…or such shorter notice and cure period as applicable law permits" lawful in Texas?** Yes. Nothing in chs. 24, 54, 91 or 92 bars it. In Texas it is circular, though: §24.005(a) lets the lease itself set "a shorter or longer notice period", so "as applicable law permits" points back to the lease.
+- **Does the current promise (30 days' notice, 10-day cure for any material breach) give up Texas's shorter route?** It can.
+  - Texas requires no cure for a non-rent breach.
+  - §24.005(a) allows three days' notice to vacate, or whatever period the lease sets. For a tenant late before the notice month, it allows a notice to vacate with no pay option.
+  - A specific "terminate for breach on 30 days plus 10-day cure" promise can be read to govern over the general default clause.
+  - The savings sentence protects rights "under applicable law", which arguably doesn't reach a contractual default remedy. This risk rests on contract-construction case law, unread.
+- **Result.** TX left the shared row for its own reason (rule 37) and is now on `early-termination-ks`, whose landlord limb defers to the Tenant Default and notice provisions. So WY's edit neither helps nor hurts Texas. If it ships, it is consistent with Texas law.
+
+**Fix 23: `default-by-tenant` and CO's proposed deletion of "and reasonable costs and expenses" (rule 62 vetting, shared text not edited).**
+
+- **Does Texas limit recovery of collection or eviction costs, or one-way cost awards?** No ban found.
+  - §24.006(b)–(c): a lease fee clause entitles a prevailing landlord to fees and makes them reciprocal for a prevailing tenant.
+  - §24.006(d): all court costs go to the prevailing party.
+  - CPRC §38.001(b)(8): fees on a written-contract claim, with no lease term needed.
+- **Does deleting the phrase give something up?** Yes.
+  - TDCA §392.303(a)(2) bars collecting an incidental charge or expense unless it is "expressly authorized by the agreement creating the obligation or legally chargeable".
+  - §392.304(a)(12) bars representing that fees will be added where no contract or statute authorizes them.
+  - Deleting the phrase removes that express authorization. Whether the TDCA reaches a landlord collecting its own rent is case law, unread.
+- **Result.** TX is now on `default-by-tenant-tx` (rule 43), which keeps the phrase. CO's deletion can proceed without affecting Texas.
+
+### Propagation (rule 62)
+
+No shared text was edited. Shared rows changed only in their TX tag, TX segment and `last_checked`:
+
+- `early-termination`: TX removed.
+- `early-termination-ks`: TX added.
+- `default-by-tenant`: TX removed.
+- `appliances-included`, `utilities-paid-by-landlord`, `notices`: TX notes only.
+- `rental-application-accuracy`: the TX pointer now names `default-by-tenant-tx` (rule 63).
+
+### Rows changed: 39
+
+- **New (14):**
+  - `default-by-tenant-tx`, `tenant-caused-damage-tx`
+  - `edu-no-for-cause-eviction-tx`, `edu-electronic-notices-tx`, `edu-consumer-protection-act-tx`, `edu-no-plain-language-rule-tx`, `edu-tenant-caused-damage-tx`
+  - the seven rule-27 rows
+- **Changed TX rows (18):**
+  - `late-fee-safe-harbor-tx`, `nsf-fee-limit-tx`, `utility-submetering-disclosure-tx`, `security-deposit-return-tx` (note only)
+  - `edu-emergency-phone-tx`, `edu-returned-payment-fee-tx`, `edu-repair-duty-tx`, `edu-security-deposit-rules-tx`
+  - `edu-no-eviction-record-sealing-tx`, `edu-eviction-process-tx`, `edu-eviction-notice-tx`, `notice-to-vacate-period-tx`
+  - `electronic-notice-consent-tx`, `edu-non-waivable-terms-tx`, `edu-local-preemption-tx`
+  - `flood-disclosure-tx`, `habitability-timeline-tx`, `edu-water-submetering-tx`
+- **Shared rows (7):** listed above.
+
+### Integrity (merged view: attached CSV plus delta)
+
+- 2,856 rows; 2,734 active; TX 150 active (78 lease clauses).
+- Ids unique. Every `supersedes` target exists.
+- No base and variant both active in TX.
+- Every TX lease clause carries a `lease_clause_basis`; no education row does.
+- Every backticked id in the changed TX text names an active row.
+- Delta: 39 rows, 17 columns, master header, CRLF line endings.
+
+### Proposed SOP changes
+
+1. **Rule 44.** Add: "including 'expressly or impliedly agreed in the lease to furnish', which turns a shared appliance or utility list into the trigger for a tenant repair remedy (TX §92.0561(d)(3)(B)–(C))."
+2. **Rules 45–46.** Add: "Where a state's statute needs a written agreement before e-mail delivery, the opt-in clause must say it controls over the Notices section. The shared sentence 'nothing in this Lease designates an alternative method of delivery for any notice governed by law' can otherwise be read to cancel it (TX, MT)."
+3. **Rule 79.** Add: "Cite court rules from the current compilation, not from an implementing order. A later rewrite can renumber (TX Rule 510.6(a)(13) became (a)(11))."
+4. **Rule 78.** Add two examples of conditions a number check can't catch:
+   - a "full days" floor behind a day-count placeholder;
+   - daily late fees that add up past a cap.
+
+## Retro sync (Claude Code, 2026-10-03)
+
+- **Merged** with `merge-delta.py --base 928f1f6` (the attached CSV is byte-identical to it): 25 rows updated and 14 new. One row was applied by hand: `rental-application-accuracy`'s TX sentence sits inside the row's opening (creation) segment, not a `TX:` segment, so the tool refused it; the delta's one change there (the pointer now names `default-by-tenant-tx`) was applied to that sentence alone. TX active 137 → 150 (78 lease clauses), no same-topic pairs; every other state's set unchanged. TX moved off `early-termination` and `default-by-tenant` to `early-termination-ks` and `default-by-tenant-tx`.
+- **Guards:** `check-gap-discovery.py --all`, `check-checklist-reconciliation.py`, `check-clause-basis.py`, `check-section-pointers.py` and `checkConfigIds.js` all pass.
+- **Statute spot-check, 4 of 4, against tcss.legis.texas.gov (read by Claude Code at sync):** Tex. Prop. Code § 92.019(a), (a-1), (b) ("two full days"; initial and daily fees are one fee for the 12% or 10% cap) behind the restored `late-fee-safe-harbor-tx`; § 92.054(b) (the fault exception names the tenant, family, guests and invitees, not occupants) behind `tenant-caused-damage-tx`; § 92.020(a)-(d) behind `edu-emergency-phone-tx`; § 24.005(a) (lease may set a shorter or longer notice; a tenant late before the notice month may get a notice to vacate) behind `default-by-tenant-tx`.
+- **Citations file:** `early-termination` and `default-by-tenant` removed, 15 rows added (7 confirmed-absence rows), changed rows dated. Bare section numbers were mapped to their code by chapter (ch. 392 is the Finance Code, ch. 322 and ch. 17 the Business & Commerce Code). The TX watch extractor reads no Finance Code key, so the two TDCA education rows aren't watched by bill search.
+- **WY's `early-termination` edit merged.** With TX off the row, every tagged state (CO, WY, MN, ND, SD, OH) had vetted and supported "or on such shorter notice and cure period as applicable law permits"; applied as a uniform edit and noted in each of those logs (rule 62). TX found it lawful.
+- **Rule 62 answers recorded:** TX's answer on CO's `default-by-tenant` deletion (lawful, but it gives up the TDCA's express authorization) is moot for TX, which now uses its own row.
+- **SOP 1.30:** all four proposals adopted (rules 44, 46, 78, 79). TX's conformance column is complete except the examples.

@@ -989,3 +989,9 @@ No two rules claim the same place, so there is nothing for Taylor to settle on o
 - **Early termination (row 26):** the fee's "remaining Rent due under the Term" has no referent in a periodic tenancy; GA and NC moved to `early-termination-ks`. Queued for Ohio's next circle-back.
 - **Still open:** the public-access rule numbers (rule 39) and the asbestos limb of `edu-no-statutory-caps-oh`.
 - **SOP 1.24:** all three proposals adopted (rules 27, 40, 79). OH's conformance column is complete except the examples.
+
+## Propagated shared-row edit, 2026-10-03 (Wyoming's proposal, merged after every tagged state vetted it)
+
+Not a re-audit; nothing else in this state was reviewed.
+
+**Propagation note (uniform edit, rule 62): `early-termination` landlord limb.** Old: 'Landlord may terminate this Lease early by providing Tenant at least 30 days' written notice if Tenant breaches a material term of this Lease and fails to cure the breach within 10 days of receiving written notice, or if Tenant vacates or abandons the property without notifying Landlord.' New: 'Landlord may terminate this Lease early by providing Tenant at least 30 days' written notice if Tenant breaches a material term of this Lease and fails to cure the breach within 10 days of receiving written notice, or on such shorter notice and cure period as applicable law permits, or if Tenant vacates or abandons the property without notifying Landlord.' Why: the 30-day notice and 10-day cure promised in the lease could give up a shorter route the state's law allows for a material breach. Every state tagged on the row (CO, WY, MN, ND, SD, OH) vetted the wording and supported it; "as applicable law permits" means it never permits less than the law requires. This state's existing note on the row still holds.
