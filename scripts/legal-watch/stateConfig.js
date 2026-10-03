@@ -39,6 +39,7 @@ const STATE_NAMES = {
   OK: "Oklahoma",
   MI: "Michigan",
   IA: "Iowa",
+  NM: "New Mexico",
 };
 
 const STATE_CONFIG = {
@@ -1399,6 +1400,52 @@ const STATE_CONFIG = {
       },
     ],
   },
+  NM: {
+    // NMSA 1978 sections are chapter-article-section, with letters on some
+    // articles and decimals on some sections ("47-8-18", "47-8-34.1",
+    // "47-8A-1", "57-12-27"). New Mexico bills amend "Section 47-8-18 NMSA
+    // 1978", so the bare quoted number is specific enough and needs no
+    // buildQuery. Citations are split on ";" and only the "NMSA 1978" parts
+    // are read; a range ("§§ 47-8-1 to 47-8-52") is skipped, and court rules,
+    // the Constitution and federal parts are left to the items below.
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        if (!/^NMSA 1978/.test(part) || / to /.test(part)) continue;
+        const body = part.replace(/\([^)]*\)/g, " ");
+        for (const m of body.matchAll(/\b(\d{1,2}[A-Z]?-\d{1,2}[A-Z]?-\d{1,3}(?:\.\d{1,2})?)\b/g)) out.push(m[1]);
+      }
+      return out;
+    },
+    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
+    manualRecheckItems: [
+      {
+        id: "nm-court-rules-forms",
+        label:
+          "New Mexico court rules and forms LegiScan can't see: the magistrate and metropolitan court rules for restitution (eviction) actions (Rules 2- and 3- NMRA) and the Supreme Court's civil forms (Form 4-901 NMRA and others), including any eviction-diversion or rental-assistance step (NM log §1.1)",
+        clauseIds: ["edu-eviction-process-nm", "edu-statutory-forms-nm", "edu-post-eviction-property-nm"],
+      },
+      {
+        id: "nm-deposit-interest-rate",
+        label:
+          "NMSA 1978, § 47-8-18(A)(1) sets deposit interest by reference to the passbook rate the Federal Home Loan Bank Board allowed savings and loan associations; the Board was abolished in 1989 and no successor rate is named. Recheck if the section is amended or a court sets the rate (NM log §7)",
+        clauseIds: ["edu-deposit-interest-nm"],
+      },
+      {
+        id: "nm-stale-cross-references",
+        label:
+          "Stale cross-references in relied-on New Mexico sections (rule 77): § 47-8-36(A)(4) cites repealed § 47-8-32; § 47-8-36(C)(2) points to § 47-8-48(B), now the screening-fee penalty; § 47-8-35, § 47-8-34(A), § 47-8-27.2(C) and the § 47-8-18(B) and § 57-12-27(A)(3)(a) compiler brackets. Check whether a later act or compilation fixes them (NM log §10)",
+        clauseIds: ["edu-screening-fee-nm", "edu-rent-increase-notice-nm"],
+      },
+      {
+        id: "nm-admin-rules",
+        label:
+          "New Mexico administrative rules not read: fire and building codes for smoke and carbon monoxide alarms, Public Regulation Commission utility shutoff and submetering rules, towing rules, and gross receipts and lodgers' tax regulations (NM log §7)",
+        clauseIds: ["edu-no-alarm-statute-nm"],
+      },
+    ],
+  },
 };
 
 // Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
@@ -1411,7 +1458,7 @@ const STATE_CONFIG = {
 const SCHEDULE_ORDER = [
   "CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ",
   "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI",
-  "IA",
+  "IA", "NM",
 ];
 function cronFor(code) {
   const n = SCHEDULE_ORDER.indexOf(code);
