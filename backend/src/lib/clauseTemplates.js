@@ -5918,6 +5918,58 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "Subject to Tenant's own maintenance obligations under this Lease, Landlord will maintain the property, including its structural elements, roof, and systems, in good order and repair, and will repair the appliances, fixtures, and equipment Landlord supplies at the property. Where a repair is necessary because of the deliberate or negligent act or omission of Tenant, an occupant or a guest of Tenant, Tenant will reimburse Landlord the reasonable cost of the repair. Tenant will notify Landlord promptly in writing of any condition requiring repair or maintenance, and Landlord will undertake required repairs within a reasonable time, consistent with applicable law.",
   },
+  // Tenant Responsibilities
+  {
+    id: "dv-termination-fee-ks",
+    title: "Early Termination Fee — Protected Person",
+    group: "Tenant Responsibilities",
+    states: ["KS"],
+    bodyText:
+      "If Tenant requests termination of this Lease before its expiration date under Kansas's housing protections for a protected person affected by domestic violence, sexual assault, human trafficking or stalking, Tenant will pay Landlord a termination fee of {{dv_termination_fee}} [enter the fee; it may not exceed one month's Rent]. Landlord will not charge Tenant any other fee, charge or penalty for that termination, and nothing in this Section limits or conditions Tenant's rights under that protection, which Tenant cannot be required to waive.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "maintenance-allocation-ks",
+    title: "Tenant Maintenance Agreement",
+    group: "Landlord Responsibilities",
+    states: ["KS"],
+    bodyText:
+      "[Optional. Use for a property that is NOT a single-family residence; this agreement must be a separate writing signed by Landlord and Tenant, printed as its own document and not a section of the Lease, and Tenant must receive something in return for it. For a single-family residence, landscaping and snow removal are covered by the Lease's Landscaping & Irrigation and Snow Removal sections, and this agreement may be used for other tasks.] Landlord and Tenant agree, in good faith and not to evade Landlord's obligations, that Tenant will perform the following tasks: {{tenant_maintained_items}} [check each that applies: ☐ lawn and landscaping care, keeping to any irrigation schedule Landlord sets, and promptly reporting irrigation leaks or watering problems; ☐ prompt, reasonable removal of snow and ice from walkways, driveways, porches and entrances Tenant uses; ☐ replacing heating and air-conditioning filters; ☐ replacing light bulbs; ☐ taking garbage and other waste to the collection point; ☐ other: ______]. In consideration of Tenant performing these tasks, Landlord will {{maintenance_agreement_consideration}} [state what Landlord gives in return, for example a stated monthly rent reduction]. Landlord will not treat Tenant's performance of this agreement as a condition of any obligation under the Lease, and will not withhold any right under the Lease because Tenant has not performed it. This agreement does not cover any work needed to comply with building and housing codes materially affecting health and safety, which remains Landlord's responsibility, and it does not diminish or affect any duty Landlord owes to other tenants of the premises.",
+  },
+  {
+    id: "furnishings-included-ks",
+    title: "Furniture Provided by Landlord",
+    group: "Landlord Responsibilities",
+    states: ["KS"],
+    bodyText:
+      "[Optional. Use only where Landlord provides furniture, and use it if Landlord wants the higher Kansas security deposit limit for a furnished unit.] Landlord provides, and Tenant may use, the following furniture owned by Landlord: {{landlord_furniture_list}}. Tenant will keep the furniture in the property, will not remove or dispose of any item, and will return it at the end of the Term in the same condition as at the start, less ordinary wear and tear. Tenant will report damage to the furniture promptly. Landlord will maintain the furniture as provided in this Lease and applicable law.",
+  },
+  // Default & Termination
+  {
+    id: "casualty-landlord-termination-ks",
+    title: "Landlord Termination After Fire or Casualty",
+    group: "Default & Termination",
+    states: ["KS"],
+    bodyText:
+      "[Optional.] If the property is damaged or destroyed by fire or other casualty to an extent that the use and habitability of the property is substantially impaired, and the fire or casualty was not caused by Landlord's deliberate or negligent act, Landlord may terminate this Lease by written notice to Tenant, effective on the date stated in the notice or, if Tenant has already vacated, on the date Tenant vacated. Rent will be accounted for as of the date Tenant vacates all or part of the property, and Landlord will return the portion of the Security Deposit Tenant is entitled to under Kansas law. Landlord may recover possession only as Kansas law permits. This Section is in addition to the rights Kansas law gives Tenant after a fire or casualty and does not reduce or condition them.",
+  },
+  {
+    id: "tenant-caused-damage-ks",
+    title: "Damage Caused by Tenant",
+    group: "Default & Termination",
+    states: ["KS"],
+    bodyText:
+      "[Optional.] If the property is damaged by fire, water, a vehicle or any other cause, and the damage results from the deliberate or negligent act or omission of Tenant, an Occupant, or a guest or invitee of Tenant, Tenant is liable to Landlord for Landlord's actual damages. Those damages include the cost of repairing the damage and, to the extent Kansas law allows, the Rent Landlord loses while the property is being repaired and after this Lease ends, less any Rent Landlord receives from re-renting the property. Landlord will use reasonable efforts to repair the property and to re-rent it. Nothing in this Section reduces, conditions or waives any right Kansas law gives Tenant after a fire or casualty, including the right to vacate and terminate or to have Rent reduced for a part of the property rendered unusable, and Tenant's liability under this Section is separate from and additional to those rights.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "criminal-activity-ks",
+    title: "No Criminal Activity",
+    group: "Tenant Responsibilities",
+    states: ["KS"],
+    bodyText:
+      "[Optional.] Tenant, members of Tenant's household, and Tenant's guests and other persons on the property with Tenant's consent will not engage in criminal activity on or in the immediate vicinity of the property, including the illegal manufacture, sale, distribution or possession of a controlled substance, and will not engage in conduct that threatens the health or safety of other residents, neighbours, Landlord or Landlord's employees or agents. A violation of this Section is a material noncompliance with this Lease, for which Landlord may give the written notice and pursue the remedies this Lease's Tenant Default section and applicable law provide.",
+  },
 ];
 
 module.exports = { CLAUSE_TEMPLATES };
