@@ -232,6 +232,8 @@ All six v1 MVP modules are built (tagged `v1.0.0`), along with v2 Property Specs
 
 - [2026-10-03] — **FL circle-back synced.** No row changes; FL vouched for CA's `surrender-end-of-term` qualifier. SOP 1.37 (rule 62 names the propagation section by title).
 
+- [2026-10-03] — **GA circle-back synced.** `holdover-rate-ga` now excludes a nonpayment termination, because Georgia lets the tenant keep possession by tendering rent after filing (O.C.G.A. § 44-7-52(a)). GA vouched for CA's and MN's pending edits. SOP 1.38 (rule 53).
+
 ## 🗳 Decisions log
 - [2026-09-30] — **Desktop deltas are merged with `merge-delta.py`, never by whole-row replacement.** Passes routinely start from an older library than the one at sync (NE, IN and AZ all did), and three times a whole-row replace would have silently undone another state's merge. The tool makes the safe merge the default and turns any real conflict into a refusal for hand review.
 - [2026-09-30] — **`early-termination-ks` applies only to a fixed-Term lease (Claude Code, uniform shared edit under rule 62).** Its fee is measured on "the remaining Rent due under the Term", which a month-to-month tenancy doesn't have, and every tagged state gives a periodic tenancy its own ending notice. Limiting the option removes nothing the landlord has under law, and the abandonment sentence still covers every lease. The builder-level fix (marking fixed-term-only clauses) stays in the backlog.

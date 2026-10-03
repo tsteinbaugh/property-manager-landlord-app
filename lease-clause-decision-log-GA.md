@@ -607,3 +607,69 @@ All 12 lease clauses written for this state alone. Shared clauses tagged with th
 Not a re-audit; nothing else in this state was reviewed.
 
 **Propagation note (uniform edit, rule 62): `snow-removal` rewritten.** Old: 'Unless Landlord provides snow removal service, Tenant is responsible for prompt, reasonable removal of snow and ice from any walkway, driveway, porch, or entrance at the property that Tenant uses, to help keep those areas safe and passable.' New: 'Unless Landlord provides snow removal, Tenant will promptly remove snow and ice from the areas of the property Tenant uses for walking, parking and access. This does not include areas shared with other residents.' Why: Taylor found the list of areas too specific (properties differ, and a list invites arguments about what it covers), and Michigan's sync showed the clause should say outright that shared areas stay with the landlord. The edit only narrows the tenant's duty; this state's existing note on the row still holds.
+
+## Circle-back checks (SOP 1.37), 2026-10-03
+
+**Chat:** Georgia's own chat, circle-back (rule 8) · **Settings:** Opus, high effort. **Research mode not used** (no rule 9 trigger). Scalpel, not a re-audit (rule 1): only the two targeted fixes in the prompt were checked. The prompt lists **0 [Retro] rules** for GA at 1.37.
+
+**Setup.**
+- **Input:** `lease-clauses.csv` has **2,876 rows** (17 columns, CRLF), as the prompt says.
+- **Old outputs deleted:** `lease-clause-decision-log-GA-retro.md` and `lease-clauses-GA-retro-delta.csv`, both from the 1.18 retro.
+- **The attached files are the only source of truth.** Earlier chat described the 2,282-row library and the 1.18 delta before it was synced. Those are superseded by the attached master, which already carries the 1.18 changes (Retro sync, 2026-10-02).
+
+**Sources.**
+- The governing sections are the official O.C.G.A. texts saved and SHA-256 matched at the 1.18 retro (advance.lexis.com, "Current through the 2026 Special Session of the General Assembly"): §§ 44-7-2, 44-7-50 (version in force), 44-7-52, 44-7-55, 44-3-87. § 44-7-54 was read verbatim at the same retro.
+- A fresh read of §§ 44-7-53 and 44-7-56 hit Lexis's document CAPTCHA. I didn't solve it, and neither verdict depends on those two sections, so I didn't ask Taylor to.
+- Not read: case law and local ordinances.
+
+### One line per check
+
+| Prompt item | Rule | Verdict | What was read | Rows changed |
+|---|---|---|---|---|
+| — | [Retro] rules at 1.37 | **None listed for GA** | — | — |
+| Fix 1 | 53 (as amended 1.23): holdover trigger after a nonpayment termination | **Fixed** | `edu-no-fee-caps-ga`: no late-fee cap, so North Carolina's reason doesn't apply. **Georgia's own reason** is that its nonpayment route is a cure route (detail below). § 44-7-55(a): after judgment the landlord still gets "all rents due and ... any other claim relating to the dispute" | `holdover-rate-ga`: "(other than a termination for nonpayment of Rent)" added after "an earlier termination under this Lease or applicable law", same wording as `holdover-rate-nc`. Other earlier terminations keep the charge: a non-rent default, a tenancy at will ended under § 44-7-7, and `end-of-term-notice-ga`. `last_checked` 2026-10-03 |
+| Fix 2(1) | 62 vetting: `surrender-end-of-term` + "unless applicable law entitles Tenant to remain" (CA) | **Checked, no issue: vouched** | §§ 44-3-87(a), (i); 44-7-52(a); 44-7-54(a)-(b); 44-7-55(a); the GA note on the row ("no just-cause rule in Georgia") | None (the vouch is below, not in the row's notes, per rule 62) |
+| Fix 2(2) | 62 vetting: `default-by-tenant` no-cure carve-out moved into its own sentence reaching both limbs (MN; ND and CA support) | **Checked, no issue: vouched** | §§ 44-7-50(c), (d); 44-7-52(a); 44-7-2(b)(4); HB 404 § 6 applicability (GA log §1.1) | None |
+
+**Fix 1, why Georgia excludes the nonpayment case.**
+- Before filing, the landlord must give a notice "to vacate or pay all past due rent, late fees, utilities, and other charges" within three business days (§ 44-7-50(c)).
+- After filing, the tenant may tender "all rents allegedly owed plus the cost of the dispossessory warrant" within seven days of service. That tender "shall be a complete defense to the action", and the landlord must accept it once in any 12 months (§ 44-7-52(a)).
+- So a daily charge running from a nonpayment termination would do one of two things: raise the statutory price of staying above rent plus warrant costs, or be charged for the same days as the rent the tenant tenders.
+- The tenant's rights under the dispossessory article cannot be waived or "otherwise avoid[ed]" by the lease (§ 44-7-2(b)(4)).
+- Penalty case law was not read.
+
+### Vouches given (for §9, Propagation notes)
+
+- **`surrender-end-of-term`, CA's qualifier "unless applicable law entitles Tenant to remain": vouched, no change needed for GA.**
+  - Georgia has no just-cause rule (`edu-no-for-cause-eviction-ga`), but its statutes let a tenant stay past the end of a lease in four cases:
+    - a tenant of a conversion condominium may not be required to vacate during the 120-day notice period, except for nonpayment, waste or disturbing conduct (§ 44-3-87(a), (i));
+    - a timely tender of rent and warrant costs is a complete defense to a nonpayment case (§ 44-7-52(a));
+    - while a case is pending the tenant stays as long as registry payments are made (§ 44-7-54(a)-(b));
+    - the writ takes effect only seven days after judgment, subject to the appeal section (§ 44-7-55(a)).
+  - The current flat "will surrender ... immediately" therefore overstates the tenant's duty in those cases. It doesn't give the landlord any self-help, since possession still comes only through the dispossessory article (§ 44-7-2(b)(4)), so GA doesn't need its own override. The qualified wording is lawful and accurate in Georgia.
+- **`default-by-tenant`, the no-cure carve-out in its own sentence reaching both limbs: vouched, no change needed for GA.**
+  - The carve-out applies only "where applicable law permits Landlord to proceed without giving Tenant an opportunity to cure".
+  - For a lease entered into or renewed on or after 2024-07-01, Georgia never permits that for nonpayment: § 44-7-50(c) requires the notice to vacate or pay before filing, delivered as § 44-7-50(d) requires. So the carve-out cannot reach that notice.
+  - For an older tenancy that hasn't renewed, Georgia requires no pre-suit cure notice, so nothing required is dropped. The library's education rows still tell landlords to give the notice for every tenancy.
+  - The post-filing tender (§ 44-7-52(a)) is statutory and cannot be avoided by the lease (§ 44-7-2(b)(4)), so the edit can't remove it.
+  - Georgia has no statutory no-cure grounds, so the sentence has nothing else to reach (GA log §6, decision 3).
+
+### Delta and checks
+
+`lease-clauses-GA-retro-delta.csv` has **one row: `holdover-rate-ga`** (`bodyText`, `notes`, `last_checked` 2026-10-03; VERIFIED; basis unchanged, CONSTRAINED_TERM). No new rows, and no shared row changed.
+
+The file has 17 fields per row, a header byte-identical to the master, and CRLF throughout with no bare LF. No change to GA's active count (118).
+
+Citations file: no new section beyond those `holdover-rate-ga` already lists, except § 44-7-50(c), § 44-7-52(a), § 44-7-55(a) and § 44-7-2(b)(4), which the sync may append to that row.
+
+### Proposed SOP changes
+
+1. **Rule 53 (the 1.23 nonpayment sentence):** widen the reason beyond a late-fee cap. Add: "or where the nonpayment route lets the tenant keep possession by paying (a pay-or-vacate notice, a tender defense, a right to redeem), since a daily charge from the termination then raises the statutory price of staying or duplicates the rent tendered for the same days." Georgia has no late-fee cap, but §§ 44-7-50(c) and 44-7-52(a) raise the same problem. As currently worded, the rule would have left Georgia's nonpayment case in.
+
+## Circle-back sync (Claude Code, 2026-10-03)
+
+- **Merged** with `merge-delta.py --base 2b10851`: 1 row updated (`holdover-rate-ga` now excludes a termination for nonpayment of Rent, the same wording as `holdover-rate-nc`), no new rows, nothing refused. GA active 118, unchanged.
+- **Citations file:** `holdover-rate-ga` gains § 44-7-50(c), § 44-7-52(a), § 44-7-55(a) and § 44-7-2(b)(4); `last_checked` 2026-10-03.
+- **Rule 62:** GA vouched for CA's `surrender-end-of-term` qualifier and MN's `default-by-tenant` sentence; both recorded in the backlog tally.
+- **Guards:** all pass. **Statute spot-check:** not possible from here. Georgia's official code is only on Lexis, which serves a CAPTCHA, the same as at the 2026-10-02 retro sync. The pass relied on texts it saved from Lexis and hash-matched at that retro.
+- **SOP 1.38:** GA's rule 53 proposal adopted, narrowed to pay-to-stay rights that run after the termination.
