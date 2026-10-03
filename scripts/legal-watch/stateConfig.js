@@ -41,6 +41,24 @@ const STATE_NAMES = {
   IA: "Iowa",
   NM: "New Mexico",
   MT: "Montana",
+  NY: "New York",
+};
+
+// New York consolidated-law abbreviations (as cited in the NY rows) and the
+// names New York bills use for them, for the NY buildQuery.
+const NY_LAW_NAMES = {
+  "Real Prop. Law": "real property law",
+  "Real Prop. Acts. Law": "real property actions and proceedings law",
+  "Gen. Oblig. Law": "general obligations law",
+  "Mult. Dwell. Law": "multiple dwelling law",
+  "Mult. Resid. Law": "multiple residence law",
+  "Exec. Law": "executive law",
+  "Gen. Bus. Law": "general business law",
+  "Pub. Health Law": "public health law",
+  "Civ. Prac. L. & R.": "civil practice law and rules",
+  "State Tech. Law": "state technology law",
+  "Cannabis Law": "cannabis law",
+  "Pub. Serv. Law": "public service law",
 };
 
 const STATE_CONFIG = {
@@ -1486,6 +1504,51 @@ const STATE_CONFIG = {
       },
     ],
   },
+  NY: {
+    // New York numbers sections separately in each consolidated law, so a
+    // bare "711" or "238-a" is ambiguous. Keys carry the law ("Real Prop.
+    // Law|238-a"), and the query pairs the section with the law's name the
+    // way New York bills write it ("Section 238-a of the real property
+    // law"): '"238-a" AND "real property law"'. Citations are split on ";"
+    // and only "N.Y. <law> § <section>" parts are read; court rules
+    // (NYCRR), the Constitution and federal parts are left to the items
+    // below.
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        const m = part.match(/^N\.Y\. (.+?) § (\d+(?:-[0-9a-z]+)*(?:\.\d+)?)/);
+        if (!m || !NY_LAW_NAMES[m[1]]) continue;
+        out.push(`${m[1]}|${m[2]}`);
+      }
+      return out;
+    },
+    buildQuery(key) {
+      const [law, sec] = key.split("|");
+      return `"${sec}" AND "${NY_LAW_NAMES[law]}"`;
+    },
+    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
+    manualRecheckItems: [
+      {
+        id: "ny-good-cause-sunset",
+        label:
+          "New York's Good Cause Eviction Law (N.Y. Real Prop. Law art. 6-A) and the N.Y. Real Prop. Law § 231-c notice are repealed June 15, 2034; § 226-c(1)(a) reverts to its pre-2024 version and the Good Cause sentence in N.Y. Real Prop. Acts. Law § 711(2) lapses. Also check DHCR's list of opt-in localities (NY log §10.2, §7)",
+        clauseIds: ["good-cause-notice-ny"],
+      },
+      {
+        id: "ny-new-untested",
+        label:
+          "New and untested New York laws: N.Y. Exec. Law § 296(5-a) (disparate impact, from December 19, 2025), the FAIR Business Practices Act (N.Y. Gen. Bus. Law § 349, from February 17, 2026), and N.Y. Gen. Bus. Law § 340-b (coordinating rent-pricing software). Recheck for amendments and first cases (NY log §10.2, §10.3)",
+        clauseIds: ["edu-fair-housing-ny"],
+      },
+      {
+        id: "ny-rules-local",
+        label:
+          "New York sources LegiScan can't see: the Uniform Rules (22 NYCRR) for summary proceedings, DHCR and other administrative rules (9, 16, 19 NYCRR), the Constitution, and New York City's Administrative Code and Health Code (flagged under rule 3) (NY log §7)",
+        clauseIds: ["edu-scope-ny"],
+      },
+    ],
+  },
 };
 
 // Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
@@ -1498,7 +1561,7 @@ const STATE_CONFIG = {
 const SCHEDULE_ORDER = [
   "CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ",
   "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI",
-  "IA", "NM", "MT",
+  "IA", "NM", "MT", "NY",
 ];
 function cronFor(code) {
   const n = SCHEDULE_ORDER.indexOf(code);

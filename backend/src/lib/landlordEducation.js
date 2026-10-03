@@ -26374,6 +26374,1357 @@ const LANDLORD_EDUCATION = [
       "California law already answers most of this, which is why this library offers no separate tenant-caused-damage clause for California. Repair costs: a tenant must use ordinary care and must repair any deterioration or injury caused by the tenant's own want of ordinary care, so the claim is statutory, and the deposit may be applied to repairing damage beyond ordinary wear and tear. Rent while the home is repaired: the tenant's right to end the lease after destruction or serious damage applies only where the damage was not the tenant's fault, the repair-and-deduct remedy is unavailable to a tenant who has breached their own upkeep duties, and the rule barring you from demanding rent for a substandard home does not apply where the tenant caused the condition. So rent generally continues to run where the tenant is at fault. Lost rent if the lease ends: if the tenant breaches and abandons, or you lawfully terminate for breach, the statutory damages measure covers the rent for the balance of the term less what the tenant proves you could reasonably have avoided - the lease's Early Termination clause states it. Adding a no-abatement sentence is not worth the risk here, because the habitability rights it sits next to cannot be waived.",
     notes: "CA: PRESENT - the law covers it, so no lease clause is offered. SOP 1.31 rule 54t retro 2026-10-03, and this is the eighth topic California had no row for: `tenant-caused-damage` is active in 25 states and was missing here. `tenant-caused-damage-tn` WAS READ for comparison and deliberately NOT tagged. Each abatement or exit provision was checked separately for its own tenant-fault exception, as rule 54t requires, and California has one in every one checked: Civ. Code s1932(2) tenant termination on destruction or serious damage turns on the damage occurring without the lessee's fault; s1942(c) with s1941.2 withholds the repair-and-deduct remedy from a tenant in breach of their own upkeep duties; s1942.4's bar on demanding rent for a substandard dwelling does not apply where the tenant's violation of s1941.2 caused the condition. Repair-cost limb: Civ. Code ss1928 and 1929, read section-open on leginfo 2026-10-03; deposit limb s1950.5(b)(2) (security-deposit-use-ca). Lost-rent limb: s1951.2, already stated in early-termination-ca. LEGAL CALL, rule 76, made here and recorded: a no-abatement sentence of the kind tenant-caused-damage-tn carries would add little in California - rent already continues where the tenant is at fault - while sitting next to s1942.1, which voids any agreement waiving s1941 or s1942 rights, so a clause drafted even slightly too wide risks being void rather than merely narrowed. NOT READ: no case law on apportioning fault, and s1933 was not re-read at this retro.",
   },
+  // Notices & General
+  {
+    id: "edu-scope-ny",
+    title: "What the New York Rows Cover",
+    group: "Notices & General",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "scope",
+    bodyText:
+      "The New York rows are written for market-rate residential tenancies under New York State law. They do not cover rent-stabilized or rent-controlled apartments (mostly in New York City and in places that adopted the Emergency Tenant Protection Act): those units need the state's own riders, lease forms and renewal rules, which these rows do not supply. They also do not resolve local law. New York City's Administrative Code and Housing Maintenance Code, and other cities' local laws (for example rental registration and inspection laws), add duties these rows do not state; check the law where the property is. Some state statutes apply only in New York City or only in large cities, and the rows say so where that matters.",
+    notes: "NY: Scope recommended to Taylor at kickoff and adopted (NY log §6.2). Rent regulation sits outside the consolidated laws the rows rely on: rent stabilization rests on the Emergency Tenant Protection Act of 1974 (L. 1974, ch. 576, § 4, unconsolidated) and New York City's Rent Stabilization Law (N.Y.C. Admin. Code § 26-501 et seq.) and their regulations (for example 9 NYCRR 2522.5, renewal leases), none of which was read for these rows (rule 21: administrative and local law not searched). The Good Cause Eviction Law excludes regulated units ('unit on or within a housing accommodation where such unit is otherwise subject to regulation of rents or evictions pursuant to local, state or federal law, rule, or regulation', N.Y. Real Prop. Law § 214(5)), and the deposit rules split the same way: N.Y. Gen. Oblig. Law § 7-108 'shall apply to all dwelling units in residential premises, unless such dwelling unit is specifically referred to in section 7-107 of this title' (N.Y. Gen. Oblig. Law § 7-108(1)); N.Y. Gen. Oblig. Law § 7-107 covers units subject to the Emergency Tenant Protection Act and the New York City rent stabilization law. Place-limited state statutes: the Multiple Dwelling Law applies to cities of 325,000 or more and to places that adopt it (N.Y. Mult. Dwell. Law § 3(1)-(2)); the Multiple Residence Law applies to every other city, town and village (N.Y. Mult. Resid. Law § 3(1)); N.Y. Real Prop. Law §§ 232, 232-a apply in New York City; N.Y. Real Prop. Law § 232-b applies outside it. Local law flagged, not resolved (rule 3). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-rent-control-ny",
+    title: "Rent Limits in New York",
+    group: "Rent & Payment",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-control",
+    bodyText:
+      "New York has no statewide cap on rent for market-rate units. Three things can still limit what you charge. First, rent stabilization (in New York City and places that adopted the Emergency Tenant Protection Act) and rent control (in New York City and some other places) set legal rents for covered units; the New York rows do not cover those units. Second, where the Good Cause Eviction Law applies, a rent increase above the 'local rent standard' (the lower of 5% plus the regional CPI change, or 10%, published each year by the Division of Housing and Community Renewal) is presumed unreasonable, a tenant's nonpayment of an unreasonable increase is not good cause for eviction, and a tenant who refuses an unreasonable increase at renewal cannot be removed for that refusal. Third, any increase of 5% or more needs advance written notice (see the rent increase notice row). New York also bans landlords from setting rents with coordinating algorithmic software.",
+    notes: "NY: Local rent standard: 'The term \"local rent standard\" shall mean a rent increase equal to the inflation index or ten percent, whichever is lower' (N.Y. Real Prop. Law § 211(8)); 'The term \"inflation index\" shall mean five percent plus the annual percentage change in the consumer price index for all urban consumers for all items' (N.Y. Real Prop. Law § 211(7)). Presumption: 'it shall be a rebuttable presumption that the rent for a dwelling not protected by rent regulation is unreasonable if said rent has been increased in any calendar year ... by an amount greater than the local rent standard, provided further that no rent increase less than or equal to the local rent standard shall be deemed unreasonable' (N.Y. Real Prop. Law § 216(1)(a)(i)); the court considers costs, property taxes and completed significant repairs (N.Y. Real Prop. Law § 216(1)(a)(ii)). Refusal at renewal is good cause only for 'reasonable changes to a lease at renewal, including increases in rent that are not unreasonable as defined in paragraph (a) of this subdivision', with written notice 30 to 90 days before the lease expires (N.Y. Real Prop. Law § 216(1)(j)). Where the Good Cause Eviction Law applies: New York City by statute (N.Y. Real Prop. Law § 212) and places that opt in (N.Y. Real Prop. Law § 213), with the exemptions in N.Y. Real Prop. Law § 214; the article is repealed June 15, 2034 (L. 2024, ch. 56, part HH, § 7(b)). Regulated units: out of scope (`edu-scope-ny`). Algorithmic rent setting: `edu-algorithmic-rent-ny`. No statewide rent cap outside rent regulation (NY battery 11 (rent cap / maximum rent outside rent regulation): 2 hits, control 0; known positives passed (0 real sections, 2 synthetic)). Local rent-control laws flagged, not resolved (rule 3). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-rent-increase-notice-ny",
+    title: "Notice of Rent Increase or Non-Renewal",
+    group: "Rent & Payment",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-increase-notice",
+    bodyText:
+      "If you plan to renew a tenancy with a rent increase of 5% or more, or not to renew it at all, you must give the tenant written notice in advance: at least 30 days if the tenant has lived there less than a year and has a lease of less than a year; at least 60 days if the tenant has lived there one to two years or has a lease of one to two years; and at least 90 days if the tenant has lived there more than two years or has a lease of two years or more (whichever of occupancy or lease length is longer controls). The notice must include the Good Cause Eviction Law notice. If you give notice late, the tenancy continues on its existing terms until the full notice period has run from the date you actually gave written notice, whatever the lease says. In New York City, a month-to-month tenancy is ended by this notice served the way court papers are served. Where the Good Cause Eviction Law applies, a renewal with changed terms also needs written notice of the changes 30 to 90 days before the lease ends.",
+    notes: "NY: N.Y. Real Prop. Law § 226-c(1)(a): 'Whenever a landlord intends to offer to renew the tenancy of an occupant in a residential dwelling unit with a rent increase equal to or greater than five percent above the current rent, or the landlord does not intend to renew the tenancy, the landlord shall provide written notice as required in subdivision two of this section. The notice shall append or contain the notice required pursuant to section two hundred thirty-one-c of this article ... If the landlord fails to provide timely notice, the occupant's lawful tenancy shall continue under the existing terms of the tenancy from the date on which the landlord gave actual written notice until the notice period has expired, notwithstanding any provision of a lease or other tenancy agreement to the contrary.' The compiled section prints two versions of N.Y. Real Prop. Law § 226-c(1)(a): the one with the Good Cause notice sentence is marked 'NB Effective August 18, 2024 until June 15, 2034'; the other 'NB Effective June 15, 2034' (rule 16: both regimes stated; legal watch June 15, 2034). Periods: N.Y. Real Prop. Law § 226-c(2)(a)-(d) ('based on the cumulative amount of time the tenant has occupied the residence or the length of the tenancy in each lease, whichever is longer'). New York City month-to-month: N.Y. Real Prop. Law § 232-a ('pursuant to the notice period required by subdivision two of section two hundred twenty-six-c of this article ... in the same manner in which a notice of petition in summary proceedings is now allowed to be served'). Good Cause renewal changes: 'the landlord gave written notice of the changes to the lease to the tenant at least 30 days, but no more than 90 days, before the current lease expired' (N.Y. Real Prop. Law § 231-c(1) form, question 4.N; N.Y. Real Prop. Law § 216(1)(j)). Tenancy type (rule 37): the periods turn on occupancy and lease length, so they apply to periodic tenancies too; outside New York City, N.Y. Real Prop. Law § 232-b no longer lets a residential landlord end a month-to-month tenancy on one month's notice, so the N.Y. Real Prop. Law § 226-c notice is the landlord's route (Claude's reading of N.Y. Real Prop. Law § 232-b's 'by the tenant or for a tenancy other than a residential tenancy the landlord'). A co-op corporation's notice to its own shareholder-tenant is excepted (N.Y. Real Prop. Law § 226-c(1)(b)). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-for-cause-eviction-ny",
+    title: "Good Cause Eviction Law",
+    group: "Default & Termination",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "for-cause-eviction",
+    bodyText:
+      "Where New York's Good Cause Eviction Law applies, you may not remove a tenant, or refuse to renew, without good cause, even after the lease has ended. It applies in New York City and in any village, town or city that has adopted it by local law (the Division of Housing and Community Renewal publishes the list). It does not apply to, among others: a small landlord (no more than 10 units statewide, or a different number set by the local law); an owner-occupied building of 10 units or fewer; regulated or income-restricted units; condominium and cooperative units; buildings with a certificate of occupancy issued on or after January 1, 2009 (for 30 years); seasonal units; and units renting for more than 245% of fair market rent (or the local law's figure). Good cause includes nonpayment of rent (unless it results from an unreasonable increase), a substantial lease violation or breach of reasonable written rules not cured within 10 days of written notice, nuisance or serious damage, an illegal use, an agency vacate order, unreasonably refusing access, your good-faith recovery of the unit as the principal residence of yourself or close family when no other suitable unit in the building is available (not from a tenant 65 or older or a 'disabled person' as the law defines it), demolition, withdrawal from the market (each of these last three proved by clear and convincing evidence), and refusal of reasonable changes at renewal given in writing 30 to 90 days before the lease ends. You must still go to court to remove the tenant. A lease term waiving these rights is void. The law is set to expire on June 15, 2034.",
+    notes: "NY: N.Y. Real Prop. Law § 215: 'No landlord shall, by action to evict or to recover possession, by exclusion from possession, by failure to renew any lease, or otherwise, remove any tenant from housing accommodations covered by section two hundred fourteen of this article except for good cause as defined in section two hundred sixteen of this article.' N.Y. Real Prop. Law § 216(1): removal only 'upon order of a court of competent jurisdiction ... in which the petitioner or plaintiff has established one of the following grounds as good cause', listing (a) to (j) as summarized; N.Y. Real Prop. Law § 216(1)(g) requires the landlord's or relative's 'principal residence', 'when no other suitable housing accommodation in such building is available', proved 'by clear and convincing evidence', and does not apply to a tenant 'who is sixty-five years of age or older or who is a disabled person' (defined in N.Y. Real Prop. Law § 211(6)); demolition (N.Y. Real Prop. Law § 216(1)(h)) and withdrawal (N.Y. Real Prop. Law § 216(1)(i)) also need clear and convincing evidence. Coverage: New York City (N.Y. Real Prop. Law § 212); opt-in places (N.Y. Real Prop. Law § 213(1), (6): annual DHCR list); exemptions N.Y. Real Prop. Law § 214(1)-(15), small landlord defined in N.Y. Real Prop. Law § 211(3). Waiver void: N.Y. Real Prop. Law § 218. Repeal: every section of article 6-A prints '* NB Repealed June 15, 2034' (L. 2024, ch. 56, part HH, § 7(b), read as enrolled, NY log §1.2). Rule 41: the shared clauses that say the end of the term ends possession are replaced for New York (`holdover-ny`, `surrender-end-of-term-ny`). The opt-in list is published by DHCR and was not read (rule 3: local adoption flagged, not resolved). This is New York's for-cause-eviction verdict row (rule 41b). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-late-fee-ny",
+    title: "Late Fees in New York",
+    group: "Rent & Payment",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "late-fee",
+    bodyText:
+      "You may charge a late fee only if rent has not been paid within five days of its due date, and the fee may not be more than $50 or 5% of the monthly rent, whichever is less. A lease term allowing more is void. A late fee is not rent: you cannot claim it in an eviction case. Separately, if you have not received rent within five days of the due date, you must send the tenant a written notice of nonpayment by certified mail; skipping it gives the tenant a defense if you later bring a nonpayment case.",
+    notes: "NY: N.Y. Real Prop. Law § 238-a(2): 'No landlord, lessor, sub-lessor or grantor may demand any payment, fee, or charge for the late payment of rent unless the payment of rent has not been made within five days of the date it was due, and such payment, fee, or charge shall not exceed fifty dollars or five percent of the monthly rent, whichever is less'. N.Y. Real Prop. Law § 238-a(3): 'Any provision of a lease or contract waiving or limiting the provisions of this section shall be void as against public policy.' N.Y. Real Prop. Acts. Law § 702(1): 'No fees, charges or penalties other than rent may be sought in a summary proceeding'. Certified-mail notice: N.Y. Real Prop. Law § 235-e(d) ('such lessor or agent shall send the lessee, by certified mail, a written notice stating the failure to receive such rent payment ... may be used as an affirmative defense'); the notice is a defense in a nonpayment case, not a condition of the late fee itself (Claude's reading; rule 53). `late-fee` tagged with builder caps (NY log §10: {{late_fee_grace_days}} at least 5; {{late_fee_amount}} at most the lesser of $50 or 5% of {{monthly_rent}}). The dormant `late-fee-limit-ny` stays off (NY log §5). A co-op corporation may charge its shareholder-tenants up to 8% of maintenance (N.Y. Real Prop. Law § 238-a(2)), outside scope. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-application-fee-ny",
+    title: "Application and Screening Fees",
+    group: "Rent & Payment",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "application-fees",
+    bodyText:
+      "Before or at the start of a tenancy you may not charge an application fee or any other fee, except to reimburse a background check and credit check. That reimbursement may not exceed the actual cost of the checks or $20, whichever is less; you must waive it if the applicant gives you a background or credit check done within the past 30 days; and you may collect it only if you give the applicant a copy of the check and the receipt or invoice from the company that ran it. A lease term to the contrary is void.",
+    notes: "NY: N.Y. Real Prop. Law § 238-a(1)(a): 'Except in instances where statutes or regulations provide for a payment, fee or charge, no landlord, lessor, sub-lessor or grantor may demand any payment, fee, or charge for the processing, review or acceptance of an application, or demand any other payment, fee or charge before or at the beginning of the tenancy, except background checks and credit checks as provided by paragraph (b) of this subdivision'. N.Y. Real Prop. Law § 238-a(1)(b): 'no more than the actual cost of the background check and credit check or twenty dollars, whichever is less, and the landlord, lessor, sub-lessor or grantor shall waive the fee or fees if the potential tenant provides a copy of a background check or credit check conducted within the past thirty days. The landlord, lessor, sub-lessor or grantor may not collect the fee or fees unless the landlord, lessor, sub-lessor or grantor provides the potential tenant with a copy of the background check or credit check and the receipt or invoice from the entity conducting the background check or credit check.' Waiver void: N.Y. Real Prop. Law § 238-a(3). Exceptions for CCRCs, assisted living, senior offering-plan communities and co-op purchase applications (N.Y. Real Prop. Law § 238-a(1)(a)-(b)) are outside scope. Broker fees are not addressed by N.Y. Real Prop. Law § 238-a; New York City's local law on broker fees is flagged, not resolved (rule 3). Upfront amounts: `due-at-signing-ny`. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-fees-as-rent-ny",
+    title: "Fees Are Not Rent in an Eviction Case",
+    group: "Rent & Payment",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fees-as-rent",
+    bodyText:
+      "In a New York eviction case for a residential unit, rent means only the monthly or weekly amount charged for the use and occupation of the unit. You cannot claim late fees, other fees, charges or penalties in that case, even if the lease calls them 'additional rent'. You may pursue them in an ordinary lawsuit if the lease lawfully provides for them.",
+    notes: "NY: N.Y. Real Prop. Acts. Law § 702(1): 'In a proceeding relating to a residential dwelling or housing accommodation, the term \"rent\" shall mean the monthly or weekly amount charged in consideration for the use and occupation of a dwelling pursuant to a written or oral rental agreement. No fees, charges or penalties other than rent may be sought in a summary proceeding pursuant to this article, notwithstanding any language to the contrary in any lease or rental agreement.'. NY battery 12 (\"additional rent\" fees in summary proceedings): 8 hits, control 0; known positives passed (2 real sections, 1 synthetic). Recovering lawful fees by plenary action rests on the lease as a contract (Claude's reading; no case searched, NY log §1.4). Legal fees may never be charged except under a court order (N.Y. Real Prop. Law § 234-a; `edu-attorney-fees-ny`). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-rent-receipts-ny",
+    title: "Rent Receipts",
+    group: "Rent & Payment",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-receipts",
+    bodyText:
+      "When you receive rent in cash, by money order or by any instrument other than the tenant's personal check, you must give a written receipt showing the date, the amount, the unit and period paid for, and the signature and title of the person receiving it. If the tenant asks in writing, you must also give receipts for rent paid by personal check, for the rest of the tenancy unless the tenant says otherwise. A receipt is due immediately for rent paid in person and within 15 days for rent sent another way. Keep records of cash receipts for at least three years.",
+    notes: "NY: N.Y. Real Prop. Law § 235-e(a): 'Upon the receipt of the payment of rent for residential premises in the form of cash, or any instrument other than the personal check of the lessee, it shall be the duty of the lessor, or any agent of the lessor authorized to receive rent, to provide the lessee with a written receipt containing the following: 1. The date; 2. The amount; 3. The identity of the premises and period for which paid; and 4. The signature and title of the person receiving the rent.' N.Y. Real Prop. Law § 235-e(b) (written request for receipts for personal checks, 'shall, unless otherwise specified by the lessee, remain in effect for the duration of such lessee's tenancy'; 'The lessor shall maintain a record of all cash receipts for rent for at least three years.'). N.Y. Real Prop. Law § 235-e(c) ('issued immediately'; 'within fifteen days'). The statute names no penalty; N.Y. Real Prop. Law § 235-e(d) (late-rent notice) is in `edu-rent-demand-ny`. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-rent-demand-ny",
+    title: "Late-Rent Notice and 14-Day Rent Demand",
+    group: "Default & Termination",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nonpayment-notice",
+    bodyText:
+      "Two notices come before an eviction for unpaid rent. First, if you have not received rent within five days of the due date, send the tenant a written notice by certified mail saying you have not received it; if you don't, the tenant can use that as a defense. Second, before starting a nonpayment case you must serve a written demand giving the tenant at least 14 days to pay the rent or give up possession. The demand must be served the way court papers are served (personal delivery; or delivery to a suitable person who lives or works at the property, or, if no one can be found there, posting on the door or slipping it under the entrance door, either of these followed within a day by mailing by registered or certified mail and by first-class mail) and must include the Good Cause Eviction Law notice. Only the monthly or weekly rent can be demanded and recovered in the case, not fees. If the tenant pays the full rent due before the hearing, you must accept it and the case ends.",
+    notes: "NY: N.Y. Real Prop. Law § 235-e(d) (quoted in `edu-late-fee-ny`). N.Y. Real Prop. Acts. Law § 711(2): 'The tenant has defaulted in the payment of rent, pursuant to the agreement under which the premises are held, and a written demand of the rent has been made with at least fourteen days' notice requiring, in the alternative, the payment of the rent, or the possession of the premises, has been served upon the tenant as prescribed in section seven hundred thirty-five of this article. The fourteen-day notice shall append or contain the notice required pursuant to section two hundred thirty-one-c of the real property law'. Service methods: N.Y. Real Prop. Acts. Law § 735(1) (personal delivery; delivery to a person of suitable age and discretion who resides or is employed at the property; or, 'if admittance cannot be obtained and such person found', affixing; after either of the last two, mailing 'both by registered or certified mail and by regular first class mail'). Rent only: N.Y. Real Prop. Acts. Law § 702(1). Payment before hearing: N.Y. Real Prop. Acts. Law § 731(4) ('payment to the landlord of the full amount of rent due, when such payment is made at any time prior to the hearing on the petition, shall be accepted by the landlord and renders moot the grounds on which the special proceeding was commenced'). The N.Y. Real Prop. Acts. Law § 711(2) Good Cause notice sentence is in force until June 15, 2034 (N.Y. Real Prop. Acts. Law § 711(2) prints '* NB Effective until June 15, 2034'). Court forms for the notice of petition: 22 NYCRR 208.42 (New York City Civil Court), 22 NYCRR 210.42, 212.42 and 214.13 (other courts), read whole (NY log §1.1); eviction timing is in `edu-eviction-process-ny`. Tenancy type (rule 37): the 14-day demand applies to any tenancy with rent due 'pursuant to the agreement'. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-legal-interest-ny",
+    title: "Interest on Unpaid Amounts",
+    group: "Rent & Payment",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "unpaid-damages-interest",
+    bodyText:
+      "New York's statutory interest rate on a court award is 9% a year, but it is only 2% a year on a judgment against an individual arising out of a consumer debt. Late fees in New York are capped separately (see Late Fees). If you want the lease to charge contractual interest on unpaid balances, take advice first: it must not work as a second late fee or exceed New York's usury limits.",
+    notes: "NY: N.Y. Civ. Prac. L. & R. 5004(a): 'Interest shall be at the rate of nine per centum per annum, except where otherwise provided by statute; provided the annual rate of interest to be paid in an action arising out of a consumer debt where a natural person is a defendant shall be two per centum per annum'. Whether unpaid residential rent is a 'consumer debt' under CPLR 5004 was not resolved (no case searched, NY log §1.4); the row states both rates. A contractual interest term is a lawful option the library declines (rule 54; NY log §6.1): beside the N.Y. Real Prop. Law § 238-a(2) cap a recurring interest charge risks acting as an added late charge (Claude's reading), and the civil usury ceiling is N.Y. Gen. Oblig. Law § 5-501 with N.Y. Banking Law § 14-a (16% per year; read section-open). NY battery 13 (statutory interest rate / usury): 157 hits, control 0; known positives passed (2 real sections, 1 synthetic). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-waiver-by-acceptance-ny",
+    title: "Accepting Rent After a Breach or After the Lease Ends",
+    group: "Rent & Payment",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "waiver-by-acceptance",
+    bodyText:
+      "If a lease for a term longer than one month has ended and you accept rent for a period after it, the tenant becomes a month-to-month tenant unless you and the tenant have agreed otherwise. Once you have started a holdover case, accepting rent does not end the case. Apart from a rule that accepting rent does not waive a tenant's agreement to pay taxes or assessments, New York has no statute saying whether accepting rent waives other lease violations; the lease's non-waiver sentence helps, but take advice before accepting rent from a tenant you are trying to remove.",
+    notes: "NY: N.Y. Real Prop. Law § 232-c: 'Where a tenant whose term is longer than one month holds over after the expiration of such term, such holding over shall not give to the landlord the option to hold the tenant for a new term solely by virtue of the tenant's holding over'; 'if the landlord shall accept rent for any period subsequent to the expiration of such term, then, unless an agreement either express or implied is made providing otherwise, the tenancy created by the acceptance of such rent shall be a tenancy from month to month'. N.Y. Real Prop. Acts. Law § 711(1): 'Acceptance of rent after commencement of the special proceeding upon this ground shall not terminate such proceeding nor effect any award of possession to the landlord or to the new lessee'. NY battery 14 (acceptance of rent waives breach): 3 hits, control 0; known positives passed (2 real sections, 1 synthetic): N.Y. Real Prop. Acts. Law § 711(3): 'An acceptance of any rent shall not be construed as a waiver of the agreement to pay taxes or assessments'; no statute on waiver of other breaches; New York case law on non-waiver clauses was not searched (NY log §1.4). The `late-fee` and `default-by-tenant` non-waiver sentences are tagged. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Security Deposit
+  {
+    id: "edu-deposit-rules-ny",
+    title: "Security Deposit Rules",
+    group: "Security Deposit",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-cap",
+    bodyText:
+      "All deposits and advances together (security deposit, pet deposit, prepaid last month's rent or any other advance) may not exceed one month's rent. The whole deposit is refundable except for unpaid rent, damage beyond normal wear and tear, unpaid utility charges payable to you under the lease, and the cost of moving and storing the tenant's belongings; you may not keep any of it for ordinary wear and tear or a prior tenant's damage; there is no separate deduction for cleaning, so cleaning costs can be kept only where the condition is damage beyond normal wear and tear. The deposit stays the tenant's money, held in trust and not mixed with your own. After signing and before move-in you must offer the tenant a joint inspection; on request you both sign a condition report. Within a reasonable time after either side gives notice to end the tenancy (unless the tenant gives less than two weeks' notice), you must tell the tenant in writing of the right to request a pre-move-out inspection and to be present. If the tenant asks, the inspection takes place one to two weeks before the tenancy ends, on at least 48 hours' written notice; afterwards you give the tenant an itemized statement of the repairs or cleaning you propose to deduct for, and the tenant may fix them before moving out. Within 14 days after the tenant leaves, send an itemized statement and return the balance, or you lose the right to keep any of it. A lease term waiving these rules is void. Rent-controlled units and some senior-care facilities are exempt, and rent-stabilized units follow a parallel section. A registered seasonal-use unit (a stay of 120 days or less by a tenant with a primary residence elsewhere) may take a larger deposit if the lease contains the statements the law requires; the New York rows do not cover seasonal rentals, so they do not offer that term.",
+    notes: "NY: N.Y. Gen. Oblig. Law § 7-108(1-a)(a)-(e) (quoted in `security-deposit-use-ny`, `security-deposit-return-ny` and `existing-condition-ny`); 'deposit or advance' covers prepaid rent, and the one-month cap applies to all deposits and advances together (Claude's reading of N.Y. Gen. Oblig. Law § 7-103(1): 'Whenever money shall be deposited or advanced on a contract or license agreement for the use or rental of real property as security for performance of the contract or agreement or to be applied to payments upon such contract or agreement when due, such money ... shall continue to be the money of the person making such deposit or advance and shall be held in trust by the person with whom such deposit or advance shall be made and shall not be mingled with the personal moneys or become an asset of the person receiving the same'). Waiver void: N.Y. Gen. Oblig. Law §§ 7-103(3), 7-108(3). Exemptions: N.Y. Gen. Oblig. Law § 7-108(1-a) (rent-controlled units, CCRCs, assisted living, adult care, senior offering-plan communities, not-for-profit retirement communities); the one-month cap also does not apply to an owner-occupied co-op apartment (N.Y. Gen. Oblig. Law § 7-108(6)), an exception to the cap like the seasonal uplift, not to the section. Seasonal-use uplift: N.Y. Gen. Oblig. Law § 7-108(4)(a) ('The lease expressly provides that: (i) the dwelling unit is registered as a seasonal use dwelling unit ... (ii) the occupancy of the tenant is only for seasonal use not to exceed one hundred twenty days ... and (iii) such tenant has a primary residence to return to'), a lease-conditioned uplift (rule 50) the library declines because seasonal rentals are outside the rows' scope (NY log §6.1). Rent-stabilized units: N.Y. Gen. Oblig. Law § 7-107 (amended by L. 2025, ch. 436 (S. 952-B), effective 'on the thirtieth day after it shall have become a law' and applying to leases and renewals 'entered into on or after such date'; the S. 952-B print was read and saved; out of scope, `edu-scope-ny`). No deduction category for cleaning (NY battery 20 (deposit deduction for cleaning): 3 hits, control 0; known positives passed (1 real section, 1 synthetic)); the pre-move-out statement lists 'repairs or cleaning that are proposed to be the basis of any deductions' (N.Y. Gen. Oblig. Law § 7-108(1-a)(d)), which Claude reads as cleaning of a condition that is damage beyond normal wear and tear, since N.Y. Gen. Oblig. Law § 7-108(1-a)(b) lists the only retainable amounts. Penalties: `edu-deposit-penalty-ny`. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-deposit-interest-ny",
+    title: "Interest on Security Deposits",
+    group: "Security Deposit",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-interest",
+    bodyText:
+      "If the building has six or more apartments, you must keep the deposit in an interest-bearing account at a bank in New York earning the prevailing rate. You may keep 1% a year of the deposit as an administration fee; the rest of the interest belongs to the tenant, and you either pay it each year or hold it in trust and pay or apply it when the deposit is returned or applied. For smaller buildings an interest-bearing account is not required. In any building, whenever you put the deposit in a bank, it must be a bank with a place of business in New York, and you must tell the tenant in writing the bank's name and address and the amount, and the same interest split applies if the account earns interest.",
+    notes: "NY: N.Y. Gen. Oblig. Law § 7-103(2-a): 'Whenever the money so deposited or advanced is for the rental of property containing six or more family dwelling units, the person receiving such money shall, subject to the provisions of this section, deposit it in an interest bearing account in a banking organization within the state which account shall earn interest at a rate which shall be the prevailing rate earned by other such deposits made with banking organizations in such area'. N.Y. Gen. Oblig. Law § 7-103(2) (written notice of 'the name and address of the banking organization in which the deposit of security money is made, and the amount of such deposit'; 1% 'administration expenses'; balance 'held in trust ... until repaid or applied for the use or rental of the leased premises, or annually paid'). Lease clause carrying the notice: `deposit-bank-notice-ny`. Waiver void: N.Y. Gen. Oblig. Law § 7-103(3). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-deposit-on-sale-ny",
+    title: "Security Deposits When You Sell",
+    group: "Security Deposit",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-on-sale",
+    bodyText:
+      "When you sell or assign the property (or a foreclosure receiver or purchaser takes over), you must turn the deposits over to the new owner, receiver or purchaser within five days and notify each tenant by registered or certified mail of the transfer and the new holder's name and address. Doing so releases you, and the new holder becomes responsible. Failing to comply is a misdemeanor. A buyer is also liable for any deposit it actually knew of (including deposits stated in leases in effect at closing or banked in the six months before), and must notify tenants within 30 days after closing if it has no record of a deposit.",
+    notes: "NY: N.Y. Gen. Oblig. Law § 7-105(1) ('at the time of the delivery of the deed or instrument or assignment or within five days thereafter ... Turn over to his or its grantee or assignee ... the sum so deposited, and notify the tenant or licensee by registered or certified mail of such turning over and the name and address of such grantee, assignee, purchaser or receiver'); N.Y. Gen. Oblig. Law § 7-105(2) (transferor 'relieved of and from liability'; transferee 'made responsible'); N.Y. Gen. Oblig. Law § 7-105(3): 'Any failure to comply with this section is a misdemeanor.' Buyer liability and notice: N.Y. Gen. Oblig. Law § 7-108(2)(a)-(d) ('no later than thirty days following the closing or other transfer of title'). N.Y. Gen. Oblig. Law § 7-105(2) last sentence ('The provisions of this section shall not apply if the agreement between the landlord and tenant or licensee is inconsistent herewith') is not a lease option the library uses: N.Y. Gen. Oblig. Law § 7-108(3) voids any agreement waiving N.Y. Gen. Oblig. Law § 7-108 rights (Claude's reading; NY log §6.1). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-deposit-penalty-ny",
+    title: "Penalties for Mishandling a Deposit",
+    group: "Security Deposit",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-penalty",
+    bodyText:
+      "If you miss the 14-day deadline for the itemized statement and refund, you lose the right to keep any part of the deposit. In any dispute you bear the burden of proving that what you kept was reasonable. A landlord who violates the deposit rules owes the tenant's actual damages, and one who does so willfully can owe punitive damages of up to twice the deposit. Failing to transfer the deposit and notify the tenant when you sell or assign the property is a misdemeanor.",
+    notes: "NY: N.Y. Gen. Oblig. Law § 7-108(1-a)(e) ('shall forfeit any right to retain any portion of the deposit'); N.Y. Gen. Oblig. Law § 7-108(1-a)(f): 'In any action or proceeding disputing the amount of any amount of the deposit retained, the landlord shall bear the burden of proof as to the reasonableness of the amount retained.' N.Y. Gen. Oblig. Law § 7-108(1-a)(g): 'Any person who violates the provisions of this subdivision shall be liable for actual damages, provided a person found to have willfully violated this subdivision shall be liable for punitive damages of up to twice the amount of the deposit or advance.' N.Y. Gen. Oblig. Law § 7-105(3) (misdemeanor). The Attorney General may sue to compel compliance with the deposit rules whenever any of them is violated (N.Y. Gen. Oblig. Law § 7-109, read section-open), and separately for repeated fraud or illegality (N.Y. Exec. Law § 63(12)). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-deposit-escheat-ny",
+    title: "Unclaimed Security Deposits",
+    group: "Security Deposit",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "deposit-escheat",
+    bodyText:
+      "New York's Abandoned Property Law has no provision that makes a landlord turn over a tenant's unclaimed residential security deposit to the state. The deposit stays the tenant's money held in trust, so keep records and keep trying to return it.",
+    notes: "NY: CONFIRMED ABSENT for residential deposits (NY battery 21 (unclaimed / abandoned security deposit): 2 hits, control 0; known positives passed (1 real section, 1 synthetic)); the only Abandoned Property Law section on security deposits covers title insurers' real estate transaction deposits (N.Y. Aband. Prop. Law § 1317, 'Unclaimed security deposits held by the title insurance companies'). Trust: N.Y. Gen. Oblig. Law § 7-103(1). Whether a general Abandoned Property Law category reaches an uncashed deposit refund check was not searched beyond the battery (NY log §7). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-holding-deposit-ny",
+    title: "Holding Deposits",
+    group: "Security Deposit",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "holding-deposit",
+    bodyText:
+      "New York does not allow a separate fee to hold a unit. Apart from the capped background and credit check fee, you may not demand any payment before or at the start of a tenancy except the payments a statute allows, chiefly a security deposit of no more than one month's rent (which also counts toward the one-month cap on all deposits and advances). If you take money from an applicant to reserve a unit, treat it as part of the security deposit and refund it if the tenancy does not go ahead.",
+    notes: "NY: N.Y. Real Prop. Law § 238-a(1)(a) (quoted in `edu-application-fee-ny`); N.Y. Gen. Oblig. Law § 7-108(1-a)(a)-(b). NY battery 22 (holding deposit / deposit to reserve a unit): 1 hits, control 0; known positives passed (0 real sections, 1 synthetic): no statute creates or regulates a holding deposit. Treating a reservation payment as a deposit, and refunding it, is Claude's recommendation; whether a holding deposit is a statute-provided 'payment' within N.Y. Real Prop. Law § 238-a(1)(a)'s opening exception was not settled by any case searched (NY log §1.4). New York City local rules flagged, not resolved (rule 3). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Pets
+  {
+    id: "edu-pet-deposit-ny",
+    title: "Pet Deposits and Pet Rent",
+    group: "Pets",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "pet-fees",
+    bodyText:
+      "A pet deposit counts toward New York's one-month cap on all deposits and advances, and it is refundable on the same terms as the security deposit. A one-time nonrefundable pet fee charged at move-in is not allowed. Monthly pet rent charged during the tenancy is not addressed by statute. You may not charge any pet deposit, fee or rent for an assistance animal.",
+    notes: "NY: N.Y. Gen. Oblig. Law § 7-108(1-a)(a)-(b) ('No deposit or advance shall exceed the amount of one month's rent'; 'The entire amount of the deposit or advance shall be refundable'). A nonrefundable move-in pet fee is a 'payment, fee or charge before or at the beginning of the tenancy' barred by N.Y. Real Prop. Law § 238-a(1)(a) (Claude's reading). Monthly pet rent: NY battery 23 (pet fee / pet rent / pet deposit): 1 hits, control 0; known positives passed (0 real sections, 1 synthetic) (no statute); charging it during the tenancy is outside N.Y. Real Prop. Law § 238-a(1)(a)'s 'before or at the beginning of the tenancy' (Claude's reading). Assistance animals: a fee would deny equal terms because of disability (N.Y. Exec. Law § 296(5)(a)(2), (18)(2); Claude's reading; federal HUD guidance not read). `pet-policy-ny` uses {{pet_rent_amount}}; builder cap in NY log §10. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-algorithmic-rent-ny",
+    title: "Algorithmic Rent-Setting Ban",
+    group: "Rent & Payment",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "algorithmic-rent-setting",
+    bodyText:
+      "Since December 15, 2025, it is unlawful for a residential landlord or manager in New York to knowingly or with reckless disregard set or adjust rents, renewal terms, occupancy levels or other lease terms based on recommendations from software, a data analytics service or an algorithm that performs a coordinating function among landlords. Using ordinary pricing tools that do not coordinate among competing landlords is not covered, but check with your software provider.",
+    notes: "NY: N.Y. Gen. Bus. Law § 340-b(3), added by L. 2025, ch. 437 (S. 7882), signed October 16, 2025, '§ 2. This act shall take effect on the sixtieth day after it shall have become a law' (December 15, 2025; enrolled act read and hash-matched, NY log §1.2). Enrolled text: 'IT SHALL BE CONSIDERED AN UNLAWFUL AGREEMENT IN VIOLATION OF THIS ARTICLE FOR A RESIDENTIAL RENTAL PROPERTY OWNER OR MANAGER TO KNOWINGLY OR WITH RECKLESS DISREGARD SET OR ADJUST RENTAL PRICES, LEASE RENEWAL TERMS, OCCUPANCY LEVELS, OR OTHER LEASE TERMS AND CONDITIONS IN ONE OR MORE OF THEIR RESIDENTIAL RENTAL PROPERTIES BASED ON RECOMMENDATIONS FROM A SOFTWARE, DATA ANALYTICS SERVICE, OR ALGORITHMIC DEVICE PERFORMING A COORDINATING FUNCTION.' NY battery 16 (algorithmic / software rent setting): 1 hits, control 0; known positives passed (1 real section, 1 synthetic). The section sits in the Donnelly Act (N.Y. Gen. Bus. Law art. 22), whose penalties apply (Claude's reading of '§ 340-b ... VIOLATION OF THIS ARTICLE'). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-termination-notice-ny",
+    title: "Ending a Tenancy in New York",
+    group: "Default & Termination",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-notice",
+    bodyText:
+      "A lease for a fixed term ends on its end date without notice from either side, but if you do not intend to renew, or will renew only with a rent increase of 5% or more, you must give the tenant 30, 60 or 90 days' written notice depending on how long the tenant has lived there and the lease length (see the rent increase notice row), and where the Good Cause Eviction Law applies you may refuse to renew only for good cause. A month-to-month tenancy: in New York City you end it with the same 30, 60 or 90 days' notice, served the way court papers are served; outside New York City a residential landlord also uses that notice, while the tenant may end it by notifying you at least one month before the end of a monthly period. A tenancy at will or by sufferance is ended by at least 30 days' written notice. In New York City, a tenancy with no agreed length is treated as lasting until the following October 1.",
+    notes: "NY: Fixed term: 'no notification shall be necessary to terminate a tenancy for a definite term' (N.Y. Real Prop. Law § 232-b). Notice periods: N.Y. Real Prop. Law § 226-c(1)(a), (2) (`edu-rent-increase-notice-ny`). New York City month-to-month: N.Y. Real Prop. Law § 232-a. Outside New York City: 'A monthly tenancy or tenancy from month to month of any lands or buildings located outside of the city of New York may be terminated by the tenant or for a tenancy other than a residential tenancy the landlord, upon the tenant's or non-residential landlord's notifying the landlord or non-residential tenant at least one month before the expiration of the term of the tenant's election to terminate' (N.Y. Real Prop. Law § 232-b). Tenancy at will or by sufferance: 'may be terminated by a written notice of not less than thirty days given in behalf of the landlord, to the tenant' (N.Y. Real Prop. Law § 228). New York City indefinite agreements: N.Y. Real Prop. Law § 232: 'An agreement for the occupation of real estate in the city of New York, which shall not particularly specify the duration of the occupation, shall be deemed to continue until the first day of October next after the possession commences under the agreement.' Good cause: `edu-for-cause-eviction-ny`. Tenancy type (rule 37) is the subject of this row. periodic-tenancy-notice rows of other states are not tagged (their bases rest on their own statutes). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-holdover-ny",
+    title: "Tenants Who Stay After the Lease Ends",
+    group: "Default & Termination",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "holdover",
+    bodyText:
+      "If the lease term was longer than one month and you accept rent for a period after it ends, the tenant becomes a month-to-month tenant unless you agreed otherwise. The law lets a lease provide that accepting rent after the lease ends does not create a month-to-month tenancy; the New York rows do not offer that term, because a tenant who stays on would still be protected by the Good Cause Eviction Law where it applies and by New York's notice rules, so it gains little and invites dispute. If you want it, take advice first and add your own clause. If the tenant gave notice that they would leave on a date and then stays, New York law makes them liable for double rent for as long as they remain. Otherwise you may recover the reasonable value of the tenant's use and occupancy. Where the Good Cause Eviction Law applies, a tenant whose lease has expired is not a holdover you can remove without good cause. You may never remove a tenant yourself: only a court warrant executed by a sheriff, marshal or constable can do that.",
+    notes: "NY: N.Y. Real Prop. Law § 232-c (acceptance of rent, 'Where a tenant whose term is longer than one month holds over'; quoted in `holdover-ny`). N.Y. Real Prop. Law § 229: 'If a tenant gives notice of his intention to quit the premises held by him, and does not accordingly deliver up the possession thereof, at the time specified in such notice, he or his personal representatives must, so long as he continue in possession, pay to the landlord, his heirs or assigns, double the rent which he should otherwise have paid'. N.Y. Real Prop. Law § 220: 'The landlord may recover a reasonable compensation for the use and occupation of real property'. Good cause: N.Y. Real Prop. Law § 216(1). Self-help: N.Y. Real Prop. Acts. Law § 768 (`edu-unlawful-eviction-ny`). Rule 54: the 'agreement either express or implied ... providing otherwise' in N.Y. Real Prop. Law § 232-c is a lawful option the library declines (NY log §6.1). Clause: `holdover-ny`. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-holdover-rate-ny",
+    title: "Holdover Rate Not Offered",
+    group: "Default & Termination",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "holdover-rate",
+    bodyText:
+      "A lease may lawfully set a daily charge for a tenant who stays after the lease ends, but the New York rows do not offer one. New York already sets a double-rent measure for a tenant who gave notice and then stayed, a stipulated premium could be read as a penalty, and where the Good Cause Eviction Law applies a tenant with an expired lease may have a right to stay. The holdover clause instead lets you seek the reasonable value of the tenant's use and occupancy, which is at least the monthly rent. If you want a stipulated rate, take advice first and add your own clause.",
+    notes: "NY: Rule 54 declined option (NY log §6.1): New York has a statutory measure only for a tenant who gave notice to quit (N.Y. Real Prop. Law § 229, double rent) and a general use-and-occupation recovery (N.Y. Real Prop. Law § 220); for the ordinary good-faith holdover the lease may set a measure. Declined because (a) where article 6-A applies a tenant with an expired lease may not be removed without good cause (N.Y. Real Prop. Law §§ 215, 216(1)), so a premium rate would charge a protected tenant a penalty for staying, and (b) a stipulated premium unrelated to actual loss risks being held an unenforceable penalty (common-law liquidated-damages doctrine; no New York case searched, NY log §1.4; rule 76 label: unread doctrine). NY battery 15 (holdover damages / double rent / use and occupation): 13 hits, control 0; known positives passed (2 real sections, 1 synthetic). `holdover-ny` offers use and occupancy 'not less than the Monthly Rent apportioned daily'. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-unlawful-eviction-ny",
+    title: "No Self-Help Eviction",
+    group: "Default & Termination",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "self-help-eviction",
+    bodyText:
+      "It is unlawful to evict, or try to evict, an occupant who has lawfully lived in a unit for 30 consecutive days or more, or who has a lease, except by a court's warrant of eviction or other court order, or a government vacate order. That includes using or threatening force, cutting off essential services, removing the occupant's belongings, removing the door, or disabling the lock, or changing the lock without giving the occupant a key. An owner must restore the occupant on request if the owner did it, knew or had reason to know of it, or it happened within seven days before the request. Separately, and even where an exception above applies, a tenant or lawful occupant, however long they have stayed, may be removed only through a court special proceeding. Intentionally violating this rule, or helping someone violate it, is a class A misdemeanor and carries a civil penalty of $1,000 to $10,000 per violation, plus up to $100 a day, from the request until the occupant is restored (for up to six months), if the owner fails to take all reasonable and necessary action to restore them. Only a sheriff, marshal or constable executes a warrant, after at least 14 days' written notice.",
+    notes: "NY: N.Y. Real Prop. Acts. Law § 768(1)(a)(i)-(iii) (quoted in part in `keys-ny`: 'changing the lock on such entrance door without supplying the occupant with a key'); N.Y. Real Prop. Acts. Law § 768(1)(b) (duty to restore); N.Y. Real Prop. Acts. Law § 768(2)(a): 'Any person who intentionally violates or assists in the violation of any of the provisions of this section shall be guilty of a class A misdemeanor.' N.Y. Real Prop. Acts. Law § 768(2)(b): 'a civil penalty of not less than one thousand nor more than ten thousand dollars for each violation', and for failing to restore 'an additional civil penalty of not more than one hundred dollars per day ... provided, however, that such period shall not exceed six months'. No tenant or lawful occupant 'shall be removed from possession except in a special proceeding' (N.Y. Real Prop. Acts. Law § 711, opening paragraph). Warrant: N.Y. Real Prop. Acts. Law § 749(1)-(2)(a) ('at least fourteen days' notice, in writing'; 'on a business day between the hours of sunrise and sunset'). New York City's Housing Maintenance Code harassment rules are local and flagged, not resolved (rule 3). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-eviction-process-ny",
+    title: "How an Eviction Works in New York",
+    group: "Default & Termination",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-process",
+    bodyText:
+      "Every residential eviction goes through a summary proceeding in court. For unpaid rent you first serve the 14-day written rent demand, which must include the Good Cause Eviction Law notice; for a holdover (lease ended or terminated) you first serve any termination notice the tenancy requires. You then file a petition with a notice of petition on the court's mandatory notice-of-petition form; the petition must attach the Good Cause Eviction Law notice; and in Albany, Newburgh, Schenectady and Syracuse the petition must show compliance with the local rental registration law. The petition is served as the law requires, and the tenant may answer, raise defenses (such as retaliation, repairs or the Good Cause Eviction Law) and in some cases ask for a jury. If you win, the court issues a warrant, which an officer executes only after 14 days' written notice; the court may stay or vacate it for good cause, and in a nonpayment case must vacate it if the tenant pays all rent due before execution, unless the rent was withheld in bad faith. A tenant may also ask for a stay of up to one year for hardship.",
+    notes: "NY: N.Y. Real Prop. Acts. Law §§ 711 (grounds; 14-day demand), 731 (commencement), 735 (service), 741 (petition contents; N.Y. Real Prop. Acts. Law § 741(5-a)-(5-b) Good Cause notice; registration allegations for Albany, Newburgh (L. 2023, ch. 579), Syracuse (L. 2023, ch. 544; L. 2024, ch. 64) and Schenectady (L. 2025, ch. 416, signed September 26, 2025, '§ 2. This act shall take effect on the ninetieth day after it shall have become a law', December 25, 2025); enrolled acts read, NY log §1.2), 743 (answer), 745 (jury; New York City rent deposit after adjournments), 749 (warrant; 14-day notice; vacate on tender: 'the court shall vacate a warrant upon tender or deposit with the court of the full rent due at any time prior to its execution, unless the petitioner establishes that the tenant withheld the rent due in bad faith'), 753 (stay, `edu-eviction-stay-ny`). Mandatory forms: 22 NYCRR 208.42 (New York City Civil Court, including the housing part rules), 22 NYCRR 210.42, 212.42, 214.13 (City, District and Justice Courts), read whole from nycourts.gov and saved (NY log §1.1; rule 39); no federal pre-filing condition appears in those rules (rule 39, NY log §19). New York City marshals' electronic filing (N.Y. Real Prop. Acts. Law § 749-a, extended to June 30, 2028 by L. 2026, ch. 137 (A. 10338 of the 2025-2026 session), signed June 26, 2026, effective immediately) is procedural only. Local court rules beyond the uniform rules were not read (NY log §7). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-eviction-stay-ny",
+    title: "Hardship Stays of Eviction",
+    group: "Default & Termination",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-hardship-stay",
+    bodyText:
+      "In any eviction of a residential tenant (other than a hotel or rooming-house room), the court may stay the warrant for up to one year if the tenant applies in good faith and either cannot find similar housing nearby despite reasonable efforts or would suffer extreme hardship. The court weighs serious illness, a child's enrollment in a local school and other circumstances, and also the hardship to you. A stay is conditioned on the tenant depositing use-and-occupancy payments into court. The hardship stay is not available where the landlord proves the occupant is holding over and objectionable. In a holdover case based on a lease breach, the court must also give the tenant 30 days to cure before the warrant issues. A lease term waiving these rights is void.",
+    notes: "NY: N.Y. Real Prop. Acts. Law § 753(1): 'the court, on application of the occupant, may stay the issuance of a warrant and also stay any execution to collect the costs of the proceeding for a period of not more than one year, if it appears that the premises are used for dwelling purposes; that the application is made in good faith; that the applicant cannot within the neighborhood secure suitable premises similar to those occupied by the applicant and that the applicant made due and reasonable efforts to secure such other premises, or that by reason of other facts it would occasion extreme hardship to the applicant or the applicant's family if the stay were not granted'; 'The court shall consider any substantial hardship the stay may impose on the landlord'. N.Y. Real Prop. Acts. Law § 753(2) (deposit condition). N.Y. Real Prop. Acts. Law § 753(3): the section does not apply 'to a proceeding to recover possession upon the ground that an occupant is holding over and is objectionable'. N.Y. Real Prop. Acts. Law § 753(4): 'In the event that such proceeding is based upon a claim that the tenant or lessee has breached a provision of the lease, the court shall grant a thirty day stay of issuance of the warrant, during which time the respondent may correct such breach.' N.Y. Real Prop. Acts. Law § 753(5): 'Any provision of a lease or other agreement whereby a lessee or tenant waives any provision of this section shall be deemed against public policy and void.' Before 2019 the one-year stay applied only in New York City; L. 2019, ch. 36, part M made it statewide (read as enrolled, NY log §1.2). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-eviction-records-ny",
+    title: "Eviction Records and Screening",
+    group: "Default & Termination",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-record-sealing",
+    bodyText:
+      "You may not refuse to rent to, or refuse to offer a lease to, an applicant because they were involved in a past or pending landlord-tenant case. If you request information from a tenant screening bureau or look at court records about an applicant and then refuse to rent, you are presumed to have violated this rule. The Attorney General can seek a civil penalty of $500 to $1,000 per violation. Court records of a tenant removed after a foreclosure or tax foreclosure are sealed, and the courts may seal other housing-court records on a written finding of good cause.",
+    notes: "NY: N.Y. Real Prop. Law § 227-f(1): 'No landlord of a residential premises shall refuse to rent or offer a lease to a potential tenant on the basis that the potential tenant was involved in a past or pending landlord-tenant action or summary proceeding under article seven of the real property actions and proceedings law. There shall be a rebuttable presumption that a person is in violation of this section if it is established that the person requested information from a tenant screening bureau relating to a potential tenant or otherwise inspected court records relating to a potential tenant and the person subsequently refuses to rent or offer a lease to the potential tenant.' N.Y. Real Prop. Law § 227-f(2) (penalty 'of not less than five hundred dollars, but not more than one thousand dollars for each violation'). N.Y. Real Prop. Acts. Law § 757 (foreclosure evictions: 'the court records relating to any such lessee shall be sealed and be deemed confidential'). Court rule: 22 NYCRR Part 216 (sealing of court records only on a written finding of good cause), read whole (NY log §1.1; rule 39 public-access rules). Consumer reporting agencies are regulated by N.Y. Gen. Bus. Law § 380 et seq. (not restated). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-post-eviction-property-ny",
+    title: "Belongings and Animals at Eviction",
+    group: "Default & Termination",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "post-eviction-property",
+    bodyText:
+      "New York has no statute telling a landlord how to handle belongings left after an eviction or after a tenant leaves. At an eviction, the officer executing the warrant must check for companion animals and arrange their safe care with the tenant or a humane society or pound. Removing an occupant's belongings to force them out is unlawful eviction. Belongings left after a tenant has gone are best held safely, with written notice and a reasonable time to collect them, before disposal; the cost of moving and storing them may be deducted from the deposit.",
+    notes: "NY: N.Y. Real Prop. Acts. Law § 749(2)(b): 'Such officer shall check such property for the presence of a companion animal prior to executing such warrant and coordinate with such person or persons to be evicted or dispossessed to provide for the safe and proper care of such companion animal or animals.' N.Y. Real Prop. Acts. Law § 768(1)(a)(iii) ('removing the occupant's possessions from the dwelling unit'). CONFIRMED ABSENT: no statute on abandoned residential tenant property (NY battery 25 (tenant property left behind (abandoned, technical)): 0 hits, control 0; known positives passed (0 real sections, 2 synthetic); NY battery 26 (tenant belongings left behind (everyday words)): 2 hits, control 0; known positives passed (1 real section, 1 synthetic)). Deposit deduction: N.Y. Gen. Oblig. Law § 7-108(1-a)(b) ('moving and storage of the tenant's belongings'). Procedure in `surrender-end-of-term-ny` is Claude's drafting (NY log §6.3). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-unauthorized-occupant-ny",
+    title: "Squatters and Unauthorized Occupants",
+    group: "Default & Termination",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "unauthorized-occupant-removal",
+    bodyText:
+      "A squatter (someone who entered without permission and stays without any right) is not a tenant under New York's eviction statute, and since 2024 the law says so expressly. But anyone who has lawfully lived in a unit for 30 days or more, or has a lease, is protected from self-help: removing them still requires a court order or a warrant. A licensee whose license has ended, or a person who squatted, can be removed in a summary proceeding after a 10-day notice to quit, without the other landlord-tenant notices. Occupants a tenant lawfully adds under New York's roommate law have no right to stay after the tenant leaves without your express written permission.",
+    notes: "NY: N.Y. Real Prop. Acts. Law § 711 (opening paragraph): 'A tenant shall not include a squatter. For the purposes of this section, a squatter is a person who enters onto or intrudes upon real property without the permission of the person entitled to possession, and continues to occupy the property without title, right or permission of the owner or owner's agent or a person entitled to possession.' The squatter sentences were added by L. 2024, ch. 56, part II (read as enrolled, NY log §1.2). N.Y. Real Prop. Acts. Law § 713(3), (7) (squatters; licensees), each 'after a ten-day notice to quit has been served upon the respondent in the manner prescribed in section 735' (N.Y. Real Prop. Acts. Law § 713). N.Y. Real Prop. Acts. Law § 768(1)(a) (30 consecutive days). Roommate-law occupants: N.Y. Real Prop. Law § 235-f(6). Whether the 2024 squatter sentences let an owner remove a squatter of 30 days or more without a court order was not resolved: N.Y. Real Prop. Acts. Law § 768(1)(a) still protects an occupant who 'has lawfully occupied the dwelling unit for thirty consecutive days' (Claude's reading; a squatter's occupancy is not lawful, but the row tells landlords to use the court; no case searched, NY log §1.4). Penal Law trespass provisions not relied on. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-retaliation-ny",
+    title: "No Retaliation",
+    group: "Default & Termination",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "retaliation",
+    bodyText:
+      "You may not serve a notice to quit, start an eviction, refuse to renew, offer a renewal with an unreasonable rent increase, or otherwise substantially change the tenancy because a tenant in good faith complained to you or to a government agency about a health, safety or housing code violation or a habitability problem, acted to enforce rights under the lease or housing laws, or took part in a tenants' organization. In a case you bring against the tenant, if you acted within one year after a good-faith complaint about a code or habitability violation, the tenant's good-faith action to enforce their rights, or a resulting inspection or order, or an earlier retaliation judgment for the tenant, retaliation is presumed and you must show another reason. A retaliating landlord owes damages, attorney fees and costs, and loses the eviction case. The rule does not apply to owner-occupied buildings with fewer than four units, where the tenant, a household member or a guest caused the condition complained of, or where a lease ended under its own terms because of a genuine sale. A lease fee or penalty for making a good-faith complaint is void, and trying to collect one costs you three times the amount.",
+    notes: "NY: N.Y. Real Prop. Law § 223-b(1)(a)-(c), (2) ('Substantial alteration shall include, but is not limited to, the refusal to continue a tenancy of the tenant, upon expiration of the tenant's lease, to renew the lease or offer a new lease, or offering a new lease with an unreasonable rent increase'), (3) ('civil action for damages, attorney's fees and costs'), (4) ('judgment shall be entered for the tenant if the court finds that the landlord is acting in retaliation'), (5) (one-year rebuttable presumption; 'The effect of the presumption shall be to require the landlord to establish a non-retaliatory motive for his acts by a preponderance of the evidence'). N.Y. Real Prop. Law § 223-b(5-a): 'Any lease provision which seeks to assess a fee, penalty or dollar charge, in addition to the stated rent, against a tenant because such tenant files a bona fide complaint ... shall be null and void ... shall be liable to the tenant for triple the amount'. N.Y. Real Prop. Law § 223-b(6): 'This section shall apply to all rental residential premises except owner-occupied dwellings with less than four units. However, its provisions shall not be given effect in any case in which it is established that the condition from which the complaint or action arose was caused by the tenant, a member of the tenant's household, or a guest of the tenant. Nor shall it apply in a case where a tenancy was terminated pursuant to the terms of a lease as a result of a bona fide transfer of ownership.' A landlord need not offer a renewal longer than one year (N.Y. Real Prop. Law § 223-b(2)). Tenant organizations: N.Y. Real Prop. Law § 230 (`edu-tenant-organizing-ny`). Retaliation for a reasonable-accommodation request is also an unlawful discriminatory practice (N.Y. Exec. Law § 296(7), as amended by L. 2025, ch. 600, signed December 5, 2025, effective immediately; enrolled act read, NY log §1.2). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-dv-termination-ny",
+    title: "Domestic Violence: Lease Termination and Protections",
+    group: "Default & Termination",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-lease-termination",
+    bodyText:
+      "A tenant who is a domestic violence victim, or whose household member is, and who reasonably fears staying, may end the lease by written notice to you (and to any co-tenant other than the abuser) naming a termination date at least 30 days later. Within 25 days the tenant must give documentation, such as an order of protection, a police record, a health-care record or a written statement from a qualified third party. The tenant owes rent only to the termination date, and you must refund prepaid rent for the period after it within 10 days of the notice once the tenant has moved out. You may not keep any of the deposit because of the early termination, and you may not end a remaining co-tenant's tenancy without their consent. You must keep the tenant's information confidential and may not describe the termination to a future landlord. A landlord who knowingly violates these rules can owe up to $1,000 in liquidated damages plus actual damages and attorney fees, and a lease term waiving them is void. You also may not refuse to rent to or evict someone because they are a domestic violence victim.",
+    notes: "NY: N.Y. Real Prop. Law § 227-c(1)-(2) (quoted in part: 'The notice shall specify the termination date which shall be no earlier than thirty days after such notice is delivered'; 'Within twenty-five days of such notice, the tenant shall provide documentation'), N.Y. Real Prop. Law § 227-c(3)(b) ('Such refund shall be provided within ten days of delivery of the written notice'); N.Y. Real Prop. Law § 227-c(3)(d) ('shall not withhold any part of the security deposit due to the tenant's exercise of rights under this section'); N.Y. Real Prop. Law § 227-c(4)(b)(i) (co-tenancy not severed without consent); N.Y. Real Prop. Law § 227-c(5) (confidentiality; 'the landlord shall not divulge, describe, or characterize the termination of the rental agreement as an early termination by a current lessor to a prospective lessor or any third party'); N.Y. Real Prop. Law § 227-c(6)(a): 'Landlords who knowingly, or intentionally violate any part of this section may be liable for liquidated damages, not to exceed one thousand dollars, actual damages, costs and attorneys' fees.' N.Y. Real Prop. Law § 227-c(6)(b) (waiver void). Victim definition: N.Y. Soc. Serv. Law § 459-a (N.Y. Real Prop. Law § 227-c(1); not read, cross-reference only). Discrimination: N.Y. Real Prop. Law § 227-d (owners and managers of buildings used for dwelling purposes; `edu-dv-eviction-ny`); N.Y. Exec. Law § 296(5)(a) ('status as a victim of domestic violence'). Eviction defense: N.Y. Real Prop. Acts. Law § 744. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-dv-eviction-ny",
+    title: "No Eviction for Domestic Violence Victim Status",
+    group: "Default & Termination",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-eviction-protection",
+    bodyText:
+      "You may not refuse to rent to, discriminate in the terms of a rental against, or evict a tenant because the tenant (or a family member) is or has been a victim of domestic violence, and you may not advertise a limitation on that basis. A violation is a misdemeanor (fine of $1,000 to $2,000) and the victim can sue for damages. This part does not apply to an owner-occupied building with two or fewer units, and you may still apply reasonable screening standards unrelated to that status. In an eviction case it is a defense that you would not have sought possession but for that status; you may rebut it by showing another lawful ground.",
+    notes: "NY: N.Y. Real Prop. Law § 227-d(1)-(2) ('domestic violence victim status'); N.Y. Real Prop. Acts. Law § 744(1): 'A tenant shall not be removed from possession of a residential unit pursuant to this article because of such person's domestic violence victim status ... A landlord may rebut such defense by showing that he or she seeks to recover possession of a residential unit because of any other lawful ground.' N.Y. Real Prop. Law § 227-d(2)(a) ('A violation of this subdivision shall be a misdemeanor and, on conviction thereof, shall be punished by a fine of not less than one thousand dollars and not more than two thousand dollars for each offense'); N.Y. Real Prop. Law § 227-d(2)(b) (damages; punitive up to $2,000 per offense); N.Y. Real Prop. Law § 227-d(2)(c) (reasonable standards 'not based on or derived from domestic violence victim status'); N.Y. Real Prop. Law § 227-d(2)(d): 'This section shall not apply to buildings used for dwelling purposes that are owner occupied and have two or fewer residential units.' The N.Y. Exec. Law § 296(5)(a) ban has its own, narrower exemptions (`edu-fair-housing-ny`). N.Y. Exec. Law § 296(5)(a) covers the same status. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-senior-termination-ny",
+    title: "Early Termination by Seniors and Persons With Disabilities",
+    group: "Default & Termination",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "infirmity-termination",
+    bodyText:
+      "A tenant who is 62 or older (or will turn 62 during the lease), or who has a disability, may end the lease to move to a family member's home after a physician certifies they can no longer live independently, or to move into an adult care facility, a residential health care facility, subsidized low-income housing or senior housing. The tenant gives written notice with the required documents, and the termination takes effect no earlier than 30 days after the next rent due date following delivery. Rent paid in advance is adjusted to the surrender date. Holding the tenant's belongings to force payment of later rent is a misdemeanor.",
+    notes: "NY: N.Y. Real Prop. Law § 227-a(1) (implied covenant for a lessee who has 'attained the age of sixty-two years or older, or will attain such age during the term' or is an individual with a 'disability' as defined in N.Y. Exec. Law § 292(21)); N.Y. Real Prop. Law § 227-a(2)(a)-(b) ('Such termination shall be effective no earlier than thirty days after the date on which the next rental payment subsequent to the date when such notice is delivered is due and payable'; 'Such notice shall be deemed delivered five days after mailing'); N.Y. Real Prop. Law § 227-a(3) (misdemeanor). N.Y. Real Prop. Law § 227-a(3-a)'s 18-point notice binds owners of the facilities a tenant moves into, not the landlord being left (NY log §4). `early-termination-ks` preserves the right (tag note). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-tenant-death-ny",
+    title: "When a Tenant Dies",
+    group: "Default & Termination",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-death",
+    bodyText:
+      "For leases made or renewed on or after February 15, 2024, the executor, administrator or legal representative of a deceased tenant may end the lease by notice to you, effective when the estate notifies you and gives up possession, with the written consent of any co-tenant or guarantor. The estate still owes rent and debts up to the termination date (including damage and expenses resulting from the death) but no penalty for short notice. The representative may instead ask you to consent to an assignment or sublet; you may ask for more information within 10 days, and must answer within 30 days of the request or of the information, whichever is later; silence is consent. If you refuse unreasonably, the lease ends. Notices go by registered or certified mail, return receipt requested, and a lease term waiving these rules is void. Family members who lived with the tenant may have their own rights to remain.",
+    notes: "NY: N.Y. Real Prop. Law § 236-a: 'the executor, administrator or legal representative of a deceased tenant under such a lease shall have the option to terminate such a lease upon notice given to the landlord. Such termination shall be effective as of the date on which the tenant's estate notifies the landlord of its election to terminate and surrenders possession of the premises. Such termination option shall be accompanied by the written consent thereto of any co-tenant or guarantor of such lease.' (added by L. 2023, ch. 632, signed November 17, 2023, effective on the ninetieth day, February 15, 2024; applies to leases 'hereafter made or renewed'; enrolled act read, NY log §1.2). N.Y. Real Prop. Law § 236 (assignment or sublet; 'Landlord's failure to send such a notice shall be deemed to be a consent'; 'If the landlord terminates said lease or unreasonably refuses his consent, said lease shall be deemed terminated'). Both: 'Any waiver of any part of this section shall be void as against public policy.' Family succession rights in rent-regulated units are out of scope; for other units no statute gives family members a right to remain (NY battery 27 (family succession to a tenancy): 2 hits, control 0; known positives passed (0 real sections, 1 synthetic)), but the Good Cause Eviction Law's tenant definition may reach a lawful occupant (N.Y. Real Prop. Law § 211(4); not resolved, NY log §7). Rule 37: N.Y. Real Prop. Law § 236-a reaches leases made or renewed on or after February 15, 2024; for older periodic tenancies, follow it anyway (Claude's recommendation). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-mitigation-ny",
+    title: "Duty to Re-Rent After a Tenant Leaves Early",
+    group: "Default & Termination",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "abandonment-and-mitigation",
+    bodyText:
+      "If a tenant moves out in breach of the lease, you must, in good faith and as your resources allow, take reasonable and customary steps to re-rent the unit at its fair market value or at the lease rate, whichever is lower. Once a new tenant's lease takes effect, the old lease ends and the departing tenant's liability is reduced. You bear the burden of proving your damages. A lease term waiving this duty is void.",
+    notes: "NY: N.Y. Real Prop. Law § 227-e(1): 'if a tenant vacates a premises in violation of the terms of the lease, the landlord shall, in good faith and according to the landlord's resources and abilities, take reasonable and customary actions to rent the premises at fair market value or at the rate agreed to during the term of the tenancy, whichever is lower.' N.Y. Real Prop. Law § 227-e(1): the new tenant's lease 'shall, once in effect, terminate the previous tenant's lease and mitigate damages otherwise recoverable against the previous tenant'; 'The burden of proof shall be on the party seeking to recover damages. Any provision in a lease that exempts a landlord's duty to mitigate damages under this section shall be void as contrary to public policy.' Added by L. 2019, ch. 36, part M, § 4 (read as enrolled, NY log §1.2). `default-by-tenant` carries a mitigation sentence (tag note). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-attorney-fees-ny",
+    title: "Attorney Fees and Legal Charges",
+    group: "Default & Termination",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "attorney-fees",
+    bodyText:
+      "If your lease lets you recover attorney fees or legal expenses from the tenant, New York law gives the tenant the same right against you when you breach the lease or when the tenant wins a case you bring. You cannot recover attorney fees on a default judgment. You may not charge a tenant any fee for legal services (including court fees, attorney fees, notary charges and administrative fees) unless a court orders it, so never bill legal costs as rent or add them to a ledger yourself. A lease term to the contrary is void.",
+    notes: "NY: N.Y. Real Prop. Law § 234 (quoted from the section: 'there shall be implied in such lease a covenant by the landlord to pay to the tenant the reasonable attorneys' fees and/or expenses incurred by the tenant as the result of the failure of the landlord to perform any covenant or agreement on its part to be performed under the lease or in the successful defense of any action or summary proceeding commenced by the landlord against the tenant arising out of the lease'; 'A landlord may not recover attorneys' fees upon a default judgment. Any waiver of this section shall be void as against public policy.'). N.Y. Real Prop. Law § 234-a(a): 'An owner, lessor or agent thereof shall be prohibited from assessing a lessee any fee, surcharge or other charges for legal services in connection with the operation or rental of a residential unit unless the owner, lessor or agent has the legal authority to do so pursuant to a court order.' N.Y. Real Prop. Law § 234-a(b) (legal services include 'court fees, legal representation, attorney fees, notary public charges, and administrative fees'); N.Y. Real Prop. Law § 234-a(c) (void). `default-by-tenant`'s prevailing-party sentence is mutual (tag note). No eviction-fee clause (rule 54; NY log §6.1). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-casualty-ny",
+    title: "Fire and Casualty",
+    group: "Default & Termination",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "casualty-termination",
+    bodyText:
+      "If the home is destroyed or so damaged by fire, the elements or another cause that it is untenantable and unfit for occupancy, and the tenant did not cause the damage, New York law lets the tenant move out and stop owing rent from the date of surrender, with any rent paid in advance adjusted to that date, unless a written agreement says otherwise. The New York rows keep that right for tenants and offer an optional clause adding your right to end the lease if you decide not to restore. A lease may lawfully take away the tenant's statutory exit; the rows do not offer that, because it would leave a tenant paying rent for a home they cannot use. If you want such a term, take advice first and add your own clause.",
+    notes: "NY: N.Y. Real Prop. Law § 227 (quoted in `casualty-termination-ny`): the tenant's exit applies where 'no express agreement to the contrary has been made in writing'. Rule 54: the contrary agreement is a lawful option the library declines (NY log §6.1); the warranty of habitability still cannot be waived (N.Y. Real Prop. Law § 235-b(2)), so a contrary agreement would not end the abatement for conditions the landlord must repair (Claude's reading). NY battery 28 (fire or casualty (tenancy)): 7 hits, control 0; known positives passed (1 real section, 1 synthetic). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Disclosures
+  {
+    id: "edu-fair-housing-ny",
+    title: "Fair Housing in New York",
+    group: "Disclosures",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fair-housing",
+    bodyText:
+      "New York's Human Rights Law bars refusing to rent, setting different terms, or advertising or asking questions that express a limitation, because of race, creed, color, national origin, citizenship or immigration status, sexual orientation, gender identity or expression, military status, sex, age, disability, marital status, status as a domestic violence victim, lawful source of income (including housing vouchers) or familial status. The bans on refusing and on different terms do not apply to renting an apartment in a two-family house where you live, renting rooms in your own home or same-sex room rentals, and qualifying senior housing is exempt only as to age and familial status; even then you may not advertise or ask questions that express a preference (except for same-sex rooms, rooms in your home and senior housing), and a discriminatory ad or inquiry ends the two-family and senior-housing exemptions. A practice that has an unjustified discriminatory effect can also be unlawful, and you may not retaliate against anyone who complains or asks for an accommodation. Leases also may not forbid tenants to have children.",
+    notes: "NY: N.Y. Exec. Law § 296(5)(a)(1)-(3) (classes quoted from the section: 'race, creed, color, national origin, citizenship or immigration status, sexual orientation, gender identity or expression, military status, sex, age, disability, marital status, status as a victim of domestic violence, lawful source of income or familial status'); N.Y. Exec. Law § 296(5)(a)(4)(i) (two-family owner-occupied, same-sex rooms and owner-occupied rooms excepted from (1)-(2), and senior housing 'solely with respect to age and familial status', but the exemption is lost 'if there is unlawful discriminatory conduct pursuant to subparagraph three'); N.Y. Exec. Law § 296(5)(a)(4)(ii) (same-sex rooms, owner-occupied rooms and, solely as to age and familial status, senior housing excepted from (1)-(3)). Disparate impact in housing: N.Y. Exec. Law § 296(5-a)(a) ('For any case alleging housing discrimination under this article, an unlawful discriminatory practice may be established by a practice's discriminatory effect, even if such practice was not motivated by a discriminatory intent. The practice may still be lawful if supported by a legally sufficient justification'), added by L. 2025, ch. 649 (A. 4040-A), signed December 19, 2025, 'This act shall take effect immediately and shall apply to all cases alleging unlawful discriminatory practices constituting housing discrimination occurring on and after such effective date' (enrolled act read, NY log §1.2). Lawful source of income includes housing assistance such as section 8 vouchers (N.Y. Exec. Law § 292(36)). Retaliation: N.Y. Exec. Law § 296(7). Children: N.Y. Real Prop. Law §§ 237 ('a clause therein providing that during the term thereof the tenants shall remain childless or shall not bear children, shall be guilty of a violation'), 237-a (refusal to rent because of children; exceptions for federally assisted senior housing and owner-occupied one- or two-family houses). Federal Fair Housing Act (42 U.S.C. § 3601 et seq.) not restated. Local human rights laws (for example New York City's) flagged, not resolved (rule 3). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-source-of-income-ny",
+    title: "Lawful Source of Income",
+    group: "Disclosures",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "source-of-income",
+    bodyText:
+      "You may not refuse to rent, set different terms, or advertise or screen in a way that expresses a preference, because of an applicant's lawful source of income. That includes child support, alimony, foster care subsidies, Social Security and any public assistance or housing assistance such as Section 8 vouchers, whether or not paid directly to you. Apply the same income criteria to the tenant's share of the rent that a voucher does not cover, and do not write 'no vouchers' or similar in listings or the lease.",
+    notes: "NY: N.Y. Exec. Law § 296(5)(a)(1)-(3) ('lawful source of income'); N.Y. Exec. Law § 292(36): 'The term \"lawful source of income\" shall include, but not be limited to, child support, alimony, foster care subsidies, income derived from social security, or any form of federal, state, or local public assistance or housing assistance including, but not limited to, section 8 vouchers, or any other form of housing assistance payment or credit whether or not such income or credit is paid or attributed directly to a landlord, and any other forms of lawful income.' Applying income criteria to the tenant's share is Claude's recommendation (no regulation of the Division of Human Rights read, NY log §1.4). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-immigration-status-ny",
+    title: "Citizenship and Immigration Status",
+    group: "Disclosures",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "immigration-status",
+    bodyText:
+      "Citizenship or immigration status is a protected class in New York housing. You may not refuse to rent, set different terms, or ask questions or use application forms that express a limitation, because of an applicant's citizenship or immigration status. Screen every applicant with the same identity and income checks, and do not ask about immigration status.",
+    notes: "NY: N.Y. Exec. Law § 296(5)(a)(1)-(3) ('citizenship or immigration status'). NY battery 65 (verify immigration status (landlord)): 8 hits, control 0; known positives passed (1 real section, 1 synthetic): no New York statute requires a landlord to verify immigration status. Uniform screening is Claude's recommendation. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-protected-class-inquiry-ny",
+    title: "Application Questions You May Not Ask",
+    group: "Disclosures",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "protected-class-inquiry-ban",
+    bodyText:
+      "Separately from refusing to rent, it is unlawful to use an application form, make a record or ask a question in connection with a prospective rental that expresses any limitation, specification or discrimination based on a protected class (including source of income, immigration status, marital status, age, disability and familial status), or any intent to make one. Owner-occupied two-family houses get no exemption from this rule.",
+    notes: "NY: N.Y. Exec. Law § 296(5)(a)(3) ('to use any form of application for the purchase, rental or lease of such housing accommodation or to make any record or inquiry in connection with the prospective purchase, rental or lease of such a housing accommodation which expresses, directly or indirectly, any limitation, specification or discrimination'); N.Y. Exec. Law § 296(5)(a)(4)(i) (two-family exemption covers subparagraphs one and two only). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-tenant-screening-ny",
+    title: "Tenant Screening Rules",
+    group: "Other / Miscellaneous",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-screening",
+    bodyText:
+      "New York limits screening in several ways. The only fee you may charge is the capped background and credit check fee. You may not refuse to rent because of a past or pending landlord-tenant case. You may not ask about, or hold against an applicant, an arrest or charge that ended in the applicant's favor, an adjournment in contemplation of dismissal, a youthful offender adjudication or a sealed conviction (including convictions sealed automatically under the Clean Slate law), unless a statute requires or permits it, and you may not require an applicant to hand over a copy of their own state criminal history record. Screening criteria must not discriminate against a protected class, including lawful source of income, and a criterion with an unjustified discriminatory effect can be unlawful.",
+    notes: "NY: Fees: N.Y. Real Prop. Law § 238-a(1) (`edu-application-fee-ny`). Prior cases: N.Y. Real Prop. Law § 227-f (`edu-eviction-records-ny`). Criminal records: N.Y. Exec. Law § 296(16) ('to make any inquiry about, whether in any form of application or otherwise, or to act upon adversely to the individual involved, any arrest or criminal accusation of such individual not then pending against that individual which was followed by a termination of that criminal action or proceeding in favor of such individual ... or by a youthful offender adjudication ... or by a conviction which is sealed pursuant to section 160.57 of the criminal procedure law ... in connection with the licensing, housing, employment, including volunteer positions, or providing of credit or insurance to such individual'); N.Y. Crim. Proc. Law § 160.57 (automatic sealing) was added by L. 2023, ch. 631 (A. 1029-C), signed November 16, 2023, effective one year after it became law ('This act shall take effect one year after it shall have become a law', A. 1029-C, section 10; November 16, 2024; enrolled print read, NY log §1.2). Criminal history copies: N.Y. Exec. Law § 296(15), last sentence: 'No person, agency, bureau, corporation, association, the state or any political subdivision thereof, shall require an individual to provide a copy of his or her criminal history record that he or she obtained pursuant to the rules and regulations of the division of criminal justice services.' (added by L. 2024, ch. 501 (S. 940), signed November 22, 2024, effective on the one hundred twentieth day, March 22, 2025; enrolled act read). Disparate impact: N.Y. Exec. Law § 296(5-a). No New York statute bars considering an unsealed conviction (Article 23-A of the Correction Law reaches licensing and employment, not housing) NY battery 64 (criminal history in housing decisions): 16 hits, control 0; known positives passed (1 real section, 1 synthetic). Consumer reports: N.Y. Gen. Bus. Law § 380 et seq. (not restated). New York City's Fair Chance for Housing Law is local and flagged, not resolved (rule 3). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Pets
+  {
+    id: "edu-assistance-animals-ny",
+    title: "Assistance Animals",
+    group: "Pets",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "assistance-animal-accommodation",
+    bodyText:
+      "Refusing a reasonable accommodation in rules or policies that a person with a disability needs, including allowing an animal that alleviates the symptoms or effects of the disability, is unlawful discrimination in New York. When an animal is a necessary accommodation, the usual accommodation is to set aside the no-pets rule, pet deposit, pet rent and breed or size limits for that animal; New York's statute does not list these items, so decide each request on its facts. New York's statute sets no documentation rule; federal guidance (not reviewed here) generally lets you ask for reliable information about a disability-related need that is not obvious. Separately, a person with a disability who uses a guide, hearing or service dog may not be refused housing because of the dog.",
+    notes: "NY: N.Y. Exec. Law § 296(18)(2): 'To refuse to make reasonable accommodations in rules, policies, practices, or services, when such accommodations may be necessary to afford said person with a disability equal opportunity to use and enjoy a dwelling, including the use of an animal as a reasonable accommodation to alleviate symptoms or effects of a disability'. Guide, hearing and service dogs: N.Y. Civ. Rights Law § 47(1) ('No person shall be denied admittance to and/or the equal use of and enjoyment of any public facility solely because said person is a person with a disability and is accompanied by a guide dog, hearing dog or service dog'; N.Y. Civ. Rights Law § 47(2): 'public facility' includes 'all forms of public and private housing accommodations whether permanent or temporary'); N.Y. Exec. Law § 296(14) (unlawful 'to deny access or otherwise to discriminate against a blind person, a person who is deaf or hard of hearing or a person with another disability because he or she is accompanied by a dog that has been trained to work or perform specific tasks'). The sentence on pet rules is Claude's reading of 'reasonable accommodations in rules, policies, practices' (no statute lists the items). Documentation: NY battery 66 (assistance animal documentation / misrepresentation): 5 hits, control 0; known positives passed (0 real sections, 2 synthetic) (no statute); federal HUD guidance not read (NY log §1.4). Retaliation for an accommodation request: N.Y. Exec. Law § 296(7). `assistance-animal-accommodation` tagged. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-disability-accommodation-ny",
+    title: "Reasonable Modifications and Accommodations",
+    group: "Landlord Responsibilities",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "disability-accommodation",
+    bodyText:
+      "A tenant with a disability may make reasonable modifications to the unit at the tenant's own expense when needed for full enjoyment of the home, in line with the state building code; for a rental, where reasonable, you may require the tenant to agree to restore the interior when they leave, reasonable wear and tear excepted. You must also make reasonable accommodations in rules, policies, practices and services, including reasonable modifications to common areas. You may not retaliate against a tenant for asking.",
+    notes: "NY: N.Y. Exec. Law § 296(18)(1): 'To refuse to permit, at the expense of a person with a disability, reasonable modifications of existing premises occupied or to be occupied by the said person, if the modifications may be necessary to afford the said person full enjoyment of the premises, in conformity with the provisions of the New York state uniform fire prevention and building code except that, in the case of a rental, the landlord may, where it is reasonable to do so, condition permission for a modification on the renter's agreeing to restore the interior of the premises to the condition that existed before the modification, reasonable wear and tear excepted.' N.Y. Exec. Law § 296(18)(2) ('and including reasonable modification to common use portions of the dwelling'). N.Y. Exec. Law § 296(7) (retaliation; L. 2025, ch. 600). `no-alterations` preserves this (tag note). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-habitability-ny",
+    title: "Warranty of Habitability",
+    group: "Landlord Responsibilities",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-maintenance",
+    bodyText:
+      "Every New York residential lease, written or oral, carries your warranty that the home and the common areas are fit for human habitation and for their intended uses, and that tenants will not be exposed to conditions dangerous to life, health or safety. A condition caused by the misconduct of the tenant (or someone under the tenant's control) is not a breach. The tenant cannot waive this warranty. In a multiple dwelling you must also keep every part of the building in good repair and clean, and in a building covered by the Multiple Dwelling Law, provide heat in the cold months. Housing codes, including local codes, set more detailed standards.",
+    notes: "NY: N.Y. Real Prop. Law § 235-b(1): 'In every written or oral lease or rental agreement for residential premises the landlord or lessor shall be deemed to covenant and warrant that the premises so leased or rented and all areas used in connection therewith in common with other tenants or residents are fit for human habitation and for the uses reasonably intended by the parties and that the occupants of such premises shall not be subjected to any conditions which would be dangerous, hazardous or detrimental to their life, health or safety. When any such condition has been caused by the misconduct of the tenant or lessee or persons under his direction or control, it shall not constitute a breach of such covenants and warranties.' N.Y. Real Prop. Law § 235-b(2): 'Any agreement by a lessee or tenant of a dwelling waiving or modifying his rights as set forth in this section shall be void as contrary to public policy.' Multiple dwellings: N.Y. Mult. Dwell. Law §§ 78 (repair), 79 (heat), 80 (cleanliness); N.Y. Mult. Resid. Law § 174. Clause: `landlord-maintenance-ny`. Local housing codes flagged, not resolved (rule 3). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-heat-ny",
+    title: "Heat in Multiple Dwellings",
+    group: "Landlord Responsibilities",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "heating",
+    bodyText:
+      "In a building covered by the Multiple Dwelling Law (cities of 325,000 or more and any place that adopted it), you must provide heat from October 1 through May 31 sufficient to keep living areas at least 68°F between 6 a.m. and 10 p.m. whenever it is below 55°F outside, and at least 55°F between 10 p.m. and 6 a.m. whenever it is below 40°F outside. Local codes may set the rules elsewhere. Willfully failing to supply heat the lease requires is also a violation.",
+    notes: "NY: N.Y. Mult. Dwell. Law § 79(1) ('During the months between October first and May thirty-first, such heat and the equipment or facilities shall be sufficient to maintain the minimum temperatures required by local law ... provided, however, that such minimum temperatures shall be as follows: (a) sixty-eight degrees Fahrenheit during the hours between six o'clock in the morning and ten o'clock in the evening, whenever the outdoor temperature falls below fifty-five degrees Fahrenheit ... and (b) at least fifty-five degrees Fahrenheit during the hours between ten o'clock in the evening and six o'clock in the morning, whenever the outdoor temperature falls below forty degrees Fahrenheit'). Scope: N.Y. Mult. Dwell. Law § 3. Outside it: NY battery 59 (minimum heat temperature): 12 hits, control 0; known positives passed (1 real section, 1 synthetic) (the Multiple Residence Law sets no temperature standard; local codes govern; rule 3). Wilful failure: N.Y. Real Prop. Law § 235(1). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-tenant-repair-remedies-ny",
+    title: "Tenants' Repair Remedies",
+    group: "Landlord Responsibilities",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-repair-remedies",
+    bodyText:
+      "If you do not keep the home habitable, a tenant can seek a rent abatement or damages for breach of the warranty of habitability, raise it in a nonpayment case (the statute provides for damages; its use as a defense comes from case law, not searched), and ask the court to stay the case for a condition that is dangerous or amounts to a partial eviction (whether or not a housing agency has ordered repairs), if the tenant deposits the rent due with the court (not available where the condition was created by the wilful or negligent act of the tenant or the tenant's agent). Tenants of 30 days or more can also bring a special court proceeding for an order directing repairs (under the Tenant Dignity and Safe Housing Act, everywhere except New York City and Nassau and Suffolk counties), and one-third of the tenants of a building (or, outside New York City and Nassau, Suffolk, Rockland and Westchester counties, a single tenant of a one-unit dwelling) can ask the court to have rents paid into court and used to fix dangerous conditions. A tenant who pays a utility bill you failed to pay may deduct it from rent. New York has no general statute letting a tenant repair and deduct the cost; the narrow exceptions (heating oil in a multiple dwelling, and a cure paid under a Good Cause vacate order) are in the row on self-help repairs.",
+    notes: "NY: Warranty: N.Y. Real Prop. Law § 235-b(1), (3) (damages; no expert testimony required). Stay for dangerous or constructively evicting conditions, with or without an agency order: N.Y. Real Prop. Acts. Law § 755(1)(a)-(b) (court 'may stay proceedings to dispossess the tenant for non-payment of rent'); the tenant must 'deposit with the clerk of the court the rent then due' (N.Y. Real Prop. Acts. Law § 755(2)), not available where the condition was 'created by the wilful or negligent act of the tenant or his agent' (N.Y. Real Prop. Acts. Law § 755(1)(c)). Repair proceeding: N.Y. Real Prop. Acts. Law §§ 797 to 797-j (article 7-D, the tenant dignity and safe housing act, enacted by L. 2022 and amended by L. 2023, ch. 36, read as enrolled; not maintainable 'in any court within the counties of Nassau, Suffolk, Richmond, New York, Bronx, Kings or Queens', N.Y. Real Prop. Acts. Law § 797(3); N.Y. Real Prop. Acts. Law § 797-a(1): 'any party ... who is an occupant of residential real property for thirty consecutive days or longer'; N.Y. Real Prop. Acts. Law § 797-j: 'An order to repair conditions constituting violation of applicable local and state housing standards or section two hundred thirty-five-b of the real property law'). Rent deposit proceedings: N.Y. Real Prop. Acts. Law §§ 769 to 783 (New York City and Nassau, Suffolk, Rockland and Westchester counties) and N.Y. Real Prop. Acts. Law §§ 796 to 796-m (elsewhere: article 7-C does not apply 'to dwellings located in the city of New York or in the counties of Nassau, Suffolk, Rockland and Westchester', N.Y. Real Prop. Acts. Law § 796-a(4); N.Y. Real Prop. Acts. Law § 796-b: 'One-third or more of the tenants occupying a multiple residence dwelling or a tenant occupying a single residence dwelling'). Utility offset: N.Y. Real Prop. Law § 235-a(1). Repair and deduct: NY battery 61 (repair and deduct (tenant self-help repair)): 0 hits, control 0; known positives passed (0 real sections, 1 synthetic) (no general statute; the everyday-word battery found only the narrow offsets listed in `edu-no-repair-deduct-ny`; any common-law right was not searched, NY log §1.4). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-security-devices-ny",
+    title: "Locks, Doors and Intercoms",
+    group: "Landlord Responsibilities",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-devices",
+    bodyText:
+      "In a Multiple Dwelling Law building, entrance doors of class A buildings erected or converted after January 1, 1968 must be self-closing and self-locking, and those with eight or more apartments must also have an intercom with a door-release (older class A buildings need these when tenants of a majority of the apartments ask), apartment entrance doors need a peephole, and a tenant may add their own lock of not more than three inches in circumference (giving you a duplicate key on request) without any lease charge; the lock right excludes housing-authority buildings, hotels, motels and dormitories, and the peephole rule excludes hotels, apartment hotels and dormitories. If you plan to install a keyless entry system (for example a fob, card, app or biometric reader) for common areas, you must give occupants at least 30 days' written notice first; the system cannot be a reason to raise rent and must not obstruct or adversely affect how residents get into the building.",
+    notes: "NY: N.Y. Mult. Dwell. Law § 50-a(1)-(2) ('shall be equipped with automatic self-closing and self-locking doors'; 'containing eight or more apartments shall also be equipped with an intercommunication system'); N.Y. Mult. Dwell. Law § 51-a ('In every multiple dwelling the owner shall provide and maintain a peephole in the entrance door of each housing unit') and N.Y. Mult. Dwell. Law § 51-c (tenant's additional lock, 'provided that a duplicate key to such lock shall be supplied to the landlord or his agent upon his request'; a lease charge for the right is void). Older class A buildings: N.Y. Mult. Dwell. Law § 50-a(3). Keyless entry: N.Y. Gen. Bus. Law § 390-e (added by L. 2023, ch. 637 and amended by L. 2024, ch. 13, read as enrolled, NY log §1.2): 'The owner, board of managers, board of directors, or authorized party of such property consenting to the installation of a keyless security device shall provide written notice to occupants of the residential building no less than thirty days prior to installation of the keyless security device'; 'In no event shall the installation of such a system be considered a service nor be considered a reason, for any purpose, to increase rent.'; 'In no event shall the installation of such a system obstruct or adversely impact the manner in which residents of the residential building access such building.' The device examples in the row are illustrations; the statute does not list them. Two sections numbered 390-e exist (L. 2023, chs. 637 and 731); the keyless-device section is the one cited (NY log §10). Outside the Multiple Dwelling Law: NY battery 58 (locks / peephole / intercom (outside Multiple Dwelling Law)): 7 hits, control 0; known positives passed (2 real sections, 1 synthetic). Clause: `keys-ny`. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-smoke-co-detectors-ny",
+    title: "Smoke and Carbon Monoxide Alarms",
+    group: "Landlord Responsibilities",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "alarm-duties",
+    bodyText:
+      "New York's building code standards require operable smoke alarms in every one- or two-family home and every condominium or co-op unit, the Multiple Dwelling and Multiple Residence Laws require them in multiple dwellings outside New York City (where local law governs), and, since December 31, 2025, the code standards also require alarms audible in the common spaces of any residential building with common spaces shared by three or more units. An operable carbon monoxide detector is required in every one- or two-family home, condominium or co-op unit and multiple dwelling that has fuel-burning appliances or an attached garage. In a multiple dwelling outside cities of 1,000,000 or more, you must also tell tenants in writing of the owner's and tenant's smoke-detector duties (the lease clause does this), within 30 days of written notice replace a detector that fails within one year of installation because of a manufacturing defect, through no fault of the occupant, and make sure detectors work at each new tenancy.",
+    notes: "NY: N.Y. Exec. Law § 378(5-a): 'every one or two-family dwelling, or any dwelling accommodation located in a building owned as a condominium or cooperative in the state or any multiple dwellings shall have installed an operable carbon monoxide detector ... Carbon monoxide detectors required by this section are required only where the dwelling unit has appliances, devices or systems that may emit carbon monoxide or has an attached garage.' Unit alarms: N.Y. Exec. Law § 378(5-b)(a) ('every one or two-family dwelling or any dwelling accommodation located in a building owned as a condominium or cooperative'); multiple dwellings under N.Y. Mult. Dwell. Law § 68 (which 'shall not apply within cities with a population of one million or more', N.Y. Mult. Dwell. Law § 68(7)) and N.Y. Mult. Resid. Law § 15. Common-space alarms: N.Y. Exec. Law § 378(5-b)(c), as amended by L. 2024, ch. 465 and L. 2025, ch. 21 ('RESIDENTIAL BUILDING WITH A COMMON SPACE OR COMMON SPACES SHARED BETWEEN THREE OR MORE DWELLING UNITS shall have installed an operable ... smoke detecting alarm device'), effective December 31, 2025 under ch. 21, § 2 ('This act shall take effect [immediately] DECEMBER 31, 2025'; enrolled acts read, NY log §1.2). Multiple dwelling duties: N.Y. Mult. Dwell. Law § 68; N.Y. Mult. Resid. Law § 15 (`smoke-detector-duties-ny`). The N.Y. Exec. Law § 378 standards are implemented by the Uniform Fire Prevention and Building Code (19 NYCRR, not read; rule 21). New York City's own alarm rules are local (rule 3). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Disclosures
+  {
+    id: "edu-bed-bug-ny",
+    title: "Bed Bug Notices",
+    group: "Disclosures",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "bed-bug-disclosure",
+    bodyText:
+      "Within 72 hours of learning of a bed bug infestation in a unit, you must give written notice to the tenants of the units immediately above, below and next to it; that notice must not identify the infested unit or its tenants. For an infestation in a common area, post a notice in a conspicuous place all tenants can see within 72 hours. This does not apply while you are under a court order, settlement or agency agreement that sets your bed bug notice and remediation duties. New York has no statewide rule requiring a bed bug history disclosure in the lease itself.",
+    notes: "NY: N.Y. Real Prop. Law § 235-j(1)-(4) (quoted from the section: 'shall provide written notice of such infestation to the landlord's tenants and lessees who reside in units on the premises immediately above, immediately below, and immediately adjacent to the infested unit. Such written notice shall be provided to such tenants and lessees within seventy-two hours'; 'shall not identify the infested unit or contain any personally identifying information'). Added by L. 2024, ch. 488 (A. 9329), signed November 22, 2024, effective on the thirtieth day (December 22, 2024), and amended by L. 2025, ch. 77 (S. 751), signed February 14, 2025, effective with ch. 488 (enrolled acts read, NY log §1.2; the 72-hour period and the adjacent-units rule come from ch. 77). No lease disclosure: NY battery 53 (bed bug disclosure in lease): 2 hits, control 0; known positives passed (1 real section, 1 synthetic). New York City's bed bug history disclosure is local (rule 3). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Access & Entry
+  {
+    id: "edu-landlord-entry-ny",
+    title: "Landlord Entry",
+    group: "Access & Entry",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-entry",
+    bodyText:
+      "No New York State statute sets a general notice period or hours for a landlord's entry into a market-rate unit; the one statewide rule is that a pre-move-out deposit inspection the tenant asks for needs at least 48 hours' written notice. Your right to enter comes from the lease, so state it there with reasonable notice except in emergencies. Where the Good Cause Eviction Law applies, a tenant who unreasonably refuses you access for necessary repairs or improvements required by law, or to show the unit to a buyer or lender, gives you good cause. Entering to harass a tenant into leaving is unlawful eviction. New York City's Housing Maintenance Code has its own access rules.",
+    notes: "NY: NY battery 62 (landlord entry notice / right of access): 2 hits, control 0; known positives passed (0 real sections, 1 synthetic): no statewide entry statute, apart from the deposit inspection notice in N.Y. Gen. Oblig. Law § 7-108(1-a)(d) ('at least forty-eight hours written notice of the date and time of the inspection'). Good cause: N.Y. Real Prop. Law § 216(1)(f) (N.Y. Real Prop. Law § 231-c form, item 4.J). Harassment: N.Y. Real Prop. Acts. Law § 768(1)(a)(ii). New York City access rules (N.Y.C. Admin. Code § 27-2008; 28 RCNY) are local and flagged, not resolved (rule 3). `landlords-access` and `inspection-rights` tagged. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-utility-shutoff-ny",
+    title: "When a Landlord Doesn't Pay the Utilities",
+    group: "Landlord Responsibilities",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utility-shutoff-statute",
+    bodyText:
+      "If utilities in any part of a building are shut off because you failed to pay for service you contracted for, every eviction case and rent action against tenants of the building is stayed until you pay and service is restored. A tenant who lawfully pays the utility or water provider for service you were responsible for may deduct the payment from future rent. In a multiple dwelling, an owner responsible for gas, electric, steam or water charges who fails to pay can also owe tenants damages.",
+    notes: "NY: N.Y. Real Prop. Acts. Law § 756: 'In the event that utilities are discontinued in any part of a dwelling because of the failure of the landlord or other person having control of said dwelling to pay for utilities for which he may have contracted, any proceeding to dispossess a tenant from said building or an action against any tenant of said building for rent shall be stayed until such time as the landlord or person having control of said dwelling pays the amount owing for said utilities and until such time as the utilities are restored to working order.' N.Y. Real Prop. Law § 235-a(1) (offset; payments under N.Y. Pub. Serv. Law §§ 33, 34 and 116 and to water providers); N.Y. Real Prop. Law § 235-a(2): an owner of a multiple dwelling 'responsible for the payment of charges for gas, electric, steam or water service who causes the discontinuance of that service by failure or refusal to pay the charges for past service shall be liable for compensatory and punitive damages to any tenant whose utility service is so discontinued'. Utility notice procedures in the Public Service Law were not read (NY log §7). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-tenant-organizing-ny",
+    title: "Tenants' Right to Organize",
+    group: "Other / Miscellaneous",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-right-to-organize",
+    bodyText:
+      "Tenants have the right to form, join and take part in tenants' groups. You may not interfere with that right, or harass, punish or withhold any benefit from a tenant for exercising it. Tenant groups may meet, without paying a fee, in any community or social room on the premises that is devoted to the common use of all tenants, at reasonable hours and without obstructing access. Acting against a tenant for taking part is also retaliation.",
+    notes: "NY: N.Y. Real Prop. Law § 230(1): 'No landlord shall interfere with the right of a tenant to form, join or participate in the lawful activities of any group, committee or other organization formed to protect the rights of tenants; nor shall any landlord harass, punish, penalize, diminish, or withhold any right, benefit or privilege of a tenant under his tenancy for exercising such right.' N.Y. Real Prop. Law § 230(2) (meeting rooms 'without being required to pay a fee'). Retaliation: N.Y. Real Prop. Law § 223-b(1)(c). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-prohibited-terms-ny",
+    title: "Lease Terms New York Voids",
+    group: "Other / Miscellaneous",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "prohibited-lease-terms",
+    bodyText:
+      "New York voids, among others, lease terms that: excuse you from liability for your own negligence; waive the warranty of habitability; waive or limit the fee, late-fee and returned-check limits; waive deposit protections; waive the roommate law, sublet rights or the Good Cause Eviction Law; waive your duty to re-rent; waive a tenant's implied right to attorney fees; impose legal fees without a court order; charge a fee for a good-faith complaint; waive a jury trial on personal-injury or property-damage claims; waive hardship stays. Including a clause that tenants must stay childless is itself an offense. A lease used for an illegal business becomes void. A court may also refuse to enforce any unconscionable clause.",
+    notes: "NY: N.Y. Gen. Oblig. Law § 5-321 (exculpation; `edu-exculpation-ny`); N.Y. Real Prop. Law §§ 235-b(2), 238-a(3), 235-f(7), 226-b(6), 218, 227-e, 234, 234-a(c), 223-b(5-a), 235-c; N.Y. Real Prop. Law § 237 (makes it a violation to include a no-children clause; the section sets an offense rather than voiding the clause); N.Y. Gen. Oblig. Law §§ 7-103(3), 7-108(3); N.Y. Real Prop. Law § 259-c ('Any provision in a lease ... that a trial by jury is waived in any action, proceeding or counterclaim brought by either of the parties thereto against the other in any action for personal injury or property damage, is null and void'); N.Y. Real Prop. Acts. Law § 753(5); illegal use: N.Y. Real Prop. Law § 231(1). Rule 47 (knowing-use penalties): `edu-knowing-use-ny`. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-exculpation-ny",
+    title: "Exculpatory Clauses Are Void",
+    group: "Other / Miscellaneous",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "exculpatory-clauses",
+    bodyText:
+      "Any lease term that exempts a landlord from liability for injury to people or property caused by the landlord's own negligence, or the negligence of the landlord's agents, servants or employees, is void and unenforceable in New York. Insurance and indemnity terms must not shift your own negligence to the tenant. That is why the New York rows use the parking, storage, insurance and services clauses that have no 'Landlord is not liable' sentence.",
+    notes: "NY: N.Y. Gen. Oblig. Law § 5-321: 'Every covenant, agreement or understanding in or in connection with or collateral to any lease of real property exempting the lessor from liability for damages for injuries to person or property caused by or resulting from the negligence of the lessor, his agents, servants or employees, in the operation or maintenance of the demised premises or the real property containing the demised premises shall be deemed to be void as against public policy and wholly unenforceable.' Rule 52: `parking-ks-oh-ca`, `storage-space-ks-oh-ca`, `tenants-property-insurance-ks-oh-ca` and `services-utilities-provided-ks-oh` tagged instead of the base clauses. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-unconscionability-ny",
+    title: "Unconscionable Lease Terms",
+    group: "Other / Miscellaneous",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "unconscionability",
+    bodyText:
+      "If a court finds a lease or any lease clause unconscionable when it was made, it may refuse to enforce the lease, enforce the rest without the clause, or limit the clause to avoid an unconscionable result. Before deciding, the court must let the parties present evidence of the clause's setting, purpose and effect.",
+    notes: "NY: N.Y. Real Prop. Law § 235-c(1)-(2) (quoted from the section: 'If the court as a matter of law finds a lease or any clause of the lease to have been unconscionable at the time it was made the court may refuse to enforce the lease, or it may enforce the remainder of the lease without the unconscionable clause, or it may so limit the application of any unconscionable clause as to avoid any unconscionable result.'). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-plain-language-ny",
+    title: "Plain Language Requirement",
+    group: "Other / Miscellaneous",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "plain-language",
+    bodyText:
+      "Every written residential lease must be written in a clear and coherent manner using words with common, everyday meanings, and be divided into sections with captions. A landlord whose lease does not comply owes the tenant actual damages plus a $50 penalty, but a good-faith attempt to comply is a defense, and a noncompliant lease is not void for that reason alone.",
+    notes: "NY: N.Y. Gen. Oblig. Law § 5-702(a): 'Every written agreement entered into after November first, nineteen hundred seventy-eight, for the lease of space to be occupied for residential purposes ... must be: 1. Written in a clear and coherent manner using words with common and every day meanings; 2. Appropriately divided and captioned by its various sections. Any creditor, seller or lessor who fails to comply with this subdivision shall be liable to a consumer who is a party to a written agreement governed by this subdivision in an amount equal to any actual damages sustained plus a penalty of fifty dollars ... nor shall any creditor, seller or lessor who attempts in good faith to comply with this subdivision be liable for such penalties.' N.Y. Gen. Oblig. Law § 5-702(b): 'A violation of the provisions of subdivision a of this section shall not render any such agreement void or voidable nor shall it constitute: 1. A defense to any action or proceeding to enforce such agreement'; N.Y. Gen. Oblig. Law § 5-702(c) (Attorney General enforcement under N.Y. Exec. Law § 63(12)). The builder's captioned sections satisfy (a)(2) (NY log §4). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-small-print-ny",
+    title: "Minimum Type Size for Leases",
+    group: "Other / Miscellaneous",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lease-type-size",
+    bodyText:
+      "Print the lease clearly and legibly in type at least 8 points in size (5.5 points for all-capital text). If any part of a printed residential lease is smaller or illegible, that part cannot be used as evidence on behalf of the landlord who prepared it in any court proceeding. A tenant cannot waive this rule. Some notices have their own format rules (for example the sprinkler notice, and the certificate of occupancy notice for property with three or fewer rental units, must be in bold).",
+    notes: "NY: N.Y. Civ. Prac. L. & R. 4544: 'The portion of any printed contract or agreement involving a consumer transaction or a lease for space to be occupied for residential purposes where the print is not clear and legible or is less than eight points in depth or five and one-half points in depth for upper case type may not be received in evidence in any trial, hearing or proceeding on behalf of the party who printed or prepared such contract or agreement'; 'No provision of any contract or agreement waiving the provisions of this section shall be effective.' Found by the rule 40 formatting battery (NY battery 3 (type size (point type / points in depth)): 187 hits, control 0; known positives passed (2 real sections, 2 synthetic)); a type-size rule for the whole printed lease, recorded in NY log §4. Bold notices: N.Y. Real Prop. Law § 231-a(1) (sprinkler) and N.Y. Real Prop. Law § 235-bb(1) (certificate of occupancy, real property of three or fewer rental units) and as a builder requirement in §10. New topic key lease-type-size (rule 58: no existing key covers type size). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-statute-of-frauds-ny",
+    title: "Leases Longer Than One Year Must Be in Writing",
+    group: "Notices & General",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "statute-of-frauds-lease-term",
+    bodyText:
+      "A lease for a term of more than one year must be in writing and signed by the party granting it (or an agent authorized in writing). A lease of one year or less may be oral, but the warranty of habitability and most tenant protections apply to oral leases too.",
+    notes: "NY: N.Y. Gen. Oblig. Law § 5-703(1): 'An estate or interest in real property, other than a lease for a term not exceeding one year ... cannot be created, granted, assigned, surrendered or declared, unless by act or operation of law, or by a deed or conveyance in writing, subscribed by the person creating, granting, assigning, surrendering or declaring the same, or by his lawful agent, thereunto authorized by writing.' Oral leases: N.Y. Real Prop. Law § 235-b(1) ('In every written or oral lease'). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Disclosures
+  {
+    id: "edu-stigmatized-property-ny",
+    title: "Deaths, Crimes and HIV Status Need Not Be Disclosed",
+    group: "Disclosures",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "stigmatized-property",
+    bodyText:
+      "In renting a property you need not disclose that an owner or occupant is or was suspected to have HIV/AIDS or another disease highly unlikely to be spread by living in a home, or that the property was the site of a homicide, suicide or other death, or of a felony. These are not material facts. A prospective tenant may ask in writing, and you may choose whether to answer, but do not answer falsely.",
+    notes: "NY: N.Y. Real Prop. Law § 443-a(1): 'it is not a material defect or fact relating to property offered for sale or lease, including residential property regardless of the number of units contained therein, that: (a) an owner or occupant of the property is, or was at any time suspected to be, infected with human immunodeficiency virus or diagnosed with acquired immune deficiency syndrome or any other disease which has been determined by medical evidence to be highly unlikely to be transmitted through occupancy of a dwelling place; or (b) the property is, or is suspected to have been, the site of a homicide, suicide or other death by accidental or natural causes, or any crime punishable as a felony.' N.Y. Real Prop. Law § 443-a(2)(a) (no cause of action for nondisclosure); N.Y. Real Prop. Law § 443-a(3) (written inquiry; 'The seller may choose whether or not to respond'). Applying N.Y. Real Prop. Law § 443-a(3)'s buyer-seller wording to a lease is Claude's reading of N.Y. Real Prop. Law § 443-a(1)'s 'offered for sale or lease'. Not answering falsely is Claude's recommendation (misrepresentation law not searched). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-certificate-of-occupancy-ny",
+    title: "Certificates of Occupancy",
+    group: "Disclosures",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "certificate-of-occupancy-disclosure",
+    bodyText:
+      "If you own three or fewer rental units, before the tenant signs you must state, conspicuously in bold, whether any certificate of occupancy the law requires is currently valid for the unit (or give a copy of the valid certificate); the lease clause does this. In a Multiple Dwelling Law building, you cannot recover rent, or evict for nonpayment, for any period the building is occupied without a required certificate of occupancy.",
+    notes: "NY: N.Y. Real Prop. Law § 235-bb (quoted in `certificate-of-occupancy-notice-ny`). N.Y. Mult. Dwell. Law § 302(1)(b): 'No rent shall be recovered by the owner of such premises for said period, and no action or special proceeding shall be maintained therefor, or for possession of said premises for nonpayment of such rent.' (for occupation 'in violation of section three hundred one', which requires a certificate of compliance or occupancy). The Multiple Residence Law's counterpart was not relied on (NY battery 60 (no rent without certificate of occupancy / compliance): 6 hits, control 0; known positives passed (2 real sections, 1 synthetic)). New topic key certificate-of-occupancy-disclosure. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-sale-management-change-ny",
+    title: "Selling the Property or Changing Management",
+    group: "Notices & General",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "sale-or-management-change",
+    bodyText:
+      "A sale generally does not end a lease; the buyer takes the property subject to it. On a sale you must transfer the security deposits and notify tenants by registered or certified mail (see Security Deposits When You Sell). In New York City (and any place whose adoption of the Multiple Dwelling Law includes its registration section), the owner of a multiple dwelling, any lessee of the whole building and any managing agent must register with the housing department and keep the registration current; in New York City an unregistered owner cannot recover rent until registering. Where the Good Cause Eviction Law applies, a tenant who unreasonably refuses you access to show the unit to a prospective buyer or lender gives you good cause; the right to enter itself comes from the lease.",
+    notes: "NY: Deposits: N.Y. Gen. Oblig. Law §§ 7-105, 7-108(2) (`edu-deposit-on-sale-ny`). Registration: N.Y. Mult. Dwell. Law § 325(1) ('Every owner of a multiple dwelling, every lessee of a whole dwelling and every agent or other person having control of such a dwelling, shall file in the department a notice containing his name, address and a description of the premises'); N.Y. Mult. Dwell. Law § 325(2): 'In any city of over one million which, by local law, requires the registration of owners of multiple dwellings ... no rent shall be recovered by the owner of a multiple dwelling who fails to comply with such registration requirements until he complies with such requirements'. A sale does not end a lease: the grantee 'has the same remedies ... for the nonperformance of any agreement contained in the assigned lease ... as his grantor or lessor had' and the lessee has the same remedy against the grantee (N.Y. Real Prop. Law § 223), which presupposes that the lease survives the transfer (Claude's reading; case law not searched). Access: N.Y. Real Prop. Law § 216(1)(f). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-local-registration-ny",
+    title: "Local Rental Registration and Inspection",
+    group: "Other / Miscellaneous",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-registration",
+    bodyText:
+      "Many New York cities, towns and villages require rental registration, permits or periodic inspections. In Albany, Newburgh, Schenectady and Syracuse, an eviction petition must show that you complied with the city's rental registration law. New York City requires multiple dwelling registration. Check the rules where the property is.",
+    notes: "NY: N.Y. Real Prop. Acts. Law § 741 (petition allegations for Albany, Newburgh, Syracuse and Schenectady; the Schenectady clause added by L. 2025, ch. 416, effective December 25, 2025; enrolled act read, NY log §1.2). N.Y. Mult. Dwell. Law § 325. Local registration and inspection laws are flagged, not resolved (rule 3). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-short-term-rental-ny",
+    title: "Short-Term Rentals",
+    group: "Tenant Responsibilities",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "sublet-assign",
+    bodyText:
+      "Outside New York City, New York's short-term rental law lets a host offer a dwelling, or rooms in it, for stays of under 30 days only if the unit is registered with the county registry (unless the county opted out) and meets safety and insurance requirements; rent-stabilized and other regulated units may not be used this way, and booking services must collect data on stays. Places that already had their own registry when the law took effect, or whose local law bans short-term rentals, are not covered, and the host duties do not apply until the county has set up its registry. A tenant who hosts short-term guests without your consent breaches the sublet and assignment rules, and in a Multiple Dwelling Law building short stays can violate the permitted use of a class A building. The New York sublet clause bars stays of under 30 days in buildings of three or fewer units and treats them as sublets needing your consent in larger buildings.",
+    notes: "NY: N.Y. Real Prop. Law art. 12-D (N.Y. Real Prop. Law §§ 447-a to 447-g), added by L. 2024, ch. 672 (S. 885-C / A. 4130-C), signed December 21, 2024, and amended by L. 2025, ch. 99 (S. 820), signed February 28, 2025; L. 2025, ch. 99, § 27 rewrote ch. 672's effective-date clause: 'SECTION ONE OF THIS ACT SHALL TAKE EFFECT on the [one] TWO hundred [twentieth] SEVENTY-FIFTH day after it shall have become a law', 'AND PROVIDED FURTHER THAT THIS ACT SHALL APPLY TO COLLECTIONS OF RENT BY AN OPERATOR OR BOOKING SERVICE ON OR AFTER MARCH 1, 2025'; ch. 99 §§ 2-26 took effect with ch. 672 (ch. 99 § 28). Both acts were read and saved: S. 885-C (whose section 11 set 'the one hundred twentieth day', later rewritten by ch. 99 § 27) and S. 820 (NY log §1.2). N.Y. Real Prop. Law § 447-a(1) ('Covered jurisdiction' excludes 'a city with a population of one million or more', counties that opt out, places whose own registration system existed when the article took effect (N.Y. Real Prop. Law § 447-a(1)(e): 'where such registry exists as of the effective date of this article') and places whose local law prohibits short-term rentals (N.Y. Real Prop. Law § 447-a(1)(f))); N.Y. Real Prop. Law § 447-b(5) (host duties not required 'before such time as a county has established a registry'); N.Y. Real Prop. Law § 447-a(2) ('made available for rent by guests for less than thirty consecutive days, where the unit is offered for tourist or transient use'); N.Y. Real Prop. Law § 447-b(1)(a) ('is registered in accordance with section four hundred forty-seven-c of this article'), (c)-(f) (posted evacuation diagram, emergency numbers, fire extinguisher, insurance), (g) (not subject to rent regulation), (i) ('is not otherwise prohibited from operating as a short-term rental unit by federal, state, or local law, rules, and regulations'); N.Y. Real Prop. Law § 447-c(1)(b) (county opt-out). A 'short-term rental host' is 'a person or entity in lawful possession' (N.Y. Real Prop. Law § 447-a(4)); the article does not address a landlord's consent, which the lease governs (Claude's reading). Class A use: N.Y. Mult. Dwell. Law § 4(8)(a) ('A class A multiple dwelling shall only be used for permanent residence purposes', meaning occupancy 'for thirty consecutive days or more'). New York City's Local Law 18 of 2022 is local (rule 3). Clause: `no-sublet-assign-ny`. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-consumer-protection-ny",
+    title: "Unfair, Deceptive and Abusive Practices",
+    group: "Other / Miscellaneous",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "consumer-protection-act",
+    bodyText:
+      "New York's General Business Law makes unfair, deceptive or abusive acts and practices in the conduct of any business unlawful; since February 17, 2026 the Attorney General can act against unfair and abusive practices as well as deceptive ones. A person injured by a deceptive act or practice can sue for actual damages or $50, whichever is greater, up to three times actual damages (to $1,000) for willful or knowing violations, and the court may award attorney fees. Advertising, application and lease practices of a rental business are within its reach, so keep listings and lease terms accurate, and do not use terms New York voids.",
+    notes: "NY: N.Y. Gen. Bus. Law § 349(a): 'Unfair, deceptive, or abusive acts or practices in the conduct of any business, trade or commerce or in the furnishing of any service in this state are hereby declared unlawful.' N.Y. Gen. Bus. Law § 349(a)(1)-(2) (unfair; abusive, including when an act 'materially interferes with the ability of a person to understand a term or condition of a product or service'); N.Y. Gen. Bus. Law § 349(b) (Attorney General); N.Y. Gen. Bus. Law § 349(h) ('any person who has been injured by reason of any deceptive act or deceptive practice made unlawful by this section may bring an action ... to recover such person's actual damages or fifty dollars, whichever is greater ... not to exceed three times the actual damages up to one thousand dollars, if the court finds the defendant willfully or knowingly violated this section'). Amended by L. 2025, ch. 708 (S. 8416, the FAIR Business Practices Act), signed December 19, 2025, '§ 6. This act shall take effect on the sixtieth day after it shall have become a law' (February 17, 2026), and L. 2026, ch. 94 (S. 8811, chapter amendment), signed March 27, 2026, effective with ch. 708 (enrolled acts read and hash-matched, NY log §1.2). Ch. 708 also added a purpose section (N.Y. Gen. Bus. Law § 348) and N.Y. Gen. Bus. Law § 349(b)(3), which would have let the Attorney General act whether or not a practice is consumer-oriented; ch. 94 §§ 1 and 3 repealed both, effective with ch. 708 (L. 2026, ch. 94, § 4), so neither took effect, and the saved N.Y. Gen. Bus. Law § 349(b) has paragraphs (1) and (2) only. Whether the private action reaches a residential lease dispute turns on case law not searched (NY log §1.4). Rule 51: no enumerated list of unfair lease practices exists in article 22-A (NY battery 70 (consumer protection act and leases): 7 hits, control 0; known positives passed (1 real section, 1 synthetic)); the general standard is live. Rule 47: `edu-knowing-use-ny`. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-knowing-use-ny",
+    title: "Using Void Lease Terms",
+    group: "Other / Miscellaneous",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "knowing-use-penalty",
+    bodyText:
+      "New York has no single penalty for putting a void term in a lease, but several statutes make using one costly: trying to collect a fee for a tenant's good-faith complaint about the unit's condition costs three times the fee (except in owner-occupied buildings of fewer than four units); a landlord who knowingly or intentionally violates the domestic violence termination rules can be liable for up to $1,000 plus actual damages, costs and attorney fees; willful deposit violations bring punitive damages of up to twice the deposit; and a lease that contains void terms can also be an unfair, deceptive or abusive practice. A creditor who knowingly tries to collect a collection fee, attorney fee or court cost that is not legally chargeable violates New York's debt collection statute where it applies. A sentence saying the lease does not limit your rights does not make a void term safe.",
+    notes: "NY: N.Y. Real Prop. Law § 223-b(5-a) (treble; 'files a bona fide complaint ... regarding the condition of such tenant's leased premises'), N.Y. Real Prop. Law § 223-b(6) ('except owner-occupied dwellings with less than four units'); N.Y. Real Prop. Law § 227-c(6)(a); N.Y. Gen. Oblig. Law § 7-108(1-a)(g); N.Y. Gen. Bus. Law § 349. Debt collection: N.Y. Gen. Bus. Law § 601(2) ('No principal creditor, as defined by this article, or his agent shall ... Knowingly collect, attempt to collect, or assert a right to any collection fee, attorney's fee, court cost or expense unless such changes are justly due and legally chargeable against the debtor'); a 'consumer claim' is one that 'arises out of a transaction wherein credit has been offered or extended to a natural person' (N.Y. Gen. Bus. Law § 600(1)); whether unpaid rent qualifies was not settled (no case searched, NY log §1.4). Legal fees without a court order are void (N.Y. Real Prop. Law § 234-a). Rule 47 screen recorded in NY log §19. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-cannabis-ny",
+    title: "Cannabis in Rentals",
+    group: "Rules & Regulations",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "cannabis",
+    bodyText:
+      "A New York landlord may not refuse to rent to, or otherwise penalize, a tenant solely for conduct the Cannabis Law permits, unless allowing it would cost you a federal monetary or licensing benefit. A property with a smoke-free policy need not allow cannabis smoking, but no restriction may limit a tenant's certified medical use. The Penal Law allows adults 21 and over to grow up to three mature and three immature plants at their private residence, with no more than six of each per residence, once the Office of Cannabis Management's home-cultivation regulations are in place, and certified patients may grow for medical use; New York's statutes do not say a landlord may ban home cultivation. The New York rows therefore do not offer a cultivation ban. If you believe a federal benefit requires one, or want a narrowly drawn rule for your building, take advice and add your own clause.",
+    notes: "NY: N.Y. Cannabis Law § 127(2) (quoted in `smoking-policy-ny`). Home cultivation: N.Y. Penal Law § 222.15(1) ('no person may ... plant, cultivate, harvest, dry, process or possess, within his or her private residence, or on the grounds of his or her private residence, more than three mature cannabis plants and three immature cannabis plants at any one time'); N.Y. Penal Law § 222.15(2) ('No more than six mature and six immature cannabis plants may be cultivated, harvested, dried, or possessed within any private residence'); N.Y. Penal Law § 222.15(9) ('Subdivisions one through five of this section shall not take effect until such a time as the office of cannabis management has issued regulations governing the home cultivation of cannabis'; whether those regulations have issued was not checked, NY log §7); N.Y. Cannabis Law § 41(1) ('Certified patients eighteen years of age or older may cultivate cannabis for personal medical use'). NY battery 39 (home cannabis cultivation and landlords): 38 hits, control 0; known positives passed (1 real section, 1 synthetic): no statute lets a landlord prohibit cultivation. Rule 54: a cultivation ban is a lease restriction on conduct the Cannabis Law protects from landlord penalty; whether lawful home cultivation is 'conduct authorized under this chapter' (Cannabis Law) when the permission sits in the Penal Law was not settled (no case searched; rule 76 label: unread), so the library declines to offer a ban (NY log §6.1). Rule 27: where a statute conditions a right on the lease, the answer is a clause; here none does. Local rules flagged (rule 3). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-firearms-ny",
+    title: "Firearms",
+    group: "Rules & Regulations",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "firearms",
+    bodyText:
+      "New York's Penal Law makes it a crime for a person (other than the officers and others it exempts) to carry a firearm onto private property without the owner's or lessee's consent (by clear and conspicuous signage or express permission). The statute lets the 'owner or lessee' give consent; it does not say whose consent controls in a leased unit or in common areas you control. New York has no statute that bars a lease from restricting firearms or that requires you to allow them, and federal litigation over the private-property rule was not reviewed. Any firearms rule in a lease should be reviewed with counsel.",
+    notes: "NY: N.Y. Penal Law § 265.01-d(1): 'A person is guilty of criminal possession of a weapon in a restricted location when such person possesses a firearm, rifle, or shotgun and enters into or remains on or in private property where such person knows or reasonably should know that the owner or lessee of such property has not permitted such possession by clear and conspicuous signage indicating that the carrying of firearms, rifles, or shotguns on their property is permitted or by otherwise giving express consent.' NY battery 40 (firearms on private / residential property): 45 hits, control 0; known positives passed (1 real section, 1 synthetic). Federal constitutional litigation over N.Y. Penal Law § 265.01-d was not searched (rule 21: case law not searched, NY log §1.4). The New York Constitution has no arms clause (NY battery 79 (constitution: property, privacy, speech, arms, discrimination): 12 hits, control 0; known positives passed (3 real sections, 1 synthetic); N.Y. Civ. Rights Law § 4 not relied on). The library offers no firearms clause for New York (NY log §6.1); `firearm-discharge-mt`-style clauses are not tagged. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Disclosures
+  {
+    id: "edu-lead-ny",
+    title: "Lead-Based Paint",
+    group: "Disclosures",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lead-based-paint",
+    bodyText:
+      "Federal law requires the lead-based paint disclosure and pamphlet for housing built before 1978 (the lease clause covers this). New York State adds no separate lead disclosure for private rentals; its lead poisoning prevention program is run by the Health Department with local health officers. New York City and some other localities have their own lead laws with lease notices and annual inquiries.",
+    notes: "NY: NY battery 47 (lead-based paint disclosure / notice (rental)): 9 hits, control 0; known positives passed (0 real sections, 1 synthetic): the state statutes reaching lead in rentals are the Health Department's program (N.Y. Pub. Health Law § 1370-a(1): 'The department shall establish a lead poisoning prevention program'), N.Y. Pub. Health Law §§ 1373 and 1377 (not saved or read; the abatement-order provisions are not relied on) and the significant-repairs rule of N.Y. Real Prop. Law § 216(1)(a)(ii) ('abatement of hazardous materials, including lead-based paint'); none requires a lease disclosure. N.Y. Real Prop. Law § 462 is the sale disclosure form. Federal: 42 U.S.C. § 4852d (`lead-based-paint` tagged). New York City Local Law 1 of 2004 and other local laws flagged, not resolved (rule 3). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-radon-disclosure-ny",
+    title: "No Radon Disclosure for Rentals",
+    group: "Disclosures",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "radon-disclosure",
+    bodyText:
+      "New York has no statute requiring a landlord to test for or disclose radon to a tenant. The property condition disclosure statute that asks about radon tests applies to home sales, not leases.",
+    notes: "NY: CONFIRMED ABSENT for rentals (NY battery 48 (radon disclosure): 3 hits, control 0; known positives passed (0 real sections, 1 synthetic): the hits are N.Y. Real Prop. Law § 462, the property condition disclosure statement for sales (item 24 'HAS A RADON TEST BEEN DONE?'), and unrelated public housing and tax provisions). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-meth-disclosure-ny",
+    title: "No Meth Disclosure Rule",
+    group: "Disclosures",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "meth-disclosure",
+    bodyText:
+      "New York has no statute requiring a landlord to disclose prior methamphetamine production at a property. A contaminated unit is still subject to the warranty of habitability.",
+    notes: "NY: CONFIRMED ABSENT (NY battery 50 (methamphetamine contamination disclosure): recorded as failed, rerun as NY battery 85 (methamphetamine contamination disclosure (rerun of the failed battery)): 2 hits, control 0; known positives passed (0 real sections, 1 synthetic): the hits are criminal-offense definitions in N.Y. Penal Law art. 220). N.Y. Real Prop. Law § 235-b(1). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-no-renters-insurance-rule-ny",
+    title: "Renter's Insurance Requirements",
+    group: "Notices & General",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "renters-insurance-rules",
+    bodyText:
+      "No New York statute bars or regulates a lease requirement that the tenant carry renter's insurance. A requirement may not shift your own negligence to the tenant, and it should not be used to screen out applicants in a way that discriminates against a protected class.",
+    notes: "NY: CONFIRMED ABSENT (NY battery 45 (renter's insurance requirement): 2 hits, control 0; known positives passed (0 real sections, 1 synthetic); the two hits mention renter's insurance only in the flood notice text of N.Y. Real Prop. Law § 231-b(2) and in an unrelated Domestic Relations Law provision). Exculpation: N.Y. Gen. Oblig. Law § 5-321. `tenants-property-insurance-ks-oh-ca` tagged. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-application-order-rule-ny",
+    title: "Applying Partial Payments",
+    group: "Rent & Payment",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "application-of-payments",
+    bodyText:
+      "New York has no statute setting the order in which a landlord applies a tenant's payments. Because only rent can be claimed in an eviction case, applying payments to rent first, as the lease does, keeps an unpaid fee from turning into a rent default.",
+    notes: "NY: CONFIRMED ABSENT (NY battery 67 (order of applying tenant payments): 0 hits, control 0; known positives passed (0 real sections, 1 synthetic)). N.Y. Real Prop. Acts. Law § 702(1). `application-of-payments` tagged. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-early-termination-fee-rule-ny",
+    title: "Early Termination Fees",
+    group: "Default & Termination",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "early-termination",
+    bodyText:
+      "No New York statute caps or bars an agreed early-termination option or fee. Apart from the statutory exits (domestic violence, seniors and persons with disabilities moving to care or family, a deceased tenant's estate, servicemembers), a tenant who leaves early owes rent subject to your duty to re-rent. A fee set far above your likely loss could be challenged as a penalty.",
+    notes: "NY: CONFIRMED ABSENT (NY battery 31 (early termination fee / buyout): 3 hits, control 0; known positives passed (0 real sections, 1 synthetic)). Statutory exits: N.Y. Real Prop. Law §§ 227-c, 227-a, 236-a; servicemembers: federal SCRA and N.Y. Mil. Law (NY battery 32 (servicemember lease termination): 5 hits, control 0; known positives passed (1 real section, 1 synthetic)). Mitigation: N.Y. Real Prop. Law § 227-e. Penalty doctrine: case law not searched (NY log §1.4). `early-termination-ks` tagged. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-landlord-lien-ny",
+    title: "No Landlord's Lien on a Tenant's Belongings",
+    group: "Default & Termination",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-lien",
+    bodyText:
+      "New York gives a residential landlord no statutory lien on a tenant's belongings for unpaid rent. Removing the possessions of an occupant who has lawfully lived there 30 days or more, or has a lease, to keep them out or make them leave is unlawful eviction, and a residential lease term pledging the tenant's legally exempt property as security for rent is void. Unpaid rent is collected through the court.",
+    notes: "NY: CONFIRMED ABSENT (NY battery 30 (landlord's lien / distress for rent): 4 hits, control 0; known positives passed (0 real sections, 2 synthetic); the one hit, N.Y. Civ. Prac. L. & R. 7108, concerns replevin judgments). N.Y. Real Prop. Acts. Law § 768(1)(a) (occupant of 30 days or more or with a lease; acts 'to prevent such occupant from the lawful occupancy' or 'to induce the occupant to vacate'); N.Y. Real Prop. Law § 231(4) ('a provision pledging personal property exempt by law from levy and sale by virtue of an execution, as security for the payment of rent due or to become due thereunder, is void as to such provision'); N.Y. Real Prop. Law § 227-a(3) (misdemeanor to hold a senior or disabled tenant's property for later rent). Distress for rent: no current statute (NY battery 30 (landlord's lien / distress for rent): 4 hits, control 0; known positives passed (0 real sections, 2 synthetic)); its historical abolition was not traced (NY log §7). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-no-repair-deduct-ny",
+    title: "No Repair-and-Deduct Statute",
+    group: "Landlord Responsibilities",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-self-cure",
+    bodyText:
+      "New York has no general statute letting a tenant make repairs and deduct the cost from rent. The exceptions are narrow: a tenant may pay a utility bill you failed to pay and deduct it; in a multiple dwelling left without heat because you failed to have heating oil delivered, tenants may buy a delivery themselves and deduct it if they meet the statute's conditions; and where the Good Cause Eviction Law applies, an agency has ordered the tenant to vacate and you do not undertake the cure, the tenant has the right to pay for the cure, in a manner the court approves, and apply it against rent. There is also no statute letting a landlord fix a tenant's breach and bill it as rent. If you repair damage a tenant caused, the cost is a claim for damages, not rent, and cannot be sought in an eviction case.",
+    notes: "NY: CONFIRMED ABSENT (NY battery 61 (repair and deduct (tenant self-help repair)): 0 hits, control 0; known positives passed (0 real sections, 1 synthetic); NY battery 84 (repair everyday rerun (tenant fixes and subtracts from rent)): 4 hits, control 0; known positives passed (1 real section, 1 synthetic): hits are the utility offsets of N.Y. Real Prop. Law § 235-a(1), N.Y. Mult. Dwell. Law § 302-c and N.Y. Mult. Resid. Law § 305-c and a Tax Law provision). Heating fuel: N.Y. Mult. Dwell. Law § 302-c(1) and N.Y. Mult. Resid. Law § 305-c(1). Vacate-order cure: N.Y. Real Prop. Law § 216(1)(d) ('the tenant shall have the right to pay or secure payment in a manner satisfactory to the court, to cure such violation provided that any tenant expenditures shall be applied against rent to which the landlord is entitled'). N.Y. Real Prop. Acts. Law § 702(1). Common-law repair-and-deduct doctrine not searched (NY log §1.4). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-lease-completeness-ny",
+    title: "Lease Completeness",
+    group: "Notices & General",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lease-completeness",
+    bodyText:
+      "New York has no statute requiring that a market-rate lease have no blank spaces at signing. Fill in every blank before the tenant signs; a lease must also meet the plain-language and minimum type-size rules.",
+    notes: "NY: CONFIRMED ABSENT (NY battery 56 (blank spaces / lease completeness): 16 hits, control 0; known positives passed (0 real sections, 1 synthetic)). N.Y. Gen. Oblig. Law § 5-702; N.Y. Civ. Prac. L. & R. 4544. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-emergency-assistance-ny",
+    title: "Right to Call for Police or Emergency Help",
+    group: "Notices & General",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "emergency-assistance-right",
+    bodyText:
+      "Anyone who is a domestic violence victim or believes they need police or emergency help has the right to call for it without any penalty or reprisal, including for living at a property where domestic violence or police or emergency activity occurred. You may not prohibit, restrict or penalize a tenant (or an occupant someone else called help for) for calling, including by ending or refusing to renew the tenancy or evicting, and a lease term limiting this right, or waiving it, is void. You may still act on grounds unrelated to the call, such as a lease breach or illegal activity. A municipality may not fine you or pull your permits for respecting this right.",
+    notes: "NY: N.Y. Civ. Rights Law § 91(1): 'Any person who is a victim of domestic violence, as defined in section four hundred fifty-nine-a of the social services law, or who otherwise believes they are in need of police or emergency assistance has the right to request such assistance and to be free of any direct or indirect penalty or reprisal for accessing assistance, or because they reside at a property where domestic violence or other law enforcement or emergency response activity occurred.' N.Y. Civ. Rights Law § 91(2): 'No residential occupant shall be required, either orally or in writing, to waive rights under this article, and any such waiver shall be void and unenforceable.' N.Y. Civ. Rights Law § 92 (protections do not restrict a landlord acting 'upon grounds other than access of police or emergency assistance'); N.Y. Civ. Rights Law § 93 (no municipal fines on owners for respecting the right); N.Y. Civ. Rights Law § 94: 'A municipality, municipal authority, landlord or property owner shall not prohibit, restrict, penalize or in any other way directly or indirectly limit any person's exercise of rights under this article and any such limitation shall be void as contrary to public policy.' Found by NY battery 86 (right to summon police / emergency assistance (rerun of the failed battery)): 4 hits, control 0; known positives passed (0 real sections, 1 synthetic) after NY battery 57 (right to summon police / emergency assistance): recorded as failed (its synthetic positive failed; rule 19). Shared clauses screened against it: `no-disturbance`, `criminal-activity-ny` and `default-by-tenant` do not penalize calls for help (NY log §19). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Parking & Storage
+  {
+    id: "edu-no-ev-charging-rule-ny",
+    title: "EV Charging",
+    group: "Parking & Storage",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "ev-charging",
+    bodyText:
+      "New York has no statute giving a tenant the right to install an electric vehicle charger or requiring a landlord to provide one. Any charging arrangement is up to the lease.",
+    notes: "NY: CONFIRMED ABSENT for rental housing (NY battery 43 (EV charging in rentals): 10 hits, control 0; known positives passed (0 real sections, 1 synthetic): the hits are energy-planning and school transportation provisions; N.Y. Real Prop. Law § 339-ll (a condominium provision) is heading-only). Local codes flagged (rule 3). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-no-camera-rule-ny",
+    title: "Security Cameras",
+    group: "Rules & Regulations",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-security-cameras",
+    bodyText:
+      "No New York statute regulates a tenant's doorbell or security camera or a landlord's common-area cameras specifically. A separate statute bars two-way mirrors and other viewing devices used to secretly watch people in fitting rooms, restrooms, bathrooms, showers and hotel or motel guest rooms; it expressly does not apply to private dwellings. Separately, it is a crime, for no legitimate purpose, to use or install a hidden camera to secretly view or record a person in a bedroom, bathroom, changing room or similar room without the person's knowledge or consent, or, for improper purposes such as profit, amusement or sexual gratification, to secretly record a person dressing or undressing where they expect privacy.",
+    notes: "NY: CONFIRMED ABSENT as a landlord-tenant rule (NY battery 42 (security cameras / surveillance in rentals): 40 hits, control 0; known positives passed (0 real sections, 1 synthetic)). N.Y. Gen. Bus. Law § 395-b(1) ('two-way mirror or other viewing device' includes 'camera or any other instrument or method that can be utilized to surreptitiously observe a person'; N.Y. Gen. Bus. Law § 395-b(2) lists 'any fitting room, restroom, toilet, bathroom, washroom, shower, or any room assigned to guests or patrons in a motel, hotel or inn'; N.Y. Gen. Bus. Law § 395-b(3)(a)(iv) excludes a 'private dwelling'); N.Y. Penal Law § 250.45(3)(a): 'For no legitimate purpose, he or she intentionally uses or installs, or permits the utilization or installation of an imaging device to surreptitiously view, broadcast or record a person in a bedroom, changing room, fitting room, restroom, toilet, bathroom, washroom, shower or any room assigned to guests or patrons in a motel, hotel or inn, without such person's knowledge or consent'; N.Y. Penal Law § 250.45(1)-(2) (dressing or undressing, intimate parts, reasonable expectation of privacy). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-display-rule-ny",
+    title: "Flags and Signs",
+    group: "Rules & Regulations",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-display-rights",
+    bodyText:
+      "New York has no statute giving residential tenants a right to display flags or political signs, or limiting a landlord's rules about displays. A display rule must be applied even-handedly and not discriminate against a protected class.",
+    notes: "NY: CONFIRMED ABSENT (NY battery 41 (flag / political sign display by residents): 11 hits, control 0; known positives passed (0 real sections, 1 synthetic): hits are unrelated (environmental, business, judicial and condominium governance provisions)). N.Y. Exec. Law § 296(5)(a)(2). Local laws flagged (rule 3). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Parking & Storage
+  {
+    id: "edu-towing-ny",
+    title: "Towing From Your Property",
+    group: "Parking & Storage",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "towing",
+    bodyText:
+      "New York State has no general statute governing when a landlord may tow from a private residential lot; the one state rule is that a towing company that removes a vehicle unlawfully parked on private property at the owner's request, without the vehicle owner's written consent, must immediately notify the local police. Towing is otherwise regulated by local laws in many places (including New York City and several counties). Post the rules, follow the local law, and do not use towing to force a tenant out.",
+    notes: "NY: N.Y. Veh. & Traf. Law § 1210(c): 'Towing agencies, which remove vehicles unlawfully parked on private property at request of the owner of the premises and without the written consent of the owner of the vehicle, shall immediately notify the local police station house having jurisdiction over the area where such vehicle was unlawfully parked, of the description of the car which was removed, and the time of removal.' Otherwise no state statute on residential towing (NY battery 44 (towing from private residential property): 6 hits, control 0; known positives passed (0 real sections, 1 synthetic): the other hits are rental-car, parking-space and municipal provisions). Unlawful eviction: N.Y. Real Prop. Acts. Law § 768(1)(a)(iii). Local towing laws flagged, not resolved (rule 3). `parking-vehicle-rules` decision: NY log §2.2. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-utility-submetering-ny",
+    title: "Billing Tenants for Utilities",
+    group: "Landlord Responsibilities",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utility-submetering-disclosure",
+    bodyText:
+      "No New York statute sets rules for a landlord who submeters or allocates utility costs to tenants of a market-rate building. The Public Service Commission regulates electric submetering by rule, which these rows do not cover. Utility charges payable to you under the lease are the only utility amounts you may deduct from the deposit, and they are not rent in an eviction case.",
+    notes: "NY: CONFIRMED ABSENT in statute (NY battery 68 (utility submetering / ratio billing to tenants): 6 hits, control 0; known positives passed (0 real sections, 1 synthetic)). Public Service Commission submetering rules (16 NYCRR Part 96) not read (rule 21). N.Y. Gen. Oblig. Law § 7-108(1-a)(b) ('non-payment of utility charges payable directly to the landlord under the terms of the lease or tenancy'); N.Y. Real Prop. Acts. Law § 702(1). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-conversion-ny",
+    title: "Co-op and Condo Conversions",
+    group: "Default & Termination",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "conversion-notice",
+    bodyText:
+      "Converting a rental building to a cooperative or condominium in New York requires an offering plan filed with the Attorney General and, in New York City and in participating places in Nassau, Westchester and Rockland counties, gives tenants in occupancy protections under the conversion statutes (including protection of non-purchasing tenants under a non-eviction plan). Take advice before starting a conversion.",
+    notes: "NY: N.Y. Gen. Bus. Law § 352-e (offering plans filed with the department of law); N.Y. Gen. Bus. Law § 352-eee (conversions in certain cities, towns and villages of Nassau, Westchester and Rockland counties); N.Y. Gen. Bus. Law § 352-eeee (New York City) (NY battery 69 (co-op / condo conversion tenant protections): 10 hits, control 0; known positives passed (1 real section, 1 synthetic)). N.Y. Gen. Bus. Law §§ 352-e and 352-eeee print a compiled revision of 2025-11-07; the act behind it was not identified in the 2023-2026 signed-bill screen (NY log §7). Details not restated; this row only flags the regime. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-dv-confidentiality-ny",
+    title: "Domestic Violence Victim Confidentiality",
+    group: "Notices & General",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-confidentiality",
+    bodyText:
+      "When a tenant ends a lease because of domestic violence, you must keep confidential the nature of the termination, the tenant's or household member's status as a victim and the documents provided, unless the tenant authorizes release in writing or the law or a court requires it, and you may not describe the termination as an early termination to a future landlord or anyone else.",
+    notes: "NY: N.Y. Real Prop. Law § 227-c(5)(a)-(b) (quoted in `edu-dv-termination-ny`). N.Y. Real Prop. Law § 227-c(6)(a) (liquidated damages up to $1,000 for knowing or intentional violations). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-foreclosure-ny",
+    title: "Tenants When a Property Is Foreclosed",
+    group: "Default & Termination",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "foreclosure",
+    bodyText:
+      "If your mortgage is foreclosed, the foreclosing lender must give your tenants notice of the foreclosure. A tenant of a unit that is not rent-regulated may stay for the rest of the lease or 90 days from the new owner's notice, whichever is longer (with a three-year cap for leases made in good faith after the foreclosure began), on the same terms, and the new owner must tell tenants its name and address. The lease qualifies only if the tenant is not the owner and the rent is not substantially below fair market rent (unless the unit is subsidized). A new owner who will live in a unit may limit that one unit to 90 days, unless it is a subsidized unit. Court records of a tenant removed after a foreclosure are sealed.",
+    notes: "NY: N.Y. Real Prop. Acts. Law § 1303(1)(b) ('any tenant of a dwelling unit in accordance with the provisions of this section'); N.Y. Real Prop. Acts. Law § 1305(2) ('the greater of: (a) a period of ninety days from the date of the service of such notice; or (b) for the remainder of the lease term'; (c) 'up to a maximum of three years'; owner-occupant limit), N.Y. Real Prop. Acts. Law § 1305(2) also requires that the tenant 'may not be the owner' and that the rent be 'not substantially less than the fair market rent for the unit, unless the unit is subject to federal or state' subsidy, and the owner-occupant limit applies only where 'the unit is not subject to a federal or state statutory system of subsidy'; N.Y. Real Prop. Acts. Law § 1305(3) (successor's written notice of the right to remain and 'the name and address of the new owner'). N.Y. Real Prop. Acts. Law § 757 (sealing). Where the Good Cause Eviction Law applies, a successor landlord also needs good cause (N.Y. Real Prop. Law § 216(1); Claude's reading of 'landlord' in N.Y. Real Prop. Law § 211(2)). Federal Protecting Tenants at Foreclosure Act not restated (NY battery 76 (tenant rights in foreclosure): 18 hits, control 0; known positives passed (2 real sections, 1 synthetic)). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-statutory-forms-ny",
+    title: "Forms New York Prescribes",
+    group: "Notices & General",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "statutory-forms",
+    bodyText:
+      "New York prescribes the exact wording of some notices: the Good Cause Eviction Law notice that must go in or with every lease, renewal, notice of a rent increase of 5% or more or non-renewal notice, 14-day rent demand and eviction petition; the flood insurance paragraph in every lease; and the court system's mandatory notice of petition forms. It also publishes optional sample forms a tenant may use to end a lease because of domestic violence. There is no state-prescribed residential lease form.",
+    notes: "NY: Prescribed: N.Y. Real Prop. Law § 231-c(1) (`good-cause-notice-ny`); N.Y. Real Prop. Law § 231-b(2) (`flood-disclosure-ny`); court forms under 22 NYCRR 208.42, 210.42, 212.42 and 214.13 (NY log §1.1). Optional: N.Y. Real Prop. Law § 227-c(2)(d) ('The following sample forms shall satisfy the notice and verification requirements but are not required'). No statutory lease form (NY battery 6 (statutory form wording): 42 hits, control 0; known positives passed (3 real sections, 1 synthetic); the Department of State's model lease guidance is a lead only, NY log §15). Facility-move notice for seniors: N.Y. Real Prop. Law § 227-a(3-a) (binds the receiving facility, NY log §4). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-quiet-possession-ny",
+    title: "Quiet Enjoyment",
+    group: "Landlord Responsibilities",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "quiet-possession",
+    bodyText:
+      "A landlord, agent, manager or superintendent who willfully and intentionally interferes with a tenant's quiet enjoyment of the leased home commits a violation, and conduct meant to drive a tenant out (cutting services, removing belongings, changing locks) is unlawful eviction. New York's statute against implied covenants in conveyances does not displace the warranty of habitability, which every residential lease carries.",
+    notes: "NY: N.Y. Real Prop. Law § 235(1) ('any lessor, agent, manager, superintendent or janitor who wilfully and intentionally interferes with the quiet enjoyment of the leased premises by such occupant, is guilty of a violation'); N.Y. Real Prop. Acts. Law § 768(1)(a)(ii) ('interferes with or is intended to interfere with or disturb the comfort, repose, peace or quiet of such occupant'). N.Y. Real Prop. Law § 251: 'A covenant is not implied in a conveyance of real property, whether the conveyance contains any special covenant or not.' Whether N.Y. Real Prop. Law § 251 reaches a lease, so that quiet enjoyment rests only on the lease's own covenant, was not settled (case law not searched, NY log §1.4); N.Y. Real Prop. Law § 235-b(1) implies the habitability covenant by statute. NY battery 74 (quiet enjoyment / covenant of quiet possession): 6 hits, control 0; known positives passed (2 real sections, 1 synthetic). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-illegal-use-eviction-ny",
+    title: "Illegal Use of a Rental",
+    group: "Default & Termination",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "expedited-criminal-eviction",
+    bodyText:
+      "If a tenant uses the premises for an illegal trade, business or manufacture (including as a bawdy house), the lease becomes void and you may bring a summary proceeding to recover possession. Neighbors within 200 feet, and in some cases a district attorney or city agency, may require you to act, and two or more convictions for certain offenses at a dwelling in a year are presumptive evidence of unlawful use. An owner who knowingly lets property for an unlawful business is liable for resulting damage. Where the Good Cause Eviction Law applies, illegal use is good cause. You still need a court order to remove the tenant.",
+    notes: "NY: N.Y. Real Prop. Law § 231(1) (quoted in `criminal-activity-ny`); N.Y. Real Prop. Law § 231(2) ('The owner of real property, knowingly leasing or giving possession of the same to be used or occupied, wholly or partly, for any unlawful trade, manufacture or business, or knowingly permitting the same to be so used, is liable severally, and also jointly with one or more of the tenants or occupants thereof, for any damage resulting'); N.Y. Real Prop. Law § 231(3) (two or more convictions within a year for listed Penal Law article 230 offenses are 'presumptive evidence of unlawful use'). N.Y. Real Prop. Acts. Law § 711(5); N.Y. Real Prop. Acts. Law § 715 ('An owner or tenant ... of any premises within two hundred feet from other demised real property used or occupied ... for any illegal trade, business or manufacture'); N.Y. Real Prop. Law § 216(1)(e). NY battery 34 (illegal use / drug / bawdy-house eviction): 9 hits, control 0; known positives passed (3 real sections, 1 synthetic). Clause: `criminal-activity-ny`. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-nuisance-ny",
+    title: "Nuisance and Disruptive Conduct",
+    group: "Default & Termination",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nuisance",
+    bodyText:
+      "Removing a tenant for misconduct always takes a court proceeding. Where the lease lets you end it because the tenant is objectionable, the court must be satisfied by evidence that the tenant is. The New York rows do not offer such a clause, since the nuisance and default clauses already reach the conduct and, where the Good Cause Eviction Law applies, only its listed grounds count. Where the Good Cause Eviction Law applies, committing or permitting a nuisance, maliciously or through gross negligence substantially damaging the unit, and conduct that interferes with the comfort and safety of you or other tenants are good cause.",
+    notes: "NY: N.Y. Real Prop. Acts. Law § 711(1) ('A proceeding seeking to recover possession of real property by reason of the termination of the term fixed in the lease pursuant to a provision contained therein giving the landlord the right to terminate the time fixed for occupancy under such agreement if he deem the tenant objectionable, shall not be maintainable unless the landlord shall by competent evidence establish to the satisfaction of the court that the tenant is objectionable.'). N.Y. Real Prop. Law § 216(1)(c) ('committing or permitting a nuisance ... or is maliciously or by reason of gross negligence substantially damaging the housing accommodation ... or the tenant's conduct is such as to interfere with the comfort and safety of the landlord or other tenants'). Rule 54: the objectionable-tenant clause is a lawful option the library declines (NY log §6.1). `no-disturbance` tagged. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-cure-ny",
+    title: "Cure Rights Before Eviction",
+    group: "Default & Termination",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "cure-and-eviction-grounds",
+    bodyText:
+      "New York gives tenants several chances to cure. For unpaid rent: the 14-day rent demand, payment before the hearing ends the case, and the court must vacate a warrant if all rent due is paid before it is executed (unless the rent was withheld in bad faith). For a lease violation: where the Good Cause Eviction Law applies you must give written notice to cure within 10 days before the breach is good cause, and in any holdover case based on a lease breach the court must give the tenant 30 days to cure before the warrant issues. No statute sets a cure notice for lease violations outside those rules; the lease's own cure terms apply.",
+    notes: "NY: N.Y. Real Prop. Acts. Law §§ 711(2), 731(4), 749(3) (quoted in `edu-rent-demand-ny` and `edu-eviction-process-ny`); N.Y. Real Prop. Law § 216(1)(b) ('failed to cure such violation after written notice that the violation cease within ten days of receipt of such written notice'); N.Y. Real Prop. Acts. Law § 753(4) (30-day cure stay; quoted in `edu-eviction-stay-ny`). Rule 43: `default-by-tenant` ties its cure to written notice and the period 'specified by applicable law' (tag note); New York requires no pre-suit notice for non-rent breaches outside article 6-A, so the clause adds none beyond the statute (Claude's reading). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-tenant-duties-ny",
+    title: "Tenants' Statutory Duties",
+    group: "Tenant Responsibilities",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-statutory-duties",
+    bodyText:
+      "New York has no single list of tenant duties. In a multiple dwelling a tenant is liable for a repair violation caused by their own wilful act, assistance or negligence or that of a household member or guest, must keep smoke detectors in repair (outside New York City: in class A Multiple Dwelling Law buildings other than single-room-occupancy units, and in Multiple Residence Law buildings used for permanent residence), and a tenant served with court papers in an action to recover the property must promptly notify the landlord. A condition caused by the misconduct of the tenant or persons under the tenant's control is not a breach of your warranty of habitability. The lease sets the rest.",
+    notes: "NY: N.Y. Mult. Dwell. Law § 78(1) ('the tenant also shall be liable if a violation is caused by his own wilful act, assistance or negligence or that of any member of his family or household or his guest'); N.Y. Mult. Resid. Law § 174 (same rule in its own words: 'the tenant shall also be liable if a violation is caused by his own wilful act, assistance or negligence or that of any member of his family or household or his guests'); N.Y. Mult. Resid. Law § 15(5) ('the tenant shall keep and maintain any smoke detecting device installed pursuant to this section in good repair'); N.Y. Mult. Dwell. Law § 68(5), which does not apply to class B buildings or single-room-occupancy units (N.Y. Mult. Dwell. Law § 68(3)(b)) or in cities of 1,000,000 or more (N.Y. Mult. Dwell. Law § 68(7)); N.Y. Real Prop. Law § 225: 'Where a process or summons in an action to recover the real property occupied by him, or the possession thereof, is served upon a tenant, he must forthwith give notice thereof to his landlord; otherwise he forfeits the value of three years' rent of such property'; N.Y. Real Prop. Law § 235-b(1). `tenant-maintenance` and `tenant-forward-proceedings-ca` tagged. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Disclosures
+  {
+    id: "edu-owner-identity-ny",
+    title: "Owner and Manager Information",
+    group: "Disclosures",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "owner-identity-disclosure",
+    bodyText:
+      "New York State does not require a market-rate lease to name the owner or managing agent. In a Multiple Dwelling Law building the owner, any lessee of the whole building and the managing agent must register their names and addresses with the city housing department, and in New York City an unregistered owner cannot collect rent. A small landlord claiming exemption from the Good Cause Eviction Law must disclose its owners and their units in the eviction case. Give tenants a current address for notices in any case.",
+    notes: "NY: CONFIRMED ABSENT for a lease disclosure (NY battery 54 (owner / manager name and address disclosure to tenant): 5 hits, control 0; known positives passed (0 real sections, 1 synthetic): the hits concern subdivided land, a public authority and tax and vehicle filings). N.Y. Mult. Dwell. Law § 325(1) (quoted in `edu-sale-management-change-ny`). Small landlord disclosure: N.Y. Real Prop. Law § 214(1). Registration under the Multiple Residence Law was not located (NY battery 54 (owner / manager name and address disclosure to tenant): 5 hits, control 0; known positives passed (0 real sections, 1 synthetic)). The `notices` clause gives the notice address (tagged). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-no-double-letting-rule-ny",
+    title: "Leasing the Same Unit Twice",
+    group: "Landlord Responsibilities",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "double-letting",
+    bodyText:
+      "New York has no statute on leasing the same unit to two tenants. Where a new tenant is entitled to possession and the old tenant stays on after the lease ends, the landlord or the new tenant can bring a holdover proceeding. If you cannot deliver possession at the start of a lease, the tenant may rescind and recover what they paid unless the lease provides otherwise (the possession-delay clause does).",
+    notes: "NY: CONFIRMED ABSENT (NY battery 72 (double letting / leasing the same premises twice): 1 hits, control 0; known positives passed (1 real section, 1 synthetic)). N.Y. Real Prop. Acts. Law § 711(1) ('or, in a case where a new lessee is entitled to possession, without the permission of the new lessee'); N.Y. Real Prop. Law § 223-a ('In the absence of an express provision to the contrary, there shall be implied in every lease of real property a condition that the lessor will deliver possession at the beginning of the term'). `possession-delay` tagged. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-dv-lockchange-ny",
+    title: "Lock Changes for Domestic Violence Victims",
+    group: "Default & Termination",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-lockchange",
+    bodyText:
+      "New York has no statute requiring a landlord to change locks at a domestic violence victim's request. A victim may end the lease early, you must keep their information confidential, and changing locks to keep out a co-tenant without a court order (such as an order of protection that excludes them) risks unlawful eviction.",
+    notes: "NY: CONFIRMED ABSENT (NY battery 73 (domestic violence lock change): 0 hits, control 0; known positives passed (0 real sections, 1 synthetic)). N.Y. Real Prop. Law § 227-c; N.Y. Real Prop. Acts. Law § 768(1)(a)(iii) ('changing the lock on such entrance door without supplying the occupant with a key'). Orders of protection: N.Y. Fam. Ct. Act § 842 (not read). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-servicemember-ny",
+    title: "Servicemembers",
+    group: "Default & Termination",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "servicemember-rights",
+    bodyText:
+      "New York's Military Law lets a tenant who signed a lease, lived in the home (alone or with dependents), and then entered military service (including state active duty) end the lease by written notice; it also covers a dwelling lease the servicemember's spouse also signed. For a lease with monthly rent, the termination takes effect 30 days after the next rent due date following the notice; for other leases, on the last day of the following month. For leases without monthly rent, unpaid rent before termination is prorated and rent paid for the period after it is refunded. You may ask a court, before the termination date, to modify or restrict the termination as justice and equity require. No eviction may be carried out during military service against a servicemember's household without leave of court. Holding the tenant's belongings to collect later rent is a misdemeanor. The federal Servicemembers Civil Relief Act gives further rights, including termination on permanent change of station or deployment orders.",
+    notes: "NY: N.Y. Mil. Law § 310(2) (quoted in part: 'Any such lease may be terminated by notice in writing delivered to the lessor (or his grantee) or to the lessor's (or his grantee's) agent by a lessee at any time following the date of the beginning of such military service'; 'Termination of any such lease providing for monthly payment of rent shall not be effective until thirty days after the first date on which the next rental payment is due and payable subsequent to the date when such notice is delivered or mailed'; 'Upon application by the lessor to the appropriate court prior to the termination period provided for in the notice, any relief granted in this subdivision shall be subject to such modifications or restrictions as in the opinion of the court justice and equity may in the circumstances require'); N.Y. Mil. Law § 310(3) (misdemeanor); N.Y. Mil. Law § 310(1) requires that 'the premises so leased have been occupied for such purposes, or for a combination of such purposes by such person or by him and his dependents' and limits it to a lease 'executed by or on the behalf of a person who, after the execution of such lease, entered military service'. N.Y. Mil. Law § 309(1): 'No eviction or distress shall be made during the period of military service in respect of any premises occupied chiefly for dwelling purposes by a person in military service or the spouse, children, or other dependents of a person in military service, except upon leave of court'. 'Military service' includes state active duty (N.Y. Mil. Law § 301(1)). Federal: 50 U.S.C. § 3955 (not restated). NY battery 32 (servicemember lease termination): 5 hits, control 0; known positives passed (1 real section, 1 synthetic). `early-termination-ks` preserves these rights (tag note). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-abandoned-property-ny",
+    title: "Property a Tenant Leaves Behind",
+    group: "Default & Termination",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "abandoned-property",
+    bodyText:
+      "New York has no statute on how a landlord handles a residential tenant's belongings left after the tenant moves out or abandons the unit. Treat them with care: give written notice and a reasonable time to collect them before disposal, and keep a record. You may deduct the reasonable cost of moving and storing them from the security deposit. Never remove a tenant's belongings to force them out; that is unlawful eviction. When an eviction warrant is executed, the officer must give at least 14 days' written notice and check for companion animals, but no statute sets what happens to other belongings left behind.",
+    notes: "NY: CONFIRMED ABSENT (NY battery 25 (tenant property left behind (abandoned, technical)): 0 hits, control 0; known positives passed (0 real sections, 2 synthetic); NY battery 26 (tenant belongings left behind (everyday words)): 2 hits, control 0; known positives passed (1 real section, 1 synthetic)). N.Y. Gen. Oblig. Law § 7-108(1-a)(b) ('moving and storage of the tenant's belongings'); N.Y. Real Prop. Acts. Law § 749(2)(a)-(b) (14 days' notice; companion-animal check; nothing on other property); N.Y. Real Prop. Acts. Law § 768(1)(a)(iii). Manufactured home abandonment proceedings (N.Y. Real Prop. Acts. Law §§ 790-795) are outside scope. Common-law bailment duties not searched (NY log §1.4). Clause: `surrender-end-of-term-ny`. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Disclosures
+  {
+    id: "edu-no-mold-disclosure-ny",
+    title: "No Mold Disclosure Rule",
+    group: "Disclosures",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "mold-disclosure",
+    bodyText:
+      "New York has no statute requiring a landlord to disclose mold or a mold history to a tenant. Mold that makes a unit unsafe is still a habitability problem you must fix, and local codes (including New York City's) have their own mold rules.",
+    notes: "NY: CONFIRMED ABSENT for rentals (NY battery 49 (mold disclosure / remediation duty (rental)): 5 hits, control 0; known positives passed (1 real section, 1 synthetic): the hits are N.Y. Real Prop. Law § 216(1)(a)(ii) (mold abatement as a significant repair), N.Y. Real Prop. Acts. Law § 1308 (foreclosed-property maintenance), N.Y. Real Prop. Law § 462 (sale disclosure) and the Labor Law's mold-contractor licensing article). Habitability: N.Y. Real Prop. Law § 235-b(1). New York City's Local Law 55 of 2018 is local (rule 3). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-sex-offender-rule-ny",
+    title: "No Sex Offender Disclosure or Screening Rule",
+    group: "Disclosures",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "sex-offender-occupancy",
+    bodyText:
+      "New York has no statute requiring a landlord to disclose, screen for or refuse to rent to registered sex offenders. The state registry is public. Residency limits that apply to certain offenders on parole, probation or conditional release are enforced by those agencies, not by landlords. Any screening policy must comply with the criminal-history limits in New York's Human Rights Law.",
+    notes: "NY: CONFIRMED ABSENT as a landlord duty (NY battery 51 (sex offender residency / disclosure (rental)): 27 hits, control 0; known positives passed (0 real sections, 1 synthetic): the hits are the Sex Offender Registration Act (N.Y. Correct. Law art. 6-C) and agency provisions such as N.Y. Exec. Law § 259-c(14)). N.Y. Exec. Law § 296(16) (`edu-tenant-screening-ny`). One row for topic sex-offender-occupancy; topic sex-offender-disclosure is recorded in the canvass with this row's battery (NY log §18). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-no-lease-copy-rule-ny",
+    title: "Copies of the Lease",
+    group: "Notices & General",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lease-copy",
+    bodyText:
+      "No New York statute sets a deadline for giving a market-rate tenant a signed copy of the lease, but give each tenant a fully signed copy at signing; you will need it to prove the terms, and the court forms ask for the lease in an eviction case.",
+    notes: "NY: CONFIRMED ABSENT (NY battery 55 (copy of signed lease to tenant): 2 hits, control 0; known positives passed (0 real sections, 1 synthetic): the two hits, in the Indian Law and the Vehicle and Traffic Law, are unrelated). Rent-stabilized renewal leases have their own copy rule (9 NYCRR 2522.5; out of scope, not read). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Security Deposit
+  {
+    id: "edu-move-in-inspection-ny",
+    title: "Move-In and Move-Out Inspections",
+    group: "Security Deposit",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "condition-inspection",
+    bodyText:
+      "After the lease is signed and before the tenant moves in, you must offer the tenant a joint inspection; if the tenant asks for it, you both sign a written agreement describing the unit's condition and noting existing defects, and you may not deduct for anything listed in it. Within a reasonable time after either side gives notice of ending the tenancy (unless the tenant gives less than two weeks' notice), you must tell the tenant in writing of the right to request a pre-move-out inspection and to be present. If requested, the inspection takes place one to two weeks before the tenancy ends, on at least 48 hours' written notice, followed by an itemized statement of proposed deductions that the tenant may cure.",
+    notes: "NY: N.Y. Gen. Oblig. Law § 7-108(1-a)(c)-(d) (quoted in `existing-condition-ny` and `security-deposit-return-ny`; '(d) ... the inspection shall be made no earlier than two weeks and no later than one week before the end of the tenancy. The landlord shall provide at least forty-eight hours written notice of the date and time of the inspection.'). Both statements are admissible only in deposit proceedings (N.Y. Gen. Oblig. Law § 7-108(1-a)(c)-(d)). Clauses `existing-condition-ny` (move-in offer) and `security-deposit-return-ny` (move-out notice) are the lease vehicles (rule 46). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Pets
+  {
+    id: "edu-service-animal-penalty-ny",
+    title: "Penalties for Refusing a Guide, Hearing or Service Dog",
+    group: "Pets",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "service-animal-denial-penalty",
+    bodyText:
+      "Refusing housing to a person with a disability because they are accompanied by a guide, hearing or service dog violates New York's Civil Rights Law, and a second violation within two years is punishable by a $1,000 fine. It is also an unlawful discriminatory practice under the Human Rights Law, with damages and civil penalties.",
+    notes: "NY: N.Y. Civ. Rights Law § 47(1)-(2) (housing accommodations are 'public facilities'); N.Y. Civ. Rights Law § 47-c: '1. Any person or legal entity, public or private, violating any provision of this article shall be guilty of a violation. 2. Any person or legal entity, public or private, violating section forty-seven and/or subdivision one or two of section forty-seven-b of this article two or more times within a two year period shall be guilty of a violation punishable by a fine of one thousand dollars.' N.Y. Exec. Law § 296(14) (`edu-assistance-animals-ny`); remedies under N.Y. Exec. Law § 297 (not restated). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-service-animal-misrep-ny",
+    title: "Misrepresenting an Assistance Animal",
+    group: "Pets",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "service-animal-misrepresentation",
+    bodyText:
+      "New York has no statute making it an offense to misrepresent a pet as a service or emotional support animal in housing. Handle requests through the reasonable-accommodation process and ask for reliable information about the need when it is not obvious.",
+    notes: "NY: CONFIRMED ABSENT (NY battery 78 (misrepresenting a service animal): 0 hits, control 0; known positives passed (0 real sections, 1 synthetic); NY battery 66 (assistance animal documentation / misrepresentation): 5 hits, control 0; known positives passed (0 real sections, 2 synthetic): hits are unrelated). N.Y. Exec. Law § 296(18)(2). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-fee-transparency-rule-ny",
+    title: "Rental Fee Disclosure",
+    group: "Rent & Payment",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fee-transparency",
+    bodyText:
+      "New York has no state all-in pricing rule for rental listings or leases, but it bars almost every upfront fee (before or at the start of a tenancy only the capped screening fee and payments a statute or regulation allows, such as a deposit or advance of up to one month's rent, plus the first month's rent), and a misleading listing or lease can be an unfair, deceptive or abusive practice. State every recurring charge in the lease. New York City's broker-fee and fee-disclosure rules are local.",
+    notes: "NY: CONFIRMED ABSENT (NY battery 17 (all-in pricing / total price disclosure (rental)): 76 hits, control 0; known positives passed (0 real sections, 1 synthetic): hits are education, agriculture and banking provisions). N.Y. Real Prop. Law § 238-a(1)(a) ('Except in instances where statutes or regulations provide for a payment, fee or charge'); N.Y. Gen. Oblig. Law § 7-108(1-a)(a) (deposit cap); first month's rent: `due-at-signing-ny`; N.Y. Gen. Bus. Law § 349 (`edu-consumer-protection-ny`). New York City's FARE Act (Local Law 119 of 2024) is local (rule 3). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-no-foreign-ownership-rule-ny",
+    title: "No Foreign-Ownership Restriction",
+    group: "Other / Miscellaneous",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "foreign-ownership",
+    bodyText:
+      "New York has no statute restricting who may own or lease residential property based on citizenship or foreign affiliation; noncitizens may hold real property on the same terms as citizens. Citizenship and immigration status are protected classes in housing.",
+    notes: "NY: N.Y. Real Prop. Law § 10(2): 'Noncitizens are empowered to take, hold, transmit, and dispose of real property within this state in the same manner as native-born citizens'. NY battery 77 (foreign ownership / alien land restrictions): 41 hits, control 0; known positives passed (1 real section, 1 synthetic). N.Y. Exec. Law § 296(5)(a). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-telecom-access-ny",
+    title: "Cable Television Access",
+    group: "Landlord Responsibilities",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "telecom-access",
+    bodyText:
+      "You may not interfere with installation of cable television facilities on your property, though you may require reasonable conditions to protect the building's safety, functioning and appearance and other tenants' convenience, require the cable company or tenant to bear the full cost, and require the company to indemnify you for damage. You may not charge a tenant for permitting cable service, and you may not charge different rent to tenants who do or do not take cable.",
+    notes: "NY: N.Y. Pub. Serv. Law § 228(1): 'No landlord shall (a) interfere with the installation of cable television facilities upon his property or premises, except that a landlord may require: (1) that the installation of cable television facilities conform to such reasonable conditions as are necessary to protect the safety, functioning and appearance of the premises, and the convenience and well being of other tenants; (2) that the cable television company or the tenant or a combination thereof bear the entire cost of the installation, operation or removal of such facilities; and (3) that the cable television company agree to indemnify the landlord for any damage caused by the installation, operation or removal of such facilities. (b) demand or accept payment from any tenant, in any form, in exchange for permitting cable television service on or within his property or premises ... or (c) discriminate in rental charges or otherwise, between tenants who receive cable television service and those who do not.' NY battery 46 (cable / telecom access to residential buildings): 9 hits, control 0; known positives passed (1 real section, 1 synthetic). Satellite dishes are governed by the federal OTARD rule (47 C.F.R. § 1.4000, not read). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-rent-tax-ny",
+    title: "Sales Tax on Rent",
+    group: "Rent & Payment",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-tax",
+    bodyText:
+      "New York's sales tax on hotel occupancy also reaches short-term rental units, but not an occupant who stays 90 consecutive days or more, who is a permanent resident. Ordinary residential leases are not taxed. Counties and cities may add their own hotel or occupancy taxes on short stays.",
+    notes: "NY: N.Y. Tax Law § 1105(e)(1): 'The rent for every occupancy of a room or rooms in a hotel or short term rental unit in this state, except that the tax shall not be imposed upon (i) a permanent resident'; N.Y. Tax Law § 1101(c)(5): 'Any occupant of any room or rooms in a hotel or short term rental unit for at least ninety consecutive days shall be considered a permanent resident with regard to the period of such occupancy.' The short-term rental language came with L. 2024, ch. 672 and L. 2025, ch. 99 (NY log §1.2); N.Y. Tax Law §§ 1101 and 1105 print 2026 revisions (2026-06-19, 2026-06-05) whose acts were not identified (NY log §7). NY battery 19 (tax on residential rent): 11 hits, control 0; known positives passed (0 real sections, 1 synthetic). Local occupancy taxes (N.Y. Tax Law § 1202 series) flagged (rule 3). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-notice-service-ny",
+    title: "How Statutory Notices Must Be Served",
+    group: "Notices & General",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "notice-delivery-methods",
+    bodyText:
+      "Several New York notices have their own delivery rules that a lease cannot replace: the 14-day rent demand and court papers are served personally, or on a suitable person at the property, or, only if no one can be reached there, by posting or slipping under the door, and either of the last two must be followed within a day by mailing by registered or certified mail and by regular mail; a New York City month-to-month termination is served the same way; the late-rent notice goes by certified mail; deposit transfer notices on a sale go by registered or certified mail; sublet requests go by certified mail, return receipt requested; a deceased tenant's estate's requests and notices, and your replies, go by registered or certified mail, return receipt requested; and an automatic-renewal reminder must be served personally or by registered or certified mail. Use e-mail only for routine communications.",
+    notes: "NY: N.Y. Real Prop. Acts. Law §§ 711(2), 735(1) (`edu-rent-demand-ny`); N.Y. Real Prop. Law § 232-a; N.Y. Real Prop. Law § 235-e(d); N.Y. Gen. Oblig. Law § 7-105(1); N.Y. Real Prop. Law § 226-b(2)(b); N.Y. Real Prop. Law §§ 236, 236-a ('sent by registered or certified mail, return receipt requested'); N.Y. Gen. Oblig. Law § 5-905. Electronic records: N.Y. State Tech. Law §§ 302-309 (rule 45; NY log §19). Clause: `electronic-notice-ny`. Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-jury-waiver-ny",
+    title: "Jury Waivers Not Offered",
+    group: "Other / Miscellaneous",
+    states: ["NY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "jury-waiver",
+    bodyText:
+      "In a New York eviction case either side may demand a jury trial. A lease term waiving a jury in any claim for personal injury or property damage between landlord and tenant is void. A broader lease jury waiver for other claims is not barred by statute, but the New York rows do not offer one: its enforceability against a residential tenant in a summary proceeding rests on case law these rows have not reviewed, and a waiver drafted too broadly would reach the claims New York protects. If you want one, take advice first and add your own clause.",
+    notes: "NY: N.Y. Real Prop. Acts. Law § 745(1): 'Where triable issues of fact are raised, they shall be tried by the court unless, at the time the petition is noticed to be heard, a party demands a trial by jury, in which case trial shall be by jury.' N.Y. Real Prop. Law § 259-c ('Any provision in a lease, executed after the effective date of this act, that a trial by jury is waived in any action, proceeding or counterclaim brought by either of the parties thereto against the other in any action for personal injury or property damage, is null and void.'). Rule 54 statutory-waiver option declined (NY log §6.1; rule 76 label: case law on residential jury waivers unread). NY battery 33 (waiver of notice to quit / jury (lease)): 4 hits, control 0; known positives passed (1 real section, 1 synthetic). Read section-open 2026-10-03 from the Consolidated Laws of New York and the New York Constitution as published on nysenate.gov (The Laws of New York), crawled whole into the built-in browser, with every relied-on section saved and hash-matched (NY log §1); session laws read as enrolled on nysenate.gov (NY log §1.2). Rule 15: written section-open.",
+  },
 ];
 
 module.exports = { LANDLORD_EDUCATION };

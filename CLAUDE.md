@@ -12,7 +12,7 @@
 - **Done 2026-10-02:** **Iowa (state #29) synced** (155 rows, SOP 1.22). `legal-watch-ia.yml` is held until after February 1 (first run March 1, day 1 at 14:00 UTC).
 - **Done 2026-10-02:** **New Mexico (state #30) synced** (163 rows, SOP 1.26). `legal-watch-nm.yml` is held until after March 2 (first run April 2, day 2 at 14:00 UTC).
 - **Done 2026-10-03:** **Montana (state #31) synced** (162 rows, SOP 1.28). `legal-watch-mt.yml` is held until after April 3 (first run May 3, day 3 at 14:00 UTC).
-- **In progress (Taylor, Claude Desktop):** **New York (state #32) research** (kickoff staged 2026-10-03 in `~/Desktop/new-york-kickoff/`, from 928f1f6, 2,842 rows). Scope as recommended: market-rate tenancies statewide; rent-stabilized and rent-controlled units out of scope with one education row (Taylor may override). At the sync, hold `legal-watch-ny.yml` until after May 4, 2027 (state #32 runs on day 4 at 14:00 UTC; first run June 4), and build a query that names the law, since New York numbers sections per law.
+- **Done 2026-10-03:** **New York (state #32) synced** (176 rows, SOP 1.34; scope: market-rate statewide). `legal-watch-ny.yml` is held until after May 4 (first run June 4, day 4 at 14:00 UTC).
 - **Done 2026-10-01:** legal watch fixed for LegiScan 429s (1-second spacing, retry, incomplete-run email, 60-minute timeouts); CO re-run clean, 0/45 errors.
 - **Done 2026-10-02:** MN retro synced (SOP 1.20; MN 155 rows; the scrub had dropped Minnesota's 8% late-fee cap, now restored).
 - **Done 2026-10-02:** ND retro synced (SOP 1.21; ND 141 rows; first ND holdover clause; tenant-chore split now settled in SOP rule 48).
@@ -27,14 +27,14 @@
 - **End-of-run circle-back (staged 2026-10-03 under SOP 1.32, from 2b10851, 2,876 rows) in `~/Desktop/circle-back/` (`INDEX.md`):** 26 folders (25 states plus OK), most with 1 to 7 items: the remaining rule 35c, 54t and 79 checks, the clauses queued at the OH, SD, KS and GA syncs, and the pending rule 62 vettings. Merge each delta with `merge-delta.py --base 2b10851`, except TN (restaged under SOP 1.33 from f48b67b: `--base f48b67b`). The old `~/Desktop/retro-checks/` folders are all synced and can be deleted.
 - **Retro run (finished 2026-10-03):** all eleven pending retros synced (GA, MN, ND, NC, OH, SD, KS, NV, TX, FL, CA). Merge every Desktop delta with `merge-delta.py` against the commit the pass was staged from.
 - **Pending shared edits, merge only after every tagged state has vetted them (rule 62):** `returned-payments` "during any 12-month period" (AZ's proposal; WY, CO, GA, MN, ND, OH, SD, KS vetted), NE's no-cure sentence for `default-by-tenant-ks-ne`, CO's deletion of "and reasonable costs and expenses" from `default-by-tenant`, MN's separate no-cure sentence for the same row (ND and CA support), and CA's 'unless applicable law entitles Tenant to remain' for `surrender-end-of-term` (new 2026-10-03); all queued for the circle-back.
-- **Legal-watch calendar:** **after October 23, uncomment IL's schedule; after November 25, MO's; after November 26, IN's; after December 27, OK's; after January 28, MI's; after February 1, IA's; after March 2, NM's; after April 3, MT's.** Check the LegiScan totals after November's (IL, ID) and December's (MO, IN) first runs.
+- **Legal-watch calendar:** **after October 23, uncomment IL's schedule; after November 25, MO's; after November 26, IN's; after December 27, OK's; after January 28, MI's; after February 1, IA's; after March 2, NM's; after April 3, MT's; after May 4, NY's.** Check the LegiScan totals after November's (IL, ID) and December's (MO, IN) first runs.
 - **Standing backlog** (no fixed order; ask Taylor what's next): `docs/backlog.md`. Lease PDF first-page layout is parked in M.12 (Taylor). Deploying is still deliberately on hold.
 
 ## Project
 
 A SaaS web app for landlords to manage rental properties end to end, built from Taylor's real landlord experience. Working name **Steinoak** (placeholder). Owner: Taylor (Steinbaugh Estates LLC), solo; he drives product decisions but doesn't write code. Goal: use it personally, then sell it to other landlords. Logos in `logos/`; font Poppins.
 
-**State:** v1 MVP complete (tagged `v1.0.0`: Entities, Properties, Tenants + Leases, Finances, Maintenance, Clerk auth). Also built: Property Specs, Lease Builder (clause library, PDF generation), Rent Tracker, property archiving and soft delete, Dashboard, global search. The lease clause library is verified for 31 states (CO, WY, KS, NE, MN, ND, SD, OH, CA, NV, TX, NJ, FL, AZ, GA, NC, SC, TN, VA, AL, PA, UT, IL, ID, MO, IN, OK, MI, IA, NM, MT), each with a decision log, a citations file and a monthly legal-watch workflow.
+**State:** v1 MVP complete (tagged `v1.0.0`: Entities, Properties, Tenants + Leases, Finances, Maintenance, Clerk auth). Also built: Property Specs, Lease Builder (clause library, PDF generation), Rent Tracker, property archiving and soft delete, Dashboard, global search. The lease clause library is verified for 32 states (CO, WY, KS, NE, MN, ND, SD, OH, CA, NV, TX, NJ, FL, AZ, GA, NC, SC, TN, VA, AL, PA, UT, IL, ID, MO, IN, OK, MI, IA, NM, MT, NY), each with a decision log, a citations file and a monthly legal-watch workflow.
 
 ## Stack and commands
 
@@ -160,4 +160,4 @@ Do not add to this list without Taylor's input.
 
 Keep this file short: if a section grows past a few lines of rules, move the detail to `docs/` and leave a pointer.
 
-*Last updated: 2026-10-03 (Michigan, Iowa, New Mexico and Montana synced; all eleven pending retros synced, CA last; SOP 1.32; New York in progress; end-of-run circle-back next).*
+*Last updated: 2026-10-03 (MI, IA, NM, MT and NY synced, states #28-32; all eleven pending retros synced; SOP 1.34; end-of-run circle-back in progress, AL done).*
