@@ -619,3 +619,282 @@ All 22 lease clauses written for this state alone. Shared clauses tagged with th
 Not a re-audit; nothing else in this state was reviewed.
 
 **Propagation note (uniform edit, rule 62): `snow-removal` rewritten.** Old: 'Unless Landlord provides snow removal service, Tenant is responsible for prompt, reasonable removal of snow and ice from any walkway, driveway, porch, or entrance at the property that Tenant uses, to help keep those areas safe and passable.' New: 'Unless Landlord provides snow removal, Tenant will promptly remove snow and ice from the areas of the property Tenant uses for walking, parking and access. This does not include areas shared with other residents.' Why: Taylor found the list of areas too specific (properties differ, and a list invites arguments about what it covers), and Michigan's sync showed the clause should say outright that shared areas stay with the landlord. The edit only narrows the tenant's duty; this state's existing note on the row still holds.
+
+## Retro checks (SOP 1.30), 2026-10-03
+
+**Date:** 2026-10-03. **Scope:** the 18 [Retro] rules and 1 targeted fix in the FL retro prompt only. This is a scalpel, not a re-audit (rule 1), and nothing else was reopened. **Input:** `lease-clauses.csv`, 2,856 rows (count checked first, as the prompt asks), 17 columns, CRLF; FL 108 active (69 lease clauses, 39 education). Earlier output files in this chat were deleted, and only the files attached for this task were used (rule 8). **Settings:** Opus, high effort. Research mode was not used; no rule 9 trigger arose.
+
+**How the text was read (rules 11, 12, 14).** The cloud shell still cannot reach Florida sites, but this chat now has the Claude desktop browser pane, which can. Every section relied on was read in that pane on the official Online Sunshine pages (leg.state.fl.us, 2026 Florida Statutes and the Constitution), with session laws on laws.flrules.org, court rules on floridabar.org and one federal act on govinfo.gov. PDFs were parsed in the page with pdf.js.
+- Hashes: SHA-256 for each page and section was computed in the browser, and the excerpts relied on were copied into the sources file with those hashes. Because the excerpts are copies rather than hash-matched files, this is a weaker method than rule 14 asks, and is named as such.
+- Search engine: whole-code searches used the Online Sunshine statute search. It indexes section bodies: 'rebuttable AND presumption AND advance AND rent' finds §83.49(7). Its known positive returns 2 hits and its nonsense control returns 0. It does not honour quoted phrases, so every battery uses AND and every hit was read in context. Wildcard positive: 'bedbug*' finds §83.51.
+- Chapter 83 Part II was also screened in-page with regex: 93,515 characters, 79 headings matched, positive 4 hits, nonsense 0.
+- The full battery log and the excerpts are in this pass's sources files (`battery-log.md`, `excerpts-relied-on.md`; handed to Claude Code with the delta).
+
+### Results, one line per rule
+
+| Rule | Verdict | What was read | Rows changed |
+|---|---|---|---|
+| 37 Tenancy type | **Fixed** | §§83.43(6), 83.46, 83.49(3), (5), (6), 83.491(9), 83.512(1), 83.57, 83.575, 83.58, 83.595(4); §212.03(4); chs. 2023-314 and 2023-17 effective dates. Problem: `early-termination-fl` and `end-of-term-notice-fl` would carry into a month-to-month holdover, because `holdover` continues the tenancy 'on the same terms'. §83.575 applies only to 'a rental agreement with a specific duration'. "Expiration" windows: §83.49(3) and §83.58 run from the end date a §83.57 notice sets. "Entered into or renewed": §83.491(9) (2023-07-01) reaches every builder lease. | `early-termination-fl` and `end-of-term-notice-fl` (fixed-Term only, with a periodic carve-out); `edu-transient-rental-tax-fl` (month-to-month in its first 6 months); notes on `flood-disclosure-fl` (year-to-year treated as 1 year+), `holdover`, `edu-security-deposit-rules-fl` |
+| 39 Eviction duties | **Fixed** (statewide); local rules partly read | Statutes: §§83.56, 83.59-83.625, 83.62(2), 83.67, 51.011, and ch. 715 (already in the FL pass). Court rules read whole: Fla. R. Civ. P. (10-01-26 edition, 340 pp.) and Fla. R. Gen. Prac. & Jud. Admin. (7-1-2026, 259 pp., including Rule 2.420). Findings: Form 1.947 requires a copy of a written lease attached to the complaint; §51.011 makes the statute govern when a rule's time period differs; Rule 1.580(b) third-party possession affidavit; no federal pre-filing condition; no eviction sealing category in Rule 2.420(c), only motions under (e) and (h). Post-writ: §83.62(2) (to or near the property line, no liability; no storage or animal duty). Lockout ban §83.67(2). **Local rules:** the Eleventh Circuit's list and its R-1-11 (county civil division, structural only) were read. The other 19 circuits' local rules and all administrative orders were not read (§ Open items). | `edu-eviction-process-fl` (Form 1.947 lease copy; statute controls over rule timing); `edu-no-eviction-record-sealing-fl` (court-rule basis and sentence) |
+| 41 Just cause | **Checked, no issue** | Batteries: 'just AND cause AND tenant' 4 hits; 'good AND cause AND tenant AND evict*' 7 hits; Part II regex 2 hits (§83.64(3) only). Florida has no just-cause rule, so the wording in `security-deposit-use`, `no-alterations`, `holdover`, `keys`, `security-deposit-return-fl`, `early-termination-fl` and `end-of-term-notice-fl` (end of Term ends possession) is lawful. | none |
+| 41b `for-cause-eviction` row | **Fixed** | As rule 41, plus §§83.57, 83.425, 83.64, 760.23, 718.606 (re-read), 250.5202, and Pub. L. 115-174 §304. | new `edu-no-for-cause-eviction-fl` (confirmed absence with situational limits; points to `edu-periodic-tenancy-termination-fl`, where the rule was already stated) |
+| 42 Required text in a shared clause | **Checked, no issue** | Part II regex for required lease content: 19 hits. §83.49(2) disclosure (5+ units) is carried by `security-deposit-notice-fl`, not by shared `security-deposit-use` or `due-at-signing`; §83.48 needs no lease text. No statute forces a sentence into a shared fee or deposit clause. | none |
+| 44 Terms turned into landlord duties | **Fixed** | §83.56(1) lets the tenant terminate for a material failure to keep 'material provisions of the rental agreement'; §83.55 gives damages for breach of 'the requirements of the rental agreement'; §83.60(1)(b) withholding applies to §83.51(1) only. So the library's voluntary promises become statutory triggers. Start rows `security-deposit-notice-fl` and `landlord-address-disclosure-fl`: no 'as agreed' duty (their delivery terms are the statute's own). | `habitability-timeline-fl` (body: lease promises count for termination; withholding stays limited to §83.51(1), see rule 79); FL notes on `landlord-maintenance`, `appliances-included`, `services-utilities-provided`, `utilities-paid-by-landlord`, `security-deposit-notice-fl`, `landlord-address-disclosure-fl` |
+| 45 Electronic notices | **Checked, notes added** | Florida UETA, §668.50, read whole. (3)(b) excludes only wills, most of the UCC and UCITA, so eviction, default and cure notices are not excluded, and §83.505 authorizes e-mail for 'any notices required under this part'. Unwaivable conditions: (5)(c) a party may refuse other electronic transactions; (8)(a) and (c) a record the recipient cannot print or store is unenforceable against the recipient; (8)(b)2 a specified method must be used. Start rows checked: `security-deposit-notice-fl`, `electronic-notice-addendum-fl`, `landlord-address-disclosure-fl`. | notes on `electronic-notice-addendum-fl`, `notices`, `electronic-signatures` (previously 'not read'), `security-deposit-notice-fl`. Builder: send e-mail notices the tenant can save and print |
+| 46 Lease as the required notice | **Fixed** | §83.49(2) lets the lease carry the deposit disclosure (offered: `security-deposit-notice-fl`); §§83.50, 404.056(5) and 83.67(5) are likewise carried. Reconciliation: shared `notices` says 'nothing in this Lease designates an alternative method of delivery', and `addendum-precedence` gives priority only to addenda 'required by law', so the optional §83.505 e-mail addendum needed its own control sentence. | `electronic-notice-addendum-fl` (body: "This Addendum is part of the Lease. For the notices it covers, it controls over the Notices section of the Lease."); `notices` FL note |
+| 47 Knowing-use penalties | **Fixed** (education); clauses checked | Part II has no 'knowing use' penalty, but §83.47(2) gives actual damages for including a void term at all. Debt-collection statute: §559.72(9) reaches 'a person' collecting a consumer debt; §559.77(2) gives actual damages plus up to $1,000 statutory; §559.55(6) defines consumer debt (whether rent qualifies is case law, not read). Start rows: `late-fee` and `notices` carry no void term. `common-area-use-fl` names the protected flag display (§83.67(4)) instead of relying on a generic saving sentence. `early-termination-fl`'s fee could have reached a periodic holdover and is now limited (rule 37). | `edu-prohibited-lease-terms-fl` (body: collection-law sentence) |
+| 48 Separate documents | **Checked, no issue** | Batteries for separate writing, document and instrument (22, 23 and 4 hits). Landlord-side rules: §83.512 separate document (`flood-disclosure-fl`); §83.595(4) separate addendum (`early-termination-addendum-fl`); §83.505 addendum (`electronic-notice-addendum-fl`); §83.67(5) lease or separate writing (optional). No clause tries to supply any of these inside the lease. Chore split: §83.51(1) lets only a single-family home or duplex shift (1) duties 'in writing' (`maintenance-allocation-fl`), with no separate-writing rule; not the uniform-act split. | none |
+| 49 Collection costs | **Checked, no issue** | Part II regex (collection, costs and expenses, attorney fees): §83.48 reciprocal fees (not waivable), §83.49(2)(d), §83.625, §83.67(6). No Florida statute bars recovering collection costs. `default-by-tenant-fl`'s 'reasonable costs and expenses' is lawful; its fee sentence matches §83.48. In `security-deposit-notice-fl`, the 'costs and attorney fees' wording is the statute's reciprocal text. | notes on `default-by-tenant-fl`, `security-deposit-notice-fl` |
+| 50 "The lease controls" | **Checked, no issue** | Part II regex: 14 lease-choice hits. Each choice is made on purpose: §83.43(12) (fees not rent; pet rent is rent); §83.46(1) (`rent-payment`); §83.49(5) (7-day vacating notice kept); §83.51(1) (`maintenance-allocation-fl`); §83.51(2)(a) and (b) (duties kept with the landlord; detectors installed by the landlord); §83.51(2)(e) (`utilities-responsibility`); §83.575 (`end-of-term-notice-fl`); §83.595(4) (addendum); §83.67(5) (legend). No deposit uplift tied to lease terms (Florida has no cap). | none |
+| 51 Plain-language and consumer-contract statutes | **Fixed** | FDUTPA read. §501.203(8): "trade or commerce" includes 'rental' of 'any property'. §501.204: general standard read with FTC law, and no enumerated list of unfair practices. §501.212(7), closing paragraph: 'does not affect any action or remedy concerning residential tenancies covered under part II of chapter 83'. Plain language: battery returned 18 hits, none reaching leases. Blank spaces: battery returned 2 hits, both outside residential leases (§520.23 motor vehicles; §1001.42); Part II returned 0. Lease copy: battery returned 14 hits, none a copy duty; Part II returned 0. | new `edu-consumer-protection-act-fl` |
+| 53 Figure vs shared clause | **Fixed** (one trigger) | `rent-payment`: no conflict (next business day is a floor). `nsf-fee-limit-fl`: tiers from §68.065, unchanged. `surrender-end-of-term`: self-limited. `holdover`: the trigger matches §83.58 ('after the expiration of the rental agreement'). `early-termination-fl` and the addendum: 2 months and 60 days match §83.595(4). Trigger fix: `end-of-term-notice-fl`'s reminder 'no later than 15 days before' the notice period sits outside §83.575(2)'s 'within 15 days before the start of the notification period' when sent earlier. It now says '15 days before the notice period begins', which satisfies both readings (Claude's call, rule 76). | `end-of-term-notice-fl` |
+| 54t Tenant-caused damage | **Fixed** (clause and education) | Each exit or abatement provision was checked for its own fault exception. §83.63 casualty: 'other than by the wrongful or negligent acts of the tenant' (tenant only). §83.56(1)(a)-(b) and §83.60(1)(b) rest on §83.51 duties, and §83.51(4) excludes conditions caused by the tenant, family or a person present with consent. §83.60(2) is a registry deposit, not an abatement. Supporting sections: §83.52(6) tenant duty; §83.56(2)(a) intentional damage gives a no-cure notice; §83.595(2) good-faith reletting. Casualty rows checked first (`edu-casualty-damage-fl`). | new `tenant-caused-damage-fl` (optional; no-abatement and lost-rent parts limited to §83.63's 'tenant' group; repair-cost sentence uses §83.51(4)'s wider group; periodic limit), new `edu-tenant-caused-damage-fl`; note on `edu-casualty-damage-fl` |
+| 35c Constitution | **Checked, no issue** | Florida Constitution loaded whole (Online Sunshine page; positive 'homestead' 70, nonsense 0). Screened marijuana/cannabis (25 hits, all Art. X §29), arms (Art. I §8), privacy (Art. I §23: 'governmental intrusion'), speech (Art. I §4), tenant/landlord/lease/dwelling (2 hits, Art. X §20 workplace smoking), and smoking. Art. X §29(a)(1) shields medical use from 'civil liability or sanctions under Florida law'; (c)(6) requires no accommodation of smoking in public places; no lease text. Fla. Stat. §381.986(15)(d): 'does not impair the ability of any party to restrict or limit smoking or vaping marijuana on his or her private property'. `smoking-policy` bans smoking and vaping of anything, not possession or other use, and stays tagged. Case-law risk under §29(a)(1) is labelled unread. | `smoking-policy` FL note |
+| 27 Seven topics | **Fixed** (all seven now have rows) | algorithmic-rent-setting: **Confirmed absent** (battery 'algorithm* AND rent*' 3 tax hits; Part II 0). fees-as-rent: **Present**, §83.43(12). landlord-self-cure: **Confirmed absent** (Part II regex; whole-code battery 1 tax hit). lease-completeness: **Confirmed absent** (rule 51 batteries). quiet-possession: **Confirmed absent** (2 batteries, 5 and 9 hits, none residential; Part II 0). statutory-forms: **Present** ('substantially AND following AND form AND tenant', 36 hits, landlord ones listed in the row). tenant-security-cameras: **Confirmed absent** (camera 3 hits, surveillance 2, none tenant; Part II 0; voyeurism and interception statutes not read). | new `edu-no-algorithmic-rent-rule-fl`, `edu-fees-as-rent-fl`, `edu-no-landlord-self-cure-fl`, `edu-no-lease-completeness-rule-fl`, `edu-no-quiet-possession-statute-fl`, `edu-statutory-forms-fl`, `edu-no-tenant-camera-rule-fl` |
+| 79 Re-read before trusting a summary | **Fixed** (see list below) | Rows resting on secondary sources or fetch-tool summaries re-read section-open. Also mechanical: 24 statutory quotations in FL rows' notes were checked against the official ch. 83 text. 23 matched; the 24th, 'full and equal access', is from §413.08, not ch. 83. | see list |
+| Targeted fix 19 (scrub-trimmed clauses, rules 78 and 47) | **Fixed** (one pointer); nothing to restore | `security-deposit-return-fl` re-read against §83.49 whole. Filled with any holding choice it cannot break a limit: the interest figures are §83.49(1)(b)-(c)'s own, and the vacating notice tracks §83.49(5). Conditions a number check can't catch bind regardless of the lease and sit in `edu-security-deposit-rules-fl`. Required lease content was searched across Part II, not only this clause's citation (§§83.49(2), 83.575(1), 83.67(5), 83.512, 83.595(4), plus §§404.056(5), 83.50); nothing was trimmed. Every active FL clause was searched for pointers to switched-off or trimmed text: `pet-policy-fl` said a pet deposit is 'returned under this Lease's Security Deposit terms', and the return terms left the Lease at the scrub. | `pet-policy-fl` (body: held and returned as Florida law requires); note on `security-deposit-return-fl` |
+
+### Rule 79: rows re-read, with verdicts
+
+**Start row:**
+- `edu-no-immigration-inquiry-rule-fl`: **holds; basis upgraded.**
+  - The SB 1718 point (secondary) is no longer relied on.
+  - Whole-code batteries: 'alien AND landlord' 0; 'immigration AND tenant' 0; 'alien AND lease' 20, 'harbor* AND alien' 10, 'alien AND dwelling' 7, none a renting rule.
+  - §760.23(1)-(2) re-read; the "national origin" subdivision cited is right.
+
+**Secondary sources replaced by primary text:**
+- `edu-local-preemption-fl`: **holds; basis upgraded.**
+  - Ch. 2023-17 s. 49 (effective July 1, 2023; approved March 29, 2023; s. 2 has no separate date) read on the session law.
+  - §760.34(3), (8) read.
+  - The local fair-housing question stays PARTIAL (no court or AG ruling).
+- `edu-fair-housing-fl`: **holds.** §760.34 read section-open (was research-sourced).
+- `edu-periodic-tenancy-termination-fl`: **holds.** Ch. 2023-314 ss. 2-4 read (s. 4 'take effect July 1, 2023'; approved June 29, 2023); was 'read by the research tool'.
+- `late-fee` and `default-by-tenant-fl` (FL notes citing trial-court decisions): case law, not statute. Left as labelled ("secondary, not read"); rule 21 applies.
+
+**Fetch-tool summaries replaced by section-open reads:**
+- `edu-unauthorized-occupant-removal-fl`: §82.036 read whole; **holds.**
+- `edu-association-leasing-rules-fl`: §720.3085(8)(b)-(f) read; **body corrected.** HOA tenants also get the rent credit, and the HOA may evict, as condominium tenants and associations do (the body had limited both to condominiums).
+- `edu-transient-rental-tax-fl`: §212.03 read; **holds** (and a rule 37 sentence added).
+- `edu-veterans-pilot-fl`: §83.684(1)-(2), (6)-(7) read; **holds.**
+- `association-approval-fl` and `edu-no-deposit-cap-fl`: §719.106(1)(i) read (was 'abstract only'); **hold.** A cooperative's fee cap is $100 per applicant.
+- `no-liens-fl`, `edu-construction-liens-fl` (§713.10) and `edu-unclaimed-deposit-refunds-fl` (§717.102): **hold.**
+
+**Qualifier attached to the wrong sentence:**
+- `habitability-timeline-fl`: **fixed.** "A tenant may instead give written notice … withhold rent" followed a sentence covering lease provisions, but §83.60(1)(b) limits withholding to §83.51(1).
+
+**Wrong subdivision in `lease_clause_basis` (rule 22):**
+- `flood-disclosure-fl`: '§ 83.50(2)' corrected to '§ 83.512'.
+- `landlord-address-disclosure-fl`: '§ 83.50(1)' corrected to '§ 83.50'. §83.50 has no subsections.
+
+**Basis count (from `lease-clauses.csv` notes and `lease_clause_basis`):** 40 of 108 active FL rows recorded no basis.
+- **Group 1 (research rows), 36:** shared rows whose FL segment named a section but not how it was read. Basis now recorded on each: Part II read whole in the FL pass, cited sections re-read on 2026-10-03. `surrender-end-of-term` and `parking-vehicle-rules` rest on Taylor's paste; `lead-based-paint` is federal.
+  - Rows: `rent-payment`, `due-at-signing`, `security-deposit-use`, `residential-use-only`, `permitted-occupants`, `no-disturbance`, `utilities-responsibility`, `utility-payment-evidence`, `tenant-maintenance`, `no-sublet-assign`, `no-alterations`, `joint-liability`, `services-utilities-provided`, `utilities-paid-by-landlord`, `appliances-included`, `landlord-maintenance`, `surrender-end-of-term`, `holdover`, `notices`, `governing-law`, `severability`, `entire-agreement`, `addendum-precedence`, `pet-insurance-requirement`, `assigned-parking-space`, `parking-vehicle-rules`, `keys`, `guest-policy`, `landscaping-irrigation`, `snow-removal`, `inspection-rights`, `lead-based-paint`, `tenant-forward-proceedings-ca`, `storage-space-ks-oh-ca`, `parking-ks-oh-ca`, `tenants-property-insurance-ks-oh-ca`.
+- **Group 2 (created by the 2026-09-29 scrub), 2:** `edu-security-deposit-rules-fl`, `edu-casualty-damage-fl`. Provenance repaired by carrying the source rows' basis; both sections re-read.
+- **Group 3 (shared rows with no FL segment), 2:** `application-of-payments`, `rental-application-accuracy`. FL segments added with basis.
+
+**Citations-file updates for Claude Code (`lease-clause-citations-FL.csv`):**
+- `flood-disclosure-fl`: no change needed (the file already cites §83.512).
+- `edu-local-preemption-fl`: keep PARTIAL. Drop "Ch. 2023-17's effective date is from secondary sources" (now read).
+- `edu-no-immigration-inquiry-rule-fl`: basis "Online Sunshine whole-code batteries; §760.23 read".
+- `electronic-signatures`: replace "Florida electronic-transactions statute not read" with "§668.50 read".
+- `smoking-policy`: replace "medical marijuana not read" with "Const. art. X §29 and §381.986(15)(d) read".
+- `edu-foreclosure-tenant-rights-fl`: add "federal PTFA governs; §83.5615 not in force (note under §83.5615; Pub. L. 115-174 §304)".
+- `edu-transient-occupant-removal-fl`: leave as is (its §82.036 mention is a cross-reference).
+- New rows need citation entries:
+  - `edu-no-for-cause-eviction-fl`: CONFIRMED_ABSENT.
+  - `tenant-caused-damage-fl`: CITED.
+  - `edu-tenant-caused-damage-fl`: CITED.
+  - `edu-consumer-protection-act-fl`: CITED.
+  - `edu-fees-as-rent-fl`: CITED.
+  - `edu-statutory-forms-fl`: CITED.
+  - The four absence rows: CONFIRMED_ABSENT.
+
+### Other finding (targeted fix outside the 18 rules, rule 1)
+
+**`edu-foreclosure-tenant-rights-fl` described a Florida statute that is not in force.**
+- Under §83.5615, the official 2026 compilation prints: 'Section 2, ch. 2020-99, created s. 83.5615 “[e]ffective upon the repeal of the federal Protecting Tenants at Foreclosure Act, Pub. L. No. 111-22.”'
+- Pub. L. 115-174 §304 (read on govinfo.gov) repealed the federal act's sunset and restored it permanently, effective 30 days after May 24, 2018.
+- The substance landlords must follow is unchanged: 90 days' notice, lease survival and the bona fide test.
+- The body now says it is federal law, with Florida's standby copy. PTFA §§701-703 themselves were not read.
+- Rule 16 lesson: an official compilation can print a contingent section with no in-force marker except a footnote.
+
+### New rows (11)
+
+| Row | Type | rule_type | Basis |
+|---|---|---|---|
+| `edu-no-for-cause-eviction-fl` | education | RECOMMENDED | confirmed absent; §§83.57, 83.425, 83.64, 760.23, 718.606, 250.5202 |
+| `tenant-caused-damage-fl` | lease clause, optional | CONDITIONAL | SERVES_LANDLORD; §§83.63, 83.51(4), 83.52(6), 83.595(2) |
+| `edu-tenant-caused-damage-fl` | education | RECOMMENDED | §§83.63, 83.51(4), 83.56, 83.60, 83.52(6), 83.49(3), 83.55, 83.595 |
+| `edu-consumer-protection-act-fl` | education | RECOMMENDED | §§501.203(3), (8), 501.204, 501.212 |
+| `edu-no-algorithmic-rent-rule-fl` | education | RECOMMENDED | confirmed absent |
+| `edu-fees-as-rent-fl` | education | RECOMMENDED | §§83.43(12), 83.56(3) |
+| `edu-no-landlord-self-cure-fl` | education | RECOMMENDED | confirmed absent; §§83.53(2), 83.51(4) |
+| `edu-no-lease-completeness-rule-fl` | education | RECOMMENDED | confirmed absent; §83.45 |
+| `edu-no-quiet-possession-statute-fl` | education | RECOMMENDED | confirmed absent; §§83.67, 83.53(3) |
+| `edu-statutory-forms-fl` | education | RECOMMENDED | present; forms listed in the row |
+| `edu-no-tenant-camera-rule-fl` | education | RECOMMENDED | confirmed absent |
+
+No new `{{variables}}`. No shared row's text changed: shared rows received only an FL note segment and `last_checked`, so no propagation is owed (rule 62).
+
+### Open items
+
+- **Rule 39 local rules:** 19 of Florida's 20 circuits' local rules were not read, and no circuit's administrative orders were read (Florida trial-court eviction practice mostly lives in administrative orders). This is an open boundary.
+- **Case law, not read (rule 76 labels):**
+  - whether rent is a "consumer debt" under §559.55(6);
+  - whether Art. X §29(a)(1) bars evicting a qualifying patient for smoking in breach of a lease;
+  - the lost-rent measure in `tenant-caused-damage-fl`;
+  - whether a guest's negligence counts as the tenant's under §83.63.
+
+### Integrity (delta checked against the master)
+
+- **Delta:** 80 rows (69 changed, 11 new), 17 columns, the master's header, CRLF.
+- **Merged:** 2,867 rows. FL active rows go from 108 to 119 (70 lease clauses, 49 education), all VERIFIED. Every other state's active count is unchanged.
+- **Checks:**
+  - no duplicate ids;
+  - no dangling `supersedes`;
+  - no display collisions;
+  - no blank status or `states` except the `security-deposit-return` parent.
+- **Shared rows** (40) changed only `notes` (an appended FL segment) and `last_checked`.
+- **FL-only rows** (29) changed only `notes`, `last_checked`, `bodyText` (11 rows) and `lease_clause_basis` (2 rows).
+- Every row id named in the new notes is an active FL row, apart from deliberate references to the TN model, the switched-off provenance row and the base rows FL overrides.
+
+### Proposed SOP changes
+
+1. **Footnoted contingent sections (rule 16).** When a section relied on carries a compiler's note making it effective on a contingency (for example, "effective upon the repeal of" a federal act), confirm the contingency before treating the section as law. Reason: Florida's §83.5615 is printed in the 2026 compilation, but it is a dormant copy of the federal PTFA, and an education row presented it as Florida law in force.
+2. **Generous lease promises as statutory triggers (rule 44).** Check whether the state's landlord-noncompliance remedy reaches "material provisions of the rental agreement", not only "expressly agreed to furnish" wording. Reason: Florida §83.56(1) turns every voluntary maintenance, appliance or utility promise into a 7-day termination trigger, while the withholding defense (§83.60(1)(b)) does not reach them; the education row had blurred the two.
+3. **Boolean-only engines (rule 19).** Where the official statute search does not honour quoted phrases, record that and use AND batteries with every hit read in context. Test the engine's phrase handling with a known positive in quotes (Florida's Online Sunshine returned 188 ranked results for a two-word quoted phrase that has 2 true hits).
+4. **Optional addenda vs the Notices sentence (rule 46).** Check `addendum-precedence` as well as `notices`. Reason: it ranks only addenda "required by law" above the Lease, so an optional statutory e-mail addendum (Florida §83.505) gets no priority from it and needs its own control sentence.
+
+## Retro sync (Claude Code, 2026-10-03)
+
+- **Merged** with `merge-delta.py --base 3ba34ed` (the attached CSV is byte-identical to it): 69 rows updated and 11 new, no refusals. Forty of the updates are shared rows given an FL note segment recording Florida's basis (rule 79's third group), notes only. FL active 108 → 119 (70 lease clauses); every other state's set unchanged. The one same-topic pair, `early-termination-fl` and `early-termination-addendum-fl`, predates this pass (the § 83.595(4) addendum is a separate document by design).
+- **Guards:** `check-gap-discovery.py --all`, `check-checklist-reconciliation.py`, `check-clause-basis.py`, `check-section-pointers.py` and `checkConfigIds.js` all pass.
+- **Statute spot-check, 4 of 4, against leg.state.fl.us (2026 Florida Statutes, read by Claude Code at sync):** § 83.5615 prints only a note that it took effect "upon the repeal of the federal Protecting Tenants at Foreclosure Act", which hasn't happened, confirming the correction to `edu-foreclosure-tenant-rights-fl`; § 83.63 (the casualty fault exception covers "the tenant" only) behind `tenant-caused-damage-fl`; § 83.56(1) ("material provisions of the rental agreement") behind `habitability-timeline-fl`; § 83.505 (e-mail notices only by a signed addendum) behind `electronic-notice-addendum-fl`'s new control sentence.
+- **Citations file:** the five updates the retro listed applied (`electronic-signatures` now § 668.50; `smoking-policy` now Fla. Const. art. X, § 29 and § 381.986(15)(d); `edu-foreclosure-tenant-rights-fl` now cites the federal PTFA with § 83.5615 marked not in force; `edu-local-preemption-fl` and `edu-no-immigration-inquiry-rule-fl` bases updated), 11 rows added (5 confirmed-absence), changed rows dated.
+- **Supporting files:** the retro's `battery-log.md` and `excerpts-relied-on.md` are kept below as appendices A and B.
+- **Open:** 19 of Florida's 20 circuits' local rules and all administrative orders unread (rule 39); four case-law questions (above).
+- **SOP 1.31:** all four proposals adopted (rules 11, 16, 44, 46). FL's conformance column is complete except the examples.
+
+### Appendix A: FL retro battery log (2026-10-03)
+
+Engine: Online Sunshine statute search (official Florida Legislature site), 2026 Florida Statutes,
+URL form: https://www.leg.state.fl.us/statutes/index.cfm?StatuteYear=2026&AppMode=Display_Results&Mode=Search%20Statutes&Submenu=2&Tab=statutes&NumPerPage=50&Search_String=<query>
+Matching: Boolean AND/OR/NOT and * wildcard at section level, case-insensitive (site's Search Tips page, read 2026-10-03). Quoted phrases are NOT honoured as phrases ("flotation bedding" in quotes returned 188 ranked returns), so every battery uses AND and every hit is read in context before it counts.
+Proof it indexes body text, not titles only (rule 11): 'rebuttable AND presumption AND advance AND rent' -> 2 (83.49, 721.05); the words sit in §83.49(7), deep in the body, not in the title.
+Known positive: 'flotation AND bedding' -> 2 (83.535, 212.08).
+Nonsense control: 'xqzzyplugh' -> 0.
+Constitution: not covered by this engine (separate page; screened in-page, see rule 35c).
+Chapter 83 Part II regex screen: run in-page on the official ch. 83 'View Entire Chapter' page (leg.state.fl.us, 134,695 chars, SHA-256 c039a5d7fd67ce51ea8905677881c51e7a86312a53e23c47854215ee1d64a11d), Part II slice 93,515 chars, 79 headings matched. Positive 'flotation bedding' 4 hits; nonsense 0.
+
+## Whole-code batteries
+| # | Query | Returns | Hits (section: heading) | Verdict |
+|---|---|---|---|---|
+| 1 | alien AND landlord | 0 | - | no landlord immigration rule |
+| 2 | alien AND lease | 20 | 379.232 448.095 680.303 631.141 443.101 689.28 288.15 443.1216 327.02 550.002 316.193 163.340 718.117 775.261 440.02 790.06 775.21 626.9932 163.01 921.0022 | none a residential landlord duty |
+| 3 | immigration AND tenant | 0 | - | - |
+| 4 | harbor* AND alien | 10 | 379.226 787.06 328.72 944.608 985.4815 944.607 775.261 943.0435 775.21 921.0022 | none about renting to a person by immigration status |
+| 5 | alien AND dwelling | 7 | 420.526 907.041 494.001 163.340 163.360 921.0022 163.3162 | none |
+| 6 | just AND cause AND tenant | 4 | 193.155 61.075 718.117 212.08 | no just-cause eviction rule |
+| 7 | good AND cause AND tenant AND evict* | 7 | 83.64 381.00895 723.061 82.035 723.031 718.1255 397.487 | only §83.64(3) (retaliation defense defeated by good cause) for Part II; 723.x mobile-home lots; 381.00895 migrant labor housing |
+| 8 | plain AND language AND contract* | 18 | 680.214 413.0114 672.316 1011.035 288.018 102.014 171.031 945.41 288.0655 395.301 1002.88 578.09 408.9091 520.07 916.107 39.402 288.1226 121.021 | no plain-language consumer-contract statute reaching leases |
+| 9 | blank* AND lease* AND sign* | 2 | 520.23 (motor-vehicle retail installment) 1001.42 | no blank-space rule for residential leases |
+| 10 | algorithm* AND rent* | 3 | 212.04 212.05 212.12 | none about rent pricing |
+| 11 | camera* AND tenant* | 3 | 316.003 553.793 934.50 | none about tenant cameras |
+| 12 | surveillance AND tenant* | 2 | 934.50 212.08 | none |
+| 13 | quiet AND enjoyment | 5 | 65.091 679.610 723.025 513.118 513.13 | no residential quiet-enjoyment statute (723.025 mobile-home park only) |
+| 14 | quiet AND possession | 9 | 65.061 65.081 679.610 65.021 65.011 64.061 513.13 718.117 402.305 | none a residential quiet-possession covenant |
+| 15 | separate AND writing AND tenant | 22 | 255.25 83.49 718.106 697.07 713.3471 709.2119 61.075 715.12 166.231 723.031 625.012 713.785 509.013 350.81 196.012 719.106 193.155 718.111 212.08 627.351 381.0065 376.3078 | 83.49 is "separate account"; no residential separate-writing rule beyond those already in the library |
+| 16 | separate AND document AND tenant | 23 | 83.512 + 22 non-landlord sections (255.25 481.203 713.3471 715.12 689.071 403.121 718.111 509.013 420.0003 456.053 718.117 403.706 443.036 713.785 212.08 193.155 719.106 316.003 733.817 627.351 381.0065 376.3078) | §83.512 flood disclosure (`flood-disclosure-fl`, separate) |
+| 17 | separate AND instrument AND lease* AND tenant | 4 | 689.071 193.155 718.111 212.08 | none |
+| 18 | marijuana AND landlord | 2 | 397.487 212.08 | no landlord rule (recovery residences only) |
+| 19 | marijuana AND tenant* | 2 | 397.487 212.08 | same |
+| 20 | firearm* AND tenant* | 3 | 212.08 790.333 921.0022 | no tenant firearm rule |
+| 21 | bedbug* (wildcard positive) | 1 | 83.51 | wildcard and body indexing confirmed |
+| 22 | landlord AND tenant AND repair* AND charge* AND rent | 1 | 212.08 | no landlord self-cure statute |
+| 23 | copy AND rental AND agreement AND tenant AND sign* | 14 | 83.491 83.682 83.505 719.108 718.116 420.9075 82.037 82.036 255.249 125.0104 718.111 212.08 627.351 489.103 | no lease-copy-at-signing duty |
+| 24 | substantially AND following AND form AND tenant | 36 | landlord-tenant hits: 83.49 83.491 83.505 83.512 83.56 83.595 83.67 715.105 715.106 718.116 719.108 720.3085 82.036 (82.037 commercial); rest non-housing | statutory forms list (`edu-statutory-forms-fl`) |
+
+## In-page regex screens over Fla. Stat. ch. 83 Part II (93,515 chars; positive 'flotation bedding' 4, nonsense 0)
+| Pattern | Hits | Sections |
+|---|---|---|
+| lease-choice: unless otherwise (agreed or provided), if the lease so provides, except when otherwise provided, as provided in the rental agreement, may contain a provision, may provide that, if provided in the rental agreement, designated as rent, in writing with respect to | 14 | 83.43(12); 83.46(1); 83.49(5); 83.51(1), (2)(a), (2)(b); 83.575(1), (2) x2; 83.595(4) x3; 83.67(5) x2 |
+| collection, costs and expenses, attorney fees | 9 | 83.48 (5, incl. TOC); 83.49(2)(d) disclosure; 83.625; 83.67(1) ('garbage collection'), 83.67(6) |
+| required content (lease must contain/include..., in the lease agreement, printed or clearly stamped, separate document/writing/addendum, signing a separate) | 19 | 83.49(2), (5); 83.491; 83.51(2)(e); 83.512(1); 83.56(4); 83.575; 83.595(4); 83.67(4), (5) |
+| self-cure (landlord may enter/repair/remedy..., cost of repair, charged to the tenant) | 8 | 83.491 (repair costs, fee program), 83.512 (definition), 83.53 entry only |
+| quiet enjoyment/possession, peaceable, peaceful | 0 | - |
+| blank(s), fill(ed) in | 0 | - |
+| camera, video, surveillance, doorbell, recording device | 0 | - |
+| algorithm, software, pricing, rent-setting | 0 | - |
+| good/just/for/without cause | 2 | 83.64(3) |
+| copy of the rental agreement/lease | 0 | - |
+
+## Florida Constitution in-page screen (whole document page, positive 'homestead' 70, nonsense 0)
+marijuana|cannabis 25 (all Art. X §29); bear arms|firearm 7 (Art. I §8; Art. VIII §5 waiting period); privacy 4 (Art. I §23 governmental intrusion; Art. X §22); speech (Art. I §4); tenant|landlord|lessee|lessor|rental agreement|dwelling 2 (Art. X §20 workplace smoking, 'lessee' as person in control); smok 6 (Art. X §20).
+
+### Appendix B: Primary text relied on for the FL retro changes (2026-10-03)
+
+Method (rule 14): every passage below was read in the Claude desktop browser pane on the official site named, and copied here from the page text the browser returned. The shell cannot reach Florida sites, so a SHA-256 of each whole page or section was computed in the browser (crypto.subtle) and is recorded here; the excerpts themselves are copies, not hash-matched files (weaker method, named as such).
+
+## Fla. Stat. ch. 83, 2026 (Online Sunshine, "View Entire Chapter", https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0000-0099/0083/0083.html)
+Page text 134,695 chars, SHA-256 c039a5d7fd67ce51ea8905677881c51e7a86312a53e23c47854215ee1d64a11d. Per-section SHA-256 (first 16 hex) of the section text from its heading through its history line: 83.42 7f802133ff3c4e37; 83.43 e3f61fd4744bb3e1; 83.46 f015972852b81340; 83.47 1301c27cb6339253; 83.48 c0e44b25c9d35fde; 83.49 2e2caea355c79f59; 83.50 4bb55d5f890e6c41; 83.505 6e6edcf759eb80f5; 83.51 df741748a359e1e4; 83.512 a6c7a7a67775733c; 83.52 b140405ef4464035; 83.53 0292fc03f2cad596; 83.56 (with 83.5615) 62ef0feffc48ea18; 83.57 d1f48acfdd5e4a7f; 83.575 fb7462e04dfb3e84; 83.58 df9ee0af03754d89; 83.59 61fa329f8a164d61; 83.595 1ebad2c27264afd8; 83.60 63646ea7c35e912e; 83.62 9c05049fcdf695ec; 83.63 37624e0d2cb029da; 83.64 17f6bfb6ce85c660; 83.67 5df18b3ffee6d386.
+
+- §83.50 (whole; no numbered subsections): "In addition to any other disclosure required by law, the landlord, or a person authorized to enter into a rental agreement on the landlord’s behalf, shall disclose in writing to the tenant, at or before the commencement of the tenancy, the name and address of the landlord or a person authorized to receive notices and demands in the landlord’s behalf. ..." History.—s. 2, ch. 73-330; s. 443, ch. 95-147; s. 5, ch. 2013-136; s. 3, ch. 2025-16.
+- §83.512(1): "A landlord must complete and provide a flood disclosure to a prospective tenant of residential real property at or before the execution of a rental agreement for a term of 1 year or longer. The flood disclosure must be in a separate document." History.—s. 1, ch. 2025-166.
+- §83.5615 note: "Section 2, ch. 2020-99, created s. 83.5615 “[e]ffective upon the repeal of the federal Protecting Tenants at Foreclosure Act, Pub. L. No. 111-22.”"
+- §83.575(1): "A rental agreement with a specific duration may contain a provision requiring the tenant to notify the landlord within a specified period before vacating the premises at the end of the rental agreement, if such provision also requires the landlord to notify the tenant in a manner prescribed by s. 83.56(4) within such notice period if the rental agreement will not be renewed. A rental agreement may not require less than 30 days’ notice or more than 60 days’ notice from either the tenant or the landlord."
+- §83.575(2): "A rental agreement with a specific duration may provide that if a tenant fails to give the required notice before vacating the premises at the end of the rental agreement, the tenant may be liable for liquidated damages as specified in the rental agreement if the landlord provides written notice to the tenant specifying the tenant’s obligations under the notification provision contained in the rental agreement and the date the rental agreement is terminated. The landlord must provide such written notice to the tenant in a manner prescribed by s. 83.56(4) within 15 days before the start of the notification period contained in the rental agreement. The written notice must list all fees, penalties, and other charges applicable to the tenant under this subsection."
+- §83.57 (opening): "A tenancy without a specific duration, as defined in s. 83.46(2) or (3), may be terminated by either party giving written notice in the manner provided in s. 83.56(4), as follows: ..." History ends s. 2, ch. 2023-314.
+- §83.58: "If the tenant holds over and continues in possession of the dwelling unit or any part thereof after the expiration of the rental agreement without the permission of the landlord, the landlord may recover possession of the dwelling unit in the manner provided for in s. 83.59. The landlord may also recover double the amount of rent due on the dwelling unit, or any part thereof, for the period during which the tenant refuses to surrender possession."
+- §83.56(1) (first sentence): "If the landlord materially fails to comply with s. 83.51(1) or material provisions of the rental agreement within 7 days after delivery of written notice by the tenant specifying the noncompliance and indicating the intention of the tenant to terminate the rental agreement by reason thereof, the tenant may terminate the rental agreement."
+- §83.56(2)(a) (no-cure examples): "destruction, damage, or misuse of the landlord’s or other tenants’ property by intentional act; an act of fraudulent entry of a residential dwelling unit which violates s. 817.537(2), regardless of whether criminal proceedings have commenced; or a subsequent or continued unreasonable disturbance."
+- §83.60(1)(b) (first sentence): "The defense of a material noncompliance with s. 83.51(1) may be raised by the tenant if 7 days have elapsed after the delivery of written notice by the tenant to the landlord, specifying the noncompliance and indicating the intention of the tenant not to pay rent by reason thereof."
+- §83.51(4): "The landlord is not responsible to the tenant under this section for conditions created or caused by the negligent or wrongful act or omission of the tenant, a member of the tenant’s family, or other person on the premises with the tenant’s consent."
+- §83.52(6): "Not destroy, deface, damage, impair, or remove any part of the premises or property therein belonging to the landlord nor permit any person to do so."
+- §83.63 (opening): "If the premises are damaged or destroyed other than by the wrongful or negligent acts of the tenant so that the enjoyment of the premises is substantially impaired: (1) The tenant may terminate the rental agreement and immediately vacate the premises. ..."
+- §83.595(2) (extract): "Retake possession of the dwelling unit for the account of the tenant, holding the tenant liable for the difference between the rent stipulated to be paid under the rental agreement and what the landlord is able to recover from a reletting. If the landlord retakes possession, the landlord has a duty to exercise good faith in attempting to relet the premises ..."
+- §83.47(2): "If such a void and unenforceable provision is included in a rental agreement entered into, extended, or renewed after the effective date of this part and either party suffers actual damages as a result of the inclusion, the aggrieved party may recover those damages sustained after the effective date of this part."
+- §83.55: "If either the landlord or the tenant fails to comply with the requirements of the rental agreement or this part, the aggrieved party may recover the damages caused by the noncompliance."
+- §83.43(12): "“Rent” means the periodic payments due the landlord from the tenant for occupancy under a rental agreement and any other payments due the landlord from the tenant as may be designated as rent in a written rental agreement."
+- §83.491(9): "This section applies to rental agreements entered into or renewed on or after July 1, 2023."
+- §83.684(1)-(2), (6)-(7): read verbatim on the same page; consistent with `edu-veterans-pilot-fl`. History.—s. 1, ch. 2026-125.
+
+## Other Florida statutes, 2026 (Online Sunshine section pages)
+- §82.036 (whole, read 2026-10-03; History.—s. 1, ch. 2024-44; s. 1, ch. 2025-112; s. 9, ch. 2026-14). (4): "Upon receipt of the complaint, the sheriff shall verify that the person submitting the complaint is the record owner of the real property or the authorized agent of the owner and appears otherwise entitled to relief under this section. If verified, the sheriff shall, without delay, serve a notice to immediately vacate on all the unlawful occupants and shall put the owner in possession of the real property." (5) last sentence: "The property owner or his or her authorized agent is not liable to an unlawful occupant or any other party for the loss, destruction, or damage to the personal property unless the removal was wrongful." (3) prescribes the "COMPLAINT TO REMOVE PERSONS UNLAWFULLY OCCUPYING RESIDENTIAL REAL PROPERTY" "in substantially the following form".
+- §720.3085(8)(c)-(d): "(c) The liability of the tenant may not exceed the amount due from the tenant to the tenant’s landlord. The tenant shall be given a credit against rents due to the landlord in the amount of assessments paid to the association. (d) The association may issue notice under s. 83.56 and sue for eviction under ss. 83.59-83.625 as if the association were a landlord under part II of chapter 83 if the tenant fails to pay a monetary obligation. However, the association is not otherwise considered a landlord under chapter 83 and specifically has no obligations under s. 83.51." History ends s. 10, ch. 2024-221.
+- §718.116(11)(a)-(f): read whole; matches `edu-association-leasing-rules-fl` (History ends s. 19, ch. 2023-203).
+- §718.112(2)(k): read whole ("may not exceed $150 per applicant"; CPI adjustment every 5 years; lessee deposit "not to exceed the equivalent of 1 month’s rent").
+- §719.106(1)(i): "Any such fee may be preset, but in no event shall it exceed $100 per applicant other than husband/wife or parent/dependent child, which are considered one applicant. However, if the lease or sublease is a renewal of a lease or sublease with the same lessee or sublessee, no charge shall be made. ... a security deposit in an amount not to exceed the equivalent of 1 month’s rent. ... Within 15 days after a tenant vacates the premises, the association shall refund the full security deposit or give written notice to the tenant of any claim made against the security. Disputes under this paragraph shall be handled in the same fashion as disputes concerning security deposits under s. 83.49." History ends s. 46, ch. 2026-14.
+- §720.306(1)(h)1-5: read whole; matches the row.
+- §713.10(1)-(4): read whole; matches `no-liens-fl` and `edu-construction-liens-fl` (History ends s. 5, ch. 2023-226).
+- §717.102(1): read whole; matches `edu-unclaimed-deposit-refunds-fl`.
+- §212.03(1)(a), (2), (4), (7)(a)-(c): read whole; History ends s. 2, ch. 2014-40. (4): "The tax levied by this section shall not apply to, be imposed upon, or collected from any person who shall have entered into a bona fide written lease for longer than 6 months in duration for continuous residence at any one hotel, apartment house, roominghouse, tourist or trailer camp, or condominium, or to any person who shall reside continuously longer than 6 months at any one hotel, apartment house, roominghouse, tourist or trailer camp, or condominium and shall have paid the tax levied by this section for 6 months of residence ..."
+- §760.23(1)-(2): "... because of race, color, national origin, sex, disability, familial status, or religion."
+- §760.34(3), (8): local fair housing laws "substantially equivalent" (read whole; History ends s. 4, ch. 2020-164).
+- §718.606(1)-(6): read; History.—s. 1, ch. 80-3; s. 20, ch. 84-368.
+- §668.50(3)(b)-(c), (5)(b)-(d), (8)(a)-(d) (UETA; History ends s. 139, ch. 2025-92): (3)(b) excludes only wills/codicils/testamentary trusts, the UCC other than s. 671.107 and chs. 672 and 680, and UCITA; (3)(c) excludes transactions governed by rules relating to judicial procedure except (2), (9), (11); (5)(c) "A party that agrees to conduct a transaction by electronic means may refuse to conduct other transactions by electronic means. The right granted by this paragraph may not be waived by agreement."; (8)(a) record "capable of retention by the recipient at the time of receipt"; (8)(c) "If a sender inhibits the ability of a recipient to store or print an electronic record, the electronic record is not enforceable against the recipient."; (8)(b)2 a record must be sent by the method another law specifies.
+- §559.55(6): "“Debt” or “consumer debt” means any obligation or alleged obligation of a consumer to pay money arising out of a transaction in which the money, property, insurance, or services which are the subject of the transaction are primarily for personal, family, or household purposes, whether or not such obligation has been reduced to judgment."
+- §559.72 (opening and (9)): "In collecting consumer debts, a person may not: ... (9) Claim, attempt, or threaten to enforce a debt when such person knows that the debt is not legitimate, or assert the existence of some other legal right when such person knows that the right does not exist."
+- §559.77(2) (first sentence): "Any person who fails to comply with any provision of s. 559.72 is liable for actual damages and for additional statutory damages as the court may allow, but not exceeding $1,000, together with court costs and reasonable attorney’s fees incurred by the plaintiff."
+- §501.203(8): "“Trade or commerce” means the advertising, soliciting, providing, offering, or distributing, whether by sale, rental, or otherwise, of any good or service, or any property, whether tangible or intangible, or any other article, commodity, or thing of value, wherever situated."
+- §501.204(1): "Unfair methods of competition, unconscionable acts or practices, and unfair or deceptive acts or practices in the conduct of any trade or commerce are hereby declared unlawful."
+- §501.212(7) closing paragraph: "However, this subsection does not affect any action or remedy concerning residential tenancies covered under part II of chapter 83, nor does it prohibit the enforcing authority from maintaining exclusive jurisdiction to bring any cause of action authorized under this part."
+- §381.986(15)(d): "This section does not impair the ability of any party to restrict or limit smoking or vaping marijuana on his or her private property." History ends s. 30, ch. 2026-233.
+- §51.011 (opening): "If there is a difference between the time period prescribed in a rule and in this section, this section governs." (1): answer "within 5 days after service of process".
+
+## Florida Constitution (Online Sunshine, whole document page, SHA-256 of the screened text e67d4b494999b4d5e8ecc108b7c7879f9f5785400fb0be39520979c1f5ff830f, 422 section headings)
+- Art. X, §29(a)(1): "The medical use of marijuana by a qualifying patient or caregiver in compliance with this section is not subject to criminal or civil liability or sanctions under Florida law."
+- Art. X, §29(c)(6): "Nothing in this section shall require any accommodation of any on-site medical use of marijuana in any correctional institution or detention facility or place of education or employment, or of smoking medical marijuana in any public place."
+- Art. I, §8(a) (right to bear arms), §4 (speech), §23 (privacy: "free from governmental intrusion"): no lease or landlord text.
+- Art. X, §20 (workplace smoking): "private residences" excepted; no lease text.
+
+## Session laws (laws.flrules.org PDFs, parsed in-browser with pdf.js)
+- Ch. 2023-17 (CS/SB 102), s. 49: "Except as otherwise expressly provided in this act and except for this section, which shall take effect upon becoming a law, this act shall take effect July 1, 2023. Approved by the Governor March 29, 2023." Section 2 (s. 125.0103) has no separate effective date.
+- Ch. 2023-314 (CS/HB 1417), s. 4: "This act shall take effect July 1, 2023. Approved by the Governor June 29, 2023." Ss. 2-3 change §83.57(3) from 15 to 30 days and add the 30-60 day bounds to §83.575(1).
+
+## Federal (govinfo.gov)
+- Pub. L. 115-174, §304: "(a) Repeal of Sunset Provision.--Section 704 of the Protecting Tenants at Foreclosure Act of 2009 ... is repealed. (b) Restoration.--Sections 701 through 703 of the Protecting Tenants at Foreclosure Act of 2009 ... as were in effect on December 30, 2014, are restored and revived. (c) Effective Date.--Subsections (a) and (b) shall take effect on the date that is 30 days after the date of enactment of this Act." PTFA §§701-703 themselves not read.
+
+## Court rules (floridabar.org PDFs, parsed in-browser with pdf.js)
+- Florida Rules of Civil Procedure, edition 10-01-26 (340 pages; PDF SHA-256 5807c154038c9f851f865325c6cff2496a9cf8888daacca2a7572eb222347ed4): searched whole for landlord, tenant, evict, seal, CARES/covered property. Landlord-relevant: Form 1.923(a) eviction summons; Form 1.947 note: "Paragraph 3 must specify whether the rental agreement is written or oral and if written, a copy must be attached."; Form 1.947(b) answer; Rule 1.580 writ of possession (third-party affidavit). No CARES Act or federal pre-filing condition.
+- Florida Rules of General Practice and Judicial Administration, edition 7-1-2026 (259 pages; SHA-256 a7fba18f1ca3c5d7f313b1a53c744a654ef29ca14bde57b3c22db0d92dbdbba2): 'evict|landlord|tenant' appears only in a judicial-workload rule (p. 66). Rule 2.420(c) lists confidential records with no eviction category; (e) and (h) let a party ask the court to determine specific information confidential.
+- Eleventh Circuit (Miami-Dade) local rules page and Local Rule R-1-11 (County Court civil division: jurisdiction only). The other 19 circuits' local rules were not read.
