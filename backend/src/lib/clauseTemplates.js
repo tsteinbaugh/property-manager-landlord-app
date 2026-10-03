@@ -1379,7 +1379,7 @@ const CLAUSE_TEMPLATES = [
     states: ["SD"],
     supersedes: "assistance-animal-accommodation",
     bodyText:
-      "A service animal or other assistance animal that Tenant or an Occupant needs as a reasonable accommodation for a disability is not considered a pet under this Lease, regardless of any pet policy, breed, weight, or size restriction stated elsewhere in this Lease. Landlord will not charge a pet deposit, pet rent, or other pet-related fee for an assistance animal. If Tenant's disability or disability-related need for the animal is not readily apparent or already known to Landlord, Landlord may require reliable supporting documentation confirming the disability and the relationship between the disability and the need for the animal; the documentation must originate from a licensed health care provider who does not operate in South Dakota solely to provide such certifications. If Landlord already knows of the disability and need, Landlord will not require documentation. Tenant remains responsible for any damage to the property caused by an assistance animal. A tenant who knowingly makes a false claim of disability requiring a service or assistance animal, or knowingly provides fraudulent supporting documentation, may be evicted and is liable to Landlord for a damage fee of up to $1,000.",
+      "A service animal or other assistance animal that Tenant or an Occupant needs as a reasonable accommodation for a disability is not considered a pet under this Lease, regardless of any pet policy, breed, weight, or size restriction stated elsewhere in this Lease. Landlord will not charge a pet deposit, pet rent, or other pet-related fee for an assistance animal. If Tenant's disability or disability-related need for the animal is not readily apparent or already known to Landlord, Landlord may require reliable supporting documentation confirming the disability and the relationship between the disability and the need for the animal; the documentation must originate from a licensed health care provider who does not operate in South Dakota solely to provide such certifications. If Landlord already knows of the disability and need, Landlord will not require documentation. Tenant remains responsible for any damage to the property caused by an assistance animal. A tenant who knowingly makes a false claim of disability requiring a service or assistance animal, or who knowingly provides fraudulent supporting documentation, may be evicted; and where the tenant provides fraudulent disability documentation, Tenant is also liable to Landlord for a damage fee of up to $1,000.",
   },
   // Notices & General
   {
@@ -1416,7 +1416,7 @@ const CLAUSE_TEMPLATES = [
     group: "Landlord Responsibilities",
     states: ["SD"],
     bodyText:
-      "If the property, or any part of it, is damaged by fire or other casualty not caused by Tenant's negligence or willful act, Rent will be reduced in proportion to the extent and duration the property is unusable. If Landlord decides not to rebuild or repair the damage, this Lease will end and Rent will be prorated to the date of the damage.",
+      "If the property, or any part of it, is damaged by fire or other casualty not caused by Tenant's negligence or willful act, Rent will be reduced in proportion to the extent and duration the property is unusable, and if Landlord decides not to rebuild or repair the damage, this Lease will end and Rent will be prorated to the date of the damage. Where the damage was caused by the negligent or willful act or omission of Tenant, an Occupant, or a guest or invitee of Tenant, Rent will not be reduced and will not be prorated under this Section, and Tenant's obligations under the Tenant-Caused Damage section of this Lease apply instead. Nothing in this Section limits any right South Dakota law gives Tenant to terminate this Lease after the property is destroyed.",
   },
   // Default & Termination
   {
@@ -1599,7 +1599,7 @@ const CLAUSE_TEMPLATES = [
     states: ["SD"],
     supersedes: "landlord-maintenance",
     bodyText:
-      "Tenant will notify Landlord promptly in writing of any condition requiring repair or maintenance.",
+      "Tenant will notify Landlord promptly in writing of any condition requiring repair or maintenance. A request for written notice does not limit Landlord's repair and habitability duty, which South Dakota law imposes whether or not Tenant's notice is in writing, and does not affect any remedy South Dakota law gives Tenant after Tenant has given notice of a condition requiring repair.",
   },
   // Pets
   {
@@ -5705,6 +5705,15 @@ const CLAUSE_TEMPLATES = [
     states: ["OH"],
     bodyText:
       "Tenant will not cultivate, grow or process cannabis or marijuana anywhere on the property, including inside the dwelling, in any enclosed or secured area, and anywhere on the grounds, and will not permit any occupant or guest to do so. This Section is intended to prohibit the activities that would otherwise be authorized at the property by Ohio's home grow provisions. Nothing in this Section restricts any use or possession that applicable law entitles Tenant to, or affects any accommodation Tenant is entitled to for medical use under applicable law.",
+  },
+  // Default & Termination
+  {
+    id: "tenant-caused-damage-sd",
+    title: "Tenant-Caused Damage",
+    group: "Default & Termination",
+    states: ["SD"],
+    bodyText:
+      "If the property is damaged by fire, water, a vehicle or any other cause, and the damage results from the negligent or willful act or omission of Tenant, an Occupant, or a guest or invitee of Tenant, then: (1) Rent will not be reduced or abated while the property is repaired, for as long as this Lease continues; and (2) if this Lease ends because of the damage, Tenant will be liable for Landlord's actual damages, including the Rent Landlord loses while the property is repaired, up to the end of the Term, less any Rent Landlord receives from re-renting the property. Landlord will use reasonable efforts to repair and re-rent the property. This Section is in addition to Tenant's obligation under South Dakota law to repair deterioration or damage caused by Tenant's own negligent, willful or malicious conduct, or that of persons acting under Tenant's direction or control. Nothing in this Section limits any right South Dakota law gives Tenant to terminate this Lease after the property is destroyed.",
   },
 ];
 
