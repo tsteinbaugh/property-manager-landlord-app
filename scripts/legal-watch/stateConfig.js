@@ -40,6 +40,7 @@ const STATE_NAMES = {
   MI: "Michigan",
   IA: "Iowa",
   NM: "New Mexico",
+  MT: "Montana",
 };
 
 const STATE_CONFIG = {
@@ -1446,6 +1447,45 @@ const STATE_CONFIG = {
       },
     ],
   },
+  MT: {
+    // Montana Code Annotated sections are title-chapter-section ("70-24-303",
+    // "70-25-202", "16-12-108"). Montana bills amend "Section 70-24-303, MCA",
+    // so the bare quoted number is specific enough and needs no buildQuery.
+    // Citations are split on ";" and only the "Mont. Code Ann." parts are
+    // read; court rules, the Constitution and federal parts are left to the
+    // items below.
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        if (!/^Mont\. Code Ann\./.test(part)) continue;
+        const body = part.replace(/\([^)]*\)/g, " ");
+        for (const m of body.matchAll(/\b(\d{1,2}[A-Z]?-\d{1,3}[A-Z]?-\d{3,4})\b/g)) out.push(m[1]);
+      }
+      return out;
+    },
+    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
+    manualRecheckItems: [
+      {
+        id: "mt-70-24-303-changeover",
+        label:
+          "Mont. Code Ann. § 70-24-303's temporary version ends January 1, 2031; the version effective January 2, 2031 drops the 'Subject to 27-1-1603' lead-in. Re-read the landlord-duty and chore rows then (MT log §7, §10)",
+        clauseIds: ["maintenance-allocation-mt"],
+      },
+      {
+        id: "mt-2025-ch-656",
+        label:
+          "2025 Mont. Laws ch. 656: whether 'for actual damages' in the deposit-deadline exception (Mont. Code Ann. § 70-25-202(2)) was struck wasn't confirmed from the enrolled PDF; the row takes the narrower reading. Recheck against the next compilation (MT log §1.2, §7)",
+        clauseIds: ["security-deposit-return-mt"],
+      },
+      {
+        id: "mt-court-rules-portal",
+        label:
+          "Montana sources LegiScan can't see: the Justice and City Court Rules of Civil Procedure (possession actions) and the Rules for Access to the Trial Court Public Record Portal (Section 4.30, two undated versions), behind the eviction and record rows (MT log §7)",
+        clauseIds: ["edu-eviction-process-mt", "edu-eviction-record-sealing-mt"],
+      },
+    ],
+  },
 };
 
 // Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
@@ -1458,7 +1498,7 @@ const STATE_CONFIG = {
 const SCHEDULE_ORDER = [
   "CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ",
   "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI",
-  "IA", "NM",
+  "IA", "NM", "MT",
 ];
 function cronFor(code) {
   const n = SCHEDULE_ORDER.indexOf(code);
