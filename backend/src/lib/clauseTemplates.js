@@ -472,7 +472,7 @@ const CLAUSE_TEMPLATES = [
     id: "services-utilities-provided",
     title: "Services & Utilities Provided by Landlord",
     group: "Landlord Responsibilities",
-    states: ["CO", "WY", "NE", "ND", "SD", "TX", "NJ", "FL", "GA", "NC", "SC"],
+    states: ["CO", "WY", "NE", "ND", "SD", "TX", "NJ", "FL", "GA", "NC"],
     bodyText:
       "Landlord will provide only the services and utilities expressly specified in this Lease, and as otherwise required by applicable law. Landlord is not liable for any interruption or insufficiency of a service or utility resulting from causes beyond Landlord's reasonable control.",
   },
@@ -2028,7 +2028,7 @@ const CLAUSE_TEMPLATES = [
     id: "services-utilities-provided-ks-oh",
     title: "Services & Utilities Provided by Landlord",
     group: "Landlord Responsibilities",
-    states: ["KS", "OH", "NV", "AZ", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI"],
+    states: ["KS", "OH", "NV", "AZ", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "SC"],
     supersedes: "services-utilities-provided",
     bodyText:
       "Landlord will provide only the services and utilities expressly specified in this Lease, and as otherwise required by applicable law.",
@@ -3241,7 +3241,7 @@ const CLAUSE_TEMPLATES = [
     states: ["SC"],
     supersedes: "security-deposit-return",
     bodyText:
-      "When the tenancy ends, Landlord may withhold from the Security Deposit and any prepaid Rent accrued Rent and the damages Landlord has suffered because Tenant did not comply with Tenant's obligations under this Lease and the South Carolina Residential Landlord and Tenant Act. Tenant will give Landlord in writing a forwarding or new address to which the written notice and any amount due may be sent.",
+      "When the tenancy ends, Landlord may withhold from the Security Deposit and any prepaid Rent only accrued Rent and the damages Landlord has suffered because Tenant did not comply with Tenant's obligations under this Lease and the South Carolina Residential Landlord and Tenant Act, and only by itemizing each deduction in a written notice to Tenant, sent with any amount due, within 30 days after the later of the end of the tenancy and Tenant's delivery of possession, or Tenant's demand for the deposit. If Landlord rents more than four adjoining dwelling units on the premises, uses different standards to set security deposits, and did not give Tenant a statement of those standards before this Lease was signed, the amount by which Tenant's Security Deposit exceeds the lowest deposit required for a comparable unit on the premises will not be used for damages. Tenant will give Landlord in writing a forwarding or new address to which the written notice and any amount due may be sent.",
   },
   {
     id: "security-deposit-standards-sc",
