@@ -946,3 +946,51 @@ The reference (2,577 active rows, 313 topics) carries no such list; every topic 
 - **PARTIAL review:** none; every MT row is VERIFIED. **Variables:** none new.
 - **Topic questions:** all nine added; reference regenerated.
 - **SOP 1.28:** all six proposals adopted (rules 14, 16, 19, 30) plus the rule 48 note; MT column added.
+
+## Circle-back checks (SOP 1.43), 2026-10-03
+
+**Date:** 2026-10-03 · **Settings:** Opus, high effort; research mode not used (no rule 9 trigger). **Files:** the four files attached for this circle-back are the only source of truth. `lease-clauses.csv` was counted at its own path: 2,876 rows, as the prompt states, with MT at 162 active rows. MT's `default-by-tenant` note segment in the attached CSV is the one this chat delivered, so nothing earlier conflicts with it. **Old outputs deleted (rule 8):** `lease-clauses-MT-delta.csv` and `lease-clause-decision-log-MT.md` from the first pass's output folder. **Scope:** the prompt lists 0 [Retro] rules and 1 targeted fix; nothing else was reopened (rule 1).
+
+**Sources read:** these sections of the Montana Code Annotated 2025 were re-read live on mca.legmt.gov on 2026-10-03: §§ 70-24-103, 70-24-108, 70-24-401, 70-24-421, 70-24-422, 70-24-423, 70-24-441, 70-24-442 and 70-25-201. The re-read was saved as `retro-143/mt-retro-143-sections.json`; the browser SHA-256 equals the file SHA-256 (507d77b2…a7e). Each section's text and history line match the first pass's saved corpus, so no new version has taken effect (rule 79). § 28-3-704 was read from the saved corpus.
+
+**Batteries:** two new whole-code batteries are saved in `batteries/mt-batteries-retro143.jsonl`. Both had control 0 and passed their known positives.
+- **MT battery 207 (collection costs, fees or expenses charged to a debtor): 34 hits.** All are tax, assessment-lien, agency, insurance and retail-installment sections. None limits what a residential landlord may recover as collection costs.
+- **MT battery 208 (reciprocal attorney fees and prevailing-party costs): 59 hits.** The positives were the real sections §§ 70-24-442 and 28-3-704. The hits relied on are § 70-24-442 and § 28-3-704.
+
+| Item | Verdict | What was read | Rows changed |
+|---|---|---|---|
+| Targeted fix 1(1): `default-by-tenant`, MN's proposal to move the no-cure carve-out into its own sentence reaching both limbs | **Checked, no issue: vouched for MT** (see "Vouches given" below) | §§ 70-24-422(1)-(2), (7); 70-24-421; 70-24-423; 70-24-441; 70-24-108; 70-24-103(14) | None |
+| Targeted fix 1(2): `default-by-tenant`, CO's proposal to delete 'and reasonable costs and expenses' | **Checked, no issue: vouched for MT**; the deletion gives up little in Montana (see below) | §§ 70-24-442; 70-24-401(1); 70-24-422(5); 70-25-201(1); 28-3-704; batteries 207-208 | None |
+
+**Vouches given (rule 62; for MT's propagation section, §9)**
+- **`default-by-tenant`, MN's carve-out move (vouched, no change needed).**
+  - **Can it be read to drop a cure or notice Montana requires?** No. Montana has no no-cure ground for nonpayment. The landlord may terminate only if rent stays unpaid 'within 3 days after written notice by the landlord of nonpayment and the landlord's intention to terminate the rental agreement' (Mont. Code Ann. § 70-24-422(2)). So 'except where applicable law permits Landlord to proceed without giving Tenant an opportunity to cure' never reaches the rent limb in Montana.
+  - **The rent limb's written notice is not added by contract.** § 70-24-422(2) itself requires it, and the proposal does not touch it. Notice is served under § 70-24-108.
+  - **The 30-day route.** The only Montana route that ends a tenancy without a cure is the month-to-month 30-day notice: 'The landlord is not bound by this section in the event that the landlord elects to use the 30-day notice for termination of tenancy as provided in 70-24-441' (§ 70-24-422(7)). That is a no-cause termination the statute already allows, so a carve-out reaching it states the law accurately and takes nothing from the tenant.
+  - **No continuing cure right (rule 43).** Montana gives no right to cure after the notice period that a lease must leave open. § 70-24-421 lets a tenant counterclaim and pay into court. § 70-24-423 makes a landlord's acceptance of full rent waive the nonpayment breach. Neither is a cure right the lease must preserve.
+  - **Does it change what the clause promises in Montana?** No. MT's note segment records the carve-out as covering Montana's non-rent no-cure grounds (§ 70-24-422(1)(e), (3), (4)), and those are unchanged. The segment records one thing given up on purpose: resting a nonpayment notice on an unpaid late fee. The proposal does not touch that late-fee sentence.
+- **`default-by-tenant`, CO's deletion of 'and reasonable costs and expenses' (vouched, no change needed).**
+  - **Does Montana limit collection or eviction costs?** No statute caps a residential landlord's collection or eviction costs (battery 207).
+  - **Does Montana limit one-way cost awards? Yes, two ways.**
+    - In an action on the rental agreement or under the act, 'reasonable attorney fees, together with costs and necessary disbursements, may be awarded to the prevailing party notwithstanding an agreement to the contrary' (Mont. Code Ann. § 70-24-442(1)).
+    - A contract giving one party 'an express right to recover attorney fees' is read as giving 'all parties' the same right (Mont. Code Ann. § 28-3-704(1)).
+    - So if 'reasonable costs and expenses' were read to reach fees, it could not work one-way in Montana.
+  - **What deleting it gives up.** Only a contractual claim to pre-suit, non-attorney collection costs that are not already recoverable under the statute. Montana already gives the landlord:
+    - actual damages for any noncompliance (§ 70-24-422(5));
+    - 'a reasonable charge for the party's labor' (§ 70-24-401(1));
+    - prevailing-party costs and disbursements (§ 70-24-442(1)), which the clause's last sentence repeats;
+    - deduction from the deposit of 'other money owing to the landlord at the time of deduction' (§ 70-25-201(1)).
+  - **Does it change what the clause promises in Montana?** Not in substance. MT's note segment says only that no Montana statute bars the phrase; it does not record keeping the phrase on purpose.
+  - **For the sync.** If the deletion is adopted, MT's segment sentence 'No Montana statute bars recovering 'reasonable costs and expenses' (rule 49)' will describe text that is no longer there and becomes history. Claude Code can leave it as history or trim it when merging the shared edit (rule 78).
+
+**Rows changed:** none, so there is no `lease-clauses-MT-retro-delta.csv`. Both answers are recorded here, not in the shared row's notes (rule 62).
+
+### Proposed SOP changes
+1. Rule 49 (and rule 62 vetting of a cost or fee phrase): check the state's general contract statutes for a rule that makes a one-way fee clause reciprocal, as well as the landlord-tenant act's own fee section. Montana's § 28-3-704(1) turns any express one-way attorney-fee right into a right for 'all parties', so a one-way 'costs and expenses' phrase can't work one-way there even outside § 70-24-442.
+
+## Circle-back sync (Claude Code, 2026-10-03)
+
+- **No delta:** the pass changed no rows, as it reported. MT active 162, unchanged.
+- **Rule 62:** MT vouched for MN's no-cure-sentence edit to `default-by-tenant`; recorded in the backlog tally. MT's prompt also asked about CO's deletion of "and reasonable costs and expenses". That question had already been resolved at the ID circle-back sync (2026-10-03): ID declined it, so it became the Colorado override `default-by-tenant-co`, and the shared row keeps the phrase. MT's vouch is recorded but no longer needed, and MT's note sentence on the phrase stays accurate. The question had stayed in MT's and NM's prompts as a sub-question inside a combined item; it was removed from NM's folder at this sync.
+- **Guards:** all pass. **Statute spot-check, 2 of 3, on mca.legmt.gov:** § 70-24-422(2) (3 days after written notice of nonpayment and intent to terminate) and § 70-24-442(1) (prevailing-party fees and costs "notwithstanding an agreement to the contrary"). The § 28-3-704 page served a bot check instead of the text; the pass read it from its saved corpus.
+- **SOP 1.45:** MT's proposal adopted (rule 49 checks general contract statutes for a reciprocity rule).
