@@ -4167,7 +4167,7 @@ const CLAUSE_TEMPLATES = [
     group: "Default & Termination",
     states: ["UT"],
     bodyText:
-      "If the property is damaged or destroyed by fire or other casualty not caused by Tenant, members of Tenant's household, or Tenant's guests, and the damage makes the property unfit to live in or substantially impairs Tenant's use of it, either Landlord or Tenant may end this Lease by written notice to the other, effective on the date Tenant moves out. Rent will be prorated to that date, any prepaid Rent refunded, and the Security Deposit returned as this Lease and Utah law provide. If the casualty makes only part of the property unusable and Tenant stays in possession, Rent will be reduced in proportion to the part of the property Tenant cannot use until Landlord completes repairs. This Section does not limit any right Tenant has under the Utah Fit Premises Act or other Utah law.",
+      "If the property is damaged or destroyed by fire or other casualty not caused by Tenant, an Occupant, or a guest or invitee of Tenant, and the damage makes the property unfit to live in or substantially impairs Tenant's use of it, either Landlord or Tenant may end this Lease by written notice to the other, effective on the date Tenant moves out. Rent will be prorated to that date, any prepaid Rent refunded, and the Security Deposit returned as this Lease and Utah law provide. If the casualty makes only part of the property unusable and Tenant stays in possession, Rent will be reduced in proportion to the part of the property Tenant cannot use until Landlord completes repairs. This Section does not limit any right Tenant has under the Utah Fit Premises Act or other Utah law.",
   },
   // Tenant Responsibilities
   {
@@ -7179,6 +7179,23 @@ const CLAUSE_TEMPLATES = [
     supersedes: "assistance-animal-accommodation",
     bodyText:
       "A service animal or other assistance animal that Tenant or an Occupant needs as a reasonable accommodation for a disability is not considered a pet under this Lease, regardless of any pet policy, breed, weight, or size restriction stated elsewhere in this Lease. Landlord will not charge a pet deposit, pet rent, or other pet-related fee for an assistance animal, but may require the same cleaning or damage deposit it requires of all tenants. If the disability and the disability-related need for the animal are not readily apparent, Landlord may request reliable documentation confirming the need for the accommodation, to the extent permitted by applicable law; if the disability and need are readily apparent, Landlord will not require such documentation. Tenant remains responsible for any damage to the property caused by an assistance animal. Landlord may deny or withdraw this accommodation only if the specific animal poses a direct threat to the health or safety of others, or would cause substantial physical damage to the property, that cannot be reduced or eliminated by another reasonable accommodation. For a trained dog guide or service animal, Landlord will not require its removal unless its presence, behavior or actions pose an unreasonable risk of injury or harm to property or other persons and a reasonable attempt to eliminate that behavior or those actions has failed, and will not remove it from the entire property because of a risk that arises in only part of the property.",
+  },
+  // Default & Termination
+  {
+    id: "tenant-caused-damage-ut",
+    title: "Damage Caused by Tenant",
+    group: "Default & Termination",
+    states: ["UT"],
+    bodyText:
+      "If the property is damaged by fire, water, a vehicle or any other cause, and the damage results from the deliberate or negligent act or omission of Tenant, an Occupant, or a guest or invitee of Tenant, then: (1) Rent will not abate or be reduced while the property is repaired, for as long as this Lease continues; and (2) if this Lease ends because of the damage, Tenant will be liable for Landlord's actual damages, including the Rent Landlord loses while the property is repaired, up to the end of the Term, less any Rent Landlord receives from re-renting the property. Landlord will use reasonable efforts to repair and re-rent the property. This Section is in addition to Tenant's liability for the cost of repairing the damage. This Section does not limit any right Tenant has under the Utah Fit Premises Act or other Utah law, including the right of a victim of domestic violence to end Tenant's future obligations under this Lease.",
+  },
+  {
+    id: "holdover-rate-ut",
+    title: "Holdover Charge",
+    group: "Default & Termination",
+    states: ["UT"],
+    bodyText:
+      "If Tenant remains in possession after the end of the Term, and Landlord has not agreed in writing to a continued tenancy or accepted Rent for one under the Holdover section of this Lease, then Tenant will pay Landlord a holdover charge of {{holdover_daily_rate}} for each day Tenant remains in possession, which, except in an eviction action, is in place of the actual damages and reasonable rental value described in that section. Landlord and Tenant agree that Landlord's loss from a holdover, including delay in making the property available to a new tenant, is difficult to estimate accurately in advance, that this charge is a reasonable estimate of that loss, and that it is not a penalty. Landlord may recover the charge from the Security Deposit or in a separate action, but will not claim it in an eviction action, where Utah law requires the court to award three times the damages it assesses, and will not offer the agreed daily figure as evidence of its damages in an eviction action. The charge is not due for any day for which Landlord recovers damages for Tenant's unlawful detainer, and Landlord will credit any holdover charge already received for a day covered by an eviction judgment against that judgment. Landlord's acceptance of a holdover charge is not acceptance of Rent for a continued tenancy. This Section does not limit Landlord's right to recover possession, unpaid Rent and other amounts due for the period before the Term ended, or damages for harm to the property.",
   },
 ];
 

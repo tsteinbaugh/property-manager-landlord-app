@@ -278,6 +278,9 @@ None: no row in the library, active or dormant, was tagged UT.
 ## 9. Propagation notes (rule 62)
 **None owed.** No shared row's text changed. Every change to an existing row is an added `UT` tag with a `UT:` note, a states-only change under §5a.1.
 
+### Vouches given
+- **2026-10-04:** `default-by-tenant` (MN's proposal), vouched for UT; reasoning in "Circle-back checks (SOP 1.53)" at the end of this log.
+
 ## 10. Findings for other states or the product (flagged, not fixed)
 1. **Stale cross-reference in Utah's own code.** § 78B-6-802(1)(f), amended by HB 591 (2026), still defines a nuisance ground as 'private nuisance as defined in Section 78B-6-1107'. That section no longer exists; the definition is now § 78B-6a-101(10). Worth a legal-watch flag, since a revisor correction or a 2027 fix will touch the eviction statute.
 2. **Defined-term mismatch.** § 78B-6a-101(14) defines 'Tobacco or illegal substance nuisance', but §§ 78B-6a-101(10)(b)(x) and -405 use 'tobacco nuisance'. `smoke-drift-waiver-ut` uses the operative section's words.
@@ -764,3 +767,155 @@ All 289 topic keys in `lease-clause-topics.md`, plus the 7 with no row in any st
 Not a re-audit; nothing else in this state was reviewed.
 
 **Propagation note (uniform edit, rule 62): `snow-removal` rewritten.** Old: 'Unless Landlord provides snow removal service, Tenant is responsible for prompt, reasonable removal of snow and ice from any walkway, driveway, porch, or entrance at the property that Tenant uses, to help keep those areas safe and passable.' New: 'Unless Landlord provides snow removal, Tenant will promptly remove snow and ice from the areas of the property Tenant uses for walking, parking and access. This does not include areas shared with other residents.' Why: Taylor found the list of areas too specific (properties differ, and a list invites arguments about what it covers), and Michigan's sync showed the clause should say outright that shared areas stay with the landlord. The edit only narrows the tenant's duty; this state's existing note on the row still holds.
+
+## Circle-back checks (SOP 1.53), 2026-10-04
+
+Run 2026-10-04 in Utah's existing chat (rule 8), on the files staged 2026-10-03 15:38. `lease-clauses.csv` was checked first: 2,876 rows, 2,755 active. Those files are the only source of truth. Where this chat said something different earlier, the files and this section win:
+- **Deleted at the start:** the 2026-09-29 outputs `lease-clauses-UT-delta.csv` and `lease-clause-decision-log-UT.md`. The synced log and citations file replace them.
+- **Superseded:** the §6.1 decline of a stipulated holdover rate (check 2), and `casualty-termination-ut`'s note that "no separate whole-code 'casualty' search was run" (check 1).
+
+Scope: one [Retro] rule and two targeted fixes, nothing else reopened (rule 1).
+
+**Sources and method (rules 11, 12, 15, 19, 79).**
+- **Load.** The whole Utah Code was reloaded 2026-10-04 in the built-in browser from the official le.utah.gov XML. All 96 titles on the index page loaded (HTTP 200, 84,186,075 characters), and 27,647 current section versions were searched; future-dated versions were excluded.
+- **Calibration.** Results match the 2026-09-29 load exactly: control term 0 hits; 'security deposit' 44 hits in the same 22 sections; 'renter(s)' 229 hits.
+- **Section count.** This parse counts section elements once per title file, so its total differs from §1.3's 28,551 versions. Not investigated, because the calibrations and every relied-on hash match.
+- **Batteries.** 23 searches were run in three rounds: R1-R16; then R10b-R15b after the independent check asked for wider phrasings and word orders; then R11c after its re-check.
+  - Synthetic positives: R1 is the control. Every other battery has a synthetic positive tested on the same load; those for R15 and R16 were added in round 2.
+  - Two first test strings were badly built and were replaced. R4's positive failed on word order, so R4 was re-run as R4b. R14b's first test string lacked a utility word.
+  - Boundary: the Utah Administrative Code (for example utility-commission rules) was not searched.
+  - Saved: `retro153/battery_utcode_2026-10-04_retro153.tsv`.
+- **Currency (rule 79).** 14 sections were hashed on normalised text against today's live text, and their history lines were compared: §§ 57-17-3, 57-22-3, 57-22-4, 57-22-4.1, 57-22-5, 57-22-6, 78B-6-801, 78B-6-802, 78B-6-803, 78B-6-808, 78B-6-811, 78B-6-814, 78B-6-815 and 78B-6-816. All are identical except § 57-17-3. There the only difference is the deposit-demand form's blank lines, which the saved file had abridged; subsection (1) was re-read live. Saved: `retro153/currency_check_2026-10-04.txt`.
+- **New texts read today:** Utah Code Ann. § 78B-6-1001 and Utah Code Ann. § 10-7-10.5, both read whole and saved in `retro153/UT-retro153-new-sections.txt`. Also Utah Code Ann. § 57-22-5.1 in both its current version and the version effective 2027-01-01, read whole live.
+- **Case law:** not read anywhere; every point that rests on it is labelled in the rows.
+
+| # | Rule / fix | Verdict | What was read | Rows changed |
+|---|---|---|---|---|
+| 1 | **54t** tenant-caused damage | **Fixed.** Not recorded earlier under another name: §6.1 covers casualty termination only, and §16's "Fire or storm damage → covered" is a scenario line, not this screen. | Utah Code Ann. §§ 57-22-3, 57-22-4, 57-22-4.1, 57-22-5, 57-22-5.1, 57-22-6, 57-17-3(1), 78B-6-802, 78B-6-808, 78B-6-811, 78B-6-815, 78B-6-816, 78B-6-1001, 10-7-10.5, 57-22-2(5); § 57-16-8 as a search hit read in context only; batteries R2-R9, R12-R16, R12b, R14b, R15b; `tenant-caused-damage-tn` (read, not tagged); `tenant-caused-damage-wy` / `edu-tenant-caused-damage-wy` (closest analogue) | New: `tenant-caused-damage-ut` (CONDITIONAL), `edu-tenant-caused-damage-ut`. Edited: `casualty-termination-ut` (fault limit; notes) |
+| 2 | **Rule 54 holdover shape** (NE sync amendment) | **Fixed: the §6.1 decline is reversed.** The measure isn't conditional, but its shape leaves a gap. | Utah Code Ann. §§ 78B-6-801(10), 78B-6-802(1)(a)-(b), (2), 78B-6-803, 78B-6-811, 57-22-4(5), 57-17-3(1), 78B-6-1001; batteries R10, R10b, R11, R11b, R11c (outside-title search, rule 54); `holdover-rate-in`, `holdover-rate-tn`, `holdover-rate-ga` (model); rule 53 | New: `holdover-rate-ut` (CONDITIONAL), `edu-holdover-damages-ut`. Shared `holdover-ca`: UT note segment and `last_checked` only |
+| 3 | **Rule 62 vetting**, `default-by-tenant` (MN's carve-out sentence) | **Checked, no issue: supported (vouched).** | Utah Code Ann. §§ 78B-6-802(1)(c)-(h), (2), (5), 78B-6-811(1)(c)-(d), 78B-6-814, 78B-6-815; UT note segment on `default-by-tenant`; `edu-notices-to-quit-ut` | None |
+
+### 1. Rule 54t: tenant-caused damage
+**Casualty rows first.** Utah has no casualty statute. Today's whole-code searches found no residential casualty, untenantability, abatement or rent-free surrender rule (R2-R8):
+- the only "casualty" hits are insurer liquidation and UCC goods leases;
+- the "unfit" hits are zoning rules plus Utah Code Ann. § 57-22-6(4)(c).
+
+`casualty-termination-ut` is therefore a pure contract term. It already denied abatement and termination for a self-inflicted casualty, but its fault group came from `casualty-termination-pa`: "Tenant, members of Tenant's household, or Tenant's guests". That omits invitees, whom the statute names. It also differed from the new clause, so an invitee-caused fire would have abated Rent under one optional clause and not under the other.
+- **Edit:** the group now reads "Tenant, an Occupant, or a guest or invitee of Tenant". That covers the persons in Utah Code Ann. § 57-22-6(1)(b)(ii)(A) ("the renter, the renter's family, or the renter's guest or invitee"). "An Occupant" stands in for "family" and also reaches a non-family co-occupant.
+- **Why this is Claude's call:** it narrows an optional clause (rule 76). The clause's last sentence still preserves every Fit Premises Act right.
+
+**What Utah law gives the landlord without a clause:**
+- **Repair cost.**
+  - The renter may not intentionally or negligently damage the unit, or knowingly permit anyone to (Utah Code Ann. § 57-22-5(2)(a)).
+  - The deposit applies to damage beyond reasonable wear and tear (Utah Code Ann. § 57-17-3(1)).
+  - Waste supports a 3-day no-cure notice (Utah Code Ann. § 78B-6-802(1)(d), (2)), and waste damages are trebled in the eviction judgment if alleged and proved (Utah Code Ann. § 78B-6-811(2)(c), (3)).
+  - A separate waste action "may include treble damages" (Utah Code Ann. § 78B-6-1001). It names a "tenant for life or years", and whether a periodic tenant counts is unread case law.
+- **Rent during repairs.** No statute addresses it either way.
+- **Lost rent if the lease ends.**
+  - **Forfeiture.** Liability for the remaining term survives a forfeiture (Utah Code Ann. § 78B-6-811(1)(d)). But (1)(c) declares forfeiture only for rent default or an uncured covenant breach, so whether a no-cure waste eviction counts is unsettled on the text.
+  - **Mitigation.** (1)(d)(ii) leaves any existing duty to mitigate unchanged and creates none.
+  - **Abandonment.** An abandoning tenant owes rent under Utah Code Ann. § 78B-6-816(1), which applies even where the owner did not re-rent. Abandonment is presumed only when rent is unpaid and the tenant gave no notice of absence (Utah Code Ann. § 78B-6-815(1)).
+
+**Each abatement or exit route, checked separately for its own fault exception:**
+
+| Route | Utah provision | Tenant-fault exception? |
+|---|---|---|
+| Casualty | none (R2-R8) | n/a; the contract clause excludes it |
+| Essential services (heat, water, electricity) | habitability standards, Utah Code Ann. §§ 57-22-3(1), 57-22-4(1)(b)(ii), enforced only through § 57-22-6 | Yes: the "deficient condition" definition, Utah Code Ann. § 57-22-6(1)(b)(ii); also (4)(b) compliance bar |
+| Landlord-breach termination (rent-abatement remedy ends the agreement) | Utah Code Ann. § 57-22-6(4)(a)(i) | Yes, same definition and bar |
+| Repair and deduct | Utah Code Ann. § 57-22-6(4)(a)(ii) | Yes, same |
+| Rent into court / certified rent suspension | none for renters (R12, R12b). The § 78B-6-808 possession bond is not one. § 57-16-8 (a search hit, read in context) concerns mobile home park residents, whose lots are outside the Fit Premises Act (§ 57-22-2(5)). | n/a |
+| Landlord-paid utility | no utility-specific tenant statute (R13-R15, R14b, R15b); § 10-7-10.5 only lets the city shut off water | Loss of heat, water or power through the owner's nonpayment is a deficient condition the tenant didn't cause, so the § 57-22-6 remedies apply with no fault exception engaged. The saving sentence keeps them. |
+| Failure to deliver possession | Utah Code Ann. § 57-22-4.1 | No fault exception. It is unlikely to be tenant-triggered (only with early access); the saving sentence preserves it. |
+| Domestic-violence termination | Utah Code Ann. § 57-22-5.1(4)-(8) | **Its own rule:** a victim may exit despite § 57-22-5(2) damage under 30 days old that is due to the violence, staying liable for the damage ((5), (8)(b)). Not available after an eviction notice is served ((7)). No anti-waiver text found; preserved by name anyway. Same text from 2027-01-01. |
+
+**Verdict.** The law covers most of it, so `edu-tenant-caused-damage-ut` says so. A gap remains that the lease can lawfully fill:
+- rent while the landlord repairs;
+- guest damage the renter didn't knowingly permit;
+- lost rent where the lease ends other than by a (1)(c) forfeiture or abandonment.
+
+So `tenant-caused-damage-ut` is offered: the TN/WY text plus a saving sentence that preserves Fit Premises Act rights and the domestic-violence exit by name. Part (1) waives no statutory abatement, because every statutory abatement route already excludes tenant-caused conditions.
+- **Unread (rule 76 label):** the lost-rent measure, the extent of mitigation, and whether contract damages are trebled as "amounts due under the contract" (§ 78B-6-811(2)(d)).
+- **Conformance:** UT's 54t cell can be ✓.
+
+### 2. Holdover measure: shape and gap
+**The measure.** Utah Code Ann. § 78B-6-811(2)(b), (3): the court assesses the unlawful-detainer damages and "shall enter the judgment ... for the rent and for three times the amount of the damages assessed."
+- **Conditional?** No. The text has no willfulness or bad-faith element (case law not read).
+- **Different shape?** Yes, in three ways that leave a gap:
+  1. It is a judgment-stage multiplier with no figure for the loss itself.
+  2. It exists only in an eviction judgment. A tenant who leaves a few days late with no suit leaves the landlord with actual damages under `holdover-ca`, and it is unclear those are a deposit item at all. A charge "provided for in the contract" clearly is (Utah Code Ann. § 57-17-3(1)).
+  3. Its start is unsettled on the text. A fixed term ends "without notice" (§ 78B-6-802(1)(a)), but "unlawful detainer" is defined as remaining "after receiving a notice to quit" (§ 78B-6-801(10)).
+
+**No other measure exists.** R10, R10b, R11, R11b and R11c found only the agricultural renewal (§ 78B-6-803) and the waste action (§ 78B-6-1001); every other hit is unrelated (catchlines read).
+
+**Non-stacking.** The original decline's second reason was that a contract rate would be swept into the trebling as "amounts due under the contract" ((2)(d)). A bare "not due for days the court trebles" would not stop that: the charge could still be pleaded under (2)(d), or the agreed figure used as the (2)(b) measure, and then trebled. The independent check caught this in the first draft. The clause now does five things:
+- the landlord will not claim the charge in an eviction action;
+- the landlord will not offer the agreed figure as evidence of damages there (a promise by the landlord, since the parties can't bind what evidence a court weighs);
+- the charge is not due for any day for which unlawful-detainer damages are recovered;
+- the charge replaces `holdover-ca`'s actual damages only "except in an eviction action", so no day is left with neither measure;
+- outside an eviction it is recovered from the deposit or in a separate action, and a charge already taken is credited against an eviction judgment.
+
+The charge therefore works only outside an eviction case, which is exactly the gap (rule 53, MO circle-back 1). **Unread:** whether a separate suit for the charge is precluded once an eviction case is decided (claim preclusion). The education row says so.
+
+**Rule 53 screen:**
+- **Trigger.** The end of the Term only, as in `holdover-rate-in`/`-tn`. So it never follows a nonpayment termination (late-fee cap, Utah Code Ann. § 57-22-4(5)(a)) and never runs while the lease can still be saved (§ 78B-6-802(2)).
+- **Timing.** Rule 53's "after this Lease ends" conflict arises where a statute regulating holdover damages starts them later than the lease does. Utah's statute regulates no contract charge, ends a fixed term without notice itself, and the charge never runs on days the statutory measure is recovered.
+- **Caps and fees.** No statutory cap applies. The fee-in-lease rule (Utah Code Ann. § 57-22-4(5)(b)) is met because the figure is in the lease.
+
+**Rows.** `holdover-rate-ut` is offered (CONDITIONAL, placed after `holdover-ca`). `edu-holdover-damages-ut` explains the measure, the gap and the notice-to-quit question, and suggests serving a written notice to quit to avoid that question.
+- **Unread:** the penalty doctrine, and the effect of accepting money after the Term.
+- **Conformance:** UT's "54 e.g. holdover charge" cell moves from n to ✓, and the §18.2 `holdover-rate` line now reads "Offered (`holdover-rate-ut`)".
+
+### 3. Rule 62 vetting: `default-by-tenant` carve-out in its own sentence
+**Supported for Utah.**
+- **Question 1 (could it drop a required cure or notice?).** In a nonpayment eviction Utah requires a written notice giving 3 business days to pay or leave (§ 78B-6-802(1)(c)), and payment within it saves the lease (§ 78B-6-802(2)). CARES (5)(d), (f) neither lengthens nor replaces it. The only statutory route to possession for unpaid rent without that notice is retaking abandoned premises (§§ 78B-6-814, 78B-6-815, 78B-6-816). There the statute itself dispenses with the cure. Abandonment is presumed when the tenant gave no notice of absence and rent is unpaid, either for 15 days ((1)(a)) or when due with the belongings removed ((1)(b)). An optional declaration under (2), which the tenant may dispute within 24 hours, establishes it as a matter of law. The self-limiting sentence ("where applicable law permits Landlord to proceed without giving Tenant an opportunity to cure") therefore drops nothing Utah requires. The no-cure notices it is meant to keep all sit on the non-rent side and stay preserved: (1)(d)-(g), plus the incurable-breach route in (2).
+- **Question 2 (does it change what the clause promises here?).** UT's note segment says only that the carve-out "preserves" the no-cure notices (rule 43 checked). Nothing there says "gives up" or "kept on purpose", so the edit changes nothing UT relies on.
+- **The Indiana/Pennsylvania point doesn't arise.** Utah *requires* written notice of a rent default before an eviction, so the lease's promise of one matches the statute and the edit drops nothing.
+- **Education row.** For UT none needs a "you may still give notice first" sentence. If one is added library-wide at the merge, UT's home for it is `edu-notices-to-quit-ut`, and in Utah it must say the 3-business-day notice is **required**, not optional. That row already says so.
+
+**Vouches given** (for §9 Propagation notes, which Claude Code may move this under):
+- `default-by-tenant`, carve-out moved into its own sentence reaching both limbs (MN proposal 2026-10-02): vouched for UT, no change needed. Utah Code Ann. § 78B-6-802(1)(c) requires a written 3-business-day pay-or-quit notice before a nonpayment eviction. The only notice-free route (retaking abandoned premises once abandonment is presumed or established, Utah Code Ann. §§ 78B-6-814, 78B-6-815, 78B-6-816) is one the statute itself allows, so the self-limiting carve-out drops nothing Utah requires. The no-cure grounds (Utah Code Ann. § 78B-6-802(1)(d)-(g), (2)) stay preserved.
+
+**Propagation (rule 62):** no shared text changed. On `holdover-ca` only the UT note segment (now naming its pair) and `last_checked` changed. Every other row in the delta is UT-only.
+
+**Independent check (2026-10-04).** A separate agent that had not seen the drafting checked every row and this section against the saved statute texts, the batteries and the SOP. It found 2 wrong, 10 imprecise and 2 mechanical items; all 14 were fixed before delivery:
+- **Wrong (2):** the first non-stacking sentence still let the charge be trebled, and the education row stated a mitigation duty the statute doesn't create.
+- **Imprecise (10):**
+  - the rule 53 timing reasoning was missing;
+  - forfeiture after a waste eviction was stated as settled;
+  - the domestic-violence exit was called "always" available, ignoring (7);
+  - the utility verdict missed the general § 57-22-6 route;
+  - the § 57-22-5.1 anti-waiver point was stated as fact rather than unread;
+  - the abandonment route was missing from the §3 reasoning;
+  - "matching" overstated the statute's persons;
+  - the fixed-term holdover sentence read as settled;
+  - the casualty, waste-action and agricultural sentences were unqualified or misquoted;
+  - battery phrasings were too narrow (the widened re-runs changed no verdict).
+- **Mechanical (2):** missing synthetic positives, and §§ 78B-6-808 and 78B-6-815 were missing from the hash list.
+
+**Re-check (rule 80).** The same checker re-checked every changed item. It confirmed that the three trebling paths are closed, and raised six smaller points, all fixed before delivery:
+- **Imprecise (4):**
+  - with "in place of" in the clause, an eviction action could have left some days with no measure (the clause now reads "except in an eviction action");
+  - a disclaimer can't bind what evidence a court weighs (reworded as the landlord's own promise);
+  - the abandonment measure was self-contradictory (now: the time reasonably needed to re-rent; restoration costs beyond normal wear and tear);
+  - the abandonment conditions in §3 were misstated.
+- **Mechanical (2):** the mobile-home exclusion now rests on the saved § 57-22-2(5), not the unread § 57-16-8; one more multiplier pattern (R11c) was run, with 0 hits.
+
+Across both rounds the checker also confirmed: the file mechanics; that only the UT segment and `last_checked` changed on `holdover-ca`; the copied TN and IN text; that the two clauses are consistent; and the readings of the Fit Premises Act and § 78B-6-811.
+
+**Flag for Claude Code (not fixed, rule 62):** `casualty-termination-pa` and `casualty-termination-id` carry the same fault group UT had ("Tenant, members of Tenant's household, or Tenant's guests", with no invitees). It conflicts with nothing today, since neither state has a tenant-caused-damage clause. But if either later adds one from the TN model, the two optional clauses will treat an invitee-caused casualty differently, as UT's did. GA and NC already include invitees.
+
+## Proposed SOP changes
+1. **Rule 54t: list statutory early-termination routes with their own fault rules (domestic-violence and similar victim exits) among the exit routes to check, and have the tenant-caused-damage clause preserve them by name.** Reason: Utah's § 57-22-5.1(5) lets a domestic-violence victim end future obligations despite recent damage that is due to the violence, and keeps the renter liable only for that damage ((8)(b)). The rule's list (casualty, essential services, landlord-breach termination, rent into court, utilities) does not name it. The TN model's lost-rent limb could be read against it.
+2. **Rule 54t: when a state offers both a casualty clause and a tenant-caused-damage clause, make the persons whose fault counts identical in both, and make them cover the statute's own list.** Reason: UT's casualty row (copied from PA) excluded fire caused by "Tenant, members of Tenant's household, or Tenant's guests", while the TN-model clause covers "an Occupant, or a guest or invitee". An invitee-caused fire would have abated Rent under one optional clause and not under the other.
+3. **Rule 53: where the judgment-stage multiplier also reaches "amounts due under the contract" (Utah § 78B-6-811(2)(d)), the non-stacking sentence must (a) bar claiming the charge in the action where the multiplier applies, and (b) keep the agreed figure from serving as evidence of damages there. "Not recovered for any day a statutory multiple is" is not enough.** Reason: in UT's first draft the charge could still be pleaded as a contract amount or used as the measure of damages, and then trebled. The independent check caught it.
+4. **Rule 54 (holdover shape): where the statutory measure attaches to a status the statute defines (here "unlawful detainer"), read the definition as well as the remedy section.** Reason: Utah's definition (§ 78B-6-801(10)) ties unlawful detainer to a notice to quit, while § 78B-6-802(1)(a) ends a fixed term without notice. That leaves when the trebling starts unsettled, which is part of the gap and changes the education advice (serve a notice to quit).
+
+## Circle-back sync (Claude Code, 2026-10-04)
+
+- **Merged** with `merge-delta.py --base 2b10851`: 4 new rows (`tenant-caused-damage-ut`, `edu-tenant-caused-damage-ut`, `holdover-rate-ut`, `edu-holdover-damages-ut`), `casualty-termination-ut` updated (fault group now matches the statute's persons), and UT's segment on shared `holdover-ca`; nothing refused. UT active 122 → 126; no same-topic pairs; section pointers resolve.
+- **Citations file:** rows added for the four new rows; `casualty-termination-ut` and `holdover-ca` re-dated.
+- **Rule 62:** UT vouched for MN's `default-by-tenant` edit (Utah requires the 3-business-day pay-or-quit notice, so the Indiana/Pennsylvania question doesn't arise); recorded in the backlog tally.
+- **Flagged:** `casualty-termination-pa` and `casualty-termination-id` carry the same fault group UT had (no invitees); align them if either state later adds a tenant-caused-damage clause (backlog).
+- **Guards:** all pass. **Statute spot-check:** not possible from here (le.utah.gov returns empty pages to this machine). The pass reloaded the whole Utah Code from the official XML, hash-matched 14 sections against live text, and was independently checked in two rounds.
+- **SOP 1.55:** all four proposals adopted (rules 53, 54). UT's 54t and holdover cells set to ✓.
