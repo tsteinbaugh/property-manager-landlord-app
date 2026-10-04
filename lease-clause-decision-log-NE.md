@@ -1258,3 +1258,139 @@ Merged against the attached master and re-run programmatically, not asserted. **
 Not a re-audit; nothing else in this state was reviewed.
 
 **Propagation note (uniform edit, rule 62): `snow-removal` rewritten.** Old: 'Unless Landlord provides snow removal service, Tenant is responsible for prompt, reasonable removal of snow and ice from any walkway, driveway, porch, or entrance at the property that Tenant uses, to help keep those areas safe and passable.' New: 'Unless Landlord provides snow removal, Tenant will promptly remove snow and ice from the areas of the property Tenant uses for walking, parking and access. This does not include areas shared with other residents.' Why: Taylor found the list of areas too specific (properties differ, and a list invites arguments about what it covers), and Michigan's sync showed the clause should say outright that shared areas stay with the landlord. The edit only narrows the tenant's duty; this state's existing note on the row still holds.
+
+## Circle-back checks (SOP 1.45), 2026-10-03
+
+**2026-10-03. Gate passed first:** the attached `lease-clauses.csv` has **2,876 rows**, matching the staging note, so the files were not restaged under me and I proceeded. 17 columns. Scalpel, not a re-audit (rule 1): the 2 rules named plus the 4 targeted fixes, nothing else. Settings Opus / high effort; **research mode never turned on** — no rule 9 trigger arose.
+
+**Deleted first (rule 8):** `lease-clause-decision-log-NE-retro.md` and `lease-clauses-NE-retro-delta.csv` from the 2026-09-30 retro. **The attached files are the only source of truth.** Conflicts with earlier in this chat: that 2026-09-30 pass worked from a 1,920-row library and reported NE at 129 active; the counts below are derived fresh from the attached file. Two of its own statements are corrected here — see "Errors corrected".
+
+**Counts derived from the attached file (rule 23).** Master 2,876 rows, 2,879 after this delta. NE **129 active** before, **132 after** (59 lease clauses, 73 education), all VERIFIED, 7 switched off, 136 NE rows in total.
+
+**Corpus (rules 11, 14, 19).** Official site only. Constitution: all 239 sections read individually (below). Statutes read section-open today: §§13-331, 28-1313, 45-918.01, 69-2303, 69-2304, 69-2308, 76-1416, 76-1419, 76-1429, 76-1431.01, 76-1431.02, 76-1431.03, 76-1431.04, 76-1437, 81-5,144. Searches: `Legislature` (control), `landlord` (control), `nonsensezzqq` (nonsense control), `screening`, `inventory`, `dishonored`. Bill page: LB80 (109th Leg., DocumentID 59055).
+
+**Result: 2 rules checked, 4 fixes delivered, 2 errors corrected in rows shipped VERIFIED (both written by this chat), 1 false-negative search caught and re-run, 3 new rows, 9 changed.**
+
+---
+
+### Rule 35c — constitution screen
+
+**Not already covered: NE's log says so explicitly** ("The SOP 1.11 constitution screen (row 35c) postdates this prompt and is due in NE's end-of-run circle-back", sync note 2026-09-30). Run now.
+
+**The official search does not index the constitution, and rule 35's control test is what proved it.** The control term `Legislature` returned **2,678 results and every one was a statute section** — not a single constitution article among them. So a constitutional absence taken from that search would have been a clean negative proving nothing, exactly as the rule warns. Read article by article instead: **all 239 sections** (Preamble, Articles I–XVIII) fetched individually from `/laws/articles.php`, zero failures, **671,243 characters raw / 120,392 characters of operative text** once case annotations were stripped, normalised SHA-256 prefix **`bb04a3c123de07049a580dd743ccb464`**. Controls inside the corpus: `Legislature` 207, `Governor` 76.
+
+| Target | Result |
+|---|---|
+| **Cannabis** | **ZERO hits** on `cannabis`, `marijuana`, `marihuana` in the operative text of all 239 sections. Nebraska has no constitutional cannabis provision, so **Missouri's art. XIV problem does not arise** and shared `smoking-policy`'s ban on vaping marijuana needs no NE override. Nebraska's medical-cannabis law came as an **initiative statute** (Initiative Law 2024, No. 437 → §§71-24,105 etc.), not an amendment, and an initiative statute creates no constitutional right against a private landlord. Recorded on `edu-medical-cannabis-ne` |
+| **Firearms** | **FOUND — art. I-1.** A right to keep and bear arms "for security or defense of self, family, **home**, and others… and such rights shall not be denied or infringed **by the state or any subdivision thereof**" (Amended 1988, Initiative Measure No. 403). **New row `edu-firearms-ne`** |
+| **Signs and speech** | **art. I-5** — "Every person may freely speak, write and publish on all subjects". Binds the state. `common-area-use`'s restriction on signs visible from outside is private action and already carves out displays the law entitles the tenant to make. **No conflict** |
+| **Privacy** | **ZERO hits** on `privacy`, `private affairs` in the operative text. Art. I-7 (search and seizure) does not use the word and binds government. **No reach into a private lease** |
+| **Leases / property** | **art. XII-8** — corporate and syndicate ownership and **leasing** of farm or ranch land. See below |
+
+**The firearms finding fixes nothing and that is the finding.** Art. I-1's right runs against "the state or any subdivision thereof", so it does not void a private lease term — a privately owned Nebraska rental may restrict firearms by lease, and no Nebraska statute makes such a term unenforceable against a permit holder. No NE-tagged clause restricts firearms, so there was nothing to fix or override. But Nebraska had **no firearms row while fourteen other states do**, and the "subdivision" wording has two real edges worth a landlord knowing: a city or county could not compel landlords to ban firearms, and a public housing authority *is* bound where a private owner is not. That is the screen's product.
+
+**Art. XII-8 is the case rule 35 warns about — and Nebraska's site handles it properly.** Adopted 1982 by Initiative Measure No. 300, it restricts corporations and syndicates from acquiring an interest in, or leasing, farm or ranch land. The official page carries: *"Note: This section is unconstitutional as a violation of the dormant Commerce Clause. Jones v. Gale, 470 F.3d 1261 (8th Cir. 2006)."* So unlike South Dakota's art. XXX, the invalidity **is** annotated on the official text. Doubly out of reach anyway: void, and agricultural rather than residential. **No action.** Nebraska's constitution ends at **Article XVIII** — there is no late initiated article of the kind the rule flags.
+
+---
+
+### Rule 79 — re-read the section before trusting a summary
+
+**Counted from each row's `notes` and `lease_clause_basis` in `lease-clauses.csv`, not from the citations file (rule 79).** 129 NE-active rows:
+
+| Basis recorded | Count |
+|---|---|
+| Section-open or "verified directly" against official text | **85** |
+| A recorded search battery with its terms and hit counts | **7** |
+| **Secondary sources only** | **4** |
+| **No basis recorded at all** | **33** |
+
+**33 of 129 rows record no basis.** Rule 79's split: **29 were written by a research pass** (a genuine gap — those need a section-open read or a listing) and **4 were created or renamed by a library-wide pass** — `tenant-duties-ne`, `edu-security-deposit-return-ne`, `edu-habitability-baseline-ne`, `edu-possession-delay-ne` — which is a **provenance repair**, fixed by carrying the source row's basis forward, not a re-verification. The 29 are listed in full at the end of this section. **Third group: zero** — all 45 shared rows NE is tagged on carry an `NE:` note segment, so none is invisible to the screen.
+
+**One correction to my own screen before the results.** My first keyword pass counted 36 rows as recording no basis and 9 as secondary-only. Both were wrong: the pattern treated a *recorded search battery* as no basis (an absence has no section to read open, so the artifact is the search), and it caught `edu-rent-increase-and-rent-control-ne` as secondary because the row *warns about* secondary-source traps. Recounted above. Reporting the inflated figure would have been its own sloppy finding.
+
+**The four secondary-only rows, each now read:**
+
+| Row | What its basis actually was | Verdict |
+|---|---|---|
+| `edu-no-tenant-screening-fairness-act-ne` | "five independent, consistent sources (Landlord Studio, RentPrep, TurboTenant, Nolo, Azibo) all agree" | **Basis replaced; absence holds.** Agreement cannot prove a negative — it shows five sites read each other. `screening` statute-wide: 113 hits, all reviewed; the only housing-adjacent hit is §71-15,163, which empowers **public** agencies. LB17 still unconfirmed as enacted and not treated as authority (rule 18) |
+| `edu-no-move-in-inventory-requirement-ne` | "explicitly stated by iPropertyManagement's NE landlord-tenant guide" | **Basis replaced; absence holds.** `inventory` statute-wide: 176 hits, all reviewed, none landlord-tenant. §76-1416 read section-open — no move-in documentation duty, no inspection right, so **no Nebraska analogue to the A.R.S. §33-1321(C) notice AZ had to restore** |
+| `abandoned-property-ne` | "Confirmed via the consolidated named-topic checklist" — this project's own derived document, not a statute | **Read; citation held; two omissions fixed.** See below |
+| `returned-payments` (shared) | NE segment records no statute | Handled as **fix 6**; no row change |
+
+**`abandoned-property-ne` — citation right, text incomplete.** §§69-2303, 69-2304 and 69-2308 all read section-open. The 7-day personal-delivery and 14-day mailing figures are exactly §69-2303(2)(c), and the public-sale route is §69-2308. But the clause omitted **§69-2303(2)(d)**'s requirement that the notice be given **within six months** of lease expiry or discovery of the abandonment, whichever is later — a hard outer limit, so a landlord following only the clause could sit on the property and lose the procedure. And it omitted **§69-2304** entirely. Both now in the text.
+
+**Rows screened and holding, with the basis now recorded on the row:**
+
+- **`edu-rent-increase-and-rent-control-ne`** — §13-331 read section-open (Laws 2025, LB266, §1). Both of rule 79's checks pass. The subdivisions are right: preemption at (2), definitions at (1)(a)–(b), home-rule override at (4), nullity at (5). And the qualifier attaches where the row puts it, which was the real risk — **"Except as expressly permitted by other state law or by subsection (3)" opens subsection (2) only**; it is not a section-wide proviso and does not travel to (4) or (5). §76-1437's 7-day and 30-day figures re-confirmed.
+- **`smoke-detector-duty-ne`** — the row's note said §81-5,144 was read "from nebraskalegislature.gov **and Justia**", naming a host copy alongside the official site, and the 2026-09-30 re-read was recorded on a *different* row (`edu-smoke-detector-scope-ne`), so this row's own basis was weaker than the work behind it. Read section-open; every limb of the clause maps to a limb of (1), (2) or (3) with no qualifier moved. No text change.
+- **`edu-no-service-animal-fraud-broad-statute-ne`** — §28-1313 read section-open. Subdivision check passes: the Class III misdemeanor is **subsection (3)**, the offence is defined in (1), and the text's own narrowness confirms the row — it reaches a white cane or a **guide dog** only, so not a hearing, psychiatric or mobility dog and not an ESA. Newly recorded: **§28-1313(2)** makes use of a cane or guide dog "officially recognized as an indication that the bearer is blind" — a recognition rule, not a verification right, so it gives a landlord no entitlement to demand proof.
+- **`edu-no-mold-disclosure-ne`**, **`edu-no-immigrant-tenant-protection-ne`**, **`edu-no-bed-bug-disclosure-ne`** — already carry a recorded search battery with terms and hit counts from 2026-09-27. **No change.** The bed-bug row's three failed bills were not re-verified; the absence rests on the 0-hit search, not the bills.
+
+**A false negative caught mid-session, and it is the methodological point.** Partway through, the site returned **HTTP 429** and `screening` and `inventory` each came back as **0 results** — indistinguishable from a true statutory absence. Had I recorded those, two absences would have shipped on a rate-limit error. Backed off 75 seconds, then re-ran with a pair of controls in the same call: `landlord` returned **153** (matching the 2026-09-27 figure, so the engine was answering) and `nonsensezzqq` returned **0** (so true empties are reported). Both batteries then returned real hit sets. **An absence recorded from a search without that control pair is worth nothing**, and a 429 is a silent producer of clean-looking zeros.
+
+**The 29 research-pass rows with no basis recorded**, listed per rule 79 rather than read (reading all 29 is a re-audit, not a scalpel): `early-termination-ne`, `edu-alt-housing-self-help-ne`, `edu-carbon-monoxide-alarm-requirement-ne`, `edu-confirmed-absences-habitability-ne`, `edu-disclosure-noncompliance-ne`, `edu-dv-protections-procedure-ne`, `edu-entry-notice-content-ne`, `edu-five-year-lease-exclusion-ne`, `edu-landlord-lien-abolished-ne`, `edu-late-rent-reservation-fix-ne`, `edu-negligence-carveout-flag-ne`, `edu-no-all-in-pricing-law-ne`, `edu-no-deposit-installments-ne`, `edu-no-eviction-record-sealing-ne`, `edu-no-right-to-call-police-statute-ne`, `edu-no-tenant-death-statute-ne`, `edu-periodic-termination-notice-ne`, `edu-retaliation-prohibition-ne`, `edu-security-deposit-cap-ne`, `edu-security-deposit-noncompliance-penalty-ne`, `edu-tenant-noncompliance-notice-ne`, `edu-unconscionability-ne`, `edu-violent-crime-eviction-ne`, `extended-absence-notice-ne`, `landlord-disclosure-ne`, `parking-ne`, `storage-space-ne`, `tenants-property-insurance-ne`, plus `edu-rent-increase-and-rent-control-ne` (now read, above). **Highest-stakes subset for a future pass**, because each states a figure or a required disclosure: `landlord-disclosure-ne` (the only `REQUIRED_DISCLOSURE` row in the state), `edu-security-deposit-cap-ne`, `edu-security-deposit-noncompliance-penalty-ne`, `edu-periodic-termination-notice-ne`, `edu-tenant-noncompliance-notice-ne`. Several were in fact read section-open during the 2026-08 pass or the 2026-09-30 retro; what is missing is the basis **on the row**, which is the gap rule 79 exists to close.
+
+---
+
+### Targeted fixes
+
+**Fix 3 — the two optional clauses NE's retro found but did not draft. Both drafted.**
+
+- **`holdover-rate-ne` (new, CONDITIONAL, `CONSTRAINED_TERM`).** §76-1437 re-read. The gap is real: §76-1437(3)'s measure applies only "if the tenant's holdover is willful and not in good faith", and it is a **lump** figure, so for an ordinary holdover Nebraska sets **no measure at all** — rule 54's "measures the statute doesn't set". Drafted on the `holdover-rate-az`/`-ga`/`-sc`/`-va`/`-al`/`-pa`/`-in`/`-mi` pattern and **reusing the existing `{{holdover_daily_rate}}` variable** (rule 60 — 11 rows already use it, so no new variable). **One Nebraska-specific change to that pattern, and it is why the clause is safe here:** AZ's text preserves the statutory willful-holdover amount *alongside* the daily charge. Nebraska's §76-1437(3) figure is a **ceiling on the total**, so stacking a contractual daily charge on top could exceed the statutory maximum — this row makes the two **alternative, not cumulative, for the same period**. Shared `holdover` stays tagged (companion clause, as in ten other states; no collision).
+- **`casualty-landlord-termination-ne` (new, CONDITIONAL, `SERVES_LANDLORD`).** §76-1429 confers rights on the **tenant** only and says nothing about the landlord, and nothing in the URLTA bars the lease supplying one — so this is contract territory (CO was judged likely void; Nebraska is not CO). Drafted on the `casualty-landlord-termination-az`/`-ks` pattern, with two Nebraska adjustments: the accounting date is **the date of the casualty** (§76-1429(2)), and the closing sentence expressly preserves **both** of §76-1429(1)'s limbs **"whether or not Tenant caused the damage"** — because, as `edu-tenant-caused-damage-ne` records, §76-1429 is the one Nebraska exit route with **no tenant-fault exception** (contrast §§76-1425 and 76-1427, which each have one). A clause that quietly cut off a negligent tenant's §76-1429 exit would be void under §76-1415(1)(a) with §76-1415(2) exposure — that sentence is load-bearing, not boilerplate.
+
+**Fix 4 — LB80 traced, and it corrects this chat's own note.** LB80 is 109th Legislature (2025), DocumentID 59055, introduced by **Senator Hallstrom** 2025-01-09: *"Adopt the Protection Orders Act, … provide for domestic violence victims to change rental agreements and request the changing of locks, and change provisions related to landlords and tenants."* Source lines read individually: **§76-1431.02 is LB80 §48, §76-1431.03 is §49, §76-1431.04 is §50** — three different act sections. The 2026-09-30 note said both .03 and .04 were §50, which is the rule 79 failure shape (right citation, wrong subdivision) committed in a note. **Did LB80 change the substance `edu-dv-tenant-rights-ne` relies on? No — and the answer is cleaner than "no change":** all three sections carry **only** a 2025 LB80 source line with no earlier Laws citation, so LB80 **created** the perpetrator-removal and lock-change scheme rather than amending one. There is no prior version whose substance could have changed, and the flag is closed. **Effective date:** no emergency clause on the bill page, so Nebraska's default applies — the 2025 session's general effective date, **2025-09-03**, corroborated from inside the code rather than from a secondary source, because §76-1413(13) fixes that same date for LB185 of the same session. **Not read:** LB80's slip-law PDF, which is where an emergency clause or split effective date would appear.
+
+**Fix 5 — scrub-switched-off required clauses. None was carrying a statutorily required notice; nothing to restore.** Rule 78's own test applied first: *does the statute require the notice before or at the start of the tenancy?*
+
+| Switched off | Statute | Verdict |
+|---|---|---|
+| `security-deposit-return-ne` | §76-1416(2) — written itemization delivered **within fourteen days after termination** | **Termination-time notice.** Rule 78: never lease text. Correctly moved |
+| `dv-lease-release-ne` | §76-1431.01(2)(b) — written notice runs **tenant → landlord**, in-tenancy | Not a landlord notice at all. Correctly moved |
+| `dv-perpetrator-removal-ne` | §76-1431.02 — tenant-initiated, in-tenancy | Correctly moved |
+| `dv-lockchange-ne` | §§76-1431.03, 76-1431.04 — tenant-initiated; §76-1431.04(4) is a landlord **cost right**, not a notice | Correctly moved |
+| `casualty-termination-ne` | §76-1429 — tenant's notice to landlord, post-casualty | Correctly moved |
+
+Rule 78 also requires searching the state's **required-content provisions**, not just each clause's own citation. Nebraska's only at-or-before-tenancy written requirements are **§76-1417** (owner and manager name and address "in writing at or before the commencement of the tenancy") and **§76-1413(7)(b)** (the clear and conspicuous statement before electronic-delivery consent). Both are already held — by `landlord-disclosure-ne` (`REQUIRED_DISCLOSURE`) and `edu-electronic-notice-regime-ne`. **The contrast with Arizona is the point:** AZ had a notice to restore because A.R.S. §33-1321(C) requires a *move-in* notice of the right to attend the move-out inspection. §76-1416 read section-open today has **no move-out inspection right at all**, so Nebraska has no such notice to carry.
+
+**Fix 6 — `returned-payments`, rule 62 vouch. The AZ wording is lawful in Nebraska.** Changing "during the Term" to "during any 12-month period" is safe here, and the underlying concern is real in Nebraska too: §76-1437(4)/§76-1414(4) mean a tenancy with no fixed term is week-to-week or month-to-month, so a month-to-month Nebraska tenancy genuinely has no "Term" for the sentence to count against. Rule 62's two questions: (1) **can it drop a cure or notice Nebraska requires?** No — the clause governs replacing a failed payment method and charging a fee; no Nebraska statute attaches a cure or notice to either. (2) **does it change what the clause promises in Nebraska?** No — the NE note segment records only "generic mechanics, no NE-specific statutory language or number", with none of the "gives up" or "kept on purpose" language rule 62 says to look for first. **No Nebraska statute speaks to the counting period.** The near-misses, both read section-open: **§28-611** is criminal bad-check restitution ($10 plus any reasonable handling fee, on conviction) — not a civil cap; and **§45-918.01** does cap a returned-check charge at **fifteen dollars**, but only for a **licensee** on a **"delayed deposit transaction"**, i.e. payday lending, so it does not reach a landlord. **Vouched, no change needed.** Per rule 62 this verdict is recorded here, not in the shared row's notes, so `returned-payments` is untouched.
+
+---
+
+### Errors corrected in rows that shipped VERIFIED — both written by this chat
+
+1. **`edu-no-statutory-forms-ne` (created 2026-09-30) was wrong.** It said Nebraska "supplies no statutory form for a residential lease, a disclosure, or **any notice a landlord gives a tenant**" and that "There is no prescribed wording you must copy." **§69-2304** provides that a notice under §69-2303 "shall contain one of the following statements, as appropriate" and then sets out **two statements verbatim** — one for property going to public sale with the surplus to the State Treasurer, one for property believed worth under two thousand dollars. That is prescribed text a landlord must copy. **How it happened matters more than the fix:** the row's notes recorded the boundary honestly ("Patterns run against the full URLTA text"), but the landlord-facing sentence was written as an unbounded statewide claim, and §69-2304 sits in **Chapter 69, outside the URLTA**. A correctly-scoped battery produced a correctly-scoped note and an over-broad claim, and the note stating the boundary did not stop the body from overreaching. Found by rule 79's re-read of a *different* row's citations, not by any forms search.
+2. **`edu-dv-tenant-rights-ne`'s section attribution** — see fix 4.
+
+---
+
+### Findings for other states or the product (flagged, not fixed)
+
+1. **The 29 research-pass rows with no basis on the row** (listed above) are a standing gap in NE, and the shape is unlikely to be Nebraska-only. Worth a library-wide count before it is screened state by state.
+2. **§45-918.01's fifteen-dollar returned-check cap applies only to payday "delayed deposit" licensees.** Any state whose NSF row cites a general returned-check statute should check it is not a lender-only provision — this is the same trap as the "$10 is a civil cap" conflation already recorded for §28-611.
+3. **A rate-limited search returns a clean zero.** The site served HTTP 429 mid-session and two batteries came back as 0 results. Any state whose absences were recorded in a long search session without a control term run *in the same batch* could be carrying a false negative.
+
+---
+
+### Integrity checks on the delta
+
+Merged against the attached master and re-run programmatically. **2,876 → 2,879 rows. NE 129 → 132 active** (59 lease clauses, 73 education), **all VERIFIED**. Every other state's active count **unchanged** — **no shared row was touched at all**, so no `NE:` segment edit, no `last_checked` reset on a shared row, and **no §5a.1 propagation owed**. Delta is **17 columns, identical header, CRLF only**, 12 rows (3 new, 9 changed), no duplicate ids, no dangling `supersedes`, no blank `verification_status`, `is_active` TRUE and `last_checked` 2026-10-03 on all 12. Both new lease clauses carry a `lease_clause_basis` (`CONSTRAINED_TERM`, `SERVES_LANDLORD`). The three new `topic_key`s are existing keys (`firearms`, `holdover-rate`, `casualty-termination`), so each lands in the topic reference without a new subject (rules 57, 58). No same-topic lease-clause collision introduced: `casualty-termination` now has one NE lease clause and one NE education row, and the only NE key with two lease clauses is the pre-existing `alarm-duties` pair. `{{holdover_daily_rate}}` is reused, not invented.
+
+---
+
+### Proposed SOP changes
+
+1. **Rule 19 should require the control term in the same batch as the battery, not once per session.** A rate-limited search (HTTP 429) returns 0 results, which is indistinguishable from a true absence. Two of today's batteries came back empty for that reason and would have shipped as absences. A control run an hour earlier proves nothing about the query that just returned zero.
+2. **Rule 79's basis vocabulary should include "statute-wide search with terms and hit counts" as a first-class basis.** For an absence there is no section to read open, so the artifact *is* the search — and a keyword screen looking only for "section-open" miscounts those rows as having no basis. My own first count was inflated by seven rows for exactly this reason.
+3. **Rule 19 (or 36) should say that a bounded battery licenses only a bounded claim.** `edu-no-statutory-forms-ne` recorded its boundary correctly ("the full URLTA text") and still shipped a statewide denial, which §69-2304 — one chapter away — falsified. Where a row's claim is broader than the corpus searched, the body must name the corpus, not just the notes.
+4. **Rule 54 should say that where a statute caps the TOTAL recoverable, an optional lease charge must be alternative to the statutory remedy, not additional.** The house holdover-rate pattern preserves the statutory willful-holdover amount alongside the daily charge, which is right where the statute sets a floor or an independent remedy and wrong where §76-1437(3)-style wording caps the total.
+
+## Circle-back sync (Claude Code, 2026-10-03)
+
+- **Merged** with `merge-delta.py --base 2b10851`: 3 new rows (`edu-firearms-ne`, `holdover-rate-ne`, `casualty-landlord-termination-ne`) and 9 NE rows updated; no shared row touched; nothing refused. NE active 129 → 132. The only NE topic with two lease clauses is the existing `alarm-duties` pair (smoke and carbon monoxide), which is by design.
+- **Citations file:** rows added for the three new rows; the nine edited rows re-dated; `edu-no-statutory-forms-ne` now cites § 69-2304.
+- **Rule 62:** NE vouched for AZ's `returned-payments` wording ("during any 12-month period"); recorded in the backlog tally, which now waits only on PA.
+- **Guards:** all pass. **Statute spot-check, 3 of 3, on nebraskalegislature.gov:** § 69-2304 (the two prescribed statements, which falsified the old "no prescribed wording" row); § 76-1437(3) (willful, bad-faith holdover: not more than three months' periodic rent or threefold actual damages, whichever is greater); Neb. Const. art. I-1 ("shall not be denied or infringed by the state or any subdivision thereof").
+- **Rule 53 check on `holdover-rate-ne`:** the trigger ("after this Lease ends") reaches an earlier termination. Nebraska has no statewide late-fee cap, and its nonpayment route (§ 76-1431(2): pay within 7 days of the notice or the landlord may terminate) is a pre-termination cure, not a right to stay by paying after termination, so rule 53's nonpayment exclusion isn't triggered.
+- **Still open for a later NE pass:** the 29 research-pass rows with no basis on the row (listed above), highest-stakes first.
+- **SOP 1.46:** all four proposals adopted (rules 19, 53, 79). NE's 35c, 79, holdover and casualty cells set to ✓.

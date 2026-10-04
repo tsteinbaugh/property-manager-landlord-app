@@ -1150,7 +1150,7 @@ const CLAUSE_TEMPLATES = [
     group: "Default & Termination",
     states: ["NE"],
     bodyText:
-      "If Tenant leaves personal property on the premises after this Lease terminates or expires and the premises have been vacated, Landlord will give Tenant (and anyone else Landlord reasonably believes may own the property) written notice describing the property, personally delivered or sent by first-class mail to Tenant's last known address. Unless Tenant claims the property and pays Landlord's reasonable storage costs within 7 days after personal delivery of the notice, or 14 days after the notice is mailed, Landlord may dispose of the property as allowed under Nebraska's Disposition of Personal Property Landlord and Tenant Act, including public sale after published notice.",
+      "If Tenant leaves personal property on the premises after this Lease terminates or expires and the premises have been vacated, Landlord will give Tenant (and anyone else Landlord reasonably believes may own the property) written notice describing the property and containing the statement Nebraska law requires, personally delivered or sent by first-class mail to Tenant's last known address. Landlord will give that notice within six months after this Lease expires or after Landlord discovers the property was abandoned, whichever is later. Unless Tenant claims the property and pays Landlord's reasonable storage costs by the date stated in the notice - which will be at least 7 days after personal delivery of the notice, or at least 14 days after it is mailed - Landlord may dispose of the property as allowed under Nebraska's Disposition of Personal Property Landlord and Tenant Act, including public sale after published notice.",
   },
   // Tenant Responsibilities
   {
@@ -6885,6 +6885,23 @@ const CLAUSE_TEMPLATES = [
     supersedes: "smoking-policy",
     bodyText:
       "Smoking of any kind, including smoking tobacco or marijuana, and vaping tobacco or nicotine products with an electronic cigarette or similar device, is not permitted anywhere on the property, including inside the dwelling, on porches or balconies, or in any common area. Tenant will be responsible for any cost Landlord incurs to remediate odor, staining or damage caused by smoking or vaping by Tenant or Tenant's guests or invitees in violation of this Section, and a violation may be treated as a default under this Lease.",
+  },
+  // Default & Termination
+  {
+    id: "holdover-rate-ne",
+    title: "Holdover Charge",
+    group: "Default & Termination",
+    states: ["NE"],
+    bodyText:
+      "[Optional.] If Tenant remains in possession after this Lease ends and Landlord has not consented in writing to a continued tenancy, Tenant will pay Landlord a holdover charge of {{holdover_daily_rate}} for each day Tenant remains in possession, in place of Rent and actual damages for the use of the property during that time. Landlord and Tenant agree that Landlord's loss from a holdover, including delay in making the property available to a new tenant, is difficult to estimate accurately in advance, that this charge is a reasonable estimate of that loss, and that it is not a penalty. Landlord's acceptance of a holdover charge is not consent to a continued tenancy and is not acceptance of Rent. This Section does not limit Landlord's right to recover possession, unpaid Rent and other amounts due for the period before this Lease ended, or damages for harm to the property. Where Tenant's holdover is willful and not in good faith, Landlord may instead recover the amount Nebraska law allows for such a holdover, and will not recover both that amount and a holdover charge under this Section for the same period.",
+  },
+  {
+    id: "casualty-landlord-termination-ne",
+    title: "Landlord Termination After Fire or Casualty",
+    group: "Default & Termination",
+    states: ["NE"],
+    bodyText:
+      "[Optional.] If the property is damaged or destroyed by fire or other casualty to an extent that enjoyment of the property is substantially impaired, and the fire or casualty was not caused by Landlord's deliberate or negligent act, Landlord may terminate this Lease by written notice to Tenant, effective on the date stated in the notice or, if Tenant has already vacated, on the date Tenant vacated. Rent will be accounted for as of the date of the casualty, and Landlord will return all prepaid Rent and the Security Deposit Tenant is entitled to recover under Nebraska law. Landlord may recover possession only as Nebraska law permits. This Section is in addition to the rights Nebraska law gives Tenant after a fire or casualty and does not reduce or condition them: Tenant keeps the right to vacate and end this Lease, or to stay and pay reduced Rent, whether or not Landlord terminates and whether or not Tenant caused the damage.",
   },
 ];
 
