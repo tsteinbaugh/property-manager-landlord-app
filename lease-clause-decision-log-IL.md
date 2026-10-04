@@ -827,3 +827,7 @@ Run 2026-10-03 in IL's existing chat (SOP rule 8), on the attached files: `lease
 - **Builder:** `holdover-rate-il`'s charge is a fee that must appear in the first-page fee box (765 ILCS 705/35(b), (e)); added to the existing M.12 first-page layout item.
 - **Guards:** all pass. **Statute spot-check:** not possible from here (ilga.gov returns empty pages to this machine). The pass hash-matched every section it relied on against its saved official copies, and an independent agent reviewed it in four rounds.
 - **SOP 1.40:** all three proposals adopted (rule 19 whitespace and the "Lieutenant" boundary; rule 54's utility-statute exit route). Conformance cells for IL's 54t, 35c and holdover set to ✓.
+
+## Propagated shared-row edit, 2026-10-03 (from the NJ circle-back)
+
+- `acceptable-payment-methods-nj` (tagged NJ and IL): NJ changed the change-on-notice sentence so the landlord "will always accept at least one method that is not an electronic funds transfer and will not require payment by electronic funds transfer". Uniform for IL: it states the rule IL was tagged for (765 ILCS 705/4), so no IL override is needed. Claude Code's call at sync (rule 76); IL's note on the row records it.

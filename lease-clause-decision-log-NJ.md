@@ -636,3 +636,64 @@ A targeted check of New Jersey against 16 [Retro] rules, not a re-audit (rule 1)
 Not a re-audit; nothing else in this state was reviewed.
 
 **Propagation note (uniform edit, rule 62): `snow-removal` rewritten.** Old: 'Unless Landlord provides snow removal service, Tenant is responsible for prompt, reasonable removal of snow and ice from any walkway, driveway, porch, or entrance at the property that Tenant uses, to help keep those areas safe and passable.' New: 'Unless Landlord provides snow removal, Tenant will promptly remove snow and ice from the areas of the property Tenant uses for walking, parking and access. This does not include areas shared with other residents.' Why: Taylor found the list of areas too specific (properties differ, and a list invites arguments about what it covers), and Michigan's sync showed the clause should say outright that shared areas stay with the landlord. The edit only narrows the tenant's duty; this state's existing note on the row still holds.
+
+## Circle-back checks (SOP 1.46), 2026-10-03
+
+This is a targeted check of rule 79 and two scrub fixes, not a re-audit (rule 1). Nothing else was reopened.
+
+**Inputs:**
+- `lease-clauses.csv`: 2,876 rows, which matches the prompt. NJ has 101 active rows.
+- The attached files govern wherever they differ from earlier in this chat.
+
+**Sources:**
+- **Statutes:** read section-open in the built-in browser on the official NJ Legislature statutes (lis.njleg.state.nj.us; compilation through P.L.2026, c.30). Each section was fetched twice and its heading checked; hashes are in `src-1003/README.md`.
+- **Chapter laws:** P.L.2025, c.19 and P.L.2025, c.405, from pub.njleg.gov.
+
+**Delta:** 16 changed rows, no new rows. NJ still has 101 active rows (100 VERIFIED, 1 NEEDS_REVIEW). No other state's counts changed.
+
+| Check | Verdict | What was read and rows changed |
+|---|---|---|
+| **Rule 79: re-read before trusting a summary** | **Fixed** | **Screen:** keywords for secondary or host bases, run on every active NJ row. 23 rows hit. 15 cite case law or the research pass for case-law points only, or rest on the official nj.gov N.J.A.C. text with Cornell as a spot check. Those are outside rule 79's statutory screen and unchanged. **8 of 101 rows recorded no basis**, mostly rows the scrub created. All 8 were read section-open; the immigration row's basis is Taylor's official full-text search. **Fixes below.** |
+| ↳ `edu-municipal-rent-control-nj` | **Fixed** | **Wrong citation (79a):** "2A:18-61.1f/61.1g" are separate sections on notices for buildings being boarded up or retired. The rule the row states is subsection (f) of 2A:18-61.1. **Missing qualifiers (79b):** 2A:42-84.2 exempts only limits on "periodic or regular increases in base rentals", and only for the shorter of the mortgage amortization period or 30 years. It excludes housing built for senior citizens (84.1(e)) and rent control on substandard dwellings under 2A:42-74 et seq. The tenant also gets a written statement before signing (84.3). Body rewritten. |
+| ↳ `edu-smoke-alarm-nj` | **Fixed (stale host copy)** | The FindLaw copy predated **P.L.2025, c.19** (approved 2025-02-03, effective immediately). That act removed the portable fire extinguisher requirement from 52:27D-198.1 and added a warning label for secondary power sources. The body's extinguisher sentence was wrong and is gone. The certificate path is now split correctly: the municipal certificate-of-occupancy official where an ordinance requires one, otherwise the fire-safety enforcing agency (198.2(a)/(b)). The $500 fine (198.3) is added. The CO-alarm rule (N.J.A.C. 5:70-2.3) still rests on the Cornell copy; the official N.J.A.C. couldn't be reached, and it is marked so. |
+| ↳ `edu-algorithmic-rent-setting-nj` | **Unreachable; unchanged** | P.L.2026, c.43 is still not posted (the PL26 chapter-law folder ends at c.30), and the compiled statutes have 0 hits for "coordinating function". The row stays NEEDS_REVIEW on the S451 Second Reprint. |
+| ↳ `edu-towing-nj`, `parking-vehicle-rules` (NJ note) | **Fixed** | 56:13-13(d) exempts single-family homes, owner-occupied buildings of six or fewer units and cars blocking a driveway from the whole section. The Justia host summary had applied the exemption to the sign rule only. Subsection (e) allows a simpler sign for assigned-space communities. 56:13-7 and -16 were re-read; no change. |
+| ↳ `returned-payments-nj` | **Fixed (notes)** | 2A:32A-1 read officially. Damages can't exceed the check amount by more than $500; the demand form and hardship waiver are now read verbatim. Clause text is unaffected. |
+| ↳ `steam-radiator-cover-notice-nj` | **Fixed** | 52:27D-198.20(b) attaches the rider duty to property with *uncovered* steam radiators; builder note corrected. |
+| ↳ `edu-property-left-behind-nj` | **Fixed** | Added three qualifiers: the "reasonably believes" no-further-claim condition (2A:18-72); "30 days after delivery or 33 after mailing, whichever comes first" (2A:18-74); and the mailing method (2A:18-73). Also added the double-damages penalty (2A:18-82). |
+| ↳ `edu-security-deposit-rules-nj` | **Fixed** | Added the 46:8-26 exemption: owner-occupied buildings with two or fewer rental units, until the tenant gives 30 days' written notice invoking the Act. Also added the 60-day qualifier on moved-account notices (46:8-19(c)(2)). |
+| ↳ `edu-private-well-testing-nj` | **Fixed** | 58:12A-32 applies only where no other State law requires testing, and allows posting inside a seasonal rental. Both qualifiers added. |
+| ↳ `edu-screening-rules-nj` | **Fixed** | The fee-cap exemption is "a dwelling unit located in a one-family or two-family dwelling" plus licensees who aren't the landlord (46:8-18.1(c)); the body said "buildings with three or more units". The CPI adjustment starts in 2027. The effective date of 2026-05-01 is now from the chapter law itself (P.L.2025, c.405, s.3), not a press release. |
+| ↳ `edu-rental-liability-insurance-nj`, `edu-late-fee-rules-nj`, `edu-payment-rules-nj` | **Checked, no issue** | Re-read 40A:10A-1/-2; 2A:42-6.1–6.3 and 10.16a; 46:8-49.1–49.3. The bodies match; basis notes added. |
+| **Fix 2: scrub-trimmed clauses** | **Fixed (2), no issue (3)** | **`security-deposit-return-nj`:** restored "no deduction while Tenant remains in possession" (46:8-21.1). Without it, the "unpaid Rent" use reopens mid-tenancy deductions, which is why `security-deposit-use` was never tagged NJ, and 46:8-47/-48 penalize offering that term. **`acceptable-payment-methods-nj`:** the change-on-notice sentence let a landlord switch to electronic-only payment. It now always keeps a non-EFT method (46:8-49.1); a number check can't catch this. **`holdover-nj`:** no issue; both double-rent remedies keep their statutory triggers, and 2A:42-6 stays confined to premises outside the Anti-Eviction Act. **`surrender-end-of-term-nj`:** no issue; no landlord figure or choice can break the property procedure. **`private-well-test-results-nj`:** no issue; it is an acknowledgment only, and the testing duty is in education. **Required lease text:** the statutory text a lease must carry (46:8-50(c), 2A:18-61.9, 2A:42-84.3, 52:27D-198.20, N.J.A.C. 5:10-27.1(c), 2A:18-61.67, the lead-safe exhibit) all lives in rows the scrub didn't touch; those rows were checked intact. |
+| **Fix 3: scrub-switched-off required clauses** | **Checked, no restore** | **`security-deposit-interest-nj`:** 46:8-19(c) requires a written notice within 30 days of receiving the deposit, naming the institution, account type, rate and amount. The switched-off clause promised that future notice but never was it, since it can't carry details unknown at signing. It only restated duties the Act imposes anyway, and those are in `edu-security-deposit-rules-nj`. No lease clause restored. |
+
+**Citation-file updates for the sync (rule 79, upgrade basis):**
+- **`edu-municipal-rent-control-nj`:** replace "2A:18-61.1f, 2A:18-61.1g" with "N.J.S.A. 2A:18-61.1(f)", and add 2A:42-84.2, 84.3, 84.5.
+- **`edu-smoke-alarm-nj`:** add 52:27D-198.3 and P.L.2025, c.19.
+- **`edu-towing-nj` and `parking-vehicle-rules`:** basis is now official.
+- **`returned-payments-nj` and `edu-private-well-testing-nj`:** basis is now official.
+- **`edu-property-left-behind-nj` and `edu-security-deposit-rules-nj`:** basis is now section-open. Add 46:8-20 to the deposit row.
+
+**Unreachable (marked):**
+- P.L.2026, c.43 (`edu-algorithmic-rent-setting-nj`).
+- N.J.A.C. 5:70-2.3 (smoke/CO).
+- N.J.A.C. 13:13-3.4 (`assistance-animal-accommodation-nj`, unchanged; the clause hedges "to the extent permitted by applicable law").
+
+**Integrity (merged view):**
+- 2,876 rows; no new ids.
+- Per-state active counts unchanged.
+- No display collisions; same header and CRLF line endings.
+- No shared text edited, so no propagation is owed. `parking-vehicle-rules` got an NJ note only.
+
+### Proposed SOP changes
+1. **Rule 79:** when re-reading a host-copy section, compare its history line with the official one. A host copy can predate an amendment, and then the row is wrong, not merely unsourced. Reason: NJ's FindLaw copy of 52:27D-198.1 predated P.L.2025, c.19, which dropped the extinguisher rule the row asserted.
+2. **Rule 79(a):** check whether a cited section number with a letter suffix ("61.1f") is a separate section rather than a subsection ("61.1(f)"). Reason: `edu-municipal-rent-control-nj` cited two unrelated sections this way.
+
+## Circle-back sync (Claude Code, 2026-10-03)
+
+- **Merged** with `merge-delta.py --base 2b10851`: 15 rows updated (14 NJ rows and NJ's note on shared `parking-vehicle-rules`), no new rows. The tool refused the 16th, `acceptable-payment-methods-nj`, because it is tagged NJ and IL and its text changed (rule 62). Claude Code's call (rule 76): the new sentence ("will always accept at least one method that is not an electronic funds transfer and will not require payment by electronic funds transfer") states the rule IL was tagged for (765 ILCS 705/4), so it is uniform for IL and needs no IL override. Applied by hand: NJ's text and notes from the delta, IL's segment kept, and an IL note added; recorded in IL's log too. NJ active 101, unchanged.
+- **Citations file:** the 16 changed rows re-dated; `edu-municipal-rent-control-nj` now cites N.J.S.A. 2A:18-61.1(f) and 2A:42-84.2, 84.3, 84.5 (not the separate sections 61.1f and 61.1g); `edu-smoke-alarm-nj` adds 52:27D-198.3 and P.L.2025, c.19; `edu-security-deposit-rules-nj` adds 46:8-20; eight rows note the upgraded official basis.
+- **Guards:** all pass. **Statute spot-check, against P.L.2025, c.19 as published on pub.njleg.gov:** § 52:27D-198.1 as amended has no portable-extinguisher requirement and adds the secondary-power-source warning label; § 198.2(a)-(b) splits the certificate between the municipal official and the fire-safety enforcing agency; § 198.3 sets a fine of not more than $500. The compiled statutes site (lis.njleg.state.nj.us) doesn't serve section text to this machine.
+- **Still unreachable, marked on the rows:** P.L.2026, c.43 (algorithmic rent setting, which stays NEEDS_REVIEW), N.J.A.C. 5:70-2.3, N.J.A.C. 13:13-3.4.
+- **SOP 1.47:** both proposals adopted (rule 79). NJ's 79 cell set to ✓.

@@ -2410,7 +2410,7 @@ const CLAUSE_TEMPLATES = [
     states: ["NJ"],
     supersedes: "security-deposit-return",
     bodyText:
-      "Tenant will pay a Security Deposit of {{security_deposit}}. Landlord may use the Security Deposit only for charges permitted by this Lease, including unpaid Rent and damage beyond ordinary wear and tear.",
+      "Tenant will pay a Security Deposit of {{security_deposit}}. Landlord may use the Security Deposit only for charges permitted by this Lease, including unpaid Rent and damage beyond ordinary wear and tear. Landlord will not deduct anything from the Security Deposit while Tenant remains in possession of the property.",
   },
   // Rent & Payment
   {
@@ -2430,7 +2430,7 @@ const CLAUSE_TEMPLATES = [
     states: ["NJ", "IL"],
     supersedes: "acceptable-payment-methods",
     bodyText:
-      "Rent and other amounts due under this Lease may be paid by any of the following methods: [list accepted payment methods, including at least one that is not an electronic funds transfer, e.g. check or money order]. Landlord may change the accepted methods on reasonable written notice.",
+      "Rent and other amounts due under this Lease may be paid by any of the following methods: [list accepted payment methods, including at least one that is not an electronic funds transfer, e.g. check or money order]. Landlord may change the accepted methods on reasonable written notice, but will always accept at least one method that is not an electronic funds transfer and will not require payment by electronic funds transfer.",
   },
   // Default & Termination
   {
@@ -2931,7 +2931,7 @@ const CLAUSE_TEMPLATES = [
     group: "Disclosures",
     states: ["NJ"],
     bodyText:
-      "[BUILDER: attach as a rider to the lease wherever the unit has steam radiators; Landlord must also give this notice in writing at least once a year and post it in the common area where tenant notices are posted.] Steam Radiator Covers. Tenant may ask Landlord in writing to cover each steam radiator in Tenant's unit with an insulating material or cover that protects tenants, occupants and others from burns caused by contact with the radiator. Landlord will install the covers within 90 days after receiving Tenant's written request.",
+      "[BUILDER: attach as a rider to the lease wherever the property has uncovered steam radiators; Landlord must also give this notice in writing at least once a year and post it in the common area where tenant notices are posted.] Steam Radiator Covers. Tenant may ask Landlord in writing to cover each steam radiator in Tenant's unit with an insulating material or cover that protects tenants, occupants and others from burns caused by contact with the radiator. Landlord will install the covers within 90 days after receiving Tenant's written request.",
   },
   {
     id: "private-well-test-results-nj",
