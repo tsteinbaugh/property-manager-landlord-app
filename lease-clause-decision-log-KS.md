@@ -1164,3 +1164,7 @@ On merge: **2,876 → 2,879 rows; KS 142 → 145 active** (64 → 66 lease claus
 - **Guards:** all pass. **Statute spot-check, 3 of 3, on ksrevisor.gov:** K.S.A. 58-2530 (one sentence, no exceptions; history G.S. 1868), 58-2570(c), 58-2561(a). The 58-2530 page's case annotations support the clause's limits: a waiver under the section is not a waiver of homestead (*West v. Grove*, 139 Kan. 361), and the legislature could permit waiver of personal-property exemptions.
 - **Note on the nonpayment exclusion:** 58-2561(a) works through the tenant's counterclaim and payment into court, with judgment for the tenant when no rent remains due, rather than a plain right to stay by paying. The exclusion stands as a conservative choice under rule 53 either way.
 - **SOP 1.42:** both proposals adopted (rule 78 quotation re-read; rule 54 labelling of drafter-made carve-outs). KS's holdover and statutory-waiver cells set to ✓.
+
+## Propagated shared-row edit, 2026-10-03 (at the OK circle-back sync)
+
+- `default-by-tenant-ks-ne` (KS, NE, OH, OK): NE's sentence "Landlord need not give Tenant an opportunity to cure any breach, including a failure to pay Rent, where applicable law permits Landlord to proceed without one." was added after the two default limbs, once every tagged state had vetted it (KS: KS retro (SOP 1.27); OK at its 2026-10-03 circle-back). Uniform; no KS override. KS's note segment on the row records it.

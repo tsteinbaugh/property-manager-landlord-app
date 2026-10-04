@@ -320,6 +320,9 @@ Run by script (`work/build.py`, `work/check.py`) on the final delta; output summ
 ## 9. Propagation notes (rule 62)
 None. No shared row's text, rule type, content type or basis changed; every change to an existing row is the `OK` tag, an appended `OK:` note and `last_checked` (programmatic check, §8).
 
+### Vouches given
+- **2026-10-03:** `default-by-tenant-ks-ne` (NE's proposed sentence), vouched for OK; reasoning in "Circle-back checks (SOP 1.49)" at the end of this log.
+
 ## 10. Findings for other states or the product (flagged, not fixed)
 - **New `{{variables}}`: none.**
 - **Builder placement:** `landlord-disclosure-ok` and `flood-disclosure-ok` need visible headings ('prominently', §§ 41-116(A), 41-113a); `flood-disclosure-ok` and `meth-disclosure-ok` need a landlord yes/no input and must be shown before signing; `tenant-repair-agreement-ok` must be output as its own signed document, never as an addendum (an addendum is part of the 'rental agreement'); the optional clauses (§6.1) shown only on opt-in; `lihtc-felony-screening-ok` only for tax-credit properties.
@@ -873,3 +876,36 @@ The reference (2,014 active rows, 306 topics) no longer carries that list; every
 7. `security-deposit-return`: Is the refund conditioned on a written demand by the tenant, with the deposit reverting to the landlord if none is made in time?
 
 **Sync note (Claude Code, 2026-10-01):** this pass started from the 2,137-row library (ba2ab63, the Indiana sync); since then the AZ and WY retros and the shared `appliances-included` edit landed. Merged with `merge-delta.py --base ba2ab63`: 51 tagged rows took only the OK tag, the OK note segment and `last_checked`; 93 new rows; 2,262 rows. The delta had appended each `OK:` note with a space instead of the library's " | " separator, so the merge tool first read it as an edit to the previous state's segment; the separator was corrected in a copy (each row checked: base notes unchanged, OK text purely appended). Of the five tagged rows that moved since the base, only `appliances-included` changed text (now "as provided in this Lease and applicable law"); the OK note (§ 41-118(A)(3)) still holds. Twenty new rows used groups outside the app's lists and were regrouped: `lihtc-felony-screening-ok` "Lease Basics" → Default & Termination (`CLAUSE_GROUPS` is closed), and the education rows "Fair Housing" and "Prohibited Terms" → Compliance & Prohibited Terms, "Required Disclosures" → Disclosures, "Rules & Use" → Rules & Regulations, "Lease Basics" and "Notices & Communication" → Notices & General, "Utilities" → Tenant Responsibilities. Under SOP rule 54 as amended 2026-10-01, the declined contract interest rate (§6.1) got `edu-legal-interest-ok` (Okla. Stat. tit. 15, § 266, read section-open at sync). Statute spot-check, 5 of 5, from the oklegislature.gov whole-title file `os41.rtf` (the shell reached it): § 41-113(A)-(B), § 41-115(B), § 41-118(A)-(B), § 41-131, § 41-132(A)-(B). OK 145 active (69 clauses, 76 education). Citations file built from the OK notes (145 rows). Legal watch: OK config (117 sections, `"41 O.S." AND "Section 115"` queries) and `legal-watch-ok.yml`, held until after December 27 (first run 2027-01-27). The five "Proposed SOP changes" became SOP 1.17 (all [Fwd]); the seven topic questions were added. Consistency check (topics in 18 or more states that OK lacks): only `snow-removal` (26 states), absent on purpose: Taylor's §6.2 decision moves chores into the separate § 41-118(B) agreement (`tenant-repair-agreement-ok`; `edu-tenant-maintenance-agreement-ok` sits under `landscaping-irrigation`).
+
+## Circle-back checks (SOP 1.49), 2026-10-03
+
+Run 2026-10-03 as a circle-back in OK's chat (rule 8). The attached files are the source of truth: `lease-clauses.csv` had 2,876 rows, matching the kickoff. The old OK output files (`lease-clauses-OK-delta.csv`, `lease-clause-decision-log-OK.md`) were deleted first. Where this chat's earlier record differs from the attached files, the attached files govern. Two examples: `default-by-tenant-ks-ne` now reads `states` KS;NE;OH;OK, after NC was tagged and then removed on 2026-10-02, and OK now has 145 rows including `edu-legal-interest-ok`, which was added at sync.
+
+- **[Retro] rules:** none assigned (the kickoff lists 0).
+- **Targeted fix 1, rule 62 vetting of NE's proposed sentence for `default-by-tenant-ks-ne`:** vouched, no change needed (see "Vouches given" below). What was read: Okla. Stat. tit. 41, §§ 131, 132(A)-(D) and 113(A)-(B), section-open from `okla-stat-tit41.txt` (sha256 df3848b7…a9c7 re-verified 2026-10-03; none of the 2026 enrolled measures HB 3127, HB 3431 or SB 893 touches Okla. Stat. tit. 41, §§ 131-132, OK log §1.2); OK's own note segment on the row, read for "gives up" or "kept on purpose" (neither appears); OK log §§ 9 and 19 (rule 43 line). Rows changed: none. OK's 2026-10-01 flag on the row's "reasonable costs and expenses" (OK log §§ 10 and 19, rule 49) is separate and not reopened.
+
+### Vouches given (rule 62; belongs under OK log §9, "Propagation notes")
+
+- **`default-by-tenant-ks-ne`, NE's proposed separate sentence** "Landlord need not give Tenant an opportunity to cure any breach, including a failure to pay Rent, where applicable law permits Landlord to proceed without one." Vouched for Oklahoma, no change needed.
+  - **Can it be read to drop a required cure or notice?** No.
+    - The sentence speaks only to an opportunity to cure. It leaves untouched the rent limb's "after receiving written notice from Landlord" and every statutory notice.
+    - Okla. Stat. tit. 41, § 131(B) allows termination for nonpayment only "if the tenant fails to pay the rent within five (5) days after written notice of landlord's demand for payment". In an ordinary nonpayment, Oklahoma law therefore does not "permit Landlord to proceed without" a cure opportunity, and the sentence does not apply.
+    - The sentence is accurate where Oklahoma does let a landlord proceed without waiting. Okla. Stat. tit. 41, § 131(A) allows an action to recover rent "at any time" after it is unpaid, without waiting out the subsection B period. For non-rent breaches it reaches only Okla. Stat. tit. 41, § 132(C) (after the tenant has notice and fails to remedy "as promptly as conditions require") and Okla. Stat. tit. 41, § 132(D), which the row's existing carve-out already reaches.
+    - Any reading that waived a right under Okla. Stat. tit. 41, § 131 would be unenforceable (Okla. Stat. tit. 41, § 113(A)(1), (B)).
+  - **Does it change what the clause promises in Oklahoma?** No.
+    - OK's note segment gives nothing up on purpose.
+    - The one Oklahoma route its "including a failure to pay Rent" could touch is the last sentence of Okla. Stat. tit. 41, § 132(B): "Any subsequent breach of the lease or noncompliance under this section shall be grounds, upon written notice to the tenant, for immediate termination of the lease." Whether that reaches a later nonpayment and displaces the five days in Okla. Stat. tit. 41, § 131(B) is unread case law. Okla. Stat. tit. 41, § 131 is the specific rent provision.
+    - The sentence does not answer that question. It defers to "applicable law", as the rent limb already does ("within the time period specified by applicable law"). Even on that route, Okla. Stat. tit. 41, § 132(B) still requires written notice.
+    - So the sentence states expressly what the clause already does in Oklahoma. It adds no landlord right and removes no tenant right.
+
+### Proposed SOP changes
+
+None.
+
+## Circle-back sync (Claude Code, 2026-10-03)
+
+- **No delta:** the pass changed no rows, as it reported. OK active 145, unchanged.
+- **Rule 62, edit merged.** OK was the last tagged state to vet NE's sentence for `default-by-tenant-ks-ne` (KS, NE and OH vetted it at their retros). With all four agreed, the sentence was added after the clause's two default limbs, as NE proposed: "Landlord need not give Tenant an opportunity to cure any breach, including a failure to pay Rent, where applicable law permits Landlord to proceed without one." Each tagged state's note segment and log record it; `last_checked` 2026-10-03.
+- **Guards:** all pass. **Statute spot-check, 2 of 2, on oscn.net:** Okla. Stat. tit. 41, § 131(B) (termination only if the tenant fails to pay within five days after written notice of the landlord's demand) and § 132(B)'s last sentence (a subsequent breach is grounds, upon written notice, for immediate termination).
+- **Still open:** OK's 2026-10-01 rule 49 flag on the row's "reasonable costs and expenses" was not reopened.
+- **SOP:** no proposals.

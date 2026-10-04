@@ -1092,3 +1092,7 @@ The clause's third sentence is unchanged and was screened on 2026-10-02: "to the
 - **Flagged, not changed:** `early-termination-ks` is REQUIRED while `early-termination` is RECOMMENDED. No Ohio statute requires an early-termination clause, so REQUIRED is the shared row's product designation (Taylor's lesson 2: flag leases missing one); in the backlog.
 - **Guards:** all pass. **Statute spot-check, 2 of 2, on codes.ohio.gov:** R.C. 5301.11 (quoted in full above; matches word for word, sole version 1953) and R.C. 5321.17(A)-(B) (7 days before the termination date for week-to-week; 30 days before the periodic rental date for month-to-month).
 - **SOP 1.49:** both proposals adopted (rules 19, 54). OH's casualty cell set to ✓.
+
+## Propagated shared-row edit, 2026-10-03 (at the OK circle-back sync)
+
+- `default-by-tenant-ks-ne` (KS, NE, OH, OK): NE's sentence "Landlord need not give Tenant an opportunity to cure any breach, including a failure to pay Rent, where applicable law permits Landlord to proceed without one." was added after the two default limbs, once every tagged state had vetted it (OH: OH retro (SOP 1.24); OK at its 2026-10-03 circle-back). Uniform; no OH override. OH's note segment on the row records it.

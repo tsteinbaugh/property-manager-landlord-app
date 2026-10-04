@@ -1394,3 +1394,7 @@ Merged against the attached master and re-run programmatically. **2,876 → 2,87
 - **Rule 53 check on `holdover-rate-ne`:** the trigger ("after this Lease ends") reaches an earlier termination. Nebraska has no statewide late-fee cap, and its nonpayment route (§ 76-1431(2): pay within 7 days of the notice or the landlord may terminate) is a pre-termination cure, not a right to stay by paying after termination, so rule 53's nonpayment exclusion isn't triggered.
 - **Still open for a later NE pass:** the 29 research-pass rows with no basis on the row (listed above), highest-stakes first.
 - **SOP 1.46:** all four proposals adopted (rules 19, 53, 79). NE's 35c, 79, holdover and casualty cells set to ✓.
+
+## Propagated shared-row edit, 2026-10-03 (at the OK circle-back sync)
+
+- `default-by-tenant-ks-ne` (KS, NE, OH, OK): NE's sentence "Landlord need not give Tenant an opportunity to cure any breach, including a failure to pay Rent, where applicable law permits Landlord to proceed without one." was added after the two default limbs, once every tagged state had vetted it (NE: NE retro (SOP 1.13), its own proposal; OK at its 2026-10-03 circle-back). Uniform; no NE override. NE's note segment on the row records it.
