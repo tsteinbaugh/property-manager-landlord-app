@@ -183,6 +183,9 @@ These add to the **Addendum M.12** case for a `formatting` field; North Carolina
 ### 9.1 Flags for Claude CLI
 **None.** No specific defect was found in another state's row. (The `pet-policy` pet-removal sentence is wrong for North Carolina because of §§ 42-25.7 to 42-25.9; whether it is right for its six tagged states depends on each state's own self-help law, which this pass did not read, so it is not flagged.)
 
+### Vouches given
+- **2026-10-03:** `surrender-end-of-term` (CA's proposal), vouched for NC; reasoning in "Circle-back checks (SOP 1.45)" at the end of this log.
+
 ## 10. Findings worth Taylor's attention
 1. **North Carolina polices landlord fees more tightly than any state so far.** Late fees, eviction administrative fees and litigation costs are a closed list with caps, most need a written lease, and anything else is void (§ 42-46). That is why the shared `default-by-tenant` and `late-fee` were not tagged.
 2. **The deposit's bank notice is a forfeiture trap.** Telling the tenant where the deposit is held within 30 days of the term's start is statutory, and a willful miss voids the right to keep any of the deposit (§§ 42-50, 42-55).
@@ -562,3 +565,56 @@ Not a re-audit; nothing else in this state was reviewed.
 - **Builder:** a "last month's Monthly Rent" line in `due-at-signing` should count toward North Carolina's deposit cap (decision 1); added to backlog M.13.
 - **Rule 79:** 36 NC rows still record no basis (listed above), for NC's next circle-back.
 - **SOP 1.23:** all four proposals adopted (rules 19, 39, 47, 53). NC's conformance column is complete.
+
+## Circle-back checks (SOP 1.45), 2026-10-03
+
+**Scope:** a scalpel, not a re-audit (rule 1). The PROMPT lists 0 [Retro] rules and 1 targeted fix; nothing else was reopened. That includes the 36 NC rows that still record no basis, which the 1.21 sync note queued for "NC's next circle-back": this PROMPT does not list rule 79, so they are untouched. **Settings:** Opus, high effort. Research mode was not used; no rule 9 trigger arose.
+
+**Inputs:** the attached files were the only source of truth.
+- `lease-clauses.csv`: 2,876 rows, 17 columns, matching the PROMPT.
+- The attached NC log already contains the 1.21 retro section and Claude Code's 2026-10-02 sync note, so this chat's 1.21 work is superseded by the attached files wherever they differ.
+- Old outputs deleted first: `lease-clause-decision-log-NC-retro.md` and `lease-clauses-NC-retro-delta.csv` (the 1.21 deliverables, already merged).
+
+**Sources:**
+- *Sections:* 14 sections read section-open on ncleg.gov in the built-in browser on 2026-10-03, each fetched twice with identical text.
+  - 10 were already saved on 2026-10-02 and today's SHA-256 matches the saved file exactly, so they are unchanged: §§ 42-14, 42-25.6, 42-26, 42-28, 42-34, 42-37.1, 42-42.2, 42-45, 42-45.1, 47A-36.
+  - 4 were new and are saved with a SHA-256 match to the browser text: §§ 42-14.3, 42-37.2, 42-37.3, 127B-28.
+- *Currency:* S.L. 2026-61 is still the last 2026 session law (S.L. 2026-62 to -66 return 404).
+
+**Delta:** none. No row changed, so `lease-clauses-NC-retro-delta.csv` is not delivered (PROMPT, Deliver 1).
+
+| # | Rule / fix | Verdict | What was read | Rows changed |
+|---|---|---|---|---|
+| — | Retro rules | None listed in this PROMPT | — | — |
+| 1 | **Fix 1**, rule 62 vetting of CA's proposed `surrender-end-of-term` qualifier ("unless applicable law entitles Tenant to remain") | **Vouched, no change needed.** The qualified wording is lawful and accurate in NC. The current wording states a duty NC law does not back in a few narrow cases. | §§ 42-26(a), 42-28, 42-14, 42-25.6, 42-34(b), 42-37.1(b)-(c), 42-37.2(a), 42-37.3, 42-42.2, 47A-36(a), 42-14.3(a), 127B-28(a); NC's own note segment on the row | None (shared text not edited; NC stays tagged) |
+
+**Fix 1, the reasoning.**
+
+*Does the current wording state a duty NC law doesn't back?* Mostly no, with a few narrow exceptions. NC has no just-cause rule (`edu-no-for-cause-eviction-nc`). A tenant who holds over after the term "has expired", or after the estate has ceased under the lease, is removable by summary ejectment after a demand for surrender (§ 42-26(a)(1)-(2)). The landlord recovers damages for occupation "since the cessation of the estate" (§ 42-28). So the general duty to surrender at the end of the Lease is backed. But NC law lets a tenant stay past the Lease's end in these cases, and the unqualified "immediately" overstates the duty there:
+- **Condominium conversion:** "No tenant or subtenant may be required to vacate upon less than 90 days' notice", except for default grounds, and failure to give the notice "is a defense to an action for possession" (§ 47A-36(a)).
+- **Retaliation:** if the court finds the ejectment retaliatory it "shall deny the request for ejectment" (§ 42-37.2(a)), and the tenant cannot waive this (§ 42-37.3). This can reach a periodic tenancy ended by notice. It does not reach a fixed term with no option to renew, because the landlord prevails on that holdover (§ 42-37.1(c)(2)).
+- **Victim status:** a landlord "shall not terminate a tenancy, fail to renew a tenancy" based substantially on a tenant's status as a victim of domestic violence, sexual assault or stalking (§ 42-42.2). The statute names no remedy, so whether a tenant can rely on it to stay is a case-law question, not read.
+- **Appeal stay:** an appeal stays execution of a summary ejectment judgment while the tenant pays rent into the clerk (§ 42-34(b)).
+- **Federal SCRA:** its protections, which § 127B-28(a) incorporates, may stay proceedings. The federal text was not read.
+- **Manufactured-home community conversion:** 180 days' notice "regardless of the term of the tenancy" (§ 42-14.3(a)). This is a deprioritized layer.
+
+None of these makes the current clause void or dangerous in NC. It is a duty sentence, not a self-help right, and a residential tenant can be removed only by court process anyway (§ 42-25.6). The exposure is wording, as CA found.
+
+*Rule 62, question 1: can the qualified text be read to drop a cure or notice NC requires?* No. It narrows only the tenant's promise. It removes no demand, notice or court step: the § 42-26(a) demand for surrender and the § 42-36.2 writ procedure are unaffected.
+
+*Rule 62, question 2: does it change what the clause promises in NC?* Only by matching it to the law in the cases above. NC's note segment on this row has no "gives up" or "kept on purpose" language, and no NC note relies on an unqualified surrender duty. `holdover-ca` (month-to-month continuation "terminable only as provided by law") and `holdover-rate-nc` (charge "after this Lease ends") read consistently with it. The qualifier also does not let a tenant stay merely because a lease clause allows it, because it is limited to "applicable law". NC needs no override and supports the edit as uniform.
+
+### Vouches given
+*Claude Code: per rule 62, please file this line under NC log §9 (Propagation notes), subheading "Vouches given".*
+- `surrender-end-of-term`, CA proposal 2026-10-03 (add "unless applicable law entitles Tenant to remain" to the surrender sentence): **vouched, no change needed for NC.** It is lawful and accurate here. It drops no NC notice or cure, and it reopens no route NC gave up on purpose. NC law lets a tenant remain past the Lease's end in narrow cases: § 47A-36(a) conversion notice, §§ 42-37.2(a) and 42-37.3 retaliation, the § 42-34(b) appeal stay, and possibly § 42-42.2. Read section-open 2026-10-03.
+
+### Proposed SOP changes
+None.
+
+## Circle-back sync (Claude Code, 2026-10-03)
+
+- **No delta:** the pass changed no rows, as it reported. NC active 123, unchanged.
+- **Rule 62:** NC vouched for CA's `surrender-end-of-term` qualifier; recorded in the backlog tally and, as the pass asked, under §9 "Vouches given".
+- **Guards:** all pass. **Statute spot-check, 2 of 2, on ncleg.gov:** G.S. 47A-36(a) (conversion notice no later than 90 days before the tenant must vacate) and G.S. 42-37.2(a) (a court that finds the ejectment retaliatory "shall deny the request for ejectment").
+- **Still open for a later NC pass:** the 36 NC rows with no recorded basis (rule 79), outside this prompt's scope.
+- **SOP:** no proposals.

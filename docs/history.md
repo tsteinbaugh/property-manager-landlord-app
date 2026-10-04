@@ -248,6 +248,8 @@ All six v1 MVP modules are built (tagged `v1.0.0`), along with v2 Property Specs
 
 - [2026-10-03] — **MT circle-back synced.** No row changes; MT vouched for MN's pending `default-by-tenant` edit. Its prompt still carried the already-resolved CO cost-phrase question as a sub-question; removed from NM's folder too. SOP 1.45 (rule 49).
 
+- [2026-10-03] — **NC circle-back synced.** No row changes; NC vouched for CA's `surrender-end-of-term` qualifier (G.S. 47A-36(a), 42-37.2(a), 42-34(b) let a tenant stay past the lease's end in narrow cases).
+
 ## 🗳 Decisions log
 - [2026-09-30] — **Desktop deltas are merged with `merge-delta.py`, never by whole-row replacement.** Passes routinely start from an older library than the one at sync (NE, IN and AZ all did), and three times a whole-row replace would have silently undone another state's merge. The tool makes the safe merge the default and turns any real conflict into a refusal for hand review.
 - [2026-09-30] — **`early-termination-ks` applies only to a fixed-Term lease (Claude Code, uniform shared edit under rule 62).** Its fee is measured on "the remaining Rent due under the Term", which a month-to-month tenancy doesn't have, and every tagged state gives a periodic tenancy its own ending notice. Limiting the option removes nothing the landlord has under law, and the abandonment sentence still covers every lease. The builder-level fix (marking fixed-term-only clauses) stays in the backlog.
