@@ -733,3 +733,97 @@ All seven answered in 18.2: `algorithmic-rent-setting` (Confirmed absent), `fees
 Not a re-audit; nothing else in this state was reviewed.
 
 **Propagation note (uniform edit, rule 62): `snow-removal` rewritten.** Old: 'Unless Landlord provides snow removal service, Tenant is responsible for prompt, reasonable removal of snow and ice from any walkway, driveway, porch, or entrance at the property that Tenant uses, to help keep those areas safe and passable.' New: 'Unless Landlord provides snow removal, Tenant will promptly remove snow and ice from the areas of the property Tenant uses for walking, parking and access. This does not include areas shared with other residents.' Why: Taylor found the list of areas too specific (properties differ, and a list invites arguments about what it covers), and Michigan's sync showed the clause should say outright that shared areas stay with the landlord. The edit only narrows the tenant's duty; this state's existing note on the row still holds.
+
+## Circle-back checks (SOP 1.39), 2026-10-03
+
+Run 2026-10-03 in IL's existing chat (SOP rule 8), on the attached files: `lease-clauses.csv` (2,876 rows, as the prompt states, counted at the attached path), `lease-clause-sop.md` 1.39, `lease-clause-topics.md`, this log and `lease-clause-citations-IL.csv`. Those files are the only source of truth. This chat's earlier IL pass was built on a 1,698-row master. Where its working files differ from the attached ones, the attached ones govern, and every row in this delta was rebuilt from them. Old outputs deleted before starting: `lease-clause-decision-log-IL.md` and `lease-clauses-IL-delta.csv` (the 2026-09-30 IL deliverables). Scope: the 2 [Retro] rules and 2 targeted fixes in the prompt only (rule 1). This log had no earlier record of any of the four, so each was run with the text open.
+
+- **Rule 54t, tenant-caused damage: fixed.**
+  - *Routes checked for a tenant-fault exception:*
+    - Casualty: there is no Illinois statute for a house or apartment. `casualty-termination-il` was checked first; it already excludes casualty caused by Tenant, household members or guests.
+    - Repair and deduct: 765 ILCS 742/5 has its own fault exception.
+    - Essential services: 765 ILCS 735/1, 735/1.4 and 735/2.1 (terminate, pay-and-deduct, abatement) and 410 ILCS 45/10 (lead withholding) all turn on the landlord's own failure. They carry no fault exception, so the clause preserves them.
+    - Landlord-breach termination: the only statutory right is 765 ILCS 735/1.
+    - Rent into court: none.
+  - *Gap filled:* no statute measures lost rent when a lease ends over tenant-caused damage. Mitigation is kept (735 ILCS 5/9-213.1).
+  - *Read:*
+    - Section-open, matched by normalised hash to the saved copies: 765 ILCS 742/5, 710/1, 705/1, 705/35, 735/1, 735/1.4, 735/2, 735/2.1 and 735/3; 735 ILCS 5/9-207 and 5/9-213.1; 410 ILCS 45/10.
+    - The whole ILCS (3,486 acts, 72,939 section units) was reloaded from the official full-text pages. Retro batteries f1 to f7 were run (saved before any hit was read). Nonsense control: 0 hits. Known positives (742/5 phrase, 9-202 phrase): passed. Every relevant hit was read in context.
+    - TN, GA and MO models: read; the TN row is not tagged.
+  - *Unread case law, labelled:* the fire-insurance co-insured question; lost rent through the end of the Term; the implied warranty; constructive eviction.
+  - *Rows:* new `tenant-caused-damage-il` (CONDITIONAL, SERVES_LANDLORD) and `edu-tenant-caused-damage-il`. Changed `casualty-termination-il` (notes only: battery attribution corrected and a retro segment added; text unchanged).
+- **Rule 35c, constitution screen: fixed (one education row extended); no clause reached.**
+  - *Read:*
+    - The Illinois Constitution of 1970, whole, from the Legislative Reference Bureau (lrb.ilga.gov, `conent.htm`, 110,642 characters, SHA-256 194e51a3…, identical on a second fetch), plus the 16 per-article pages (146 sections on both).
+    - Article I and Article XI saved and hash-matched.
+    - No currency statement is printed. The newest amendment Source line is November 8, 2022 (art. I, § 25).
+    - The only initiative route is art. XIV, § 3 (Article IV structure only), so no initiated article needed a struck-down check.
+    - The amendment dates and art. XIV, § 3 were read in the browser on `conent.htm` and not saved; Articles I and XI are the saved texts.
+  - *Searched:* 25 patterns (saved in the battery file).
+    - Controls: "General Assembly" (101 hits) and "Governor" (75). Nonsense control: 0.
+    - Subject terms: cannabis, marijuana or hemp (0); smoking, vaping or tobacco (0); arms (§ 22); speech (§ 4); assembly (§ 5); signs or flags (bill-signing only); privacy, search or eavesdropping (§ 6, § 8.1, § 12); religion (§ 3, § 17, § 20; also the preamble, art. III, § 8 and art. IX, § 6, none lease-related); rent, lease or tenant (§ 17 and § 19; the other hits were "Lieutenant" and the art. IX, § 6 "rent credits"); discrimination; disability; property; debt; jury; environment (art. XI, § 2); eminent domain; contracts.
+  - *Findings:*
+    - Art. I, § 17 (no discrimination by race, color, creed, national ancestry or sex in the rental of property, enforceable without legislation) and § 19 (handicap) reach residential leases. `edu-fair-housing-il` now says so.
+    - § 4 (speech), § 5 (assembly), § 6 (privacy) and § 22 (arms, "subject only to the police power") do not say on their face whether they bind private parties. § 6's privacy and eavesdropping clause is not limited to the State in its text. Whether any of them reaches a private landlord is case law, not read, and not relied on.
+    - No shared clause is reached. `smoking-policy`'s cannabis ban has no constitutional counterpart. `common-area-use` already saves displays "that applicable law entitles Tenant to make". No IL firearm or entry clause restricts what these sections protect.
+    - Art. I, § 20 only "condemn[s]" communications.
+    - Art. XI, § 2 (healthful environment, enforceable "against any party, governmental or private") is not contradicted by any clause.
+  - *Rows:* changed `edu-fair-housing-il`.
+- **Fix 3, holdover rate after the NE amendment to rule 54: fixed.**
+  - *Verdict:*
+    - Both Illinois measures are conditional. 735 ILCS 5/9-202 applies only to a holdover that is wilful, after the expiration of the term, and after a written demand for possession; it gives double the yearly value. 735 ILCS 5/9-203 gives double rent only after the tenant's own notice to quit.
+    - Other holdovers get actual damages only (9-201: "fair and reasonable satisfaction for the use and occupation"). That is a gap.
+  - *Clause:* `holdover-rate-il` is offered on the GA-family model (`holdover-rate-nc` text, which excludes nonpayment terminations), plus a no-stacking sentence: the landlord takes either the statutory double amount or the charge for any day.
+    - The nonpayment exclusion is kept as a caution. There is no statewide late-fee cap, but the 9-204 ejectment tender is available "at any time before final judgment".
+    - Builder: the charge must appear in the first-page fee box (765 ILCS 705/35(b), (e)).
+  - *Read:*
+    - Section-open, hash-matched: 735 ILCS 5/9-201, 9-202, 9-203, 9-204, 9-207, 9-209 and 9-210; 765 ILCS 705/35; 740 ILCS 105/10.
+    - Retro batteries h1 (hold over) and h2 (double near rent or yearly value): only 9-202, 9-203 and 9-311 (distress bond) set an amount.
+    - Penalty doctrine: case law, not read (labelled).
+  - *Superseded entries:* this replaces the "Not offered" entry in §6.3 and the "Not adopted" entry in §15.1 for a holdover rate, the §16 scenario 63 answer (now also `holdover-rate-il`), and the `holdover-rate` line in §18.2. The conformance-table holdover cell for IL changes from "n" to ✓.
+  - *Rows:* new `holdover-rate-il` (CONDITIONAL, CONSTRAINED_TERM). Changed `edu-holdover-damages-il` (body and notes). Changed shared `holdover-ca` (IL notes segment and `last_checked` only; text and states untouched, no propagation owed).
+- **Fix 4, rule 62 vetting of `default-by-tenant` (MN's carve-out sentence): checked, no issue. Vouched; shared text not edited.**
+  - *Read:* 735 ILCS 5/9-209, 9-204 and 9-210, section-open and hash-matched.
+  - *Reasoning:*
+    - Illinois's only nonpayment route without a prior demand is ejectment for half a year's arrears, "without any formal demand" (9-204). There the tenant keeps a statutory tender right until final judgment, which a lease cure promise neither gives nor takes away.
+    - An eviction for nonpayment otherwise runs through the 9-209 written demand of at least 5 days. No statute lets a landlord skip it, so the self-limiting carve-out ("except where applicable law permits Landlord to proceed without giving Tenant an opportunity to cure") cannot be read to drop it.
+    - Whether a written lease may waive the 9-209 demand is case law, not read. The library offers no such waiver, and the carve-out creates none.
+    - Moving the carve-out to its own sentence reaching both limbs is lawful and accurate in Illinois. It also stops the rent limb adding a contractual notice to the 9-204 route.
+  - *Rows:* none.
+
+**Independent check (rule 80).** A separate agent checked the delta and this section against the saved texts in four rounds, re-checking the edited rows each time.
+- *Round 1:* 11 findings, all fixed. They included the tenant's periodic-notice citation, "withholding" in the saving sentence, the actor list aligned with `casualty-termination-il`, the fee-box builder line, deposit wording and per-row basis lines.
+- *Round 2:* 4 findings, all fixed: the missing 765 ILCS 735/1 termination and pay-and-deduct right (the section was then hash-checked), the casualty retro segment's "house or apartment" wording, 415 ILCS 105/4 in the f2 summary, and the holdover basis line.
+- *Round 3:* 3 findings, all fixed: a leftover contradiction in route (iv), an over-broad hash claim, and the education row's "water, gas or electric service" wording.
+- *Round 4:* the round-3 fixes were confirmed, and five wording points in this section were fixed (round counts, the reach of § 4 and § 6, religion hits, a file location, and what was saved).
+- *Integrity:* the header and CRLF line endings match the master. Only the intended fields changed; on `holdover-ca`, only the IL segment and `last_checked` changed. Every citation carries the full ILCS prefix. IL active rows go from 148 to 151 (78 clauses, 73 education); no other state's count changes.
+
+**Sources added** (IL sources folder, except the retro batteries file, which is in the batteries folder):
+- `IL-Constitution-Art-I_Bill-of-Rights.txt`
+- `IL-Constitution-Art-XI_Environment.txt`
+- `IL-retro-other-sections_410-45-10_740-105-10.txt`
+- `IL-constitution-battery-2026-10-03.txt`
+- `IL-retro-batteries-2026-10-03.tsv`
+- `IL-retro-source-record-2026-10-03.tsv` (21 section and article hashes, live against saved, all matched)
+
+### Vouches given (rule 62; for §9, Propagation notes)
+- `default-by-tenant`, MN's proposal (2026-10-02) to put the no-cure carve-out in its own sentence reaching both limbs: **vouched, no change needed** for Illinois (reasons under fix 4 above).
+
+### Proposed SOP changes
+1. **Rule 19: collapse whitespace in the corpus before matching a multi-word phrase.**
+   - What happened: the official Illinois full-text pages break lines inside sentences. The first retro run returned 0 hits for the known-positive phrase from 765 ILCS 742/5, and every battery was rerun on collapsed text.
+   - Why the change: the known-positive test caught it, but collapsing first prevents it.
+2. **Rule 35: put a leading word boundary on "tenant" (and "lease") in constitution batteries.**
+   - What happened: "tenant" matches "Lieutenant". In Illinois, 7 of the 10 rent/lease/tenant section hits were Lieutenant Governor sections.
+3. **Rule 54t, essential services: read the landlord-paid-utility statute whole and treat its remedies as exit and abatement routes.**
+   - What happened: Illinois lets a tenant end the lease, or pay and deduct, when the landlord doesn't pay a utility it must pay (765 ILCS 735/1). The remedy has no fault exception because it turns on the landlord's failure, so the clause's saving sentence must preserve a right to end the lease as well as abatement and deduction.
+   - Why the change: the drafted clause missed this until the independent check's second round.
+
+## Circle-back sync (Claude Code, 2026-10-03)
+
+- **Merged** with `merge-delta.py --base 2b10851`: 3 new rows (`tenant-caused-damage-il`, `edu-tenant-caused-damage-il`, `holdover-rate-il`) and 4 updated (`casualty-termination-il`, `edu-holdover-damages-il`, `edu-fair-housing-il`, and the IL segment of shared `holdover-ca`, merged onto the current master since that row had moved after the base); nothing refused. IL active 148 → 151; no same-topic pairs.
+- **Citations file:** rows added for the three new rows; the four edited rows re-dated, with 9-201 added to `edu-holdover-damages-il` and Ill. Const. art. I, §§ 17 and 19 to `edu-fair-housing-il`.
+- **Rule 62:** IL vouched for MN's no-cure-sentence edit to `default-by-tenant`; recorded in the backlog tally.
+- **Builder:** `holdover-rate-il`'s charge is a fee that must appear in the first-page fee box (765 ILCS 705/35(b), (e)); added to the existing M.12 first-page layout item.
+- **Guards:** all pass. **Statute spot-check:** not possible from here (ilga.gov returns empty pages to this machine). The pass hash-matched every section it relied on against its saved official copies, and an independent agent reviewed it in four rounds.
+- **SOP 1.40:** all three proposals adopted (rule 19 whitespace and the "Lieutenant" boundary; rule 54's utility-statute exit route). Conformance cells for IL's 54t, 35c and holdover set to ✓.

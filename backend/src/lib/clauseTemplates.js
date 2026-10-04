@@ -6530,6 +6530,22 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "If the property is damaged by fire, water, a vehicle or any other cause, and the damage results from the deliberate or negligent act or omission of Tenant, an Occupant, or a guest or invitee of Tenant, then: (1) Rent will not abate or be reduced while the property is repaired, for as long as this Lease continues; and (2) if this Lease ends because of the damage, Tenant will be liable for Landlord's actual damages, including the Rent Landlord loses while the property is repaired, up to the end of the Term, less any Rent Landlord receives from re-renting the property. Landlord will use reasonable efforts to repair and re-rent the property. This Section is in addition to Tenant's liability for the cost of repairing the damage. It does not limit any right Tenant has under Idaho law to require Landlord to make repairs that Landlord is responsible for.",
   },
+  {
+    id: "tenant-caused-damage-il",
+    title: "Damage Caused by Tenant",
+    group: "Default & Termination",
+    states: ["IL"],
+    bodyText:
+      "If the property is damaged by fire, water, a vehicle or any other cause, and the damage results from the deliberate or negligent act or omission of Tenant, a member of Tenant's household, or Tenant's guest, then: (1) Rent will not abate or be reduced while the property is repaired, for as long as this Lease continues; and (2) if this Lease ends because of the damage, Tenant will be liable for Landlord's actual damages, including the Rent Landlord loses while the property is repaired, up to the end of the Term (for a tenancy with no fixed Term, up to the earliest date Tenant could have ended the tenancy by notice), less any Rent Landlord receives from re-renting the property. Landlord will make repairs as this Lease and Illinois law require and will use reasonable efforts to re-rent the property. This Section is in addition to Tenant's liability for the cost of repairing the damage. This Section does not apply to the extent the damage results from the negligence of Landlord or Landlord's agents or employees, and it does not limit any rent abatement, withholding, deduction, damages or right to end this Lease that Illinois law gives Tenant because of Landlord's own act or failure, such as Landlord's failure to pay for a utility service Landlord is required to pay.",
+  },
+  {
+    id: "holdover-rate-il",
+    title: "Holdover Charge",
+    group: "Default & Termination",
+    states: ["IL"],
+    bodyText:
+      "If Tenant remains in possession after this Lease ends, whether at the end of the Term or on an earlier termination under this Lease or applicable law (other than a termination for nonpayment of Rent), and Landlord has not agreed in writing to a continued tenancy or accepted Rent for one, then, in place of any actual damages for Tenant's continued possession (including the actual damages and reasonable rental value described in the Holdover section of this Lease), Tenant will pay Landlord a holdover charge of {{holdover_daily_rate}} for each day Tenant remains in possession. Landlord and Tenant agree that Landlord's loss from a holdover, including delay in making the property available to a new tenant, is difficult to estimate accurately in advance, that this charge is a reasonable estimate of that loss, and that it is not a penalty. Landlord's acceptance of a holdover charge is not acceptance of Rent for a continued tenancy. This Section does not limit Landlord's right to recover possession, unpaid Rent and other amounts due for the period before this Lease ended, or damages for harm to the property. If Illinois law entitles Landlord to a statutory amount for any of the same days, such as double the yearly value for a willful holdover after Landlord's written demand for possession or double rent after Tenant fails to leave on the date in Tenant's own notice to quit, Landlord may recover either that amount or this holdover charge for those days, but not both.",
+  },
 ];
 
 module.exports = { CLAUSE_TEMPLATES };
