@@ -42,6 +42,7 @@ const STATE_NAMES = {
   NM: "New Mexico",
   MT: "Montana",
   NY: "New York",
+  WI: "Wisconsin",
 };
 
 // New York consolidated-law abbreviations (as cited in the NY rows) and the
@@ -1549,6 +1550,55 @@ const STATE_CONFIG = {
       },
     ],
   },
+  WI: {
+    // Wisconsin Statutes sections are chapter + "." + section ("704.28",
+    // "799.40", "106.50"), so a bare number looks like a decimal. Wisconsin
+    // bills cite them as "704.28 (4) (a) of the statutes is amended", so the
+    // query pairs the number with "statutes". Citations are split on ";" and
+    // only the "Wis. Stat." parts are read: the Administrative Code
+    // (ATCP ch. 134 and others), the Constitution, supreme court rules and
+    // federal parts change outside the legislature, so they are manual items
+    // below. Subsection parentheses become spaces, so "704.07(3)(a)" stays
+    // 704.07.
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        if (!/^Wis\. Stat\./.test(part)) continue;
+        const body = part.replace(/\([^)]*\)/g, " ");
+        for (const m of body.matchAll(/\b(\d{1,3}\.\d{2,4})\b/g)) out.push(m[1]);
+      }
+      return out;
+    },
+    buildQuery: (section) => `"${section}" AND "statutes"`,
+    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
+    manualRecheckItems: [
+      {
+        id: "wi-atcp-134-register",
+        label:
+          "Wis. Admin. Code ch. ATCP 134 (residential rental practices) changes by DATCP rule, not by bill, so LegiScan can't see it. Check the Wisconsin Administrative Register for any ATCP 134 (or ATCP 125, PSC 113, REEB 18 or REEB 25) rule since Register September 2026, No. 849 (WI log §1.2)",
+        clauseIds: ["landlord-disclosure-wi", "nrp-deposit-withholding-wi", "nrp-entry-wi", "edu-landlord-entry-wi", "promised-repairs-wi"],
+      },
+      {
+        id: "wi-koble-704-44-10",
+        label:
+          "Koble Investments v. Marquardt, 2026 WI 19, left open whether a lease barring unlawful use without the Wis. Stat. § 704.14 notice is void under § 704.44(10) (¶ 25). Check for a later appellate decision, and whether the statute annotations now reflect 2026 WI 19 (WI log §1.4, §10)",
+        clauseIds: ["dv-protections-notice-wi", "edu-consumer-protection-wi", "edu-prohibited-terms-wi"],
+      },
+      {
+        id: "wi-2027-effective-dates",
+        label:
+          "Delayed effective dates: 2025 Wis. Act 105 raises small-claims amounts (Wis. Stat. § 799.01(1)) from January 1, 2027; § 342.40(3)(c) changes January 4, 2027 (Act 196); § 814.61(1)(a) November 1, 2026 (Act 179). Re-read the eviction rows once each takes effect (WI log §1.2, §10)",
+        clauseIds: ["edu-eviction-process-wi"],
+      },
+      {
+        id: "wi-scr-72-eviction-records",
+        label:
+          "Eviction-record retention on the court access site rests on SCR ch. 72 and the 2024 WI 24 orders (Rule Petition 22-03), which LegiScan can't see. Check wicourts.gov for later rule orders (WI log §1.1, §7)",
+        clauseIds: ["edu-eviction-records-wi"],
+      },
+    ],
+  },
 };
 
 // Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
@@ -1561,7 +1611,7 @@ const STATE_CONFIG = {
 const SCHEDULE_ORDER = [
   "CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ",
   "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI",
-  "IA", "NM", "MT", "NY",
+  "IA", "NM", "MT", "NY", "WI",
 ];
 function cronFor(code) {
   const n = SCHEDULE_ORDER.indexOf(code);
