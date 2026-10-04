@@ -6919,6 +6919,14 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "If the property is damaged by fire, water, a vehicle or any other cause, and the damage results from the deliberate or negligent act or omission of Tenant, an Occupant, or a guest or invitee of Tenant, then: (1) Rent will not abate or be reduced while the property is repaired, for as long as this Lease continues; and (2) if this Lease ends because of the damage, Tenant will be liable for Landlord's actual damages, including the Rent Landlord loses while the property is repaired, up to the end of the Term (for a month-to-month or other periodic tenancy, up to the earliest date Tenant could have ended the tenancy by notice), less any Rent Landlord receives from re-renting the property. Landlord will make repairs as this Lease and Pennsylvania law require and will use reasonable efforts to re-rent the property. This Section is in addition to Tenant's liability for the cost of repairing the damage. It does not limit Tenant's right under Pennsylvania law to pay Rent into escrow while a city or county has certified the property unfit for human habitation, or to deduct from Rent a payment Tenant makes to a utility because Landlord did not pay it.",
   },
+  {
+    id: "holdover-rate-sd",
+    title: "Holdover Charge",
+    group: "Default & Termination",
+    states: ["SD"],
+    bodyText:
+      "If Tenant remains in possession after this Lease ends, whether at the end of the Term or on an earlier termination under this Lease or applicable law (other than a termination for nonpayment of Rent), and Landlord has not agreed in writing to a continued tenancy and has not accepted Rent for one, then, in place of any damages for Tenant's continued possession that Landlord could otherwise recover, Tenant will pay Landlord a holdover charge of {{holdover_daily_rate}} for each day Tenant remains in possession. Landlord and Tenant agree that Landlord's loss from a holdover, including delay in making the property available to a new tenant, is difficult to estimate accurately in advance, that this charge is a reasonable estimate of that loss, and that it is not a penalty. This charge is an alternative to any damages South Dakota law measures for the same period, not an addition to them: Tenant will not pay a holdover charge under this Section for any day for which Landlord recovers statutory holdover damages, and no statutory multiplier applies to the holdover charge. Landlord's acceptance of a holdover charge is not acceptance of Rent for a continued tenancy and does not renew this Lease under the Holdover section. This Section does not limit Landlord's right to recover possession, unpaid Rent and other amounts due for the period before this Lease ended, or damages for harm to the property.",
+  },
 ];
 
 module.exports = { CLAUSE_TEMPLATES };

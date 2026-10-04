@@ -1466,3 +1466,110 @@ Not a re-audit; nothing else in this state was reviewed.
 ## Propagated shared-row edit, 2026-10-04 (at the PA circle-back sync)
 
 - `returned-payments` (CO, WY, KS, NE, MN, ND, SD, OH, AZ, GA, PA): AZ's proposal merged once every tagged state had vetted it, PA last. "If more than two of Tenant's payments during the Term are returned" now reads "during any 12-month period", so the count works for a month-to-month tenancy, which has no Term. Uniform; no SD override. SD's note segment on the row records it.
+
+## Circle-back checks (SOP 1.51), 2026-10-04
+
+**Date:** 2026-10-04. **Scope:** the 2 targeted fixes named in the prompt. The prompt carries **0** [Retro] rules for SD this round, so no rule screens were run. Nothing else reopened (rule 1).
+
+**Files.** The attached `lease-clauses.csv` verified before any work: **2,876 rows, 17 columns, CRLF, no BOM** — matches the staged count. Deleted from outputs first: `lease-clause-decision-log-SD-retro.md` and `lease-clauses-SD-retro-delta.csv`, the two SOP 1.24 retro deliverables of 2026-10-02. The upload folder also holds stale 1.24-era copies of the SOP, the topic reference, SD's log and SD's citations file; the @-mentioned current copies are the ones used, and where anything earlier in this chat conflicts with them, they govern.
+
+**Delta: 3 rows — 1 new, 2 changed. SD 111 → 112 tags; no other state's count moves.** `surrender-end-of-term` is deliberately **not** in the delta: rule 62 as amended at the CA retro puts a vouch in the log's propagation section, not in a many-state row's notes.
+
+---
+
+### The checks
+
+No [Retro] rules were assigned this round. **Targeted fixes:**
+
+| # | Item | Verdict |
+|---|---|---|
+| 1 | Holdover rate (rule 54; Taylor's decision at the 2026-10-02 SD sync under rule 76) | **Fixed — `holdover-rate-sd` added, and the instruction's stated ground turned out to be wrong in a way that matters.** Section R40.1 |
+| 2 | Rule 62 vetting — `surrender-end-of-term` (CA's proposal) | **Vouched, and SD agrees the edit should be made.** The current wording does state a duty SD law does not back. Section R40.2 |
+
+---
+
+### R40.1 Holdover rate — and a shipped error the fix uncovered
+
+**What I was asked to rely on, and why it isn't right.** The instruction says SDCL §§ 43-32-14 and 43-32-15 "give no damages measure for holding over, so the lease can set one." That is true of chapter 43-32 and false of South Dakota. The measures sit in **chapter 21-3**, which no SD row had ever read:
+
+- **§ 21-3-8** — "For **wilfully holding over** real property, by a tenant after the end of his term, and after **notice to quit has been duly given**, and **demand of possession made**, the measure of damages is **double the yearly value of the property**, for the time of withholding, **in addition to** compensation for the detriment occasioned thereby."
+- **§ 21-3-7** — "For the failure of a tenant to give up the premises held by him, when **he has given notice of his intention to do so**, the measure of damages is **double the rent** which he ought otherwise to pay."
+- **§ 21-3-5** — the residual case, "in cases not embraced in §§ 21-3-6 to 21-3-9": the **value of the use** of the property for the time of occupation, up to six years back, plus the costs of recovering possession.
+- **§ 21-16-10** — the FED judgment "shall be for the delivery of possession … and for rents and profits or damages, **including those authorized by § 21-3-8**, where the same are claimed in the complaint."
+
+All read section-open; ch. 21-3 parsed and proved complete against the site's own index, **16 of 16 sections, no extras**. (§ 21-3-6, treble damages for forcibly ejecting or excluding a person from possession, and § 21-3-9, conservators and life tenants, were read too — see R40.4.)
+
+**So `edu-holdover-mechanics-sd` was asserting the opposite of the statute.** Its body said: "South Dakota has no statutory holdover-damages multiplier — no automatic 'double rent' or similar penalty for a tenant who remains after the lease term ends." SD has two multipliers and a residual measure, and the eviction judgment statute names one of them expressly. The row's cross-state sentence ("CO has a 'double rent' multiplier, KS caps at 1.5x, NE caps at 3x … SD has none of these") is wrong for the same reason. **Corrected — body rewritten.**
+
+**Root cause, recorded because it is a method failure rather than bad luck.** The row's own notes show the absence rested on two things: chapter 43-32 containing no multiplier — true, but the wrong chapter — and "a dedicated primary-source-adjacent industry source stating plainly 'South Dakota has no holdover multiplier, no double rent and no statutory holdover damages of any kind.'" A secondary source's clarity was taken for corroboration. That is **rule 20** exactly: disproving a citation doesn't disprove the claim, so search the substance, because the rule may sit in a different section. It is also an **unread L.5 dependency the log had itself flagged and then set aside three times** — SD's log records that "§ 21-16-10 awards damages 'including those authorized by § 21-3-8'" and classes § 21-3-8 as Tier C, "cited, not read," and "none load-bearing." It was load-bearing for that row all along, and adding a holdover rate made it unmistakable.
+
+**`holdover-sd`'s stated ground was wrong too; the override still stands.** Its notes justified withholding the generic `holdover` from SD because "SD HAS NO HOLDOVER DAMAGES MULTIPLIER," so the generic's "maximum amount permitted by applicable law" would "resolve to zero" in SD. It would have resolved to a real figure. The override remains right for the reason the notes gave *second* and should have given first: § 43-32-14 renews the hiring for the **same time** as the original term on acceptance of rent, not month-to-month, so the generic's month-to-month fallback was wrong for SD on its own terms. **Notes corrected; bodyText unchanged** — "any remedy allowed by applicable law to recover possession" is accurate and now points at a real damages family.
+
+**The gap is narrower than the instruction said, and still real** — which is the question rule 54 actually asks (for which cases, and in what shape). § 21-3-8 does not reach a non-wilful holdover; does not reach an **earlier termination** (its words are "after the end of his term"); and does not reach a holdover where no notice to quit was given — now the common case, because SD repealed its statutory notice-to-quit requirement in 2024 (former § 21-16-2, repealed SL 2024 ch 75 § 1). A stipulated daily charge fills those cases, so the clause is still worth offering.
+
+**One non-obvious landlord point, now in the education row.** The 2024 repeal removed the *obligation* to serve a notice to quit before filing, but § 21-3-8 still *conditions* double damages on a notice to quit having been duly given **and** a demand of possession made. A landlord who wants the double measure should still serve both, even though filing no longer requires it.
+
+**Rule 53 screen — every test run, with its result:**
+
+| Test | Result | What the clause does about it |
+|---|---|---|
+| Judgment-stage multiplier a court can apply | **Present** — §§ 21-3-7 and 21-3-8 are both doublers, and § 21-16-10 channels § 21-3-8 into the judgment | Carries the MO-circle-back sentence: the charge is not recovered for any day a statutory multiple is, and no statutory multiplier applies to the stipulated figure |
+| Statutory cap on wilful-holdover recovery | **None** — § 21-3-8 is a measure, not a ceiling | NE-circle-back framing carried anyway, because it is a statutory measure for the same period: the charge is an **alternative**, never additive |
+| State caps late fees (daily charge as a second late charge) | **Confirmed absent from primary text, not from the log.** Batteries for `late (fee\|charge)\|delinquent fee` and `grace period` across chs. 43-32, 43-8, 21-16, 37-24, 57A-3, 54-3, 54-4 → no residential hit. The two ch. 54-4 hits (§§ 54-4-44.3, 54-4-45) are consumer lending and money-lender licence renewal and mention no lessor, lessee, landlord or tenant | Trigger does not fire — but see below |
+| Tenant can keep possession by paying after termination (tender, redemption, cure until judgment) | **Confirmed absent.** Word-boundary batteries for `cure`, `reinstate`, `redeem\|redemption` and a pay-to-retain-possession proximity pattern across chs. 21-16, 43-32, 43-8, 15-6, 21-3 → nothing. The one `redemption` hit is § 21-16-1(5)'s **mortgage** redemption after a foreclosure sale, read in context | Trigger does not fire |
+| Trigger reaching "an earlier termination" | Reaches one, and therefore reaches a nonpayment termination | **Nonpayment terminations excluded anyway** — see below |
+
+**Nonpayment excluded as a drafting judgment (rule 76), not because a rule 53 trigger fired.** Neither stated trigger fires in SD. I excluded the case anyway: **§ 53-9-4** voids penalties imposed by contract for nonperformance and **§ 53-9-5** voids anticipated-damages terms outside the impracticability exception, and SD's late fee is builder-set with **no statutory ceiling**. Stacking an uncapped late fee, unpaid Rent and a daily holdover charge across the same days is the classic penalty profile those two sections create. Excluding it costs the landlord almost nothing and removes the argument. Modelled on `holdover-rate-nc` for that reason, rather than on `holdover-rate-ga`, whose trigger reaches a nonpayment termination.
+
+**Two drafting details worth naming.** The GA and NC variants say the charge stands "in place of … the actual damages and reasonable rental value described in the Holdover section of this Lease." `holdover-sd` **describes no damages measure**, so copying that wording would have left a dangling cross-reference; the SD row says "in place of any damages for Tenant's continued possession that Landlord could otherwise recover" instead. And because § 43-32-14 makes *acceptance of rent* the trigger for presumed renewal, the clause both conditions itself on Landlord not having accepted Rent for a continued tenancy and says expressly that accepting a holdover charge does not renew the Lease under the Holdover section.
+
+**Builder constraint:** `{{holdover_daily_rate}}` must approximate actual loss — daily Rent plus documented re-letting loss — and must not be set as a multiple of Rent, or the §§ 53-9-4/53-9-5 recital in the body stops being true. The variable is the one the other ten `holdover-rate` rows already use.
+
+**Rows changed:** new `holdover-rate-sd` (CONDITIONAL, LEASE_CLAUSE, `holdover-rate`, `CONSTRAINED_TERM`, offered and never a default); `edu-holdover-mechanics-sd` (body + notes); `holdover-sd` (notes only).
+
+### R40.2 Rule 62 vetting — `surrender-end-of-term`
+
+**SD's answer: the qualified wording is lawful and accurate here, and yes — the current wording does state a duty South Dakota law does not back.**
+
+Rule 62's two questions:
+
+1. **Can it be read to drop a cure or notice SD requires?** No. "unless applicable law entitles Tenant to remain" only subtracts from a tenant duty; it adds no landlord obligation and removes no notice. SD requires no cure or pre-suit notice in this area at all — the word-boundary `cure` battery run for fix 1 returned nothing across chs. 21-16, 43-32, 43-8, 15-6 and 21-3, and the statutory notice to quit was repealed in 2024.
+2. **Does it change what the clause promises in SD, or reopen a route SD gave up on purpose?** No. `surrender-end-of-term` carries **no SD note segment** and no "gives up" or "kept on purpose" language — the only SD text on the row records that no SD-specific surrender statute was found beyond the deposit mechanics. Nothing was given up on purpose, so there is nothing to reopen.
+
+**And the current wording overstates the duty in at least three SD situations**, which is why SD does not merely tolerate the edit but wants it:
+
+- **§ 43-32-14** — if the tenant holds over and the landlord **accepts rent**, the hiring is presumed renewed on the same terms for the same time, up to a year. The tenant is then entitled to remain, while the clause says surrender "immediately."
+- **§ 43-32-15** — a tenancy for an unspecified term is **deemed renewed** unless a party gives notice scaled to the term. Without that notice the tenant is entitled to remain past what the landlord may treat as the end.
+- **§ 43-8-8** — ending a residential tenancy at will needs **15 days'** written notice, or **two months'** where the tenant or an immediate family member is on active military service. Short of that, the tenant is entitled to remain.
+
+SD has no just-cause statute (confirmed in the 1.24 retro, `edu-no-for-cause-eviction-sd`), so the exposure here comes from the renewal presumptions and the notice rules rather than from a just-cause route — a different mechanism from California's, reaching the same conclusion. As in CA the exposure is wording rather than a void term: it is a duty clause, it grants no self-help, and `holdover-sd` correctly offers only possession-by-law plus the renewal presumption. **The clause stays tagged; shared text not edited.**
+
+### R40.3 Propagation notes (rule 62)
+
+No shared clause text was edited, and no shared row appears in the delta.
+
+**Vouches given**
+
+- **`surrender-end-of-term`** (CA's 2026-10-03 proposal to qualify the first sentence with "unless applicable law entitles Tenant to remain"): **vouched for South Dakota, and SD votes to make the edit.** Lawful and accurate here; the unqualified wording states a duty SD law does not back where § 43-32-14's renewal presumption, § 43-32-15's deemed renewal, or § 43-8-8's 15-day or two-month notice applies. Recorded here rather than in the row's notes, per rule 62 as amended, so a twelve-state row does not collect a vouch per state.
+
+### R40.4 Findings for other states or the product (flagged, not fixed)
+
+1. **§ 21-3-6 gives treble damages for forcible exclusion, and no SD row records it.** "For forcibly ejecting or excluding a person from the possession of real property, the measure of damages is three times such a sum as would compensate for the detriment caused." `edu-self-help-eviction-ban-sd` accurately states § 43-32-6's remedy (two months' rent plus return of advance rent and deposit) but is **incomplete** rather than wrong: a landlord who locks a tenant out faces a second, larger exposure. Not edited — it is outside the two fixes and incompleteness is not error — but it should be the next narrow fix for SD, and it is a candidate for any state whose self-help row rests on a landlord-tenant-chapter remedy alone.
+2. **The cross-state holdover-multiplier comparison in `edu-holdover-mechanics-sd`'s notes was wrong about SD.** If any other state's log or row repeats "SD has no holdover multiplier" as a comparator, it inherits the error.
+3. **Tier C lists need a trigger, not just a label.** SD's log classed § 21-3-8 "none load-bearing" three times while a shipped row depended on it. A dependency parked as non-load-bearing should be re-tested whenever a row in its topic family is added or changed.
+
+### Proposed SOP changes
+
+1. **Rule 54:** before offering an optional clause on the ground that the state supplies no statutory measure, search for the measure outside the landlord-tenant title — a damages chapter is the usual home. South Dakota's holdover multipliers sit in SDCL ch. 21-3, and a row asserting "no statutory holdover damages of any kind" shipped for a month because the search stopped at ch. 43-32.
+2. **Rule 21 (or the Tier-C convention):** a citation parked as "cited, not read — not load-bearing" is re-tested whenever a row in its topic family is added or edited, because what is non-load-bearing for the library as it stands can become load-bearing the moment a clause is added. SD's § 21-3-8 was recorded as a known unread dependency of § 21-16-10 on three separate occasions.
+3. **Rule 19:** put word boundaries on `cure` as well as on short words — an unbounded `cure` pattern matches inside "secure" and returned false hits in SDCL 43-32-6, 43-32-6.1 and 15-6-1 before the bounded rerun cleared them. Pair each absence pattern with a reject-test on the word it is most likely to match inside.
+
+## Circle-back sync (Claude Code, 2026-10-04)
+
+- **Merged** with `merge-delta.py --base 2b10851`: 1 new row (`holdover-rate-sd`) and 2 updated (`edu-holdover-mechanics-sd` body and notes; `holdover-sd` notes); nothing refused. SD active 109 → 110 (111 → 112 tags); no same-topic pairs; section pointers resolve.
+- **Correction recorded:** `edu-holdover-mechanics-sd` had said South Dakota has no holdover-damages multiplier. SDCL 21-3-8 (double the yearly value for a willful holdover after notice to quit and demand of possession) and 21-3-7 (double rent after the tenant's own notice) say otherwise, and § 21-16-10 channels § 21-3-8 into the eviction judgment. Body rewritten; `holdover-sd`'s stated ground corrected (its override still stands on § 43-32-14's same-term renewal).
+- **Citations file:** row added for `holdover-rate-sd`; `edu-holdover-mechanics-sd` and `holdover-sd` now cite SDCL 21-3-5, 21-3-7, 21-3-8 and 21-16-10.
+- **Rule 62:** SD vouched for CA's `surrender-end-of-term` qualifier (§§ 43-32-14, 43-32-15, 43-8-8 let a tenant remain); recorded in the backlog tally.
+- **Flagged for SD's next pass:** SDCL 21-3-6 (treble damages for forcible exclusion) isn't in `edu-self-help-eviction-ban-sd`; in the backlog.
+- **Guards:** all pass. **Statute spot-check, 2 of 2, on sdlegislature.gov:** SDCL 21-3-8 (quoted above; matches) and 21-3-7 (double damages for failing to give up the premises after the tenant's own notice).
+- **SOP 1.52:** all three proposals adopted (rules 19, 21, 54). SD's holdover cell set to ✓.
