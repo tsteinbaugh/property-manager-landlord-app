@@ -406,6 +406,9 @@ Also checked by script: the four completion-table labels in §0; every backtick 
 ## 9. Propagation notes (rule 62)
 No shared row's `bodyText` was edited, so there is no shared edit to vet. Tag-only changes: 49 rows gained `NM` and an `NM:` note. Shared rows deliberately **not** tagged for New Mexico are listed in §2.2 with the New Mexico reason; where the reason may apply to another state, it is flagged in §10 rather than changed here.
 
+### Vouches given
+- **2026-10-03:** `default-by-tenant` (MN's proposal), vouched for NM; reasoning in "Circle-back checks (SOP 1.47)" at the end of this log.
+
 ## 10. Findings for other states or the product (flagged, not fixed)
 1. **Builder variables (rule 60).** New: `{{utility_bill_copy_fee}}` (`utility-bill-copies-nm`; cap $5.00 per monthly request, § 47-8-20(F)). Existing in the library but not in the kickoff's builder-filled list, used by NM rows: `{{nsf_fee}}` (`returned-payments-nm`; also CA, TX, IA, VA). New rows reuse `{{monthly_rent}}`, `{{security_deposit}}`, `{{pet_deposit}}`, `{{pet_rent_amount}}`, `{{late_fee_amount}}` and `{{late_fee_grace_days}}`; tagged rows keep the variables they already carry. No `[bracket]` sits beside a filled variable (rule 60; integrity check).
 2. **Builder caps (backlog M.13).** Late fee: at most 5% of the rent for each rental period in default, calculated only on rent (5% of `{{monthly_rent}}` for a monthly period; § 47-8-15(D)). Deposit: `{{security_deposit}}` plus `{{pet_deposit}}` at most `{{monthly_rent}}` when the term is under one year or periodic; above `{{monthly_rent}}` under an annual term, warn that annual interest is owed (§ 47-8-18(A)). Screening fee at most $50 (§ 47-8-19.2(A)). `{{utility_bill_copy_fee}}` at most $5. `{{nsf_fee}}`: no statutory cap for a residential lease; the civil worthless-check remedy (§ 56-14-1) is separate and needs intent to defraud.
@@ -1080,3 +1083,30 @@ The reference (2,441 active rows, 313 topics) carries no such list; every topic 
 - **Variables:** new `{{utility_bill_copy_fee}}` added to backlog M.14; NM added to `{{nsf_fee}}`'s row.
 - **Topic questions:** all seven added; reference regenerated.
 - **SOP 1.26:** all five proposals adopted (rules 19, 53, 56); NM column added.
+
+## Circle-back checks (SOP 1.47), 2026-10-03
+
+**Date:** 2026-10-03 · **Inputs:** the files attached for this task are the only source of truth (rule 8): `lease-clauses.csv` (2,876 rows, matching the staging note), `lease-clause-sop.md` 1.47, `lease-clause-topics.md`, `lease-clause-decision-log-NM.md` (now including Claude Code's sync section) and `lease-clause-citations-NM.csv`. Where they differ from what was said earlier in this chat (for example `default-by-tenant` now also tags MT and carries `last_checked` 2026-10-03), the attached files govern. The old output files from the first pass (`lease-clauses-NM-delta.csv`, `lease-clause-decision-log-NM.md`) were deleted from the workspace before starting. NM has 163 active rows in the attached library, as delivered. Statutes were read section-open from the saved, hash-matched NMSA 1978 2026 compilation (NM log §1; corpus sha256 0874a066…). Research mode was not used: none of the rule 9 triggers applied.
+
+**[Retro] rules:** the staging prompt lists none for NM in this pass, so none were run (rule 1: no re-audit).
+
+**Targeted fix 1 — rule 62 vetting, `default-by-tenant` (MN's proposal; ND and CA support): move the no-cure carve-out ('except where applicable law permits Landlord to proceed without giving Tenant an opportunity to cure') out of the non-rent limb into its own sentence reaching both limbs.** Verdict: **vouched, no change needed** for New Mexico. Read: NMSA 1978, § 47-8-33(A)-(I), § 47-8-34(C), § 47-8-3(A), § 47-8-16; NM's own note segment on the row. Rows changed: none.
+- *Can it be read to drop a cure or pre-suit notice New Mexico requires for nonpayment?* No. For unpaid rent the owner must give written notice of nonpayment and of the intention to terminate, and tender of the full amount, in the manner the notice states, before the three days run bars any action for nonpayment (§ 47-8-33(D)). No New Mexico provision lets an owner terminate for nonpayment without that notice and tender, so the self-limiting carve-out never reaches it. The post-judgment three-day remedy in a disputed-amount case (§ 47-8-33(E), where rent was abated or allocated to damages) is a condition the court puts on the writ; the carve-out cannot displace it, and no rental agreement may waive it (§ 47-8-16). The weekend extension of a cure period (§ 47-8-33(H)) is untouched.
+- *Does it change what the clause promises in New Mexico?* No, in substance. NM's note segment records that 'the rent limb has no no-cure ground in New Mexico, so the carve-out need not reach it'; it says nothing was given up or kept on purpose. The only New Mexico route by which an owner regains possession for a rent default without the § 47-8-33(D) notice is statutory abandonment (absence without notice for more than seven continuous days after rent is delinquent, § 47-8-3(A); immediate possession, § 47-8-34(C)). If the moved carve-out is read to reach that case, it only aligns the clause with the statute (Claude's reading; no case searched). The non-rent limb is unchanged: the carve-out still covers New Mexico's two no-cure grounds, a second material noncompliance within six months (§ 47-8-33(B)) and a substantial violation (§ 47-8-33(I)), and each still needs the written notice the statute prescribes.
+- *If the edit is adopted at sync:* one sentence of NM's note segment would read better as 'The carve-out reaches both limbs; in New Mexico it can touch the rent limb only on statutory abandonment (NMSA 1978, §§ 47-8-3(A), 47-8-34(C)), and never the three-day notice and tender right (NMSA 1978, § 47-8-33(D)).' in place of 'The rent limb has no no-cure ground in New Mexico, so the carve-out need not reach it (rule 43).' This is optional; the current sentence stays accurate either way.
+
+### Vouches given
+(Rule 62: for NM log §9, Propagation notes.)
+- `default-by-tenant`, carve-out moved into its own sentence reaching both limbs (MN proposal, 2026-10-02): vouched for New Mexico, no change needed (NMSA 1978, § 47-8-33(B), (D), (E), (I); § 47-8-34(C)).
+
+**Retro delta:** none. No NM row or NM note segment changed, so `lease-clauses-NM-retro-delta.csv` was not produced.
+
+### Proposed SOP changes
+None.
+
+## Circle-back sync (Claude Code, 2026-10-03)
+
+- **No delta:** the pass changed no rows, as it reported. NM active 163, unchanged.
+- **Rule 62:** NM vouched for MN's no-cure-sentence edit to `default-by-tenant`; recorded in the backlog tally and under §9 "Vouches given". NM's optional rewording of its own note sentence is held in the backlog item for that merge, beside IN's pre-written changes.
+- **Guards:** all pass. **Statute spot-check:** not possible from here (nmonesource.com blocks command-line tools, as at NM's first sync); the pass read §§ 47-8-3, 47-8-16, 47-8-33 and 47-8-34 from its saved, hash-matched NMSA 1978 compilation.
+- **SOP:** no proposals.
