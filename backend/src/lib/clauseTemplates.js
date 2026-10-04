@@ -289,7 +289,7 @@ const CLAUSE_TEMPLATES = [
     states: ["VA"],
     supersedes: "late-fee",
     bodyText:
-      "If Tenant does not pay Monthly Rent in full within {{late_fee_grace_days}} days after it is due, Tenant will owe a late charge of {{late_fee_amount}}. Landlord's acceptance of a late payment does not change the due date of any later payment.",
+      "If Tenant does not pay Monthly Rent in full within {{late_fee_grace_days}} days after it is due, Tenant will owe a late charge of {{late_fee_amount}}, but never more than the lesser of 10 percent of the periodic Rent or 10 percent of the remaining balance due and owed by Tenant. Landlord will not charge a late charge (a) after a foreclosure sale, until Tenant has received any written notice Virginia law requires of where to pay Rent, or (b) on rent covered by a payment plan that Virginia law requires Landlord to offer, while Tenant makes the plan payments on time. Landlord's acceptance of a late payment does not change the due date of any later payment.",
   },
   {
     id: "late-fee-limit-nc",
@@ -3602,7 +3602,7 @@ const CLAUSE_TEMPLATES = [
     choiceGroup: "va-size-payment-methods",
     choiceGroupDefault: true,
     bodyText:
-      "Landlord accepts payment of Rent and the Security Deposit by personal check and by money order, and also by the following methods: [list any other accepted methods, e.g. online payment portal, ACH transfer, debit or credit card]. The accepted payment methods may be changed only by a written agreement signed by Landlord and Tenant.",
+      "Landlord accepts payment of Rent and the Security Deposit by personal check and by money order, and also by the following methods: [list any other accepted methods, e.g. online payment portal, ACH transfer, debit or credit card]. Landlord will not charge Tenant a fee for collecting or processing any payment unless Landlord also offers a payment method with no added fee, and any fee for a payment by credit card, debit card or other electronic payment will not exceed the actual out-of-pocket cost a third party charges Landlord to process that payment. The accepted payment methods may be changed only by a written agreement signed by Landlord and Tenant.",
   },
   {
     id: "acceptable-payment-methods-va-small",
@@ -3790,7 +3790,7 @@ const CLAUSE_TEMPLATES = [
     group: "Default & Termination",
     states: ["VA"],
     bodyText:
-      "If fire or casualty damage to the property or premises requires Tenant's removal and substantially impairs Tenant's use and enjoyment of the property, Landlord may terminate this Lease by giving Tenant 14 days' notice (21 days' notice on or after January 1, 2027). On and after January 1, 2027, before giving that notice Landlord will meet or make a reasonable effort to meet with Tenant about the extent of the damage and any reasonable alternatives to termination, and will offer Tenant any substantially similar unit in the same complex that is available within a reasonable time on the terms of this Lease, unless Landlord has determined that Tenant's violation of Tenant's maintenance obligations caused the damage.",
+      "If fire or casualty damage to the property or premises requires Tenant's removal and substantially impairs Tenant's use and enjoyment of the property, Landlord may terminate this Lease by giving Tenant 14 days' notice (21 days' notice on or after January 1, 2027). On and after January 1, 2027, before giving that notice Landlord will meet or make a reasonable effort to meet with Tenant about the extent of the damage and any reasonable alternatives to termination, and will offer Tenant any substantially similar unit in the same complex that is available within a reasonable time on the terms of this Lease, unless Landlord has determined that Tenant's violation of Tenant's maintenance obligations caused the damage. On and after January 1, 2027, Tenant may ask in writing, within seven days after receiving Landlord's notice, that Landlord reevaluate the extent of the damage and the habitability of the property; Landlord will involve Tenant in the reevaluation, and this Lease will end at the end of the original notice period only if, after meeting or making a reasonable effort to meet with Tenant, Landlord still determines that use of the property is substantially impaired and the damage requires Tenant's removal.",
   },
   {
     id: "periodic-tenancy-notice-va",

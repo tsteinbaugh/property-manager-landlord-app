@@ -291,6 +291,9 @@ A right that exists only if the lease invokes it is lost by a lease that is sile
 ### 9.1 Flags for Claude Code
 **None.** No specific defect was found in another state's row.
 
+### Vouches given
+- **2026-10-04:** `surrender-end-of-term` (CA's proposal) and `default-by-tenant` (MN's proposal), both vouched for VA; reasoning in "Circle-back checks (SOP 1.55)" at the end of this log.
+
 ## 10. Findings worth Taylor's attention
 1. **No small-landlord exemption.** Every Virginia residential landlord is under the Act, including an owner renting one house. The two-house opt-out many landlords remember was dropped when the Act was recodified.
 2. **Pay-or-quit is now 14 days** (5 days until 2026-07-01). The Virginia REALTORS form Taylor's users are likely to know (Rev. 07/23) still says five.
@@ -885,3 +888,142 @@ Risks that rest on case law I did not read are labelled "unread" in the notes of
 Not a re-audit; nothing else in this state was reviewed.
 
 **Propagation note (uniform edit, rule 62): `snow-removal` rewritten.** Old: 'Unless Landlord provides snow removal service, Tenant is responsible for prompt, reasonable removal of snow and ice from any walkway, driveway, porch, or entrance at the property that Tenant uses, to help keep those areas safe and passable.' New: 'Unless Landlord provides snow removal, Tenant will promptly remove snow and ice from the areas of the property Tenant uses for walking, parking and access. This does not include areas shared with other residents.' Why: Taylor found the list of areas too specific (properties differ, and a list invites arguments about what it covers), and Michigan's sync showed the clause should say outright that shared areas stay with the landlord. The edit only narrows the tenant's duty; this state's existing note on the row still holds.
+
+## Circle-back checks (SOP 1.55), 2026-10-04
+
+**Date:** 2026-10-04. **Scope:** rules 35c and 79 and targeted fixes 3–6 from the task prompt, nothing else (rule 1). **Delta:** `lease-clauses-VA-retro-delta.csv`: 21 changed rows, no new rows.
+- Body text changed on four of VA's own rows: `late-fee-limit-va`, `acceptable-payment-methods-va`, `casualty-termination-va` and `edu-pre-signing-disclosures-va`.
+- The other 17 rows changed only in their notes. Three of them are shared rows (`security-deposit-use`, `no-alterations`, `early-termination-ks`), where only this state's `VA:` segment and `last_checked` changed.
+- No shared text was edited, and no shared text edit is proposed.
+
+**Housekeeping (rule 8).**
+- The attached `lease-clauses.csv` has 2,876 rows, matching the staging note; 149 VA rows are active.
+- At the start I deleted the old output files from the 2026-09-30 retro: `lease-clause-decision-log-VA-retro.md` and `lease-clauses-VA-retro-delta.csv`.
+- The files attached for this task are the only source of truth.
+- One conflict with earlier material: log §0 says "Proof-of-absence: run on the whole code (§17)", but neither the first pass nor the 2026-09-30 retro loaded the constitution. Rule 35c below closes that.
+
+**How the law was read (rules 11, 12, 14, 15, 79).**
+- Everything was read on 2026-10-04 in the built-in browser on the official site, law.lis.virginia.gov, and saved under `src/` with SHA-256 proof (`src/PROVENANCE-2026-10-04.txt`).
+- Constitution: `va-constitution-2026-10-04.txt`, the whole text from `/constitutionfull/`. SHA-256 `70cc8281…3356d7` (browser and saved file agree).
+  - The text has 130 section headings, matching the 130 section links on the official index (`/constitutionexpand/`).
+- Chapter 12: the 81 section versions saved on 2026-09-28 were compared with the live chapter page by normalised-text hash (rule 79). All match, and the live page has no new version.
+  - The only byte difference was a tool footer stored after the last history line in the saved file.
+- §§ 8.01-27.1 and 8.01-27.2: `s8.01-27.1-27.2.txt`, SHA-256 `f0f0f429…d2d33b`.
+- Research mode was not used (rule 9). The constitution and the chapter were loaded whole and read directly.
+
+### One line per rule
+
+| Rule | Verdict | What was read | Rows changed |
+|---|---|---|---|
+| **35c** Constitution screen | **Checked, no issue.** No provision reaches a residential lease between private parties or protects conduct a VA-tagged clause restricts (details after this table). | Whole constitution, battery saved in `src/battery-2026-10-04-constitution.txt` before reading hits. Controls: 'zqxvbnmwt' 0, 'General Assembly' 261, 'Governor' 141. Positive tests: 'keep and bear arms' 1, 'freedom of speech' 2. Art. I §§ 1, 10–13, Art. XI § 4 and Art. XII read whole. | None |
+| **79** Re-read before trusting a summary | **Fixed** (provenance repair). The keyword screen found no row resting on secondary sources (details after this table). | Every active VA row's notes in `lease-clauses.csv` (149); §§ 55.1-1212.1, 55.1-1217 to 55.1-1219, 55.1-1235, 55.1-1250 re-read section-open | `edu-redemption-rights-va`, `edu-portable-solar-va`, `edu-military-lease-termination-va`, `edu-pre-signing-disclosures-va` |
+| **Fix 3** Dangling pointers | **Fixed.** 14 rows repointed (details after this table). | Sweep of `bodyText` and each VA note segment on all 149 active VA rows, for the ids of every inactive row in the master and for section-name references | 3 shared rows (`VA:` segment and `last_checked` only), 11 own rows |
+| **Fix 4** Scrub-trimmed clauses | **Fixed** three clauses; one more checked, no issue (details after this table). | §§ 55.1-1204(C), (E), (J) (both versions); 55.1-1237; 55.1-1240 (both versions); 55.1-1245(F)–(G) (all three versions); 8.01-27.1, 8.01-27.2; 55.1-1217 to 55.1-1219; a Chapter 12 search for required-content and pre-signing wording (results after this table) | `late-fee-limit-va`, `acceptable-payment-methods-va`, `casualty-termination-va`, `edu-pre-signing-disclosures-va` |
+| **Fix 5** `security-deposit-return-va` | **Checked, no restore** (details after this table). | § 55.1-1226 whole; §§ 55.1-1206, 55.1-1208(A)(7) | None |
+| **Fix 6** Rule 62 vetting | **Both vouched, no change needed** (see "Vouches given"). | § 55.1-1233; § 55.1-1245(F)–(G) (all three versions); this state's note segments on both rows | None |
+
+#### Details
+
+**Rule 35c (constitution).**
+- No cannabis provision. The only hit is the Literary Fund's use of drug-forfeiture proceeds (Art. VIII § 8). The shared `smoking-policy` ban on smoking or vaping marijuana stands.
+- Smoking and tobacco: no hits.
+- Speech (Art. I § 12) binds only the State: "the General Assembly shall not pass any law abridging…". The `common-area-use` sign rule stands, and its savings sentence already defers to any display the law protects.
+- Warrants (Art. I § 10) are addressed to "an officer or messenger".
+- Due process, contracts, discrimination and takings (Art. I § 11) bind the State: "the General Assembly shall not…", "governmental discrimination".
+- Arms (Art. I § 13) names no actor, and no VA-tagged clause restricts firearms. `edu-firearms-va` records the public-housing-only statute.
+- Hunting (Art. XI § 4) is subject to general law.
+- Every lease-word hit is a government lease, an oyster-bed bar, a property-tax exemption or 'tenant' inside 'Lieutenant'.
+- Virginia has no initiated amendments (Art. XII), so there is no void-initiative check to run.
+- Case law and unratified amendments not read (rules 4, 18).
+
+**Rule 79 (re-read before trusting a summary).**
+- Rows whose notes record no basis:
+  - Rows a research pass wrote: **0 of 144**. The 10 absence rows record a statute-wide search with terms and hit counts.
+  - Rows a library-wide pass created or renamed: **4 of 5** recorded none. These were scrub rows that carried citations without a basis; the fifth, `edu-casualty-termination-va`, got its basis at the 2026-09-30 retro.
+  - Shared rows with no `VA:` segment: **0 of 49**.
+- Repair: the source row's basis is carried forward on all 4 rows (provenance repair, not re-verification). Each section was then re-read against the row's text; every scope, timing and exception qualifier is still carried.
+- After repair: **0 of 149** rows record no basis.
+- The citations file is a derived summary, and `lease-clause-citations-VA.csv` was not regenerated here. Claude Code should refresh the basis line for these 4 rows at sync.
+
+**Fix 3 (dangling pointers).**
+- The two named pointers: `security-deposit-use` now points to `edu-security-deposit-rules-va`, and `no-alterations` now points to `portable-solar-va-small` and `edu-portable-solar-va`.
+- The full sweep found 12 more coverage pointers to rows switched off on 2026-09-29: `early-termination-ks` (shared), `renewal-notice-va-small`, `portable-solar-va-small`, `edu-portfolio-size-rules-va`, `edu-security-deposit-rules-va`, `edu-required-disclosures-va`, `edu-no-ev-charging-right-va`, `edu-acceptance-of-rent-with-reservation-va`, `edu-renewal-and-rent-increase-va`, `edu-dv-tenancy-protections-va`, `edu-servicemember-rights-va` and `edu-sale-and-foreclosure-va`.
+- Each was repointed to the active row, or marked "(switched off 2026-09-29)" where it is history.
+- Provenance notes ("Moved from … by the scrub") were left alone.
+- No `bodyText` points at a switched-off row, by id or by section name.
+- Re-sweep after the delta: none dangle.
+
+**Fix 4 (scrub-trimmed clauses).**
+- **`late-fee-limit-va`.**
+  - The 10%-of-periodic-Rent cap is a number the builder can check (backlog M.13).
+  - The "10 percent of the remaining balance due and owed" limb of § 55.1-1204(E) depends on what is unpaid when the fee is charged, so no build-time check can catch it. Restored in the statute's words.
+  - Also added two conditions the pre-scrub text never carried (rule 78):
+    - No late fee after a foreclosure until the successor owner gives written notice of where to pay (§ 55.1-1237).
+    - From 2027-07-01, no further late fees on rent in a statutory payment plan while the tenant pays on time (§ 55.1-1245(G), version effective July 1, 2027; landlords with more than four units).
+- **`acceptable-payment-methods-va`.** The clause invites the landlord to list portals and cards. A fee filled in there can break § 55.1-1204(J)(1): no processing fee unless a fee-free method is offered, and no card or electronic fee above actual third-party cost. Restored the fee sentence; the `-small` variant already had it. The receipt duty stays in `edu-rent-payment-rules-va`.
+- **`casualty-termination-va`.** Restored the 2027 reevaluation request (§ 55.1-1240(D)). It conditions the landlord's own termination right: the lease ends at the end of the notice period only if, after meeting or trying to meet with the tenant, the landlord still finds the home unusable. The tenant's own termination right, the deposit rules and proration stay in `edu-casualty-termination-va`.
+- **`returned-payments-va`** (also trimmed). Checked, no issue. The dropped $50 is the § 8.01-27.1(A) processing charge, a cap a number check can catch (backlog M.13: `{{nsf_fee}}` ≤ $50). No condition was lost.
+- **Required lease text.** A Chapter 12 search for required-content wording ("rental agreement shall state", "prior to the execution", "at or before the commencement", "on the first page", "separate writing", "shall disclose") found these provisions. Each is carried by an active row or isn't lease text:
+  - § 55.1-1204.1, the first-page fee list and fixed sentence: `fee-disclosure-statement-va`.
+  - § 55.1-1206, the pre-signing insurance notices and summaries: `renters-insurance-notice-va`, `damage-insurance-va`.
+  - § 55.1-1215, mold in the move-in report: `mold-disclosure-va`.
+  - § 55.1-1216, owner and manager identity: `landlord-disclosure-va`.
+  - § 55.1-1226(D), the expedited request, which must be a separate writing.
+  - §§ 55.1-1217 to 55.1-1219, the pre-signing disclosures.
+
+  No trimmed clause lost text a statute requires in the lease itself.
+- **Demotions (rule 78).** `military-air-zone-disclosure-va`, `defective-drywall-disclosure-va` and `meth-disclosure-va` went from CONDITIONAL to RECOMMENDED.
+  - Each statute says the landlord "shall provide to a prospective tenant a written disclosure… prior to the execution by the tenant of a written lease agreement". No words put the disclosure in or with the lease, so RECOMMENDED is right, and each clause keeps its condition.
+  - Fixed `edu-pre-signing-disclosures-va` to say the disclosure must be given before signing. A sentence inside the lease is given at signing, not before it.
+
+**Fix 5 (`security-deposit-return-va`).** No statute requires a notice at signing or in the lease that this clause carried:
+- The move-out inspection notice (§ 55.1-1226(G)) is due when the landlord asks the tenant to vacate, or within five days after the tenant's notice of intent to vacate. That is a termination-time notice and never lease text (rule 78).
+- The utility-withholding notice (§ 55.1-1226(C)) goes in a termination notice, a vacating confirmation or a separate notice at least 15 days before disposition.
+- In-tenancy deduction notices (§ 55.1-1226(E)) and the 45-day itemization (§ 55.1-1226(A)) come later.
+- The two-month cap, including premiums paid before the tenancy starts (§§ 55.1-1206, 55.1-1208(A)(7)), is a number for the builder (backlog M.13), with the deposit amount in the fee disclosure.
+- The clause only restated rights and duties that apply whatever the lease says. `edu-security-deposit-rules-va` states them, and `security-deposit-use` carries the permitted uses.
+
+### Vouches given (rule 62)
+1. **`surrender-end-of-term` (CA proposal, 2026-10-03): vouched, no change needed.**
+   - The current wording states a duty Virginia law backs: § 55.1-1233 says the tenant "shall promptly vacate" at the end of the term.
+   - "Unless applicable law entitles Tenant to remain" is lawful and accurate here. Virginia has no just-cause rule (`edu-no-for-cause-eviction-va`), but the law can still let a tenant stay: a redemption (§ 55.1-1250), a statutory continuance (§ 44-209), or a holdover the landlord accepts (§ 55.1-1253(D)).
+   - This state's note segment records nothing given up on purpose.
+2. **`default-by-tenant` (MN proposal, 2026-10-02; ND and CA support): vouched, no change needed.**
+   - Virginia requires a 14-day written notice before any nonpayment termination, in every version of § 55.1-1245(F). From 2027-07-01, landlords with more than four units must also send the § 55.1-1245(G) payment-plan notice.
+   - Virginia law never lets a landlord proceed on nonpayment without notice, so a self-limiting carve-out reaching both limbs has nothing to remove. The nonpayment limb's written-notice promise matches Virginia law.
+   - This state's segment calls the carve-out "KEPT FOR VA" to preserve the § 55.1-1245(C), (E) no-cure routes, and moving it keeps them.
+   - The Indiana/Pennsylvania notice decision doesn't arise here, because Virginia's notice is required. The education row that tells landlords about it is `edu-termination-notices-va`, which already states the 14-day notice; nothing to add at the merge.
+
+### Integrity checks on the delta
+- The header line is byte-identical to the master's. Every row has 17 fields. Line endings are CRLF, with no bare LF.
+- No duplicate ids and no new ids.
+- On the 3 shared rows, only `notes` and `last_checked` differ, and every non-VA note segment is byte-identical to the master's.
+- On own rows, only `bodyText`, `notes`, `verification_status` (VERIFIED) and `last_checked` (2026-10-04) differ.
+- No bracket sits next to a `{{variable}}`. No new `{{variable}}`.
+- `Va. Code Ann.` appears only in VA rows and VA segments.
+- After sync: master still 2,876 rows; VA active still 149.
+- Delta SHA-256: `575dcbd500158f39ef3a17b5b46abf4c00ac5b79114632c9dc7b01e9ccc09d75`.
+
+### For Claude Code
+- **Backlog M.13** (builder number checks) for Virginia:
+  - `{{late_fee_amount}}` ≤ 10% of periodic Rent.
+  - `{{nsf_fee}}` ≤ $50.
+  - Security deposit ≤ two months' periodic Rent. If damage or renter's insurance premiums are paid to the landlord before the tenancy starts, the deposit plus those premiums ≤ two months' periodic Rent.
+- **Citations file:** refresh the basis line for `edu-redemption-rights-va`, `edu-portable-solar-va`, `edu-military-lease-termination-va` and `edu-pre-signing-disclosures-va`.
+- **Log pointer from the 2026-09-30 retro:** log §4 still names `redemption-rights-va`. Correct it at sync.
+
+### Proposed SOP changes
+1. **Rule 35's control should prove the constitution is in the same corpus as the code battery, not only that it loads.** Reason: Virginia's log §0 recorded proof-of-absence "on the whole code" while the constitution was never in the corpus. A separate constitution load with its own controls and a section count against the official index closes the gap.
+2. **Rule 78's restore check should also ask whether a cap has a limb that varies with facts after signing.** Reason: Virginia's late-fee cap is "the lesser of 10 percent of the periodic rent or 10 percent of the remaining balance". The first limb is a build-time number; the second depends on the unpaid balance on the day the fee is charged, so only clause text can carry it.
+3. **When a pre-signing disclosure is offered as a lease clause, the education row should say the disclosure must come before signing.** Reason: a sentence inside the lease is given at execution, not "prior to the execution" (Va. Code Ann. §§ 55.1-1217 to 55.1-1219), so a landlord relying on the clause alone could miss the statute's timing.
+4. **Rule 79's hash comparison should strip tool footers from saved files before hashing.** Reason: Virginia's saved Chapter 12 file carried a browser-tool footer after its last history line, which made the final section look changed when the law was identical.
+
+## Circle-back sync (Claude Code, 2026-10-04)
+
+- **Merged** with `merge-delta.py --base 2b10851`: 21 rows updated (bodies of `late-fee-limit-va`, `acceptable-payment-methods-va`, `casualty-termination-va` and `edu-pre-signing-disclosures-va`; notes on 14 repointed rows and 3 shared-row VA segments), no new rows, nothing refused. VA active 149, unchanged.
+- **Citations file:** the 21 rows re-dated; the four provenance-repaired rows note their basis; `late-fee-limit-va` adds §§ 55.1-1237 and 55.1-1245(G), `acceptable-payment-methods-va` § 55.1-1204(J)(1), `casualty-termination-va` § 55.1-1240(D).
+- **Log pointer:** the pass asked that log §4's mention of `redemption-rights-va` be corrected; it already was, at the 2026-09-30 retro sync (it now names `edu-redemption-rights-va`).
+- **Rule 62:** VA vouched for CA's `surrender-end-of-term` qualifier and MN's `default-by-tenant` sentence (Virginia's 14-day notice is required, so the Indiana/Pennsylvania question doesn't arise); recorded in the backlog tally. CA's edit now waits only on WY.
+- **Builder, M.13 (backlog):** `{{late_fee_amount}}` at most 10% of periodic rent; `{{nsf_fee}}` at most $50; deposit plus any premiums paid before the tenancy at most two months' periodic rent.
+- **Guards:** all pass. **Statute spot-check, 2 of 2, on law.lis.virginia.gov:** § 55.1-1204(E) (late charge not more than the lesser of 10 percent of the periodic rent or 10 percent of the remaining balance) and § 55.1-1240(D) (tenant's written request to reevaluate within seven days of a casualty termination notice).
+- **SOP 1.56:** all four proposals adopted (rules 35, 78, 79). VA's 35c and 79 cells set to ✓.
