@@ -1508,7 +1508,7 @@ Rows in 33 states.
 
 ### Landscaping irrigation (`landscaping-irrigation`)
 
-Rows in 32 states.
+Rows in 31 states.
 - Tenant maintenance TASKS in the lease need a SEPARATE signed writing with consideration (non-single-family)
 
 ### Political access (`political-access`)
@@ -1537,7 +1537,7 @@ Rows in 2 states.
 
 ### Snow removal (`snow-removal`)
 
-Rows in 31 states.
+Rows in 30 states.
 
 ### Tenant display rights (`tenant-display-rights`)
 

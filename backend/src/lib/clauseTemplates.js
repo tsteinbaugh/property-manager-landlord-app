@@ -280,7 +280,7 @@ const CLAUSE_TEMPLATES = [
     choiceGroup: "tn-urlta-late-fee",
     choiceGroupDefault: true,
     bodyText:
-      "If any Rent is not paid in full by the end of the grace period, Tenant will owe a late fee of {{late_fee_amount}}. The grace period is five days, beginning on and counting the day the Rent is due. Landlord's acceptance of a late payment does not change the due date of any later payment.",
+      "If any Rent is not paid in full by the end of the grace period, Tenant will owe a late fee of {{late_fee_amount}}. The grace period is five days, beginning on and counting the day the Rent is due. If the last day of the grace period falls on a Sunday or on a legal holiday under Tenn. Code Ann. § 15-1-101 (which includes days set apart for county, state or national elections), no late fee will be charged if the Rent is paid on the next business day. Any charge or fee for the late payment of Rent, however described, will not exceed ten percent (10%) of the amount of Rent past due. Landlord's acceptance of a late payment does not change the due date of any later payment.",
   },
   {
     id: "late-fee-limit-va",
@@ -736,7 +736,7 @@ const CLAUSE_TEMPLATES = [
     id: "landscaping-irrigation",
     title: "Landscaping & Irrigation",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "MI", "IA", "NM", "NY", "WI"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "MI", "IA", "NM", "NY", "WI"],
     bodyText:
       "Unless Landlord provides landscaping service, Tenant is responsible for reasonable upkeep of the property's landscaping, including lawn mowing and leaf raking. If Landlord has set an irrigation schedule, Tenant will not modify it, and will promptly inform Landlord of any irrigation or landscaping issue, such as a leak or watering deficiency.",
   },
@@ -744,7 +744,7 @@ const CLAUSE_TEMPLATES = [
     id: "snow-removal",
     title: "Snow Removal",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "MI", "IA", "NM", "NY", "WI"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "MI", "IA", "NM", "NY", "WI"],
     bodyText:
       "Unless Landlord provides snow removal, Tenant will promptly remove snow and ice from the areas of the property Tenant uses for walking, parking and access. This does not include areas shared with other residents.",
   },
@@ -3469,7 +3469,7 @@ const CLAUSE_TEMPLATES = [
     group: "Default & Termination",
     states: ["TN"],
     bodyText:
-      "If Tenant remains in possession after the end of the Term, and Landlord has not agreed in writing to a continued tenancy or accepted Rent for one under the Holdover section of this Lease, then, in place of the actual damages and reasonable rental value described in that section, Tenant will pay Landlord a holdover charge of {{holdover_daily_rate}} for each day Tenant remains in possession. Landlord and Tenant agree that Landlord's loss from a holdover, including delay in making the property available to a new tenant, is difficult to estimate accurately in advance, that this charge is a reasonable estimate of that loss, and that it is not a penalty. Landlord's acceptance of a holdover charge is not acceptance of Rent for a continued tenancy. This Section does not limit Landlord's right to recover possession, unpaid Rent and other amounts due for the period before the Term ended, or damages for harm to the property.",
+      "If Tenant remains in possession after this Lease ends, whether at the end of the Term or on an earlier termination under this Lease or applicable law (other than a termination for nonpayment of Rent), and Landlord has not agreed in writing to a continued tenancy or accepted Rent for one, then, in place of any actual damages for Tenant's continued possession (including the actual damages and reasonable rental value described in the Holdover section of this Lease), Tenant will pay Landlord a holdover charge of {{holdover_daily_rate}} for each day Tenant remains in possession. Landlord will not recover both this charge and Rent for the same day. Landlord and Tenant agree that Landlord's loss from a holdover, including delay in making the property available to a new tenant, is difficult to estimate accurately in advance, that this charge is a reasonable estimate of that loss, and that it is not a penalty. Landlord's acceptance of a holdover charge is not acceptance of Rent for a continued tenancy. This Section does not limit Landlord's right to recover possession, unpaid Rent and other amounts due for the period before this Lease ended, or damages for harm to the property.",
   },
   {
     id: "periodic-tenancy-notice-tn",
@@ -3494,7 +3494,7 @@ const CLAUSE_TEMPLATES = [
     group: "Tenant Responsibilities",
     states: ["TN"],
     bodyText:
-      "[Optional. This agreement must be a separate writing signed by Landlord and Tenant, not a section of the Lease (Tenn. Code Ann. § 66-28-304(c)-(d)).] Landlord and Tenant agree that Tenant will perform the following specified repairs, maintenance tasks, alterations or remodeling at the property: [list each task specifically]. Landlord and Tenant make this agreement in good faith and not for the purpose of evading Landlord's obligations. This agreement is separate from the Lease, and Landlord will not treat Tenant's performance of it as a condition of any obligation or performance under the Lease. Landlord remains responsible for Landlord's other duties under Tennessee law, including complying with building and housing codes materially affecting health and safety and keeping the property fit and habitable.",
+      "[Optional. This agreement must be a separate writing signed by Landlord and Tenant, printed as its own document and not a section of the Lease (Tenn. Code Ann. § 66-28-304(c)-(d)). In Tennessee the Lease itself does not make Tenant responsible for lawn care or snow removal; use this agreement for those tasks and any others.] Landlord and Tenant agree, in good faith and not for the purpose of evading Landlord's obligations, that Tenant will perform the following specified repairs, maintenance tasks, alterations or remodeling at the property: [check each that applies: ☐ lawn and landscaping care, including mowing and leaf raking, keeping to any irrigation schedule Landlord sets, and promptly reporting irrigation leaks or watering problems; ☐ prompt removal of snow and ice from the areas of the property Tenant uses for walking, parking and access, not including areas shared with other residents; ☐ replacing heating and air-conditioning filters; ☐ replacing light bulbs; ☐ other specified task: ____]. In exchange for these tasks, Tenant will receive: [optional: state what Tenant receives, for example a Monthly Rent reduction of $__]. This agreement is separate from the Lease. Landlord will not treat Tenant's performance of it as a condition of any obligation or performance under the Lease, and will not withhold any right under the Lease because Tenant has not performed it. This agreement does not make Tenant responsible for complying with building and housing codes materially affecting health and safety, putting and keeping the property in a fit and habitable condition, keeping common areas clean and safe, or providing waste receptacles in a complex of four or more units; those remain Landlord's duties under Tennessee law.",
   },
   {
     id: "utility-transfer-tn",
