@@ -43,6 +43,7 @@ const STATE_NAMES = {
   MT: "Montana",
   NY: "New York",
   WI: "Wisconsin",
+  WA: "Washington",
 };
 
 // New York consolidated-law abbreviations (as cited in the NY rows) and the
@@ -1599,6 +1600,53 @@ const STATE_CONFIG = {
       },
     ],
   },
+  WA: {
+    // Revised Code of Washington sections are title.chapter.section
+    // ("59.18.280", "59.12.030", "49.60.222"). Washington bills amend "RCW
+    // 59.18.280 and 2023 c 123 s 4 are each amended", so the query pairs the
+    // number with "RCW". Citations are split on ";" and only the "RCW" parts
+    // are read; the Administrative Code, court rules and federal parts change
+    // outside the legislature, so they are manual items below. Subsection
+    // parentheses become spaces, so "59.18.280(1)(a)" stays 59.18.280.
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        if (!/^RCW /.test(part)) continue;
+        const body = part.replace(/\([^)]*\)/g, " ");
+        for (const m of body.matchAll(/\b(\d{1,2}A?\.\d{2,3}A?\.\d{3,4})\b/g)) out.push(m[1]);
+      }
+      return out;
+    },
+    buildQuery: (section) => `"${section}" AND "RCW"`,
+    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
+    manualRecheckItems: [
+      {
+        id: "wa-2027-01-01",
+        label:
+          "January 1, 2027: the smart access sections (RCW 59.18.750-59.18.760) and the dated RCW 59.18.030 version take effect, and the flood disclosure reaches leases entered into after December 31, 2026. Re-read the smart access, definitions and flood rows (WA log §1.2, §10)",
+        clauseIds: ["edu-smart-access-wa", "landlords-access-wa"],
+      },
+      {
+        id: "wa-2028-01-01",
+        label:
+          "January 1, 2028: the dated versions of RCW 59.18.200 and 59.18.650 take effect, and chapters 64.34 and 64.38 RCW give way to chapter 64.90 RCW for older communities (including the association display rules). Re-read the just-cause and termination rows (WA log §1.2, §10)",
+        clauseIds: ["edu-for-cause-eviction-wa", "lease-end-continuation-wa", "fixed-term-end-without-cause-wa"],
+      },
+      {
+        id: "wa-rent-limit-expiry",
+        label:
+          "July 1, 2040: RCW 59.18.700-59.18.720 (the statewide rent-increase limit) expire under RCW 59.18.700(8); each year the Department of Commerce publishes the next year's maximum percentage. Check the published figure each June and the expiry date (WA log §10)",
+        clauseIds: ["edu-rent-increase-limit-wa", "edu-rent-increase-notice-wa"],
+      },
+      {
+        id: "wa-wac-and-court-rules",
+        label:
+          "Sources LegiScan can't see: the Department of Health's mold information and chapter 246-260 WAC (pool rules), the building code council's carbon monoxide rules (WAC 51), SPR 98.24W and the county superior court local rules behind the eviction rows (WA log §1.1, §7, §10)",
+        clauseIds: ["mold-disclosure-wa", "edu-eviction-process-wa"],
+      },
+    ],
+  },
 };
 
 // Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
@@ -1611,7 +1659,7 @@ const STATE_CONFIG = {
 const SCHEDULE_ORDER = [
   "CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ",
   "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI",
-  "IA", "NM", "MT", "NY", "WI",
+  "IA", "NM", "MT", "NY", "WI", "WA",
 ];
 function cronFor(code) {
   const n = SCHEDULE_ORDER.indexOf(code);

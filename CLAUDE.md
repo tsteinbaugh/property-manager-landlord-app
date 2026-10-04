@@ -4,19 +4,19 @@
 
 ## 🎯 Current focus
 
-- **Where things stand (2026-10-04):** 33 states verified; the retro run finished 2026-10-03; SOP 1.50. Every synced state's history is in `docs/history.md`; per-state open items are in `docs/backlog.md`.
-- **In progress (Taylor, Claude Desktop):** **Washington (state #34) research** (kickoff staged 2026-10-03 in `~/Desktop/washington-kickoff/`, from 97cfed4, 3,175 rows). At the sync, hold `legal-watch-wa.yml` until after July 6, 2027 (state #34 runs on day 6 at 14:00 UTC; first run August 6).
+- **Where things stand (2026-10-04):** 34 states verified; the retro run finished 2026-10-03; SOP 1.54. Every synced state's history is in `docs/history.md`; per-state open items are in `docs/backlog.md`.
+- **Done 2026-10-04:** **Washington (state #34) synced** (196 rows, SOP 1.54). `legal-watch-wa.yml` is held until after July 6, 2027 (first run August 6, day 6 at 14:00 UTC). No new state is staged; suggest one when Taylor asks.
 - **End-of-run circle-back, 3 folders left** in `~/Desktop/circle-back/` (`INDEX.md`): WY, VA, UT. Merge each delta with `merge-delta.py --base 2b10851`. Taylor runs them one at a time; refresh the remaining folders to the current SOP after each sync without asking (Taylor, 2026-10-03; CSVs and bases stay unchanged). Synced so far: AL, AZ, CO, FL, GA, ID, IL, IN, KS, MO, MT, NC, NE, NJ, NM, NV, OH, OK, PA, SC, SD, TN, TX. The old `~/Desktop/retro-checks/` folders can be deleted.
 - **Open for Taylor (backlog):** whether `early-termination-ks` should be REQUIRED while its parent is RECOMMENDED.
 - **Pending shared edits (rule 62): see the vetting tally at the top of `docs/backlog.md`.** Two remain: MN's separate no-cure sentence for `default-by-tenant` (16 states vetted; IN's, NM's, PA's, SC's and TN's changes apply at that merge) and CA's "unless applicable law entitles Tenant to remain" for `surrender-end-of-term`. Merged or resolved: WY's `early-termination` wording, NE's `default-by-tenant-ks-ne` sentence, CO's cost-phrase deletion (as the CO override `default-by-tenant-co`), AZ's `returned-payments` wording (2026-10-04).
-- **Legal-watch calendar:** **after October 23, uncomment IL's schedule; after November 25, MO's; after November 26, IN's; after December 27, OK's; after January 28, MI's; after February 1, IA's; after March 2, NM's; after April 3, MT's; after May 4, NY's; after June 5, 2027, WI's.** Check the LegiScan totals after November's (IL, ID) and December's (MO, IN) first runs. The LegiScan budget question is parked for Taylor (backlog item 10).
+- **Legal-watch calendar:** **after October 23, uncomment IL's schedule; after November 25, MO's; after November 26, IN's; after December 27, OK's; after January 28, MI's; after February 1, IA's; after March 2, NM's; after April 3, MT's; after May 4, NY's; after June 5, 2027, WI's; after July 6, 2027, WA's.** Check the LegiScan totals after November's (IL, ID) and December's (MO, IN) first runs. The LegiScan budget question is parked for Taylor (backlog item 10).
 - **Standing backlog** (no fixed order; ask Taylor what's next): `docs/backlog.md`. Lease PDF first-page layout is parked in M.12 (Taylor). Deploying is still deliberately on hold.
 
 ## Project
 
 A SaaS web app for landlords to manage rental properties end to end, built from Taylor's real landlord experience. Working name **Steinoak** (placeholder). Owner: Taylor (Steinbaugh Estates LLC), solo; he drives product decisions but doesn't write code. Goal: use it personally, then sell it to other landlords. Logos in `logos/`; font Poppins.
 
-**State:** v1 MVP complete (tagged `v1.0.0`: Entities, Properties, Tenants + Leases, Finances, Maintenance, Clerk auth). Also built: Property Specs, Lease Builder (clause library, PDF generation), Rent Tracker, property archiving and soft delete, Dashboard, global search. The lease clause library is verified for 33 states (CO, WY, KS, NE, MN, ND, SD, OH, CA, NV, TX, NJ, FL, AZ, GA, NC, SC, TN, VA, AL, PA, UT, IL, ID, MO, IN, OK, MI, IA, NM, MT, NY, WI), each with a decision log, a citations file and a monthly legal-watch workflow.
+**State:** v1 MVP complete (tagged `v1.0.0`: Entities, Properties, Tenants + Leases, Finances, Maintenance, Clerk auth). Also built: Property Specs, Lease Builder (clause library, PDF generation), Rent Tracker, property archiving and soft delete, Dashboard, global search. The lease clause library is verified for 34 states (CO, WY, KS, NE, MN, ND, SD, OH, CA, NV, TX, NJ, FL, AZ, GA, NC, SC, TN, VA, AL, PA, UT, IL, ID, MO, IN, OK, MI, IA, NM, MT, NY, WI, WA), each with a decision log, a citations file and a monthly legal-watch workflow.
 
 ## Stack and commands
 
