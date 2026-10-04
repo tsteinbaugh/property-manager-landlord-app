@@ -6562,6 +6562,14 @@ const CLAUSE_TEMPLATES = [
     bodyText:
       "[Optional.] If Tenant remains in possession after this Lease ends, whether at the end of the Term or on an earlier termination under this Lease or applicable law, other than a termination for nonpayment of Rent, and Landlord has not consented in writing to Tenant's continued occupancy or accepted Rent for a continued tenancy, Tenant will pay Landlord a holdover charge of {{holdover_daily_rate}} for each day Tenant remains in possession [set this at the daily equivalent of Monthly Rent, not a multiple of it], together with any further loss Landlord documents as caused by the holdover, such as Rent lost because Landlord could not start a replacement tenancy. This charge takes the place of the holdover damages described in the Holdover Tenancy section of this Lease, and will not exceed the maximum Kansas law allows Landlord to recover for Tenant's holdover. Landlord's acceptance of a holdover charge is not consent to Tenant's continued occupancy and is not acceptance of Rent for a continued tenancy. This Section does not limit Landlord's right to recover possession, to recover unpaid Rent and other amounts due for the period before this Lease ended, or to recover damages for harm to the property.",
   },
+  {
+    id: "holdover-rate-mo",
+    title: "Holdover Charge",
+    group: "Default & Termination",
+    states: ["MO"],
+    bodyText:
+      "If Tenant remains in possession after this Lease ends, whether at the end of the Term or on an earlier termination under this Lease or Missouri law (other than a termination for nonpayment of Rent), and Landlord has not agreed in writing to a continued tenancy or accepted Rent for one, then, in place of any actual damages for Tenant's continued possession (including the actual damages and reasonable rental value described in the Holdover section of this Lease), Tenant will pay Landlord a holdover charge of {{holdover_daily_rate}} for each day Tenant remains in possession. Landlord and Tenant agree that Landlord's loss from a holdover, including delay in making the property available to a new tenant, is difficult to estimate accurately in advance, that this charge is a reasonable estimate of that loss, and that it is not a penalty. For any day for which Landlord recovers a double measure that Missouri law provides for a holdover, Landlord will not also recover this charge for that day. Landlord's acceptance of a holdover charge is not acceptance of Rent for a continued tenancy. This Section does not limit Landlord's right to recover possession, unpaid Rent and other amounts due for the period before this Lease ended, or damages for harm to the property.",
+  },
 ];
 
 module.exports = { CLAUSE_TEMPLATES };
