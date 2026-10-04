@@ -995,3 +995,100 @@ No two rules claim the same place, so there is nothing for Taylor to settle on o
 Not a re-audit; nothing else in this state was reviewed.
 
 **Propagation note (uniform edit, rule 62): `early-termination` landlord limb.** Old: 'Landlord may terminate this Lease early by providing Tenant at least 30 days' written notice if Tenant breaches a material term of this Lease and fails to cure the breach within 10 days of receiving written notice, or if Tenant vacates or abandons the property without notifying Landlord.' New: 'Landlord may terminate this Lease early by providing Tenant at least 30 days' written notice if Tenant breaches a material term of this Lease and fails to cure the breach within 10 days of receiving written notice, or on such shorter notice and cure period as applicable law permits, or if Tenant vacates or abandons the property without notifying Landlord.' Why: the 30-day notice and 10-day cure promised in the lease could give up a shorter route the state's law allows for a material breach. Every state tagged on the row (CO, WY, MN, ND, SD, OH) vetted the wording and supported it; "as applicable law permits" means it never permits less than the law requires. This state's existing note on the row still holds.
+
+## Circle-back checks (SOP 1.48), 2026-10-03
+
+Run 2026-10-03. **Zero retro rules were listed for Ohio this round** — the SOP 1.23 pass on 2026-10-02 cleared the backlog — so this is the three targeted fixes only. Not a re-audit (rule 1): nothing else in Ohio was reopened.
+
+**The files attached 2026-10-03 are the only source of truth.** `lease-clauses.csv` at 2,876 rows, 17 columns, row count checked first and matching. Anything earlier in Ohio's chat that conflicts with them is superseded — in particular `early-termination` is no longer Ohio's early-termination clause after this pass, and the open question I left at the end of the 2026-10-02 retro has been answered by Claude Code at the sync, so the casualty clause is built rather than deferred.
+
+**Result: 5 delta rows — 1 new, 4 changed.** OH active 110 → 111 (the `early-termination` swap is net zero). Deleted first, as rule 8 requires: `lease-clauses-OH-retro-delta.csv` and `lease-clause-decision-log-OH-retro.md`, both from yesterday's SOP 1.23 pass.
+
+---
+
+### Targeted fixes
+
+| # | Item | Verdict |
+|---|---|---|
+| 1 | **Casualty termination** (rule 54; decided by Claude Code at the 2026-10-02 OH sync under rule 76) | **Fixed — new row `casualty-landlord-termination-oh`.** My 2026-10-02 retro recorded this option as lawful and then deferred it to avoid churn after the three-bucket scrub; that is not a reason under rule 54, and the sync was right to say so. **R.C. 5301.11 re-read section-open 2026-10-03** on codes.ohio.gov in the built-in browser (effective 1953-10-01, H.B. 1, 100th G.A., sole version, never amended) and quoted verbatim in the row's notes, because the whole clause turns on its exact terms. Details below. |
+| 2 | **Early termination** (rule 37, raised in my own 2026-10-02 retro) | **Fixed — Ohio moved to `early-termination-ks`.** Nothing in Ohio law points the other way, and the variant fixes a second Ohio problem as well as the periodic-tenancy one. `early-termination` untagged (OH removed from `states`), `early-termination-ks` tagged, each with an OH note segment; no shared text edited. Details below. |
+| 3 | **Rule 62 vetting — `surrender-end-of-term`** (CA's 2026-10-03 proposal) | **Answered: lawful and accurate in Ohio, and I support it — but it is not curing an Ohio defect.** The current wording does **not** state a duty Ohio law fails to back. It does overstate in two narrow Ohio cases, which is reason enough to keep the qualification. Shared text not edited; OH note segment recorded so the next pass does not re-run the screen. Details below. |
+
+---
+
+### Fix 1 — `casualty-landlord-termination-oh`
+
+**What R.C. 5301.11 actually says**, read section-open and quoted in full because every limit in the clause is keyed to it:
+
+> "The lessee of a building which, without fault or neglect on his part, is destroyed or so injured as to be unfit for occupancy, is not liable to pay rent to the lessor or owner thereof, after such destruction or injury, unless otherwise expressly provided by written agreement or covenant. The lessee thereupon must surrender possession of such premises."
+
+**Why the lease is the only source of a landlord right.** R.C. 5301.11 gives the *tenant* rent relief and imposes a surrender duty, and says nothing about the landlord ending the lease. R.C. 5321.06 lets a rental agreement carry any term not inconsistent with ch. 5321 or any other rule of law, so a landlord termination right is contractual or it does not exist. **The gap it fills is specific:** under the statutory default alone, rent stops and the tenant surrenders, but a fixed Term keeps running — so the tenant may claim a right to re-occupy once repairs are done. That is the hole, and it is the reason the clause is worth having rather than a generic add-on.
+
+**The three limits the sync required, and how each is met.**
+
+1. **R.C. 5301.11 left intact.** The clause does not use the statute's "unless otherwise expressly provided by written agreement or covenant" hook at all. Its penultimate sentence preserves both limbs of the tenant's right — no rent after the destruction or injury, and surrender — in the statute's own terms.
+2. **Rent stops at the unfit date**, not at the notice date and not at termination. That tracks the statute's "after such destruction or injury" rather than improving on it. Pre-casualty arrears stay payable; post-casualty prepaid rent is refunded.
+3. **R.C. 5321.13(E) is not engaged.** No rent runs after the property becomes unfit, so there is no receipt of rent free of the R.C. 5321.04 obligation. The clause also expressly preserves Landlord's obligations owed while the Lease was in force and every tenant remedy for a pre-termination failure to meet them, so the R.C. 5321.07 escrow and damages routes survive termination.
+
+**Naming follows Kansas; the body follows Michigan.** The id is `casualty-landlord-termination-oh` because Ohio's structure is Kansas's: the tenant-side `fire-casualty-termination-ks` and `fire-casualty-termination-oh` are both switched off and the live clause is the landlord-side one (same in AZ and AL). The **text** is modelled on `casualty-termination-mi` and `casualty-termination-ia` as the prompt directs, and MI is the right model because **Mich. Comp. Laws § 554.201 is a near-twin of R.C. 5301.11** — an old-style surrender-and-no-rent provision — whereas KS, AZ, AL and IA are URLTA-style substantial-impairment-plus-rent-reduction states. Both models read; neither tagged.
+
+**Two deliberate departures from the models, to avoid importing another state's architecture (rule 19).**
+- **MI limits its clause to a Term of at least one year. Ohio gets no year.** R.C. 5301.11 has no term-length condition anywhere, so importing "one year" would invent a threshold Ohio law does not have. The clause is limited to a **fixed Term** instead, on an Ohio-specific ground: for a periodic tenancy the landlord already has a no-cause exit under R.C. 5321.17(A) and (B) (7 and 30 days), so a casualty clause would add nothing and only create confusion.
+- **IA's 30-day notice window and 14-day minimum effective date are not imported.** Ohio has no statutory casualty notice period, and for a fixed Term R.C. 5321.17 does not apply at all — (A) and (B) reach only week-to-week and month-to-month tenancies. The clause uses a landlord-set repair window and a notice effective on the date stated, with the KS/AZ fallback to the date the tenant actually surrendered.
+
+"Landlord may recover possession only as Ohio law permits" is there for **R.C. 5321.15(A)**: a termination right is not a self-help right. Optional and never a default — `rule_type` CONDITIONAL, `is_default` blank, body opens "[Optional.]", matching `casualty-landlord-termination-ks` and `-az`.
+
+**`edu-casualty-and-mitigation-waivable-oh` changed to match.** Two sentences added: one pointing at the new clause and naming the re-occupancy gap it closes, one recording **what the library declines to offer and why** — a term keeping rent running after the home becomes unfit. R.C. 5301.11 appears on its face to permit that, but R.C. 5321.13(E) bars any agreement letting a landlord receive rent free of the R.C. 5321.04 duties and R.C. 5321.04 cannot be waived, so it would collide with Chapter 5321 even though R.C. 5301.11 sits outside it. This is the rule 54 verdict (a) I recorded on 2026-10-02 **in the log only**; rule 54 requires a declined lawful option to live in an education row, never the log, because landlords never see the log. Same pattern as `edu-casualty-mi`.
+
+**Not researched:** whether any Ohio court has tested a landlord casualty-termination clause against R.C. 5321.14, and whether the *Lemstone* mitigation line bears on a casualty termination (*Lemstone* is a commercial holding). No case law read — flagged in the row.
+
+---
+
+### Fix 2 — Ohio moved to `early-termination-ks`
+
+**Nothing in Ohio law points the other way**, and the variant fixes two Ohio problems, not one.
+
+- **The fixed-Term limb answers the problem I raised.** "One month's Rent or 30% of the remaining Rent due under the Term, whichever is greater" has no referent in a month-to-month or week-to-week tenancy, where the greater-of silently collapses to one month's rent. The variant's sentence confines the option and fee to a fixed Term and sends a periodic tenancy to the notice the law and the lease provide — for Ohio, R.C. 5321.17(B)'s 30 days before the periodic rental date or (A)'s 7 days before the termination date stated in the notice, with no fee. Worth noting: **R.C. 5321.17 requires no writing**, so "written notice" in the clause is the lease's own requirement, not the statute's.
+- **The landlord limb resolves the check-26 conflict more cleanly than the hedge did.** The parent now carries "or on such shorter notice and cure period as applicable law permits" (the WY fix). The variant instead defers to the Tenant Default and notice provisions — for Ohio, `default-by-tenant-ks-ne`, `notices` and `termination-notice-oh` — which removes the 30-day/10-day promise altogether. That matters because Ohio's statutory routes are shorter in two cases: a **written-lease breach**, where R.C. 1923.02(A)(9) carries no R.C. 5321.11 requirement and the route is the R.C. 1923.04 three-day notice to leave with no cure period; and **drug activity**, where R.C. 5321.17(C) requires a three-day notice and R.C. 5321.04(A)(9) makes prompt termination and action **mandatory**, so a contractual 30-day promise would conflict with a duty the statute says the landlord *shall* perform. R.C. 5321.11's 30-day cure still governs a R.C. 5321.05 health-and-safety breach and remains a condition precedent to filing under R.C. 1923.02(A)(8).
+
+**Ohio's substantive findings were carried forward, not dropped.** `early-termination`'s OH segment held two things worth keeping, and both are now in `early-termination-ks`'s OH segment: no Ohio statute caps or bars an early-termination fee, with R.C. 5321.14 unconscionability the only ceiling and the greater-of-one-month-or-30% figure carrying real exposure under it; and Ohio's mitigation duty rests on *Frenchtown Square Partnership v. Lemstone*, a **commercial** holding, and is waivable because it sits outside ch. 5321 — so **never stack a mitigation waiver on top of this fee for an Ohio lease** (Taylor's decision 2026-09-18: no mitigation waiver in the default Ohio lease). The savings sentence's SCRA limb stays accurate for Ohio, which has no state servicemember residential termination right (`edu-no-servicemember-lease-rule-oh`); the tenant-death limb is a harmless hedge, Ohio having no statute on death of a tenant.
+
+Same move as GA (2026-10-01), NC and NV (2026-10-02) and TX (2026-10-03). Both rows are shared, so only the OH tag, the OH note segment and `last_checked` were touched.
+
+**One thing flagged rather than changed:** `early-termination-ks` is `REQUIRED` where the parent is `RECOMMENDED`. No Ohio statute requires an early-termination clause, so `REQUIRED` is the shared row's own product designation rather than a statement about Ohio law. Changing it would be a shared-text edit outside what this pass may touch, so it is noted in the row for the sync.
+
+---
+
+### Fix 3 — rule 62 vetting: `surrender-end-of-term`
+
+**Is CA's qualified wording lawful and accurate in Ohio?** Yes, and I support it.
+
+**Does the current wording state a duty Ohio law doesn't back?** **No** — and the premise behind the proposal does not hold in Ohio. Ohio has **no just-cause or good-cause rule** (`edu-for-cause-eviction-oh`, from the 2026-10-02 pass, with R.C. 5321.02, 5321.03, 5321.031 and 5321.17 all read section-open), so nothing gives an Ohio tenant a general right to stay past the term. Holding over is itself a ground for a possession action under R.C. 1923.02(A)(1), so the duty to surrender on expiration is backed. The Ohio limit falls on the landlord's **remedy**, not the tenant's duty: R.C. 5321.15(A) bars excluding a tenant outside a court process, which this clause does not purport to do.
+
+**Where the qualification does bite in Ohio — two narrow cases, which is why it is still worth having.** R.C. 5321.02(B)(1) and (2) let a tenant subjected to retaliation use it as a defence to a possession action and even **recover possession**; and R.C. 1923.062 can **stay** an eviction against a deployed servicemember tenant (90 days unless justice requires otherwise, and not against a landlord operating fewer than four residential premises). In both, the tenant lawfully remains after the term and an unqualified "immediately" overstates.
+
+The clause's third sentence is unchanged and was screened on 2026-10-02: "to the extent permitted by applicable law" resolves in Ohio to a near-zero disposal right, because the R.C. 1923.12–.14 machinery is manufactured-home-park only and R.C. 5321.15(B) bars seizing a tenant's possessions for rent except by court order. `edu-no-abandoned-property-safe-harbor-oh` carries that.
+
+---
+
+### Integrity
+
+5 rows, 17 columns, header byte-identical to the master, CRLF throughout (6 CRLF, 0 bare LF). No duplicate ids; one new id absent from the master, four changed ids present in it. No blank `verification_status` (instruction 27) and no blank required field. No new `group` values and **no new `topic_key`** — the new clause reuses `casualty-termination`, which Ohio had no active row in after the scrub. No dangling `supersedes`. Field-by-field diffs against the master confirm the three shared rows changed only `states` and `notes` (`last_checked` on all three was already 2026-10-03, set today by the TX and CA passes, so setting it was a no-op). `early-termination` goes from 6 tagged states to 5 with OH removed; `early-termination-ks` from 20 to 21 with OH appended and no duplicates. `is_default` blank on the new clause. Citation format `R.C. x.xx` throughout my own text; two `§`-form citations remain inside **pre-existing** note segments on `early-termination` and `surrender-end-of-term`, left alone because rewriting another pass's text in a shared row is outside what this pass may change.
+
+### Proposed SOP changes
+
+1. **Rule 54 — say that "it would cause churn" is not a reason to defer an option.** This is the one the sync had to correct me on, so it is worth writing down rather than leaving to the next state to rediscover. My 2026-10-02 retro found the Ohio casualty option lawful, recorded it, and then withheld it because the three-bucket scrub had just switched Ohio's tenant-side casualty clause off three days earlier and adding a landlord-side clause in the same topic family felt like the churn rule 1 guards against. Rule 1 is about **re-auditing finished work**, not about adding a row a rule requires. Suggested addition to rule 54: *"Recent activity in a clause's topic family is not a reason to defer an option the rule requires. Rule 1 bars re-auditing finished work, not adding a row. Where a library-wide pass has just switched a related clause off, offer the option and say in the row how the two now fit together."*
+
+2. **Rule 19 — add the near-twin-statute trap.** A prompt that names a model clause is a strong pull toward copying its figures, and the figures are exactly what does not travel. Ohio's model was MI because Mich. Comp. Laws § 554.201 and R.C. 5301.11 are structurally near-identical — which made MI's "Term of at least one year" limit look like part of the pattern, when Ohio's statute has no term-length condition at all. Suggested addition: *"When a prompt names a model clause, copy its structure and not its thresholds: a near-twin statute in another state is the reason to use the model and is not authority for any number in it. State for each figure in the new clause whether it comes from this state's statute, from the landlord, or from a drafting judgment, and name the ground."*
+
+### Vouches given (propagation, rule 62)
+- **2026-10-03:** `surrender-end-of-term` (CA's proposal), supported for OH; reasoning above.
+
+## Circle-back sync (Claude Code, 2026-10-03)
+
+- **Merged** with `merge-delta.py --base 2b10851`: 1 new row (`casualty-landlord-termination-oh`) and 4 updated (`edu-casualty-and-mitigation-waivable-oh`; OH moved from `early-termination` to `early-termination-ks`; OH's note on `surrender-end-of-term`); nothing refused. OH active 110 → 111; no same-topic pairs; section pointers resolve.
+- **Citations file:** row added for the new clause; OH's `early-termination` row is now `early-termination-ks` (supersedes `early-termination`) with the R.C. 1923 and 5321 sections the move relies on; `surrender-end-of-term` adds R.C. 5321.02(B) and 1923.062.
+- **Rule 62:** OH supports CA's `surrender-end-of-term` qualifier (the duty is backed in Ohio, but retaliation and the servicemember stay are narrow cases where a tenant lawfully remains); recorded in the backlog tally.
+- **Flagged, not changed:** `early-termination-ks` is REQUIRED while `early-termination` is RECOMMENDED. No Ohio statute requires an early-termination clause, so REQUIRED is the shared row's product designation (Taylor's lesson 2: flag leases missing one); in the backlog.
+- **Guards:** all pass. **Statute spot-check, 2 of 2, on codes.ohio.gov:** R.C. 5301.11 (quoted in full above; matches word for word, sole version 1953) and R.C. 5321.17(A)-(B) (7 days before the termination date for week-to-week; 30 days before the periodic rental date for month-to-month).
+- **SOP 1.49:** both proposals adopted (rules 19, 54). OH's casualty cell set to ✓.

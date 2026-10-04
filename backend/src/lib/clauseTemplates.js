@@ -564,7 +564,7 @@ const CLAUSE_TEMPLATES = [
     id: "early-termination",
     title: "Early Termination",
     group: "Default & Termination",
-    states: ["CO", "WY", "MN", "ND", "SD", "OH"],
+    states: ["CO", "WY", "MN", "ND", "SD"],
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay an early termination fee equal to one month's Rent ({{monthly_rent}}) or 30% of the remaining Rent due under the Term, whichever is greater, and remains responsible for Rent and other obligations up to the termination date. Landlord may terminate this Lease early by providing Tenant at least 30 days' written notice if Tenant breaches a material term of this Lease and fails to cure the breach within 10 days of receiving written notice, or on such shorter notice and cure period as applicable law permits, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law. This includes a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or — except as prohibited by law in the case of a Tenant's death — any other termination right or limitation provided by applicable law.",
   },
@@ -1112,7 +1112,7 @@ const CLAUSE_TEMPLATES = [
     id: "early-termination-ks",
     title: "Early Termination",
     group: "Default & Termination",
-    states: ["KS", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "NJ", "IN", "AZ", "OK", "GA", "MI", "IA", "NC", "NV", "TX", "NY"],
+    states: ["KS", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "NJ", "IN", "AZ", "OK", "GA", "MI", "IA", "NC", "NV", "TX", "NY", "OH"],
     supersedes: "early-termination",
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by providing Landlord at least 30 days' written notice. Tenant will pay an early termination fee equal to one month's Rent ({{monthly_rent}}) or 30% of the remaining Rent due under the Term, whichever is greater, and remains responsible for Rent and other obligations up to the termination date. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may terminate this Lease early in accordance with this Lease's Tenant Default and notice provisions, or if Tenant vacates or abandons the property without notifying Landlord. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to terminate without penalty due to active military service under the Servicemembers Civil Relief Act, due to the property becoming uninhabitable through no fault of Tenant, or, except as prohibited by law in the case of a Tenant's death, any other termination right or limitation provided by applicable law.",
@@ -6902,6 +6902,14 @@ const CLAUSE_TEMPLATES = [
     states: ["NE"],
     bodyText:
       "[Optional.] If the property is damaged or destroyed by fire or other casualty to an extent that enjoyment of the property is substantially impaired, and the fire or casualty was not caused by Landlord's deliberate or negligent act, Landlord may terminate this Lease by written notice to Tenant, effective on the date stated in the notice or, if Tenant has already vacated, on the date Tenant vacated. Rent will be accounted for as of the date of the casualty, and Landlord will return all prepaid Rent and the Security Deposit Tenant is entitled to recover under Nebraska law. Landlord may recover possession only as Nebraska law permits. This Section is in addition to the rights Nebraska law gives Tenant after a fire or casualty and does not reduce or condition them: Tenant keeps the right to vacate and end this Lease, or to stay and pay reduced Rent, whether or not Landlord terminates and whether or not Tenant caused the damage.",
+  },
+  {
+    id: "casualty-landlord-termination-oh",
+    title: "Landlord Termination After Fire or Casualty",
+    group: "Default & Termination",
+    states: ["OH"],
+    bodyText:
+      "[Optional.] This Section applies only if this Lease has a fixed Term. It does not apply to a month-to-month or other periodic tenancy, which either party may end under this Lease's termination-notice provisions. If the property is destroyed by fire or other casualty, or is so injured by one as to be unfit for occupancy, and the repairs cannot reasonably be completed within [number] days after the casualty, and the casualty was not caused by Landlord's deliberate or negligent act, Landlord may end this Lease by written notice to Tenant, effective on the date stated in the notice or, if Tenant has already surrendered possession, on the date Tenant surrendered. Tenant is not liable for Rent accruing after the date the property became unfit for occupancy. Rent that accrued and was unpaid before that date remains payable, any Rent Tenant prepaid for a period after that date will be refunded, and the Security Deposit will be returned as this Lease and Ohio law provide. Ending this Lease under this Section does not relieve Landlord of any obligation Landlord owed Tenant while this Lease was in force, and does not limit any remedy Tenant has for Landlord's failure to meet one of those obligations before this Lease ends. Ending this Lease under this Section does not release Tenant from liability for a casualty caused by the fault or neglect of Tenant or of anyone on the property with Tenant's consent. Nothing in this Section limits Tenant's right under Ohio law, where a destruction or injury occurs without Tenant's fault or neglect, to owe no Rent after that destruction or injury and to surrender possession, or any other right Tenant has under applicable law. Landlord may recover possession only as Ohio law permits.",
   },
 ];
 
