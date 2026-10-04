@@ -1062,3 +1062,7 @@ Not a re-audit; nothing else in this state was reviewed.
 - **Guards:** all pass. **Statute spot-check, 3 of 3, against azleg.gov:** A.R.S. § 33-1331(A) ("with the rental agreement") behind the restored `foreclosure-notice-az`; § 33-1315(A)(2) behind the `default-by-tenant` vouch; § 33-1318(A) ("as defined in section 13-3601"; "in the tenant's dwelling") behind the corrected `edu-dv-lease-termination-az`.
 - **Rule 62:** AZ vouched for all three pending edits (CO's and MN's `default-by-tenant` edits, CA's `surrender-end-of-term` qualifier); recorded in the backlog tally.
 - **SOP 1.35:** all four proposals adopted (rules 16, 78, 79). AZ's conformance column is complete except the examples.
+
+## Propagated shared-row edit, 2026-10-04 (at the PA circle-back sync)
+
+- `returned-payments` (CO, WY, KS, NE, MN, ND, SD, OH, AZ, GA, PA): AZ's proposal merged once every tagged state had vetted it, PA last. "If more than two of Tenant's payments during the Term are returned" now reads "during any 12-month period", so the count works for a month-to-month tenancy, which has no Term. Uniform; no AZ override. AZ's note segment on the row records it.

@@ -1398,3 +1398,7 @@ Merged against the attached master and re-run programmatically. **2,876 → 2,87
 ## Propagated shared-row edit, 2026-10-03 (at the OK circle-back sync)
 
 - `default-by-tenant-ks-ne` (KS, NE, OH, OK): NE's sentence "Landlord need not give Tenant an opportunity to cure any breach, including a failure to pay Rent, where applicable law permits Landlord to proceed without one." was added after the two default limbs, once every tagged state had vetted it (NE: NE retro (SOP 1.13), its own proposal; OK at its 2026-10-03 circle-back). Uniform; no NE override. NE's note segment on the row records it.
+
+## Propagated shared-row edit, 2026-10-04 (at the PA circle-back sync)
+
+- `returned-payments` (CO, WY, KS, NE, MN, ND, SD, OH, AZ, GA, PA): AZ's proposal merged once every tagged state had vetted it, PA last. "If more than two of Tenant's payments during the Term are returned" now reads "during any 12-month period", so the count works for a month-to-month tenancy, which has no Term. Uniform; no NE override. NE's note segment on the row records it.

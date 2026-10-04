@@ -2272,3 +2272,7 @@ Claude Code can find them mechanically at merge time. Minor, bookkeeping only. [
 - CO's proposed deletion of "and reasonable costs and expenses" from `default-by-tenant` (CO retro, SOP 1.18) went in as a CO override, `default-by-tenant-co`, not a shared edit. ID declined to vouch, because lease authority for costs matters under Idaho Code § 55-305(2)(b) and § 26-2229A(4)(c), and ND had flagged lost collection costs. Rule 62 sends an edit that can't be vouched for in every tagged state to an override.
 - CO is untagged from the shared row. The override is identical except for the deleted phrase. C.R.S. § 38-12-801(3)(a)(II) was re-read section-open for it in the official 2026 C.R.S.
 - When MN's no-cure-sentence edit merges, it applies to `default-by-tenant-co` as well; CO vouched for it at its circle-back.
+
+## Propagated shared-row edit, 2026-10-04 (at the PA circle-back sync)
+
+- `returned-payments` (CO, WY, KS, NE, MN, ND, SD, OH, AZ, GA, PA): AZ's proposal merged once every tagged state had vetted it, PA last. "If more than two of Tenant's payments during the Term are returned" now reads "during any 12-month period", so the count works for a month-to-month tenancy, which has no Term. Uniform; no CO override. CO's note segment on the row records it.

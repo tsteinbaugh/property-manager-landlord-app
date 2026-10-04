@@ -673,3 +673,7 @@ Citations file: no new section beyond those `holdover-rate-ga` already lists, ex
 - **Rule 62:** GA vouched for CA's `surrender-end-of-term` qualifier and MN's `default-by-tenant` sentence; both recorded in the backlog tally.
 - **Guards:** all pass. **Statute spot-check:** not possible from here. Georgia's official code is only on Lexis, which serves a CAPTCHA, the same as at the 2026-10-02 retro sync. The pass relied on texts it saved from Lexis and hash-matched at that retro.
 - **SOP 1.38:** GA's rule 53 proposal adopted, narrowed to pay-to-stay rights that run after the termination.
+
+## Propagated shared-row edit, 2026-10-04 (at the PA circle-back sync)
+
+- `returned-payments` (CO, WY, KS, NE, MN, ND, SD, OH, AZ, GA, PA): AZ's proposal merged once every tagged state had vetted it, PA last. "If more than two of Tenant's payments during the Term are returned" now reads "during any 12-month period", so the count works for a month-to-month tenancy, which has no Term. Uniform; no GA override. GA's note segment on the row records it.

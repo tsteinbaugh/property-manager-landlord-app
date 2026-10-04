@@ -245,7 +245,7 @@ const CLAUSE_TEMPLATES = [
     group: "Rent & Payment",
     states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "AZ", "GA", "PA"],
     bodyText:
-      "If any payment of Rent is returned for insufficient funds or otherwise fails, Landlord may require that the payment be replaced by a cashier's check, certified check, or money order, and may charge Tenant a fee associated with the failed payment, not to exceed the maximum amount permitted by applicable law. If more than two of Tenant's payments during the Term are returned for insufficient funds, Landlord may require all future payments of Rent be made by cashier's check, certified check, or money order.",
+      "If any payment of Rent is returned for insufficient funds or otherwise fails, Landlord may require that the payment be replaced by a cashier's check, certified check, or money order, and may charge Tenant a fee associated with the failed payment, not to exceed the maximum amount permitted by applicable law. If more than two of Tenant's payments during any 12-month period are returned for insufficient funds, Landlord may require all future payments of Rent be made by cashier's check, certified check, or money order.",
   },
   {
     id: "due-at-signing",
@@ -3982,7 +3982,7 @@ const CLAUSE_TEMPLATES = [
     states: ["PA"],
     supersedes: "security-deposit-return",
     bodyText:
-      "Landlord may keep all or part of the Security Deposit, including unpaid interest, for Rent Tenant has not paid or for Tenant's breach of another term of this Lease. When this Lease ends or Tenant surrenders the property, Tenant will give Landlord Tenant's new address in writing. If Tenant does not, Pennsylvania law relieves Landlord of liability under the statute that sets the deposit-return deadlines and penalties.",
+      "Within 30 days after this Lease ends, or after Landlord accepts Tenant's surrender of the property if that happens first, Landlord will give Tenant a written list of any damage to the property that Landlord says Tenant must pay for. With the list, Landlord will pay Tenant the Security Deposit, plus any unpaid interest on it, minus the actual cost of the damage Tenant caused. Landlord may also keep all or part of the Security Deposit, including unpaid interest, for Rent Tenant has not paid or for Tenant's breach of another term of this Lease. When this Lease ends or Tenant surrenders the property, Tenant will give Landlord Tenant's new address in writing. If Tenant does not, Pennsylvania law relieves Landlord of liability under the statute that sets the deposit-return deadlines and penalties.",
   },
   {
     id: "security-deposit-holding-pa",
@@ -4053,7 +4053,7 @@ const CLAUSE_TEMPLATES = [
     group: "Default & Termination",
     states: ["PA"],
     bodyText:
-      "If Tenant remains in possession after the end of the Term, and Landlord has not agreed in writing to a continued tenancy or accepted Rent for one under the Holdover section of this Lease, then, in place of the actual damages and reasonable rental value described in that section, Tenant will pay Landlord a holdover charge of {{holdover_daily_rate}} for each day Tenant remains in possession. Landlord and Tenant agree that Landlord's loss from a holdover, including delay in making the property available to a new tenant, is difficult to estimate accurately in advance, that this charge is a reasonable estimate of that loss, and that it is not a penalty. Landlord's acceptance of a holdover charge is not acceptance of Rent for a continued tenancy. This Section does not limit Landlord's right to recover possession, unpaid Rent and other amounts due for the period before the Term ended, or damages for harm to the property.",
+      "If Tenant remains in possession after this Lease ends, whether at the end of the Term or on an earlier termination under this Lease or applicable law (other than a termination for nonpayment of Rent), and Landlord has not agreed in writing to a continued tenancy or accepted Rent for one, then, in place of any actual damages for Tenant's continued possession (including the actual damages and reasonable rental value described in the Holdover section of this Lease), Tenant will pay Landlord a holdover charge of {{holdover_daily_rate}} for each day Tenant remains in possession. Landlord and Tenant agree that Landlord's loss from a holdover, including delay in making the property available to a new tenant, is difficult to estimate accurately in advance, that this charge is a reasonable estimate of that loss, and that it is not a penalty. Landlord's acceptance of a holdover charge is not acceptance of Rent for a continued tenancy. This Section does not limit Landlord's right to recover possession, unpaid Rent and other amounts due for the period before this Lease ended, or damages for harm to the property.",
   },
   {
     id: "casualty-termination-pa",
@@ -6910,6 +6910,14 @@ const CLAUSE_TEMPLATES = [
     states: ["OH"],
     bodyText:
       "[Optional.] This Section applies only if this Lease has a fixed Term. It does not apply to a month-to-month or other periodic tenancy, which either party may end under this Lease's termination-notice provisions. If the property is destroyed by fire or other casualty, or is so injured by one as to be unfit for occupancy, and the repairs cannot reasonably be completed within [number] days after the casualty, and the casualty was not caused by Landlord's deliberate or negligent act, Landlord may end this Lease by written notice to Tenant, effective on the date stated in the notice or, if Tenant has already surrendered possession, on the date Tenant surrendered. Tenant is not liable for Rent accruing after the date the property became unfit for occupancy. Rent that accrued and was unpaid before that date remains payable, any Rent Tenant prepaid for a period after that date will be refunded, and the Security Deposit will be returned as this Lease and Ohio law provide. Ending this Lease under this Section does not relieve Landlord of any obligation Landlord owed Tenant while this Lease was in force, and does not limit any remedy Tenant has for Landlord's failure to meet one of those obligations before this Lease ends. Ending this Lease under this Section does not release Tenant from liability for a casualty caused by the fault or neglect of Tenant or of anyone on the property with Tenant's consent. Nothing in this Section limits Tenant's right under Ohio law, where a destruction or injury occurs without Tenant's fault or neglect, to owe no Rent after that destruction or injury and to surrender possession, or any other right Tenant has under applicable law. Landlord may recover possession only as Ohio law permits.",
+  },
+  {
+    id: "tenant-caused-damage-pa",
+    title: "Damage Caused by Tenant",
+    group: "Default & Termination",
+    states: ["PA"],
+    bodyText:
+      "If the property is damaged by fire, water, a vehicle or any other cause, and the damage results from the deliberate or negligent act or omission of Tenant, an Occupant, or a guest or invitee of Tenant, then: (1) Rent will not abate or be reduced while the property is repaired, for as long as this Lease continues; and (2) if this Lease ends because of the damage, Tenant will be liable for Landlord's actual damages, including the Rent Landlord loses while the property is repaired, up to the end of the Term (for a month-to-month or other periodic tenancy, up to the earliest date Tenant could have ended the tenancy by notice), less any Rent Landlord receives from re-renting the property. Landlord will make repairs as this Lease and Pennsylvania law require and will use reasonable efforts to re-rent the property. This Section is in addition to Tenant's liability for the cost of repairing the damage. It does not limit Tenant's right under Pennsylvania law to pay Rent into escrow while a city or county has certified the property unfit for human habitation, or to deduct from Rent a payment Tenant makes to a utility because Landlord did not pay it.",
   },
 ];
 

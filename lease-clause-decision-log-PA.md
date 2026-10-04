@@ -246,6 +246,9 @@ Every other change to an existing shared row is an added `PA` tag with a `PA:` n
 
 **The same rule reaches other PA rows, not converted here (Taylor's call):** `security-deposit-return-pa` and much of `security-deposit-holding-pa` restate statutory duties that no statute requires in the lease. The holding clause does carry the written institution notice, which the statute requires in writing. `carbon-monoxide-alarm-duty-pa` restates a statutory allocation. Every state has REQUIRED deposit-return clauses by design (instruction 24), so converting those is a library-architecture decision, not a PA one.
 
+### Vouches given
+- **2026-10-04:** `returned-payments` (AZ's proposal), vouched for PA; merged at this sync. `default-by-tenant` (MN's proposal): lawful, but a product decision is open (see "Circle-back checks (SOP 1.49)" at the end of this log).
+
 ## 10. Findings worth Taylor's attention
 1. **The lease can waive the notice to quit.** 68 P.S. § 250.501(e) lets the lease shorten or waive the 10/15/30-day notice; the REALTORS form waives it by default. Offered as an option (§6 item 1, decided).
 2. **A written lease controls over the abandoned-property statute.** 68 P.S. § 250.505a(g) makes the lease win on conflict (except the abuse-order hold), so a generic 'disposed of at Tenant's cost' sentence could displace the notice and storage steps. The library mirrors the statute (§6 item 2, decided).
@@ -842,3 +845,107 @@ Statutes were read from the General Assembly's official site (palegis.us) in the
 Not a re-audit; nothing else in this state was reviewed.
 
 **Propagation note (uniform edit, rule 62): `snow-removal` rewritten.** Old: 'Unless Landlord provides snow removal service, Tenant is responsible for prompt, reasonable removal of snow and ice from any walkway, driveway, porch, or entrance at the property that Tenant uses, to help keep those areas safe and passable.' New: 'Unless Landlord provides snow removal, Tenant will promptly remove snow and ice from the areas of the property Tenant uses for walking, parking and access. This does not include areas shared with other residents.' Why: Taylor found the list of areas too specific (properties differ, and a list invites arguments about what it covers), and Michigan's sync showed the clause should say outright that shared areas stay with the landlord. The edit only narrows the tenant's duty; this state's existing note on the row still holds.
+
+## Propagated shared-row edit, 2026-10-04 (at the PA circle-back sync)
+
+- `returned-payments` (CO, WY, KS, NE, MN, ND, SD, OH, AZ, GA, PA): AZ's proposal merged once every tagged state had vetted it, PA last. "If more than two of Tenant's payments during the Term are returned" now reads "during any 12-month period", so the count works for a month-to-month tenancy, which has no Term. Uniform; no PA override. PA's note segment on the row records it.
+
+## Circle-back checks (SOP 1.49), 2026-10-03/04
+
+Circle-back run 2026-10-03/04 in PA's chat. Only the two [Retro] rules and four targeted fixes in the kickoff prompt were checked (rule 1: scalpel, not a re-audit).
+
+**Sources.** The attached files are the only source of truth: `lease-clauses.csv` (2,876 rows, matching the prompt), `lease-clause-decision-log-PA.md`, `lease-clause-citations-PA.csv`, `lease-clause-sop.md` (1.49) and `lease-clause-topics.md`. The library carries 116 active PA-tagged rows (63 PA-only, 53 shared), more than the 108 counted at the 2026-09-30 retro. That is the difference from earlier in this chat; the 2026-09-30 retro rows have been synced in.
+
+**Old outputs deleted:** `lease-clause-decision-log-PA-retro.md` and `lease-clauses-PA-retro-delta.csv` from the 2026-09-30 retro.
+
+**Statute text.** Read 2026-10-03 in the built-in browser on palegis.us.
+- The Landlord and Tenant Act of 1951 was hash-compared section by section with the copy saved on 2026-09-29: 72 of 72 sections match, using normalised text with the byte-order mark treated as whitespace (rule 79).
+- All 75 Pa.C.S. title files were reloaded (29,440,960 characters, 14,741 section markers; control term 0).
+- Read live from the official site: the City Rent Withholding Act, Pennsylvania Human Relations Act, Plain Language Consumer Contract Act, Electronic Transactions Act and Act 118 of 2018.
+- Court rules and 37 Pa. Code § 307.6 were read on pacodeandbulletin.gov.
+- Battery: `battery_rule54t_2026-10-03.json`.
+
+### One line per check
+
+- **Rule 54t (tenant-caused damage): fixed; one clause and one education row added, casualty row noted.**
+  - Casualty row checked first: `casualty-termination-pa` already excludes damage caused by Tenant, household members or guests from both its exit and its abatement, and no PA statute gives a casualty exit or abatement.
+  - Each abatement or exit route checked separately for a tenant-fault exception:
+    - Casualty: no statute (1951 Act read whole).
+    - Rent into escrow: City Rent Withholding Act § 1 (35 P.S. § 1700-1) has no fault exception and applies "notwithstanding ... any agreement".
+    - Essential services: 66 Pa.C.S. § 1529 lets a tenant deduct utility payments made because the landlord did not pay. It turns on the landlord's own failure, so it has no fault exception.
+    - Landlord-breach termination: no statute; the implied warranty (Pugh v. Holmes) is case law, not read.
+  - What PA law gives the landlord:
+    - Repair cost from the deposit, only with the 30-day list (68 P.S. § 250.512(a)-(b)).
+    - A tenant duty against wilful or wanton damage in 3+-household buildings (§ 250.503-A(1)).
+    - Property-damage claims in the possession complaint (Pa.R.Civ.P.M.D.J. 503(B)(8)).
+    - Nothing on rent during repairs or lost rent after the lease ends.
+  - Searches:
+    - Pa.C.S. battery t1-t6: no residential fault, abatement or casualty provision. The hits were goods-lease sections in 13 Pa.C.S., land-bank sections in 26 Pa.C.S., and the drug-nuisance remedy in 42 Pa.C.S. § 8389.
+    - Unconsolidated: "untenantable AND tenant" and '"destroyed by fire" AND tenant AND lease' each returned 0.
+  - Rows:
+    - New `tenant-caused-damage-pa` (optional, CONDITIONAL, SERVES_LANDLORD), modelled on `tenant-caused-damage-tn` (read; TN row not tagged).
+      - It carries the periodic-tenancy limb (rule 37).
+      - "Make repairs as this Lease and Pennsylvania law require" replaces TN's "reasonable efforts to repair".
+      - The last sentence preserves the rent-escrow and utility-deduction rights.
+    - New `edu-tenant-caused-damage-pa`.
+    - `casualty-termination-pa`: note only.
+- **Rule 79 (re-read before trusting a summary): fixed.**
+  - Secondary-source screen: 0 of 116 rows, and 0 rows in the citations file.
+  - Rows recording no basis: **49 of 116 active PA-tagged rows record no basis** in their PA note. All 49 are shared rows, and all 49 segments were written by the PA research pass. No library-wide pass created or renamed any of them. 0 shared rows lack a PA segment. All 63 PA-only rows record a section-open basis.
+  - Of the 49:
+    - 15 cite no section (generic). Listed, not read.
+    - 1, `lead-based-paint`, has a PA segment that cites no section (federal law sits in the base row).
+    - 33 cite PA sections. All 33 were read section-open, and each PA segment now ends with a one-line basis naming what was read.
+  - Four segments corrected:
+    - `severability`: "weighs the lease as a whole" was attached to 73 P.S. § 2208(a)(3), which says only that a lessor who made a good faith and reasonable effort has no liability under section 7. "As a whole" is the Attorney General's preapproval policy (37 Pa. Code § 307.6(b)).
+    - `residential-use-only`: "Illegal-drug use is a statutory breach" overstated § 250.505-A(a). The grounds are a conviction for sale, manufacture or distribution, a second drug-act violation, or a seizure on the premises.
+    - `no-disturbance`: "Mirrors" corrected to "broader than". § 250.503-A(2) reaches only wilful or wanton disturbance.
+    - `pet-insurance-requirement`: Act 118 of 2018 does not address insurance; it sets documentation rules (section 3) and gives landlord immunity (section 4).
+  - The other 29 were confirmed unchanged:
+    - Subdivisions checked: 66 Pa.C.S. §§ 1527, 1529, 1531; 18 Pa.C.S. § 4105(e)(3); 51 Pa.C.S. § 7315.1; 75 Pa.C.S. § 3353(b)-(c); 68 P.S. §§ 250.105, .202, .203, .304, .501(a)-(f), .502-A, .503(a), (c), .504-A, .505a, .511a, .512(a), (c), .514; 43 P.S. § 955(h)(3.1), (6), (11); 73 P.S. §§ 2205(b), (d)(1)(ii), 2260.303, 2260.901.
+    - Qualifiers now recorded where the statute attaches them: the § 4105(e)(3) posted-notice condition, § 203's over-three-years scope, § 503(c)'s "solely because of failure to pay rent", and § 3353(b)(2)'s "private parking lots".
+  - Claude Code: upgrade these 33 rows' basis in `lease-clause-citations-PA.csv` at sync.
+- **Targeted fix 3 (`holdover-rate-pa`, rule 53 as amended): fixed.**
+  - (a) Trigger: no PA statute starts holdover damages at a notice date. Act § 503(a)(2) gives "damages, if any, for the unjust detention" with no start date, and the notice to quit is a step before the possession action, not a damages measure. A charge from the end of the Term is therefore one PA law allows. When detention becomes "unjust" is case law, not read.
+  - (b) Extended to any termination, so a forfeiture for breach (Act § 501(a)(2)) or a periodic tenancy ended by notice no longer loses the charge.
+  - (c) Two later sentences of rule 53:
+    - Termination for nonpayment is excluded. PA has no late-fee cap, but in a case "solely because of failure to pay rent" the tenant may supersede the writ by paying arrears and costs any time before it is executed (Act § 503(c)).
+    - No multiplier sentence: the 1951 Act's double and treble damages reach only distress, deposits and abandoned property, so there is no holdover multiplier. `holdover-rate-mo` is not in the attached library; the rule 53 text was used instead.
+  - Text is now identical to `holdover-rate-nc`. No PA row quotes the old wording.
+- **Targeted fix 4 (scrub-trimmed clauses, rule 78 with rule 47): fixed, one clause.**
+  - `security-deposit-return-pa`: the scrub left "Landlord may keep all or part of the Security Deposit ..." without the condition § 250.512(a)-(b) attaches: a written list within 30 days, or the landlord forfeits all rights to withhold and to sue for damage. A number check can't catch a missing step, so the 30-day list-and-refund sentences were restored word for word from the 2026-09-29 delivered file, with "also" restored in the next sentence. Forfeiture, double damages and burden of proof stay in `edu-security-deposit-rules-pa`.
+  - `security-deposit-holding-pa`: no restore needed. The trimmed clause still gives the § 250.511b(a) bank name, address and amount notice, and grants no right that the interest rule (§ 511.2(b)-(c)) or the transfer notice limits; those duties are in `edu-security-deposit-rules-pa`.
+  - Required in-lease content search:
+    - PA's required-content provisions are 73 P.S. § 2205(d)(1), carried in `consumer-restrictions-statement-pa` and not trimmed, and the § 250.511b(a) notice, kept.
+    - The 2026-09-30 search ("lease shall contain", "rental agreement shall" and others) found no other provision.
+    - The scrub trimmed only these two PA clauses and switched none off (PA log, Three-bucket scrub).
+- **Targeted fix 5 (rule 62 vetting, `returned-payments`): vouched, no change needed.** "During any 12-month period" is lawful in PA. No statute speaks to requiring certified funds after returned payments. 18 Pa.C.S. § 4105(e)(3) is criminal restitution only, and `edu-no-cash-receipt-duty-pa` confirms no payment-method rule.
+- **Targeted fix 6 (rule 62 vetting, `default-by-tenant`, MN's proposal): lawful, but it needs a decision.** Shared text not edited.
+  - Question 1: no. The moved carve-out can't drop a notice or cure PA requires. The statutory demand and notice to quit apply unless the lease waives them (68 P.S. § 250.501(a)(3), (b), (e)), and the right to supersede by paying before the writ is executed (§ 250.503(c)) can't be displaced by self-limiting wording.
+  - Question 2: yes, it may change what the clause promises in PA. PA has no statutory pre-default cure period for rent, so a landlord could argue that "applicable law permits Landlord to proceed without giving Tenant an opportunity to cure" now reaches the rent limb. That would remove the lease's written notice of a rent default. `notice-to-quit-waiver-pa` keeps only "any written notice of default or chance to cure that this Lease gives Tenant", so with the waiver in use the tenant could lose all pre-suit notice.
+  - Recommendation: the merged sentence should excuse only the cure period, not the written notice of default. Otherwise PA needs an override keeping the carve-out on the non-rent limb.
+
+**Rows changed (38, in `lease-clauses-PA-retro-delta.csv`):**
+- New: `tenant-caused-damage-pa`, `edu-tenant-caused-damage-pa`.
+- PA-only edits: `holdover-rate-pa`, `security-deposit-return-pa`, `casualty-termination-pa` (note only).
+- Shared rows, PA segment and `last_checked` only (33): `rent-payment`, `returned-payments`, `due-at-signing`, `application-of-payments`, `security-deposit-use`, `residential-use-only`, `existing-condition`, `permitted-occupants`, `no-disturbance`, `utilities-responsibility`, `tenant-maintenance`, `no-sublet-assign`, `no-alterations`, `utilities-paid-by-landlord`, `landlord-maintenance`, `default-by-tenant`, `notices`, `severability`, `entire-agreement`, `electronic-signatures`, `pet-insurance-requirement`, `parking-vehicle-rules`, `guest-policy`, `guest-policy-day-limit`, `snow-removal`, `early-termination-ks`, `holdover-ca`, `tenant-forward-proceedings-ca`, `parking-ks-oh-ca`, `tenants-property-insurance-ks-oh-ca`, `services-utilities-provided-ks-oh`, `surrender-end-of-term-ks-ne`, `rental-application-accuracy`.
+- No shared text was edited.
+
+**Vouches given** (Claude Code: file under §9 Propagation notes):
+- `returned-payments`, AZ's "during any 12-month period": vouched, no change needed (no PA statute speaks to it).
+- `default-by-tenant`, MN's moved carve-out: not a plain vouch; a decision is needed (see fix 6).
+
+### Proposed SOP changes
+
+1. **Rule 79:** when hashing a saved section against the live page, treat U+FEFF (byte-order mark) and U+00A0 as whitespace before hashing. JavaScript's `\s` matches them and Python's doesn't, which made one unchanged PA section (Act § 505.1) look amended.
+2. **Rule 79:** to find a state segment on a shared row, end it at the next " | " followed by any capital letter, not only a two-letter state code. Pennsylvania's own "SHARED-TEXT EDIT" segment sits between PA and the next state, so a two-letter boundary attaches the basis line to the wrong segment.
+3. **Rule 54t:** a city- or county-certified rent-suspension statute (here, the City Rent Withholding Act) counts as a rent-into-court route for the fault check even when the money goes to a bank escrow rather than a court.
+
+## Circle-back sync (Claude Code, 2026-10-04)
+
+- **Merged** with `merge-delta.py --base 2b10851`: 2 new rows (`tenant-caused-damage-pa`, `edu-tenant-caused-damage-pa`), 3 PA-only rows updated (`holdover-rate-pa`, `security-deposit-return-pa`, `casualty-termination-pa`) and PA's segment on 33 shared rows; nothing refused. PA active 116 → 118; no same-topic pairs.
+- **Citations file:** rows added for the two new rows; the 36 changed rows re-dated, and the 33 shared rows now record the section-open basis (rule 79).
+- **Rule 62, edit merged.** PA was the last tagged state to vet AZ's `returned-payments` wording. "During the Term" now reads "during any 12-month period" for all 11 tagged states (CO, WY, KS, NE, MN, ND, SD, OH, AZ, GA, PA), with a note in each state's segment and log.
+- **Rule 62, open for Taylor.** PA finds MN's `default-by-tenant` edit lawful but says it may change what the clause promises in PA: with no statutory pre-default cure period for rent, a landlord could argue the moved carve-out drops the lease's written notice of a rent default, and with `notice-to-quit-waiver-pa` in use the tenant could then get no pre-suit notice at all. This is the question Taylor answered for Indiana on 2026-10-03 (follow the statute; no extra notice promise; the education row says the landlord may still give notice). PA is recorded as pending that product call rather than as a vouch; the MN edit waits on six other states anyway.
+- **Guards:** all pass. **Statute spot-check:** not possible from here (palegis.us serves a JavaScript app with no section text). The pass compared all 72 sections of the 1951 Act with its saved copy by normalised hash.
+- **SOP 1.50:** all three proposals adopted (rules 54, 79). PA's 54t and 79 cells set to ✓.

@@ -4,32 +4,12 @@
 
 ## 🎯 Current focus
 
-- **Done 2026-09-30:** five new states synced (UT, IL, ID, MO, IN; 26 verified), the SOP taken from 1.1 to 1.15, and the first 8 retro-check passes synced (PA, TN, VA, AL, SC, NE, NJ, AZ). Several retros found damage from the 2026-09-29 three-bucket scrub; it is being repaired state by state through targeted fixes (SOP rule 78, `docs/history.md`).
-- **Done 2026-10-01:** WY retro synced (SOP 1.16, new rule 79), `appliances-included` pointer fixed in 7 states, five declined-option education rows backfilled, and the 12 pending retro folders restaged.
-- **Done 2026-10-01:** Oklahoma (state #27) synced; SOP 1.17. `legal-watch-ok.yml` is held (schedule commented out) until after December 27.
-- **Done 2026-10-01:** CO retro synced (SOP 1.18): two required 12-point bold lease statements found (§ 38-12-505(3)(c)-(d)), 14 rows fixed, 19 added. Go-live blockers from it are in the backlog (Spanish review, bold printing, separate radon document).
-- **Done 2026-10-02:** **Michigan (state #28) synced** (163 rows, SOP 1.19) and the **GA retro synced** (GA 118 rows). `legal-watch-mi.yml` is held until after January 28. Open with Taylor: the shared `snow-removal` edit and the HUD assistance-animal flag (backlog).
-- **Done 2026-10-02:** **Iowa (state #29) synced** (155 rows, SOP 1.22). `legal-watch-ia.yml` is held until after February 1 (first run March 1, day 1 at 14:00 UTC).
-- **Done 2026-10-02:** **New Mexico (state #30) synced** (163 rows, SOP 1.26). `legal-watch-nm.yml` is held until after March 2 (first run April 2, day 2 at 14:00 UTC).
-- **Done 2026-10-03:** **Montana (state #31) synced** (162 rows, SOP 1.28). `legal-watch-mt.yml` is held until after April 3 (first run May 3, day 3 at 14:00 UTC).
-- **Done 2026-10-03:** **New York (state #32) synced** (176 rows, SOP 1.34; scope: market-rate statewide). `legal-watch-ny.yml` is held until after May 4 (first run June 4, day 4 at 14:00 UTC).
+- **Where things stand (2026-10-04):** 33 states verified; the retro run finished 2026-10-03; SOP 1.50. Every synced state's history is in `docs/history.md`; per-state open items are in `docs/backlog.md`.
 - **In progress (Taylor, Claude Desktop):** **Washington (state #34) research** (kickoff staged 2026-10-03 in `~/Desktop/washington-kickoff/`, from 97cfed4, 3,175 rows). At the sync, hold `legal-watch-wa.yml` until after July 6, 2027 (state #34 runs on day 6 at 14:00 UTC; first run August 6).
-- **Done 2026-10-03:** **Wisconsin (state #33) synced** (198 rows, SOP 1.44). `legal-watch-wi.yml` is held until after June 5, 2027 (first run July 5, day 5 at 14:00 UTC).
-- **Done 2026-10-01:** legal watch fixed for LegiScan 429s (1-second spacing, retry, incomplete-run email, 60-minute timeouts); CO re-run clean, 0/45 errors.
-- **Done 2026-10-02:** MN retro synced (SOP 1.20; MN 155 rows; the scrub had dropped Minnesota's 8% late-fee cap, now restored).
-- **Done 2026-10-02:** ND retro synced (SOP 1.21; ND 141 rows; first ND holdover clause; tenant-chore split now settled in SOP rule 48).
-- **Done 2026-10-02:** NC retro synced (SOP 1.23; NC 123 rows; own default, returned-payment and late-fee clauses).
-- **Done 2026-10-02:** OH retro synced (SOP 1.24; OH 110 rows; casualty clause and `early-termination-ks` queued for its circle-back).
-- **Done 2026-10-02:** SD retro synced (SOP 1.25; SD 109 rows; four secondary-source errors fixed; holdover rate queued for its circle-back).
-- **Done 2026-10-02:** KS retro synced (SOP 1.27; KS 142 rows; restored the domestic-violence termination fee the scrub dropped; exemption waiver and good-faith holdover queued for its circle-back).
-- **Done 2026-10-03:** NV retro synced (SOP 1.29; NV 136 rows; three scrub-trimmed clauses restored).
-- **Done 2026-10-03:** TX retro synced (SOP 1.30; TX 150 rows); WY's `early-termination` edit merged after every tagged state vetted it.
-- **Done 2026-10-03:** FL retro synced (SOP 1.31; FL 119 rows).
-- **Done 2026-10-03:** CA retro synced (SOP 1.32; CA 167 rows). **The retro run is complete.**
-- **End-of-run circle-back (staged 2026-10-03 under SOP 1.32, from 2b10851, 2,876 rows) in `~/Desktop/circle-back/` (`INDEX.md`):** 26 folders (25 states plus OK), most with 1 to 7 items: the remaining rule 35c, 54t and 79 checks, the clauses queued at the OH, SD, KS and GA syncs, and the pending rule 62 vettings. Merge each delta with `merge-delta.py --base 2b10851`, except TN (restaged under SOP 1.33 from f48b67b: `--base f48b67b`). Remaining folders are refreshed to the current SOP after each circle-back sync without asking (Taylor, 2026-10-03; now 1.49; CSVs and bases unchanged), and NV gained a foreclosure-disclosure item. The old `~/Desktop/retro-checks/` folders are all synced and can be deleted.
-- **Retro run (finished 2026-10-03):** all eleven pending retros synced (GA, MN, ND, NC, OH, SD, KS, NV, TX, FL, CA). Merge every Desktop delta with `merge-delta.py` against the commit the pass was staged from.
-- **Pending shared edits (rule 62): see the vetting tally at the top of `docs/backlog.md`.** Three remain: AZ's `returned-payments` "during any 12-month period" (waits only on PA); MN's separate no-cure sentence for `default-by-tenant` (13 states vetted; IN's and NM's pre-written changes apply at that merge); CA's "unless applicable law entitles Tenant to remain" for `surrender-end-of-term`. Merged or resolved 2026-10-03: WY's `early-termination` wording, NE's `default-by-tenant-ks-ne` sentence, and CO's cost-phrase deletion (as the CO override `default-by-tenant-co`).
-- **Legal-watch calendar:** **after October 23, uncomment IL's schedule; after November 25, MO's; after November 26, IN's; after December 27, OK's; after January 28, MI's; after February 1, IA's; after March 2, NM's; after April 3, MT's; after May 4, NY's; after June 5, 2027, WI's.** Check the LegiScan totals after November's (IL, ID) and December's (MO, IN) first runs.
+- **End-of-run circle-back, 7 folders left** in `~/Desktop/circle-back/` (`INDEX.md`): WY, SD, TX, SC, TN, VA, UT. Merge each delta with `merge-delta.py --base 2b10851`, except TN (`--base f48b67b`). Taylor runs them one at a time; refresh the remaining folders to the current SOP after each sync without asking (Taylor, 2026-10-03; CSVs and bases stay unchanged). Synced so far: AL, AZ, CO, FL, GA, ID, IL, IN, KS, MO, MT, NC, NE, NJ, NM, NV, OH, OK, PA. The old `~/Desktop/retro-checks/` folders can be deleted.
+- **Open for Taylor:** PA's answer on MN's `default-by-tenant` edit raises the notice question he decided for Indiana (follow the statute, no extra notice promise, education row says notice may still be given); confirm the same for PA, where the optional `notice-to-quit-waiver-pa` could then leave no pre-suit notice. Also in the backlog: whether `early-termination-ks` should be REQUIRED while its parent is RECOMMENDED.
+- **Pending shared edits (rule 62): see the vetting tally at the top of `docs/backlog.md`.** Two remain: MN's separate no-cure sentence for `default-by-tenant` (13 states vetted, PA pending Taylor; IN's and NM's pre-written changes apply at that merge) and CA's "unless applicable law entitles Tenant to remain" for `surrender-end-of-term`. Merged or resolved: WY's `early-termination` wording, NE's `default-by-tenant-ks-ne` sentence, CO's cost-phrase deletion (as the CO override `default-by-tenant-co`), AZ's `returned-payments` wording (2026-10-04).
+- **Legal-watch calendar:** **after October 23, uncomment IL's schedule; after November 25, MO's; after November 26, IN's; after December 27, OK's; after January 28, MI's; after February 1, IA's; after March 2, NM's; after April 3, MT's; after May 4, NY's; after June 5, 2027, WI's.** Check the LegiScan totals after November's (IL, ID) and December's (MO, IN) first runs. The LegiScan budget question is parked for Taylor (backlog item 10).
 - **Standing backlog** (no fixed order; ask Taylor what's next): `docs/backlog.md`. Lease PDF first-page layout is parked in M.12 (Taylor). Deploying is still deliberately on hold.
 
 ## Project
@@ -162,4 +142,4 @@ Do not add to this list without Taylor's input.
 
 Keep this file short: if a section grows past a few lines of rules, move the detail to `docs/` and leave a pointer.
 
-*Last updated: 2026-10-03 (MI, IA, NM, MT and NY synced, states #28-32; all eleven pending retros synced; SOP 1.34; end-of-run circle-back in progress, AL done).*
+*Last updated: 2026-10-04 (WI synced, state #33; WA staged; 19 of 26 circle-back folders synced, SOP 1.50; AZ's, NE's and WY's shared edits merged).*
