@@ -32,7 +32,7 @@ Merge each edit once every state tagged on the row has answered. Update this tab
 | Edit | Row (tagged states) | Vetted, supports | Still to answer |
 |---|---|---|---|
 | MN: no-cure carve-out as its own sentence | `default-by-tenant` (19 states) and CO's override `default-by-tenant-co` | MN, ND, CA, AZ, CO, GA, ID, IL, IN, MO, MT, NM, NV, PA (Taylor, 2026-10-04: same as IN), SC, TN | WY, VA, UT, NY |
-| CA: "unless applicable law entitles Tenant to remain" | `surrender-end-of-term` (WY, SD, OH, CA, NV, TX, FL, AZ, GA, NC, TN, VA) | CA, AZ, FL, GA, NC, NV, OH, SD, TN | WY, TX, VA |
+| CA: "unless applicable law entitles Tenant to remain" | `surrender-end-of-term` (WY, SD, OH, CA, NV, TX, FL, AZ, GA, NC, TN, VA) | CA, AZ, FL, GA, NC, NV, OH, SD, TN, TX | WY, VA |
 
 ## Standing backlog
 

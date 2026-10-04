@@ -1193,3 +1193,68 @@ No shared text was edited. Shared rows changed only in their TX tag, TX segment 
 - **WY's `early-termination` edit merged.** With TX off the row, every tagged state (CO, WY, MN, ND, SD, OH) had vetted and supported "or on such shorter notice and cure period as applicable law permits"; applied as a uniform edit and noted in each of those logs (rule 62). TX found it lawful.
 - **Rule 62 answers recorded:** TX's answer on CO's `default-by-tenant` deletion (lawful, but it gives up the TDCA's express authorization) is moot for TX, which now uses its own row.
 - **SOP 1.30:** all four proposals adopted (rules 44, 46, 78, 79). TX's conformance column is complete except the examples.
+
+## Circle-back checks (SOP 1.53), 2026-10-04
+
+2026-10-04. Targeted check only (rule 1). Nothing outside the one fix below was reopened.
+
+**Inputs.** The attached files are the only source of truth:
+- `lease-clauses.csv`: 2,876 rows, checked before starting;
+- the TX log, which now includes the SOP 1.29 retro and its sync;
+- `lease-clause-citations-TX.csv`;
+- SOP 1.53;
+- the topics file.
+
+Where earlier chat content conflicts with them, the attached files control. For example, the 2026-10-03 delta in this chat is superseded by the merged CSV, which also carries Claude Code's sync changes.
+
+**Old outputs deleted:** `lease-clauses-TX-retro-delta.csv` and `lease-clause-decision-log-TX-retro.md` (both from the SOP 1.29 retro).
+
+**Statute text.** Read section-open from the official Property Code corpus saved on 2026-10-03:
+- source: tcss.legis.texas.gov, behind statutes.capitol.texas.gov;
+- currency: through the 89th Legislature, 2nd Called Session, 2025;
+- integrity: proved complete against the site's chapter list; SHA-256 02f67b79…9de1.
+
+### One line per rule
+
+The prompt lists no [Retro] rules for this retro (0 rules).
+
+### Targeted fix
+
+| Fix | Verdict | What was read | Rows changed |
+|---|---|---|---|
+| **1. Rule 62 vetting, `surrender-end-of-term`** (CA's proposal, 2026-10-03): add "unless applicable law entitles Tenant to remain" to "Tenant will surrender possession of the property and return all keys to Landlord immediately". | **Checked: the qualified wording is lawful and accurate in Texas. The current wording is mostly backed by Texas law, but it overstates the duty in two Texas cases.** TX supports the edit as uniform. Shared text not edited. Related earlier screen: TX log, Retro checks (SOP 1.29), rule 41 line ("end of the Term ends possession" is lawful in a no-cause state). | Tex. Prop. Code §§24.002(a), 24.005(a)–(b), (c-1), 91.001, 92.0081(b), 92.331, 92.332(b), 92.335; existing row `edu-no-for-cause-eviction-tx`. | None. No delta file. |
+
+**Answer in full.**
+
+1. **Is the qualified wording lawful and accurate in Texas? Yes.**
+   - It narrows the tenant's duty only where the law itself does. Nothing in chs. 24, 54, 91 or 92 bars it.
+   - Texas has no just-cause rule (`edu-no-for-cause-eviction-tx`). The qualifier still has real work to do there, in the two cases below.
+
+2. **Does the current wording state a duty Texas law doesn't back? Mostly no; in two cases, yes.**
+   - **Where the law backs it.** At the end of a fixed term, and after a valid termination, Texas law ends the right of possession. A tenant who refuses to surrender on written demand "holding over after the termination of the tenant's right of possession" commits forcible detainer (§24.002(a)(1)).
+   - **Why process doesn't change that.** The landlord's notice to vacate (§24.005(a): three days, or the period the lease sets) and the judicial-process requirement (§92.0081(b)) govern how the landlord recovers possession. They are not a right to stay.
+   - **Case 1: retaliation.**
+     - §92.331(b) bars a landlord from ending the lease, or filing an eviction, within six months after a tenant's protected act.
+     - §92.335 makes retaliation a defense to the eviction.
+     - §92.332(b) lists the grounds that are always valid, including a holdover after an end-of-term notice given before the tenant acted.
+     - A tenant given a retaliatory "earlier termination" may lawfully stay. The current clause says the tenant must surrender "immediately".
+   - **Case 2: foreclosure.**
+     - After a foreclosure sale, a purchaser who will not continue the lease must give a current tenant at least 30 days' notice to vacate (§24.005(b)).
+     - Federal notice periods are not read here. §24.005(c-1) shows they delay service of the writ.
+   - **Month-to-month tenancies.** A month-to-month tenancy ends on the later of the date in the notice or one month after it (§91.001(b)). A notice that is too short doesn't end the tenancy, so the clause isn't triggered. The qualifier makes that explicit too.
+
+3. **TX position.** No TX change is needed today. The current self-limit on abandoned property ("to the extent permitted by applicable law") is untouched by the proposal. If the edit is applied, TX's existing note still holds, and TX needs no override.
+
+### Proposed SOP changes
+
+None.
+
+### Vouches given (propagation, rule 62)
+- **2026-10-04:** `surrender-end-of-term` (CA's proposal), supported for TX; reasoning above.
+
+## Circle-back sync (Claude Code, 2026-10-04)
+
+- **No delta:** the pass changed no rows, as it reported. TX active 150, unchanged.
+- **Rule 62:** TX supports CA's `surrender-end-of-term` qualifier (retaliation, Tex. Prop. Code §§ 92.331(b), 92.335; post-foreclosure notice, § 24.005(b)); recorded in the backlog tally. TX's log keeps its propagation notes in §16, so the "Vouches given" line sits just above.
+- **Guards:** all pass. **Statute spot-check, 1 of 1, on tcss.legis.texas.gov:** § 92.331(b) (within six months after the tenant's protected act a landlord may not file an eviction proceeding or end the lease, among other actions).
+- **SOP:** no proposals.
