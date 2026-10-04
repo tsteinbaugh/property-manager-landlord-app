@@ -1298,3 +1298,95 @@ Not a re-audit; nothing else in this state was reviewed.
 - **Rule 62 answers recorded:** NV supports WY's `early-termination` wording (moot for NV, which left the row) and CO's deletion of "and reasonable costs and expenses" from `default-by-tenant`.
 - **Noted:** `security-deposit-cap-nv` went from CONDITIONAL to REQUIRED. The cap applies to every Nevada tenancy and the free-text prepaid-rent and cleaning amounts can't be number-checked, so the clause now always attaches; recorded as NV's drafting call. The 43 state-named titles NV saw (a scrub pattern) are for a library-wide tidy, not a fix here.
 - **SOP 1.29:** all four proposals adopted (rules 19, 39, 51, 79). NV's conformance column is complete except the examples.
+
+## Circle-back checks (SOP 1.47), 2026-10-03
+
+2026-10-03. A scalpel only (rule 1): nothing else in Nevada was reopened.
+
+**Inputs.** The files attached to this task are the only source of truth:
+- `lease-clauses.csv`: 2,876 rows, checked before starting.
+- `lease-clause-sop.md` 1.47.
+- `lease-clause-decision-log-NV.md`, through "Retro sync (Claude Code, 2026-10-03)".
+- `lease-clause-citations-NV.csv`.
+- `lease-clause-topics.md`.
+
+My earlier SOP 1.27 outputs in this chat were deleted before starting; the attached CSV already contains them as merged. Research mode was not used.
+
+**Sources.** I re-read these sections section-open in Taylor's built-in browser from leg.state.nv.us:
+- NRS 118A.275, 118A.200 and 118A.220; ch. 118A page Rev. 4/15/2026.
+- NRS 40.250, 40.251, 40.2512, 40.253, 40.255 and 40.360; ch. 40 page Rev. 4/15/2026.
+- NRS 118.175; ch. 118 page Rev. 4/15/2026.
+
+Each relied-on page was fetched twice, and the SHA-256 matched between fetches. All 83 sections saved today (the whole of ch. 118A, plus the ch. 40 and 118 sections above) are word-for-word the same as the copies saved and hash-checked at the 2026-10-02 retro. The only differences are encoding of padding characters.
+
+### One line per rule
+
+The prompt lists no [Retro] rules for this pass (0 rules). Only the two targeted fixes below were run.
+
+### Targeted fixes
+
+1. **Rule 62 vetting of two shared-row proposals:** checked, vouched; no rows changed.
+   - **(1) `surrender-end-of-term`, CA's proposal ("…immediately, unless applicable law entitles Tenant to remain").**
+     - **Read:** NRS 40.250, 40.251(2)–(6), 40.255(2)–(3), 40.360(3), 118A.470(2). Also NV's own note segment on the row: "Applies as written on its hedge…". It has no "gives up" or "kept on purpose" wording.
+     - **The qualified wording is lawful and accurate in Nevada.** Nevada has no just-cause rule, but statute does let a tenant stay past a termination in named cases:
+       - A periodic tenant who is 60 or older or disabled may ask for 30 more days. If refused, the tenant may petition the court, and if the court denies it, the tenant must still be allowed 5 more days (40.251(2), (6)).
+       - A landlord "shall allow" a shutdown worker to stay until 30 days after the shutdown ends (40.251(3)–(4)).
+       - After a foreclosure sale of a single-family residence (up to four units), the lease binds the new owner through the 60-day notice period (40.255(2)–(3)).
+       - A tenant evicted for unpaid rent on an unexpired lease is restored by paying the judgment within 5 days (40.360(3)).
+       - A consented holdover continues the tenancy (118A.470(2)).
+     - **Does the current wording state a duty Nevada law doesn't back?** Yes, in those cases. "Surrender … immediately" conflicts with them, and is unenforceable to that extent.
+     - **Exposure.** Low. These rights sit in NRS ch. 40, not ch. 118A, so 118A.220(2)'s damages for a prohibited provision don't attach. The rest of the clause's hedges are unaffected.
+     - **Verdict:** vouched. The edit is self-limiting, drops no cure or notice Nevada requires, and corrects an overstatement for Nevada. No interim NV override is needed while the uniform edit is pending.
+   - **(2) `default-by-tenant`, MN's proposal (move the no-cure carve-out into its own sentence reaching both limbs).**
+     - **Read:** NRS 40.2512(1)–(2), 40.253(1), (3), (12), 40.2514, 40.2516(1); the row's three NV note segments, including the 2026-10-02 rule 43 note. Their "product choice" remark concerns the non-rent limb's cure promise, which the move does not change.
+     - **Rent limb.** No Nevada statute lets a landlord proceed on unpaid rent without an opportunity to cure. Every unlawful detainer for nonpayment runs through the written pay-or-quit notice: 7 judicial days (40.2512(1)(b)), or the 40.253(1) summary notice, which lets the tenant pay. A shutdown worker is outside both (40.2512(2), 40.253(12)(b)). So in Nevada a carve-out reaching the rent limb never applies and can't be read to drop a cure.
+     - **Notice.** The carve-out speaks of an "opportunity to cure", not notice. The pay-or-quit notice and its contents are statutory (40.2512(1), 40.253(3)), so even a reading that reached the contractual "written notice from Landlord" would leave the statutory notice in place.
+     - **Non-rent limb.** Unchanged in substance. The 3-day no-cure grounds (40.2514) stay carved out.
+     - **Verdict:** vouched, no change needed for Nevada.
+
+2. **Rule 78 (as amended in SOP 1.35): `foreclosure-disclosure-nv` demotion:** checked, demotion kept; fixed the education row.
+   - **Read:** NRS 118A.275 section-open (history line "Added to NRS by 2009, 2791", never amended), quoted in full: "1. A landlord shall disclose in writing to a prospective tenant if the property to be leased or rented is the subject of any foreclosure proceedings. 2. A willful violation of subsection 1 constitutes a deceptive trade practice for the purposes of NRS 598.0903 to 598.0999, inclusive."
+   - **Vehicle words.** The section has none: no "in the rental agreement", "with the rental agreement" or "in the lease". Contrast A.R.S. § 33-1331(A), "with the rental agreement". The duty is a written disclosure to a *prospective* tenant, so it falls before signing and can be given in any writing.
+   - **Verdict.** The statute requires only a separate pre-signing disclosure, so the clause stays optional (RECOMMENDED / SERVES_LANDLORD). It records the disclosure; it is not the statute's vehicle.
+   - **Second finding.** The duty arises only *if* the property is in foreclosure proceedings. `edu-foreclosure-disclosure-nv` said "disclose … whether", which overstated it.
+   - **Rows changed:**
+     - **`foreclosure-disclosure-nv`:** NV note segment (verdict, vehicle-word reading, the "if" trigger) and `last_checked`. Text, `rule_type` and basis unchanged.
+     - **`edu-foreclosure-disclosure-nv`:** body corrected. It now says:
+       - the duty is triggered when the property is in proceedings, and the disclosure is owed in writing before signing;
+       - it need not be in or with the lease;
+       - treat a recorded notice of default as a proceeding (the safe course on the open ch. 107 question, which stays unread);
+       - a willful failure is a deceptive trade practice;
+       - the optional clause records the disclosure but doesn't replace it.
+     - Notes and `last_checked` updated.
+
+### Vouches given
+
+Rule 62 says vouches go in the log's propagation section under "Vouches given". This pass delivers one section only, so Claude Code may move these two lines there.
+- `surrender-end-of-term`: CA's "unless applicable law entitles Tenant to remain" is vouched for NV. Nevada law lets a tenant remain in named cases (NRS 40.251(2)–(6), 40.255(2)–(3), 40.360(3), 118A.470(2)), so the current wording overstates the duty here.
+- `default-by-tenant`: MN's standalone no-cure sentence is vouched for NV, no change needed. Nevada has no no-cure ground for nonpayment, and the pay-or-quit notice is statutory (NRS 40.2512, 40.253).
+
+### Rows changed (2)
+
+`foreclosure-disclosure-nv` (notes and `last_checked`) and `edu-foreclosure-disclosure-nv` (body, notes and `last_checked`). Both are NV-only rows; no shared row was touched.
+
+Checked:
+- the delta header and CRLF line endings match the master;
+- all 17 columns are present;
+- each row's existing notes are preserved and only an NV segment is appended;
+- no `rule_type`, basis, `states` or id changed.
+
+### Proposed SOP changes
+
+1. **Rule 78, vehicle words.** When a statute's notice runs "to a prospective tenant" with no vehicle words, record it as a pre-signing disclosure that may be in any writing. Also check whether the duty is conditional ("if the property is …") rather than an either/or statement: NV's row had turned "disclose if" into "disclose whether".
+
+### Vouches given (propagation, rule 62)
+- **2026-10-03:** `surrender-end-of-term` (CA's proposal) and `default-by-tenant` (MN's proposal), both vouched for NV; reasoning above.
+
+## Circle-back sync (Claude Code, 2026-10-03)
+
+- **Merged** with `merge-delta.py --base 2b10851`: 2 NV rows updated (`foreclosure-disclosure-nv` notes; `edu-foreclosure-disclosure-nv` body and notes), no new rows, nothing refused. NV active 136, unchanged.
+- **Rule 78 (AZ flag):** the scrub's demotion of `foreclosure-disclosure-nv` stands. Unlike Arizona's A.R.S. § 33-1331(A) ("with the rental agreement"), NRS 118A.275 asks only for a written disclosure to a prospective tenant, so the lease clause is optional. The education row now states the "if" trigger and the pre-signing timing. The backlog's AZ flag is closed for NV; MN is still to check at its next pass.
+- **Citations file:** both rows re-dated; `foreclosure-disclosure-nv` moves from PARTIAL to CITED with the 118A.275 reading recorded.
+- **Rule 62:** NV vouched for CA's `surrender-end-of-term` qualifier and MN's `default-by-tenant` sentence; both recorded in the backlog tally. NV's log keeps its propagation notes as dated sections rather than a numbered §9, so the "Vouches given" lines sit just above.
+- **Guards:** all pass. **Statute spot-check, 2 of 2, on leg.state.nv.us:** NRS 118A.275 (quoted in full above; matches word for word) and NRS 40.360 (judgment for restitution in unlawful detainer).
+- **SOP 1.48:** NV's proposal adopted (rule 78).

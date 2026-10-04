@@ -256,6 +256,8 @@ All six v1 MVP modules are built (tagged `v1.0.0`), along with v2 Property Specs
 
 - [2026-10-03] — **NM circle-back synced.** No row changes; NM vouched for MN's pending `default-by-tenant` edit (NMSA 1978, § 47-8-33(D)'s three-day notice and tender can't be reached by the carve-out).
 
+- [2026-10-03] — **NV circle-back synced.** The scrub's demotion of `foreclosure-disclosure-nv` was correct: NRS 118A.275 asks for a written disclosure to a prospective tenant only if the property is in foreclosure proceedings, with no in-lease requirement (contrast Arizona). The education row now says "if", not "whether". NV vouched for CA's and MN's pending edits. SOP 1.48 (rule 78).
+
 ## 🗳 Decisions log
 - [2026-09-30] — **Desktop deltas are merged with `merge-delta.py`, never by whole-row replacement.** Passes routinely start from an older library than the one at sync (NE, IN and AZ all did), and three times a whole-row replace would have silently undone another state's merge. The tool makes the safe merge the default and turns any real conflict into a refusal for hand review.
 - [2026-09-30] — **`early-termination-ks` applies only to a fixed-Term lease (Claude Code, uniform shared edit under rule 62).** Its fee is measured on "the remaining Rent due under the Term", which a month-to-month tenancy doesn't have, and every tagged state gives a periodic tenancy its own ending notice. Limiting the option removes nothing the landlord has under law, and the abandonment sentence still covers every lease. The builder-level fix (marking fixed-term-only clauses) stays in the backlog.
