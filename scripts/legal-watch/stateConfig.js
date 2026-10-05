@@ -45,6 +45,7 @@ const STATE_NAMES = {
   WI: "Wisconsin",
   WA: "Washington",
   OR: "Oregon",
+  KY: "Kentucky",
 };
 
 // New York consolidated-law abbreviations (as cited in the NY rows) and the
@@ -1701,6 +1702,41 @@ const STATE_CONFIG = {
       },
     ],
   },
+  KY: {
+    // Kentucky Revised Statutes sections are chapter.section ("383.580",
+    // "411.195") or, in a few chapters, chapter.article-section
+    // ("224.1-410"). Kentucky bills say "KRS 383.580 is amended to read", so
+    // the query pairs the number with "KRS". Citations are split on ";" and
+    // only the "KRS" parts are read; administrative regulations (KAR), local
+    // URLTA adoptions and federal parts are manual items below. Subsection
+    // parentheses become spaces, so "383.580(2)" stays 383.580.
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        if (!/^KRS \d/.test(part)) continue;
+        const body = part.replace(/\([^)]*\)/g, " ");
+        for (const m of body.matchAll(/\b(\d{1,3}[A-Z]?\.\d{1,3}-\d{3}|\d{1,3}[A-Z]?\.\d{3,4})\b/g)) out.push(m[1]);
+      }
+      return out;
+    },
+    buildQuery: (section) => `"${section}" AND "KRS"`,
+    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
+    manualRecheckItems: [
+      {
+        id: "ky-urlta-adoptions",
+        label:
+          "Which cities and counties have adopted the Uniform Residential Landlord and Tenant Act under KRS 383.500 changes by local ordinance, which LegiScan can't see, and no primary statewide list exists. Check for new adoptions or repeals (KY log §1.1, §7)",
+        clauseIds: ["edu-urlta-scope-ky", "edu-local-preemption-ky"],
+      },
+      {
+        id: "ky-kar-and-escheat",
+        label:
+          "Sources LegiScan can't see, and one open question: the building and fire code regulations (815 KAR 7, 815 KAR 10), Public Service Commission disconnection rules (807 KAR 5:006) and the methamphetamine disclosure regulations (902 KAR); and whether KRS 383.580(7)'s 60-day rule or the unclaimed property law (KRS 393.080, chapter 393A) governs an unclaimed deposit refund (KY log §6.3, §7, §10)",
+        clauseIds: ["edu-deposit-escheat-ky", "meth-contamination-disclosure-ky"],
+      },
+    ],
+  },
 };
 
 // Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
@@ -1713,7 +1749,7 @@ const STATE_CONFIG = {
 const SCHEDULE_ORDER = [
   "CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ",
   "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI",
-  "IA", "NM", "MT", "NY", "WI", "WA", "OR",
+  "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY",
 ];
 function cronFor(code) {
   const n = SCHEDULE_ORDER.indexOf(code);

@@ -32593,13 +32593,1916 @@ const LANDLORD_EDUCATION = [
     id: "edu-cares-act-notice",
     title: "Federal 30-Day Notice to Vacate for Federally Backed Properties",
     group: "Default & Termination",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY"],
     ruleTypes: ["CONDITIONAL"],
     verificationStatus: "VERIFIED",
     topicKey: "cares-act-notice",
     bodyText:
       "Federal law adds a notice rule for some rentals, on top of your state's notices. Under the CARES Act, if the property has a federally backed mortgage, or takes part in a covered federal housing program or the rural housing voucher program, you may not require the tenant to vacate until 30 days after you give a notice to vacate (15 U.S.C. § 9058(c)). For a property of one to four units, a federally backed mortgage includes a loan made, insured, guaranteed or assisted by a federal agency (for example FHA, VA or USDA loans) and a loan bought or securitized by Fannie Mae or Freddie Mac (15 U.S.C. § 9058(a)(4)); larger properties have a matching multifamily definition. The same law's temporary eviction moratorium ended in 2020, but the 30-day notice section has no end date. Courts disagree about whether it still applies, and whether it reaches only evictions for nonpayment; this library has not reviewed those decisions. If your loan may be federally backed (your servicer can tell you), the safe course is to give at least 30 days' written notice to vacate before filing, or your state's longer notice where it is longer. Some state court rules also ask for a statement about it when you file.",
-    notes: "FEDERAL (Claude Code, 2026-10-04, Taylor's decision A): one federal row tagged in every verified state, replacing patchy per-state coverage (17 of 35 states mentioned it). CITED - 15 U.S.C. § 9058(a)(1)-(5) (covered dwelling, covered property, federally backed and multifamily mortgage loans), (b) (120-day moratorium from March 27, 2020), (c) (30-day notice to vacate; Pub. L. 116-136, div. A, title IV, § 4024). Read in the 2024 US Code on govinfo.gov (USCODE-2024-title15-chap116-subchapIII-partA-sec9058) on 2026-10-04; uscode.house.gov was down for maintenance. Case law on whether (c) survives the moratorium and reaches only nonpayment: not read, and the row says so. The 'covered housing program' list is in 34 U.S.C. § 12491(a), not read. State court-rule examples: Georgia's magistrate court rules (edu-eviction-process-ga). New states tag this row at research (kickoff template).",
+    notes: "FEDERAL (Claude Code, 2026-10-04, Taylor's decision A): one federal row tagged in every verified state, replacing patchy per-state coverage (17 of 35 states mentioned it). CITED - 15 U.S.C. § 9058(a)(1)-(5) (covered dwelling, covered property, federally backed and multifamily mortgage loans), (b) (120-day moratorium from March 27, 2020), (c) (30-day notice to vacate; Pub. L. 116-136, div. A, title IV, § 4024). Read in the 2024 US Code on govinfo.gov (USCODE-2024-title15-chap116-subchapIII-partA-sec9058) on 2026-10-04; uscode.house.gov was down for maintenance. Case law on whether (c) survives the moratorium and reaches only nonpayment: not read, and the row says so. The 'covered housing program' list is in 34 U.S.C. § 12491(a), not read. State court-rule examples: Georgia's magistrate court rules (edu-eviction-process-ga). New states tag this row at research (kickoff template). | KY (Claude Code, 2026-10-05 KY sync): tagged at sync, since KY's kickoff predates the 2026-10-04 decision. Nothing in Kentucky law changes the federal rule; KRS 383.660(2)'s 7-day nonpayment notice is the state notice the federal 30 days can lengthen on a covered property.",
+  },
+  // Notices & General
+  {
+    id: "edu-urlta-scope-ky",
+    title: "Where Kentucky's Landlord-Tenant Act Applies",
+    group: "Notices & General",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "scope",
+    bodyText:
+      "Kentucky has two sets of landlord-tenant rules, and which one applies depends on where the property is. The Uniform Residential Landlord and Tenant Act (KRS 383.505 to 383.705) applies only in a city, county or urban-county government that has adopted it by ordinance, in full and without changes. Louisville Metro (Louisville-Jefferson County) and Lexington-Fayette have adopted it; in 2016 the General Assembly's research staff also listed Alexandria, Bellevue, Bromley, Catlettsburg, Covington, Crestview Hills, Cumberland, Danville, Dayton, Florence, Georgetown, Jeffersontown, Lebanon, Livermore, London, Ludlow, Midway, Millersburg, Mount Olivet, Newport, Oak Grove, Pikeville, Pleasureville, Radcliff, Shelbyville, Silver Grove, Southgate, Taylor Mill, Walton, West Point and Wilder, and Oldham and Pulaski Counties, and said no current list of adopting counties exists. Ask the city or county clerk whether the Act has been adopted where your property is, and check both the city and the county. Where it has been adopted, the Act sets rules on deposits, disclosures, entry, repairs, notices, holdover, retaliation and self-help eviction. Where it has not, older statutes (KRS 383.010 to 383.302) and the lease itself govern most questions. Some rules apply everywhere in Kentucky: the eviction (forcible detainer) court process, protections for tenants with protective orders, the ban on lease terms penalizing calls to police or emergency help, assistance animal rules, removal of squatters by law enforcement, fair housing, and, in Jefferson County, the limit on leasing homes in single-family zones without the owner living on the lot. Even where the Act applies it does not cover residence at an institution incidental to detention or to medical, geriatric, educational counseling, religious or similar service, occupancy under a contract to buy, fraternal housing, transient occupancy in a hotel, motel or lodging subject to the transient room tax, employee housing tied to the job, condominium or co-op owners, or dwellings on land devoted to producing livestock, poultry, tobacco or other crops including timber. This library's Kentucky lease clauses are written to be lawful under both sets of rules.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). This row explains the two tiers (lead 1). Adoption: 'The General Assembly hereby authorizes cities, counties and urban-county governments to enact the provisions of the Uniform Residential Landlord and Tenant Act as set forth in KRS 383.505 to 383.705. If adopted, these provisions shall be adopted in their entirety and without amendment' (KRS 383.500). Louisville Metro: Louisville Metro Code ch. 151, § 151.01 (Jeff. Ord. 22-1984, adopted and effective 7-24-1984), read in the browser on codelibrary.amlegal.com 2026-10-04; Lexington-Fayette: Code of Ordinances § 12-54 (Ord. No. 98-84, § 2, 6-28-84), read on library.municode.com 2026-10-04 (codified through Ord. 048-2025). The other names come from the Legislative Research Commission's 2016 local mandate fiscal note on HB 380 (16RS), which also says a current county list is not available, and are a dated lead, not a verified current list (rule 32: no primary statewide list exists; KY log §1.1). Older sections apply where the Act is not in effect, e.g. 'In those jurisdictions where the Uniform Residential Landlord and Tenant Act is not in effect' (KRS 383.195). Exclusions KRS 383.535(1)-(7). Statewide rules: KRS 383.085, 383.198, 383.199, 383.200 to 383.285, 383.290, 383.300, 383.302; KRS ch. 344. Local ordinances (Louisville Metro Code §§ 151.60-151.61 eviction-court representation; Lexington § 12-55) flagged, not resolved (rule 3). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-local-preemption-ky",
+    title: "Local Landlord-Tenant Ordinances",
+    group: "Notices & General",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-control",
+    bodyText:
+      "No Kentucky city, county or other local government may adopt or enforce a landlord-tenant ordinance that conflicts with state law. A local government that adopts the Uniform Residential Landlord and Tenant Act must adopt it unchanged, and no city, county or urban-county government may pass any other ordinance on the subjects the Act covers. No local government may require landlords to rent to tenants whose rent is paid partly with federal housing assistance, such as a Housing Choice Voucher, and none may bill a landlord for a police, fire or ambulance response caused by a tenant or guest unless the landlord's failure to keep the building up to code caused it. Only the General Assembly may control rents on private property, so no city or county may adopt rent control, and no Kentucky statute caps the amount or frequency of rent increases, though where the Act applies a landlord may not raise rent to retaliate for protected complaints or tenant organizing. Local rental registration, inspection and code-enforcement programs still exist; check with the city or county.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). Lead 2. 'A city, county, charter county government, urban-county government, consolidated local government, or unified local government shall not adopt or enforce any ordinance relating to landlord or tenant laws that is in conflict with any law of this Commonwealth' (KRS 383.198; 2024 Ky. Acts ch. 3, sec. 3, effective March 6, 2024, emergency clause, veto overridden March 6, 2024, enrolled act read). 'No other ordinance shall be enacted by a city, county or urban-county government which relates to the subjects embraced in KRS 383.505 to 383.705' (KRS 383.500). Source of income: KRS 65.874 (2024 Ky. Acts ch. 3, sec. 1). Emergency response fees: KRS 65.111(2) (am. 2025 Ky. Acts ch. 56, sec. 7). Rent control: 'only the General Assembly shall enact legislation which would control rents on private property' (KRS 65.875) (1992 Ky. Acts ch. 242, sec. 1; housing-authority and federal-grant programs excepted, KRS 65.875). No state statute caps rent increases (KY battery rent-control (rent control / limit on rent increases): 7 hits, control 0; known positives passed (0 real sections, 2 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery rent-escalation-r2 (rent increase / escalation (rerun)): 2 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); retaliatory increases barred where the Act applies (KRS 383.705(1); `edu-retaliation-ky`). Local programs flagged, not resolved (rule 3). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-owner-occupancy-lease-limit-ky",
+    title: "Jefferson County: Leasing in Single-Family Zones",
+    group: "Compliance & Prohibited Terms",
+    states: ["KY"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "single-family-zone-lease-limit",
+    bodyText:
+      "In Jefferson County (Louisville Metro), for a new lease that began after June 27, 2025, an owner may not lease or allow anyone to occupy a single-family home, multifamily unit or accessory dwelling unit on a lot that has a single-family home and lies in a traditional single-family zone (a zone that did not permit multifamily homes on January 1, 2025), unless the owner primarily lives in one of the homes or units on that lot. The rule does not apply to a lot with only one single-family home and no accessory dwelling unit, so an ordinary single-family rental is not affected. For this rule an owner includes an individual owner, a trust beneficiary or trustee, a partner or LLC member, or a corporate shareholder. Check the zoning of the lot before leasing a second unit or an accessory dwelling unit there.",
+    notes: "KY: KY-SCOPE: STATEWIDE (both tiers; Jefferson County only). Lead 3. KRS 383.199(1)-(2) (2025 Ky. Acts ch. 56 (SB 129), sec. 4; no effective-date clause; compiled 'Effective: June 27, 2025'; enrolled act read and matches: 'for new leases initiated after the effective date of this Act'). 'unless the owner primarily resides in the single-family home or multifamily housing unit or an accessory dwelling unit on the lot' (KRS 383.199(2)); exception for 'a lot that contains only one (1) single-family home and does not contain an accessory dwelling unit' (KRS 383.199(2)); 'Traditional single-family home zone' (KRS 383.199(1)(d)). 'In a county containing a consolidated local government': Jefferson County is the only one (Louisville Metro; Claude's reading from KRS ch. 67C, not separately verified). Education, not a disclosure: the statute restricts the owner and requires no lease text (rule 55). No penalty stated in the section. New topic key (rule 58): no existing key covers an owner-occupancy restriction on leasing. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Security Deposit
+  {
+    id: "edu-no-security-deposit-cap-ky",
+    title: "No Security Deposit Cap",
+    group: "Security Deposit",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-cap",
+    bodyText:
+      "Kentucky does not limit the amount of a security deposit or pet deposit, in any locality. A tenant with an assistance animal may not be charged a pet deposit, pet fee or extra rent for it.",
+    notes: "KY: KY-SCOPE: STATEWIDE. No cap in KRS 383.580 (read whole) or elsewhere (KY battery deposit-cap (cap on security deposit amount): 13 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). KRS 383.085(4) (assistance animals). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-security-deposit-holding-ky",
+    title: "Where to Keep the Security Deposit",
+    group: "Security Deposit",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-holding",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act applies, a landlord who requires a security deposit before move-in must keep all tenants' deposits in an account used only for that purpose, at a bank or other lending institution regulated by Kentucky or a federal agency, and must tell prospective tenants where the account is and its account number. No interest has to be paid on the deposit. Elsewhere in Kentucky no landlord-tenant statute says where a deposit must be kept. In every locality, a principal broker whose company manages property must keep money belonging to others in a Kentucky escrow or a separate property management account (a broker who owns the rental property need not use the management account unless the principal broker requires it), and any interest goes to whoever the parties agree in writing; treating a tenant's deposit as such money is a reasonable reading. Keeping a separate account and stating it in the lease meets both sets of rules.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). URLTA localities: 'All landlords of residential property requiring security deposits prior to occupancy shall be required to deposit all tenants' security deposits in an account used only for that purpose, in any bank or other lending institution subject to regulation by the Commonwealth of Kentucky or any agency of the United States government' (KRS 383.580(1)); account location and number (KRS 383.580(1)); lease clause `security-deposit-use-ky`. Interest: none required (KY battery deposit-interest (interest on security deposit): 12 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Elsewhere: (KY battery deposit (security deposit statutes): 15 hits, control 0; known positives passed (2 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Brokers: 'A principal broker shall maintain an escrow account or accounts, separate from the individual or office account, in which all contract deposits and money belonging to others shall be deposited without unreasonable delay' (KRS 324.111(1)); 'The escrow accounts shall be maintained within the State of Kentucky' (KRS 324.111(1)); separate property management accounts (KRS 324.111(7)); interest 'shall accrue to the person agreed to in writing by all parties' (KRS 324.111(2)); own rental property KRS 324.111(8). Whether a tenant's deposit held by a managing broker is 'money belonging to others' is Claude's reading. The deposit battery's pattern could not reach this section (it names no deposit kind); found by the independent check (KY log §13). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-condition-checklist-ky",
+    title: "Move-In and Move-Out Damage Lists",
+    group: "Security Deposit",
+    states: ["KY"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "condition-inspection",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act applies, before a prospective tenant pays any security deposit the landlord must give the tenant a comprehensive written list of existing damage that could be the basis for a charge against the deposit, with the estimated cost of repairing it. The tenant may inspect the property to check the list before moving in. Both sign the list, and the signatures are conclusive evidence that it is accurate, except for latent defects; a tenant who disagrees must list the disputed items in a signed written statement. At move-out the landlord inspects again and prepares a second list of damage charged to the deposit, with estimated costs; the tenant may inspect, both sign, and the tenant may dissent in writing. A tenant who neither signs nor dissents cannot later sue over the final list. A landlord who skips the account and the lists can lose the right to keep any of the deposit.",
+    notes: "KY: KY-SCOPE: URLTA LOCALITIES (rules apply only where a city, county or urban-county government has adopted KRS 383.505 to 383.705 under KRS 383.500). KRS 383.580(2)-(3), (5) read whole; forfeiture KRS 383.580(4) (`edu-security-deposit-penalty-ky`). REQUIRED in URLTA localities (a written list given before any deposit); the list is a separate document, the lease clause `existing-condition-ky` points to it. Elsewhere no statute requires a list (KY battery deposit (security deposit statutes): 15 hits, control 0; known positives passed (2 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-security-deposit-penalty-ky",
+    title: "Losing the Right to Keep a Deposit",
+    group: "Security Deposit",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-penalty",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act applies, a landlord is not entitled to keep any part of a security deposit if the deposit was not kept in a separate account and the move-in and move-out damage lists were not provided. The statute joins the two failures with 'and'; to be safe, meet both duties, since a court could read either failure as enough. A tenant who disputes the final damage list may sue in District Court, but only over items the tenant dissented from in writing. Elsewhere in Kentucky no statute sets a penalty; ordinary contract law applies.",
+    notes: "KY: KY-SCOPE: URLTA LOCALITIES (rules apply only where a city, county or urban-county government has adopted KRS 383.505 to 383.705 under KRS 383.500). 'No landlord shall be entitled to retain any portion of a security deposit if the security deposit was not deposited in a separate account as required by subsection (1) of this section and if the initial and final damage listings required by subsections (2) and (3) of this section are not provided' (KRS 383.580(4)). Rule 79 sentence-level parse: the 'and' joins the account failure and the listing failure; whether both must fail is not settled by the text alone (case law not searched), so landlords are told to meet both. Tenant action limited to dissented items (KRS 383.580(5)). Elsewhere (KY battery deposit (security deposit statutes): 15 hits, control 0; known positives passed (2 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-deposit-refund-ky",
+    title: "Refunding the Security Deposit",
+    group: "Security Deposit",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-return",
+    bodyText:
+      "Kentucky sets no deadline for returning a security deposit. Where the Uniform Residential Landlord and Tenant Act applies: if the tenant leaves owing no rent and is due a refund, the landlord must send a notice of the refund amount to the tenant's last known or reasonably determinable address, and if the tenant does not respond within 60 days after the notice is sent, the landlord may keep the deposit; if the tenant leaves without paying the last month's rent and does not ask for the deposit back, the landlord may, after 30 days, take the deposit from the account and apply it to the debt. Damage charges follow the signed move-out list. Elsewhere the lease and contract law govern; returning the balance promptly with the list is the safe practice.",
+    notes: "KY: KY-SCOPE: URLTA LOCALITIES (rules apply only where a city, county or urban-county government has adopted KRS 383.505 to 383.705 under KRS 383.500). KRS 383.580(6)-(7) ('In the event the tenant leaves not owing rent and having any refund due, the landlord shall send notification to the last known or reasonably determinable address, of the amount of any refund due the tenant' (KRS 383.580(7))). No deadline in either tier (KY battery deposit-deadline-r2 (deposit return deadline (both orders; rerun of deposit-deadline)): 2 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Unclaimed-property law: `edu-deposit-escheat-ky`. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-late-fee-ky",
+    title: "Late Fees in Kentucky",
+    group: "Rent & Payment",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "late-fee",
+    bodyText:
+      "No Kentucky statute caps late fees or sets a grace period on a residential lease, in any locality. State any late fee in the lease, since without an agreement there is no contractual right to one; a very large fee risks being treated by a court as an unenforceable penalty. Where the Uniform Residential Landlord and Tenant Act applies, a late fee counts as rent, and accepting rent while knowing of a tenant's default waives the right to terminate for that default unless the parties agree otherwise after the default, so a lease sentence saying acceptance is never a waiver will not work there. Unpaid rent also bears 6% interest a year from its due date by statute.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). No late-fee statute (KY battery late-fee (late fee / late charge): 39 hits, control 0; known positives passed (0 real sections, 2 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery late-fee-r2 (late charge everyday words (rerun of late-fee-2)): 3 hits, control 0; known positives passed (0 real sections, 2 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); 'Rent' means 'all payments except a security deposit' to be made under the rental agreement (KRS 383.545(10)); waiver by acceptance KRS 383.675; interest KRS 383.010(1). Need for an agreed fee and the penalty doctrine: Claude's reading, case law not searched (KY log §1.4). KRS 359.215 (late fees) governs self-service storage only. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-unpaid-damages-interest-ky",
+    title: "Interest on Unpaid Rent",
+    group: "Rent & Payment",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "unpaid-damages-interest",
+    bodyText:
+      "By statute, rent bears interest at 6% a year from the time it is due, in any locality. Kentucky's general legal rate of interest is 8%, and a written contract may set a higher rate within statutory limits (for a debt of $15,000 or less, no more than 4% above the Federal Reserve discount rate on 90-day commercial paper, or 19%, whichever is less). This library does not offer a contractual interest clause: the rent statute already supplies interest, and a higher contract rate on small rent debts adds little and could be challenged. A landlord who wants one should take advice first.",
+    notes: "KY: KY-SCOPE: STATEWIDE. 'Rent may be recovered by distress, attachment or action, and shall bear six percent (6%) interest per annum from the time it is due' (KRS 383.010(1)). Legal rate and contract rates: KRS 360.010(1)(a), (3)-(5) (am. 2018 Ky. Acts ch. 140, sec. 1). Which rate a court applies to rent where KRS 383.010 and 360.010 differ: KRS 360.010(5) preserves particular-transaction rates (Claude's reading; case law not searched). Rule 54: a contractual interest rate is lawful but declined, with this row. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-statute-of-frauds-ky",
+    title: "Written Leases and Long Terms",
+    group: "Notices & General",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "statute-of-frauds-lease-term",
+    bodyText:
+      "A lease of real estate for longer than one year must be in writing and signed by the party to be charged to be enforceable, and so must an agreement that cannot be fully performed within one year from when it is made, such as a one-year lease agreed before its start date. Shorter oral arrangements are not barred by this rule, but a written lease avoids disputes; without a written contract a landlord can still recover reasonable payment for the use of the property.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 371.010(6) ('any lease thereof for longer than one year'), (7) ('any agreement that is not to be performed within one year from the making thereof'); the validity of shorter oral leases is Claude's reading (the statute says only which agreements need a writing); KRS 383.090 ('If there is no written contract, a landlord may, by action, recover reasonable satisfaction for the use and occupation of his land'). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-prohibited-lease-terms-ky",
+    title: "Lease Terms Kentucky Voids",
+    group: "Compliance & Prohibited Terms",
+    states: ["KY"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "prohibited-lease-terms",
+    bodyText:
+      "In every Kentucky locality: a lease may not let the landlord end the tenancy or penalize a tenant because the tenant asks the police or anyone else for emergency help, and a landlord who knowingly enforces such a term can owe the tenant actual damages, attorney fees and costs, and up to two months' rent; and a power of attorney to confess judgment given before a lawsuit is filed is void. Where the Uniform Residential Landlord and Tenant Act applies, a lease also may not have the tenant waive rights under the Act, authorize a confession of judgment, agree to pay the landlord's attorney fees, or excuse, limit or indemnify the landlord's liability under law; such terms are unenforceable, and a court may refuse to enforce any term it finds unconscionable.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.302(1)-(3) (leases created or renewed on or after June 29, 2017); KRS 372.140(1) ('any power of attorney to confess judgment or to suffer judgment to pass by default or otherwise, and any release of errors, given before an action is instituted, is void'); KRS 383.570(1)-(2); KRS 383.555. No knowing-use money penalty for KRS 383.570 terms (contrast KRS 383.302(2)) (`edu-knowing-use-penalty-ky`). Rule 37: KRS 383.302 reaches leases 'created or renewed on or after June 29, 2017'; how it reaches a periodic tenancy begun earlier is not stated, so landlords are told to follow it for every tenancy. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-dv-lease-termination-ky",
+    title: "Early Termination by Protected Tenants",
+    group: "Default & Termination",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-lease-termination",
+    bodyText:
+      "In every Kentucky locality, for a lease created or renewed on or after June 29, 2017, a tenant (or applicant, or a tenant with a minor household member) protected by a domestic violence order or interpersonal protective order restraining the other party from unauthorized contact may end the lease. If the order was obtained after the lease was signed, the tenant gives written notice of termination effective on a date at least 30 days after the landlord receives it, with a copy of the order. If the order was obtained before the lease was signed, the tenant must also show a safety concern that arose after the lease was signed. The tenant owes rent prorated to the termination date, payable when the lease would have required it, but no other rent or fees because of the early termination, may not be given a negative credit entry or reference for it, and owes no damages or penalties at all if the lease ends 14 or more days before move-in. The restrained person is liable to the landlord for the landlord's losses from the early termination, and the tenancy continues for any remaining tenants. A tenant who is also the restrained person gets none of these protections.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 383.300(1)(a)-(b), (2)(b)1., (5)(a)-(d), (7) (2017 Ky. Acts ch. 191, sec. 1, effective June 29, 2017). Orders: 'Domestic violence order issued pursuant to KRS 403.740' and 'Interpersonal protective order issued pursuant to KRS 456.060' (KRS 383.300(2)(b)1.a.-b.); emergency, temporary and pretrial no-contact orders count only for (3) and (4) (KRS 383.300(2)(b)2.). Rule 37: 'This section shall apply only to leases or rental agreements created or renewed on or after June 29, 2017' (KRS 383.300(1)(a)); how that reaches an older month-to-month tenancy is not stated, so follow it for every tenancy. Good-faith immunity KRS 383.300(8). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-dv-eviction-protection-ky",
+    title: "No Adverse Action Against Protected Tenants",
+    group: "Compliance & Prohibited Terms",
+    states: ["KY"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-eviction-protection",
+    bodyText:
+      "In every Kentucky locality, for leases made or renewed on or after June 29, 2017, a landlord may not terminate, refuse to renew, refuse to enter into, or otherwise retaliate in a rental because a person is protected by a domestic violence order, interpersonal protective order, emergency protective order, temporary interpersonal protective order or pretrial release no-contact order. In an eviction case it is a defense if the tenant is protected and the notice to vacate is substantially based on acts that violated the order or led to it, including complaints of noise, disturbances or repeated police presence. Where the restrained person is a co-tenant of a tenant protected by a domestic violence order or interpersonal protective order, the landlord may, whatever the lease says, refuse that person access unless a court order permits it, end that person's lease, evict that person, and recover from that person unpaid rent and damages from violating the order. A person who is also restrained by such an order gets none of these protections.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 383.300(1)(b), (3)(a)-(b), (2)(b)2., (6)(a)-(b) (subsection (6) applies only 'if a named individual and a protected tenant are cotenants', and for it a protected tenant means one with an order under (2)(b)1.; the other orders count only for (3) and (4), KRS 383.300(2)(b)2.) (leases created or renewed on or after June 29, 2017, KRS 383.300(1)(a)). 'including an action for possession based on complaints of noise, disturbances, or repeated presence of peace officers' (KRS 383.300(3)(b)2.). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Access & Entry
+  {
+    id: "edu-dv-lockchange-ky",
+    title: "Lock Changes by Protected Tenants",
+    group: "Access & Entry",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-lockchange",
+    bodyText:
+      "In every Kentucky locality, for leases made or renewed on or after June 29, 2017, after telling the landlord, a tenant protected by one of the listed protective orders may, at the tenant's expense, rekey the lock if it is in good working condition or replace the whole locking mechanism with one of equal or better quality, and must give the landlord a key on request. Whatever the lease says, the landlord may refuse to give a key to the restrained person, even if that person is on the lease, and the restrained person still owes rent.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 383.300(4)(a)-(c), (2)(b)2., (1)(b) (leases created or renewed on or after June 29, 2017). Lease clause `keys` is tagged with this note. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-emergency-assistance-right-ky",
+    title: "Calls for Police or Emergency Help",
+    group: "Compliance & Prohibited Terms",
+    states: ["KY"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "emergency-assistance-right",
+    bodyText:
+      "In every Kentucky locality, a residential lease may not include a term letting the landlord end the lease or penalize the tenant because the tenant asked for help from the police or for other emergency assistance. Such a term is unenforceable, and a landlord who enforces a lease knowing it contains one can owe the tenant actual damages, reasonable attorney fees and costs, and punitive damages of up to two months' rent. The rule covers leases created or renewed on or after June 29, 2017; follow it for every tenancy.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 383.302(1)-(3) (2017 Ky. Acts ch. 191, sec. 2). 'A landlord shall not include in a residential rental agreement or lease for housing a provision authorizing the landlord to terminate the agreement or to impose a penalty on a tenant for requests made by the tenant for assistance from peace officers or other assistance in response to emergencies' (KRS 383.302(1)). Every KY clause checked: none terminates or penalizes for such calls; `default-by-tenant-ky` and `criminal-activity-ky` state it. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Pets
+  {
+    id: "edu-assistance-animals-ky",
+    title: "Assistance Animals",
+    group: "Pets",
+    states: ["KY"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "assistance-animal-accommodation",
+    bodyText:
+      "In every Kentucky locality, a person with a disability may ask to keep an assistance animal, which includes a trained service animal and an emotional support animal. Unless the disability or the need is readily apparent, the landlord may ask for reliable documentation of the disability-related need, including from a provider with whom the person has or had a therapeutic relationship (a Kentucky-licensed clinical social worker, professional counselor, advanced practice registered nurse, psychologist or physician in active in-state practice; a person moving from another state may use a provider licensed there with whom the person has an ongoing therapeutic relationship), and may independently verify the documentation. Documentation from a provider whose main service is selling documentation for a fee does not count. The tenant must follow lease rules that apply to all residents, unless they interfere with equal use and enjoyment; may not be charged a pet fee, pet deposit or extra rent for the animal; and is responsible for physical damage it causes if residents with pets are responsible for damage their pets cause. A landlord is not liable for injuries caused by an assistance animal it permitted as a reasonable accommodation. Federal fair housing rules also apply.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 383.085(1)-(5) (am. 2019 Ky. Acts ch. 145, sec. 1, effective June 27, 2019). 'This definition shall not include a health-care provider described in this paragraph whose primary service is to provide documentation to a person requesting a reasonable accommodation in exchange for a fee' (KRS 383.085(1)(b)). Disability accommodation duty also KRS 344.360(11)(b). The shared `assistance-animal-accommodation` clause is tagged (its damage sentence is lawful because this lease makes pet owners responsible for pet damage, `pet-policy-ky`). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-service-animal-misrepresentation-ky",
+    title: "Misrepresenting an Assistance Animal",
+    group: "Pets",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "service-animal-misrepresentation",
+    bodyText:
+      "In Kentucky it is a violation, with a fine of up to $1,000, to knowingly misrepresent a disability or disability-related need when asking to keep an assistance animal in housing, make materially false statements to get documentation, give someone a document falsely calling an animal an assistance animal, put an assistance-animal vest, harness, collar or sign on an animal that is not one, use fraud or deceit in providing documentation, or provide documentation for housing mainly to collect a fee.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 383.085(6)(a)-(f), (7) ('Misrepresentation of an assistance animal is a violation with a fine of up to one thousand dollars ($1,000)'). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-unauthorized-occupants-ky",
+    title: "Squatters and Unauthorized Occupants",
+    group: "Default & Termination",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "unauthorized-occupant-removal",
+    bodyText:
+      "Since June 27, 2025, a property owner or authorized agent may ask a law enforcement officer to remove people unlawfully occupying real property without going to court, by presenting a completed Petition to Remove Persons Unlawfully Occupying Real Property in the statutory form, if: the occupants are not and never were tenants and never had a written or oral agreement with the owner; the property was not open to the public when they entered; the owner told them to leave; they are not the owner's immediate family; and no litigation about the property is pending between the owner and them. The officer verifies the owner's identity, serves a notice to vacate immediately, and may stand by while the owner changes the locks and moves the occupants' property to or near the property line; the sheriff or constable may charge $20. A person wrongly removed may sue within 60 days and recover possession, costs and attorney fees. The procedure can never be used against a current or former tenant, or anyone who once had an agreement to occupy; they must be removed through a forcible detainer case.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 383.290(1)-(9) (2025 Ky. Acts ch. 63 (HB 10), sec. 1, signed March 24, 2025; no effective-date clause; compiled effective June 27, 2025; enrolled act read). 'The procedures established in this section are not applicable to, and shall not be enforced against, a person who is a current or former tenant of the premises or who once had an agreement with the property owner that permitted the person to occupy the premises' (KRS 383.290(9)). Kentucky State Police form KRS 383.290(8). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-fair-housing-ky",
+    title: "Kentucky Fair Housing Classes",
+    group: "Compliance & Prohibited Terms",
+    states: ["KY"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fair-housing",
+    bodyText:
+      "Kentucky's Civil Rights Act bars a person in the business of renting real estate, or who earns income from renting it, from refusing to rent, setting different terms, or publishing an advertisement, using an application form or making a record of inquiry that indicates a limitation, specification or discrimination, because of race, color, religion, sex, familial status, disability or national origin. Discrimination includes refusing a disabled person's reasonable modifications at that person's expense (a landlord may, where reasonable, require restoring the interior at move-out) and refusing reasonable accommodations in rules and policies. Exemptions include a building with no more than two units where the owner or a family member lives in one, renting one room in an owner-occupied home, certain religious and private-club housing, housing for older persons (from the familial-status rules only), and reasonable government limits on the number of occupants. The Act lets a landlord refuse an unmarried couple of opposite sex, refuse a person convicted of illegally manufacturing or distributing a controlled substance, and does not treat current or past drug or alcohol abuse as a disability. Federal fair housing law also applies, and some cities and counties add protected classes.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 344.360(1)-(14) (eff. July 15, 1994); 'Real estate operator' KRS 344.010(8); disability KRS 344.010(4) ('Persons with current or past controlled substances abuse or alcohol abuse problems ... shall be excluded'); familial status KRS 344.010(15); exemptions KRS 344.365(1)(a)-(d), (3)-(4); 'A landlord who refused to rent to an unmarried couple of opposite sex' (KRS 344.362(2)). Federal law (42 U.S.C. 3601 et seq.) not read. Local human rights ordinances (Louisville, Lexington and others) flagged, not resolved (rule 3); KRS 383.198 limits them only where they conflict with state law (Claude's reading). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-source-of-income-ky",
+    title: "Housing Vouchers and Source of Income",
+    group: "Compliance & Prohibited Terms",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "source-of-income",
+    bodyText:
+      "No Kentucky statute requires a landlord to accept housing vouchers or other rent assistance, and since March 6, 2024 no city, county or other local government may adopt or enforce an ordinance that stops an owner from refusing to rent to a person whose rent would be paid in part with federal housing assistance. A landlord who accepts a voucher must follow the program's rules and lease addendum.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 65.874 (2024 Ky. Acts ch. 3, sec. 1, effective March 6, 2024, emergency clause). Source of income is not a KRS 344.360 class (KY battery soi (source of income in housing): 15 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Earlier Louisville and Lexington ordinances flagged, not resolved (rule 3). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-firearms-ky",
+    title: "Firearms in Vehicles on Rental Property",
+    group: "Rules & Regulations",
+    states: ["KY"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "firearms",
+    bodyText:
+      "No Kentucky owner, lessee or occupant of real property may prohibit a person who may legally possess a firearm from keeping a firearm, firearm part or ammunition in a vehicle on the property, so a lease or parking rule may not ban firearms in tenants' or guests' vehicles. A landlord may exclude firearms from people prohibited by law from having them. The rule does not apply to federal property where firearms are restricted, detention facilities, or property where another Kentucky statute specifically bans firearms. No Kentucky statute addresses a private landlord's lease rules on firearms inside a dwelling. A local government, or a local or regional public agency (a housing authority may be one), may not regulate firearm possession unless a statute specifically authorizes it, and a government's carry restrictions must exempt public housing and government-owned private dwellings.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 237.106(1)-(3), (5) (2006 Ky. Acts ch. 240, sec. 8). 'No person, including but not limited to an employer, who is the owner, lessee, or occupant of real property shall prohibit any person who is legally entitled to possess a firearm from possessing a firearm, part of a firearm, ammunition, or ammunition component in a vehicle on the property' (KRS 237.106(1)). Inside the dwelling: (KY battery firearms (firearms in dwellings / leases): 23 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Public landlords: no city, county, 'local or regional public or quasi-public agency, board, commission, department, public corporation, or any person acting under the authority of any of these organizations may occupy any part of the field of regulation of the' possession or storage of firearms, and a contrary 'policy, procedure, rule' is 'null, void, and unenforceable' (KRS 65.870(1)-(2)), unless 'a statute specifically authorizes or directs' it (KRS 65.870(7)); 'The statute or ordinance shall exempt any building used for public housing by private persons, highway rest areas, firing ranges, and private dwellings owned, leased, or controlled by that unit of government from any restriction on the carrying or possession of deadly weapons' (KRS 237.115(2)); a housing authority as such a body is Claude's reading. Constitution: Ky. Const. § 1 (bear arms) binds the State, not private lessors (Claude's reading; KY log §17). No shared clause bans firearms in vehicles. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-cannabis-ky",
+    title: "Medical Cannabis in Rentals",
+    group: "Other / Miscellaneous",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "cannabis",
+    bodyText:
+      "Kentucky's medical cannabis program, in effect since January 1, 2025, does not protect smoking marijuana or growing it at home, and expressly lets anyone who owns or controls a property prohibit or regulate the use, possession, display or growing of medical cannabis there. A lease may therefore ban cannabis smoking, vaping and growing. Recreational marijuana remains illegal in Kentucky.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 218B.040(1)(e) ('prohibit a person, employer, corporation, or any other entity who occupies, owns, or controls a property from prohibiting or otherwise regulating the use, consumption, possession, transfer, display, transportation, sale, or growing of medicinal cannabis on or in that property'; 2023 Ky. Acts ch. 146, sec. 7, effective January 1, 2025); smoking and cultivation outside the act KRS 218B.035(1)(g), (i); KRS 218B.010 definitions; KRS 218B.045 has no tenancy provision. Recreational: (KY battery cannabis (recreational/adult-use marijuana): 1 hit, control 0; known positives passed (0 real sections, 2 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); possession and trafficking not authorized by KRS ch. 218B remain offenses (KRS 218A.1422(1), 218A.1421(1)). The shared `smoking-policy` (tobacco, marijuana, vaping) is tagged. Constitution screened (KY log §17). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Parking & Storage
+  {
+    id: "edu-towing-ky",
+    title: "Towing from Rental Parking Lots",
+    group: "Parking & Storage",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "towing",
+    bodyText:
+      "The owner or attendant of a privately owned parking lot may have a towing company remove an unauthorized parked vehicle, and the tower has a lien on it for its lawful charges once it gives the notices the towing statutes require. Every such lot must post signs saying it is privately owned and that unauthorized vehicles will be towed away at the owner's expense. A tenant's own vehicle parked with permission is not unauthorized; enforce parking rules against tenants through the lease. A property owner who sets up a tow-away zone must also post a clearly visible sign at the zone stating that it is a tow-away zone, giving contact information, and describing who may or may not park there; towing companies have their own duties. Local towing ordinances may add requirements.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 189.725(1)-(2) (am. 2021 Ky. Acts ch. 74, sec. 13); 'A property owner that establishes a tow-away zone under this subsection shall post at the location of the tow-away zone a sign that is clearly visible to the public' (KRS 281.924(3)); towing companies KRS 281.924-281.928; tow lien KRS 376.275(1)(a), for a company that complied with KRS 281.928 (KY battery towing (towing from private property / tow lien): 4 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Applying the lot rule to a residential parking area: Claude's reading. Shared `parking-vehicle-rules` tagged ('in accordance with applicable law'). Local ordinances flagged (rule 3). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-landlord-repair-duties-ky",
+    title: "Landlord's Repair Duties",
+    group: "Landlord Responsibilities",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-maintenance",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act applies, a landlord must comply with building and housing codes materially affecting health and safety; make all repairs and do whatever is necessary to keep the premises fit and habitable; keep common areas clean and safe; keep electrical, plumbing, sanitary, heating, ventilating, air-conditioning and other facilities and appliances it supplies or is required to supply (including elevators) in good and safe working order; and supply running water, reasonable hot water at all times, and reasonable heat from October 1 to May 1, unless the building is not required by law to be equipped for heat or hot water, or the heat or hot water comes from an installation in the tenant's exclusive control supplied by a direct utility connection. A lease cannot let the landlord collect rent free of these duties. Elsewhere in Kentucky no statute gives the tenant a right to enforce a general landlord repair duty; the lease and local housing codes govern, so state your repair duties in the lease. In every locality an owner must not let a structure become unfit and unsafe for human habitation or let conditions dangerous to occupants exist, a duty local governments enforce through code enforcement, fines and abatement liens, and an owner must remove or cover lead-based hazards within 60 days after a health cabinet notice where a young child lives.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). URLTA localities: KRS 383.595(1)(a)-(e), (2); KRS 383.575 ('may not permit the receipt of rent free of the obligation to comply with KRS 383.595(1)'). Elsewhere (KY battery habitability (habitability / fit and habitable outside URLTA): 11 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); lead hazards KRS 211.905(2)(c), (4) (`edu-lead-hazard-release-ky`); statewide owner duty: 'An owner shall not permit any structure upon his or her premises to become unfit and unsafe for human habitation, occupancy, or use' (KRS 65.8840(5)), enforced by local ordinance, civil fines and liens (KRS 65.8840(7), (9)); it gives tenants no remedy of their own (Claude's reading). The habitability battery's pattern missed it; found in round-2 checking (KY log §13). Common-law implied warranty not searched (KY log §1.4). Shared `landlord-maintenance` tagged. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-tenant-repair-remedies-ky",
+    title: "Tenant Remedies for Repairs and Services",
+    group: "Landlord Responsibilities",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-repair-remedies",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act applies: for a material breach of the lease or of the landlord's health-and-safety duties, a tenant may give written notice that the lease will end at least 30 days after receipt unless the breach is fixed within 14 days (a repeat within six months allows termination on 14 days' notice), and may sue for damages and an injunction. If the landlord willfully and materially fails to fix a health-and-safety condition whose reasonable cost is less than $100 or half a month's rent, whichever is more, the tenant may give written notice of the intent to fix it at the landlord's expense; if the landlord willfully fails to comply within 14 days (sooner in an emergency), the tenant may have the work done in a workmanlike manner and, after giving an itemized statement of work paid in full, deduct the reasonable cost, up to that same limit. If the landlord willfully fails to supply heat, running water, hot water, electricity, gas or another essential service, the tenant, after written notice, may buy it and deduct the cost, recover damages for reduced rental value, or move to substitute housing without paying rent and recover attorney fees; a tenant who uses these essential-services remedies cannot also use the termination, damages-and-injunction or repair-and-deduct remedies above for the same breach. Termination, repair-and-deduct and the essential-services remedies are not available for a condition the tenant, the tenant's family or others on the premises with the tenant's consent caused. In a nonpayment eviction or rent suit the tenant may counterclaim, and the court may order rent paid into court. Statewide, a health cabinet finding that a child under six is in immediate danger from lead hazards is cause for releasing the occupant from the lease, and outside localities that adopted the Act a tenant owes no further rent for a building destroyed by fire or other casualty without the tenant's fault unless the lease says otherwise.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). URLTA localities: KRS 383.625(1)-(4); KRS 383.635(1)-(2) ('one hundred dollars ($100), or an amount equal to one-half (1/2) of the monthly rent, whichever amount is greater'); 'the actual and reasonable cost or the fair and reasonable value of the work, not exceeding the amount specified in this subsection' (KRS 383.635(1)); KRS 383.640(1)-(4) (no double remedy, (3)); KRS 383.645. Tenant-caused exclusions KRS 383.625(1)(c), 383.635(2), 383.640(4). Elsewhere: no general statutory repair remedy (KY battery habitability (habitability / fit and habitable outside URLTA): 11 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); statewide KRS 211.905(5) ('shall be cause for release from a rental agreement without prejudice to the occupant'); KRS 383.170 (no rent after a no-fault casualty 'unless he otherwise contracts'). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-retaliation-ky",
+    title: "Retaliation",
+    group: "Compliance & Prohibited Terms",
+    states: ["KY"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "retaliation",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act applies, a landlord may not raise rent, decrease services, or bring or threaten an eviction because the tenant complained to a government agency about a health-and-safety code violation, complained to the landlord about the landlord's repair duties, or joined or organized a tenant union. A complaint within one year before the landlord's action creates a presumption of retaliation, unless the complaint came after notice of a rent increase or service reduction. The landlord may still evict if the violation was caused mainly by the tenant's lack of care, the tenant is behind on rent, or the repairs require work that would deprive the tenant of the unit. A retaliating landlord owes up to three months' rent and attorney fees. In every Kentucky locality, a landlord may not retaliate against a tenant protected by a protective order (leases made or renewed on or after June 29, 2017), or against anyone for a fair housing complaint or for taking part in a fair housing proceeding.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.705(1)-(4); remedy KRS 383.655 ('an amount not more than three (3) months periodic rent and a reasonable attorney's fee'); protected tenants KRS 383.300(3)(a), (1)(a)-(b); fair housing KRS 344.280(1). Outside URLTA localities no general retaliation statute (KY battery retaliation (retaliation against tenant): 34 hits, control 0; known positives passed (2 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Lexington-Fayette Code § 12-55 repeats KRS 383.705 (flagged, rule 3). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-self-help-eviction-ky",
+    title: "No Lockouts or Utility Shutoffs",
+    group: "Compliance & Prohibited Terms",
+    states: ["KY"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "self-help-eviction",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act applies, a landlord may not take possession by any means other than the court process, including by shutting off or interrupting heat, electricity, water, hot water, gas or another essential service, except after abandonment or surrender. A tenant who is unlawfully locked out or whose essential services are willfully cut may recover possession or end the lease, and recover up to three months' rent and attorney fees. Distress (seizing a tenant's goods for rent) is abolished there. Everywhere in Kentucky, the safe course is to recover possession only through a forcible detainer case.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.690; KRS 383.655; KRS 383.680(2) ('Distraint for rent is abolished'). Outside URLTA localities: KRS 383.180(2) still says a landlord may 'reenter and take possession' after 10 days' notice of an unauthorized assignment, and KRS 383.010(1) still lists distress; but 'As to landlord, an entry upon the possession of his tenant at will or by sufferance, whether with or without the tenant's consent' is a forcible entry (KRS 383.200(2)(b)). The scope of lawful self-help for other tenancies is case law, not searched (KY log §1.4), so the row advises court process. The 2025 police-removal procedure for unlawful occupants 'not applicable to, and shall not be enforced against, a person who is a current or former tenant' (KRS 383.290(9)). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-landlord-lien-ky",
+    title: "The Landlord's Lien for Rent",
+    group: "Rent & Payment",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-lien",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act does not apply, a residential landlord has a statutory lien on the tenant's fixtures, household furniture and other personal property, from the time the tenant takes possession, securing up to four months' rent, but not for rent more than 120 days past due; if the tenant openly removes property without fraudulent intent, the lien follows it for only 15 days. The statutes provide for enforcing it by distress warrant or attachment, and a resident tenant's household furnishings, jewelry, clothing and ornaments up to $3,000 in total, and other exempt property, are exempt from distress. Where the Act applies, a landlord's lien or security interest in the tenant's household goods is unenforceable and distress for rent is abolished. Never seize a tenant's belongings yourself.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.070(2)-(4) ('Every other landlord shall have a lien on the fixtures, household furniture, and other personal property of the tenant or undertenant, from the time possession is taken under the lease, to secure the landlord in the payment of four (4) months' rent'); distress warrant or attachment KRS 383.020, 383.030 (no live KRS section between them and KRS 383.070 sets a distress procedure); exemptions KRS 427.010(1) ('exempt from execution, attachment, garnishment, distress or fee-bill'); a lien the debtor voluntarily grants is not exempt (KRS 427.010(4)); URLTA KRS 383.680(1)-(2) (the pre-1984 perfection proviso is obsolete). No lease clause: the lien is statutory and needs none (rule 55). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-abandoned-property-ky",
+    title: "Belongings Left Behind",
+    group: "Default & Termination",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "abandoned-property",
+    bodyText:
+      "Kentucky has no general statute setting a notice, storage or sale procedure for belongings a residential tenant leaves after moving out. The exception is a mobile home lot rental: a landowner who rents space for a mobile home has a lien on an abandoned home, its contents and other personal property for rent, storage, cleanup and utilities, and after 60 days may sell them, after registered-mail notice at least 10 days before the sale to the home's owner and any recorded lienholder and advertising in a local newspaper for three publishing periods, paying any surplus to the home's owner. Where the Uniform Residential Landlord and Tenant Act applies, the landlord may retake the unit after abandonment or surrender, but the Act says nothing about the belongings. After an eviction, the sheriff or constable executes the warrant for possession, which puts the landlord in possession. Because the rules are unsettled, document the abandonment, give the tenant written notice and a reasonable time to collect belongings before disposing of them, and keep records. A tenant's household goods can't be held for rent where the Act applies. This library does not offer an abandoned-property procedure clause, because no statute supplies a procedure for a dwelling for the clause to follow; A landlord who wants one can add their own clause after taking advice.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). Proof of absence for dwellings: (KY battery abandoned-property-r2 (tenant belongings: abandon/remove/store/dispose (rerun)): 18 hits, control 0; known positives passed (1 real section, 2 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery abandoned-property-r3 (abandoned belongings incl. personalty/contents (rerun of r2 with checker terms)): 32 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Mobile home lots: 'Any owner of real property who rents space on which a house trailer or mobile home is parked shall have a lien for rent due on any house trailer or mobile home, its contents, and other personalty abandoned by the occupant' (KRS 376.480(1)); sale after 60 days, registered mail ten days before, newspaper advertisement, surplus to the owner (KRS 376.480(2)-(6)); found by the independent check (KY log §13). KRS 383.615(4)(c), 383.690 (abandonment or surrender); KRS 383.670(3) (unit, not goods); warrant for possession KRS 383.245 and AOC-220 (kycourts.gov, saved); KRS 383.680(1). Shared `surrender-end-of-term` tagged ('to the extent permitted by applicable law'). Common-law bailment rules not searched (KY log §1.4). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-termination-notice-periods-ky",
+    title: "Ending a Periodic Tenancy",
+    group: "Default & Termination",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-notice",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act applies, either side may end a week-to-week tenancy by written notice at least 7 days before the termination date, and a month-to-month tenancy by written notice at least 30 days before the periodic rental date named in the notice; a tenancy that continues after a written lease ends may be ended by either side on 10 days' written notice, and if the tenant fails to pay rent within 10 days after it is due the landlord may end it at any time without notice. Without a fixed term, a roomer paying weekly is week-to-week and everyone else month-to-month. Elsewhere, a landlord ends a tenancy at will or by sufferance with one month's written notice, and no statute requires notice at the end of a fixed term: the tenant must leave on the last day; but if the landlord does not file within 30 days after a term of under a year ends (90 days for a term of a year or more), it cannot file until 60 days (one year) after the term ended. No statute there says what notice ends a month-to-month tenancy; one month's written notice is the safe course. No Kentucky statute requires a reason to end or not renew a tenancy, but a landlord may not act for a discriminatory reason, in retaliation for a fair housing complaint, or for a retaliatory reason where the Act applies or the tenant is protected by a protective order.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.695(1)-(3); KRS 383.565(3); KRS 383.195 (one month's written notice where the Act is not in effect; it names tenancies at will or by sufferance only, so its reach to month-to-month tenancies is case law, not searched); KRS 383.160(1)-(2) (fixed term ends on its day; the filing windows); retaliation KRS 383.705, 383.300(3)(a), 344.280. For-cause: (KY battery for-cause (just cause / good cause eviction): 0 hits, control 0; known positives passed (0 real sections, 2 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery for-cause-ev (cause needed to end or not renew a tenancy (everyday rerun of for-cause)): 0 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (topic `for-cause-eviction` answered here and in `edu-no-for-cause-eviction-ky`). Rule 37: none of these is dated. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-for-cause-eviction-ky",
+    title: "No Just-Cause Eviction Rule",
+    group: "Default & Termination",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "for-cause-eviction",
+    bodyText:
+      "No Kentucky statute requires just cause or good cause to end a tenancy: a landlord may decline to renew a fixed term, or end a periodic tenancy with the required notice, without giving a reason. Limits that apply in particular situations: retaliation is barred where the Uniform Residential Landlord and Tenant Act applies; protected tenants with protective orders may not be terminated or refused renewal because of that status, and lease terms penalizing calls to police are unenforceable (both for leases made or renewed on or after June 29, 2017); fair housing law applies everywhere, with exemptions for some small owner-occupied rentals. Local ordinances were not searched; state law bars local landlord-tenant ordinances that conflict with state law.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). (KY battery for-cause (just cause / good cause eviction): 0 hits, control 0; known positives passed (0 real sections, 2 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery for-cause-ev (cause needed to end or not renew a tenancy (everyday rerun of for-cause)): 0 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); KRS 383.705; KRS 383.300(3)(a); KRS 383.302; KRS 344.360. Local ordinances barred where they conflict with state law (KRS 383.198); whether a local just-cause ordinance would conflict is Claude's reading, not text; KRS 383.500 bars other ordinances on the Act's subjects. Fair housing exemptions KRS 344.365(1); retaliation KRS 344.280. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-eviction-process-ky",
+    title: "The Eviction (Forcible Detainer) Process",
+    group: "Default & Termination",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-process",
+    bodyText:
+      "Every Kentucky eviction is a forcible detainer case in District Court in the county where the property is. The landlord files a sworn complaint (court form AOC-216), and the court issues an eviction notice and summons (AOC-215) that the sheriff or constable serves at least three days before the trial (if the tenant cannot be found, it may be left with a family member over 16, and if no such person is found, posted on the premises and mailed); either side may demand a jury. If the tenant is found guilty of forcible detainer, the judgment (AOC-217) orders restitution of the premises and orders the tenant to vacate within seven days; either side may appeal within seven days, and a tenant who appeals must deposit with the circuit clerk the rent owed since the case began and each month's rent as it comes due. If no appeal is filed by the seventh day, the court on request issues a warrant for possession (AOC-220), which the sheriff or constable executes. Parties may settle on the court's form AOC-218. A forcible detainer case does not stop a separate suit for rent or damages, and must be brought within two years. Give the tenant the notice the lease and, where it applies, the Uniform Residential Landlord and Tenant Act require before filing.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.200, 383.210(1)-(2), 383.215, 383.240, substitute service KRS 454.030 and AOC-215 return, 383.245, 383.255(1)-(2), 383.280, 383.285. Forms read 2026-10-04 from kycourts.gov (AOC-216 Rev. 4-23; AOC-215 Rev. 10-25; AOC-217 Rev. 4-23, 'EITHER PARTY MAY FILE AN APPEAL WITHIN SEVEN DAYS OF THE ENTRY OF THIS JUDGMENT'; AOC-218 Rev. 3-12; AOC-220 Rev. 5-14), saved file `ky-court-forms-20261004.json` (sha256 908982c0...). AOC-217 orders the tenant to vacate 'within seven days'. Civil rules and local court rules flagged, not read (KY log §7). Topic `statutory-forms` answered here. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-eviction-records-ky",
+    title: "Eviction Records",
+    group: "Default & Termination",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-record-sealing",
+    bodyText:
+      "Kentucky has no statute that seals or expunges eviction (forcible detainer) records. The court clerk keeps the case papers and gives a transcript to anyone who asks; court rules on record access were not reviewed.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery sealing (sealing/expungement of eviction records): 0 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery sealing-ev (eviction case records sealed, expunged or confidential (everyday rerun of sealing)): 3 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); 'shall deliver, to any person requiring it, a transcript thereof' (KRS 383.250). The KRS database states it includes enactments through the 2026 Regular Session (KY log §1.2). Court rules on record access not read (KY log §7). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-rules-changes-ky",
+    title: "Adopting or Changing House Rules",
+    group: "Rules & Regulations",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rules-regulations",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act applies, a landlord's rule is enforceable against a tenant only if it promotes the tenants' convenience, safety or welfare, protects the property from abusive use, or fairly distributes services and facilities; is reasonably related to that purpose; applies fairly to all tenants; is clear enough to tell the tenant what to do; is not meant to evade the landlord's duties; and the tenant had notice of it at signing or when it was adopted. A rule adopted after the lease is signed that substantially changes the tenant's bargain is not valid unless the tenant consents in writing. Elsewhere, changes depend on what the lease allows.",
+    notes: "KY: KY-SCOPE: URLTA LOCALITIES (rules apply only where a city, county or urban-county government has adopted KRS 383.505 to 383.705 under KRS 383.500). KRS 383.610(1)(a)-(f), (2). Rules are part of the 'rental agreement' (KRS 383.545(11)). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-notice-delivery-ky",
+    title: "Delivering Notices",
+    group: "Notices & General",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "notice-delivery-methods",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act applies, a tenant receives a notice when it comes to the tenant's attention, is delivered in hand, or is mailed by registered or certified mail to the place the tenant designated for notices or, if none, the tenant's last known residence; a landlord receives one when it comes to the landlord's attention, is delivered in writing at the landlord's place of business or designated place, or is sent there by certified mail. Notices may be sent electronically only if both sides have agreed to deal electronically and the notice is in a form the recipient can keep and print; Kentucky's electronic transactions law does not exclude eviction notices, but where a statute requires a particular delivery method that method must still be used. To be safe, deliver termination and default notices by hand or certified mail.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.560(1)-(3); KRS 369.103 (no landlord-tenant exclusion), 369.105(2)-(3), 369.108(1)-(4) ('the record must be sent, communicated, or transmitted by the method specified in the other law' (KRS 369.108(2)(b))). Whether KRS 383.560's list is exclusive is Claude's reading. Shared `notices` tagged. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-holdover-rate-ky",
+    title: "Holdover Rent",
+    group: "Default & Termination",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "holdover-rate",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act applies, if a tenant stays after the lease ends without consent and the holdover is willful and not in good faith, the landlord may recover up to three months' rent or three times actual damages, whichever is greater, plus attorney fees; otherwise ordinary damages apply. Elsewhere no statute sets a holdover measure, though without a written contract a landlord may recover reasonable payment for use and occupation, and a landlord who does not file within 30 days after a term of under a year ends (90 days for a year or more) cannot file until 60 days (one year) after it ended. This library does not offer a premium holdover rate clause: where the Act applies the statute already sets the remedy, and a stated multiple risks being an unenforceable penalty. The lease's Holdover terms charge prorated rent for each day. Such a clause is not barred outside the Act's rules; A landlord who wants one can add their own clause after taking advice.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.695(4); KRS 383.520(1) ('an aggrieved party may recover appropriate damages'); KRS 383.160(1)-(2); KRS 383.090; (KY battery holdover (holdover tenant): 10 hits, control 0; known positives passed (2 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Rule 54: a holdover-rate clause is declined (lawful elsewhere as liquidated damages only if not a penalty; case law not searched). `holdover-ky`. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-mitigation-ky",
+    title: "Re-Renting After a Tenant Leaves Early",
+    group: "Default & Termination",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "abandonment-and-mitigation",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act applies, a landlord must mitigate damages and, if the tenant abandons the unit, make reasonable efforts to re-rent it at a fair rental; if the landlord re-rents for a term beginning before the lease would have ended, the old lease ends when the new tenancy begins, and if the landlord does not try to re-rent or accepts the abandonment as a surrender, the lease is treated as ended when the landlord learns of the abandonment. Accepting rent, or accepting performance that differs from the lease, with knowledge of a default waives the right to terminate for that default, unless you and the tenant agree otherwise after the breach. Elsewhere, whether a landlord must mitigate is a matter of case law; trying to re-rent is the safe course.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). URLTA localities: KRS 383.520(1) ('The aggrieved party has a duty to mitigate damages'); KRS 383.670(3); KRS 383.675. Elsewhere (KY battery mitigation-r2 (duty to mitigate damages, no tenancy filter (rerun)): 4 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); case law not searched (KY log §1.4). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-attorney-fees-ky",
+    title: "Attorney Fees in Landlord-Tenant Cases",
+    group: "Default & Termination",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "attorney-fees",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act applies, a lease may not make the tenant pay the landlord's attorney fees; fees are available only where a statute provides them, for example to a landlord for a tenant's willful lease violation, willful holdover, or a bad-faith counterclaim, and to a tenant for an unlawful lockout, retaliation, abusive entry, willful failure to deliver possession, willful interruption of essential services, or substitute housing after a failure to supply them, and in every locality (leases made or renewed on or after June 29, 2017) to a tenant against a landlord who knowingly enforces a lease term penalizing calls for police or emergency help. Elsewhere, a Kentucky statute makes enforceable a written provision that creates a debt and requires the debtor to pay reasonable attorney fees on default, limited to fees actually paid or agreed to be paid and not for a salaried employee-attorney; whether it reaches residential leases is not settled by the statute. Ask the city or county whether the Act has been adopted before using the optional attorney-fee clause.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.570(1)(c); KRS 383.660(3), 383.695(4), 383.645(1), 383.655, 383.705(2), 383.700, 383.630(2), 383.640(2); KRS 383.302(2), (3) (leases created or renewed on or after June 29, 2017); KRS 411.195 (reach to leases: Claude's reading, case law not searched). `attorney-fees-non-urlta-ky` (Taylor decision KY log §6.1). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-sale-or-management-change-ky",
+    title: "Selling the Property or Changing Managers",
+    group: "Notices & General",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "sale-or-management-change",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act applies, unless otherwise agreed, a landlord who sells the property in a good-faith sale to a bona fide purchaser is relieved of liability for events after written notice of the sale to the tenant, and a manager is relieved after written notice that its management ended; the name and address disclosures must be kept current and bind a successor; and a landlord who does not live in Kentucky may designate an in-state agent for service of process with the Secretary of State; otherwise process can be served on the Secretary of State. Generally a buyer takes rented property subject to the existing lease (a common-law rule not checked here), and in every locality a tenant who pays the old owner before notice of the sale is protected. Transfer the deposits and the deposit account records to the buyer.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.600(1)-(2); KRS 383.585(2); KRS 383.540(2); KRS 383.100(2) ('no tenant who pays the rent to the grantor before notice of the conveyance shall suffer any damage thereby'); assignee recovers later rent KRS 383.010(2). Deposit transfer: no statute (KY battery deposit-transfer (deposit transfer on sale of rental property): 6 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (advice). Buyer takes subject to lease: Claude's reading, case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-maintenance-delegation-ky",
+    title: "Shifting Maintenance Tasks to the Tenant",
+    group: "Landlord Responsibilities",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-repair-agreement",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act applies, the split depends on the property. In a single family residence (including a unit that shares walls but has its own street access and shares no heating, hot water or other essential facility), you and the tenant may agree in writing, including in the lease, that the tenant supplies running water, hot water or heat and performs specified repairs, maintenance tasks, alterations and remodeling, if done in good faith and not to evade your duties. In any other unit, the agreement binds the tenant only if it is in a separate writing signed by both of you and supported by adequate consideration, does not cover work needed to meet health-and-safety codes, and does not reduce your duties to other tenants. So in an apartment, or a duplex unit that shares heating, hot water or another essential facility, the lease's Landscaping & Irrigation and Snow Removal sections do not bind the tenant; use the separate Tenant Maintenance Agreement instead. Common areas are always your duty. Elsewhere in Kentucky the main statutory limit is that a tenant's promise to repair does not oblige the tenant to rebuild after a fire or other casualty that was not the tenant's fault or neglect, unless the written lease expressly says so.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). URLTA localities: KRS 383.595(1)(c), (1)(e), (3), (4)(a)-(c); KRS 383.545(14). Elsewhere: 'Unless the contrary is expressly provided for in the written contract, the agreement of a lessee that he will repair or leave the premises in repair shall not bind him to erect similar buildings if, without his fault or neglect, the buildings are destroyed by fire or other casualty' (KRS 383.170). Rule 48; `maintenance-allocation-ky`; shared `landscaping-irrigation` and `snow-removal` tagged with a KY single-family note. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-dishonored-payment-remedies-ky",
+    title: "Bounced Checks and Failed Payments",
+    group: "Rent & Payment",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "returned-payments",
+    bodyText:
+      "No Kentucky statute caps the returned-check or failed-payment fee a private landlord may charge, so the lease must state the fee; keep it reasonable. Where the Uniform Residential Landlord and Tenant Act applies, the fee is rent. Writing a bad check knowingly can also be a crime, but criminal process is not a rent-collection tool; for the criminal 'make good' rule, only a posted handling fee up to $50 counts.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). (KY battery nsf (fee for dishonored check / insufficient funds): 49 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); KRS 383.545(10). 'any merchant's posted bad check handling fee not to exceed fifty dollars ($50)' (KRS 514.040(4)(b)2.). `returned-payments-ky`. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-knowing-use-penalty-ky",
+    title: "Penalties for Unlawful Lease Terms",
+    group: "Compliance & Prohibited Terms",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "knowing-use-penalty",
+    bodyText:
+      "Where Kentucky's Uniform Residential Landlord and Tenant Act has been adopted locally, it makes prohibited lease terms (waivers of the Act, confessions of judgment, tenant payment of the landlord's attorney fees, exculpation or indemnity of the landlord) unenforceable, but sets no money penalty just for including them. A separate statute does: a landlord who enforces a lease knowing it contains a term letting the landlord terminate or penalize a tenant for calling the police or for emergency help can be made to pay the tenant actual damages, attorney fees and costs, and up to two months' rent in punitive damages, in every locality (leases made or renewed on or after June 29, 2017).",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.570(2) (unenforceable; no damages provision, KRS 383.570 read whole); KRS 383.302(2) ('the tenant may recover'), (3) (leases created or renewed on or after June 29, 2017). Rule 47 screen KY log §19. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Security Deposit
+  {
+    id: "edu-deposit-escheat-ky",
+    title: "Unclaimed Deposits",
+    group: "Security Deposit",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "deposit-escheat",
+    bodyText:
+      "Two Kentucky rules point in different directions on a deposit the tenant never claims. Where the Uniform Residential Landlord and Tenant Act applies, if a tenant leaves owing no rent and does not respond within 60 days to the landlord's notice of the refund due, the landlord may keep the deposit free of the tenant's claim. Separately, Kentucky's unclaimed property laws treat a deposit made to protect against damage as presumed abandoned if it is not claimed within three years after it became returnable, and list a security deposit as property that a holder may have to report and turn over to the State Treasurer. The statutes do not say which controls. Send the refund notice to the tenant's last known address, keep records, and ask the State Treasurer's unclaimed property office before keeping an unclaimed deposit.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). 'may remove the deposit from the account and retain it free from any claim of the tenant or any person claiming in his behalf' (KRS 383.580(7)). KRS 393.080(1): 'Any deposit of money ... to protect against damage or harm' is presumed abandoned 'unless claimed by the person entitled thereto within three (3) years after the occurrence of the event that would obligate the holder or depository to return it' (eff. June 24, 2003). KRS 393A.010 (Revised Uniform Unclaimed Property Act, 2018 Ky. Acts ch. 163, sec. 1): 'property' includes a 'security deposit'; KRS 393A.040(4) (a debt of a business association, three years). Rule 31: KRS 383.580(7) and KRS 393.080 / ch. 393A give different results for the same deposit; which governs is not settled by the text (Claude's reading; case law not searched); flagged for the legal watch (KY log §10). (KY battery escheat (unclaimed property: deposits, rents): 18 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Disclosures
+  {
+    id: "edu-radon-disclosure-ky",
+    title: "Radon Disclosure",
+    group: "Disclosures",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "radon-disclosure",
+    bodyText:
+      "No Kentucky statute requires a landlord to test for radon or disclose radon to a tenant. Kentucky's radon law licenses and regulates radon measurement and mitigation contractors only.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 309.430 to 309.454 (Board of Radon Safety; contractor registration) read by heading; no tenant disclosure. (KY battery mold-radon (mold, radon, bed bugs, meth lab disclosure): 30 hits, control 0; known positives passed (1 real section, 2 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-mold-disclosure-ky",
+    title: "Mold Disclosure",
+    group: "Disclosures",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "mold-disclosure",
+    bodyText:
+      "No Kentucky statute requires a landlord to disclose mold to a tenant. Kentucky's mold law sets standards only for mold remediation companies. Mold can still matter under the landlord's repair duties where the Uniform Residential Landlord and Tenant Act applies.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 367.83801 to 367.83807 (mold remediation companies) read by heading. (KY battery mold-radon (mold, radon, bed bugs, meth lab disclosure): 30 hits, control 0; known positives passed (1 real section, 2 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); KRS 383.595(1). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-bed-bug-disclosure-ky",
+    title: "Bed Bugs",
+    group: "Disclosures",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "bed-bug-disclosure",
+    bodyText:
+      "No Kentucky statute requires a bed bug disclosure or sets a bed bug treatment rule for rentals. Where the Uniform Residential Landlord and Tenant Act applies, the landlord's duty to keep the premises fit and habitable applies.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). (KY battery mold-radon (mold, radon, bed bugs, meth lab disclosure): 30 hits, control 0; known positives passed (1 real section, 2 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (term 'bed ?bugs?': no hit). KRS 383.595(1)(b). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-flood-disclosure-ky",
+    title: "Flood Disclosure",
+    group: "Disclosures",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "flood-disclosure",
+    bodyText:
+      "No Kentucky statute requires a landlord to disclose flood risk or flood history to a tenant.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery flood-r2 (flood disclosure (rerun)): 0 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery flood-ev (flood, the word near any tenancy word (everyday rerun of flood-r2)): 18 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-sex-offender-occupancy-ky",
+    title: "Registered Sex Offenders",
+    group: "Rules & Regulations",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "sex-offender-occupancy",
+    bodyText:
+      "Kentucky bars a registered sex offender from residing within 1,000 feet of a school, preschool, public playground or licensed day care, measured property line to property line, and puts the duty to check the distance on the registrant, not the landlord. A registrant 18 or older who committed an offense against a minor may not live in the same residence as a minor, with family exceptions, for offenses after July 14, 2018. No Kentucky statute requires a landlord to screen for, disclose, or refuse registrants.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 17.545(1), (3)(a) ('The registrant shall have the duty to ascertain whether any property listed in subsection (1) of this section is within one thousand (1,000) feet of the registrant's residence'); KRS 17.545(4)(a)-(c). (KY battery sex-offender (sex offender registry / residence and landlords): 4 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery sex-offender-r3 (registrant residence or landlord duties, both word orders (rerun of sex-offender-r2)): 29 hits, control 0; known positives passed (1 real section, 2 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Disclosures
+  {
+    id: "edu-sex-offender-disclosure-ky",
+    title: "Sex Offender Registry Disclosure",
+    group: "Disclosures",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "sex-offender-disclosure",
+    bodyText:
+      "No Kentucky statute requires a landlord to tell tenants about the sex offender registry or about a registrant living nearby.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery sex-offender (sex offender registry / residence and landlords): 4 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery sex-offender-r3 (registrant residence or landlord duties, both word orders (rerun of sex-offender-r2)): 29 hits, control 0; known positives passed (1 real section, 2 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KRS 17.510 is the registrant's own address duty). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-military-zone-disclosure-ky",
+    title: "Military Installation Disclosure",
+    group: "Disclosures",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "military-air-zone-disclosure",
+    bodyText:
+      "No Kentucky statute requires a lease disclosure for property near a military installation or in an air or noise zone.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery mil-disclosure (disclosure near military installation, airport, noise zone): 2 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-stigmatized-property-ky",
+    title: "Stigmatized Property",
+    group: "Disclosures",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "stigmatized-property",
+    bodyText:
+      "The fact that an occupant of real property has or had HIV or AIDS is not a material fact that must be disclosed in a real estate transaction, and an owner or agent who does not disclose it cannot be sued for that. No Kentucky statute addresses disclosing a death, crime or suicide on the property. Separately, if a methamphetamine contamination notice has been posted, or the property has been determined to be contaminated, the owner must tell a prospective tenant in writing that it is contaminated and not yet decontaminated (see Methamphetamine Contamination).",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 207.250(1)-(2) (1990 Ky. Acts ch. 443, sec. 50). Whether a lease is a 'real estate transaction': Claude's reading. (KY battery stigmatized (stigmatized property disclosure (death, crime, HIV)): 27 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery stigmatized-r3 (crime, murder or death on property as a material fact (rerun of stigmatized-r2 without the HIV positive)): 24 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). KRS 224.1-410(10), 224.99-010(15) (`edu-meth-disclosure-ky`). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Security Deposit
+  {
+    id: "edu-security-deposit-interest-ky",
+    title: "Interest on Deposits",
+    group: "Security Deposit",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-interest",
+    bodyText:
+      "No Kentucky statute requires a landlord to pay interest on a security deposit or to hold it in an interest-bearing account, in any locality.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery deposit-interest (interest on security deposit): 12 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); KRS 383.580(1) (separate account, no interest term). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-deposit-installments-ky",
+    title: "Deposit Installments and Alternatives",
+    group: "Security Deposit",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "deposit-installments",
+    bodyText:
+      "No Kentucky statute gives a tenant a right to pay a security deposit in installments, regulates deposit-alternative fees or insurance, or restricts collecting the last month's rent in advance.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery installments (deposit installments / fee in lieu of deposit / last month rent): 1 hit, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-fee-in-lieu-of-deposit-ky",
+    title: "Fees Instead of a Deposit",
+    group: "Security Deposit",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fee-in-lieu-of-deposit",
+    bodyText:
+      "No Kentucky statute regulates a fee charged instead of a security deposit. Where the Uniform Residential Landlord and Tenant Act applies, such a fee is rent, not a deposit, so the deposit account and damage-list rules do not reach it.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). (KY battery installments (deposit installments / fee in lieu of deposit / last month rent): 1 hit, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); KRS 383.545(10), (13) (Claude's reading). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-holding-deposit-ky",
+    title: "Holding Deposits",
+    group: "Security Deposit",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "holding-deposit",
+    bodyText:
+      "No Kentucky landlord-tenant statute regulates a holding deposit or other money taken before a lease is signed, though a principal broker who handles the money must keep it in a Kentucky escrow or property management account. Where the Uniform Residential Landlord and Tenant Act applies, money required before occupancy to secure against damage is a security deposit, so the damage list must come first; put any holding-deposit terms in writing. There, if the landlord fails to deliver possession and the tenant terminates on five days' written notice, the landlord must return all prepaid rent and damage fee.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). (KY battery holding-deposit (holding deposit / money before lease): 1 hit, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); KRS 383.580(1)-(2), 383.545(13) (Claude's reading); KRS 383.630(1)(a); KRS 324.111(1), (7) ('all contract deposits and money belonging to others'; applying it to holding deposits is Claude's reading; `edu-security-deposit-holding-ky`). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-nonrefundable-fees-ky",
+    title: "Nonrefundable Fees",
+    group: "Rent & Payment",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nonrefundable-deposit-notice",
+    bodyText:
+      "No Kentucky statute requires a notice for, caps, or prohibits nonrefundable move-in, cleaning or administrative fees. Where the Uniform Residential Landlord and Tenant Act applies, a fee is rent, and a security deposit is defined as securing against damage beyond ordinary wear and tear (though it may be applied to an unpaid last month's rent), so do not call a nonrefundable fee a deposit.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). (KY battery fees-upfront (nonrefundable fees / move-in fees): 19 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); KRS 383.545(10), (13); KRS 383.580(6). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Security Deposit
+  {
+    id: "edu-deposit-cost-schedule-ky",
+    title: "Preset Cleaning or Damage Charges",
+    group: "Security Deposit",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "deposit-cost-schedule",
+    bodyText:
+      "No Kentucky statute lets or forbids a lease presetting cleaning or damage charges against a deposit. Where the Uniform Residential Landlord and Tenant Act applies, charges must follow the signed move-out damage list with estimated costs, so a preset charge cannot replace the list.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.580(3)-(5). (KY battery deposit (security deposit statutes): 15 hits, control 0; known positives passed (2 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-application-fees-ky",
+    title: "Application Fees",
+    group: "Rent & Payment",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "application-fees",
+    bodyText:
+      "No Kentucky statute caps, regulates or requires refunds of rental application or screening fees.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery app-fee (application or screening fee for rental): 8 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery screening-fee (application / screening fees): 107 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-tenant-screening-ky",
+    title: "Tenant Screening",
+    group: "Compliance & Prohibited Terms",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-screening",
+    bodyText:
+      "No Kentucky statute sets criminal-history look-back periods or income tests for tenant screening. In every locality a landlord may not refuse an applicant because the applicant is protected by a domestic violence order, interpersonal protective order or one of the other listed protective orders (leases made or renewed on or after June 29, 2017), and must follow the assistance-animal documentation rules. Kentucky's fair housing law and federal law apply (it does not require dealing with an applicant who has not shown financial ability to rent); Kentucky's fair housing law does not bar refusing a person convicted of illegally manufacturing or distributing a controlled substance.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery screening-fee (application / screening fees): 107 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery app-fee (application or screening fee for rental): 8 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); KRS 383.300(3)(a), (2)(b) ('applicant for tenancy'), (1)(a); KRS 383.085(2)-(3); KRS 344.360, 344.365(4) ('Nothing in this section prohibits conduct against a person because the person has been convicted'); KRS 344.365(2). Federal law (FCRA, Fair Housing Act) not read. Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-immigration-status-ky",
+    title: "Immigration Status",
+    group: "Compliance & Prohibited Terms",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "immigration-status",
+    bodyText:
+      "No Kentucky statute bars or requires asking a rental applicant about immigration status. National origin is a protected class under Kentucky's fair housing law, so apply any status or document policy to every applicant the same way.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery immigration (immigration status / citizenship and tenancy): 3 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); KRS 344.360(1). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-algorithmic-rent-ky",
+    title: "Algorithmic Rent-Setting",
+    group: "Rent & Payment",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "algorithmic-rent-setting",
+    bodyText:
+      "No Kentucky statute specifically regulates using a pricing algorithm to set rent. Kentucky's general antitrust statute still makes contracts, combinations and conspiracies in restraint of trade unlawful.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery algorithm (algorithmic rent setting): 0 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery algorithm-ev (pricing software or shared data for rents (everyday rerun of algorithm)): 19 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); 'Every contract, combination in the form of trust and otherwise, or conspiracy, in restraint of trade or commerce in this Commonwealth shall be unlawful' (KRS 367.175(1)) (its reach to shared pricing software is Claude's reading, case law not searched). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-rent-receipts-ky",
+    title: "Rent Receipts",
+    group: "Rent & Payment",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-receipts",
+    bodyText:
+      "No Kentucky statute requires a landlord to give a receipt for rent, even cash rent. Giving a written receipt is good practice.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery receipt (rent receipt): 13 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-rent-increase-notice-ky",
+    title: "Rent Increases",
+    group: "Rent & Payment",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-increase-notice",
+    bodyText:
+      "No Kentucky statute sets a notice period for a rent increase. A fixed-term lease generally sets the rent for its term unless it says otherwise. For a periodic tenancy, where the Uniform Residential Landlord and Tenant Act applies, give at least the notice needed to end the tenancy (30 days before a periodic rental date for month-to-month); elsewhere one month's written notice is the safe course. A landlord may not raise rent to retaliate where the Act applies.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). (KY battery rent-increase-notice-r2 (notice of rent increase (rerun)): 2 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery rent-escalation-r2 (rent increase / escalation (rerun)): 2 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); KRS 383.695(1)-(2) (Claude's reading on periodic increases); KRS 383.195 (one month's notice to end a tenancy at will; the safe-course advice is Claude's reading); fixed-term rent is a common-law reading, case law not searched; KRS 383.705(1). Rule 37: fixed-term vs periodic stated. Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-term-change-notice-ky",
+    title: "Changing Lease Terms",
+    group: "Notices & General",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "term-change-notice",
+    bodyText:
+      "No Kentucky statute sets a notice period for changing a periodic tenancy's terms. Where the Uniform Residential Landlord and Tenant Act applies, a new rule that substantially changes the bargain needs the tenant's written consent, and a change is safest with the notice needed to end the tenancy.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.610(2); KRS 383.695(1)-(2) (Claude's reading). (KY battery rent-increase-notice-r2 (notice of rent increase (rerun)): 2 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-fee-transparency-ky",
+    title: "Disclosing Fees",
+    group: "Rent & Payment",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fee-transparency",
+    bodyText:
+      "No Kentucky statute requires all-in rent pricing or a first-page list of fees. State every fee in the lease.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery fees-upfront (nonrefundable fees / move-in fees): 19 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery blank-spaces (blank spaces / copy at signing / plain language / translation): 5 hits, control 0; known positives passed (0 real sections, 2 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-required-fees-ky",
+    title: "Listing Required Fees",
+    group: "Rent & Payment",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "required-fees",
+    bodyText:
+      "No Kentucky statute requires a lease to list every required fee or sets a notice period for adding one. A fee not in the lease is hard to collect; where the Uniform Residential Landlord and Tenant Act applies, adding one mid-term by rule can need the tenant's written consent. In every locality, no pet fee, deposit or added rent may be charged for an assistance animal allowed as a reasonable accommodation.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.610(2); KRS 383.085(4). (KY battery fees-upfront (nonrefundable fees / move-in fees): 19 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-lease-completeness-ky",
+    title: "Blank Spaces and Copies",
+    group: "Notices & General",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lease-completeness",
+    bodyText:
+      "No Kentucky statute requires every blank in a lease to be filled in before signing.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery blank-spaces (blank spaces / copy at signing / plain language / translation): 5 hits, control 0; known positives passed (0 real sections, 2 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-lease-copy-ky",
+    title: "Copy of the Lease",
+    group: "Notices & General",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lease-copy",
+    bodyText:
+      "No Kentucky statute requires a landlord to give the tenant a copy of the signed lease. Give every tenant a signed copy.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery copy-of-lease (copy of lease to tenant): 6 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery blank-spaces (blank spaces / copy at signing / plain language / translation): 5 hits, control 0; known positives passed (0 real sections, 2 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-plain-language-ky",
+    title: "Plain Language and Translation",
+    group: "Notices & General",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "plain-language",
+    bodyText:
+      "No Kentucky statute sets plain-language, type-size or translation requirements for residential leases.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery blank-spaces (blank spaces / copy at signing / plain language / translation): 5 hits, control 0; known positives passed (0 real sections, 2 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery fmt-r2 (formatting/placement rules (rerun)): 362 hits, control 0; known positives passed (1 real section, 3 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY log §4). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-translation-ky",
+    title: "Lease Translation",
+    group: "Notices & General",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "translation-duty",
+    bodyText:
+      "No Kentucky statute requires a lease to be translated, even when it is negotiated in another language.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery blank-spaces (blank spaces / copy at signing / plain language / translation): 5 hits, control 0; known positives passed (0 real sections, 2 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-tenant-rights-statement-ky",
+    title: "Tenant Rights Statement",
+    group: "Notices & General",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-rights-statement",
+    bodyText:
+      "No Kentucky statute requires a state tenant-rights summary to be given with or attached to a lease.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery blank-spaces (blank spaces / copy at signing / plain language / translation): 5 hits, control 0; known positives passed (0 real sections, 2 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery fmt-r2 (formatting/placement rules (rerun)): 362 hits, control 0; known positives passed (1 real section, 3 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Disclosures
+  {
+    id: "edu-required-disclosures-ky",
+    title: "Other Required Lease Notices",
+    group: "Disclosures",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "required-disclosures",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act applies, a landlord must disclose the manager's and owner's names and addresses in writing and, if a security deposit is taken, give the deposit-account information and move-in damage list. Statewide, an owner leasing property that has been determined to be contaminated with methamphetamine, or posted with a contamination notice, must disclose that in writing until it is decontaminated and released, and federal lead paint rules apply. No other Kentucky statute requires a notice in every lease; a postsecondary institution's on-campus housing has its own fire-suppression disclosure.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.585 (URLTA), 383.580(1)-(2) (URLTA); KRS 224.1-410(10), 224.99-010(15); KRS 164.9492. (KY battery fmt-r2 (formatting/placement rules (rerun)): 362 hits, control 0; known positives passed (1 real section, 3 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-rent-tax-ky",
+    title: "Taxes on Rent",
+    group: "Rent & Payment",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-tax",
+    bodyText:
+      "Kentucky sales tax and the statewide 1% transient room tax apply to rooms and lodgings regularly furnished to transients, but not to a stay of 30 or more continuous days; local room taxes may also apply. Ordinary long-term rent for a home is not taxed. Ask the Department of Revenue if you rent short-term.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 139.200(2)(a) ('The tax shall not apply to rooms, lodgings, campsites, or accommodations supplied for a continuous period of thirty (30) days or more to a person'); KRS 142.400(2), (4); local room taxes KRS 91A.390; KRS 139.600 (rentals of tangible personal property). Long-term rent untaxed: Claude's reading of these sections. (KY battery rent-tax (sales tax on residential rent / transient room tax): 25 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-rent-reporting-ky",
+    title: "Rent Reporting",
+    group: "Rent & Payment",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-reporting",
+    bodyText:
+      "No Kentucky statute regulates reporting rent payments to credit bureaus or bars requiring a tenant to join a rent-reporting program. Exception: a tenant who ends a lease early under the protective-order statute may not receive a negative credit entry for that early termination (leases made or renewed on or after June 29, 2017).",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery rent-reporting (rent reporting / credit reporting of rent): 5 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); KRS 383.300(5)(c)2. ('Not receive a negative credit entry, a negative character reference, or be liable for any other rent or fees due solely to the early termination of the tenancy'). Federal FCRA not read. Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-rent-concession-ky",
+    title: "Rent Concessions",
+    group: "Rent & Payment",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-concession",
+    bodyText:
+      "No Kentucky statute generally regulates rent concessions or move-in specials. State any concession and when it can be recaptured in the lease. Exception: a concession cannot be recaptured from a tenant who ends the lease early under the protective-order statute (leases made or renewed on or after June 29, 2017); the restrained person is liable for it instead.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery concession (rent concessions, free rent, move-in specials): 4 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); KRS 383.300(5)(c)2., (5)(d)2. ('any reductions in rent previously granted to the protected tenant'). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-shutdown-rent-ky",
+    title: "Government Shutdowns",
+    group: "Rent & Payment",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "shutdown-rent-protection",
+    bodyText:
+      "No Kentucky statute protects tenants who are government employees during a shutdown.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery shutdown (government shutdown / federal employee rent protection): 2 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-utility-submetering-ky",
+    title: "Submetering and Utility Charge-Backs",
+    group: "Landlord Responsibilities",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utility-submetering-disclosure",
+    bodyText:
+      "No Kentucky statute regulates submetering or billing tenants for utilities, or requires a lease disclosure about it. Public Service Commission regulations may apply to resale of utility service; state any charge-back method in the lease. A landlord who runs a master-metered gas system for an apartment complex or similar property falls under the Public Service Commission's safety jurisdiction.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery utility-billing (submetering / ratio utility billing by landlords): 1 hit, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (its hit, KRS 278.495(1)(b), (2)(b), covers master meter gas system safety, not billing) (KY battery utility-landlord-r2 (utility account held by landlord; tenant notice (rerun)): 8 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Public Service Commission regulations (807 KAR) not read. Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-utility-apportionment-ky",
+    title: "Splitting Shared Utilities",
+    group: "Landlord Responsibilities",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utility-apportionment",
+    bodyText:
+      "No Kentucky statute sets how a landlord may split a shared utility bill among tenants.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery utility-billing (submetering / ratio utility billing by landlords): 1 hit, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-utility-landlord-account-ky",
+    title: "When the Utility Account Is the Landlord's",
+    group: "Landlord Responsibilities",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utility-landlord-account",
+    bodyText:
+      "Outside localities that adopted the Uniform Residential Landlord and Tenant Act, no Kentucky statute gives tenants a pay-and-deduct right or a notice right when a landlord-held utility account is shut off. Where the Act applies, if the landlord willfully fails to supply heat, water, hot water, electricity or gas, the tenant may, after written notice, buy the service and deduct the reasonable cost from rent, recover damages for reduced rental value, or move to substitute housing without paying rent. Willfully interrupting these services is treated like an unlawful ouster: the tenant may recover possession or terminate and recover up to three months' rent and attorney fees, and a landlord may not take possession that way.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.640(1)(a)-(c), (4); KRS 383.655; KRS 383.690. (KY battery utility-landlord-r2 (utility account held by landlord; tenant notice (rerun)): 8 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Public Service Commission regulations not read. Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-utility-shutoff-ky",
+    title: "Utility Disconnection Rules",
+    group: "Landlord Responsibilities",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utility-shutoff-statute",
+    bodyText:
+      "No Kentucky statute in the landlord-tenant or general titles sets utility disconnection notice periods for tenants; the Public Service Commission's regulations govern regulated utilities, and municipal utilities may have their own rules. A city, or a sewer body acting under the city's delegated power, may have water service to the premises cut off for unpaid sewer charges.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery utility-landlord-r2 (utility account held by landlord; tenant notice (rerun)): 8 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); KRS 96.934 (sewer charges; no tenant notice in the statute). 807 KAR 5:006 not read. Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-utility-lien-ky",
+    title: "Tenant Utility Bills as Liens",
+    group: "Landlord Responsibilities",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "municipal-utility-lien",
+    bodyText:
+      "A county or urban-county government may add a tenant's garbage fees that are three months or more overdue to the owner's property tax bill, after 60 days' written notice to the owner, but must waive them on request if the owner does not live there and certifies that the tenant will be told nonpayment breaches the lease. No fine, fee or lien may be put on a non-occupying residential owner for a tenant's unpaid garbage fees unless the owner agreed to pay them. No statute found makes a tenant's unpaid water or sewer bill a lien on the landlord's property; check the local utility's rules.",
+    notes: "KY: KY-SCOPE: STATEWIDE. 'A county or urban-county government may collect solid waste pick-up fees which are delinquent three (3) consecutive months or more by combining the delinquent fees with the property tax bill for the property where the solid waste pick-up is made' (KRS 109.310(1)); notice KRS 109.310(3); owner waiver and lease-breach certification KRS 109.310(5); no fine, fee or lien on a non-occupying owner without an agreement KRS 109.310(6)(a). (KY battery utility-lien (utility charges as lien on property for tenant bills): 1 hit, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery utility-lien-r2 (tenant utility or solid waste bills charged to owner or property (rerun with solid waste)): 12 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (found by the independent check, KY log §13). Local utility ordinances not searched. Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-servicemember-rights-ky",
+    title: "Servicemembers",
+    group: "Default & Termination",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "servicemember-rights",
+    bodyText:
+      "Kentucky has no separate state lease-termination statute for servicemembers; the federal Servicemembers Civil Relief Act lets a servicemember end a residential lease. Kentucky extends the federal Act's protections to Kentucky National Guard members called to Title 32 or state active duty for 30 days or more. The shared Early Termination terms preserve these rights.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery servicemember (servicemember termination of residential lease): 1 hit, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery military (servicemember lease termination (state)): 32 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery servicemember-r3 (state extension of Servicemembers Civil Relief Act protections (rerun without lease words)): 4 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); 'shall be extended to a member of the Kentucky National Guard called to active duty service under Title 32 of the United States Code, or to state active duty by the Governor of the Commonwealth of Kentucky, if the active duty orders are for a period of thirty (30) days or more' (KRS 38.510). KRS 367.550 (service contracts, not leases). 50 U.S.C. § 3955 not read. Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-tenant-death-ky",
+    title: "Death of a Tenant",
+    group: "Default & Termination",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-death",
+    bodyText:
+      "No Kentucky statute ends a residential lease when a tenant dies or sets a procedure for the tenant's belongings. Rent owed may be recovered from the tenant's personal representative. A separate rule covers a yearly lease made by a life tenant who dies after March 1: the lessee holds until December 31 at a reasonable rent.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 383.010(5) ('Rent may be recovered from the lessee or other person owing it, or his assignee or undertenant, or the representative of either'); KRS 383.010(3)-(4); KRS 383.190 (a life tenant who 'lets the land to another for the year'). (KY battery tenant-death (death of tenant and lease): 43 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery death (death of tenant: lease termination): 11 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Whether a lease survives against the estate is case law, not searched. Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-infirmity-termination-ky",
+    title: "Termination for Illness or Move to Care",
+    group: "Default & Termination",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "infirmity-termination",
+    bodyText:
+      "No Kentucky statute lets a tenant end a lease because of illness, disability or a move to assisted living or a nursing home. An assisted-living community's own lease must disclose its termination policies, which is not a right to end an ordinary lease.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery infirmity (tenant termination for illness, disability or move to care): 6 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); KRS 194A.713. Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-foreclosure-ky",
+    title: "Foreclosure and Tenants",
+    group: "Default & Termination",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "foreclosure",
+    bodyText:
+      "No Kentucky statute protects tenants when a rental property is foreclosed, requires notice to tenants, or binds the buyer at a master commissioner's sale to the lease. Federal law (the Protecting Tenants at Foreclosure Act) can require notice before a bona fide tenant must leave.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery foreclosure-r2 (foreclosure and tenants (rerun)): 16 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). 12 U.S.C. § 5220 note not read. Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Disclosures
+  {
+    id: "edu-foreclosure-disclosure-ky",
+    title: "Disclosing a Pending Foreclosure",
+    group: "Disclosures",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "foreclosure-disclosure",
+    bodyText:
+      "No Kentucky statute requires a landlord to tell a prospective tenant that the property is in foreclosure.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery foreclosure-r2 (foreclosure and tenants (rerun)): 16 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-condo-conversion-ky",
+    title: "Condominium Conversion",
+    group: "Notices & General",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "conversion-notice",
+    bodyText:
+      "No Kentucky statute requires notice to tenants or gives them purchase rights when a rental building converts to condominiums.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery condo-conversion (condominium conversion notice to tenants): 1 hit, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). KRS 381.9101 et seq. read by heading only. Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-expedited-criminal-eviction-ky",
+    title: "No Fast-Track Eviction for Crime",
+    group: "Default & Termination",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "expedited-criminal-eviction",
+    bodyText:
+      "Kentucky has no expedited eviction or no-cure termination for criminal or drug activity by a tenant. Where the Uniform Residential Landlord and Tenant Act applies, the landlord uses the ordinary material-noncompliance procedure: at least 14 days' written notice (allow 15), with a chance to cure if the breach is remediable, and 14 days' notice without cure for a repeat within six months. Whether particular criminal conduct is a material noncompliance depends on the lease and case law; elsewhere the lease controls. In every locality a lease may not penalize a tenant for calling the police or for emergency help, and a protected tenant has a defense to an eviction based on complaints of noise, disturbances or repeated police presence tied to the order (both for leases made or renewed on or after June 29, 2017). Separately, real property used to commit or facilitate a drug offense (other than certain misdemeanors) can be forfeited to the state, but an owner's interest is forfeited only for acts or omissions done with the owner's knowledge or consent; act promptly on known drug activity.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). (KY battery criminal-termination-r2 (termination for drug/criminal activity (rerun)): 0 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery criminal-termination-ev (drug or criminal activity and the end of a lease (everyday rerun of criminal-termination-r2)): 123 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); 'to the extent of an interest of an owner, by reason of any act or omission established by the Commonwealth to have been committed or omitted with the knowledge or consent of the owner' (KRS 218A.410(1)(k)) (found by the log check, KY log §13); KRS 383.660(1); KRS 383.302(1); KRS 383.300(3)(b) (leases made or renewed on or after June 29, 2017). Material-noncompliance question: case law not searched. Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-eviction-hardship-stay-ky",
+    title: "Eviction Stays",
+    group: "Default & Termination",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-hardship-stay",
+    bodyText:
+      "No Kentucky statute lets a court stay an eviction for hardship or extreme weather. A party who appeals a forcible detainer judgment within seven days and deposits with the circuit court clerk the rent owed since the case began, and then each month's rent as it comes due, gets a stay of further proceedings pending appeal.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 383.255(1)-(2). (KY battery stay (eviction stay for hardship / extreme weather): 1 hit, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (its one hit, KRS 425.081, is a claim-and-delivery stay). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-minor-defendants-ky",
+    title: "Minors in Eviction Cases",
+    group: "Default & Termination",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "minor-tenant-filing",
+    bodyText:
+      "No Kentucky statute limits naming minors as defendants in a forcible detainer case.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery minors (minors named as defendants in forcible detainer): 2 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery sealing (sealing/expungement of eviction records): 0 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery sealing-ev (eviction case records sealed, expunged or confidential (everyday rerun of sealing)): 3 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-landlord-registration-ky",
+    title: "Landlord Registration",
+    group: "Notices & General",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-registration",
+    bodyText:
+      "Kentucky has no statewide landlord or rental registration requirement. Some cities and counties have rental registration or licensing ordinances; state law bars local landlord-tenant ordinances that conflict with state law, and, for the subjects of the Uniform Residential Landlord and Tenant Act, any other ordinance.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery registration (landlord / rental registration): 4 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); KRS 383.198, 383.500. Local ordinances flagged, not resolved (rule 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-rental-inspection-ky",
+    title: "Rental Inspections",
+    group: "Landlord Responsibilities",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rental-inspection",
+    bodyText:
+      "No Kentucky statute sets up rental inspection programs or lets a lease authorize a housing inspector's entry. Local code enforcement programs may inspect rentals. Separately, the state health cabinet inspects a home where a young child has an elevated blood lead level and can order lead hazards fixed, and a finding that a child under six is in immediate danger is cause for releasing the occupant from the lease.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery inspection (rental housing inspection programs): 0 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery inspection-ev (inspection of rented homes by government (everyday rerun of inspection)): 1 hit, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); KRS 211.905(1)-(5) (`edu-lead-hazard-release-ky`). Local ordinances flagged (rule 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-renters-insurance-ky",
+    title: "Renter's Insurance Requirements",
+    group: "Notices & General",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "renters-insurance-rules",
+    bodyText:
+      "No Kentucky statute regulates a landlord's requirement that a tenant carry renter's insurance. The lease's renter's insurance terms are a contract term, except that where the Uniform Residential Landlord and Tenant Act applies they may not require the tenant to indemnify the landlord or limit the landlord's liability.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). (KY battery insurance-renters (renters insurance requirements): 4 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); KRS 383.570(1)(d). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-dv-confidentiality-ky",
+    title: "Victim Information",
+    group: "Compliance & Prohibited Terms",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-confidentiality",
+    bodyText:
+      "No Kentucky statute requires a landlord to keep a tenant's protective-order or victim information confidential. Treat copies of protective orders as confidential.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery dv-confid-r2 (victim confidentiality in housing (rerun)): 0 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery dv-confid-ev (victim information kept private by landlords (everyday rerun of dv-confid-r2)): 0 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); KRS 383.300(5)(a)2. Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-security-devices-ky",
+    title: "Locks and Security Devices",
+    group: "Landlord Responsibilities",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-devices",
+    bodyText:
+      "No Kentucky statute requires deadbolts, door viewers or rekeying between tenants. A tenant protected by a protective order may, after telling the landlord, rekey a working lock or replace it with one of equal or better quality at the tenant's own expense, and must give the landlord a key on request (leases made or renewed on or after June 29, 2017).",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery security-devices (locks, deadbolts, peepholes, rekey): 6 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); KRS 383.300(4)(a)-(b), (2)(b)2., (1)(a) (`edu-dv-lockchange-ky`). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-tenant-cameras-ky",
+    title: "Tenant Security Cameras",
+    group: "Rules & Regulations",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-security-cameras",
+    bodyText:
+      "No Kentucky statute addresses tenant-installed security cameras or video doorbells. The lease's alterations terms govern installation.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery cameras (tenant security cameras / video doorbell): 0 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery cameras-ev (cameras or recording devices at dwellings (everyday rerun of cameras)): 14 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-telecom-access-ky",
+    title: "Cable and Satellite Access",
+    group: "Rules & Regulations",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "telecom-access",
+    bodyText:
+      "No Kentucky statute regulates tenant access to cable or satellite service in rental housing; the federal rule on antennas applies to areas within the tenant's exclusive use.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery telecom (cable/satellite/telecom access in rental housing): 19 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). 47 C.F.R. § 1.4000 not read. Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Parking & Storage
+  {
+    id: "edu-ev-charging-ky",
+    title: "EV Charging",
+    group: "Parking & Storage",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "ev-charging",
+    bodyText:
+      "No Kentucky statute gives tenants a right to install an electric vehicle charger. Any charger needs the landlord's consent under the lease's alterations terms.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery solar-ev (solar device / electric vehicle charging rights): 5 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-portable-solar-ky",
+    title: "Plug-In Solar",
+    group: "Rules & Regulations",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "portable-solar",
+    bodyText:
+      "No Kentucky statute gives tenants a right to install a plug-in or portable solar device.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery solar-ev (solar device / electric vehicle charging rights): 5 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-pool-safety-ky",
+    title: "Pools",
+    group: "Landlord Responsibilities",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "pool-safety",
+    bodyText:
+      "No Kentucky statute sets pool barrier or safety-notice duties for residential landlords. A pool for a residential community is a Class B pool: it must have an emergency shut-off switch and, if children may enter without an adult or it has slides, waves or elevated entry, lifeguards (one for each 100 bathers), unless the health cabinet allows a certified alternative lifeguard staffing plan. A pool at a single-family rental not used for a home occupation or business is exempt (whether renting the home counts as a business is not settled by the statute). Local building codes may add barrier rules.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery pool (swimming pool safety / barriers): 9 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery pool-r2 (pool safety rules, any pool word (rerun of pool)): 5 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); KRS 211.203(1)(b)3. ('Residential communities'), (2), (5), (6) ('All Class A and Class B pools shall be equipped with an emergency shut-off switch'), (7). Kentucky Building Code (815 KAR) not read. Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-waterbed-ky",
+    title: "Waterbeds",
+    group: "Rules & Regulations",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "waterbed",
+    bodyText:
+      "No Kentucky statute regulates waterbeds in rentals, so the lease's water-filled furniture term governs.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery waterbed (waterbed): 0 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-guest-rights-ky",
+    title: "Guests",
+    group: "Rules & Regulations",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "guest-rights",
+    bodyText:
+      "No Kentucky statute gives tenants or their guests rights that limit a lease's guest terms, apart from fair housing law and the rule that, where a restrained person and a protected tenant are cotenants, the landlord may refuse the restrained person access unless a court order permits it (leases made or renewed on or after June 29, 2017).",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery guest-rights-r2 (guest or visitor rights in rental housing (rerun)): 14 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); KRS 383.300(6)(a). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-double-letting-ky",
+    title: "Renting the Same Unit Twice",
+    group: "Notices & General",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "double-letting",
+    bodyText:
+      "No Kentucky statute addresses renting the same unit to two tenants. Where the Uniform Residential Landlord and Tenant Act applies, the tenant who cannot get possession has the failure-to-deliver remedies.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.630. (KY battery double-let (double letting / renting to two tenants): 0 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery double-let-ev (unit rented to two tenants at once (everyday rerun of double-let)): 79 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-automatic-renewal-ky",
+    title: "Automatic Renewal",
+    group: "Notices & General",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "automatic-renewal",
+    bodyText:
+      "No Kentucky statute specifically regulates automatic renewal clauses in residential leases. Kentucky's general automatic-renewal law covers paid subscriptions, memberships and purchase agreements; whether it reaches a residential lease is untested. If it did apply, a renewal for a term of more than one month, or an open-ended arrangement that continues until the consumer cancels, would need the terms stated clearly and conspicuously before signing, the consumer's affirmative consent before any charge, an acknowledgment the consumer can keep with the cancellation method, an easy way to cancel (online where the consumer signed up online), and notice of any material change.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery auto-renew (automatic renewal clauses): 12 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery auto-renew-r2 (automatic renewal law, no tenancy context (rerun of auto-renew)): 18 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); KRS 365.400(1) ('a paid subscription, membership, or purchase agreement'), (4), (5) ('Continuous service'); KRS 365.402; KRS 365.404. Reach to leases: Claude's reading (probably not), case law not searched. Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Access & Entry
+  {
+    id: "edu-periodic-services-entry-ky",
+    title: "Entry for Scheduled Services",
+    group: "Access & Entry",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "periodic-services-entry",
+    bodyText:
+      "No Kentucky statute allows entry without notice for regularly scheduled services. Where the Uniform Residential Landlord and Tenant Act applies, give at least two days' notice and enter only at reasonable times, except in an emergency or where notice is impracticable; the tenant may not unreasonably withhold consent to entry to supply necessary or agreed services.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.615(1), (3). (KY battery entry (landlord entry/access notice to tenant): 10 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-children-occupancy-ky",
+    title: "Children in the Household",
+    group: "Compliance & Prohibited Terms",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "children-occupancy",
+    bodyText:
+      "No Kentucky statute requires a lease to address occupancy by children. Familial status is a protected class under Kentucky's fair housing law, which also protects a person who is pregnant or securing custody, though reasonable local, state or federal limits on the number of occupants still apply. Housing for older persons is exempt from the familial-status rules, and some small owner-occupied rentals are exempt from the state fair housing law's main prohibitions; federal law was not read.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 344.010(15), 344.360(1), 344.365(1)(a)-(b), (3) ('Nothing in this chapter shall limit the applicability of any reasonable local, state, or federal restrictions regarding the maximum number of occupants'). (KY battery children-r2 (children in rental occupancy (rerun)): 189 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-portfolio-thresholds-ky",
+    title: "Small Landlords",
+    group: "Notices & General",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "portfolio-thresholds",
+    bodyText:
+      "Kentucky's landlord-tenant statutes do not vary duties by how many units a landlord owns. Kentucky's fair housing exemptions for small owners turn on the building (federal law not read): a building with no more than two units where the owner or a member of the owner's family lives, or a room in a home where the owner or a member of the owner's family lives.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 344.365(1)(a)-(b). KRS ch. 383 read whole (no portfolio threshold). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-alarm-duties-ky",
+    title: "Smoke and Carbon Monoxide Alarms",
+    group: "Landlord Responsibilities",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "alarm-duties",
+    bodyText:
+      "Apart from manufactured and mobile homes and boarding homes, no Kentucky statute requires a residential landlord to install or maintain smoke or carbon monoxide alarms. Every manufactured or mobile home must have at least one working smoke detector near the bedrooms on each floor, and owners of homes in a manufactured home park or community are responsible for fixing violations. A boarding home (room and board for three or more adults not related by blood or marriage to the owner, operator or manager) must register with the state, and its standards, set by a regulation not read here, must include smoke detectors. Smoke alarm requirements for rentals come from the building and fire codes and local ordinances, which were not read; where the Uniform Residential Landlord and Tenant Act applies, the landlord must comply with applicable codes materially affecting health and safety.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 227.555(1), (5) (manufactured or mobile homes); other smoke-detector statutes cover family child-care homes (KRS 199.8982) and boarding homes (KRS 216B.300(4); 216B.305(1), (2)(d); the boarding home regulation was not read). (KY battery smoke (smoke detector / alarm): 3 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery co (carbon monoxide detector): 8 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). KRS 227.225 (state fire marshal powers don't reach single family dwellings except as stated). Kentucky Building Code and Fire Code (815 KAR 7, 815 KAR 10) not read (KY log §7). KRS 383.595(1)(a). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-water-heater-temperature-ky",
+    title: "Water Heater Temperature",
+    group: "Landlord Responsibilities",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "water-heater-temperature",
+    bodyText:
+      "Kentucky requires manufacturers to preset new residential water heaters at no more than 130 degrees Fahrenheit, and does not stop the resident of a rented unit from readjusting the setting after occupancy. No statute requires a landlord to set the temperature between tenants.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 211.985(1)-(2) ('the resident of a leased or rented residential unit'). (KY battery water-heater (water heater temperature): 2 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Disclosures
+  {
+    id: "edu-hoa-ky",
+    title: "Association Rules and Rentals",
+    group: "Disclosures",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "hoa",
+    bodyText:
+      "No Kentucky statute found caps an association's rental fees or lets it collect rent from a tenant. For a condominium created after January 1, 2011, leasing restrictions come from its declaration, and changing the uses to which a unit is restricted by amendment needs unanimous consent; whether that covers new leasing limits is not settled by the text. Older condominiums fall under the Horizontal Property Law. In a planned community, tenants must follow the association's covenants and rules, and the owner can be assessed for damage a tenant causes willfully or negligently, after written notice and a chance to be heard. Read the declaration and bylaws before leasing a unit.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery hoa-rental (association rental restrictions): 20 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); KRS 381.9133(1)(l) ('Any restrictions on use, occupancy, and alienation of the units'); KRS 381.9155(1), (4); KRS 381.9181(3); KRS 381.798 ('All owners, residents, tenants, and other persons lawfully in possession'); KRS 381.797(1)(d) ('willful or negligent act'), (2) (notice and hearing); KRS 381.9103(1) (condominiums created after January 1, 2011); KRS 381.805 to 381.910 (older condominiums, not read). Leasing limits as use restrictions: Claude's reading, case law not searched. Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-jury-waiver-ky",
+    title: "Jury Waivers",
+    group: "Compliance & Prohibited Terms",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "jury-waiver",
+    bodyText:
+      "No Kentucky statute addresses a jury waiver in a residential lease. Either side may demand a jury in a forcible detainer case. This library does not offer a jury-waiver clause; whether one is enforceable is a question for case law. A landlord who wants one can add their own clause after taking advice.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 383.210(2) ('At the calling of the cause for trial either party may demand a jury'). 'The ancient mode of trial by jury shall be held sacred, and the right thereof remain inviolate' (Ky. Const. § 7). (KY battery waiver-jury (jury waiver and exemption waiver): 14 hits, control 0; known positives passed (1 real section, 2 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Enforceability of a pre-dispute jury waiver: case law not searched; rule 54 declined (KY log §6). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-homestead-waiver-ky",
+    title: "Exemption Waivers",
+    group: "Compliance & Prohibited Terms",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "homestead-waiver",
+    bodyText:
+      "A waiver of Kentucky's homestead exemption is valid only in a writing signed by the debtor and spouse and acknowledged and recorded like a deed, so an ordinary lease cannot waive it. A resident debtor's personal property exemptions (household furnishings, jewelry, clothing and ornaments up to $3,000 in total; one vehicle up to $2,500) protect against distress as well as execution. Where the Uniform Residential Landlord and Tenant Act applies, a landlord's lien or security interest in household goods is unenforceable and distraint is abolished. Elsewhere landlords have a statutory lien for up to four months' rent (not for rent more than 120 days past due), and property on which a debtor voluntarily grants a lien is not exempt to the extent of the debt; whether the exemptions limit the statutory lien or distress is case law. This library does not offer an exemption-waiver or lien clause. No lease can waive the homestead exemption, and a lien on household goods is unenforceable where the Act applies; elsewhere a landlord who wants a lien or security-interest clause can add their own after taking advice.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 427.100; KRS 427.060; KRS 427.010(1), (4) ('no property upon which a debtor has voluntarily granted a lien shall, to the extent of the balance due on the debt secured thereby, be subject to the provisions of this chapter'); KRS 383.680(1)-(2); KRS 383.070(2). (KY battery waiver-jury (jury waiver and exemption waiver): 14 hits, control 0; known positives passed (1 real section, 2 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (its pattern could not reach KRS 427.010(4), found by the independent check, KY log §13). Rule 54: declined (KY log §6). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-collection-fee-ky",
+    title: "Collection Fees",
+    group: "Rent & Payment",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "collection-fee",
+    bodyText:
+      "No Kentucky statute authorizes a landlord to charge a tenant a collection-agency fee. Where the Uniform Residential Landlord and Tenant Act applies, the landlord recovers rent and actual damages, and attorney fees only as the Act provides. This library does not offer a collection-fee or notice-service-fee clause; outside the Act's localities neither is barred by statute. A landlord who wants one can add their own clause after taking advice.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.685, 383.660(3), 383.570(1)(c); KRS 411.195 (attorney fees only, non-URLTA). (KY battery debt-collection (state debt collection statutes): 12 hits, control 0; known positives passed (0 real sections, 2 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery collection-costs-r2 (costs of collection or collection fees (rerun of collection-costs)): 59 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (hits are guaranties, retail installment and charge agreements, secured parties, condominium and association liens and public collections). Rule 54: declined (KY log §6). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-foreign-ownership-ky",
+    title: "Foreign Owners and Tenants",
+    group: "Notices & General",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "foreign-ownership",
+    bodyText:
+      "Apart from agricultural land, no Kentucky statute bars foreign persons or foreign-adversary entities from leasing residential property. An old statute lets an alien who resides in Kentucky hold land for a residence while a resident, but says an alien may not take and hold 'chattels real' (an older term that includes leaseholds) as personal property; the statutes do not say how that applies to a residential tenant. A nonresident alien's Kentucky real estate may be escheated to the state eight years after acquisition unless the owner becomes a citizen or it passes to a citizen first. A 2025 statute bars nonresident aliens and foreign businesses tied to certain proscribed countries from leasing agricultural land and voids such a lease; a home on agricultural land may be covered.",
+    notes: "KY: KY-SCOPE: STATEWIDE. 'Any alien, not an enemy, may take and hold any personal property except chattels real' (KRS 381.320); resident aliens 'may take and hold any lands for the purposes of residence' (KRS 381.320); KRS 381.300(1)-(2); KRS 381.290, 381.330 (exceptions); KRS 247.018(2)(a) ('The purchase, lease, or acquisition of any interest in public or private agricultural land'), (10)(b) (lease rescinded, 'null and void'). (KY battery foreign-own (foreign ownership of real property / alien land): 8 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery foreign-own-r2 (alien or foreign ownership or leasing of real estate (rerun with real estate)): 8 hits, control 0; known positives passed (2 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Effect on a residential tenancy: Claude's reading, case law not searched. Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-drug-free-addendum-ky",
+    title: "Drug-Free Housing Addenda",
+    group: "Default & Termination",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "drug-free-housing-addendum",
+    bodyText:
+      "No Kentucky statute requires or regulates a drug-free or crime-free lease addendum. The optional Criminal Activity clause serves that purpose; federally assisted housing has its own required addenda.",
+    notes: "KY: KY-SCOPE: STATEWIDE. (KY battery criminal-termination-r2 (termination for drug/criminal activity (rerun)): 0 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery criminal-termination-ev (drug or criminal activity and the end of a lease (everyday rerun of criminal-termination-r2)): 123 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); `criminal-activity-ky`. Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-receivership-ky",
+    title: "Code Enforcement and Conservators",
+    group: "Landlord Responsibilities",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "substandard-property-receivership",
+    bodyText:
+      "Kentucky lets a court appoint a conservator for an abandoned and blighted building (continuously vacant at least a year, with repeated code citations and at least three listed blight conditions) to bring it into compliance. A court in a pending case may also appoint a general receiver to receive rents where property is in danger. No Kentucky statute sets a tenant rent-receivership for an occupied rental; local code enforcement handles occupied buildings.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 99.785(1), (15), 99.815(1); KRS 425.600(1)-(2). (KY battery receivership (receivership / code repair orders for rental property): 21 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-fees-as-rent-ky",
+    title: "Fees Count as Rent",
+    group: "Rent & Payment",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fees-as-rent",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act applies, 'rent' means every payment the lease requires except a security deposit, unless the context requires otherwise, so late fees, pet rent and other charges can count as rent, for example for the rule that accepting rent with knowledge of a default waives termination for it unless otherwise agreed after the breach. This library's lease does not terminate for an unpaid late fee alone, and the court's eviction complaint lists late fees separately from rent. Elsewhere, whether a fee is rent depends on what the lease says.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). '\"Rent\" means all payments except a security deposit as defined in this section to be made to the landlord under the rental agreement' (KRS 383.545(10)) (the definitions apply 'unless the context otherwise requires', KRS 383.545); waiver by acceptance KRS 383.675; AOC-216 item 3; `default-by-tenant-ky`. Fees counting for the waiver rule: Claude's reading. Elsewhere: case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-waiver-by-acceptance-ky",
+    title: "Accepting Rent After a Default",
+    group: "Default & Termination",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "waiver-by-acceptance",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act applies, accepting rent while knowing of a tenant's default, or accepting performance that differs from the lease, waives the right to terminate for that breach, unless the parties agree otherwise after the breach. A lease sentence signed in advance cannot change that. Elsewhere, waiver is a matter of case law.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.675; KRS 383.570(1)(a). Elsewhere: case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-landlord-self-cure-ky",
+    title: "Fixing Tenant Damage Yourself",
+    group: "Landlord Responsibilities",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-self-cure",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act applies, if the tenant breaches a tenant duty or rule in a way that materially affects health and safety and that repair, replacement or cleaning can fix, and does not fix it within 14 days after written notice (or as promptly as an emergency requires), the landlord may enter, have the work done in a workmanlike manner, and submit an itemized bill for the actual and reasonable cost (or fair and reasonable value) as rent due on the next rent date, or immediately if the lease has ended.",
+    notes: "KY: KY-SCOPE: URLTA LOCALITIES (rules apply only where a city, county or urban-county government has adopted KRS 383.505 to 383.705 under KRS 383.500). KRS 383.665; entry KRS 383.615(4)(b). (KY battery self-cure-r2 (landlord self-cure billed as rent (rerun)): 4 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-tenant-statutory-duties-ky",
+    title: "Tenant's Duties Under the Act",
+    group: "Tenant Responsibilities",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-statutory-duties",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act applies, a tenant must follow the duties building and housing codes materially affecting health and safety place on tenants; keep the unit as clean and safe as its condition permits; dispose of garbage cleanly and safely; keep plumbing fixtures clean; use facilities and appliances reasonably; not deliberately or negligently damage the premises or knowingly let anyone else do so; and behave, and require guests to behave, so as not to disturb neighbors.",
+    notes: "KY: KY-SCOPE: URLTA LOCALITIES (rules apply only where a city, county or urban-county government has adopted KRS 383.505 to 383.705 under KRS 383.500). KRS 383.605(1)-(7). Shared `tenant-maintenance` and `no-disturbance` tagged. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-nonpayment-notice-ky",
+    title: "Notice for Unpaid Rent",
+    group: "Default & Termination",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nonpayment-notice",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act applies, before terminating for unpaid rent the landlord must give written notice of the nonpayment and of the intent to terminate if the rent is not paid within seven days. Elsewhere no Kentucky statute requires a nonpayment notice, but the forcible detainer complaint states that written notice to vacate was given, and this library's lease gives the seven-day notice in every locality. This library does not offer a clause waiving the notice: where the Act applies such a waiver is unenforceable, and elsewhere there is no statutory nonpayment notice to waive.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.660(2); KRS 383.570(1)(a), (2); AOC-216 item 4 ('Plaintiff gave Defendant(s) written notice to vacate'). (KY battery nonpayment (notice before eviction for nonpayment of rent): 10 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery nonpayment-notice-to-quit (notice to quit / demand for possession): 25 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). `default-by-tenant-ky`. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-cure-periods-ky",
+    title: "Cure Periods",
+    group: "Default & Termination",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "cure-and-eviction-grounds",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act applies: unpaid rent, 7 days after written notice; other material breaches, a written notice naming the breach and a termination date at least 14 days after receipt, with the tenant able to cure before that date (the statute also says 15 days, so allow 15); a repeat of substantially the same breach within six months, 14 days' notice with no cure. A tenant who stays over 10 days late in a tenancy continuing after a written lease ends can be terminated without notice. Elsewhere no statute sets cure periods; the lease controls, subject to other notice rules (an unauthorized assignment, a tenancy at will, the filing windows after a term ends) and, in every locality, the bar on terminating because a tenant is protected by a protective order.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.660(1)-(2); KRS 383.695(3). Elsewhere (KY battery nonpayment (notice before eviction for nonpayment of rent): 10 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery nonpayment-notice-to-quit (notice to quit / demand for possession): 25 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); other notice rules KRS 383.180(2), 383.195, 383.160; statewide KRS 383.300(3). Rule 79: the 14/15-day conflict in KRS 383.660(1) recorded; the cheaper error is to allow 15 days. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-post-eviction-property-ky",
+    title: "After the Warrant for Possession",
+    group: "Default & Termination",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "post-eviction-property",
+    bodyText:
+      "Kentucky statutes set no duty to store, inventory or care for an evicted tenant's belongings or pets after the warrant for possession is executed, and no landlord immunity for it. The warrant commands the sheriff or constable to put the landlord in possession. Give the tenant a reasonable chance to collect belongings and keep records. The good-faith immunity in the squatter-removal statute does not apply to former tenants.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 383.245; AOC-220 (kycourts.gov, saved); KRS 383.290(5)(c), (9). (KY battery abandoned-property-r2 (tenant belongings: abandon/remove/store/dispose (rerun)): 18 hits, control 0; known positives passed (1 real section, 2 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery abandoned-property-r3 (abandoned belongings incl. personalty/contents (rerun of r2 with checker terms)): 32 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KRS 376.480, mobile home lots, `edu-abandoned-property-ky`). Local court practice not read. Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Security Deposit
+  {
+    id: "edu-deposit-last-month-rent-ky",
+    title: "Deposit and the Last Month's Rent",
+    group: "Security Deposit",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "deposit-last-month-rent",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act applies, the deposit secures against damage. If the tenant leaves without paying the last month's rent and does not ask for the deposit back, the landlord may, after 30 days, apply what remains of the deposit after damage charges to the unpaid rent. Skipping the last month's rent is still nonpayment, and the deposit is not a substitute for it.",
+    notes: "KY: KY-SCOPE: URLTA LOCALITIES (rules apply only where a city, county or urban-county government has adopted KRS 383.505 to 383.705 under KRS 383.500). KRS 383.545(13); 'In the event a tenant leaves not paying his last month's rent and does not demand a return of his deposit, the landlord may, after thirty (30) days, remove the deposit from the account and apply any such excess to the debt owing' (KRS 383.580(6)). 'Excess' as what remains after damage charges, and the last sentence: Claude's reading. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-deposit-on-sale-ky",
+    title: "Deposits When the Property Is Sold",
+    group: "Security Deposit",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-on-sale",
+    bodyText:
+      "No Kentucky statute says whether a seller or buyer of rental property is liable for tenants' deposits, or requires transferring them. Where the Uniform Residential Landlord and Tenant Act applies, the seller is relieved of liability for events after written notice of a good-faith sale to a bona fide purchaser, unless otherwise agreed. Transfer the deposits and account records to the buyer and tell tenants in writing.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.600(1). (KY battery deposit-transfer (deposit transfer on sale of rental property): 6 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Pets
+  {
+    id: "edu-pet-fees-ky",
+    title: "Pet Deposits and Pet Rent",
+    group: "Pets",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "pet-fees",
+    bodyText:
+      "Kentucky does not cap pet deposits or pet rent. Where the Uniform Residential Landlord and Tenant Act applies, a pet deposit secures against damage and so is a security deposit, held and returned under the deposit rules, and pet rent is rent. No pet fee, deposit or added rent may be charged for an assistance animal allowed as a reasonable accommodation, in any locality, though the tenant remains responsible for damage on the same terms as pet owners.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.545(10), (13) (Claude's reading on pet deposits); KRS 383.085(4). (KY battery deposit-cap (cap on security deposit amount): 13 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KY battery deposit-cap-r2 (deposit or fee caps, any amount (rerun of deposit-cap)): 1 hit, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-disability-accommodation-ky",
+    title: "Accommodations and Modifications",
+    group: "Compliance & Prohibited Terms",
+    states: ["KY"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "disability-accommodation",
+    bodyText:
+      "Kentucky's fair housing law requires reasonable accommodations in rules, policies, practices or services when needed to give a person with a disability equal opportunity to use and enjoy a home, and lets a tenant make reasonable modifications at the tenant's expense when necessary for full enjoyment of the premises; the landlord may, where reasonable, condition a modification on restoring the interior at move-out, reasonable wear and tear excepted. Kentucky does not require that condition to be in the lease. A person whose tenancy would be a direct threat to others' health or safety or would cause substantial physical damage is not protected. State law exempts two-family buildings and single-room rentals where the owner or a family member lives there; federal law may still apply.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 344.360(11)(a)-(b), (14); KRS 344.365(1)(a)-(b). Shared `no-alterations` and `assistance-animal-accommodation` tagged. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-protected-class-inquiry-ky",
+    title: "Discriminatory Questions and Ads",
+    group: "Compliance & Prohibited Terms",
+    states: ["KY"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "protected-class-inquiry-ban",
+    bodyText:
+      "Kentucky's fair housing law makes it unlawful for a real estate operator to use an application form, make a record of inquiry, or publish an advertisement that indicates, directly or indirectly, a limitation, specification or discrimination based on race, color, religion, sex, familial status, disability or national origin. The rule also binds brokers, salespeople and agents; some owner-occupied rentals are exempt; federal law may still apply.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 344.360(6); KRS 344.365(1). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Pets
+  {
+    id: "edu-service-animal-denial-ky",
+    title: "Assistance Dogs in Public Lodging",
+    group: "Pets",
+    states: ["KY"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "service-animal-denial-penalty",
+    bodyText:
+      "Separately from the assistance animal housing rules, a person accompanied by a trained assistance dog may keep it while a tenant in an apartment or building used as public lodging; refusing is punishable by a $500 to $1,000 fine. Where the need is not apparent, documentation may be requested from one of the Kentucky-licensed health care providers the statute lists (clinical social worker, professional counselor, advanced practice registered nurse, psychologist, psychological practitioner or physician), in active practice in the state, with whom the person has an ongoing therapeutic relationship, identifying the dog's tasks; a letter bought for a fee counts only after a face-to-face, in-office consultation. The right depends on the dog being tagged, vaccinated, licensed, leashed (unless the disability requires otherwise) and controlled, and the handler is liable for damage the dog causes. For a tenant's assistance animal, including a trained service dog, the broader housing assistance-animal rules also apply (for example, a person moving from another state may use a provider licensed there); see Assistance Animals.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 383.085(1)(a)-(b), (2) (`edu-assistance-animals-ky`); KRS 258.500(1)(a), (1)(c)1.a.-f., (1)(d), (6), (8), (14), (15), (16); KRS 258.991(1) ('a fine of not less than five hundred dollars ($500) nor more than one thousand dollars ($1,000)'). KRS 383.085. (KY battery assist-dog-r2 (assistance animals and housing denial (rerun)): 5 hits, control 0; known positives passed (2 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-unconscionability-ky",
+    title: "Unconscionable Terms",
+    group: "Compliance & Prohibited Terms",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "unconscionability",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act applies, a court that finds a lease term unconscionable when made may refuse to enforce it, enforce the rest without it, or limit it, after letting the parties present evidence. Kentucky's consumer protection act also treats unfair practices in trade as unconscionable ones; whether it reaches a residential lease is not stated.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.555(1)-(2) ('as a matter of law'); KRS 383.545(16) (definition); KRS 367.170(2); `edu-consumer-protection-ky`. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-exculpatory-clauses-ky",
+    title: "Liability Waivers",
+    group: "Compliance & Prohibited Terms",
+    states: ["KY"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "exculpatory-clauses",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act applies, a lease may not excuse or limit the landlord's liability arising under law, or make the tenant indemnify the landlord for it; such terms are unenforceable. That is why this library's Kentucky parking, storage, insurance and utility clauses omit 'Landlord is not liable' sentences. Elsewhere, enforceability is case law.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.570(1)(d), (2). Rule 52: `parking-ks-oh-ca`, `storage-space-ks-oh-ca`, `tenants-property-insurance-ks-oh-ca`, `services-utilities-provided-ks-oh` tagged instead of the base clauses. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-tenant-organizing-ky",
+    title: "Tenant Unions",
+    group: "Compliance & Prohibited Terms",
+    states: ["KY"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-right-to-organize",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act applies, a landlord may not raise rent, cut services, or bring or threaten an eviction to retaliate because a tenant organized or joined a tenants' union or similar organization, though the landlord may still evict for unpaid rent.",
+    notes: "KY: KY-SCOPE: URLTA LOCALITIES (rules apply only where a city, county or urban-county government has adopted KRS 383.505 to 383.705 under KRS 383.500). KRS 383.705(1)(c), (2), (3)(b). (KY battery organize (tenant union / organizing): 5 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-nonresident-owner-agent-ky",
+    title: "Out-of-State Owners",
+    group: "Notices & General",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nonresident-owner-agent",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act applies, a landlord who is not a Kentucky resident may designate an in-state agent for service of process with the Secretary of State (as may a corporation not authorized to do business in Kentucky); if none is designated, or the agent cannot be served, process can be served on the Secretary of State, with a copy mailed to the landlord by registered or certified mail. The manager and owner disclosure must name an address for notices.",
+    notes: "KY: KY-SCOPE: URLTA LOCALITIES (rules apply only where a city, county or urban-county government has adopted KRS 383.505 to 383.705 under KRS 383.500). KRS 383.540(2); KRS 383.585(1)(b). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-rent-into-court-ky",
+    title: "Counterclaims and Rent Paid Into Court",
+    group: "Default & Termination",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-into-court-counterclaim",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act applies, in a nonpayment eviction or rent suit the tenant may counterclaim for amounts recoverable under the lease, and the court may order the tenant to pay accrued and future rent into court; a bad-faith counterclaim lets the landlord recover attorney fees. A tenant sued for rent who is no longer in possession need not pay rent into court. In every locality, a party who appeals a forcible detainer judgment must deposit the rent owed since the case began and rent as it comes due during the appeal.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.645(1)-(2) (the statute reads 'under the rental agreement of KRS 383.565'; Claude's reading: this includes the Act's remedies); KRS 383.255(1). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-condemned-premises-ky",
+    title: "Unfit or Condemned Units",
+    group: "Landlord Responsibilities",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "condemned-premises-rent-bar",
+    bodyText:
+      "No general Kentucky statute bars collecting rent after a unit is condemned. Where the state health cabinet finds lead hazards that are not fixed within 60 days, it posts the unit unfit for children under six, and a finding that a child under six is in immediate danger is cause for releasing the occupant from the lease without prejudice. Where the Uniform Residential Landlord and Tenant Act applies, the landlord's code and habitability duties and the casualty rule also apply.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 211.905(2)-(5). (KY battery condemned-r2 (rent after condemnation / unfit posting (rerun)): 7 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Disclosures
+  {
+    id: "edu-lead-hazard-release-ky",
+    title: "Lead Hazards and Children",
+    group: "Disclosures",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lead-based-paint",
+    bodyText:
+      "Beyond the federal lead paint disclosure, Kentucky's health cabinet inspects a home, or another place a child routinely spends time, where a child 72 months old or younger has an elevated blood lead level, orders the owner to remove or cover accessible lead hazards within 60 days, posts the unit unfit for young children if the owner does not, and a finding that a child under six is in immediate danger is cause for releasing the tenant from the lease without prejudice.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 211.905(1)-(5) (am. 2006 Ky. Acts ch. 180, sec. 6). Shared `lead-based-paint` tagged. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-alt-housing-ky",
+    title: "Substitute Housing",
+    group: "Landlord Responsibilities",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "alt-housing",
+    bodyText:
+      "Kentucky does not require a landlord to provide alternate housing. Where the Uniform Residential Landlord and Tenant Act applies, if the landlord willfully fails to supply an essential service, the tenant may, after written notice, move to reasonable substitute housing, owe no rent for that period, and recover attorney fees, unless the tenant, family or guests caused the condition.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.640(1)(c), (2), (3), (4). (KY battery alt-housing (substitute or alternate housing owed by landlord): 2 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (KRS 67.420 is local code enforcement). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-heating-ky",
+    title: "Heat and Hot Water",
+    group: "Landlord Responsibilities",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "heating",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act applies, the landlord must supply running water and reasonable hot water at all times and reasonable heat from October 1 to May 1, unless the building is not required to be equipped for it or the tenant controls the heat or hot water through a direct utility connection; in a single family residence the parties may agree in writing that the tenant supplies them, if the agreement is made in good faith and not to evade the landlord's duties.",
+    notes: "KY: KY-SCOPE: URLTA LOCALITIES (rules apply only where a city, county or urban-county government has adopted KRS 383.505 to 383.705 under KRS 383.500). KRS 383.595(1)(e), (3). (KY battery heat (heat and hot water duty): 1 hit, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-repair-notice-ky",
+    title: "Repair Requests in Writing",
+    group: "Landlord Responsibilities",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "repair-notice",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act applies, the tenant's termination, repair-and-deduct and essential-services remedies all start with written notice to the landlord, so ask tenants to put repair requests in writing and say where to send them.",
+    notes: "KY: KY-SCOPE: URLTA LOCALITIES (rules apply only where a city, county or urban-county government has adopted KRS 383.505 to 383.705 under KRS 383.500). KRS 383.625(1), 383.635(1), 383.640(1), (4); KRS 383.560(3)(b). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-quiet-possession-ky",
+    title: "Quiet Possession",
+    group: "Landlord Responsibilities",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "quiet-possession",
+    bodyText:
+      "Kentucky's statutes do not state a covenant of quiet enjoyment. Where the Uniform Residential Landlord and Tenant Act applies, unlawfully removing or excluding a tenant, or willfully cutting services, lets the tenant recover possession or end the lease and recover up to three months' rent and attorney fees; abusive entry has its own remedies.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.655, 383.700(2). (KY battery quiet (covenant of quiet enjoyment / quiet possession): 2 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Common-law covenant: case law not searched. Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-tenancy-at-will-ky",
+    title: "Tenancy at Will",
+    group: "Default & Termination",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenancy-at-will",
+    bodyText:
+      "Where the Uniform Residential Landlord and Tenant Act does not apply, a landlord ends a tenancy at will or by sufferance with one month's written notice requiring the tenant to leave. Where it applies, a tenancy with no fixed term is week-to-week (a roomer paying weekly) or month-to-month and ends on 7 days' written notice (weekly) or 30 days' written notice ending on a rent due date (monthly); a tenancy continuing after a written lease ends needs 10 days' notice.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.195; KRS 383.565(3), 383.695(1)-(3). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-statutory-forms-ky",
+    title: "Statutory Forms",
+    group: "Default & Termination",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "statutory-forms",
+    bodyText:
+      "Kentucky's statutes supply the forms of the forcible detainer warrant and the warrant of restitution, and the Petition to Remove Persons Unlawfully Occupying Real Property for squatters; the courts publish the eviction forms (AOC-215 notice and summons, AOC-216 complaint, AOC-217 judgment, AOC-218 settlement, AOC-220 warrant for possession). No statute prescribes a form for a lease or a landlord's notice.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 383.210(1), 383.245, 383.290(3) ('in substantially the following form'); AOC forms read 2026-10-04 (`ky-court-forms-20261004.json`). (KY battery nonpayment-notice-to-quit (notice to quit / demand for possession): 25 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-statutory-early-termination-ky",
+    title: "Statutory Ways a Tenant Can End a Lease Early",
+    group: "Default & Termination",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "statutory-early-termination",
+    bodyText:
+      "In every Kentucky locality a tenant may end a lease early as a protected tenant with a domestic violence or interpersonal protective order (leases made or renewed on or after June 29, 2017; at least 30 days' written notice with a copy of the order, and a new safety concern if the order predates the lease), or be released from it when the health cabinet finds that a child under six is in immediate danger from lead hazards. Where the Uniform Residential Landlord and Tenant Act applies, a tenant may also end it for the landlord's uncured material breach, failure to deliver possession, a casualty that substantially impairs use, unlawful ouster or service cuts, or abusive entry. Federal law adds servicemember rights.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.300(5); KRS 211.905(5); KRS 383.625(1), 383.630(1)(a), 383.650(1), 383.655, 383.700(2). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-tenant-display-rights-ky",
+    title: "Displaying the U.S. Flag",
+    group: "Rules & Regulations",
+    states: ["KY"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-display-rights",
+    bodyText:
+      "Whatever a lease or other agreement says, a tenant may display a United States flag no larger than two feet by three feet from the tenant's residence, if displayed in a manner proper under state or federal law. Any agreement against this right is void, and a landlord may not discriminate or retaliate against a tenant who properly displays the flag.",
+    notes: "KY: KY-SCOPE: STATEWIDE. 'regardless of whether the person owns or leases the residence' (KRS 2.042); 'Any agreement contravening this right shall be void and unenforceable in any court of the Commonwealth' (KRS 2.042) (1998 Ky. Acts ch. 553, sec. 1). Shared `common-area-use` tagged (it preserves displays applicable law entitles Tenant to make). (KY battery flag (flag display / signs by tenants or residents): 13 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-nuisance-ky",
+    title: "Nuisance Laws",
+    group: "Default & Termination",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nuisance",
+    bodyText:
+      "Anyone who owns, leases or subleases a house of prostitution is guilty of a nuisance that shall be enjoined and abated, and the premises may be closed for a year, unless the owner and agent tried in good faith to prevent the use; an alcohol nuisance can bar occupancy for six months; and local governments may adopt nuisance abatement ordinances with liens on the property, for which the owner is personally liable. In every locality an owner may not let junked vehicles, rubbish or excessive weeds create a public nuisance, or let a structure become unfit and unsafe for human habitation; local governments enforce these with fines and liens. No Kentucky statute found lets a court order a lease terminated or rents escrowed because of a tenant's crime.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 233.020 ('shall be enjoined and abated'), 233.090, 233.100(1); KRS 242.350(2); KRS 65.8840(3), (5), (7), (9), (11). (KY battery nuisance-r2 (nuisance reaching leased property (rerun, section-wide context)): 12 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Local ordinances flagged (rule 3). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-consumer-protection-ky",
+    title: "Consumer Protection Act and Leases",
+    group: "Compliance & Prohibited Terms",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "consumer-protection-act",
+    bodyText:
+      "Kentucky's Consumer Protection Act makes unfair, false, misleading or deceptive acts in trade or commerce unlawful, and 'unfair' means unconscionable. Its private damages action belongs to a person who purchases or leases 'goods or services' primarily for personal, family or household purposes, and the statutes do not say whether a residential lease is 'goods or services'. The act lists no specific unfair practices for leases, such as blank spaces or failing to give a copy.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 367.170(1)-(2); KRS 367.220(1), (3). (KY battery consumer-lease (consumer protection reaching leases of real property): 29 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope KRS 25283) (KY battery blank-spaces (blank spaces / copy at signing / plain language / translation): 5 hits, control 0; known positives passed (0 real sections, 2 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Kentucky case law on whether a residential lease is 'goods or services' (KRS 367.220(1)): not searched (KY log §1.4). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-rent-escalation-ky",
+    title: "Mid-Term Rent Increases",
+    group: "Rent & Payment",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-escalation",
+    bodyText:
+      "No Kentucky statute specifically addresses a lease term that raises rent during a fixed term; where the Uniform Residential Landlord and Tenant Act applies, the parties may include terms on rent not prohibited by the Act or other rule of law. A fixed-term lease's rent stays as written unless the lease provides for an increase. The optional Mid-Term Rent Increase clause adds one. Where the Uniform Residential Landlord and Tenant Act applies, a landlord may not raise rent to retaliate, and the statute has no safe harbor for market increases. In every locality a landlord may not retaliate against a tenant for being protected by a protective order.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). KRS 383.565(1); KRS 383.705(1)-(3); KRS 383.300(3)(a). (KY battery rent-escalation-r2 (rent increase / escalation (rerun)): 2 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). `rent-increase-midterm-ky` (rule 54). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Disclosures
+  {
+    id: "edu-meth-disclosure-ky",
+    title: "Methamphetamine Contamination",
+    group: "Disclosures",
+    states: ["KY"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "meth-disclosure",
+    bodyText:
+      "When law enforcement has posted a methamphetamine contamination notice on a property, an owner who leases or rents it must disclose in writing to any potential tenant that it is contaminated and has not been decontaminated, until the property has been decontaminated and released by the Energy and Environment Cabinet. Leasing a property that has been determined to be contaminated without that written notice is a Class D felony; the felony turns on the determination, not on the posting, so give the notice whenever the property has been determined contaminated and not yet released. Removing a posted notice against the regulations is a misdemeanor. The disclosure must reach the prospective tenant before the lease is signed; the optional lease clause records it. The Department for Public Health sets the disclosure requirements by regulation. Only certified contractors may decontaminate, and the owner must certify the cleanup.",
+    notes: "KY: KY-SCOPE: STATEWIDE. KRS 224.1-410(4)-(5), (9)-(10), (7)-(8) (am. 2010 Ky. Acts ch. 24, sec. 348); 'Any person who leases, rents, or sells a property that has been determined to be contaminated property under KRS 224.1-410(4) to a lessee, renter, or buyer without giving written notice that the property is a contaminated property pursuant to KRS 224.1-410(10) shall be guilty of a Class D felony' (KRS 224.99-010(15)); KRS 224.99-010(14). Giving notice whenever determined: Claude's reading. Rule 78: 'shall disclose in writing to any potential lessee, tenant, or buyer' names no vehicle, so it is a pre-signing disclosure that may be in any writing; the clause `meth-contamination-disclosure-ky` records it. Department for Public Health regulations (902 KAR) not read (KY log §7). (KY battery meth-disc-r2 (meth contamination disclosure (rerun)): 7 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3). Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-guaranty-ky",
+    title: "Lease Guaranties",
+    group: "Default & Termination",
+    states: ["KY"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "guarantor-renewal",
+    bodyText:
+      "A guaranty of a tenant's obligations that is written on the lease, or that expressly refers to it, needs no special terms. A separate guaranty that does neither is valid only if it is in writing, signed by the guarantor, and states the guarantor's maximum total liability and the date the guaranty ends; ending on that date does not release the guarantor from obligations incurred before it, or from extensions or renewals of those obligations and related interest, fees and costs. No Kentucky statute limits a guarantor to the original lease term, so otherwise whether a guaranty covers a renewal depends on its own words. Have the guarantor sign the lease or a guaranty that names the lease. A guaranty is lawful; this library has no guaranty clause because a guaranty is the guarantor's own contract. A landlord who wants one can add their own clause after taking advice.",
+    notes: "KY: KY-SCOPE: STATEWIDE. 'No guaranty of an indebtedness which either is not written on, or does not expressly refer to, the instrument or instruments being guaranteed shall be valid or enforceable unless it is in writing signed by the guarantor and contains provisions specifying the amount of the maximum aggregate liability of the guarantor thereunder, and the date on which the guaranty terminates' (KRS 371.065(1)); KRS 371.065(1)(a)-(b), (2) (interest and collection costs may be guaranteed beyond the stated maximum). Whether a tenant's lease obligations are an 'indebtedness' under KRS 371.065 is not stated; case law not searched (Claude's reading: treat them as covered). No renewal rule like Tex. Prop. Code § 92.021 (KY battery guaranty (guaranty of an obligation: required terms): 10 hits, control 0; known positives passed (1 real section, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3); renewal coverage beyond KRS 371.065(1)(b): Claude's reading, case law not searched. The library has no guaranty clause for any state (KY log §6, §10). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-dispute-resolution-ky",
+    title: "Mediation and Dispute Resolution",
+    group: "Notices & General",
+    states: ["KY"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "informal-dispute-resolution",
+    bodyText:
+      "No Kentucky statute requires mediation, arbitration or a pre-suit meeting in landlord-tenant disputes, but the courts are authorized and encouraged to refer parties to mediation before trial, and the Uniform Arbitration Act makes an arbitration clause in a written contract valid, enforceable and irrevocable, so either side could use one to stay a court case, including a forcible detainer case. Where the Uniform Residential Landlord and Tenant Act applies, whether such a clause is an unenforceable waiver of the tenant's rights under the Act is a question for case law. Such a clause is lawful outside the Act's localities, but this library does not offer one: it would add delay to the seven-day nonpayment route and the forcible detainer case. A landlord who wants one can add their own clause after taking advice.",
+    notes: "KY: KY-SCOPE: BOTH TIERS (lawful where the URLTA, KRS 383.505 to 383.705, has been adopted locally and where it has not). 'A written agreement to submit any existing controversy to arbitration or a provision in written contract to submit to arbitration any controversy thereafter arising between the parties is valid, enforceable, and irrevocable' (KRS 417.050); stay of a court case KRS 417.060(1), (4); 'the courts and state governmental agencies are authorized and encouraged to refer disputing parties to mediation before trial or hearing' (KRS 454.011); housing-discrimination conciliation may provide for binding arbitration (KRS 344.605(3)). Where the URLTA applies: a term by which the tenant agrees to 'waive or forego rights or remedies' is unenforceable (KRS 383.570(1)(a), (2)), and rights under the Act are enforceable by action (KRS 383.520(2)); whether an arbitration clause is such a waiver: case law and federal arbitration law not searched. (KY battery adr-r2 (mediation, arbitration or dispute resolution between landlord and tenant (rerun of adr without matching immediately)): 3 hits, control 0; known positives passed (0 real sections, 1 synthetic); scope CONST 277, FORM 5, KRS 25283, SL 3) (its context limb required a landlord or tenant word, so it did not reach these general statutes; found by the independent check, KY log §13). Rule 54: declined (KY log §6). Searched: the whole Kentucky Revised Statutes and the Kentucky Constitution as loaded 2026-10-05; administrative regulations (KAR), court rules, local ordinances and case law not searched. Read section-open 2026-10-04/05 from the saved, hash-matched corpus of the whole Kentucky Revised Statutes (apps.legislature.ky.gov, each section's PDF with its Effective date and History line; the site states it includes enactments through the 2026 Regular Session, database updated 10/04/2026) and the Kentucky Constitution (KY log §1). Rule 15: written section-open.",
   },
 ];
 
