@@ -909,3 +909,11 @@ None.
 - **Guards:** all pass. **Statute spot-check, 2 of 2, on oscn.net:** Okla. Stat. tit. 41, § 131(B) (termination only if the tenant fails to pay within five days after written notice of the landlord's demand) and § 132(B)'s last sentence (a subsequent breach is grounds, upon written notice, for immediate termination).
 - **Still open:** OK's 2026-10-01 rule 49 flag on the row's "reasonable costs and expenses" was not reopened.
 - **SOP:** no proposals.
+
+## Cross-state decisions, 2026-10-04 (Taylor; central check by Claude Code)
+
+- **New federal row:** `edu-cares-act-notice` is now tagged for OK. Under 15 U.S.C. § 9058(c), a landlord of a property with a federally backed mortgage, or in a covered federal housing program, may not require the tenant to vacate until 30 days after a notice to vacate; whether that still applies after the 2020 moratorium is unsettled. Any OK row that already mentions the CARES Act stays; the federal row is the library's standard explanation.
+- **Shared-text edits merged centrally** (Taylor approved merging now; each only narrows the tenant's obligations or defers to applicable law, so it can't breach OK's law; to be confirmed at OK's end-of-run consistency pass):
+- `smoking-policy`: Tenant pays for smoking damage caused by "Tenant, an occupant, or a guest or invitee of Tenant", no longer by anyone's smoking.
+- `no-alterations`: the last sentence adds that the clause "does not change who owns an installation that applicable law makes Tenant's property".
+- `addendum-precedence`: a disclosure, notice or addendum "that applicable law says controls over this Lease" now controls, as one the law requires already did.

@@ -1012,3 +1012,11 @@ The reference carries no such list; every topic has rows in at least one state a
 - **Guards:** all pass. **Statute spot-check, 5 of 5, against the official RCW 59.18 text fetched from app.leg.wa.gov on 2026-10-03:** § 59.18.650(1)(b) (initial term of six to 12 months, notice before the end) and (1)(c) (12 months or more, or successive terms of six months or more); § 59.18.170(2) (no late fee for rent paid within five days of its due date); § 59.18.150(6) (at least two days' written notice of entry, with the date and time window); § 59.18.280(1)(a) (full and specific statement within 30 days).
 - **SOP 1.54:** all seven proposals adopted (rules 14, 19, 27, 30, 59, 80); WA column added. The §10 flags are in the backlog (builder inputs, two new variables for M.14, separate documents).
 - **Rule 62:** no shared text changed. WA is not tagged on `default-by-tenant` or `surrender-end-of-term`, so no pending vetting reaches it.
+
+## Cross-state decisions, 2026-10-04 (Taylor; central check by Claude Code)
+
+- **New federal row:** `edu-cares-act-notice` is now tagged for WA. Under 15 U.S.C. § 9058(c), a landlord of a property with a federally backed mortgage, or in a covered federal housing program, may not require the tenant to vacate until 30 days after a notice to vacate; whether that still applies after the 2020 moratorium is unsettled. Any WA row that already mentions the CARES Act stays; the federal row is the library's standard explanation.
+- **Shared-text edits merged centrally** (Taylor approved merging now; each only narrows the tenant's obligations or defers to applicable law, so it can't breach WA's law; to be confirmed at WA's end-of-run consistency pass):
+- `smoking-policy`: Tenant pays for smoking damage caused by "Tenant, an occupant, or a guest or invitee of Tenant", no longer by anyone's smoking.
+- `no-alterations`: the last sentence adds that the clause "does not change who owns an installation that applicable law makes Tenant's property".
+- `addendum-precedence`: a disclosure, notice or addendum "that applicable law says controls over this Lease" now controls, as one the law requires already did.

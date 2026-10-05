@@ -592,3 +592,4 @@ rent-installments,"May the lease set rent in installments, and are scheduled ins
 family-child-care,"Must a landlord allow a tenant to run a family child care home, and on what conditions (liability waivers, insurance)? (Oregon, ORS 90.358.)","OR sync, companion topic key"
 actual-notice-method,"May the parties agree on an extra way to give actual notice (such as a text message) where the law requires actual notice? (Oregon, ORS 90.150(4).)","OR sync, companion topic key"
 alarm-tampering-fee,"May the lease charge a fee for removing or tampering with a smoke or carbon monoxide alarm, and how much? (Oregon, ORS 90.302(2)(c).)","OR sync, companion topic key"
+cares-act-notice,"Does federal law require a longer notice to vacate than the state's for a property with a federally backed mortgage or in a federal housing program, and is that still in force? (Federal, 15 U.S.C. § 9058(c); one federal row tags every state.)","Cross-state decision, 2026-10-04"

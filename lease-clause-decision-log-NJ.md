@@ -697,3 +697,11 @@ This is a targeted check of rule 79 and two scrub fixes, not a re-audit (rule 1)
 - **Guards:** all pass. **Statute spot-check, against P.L.2025, c.19 as published on pub.njleg.gov:** § 52:27D-198.1 as amended has no portable-extinguisher requirement and adds the secondary-power-source warning label; § 198.2(a)-(b) splits the certificate between the municipal official and the fire-safety enforcing agency; § 198.3 sets a fine of not more than $500. The compiled statutes site (lis.njleg.state.nj.us) doesn't serve section text to this machine.
 - **Still unreachable, marked on the rows:** P.L.2026, c.43 (algorithmic rent setting, which stays NEEDS_REVIEW), N.J.A.C. 5:70-2.3, N.J.A.C. 13:13-3.4.
 - **SOP 1.47:** both proposals adopted (rule 79). NJ's 79 cell set to ✓.
+
+## Cross-state decisions, 2026-10-04 (Taylor; central check by Claude Code)
+
+- **New federal row:** `edu-cares-act-notice` is now tagged for NJ. Under 15 U.S.C. § 9058(c), a landlord of a property with a federally backed mortgage, or in a covered federal housing program, may not require the tenant to vacate until 30 days after a notice to vacate; whether that still applies after the 2020 moratorium is unsettled. Any NJ row that already mentions the CARES Act stays; the federal row is the library's standard explanation.
+- **Shared-text edits merged centrally** (Taylor approved merging now; each only narrows the tenant's obligations or defers to applicable law, so it can't breach NJ's law; to be confirmed at NJ's end-of-run consistency pass):
+- `smoking-policy`: Tenant pays for smoking damage caused by "Tenant, an occupant, or a guest or invitee of Tenant", no longer by anyone's smoking.
+- `no-alterations`: the last sentence adds that the clause "does not change who owns an installation that applicable law makes Tenant's property".
+- `addendum-precedence`: a disclosure, notice or addendum "that applicable law says controls over this Lease" now controls, as one the law requires already did.

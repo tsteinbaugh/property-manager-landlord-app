@@ -1402,3 +1402,11 @@ Merged against the attached master and re-run programmatically. **2,876 → 2,87
 ## Propagated shared-row edit, 2026-10-04 (at the PA circle-back sync)
 
 - `returned-payments` (CO, WY, KS, NE, MN, ND, SD, OH, AZ, GA, PA): AZ's proposal merged once every tagged state had vetted it, PA last. "If more than two of Tenant's payments during the Term are returned" now reads "during any 12-month period", so the count works for a month-to-month tenancy, which has no Term. Uniform; no NE override. NE's note segment on the row records it.
+
+## Cross-state decisions, 2026-10-04 (Taylor; central check by Claude Code)
+
+- **New federal row:** `edu-cares-act-notice` is now tagged for NE. Under 15 U.S.C. § 9058(c), a landlord of a property with a federally backed mortgage, or in a covered federal housing program, may not require the tenant to vacate until 30 days after a notice to vacate; whether that still applies after the 2020 moratorium is unsettled. Any NE row that already mentions the CARES Act stays; the federal row is the library's standard explanation.
+- **Shared-text edits merged centrally** (Taylor approved merging now; each only narrows the tenant's obligations or defers to applicable law, so it can't breach NE's law; to be confirmed at NE's end-of-run consistency pass):
+- `smoking-policy`: Tenant pays for smoking damage caused by "Tenant, an occupant, or a guest or invitee of Tenant", no longer by anyone's smoking.
+- `no-alterations`: the last sentence adds that the clause "does not change who owns an installation that applicable law makes Tenant's property".
+- `addendum-precedence`: a disclosure, notice or addendum "that applicable law says controls over this Lease" now controls, as one the law requires already did.

@@ -988,3 +988,9 @@ The batteries (§1.3) ran over the whole ORS, OAR, Constitution and 2026 session
 - **Guards:** all pass. **Statute spot-check, 5 of 5, against the 2025 ORS chapter 90 text fetched from oregonlegislature.gov on 2026-10-04:** ORS 90.260(1)-(2) (no late charge before the end of the fourth day; a flat charge once per rental period), 90.302(2)(e) (early-termination fee not more than one and one-half times the monthly rent), 90.300(12) (accounting within 31 days), 90.427(3)(c) (after the first year, termination only for tenant cause or a qualifying landlord reason), 90.394 (72-hour and 10-day nonpayment notices).
 - **SOP 1.58:** all nine proposals adopted (rules 16, 19, 22, 26, 45, 80); OR column added. The §10 flags are in the backlog.
 - **Rule 62:** no shared text changed. OR replaced `default-by-tenant` with its own row, so MN's pending edit doesn't reach it.
+
+## Cross-state decisions, 2026-10-04 (Taylor; central check by Claude Code)
+
+- **New federal row:** `edu-cares-act-notice` is now tagged for OR. Under 15 U.S.C. § 9058(c), a landlord of a property with a federally backed mortgage, or in a covered federal housing program, may not require the tenant to vacate until 30 days after a notice to vacate; whether that still applies after the 2020 moratorium is unsettled. Any OR row that already mentions the CARES Act stays; the federal row is the library's standard explanation.
+- **Shared-text edits merged centrally** (Taylor approved merging now; each only narrows the tenant's obligations or defers to applicable law, so it can't breach OR's law; to be confirmed at OR's end-of-run consistency pass):
+- `addendum-precedence`: a disclosure, notice or addendum "that applicable law says controls over this Lease" now controls, as one the law requires already did.

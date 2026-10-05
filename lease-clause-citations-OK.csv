@@ -144,3 +144,4 @@ edu-no-lease-copy-rule-ok,LANDLORD_EDUCATION,OK,Absence: OK battery 92 (OK log �
 edu-no-condo-conversion-rule-ok,LANDLORD_EDUCATION,OK,Absence: OK battery 75 (OK log §17),CONFIRMED_ABSENT,VERIFIED,2026-10-01,2026-10-01,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-OK.md.]
 edu-no-display-rights-rule-ok,LANDLORD_EDUCATION,OK,Absence: OK battery 67 (OK log §17),CONFIRMED_ABSENT,VERIFIED,2026-10-01,2026-10-01,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-OK.md.]
 edu-legal-interest-ok,LANDLORD_EDUCATION,OK,"Okla. Stat. tit. 15, § 266",CITED,VERIFIED,2026-10-01,2026-10-01,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-OK.md.] Added at sync (rule 54).
+edu-cares-act-notice,LANDLORD_EDUCATION,OK,"15 U.S.C. § 9058(a), (b), (c)",CITED,VERIFIED,2026-10-04,2026-10-04,,NEW 2026-10-04: one federal row tagged in every verified state (Taylor). [Full trail in lease-clauses.csv notes and docs/history.md.]

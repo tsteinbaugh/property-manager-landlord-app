@@ -1030,3 +1030,11 @@ The reference (2,291 active rows, 308 topics) carries no such list; every topic 
 - **Variables:** new `{{late_fee_monthly_max}}` added to backlog M.14; IA added to the rows for `{{late_fee_daily_amount}}`, `{{nsf_fee}}`, `{{separately_charged_utilities}}`, `{{tenant_maintained_items}}` and `{{maintenance_consideration}}`.
 - **Topic questions:** all five added; reference regenerated.
 - **SOP 1.22:** all five proposals adopted (rules 14, 16, 19, 26, 30); IA column added.
+
+## Cross-state decisions, 2026-10-04 (Taylor; central check by Claude Code)
+
+- **New federal row:** `edu-cares-act-notice` is now tagged for IA. Under 15 U.S.C. § 9058(c), a landlord of a property with a federally backed mortgage, or in a covered federal housing program, may not require the tenant to vacate until 30 days after a notice to vacate; whether that still applies after the 2020 moratorium is unsettled. Any IA row that already mentions the CARES Act stays; the federal row is the library's standard explanation.
+- **Shared-text edits merged centrally** (Taylor approved merging now; each only narrows the tenant's obligations or defers to applicable law, so it can't breach IA's law; to be confirmed at IA's end-of-run consistency pass):
+- `smoking-policy`: Tenant pays for smoking damage caused by "Tenant, an occupant, or a guest or invitee of Tenant", no longer by anyone's smoking.
+- `no-alterations`: the last sentence adds that the clause "does not change who owns an installation that applicable law makes Tenant's property".
+- `addendum-precedence`: a disclosure, notice or addendum "that applicable law says controls over this Lease" now controls, as one the law requires already did.

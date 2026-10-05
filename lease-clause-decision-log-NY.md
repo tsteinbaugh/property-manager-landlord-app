@@ -1390,3 +1390,10 @@ The override was tagged rather than a new NY row written (tag first, rule 26). I
 - **Log §19:** the rule 43 and rule 49 lines now name `default-by-tenant-co`; the rule 43 line's "promises nothing extra" is superseded by `edu-cure-ny`'s note (outside article 6-A, the non-rent written-notice cure is the lease's own promise, subject to the no-cure sentence).
 - **Guards:** all pass. **Statute spot-check:** not possible from here (nysenate.gov blocks this machine, as at NY's first sync). The pass re-read every section from the copies saved and hash-matched on 2026-10-03, and was independently checked over five rounds.
 - **SOP 1.59:** NY's proposal adopted (rule 78: repoint and re-read a state's pointers when it leaves a shared clause for a variant).
+
+## Cross-state decisions, 2026-10-04 (Taylor; central check by Claude Code)
+
+- **New federal row:** `edu-cares-act-notice` is now tagged for NY. Under 15 U.S.C. § 9058(c), a landlord of a property with a federally backed mortgage, or in a covered federal housing program, may not require the tenant to vacate until 30 days after a notice to vacate; whether that still applies after the 2020 moratorium is unsettled. Any NY row that already mentions the CARES Act stays; the federal row is the library's standard explanation.
+- **Shared-text edits merged centrally** (Taylor approved merging now; each only narrows the tenant's obligations or defers to applicable law, so it can't breach NY's law; to be confirmed at NY's end-of-run consistency pass):
+- `no-alterations`: the last sentence adds that the clause "does not change who owns an installation that applicable law makes Tenant's property".
+- `addendum-precedence`: a disclosure, notice or addendum "that applicable law says controls over this Lease" now controls, as one the law requires already did.

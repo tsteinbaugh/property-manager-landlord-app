@@ -576,3 +576,11 @@ Not a re-audit; nothing else in this state was reviewed.
 - **Citations file:** changed AL rows dated; no citation changes needed (the pass changed bases, not citations).
 - **Builder flags recorded (backlog M.14):** `due-at-signing` and the FL, AZ, ND, IA and KS `maintenance-allocation-*` rows put a bracketed prompt next to a `{{variable}}`.
 - **SOP 1.33:** both proposals adopted (rules 48, 79). AL's conformance column is complete except the examples.
+
+## Cross-state decisions, 2026-10-04 (Taylor; central check by Claude Code)
+
+- **New federal row:** `edu-cares-act-notice` is now tagged for AL. Under 15 U.S.C. § 9058(c), a landlord of a property with a federally backed mortgage, or in a covered federal housing program, may not require the tenant to vacate until 30 days after a notice to vacate; whether that still applies after the 2020 moratorium is unsettled. Any AL row that already mentions the CARES Act stays; the federal row is the library's standard explanation.
+- **Shared-text edits merged centrally** (Taylor approved merging now; each only narrows the tenant's obligations or defers to applicable law, so it can't breach AL's law; to be confirmed at AL's end-of-run consistency pass):
+- `smoking-policy`: Tenant pays for smoking damage caused by "Tenant, an occupant, or a guest or invitee of Tenant", no longer by anyone's smoking.
+- `no-alterations`: the last sentence adds that the clause "does not change who owns an installation that applicable law makes Tenant's property".
+- `addendum-precedence`: a disclosure, notice or addendum "that applicable law says controls over this Lease" now controls, as one the law requires already did.

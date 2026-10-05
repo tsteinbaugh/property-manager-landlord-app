@@ -162,3 +162,4 @@ edu-no-emergency-assistance-rule-nm,LANDLORD_EDUCATION,NM,Absence: NM battery 96
 edu-statute-of-frauds-nm,LANDLORD_EDUCATION,NM,"NMSA 1978, § 47-8-20(G)",CITED,VERIFIED,2026-10-02,2026-10-02,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-NM.md.]
 edu-no-rental-inspection-rule-nm,LANDLORD_EDUCATION,NM,Absence: NM battery 58 (NM log §17),CONFIRMED_ABSENT,VERIFIED,2026-10-02,2026-10-02,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-NM.md.]
 edu-guest-fees-nm,LANDLORD_EDUCATION,NM,"NMSA 1978, § 47-8-15(E); NMSA 1978, § 57-12-27(C)",CITED,VERIFIED,2026-10-02,2026-10-02,,[Full trail in lease-clauses.csv notes and lease-clause-decision-log-NM.md.]
+edu-cares-act-notice,LANDLORD_EDUCATION,NM,"15 U.S.C. § 9058(a), (b), (c)",CITED,VERIFIED,2026-10-04,2026-10-04,,NEW 2026-10-04: one federal row tagged in every verified state (Taylor). [Full trail in lease-clauses.csv notes and docs/history.md.]

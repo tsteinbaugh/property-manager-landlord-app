@@ -37,6 +37,8 @@ Every row's `group` must be one the app already uses: Rent & Payment, Security D
 ## Reminders
 - **Scope:** state law only. Flag municipal ordinances without resolving them (rule 3).
 - **Asking Taylor:** work it out yourself first. If you're unsure, ask Taylor in the chat right then, with a recommendation; never park a question in the log (rule 76). Never ask him for landlord experience outside Colorado, or to buy a lease (rules 2, 33).
+- **Federal row:** tag `edu-cares-act-notice` (the CARES Act 30-day notice to vacate for federally backed properties, 15 U.S.C. § 9058) unless the state's law makes it read wrongly there; say why if you don't.
+- **Fee screens:** check the shared `keys` (re-key charges) and `hoa-compliance` (passing association fines to the tenant) against any closed list of allowed fees and any domestic-violence lock-change rule; replace them with state versions where they conflict, as Oregon did (`keys-or`, `hoa-compliance-or`).
 - **This chat is {STATE_NAME}'s only Desktop chat** and will be reused for any follow-up (rule 8).
 
 ## Deliver (SOP rules 70–75)

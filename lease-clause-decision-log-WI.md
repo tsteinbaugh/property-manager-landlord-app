@@ -986,3 +986,9 @@ The reference (318 topics) carries no such list; every topic has rows in at leas
 - **Guards:** all pass. **Statute spot-check, 6 of 6, on docs.legis.wisconsin.gov:** § 704.14 (the notice in `dv-protections-notice-wi` matches word for word); § 704.17(2)(a) (5-day pay-or-vacate, 14-day notice after a repeat default within a year); § 704.27 (at least twice the rental value, apportioned daily); § 704.07(3)(a); § 704.28(4) (21 days); § 704.44(4m) (fees and costs void).
 - **SOP 1.44:** all four proposals adopted (rules 19, 21, 40, 46); WI column added to the conformance table. The §10 flags are in the backlog.
 - **Rule 62:** no shared text changed and no pending shared edit reaches a WI-tagged row (WI is not tagged on `default-by-tenant`, `returned-payments` or `surrender-end-of-term`), so nothing is queued for a WI vetting.
+
+## Cross-state decisions, 2026-10-04 (Taylor; central check by Claude Code)
+
+- **New federal row:** `edu-cares-act-notice` is now tagged for WI. Under 15 U.S.C. § 9058(c), a landlord of a property with a federally backed mortgage, or in a covered federal housing program, may not require the tenant to vacate until 30 days after a notice to vacate; whether that still applies after the 2020 moratorium is unsettled. Any WI row that already mentions the CARES Act stays; the federal row is the library's standard explanation.
+- **Shared-text edits merged centrally** (Taylor approved merging now; each only narrows the tenant's obligations or defers to applicable law, so it can't breach WI's law; to be confirmed at WI's end-of-run consistency pass):
+- `no-alterations`: the last sentence adds that the clause "does not change who owns an installation that applicable law makes Tenant's property".
