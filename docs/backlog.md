@@ -32,7 +32,7 @@ Merge each edit once every state tagged on the row has answered. Update this tab
 
 | Edit | Row (tagged states) | Vetted, supports | Still to answer |
 |---|---|---|---|
-| MN: no-cure carve-out as its own sentence | `default-by-tenant` (19 states) and CO's override `default-by-tenant-co` | MN, ND, CA, AZ, CO, GA, ID, IL, IN, MO, MT, NM, NV, PA (Taylor, 2026-10-04: same as IN), SC, TN, UT, VA, WY | NY (no circle-back folder; needs a one-item pass) |
+| MN: no-cure carve-out as its own sentence | `default-by-tenant` (19 states) and CO's override `default-by-tenant-co` | MN, ND, CA, AZ, CO, GA, ID, IL, IN, MO, MT, NM, NV, PA (Taylor, 2026-10-04: same as IN), SC, TN, UT, VA, WY | NY (one-item folder staged 2026-10-04 from 03ecae8) |
 
 ## Standing backlog
 
