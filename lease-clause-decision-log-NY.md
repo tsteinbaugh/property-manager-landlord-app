@@ -1270,13 +1270,13 @@ The topic reference lists none outstanding beyond those in 18.2.
 - **40 Formatting and placement:** §4; type-size rule for the whole lease (N.Y. Civ. Prac. L. & R. 4544) and two bold notices; no placement conflict.
 - **41 Just cause:** Good Cause Eviction Law; `holdover`, `holdover-ca` and the surrender clauses replaced; `edu-for-cause-eviction-ny` is the `for-cause-eviction` row.
 - **42 Required text in a shared clause:** the NSF fee must be in the lease (`returned-payments-ny`); the deposit bank notice (`deposit-bank-notice-ny`); no shared clause needed a forced sentence beyond those overrides.
-- **43 Cure promises:** `default-by-tenant` ties cure to written notice and the period 'specified by applicable law'; New York requires a 14-day rent demand and (under art. 6-A) a 10-day cure notice, both statutory, so the clause promises nothing extra (tag note).
+- **43 Cure promises:** `default-by-tenant-co` (NY moved from `default-by-tenant` at the 2026-10-04 circle-back) ties cure to written notice and the period 'specified by applicable law'; New York requires a 14-day rent demand and (under art. 6-A) a 10-day cure notice, both statutory. Outside article 6-A the non-rent written-notice cure is the lease's own promise, subject to the no-cure sentence (corrected 2026-10-04; see `edu-cure-ny`).
 - **44 Terms turned into duties:** `notices` and `electronic-notice-ny` keep statutory methods; no 'as agreed in the lease' wording makes a generous term mandatory.
 - **45 Electronic notices:** N.Y. State Tech. Law §§ 301-309 read whole: electronic signatures and records have paper's effect (N.Y. State Tech. Law §§ 304(2), 305(3)); use is voluntary (N.Y. State Tech. Law § 309); exceptions (N.Y. State Tech. Law § 307) cover wills, powers of attorney and negotiable instruments, not leases; no variation-by-agreement section exists. Statutory notices keep their own methods (`edu-notice-service-ny`).
 - **46 Lease as the notice:** the lease carries the Good Cause notice, sprinkler and flood notices, certificate of occupancy notice, deposit bank notice, move-in inspection offer, pre-move-out inspection notice, emergency contact notice and smoke-detector duties notice.
 - **47 Knowing-use penalties:** `edu-knowing-use-ny` (N.Y. Real Prop. Law § 223-b(5-a) treble, N.Y. Real Prop. Law § 227-c(6), N.Y. Gen. Oblig. Law § 7-108(1-a)(g), N.Y. Gen. Bus. Law §§ 349, 601(2)); the debt-collection article reaches 'consumer claims' from credit transactions, and whether rent qualifies is unread.
 - **48 Separate documents:** no separate-writing rule for leases (`fmt-separate`); chore clauses tagged for every dwelling.
-- **49 Collection costs:** N.Y. Real Prop. Law § 234-a voids legal and administrative fees without a court order; `default-by-tenant`'s fee sentence is mutual and court-tied (tag note).
+- **49 Collection costs:** N.Y. Real Prop. Law § 234-a voids legal and administrative fees without a court order; `default-by-tenant-co` (since 2026-10-04) drops the one-way "reasonable costs and expenses", and its fee sentence is mutual and court-tied.
 - **50 'The lease controls':** N.Y. Real Prop. Law §§ 223-a, 227, 232-c, 238-a(2-a) and 216(1)(b), N.Y. Gen. Oblig. Law §§ 5-905 and 7-108(4) each considered (§6.1).
 - **51 Plain language and consumer statutes:** N.Y. Gen. Oblig. Law § 5-702 reaches residential leases (no statement of waivers required); N.Y. Gen. Bus. Law art. 22-A has no enumerated list of lease practices, and its general unfair, deceptive and abusive standard is live (`edu-consumer-protection-ny`).
 - **52 Exculpation:** void (N.Y. Gen. Oblig. Law § 5-321); the KS/OH/CA variants without disclaimers are tagged.
@@ -1310,3 +1310,83 @@ The topic reference lists none outstanding beyond those in 18.2.
 - **Rule 62:** New York tagged `default-by-tenant`, so it now vets CO's and MN's pending edits to that row; queued in `retro-extras.csv` (no NY circle-back folder exists yet).
 - **Variables:** `{{nsf_fee}}` already listed in M.14; NY added there. **Topic questions:** all three added (new topic `lease-type-size`); reference regenerated.
 - **SOP 1.34:** all seven proposals adopted (rules 14, 19, 26, 32, 40, 59); NY column added.
+
+## Propagated shared-row edit, 2026-10-04 (at the NY circle-back sync)
+
+- `default-by-tenant-co`: MN's proposal merged once every state tagged on `default-by-tenant` (18 states) and `default-by-tenant-co` (CO, NY) had vetted it, NY last. The no-cure carve-out moved out of the non-rent limb into its own sentence reaching both limbs, in the wording already merged on `default-by-tenant-ks-ne`: "Landlord need not give Tenant an opportunity to cure any breach, including a failure to pay Rent, where applicable law permits Landlord to proceed without one." It is self-limiting, so it reaches a breach only where NY law lets Landlord proceed without a cure opportunity. Uniform; no NY override.
+
+## Circle-back checks (SOP 1.57), 2026-10-04
+
+**Date:** 2026-10-04, in New York's existing chat (rule 8). **Inputs:** `lease-clauses.csv` (3,340 rows, matching the prompt's count), `lease-clause-sop.md` v1.57, `lease-clause-topics.md`, NY's log and `lease-clause-citations-NY.csv`, all staged 2026-10-04. These files are the only source of truth for this check.
+
+**Old outputs deleted** before starting, from the session workspace: `lease-clauses-NY-delta.csv`, `lease-clause-decision-log-NY.md`, `integrity.md`, `citation-expansions.tsv` and `log-citation-expansions.tsv` (all from the 2026-10-03 pass).
+
+**Where the attached files differ from earlier in this chat:**
+- In this chat I said Taylor had not answered the scope question. The attached log's sync section says the scope was agreed by Taylor. The log governs.
+- The library carries NY's rows as merged at the 2026-10-03 sync, with other states' later notes, not the delta delivered in this chat. Every row changed below was edited from the attached library.
+
+**Scope:** no [Retro] rules were listed for New York (0 rules), so none were run, and nothing else was reopened (rule 1). One targeted fix was listed.
+
+| Item | Verdict | What was read | Rows changed |
+|---|---|---|---|
+| Targeted fix 1, part (1): does 'and reasonable costs and expenses' in `default-by-tenant`'s remedies sentence risk reading as a barred fee in New York? | **Fixed.** Yes. New York leaves the shared row and is tagged on the existing override `default-by-tenant-co` (CO), which is word for word the same except that it drops the phrase. Shared text not edited. | N.Y. Real Prop. Law §§ 234, 234-a; N.Y. Gen. Oblig. Law § 7-108(1-a)(b); N.Y. Real Prop. Acts. Law § 702(1); both rows' text and notes | `default-by-tenant` (NY removed from `states`, NY segment added); `default-by-tenant-co` (NY added, NY note) |
+| Targeted fix 1, part (2): MN's proposal to move the no-cure carve-out into its own sentence reaching both limbs | **Checked, no issue.** Lawful and accurate in New York; vouched below. | N.Y. Real Prop. Acts. Law §§ 711(2), 731(4), 735, 749(3), 753(1), (3)-(5); N.Y. Real Prop. Law §§ 216(1)(b)-(f), 235-e(d); NY's note segment on the row | None |
+| Knock-on: NY rows that point to `default-by-tenant` | **Fixed.** Five pointers now name `default-by-tenant-co`. Two were also wrong on their own terms and were corrected: `edu-waiver-by-acceptance-ny` said the default clause has a non-waiver sentence (it has none) and now names only `late-fee`; `edu-cure-ny` said the clause adds no notice beyond the statute, but outside article 6-A its non-rent written-notice cure is the lease's own promise (lawful, subject to the no-cure carve-out). NY log §19's rule 43 line ('promises nothing extra') has the same slip; the `edu-cure-ny` note now governs. | The five rows' notes; both rows' `bodyText` | `edu-waiver-by-acceptance-ny`, `edu-mitigation-ny`, `edu-attorney-fees-ny`, `edu-emergency-assistance-ny` (notes and `last_checked`); `edu-cure-ny` (notes, `last_checked`, and one `bodyText` sentence: the 30-day post-judgment cure now carries N.Y. Real Prop. Acts. Law § 753's objectionable-holdover and rooming-house limits, found by the independent check) |
+
+**Reasoning, part (1).** Every section was re-read on 2026-10-04 from the saved copies of the nysenate.gov text that were read section-open and hash-matched on 2026-10-03 (§1).
+
+The phrase sits in the list of remedies 'available under applicable law'. In New York the default costs a landlord would charge under it are mostly legal services. Those include 'administrative fees incurred by the owner, lessor or agent in connection with management of the building'. They may be assessed only 'pursuant to a court order', and 'Any agreement or assessment contrary to this section shall be void' (N.Y. Real Prop. Law § 234-a(a)-(c)). Such charges also cannot be sought in a summary proceeding (N.Y. Real Prop. Acts. Law § 702(1)). A shared clause that names them as a lease remedy can be read as the agreement § 234-a(c) voids.
+
+Dropping the phrase loses New York landlords no lawful remedy:
+- Damages for breach stay among the remedies 'available under applicable law'.
+- The itemized costs N.Y. Gen. Oblig. Law § 7-108(1-a)(b) lets a landlord keep from the deposit (reasonable and itemized costs for tenant damage beyond normal wear and tear, unpaid utilities payable directly to the landlord, and moving and storage) stay available under that section.
+- Attorneys' fees and court costs stay with the mutual prevailing-party sentence, which N.Y. Real Prop. Law § 234(1) makes reciprocal anyway.
+
+The sentence's 'less amounts obtained from the Security Deposit' nets the recovery against amounts lawfully applied; it does not authorize deductions beyond § 7-108(1-a)(b)'s list. That is why it is not a reason for the move, and why the same netting next to 'late fees' in `default-by-tenant-co` is acceptable (Claude's reading, recorded in the NY note).
+
+The 2026-10-03 pass had handled this in the NY note alone. The independent check flagged the fee reading as a WARN (§13), and the note was the fix. Rule 53 asks that a tagged clause be safe as written, so the override is the better answer. This is a legal and drafting call under rule 76, so Taylor was not asked.
+
+The override was tagged rather than a new NY row written (tag first, rule 26). Its `id` keeps the `-co` suffix, as other multi-state variants do (`default-by-tenant-ks-ne` carries KS, NE, OH and OK).
+
+**Reasoning, part (2).** MN's proposed sentence takes the shape already used in `default-by-tenant-ks-ne`. On rule 62's two questions:
+
+1. **Can it drop a cure or notice New York requires?** No.
+   - **Rent.** New York has no route to a nonpayment proceeding without the 14-day written demand offering 'the payment of the rent, or the possession of the premises' (N.Y. Real Prop. Acts. Law § 711(2)). The tenant's later chances to pay also cannot be contracted away: full payment before the hearing must be accepted (N.Y. Real Prop. Acts. Law § 731(4)), and on tender before execution the court must vacate the warrant (N.Y. Real Prop. Acts. Law § 749(3)). The tender right has one exception: it does not apply where 'the tenant withheld the rent due in bad faith' (N.Y. Real Prop. Acts. Law § 749(3)). So on the rent limb the carve-out can reach only that post-judgment tender, and only where the landlord establishes bad-faith withholding; the 14-day demand and payment before the hearing remain in every case.
+   - **Other breaches.** Where the Good Cause Eviction Law applies, the notice to cease within ten days (N.Y. Real Prop. Law § 216(1)(b)) is required by law, so the carve-out leaves it in place. The 30-day post-judgment cure for a breach-based holdover cannot be waived (N.Y. Real Prop. Acts. Law § 753(4)-(5)); it does not apply where the landlord proves an objectionable-tenant holdover or to hotel, lodging-house and rooming-house rooms (N.Y. Real Prop. Acts. Law § 753(1), (3)).
+   - **The settled Indiana and Pennsylvania question** (a lease's own written notice of a rent default that the state does not require) does not arise. New York requires written notice twice: the 14-day demand and the five-day certified-mail notice (N.Y. Real Prop. Law § 235-e(d)).
+2. **Does it change what the clause promises in New York?** No. NY's note segment gives up nothing on purpose on this row ('gives up' and 'kept on purpose' do not appear in it). On the non-rent limb, the move only relocates the existing carve-out, which still preserves the Good Cause grounds that need no notice to cease (N.Y. Real Prop. Law § 216(1)(c), (e), (f)). Paragraph (d), the vacate-order ground, gives the tenant its own statutory right to pay for a cure the landlord does not undertake, which the carve-out cannot remove.
+
+### Vouches given
+
+- `default-by-tenant` / `default-by-tenant-co`, MN's no-cure-sentence edit: vouched for New York, no change needed (reasons above). `default-by-tenant-co`'s notes say the edit will also reach that row when it merges, so the vouch now matters for the row New York uses.
+- `default-by-tenant`, CO's deletion of 'and reasonable costs and expenses': supported for New York. New York now takes the deletion through the override instead of the shared row.
+
+### For the sync (flagged, not done here)
+
+- `lease-clause-citations-NY.csv`: the `default-by-tenant` row becomes `default-by-tenant-co`, with `supersedes` set to `default-by-tenant`. Keep its citations, widen N.Y. Real Prop. Law § 234-a(a) to § 234-a(a)-(c), and add N.Y. Real Prop. Acts. Law §§ 731(4), 749(3), 753(1), (3)-(5) and N.Y. Real Prop. Law § 216(1)(c), (e), (f).
+- NY log §19: repoint the rule 43 and rule 49 lines to `default-by-tenant-co`, and replace the rule 43 line's 'promises nothing extra' with the `edu-cure-ny` wording (outside article 6-A the non-rent written-notice cure is the lease's own promise, subject to the no-cure carve-out).
+- **Propagation (rule 62):** no shared `bodyText` was edited. `default-by-tenant-co` now carries CO and NY; CO's segment on it is untouched. NY's §9 "Vouches given" takes the two lines above.
+
+### Checks on the delta
+
+- `lease-clauses-NY-retro-delta.csv` has 7 rows, the master's header and CRLF record endings (8 terminators for 8 records).
+- Each row differs from the library only in `states`, `notes` and `last_checked`, except `edu-cure-ny`, whose `bodyText` also changes in one sentence (table above). `default-by-tenant` was already dated 2026-10-04 by another state, so its `last_checked` is unchanged.
+- Every single-quoted passage in the new NY text matches the saved statute text or the row's own `bodyText` (script check).
+- No continuation citation lacks its law name.
+- An independent agent that had not seen the drafting checked the delta and this section against the saved sources. Round 1 found no ERROR, 5 WARN and 1 NOTE: the deposit argument overstated § 7-108(1-a)(b) and did not fit the late-fee netting the override keeps; § 216(1)(d) was wrongly listed as a no-cure ground; § 749(3)'s bad-faith exception was missing; the repointed `edu-cure-ny` note made a wrong claim; and the Good Cause scope qualifier was missing in this section. All were fixed. Round 2, on the edited text, found no ERROR, 1 WARN (the § 753 cure's objectionable-holdover and rooming-house limits) and 7 NOTEs (§ 7-108(1-a)'s facility exceptions, § 731(4)'s full-payment and § 749(3)'s burden wording, the bad-faith point's reach, a dropped wear-and-tear qualifier, an unsupported §19 pointer in `edu-emergency-assistance-ny`, and two sync-list gaps). All were fixed. Round 3, on the wording changed after round 2, found 1 WARN (the § 753 limits joined with 'and' in the `default-by-tenant-co` note) and three out-of-scope notes (the same § 753 gap in `edu-cure-ny`'s body, a 'shared clauses' label on a New York row, and § 753(1), (3) missing from this section's table); all were fixed. Round 4, on those three sentences, confirmed the `default-by-tenant-co` and `edu-emergency-assistance-ny` wording and found one dropped condition in the new `edu-cure-ny` sentence: § 753(3) applies only where the case is brought because the tenant is objectionable. That sentence was corrected to the checker's own suggested wording. Round 5 checked the corrected sentence against the saved text and returned no findings, so every edit has been re-checked (rule 80).
+
+## Proposed SOP changes
+
+1. **Rule 78:** when a state leaves a shared clause for a variant (untagging, not switching off), search that state's own rows for backtick pointers to the old id, repoint them, and re-read what each pointer claims about the new target. Reason: five New York education rows still pointed to `default-by-tenant` after the move. Two of them described the clause wrongly (a non-waiver sentence it does not have, and a cure promise said to add nothing beyond the statute).
+
+### Vouches given (propagation, rule 62)
+- **2026-10-04:** `default-by-tenant` / `default-by-tenant-co` (MN's proposal), vouched for NY; CO's deletion of "and reasonable costs and expenses" supported, taken through the override.
+
+## Circle-back sync (Claude Code, 2026-10-04)
+
+- **Merged** with `merge-delta.py --base 03ecae8`: 7 rows updated (NY moved from `default-by-tenant` to `default-by-tenant-co`, five NY pointers repointed, `edu-cure-ny`'s § 753 sentence); nothing refused. NY active 176, unchanged.
+- **Rule 62, edit merged.** NY was the last state to vet MN's no-cure sentence. It merged on `default-by-tenant` (18 states) and `default-by-tenant-co` (CO, NY), with IN's, NM's, PA's, SC's and TN's held changes; every tagged state's log records it. No shared edit is now pending.
+- **Citations file:** NY's `default-by-tenant` row is now `default-by-tenant-co` (supersedes `default-by-tenant`), with N.Y. Real Prop. Law § 234-a(a)-(c), N.Y. Real Prop. Acts. Law §§ 731(4), 749(3), 753(1), (3)-(5) and N.Y. Real Prop. Law § 216(1)(c), (e), (f) added.
+- **Log §19:** the rule 43 and rule 49 lines now name `default-by-tenant-co`; the rule 43 line's "promises nothing extra" is superseded by `edu-cure-ny`'s note (outside article 6-A, the non-rent written-notice cure is the lease's own promise, subject to the no-cure sentence).
+- **Guards:** all pass. **Statute spot-check:** not possible from here (nysenate.gov blocks this machine, as at NY's first sync). The pass re-read every section from the copies saved and hash-matched on 2026-10-03, and was independently checked over five rounds.
+- **SOP 1.59:** NY's proposal adopted (rule 78: repoint and re-read a state's pointers when it leaves a shared clause for a variant).

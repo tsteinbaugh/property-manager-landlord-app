@@ -953,3 +953,7 @@ Circle-back run 2026-10-03/04 in PA's chat. Only the two [Retro] rules and four 
 ## Taylor's decision on MN's `default-by-tenant` edit (2026-10-04)
 
 - **Same as Indiana.** PA supports MN's edit as written: the lease follows Pennsylvania law and doesn't promise a written notice of a rent default the statute doesn't require. No optional notice clause. At the merge, `edu-notice-to-quit-pa` should tell landlords they may still give written notice before filing, and that with `notice-to-quit-waiver-pa` in use the tenant may otherwise get no pre-suit notice; PA's note segment on `default-by-tenant` is updated to match (backlog).
+
+## Propagated shared-row edit, 2026-10-04 (at the NY circle-back sync)
+
+- `default-by-tenant`: MN's proposal merged once every state tagged on `default-by-tenant` (18 states) and `default-by-tenant-co` (CO, NY) had vetted it, NY last. The no-cure carve-out moved out of the non-rent limb into its own sentence reaching both limbs, in the wording already merged on `default-by-tenant-ks-ne`: "Landlord need not give Tenant an opportunity to cure any breach, including a failure to pay Rent, where applicable law permits Landlord to proceed without one." It is self-limiting, so it reaches a breach only where PA law lets Landlord proceed without a cure opportunity. Uniform; no PA override. Under Taylor's decision of 2026-10-04 (same as Indiana), `edu-notice-to-quit-pa` now tells landlords they may still give written notice of a rent default, and warns that with the notice-to-quit waiver a tenant may otherwise get no warning.

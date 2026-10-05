@@ -2002,3 +2002,7 @@ Not a re-audit; nothing else in this state was reviewed.
 ## Propagated shared-row edit, 2026-10-04 (at the PA circle-back sync)
 
 - `returned-payments` (CO, WY, KS, NE, MN, ND, SD, OH, AZ, GA, PA): AZ's proposal merged once every tagged state had vetted it, PA last. "If more than two of Tenant's payments during the Term are returned" now reads "during any 12-month period", so the count works for a month-to-month tenancy, which has no Term. Uniform; no MN override. MN's note segment on the row records it.
+
+## Propagated shared-row edit, 2026-10-04 (at the NY circle-back sync)
+
+- `default-by-tenant`: MN's proposal merged once every state tagged on `default-by-tenant` (18 states) and `default-by-tenant-co` (CO, NY) had vetted it, NY last. The no-cure carve-out moved out of the non-rent limb into its own sentence reaching both limbs, in the wording already merged on `default-by-tenant-ks-ne`: "Landlord need not give Tenant an opportunity to cure any breach, including a failure to pay Rent, where applicable law permits Landlord to proceed without one." It is self-limiting, so it reaches a breach only where MN law lets Landlord proceed without a cure opportunity. Uniform; no MN override.

@@ -831,3 +831,7 @@ Run 2026-10-03 in IL's existing chat (SOP rule 8), on the attached files: `lease
 ## Propagated shared-row edit, 2026-10-03 (from the NJ circle-back)
 
 - `acceptable-payment-methods-nj` (tagged NJ and IL): NJ changed the change-on-notice sentence so the landlord "will always accept at least one method that is not an electronic funds transfer and will not require payment by electronic funds transfer". Uniform for IL: it states the rule IL was tagged for (765 ILCS 705/4), so no IL override is needed. Claude Code's call at sync (rule 76); IL's note on the row records it.
+
+## Propagated shared-row edit, 2026-10-04 (at the NY circle-back sync)
+
+- `default-by-tenant`: MN's proposal merged once every state tagged on `default-by-tenant` (18 states) and `default-by-tenant-co` (CO, NY) had vetted it, NY last. The no-cure carve-out moved out of the non-rent limb into its own sentence reaching both limbs, in the wording already merged on `default-by-tenant-ks-ne`: "Landlord need not give Tenant an opportunity to cure any breach, including a failure to pay Rent, where applicable law permits Landlord to proceed without one." It is self-limiting, so it reaches a breach only where IL law lets Landlord proceed without a cure opportunity. Uniform; no IL override.

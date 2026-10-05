@@ -842,3 +842,7 @@ Case law is not read on whether § 32-31-1-8(1)-(2) ('a specified period of time
 - **Case law:** the § 32-31-1-8(1)-(2) question was added to §7's case-law row, as the pass asked.
 - **Guards:** all pass. **Statute spot-check:** not possible from here (iga.in.gov is a JavaScript app that serves an empty page to this machine). The pass re-read §§ 32-31-1-6 and 32-31-1-8 from its saved official copy, hash-matched to the registry.
 - **SOP 1.41:** IN's rule 62 proposal adopted (vetting asks whether the edit changes what the clause promises in the state, not only whether it drops a required notice).
+
+## Propagated shared-row edit, 2026-10-04 (at the NY circle-back sync)
+
+- `default-by-tenant`: MN's proposal merged once every state tagged on `default-by-tenant` (18 states) and `default-by-tenant-co` (CO, NY) had vetted it, NY last. The no-cure carve-out moved out of the non-rent limb into its own sentence reaching both limbs, in the wording already merged on `default-by-tenant-ks-ne`: "Landlord need not give Tenant an opportunity to cure any breach, including a failure to pay Rent, where applicable law permits Landlord to proceed without one." It is self-limiting, so it reaches a breach only where IN law lets Landlord proceed without a cure opportunity. Uniform; no IN override. IN's three pre-written changes (IN log, "Circle-back checks (SOP 1.40)") were applied at the same time: the IN segments on `default-by-tenant` and `rent-payment`, and the body and notes of `edu-nonpayment-notice-in`.

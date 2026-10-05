@@ -1110,3 +1110,7 @@ None.
 - **Rule 62:** NM vouched for MN's no-cure-sentence edit to `default-by-tenant`; recorded in the backlog tally and under §9 "Vouches given". NM's optional rewording of its own note sentence is held in the backlog item for that merge, beside IN's pre-written changes.
 - **Guards:** all pass. **Statute spot-check:** not possible from here (nmonesource.com blocks command-line tools, as at NM's first sync); the pass read §§ 47-8-3, 47-8-16, 47-8-33 and 47-8-34 from its saved, hash-matched NMSA 1978 compilation.
 - **SOP:** no proposals.
+
+## Propagated shared-row edit, 2026-10-04 (at the NY circle-back sync)
+
+- `default-by-tenant`: MN's proposal merged once every state tagged on `default-by-tenant` (18 states) and `default-by-tenant-co` (CO, NY) had vetted it, NY last. The no-cure carve-out moved out of the non-rent limb into its own sentence reaching both limbs, in the wording already merged on `default-by-tenant-ks-ne`: "Landlord need not give Tenant an opportunity to cure any breach, including a failure to pay Rent, where applicable law permits Landlord to proceed without one." It is self-limiting, so it reaches a breach only where NM law lets Landlord proceed without a cure opportunity. Uniform; no NM override. NM's optional rewording of its own note segment on the row was applied.

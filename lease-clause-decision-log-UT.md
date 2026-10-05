@@ -919,3 +919,7 @@ Across both rounds the checker also confirmed: the file mechanics; that only the
 - **Flagged:** `casualty-termination-pa` and `casualty-termination-id` carry the same fault group UT had (no invitees); align them if either state later adds a tenant-caused-damage clause (backlog).
 - **Guards:** all pass. **Statute spot-check:** not possible from here (le.utah.gov returns empty pages to this machine). The pass reloaded the whole Utah Code from the official XML, hash-matched 14 sections against live text, and was independently checked in two rounds.
 - **SOP 1.55:** all four proposals adopted (rules 53, 54). UT's 54t and holdover cells set to ✓.
+
+## Propagated shared-row edit, 2026-10-04 (at the NY circle-back sync)
+
+- `default-by-tenant`: MN's proposal merged once every state tagged on `default-by-tenant` (18 states) and `default-by-tenant-co` (CO, NY) had vetted it, NY last. The no-cure carve-out moved out of the non-rent limb into its own sentence reaching both limbs, in the wording already merged on `default-by-tenant-ks-ne`: "Landlord need not give Tenant an opportunity to cure any breach, including a failure to pay Rent, where applicable law permits Landlord to proceed without one." It is self-limiting, so it reaches a breach only where UT law lets Landlord proceed without a cure opportunity. Uniform; no UT override.
