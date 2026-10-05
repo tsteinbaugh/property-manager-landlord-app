@@ -1390,3 +1390,7 @@ Checked:
 - **Rule 62:** NV vouched for CA's `surrender-end-of-term` qualifier and MN's `default-by-tenant` sentence; both recorded in the backlog tally. NV's log keeps its propagation notes as dated sections rather than a numbered §9, so the "Vouches given" lines sit just above.
 - **Guards:** all pass. **Statute spot-check, 2 of 2, on leg.state.nv.us:** NRS 118A.275 (quoted in full above; matches word for word) and NRS 40.360 (judgment for restitution in unlawful detainer).
 - **SOP 1.48:** NV's proposal adopted (rule 78).
+
+## Propagated shared-row edit, 2026-10-04 (at the WY circle-back sync)
+
+- `surrender-end-of-term` (WY, SD, OH, CA, NV, TX, FL, AZ, GA, NC, TN, VA): CA's proposal merged once every tagged state had vetted it, WY last. "Tenant will surrender possession of the property and return all keys to Landlord immediately" now ends ", unless applicable law entitles Tenant to remain." The duty to surrender stays; the qualifier only stops the clause overstating it where a statute, retaliation rule, foreclosure rule or similar lets a tenant stay. Uniform; no NV override. NV's note segment on the row records it.

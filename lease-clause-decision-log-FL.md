@@ -946,3 +946,7 @@ No row changed, so no delta file was produced. FL active count is 119 before and
 - **Rule 62:** FL vouched for CA's `surrender-end-of-term` qualifier; recorded in the backlog tally, with a one-line pointer added under §8 (Propagation notes).
 - **Guards:** all pass. **Statute check:** FL's reads matched the chapter hash recorded at the SOP 1.30 retro the same day, so no fresh spot-check was needed for a vouch that changed no text.
 - **SOP 1.37:** FL's proposal adopted (rule 62 names the propagation section by title).
+
+## Propagated shared-row edit, 2026-10-04 (at the WY circle-back sync)
+
+- `surrender-end-of-term` (WY, SD, OH, CA, NV, TX, FL, AZ, GA, NC, TN, VA): CA's proposal merged once every tagged state had vetted it, WY last. "Tenant will surrender possession of the property and return all keys to Landlord immediately" now ends ", unless applicable law entitles Tenant to remain." The duty to surrender stays; the qualifier only stops the clause overstating it where a statute, retaliation rule, foreclosure rule or similar lets a tenant stay. Uniform; no FL override. FL's note segment on the row records it.

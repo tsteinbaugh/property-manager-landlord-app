@@ -1573,3 +1573,7 @@ No shared clause text was edited, and no shared row appears in the delta.
 - **Flagged for SD's next pass:** SDCL 21-3-6 (treble damages for forcible exclusion) isn't in `edu-self-help-eviction-ban-sd`; in the backlog.
 - **Guards:** all pass. **Statute spot-check, 2 of 2, on sdlegislature.gov:** SDCL 21-3-8 (quoted above; matches) and 21-3-7 (double damages for failing to give up the premises after the tenant's own notice).
 - **SOP 1.52:** all three proposals adopted (rules 19, 21, 54). SD's holdover cell set to ✓.
+
+## Propagated shared-row edit, 2026-10-04 (at the WY circle-back sync)
+
+- `surrender-end-of-term` (WY, SD, OH, CA, NV, TX, FL, AZ, GA, NC, TN, VA): CA's proposal merged once every tagged state had vetted it, WY last. "Tenant will surrender possession of the property and return all keys to Landlord immediately" now ends ", unless applicable law entitles Tenant to remain." The duty to surrender stays; the qualifier only stops the clause overstating it where a statute, retaliation rule, foreclosure rule or similar lets a tenant stay. Uniform; no SD override. SD's note segment on the row records it.

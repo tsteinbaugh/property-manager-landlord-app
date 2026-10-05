@@ -28,12 +28,11 @@ To confirm in October:
 
 ## Pending shared edits: vetting tally (rule 62)
 
-Merge each edit once every state tagged on the row has answered. Update this table at each sync. (WY's `early-termination` edit merged 2026-10-03. CO's deletion of "and reasonable costs and expenses" from `default-by-tenant` was resolved 2026-10-03 as the CO override `default-by-tenant-co`, after ID declined to vouch. NE's no-cure sentence for `default-by-tenant-ks-ne` merged 2026-10-03 after OK, the last tagged state, vetted it. AZ's `returned-payments` wording merged 2026-10-04 after PA vetted it.)
+Merge each edit once every state tagged on the row has answered. Update this table at each sync. (WY's `early-termination` edit merged 2026-10-03. CO's deletion of "and reasonable costs and expenses" from `default-by-tenant` was resolved 2026-10-03 as the CO override `default-by-tenant-co`, after ID declined to vouch. NE's no-cure sentence for `default-by-tenant-ks-ne` merged 2026-10-03 after OK, the last tagged state, vetted it. AZ's `returned-payments` wording merged 2026-10-04 after PA vetted it. CA's `surrender-end-of-term` qualifier merged 2026-10-04 after WY vetted it.)
 
 | Edit | Row (tagged states) | Vetted, supports | Still to answer |
 |---|---|---|---|
-| MN: no-cure carve-out as its own sentence | `default-by-tenant` (19 states) and CO's override `default-by-tenant-co` | MN, ND, CA, AZ, CO, GA, ID, IL, IN, MO, MT, NM, NV, PA (Taylor, 2026-10-04: same as IN), SC, TN, UT, VA | WY, NY |
-| CA: "unless applicable law entitles Tenant to remain" | `surrender-end-of-term` (WY, SD, OH, CA, NV, TX, FL, AZ, GA, NC, TN, VA) | CA, AZ, FL, GA, NC, NV, OH, SD, TN, TX, VA | WY |
+| MN: no-cure carve-out as its own sentence | `default-by-tenant` (19 states) and CO's override `default-by-tenant-co` | MN, ND, CA, AZ, CO, GA, ID, IL, IN, MO, MT, NM, NV, PA (Taylor, 2026-10-04: same as IN), SC, TN, UT, VA, WY | NY (no circle-back folder; needs a one-item pass) |
 
 ## Standing backlog
 

@@ -618,3 +618,7 @@ None.
 - **Guards:** all pass. **Statute spot-check, 2 of 2, on ncleg.gov:** G.S. 47A-36(a) (conversion notice no later than 90 days before the tenant must vacate) and G.S. 42-37.2(a) (a court that finds the ejectment retaliatory "shall deny the request for ejectment").
 - **Still open for a later NC pass:** the 36 NC rows with no recorded basis (rule 79), outside this prompt's scope.
 - **SOP:** no proposals.
+
+## Propagated shared-row edit, 2026-10-04 (at the WY circle-back sync)
+
+- `surrender-end-of-term` (WY, SD, OH, CA, NV, TX, FL, AZ, GA, NC, TN, VA): CA's proposal merged once every tagged state had vetted it, WY last. "Tenant will surrender possession of the property and return all keys to Landlord immediately" now ends ", unless applicable law entitles Tenant to remain." The duty to surrender stays; the qualifier only stops the clause overstating it where a statute, retaliation rule, foreclosure rule or similar lets a tenant stay. Uniform; no NC override. NC's note segment on the row records it.

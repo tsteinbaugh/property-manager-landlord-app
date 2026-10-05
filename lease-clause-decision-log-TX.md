@@ -1258,3 +1258,7 @@ None.
 - **Rule 62:** TX supports CA's `surrender-end-of-term` qualifier (retaliation, Tex. Prop. Code §§ 92.331(b), 92.335; post-foreclosure notice, § 24.005(b)); recorded in the backlog tally. TX's log keeps its propagation notes in §16, so the "Vouches given" line sits just above.
 - **Guards:** all pass. **Statute spot-check, 1 of 1, on tcss.legis.texas.gov:** § 92.331(b) (within six months after the tenant's protected act a landlord may not file an eviction proceeding or end the lease, among other actions).
 - **SOP:** no proposals.
+
+## Propagated shared-row edit, 2026-10-04 (at the WY circle-back sync)
+
+- `surrender-end-of-term` (WY, SD, OH, CA, NV, TX, FL, AZ, GA, NC, TN, VA): CA's proposal merged once every tagged state had vetted it, WY last. "Tenant will surrender possession of the property and return all keys to Landlord immediately" now ends ", unless applicable law entitles Tenant to remain." The duty to surrender stays; the qualifier only stops the clause overstating it where a statute, retaliation rule, foreclosure rule or similar lets a tenant stay. Uniform; no TX override. TX's note segment on the row records it.

@@ -1027,3 +1027,7 @@ Not a re-audit; nothing else in this state was reviewed.
 - **Builder, M.13 (backlog):** `{{late_fee_amount}}` at most 10% of periodic rent; `{{nsf_fee}}` at most $50; deposit plus any premiums paid before the tenancy at most two months' periodic rent.
 - **Guards:** all pass. **Statute spot-check, 2 of 2, on law.lis.virginia.gov:** § 55.1-1204(E) (late charge not more than the lesser of 10 percent of the periodic rent or 10 percent of the remaining balance) and § 55.1-1240(D) (tenant's written request to reevaluate within seven days of a casualty termination notice).
 - **SOP 1.56:** all four proposals adopted (rules 35, 78, 79). VA's 35c and 79 cells set to ✓.
+
+## Propagated shared-row edit, 2026-10-04 (at the WY circle-back sync)
+
+- `surrender-end-of-term` (WY, SD, OH, CA, NV, TX, FL, AZ, GA, NC, TN, VA): CA's proposal merged once every tagged state had vetted it, WY last. "Tenant will surrender possession of the property and return all keys to Landlord immediately" now ends ", unless applicable law entitles Tenant to remain." The duty to surrender stays; the qualifier only stops the clause overstating it where a statute, retaliation rule, foreclosure rule or similar lets a tenant stay. Uniform; no VA override. VA's note segment on the row records it.

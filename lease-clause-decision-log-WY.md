@@ -1175,3 +1175,121 @@ Not a re-audit; nothing else in this state was reviewed.
 ## Propagated shared-row edit, 2026-10-04 (at the PA circle-back sync)
 
 - `returned-payments` (CO, WY, KS, NE, MN, ND, SD, OH, AZ, GA, PA): AZ's proposal merged once every tagged state had vetted it, PA last. "If more than two of Tenant's payments during the Term are returned" now reads "during any 12-month period", so the count works for a month-to-month tenancy, which has no Term. Uniform; no WY override. WY's note segment on the row records it.
+
+## Propagated shared-row edit, 2026-10-04 (at the WY circle-back sync)
+
+- `surrender-end-of-term` (WY, SD, OH, CA, NV, TX, FL, AZ, GA, NC, TN, VA): CA's proposal merged once every tagged state had vetted it, WY last. "Tenant will surrender possession of the property and return all keys to Landlord immediately" now ends ", unless applicable law entitles Tenant to remain." The duty to surrender stays; the qualifier only stops the clause overstating it where a statute, retaliation rule, foreclosure rule or similar lets a tenant stay. Uniform; no WY override. WY's note segment on the row records it.
+
+## Circle-back checks (SOP 1.56), 2026-10-04
+
+**2026-10-04.** One [Retro] rule and one targeted fix, run against Wyoming only. Not a re-audit (rule 1). The attached `lease-clauses.csv` was confirmed at **2,876 rows / 17 columns / CRLF** before any work; WY **126 tagged, 122 active**. Old output files from this chat were deleted first (rule 8): `lease-clauses-WY-retro-delta.csv` and `lease-clause-decision-log-WY-retro.md`, both the 2026-10-01 SOP 1.15 outputs, now merged. The outputs folder was already empty. **Where anything earlier in this chat conflicts with the files attached for this task, the attached files govern** — in particular the SOP 1.15 delta is merged and must not be re-applied.
+
+**Result: 46 delta rows, all changed, all WY-only. 4 carry a bodyText change; 42 are basis upgrades. No new rows, no shared row touched.**
+
+---
+
+### Rule 79 — re-read the section before trusting a summary of it
+
+**Verdict: run in full. Three substantive defects found and fixed, one statutory ambiguity resolved, 42 rows upgraded from host-copy or secondary basis to a named artifact.**
+
+#### What was read
+
+| Artifact | Sections | Outcome |
+|---|---|---|
+| Official NXT gateway, **2026 Wyoming Statutes**, Art. 12 (`/1/53/65`) | W.S. 1-21-1201 → 1-21-1211, all 11 | **Character-identical** to the 2026-09-30 read |
+| Official NXT gateway, Art. 13 (`/1/53/66`) | W.S. 1-21-1301 → 1-21-1304, all 4 | **Character-identical** to the 2026-09-30 read |
+| **2025 SF0147 enrolled act**, `wyoleg.gov/2025/Enroll/SF0147.pdf` | amends W.S. 35-13-205(a)(iv), (a)(viii), 35-13-206(a) | Closes the assistance-animal currency question — see below |
+| law.justia.com, current edition | W.S. 35-13-201(c) | Matches the row word for word; no history line printed |
+
+Rule 79's hash step was run as a **text comparison, not a stored-file hash**: the 2026-10-01 outputs were deleted under rule 8 before this task began, so there was no saved section file to hash against. Both articles were re-pulled live and compared against the full text read on 2026-09-30, which is still in this chat. They match. Recording the method rather than claiming a hash.
+
+**Boundary, unchanged from the last retro and still the governing limit on every Wyoming absence row:** there is no loadable Wyoming corpus for this session. The org egress proxy returns 403 to every statute host (wyoleg.gov, Justia, FindLaw, Casetext, Lexis), Justia is behind a bot challenge in the browser pane, the whole-title PDFs truncate, and the gateway publishes no documented query URL. So **no absence row in Wyoming rests on a statute-wide search with terms and hit counts.** The strongest available basis is three articles read whole, and every absence row now says so in those words.
+
+#### The three defects
+
+**1. `edu-deposit-noncompliance-penalty-wy` — scope understated and the deadline misstated.** Two errors in one short row, both caught by reading W.S. 1-21-1208 sentence by sentence.
+
+- **Scope.** Subsection (c) penalises an unreasonable failure to comply with *"subsection (a) **or (b)**"*. The row described only the (a) duty. A landlord who mishandled a **separately identified utility deposit** under (b) would not have learned that the same full-deposit-plus-court-costs penalty reaches him.
+- **Deadline.** The row said *"the 30-day (or 60-day, if there's damage) deadline."* The statute sets **the later of** 30 days after termination **and 15 days after receipt of the renter's new mailing address**, extended by a further 30 days where there is damage. The row dropped the whichever-is-later limb. The error ran in the conservative direction — it makes the clock look tighter than it is — but it still misstates the rule, and a landlord would not learn that a late forwarding address pushes the deadline **out**. Worth noting that `edu-security-deposit-return-wy` states the same deadline correctly; the defect was in the row that generalised it.
+
+**2. `abandoned-property-wy` — the statute contradicts itself, and the clause had picked the dangerous number.** W.S. 1-21-1210(a)(iii) gives **two different figures for the same hold period**. One sentence: the property *"shall be held for an additional period of **seven (7) days** after the written response is received."* The very next sentence: *"If the renter fails to take possession of the property within the additional **fifteen (15) day** period…"* Both govern the same window. The likeliest explanation is an amendment that changed one figure and missed the other, but the text as enacted is ambiguous on its face and no Wyoming case construing it was located.
+
+The clause tracked seven. **Changed to fifteen**, decided under rule 76 rather than referred, because the two readings are not symmetric in consequence: a landlord who holds fifteen days where seven would have done loses a few days of storage, which W.S. 1-21-1210(b) lets him charge to the renter anyway; a landlord who disposes on day eight, before a court that reads the fifteen-day sentence as controlling, has converted someone else's property with no statutory cap on the exposure. The cheap error is the safe one.
+
+**3. `edu-abandoned-property-notice-methods-wy` — the ambiguity recorded.** Subdivisions confirmed correct ((a)(i)(A), (B), (C)). The row now carries the seven-versus-fifteen contradiction, because the lease clause has just departed from the figure every secondary source on Wyoming abandoned property repeats, and a landlord is entitled to know why.
+
+#### The currency question that mattered most
+
+**`assistance-animal-accommodation-wy`** was the highest-risk row in the screen: it rested on primary text Taylor supplied on **2026-08-28**, and **2025 SF0147** had amended that article. A supplied copy that predated the amendment would have made the row wrong, not merely unsourced — rule 79's named failure mode.
+
+The **enrolled act** was read. SF0147 amends **W.S. 35-13-205(a)(iv), 35-13-205(a)(viii) and 35-13-206(a) only.** Three consequences, all favourable to the row:
+
+1. The ESA-inclusive limb of the "assistance animal" definition **survives intact** — *"or provides emotional support that alleviates one (1) or more identified symptoms or effects of a person's disability"* — so Wyoming's independent state basis for emotional-support animals in housing holds.
+2. SF0147 **does not touch W.S. 35-13-203**, so the **$750** misrepresentation fine the clause states is current.
+3. The act raised **35-13-206(a)** from $750 to **$5,000** and from six months to less than one year — but that is the *injuring-or-killing* offence, which the clause does not cite. The row's existing note already drew that distinction; it is confirmed correct.
+
+**Limit, stated rather than papered over:** W.S. 35-13-203(b) itself was **not** re-read live today — the fetch was refused — so the $750 figure and the (b) subdivision rest on Taylor's 2026-08-28 primary text plus the enrolled act showing no intervening amendment. A sound chain, but not a section-open read of 203(b) on this date, and the row now says so.
+
+#### The counts rule 79 asks for
+
+WY active = **122** = **70 WY-only** + **52 shared**.
+
+**Group 1 — rows a research pass wrote: 41 upgraded.** Breakdown by the artifact that was *actually* read before today:
+
+- **14 rested on a law.justia.com host copy** naming a section (`edu-repair-cost-termination-wy`, `edu-repair-notice-process-wy`, `renter-duties-wy`, `prohibited-acts-renter-wy`, `edu-renter-repair-remedy-wy`, `edu-successor-owner-bound-wy`, `unpaid-damages-interest-wy`, `edu-habitability-materiality-wy`, `edu-safe-homes-nondiscrimination-wy` and others). **All subdivisions confirmed correct.** `unpaid-damages-interest-wy` is worth singling out: it had been cross-checked against a FindLaw mirror, which is two host copies and not a primary read, and the 10% is indeed in **1-21-1211(b)** as cited — the same shape as the `edu-returned-check-fee-cap-wy` error caught last retro, but this one was right.
+- **4 recorded no artifact at all** — `edu-nonrefundable-deposit-separate-notice-wy`, `edu-habitability-modifiable-wy`, `edu-abandoned-property-notice-methods-wy`, `edu-deposit-noncompliance-penalty-wy`. All four now read section-open; two of them produced the defects above.
+- **14 are absences resting on secondary agreement.** Nine are now **partly upgraded** — the three-article whole read independently confirms the absence *within the landlord-tenant code*, which is a real strengthening. Five are **not upgradeable** because their subject sits outside Title 1 and no code-wide search exists: radon, bed bugs, EV charging, the mobile-home act, and the CO-detector building-code row. Each now says which tier it is on.
+- **`edu-no-right-to-call-police-statute-wy` remains the weakest absence in the Wyoming set** and is now labelled as such: no source makes an affirmative "no such law" statement; it rests on absence-of-mention.
+- **An incidental find worth more than the row it sits on.** While restating `edu-no-mobile-home-park-act-wy`, W.S. 1-21-1201(a)(iv) read section-open shows that Art. 12's definition of "residential rental unit" **expressly excludes a mobile home lot**. Wyoming's landlord-tenant code therefore does not reach mobile-home-lot tenancies at all — a stronger and more useful point than the row's current "no such act was found," and now recorded on it.
+
+**Group 2 — rows a library-wide pass created or renamed: 5.** `edu-safe-homes-rent-defense-wy`, `edu-utility-deposit-return-wy`, `edu-security-deposit-return-wy`, `security-deposit-return-wy`, `edu-habitability-baseline-wy`. Each had the source row's basis carried forward **and** was re-read section-open, per rule 79's TN circle-back point. **Nothing was dropped in any rename.** `edu-habitability-baseline-wy`'s 2026-10-01 sentence-boundary fix was re-checked against the live text and holds.
+
+**Group 3 — shared rows tagged WY carrying no WY note segment: 51 of 52.** Only `security-deposit-use` carries one. This is the Kansas shape (58 of 58 there). Segments were split using rule 79's method — end at the next `" | "` followed by **any** capital letter, not only a state code. **Not fixed here**, and deliberately: all 51 are recorded GENERIC in the citations file, the WY work on them was a single 2026-08-21 full-library cross-check, and writing 51 identical segments by hand is a job for one scripted backfill at merge rather than 51 hand-edits in a scalpel pass. **Recommended to Claude Code:** backfill a uniform `WY:` segment naming that cross-check as the artifact, so the next screen can see it.
+
+**24 WY-only rows were not touched**, because each already records a named artifact — the 2026-09-27 and 2026-09-30 retro rows ("read section-open … 2026 Wyoming Statutes, wyoleg.gov NXT gateway"), `edu-returned-check-fee-cap-wy` (fixed last retro from the official `title01.pdf`), `edu-holdover-wy` (primary-verified), `edu-no-rental-fee-transparency-law-wy` (primary read of W.S. 40-12-105), and `edu-no-fee-reciprocity-wy` (four named Wyoming decisions).
+
+---
+
+### Targeted fix 2 — rule 62 vetting of two shared rows (answers only; shared text not edited)
+
+**(1) `surrender-end-of-term` — CA's proposal, qualifying the surrender duty with "unless applicable law entitles Tenant to remain". SUPPORT.**
+
+Does the current wording state a duty Wyoming law doesn't back? **No.** Wyoming has no just-cause rule, and that is now primary-verified: W.S. 1-21-1002(a)(i) grounds a forcible entry and detainer action *"Against tenants holding over their terms"*, so expiry of the term ends the right to possession. The unqualified sentence is accurate here.
+
+Is the qualified wording lawful and accurate in Wyoming? **Yes, and it is not idle even here.** One Wyoming case fits it squarely: after a foreclosure sale, the federal Protecting Tenants at Foreclosure Act can entitle a bona fide tenant to remain past the end of the term (`edu-foreclosure-tenant-rights-wy`). The qualifier covers that without disturbing the ordinary case. Self-limiting, accurate, no override needed.
+
+**(2) `default-by-tenant` — MN's proposal, moving the no-cure carve-out into its own sentence reaching both limbs. SUPPORT.**
+
+The only question put was whether the edit could be read to drop a cure or pre-suit notice Wyoming requires for nonpayment. It cannot, and the reason matters: **Wyoming does require a pre-suit notice** — a three-day notice to quit under W.S. 1-21-1003, on top of W.S. 1-21-1002(a)(i)'s three-day arrears trigger — but it grants **no statutory right to cure** a nonpayment by paying up. The three-day notice is a notice to quit, not a pay-or-quit. The carve-out reaches **cure**, not **notice**, so moving it to cover both limbs takes nothing away that Wyoming law gives.
+
+Note that the pre-settled Indiana/Pennsylvania branch — "if the edit would only drop the lease's own promise of written notice of a rent default that your law doesn't require" — **does not apply to Wyoming**, because Wyoming's law does require that notice. The edit is supported on its own terms, not on that ground, and no optional notice clause is needed because the statute already compels one.
+
+**Which education row tells Wyoming landlords they may still give notice first: `edu-no-for-cause-eviction-wy`.** It is named as asked, and the sentence is **already written into this delta** rather than left for the merge, because the gap it closes was larger than the question assumed: Wyoming had **no nonpayment-notice row of any kind** (the `nonpayment-notice` topic key is carried by twelve states and not by WY), and the only prior mention of the three-day notice sat inside `edu-holdover-wy`, where a landlord looking for it would never find it. The row now states that the notice is a precondition to filing, that it is not a right to cure, and that a landlord may always give more notice than the statute requires.
+
+---
+
+### Integrity checks run on the delta
+
+17 columns, header and CRLF line endings identical to the master; 46 rows, no duplicate ids; **every id already exists in the master — no new rows**; on every row only `bodyText`, `notes` and `last_checked` moved, with `states` and `is_active` untouched, so no other state's tagging changes; **no shared row is in the delta**; no blank required field; no `LEASE_CLAUSE` `topic_key` collision among WY-active rows after merge; WY active stays 122. Every note addition is prefixed `WY:` per rule 61, and every one names the artifact read, the subdivision checked, and the verdict.
+
+---
+
+### Proposed SOP changes
+
+1. **Rule 79 — a statute that contradicts itself is a finding, not a drafting choice; take the reading whose error is cheaper.** When two sentences of one subdivision give different figures for the same period, record the conflict on the row and pick the direction whose downside is recoverable, saying why. *(W.S. 1-21-1210(a)(iii) says both "seven (7) days" and "the additional fifteen (15) day period" for the same hold. Holding too long costs chargeable storage; disposing too early is conversion.)*
+2. **Rule 79 — where a row rests on text the user supplied, re-check it against the enrolled act of any session law amending that article, not against another copy of the compiled section.** A supplied copy carries no edition marker, so only the act shows whether it predates the amendment. *(`assistance-animal-accommodation-wy` rested on text supplied 2026-08-28; 2025 SF0147 had amended the article, and only the enrolled act showed which subsections it reached.)*
+3. **Rule 79 — when a row generalises a companion row's figure, screen the pair together.** The specific row is usually right and the summarising row is where the limb gets dropped. *(`edu-security-deposit-return-wy` states the whichever-is-later deadline correctly; `edu-deposit-noncompliance-penalty-wy`, summarising it, did not.)*
+4. **Rule 79 — a scope word in a penalty subsection ("subsection (a) or (b)") is a qualifier, and gets the same sentence-level parse as "unless otherwise agreed".** The existing rule names trailing qualifiers; cross-references that widen a penalty are the same error shape and were not covered. *(W.S. 1-21-1208(c) reaches both deposit limbs; the row covered one.)*
+5. **Rule 8 — deleting last pass's outputs destroys the files rule 79's hash step compares against.** The two rules conflict as written. Either the saved section texts should live outside the deliverables that rule 8 clears, or rule 79 should say that where no saved file survives, the check is a live re-pull compared against the previous read, recorded as such. *(This pass: the SOP 1.15 outputs were deleted before work began, so Art. 12 and 13 were re-pulled and compared by text, which is what the log reports.)*
+
+### Vouches given (propagation, rule 62)
+- **2026-10-04:** `surrender-end-of-term` (CA's proposal) and `default-by-tenant` (MN's proposal), both supported for WY; reasoning above.
+
+## Circle-back sync (Claude Code, 2026-10-04)
+
+- **Merged** with `merge-delta.py --base 2b10851`: 46 WY rows updated (bodies of four rows, including `abandoned-property-wy`'s hold period moved from 7 to 15 days and `edu-deposit-noncompliance-penalty-wy`'s scope and deadline; notes on the rest); no new rows, no shared row, nothing refused. WY active 122, unchanged.
+- **Backfill (as the pass recommended):** 49 shared rows tagged WY carried no WY note segment; each now has one naming the 2026-08-21 full-library cross-check as its basis (all 49 are GENERIC in the citations file). The pass counted 51; two already had a WY segment in another form.
+- **Citations file:** the 46 rows re-dated; the two corrected rows note what changed.
+- **Rule 62, edit merged.** WY was the last tagged state to vet CA's `surrender-end-of-term` qualifier; it now reads "…return all keys to Landlord immediately, unless applicable law entitles Tenant to remain." for all 12 tagged states, with a note in each state's segment and log. WY also supports MN's `default-by-tenant` edit (Wyoming requires the three-day notice to quit, so the Indiana/Pennsylvania question doesn't arise), which now waits only on NY.
+- **Guards:** all pass. **Statute spot-check, 2 of 2, on the official title 1 PDF from wyoleg.gov:** W.S. 1-21-1210(a)(iii) (both "seven (7) days after the written response is received" and "the additional fifteen (15) day period", confirming the contradiction) and 1-21-1208 ((c) reaches "subsection (a) or (b)"; the deadline is 30 days after termination or 15 days after the new address, "whichever is later").
+- **SOP 1.57:** all five proposals adopted (rule 79). WY's 79 cell set to ✓.

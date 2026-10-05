@@ -769,3 +769,7 @@ Not a re-audit; nothing else in this state was reviewed.
 - **Flagged:** `tenant-repair-agreement-ok`'s OK segment says Tennessee's chore rule is limited by dwelling type; it isn't (§ 66-28-304(c)). OK's segment, so left for OK's next pass (backlog). `landscaping-irrigation` and `snow-removal` are candidates to re-tag for the 78 non-Act counties once the builder knows the county (county-attribute item).
 - **Guards:** all pass. **Statute spot-check:** not possible from here (Justia serves a bot check to this machine and the official Lexis copy a captcha); the pass read each section from Justia's host copy with its history line and saved the quoted text in `tn-retro-1.52-sources-2026-10-04.md`.
 - **SOP 1.53:** all three proposals adopted (rules 48, 53, 79). TN's 35c and 79 cells set to ✓.
+
+## Propagated shared-row edit, 2026-10-04 (at the WY circle-back sync)
+
+- `surrender-end-of-term` (WY, SD, OH, CA, NV, TX, FL, AZ, GA, NC, TN, VA): CA's proposal merged once every tagged state had vetted it, WY last. "Tenant will surrender possession of the property and return all keys to Landlord immediately" now ends ", unless applicable law entitles Tenant to remain." The duty to surrender stays; the qualifier only stops the clause overstating it where a statute, retaliation rule, foreclosure rule or similar lets a tenant stay. Uniform; no TN override. TN's note segment on the row records it.
