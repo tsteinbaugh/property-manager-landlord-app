@@ -44,6 +44,7 @@ const STATE_NAMES = {
   NY: "New York",
   WI: "Wisconsin",
   WA: "Washington",
+  OR: "Oregon",
 };
 
 // New York consolidated-law abbreviations (as cited in the NY rows) and the
@@ -1647,6 +1648,59 @@ const STATE_CONFIG = {
       },
     ],
   },
+  OR: {
+    // Oregon Revised Statutes sections are chapter.section ("90.300",
+    // "105.105", "659A.421"), so a bare number looks like a decimal. Oregon
+    // bills say "ORS 90.300 is amended to read", so the query pairs the number
+    // with "ORS". Citations are split on ";" and only the "ORS" parts are
+    // read; the administrative rules (OAR), uncompiled session-law sections
+    // and federal parts are manual items below. Subsection parentheses become
+    // spaces, so "90.300(7)(a)" stays 90.300.
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        if (!/^ORS \d/.test(part)) continue;
+        const body = part.replace(/\([^)]*\)/g, " ");
+        for (const m of body.matchAll(/\b(\d{1,3}[A-Z]?\.\d{3,4})\b/g)) out.push(m[1]);
+      }
+      return out;
+    },
+    buildQuery: (section) => `"${section}" AND "ORS"`,
+    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
+    manualRecheckItems: [
+      {
+        id: "or-2026-12-18-oar-333-062",
+        label:
+          "December 18, 2026: the temporary amendment to OAR 333-062-1000 ends. Check what replaces it and re-read the rows that cite it (OR log §10)",
+        clauseIds: ["edu-private-well-testing-or"],
+      },
+      {
+        id: "or-2027-01-01",
+        label:
+          "January 1, 2027: ORS 90.321 (drinking-water testing in a ground water quality management area) becomes operative, and Or. Laws 2026, ch. 60 (smoking definition and the ORS 90.262(2) exception) and ch. 118, § 6 (ORS 475C.792) take effect. Re-read the well-testing, smoking and cannabis rows (OR log §10)",
+        clauseIds: ["edu-private-well-testing-or", "smoking-policy-or", "cannabis-cultivation-or"],
+      },
+      {
+        id: "or-2027-09-28-ch-598",
+        label:
+          "September 28, 2027: Or. Laws 2025, ch. 598 (rescheduling an eviction trial for a Medicaid new parent) is repealed, which also changes the ORS 105.136 form. Re-read the eviction-process row (OR log §10)",
+        clauseIds: ["edu-eviction-process-or"],
+      },
+      {
+        id: "or-2028-dated-versions",
+        label:
+          "January 1-2, 2028: the dated versions of ORS 90.303 (applicant screening) and ORS 105.163 take effect, and Or. Laws 2026, ch. 79, §§ 2-3 (inclusionary zoning) is restated. Re-read the screening and eviction rows (OR log §10)",
+        clauseIds: ["edu-tenant-screening-or", "edu-eviction-process-or"],
+      },
+      {
+        id: "or-uncompiled-2026-ch-23",
+        label:
+          "Or. Laws 2026, ch. 23, § 3 (payments by check or other commercially reasonable methods; tenant portals) isn't yet compiled into ORS, so bill search can't find it by section. Once the 2027 ORS edition gives it a number, update the citations and add it to the watch (OR log §10)",
+        clauseIds: ["late-fee-limit-or", "nsf-fee-limit-or", "edu-tenant-portal-or"],
+      },
+    ],
+  },
 };
 
 // Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
@@ -1659,7 +1713,7 @@ const STATE_CONFIG = {
 const SCHEDULE_ORDER = [
   "CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ",
   "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI",
-  "IA", "NM", "MT", "NY", "WI", "WA",
+  "IA", "NM", "MT", "NY", "WI", "WA", "OR",
 ];
 function cronFor(code) {
   const n = SCHEDULE_ORDER.indexOf(code);
