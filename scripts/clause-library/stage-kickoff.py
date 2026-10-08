@@ -62,9 +62,33 @@ if left:
     sys.exit(f"unfilled placeholders: {left}")
 
 os.makedirs(out, exist_ok=True)
-for f in ["lease-clause-sop.md", "lease-clause-topics.md", "lease-clauses.csv",
-          f"lease-clause-decision-log-{ref1}.md", f"lease-clause-decision-log-{ref2}.md"]:
+for f in ["lease-clause-sop.md", "lease-clause-topics.md", "lease-clauses.csv"]:
     shutil.copy(f, out)
+
+
+def format_extract(state, max_lines=2, max_bytes=30000):
+    """A short example of the log format (SOP rule 71): every heading of the
+    most recent state's log with the first few lines under it, so Desktop
+    sees the shape without reading a 200 KB log (usage budget, 2026-10-08)."""
+    lines = open(f"lease-clause-decision-log-{state}.md", encoding="utf-8").read().splitlines()
+    kept, under = [], 0
+    for line in lines:
+        if line.startswith("#"):
+            kept.append(line)
+            under = 0
+        elif under < max_lines and line.strip():
+            kept.append(line[:240])
+            under += 1
+            if under == max_lines:
+                kept.append("[...]")
+    text = (f"# Log format example (extract of lease-clause-decision-log-{state}.md)\n\n"
+            "Every heading of the most recent state log, with its first few lines. "
+            "It shows the format SOP rule 71 asks for; it is not a template for another state's law.\n\n"
+            + "\n".join(kept) + "\n")
+    return text.encode("utf-8")[:max_bytes].decode("utf-8", "ignore")
+
+
+open(os.path.join(out, "log-format-example.md"), "w", encoding="utf-8").write(format_extract(ref1))
 open(os.path.join(out, "KICKOFF-PROMPT.md"), "w", encoding="utf-8").write(text)
 print(f"ok - staged {out} (state #{fill['STATE_NUMBER']}, {len(existing)} existing rows). "
       "Fill in the citation format and leads in KICKOFF-PROMPT.md before handing it over.")

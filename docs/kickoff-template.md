@@ -11,7 +11,12 @@ Opus, high effort. Turn on research mode only for the three triggers in SOP rule
 - `lease-clause-sop.md`: the procedure.
 - `lease-clause-topics.md`: every topic the library covers, with questions earlier states found worth checking (SOP rules 27 and 36).
 - `lease-clauses.csv`: the current library, the only source of truth for rows.
-- `lease-clause-decision-log-{REF1}.md` and `lease-clause-decision-log-{REF2}.md`: the two most recent state logs, as examples of the log format (SOP rule 71). They are examples, not templates for {STATE_NAME}'s law.
+- `log-format-example.md`: every heading of the most recent state log ({REF1}) with its first few lines, as an example of the log format (SOP rule 71). It is an example, not a template for {STATE_NAME}'s law.
+
+## Usage budget (Taylor, 2026-10-08)
+- **Read big files with scripts, never into the chat:** `lease-clauses.csv`, the state's code corpus and any saved section files.
+- **Independent check (SOP rule 80): at most 3 rounds,** one agent at a time. Each round after the first re-checks only the rows edited since the previous round. Stop early when a round finds no ERROR and no FIX.
+- **Edits after the last check:** if round 3 still produces changes, apply them and list those rows in §13 under "Edited after the last check". Claude Code reads them against the statute at sync.
 
 ## Step A check (SOP rule 23)
 The attached CSV has **{ROW_COUNT} rows ({ACTIVE_COUNT} active: {CLAUSE_COUNT} lease clauses, {EDU_COUNT} education rows)**. Active rows per state:
