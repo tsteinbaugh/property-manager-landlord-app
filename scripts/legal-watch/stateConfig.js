@@ -47,10 +47,36 @@ const STATE_NAMES = {
   OR: "Oregon",
   KY: "Kentucky",
   WV: "West Virginia",
+  MD: "Maryland",
 };
 
 // New York consolidated-law abbreviations (as cited in the NY rows) and the
 // names New York bills use for them, for the NY buildQuery.
+const MD_ARTICLE_NAMES = {
+  "Real Prop.": "Real Property",
+  "Pub. Safety": "Public Safety",
+  "Envir.": "Environment",
+  "State Gov't": "State Government",
+  "Com. Law": "Commercial Law",
+  "Transp.": "Transportation",
+  "Cts. & Jud. Proc.": "Courts and Judicial Proceedings",
+  "Pub. Util.": "Public Utilities",
+  "Crim. Law": "Criminal Law",
+  "Hum. Servs.": "Human Services",
+  "Local Gov't": "Local Government",
+  "Corps. & Ass'ns": "Corporations and Associations",
+  "Elec. Law": "Election Law",
+  "Bus. Occ. & Prof.": "Business Occupations and Professions",
+  "Hous. & Cmty. Dev.": "Housing and Community Development",
+  "Health-Gen.": "Health General",
+  "Tax-Prop.": "Tax Property",
+  "Tax-Gen.": "Tax General",
+  "Gen. Provis.": "General Provisions",
+  "Agric.": "Agriculture",
+  "Ins.": "Insurance",
+  "Alc. Bev. & Cannabis": "Alcoholic Beverages and Cannabis",
+};
+
 const NY_LAW_NAMES = {
   "Real Prop. Law": "real property law",
   "Real Prop. Acts. Law": "real property actions and proceedings law",
@@ -1773,6 +1799,47 @@ const STATE_CONFIG = {
       },
     ],
   },
+  MD: {
+    // Maryland numbers sections separately in each article, so a bare
+    // "8-203" is ambiguous. Keys carry the article ("Real Prop.|8-203"), and
+    // the query pairs the section with the article's name the way Maryland
+    // bills write it ("Article - Real Property Section 8-203"): '"8-203" AND
+    // "Real Property"'. Bills print the section with an en dash ("8–203");
+    // LegiScan's search splits on punctuation, so the hyphenated phrase
+    // should match, and the first run's totals are checked (backlog).
+    // Citations are split on ";" and only "Md. Code Ann., <article> §
+    // <section>" parts are read; COMAR, court rules, chapter laws and federal
+    // parts are left to the items below.
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        const m = part.match(/^Md\. Code Ann\., (.+?) § (\d{1,2}[A-Z]?-\d{1,4}[A-Z]?(?:-\d{1,4})?(?:\.\d+)?)/);
+        if (!m || !MD_ARTICLE_NAMES[m[1]]) continue;
+        out.push(`${m[1]}|${m[2]}`);
+      }
+      return out;
+    },
+    buildQuery(key) {
+      const [article, sec] = key.split("|");
+      return `"${sec}" AND "${MD_ARTICLE_NAMES[article]}"`;
+    },
+    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
+    manualRecheckItems: [
+      {
+        id: "md-regulations-pending",
+        label:
+          "COMAR regulations not yet adopted when the MD pass read COMAR (2026-10-08): positive rent reporting (Md. Code Ann., Real Prop. § 8-208.4), criminal-history screening (Real Prop. Title 8, Subtitle 2A, § 8-2A-12) and the Tenants' Bill of Rights text (Hous. & Cmty. Dev. § 5-104). Check whether they have been adopted and whether they add lease text (MD log §7)",
+        clauseIds: ["rent-reporting-offer-md", "edu-criminal-history-screening-md", "tenants-bill-of-rights-md"],
+      },
+      {
+        id: "md-court-rules-forms",
+        label:
+          "Maryland sources LegiScan can't see and the MD pass didn't read: the Maryland Rules (Title 3, District Court) and the Judiciary's forms, including the Real Prop. § 8-401(c) pre-filing notice form and the complaint forms; also the Minimum Livability Code text (Pub. Safety § 12-203) and local law flagged in MD log §7 (Baltimore City, Montgomery, Prince George's and Howard Counties)",
+        clauseIds: ["edu-eviction-notices-md", "edu-eviction-service-md"],
+      },
+    ],
+  },
 };
 
 // Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
@@ -1785,7 +1852,7 @@ const STATE_CONFIG = {
 const SCHEDULE_ORDER = [
   "CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ",
   "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI",
-  "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV",
+  "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD",
 ];
 function cronFor(code) {
   const n = SCHEDULE_ORDER.indexOf(code);

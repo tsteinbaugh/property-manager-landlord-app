@@ -32593,13 +32593,13 @@ const LANDLORD_EDUCATION = [
     id: "edu-cares-act-notice",
     title: "Federal 30-Day Notice to Vacate for Federally Backed Properties",
     group: "Default & Termination",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD"],
     ruleTypes: ["CONDITIONAL"],
     verificationStatus: "VERIFIED",
     topicKey: "cares-act-notice",
     bodyText:
       "Federal law adds a notice rule for some rentals, on top of your state's notices. Under the CARES Act, if the property has a federally backed mortgage, or takes part in a covered federal housing program or the rural housing voucher program, you may not require the tenant to vacate until 30 days after you give a notice to vacate (15 U.S.C. § 9058(c)). For a property of one to four units, a federally backed mortgage includes a loan made, insured, guaranteed or assisted by a federal agency (for example FHA, VA or USDA loans) and a loan bought or securitized by Fannie Mae or Freddie Mac (15 U.S.C. § 9058(a)(4)); larger properties have a matching multifamily definition. The same law's temporary eviction moratorium ended in 2020, but the 30-day notice section has no end date. Courts disagree about whether it still applies, and whether it reaches only evictions for nonpayment; this library has not reviewed those decisions. If your loan may be federally backed (your servicer can tell you), the safe course is to give at least 30 days' written notice to vacate before filing, or your state's longer notice where it is longer. Some state court rules also ask for a statement about it when you file.",
-    notes: "FEDERAL (Claude Code, 2026-10-04, Taylor's decision A): one federal row tagged in every verified state, replacing patchy per-state coverage (17 of 35 states mentioned it). CITED - 15 U.S.C. § 9058(a)(1)-(5) (covered dwelling, covered property, federally backed and multifamily mortgage loans), (b) (120-day moratorium from March 27, 2020), (c) (30-day notice to vacate; Pub. L. 116-136, div. A, title IV, § 4024). Read in the 2024 US Code on govinfo.gov (USCODE-2024-title15-chap116-subchapIII-partA-sec9058) on 2026-10-04; uscode.house.gov was down for maintenance. Case law on whether (c) survives the moratorium and reaches only nonpayment: not read, and the row says so. The 'covered housing program' list is in 34 U.S.C. § 12491(a), not read. State court-rule examples: Georgia's magistrate court rules (edu-eviction-process-ga). New states tag this row at research (kickoff template). | KY (Claude Code, 2026-10-05 KY sync): tagged at sync, since KY's kickoff predates the 2026-10-04 decision. Nothing in Kentucky law changes the federal rule; KRS 383.660(2)'s 7-day nonpayment notice is the state notice the federal 30 days can lengthen on a covered property. | WV: Tagged as written (tag-first screen, rules 26-28, WV log §2.1): West Virginia law does not make the federal row read wrongly: no state statute requires a notice before filing for unpaid rent (`edu-no-nonpayment-notice-wv`), so on a covered property the federal 30-day notice to vacate is the only notice; the summary-relief hearing is 5 to 10 judicial days after filing (W. Va. Code § 55-3A-1(b)). Federal law not read. Read section-open 2026-10-05 from the saved, hash-matched corpus of the whole West Virginia Code and the West Virginia Constitution (WV log §1). Rule 15: written section-open.",
+    notes: "FEDERAL (Claude Code, 2026-10-04, Taylor's decision A): one federal row tagged in every verified state, replacing patchy per-state coverage (17 of 35 states mentioned it). CITED - 15 U.S.C. § 9058(a)(1)-(5) (covered dwelling, covered property, federally backed and multifamily mortgage loans), (b) (120-day moratorium from March 27, 2020), (c) (30-day notice to vacate; Pub. L. 116-136, div. A, title IV, § 4024). Read in the 2024 US Code on govinfo.gov (USCODE-2024-title15-chap116-subchapIII-partA-sec9058) on 2026-10-04; uscode.house.gov was down for maintenance. Case law on whether (c) survives the moratorium and reaches only nonpayment: not read, and the row says so. The 'covered housing program' list is in 34 U.S.C. § 12491(a), not read. State court-rule examples: Georgia's magistrate court rules (edu-eviction-process-ga). New states tag this row at research (kickoff template). | KY (Claude Code, 2026-10-05 KY sync): tagged at sync, since KY's kickoff predates the 2026-10-04 decision. Nothing in Kentucky law changes the federal rule; KRS 383.660(2)'s 7-day nonpayment notice is the state notice the federal 30 days can lengthen on a covered property. | WV: Tagged as written (tag-first screen, rules 26-28, WV log §2.1): West Virginia law does not make the federal row read wrongly: no state statute requires a notice before filing for unpaid rent (`edu-no-nonpayment-notice-wv`), so on a covered property the federal 30-day notice to vacate is the only notice; the summary-relief hearing is 5 to 10 judicial days after filing (W. Va. Code § 55-3A-1(b)). Federal law not read. Read section-open 2026-10-05 from the saved, hash-matched corpus of the whole West Virginia Code and the West Virginia Constitution (WV log §1). Rule 15: written section-open. | MD: Tagged as written (tag-first screen, rules 26-28, MD log §2.1): Federal (15 U.S.C. § 9058(c)); Maryland's notice periods (Md. Code Ann., Real Prop. §§ 8-401(c), 8-402(c)) do not make the 30-day federal notice read wrongly for a covered property, and no Maryland statute or rule counterpart was found (Md. canvass, topic cares-act-notice). Rule 15: written section-open.",
   },
   // Notices & General
   {
@@ -36630,6 +36630,3850 @@ const LANDLORD_EDUCATION = [
     bodyText:
       "West Virginia cities may charge reasonable fees for services such as police and fire protection, street maintenance and lighting, and garbage collection, imposed by ordinance on the users of the service; in a rental, the tenant may be the user billed. A city may not have a lien on property for these fees, except that it may adopt an ordinance allowing a lien on real property for unpaid fire, police or street fees after at least 90 days' notice to the owner by certified mail. A lease may lawfully require the tenant to reimburse you for a fee billed to you, but this library does not offer such a clause: who is billed varies by city and ordinance, and the tenant is often billed directly as the user. If you want one, add your own clause after taking advice, and state the fee, its amount and how you will bill it in the lease.",
     notes: "WV: A municipality furnishing 'police and fire protection', street services and 'the collection and disposal of garbage' may 'impose by ordinance upon the users of the service reasonable rates, fees, and charges' (W. Va. Code § 8-13-13(a)); 'A municipality may not have a lien on any property as security for payments due under subsection (a) of this section except as provided in subsection (e) of this section' (W. Va. Code § 8-13-13(d)); the lien ordinance for 'unpaid and delinquent fire, police, or street fees' requires certified-mail notice to the property owner with a payment date 'no less than 90 days from the date the notice is mailed' (W. Va. Code § 8-13-13(e)). Water, sewer and other utility charges: `edu-utility-liens-wv`. Rule 54 declined option (canvass proposal F-3): a reimbursement clause like `government-fee-reimbursement-ky` is lawful as a contract term (no statute bars it), but not offered: the fee is often billed to the tenant as the user already, and who pays turns on each city's ordinance, which this library can't know. Under the library's reading of W. Va. Code § 46A-2-128(d), a reimbursement of an actual fee the lease makes the tenant's is part of the tenant's obligation, not an incidental charge (Claude's reading; case law not searched; WV log §6.3). Local ordinances not searched. Read section-open 2026-10-05 from the saved, hash-matched corpus of the whole West Virginia Code (code.wvlegislature.gov, every article's official text with section pages for the sections the article view did not head; currency from each section page's Bill History and the 2024-2026 signed-bill \"code affected\" lists) and the West Virginia Constitution (WV log §1). Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-no-algorithmic-rent-setting-md",
+    title: "No Algorithmic Rent-Setting Law",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "algorithmic-rent-setting",
+    bodyText:
+      "Maryland has no statute that specifically addresses setting rents with shared pricing or revenue-management software. Maryland's general antitrust law still bars agreements and combinations that unreasonably restrain trade. Whether using a common rent-pricing algorithm with competitors violates that law is unsettled in Maryland.",
+    notes: "MD: Md. Code Ann., Com. Law § 11-204(a)(1) ('By contract, combination, or conspiracy with one or more other persons, unreasonably restrain trade or commerce'). (MD battery A-algo-rent-notenancy-pos: 13 hits; positives passed). No 2024-2026 enacted act in the saved session laws mentions 'algorithm' (grep). Case law not searched. Rule 15: written section-open.",
+  },
+  // Disclosures
+  {
+    id: "edu-application-fee-refund-md",
+    title: "Application Fee Refund Rule",
+    group: "Disclosures",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "application-fees",
+    bodyText:
+      "This applies if you offer five or more units for rent on one parcel or at one location; it does not apply to seasonal or condominium rentals. Your application form must explain what the applicant is liable for on signing and the refund rule. If you charge fees other than a security deposit that exceed $25, you must return them within 15 days after the applicant moves in or after either side tells the other in writing that no tenancy will occur. You may keep only the part actually spent on a credit check or other application expenses. If you don't refund, you owe twice the fees. Maryland sets no cap on the fee amount and has no rule about minors' fees.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-213(b)(1)(i) ('If a landlord requires from a prospective tenant any fees other than a security deposit'); Md. Code Ann., Real Prop. § 8-213(b)(1)(i) ('then the landlord shall return the fees, subject to the exceptions below, or be liable for twice the amount of the fees in damages'); Md. Code Ann., Real Prop. § 8-213(c) ('does not apply to any landlord who offers four or less dwelling units for rent on one parcel of property or at one location'). (MD battery A-appfee-all2: 8 hits; positives passed) (MD battery A-appfee-cpi-ctx: 2 hits; positives passed) (MD battery A-appfee-minor2-tenancy-pos: 1 hits; positives passed). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-reusable-screening-report-md",
+    title: "Reusable Tenant Screening Reports",
+    group: "Disclosures",
+    states: ["MD"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "application-fees",
+    bodyText:
+      "You must tell prospective tenants whether you accept reusable tenant screening reports, either in writing or by a conspicuous posting such as a statement on your listing, your website homepage or your online application page. A reusable report is one prepared by a consumer reporting agency within the previous 30 days at the applicant's request and expense. If you accept them and an applicant gives you one, you may not charge an application fee or a fee to access the report. You may require the applicant to certify there has been no material change in name, address, bankruptcy status, criminal history or eviction history.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-218(c)(1) ('A landlord shall notify prospective tenants regarding whether or not the landlord accepts reusable tenant screening reports'); Md. Code Ann., Real Prop. § 8-218(d) ('the landlord may not charge the prospective tenant: (1) A fee for the landlord to access the report; or (2) An application fee.'). Section marked changed 2026 (2026 Md. Laws ch. 752); October 1, 2026 text relied on. Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-application-of-payments-md",
+    title: "Applying Payments After Notice",
+    group: "Rent & Payment",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "application-of-payments",
+    bodyText:
+      "After you have given a notice to quit at the end of a tenancy, or a notice of breach of lease, any payment you accept before eviction must be applied in a set order. It goes first to rent, or its equivalent, up to the date you actually recover possession. It then goes to court costs, including court-awarded damages and legal fees, and then to rent lost because of the holdover or breach. Any excess bears no interest and must be returned the way a security deposit is returned. Maryland sets no payment order before any notice is given.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-402(c)(5)(ii) ('first applied to the rent or the equivalent of rent apportioned to the date that the landlord actually recovers possession of the premises'); Md. Code Ann., Real Prop. § 8-402.1(d)(2) ('then to court costs, including court awarded damages and legal fees and then to any loss of rent caused by the breach of lease'). (MD battery A-apply-payments-tenancy: 10 hits; positives passed). Md. Code Ann., Real Prop. § 8-402 marked changed 2026; October 1, 2026 text relied on. Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-no-collection-fee-md",
+    title: "No Residential Collection-Fee Statute",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "collection-fee",
+    bodyText:
+      "No Maryland statute authorizes or caps a collection fee that a residential landlord adds to unpaid rent or damages. When you collect a debt from a tenant you are a collector under the Maryland Consumer Debt Collection Act. You may not claim, attempt or threaten to enforce a right you know does not exist. In a failure-to-pay-rent case the court can award lease attorney's fees only for nonresidential tenancies. Whether a lease collection-fee clause can be enforced in a separate suit is unsettled.",
+    notes: "MD: Md. Code Ann., Com. Law § 14-201(b) ('“Collector” means a person collecting or attempting to collect an alleged debt arising out of a consumer transaction.'); Md. Code Ann., Com. Law § 14-202(8) ('Claim, attempt, or threaten to enforce a right with knowledge that the right does not exist'); Md. Code Ann., Real Prop. § 8-401(e)(2)(v) ('In the case of a nonresidential tenancy'). (MD battery A-collection-fee-notenancy: 34 hits; positives passed). A-collection-fee-tenancy found only ground-lease and motor-vehicle-lease rules (Md. Code Ann., Real Prop. § 8-707, 8-804-8-807; Md. Code Ann., Com. Law § 14-2002). Case law not searched. Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-due-at-signing-limit-md",
+    title: "What Counts At Signing",
+    group: "Rent & Payment",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "due-at-signing",
+    bodyText:
+      "A Maryland lease may not require the tenant to pay more than the security deposit plus the first month's rent to start the lease and move in. Last month's rent collected in advance is legally part of the security deposit, so you cannot require first month's rent, last month's rent and a separate deposit. Whether other one-time charges payable before move-in, such as an up-front pet fee or an administrative fee, count toward this limit is unsettled. The statute covers any amount required to commence the lease and occupy, so the cautious reading counts them.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-208(d)(11) ('Requires a tenant to pay more than the sum of the security deposit under § 8-203(b) of this subtitle and the first month’s rent'); Md. Code Ann., Real Prop. § 8-203(a)(3) ('including payment of the last month’s rent in advance of the time it is due'). Case law not searched. Rule 15: written section-open.",
+  },
+  // Disclosures
+  {
+    id: "edu-no-fee-transparency-md",
+    title: "No All-In Fee Disclosure Law",
+    group: "Disclosures",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fee-transparency",
+    bodyText:
+      "Maryland has no all-in pricing or junk-fee law for residential rentals, no rule that rent appear as one figure including mandatory fees, and no first-page fee disclosure rule. Specific statutes require particular fees to be disclosed: pet fees and deposits in your pet policy, ratio utility billing administrative fees before leasing, any positive rent reporting fee, the applicant's liabilities on the application, and, for Columbia Association property in Howard County, the annual charge included in rent. Whether charging a fee not stated in the lease is a deceptive trade practice is unsettled, but the Consumer Protection Act applies to residential leasing.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-210(c)(2)(ii) ('Any required fees, including: 1. Up-front, nonrefundable pet fees; 2. Refundable pet deposits; and 3. Monthly pet fees'); Md. Code Ann., Real Prop. § 8-212.4(c)(1)(vii) ('Information regarding any additional service charges or administrative fees to be paid by the tenant for the operation of the ratio utility billing system'); Md. Code Ann., Real Prop. § 8-121(c)(1) ('Notice of the amount of the annual charge that is included in the rent'); Md. Code Ann., Com. Law § 13-303(1) ('The sale, lease, rental, loan, or bailment of any consumer goods, consumer realty, or consumer services'). (MD battery A-feetransp-notenancy2: 37 hits; positives passed) (MD battery A-feetransp-first-page-notenancy2: 16 hits; positives passed) (MD battery A-feetransp-not-in-lease-pos: 1 hits; positives passed). Case law not searched. Local: Howard County (Md. Code Ann., Real Prop. § 8-121, Columbia Association property). Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-no-fee-unprovided-service-md",
+    title: "Fees For Services Not Provided",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fee-unprovided-service",
+    bodyText:
+      "Maryland has no general statute barring a fee for a service you do not provide. Related rules do apply. If you bill tenants through individual water submeters, you may not charge for leaks or poor maintenance you are responsible for, common-area use or nonresidential use, and your added billing charge may not exceed $1 per unit per month. If the lease makes you responsible for the gas or electric bill for a unit whose service is in your name on a single meter serving only that unit (not a master meter), and the tenant pays that bill or a deposit to open a new account, the tenant may deduct that amount from rent.",
+    notes: "MD: Md. Code Ann., Envir. § 9-1115(d)(3) ('may not impose on a unit in the facility any costs associated with: (i) Poor maintenance or leaks'); Md. Code Ann., Envir. § 9-1115(d)(4) ('may collect an additional service charge not exceeding $1 per unit per month to cover administrative costs and billing'); Md. Code Ann., Real Prop. § 8-212.3(b) ('A tenant may deduct from rent due to a landlord the amount of payments made to a utility service provider for utility service'). (MD battery A-fee-unprovided-notenancy-pos: 17 hits; positives passed). Md. Code Ann., Envir. § 9-1115 rewritten by 2026 Md. Laws ch. 261/262; October 1, 2026 text relied on. Md. Code Ann., Pub. Util. § 7-309(b)(2) ('is delivered through a single meter to a single dwelling unit; and (iii) does not use a master meter'). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-fees-as-rent-md",
+    title: "Fees In A Rent Case",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fees-as-rent",
+    bodyText:
+      "Maryland's failure-to-pay-rent case covers rent and late fees due, minus utility payments a tenant made under the Public Utilities law when you failed to pay a utility. Maryland law does not define rent for ordinary residential leases, and no statute says other charges become rent because the lease calls them additional rent; whether that label works in a rent case is unsettled. Two statutes are specific: a positive rent reporting fee is not rent, and an unpaid domestic-violence lock-change fee may be charged as additional rent.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-401(b)(2)(iii) ('Stating the amount of rent and any late fees due and unpaid'); Md. Code Ann., Real Prop. § 8-208.4(h)(2)(ii) ('A fee collected under this subsection is not rent'); Md. Code Ann., Real Prop. § 8-5A-05(e)(2)(i) ('Charge the fee as additional rent'). (MD battery A-fees-as-rent: 14 hits; positives passed) (MD battery A-rent-definition-pos: 5 hits; positives passed). The 2026 submetering bill's line that unpaid water bills may not be treated as unpaid rent was struck and is not in compiled Md. Code Ann., Envir. § 9-1115. Case law not searched. Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-government-fees-md",
+    title: "Court Surcharge And Notice Costs",
+    group: "Rent & Payment",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "government-fee-reimbursement",
+    bodyText:
+      "The District Court surcharge on a summary ejectment case, up to $43, is assessed against you and may not be awarded or assigned against a residential tenant, and a lease may not make the tenant responsible for it. The one exception: after a judgment for possession, the court may let you deduct it from the security deposit if the lease provides for it, never more than the deposit. You may charge the tenant actual costs of the required warrant-of-restitution notice, up to $5. No Maryland statute addresses passing rental-license, lead-registration or similar government fees to tenants.",
+    notes: "MD: Md. Code Ann., Cts. & Jud. Proc. § 7-301(c)(5)(i) ('shall be assessed against a landlord and may not be awarded or assigned as a fee or cost against a residential tenant by the court'); Md. Code Ann., Real Prop. § 8-407(b)(3) ('A landlord may charge the tenant for expenses actually incurred in providing notice'); Md. Code Ann., Real Prop. § 8-208(d)(13) ('provides that a tenant is responsible for, or requires a tenant to agree to be responsible for, payment of a filing surcharge'). (MD battery A-govfee-fee-tenant-pay: 8 hits; positives passed) (MD battery A-govfee-passthrough: 7 hits; positives passed). Lease wording for the deposit deduction is the option filing-surcharge-deposit-md. Local: Baltimore City has an additional court surcharge of up to $10 on landlord-tenant cases (Md. Code Ann., Cts. & Jud. Proc. § 7-301(c)(3)). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-late-fee-no-grace-md",
+    title: "Late Fees: No Grace Period",
+    group: "Rent & Payment",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "late-fee",
+    bodyText:
+      "For ordinary residential leases, a late fee may not exceed 5% of the unpaid rent due for the rental period; for weekly-rent leases the limit is $3 a week and $12 a month. Since October 1, 2025 the 5% is measured on the amount left unpaid, not on the full rent. Maryland law sets no grace period and no notice before a late fee. The commonly cited rule allowing the higher of 5% or $5 after a 5-day grace period applies only to mobile home parks. Whether a late fee can be collected if the lease does not provide for one is unsettled.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-208(d)(3)(i) ('in excess of 5% of the amount of unpaid rent due for the rental period for which the payment was delinquent'); Md. Code Ann., Real Prop. § 8A-404(2) ('The fee does not exceed 5 percent of the rent due or $5, whichever is higher'); Md. Code Ann., Real Prop. § 8A-404(3) ('The rent is not paid within 5 days after the due date specified in the rental agreement'); 2025 Md. Laws ch. 580. (MD battery A-latefee-grace-pos: 1 hits; positives passed) (MD battery A-latefee-notice-before-collect: 0 hits; no real positive exists, pattern synthetic-tested). Lease wording is the clause late-fee-limit-md. Case law not searched. Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-no-lease-type-parity-md",
+    title: "No Lease-Type Parity Rule",
+    group: "Notices & General",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lease-type-parity",
+    bodyText:
+      "Maryland does not bar different terms or rents for month-to-month and fixed-term leases. The one parity rule is that a written lease may not require the tenant to give a longer notice to end the tenancy than you must give the tenant. If you let a tenant stay after the lease ends, the tenant becomes month-to-month, or week-to-week if the tenancy was weekly, unless the written lease says otherwise and the tenant initials that provision.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-501 ('a longer notice period to be furnished by the tenant to the landlord in order to terminate the tenancy than that required of the landlord'); Md. Code Ann., Real Prop. § 8-402(d) ('Unless stated otherwise in the written lease and initialed by the tenant'). (MD battery A-leasetype-parity: 2 hits; positives passed) (MD battery A-leasetype-more-favorable-pos: 5 hits; positives passed). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-notice-service-fee-md",
+    title: "Notice Costs: $5 Limit",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "notice-service-fee",
+    bodyText:
+      "The only notice cost Maryland lets you charge a tenant is the actual expense of the notice required before a warrant of restitution is executed, up to $5. No statute authorizes charging for the 10-day notice of intent to file a failure-to-pay-rent case or for termination notices. Demanding a charge you know you have no right to can violate the Maryland Consumer Debt Collection Act.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-407(b)(3) ('in an amount not to exceed $5'); Md. Code Ann., Com. Law § 14-202(8) ('Claim, attempt, or threaten to enforce a right with knowledge that the right does not exist'). (MD battery A-notice-fee: 5 hits; positives passed). Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-rent-concession-md",
+    title: "No Rent Concession Rules",
+    group: "Rent & Payment",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-concession",
+    bodyText:
+      "Maryland has no statute on rent concessions, free-rent periods or move-in specials, or on taking back a concession if the tenant leaves early. If a tenant breaks the lease by leaving early or never taking possession, you have a duty to mitigate your damages, and rent you receive from a new tenant during the rest of the term reduces lost-rent damages. Whether a concession clawback clause is enforceable is unsettled.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-203(f)(3) ('any amount of rents received by the landlord for the premises during the remainder if any, of the tenant’s term'). (MD battery A-concession-tenancy-pos: 5 hits; positives passed). Case law not searched. Md. Code Ann., Real Prop. § 8-207(a) ('The aggrieved party in a breach of a lease has a duty to mitigate damages'). Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-rent-control-md",
+    title: "Local Rent Limits May Apply",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-control",
+    bodyText:
+      "Maryland has no statewide rent control and no statute preempting local rent limits. State law expects some counties and municipalities to limit rent increases for renewing tenants and requires them to report those laws, so check the county and city where the unit is located. When you file an eviction case where the locality requires a rental license, you must plead that the property is licensed, exempt, or unlicensed for a reason the statute allows. Separate state limits apply to extended leases given to certain senior or disabled households after a condominium or cooperative conversion.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-209.1(b)(1) ('a local law to limit the rent increase that a landlord may charge a current tenant for a subsequent term'); Md. Code Ann., Real Prop. § 8-406 ('Licensed in compliance with applicable local rental licensing requirements'); Md. Code Ann., Real Prop. § 11-137(f)(2) ('The increase may not exceed an amount determined by multiplying the annual rent for the preceding year by the percentage increase for the rent component'). (MD battery A-rentcontrol: 1 hits; positives passed) (MD battery A-preempt-grp-notenancy: 16 hits; positives passed) (MD battery A-rental-license-local: 2 hits; positives passed) (MD battery A-locality-sue-for-tenants-pos: 1 hits; positives passed). Also Md. Code Ann., Corps. & Ass'ns § 5-6B-07 (cooperative conversion extended leases). Local: Local rent-stabilization laws (Montgomery County, Takoma Park and Prince George's County are reported to have them; not verified, local codes not researched); local rental licensing. Licensing pleading in full: `edu-rental-license-in-eviction-md`. Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-rent-escalation-md",
+    title: "Rent Increases During The Term",
+    group: "Rent & Payment",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-escalation",
+    bodyText:
+      "Maryland has no statute on rent escalation clauses and no retaliation safe harbor that depends on one. Whether you may raise rent during a fixed term without a lease provision allowing it is a contract question and unsettled. Any rent increase still requires the written notice period for rent increases. You may not arbitrarily increase rent because a tenant made a good-faith complaint, sued or testified, joined a tenants' organization, or summoned police or emergency help, and a later increase within 6 months of that activity can be challenged.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-208.1(a)(1)(ii) ('Arbitrarily increase the rent or decrease the services to which a tenant has been entitled'); Md. Code Ann., Real Prop. § 8-208.1(e) ('occurs more than 6 months after a tenant’s action that is protected'). (MD battery A-escalation-pos: 1 hits; positives passed) (MD battery A-escalation-notenancy: 0 hits; no real positive exists, pattern synthetic-tested) (MD battery A-midterm-increase: 0 hits; no real positive exists, pattern synthetic-tested). Case law not searched. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-rent-increase-notice-md",
+    title: "Rent Increase Notice Periods",
+    group: "Rent & Payment",
+    states: ["MD"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-increase-notice",
+    bodyText:
+      "You must notify the tenant in writing before increasing rent: at least 90 days ahead for a tenancy for a term of more than 1 month; at least 60 days for more than 1 week but not more than 1 month, such as month-to-month; and for 1 week or less, 7 days with a written lease or 21 days without one. Send the notice by first-class mail with a certificate of mailing, or by e-mail, text message or tenant portal if the tenant elected electronic delivery and you get proof of transmission. You may not condition a lease application on that election, and a lease may not require electronic delivery of rent-increase notices. The rule does not apply once you have given notice to terminate the tenancy, and local law may require more notice.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-209(b)(3)(i) ('For tenancies for a term of more than 1 month, at least 90 days in advance of the rent increase'); Md. Code Ann., Real Prop. § 8-209(b)(2)(iii) ('A landlord may not condition the acceptance of a lease application on the tenant’s election to receive notice'); Md. Code Ann., Real Prop. § 8-208(d)(9) ('Requires the tenant to accept notice of rent increases under § 8-209 of this subtitle or § 8-401 of this title by electronic delivery'). Local: Local laws may add notice (Md. Code Ann., Real Prop. § 8-209(c)). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-rent-installments-md",
+    title: "No Rent Installment Rules",
+    group: "Rent & Payment",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-installments",
+    bodyText:
+      "Maryland has no statute on splitting rent into installments or on whether a scheduled installment is a partial payment. The statutes only recognize leases with weekly rent installments, which have their own late-fee limit, and require a failure-to-pay-rent complaint to state the rent and due day for each rental period. A late fee is measured on the rent left unpaid for the rental period.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-208(d)(3)(ii) ('In the case of leases under which the rent is paid in weekly rental installments'); Md. Code Ann., Real Prop. § 8-401(b)(3) ('the amount of rent due for each rental period under the lease, the day that the rent is due for each rental period'). (MD battery A-rent-installments: 24 hits; positives passed) (MD battery A-partial-payment-rent: 2 hits; positives passed). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-rent-receipts-md",
+    title: "Rent Receipts And Records",
+    group: "Rent & Payment",
+    states: ["MD"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-receipts",
+    bodyText:
+      "You must give the tenant a receipt when the tenant pays in cash or asks for a receipt; failing to do so makes you liable to the tenant for $25. You must also keep records showing the dates and amounts of rent paid and that a receipt was given for each cash payment. In Anne Arundel County, unless the tenant pays by check, every payment requires a receipt showing the payment and the period it covers, and a person convicted of violating that rule forfeits the rent for that period.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-205(b) ('the landlord or landlord’s agent shall give the tenant a receipt if the tenant: (1) Makes payment in cash; or (2) Requests a receipt.'); Md. Code Ann., Real Prop. § 8-205(c) ('the landlord shall be liable to the tenant in the sum of $25'); Md. Code Ann., Real Prop. § 8-208.3 ('showing also the fact that a receipt of some form was given to each tenant for each cash payment of rent'). Local: Anne Arundel County: Md. Code Ann., Real Prop. § 8-205(a). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-rent-tax-md",
+    title: "Sales Tax On Short Stays",
+    group: "Rent & Payment",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-tax",
+    bodyText:
+      "Ordinary residential rent is not subject to Maryland sales and use tax; the tax reaches a right to occupy a room or lodgings as a transient guest. The Comptroller's regulation says the tax does not apply to monthly renters or permanent residents, but rentals in resort areas for 4 months or less are taxable. County and municipal hotel rental taxes generally reach stays of up to 4 consecutive months, with shorter thresholds in some counties. Beginning July 1, 2028, the state tax definition expands to cover short-term rental units.",
+    notes: "MD: Md. Code Ann., Tax-Gen. § 11-101(a-1) ('“Accommodation” means a right to occupy a room or lodgings as a transient guest.'); COMAR 03.06.01.23A ('The tax does not apply to charges to persons who rent living accommodations on a monthly basis or who are permanent residents.'); COMAR 03.06.01.23A ('However, all rentals in resort areas for terms of 4 months or less are subject to the tax.'); Md. Code Ann., Local Gov't § 20-401(d)(1)(i) ('“transient charge” means a hotel charge for sleeping accommodations for a period not exceeding 4 consecutive months'). (MD battery A-renttax-transient: 23 hits; positives passed) (MD battery A-renttax-passthrough2: 1 hits; positives passed) (MD battery A-renttax-repealed-passthrough: 0 hits; no real positive exists, pattern synthetic-tested). Md. Code Ann., Tax-Gen. § 11-101 and Md. Code Ann., Local Gov't § 20-401 IN EFFECT versions relied on; later versions take effect July 1, 2028 (2026 Md. Laws ch. 6). No statute bars passing a repealed local tax through to tenants. Local: County hotel rental tax thresholds: Carroll 25 days, Frederick 90 days, Garrett and Washington 30 days. Rule 15: written section-open.",
+  },
+  // Disclosures
+  {
+    id: "edu-no-required-fees-md",
+    title: "No Rule Listing All Fees",
+    group: "Disclosures",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "required-fees",
+    bodyText:
+      "Maryland has no general rule that every fee, fine or charge be stated in the residential lease, and no notice period for adding one. Some charges do depend on lease wording: you may deduct the court filing surcharge from the deposit only if the lease provides for it, and you may require utility payments to you or to a submeter billing company only through a written lease giving that notice. A late fee is limited to 5% of the rent left unpaid for the period.",
+    notes: "MD: Md. Code Ann., Cts. & Jud. Proc. § 7-301(c)(5)(ii) ('The lease agreement provides that a surcharge may be assessed against the tenant in accordance with this paragraph.'); Md. Code Ann., Real Prop. § 8-205.1(c)(1) ('Use a written lease that provides notice that the tenant is responsible for making payments'). (MD battery A-required-fees-in-lease2: 18 hits; positives passed). Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-returned-check-fee-md",
+    title: "Returned Check Fee Limit",
+    group: "Rent & Payment",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "returned-payments",
+    bodyText:
+      "Under Maryland's dishonored-check law, if a check is dishonored and not paid within 10 days you may send a notice of dishonor in the statutory form, with a certificate of mailing or an affidavit of mailing. If the check is still unpaid 30 days after the notice, the drawer owes the check amount, a collection fee of up to $35, and up to twice the check amount but not more than $1,000. You lose the double-damages remedy if you demand and receive collection costs above $35, or demand and receive any collection costs within 30 days after mailing the notice of dishonor. The law applies only to bad checks, and a postdated check is not a check under the bad-check law. Whether a lease may set a higher returned-payment fee is unsettled.",
+    notes: "MD: Md. Code Ann., Com. Law § 15-802(b)(2) ('A collection fee of up to $35'); Md. Code Ann., Com. Law § 15-804(a)(2) ('That is not a bad check as described under § 8-103 of the Criminal Law Article.'); Md. Code Ann., Crim. Law § 8-101(b) ('“Check” means a negotiable instrument that is not postdated at the time it is issued.'). (MD battery A-postdated-pos: 8 hits; positives passed). Shared clause returned-payments carries the lease wording. Case law not searched. Md. Code Ann., Com. Law § 15-802(d)(1) ('The holder has demanded of, and received from, the maker or drawer'). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-shutdown-stay-md",
+    title: "Government Shutdown Eviction Stay",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "shutdown-rent-protection",
+    bodyText:
+      "In a failure-to-pay-rent case for rent due during a government shutdown, the court must stay the case if an occupant shows the home is their primary residence and they are a federal, State or Maryland local government employee involuntarily furloughed without pay, even if required to report to work. The stay lasts as long as the court considers reasonable, but not beyond 30 days after the shutdown ends unless a party shows sufficient cause.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-401(d)(2)(iii) ('Is involuntarily furloughed from work without pay because of a government shutdown'); Md. Code Ann., Real Prop. § 8-401(d)(3)(ii) ('may not be granted for a period that ends more than 30 days after the end of the government shutdown'). Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-subsidy-late-fee-md",
+    title: "No Subsidy Late-Fee Rule",
+    group: "Rent & Payment",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "subsidy-late-fee",
+    bodyText:
+      "Maryland has no statute on late fees connected to the part of rent paid by a housing subsidy. The state limit is 5% of the unpaid rent due for the rental period. Federal program rules may apply to subsidized tenancies and are not covered here.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-208(d)(3)(i) ('in excess of 5% of the amount of unpaid rent due for the rental period'). (MD battery A-subsidy-late-fee: 0 hits; no real positive exists, pattern synthetic-tested) (MD battery A-subsidy-portion-rent-pos: 4 hits; positives passed). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-interest-on-unpaid-amounts-md",
+    title: "Interest On Unpaid Amounts",
+    group: "Rent & Payment",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "unpaid-damages-interest",
+    bodyText:
+      "Maryland's legal rate of interest is 6% a year unless the General Assembly provides otherwise, and a money judgment for rent of residential premises carries interest at 6% a year. No statute requires interest to be stated in the lease before it can be charged. Whether the usury limits for loans apply to unpaid rent or damages, and whether a lease interest charge on late rent counts toward the 5% late-fee limit, are unsettled.",
+    notes: "MD: Md. Const. art. III, § 57 ('The Legal Rate of Interest shall be Six per cent. per annum; unless otherwise provided by the General Assembly.'); Md. Code Ann., Cts. & Jud. Proc. § 11-107(b) ('The legal rate of interest on a money judgment for rent of residential premises shall be at the rate of 6 percent per annum'). (MD battery A-interest-on-rent: 5 hits; positives passed). Case law not searched. Rule 15: written section-open.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-no-veterans-incentive-md",
+    title: "No Veteran Landlord Incentive",
+    group: "Other / Miscellaneous",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "veterans-incentive",
+    bodyText:
+      "Maryland has no statute giving landlords a tax credit, deposit waiver or other incentive for renting to veterans. Veteran property tax relief in Maryland applies to the veteran's own home, not to rental owners.",
+    notes: "MD: Md. Code Ann., Tax-Prop. § 7-208(a)(3)(i) ('“Disabled veteran” means an individual who'). (MD battery A-veterans-tenancy-pos: 10 hits; positives passed). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-waiver-by-acceptance-md",
+    title: "Accepting Payment After Notice",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "waiver-by-acceptance",
+    bodyText:
+      "If you accept a payment after giving a notice to quit or a notice of breach of lease, but before eviction, the payment does not waive the notice or any judgment for possession unless you and the tenant specifically agree otherwise in writing. In a nonpayment case, a tenant who pays the rent, late fees and costs the court finds due at trial satisfies the complaint, and a tenant may redeem until the eviction is carried out unless three rent judgments for possession were entered against the tenant in the prior 12 months. Waiver by accepting late rent before any notice is a common-law question and unsettled.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-402(c)(5)(i) ('Acceptance of any payment after notice but before eviction shall not operate as a waiver of any notice to quit'); Md. Code Ann., Real Prop. § 8-402.1(d)(1) ('any notice of breach of lease or any judgment for possession unless the parties specifically otherwise agree in writing'); Md. Code Ann., Real Prop. § 8-401(h)(3) ('three judgments of possession have been entered for rent due and unpaid in the 12 months prior'). (MD battery A-waiver-acceptance: 2 hits; positives passed). Case law not searched. Rule 15: written section-open.",
+  },
+  // Security Deposit
+  {
+    id: "edu-move-in-inspection-md",
+    title: "Move-In Inspection On Request",
+    group: "Security Deposit",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "condition-inspection",
+    bodyText:
+      "If the tenant asks by certified mail within 15 days after moving in, you must inspect the unit with the tenant present and make a written list of damage that exists at the start of the tenancy. The deposit receipt in the lease must tell the tenant about this right. Maryland does not require a signed move-in inventory unless the tenant asks, and has no rule that a tenant who signs a damage list without objecting loses a later dispute.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-203.1(a)(1) ('if the tenant so requests by certified mail within 15 days of the tenant’s occupancy'); Md. Code Ann., Real Prop. § 8-203(c)(2) ('The receipt shall be included in a written lease.'). (MD battery A-inspection-dissent-notenancy-pos: 6 hits; positives passed). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-deposit-cost-schedule-md",
+    title: "No Preset Deposit Charges",
+    group: "Security Deposit",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "deposit-cost-schedule",
+    bodyText:
+      "Maryland law has no provision letting a lease preset cleaning, carpet or repair charges against the security deposit. You may withhold only for unpaid rent, damage due to breach of lease, and damage beyond ordinary wear and tear, and the deposit may be kept only to the extent you are actually damaged. Any itemized statement of costs must include supporting documentation, or an estimate followed by the final invoice. Whether a flat preset charge could be enforced is unsettled.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-203(f)(2) ('except in the amount that the landlord is actually damaged by the breach'); Md. Code Ann., Real Prop. § 8-203(j)(1) ('shall include supporting documentation that identifies the materials or services provided'). (MD battery A-dep-cleaning-schedule-pos: 1 hits; positives passed). Case law not searched. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-unclaimed-deposit-md",
+    title: "Unclaimed Deposit Refunds",
+    group: "Security Deposit",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "deposit-escheat",
+    bodyText:
+      "If a former tenant never claims or cashes a deposit refund, you may not keep it; the deposit may be kept only for actual damages. Under Maryland's abandoned property law, intangible property held in the ordinary course of business and unclaimed for more than 3 years after it became payable is presumed abandoned and must be reported and delivered to the State. For property of $100 or more, you must first mail the owner a notice 30 to 120 days before reporting. Willful failure to report can bring a fine of $100 a day up to $5,000. How this catch-all applies to deposit refunds is unsettled.",
+    notes: "MD: Md. Code Ann., Com. Law § 17-308(b) ('has remained unclaimed by the owner for more than 3 years after it became payable or distributable, is presumed abandoned'); Md. Code Ann., Com. Law § 17-323(b) ('is subject to a fine of $100 for each day the report is withheld, but not more than $5,000'); Md. Code Ann., Real Prop. § 8-203(f)(2) ('may not be forfeited to the landlord for breach of the rental agreement'). (MD battery A-unclaimed-deposit-pos: 6 hits; positives passed). Case law not searched. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-deposit-installments-md",
+    title: "No Deposit Installment Right",
+    group: "Security Deposit",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "deposit-installments",
+    bodyText:
+      "Maryland gives tenants no right to pay a security deposit in installments. The statutory alternative is a surety bond the tenant buys instead of all or part of the deposit; you may not require one and do not have to accept one.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-203(i)(1)(ii) ('Is not required to consent to the tenant’s purchase of a surety bond'). (MD battery A-dep-installments: 0 hits; no real positive exists, pattern synthetic-tested). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-last-month-rent-deposit-md",
+    title: "Last Month's Rent Is A Deposit",
+    group: "Security Deposit",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "deposit-last-month-rent",
+    bodyText:
+      "In Maryland, last month's rent paid before it is due is legally a security deposit. It counts toward the deposit limit of one month's rent per unit, must be held in a deposit account and earns statutory interest, and is accounted for within 45 days after the tenancy ends.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-203(a)(3) ('“Security deposit” means any payment of money, including payment of the last month’s rent in advance of the time it is due'). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-move-out-inspection-md",
+    title: "Move-Out Inspection Rights",
+    group: "Security Deposit",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "deposit-surrender-notice",
+    bodyText:
+      "A tenant may be present at your move-out inspection by sending you a certified-mail notice at least 15 days before moving that gives the intent to move, the moving date and the new address. When you receive it, you must notify the tenant by certified mail of the inspection time and date. The inspection must be within 5 days before or 5 days after the moving date in the tenant's notice.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-203(f)(1)(ii) ('if the tenant notifies the landlord by certified mail of the tenant’s intention to move, the date of moving, and the tenant’s new address'); Md. Code Ann., Real Prop. § 8-203(f)(1)(v) ('The date of inspection shall occur within five days before or five days after the date of moving'). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-dv-deposit-timing-md",
+    title: "Deposit After Abuse Termination",
+    group: "Security Deposit",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-deposit-timing",
+    bodyText:
+      "Maryland's law letting victims of abuse end future lease liability has no special deposit timing; the normal deposit rules apply. You may withhold an unpaid lock-change fee from the deposit when you changed locks at a victim's request. If the victim vacates early with a notarized notice, you must inspect and give a written statement of rent owed or any overpayment to be refunded. When the deposit is due if a co-tenant who is the respondent stays on is unsettled.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-5A-05(e)(2)(ii) ('Withhold the amount of the fee from the tenant’s security deposit'); Md. Code Ann., Real Prop. § 8-5A-02(c)(2)(ii) ('States the amount of rent still owed by the tenant or the amount of any overpayment of rent to be refunded'). (MD battery A-dep-abuse: 4 hits; positives passed) (MD battery A-dep-early-termination-refund: 5 hits; positives passed). Case law not searched. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-expedited-deposit-disposition-md",
+    title: "Deposits After Eviction Or Abandonment",
+    group: "Security Deposit",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "expedited-deposit-disposition",
+    bodyText:
+      "Maryland has no expedited deposit procedure. If a tenant is evicted for breach before the tenancy ends, or abandons the unit, the automatic 45-day return rules do not run. That tenant may demand the deposit by first-class mail within 45 days, giving a new address. You then have 45 days to mail the itemized damage list and return the balance with interest, or you forfeit the right to withhold for damages.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-203(h)(2)(i) ('may demand return of the security deposit by giving written notice by first-class mail to the landlord within 45 days of being evicted'); Md. Code Ann., Real Prop. § 8-203(h)(3)(i) ('If a landlord fails to send the list of damages required by paragraph (2) of this subsection'). (MD battery A-dep-expedited-notenancy-pos: 6 hits; positives passed). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-surety-bond-md",
+    title: "Surety Bonds Instead Of Deposits",
+    group: "Security Deposit",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fee-in-lieu-of-deposit",
+    bodyText:
+      "A tenant may buy a surety bond instead of paying all or part of the deposit, but you may not require one and do not have to accept one. The bond, plus any deposit, may not exceed two months' rent per unit. At least 10 days before claiming on the bond, you must mail the tenant a list of damages and itemized costs; the tenant may pay you directly or have you use the deposit first. If the tenant disputes the claim, the surety may not report it to a credit reporting agency before getting a judgment. Maryland has no statute on monthly deposit-alternative fees, and whether such a fee counts as a security deposit is unsettled.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-203(i)(1)(i) ('May not require the tenant to purchase a surety bond'); Md. Code Ann., Real Prop. § 8-203(i)(3)(i) ('The amount of a surety bond purchased instead of a security deposit may not exceed two months’ rent per dwelling unit.'); Md. Code Ann., Real Prop. § 8-203(i)(9)(ii) ('the surety may not report the claim to a credit reporting agency prior to obtaining a judgment'). (MD battery A-dep-in-lieu: 1 hits; positives passed). Case law not searched. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-holding-deposit-md",
+    title: "Money Taken Before The Lease",
+    group: "Security Deposit",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "holding-deposit",
+    bodyText:
+      "Maryland's deposit law covers prospective tenants, so money you take before a lease to protect against unpaid rent, breach or damage is a security deposit subject to the cap, receipt, account and return rules. Other pre-lease fees over $25 must be refunded, less the part actually spent on a credit check or application expenses, within 15 days if you offer five or more units at one location. Whether a pure reservation or holding fee is a deposit or a fee is unsettled.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-203(a)(4) ('“Tenant” means a tenant or a prospective tenant.'); Md. Code Ann., Real Prop. § 8-213(b)(2) ('The landlord may retain only that portion of the fees actually expended for a credit check or other expenses arising out of the application'). (MD battery A-dep-holding-pos: 1 hits; positives passed). Case law not searched. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-inspection-rights-notice-md",
+    title: "Written Notice Of Inspection Rights",
+    group: "Security Deposit",
+    states: ["MD"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "inspection-notice-penalty",
+    bodyText:
+      "When the tenant pays the deposit, you must tell the tenant in writing about the move-out inspection rights, which is done through the deposit receipt in the lease. If you do not, you forfeit the right to withhold any part of the deposit for damages. Failing to give a written deposit receipt also makes you liable to the tenant for $25.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-203(f)(1)(vi) ('The tenant shall be advised of the tenant’s rights under this subsection in writing at the time of the tenant’s payment of the security deposit.'); Md. Code Ann., Real Prop. § 8-203(f)(1)(vii) ('forfeits the right of the landlord to withhold any part of the security deposit for damages'); Md. Code Ann., Real Prop. § 8-203.1(c) ('The landlord shall be liable to the tenant in the sum of $25'). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-nonrefundable-deposit-notice-md",
+    title: "No Nonrefundable Damage Deposits",
+    group: "Security Deposit",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nonrefundable-deposit-notice",
+    bodyText:
+      "Maryland has no notice procedure for nonrefundable deposits, because money paid to protect you against unpaid rent, breach or damage is a security deposit that can be kept only for actual damages, and the deposit rules cannot be waived in a lease. Maryland law does recognize up-front, nonrefundable pet fees, which must be listed in your pet policy. Whether a nonrefundable label changes the result for other charges is unsettled.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-203(l) ('No provision of this section may be waived in any lease.'); Md. Code Ann., Real Prop. § 8-210(c)(2)(ii) ('Up-front, nonrefundable pet fees'). (MD battery A-dep-nonrefundable: 3 hits; positives passed). Case law not searched. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-security-deposit-cap-md",
+    title: "Security Deposit Limit",
+    group: "Security Deposit",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-cap",
+    bodyText:
+      "You may not charge a security deposit of more than one month's rent per unit, no matter how many tenants. You may charge up to two months' rent only if the tenant qualified for utility assistance through the Department of Human Services, the lease requires the tenant to pay utilities to you, and you both agree in writing to the amount. A refundable pet deposit is money given to protect against damage, so on the statute's wording it counts toward this limit. If you overcharge, the tenant may recover up to three times the excess plus attorney's fees, during the tenancy or within 2 years after it ends.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-203(b)(1) ('may not impose a security deposit in excess of the equivalent of 1 month’s rent per dwelling unit, regardless of the number of tenants'); Md. Code Ann., Real Prop. § 8-203(b)(3) ('the tenant may recover up to three times the extra amount charged, plus reasonable attorney’s fees'); Md. Code Ann., Real Prop. § 8-210(c)(2)(ii) ('Refundable pet deposits'). Case law not searched. Local: Mobile home parks have a different limit (Md. Code Ann., Real Prop. § 8A-1001). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-deposit-escrow-md",
+    title: "Holding Security Deposits",
+    group: "Security Deposit",
+    states: ["MD"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-holding",
+    bodyText:
+      "Within 30 days after you receive a deposit, you must place it in an interest-bearing account used only for security deposits, at a Maryland branch of a federally insured financial institution. Instead, you may hold deposits in insured certificates of deposit at Maryland branches or in U.S. or Maryland government securities. The total must equal all deposits you owe. Deposits may not be attached by your creditors or the tenant's.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-203(d)(1)(iii) ('A security deposit shall be deposited in an account within 30 days after the landlord receives it.'); Md. Code Ann., Real Prop. § 8-203(d)(1)(ii) ('the accounts shall be devoted exclusively to security deposits and bear interest'); Md. Code Ann., Real Prop. § 8-203(d)(3)(ii) ('A security deposit under this section may not be attached by creditors of the landlord or of the tenant.'). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-deposit-interest-md",
+    title: "Interest On Security Deposits",
+    group: "Security Deposit",
+    states: ["MD"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-interest",
+    bodyText:
+      "When you return the deposit, you must add simple interest at the greater of 1.5% a year or the daily U.S. Treasury yield curve rate for 1 year as of the first business day of each year. Interest accrues monthly from the day the tenant paid the deposit and is not compounded. No interest is due unless you held the deposit at least 6 months, none is due for a partial month, and interest applies only to deposits of $50 or more. You may rely on the rate list or calculator the Department of Housing and Community Development posts.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-203(e)(1) ('U.S. Treasury yield curve rate for 1 year, as of the first business day of each year, or 1.5% a year, whichever is greater'); Md. Code Ann., Real Prop. § 8-203(e)(3) ('Interest shall be payable only on security deposits of $50 or more.'); Md. Code Ann., Real Prop. § 8-203(n) ('A landlord is entitled to rely on the list of yield curve rates or the customized calculator'). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-deposit-nonwaiver-md",
+    title: "Deposit Rights Can't Be Waived",
+    group: "Security Deposit",
+    states: ["MD"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-nonwaiver",
+    bodyText:
+      "A lease may not waive any part of Maryland's security deposit law. If you offer a lease containing a provision made unenforceable by the deposit law, or try to enforce one or tell the tenant you intend to, the tenant may recover actual damages and reasonable attorney's fees.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-203(l) ('No provision of this section may be waived in any lease.'); Md. Code Ann., Real Prop. § 8-208(g)(2) ('the tenant may recover any actual damages incurred as a reason thereof, including reasonable attorney’s fees'). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-deposit-on-sale-md",
+    title: "Deposits When Property Is Sold",
+    group: "Security Deposit",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-on-sale",
+    bodyText:
+      "If you sell or transfer the property, including through receivership or bankruptcy, you remain liable for any deposit you do not deliver to the new owner together with an accounting of the amount and date of each deposit, the interest-rate records and the tenant's name and last known address. A managing agent or court-appointed receiver is not personally liable. Any successor owner is liable to the tenant for returning the deposit with interest, and a new owner must accept a tenant's existing surety bond.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-203(d)(3)(i) ('the landlord or the landlord’s estate, but not the managing agent or court appointed receiver, shall remain liable'); Md. Code Ann., Real Prop. § 8-203(d)(4) ('Any successor in interest is liable to the tenant for failure to return the security deposit, together with interest, as provided in this section.'). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-deposit-penalties-md",
+    title: "Security Deposit Penalties",
+    group: "Security Deposit",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-penalty",
+    bodyText:
+      "If you withhold any part of the deposit without a reasonable basis, the tenant may recover up to three times the amount withheld plus attorney's fees. If you do not mail the itemized damage list within 45 days, or did not tell the tenant in writing about inspection rights when the deposit was paid, you forfeit the right to withhold any of the deposit for damages. Charging more than the deposit limit exposes you to three times the excess, and failing to give a receipt costs $25. Maryland states no forfeiture for violating the account rules. Whether you can still withhold unpaid rent or sue separately after a damage forfeiture is unsettled. Your itemized statement of costs must include supporting documentation of the materials or services; you may use an estimate, but you must then notify the tenant in writing when the repairs are done, with a copy of the final invoice, and return within 30 days any amount withheld above the actual cost.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-203(e)(4) ('the tenant has an action of up to threefold of the withheld amount, plus reasonable attorney’s fees'); Md. Code Ann., Real Prop. § 8-203(g)(2) ('the landlord forfeits the right to withhold any part of the security deposit for damages'). Case law not searched. Md. Code Ann., Real Prop. § 8-203(j)(1) ('shall include supporting documentation that identifies the materials or services provided'), (j)(2) estimate; (k)(2)-(3) completion notice with final invoice and refund 'within 30 days after completing the repairs'. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-security-deposit-standards-md",
+    title: "No Deposit Standards Disclosure",
+    group: "Security Deposit",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-deposit-standards",
+    bodyText:
+      "Maryland does not require you to post or disclose the standards you use to set deposit amounts. Deposit amounts are limited by the one-month cap, and fair housing law still applies to how you set them.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-203(b)(1) ('a landlord may not impose a security deposit in excess of the equivalent of 1 month’s rent per dwelling unit'). (MD battery A-dep-standards: 4 hits; positives passed). Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-utility-deposit-deduction-md",
+    title: "Tenant's Utility Deposit Deduction",
+    group: "Rent & Payment",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utility-deposit-return",
+    bodyText:
+      "This applies where the gas or electric service for a unit is in your name, on a single meter serving only that unit, and the lease requires you to pay the bill. If service is threatened with termination, the tenant may open an account in the tenant's own name, and the utility may require the tenant to pay a deposit. The tenant may deduct from rent any utility payments made and any deposit required to open the new account, and a lease cannot waive this. No Maryland statute specifically governs a utility deposit you hold yourself.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-212.3(b)(2)(ii) ('The tenant pays any security deposit required to obtain a new utility service account'); Md. Code Ann., Real Prop. § 8-212.3(c) ('A tenant’s rights under this section may not be waived in any lease.'); Md. Code Ann., Pub. Util. § 7-309(b)(2) ('is delivered through a single meter to a single dwelling unit'). (MD battery A-utility-deposit-landlord: 10 hits; positives passed). Utility-held deposits are refunded under COMAR 20.30.02.05 (COMAR 20.30.02.05A ('Upon discontinuance of service, the utility shall promptly and automatically refund the customer')). Rule 15: written section-open.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-no-bed-bug-cooperation-md",
+    title: "No Bed Bug Statute",
+    group: "Tenant Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "bed-bug-cooperation",
+    bodyText:
+      "Maryland has no statute on bed bugs or on a tenant's duty to cooperate with pest treatment. Rodent infestation in two or more units is a serious defect that can support a rent escrow action. You may enter for repairs, maintenance and inspections on at least 24 hours' written notice between 7 a.m. and 7 p.m. Monday through Saturday, unless the tenant agrees otherwise in writing or an emergency exists.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-211(d)(3) ('Infestation of rodents in two or more dwelling units'); Md. Code Ann., Real Prop. § 8-221(a)(1) ('Completing repairs, maintenance, modifications, renovations, or improvements to the leased premises'). (MD battery A-bedbug-notenancy-pos: 1 hits; positives passed). Md. Code Ann., Real Prop. § 8-221(b)(1)(ii), (c)(1) (24 hours' written notice; 7:00 a.m. to 7:00 p.m. Monday through Saturday); `landlords-access-md` covers entry. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-cold-weather-vacate-notice-md",
+    title: "No Cold-Weather Vacate Notice",
+    group: "Tenant Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "cold-weather-vacate-notice",
+    bodyText:
+      "Maryland law does not require a tenant to notify you before leaving the unit vacant in cold weather. If you want that notice, put it in the lease. The only cold-weather statute concerns court stays of eviction warrants during extreme weather, such as a temperature or forecast of 32 degrees Fahrenheit or lower.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-401(f)(2)(i) ('A temperature or next-day forecasted temperature of 32 degrees Fahrenheit or lower'). (MD battery A-cold-weather-vacate-pos: 1 hits; positives passed). Rule 15: written section-open.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-construction-liens-md",
+    title: "Liens for Tenant-Ordered Work",
+    group: "Other / Miscellaneous",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "construction-liens",
+    bodyText:
+      "In Maryland, when a contractor contracts directly with your tenant, the mechanics' lien law treats the tenant as the owner. If a tenant improves the building to 25 percent or more of its value, any lien reaches only the tenant's interest. Maryland has no rule letting a lease clause or a notice to contractors keep your interest free of liens. Whether your interest is exposed for smaller tenant projects you approved is unsettled.",
+    notes: "MD: Md. Code Ann., Real Prop. § 9-101(f) ('when the contractor executes the contract with a tenant for life or for years, “owner” means the tenant'); Md. Code Ann., Real Prop. § 9-103(c)(2) ('any lien established in accordance with this subtitle applies only to the extent of the tenant’s interest'). (MD battery B-cl-1b-lease-lien: 4 hits; positives passed) (MD battery B-cl-2-tenant-interest-only: 2 hits; positives passed) Case law not searched. Rule 15: written section-open.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-no-extended-absence-notice-md",
+    title: "No Absence Notice Law",
+    group: "Tenant Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "extended-absence-notice",
+    bodyText:
+      "Maryland law does not require a tenant to tell you before an extended absence. Your lease may ask for that notice, but an absence does not change your entry rules. You still need to give written notice at least 24 hours before entering, except in an emergency involving imminent protection of the property, the occupants, or the health and safety of other tenants and staff.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-221(b)(2) ('in the event of an emergency to ensure the imminent protection or preservation of the property'). (MD battery B-extabs-1-absent-days: 2 hits; positives passed) (MD battery B-extabs-2-absent-days-notenancy: 24 hits; positives passed) (MD battery B-extabs-4-everyday-v2: 3 hits; positives passed) Rule 15: written section-open.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-family-child-care-md",
+    title: "Family Child Care in Rentals",
+    group: "Rules & Regulations",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "family-child-care",
+    bodyText:
+      "Maryland does not require you to allow a family child care home in your rental. A tenant who wants to register one with the State must submit your written authorization, both to register and to keep the registration, so you may decline or attach conditions. If the unit is in a condominium, homeowners association or cooperative, the association itself cannot prohibit or restrict a registered family child care home, but that rule does not bind you as landlord.",
+    notes: "MD: COMAR 13A.15.02.02B(11) ('submit written authorization from the lessor, owner, or landlord permitting child care to be provided at that location'); Md. Code Ann., Real Prop. § 11-111.1(c)(1) ('May not prohibit or restrict: 1. The establishment and operation of family child care homes or large family child care homes'). Also COMAR 13A.15.02.03A(6) (continuing registration); COMAR 13A.18.02.02, 13A.18.02.03 (large family child care homes); Md. Code Ann., Real Prop. § 11B-111.1; Md. Code Ann., Corps. & Ass'ns § 5-6B-22.1. (MD battery B-fcc-1-tenancy: 1 hits; positives passed) Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-home-business-md",
+    title: "No Home Business Right",
+    group: "Rules & Regulations",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "home-business",
+    bodyText:
+      "Maryland has no statute that makes a home-based business a protected use of a rental, so your lease may limit or prohibit business use. Maryland's no-impact home-based business protections bind only condominiums, homeowners associations and cooperatives. Local zoning rules on home occupations still apply to your tenant.",
+    notes: "MD: Md. Code Ann., Real Prop. § 11-111.1(a)(5) ('Is subordinate to the use of the dwelling unit for residential purposes'). (MD battery B-homebiz-1-tenancy: 1 hits; positives passed) (MD battery B-homebiz-2-notenancy: 6 hits; positives passed) Case law not searched. Local: Local zoning home-occupation rules (not researched). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-joint-liability-md",
+    title: "No Co-Tenant Liability Statute",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "joint-liability",
+    bodyText:
+      "Maryland has no statute setting how co-tenants share liability under a residential lease, so your lease's joint-liability term governs. One statutory exception applies: when a tenant who is a victim of abuse ends future liability under Maryland's abuse-termination law, a co-tenant who was the respondent in the protective or peace order stays liable. How the servicemember and medical early-termination caps apply to co-tenants who do not qualify is unsettled.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-5A-02(e) ('does not terminate or in any other way impact the future liability of a tenant who is the respondent in the action'). (MD battery B-joint-1-jointsev-tenancy: 4 hits; positives passed) Case law not searched. Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-municipal-utility-lien-md",
+    title: "Water and Sewer Liens",
+    group: "Rent & Payment",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "municipal-utility-lien",
+    bodyText:
+      "In Maryland, unpaid public water and sewer charges become a first lien on the property and are collected from the owner, even if the tenant had the account. Charges of a water and sewer authority are a lien that is superior to the interests of the owner, tenant and occupant. In Montgomery and Prince George's counties, unpaid WSSC bills are collected against the owner after 60 days. Maryland has no lease clause or affidavit procedure that shifts these liens to the tenant.",
+    notes: "MD: Md. Code Ann., Envir. § 9-726(b)(2) ('The sewer service charges shall be a first lien on the property'); Md. Code Ann., Envir. § 9-949(b) ('A lien under this section is superior to any interest of an owner, tenant, or occupant of the affected real estate'); Md. Code Ann., Pub. Util. § 25-504(e) ('the bill shall be collected against the owner of the property served'). Also Md. Code Ann., Envir. § 9-724(c)(4); Md. Code Ann., Local Gov't § 16-113 (Allegany); Md. Code Ann., Envir. § 9-1102 (Worcester); Md. Code Ann., Tax-Prop. § 14-849.1 (Baltimore City: no tax sale of residential property for water/sewer liens). (MD battery B-mul-1-lease-affidavit-utility: 16 hits; positives passed) (MD battery B-mul-2b-not-liable-other-account: 2 hits; positives passed) (MD battery B-mul-3c-lien-tenant: 1 hits; positives passed) Local: WSSC (Montgomery, Prince George's); Allegany; Worcester; Baltimore City; other municipal water systems under public local laws not researched. Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-occupancy-limits-md",
+    title: "Occupancy Limits Are Local",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "permitted-occupants",
+    bodyText:
+      "Maryland's statutes set no statewide limit on people per bedroom or per square foot in a rental. Occupancy standards come from your county or city housing code, which every political subdivision must adopt, or from the State Minimum Livability Code where no conforming local code exists. Maryland's fair housing law leaves reasonable occupancy limits in place but protects familial status. A lease limit stricter than the applicable code may be challenged as discriminatory.",
+    notes: "MD: Md. Code Ann., State Gov't § 20-703(2) ('limit the applicability of any reasonable local, State, or federal restrictions regarding the maximum number of occupants allowed to occupy a dwelling'); Md. Code Ann., Pub. Safety § 12-203(b) ('Each political subdivision shall adopt by regulation a local housing code that sets minimum property maintenance standards'). Minimum Livability Code (COMAR 05.02.03 per COMAR 05.05.09.06) text not in the saved COMAR. (MD battery B-occ-1-occupancy-standard: 1 hits; positives passed) Local: Local housing codes set occupancy standards (not researched). Rule 15: written section-open.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-no-prohibited-acts-renter-md",
+    title: "No Statutory Prohibited-Acts List",
+    group: "Tenant Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "prohibited-acts-renter",
+    bodyText:
+      "Maryland has no statutory list of acts a residential tenant must not commit. A few acts are barred by specific laws: occupants may not remove, tamper with or disable a required smoke alarm, and no one may disable a carbon monoxide alarm except during routine maintenance. A tenant who commits or permits waste without authorization is liable for the actual damage. Other prohibitions come from your lease.",
+    notes: "MD: Md. Code Ann., Pub. Safety § 9-106(d) ('may not remove or tamper with a required smoke alarm or otherwise render the smoke alarm inoperative'); Md. Code Ann., Pub. Safety § 12-1105 ('Except as part of routine maintenance, a person may not render a carbon monoxide alarm inoperable'); Md. Code Ann., Real Prop. § 14-102(a) ('commits or permits waste is liable for the actual damages suffered by the property'). (MD battery B-tsd-1b-urlta-tenant-duties: 2 hits; positives passed) (MD battery B-tsd-2-tenant-shall-tenancy: 28 hits; positives passed) Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-purpose-limitation-md",
+    title: "No Use-Restriction Statute",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "purpose-limitation",
+    bodyText:
+      "Maryland has no statute that limits a residential tenancy to a stated purpose or sets a penalty for other uses. A use restriction is enforced as an ordinary lease term. To evict for its breach before the lease ends, your lease must say you may repossess for breach, you must give 30 days' written notice (14 days for conduct showing a clear and imminent danger of serious harm), and a court must find the breach substantial and warranting eviction.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-402.1(a)(1)(i) ('provides that the landlord may repossess the premises prior to the expiration of the stated term if the tenant breaches the lease'); Md. Code Ann., Real Prop. § 8-402.1(b)(1) ('the breach was substantial and warrants an eviction'). (MD battery B-ruo-1b-other-purpose: 5 hits; positives passed) (MD battery B-ruo-2-residential-purpose: 1 hits; positives passed) Rule 15: written section-open.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-no-smoking-policy-md",
+    title: "No State Smoking Lease Law",
+    group: "Rules & Regulations",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "smoking-policy",
+    bodyText:
+      "Maryland has no statute on smoking policies in residential leases, and its indoor smoking ban does not apply to private residences, so your lease sets the rules for units. State law defines smoking and vaping separately, and both definitions include cannabis, so a policy should name each form of use it covers. Adults 21 and over may lawfully use cannabis, but no Maryland statute requires you to allow it on your property. Your exposure for smoke drifting between units is unsettled.",
+    notes: "MD: Md. Code Ann., Health-Gen. § 24-505(1) ('Private homes, residences, including residences used as a business or place of employment'); Md. Const. art. XX, § 1(a) ('an individual in the State who is at least 21 years old may use and possess cannabis'); Md. Code Ann., Health-Gen. § 24-501(l) ('“Vaping” means the use of: (1) An electronic smoking device'). The residence exclusion does not reach residences used by a licensed or registered child care provider (Md. Code Ann., Health-Gen. § 24-505(1)). (MD battery B-smk-3-cannabis-housing: 3 hits; positives passed) (MD battery B-smk-5b-smokefree-notenancy: 6 hits; positives passed) (MD battery B-smk-4b-smoke-nuisance: 0 hits; synthetic-tested, no real positive exists) (MD battery B-smk-5c-smokefree-tenancy: 0 hits; synthetic-tested, no real positive exists) Case law not searched. Local: Local smoking ordinances (not researched). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-sublet-assign-md",
+    title: "Subletting and Reletting Rules",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "sublet-assign",
+    bodyText:
+      "Maryland has no statute requiring you to consent to a sublet or assignment, or treating your silence as approval, so your lease controls. If a tenant moves out early or never takes possession, you must make reasonable efforts to re-rent, and you may sublet the unit without first notifying the tenant. The original tenant stays secondarily liable for rent only if you promptly tell them when the new occupant defaults. A lease cannot waive these rules.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-207(c) ('the landlord may sublet the dwelling unit without prior notice to the tenant in default'); Md. Code Ann., Real Prop. § 8-207(d) ('No provision in this section may be waived in any lease'). (MD battery B-sub-1b-consent-standard: 3 hits; positives passed) (MD battery B-sub-2-sublet-tenancy: 13 hits; positives passed) (MD battery B-sub-3c-deemed-approved-notenancy: 55 hits; positives passed) Case law not searched. Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-no-tenant-forward-proceedings-md",
+    title: "No Duty to Forward Notices",
+    group: "Notices & General",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-forward-proceedings",
+    bodyText:
+      "Maryland law does not require a tenant to forward you notices or court papers about proceedings against the property. A transfer of your ownership interest takes effect without the tenant's attornment. Rent the tenant pays to the old owner before actual notice of the transfer still counts as paid.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-104 ('Any grant of a nonpossessory corporeal estate is valid and effective without the attornment of the tenant in possession'). (MD battery B-tfp-2b-attorn: 3 hits; positives passed) (MD battery B-tfp-3-tenant-forward-process: 5 hits; positives passed) Rule 15: written section-open.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-tenant-repair-limits-md",
+    title: "Limits on Tenant Repair Duties",
+    group: "Tenant Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-maintenance",
+    bodyText:
+      "Your lease must spell out the tenant's specific repair obligations. A tenant's promise to keep or return the premises in good repair does not oblige the tenant to rebuild or pay for a building destroyed by fire or otherwise without the tenant's negligence or fault. A tenant who commits or permits waste without authorization is liable for the actual damages. Deposit deductions are limited to damage beyond ordinary wear and tear caused by the tenant or the tenant's family, agents, employees, guests or invitees.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-113 ('does not bind the tenant to erect any similar building or pay for any building destroyed by fire or otherwise without negligence or fault'); Md. Code Ann., Real Prop. § 14-102(a) ('commits or permits waste is liable for the actual damages suffered by the property'); Md. Code Ann., Real Prop. § 8-203(f)(1)(i) ('in excess of ordinary wear and tear to the leased premises, common areas, major appliances, and furnishings owned by the landlord'). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-tenant-statutory-duties-md",
+    title: "Scattered Tenant Duties",
+    group: "Tenant Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-statutory-duties",
+    bodyText:
+      "Maryland has not adopted a general statutory list of residential tenant duties. Specific laws require the occupant to test smoke alarms and the tenant to report a failed alarm in writing by certified mail or hand delivery. A tenant who reports a housing code violation must give you access within 24 hours after notifying you. A tenant in a pre-1978 rental must allow access at reasonable times for required lead work. Other duties come from your lease.",
+    notes: "MD: Md. Code Ann., Pub. Safety § 9-106(e)(1) ('Testing of smoke alarms is the responsibility of the occupant of the residential unit'); Md. Code Ann., Real Prop. § 8-221(f) ('the tenant shall provide the landlord access to the leased premises within 24 hours after notifying the landlord of the alleged violation'); Md. Code Ann., Envir. § 6-821(a)(2) ('A tenant shall allow access to an affected property, at reasonable times, to the owner to perform any work required under this subtitle'). (MD battery B-tsd-1b-urlta-tenant-duties: 2 hits; positives passed) (MD battery B-tsd-2-tenant-shall-tenancy: 28 hits; positives passed) Local: Local housing codes may impose occupant duties (not researched). Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-no-utility-transfer-md",
+    title: "No Transfer-or-Cutoff Rule",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utility-transfer",
+    bodyText:
+      "Maryland has no rule letting you shut off utilities still in your name because a tenant did not transfer them. Your only statutory safe harbor for stopping payment comes after a final court order awarding possession, with reasonable notice and a chance for the tenant to open an account. A cutoff during the tenancy risks liability for unlawful diminution of services and a rent escrow claim. Whether a cutoff not aimed at forcing the tenant out is lawful is unsettled.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-216(a)(3)(ii) ('after a final court order awarding possession of the residential property'). (MD battery B-ut-2-transfer-cutoff: 2 hits; positives passed) (MD battery B-ut-3b-shutoff: 6 hits; positives passed) Case law not searched. Rule 15: written section-open.",
+  },
+  // Building & Safety
+  {
+    id: "edu-smoke-co-alarm-landlord-md",
+    title: "Landlord Smoke and CO Alarm Duties",
+    group: "Building & Safety",
+    states: ["MD"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "alarm-duties",
+    bodyText:
+      "You must install, repair, maintain and replace required smoke alarms, including one in each sleeping area. A rental unit must have a carbon monoxide alarm outside and near each separate sleeping area and on every level, including the basement. When a tenant reports a failed smoke alarm in writing, you must acknowledge it in writing and repair or replace it within 5 calendar days. In a one- or two-family dwelling, you must upgrade the smoke alarms at a change of tenant if the unit has not had sealed long-life battery alarms within the past 10 years. On written request, you must provide an alarm appliance suitable for a deaf, deafblind or hard of hearing tenant, without charge and without asking for documentation.",
+    notes: "MD: Md. Code Ann., Pub. Safety § 9-106(c) ('The landlord or property owner is responsible for the installation, repair, maintenance, and replacement of smoke alarms required by this subtitle'); Md. Code Ann., Pub. Safety § 9-106(e)(2)(iv) ('shall repair or replace the smoke alarm within 5 calendar days after the notification'); Md. Code Ann., Pub. Safety § 12-1104(c) ('outside and in the immediate vicinity of each separate sleeping area'). Also Md. Code Ann., Pub. Safety § 9-104(d)(1)(iii), 9-105(b), 9-107 (no insurance policy defense), 9-108, 9-109, 12-1101(b)(4)(ii), 12-1102(2). Md. Code Ann., Envir. § 6-801(u) rental dwelling unit definition (sets CO scope) changed 2026-10-01; oct version relied on. (MD battery B-al-1b-evidentiary-shield: 2 hits; positives passed) (MD battery B-al-2b-landlord-notify-tenant: 2 hits; positives passed) Local: Local jurisdictions may adopt stricter smoke (Md. Code Ann., Pub. Safety § 9-102(e)) and CO (12-1106) rules. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-alarm-tampering-fee-md",
+    title: "No Alarm Tampering Fee Law",
+    group: "Building & Safety",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "alarm-tampering-fee",
+    bodyText:
+      "Maryland has no statute that authorizes or caps a lease fee for removing or tampering with a smoke or carbon monoxide alarm. Tampering is already prohibited and can be prosecuted as a misdemeanor. You may not require reimbursement for an alarm appliance you provide for a deaf, deafblind or hard of hearing tenant. Whether a fixed tampering fee is enforceable or a penalty is unsettled.",
+    notes: "MD: Md. Code Ann., Pub. Safety § 9-105(f) ('A landlord may not require reimbursement from a tenant for the cost of a smoke alarm required under this section'); Md. Code Ann., Pub. Safety § 9-109(a) ('A person may not knowingly violate this subtitle'). (MD battery B-atf-1b-alarm-tamper-fee: 0 hits; synthetic-tested, no real positive exists) (MD battery B-atf-2-tenant-pay-alarm: 1 hits; positives passed) Case law not searched. Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-relocation-costs-md",
+    title: "When You Pay Relocation",
+    group: "Landlord Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "alt-housing",
+    bodyText:
+      "Maryland does not require you to house a tenant elsewhere during ordinary repairs. If lead-paint work in a pre-1978 rental requires the tenant to vacate for 24 hours or more, you must pay the reasonable expenses directly related to that relocation. If the unit fails the lead risk-reduction standard, the tenant may ask in writing to be released from the lease with up to $2,500 in relocation expenses, unless you provide proof of compliance within 3 business days. A court may also award relocation expenses when a unit breaches the warranty of habitability.",
+    notes: "MD: Md. Code Ann., Envir. § 6-821(a)(3) ('the owner shall pay the reasonable expenses that the tenant incurs directly related to the required relocation'); Md. Code Ann., Real Prop. § 8-215(b)(1)(ii) ('all reasonable relocation expenses, not to exceed $2,500'); Md. Code Ann., Real Prop. § 8-212(i)(3) ('relocation expenses for a tenant'). Also Md. Code Ann., Envir. § 6-817(d); Md. Code Ann., Pub. Safety § 12-203(f)(2) (no displacement by Minimum Livability Code enforcement unless alternative housing is provided). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-appliances-excluded-md",
+    title: "No Appliance Exclusion Rule",
+    group: "Landlord Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "appliances-excluded",
+    bodyText:
+      "Maryland has no law presuming that appliances in a unit are yours to maintain, and no rule on excluding them by lease. Your lease must state each side's obligations for heat, gas, electricity, water and repairs. In apartment buildings with 10 or more units (other than on National Register property), air conditioning you provided, or a lease required, at any time on or after January 1, 2025 must, beginning June 1, 2026, be provided each year from June 1 to September 30, so excluding it later does not end that duty. A lease cannot waive your duty to fix serious defects such as lack of heat or hot water.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-122(b)(2)(ii) ('A lease required the landlord to provide air-conditioning for the unit'). (MD battery B-app-1-appliances-tenancy: 5 hits; positives passed) (MD battery B-app-3-presumed-supplied: 0 hits; synthetic-tested, no real positive exists) (MD battery B-olf-1b-facilities-supplied: 3 hits; positives passed) Md. Code Ann., Real Prop. § 8-122(a)(2) ('located on property listed on the National Register of Historic Places'); § 8-122(b)(2) ('Beginning June 1, 2026'). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-air-conditioning-duty-md",
+    title: "Air Conditioning Duty",
+    group: "Landlord Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "appliances-included",
+    bodyText:
+      "This applies to rental units in apartment buildings with 10 or more units, except properties on the National Register of Historic Places. If you equipped or provided air conditioning in the unit, or a lease required it, at any time on or after January 1, 2025, you must provide air conditioning from June 1 to September 30 each year, starting June 1, 2026. The same duty applies to new construction from June 1, 2026 and to units renovated with replaced or substantially upgraded electrical or heating systems from October 1, 2026. A system you control must keep each habitable space at 80 degrees Fahrenheit or below at 3 feet above the floor; a tenant-controlled system must be in good working order and capable of that.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-122(c)(1) ('not greater than 80 degrees Fahrenheit at 3 feet above the floor level in each habitable space in the unit'). Rule 15: written section-open.",
+  },
+  // Building & Safety
+  {
+    id: "edu-balcony-inspection-md",
+    title: "Balcony Railing Inspections",
+    group: "Building & Safety",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "balcony-inspection",
+    bodyText:
+      "This applies to buildings with two or more dwelling units whose balcony railings are made mainly of wood; condominiums and cooperatives are excluded. Outside Baltimore City, your county or city must require an inspection at least once every 5 years, starting no later than 10 years after the balcony was built. The locality may inspect itself, use a third party, or require you to hire a licensed engineer or architect (or, for buildings over 10 units, an experienced multifamily professional). In Baltimore City, a professional balcony railing inspection is a condition of the multiple-family dwelling license. The locality may charge you a fee.",
+    notes: "MD: Md. Code Ann., Pub. Safety § 12-203(f)(3)(ii) ('at least once every 5 years, beginning no later than 10 years after the balcony is constructed'). Local: Baltimore City (Md. Code Ann., Pub. Safety § 12-203(f)(4)); each locality sets procedure and fees. Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-condemned-premises-rent-bar-md",
+    title: "No Condemnation Rent Bar",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "condemned-premises-rent-bar",
+    bodyText:
+      "Maryland has no statute that expressly bars collecting rent after a unit is condemned or ordered vacated. If the improvements on property rented for 7 years or less become untenantable from fire or unavoidable accident, the tenancy ends and rent stops as of that day. A government condemnation notice also counts as notice for a tenant's rent escrow or habitability claim, in which a court can abate rent or end the lease. Whether a code vacate order alone ends rent is unsettled.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-112 ('become untenantable by reason of fire or unavoidable accident, the tenancy terminates, and all liability for rent ceases'). (MD battery B-cond-1-condemned-rent: 13 hits; positives passed) Case law not searched. Local: Local housing codes on placarded units (not researched). Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-no-confirmed-absences-habitability-md",
+    title: "Habitability Remedies Maryland Lacks",
+    group: "Landlord Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "confirmed-absences-habitability",
+    bodyText:
+      "Maryland gives tenants no repair-and-deduct remedy; the only rent deduction is for gas or electric payments on a single-metered account in your name that the lease makes your responsibility. Maryland's statutes set no statewide minimum indoor heat temperature. Habitability is enforced instead through rent escrow and the warranty of habitability, where a court may release escrowed rent to pay for repairs.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-212.3(b) ('A tenant may deduct from rent due to a landlord the amount of payments made to a utility service provider for utility service'). The Minimum Livability Code (COMAR 05.02.03) is not in the saved COMAR; a heat standard there was not verified. (MD battery B-cah-1-repair-deduct: 2 hits; positives passed) (MD battery B-heat-1-temp-standard: 5 hits; positives passed) Local: Local housing codes may set heat temperatures (not researched). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-designated-repairer-md",
+    title: "No Designated-Repairer Rule",
+    group: "Landlord Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "designated-repairer",
+    bodyText:
+      "Maryland has no statute governing lease clauses that name who may make repairs or require tenants to use your repairer. Some work has its own qualification rules: lead hazard reduction treatments must be performed by or under the supervision of accredited personnel, and mold assessment and remediation must follow recommended industry guidelines.",
+    notes: "MD: Md. Code Ann., Envir. § 6-821(c) ('shall be performed by or under the supervision of personnel accredited'). (MD battery B-dr-1b-designated-repairer: 2 hits; positives passed) Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-disability-accommodation-md",
+    title: "Disability Accommodations and Modifications",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "disability-accommodation",
+    bodyText:
+      "You must make reasonable accommodations in your rules, policies, practices and services when needed for a person with a disability to use and enjoy the dwelling. You must allow reasonable modifications at the tenant's expense; for a rental, you may condition this on the tenant's agreement to restore the interior when moving out, except for reasonable wear and tear. A tenant with a service dog is exempt from no-dog lease clauses, may not be charged extra rent or a fee for the dog, and is liable for damage the dog causes. Maryland has no rule requiring this restoration term to appear in the lease and no restoration escrow rule.",
+    notes: "MD: Md. Code Ann., State Gov't § 20-706(b)(3)(ii) ('the tenant will restore, at the tenant’s expense, the interior of the dwelling to the condition that existed before the modification'); Md. Code Ann., State Gov't § 20-706(d)(1) ('shall be exempt from any provision in a lease or rental agreement prohibiting the keeping of dogs'). Only the single-family exemption in § 20-704(a)(1) reaches disability; 20-704(a)(2) owner-occupied exemption excludes disability. (MD battery B-dis-1b-lease-include: 1 hits; positives passed) (MD battery B-dis-2-restoration-escrow: 0 hits; synthetic-tested, no real positive exists) Case law not searched. Local: County human rights ordinances (not researched). Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-no-double-letting-md",
+    title: "No Double-Letting Statute",
+    group: "Landlord Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "double-letting",
+    bodyText:
+      "Maryland has no statute specifically on renting the same unit or room to two tenants. If you fail to deliver possession at the start of the term, rent abates until possession is delivered and the tenant may cancel by written notice before then. You must refund prepaid rent and deposits on cancellation and are liable for consequential damages after the tenant tells you they cannot move in.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-204(c) ('the rent payable under the lease shall abate until possession is delivered'). (MD battery B-dl-1-double-letting: 0 hits; synthetic-tested, no real positive exists) Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-no-emergency-contact-md",
+    title: "No Emergency Contact Law",
+    group: "Notices & General",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "emergency-contact",
+    bodyText:
+      "Maryland has no statute requiring you to give tenants an emergency or 24-hour contact. Your lease or a conspicuous sign must give the name, address and telephone number of the landlord or agent authorized to receive notices and service of process. Local licensing codes may add contact requirements.",
+    notes: "MD: (MD battery B-ec-1b-emergency-contact: 2 hits; positives passed) Local: Local rental licensing codes (not researched). Md. Code Ann., Real Prop. § 8-210(a)(1) ('listing the name, address, and telephone number of'); clause `owner-identity-disclosure-md`. Rule 15: written section-open.",
+  },
+  // Building & Safety
+  {
+    id: "edu-fire-code-standard-md",
+    title: "State Fire Prevention Code",
+    group: "Building & Safety",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fire-code-standard",
+    bodyText:
+      "Maryland's State Fire Prevention Code adopts NFPA 1 Fire Code and NFPA 101 Life Safety Code, 2024 editions, with State amendments. It does not apply to buildings used only as dwellings for not more than two families. In Baltimore City it applies only to the buildings and conditions State law specifies. Fire officials may get an administrative search warrant to inspect a building when the owner or tenant denies access.",
+    notes: "MD: COMAR 29.06.01.02B ('This chapter incorporates by reference NFPA 1 Fire Code (2024 Edition)'); Md. Code Ann., Pub. Safety § 6-316(a) ('an administrative search warrant to enter a building or premises to conduct a fire prevention inspection'). COMAR 29.06.01.03C-D (Baltimore City; one- and two-family dwellings); 29.06.01.06 (incorporation; interim amendments excluded unless adopted). Local: Baltimore City fire code; local fire prevention codes (not researched). Rule 15: written section-open.",
+  },
+  // Security Deposit
+  {
+    id: "edu-no-furnishings-included-md",
+    title: "No Furnished-Rental Law",
+    group: "Security Deposit",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "furnishings-included",
+    bodyText:
+      "Maryland has no statute on furnished rentals or required furnishings. You may withhold from the security deposit for damage beyond ordinary wear and tear to furnishings you own, so a move-in inventory helps support any later claim.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-203(a)(3) ('damage to the leased premises, common areas, major appliances, and furnishings'). (MD battery B-app-2-furnish: 4 hits; positives passed) Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-habitability-serious-defects-md",
+    title: "What Counts as Serious Defect",
+    group: "Landlord Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "habitability-materiality",
+    bodyText:
+      "Rent escrow and the warranty of habitability cover serious defects that are, or will become if not promptly fixed, a fire hazard or a serious and substantial threat to occupants' life, health or safety. Listed examples are lack of heat, light, electricity or hot or cold running water; inadequate sewage disposal; rodents in two or more units; serious structural defects; and health or fire hazards. Lack of heat or utilities is excluded if the tenant pays that utility and the outage results from the tenant's nonpayment. Minor defects and, where local codes apply, non-dangerous code violations are not covered.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-211(e)(1) ('This section does not apply to a landlord’s failure to repair and eliminate minor defects'); Md. Code Ann., Real Prop. § 8-212(a) ('free from serious defects or conditions that constitute, or will constitute if not promptly corrected, a fire hazard'). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-rent-escrow-presumptions-md",
+    title: "Rent Escrow Presumptions",
+    group: "Landlord Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "habitability-presumption",
+    bodyText:
+      "In a rent escrow case, you are presumed to have had an unreasonable time to repair if more than 30 days passed after you received notice. Lack of fresh paint, rugs or other decorative items, small cracks, missing floor coverings on safe floors, and lack of air conditioning are presumed not covered unless they pose a serious threat. A tenant is presumed entitled to a decision on a request for rent abatement. Each presumption can be rebutted with evidence.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-211(g)(3) ('There is a rebuttable presumption that a period in excess of 30 days from receipt of notice is unreasonable'). Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-habitability-waiver-md",
+    title: "No Waiving Habitability",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "habitability-waiver",
+    bodyText:
+      "Your lease must say the unit will be made available in a condition permitting habitation with reasonable safety, or else state the agreed condition. That statement cannot waive the tenant's rent escrow or warranty-of-habitability remedies: a lease may not have the tenant waive any right or remedy provided by law. The warranty applies to every rental, written or oral, from the start and throughout the tenancy. A prohibited clause is unenforceable, and tendering or trying to enforce it exposes you to actual damages and attorney's fees. Whether the condition statement can lower the habitability standard itself is unsettled.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-208(d)(2) ('Has the tenant agree to waive or to forego any right or remedy provided by applicable law'); Md. Code Ann., Real Prop. § 8-212(d) ('exists at the beginning of the tenancy and continues throughout the term of the tenancy'). Case law not searched. Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-heat-obligations-md",
+    title: "Heat Obligations",
+    group: "Landlord Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "heating",
+    bodyText:
+      "Your lease must state your and the tenant's specific obligations for heat. Lack of heat is a serious defect you must repair, unless the tenant pays for the heating utility and the outage directly results from the tenant's failure to pay. You may never interrupt heat to force a tenant to leave. Maryland's statutes set no statewide minimum heat temperature; local housing codes may.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-211(d)(1) ('the lack thereof is the direct result of the tenant’s failure to pay the charges'). (MD battery B-heat-1-temp-standard: 5 hits; positives passed) Local: County and city housing codes may set heat minimums (not researched). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-tenant-remedies-md",
+    title: "Tenant Remedies for Landlord Breach",
+    group: "Landlord Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-breach-remedy",
+    bodyText:
+      "If you fail to fix serious defects within a reasonable time after notice, a tenant may pay rent into court and seek abatement, repair orders or lease termination, or sue for damages, abatement, termination and relocation expenses. If you fail to deliver possession at the start of the term, rent abates and the tenant may cancel. Unlawful entry can bring an injunction and damages for breach of quiet enjoyment. A lockout or utility shutoff, or a prohibited lease clause, exposes you to actual damages and attorney's fees.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-212(g)(1)(i) ('Bring an action for damages and the abatement of rent against the landlord'). Md. Code Ann., Real Prop. § 8-211(h), (m); 8-204(c)-(e); 8-221(d)(2); 8-216(c); 8-208(g)(2). Local: Md. Code Ann., Real Prop. § 8-211(q): broader local escrow laws survive. Rule 15: written section-open.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-no-landlord-self-cure-md",
+    title: "No Cure-and-Bill Rule",
+    group: "Tenant Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-self-cure",
+    bodyText:
+      "Maryland has no statute letting you fix a tenant's breach yourself and bill the cost as rent. The only statutory 'additional rent' charge is a lock-change fee in abuse cases that the tenant does not pay within 45 days. Summary eviction for nonpayment covers rent and late fees, so whether a lease can turn repair costs into rent for eviction purposes is unsettled. You can still deduct damage from the deposit or sue for it.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-5A-05 ('Charge the fee as additional rent'). (MD battery B-lsc-2-additional-rent: 2 hits; positives passed) (MD battery B-lsc-1-landlord-cure-bill-tenant: 0 hits; synthetic-tested, no real positive exists) Case law not searched. Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-no-other-landlord-facilities-md",
+    title: "No Supplied-Facilities Rule",
+    group: "Landlord Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "other-landlord-facilities",
+    bodyText:
+      "Maryland has no general rule that you keep every facility and appliance you supply in working order. Your repair duty reaches serious defects in the unit or on property used in common. A lease clause that excuses you from liability for your own negligence in areas outside the tenant's exclusive control, such as hallways, stairways and elevators, is void.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-211(a)(1) ('or on property used in common of which the dwelling unit forms a part'); Md. Code Ann., Real Prop. § 8-105 ('the provision is considered to be against public policy and void'). (MD battery B-olf-1b-facilities-supplied: 3 hits; positives passed) Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-nonwaivable-rights-md",
+    title: "Rights a Lease Cannot Waive",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "part5-nonwaivable",
+    bodyText:
+      "Your lease may not have the tenant waive any right or remedy that Maryland law provides. Specific laws also bar waiving the security deposit law, the duty to mitigate, the tenant's right to deduct utility payments, the tenant's right of first refusal, and a jury trial in a lease of the tenant's primary residence. Clauses excusing you from liability for your own negligence outside the tenant's exclusive control are void. Offering or trying to enforce a prohibited clause exposes you to actual damages and attorney's fees.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-203(l) ('No provision of this section may be waived in any lease'); Md. Code Ann., Real Prop. § 8-603(a) ('which waives a trial by jury shall be invalid and unenforceable'). Md. Code Ann., Real Prop. § 8-208(d)(2), (g)(2); 8-207(d); 8-212.3(c); 8-119(f); 8-105. Local: Local laws may add rights but not diminish § 8-208 rights (8-208(f)). Rule 15: written section-open.",
+  },
+  // Building & Safety
+  {
+    id: "edu-community-pool-rules-md",
+    title: "Community Pool Regulations",
+    group: "Building & Safety",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "pool-safety",
+    bodyText:
+      "If your apartment complex, housing subdivision or condominium has a pool for residents, Maryland's health regulations treat it as a public pool. A pool for residents of a complex with 10 or fewer units is a semipublic pool; one serving more than 10 units is a recreational pool. Public pools need State construction approval, compliant barriers, safety equipment, posted signs and certified operators. A semipublic pool over 2,500 square feet of water surface needs a lifeguard on deck from Memorial Day to Labor Day, and year-round if indoor and heated. A pool on a property with not more than four private residences is private and exempt; Maryland has no lease-signing pool notice.",
+    notes: "MD: COMAR 10.17.01.02B ('Residing at an apartment complex, housing subdivision, or mobile home park with ten units or less'). COMAR 10.17.01.17, .22C(6), .23, .34. (MD battery B-pool-2-pool-notenancy: 34 hits; positives passed) Local: Local health department enforcement (not researched). Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-no-promises-to-repair-md",
+    title: "No Written-Promise Rule",
+    group: "Landlord Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "promises-to-repair",
+    bodyText:
+      "Maryland has no statute requiring your promises to clean, repair or improve a unit to be in writing with a completion date before signing. Your lease must state the agreed condition of the premises and each side's repair obligations. Whether unwritten promises are enforceable is unsettled.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-208(c)(1) ('if that is not the agreement, a statement of the agreement concerning the condition of the premises'). (MD battery B-ptr-1-promise-repair-writing: 0 hits; synthetic-tested, no real positive exists) Case law not searched. Rule 15: written section-open.",
+  },
+  // Access & Entry
+  {
+    id: "edu-quiet-enjoyment-md",
+    title: "Quiet Enjoyment",
+    group: "Access & Entry",
+    states: ["MD"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "quiet-possession",
+    bodyText:
+      "Every Maryland lease carries an implied promise that the tenant will quietly enjoy the property, unless the lease provides otherwise. A residential lease may not have the tenant waive rights provided by law, so whether a disclaimer would work is unsettled. At the start of the term you must assure the tenant may peaceably and quietly enter. Unlawful entry can bring an injunction and damages for breach of the covenant of quiet enjoyment.",
+    notes: "MD: Md. Code Ann., Real Prop. § 2-115 ('in a lease, unless the lease provides otherwise, there is an implied covenant by the lessor that the lessee shall quietly enjoy the land'); Md. Code Ann., Real Prop. § 8-204(b) ('peaceably and quietly, may enter on the leased premises at the beginning of the term of any lease'). Case law not searched. Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-foreclosure-purchaser-rent-md",
+    title: "Foreclosure Buyer Rent Collection",
+    group: "Rent & Payment",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-demand-bar",
+    bodyText:
+      "If you buy a tenant-occupied Maryland residential property at a foreclosure sale, you may not collect rent from a bona fide tenant until you make a reasonable inquiry into occupancy. You must also serve each bona fide tenant, by first-class mail with a certificate of mailing, a notice giving the name, address and phone number of the person managing the property and stating where rent must be paid. You waive rent for the period before you comply, except rent for the 15 days immediately before.",
+    notes: "MD: Md. Code Ann., Real Prop. § 7-105.12(b) ('A foreclosure sale purchaser may not exercise any right to collect rent payments from a bona fide tenant'). (MD battery B-rdb-1b-may-not-demand-rent: 3 hits; positives passed) Rule 15: written section-open.",
+  },
+  // Access & Entry
+  {
+    id: "edu-rental-licensing-inspection-md",
+    title: "Rental Licensing and Inspections",
+    group: "Access & Entry",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rental-inspection",
+    bodyText:
+      "Rental licensing and inspection are local in Maryland. Southern Maryland code home rule counties are expressly allowed to require registration and inspections. Where your locality requires a rental license, you must plead and prove that the unit is licensed or exempt when you file to evict. Health officers may enter a private house only with consent, a warrant or in an emergency, and fire officials may seek an administrative warrant if access is denied. Whether a lease clause can supply the tenant's consent to an inspector is unsettled.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-406(b)(1) ('Licensed in compliance with applicable local rental licensing requirements'); Md. Code Ann., Health-Gen. § 3-307(a)(1) ('Has obtained consent to enter and inspect'). (MD battery B-ri-1-rental-inspection: 3 hits; positives passed) (MD battery B-ri-2b-inspector-entry: 25 hits; positives passed) Case law not searched. Local: County and municipal rental licensing programs (not researched); Southern Maryland code counties: Md. Code Ann., Pub. Safety § 12-203(f)(6). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-repair-cost-termination-md",
+    title: "No Repair-Cost Termination",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "repair-cost-termination",
+    bodyText:
+      "Maryland has no statute letting either side end the lease because repair costs exceed a set amount. Short leases end automatically when the improvements become untenantable from fire or unavoidable accident. A court may also end a lease in a rent escrow or habitability case.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-112 ('become untenantable by reason of fire or unavoidable accident, the tenancy terminates'). (MD battery B-rct-1-repair-cost-terminate: 0 hits; synthetic-tested, no real positive exists) Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-repair-notice-md",
+    title: "How Tenants Give Repair Notice",
+    group: "Landlord Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "repair-notice",
+    bodyText:
+      "Your duty to repair serious and dangerous defects starts when the tenant notifies you. Notice can be a certified letter listing the defects, actual notice (a call, text, portal ticket or conversation that actually reaches you), or a written violation or condemnation notice from a government agency. Your lease may ask tenants to use a portal or written request. It cannot make other notice ineffective, because a lease may not take away a tenant's statutory rights or remedies. Record every report, however it arrives.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-211(f)(2) ('A written communication sent by certified mail listing the asserted conditions or defects; (ii) Actual notice of the defects or conditions'); Md. Code Ann., Real Prop. § 8-212(f)(1)(ii) ('A written communication sent by certified mail listing the asserted defects or conditions; 2. Actual notice of the defects or conditions'); Md. Code Ann., Real Prop. § 8-208(d)(2) ('Has the tenant agree to waive or to forego any right or remedy provided by applicable law'). Whether a particular communication was actual notice is a question of fact; case law not searched. Rule 15: written section-open.",
+  },
+  // Building & Safety
+  {
+    id: "edu-no-security-devices-md",
+    title: "No State Lock or Rekey Mandate",
+    group: "Building & Safety",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "security-devices",
+    bodyText:
+      "Maryland state law does not require deadbolts, door viewers or peepholes, or rekeying between tenants in residential rentals. Your county or city housing code may impose lock requirements, so check it. Your own employees or your management company may rekey or replace locks without a locksmith license. Separate rules require a prompt lock change for a tenant with a protective or peace order, and allow temporary measures to secure an unsecured unit.",
+    notes: "MD: Md. Code Ann., Bus. Reg. § 12.5-103(10) ('the installation, repair, replacement, rekeying, or adjusting of locks or lock components for property by an employee or agent of the property owner'); Md. Code Ann., Pub. Safety § 12-203(b) ('Each political subdivision shall adopt by regulation a local housing code that sets minimum property maintenance standards for housing in the subdivision'); (MD battery C-secdev-deadbolt-v2: 12 hits; positives passed); (MD battery C-secdev-lock-dwelling: 5 hits; positives passed). Local: county/municipal housing and building codes not researched. Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-no-stove-refrigerator-md",
+    title: "No State Appliance Requirement",
+    group: "Landlord Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "stove-refrigerator",
+    bodyText:
+      "Maryland state statutes do not require you to supply a stove or refrigerator. If you do supply them, the security deposit can cover damage to major appliances you own beyond ordinary wear and tear. The State Minimum Livability Code and local housing codes set minimum equipment standards and may require cooking or refrigeration equipment. List in the lease which appliances are included.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-203(f)(1)(i) ('in excess of ordinary wear and tear to the leased premises, common areas, major appliances, and furnishings owned by the landlord'); Md. Code Ann., Pub. Safety § 12-203(e)(3)(i) ('basic equipment and facilities used for light, ventilation, heat, and sanitation'); (MD battery C-stove-fridge-tenancy: 6 hits; positives passed). The Minimum Livability Code regulation text is not in the saved COMAR (not located). Local: housing codes not researched. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-substandard-property-receivership-md",
+    title: "No State Repair Receivership",
+    group: "Landlord Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "substandard-property-receivership",
+    bodyText:
+      "Maryland's statewide code has no code-enforcement receivership that lets a court or agency take over a substandard rental. In a tenant's rent escrow case, however, the court may appoint a special administrator to make repairs and pay for them out of the escrowed rent. In Baltimore City and in Prince George's, Baltimore, Anne Arundel and Harford Counties, qualifying community associations may sue over local code violations. Local receivership programs, such as Baltimore City's, are local law.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-211(n)(1)(iii) ('appoint a special administrator who shall cause the repairs to be made, and who shall apply to the court to pay for'); Md. Code Ann., Com. Law § 24-103(c) ('This title does not apply to a receivership authorized by a local law or a State law other than this title in'); (MD battery C-receivership-housing-v2: 11 hits; positives passed); (MD battery C-receivership-nolimb: 117 hits; positives passed); (MD battery C-special-administrator: 1 hits; positives passed). Local: Baltimore City vacant-building receivership (City Code) not researched; community-association code actions are Md. Code Ann., Real Prop. §§ 14-123 (Baltimore City), 14-124 (Prince George's), 14-125 (Baltimore County), 14-125.1 (Anne Arundel), 14-125.2 (Harford); those sections were scanned for scope, not read whole. Rule 15: written section-open.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-no-telecom-access-md",
+    title: "No Tenant Cable Access Law",
+    group: "Other / Miscellaneous",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "telecom-access",
+    bodyText:
+      "Maryland has no statute giving tenants a right to cable or satellite access in rental buildings, or barring different rent for cable subscribers. State law lets counties and municipalities franchise cable systems that use public rights-of-way. A system serving only subscribers in commonly owned multiple dwelling units is not a franchised cable system under that law. Local franchise terms and federal rules on antennas and dishes may still apply.",
+    notes: "MD: Md. Code Ann., Local Gov't § 1-708(a)(2) ('serves only subscribers in one or more multiple dwelling units under common ownership, control, or management'); (MD battery C-telecom-tenancy-v2: 1 hits; positives passed); (MD battery C-telecom-nolimb: 13 hits; positives passed). Federal rules (OTARD) not searched. Local: county/municipal cable franchises not researched. Rule 15: written section-open.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-tenant-repair-agreement-md",
+    title: "Assigning Repairs to Tenants",
+    group: "Tenant Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-repair-agreement",
+    bodyText:
+      "Your lease must state your and the tenant's specific obligations for heat, gas, electricity, water and repair of the premises. You may assign ordinary repairs and chores to the tenant there. Maryland has no separate-writing rule for tenant repair duties and no single-family limit. You cannot shift your duty to repair serious and dangerous defects or the warranty that the unit is fit for human habitation, because those remedies cannot be waived. A tenant's promise to return the unit in good repair does not require rebuilding after a fire the tenant did not cause.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-208(c)(2) ('The landlord’s and the tenant’s specific obligations as to heat, gas, electricity, water, and repair of the premises'); Md. Code Ann., Real Prop. § 8-211(d) ('imposes an obligation on landlords to repair and eliminate conditions and defects'); Md. Code Ann., Real Prop. § 8-113 ('does not bind the tenant to erect any similar building or pay for any building destroyed by fire or otherwise without negligence'); (MD battery C-tenant-repair-agreement-v3: 9 hits; positives passed). Enforceability of particular chore clauses: case law not searched. Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-rent-escrow-md",
+    title: "Rent Escrow for Serious Defects",
+    group: "Landlord Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-repair-remedies",
+    bodyText:
+      "Once notified, you must repair serious and dangerous defects within a reasonable time; more than 30 days is presumed unreasonable. Covered defects include lack of heat, light, electricity or hot or cold water (unless caused by the tenant's own unpaid utility), inadequate sewage disposal, rodents in 2 or more units, serious structural defects, and fire or health hazards. If you do not repair, the tenant may pay rent into court or withhold rent and raise the defects as a defense. The court may abate rent, order repairs, end the lease subject to redemption, or appoint a special administrator. It is a defense that the tenant's household or guests caused the defect or that you were denied reasonable entry. Maryland has no general repair-and-deduct statute.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-211(g)(3) ('There is a rebuttable presumption that a period in excess of 30 days from receipt of notice is unreasonable'); Md. Code Ann., Real Prop. § 8-211(d)(3) ('Infestation of rodents in two or more dwelling units'); (MD battery C-repair-deduct-tenancy-v2: 13 hits; positives passed); (MD battery C-repair-deduct-everyday: 0 hits; no real positive exists, pattern synthetic-tested). Applies to all residential units except farm tenancies (8-211(c)). Local: broader local escrow laws survive (8-211(q)); not researched. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-habitability-warranty-md",
+    title: "Implied Warranty of Habitability",
+    group: "Landlord Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-repair-remedies",
+    bodyText:
+      "By offering a unit for rent, under a written or oral lease, you warrant that it is fit for human habitation at the start of and throughout the tenancy. After notice and a reasonable time to repair, a tenant may sue for damages and rent abatement, or withhold rent and raise the defects as a defense. The tenant does not have to pay rent into court to get this relief. A court may award actual damages, abate rent, or end the lease with return of the unused deposit and relocation expenses, plus the tenant's attorney's fees. Your defenses are that the tenant's household or guests caused the problem or that you were denied reasonable entry.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-212(e) ('Relief for breach of the warranty of habitability under this section may not be conditioned on payment by the tenant of rent'); Md. Code Ann., Real Prop. § 8-212(d) ('The warranty of habitability under this section exists at the beginning of the tenancy and continues throughout the term of the tenancy'). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-utilities-paid-by-landlord-md",
+    title: "Tenant Takeover of Your Utility Account",
+    group: "Landlord Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utilities-paid-by-landlord",
+    bodyText:
+      "This applies when the lease requires you to pay gas or electric and the service is in your name through a single meter serving one unit, not a master meter. If that service faces shutoff, the tenant may open an account in the tenant's own name and does not owe your past-due charges. The tenant may deduct utility payments, or a utility deposit, from rent, and a lease cannot waive that right. A failure-to-pay-rent complaint must subtract these amounts. Electric cooperatives are excluded.",
+    notes: "MD: Md. Code Ann., Pub. Util. § 7-309(c) ('may not incur liability for charges due on the landlord’s account'); Md. Code Ann., Real Prop. § 8-212.3(c) ('A tenant’s rights under this section may not be waived in any lease.'); Md. Code Ann., Real Prop. § 8-401(b)(2)(iii) ('less the amount of any utility bills, fees, or security deposits paid by a tenant under § 7-309 of the Public Utilities Article'). Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-utility-allowance-cap-md",
+    title: "Submetered Utility Pass-Through Limits",
+    group: "Rent & Payment",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utility-allowance-cap",
+    bodyText:
+      "If you submeter gas, electricity or water in an apartment house (buildings with more than two dwelling units), you may charge the units only the utility's actual charges, shared among them in proportion to each unit's measured usage. You may add a service charge of no more than $1 per unit per month for administration and billing. Water and sewer bills may not include leaks you are responsible for, common-area use, or nonresidential use. If your water submetering does not meet every requirement of Maryland's water submetering law, including these charge limits, the meter accuracy standards, the rules for billing from a faulty submeter, and the duty to keep billing records and let occupants inspect them, you may not require a tenant to pay a third party for water or sewer service. If you bill by a Commission-approved energy allocation (estimating) system instead, you may not add administrative fees. Maryland has no separate cap on a utility allowance for private leases.",
+    notes: "MD: Md. Code Ann., Pub. Util. § 7-303(d)(2)(iii) ('may collect an additional service charge not exceeding $1 per unit per month to cover administrative costs and billing'); Md. Code Ann., Envir. § 9-1115(d)(3)(i) ('Poor maintenance or leaks that the owner, operator, manager, or contractor is responsible for'); COMAR 20.26.02.02 ('An owner using an energy allocation system may not directly bill an occupant for'); (MD battery C-utility-allowance-v2: 1 hits; positives passed); (MD battery C-utility-servicecharge-cap-nolimb: 6 hits; positives passed). Md. Code Ann., Real Prop. § 8-205.3(c) ('may not require a tenant to make payments to a third party for water or sewer services'). Md. Code Ann., Envir. § 9-1115(e)-(g) (accuracy, faulty-submeter billing, 'Maintain adequate records regarding individual submeters'). Rule 15: written section-open.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-utility-shutoff-rules-md",
+    title: "Utility Shutoff Protections",
+    group: "Other / Miscellaneous",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utility-shutoff-statute",
+    bodyText:
+      "Utilities, not landlords, are bound by Maryland's shutoff rules, but they affect your tenants and your house accounts. A utility must send a termination notice at least 14 days before shutting off gas or electric service. From November 1 through March 31 it may not terminate residential service for nonpayment unless it first files an affidavit that termination will not threaten life or health. It may not terminate on a day forecast at 32 degrees Fahrenheit or below, or terminate electric service on a day forecast at 95 degrees or above. A certified serious illness or life-support need can delay termination up to 30 days.",
+    notes: "MD: COMAR 20.31.02.05 ('The utility shall send a notice of termination to the customer at least 14 days before the date on or after which termination will occur.'); COMAR 20.31.03.03 ('during the period November 1 through and including March 31 of the immediately succeeding calendar year'); Md. Code Ann., Pub. Util. § 7-307.1(b) ('on a day for which the forecasted temperature is 95 degrees Fahrenheit or above in that weather station area'); COMAR 20.31.03.01 ('may not be terminated for an initial period of up to 30 days beyond the scheduled date of service termination'). Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-midterm-submeter-savings-md",
+    title: "Submeters Installed Mid-Lease",
+    group: "Rent & Payment",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "utility-submetering-disclosure",
+    bodyText:
+      "If you install gas or electric submeters during a lease whose rent includes the cost of gas or electricity for the unit, you must work out how much that unit's gas or electric costs were saved. You must pass that amount to the tenant as a payment or a rent reduction. All units in the building must be submetered before any unit may be. Units built, managed, operated, developed or subsidized by a local housing authority are excluded.",
+    notes: "MD: Md. Code Ann., Pub. Util. § 7-303(d)(3)(ii) ('pass that amount on to the unit’s occupant as a payment or reduction in rent'); COMAR 20.25.01.02 ('A unit in an apartment house, shopping center, or office building may not be submetered unless all units in that building are submetered.'). Lease statements for submetered gas/electric are covered by clause utility-submetering-energy-md. Rule 15: written section-open.",
+  },
+  // Building & Safety
+  {
+    id: "edu-no-key-control-policy-md",
+    title: "No Key-Control Mandate",
+    group: "Building & Safety",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "key-control-policy",
+    bodyText:
+      "Maryland has no statute requiring apartment owners to adopt a key-control policy or to run background checks on employees who have access to units. Maryland's criminal-history rules for landlords cover screening prospective tenants, not staff. A written key log and limited master-key access are still sound practice. Each entry must still meet the state notice and hours rules.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-2A-03 ('A landlord that conducts a criminal history records check in accordance with this subtitle shall do so for every prospective tenant.'); (MD battery C-keycontrol-v2: 3 hits; positives passed); (MD battery C-keycontrol-bgcheck-employees: 5 hits; positives passed). Rule 15: written section-open.",
+  },
+  // Access & Entry
+  {
+    id: "edu-entry-remedies-md",
+    title: "Entry Violations and Refused Access",
+    group: "Access & Entry",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-entry",
+    bodyText:
+      "If you enter in violation of the entry rules, or repeatedly demand entry without complying, a tenant may get a court injunction and damages for breach of the right to quiet enjoyment. You are liable for violations by agents acting at your direction. The statute gives you no damages remedy when a tenant refuses entry. A refusal is a defense if the tenant later sues over repairs you were denied access to make. A tenant who alleges a housing code violation must give you access within 24 hours after notifying you.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-221(d)(2) ('assess appropriate damages against the landlord for breach of the tenant’s covenant to quiet enjoyment of the leased premises'); Md. Code Ann., Real Prop. § 8-221(f) ('the tenant shall provide the landlord access to the leased premises within 24 hours after notifying the landlord of the alleged violation'); Md. Code Ann., Real Prop. § 8-211(l) ('the landlord or the landlord’s agents were denied reasonable and appropriate entry for the purpose of correcting or repairing the asserted conditions or defects'). Entry notice itself is covered by clause landlords-access-md. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-scheduled-service-entry-md",
+    title: "Routine Service Visits Need Notice",
+    group: "Access & Entry",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "periodic-services-entry",
+    bodyText:
+      "Maryland has no exception for regularly scheduled services such as pest control or filter changes. Each non-emergency entry needs written notice at least 24 hours ahead, giving the date, approximate time and specific purpose, between 7:00 a.m. and 7:00 p.m. Monday through Saturday. The tenant may agree in writing to shorter notice or other times. Whether one advance notice listing several dated visits satisfies the rule is unsettled.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-221(c)(5) ('A tenant may agree in writing to allow a landlord to enter the leased premises less than 24 hours from receipt of notice.'); Md. Code Ann., Real Prop. § 8-221(b)(1)(ii) ('Enter only between the hours of 7:00 a.m. and 7:00 p.m. Monday through Saturday, or another time agreed on, in writing, by the tenant'). Case law not searched. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-smart-access-md",
+    title: "No Smart-Lock Law",
+    group: "Access & Entry",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "smart-access",
+    bodyText:
+      "Maryland has no statute regulating smart locks, keypad or app-based entry systems in residential rentals. The state entry rules still apply to any entry, whatever the lock technology: written notice at least 24 hours ahead, permitted purposes and permitted hours.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-221(c)(1) ('A landlord shall provide written notice to the tenant at least 24 hours in advance of the time that the landlord intends'); (MD battery C-smart-access-tenancy: 0 hits; no real positive exists, pattern synthetic-tested); (MD battery C-smart-access-nolimb-pos: 12 hits; positives passed). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-abandoned-property-md",
+    title: "Abandoned Belongings: No Self-Help",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "abandoned-property",
+    bodyText:
+      "Maryland has no statewide procedure for storing, selling or disposing of a tenant's belongings. Your lease may not let you take the unit or the tenant's personal property unless the lease has ended and the property has been abandoned. Otherwise you may take possession only through a court warrant executed by the sheriff or constable, or after the tenant abandons or surrenders the unit. Your warrant notice must warn the tenant that belongings left behind could be lost. Local disposal practices vary.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-208(d)(6) ('Authorizes the landlord to take possession of the leased premises, or the tenant’s personal property unless the lease has been terminated'); Md. Code Ann., Real Prop. § 8-407(b)(2)(ix) ('You could lose all your personal belongings left inside your home when the eviction occurs.'); (MD battery C-abandoned-prop-tenancy: 37 hits; positives passed); (MD battery C-abandoned-belongings-everyday: 6 hits; positives passed). What counts as abandonment is unsettled; case law not searched. Local: disposal practices at eviction (e.g., Baltimore City public local law) not researched. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-mitigation-md",
+    title: "Duty to Mitigate Damages",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "abandonment-and-mitigation",
+    bodyText:
+      "If a tenant moves out early or never takes possession, you must make reasonable efforts to reduce your losses, and a lease cannot waive this duty. You do not have to show or rent the vacated unit ahead of your other available units. You may sublet the unit without notice to the tenant. The tenant stays secondarily liable for rent for the original term if you promptly notify the tenant of any sublessee default. Rent you receive from re-renting during the rest of the term reduces what the tenant owes.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-207(d) ('No provision in this section may be waived in any lease.'); Md. Code Ann., Real Prop. § 8-203(f)(3) ('any amount of rents received by the landlord for the premises during the remainder if any, of the tenant’s term, shall reduce'). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-attorney-fees-rent-court-md",
+    title: "Attorney's Fees in Rent Cases",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "attorney-fees",
+    bodyText:
+      "In a residential failure-to-pay-rent case, the court may give you possession and, if the tenant was personally served, a judgment for rent, late fees and court costs. The statute provides lease-based attorney's fees in rent court only for nonresidential tenancies. Whether a residential lease fee clause can be enforced in a separate damages suit is unsettled. Maryland has no statute requiring a residential lease fee clause to be mutual. Tenants can recover attorney's fees under many tenant-protection statutes.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-401(e)(2)(v) ('Reasonable attorney’s fees, if the lease agreement authorizes the landlord to recover attorney’s fees'); Md. Code Ann., Real Prop. § 8-401(e)(2)(iv) ('In the case of a residential tenancy, the court may also give judgment in favor of the landlord for the amount of'); (MD battery C-attyfee-lease-tenancy: 16 hits; positives passed); (MD battery C-attyfee-reciprocal: 0 hits; no real positive exists, pattern synthetic-tested). Mobile home parks have a reciprocity rule (Md. Code Ann., Real Prop. § 8A-1501(b)(3)). Case law not searched. Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-casualty-mitigation-nonwaivable-md",
+    title: "Casualty and Mitigation Not Waivable",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "casualty-and-mitigation-waivable",
+    bodyText:
+      "Your lease cannot waive your duty to mitigate damages when a tenant leaves early. The statute ending short tenancies after a fire or unavoidable accident has no waiver clause of its own. However, a residential lease may not make the tenant waive any right or remedy provided by law. Whether a lease can override the casualty rule is unsettled, so do not rely on a lease term that does.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-207(d) ('No provision in this section may be waived in any lease.'); Md. Code Ann., Real Prop. § 8-208(d)(2) ('Has the tenant agree to waive or to forego any right or remedy provided by applicable law'). Case law not searched. Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-casualty-termination-md",
+    title: "Fire or Casualty Ends Lease",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "casualty-termination",
+    bodyText:
+      "If the unit becomes untenantable because of fire or unavoidable accident, a tenancy for a term of not more than seven years ends automatically. Rent stops, prorated to the day of the fire or accident. The statute contains no fault exception, though a tenant who caused the damage may still owe damages. A tenant's promise to return the unit in good repair does not require rebuilding after a fire the tenant did not cause. Maryland has no statute on partial damage or on retrieving belongings after a casualty.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-112 ('the tenancy terminates, and all liability for rent ceases on payment proportionately to the day of fire or unavoidable accident'); Md. Code Ann., Real Prop. § 8-113 ('does not bind the tenant to erect any similar building or pay for any building destroyed by fire or otherwise without negligence'); (MD battery C-casualty-tenancy: 14 hits; positives passed). Tenant-fault damages: case law not searched. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-condo-coop-conversion-md",
+    title: "Condo or Co-op Conversion Rights",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "conversion-notice",
+    bodyText:
+      "Before converting a rental facility to a condominium or cooperative, you must give each tenant the statutory notice, which for a condominium includes a purchase offer. A tenant in possession may not be required to leave for 180 days after the notice, except for breach or nonpayment, and leases ending sooner are extended on the same terms. The tenant may end the lease without penalty on at least 30 days' written notice. Households may be owed up to $750 in moving expenses. In facilities of 10 or more units, qualifying senior or disabled households may get extended leases. Failing to give the notice is a defense to an action for possession.",
+    notes: "MD: Md. Code Ann., Real Prop. § 11-102.1(e) ('may terminate his lease, without penalty for termination upon at least 30 days’ written notice to his landlord'); Md. Code Ann., Real Prop. § 11-102.1(h) ('Failure of a landlord or owner to give notice as required by this section is a defense to an action for possession.'); Md. Code Ann., Corps. & Ass'ns § 5-6B-05(e) ('may terminate the lease, without penalty for termination, upon at least 30 days’ written notice to the landlord'). Moving-expense amounts from Md. Code Ann., Real Prop. § 11-136(h); extended leases Md. Code Ann., Real Prop. § 11-137 (read in part). Local: Md. Code Ann., Real Prop. § 11-140 and Md. Code Ann., Corps. & Ass'ns § 5-6B-10 let counties/municipalities declare a conversion rental-housing emergency; local laws not researched. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-senior-facility-conversion-md",
+    title: "Senior Apartment Conversion Notice",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "conversion-notice",
+    bodyText:
+      "If you own a senior apartment facility (4 or more units that qualify as housing for older persons, not a nursing home or assisted living) and convert it to general occupancy, give every tenant written notice at least 180 days before the conversion. The notice must say the facility will convert, give the date, and state that the tenant may end the lease before then on at least 1 month's written notice. You must honor such terminations whatever the lease says. You may not keep any deposit for rent that would have come due later.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-217(b)(1) ('At least 180 days before converting a senior apartment facility into an apartment facility for the general population'); Md. Code Ann., Real Prop. § 8-217(c)(2) ('May not withhold any portion of a tenant’s security deposit for rent that would have become due under any remaining term of the lease'). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-eviction-notices-md",
+    title: "Notices Before Filing Eviction",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "cure-and-eviction-grounds",
+    bodyText:
+      "For unpaid rent, before filing you must give the Maryland Judiciary's written notice that you will file unless the tenant cures within 10 days. Deliver it by first-class mail with a certificate of mailing, by posting on the door, or electronically if the tenant chose that. For other lease breaches, give 30 days' written notice, or 14 days where the behavior shows a clear and imminent danger of serious harm. The breach route is available only if the lease allows repossession for breach, and the court must find the breach substantial. To end a tenancy at the end of its term, give 60 days' written notice for a month-to-month tenancy or a written lease of more than 1 week, 90 days for year-to-year, and 7 days for week-to-week with a written lease (21 days without one).",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-401(c)(1) ('if the tenant does not cure within 10 days after the written notice is provided to the tenant'); Md. Code Ann., Real Prop. § 8-402.1(b)(1) ('the breach was substantial and warrants an eviction'); Md. Code Ann., Real Prop. § 8-402(c)(2)(i) ('If the parties have a written lease for a stated term in excess of 1 week or a tenancy from month to'). Local: Md. Code Ann., Real Prop. § 8-402(c)(3)(ii) (tenant parol notice substitute not in Baltimore City); 8-402(c)(4) shortened foreclosure notices not in Baltimore City or Montgomery County. Rule 15: written section-open.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-no-drug-free-addendum-md",
+    title: "No Drug-Free Addendum Statute",
+    group: "Rules & Regulations",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "drug-free-housing-addendum",
+    bodyText:
+      "Maryland has no statute authorizing or regulating drug-free or crime-free lease addenda. To evict for a drug-related breach, you use the lease-breach procedure, which requires a lease term allowing repossession for breach. Any addendum must not limit a tenant's ability to call police or emergency services, or penalize a tenant for those calls.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-208(d)(10)(i) ('Limits the ability of a tenant to summon the assistance of law enforcement or emergency services'); (MD battery C-crimefree-v2: 2 hits; positives passed). Federal assisted-housing rules not searched. Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-abuse-eviction-defense-md",
+    title: "Abuse Victims: Eviction Defense",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-eviction-protection",
+    bodyText:
+      "If you sue to evict for breach of lease and the tenant or a legal occupant is a victim of abuse, the tenant can raise a presumption that the breach does not warrant eviction. The tenant does this by giving the court a protective order, a peace order based on abuse, or a qualified third-party report. The report must have the perpetrator's name and description redacted, and the alleged breach must have occurred within 60 days of the report's signing. The court may rule for the tenant even without those documents. This applies to breach-of-lease cases, not nonpayment or holdover cases.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-5A-04(b)(1) ('A tenant is deemed to have raised a rebuttable presumption that the alleged breach of the lease does not warrant an eviction'). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-abuse-lease-termination-md",
+    title: "Abuse Victims May End Lease",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-lease-termination",
+    bodyText:
+      "A tenant may end future rent liability if the tenant or a legal occupant is a victim of abuse. The tenant gives you written notice of intent to vacate by first-class mail or hand delivery, with a protective order, a peace order based on abuse, or a redacted qualified third-party report signed within the preceding 60 days. The tenant then has 30 days to move out and owes rent only until vacating, up to 30 days. If the tenant leaves early and sends a signed, notarized notice, you must inspect and give a written statement of rent owed or any refund. If the tenant does not leave within 30 days, you may treat the tenant as holding over or treat the notice as rescinded. An abuser who is a co-tenant remains liable.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-5A-02(a) ('a tenant may terminate the tenant’s future liability under a residential lease if the tenant or legal occupant is a victim of abuse'); Md. Code Ann., Real Prop. § 8-5A-02(c)(1) ('up to a maximum of 30 days'); Md. Code Ann., Real Prop. § 8-5A-03(b)(3)(ii) ('The report was signed by the qualified third party within the preceding 60 days.'). Effect on non-abuser co-tenants is not addressed by statute; case law not searched. Rule 15: written section-open.",
+  },
+  // Access & Entry
+  {
+    id: "edu-abuse-lock-change-md",
+    title: "Lock Change for Abuse Victims",
+    group: "Access & Entry",
+    states: ["MD"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-lockchange",
+    bodyText:
+      "When a tenant who is a victim of abuse gives you a written request with a protective order or abuse-based peace order requiring the abuser to stay away or vacate, you must change the locks by the close of the next business day. If you do not, the tenant may have a certified locksmith change them and must give you a duplicate key by the close of the next business day. If you change the locks, give the tenant a new key within 48 hours, at a mutually agreed time. You may charge the reasonable cost of changing the locks. If the tenant does not pay within 45 days, you may charge it as additional rent or withhold it from the security deposit.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-5A-05(c)(1) ('The landlord shall change the locks on the leased premises by the close of the next business day after receiving a written request'); Md. Code Ann., Real Prop. § 8-5A-05(d)(2) ('May charge a fee to the tenant not exceeding the reasonable cost of changing the locks'). Key clause covered by keys-md. Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-abuse-qualifying-documents-md",
+    title: "Abuse Protection: Qualifying Documents",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-qualifying-documents",
+    bodyText:
+      "To use the abuse-victim protections, a tenant provides a protective order, a peace order whose underlying act was abuse, or a report by a qualified third party. Qualified third parties are licensed physicians or psychologists, social workers or caseworkers of a health or social services agency, and advocates from a domestic violence or sexual assault program. The report must contain the listed details and be signed by the third party under notary seal and by the tenant under penalty of perjury. A lock change requires a protective or peace order; a third-party report is not enough.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-5A-01(h)(2)(vii) ('The signature of the qualified third party, under seal of a notary public'); Md. Code Ann., Real Prop. § 8-5A-05(b) ('A copy of a protective order issued for the benefit of the tenant or legal occupant under § 4-506 of the Family Law Article'). Rule 15: written section-open.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-no-eminent-domain-rent-rule-md",
+    title: "No Condemnation Rent Rule",
+    group: "Other / Miscellaneous",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eminent-domain",
+    bodyText:
+      "Maryland has no statute ending or reducing a tenant's rent when the property is taken by eminent domain. The lease and court decisions govern; what happens without a lease term is unsettled. In condemnation, the tenant's interest is valued in the proceeding, and displaced occupants may get relocation and moving allowances. A condemnation clause in the lease helps avoid disputes.",
+    notes: "MD: Md. Code Ann., Real Prop. § 12-104(c) ('the valuation of the tenant’s interest in a condemnation proceeding'); (MD battery C-eminent-domain-rent-abate-v2: 1 hits; positives passed); (MD battery C-eminent-domain-tenancy-v2: 22 hits; positives passed). Case law not searched. Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-eviction-stays-md",
+    title: "Court Stays of Eviction",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-hardship-stay",
+    bodyText:
+      "In a failure-to-pay-rent case, possession is normally ordered within 4 days after trial. A physician's certificate that leaving would endanger the health or life of the tenant or another occupant can extend that up to 15 days after trial. Warrants are stayed day by day in extreme weather: 32 degrees Fahrenheit or lower (actual or next-day forecast), winter storm or blizzard warnings, hurricane or tropical storm warnings, and excessive heat warnings. Stayed evictions get priority within 5 days after the weather ends. Courts also stay rent cases for federal, State or local government employees furloughed without pay during a government shutdown.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-401(e)(4) ('extend the time for surrender of the premises as justice may require but not more than 15 days after the trial'); Md. Code Ann., Real Prop. § 8-401(f)(2)(i) ('A temperature or next-day forecasted temperature of 32 degrees Fahrenheit or lower'). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-warrant-notice-md",
+    title: "Six-Day Warrant Notice",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-process",
+    bodyText:
+      "After the court issues a warrant of restitution in a nonpayment, holdover or breach case, notify the tenant at least 6 days before the eviction date set by the sheriff. Use first-class mail with a certificate of mailing and a posting on the front door with a date-stamped photograph, plus email or text if you know them. The notice must include the case number, the tenant's name, the address, the warrant and eviction dates, any redemption amount, the statutory warning about belongings, and your contact information. You may charge the tenant no more than $5 for the notice. Without proof of notice the sheriff will not proceed, and the court vacates the warrant if notice was not given.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-407(b)(3) ('A landlord may charge the tenant for expenses actually incurred in providing notice under paragraph (1) of this subsection in an amount'); Md. Code Ann., Real Prop. § 8-407(b)(1) ('at least 6 days before the scheduled date of repossession as set by the sheriff'). Local: localities may set the notice period between 4 and 14 days (8-407(e)); not researched. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-eviction-record-shielding-md",
+    title: "Shielding of Rent Case Records",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-record-sealing",
+    bodyText:
+      "The District Court must shield all records of a failure-to-pay-rent case within 60 days after it ends without a judgment of possession. If there was a possession judgment, the tenant may ask the court to shield the records after redeeming the premises and waiting at least 12 months, or for good cause. Separate rules let tenants seek shielding of rent cases filed from March 5, 2020 through December 31, 2021 for COVID-19 income loss; you may object within 15 days where a judgment was entered for you. Shielded cases will not appear in public court searches.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-503(b)(1) ('the District Court shall shield all court records relating to the proceeding if the proceeding did not result in a judgment of possession'); Md. Code Ann., Real Prop. § 8-502(e)(2) ('A landlord may file an objection to a petition no later than 15 days after receipt of service.'). Md. Code Ann., Real Prop. § 8-503 applies prospectively from 10/1/2024 (2024 Md. Laws ch. 347 § 3). 8-503(b)(2)(i)1 cross-references § 8-401(g) for redemption, which is now § 8-401(h) (stale cross-reference). Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-eviction-service-md",
+    title: "Serving Tenants in Eviction Cases",
+    group: "Notices & General",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-service-party",
+    bodyText:
+      "In a failure-to-pay-rent case the sheriff or constable serves the tenant or the tenant's known or authorized agent. If no one is found or personal service is not requested, the summons is posted on the property after first-class mail. Posting supports a judgment for possession and costs, but not a money judgment for rent. No statute addresses naming the tenant's agent for service in the lease, so whether such a clause works is unsettled. Your own lease must name you or your agent for notices and service.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-401(b)(5)(i) ('shall proceed to serve the summons upon the tenant, assignee, or subtenant or their known or authorized agent'); Md. Code Ann., Real Prop. § 8-401(b)(5)(ii) ('but it shall not be sufficient service to support a default judgment in favor of the landlord for the amount of rent due'). Maryland Rules and case law not searched. Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-just-cause-md",
+    title: "No Statewide Just-Cause Rule",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "for-cause-eviction",
+    bodyText:
+      "Maryland state law does not require a reason to end an ordinary residential tenancy at the end of its term. You must give the required written notice, such as 60 days for a month-to-month tenancy. Mobile home park owners may evict residents only for nonpayment of rent, knowingly false application statements, law violations detrimental to other residents' safety and welfare, or repeated rule violations within 6 months. They must give 30 days' written notice stating the reason. Some counties and cities have their own rules, so check local law.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8A-1101(a) ('A park owner may only evict a resident for'); Md. Code Ann., Real Prop. § 8-402(c)(2)(i) ('If the parties have a written lease for a stated term in excess of 1 week or a tenancy from month to'); (MD battery C-justcause-tenancy-v2: 5 hits; positives passed). Local: local just-cause or rent-stabilization laws (see Md. Code Ann., Real Prop. § 8-209.1) not researched. Rule 15: written section-open.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-foreclosure-tenants-md",
+    title: "Foreclosure and Your Tenants",
+    group: "Other / Miscellaneous",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "foreclosure",
+    bodyText:
+      "If your rental property is foreclosed, a bona fide tenant's lease generally binds the buyer for the rest of its term. The buyer must give at least 90 days' written notice to vacate, by first-class and certified mail, to end a month-to-month tenancy or a lease ending at a sale to a buyer who will live there. The buyer may not collect rent until it serves tenants a notice naming who to pay. The person selling must send foreclosure notices addressed to all occupants. Special shorter termination notices apply to some landlords who receive a notice of intent to foreclose, but not in Baltimore City or Montgomery County or for landlords who offer 5 or more units.",
+    notes: "MD: Md. Code Ann., Real Prop. § 7-105.8(b)(2)(i) ('The provision by the successor in interest of a notice to vacate to any bona fide tenant at least 90 days before'); Md. Code Ann., Real Prop. § 7-105.12(b) ('A foreclosure sale purchaser may not exercise any right to collect rent payments from a bona fide tenant in possession of a'). Local: Md. Code Ann., Real Prop. § 8-402(c)(4) excludes Baltimore City and Montgomery County. Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-no-guarantor-renewal-md",
+    title: "No Guarantor Renewal Statute",
+    group: "Rent & Payment",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "guarantor-renewal",
+    bodyText:
+      "Maryland has no statute limiting a lease guarantor to the original term or requiring a guaranty to state a maximum amount or end date. A guarantor's liability for renewals depends on the guaranty's wording and court decisions, which are unsettled here. If you want a guarantor bound through renewals, say so in the guaranty. A separate statute governs surety bonds that tenants buy instead of a deposit. A guaranty can be enforced in court only if it, or a note of it, is in writing and signed by the guarantor or someone the guarantor authorized.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-203(i)(2)(i) ('Instead of paying all or part of a security deposit to a landlord under this section, a tenant may purchase a surety bond'); (MD battery C-guarantor-tenancy: 4 hits; positives passed); (MD battery C-guarantor-nolimb: 5 hits; no real positive exists, pattern synthetic-tested). Case law not searched. Md. Code Ann., Cts. & Jud. Proc. § 5-901(1) ('To charge a defendant on any special promise to answer for the debt, default, or miscarriage of another person') (MD battery S-SCN-guaranty-writing) (scenario screen P3). Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-no-exemption-waiver-md",
+    title: "No Waiver of Exemptions",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "homestead-waiver",
+    bodyText:
+      "Do not include lease terms waiving the tenant's exemptions from collection. Those exemptions cover household goods up to $1,000, a $6,000 cash-or-property election, tools of a trade, health aids and retirement funds, and a debtor cannot waive them. Do not include a confession of judgment or any waiver of the tenant's legal rights or remedies either. If you offer or try to enforce a prohibited lease term, the tenant may recover actual damages and attorney's fees.",
+    notes: "MD: Md. Code Ann., Cts. & Jud. Proc. § 11-504(d) ('The debtor may not waive, by cognovit note or otherwise, the provisions of subsections (b) and (h) of this section.'); Md. Code Ann., Real Prop. § 8-208(d)(1) ('Has the tenant authorize any person to confess judgment on a claim arising out of the lease'). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-medical-termination-md",
+    title: "Medical Early Termination",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "infirmity-termination",
+    bodyText:
+      "A tenant's rent liability is capped at 2 months' rent after moving out if, before moving out, the tenant gives you written notice of termination with the move-out date. The tenant must also give you a certification signed by a physician or psychologist licensed in Maryland, on letterhead or a prescription form and in the statutory wording. It must say a named party or authorized occupant can no longer live there because of a medical condition limiting mobility, a need for a higher level of care, or a mental disorder. This does not apply if your lease already has an early-termination or liquidated damages clause requiring 1 month's notice or less and 2 months' rent or less after move-out.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-212.2(c) ('the tenant’s liability for rent under the lease may not exceed 2 months’ rent after the date on which the tenant vacates the leased premises'); Md. Code Ann., Real Prop. § 8-212.2(b)(1) ('Requires written notice to vacate of 1 month or less'). 2024 HB93/SB162 session-law text names counselors/therapists and intellectual or developmental disability, but the Oct-2026 corpus text of § 8-212.2 lists only physician or psychologist; corpus relied on (possible strikethrough loss in the PDF extraction). Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-no-lease-lien-md",
+    title: "No Lease Lien on Belongings",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-lien",
+    bodyText:
+      "Do not use a lease clause that gives you a lien on, or a right to seize or sell, the tenant's belongings for unpaid rent. Your lease may not let you take the tenant's personal property unless the lease has ended and the property has been abandoned. You may not lock a tenant out to hold belongings. Unpaid rent must be pursued in court.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-208(d)(6) ('Authorizes the landlord to take possession of the leased premises, or the tenant’s personal property unless the lease has been terminated'); Md. Code Ann., Real Prop. § 8-216(b)(1) ('a landlord may not take possession or threaten to take possession of a dwelling unit from a tenant or tenant holding over'). Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-distress-for-rent-md",
+    title: "Court Distress for Rent",
+    group: "Rent & Payment",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-lien",
+    bodyText:
+      "Maryland still allows a court action of distress for unpaid rent, filed in District Court. It is available only under a written lease for a term of more than three months, or a tenancy at will or periodic tenancy that has continued more than three months. The tenant gets a show-cause hearing at least 7 days after service before any levy. Certain tools, professional books and records, and prior perfected security interests are exempt. No forcible entry into a dwelling may be made without a court order.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-302(c) ('An action of distress may be brought only for unpaid rent under a written lease for a term of more than three months'); Md. Code Ann., Real Prop. § 8-309(a) ('no forcible entry may be made into leased premises occupied and used as a dwelling without a court order'). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-rent-and-damages-judgments-md",
+    title: "Money Judgments After Eviction",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-remedies-termination",
+    bodyText:
+      "In Maryland eviction cases you get a money judgment for rent, late fees or holdover damages only if the tenant was personally served with the summons. Holdover damages may be sought in the eviction case or in a separate suit. Accepting a payment after giving notice does not waive the notice or the judgment unless you agree otherwise in writing. Payments you accept go first to rent through the date you recover possession, then to court costs and damages, then to other losses. Any excess goes back to the tenant like a security deposit.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-402.1(d)(1) ('Acceptance of any payment after notice but before eviction shall not operate as a waiver of any notice of breach of lease'); Md. Code Ann., Real Prop. § 8-402(a)(3)(i) ('Any action to recover damages under this section may be brought by suit separate from the eviction or removal proceeding or in the same action'). Rule 15: written section-open.",
+  },
+  // Security Deposit
+  {
+    id: "edu-deposit-not-liquidated-damages-md",
+    title: "Deposit Is Not Liquidated Damages",
+    group: "Security Deposit",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "liquidated-damages",
+    bodyText:
+      "Your security deposit is not liquidated damages, and you may not keep it for a breach except for the amount you are actually damaged (or an authorized court filing surcharge). Maryland has no statute setting or capping an early-termination or liquidated damages fee in a residential lease; whether a given amount is enforceable is unsettled. Late-payment penalties are capped at 5% of the unpaid rent for the period, or $3 a week and $12 a month for weekly rent. An early-termination clause requiring 1 month's notice or less and 2 months' rent or less replaces the medical-termination cap.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-203(f)(2) ('The security deposit is not liquidated damages and may not be forfeited to the landlord for breach of the rental agreement'); Md. Code Ann., Real Prop. § 8-212.2(b)(2) ('Imposes liability for rent less than or equal to 2 months’ rent after the date on which the tenant vacates the leased premises'); (MD battery C-liquidated-damages-tenancy: 3 hits; positives passed). Late-fee cap from Md. Code Ann., Real Prop. § 8-208(d)(3) (covered by clause late-fee-limit-md). Case law not searched. Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-minor-tenant-filing-md",
+    title: "No Rule on Minor Defendants",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "minor-tenant-filing",
+    bodyText:
+      "Maryland has no statute on naming a minor in an eviction case, and no rule barring a filing against a minor. The eviction statutes speak only of the tenant, assignee, subtenant or person in possession. Whether a minor can be bound by a lease or named as a defendant depends on general contract law and court rules, which are unsettled for this purpose. Name the adults who signed the lease.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-401(b)(2)(ii) ('Setting forth the name of each tenant to whom the property is rented or any assignee or subtenant'); (MD battery D-minor-tenant-A: 24 hits; positives passed) (MD battery D-minor-tenant-B: 1 hits; no real positive exists, pattern synthetic-tested) Case law not searched. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-nonpayment-notice-md",
+    title: "Ten-Day Notice Before Rent Case",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nonpayment-notice",
+    bodyText:
+      "Before you file a failure-to-pay-rent case for a residential unit, you must give the tenant written notice that you intend to file if the tenant does not cure within 10 days. The notice must be on the form created by the Maryland Judiciary. Deliver it by first-class mail with a certificate of mailing, by affixing it to the door, or by e-mail, text message or tenant portal only if the tenant elected electronic delivery, with proof of transmission. Your complaint must state the date you gave the notice. The lease cannot waive this notice, and no statute authorizes a fee for it.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-401(c)(1) ('if the tenant does not cure within 10 days after the written notice is provided to the tenant'); Md. Code Ann., Real Prop. § 8-401(c)(2)(i) ('shall be in a form created by the Maryland Judiciary'); Md. Code Ann., Real Prop. § 8-208(d)(2) ('Has the tenant agree to waive or to forego any right or remedy provided by applicable law'); Md. Code Ann., Real Prop. § 8-407(b)(3) ('in an amount not to exceed $5') (warrant notice only). (MD battery D-nonpay-notice-A: 5 hits; positives passed) (MD battery D-notice-waiver: 8 hits; positives passed) (MD battery D-notice-fee: 3 hits; positives passed) 2025 Md. Laws ch. 563 (eff. 10/1/2025). Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-notice-to-quit-waiver-md",
+    title: "Notice to Quit Cannot Shrink",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "notice-to-quit-waiver",
+    bodyText:
+      "Your lease may not shorten or waive the notice Maryland law requires before you end a tenancy. You may agree to give a longer notice. The lease also may not require the tenant to give you longer notice than you must give the tenant. A prohibited term is unenforceable, and offering a lease that contains one lets the tenant recover actual damages and reasonable attorney's fees.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-208(d)(5) ('which is less than that provided by applicable law, except that the parties may agree to a longer notice period'); Md. Code Ann., Real Prop. § 8-501 ('No written agreement between a landlord and tenant shall provide for a longer notice period to be furnished by the tenant'); Md. Code Ann., Real Prop. § 8-208(g)(2) ('the tenant may recover any actual damages incurred as a reason thereof, including reasonable attorney’s fees'). Rule 15: written section-open.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-drug-nuisance-actions-md",
+    title: "Drug and Prostitution Nuisance Suits",
+    group: "Rules & Regulations",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nuisance",
+    bodyText:
+      "If a rental is used for illegal drug activity or prostitution, the State's Attorney, the county attorney, a qualifying community association or a municipality can sue the tenant, the owner and any property manager to abate the nuisance. The court can order a tenant who knew or should have known to vacate within 72 hours. It can also order an owner or operator who knew or should have known to submit a plan of correction. If the tenant does not comply and both you and the tenant are parties, the court can restore possession to you. A drug-nuisance property whose owner ignores the order can be ordered sold or demolished.",
+    notes: "MD: Md. Code Ann., Real Prop. § 14-120(g)(2)(i) ('A tenant who knew or should have known of the existence of the nuisance to vacate the property within 72 hours'); Md. Code Ann., Real Prop. § 14-120(c) ('may be brought against: (1) A tenant of the property where the nuisance is located; (2) An owner'). (MD battery D-nuisance-receiver: 9 hits; positives passed) (MD battery D-lease-summary-statute-B-v3: 49 hits; positives passed) (MD battery D-lease-summary-statute: 0 hits; no real positive exists, pattern synthetic-tested) Case law not searched. Local: Baltimore City (Real Prop. § 14-123), Prince George's (§ 14-124), Baltimore County (§ 14-125), Anne Arundel (§ 14-125.1), Harford (§ 14-125.2) community-association code-violation suits. Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-owner-move-in-reservation-md",
+    title: "No Owner Move-In Termination Right",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "owner-move-in-reservation",
+    bodyText:
+      "Maryland has no statewide just-cause rule and no statutory right to end a lease mid-term so you can move in. At the end of a term or a periodic tenancy you may end the tenancy with the notice Maryland requires (60 days for a month-to-month tenancy or a written lease for a stated term over 1 week). Whether a lease can give you a mid-term owner-occupancy option is unsettled. If you or your spouse are on active duty, relocated to Maryland because of that service, and intend to occupy the unit, you can ask for an expedited holdover hearing. You must file supporting documents with the complaint, and the court sets the hearing within 45 days.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-402(b)(1)(iii) ('Intends to occupy the property that is the subject of a complaint under this section following the entry of a judgment'); Md. Code Ann., Real Prop. § 8-402(b)(1)(iii)2 ('appear before the court on a day not later than 45 days after the date the landlord makes a complaint'). (MD battery D-owner-occupy: 6 hits; positives passed) (MD battery D-just-cause-2: 5 hits; positives passed) Case law not searched. Local: county just-cause ordinances not researched. Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-possession-delay-md",
+    title: "Failure to Deliver Possession",
+    group: "Landlord Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "possession-delay",
+    bodyText:
+      "You must let the tenant move in at the start of the lease term. If you cannot deliver possession, rent abates until you do. Before you deliver possession, the tenant may cancel the lease by written notice, and you must then return all prepaid rent and deposit. You are also liable for consequential damages the tenant actually suffers after telling you it cannot move in. Maryland has no general duty to provide alternate housing, but a court may award relocation expenses when it ends a lease for breach of the warranty of habitability.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-204(c) ('the rent payable under the lease shall abate until possession is delivered'); Md. Code Ann., Real Prop. § 8-204(d) ('the landlord is liable to the tenant for all money or property given as prepaid rent, deposit, or security'); Md. Code Ann., Real Prop. § 8-212(i)(3) ('The termination of the lease, return of any unused portion of a security deposit to the tenant, and relocation expenses for a tenant'). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-eviction-belongings-md",
+    title: "Tenant Belongings at Eviction",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "post-eviction-property",
+    bodyText:
+      "Maryland state law sets no duty to store or inventory a tenant's belongings after a court-ordered eviction. The warrant directs the sheriff or constable to remove the tenant's property. Your notice at least 6 days before the eviction must include the statutory warning that belongings left inside could be lost and that local practices vary. Counties and cities may have their own disposal rules, so check them before the eviction. Your lease may not let you take the tenant's property unless the lease has ended and the property was abandoned.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-407(b)(2)(ix) ('Local laws and practices about disposal of any of your personal belongings upon eviction vary.'); Md. Code Ann., Real Prop. § 8-208(d)(6) ('and the personal property has been abandoned by the tenant without the benefit of formal legal process'). (MD battery D-postevict-storage-v2: 8 hits; positives passed) (MD battery D-postevict-belongings: 10 hits; positives passed) (MD battery D-writ-immunity-4: 8 hits; positives passed) Local: county/municipal eviction-chattel rules (e.g., Baltimore City public local law) not researched; § 8-407(e) lets localities set 4 to 14 days' notice. Rule 15: written section-open.",
+  },
+  // Pets
+  {
+    id: "edu-eviction-pets-md",
+    title: "Pets at Eviction",
+    group: "Pets",
+    states: ["MD"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "post-eviction-property",
+    bodyText:
+      "When a court-ordered eviction is carried out, the sheriff or constable inspects the unit for any dog or cat and gives it to the tenant. If the tenant is not present, the officer contacts an animal shelter or rescue and tells the tenant where the pet went. No one may remove a pet from the unit and leave it on public property or a public right-of-way.",
+    notes: "MD: Md. Code Ann., Real Prop. § 14-806(b) ('leave the pet on public property or a public right-of-way'); Md. Code Ann., Real Prop. § 14-801(d) ('“Pet” means a domesticated dog or cat.'). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-trespass-after-eviction-md",
+    title: "Reentry After Eviction",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "post-eviction-property",
+    bodyText:
+      "Maryland has no crime aimed at a tenant who returns after a court-ordered eviction under a warrant of restitution. A person evicted by a writ of possession who reenters without the purchaser's consent commits a misdemeanor, but that statute applies to a purchaser's writ, not a landlord's warrant of restitution. General trespass law makes it a misdemeanor to remain on private property after the owner or the owner's agent tells the person to leave. Maryland gives landlords no special statutory immunity for carrying out an eviction warrant.",
+    notes: "MD: Md. Code Ann., Real Prop. § 14-114 ('If a party evicted by a writ of possession reenters on the property without the consent of the purchaser'); Md. Code Ann., Crim. Law § 6-403(b) ('A person may not remain on private property including the boat or other marine vessel of another'). (MD battery D-trespass-after-writ-2: 6 hits; positives passed) (MD battery D-writ-immunity-4: 8 hits; positives passed) Case law not searched. Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-redemption-md",
+    title: "Tenant's Right of Redemption",
+    group: "Rent & Payment",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "redemption",
+    bodyText:
+      "After you win a judgment for possession for unpaid rent, the tenant can still keep the unit by paying all past-due amounts the court determined, plus court-awarded costs and fees, at any time before the eviction is actually carried out. You must accept payment in cash, certified check or money order, and a check from a government agency counts. The right does not apply to a tenant who had three judgments of possession for unpaid rent in the 12 months before the case began. Your 6-day eviction notice must state the amount still needed to redeem.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-401(h)(1) ('at any time before actual execution of the eviction order'); Md. Code Ann., Real Prop. § 8-401(h)(3) ('three judgments of possession have been entered for rent due and unpaid in the 12 months prior'); Md. Code Ann., Real Prop. § 8-407(b)(2)(vii) ('a statement showing the amount still due to redeem the property'). (MD battery D-tender-limit: 3 hits; positives passed) Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-rent-into-court-md",
+    title: "When Rent Goes Into Court",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-into-court-counterclaim",
+    bodyText:
+      "Maryland has no rule forcing a tenant to file a counterclaim before raising a defense, and no general rule requiring rent to be paid into court before a defense is heard. Rent is paid into court in four statutory situations. First, if either party demands a jury trial in an eviction case, the court orders rent paid as it comes due. Second, if the court adjourns an eviction trial for longer than the eviction statute allows, the tenant must pay into court the amount the court sets before the adjourned trial date (within 5 days if the adjournment is longer than 5 days), and if the tenant does not pay and has no legal justification, the court, on your motion and after a hearing, gives you judgment and a warrant for possession. Third, if the tenant seeks rent escrow for serious defects, whether in the tenant's own case or as a defense to yours, relief depends on the tenant paying the lease rent into court unless the court changes the amount. Fourth, a tenant may deposit rent in a District Court escrow account if a pre-1978 rental fails the lead risk reduction standard. A tenant claiming breach of the warranty of habitability does not have to pay rent into escrow to get relief.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-118(a) ('directing the tenant or anyone holding under the tenant to pay all rents as they come due during the pendency of the action'); Md. Code Ann., Real Prop. § 8-211(k)(2) ('Payment by the tenant of the amount of rent required by the lease into the court'); (j)(1) ('Whether the issue of rent escrow is raised affirmatively or defensively'); Md. Code Ann., Real Prop. § 8-212(e) ('may not be conditioned on payment by the tenant of rent into escrow with the court'). (MD battery D-counterclaim-2: 3 hits; positives passed) Md. Code Ann., Real Prop. § 8-211.1(a) ('the tenant may deposit the tenant’s rent in an escrow account with the clerk of the District Court'). Md. Code Ann., Real Prop. § 8-403(a) ('orders an adjournment of the trial for a longer period than provided for in the section under which the case has been instituted'), (c), (d) (payment due before the adjourned date, or within 5 days of a longer adjournment; unjustified nonpayment gives judgment and a warrant for possession); § 8-401(e)(1) (adjournment over 1 day only with all parties' consent). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-rental-application-accuracy-md",
+    title: "False Applications: No Special Remedy",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rental-application-accuracy",
+    bodyText:
+      "Maryland gives residential landlords no statutory right to end a lease because an application was false. If the lease lets you repossess before the term ends for a breach, you may give 30 days' written notice of the violation and sue. The court must find the breach substantial and that it warrants eviction. Before the lease is signed, you may reject an applicant whose reusable screening report has a material change. If you own or manage 5 or more Maryland units, criminal-history questions and offer withdrawals must follow the state screening rules. The mobile home park act's false-application eviction ground does not apply to apartments or houses.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-402.1(a)(1)(i) ('provides that the landlord may repossess the premises prior to the expiration of the stated term if the tenant breaches the lease'); Md. Code Ann., Real Prop. § 8-402.1(b)(1) ('the breach was substantial and warrants an eviction'); Md. Code Ann., Real Prop. § 8-218(f) ('a landlord may reject an application for tenancy if a prospective tenant made a material change'); Md. Code Ann., Real Prop. § 8A-1101(a)(2)(i) ('Making or causing to be made, with knowledge, any false or misleading statement on an application for tenancy'). (MD battery D-application-falsity: 3 hits; positives passed) (MD battery D-fraud-termination-v2: 4 hits; positives passed) Case law not searched. Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-retaliation-md",
+    title: "Retaliation Is Prohibited",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "retaliation",
+    bodyText:
+      "You may not file or threaten an eviction, arbitrarily raise rent or cut services, or end a periodic tenancy because a tenant complained in good faith (to you or a public agency), sued you or testified, joined a tenants' organization, or because someone called police or emergency services to the property. The tenant can raise retaliation as a defense or sue. A court can award up to 3 months' rent plus reasonable attorney's fees and costs. The protection applies only if the tenant is current on rent (or lawfully withholding) and only to your actions within 6 months after the tenant's protected act. A tenant who claims retaliation in bad faith can be ordered to pay you the same amounts. In Montgomery County a separate state statute also bars evicting a tenant because the tenant filed a complaint with a public agency, sued you, or belongs to a tenants' organization, without the rent-current and 6-month conditions, and lets the court award the tenant attorney's fees and costs.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-208.1(c)(1) ('damages not to exceed the equivalent of 3 months’ rent, reasonable attorney fees, and court costs'); Md. Code Ann., Real Prop. § 8-208.1(e) ('occurs more than 6 months after a tenant’s action that is protected'). Local: Montgomery County (Real Prop. § 8-206); § 8-208.1(g) supersedes less-protective county ordinances. Montgomery County: Md. Code Ann., Real Prop. § 8-206(b) ('No landlord may evict a tenant of any residential property in Montgomery County because'), (c) attorney fees and court costs; place-limited state statute (rule 32). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-self-help-eviction-md",
+    title: "No Lockouts or Utility Shutoffs",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "self-help-eviction",
+    bodyText:
+      "You may not take or threaten to take possession of a unit by locking the tenant out, by any other action, or by intentionally interrupting heat, running water, hot water, electricity or gas to force the tenant out. You may retake possession only under a court warrant executed by a sheriff or constable, or if the tenant has abandoned or surrendered the unit. A tenant who wins can recover actual damages and reasonable attorney's fees and costs. After a final court order awarding possession, you may stop paying for utilities if you give reasonable notice and a chance for the tenant to open an account. You may take temporary steps, including changing locks, to secure an unsecured property if you try in good faith to tell the tenant how to be promptly restored to possession.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-216(b)(1) ('may not take possession or threaten to take possession of a dwelling unit from a tenant or tenant holding over by locking the tenant out'); Md. Code Ann., Real Prop. § 8-216(c)(1) ('the tenant may recover: (i) Actual damages; and (ii) Reasonable attorney’s fees and costs'). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-servicemember-termination-md",
+    title: "Servicemember Change of Assignment",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "servicemember-rights",
+    bodyText:
+      "If an active service member or the member's spouse signs a residential lease and the member later receives a change of assignment, the tenant can limit rent liability by giving you written notice and proof. Liability is then capped at rent and lawful charges already due plus 30 days' rent after the notice and proof, plus the cost to repair damage the tenant caused. A change of assignment includes permanent change of station orders, temporary duty orders over 90 days, orders to move into on-base quarters, and release from active duty (retirement, honorable separation, or demobilization after at least 180 consecutive days on active duty orders). The right applies before or after the tenant moves in, and no lease text is needed. The amended definition is in effect from October 1, 2026.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-212.1(b)(1) ('Any rent or lawful charges then due and payable plus 30 days’ rent after written notice and proof of the change of assignment'); Md. Code Ann., Real Prop. § 8-212.1(a)(3)(ii) ('Temporary duty orders for a period exceeding 90 days'); 2026 Md. Laws ch. 494. 'Active service member' per Md. Code Ann., State Gov't § 9-901(d) via Gen. Provis. § 1-101.2. Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-servicemember-protections-md",
+    title: "Military Status and SCRA Protections",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "servicemember-rights",
+    bodyText:
+      "Maryland fair housing law bans refusing to rent, or setting different terms, because of military status. The federal Servicemembers Civil Relief Act, including its eviction stays and default-judgment protections, also applies under Maryland law to Maryland National Guard members ordered to duty under state or federal orders for 14 or more consecutive days. Violating the federal Act is an unfair or deceptive trade practice under Maryland law. Maryland has no state deadline for deciding servicemember applications and no state eviction stay keyed to a rent amount.",
+    notes: "MD: Md. Code Ann., State Gov't § 20-705(a)(1) ('source of income, or military status'); Md. Code Ann., Pub. Safety § 13-704(b)(2) ('applies only when members of the National Guard are ordered to military duty under this title or Title 10 or Title 32'); Md. Code Ann., Com. Law § 13-301(14)(xxxiv) ('The federal Servicemembers Civil Relief Act'). (MD battery D-servicemember-application-v2: 1 hits; positives passed) (MD battery D-military-stay-C: 5 hits; positives passed) Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-social-security-defense-md",
+    title: "No Benefit-Delay Eviction Defense",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "social-security-defense",
+    bodyText:
+      "Maryland has no eviction defense or stay for a tenant whose Social Security or other benefit payment is late. The closest rules are narrower. A court must stay a failure-to-pay-rent case for a federal, State or local government employee furloughed without pay during a government shutdown. A check from a government agency counts toward the tenant's right of redemption.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-401(d)(2)(iii) ('Is involuntarily furloughed from work without pay because of a government shutdown'); Md. Code Ann., Real Prop. § 8-401(h)(2) ('An electronic or written check issued by a political subdivision or on behalf of a governmental entity shall have the same legal effect'). (MD battery D-social-security-E: 5 hits; positives passed) Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-landlord-fraud-termination-md",
+    title: "No Statutory Fraud Termination",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "statutory-early-termination",
+    bodyText:
+      "Maryland has no statute letting a tenant end a residential lease because of a landlord's misrepresentation; any such right comes from case law, which is unsettled. Maryland also has no rule that leaving a required sentence out of the lease cancels past-due rent. A few omissions carry their own penalties. If you do not give the written deposit-rights statement when you take the deposit, you lose the right to withhold any of it for damages. An automatic-renewal clause without the tenant's initials, signature or witnessed mark is unenforceable by you.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-203(f)(1)(vii) ('Failure by the landlord to comply with this requirement forfeits the right of the landlord to withhold any part of the security deposit for damages'); Md. Code Ann., Real Prop. § 8-208(e)(2) ('is unenforceable by the landlord'). (MD battery D-fraud-termination-v2: 4 hits; positives passed) (MD battery D-omitted-statement-forfeit: 3 hits; positives passed) Case law not searched. Local: Anne Arundel County receipt violation forfeits rent on conviction (Real Prop. § 8-205(a)(2)). Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-no-subsidized-inspection-refusal-md",
+    title: "Voucher Inspections and Income Rules",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "subsidized-inspection-refusal",
+    bodyText:
+      "Maryland has no statute that lets you refuse a voucher tenancy because of the program's inspection. Refusing to rent because a tenant pays with a housing voucher is source-of-income discrimination, and if you use financial information to screen, you may not reject a subsidy holder because of income, credit score or credit problems from a confirmed time without the subsidy, though you may require income covering the tenant's share of the rent at a ratio substantially equivalent to the one you use for other tenants. Narrow exemptions cover, for vouchers, rooms in your own principal residence and owner-occupied buildings of not more than five rental units, and the fair housing law does not cover renting a single-family home without using a broker, agent or anyone in the business of renting dwellings and without a discriminatory advertisement or notice. Under the Statewide Rental Assistance Voucher Program, the housing agency inspects on or before the initial lease date and at least every two years. Owners of 3 to 49 unit buildings supply a certificate of occupancy completed within 1 year, and owners of 50+ unit buildings supply an inspection certificate.",
+    notes: "MD: Md. Code Ann., Hous. & Cmty. Dev. § 4-2911(a)(2) ('Inspections shall occur on or before the initial lease date and at least biennially thereafter'); Md. Code Ann., State Gov't § 20-704(a)(2)(ii) ('the rental of any apartment in a dwelling that contains not more than five rental units, if the owner maintains the dwelling'); Md. Code Ann., State Gov't § 20-704(d)(1) ('verifying in a commercially reasonable and nondiscriminatory manner the source and amount of income or creditworthiness'). (MD battery D-subsidy-inspection: 7 hits; positives passed) Md. Code Ann., State Gov't § 20-705.1(b) ('may not refuse to rent to a prospective tenant who pays rent with the assistance of an income-based housing subsidy on the basis of'). Full rule: `edu-source-of-income-md`. Md. Code Ann., State Gov't § 20-704(a)(1) ('the sale or rental of a single-family dwelling, if the dwelling is sold or rented without'). Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-end-of-term-notice-md",
+    title: "Fixed Term Still Needs Notice",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "surrender-end-of-term",
+    bodyText:
+      "Maryland has no statewide just-cause rule, but a lease term does not end possession on its own. To recover possession at the end of a written lease for a stated term over 1 week, you must give written notice at least 60 days before the term ends (90 days for a year-to-year tenancy). You do not need to send that notice if the tenant gave you notice of moving out at least 30 days ahead (90 for year-to-year), except in Baltimore City. If you let the tenant stay after the term without a new agreement, the tenancy becomes month-to-month unless the written lease, initialed by the tenant, says otherwise.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-402(c)(1) ('This subsection applies to all cases of tenancies at the expiration of a stated term'); Md. Code Ann., Real Prop. § 8-402(d) ('Unless stated otherwise in the written lease and initialed by the tenant'). (MD battery D-just-cause-2: 5 hits; positives passed) Local: Baltimore City excluded from § 8-402(c)(3); local just-cause ordinances not researched. Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-tenancy-at-will-md",
+    title: "Unwritten Leases Become At-Will",
+    group: "Notices & General",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenancy-at-will",
+    bodyText:
+      "In Maryland, a lease for more than one year that is not in writing and signed has the effect of a tenancy at will only. An oral lease for one year or less is not affected. Maryland's holdover statute covers tenancies at will, but its notice periods list only stated-term, year-to-year, month-to-month and week-to-week tenancies. The notice needed to end a true tenancy at will is unsettled. Use a signed written lease.",
+    notes: "MD: Md. Code Ann., Real Prop. § 5-101 ('has the force and effect of an estate or interest at will only'); Md. Code Ann., Real Prop. § 5-102 ('not applicable to a leasehold estate not exceeding a term of one year'); Md. Code Ann., Real Prop. § 8-402(b)(1)(i) ('where any tenancy is for any definite term or at will'). (MD battery D-at-will: 8 hits; positives passed) Case law not searched. Rule 15: written section-open.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-tenant-caused-damage-md",
+    title: "Tenant-Caused Damage Limits",
+    group: "Tenant Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-caused-damage",
+    bodyText:
+      "You may withhold from the security deposit for unpaid rent, for damage due to breach of the lease, and for damage beyond ordinary wear and tear caused by the tenant or the tenant's family, agents, employees, guests or invitees. Damage by anyone outside that list should rest on a lease breach. A tenant's rent-escrow or habitability claim fails if the tenant, family, agent, employees, assignees or social guests caused the defect. Your lease cannot waive the tenant's repair remedies or excuse you from liability for your own negligence.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-203(f)(1)(i) ('damage by the tenant or the tenant’s family, agents, employees, guests or invitees in excess of ordinary wear and tear'); Md. Code Ann., Real Prop. § 8-211(l) ('the tenant, the tenant’s family, agent, employees, or assignees or social guests have caused the asserted defects'); Md. Code Ann., Real Prop. § 8-105 ('the provision is considered to be against public policy and void'). Case law not searched. Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-tenant-death-md",
+    title: "When a Tenant Dies",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-death",
+    bodyText:
+      "Maryland has no statute ending a lease when a tenant dies and no statutory emergency-contact or authorized-person procedure. Deal with the personal representative of the tenant's estate. If the tenant died without a will and without next of kin, you may bring a failure-to-pay-rent action against the named tenant, certifying those facts in the complaint. Property you hold for that tenant is then presumed abandoned under Maryland's unclaimed property law. An emergency contact named in a lease does not, by statute, have authority over the tenant's belongings or deposit.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-405(a) ('If a tenant under a lease dies intestate and without next of kin, the landlord may bring an action for summary ejectment'); Md. Code Ann., Real Prop. § 8-405(c) ('shall be presumed abandoned in accordance with Title 17 of the Commercial Law Article'). (MD battery D-tenant-death: 28 hits; positives passed) (MD battery D-contact-person-2: 16 hits; positives passed) Case law not searched. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-termination-notice-periods-md",
+    title: "Notice Periods to End Tenancy",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "termination-notice",
+    bodyText:
+      "To end a tenancy you must give written notice before it expires. The periods are 60 days for a written lease for a stated term over 1 week or a month-to-month tenancy, and 90 days for year-to-year. Most farm year-to-year tenancies need 180 days. Week-to-week tenancies need 7 days with a written lease or 21 days without one. If you received a notice of intent to foreclose, offer fewer than 5 units for rent in Maryland, the property is not subject to an order to docket a foreclosure, and the property is outside Baltimore City and Montgomery County, you may use 30 days (month-to-month or week-to-week) or 60 days (year-to-year). Maryland has no statutory payment-plan offer or extension notice for elderly or disabled tenants in ordinary terminations; condominium and cooperative conversions have their own rules.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-402(c)(2)(i) ('a written lease for a stated term in excess of 1 week or a tenancy from month to month, 60 days before the expiration'); Md. Code Ann., Real Prop. § 8-402(c)(2)(iv) ('If the parties have a written lease, 7 days before the expiration of the tenancy'); Md. Code Ann., Real Prop. § 8-402(c)(4)(i) ('Owned by a landlord who offers 5 or more residential dwelling units for rent in the State'). (MD battery D-payment-plan-B2: 36 hits; positives passed) (MD battery D-elderly-disabled-extension: 6 hits; positives passed) (MD battery D-liquidated-damages: 4 hits; positives passed) Local: Baltimore City and Montgomery County excluded from § 8-402(c)(4). Md. Code Ann., Real Prop. § 8-402(c)(4)(i)3 ('Subject to an order to docket under § 7-105.1(e) of this article'). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-wrongful-detainer-md",
+    title: "Removing Non-Tenant Occupants",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "unauthorized-occupant-removal",
+    bodyText:
+      "If someone holds your property without any right to possession and no landlord-tenant remedy applies, file a wrongful detainer complaint in District Court. The hearing is held not more than 10 business days after you file, and service must be made within 4 business days. No counterclaim or cross-claim is allowed, and you can recover damages, costs and attorney's fees if the occupant was personally served. Maryland has no sheriff-on-affidavit removal of squatters, so do not remove the person or belongings yourself; staying after the owner or agent says to leave is trespass, but that does not replace the court process. If the occupant claims through your tenant, use the landlord-tenant eviction process instead.",
+    notes: "MD: Md. Code Ann., Real Prop. § 14-132(d)(2)(ii) ('shall be held not more than 10 business days after the complaint is filed'); Md. Code Ann., Real Prop. § 14-132(e) ('A counterclaim or cross-claim may not be filed in an action brought under this section.'); Md. Code Ann., Real Prop. § 14-132(b)(2) ('A remedy is available under Title 8 of this article'). (MD battery D-squatter-affidavit: 1 hits; positives passed) 2025 Md. Laws ch. 188 (as codified, amends only Real Prop. § 14-132). Rule 15: written section-open.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-accessory-dwelling-unit-md",
+    title: "Renting an Accessory Dwelling Unit",
+    group: "Other / Miscellaneous",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "accessory-dwelling-unit",
+    bodyText:
+      "Every county and municipal legislative body must adopt, by October 1, 2026, a local law authorizing accessory dwelling units on lots with a single-family detached home. A covenant, HOA rule, deed restriction or similar instrument may not unreasonably limit your ability to build or offer an ADU for rent, if you have the exclusive right to use the property and follow applicable law. Limits on short-term rental of an ADU are allowed, and historic properties are exempt. Check your local ADU law for safety, parking and other standards.",
+    notes: "MD: Md. Code Ann., Land Use § 4-504(a)(1) ('On or before October 1, 2026, each legislative body shall adopt a local law authorizing the development of accessory dwelling units'); Md. Code Ann., Real Prop. § 2-126(b)(1) ('an unreasonable limitation on the ability of the property owner to develop or offer for rent an accessory dwelling unit'). Local: ADU ordinances under Land Use § 4-504 not researched. Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-no-addendum-precedence-md",
+    title: "No Statutory Addendum Precedence",
+    group: "Notices & General",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "addendum-precedence",
+    bodyText:
+      "Maryland has no statute requiring a separate addendum that controls over the lease, and no rule on which lease document prevails. The Maryland Tenants' Bill of Rights must be included with the lease, but it is informational. No addendum or precedence clause can take away a tenant's statutory rights, because a lease may not waive any right or remedy provided by law.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-208(c)(4) ('A copy of the most current version of the Maryland Tenants’ Bill of Rights'); Md. Code Ann., Real Prop. § 8-208(d)(2) ('Has the tenant agree to waive or to forego any right or remedy provided by applicable law'). (MD battery D-conflict-prevail-T-v2: 3 hits; positives passed) Rule 15: written section-open.",
+  },
+  // Disclosures
+  {
+    id: "edu-no-adverse-proceeding-notice-md",
+    title: "Foreclosure Disclosure Not Required",
+    group: "Disclosures",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "adverse-proceeding-notice",
+    bodyText:
+      "Maryland does not require you to tell tenants or applicants about a pending foreclosure, tax sale or similar proceeding. Instead, the foreclosure trustee and purchaser must send their own notices to all occupants, and a foreclosure purchaser cannot collect rent until it notifies bona fide tenants. The one landlord disclosure is for condominium conversions, which the separate conversion-notice clause covers.",
+    notes: "MD: Md. Code Ann., Real Prop. § 7-105.12(b) ('A foreclosure sale purchaser may not exercise any right to collect rent payments from a bona fide tenant'); Md. Code Ann., Real Prop. § 7-105.11(b)(1) ('a written notice addressed to “all occupants” at the address of the residential property'). (MD battery D-adverse-proceeding: 5 hits; positives passed) Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-rental-license-in-eviction-md",
+    title: "Rental License Proof in Eviction",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "confirmed-absences-outside-title",
+    bodyText:
+      "If your county or city requires a license to operate residential rental property, every eviction complaint (failure to pay rent, holdover or breach) must plead, in the Judiciary's form, that the unit is licensed, exempt, or unlicensed for a reason the statute allows. At trial you must prove it by a preponderance of the evidence. Allowed reasons include the tenant's wrongful act or an administrative error by the licensing authority. The court grants one postponement for more evidence, and you may use electronic proof of licensure. This does not apply to a 14-day clear-and-imminent-danger breach case.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-406(a)(1) ('This section applies only in a county, a municipality, or any other jurisdiction that requires a license'); Md. Code Ann., Real Prop. § 8-406(c)(3) ('a landlord may provide electronic proof of licensure'). Local: rental licensing jurisdictions (incl. Baltimore City public local law Subtitle 9). Rule 15: written section-open.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-no-disaster-displaced-guests-md",
+    title: "No Disaster Guest Rule",
+    group: "Rules & Regulations",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "disaster-displaced-guests",
+    bodyText:
+      "Maryland has no statute letting tenants house people displaced by a disaster despite lease occupancy or guest limits, and none limiting such stays. Your ordinary guest and occupancy terms apply, subject to fair housing law and any emergency orders.",
+    notes: "MD: (MD battery D-disaster-guests-B-v2: 4 hits; positives passed) Fair housing: Md. Code Ann., State Gov't § 20-705(a)(6) ('act in a manner that has a discriminatory effect'). Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-abuse-confidentiality-md",
+    title: "Abuse Victim Information Confidential",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "dv-confidentiality",
+    bodyText:
+      "Do not disclose to anyone else any information a tenant gives you to use the abuse-victim protections, such as a protective order, peace order or third-party report. You may disclose it only if the tenant consents in writing or a law or court order requires it.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-5A-06 ('A landlord may not disclose any information provided by a tenant under this subtitle to a third party unless'); Md. Code Ann., Real Prop. § 8-5A-06(1) ('The tenant consents in writing to the disclosure'). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-emergency-assistance-right-md",
+    title: "Right to Call for Help",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "emergency-assistance-right",
+    bodyText:
+      "Your lease may not limit a tenant's ability to call police or emergency services. It may not penalize a tenant for making such a call or for another person's call. You may not evict, raise rent, cut services or end a periodic tenancy solely because someone called for help. Counties and cities may not treat such calls as grounds for a nuisance designation, fines, eviction or loss of a rental license.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-208(d)(10)(i) ('Limits the ability of a tenant to summon the assistance of law enforcement or emergency services'); Md. Code Ann., Real Prop. § 8-208.1(a)(2)(iv) ('summoned the assistance of law enforcement or emergency services to the property'); Md. Code Ann., Real Prop. § 14-126(c)(1)(i) ('Establishes a threshold of requests to summon law enforcement or emergency services'). Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-no-entire-agreement-md",
+    title: "No Amend-by-Notice Statute",
+    group: "Notices & General",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "entire-agreement",
+    bodyText:
+      "Maryland has no statute letting you amend existing leases by written notice to comply with new laws, so a clause requiring signed written amendments gives up no statutory right. New laws that apply to existing leases operate on their own terms. For example, if you own 6 or more Maryland units, you must offer positive rent reporting to tenants whose leases began before October 1, 2026, by January 1, 2027, and at least once a year after that.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-208.4(d)(2)(i) ('For leases entered into before October 1, 2026, the offer of positive rental payment history reporting shall be made not later than January 1, 2027'). (MD battery D-amend-by-notice-B-v2: 2 hits; positives passed) Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-governing-law-md",
+    title: "No Lease Choice-of-Law Statute",
+    group: "Notices & General",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "governing-law",
+    bodyText:
+      "Maryland has no statute on choice-of-law clauses in residential leases. Eviction cases are filed in the District Court of the county where the property is located. Lease terms that waive Maryland tenant rights are unenforceable, whatever law the lease names.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-401(b)(2) ('in the District Court of the county wherein the property is situated'); Md. Code Ann., Real Prop. § 8-208(g)(1) ('Any lease provision which is prohibited by terms of this section shall be unenforceable by the landlord.'). (MD battery D-governing-law: 1 hits; positives passed) Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-informal-dispute-resolution-md",
+    title: "No Pre-Suit Dispute Statute",
+    group: "Notices & General",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "informal-dispute-resolution",
+    bodyText:
+      "Maryland has no statute authorizing or regulating lease clauses that require informal resolution, mediation or arbitration before going to court. A clause that delays or conditions a tenant's statutory remedies, such as rent escrow, the warranty of habitability or retaliation claims, risks being an unenforceable waiver, and offering it can expose you to the tenant's damages and attorney's fees. How courts treat such clauses is unsettled. A voluntary invitation to contact you first is fine.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-208(d)(2) ('Has the tenant agree to waive or to forego any right or remedy provided by applicable law'); Md. Code Ann., Real Prop. § 8-208(g)(2) ('the tenant may recover any actual damages incurred as a reason thereof, including reasonable attorney’s fees'). (MD battery D-informal-dispute-v2: 8 hits; positives passed) Case law not searched. Rule 15: written section-open.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-no-landlord-liability-insurance-md",
+    title: "No State Insurance Mandate",
+    group: "Other / Miscellaneous",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-liability-insurance",
+    bodyText:
+      "Maryland state law does not require residential landlords to carry liability insurance. For pre-1978 rentals, your MDE lead registration must list the name and address of each company providing property insurance or lead hazard coverage and the policy numbers, but it does not require coverage. Local rental licensing codes may impose insurance requirements.",
+    notes: "MD: Md. Code Ann., Envir. § 6-811(b)(4) ('The name and address of each insurance company providing property insurance or lead hazard coverage for the affected property'). (MD battery D-landlord-liability-insurance: 6 hits; positives passed) Local: rental licensing codes not researched. Rule 15: written section-open.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-no-law-enforcement-cooperation-md",
+    title: "No Crime-Free Lease Statute",
+    group: "Rules & Regulations",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "law-enforcement-cooperation",
+    bodyText:
+      "Maryland has no statute requiring or regulating crime-free lease addenda or landlord cooperation with police. The rules that do apply limit such terms. A lease may not limit or penalize calls for police or emergency help, and local laws may not punish owners or tenants for those calls. For dangerous behavior, Maryland allows a breach-of-lease case after 14 days' written notice if the lease provides for repossession on breach.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-402.1(a)(1)(i)2B ('which demonstrates a clear and imminent danger of the tenant or person doing serious harm'); Md. Code Ann., Real Prop. § 8-208(d)(10)(i) ('Limits the ability of a tenant to summon the assistance of law enforcement or emergency services'). (MD battery D-crime-free-B-v2: 31 hits; positives passed) Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-proposed-lease-copy-md",
+    title: "Proposed Lease on Request",
+    group: "Notices & General",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lease-completeness",
+    bodyText:
+      "If you rent using a written lease and a prospective applicant asks in writing, give them a copy of your proposed lease form. It must be complete in every material detail except the date, the tenant's name and address, the unit and the rent. Do not require them to sign or pay a deposit first. Maryland has no rule that every blank in a signed residential lease must be filled in.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-208(b) ('complete in every material detail, except for the date, the name and address of the tenant'); Md. Code Ann., Real Prop. § 8-208(b) ('without requiring execution of the lease or any prior deposit'). (MD battery D-blank-spaces: 3 hits; positives passed) Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-lease-copy-md",
+    title: "No Signed-Copy Delivery Statute",
+    group: "Notices & General",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lease-copy",
+    bodyText:
+      "Maryland has no statute requiring you to deliver a copy of the signed residential lease, and no rule that failing to do so is a defense. The lease itself must contain the security deposit receipt and a copy of the current Maryland Tenants' Bill of Rights. Giving the tenant the signed lease is the practical way to deliver both.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-203(c)(2) ('The receipt shall be included in a written lease.'); Md. Code Ann., Real Prop. § 8-208(c)(4) ('A copy of the most current version of the Maryland Tenants’ Bill of Rights'). (MD battery D-lease-copy: 10 hits; positives passed) Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-nonresident-owner-agent-md",
+    title: "No Nonresident Owner Agent Rule",
+    group: "Notices & General",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nonresident-owner-agent",
+    bodyText:
+      "Maryland has no rule specific to out-of-state landlords, such as a required in-state agent in each lease or tax withholding on rent. Every landlord must list, in the written lease or on a conspicuous sign at the property, the name, address and phone number of the landlord or the person authorized to accept notice and service of process. If you don't, the tenant may serve you through the person or address where rent is paid or the address where the tax bill is sent. For pre-1978 rentals, your MDE lead registration must also name an in-state agent or contact person.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-210(a)(2)(iii) ('To the address where the tax bill is sent'); Md. Code Ann., Envir. § 6-811(b)(5) ('The name and address of a resident agent, other agent of the owner, or contact person in the State'). (MD battery D-nonresident-agent: 11 hits; positives passed) Rule 15: written section-open.",
+  },
+  {
+    id: "edu-notice-delivery-methods-md",
+    title: "How to Deliver Maryland Notices",
+    group: "Notices & General",
+    states: ["MD"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "notice-delivery-methods",
+    bodyText:
+      "Maryland sets delivery methods notice by notice. Send rent-increase notices by first-class mail with a certificate of mailing. Entry notices and the 10-day notice before a rent case may instead be affixed to the door. Use e-mail, text or a tenant portal only if the tenant elected electronic delivery, and keep proof of transmission. You may not condition accepting an application on that election, and the lease may not require electronic delivery of rent-increase or rent-case notices. For the eviction warrant notice, mail it with a certificate of mailing, post it on the front door with a date-stamped photo, and also e-mail or text it if you have the tenant's address or cellphone number.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-209(b)(2)(iii) ('A landlord may not condition the acceptance of a lease application on the tenant’s election to receive notice'); Md. Code Ann., Real Prop. § 8-208(d)(9) ('Requires the tenant to accept notice of rent increases under § 8-209 of this subtitle or § 8-401 of this title by electronic delivery'); Md. Code Ann., Real Prop. § 8-407(b)(1)(ii) ('taking a date-stamped photograph of the notice posted on the front door'). (MD battery D-elect-electronic: 10 hits; positives passed) (MD battery D-notice-server-v2: 1 hits; positives passed) Rule 15: written section-open.",
+  },
+  {
+    id: "edu-ueta-eviction-notice-exclusion-md",
+    title: "E-Signature Law Excludes Eviction Notices",
+    group: "Notices & General",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "notice-delivery-methods",
+    bodyText:
+      "Maryland's electronic-transactions law does not cover laws on notice of default, eviction or the right to cure under a rental agreement for an individual's primary residence. Unless a specific statute allows electronic delivery the tenant elected, send notices to quit, breach notices and similar default notices on paper. In a form lease, a term agreeing to do business electronically must be conspicuously displayed and separately agreed to. A tenant who agreed to electronic transactions may refuse further ones, and that right cannot be waived.",
+    notes: "MD: Md. Code Ann., Com. Law § 21-102(b)(4)(ii) ('Default, acceleration, repossession, foreclosure, eviction, or the right to cure, under a credit agreement, mortgage, or a rental agreement for a primary residence'); Md. Code Ann., Com. Law § 21-104(b)(3) ('unless that provision is conspicuously displayed and separately consented to'); Md. Code Ann., Com. Law § 21-104(c)(2) ('The right granted by this subsection may not be waived by agreement.'). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-notice-to-vacate-additional-terms-md",
+    title: "No Content Rule for Quit Notices",
+    group: "Notices & General",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "notice-to-vacate-additional-terms",
+    bodyText:
+      "Maryland sets no required contents for your written notice ending a tenancy and has no rule against adding other terms to it. Keep it to the facts: the tenancy, the termination date, and the required notice period. Separate content rules apply only to the 10-day notice before a rent case (the Judiciary form), the eviction warrant notice, and a foreclosure purchaser's 90-day notice to vacate.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-402(c)(2) ('a landlord shall provide written notice of the intent to terminate a tenancy'); Md. Code Ann., Real Prop. § 7-105.8(b)(4)(v) ('State whether the basis for termination of the tenancy is'). (MD battery D-notice-to-vacate-contents-v2: 1 hits; positives passed) Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-plain-language-consumer-statement-md",
+    title: "No Plain-Language Lease Statute",
+    group: "Notices & General",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "plain-language-consumer-statement",
+    bodyText:
+      "Maryland has no plain-language or readability law for residential leases, and no required statement listing consumer restrictions or waivers. Separate rules still govern some lease formats: an automatic-renewal clause must be set apart with space for the tenant's acknowledgment, and an electronic-transactions term in a form lease must be conspicuous and separately agreed to.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-208(e)(1) ('shall have the provision distinctly set apart from any other provision of the lease'). (MD battery D-plain-language-v2: 2 hits; positives passed) (MD battery D-plain-language-B: 26 hits; positives passed) Rule 15: written section-open.",
+  },
+  {
+    id: "edu-portfolio-thresholds-md",
+    title: "Unit-Count Thresholds",
+    group: "Notices & General",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "portfolio-thresholds",
+    bodyText:
+      "Several Maryland rules depend on how many units you have, and each rule counts differently. Statewide: offering 5 or more units requires a written lease. Owning or managing 5 or more units, including through entities and excluding owner-occupied units, triggers the criminal-history screening rules. Owning 6 or more triggers the positive rent-reporting offer; by building, 6 or more units vs 5 or fewer changes the landlord-billed utility rules, and apartment buildings with 10 or more units have the summer air-conditioning rule. By parcel or location: 2 or more units on one parcel brings in the ratio-billing rules, and offering 4 or fewer units on one parcel or at one location exempts you from the application-fee refund rules. Offering 5 or more units also removes the shortened termination notices after a notice of intent to foreclose, and in Montgomery County offering more than 3 units on one parcel or at one location brings in the elderly-tenant pet rule. Most core duties apply to every landlord.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-2A-02(a) ('This subtitle applies only to a landlord that manages or owns five or more residential rental units in the State'); Md. Code Ann., Real Prop. § 8-208.4(b) ('This section applies only to a landlord that owns six or more residential rental units in the State.'); Md. Code Ann., Real Prop. § 8-205.1(b)(1) ('This section applies only to a landlord of a building that contains six or more residential dwelling units.'); Md. Code Ann., Real Prop. § 8-213(c) ('four or less dwelling units for rent on one parcel of property or at one location'); Md. Code Ann., Real Prop. § 8-122(a)(1) ('apartment buildings with 10 or more individual dwelling units'); Md. Code Ann., Real Prop. § 8-212.4(a)(3)(i) ('offers two or more dwelling units for rent on one parcel'). Md. Code Ann., Real Prop. § 8-402(c)(4) ('offers 5 or more residential dwelling units for rent in the State'); Md. Code Ann., Real Prop. § 8-214(a) ('offers more than 3 dwelling units for rent on 1 parcel of property or at 1 location'). Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-no-rent-receipt-anti-waiver-md",
+    title: "Habitability Follows the Landlord",
+    group: "Landlord Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-receipt-anti-waiver",
+    bodyText:
+      "Maryland has no statute addressing whether the right to collect rent can be separated from the duty to keep the unit fit to live in. Any landlord who offers a unit for rent, under a written or oral lease, is deemed to warrant that it is fit for human habitation throughout the tenancy. A buyer of the property takes the original landlord's rights and liabilities. Whether someone who is assigned only the rent also takes on the habitability duty is unsettled.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-212(c) ('shall be deemed to warrant that the dwelling unit is fit for human habitation'); Md. Code Ann., Real Prop. § 8-101 ('A transferee of the reversion in leased property is subject to the same remedies'). (MD battery D-rent-receipt-duty-split-v2: 4 hits; positives passed) Case law not searched. Rule 15: written section-open.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-no-renters-insurance-rules-md",
+    title: "No Renter's Insurance Statute",
+    group: "Tenant Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "renters-insurance-rules",
+    bodyText:
+      "Maryland has no landlord-tenant statute on requiring renter's insurance, on the tenant's choice of carrier, on force-placed coverage, or on advising tenants that you do not insure their belongings. If you allow pets, your pet policy must state any liability insurance requirement. Any amount you collect at move-in counts toward the limit of the security deposit plus the first month's rent.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-210(c)(2)(v) ('Any liability insurance requirements'); Md. Code Ann., Real Prop. § 8-208(d)(11) ('Requires a tenant to pay more than the sum of the security deposit'). (MD battery D-renters-insurance: 6 hits; positives passed) Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-foreclosure-receivership-tenancies-md",
+    title: "Foreclosure and Receivership Tenancies",
+    group: "Notices & General",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "sale-or-management-change",
+    bodyText:
+      "After a foreclosure of residential property, a bona fide tenant may stay until the lease ends. A month-to-month or at-will tenant is entitled to a written notice to vacate at least 90 days ahead, by first-class and certified mail. The successor may end a lease on sale to a buyer who will live there, with that same notice. A court-appointed receiver may not reject an unexpired lease of a tenant's primary residence. In one category of receivership, a receiver's sale of the property is subject to any residential lease.",
+    notes: "MD: Md. Code Ann., Real Prop. § 7-105.8(b)(2)(i) ('a notice to vacate to any bona fide tenant at least 90 days before the effective date of the notice'); Md. Code Ann., Com. Law § 24-305(i)(1) ('The tenant occupies the leased premises as the tenant’s primary residence'); Md. Code Ann., Com. Law § 24-304(c)(3)(ii) ('Any residential lease'). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-scope-md",
+    title: "Which Maryland Rules Apply",
+    group: "Notices & General",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "scope",
+    bodyText:
+      "Maryland's residential landlord-tenant rules apply statewide to residential leases. They do not apply to a seller who stays in the sold home for 60 days or less after settlement. Mobile home park sites follow a separate act. Farm tenancies are outside rent escrow and the warranty of habitability and have longer notice periods. Some rules apply only in Montgomery, Howard, Anne Arundel or Prince George's County or Baltimore City, and counties and cities may add protections that do not reduce state rights.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-201(a) ('This subtitle is applicable only to residential leases unless otherwise provided.'); Md. Code Ann., Real Prop. § 8-201(b) ('the seller may remain in possession of the property for a period of not more than 60 days after the settlement'); Md. Code Ann., Real Prop. § 8-211(c)(2) ('This section does not apply to farm tenancies.'); Md. Code Ann., Real Prop. § 8-208(f) ('no such law can diminish or limit any right or remedy granted under the provisions of this section'). (MD battery D-reservation-trust-v2: 1 hits; positives passed) Local: Montgomery County (§§ 8-206, 8-210(b), 8-214), Howard County (§ 8-121), Anne Arundel (§ 8-205(a)), Montgomery & Prince George's (§ 8-1002), Baltimore City public local laws. Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-no-severability-md",
+    title: "Severability Cannot Cure Banned Terms",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "severability",
+    bodyText:
+      "Maryland has no statute on lease severability clauses. A lease term Maryland prohibits is unenforceable by you, and offering a lease that contains one, or trying or threatening to enforce it, lets the tenant recover actual damages and reasonable attorney's fees. A severability clause does not prevent that, so remove prohibited terms rather than relying on severability.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-208(g)(1) ('Any lease provision which is prohibited by terms of this section shall be unenforceable by the landlord.'); Md. Code Ann., Real Prop. § 8-208(g)(2) ('tenders a lease containing such a provision or attempts to enforce or makes known to the tenant an intent to enforce'). (MD battery D-severability: 1 hits; positives passed) Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-lease-writing-thresholds-md",
+    title: "Lease Writing And Recording Thresholds",
+    group: "Notices & General",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "statute-of-frauds-lease-term",
+    bodyText:
+      "An oral lease for a term of more than one year has only the effect of a tenancy at will in Maryland, so a lease longer than one year should be in a writing signed by the party creating it or that party's agent authorized in writing. A lease estate of more than seven years must be executed and recorded; a lease with an initial term of seven years or less, where each renewal term is also seven years or less and is controlled by a party, does not need recording. An unrecorded lease that should have been recorded is still valid between the original parties, and a signed memorandum of lease may be recorded instead of the lease. Separately, if you offer 5 or more dwelling units for rent in Maryland, you must use a written lease for every residential unit.",
+    notes: "MD: Md. Code Ann., Real Prop. § 5-101 ('has the force and effect of an estate or interest at will only'); Md. Code Ann., Real Prop. § 5-102 ('Section 5-101 of this title is not applicable to a leasehold estate not exceeding a term of one year.'); Md. Code Ann., Real Prop. § 3-101(a) ('estate above seven years, or deed may pass or take effect unless the deed granting it is executed and recorded'); Md. Code Ann., Real Prop. § 3-101(c) ('does not apply to any lease for an initial term not exceeding seven years if each renewal term under the lease (i) is for seven'); Md. Code Ann., Real Prop. § 3-101(e) ('a memorandum of the lease, executed by every person who is a party to the lease, may be recorded with like effect'); Md. Code Ann., Real Prop. § 8-208(a)(1) ('any landlord who offers 5 or more dwelling units for rent in the State may not rent a residential dwelling unit without using a written') Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-lease-option-statements-md",
+    title: "Lease Option Required Statements",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "statutory-forms",
+    bodyText:
+      "If you give a tenant any power to buy your interest in improved residential property, whether in the lease or a separate document, the agreement must contain the statement 'THIS IS NOT A CONTRACT TO BUY.' in capital letters. For agreements signed on or after July 1, 2018, it must also contain, in capital letters and close to the tenant's signature line, the statutory statement that the agreement is an integral part of the lease, is governed by Title 8 of the Real Property Article, and leaves the tenant all Title 8 rights and remedies. The agreement must also clearly state its purpose and effect on the eventual purchase. If these are missing, the party who did not draft the option may void the lease, the option, or both. These are the only verbatim statements Maryland prescribes for lease documents.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-202(a) ('any clause in a lease agreement or separate document that confers on the tenant some power, either qualified or unqualified, to purchase the landlord’s interest'); Md. Code Ann., Real Prop. § 8-202(b)(1)(i) ('shall contain the following statement in capital letters: “THIS IS NOT A CONTRACT TO BUY.”'); Md. Code Ann., Real Prop. § 8-202(b)(1)(ii) ('in capital letters and in close proximity to the tenant’s signature line'); Md. Code Ann., Real Prop. § 8-202(b)(2) ('a clear statement of its purpose and effect with respect to the ultimate purchase of the property'); Md. Code Ann., Real Prop. § 8-202(c) ('may be voided at the option of the party that did not draft the lease option agreement') (MD battery E-type-size-lease: 13 hits; positives passed) Other state-supplied documents (Tenants' Bill of Rights, Judiciary notice forms, DHCD forms) are covered by planned clauses or other slices. Rule 15: written section-open.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-no-tenant-insurance-claims-md",
+    title: "No Tenant Insurance Claims Statute",
+    group: "Tenant Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-insurance-claims",
+    bodyText:
+      "Maryland has no statute on whether you may require a tenant to make a claim on the tenant's own insurance, or on how a tenant's insurance claims interact with the lease. Related law that does apply: a lease term that indemnifies you, holds you harmless, or releases you from liability for injury or damage caused by your own fault on the premises or in areas not within the tenant's exclusive control is void. Your insurer also may not claim subrogation because such a term is void.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-105 ('the provision is considered to be against public policy and void'); Md. Code Ann., Real Prop. § 8-105 ('An insurer may not claim a right of subrogation by reason of the invalidity of the provision.') (MD battery E-renters-insurance2: 25 hits; positives passed) (MD battery E-renters-insurance-notenancy2: 6 hits; positives passed) Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-tenant-portal-md",
+    title: "Portals And Electronic Transactions",
+    group: "Notices & General",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-portal",
+    bodyText:
+      "No Maryland statute directly allows or forbids requiring rent payments or signatures through an online portal. Under Maryland's electronic transactions law, a provision in a standard form contract agreeing to do business electronically must be conspicuously displayed and separately consented to, and agreement cannot be inferred just because the tenant paid an account electronically. A tenant who agrees to one electronic transaction may refuse to do others electronically. Rent-increase notices and entry notices may go by e-mail, text, or portal only if the tenant elects it, a lease may not require the tenant to accept rent-increase notices electronically, and you may not condition acceptance of an application on that election. Whether a portal-only payment requirement is otherwise enforceable is unsettled.",
+    notes: "MD: Md. Code Ann., Com. Law § 21-104(b)(3) ('a provision to conduct a transaction electronically may not be contained in a standard form contract unless that provision is conspicuously displayed and separately consented'); Md. Code Ann., Com. Law § 21-104(b)(4) ('may not be inferred solely from the fact that a party has used electronic means to pay an account'); Md. Code Ann., Com. Law § 21-104(c)(1) ('A party that agrees to conduct a transaction by electronic means may refuse to conduct other transactions by electronic means.'); Md. Code Ann., Real Prop. § 8-209(b)(2)(iii) ('A landlord may not condition the acceptance of a lease application on the tenant’s election to receive notice under this subsection by electronic delivery.'); Md. Code Ann., Real Prop. § 8-208(d)(9) ('Requires the tenant to accept notice of rent increases under § 8-209 of this subtitle or § 8-401 of this title by electronic delivery'); Md. Code Ann., Real Prop. § 8-221(c)(3)(iii) ('If elected by the tenant, electronic delivery in at least one of the following forms') (MD battery E-portal-payment: 3 hits; positives passed) (MD battery E-portal-require-notenancy2: 29 hits; positives passed) Case law not searched. Lease text: electronic-signatures-md, electronic-notice-election-md, acceptable-payment-methods-md. Rule 15: written section-open.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-no-tenants-property-insurance-md",
+    title: "Renters Insurance Not Regulated",
+    group: "Tenant Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenants-property-insurance",
+    bodyText:
+      "Maryland has no statute that requires, limits, or bars a lease term requiring renter's insurance, and none that expressly stops you from sending landlord-responsible repairs to the tenant's insurer. A lease term that releases you from, or makes the tenant indemnify you for, injury or damage caused by your own fault on the premises or in areas not within the tenant's exclusive control is void. A lease also may not have the tenant waive any right or remedy the law provides, so an insurance clause cannot shift your duty to repair serious and dangerous defects. Whether a clause making the tenant's policy primary for losses you cause is void is unsettled.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-105 ('preclude or exonerate the landlord from any liability to the tenant, or to any other person'); Md. Code Ann., Real Prop. § 8-208(d)(2) ('Has the tenant agree to waive or to forego any right or remedy provided by applicable law'); Md. Code Ann., Real Prop. § 8-211(d) ('imposes an obligation on landlords to repair and eliminate conditions and defects') (MD battery E-renters-insurance2: 25 hits; positives passed) (MD battery E-renters-insurance-notenancy2: 6 hits; positives passed) Case law not searched. Rule 15: written section-open.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-no-tpa-sunset-md",
+    title: "No Sunsetting Tenant Protections",
+    group: "Other / Miscellaneous",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tpa-sunset",
+    bodyText:
+      "As of October 1, 2026, none of Maryland's core landlord-tenant statutes is scheduled to expire. The only dated change in the landlord-tenant title is a change on June 30, 2027 to what the Access to Counsel in Evictions program must report each year, which imposes nothing on landlords.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-907 ('On or before August 31 each year, MLSC shall report to the Governor') (MD battery E-sunset-markers: 68 hits; positives passed) Session laws 2024-2026 saved: only 2024 Md. Laws ch. 312 carries an abrogation date touching Title 8. Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-no-translation-duty-md",
+    title: "No Lease Translation Duty",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "translation-duty",
+    bodyText:
+      "Maryland law does not require a residential lease to be translated, sets no minimum type size for a residential lease, and imposes no duty when you advertise or negotiate in another language. The only lease text Maryland prescribes word for word is the pair of capital-letter statements required in a lease option to purchase.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-202(b)(1)(i) ('shall contain the following statement in capital letters') (MD battery E-translation-notenancy: 57 hits; positives passed) (MD battery E-type-size-lease: 13 hits; positives passed) Type-size rules found apply only to vehicle leases, rent-to-own goods, ground rents, foreclosure notices and utility envelopes. Rule 15: written section-open.",
+  },
+  // Pets
+  {
+    id: "edu-service-animal-housing-md",
+    title: "Service Animals In Housing",
+    group: "Pets",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "assistance-animal-accommodation",
+    bodyText:
+      "A person with a disability, a parent of a minor child with a disability, or a service animal trainer is entitled to full and equal access to housing accommodations with a service animal or an animal being trained as one. A service animal is a guide dog, signal dog, or other animal individually trained to do work or perform tasks for an individual with a disability; the statute sets no species limit. You may not require extra compensation for the service animal, but the person may be liable for damage the animal causes to the premises. This does not apply to a single family residence or other accommodation in which the occupants offer not more than one room for compensation. Maryland statutes set no documentation procedure for these requests and do not cover animals that are not individually trained.",
+    notes: "MD: Md. Code Ann., Hum. Servs. § 7-701(g) ('“Service animal” means a guide dog, signal dog, or other animal individually trained to do work or perform tasks for the benefit of an individual'); Md. Code Ann., Hum. Servs. § 7-704(c)(3) ('is entitled to full and equal access to housing accommodations'); Md. Code Ann., Hum. Servs. § 7-704(c)(4) ('may not be required to pay extra compensation for the service animal, but the individual may be liable for damages to the premises'); Md. Code Ann., Hum. Servs. § 7-704(c)(1) ('This subsection does not apply to any accommodations or single family residence in which the occupants offer for compensation not more than one room.') (MD battery E-esa-terms: 9 hits; positives passed) (MD battery E-animal-liability-tenancy: 2 hits; positives passed) Rule 15: written section-open.",
+  },
+  {
+    id: "edu-service-dog-fair-housing-md",
+    title: "Service Dogs Under Fair Housing",
+    group: "Pets",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "assistance-animal-accommodation",
+    bodyText:
+      "Under Maryland's fair housing law you may not refuse to rent to, or otherwise deny a dwelling to, an individual with a disability who has or obtains a service dog or keeps a former service dog after its retirement. That individual is exempt from any lease provision prohibiting dogs, may not be charged additional rent or a fee for the dog, may keep a retired service dog for its life, and is liable for damage the dog does to the premises. A service dog here is individually trained and does not include a dog that only provides emotional support, well-being, comfort, or companionship. A request to keep an emotional support animal is a request for a reasonable accommodation in rules or policies under the general disability provisions; how Maryland applies that to emotional support animals is unsettled. The fair housing law's exemptions (for example, a single-family home rented without a broker or discriminatory advertising) can remove a rental from this section, but the separate service animal access law may still apply.",
+    notes: "MD: Md. Code Ann., State Gov't § 20-706(d)(1) ('shall be exempt from any provision in a lease or rental agreement prohibiting the keeping of dogs'); Md. Code Ann., State Gov't § 20-706(d)(2) ('may not be required to pay any additional rent or fee for the individual’s service dog or former service dog'); Md. Code Ann., State Gov't § 20-706(a)(3)(ii) ('provides only emotional support, well-being, comfort, or companionship to an individual'); Md. Code Ann., State Gov't § 20-706(b)(4) ('refuse to make reasonable accommodations in rules, policies, practices, or services'); Md. Code Ann., State Gov't § 20-706(b) ('Except as provided in §§ 20-703 and 20-704 of this subtitle, a person may not') (MD battery E-esa-terms: 9 hits; positives passed) (MD battery E-service-animal-misrep: 0 hits; no real Maryland positive exists, pattern synthetic-tested) Case law not searched. Rule 15: written section-open.",
+  },
+  // Security Deposit
+  {
+    id: "edu-pet-deposit-cap-md",
+    title: "Pet Deposits Count Toward Cap",
+    group: "Security Deposit",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "pet-fees",
+    bodyText:
+      "In Maryland a refundable pet deposit is part of the security deposit, because a security deposit is any payment given to protect you against nonpayment of rent, damage due to breach of lease, or damage to the premises, common areas, major appliances, and furnishings. All deposits together may not exceed the equivalent of 1 month's rent per dwelling unit, or up to 2 months' rent only where the tenant qualified for Department of Human Services utility assistance, the lease requires utility payments to you, and you both agree in writing. The pet deposit must be held, receipted, and returned with interest under the same rules as the rest of the deposit. If you charge more than the cap, the tenant may recover up to three times the extra amount plus reasonable attorney's fees.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-203(a)(3) ('“Security deposit” means any payment of money, including payment of the last month’s rent in advance of the time it is due, given to a'); Md. Code Ann., Real Prop. § 8-203(b)(1) ('a landlord may not impose a security deposit in excess of the equivalent of 1 month’s rent per dwelling unit, regardless of the number of'); Md. Code Ann., Real Prop. § 8-203(b)(3) ('the tenant may recover up to three times the extra amount charged, plus reasonable attorney’s fees'); Md. Code Ann., Real Prop. § 8-210(c)(2)(ii) ('Refundable pet deposits') Rule 15: written section-open.",
+  },
+  // Pets
+  {
+    id: "edu-upfront-pet-fees-md",
+    title: "Up-Front Pet Fees At Move-In",
+    group: "Pets",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "pet-fees",
+    bodyText:
+      "Maryland requires your written pet policy to list any up-front nonrefundable pet fees, refundable pet deposits and monthly pet fees. Separately, a lease may not require a tenant to pay more than the security deposit plus the first month's rent in order to start the lease and move in, and a refundable pet deposit is part of the security deposit. The statute does not say whether a nonrefundable pet fee due before move-in counts against that limit, so the safest course is not to require one as a condition of moving in. You may not charge any pet fee or additional rent for a service animal.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-210(c)(2)(ii) ('Up-front, nonrefundable pet fees'); Md. Code Ann., Real Prop. § 8-208(d)(11) ('Requires a tenant to pay more than the sum of the security deposit under § 8-203(b) of this subtitle and the first month’s rent in'); Md. Code Ann., State Gov't § 20-706(d)(2) ('may not be required to pay any additional rent or fee') Case law not searched. Lease text for move-in money: due-at-signing-md. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-pet-liability-insurance-md",
+    title: "Pet Liability Insurance Requirements",
+    group: "Pets",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "pet-insurance-requirement",
+    bodyText:
+      "Maryland does not prohibit requiring pet liability insurance, but any liability insurance requirement for pets must be stated in the property's pet policy. A homeowner's or renter's insurer that does not cover losses caused by specific dog breeds must give its applicants and insureds written notice naming those breeds. A person with a service animal in housing may not be required to pay extra compensation for it, so whether an insurance requirement can be applied to a service animal is unsettled.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-210(c)(2)(v) ('Any liability insurance requirements'); Md. Code Ann., Ins. § 19-206.1(b)(2) ('identifies the specific breeds or specific mixed breeds of dogs for which the policy does not provide coverage'); Md. Code Ann., Hum. Servs. § 7-704(c)(4) ('may not be required to pay extra compensation for the service animal') Case law not searched. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-pet-policy-disclosure-md",
+    title: "Pet Policy Disclosure Duty",
+    group: "Pets",
+    states: ["MD"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "pet-policy",
+    bodyText:
+      "Every landlord of residential rental property must post a link to the property's pet policy on the property's website, if it has one, and must include a written copy or summary of the pet policy in every rental application form for a unit. The policy must state any breed and weight restrictions; any up-front nonrefundable pet fees, refundable pet deposits, and monthly pet fees; any limit on the number of pets; any vaccination requirements; any liability insurance requirements; and any other requirements you impose on pet owners. Keep the lease's pet terms consistent with that policy.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-210(c)(1)(i) ('Provide a link to the property’s pet policy on the property’s website, if applicable'); Md. Code Ann., Real Prop. § 8-210(c)(1)(ii) ('Provide a written copy or summary of the property’s pet policy in any rental application form for a unit in the property'); Md. Code Ann., Real Prop. § 8-210(c)(2)(vi) ('Any additional requirements for pet owners imposed by the landlord') Lease text for the fact sheet link: pet-eviction-fact-sheet-md. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-montgomery-elderly-pets-md",
+    title: "Montgomery County Elderly Tenant Pets",
+    group: "Pets",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "pet-policy",
+    bodyText:
+      "In Montgomery County, if you offer more than 3 dwelling units for rent on 1 parcel or at 1 location, you may not prohibit a tenant who is 60 years old or older from keeping a household pet unless pets were specifically prohibited in writing at the time occupancy took place. The tenant is liable for any damage the pet does to the premises. You may set reasonable rules on the type, size, and number of pets, pet waste disposal, and pet conduct and control related to the health and safety of other tenants and your property.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-214(b) ('This section applies only to Montgomery County.'); Md. Code Ann., Real Prop. § 8-214(a)(3) ('offers more than 3 dwelling units for rent on 1 parcel of property or at 1 location'); Md. Code Ann., Real Prop. § 8-214(c) ('a landlord may not prohibit the tenant from keeping a household pet, unless specifically prohibited in writing at the time occupancy took place') (MD battery E-senior-pet: 2 hits; positives passed) Local: Montgomery County only; state statute limited to the county. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-pet-self-help-md",
+    title: "No Self-Help Over Pets",
+    group: "Pets",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "pet-policy",
+    bodyText:
+      "A Maryland lease may not authorize you to take possession of the tenant's personal property unless the lease has ended and the tenant has abandoned the property, and a prohibited term is unenforceable and can make you liable for the tenant's actual damages and attorney's fees. You may retake a unit only under a court warrant executed by a sheriff or constable, or after the tenant abandons or surrenders it. When possession is delivered after an eviction, the sheriff or constable inspects for any dog or cat and gives it to the tenant or, if the tenant is not there, to an animal shelter or rescue, and no one may leave a removed pet on public property or a public right-of-way. Whether a pet is personal property for the lease-term ban is unsettled.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-208(d)(6) ('Authorizes the landlord to take possession of the leased premises, or the tenant’s personal property unless the lease has been terminated'); Md. Code Ann., Real Prop. § 8-216(b)(2) ('A landlord may take possession of a dwelling unit from a tenant or tenant holding over only'); Md. Code Ann., Real Prop. § 14-806(a)(1)(i) ('Immediately inspect the premises for any pet'); Md. Code Ann., Real Prop. § 14-801(d) ('“Pet” means a domesticated dog or cat.') Case law not searched. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-service-animal-denial-penalty-md",
+    title: "Penalties For Denying Service Animals",
+    group: "Pets",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "service-animal-denial-penalty",
+    bodyText:
+      "Interfering with the rights of a blind, visually impaired, deaf, or hard of hearing individual under Maryland's service animal law, which includes access to housing with a service animal, is a misdemeanor with a fine of up to $500 for each offense, and the individual may also sue for an injunction. A separate misdemeanor, also up to $500 per offense, for denying admittance of a service animal applies to public places, public accommodations, and conveyances rather than housing. Willfully and maliciously interfering with the use of a service animal is a misdemeanor punishable by up to 1 year in prison, a $1,000 fine, or both. Refusing to rent to an individual with a disability because of a service dog is also a fair housing violation.",
+    notes: "MD: Md. Code Ann., Hum. Servs. § 7-707(a)(1) ('otherwise interfere with the rights of a blind, visually impaired, deaf, or hard of hearing individual under this subtitle'); Md. Code Ann., Hum. Servs. § 7-707(a)(2) ('subject to a fine not exceeding $500 for each offense'); Md. Code Ann., Hum. Servs. § 7-705(a)(3) ('in a place, accommodation, or conveyance listed in § 7-704(b) of this subtitle'); Md. Code Ann., Crim. Law § 10-626(c)(2) ('subject to imprisonment not exceeding 1 year or a fine not exceeding $1,000 or both') Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-service-animal-misrepresentation-md",
+    title: "No Misrepresentation Offense",
+    group: "Pets",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "service-animal-misrepresentation",
+    bodyText:
+      "Maryland has no statute making it an offense to misrepresent a pet as a service, assistance, or support animal, in housing or anywhere else. Related law: Maryland's service animal and service dog protections cover only animals individually trained to do work or perform tasks for an individual with a disability, and the fair housing service dog provision excludes dogs that only provide emotional support.",
+    notes: "MD: Md. Code Ann., State Gov't § 20-706(a)(3)(i) ('“Service dog” means a dog that is individually trained to do work or perform tasks for the benefit of an individual with a disability') (MD battery E-service-animal-misrep: 0 hits; no real Maryland positive exists, pattern synthetic-tested) (MD battery E-esa-terms: 9 hits; positives passed) Rule 15: written section-open.",
+  },
+  // Parking & Storage
+  {
+    id: "edu-no-assigned-parking-space-md",
+    title: "No Assigned Parking Statute",
+    group: "Parking & Storage",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "assigned-parking-space",
+    bodyText:
+      "Maryland has no statute governing assigned or reserved parking spaces in a residential lease. Towing from a private parking lot is regulated separately by the State's parking-lot towing law.",
+    notes: "MD: Md. Code Ann., Transp. § 21-10A-01(b)(1) ('This subtitle applies only to the towing or removal of vehicles from parking lots.') (MD battery E-parking-tenancy: 29 hits; positives passed) Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-ev-charging-md",
+    title: "No Tenant EV Charging Right",
+    group: "Parking & Storage",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "ev-charging",
+    bodyText:
+      "Maryland gives tenants no right to install or use electric vehicle charging at a rental. The installation rights in Maryland law belong to condominium unit owners, homeowners association lot owners, and cooperative members for their own deeded or specifically designated parking spaces. New single-family homes, duplexes, and townhouses built with their own garage, carport, or driveway must include one EV-ready or EVSE-installed parking space, but multifamily buildings under the International Building Code are not covered.",
+    notes: "MD: Md. Code Ann., Real Prop. § 11-111.4(b)(2) ('Effectively prohibits or unreasonably restricts the installation or use of electric vehicle recharging equipment in a unit owner’s deeded parking space'); Md. Code Ann., Pub. Safety § 12-205(a)(6)(ii) ('“Housing units” does not include multifamily residential buildings that are subject to the provisions of the International Building Code.'); Md. Code Ann., Pub. Safety § 12-205(b)(2) ('one EVSE-installed parking space capable of providing at least Level 2 charging; or (ii) one EV-ready parking space') (MD battery E-ev-tenancy: 4 hits; positives passed) (MD battery E-ev-notenancy: 8 hits; positives passed) Local: Counties and municipalities may require more EV-ready or EVSE-installed spaces in new housing units (Md. Code Ann., Pub. Safety § 12-205(c)). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-ev-charging-end-of-tenancy-md",
+    title: "No Charger Removal Statute",
+    group: "Parking & Storage",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "ev-charging-end-of-tenancy",
+    bodyText:
+      "Maryland has no statute on what happens to tenant-installed electric vehicle charging equipment when a tenancy ends. The only removal rule in Maryland law is for condominium unit owners, who bear the cost of removing their own charging equipment and restoring the common element or limited common element.",
+    notes: "MD: Md. Code Ann., Real Prop. § 11-111.4(d)(2)(iv) ('If the owner decides to remove the electric vehicle recharging equipment, costs for the removal and for the restoration of the common element') (MD battery E-ev-tenancy: 4 hits; positives passed) (MD battery E-ev-notenancy: 8 hits; positives passed) Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-ev-charging-requirements-md",
+    title: "No Tenant Charging Conditions Statute",
+    group: "Parking & Storage",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "ev-charging-requirements",
+    bodyText:
+      "Maryland sets no conditions that a landlord may or must impose on a tenant's electric vehicle charging. The conditions in Maryland law, such as using a licensed contractor, following building codes, paying for separately metered electricity, and carrying insurance naming the association, apply only between condominium or homeowners associations and their owners.",
+    notes: "MD: Md. Code Ann., Real Prop. § 11-111.4(d)(1)(ii) ('Engage a licensed contractor to install the electric vehicle recharging equipment'); Md. Code Ann., Real Prop. § 11-111.4(g)(1)(i) ('provide a certificate of insurance naming the condominium association as an additional insured') (MD battery E-ev-tenancy: 4 hits; positives passed) (MD battery E-ev-notenancy: 8 hits; positives passed) Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-ev-charging-shared-area-md",
+    title: "No Shared Charging Statute",
+    group: "Parking & Storage",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "ev-charging-shared-area",
+    bodyText:
+      "Maryland has no statute on tenant electric vehicle charging in shared parking at a rental property. Condominium and homeowners association governing documents may not prohibit or unreasonably restrict the governing body from installing charging equipment in common-use parking spaces, but that is an association power, not a tenant right.",
+    notes: "MD: Md. Code Ann., Real Prop. § 11-111.6(b) ('may not prohibit or unreasonably restrict the governing body from installing or authorizing the installation of electric vehicle recharging equipment in common use') (MD battery E-ev-tenancy: 4 hits; positives passed) (MD battery E-ev-notenancy: 8 hits; positives passed) Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-parking-statute-md",
+    title: "No Residential Parking Statute",
+    group: "Parking & Storage",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "parking",
+    bodyText:
+      "Maryland has no statute regulating parking terms in residential leases. Towing from a privately owned lot of 3 or more spaces that is accessible to the general public and intended mainly for customers, residents, lessees, or guests is regulated by the State's parking-lot towing law. A vehicle that has remained on private property for more than 48 hours without the consent of the owner or person in control of the property is an abandoned vehicle that the police may take into custody.",
+    notes: "MD: Md. Code Ann., Transp. § 21-10A-01(a) ('“parking lot” means a privately owned facility consisting of 3 or more spaces for motor vehicle parking'); Md. Code Ann., Transp. § 25-201(b)(3) ('That has remained on private property for more than 48 hours without the consent of the owner or person in control of the property'); Md. Code Ann., Transp. § 25-203(a) ('A police department may take any abandoned vehicle into custody.') (MD battery E-parking-tenancy: 29 hits; positives passed) Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-parking-rules-notice-md",
+    title: "No Parking Rules Notice Statute",
+    group: "Parking & Storage",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "parking-rules-notice",
+    bodyText:
+      "Maryland does not require parking or towing rules to be delivered before the lease is signed or under any prescribed heading, and it does not limit mid-term changes to parking rules or the vehicle information you may ask a tenant for. The one State notice duty is posting compliant tow-warning signs in a parking lot before any vehicle is towed from it.",
+    notes: "MD: Md. Code Ann., Transp. § 21-10A-02(b) ('may not have a vehicle towed or otherwise removed from the parking lot unless the owner, operator, or agent has placed in conspicuous locations') (MD battery E-parking-tenancy: 29 hits; positives passed) Rule 15: written section-open.",
+  },
+  {
+    id: "edu-towing-residents-vehicles-md",
+    title: "Towing Residents Vehicles",
+    group: "Parking & Storage",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "parking-vehicle-rules",
+    bodyText:
+      "Maryland's parking-lot towing law is not limited to vehicles parked without permission, so a resident's vehicle may be towed for violating posted lot rules if the law's conditions are met. The law covers a privately owned lot of 3 or more spaces that is accessible to the general public and intended mainly for the owner's customers, residents, lessees, or guests. Before towing, the tower must have your authorization naming the person who authorized it, stating that the tow is at the lot owner's request, and including photographic evidence of the violation. A vehicle may not be towed solely for failing to display a valid current registration until 72 hours after a notice of violation is placed on it. Whether a gated lot that is not accessible to the general public is covered is unsettled.",
+    notes: "MD: Md. Code Ann., Transp. § 21-10A-01(a) ('Intended by the owner of the facility to be used primarily by the owner’s customers, clientele, residents, lessees, or guests'); Md. Code Ann., Transp. § 21-10A-04(a)(5)(iii) ('Photographic evidence of the violation or event that precipitated the towing of the vehicle'); Md. Code Ann., Transp. § 21-10A-04(a)(9) ('until 72 hours after a notice of violation is placed on the vehicle') Case law not searched. Local: Local laws may regulate towing more stringently (Md. Code Ann., Transp. § 21-10A-01(b)(2)). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-storage-space-md",
+    title: "Storage Included With Lease",
+    group: "Parking & Storage",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "storage-space",
+    bodyText:
+      "Maryland's self-service storage law covers real property used for renting or leasing individual storage spaces that occupants use on a self-service basis; it does not say whether it reaches a storage space that comes with a residential lease, and that question is unsettled. Storage that is part of the leased premises is governed by the landlord-tenant law, under which a lease may not authorize you to take the tenant's personal property unless the lease has ended and the property has been abandoned. You may not use self-help, such as lockouts, to retake possession.",
+    notes: "MD: Md. Code Ann., Com. Law § 18-501(i) ('“Self-service storage facility” means any real property used for renting or leasing individual storage spaces'); Md. Code Ann., Real Prop. § 8-208(d)(6) ('the personal property has been abandoned by the tenant without the benefit of formal legal process'); Md. Code Ann., Real Prop. § 8-216(b)(1) ('a landlord may not take possession or threaten to take possession of a dwelling unit from a tenant') Case law not searched. Md. Code Ann., Com. Law § 18-501 and 18-502 changed in 2026; the text in effect October 1, 2026 was used. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-parking-lot-towing-md",
+    title: "Parking Lot Towing Requirements",
+    group: "Parking & Storage",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "towing",
+    bodyText:
+      "Before having a vehicle towed from a parking lot of 3 or more spaces open to the public, you or your agent must post signs at least 24 inches high and 30 inches wide, at least 1 for every 7,500 square feet of parking space, stating where vehicles are towed and the towing company's name, that vehicles can be reclaimed at least from 6 a.m. to midnight 7 days a week, the maximum charge, and a phone number for reclaiming. Unless local law sets other amounts, the tower may charge no more than twice the local public safety impound towing fees and the local daily storage fee, or $250 for towing and $30 a day for storage where the locality sets no limit. A towed vehicle may not be taken more than 15 miles from the lot (unless local law sets another distance) or out of the State. The tower may not pay any remuneration to the lot's owner, agent, or employee, and may not use spotters. Local governments may regulate towing more strictly.",
+    notes: "MD: Md. Code Ann., Transp. § 21-10A-02(b)(1) ('Are at least 24 inches high and 30 inches wide'); Md. Code Ann., Transp. § 21-10A-02(c)(1) ('at least 1 sign for every 7,500 square feet of parking space'); Md. Code Ann., Transp. § 21-10A-04(a)(1)(iii) ('$250 for towing and recovering a vehicle and $30 per day for vehicle storage'); Md. Code Ann., Transp. § 21-10A-03(a)(1) ('more than 15 miles from the parking lot'); Md. Code Ann., Transp. § 21-10A-04(a)(8) ('May not pay any remuneration to the owner, agent, or employee of the parking lot'); Md. Code Ann., Transp. § 21-10A-01(b)(2) ('otherwise regulating in a more stringent manner, the parking, towing or removal, or impounding of vehicles') (MD battery E-booting: 3 hits; no real Maryland positive exists, pattern synthetic-tested) No private-booting statute located (E-booting hits are police and government immobilization). Local: Local towing laws; Southern Maryland code counties may license towing companies (Md. Code Ann., Local Gov't § 11-502, 11-503). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-abandoned-vehicles-md",
+    title: "Abandoned Vehicles On Rental Property",
+    group: "Parking & Storage",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "towing",
+    bodyText:
+      "A vehicle that has remained on private property for more than 48 hours without the consent of the owner or person in control of the property is an abandoned vehicle under Maryland law. A police department may take an abandoned vehicle into custody and, if it is not reclaimed after notice, sells it at public auction. Maryland law gives a landlord no separate power to sell or dispose of an abandoned vehicle. Who is the person in control of a single-family rental for this purpose is unsettled.",
+    notes: "MD: Md. Code Ann., Transp. § 25-201(b)(3) ('That has remained on private property for more than 48 hours without the consent of the owner or person in control of the property'); Md. Code Ann., Transp. § 25-203(a) ('A police department may take any abandoned vehicle into custody.'); Md. Code Ann., Transp. § 25-207(a) ('the police department shall sell the vehicle at public auction') Case law not searched. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-unbundled-parking-md",
+    title: "No Unbundled Parking Rule",
+    group: "Parking & Storage",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "unbundled-parking",
+    bodyText:
+      "Maryland has no statute requiring or regulating separating parking charges from residential rent. Parking in residential leases is not regulated by State statute apart from towing.",
+    notes: "MD: Md. Code Ann., Transp. § 21-10A-01(b)(1) ('This subtitle applies only to the towing or removal of vehicles from parking lots.') (MD battery E-parking-tenancy: 29 hits; positives passed) Rule 15: written section-open.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-cannabis-home-grow-md",
+    title: "Cannabis Home Cultivation Rules",
+    group: "Rules & Regulations",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "cannabis",
+    bodyText:
+      "Maryland lets adults 21 and older grow no more than two cannabis plants per residence (qualifying medical patients 21 and older, up to four), only out of public view, with reasonable precautions to secure the plants from minors and unauthorized access, and only on property lawfully in the cultivator's possession or with the consent of the person in lawful possession. Because the tenant is the person in lawful possession of the unit, the statute itself does not require your consent; whether a lease ban on cultivation is enforceable is unsettled. Maryland has no statute protecting medical cannabis patients in housing and none addressing lease bans on cannabis smoking or use.",
+    notes: "MD: Md. Code Ann., Crim. Law § 5-601.2(d) ('Cannabis cultivation may occur only on property lawfully in possession of the cultivator or with the consent of the person in lawful possession of the'); Md. Code Ann., Crim. Law § 5-601.2(f)(2) ('no more than two cannabis plants may be cultivated at that residence'); Md. Code Ann., Alc. Bev. & Cannabis § 36-302(b)(2) ('not more than four cannabis plants may be cultivated at that residence') (MD battery E-cannabis-lease2: 7 hits; positives passed) (MD battery E-medical-cannabis-protect: 0 hits; no real Maryland positive exists, pattern synthetic-tested) Case law not searched. Rule 15: written section-open.",
+  },
+  // Building & Safety
+  {
+    id: "edu-grill-ban-charles-wicomico-md",
+    title: "Grill Ban In Two Counties",
+    group: "Building & Safety",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fire-safety-grilling",
+    bodyText:
+      "In Charles County and Wicomico County, no one may use a barbecue grill (electric, charcoal, propane, or other fuel) on a balcony of a residential dwelling or within 20 feet of any part of one, including a balcony. A residential dwelling here includes multifamily buildings, but not single-family homes or multifamily buildings whose units are side by side in a row rather than stacked. A violation is subject to State fire law penalties. Elsewhere, the State Fire Prevention Code, which adopts a national fire code by reference, may also govern balcony grilling.",
+    notes: "MD: Md. Code Ann., Pub. Safety § 9-1001(b) ('In Charles County and Wicomico County, a person may not use a barbecue grill'); Md. Code Ann., Pub. Safety § 9-1001(a)(3)(iii) ('a multifamily residential dwelling in which the individual dwelling units are arranged in a row, side by side, and not constructed above each other'); COMAR 29.06.01.02B ('This chapter incorporates by reference NFPA 1 Fire Code (2024 Edition)') (MD battery E-grill: 1 hits; positives passed) NFPA 1 text is not in the saved sources; statewide balcony-grill rule not located. Local: Charles County and Wicomico County; state statute limited to the two counties. Rule 15: written section-open.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-no-firearms-lease-rule-md",
+    title: "No Firearms Lease Statute",
+    group: "Rules & Regulations",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "firearms",
+    bodyText:
+      "Maryland has no statute that permits, limits, or voids a lease restriction on a tenant's firearms, protects firearm possession in rentals, or addresses firearms locked in vehicles in a parking area; enforceability of a lease firearm rule is unsettled. Related law: no one may possess or store explosives for use in firearms, such as smokeless or black powder, in any quantity in multifamily dwellings or apartments. A person carrying a firearm may not enter the dwelling of another without the express permission of the owner or the owner's agent, and dwelling for that rule excludes the common areas of a multifamily dwelling.",
+    notes: "MD: Md. Code Ann., Pub. Safety § 11-105(d)(2) ('A person may not possess or store explosives for use in firearms in any quantity in multifamily dwellings, apartments'); Md. Code Ann., Crim. Law § 6-411(c) ('may not enter or trespass in the dwelling of another unless the owner or the owner’s agent has given express permission'); Md. Code Ann., Crim. Law § 6-411(a)(2)(ii) ('common areas of a multifamily dwelling') (MD battery E-firearm-lease: 15 hits; positives passed) Case law not searched. Md. Code Ann., Crim. Law § 6-411 has been the subject of constitutional litigation. Md. Code Ann., Pub. Safety § 11-105 changed in 2026; the text in effect October 1, 2026 was used. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-guest-police-calls-md",
+    title: "Guests And Police Calls",
+    group: "Rules & Regulations",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "guest-policy",
+    bodyText:
+      "Maryland does not regulate guest-policy terms generally. A lease may not limit a tenant's ability to summon law enforcement or emergency services, and may not penalize a tenant for the actions of another individual solely because that individual summoned that help. You may withhold from the security deposit for damage by the tenant's guests or invitees beyond ordinary wear and tear, and damage caused by the tenant's social guests is a defense to a tenant's rent escrow claim.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-208(d)(10)(ii) ('Penalizes a tenant for the actions of another individual solely because the individual summoned the assistance of law enforcement or emergency services'); Md. Code Ann., Real Prop. § 8-203(f)(1)(i) ('damage by the tenant or the tenant’s family, agents, employees, guests or invitees in excess of ordinary wear and tear'); Md. Code Ann., Real Prop. § 8-211(l) ('the tenant’s family, agent, employees, or assignees or social guests have caused the asserted defects') (MD battery E-guest-limit: 24 hits; positives passed) Mobile home park law (RP Title 8A) not researched. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-guest-day-limit-md",
+    title: "No Guest Stay Limit Statute",
+    group: "Rules & Regulations",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "guest-policy-day-limit",
+    bodyText:
+      "Maryland has no statute capping or regulating how many days a guest may stay. Any guest limit you set must still comply with Maryland's fair housing law, including its familial status protection, and that law does not limit reasonable local, State, or federal restrictions on the maximum number of occupants of a dwelling.",
+    notes: "MD: Md. Code Ann., State Gov't § 20-703(2) ('limit the applicability of any reasonable local, State, or federal restrictions regarding the maximum number of occupants allowed to occupy a dwelling') (MD battery E-guest-limit: 24 hits; positives passed) Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-guest-rights-md",
+    title: "No Guest Access Rights Statute",
+    group: "Rules & Regulations",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "guest-rights",
+    bodyText:
+      "Maryland has no statute guaranteeing access for tenants' guests or service providers in multi-unit buildings. Related rules: a tenant organization in an apartment facility of 4 or more units may meet in the tenants' meeting room, and you may require non-residents attending to sign a liability waiver. In Montgomery and Prince George's Counties, restricted-access multifamily buildings must provide an area for voter information material before elections.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-219(b)(1) ('a tenant organization shall have the right to assemble in a meeting room within an apartment facility'); Md. Code Ann., Elec. Law § 1-303(b)(1) ('in Montgomery County and Prince George’s County') (MD battery E-guest-limit: 24 hits; positives passed) Local: Montgomery and Prince George's Counties (Md. Code Ann., Elec. Law § 1-303). Rule 15: written section-open.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-no-landscaping-separate-writing-md",
+    title: "Yard Duties In The Lease",
+    group: "Tenant Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landscaping-irrigation",
+    bodyText:
+      "Maryland does not require tenant yard, landscaping, or irrigation duties to be in a separate signed writing. Every lease must state the landlord's and the tenant's specific obligations as to heat, gas, electricity, water, and repair of the premises. A lease may not have the tenant waive any right or remedy the law provides, including your duty to repair serious and dangerous defects.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-208(c)(2) ('The landlord’s and the tenant’s specific obligations as to heat, gas, electricity, water, and repair of the premises'); Md. Code Ann., Real Prop. § 8-208(d)(2) ('Has the tenant agree to waive or to forego any right or remedy provided by applicable law') (MD battery E-separate-writing-maintenance: 0 hits; no real Maryland positive exists, pattern synthetic-tested) Lease text: utility-repair-obligations-md. Rule 15: written section-open.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-voter-information-area-md",
+    title: "Voter Information Area",
+    group: "Rules & Regulations",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "political-access",
+    bodyText:
+      "In Montgomery County and Prince George's County, if access to the entrances of individual units in your apartment building or other multifamily structure is restricted, you must designate a public area in the structure where voter information material may be distributed or left for the 60 days before each primary and general election. The area must be readily accessible to residents, and material left there must remain available for at least 10 days. On a written complaint, the local board of elections will notify you and request compliance.",
+    notes: "MD: Md. Code Ann., Elec. Law § 1-303(b)(2) ('where access to the entrance of individual residential units is restricted by the owner or governing board of the entire structure'); Md. Code Ann., Elec. Law § 1-303(c)(1) ('for the 60-day period immediately prior to each primary election and general election'); Md. Code Ann., Elec. Law § 1-303(c)(3) ('shall remain available for residents of the structure for a period of at least 10 days') Local: Montgomery County and Prince George's County; state statute limited to the two counties. Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-no-portable-cooling-right-md",
+    title: "No Window Unit Right",
+    group: "Landlord Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "portable-cooling-device",
+    bodyText:
+      "Maryland gives tenants no statutory right to install window or portable air-conditioning units. Separately, in apartment buildings with 10 or more units (not on property listed on the National Register of Historic Places), you must provide air-conditioning from June 1 to September 30 each year: for newly constructed units from June 1, 2026; from June 1, 2026 for units you equipped with or provided air-conditioning, or whose lease required it, at any time on or after January 1, 2025; and from October 1, 2026 for units renovated with replacement or substantial upgrade of electrical or heating systems. A landlord-controlled system must keep each habitable space at not more than 80 degrees Fahrenheit 3 feet above the floor, and a tenant-controlled system must be in good working order and capable of doing so.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-122(a)(1) ('This section applies only to residential rental units in apartment buildings with 10 or more individual dwelling units.'); Md. Code Ann., Real Prop. § 8-122(c)(1) ('not greater than 80 degrees Fahrenheit at 3 feet above the floor level in each habitable space') (MD battery E-portable-cooling: 5 hits; positives passed) Rule 15: written section-open.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-no-portable-solar-md",
+    title: "No Plug-In Solar Right",
+    group: "Rules & Regulations",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "portable-solar",
+    bodyText:
+      "Maryland has no statute giving tenants a right to install plug-in, balcony, or other portable solar devices. Maryland's solar statutes deal with community solar, rooftop solar sales and leases, and condominium easements, not tenant rights.",
+    notes: "MD: Md. Code Ann., Pub. Util. § 7-320(a) ('This section applies only to residential rooftop solar energy generating systems.') (MD battery E-portable-solar: 12 hits; positives passed) Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-religious-display-md",
+    title: "No Religious Display Statute",
+    group: "Rules & Regulations",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "religious-cultural-display",
+    bodyText:
+      "Maryland has no statute protecting a tenant's religious or cultural displays, such as a mezuzah on a door frame, against lease rules. Maryland's fair housing law still bars discrimination because of religion in the terms, conditions, or privileges of a rental; how that applies to a particular display rule is unsettled.",
+    notes: "MD: Md. Code Ann., State Gov't § 20-705(a)(2) ('discriminate against any person in the terms, conditions, or privileges of the sale or rental of a dwelling') (MD battery E-religious-display: 3 hits; positives passed) Case law not searched. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-house-rules-statute-md",
+    title: "No General House Rules Statute",
+    group: "Rules & Regulations",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rules-regulations",
+    bodyText:
+      "Maryland has no general statute on when landlord house rules are enforceable, whether rules adopted after signing bind the tenant, or how far mid-tenancy rule changes may go; those questions are unsettled. Maryland does set procedures for two specific kinds of rules: flag-display rules and clothesline restrictions require an open meeting with advance notice before you adopt them. In Montgomery County, you may set reasonable pet rules for elderly tenants.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-214(e) ('A landlord may establish reasonable rules governing the type, size, and number of pets allowed') (MD battery E-landlord-rules: 13 hits; positives passed) Case law not searched. Local: Montgomery County (Md. Code Ann., Real Prop. § 8-214). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-flag-clothesline-rule-meeting-md",
+    title: "Open Meeting Before Certain Rules",
+    group: "Rules & Regulations",
+    states: ["MD"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rules-regulations",
+    bodyText:
+      "Before you adopt rules on the placement and manner of displaying the United States flag or a flagpole, or any restriction on installing or using clotheslines at single-family property, you must hold an open meeting on the proposed rules where affected tenants can be heard. You must give advance notice of the time and place by a community newsletter, a community bulletin board, means provided in the lease, or other means reasonably calculated to inform affected tenants.",
+    notes: "MD: Md. Code Ann., Real Prop. § 14-128(d)(2)(i) ('Hold an open meeting on the proposed rules and regulations for the purpose of providing affected homeowners and tenants an opportunity to be heard'); Md. Code Ann., Real Prop. § 14-130(f)(1) ('Hold an open meeting on the proposed restriction for the purpose of providing affected homeowners and tenants an opportunity to be heard') Rule 15: written section-open.",
+  },
+  {
+    id: "edu-clothesline-right-md",
+    title: "Tenant Clothesline Right",
+    group: "Rules & Regulations",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rules-regulations",
+    bodyText:
+      "A lease or rule may not prohibit a tenant from installing or using clotheslines on single-family property, which includes detached homes, townhouses, and condominium, homeowners association, or cooperative property, but not property with more than four dwelling units. You may impose reasonable restrictions on the dimensions, placement, or appearance of clotheslines to protect aesthetic values, and on their placement to protect persons or property in a fire or other emergency. The right does not apply to restrictions on historic property listed in, or eligible for, the Maryland Register of Historic Properties.",
+    notes: "MD: Md. Code Ann., Real Prop. § 14-130(c) ('may not prohibit a homeowner or tenant from installing or using clotheslines on single-family property'); Md. Code Ann., Real Prop. § 14-130(a)(2)(ii) ('“Single-family property” does not include property that contains more than four dwelling units.'); Md. Code Ann., Real Prop. § 14-130(e)(1) ('The dimensions, placement, or appearance of clotheslines for the purpose of protecting aesthetic values') Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-smoke-drift-waiver-md",
+    title: "No Smoke Drift Statute",
+    group: "Rules & Regulations",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "smoke-drift-waiver",
+    bodyText:
+      "Maryland has no statute on tobacco smoke drifting between units or on a tenant waiving smoke-drift claims, and no statute regulating smoking rules in rentals. Maryland's smoke-related housing statutes concern smoke alarms.",
+    notes: "MD: Md. Code Ann., Pub. Safety § 9-102(c)(1) ('An automatic smoke alarm shall be provided in each sleeping area') (MD battery E-smoking-tenancy: 15 hits; positives passed) Rule 15: written section-open.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "edu-no-snow-removal-md",
+    title: "No State Snow Removal Rule",
+    group: "Tenant Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "snow-removal",
+    bodyText:
+      "No Maryland State statute divides snow and ice removal between landlord and tenant. A municipality may require property owners to keep the sidewalks on their property clean and free from snow, ice, or other obstructions, and a lease term assigning shoveling to the tenant does not by itself change who that local rule makes responsible.",
+    notes: "MD: Md. Code Ann., Local Gov't § 5-217 ('A municipality may require the owners of property to keep the sidewalks on the property clean and free from snow, ice, or other obstructions.') (MD battery E-snow-notenancy: 3 hits; positives passed) Case law not searched. Local: Municipal sidewalk snow ordinances not resolved. Rule 15: written section-open.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-us-flag-display-md",
+    title: "Tenant United States Flag",
+    group: "Rules & Regulations",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-display-rights",
+    bodyText:
+      "Regardless of any lease or rental agreement term, a tenant may display one portable, removable flag of the United States in a respectful manner on the premises where the tenant is entitled to reside. You may adopt reasonable rules on the placement and manner of display of the flag and a flagpole, but only after an open meeting with advance notice. No Maryland statute protects other flags or a tenant's political signs against a landlord's lease rules.",
+    notes: "MD: Md. Code Ann., Real Prop. § 14-128(c) ('may not prohibit or unduly restrict the right of a homeowner or tenant to display on the premises'); Md. Code Ann., Real Prop. § 14-128(b) ('one portable, removable flag of the United States in a respectful manner'); Md. Code Ann., Real Prop. § 14-128(d)(1) ('or a landlord may adopt reasonable rules and regulations regarding the placement and manner of display of the flag') (MD battery E-landlord-rules: 13 hits; positives passed) Rule 15: written section-open.",
+  },
+  {
+    id: "edu-association-candidate-signs-md",
+    title: "Association Candidate Sign Rules",
+    group: "Rules & Regulations",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-display-rights",
+    bodyText:
+      "Condominium and homeowners association documents and rules may not prohibit displaying candidate signs or signs supporting or opposing a ballot question. An association may restrict them in common areas, under federal, State, and local law, and to a time period that, if local law sets none, may not be shorter than 45 days before early voting (or the election if there is no early voting) through 7 days after the election. These limits apply to associations; Maryland has no statute that requires a unit owner to get a tenant's consent to post a sign, or that protects a tenant's signs against a landlord.",
+    notes: "MD: Md. Code Ann., Real Prop. § 11-111.2(b) ('a provision in the bylaws or rules of a condominium may not restrict or prohibit the display of: (1) A candidate sign'); Md. Code Ann., Real Prop. § 11B-111.2(c)(3)(ii) ('7 days after the primary election, general election, or vote on the proposition') Md. Code Ann., Real Prop. § 11-111.2 and 11B-111.2 changed in 2026; the text in effect October 1, 2026 was used. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-security-camera-rule-md",
+    title: "No Tenant Camera Statute",
+    group: "Rules & Regulations",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-security-cameras",
+    bodyText:
+      "Maryland has no statute on tenant-installed security cameras or video doorbells. Maryland's wiretap law makes it unlawful to willfully intercept an oral communication unless an exception applies, including where the person is a party and all parties have given prior consent, so devices that record audio raise separate concerns. How the wiretap law applies to doorbell or camera audio is unsettled.",
+    notes: "MD: Md. Code Ann., Cts. & Jud. Proc. § 10-402(a)(1) ('Willfully intercept, endeavor to intercept, or procure any other person to intercept or endeavor to intercept, any wire, oral, or electronic communication'); Md. Code Ann., Cts. & Jud. Proc. § 10-402(c)(3) ('where all of the parties to the communication have given prior consent to the interception') (MD battery E-camera-tenancy: 6 hits; positives passed) Case law not searched. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-waterbed-md",
+    title: "No Waterbed Statute",
+    group: "Rules & Regulations",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "waterbed",
+    bodyText:
+      "Maryland has no statute on waterbeds or other liquid-filled furniture in rentals. Waterbed rules in a lease are governed only by general lease law.",
+    notes: "MD: (MD battery E-waterbed: 0 hits; no real Maryland positive exists, pattern synthetic-tested) Rule 15: written section-open.",
+  },
+  // Disclosures
+  {
+    id: "edu-no-bed-bug-disclosure-md",
+    title: "No Bed Bug Statute",
+    group: "Disclosures",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "bed-bug-disclosure",
+    bodyText:
+      "Maryland has no bed bug disclosure or treatment statute. Related law: you must repair conditions that present a serious and substantial threat to occupants' life, health, or safety, which expressly include infestation of rodents in two or more dwelling units and any condition presenting a health hazard, and tenants may use rent escrow if you do not fix them within a reasonable time after notice (more than 30 days is presumed unreasonable).",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-211(d)(3) ('Infestation of rodents in two or more dwelling units'); Md. Code Ann., Real Prop. § 8-211(d)(5) ('The existence of any condition which presents a health or fire hazard to the dwelling unit'); Md. Code Ann., Real Prop. § 8-211(g)(3) ('There is a rebuttable presumption that a period in excess of 30 days from receipt of notice is unreasonable.') (MD battery E-bedbug: 1 hits; positives passed) (MD battery E-pest-tenancy: 3 hits; positives passed) Case law not searched. Whether bed bugs are a serious defect under this section is unsettled. Local: Local housing codes not resolved. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-certificate-of-occupancy-disclosure-md",
+    title: "No Occupancy Certificate Disclosure",
+    group: "Disclosures",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "certificate-of-occupancy-disclosure",
+    bodyText:
+      "Maryland has no statute requiring you to disclose or give a tenant a certificate of occupancy. Where a county or municipality requires a rental license, any complaint you file to repossess the unit must plead, and you must prove at trial, that the property is licensed, exempt, or unlicensed only for a reason the statute allows.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-406(a)(1) ('This section applies only in a county, a municipality, or any other jurisdiction that requires a license for the lawful operation of residential rental property.'); Md. Code Ann., Real Prop. § 8-406(b)(1) ('Licensed in compliance with applicable local rental licensing requirements') (MD battery E-cert-occupancy: 7 hits; positives passed) Local: Local rental licensing laws not resolved. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-defective-drywall-disclosure-md",
+    title: "No Drywall Disclosure Statute",
+    group: "Disclosures",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "defective-drywall-disclosure",
+    bodyText:
+      "Maryland has no statute requiring disclosure of defective or sulfur-emitting drywall to tenants. Any such condition is reached only through your general repair and habitability duties.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-211(d)(5) ('The existence of any condition which presents a health or fire hazard to the dwelling unit') (MD battery E-drywall: 1 hits; no real Maryland positive exists, pattern synthetic-tested) Case law not searched. Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-submetering-charge-limits-md",
+    title: "Submetered Energy Charge Limits",
+    group: "Rent & Payment",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "electric-submetering-disclosure",
+    bodyText:
+      "If you submeter gas or electricity in an apartment house, you may charge each unit only the charges the Public Service Commission authorizes and the utility actually imposes on you, allocated by the unit's actual usage, plus a service charge of not more than $1 per unit per month for administration and billing. Energy used in common areas and common facilities may not be billed to any occupant. A unit may not be submetered unless every unit in the building is submetered. If you install submeters during a lease that included gas or electricity in the rent, you must pass the unit's savings on to the occupant as a payment or rent reduction, and you must keep submetering records and let the occupant inspect them during reasonable business hours.",
+    notes: "MD: Md. Code Ann., Pub. Util. § 7-303(d)(2)(iii) ('may collect an additional service charge not exceeding $1 per unit per month to cover administrative costs and billing'); COMAR 20.25.01.05A ('Energy used in common areas and common facilities may not be billed to any occupant.'); COMAR 20.25.01.02A ('A unit in an apartment house, shopping center, or office building may not be submetered unless all units in that building are submetered.'); Md. Code Ann., Pub. Util. § 7-303(d)(3)(ii) ('pass that amount on to the unit’s occupant as a payment or reduction in rent') Lease text: utility-submetering-energy-md. Rule 15: written section-open.",
+  },
+  // Disclosures
+  {
+    id: "edu-energy-allocation-approval-md",
+    title: "Energy Allocation Billing Approval",
+    group: "Disclosures",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "electric-submetering-disclosure",
+    bodyText:
+      "If you bill tenants for gas or electricity using an energy allocation system, which estimates usage instead of measuring it, the Public Service Commission must approve the system before you use it for direct billing. You may bill an occupant only for the approximate energy use within the unit determined by the approved system, and may not bill for energy used in operating the building outside the units or for administrative fees or charges. Complaints the Commission receives about these systems go to the Attorney General's Consumer Protection Division.",
+    notes: "MD: Md. Code Ann., Pub. Util. § 7-304(b)(2) ('An energy allocation system may not be used for direct billing of energy costs to the tenant of an individual dwelling unit unless the Commission'); COMAR 20.26.02.02A ('An owner using an energy allocation system shall directly bill an occupant only for the cost of the approximate energy use within a dwelling unit'); COMAR 20.26.02.02B ('Administrative fees or charges') Pre-lease disclosure text: utility-submetering-energy-md. Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-fair-housing-classes-md",
+    title: "Maryland Fair Housing Classes",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fair-housing",
+    bodyText:
+      "Maryland's fair housing law bars refusing to rent, discriminating in rental terms or services, and discriminatory notices or advertisements because of race, color, religion, sex, disability, marital status, familial status, sexual orientation, gender identity, national origin, source of income, or military status. Source of income includes any lawful source, including housing vouchers and rental assistance. A practice with a discriminatory effect is unlawful regardless of intent unless it is necessary to achieve a substantial, legitimate, nondiscriminatory interest that could not be achieved by less discriminatory means. If a complaint goes to a charge before the Maryland Commission on Civil Rights, you as respondent, like the complainant, may elect to have it decided in a civil action within 20 days after service.",
+    notes: "MD: Md. Code Ann., State Gov't § 20-705(a)(1) ('because of race, color, religion, sex, disability, marital status, familial status, sexual orientation, gender identity, national origin, source of income, or military status'); Md. Code Ann., State Gov't § 20-701(j)(1) ('“Source of income” means any lawful source of money paid directly or indirectly to or on behalf of a renter or buyer of housing'); Md. Code Ann., State Gov't § 20-705(b)(3) ('could not have achieved the substantial, legitimate, and nondiscriminatory interests by less discriminatory means'); Md. Code Ann., State Gov't § 20-1026(a) ('a complainant, respondent, or aggrieved person on whose behalf the complaint was filed may elect') (MD battery E-housing-sexual-harassment: 7 hits; positives passed) (MD battery E-const-equality: 3 hits; positives passed) No housing sexual-harassment crime; no constitutional equal-dignity clause beyond Decl. of Rights art. 46 (sex). Md. Code Ann., State Gov't §§ 20-701, 20-702, 20-705 changed 2026 (military status); text in effect October 1, 2026 used. Case law not searched. Local: County fair housing ordinances not resolved. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-fair-housing-exemptions-md",
+    title: "Fair Housing Exemptions",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fair-housing",
+    bodyText:
+      "Maryland's fair housing law does not apply to renting a single-family dwelling without using a broker, agent, or person in the business of renting dwellings and without publishing a discriminatory advertisement or notice. Owners who live in the building and rent rooms, or apartments in a dwelling of not more than five rental units, are exempt only from the sex, sexual orientation, gender identity, marital status, military status, and housing-voucher source-of-income provisions, not from the others. Qualifying housing for older persons is exempt from the familial status provisions. You may still verify a prospective renter's income source, amount, and creditworthiness in a commercially reasonable and nondiscriminatory manner. The federal Fair Housing Act still applies, and its single-family exemption is narrower: it covers only a private owner who owns no more than three single-family houses at a time, and federal law separately bars race discrimination in renting with no exemption.",
+    notes: "MD: Md. Code Ann., State Gov't § 20-704(a)(1) ('the sale or rental of a single-family dwelling, if the dwelling is sold or rented without'); Md. Code Ann., State Gov't § 20-704(a)(2)(ii) ('the rental of any apartment in a dwelling that contains not more than five rental units, if the owner maintains the dwelling as the owner’s'); Md. Code Ann., State Gov't § 20-704(d)(1) ('verifying in a commercially reasonable and nondiscriminatory manner the source and amount of income or creditworthiness') Advertising ban in § 20-705(a)(3) is subject to the § 20-703/20-704 exemptions, but the single-family exemption is lost by discriminatory advertising (20-704(a)(1)(ii)). Federal law not searched. (Claude Code, 2026-10-08, MD sync spot-check): federal sentence added so the state exemption isn't read as an exemption from all fair housing law; 42 U.S.C. § 3603(b)(1) (single-family house sold or rented by an owner, 'such private individual owner does not own more than three such single-family houses at any one time'); 42 U.S.C. § 1982 (race, no exemption). Rule 15: written section-open.",
+  },
+  // Disclosures
+  {
+    id: "edu-no-flood-disclosure-md",
+    title: "No Flood Disclosure Statute",
+    group: "Disclosures",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "flood-disclosure",
+    bodyText:
+      "Maryland has no statute requiring a landlord to disclose flood zones, flood history, or flood insurance information to tenants. It also has no flood rider form and no tenant termination remedy tied to flooding.",
+    notes: "MD: (MD battery E-flood-tenancy: 2 hits; positives passed) Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-foreclosure-disclosure-md",
+    title: "No Foreclosure Disclosure Duty",
+    group: "Disclosures",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "foreclosure-disclosure",
+    bodyText:
+      "Maryland does not require you to disclose a pending foreclosure to a prospective or current tenant. If the property is foreclosed, a successor in interest takes subject to a bona fide tenant's lease for its remaining term, or must give at least 90 days' written notice to vacate to a month-to-month or at-will tenant (or to end a lease when selling to a buyer who will live there). A foreclosure purchaser may not collect rent from a bona fide tenant until it identifies itself and tells the tenant where to pay. If you receive a notice of intent to foreclose, you may give shortened termination notices of 30 days (month-to-month or week-to-week) or 60 days (year-to-year), except in Baltimore City or Montgomery County or if you offer 5 or more units in Maryland.",
+    notes: "MD: Md. Code Ann., Real Prop. § 7-105.8(b)(2)(i) ('a notice to vacate to any bona fide tenant at least 90 days before the effective date of the notice'); Md. Code Ann., Real Prop. § 7-105.12(b) ('A foreclosure sale purchaser may not exercise any right to collect rent payments from a bona fide tenant'); Md. Code Ann., Real Prop. § 8-402(c)(4)(ii)1 ('At least 30 days before the expiration of the lease in cases of tenancies from month to month or tenancies from week to week') (MD battery E-landlord-foreclosure-disclosure: 6 hits; positives passed) Local: Md. Code Ann., Real Prop. § 8-402(c)(4) shortened notice not available in Baltimore City or Montgomery County. Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-no-good-cause-md",
+    title: "No Good Cause Eviction Rule",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "good-cause-notice",
+    bodyText:
+      "Maryland State law has no good-cause or just-cause requirement for ending a tenancy and no good-cause notice. To end a tenancy at the end of its term you need only give the written notice the statute requires, for example 60 days for a written lease of more than 1 week or a month-to-month tenancy and 90 days for a year-to-year tenancy. Some local governments may have their own rules.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-402(c)(2)(i) ('If the parties have a written lease for a stated term in excess of 1 week or a tenancy from month to month, 60 days'); Md. Code Ann., Real Prop. § 8-402(c)(2)(ii) ('90 days before the expiration of the current year of the tenancy') (MD battery E-good-cause-eviction: 6 hits; positives passed) Local: County or municipal just-cause or rent-stabilization ordinances not resolved. Rule 15: written section-open.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-association-child-care-md",
+    title: "Association Limits On Child Care",
+    group: "Other / Miscellaneous",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "hoa",
+    bodyText:
+      "Condominium, homeowners association, and cooperative documents may not prohibit or restrict family child care homes or large family child care homes, or their users' use of common roads and sidewalks, and may not limit the number of children below the number the State Department of Education authorizes. An association may require residents to notify it before opening one, charge each registered home a reasonable common-area fee of not more than $50 per year, and pass on directly attributable insurance cost increases. Maryland has no comparable statute limiting what a landlord's lease may say about home child care.",
+    notes: "MD: Md. Code Ann., Real Prop. § 11-111.1(c)(1)(i) ('May not prohibit or restrict: 1. The establishment and operation of family child care homes or large family child care homes'); Md. Code Ann., Real Prop. § 11B-111.1(e)(2) ('in a reasonable amount not to exceed $50 per year') (MD battery E-childcare-lease: 3 hits; positives passed) Rule 15: written section-open.",
+  },
+  {
+    id: "edu-association-sensitive-info-md",
+    title: "Association Information Limits",
+    group: "Other / Miscellaneous",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "hoa",
+    bodyText:
+      "A condominium or homeowners association may not require a unit or lot owner, occupant, or the guest or child of an owner or occupant to provide sensitive information as a condition of using a recreational common area such as a pool, playground, game room, or reading lounge. Sensitive information means a Social Security card or number, ITIN, birth certificate, racial or ethnic origin, national origin, citizenship or immigration status, religious or philosophical beliefs, or medical records. Government-issued photo identification, such as a driver's license, may still be required.",
+    notes: "MD: Md. Code Ann., Real Prop. § 11B-111.12(b) ('A homeowners association may not require a lot owner or occupant, or the guest or child of a lot owner or occupant, to provide sensitive'); Md. Code Ann., Real Prop. § 11-108.2(a)(2) ('“Sensitive information” does not include an individual’s government-issued photo identification') Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-association-lease-approval-rules-md",
+    title: "No Association Leasing Statutes",
+    group: "Other / Miscellaneous",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "hoa",
+    bodyText:
+      "Maryland has no statute capping association lease-approval or applicant fees, authorizing an association to hold a tenant deposit, letting an association collect rent directly from a tenant when the owner is delinquent, or limiting rental restrictions to owners who buy afterward. Resale disclosures for homeowners association lots must include a statement that the association's obligations are enforceable against the owner's tenants, if applicable.",
+    notes: "MD: Md. Code Ann., Real Prop. § 11B-106(b)(5)(i) ('including a statement that these obligations are enforceable against an owner’s tenants, if applicable') (MD battery E-assoc-tenant: 32 hits; positives passed) Case law not searched. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-condo-rule-exception-md",
+    title: "Condominium Rule Exceptions For Tenants",
+    group: "Other / Miscellaneous",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "hoa-compliance",
+    bodyText:
+      "A condominium unit owner or tenant may request an individual exception to a condominium rule that was adopted while that person was an owner or tenant there. The request must be written, filed with the body that adopted the rule, and filed within 30 days after the rule's effective date. Tenants may also comment at the open meeting held before a vote on a proposed condominium rule.",
+    notes: "MD: Md. Code Ann., Real Prop. § 11-111(c)(1) ('Each unit owner or tenant may request an individual exception to a rule adopted while the individual was the unit owner or tenant of the'); Md. Code Ann., Real Prop. § 11-111(c)(2)(iii) ('Filed within 30 days after the effective date of the rule') Lease text for association documents: montgomery-association-docs-md, columbia-association-md. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-antenna-rule-md",
+    title: "No State Antenna Rule",
+    group: "Other / Miscellaneous",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "hoa-compliance",
+    bodyText:
+      "Maryland has no statute on tenants' or owners' satellite dishes or over-the-air antennas at rental or association property. Federal rules on antennas were not reviewed here.",
+    notes: "MD: (MD battery E-satellite: 7 hits; positives passed) Federal OTARD rule not searched. Rule 15: written section-open.",
+  },
+  // Disclosures
+  {
+    id: "edu-no-inspection-condemnation-disclosure-md",
+    title: "No Code-Violation Disclosure Duty",
+    group: "Disclosures",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "inspection-condemnation-disclosure",
+    bodyText:
+      "Maryland law does not require you to tell a prospective tenant about open code-violation, inspection or condemnation orders before you sign a lease. A written violation, condemnation or other notice from a State, county, municipal or local government agency that states the defects does count as the tenant's notice to you of those defects. That notice can start the tenant's rent escrow and warranty-of-habitability remedies if you do not repair within a reasonable time, and more than 30 days is presumed unreasonable. Anne Arundel County sale contracts must disclose certain enforcement actions, but that rule does not cover leases. Local rental-licensing codes may add their own disclosure rules.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-211(f)(2)(iii) ('A written violation, condemnation or other notice from an appropriate State, county, municipal, or local') Md. Code Ann., Real Prop. § 8-211(g)(3) ('There is a rebuttable presumption that a period in excess of 30 days from receipt of notice') Md. Code Ann., Real Prop. § 8-212(f)(1)(ii)3 ('A written violation, condemnation, or other notice from an appropriate State, county, municipal, or local') Md. Code Ann., Real Prop. § 14-117(l)(2) ('a contract for sale of the real property where the violation occurred shall disclose:') (MD battery F-condemn-tenancy: 47 hits; positives passed) (MD battery F-violation-disclose-sale: 11 hits; positives passed) Local: Anne Arundel County sale-contract disclosure (Md. Code Ann., Real Prop. § 14-117(l)); local rental-licensing codes not researched. Rule 15: written section-open.",
+  },
+  // Building & Safety
+  {
+    id: "edu-lead-risk-reduction-turnover-md",
+    title: "Lead Turnover and Registration Duties",
+    group: "Building & Safety",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lead-based-paint",
+    bodyText:
+      "These duties apply if your rental property was built before 1978 (an 'affected property'), unless it is certified lead-free. The lead law treats your property manager or leasing agent as an owner too. Register each affected property with the Maryland Department of the Environment, renew the registration by December 31 each year, update owner, manager, insurer and agent details within 30 days of a change, and register within 30 days if you acquire an affected property. At every change in occupancy, before the next tenant moves in, remove or repaint all chipping, peeling or flaking paint on the unit's interior and the building's exterior and pass the lead-contaminated dust test. Have an MDE-accredited inspector who is not related to you verify it. Exterior work may be delayed during the period your local housing code does not require exterior work (or November 1 through April 1 if it sets none), by a waiver from the local code official (or the Department of Housing and Community Development where there is none), if the rest of the standard is met and inspected, but it must be finished within 30 days after that period ends. Give each tenant the Department's notice of tenant's rights and the lead poisoning information packet again at least every 2 years after you last gave them, by certified mail or another verifiable method.",
+    notes: "MD: Md. Code Ann., Envir. § 6-801(b)(1)(ii) ('On and after January 1, 2015, a property constructed before 1978 that contains') Md. Code Ann., Envir. § 6-801(o)(2)(ii) ('Any authorized agent of the owner, including a property manager or leasing agent.') Md. Code Ann., Envir. § 6-812(a)(1) ('Renew the registration of the affected property on or before December 31 of each year') Md. Code Ann., Envir. § 6-815(b) ('At each change in occupancy thereafter, before the next tenant occupies the property') Md. Code Ann., Envir. § 6-818(a)(2) ('An owner may not employ or engage a related party to the owner') Possible overlap with the shared lead-based-paint row and lead-risk-reduction-md (notice clause); dedupe. Md. Code Ann., Envir. § 6-820(c) ('at least every 2 years after last giving the notice to the tenant'); Md. Code Ann., Envir. § 6-823(c), (d) ('Certified mail, return receipt requested'); Md. Code Ann., Envir. § 6-815(d)(1) waiver period ('during the period from November 1 through April 1, inclusive'), approved under § 6-815(d)(2) by the local code official or, if none, the Department of Housing and Community Development; delayed work completed within 30 days (§ 6-815(d)(3)). Md. Code Ann., Envir. § 6-803(b)(3) ('Affected property which is certified to be lead-free pursuant to § 6-804 of this subtitle'). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-lead-tenant-remedies-md",
+    title: "Lead Defects: Deadlines and Tenant Remedies",
+    group: "Building & Safety",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lead-based-paint",
+    bodyText:
+      "For pre-1978 rentals ('affected property'), you must meet the modified lead risk reduction standard within 30 days after written notice of a defect, such as chipping, peeling or flaking paint or a structural defect causing it. The same 30 days applies after notice that a child under 6 or a pregnant woman living there has an elevated blood lead level and an environmental investigation found a defect. Instead, you may temporarily relocate the household to lead-safe housing within those 30 days. If you fail the applicable standard, the tenant may ask in writing to be released from the lease and paid reasonable relocation expenses up to $2,500. You have 3 business days to respond with a current risk reduction certificate, a lead-free certificate or a verified work report, or the tenant may sue for termination, relocation costs and attorney's fees. You may not evict, arbitrarily refuse to renew, arbitrarily raise rent or cut services mainly because the tenant gave you information under the lead law. If you fail to meet the applicable risk reduction standard, the tenant may also pay rent into an escrow account with the District Court clerk; you may not evict, end the tenancy or raise the rent of a tenant who does so, and any such attempt within 2 months after you comply, other than for nonpayment of rent, is presumed retaliatory.",
+    notes: "MD: Md. Code Ann., Envir. § 6-819(c)(1)(ii) ('Within 30 days after receipt of written notice from the tenant, or from any other source, of: 1. A') Md. Code Ann., Envir. § 6-801(p) ('“Person at risk” means a child or a pregnant') Md. Code Ann., Real Prop. § 8-215(b)(1)(ii) ('Pay to the tenant all reasonable relocation expenses, not to exceed $2,500') Md. Code Ann., Real Prop. § 8-215(b)(3) ('Within 3 business days of receipt of a tenant’s written') Md. Code Ann., Real Prop. § 8-208.2(a) ('may not evict or take any other retaliatory action against a tenant primarily as a result') Maryland has no state lead-paint lease disclosure text or warning statement; the federal pre-1978 disclosure applies separately (MD battery F-lead-warning-stmt3: 3 hits; positives passed) Md. Code Ann., Real Prop. § 8-211.1(a) ('the tenant may deposit the tenant’s rent in an escrow account with the clerk of the District Court'), (d) ('A lessee may not be evicted, the tenancy may not be terminated, and the rent may not be raised'). Rule 15: written section-open.",
+  },
+  // Disclosures
+  {
+    id: "edu-no-meter-conservation-charge-md",
+    title: "No Meter Conservation Charge Notice",
+    group: "Disclosures",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "meter-conservation-charge",
+    bodyText:
+      "Maryland law has no energy-efficiency or meter conservation charge that you must disclose to new tenants or deduct from rent. What does apply to utilities is covered elsewhere: notices when you bill tenants for utilities, submetered water, ratio utility billing, and the tenant's right to deduct utility payments when the lease makes you responsible for gas or electricity.",
+    notes: "MD: (MD battery F-meter-conservation2: 4 hits; positives passed) (MD battery F-meter-conservation-nolimb2: 4 hits; positives passed) Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-meth-disclosure-md",
+    title: "No Meth-Lab Disclosure Law",
+    group: "Disclosures",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "meth-disclosure",
+    bodyText:
+      "Maryland has no statute requiring you to disclose, report or clean up former methamphetamine labs in a rental, and no habitation ban or penalty tied to one. Methamphetamine appears in landlord law only as a screening ground. A landlord with 5 or more units may ask about a conviction for producing or distributing methamphetamine on federally assisted housing premises before a conditional offer, but only for a potential tenancy in federally assisted housing. General habitability duties still apply to any condition that is a health hazard.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-2A-05(a)(2)(i)1 ('For a potential tenancy in federally assisted housing, manufacturing, distributing, dispensing') (MD battery F-meth-any: 8 hits; positives passed) (MD battery F-meth-lab: 1 hits; positives passed) COMAR search for methamphetamine or clandestine lab found only a repealed pharmacy chapter. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-military-air-zone-disclosure-md",
+    title: "No Military Zone Lease Disclosure",
+    group: "Disclosures",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "military-air-zone-disclosure",
+    bodyText:
+      "Maryland does not require a lease disclosure for property near a military installation, air zone or noise zone, and it gives tenants no termination right for one. The statement that a property may be near a military installation with flight operations, munitions testing or high noise applies only to contracts for the sale of residential property. It does not apply in Allegany, Carroll, Frederick, Garrett, Howard, Montgomery and Washington counties.",
+    notes: "MD: Md. Code Ann., Real Prop. § 14-117(k)(2) ('Buyer is advised that the property may be located near a military installation') Md. Code Ann., Real Prop. § 14-117(k)(1) ('This subsection does not apply in Allegany, Carroll, Frederick, Garrett, Howard, Montgomery, and Washington counties.') (MD battery F-military-zone2: 2 hits; positives passed) Local: substantially similar local statements prevail for sales (Md. Code Ann., Real Prop. § 14-117(k)(3)). Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-mold-assessment-remediation-md",
+    title: "Mold Assessment and Remediation Deadlines",
+    group: "Landlord Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "mold-disclosure",
+    bodyText:
+      "After you receive written notice that mold was detected, you must do a mold assessment within 15 days. Notice may come from a tenant or building occupant or from the local agency enforcing housing and livability codes. If the assessment finds mold, remediate within 45 days after the assessment is completed, or within a reasonable time if 45 days is not feasible. Follow recommended industry guidelines and State and local law. Keep occupants updated during assessment and remediation, ensure proper ventilation and low indoor relative humidity, and maintain the property to the applicable housing and minimum livability codes. Giving the mold pamphlet at signing is handled by the lease clause.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-220(c)(1) ('A landlord shall perform a mold assessment within 15 days after receipt of a written notice regarding') Md. Code Ann., Real Prop. § 8-220(c)(2)(i) ('Perform mold remediation within 45 days after the assessment is completed') Md. Code Ann., Real Prop. § 8-220(d)(3) ('Ensure low indoor relative humidity in the property') Pamphlet duty covered by mold-pamphlet-md. Possible overlap with a mold or maintenance topic in another slice; dedupe. Rule 15: written section-open.",
+  },
+  // Disclosures
+  {
+    id: "edu-no-ordnance-demolition-meter-disclosures-md",
+    title: "No Ordnance or Demolition Disclosure",
+    group: "Disclosures",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "ordnance-demolition-meter-disclosures",
+    bodyText:
+      "Maryland has no lease disclosure for nearby ordnance, munitions, explosives testing or demolition activity. The only related statement, about a military installation that may conduct munitions testing, is required in residential sale contracts, not leases. Utility-meter disclosures are covered by the utility billing rules.",
+    notes: "MD: Md. Code Ann., Real Prop. § 14-117(k)(2) ('military installation that conducts flight operations, munitions testing, or') (MD battery F-ordnance2: 1 hits; positives passed) The topic has no questions in the slice; scope inferred from the title. Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-no-pest-control-notice-md",
+    title: "No Tenant Pest-Control Notice Law",
+    group: "Landlord Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "pest-control-notice",
+    bodyText:
+      "Maryland law does not require you to notify tenants before pest control or pesticide treatment. The licensed pest-control company must give its customer, usually you, written information when it applies a pesticide or signs the contract: the pesticide's common name or active ingredient, safety information and the Maryland Poison Center number. It must also give you advance notice of an application if you ask, and post a sign for 48 hours after treating a lawn or exterior landscape plants. Rodent infestation in two or more units is a serious defect that tenants can use for rent escrow.",
+    notes: "MD: Md. Code Ann., Agric. § 5-208(b) ('Upon the customer’s request, the licensee shall provide the customer with advance notice of') Md. Code Ann., Agric. § 5-208(c)(2) ('The sign shall remain 48 hours following the pesticide application') Md. Code Ann., Real Prop. § 8-211(d)(3) ('Infestation of rodents in two or more dwelling') (MD battery F-pest-notice2: 3 hits; positives passed) (MD battery F-pest-notify-nolimb2: 4 hits; positives passed) Rule 15: written section-open.",
+  },
+  {
+    id: "edu-private-well-testing-md",
+    title: "Private Well Testing and Contamination",
+    group: "Landlord Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "private-well-testing",
+    bodyText:
+      "This applies if your rental is served by a private well. Have the water tested every 3 years by a State-approved sampler and laboratory, covering at least bacteria, nitrate and turbidity and any added contaminants MDE requires. Give tenants the results after each test, and tell new tenants the most recent results when they sign. If a test shows a substance above the EPA maximum contaminant level or an MDE harmful level, notify MDE and the local health department and provide an approved potable water supply until the contamination is permanently fixed. Within 60 days of learning of the contamination, resolve it by providing approved water on an ongoing basis, permanently remediating, or giving the tenant the option to end the lease. Violations carry a civil penalty of up to $1,000, enforced by the local health department.",
+    notes: "MD: Md. Code Ann., Envir. § 9-4A-04(a)(1) ('Provide for water quality testing every 3') Md. Code Ann., Envir. § 9-4A-01(d)(1)(ii) ('the minimum sampling criteria include bacteria, nitrate, and turbidity.') Md. Code Ann., Envir. § 9-4A-04(b)(2)(iii) ('Within 60 days of the date on which the owner knew of the contamination, resolve the') Md. Code Ann., Envir. § 9-4A-04(c)(1) ('A person who violates a provision of this section is subject to a civil penalty not exceeding $1,000.') Lease-signing disclosure covered by private-well-disclosure-md. Enactment date of Envir. Title 9, Subtitle 4A not checked; in force in the 2026-10-01 corpus. MDE county-specific standards are due by 12/31/2026 (9-4A-02). Local: local health departments enforce. Rule 15: written section-open.",
+  },
+  // Disclosures
+  {
+    id: "edu-no-property-tax-rent-disclosure-md",
+    title: "No Property-Tax Rent Statement",
+    group: "Disclosures",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "property-tax-rent-disclosure",
+    bodyText:
+      "Maryland law does not require you to tell tenants what portion of their rent goes to property taxes, whether yearly or when rent changes. Renters may qualify for State renter tax credits on their own application, and no landlord statement is required for that program.",
+    notes: "MD: (MD battery F-ptax-rent2: 24 hits; positives passed) (MD battery F-ptax-rent: 0 hits; no real positive exists, pattern synthetic-tested on a constructed sentence) Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-radon-disclosure-md",
+    title: "No Radon Lease Disclosure",
+    group: "Disclosures",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "radon-disclosure",
+    bodyText:
+      "Maryland has no radon testing or disclosure requirement for residential leases. Radon disclosure applies to home sellers and new-home builders, not landlords. For rentals served by a private well, MDE may add radon to the required well-water tests by regulation. If it does, the test results you must share with tenants would include radon.",
+    notes: "MD: Md. Code Ann., Envir. § 9-4A-02(b) ('may require, as appropriate, testing for: (1)') Md. Code Ann., Real Prop. § 10-702(e)(2)(vii) ('Hazardous or regulated materials, including asbestos, lead-based paint, radon, underground') (MD battery F-radon: 10 hits; positives passed) Building codes incorporated by reference not reviewed for radon-resistant construction. Rule 15: written section-open.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-no-recycling-notice-md",
+    title: "No Recycling Notice Requirement",
+    group: "Rules & Regulations",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "recycling-notice",
+    bodyText:
+      "Maryland law does not require you to tell tenants where and how to recycle. Owners and managers of apartment buildings with 10 or more units must, however, provide recycling service for residents (see the apartment recycling row). Counties may set stricter rules.",
+    notes: "MD: (MD battery F-recycling2: 10 hits; positives passed) Local: county recycling plans and stricter local ordinances. Rule 15: written section-open.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "edu-apartment-recycling-md",
+    title: "Apartment Building Recycling Service",
+    group: "Landlord Responsibilities",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "recycling-notice",
+    bodyText:
+      "If you own or manage an apartment building with 10 or more dwelling units, you must provide recycling for the residents: collect their recyclable materials and arrange for removal for further recycling. Follow your county's recycling plan. Your county may require you to report on recycling activity, may inspect, and may impose stricter rules. The State civil penalty is up to $50 for each day of violation. This does not apply in Ocean City.",
+    notes: "MD: Md. Code Ann., Envir. § 9-1711(a)(1)(i) ('A property owner or manager of an apartment building that contains 10 or more dwelling units') Md. Code Ann., Envir. § 9-1711(d) ('is subject to a civil penalty not exceeding $50 for each day on which the violation') Md. Code Ann., Envir. § 9-1711(a)(4) ('This section does not apply in Ocean') New subject within the recycling-notice key (duty to provide, not to notify). Local: county recycling plans (Envir. § 9-1703(12)); stricter local laws allowed (9-1711(a)(2)). Rule 15: written section-open.",
+  },
+  // Disclosures
+  {
+    id: "edu-no-sex-offender-disclosure-md",
+    title: "No Sex-Offender Disclosure Duty",
+    group: "Disclosures",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "sex-offender-disclosure",
+    bodyText:
+      "Maryland law does not require you to tell tenants about registered sex offenders living nearby or in the building, or to include a registry notice in the lease. The State publishes the sex offender registry online, and notification to the community is handled by law enforcement.",
+    notes: "MD: (MD battery F-sexoff: 21 hits; positives passed) Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-no-sex-offender-occupancy-md",
+    title: "No Offender Occupancy Restriction",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "sex-offender-occupancy",
+    bodyText:
+      "Maryland has no statewide law limiting where registered sex offenders may rent, and no crime of renting to two registered offenders who live together. If you own or manage 5 or more units, you may ask before a conditional offer whether an applicant has been convicted of a listed sexual offense or has ever had to register as a sex offender, and you may reject on that basis. The Department of Housing and Community Development or a public housing agency must deny State voucher assistance to sex offenders subject to lifetime registration. Municipal ordinances may differ.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-2A-05(a)(2)(iii) ('Has ever been subject to a registration requirement under a state or federal sex offender registration') Md. Code Ann., Hous. & Cmty. Dev. § 4-2913(a)(2) ('shall deny assistance under the State Program to sex offenders who are subject to a lifetime registration requirement') (MD battery F-sexoff: 21 hits; positives passed) Local: municipal residency ordinances not researched. Rule 15: written section-open.",
+  },
+  // Disclosures
+  {
+    id: "edu-no-sfr-occupancy-disclosure-md",
+    title: "No Lease Font or Placement Rules",
+    group: "Disclosures",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "sfr-occupancy-disclosure",
+    bodyText:
+      "Maryland law sets no font size or first-page placement for residential lease disclosures. The layout rules that do apply are narrower. An automatic renewal term must be set apart with a space for the tenant's initials or signature. A holdover-term change must be in the written lease and initialed by the tenant. A non-sprinklered high-rise notice must be conspicuous and initialed. The landlord contact information must be in the lease or on a conspicuous sign.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-208(e)(1) ('shall have the provision distinctly set apart from any other provision of the lease') Md. Code Ann., Pub. Safety § 9-403(d)(2) ('Notice required under paragraph (1) of this subsection shall be initialed by the tenant.') (MD battery F-type-size: 15 hits; positives passed) Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-source-of-income-md",
+    title: "Source of Income and Vouchers",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "source-of-income",
+    bodyText:
+      "You may not refuse to rent to anyone, or give worse terms, because of their source of income. That includes wages, Housing Choice Vouchers and other government or private rental assistance, benefits, and support payments. If you use credit or financial information to screen, you may not reject a subsidy holder because of their income, credit score or lack of one, or bad credit from a time when they had no subsidy. You may require that their income cover the tenant's share of the rent at a ratio substantially equivalent to the one you use for other tenants. You may also rely on landlord references and a history of lease violations, unpaid utilities, nuisance or property damage. Exempt from the voucher rule are rooms in your own home and owner-occupied buildings of 5 or fewer rental units, and the fair housing law does not cover renting a single-family home without using a broker, agent or anyone in the business of renting dwellings and without a discriminatory advertisement or notice.",
+    notes: "MD: Md. Code Ann., State Gov't § 20-701(j)(2)(ii) ('any government or private assistance, grant, loan, or rental assistance program') Md. Code Ann., State Gov't § 20-705.1(e) ('using an income to tenant’s portion of rent ratio that is substantially') Md. Code Ann., State Gov't § 20-704(a)(2)(ii) ('the rental of any apartment in a dwelling that contains not more than five rental units') (MD battery F-soi: 14 hits; positives passed) Md. Code Ann., State Gov't § 20-705 changed 2026 (oct version). The single-family-without-broker exemption is in § 20-704(a)(1). Rule 15: written section-open.",
+  },
+  // Building & Safety
+  {
+    id: "edu-high-rise-sprinkler-sign-md",
+    title: "Non-Sprinklered High-Rise Warning Sign",
+    group: "Building & Safety",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "sprinkler-disclosure",
+    bodyText:
+      "This applies if you own a residential rental high-rise, meaning a building 4 or more stories above grade or over 45 feet tall, that is not protected by a complete automatic sprinkler system, unless it is under 75 feet tall and the local fire department has aerial equipment that can reach the roof and access on two sides by a qualifying public way. You must post a sign at all main building entrances reading 'WARNING: THIS HIGH-RISE BUILDING IS NOT PROTECTED THROUGHOUT BY A COMPLETE AUTOMATIC SPRINKLER SYSTEM', in letters at least 1 inch high on a contrasting background, as approved by the fire authority. Since January 1, 2025, every lease must also carry a conspicuous notice that the tenant initials; the lease clause handles that. Both duties last until the building is fully sprinklered.",
+    notes: "MD: Md. Code Ann., Pub. Safety § 9-401(b)(1) ('“High-rise building” means a building for human occupancy that is: (i) four or more stories above grade level; or') Md. Code Ann., Pub. Safety § 9-403(c)(2)(i) ('in lettering that is at least 1 inch high and on a contrasting background') Md. Code Ann., Pub. Safety § 9-403(c)(2)(ii) ('be conspicuously posted at all main building entrances') Lease notice covered by high-rise-sprinkler-notice-md. COMAR 29.06.01.08 repeats the signage in the State Fire Prevention Code. Md. Code Ann., Pub. Safety § 9-403(b)(1) ('This section does not apply to a building that is less than 75 feet in height above grade level if'). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-steam-radiator-covers-md",
+    title: "No Radiator Cover Requirement",
+    group: "Building & Safety",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "steam-radiator-covers",
+    bodyText:
+      "Maryland has no statewide requirement to install radiator covers on request or to attach a radiator-cover rider to the lease. Local housing codes may address heating equipment safety.",
+    notes: "MD: (MD battery F-radiator2: 3 hits; positives passed) Local: local housing codes not researched. Rule 15: written section-open.",
+  },
+  // Disclosures
+  {
+    id: "edu-stigmatized-property-md",
+    title: "Stigmatized Property Facts",
+    group: "Disclosures",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "stigmatized-property",
+    bodyText:
+      "For property offered for sale or lease, Maryland law says some facts are not material facts or latent defects. These are that an owner or occupant has, had or is suspected of having HIV or AIDS, and that a homicide, suicide, accidental death, natural death or felony occurred on the property. As an owner or the owner's agent, you are immune from civil liability or criminal penalty for not disclosing these facts, and real estate licensees have the same protection. Whether a false answer to a direct question is protected is not addressed by these statutes and is unsettled.",
+    notes: "MD: Md. Code Ann., Real Prop. § 2-120(a) ('it is not a material fact or a latent defect relating to property offered for sale or lease') Md. Code Ann., Real Prop. § 2-120(b) ('shall be immune from civil liability or criminal penalty for failure to disclose') Md. Code Ann., Bus. Occ. & Prof. § 17-322.1(b)(2) ('A licensee may not be held personally liable for failure to disclose') (MD battery F-stigma2: 3 hits; positives passed) Case law not searched. Rule 15: written section-open.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-no-tpa-exemption-notice-md",
+    title: "No Purchase-Right Exemption Notice",
+    group: "Other / Miscellaneous",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tpa-exemption-notice",
+    bodyText:
+      "Maryland's tenant right to offer to purchase covers residential rental properties with 3 or fewer units. It lists transfers that are exempt, such as transfers to family members, to a business entity you wholly own, by foreclosure, court order or estate administration, or of a property with 4 or more units. You do not have to send tenants a notice that a transfer is exempt.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-119(b)(13) ('A residential rental property with four or more individual dwelling') (MD battery F-tpa: 13 hits; positives passed) Rule 15: written section-open.",
+  },
+  {
+    id: "edu-tenant-right-to-purchase-md",
+    title: "Tenant Right to Offer to Purchase",
+    group: "Other / Miscellaneous",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tpa-notice",
+    bodyText:
+      "This applies if you plan to sell a rental property with 3 or fewer units, and a qualifying tenant is someone who has lived there at least 6 months and is a named lessee on the written lease. Before you list or offer the property to the public or a third party, send each qualifying tenant written notice of the right to make an offer. Use the DHCD form, send it by first-class mail with a certificate of mailing or by tracked delivery, and send a copy to the Office of Tenant and Landlord Affairs. The tenant has 30 days to make an offer, and you must accept, or counter with an explanation, within 5 days. Tenants also get a right of first refusal if you plan to accept a third-party offer at least 10% below your lowest price to them, or if you get an unsolicited third-party offer. These rights cannot be waived in the lease, and the fine is up to $1,000 per violation.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-119(a)(7) ('an individual who has occupied a residential rental property for at least 6 months') Md. Code Ann., Real Prop. § 8-119(c)(4)(i) ('Within 30 days after the landlord delivers the notice under paragraph (1) of this subsection') Md. Code Ann., Real Prop. § 8-119(i) ('is subject to a fine of not more than $1,000 per') Md. Code Ann., Real Prop. § 8-208(d)(12) ('Waives or places conditions on a tenant’s right of first') Procedure regulations: COMAR 05.22 (not read). Local: Md. Code Ann., Real Prop. § 8-119(g) preempts local laws governing the right of first refusal or opportunity to purchase for covered property; local rules for larger buildings not researched. Rule 15: written section-open.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-no-children-occupancy-md",
+    title: "No Required Child-Occupancy Term",
+    group: "Rules & Regulations",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "children-occupancy",
+    bodyText:
+      "Maryland law does not require a lease to address occupancy by children. Familial status, meaning minors living with a parent or custodian and including pregnancy, is a protected class. You may not refuse to rent or set different terms because a household has children, unless the property qualifies as housing for older persons. Children under 6 also trigger the lead-law duties for pre-1978 rentals.",
+    notes: "MD: Md. Code Ann., State Gov't § 20-701(e)(1) ('“Familial status” means the status of one or more minors who are domiciled with:') Md. Code Ann., State Gov't § 20-704(c)(2) ('The provisions in this subtitle concerning familial status do not apply to housing for older persons.') (MD battery F-children-occ: 9 hits; positives passed) Local: local occupancy codes not researched. Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-confession-of-judgment-md",
+    title: "No Confession of Judgment",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "confession-of-judgment",
+    bodyText:
+      "Your residential lease may not include a term authorizing anyone to confess judgment against the tenant on a claim arising out of the lease. Such a term is unenforceable. If you tender a lease containing it, or try to enforce it, the tenant may recover actual damages and reasonable attorney's fees. Using a consumer contract with a confessed-judgment clause that waives the consumer's right to raise a defense is also an unfair or deceptive trade practice.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-208(d)(1) ('Has the tenant authorize any person to confess judgment on a claim arising out of the') Md. Code Ann., Com. Law § 13-301(12) ('Use of a contract related to a consumer transaction which contains a confessed judgment clause') (MD battery F-confess: 22 hits; positives passed) Maryland Rules not in the saved corpus. Case law not searched. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-consumer-protection-act-md",
+    title: "Consumer Protection Act and Leasing",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "consumer-protection-act",
+    bodyText:
+      "Maryland's Consumer Protection Act applies to leasing and renting homes and to offering them for rent, and a prospective tenant counts as a consumer. Unfair, abusive or deceptive practices include false or misleading statements about a unit, failing to state a material fact when that deceives, and advertising a unit you do not intend to rent as offered. They also include using a confessed-judgment clause and violating the Maryland Consumer Debt Collection Act when collecting rent or fees. The Act does not list leaving blanks in a lease or failing to give a signed copy as violations. You must, however, give a prospective applicant a copy of your proposed lease form on written request. How Maryland courts have applied the Act to residential leases was not checked.",
+    notes: "MD: Md. Code Ann., Com. Law § 13-303(1) ('The sale, lease, rental, loan, or bailment of any consumer goods, consumer realty, or consumer services') Md. Code Ann., Com. Law § 13-101(c)(1) ('“Consumer” means an actual or prospective purchaser, lessee, or recipient') Md. Code Ann., Com. Law § 13-301(14)(iii) ('Title 14, Subtitle 2 of this article, the Maryland Consumer Debt Collection Act') (MD battery F-blank-space: 7 hits; positives passed) (MD battery F-lease-copy2: 16 hits; positives passed) Case law not searched. Rule 15: written section-open.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-no-employee-screening-md",
+    title: "No Employee Background-Check Mandate",
+    group: "Other / Miscellaneous",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "employee-screening",
+    bodyText:
+      "Maryland has no statute requiring background checks on apartment or property-management employees, including maintenance staff with access to units. Maryland employment law, not landlord-tenant law, governs any screening you choose to do.",
+    notes: "MD: (MD battery F-emp-screen2: 7 hits; positives passed) (MD battery F-emp-screen-nolimb2: 40 hits; positives passed) Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-eviction-cost-shifting-md",
+    title: "Limits on Eviction Cost Shifting",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "eviction-penalty-clause-ban",
+    bodyText:
+      "Your lease may not make the tenant responsible for the District Court summary ejectment filing surcharge assessed against you, and the court may not award it against a residential tenant. The one exception: the court may let you deduct the surcharge from the security deposit, up to the deposit amount, if you win possession and the lease says the surcharge may be assessed against the tenant. In a failure-to-pay-rent case, the judgment against a residential tenant covers rent, late fees and court costs, and only if the tenant was personally served. The statute lists lease-based attorney's fees only for nonresidential tenancies. Whether a residential lease attorney-fee clause can be enforced in some other proceeding is unsettled.",
+    notes: "MD: Md. Code Ann., Cts. & Jud. Proc. § 7-301(c)(5)(i) ('shall be assessed against a landlord and may not be awarded or assigned as a fee or cost against a residential') Md. Code Ann., Real Prop. § 8-208(d)(13) ('payment of a filing surcharge assessed against the landlord by the District Court') Md. Code Ann., Real Prop. § 8-401(e)(2)(iv) ('In the case of a residential tenancy, the court may also give judgment in favor of the landlord') Optional deposit-deduction term covered by filing-surcharge-deposit-md. Case law not searched. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-exculpatory-clauses-md",
+    title: "No Landlord Liability Waivers",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "exculpatory-clauses",
+    bodyText:
+      "Any lease term whose effect is to indemnify you, hold you harmless, or excuse you from liability for injury, loss or damage caused by your own omission, fault, negligence or misconduct is void. This covers the premises and the elevators, stairways, hallways and other appurtenances not in the tenant's exclusive control. Your insurer cannot claim subrogation because the term is void. Tendering or trying to enforce such a term lets the tenant recover actual damages and attorney's fees.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-105 ('the provision is considered to be against public policy and void.') Md. Code Ann., Real Prop. § 8-105 ('An insurer may not claim a right of subrogation by reason of the invalidity of the provision.') Md. Code Ann., Real Prop. § 8-208(g)(2) ('made unenforceable by § 8-105 of this title') Rule 15: written section-open.",
+  },
+  // Building & Safety
+  {
+    id: "edu-fire-sprinkler-duty-md",
+    title: "When Rental Buildings Need Sprinklers",
+    group: "Building & Safety",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fire-sprinkler-duty",
+    bodyText:
+      "Sprinkler systems are required in multifamily residential dwellings whose initial building permit was issued on or after July 1, 1990, and in town houses permitted on or after July 1, 1992, unless not served by public water. High-rise buildings, 4 or more stories or over 45 feet, built after July 1, 1974 also need a complete system, unless under 75 feet with qualifying fire-department aerial access. From October 1, 2026, a residential rental high-rise with an occupiable floor more than 75 feet above fire-department access must be fully sprinklered when it undergoes a substantial renovation permitted on or after that date. Substantial renovation means value-enhancing work costing at least 40% of the assessed building value. That renovation must also add the other listed fire-protection features.",
+    notes: "MD: Md. Code Ann., Pub. Safety § 9-204(b)(1)(i) ('multifamily residential dwelling for which the initial building permit is issued on or after July 1, 1990') Md. Code Ann., Pub. Safety § 9-403(a) ('Each high-rise building constructed after July 1, 1974, shall be protected by a complete automatic sprinkler system installed') Md. Code Ann., Pub. Safety § 9-102(c)(3)(ii) ('in each residential rental high-rise building that is undergoing a substantial renovation') Md. Code Ann., Pub. Safety § 9-102 changed 2026 (oct version); its high-rise definition (75 ft, § 9-102(a)) differs from § 9-401(b). COMAR 29.06.01.08 (NFPA 1 13.3.2.24.2 amendment) also requires existing high-rises to be sprinklered within 12 years of a violation notice; occupancy scope not verified. Local: local fire codes not researched. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-high-rise-fire-safety-info-md",
+    title: "High-Rise Fire Safety Information",
+    group: "Building & Safety",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "fire-sprinkler-duty",
+    bodyText:
+      "This applies if you own a residential high-rise with rental units, meaning 4 or more stories above grade or over 45 feet tall. Give fire safety and building evacuation information and instruction, including how to identify the fire alarm system elements, to new tenants when their occupancy starts and to existing tenants every 2 years. Each year, give all residents reasonable written notice that residents who are mobility impaired may ask for a unit on the first five floors if one becomes available. Equip all common means of egress with emergency escape lighting.",
+    notes: "MD: Md. Code Ann., Pub. Safety § 9-405(a)(2) ('fire safety and building evacuation information and instruction to: (i) new tenants at the commencement') Md. Code Ann., Pub. Safety § 9-405(b) ('shall include identification of fire alarm system elements in the building.') Md. Code Ann., Pub. Safety § 9-406 ('Each residential rental high-rise building shall be equipped with emergency escape lighting') New subject (Md. Code Ann., Pub. Safety § 9-405/9-406) not in the planned rows; placed under the fire-sprinkler-duty key. Rule 15: written section-open.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-no-foreign-ownership-md",
+    title: "No Foreign-Ownership Restriction",
+    group: "Other / Miscellaneous",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "foreign-ownership",
+    bodyText:
+      "Maryland has no foreign-adversary or alien land law limiting who may own or lease residential property, and no lease-length carve-out to track. State law lets any alien who is not an enemy own, sell and deal with property as a citizen would. The meaning of the old 'enemy' limit has not been checked against case law.",
+    notes: "MD: Md. Code Ann., Real Prop. § 14-101 ('Any alien who is not an enemy, may own, sell, devise, dispose of, or otherwise deal with property') (MD battery F-foreign-own: 36 hits; positives passed) Case law not searched. Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-no-governmental-fines-md",
+    title: "No Fine Pass-Through Statute",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "governmental-fines",
+    bodyText:
+      "Maryland has no statute that specifically stops you from passing government fines on to tenants. However, your lease may not make a tenant give up any right or remedy, so a term making tenants pay fines for conditions you are responsible for could be challenged, and how far that goes is unsettled. Your lease may not penalize a tenant for calling police or emergency services. Counties and municipalities may not fine owners or tenants for those calls.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-208(d)(2) ('Has the tenant agree to waive or to forego any right or remedy provided by applicable') Md. Code Ann., Real Prop. § 14-126(c)(1)(ii) ('Penalizes or authorizes a penalty against an operator, an owner, an owner-occupant, or a') (MD battery F-gov-fines2: 1 hits; positives passed) Case law not searched. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-immigration-status-md",
+    title: "Immigration Status: What Applies",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "immigration-status",
+    bodyText:
+      "Maryland has no statute that specifically bars landlords from asking about immigration status, and none that makes it unlawful to rent to someone without lawful status. National origin is a protected class, so status questions that single out applicants by national origin risk a discrimination claim. Condominium, homeowners association and cooperative boards may not require residents, guests or their children to give citizenship or immigration status as a condition of using recreational common areas. The same rule covers Social Security numbers, ITINs, birth certificates and similar information.",
+    notes: "MD: Md. Code Ann., Real Prop. § 11-108.2(b) ('A condominium may not require a unit owner or occupant, or the guest or child of a unit owner or occupant') Md. Code Ann., Real Prop. § 11B-111.12(b) ('A homeowners association may not require a lot owner or occupant') (MD battery F-immig2: 5 hits; positives passed) Case law not searched. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-jury-waiver-md",
+    title: "No Jury Trial Waiver",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "jury-waiver",
+    bodyText:
+      "Your residential lease may not make the tenant waive the right to a jury trial. A jury waiver in a lease of the tenant's primary residence is invalid and unenforceable. If either side demands a jury in an eviction case for nonpayment, holding over or breach, the court orders the tenant to pay rent as it comes due into a court escrow account, or to you if both agree, while the case is pending.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-208(d)(4) ('Has the tenant waive the right to a jury') Md. Code Ann., Real Prop. § 8-603(a) ('which waives a trial by jury shall be invalid and') Md. Code Ann., Real Prop. § 8-118(a) ('the District Court immediately shall enter an order directing the tenant or anyone holding under the tenant to pay all rents') Rule 15: written section-open.",
+  },
+  {
+    id: "edu-prohibited-terms-liability-md",
+    title: "Liability for Prohibited Lease Terms",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "knowing-use-penalty",
+    bodyText:
+      "A prohibited term in your lease is unenforceable. If you include one, the tenant may recover actual damages plus reasonable attorney's fees, and this covers terms barred by the lease-content statute, void liability waivers, and security deposit waivers. Liability arises if you tender the lease, try to enforce the term, or tell the tenant you intend to enforce it. No proof of knowledge is required, and there is no fixed penalty amount.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-208(g)(1) ('Any lease provision which is prohibited by terms of this section shall be unenforceable by the landlord.') Md. Code Ann., Real Prop. § 8-208(g)(2) ('tenders a lease containing such a provision or attempts to enforce or makes known to the tenant an intent to enforce') Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-written-lease-required-md",
+    title: "Written Lease Required (5+ Units)",
+    group: "Notices & General",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lease-content-requirements",
+    bodyText:
+      "If you offer 5 or more dwelling units for rent in Maryland, you must use a written lease for each residential unit. If you do not, the tenancy is presumed to last 1 year from the tenant's first occupancy, and the tenant may end it earlier with 1 month's written notice. Every lease must contain the condition statement, each side's heat, gas, electricity, water and repair obligations, the security deposit receipt, and the current Maryland Tenants' Bill of Rights; the lease clauses handle those.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-208(a)(1) ('any landlord who offers 5 or more dwelling units for rent in the State may not rent a residential dwelling unit without using') Md. Code Ann., Real Prop. § 8-208(a)(2) ('the term of the tenancy is presumed to be 1 year from the date of the tenant’s first') Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-lease-type-size-md",
+    title: "No Lease Type-Size Rule",
+    group: "Notices & General",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "lease-type-size",
+    bodyText:
+      "Maryland sets no minimum type size for residential leases, and no evidence rule penalizes small print. Type-size rules exist only for other contracts, such as motor vehicle leases, rent-to-own agreements and car rentals.",
+    notes: "MD: (MD battery F-type-size: 15 hits; positives passed) Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-plain-language-md",
+    title: "No Plain-Language Lease Law",
+    group: "Notices & General",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "plain-language",
+    bodyText:
+      "Maryland has no plain-language requirement for residential leases. Plain-language rules apply to other consumer documents, such as certain credit and car-rental forms. Misleading wording in a lease can still be an unfair or deceptive trade practice under the Consumer Protection Act.",
+    notes: "MD: (MD battery F-plain-lang2: 43 hits; positives passed) Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-prohibited-lease-terms-md",
+    title: "Prohibited Residential Lease Terms",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "prohibited-lease-terms",
+    bodyText:
+      "Your lease may not: waive any right or remedy the law gives tenants; allow a shorter notice to quit than the law requires, though longer is allowed; or allow you to take possession or the tenant's belongings without court process unless the lease has ended and the property was abandoned. It also may not require tenants to accept rent-increase notices by electronic delivery, limit or penalize calling police or emergency services, or waive or condition the tenant's right of first refusal. Separate statutes also bar requiring the tenant to give longer notice to end the tenancy than you must give, and waivers of the security deposit, mitigation and utility-deduction rules. A ratio utility billing term is unenforceable unless you gave the required written disclosures first. Maryland has no specific ban on charging tenants home-warranty deductibles or routine repair fees, but whether such charges are a waiver of your repair duties is unsettled.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-208(d)(2) ('Has the tenant agree to waive or to forego any right or remedy provided by applicable') Md. Code Ann., Real Prop. § 8-208(d)(9) ('Requires the tenant to accept notice of rent increases under § 8-209 of this subtitle or § 8-401 of this title by electronic') Md. Code Ann., Real Prop. § 8-501 ('No written agreement between a landlord and tenant shall provide for a longer notice period') Md. Code Ann., Real Prop. § 8-212.4(c)(2) ('shall be unenforceable if the landlord fails to provide the information required') (MD battery F-home-warranty2: 8 hits; positives passed) (MD battery F-repair-fee2: 8 hits; positives passed) Case law not searched. Deposit no-waiver rule is Md. Code Ann., Real Prop. § 8-203(l) (read section-open). Items covered by their own rows: confession of judgment, liability waivers, jury waiver, late fee, due at signing, filing surcharge. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-protected-class-inquiry-ban-md",
+    title: "No General Applicant Inquiry Ban",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "protected-class-inquiry-ban",
+    bodyText:
+      "Maryland has no general statute barring landlords from asking applicants about protected characteristics, apart from the ban on discriminatory statements, notices and advertisements. Specific rules apply from October 1, 2026 if you own or manage 5 or more units, other than owner-occupied units. You may not ask about criminal history before a conditional offer except for listed serious convictions and sex-offender registration. You may not require drug or alcohol tests, and you may not ask applicants to release substance-use treatment program records.",
+    notes: "MD: Md. Code Ann., State Gov't § 20-705(a)(3) ('any notice, statement, or advertisement with respect to the sale or rental of a dwelling that indicates any preference') Md. Code Ann., Real Prop. § 8-2A-04(a)(1) ('Require a prospective tenant to submit to a drug or alcohol') (MD battery F-pc-inquiry2: 12 hits; positives passed) Rule 15: written section-open.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-no-single-family-zone-lease-limit-md",
+    title: "No Owner-Occupancy Rental Limit",
+    group: "Other / Miscellaneous",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "single-family-zone-lease-limit",
+    bodyText:
+      "Maryland has no statewide law limiting rentals of homes in single-family zones to owners who live on the lot. State policy encourages accessory dwelling units: each local legislative body must adopt a law allowing them by October 1, 2026. A deed, HOA or other recorded restriction may not unreasonably limit your ability to build or rent an accessory dwelling unit if you comply with applicable law, though limits on short-term rental of the unit are allowed. Local zoning rules on accessory units, including any owner-occupancy conditions, vary.",
+    notes: "MD: Md. Code Ann., Land Use § 4-504(a)(1) ('On or before October 1, 2026, each legislative body shall adopt a local law authorizing the development of accessory dwelling') Md. Code Ann., Real Prop. § 2-126(b)(2)(ii) ('Does not include a limitation on the short-term rental of an accessory dwelling unit.') (MD battery F-sfz2: 12 hits; positives passed) (MD battery F-owner-occ-rent: 16 hits; positives passed) Local: local ADU laws and zoning not researched. Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-criminal-records-confidentiality-md",
+    title: "Applicant Criminal Records Confidentiality",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-confidential-information",
+    bodyText:
+      "From October 1, 2026, if you own or manage 5 or more units (not owner-occupied), you may not give an applicant's criminal history records to anyone who will not use them to evaluate that applicant under Maryland's screening rules. You also may not use them for any other purpose, unless another law requires it. Violations carry a civil penalty of up to $500 each.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-2A-07(c)(1) ('Distribute or disseminate a prospective tenant’s criminal history records to any person who is not expected to use the criminal history') Md. Code Ann., Real Prop. § 8-2A-10 ('subject to a civil penalty not exceeding $500 for each') Rule 15: written section-open.",
+  },
+  // Rules & Regulations
+  {
+    id: "edu-tenant-organization-rights-md",
+    title: "Tenant Organization Rights",
+    group: "Rules & Regulations",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-right-to-organize",
+    bodyText:
+      "In an apartment building or complex of 4 or more units with a common landlord, not a single-family house, condominium or cooperative, a qualifying tenant organization of 3 or more resident tenants may use the tenant meeting room for its meetings during reasonable hours on reasonable notice. You may set reasonable terms that do not undermine that right, and you may require non-resident participants to sign a liability waiver. The first meeting each month must be free. Other meetings that month may carry a reasonable fee no higher than you charge other groups. You may not sue for possession, threaten eviction, arbitrarily raise rent, cut services or end a periodic tenancy because a tenant took part in a tenants' organization. A court may award the tenant up to 3 months' rent plus attorney's fees and costs.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-219(c)(1) ('A landlord may not charge a tenant organization a fee for the use of a meeting room for the first') Md. Code Ann., Real Prop. § 8-208.1(a)(2)(iii) ('Because the tenant has participated in any tenants’') Md. Code Ann., Real Prop. § 8-208.1(c)(1) ('damages not to exceed the equivalent of 3 months’ rent, reasonable attorney fees, and court') Md. Code Ann., Real Prop. § 8-208(d)(8) ('solely as retaliation against any tenant for planning, organizing, or joining a tenant organization with') The § 8-208.1 relief requires the tenant to be current on rent (with exceptions) and acting within 6 months (8-208.1(d)-(e)). This corrects the step-1 draft: the liability waiver is for non-resident participants. Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-criminal-screening-notice-md",
+    title: "Criminal Screening Notice Before Fee",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["REQUIRED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-screening",
+    bodyText:
+      "From October 1, 2026, if you own or manage 5 or more Maryland rental units (not owner-occupied), you must give applicants a written notice before accepting an application fee. The notice must explain how you use criminal history records checks, and state that the listed convictions may be considered only after a conditional offer. It must also tell applicants they may give you evidence of inaccuracies in their records, rehabilitation and mitigating factors. You must also tell applicants that an individualized assessment will be done. The Office of Tenant and Landlord Affairs publishes a model notice for withdrawals of conditional offers.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-2A-04(b) ('Before accepting an application fee, a landlord shall provide in writing to a prospective tenant:') Md. Code Ann., Real Prop. § 8-2A-04(c) ('A landlord shall notify a prospective tenant that an individualized assessment will be') Md. Code Ann., Real Prop. § 8-2A-09(a) ('shall develop and publish on the Office’s website a model notice document for use by landlords') Subtitle 2A effective 10/1/2026 (2026 Md. Laws ch. 752, effective-date clause read). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-criminal-history-screening-md",
+    title: "Criminal-History Screening Rules",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["CONSTRAINED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-screening",
+    bodyText:
+      "From October 1, 2026, these rules apply if you own or manage 5 or more Maryland units, other than owner-occupied units, and if you check criminal history you must check every applicant. Before a conditional offer, you may ask only about listed convictions (such as sexual offenses, first- or second-degree murder, human trafficking, child pornography, and methamphetamine production in federally assisted housing) and sex-offender registration. After the offer you may also consider felonies within the 5 years before the application and listed convictions the applicant did not disclose. Withdraw only when necessary for a substantial, legitimate, nondiscriminatory interest, with a written specific reason and notice of the right to seek reassessment. If asked within 30 days, provide the records you relied on within 10 days. Renting to someone with a record, or not checking, cannot be the basis of a claim against you; violations carry a $500 civil penalty each, and local screening laws on this subject are preempted. Do not publish an ad saying you will not consider applicants who have been arrested or convicted, and keep your ads, signs, application forms and questions consistent with these rules, unless federal law requires otherwise.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-2A-03 ('shall do so for every prospective tenant.') Md. Code Ann., Real Prop. § 8-2A-06(a)(1) ('if the conviction occurred within 5 years immediately preceding the rental application') Md. Code Ann., Real Prop. § 8-2A-06(b) ('only if the landlord determines that the withdrawal is necessary to fulfill a substantial, legitimate, and nondiscriminatory') Md. Code Ann., Real Prop. § 8-2A-08 ('may not be the basis for a claim against the') Md. Code Ann., Real Prop. § 8-2A-11 ('shall preempt and supersede any local law or ordinance comparable in subject matter') (MD battery F-ltc-felony: 0 hits; no real positive exists, pattern synthetic-tested on a constructed sentence) — no tax-credit-property carve-out. Possible overlap with other slices covering 8-2A; dedupe. Md. Code Ann., Real Prop. § 8-2A-07(a) ('any advertisement that expressly states that the landlord will not consider a prospective tenant who has been arrested or convicted of a crime'), (b) forms and inquiries (scenario screen P1). Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-unconscionability-md",
+    title: "No Lease Unconscionability Statute",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "unconscionability",
+    bodyText:
+      "Maryland has no statute letting a court strike residential apartment or house lease terms as unconscionable. Statutory unconscionability rules cover leases of goods, mobile home park rental agreements and park rules, and timeshares. Whether courts apply common-law unconscionability to residential leases is unsettled. The specific lease-term bans in the landlord-tenant statutes still apply.",
+    notes: "MD: Md. Code Ann., Com. Law § 2A-108(1) ('If the court as a matter of law finds a lease contract or any clause of a lease contract to have') Md. Code Ann., Real Prop. § 8A-1502(a) ('If it is claimed or appears to the court that a rental agreement or park rule may be unconscionable') (MD battery F-unconscion: 17 hits; positives passed) Case law not searched. Com. Law Title 2A covers leases of goods. Rule 15: written section-open.",
+  },
+  // Building & Safety
+  {
+    id: "edu-no-water-heater-temperature-md",
+    title: "No Water Heater Setting Rule",
+    group: "Building & Safety",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "water-heater-temperature",
+    bodyText:
+      "Maryland has no statute requiring you to set a water heater to a maximum temperature before a new tenant moves in. Lack of hot water is a serious defect for rent escrow and habitability purposes. Local housing codes and incorporated plumbing codes may set temperature limits.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-211(d)(1) ('Lack of heat, light, electricity, or hot or cold running') (MD battery F-water-heater3: 4 hits; positives passed) (MD battery F-water-heater-nolimb: 0 hits; no real positive exists, pattern synthetic-tested on a constructed sentence) Local: local housing and plumbing codes not researched. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-no-window-guards-md",
+    title: "No Window Guard Requirement",
+    group: "Building & Safety",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "window-guards",
+    bodyText:
+      "Maryland has no statewide requirement to install window guards or give a window-guard lease notice. Window work for child safety arises under the lead law. For pre-1978 rentals, the modified risk reduction standard includes treating window sills, window wells and friction surfaces. Local housing codes may require more.",
+    notes: "MD: Md. Code Ann., Envir. § 6-819(a)(2)(v) ('Ensuring that caps of vinyl, aluminum, or any other') (MD battery F-window-any2: 6 hits; positives passed) (MD battery F-window-guard: 0 hits; no real positive exists, pattern synthetic-tested on a constructed sentence) COMAR search for window guard: 0 hits. Local: local housing codes not researched. Rule 15: written section-open.",
+  },
+  // Rent & Payment
+  {
+    id: "edu-rent-reporting-existing-leases-md",
+    title: "Rent Reporting: Existing Leases",
+    group: "Rent & Payment",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "rent-reporting",
+    bodyText:
+      "If you own six or more residential rental units in Maryland, you must offer tenants the option of having their on-time rent payments reported to at least one consumer reporting agency. For a lease entered into on or after October 1, 2026, the option goes in the written lease and the offer is repeated at least once a year. For a lease entered into before October 1, 2026, you must make the offer by January 1, 2027 and at least once a year after that, by first-class mail with a certificate of mailing, by a tracked delivery service, or electronically if the tenant has elected electronic notices. Any fee is capped at the lesser of your actual cost or $10 a month.",
+    notes: "MD: Md. Code Ann., Real Prop. § 8-208.4(b) ('only to a landlord that owns six or more residential rental units in the State'); (d)(1) leases entered into on or after October 1, 2026; (d)(2)(i) ('For leases entered into before October 1, 2026, the offer of positive rental payment history reporting shall be made not later than January 1, 2027, and at least once annually thereafter'); (d)(2)(ii) delivery ('First-class mail with a certificate of mailing'; 'A delivery service providing delivery tracking and confirmation'; 'Electronic delivery, if the tenant has elected to receive notices from the landlord in this manner'); (h)(1) fee cap. Clause: `rent-reporting-offer-md`. 2026 Md. Laws chs. 772, 773. Form regulations under (j) not yet in COMAR (legal watch). Rule 15: written section-open.",
+  },
+  // Compliance & Prohibited Terms
+  {
+    id: "edu-applicant-data-security-md",
+    title: "Protecting Applicant and Tenant Data",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-confidential-information",
+    bodyText:
+      "If you keep applicants' or tenants' names together with Social Security numbers, driver's license numbers, financial account details or health information, protect them with reasonable security practices that fit the information and the size of your business. When you throw out applications or tenant files, take reasonable steps so no one can read or use the information, for example by shredding. If you share the information with a screening company or other vendor under a written contract, the contract must require the vendor to keep it secure. If your computer records are breached, investigate promptly and, unless misuse is unlikely, notify the Attorney General's office first and then the affected people within 45 days. Do not post or display Social Security numbers, and do not require an applicant to send one over the internet unless the connection is secure or the number is encrypted.",
+    notes: "MD: Md. Code Ann., Com. Law § 14-3503(a) ('shall implement and maintain reasonable security procedures and practices'); § 14-3502(b) ('shall take reasonable steps to protect against unauthorized access to or use of the personal information'); § 14-3503(b)(1) vendor contracts; § 14-3504(b)(1)-(3), (h)(1) breach investigation and notice; § 14-3402(a)(1), (3) Social Security number limits. A landlord is a 'business' (§ 14-3501, which includes a sole proprietorship) and an applicant gives information for 'leasing' (§ 14-3502(a)) — Claude's reading. (MD batteries S-SCN-personal-info-security, S-SCN-ssn-restrictions; positives passed.) Scenario screen P2. Rule 15: written section-open.",
+  },
+  {
+    id: "edu-landlord-cameras-md",
+    title: "Landlord Cameras and Recording",
+    group: "Compliance & Prohibited Terms",
+    states: ["MD"],
+    ruleTypes: ["PROHIBITED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "tenant-security-cameras",
+    bodyText:
+      "Do not place a camera, or have anyone place one, on a rental property to secretly watch people inside a tenant's home. Maryland makes this a crime punishable by up to 1 year in jail, a $2,500 fine or both. Owning the property is no defense, and the person watched can sue you for damages and attorney's fees. The rule does not cover a camera placed without the intent to watch people inside the home, such as one covering a parking lot, or a camera placed with an adult resident's consent. Recording a conversation, including a phone call with a tenant, is generally unlawful unless everyone in the conversation agrees in advance.",
+    notes: "MD: Md. Code Ann., Crim. Law § 3-903(c), (d), (e) ('it is not a defense to a prosecution under this section that the defendant owns the private residence'), (b)(2)-(3), (g) civil action; Md. Code Ann., Cts. & Jud. Proc. § 10-402(a)(1), (c)(3) all-party consent. (MD batteries S-SCN-camera-residence, S-SCN-camera-landlord-v2; positives passed.) Tenant-installed cameras: `edu-no-security-camera-rule-md`. Scenario screen P4. Rule 15: written section-open.",
+  },
+  // Pets
+  {
+    id: "edu-dog-bite-liability-md",
+    title: "Dog Bites: Who Is Liable",
+    group: "Pets",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "pet-policy",
+    bodyText:
+      "Maryland's dog-bite statute is aimed at the dog's owner. When a dog injures or kills someone, the owner is presumed to have known the dog was dangerous, and an owner is liable for injury or damage the dog causes while running at large, except to people who were trespassing, committing a crime or provoking the dog. For anyone else, including a landlord, liability follows the court-made rules as they stood on April 1, 2012, regardless of the dog's breed. The statute neither requires nor forbids breed limits in your pet policy; any limits you set must be stated in that policy.",
+    notes: "MD: Md. Code Ann., Cts. & Jud. Proc. § 3-1901(a)(1), (b) ('is retained as to the person without regard to the breed or heritage of the dog'), (c); Md. Code Ann., Real Prop. § 8-210(c)(2)(i) breed and weight restrictions in the pet policy. (MD battery S-SCN-dog-liability-v2; positives passed.) Case law not searched. Scenario screen P5. Rule 15: written section-open.",
+  },
+  // Default & Termination
+  {
+    id: "edu-collection-deadline-md",
+    title: "Deadline to Sue a Former Tenant",
+    group: "Default & Termination",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "landlord-remedies-termination",
+    bodyText:
+      "A suit for unpaid rent, damage or other money a former tenant owes under the lease generally must be filed within 3 years after the claim arises; a 12-year period applies to a contract under seal. Once the deadline passes you may not start a collection suit or arbitration. A payment or promise to pay after that point does not restart the clock, unless it is under a written payment plan signed before the deadline passed.",
+    notes: "MD: Md. Code Ann., Cts. & Jud. Proc. § 5-101 ('shall be filed within three years from the date it accrues'); § 5-102(a)(5) contracts under seal; § 5-1201 consumer debt (a failure-to-pay-rent action under Md. Code Ann., Real Prop. § 8-401 is excluded from 'consumer debt collection action', § 5-1201(f)(2), so the body speaks only to suits after move-out); § 5-1202(b)(1) ('does not revive or extend the limitations period'), (b)(2). (MD batteries S-SCN-rent-limitations, S-SCN-consumer-debt-sol; positives passed.) Scenario screen P6. Rule 15: written section-open.",
+  },
+  // Notices & General
+  {
+    id: "edu-counting-statutory-days-md",
+    title: "Counting Statutory Deadlines",
+    group: "Notices & General",
+    states: ["MD"],
+    ruleTypes: ["RECOMMENDED"],
+    verificationStatus: "VERIFIED",
+    topicKey: "notice-delivery-methods",
+    bodyText:
+      "When a Maryland statute gives you or a tenant a number of days, such as the 45 days to return a deposit or the 10-day notice before filing for rent, do not count the day of the event that starts the period. Count the last day unless it is a Sunday or legal holiday; if it is, the period runs to the end of the next day that is not a Sunday or legal holiday. For periods of 7 days or less, skip Sundays and legal holidays in between; for longer periods, count them. If a court filing is due on a day the clerk's office is closed, file on the next full day it is open. These rules cover deadlines set by statute, not due dates your lease sets.",
+    notes: "MD: Md. Code Ann., Gen. Provis. § 1-302(a), (b)(1) ('it is a Sunday or legal holiday, in which case the period runs until the end of the next day'), (b)(2), (c). (MD battery S-SCN-time-computation-v2; positives passed.) Scenario screen P7. Rule 15: written section-open.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "edu-property-manager-licensing-md",
+    title: "Property Managers and Licensing",
+    group: "Other / Miscellaneous",
+    states: ["MD"],
+    ruleTypes: ["CONDITIONAL"],
+    verificationStatus: "VERIFIED",
+    topicKey: "nonresident-owner-agent",
+    bodyText:
+      "Maryland does not require a real estate license for an owner managing or leasing its own property. Collecting consumer debts for someone else generally requires a collection agency license, and the licensing law's exemption for collecting rent covers only licensed real estate brokers and people acting for them. Whether a manager who is not a broker needs a collection agency license to collect an owner's past-due rent is unsettled. A landlord's own regular employees may collect the landlord's own claims without one.",
+    notes: "MD: Md. Code Ann., Bus. Occ. & Prof. § 17-301(b)(4) ('an owner of real estate while managing or leasing that real estate'); Md. Code Ann., Bus. Reg. § 7-101 definitions; § 7-301(a) license required; § 7-102(b)(5) ('a licensed real estate broker, or an individual acting on behalf of the real estate broker, in the collection of rent'). (MD batteries S-SCN-pm-license, S-SCN-collection-agency-rent; positives passed.) Case law not searched. Scenario screen P8; the screen's sentence on agents of owners was not carried into the body because the exemption quoted is the owner's own. Rule 15: written section-open.",
   },
 ];
 
