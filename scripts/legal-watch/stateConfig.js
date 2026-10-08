@@ -46,6 +46,7 @@ const STATE_NAMES = {
   WA: "Washington",
   OR: "Oregon",
   KY: "Kentucky",
+  WV: "West Virginia",
 };
 
 // New York consolidated-law abbreviations (as cited in the NY rows) and the
@@ -1737,6 +1738,41 @@ const STATE_CONFIG = {
       },
     ],
   },
+  WV: {
+    // West Virginia Code sections are chapter-article-section ("37-6A-2",
+    // "16B-18-5", "61-3-39e"). Bills amend "§37-6A-2 of the Code of West
+    // Virginia, 1931, as amended", so the query pairs the number with "Code
+    // of West Virginia". Citations are split on ";" and only the "W. Va.
+    // Code" parts are read; legislative rules, court rules and federal parts
+    // are manual items below. Subsection parentheses become spaces, so
+    // "37-6A-2(b)(1)" stays 37-6A-2.
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        if (!/^W\. Va\. Code/.test(part)) continue;
+        const body = part.replace(/\([^)]*\)/g, " ");
+        for (const m of body.matchAll(/\b(\d{1,2}[A-Z]?-\d{1,2}[A-Z]?-\d{1,3}[a-z]?)\b/g)) out.push(m[1]);
+      }
+      return out;
+    },
+    buildQuery: (section) => `"${section}" AND "Code of West Virginia"`,
+    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
+    manualRecheckItems: [
+      {
+        id: "wv-legislative-rules",
+        label:
+          "Legislative rules LegiScan can't see and the WV pass didn't read: the former drug-laboratory disclosure rule under W. Va. Code § 60A-11-3(a)(6), the State Fire Code and Building Code (smoke and carbon monoxide detectors), health and sanitation rules, Public Service Commission utility rules and Real Estate Commission trust-account rules (WV log §7)",
+        clauseIds: ["edu-meth-lab-wv", "smoke-detectors-wv"],
+      },
+      {
+        id: "wv-court-rules-conflicts",
+        label:
+          "Court rules LegiScan can't see, where they conflict with the statute: the jury election (Magistrate Court Civil Rule 6A's 5 days vs W. Va. Code § 50-5-8's 20), the appeal bond (Rule 18(b) vs § 50-5-12(a)) and possession during appeal (Rule 18A vs § 55-3A-3(g)). Check for rule amendments (WV log §10)",
+        clauseIds: ["edu-eviction-process-wv", "edu-eviction-hardship-stay-wv"],
+      },
+    ],
+  },
 };
 
 // Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
@@ -1749,7 +1785,7 @@ const STATE_CONFIG = {
 const SCHEDULE_ORDER = [
   "CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ",
   "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI",
-  "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY",
+  "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV",
 ];
 function cronFor(code) {
   const n = SCHEDULE_ORDER.indexOf(code);
