@@ -48,7 +48,7 @@ One targeted pass over the older states once every state is researched, in line 
 
 ## Coverage scope: DC and the territories (Taylor, 2026-10-08)
 
-Taylor wants the clause library to cover Washington, DC, and the five inhabited territories (PR, GU, VI, AS, MP) as well as the 50 states. Points to settle at each kickoff:
+Taylor wants the clause library to cover Washington, DC, and the five inhabited territories (PR, GU, VI, AS, MP) as well as the 50 states, **after the remaining states** (Taylor: "probably at the tail end"). Points to settle at each kickoff:
 - **DC** is run like a state (D.C. Code, DCMR regulations, a strong tenant act and rent stabilization); LegiScan covers DC, so legal watch works as it does for a state.
 - **Territories:** check before staging whether LegiScan covers them; if not, legal watch needs another source or manual items. Puerto Rico's law is civil-law and its official text is largely in Spanish (the 2020 Civil Code), so it needs its own kickoff screens and a translation step. Free official code access for GU, VI, AS and MP should be confirmed at kickoff.
 - **App:** state codes and names (`STATE_NAMES`, the property state field, builder state filters) must accept DC and the territory codes.
