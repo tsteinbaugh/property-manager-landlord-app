@@ -49,6 +49,7 @@ const STATE_NAMES = {
   WV: "West Virginia",
   MD: "Maryland",
   MA: "Massachusetts",
+  CT: "Connecticut",
 };
 
 // New York consolidated-law abbreviations (as cited in the NY rows) and the
@@ -1889,6 +1890,46 @@ const STATE_CONFIG = {
       },
     ],
   },
+  CT: {
+    // Connecticut section numbers carry their title ("47a-21"), so they are
+    // unique across the General Statutes. Bills amend by "Section 47a-21 of
+    // the general statutes is repealed ..." or "subsection (b) of section
+    // 47a-4d of the general statutes", so the query is that phrase. Only
+    // "Conn. Gen. Stat. § <sec>" parts are read; regulations (Conn. Agencies
+    // Regs.), the Practice Book, public acts and federal parts are left to the
+    // items below. Cited ranges are already expanded in the citations file.
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        const m = part.match(/^Conn\. Gen\. Stat\. § (\d{1,2}[a-z]{0,2}-\d{1,4}[a-z]{0,3}(?:-\d{1,4}[a-z]?)?)/);
+        if (m) out.push(m[1]);
+      }
+      return [...new Set(out)];
+    },
+    buildQuery: (section) => `"section ${section} of the general statutes"`,
+    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
+    manualRecheckItems: [
+      {
+        id: "ct-uncompiled-2026-acts",
+        label:
+          "Connecticut 2026 public acts the CT pass read before they were compiled (CT log §1.2): No. 26-113, § 1 (new § 47a-4(a)(11), utilities not separately metered), No. 26-68, § 59 (§ 47a-4d(b)), No. 26-79, § 3 (§ 47a-21(j)), No. 26-11, § 15 (§ 47a-23c cross-reference), No. 26-77 (fair housing misdemeanor moved), No. 26-58 (fire codes), No. 26-100, § 60, No. 26-127, § 9. When the 2027 revision or 2026 Supplement on cga.ct.gov prints them, confirm the compiled section numbers and wording match the rows that say \"compiled text pending\"",
+        clauseIds: ["utilities-responsibility", "due-at-signing-ct", "edu-for-cause-eviction-ct", "edu-fair-housing-ct", "edu-applicable-codes-ct", "edu-tenant-paid-utilities-ct"],
+      },
+      {
+        id: "ct-agency-figures-forms",
+        label:
+          "Connecticut figures and forms agencies publish, which LegiScan can't see: the Commissioner of Housing's CPI-adjusted screening-fee cap under § 47a-4d(c) (not located 2026-10-09), the Banking Commissioner's deposit index for each year (0.49% for 2026; § 47a-21(i), § 36a-26), the DOH Standardized Rental Terms Summary Form (§ 47a-7d(d)) and Form AM-011 protected-tenant notice (§ 47a-23c(e)), and the Judicial Branch right-to-counsel notice (§ 47a-75(f)). Check portal.ct.gov/doh and the Department of Banking deposit index page each January",
+        clauseIds: ["security-deposit-interest-ct", "edu-application-screening-fees-ct", "edu-rental-terms-summary-form-ct", "edu-protected-tenant-notice-ct", "edu-nonpayment-notice-to-quit-ct"],
+      },
+      {
+        id: "ct-regulations-court-rules",
+        label:
+          "Connecticut regulations and court rules LegiScan can't see: Conn. Agencies Regs. §§ 19a-111-1 to 19a-111-11 (lead), 16-3-100 (utility termination), the Fire Safety and Fire Prevention Code amendments (29-292, 29-291a), and the Practice Book (amendments adopted June 11, 2026 take effect January 1, 2027). Check eregulations.ct.gov and jud.ct.gov for changes since the CT pass (2026-10-09); the rest of the RCSA, including the Public Health Code (19-13), was not loaded (CT log §7)",
+        clauseIds: ["edu-lead-abatement-ct", "edu-utility-shutoff-rules-ct", "edu-applicable-codes-ct", "edu-eviction-process-ct"],
+      },
+    ],
+  },
 };
 
 // Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
@@ -1902,7 +1943,7 @@ const SCHEDULE_ORDER = [
   "CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ",
   "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI",
   "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD",
-  "MA",
+  "MA", "CT",
 ];
 function cronFor(code) {
   const n = SCHEDULE_ORDER.indexOf(code);
