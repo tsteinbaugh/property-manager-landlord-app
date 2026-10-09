@@ -48,6 +48,7 @@ const STATE_NAMES = {
   KY: "Kentucky",
   WV: "West Virginia",
   MD: "Maryland",
+  MA: "Massachusetts",
 };
 
 // New York consolidated-law abbreviations (as cited in the NY rows) and the
@@ -1840,6 +1841,54 @@ const STATE_CONFIG = {
       },
     ],
   },
+  MA: {
+    // Massachusetts numbers sections within each chapter of the General Laws,
+    // so a bare "§ 15B" is ambiguous. Keys carry the chapter ("186|15B"), and
+    // the query uses the phrase Massachusetts bills amend by: "Section 15B of
+    // chapter 186 of the General Laws, as appearing in ..., is hereby amended".
+    // Only "Mass. Gen. Laws ch. <ch>, § <sec>" parts of a citation are read;
+    // regulations (CMR), session-law citations, court rules and federal parts
+    // are left to the items below.
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        const m = part.match(/^Mass\. Gen\. Laws ch\. (\d{1,3}[A-Z]{0,2}), § (\d{1,3}[A-Z]{0,4}(?:-\d{1,3}[A-Z]{0,2})?(?:½)?)/);
+        if (!m) continue;
+        // A cited range ("§§ 23-29", "§§ 127C-127I") is watched section by
+        // section. Chapter 106 (the UCC) numbers sections with a hyphen
+        // ("2-302", "2A-108"), so its numbers are single sections.
+        const r = m[1] === "106" ? null : m[2].match(/^(\d+)([A-Z]?)-(\d+)([A-Z]?)$/);
+        if (r && !r[2] && !r[4] && +r[1] < +r[3] && +r[3] - +r[1] <= 30) {
+          for (let n = +r[1]; n <= +r[3]; n++) out.push(`${m[1]}|${n}`);
+        } else if (r && r[1] === r[3] && r[2] && r[4] && r[2] < r[4]) {
+          for (let c = r[2].charCodeAt(0); c <= r[4].charCodeAt(0); c++) out.push(`${m[1]}|${r[1]}${String.fromCharCode(c)}`);
+        } else {
+          out.push(`${m[1]}|${m[2]}`);
+        }
+      }
+      return [...new Set(out)];
+    },
+    buildQuery(key) {
+      const [chapter, sec] = key.split("|");
+      return `"section ${sec} of chapter ${chapter}"`;
+    },
+    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
+    manualRecheckItems: [
+      {
+        id: "ma-regulations",
+        label:
+          "Massachusetts regulations LegiScan can't see: 940 CMR 3.17 (Attorney General landlord-tenant rules), 105 CMR 410 (State Sanitary Code), 105 CMR 460 (lead), 940 CMR 38 (fee transparency) and any EOHLC regulation authorizing a fee in lieu of a security deposit under ch. 186, § 15B(1)(b)(iii) (none existed 2026-10-08). Check mass.gov for amendments since the MA pass (2026-10-08). Also ch. 186, § 23 still cites 105 CMR 410.020, which the 2023 Sanitary Code removed (MA log §10)",
+        clauseIds: ["owner-contact-disclosure-ma", "utilities-responsibility-ma", "sanitary-code-variance-ma", "lead-law-certification-ma", "edu-fee-in-lieu-of-deposit-ma", "edu-automatic-renewal-rules-ma"],
+      },
+      {
+        id: "ma-unread-sources",
+        label:
+          "Massachusetts sources the MA pass didn't read: the Uniform Summary Process Rules' proposed amendments (Rules 1, 4, 6, 8, 10-12; the comment notice returned 404), the Rules of Civil Procedure, 527 CMR (fire code), 780 CMR (building code), 935 CMR (cannabis) and 220 CMR (utilities), and local ordinances (MA log §7). Also confirm ch. 239, § 17 (federal-shutdown protections) is still in force; malegislature.gov files it under chapter 221's index",
+        clauseIds: ["edu-nonpayment-notice-to-quit-ma", "edu-shutdown-late-fee-ma", "edu-cannabis-lease-limits-ma", "edu-storage-space-ma"],
+      },
+    ],
+  },
 };
 
 // Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
@@ -1853,6 +1902,7 @@ const SCHEDULE_ORDER = [
   "CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ",
   "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI",
   "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD",
+  "MA",
 ];
 function cronFor(code) {
   const n = SCHEDULE_ORDER.indexOf(code);
