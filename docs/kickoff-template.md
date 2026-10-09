@@ -15,6 +15,7 @@ Opus, high effort. Turn on research mode only for the three triggers in SOP rule
 
 ## Usage budget (Taylor, 2026-10-08)
 - **Read big files with scripts, never into the chat:** `lease-clauses.csv`, the state's code corpus and any saved section files.
+- **Topic canvass (SOP rule 27): at most two agents at a time,** each saving its answer to a file after every topic. If a usage limit stops the work, wait for it to reset and resume from the saved files; never restart topics already saved.
 - **Independent check (SOP rule 80): at most 3 rounds,** one agent at a time. Each round after the first re-checks only the rows edited since the previous round. Stop early when a round finds no ERROR and no FIX.
 - **Edits after the last check:** if round 3 still produces changes, apply them and list those rows in §13 under "Edited after the last check". Claude Code reads them against the statute at sync.
 
