@@ -51,6 +51,7 @@ const STATE_NAMES = {
   MA: "Massachusetts",
   CT: "Connecticut",
   RI: "Rhode Island",
+  NH: "New Hampshire",
 };
 
 // New York consolidated-law abbreviations (as cited in the NY rows) and the
@@ -1971,6 +1972,39 @@ const STATE_CONFIG = {
       },
     ],
   },
+  NH: {
+    // New Hampshire sections are chapter:section ("540-A:6", "540:13-e",
+    // UCC "382-A:2-302"), unique across the RSA, so keys are bare; the
+    // paragraph (", I(a)") is dropped. Bills amend by "Amend RSA 540-A:6, I(a)
+    // to read as follows" and cite "RSA 540:2", so the query is that phrase.
+    // Only "N.H. Rev. Stat. Ann. §" parts are read; administrative rules,
+    // session laws, court rules and federal parts are left to the items below.
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        const m = part.match(/^N\.H\. Rev\. Stat\. Ann\. § (\d{1,3}(?:-[A-Z]{1,2})?:\d{1,3}(?:-[a-z]{1,2})?(?:-\d{1,4}[A-Za-z]?)?)/);
+        if (m) out.push(m[1]);
+      }
+      return [...new Set(out)];
+    },
+    buildQuery: (section) => `"RSA ${section}"`,
+    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
+    manualRecheckItems: [
+      {
+        id: "nh-dated-versions",
+        label:
+          "New Hampshire RSA sections the NH pass found printed with future-dated versions (NH log §1.2): RSA 540:28-a (snow and ice, effective July 1, 2027, for tenancies entered into or renewed on or after that date), and N.H. Laws 2026, ch. 308 (eviction procedure, stays and prohibited practices, effective October 8, 2026). After each date, confirm the site prints one version and the rows still match. Also open: whether N.H. Laws 2024, ch. 9 or 2025, ch. 263 limits RSA 540:2, II(i) (end of a 12-month-plus lease as a ground) to leases entered after a date (NH log §7 item 1)",
+        clauseIds: ["edu-snow-ice-removal-nh", "edu-eviction-process-nh", "edu-for-cause-eviction-nh", "holdover-rate-nh"],
+      },
+      {
+        id: "nh-rules-court",
+        label:
+          "New Hampshire rules LegiScan can't see: N.H. Code Admin. R. He-P 1600 (lead), Env-Or 600 (activity and use restrictions), En 303.01 (master-metered electricity), and the Circuit Court District Division rules (Rule 5.5(B) still requires setoffs and counterclaims by the return day, behind RSA 540:13, II(a) as amended in 2026; NH log §10). Check for amendments since the NH pass (2026-10-10). Stale cross-references in the RSA to watch for a fix: RSA 540-A:4, VI cites \"RSA 540:3, IX\" (RSA 540-A:3, IX meant) and RSA 540:2, II(i)(2) cites \"RSA 354:10\" (RSA 354-A:10 meant)",
+        clauseIds: ["lead-hazard-order-disclosure-nh", "activity-use-restriction-nh", "edu-electric-submetering-nh", "edu-unauthorized-occupant-removal-nh", "edu-fair-housing-nh"],
+      },
+    ],
+  },
 };
 
 // Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
@@ -1984,7 +2018,7 @@ const SCHEDULE_ORDER = [
   "CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ",
   "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI",
   "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD",
-  "MA", "CT", "RI",
+  "MA", "CT", "RI", "NH",
 ];
 function cronFor(code) {
   const n = SCHEDULE_ORDER.indexOf(code);
