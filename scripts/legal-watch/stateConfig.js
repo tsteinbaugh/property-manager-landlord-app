@@ -50,6 +50,7 @@ const STATE_NAMES = {
   MD: "Maryland",
   MA: "Massachusetts",
   CT: "Connecticut",
+  RI: "Rhode Island",
 };
 
 // New York consolidated-law abbreviations (as cited in the NY rows) and the
@@ -1930,6 +1931,46 @@ const STATE_CONFIG = {
       },
     ],
   },
+  RI: {
+    // Rhode Island sections are title-chapter-section ("34-18-19", with
+    // decimal chapters and sections: "45-24.3-17", "34-18-16.1"), unique across
+    // the General Laws, so keys are bare. Bills amend by "Section 34-18-19 of
+    // the General Laws in Chapter 34-18 ..." (or list several sections), so the
+    // query is the quoted number, as for NJ. Only "R.I. Gen. Laws §" parts are
+    // read; RICR regulations, public laws, court rules and federal parts are
+    // left to the items below. Cited ranges are expanded in the citations file.
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        const m = part.match(/^R\.I\. Gen\. Laws § (\d{1,2}[A-Z]?-\d{1,3}(?:\.\d{1,2})?-\d{1,4}(?:\.\d{1,2})?)/);
+        if (m) out.push(m[1]);
+      }
+      return [...new Set(out)];
+    },
+    buildQuery: (section) => `"${section}"`,
+    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-disclosure-ri"] }],
+    federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-disclosure-ri"] }],
+    manualRecheckItems: [
+      {
+        id: "ri-uncompiled-2026-acts",
+        label:
+          "Rhode Island 2026 public laws the RI pass read before they were compiled (RI log §1.2): chs. 147, 148 (survivor protections, new §§ 34-18-63 to 34-18-67 and renumbered § 34-18-11 definitions, July 1, 2026), chs. 165, 166 (shoreline access disclosure, § 34-18-20(e), January 1, 2027), ch. 282 (jury-waiver timing, January 1, 2027), chs. 327, 328 (SAFE Units) and chs. 44, 45 (asbestos). When the General Laws on webserver.rilegislature.gov print them, confirm the compiled numbers and wording. Also: § 34-18-67's heading says \"through 34-18-64\" and its text \"through 34-18-65\" (RI log §10); watch for a correction",
+        clauseIds: ["keys-ri", "shoreline-access-disclosure-ri", "edu-dv-lease-termination-ri", "edu-knowing-use-penalty-ri", "edu-jury-waiver-ri", "edu-pest-treatment-ri"],
+      },
+      {
+        id: "ri-regulations",
+        label:
+          "Rhode Island regulations LegiScan can't see: 216-RICR-50-15-3 (lead poisoning prevention: the lease-time disclosure on its own page, certificates of conformance), and the parts the pass didn't load (Fire Safety Code and NFPA adoptions, State Building Code, DOH private-well rules, PUC utility termination rules). Check rules.sos.ri.gov for changes since the RI pass (2026-10-09); 216-RICR-50-15-3.2.1(A)(3)(a) carries a stale statutory cross-reference (RI log §10)",
+        clauseIds: ["lead-disclosure-ri", "edu-lead-certificate-ri", "edu-alarm-duties-ri", "edu-private-well-testing-ri"],
+      },
+      {
+        id: "ri-registry",
+        label:
+          "The Department of Health statewide rental registry (§ 34-18-58): registration is a condition of a nonpayment eviction, with annual re-registration by October 1. Check the DOH registry page each year for any change to the process or the online database",
+        clauseIds: ["edu-rental-registry-ri"],
+      },
+    ],
+  },
 };
 
 // Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
@@ -1943,7 +1984,7 @@ const SCHEDULE_ORDER = [
   "CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ",
   "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI",
   "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD",
-  "MA", "CT",
+  "MA", "CT", "RI",
 ];
 function cronFor(code) {
   const n = SCHEDULE_ORDER.indexOf(code);

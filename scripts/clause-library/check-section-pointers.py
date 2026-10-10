@@ -25,13 +25,32 @@ for r in active:
         titles_by_state[st].add(r["title"])
 all_states = sorted(titles_by_state)
 
+longer_prefixes = {t: [u[: -len(t)] for u in all_titles if u.endswith(" " + t)] for t in all_titles}
+
+
+def points_to(text, title):
+    # A pointer to "Handling of Property Left Behind Section" also contains
+    # "Property Left Behind Section"; a match only counts where no longer
+    # title ending in this one sits at the same spot (RI sync, 2026-10-09).
+    if f'"{title}"' in text:
+        return True
+    prefixes = longer_prefixes[title]
+    for p in (f"{title} Section", f"{title} section"):
+        start = text.find(p)
+        while start >= 0:
+            if not any(text[:start].endswith(pre) for pre in prefixes):
+                return True
+            start = text.find(p, start + 1)
+    return False
+
+
 problems = []
 for r in active:
     text = r["bodyText"]
     for title in all_titles:
         if title == r["title"]:
             continue
-        if not any(p in text for p in (f"{title} Section", f"{title} section", f'"{title}"')):
+        if not points_to(text, title):
             continue
         states = [s for s in r["states"].split(";") if s] or all_states
         missing = [s for s in states if title not in titles_by_state[s]]
