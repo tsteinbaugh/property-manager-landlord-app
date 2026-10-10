@@ -12,6 +12,13 @@ Opus, high effort. Turn on research mode only for the three triggers in SOP rule
 - `lease-clause-topics.md`: every topic the library covers, with questions earlier states found worth checking (SOP rules 27 and 36).
 - `lease-clauses.csv`: the current library, the only source of truth for rows.
 - `log-format-example.md`: every heading of the most recent state log ({REF1}) with its first few lines, as an example of the log format (SOP rule 71). It is an example, not a template for {STATE_NAME}'s law.
+- `corpus-{ST}-*.zip`, when present: the state's official code (and any session laws listed in its `README.txt`), downloaded by Claude Code from the official site on the date in the file name. See "Official text downloaded by Claude Code" below.
+
+## Official text downloaded by Claude Code (SOP rule 24, Taylor 2026-10-09)
+If this folder has a `corpus-{ST}-*.zip`, Claude Code downloaded the official text for you. First make one request to the official site with your own tools.
+- **If it works,** research as usual; the corpus is an optional cross-check.
+- **If it doesn't,** use the corpus instead of downloading the code through Taylor's browser. Check every file's SHA-256 against `manifest.jsonl`, prove the load complete against the site's own index pages inside the corpus (rule 19), and ask Taylor's approval to re-fetch about five sections through his browser and confirm they match the corpus text.
+- Either way, record the channel in §1.1, and check currency from the history lines and session laws as rule 16 asks, since the corpus is dated the day it was downloaded.
 
 ## Usage budget (Taylor, 2026-10-08)
 - **Read big files with scripts, never into the chat:** `lease-clauses.csv`, the state's code corpus and any saved section files.
