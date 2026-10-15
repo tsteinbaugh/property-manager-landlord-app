@@ -52,6 +52,7 @@ const STATE_NAMES = {
   CT: "Connecticut",
   RI: "Rhode Island",
   NH: "New Hampshire",
+  ME: "Maine",
 };
 
 // New York consolidated-law abbreviations (as cited in the NY rows) and the
@@ -2005,6 +2006,46 @@ const STATE_CONFIG = {
       },
     ],
   },
+  ME: {
+    // Maine sections repeat across titles (tit. 14, § 6001 and tit. 5,
+    // § 6001 are different laws), so the key carries the title in the form
+    // Maine bills use: "Sec. 1. 14 MRSA §6033, sub-§2 is amended". The key is
+    // that phrase ("14 MRSA §6033") and the query is the quoted key. The
+    // subsection is dropped. Only "Me. Rev. Stat. tit." parts are read; session
+    // laws, C.M.R. rules, court rules and federal parts are left to the items
+    // below.
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        const m = part.match(/^Me\. Rev\. Stat\. tit\. (\d{1,2}(?:-[A-Z])?), § (\d{1,5}(?:-[A-Z]{1,3})?(?:-\d{1,4})?)/);
+        if (m) out.push(`${m[1]} MRSA §${m[2]}`);
+      }
+      return [...new Set(out)];
+    },
+    buildQuery: (section) => `"${section}"`,
+    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
+    manualRecheckItems: [
+      {
+        id: "me-dated-and-future",
+        label:
+          "Maine items the ME pass found dated or future-operative (ME log §1.2, §10): tit. 14, § 6030-C(3) (energy efficiency disclosure change, operative January 1, 2030, 2025 Me. Laws ch. 411); tit. 30-A, § 4364-A(1), which the Revisor prints in two conflicting 2025 versions (watch for a Revisor's correction); and the effective-date clause of 2023 Me. Laws ch. 594, § 13 (total price disclosure and recurring fees), which the pass could not read. After each date or correction, confirm the rows still match",
+        clauseIds: ["required-disclosures-me", "edu-no-single-family-zone-limit-me", "edu-total-price-disclosure-me"],
+      },
+      {
+        id: "me-model-lease",
+        label:
+          "The Attorney General's model residential lease (tit. 14, § 6030-K): posted by December 1, 2025 and updated in odd-numbered years. In each odd year after it is updated, compare the new version's disclosures and attachments with `required-disclosures-me` and the ME log §15 comparison",
+        clauseIds: ["required-disclosures-me"],
+      },
+      {
+        id: "me-rules",
+        label:
+          "Maine rules LegiScan can't see, behind the eight NEEDS_REVIEW rows (ME log §7 item 6): State Fire Marshal fire code and NFPA adoptions (including the 2025 NFPA 72 update directed by 2025 Me. Laws ch. 657), sprinklers, Board of Pesticides Control notice rules, DEP environmental covenants, PUC submetering rules beyond 65-407 C.M.R. chs. 660 and 815, Maine Revenue Services guidance on rent and sales tax, Real Estate Commission rules, and the seven rules the pass read (94-348 C.M.R. chs. 7, 8; 10-144 C.M.R. chs. 224, 292; 65-407 C.M.R. chs. 660, 815; 16-219 C.M.R. ch. 2). Check for amendments since the ME pass (2026-10-15)",
+        clauseIds: ["edu-fire-code-me", "edu-sprinkler-requirements-me", "edu-pesticide-notice-me", "edu-environmental-covenants-me", "edu-utility-submetering-disclosure-me", "edu-rent-sales-tax-me", "edu-property-manager-licensing-me", "edu-frozen-standard-incorporation-me"],
+      },
+    ],
+  },
 };
 
 // Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
@@ -2018,7 +2059,7 @@ const SCHEDULE_ORDER = [
   "CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ",
   "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI",
   "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD",
-  "MA", "CT", "RI", "NH",
+  "MA", "CT", "RI", "NH", "ME",
 ];
 function cronFor(code) {
   const n = SCHEDULE_ORDER.indexOf(code);
