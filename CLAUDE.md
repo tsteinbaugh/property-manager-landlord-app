@@ -4,7 +4,7 @@
 
 ## 🎯 Current focus
 
-- **Where things stand (2026-10-10):** 42 states verified; the retro run finished 2026-10-03; SOP 1.69. Every synced state's history is in `docs/history.md`; per-state open items are in `docs/backlog.md`.
+- **Where things stand (2026-10-10):** 42 states verified; the retro run finished 2026-10-03; SOP 1.70. Every synced state's history is in `docs/history.md`; per-state open items are in `docs/backlog.md`.
 - **Done 2026-10-04:** **Washington (state #34) synced** (196 rows, SOP 1.54). `legal-watch-wa.yml` is held until after July 6, 2027 (first run August 6, day 6 at 14:00 UTC). 
 - **Done 2026-10-04:** **Oregon (state #35) synced** (223 rows, SOP 1.58). `legal-watch-or.yml` is held until after August 7, 2027 (first run September 7, day 7 at 14:00 UTC); its first manual item is due December 18, 2026.
 - **Done 2026-10-05:** **Kentucky (state #36) synced** (219 rows, SOP 1.61; two tiers: default clauses lawful whether or not a locality adopted the uniform act, Taylor's decision). `legal-watch-ky.yml` is held until after September 8, 2027 (first run October 8, day 8 at 14:00 UTC).
@@ -88,7 +88,7 @@ React + Vite + Tailwind v4 + React Router (`frontend/`); Node + Express + Prisma
 - Edit the CSV with a byte-exact round trip (`lease-clauses.csv` is CRLF; citations files vary, so preserve each file's line endings). Parallel state chats hand back delta CSVs with all 17 columns. [2026-09-27, 2026-09-29]
 - Merge a Desktop delta with `scripts/clause-library/merge-delta.py` against the base it was staged from, never by whole-row replacement; it applies only that state's tag and note segment to shared rows and refuses the rest. [2026-09-30]
 - Never restage a Desktop folder Taylor may already be using; restage only unstarted states, and ask if unsure. Staged prompts carry a staged-at time and row count. [2026-09-30]
-- Where Claude Code can reach a state's official site, stage the kickoff with the code downloaded as a dated zip plus SHA-256 manifest (SOP rule 24); Desktop uses it only if its own tools can't reach the site. One worker, a pause between requests, back-off on errors. [2026-10-09]
+- Where Claude Code can reach a state's official site, stage the kickoff with the code downloaded as a dated zip plus SHA-256 manifest (SOP rule 24), including the session laws, constitution, agency and court rules and any official model lease it can reach; Desktop uses it only if its own tools can't reach the site. One worker, a pause between requests, back-off on errors. [2026-10-09, 2026-10-15]
 - A library-wide rewrite (scrub, split, consolidation) is diffed against its sources and must not change what the text claims or drop a condition (SOP rule 78). [2026-09-30]
 - A lawful option the library declines still gets an education row saying it exists, why it isn't offered, and that the landlord can add their own clause (SOP rule 54). [2026-10-01]
 - Re-read a section before trusting a summary of it, and attach each qualifier to its own sentence (SOP rule 79). [2026-10-01]
