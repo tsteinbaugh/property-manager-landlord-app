@@ -32,6 +32,7 @@ Everything else is **v2**. Do not scope creep into v2 during v1.
 - State dropdown updates rules dynamically
 - Links to lease clauses violated (from clause library)
 - Court summary generator — clause text + violation description + evidence checklist
+- Venue check before filing a money claim (Taylor's real-world lesson 6, 2026-10): where the former tenant now lives can decide which court may hear it, even when the property is in the landlord's state. In Colorado small claims, a security deposit dispute was the exception the magistrate named; unpaid rent and damages beyond the deposit were not. Track each tenant's current state and forwarding address, and flag an out-of-state former tenant before suggesting a court.
 
 ### Move-in / Move-out inspections (v2)
 - Organized by room
