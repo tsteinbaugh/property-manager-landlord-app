@@ -2029,8 +2029,8 @@ const STATE_CONFIG = {
       {
         id: "me-dated-and-future",
         label:
-          "Maine items the ME pass found dated or future-operative (ME log §1.2, §10): tit. 14, § 6030-C(3) (energy efficiency disclosure change, operative January 1, 2030, 2025 Me. Laws ch. 411); tit. 30-A, § 4364-A(1), which the Revisor prints in two conflicting 2025 versions (watch for a Revisor's correction); and the effective-date clause of 2023 Me. Laws ch. 594, § 13 (total price disclosure and recurring fees), which the pass could not read. After each date or correction, confirm the rows still match",
-        clauseIds: ["required-disclosures-me", "edu-no-single-family-zone-limit-me", "edu-total-price-disclosure-me"],
+          "Maine items the ME pass found dated or future-operative (ME log §1.2, §10): tit. 14, § 6030-C(3) (energy efficiency disclosure change, operative January 1, 2030, 2025 Me. Laws ch. 411) and tit. 30-A, § 4364-A(1), which the Revisor prints in two conflicting 2025 versions (watch for a Revisor's correction). After each date or correction, confirm the rows still match",
+        clauseIds: ["required-disclosures-me", "edu-no-single-family-zone-limit-me"],
       },
       {
         id: "me-model-lease",
@@ -2041,7 +2041,7 @@ const STATE_CONFIG = {
       {
         id: "me-rules",
         label:
-          "Maine rules LegiScan can't see, behind the eight NEEDS_REVIEW rows (ME log §7 item 6): State Fire Marshal fire code and NFPA adoptions (including the 2025 NFPA 72 update directed by 2025 Me. Laws ch. 657), sprinklers, Board of Pesticides Control notice rules, DEP environmental covenants, PUC submetering rules beyond 65-407 C.M.R. chs. 660 and 815, Maine Revenue Services guidance on rent and sales tax, Real Estate Commission rules, and the seven rules the pass read (94-348 C.M.R. chs. 7, 8; 10-144 C.M.R. chs. 224, 292; 65-407 C.M.R. chs. 660, 815; 16-219 C.M.R. ch. 2). Check for amendments since the ME pass (2026-10-15)",
+          "Maine rules LegiScan can't see, read at the ME sync (2026-10-15): State Fire Marshal 16-219 C.M.R. chs. 2, 3, 4, 17, 20 (NFPA 101 and NFPA 1, 2018; NFPA 72, 2019, with the 2025 edition directed by 2025 Me. Laws ch. 657 not yet adopted; NFPA 13/13R/13D, 2016), the building code 08-003 C.M.R. chs. 4-8 (2021 I-codes), Board of Pesticides Control 01-026 C.M.R. chs. 26 and 28, PUC 65-407 C.M.R. chs. 320, 620, 660 and 815, and Real Estate Commission 02-039 C.M.R. chs. 390, 400 and 410. Check for amendments since 2026-10-15, especially the NFPA 72 update and any building-code edition change",
         clauseIds: ["edu-fire-code-me", "edu-sprinkler-requirements-me", "edu-pesticide-notice-me", "edu-environmental-covenants-me", "edu-utility-submetering-disclosure-me", "edu-rent-sales-tax-me", "edu-property-manager-licensing-me", "edu-frozen-standard-incorporation-me"],
       },
     ],

@@ -979,3 +979,14 @@ ME (2026-10-15), from this log's §§ 4, 6.1, 11, 12 and 14-18. It ran on SOP 1.
 - `abandoned-property`: May the lease itself authorize disposal of abandoned property without liability if the statute's notices are given? (Maine, tit. 14, § 6013.)
 - `pet-policy`: Is a monthly pet charge rent, a recurring fee requiring the pre-lease total price disclosure, or neither? (Maine, tit. 14, §§ 6000(1-A)-(1-B), 6030-I, 6030-J.)
 - `portable-solar`: Does a utility statute let a tenant install a plug-in solar or battery device without utility approval, and must the tenant restore the building? (Maine, tit. 35-A, § 3475.)
+
+## Sync review (Claude Code, 2026-10-15)
+- **Review:** the 19 rows edited after the last check and the core rules (tit. 14, §§ 6002, 6015, 6022-A, 6025, 6028, 6032, 6033; tit. 22, § 2430-C(3); tit. 32, §§ 11002(6), 11013(3)(A); tit. 25, §§ 2452, 2463, 2464) were read on legislature.maine.gov. No errors.
+- **§7 items closed at sync (Taylor asked that open items be closed, not carried):**
+  1. Pet rent: `pet-policy-me` now lists pet rent in the total price disclosure and never rests a 7-day rent notice on pet rent alone, so it is lawful whether pet rent is rent, a mandatory recurring fee or neither.
+  2. Medical cannabis vaping: `smoking-policy-me` now limits a patient's vaping only as far as the medical cannabis law allows, so it is lawful under either reading of "smoking" in tit. 22, § 2430-C(3).
+  3. Tenant-caused fire (§ 6010), 4. reinstatement for leases (§ 6002(1)) and 5. parking: already drafted to the cautious reading (no no-abatement clause offered; `default-by-tenant-me` preserves reinstatement without granting or denying it; `parking-vehicle-rules-me` tows only as Maine law allows, with its notices). They are decisions, not open items.
+  6. The eight NEEDS_REVIEW rows: the agency rules behind them were read on maine.gov (State Fire Marshal 16-219 C.M.R. chs. 2, 3, 4, 17, 20; building code 08-003 C.M.R. chs. 4-8, moved from 16-642 under 2025 Me. Laws ch. 388; Board of Pesticides Control 01-026 C.M.R. chs. 26, 28; PUC 65-407 C.M.R. chs. 320, 620, 660, 815; Real Estate Commission 02-039 C.M.R. chs. 390, 400, 410; DEP 06-096 and Maine Revenue Services 18-125 rule lists searched, no rule on point). Five rows were rewritten from the rules (fire code editions, sprinklers, code editions, pesticide notice and tenant consent, utility shutoff protection); all eight are VERIFIED. The NFPA code texts are incorporated by reference and were not read; the rows say so.
+  9. 2023 Me. Laws ch. 594, § 13 read (Revisor's Laws of Maine, LD 1490, SHA-256 aea26960e25713f25950502b84d4fa78070f7fa1d6255c561218dd9f53839127): 'This Act takes effect January 1, 2025.' No applicability limit to newer leases.
+- **Standing boundaries, as for every state:** case law and municipal ordinances (rules 3, 4).
+
