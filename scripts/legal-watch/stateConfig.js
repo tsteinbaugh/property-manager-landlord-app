@@ -53,6 +53,7 @@ const STATE_NAMES = {
   RI: "Rhode Island",
   NH: "New Hampshire",
   ME: "Maine",
+  VT: "Vermont",
 };
 
 // New York consolidated-law abbreviations (as cited in the NY rows) and the
@@ -2046,6 +2047,47 @@ const STATE_CONFIG = {
       },
     ],
   },
+  VT: {
+    // Vermont section numbers repeat across titles (9 V.S.A. § 4773 and
+    // 12 V.S.A. § 4773 are different laws), so the key carries the title in
+    // the form Vermont bills use: "Sec. 1. 9 V.S.A. § 4467 is amended to
+    // read:". The key is that phrase ("9 V.S.A. § 4467") and the query is the
+    // quoted key; the subsection is dropped. Uniform-act titles keep their
+    // article numbers ("27A V.S.A. § 3-125"). Session laws, the rental housing
+    // code, the Burlington charter and federal parts are left to the items
+    // below.
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        const m = part.match(/^(\d{1,2}A?) V\.S\.A\. § (\d{1,5}[a-z]{0,2}(?:-\d{1,4}[a-z]?)?)/);
+        if (m) out.push(`${m[1]} V.S.A. § ${m[2]}`);
+      }
+      return [...new Set(out)];
+    },
+    buildQuery: (section) => `"${section}"`,
+    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
+    manualRecheckItems: [
+      {
+        id: "vt-uncompiled-2026",
+        label:
+          "Vermont 2026 law the compiled statutes didn't yet show at the VT sync (VT log §1.2, §10): new 9 V.S.A. § 4468b (cannabis, 2026 Act 176, § 30), new 30 V.S.A. § 256 (plug-in solar, 2026 Act 149, § 2), new 27A V.S.A. § 3-125 (EV charging in common interest communities, 2026 Act 168, § 32), and 9 V.S.A. § 4452(b) (recovery residences), which the site still printed as repealed although 2026 Act 103, § 4 struck the repeal. When the site compiles the 2026 session, confirm the compiled text and numbers match the rows",
+        clauseIds: ["smoking-policy-vt", "edu-cannabis-vt", "plug-in-solar-vt", "common-area-use-vt", "edu-ev-charging-vt", "edu-recovery-residences-vt"],
+      },
+      {
+        id: "vt-dated",
+        label:
+          "Vermont items with later effective dates (VT log §10): 2026 Act 145 (consumer data privacy, including housing decisions, from January 1, 2028). After that date, confirm the screening and tenant-data rows still match",
+        clauseIds: ["edu-tenant-data-vt", "edu-no-smart-access-law-vt"],
+      },
+      {
+        id: "vt-rules-and-forms",
+        label:
+          "Vermont rules and forms LegiScan can't see, read at the VT sync (2026-10-16): the Division of Fire Safety's Residential Rental Housing Health & Safety Code (effective December 31, 2023) and Fire & Building Safety Code (2025 edition, effective November 4, 2025, adopting the 2021 NFPA 101, NFPA 1, IBC and IEBC), the Department of Health's asbestos regulations, the Agency of Agriculture's pesticide rule (CVR 20-031-012, § 7.03 tenant notice), PUC Rule 3.300 (effective October 4, 2024, owner notice of disconnection), ANR's contaminated-properties rule (effective February 23, 2024), the court rules (LexisNexis only), and the Department of Housing and Community Development's flood-zone rental disclosure form (Rev. 9/2024, 9 V.S.A. § 4466). Check for amendments, a new code edition or a new form revision since 2026-10-16",
+        clauseIds: ["flood-disclosure-vt", "pest-cooperation-vt", "edu-smoke-co-alarms-vt", "edu-sprinkler-requirements-vt", "edu-code-editions-vt", "edu-asbestos-work-vt", "edu-pest-control-notice-vt", "edu-utility-notice-authorization-vt", "edu-utility-submetering-vt", "edu-environmental-restrictions-vt", "edu-entity-landlord-representation-vt"],
+      },
+    ],
+  },
 };
 
 // Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
@@ -2059,7 +2101,7 @@ const SCHEDULE_ORDER = [
   "CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ",
   "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI",
   "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD",
-  "MA", "CT", "RI", "NH", "ME",
+  "MA", "CT", "RI", "NH", "ME", "VT",
 ];
 function cronFor(code) {
   const n = SCHEDULE_ORDER.indexOf(code);
