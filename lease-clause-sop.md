@@ -145,6 +145,7 @@ A state counts as fully done only when these are finished. Desktop's pass ends a
 - A direct run of the state filter shows no unexplained same-topic pairs in the new state.
 - The statute spot-check: about five of the state's highest-stakes rules read against official text.
 - The citations file, the PARTIAL review with Taylor, and a live-validated legal-watch workflow.
+- **Close NEEDS_REVIEW at sync (Taylor, 2026-10-15):** for each row the pass left NEEDS_REVIEW or open in §7, read the rule or statute it waits on; where only case law could settle a point, the row states the doubt and the cautious course and is VERIFIED; a lease clause is redrafted so it works under every reading, or switched off. Only a primary source that can't be reached keeps a row open, and the sync report names it.
 - The consistency check: group every state's rows by `topic_key` and ask about any topic most states have and the new state lacks; compare the optional clauses found (rule 54) with other states.
 - New `{{variables}}` (rule 60): add each one the log lists in §10 to the builder backlog (`docs/backlog.md`, Addendum M.14), with its states.
 - The topic reference: add the log's "Proposed topic questions" to `scripts/clause-library/topic-questions.csv` and regenerate `lease-clause-topics.md`.
