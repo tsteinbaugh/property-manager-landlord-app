@@ -54,6 +54,7 @@ const STATE_NAMES = {
   NH: "New Hampshire",
   ME: "Maine",
   VT: "Vermont",
+  DE: "Delaware",
 };
 
 // New York consolidated-law abbreviations (as cited in the NY rows) and the
@@ -2088,6 +2089,50 @@ const STATE_CONFIG = {
       },
     ],
   },
+  DE: {
+    // Delaware numbers sections within each title of the Code (25 Del. C. §
+    // 5514 and 6 Del. C. § 5514 are different laws), and its bills amend
+    // them in the form "Amend § 5514, Title 25 of the Delaware Code", so the
+    // key carries the title ("25|5514") and the query pairs the quoted section
+    // number with the quoted "Title 25". Dashed sections keep their dash
+    // ("25|81-320", "6|12A-105"); the subsection is dropped. Session laws, JP
+    // Court rules, the Constitution and federal parts are left to the items
+    // below.
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        const m = part.match(/^(\d{1,2}) Del\. C\. § (\d{1,5}[A-Z]{0,2}(?:-\d{1,4}[A-Z]?)?)/);
+        if (m) out.push(`${m[1]}|${m[2]}`);
+      }
+      return [...new Set(out)];
+    },
+    buildQuery(key) {
+      const [title, sec] = key.split("|");
+      return `"${sec}" AND "Title ${title}"`;
+    },
+    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
+    manualRecheckItems: [
+      {
+        id: "de-dated",
+        label:
+          "Delaware law with later dates (DE log §1.2, §10): 85 Del. Laws c. 494 (new versions of 25 Del. C. §§ 5102, 5141 and 5512 and new § 5512A from March 8, 2027, the bill page says March 9; § 5141's definitions (19)-(42) renumber, and § 5512A applies to agreements entered on or after that date); 85 Del. Laws c. 277 (§ 5124 rights guide from June 10, 2027, or earlier on a Division of Professional Regulation notice, and § 5124(e)-(f) 180 days later); 85 Del. Laws c. 98 (chapter 54 lead certification, 12 months after a Delaware State Housing Authority notice in the Register or March 1, 2028, whichever is earlier; no notice through October 2026); 84 Del. Laws c. 358 (expires December 31, 2028, when the voucher-nonparticipation versions of 25 Del. C. § 5116 and 6 Del. C. § 4607 return unless the General Assembly acts); 4 Del. C. ch. 13 versions from October 21, 2026 (the smoking definition moves from § 1302(30) to (37)); 6 Del. C. § 12D-103 thresholds from January 1, 2027. After each date, confirm the rows still match the text in force",
+        clauseIds: ["rights-guide-receipt-de", "lead-certification-de", "edu-lead-poisoning-abatement-de", "edu-source-of-income-de", "edu-voucher-processing-denial-de", "edu-fair-housing-de", "seasonal-nonrenewable-lease-de", "edu-seasonal-tenancy-de", "edu-code-scope-de", "cannabis-restrictions-de", "edu-cannabis-de", "edu-no-tenant-information-disclosure-rule-de"],
+      },
+      {
+        id: "de-uncompiled-session-laws",
+        label:
+          "Laws of Delaware volume 85, chapters 297-518, were compiled into the Code (current through September 10, 2026) but not posted as session laws at the DE sync, and HB 437 (signed September 30, 2026) came after the compilation date. When the chapters are posted, read the effective-date and application sections of any that amend 25 Del. C. Part III (chapters 436 and 494 were read from bill pages)",
+        clauseIds: ["default-by-tenant-de", "late-fee-limit-de", "edu-nonpayment-notice-de", "edu-waiver-by-acceptance-de"],
+      },
+      {
+        id: "de-rules-and-forms",
+        label:
+          "Delaware rules and documents LegiScan can't see, as of the DE sync (2026-10-16): the Attorney General's 'Summary of the Delaware Residential Landlord-Tenant Code' (revised October 2024, still describing the 5-day notice and reservation of rights that 85 Del. Laws c. 436 replaced on September 1, 2026); the Right to Representation Coordinator's landlord and tenant notices (November 22, 2023); the Justice of the Peace Court Civil Rules and amendment orders (Rule 13's limit is $25,000 under the May 18, 2021 order though the compiled rules still print $15,000); and the Administrative Code, not read at the pass: State Fire Prevention Regulations (detectors, code editions), DHSS 16 DE Admin. Code 4459 (lead), and Weights and Measures metering rules. Check for a revised summary or notice, rule amendments and code editions since 2026-10-16",
+        clauseIds: ["ag-summary-receipt-de", "rtr-materials-receipt-de", "edu-rent-into-court-counterclaim-de", "edu-eviction-process-de", "edu-fire-code-standard-de", "edu-smoke-co-detectors-de", "edu-utility-submetering-rules-de", "edu-lead-state-notices-de"],
+      },
+    ],
+  },
 };
 
 // Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
@@ -2101,7 +2146,7 @@ const SCHEDULE_ORDER = [
   "CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ",
   "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI",
   "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD",
-  "MA", "CT", "RI", "NH", "ME", "VT",
+  "MA", "CT", "RI", "NH", "ME", "VT", "DE",
 ];
 function cronFor(code) {
   const n = SCHEDULE_ORDER.indexOf(code);
