@@ -55,6 +55,7 @@ const STATE_NAMES = {
   ME: "Maine",
   VT: "Vermont",
   DE: "Delaware",
+  AK: "Alaska",
 };
 
 // New York consolidated-law abbreviations (as cited in the NY rows) and the
@@ -2133,6 +2134,39 @@ const STATE_CONFIG = {
       },
     ],
   },
+  AK: {
+    // Alaska section numbers carry their title and chapter (34.03.070) and are
+    // unique across the code, and Alaska bills amend them in the form "Sec. 1.
+    // AS 34.03.070(a) is amended to read:", so the key is the bare number and
+    // the query is the quoted "AS 34.03.070"; the subsection is dropped. The
+    // Administrative Code, session laws, court rules and forms, the
+    // Constitution and federal parts are left to the items below.
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        const m = part.match(/^AS (\d{2}\.\d{2}\.\d{3})/);
+        if (m) out.push(m[1]);
+      }
+      return [...new Set(out)];
+    },
+    buildQuery: (section) => `"AS ${section}"`,
+    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
+    manualRecheckItems: [
+      {
+        id: "ak-uncompiled-2026",
+        label:
+          "Alaska's 2026 session laws were not compiled into \"Alaska Statutes 2025\" at the AK sync (AK log §1.2, §10): AS 12.62.160(f) (marijuana conviction records) from January 1, 2027, with its request requirement repealed January 1, 2028 (ch. 9, SLA 2026, §§ 57, 87, 92, 93); new AS 44.21.022 (address confidentiality) from July 1, 2026 (ch. 9, SLA 2026, §§ 75, 94); AS 45.50.471(b) new paragraph from October 1, 2026 (ch. 50, SLA 2026, § 6); AS 29.45.050(aa)-(ee) from September 20, 2026 (ch. 25, SLA 2026); AS 34.45 unclaimed property (ch. 48, SLA 2026). When akleg.gov publishes the next compilation, confirm the compiled text matches the rows",
+        clauseIds: ["rental-application-accuracy-ak", "edu-fair-housing-ak", "edu-consumer-protection-act-ak", "edu-rent-tax-ak", "edu-deposit-escheat-ak"],
+      },
+      {
+        id: "ak-rules-and-forms",
+        label:
+          "Alaska sources LegiScan can't see, as read at the AK sync (2026-10-17): the Administrative Code as printed on akleg.gov (6 AAC 30 Human Rights Commission, including 6 AAC 30.610 service animals and its \"3 AAC 30.990(b)\" misprint; 13 AAC 50 fire code adoption of the 2021 IBC and IFC; 3 AAC 52 utility disconnection; 18 AAC 30 pools; 18 AAC 90 pesticides) and the Alaska Administrative Register supplements not read; the court rules (Alaska R. Civ. P. 82 and 85, Admin. R. 9, 37.6 and 40) and eviction forms CIV-720 to CIV-760 (CIV-720 dated August 2023; CIV-731 federal 30-day notice affidavit, 2/26); and the Department of Law handbook \"The Alaska Landlord & Tenant Act: what it means to you\" (2024). Check for amendments, revised forms or a new handbook since 2026-10-17",
+        clauseIds: ["assistance-animal-accommodation-ak", "utility-shutoff-notice-copy-ak", "edu-fire-sprinklers-ak", "edu-attorney-fees-ak", "edu-no-holding-deposit-rule-ak", "default-by-tenant-ak"],
+      },
+    ],
+  },
 };
 
 // Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
@@ -2146,7 +2180,7 @@ const SCHEDULE_ORDER = [
   "CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ",
   "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI",
   "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD",
-  "MA", "CT", "RI", "NH", "ME", "VT", "DE",
+  "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK",
 ];
 function cronFor(code) {
   const n = SCHEDULE_ORDER.indexOf(code);
