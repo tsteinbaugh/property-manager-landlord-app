@@ -56,6 +56,7 @@ const STATE_NAMES = {
   VT: "Vermont",
   DE: "Delaware",
   AK: "Alaska",
+  HI: "Hawaii",
 };
 
 // New York consolidated-law abbreviations (as cited in the NY rows) and the
@@ -2167,6 +2168,39 @@ const STATE_CONFIG = {
       },
     ],
   },
+  HI: {
+    // Hawaii section numbers carry their chapter (521-44, 514B-145, 521-74.5)
+    // and are unique across the HRS, and Hawaii bills amend them in the form
+    // "Section 521-44, Hawaii Revised Statutes, is amended", so the key is the
+    // bare number and the query pairs it with "Hawaii Revised Statutes"; the
+    // subsection is dropped. Session laws, court rules, the Constitution and
+    // federal parts are left to the items below.
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        const m = part.match(/^HRS § (\d+[A-Z]?-\d+(?:\.\d+)?[A-Z]?)/);
+        if (m) out.push(m[1]);
+      }
+      return [...new Set(out)];
+    },
+    buildQuery: (section) => `"${section}" AND "Hawaii Revised Statutes"`,
+    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
+    manualRecheckItems: [
+      {
+        id: "hi-dated",
+        label:
+          "Hawaii items with dates (HI log §7, §10): the 32nd Proclamation Relating to Wildfires (Maui rent freeze) ends October 23, 2026 unless extended; the HRS § 521-68 mediation regime ends February 4, 2028 (2025 Haw. Sess. Laws Act 278, § 7); HRS §§ 46-19.8 and 514D-5 end June 30, 2027; the 2026 amendment to HRS § 604-10.5 ends June 30, 2028; HRS § 521-84 (wildfire mediation) is likely expired though still printed. After each date, confirm the rows still match the law in force",
+        clauseIds: ["default-by-tenant-hi", "edu-no-algorithmic-rent-rule-hi", "edu-no-tenant-rights-statement-hi", "edu-fire-sprinklers-hi"],
+      },
+      {
+        id: "hi-rules-and-forms",
+        label:
+          "Hawaii sources LegiScan can't see, as of the HI sync (2026-10-18): the District Court Rules of Civil Procedure and 2026 form adoptions, the Rules of the District Courts (Rule 4, entity representation), the Judiciary's summary possession forms, the DCCA Landlord-Tenant Handbook (2024), and the administrative rules not read at the pass (Department of Health, State Fire Code, PUC, Real Estate Commission). Check for amendments, revised forms or a new handbook since 2026-10-18",
+        clauseIds: ["default-by-tenant-hi", "edu-required-disclosures-hi"],
+      },
+    ],
+  },
 };
 
 // Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
@@ -2180,7 +2214,7 @@ const SCHEDULE_ORDER = [
   "CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ",
   "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI",
   "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD",
-  "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK",
+  "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI",
 ];
 function cronFor(code) {
   const n = SCHEDULE_ORDER.indexOf(code);
