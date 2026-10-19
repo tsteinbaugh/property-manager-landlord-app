@@ -57,6 +57,7 @@ const STATE_NAMES = {
   DE: "Delaware",
   AK: "Alaska",
   HI: "Hawaii",
+  LA: "Louisiana",
 };
 
 // New York consolidated-law abbreviations (as cited in the NY rows) and the
@@ -2201,6 +2202,61 @@ const STATE_CONFIG = {
       },
     ],
   },
+  LA: {
+    // Louisiana cites several bodies of law (La. Civ. Code art. 2713, La. R.S.
+    // 9:3251, La. Code Civ. Proc. art. 4701, ...), and Louisiana bills amend
+    // them in the forms "Civil Code Article 2713", "R.S. 9:3251" and "Code of
+    // Civil Procedure Article 4701", so the key is the site label (CC 2713,
+    // RS 9:3251, CCP 4701) and the query uses the bill form; the subsection is
+    // dropped. The Constitution, session acts and federal parts are left to the
+    // items below.
+    extractSections(text) {
+      const forms = [
+        [/^La\. Civ\. Code art\. (\d+(?:\.\d+)?)/, "CC"],
+        [/^La\. Code Civ\. Proc\. art\. (\d+(?:\.\d+)?)/, "CCP"],
+        [/^La\. C\.Cr\.P\. art\. (\d+(?:\.\d+)?)/, "CCRP"],
+        [/^La\. Ch\.C\. art\. (\d+(?:\.\d+)?)/, "CHC"],
+        [/^La\. C\.E\. art\. (\d+(?:\.\d+)?)/, "CE"],
+        [/^La\. R\.S\. (\d+:\d+(?:\.\d+)*)/, "RS"],
+      ];
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        for (const [re, label] of forms) {
+          const m = part.match(re);
+          if (m) out.push(`${label} ${m[1]}`);
+        }
+      }
+      return [...new Set(out)];
+    },
+    buildQuery(section) {
+      const [label, num] = section.split(" ");
+      const form = {
+        CC: `"Civil Code Article ${num}"`,
+        CCP: `"Code of Civil Procedure Article ${num}"`,
+        CCRP: `"Code of Criminal Procedure Article ${num}"`,
+        CHC: `"Children's Code Article ${num}"`,
+        CE: `"Code of Evidence Article ${num}"`,
+        RS: `"R.S. ${num}"`,
+      }[label];
+      return `${form} AND "Louisiana"`;
+    },
+    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
+    manualRecheckItems: [
+      {
+        id: "la-dated",
+        label:
+          "Louisiana items with dates (LA log §7 item 6): on January 1, 2027, 2026 La. Acts Nos. 830 (Click-to-Cancel), 891 (unclaimed-property renumbering) and 708 (sale disclosures for vacant lots) take effect; confirm the compiled numbers for La. R.S. 51:3081-3082 (Act 751) and 51:3301-3305 (Act 830), the renumbering of La. R.S. 46:1842 (Act 724), the Uniform Construction Code's move to La. R.S. 37:3727-3750 (Act 881), and the result of the election on the amendment to La. Const. art. I, § 4(B)(4) (Act 277). After each, confirm the rows still match the law in force",
+        clauseIds: ["edu-money-limits-la", "edu-no-mold-disclosure-la", "detector-care-la", "early-termination-la"],
+      },
+      {
+        id: "la-rules-and-forms",
+        label:
+          "Louisiana sources LegiScan can't see, as of the LA sync (2026-10-19): the Rules for Louisiana District Courts, city-court and justice-of-the-peace eviction practices and forms, the Attorney General's landlord-tenant guide, and the Louisiana Administrative Code rules not read at the pass (Real Estate Commission, fire marshal and Uniform Construction Code Commission, State Police towing signage, Public Service Commission submetering, Department of Health). Check for amendments or revised forms since 2026-10-19",
+        clauseIds: ["default-by-tenant-la", "notice-to-vacate-waiver-la"],
+      },
+    ],
+  },
 };
 
 // Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
@@ -2214,7 +2270,7 @@ const SCHEDULE_ORDER = [
   "CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ",
   "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI",
   "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD",
-  "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI",
+  "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA",
 ];
 function cronFor(code) {
   const n = SCHEDULE_ORDER.indexOf(code);
