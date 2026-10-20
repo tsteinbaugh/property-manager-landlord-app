@@ -227,7 +227,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-payment",
     title: "Rent Payment",
     group: "Rent & Payment",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR"],
     bodyText:
       "Tenant shall pay Landlord monthly rent of {{monthly_rent}} (Monthly Rent) in advance on the due date specified in this Lease, without demand, deduction, or setoff, except as permitted by applicable law. If the due date falls on a weekend or legal holiday, rent is due on the next business day.",
   },
@@ -235,7 +235,7 @@ const CLAUSE_TEMPLATES = [
     id: "late-fee",
     title: "Late Fee",
     group: "Rent & Payment",
-    states: ["CO", "WY", "MN", "ND", "SD", "OH", "FL", "GA", "SC", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "MT", "NY", "WI", "WV", "VT", "HI", "LA"],
+    states: ["CO", "WY", "MN", "ND", "SD", "OH", "FL", "GA", "SC", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "MT", "NY", "WI", "WV", "VT", "HI", "LA", "AR"],
     bodyText:
       "If Tenant fails to pay Monthly Rent in full within {{late_fee_grace_days}} days after it is due, a late fee of {{late_fee_amount}} will be assessed. Acceptance of a late payment does not waive Landlord's right to require full payment of Rent on the date it is due or to pursue any other remedy available under this Lease.",
   },
@@ -243,7 +243,7 @@ const CLAUSE_TEMPLATES = [
     id: "returned-payments",
     title: "Returned Checks / Dishonored Payments",
     group: "Rent & Payment",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "AZ", "GA", "PA", "MD"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "AZ", "GA", "PA", "MD", "AR"],
     bodyText:
       "If any payment of Rent is returned for insufficient funds or otherwise fails, Landlord may require that the payment be replaced by a cashier's check, certified check, or money order, and may charge Tenant a fee associated with the failed payment, not to exceed the maximum amount permitted by applicable law. If more than two of Tenant's payments during any 12-month period are returned for insufficient funds, Landlord may require all future payments of Rent be made by cashier's check, certified check, or money order.",
   },
@@ -251,7 +251,7 @@ const CLAUSE_TEMPLATES = [
     id: "due-at-signing",
     title: "Amounts Due Upfront",
     group: "Rent & Payment",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "WI", "KY", "WV", "VT", "DE", "AK", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "WI", "KY", "WV", "VT", "DE", "AK", "LA", "AR"],
     bodyText:
       "Tenant will pay Landlord the following amounts, at the time specified for each: [specify what is due and when here, e.g. first month's Monthly Rent ({{monthly_rent}}) due at signing; Security Deposit ({{security_deposit}}) due at signing; Pet Deposit ({{pet_deposit}}) due at signing; last month's Monthly Rent due on the Start Date]. These amounts are due in addition to, and are not credited against, Rent due for any other month of the Term.",
   },
@@ -259,7 +259,7 @@ const CLAUSE_TEMPLATES = [
     id: "application-of-payments",
     title: "Application of Payments",
     group: "Rent & Payment",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "KY", "WV", "MD", "MA", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "KY", "WV", "MD", "MA", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR"],
     bodyText:
       "Each payment Tenant makes will be applied first to the Monthly Rent due for the current or oldest unpaid rental period, and only then to any other fees, charges, or amounts due under this Lease, unless Tenant directs otherwise in writing for a particular payment or applicable law requires otherwise. Nothing in this provision limits any statutory right Tenant may have to cure nonpayment of Rent.",
   },
@@ -386,7 +386,7 @@ const CLAUSE_TEMPLATES = [
     id: "security-deposit-use",
     title: "Use of Security Deposit",
     group: "Security Deposit",
-    states: ["CO", "NE", "MN", "ND", "SD", "WY", "OH", "NV", "TX", "FL", "AZ", "GA", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "OK", "NM", "NH", "ME", "LA"],
+    states: ["CO", "NE", "MN", "ND", "SD", "WY", "OH", "NV", "TX", "FL", "AZ", "GA", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "OK", "NM", "NH", "ME", "LA", "AR"],
     bodyText:
       "Tenant shall pay Landlord a security deposit of {{security_deposit}} (Security Deposit) prior to occupancy. Landlord may apply the Security Deposit to remedy a Tenant default under this Lease, including past due Rent, and to repair damage to the property caused by Tenant or Tenant's guests beyond ordinary wear and tear. Landlord will not apply the Security Deposit to normal wear and tear or to any damage or defective condition that preexisted the tenancy. Landlord may apply the Security Deposit to cleaning costs only if the property is substantially less clean at the end of the Term than it was at the start of the Term. The Security Deposit will not relieve Tenant of any obligation to pay Rent due under this Lease prior to its termination.",
   },
@@ -420,7 +420,7 @@ const CLAUSE_TEMPLATES = [
     id: "residential-use-only",
     title: "Residential Use Only",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "NY", "WI", "WA", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "NY", "WI", "WA", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR"],
     bodyText:
       "Tenant will use and occupy the property for residential purposes only and will not use or permit the use of the property for any non-residential, illegal, or otherwise inappropriate purpose, including any commercial purpose.",
   },
@@ -428,7 +428,7 @@ const CLAUSE_TEMPLATES = [
     id: "existing-condition",
     title: "Existing Condition of Property",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "OR", "WV", "MD", "RI", "ME", "VT", "DE", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "OR", "WV", "MD", "RI", "ME", "VT", "DE", "LA", "AR"],
     bodyText:
       "Tenant has examined the property and, by signing this Lease, acknowledges that the property is in good order and repair and satisfactory condition (Existing Condition), except as otherwise noted in this Lease. Landlord will deliver possession of the property to Tenant on the Start Date in the same or better condition as the Existing Condition, except for ordinary wear and tear.",
   },
@@ -436,7 +436,7 @@ const CLAUSE_TEMPLATES = [
     id: "permitted-occupants",
     title: "Permitted Occupants",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR"],
     bodyText:
       "The property will be occupied only by {{tenant_names}}, together with {{occupant_names}}. Tenant will notify Landlord promptly if any additional occupant takes up residence at the property.",
   },
@@ -444,7 +444,7 @@ const CLAUSE_TEMPLATES = [
     id: "no-disturbance",
     title: "No Disturbance or Nuisance",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR"],
     bodyText:
       "Tenant will not, and will not permit any occupant or guest to: make any unreasonably loud or otherwise unreasonable use of the property; allow any condition on the property that poses a threat of injury to persons or property; or otherwise interfere with the rights, comfort, safety, or enjoyment of neighboring properties or other tenants.",
   },
@@ -460,7 +460,7 @@ const CLAUSE_TEMPLATES = [
     id: "utilities-responsibility",
     title: "Utilities Paid by Tenant",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "MD", "CT", "NH", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "MD", "CT", "NH", "LA", "AR"],
     bodyText:
       "Except for any utility Landlord agrees in this Lease to provide, Tenant is responsible for arranging and paying directly to the service provider for all other utilities and services to the property, including electricity, gas, telephone, cable, and internet, as applicable.",
   },
@@ -468,7 +468,7 @@ const CLAUSE_TEMPLATES = [
     id: "utility-service-continuity",
     title: "Utility Service Continuity",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR"],
     bodyText:
       "Tenant will not cause water, gas, electricity, sewer, or trash service to the property to be interrupted during the Term. This requirement does not apply to telephone, cable, or internet service.",
   },
@@ -476,7 +476,7 @@ const CLAUSE_TEMPLATES = [
     id: "utility-payment-evidence",
     title: "Evidence of Utility Payment",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR"],
     bodyText:
       "Upon Landlord's reasonable request, Tenant will provide Landlord with reasonable evidence that any utility specified as Tenant's responsibility under this Lease has been paid.",
   },
@@ -484,7 +484,7 @@ const CLAUSE_TEMPLATES = [
     id: "acceptable-payment-methods",
     title: "Acceptable Forms of Payment",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "FL", "AZ", "GA", "NC", "SC", "TN", "AL", "PA", "UT", "ID", "MO", "IN", "OK", "IA", "NM", "MT", "WI", "KY", "WV", "MA", "RI", "ME", "VT", "AK", "HI", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "FL", "AZ", "GA", "NC", "SC", "TN", "AL", "PA", "UT", "ID", "MO", "IN", "OK", "IA", "NM", "MT", "WI", "KY", "WV", "MA", "RI", "ME", "VT", "AK", "HI", "LA", "AR"],
     bodyText:
       "Rent and other amounts due under this Lease must be paid by one of the following methods: [list accepted payment methods here, e.g. check or money order, electronic payment service, online payment portal]. Landlord may change the accepted payment methods on reasonable written notice to Tenant.",
   },
@@ -492,7 +492,7 @@ const CLAUSE_TEMPLATES = [
     id: "tenant-maintenance",
     title: "Tenant Maintenance & Cleanliness",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "MN", "SD", "OH", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "HI", "LA"],
+    states: ["CO", "WY", "MN", "SD", "OH", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "HI", "LA", "AR"],
     bodyText:
       "Tenant will keep and maintain the property in a clean, safe, and sanitary condition, and will regularly dispose of garbage and waste in a clean and safe manner. Tenant will use all appliances, fixtures, and equipment in a safe and reasonable manner consistent with their intended purpose, will not obstruct access to doors and windows, and will maintain the property in the same condition as it was delivered to Tenant, except for ordinary wear and tear and any condition that applicable law requires Landlord to repair or remedy.",
   },
@@ -500,7 +500,7 @@ const CLAUSE_TEMPLATES = [
     id: "no-sublet-assign",
     title: "No Subletting or Assignment",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "HI", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "HI", "LA", "AR"],
     bodyText:
       "Tenant will not sublease or assign all or any portion of the property or this Lease without the prior written consent of Landlord, in Landlord's sole discretion. Tenant will not rent the property, or any portion of the property, through any short-term rental program such as Airbnb, VRBO, or similar service, and doing so will be cause for termination of this Lease by Landlord. Any attempted sublease or assignment without such consent will be void and cause for termination of this Lease. No sublease will release Tenant from any obligation under this Lease.",
   },
@@ -508,7 +508,7 @@ const CLAUSE_TEMPLATES = [
     id: "no-alterations",
     title: "No Alterations",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR"],
     bodyText:
       "Tenant will not perform any alterations or improvements to the property, including adding, changing, or removing appliances, fixtures, shelving, wallpaper, or paint, without the prior written consent of Landlord. If Landlord approves an alteration, Tenant understands it will remain part of the property at the end of the Term unless Landlord requires its removal. This Section does not limit any repair, installation, rekeying, or reasonable modification that applicable law entitles Tenant to perform, and does not change who owns an installation that applicable law makes Tenant's property.",
   },
@@ -516,7 +516,7 @@ const CLAUSE_TEMPLATES = [
     id: "joint-liability",
     title: "Joint & Several Liability",
     group: "Tenant Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "AR"],
     bodyText:
       "If more than one individual signs this Lease as Tenant, all such individuals are jointly and severally liable for the performance of all agreements, covenants, and obligations of Tenant under this Lease. Rent is due in full regardless of how Tenant chooses to divide payment among themselves.",
   },
@@ -525,7 +525,7 @@ const CLAUSE_TEMPLATES = [
     id: "services-utilities-provided",
     title: "Services & Utilities Provided by Landlord",
     group: "Landlord Responsibilities",
-    states: ["CO", "WY", "NE", "ND", "SD", "TX", "NJ", "FL", "GA", "NC"],
+    states: ["CO", "WY", "NE", "ND", "SD", "TX", "NJ", "FL", "GA", "NC", "AR"],
     bodyText:
       "Landlord will provide only the services and utilities expressly specified in this Lease, and as otherwise required by applicable law. Landlord is not liable for any interruption or insufficiency of a service or utility resulting from causes beyond Landlord's reasonable control.",
   },
@@ -533,7 +533,7 @@ const CLAUSE_TEMPLATES = [
     id: "utilities-paid-by-landlord",
     title: "Utilities Paid by Landlord",
     group: "Landlord Responsibilities",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "NH", "ME", "VT", "DE", "AK", "HI", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR"],
     bodyText:
       "Landlord will arrange and pay for the following utilities and services to the property, which are included in Monthly Rent unless this Lease states otherwise: [list utilities Landlord provides here, e.g. water, sewer, and trash removal].",
   },
@@ -566,7 +566,7 @@ const CLAUSE_TEMPLATES = [
     id: "landlords-access",
     title: "Landlord's Right of Entry",
     group: "Access & Entry",
-    states: ["WY", "KS", "NE", "OH", "NV", "TX", "NJ", "GA", "NC", "SC", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "NY", "WI", "WV", "MA", "ME", "LA"],
+    states: ["WY", "KS", "NE", "OH", "NV", "TX", "NJ", "GA", "NC", "SC", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "NY", "WI", "WV", "MA", "ME", "LA", "AR"],
     bodyText:
       "Landlord, its agents, and contractors will have the right of reasonable access to the property during normal business hours to perform maintenance and repair obligations and to show the property to prospective tenants or purchasers. Except in the case of an emergency, Landlord will provide Tenant at least 24 hours' notice, or the notice period required by applicable law if longer, prior to entry.",
   },
@@ -611,7 +611,7 @@ const CLAUSE_TEMPLATES = [
     id: "possession-delay",
     title: "Possession Delay",
     group: "Default & Termination",
-    states: ["CO", "WY", "MN", "ND", "SD", "OH", "TX", "NJ", "FL", "GA", "NC", "TN", "VA", "PA", "IL", "ID", "MO", "IN", "MI", "NY", "WI", "WA", "OR", "WV", "MA", "CT", "NH", "ME", "VT"],
+    states: ["CO", "WY", "MN", "ND", "SD", "OH", "TX", "NJ", "FL", "GA", "NC", "TN", "VA", "PA", "IL", "ID", "MO", "IN", "MI", "NY", "WI", "WA", "OR", "WV", "MA", "CT", "NH", "ME", "VT", "AR"],
     bodyText:
       "If Landlord is unable to deliver possession of the property to Tenant by the Start Date, through no fault of Landlord, this Lease will remain in full force, but Tenant will not be obligated to pay Monthly Rent for the period Tenant is unable to take possession. If Landlord has not delivered possession within 30 days after the Start Date, Tenant may terminate this Lease by written notice to Landlord, in which case all amounts paid to Landlord by Tenant will be returned and both parties will be released from further obligation under this Lease.",
   },
@@ -619,7 +619,7 @@ const CLAUSE_TEMPLATES = [
     id: "default-by-tenant",
     title: "Default by Tenant",
     group: "Default & Termination",
-    states: ["WY", "MN", "ND", "CA", "NV", "AZ", "GA", "SC", "TN", "VA", "PA", "UT", "IL", "ID", "MO", "IN", "NM", "MT", "MA", "NH", "VT"],
+    states: ["WY", "MN", "ND", "CA", "NV", "AZ", "GA", "SC", "TN", "VA", "PA", "UT", "IL", "ID", "MO", "IN", "NM", "MT", "MA", "NH", "VT", "AR"],
     bodyText:
       "Tenant will be in default under this Lease if Tenant fails to pay Rent when due and does not cure the failure within the time period specified by applicable law after receiving written notice from Landlord. Tenant will also be in default if Tenant fails to comply with any other obligation under this Lease and does not cure the failure after receiving written notice. Landlord need not give Tenant an opportunity to cure any breach, including a failure to pay Rent, where applicable law permits Landlord to proceed without one. Except as required by applicable law, Tenant's failure to pay an assessed late fee, apart from the underlying Rent itself, will not by itself entitle Landlord to terminate this Lease or pursue eviction. If Tenant is in default, Landlord may exercise all rights and remedies available under applicable law, including terminating this Lease, regaining possession of the property, and recovering unpaid Rent, late fees, and reasonable costs and expenses, less amounts obtained from the Security Deposit. Landlord will use reasonable efforts to mitigate damages resulting from Tenant's default to the extent required by applicable law. To the extent permitted under applicable law, the prevailing party may recover from the other party court costs and reasonable attorneys' fees and expenses incurred in connection with any legal proceedings related to this Lease.",
   },
@@ -636,7 +636,7 @@ const CLAUSE_TEMPLATES = [
     id: "surrender-end-of-term",
     title: "Surrender at End of Term",
     group: "Default & Termination",
-    states: ["WY", "SD", "OH", "CA", "NV", "TX", "FL", "AZ", "GA", "NC", "TN", "VA", "KY", "WV", "MD", "MA", "CT", "RI"],
+    states: ["WY", "SD", "OH", "CA", "NV", "TX", "FL", "AZ", "GA", "NC", "TN", "VA", "KY", "WV", "MD", "MA", "CT", "RI", "AR"],
     bodyText:
       "Upon the expiration or earlier termination of this Lease, Tenant will surrender possession of the property and return all keys to Landlord immediately, unless applicable law entitles Tenant to remain. The property will be left in the same condition as at the start of the Term, except for ordinary wear and tear, and free of all personal property of Tenant and any occupants. Personal property left at the property after Tenant vacates may, to the extent permitted by applicable law, be treated as abandoned and disposed of at Tenant's cost.",
   },
@@ -669,7 +669,7 @@ const CLAUSE_TEMPLATES = [
     id: "notices",
     title: "Notices",
     group: "Notices & General",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR"],
     bodyText:
       "Any notice of termination, notice of default, or other notice required to be given in writing under this Lease or applicable law will be delivered to the addresses specified in this Lease, or to any updated address either party provides in writing to the other. Where applicable law requires a particular method, form, timing, or content for a notice, that requirement will control over this Section, and nothing in this Lease designates an alternative method of delivery for any notice governed by law.",
   },
@@ -677,7 +677,7 @@ const CLAUSE_TEMPLATES = [
     id: "governing-law",
     title: "Governing Law",
     group: "Notices & General",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "AR"],
     bodyText:
       "This Lease will be governed by the laws of the State of {{state}}, and any additional applicable laws of the city or county in which the property is located.",
   },
@@ -685,7 +685,7 @@ const CLAUSE_TEMPLATES = [
     id: "severability",
     title: "Severability",
     group: "Notices & General",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR"],
     bodyText:
       "If a court decision, statute or rule makes any part of this Lease invalid or unenforceable, the rest of this Lease still applies.",
   },
@@ -693,7 +693,7 @@ const CLAUSE_TEMPLATES = [
     id: "tenants-property-insurance",
     title: "Tenant's Property & Renter's Insurance",
     group: "Notices & General",
-    states: ["CO", "WY", "SD"],
+    states: ["CO", "WY", "SD", "AR"],
     bodyText:
       "Landlord's insurance does not cover loss or damage to Tenant's personal property, and Landlord is not liable for any such loss or damage. Tenant will obtain and maintain renter's insurance covering Tenant's personal property and liability throughout the Term, with liability coverage of at least {{tenant_insurance_minimum}}, and will provide Landlord with evidence of coverage upon request.",
   },
@@ -701,7 +701,7 @@ const CLAUSE_TEMPLATES = [
     id: "entire-agreement",
     title: "Entire Agreement",
     group: "Notices & General",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR"],
     bodyText:
       "This Lease, along with any attached addenda and legal disclosures, contains the entire agreement between Landlord and Tenant and may not be changed except in writing signed by all parties, or as applicable law permits Landlord to change it by written notice to Tenant. This Lease is binding on and inures to the benefit of the permitted heirs, legal representatives, and assigns of the parties.",
   },
@@ -709,7 +709,7 @@ const CLAUSE_TEMPLATES = [
     id: "addendum-precedence",
     title: "Addendum Precedence",
     group: "Notices & General",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR"],
     bodyText:
       "Tenant acknowledges that the legal disclosures and addenda attached to this Lease are part of this legal agreement. The terms of this Lease will control in the event of any conflict between the terms of an Addendum and the terms of this Lease, except that any disclosure, notice, or addendum that applicable law requires, or that applicable law says controls over this Lease, will control over any conflicting term of this Lease.",
   },
@@ -717,7 +717,7 @@ const CLAUSE_TEMPLATES = [
     id: "electronic-signatures",
     title: "Electronic Signatures",
     group: "Notices & General",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR"],
     bodyText:
       "All individuals indicated in the Basic Terms as comprising Tenant will sign this Lease and related attached Addenda where indicated. Each of Landlord and Tenant consents to the other party's execution of this Lease by electronic signature. Delivery of this Lease containing the electronic signature of a party or otherwise by facsimile through electronic means or as a digital copy will have the same full force and effect as a manually executed original version.",
   },
@@ -726,7 +726,7 @@ const CLAUSE_TEMPLATES = [
     id: "pet-policy",
     title: "Pets",
     group: "Pets",
-    states: ["CO", "WY", "ND", "OH", "TX", "GA", "UT", "ID", "WV"],
+    states: ["CO", "WY", "ND", "OH", "TX", "GA", "UT", "ID", "WV", "AR"],
     bodyText:
       "Tenant may keep only pets identified in writing to and approved by Landlord. Tenant will pay Landlord a pet deposit, if applicable, and pet rent of {{pet_rent_amount}} per month. Tenant is responsible for all damage, waste removal, odor, and disturbance caused by a pet, and will indemnify Landlord from claims arising from Tenant's pet(s). Landlord may revoke approval of a pet that becomes a nuisance or safety concern, and may enter the property and remove a pet, without liability to Tenant to the extent applicable law permits, if the pet becomes vicious or displays symptoms of severe illness, or if Tenant dies, becomes incapacitated, or is otherwise unable to care for the pet and Landlord believes in good faith that the pet is being abused or neglected.",
   },
@@ -734,7 +734,7 @@ const CLAUSE_TEMPLATES = [
     id: "pet-insurance-requirement",
     title: "Pet Insurance Requirement",
     group: "Pets",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR"],
     bodyText:
       "If Tenant keeps an approved pet at the property, Tenant will maintain renter's insurance that includes coverage for pet-related liability, and will name Landlord as an interested party on the policy upon Landlord's request. This requirement does not apply to an assistance animal, and Tenant will not be required to carry liability insurance in connection with an assistance animal.",
   },
@@ -743,7 +743,7 @@ const CLAUSE_TEMPLATES = [
     id: "parking",
     title: "Parking",
     group: "Parking & Storage",
-    states: ["CO", "WY", "SD"],
+    states: ["CO", "WY", "SD", "AR"],
     bodyText:
       "Tenant may park only in the area(s) designated by Landlord, subject to any parking rules or addendum attached to this Lease. Landlord does not provide security for the parking area and is not liable for damage to or theft of a vehicle or its contents.",
   },
@@ -751,7 +751,7 @@ const CLAUSE_TEMPLATES = [
     id: "assigned-parking-space",
     title: "Assigned Parking Space(s)",
     group: "Parking & Storage",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR"],
     bodyText:
       "Tenant is assigned the following parking space(s) for Tenant's exclusive use during the Term: [identify assigned space number(s)/location here]. Landlord may reassign a different space of comparable convenience on reasonable notice to Tenant, subject to any limits applicable law places on changing parking rules or policies during the Term.",
   },
@@ -759,7 +759,7 @@ const CLAUSE_TEMPLATES = [
     id: "parking-vehicle-rules",
     title: "Parking & Vehicle Requirements",
     group: "Parking & Storage",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "MO", "IN", "OK", "MT", "WI", "WA", "KY", "WV", "MD", "NH", "AK", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "MO", "IN", "OK", "MT", "WI", "WA", "KY", "WV", "MD", "NH", "AK", "LA", "AR"],
     bodyText:
       "Only operable, currently registered passenger vehicles may be parked at the property; commercial vehicles, recreational vehicles, trailers, and oversized vehicles are not permitted without Landlord's prior written consent. Landlord may require Tenant to provide vehicle registration information and may issue parking tags, decals, or access cards, the cost of which may be charged to Tenant. Landlord may, in accordance with applicable law, have a vehicle towed at the vehicle owner's expense if it is illegally parked, abandoned, inoperable, or has expired registration. Vehicle repairs are not permitted at the property except minor emergency repairs necessary to move the vehicle, and vehicles may be washed only in areas Landlord designates, if any.",
   },
@@ -767,7 +767,7 @@ const CLAUSE_TEMPLATES = [
     id: "storage-space",
     title: "Storage Space",
     group: "Parking & Storage",
-    states: ["CO", "WY", "SD"],
+    states: ["CO", "WY", "SD", "AR"],
     bodyText:
       "Tenant is assigned the following storage space for Tenant's exclusive use during the Term: [identify storage space/location here]. Tenant will not store any hazardous, flammable, or perishable materials in the storage space, and Landlord is not liable for damage to or theft of items stored there.",
   },
@@ -776,7 +776,7 @@ const CLAUSE_TEMPLATES = [
     id: "keys",
     title: "Keys",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "WI", "WA", "KY", "WV", "MA", "NH", "VT", "AK", "HI", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "WI", "WA", "KY", "WV", "MA", "NH", "VT", "AK", "HI", "LA", "AR"],
     bodyText:
       "At the start of the Term, Tenant will receive the keys specified by Landlord and will sign a receipt acknowledging the number and type of keys provided. Tenant will return all keys to Landlord at the end of the Term. If Tenant fails to return all keys or requires a replacement, Landlord may re-key the applicable locks and charge the cost to Tenant. Tenant may not duplicate keys without Landlord's consent.",
   },
@@ -784,7 +784,7 @@ const CLAUSE_TEMPLATES = [
     id: "guest-policy",
     title: "Guest Policy",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR"],
     bodyText:
       "Guests are welcome for reasonable, non-continuous stays. A guest who stays beyond the period specified by Landlord within a given time frame will be considered an unauthorized occupant and subject to Landlord's prior written consent under this Lease's occupancy terms.",
   },
@@ -792,7 +792,7 @@ const CLAUSE_TEMPLATES = [
     id: "guest-policy-day-limit",
     title: "Guest Policy (14-Day Limit)",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR"],
     bodyText:
       "Tenant will not permit a guest to stay at the property for more than 14 consecutive days, or more than 14 total days within any rolling 6-month period, without Landlord's prior written consent to add that person to this Lease as an occupant or Tenant.",
   },
@@ -800,7 +800,7 @@ const CLAUSE_TEMPLATES = [
     id: "common-area-use",
     title: "Use of Property & Common Areas",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX", "NJ", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "DE", "AK", "HI", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX", "NJ", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "DE", "AK", "HI", "LA", "AR"],
     bodyText:
       "Tenant will not, without Landlord's written consent, drill holes, use nails, hooks, or screws on the property, or fasten anything to its fixtures, appliances, or interior or exterior surfaces. Tenant will comply with any weight restrictions on balconies or porches and will not use them to store personal belongings without Landlord's consent. Tenant will not keep a waterbed or other water-filled furniture at the property, or any item (such as a piano or safe) whose weight Landlord has not agreed is reasonable for the floor, without Landlord's prior written consent. Tenant will not burn wax candles at the property. Tenant will not post or display any sign, banner, or advertisement visible from outside the property without Landlord's consent. Nothing in this Section restricts any display that applicable law entitles Tenant to make, such as the display of the flag of the United States or of religious or cultural items, subject to any lawful limits on its size, placement, and manner.",
   },
@@ -808,7 +808,7 @@ const CLAUSE_TEMPLATES = [
     id: "fire-safety-grilling",
     title: "Fire Safety & Grilling",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR"],
     bodyText:
       "Tenant will not cook or use a barbecue, grill, or other open-flame device on a porch, balcony, or within 15 feet of any building, and will not keep or use any flammable chemical or other material at the property that increases the risk of fire, except in quantities and manner consistent with normal household use.",
   },
@@ -816,7 +816,7 @@ const CLAUSE_TEMPLATES = [
     id: "landscaping-irrigation",
     title: "Landscaping & Irrigation",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "MI", "IA", "NM", "NY", "WI", "WA", "KY", "WV", "MD", "MA", "CT", "NH", "ME", "VT", "AK", "HI", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "MI", "IA", "NM", "NY", "WI", "WA", "KY", "WV", "MD", "MA", "CT", "NH", "ME", "VT", "AK", "HI", "LA", "AR"],
     bodyText:
       "Unless Landlord provides landscaping service, Tenant is responsible for reasonable upkeep of the property's landscaping, including lawn mowing and leaf raking. If Landlord has set an irrigation schedule, Tenant will not modify it, and will promptly inform Landlord of any irrigation or landscaping issue, such as a leak or watering deficiency.",
   },
@@ -824,7 +824,7 @@ const CLAUSE_TEMPLATES = [
     id: "snow-removal",
     title: "Snow Removal",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "MI", "IA", "NM", "NY", "WI", "WA", "KY", "WV", "MD", "CT", "NH", "ME", "VT", "AK", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "MI", "IA", "NM", "NY", "WI", "WA", "KY", "WV", "MD", "CT", "NH", "ME", "VT", "AK", "LA", "AR"],
     bodyText:
       "Unless Landlord provides snow removal, Tenant will promptly remove snow and ice from the areas of the property Tenant uses for walking, parking and access. This does not include areas shared with other residents.",
   },
@@ -832,7 +832,7 @@ const CLAUSE_TEMPLATES = [
     id: "inspection-rights",
     title: "Inspection Rights",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR"],
     bodyText:
       "Tenant will allow Landlord to perform periodic inspections of the property during the Term, and at move-out, upon reasonable notice consistent with this Lease's Access & Entry terms.",
   },
@@ -841,7 +841,7 @@ const CLAUSE_TEMPLATES = [
     id: "lead-based-paint",
     title: "Lead-Based Paint Disclosure",
     group: "Disclosures",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "NH", "ME", "VT", "DE", "AK", "HI", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR"],
     bodyText:
       "LEAD WARNING STATEMENT. Housing built before 1978 may contain lead-based paint. Lead from paint, paint chips, and dust can pose health hazards if not managed properly. Lead exposure is especially harmful to young children and pregnant women. Before renting pre-1978 housing, lessors must disclose the presence of known lead-based paint and/or lead-based paint hazards in the dwelling. Lessees must also receive a federally approved pamphlet on lead poisoning prevention. Landlord's disclosure: [state either that Landlord has no knowledge of lead-based paint or lead-based paint hazards in the dwelling, or describe all known lead-based paint and lead-based paint hazards]. Records and reports: [state either that Landlord has no reports or records pertaining to lead-based paint or lead-based paint hazards in the dwelling, or list all available records and reports and confirm they have been provided to Tenant]. Tenant acknowledges receipt of the information above and of the federally approved pamphlet Protect Your Family from Lead in Your Home. Landlord and Tenant each certify, to the best of their knowledge, that the information they have provided is true and accurate.",
   },
@@ -849,7 +849,7 @@ const CLAUSE_TEMPLATES = [
     id: "hoa-compliance",
     title: "Homeowner / Condominium Association Compliance",
     group: "Disclosures",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "IA", "NM", "MT", "NY", "WI", "WA", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "HI", "LA"],
+    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "IA", "NM", "MT", "NY", "WI", "WA", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "HI", "LA", "AR"],
     bodyText:
       "If the property is located within a homeowner or condominium association, Tenant will comply with the association's rules and regulations applicable to the property. Any fines incurred due to Tenant's violation of association rules will be Tenant's responsibility.",
   },
@@ -1061,7 +1061,7 @@ const CLAUSE_TEMPLATES = [
     id: "utility-allowance-cap-co",
     title: "Utility Allowance with Tenant-Paid Overage",
     group: "Landlord Responsibilities",
-    states: ["CO", "WI", "ME", "HI", "LA"],
+    states: ["CO", "WI", "ME", "HI", "LA", "AR"],
     bodyText:
       "Landlord's obligation to pay for [specify utility, e.g. water and sewer] under this Lease's Utilities Paid by Landlord Section is limited to [insert monthly utility allowance amount] per month. If the actual utility cost for a given month exceeds this amount, Tenant will reimburse Landlord for the excess within [insert number of days, e.g. 15] days of receiving a copy of the utility provider's bill showing the actual charges for that month. This reimbursement is a separate obligation from Rent: it is not subject to any late fee applicable to Rent under this Lease, will not be characterized as Rent for purposes of any remedy available for nonpayment of Rent, and Landlord's remedies for Tenant's failure to pay it are limited to those otherwise available under this Lease for breach of an obligation other than Rent.",
   },
@@ -1078,7 +1078,7 @@ const CLAUSE_TEMPLATES = [
     id: "prohibited-acts-renter-wy",
     title: "Prohibited Acts by Tenant",
     group: "Tenant Responsibilities",
-    states: ["WY", "AK", "HI"],
+    states: ["WY", "AK", "HI", "AR"],
     bodyText:
       "Tenant will not intentionally or negligently destroy, deface, damage, or impair any part of the property, or knowingly permit any other person to do so; interfere with another person's peaceful enjoyment of the property; or unreasonably deny access to, refuse entry to, or withhold consent to enter the property to Landlord or Landlord's agent for the purpose of making repairs, inspecting the property, or showing it for rent or sale.",
   },
@@ -1171,7 +1171,7 @@ const CLAUSE_TEMPLATES = [
     id: "extended-absence-notice-ks",
     title: "Notice of Extended Absence",
     group: "Tenant Responsibilities",
-    states: ["KS", "TN", "VA", "IA", "NM", "MT", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "NH", "ME", "VT", "LA"],
+    states: ["KS", "TN", "VA", "IA", "NM", "MT", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "NH", "ME", "VT", "LA", "AR"],
     bodyText:
       "Tenant will occupy the property only as a dwelling unit unless otherwise agreed. If Tenant anticipates being away from the property for more than 7 consecutive days, Tenant will notify Landlord no later than the first day of the absence. If Tenant willfully fails to give this notice, Landlord may recover actual damages resulting from the failure.",
   },
@@ -1471,7 +1471,7 @@ const CLAUSE_TEMPLATES = [
     id: "landlord-maintenance-nd",
     title: "Repair Requests",
     group: "Landlord Responsibilities",
-    states: ["ND", "VT", "AK", "HI"],
+    states: ["ND", "VT", "AK", "HI", "AR"],
     supersedes: "landlord-maintenance",
     bodyText:
       "Tenant will notify Landlord promptly in writing of any condition requiring repair or maintenance. This does not limit any right applicable law gives Tenant on notice of a condition Landlord ought to repair, however that notice is given.",
@@ -1884,7 +1884,7 @@ const CLAUSE_TEMPLATES = [
     id: "holdover-ca",
     title: "Holdover",
     group: "Default & Termination",
-    states: ["CA", "NV", "TX", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "WV", "MA", "CT", "RI", "ME", "AK"],
+    states: ["CA", "NV", "TX", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "WV", "MA", "CT", "RI", "ME", "AK", "AR"],
     supersedes: "holdover",
     bodyText:
       "If Tenant does not vacate the property by the end of the Term, Landlord may pursue any remedy allowed by law to recover possession and may recover the actual damages caused by Tenant's continued possession, including the reasonable rental value of the property for the period Tenant remains. Alternatively, Landlord may accept Tenant's continued payment of Rent, in which case this Lease will continue on a month-to-month basis on the same terms, terminable only as provided by law.",
@@ -2055,7 +2055,7 @@ const CLAUSE_TEMPLATES = [
     id: "tenant-forward-proceedings-ca",
     title: "Notice of Proceedings Against the Property",
     group: "Tenant Responsibilities",
-    states: ["CA", "TX", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA"],
+    states: ["CA", "TX", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR"],
     bodyText:
       "If Tenant receives notice of any proceeding to recover the property or its possession, Tenant shall immediately inform Landlord of the proceeding and deliver the notice to Landlord if it is in writing.",
   },
@@ -5952,7 +5952,7 @@ const CLAUSE_TEMPLATES = [
     id: "tenant-caused-damage-nm",
     title: "Damage Caused by Tenant",
     group: "Default & Termination",
-    states: ["NM", "AK"],
+    states: ["NM", "AK", "AR"],
     bodyText:
       "[Optional.] If the property is damaged by fire, water, a vehicle or any other cause, and the damage results from the deliberate or negligent act or omission of Tenant, a member of Tenant's household, or another person on the premises with Tenant's consent, Tenant will be liable to Landlord for the reasonable cost of repairing the damage and for Landlord's other actual damages caused by it, including, to the extent applicable law allows, the Rent Landlord loses while the property is repaired, for no longer than the remaining Term, less any Rent Landlord receives from Tenant or from re-renting the property. Landlord will use reasonable efforts to repair and re-rent the property. This Section does not take away any right applicable law gives Tenant after a fire or casualty, including the right to vacate and terminate this Lease or to a reduction in Rent, but Tenant's use of that right does not release Tenant from liability under this Section.",
   },
@@ -6958,7 +6958,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-concession-wi",
     title: "Rent Concessions",
     group: "Rent & Payment",
-    states: ["WI", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA"],
+    states: ["WI", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR"],
     bodyText:
       "[Use only if Landlord gives Tenant any rent concession.] In connection with this Lease, Landlord gives Tenant the following rent concession, which is part of this Lease: [describe each period of free or reduced Rent, credit, rebate or other concession, with its amount or value and the rental periods to which it applies].",
   },
@@ -7318,7 +7318,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-installments-or",
     title: "Rent Paid in Installments",
     group: "Rent & Payment",
-    states: ["OR", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA"],
+    states: ["OR", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR"],
     bodyText:
       "Landlord and Tenant agree that Monthly Rent will be paid in installments as follows: [state each installment amount and the day of the month it is due]. Installments paid on this schedule are not partial payments of Rent. A late charge applies only as this Lease's late charge provision allows for the rental period.",
   },
@@ -7709,7 +7709,7 @@ const CLAUSE_TEMPLATES = [
     id: "informal-dispute-resolution-or",
     title: "Informal Dispute Resolution",
     group: "Notices & General",
-    states: ["OR"],
+    states: ["OR", "AR"],
     bodyText:
       "Before either party starts a court action about a dispute under this Lease, other than an action for possession, the party will give the other written notice describing the dispute and offer to meet, in person or by phone, within 10 days to try to resolve it informally. This Section does not delay or limit any notice, deadline or remedy that applicable law provides, including any action for possession or for emergency relief, and does not require either party to accept any proposal.",
   },
@@ -7860,7 +7860,7 @@ const CLAUSE_TEMPLATES = [
     id: "criminal-activity-ky",
     title: "Criminal Activity",
     group: "Default & Termination",
-    states: ["KY"],
+    states: ["KY", "AR"],
     bodyText:
       "Tenant, occupants and guests will not engage in criminal activity on or near the property that threatens the health, safety or right to peaceful enjoyment of the premises by others, or that involves the unlawful manufacture, sale, distribution or possession of a controlled substance on the property. A violation is a material noncompliance with this Lease, and Landlord may terminate this Lease for it with the notice that this Lease's Default by Tenant terms and applicable law require. This Section does not apply to criminal activity in which Tenant or a member of Tenant's household is the victim, including conduct that is the subject of a protective order protecting them, or to any request for help from the police or other emergency assistance.",
   },
@@ -7906,7 +7906,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-increase-midterm-ky",
     title: "Mid-Term Rent Increase",
     group: "Rent & Payment",
-    states: ["KY", "AK"],
+    states: ["KY", "AK", "AR"],
     bodyText:
       "[Optional.] During the Term, Landlord may increase Monthly Rent by giving Tenant written notice at least 30 days before the increase takes effect, stating the new Monthly Rent and its effective date. Tenant may instead end this Lease, without an early termination fee, by giving Landlord written notice before the increase takes effect, effective on the last day before the increase. Landlord will not increase Rent to retaliate against Tenant for any complaint, request or other conduct the law protects.",
   },
@@ -7914,7 +7914,7 @@ const CLAUSE_TEMPLATES = [
     id: "government-fee-reimbursement-ky",
     title: "Local Government Fees",
     group: "Rent & Payment",
-    states: ["KY"],
+    states: ["KY", "AR"],
     bodyText:
       "[Optional.] If a city, county or other local government assesses Landlord a fee pertaining to the property, such as a rental registration or licensing fee, Landlord may notify Tenant of the fee in writing, and Tenant will reimburse Landlord for [all / the following share of] the fee within [number] days after Landlord's written notice. Tenant will not be required to reimburse a fee relating to construction of the property, such as a building permit fee, any emergency response fee, or any fine or penalty assessed against Landlord.",
   },
@@ -8522,7 +8522,7 @@ const CLAUSE_TEMPLATES = [
     id: "electronic-notice-ma",
     title: "E-mail Notices",
     group: "Notices & General",
-    states: ["MA", "CT", "RI", "NH", "ME", "VT", "AK", "LA"],
+    states: ["MA", "CT", "RI", "NH", "ME", "VT", "AK", "LA", "AR"],
     bodyText:
       "[Optional.] Landlord and Tenant agree that either may send the other routine communications, and any notice that neither this Lease nor applicable law requires to be delivered in a particular way, by e-mail to the address the other provides for that purpose: Tenant: [e-mail address]; Landlord: [e-mail address]. Tenant may also send Landlord any notice under this Lease or applicable law by e-mail to Landlord's address above. The sender will not send an e-mail in a form that keeps the recipient from printing or storing it. This Section does not apply to any notice to Tenant of nonpayment, default, termination, eviction or the right to cure, or to any other written notice to Tenant that applicable law requires to be delivered in a particular way; Landlord will deliver those as applicable law requires and may also send an e-mail copy. Either party may stop using e-mail under this Section at any time by written notice to the other.",
   },
@@ -9441,7 +9441,7 @@ const CLAUSE_TEMPLATES = [
     id: "tenant-death-contact-nh",
     title: "Emergency and Death Contact",
     group: "Notices & General",
-    states: ["NH", "ME", "VT", "AK"],
+    states: ["NH", "ME", "VT", "AK", "AR"],
     bodyText:
       "[Optional.] Tenant names the following person for Landlord to contact if Tenant dies or has an emergency: [name, address and telephone number]. Tenant will tell Landlord in writing if this information changes. Naming a contact does not give that person any right to occupy the property or to remove Tenant's belongings; if Tenant dies, Landlord will deal with Tenant's personal representative or heirs as applicable law requires, and will handle any property left at the property under this Lease's Handling of Property Left Behind Section and applicable law.",
   },
@@ -11021,7 +11021,7 @@ const CLAUSE_TEMPLATES = [
     id: "tax-insurance-escalation-la",
     title: "Tax and Insurance Increases",
     group: "Rent & Payment",
-    states: ["LA"],
+    states: ["LA", "AR"],
     bodyText:
       "[Optional.] Tax and Insurance Increases: If the ad valorem property taxes assessed on [the Property / the building or parcel of which the Property is a part] for any calendar year during the Term are higher than the taxes for [base year][, or if Landlord's premium for property insurance on [the Property / that building] for any policy year during the Term is higher than the premium for [base policy year]], Tenant will pay Landlord [percent] percent of the increase, which is the Property's share of [the building or parcel]. Landlord will give Tenant written notice of each amount due, with a copy of the tax bill [and premium notice] and the calculation, at least [number] days before it is due, and Tenant may pay it [in one payment / in equal monthly installments with Rent over [number] months]. Tenant will not pay any part of a penalty or interest charged for Landlord's late payment of taxes or premiums. If taxes [or premiums] for a period for which Tenant paid a share are later reduced, abated or refunded, Landlord will credit or refund Tenant the same percentage of the reduction.",
   },
@@ -11046,7 +11046,7 @@ const CLAUSE_TEMPLATES = [
     id: "furnishings-included-la",
     title: "Furnishings",
     group: "Security Deposit",
-    states: ["LA"],
+    states: ["LA", "AR"],
     bodyText:
       "[Optional. Use only if the property is rented furnished.] Furnishings: The property is rented furnished. The furniture and furnishings Landlord provides, and their condition at the start of this Lease, are: [list each item and its condition, or attach a signed inventory]. Tenant will keep them at the property, will not remove or dispose of any item without Landlord's written consent, will tell Landlord promptly of any damage to them, and will return them at the end of this Lease in the same condition, except for normal wear and tear.",
   },
@@ -11055,7 +11055,7 @@ const CLAUSE_TEMPLATES = [
     id: "prompt-payment-discount-la",
     title: "Prompt-Payment Discount",
     group: "Rent & Payment",
-    states: ["LA"],
+    states: ["LA", "AR"],
     bodyText:
       "[Optional.] Prompt-Payment Discount: The Monthly Rent stated in this Lease is the full rent due each month. If Landlord receives the full Monthly Rent for a month on or before the [day of the month, e.g. 1st] day of that month, Tenant may pay [dollar amount] less than the Monthly Rent for that month, and Landlord will accept that reduced amount as full payment of that month's Rent. If the full Monthly Rent is not received by that day, no discount applies for that month. Landlord will not charge both the loss of this discount and a late fee under this Lease for the same month's Rent.",
   },
@@ -11114,7 +11114,7 @@ const CLAUSE_TEMPLATES = [
     id: "scheduled-services-entry-la",
     title: "Entry for Regularly Scheduled Services",
     group: "Access & Entry",
-    states: ["LA"],
+    states: ["LA", "AR"],
     bodyText:
       "[Optional.] In addition to Landlord's rights under the Landlord's Right of Entry section, Landlord or Landlord's agent may enter the property between [state hours, for example 9:00 a.m. and 6:00 p.m.] on the following schedule to provide these regularly scheduled services: [list each service and its schedule, for example changing air-conditioning filters every [number] months, or pest treatment every [number] months]. Landlord will give Tenant notice of each scheduled visit at least [state notice, for example 24 hours] in advance by [state method, for example text message, e-mail or a notice posted on the door], and will knock and announce before entering.",
   },
@@ -11122,7 +11122,7 @@ const CLAUSE_TEMPLATES = [
     id: "showing-notice-la",
     title: "Showings Near the End of the Lease",
     group: "Access & Entry",
-    states: ["LA"],
+    states: ["LA", "AR"],
     bodyText:
       "[Optional.] During the last [number] days of the Term, and at any time after either party gives notice of termination, Landlord, its agents and contractors may enter the property to show it to prospective tenants or purchasers on [state the shorter notice, for example same-day notice by telephone or text message] instead of the notice required by the Landlord's Right of Entry section, but only between [state hours, for example 9:00 a.m. and 7:00 p.m.]. Every other entry remains subject to the Landlord's Right of Entry section.",
   },
@@ -11275,7 +11275,7 @@ const CLAUSE_TEMPLATES = [
     id: "association-approval-la",
     title: "Association Approval of Lease",
     group: "Disclosures",
-    states: ["LA"],
+    states: ["LA", "AR"],
     bodyText:
       "[Use only if the property is in a condominium or planned community whose governing documents require the association to approve a lease or a tenant.] This Lease depends on the association's approval. Tenant will apply promptly, give the association the information it reasonably requires, sign any lease addendum or occupancy agreement the association's documents require, and cooperate in the approval process. The association's application or approval fee will be paid by [Landlord or Tenant]. If approval has not been given by [date], either party may end this Lease by written notice to the other before approval is given, and Landlord will then return all amounts Tenant has paid under this Lease. Tenant will not owe Rent for any period before approval during which Tenant is not permitted to take possession. Any deposit or fee the association requires of Tenant is separate from the Security Deposit under this Lease.",
   },
@@ -11332,6 +11332,195 @@ const CLAUSE_TEMPLATES = [
     supersedes: "early-termination-ks",
     bodyText:
       "Tenant may terminate this Lease before the end of the Term by giving Landlord written notice at least 30 days before the termination date, or any longer notice Louisiana law requires. Tenant will pay Landlord, by the termination date, an early termination fee equal to one month's Rent ({{monthly_rent}}), and remains responsible for Rent and other obligations up to the termination date. If Tenant gives that notice, pays the fee and delivers possession of the property by the termination date, Tenant owes no Rent for any period after the termination date. If Tenant leaves before the end of the Term without using this option, Tenant's liability is governed by Louisiana law. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may end the tenancy early only in accordance with this Lease's Tenant Default and notice provisions and Louisiana law, and if Tenant abandons the property, Landlord may proceed as Louisiana law allows. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to end this Lease without a fee because of active military service, sexual assault, domestic abuse, stalking or cyberstalking, or the property becoming uninhabitable through no fault of Tenant, or, except as prohibited by law in the case of a Tenant's death, any other termination right or limitation provided by applicable law.",
+  },
+  // Security Deposit
+  {
+    id: "security-deposit-return-ar",
+    title: "Return of Security Deposit (Arkansas)",
+    group: "Security Deposit",
+    states: ["AR"],
+    supersedes: "security-deposit-return",
+    bodyText:
+      "Within 60 days after the tenancy ends, Landlord will return the Security Deposit to Tenant, less any amount Landlord applies to Rent that has come due and is unpaid and to damages Landlord has suffered because Tenant did not comply with this Lease. Landlord will list each amount applied in a written, itemized notice delivered to Tenant with any balance. Landlord may deliver the notice and any payment by first-class mail to Tenant's last known address, so Tenant must give Landlord a forwarding address in writing when Tenant moves out. If a letter containing a refund is returned and Landlord cannot locate Tenant after reasonable effort, the refund becomes Landlord's property 180 days after the date it was mailed. Landlord will follow this section even if the Arkansas security deposit statute does not apply to the property (it does not apply to an individual landlord who, with spouse, minor children and their rental entities, owns five or fewer dwelling units, unless a third person manages or collects rent for the units for a fee).",
+  },
+  // Tenant Responsibilities
+  {
+    id: "carpet-cleaning-ar",
+    title: "Professional Carpet Cleaning at Move-Out",
+    group: "Tenant Responsibilities",
+    states: ["AR"],
+    bodyText:
+      "[Optional. Use only if the carpets were professionally cleaned immediately before the tenancy began.] The carpets at the property were professionally cleaned immediately before this tenancy began. When the tenancy ends, Tenant will have the carpets professionally cleaned and give Landlord the receipt. If Tenant does not, Landlord may have the carpets professionally cleaned and apply the reasonable cost Landlord actually pays to the Security Deposit as damages caused by Tenant's noncompliance with this Lease, listed in Landlord's itemized deposit notice.",
+  },
+  {
+    id: "no-liens-ar",
+    title: "No Liens for Tenant Work",
+    group: "Tenant Responsibilities",
+    states: ["AR"],
+    bodyText:
+      "[Optional.] Tenant will pay in full everyone Tenant hires, or whose work or materials Tenant orders, for any construction, alteration or repair at the property, and will not allow a lien to be filed against the property for that work. If a lien is filed because of work Tenant ordered, Tenant will have it released within [number] days after Tenant learns of it and will pay Landlord's reasonable costs caused by it. Tenant is not Landlord's agent for any work Tenant orders, and before work begins Tenant will tell each contractor and supplier that Tenant, not Landlord, is responsible for paying for it. Any consent Landlord gives to an alteration under this Lease is consent only as between Landlord and Tenant and is not an agreement by Landlord to pay for the work.",
+  },
+  // Disclosures
+  {
+    id: "move-in-defect-form-ar",
+    title: "Move-In Defect Form (Arkansas Implied Quality Standards)",
+    group: "Disclosures",
+    states: ["AR"],
+    bodyText:
+      "[Optional. Use only if Landlord will hand Tenant a separate written defect form when possession of the property becomes available.] MOVE-IN DEFECT FORM. When possession of the property is available to Tenant, Landlord will give Tenant a separate written form on which to list any defect in: (1) an available source of hot and cold running water; (2) an available source of electricity; (3) a source of potable drinking water; (4) a sanitary sewer system and plumbing; (5) a functioning roof and building envelope; and (6) a functioning heating and air conditioning system, to the extent one serves the property when this Lease is signed. Tenant should note every such defect on the form, sign it and return it to Landlord within two business days. If Tenant signs the form without noting a defect in any listed item and takes possession, or does not return the form to Landlord within two business days, Arkansas law treats Landlord as complying with these standards.",
+  },
+  // Rules & Regulations
+  {
+    id: "smoking-policy-ar",
+    title: "No Smoking (Arkansas)",
+    group: "Rules & Regulations",
+    states: ["AR"],
+    supersedes: "smoking-policy",
+    bodyText:
+      "Smoking of any kind, including smoking tobacco or marijuana, and vaping tobacco or nicotine products with an electronic cigarette or similar device, is not permitted anywhere on the property, including inside the dwelling, on porches or balconies, or in any common area. Tenant will be responsible for any cost Landlord incurs to remediate odor, staining or damage caused by smoking or vaping in violation of this Section, and a violation may be treated as a default under this Lease. As the Arkansas Constitution requires, this Section does not prohibit a qualifying patient under Arkansas's medical marijuana amendment from the medical use of marijuana at the property by means other than smoking, and for that purpose using a vaporizer is not treated as smoking.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "repair-notice-method-ar",
+    title: "How to Give Notice of Habitability Defects (Arkansas)",
+    group: "Landlord Responsibilities",
+    states: ["AR"],
+    bodyText:
+      "[Optional.] NOTICE OF DEFECTS IN REQUIRED SERVICES AND CONDITIONS. Tenant may give Landlord written notice of a defect in any of the conditions Arkansas law requires (an available source of hot and cold running water and of electricity, drinking water, sewer and plumbing, a functioning roof and building envelope, and heating and air conditioning that served the property when this Lease was signed) by certified mail to Landlord at [Landlord's mailing address], or by [state the additional method, for example e-mail to [e-mail address] or Landlord's online tenant portal at [portal address]]. The notice must describe the defect and what Tenant believes is wrong. A notice sent by the additional method is received when it is delivered to that address or portal. This Section controls over the Notices section for these notices and does not limit Tenant's right to use certified mail.",
+  },
+  // Default & Termination
+  {
+    id: "owner-occupancy-termination-ar",
+    title: "Owner Occupancy (Optional)",
+    group: "Default & Termination",
+    states: ["AR"],
+    bodyText:
+      "[Optional. Use only for a fixed Term.] Owner Occupancy: Landlord may end this Lease before the end of the Term if Landlord, or the following member of Landlord's family, will occupy the property as a residence: [name or relationship]. To do so, Landlord will give Tenant written notice at least [number, not less than 30] days before the termination date, and the termination date will be the last day of a monthly rental period. Tenant owes Rent only through the termination date, and Landlord will refund any Rent paid for a later period. If Tenant does not leave by the termination date, Landlord may regain possession only through a court eviction.",
+  },
+  // Pets
+  {
+    id: "assistance-animal-accommodation-ar",
+    title: "Service and Assistance Animals (Arkansas)",
+    group: "Pets",
+    states: ["AR"],
+    supersedes: "assistance-animal-accommodation",
+    bodyText:
+      "A service animal or other assistance animal that Tenant or an Occupant needs because of a disability is not considered a pet under this Lease, regardless of any pet policy, breed, weight, or size restriction stated elsewhere in this Lease. Landlord will not charge a pet deposit, pet rent, or any other extra fee or charge for an assistance animal. If the disability and the disability-related need for the animal are not readily apparent, Landlord may request reliable documentation confirming the need for the accommodation, to the extent permitted by applicable law; if the disability and need are readily apparent, Landlord will not require such documentation. Tenant is responsible for any damage an assistance animal causes to the property. Except for a service animal especially trained to do work or perform tasks for Tenant or an Occupant with a disability, Landlord may deny or withdraw this accommodation if the specific animal poses a direct threat to the health or safety of others, or would cause substantial physical damage to the property, that cannot be reduced or eliminated by another reasonable accommodation. A service animal and its handler remain subject to the other terms of this Lease and to the limits established by law that apply alike to all persons.",
+  },
+  // Rules & Regulations
+  {
+    id: "rules-ar",
+    title: "Rules and Regulations (Arkansas)",
+    group: "Rules & Regulations",
+    states: ["AR"],
+    bodyText:
+      "Tenant, and everyone on the property with Tenant's permission, will comply with Landlord's written rules for the property in effect when this Lease is signed: [attach the rules, or state that there are none]. The rules are part of this Lease, must be reasonable, apply to all tenants of the property alike, and may not conflict with this Lease or Arkansas law. A new or changed rule adopted after this Lease is signed binds Tenant during the Term only if Tenant agrees to it in writing, or if it is made part of a renewal of this Lease at the start of the renewal term. If this Lease is month-to-month or week-to-week, Landlord may also adopt a new or changed rule by giving Tenant written notice of it at least 30 days (for a month-to-month tenancy) or 7 days (for a week-to-week tenancy) before the start of the rental period in which it takes effect.",
+  },
+  {
+    id: "us-flag-display-ar",
+    title: "Display of the United States Flag (Arkansas)",
+    group: "Rules & Regulations",
+    states: ["AR"],
+    bodyText:
+      "[Optional. For a Landlord who operates twelve or more rental units.] Tenant may properly display a flag of the United States at the property: a flag made of fabric, cloth or paper, no larger than 10 feet long or 8 feet wide, displayed from a pole or staff or in a window. Tenant will display it in these places and in this manner: [state reasonable placement rules that do not prevent display, e.g. from a bracket Landlord provides or approves by the front door, or inside a window; no pole fastened to exterior surfaces except an approved bracket]. The flag may not be used as, or with, an advertising display. No other term of this Lease prevents that display.",
+  },
+  // Notices & General
+  {
+    id: "owner-manager-disclosure-ar",
+    title: "Management and Notices (Arkansas)",
+    group: "Notices & General",
+    states: ["AR"],
+    bodyText:
+      "[Optional.] Management and notices. The owner of the property is [owner's name], whose address for notices and demands under this Lease is [address]. [Use only if someone other than the owner manages the property:] The person authorized to manage the property for the owner is [manager's name], whose address is [address]. Notices and demands to Landlord are received when delivered to [the owner's / the manager's] address stated here. Landlord will tell Tenant in writing if any of this information changes.",
+  },
+  // Rent & Payment
+  {
+    id: "government-fines-reimbursement-ar",
+    title: "Fines Caused by Tenant",
+    group: "Rent & Payment",
+    states: ["AR"],
+    bodyText:
+      "[Optional.] FINES CAUSED BY TENANT. If a city, county or other public authority fines or penalizes Landlord because of a violation caused by Tenant, a member of Tenant's household, or a guest or other person on the Premises with Tenant's consent (for example, a trash, noise, parking, animal or nuisance citation), Tenant will reimburse Landlord for the amount of the fine within [number] days after Landlord gives Tenant written notice with a copy of the citation. Tenant does not have to reimburse any fine or penalty for a condition that Landlord is responsible for under this Lease or Arkansas law, or any charge arising from a call by anyone to police or emergency services. A reimbursement under this Section is not Rent.",
+  },
+  // Other / Miscellaneous
+  {
+    id: "employee-housing-ar",
+    title: "Employee Housing",
+    group: "Other / Miscellaneous",
+    states: ["AR"],
+    bodyText:
+      "[Optional. Use only if Tenant is Landlord's employee and is housed because of that job.] EMPLOYEE HOUSING. Tenant occupies the Premises as an employee of Landlord, as [job title], and Tenant's right to occupy the Premises is conditional upon Tenant's employment by Landlord in and about the Premises. Tenant's right to occupy ends [on the date Tenant's employment ends / [number] days after Tenant's employment ends], and Tenant will then vacate and return all keys. Any amount Tenant pays for the Premises, and any value of the housing as part of Tenant's compensation, is stated in [this Lease / Tenant's written employment terms]. Landlord will return any security deposit as Arkansas law requires.",
+  },
+  // Default & Termination
+  {
+    id: "rental-application-accuracy-ar",
+    title: "Accuracy of Rental Application",
+    group: "Default & Termination",
+    states: ["AR"],
+    supersedes: "rental-application-accuracy",
+    bodyText:
+      "Tenant represents that the information Tenant gave Landlord in Tenant's rental application and during screening was true, correct and complete when given, and Tenant acknowledges that Landlord relied on that information in entering into this Lease. If any of that information was materially false or misleading, Tenant is in material breach of this Lease, and Landlord may exercise the remedies this Lease and applicable law provide for a material breach. This Section does not apply to information that Landlord was not permitted by law to request or consider. An answer that conduct did not occur, or that no record of it exists, where the record has been sealed under Arkansas law, is not false or misleading for this Section.",
+  },
+  {
+    id: "holdover-rate-ar",
+    title: "Holdover Charge",
+    group: "Default & Termination",
+    states: ["AR"],
+    bodyText:
+      "[Optional.] If Tenant remains in possession after this Lease ends, whether at the end of the Term or on an earlier termination under this Lease or Arkansas law (other than a termination for nonpayment of Rent), and Landlord has not agreed in writing to a continued tenancy or accepted Rent for one, then, in place of any actual damages for Tenant's continued possession (including the actual damages and reasonable rental value described in the Holdover section of this Lease), Tenant will pay Landlord a holdover charge of [daily amount; a figure close to one day's Rent is the cautious choice] for each day Tenant remains in possession. Landlord and Tenant agree that Landlord's loss from a holdover, including delay in making the property available to a new tenant, is difficult to estimate accurately in advance, that this charge is a reasonable estimate of that loss, and that it is not a penalty. Landlord will not recover both this charge and Rent for the same day. This charge does not apply to any day for which a court allows Tenant to keep possession by giving security for Rent. This charge is an alternative to the amounts Arkansas law measures for the same days, not an addition to them: Landlord will not recover this charge for any day for which a court awards Landlord rent, fair rental value or liquidated damages in an unlawful detainer action, or for any period for which Landlord recovers the amount Arkansas law allows for a willful holdover. Landlord's acceptance of a holdover charge is not acceptance of Rent for a continued tenancy. This Section does not limit Landlord's right to recover possession, attorney's fees as Arkansas law allows, unpaid Rent and other amounts due for the period before this Lease ended, or damages for harm to the property.",
+  },
+  {
+    id: "casualty-termination-ar",
+    title: "Landlord Termination After Fire or Casualty",
+    group: "Default & Termination",
+    states: ["AR"],
+    bodyText:
+      "[Optional.] If fire, storm or other casualty damages the property so that it cannot reasonably be lived in, and the damage cannot be repaired within [number] days, Landlord may end this Lease by written notice to Tenant stating a termination date at least [number] days after Tenant receives the notice. Unless the casualty resulted from the deliberate or negligent act or omission of Tenant, a member of Tenant's household, or another person on the premises with Tenant's consent, Rent abates from the date of the casualty while the property cannot reasonably be lived in, and Landlord will refund any Rent paid for those days. If this Lease ends under this Section, Landlord will account for the Security Deposit as this Lease and Arkansas law provide. If Tenant does not leave by the termination date, Landlord will regain possession only through a court proceeding. This Section does not limit any right Tenant has under Arkansas law, including any right Arkansas law gives Tenant to end this Lease when Landlord does not remedy a failure of the implied quality standards within 30 calendar days after Landlord receives Tenant's written notice.",
+  },
+  {
+    id: "abandoned-property-ar",
+    title: "Handling of Property Left Behind",
+    group: "Default & Termination",
+    states: ["AR"],
+    bodyText:
+      "[Optional.] Handling of Property Left Behind: When this Lease ends, Tenant will remove all personal property of Tenant and all occupants from the property. This Section applies only after this Lease has ended, by expiration or termination, and either Tenant has surrendered possession (for example, by returning the keys and moving out) or Landlord has regained possession through a court proceeding. Under Arkansas law, property Tenant leaves in and about the property after this Lease ends is considered abandoned, and Landlord may dispose of it as Landlord sees fit. Landlord may immediately discard perishable food, garbage and anything hazardous. [Optional: For other property, Landlord will send Tenant written notice at any forwarding address Tenant has given and at the property address, and will hold the property for [number] days after sending the notice so that Tenant may claim it at a reasonable time Landlord arranges; after that, Landlord may keep, donate, sell or otherwise dispose of it.] Tenant will pay Landlord the reasonable costs of removing, storing and disposing of the property. This Section does not apply to property Landlord knows belongs to someone other than Tenant or an occupant, or to belongings a sheriff removes when executing a writ of possession, which are stored and handled as the court and Arkansas law direct.",
+  },
+  {
+    id: "condemnation-ar",
+    title: "Condemnation",
+    group: "Default & Termination",
+    states: ["AR"],
+    bodyText:
+      "[Optional.] Condemnation: If all of the property is taken by eminent domain, or part of it is taken so that the rest cannot reasonably be lived in, this Lease ends on the date the condemning authority takes possession, Rent is prorated to that date, and Landlord will refund any Rent paid for later days. If a smaller part is taken and the rest can reasonably be lived in, this Lease continues and Rent is reduced in proportion to Tenant's loss of use. Any award for the taking of the property, including any value of this Lease, belongs to Landlord, except a relocation payment or other separate payment made to Tenant for Tenant's own moving costs or personal property. If this Lease ends under this Section, Landlord will account for the Security Deposit as this Lease and Arkansas law provide.",
+  },
+  // Rent & Payment
+  {
+    id: "nonwaiver-acceptance-ar",
+    title: "Acceptance of Payments",
+    group: "Rent & Payment",
+    states: ["AR"],
+    bodyText:
+      "[Optional.] Acceptance of Payments: Landlord's acceptance of Rent or any other payment after a breach by Tenant, or after Landlord has given Tenant a written notice of noncompliance or termination for that breach, does not waive the breach or the notice, unless Landlord agrees otherwise in writing. After an eviction has begun with the court's order to vacate or show cause, Arkansas law already provides that accepting Rent does not waive the eviction or renew the tenancy. This Section does not apply to Rent Landlord accepts for a new rental period after the Term ends, which the Holdover section of this Lease governs, and it does not keep a notice in effect after Tenant has remedied a noncompliance within the time the notice or Arkansas law allows.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "appliances-included-ar",
+    title: "Appliances & Equipment Included",
+    group: "Landlord Responsibilities",
+    states: ["AR"],
+    supersedes: "appliances-included",
+    bodyText:
+      "The property includes the following appliances and equipment as of the Start Date: {{appliance_list}}. [Choose one: (a) Landlord will repair or replace a listed item that stops working through no fault of Tenant, an Occupant or a guest, within a reasonable time after Tenant's written notice; or (b) Landlord provides the listed items for Tenant's use but does not agree to repair or maintain them, and may repair or replace them at Landlord's option.] Tenant will use the listed items reasonably. This Section does not limit Landlord's duties under the implied quality standards of Arkansas law, which this Lease cannot waive.",
+  },
+  // Default & Termination
+  {
+    id: "early-termination-ar",
+    title: "Early Termination",
+    group: "Default & Termination",
+    states: ["AR"],
+    supersedes: "early-termination-ks",
+    bodyText:
+      "Tenant may terminate this Lease before the end of the Term by giving Landlord written notice at least 30 days before the termination date. Tenant will pay Landlord, by the termination date, an early termination fee equal to one month's Rent ({{monthly_rent}}), and remains responsible for Rent and other obligations up to the termination date. If Tenant gives that notice, pays the fee and delivers possession of the property by the termination date, Tenant owes no Rent for any period after the termination date. If Tenant leaves before the end of the Term without using this option, Tenant's liability is governed by Arkansas law. This early-termination option and fee apply only if this Lease has a fixed Term; a month-to-month or other periodic tenancy ends on the notice that applicable law and this Lease provide, without an early termination fee. Landlord may end the tenancy early only in accordance with this Lease's Tenant Default and notice provisions and Arkansas law. Nothing in this Section limits any right either party has under applicable law, including a Tenant's right to end this Lease because of active military service or because the property does not meet the standards Arkansas law requires and is not repaired as that law provides, or, except as prohibited by law in the case of a Tenant's death, any other termination right or limitation provided by applicable law.",
   },
 ];
 

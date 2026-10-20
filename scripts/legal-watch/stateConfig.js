@@ -58,6 +58,7 @@ const STATE_NAMES = {
   AK: "Alaska",
   HI: "Hawaii",
   LA: "Louisiana",
+  AR: "Arkansas",
 };
 
 // New York consolidated-law abbreviations (as cited in the NY rows) and the
@@ -2257,6 +2258,39 @@ const STATE_CONFIG = {
       },
     ],
   },
+  AR: {
+    // Arkansas section numbers carry their title and chapter (18-17-502) and
+    // are unique across the Code, and Arkansas bills amend them in the form
+    // "Arkansas Code § 18-17-502 is amended", so the key is the bare number
+    // and the query pairs it with "Arkansas Code"; the subsection is dropped.
+    // Acts, court rules, the Constitution and federal parts are left to the
+    // items below.
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        const m = part.match(/^Ark\. Code Ann\. § (\d+-\d+-\d+(?:\.\d+)?)/);
+        if (m) out.push(m[1]);
+      }
+      return [...new Set(out)];
+    },
+    buildQuery: (section) => `"${section}" AND "Arkansas Code"`,
+    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
+    manualRecheckItems: [
+      {
+        id: "ar-statute-slips",
+        label:
+          "Arkansas statutes the pass found internally inconsistent (AR log §10): § 18-17-301(5) and (11) and § 18-17-601(8) point to disclosure and rules sections the 2007 Act never enacted; § 18-60-309(f) points to § 18-60-307(c) for money now in (e); § 18-17-902(b)'s calendar days against Ark. R. Civ. P. 6(a) through § 18-17-303(d); § 18-16-305(b)(2)'s 180 days against the Unclaimed Property Act; § 16-123-302(8)'s pointer to nonexistent §§ 16-23-310 to -316 and -344. Check each session whether a bill corrects any of them, and update the rows that rely on the current reading",
+        clauseIds: ["owner-manager-disclosure-ar", "rules-ar", "edu-eviction-process-ar", "edu-fair-housing-ar", "security-deposit-return-ar"],
+      },
+      {
+        id: "ar-rules-and-forms",
+        label:
+          "Arkansas sources LegiScan can't see, as of the AR sync (2026-10-20): the District Court Rules, the Rules of Civil Procedure (Rule 6(a) computation of time), the Supreme Court's Administrative Orders (Order 18 on district court jurisdiction), and the administrative rules not read at the pass (Public Service Commission, Department of Health pool rules, State Fire Marshal's Fire Prevention Code edition, Real Estate Commission). Check for amendments since 2026-10-20",
+        clauseIds: ["edu-eviction-process-ar", "edu-default-by-tenant-ar"],
+      },
+    ],
+  },
 };
 
 // Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
@@ -2270,7 +2304,7 @@ const SCHEDULE_ORDER = [
   "CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ",
   "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI",
   "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD",
-  "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA",
+  "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR",
 ];
 function cronFor(code) {
   const n = SCHEDULE_ORDER.indexOf(code);
