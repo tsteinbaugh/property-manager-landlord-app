@@ -59,6 +59,7 @@ const STATE_NAMES = {
   HI: "Hawaii",
   LA: "Louisiana",
   AR: "Arkansas",
+  MS: "Mississippi",
 };
 
 // New York consolidated-law abbreviations (as cited in the NY rows) and the
@@ -2291,6 +2292,45 @@ const STATE_CONFIG = {
       },
     ],
   },
+  MS: {
+    // Mississippi section numbers carry their title and chapter (89-8-21) and
+    // are unique across the Code, and Mississippi bills amend them in the form
+    // "Section 89-8-21, Mississippi Code of 1972, is amended", so the key is
+    // the bare number and the query pairs it with "Mississippi Code of 1972";
+    // the subsection is dropped. Session laws, court rules, the Constitution
+    // and federal parts are left to the items below.
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        const m = part.match(/^Miss\. Code Ann\. § (\d+-\d+-\d+(?:\.\d+)?)/);
+        if (m) out.push(m[1]);
+      }
+      return [...new Set(out)];
+    },
+    buildQuery: (section) => `"${section}" AND "Mississippi Code of 1972"`,
+    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
+    manualRecheckItems: [
+      {
+        id: "ms-statute-slips",
+        label:
+          "Mississippi statutes the pass found inconsistent or dated (MS log §10): e-mail notices under § 89-8-13(3), (5)(a) and § 89-8-17(2) against UETA § 75-12-5(b)(4); § 89-8-13's \"agreed in writing\" against § 89-8-17(2)'s \"has agreed\"; § 89-8-17(2)'s second sentence; § 89-8-19(4) (no notice) against § 89-8-33(b) (notice attached to the complaint); § 89-10-3(2) \"an agent designated by the owner\" against § 89-10-5 as amended in 2026; § 77-3-3(d) and § 77-3-97 (electric and gas submetering; small condominiums); stale pointers in § 11-15-101 (to § 77-9-387) and § 85-3-1 (to § 27-7-100). Check each session whether a bill changes any of them, and update the rows that rely on the current reading",
+        clauseIds: ["electronic-notice-ma", "holdover-ms", "utility-allowance-cap-co", "edu-holdover-ms", "edu-termination-notice-ms"],
+      },
+      {
+        id: "ms-septic-repeal-2028",
+        label:
+          "Miss. Code Ann. § 41-67-21 (septic orders) is repealed effective July 1, 2028 (MS log §10). After that date, recheck the rows that cite it",
+        clauseIds: ["edu-tenant-maintenance-ms", "edu-no-designated-repairer-ms", "edu-no-health-department-rental-rules-ms"],
+      },
+      {
+        id: "ms-rules-and-forms",
+        label:
+          "Mississippi sources LegiScan can't see, as of the MS sync (2026-10-20): the Rules of Justice Court (RJC 12(b)(1) still points residential evictions to § 89-7-29), the Rules of Civil Procedure (the proposal to strike Rule 81, comments due 2026-10-23), the Administrative Office of Courts' sample eviction summons and warrant of removal (both predate 2025 Miss. Laws ch. 460), and Public Service Commission rules on utility deposits and disconnection (not read at the pass). Check for amendments since 2026-10-20",
+        clauseIds: ["edu-eviction-process-ms", "edu-post-eviction-property-ms"],
+      },
+    ],
+  },
 };
 
 // Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
@@ -2304,7 +2344,7 @@ const SCHEDULE_ORDER = [
   "CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ",
   "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI",
   "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD",
-  "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR",
+  "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR", "MS",
 ];
 function cronFor(code) {
   const n = SCHEDULE_ORDER.indexOf(code);
