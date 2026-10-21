@@ -60,6 +60,7 @@ const STATE_NAMES = {
   LA: "Louisiana",
   AR: "Arkansas",
   MS: "Mississippi",
+  DC: "District of Columbia",
 };
 
 // New York consolidated-law abbreviations (as cited in the NY rows) and the
@@ -2331,6 +2332,46 @@ const STATE_CONFIG = {
       },
     ],
   },
+  DC: {
+    // D.C. Code section numbers carry their title (42-3505.01, 2-1402.21,
+    // 16-1502a) and are unique across the Code, and Council bills amend them
+    // in the form "(D.C. Official Code § 42-3505.01(a)), is amended", so the
+    // key is the bare number and the query pairs it with "D.C. Official
+    // Code"; the subsection is dropped. 14 DCMR (agency rules), D.C. Laws and
+    // Acts, the Superior Court rules and federal parts are left to the items
+    // below.
+    extractSections(text) {
+      const out = [];
+      for (const part of text.split(";").map((p) => p.trim()).filter(Boolean)) {
+        const m = part.match(/^D\.C\. Code § (\d+-\d+(?:\.\d+)?[a-z]?\d*)/);
+        if (m) out.push(m[1]);
+      }
+      return [...new Set(out)];
+    },
+    buildQuery: (section) => `"${section}" AND "D.C. Official Code"`,
+    cfrChecks: [{ title: "40", section: "745.113", clauseIds: ["lead-based-paint"] }],
+    federalStatuteChecks: [{ section: "4852d", clauseIds: ["lead-based-paint"] }],
+    manualRecheckItems: [
+      {
+        id: "dc-statute-regulation-splits",
+        label:
+          "District rules the pass found in conflict (DC log §10): the 10-day nonpayment notice (D.C. Code § 42-3505.01(a-1)(1)) against its own prescribed text's \"30 days\" and 14 DCMR § 4300.6-.7; the 10-day illegal-act notice (§ 42-3505.01(c)(2)(A)(i)) against 14 DCMR § 4302.2(a)'s 30-day filing wait; § 16-1502a (protective order at the ledger amount) against Super. Ct. L&T R. 12-I; the § 42-3509.07 sunset (2030-12-31) read literally. Rows give the cautious course (wait 30 days). Check whether a bill, a rulemaking or a court rule amendment resolves any of them, and update the rows that rely on the current reading",
+        clauseIds: ["default-by-tenant-dc", "criminal-activity-dc", "edu-for-cause-eviction-dc", "edu-nonpayment-notice-dc", "edu-criminal-activity-dc", "edu-eviction-process-dc"],
+      },
+      {
+        id: "dc-not-funded-laws",
+        label:
+          "District laws enacted but \"Not Funded\", so not stated as law (DC log §1.2, §10): D.C. Law 25-308 (pets in housing: pet deposit capped at 15% of rent, pet rent at 1%, no breed, size or weight limits; § 42-3502.17(d)), D.C. Law 25-262 (tenant EV charging, § 6-1451.03d) and D.C. Law 26-172 (§§ 28-3814, 28-3904). Check whether a budget act funds any of them; if so, the rows that describe them as unfunded need updating",
+        clauseIds: ["edu-pet-fees-dc", "edu-pet-policy-dc", "edu-security-deposit-cap-dc", "edu-ev-charging-dc", "edu-collection-fee-dc", "edu-consumer-protection-act-dc"],
+      },
+      {
+        id: "dc-rules-and-forms",
+        label:
+          "District sources LegiScan can't see, as of the DC sync (2026-10-20): 14 DCMR (housing regulations, chs. 3, 4-9 and 41-43, and the Rent Administrator's rules), the Superior Court Landlord and Tenant, Civil and Small Claims Rules and the court's L&T forms, the Office of the Tenant Advocate's Tenant Bill of Rights (revised FORM OTA 2026.09.25), and the DCMR titles not read at the pass (12, 15, 18, 20, 21). Check for amendments since 2026-10-20",
+        clauseIds: ["edu-rights-guide-tbr-dc", "edu-statutory-forms-dc", "edu-eviction-process-dc", "late-fee-dc", "security-deposit-return-dc"],
+      },
+    ],
+  },
 };
 
 // Monthly schedule (2026-09-29; LegiScan's free tier drops to 10,000 queries
@@ -2344,7 +2385,7 @@ const SCHEDULE_ORDER = [
   "CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ",
   "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "MI",
   "IA", "NM", "MT", "NY", "WI", "WA", "OR", "KY", "WV", "MD",
-  "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR", "MS",
+  "MA", "CT", "RI", "NH", "ME", "VT", "DE", "AK", "HI", "LA", "AR", "MS", "DC",
 ];
 function cronFor(code) {
   const n = SCHEDULE_ORDER.indexOf(code);
