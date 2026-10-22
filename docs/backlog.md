@@ -67,7 +67,7 @@ One targeted pass over the older states once every state is researched, in line 
 
 Taylor wants the clause library to cover Washington, DC, and the five inhabited territories (PR, GU, VI, AS, MP) as well as the 50 states, **after the remaining states** (Taylor: "probably at the tail end"). Points to settle at each kickoff:
 - **DC** is run like a state (D.C. Code, DCMR regulations, a strong tenant act and rent stabilization); LegiScan covers DC, so legal watch works as it does for a state.
-- **Territories:** LegiScan does not cover Puerto Rico (item 34); check the others before staging; if not covered, legal watch needs another source or manual items. Puerto Rico's law is civil-law and its official text is largely in Spanish (the 2020 Civil Code), so it needs its own kickoff screens and a translation step. Free official code access for GU, VI, AS and MP should be confirmed at kickoff.
+- **Territories:** LegiScan does not cover Puerto Rico or Guam (item 34; its coverage is the 50 states, DC and Congress); check the others before staging; if not covered, legal watch needs another source or manual items. Puerto Rico's law is civil-law and its official text is largely in Spanish (the 2020 Civil Code), so it needs its own kickoff screens and a translation step. Guam's is free on the Compiler of Laws site (corpus staged 2026-10-21); confirm VI, AS and MP at kickoff.
 - **App:** state codes and names (`STATE_NAMES`, the property state field, builder state filters) must accept DC and the territory codes.
 - **Schedule:** 50 states plus 6 more makes 56 jurisdictions, exactly two 28-day wraps of `SCHEDULE_ORDER`, at 13:00 and 14:00 UTC.
 
