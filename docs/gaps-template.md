@@ -39,11 +39,12 @@ Opus, high effort. Research mode only for SOP rule 9's three triggers.
 
 ## Attached files
 - `missing-topics-{ST}.md`: the {MISSING_COUNT} topics, each with the questions earlier states found worth checking and a few example rows from other states (examples of shape, never of {STATE_NAME}'s law).
-- `lease-clause-sop.md`, `lease-clause-topics.md`, `lease-clauses.csv` (the only source of truth for rows).
+- `lease-clause-sop.md`, `lease-clause-topics.md`.
+- `lease-clauses.csv.xz`: the library, compressed because it is over the 30 MB attachment limit. Decompress it (`xz -dk lease-clauses.csv.xz`, or Python's `lzma`); the result, `lease-clauses.csv`, is the only source of truth for rows.
 - {CORPUS_LINE}
 
 ## Step A check
-The attached CSV has **{ROW_COUNT} rows ({ACTIVE_COUNT} active)**, and **{ST_ACTIVE} active rows carry {ST}**. Confirm both, and that `missing-topics-{ST}.md` lists {MISSING_COUNT} topics, before starting. If they don't match, stop and tell Taylor.
+The attached CSV has **{ROW_COUNT} rows ({ACTIVE_COUNT} active)**, and **{ST_ACTIVE} active rows carry {ST}**. First confirm the decompressed `lease-clauses.csv` is {CSV_BYTES} bytes with SHA-256 `{CSV_SHA}`. Then confirm both counts, and that `missing-topics-{ST}.md` lists {MISSING_COUNT} topics, before starting. If they don't match, stop and tell Taylor.
 
 ## Citation format
 {CITATION_FORMAT}
@@ -52,7 +53,7 @@ The attached CSV has **{ROW_COUNT} rows ({ACTIVE_COUNT} active)**, and **{ST_ACT
 {STATE_ITEMS}
 
 ## Reminders
-- **Asking Taylor:** work it out yourself first. If you're unsure, ask Taylor in the chat right then, with a recommendation (rule 76). Never ask him for landlord experience outside Colorado, or to buy a lease.
+- **Asking Taylor:** work it out yourself first. If you're unsure, ask Taylor in the chat right then, with a recommendation (rule 76). Never ask Taylor for landlord experience outside Colorado, or to buy a lease.
 - **Groups:** use only the group names already in the CSV.
 - **Variables:** reuse existing `{{variables}}`; list any new one in the log.
 

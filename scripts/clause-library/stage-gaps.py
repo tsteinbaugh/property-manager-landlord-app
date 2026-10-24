@@ -16,6 +16,7 @@ out = sys.argv[3] if len(sys.argv) > 3 else os.path.expanduser(f"~/Desktop/{name
 if os.path.exists(out):
     sys.exit(f"{out} exists; never restage a folder Taylor may be using")
 
+csv_bytes = open("lease-clauses.csv", "rb").read()
 rows = list(csv.DictReader(open("lease-clauses.csv", newline="", encoding="utf-8")))
 states_of = lambda r: [s.strip() for s in re.split("[;,]", r["states"]) if s.strip()]
 active = [r for r in rows if r["is_active"] == "TRUE"]
@@ -54,6 +55,7 @@ fill = {
     "STATE_NAME": name, "ST": st,
     "STAGED_AT": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
     "ROW_COUNT": f"{len(rows):,}", "ACTIVE_COUNT": f"{len(active):,}",
+    "CSV_SHA": __import__("hashlib").sha256(csv_bytes).hexdigest(), "CSV_BYTES": f"{len(csv_bytes):,}",
     "ST_ACTIVE": str(sum(st in states_of(r) for r in active)),
     "TOPIC_COUNT": str(len(topics)), "HAVE_COUNT": str(len(have)), "MISSING_COUNT": str(len(missing)),
     "CORPUS_LINE": f"`corpus-{st}-*.tar.xz`, when present: official text Claude Code downloaded; its `README.txt` says what it holds and how to verify it. If your own tools reach the official site, the corpus is an optional cross-check; otherwise use it.",
@@ -68,8 +70,11 @@ if left:
     sys.exit(f"unfilled placeholders: {left}")
 
 os.makedirs(out)
-for f in ["lease-clause-sop.md", "lease-clause-topics.md", "lease-clauses.csv"]:
+for f in ["lease-clause-sop.md", "lease-clause-topics.md"]:
     shutil.copy(f, out)
+# The CSV passed the 30 MB attachment limit in October 2026, so it ships compressed.
+import lzma
+open(os.path.join(out, "lease-clauses.csv.xz"), "wb").write(lzma.compress(csv_bytes, preset=9))
 open(os.path.join(out, f"missing-topics-{st}.md"), "w", encoding="utf-8").write("\n".join(lines) + "\n")
 open(os.path.join(out, "GAPS-PROMPT.md"), "w", encoding="utf-8").write(text)
 print(f"ok - staged {out}: {len(missing)} missing topics, {len(have)} covered. "
