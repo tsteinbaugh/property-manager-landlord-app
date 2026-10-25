@@ -57,6 +57,7 @@ fill = {
     "ROW_COUNT": f"{len(rows):,}", "ACTIVE_COUNT": f"{len(active):,}",
     "CSV_SHA": __import__("hashlib").sha256(csv_bytes).hexdigest(), "CSV_BYTES": f"{len(csv_bytes):,}",
     "ST_ACTIVE": str(sum(st in states_of(r) for r in active)),
+    "SOP_VERSION": re.search(r"\*\*Version ([0-9.]+),", open("lease-clause-sop.md", encoding="utf-8").read()).group(1),
     "TOPIC_COUNT": str(len(topics)), "HAVE_COUNT": str(len(have)), "MISSING_COUNT": str(len(missing)),
     "CORPUS_LINE": f"`corpus-{st}-*.tar.xz`, when present: official text Claude Code downloaded; its `README.txt` says what it holds and how to verify it. If your own tools reach the official site, the corpus is an optional cross-check; otherwise use it.",
     "CITATION_FORMAT": "[FILL IN]",

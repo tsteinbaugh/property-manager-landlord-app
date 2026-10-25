@@ -23,7 +23,7 @@ If this chat is too long to continue (it says it's full, or it slows down or los
 - **Every answer is a row.** A topic {STATE_NAME} has law on gets a clause or an education row; a topic it has no law on gets a confirmed-absence education row backed by a battery (SOP rules 19 and 27). One subject per row, keyed by the topic's `topic_key` (rule 57).
 
 ## Procedure
-`lease-clause-sop.md` (SOP 1.84, attached) governs, and it may be much newer than the version this chat used before. Use these parts of it, scaled to a topic list:
+`lease-clause-sop.md` (SOP {SOP_VERSION}, attached) governs, and it may be much newer than the version this chat used before. Use these parts of it, scaled to a topic list:
 - **Sources and currency:** rules 12, 16, 19, 21, 24 (read the section whole; currency from history lines and the session laws; batteries with controls and positives for every absence).
 - **Answering topics:** rules 26-28 (tag first: an existing shared row that already states {STATE_NAME}'s law is tagged, not duplicated), 36, 54 (a lawful option the library declines still gets an education row), 55 (three-bucket test and `lease_clause_basis` for every new clause), 57, 59, 60, 79.
 - **Check:** rule 80, scaled down: **at most 2 rounds**, one agent at a time; the second round re-checks only rows edited after the first. Stop early on a clean round. List rows edited after the last round in the log.
