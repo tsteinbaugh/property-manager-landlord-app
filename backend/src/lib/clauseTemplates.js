@@ -776,7 +776,7 @@ const CLAUSE_TEMPLATES = [
     id: "keys",
     title: "Keys",
     group: "Rules & Regulations",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "WI", "WA", "KY", "WV", "MA", "NH", "VT", "AK", "HI", "LA", "AR", "MS", "PR", "VI", "AS", "MP"],
+    states: ["WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "ID", "MO", "IN", "OK", "MI", "IA", "NM", "MT", "WI", "WA", "KY", "WV", "MA", "NH", "VT", "AK", "HI", "LA", "AR", "MS", "PR", "VI", "AS", "MP"],
     bodyText:
       "At the start of the Term, Tenant will receive the keys specified by Landlord and will sign a receipt acknowledging the number and type of keys provided. Tenant will return all keys to Landlord at the end of the Term. If Tenant fails to return all keys or requires a replacement, Landlord may re-key the applicable locks and charge the cost to Tenant. Tenant may not duplicate keys without Landlord's consent.",
   },
@@ -849,7 +849,7 @@ const CLAUSE_TEMPLATES = [
     id: "hoa-compliance",
     title: "Homeowner / Condominium Association Compliance",
     group: "Disclosures",
-    states: ["CO", "WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "IA", "NM", "MT", "NY", "WI", "WA", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP"],
+    states: ["WY", "KS", "NE", "MN", "ND", "SD", "OH", "CA", "NV", "TX", "NJ", "FL", "AZ", "GA", "NC", "SC", "TN", "VA", "AL", "PA", "UT", "IL", "ID", "MO", "IN", "OK", "IA", "NM", "MT", "NY", "WI", "WA", "KY", "WV", "MD", "MA", "CT", "RI", "NH", "ME", "VT", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP"],
     bodyText:
       "If the property is located within a homeowner or condominium association, Tenant will comply with the association's rules and regulations applicable to the property. Any fines incurred due to Tenant's violation of association rules will be Tenant's responsibility.",
   },
@@ -1078,7 +1078,7 @@ const CLAUSE_TEMPLATES = [
     id: "prohibited-acts-renter-wy",
     title: "Prohibited Acts by Tenant",
     group: "Tenant Responsibilities",
-    states: ["WY", "AK", "HI", "AR", "MS", "DC", "GU", "AS", "MP"],
+    states: ["WY", "AK", "HI", "AR", "MS", "DC", "GU", "AS", "MP", "CO"],
     bodyText:
       "Tenant will not intentionally or negligently destroy, deface, damage, or impair any part of the property, or knowingly permit any other person to do so; interfere with another person's peaceful enjoyment of the property; or unreasonably deny access to, refuse entry to, or withhold consent to enter the property to Landlord or Landlord's agent for the purpose of making repairs, inspecting the property, or showing it for rent or sale.",
   },
@@ -1171,7 +1171,7 @@ const CLAUSE_TEMPLATES = [
     id: "extended-absence-notice-ks",
     title: "Notice of Extended Absence",
     group: "Tenant Responsibilities",
-    states: ["KS", "TN", "VA", "IA", "NM", "MT", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "NH", "ME", "VT", "LA", "AR", "MS", "DC", "PR", "VI", "AS", "MP"],
+    states: ["KS", "TN", "VA", "IA", "NM", "MT", "WI", "WA", "OR", "KY", "WV", "MD", "MA", "CT", "NH", "ME", "VT", "LA", "AR", "MS", "DC", "PR", "VI", "AS", "MP", "CO"],
     bodyText:
       "Tenant will occupy the property only as a dwelling unit unless otherwise agreed. If Tenant anticipates being away from the property for more than 7 consecutive days, Tenant will notify Landlord no later than the first day of the absence. If Tenant willfully fails to give this notice, Landlord may recover actual damages resulting from the failure.",
   },
@@ -6940,7 +6940,7 @@ const CLAUSE_TEMPLATES = [
     id: "rules-wi",
     title: "Rules and Regulations",
     group: "Rules & Regulations",
-    states: ["WI", "VT", "LA", "DC", "PR"],
+    states: ["WI", "VT", "LA", "DC", "PR", "CO"],
     bodyText:
       "Tenant will comply with Landlord's written rules for the property in effect when this Lease is signed: [attach the rules, or state that there are none]. A new or changed rule adopted after this Lease is signed binds Tenant during the Term only if Tenant agrees to it in writing, or if it is made part of a renewal of this Lease at the start of the renewal term.",
   },
@@ -6958,7 +6958,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-concession-wi",
     title: "Rent Concessions",
     group: "Rent & Payment",
-    states: ["WI", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP"],
+    states: ["WI", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO"],
     bodyText:
       "[Use only if Landlord gives Tenant any rent concession.] In connection with this Lease, Landlord gives Tenant the following rent concession, which is part of this Lease: [describe each period of free or reduced Rent, credit, rebate or other concession, with its amount or value and the rental periods to which it applies].",
   },
@@ -7318,7 +7318,7 @@ const CLAUSE_TEMPLATES = [
     id: "rent-installments-or",
     title: "Rent Paid in Installments",
     group: "Rent & Payment",
-    states: ["OR", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP"],
+    states: ["OR", "CT", "RI", "NH", "ME", "VT", "AK", "HI", "LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO"],
     bodyText:
       "Landlord and Tenant agree that Monthly Rent will be paid in installments as follows: [state each installment amount and the day of the month it is due]. Installments paid on this schedule are not partial payments of Rent. A late charge applies only as this Lease's late charge provision allows for the rental period.",
   },
@@ -7709,7 +7709,7 @@ const CLAUSE_TEMPLATES = [
     id: "informal-dispute-resolution-or",
     title: "Informal Dispute Resolution",
     group: "Notices & General",
-    states: ["OR", "AR", "MS", "DC", "GU", "VI", "AS", "MP"],
+    states: ["OR", "AR", "MS", "DC", "GU", "VI", "AS", "MP", "CO"],
     bodyText:
       "Before either party starts a court action about a dispute under this Lease, other than an action for possession, the party will give the other written notice describing the dispute and offer to meet, in person or by phone, within 10 days to try to resolve it informally. This Section does not delay or limit any notice, deadline or remedy that applicable law provides, including any action for possession or for emergency relief, and does not require either party to accept any proposal.",
   },
@@ -10329,7 +10329,7 @@ const CLAUSE_TEMPLATES = [
     id: "cannabis-restrictions-ak",
     title: "Marijuana Restrictions (Optional)",
     group: "Rules & Regulations",
-    states: ["AK", "MS", "DC", "PR", "GU", "AS", "MP"],
+    states: ["AK", "MS", "DC", "PR", "GU", "AS", "MP", "CO"],
     bodyText:
       "[Optional.] Marijuana. Tenant will not, and will not permit any occupant or guest to, [choose one or more: smoke, vape or otherwise inhale marijuana; grow marijuana plants; possess or use marijuana in any form] anywhere on the property, including inside the dwelling unit, in common areas and on the grounds. This restriction applies whether the marijuana is used for medical or other purposes.",
   },
@@ -11046,7 +11046,7 @@ const CLAUSE_TEMPLATES = [
     id: "furnishings-included-la",
     title: "Furnishings",
     group: "Security Deposit",
-    states: ["LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP"],
+    states: ["LA", "AR", "MS", "DC", "PR", "GU", "VI", "AS", "MP", "CO"],
     bodyText:
       "[Optional. Use only if the property is rented furnished.] Furnishings: The property is rented furnished. The furniture and furnishings Landlord provides, and their condition at the start of this Lease, are: [list each item and its condition, or attach a signed inventory]. Tenant will keep them at the property, will not remove or dispose of any item without Landlord's written consent, will tell Landlord promptly of any damage to them, and will return them at the end of this Lease in the same condition, except for normal wear and tear.",
   },
@@ -11114,7 +11114,7 @@ const CLAUSE_TEMPLATES = [
     id: "scheduled-services-entry-la",
     title: "Entry for Regularly Scheduled Services",
     group: "Access & Entry",
-    states: ["LA", "AR", "MS", "VI", "AS", "MP"],
+    states: ["LA", "AR", "MS", "VI", "AS", "MP", "CO"],
     bodyText:
       "[Optional.] In addition to Landlord's rights under the Landlord's Right of Entry section, Landlord or Landlord's agent may enter the property between [state hours, for example 9:00 a.m. and 6:00 p.m.] on the following schedule to provide these regularly scheduled services: [list each service and its schedule, for example changing air-conditioning filters every [number] months, or pest treatment every [number] months]. Landlord will give Tenant notice of each scheduled visit at least [state notice, for example 24 hours] in advance by [state method, for example text message, e-mail or a notice posted on the door], and will knock and announce before entering.",
   },
@@ -11122,7 +11122,7 @@ const CLAUSE_TEMPLATES = [
     id: "showing-notice-la",
     title: "Showings Near the End of the Lease",
     group: "Access & Entry",
-    states: ["LA", "AR", "MS", "VI", "AS", "MP"],
+    states: ["LA", "AR", "MS", "VI", "AS", "MP", "CO"],
     bodyText:
       "[Optional.] During the last [number] days of the Term, and at any time after either party gives notice of termination, Landlord, its agents and contractors may enter the property to show it to prospective tenants or purchasers on [state the shorter notice, for example same-day notice by telephone or text message] instead of the notice required by the Landlord's Right of Entry section, but only between [state hours, for example 9:00 a.m. and 7:00 p.m.]. Every other entry remains subject to the Landlord's Right of Entry section.",
   },
@@ -12820,7 +12820,7 @@ const CLAUSE_TEMPLATES = [
     id: "animal-care-access-vi",
     title: "Animal Care in Tenant's Absence (Virgin Islands)",
     group: "Pets",
-    states: ["VI", "AS", "MP"],
+    states: ["VI", "AS", "MP", "CO"],
     bodyText:
       "[Optional.] Animal Care: Tenant will tell Landlord in writing about every animal kept at the property. Tenant names the following person to care for or remove Tenant's animals if Tenant cannot because Tenant is hospitalized, incapacitated, detained or otherwise absent and an animal is left without care: [name and telephone number]. In that case, after trying to reach Tenant, Landlord may let that person into the property for that purpose only, and if that person cannot be reached Landlord may ask an animal warden, a peace officer, or the Humane Society or an animal shelter to take charge of the animal. Tenant will tell Landlord in writing if this information changes. This permission ends at Tenant's death; after that, Landlord will deal with Tenant's animals only through Tenant's personal representative or heirs or as the law otherwise allows.",
   },
@@ -13105,7 +13105,7 @@ const CLAUSE_TEMPLATES = [
     id: "guaranty-as",
     title: "Guaranty (Optional)",
     group: "Default & Termination",
-    states: ["AS", "MP"],
+    states: ["AS", "MP", "CO"],
     bodyText:
       "[Optional. Use only if a guarantor signs this Lease.] GUARANTY. [guarantor's full name] (\"Guarantor\") signs this Lease to guarantee to Landlord that Tenant will pay the Rent and perform Tenant's other obligations under this Lease, up to a total maximum of $[maximum amount]. This guaranty covers the Term and [choose one: also covers any renewal, extension or month-to-month continuation of this Lease, including any change in Rent made under this Lease / ends when the Term ends, except for amounts that became due during the Term]. Guarantor's obligations are never larger than Tenant's. Landlord may ask Guarantor to pay without first suing Tenant. Guarantor has read this Lease and received a copy.",
   },
@@ -13344,6 +13344,430 @@ const CLAUSE_TEMPLATES = [
     states: ["MP"],
     bodyText:
       "[Optional.] FIREARMS. Tenant, occupants and guests will acquire, possess, carry, transport and store any firearm or ammunition at the property only as Northern Mariana Islands and federal law allow, including holding any Firearm Owner's Identification Card the law requires. Any firearm kept at the property must be stored in a locked container or disabled with a trigger lock whenever it is not carried by a person over the age of 21 or under the immediate control of a law enforcement officer. No one may discharge a firearm at the property except as the law permits. No firearm or ammunition may be offered or held as security for any obligation under this Lease. [Optional: Landlord has posted, or may post, the common areas of the property as a Gun Free Zone as Commonwealth law allows, and no one may possess a firearm in a posted area except as the law permits. This does not limit Tenant's lawful possession of a firearm inside the dwelling unit or its lawful transport to and from the unit.] A violation of this Section is a breach of this Lease. Nothing in this Section authorizes anyone to possess or carry a firearm where Commonwealth or federal law prohibits it.",
+  },
+  // Default & Termination
+  {
+    id: "abandoned-property-co",
+    title: "Property Left Behind After the Tenancy Ends",
+    group: "Default & Termination",
+    states: ["CO"],
+    bodyText:
+      "You must remove all of your personal property from the Premises on or before the day the tenancy ends. If the tenancy has ended, or you have given up possession of the Premises, and personal property of yours is still there, we may remove it and either store it or dispose of it in any way the law allows. You will reimburse us for the actual, documented amount a third party charges us to remove and store that property, with no markup, no administrative charge and no escalation added by us. We will not treat that amount as rent, we will not collect it by an eviction action, and we will not charge you anything for its late payment. We will not charge you under this section for anything we are required to do anyway. If the tenancy ends because of your death, we will charge nothing under this section. If we store property of yours, we will give you written notice at your last address known to us saying where the property is and how to claim it, and we will give you a reasonable chance, at a reasonable time and in a reasonable manner, to come to the Premises and collect any property we are not entitled to hold. Nothing in this section allows us to take, hold or shut you out from your property, or to treat the Premises as given up, while you are still in possession.",
+  },
+  // Notices & General
+  {
+    id: "accessory-dwelling-unit-term-co",
+    title: "The Premises Is an Accessory Dwelling Unit",
+    group: "Notices & General",
+    states: ["CO"],
+    bodyText:
+      "The Premises is an accessory dwelling unit: a separate dwelling with its own living, sleeping, cooking and bathroom facilities, located on the same lot as the primary residence at {{property_address}}. You acknowledge that [describe who occupies the primary residence on the lot, for example \"the Landlord occupies the primary residence on the lot\"], and that the following areas are shared rather than part of the Premises: [list shared areas - driveway, parking space, yard, walkways, trash enclosure, laundry, storage]. You may use those shared areas for their ordinary purpose, and you will not store property in them, block the driveway or the primary residence's access, or use them in a way that interferes with the occupants of the primary residence. The following utilities serve the Premises and the primary residence through the same meter or connection and are handled as set out in the utilities section of this Lease: [list shared utilities, or write \"none\"]. Because the Premises and the primary residence sit on one lot and share these areas, both households will keep noise, guests, pets, vehicles and outdoor activity to a level that does not unreasonably disturb the other, and we will each give the other reasonable notice before work or deliveries that will block shared access. Nothing in this section reduces your right to exclusive possession of the inside of the Premises or any right you have under law.",
+  },
+  {
+    id: "adverse-proceeding-notice-co",
+    title: "Tenant Must Forward Notices Received at the Premises",
+    group: "Notices & General",
+    states: ["CO"],
+    bodyText:
+      "If any notice, summons, complaint, demand or other document about the Premises or the building arrives at the Premises from a court, a sheriff, a public trustee, a lender or lienholder, a government agency, an association, or a utility, you will give us a copy promptly and in any event within three days of receiving it, by [state how to send it - email address, portal, or mailing address]. This includes anything addressed to the owner, to a former owner, to \"Occupant\" or to a name you do not recognise. You do not have to answer it, act on it or pay anything under it, and giving us a copy does not make you responsible for it or waive any right you have. We will tell you within a reasonable time if anything in it affects your tenancy. This section does not require you to give us a copy of anything about your own personal or legal affairs that has nothing to do with the Premises or the building.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "alarm-duties-co",
+    title: "Smoke and Carbon Monoxide Alarms",
+    group: "Landlord Responsibilities",
+    states: ["CO"],
+    bodyText:
+      "The Premises has the following alarms: [list each carbon monoxide alarm and smoke alarm and where it is]. At the start of the tenancy we will give you any batteries needed to make each carbon monoxide alarm work. From then on you will keep, test and maintain every alarm in the Premises in good repair, including replacing batteries. You will tell us in writing, as soon as you can, if the batteries in any alarm need replacing, if any alarm is stolen, removed, missing or not working, or if there is any problem with an alarm that you cannot fix yourself. You will not remove the batteries from an alarm, disconnect it, cover it, paint it or do anything else that stops it working, and you will not let anyone else do so, except while you are inspecting, maintaining, repairing or replacing the alarm or its batteries. If you tell us an alarm is stolen, removed, missing or not working, or report a problem you cannot fix, we will replace it or fix it. Before a new tenant moves in we replace any carbon monoxide alarm that is stolen, removed, missing or not working. Tell us straight away, by any means, if an alarm sounds and you do not know why, and leave the Premises and call 911 if a carbon monoxide alarm sounds.",
+  },
+  {
+    id: "appliances-excluded-co",
+    title: "Items at the Premises We Do Not Provide",
+    group: "Landlord Responsibilities",
+    states: ["CO"],
+    bodyText:
+      "[Optional. Use this only for items you do not provide. Never list a refrigerator, range, stove, oven, air conditioner or any other cooling device you leave at the Premises, and never list anything whose failure could affect health or safety - once you provide it, Colorado law makes it yours to maintain.] The following items are at the Premises but are not provided by us and are not part of what we lease to you: [list each item and who owns it]. We do not repair, maintain, replace or insure them. You may use them at your own risk, or ask us in writing to remove them, and we will remove them within a reasonable time if you do. If you bring your own appliance or equipment to the Premises, it stays yours, we do not maintain it, and at the end of the tenancy you will remove it and repair any damage its installation or removal caused. We will not charge you any fee for an item listed in this section, because we do not provide it. Nothing in this section applies to any appliance or equipment we do actually provide to you at the start of or during the tenancy, or that this Lease says we provide, or that the law requires us to provide or maintain. Nothing in this section applies to any condition that makes the Premises uninhabitable, and nothing in it gives up any right you have under Colorado's warranty of habitability, which cannot be waived.",
+  },
+  // Disclosures
+  {
+    id: "association-documents-provided-co",
+    title: "Association Rules and Documents",
+    group: "Disclosures",
+    states: ["CO"],
+    bodyText:
+      "The Premises is part of a common interest community governed by [name of the homeowners', condominium or townhome association]. You acknowledge that before signing this Lease we gave you a copy of the association documents that restrict how the Premises and the common areas may be used: [list what you gave - declaration, bylaws, rules and regulations, parking rules, pet rules, architectural rules]. You will comply with them as they apply to occupants, and you will not do anything at the Premises that puts us in breach of them. We will give you a copy of any change to them that affects you as soon as we reasonably can after we receive it. We pay the association's regular and special assessments, and we will not charge you for them, for any part of them, or for the maintenance of any common area. If the association fines us or charges us because of something you, or someone you let in, did or failed to do, you will reimburse us the actual documented amount, with no markup added, after we give you a copy of the association's notice and a reasonable chance to cure, unless the association withdraws or reduces it. The association deals with us, not you, so send us anything you receive from it, and tell us promptly if the association contacts you directly.",
+  },
+  // Default & Termination
+  {
+    id: "automatic-renewal-co",
+    title: "Automatic Renewal",
+    group: "Default & Termination",
+    states: ["CO"],
+    bodyText:
+      "[Optional. Use this only if you want the Lease to roll over rather than end on its last day. Keep the renewal term to one year or less, and set the reminder and cancellation deadlines you will actually honour.] AUTOMATIC RENEWAL - THIS LEASE RENEWS ITSELF UNLESS YOU OR WE CANCEL IT. At the end of the Term this Lease renews on the same terms for a further term of [state the renewal term, one year or less], and renews again at the end of each renewal term, unless either of us gives the other written notice of non-renewal at least [state the number of days, at least 30] days before the end of the then-current term. Before each renewal we will send you a reminder, no more than 40 and no fewer than 25 days before the renewal date, by mail, by email, or by another method you have authorised or normally use with us; the reminder will say that the Lease will renew, what the renewal term and the rent will be, and exactly how to cancel. You may cancel a renewal at any time up to the deadline by telling us in writing, and you may also cancel by [state the simplest method you offer - a link in the reminder, a reply to the email, or a form at the office]. The rent for a renewal term is the rent then in effect unless we have given you a rent-increase notice in the manner and within the time the law requires. We will not charge you any fee, damages or penalty for choosing not to renew, and if you do not give us a notice this Lease requires we will claim only the loss we actually incur because of it. If we make a material change to the terms for a renewal term, we will tell you clearly before the renewal and tell you again how to cancel. Nothing in this section shortens any notice the law requires us to give you, removes any reason the law requires us to have before ending or refusing to renew your tenancy, or affects your rights under Colorado law.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "bed-bug-cooperation-co",
+    title: "Bed Bugs - Reporting, Access and Preparation",
+    group: "Tenant Responsibilities",
+    states: ["CO"],
+    bodyText:
+      "If you know or reasonably suspect that the Premises has bed bugs, you must tell us promptly in writing or electronically. Send that notice to: {{bed_bug_reporting_procedure}}. If you send it electronically, keep proof that it was delivered. Before an inspection or a treatment, we will give you written or electronic notice at least [state the notice period - 48 hours unless you have agreed a different minimum with the tenant] before we, a qualified inspector or a pest control agent try to enter the Premises, and you will not unreasonably refuse us access. The inspector may carry out an initial visual and manual inspection of your bedding and upholstered furniture, and may inspect other items when the inspector decides that is necessary and reasonable; if bed bugs are found here or in a next-door unit we lease, the inspector may have whatever further access to your belongings the inspector decides is necessary and reasonable. You will comply with the reasonable preparation and treatment measures the qualified inspector sets, and you are responsible for the cost of getting the Premises ready for inspection and treatment - for example laundering, bagging and moving your own belongings. If your furniture, clothing, equipment or other property is found to contain bed bugs, do not take it out of the Premises until a pest control agent says the treatment is finished, and never put it in a hallway, dumpster area or other shared space where it could spread the infestation. We pay for the inspections and the treatments. If you knowingly and unreasonably fail to do what this section and Colorado's bed bug law require, and treatment of the Premises or a next-door unit becomes necessary because of that, you are responsible for the cost of that treatment. Nothing in this section requires us to provide you with other lodging or to replace your property, and nothing in it affects your right to a reasonable accommodation for a disability or your right to contact a local health department or any other agency at any time.",
+  },
+  {
+    id: "carpet-condition-at-move-out-co",
+    title: "Carpet Condition at Move-Out",
+    group: "Tenant Responsibilities",
+    states: ["CO"],
+    bodyText:
+      "When the tenancy ends you will leave the carpets at least as clean as they were when it began, allowing for ordinary use. Vacuum them, and clean up spills, pet accidents and stains that go beyond ordinary use. We will not charge you for cleaning, repairing or replacing carpet that is simply worn, faded or soiled from living in the Premises normally, and we will not charge you for anything that was already there when you moved in. If the carpets are left substantially less clean than they were at the start of the tenancy, you will pay the actual documented cost of the cleaning needed to bring them back to that condition, and no more - no flat fee, no markup, no administrative charge and no charge for late payment of it. We will tell you in writing what we are charging and why, and we will give you the photographs, inspection forms, receipts, invoices or estimates we hold that are relevant to it if you ask us in writing. Either of us may ask for a walk-through inspection of the Premises before the tenancy ends and after you have had the chance to remove your furniture, and if the request is reasonable and practicable we will do one, in person or by video, and write down anything that is beyond ordinary use and was not there when you moved in. You are not required to have the carpets professionally cleaned, and we will not require it.",
+  },
+  {
+    id: "no-liens-co",
+    title: "No Liens for Tenant Work (Colorado)",
+    group: "Tenant Responsibilities",
+    states: ["CO"],
+    bodyText:
+      "[Optional.] Tenant will not have any construction, alteration, improvement, addition or repair work done at the property without Landlord's prior written consent. Before any such work is ordered or begun, Tenant will give Landlord written notice of the work, the address where it will be done, what it involves, and the name and contact details of every contractor, subcontractor and supplier Tenant expects to use, and Tenant will give Landlord that notice at least [number] days before the work begins or immediately on learning of it, whichever is earlier. Tenant will tell Landlord in writing as soon as Tenant learns that any work has been done or started at the property that Tenant did not order. Tenant will pay in full and on time everyone Tenant hires, or whose work or materials Tenant orders, for any such work. If a lien is recorded against the property because of work Tenant ordered, Tenant will have it released or discharged within [number] days after Tenant learns of it and will reimburse Landlord for the actual costs Landlord incurs because of it. Tenant will cooperate with Landlord in giving or posting any notice Landlord chooses to give under Colorado's construction lien law, and will not remove, cover or deface any notice Landlord posts at the property. Any consent Landlord gives to work under this Lease is consent as between Landlord and Tenant only, is not an agreement by Landlord to pay for the work, and does not make Tenant Landlord's agent for any purpose other than as Colorado law may itself provide. This Section does not apply to a repair Landlord is responsible for making, to a repair or replacement Tenant is entitled to make and deduct under Colorado's habitability law, or to anything Tenant is entitled to install under Colorado law.",
+  },
+  // Disclosures
+  {
+    id: "conversion-notice-co",
+    title: "Condominium Conversion Disclosure (Colorado)",
+    group: "Disclosures",
+    states: ["CO"],
+    bodyText:
+      "[Optional. Use only where a condominium declaration covering the property has already been recorded.] CONDOMINIUM CONVERSION. LANDLORD INTENDS TO CONVERT THE PROPERTY CONTAINING THE LEASED PREMISES TO CONDOMINIUM OWNERSHIP. A CONDOMINIUM DECLARATION COVERING THE PROPERTY WAS RECORDED ON [date] IN [county] COUNTY, COLORADO. BECAUSE OF THAT CONVERSION, LANDLORD MAY END THIS LEASE BY GIVING TENANT WRITTEN NOTICE AT LEAST [number] DAYS BEFORE THE DATE TENANT MUST MOVE OUT, WHICH MAY BE FEWER THAN NINETY DAYS. Tenant acknowledges that Tenant was informed of the recording of the declaration when Tenant applied to rent the premises. Landlord will give any notice under this Section in writing, by certified or registered mail with return receipt requested to Tenant's last known address, or by delivering it to Tenant in person. Nothing in this Section shortens any notice period that Colorado law requires for the ground on which Landlord actually ends the tenancy, and if any other Colorado law gives Tenant a longer notice period or greater protection, that law applies instead of this Section.",
+  },
+  // Security Deposit
+  {
+    id: "deposit-charge-schedule-co",
+    title: "Charges Recoverable from the Security Deposit",
+    group: "Security Deposit",
+    states: ["CO"],
+    bodyText:
+      "Landlord may retain from the Security Deposit reasonable amounts for unpaid rent, unpaid utility charges, any other lawful charge listed in this Lease, and necessary repair work for damage or defective conditions that exceed normal wear and tear and did not exist before Tenant's tenancy began. The lawful charges listed in this Lease for this purpose are: [list each charge the lease imposes, for example: unpaid rent; unpaid utility charges billed to Tenant; the late fee stated in this Lease; the returned-payment charge stated in this Lease; the cost of replacing keys or access devices Tenant does not return]. Each amount Landlord retains for repair, replacement or cleaning will be the actual cost of the specific work done, supported by the receipt, invoice or estimate for that work, and will be limited to the area or item actually affected. Landlord will not charge Tenant, and will not retain any part of the Security Deposit, for repairs, cleaning or other work due to normal wear and tear, or for any damage or defective condition that existed before Tenant's tenancy began. If this Lease ends early because Tenant has died, Landlord will not retain any amount for liquidated damages, for rent accelerated beyond the period Colorado law allows, for the repayment of any concession or move-in discount, or for any other fee, damages or penalty assessed as a result of the early termination; Landlord may still retain an amount sufficient to cover damage to the property caused by the death. None of the amounts described in this clause is rent, and Landlord will not use any remedy for the collection of rent, including eviction, to collect them.",
+  },
+  {
+    id: "deposit-not-last-month-rent-co",
+    title: "Security Deposit Is Not Rent",
+    group: "Security Deposit",
+    states: ["CO"],
+    bodyText:
+      "The Security Deposit secures Tenant's performance of this Lease. It is not rent and it is not prepayment of rent. Tenant may not apply, or direct Landlord to apply, any part of the Security Deposit to any rent payment, including the rent for the final month of the Lease, and Tenant must pay each month's rent in full when it is due, including the final month's rent. Nothing in this clause limits Landlord's right, after this Lease ends and Tenant has surrendered the property, to retain reasonable amounts from the Security Deposit for unpaid rent or for any other reason Colorado law allows.",
+  },
+  {
+    id: "deposit-surrender-notice-co",
+    title: "Move-Out Notice and Forwarding Address",
+    group: "Security Deposit",
+    states: ["CO"],
+    bodyText:
+      "When Tenant surrenders the property, Tenant will give Landlord written notice that Tenant has moved out and will provide Landlord with a correct forwarding address and, if Tenant wishes to receive Landlord's deposit statement and any refund by email, an email address. Tenant will keep that forwarding address current with Landlord until the Security Deposit has been accounted for. Tenant may ask Landlord for a walk-through inspection of the property before this Lease ends and after Tenant has had the opportunity to remove furniture, and Landlord will provide one at a time convenient to both. Landlord's duty to return the Security Deposit and to deliver the written statement of any amounts retained is not conditional on this clause: Landlord will send them within the time this Lease and Colorado law require, to Tenant's last known address or to an email address Landlord has actual notice of, whether or not Tenant gives the notice or the forwarding address this clause asks for.",
+  },
+  // Notices & General
+  {
+    id: "disability-accommodation-request-co",
+    title: "Requesting a Disability Accommodation or Modification",
+    group: "Notices & General",
+    states: ["CO"],
+    bodyText:
+      "Landlord does not discriminate on the basis of disability. If Tenant, an Occupant, or someone associated with them has a disability and needs a reasonable accommodation - an exception or adjustment to a rule, policy, practice or service - or a reasonable modification of the property in order to have equal opportunity to use and enjoy the property, including its public and common-use spaces, Tenant may request it at any time, before or during the tenancy, by contacting Landlord at: [insert the mailing address, email address or portal for accommodation and modification requests - never a telephone number as the only channel]. A request may be made in any manner and need not use this channel or any particular form; this channel is provided so that Landlord receives the request promptly and can respond. Landlord will work with Tenant in good faith to discuss the request and will respond without unnecessary delay. Where the disability and the disability-related need are not obvious, Landlord may ask for reasonable documentation supporting them, and will not ask about the nature or severity of the disability beyond what is needed to evaluate the request. Landlord will not charge Tenant any fee, charge, deposit or surcharge for making, considering or granting a request. Where Landlord agrees to a modification of the property, Landlord and Tenant will record in a separate written agreement, signed before the work begins, who will do the work, who will pay for it, and what if anything is to happen to the modification at the end of the tenancy.",
+  },
+  // Access & Entry
+  {
+    id: "dv-lock-change-co",
+    title: "Lock Changes and Safety Measures by a Victim-Survivor",
+    group: "Access & Entry",
+    states: ["CO"],
+    bodyText:
+      "If Tenant notifies Landlord that Tenant is a victim-survivor of unlawful sexual behavior, stalking, domestic violence or domestic abuse and provides Landlord with the documentation Colorado law allows for that purpose, Tenant may change the locks on the property, including electronic locks, and may take other reasonable safety precautions, including installing window bars or cameras or making other non-permanent modifications. Landlord will not prevent Tenant from doing so, will not charge Tenant any fee or impose any penalty for doing so, and will not take any adverse action or retaliate against Tenant for doing so. Doing so is not a breach of this Lease. Tenant will make all reasonable efforts to give Landlord a copy of the new key, or the electronic code or other information needed to open an electronic lock, as soon as reasonably practicable and no later than 14 days after the lock is changed. If the person alleged to be responsible is Landlord, the property manager or the owner of the property, Tenant will instead make reasonable efforts to give the key or code to another person who has authority to manage the property and whom Tenant considers safe, provided that person agrees not to share it with the person alleged to be responsible. Landlord will take all steps reasonably necessary to ensure the safety of the property in response to Tenant's safety concerns. Any part of this Lease that would prohibit Tenant from changing a lock as a safety precaution, or from taking other reasonable safety precautions, does not apply.",
+  },
+  // Notices & General
+  {
+    id: "dv-qualifying-documents-co",
+    title: "Documentation of Victim-Survivor Status",
+    group: "Notices & General",
+    states: ["CO"],
+    bodyText:
+      "A Tenant who is a victim-survivor of unlawful sexual behavior, stalking, domestic violence or domestic abuse, or a qualified third party acting for Tenant, may notify Landlord of that fact in writing, and may provide the documentation Colorado law allows for that purpose. Colorado law permits Tenant to provide any one of the following, and Landlord will not require more than one: a self-attestation affidavit; a letter signed by a qualified third party such as an employee, agent or volunteer of a victim-survivor service provider, an attorney, a social worker, a medical professional, a faith leader or a mental health provider from whom Tenant has sought assistance; a police report from the prior 120 days stating that Tenant reported the conduct; or a valid civil, criminal or emergency protection order or restraining order. If Tenant seeks to exercise a right that depends on this documentation before providing it, Tenant will provide it to Landlord within 7 days after Landlord's written request. If the documentation Tenant provides contains conflicting information, Landlord may require Tenant to provide a letter signed by a qualified third party instead. Landlord will keep the fact that Tenant is a victim-survivor, and any new address Tenant provides, confidential, and will not disclose either to any person, including a co-tenant, without Tenant's express written consent unless a court order requires disclosure. Landlord will not ask Tenant to explain the nature or severity of the conduct, and will not require any document Colorado law does not list.",
+  },
+  // Disclosures
+  {
+    id: "electric-submeter-billing-co",
+    title: "Electricity Billed by Submeter",
+    group: "Disclosures",
+    states: ["CO"],
+    bodyText:
+      "Electricity supplied to the property is measured by a submeter dedicated to the property rather than billed to Tenant directly by the utility provider. Landlord will bill Tenant for electricity on the basis of Tenant's submeter readings only. The amount Landlord bills Tenant will not exceed the amount the utility provider charged for the electricity measured by that submeter, and Landlord will not include in Tenant's bill any cost of the electricity used in common areas or shared facilities. Landlord's administrative charge for billing electricity to Tenant is [state one: none / 2% of the amount the utility provider billed Landlord for Tenant's electricity / a flat amount of no more than $10.00 per month] and will not increase during a lease term of one year or less by more than 2%. Landlord will bill Tenant no more often than monthly and will show on each bill the submeter readings for the period, the utility provider's rate or charge the bill is based on, and any administrative charge separately. Landlord will give Tenant a copy of the underlying utility bill or the submeter reading data for any billing period within a reasonable time after Tenant asks. The amount Tenant owes for electricity under this Section is not rent, and Landlord will not use any remedy for the collection of rent, including eviction, to collect it.",
+  },
+  // Notices & General
+  {
+    id: "emergency-contact-co",
+    title: "Tenant's Emergency Contact (Optional)",
+    group: "Notices & General",
+    states: ["CO"],
+    bodyText:
+      "[Optional.] Tenant will give Landlord the name, relationship and telephone number of at least one person Landlord may try to reach in an emergency affecting Tenant or the Property, and will tell Landlord in writing if that information changes. Landlord may contact that person only in an emergency, or when Landlord cannot reach Tenant about an urgent condition at the Property, and will not use the information for any other purpose or give it to anyone else except as the law requires. Naming a contact does not make that person liable for Rent or for any other obligation under this Lease, does not make that person Tenant's agent, and does not give that person any right to enter the Property. Emergency contact name: [name]. Relationship to Tenant: [relationship]. Telephone: [telephone number].",
+  },
+  // Default & Termination
+  {
+    id: "eminent-domain-co",
+    title: "Condemnation (Optional)",
+    group: "Default & Termination",
+    states: ["CO"],
+    bodyText:
+      "[Optional.] If a government or other authority with the power of eminent domain takes all of the Property and takes possession of it, Tenant's right to possession under this Lease ends when the authority's right to possession begins, Rent is apportioned to that date, and Landlord will refund any Rent Tenant has paid for later days. If only part of the Property is taken and the rest can still reasonably be lived in, this Lease continues and Rent is reduced in proportion to the part Tenant can no longer use, from the date the authority takes possession of that part. Any award, settlement or payment for the taking of the Property itself, including any amount attributable to the value of this Lease, belongs to Landlord, and Tenant will not claim any part of it. That does not affect any relocation payment, moving-expense payment, replacement-housing payment or other separate payment the authority makes to Tenant for Tenant's own moving costs, personal property or replacement housing: those belong to Tenant, and Tenant may claim and keep them. Nothing in this Section gives Landlord any right to end this Lease, to serve a notice to terminate, or to require Tenant to leave that Colorado law does not give Landlord, and nothing in it shortens any notice period or removes any ground Colorado law requires before a tenancy may be ended. Landlord will return the Security Deposit as this Lease and Colorado law require.",
+  },
+  // Disclosures
+  {
+    id: "energy-data-release-co",
+    title: "Energy-Use Data Release for Building Benchmarking (Optional)",
+    group: "Disclosures",
+    states: ["CO"],
+    bodyText:
+      "[Optional. Use this Section only if the building containing the Property is covered by Colorado's energy benchmarking law and the utility will not release aggregated data for the building without tenant consent.] Tenant consents to Landlord obtaining from the utility companies that serve the Property the energy-use data for Tenant's utility accounts at the Property, and to Landlord sharing that data with the Colorado Energy Office and the benchmarking tool, for the sole purpose of measuring and reporting the building's energy performance as Colorado law requires. Landlord will use the data only for that purpose and will not disclose it to anyone else except as that law requires. This consent stays in force until Tenant revokes it. Tenant may revoke it, or may decline to give it, at any time by written notice to Landlord, and doing so is not a breach of this Lease: Landlord will not charge Tenant any fee or other amount, will not treat it as a default, and will not take any other adverse action against Tenant because of it. Landlord will give Tenant a copy of the building's most recent reported benchmarking data on request.",
+  },
+  // Security Deposit
+  {
+    id: "deposit-forwarding-address-co",
+    title: "Forwarding Address at Move-Out",
+    group: "Security Deposit",
+    states: ["CO"],
+    bodyText:
+      "Before or at the time Tenant gives up possession, Tenant will give Landlord a correct forwarding address in writing, and will tell Landlord in writing if it changes before the Security Deposit has been accounted for. Landlord may send the Security Deposit, and any written statement of amounts retained, to that address. If Tenant does not give a forwarding address, Landlord may send them to the last address Landlord has for Tenant. Landlord's duty to account for and return the Security Deposit within the time Colorado law allows does not depend on Tenant giving a forwarding address, and nothing in this Section delays it.",
+  },
+  // Rules & Regulations
+  {
+    id: "farmland-sporting-rights-co",
+    title: "Hunting, Fishing and Trapping Reserved (Optional)",
+    group: "Rules & Regulations",
+    states: ["CO"],
+    bodyText:
+      "[Optional. For rural or agricultural property.] Landlord reserves to Landlord all rights to hunt, fish and trap on the Property and all rights to grant those privileges to others. Tenant will not hunt, fish or trap on the Property, and will not give any other person permission to enter the Property to hunt, fish or trap, unless Landlord has agreed in writing. If Landlord gives that written agreement, Tenant will comply with every condition in it and with all state and local wildlife and firearms law, and nothing in it makes Landlord responsible for the acts of anyone Tenant allows on to the Property. Landlord and anyone Landlord authorizes may enter the unoccupied land of the Property to hunt, fish or trap, and will do so without unreasonably interfering with Tenant's use of the Property or with any crop or livestock, and will not enter any dwelling on the Property except as this Lease otherwise allows.",
+  },
+  {
+    id: "firearms-co",
+    title: "Firearms (Optional)",
+    group: "Rules & Regulations",
+    states: ["CO"],
+    bodyText:
+      "[Optional.] Tenant, occupants and guests will not discharge any firearm at the Property except in a lawful act of defense of persons, and will keep any firearm kept at the Property responsibly and securely stored when it is not in use, as Colorado law requires, so that an unsupervised juvenile or any resident of the Property who is not legally allowed to have a firearm cannot get to it. Tenant will not keep at the Property any firearm, ammunition, explosive or destructive device that Tenant is not legally allowed to have. Nothing in this Section limits Tenant's right to call for police or other emergency assistance, and nothing in this Section is a basis for ending this Lease or charging Tenant anything because Tenant, a member of Tenant's household or a guest called for police or emergency help.",
+  },
+  // Rent & Payment
+  {
+    id: "governmental-fines-co",
+    title: "Nuisance Abatement Costs and Fines Caused by Tenant (Optional)",
+    group: "Rent & Payment",
+    states: ["CO"],
+    bodyText:
+      "[Optional.] If a municipality serves Landlord and Tenant with notice that a nuisance ordinance has been violated by conduct or a condition on the Property that Tenant, a member of Tenant's household, or a person on the Property with Tenant's permission caused or allowed, Tenant will abate the nuisance. If Tenant has not abated it within five days after Landlord delivers written notice to Tenant to do so, Landlord may enter the exterior area of the Property and abate it, and Tenant will pay Landlord the amount of Landlord's direct costs of abating the nuisance and the amount of any fine the municipality imposes on Landlord on or after the date Tenant received the municipality's notice. Landlord will give Tenant a written statement with a copy of the municipality's notice and of the citation, order or bill, together with receipts or invoices for the abatement costs, and Tenant will pay the amount within [number] days after Landlord delivers that statement. This Section does not apply to a fine, penalty, cost or charge for a condition Landlord is responsible for under this Lease or the law, for the maintenance of common areas, or arising from an eviction notice or an eviction action. This Section does not apply, and Landlord will not charge Tenant or deduct anything from the Security Deposit, where the nuisance, disturbance or condition arises from unlawful sexual behavior, stalking, domestic violence or domestic abuse against Tenant or a member of Tenant's household, or from any call for peace-officer or other emergency assistance; nothing in this Lease limits Tenant's right to make such a call. Amounts under this Section are not Rent, Landlord will not add a late fee or interest to them, and Landlord will not collect them out of a Rent payment.",
+  },
+  // Disclosures
+  {
+    id: "environmental-covenant-incorporation-co",
+    title: "Recorded Environmental Covenant or Use Restriction",
+    group: "Disclosures",
+    states: ["CO"],
+    bodyText:
+      "[Use only if the Property is subject to a recorded environmental covenant or a recorded notice of environmental use restrictions.] The Property is subject to a recorded environmental covenant or notice of environmental use restrictions held or issued by the Colorado Department of Public Health and Environment and recorded at [recording reference]. That covenant or notice is incorporated into this Lease in full by this reference, and a complete copy is attached to this Lease as an addendum that Tenant acknowledges receiving before signing. Tenant will use and occupy the Property only in ways the covenant or notice permits, will not disturb, alter, remove or build over any engineered feature or structure the covenant or notice protects or requires to be monitored, maintained or operated, and will not do or allow anything on the Property that would violate it. Tenant will give Landlord prompt written notice of any disturbance of or damage to such a feature or structure, and of any notice Tenant receives from a government agency about the Property. Tenant will allow Landlord and the Department access to the Property at reasonable times, with prior notice, for the purpose of determining compliance with the covenant or notice.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "heat-freeze-protection-co",
+    title: "Keeping the Heat On (Freeze Protection)",
+    group: "Tenant Responsibilities",
+    states: ["CO"],
+    bodyText:
+      "[Optional. Use where Tenant controls the heat and a freeze could damage the Property.] Tenant will use the heating system in a reasonable manner and will keep the heat on in the Property whenever outside temperatures could cause water pipes or fixtures to freeze, maintaining an interior temperature of at least [minimum interior temperature, for example 55 degrees Fahrenheit] at all times during the heating season, including while Tenant is away. Tenant will not turn the heat off, block or cover a heating vent or register, or set the thermostat below that temperature. Tenant will tell Landlord in writing, right away, if the heating system stops working, if a vent or chimney looks damaged or out of line, or if Tenant smells gas, and will leave the Property and call the gas utility and emergency services if Tenant smells gas. If Tenant will be away for more than [number] consecutive days during the heating season, Tenant will tell Landlord in advance so that Landlord can arrange to check the Property. Nothing in this Section makes Tenant responsible for repairing or maintaining the heating system, which remains Landlord's responsibility. Tenant is responsible for the cost of repairing damage to the Property that is caused by Tenant's failure to comply with this Section and that goes beyond normal wear and tear and did not exist before the tenancy began.",
+  },
+  // Disclosures
+  {
+    id: "association-approval-co",
+    title: "Association Approval of This Lease",
+    group: "Disclosures",
+    states: ["CO"],
+    bodyText:
+      "[Use only if the Property is in a condominium or planned community whose declaration or bylaws require the association to approve a lease or a tenant.] This Lease is conditional on the association's approval. Tenant will apply promptly, give the association the information it reasonably requires, sign any lease addendum or occupancy agreement the association's governing documents require, and cooperate in the approval process. Landlord will pay any application, approval, administrative or transfer fee the association charges in connection with this Lease, and any deposit the association requires in connection with this Lease; Tenant will not be charged for any of them. Tenant will not take possession of the Property and Rent will not begin to accrue until the association has approved this Lease or Tenant. If the association has not approved by [date], either party may end this Lease by written notice given to the other before Tenant takes possession, and Landlord will then return every amount Tenant has paid under this Lease, in full and without deduction, within the time Colorado law allows for returning a security deposit. Once Tenant takes possession, this Section gives Landlord no right to end this Lease or to recover possession, and nothing in this Section affects Colorado law on notice, cause or eviction.",
+  },
+  // Default & Termination
+  {
+    id: "holdover-rate-co",
+    title: "Daily Charge for Staying Past the Term",
+    group: "Default & Termination",
+    states: ["CO"],
+    bodyText:
+      "[Optional. Use only with a figure you can justify as your likely daily loss.] If Tenant stays in the Property after the Term ends without Landlord's written agreement to a new or continued tenancy, Tenant will pay Landlord {{holdover_daily_rate}} for each day, or part of a day, that Tenant remains in possession after the end of the Term, in addition to any other amount Tenant owes and in addition to any actual loss Landlord suffers because the Property was not available to re-let. This daily charge is compensation for Landlord's loss of use of the Property. It is not Rent, it will not be treated as Rent for any purpose, and Landlord will not seek possession for its non-payment; Landlord will recover it as damages. No late fee, interest or other charge will be added to it. This Section does not depend on, and is not triggered by, any notice to vacate, demand or court action, and nothing in it shortens or replaces any notice Landlord must give, or any ground Landlord must have, before recovering possession under Colorado law. Landlord may instead accept Tenant's continued payment of Rent, in which case this Section does not apply for the period covered by that payment.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "home-business-permission-co",
+    title: "Home-Based Business (Landlord's Permission)",
+    group: "Tenant Responsibilities",
+    states: ["CO"],
+    bodyText:
+      "[Optional. Use instead of a flat ban where Landlord is willing to allow a home business. Delete if business use is not permitted.] Landlord gives Tenant permission to operate the following home-based business at the Property: [describe the business, including whether customers, clients or children will come to the Property]. This permission is personal to Tenant, applies only to that business, and may be withdrawn only for a reason stated in this Section. Tenant will: keep the Property in use primarily as a residence; obtain and keep current every licence, registration and permit the business requires, including any local zoning or home occupation permit, and give Landlord a copy on request; comply with any rules of a homeowners or condominium association that apply to the business, and with local noise and nuisance rules; carry liability insurance covering the business, naming Landlord and any association as additional insureds, at a level of at least {{tenant_insurance_minimum}}, and give Landlord a certificate on request; not allow the business to create noise, odours, traffic, parking demand or signage that disturbs other residents or neighbours; not make any alteration to the Property for the business without Landlord's written consent; and be responsible for the cost of repairing damage to the Property caused by the business that goes beyond normal wear and tear and did not exist before the tenancy began. Landlord may withdraw this permission by [number] days written notice if Tenant loses a required licence or permit, if the business is operated in breach of this Section, or if an association or a government authority requires the business to stop. Withdrawing this permission does not end the Lease, and Tenant may continue to occupy the Property as a residence.",
+  },
+  // Default & Termination
+  {
+    id: "exempt-residential-agreement-notice-co",
+    title: "Five-Day Notice for Unpaid Rent (Small Single-Family Landlord)",
+    group: "Default & Termination",
+    states: ["CO"],
+    bodyText:
+      "[Optional. Use this section only if the Property is a single-family home and Landlord owns five or fewer single-family rental homes. Delete it otherwise - it does nothing for any other property, and a false statement here will be held against Landlord.] Notice of Exempt Residential Agreement - Shortened Demand Period for Unpaid Rent. The Property is a single-family home, and Landlord owns five or fewer single-family rental homes. This Lease is an exempt residential agreement under Colorado law, and Tenant is notified that the ten-day notice period that Colorado law would otherwise require before a landlord may begin an eviction for unpaid rent does not apply to this tenancy. If Tenant fails to pay rent when it is due, Landlord may serve a written demand requiring Tenant, in the alternative, to pay the rent or to deliver possession of the Property, and the period stated in that demand will be five days. This Section does not shorten any other notice period, does not waive Tenant's right to pay the rent demanded, does not waive any notice Colorado law requires Landlord to give, and does not apply if Landlord comes to own more than five single-family rental homes.",
+  },
+  // Landlord Responsibilities
+  {
+    id: "shared-facilities-closure-co",
+    title: "Shared Facilities - Temporary Closure",
+    group: "Landlord Responsibilities",
+    states: ["CO"],
+    bodyText:
+      "[Optional. Use only if the property has shared facilities such as a laundry room, pool, fitness room, clubhouse, elevator or shared yard.] Shared Facilities: The shared facilities provided with the property are: [list each shared facility, or write \"none\"]. Landlord may close or suspend the use of a shared facility, in whole or in part, when closure is reasonably necessary to repair, maintain, replace or inspect it, to protect the safety of persons or property, or to comply with a law, code, order or insurance requirement. Landlord will give Tenant notice of a planned closure as far in advance as is practicable, and prompt notice of an unplanned closure, stating the reason and the expected date the facility will reopen, and will restore the facility to use without unreasonable delay. A closure under this section does not reduce Rent and is not a termination of this Lease, and nothing in this section relieves Landlord of Landlord's obligations under Colorado law for the condition of the property.",
+  },
+  // Parking & Storage
+  {
+    id: "parking-rules-notice-co",
+    title: "Parking Regulations - Receipt Acknowledged",
+    group: "Parking & Storage",
+    states: ["CO"],
+    bodyText:
+      "Before agreeing to this Lease, Tenant received from Landlord a separate written document containing the parking regulations that apply at the property, and Tenant acknowledges receipt of that document. Those regulations are the parking regulations in force at the property as of the start of the Term, and they apply to Tenant, to every occupant and to their guests. If Landlord adopts new parking regulations or changes the existing ones, Landlord will issue Tenant a written document containing the regulations before the new or changed regulations take effect. Tenant will keep Landlord informed of the make, model, color and license plate of each vehicle Tenant or an occupant parks at the property, and will park only in the space or area the parking regulations allow.",
+  },
+  // Rules & Regulations
+  {
+    id: "portable-cooling-restriction-co",
+    title: "Portable Cooling Devices",
+    group: "Rules & Regulations",
+    states: ["CO"],
+    bodyText:
+      "Tenant may install and use a portable cooling device - an air conditioner or evaporative cooler, including a window-mounted or floor-standing unit - at the property. [Complete the rest of this section only if Landlord restricts installation or use on one of the four grounds Colorado allows; otherwise write \"Landlord places no restriction on portable cooling devices.\"] Landlord restricts the installation or use of portable cooling devices at the property as follows: [state the restriction] because [state which ground applies: it would violate a building code or state or federal law; it would violate the manufacturer's written safety guidelines for installing or using the device; it would damage the premises or render them uninhabitable; or it would require more amperage than the electrical capacity of the property, the unit or the circuit can accommodate]. Landlord [state one: does / does not] intend to operate one or more common spaces at the property that will be cooled and available to Tenant during an extreme heat event: [if yes, identify the space or spaces]. If Landlord does not intend to operate such a space, information about community cooling spaces near the property that Tenant may use during an extreme heat event is: [list the recreation centers, community centers or public libraries, or write \"none known within ten miles\"]. Where Landlord restricts on the electrical-capacity ground at a property with more than one dwelling unit, Landlord will give priority to a tenant who requests installation or use of a portable cooling device to accommodate a disability. Nothing in this section limits Tenant's right to a reasonable accommodation or reasonable modification for a disability.",
+  },
+  {
+    id: "portable-solar-device-rules-co",
+    title: "Portable Solar Devices - Notice and Conditions",
+    group: "Rules & Regulations",
+    states: ["CO"],
+    bodyText:
+      "[Optional. Recommended for any property where a tenant might use a balcony or patio plug-in solar panel.] Portable Solar Devices: Before installing, using or operating a portable-scale solar generation device at the property, Tenant will give Landlord written notice of the installation, identifying the device, its maximum power output in watts, and where Tenant proposes to put it. Tenant will keep to these conditions: the device must be labeled and listed by a nationally recognized testing laboratory and must include the feature Colorado law requires to stop it energizing the electric grid during a power outage; Tenant will not connect more than one device to a single wall outlet at the property; Tenant will not install, use or operate the device in a way that risks fire or overloads the existing electrical system, or that risks damage or harm to any person or property; Tenant will install, use and operate the device in accordance with fire code requirements and any applicable local building code provision for health and safety, and in the location Landlord reasonably designates; and Tenant will not alter the building's electrical wiring or attach anything permanently to the building without Landlord's prior written consent. Tenant will remove the device at the end of the tenancy and leave the area as it was, apart from normal wear and tear. This section does not apply to a solar installation that is not a portable-scale solar generation device - a roof-mounted, facade-mounted or hard-wired system still needs Landlord's prior written consent under the section of this Lease dealing with alterations.",
+  },
+  // Rent & Payment
+  {
+    id: "required-fees-co",
+    title: "Fees and Charges",
+    group: "Rent & Payment",
+    states: ["CO"],
+    bodyText:
+      "In addition to the Monthly Rent of {{monthly_rent}} and the Security Deposit of {{security_deposit}}, the following are all of the fees and charges Tenant may be required to pay under this Lease. For each one, this Section states the amount or how it is calculated, when it is due, what it is for, whether it is refundable, and who receives it: [list each fee or charge with its amount or method of calculation, due date, purpose, whether it is refundable, and the person or company that receives it; mark any optional fee as optional; or write \"None\"]. Landlord will not charge Tenant any fee or charge that is not listed in this Section or stated elsewhere in this Lease, other than an amount a court awards. Landlord will not add a new fee or charge, or increase a listed fee or charge, during the Term. Tenant will receive a copy of the third-party bill or invoice for any charge that is passed through to Tenant.",
+  },
+  // Access & Entry
+  {
+    id: "subsidy-inspection-access-co",
+    title: "Access for a Rental Assistance Inspection",
+    group: "Access & Entry",
+    states: ["CO"],
+    bodyText:
+      "[Optional. Use where the tenancy is, or may become, supported by a rental assistance programme or housing subsidy.] If all or part of the Rent is paid under a rental assistance programme or housing subsidy, Tenant will give Landlord a copy of any notice, inspection report or request Tenant receives from the administering agency about the Premises, promptly and in any event within three days of receiving it. Tenant will allow the agency's inspector, and Landlord or Landlord's agent accompanying the inspector, to enter the Premises for an inspection the programme requires, at a reasonable time and after Landlord gives Tenant written notice of at least {{inspection_notice_hours}} hours [state the notice period; 48 hours is a common choice] unless Tenant agrees to a shorter time or the agency sets the appointment directly with Tenant. Tenant will keep the Premises in the clean and sanitary condition this Lease requires and will not leave Tenant's own belongings, rubbish or pets in a way that prevents the inspection from going ahead. Nothing in this section makes Tenant responsible for any repair, replacement or condition that is Landlord's responsibility under the Lease or under Colorado's habitability rules, and Landlord will not charge Tenant any fee, charge or penalty under this section. Landlord will respond to the agency's requests for information and documents and will carry out the repairs the inspection identifies as Landlord's.",
+  },
+  // Rules & Regulations
+  {
+    id: "tenant-display-rules-co",
+    title: "Signs, Flags and Window Displays",
+    group: "Rules & Regulations",
+    states: ["CO"],
+    bodyText:
+      "[Optional.] Tenant may display signs, flags, banners and similar items at the Premises on these terms: no more than {{display_item_limit}} items at any time [state a number]; no single item larger than [state a size, for example 4 square feet]; and items only within the Premises, in a window of the Premises, or on a balcony, patio or yard area reserved for Tenant's exclusive use — not in a common area, on an exterior wall, roof or fence, or anywhere else on the property. Tenant will not make holes in, or otherwise damage, any surface in putting an item up or taking it down, and will remove every item by the end of the Lease. Landlord applies this section without regard to the subject matter, message or content of any item, and applies it in the same way to every tenant. This section does not apply to any notice, leaflet or display about a tenants' association, a tenants' meeting or Tenant's other lawful organizing activity, and Landlord will not take any action against Tenant because of such a notice or display. Landlord charges no fee, cost or penalty under this section. If the Premises is in a homeowner or condominium association, the association's own rules may also apply and may give Tenant rights this section does not.",
+  },
+  // Tenant Responsibilities
+  {
+    id: "tenant-statutory-duties-co",
+    title: "Tenant's Duties (Colorado)",
+    group: "Tenant Responsibilities",
+    states: ["CO"],
+    bodyText:
+      "Tenant will use the part of the premises within Tenant's control in a reasonably clean and safe manner. Tenant will: comply with the obligations applicable building, health and housing codes place on tenants where those obligations materially affect health and safety; keep the dwelling unit reasonably clean, safe and sanitary, so far as the condition of the unit allows; dispose of ashes, garbage, rubbish and other waste from the dwelling unit in a clean, safe, sanitary and legally compliant way; use all electrical, plumbing, sanitary, heating, ventilating, air-conditioning, elevator and other facilities and appliances in the dwelling unit in a reasonable manner; conduct Tenant, and require every person in the premises within Tenant's control to conduct themselves, in a manner that does not disturb the neighbors' peaceful enjoyment of the neighbors' dwelling units; and promptly notify Landlord if the premises is uninhabitable, or if there is a condition that could make it uninhabitable if it is not remedied. Tenant will not knowingly, intentionally, deliberately or negligently destroy, deface, damage, impair or remove any part of the premises, and will not knowingly permit any person within Tenant's control to do so. These duties are in addition to Tenant's other obligations under this Lease. Nothing in this section limits Landlord's own obligations, reduces Tenant's right to call for police or other emergency assistance, or makes Tenant responsible for normal wear and tear or for any damage or defective condition that existed before the tenancy began.",
+  },
+  // Parking & Storage
+  {
+    id: "towing-co",
+    title: "Parking Violations and Towing (Colorado)",
+    group: "Parking & Storage",
+    states: ["CO"],
+    bodyText:
+      "Tenant, every occupant and their guests will park only as the parking regulations Landlord has issued allow, and will follow the procedures those regulations set for obtaining authorization to park. A vehicle parked in breach of those regulations, or in breach of Landlord's posted signs, or in breach of a statute, rule, ordinance or resolution, is parked inappropriately and may be towed from the property by a towing carrier Landlord has authorized, at the vehicle owner's expense. Landlord does not charge Tenant any fee for a tow; the towing carrier charges the vehicle owner directly under state law. A vehicle will not be towed because its registration has expired unless a peace officer orders it. Tenant will not leave an inoperable or unattended vehicle on the property, and will not let a vehicle be left unattended in a space Tenant is not authorized to use. Tenant will keep Landlord informed of the make, model, color and license plate of each vehicle Tenant or an occupant parks at the property, and will tell Landlord before letting any guest park overnight. Tenant will not park in, or block access to or from, another resident's designated, rented or purchased parking space, a marked fire zone, a fire hydrant, a driveway, a roadway, or a space reserved for people with disabilities. Nothing in this section is a waiver of any right Tenant has under state towing or abandoned-vehicle law, and nothing in it makes Tenant liable for any fee or charge for a tow Landlord causes to be made in breach of that law.",
+  },
+  {
+    id: "unbundled-parking-co",
+    title: "Optional Parking — Charged Separately (Colorado)",
+    group: "Parking & Storage",
+    states: ["CO"],
+    bodyText:
+      "[Optional. Use this section only if Tenant can take the Property without parking and is choosing to add it. If parking is required, or the Property cannot practically be used without it, delete this section and include the parking amount in the Rent instead.] OPTIONAL PARKING. Parking is not included in the Rent. Tenant has chosen to license one parking space at the property, identified as [insert the space number or location], for {{parking_fee_amount}} per month, payable with the Rent on the same day the Rent is due. This amount is a separate, non-refundable monthly charge for the use of that space. It is not rent: Landlord will not treat it as rent, will not use any rent remedy to collect it, and will not apply any late fee or interest to it. Landlord will not increase this amount during the Term of this Lease. Landlord will not deduct this amount from a payment Tenant makes for Rent. Tenant may give Landlord fourteen days' written notice ending the parking license, after which this charge stops and Tenant must stop using the space; Landlord may do the same, and will refund any part of the charge covering a period after the space is given up. This section does not restrict Tenant's parking because a vehicle is a plug-in hybrid or an electric vehicle, and it does not change the parking regulations Landlord issued to Tenant before Tenant agreed to this Lease, which continue to apply to the space.",
+  },
+  // Security Deposit
+  {
+    id: "utility-deposit-co",
+    title: "Utility Deposit Held With the Security Deposit",
+    group: "Security Deposit",
+    states: ["CO"],
+    bodyText:
+      "Any amount Tenant pays Landlord toward utility service, by whatever name, is held as part of the security deposit under this Lease and is returned with it. It is not a fee, it is not rent, and it is not payment for Tenant's last period of utility service. Landlord may apply the security deposit to Tenant's unpaid utility charges for the Premises, including any utility bill Landlord pays that this Lease makes Tenant's responsibility, and to any other charge this Lease makes Tenant's responsibility.",
+  },
+  // Notices & General
+  {
+    id: "utility-shutoff-notice-authorization-co",
+    title: "Authorization for Utility Notices to Landlord (Optional)",
+    group: "Notices & General",
+    states: ["CO"],
+    bodyText:
+      "[Optional.] Tenant authorizes Landlord to be listed with each utility provider serving the Premises as an additional contact for notices about Tenant's account for the Premises, including any notice of pending disconnection, and will sign any form a provider requires to do that. Tenant also authorizes each provider to confirm to Landlord whether service to the Premises is connected and in Tenant's name. Landlord's receipt of a notice under this Section does not make Landlord responsible for Tenant's utility charges, and nothing in this Section requires any provider to give Landlord notice.",
+  },
+  // Rent & Payment
+  {
+    id: "utility-transfer-reimbursement-co",
+    title: "Transferring Utility Accounts, and Reimbursement Until You Do",
+    group: "Rent & Payment",
+    states: ["CO"],
+    bodyText:
+      "For each utility this Lease makes Tenant's responsibility, Tenant will open or transfer the account into Tenant's own name effective on or before [insert date, e.g. the Commencement Date] and keep it in Tenant's name until the Term ends and Tenant has vacated. If any such account is not in Tenant's name for any part of the Term, Tenant will reimburse Landlord the amount the service provider charged for service to the Premises for that period, with no additional charge of any kind added by Landlord, within [insert number of days, e.g. 15] days after Landlord gives Tenant a copy of the provider's bill. This reimbursement is a separate obligation from Rent: it is not Rent, it is not subject to any late fee, and Landlord's remedies for nonpayment of it are those available under this Lease for breach of an obligation other than Rent. Landlord will not interrupt or allow the interruption of any utility service to the Premises to enforce this Section.",
+  },
+  // Default & Termination
+  {
+    id: "rent-acceptance-nonwaiver-co",
+    title: "Accepting Payment Does Not Waive Landlord's Rights",
+    group: "Default & Termination",
+    states: ["CO"],
+    bodyText:
+      "Landlord's acceptance of Rent or any other payment after Tenant has breached this Lease, or after Landlord has given Tenant any notice under this Lease, does not waive the breach, withdraw the notice or give up any of Landlord's rights, and does not create a new tenancy, unless Landlord says so in a writing signed by Landlord. Landlord may accept a payment of less than the full amount owed and apply it to the oldest amounts owing; accepting such a payment is not an agreement to accept the rest later and does not reinstate this Lease. Landlord's failure to insist on strict performance of any term of this Lease on one occasion does not waive that term on any later occasion. This Section does not apply to a payment that cures a demand for unpaid Rent within the time allowed by Colorado law, and nothing in this Section waives or modifies any right, remedy, obligation or prohibition that Colorado law gives Tenant.",
+  },
+  // Rules & Regulations
+  {
+    id: "waterbed-co",
+    title: "Waterbeds and Liquid-Filled Furniture (Optional)",
+    group: "Rules & Regulations",
+    states: ["CO"],
+    bodyText:
+      "[Optional.] Tenant will not keep a waterbed, water-filled mattress, aquarium over [insert size, e.g. 20 gallons] or other liquid-filled furniture at the Premises without Landlord's prior written consent. If Landlord consents, Tenant will keep the item in a frame and liner designed for it, in a location Landlord approves, and will maintain renter's or liability insurance covering water damage for as long as the item is at the Premises, giving Landlord proof of that insurance on request. Tenant is responsible for damage caused by the item, other than damage that is normal wear and tear or that existed before this tenancy began.",
+  },
+  {
+    id: "keys-co",
+    title: "Keys",
+    group: "Rules & Regulations",
+    states: ["CO"],
+    supersedes: "keys",
+    bodyText:
+      "At the start of the Term, Tenant will receive the keys specified by Landlord and will sign a receipt acknowledging the number and type of keys provided. Tenant will return all keys to Landlord at the end of the Term. If Tenant fails to return all keys or asks for a replacement key, Landlord may re-key the applicable locks or replace the key and charge Tenant only the actual cost of the work actually done (where a locksmith or other third party does the work, the amount it bills Landlord), with no markup or added fee. Tenant may not duplicate keys without Landlord's consent. This Section does not apply to a lock change, including an electronic lock, that Tenant makes as a safety precaution after notifying Landlord that Tenant is a victim-survivor of unlawful sexual behavior, stalking, domestic violence or domestic abuse and providing the documentation Colorado law requires; Landlord will not charge Tenant any fee for that change, and Colorado law governs it.",
+  },
+  // Disclosures
+  {
+    id: "hoa-compliance-co",
+    title: "Homeowner / Condominium Association Compliance",
+    group: "Disclosures",
+    states: ["CO"],
+    supersedes: "hoa-compliance",
+    bodyText:
+      "If the property is in a homeowners or condominium association, Tenant will comply with the association's rules and regulations that apply to the property. A violation of those rules by Tenant, an occupant or a guest is a breach of this Lease, and Tenant will reimburse Landlord, as damages for that breach, for any fine the association imposes on Landlord because of it; Landlord will give Tenant a copy of the association's notice of the fine when Landlord charges Tenant. This Section does not make Tenant pay any association dues, assessment or other charge for the maintenance of common areas, and does not apply to any fine for a call for police or other emergency assistance.",
   },
 ];
 

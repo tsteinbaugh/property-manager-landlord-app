@@ -422,6 +422,9 @@ M.1, M.2 and M.4 are the same underlying gap: **the builder treats clauses as in
 | `{{water_repair_address}}` | CA |  |
 | `{{water_repair_email}}` | CA |  |
 | `{{water_repair_phone}}` | CA |  |
+| `{{inspection_notice_hours}}` | CO | new 2026-10-24 (CO gaps; the entry-notice period where Colorado lets the lease set it) |
+| `{{display_item_limit}}` | CO | new 2026-10-24 (CO gaps; `tenant-display-rules-co`) |
+| `{{parking_fee_amount}}` | CO | new 2026-10-24 (CO gaps; `unbundled-parking-co`, screened against C.R.S. § 6-1-737(4)) |
 
 **Urgency:** required before the lease feature goes live.
 
