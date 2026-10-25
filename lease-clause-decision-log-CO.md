@@ -4240,3 +4240,6 @@ Merged with `merge-delta.py --base 9f38860`: 305 new rows, 12 shared rows tagged
 **Statute spot-check (new clauses):** `dv-lock-change-co` matches § 38-12-402(7)(a)-(c) word for word; `waterbed-co`'s insurance requirement is consistent with HB 25-1207 (which lists requiring tenant liability insurance among permitted pet terms) and no Colorado statute bars it; `rent-acceptance-nonwaiver-co` (no Colorado payment-order statute found in title 38) and `unbundled-parking-co` and `utility-deposit-co` read against § 6-1-737(4) and § 38-12-801(3)(a)(VI): no errors.
 
 **Builder:** `{{inspection_notice_hours}}`, `{{display_item_limit}}`, `{{parking_fee_amount}}` added to backlog M.14. The pass's SOP proposals and topic questions are taken up with Wyoming's in SOP 1.85.
+
+
+**Decided (Taylor, 2026-10-24):** item 7, the mechanic's-lien notice duty: `no-liens-co` stays optional (Claude Code's recommendation); no Colorado override of `no-alterations` and no shared edit.
