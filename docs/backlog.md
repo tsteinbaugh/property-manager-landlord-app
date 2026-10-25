@@ -55,6 +55,10 @@ Merge each edit once every state tagged on the row has answered. Update this tab
 
 **Started 2026-10-24 (Taylor): fill every topic gap, rolling staging, one Desktop visit per state** (decisions log, 2026-10-24). Desktop folders come from `stage-gaps.py` (item 6 plus each state's own items); Claude Code does items 2-5, 7, 8 and the territory flags itself. Gap folders: Colorado first, then the original research order (WY, KS, NE, MN, ND, SD, OH, CA, NV, TX, NJ, FL, AZ, GA, NC, SC, TN, VA, AL, PA, UT, IL, ID, MO, IN, OK, MI, IA, NM, MT, NY, WI, WA, OR, KY, WV). Item 1 is believed closed by the 2026-10-03/04 circle-back (rule 79 ✓ in every column); confirm by script before reopening. **Staged folders and their merge bases (`merge-delta.py --base`):** CO and WY 9f38860 (synced); KS 9f38860 (CSV SHA 6c1c393f; Taylor started it); NE 405efb3 (CSV e0fedfad); MN 36ef533 (CSV 5599cf84, refreshed after the two MN fixes, before Taylor opened it).
 
+**Cross-state checks from the Kansas gaps sync (2026-10-25), Claude Code's list:** (a) reword the shared `hoa-compliance` fine sentence to the damages framing of `hoa-compliance-or`/`-ak`/`-de`/`-co`/`-ks` (rule 62: check every tagged state's indemnity and fee rules first); (b) `utility-allowance-cap-co`'s 'not Rent' sentence: check each tagged state for a bilateral no-waiver statute like K.S.A. 58-2547(a)(1); (c) `nonrefundable-fees-wv`'s basis rests on W. Va. Code § 37-6A-1(14) while tagged to MS, PR, VI, AS and MP: check each for an equivalent express-agreement rule.
+
+**Kansas sources for Taylor's browser (2026-10-25):** four Kansas rows stay NEEDS_REVIEW only because Claude Code can't reach their primary source (each row's advice works under any reading): `edu-no-balcony-inspection-ks` and `edu-fire-sprinkler-duty-ks` (the 2006 IBC/IFC that K.A.R. 22-1-3 adopts; codes.iccsafe.org serves a CAPTCHA, free read-only view), `edu-entity-landlord-representation-ks` (Kansas Supreme Court Rules on non-lawyer representation of an entity; kscourts.gov returns a Cloudflare challenge), `edu-no-energy-data-release-ks` (KCC customer-data order and tariffs in the kcc-connect portal). A short read through Taylor's browser closes them. Tip for later K.A.R. reads: rules.ks.gov has a public JSON API (`/api/policy-library-public/...`).
+
 One targeted pass over the older states once every state is researched, in line with the no-re-audit rule: each state gets only its own items. Start with a scripted count across the library (no Desktop needed) to size it, then stage one folder per state.
 1. **Rule 79 basis gaps:** rows that don't record what they rest on (known: MN 34, NC 36, NE 29, CA 21 plus 30 shared rows with no CA segment, KS 58 shared rows with no KS segment and likely CO, NE, MN, ND and SD too, GA 5 rows not re-read). Filling them has turned up real errors before (SD's holdover row).
 2. **Fixes queued for a state's next pass:** AL holdover-rate nonpayment exclusion; MN foreclosure disclosure, the federal-subsidy late-fee note and its basis gaps; SD's SDCL 21-3-6 treble damages and two rows not re-read; OK's wrong note about Tennessee's chore rule and its rule 49 flag on `default-by-tenant-ks-ne`'s "reasonable costs and expenses"; PA and ID casualty clauses' fault persons (only if they add a tenant-damage clause).
@@ -458,6 +462,13 @@ M.1, M.2 and M.4 are the same underlying gap: **the builder treats clauses as in
 | `{{wy_manager_address}}` | WY | new 2026-10-24 (WY gaps) |
 | `{{wy_manager_name}}` | WY | new 2026-10-24 (WY gaps) |
 | `{{wy_manager_phone}}` | WY | new 2026-10-24 (WY gaps) |
+| `{{designated_repairer}}` | KS | new 2026-10-25 (KS gaps) |
+| `{{employee_duties}}` | KS | new 2026-10-25 (KS gaps) |
+| `{{employee_housing_consideration}}` | KS | new 2026-10-25 (KS gaps) |
+| `{{employee_position}}` | KS | new 2026-10-25 (KS gaps) |
+| `{{excluded_appliance_list}}` | KS | new 2026-10-25 (KS gaps) |
+| `{{lien_release_days}}` | KS | new 2026-10-25 (KS gaps) |
+| `{{tenant_metered_common_areas}}` | KS | new 2026-10-25 (KS gaps) |
 
 **Urgency:** required before the lease feature goes live.
 
